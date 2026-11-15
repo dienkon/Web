@@ -1,0 +1,44 @@
+{
+  "id": "cv-ferrocene-mot-moc-cho-dien-the",
+  "slug": "cv-ferrocene-mot-moc-cho-dien-the",
+  "documentPath": "docs/cv-ferrocene-mot-moc-cho-dien-the/index.json",
+  "title": "Một mốc ferrocene để các đường điện hóa nói cùng ngôn ngữ",
+  "summary": "Voltammetry vòng quét điện thế đi rồi trở lại để khảo sát trao đổi electron. Cặp ferrocene/ferrocenium giúp đối chiếu thế trong dung môi không nước.",
+  "category": "khainiem",
+  "author": "Ban biên tập ChemDex",
+  "image": "/assets/library/apparatus-voltaic-pile.svg",
+  "tags": [
+    "CV",
+    "Ferrocene",
+    "Thế điện cực",
+    "Chuẩn nội"
+  ],
+  "aliases": [],
+  "documentKind": "story",
+  "readingMinutes": 4,
+  "editorialEvidence": {
+    "language": "vi",
+    "scope": "chemical-family",
+    "contextLabel": "Một mốc ferrocene để các đường điện hóa nói cùng ngôn ngữ",
+    "reviewBasis": "Biên soạn theo các nguồn dẫn cuối bài; phân biệt kết quả đã thực hiện và hướng phát triển.",
+    "story": {
+      "status": "documented",
+      "section": "## Một con số volt thiếu mốc thì chưa đủ nghĩa",
+      "sources": [
+        "https://media.iupac.org/publications/pac/1984/pdf/5604x0461.pdf",
+        "https://authors.library.caltech.edu/records/qpa86-4w142",
+        "https://research.cbc.osu.edu/wu.531/wp-content/uploads/2018/02/acs.jchemed.7b00361.pdf"
+      ]
+    },
+    "application": {
+      "status": "documented",
+      "section": "## Ứng dụng hôm nay: điều kiện đo là phần của kết quả",
+      "sources": [
+        "https://media.iupac.org/publications/pac/1984/pdf/5604x0461.pdf",
+        "https://authors.library.caltech.edu/records/qpa86-4w142",
+        "https://research.cbc.osu.edu/wu.531/wp-content/uploads/2018/02/acs.jchemed.7b00361.pdf"
+      ]
+    }
+  },
+  "content": "## Một con số volt thiếu mốc thì chưa đủ nghĩa\n\nTrong khuyến nghị năm 1984, IUPAC đề xuất các hệ oxi hóa–khử tham chiếu, gồm ferrocene/ferrocenium, để báo cáo thế trong dung môi không nước. Khó khăn là không có một điện cực tham chiếu phổ quát giữ mọi tính chất bất biến qua tất cả các dung môi. Các kết quả từ nhiều phòng thí nghiệm vì thế cần một cách nối thang đo.\n\nCông trình năm 1980 về ferrocene làm chuẩn nội đã đặt vấn đề này trong những trường hợp chất nghiên cứu không tan hoặc không bền trong nước. Đổi dung môi là nhu cầu hóa học thật, nhưng cũng làm chuẩn tham chiếu trở thành một phần cần thiết kế.\n\nChất chuẩn không chỉ để đường phổ trông quen. Nó giúp biết một đỉnh đã dịch vì mẫu hay vì mốc điện thế của hệ đo thay đổi.\n\n![Minh họa điện hóa; không phải cấu hình đo voltammetry vòng](/assets/library/apparatus-voltaic-pile.svg)\n\n## Quét đi rồi quay lại để đọc khả năng trở về\n\nTrong voltammetry vòng, điện thế được thay đổi theo một chương trình rồi đảo chiều, trong khi dòng được ghi liên tục. Nếu một chất trao đổi electron trong miền thế đó, nó tạo đáp ứng liên quan đến động học điện cực, khuếch tán và các phản ứng hóa học đi kèm.\n\nMột cặp đỉnh ở chiều đi và về có thể giúp khảo sát tính thuận nghịch theo thời gian của phép đo. Nếu sản phẩm tạo ở chiều đi phản ứng tiếp hoặc chuyển khỏi vùng điện cực, đỉnh chiều về có thể đổi. Thay tốc độ quét là một cách kiểm tra những thang thời gian, nhưng diễn giải cần xét điện trở dung dịch và các giới hạn thiết bị.\n\nFerrocene thường được dùng như một hệ đối chiếu trong các môi trường phù hợp. Nó không phải chuẩn không bao giờ tương tác hoặc không bao giờ suy giảm; khuyến nghị IUPAC nêu việc kiểm tra hành vi trong dung môi và độ tinh khiết của môi trường.\n\n## Ứng dụng hôm nay: điều kiện đo là phần của kết quả\n\nHướng dẫn thực hành năm 2018 về CV nhấn mạnh báo thế so với cặp ferrocene và kiểm soát sự trôi của tham chiếu trong môi trường không nước. Điện cực làm việc, chất điện ly nền, dung môi và nồng độ đều cần được ghi để người khác có thể đối chiếu.\n\nCV được dùng để khảo sát chất xúc tác, vật liệu năng lượng và nhiều phân tử oxi hóa–khử. Một đỉnh không tự chứng minh cơ chế một bước; dòng có thể bao gồm nhiều quá trình. Các phép đo bổ sung và thử thay điều kiện giúp xác định phần nào của giả thuyết được dữ liệu hỗ trợ.\n\nCâu chuyện ferrocene làm rõ vai trò của một mốc chung. Hóa học điện tử được biểu diễn bằng volt, nhưng volt luôn là hiệu điện thế giữa hai phía. Khi phía tham chiếu được kiểm tra, những dịch chuyển của mẫu mới trở thành thông tin về cấu trúc và môi trường. Một chuẩn nhỏ trong dung dịch giúp nhiều đường cong riêng rẽ có thể tham gia cùng một cuộc đối thoại khoa học.\n\n## Nguồn và đọc thêm\n\n- [IUPAC · Báo thế điện cực trong dung môi không nước, 1984](https://media.iupac.org/publications/pac/1984/pdf/5604x0461.pdf)\n- [Gagné và cộng sự · Ferrocene làm chuẩn nội, 1980](https://authors.library.caltech.edu/records/qpa86-4w142)\n- [Hướng dẫn thực hành CV](https://research.cbc.osu.edu/wu.531/wp-content/uploads/2018/02/acs.jchemed.7b00361.pdf)"
+}

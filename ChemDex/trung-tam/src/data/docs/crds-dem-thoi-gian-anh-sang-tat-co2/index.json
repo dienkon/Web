@@ -1,0 +1,42 @@
+{
+  "id": "crds-dem-thoi-gian-anh-sang-tat-co2",
+  "slug": "crds-dem-thoi-gian-anh-sang-tat-co2",
+  "documentPath": "docs/crds-dem-thoi-gian-anh-sang-tat-co2/index.json",
+  "title": "Đo CO₂ bằng thời gian ánh sáng tắt trong một khoang gương",
+  "summary": "CRDS làm đường tương tác quang học dài lên bằng nhiều lần phản xạ. NOAA dùng nhịp suy giảm của ánh sáng như một cách đo khí nhà kính chính xác.",
+  "category": "khainiem",
+  "author": "Ban biên tập ChemDex",
+  "image": "/assets/library/apparatus-spectroscope.svg",
+  "tags": [
+    "CRDS",
+    "CO₂",
+    "Khí quyển",
+    "Hấp thụ"
+  ],
+  "aliases": [],
+  "documentKind": "story",
+  "readingMinutes": 4,
+  "editorialEvidence": {
+    "language": "vi",
+    "scope": "chemical-family",
+    "contextLabel": "Đo CO₂ bằng thời gian ánh sáng tắt trong một khoang gương",
+    "reviewBasis": "Biên soạn theo các nguồn dẫn cuối bài; phân biệt kết quả đã thực hiện và hướng phát triển.",
+    "story": {
+      "status": "documented",
+      "section": "## Một thay đổi thiết bị trong chuỗi đo lâu dài",
+      "sources": [
+        "https://gml.noaa.gov/ccgg/about/co2_measurements.html",
+        "https://www.nist.gov/how-do-you-measure-it/how-do-you-measure-greenhouse-gases"
+      ]
+    },
+    "application": {
+      "status": "documented",
+      "section": "## Ứng dụng hôm nay: dữ liệu khí cần truy xuất tới chuẩn",
+      "sources": [
+        "https://gml.noaa.gov/ccgg/about/co2_measurements.html",
+        "https://www.nist.gov/how-do-you-measure-it/how-do-you-measure-greenhouse-gases"
+      ]
+    }
+  },
+  "content": "## Một thay đổi thiết bị trong chuỗi đo lâu dài\n\nNOAA ghi nhận việc lắp máy phân tích CO₂ dùng cavity ring-down spectroscopy tại Mauna Loa vào tháng 4/2019. Trước đó, phép đo dựa trên một hệ hấp thụ hồng ngoại khác. Đổi thiết bị trong một chuỗi quan trắc dài đòi hỏi giữ liên hệ với chuẩn, để thay đổi của máy không bị nhầm thành thay đổi của khí quyển.\n\nCRDS đo tốc độ ánh sáng suy giảm trong một khoang quang học. Chùm laser được giữ qua nhiều lần phản xạ giữa các gương có độ phản xạ cao; khi nguồn ngừng cấp, ánh sáng còn lại giảm dần. Phân tử hấp thụ làm quá trình suy giảm nhanh hơn so với nền thích hợp.\n\nĐại lượng được đọc là thời gian, nhưng câu hỏi vẫn là thành phần hóa học. Thiết kế quang học biến một mức hấp thụ nhỏ thành thay đổi có thể đo lặp lại trong đường suy giảm.\n\n![Minh họa thiết bị phổ; không phải cấu hình máy CRDS tại Mauna Loa](/assets/library/apparatus-spectroscope.svg)\n\n## Một khoang nhỏ tạo ra đường đi hiệu dụng dài\n\nNếu chỉ cho ánh sáng đi một lần qua một đoạn khí ngắn, lượng mất do khí vết có thể rất nhỏ. Nhiều lần phản xạ tăng tổng quãng đường tương tác mà không cần một ống thẳng dài tương ứng. Detector theo dõi phần ánh sáng rò ra để suy nhịp tắt của trường trong khoang.\n\nGương cũng gây tổn thất, nên cần biết nền của hệ và tính ổn định theo thời gian. Chọn bước sóng gần vạch hấp thụ của chất đích giúp tạo tính chọn lọc, còn nhiệt độ và áp suất ảnh hưởng hình dạng vạch. Nước trong khí vừa làm thay đổi tỷ lệ theo khí khô, vừa có thể tác động đến phổ.\n\nViệc đo thời gian giảm bớt một số nhạy cảm với độ mạnh tuyệt đối của nguồn sáng, nhưng không loại bỏ mọi sai số. Mô hình vạch, độ tuyến tính detector, khí chuẩn và cách lấy mẫu vẫn là những phần của phép đo.\n\n## Ứng dụng hôm nay: dữ liệu khí cần truy xuất tới chuẩn\n\nCRDS được dùng trong các hệ đo CO₂, methane và những khí phù hợp khác. Tài liệu NIST giải thích cách các phương pháp quang học cùng với chuẩn khí hỗ trợ so sánh giữa những thiết bị và trạm đo. Một số đọc tại một nơi chỉ có giá trị cho mạng quan trắc khi biết độ chính xác, độ trôi và cách hiệu chuẩn của nó.\n\nNồng độ đo được cũng chưa tự cho lượng phát thải của một nguồn. Muốn suy dòng phát thải cần thêm thông tin vận chuyển không khí, vị trí và mô hình. Phép phân tích hóa học cung cấp dữ liệu nền tảng, còn câu hỏi khí quyển lớn hơn cần nhiều lớp bằng chứng.\n\nCâu chuyện khoang gương cho thấy một cách tăng độ nhạy rất khác với việc chỉ làm detector mạnh hơn. Giữ ánh sáng ở lại lâu hơn giúp nó gặp mẫu nhiều lần, rồi thời gian tắt trở thành thước đo. Đằng sau một đường CO₂ theo thời gian là công việc làm cho những khoảng thời gian rất ngắn trong thiết bị giữ cùng ý nghĩa từ ngày này sang ngày khác.\n\n## Nguồn và đọc thêm\n\n- [NOAA · Cách đo CO₂ và máy CRDS ở Mauna Loa](https://gml.noaa.gov/ccgg/about/co2_measurements.html)\n- [NIST · Đo khí nhà kính bằng quang phổ và chuẩn](https://www.nist.gov/how-do-you-measure-it/how-do-you-measure-greenhouse-gases)"
+}

@@ -1,0 +1,42 @@
+{
+  "id": "epr-tyrosine-dau-vet-electron-trong-la",
+  "slug": "epr-tyrosine-dau-vet-electron-trong-la",
+  "documentPath": "docs/epr-tyrosine-dau-vet-electron-trong-la/index.json",
+  "title": "Một electron chưa ghép đôi để lại dấu trong chiếc lá",
+  "summary": "EPR giúp nhận diện các gốc tyrosine trong hệ quang hợp. Thay đồng vị đã làm một tín hiệu đổi hình và buộc giả thuyết về nguồn gốc của nó phải thay đổi.",
+  "category": "khainiem",
+  "author": "Ban biên tập ChemDex",
+  "image": "/assets/library/organic-polymer.svg",
+  "tags": [
+    "EPR",
+    "Gốc tự do",
+    "Quang hợp",
+    "Tyrosine"
+  ],
+  "aliases": [],
+  "documentKind": "story",
+  "readingMinutes": 4,
+  "editorialEvidence": {
+    "language": "vi",
+    "scope": "chemical-family",
+    "contextLabel": "Một electron chưa ghép đôi để lại dấu trong chiếc lá",
+    "reviewBasis": "Biên soạn theo các nguồn dẫn cuối bài; phân biệt kết quả đã thực hiện và hướng phát triển.",
+    "story": {
+      "status": "documented",
+      "section": "## Một tín hiệu có tên nhưng chưa rõ căn cước",
+      "sources": [
+        "https://pubmed.ncbi.nlm.nih.gov/3313386/",
+        "https://pmc.ncbi.nlm.nih.gov/articles/PMC5851703/"
+      ]
+    },
+    "application": {
+      "status": "documented",
+      "section": "## Ứng dụng hôm nay: theo dõi trung gian đang làm việc",
+      "sources": [
+        "https://pubmed.ncbi.nlm.nih.gov/3313386/",
+        "https://pmc.ncbi.nlm.nih.gov/articles/PMC5851703/"
+      ]
+    }
+  },
+  "content": "## Một tín hiệu có tên nhưng chưa rõ căn cước\n\nTrong nghiên cứu quang hợp, các nhà khoa học từng theo dõi những tín hiệu EPR được gọi bằng những tên ngắn trước khi biết chính xác chất tạo ra chúng. Năm 1987, Barry và Babcock dùng đánh dấu đồng vị để kiểm tra nguồn gốc một tín hiệu liên quan đến photosystem II.\n\nKhi những quinone được đánh dấu bằng deuterium, dạng đường phổ cần giải thích không đổi như giả thuyết dự đoán. Nhưng khi tyrosine được đánh dấu, tín hiệu hẹp lại. Nhóm đồng thời kiểm tra bằng chiết và khối phổ để biết dấu đồng vị đã đi vào đâu. Sự kết hợp giúp loại cách gán nguồn gốc cho plastoquinone và hỗ trợ cách giải thích bằng gốc tyrosine.\n\nĐó là một tình huống cho thấy quan sát một đỉnh chưa phải đã biết tên phân tử. Phép can thiệp có mục tiêu khiến hai giả thuyết đưa ra dự đoán khác nhau, rồi dữ liệu chọn phần phù hợp hơn.\n\n![Minh họa đại phân tử; không phải cấu trúc của photosystem II](/assets/library/organic-polymer.svg)\n\n## EPR nhạy với những electron chưa ghép đôi\n\nCộng hưởng thuận từ electron, còn được gọi là ESR trong nhiều ngữ cảnh, khảo sát những hệ có electron chưa ghép đôi. Trong từ trường và điều kiện kích thích phù hợp, đáp ứng cộng hưởng chứa thông tin về môi trường của electron và tương tác với các hạt nhân xung quanh.\n\nThay hydrogen bằng deuterium có thể làm những tương tác ấy đổi, tạo dấu trên dạng phổ. Người nghiên cứu không cần nhìn trực tiếp electron bằng mắt; họ dùng sự thay đổi có thể dự đoán để hỏi nó liên quan đến phần hóa học nào. Những ion kim loại thuận từ cũng có thể cho tín hiệu, nên mẫu sinh học cần được phân tích trong bối cảnh nhiều thành phần.\n\nHai gốc tyrosine thường gọi YZ và YD trong photosystem II có môi trường và động học khác nhau. Chúng không được gộp thành một vai trò duy nhất chỉ vì phổ có nét giống. Thời gian xuất hiện và mất đi của tín hiệu giúp nối danh tính hóa học với chức năng.\n\n## Ứng dụng hôm nay: theo dõi trung gian đang làm việc\n\nEPR tiếp tục phục vụ nghiên cứu gốc tự do, kim loại trong protein và những quá trình truyền electron. Nghiên cứu năm 2017 về chiếu ánh sáng đỏ xa vào photosystem II dùng EPR cùng các phép đo khác để theo dõi sự hình thành gốc tyrosine. Những điều kiện mẫu và cách chiếu sáng được nêu rõ vì chúng quyết định trạng thái nào được quan sát.\n\nTín hiệu tồn tại lâu có thể dễ đo hơn một trung gian ngắn, nhưng không có nghĩa nó luôn giữ vai trò lớn hơn trong dòng phản ứng chính. Phép đo theo thời gian và những thay đổi có kiểm soát giúp tránh nhầm khả năng quan sát với tầm quan trọng chức năng.\n\nChiếc lá xanh chứa một mạng trao đổi điện tích phức tạp. Một electron chưa ghép đôi là phần rất nhỏ, nhưng nó có thể cung cấp dấu vết để dựng lại đường đi của năng lượng và electron. Câu chuyện tyrosine cho thấy quang phổ mạnh nhất khi đi cùng một phép thử hóa học khiến những cách giải thích khác nhau không còn có thể cùng đúng như trước.\n\n## Nguồn và đọc thêm\n\n- [Barry và Babcock · Gốc tyrosine trong quang hợp, 1987](https://pubmed.ncbi.nlm.nih.gov/3313386/)\n- [Nghiên cứu gốc · Gốc tyrosine dưới ánh sáng đỏ xa](https://pmc.ncbi.nlm.nih.gov/articles/PMC5851703/)"
+}

@@ -1,0 +1,44 @@
+{
+  "id": "neon-tia-laser-lien-tuc-khong-chi-mau-do",
+  "slug": "neon-tia-laser-lien-tuc-khong-chi-mau-do",
+  "documentPath": "docs/neon-tia-laser-lien-tuc-khong-chi-mau-do/index.json",
+  "title": "Tia laser helium–neon đầu tiên không phải màu đỏ quen thuộc",
+  "summary": "Tháng 12/1960, nhóm Ali Javan tạo laser khí phát liên tục. Neon cung cấp chuyển mức phát xạ, còn helium giúp đưa năng lượng tới những trạng thái cần thiết.",
+  "category": "nguyento",
+  "author": "Ban biên tập ChemDex",
+  "image": "/assets/library/photos/elements/Ne.jpg",
+  "tags": [
+    "Neon",
+    "Laser He–Ne",
+    "Quang học",
+    "Đo chiều dài"
+  ],
+  "aliases": [],
+  "documentKind": "story",
+  "readingMinutes": 4,
+  "editorialEvidence": {
+    "language": "vi",
+    "scope": "element",
+    "contextLabel": "Tia laser helium–neon đầu tiên không phải màu đỏ quen thuộc",
+    "reviewBasis": "Biên soạn theo các nguồn dẫn cuối bài; phân biệt kết quả đã thực hiện và hướng phát triển.",
+    "story": {
+      "status": "documented",
+      "section": "## Một chùm sáng có thể được duy trì",
+      "sources": [
+        "https://americanhistory.si.edu/collections/object/nmah_1339868",
+        "https://doi.org/10.1103/PhysRevLett.6.106",
+        "https://www.nist.gov/publications/uncalibrated-helium-neon-lasers-length-metrology"
+      ]
+    },
+    "application": {
+      "status": "documented",
+      "section": "## Ứng dụng hôm nay: một vạch sáng phải có hồ sơ đo lường",
+      "sources": [
+        "https://americanhistory.si.edu/collections/object/nmah_1339868",
+        "https://doi.org/10.1103/PhysRevLett.6.106",
+        "https://www.nist.gov/publications/uncalibrated-helium-neon-lasers-length-metrology"
+      ]
+    }
+  },
+  "content": "## Một chùm sáng có thể được duy trì\n\nSmithsonian lưu một thiết bị phóng điện liên quan tới laser helium–neon của Ali Javan, William Bennett và Donald Herriott ở Bell Labs. Nhóm trình diễn laser khí này tháng 12 năm 1960; bài Physical Review Letters xuất bản tháng 2 năm 1961 mô tả dao động quang liên tục.\n\nNgười quen nhìn laser He–Ne đỏ có thể ngạc nhiên: chuyển mức được dùng ban đầu phát ở vùng hồng ngoại gần, quanh 1,15 micromet. Màu đỏ khoảng 633 nanomet gắn với một chuyển mức khác được khai thác về sau. Tên hai khí không tự chỉ ra bước sóng duy nhất.\n\nĐiểm mới nằm ở cách duy trì điều kiện phát laser trong khí. Nguồn phóng điện, tương tác giữa hai loại nguyên tử và phản hồi quang phải làm việc cùng nhau. Chùm sáng không phải toàn bộ ánh sáng rực lên trong ống phóng điện, mà là phần dao động được hệ chọn và khuếch đại.\n\n![Ống phóng điện neon minh họa nguyên tố; ánh sáng đèn không đồng nhất với tia laser được chọn bởi buồng cộng hưởng](/assets/library/photos/elements/Ne.jpg)\n\n## Hai khí nhận hai vai trò trong chuỗi năng lượng\n\nPhóng điện đưa năng lượng vào hệ. Những nguyên tử helium ở trạng thái kích thích có thể trao đổi năng lượng với neon qua va chạm phù hợp. Neon sau đó cung cấp các chuyển mức tham gia phát xạ laser. Việc chọn hai khí tận dụng sự tương ứng giữa những mức năng lượng.\n\nĐể phát xạ kích thích thắng các quá trình khác, cần có phân bố trạng thái thích hợp và buồng cộng hưởng tạo phản hồi. Gương không chỉ đổi hướng tia sáng; chúng góp phần chọn những dao động có thể tồn tại trong thiết bị.\n\nÁnh sáng đèn neon thông thường gồm nhiều thành phần phát xạ. Laser thêm điều kiện về khuếch đại và phản hồi để tạo chùm có tính chất khác. Vì vậy, nhìn một ống khí sáng chưa chứng minh nó đang là laser, dù cùng có nguyên tố neon bên trong.\n\nBước sóng thực và sự ổn định của nguồn còn chịu ảnh hưởng thiết kế và môi trường. Dùng tia sáng làm mốc đo chiều dài đòi hỏi biết tần số hoặc phạm vi bất định phù hợp. Độ thẳng của chùm và sự đơn sắc nhìn bằng mắt không thay thế công việc đánh giá nguồn.\n\n## Ứng dụng hôm nay: một vạch sáng phải có hồ sơ đo lường\n\nLaser He–Ne có vai trò lâu dài trong căn chỉnh, giao thoa và đo chiều dài. NIST đã thảo luận cách dùng nguồn đỏ không ổn định chủ động hoặc chưa hiệu chuẩn như mốc bước sóng, kèm những điều kiện để có độ tin cậy trong phép đo. Nguồn cần được nhận diện đúng loại và đặt trong một chuỗi truy xuất phù hợp.\n\nTrong giao thoa kế, thay đổi đường đi quang học tạo thay đổi pha mà hệ đọc thành tín hiệu. Muốn suy chiều dài vật lý, còn phải xét môi trường truyền sáng và hình học. Laser cung cấp công cụ; kết quả đo thuộc cả thiết bị.\n\nCâu chuyện neon đi từ ống khí tới chuẩn chiều dài qua một loạt phân biệt cụ thể: phóng điện và phát laser, hồng ngoại và đỏ, ánh sáng ổn định và số đo đã đánh giá. Một nguyên tố khí hiếm góp vào phép đo chính xác nhờ những mức năng lượng được khai thác trong hệ quang học có kiểm soát.\n\n## Nguồn và đọc thêm\n\n- [Smithsonian: thiết bị laser khí của nhóm Javan](https://americanhistory.si.edu/collections/object/nmah_1339868)\n- [Javan và cộng sự: laser khí phát liên tục, 1961](https://doi.org/10.1103/PhysRevLett.6.106)\n- [NIST: laser He–Ne trong đo chiều dài](https://www.nist.gov/publications/uncalibrated-helium-neon-lasers-length-metrology)"
+}

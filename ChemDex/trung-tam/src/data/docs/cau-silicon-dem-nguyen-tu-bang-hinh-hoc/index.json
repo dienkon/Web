@@ -1,0 +1,44 @@
+{
+  "id": "cau-silicon-dem-nguyen-tu-bang-hinh-hoc",
+  "slug": "cau-silicon-dem-nguyen-tu-bang-hinh-hoc",
+  "documentPath": "docs/cau-silicon-dem-nguyen-tu-bang-hinh-hoc/index.json",
+  "title": "Đếm nguyên tử bằng một quả cầu gần hoàn hảo",
+  "summary": "Dự án Avogadro dùng silicon-28, đo thể tích và khoảng cách mạng để nối thế giới nguyên tử với khối lượng. Sai số bề mặt trở thành vấn đề lớn khi độ chính xác tiến tới phần tỷ.",
+  "category": "khainiem",
+  "author": "Ban biên tập ChemDex",
+  "image": "/assets/library/photos/elements/Si.jpg",
+  "tags": [
+    "Avogadro",
+    "Silicon",
+    "Đo lường",
+    "Tinh thể"
+  ],
+  "aliases": [],
+  "documentKind": "story",
+  "readingMinutes": 4,
+  "editorialEvidence": {
+    "language": "vi",
+    "scope": "chemical-family",
+    "contextLabel": "Đếm nguyên tử bằng một quả cầu gần hoàn hảo",
+    "reviewBasis": "Biên soạn theo các nguồn dẫn cuối bài; phân biệt kết quả đã thực hiện và hướng phát triển.",
+    "story": {
+      "status": "documented",
+      "section": "## Không ai ngồi đếm từng chấm một",
+      "sources": [
+        "https://doi.org/10.1103/PhysRevLett.106.030801",
+        "https://doi.org/10.1088/0026-1394/48/2/s01",
+        "https://www.nist.gov/si-redefinition/kilogram/kilogram-silicon-spheres-and-international-avogadro-project"
+      ]
+    },
+    "application": {
+      "status": "documented",
+      "section": "## Ứng dụng hôm nay: từ đo hằng số tới hiện thực đơn vị",
+      "sources": [
+        "https://doi.org/10.1103/PhysRevLett.106.030801",
+        "https://doi.org/10.1088/0026-1394/48/2/s01",
+        "https://www.nist.gov/si-redefinition/kilogram/kilogram-silicon-spheres-and-international-avogadro-project"
+      ]
+    }
+  },
+  "content": "## Không ai ngồi đếm từng chấm một\n\nCông trình năm 2011 của nhóm phối hợp Avogadro quốc tế xác định hằng số Avogadro bằng những quả cầu đơn tinh thể làm giàu silicon-28 có khối lượng khoảng một kilogram. “Đếm nguyên tử” ở đây là suy từ thể tích quả cầu và thể tích ô mạng, kết hợp thành phần đồng vị và khối lượng, không phải nhận diện từng nguyên tử riêng lẻ trong ảnh.\n\nSilicon có cấu trúc tinh thể đã biết, nên số nguyên tử trong một ô mạng là thông tin có thể dùng. Nếu đo được quả cầu chứa bao nhiêu ô như vậy và các sai lệch khỏi tinh thể lý tưởng, ta có một cầu nối giữa kích thước vĩ mô và số hạt.\n\nNhiều viện đo lường cùng tham gia vì không một phép đo duy nhất đủ hoàn thành chuỗi. Khối lượng, kích thước, khoảng cách mạng và thành phần hóa học đều cần độ chính xác rất cao.\n\n![Mẫu silicon minh họa nguyên tố; không phải quả cầu chuẩn của dự án Avogadro](/assets/library/photos/elements/Si.jpg)\n\n## Bề mặt mỏng vẫn đủ làm thay đổi kết quả\n\nGiao thoa quang học giúp đo kích thước quả cầu, còn giao thoa tia X hỗ trợ xác định khoảng cách mạng. Làm giàu đồng vị silicon-28 giảm khó khăn trong việc biết khối lượng mol, nhưng không loại bỏ yêu cầu đo những đồng vị còn lại và tạp chất.\n\nLớp oxide, chất bám và khuyết tật tinh thể làm khối lượng hoặc thể tích không còn tương ứng hoàn hảo với một mô hình silicon thuần. Báo cáo chi tiết năm 2011 nêu nhiễm kim loại ngoài dự kiến trên bề mặt là yếu tố làm độ không đảm bảo lớn hơn mục tiêu. Một lớp rất mỏng trở nên quan trọng khi tổng phép đo nhắm tới phần tỷ.\n\nĐiều đó giải thích vì sao độ tròn và độ nhẵn đặc biệt cần đi cùng hóa học bề mặt. Đánh bóng hình học hoàn hảo chưa đủ nếu không biết lớp cuối cùng mà ánh sáng và cân đang “nhìn thấy” được làm từ gì.\n\n## Ứng dụng hôm nay: từ đo hằng số tới hiện thực đơn vị\n\nCác kết quả về cầu silicon đóng góp vào quá trình thay đổi hệ SI. Từ năm 2019, giá trị số của hằng số Avogadro được cố định chính xác trong định nghĩa mol; kilogram gắn với hằng số Planck. Vì vậy, không nên dùng cách diễn đạt lịch sử “đang đo lại giá trị tự do của Avogadro” để mô tả mọi vai trò hiện nay.\n\nPhương pháp tinh thể và những phép đo liên quan vẫn có giá trị trong hiện thực, đối chiếu và kiểm tra hệ đơn vị. Nó bổ sung cho cân Kibble bằng một con đường vật lý khác, giúp tăng sức mạnh của sự nhất quán giữa các phép đo.\n\nQuả cầu silicon khiến một số lượng khổng lồ trở nên có thể tiếp cận bằng những đại lượng đo được. Bài học không chỉ là tinh thể có quy luật lặp, mà là phải theo dõi mọi chỗ vật thật lệch khỏi mô hình lý tưởng. Khi muốn nối nguyên tử với kilogram, một vết bám nhỏ và một sai khác đồng vị hiếm đều có thể trở thành phần đáng kể của câu chuyện.\n\n## Nguồn và đọc thêm\n\n- [Nhóm Avogadro quốc tế · Đếm nguyên tử silicon-28, 2011](https://doi.org/10.1103/PhysRevLett.106.030801)\n- [Báo cáo chi tiết · Đo quả cầu và vấn đề bề mặt, 2011](https://doi.org/10.1088/0026-1394/48/2/s01)\n- [NIST · Cầu silicon và dự án Avogadro](https://www.nist.gov/si-redefinition/kilogram/kilogram-silicon-spheres-and-international-avogadro-project)"
+}

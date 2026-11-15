@@ -1,0 +1,44 @@
+{
+  "id": "dmto-methanol-di-qua-ro-phan-tu",
+  "slug": "dmto-methanol-di-qua-ro-phan-tu",
+  "documentPath": "docs/dmto-methanol-di-qua-ro-phan-tu/index.json",
+  "title": "Methanol đi qua một “rổ” phân tử để thành olefin",
+  "summary": "Thử chạy DMTO ở Baotou năm 2010 đánh dấu nhiều thập niên nghiên cứu xúc tác. Methanol chứa oxygen được chuyển thành các hydrocarbon nhỏ qua một mạng phản ứng trong lỗ vật liệu.",
+  "category": "phanung",
+  "author": "Ban biên tập ChemDex",
+  "image": "/assets/library/industrial-reactor.svg",
+  "tags": [
+    "DMTO",
+    "Methanol",
+    "SAPO",
+    "Olefin"
+  ],
+  "aliases": [],
+  "documentKind": "story",
+  "readingMinutes": 4,
+  "editorialEvidence": {
+    "language": "vi",
+    "scope": "chemical-family",
+    "contextLabel": "Methanol đi qua một “rổ” phân tử để thành olefin",
+    "reviewBasis": "Biên soạn theo các nguồn dẫn cuối bài; phân biệt kết quả đã thực hiện và hướng phát triển.",
+    "story": {
+      "status": "documented",
+      "section": "## Một lần thử chạy nối với ba thập niên nghiên cứu",
+      "sources": [
+        "https://zcc.dicp.ac.cn/1.pdf",
+        "https://www.dicp.cas.cn/yjxt_1/dnl12/yjcg/",
+        "https://www.syn.ac.cn/info/1039/1559.htm"
+      ]
+    },
+    "application": {
+      "status": "documented",
+      "section": "## Ứng dụng hôm nay: lựa chọn nguồn carbon đi cùng lựa chọn công nghệ",
+      "sources": [
+        "https://zcc.dicp.ac.cn/1.pdf",
+        "https://www.dicp.cas.cn/yjxt_1/dnl12/yjcg/",
+        "https://www.syn.ac.cn/info/1039/1559.htm"
+      ]
+    }
+  },
+  "content": "## Một lần thử chạy nối với ba thập niên nghiên cứu\n\nDalian Institute of Chemical Physics ghi ngày 8 tháng 8 năm 2010 cho lần nạp nguyên liệu và thử chạy thành công hệ DMTO tại Baotou. Những tài liệu của viện phân biệt mốc thử chạy năm 2010 với giai đoạn vận hành thương mại bắt đầu năm 2011.\n\nCông việc về chuyển methanol hoặc dimethyl ether thành olefin nhẹ đã được triển khai từ thập niên 1980. Các bước thử nghiệm lớn hơn trong năm 2006 giúp nối xúc tác trong phòng thí nghiệm với thiết kế công nghiệp.\n\nBaotou thường được nhắc trong bối cảnh chuỗi than–methanol–olefin. Nhưng phản ứng MTO tự nó bắt đầu từ methanol; nguồn tạo methanol nằm ở phần trước của chuỗi và cần được tính riêng khi đánh giá nguyên liệu hoặc phát thải.\n\n![Minh họa hệ phản ứng, không phải cấu trúc SAPO-34 hoặc ảnh nhà máy Baotou](/assets/library/industrial-reactor.svg)\n\n## Một mạng phản ứng nằm trong không gian có giới hạn\n\nMethanol chứa một carbon và một oxygen. Qua quá trình trên xúc tác phù hợp, các liên kết được tổ chức lại để tạo ethylene, propylene và những hydrocarbon khác, còn oxygen chủ yếu đi vào nước trong mô tả tổng thể.\n\nKhông phải từng nhóm CH₃ đơn giản được xếp thành hàng rồi cắt đúng hai hoặc ba carbon. Các nghiên cứu cơ chế mô tả mạng trung gian hữu cơ trong lỗ xúc tác, thường được gọi là cơ chế bể hydrocarbon. Những phân tử trong mạng này tiếp tục methyl hóa, biến đổi và giải phóng olefin.\n\nCấu trúc lỗ của vật liệu SAPO ảnh hưởng những phân tử có thể hình thành và thoát ra. Không gian hẹp giúp tạo tính chọn lọc nhưng cũng có thể giữ lại những thành phần nặng dần, dẫn tới cốc và giảm hoạt tính.\n\nVì vậy, thiết kế DMTO phải phối hợp phản ứng với tái sinh xúc tác. Những dữ liệu về lượng cốc, tuổi của xúc tác trong hệ và nhiệt sinh ra đều liên quan trực tiếp đến phân bố sản phẩm.\n\nMột mẫu xúc tác hoạt tính cao khi còn mới chưa đủ đại diện cho trạng thái vật liệu đang luân chuyển trong nhà máy.\n\n## Ứng dụng hôm nay: lựa chọn nguồn carbon đi cùng lựa chọn công nghệ\n\nMTO cung cấp một tuyến khác tới olefin nhẹ, những nguyên liệu quan trọng cho polymer và hóa chất. Các phiên bản tiếp theo của DMTO tìm cách tận dụng thêm những phân đoạn C4 trở lên để tăng lượng sản phẩm mục tiêu.\n\nHiệu quả của toàn chuỗi phụ thuộc cách methanol được tạo ra. Methanol từ than, khí tự nhiên hoặc những nguồn carbon khác có cân bằng năng lượng và phát thải khác nhau. Không thể gọi riêng phản ứng MTO là ít carbon chỉ vì không dùng dầu trực tiếp ở công đoạn cuối.\n\nTừ góc nhìn phát triển công nghệ, câu chuyện Baotou nhấn mạnh thời gian cần để một xúc tác trở thành hệ liên tục. Thử nghiệm pilot, sản xuất xúc tác, kiểm soát tái sinh và phân tách sản phẩm đều là những bước đã phải đi qua.\n\nChiếc “rổ” phân tử trong xúc tác không chỉ chứa nguyên liệu. Nó tạo một môi trường nơi nhiều phản ứng nối tiếp nhau, giữ một số trung gian và cho những sản phẩm khác thoát ra. Điều khiển môi trường ấy là cách nhà hóa học biến một alcohol đơn giản thành đầu vào của nhiều ngành vật liệu.\n\n## Nguồn và đọc thêm\n\n- [DICP · Lịch sử nghiên cứu, thử chạy 2010 và vận hành thương mại 2011](https://zcc.dicp.ac.cn/1.pdf)\n- [DICP · Xúc tác SAPO và phát triển công nghệ DMTO](https://www.dicp.cas.cn/yjxt_1/dnl12/yjcg/)\n- [Cơ quan phát triển công nghệ · Thông báo thử chạy DMTO, 2010](https://www.syn.ac.cn/info/1039/1559.htm)"
+}

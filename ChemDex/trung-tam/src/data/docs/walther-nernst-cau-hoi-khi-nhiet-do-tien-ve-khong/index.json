@@ -1,0 +1,41 @@
+{
+  "id": "walther-nernst-cau-hoi-khi-nhiet-do-tien-ve-khong",
+  "slug": "walther-nernst-cau-hoi-khi-nhiet-do-tien-ve-khong",
+  "documentPath": "docs/walther-nernst-cau-hoi-khi-nhiet-do-tien-ve-khong/index.json",
+  "title": "Walther Nernst: dùng giới hạn nhiệt độ thấp để hỏi cân bằng hóa học",
+  "summary": "Định lý nhiệt của Nernst giúp nối các đại lượng nhiệt với khả năng dự đoán cân bằng. Điều xảy ra gần không độ tuyệt đối trở thành điểm tựa cho tính toán.",
+  "category": "tieusu",
+  "author": "Ban biên tập ChemDex",
+  "image": "/assets/library/history-evidence.svg",
+  "tags": [
+    "Walther Nernst",
+    "Nhiệt động học",
+    "Định lý nhiệt"
+  ],
+  "aliases": [],
+  "documentKind": "story",
+  "readingMinutes": 4,
+  "editorialEvidence": {
+    "language": "vi",
+    "scope": "chemical-family",
+    "contextLabel": "Walther Nernst: dùng giới hạn nhiệt độ thấp để hỏi cân bằng hóa học",
+    "reviewBasis": "Biên soạn theo các nguồn dẫn cuối bài; phân biệt kết quả đã thực hiện và hướng phát triển.",
+    "story": {
+      "status": "documented",
+      "section": "## Một phép đo nhiệt chưa đủ dự đoán phản ứng tới đâu",
+      "sources": [
+        "https://www.nobelprize.org/prizes/chemistry/1920/nernst/lecture/",
+        "https://www.nobelprize.org/prizes/chemistry/1920/nernst/biographical/"
+      ]
+    },
+    "application": {
+      "status": "documented",
+      "section": "## Ứng dụng hôm nay: nhiệt động học là một hệ quan hệ có thể kiểm tra",
+      "sources": [
+        "https://www.nobelprize.org/prizes/chemistry/1920/nernst/lecture/",
+        "https://www.nobelprize.org/prizes/chemistry/1920/nernst/biographical/"
+      ]
+    }
+  },
+  "content": "## Một phép đo nhiệt chưa đủ dự đoán phản ứng tới đâu\n\nWalther Nernst quan tâm tới việc tính cân bằng hóa học từ các dữ liệu nhiệt. Biết phản ứng tỏa hay thu nhiệt chưa tự cho biết thành phần cân bằng ở một nhiệt độ xác định; những đại lượng khác như entropy cũng tham gia.\n\nNăm 1906, ông trình bày định lý nhiệt gắn với hành vi của các hệ khi nhiệt độ tiến về không tuyệt đối. Ý tưởng cung cấp một ràng buộc để nối dữ liệu nhiệt độ thấp với các hàm nhiệt động cần cho dự đoán.\n\nCông việc thúc đẩy những phép đo nhiệt dung và nghiên cứu ở nhiệt độ thấp. Một giới hạn có vẻ xa đời sống lại có thể giúp hoàn thiện những phép tính về phản ứng ở điều kiện quen thuộc hơn. Lý thuyết và thí nghiệm phải đi cùng nhau để các giá trị trong phương trình có nền tảng vật chất.\n\n![Minh họa chủ đề nghiên cứu; không phải chân dung hoặc dữ liệu thực nghiệm gốc](/assets/library/history-evidence.svg)\n\n## Một giới hạn lý tưởng cần được phát biểu đúng điều kiện\n\nCác dạng của định luật thứ ba được phát triển từ công việc này liên quan tới entropy của hệ trong những điều kiện xác định. Những vấn đề như trật tự tinh thể và các trạng thái còn suy biến cần được phân biệt khi áp dụng.\n\nKhông độ tuyệt đối không phải một nhiệt độ mà chỉ cần một thiết bị đủ mạnh là có thể chạm tới trong một bước. Việc tiến gần giới hạn tạo những yêu cầu và giới hạn riêng của nhiệt động học.\n\nGiá trị của định lý nằm ở khả năng làm các đại lượng trước đó khó xác định trở nên liên hệ chặt hơn. Nhưng tính toán cân bằng vẫn cần dữ liệu của chất và trạng thái đúng. Một mô hình tinh thể lý tưởng không tự đại diện cho mọi vật liệu vô định hình hoặc hỗn hợp có lịch sử khác nhau. Điều kiện của định lý là phần của nội dung, không phải chú thích có thể bỏ.\n\n## Ứng dụng hôm nay: nhiệt động học là một hệ quan hệ có thể kiểm tra\n\nCác dữ liệu nhiệt dung, entropy và năng lượng tự do được dùng để dự đoán cân bằng và so sánh độ bền của những trạng thái vật chất. Những cơ sở dữ liệu hiện đại tiếp tục cần phép đo chính xác cùng cách quy đổi nhất quán.\n\nKhi một phản ứng thuận lợi về nhiệt động, tốc độ còn là câu hỏi khác. Nernst giúp hoàn thiện phần nói về trạng thái cân bằng; động học giải thích con đường và thời gian để hệ tiến tới đó.\n\nCâu chuyện nhiệt độ thấp cho thấy một nghiên cứu cơ bản có thể ảnh hưởng cách hiểu nhà máy, pin và vật liệu dù không trực tiếp tạo ra một sản phẩm mới. Một ràng buộc ở giới hạn giúp toàn mạng phương trình bớt thiếu thông tin. Người sử dụng vẫn phải đặt đúng chất, đúng pha và đúng điều kiện vào mạng ấy để phép dự đoán trả lời được câu hỏi thực tế.\n\n## Nguồn và đọc thêm\n\n- [Walther Nernst · Bài giảng Nobel](https://www.nobelprize.org/prizes/chemistry/1920/nernst/lecture/)\n- [Walther Nernst · Tự thuật và nghiên cứu nhiệt động học](https://www.nobelprize.org/prizes/chemistry/1920/nernst/biographical/)"
+}

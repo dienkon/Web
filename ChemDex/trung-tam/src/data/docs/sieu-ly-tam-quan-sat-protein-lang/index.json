@@ -1,0 +1,42 @@
+{
+  "id": "sieu-ly-tam-quan-sat-protein-lang",
+  "slug": "sieu-ly-tam-quan-sat-protein-lang",
+  "documentPath": "docs/sieu-ly-tam-quan-sat-protein-lang/index.json",
+  "title": "Quay protein để đo những gì mắt thường không thấy lắng",
+  "summary": "Siêu ly tâm phân tích giúp Svedberg nghiên cứu khối lượng và trạng thái protein. Dữ liệu lắng và khuếch tán cần được đọc cùng nhau thay vì coi tốc độ lắng là khối lượng trực tiếp.",
+  "category": "khainiem",
+  "author": "Ban biên tập ChemDex",
+  "image": "/assets/library/apparatus-spectroscope.svg",
+  "tags": [
+    "Siêu ly tâm",
+    "Lắng",
+    "Protein",
+    "Thủy động học"
+  ],
+  "aliases": [],
+  "documentKind": "story",
+  "readingMinutes": 4,
+  "editorialEvidence": {
+    "language": "vi",
+    "scope": "chemical-family",
+    "contextLabel": "Quay protein để đo những gì mắt thường không thấy lắng",
+    "reviewBasis": "Biên soạn theo các nguồn dẫn cuối bài; phân biệt kết quả đã thực hiện và hướng phát triển.",
+    "story": {
+      "status": "documented",
+      "section": "## Một dung dịch đồng nhất bắt đầu tạo ranh giới",
+      "sources": [
+        "https://www.nobelprize.org/uploads/2018/06/svedberg-lecture.pdf",
+        "https://www.cambridge.org/core/books/abs/methods-in-molecular-biophysics/analytical-ultracentrifugation/0A515F9A86B2596FAEE817A034D7718B"
+      ]
+    },
+    "application": {
+      "status": "documented",
+      "section": "## Ứng dụng hôm nay: xem mẫu có thật sự là một quần thể",
+      "sources": [
+        "https://www.nobelprize.org/uploads/2018/06/svedberg-lecture.pdf",
+        "https://www.cambridge.org/core/books/abs/methods-in-molecular-biophysics/analytical-ultracentrifugation/0A515F9A86B2596FAEE817A034D7718B"
+      ]
+    }
+  },
+  "content": "## Một dung dịch đồng nhất bắt đầu tạo ranh giới\n\nTrong bài giảng Nobel, Svedberg kể quá trình phát triển máy ly tâm có hệ quang để theo dõi thay đổi nồng độ trong khi quay. Từ các hệ keo, thiết bị được đẩy tới lực đủ lớn để nghiên cứu protein như hemoglobin. Những phân tử không lắng rõ dưới trọng lực thường ngày trở thành đối tượng có thể quan sát qua phân bố nồng độ.\n\nCông trình không chỉ dựa vào việc lấy mẫu ở đáy ống sau khi quay xong. Theo dõi trong lúc vận hành giúp phân biệt tốc độ dịch chuyển của ranh giới và sự lan rộng do khuếch tán. Thông tin ấy mở cách nghiên cứu kích thước, khối lượng và tính đồng nhất của các đại phân tử.\n\nLịch sử thiết bị cho thấy cơ học, quang học và nhiệt độ phải được kiểm soát cùng nhau. Một rotor chạy nhanh chỉ là điều kiện đầu; tín hiệu phải đủ ổn định để các thay đổi nhỏ của mẫu được đọc đúng.\n\n![Minh họa đo tín hiệu trong thiết bị; không phải sơ đồ máy siêu ly tâm](/assets/library/apparatus-spectroscope.svg)\n\n## Lắng nhanh còn phụ thuộc hình dạng và môi trường\n\nTrong trường ly tâm, phân tử chịu tác động của khối lượng nổi trong dung môi và lực cản khi chuyển động. Hệ số lắng vì vậy không chỉ phụ thuộc khối lượng khô. Hình dạng, lượng dung môi liên quan và mật độ của môi trường đều có ý nghĩa.\n\nỞ cân bằng lắng, xu hướng phân bố do trường ly tâm được cân bằng với khuếch tán. Phân bố nồng độ theo bán kính có thể được dùng để suy thông tin khối lượng theo mô hình thích hợp. Ở phép đo tốc độ, dữ liệu động cung cấp cách đọc khác về các thành phần và trạng thái kết hợp.\n\nDo đó, các đơn vị Svedberg của những tiểu phần ribosome không cộng đơn giản như khối lượng. Ghép hai phần làm thay đổi hình dạng và lực cản, nên hệ số của tổ hợp là một thuộc tính vận chuyển mới. Điều tưởng nghịch lý trong tên 30S, 50S và 70S trở nên hợp lý khi nhớ máy đang đo loại đại lượng nào.\n\n## Ứng dụng hôm nay: xem mẫu có thật sự là một quần thể\n\nSiêu ly tâm phân tích được dùng để nghiên cứu tự kết hợp, phức protein và sự không đồng nhất của mẫu trong dung dịch. Một protein có thể đổi giữa đơn phân và tổ hợp theo nồng độ hoặc điều kiện; dữ liệu lắng giúp kiểm tra những cân bằng đó cùng với các phương pháp khác.\n\nKhông cần gắn nhãn trong nhiều cấu hình là một ưu điểm, nhưng mẫu hấp thụ, độ nhớt và tương tác không lý tưởng vẫn ảnh hưởng phân tích. Một đường khớp đẹp cần được so với các tốc độ quay hoặc nồng độ khác để kiểm tra mô hình.\n\nCâu chuyện Svedberg cho thấy làm vật chất chuyển động có thể là cách đo nó. Phân tử không phải đứng yên mới cho thông tin cấu trúc; cách nó đáp ứng một trường lực cũng phản ánh kích thước và tổ chức. Đọc đồng thời lắng và khuếch tán giúp biến một dung dịch tưởng hoàn toàn đồng nhất thành bức tranh về những thành phần đang cùng tồn tại bên trong.\n\n## Nguồn và đọc thêm\n\n- [Svedberg · Bài giảng Nobel về hệ phân tán và siêu ly tâm](https://www.nobelprize.org/uploads/2018/06/svedberg-lecture.pdf)\n- [Chuyên khảo phương pháp · Siêu ly tâm phân tích](https://www.cambridge.org/core/books/abs/methods-in-molecular-biophysics/analytical-ultracentrifugation/0A515F9A86B2596FAEE817A034D7718B)"
+}

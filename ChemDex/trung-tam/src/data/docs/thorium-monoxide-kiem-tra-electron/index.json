@@ -1,0 +1,44 @@
+{
+  "id": "thorium-monoxide-kiem-tra-electron",
+  "slug": "thorium-monoxide-kiem-tra-electron",
+  "documentPath": "docs/thorium-monoxide-kiem-tra-electron/index.json",
+  "title": "Một phân tử chứa thorium giúp hỏi electron có bất đối xứng điện hay không",
+  "summary": "ACME dùng thorium monoxide để đặt giới hạn lên mômen lưỡng cực điện của electron. Công trình năm 2018 là phép kiểm tra vật lý cơ bản bằng phổ và điều khiển phân tử.",
+  "category": "nguyento",
+  "author": "Ban biên tập ChemDex",
+  "image": "/assets/library/photos/elements/Th.jpg",
+  "tags": [
+    "Thorium",
+    "ThO",
+    "ACME",
+    "Đo chính xác"
+  ],
+  "aliases": [],
+  "documentKind": "story",
+  "readingMinutes": 4,
+  "editorialEvidence": {
+    "language": "vi",
+    "scope": "element",
+    "contextLabel": "Một phân tử chứa thorium giúp hỏi electron có bất đối xứng điện hay không",
+    "reviewBasis": "Biên soạn theo các nguồn dẫn cuối bài; phân biệt kết quả đã thực hiện và hướng phát triển.",
+    "story": {
+      "status": "documented",
+      "section": "## Một kết quả gần số không vẫn mang thông tin",
+      "sources": [
+        "https://pubmed.ncbi.nlm.nih.gov/30333583/",
+        "https://ultracoldmolecules.com/publication/panda2018order/",
+        "https://par.nsf.gov/servlets/purl/10094514"
+      ]
+    },
+    "application": {
+      "status": "documented",
+      "section": "## Ứng dụng hôm nay: dùng hóa học phân tử để thử các quy luật cơ bản",
+      "sources": [
+        "https://pubmed.ncbi.nlm.nih.gov/30333583/",
+        "https://ultracoldmolecules.com/publication/panda2018order/",
+        "https://par.nsf.gov/servlets/purl/10094514"
+      ]
+    }
+  },
+  "content": "## Một kết quả gần số không vẫn mang thông tin\n\nNăm 2018, nhóm ACME công bố giới hạn mới cho mômen lưỡng cực điện của electron. Họ dùng phân tử thorium monoxide, ThO, và theo dõi sự tiến động spin trong những điều kiện được điều khiển. Kết quả đo phù hợp với không trong phạm vi bất định của thí nghiệm.\n\nĐây không phải thất bại vì không tìm được một giá trị khác không. Nhiều mô hình vật lý dự đoán các mức hiệu ứng khác nhau; giới hạn thực nghiệm giúp loại hoặc thu hẹp những khả năng không phù hợp. Một phép đo đủ nhạy có thể cung cấp thông tin ngay khi tín hiệu mong đợi chưa xuất hiện.\n\nThorium thường được nhắc trong câu chuyện nhiên liệu hạt nhân. Trong công trình này, mục đích hoàn toàn khác: khai thác cấu trúc điện tử của một phân tử chứa nguyên tố nặng để tìm dấu hiệu đối xứng vật lý. Năng lượng đo không đến từ việc vận hành một lò phản ứng.\n\n![Mẫu thorium minh họa nguyên tố; ACME nghiên cứu phân tử thorium monoxide trong một hệ đo riêng](/assets/library/photos/elements/Th.jpg)\n\n## Phân tử tạo một môi trường điện trường đặc biệt\n\nMômen lưỡng cực điện vĩnh cửu của electron, nếu khác không, có thể tạo dịch chuyển năng lượng trong điện trường thích hợp. Các phân tử phân cực chứa nguyên tố nặng giúp tăng độ nhạy đối với hiệu ứng đang tìm. Cấu trúc của ThO cung cấp những trạng thái thuận lợi cho phép đo.\n\nNhóm đo cách spin tích lũy pha, rồi so sánh khi các điều kiện được đảo hoặc thay đổi theo thiết kế. Điều quan trọng là phân biệt tín hiệu vật lý mong muốn với những dịch chuyển có thể do trường phụ, chuyển động hay cách đọc dữ liệu.\n\nVì vậy, phép đo không chỉ là đặt một phân tử vào điện trường rồi ghi một con số. Nó cần nhiều bước kiểm tra hệ thống và mô hình hóa độ bất định. Bài báo phương pháp liên quan mô tả những việc ấy để kết quả có thể được đánh giá ngoài nhóm làm thí nghiệm.\n\nThO cũng không phải oxide thorium thông dụng trong mọi ứng dụng vật liệu. Định danh phân tử, trạng thái điện tử và điều kiện chuẩn bị mẫu là một phần của bằng chứng. Cùng có thorium chưa bảo đảm nhận được cùng đáp ứng phổ hoặc cùng độ nhạy.\n\n## Ứng dụng hôm nay: dùng hóa học phân tử để thử các quy luật cơ bản\n\nNhững chương trình đo lưỡng cực electron tiếp tục phát triển nguồn phân tử, kiểm soát trường và phương pháp đọc. Mục tiêu là tăng độ nhạy, giảm sai lệch và kiểm tra các mô hình vật lý bằng con đường bổ sung cho máy gia tốc. Không nên trình bày kết quả năm 2018 như mốc giới hạn mới nhất của mọi thí nghiệm về sau.\n\nỨng dụng của thorium trong câu chuyện này thuộc nghiên cứu cơ bản. Phân tử nặng là công cụ làm rõ cấu trúc đối xứng của tự nhiên, không phải sản phẩm dùng trong gia đình. Giá trị thực nằm ở khả năng thực hiện một phép kiểm có điều kiện và bất định được mô tả.\n\nMột nguyên tố nhờ vậy góp việc ngoài những công dụng quen thuộc của khối vật chất. Khi được đặt vào phân tử phù hợp, cấu trúc điện tử của nó giúp khuếch đại độ nhạy với một câu hỏi rất nhỏ. Số không có giới hạn đo lường trở thành một dữ kiện mà lý thuyết phải tôn trọng.\n\n## Nguồn và đọc thêm\n\n- [ACME: giới hạn mômen lưỡng cực electron, 2018](https://pubmed.ncbi.nlm.nih.gov/30333583/)\n- [Nhóm Doyle: kết quả ThO và ý nghĩa giới hạn đo](https://ultracoldmolecules.com/publication/panda2018order/)\n- [Bản công trình lưu tại NSF](https://par.nsf.gov/servlets/purl/10094514)"
+}

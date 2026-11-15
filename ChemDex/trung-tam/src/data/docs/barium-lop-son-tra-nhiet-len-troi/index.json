@@ -1,0 +1,44 @@
+{
+  "id": "barium-lop-son-tra-nhiet-len-troi",
+  "slug": "barium-lop-son-tra-nhiet-len-troi",
+  "documentPath": "docs/barium-lop-son-tra-nhiet-len-troi/index.json",
+  "title": "Barium trong lớp sơn trắng muốn trả nhiệt lên trời",
+  "summary": "Năm 2021, nhóm Purdue báo cáo sơn BaSO₄ phản xạ phần lớn ánh nắng và phát bức xạ hồng ngoại. Khả năng làm mát đến từ cả phổ ánh sáng và cách hạt được phân bố.",
+  "category": "nguyento",
+  "author": "Ban biên tập ChemDex",
+  "image": "/assets/library/photos/elements/Ba.jpg",
+  "tags": [
+    "Barium",
+    "BaSO₄",
+    "Làm mát bức xạ",
+    "Sơn trắng"
+  ],
+  "aliases": [],
+  "documentKind": "story",
+  "readingMinutes": 4,
+  "editorialEvidence": {
+    "language": "vi",
+    "scope": "element",
+    "contextLabel": "Barium trong lớp sơn trắng muốn trả nhiệt lên trời",
+    "reviewBasis": "Biên soạn theo các nguồn dẫn cuối bài; phân biệt kết quả đã thực hiện và hướng phát triển.",
+    "story": {
+      "status": "documented",
+      "section": "## Mẫu sơn được đưa ra ngoài nắng để đo",
+      "sources": [
+        "https://pubmed.ncbi.nlm.nih.gov/33856776/",
+        "https://www.purdue.edu/newsroom/archive/releases/2021/Q2/the-whitest-paint-is-here-and-its-the-coolest.-literally..html",
+        "https://doi.org/10.1021/acsami.1c02368"
+      ]
+    },
+    "application": {
+      "status": "documented",
+      "section": "## Ứng dụng hôm nay: giảm tải nhiệt cần phép đo theo nơi dùng",
+      "sources": [
+        "https://pubmed.ncbi.nlm.nih.gov/33856776/",
+        "https://www.purdue.edu/newsroom/archive/releases/2021/Q2/the-whitest-paint-is-here-and-its-the-coolest.-literally..html",
+        "https://doi.org/10.1021/acsami.1c02368"
+      ]
+    }
+  },
+  "content": "## Mẫu sơn được đưa ra ngoài nắng để đo\n\nTháng 4 năm 2021, nhóm Xiulin Ruan ở Purdue giới thiệu công thức sơn trắng chứa barium sulfate. Bài báo khoa học mô tả phép đo phản xạ mặt trời và phát xạ trong vùng hồng ngoại thích hợp. Mục tiêu không chỉ là một màu trắng nhìn bắt mắt, mà là giảm năng lượng nhiệt tích lại trên bề mặt.\n\nMẫu sơn acrylic BaSO₄ được báo cáo có phản xạ mặt trời 98,1% trong điều kiện nghiên cứu. Nhóm còn đo đáp ứng nhiệt ngoài trời và đối chiếu cân bằng năng lượng. Con số ấy thuộc mẫu và phương pháp xác định, không phải đặc tính của mọi lớp sơn có chút barium sulfate.\n\nĐiều đáng chú ý là hai công việc diễn ra cùng lúc: hạn chế hấp thu ánh nắng và cho nhiệt thoát bằng bức xạ. Một bề mặt chỉ phản xạ tốt ở vùng mắt thấy vẫn có thể nhận năng lượng ở vùng phổ khác. Vì vậy, đánh giá màu bằng mắt chưa đủ để dự đoán nhiệt độ.\n\n![Mẫu barium minh họa nguyên tố; nghiên cứu sơn dùng barium sulfate dạng hạt](/assets/library/photos/elements/Ba.jpg)\n\n## Kích thước hạt cùng tham gia điều khiển ánh sáng\n\nBarium trong vật liệu này nằm trong hợp chất BaSO₄. Mạng chất rắn và tính chất quang học của hạt khác hoàn toàn barium kim loại. Ứng dụng không thể được suy từ độ bóng hay tính phản ứng của nguyên tố tinh khiết.\n\nNhóm sử dụng phân bố kích thước hạt để tăng tán xạ trên một vùng bước sóng rộng. Những hạt có kích thước khác nhau tương tác với ánh sáng theo cách khác nhau. Nồng độ hạt cao tạo nhiều cơ hội tán xạ, nhưng cũng phải giữ công thức có thể tạo một lớp sơn đủ liền và bền.\n\nỞ vùng hồng ngoại, bề mặt có thể phát năng lượng qua phần khí quyển truyền bức xạ thuận lợi hơn. Đó là nguyên lý làm mát bức xạ thụ động. Kết quả còn phụ thuộc độ ẩm khí quyển, mây, góc nhìn bầu trời và trao đổi nhiệt với không khí.\n\nSơn vì thế là một vật liệu nhiều thành phần, làm việc trong cả một môi trường. Hạt bột, chất kết dính, độ dày và nền phía dưới đều có ảnh hưởng. Một công thức tối ưu trên mẫu thử còn cần được đánh giá khi gặp bụi, thời tiết và quá trình lão hóa.\n\n## Ứng dụng hôm nay: giảm tải nhiệt cần phép đo theo nơi dùng\n\nLàm mát bức xạ tiếp tục được phát triển cho bề mặt công trình và những ứng dụng cần giảm nhiệt thụ động. Công trình Purdue cung cấp một cách chế tạo và kiểm chứng cụ thể. Nó không tự chứng minh mức tiết kiệm điện giống nhau cho mọi khí hậu hoặc kiểu mái nhà.\n\nMuốn đánh giá ứng dụng, cần so lượng nhiệt trao đổi và nhu cầu của công trình theo thời gian. Điều có lợi giữa trưa mùa nóng chưa chắc cho cùng lợi ích vào mùa lạnh. Các quyết định về bề mặt vì vậy cần được nối với cân bằng năng lượng của toàn nơi sử dụng.\n\nCâu chuyện barium ở đây nằm trong những hạt trắng nhỏ và đường đi của bức xạ. Lớp sơn làm việc nhờ lựa chọn đúng vùng phổ để phản xạ và để phát. Một nguyên tố quen trong hóa học vô cơ bước vào bài toán nhiệt qua cấu trúc hợp chất, kích thước hạt và cách cả lớp vật liệu được thiết kế.\n\n## Nguồn và đọc thêm\n\n- [Li và cộng sự: sơn và màng BaSO₄, 2021](https://pubmed.ncbi.nlm.nih.gov/33856776/)\n- [Purdue: công thức sơn và phép đo làm mát](https://www.purdue.edu/newsroom/archive/releases/2021/Q2/the-whitest-paint-is-here-and-its-the-coolest.-literally..html)\n- [Bài gốc ACS Applied Materials & Interfaces](https://doi.org/10.1021/acsami.1c02368)"
+}

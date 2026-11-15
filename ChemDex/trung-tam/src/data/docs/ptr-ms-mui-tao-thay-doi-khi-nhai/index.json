@@ -1,0 +1,42 @@
+{
+  "id": "ptr-ms-mui-tao-thay-doi-khi-nhai",
+  "slug": "ptr-ms-mui-tao-thay-doi-khi-nhai",
+  "documentPath": "docs/ptr-ms-mui-tao-thay-doi-khi-nhai/index.json",
+  "title": "Mùi táo không ra khỏi miếng quả trong một lần",
+  "summary": "Thiết bị mô phỏng nhai ghép với PTR-MS cho thấy các chất bay hơi thoát ra theo những nhịp khác nhau. Đo nhanh giúp nối cấu trúc thực phẩm với trải nghiệm hương.",
+  "category": "khainiem",
+  "author": "Ban biên tập ChemDex",
+  "image": "/assets/library/apparatus-spectroscope.svg",
+  "tags": [
+    "PTR-MS",
+    "Hương",
+    "Khối phổ",
+    "Thực phẩm"
+  ],
+  "aliases": [],
+  "documentKind": "story",
+  "readingMinutes": 4,
+  "editorialEvidence": {
+    "language": "vi",
+    "scope": "chemical-family",
+    "contextLabel": "Mùi táo không ra khỏi miếng quả trong một lần",
+    "reviewBasis": "Biên soạn theo các nguồn dẫn cuối bài; phân biệt kết quả đã thực hiện và hướng phát triển.",
+    "story": {
+      "status": "documented",
+      "section": "## Một chiếc máy nhai được nối với máy khối phổ",
+      "sources": [
+        "https://doi.org/10.1016/j.lwt.2015.03.031",
+        "https://www.mdpi.com/2077-0472/15/6/638"
+      ]
+    },
+    "application": {
+      "status": "documented",
+      "section": "## Ứng dụng hôm nay: theo dõi chất lượng như một quá trình",
+      "sources": [
+        "https://doi.org/10.1016/j.lwt.2015.03.031",
+        "https://www.mdpi.com/2077-0472/15/6/638"
+      ]
+    }
+  },
+  "content": "## Một chiếc máy nhai được nối với máy khối phổ\n\nNghiên cứu năm 2015 của Farneti và cộng sự ghép thiết bị nghiền mô phỏng nhai với PTR-ToF-MS để theo dõi chất bay hơi từ táo. Ba giống Golden Delicious, Fuji và Granny Smith được khảo sát trong quá trình chín sau thu hoạch. Tín hiệu không tăng theo một nhịp duy nhất: các họ hợp chất và cấu trúc mô quả góp phần tạo những đường giải phóng khác nhau.\n\nMột danh sách chất có trong táo chưa mô tả đầy đủ mùi đến mũi khi ăn. Phân tử phải rời mô, đi vào pha khí và được vận chuyển trong điều kiện thay đổi liên tục. Khi cắn, các tế bào vỡ và bề mặt mới xuất hiện; những gì xảy ra trong vài giây có thể bị phép đo trung bình dài che mất.\n\nHệ mô phỏng giúp giữ điều kiện cơ học lặp lại giữa các mẫu, để nghiên cứu không bị toàn bộ khác biệt giữa cách nhai của từng người chi phối.\n\n![Minh họa thiết bị phân tích; không phải máy mô phỏng nhai trong nghiên cứu](/assets/library/apparatus-spectroscope.svg)\n\n## Chuyển proton để đưa chất bay hơi vào phép đo\n\nPTR-MS dùng ion thuốc thử, thường là H₃O⁺, để truyền proton cho các phân tử phù hợp trong pha khí. Sau đó máy phân tích tỷ số khối lượng trên điện tích của các ion sản phẩm. Điều kiện được chọn để giảm phân mảnh với nhiều chất, hỗ trợ theo dõi nhanh một hỗn hợp khí mà không cần tách bằng cột trước mọi lần đo.\n\nĐổi lại, một tín hiệu khối lượng có thể thuộc nhiều cấu trúc cùng công thức hoặc các mảnh khác nhau. Độ phân giải cao giúp phân biệt một số thành phần nhưng không tự giải quyết mọi đồng phân. Để gán tên chắc, dữ liệu thường cần được đối chiếu với chất chuẩn hoặc kỹ thuật tách như GC-MS.\n\nĐộ ẩm, điều kiện ion hóa và đường lấy mẫu cũng ảnh hưởng đáp ứng. Một phân tử bám mạnh lên ống có thể xuất hiện muộn hơn thời điểm nó rời mẫu. Vì vậy, độ phân giải thời gian của máy chỉ có ý nghĩa khi cả đường vận chuyển khí được hiểu.\n\n## Ứng dụng hôm nay: theo dõi chất lượng như một quá trình\n\nNghiên cứu năm 2025 theo dõi hồ sơ chất bay hơi của táo Red Delicious và Granny Smith trong nhiều tuần sau thu hoạch, kết hợp với các chỉ báo chín khác. Đo không phá hủy hỗ trợ quan sát sự thay đổi của quả theo thời gian thay vì chỉ lấy một ảnh chụp hóa học ở cuối kỳ.\n\nNhững dữ liệu này phục vụ nghiên cứu bảo quản, chọn giống và chất lượng hương, nhưng không tự thay thế đánh giá cảm quan. Nồng độ cao hơn của một chất không luôn khiến mùi được thích hơn; ngưỡng cảm nhận và tương tác giữa nhiều thành phần đều quan trọng.\n\nCâu chuyện chiếc máy nhai làm khối phổ bớt xa lạ: nó theo dõi một hành trình mà người ăn trải nghiệm mỗi ngày. Hương không chỉ nằm trong công thức phân tử, mà còn nằm trong lúc và cách phân tử được giải phóng. Đo nhanh cho phép hóa học bắt kịp nhịp ấy, rồi kiểm tra cấu trúc thực phẩm đã định hình trải nghiệm như thế nào.\n\n## Nguồn và đọc thêm\n\n- [Farneti và cộng sự · Chất bay hơi của táo khi xử lý, 2015](https://doi.org/10.1016/j.lwt.2015.03.031)\n- [Nghiên cứu gốc · Theo dõi táo chín bằng PTR-ToF-MS, 2025](https://www.mdpi.com/2077-0472/15/6/638)"
+}

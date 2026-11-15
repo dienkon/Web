@@ -1,0 +1,44 @@
+{
+  "id": "dls-hat-nano-do-bang-nhip-chuyen-dong",
+  "slug": "dls-hat-nano-do-bang-nhip-chuyen-dong",
+  "documentPath": "docs/dls-hat-nano-do-bang-nhip-chuyen-dong/index.json",
+  "title": "Hạt nano lớn bao nhiêu? Câu trả lời phụ thuộc cách đo",
+  "summary": "NIST đo các mẫu vàng bằng nhiều kỹ thuật và nhận những loại kích thước khác nhau. DLS suy kích thước từ chuyển động trong dung dịch, nên cần hiểu nó đang đo phần nào.",
+  "category": "khainiem",
+  "author": "Ban biên tập ChemDex",
+  "image": "/assets/library/photos/elements/Au.jpg",
+  "tags": [
+    "DLS",
+    "Kích thước thủy động",
+    "Nano",
+    "Chuẩn"
+  ],
+  "aliases": [],
+  "documentKind": "story",
+  "readingMinutes": 4,
+  "editorialEvidence": {
+    "language": "vi",
+    "scope": "chemical-family",
+    "contextLabel": "Hạt nano lớn bao nhiêu? Câu trả lời phụ thuộc cách đo",
+    "reviewBasis": "Biên soạn theo các nguồn dẫn cuối bài; phân biệt kết quả đã thực hiện và hướng phát triển.",
+    "story": {
+      "status": "documented",
+      "section": "## Một mẫu vàng được nhìn bằng nhiều dụng cụ",
+      "sources": [
+        "https://www.nist.gov/news-events/news/2008/01/nist-reference-materials-are-gold-standard-bio-nanotech-research",
+        "https://www.ncbi.nlm.nih.gov/books/NBK604904/",
+        "https://tsapps.nist.gov/srmext/certificates/archives/8011.pdf"
+      ]
+    },
+    "application": {
+      "status": "documented",
+      "section": "## Ứng dụng hôm nay: theo dõi phân tán và phát hiện kết tụ",
+      "sources": [
+        "https://www.nist.gov/news-events/news/2008/01/nist-reference-materials-are-gold-standard-bio-nanotech-research",
+        "https://www.ncbi.nlm.nih.gov/books/NBK604904/",
+        "https://tsapps.nist.gov/srmext/certificates/archives/8011.pdf"
+      ]
+    }
+  },
+  "content": "## Một mẫu vàng được nhìn bằng nhiều dụng cụ\n\nNăm 2008, NIST giới thiệu những vật liệu tham chiếu hạt vàng nano, với kích thước được khảo sát bằng sáu phương pháp độc lập gồm kính hiển vi, tán xạ và các kỹ thuật khác. Cơ quan này nhấn mạnh rằng các phương pháp có thể cho những loại giá trị khác nhau cho cùng một hệ hạt.\n\nMột ảnh TEM cho hình dạng lõi ở điều kiện mẫu đã chuẩn bị cho kính hiển vi. DLS lại quan sát các hạt đang chuyển động trong chất lỏng. Lớp phân tử bề mặt và dung môi liên quan có thể ảnh hưởng chuyển động ấy, nên hai con số không nhất thiết bằng nhau mới là đúng.\n\nHướng dẫn chung NIST–NCL về DLS được xây dựng để giúp chuẩn bị mẫu và xác định đường kính thủy động trung bình một cách có kiểm soát. Câu hỏi đầu tiên là định nghĩa kích thước cần đo, trước khi so máy nào cho số đẹp hơn.\n\n![Vàng kim loại minh họa nguyên tố; không phải huyền phù vàng chuẩn NIST](/assets/library/photos/elements/Au.jpg)\n\n## Ánh sáng nhấp nháy vì các hạt đang chuyển động\n\nTrong DLS, các hạt chuyển động Brown làm cường độ ánh sáng tán xạ dao động theo thời gian. Phân tích tương quan của dao động cho thông tin về tốc độ khuếch tán. Với mô hình và thông số môi trường phù hợp, hệ số khuếch tán được đổi thành kích thước thủy động.\n\nĐộ nhớt và nhiệt độ phải được biết. Nếu nhập sai dung môi hoặc mẫu có tương tác mạnh, cách suy kích thước có thể lệch. Với hạt không cầu, giá trị thường là kích thước của một đối tượng cầu tương đương về chuyển động trong mô hình, không phải mọi chiều hình học của hạt.\n\nCác hạt lớn hoặc cụm kết tụ có thể tạo tín hiệu tán xạ mạnh hơn nhiều so với phần hạt nhỏ. Một lượng nhỏ bụi có thể làm kết quả trung bình thay đổi đáng kể. Vì vậy, kiểm tra phân bố và chất lượng dữ liệu quan trọng hơn chỉ chép một số đường kính vào báo cáo.\n\n## Ứng dụng hôm nay: theo dõi phân tán và phát hiện kết tụ\n\nDLS hữu ích trong nghiên cứu keo, vật liệu nano và mẫu sinh học khi cần theo dõi thay đổi kích thước trong dung dịch. Nó có thể báo sớm việc hệ kết tụ hoặc thay trạng thái, nhưng không tự phân biệt nguyên nhân hóa học của mọi thay đổi.\n\nNgay các vật liệu tham chiếu cũng có giới hạn và thời hạn áp dụng. Báo cáo lưu trữ của một lô vàng NIST về sau giới hạn sử dụng do xuất hiện cụm, minh họa rằng chuẩn phải được quản lý như vật liệu thật có thể biến đổi. Không thể dùng tên chuẩn cũ để bỏ qua tình trạng mẫu hiện tại.\n\nCâu chuyện này giúp đọc một chữ “nm” cẩn thận hơn. Kích thước không phải lúc nào cũng là một thuộc tính duy nhất mà mọi máy nhìn giống nhau. DLS hỏi vật đang khuếch tán như thế nào trong môi trường đã chọn. Khi giữ đúng câu hỏi ấy, kết quả trở thành dữ liệu hữu ích để thiết kế hệ phân tán và kiểm tra nó có giữ trạng thái mong muốn qua thời gian hay không.\n\n## Nguồn và đọc thêm\n\n- [NIST · Vật liệu vàng nano đo bằng nhiều phương pháp, 2008](https://www.nist.gov/news-events/news/2008/01/nist-reference-materials-are-gold-standard-bio-nanotech-research)\n- [NIST–NCL · Hướng dẫn đo DLS trong nước](https://www.ncbi.nlm.nih.gov/books/NBK604904/)\n- [NIST · Hồ sơ lưu trữ và giới hạn RM 8011](https://tsapps.nist.gov/srmext/certificates/archives/8011.pdf)"
+}

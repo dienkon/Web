@@ -1,0 +1,44 @@
+{
+  "id": "fenton-sat-peroxide-duoi-long-dat",
+  "slug": "fenton-sat-peroxide-duoi-long-dat",
+  "documentPath": "docs/fenton-sat-peroxide-duoi-long-dat/index.json",
+  "title": "Sắt và peroxide trong lòng đất: vì sao xử lý Fenton cần hiểu cả địa chất",
+  "summary": "Một hồ sơ xử lý khu nhiên liệu cũ tại Canada ghi nhiều đợt theo dõi trong năm 2003–2004. Phản ứng oxi hóa nhanh chỉ có ích khi tác nhân gặp được chất ô nhiễm trước khi bị môi trường tiêu thụ.",
+  "category": "phanung",
+  "author": "Ban biên tập ChemDex",
+  "image": "/assets/library/acid-base-world.svg",
+  "tags": [
+    "Fenton",
+    "Gốc hydroxyl",
+    "Nước ngầm",
+    "Oxi hóa tại chỗ"
+  ],
+  "aliases": [],
+  "documentKind": "story",
+  "readingMinutes": 4,
+  "editorialEvidence": {
+    "language": "vi",
+    "scope": "chemical-family",
+    "contextLabel": "Sắt và peroxide trong lòng đất: vì sao xử lý Fenton cần hiểu cả địa chất",
+    "reviewBasis": "Biên soạn theo các nguồn dẫn cuối bài; phân biệt kết quả đã thực hiện và hướng phát triển.",
+    "story": {
+      "status": "documented",
+      "section": "## Một khu nhiên liệu cũ cần nhiều đợt xử lý",
+      "sources": [
+        "https://www.clu-in.org/products/tins/tinsone.cfm?id=85495624",
+        "https://clu-in.org/download/contaminantfocus/pcb/plum-brook-ordance-trel07-19.pdf",
+        "https://serdp-estcp.mil/projects/details/4539b735-dd74-4935-aa3f-2e6cdb7b2883"
+      ]
+    },
+    "application": {
+      "status": "documented",
+      "section": "## Ứng dụng hôm nay: giảm nồng độ cần được nối với khối lượng đã xử lý",
+      "sources": [
+        "https://www.clu-in.org/products/tins/tinsone.cfm?id=85495624",
+        "https://clu-in.org/download/contaminantfocus/pcb/plum-brook-ordance-trel07-19.pdf",
+        "https://serdp-estcp.mil/projects/details/4539b735-dd74-4935-aa3f-2e6cdb7b2883"
+      ]
+    }
+  },
+  "content": "## Một khu nhiên liệu cũ cần nhiều đợt xử lý\n\nHồ sơ được CLU-IN lưu năm 2005 mô tả một khu từng chứa nhiên liệu tại Canada, nơi nước ngầm bị ảnh hưởng bởi các hydrocarbon. Dự án thực hiện những đợt xử lý Fenton trong tháng 8 năm 2003 và tháng 7, tháng 9 năm 2004, đồng thời theo dõi các giếng trong và ngoài khu vực.\n\nNồng độ các chất mục tiêu giảm trong thời gian nghiên cứu, nhưng báo cáo cũng ghi sự tăng của quần thể vi sinh, gợi ý rằng phân hủy sinh học đã góp phần vào diễn biến sau xử lý. Không thể lấy toàn bộ thay đổi nồng độ rồi gán riêng cho một phản ứng tức thời.\n\nTrường hợp này cho thấy đánh giá công nghệ môi trường cần xem cả phản ứng được đưa vào và những quá trình mà nó làm thay đổi trong hệ tự nhiên.\n\n![Minh họa phản ứng trong nước, không phải hướng dẫn bơm hóa chất vào đất](/assets/library/acid-base-world.svg)\n\n## Một chu trình sắt tạo những tác nhân phản ứng rất nhanh\n\nFenton kinh điển liên quan đến hydrogen peroxide và sắt ở trạng thái phù hợp, tạo những loài oxi hóa phản ứng mạnh, thường được giải thích qua vai trò của gốc hydroxyl. Các loài này có thể biến đổi nhiều hợp chất hữu cơ.\n\nTính phản ứng cao cũng là giới hạn: chúng có thể bị chất hữu cơ tự nhiên, carbonate hoặc những thành phần không phải mục tiêu tiêu thụ. Lượng peroxide đưa vào vì vậy không tự tương đương lượng chất ô nhiễm bị phá hủy.\n\nSắt có thể đổi trạng thái oxi hóa và kết tủa theo pH. Môi trường acid có thể hỗ trợ một số bước nhưng đồng thời ảnh hưởng độ hòa tan của những kim loại khác trong đất. Thiết kế phải kiểm tra những thay đổi phụ này.\n\nTrong lòng đất, tác nhân còn cần đi qua những đường thấm không đồng đều. Một vùng chứa nhiều chất ô nhiễm có thể khó tiếp cận, trong khi vùng khác nhận nhiều hóa chất hơn cần thiết.\n\nCác phản ứng tỏa nhiệt và sinh khí khiến việc thực hiện phải dựa trên khảo sát, thử xử lý và giám sát chuyên môn. Bài viết giải thích cơ chế và bằng chứng, không cung cấp một công thức ứng dụng tại hiện trường.\n\n## Ứng dụng hôm nay: giảm nồng độ cần được nối với khối lượng đã xử lý\n\nFenton và những biến thể được dùng hoặc nghiên cứu trong xử lý nước và đất phù hợp. Khi đánh giá kết quả, cần phân biệt pha loãng, chuyển pha, hấp phụ và biến đổi hóa học của chất mục tiêu.\n\nMột số hồ sơ nước ngầm ghi hiện tượng nồng độ tăng trở lại sau khi giảm ban đầu, khi chất từ vùng ít thấm hoặc pha riêng tiếp tục đi vào nước. Điều đó không nhất thiết có nghĩa phản ứng trước đó không xảy ra; nó cho thấy nguồn ô nhiễm còn những phần chưa được tiếp cận.\n\nCác dự án phát triển peroxide ổn định tìm cách kéo dài quãng đường tác nhân có thể di chuyển. Nhưng báo cáo của ESTCP cũng ghi rõ những chương trình không hoàn thành trình diễn như dự kiến vì khó chọn và khảo sát địa điểm. Kế hoạch và kết quả thực hiện cần được phân biệt.\n\nCâu chuyện Fenton làm rõ rằng phản ứng nhanh không luôn là lợi thế đủ dùng. Trong một bình nhỏ, các phân tử có thể dễ gặp nhau; trong tầng chứa nước, địa chất quyết định cuộc gặp ấy. Hóa học xử lý thành công khi tốc độ phản ứng và khả năng đưa tác nhân tới đúng nơi được thiết kế cùng nhau.\n\n## Nguồn và đọc thêm\n\n- [CLU-IN · Hồ sơ khu nhiên liệu cũ và các đợt xử lý 2003–2004](https://www.clu-in.org/products/tins/tinsone.cfm?id=85495624)\n- [U.S. Army ERDC · Cơ chế Fenton và các giới hạn trong xử lý đất](https://clu-in.org/download/contaminantfocus/pcb/plum-brook-ordance-trel07-19.pdf)\n- [ESTCP · Bài học về peroxide tại hiện trường và phạm vi đã thực hiện](https://serdp-estcp.mil/projects/details/4539b735-dd74-4935-aa3f-2e6cdb7b2883)"
+}

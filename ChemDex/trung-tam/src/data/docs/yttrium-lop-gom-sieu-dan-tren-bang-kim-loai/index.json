@@ -1,0 +1,44 @@
+{
+  "id": "yttrium-lop-gom-sieu-dan-tren-bang-kim-loai",
+  "slug": "yttrium-lop-gom-sieu-dan-tren-bang-kim-loai",
+  "documentPath": "docs/yttrium-lop-gom-sieu-dan-tren-bang-kim-loai/index.json",
+  "title": "Đặt lớp gốm chứa yttrium lên một cuộn băng có thể mang dòng điện",
+  "summary": "YBCO mở mốc siêu dẫn trên nhiệt độ sôi nitơ năm 1987. Những nghiên cứu băng phủ về sau phải giải một vấn đề khác: làm gốm mỏng có cấu trúc phù hợp trên một nền dài.",
+  "category": "nguyento",
+  "author": "Ban biên tập ChemDex",
+  "image": "/assets/library/photos/elements/Y.jpg",
+  "tags": [
+    "Yttrium",
+    "YBCO",
+    "Siêu dẫn",
+    "Băng phủ"
+  ],
+  "aliases": [],
+  "documentKind": "story",
+  "readingMinutes": 4,
+  "editorialEvidence": {
+    "language": "vi",
+    "scope": "element",
+    "contextLabel": "Đặt lớp gốm chứa yttrium lên một cuộn băng có thể mang dòng điện",
+    "reviewBasis": "Biên soạn theo các nguồn dẫn cuối bài; phân biệt kết quả đã thực hiện và hướng phát triển.",
+    "story": {
+      "status": "documented",
+      "section": "## Từ một mốc nhiệt độ tới một cuộn vật liệu",
+      "sources": [
+        "https://www.aps.org/apsnews/2023/03/bednorz-muller-high-temperature-superconductivity",
+        "https://www.ornl.gov/news/ornl-american-superconductor-sign-patent-license-agreement",
+        "https://www.nist.gov/publications/effect-transverse-compressive-stress-transport-critical-current-density-y-ba-cu-o"
+      ]
+    },
+    "application": {
+      "status": "documented",
+      "section": "## Ứng dụng hôm nay: tính siêu dẫn cần một kiến trúc chịu được công việc",
+      "sources": [
+        "https://www.aps.org/apsnews/2023/03/bednorz-muller-high-temperature-superconductivity",
+        "https://www.ornl.gov/news/ornl-american-superconductor-sign-patent-license-agreement",
+        "https://www.nist.gov/publications/effect-transverse-compressive-stress-transport-critical-current-density-y-ba-cu-o"
+      ]
+    }
+  },
+  "content": "## Từ một mốc nhiệt độ tới một cuộn vật liệu\n\nCác thí nghiệm Y–Ba–Cu–O năm 1987 đưa siêu dẫn vượt nhiệt độ sôi của nitơ lỏng. Điều ấy mở thêm khả năng khảo sát và phát triển vật liệu, nhưng chưa tạo ngay một cuộn dây dễ gia công. Oxide gốm khác kim loại dẻo mà người ta thường kéo thành dây.\n\nNhững công trình tại Oak Ridge theo hướng RABiTS dùng nền kim loại được tạo định hướng, phủ các lớp đệm rồi tạo lớp YBCO bên trên. Thay vì cố kéo một khối gốm, nhóm chế tạo một kiến trúc nhiều lớp trên băng dài.\n\nThông báo hợp tác cấp phép giữa ORNL và American Superconductor năm 2000 cho thấy con đường nối nghiên cứu nền với quy trình chế tạo của doanh nghiệp. Số đo mật độ dòng phải được đặt cạnh chiều dài, độ đồng đều và trạng thái cơ học. Một vùng rất tốt trên mẫu nhỏ chưa đủ làm cuộn dây hữu ích.\n\n![Mẫu yttrium minh họa nguyên tố; lớp siêu dẫn là oxide nhiều thành phần YBCO](/assets/library/photos/elements/Y.jpg)\n\n## Hạt tinh thể phải phối hợp trên một đường dài\n\nYBCO thường chỉ họ oxide yttrium–barium–copper có lượng oxygen thay đổi quanh công thức YBa₂Cu₃O₇₋δ. Yttrium nằm trong mạng nhiều thành phần; hiện tượng không phải độ dẫn của kim loại yttrium được truyền nguyên vẹn sang oxide.\n\nHướng tinh thể và ranh giới giữa các hạt ảnh hưởng dòng điện đi qua màng. Tạo nền có cấu trúc phù hợp giúp lớp phủ phát triển theo hướng được kiểm soát. Các lớp đệm vừa tổ chức cấu trúc vừa giúp quản lý tương tác giữa nền và lớp chức năng.\n\nNội dung oxygen cũng quan trọng. Cấu trúc và trạng thái điện tử của oxide phụ thuộc cách vật liệu được xử lý, nên tỷ lệ cation danh nghĩa chưa mô tả đủ một lớp siêu dẫn. Nhiệt độ, từ trường và mức dòng khi đo đều phải được ghi rõ.\n\nMột nghiên cứu NIST còn khảo sát tác động của ứng suất nén lên lớp YBCO trên băng RABiTS. Kết quả nhắc rằng vật liệu được đưa vào cuộn sẽ chịu lực, không sống mãi trên một giá mẫu lý tưởng. Thiết kế cơ học phải giúp giữ được tính chất điện cần dùng.\n\n## Ứng dụng hôm nay: tính siêu dẫn cần một kiến trúc chịu được công việc\n\nBăng phủ siêu dẫn tiếp tục được phát triển cho nam châm, thiết bị điện và nghiên cứu. Họ REBCO có thể dùng các nguyên tố đất hiếm khác nhau; không nên gọi mọi băng trong họ đó là đúng YBCO. Lựa chọn thành phần và nền phụ thuộc cấu hình cụ thể.\n\nĐể làm việc, hệ cần môi trường nhiệt phù hợp cùng quản lý từ trường, dòng và cơ học. Một lớp có điện trở rất thấp trong chế độ siêu dẫn vẫn có thể mất tính năng khi vượt điều kiện giới hạn. Cuộn dây vì vậy phải được đánh giá như một hệ thống.\n\nYttrium góp mặt trong một câu chuyện vượt qua khoảng cách giữa phát hiện và chế tạo. Từ mẫu oxide năm 1987 tới băng nhiều lớp, điều phải giữ là cấu trúc hữu ích trên đường dài. Vật liệu chỉ trở thành dây dẫn khi những lớp rất mỏng có thể cùng chịu công việc mà cuộn dây nhận.\n\n## Nguồn và đọc thêm\n\n- [APS: bối cảnh bước ngoặt siêu dẫn năm 1987](https://www.aps.org/apsnews/2023/03/bednorz-muller-high-temperature-superconductivity)\n- [ORNL: nền RABiTS và băng YBCO, 2000](https://www.ornl.gov/news/ornl-american-superconductor-sign-patent-license-agreement)\n- [NIST: ứng suất và dòng tới hạn của băng YBCO](https://www.nist.gov/publications/effect-transverse-compressive-stress-transport-critical-current-density-y-ba-cu-o)"
+}

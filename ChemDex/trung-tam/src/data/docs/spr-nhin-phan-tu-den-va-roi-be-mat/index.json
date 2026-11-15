@@ -1,0 +1,44 @@
+{
+  "id": "spr-nhin-phan-tu-den-va-roi-be-mat",
+  "slug": "spr-nhin-phan-tu-den-va-roi-be-mat",
+  "documentPath": "docs/spr-nhin-phan-tu-den-va-roi-be-mat/index.json",
+  "title": "Không gắn đèn lên phân tử, vẫn thấy nó đến rồi rời bề mặt",
+  "summary": "SPR theo dõi thay đổi quang học sát màng kim loại để đọc tương tác. Đường tín hiệu theo thời gian cung cấp thông tin khác với một phép đo điểm cuối.",
+  "category": "khainiem",
+  "author": "Ban biên tập ChemDex",
+  "image": "/assets/library/apparatus-spectroscope.svg",
+  "tags": [
+    "SPR",
+    "Tương tác",
+    "Động học gắn",
+    "Bề mặt"
+  ],
+  "aliases": [],
+  "documentKind": "story",
+  "readingMinutes": 4,
+  "editorialEvidence": {
+    "language": "vi",
+    "scope": "chemical-family",
+    "contextLabel": "Không gắn đèn lên phân tử, vẫn thấy nó đến rồi rời bề mặt",
+    "reviewBasis": "Biên soạn theo các nguồn dẫn cuối bài; phân biệt kết quả đã thực hiện và hướng phát triển.",
+    "story": {
+      "status": "documented",
+      "section": "## Một màng kim loại trở thành bộ phận nhận tín hiệu",
+      "sources": [
+        "https://doi.org/10.1016/0250-6874(83)85036-7",
+        "https://faculty.washington.edu/seattle/gis129/575%20copy/spr-pdf/how%20bio-spr%20started.pdf",
+        "https://apps.cytivalifesciences.com/spr/"
+      ]
+    },
+    "application": {
+      "status": "documented",
+      "section": "## Ứng dụng hôm nay: khớp mô hình phải theo thiết kế phép thử",
+      "sources": [
+        "https://doi.org/10.1016/0250-6874(83)85036-7",
+        "https://faculty.washington.edu/seattle/gis129/575%20copy/spr-pdf/how%20bio-spr%20started.pdf",
+        "https://apps.cytivalifesciences.com/spr/"
+      ]
+    }
+  },
+  "content": "## Một màng kim loại trở thành bộ phận nhận tín hiệu\n\nNăm 1983, Liedberg, Nylander và Lundström trình bày việc dùng cộng hưởng plasmon bề mặt cho phát hiện khí và những thí nghiệm thăm dò liên quan đến cảm biến sinh học. Họ khai thác độ nhạy của phản xạ ánh sáng tại một màng kim loại mỏng đối với môi trường bên cạnh.\n\nThay vì gắn một chất phát sáng vào mọi đối tác, có thể cố định một thành phần trên bề mặt rồi theo dõi khi thành phần khác đi qua và tương tác. Tín hiệu tăng khi vùng gần bề mặt thay đổi, rồi giảm khi phần gắn rời đi trong điều kiện thích hợp.\n\nMột hồi tưởng của chính nhóm phát triển phân biệt rõ rằng hiện tượng plasmon đã được dùng để nghiên cứu lớp hữu cơ trước đó. Bước họ mở rộng là tổ chức nó thành một phép cảm biến cho những câu hỏi hóa học cụ thể.\n\n![Minh họa phép đo quang; không phải cấu hình cảm biến SPR cụ thể](/assets/library/apparatus-spectroscope.svg)\n\n## Đường cong chứa cả lúc gặp và lúc chia tay\n\nTrong SPR, điều kiện cộng hưởng liên quan đến đáp ứng tập thể của electron tại giao diện kim loại–môi trường. Thay đổi chiết suất gần bề mặt làm vị trí hoặc cường độ đặc trưng quang đổi. Tín hiệu thường được liên hệ với lượng vật chất gắn trong một mô hình đã hiệu chuẩn.\n\nNhưng thay dung dịch nền cũng làm chiết suất đổi, nên cần vùng tham chiếu và mẫu đối chứng. Bám không đặc hiệu, lớp cố định không đồng nhất và vận chuyển chất tới bề mặt có thể làm đường cong lệch khỏi mô hình gắn đơn giản.\n\nPha tăng khi có chất trong dòng và pha giảm sau khi chuyển về đệm cung cấp thông tin động học. Hai cặp phân tử có cùng hằng số cân bằng có thể khác tốc độ đến và rời. Vì vậy, đo theo thời gian trả lời thêm câu hỏi mà một điểm cuối cân bằng không cho thấy.\n\n## Ứng dụng hôm nay: khớp mô hình phải theo thiết kế phép thử\n\nCác hệ Biacore hiện dùng SPR để nghiên cứu tương tác, ái lực và động học. Công cụ mô phỏng của nhà sản xuất cho phép thay nồng độ, thời gian tiêm và mô hình để xem đường cảm biến dự kiến đổi thế nào. Điều này giúp thiết kế thí nghiệm trước khi thu một tập dữ liệu khó diễn giải.\n\nMột mô hình 1:1 không nên được chọn chỉ vì phần mềm có sẵn. Nếu đối tác đa hóa trị, có nhiều trạng thái hoặc bề mặt gây hạn chế vận chuyển, các hằng số khớp có thể chỉ là giá trị biểu kiến. Kiểm tra ở nhiều nồng độ và điều kiện bề mặt giúp phát hiện những vấn đề ấy.\n\nSPR làm một cuộc gặp phân tử thành đường thời gian. Sức mạnh của nó không nằm ở việc bỏ nhãn rồi bỏ luôn mọi kiểm chứng, mà ở khả năng đọc tương tác liên tục trong một hệ được kiểm soát. Khi giữ rõ tín hiệu phản ánh môi trường nào và mô hình giả định điều gì, người nghiên cứu có thể phân biệt gắn nhanh rồi rời nhanh với gắn lâu bền—hai hành vi rất khác dù một ảnh chụp điểm cuối đôi khi trông giống nhau.\n\n## Nguồn và đọc thêm\n\n- [Liedberg và cộng sự · SPR cho cảm biến, 1983](https://doi.org/10.1016/0250-6874(83)85036-7)\n- [Nhóm phát triển · Lịch sử SPR sinh học](https://faculty.washington.edu/seattle/gis129/575%20copy/spr-pdf/how%20bio-spr%20started.pdf)\n- [Cytiva · Mô phỏng động học đường SPR](https://apps.cytivalifesciences.com/spr/)"
+}

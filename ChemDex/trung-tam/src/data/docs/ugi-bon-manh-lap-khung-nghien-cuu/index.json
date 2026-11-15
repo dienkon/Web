@@ -1,0 +1,44 @@
+{
+  "id": "ugi-bon-manh-lap-khung-nghien-cuu",
+  "slug": "ugi-bon-manh-lap-khung-nghien-cuu",
+  "documentPath": "docs/ugi-bon-manh-lap-khung-nghien-cuu/index.json",
+  "title": "Bốn mảnh trong một phản ứng: Ugi và cách xây thư viện phân tử",
+  "summary": "Từ công bố năm 1959, phản ứng Ugi trở thành cách ghép nhiều phần cấu trúc vào một bộ khung. Các chiến dịch tìm chất ức chế enzyme sử dụng nó để tạo và so sánh nhiều biến thể.",
+  "category": "phanung",
+  "author": "Ban biên tập ChemDex",
+  "image": "/assets/library/covalent-bonds.svg",
+  "tags": [
+    "Ugi",
+    "Đa thành phần",
+    "Isocyanide",
+    "Khám phá phân tử"
+  ],
+  "aliases": [],
+  "documentKind": "story",
+  "readingMinutes": 4,
+  "editorialEvidence": {
+    "language": "vi",
+    "scope": "chemical-family",
+    "contextLabel": "Bốn mảnh trong một phản ứng: Ugi và cách xây thư viện phân tử",
+    "reviewBasis": "Biên soạn theo các nguồn dẫn cuối bài; phân biệt kết quả đã thực hiện và hướng phát triển.",
+    "story": {
+      "status": "documented",
+      "section": "## Một bộ khung giúp thử nhiều câu hỏi cấu trúc",
+      "sources": [
+        "https://pmc.ncbi.nlm.nih.gov/articles/PMC10107905/",
+        "https://pmc.ncbi.nlm.nih.gov/articles/PMC9416173/",
+        "https://doi.org/10.1016/j.tgchem.2024.100044"
+      ]
+    },
+    "application": {
+      "status": "documented",
+      "section": "## Ứng dụng hôm nay: hiệu quả phải được đo trên cả tuyến",
+      "sources": [
+        "https://pmc.ncbi.nlm.nih.gov/articles/PMC10107905/",
+        "https://pmc.ncbi.nlm.nih.gov/articles/PMC9416173/",
+        "https://doi.org/10.1016/j.tgchem.2024.100044"
+      ]
+    }
+  },
+  "content": "## Một bộ khung giúp thử nhiều câu hỏi cấu trúc\n\nBài tổng quan năm 2023 về phản ứng đa thành phần trong khám phá thuốc mô tả các chiến dịch sử dụng Ugi để tạo những bộ khung cho nghiên cứu chất ức chế enzyme, trong đó có IDH1. Phản ứng cung cấp cách thay nhiều phần của phân tử một cách có tổ chức.\n\nÝ tưởng có nguồn gốc từ công bố của Ivar Ugi năm 1959. Bằng việc thêm một amine vào hóa học isocyanide đa thành phần, nhóm mở ra sản phẩm khác với phản ứng Passerini ba thành phần đã có trước đó.\n\nMột thư viện tạo nhanh không tự là một tập hợp thuốc. Nó là nguồn mẫu để sàng lọc và so sánh; những mẫu có tín hiệu còn phải được kiểm tra về độ sạch, cơ chế và những tính chất khác.\n\n![Minh họa liên kết cộng hóa trị, không phải cấu trúc một chất ức chế được phê duyệt](/assets/library/covalent-bonds.svg)\n\n## Bốn đối tác làm những phần việc khác nhau\n\nUgi kinh điển kết hợp amine, aldehyde hoặc ketone, isocyanide và acid carboxylic. Carbonyl và amine tạo trung gian imine hoặc iminium; các đối tác còn lại tham gia để cuối cùng tạo bộ khung có các nhóm amide.\n\nCác nguyên tử từ nhiều thành phần được giữ trong sản phẩm, khiến phản ứng có tính kinh tế nguyên tử đáng chú ý. Tuy nhiên, tính kinh tế nguyên tử của bước phản ứng không bằng toàn bộ lượng vật liệu tiêu thụ trong quy trình. Dung môi và tinh chế vẫn cần được tính.\n\nBốn thành phần có thể được thay đổi độc lập trong những phạm vi phù hợp. Điều đó tạo nhiều tổ hợp, nhưng không phải phép nhân số lựa chọn nào cũng cho sản phẩm thực tế. Một số đối tác phản ứng chậm, không tan hoặc mở đường cạnh tranh.\n\nTính lập thể còn là một thách thức nếu tạo tâm bất đối xứng mới. Những biến thể dùng chất xúc tác hoặc thành phần chiral được nghiên cứu để điều khiển vấn đề này; sản phẩm racemic không tự tương đương một dạng đối quang tinh khiết.\n\nCác nhóm chức còn lại trên sản phẩm Ugi có thể được dùng cho phản ứng sau, chẳng hạn đóng vòng để tạo dị vòng mới.\n\n## Ứng dụng hôm nay: hiệu quả phải được đo trên cả tuyến\n\nUgi được dùng trong nghiên cứu dược, peptidomimetic và vật liệu chức năng. Giá trị nằm ở khả năng hội tụ nhiều mảnh vào một bộ khung có thể tiếp tục biến đổi, giảm số lần phải phân lập trung gian trong một số tuyến.\n\nMột bài đánh giá năm 2024 so sánh những thước đo như khối lượng quy trình và hệ số chất thải giữa các tuyến đa thành phần với những tuyến khác. Câu hỏi được đặt rất đúng: phản ứng nhiều thành phần có thực sự tốt hơn khi tính toàn bộ quy trình hay chỉ trông gọn hơn trên sơ đồ?\n\nCác kết luận cần gắn với mục tiêu và nguyên liệu cụ thể. Một bước Ugi thuận lợi không làm mọi bước chuẩn bị isocyanide hoặc tinh chế sau đó tự trở nên đơn giản.\n\nCâu chuyện của bốn mảnh cho thấy sức mạnh của thiết kế hội tụ. Nhà hóa học có thể tạo nhiều cấu trúc để đặt câu hỏi nhanh hơn, nhưng chất lượng của câu trả lời vẫn phụ thuộc việc nhận diện đúng sản phẩm và kiểm tra những tính chất có ý nghĩa. Phản ứng mở rộng khả năng thử nghiệm; nó không thay thế bằng chứng cần cho ứng dụng cuối.\n\n## Nguồn và đọc thêm\n\n- [Các phản ứng đa thành phần trong khám phá phân tử, 2023](https://pmc.ncbi.nlm.nih.gov/articles/PMC10107905/)\n- [Ugi và các tuyến tổng hợp hoạt chất, 2022](https://pmc.ncbi.nlm.nih.gov/articles/PMC9416173/)\n- [Đánh giá thước đo quy trình Ugi, 2024](https://doi.org/10.1016/j.tgchem.2024.100044)"
+}

@@ -1,0 +1,41 @@
+{
+  "id": "peter-debye-bot-tinh-the-cung-ke-duoc-cau-truc",
+  "slug": "peter-debye-bot-tinh-the-cung-ke-duoc-cau-truc",
+  "documentPath": "docs/peter-debye-bot-tinh-the-cung-ke-duoc-cau-truc/index.json",
+  "title": "Peter Debye: một ít bột vẫn có thể kể về cấu trúc tinh thể",
+  "summary": "Debye và Scherrer dùng nhiều hạt định hướng ngẫu nhiên để tạo mẫu nhiễu xạ. Không cần một tinh thể lớn hoàn hảo cho mọi câu hỏi về chất rắn.",
+  "category": "tieusu",
+  "author": "Ban biên tập ChemDex",
+  "image": "/assets/library/history-evidence.svg",
+  "tags": [
+    "Peter Debye",
+    "Nhiễu xạ bột",
+    "Tinh thể"
+  ],
+  "aliases": [],
+  "documentKind": "story",
+  "readingMinutes": 4,
+  "editorialEvidence": {
+    "language": "vi",
+    "scope": "chemical-family",
+    "contextLabel": "Peter Debye: một ít bột vẫn có thể kể về cấu trúc tinh thể",
+    "reviewBasis": "Biên soạn theo các nguồn dẫn cuối bài; phân biệt kết quả đã thực hiện và hướng phát triển.",
+    "story": {
+      "status": "documented",
+      "section": "## Những hạt quay nhiều hướng lại tạo một tín hiệu có trật tự",
+      "sources": [
+        "https://www.iucr.org/__data/assets/pdf_file/0016/781/scherrer.pdf",
+        "https://xray-exhibit.scs.illinois.edu/books/debye.php"
+      ]
+    },
+    "application": {
+      "status": "documented",
+      "section": "## Ứng dụng hôm nay: nhận diện pha và kiểm tra vật liệu đang đổi",
+      "sources": [
+        "https://www.iucr.org/__data/assets/pdf_file/0016/781/scherrer.pdf",
+        "https://xray-exhibit.scs.illinois.edu/books/debye.php"
+      ]
+    }
+  },
+  "content": "## Những hạt quay nhiều hướng lại tạo một tín hiệu có trật tự\n\nNăm 1916, Peter Debye và Paul Scherrer công bố phương pháp nhiễu xạ tia X trên bột tinh thể. Một mẫu gồm nhiều hạt nhỏ có những hướng khác nhau vẫn tạo những vòng hoặc vạch đặc trưng liên quan đến mạng tinh thể.\n\nĐiều này mở một lối khảo sát cho những vật liệu khó có tinh thể đơn đủ lớn. Sự ngẫu nhiên về hướng không xóa toàn bộ thông tin; nó giúp nhiều mặt mạng có cơ hội thỏa điều kiện nhiễu xạ trong cùng phép đo.\n\nScherrer kể trong hồi tưởng rằng những ảnh đầu đã làm nhóm ngạc nhiên. Nhưng để biến hiện tượng thành phương pháp, cần nối hình vòng với hình học tán xạ và cấu trúc của mẫu. Một ít bột trở thành nguồn dữ liệu về trật tự ở kích thước nguyên tử.\n\n![Minh họa chủ đề nghiên cứu; không phải chân dung hoặc dữ liệu thực nghiệm gốc](/assets/library/history-evidence.svg)\n\n## Mẫu hình là dấu của mạng, không phải ảnh từng hạt\n\nVị trí các đỉnh liên quan đến khoảng cách mặt mạng, còn cường độ phụ thuộc cấu trúc và điều kiện. Một mẫu nhiều pha có thể cho các tín hiệu chồng, khiến việc nhận diện cần đối chiếu hoặc mô hình phù hợp.\n\nKích thước miền tinh thể và ứng suất có thể làm đỉnh rộng ra. Scherrer nghiên cứu riêng ảnh hưởng của kích thước và công bố quan hệ năm 1918. Không nên gán mọi độ rộng đỉnh chỉ cho kích thước, vì thiết bị và những yếu tố khác cũng đóng góp.\n\nDebye còn phát triển nhiều ý tưởng khác về cấu trúc phân tử và vật chất. Trong câu chuyện bột, điểm cốt lõi là chọn cách biểu diễn dữ liệu phù hợp với loại mẫu đang có, thay vì xem thiếu tinh thể đơn như hết khả năng hỏi về cấu trúc.\n\n## Ứng dụng hôm nay: nhận diện pha và kiểm tra vật liệu đang đổi\n\nNhiễu xạ bột được dùng rộng để nhận diện pha, theo dõi biến đổi và khảo sát cấu trúc chất rắn. Các cơ sở dữ liệu giúp so mẫu hình, nhưng việc gán pha vẫn cần xem thành phần hóa học và chất lượng phép đo.\n\nMột đỉnh trùng với chất chuẩn chưa đủ chứng minh toàn mẫu chỉ có một pha. Những thành phần ít hoặc vô định hình có thể khó nhận ra theo cùng cách, nên các phép phân tích bổ sung thường cần thiết.\n\nCâu chuyện Debye–Scherrer cho thấy nhiều phần tử nhỏ không nhất thiết chỉ tạo nhiễu. Nếu hiểu cách tín hiệu được cộng lại, sự phân bố hướng có thể được dùng như một nguồn thông tin. Bột trong lọ không còn chỉ là hình thức kém thuận lợi của chất rắn; nó là một mẫu có thể được hỏi bằng một thiết kế phép đo riêng, và câu trả lời đã trở thành công cụ quen thuộc của nghiên cứu vật liệu hiện nay.\n\n## Nguồn và đọc thêm\n\n- [Scherrer · Hồi tưởng trực tiếp về phương pháp bột](https://www.iucr.org/__data/assets/pdf_file/0016/781/scherrer.pdf)\n- [University of Illinois · Công trình Debye–Scherrer năm 1916](https://xray-exhibit.scs.illinois.edu/books/debye.php)"
+}

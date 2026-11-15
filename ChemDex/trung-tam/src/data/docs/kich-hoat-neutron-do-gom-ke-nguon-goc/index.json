@@ -1,0 +1,42 @@
+{
+  "id": "kich-hoat-neutron-do-gom-ke-nguon-goc",
+  "slug": "kich-hoat-neutron-do-gom-ke-nguon-goc",
+  "documentPath": "docs/kich-hoat-neutron-do-gom-ke-nguon-goc/index.json",
+  "title": "Mảnh gốm kể về đất sét bằng những tia gamma",
+  "summary": "Phân tích kích hoạt neutron đo dấu nguyên tố trong gốm khảo cổ. Các nhóm thành phần hỗ trợ truy nguồn, nhưng phải được đối chiếu với địa chất và công nghệ làm gốm.",
+  "category": "khainiem",
+  "author": "Ban biên tập ChemDex",
+  "image": "/assets/library/earth-minerals.svg",
+  "tags": [
+    "Kích hoạt neutron",
+    "Gốm",
+    "Khảo cổ",
+    "Nguyên tố vết"
+  ],
+  "aliases": [],
+  "documentKind": "story",
+  "readingMinutes": 4,
+  "editorialEvidence": {
+    "language": "vi",
+    "scope": "chemical-family",
+    "contextLabel": "Mảnh gốm kể về đất sét bằng những tia gamma",
+    "reviewBasis": "Biên soạn theo các nguồn dẫn cuối bài; phân biệt kết quả đã thực hiện và hướng phát triển.",
+    "story": {
+      "status": "documented",
+      "section": "## Bảy mảnh gốm, hai mươi nguyên tố được so sánh",
+      "sources": [
+        "https://www.jstage.jst.go.jp/article/jnrs/9/1/9_1_7/_article/-char/en",
+        "https://academic.oup.com/edited-volume/34668/chapter-abstract/295395730"
+      ]
+    },
+    "application": {
+      "status": "documented",
+      "section": "## Ứng dụng hôm nay: dấu hóa học hỗ trợ lịch sử vật thể",
+      "sources": [
+        "https://www.jstage.jst.go.jp/article/jnrs/9/1/9_1_7/_article/-char/en",
+        "https://academic.oup.com/edited-volume/34668/chapter-abstract/295395730"
+      ]
+    }
+  },
+  "content": "## Bảy mảnh gốm, hai mươi nguyên tố được so sánh\n\nMột nghiên cứu năm 2008 khảo sát bảy mẫu gốm từ các di tích Phật giáo ở bốn huyện của Andhra Pradesh, Ấn Độ, bằng phân tích kích hoạt neutron kết hợp phổ gamma độ phân giải cao. Nhóm xác định khoảng hai mươi nguyên tố và dùng tỷ lệ aluminium–scandium cùng phân tích nhóm để xem các mẫu có thể liên hệ nguồn gốc ra sao.\n\nCác vật liệu tham chiếu của IAEA được phân tích để kiểm tra độ chính xác. Chi tiết này quan trọng vì câu chuyện khảo cổ phụ thuộc vào những khác biệt thành phần có thể nhỏ. Nếu sai lệch giữa các lần đo bị nhầm thành khác biệt nguyên liệu, một tuyến trao đổi cổ có thể được dựng lên từ lỗi phòng thí nghiệm.\n\nMảnh gốm mang thông tin không chỉ trên hoa văn mà còn trong phần đất sét và khoáng đã đi qua lò nung.\n\n![Minh họa nguyên liệu khoáng; không phải ảnh mảnh gốm trong nghiên cứu](/assets/library/earth-minerals.svg)\n\n## Biến một phần hạt nhân thành nguồn tín hiệu nhận diện\n\nKhi mẫu được chiếu neutron trong điều kiện phân tích chuyên dụng, một số hạt nhân tạo đồng vị phóng xạ. Các đồng vị ấy phân rã và phát gamma với năng lượng đặc trưng. Đo năng lượng, cường độ và thời gian giúp xác định những nguyên tố phù hợp trong mẫu.\n\nPhương pháp không cần mọi nguyên tố có cùng độ nhạy. Chu kỳ bán rã, xác suất phản ứng và tín hiệu nền ảnh hưởng thành phần nào có thể đo tốt. Các giai đoạn chờ và đo được thiết kế để phân biệt những nhóm tín hiệu, chứ không chỉ đưa mẫu vào rồi đọc ngay toàn bộ bảng tuần hoàn.\n\nĐây là công việc của cơ sở có nguồn neutron và kiểm soát chuyên môn. Lợi ích phân tích nằm ở khả năng đo nhiều nguyên tố vết với mẫu nhỏ trong một số loại vật liệu, nhưng lựa chọn phương pháp vẫn phải cân nhắc việc lấy mẫu khỏi hiện vật và yêu cầu bảo tồn.\n\n## Ứng dụng hôm nay: dấu hóa học hỗ trợ lịch sử vật thể\n\nTổng kết chuyên môn về INAA trong gốm khảo cổ xem đây là một công cụ quan trọng cho nghiên cứu nguồn nguyên liệu, tổ chức sản xuất và công nghệ. Những nhóm thành phần có thể gợi rằng các vật dùng nguồn đất tương tự hoặc khác nhau, nhưng không tự chỉ tên người thợ hay xác định một con đường thương mại duy nhất.\n\nNgười làm gốm có thể trộn đất, thêm chất độn hoặc xử lý nguyên liệu. Nguồn địa chất cũng có biến thiên tự nhiên. Vì vậy, kết luận cần mẫu so sánh và kiến thức khảo cổ, không chỉ một thuật toán chia cụm đẹp.\n\nCâu chuyện những tia gamma làm rõ cách một phép đo hạt nhân phục vụ câu hỏi nhân văn. Nó không thay hoa văn, địa tầng hay tư liệu lịch sử; nó bổ sung dấu vật chất khó nhìn thấy. Khi các lớp bằng chứng gặp nhau, mảnh gốm có thể kể thêm về nơi nguyên liệu được lấy và cách sản phẩm đã di chuyển, thay vì chỉ được xếp theo vẻ ngoài giống nhau.\n\n## Nguồn và đọc thêm\n\n- [Nghiên cứu gốc · INAA của gốm tại Andhra Pradesh, 2008](https://www.jstage.jst.go.jp/article/jnrs/9/1/9_1_7/_article/-char/en)\n- [Tổng kết chuyên môn · INAA trong nghiên cứu gốm khảo cổ](https://academic.oup.com/edited-volume/34668/chapter-abstract/295395730)"
+}

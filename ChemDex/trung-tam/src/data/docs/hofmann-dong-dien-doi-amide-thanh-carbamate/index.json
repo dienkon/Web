@@ -1,0 +1,44 @@
+{
+  "id": "hofmann-dong-dien-doi-amide-thanh-carbamate",
+  "slug": "hofmann-dong-dien-doi-amide-thanh-carbamate",
+  "documentPath": "docs/hofmann-dong-dien-doi-amide-thanh-carbamate/index.json",
+  "title": "Một phản ứng cổ được thiết kế lại trong cell điện hóa dòng",
+  "summary": "Công trình năm 2024 đưa Hofmann rearrangement vào cell thương mại đơn giản ở quy mô nhiều gram. Những nghiên cứu tiếp theo cho thấy bảo vệ đúng nhóm chức có thể mở thêm cơ chất.",
+  "category": "phanung",
+  "author": "Ban biên tập ChemDex",
+  "image": "/assets/library/apparatus-voltaic-pile.svg",
+  "tags": [
+    "Hofmann",
+    "Điện hóa",
+    "Tái sắp xếp",
+    "Carbamate"
+  ],
+  "aliases": [],
+  "documentKind": "story",
+  "readingMinutes": 4,
+  "editorialEvidence": {
+    "language": "vi",
+    "scope": "chemical-family",
+    "contextLabel": "Một phản ứng cổ được thiết kế lại trong cell điện hóa dòng",
+    "reviewBasis": "Biên soạn theo các nguồn dẫn cuối bài; phân biệt kết quả đã thực hiện và hướng phát triển.",
+    "story": {
+      "status": "documented",
+      "section": "## Thiết bị thương mại được dùng cho một phép biến đổi khó",
+      "sources": [
+        "https://doi.org/10.1016/j.mcat.2024.113823",
+        "https://baxendalegroup.awh.durham.ac.uk/papers/TetLett.2009.50.3287.pdf",
+        "https://publikationen.bibliothek.kit.edu/1000199011/196107469"
+      ]
+    },
+    "application": {
+      "status": "documented",
+      "section": "## Ứng dụng hôm nay: mở cơ chất bằng cách phối hợp phản ứng và bảo vệ",
+      "sources": [
+        "https://doi.org/10.1016/j.mcat.2024.113823",
+        "https://baxendalegroup.awh.durham.ac.uk/papers/TetLett.2009.50.3287.pdf",
+        "https://publikationen.bibliothek.kit.edu/1000199011/196107469"
+      ]
+    }
+  },
+  "content": "## Thiết bị thương mại được dùng cho một phép biến đổi khó\n\nNăm 2024, Darryl Nater, Pip Hendriks và Siegfried Waldvogel công bố phiên bản điện hóa của Hofmann rearrangement trong hệ dòng đơn giản. Nhóm khảo sát cả amide thơm lẫn aliphatic và chứng minh mở rộng tới quy mô nhiều gram.\n\nCông trình không bắt đầu từ con số không. Năm 2009, nhóm Palmieri và Ley đã trình bày vi thiết bị dòng cho chuyển amide thơm thành carbamate. Những nghiên cứu mới tiếp tục thay cách cung cấp tác nhân oxi hóa và tổ chức thiết bị.\n\nSự nối tiếp ấy cho thấy một phản ứng có lịch sử lâu vẫn còn câu hỏi quy trình: làm sao tạo tác nhân cần thiết tại chỗ, kiểm soát tiếp xúc và giữ sản phẩm trong môi trường phù hợp.\n\n![Minh họa nguồn điện hóa, không phải sơ đồ vận hành cell Hofmann](/assets/library/apparatus-voltaic-pile.svg)\n\n## Amide chuyển thành isocyanate rồi được bắt giữ\n\nHofmann rearrangement chuyển primary amide qua một trung gian isocyanate trong những điều kiện oxi hóa và base phù hợp. Nhóm hữu cơ chuyển từ carbonyl sang nitrogen, thay đổi cách carbon và nitrogen được nối với nhau.\n\nNếu tiếp tục thủy phân để tạo amine, carbonyl ban đầu có thể rời dưới dạng carbon dioxide. Nếu bắt giữ isocyanate bằng alcohol, sản phẩm carbamate giữ phần carbonyl trong cấu trúc đó. Vì vậy, cần phân biệt sản phẩm cuối của từng tuyến.\n\nTrong hệ điện hóa, điện cực giúp tạo những loài oxi hóa cần cho chu trình từ thành phần tiền chất phù hợp. Điều này không có nghĩa điện trực tiếp kéo nhóm hữu cơ đi mà không qua những bước hóa học trung gian.\n\nCác nhóm chức nhạy với oxi hóa hoặc base có thể cản phạm vi. Nghiên cứu năm 2026 của nhóm Waldvogel cho thấy che một beta-ketoamide dưới dạng acetal mở khả năng tạo những khối aminoketone được bảo vệ theo cách có thể tháo chọn lọc.\n\nBước bảo vệ không chỉ làm cấu trúc dài hơn; nó thay những phản ứng cạnh tranh mà cơ chất có thể tham gia trong môi trường Hofmann.\n\n## Ứng dụng hôm nay: mở cơ chất bằng cách phối hợp phản ứng và bảo vệ\n\nAmines và carbamates là những khối cấu trúc phổ biến trong tổng hợp hóa chất tinh. Hofmann cung cấp đường đi từ amide có thể chuẩn bị được, nhưng tính phù hợp phụ thuộc những nhóm chức khác của phân tử.\n\nCác nghiên cứu dòng không tự chứng minh mọi tuyến sẽ ít chất thải hoặc rẻ hơn. Điện năng, chất điện ly, điện cực và các bước làm sạch vẫn cần được so sánh. Lợi ích được xác định bằng dữ liệu của quy trình, không chỉ bằng việc nó có dùng điện.\n\nCông trình năm 2026 được công bố trước thời điểm bài này biên soạn, với phạm vi cơ chất và quy mô được nêu rõ. Nó mở một hướng tiếp cận các khối cấu trúc, chưa phải bằng chứng chúng đã được dùng trong mọi sản phẩm công nghiệp.\n\nCâu chuyện Hofmann cho thấy phát triển phương pháp có thể đi qua hai cửa cùng lúc: đổi cách tạo tác nhân bằng điện hóa và đổi cách bảo vệ cơ chất để nó chịu được môi trường. Khi hai phần khớp nhau, một phản ứng cũ có thể tiếp cận vùng cấu trúc mới mà trước đó dễ bị hỏng trước khi tái sắp xếp hoàn tất.\n\n## Nguồn và đọc thêm\n\n- [Nater, Hendriks và Waldvogel · Hofmann điện hóa dòng, 2024](https://doi.org/10.1016/j.mcat.2024.113823)\n- [Palmieri và cộng sự · Hofmann trong vi thiết bị dòng, 2009](https://baxendalegroup.awh.durham.ac.uk/papers/TetLett.2009.50.3287.pdf)\n- [Andolina và cộng sự · Hofmann điện hóa với aminoketone được bảo vệ, 2026](https://publikationen.bibliothek.kit.edu/1000199011/196107469)"
+}

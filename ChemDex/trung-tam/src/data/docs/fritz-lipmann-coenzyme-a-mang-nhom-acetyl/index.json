@@ -1,0 +1,41 @@
+{
+  "id": "fritz-lipmann-coenzyme-a-mang-nhom-acetyl",
+  "slug": "fritz-lipmann-coenzyme-a-mang-nhom-acetyl",
+  "documentPath": "docs/fritz-lipmann-coenzyme-a-mang-nhom-acetyl/index.json",
+  "title": "Fritz Lipmann: một coenzyme mang nhóm acetyl qua nhiều ngả",
+  "summary": "Coenzyme A giúp nối những phản ứng sử dụng nhóm acetyl trong tế bào. Lipmann tìm ra vai trò của một thành phần nhỏ qua việc tái tạo hoạt tính enzyme.",
+  "category": "tieusu",
+  "author": "Ban biên tập ChemDex",
+  "image": "/assets/library/history-evidence.svg",
+  "tags": [
+    "Fritz Lipmann",
+    "Coenzyme A",
+    "Acetyl"
+  ],
+  "aliases": [],
+  "documentKind": "story",
+  "readingMinutes": 3,
+  "editorialEvidence": {
+    "language": "vi",
+    "scope": "chemical-family",
+    "contextLabel": "Fritz Lipmann: một coenzyme mang nhóm acetyl qua nhiều ngả",
+    "reviewBasis": "Biên soạn theo các nguồn dẫn cuối bài; phân biệt kết quả đã thực hiện và hướng phát triển.",
+    "story": {
+      "status": "documented",
+      "section": "## Một phản ứng thiếu thành phần dù đã có enzyme",
+      "sources": [
+        "https://www.nobelprize.org/prizes/medicine/1953/lipmann/lecture/",
+        "https://www.nobelprize.org/prizes/medicine/1953/lipmann/biographical/"
+      ]
+    },
+    "application": {
+      "status": "documented",
+      "section": "## Ứng dụng hôm nay: cùng một chất trung gian nối nhiều quá trình",
+      "sources": [
+        "https://www.nobelprize.org/prizes/medicine/1953/lipmann/lecture/",
+        "https://www.nobelprize.org/prizes/medicine/1953/lipmann/biographical/"
+      ]
+    }
+  },
+  "content": "## Một phản ứng thiếu thành phần dù đã có enzyme\n\nFritz Lipmann nghiên cứu các quá trình chuyển nhóm acetyl và nhận ra rằng hoạt tính cần một yếu tố hòa tan không phải chính protein enzyme. Những phép phân tách và bổ sung lại dẫn tới coenzyme A.\n\nTên của chất gắn với acetyl hóa, nhưng phạm vi vai trò của nó về sau rộng hơn một phản ứng riêng. Một cấu phần nhỏ có thể tham gia nhiều hệ enzyme, mang các nhóm acyl giữa những bước khác nhau.\n\nViệc tìm coenzyme không chỉ là thu một chất có màu hoặc tinh thể nổi bật. Nhóm cần theo dõi phần nào của dịch chiết phục hồi phản ứng khi được thêm lại. Phép đo chức năng dẫn đường cho phân tách, rồi phân tích hóa học giúp xác định vật liệu đã được tìm thấy.\n\n![Minh họa chủ đề nghiên cứu; không phải chân dung hoặc dữ liệu thực nghiệm gốc](/assets/library/history-evidence.svg)\n\n## Một liên kết tạo khả năng chuyển nhóm\n\nCoenzyme A có nhóm thiol có thể tạo thioester với nhóm acyl. Những dạng như acetyl-CoA trở thành cơ chất cho các phản ứng chuyển hoặc biến đổi phần carbon được mang.\n\nCách nói liên kết giàu năng lượng cần được hiểu theo thay đổi năng lượng tự do của toàn phản ứng, không phải một liên kết tự chứa gói năng lượng có thể lấy ra bằng cách bẻ đơn độc. Sản phẩm, dung môi và các tương tác trước sau cùng quyết định mức thuận lợi.\n\nLipmann phát triển những ý tưởng về vai trò năng lượng trong sinh hóa, đồng thời công việc về coenzyme A cho một ví dụ vật chất cụ thể. Một nhóm acetyl được nối vào dạng thích hợp có thể đi vào nhiều ngả, nhưng enzyme và trạng thái của hệ quyết định nó được dùng ở đâu. Chất mang tạo khả năng; mạng chuyển hóa tổ chức lựa chọn.\n\n## Ứng dụng hôm nay: cùng một chất trung gian nối nhiều quá trình\n\nAcetyl-CoA hiện được xem như nút giao giữa chuyển hóa carbon, tổng hợp và những quá trình điều hòa. Lượng của nó và nơi nó được tạo có thể ảnh hưởng nhiều hoạt động, nên đo toàn tế bào có thể chưa phân biệt những kho khác nhau.\n\nNghiên cứu enzyme sử dụng coenzyme A cần xét đúng dạng acyl và những thành phần đi kèm. Một phản ứng có cùng chất mang không có nghĩa có cùng cơ chế hoặc cùng vai trò sinh lý.\n\nCâu chuyện Lipmann làm nổi bật cách một chất nhỏ nối những phần tưởng rời của sinh hóa. Người nghiên cứu bắt đầu từ phản ứng không chạy đủ, lần theo yếu tố phục hồi nó và tìm ra một vật liệu được dùng ở nhiều nơi. Coenzyme A không chỉ thêm một tên vào sơ đồ chuyển hóa; nó giúp giải thích cách các nhóm carbon được chuẩn bị, vận chuyển và đưa vào những công việc khác nhau của tế bào.\n\n## Nguồn và đọc thêm\n\n- [Fritz Lipmann · Bài giảng Nobel](https://www.nobelprize.org/prizes/medicine/1953/lipmann/lecture/)\n- [Fritz Lipmann · Tự thuật nghiên cứu coenzyme A](https://www.nobelprize.org/prizes/medicine/1953/lipmann/biographical/)"
+}

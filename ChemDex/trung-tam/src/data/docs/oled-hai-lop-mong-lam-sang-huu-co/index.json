@@ -1,0 +1,42 @@
+{
+  "id": "oled-hai-lop-mong-lam-sang-huu-co",
+  "slug": "oled-hai-lop-mong-lam-sang-huu-co",
+  "documentPath": "docs/oled-hai-lop-mong-lam-sang-huu-co/index.json",
+  "title": "Hai lớp hữu cơ mỏng mở đường cho một chiếc đèn điện áp thấp",
+  "summary": "Thiết bị Tang–VanSlyke năm 1987 cho thấy tổ chức các lớp có thể thay đổi mạnh phát quang điện. Phân tử phát sáng cần được ghép với đường đưa điện tích tới nó.",
+  "category": "khainiem",
+  "author": "Ban biên tập ChemDex",
+  "image": "/assets/library/organic-aromatic.svg",
+  "tags": [
+    "OLED",
+    "Phát quang điện",
+    "Màng mỏng",
+    "Điện tích"
+  ],
+  "aliases": [],
+  "documentKind": "story",
+  "readingMinutes": 4,
+  "editorialEvidence": {
+    "language": "vi",
+    "scope": "chemical-family",
+    "contextLabel": "Hai lớp hữu cơ mỏng mở đường cho một chiếc đèn điện áp thấp",
+    "reviewBasis": "Biên soạn theo các nguồn dẫn cuối bài; phân biệt kết quả đã thực hiện và hướng phát triển.",
+    "story": {
+      "status": "documented",
+      "section": "## Ánh sáng hữu cơ được đưa tới một thiết bị dễ dùng hơn",
+      "sources": [
+        "https://doi.org/10.1063/1.98799",
+        "https://www.invent.org/inductees/steven-van-slyke"
+      ]
+    },
+    "application": {
+      "status": "documented",
+      "section": "## Ứng dụng hôm nay: từ điểm sáng tới tấm hiển thị",
+      "sources": [
+        "https://doi.org/10.1063/1.98799",
+        "https://www.invent.org/inductees/steven-van-slyke"
+      ]
+    }
+  },
+  "content": "## Ánh sáng hữu cơ được đưa tới một thiết bị dễ dùng hơn\n\nNăm 1987, Ching Tang và Steven VanSlyke công bố diode phát quang hữu cơ dùng cấu trúc hai lớp màng mỏng. Thiết bị tạo độ sáng đáng kể ở điện áp thấp hơn nhiều cách thử trước đó. Thành tựu không chỉ nằm ở việc một phân tử có thể phát sáng, mà ở cách tổ chức vật liệu để điện tích được đưa đến và tái hợp hiệu quả.\n\nMột lớp hỗ trợ vận chuyển lỗ trống, lớp còn lại kết hợp vai trò vận chuyển electron và phát sáng trong thiết kế được báo cáo. Các điện cực và tiếp xúc quyết định khả năng đưa hạt mang điện vào. Cấu trúc phân lớp tạo một vùng hoạt động được kiểm soát tốt hơn một khối vật liệu đơn lẻ.\n\nTừ đó, OLED phát triển thành nhiều họ thiết bị, nhưng bài học của công trình vẫn rõ: tính chất phân tử và kiến trúc linh kiện phải cùng giải một nhiệm vụ.\n\n![Minh họa phân tử hữu cơ liên hợp; không phải công thức hoặc cấu trúc lớp của OLED cụ thể](/assets/library/organic-aromatic.svg)\n\n## Điện tích gặp nhau rồi năng lượng tìm đường ra\n\nKhi electron và lỗ trống được đưa vào vật liệu hữu cơ, chúng có thể hình thành trạng thái kích thích. Một phần năng lượng trở thành photon; phần khác mất qua các con đường không phát sáng. Hiệu suất phụ thuộc cân bằng đưa điện tích, cách trạng thái kích thích được tạo và khả năng ánh sáng thoát khỏi thiết bị.\n\nLiên hợp trong phân tử giúp thiết lập các mức năng lượng, nhưng chỉ biết màu dung dịch chưa đủ dự đoán OLED. Ở màng rắn, tương tác giữa phân tử, kết tụ và khuyết tật có thể thay đổi phát xạ. Điện cực và môi trường cũng có thể gây suy giảm.\n\nNhững thiết kế về sau tách thêm các chức năng vào nhiều lớp hoặc dùng chất phát sáng pha trong nền. Đây là sự mở rộng nguyên lý kiểm soát đường đi của điện tích và năng lượng, không phải mọi OLED đều giữ đúng hai lớp như mẫu năm 1987.\n\n## Ứng dụng hôm nay: từ điểm sáng tới tấm hiển thị\n\nOLED được dùng trong màn hình và những ứng dụng chiếu sáng phù hợp. Để thành sản phẩm, thiết bị cần kiểm soát màu, độ đồng đều, tuổi thọ và đóng gói chống môi trường. Một chỉ số hiệu suất ban đầu tốt chưa thay thế phép thử lão hóa ở điều kiện vận hành thực.\n\nLịch sử được các cơ quan và công ty ghi nhận cho thấy công nghệ đi qua nhiều cải tiến về vật liệu phát sáng và chế tạo. Những khái niệm như độ linh động, năng lượng kích thích và giao diện không chỉ nằm trong bài học bán dẫn; chúng quyết định pixel có sáng đúng màu và giữ được chất lượng hay không.\n\nCâu chuyện hai lớp mỏng giúp hiểu vì sao một phát minh thiết bị có thể lớn hơn tổng các vật liệu trong nó. Mỗi lớp không cần làm tốt mọi việc, nhưng phải chuyển nhiệm vụ cho lớp kế tiếp đúng cách. Hóa học hữu cơ cung cấp những cấu trúc có thể điều chỉnh, còn thiết kế linh kiện biến khả năng phát sáng ấy thành một dòng photon được điều khiển bằng điện.\n\n## Nguồn và đọc thêm\n\n- [Tang và VanSlyke · Organic electroluminescent diodes, 1987](https://doi.org/10.1063/1.98799)\n- [National Inventors Hall of Fame · Steven Van Slyke và OLED](https://www.invent.org/inductees/steven-van-slyke)"
+}

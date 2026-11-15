@@ -1,0 +1,44 @@
+{
+  "id": "lipase-doi-vi-tri-acid-beo-doi-do-deo",
+  "slug": "lipase-doi-vi-tri-acid-beo-doi-do-deo",
+  "documentPath": "docs/lipase-doi-vi-tri-acid-beo-doi-do-deo/index.json",
+  "title": "Đổi chỗ acid béo để đổi độ dẻo của chất béo",
+  "summary": "Nghiên cứu với dầu cọ, mỡ hạt sal và xoài cho thấy lipase có thể thay đổi khoảng nóng chảy bằng interesterification. Tổng loại acid béo không kể hết cấu trúc của triglyceride.",
+  "category": "phanung",
+  "author": "Ban biên tập ChemDex",
+  "image": "/assets/library/organic-ester.svg",
+  "tags": [
+    "Lipase",
+    "Interesterification",
+    "Lipid",
+    "Chất béo thực phẩm"
+  ],
+  "aliases": [],
+  "documentKind": "story",
+  "readingMinutes": 4,
+  "editorialEvidence": {
+    "language": "vi",
+    "scope": "chemical-family",
+    "contextLabel": "Đổi chỗ acid béo để đổi độ dẻo của chất béo",
+    "reviewBasis": "Biên soạn theo các nguồn dẫn cuối bài; phân biệt kết quả đã thực hiện và hướng phát triển.",
+    "story": {
+      "status": "documented",
+      "section": "## Hỗn hợp ban đầu không có khoảng mềm dẻo mong muốn",
+      "sources": [
+        "https://pmc.ncbi.nlm.nih.gov/articles/PMC3907658/",
+        "https://pmc.ncbi.nlm.nih.gov/articles/PMC4519448/",
+        "https://pmc.ncbi.nlm.nih.gov/articles/PMC3929378/"
+      ]
+    },
+    "application": {
+      "status": "documented",
+      "section": "## Ứng dụng hôm nay: tạo tính năng mà không chỉ dựa vào hydrogen hóa",
+      "sources": [
+        "https://pmc.ncbi.nlm.nih.gov/articles/PMC3907658/",
+        "https://pmc.ncbi.nlm.nih.gov/articles/PMC4519448/",
+        "https://pmc.ncbi.nlm.nih.gov/articles/PMC3929378/"
+      ]
+    }
+  },
+  "content": "## Hỗn hợp ban đầu không có khoảng mềm dẻo mong muốn\n\nMột nghiên cứu tại Central Food Technological Research Institute ở Ấn Độ khảo sát phối hợp palm stearin với chất béo từ hạt sal hoặc xoài. Những hỗn hợp ban đầu có khoảng nóng chảy hẹp, chưa phù hợp với yêu cầu của một số chất béo dùng trong bánh.\n\nSau interesterification bằng lipase, phân bố triglyceride thay đổi và khoảng thể hiện tính dẻo được mở rộng ở những công thức phù hợp. Bài báo được xuất bản trực tuyến năm 2011 và nằm trong số tạp chí tháng 2 năm 2014; hai mốc này không nên bị dùng như hai nghiên cứu khác nhau.\n\nKết quả cho thấy trộn các dầu với nhau và cho chúng phản ứng để đổi cấu trúc không phải cùng một công việc, dù tổng các acid béo đầu vào có thể gần như không đổi.\n\n![Minh họa liên kết ester, không phải phân bố triglyceride của một sản phẩm thực phẩm](/assets/library/organic-ester.svg)\n\n## Những gốc acid béo được phân bố lại trên glycerol\n\nTriglyceride gồm ba gốc acid béo gắn với glycerol. Interesterification thay cách các gốc ấy phân bố giữa những phân tử hoặc vị trí, tạo tập hợp triglyceride mới.\n\nLipase thường được biết vì thủy phân ester trong môi trường nước. Trong môi trường và điều kiện phù hợp, enzyme cũng có thể hỗ trợ các phản ứng ester hóa hoặc trao đổi ester. Lượng nước ảnh hưởng hướng và mức phản ứng, nên không thể mang nguyên mô tả của một phép thủy phân sang mọi hệ dầu.\n\nMột số lipase có tính ưu tiên vị trí, chẳng hạn tác động mạnh hơn ở các vị trí ngoài của khung glycerol. Những enzyme khác ít chọn lọc vị trí hơn. Lựa chọn này ảnh hưởng cấu trúc lipid có thể tạo.\n\nĐộ nóng chảy của hỗn hợp không chỉ phụ thuộc phần trăm acid béo bão hòa tổng cộng. Cách chúng nằm trên từng triglyceride ảnh hưởng khả năng kết tinh và tổ chức mạng tinh thể.\n\nVì vậy, phân tích thành phần acid béo và phân tích phân bố triglyceride trả lời hai câu hỏi khác nhau, cả hai đều hữu ích khi phát triển vật liệu thực phẩm.\n\n## Ứng dụng hôm nay: tạo tính năng mà không chỉ dựa vào hydrogen hóa\n\nInteresterification bằng enzyme được nghiên cứu và sử dụng để điều chỉnh chất béo cho những nhiệm vụ cụ thể. Nó là một lựa chọn khác với hydrogen hóa nhằm thay đổi số liên kết đôi, nhưng không vì thế tự tạo ra mọi lợi ích dinh dưỡng được mong muốn.\n\nMột nghiên cứu khác với dầu cám gạo và chất béo cottonseed đã hydrogen hóa so sánh hai lipase và theo dõi đặc tính phần rắn. Các kết quả nhấn mạnh rằng nguồn nguyên liệu và loại enzyme quyết định sản phẩm, không thể áp một công thức cho mọi dầu.\n\nTrong phát triển thực phẩm, chất béo phải làm việc cùng đường, nước, protein và các thành phần khác. Khoảng nóng chảy phù hợp trong mẫu riêng còn cần được kiểm tra trong sản phẩm hoàn chỉnh.\n\nCâu chuyện này giúp nhìn chất béo như một họ cấu trúc có thể tổ chức lại, không chỉ một con số trên bảng dinh dưỡng. Một phản ứng trao đổi vị trí có thể làm vật liệu mềm dẻo trong khoảng khác mà không cần thay toàn bộ danh sách acid béo. Tính năng xuất hiện từ cách các phần được sắp xếp, cũng như từ bản thân các phần ấy.\n\n## Nguồn và đọc thêm\n\n- [Shetty và cộng sự · Interesterification chất béo sal, xoài và cọ](https://pmc.ncbi.nlm.nih.gov/articles/PMC3907658/)\n- [Nghiên cứu lipase với dầu cám gạo và chất béo cottonseed](https://pmc.ncbi.nlm.nih.gov/articles/PMC4519448/)\n- [Cơ sở các phản ứng lipase trong môi trường hữu cơ](https://pmc.ncbi.nlm.nih.gov/articles/PMC3929378/)"
+}

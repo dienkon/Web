@@ -1,0 +1,41 @@
+{
+  "id": "theodore-richards-can-nguyen-tu-qua-phan-ung",
+  "slug": "theodore-richards-can-nguyen-tu-qua-phan-ung",
+  "documentPath": "docs/theodore-richards-can-nguyen-tu-qua-phan-ung/index.json",
+  "title": "Theodore Richards: cân nguyên tử qua những lượng chất phản ứng",
+  "summary": "Đo khối lượng nguyên tử đòi hỏi hóa chất đủ sạch và cân bằng vật chất chính xác. Richards còn nhận ra nguồn gốc mẫu có thể trở thành một phần của câu trả lời.",
+  "category": "tieusu",
+  "author": "Ban biên tập ChemDex",
+  "image": "/assets/library/history-evidence.svg",
+  "tags": [
+    "Theodore Richards",
+    "Khối lượng nguyên tử",
+    "Đo lường"
+  ],
+  "aliases": [],
+  "documentKind": "story",
+  "readingMinutes": 4,
+  "editorialEvidence": {
+    "language": "vi",
+    "scope": "chemical-family",
+    "contextLabel": "Theodore Richards: cân nguyên tử qua những lượng chất phản ứng",
+    "reviewBasis": "Biên soạn theo các nguồn dẫn cuối bài; phân biệt kết quả đã thực hiện và hướng phát triển.",
+    "story": {
+      "status": "documented",
+      "section": "## Một chữ số nhỏ cần nhiều bước kiểm tra",
+      "sources": [
+        "https://www.nobelprize.org/prizes/chemistry/1914/richards/lecture/",
+        "https://www.nobelprize.org/prizes/chemistry/1914/richards/biographical/"
+      ]
+    },
+    "application": {
+      "status": "documented",
+      "section": "## Ứng dụng hôm nay: một con số chuẩn luôn có phạm vi",
+      "sources": [
+        "https://www.nobelprize.org/prizes/chemistry/1914/richards/lecture/",
+        "https://www.nobelprize.org/prizes/chemistry/1914/richards/biographical/"
+      ]
+    }
+  },
+  "content": "## Một chữ số nhỏ cần nhiều bước kiểm tra\n\nTheodore Richards dành nhiều năm xác định khối lượng nguyên tử bằng cách đo những tỷ lệ khối lượng trong các phản ứng có thành phần rõ. Công việc không cân một nguyên tử đơn lẻ, mà suy tỷ lệ từ những lượng vật chất đủ lớn để đo.\n\nChất ban đầu và sản phẩm phải được tinh sạch, làm khô và giữ khỏi những thành phần ngoài ý muốn. Một lượng nước hoặc tạp rất nhỏ có thể làm lệch chữ số mà nghiên cứu đang cố xác định.\n\nTrong bài giảng Nobel, Richards mô tả các phép đo như một chuỗi công việc tinh vi. Cân tốt chỉ là một phần; giá trị của kết quả phụ thuộc việc vật đặt lên cân thực sự là chất gì. Độ chính xác của thiết bị không thể sửa một giả định sai về thành phần mẫu.\n\n![Minh họa chủ đề nghiên cứu; không phải chân dung hoặc dữ liệu thực nghiệm gốc](/assets/library/history-evidence.svg)\n\n## Các đường xác định độc lập giúp tìm sai số chung\n\nMột giá trị đáng tin được củng cố khi những cách chuẩn bị và những quan hệ phản ứng khác nhau cùng dẫn tới kết quả phù hợp. Nếu tất cả phép đo dùng cùng một tạp chất không nhận ra, việc lặp nhiều lần chỉ tạo độ lặp lại tốt cho một giá trị lệch.\n\nRichards nghiên cứu cả những tính chất như độ nén của nguyên tố để mở rộng hiểu biết về vật chất. Những đại lượng cơ bản được đặt cạnh nhau, thay vì xem khối lượng nguyên tử là một danh sách đã hoàn tất.\n\nSự xuất hiện của khái niệm đồng vị làm câu chuyện thay đổi. Mẫu của cùng nguyên tố từ nguồn khác có thể có thành phần đồng vị khác, nên khối lượng trung bình không nhất thiết tuyệt đối giống nhau. Richards coi khả năng biến thiên ấy như thông tin về nguồn gốc và lịch sử mẫu, mở thêm nhiệm vụ cho phép đo chính xác.\n\n## Ứng dụng hôm nay: một con số chuẩn luôn có phạm vi\n\nĐo lường hóa học hiện phân biệt rõ giá trị của đồng vị, thành phần đồng vị của mẫu và khối lượng nguyên tử chuẩn được dùng trong tính toán. Những giá trị có thể được công bố cùng độ không đảm bảo hoặc khoảng phù hợp khi vật liệu tự nhiên biến thiên.\n\nBài học của Richards áp dụng cho nhiều phép phân tích: trước khi dùng thêm chữ số, cần biết sai số lớn nhất nằm ở cân, tinh sạch, lấy mẫu hay mô hình tính. Độ tinh vi nên được đầu tư vào đúng mắt xích giới hạn.\n\nCâu chuyện cân nguyên tử qua phản ứng cho thấy những hằng số quen thuộc trong sách là kết quả của công việc vật chất cụ thể. Chúng được xây bằng mẫu, dụng cụ và các đường kiểm tra độc lập. Khi nguồn mẫu trở thành yếu tố cần xét, phép đo không mất giá trị; nó có thêm khả năng kể những điều về vật liệu mà một con số làm tròn đã che đi.\n\n## Nguồn và đọc thêm\n\n- [Theodore Richards · Bài giảng Nobel](https://www.nobelprize.org/prizes/chemistry/1914/richards/lecture/)\n- [Theodore Richards · Hồ sơ nghiên cứu Nobel](https://www.nobelprize.org/prizes/chemistry/1914/richards/biographical/)"
+}

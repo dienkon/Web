@@ -1,0 +1,41 @@
+{
+  "id": "hans-krebs-chat-dau-vong-tro-lai",
+  "slug": "hans-krebs-chat-dau-vong-tro-lai",
+  "documentPath": "docs/hans-krebs-chat-dau-vong-tro-lai/index.json",
+  "title": "Hans Krebs: một chất đi qua chuỗi phản ứng rồi trở lại điểm đầu",
+  "summary": "Chu trình acid citric giải thích cách một lượng nhỏ chất trung gian có thể hỗ trợ chuyển hóa nhiều nguyên liệu. Krebs nhìn những phản ứng rời như một vòng có thể tái tạo.",
+  "category": "tieusu",
+  "author": "Ban biên tập ChemDex",
+  "image": "/assets/library/history-evidence.svg",
+  "tags": [
+    "Hans Krebs",
+    "Chu trình acid citric",
+    "Chuyển hóa"
+  ],
+  "aliases": [],
+  "documentKind": "story",
+  "readingMinutes": 4,
+  "editorialEvidence": {
+    "language": "vi",
+    "scope": "chemical-family",
+    "contextLabel": "Hans Krebs: một chất đi qua chuỗi phản ứng rồi trở lại điểm đầu",
+    "reviewBasis": "Biên soạn theo các nguồn dẫn cuối bài; phân biệt kết quả đã thực hiện và hướng phát triển.",
+    "story": {
+      "status": "documented",
+      "section": "## Một lượng nhỏ tạo tác động lớn hơn số lượng của nó",
+      "sources": [
+        "https://www.nobelprize.org/prizes/medicine/1953/krebs/biographical/",
+        "https://www.nobelprize.org/prizes/medicine/1953/krebs/lecture/"
+      ]
+    },
+    "application": {
+      "status": "documented",
+      "section": "## Ứng dụng hôm nay: hỏi dòng vật chất đi qua vòng nhanh đến đâu",
+      "sources": [
+        "https://www.nobelprize.org/prizes/medicine/1953/krebs/biographical/",
+        "https://www.nobelprize.org/prizes/medicine/1953/krebs/lecture/"
+      ]
+    }
+  },
+  "content": "## Một lượng nhỏ tạo tác động lớn hơn số lượng của nó\n\nNăm 1937, Hans Krebs và William Johnson công bố mô hình chu trình acid citric. Những thí nghiệm về hô hấp mô cho thấy một số acid hữu cơ có thể thúc đẩy chuyển hóa theo cách không phù hợp với hình dung mỗi chất chỉ bị tiêu thụ một lần theo một chuỗi thẳng.\n\nKrebs ghép những phản ứng đã biết với các kết quả mới thành một vòng, trong đó chất trung gian ban đầu được tái tạo. Cách tổ chức ấy giải thích vì sao một lượng nhỏ có thể tham gia xử lý nhiều lượt nguyên liệu.\n\nĐó là bước tiến về kiến trúc của mạng phản ứng. Biết từng enzyme hoặc từng phương trình riêng chưa đủ để nhìn thấy vòng tuần hoàn. Cần theo dõi vật chất và kiểm tra xem sản phẩm của bước này có thực sự cấp cho bước tiếp theo hay không.\n\n![Minh họa chủ đề nghiên cứu; không phải chân dung hoặc dữ liệu thực nghiệm gốc](/assets/library/history-evidence.svg)\n\n## Vòng carbon không tự là một vòng kín không cần đầu vào\n\nTrong mô hình hiện đại, nhóm acetyl đi vào chu trình, còn các bước oxi hóa chuyển electron tới những chất mang phù hợp và carbon được giải phóng dưới dạng CO₂. Những chất trung gian được tái tạo để tiếp tục chu kỳ.\n\nTuy nhiên, các chất trung gian còn có thể được rút ra cho sinh tổng hợp hoặc được bổ sung từ những đường khác. Tế bào là một mạng mở, nên chu trình không tồn tại như một vòng cô lập không trao đổi gì với bên ngoài.\n\nBài giảng Nobel của Krebs mô tả cả sự phát triển của ý tưởng chu trình và cách các thí nghiệm kiểm tra nó. Một mô hình có ích cần giải thích được mức tiêu thụ oxygen, những chất xuất hiện và ảnh hưởng khi thay đổi điều kiện. Hình tròn trên sách chỉ là cách trình bày cuối cùng của một chuỗi suy luận dựa vào số liệu.\n\n## Ứng dụng hôm nay: hỏi dòng vật chất đi qua vòng nhanh đến đâu\n\nChu trình acid citric là nền tảng của sinh hóa, nhưng hiểu một hệ cụ thể còn cần biết tốc độ dòng, trạng thái chất mang electron và những đường nối ra ngoài. Nồng độ một chất trung gian không tự cho biết toàn bộ tốc độ chu trình.\n\nCác phép đánh dấu đồng vị và mô hình chuyển hóa giúp theo dõi carbon qua nhiều ngả. Chúng tiếp nối tinh thần của Krebs: dùng sự phân bố vật chất để kiểm tra sơ đồ, thay vì xem sơ đồ là câu trả lời không cần đối chiếu.\n\nCâu chuyện của một chất trở lại điểm đầu làm rõ cách hệ sống dùng sự tái tạo để tổ chức công việc. Vòng không tạo thêm nguyên tử hoặc năng lượng; nó tạo một kiến trúc phản ứng có thể lặp, phối hợp những bước chuyển đổi theo trật tự. Khi các đường vào và ra được tính đủ, hình tròn quen thuộc trở thành mô tả của một mạng đang làm việc.\n\n## Nguồn và đọc thêm\n\n- [Hans Krebs · Tự thuật và phát triển chu trình chuyển hóa](https://www.nobelprize.org/prizes/medicine/1953/krebs/biographical/)\n- [Hans Krebs · Bài giảng Nobel](https://www.nobelprize.org/prizes/medicine/1953/krebs/lecture/)"
+}

@@ -16,6 +16,11 @@ import {editorialMaterialsWave4} from './editorial-materials-wave4.mjs';
 import {editorialConceptsWave4} from './editorial-concepts-wave4.mjs';
 import {editorialBiographiesWave4} from './editorial-biographies-wave4.mjs';
 import {editorialReactionsWave4} from './editorial-reactions-wave4.mjs';
+import {editorialMaterialsWave5} from './editorial-materials-wave5.mjs';
+import {editorialElementsWave5} from './editorial-elements-wave5.mjs';
+import {editorialReactionsWave5} from './editorial-reactions-wave5.mjs';
+import {editorialConceptsWave5} from './editorial-concepts-wave5.mjs';
+import {editorialBiographiesWave5} from './editorial-biographies-wave5.mjs';
 
 export const editorialManuscripts = [
   ...editorialArticles,
@@ -33,4 +38,9 @@ export const editorialManuscripts = [
   ...editorialConceptsWave4,
   ...editorialBiographiesWave4,
   ...editorialReactionsWave4,
+  ...editorialMaterialsWave5,
+  ...editorialElementsWave5,
+  ...editorialReactionsWave5,
+  ...editorialConceptsWave5,
+  ...editorialBiographiesWave5,
 ];

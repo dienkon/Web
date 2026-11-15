@@ -1,0 +1,41 @@
+{
+  "id": "otto-warburg-anh-sang-mo-khoa-ho-hap",
+  "slug": "otto-warburg-anh-sang-mo-khoa-ho-hap",
+  "documentPath": "docs/otto-warburg-anh-sang-mo-khoa-ho-hap/index.json",
+  "title": "Otto Warburg: ánh sáng giúp nhận diện một thành phần của hô hấp",
+  "summary": "Sự ức chế bởi carbon monoxide và khả năng phục hồi dưới ánh sáng cho Warburg manh mối về thành phần chứa sắt. Phép đo chức năng trở thành một loại phổ.",
+  "category": "tieusu",
+  "author": "Ban biên tập ChemDex",
+  "image": "/assets/library/history-evidence.svg",
+  "tags": [
+    "Otto Warburg",
+    "Hô hấp",
+    "Quang phổ tác dụng"
+  ],
+  "aliases": [],
+  "documentKind": "story",
+  "readingMinutes": 4,
+  "editorialEvidence": {
+    "language": "vi",
+    "scope": "chemical-family",
+    "contextLabel": "Otto Warburg: ánh sáng giúp nhận diện một thành phần của hô hấp",
+    "reviewBasis": "Biên soạn theo các nguồn dẫn cuối bài; phân biệt kết quả đã thực hiện và hướng phát triển.",
+    "story": {
+      "status": "documented",
+      "section": "## Một hệ ngừng rồi hoạt động trở lại dưới ánh sáng",
+      "sources": [
+        "https://www.nobelprize.org/uploads/2018/06/warburg-lecture.pdf",
+        "https://www.nature.com/articles/133714c0"
+      ]
+    },
+    "application": {
+      "status": "documented",
+      "section": "## Ứng dụng hôm nay: dùng tác động có chọn lọc để tìm thành phần làm việc",
+      "sources": [
+        "https://www.nobelprize.org/uploads/2018/06/warburg-lecture.pdf",
+        "https://www.nature.com/articles/133714c0"
+      ]
+    }
+  },
+  "content": "## Một hệ ngừng rồi hoạt động trở lại dưới ánh sáng\n\nTrong nghiên cứu hô hấp tế bào, Otto Warburg và Fritz Kubowitz quan sát năm 1926 rằng tác động ức chế của carbon monoxide trong hệ thí nghiệm có thể được thay đổi bằng ánh sáng. Bật và tắt chiếu sáng làm mức hô hấp đổi theo.\n\nNhững hợp chất sắt gắn CO đã được biết có thể tách CO khi nhận ánh sáng. So sánh này gợi rằng thành phần quan trọng của hệ hô hấp có một môi trường kim loại phù hợp.\n\nWarburg dùng những bước sóng khác nhau và đo mức phục hồi chức năng. Thay vì chỉ nhìn màu một chất đã tinh sạch, ông đọc ảnh hưởng của ánh sáng lên một quá trình sinh học. Phổ tác dụng ấy cung cấp một đường gián tiếp để nhận diện thành phần đang tham gia.\n\n![Minh họa chủ đề nghiên cứu; không phải chân dung hoặc dữ liệu thực nghiệm gốc](/assets/library/history-evidence.svg)\n\n## Một tín hiệu chức năng cần được nối với hóa học phối trí\n\nCO tương tác với những tâm kim loại trong các điều kiện cụ thể. Khi ánh sáng làm thay đổi phức, khả năng thực hiện công việc của tâm có thể trở lại. Mức tác động theo bước sóng giúp so với những loại hợp chất đã biết.\n\nCần giữ rõ phạm vi của thí nghiệm. Cơ chế ức chế hô hấp ở hệ được khảo sát không phải toàn bộ cách CO gây hại trong cơ thể. Những phân tử và mức phơi nhiễm khác nhau có vai trò riêng.\n\nBài giảng Nobel của Warburg trình bày cách ông kết hợp phép đo khí, chất ức chế và ánh sáng. Mỗi loại dữ liệu góp một phần vào lập luận về enzyme hô hấp. Một hiện tượng được giải thích thuyết phục khi những thay đổi hóa học và chức năng cùng phù hợp, chứ không chỉ vì một chất ức chế làm tín hiệu giảm trong một phép thử.\n\n## Ứng dụng hôm nay: dùng tác động có chọn lọc để tìm thành phần làm việc\n\nNghiên cứu enzyme và chuỗi truyền electron hiện có nhiều phương pháp cấu trúc và phổ trực tiếp hơn. Tuy vậy, việc thay điều kiện hoặc dùng tác động có kiểm soát để phân biệt chức năng từng phần vẫn là một chiến lược cơ bản.\n\nMột chất ức chế có thể ảnh hưởng nhiều mục tiêu, nên đối chứng cần xác định phần thay đổi liên quan tới câu hỏi. Khi kết hợp với quang phổ và dữ liệu cấu trúc, phép đo chức năng trở nên mạnh hơn.\n\nWarburg cũng có những quan điểm lịch sử về bệnh cần được đánh giá bằng hiểu biết hiện nay, không nên dùng tên ông như bảo đảm cho mọi diễn giải. Câu chuyện cụ thể về ánh sáng và CO có giá trị rõ ràng hơn: nó cho thấy một quá trình sống có thể được dùng như bộ đọc của hóa học kim loại. Từ sự thay đổi tốc độ hô hấp, người nghiên cứu lần theo bản chất của một thành phần phân tử rất khó tiếp cận lúc bấy giờ.\n\n## Nguồn và đọc thêm\n\n- [Otto Warburg · Bài giảng Nobel](https://www.nobelprize.org/uploads/2018/06/warburg-lecture.pdf)\n- [Nature · Công trình quang phổ tác dụng của Warburg, 1934](https://www.nature.com/articles/133714c0)"
+}

@@ -1,0 +1,42 @@
+{
+  "id": "karl-fischer-dem-nuoc-bang-iodine",
+  "slug": "karl-fischer-dem-nuoc-bang-iodine",
+  "documentPath": "docs/karl-fischer-dem-nuoc-bang-iodine/index.json",
+  "title": "Một ít nước trong dầu được đếm bằng phản ứng với iodine",
+  "summary": "Karl Fischer biến nước từ tạp chất khó thấy thành lượng có thể chuẩn độ. Hai cách cung cấp iodine dẫn tới những hệ đo phù hợp với các miền hàm lượng khác nhau.",
+  "category": "khainiem",
+  "author": "Ban biên tập ChemDex",
+  "image": "/assets/library/lab-synthesis.svg",
+  "tags": [
+    "Karl Fischer",
+    "Nước vết",
+    "Chuẩn độ",
+    "Coulometry"
+  ],
+  "aliases": [],
+  "documentKind": "story",
+  "readingMinutes": 4,
+  "editorialEvidence": {
+    "language": "vi",
+    "scope": "chemical-family",
+    "contextLabel": "Một ít nước trong dầu được đếm bằng phản ứng với iodine",
+    "reviewBasis": "Biên soạn theo các nguồn dẫn cuối bài; phân biệt kết quả đã thực hiện và hướng phát triển.",
+    "story": {
+      "status": "documented",
+      "section": "## Nước ít đến mức nhìn không thấy vẫn có thể quan trọng",
+      "sources": [
+        "https://www.mt.com/us/en/home/library/guides/lab-analytical-instruments/karl-fischer-titration-guide-principle.html",
+        "https://www.metrohm.com/content/dam/metrohm/shared/documents/application-bulletins/AB-137_6.pdf"
+      ]
+    },
+    "application": {
+      "status": "documented",
+      "section": "## Ứng dụng hôm nay: kiểm tra cả đường nước đi vào máy",
+      "sources": [
+        "https://www.mt.com/us/en/home/library/guides/lab-analytical-instruments/karl-fischer-titration-guide-principle.html",
+        "https://www.metrohm.com/content/dam/metrohm/shared/documents/application-bulletins/AB-137_6.pdf"
+      ]
+    }
+  },
+  "content": "## Nước ít đến mức nhìn không thấy vẫn có thể quan trọng\n\nPhương pháp Karl Fischer được công bố năm 1935 và phát triển thành một công cụ xác định nước trong nhiều loại mẫu. Trong dầu hoặc dung môi, nước có thể không tạo giọt nhìn thấy nhưng vẫn ảnh hưởng tính chất và quá trình sử dụng. Đo mất khối lượng khi sấy không luôn phân biệt được nước với những chất bay hơi khác.\n\nKarl Fischer dùng một phản ứng có liên hệ định lượng với nước trong môi trường thuốc thử phù hợp. Các tài liệu kỹ thuật hiện đại phân biệt hai cách thực hiện: thêm dung dịch chứa iodine từ buret hoặc tạo iodine bằng điện hóa ngay trong cell.\n\nLựa chọn không chỉ là mức tự động hóa. Dạng coulometric thường thuận lợi cho lượng nước nhỏ, còn miền lớn hơn có những cân nhắc khác về thời gian, dung lượng thuốc thử và cách đưa mẫu vào.\n\n![Minh họa phân tích trong phòng thí nghiệm; không phải hướng dẫn thao tác chuẩn độ Karl Fischer](/assets/library/lab-synthesis.svg)\n\n## Điểm cuối cần phản ánh phần nước đã phản ứng\n\nHệ thuốc thử gồm iodine, sulfur dioxide, một base hữu cơ và môi trường thích hợp. Phương trình tổng gọn giúp nối lượng iodine tiêu thụ với lượng nước, nhưng thành phần dung môi và những phản ứng phụ cần được xét cho từng nền mẫu.\n\nỞ phương pháp coulometric, iodide được oxi hóa điện hóa để tạo iodine; điện lượng được dùng để tính lượng tác chất sinh ra trong điều kiện hiệu suất phù hợp. Khi nước đã phản ứng hết theo thiết kế, hệ phát hiện lượng iodine dư để xác định điểm cuối. Phép đo điện vì thế vẫn dựa trên một phản ứng hóa học chọn lọc đủ tốt.\n\nMẫu có thể chứa chất phản ứng với iodine, sinh nước hoặc giải phóng nước chậm. Những trường hợp ấy cần phương pháp đưa mẫu và kiểm tra riêng. Một số mẫu rắn được xử lý bằng bộ gia nhiệt để chuyển nước sang cell, nhưng điều kiện phải tránh làm mẫu phân hủy theo cách tạo thêm nước không thuộc câu hỏi ban đầu.\n\n## Ứng dụng hôm nay: kiểm tra cả đường nước đi vào máy\n\nKarl Fischer được dùng trong nghiên cứu và kiểm soát dung môi, dầu, vật liệu và nhiều sản phẩm. Tài liệu của Metrohm và Mettler Toledo nhấn mạnh việc dùng chuẩn nước, kiểm độ kín và xác định nền trôi. Hơi ẩm từ không khí có thể là một phần đáng kể khi lượng cần đo rất nhỏ.\n\nMột kết quả đáng tin cần cho biết mẫu được đưa trực tiếp hay qua bước tách, lượng nước có được giải phóng hết không và những phản ứng phụ đã được loại trừ thế nào. Chất chuẩn giúp kiểm máy, còn mẫu thực vẫn cần kiểm độ thu hồi và tính đại diện.\n\nCâu chuyện này làm rõ ý nghĩa của tính chọn lọc. Máy không cân mọi thứ bay hơi rồi gọi đó là nước; nó dùng một đường phản ứng có thể kiểm chứng để hỏi riêng về nước trong một miền mẫu. Chính sự nối giữa hóa học thuốc thử, điện lượng hoặc thể tích và cách chuẩn bị mẫu khiến một tạp chất vô hình trở thành dữ liệu có thể so sánh giữa các lô vật liệu.\n\n## Nguồn và đọc thêm\n\n- [Mettler Toledo · Nguyên lý và lịch sử Karl Fischer](https://www.mt.com/us/en/home/library/guides/lab-analytical-instruments/karl-fischer-titration-guide-principle.html)\n- [Metrohm · Xác định nước bằng coulometric Karl Fischer](https://www.metrohm.com/content/dam/metrohm/shared/documents/application-bulletins/AB-137_6.pdf)"
+}

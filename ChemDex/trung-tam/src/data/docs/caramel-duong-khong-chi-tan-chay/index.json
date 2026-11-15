@@ -1,0 +1,44 @@
+{
+  "id": "caramel-duong-khong-chi-tan-chay",
+  "slug": "caramel-duong-khong-chi-tan-chay",
+  "documentPath": "docs/caramel-duong-khong-chi-tan-chay/index.json",
+  "title": "Đường đã làm gì trước khi thành caramel?",
+  "summary": "Phân tích khối lượng năm 2012 tìm thấy nhiều họ phân tử trong caramel. Việc đường đổi màu là biến đổi hóa học đi cùng những thay đổi vật lý, không chỉ đường lỏng đông lại.",
+  "category": "phanung",
+  "author": "Ban biên tập ChemDex",
+  "image": "/assets/library/organic-polymer.svg",
+  "tags": [
+    "Caramel hóa",
+    "Đường",
+    "Thực phẩm",
+    "Phân tích hỗn hợp"
+  ],
+  "aliases": [],
+  "documentKind": "story",
+  "readingMinutes": 4,
+  "editorialEvidence": {
+    "language": "vi",
+    "scope": "chemical-family",
+    "contextLabel": "Đường đã làm gì trước khi thành caramel?",
+    "reviewBasis": "Biên soạn theo các nguồn dẫn cuối bài; phân biệt kết quả đã thực hiện và hướng phát triển.",
+    "story": {
+      "status": "documented",
+      "section": "## Một món quen thuộc vẫn khó mô tả bằng một công thức",
+      "sources": [
+        "https://doi.org/10.1021/jf204807z",
+        "https://asbe.org/article/caramelization/",
+        "https://www.acs.org/content/dam/acsorg/acs-webinars/2014/slides/2014-10-16-candy-chemistry.pdf"
+      ]
+    },
+    "application": {
+      "status": "documented",
+      "section": "## Ứng dụng hôm nay: điều khiển một hỗn hợp có chủ đích",
+      "sources": [
+        "https://doi.org/10.1021/jf204807z",
+        "https://asbe.org/article/caramelization/",
+        "https://www.acs.org/content/dam/acsorg/acs-webinars/2014/slides/2014-10-16-candy-chemistry.pdf"
+      ]
+    }
+  },
+  "content": "## Một món quen thuộc vẫn khó mô tả bằng một công thức\n\nTrong bài báo năm 2012 mang tên Unraveling the Chemical Composition of Caramel, nhóm nghiên cứu dùng các phương pháp phân tích hiện đại để khảo sát hỗn hợp tạo ra khi đường được gia nhiệt. Họ thấy những oligomer carbohydrate, sản phẩm mất nước và nhiều thành phần khác.\n\nKết quả phù hợp với trải nghiệm rất quen: cùng một nguyên liệu đường nhưng màu và mùi có thể thay đổi liên tục theo quá trình. Tuy nhiên, nói “caramel là đường cháy” bỏ qua quá nhiều trạng thái trung gian và những chất hữu ích trước khi vật liệu bị phân hủy quá mức.\n\nAmerican Society of Baking mô tả caramel hóa như một nhóm phản ứng nâu hóa không enzyme, khác với Maillard ở chỗ không cần nhóm amino làm đối tác ban đầu.\n\n![Minh họa các đơn vị carbohydrate nối nhau, không phải cấu trúc duy nhất của caramel](/assets/library/organic-polymer.svg)\n\n## Nóng chảy là đổi trạng thái, caramel hóa là đổi liên kết\n\nKhi đường được làm nóng, những quá trình vật lý như hòa tan, mất nước và thay đổi độ nhớt có thể xảy ra cùng những biến đổi hóa học. Hai khái niệm không thể thay thế nhau: một dung dịch đường trong suốt chưa nhất thiết đã caramel hóa đáng kể.\n\nCác phân tử đường có thể tái sắp xếp, tách nước, phân mảnh hoặc kết hợp thành những cấu trúc lớn hơn. Những thành phần tạo mùi không nhất thiết là chính những thành phần tạo màu đậm.\n\nLoại đường quyết định nhiều phần của đường phản ứng. Fructose, glucose và sucrose không có cùng cấu trúc hoặc hành vi khi gia nhiệt. pH và nước làm thay đổi các cân bằng, tốc độ và đường phân hủy.\n\nTrong thực phẩm có protein, Maillard có thể diễn ra đồng thời với caramel hóa. Vì vậy, nhìn màu nâu của một bánh nướng không đủ để xác định cơ chế nào đóng góp bao nhiêu.\n\nCác phép phân tích khối lượng giúp nhận diện công thức và họ sản phẩm, nhưng một công thức phân tử vẫn có thể tương ứng nhiều đồng phân. Hiểu hương vị còn cần kết nối cấu trúc với những phép đo và đánh giá cảm quan khác.\n\n## Ứng dụng hôm nay: điều khiển một hỗn hợp có chủ đích\n\nCaramel được dùng để tạo hương, màu hoặc kết cấu trong nhiều sản phẩm. Hỗn hợp cần được làm ra lặp lại được, nên công nghệ phải kiểm soát nguyên liệu, nhiệt độ thực của hệ và thời gian, không chỉ màu nhìn thấy ở cuối.\n\nNước còn lại ảnh hưởng độ cứng và tính chảy của sản phẩm khi nguội. Vì vậy, hai mẫu có màu giống nhau có thể có kết cấu khác nhau. Thiết kế thực phẩm đòi hỏi đồng thời kiểm soát hóa học tạo màu và vật lý của phần đường còn lại.\n\nBài giảng của ACS về hóa học kẹo dùng caramel để cho thấy tốc độ phản ứng phụ thuộc nhiều yếu tố. Những ví dụ ấy hữu ích để hiểu nguyên lý, nhưng không nên biến thành một nhiệt độ chung cho mọi công thức thực phẩm.\n\nCâu chuyện caramel giúp phân biệt một thay đổi có thể nhìn thấy với bản chất của nó. Màu hổ phách xuất hiện vì các liên kết đã được tổ chức lại thành một hỗn hợp mới; độ giòn hay mềm sau đó còn do nước và cấu trúc vật liệu quyết định. Một món ngọt đơn giản vì thế chứa cả động học phản ứng, phân tích hỗn hợp và khoa học vật liệu.\n\n## Nguồn và đọc thêm\n\n- [Phân tích thành phần caramel bằng khối phổ, 2012](https://doi.org/10.1021/jf204807z)\n- [American Society of Baking · Caramel hóa và các yếu tố ảnh hưởng](https://asbe.org/article/caramelization/)\n- [ACS · Bài giảng hóa học kẹo và caramel hóa](https://www.acs.org/content/dam/acsorg/acs-webinars/2014/slides/2014-10-16-candy-chemistry.pdf)"
+}

@@ -1,0 +1,44 @@
+{
+  "id": "spiropyran-mau-sac-ghi-luc-keo",
+  "slug": "spiropyran-mau-sac-ghi-luc-keo",
+  "documentPath": "docs/spiropyran-mau-sac-ghi-luc-keo/index.json",
+  "title": "Màu sắc hiện ra ở nơi polymer chịu lực",
+  "summary": "Spiropyran gắn vào mạng polymer có thể mở vòng khi lực truyền qua nó. Các nghiên cứu dùng đổi màu để lập bản đồ ứng suất và lịch sử tải.",
+  "category": "khainiem",
+  "author": "Ban biên tập ChemDex",
+  "image": "/assets/library/organic-polymer.svg",
+  "tags": [
+    "Cơ sắc",
+    "Spiropyran",
+    "Mechanophore",
+    "Ứng suất"
+  ],
+  "aliases": [],
+  "documentKind": "story",
+  "readingMinutes": 4,
+  "editorialEvidence": {
+    "language": "vi",
+    "scope": "chemical-family",
+    "contextLabel": "Màu sắc hiện ra ở nơi polymer chịu lực",
+    "reviewBasis": "Biên soạn theo các nguồn dẫn cuối bài; phân biệt kết quả đã thực hiện và hướng phát triển.",
+    "story": {
+      "status": "documented",
+      "section": "## Lực không chỉ làm vật liệu hỏng ngẫu nhiên",
+      "sources": [
+        "https://pubmed.ncbi.nlm.nih.gov/19424152/",
+        "https://pmc.ncbi.nlm.nih.gov/articles/PMC7228757/",
+        "https://doi.org/10.1039/D0SC06157C"
+      ]
+    },
+    "application": {
+      "status": "documented",
+      "section": "## Ứng dụng hôm nay: đọc nơi lực tập trung",
+      "sources": [
+        "https://pubmed.ncbi.nlm.nih.gov/19424152/",
+        "https://pmc.ncbi.nlm.nih.gov/articles/PMC7228757/",
+        "https://doi.org/10.1039/D0SC06157C"
+      ]
+    }
+  },
+  "content": "## Lực không chỉ làm vật liệu hỏng ngẫu nhiên\n\nNăm 2009, Davis và cộng sự cho thấy một nhóm nhạy lực được nối vào polymer đàn hồi hoặc dạng thủy tinh có thể đổi màu dưới kéo. Spiropyran trải qua biến đổi mở vòng liên quan đến lực, tạo cách quan sát tại chỗ phản ứng cơ hóa học trong vật liệu khối.\n\nThông thường, tải lớn có thể làm đứt liên kết theo cách gây hư hỏng. Nghiên cứu đặt một nhóm được thiết kế vào đường truyền lực để tạo phản ứng có tín hiệu rõ hơn. Vật liệu không chỉ chịu tải; nó có thể ghi lại một phần tải bằng thay đổi hóa học.\n\nCách gắn nhóm nhạy là điều kiện quan trọng. Một chất màu chỉ trộn tự do trong nhựa không nhất thiết nhận lực theo cùng cách như nhóm nằm trên những đoạn chuỗi đang mang tải.\n\n![Minh họa mạng polymer; không phải bản đồ ứng suất thực nghiệm](/assets/library/organic-polymer.svg)\n\n## Đường lực đi qua phân tử quyết định đáp ứng\n\nSpiropyran và dạng mở merocyanine có hệ electron và hấp thụ ánh sáng khác nhau. Lực cơ học truyền qua những điểm nối thích hợp có thể làm thay đổi rào cản và ưu tiên đường chuyển hóa. Định hướng lực không phải chi tiết có thể bỏ qua khi mô tả tác động lên liên kết.\n\nTuy nhiên, màu có thể chịu ảnh hưởng của ánh sáng, nhiệt và môi trường ngoài lực. Các nhóm nghiên cứu phải dùng mẫu đối chứng và thiết kế hóa học để phân biệt các nguồn kích hoạt. Một vùng đổi màu không tự là bản đồ ứng suất tuyệt đối nếu chưa có hiệu chuẩn.\n\nMạng polymer cũng không phân tải đều tới mọi chuỗi. Khi biến dạng tăng, các nhóm nhạy được kích hoạt dần. Sự phân bố ở cấp chuỗi là lý do tín hiệu trung bình của vật liệu cần được nối với mô hình cơ học, thay vì xem mỗi pixel là một cảm biến lực giống hệt nhau.\n\n## Ứng dụng hôm nay: đọc nơi lực tập trung\n\nNghiên cứu năm 2020 hiệu chuẩn sự đổi màu trong kéo một trục, rồi dùng nó để lập bản đồ ứng suất quanh một vết nứt dưới tải. Kết quả được đối chiếu với mô phỏng phần tử hữu hạn, tạo bằng chứng rằng đầu dò phân tử có thể cung cấp thông tin cơ học định lượng trong hệ được thiết kế.\n\nMột công trình năm 2021 còn khai thác những biến đổi quang khác nhau để phân biệt tải hiện tại với dấu của tải lớn nhất đã trải qua trong thang thời gian thử nghiệm. Điều này mở cách nghiên cứu lịch sử hư hỏng, nhưng không có nghĩa một màu duy nhất dùng được cho mọi polymer hoặc mọi tốc độ tải.\n\nCâu chuyện spiropyran đặt hóa học vào nơi lực đang được truyền. Nó cho thấy liên kết không chỉ là thứ bị phá sau cùng; một liên kết được chọn có thể trở thành đầu dò trước khi toàn bộ vật thể hỏng. Khi tín hiệu được hiệu chuẩn đúng, màu sắc giúp người thiết kế nhìn những vùng tập trung tải mà hình dáng bên ngoài còn chưa báo rõ.\n\n## Nguồn và đọc thêm\n\n- [Davis và cộng sự · Kích hoạt liên kết bằng lực, 2009](https://pubmed.ncbi.nlm.nih.gov/19424152/)\n- [Nghiên cứu gốc · Định lượng ứng suất bằng mechanophore, 2020](https://pmc.ncbi.nlm.nih.gov/articles/PMC7228757/)\n- [Nghiên cứu gốc · Lịch sử tải trong màu elastomer, 2021](https://doi.org/10.1039/D0SC06157C)"
+}

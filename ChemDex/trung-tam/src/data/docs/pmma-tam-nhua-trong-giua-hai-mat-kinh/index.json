@@ -1,0 +1,44 @@
+{
+  "id": "pmma-tam-nhua-trong-giua-hai-mat-kinh",
+  "slug": "pmma-tam-nhua-trong-giua-hai-mat-kinh",
+  "documentPath": "docs/pmma-tam-nhua-trong-giua-hai-mat-kinh/index.json",
+  "title": "Tấm nhựa trong nằm giữa hai mặt kính: PMMA bước ra khỏi phòng thử",
+  "summary": "Năm 1933, nhóm Otto Röhm đưa một vật liệu acrylic trong suốt tới bước ngoặt thương mại. Chuyện không dừng ở việc tìm được chất trong: phải tạo nó thành tấm có thể sử dụng.",
+  "category": "hopchat",
+  "author": "Ban biên tập ChemDex",
+  "image": "/assets/library/photos/stories/pmma-solvent-crazing.jpg",
+  "tags": [
+    "PMMA",
+    "Plexiglas",
+    "Acrylic",
+    "Quang học"
+  ],
+  "aliases": [],
+  "documentKind": "story",
+  "readingMinutes": 4,
+  "editorialEvidence": {
+    "language": "vi",
+    "scope": "chemical-family",
+    "contextLabel": "Tấm nhựa trong nằm giữa hai mặt kính: PMMA bước ra khỏi phòng thử",
+    "reviewBasis": "Biên soạn theo các nguồn dẫn cuối bài; phân biệt kết quả đã thực hiện và hướng phát triển.",
+    "story": {
+      "status": "documented",
+      "section": "## Một công trình kéo dài hơn một khoảnh khắc tình cờ",
+      "sources": [
+        "https://www.plexiglas.de/en/about-us/history",
+        "https://www.roehm.com/en/detail/plexiglas-r-the-original-celebrates-its-90th-birthday",
+        "https://www.plexiglas.de/en/service/product-info/what-is-plexiglas"
+      ]
+    },
+    "application": {
+      "status": "documented",
+      "section": "## Ứng dụng hôm nay: đưa ánh sáng đi qua một hình dạng đã chọn",
+      "sources": [
+        "https://www.plexiglas.de/en/about-us/history",
+        "https://www.roehm.com/en/detail/plexiglas-r-the-original-celebrates-its-90th-birthday",
+        "https://www.plexiglas.de/en/service/product-info/what-is-plexiglas"
+      ]
+    }
+  },
+  "content": "## Một công trình kéo dài hơn một khoảnh khắc tình cờ\n\nOtto Röhm nghiên cứu sản phẩm polymer hóa của acrylic acid từ luận án năm 1901. Tuy vậy, con đường tới một sản phẩm trong suốt hữu ích không diễn ra ngay sau luận án. Công ty của ông vốn làm sản phẩm cho da và dệt; nghiên cứu nhựa đòi hỏi một hướng đầu tư khác.\n\nTư liệu hãng kể bước tiến năm 1933 của nhóm Röhm & Haas với polymethyl methacrylate, viết tắt PMMA. Thương hiệu Plexiglas được đăng ký ngày 9 tháng 8 năm ấy. Một cái tên gợi đến kính giúp người dùng hình dung tính trong suốt, nhưng hóa học bên trong là polymer hữu cơ.\n\nĐáng chú ý là cách biến phản ứng thành sản phẩm: nguyên liệu được tổ chức giữa hai mặt kính để tạo tấm. Bề mặt khuôn và việc kiểm soát quá trình ảnh hưởng tới vật liệu thu được. Một chất trong ở quy mô nhỏ chưa tự trở thành tấm lớn có độ đồng đều quang học phù hợp.\n\n![Cốc đong PMMA có vết rạn sau ảnh hưởng của ethanol](/assets/library/photos/stories/pmma-solvent-crazing.jpg)\n\n*Cốc đong PMMA rạn dưới ảnh hưởng ethanol, ảnh Alex P. Kok. Ví dụ nhắc rằng tính trong suốt không tự bảo đảm tương thích với mọi dung môi. — Alex P. Kok; [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0). [Nguồn ảnh](https://commons.wikimedia.org/wiki/File:PMMA_measuring_cup_cracked_by_ethanol.jpg).*\n\n## Liên kết đôi mở đường cho một chuỗi dài\n\nMonomer methyl methacrylate có liên kết đôi có thể tham gia polymer hóa. Khi tạo mạch, những đơn vị ấy nối thành chuỗi dài; nhóm ester nằm trên các đơn vị lặp vẫn góp phần quyết định tương tác giữa chuỗi và tính chất vật liệu.\n\nPMMA khác thủy tinh silicate về cấu trúc lẫn cách gia công. Nó có thể được đúc, đùn hoặc tạo hình theo điều kiện thích hợp. Tính trong suốt hữu ích phải đi cùng kiểm soát bọt, tạp chất, ứng suất và trạng thái bề mặt, vì mỗi yếu tố đều có thể làm ánh sáng đổi hướng hoặc bị tán xạ.\n\nLúc monomer chuyển thành polymer, thể tích và độ nhớt thay đổi. Nhiệt phản ứng cũng phải được quản lý. Câu chuyện hai tấm kính vì vậy không chỉ là một khuôn tiện dụng: đó là cách giữ hình học trong khi vật chất đang đổi trạng thái phân tử.\n\nNhững sản phẩm acrylic thương mại còn khác nhau về khối lượng phân tử, phụ gia và phương pháp chế tạo. Cùng chữ PMMA trên hồ sơ không đủ để biết tấm nào phù hợp cho một cửa quan sát, bộ dẫn sáng hay chi tiết cần tiếp xúc một môi trường hóa chất xác định.\n\n## Ứng dụng hôm nay: đưa ánh sáng đi qua một hình dạng đã chọn\n\nPMMA xuất hiện trong bảng hiệu, cửa quan sát, mái che và các chi tiết quang học. Hãng vật liệu cũng phát triển những cấp sản phẩm phục vụ phân bố ánh sáng hoặc chịu điều kiện ngoài trời. Chức năng đến từ sự phối hợp của polymer, công thức và hình học chi tiết.\n\nMột tấm dẫn sáng không chỉ cần sáng xuyên qua; nó còn cần đưa ánh sáng tới đúng nơi, rồi phát ra theo cách mong muốn. Một mái che lại có yêu cầu về nhiệt, giãn nở, tải và thời tiết. Những công việc ấy giải thích vì sao ngành vật liệu tiếp tục điều chỉnh PMMA nhiều thập niên sau mốc 1933.\n\nLịch sử này khiến một tấm nhựa trong bình thường trở thành dấu vết của nhiều quyết định. Nhóm nghiên cứu phải nối được monomer, giữ phản ứng trong hình dạng có ích và tìm công việc phù hợp cho sản phẩm. “Kính hữu cơ” là hình ảnh mở đầu; quá trình biến ánh sáng đi qua một chi tiết bền và đồng đều mới là phần còn lại của câu chuyện.\n\n## Nguồn và đọc thêm\n\n- [Röhm: lịch sử phát triển Plexiglas](https://www.plexiglas.de/en/about-us/history)\n- [Röhm: kỷ niệm 90 năm, mốc đăng ký 1933](https://www.roehm.com/en/detail/plexiglas-r-the-original-celebrates-its-90th-birthday)\n- [PLEXIGLAS: vật liệu PMMA và các dạng sản phẩm](https://www.plexiglas.de/en/service/product-info/what-is-plexiglas)"
+}

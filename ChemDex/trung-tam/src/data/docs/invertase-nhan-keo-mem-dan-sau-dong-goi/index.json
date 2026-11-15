@@ -1,0 +1,44 @@
+{
+  "id": "invertase-nhan-keo-mem-dan-sau-dong-goi",
+  "slug": "invertase-nhan-keo-mem-dan-sau-dong-goi",
+  "documentPath": "docs/invertase-nhan-keo-mem-dan-sau-dong-goi/index.json",
+  "title": "Nhân kẹo còn tiếp tục đổi cấu trúc sau khi lớp vỏ đã thành hình",
+  "summary": "Các bằng sáng chế kẹo mô tả invertase được trộn vào fondant để nó mềm hoặc hóa lỏng dần. Nhà sản xuất dùng thời gian phản ứng như một phần của quá trình tạo sản phẩm.",
+  "category": "phanung",
+  "author": "Ban biên tập ChemDex",
+  "image": "/assets/library/organic-alcohol.svg",
+  "tags": [
+    "Invertase",
+    "Sucrose",
+    "Kẹo",
+    "Thủy phân"
+  ],
+  "aliases": [],
+  "documentKind": "story",
+  "readingMinutes": 4,
+  "editorialEvidence": {
+    "language": "vi",
+    "scope": "chemical-family",
+    "contextLabel": "Nhân kẹo còn tiếp tục đổi cấu trúc sau khi lớp vỏ đã thành hình",
+    "reviewBasis": "Biên soạn theo các nguồn dẫn cuối bài; phân biệt kết quả đã thực hiện và hướng phát triển.",
+    "story": {
+      "status": "documented",
+      "section": "## Đặt một lõi dễ tạo hình trước, để enzyme làm phần việc sau",
+      "sources": [
+        "https://patents.google.com/patent/US20030077362A1/en",
+        "https://patents.google.com/patent/WO2016102186A1/en",
+        "https://www.mdpi.com/2073-4344/8/6/238"
+      ]
+    },
+    "application": {
+      "status": "documented",
+      "section": "## Ứng dụng hôm nay: động học trở thành công cụ tạo kết cấu",
+      "sources": [
+        "https://patents.google.com/patent/US20030077362A1/en",
+        "https://patents.google.com/patent/WO2016102186A1/en",
+        "https://www.mdpi.com/2073-4344/8/6/238"
+      ]
+    }
+  },
+  "content": "## Đặt một lõi dễ tạo hình trước, để enzyme làm phần việc sau\n\nBằng sáng chế công bố năm 2003 mô tả một kỹ thuật quen thuộc của kẹo nhân: trộn invertase vào fondant rồi bọc bằng chocolate. Sau khi lớp vỏ được tạo, enzyme tiếp tục làm thay đổi phần đường bên trong, khiến nhân mềm hoặc lỏng hơn theo thời gian.\n\nMột đơn sáng chế năm 2016 dùng ý tưởng tương tự cho nhân trong sản phẩm dạng dây hoặc vỏ rỗng. Những tư liệu này cho thấy thời gian sau tạo hình không chỉ là lúc sản phẩm nằm chờ; nó có thể là một chặng phản ứng được thiết kế.\n\nĐây là mô tả công nghệ, không phải xác nhận mọi loại kẹo nhân lỏng đều dùng invertase. Có nhiều cách tạo nhân và bọc vỏ khác nhau, cần biết công thức cụ thể mới suy ra được cơ chế.\n\n![Minh họa nhóm chức carbohydrate, không phải hình nhân của một nhãn kẹo cụ thể](/assets/library/organic-alcohol.svg)\n\n## Một phân tử sucrose thành hai đường nhỏ hơn\n\nInvertase xúc tác thủy phân sucrose thành glucose và fructose. Liên kết nối hai phần đường bị cắt với sự tham gia của nước; tổng số nguyên tử carbon vẫn được giữ trong sản phẩm.\n\nTên “đường nghịch đảo” bắt nguồn từ sự thay đổi góc quay ánh sáng phân cực của hỗn hợp, không phải vì phân tử đường bị lật ngược theo nghĩa hình học đơn giản. Sucrose và hỗn hợp sản phẩm có tính quang học khác nhau.\n\nViệc thủy phân làm thay đổi độ tan, xu hướng kết tinh và tính hút ẩm của hệ. Trong một nhân fondant có tinh thể đường và pha lỏng, thay đổi thành phần có thể khiến kết cấu biến đổi rõ rệt.\n\nTuy nhiên, enzyme cần đủ nước và môi trường phù hợp để hoạt động. Nồng độ đường rất cao, nhiệt độ và pH đều ảnh hưởng tốc độ. Vì thế, nhà sản xuất phải tính thời gian đạt kết cấu mong muốn chứ không chỉ lượng enzyme cho vào.\n\nNếu enzyme bị bất hoạt ở một công đoạn trước, việc chờ lâu hơn không tự làm phản ứng diễn ra đúng kế hoạch.\n\n## Ứng dụng hôm nay: động học trở thành công cụ tạo kết cấu\n\nInvertase còn được dùng để tạo syrup đường nghịch đảo cho những ứng dụng thực phẩm phù hợp. Trong kẹo, giá trị đặc biệt là có thể tách thời điểm tạo hình khỏi thời điểm nhân đạt trạng thái cuối.\n\nMột lõi tương đối chắc giúp vận chuyển hoặc bọc vỏ thuận tiện. Sau đó, phản ứng làm nó mềm hơn mà không cần mở lớp vỏ ra để thay nhân. Thiết kế sản phẩm vì vậy khai thác sự chậm của enzyme như một lợi thế.\n\nCác nghiên cứu về thủy phân sucrose cũng nhắc rằng cùng thành phần cuối có thể đạt bằng những con đường khác, như xúc tác acid. Mỗi tuyến có điều kiện, sản phẩm phụ và cách kiểm soát riêng; không nên đồng nhất mọi syrup chứa glucose và fructose về nguồn gốc chế tạo.\n\nCâu chuyện nhân kẹo giúp nhìn thời gian bảo quản theo góc hóa học. Sản phẩm không nhất thiết bất động sau khi ra khỏi khuôn. Nếu phản ứng đã được thiết kế và kiểm soát, những thay đổi diễn ra chậm bên trong có thể chính là bước cuối để tạo trải nghiệm mà người dùng mong đợi khi cắn qua lớp vỏ.\n\n## Nguồn và đọc thêm\n\n- [Bằng sáng chế · Fondant–invertase hóa lỏng trong nhân kẹo](https://patents.google.com/patent/US20030077362A1/en)\n- [Bằng sáng chế · Nhân fondant có invertase trong sản phẩm rỗng](https://patents.google.com/patent/WO2016102186A1/en)\n- [Nghiên cứu enzyme và các ứng dụng chế biến](https://www.mdpi.com/2073-4344/8/6/238)"
+}

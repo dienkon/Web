@@ -1,0 +1,42 @@
+{
+  "id": "ion-mobility-dau-vet-trong-ong-khi",
+  "slug": "ion-mobility-dau-vet-trong-ong-khi",
+  "documentPath": "docs/ion-mobility-dau-vet-trong-ong-khi/index.json",
+  "title": "Một ion mất bao lâu để đi qua khí? Phép đo phía sau kiểm tra dấu vết",
+  "summary": "Phổ độ linh động ion phân biệt các loài theo chuyển động trong điện trường và khí nền. Tại các điểm kiểm soát, tốc độ phân tích phải đi cùng đánh giá báo động sai.",
+  "category": "khainiem",
+  "author": "Ban biên tập ChemDex",
+  "image": "/assets/library/apparatus-spectroscope.svg",
+  "tags": [
+    "Độ linh động ion",
+    "IMS",
+    "Phân tích vết",
+    "Sàng lọc"
+  ],
+  "aliases": [],
+  "documentKind": "story",
+  "readingMinutes": 4,
+  "editorialEvidence": {
+    "language": "vi",
+    "scope": "chemical-family",
+    "contextLabel": "Một ion mất bao lâu để đi qua khí? Phép đo phía sau kiểm tra dấu vết",
+    "reviewBasis": "Biên soạn theo các nguồn dẫn cuối bài; phân biệt kết quả đã thực hiện và hướng phát triển.",
+    "story": {
+      "status": "documented",
+      "section": "## Một mẫu rất nhỏ cần câu trả lời nhanh",
+      "sources": [
+        "https://www.nist.gov/programs-projects/ion-mobility-spectrometry",
+        "https://www.pnnl.gov/available-technologies/trace-detection-explosives-without-pre-concentration"
+      ]
+    },
+    "application": {
+      "status": "documented",
+      "section": "## Ứng dụng hôm nay: lấy mẫu quan trọng như máy phân tích",
+      "sources": [
+        "https://www.nist.gov/programs-projects/ion-mobility-spectrometry",
+        "https://www.pnnl.gov/available-technologies/trace-detection-explosives-without-pre-concentration"
+      ]
+    }
+  },
+  "content": "## Một mẫu rất nhỏ cần câu trả lời nhanh\n\nNIST mô tả IMS là kỹ thuật được dùng tại nhiều điểm kiểm soát vận tải và biên giới để sàng lọc dấu vết hóa chất. Mục tiêu là phân tích nhanh với thiết bị gọn, trong những môi trường có nền mẫu phức tạp và thời gian xử lý hạn chế.\n\nTrong nghiên cứu về các chất liên quan đến fentanyl, nhóm NIST dùng cách đánh giá đường ROC để xem sự đánh đổi giữa độ nhạy và độ đặc hiệu trước nền môi trường. Một detector có thể nhìn thấy tín hiệu nhỏ nhưng vẫn cần được đánh giá xem nó phân biệt đúng đến đâu khi gặp nhiều mẫu thực.\n\nCâu chuyện không chỉ là làm máy báo khi có một đỉnh. Sàng lọc là quyết định dựa trên tín hiệu và ngưỡng, nên chất lượng cần được đo bằng cả những trường hợp tìm đúng lẫn những trường hợp báo hoặc bỏ sót.\n\n![Minh họa phân tích ion; không phải sơ đồ hoặc thông số của thiết bị kiểm soát an ninh](/assets/library/apparatus-spectroscope.svg)\n\n## Hình dạng và tương tác góp vào tốc độ ion\n\nTrong một kiểu IMS, ion được đưa qua vùng khí có điện trường. Tốc độ trôi phụ thuộc lực điện và các va chạm với khí, nên độ linh động liên quan đến kích thước va chạm, điện tích và tương tác của ion. Hai loài có khối lượng giống nhau vẫn có thể khác độ linh động nếu hình dạng hoặc cấu trúc khác.\n\nĐây là thông tin bổ sung cho khối phổ, không phải bản sao của phép cân khối lượng. Nhiệt độ, áp suất và thành phần khí cần được kiểm soát hoặc hiệu chỉnh. Ion cũng có thể kết hợp với các phân tử nền, làm loại hạt đang được đo khác với phân tử trung hòa ban đầu.\n\nCác thiết kế IMS có nhiều biến thể; không nên lấy sơ đồ ống trôi đơn giản để mô tả mọi thiết bị thương mại. Điểm chung là khai thác đáp ứng vận chuyển của ion trong khí để tạo thêm tính phân biệt.\n\n## Ứng dụng hôm nay: lấy mẫu quan trọng như máy phân tích\n\nPNNL giới thiệu một hướng lấy mẫu hơi để ghép với khối phổ hoặc các hệ độ linh động, nhằm cải thiện phát hiện dấu vết. Tài liệu này cho thấy phần trước detector cũng quyết định hiệu năng: chất cần được đưa từ bề mặt hoặc không khí vào máy mà không mất quá nhiều hoặc tạo nhiễu không kiểm soát.\n\nBài viết chỉ giải thích nguyên lý phân tích, không mô tả cách né tránh hay điều chỉnh thiết bị an ninh. Trong thực hành, một kết quả sàng lọc cần đi theo quy trình xác nhận phù hợp và bối cảnh lấy mẫu; tín hiệu hóa học không tự nói về ý định của con người.\n\nIMS là ví dụ rõ về việc thời gian di chuyển có thể trở thành dấu nhận diện. Một ion bị khí cản theo cách phụ thuộc cấu trúc, và sự khác biệt nhỏ ấy được biến thành tín hiệu. Để sử dụng tín hiệu nhanh trong thế giới thật, người thiết kế phải hiểu cả những thứ có thể đi cùng mẫu, thay vì chỉ chứng minh máy hoạt động với một chất tinh khiết trong điều kiện lý tưởng.\n\n## Nguồn và đọc thêm\n\n- [NIST · Nguyên lý và đánh giá IMS trong sàng lọc](https://www.nist.gov/programs-projects/ion-mobility-spectrometry)\n- [PNNL · Công nghệ lấy mẫu dấu vết cho hệ phân tích](https://www.pnnl.gov/available-technologies/trace-detection-explosives-without-pre-concentration)"
+}

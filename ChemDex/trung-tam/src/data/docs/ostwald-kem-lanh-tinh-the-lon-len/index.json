@@ -1,0 +1,44 @@
+{
+  "id": "ostwald-kem-lanh-tinh-the-lon-len",
+  "slug": "ostwald-kem-lanh-tinh-the-lon-len",
+  "documentPath": "docs/ostwald-kem-lanh-tinh-the-lon-len/index.json",
+  "title": "Kem vẫn lạnh, các tinh thể băng vẫn có thể lớn lên",
+  "summary": "Ảnh X-quang ba chiều theo thời gian cho thấy tái kết tinh làm cấu trúc kem đổi trong bảo quản. Ostwald ripening giải thích một phần con đường từ tinh thể nhỏ sang tinh thể lớn.",
+  "category": "khainiem",
+  "author": "Ban biên tập ChemDex",
+  "image": "/assets/library/organic-carbohydrate.svg",
+  "tags": [
+    "Ostwald ripening",
+    "Băng",
+    "Kem",
+    "Vi cấu trúc"
+  ],
+  "aliases": [],
+  "documentKind": "story",
+  "readingMinutes": 4,
+  "editorialEvidence": {
+    "language": "vi",
+    "scope": "chemical-family",
+    "contextLabel": "Kem vẫn lạnh, các tinh thể băng vẫn có thể lớn lên",
+    "reviewBasis": "Biên soạn theo các nguồn dẫn cuối bài; phân biệt kết quả đã thực hiện và hướng phát triển.",
+    "story": {
+      "status": "documented",
+      "section": "## Làm lạnh không đóng băng mọi thay đổi của vật liệu",
+      "sources": [
+        "https://www.mdpi.com/2073-4352/9/6/321",
+        "https://www.sciencedirect.com/science/article/pii/S0260877418302309",
+        "https://pubs.rsc.org/en/content/articlehtml/2017/ra/c7ra00642j"
+      ]
+    },
+    "application": {
+      "status": "documented",
+      "section": "## Ứng dụng hôm nay: giữ cấu trúc qua cả chuỗi lạnh",
+      "sources": [
+        "https://www.mdpi.com/2073-4352/9/6/321",
+        "https://www.sciencedirect.com/science/article/pii/S0260877418302309",
+        "https://pubs.rsc.org/en/content/articlehtml/2017/ra/c7ra00642j"
+      ]
+    }
+  },
+  "content": "## Làm lạnh không đóng băng mọi thay đổi của vật liệu\n\nNghiên cứu năm 2019 dùng chụp cắt lớp tia X synchrotron để theo dõi kem thương mại khi làm lạnh chậm. Các tinh thể băng vẫn lớn lên trong một phần của quá trình; tốc độ cao hơn ở miền nhiệt độ tương đối ấm và giảm mạnh khi mẫu lạnh hơn. Hình ảnh ba chiều cộng thời gian cho phép định lượng những thay đổi mà một lát cắt cuối khó kể đầy đủ.\n\nMột công trình trước đó của nhóm khảo sát kem trải qua các chu kỳ nhiệt và ghi nhận cả tinh thể băng lẫn các ô khí thay đổi kích thước. Kem là vật liệu nhiều pha, nên độ mịn trong miệng không chỉ do lượng nước đã đông.\n\nNhững kết quả ấy giải thích vì sao một sản phẩm vẫn nằm trong miền nhiệt độ âm có thể mất chất lượng cấu trúc theo thời gian. Cần biết lịch sử nhiệt, không chỉ nhiệt độ lúc mở tủ.\n\n![Minh họa nền thực phẩm chứa carbohydrate; không phải ảnh vi cấu trúc kem](/assets/library/organic-carbohydrate.svg)\n\n## Bề mặt cong tạo khác biệt về xu hướng tồn tại\n\nTrong Ostwald ripening, các hạt hoặc tinh thể nhỏ có bề mặt cong mạnh hơn có thể kém thuận lợi so với những phần lớn hơn. Vật chất rời vùng nhỏ, di chuyển qua pha trung gian và góp vào tăng trưởng vùng lớn. Số hạt có thể giảm trong khi kích thước trung bình tăng.\n\nĐiều này khác với hai tinh thể va chạm rồi dính nguyên khối, dù nhiều cơ chế có thể cùng xảy ra trong thực phẩm. Dữ liệu hình ảnh theo thời gian giúp phân biệt phần hòa tan–tăng trưởng với sự nhập hoặc biến đổi hình dạng khác.\n\nMô hình cầu đơn giản hữu ích để dự đoán xu hướng, nhưng kem có hình học đặc, pha lỏng chứa chất tan và mạng cấu trúc phức tạp. Nhiệt độ ảnh hưởng cả độ linh động lẫn lượng pha lỏng, nên tốc độ không chỉ do kích thước ban đầu quyết định.\n\n## Ứng dụng hôm nay: giữ cấu trúc qua cả chuỗi lạnh\n\nNghiên cứu tái kết tinh hỗ trợ thiết kế công thức và bảo quản sản phẩm đông lạnh. Chất ổn định có thể ảnh hưởng môi trường vận chuyển và mạng pha, nhưng hiệu quả cần được đo trong công thức thật. Không nên xem một thành phần đơn lẻ là cách ngăn hoàn toàn mọi tăng trưởng tinh thể.\n\nChụp cắt lớp cho phép quan sát các pha trong vật liệu đục mà không cần suy toàn bộ từ bề mặt. Các dữ liệu được dùng để kiểm mô hình và tìm những miền điều kiện làm cấu trúc biến đổi nhanh. Sau đó vẫn cần nối vi cấu trúc với phép đo cảm quan hoặc cơ học để biết mức thay đổi có ý nghĩa với người dùng.\n\nCâu chuyện kem làm rõ rằng trạng thái rắn có thể vẫn là một quá trình đang diễn ra. Các tinh thể không nhất thiết lớn lên bằng cách nhận thêm nước từ bên ngoài; chúng có thể trao đổi vật chất với nhau trong cùng sản phẩm. Một muỗng kem mịn được giữ tốt khi cả công thức lẫn hành trình nhiệt cùng làm chậm những con đường tái tổ chức ấy.\n\n## Nguồn và đọc thêm\n\n- [Nghiên cứu gốc · Tinh thể băng lớn lên trong khi làm lạnh kem, 2019](https://www.mdpi.com/2073-4352/9/6/321)\n- [Nghiên cứu gốc · Vi cấu trúc kem qua chu kỳ nhiệt, 2018](https://www.sciencedirect.com/science/article/pii/S0260877418302309)\n- [Nghiên cứu gốc · Cắt lớp synchrotron của kem, 2017](https://pubs.rsc.org/en/content/articlehtml/2017/ra/c7ra00642j)"
+}

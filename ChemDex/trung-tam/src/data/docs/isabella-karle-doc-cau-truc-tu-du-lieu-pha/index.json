@@ -1,0 +1,41 @@
+{
+  "id": "isabella-karle-doc-cau-truc-tu-du-lieu-pha",
+  "slug": "isabella-karle-doc-cau-truc-tu-du-lieu-pha",
+  "documentPath": "docs/isabella-karle-doc-cau-truc-tu-du-lieu-pha/index.json",
+  "title": "Isabella Karle: biến phương pháp toán thành những cấu trúc có thể dùng",
+  "summary": "Những phép xác định cấu trúc của Karle cho thấy phương pháp trực tiếp có thể giải các phân tử hữu cơ phức tạp. Dữ liệu cần người hiểu cả toán lẫn hóa học.",
+  "category": "tieusu",
+  "author": "Ban biên tập ChemDex",
+  "image": "/assets/library/history-evidence.svg",
+  "tags": [
+    "Isabella Karle",
+    "Phương pháp trực tiếp",
+    "Peptide"
+  ],
+  "aliases": [],
+  "documentKind": "story",
+  "readingMinutes": 4,
+  "editorialEvidence": {
+    "language": "vi",
+    "scope": "chemical-family",
+    "contextLabel": "Isabella Karle: biến phương pháp toán thành những cấu trúc có thể dùng",
+    "reviewBasis": "Biên soạn theo các nguồn dẫn cuối bài; phân biệt kết quả đã thực hiện và hướng phát triển.",
+    "story": {
+      "status": "documented",
+      "section": "## Một phương pháp cần được chứng minh trên tinh thể thật",
+      "sources": [
+        "https://www.nasonline.org/wp-content/uploads/2024/06/karle-isabella.pdf",
+        "https://www.nrl.navy.mil/Media/News/Article/1416654/nrl-mourns-loss-of-isabella-karle/"
+      ]
+    },
+    "application": {
+      "status": "documented",
+      "section": "## Cấu trúc được công bố là điểm bắt đầu cho người khác",
+      "sources": [
+        "https://www.nasonline.org/wp-content/uploads/2024/06/karle-isabella.pdf",
+        "https://www.nrl.navy.mil/Media/News/Article/1416654/nrl-mourns-loss-of-isabella-karle/"
+      ]
+    }
+  },
+  "content": "## Một phương pháp cần được chứng minh trên tinh thể thật\n\nIsabella Karle làm việc tại Naval Research Laboratory và phát triển thực hành xác định cấu trúc bằng các phương pháp trực tiếp. Những ý tưởng thống kê của Jerome Karle và Herbert Hauptman giúp giải phần thông tin pha, nhưng đưa chúng tới những phân tử thật còn là một nhiệm vụ thực nghiệm lớn.\n\nBà sử dụng và cải tiến các cách phân tích để giải nhiều cấu trúc hữu cơ, trong đó có peptide. Các kết quả làm rõ rằng phương pháp có thể trở thành công cụ cho nhà hóa học, không chỉ là một khả năng trên giấy.\n\nMẫu tinh thể, chất lượng dữ liệu và sự hiểu biết về cấu tạo cùng tham gia. Một lời giải có vẻ khớp toán học vẫn phải được xem xét về hóa học, còn một giả thiết hóa học đẹp phải được sửa nếu không đứng vững trước dữ liệu.\n\n![Minh họa chủ đề nghiên cứu; không phải chân dung hoặc dữ liệu thực nghiệm gốc](/assets/library/history-evidence.svg)\n\n## Pha bị thiếu là trở ngại giữa ảnh và cấu trúc\n\nTrong nhiễu xạ tia X, cường độ được đo trực tiếp nhưng thông tin pha cần cho việc dựng mật độ electron không xuất hiện theo cùng cách. Phương pháp trực tiếp khai thác những quan hệ giữa các phản xạ và những tính chất của cấu trúc để suy ra phần thông tin ấy.\n\nKarle đưa các phương pháp vào một chuỗi làm việc có thể sử dụng để giải cấu trúc mới. Những trường hợp thành công và thất bại giúp nhận ra cách chọn dữ liệu, đánh giá lời giải và xây mô hình.\n\nVới peptide, cấu trúc không gian cho biết cách các liên kết và nhóm bên được tổ chức, gồm những mô típ gấp và tương tác hydrogen. Những thông tin này hỗ trợ nghiên cứu quan hệ giữa cấu tạo với tính chất. Một trình tự amino acid ngắn vẫn có thể nhận những cấu dạng khác nhau, nên dữ liệu tinh thể tạo một điểm tựa cụ thể cho các câu hỏi tiếp theo.\n\n## Cấu trúc được công bố là điểm bắt đầu cho người khác\n\nCác hồ sơ của NRL và National Academy of Sciences ghi nhận khối lượng lớn cấu trúc Karle xác định cùng ảnh hưởng của bà đối với việc phổ biến phương pháp. Giá trị không chỉ nằm ở một phân tử nổi tiếng mà ở khả năng làm nhiều bài toán trước đó khó trở nên giải được.\n\nNgày nay, các chương trình tự động hỗ trợ mạnh việc giải tinh thể. Tuy nhiên, người nghiên cứu vẫn cần kiểm tra mô hình, nhận diện những vùng ít dữ liệu và hiểu điều kiện mẫu. Tự động hóa giảm thao tác không làm mất trách nhiệm diễn giải.\n\nCâu chuyện Isabella Karle nhấn mạnh một dạng đóng góp thường bị che bởi tên của định lý hoặc phần mềm. Một phương pháp trở thành nền tảng khi có người đưa nó qua các mẫu thật, phát hiện chỗ vướng và làm cho kết quả đủ tin cậy để nhà hóa học khác sử dụng. Những bản đồ phân tử ấy tiếp tục sống trong cơ sở dữ liệu, trong giả thuyết phản ứng và trong cách người nghiên cứu thiết kế vật liệu mới.\n\n## Nguồn và đọc thêm\n\n- [National Academy of Sciences · Isabella Karle](https://www.nasonline.org/wp-content/uploads/2024/06/karle-isabella.pdf)\n- [Naval Research Laboratory · Di sản của Isabella Karle](https://www.nrl.navy.mil/Media/News/Article/1416654/nrl-mourns-loss-of-isabella-karle/)"
+}

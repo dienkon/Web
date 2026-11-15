@@ -1,0 +1,42 @@
+{
+  "id": "coffee-ring-hat-di-ve-vien-giot",
+  "slug": "coffee-ring-hat-di-ve-vien-giot",
+  "documentPath": "docs/coffee-ring-hat-di-ve-vien-giot/index.json",
+  "title": "Vì sao hạt cà phê dồn ra mép khi giọt khô?",
+  "summary": "Vệt vòng cà phê xuất hiện khi bay hơi và dòng bù kéo hạt về rìa bị ghim. Thay hình dạng hạt có thể làm dấu khô khác đi, một bài học cho in và phủ màng.",
+  "category": "khainiem",
+  "author": "Ban biên tập ChemDex",
+  "image": "/assets/library/organic-carbohydrate.svg",
+  "tags": [
+    "Vòng cà phê",
+    "Bay hơi",
+    "Dòng mao dẫn",
+    "Lắng đọng"
+  ],
+  "aliases": [],
+  "documentKind": "story",
+  "readingMinutes": 4,
+  "editorialEvidence": {
+    "language": "vi",
+    "scope": "chemical-family",
+    "contextLabel": "Vì sao hạt cà phê dồn ra mép khi giọt khô?",
+    "reviewBasis": "Biên soạn theo các nguồn dẫn cuối bài; phân biệt kết quả đã thực hiện và hướng phát triển.",
+    "story": {
+      "status": "documented",
+      "section": "## Cặn ban đầu ở khắp giọt, cuối cùng nằm gần viền",
+      "sources": [
+        "https://www.nature.com/articles/39827",
+        "https://www.nature.com/articles/nature10344"
+      ]
+    },
+    "application": {
+      "status": "documented",
+      "section": "## Ứng dụng hôm nay: dùng hình dạng hạt để thay dấu khô",
+      "sources": [
+        "https://www.nature.com/articles/39827",
+        "https://www.nature.com/articles/nature10344"
+      ]
+    }
+  },
+  "content": "## Cặn ban đầu ở khắp giọt, cuối cùng nằm gần viền\n\nNăm 1997, Deegan và cộng sự giải thích cơ chế tạo những vệt vòng sau khi giọt chứa hạt khô trên bề mặt. Khi đường tiếp xúc bị ghim và bay hơi diễn ra mạnh ở rìa trong điều kiện phù hợp, chất lỏng từ trong giọt chảy ra để bù. Dòng ấy mang các hạt tới mép, nơi chúng tích lũy.\n\nCà phê là ví dụ dễ thấy, nhưng hiện tượng xuất hiện với nhiều huyền phù. Nó ảnh hưởng những công việc cần một lớp cặn đều như in, phủ hoặc đặt vật liệu từ giọt. Một kết quả trông như chuyện bẩn bàn lại trở thành bài toán chế tạo.\n\nĐiều gây chú ý là không cần giả định các hạt tự thích mép hơn về hóa học. Dòng chảy do điều kiện bay hơi có thể đưa chúng tới đó ngay cả khi lúc đầu chúng phân bố khá đều.\n\n![Minh họa vật chất hữu cơ phân tán; không phải ảnh vệt cà phê thực nghiệm](/assets/library/organic-carbohydrate.svg)\n\n## Đường tiếp xúc là một phần của cơ chế\n\nGhim mép nghĩa là bán kính chân giọt giữ gần cố định trong một giai đoạn, dù thể tích đang giảm. Hình dạng và phân bố bay hơi tạo nhu cầu vận chuyển chất lỏng bên trong. Nếu mép trượt theo cách khác hoặc có dòng Marangoni đủ mạnh, kiểu lắng đọng có thể thay đổi.\n\nVì vậy, không phải mọi giọt khô đều bắt buộc để lại cùng một vòng. Bề mặt, chất tan, kích thước và hình dạng hạt, độ ẩm cùng tác động. Một chất phụ gia có thể đổi cả sức căng lẫn trạng thái phân tán, nên cần thí nghiệm để biết nó đã can thiệp vào bước nào.\n\nĐo đường đi của hạt và tốc độ thay đổi hình giọt giúp phân biệt mô hình. Chỉ chụp cặn cuối cùng có thể không đủ vì nhiều lịch sử dòng khác nhau có thể dẫn tới hình tương tự.\n\n## Ứng dụng hôm nay: dùng hình dạng hạt để thay dấu khô\n\nNghiên cứu năm 2011 của Yunker và cộng sự cho thấy những hạt bất đẳng hướng có thể tạo liên kết và cấu trúc tại mặt phân cách làm giảm hiệu ứng vòng trong hệ được khảo sát. Thay hình dạng hạt mở một cách điều khiển lắng đọng mà không chỉ dựa vào đổi dung môi.\n\nTrong in vật liệu chức năng, điều quan trọng là tạo lớp đủ đều và giữ được tính năng sau khô. Một cách giảm vòng tốt ở huyền phù mô hình vẫn cần thử với mực thật, nơi có chất kết dính, muối và yêu cầu bám dính riêng.\n\nCâu chuyện vòng cà phê nối những thang kích thước: bay hơi ở bề mặt tạo dòng trong cả giọt, rồi dòng tổ chức các hạt nhỏ thành một hình vĩ mô. Muốn thiết kế lớp phủ, người nghiên cứu phải theo dõi cả vật liệu lẫn hành trình của dung môi khi nó rời đi. Cặn cuối không chỉ nói trong giọt có gì; nó còn ghi lại cách giọt đã mất nước.\n\n## Nguồn và đọc thêm\n\n- [Deegan và cộng sự · Cơ chế vòng cà phê, 1997](https://www.nature.com/articles/39827)\n- [Yunker và cộng sự · Hình dạng hạt giảm vòng cà phê, 2011](https://www.nature.com/articles/nature10344)"
+}

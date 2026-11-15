@@ -1,0 +1,41 @@
+{
+  "id": "william-lipscomb-boron-khong-du-electron",
+  "slug": "william-lipscomb-boron-khong-du-electron",
+  "documentPath": "docs/william-lipscomb-boron-khong-du-electron/index.json",
+  "title": "William Lipscomb: những cấu trúc boron không vừa quy tắc liên kết quen thuộc",
+  "summary": "Borane cho thấy hai electron có thể tham gia liên kết nhiều tâm. Lipscomb dùng cấu trúc thực nghiệm và lý thuyết để giải những cụm nguyên tử khó vẽ.",
+  "category": "tieusu",
+  "author": "Ban biên tập ChemDex",
+  "image": "/assets/library/history-evidence.svg",
+  "tags": [
+    "William Lipscomb",
+    "Borane",
+    "Liên kết nhiều tâm"
+  ],
+  "aliases": [],
+  "documentKind": "story",
+  "readingMinutes": 3,
+  "editorialEvidence": {
+    "language": "vi",
+    "scope": "chemical-family",
+    "contextLabel": "William Lipscomb: những cấu trúc boron không vừa quy tắc liên kết quen thuộc",
+    "reviewBasis": "Biên soạn theo các nguồn dẫn cuối bài; phân biệt kết quả đã thực hiện và hướng phát triển.",
+    "story": {
+      "status": "documented",
+      "section": "## Một công thức có vẻ thiếu vật liệu để nối",
+      "sources": [
+        "https://www.nobelprize.org/prizes/chemistry/1976/lipscomb/lecture/",
+        "https://www.nobelprize.org/prizes/chemistry/1976/lipscomb/biographical/"
+      ]
+    },
+    "application": {
+      "status": "documented",
+      "section": "## Ứng dụng hôm nay: mở rộng ngôn ngữ liên kết",
+      "sources": [
+        "https://www.nobelprize.org/prizes/chemistry/1976/lipscomb/lecture/",
+        "https://www.nobelprize.org/prizes/chemistry/1976/lipscomb/biographical/"
+      ]
+    }
+  },
+  "content": "## Một công thức có vẻ thiếu vật liệu để nối\n\nCác hydride của boron đặt ra khó khăn cho cách vẽ mọi liên kết bằng một cặp electron giữa hai nguyên tử. Một số cấu trúc có các hydrogen làm cầu và những cụm boron mà quy tắc đơn giản không đủ mô tả.\n\nWilliam Lipscomb dùng dữ liệu nhiễu xạ cùng những lập luận về liên kết để xác định và giải thích các cấu trúc ấy. Công việc qua nhiều loại borane giúp tìm những quan hệ thay vì xem mỗi chất là một ngoại lệ riêng.\n\nThành tựu được Nobel Hóa học năm 1976 ghi nhận vì làm rõ cấu trúc borane và những vấn đề liên kết. Những phân tử tưởng không đủ electron để đứng vững đã trở thành ví dụ về cách vật chất sử dụng electron theo một tổ chức rộng hơn hình hai tâm quen thuộc.\n\n![Minh họa chủ đề nghiên cứu; không phải chân dung hoặc dữ liệu thực nghiệm gốc](/assets/library/history-evidence.svg)\n\n## Một cặp electron có thể gắn nhiều tâm\n\nLiên kết ba tâm hai electron là cách mô tả một số phần của borane, trong đó electron được phân bố để giữ nhiều nguyên tử cùng một hệ. Các đường nối trên hình cần được chọn để biểu diễn đúng ý nghĩa ấy.\n\nĐiều này không có nghĩa electron được chia thành những mảnh vật chất nhỏ để mỗi nguyên tử giữ một phần. Nó là mô tả lượng tử về sự phân bố và ổn định của hệ.\n\nCấu trúc thực nghiệm giúp giới hạn những mô hình có thể chấp nhận. Khoảng cách, hình dạng cụm và quan hệ giữa các dẫn xuất được đặt cạnh số electron để xây một cách hiểu nhất quán. Lý thuyết không chỉ giải thích vì sao một mẫu tồn tại, mà còn gợi cấu trúc và tính chất của những hệ liên quan có thể tìm hoặc tổng hợp tiếp.\n\n## Ứng dụng hôm nay: mở rộng ngôn ngữ liên kết\n\nHóa học cụm và vật liệu chứa boron tiếp tục dùng những ý tưởng về liên kết nhiều tâm và đếm electron. Những mô hình này giúp tổ chức cấu trúc phức tạp, nhưng cần được kiểm tra với dữ liệu của đúng hệ.\n\nLipscomb về sau còn nghiên cứu cấu trúc enzyme, cho thấy những kỹ năng giải cấu trúc có thể chuyển sang các đối tượng rất khác. Câu hỏi chung vẫn là làm thế nào dùng dữ liệu tán xạ và hóa học để chọn một mô hình có sức giải thích.\n\nCâu chuyện borane giúp người học nhận ra công thức Lewis là công cụ quan trọng nhưng có miền áp dụng. Khi vật liệu thật không vừa một quy tắc quen, điều cần làm là mở rộng mô hình bằng bằng chứng. Những cầu hydrogen và cụm boron không phải lỗi của thiên nhiên; chúng là cơ hội để hiểu rằng liên kết hóa học có nhiều cách tổ chức hơn những nét thẳng đầu tiên được học trên trang giấy.\n\n## Nguồn và đọc thêm\n\n- [William Lipscomb · Bài giảng Nobel](https://www.nobelprize.org/prizes/chemistry/1976/lipscomb/lecture/)\n- [William Lipscomb · Tự thuật nghiên cứu cấu trúc](https://www.nobelprize.org/prizes/chemistry/1976/lipscomb/biographical/)"
+}

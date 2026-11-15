@@ -1,0 +1,41 @@
+{
+  "id": "richard-synge-hai-pha-tach-amino-acid",
+  "slug": "richard-synge-hai-pha-tach-amino-acid",
+  "documentPath": "docs/richard-synge-hai-pha-tach-amino-acid/index.json",
+  "title": "Richard Synge: hai pha chất lỏng giúp tách những thành phần của protein",
+  "summary": "Martin và Synge dùng sự phân bố lặp lại để tách các amino acid đã tạo dẫn xuất. Một nguyên lý cân bằng trở thành công cụ phân tích chuỗi sinh học.",
+  "category": "tieusu",
+  "author": "Ban biên tập ChemDex",
+  "image": "/assets/library/history-evidence.svg",
+  "tags": [
+    "Richard Synge",
+    "Sắc ký phân bố",
+    "Amino acid"
+  ],
+  "aliases": [],
+  "documentKind": "story",
+  "readingMinutes": 4,
+  "editorialEvidence": {
+    "language": "vi",
+    "scope": "chemical-family",
+    "contextLabel": "Richard Synge: hai pha chất lỏng giúp tách những thành phần của protein",
+    "reviewBasis": "Biên soạn theo các nguồn dẫn cuối bài; phân biệt kết quả đã thực hiện và hướng phát triển.",
+    "story": {
+      "status": "documented",
+      "section": "## Một hỗn hợp quá giống nhau cần nhiều lần lựa chọn",
+      "sources": [
+        "https://doi.org/10.1042/bj0351358",
+        "https://www.nobelprize.org/prizes/chemistry/1952/synge/lecture/"
+      ]
+    },
+    "application": {
+      "status": "documented",
+      "section": "## Ứng dụng hôm nay: khác biệt nhỏ có thể được khuếch đại bằng thiết kế",
+      "sources": [
+        "https://doi.org/10.1042/bj0351358",
+        "https://www.nobelprize.org/prizes/chemistry/1952/synge/lecture/"
+      ]
+    }
+  },
+  "content": "## Một hỗn hợp quá giống nhau cần nhiều lần lựa chọn\n\nNăm 1941, Archer Martin và Richard Synge công bố một dạng sắc ký dùng hai pha lỏng. Nước được giữ trên chất mang và dung môi chuyển động qua cột, tạo nhiều lần phân bố cho các chất trong mẫu.\n\nNhóm dùng phương pháp để tách những dẫn xuất acetyl của amino acid, phục vụ nghiên cứu thành phần protein. Các chất gần nhau về tính chất có thể khó tách trong một lần chiết, nhưng những khác biệt nhỏ được tích lũy qua nhiều bước trao đổi.\n\nBài báo đồng thời xây cách mô tả lý thuyết của cột. Phân tích không chỉ dựa vào thử cho đến khi thấy các vùng tách nhau; người nghiên cứu có thêm ngôn ngữ để hỏi hiệu quả, thời gian lưu và khả năng cải tiến thiết kế.\n\n![Minh họa chủ đề nghiên cứu; không phải chân dung hoặc dữ liệu thực nghiệm gốc](/assets/library/history-evidence.svg)\n\n## Chất mang giữ pha, còn phân bố tạo chọn lọc\n\nĐiểm quan trọng của sắc ký phân bố là vai trò của hai môi trường mà chất có thể hòa tan theo mức khác nhau. Chất mang giúp giữ một pha ở trong cột, nhưng sự chọn lọc cần được hiểu theo hệ thực chứ không chỉ tên vật liệu đỡ.\n\nNếu lượng nước, dung môi hoặc thành phần mẫu thay đổi, quan hệ phân bố cũng có thể đổi. Những điều kiện ấy phải được kiểm soát để so các mẫu và tái tạo kết quả.\n\nSynge dùng các phương pháp phân tách trong nghiên cứu peptide, nơi cần biết những mảnh sau phản ứng gồm gì và liên hệ với chuỗi ban đầu ra sao. Một phương pháp tách tốt làm tăng số câu hỏi có thể hỏi về phân tử. Nó giúp các sản phẩm không còn chồng thành một tín hiệu chung, nhưng mỗi phần tách ra vẫn cần nhận diện bằng bằng chứng hóa học phù hợp.\n\n## Ứng dụng hôm nay: khác biệt nhỏ có thể được khuếch đại bằng thiết kế\n\nSắc ký đã phát triển thành nhiều họ kỹ thuật với những pha và cơ chế khác nhau. Nguyên tắc lặp lại những tương tác chọn lọc vẫn nằm trong nhiều cách tách hỗn hợp phức tạp.\n\nKhi một phương pháp chưa phân giải được hai chất, có thể cần thay pha, điều kiện hoặc chiều dài đường tương tác. Kéo dài thời gian không phải lúc nào cũng đủ nếu hệ không có sự chọn lọc cần thiết ngay từ đầu.\n\nCâu chuyện Synge làm rõ cách một quan hệ cân bằng trở thành thiết bị phân tích. Hai chất có thể gần giống đến mức một lần chiết không cho khác biệt rõ, nhưng hàng loạt lần phân bố được tổ chức trong cột làm đường đi của chúng tách dần. Nhờ đó, những hỗn hợp sinh học khó đọc trở thành các phần có thể nghiên cứu riêng, và thông tin cấu trúc bắt đầu được xây từ những kết quả phân tách đáng tin.\n\n## Nguồn và đọc thêm\n\n- [Martin và Synge · Sắc ký hai pha lỏng, 1941](https://doi.org/10.1042/bj0351358)\n- [Richard Synge · Bài giảng Nobel](https://www.nobelprize.org/prizes/chemistry/1952/synge/lecture/)"
+}

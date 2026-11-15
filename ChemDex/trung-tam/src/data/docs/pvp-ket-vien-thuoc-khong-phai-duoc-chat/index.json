@@ -1,0 +1,44 @@
+{
+  "id": "pvp-ket-vien-thuoc-khong-phai-duoc-chat",
+  "slug": "pvp-ket-vien-thuoc-khong-phai-duoc-chat",
+  "documentPath": "docs/pvp-ket-vien-thuoc-khong-phai-duoc-chat/index.json",
+  "title": "Chất giữ một viên thuốc thành khối: câu chuyện PVP phía sau nhãn dược chất",
+  "summary": "Từ hóa học acetylene của Walter Reppe, PVP trở thành vật liệu cho nhiều ngành. Trong một viên nén, nó có thể giữ vai trò tá dược với công việc khác hẳn hoạt chất.",
+  "category": "hopchat",
+  "author": "Ban biên tập ChemDex",
+  "image": "/assets/library/organic-polymer.svg",
+  "tags": [
+    "PVP",
+    "Povidone",
+    "Kollidon",
+    "Tá dược"
+  ],
+  "aliases": [],
+  "documentKind": "story",
+  "readingMinutes": 4,
+  "editorialEvidence": {
+    "language": "vi",
+    "scope": "chemical-family",
+    "contextLabel": "Chất giữ một viên thuốc thành khối: câu chuyện PVP phía sau nhãn dược chất",
+    "reviewBasis": "Biên soạn theo các nguồn dẫn cuối bài; phân biệt kết quả đã thực hiện và hướng phát triển.",
+    "story": {
+      "status": "documented",
+      "section": "## Một polymer đi qua nhiều ngành",
+      "sources": [
+        "https://www.basf.com/fi/en/media/news-releases/2015/01/p-15-120",
+        "https://pharmaceutical.basf.com/global/en/pharma-solutions/products/kollidon",
+        "https://download.basf.com/p1/EN_StaticDocuments_5915/en/Technical_Information"
+      ]
+    },
+    "application": {
+      "status": "documented",
+      "section": "## Ứng dụng hôm nay: chất phụ có thể quyết định cách sản phẩm làm việc",
+      "sources": [
+        "https://www.basf.com/fi/en/media/news-releases/2015/01/p-15-120",
+        "https://pharmaceutical.basf.com/global/en/pharma-solutions/products/kollidon",
+        "https://download.basf.com/p1/EN_StaticDocuments_5915/en/Technical_Information"
+      ]
+    }
+  },
+  "content": "## Một polymer đi qua nhiều ngành\n\nTháng 1 năm 2015, BASF công bố kế hoạch mở rộng chuỗi N-vinylpyrrolidone và polyvinylpyrrolidone tại nhiều địa điểm. Thông báo nhìn lại khoảng 75 năm phát triển vật liệu gắn với Walter Reppe. Từ những nghiên cứu acetylene thập niên 1930, monomer NVP và polymer PVP đã có lịch sử công nghiệp lâu dài.\n\nĐiều đáng chú ý không chỉ là quy mô sản xuất. Một polymer xuất hiện trong tá dược, sản phẩm tạo kiểu tóc, chất tẩy và những ứng dụng kỹ thuật khác nhau. Mỗi nơi khai thác một tổ hợp tương tác với nước, hạt hoặc bề mặt theo cách riêng.\n\nPVP còn được gọi là povidone. Trong viên nén, nó có thể tham gia làm chất kết dính: hỗ trợ các hạt nguyên liệu tạo một khối đủ bền để chế tạo và sử dụng. Vai trò ấy không biến polymer thành hoạt chất điều trị. Một viên thuốc cần cả thành phần mang tác dụng sinh học lẫn những vật liệu giúp sản phẩm có tính năng ổn định.\n\n![Minh họa polymer; povidone có nhóm pyrrolidone bên mạch](/assets/library/organic-polymer.svg)\n\n## Tan được và tạo mạng là hai kiến trúc khác nhau\n\nNhóm pyrrolidone gắn bên mạch góp phần vào tương tác của PVP với nước và nhiều chất khác. Khối lượng phân tử ảnh hưởng độ nhớt và hành vi của dung dịch. Vì vậy, các cấp povidone được lựa chọn theo yêu cầu chế tạo, thay vì coi mọi bột PVP là cùng một nguyên liệu.\n\nKhi có liên kết ngang, crospovidone tạo một kiến trúc khác: mạng không tan theo cách của chuỗi PVP tuyến tính. Nó có thể được dùng làm tá dược giúp viên rã trong môi trường lỏng. Khác biệt về cấu trúc giải thích vì sao cùng họ hóa học lại có thể hỗ trợ hai công việc tưởng trái nhau, giữ viên và giúp viên tách ra.\n\nHọ Kollidon của nhà sản xuất còn gồm copovidone, polymer có các đơn vị monomer khác cùng tham gia. Điều chỉnh thành phần làm thay đổi tương tác và cách gia công. Một tên họ sản phẩm vì thế cần được đọc tới đúng cấp vật liệu trước khi giải thích chức năng.\n\nSự tương tác với hoạt chất cũng đáng quan tâm. Polymer có thể ảnh hưởng sự phân tán, trạng thái rắn hoặc quá trình hòa tan trong một công thức. Các đặc tính ấy phải được khảo sát trên tổ hợp thật; chỉ biết polymer hút nước chưa đủ để dự đoán tốc độ giải phóng của một viên hoàn chỉnh.\n\n## Ứng dụng hôm nay: chất phụ có thể quyết định cách sản phẩm làm việc\n\nTài liệu hiện nay của BASF mô tả nhiều cấp povidone và crospovidone cho những phương pháp gia công khác nhau. Một công thức cần cân bằng độ bền hạt, khả năng dập viên, ổn định và hành vi trong môi trường sử dụng. Đây là bài toán vật liệu của sản phẩm, không phải hướng dẫn người dùng tự phối thuốc.\n\nỞ các ngành khác, công thức có PVP hoặc dẫn xuất được thiết kế để tạo màng, ổn định phân tán hay tương tác với những thành phần cần loại bỏ. Các chức năng không thể hoán đổi chỉ vì cùng có tên một polymer. Mỗi ứng dụng gắn với cấu trúc và cấp sản phẩm cụ thể.\n\nCâu chuyện PVP đưa ánh nhìn tới những thành phần thường đứng sau chữ “tá dược”. Chúng không thừa và cũng không làm cùng việc với hoạt chất. Một chuỗi polymer có thể quyết định các hạt gặp nhau thế nào, viên giữ được hình ra sao và phản ứng với nước theo đường nào. Tính năng của sản phẩm nằm trong cả hệ vật liệu ấy.\n\n## Nguồn và đọc thêm\n\n- [BASF: lịch sử PVP và mở rộng chuỗi sản xuất, 2015](https://www.basf.com/fi/en/media/news-releases/2015/01/p-15-120)\n- [BASF: povidone, copovidone và crospovidone](https://pharmaceutical.basf.com/global/en/pharma-solutions/products/kollidon)\n- [BASF: các cấp crospovidone liên kết ngang](https://download.basf.com/p1/EN_StaticDocuments_5915/en/Technical_Information)"
+}

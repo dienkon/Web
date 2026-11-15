@@ -1,0 +1,41 @@
+{
+  "id": "pdf-vo-dinh-hinh-van-co-hang-xom",
+  "slug": "pdf-vo-dinh-hinh-van-co-hang-xom",
+  "documentPath": "docs/pdf-vo-dinh-hinh-van-co-hang-xom/index.json",
+  "title": "Không có đỉnh tinh thể sắc nét, vật liệu vẫn còn những hàng xóm",
+  "summary": "Hàm phân bố cặp nguyên tử giúp đọc trật tự cục bộ trong chất vô định hình. Hai cách chế tạo cùng một chất có thể để lại những cấu trúc gần khác nhau.",
+  "category": "khainiem",
+  "author": "Ban biên tập ChemDex",
+  "image": "/assets/library/ionic-crystal.svg",
+  "tags": [
+    "PDF nguyên tử",
+    "Vô định hình",
+    "Tán xạ tổng"
+  ],
+  "aliases": [],
+  "documentKind": "story",
+  "readingMinutes": 4,
+  "editorialEvidence": {
+    "language": "vi",
+    "scope": "chemical-family",
+    "contextLabel": "Không có đỉnh tinh thể sắc nét, vật liệu vẫn còn những hàng xóm",
+    "reviewBasis": "Biên soạn theo các nguồn dẫn cuối bài; phân biệt kết quả đã thực hiện và hướng phát triển.",
+    "story": {
+      "status": "documented",
+      "section": "## Hai mẫu đều được gọi là vô định hình nhưng chưa chắc giống nhau",
+      "sources": [
+        "https://pmc.ncbi.nlm.nih.gov/articles/PMC3834909/",
+        "https://pmc.ncbi.nlm.nih.gov/articles/PMC5619848/"
+      ]
+    },
+    "application": {
+      "status": "documented",
+      "section": "## Ứng dụng hôm nay: đọc vật liệu khó kết tinh hoặc quá mỏng",
+      "sources": [
+        "https://pmc.ncbi.nlm.nih.gov/articles/PMC3834909/",
+        "https://pmc.ncbi.nlm.nih.gov/articles/PMC5619848/"
+      ]
+    }
+  },
+  "content": "## Hai mẫu đều được gọi là vô định hình nhưng chưa chắc giống nhau\n\nNghiên cứu năm 2012 dùng amlodipine besilate làm mô hình, tạo các mẫu mất trật tự bằng nghiền hoặc làm nguội nhanh. Các phép nhiễu xạ bột thông thường và Raman chưa phân biệt rõ hai đường chuẩn bị, trong khi phân tích hàm phân bố cặp, hay PDF, cho thấy khả năng nhận ra khác biệt.\n\nTên “vô định hình” nói vật liệu không có trật tự lặp xa như tinh thể, nhưng không có nghĩa mọi nguyên tử được đặt ngẫu nhiên hoàn toàn. Liên kết và tương tác vẫn tạo ra những khoảng cách ưu tiên. Chính phần trật tự gần ấy có thể giữ dấu của quá trình chế tạo.\n\nCâu hỏi có giá trị thực tế vì hai mẫu cùng tên và cùng vẻ bột có thể khác về độ ổn định hay cách chuyển trạng thái. Muốn giải thích, cần một phép đo nhạy với những cấu trúc mà việc chỉ tìm đỉnh Bragg sắc nét sẽ bỏ qua.\n\n![Minh họa quan hệ giữa các vị trí nguyên tử; chất vô định hình không có mạng lặp như sơ đồ](/assets/library/ionic-crystal.svg)\n\n## Giữ cả phần tán xạ khuếch tán\n\nTrong phân tích PDF, dữ liệu tán xạ tổng được xử lý để biểu diễn xác suất tương đối tìm thấy các cặp nguyên tử cách nhau một khoảng. Những đỉnh ở khoảng ngắn liên quan đến liên kết và phối trí gần; thông tin ở xa hơn phản ánh mức tổ chức kéo dài.\n\nQuá trình biến đổi dữ liệu cần hiệu chỉnh nền, chuẩn hóa và miền đo thích hợp. Một đỉnh không tự chỉ ra duy nhất một cặp nguyên tố trong mẫu nhiều thành phần. Mô hình cấu trúc và những phép đo bổ sung giúp ràng buộc cách gán.\n\nKhác biệt với một ảnh hiển vi là PDF thường mô tả trung bình trên rất nhiều cặp. Nó mạnh khi hỏi kiểu khoảng cách nào có mặt và thay đổi ra sao, nhưng không tự cho bản đồ vị trí riêng của từng phân tử. Giới hạn ấy cần được giữ khi nối cấu trúc với tính chất.\n\n## Ứng dụng hôm nay: đọc vật liệu khó kết tinh hoặc quá mỏng\n\nNghiên cứu năm 2017 đo tán xạ tổng của màng indomethacin vô định hình trên nền vô cơ có tín hiệu mạnh. Dùng nguồn synchrotron năng lượng cao giúp khai thác phần tán xạ yếu của màng, tránh phải cạo và gom vật liệu theo cách có thể làm thay đổi cấu trúc ban đầu.\n\nNhững ứng dụng như vậy mở rộng nghiên cứu vật liệu vô định hình, nanocrystal và các hệ nhiều pha. Tuy nhiên, việc một mô hình khớp PDF chưa đủ chứng minh duy nhất cấu trúc đó; cần kiểm tra những mô hình cạnh tranh và chất lượng dữ liệu.\n\nCâu chuyện từ hai mẫu được chế tạo khác nhau tới một màng mỏng cho thấy hóa học cấu trúc không chỉ dành cho các tinh thể đẹp. Khi vật liệu không cho các đỉnh sắc quen thuộc, phần tín hiệu tưởng như nền vẫn có thể chứa thông tin. Chọn giữ và phân tích phần ấy giúp ta hỏi những câu tinh tế hơn: những phân tử đang đứng gần nhau theo cách nào, và lịch sử chế tạo đã để lại dấu gì trong khoảng cách giữa chúng?\n\n## Nguồn và đọc thêm\n\n- [Nghiên cứu gốc · PDF phân biệt các dạng vô định hình, 2012](https://pmc.ncbi.nlm.nih.gov/articles/PMC3834909/)\n- [Nghiên cứu gốc · PDF của màng hữu cơ vô định hình, 2017](https://pmc.ncbi.nlm.nih.gov/articles/PMC5619848/)"
+}

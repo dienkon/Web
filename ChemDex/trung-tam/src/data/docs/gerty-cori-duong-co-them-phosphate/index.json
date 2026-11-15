@@ -1,0 +1,41 @@
+{
+  "id": "gerty-cori-duong-co-them-phosphate",
+  "slug": "gerty-cori-duong-co-them-phosphate",
+  "documentPath": "docs/gerty-cori-duong-co-them-phosphate/index.json",
+  "title": "Gerty Cori: một phân tử đường có thêm phosphate làm lộ con đường glycogen",
+  "summary": "Glucose-1-phosphate giúp nối sự phân giải và tổng hợp glycogen bằng những phản ứng cụ thể. Gerty Cori biến chuyển hóa thành chuỗi chất trung gian có thể phân lập.",
+  "category": "tieusu",
+  "author": "Ban biên tập ChemDex",
+  "image": "/assets/library/history-evidence.svg",
+  "tags": [
+    "Gerty Cori",
+    "Glycogen",
+    "Glucose-1-phosphate"
+  ],
+  "aliases": [],
+  "documentKind": "story",
+  "readingMinutes": 4,
+  "editorialEvidence": {
+    "language": "vi",
+    "scope": "chemical-family",
+    "contextLabel": "Gerty Cori: một phân tử đường có thêm phosphate làm lộ con đường glycogen",
+    "reviewBasis": "Biên soạn theo các nguồn dẫn cuối bài; phân biệt kết quả đã thực hiện và hướng phát triển.",
+    "story": {
+      "status": "documented",
+      "section": "## Chất trung gian xuất hiện giữa kho dự trữ và nhiên liệu",
+      "sources": [
+        "https://www.nobelprize.org/prizes/medicine/1947/cori-gt/lecture/",
+        "https://www.nobelprize.org/prizes/medicine/1947/cori-gt/biographical/"
+      ]
+    },
+    "application": {
+      "status": "documented",
+      "section": "## Ứng dụng hôm nay: tìm bước hỏng trong một mạng có nhiều ngả",
+      "sources": [
+        "https://www.nobelprize.org/prizes/medicine/1947/cori-gt/lecture/",
+        "https://www.nobelprize.org/prizes/medicine/1947/cori-gt/biographical/"
+      ]
+    }
+  },
+  "content": "## Chất trung gian xuất hiện giữa kho dự trữ và nhiên liệu\n\nTrong thập niên 1930, Gerty Cori và Carl Cori nghiên cứu những biến đổi của glycogen, polymer dự trữ glucose trong cơ thể. Họ phân lập glucose-1-phosphate, chất về sau thường được gọi là ester Cori.\n\nPhân tử này cho thấy glycogen không đơn giản bị cắt để giải phóng toàn bộ glucose tự do theo một bước chung. Phosphate vô cơ tham gia một con đường phản ứng tạo sản phẩm đã mang nhóm phosphate.\n\nViệc có mẫu chất trung gian giúp câu hỏi chuyển từ một sơ đồ chuyển hóa suy đoán sang các phép thử cụ thể. Có thể tạo, đo và đưa nó vào những hệ enzyme khác để xem sản phẩm nào xuất hiện. Một nhóm chức nhỏ mở ra cách nối những phần của mạng chuyển hóa.\n\n![Minh họa chủ đề nghiên cứu; không phải chân dung hoặc dữ liệu thực nghiệm gốc](/assets/library/history-evidence.svg)\n\n## Phosphate định hướng những bước tiếp theo\n\nVị trí phosphate trên glucose ảnh hưởng enzyme nào có thể sử dụng phân tử. Glucose-1-phosphate và glucose-6-phosphate cùng thành phần tổng nhưng khác vị trí liên kết, nên không thể được coi như một chất chỉ vì tên gần giống.\n\nNhóm Cori khảo sát enzyme chuyển đổi giữa các dạng và những điều kiện cho phép glycogen bị phân giải hoặc được tạo. Phản ứng thuận nghịch trong hệ thí nghiệm giúp kiểm tra các quan hệ vật chất, nhưng điều kiện tế bào còn tổ chức dòng chuyển hóa theo nhiều cơ chế điều hòa.\n\nGerty Cori tiếp tục nghiên cứu những bệnh liên quan tới chuyển hóa glycogen, tìm cách liên hệ biểu hiện với thiếu hụt enzyme cụ thể. Những kết quả ấy cho thấy cùng tích tụ một vật liệu trong mô có thể bắt nguồn từ những bước khác nhau của chuỗi. Định danh hóa học và vị trí phản ứng trở thành công cụ phân biệt cơ chế bệnh.\n\n## Ứng dụng hôm nay: tìm bước hỏng trong một mạng có nhiều ngả\n\nNghiên cứu chuyển hóa hiện kết hợp định lượng chất trung gian, hoạt tính enzyme và dữ liệu di truyền. Một nồng độ tăng có thể do tạo nhiều hơn, tiêu thụ ít hơn hoặc chuyển vận thay đổi, nên cần thiết kế phép đo để phân biệt.\n\nCác chất đường phosphate vẫn là những nút quan trọng trong cách tế bào tổ chức carbon và năng lượng. Hiểu vị trí của chúng giúp đọc các bản đồ chuyển hóa bằng phản ứng, thay vì chỉ nhớ những tên nối bằng mũi tên.\n\nCâu chuyện Gerty Cori làm nổi bật giá trị của một phân tử được phân lập đúng lúc. Nó không chỉ bổ sung một dòng vào danh mục chất. Nó tạo điểm tựa để kiểm tra các đường đi của glycogen và để hiểu vì sao một enzyme thiếu có thể làm cả hệ thay đổi. Hóa học ở đây đưa một vấn đề sinh lý rộng về những bước có vật liệu đầu, sản phẩm và phép đo rõ ràng.\n\n## Nguồn và đọc thêm\n\n- [Gerty Cori · Bài giảng Nobel](https://www.nobelprize.org/prizes/medicine/1947/cori-gt/lecture/)\n- [Gerty Cori · Hồ sơ nghiên cứu Nobel](https://www.nobelprize.org/prizes/medicine/1947/cori-gt/biographical/)"
+}

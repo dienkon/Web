@@ -1,0 +1,42 @@
+{
+  "id": "maldi-imaging-ban-do-phan-tu-tren-mo",
+  "slug": "maldi-imaging-ban-do-phan-tu-tren-mo",
+  "documentPath": "docs/maldi-imaging-ban-do-phan-tu-tren-mo/index.json",
+  "title": "Một lát mô có hàng trăm bản đồ phân tử cùng nằm trên đó",
+  "summary": "MALDI imaging ghép vị trí đo với phổ khối, tạo ảnh phân bố các ion trên mô. Công trình năm 1997 mở cách khảo sát không cần chọn trước một nhãn riêng cho từng phân tử.",
+  "category": "khainiem",
+  "author": "Ban biên tập ChemDex",
+  "image": "/assets/library/apparatus-spectroscope.svg",
+  "tags": [
+    "MALDI imaging",
+    "Khối phổ",
+    "Mô",
+    "Bản đồ phân tử"
+  ],
+  "aliases": [],
+  "documentKind": "story",
+  "readingMinutes": 4,
+  "editorialEvidence": {
+    "language": "vi",
+    "scope": "chemical-family",
+    "contextLabel": "Một lát mô có hàng trăm bản đồ phân tử cùng nằm trên đó",
+    "reviewBasis": "Biên soạn theo các nguồn dẫn cuối bài; phân biệt kết quả đã thực hiện và hướng phát triển.",
+    "story": {
+      "status": "documented",
+      "section": "## Mỗi điểm trên mẫu cho một phổ",
+      "sources": [
+        "https://doi.org/10.1021/ac970888i",
+        "https://pmc.ncbi.nlm.nih.gov/articles/PMC4104210/"
+      ]
+    },
+    "application": {
+      "status": "documented",
+      "section": "## Ứng dụng hôm nay: nối hóa học với hình thái",
+      "sources": [
+        "https://doi.org/10.1021/ac970888i",
+        "https://pmc.ncbi.nlm.nih.gov/articles/PMC4104210/"
+      ]
+    }
+  },
+  "content": "## Mỗi điểm trên mẫu cho một phổ\n\nNăm 1997, Caprioli, Farmer và Gile công bố việc tạo ảnh ion từ mẫu sinh học bằng MALDI-TOF. Nhóm khảo sát các vùng mô của chuột, ghép tín hiệu ở những tỷ số khối lượng trên điện tích với tọa độ trên mẫu. Thay vì một bức ảnh duy nhất, cùng tập dữ liệu có thể tạo nhiều bản đồ cho những ion khác nhau.\n\nMột vùng mô có hình dạng gần giống vùng bên cạnh dưới kính hiển vi vẫn có thể mang thành phần phân tử khác. Phương pháp cung cấp cách nối hóa học với không gian, giữ lại thông tin vị trí mà việc nghiền toàn bộ mẫu thành dịch chiết sẽ làm mất.\n\nTrong nghiên cứu ban đầu, các peptide ở những phần khác nhau của tuyến yên được lập bản đồ. Điều quan trọng là khả năng quan sát nhiều tín hiệu trong cùng một phép khảo sát, không cần mỗi lần chỉ chọn một mục tiêu duy nhất.\n\n![Minh họa phân tích phổ; không phải ảnh mô hoặc kết quả MALDI imaging](/assets/library/apparatus-spectroscope.svg)\n\n## Matrix giúp phân tử rời bề mặt và trở thành ion\n\nMALDI dùng một chất nền hấp thụ năng lượng laser, hỗ trợ đưa các phân tử từ bề mặt vào pha khí dưới dạng ion trong điều kiện phù hợp. Máy khối phổ ghi tín hiệu ở từng vị trí quét. Sau đó phần mềm chọn một miền m/z để biểu diễn cường độ theo tọa độ.\n\nẢnh ấy không phải bản đồ nồng độ tuyệt đối tự động. Khả năng ion hóa phụ thuộc nền mô, matrix và các chất cạnh tranh. Một vùng ít tín hiệu có thể do lượng chất ít hoặc do điều kiện tạo ion kém thuận lợi hơn. Việc xác nhận danh tính còn cần phép phân mảnh hoặc kỹ thuật bổ sung, vì một m/z đơn lẻ có thể chưa đủ phân biệt mọi cấu trúc.\n\nCách phủ matrix và chuẩn bị mẫu phải giữ được phân bố không gian. Nếu chất hòa tan rồi di chuyển trước khi đo, ảnh có thể sắc nhưng không còn phản ánh chính xác nơi phân tử từng nằm trong mô.\n\n## Ứng dụng hôm nay: nối hóa học với hình thái\n\nMALDI imaging được dùng trong nghiên cứu mô, phân bố thuốc và nhiều hệ vật liệu. Các tiến bộ về detector, tốc độ và độ phân giải giúp khảo sát nhiều vị trí hơn, nhưng độ phân giải không gian, độ nhạy và thời gian đo vẫn tạo những đánh đổi.\n\nNhững nghiên cứu hiện đại thường phối hợp ảnh khối phổ với mô học và các phương pháp phân tích khác. Đây là cách kiểm tra xem một phân bố ion có liên hệ với cấu trúc sinh học hay trạng thái bệnh trong phạm vi nghiên cứu hay không. Một ảnh khác biệt rõ chưa tự trở thành dấu chẩn đoán đã được xác nhận.\n\nCâu chuyện năm 1997 biến một lát mô thành nơi nhiều phân tử cùng có địa chỉ. Thông tin hóa học không còn chỉ là danh sách trong một ống chiết, mà được đặt trở lại trên không gian của mẫu. Giá trị ấy phụ thuộc vào việc giữ được chuỗi liên hệ từ vị trí laser, phổ ion tới cách giải thích sinh học, với những kiểm chứng phù hợp ở mỗi bước.\n\n## Nguồn và đọc thêm\n\n- [Caprioli, Farmer và Gile · Ảnh phân tử bằng MALDI, 1997](https://doi.org/10.1021/ac970888i)\n- [Nghiên cứu tổng quan · Cơ sở và ứng dụng MALDI imaging](https://pmc.ncbi.nlm.nih.gov/articles/PMC4104210/)"
+}

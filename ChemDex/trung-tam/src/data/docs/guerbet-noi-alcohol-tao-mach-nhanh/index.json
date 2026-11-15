@@ -1,0 +1,44 @@
+{
+  "id": "guerbet-noi-alcohol-tao-mach-nhanh",
+  "slug": "guerbet-noi-alcohol-tao-mach-nhanh",
+  "documentPath": "docs/guerbet-noi-alcohol-tao-mach-nhanh/index.json",
+  "title": "Một nhánh carbon làm alcohol chảy khác đi: phản ứng Guerbet",
+  "summary": "Các alcohol ISOFOL của Sasol cho thấy cấu trúc nhánh có thể được thiết kế như một tính năng. Phản ứng Guerbet nối những alcohol nhỏ hơn qua một chuỗi khử hydrogen, aldol và hydrogen hóa.",
+  "category": "phanung",
+  "author": "Ban biên tập ChemDex",
+  "image": "/assets/library/organic-alcohol.svg",
+  "tags": [
+    "Guerbet",
+    "Alcohol",
+    "Mạch nhánh",
+    "Chuyển hydrogen"
+  ],
+  "aliases": [],
+  "documentKind": "story",
+  "readingMinutes": 4,
+  "editorialEvidence": {
+    "language": "vi",
+    "scope": "chemical-family",
+    "contextLabel": "Một nhánh carbon làm alcohol chảy khác đi: phản ứng Guerbet",
+    "reviewBasis": "Biên soạn theo các nguồn dẫn cuối bài; phân biệt kết quả đã thực hiện và hướng phát triển.",
+    "story": {
+      "status": "documented",
+      "section": "## Trên danh mục sản phẩm, vị trí nhánh là thông tin quan trọng",
+      "sources": [
+        "https://products.sasol.com/pic/products/home/categories/guerbet-alcohols/index.html",
+        "https://www.aocs.org/resource/guerbet-compounds/",
+        "https://doi.org/10.1002/cmtd.202000056"
+      ]
+    },
+    "application": {
+      "status": "documented",
+      "section": "## Ứng dụng hôm nay: cấu trúc được chọn theo tính năng cần có",
+      "sources": [
+        "https://products.sasol.com/pic/products/home/categories/guerbet-alcohols/index.html",
+        "https://www.aocs.org/resource/guerbet-compounds/",
+        "https://doi.org/10.1002/cmtd.202000056"
+      ]
+    }
+  },
+  "content": "## Trên danh mục sản phẩm, vị trí nhánh là thông tin quan trọng\n\nSasol giới thiệu họ ISOFOL như các alcohol bậc một bão hòa có cấu trúc nhánh xác định. Chẳng hạn, một sản phẩm C12 được mô tả là 2-butyl-1-octanol. Cách gọi này cho biết nhiều hơn tổng số carbon: nhóm nhánh nằm ở vị trí nào trên mạch chính.\n\nNhững alcohol kiểu Guerbet được dùng trong các chuỗi chất hoạt động bề mặt, chất bôi trơn, lớp phủ và chăm sóc cá nhân. Tính chảy ở nhiệt độ thấp cùng cách tương tác với những thành phần khác khiến cấu trúc nhánh có giá trị thực tế.\n\nPhản ứng mang tên Marcel Guerbet đã được biết từ cuối thế kỷ XIX. Điều khiến nó tiếp tục được quan tâm là khả năng kết nối nguyên liệu alcohol với những sản phẩm có mạch lớn và hình học khác, kể cả trong nghiên cứu nguồn nguyên liệu sinh học.\n\n![Minh họa nhóm alcohol, không phải cấu trúc đầy đủ của từng sản phẩm ISOFOL](/assets/library/organic-alcohol.svg)\n\n## Nối carbon qua một chặng carbonyl tạm thời\n\nCách giải thích nền tảng của Guerbet bắt đầu bằng khử hydrogen của alcohol để tạo carbonyl. Các carbonyl tham gia phản ứng aldol và tách nước, tạo trung gian không bão hòa. Những bước hydrogen hóa tiếp theo đưa hệ tới alcohol có mạch lớn hơn.\n\nHydrogen được lấy ra ở một chặng có thể được sử dụng ở chặng khác trong hệ thích hợp. Vì vậy, phản ứng thường được thảo luận như một mạng chuyển hydrogen, chứ không phải đơn giản ghép trực tiếp hai nhóm OH.\n\nCác chức năng xúc tác khác nhau cần phối hợp: kim loại có thể hỗ trợ khử và thêm hydrogen, còn các tâm acid hoặc base hỗ trợ bước tạo liên kết carbon. Nếu một chức năng chạy nhanh nhưng bước khác chậm, trung gian có thể tích lũy hoặc đi sang sản phẩm phụ.\n\nDùng hai alcohol khác nhau còn tạo bài toán chọn lọc ghép chéo. Không chỉ có sản phẩm mong muốn từ một phân tử loại A và một phân tử loại B; những đường tự ghép cũng có thể cạnh tranh.\n\nMạng phản ứng vì thế cần được đọc bằng dữ liệu thành phần, không chỉ bằng một phương trình tổng quát đẹp.\n\n## Ứng dụng hôm nay: cấu trúc được chọn theo tính năng cần có\n\nMạch nhánh làm các phân tử khó xếp đều như một số đồng phân mạch thẳng, góp phần thay đổi nhiệt độ nóng chảy và độ chảy. Nhưng tính chất cuối còn phụ thuộc chiều dài mạch và những nhóm chức được tạo tiếp từ alcohol.\n\nNhững ester của alcohol Guerbet có thể phục vụ nhiệm vụ khác với alcohol gốc. Do đó, một danh sách ứng dụng của cả họ không có nghĩa mọi sản phẩm trong họ đều phù hợp cho cùng công thức.\n\nNghiên cứu xúc tác hiện nay tìm cách nâng chọn lọc và giảm điều kiện khắc nghiệt, đặc biệt khi chuyển từ alcohol tinh khiết sang nguồn có thành phần phức tạp hơn. Nguồn gốc sinh học không loại bỏ yêu cầu làm sạch nguyên liệu hoặc quản lý những phản ứng cạnh tranh.\n\nCâu chuyện của một nhánh carbon cho thấy phản ứng tổng hợp có thể được lựa chọn vì nó tạo một tính chất vật lý ở cuối chuỗi. Nhà hóa học không chỉ muốn phân tử lớn hơn; họ muốn một phân tử chảy, hòa trộn hoặc bám lên bề mặt theo cách phù hợp. Guerbet là một đường để biến yêu cầu ấy thành cấu trúc.\n\n## Nguồn và đọc thêm\n\n- [Sasol · Alcohol Guerbet ISOFOL và các ứng dụng](https://products.sasol.com/pic/products/home/categories/guerbet-alcohols/index.html)\n- [AOCS · Cơ chế và cấu trúc của hợp chất Guerbet](https://www.aocs.org/resource/guerbet-compounds/)\n- [Nghiên cứu mạng phản ứng Guerbet và xúc tác Ru-MACHO-BH](https://doi.org/10.1002/cmtd.202000056)"
+}

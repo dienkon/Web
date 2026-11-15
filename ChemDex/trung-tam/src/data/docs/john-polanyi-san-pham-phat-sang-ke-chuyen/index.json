@@ -1,0 +1,41 @@
+{
+  "id": "john-polanyi-san-pham-phat-sang-ke-chuyen",
+  "slug": "john-polanyi-san-pham-phat-sang-ke-chuyen",
+  "documentPath": "docs/john-polanyi-san-pham-phat-sang-ke-chuyen/index.json",
+  "title": "John Polanyi: sản phẩm phát ánh sáng để kể lại phản ứng",
+  "summary": "Hồng ngoại phát ra từ phân tử mới tạo cung cấp thông tin về năng lượng dao động. Polanyi dùng tín hiệu ấy để nối kết quả với cách phản ứng đi qua vùng chuyển tiếp.",
+  "category": "tieusu",
+  "author": "Ban biên tập ChemDex",
+  "image": "/assets/library/history-evidence.svg",
+  "tags": [
+    "John Polanyi",
+    "Hóa phát quang",
+    "Hồng ngoại"
+  ],
+  "aliases": [],
+  "documentKind": "story",
+  "readingMinutes": 4,
+  "editorialEvidence": {
+    "language": "vi",
+    "scope": "chemical-family",
+    "contextLabel": "John Polanyi: sản phẩm phát ánh sáng để kể lại phản ứng",
+    "reviewBasis": "Biên soạn theo các nguồn dẫn cuối bài; phân biệt kết quả đã thực hiện và hướng phát triển.",
+    "story": {
+      "status": "documented",
+      "section": "## Sản phẩm chưa kịp nguội đã để lại một tín hiệu",
+      "sources": [
+        "https://www.nobelprize.org/prizes/chemistry/1986/polanyi/lecture/",
+        "https://www.nobelprize.org/prizes/chemistry/1986/polanyi/biographical/"
+      ]
+    },
+    "application": {
+      "status": "documented",
+      "section": "## Ứng dụng hôm nay: ánh sáng là hồ sơ của năng lượng",
+      "sources": [
+        "https://www.nobelprize.org/prizes/chemistry/1986/polanyi/lecture/",
+        "https://www.nobelprize.org/prizes/chemistry/1986/polanyi/biographical/"
+      ]
+    }
+  },
+  "content": "## Sản phẩm chưa kịp nguội đã để lại một tín hiệu\n\nJohn Polanyi nghiên cứu ánh sáng hồng ngoại do các sản phẩm phản ứng ở trạng thái kích thích phát ra. Một phân tử mới hình thành có thể mang nhiều năng lượng dao động trước khi va chạm với môi trường và phân bố lại năng lượng.\n\nTrong các nghiên cứu phản ứng tạo HCl, nhóm dùng phổ phát xạ để hỏi sản phẩm nằm ở những mức dao động nào. Tín hiệu được phát ra ngay từ phân tử, khác với việc chiếu một nguồn sáng qua mẫu để đo hấp thụ.\n\nNhững phân bố năng lượng này có thể mang dấu của đường phản ứng. Nếu chỉ đo nhiệt cuối cùng khi mọi thứ đã cân bằng, phần thông tin ấy đã bị trộn vào chuyển động của môi trường. Phép đo của Polanyi cố đọc nó trước khi dấu vết mất đi.\n\n![Minh họa chủ đề nghiên cứu; không phải chân dung hoặc dữ liệu thực nghiệm gốc](/assets/library/history-evidence.svg)\n\n## Liên kết mới nhận năng lượng theo cách nào?\n\nNăng lượng giải phóng trong phản ứng có thể đi vào tịnh tiến, quay và dao động của sản phẩm. Sự phân chia phụ thuộc bề mặt thế năng và cách hệ đi qua vùng chuyển tiếp.\n\nCác mô hình do Polanyi phát triển liên hệ hiệu quả của năng lượng đầu vào với vị trí tương đối của rào phản ứng. Chuyển động tịnh tiến hoặc kích thích dao động có thể hỗ trợ theo những cách khác nhau trong các hệ phù hợp.\n\nNhững quy tắc này cần được đọc trong phạm vi mô hình và phản ứng đã xét. Một bề mặt nhiều chiều với nhiều đường cạnh tranh có thể phức tạp hơn hình vẽ hai tọa độ. Giá trị của mô hình là tạo những dự đoán cụ thể về phân bố sản phẩm để phép đo kiểm tra, chứ không phải thay mọi dữ liệu bằng một câu khẩu quyết.\n\n## Ứng dụng hôm nay: ánh sáng là hồ sơ của năng lượng\n\nNghiên cứu động học phản ứng tiếp tục dùng các phép phổ và chuẩn bị trạng thái để theo dõi những đường trao đổi năng lượng. Các kết quả hỗ trợ mô phỏng và giải thích tính chọn lọc trong nhiều quá trình khí pha.\n\nKhi đọc một phổ phát xạ, cần biết trạng thái nào có thể phát và detector nhạy với vùng nào. Những phần không xuất hiện trong tín hiệu có thể vẫn chứa năng lượng hoặc sản phẩm; phép đo cần được đặt trong toàn bộ cân bằng.\n\nCâu chuyện Polanyi làm cho sản phẩm không còn là điểm cuối im lặng. Ngay sau khi hình thành, nó có thể còn mang nhịp dao động của cuộc gặp đã tạo ra mình. Ánh sáng hồng ngoại giúp chuyển nhịp ấy thành dữ liệu. Từ đó, nhà hóa học có thể kiểm tra không chỉ liên kết nào đã được tạo, mà năng lượng đã chảy qua phản ứng theo cách nào trước khi trở thành nhiệt chung của môi trường.\n\n## Nguồn và đọc thêm\n\n- [John Polanyi · Bài giảng Nobel](https://www.nobelprize.org/prizes/chemistry/1986/polanyi/lecture/)\n- [John Polanyi · Tự thuật nghiên cứu hóa phát quang](https://www.nobelprize.org/prizes/chemistry/1986/polanyi/biographical/)"
+}

@@ -6,12 +6,12 @@ Mục tiêu cập nhật theo yêu cầu ngày 15/11/2026: mọi tài liệu là
 
 | Mục | Ban đầu | Hiện tại | Còn thiếu để đạt 500 |
 | --- | ---: | ---: | ---: |
-| Tiểu sử | 81 | 154 | 346 |
-| Nguyên tố | 140 | 162 | 338 |
-| Khái niệm hóa học | 2 | 65 | 435 |
-| Phản ứng | 0 | 67 | 433 |
-| Câu chuyện các chất | 357 | 363 | 137 |
-| Tổng | 580 | 811 | 1.689 |
+| Tiểu sử | 81 | 204 | 296 |
+| Nguyên tố | 140 | 172 | 328 |
+| Khái niệm hóa học | 2 | 115 | 385 |
+| Phản ứng | 0 | 117 | 383 |
+| Câu chuyện các chất | 357 | 373 | 127 |
+| Tổng | 580 | 981 | 1.519 |
 
 Các con số là bài có ID, đường dẫn và nội dung riêng; không phải số công thức, lượt gắn thẻ hoặc trang nguồn. Không nhân bản một bài thành nhiều góc nhìn để đạt chỉ tiêu.
 
@@ -28,7 +28,7 @@ Các con số là bài có ID, đường dẫn và nội dung riêng; không ph�
 
 - 258 hồ sơ hợp chất chưa có câu chuyện và ứng dụng được đối chiếu riêng. Chúng vẫn là bài tra cứu và được đánh dấu `missing` trong hồ sơ biên tập. Không gán lịch sử hoặc công dụng của một nguyên tố thành phần cho hợp chất.
 - 92 hồ sơ lịch sử còn có ứng dụng ở mức bối cảnh liên quan. Cần viết sâu thêm theo công trình cụ thể.
-- Chưa đạt số lượng ở bất kỳ mục nào. Cần tiếp tục biên soạn 1.689 bài khác nhau và đối chiếu nguồn, hình ảnh, tính mới của từng bài.
+- Chưa đạt số lượng ở bất kỳ mục nào. Cần tiếp tục biên soạn 1.519 bài khác nhau và đối chiếu nguồn, hình ảnh, tính mới của từng bài.
 - Nguồn/đề mục được kiểm tra bằng công cụ chỉ xác nhận tính toàn vẹn của hồ sơ, không thay thế kiểm chứng sự kiện hoặc đánh giá văn chương.
 
 Danh sách bài và trạng thái chi tiết nằm trong `shared/library-editorial-audit.generated.json`. Trường `quantityTargetReached` kiểm số lượng; `editorialCoverageComplete` kiểm hồ sơ câu chuyện/ứng dụng tiếng Việt tường minh. `targetReached` chỉ đúng khi cả hai điều kiện đều đạt, và vẫn cần đánh giá biên tập về sự khác biệt nội dung.
@@ -81,3 +81,11 @@ Danh sách bài và trạng thái chi tiết nằm trong `shared/library-editori
 - Rà chéo đã sửa DOI/đường dẫn sai trong các bản thảo, đổi báo cáo NREL sang địa chỉ lưu trữ chính thức `docs.nlr.gov`, ghi bài MgSO₄–silica gel theo tập xuất bản 2024, phân biệt năm thử nghiệm với năm công bố. Giữ ghi nhận khi chỉ đọc được abstract hoặc nguồn liên quan; không coi HTTP thành công là bằng chứng đã đọc toàn văn.
 - 27 kiểm tra thư viện và tên hóa học đạt. Rút gọn hai phần dẫn nhập bị dài khi ghép với phụ lục cũ. Chạy lại builder trên 818 tệp JSON/route cho kết quả byte không đổi. Build production thành công, với các cảnh báo bundle/CSS đã biết. Audit xác nhận 811 tài liệu riêng, không có lỗi cấu trúc; còn thiếu 1.689 bài để đạt mốc mới.
 - 4 kịch bản Chromium trên bản dựng cuối đạt: bộ đếm danh mục, đường dẫn chia sẻ, màn hình 390 px và tải đúng các hình mới kèm ghi công/giấy phép. Đợt tiếp theo đang được biên soạn song song; chưa tính bản nháp vào kiểm kê.
+
+## Đợt 5 — bổ sung 170 bài
+
+- Thêm 50 bài tiểu sử, 50 khái niệm, 50 phản ứng, 10 ứng dụng nguyên tố và 10 câu chuyện vật liệu. Mỗi bài có ba phần và ít nhất hai nguồn, nội dung tiếng Việt đầy đủ. Tổng số bài báo được biên soạn mới là 401; tổng kiểm kê kho là 981, gồm cả các hồ sơ cũ chưa hoàn tất biên tập.
+- Nhóm chất mới gồm PMMA, polycarbonate, PEEK, PBI, PVP, PVB, Nafion, PVDF, Sephadex và PEDOT:PSS. Mỗi bài dùng một trường hợp phát triển, phép đo hoặc ứng dụng cụ thể; giữ phân biệt polymer thuần, cấp thương mại, composite và cấu hình thiết bị. Nhóm nguyên tố có các thí nghiệm riêng từ ceria lưu–nhả oxygen tới ThO trong phép đo lưỡng cực electron.
+- Thêm bốn hình có nguồn/giấy phép: cốc PMMA bị rạn do dung môi, sợi dạng dải PVDF, công đoạn phủ lớp hoạt tính trên màng Nafion và sơ đồ EDFA. Manifest có 42 hình; 41 hình được sử dụng. Sơ đồ EDFA được ghi rõ là sơ đồ nguyên lý, không phải ảnh thiết bị năm 1987.
+- Rà chéo cơ chế và phạm vi các bài khó: ESR Homo naledi, thay đổi SI năm 2019, DSF, AIE, mẫu Turing; YBCO/REBCO, thời gian kết hợp spin europium, mốc chế tạo CMS và phép đo ThO năm 2018. Không dùng mốc lịch sử làm tuyên bố về kỷ lục hiện tại. Các URL, PMID/DOI phát hiện sai và đường dẫn ảnh thiếu được sửa trước khi tích hợp.
+- Thân bài đợt 5 có tổng 89.950 từ theo phép đếm khoảng trắng, mỗi bài 450–600 từ. 27 kiểm tra thư viện/tên hóa học và 4 kịch bản Chromium đạt trên bản dựng cuối. Dựng lại 988 tệp JSON/route cho kết quả byte không đổi. Build production thành công; còn các cảnh báo kích thước chunk và CSS dùng chung đã ghi ở trên. Audit không có lỗi cấu trúc và vẫn báo mục tiêu chưa đạt.

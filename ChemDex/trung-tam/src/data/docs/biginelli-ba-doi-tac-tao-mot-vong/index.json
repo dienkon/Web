@@ -1,0 +1,42 @@
+{
+  "id": "biginelli-ba-doi-tac-tao-mot-vong",
+  "slug": "biginelli-ba-doi-tac-tao-mot-vong",
+  "documentPath": "docs/biginelli-ba-doi-tac-tao-mot-vong/index.json",
+  "title": "Ba đối tác tạo một vòng: Biginelli từ phản ứng cổ tới đầu dò tế bào",
+  "summary": "Monastrol làm phản ứng Biginelli được nhắc lại trong nghiên cứu sinh học tế bào. Một cách tạo dị vòng giúp nhà hóa học làm nhiều biến thể để hỏi cấu trúc nào gây ra tác động nào.",
+  "category": "phanung",
+  "author": "Ban biên tập ChemDex",
+  "image": "/assets/library/covalent-bonds.svg",
+  "tags": [
+    "Biginelli",
+    "Đa thành phần",
+    "Monastrol",
+    "Dị vòng"
+  ],
+  "aliases": [],
+  "documentKind": "story",
+  "readingMinutes": 4,
+  "editorialEvidence": {
+    "language": "vi",
+    "scope": "chemical-family",
+    "contextLabel": "Ba đối tác tạo một vòng: Biginelli từ phản ứng cổ tới đầu dò tế bào",
+    "reviewBasis": "Biên soạn theo các nguồn dẫn cuối bài; phân biệt kết quả đã thực hiện và hướng phát triển.",
+    "story": {
+      "status": "documented",
+      "section": "## Một chất làm thay đổi cách tế bào phân chia",
+      "sources": [
+        "https://doi.org/10.1126/science.286.5441.971",
+        "https://www.beilstein-journals.org/bjoc/content/pdf/1860-5397-5-4.pdf"
+      ]
+    },
+    "application": {
+      "status": "documented",
+      "section": "## Ứng dụng hôm nay: tổng hợp cung cấp mẫu, sinh học trả lời câu hỏi riêng",
+      "sources": [
+        "https://doi.org/10.1126/science.286.5441.971",
+        "https://www.beilstein-journals.org/bjoc/content/pdf/1860-5397-5-4.pdf"
+      ]
+    }
+  },
+  "content": "## Một chất làm thay đổi cách tế bào phân chia\n\nNăm 1999, công trình về monastrol xác định một phân tử nhỏ có thể ức chế motor protein Eg5 và tạo một kiểu thoi phân bào đặc trưng trong tế bào. Chất này trở thành công cụ nghiên cứu, không phải một thuốc điều trị được xác nhận chỉ từ phép thử đó.\n\nBộ khung của monastrol có thể được tiếp cận bằng hóa học Biginelli, một phản ứng đa thành phần đã có từ cuối thế kỷ XIX. Điều này khiến một phương pháp cổ trở nên hữu ích cho những câu hỏi sinh học mới.\n\nNghiên cứu năm 2009 dùng xúc tác zeolite để tổng hợp các dihydropyrimidinone và monastrol trong một hệ không dung môi theo mô tả của tác giả. Đó là một phương án tổng hợp được khảo sát, không phải lý do để gọi mọi dẫn xuất Biginelli là chất có cùng hoạt tính.\n\n![Minh họa liên kết cộng hóa trị trong phân tử hữu cơ, không phải cấu trúc đầy đủ của monastrol](/assets/library/covalent-bonds.svg)\n\n## Ba loại nguyên liệu đóng góp vào một bộ khung chung\n\nTrong phản ứng Biginelli kinh điển, aldehyde, một hợp chất beta-dicarbonyl và urea hoặc đối tác tương tự cùng tạo một vòng dihydropyrimidinone. Những biến thể dùng thiourea cho sản phẩm chứa sulfur tương ứng.\n\nCác thành phần được lắp vào bộ khung theo một mạng ngưng tụ và đóng vòng. Một bình phản ứng chứa nhiều đối tác không đồng nghĩa tất cả liên kết hình thành đồng thời; các trung gian và thứ tự bước có thể phụ thuộc điều kiện.\n\nThay từng thành phần đầu vào giúp tạo những nhóm thế khác nhau trên vòng. Đó là lợi thế cho nghiên cứu thư viện phân tử: có thể thay đổi một phần cấu trúc trong khi giữ nhiều phần khác giống nhau để so sánh.\n\nNhưng khả năng ghép ba thành phần không bảo đảm mọi tổ hợp đều cho hiệu suất cao. Tính phản ứng của aldehyde, độ hòa tan và những nhóm chức đi kèm có thể làm đường mong muốn cạnh tranh với sản phẩm khác.\n\nXúc tác rắn còn mở khả năng thu hồi khỏi hỗn hợp, song phải kiểm tra hoạt tính và sự rò rỉ thành phần qua các lần sử dụng, thay vì chỉ thấy vật rắn vẫn còn trong bình.\n\n## Ứng dụng hôm nay: tổng hợp cung cấp mẫu, sinh học trả lời câu hỏi riêng\n\nBiginelli được dùng trong nghiên cứu dị vòng và tạo các phân tử để khảo sát tương tác sinh học. Khi nhiều biến thể được tạo, dữ liệu hoạt tính cần được gắn với cấu trúc và độ sạch của từng mẫu.\n\nMonastrol là ví dụ rõ cho sự phân chia công việc. Hóa học tạo ra mẫu và các chất tương tự; nghiên cứu tế bào và protein xác định cơ chế cùng giới hạn của tác động. Một kết quả ức chế trong thí nghiệm chưa đủ suy ra khả năng dùng làm thuốc.\n\nCác công trình phát triển phương pháp còn đánh giá dung môi, nguồn nhiệt và chất xúc tác để cải thiện cách tạo những bộ khung này. Số bước ít hơn là một lợi thế tiềm năng nhưng vẫn cần tính cả làm sạch và nguyên liệu để kết luận về toàn quy trình.\n\nCâu chuyện Biginelli cho thấy một phản ứng có thể sống lại nhờ câu hỏi mới. Bộ khung dị vòng không thay đổi ý nghĩa lịch sử của nó; khả năng làm nhanh những biến thể có kiểm soát đã giúp phương pháp trở thành cầu nối giữa tổng hợp hữu cơ và việc khám phá cách tế bào hoạt động.\n\n## Nguồn và đọc thêm\n\n- [Mayer và cộng sự · Monastrol và motor Eg5, 1999](https://doi.org/10.1126/science.286.5441.971)\n- [Tổng hợp Biginelli và monastrol bằng xúc tác zeolite, 2009](https://www.beilstein-journals.org/bjoc/content/pdf/1860-5397-5-4.pdf)"
+}

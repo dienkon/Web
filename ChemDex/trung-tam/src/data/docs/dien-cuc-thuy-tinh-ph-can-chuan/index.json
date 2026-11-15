@@ -1,0 +1,44 @@
+{
+  "id": "dien-cuc-thuy-tinh-ph-can-chuan",
+  "slug": "dien-cuc-thuy-tinh-ph-can-chuan",
+  "documentPath": "docs/dien-cuc-thuy-tinh-ph-can-chuan/index.json",
+  "title": "Đầu dò pH không đếm trực tiếp từng ion hydrogen",
+  "summary": "Điện cực thủy tinh biến khác biệt hóa học thành điện thế. Chuẩn đệm giúp nối tín hiệu ấy với thang pH, và nhiệt độ luôn đi cùng phép đo.",
+  "category": "khainiem",
+  "author": "Ban biên tập ChemDex",
+  "image": "/assets/library/acid-base-world.svg",
+  "tags": [
+    "pH",
+    "Điện cực thủy tinh",
+    "Hiệu chuẩn",
+    "Hoạt độ"
+  ],
+  "aliases": [],
+  "documentKind": "story",
+  "readingMinutes": 4,
+  "editorialEvidence": {
+    "language": "vi",
+    "scope": "chemical-family",
+    "contextLabel": "Đầu dò pH không đếm trực tiếp từng ion hydrogen",
+    "reviewBasis": "Biên soạn theo các nguồn dẫn cuối bài; phân biệt kết quả đã thực hiện và hướng phát triển.",
+    "story": {
+      "status": "documented",
+      "section": "## Một chiếc máy đưa phép đo acid vào nhiều ngành",
+      "sources": [
+        "https://nvlpubs.nist.gov/nistpubs/Legacy/LC/nbslettercircular993.pdf",
+        "https://nvlpubs.nist.gov/nistpubs/Legacy/SP/nbsspecialpublication260-53.pdf",
+        "https://pubs.usgs.gov/twri/05a01/report.pdf"
+      ]
+    },
+    "application": {
+      "status": "documented",
+      "section": "## Ứng dụng hôm nay: đo cùng điều kiện để so đúng",
+      "sources": [
+        "https://nvlpubs.nist.gov/nistpubs/Legacy/LC/nbslettercircular993.pdf",
+        "https://nvlpubs.nist.gov/nistpubs/Legacy/SP/nbsspecialpublication260-53.pdf",
+        "https://pubs.usgs.gov/twri/05a01/report.pdf"
+      ]
+    }
+  },
+  "content": "## Một chiếc máy đưa phép đo acid vào nhiều ngành\n\nTài liệu NBS về chuẩn hóa phép đo pH mô tả sự phổ biến của điện cực thủy tinh trong phòng thí nghiệm và công nghiệp. Thay cho việc suy nồng độ acid từ một phép chuẩn độ duy nhất, người dùng có thể so điện thế của hệ điện cực trong mẫu với các dung dịch đệm chuẩn.\n\nSự tiện lợi dễ làm người sử dụng quên rằng con số trên màn hình được tạo từ một phép so sánh. Điện cực cần được hiệu chuẩn định kỳ, và dung dịch chuẩn phải có giá trị phù hợp ở nhiệt độ đo. Một máy mới không tự biết trạng thái bề mặt của đầu dò hoặc mọi sai lệch đã hình thành khi sử dụng.\n\nBáo cáo NBS về gán giá trị cho chuẩn đệm giải thích cơ sở đo lường đứng sau những chai dung dịch tưởng như chỉ là phụ kiện đi kèm máy.\n\n![Minh họa môi trường acid–base; không phải sơ đồ chi tiết điện cực pH](/assets/library/acid-base-world.svg)\n\n## Bề mặt thủy tinh tạo đáp ứng điện hóa\n\nMàng thủy tinh đặc biệt có lớp bề mặt tương tác với dung dịch, tạo một đáp ứng điện thế liên quan đến hoạt độ hydrogen ion. Hệ còn cần điện cực tham chiếu và đường nối phù hợp. Máy đo hiệu điện thế tổng rồi dùng hiệu chuẩn để suy pH.\n\npH gắn với hoạt độ, không đơn giản luôn bằng âm logarithm nồng độ trong mọi dung dịch thực. Lực ion và tương tác làm mối liên hệ giữa nồng độ và hoạt độ thay đổi. Với mẫu khó như dung dịch rất loãng, rất đậm hoặc môi trường khác nước thông thường, cần phương pháp phù hợp thay vì tự tin áp cùng phép đổi.\n\nNhiệt độ ảnh hưởng đáp ứng điện cực và cân bằng trong chính mẫu. Chức năng bù nhiệt của máy không thể biến mọi mẫu ở nhiệt độ này thành pH hóa học của nó ở một nhiệt độ khác. Nó xử lý một phần của hệ đo, còn thay đổi thật của mẫu vẫn cần được ghi nhận.\n\n## Ứng dụng hôm nay: đo cùng điều kiện để so đúng\n\nHướng dẫn USGS về đo pH nhấn mạnh chọn đệm bao quanh miền mẫu và tránh sai khác nhiệt đáng kể giữa chuẩn và mẫu. Trong khảo sát nước, việc lấy mẫu và thời gian chờ cũng có thể làm CO₂ trao đổi, khiến pH thay đổi trước khi đầu dò được đặt vào.\n\nVì vậy, một con số nên đi cùng nhiệt độ, trạng thái mẫu và cách hiệu chuẩn. Những giá trị có nhiều chữ số không tự chứng minh độ đúng cao; máy chỉ hiển thị độ phân giải mà nó có, còn độ không đảm bảo thuộc toàn bộ quy trình.\n\nCâu chuyện điện cực thủy tinh cho thấy một phép đo quen có nền tảng tinh tế. Đầu dò không nhìn thấy từng ion riêng lẻ; nó phản ứng với môi trường ở bề mặt và tạo điện thế. Chuẩn đệm, điện cực tham chiếu và kỷ luật thao tác nối tín hiệu ấy với thang đo chung. Hiểu chuỗi này giúp người dùng nhận ra lúc nào một số pH đáng so sánh và lúc nào cần kiểm lại chính điều kiện đã tạo ra nó.\n\n## Nguồn và đọc thêm\n\n- [NBS · Chuẩn hóa phép đo pH với điện cực thủy tinh](https://nvlpubs.nist.gov/nistpubs/Legacy/LC/nbslettercircular993.pdf)\n- [NBS · Gán giá trị và đặc tính chuẩn đệm pH](https://nvlpubs.nist.gov/nistpubs/Legacy/SP/nbsspecialpublication260-53.pdf)\n- [USGS · Phương pháp pH điện cực thủy tinh](https://pubs.usgs.gov/twri/05a01/report.pdf)"
+}

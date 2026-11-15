@@ -1,0 +1,42 @@
+{
+  "id": "pdh-propane-bo-hydrogen-thanh-propylene",
+  "slug": "pdh-propane-bo-hydrogen-thanh-propylene",
+  "documentPath": "docs/pdh-propane-bo-hydrogen-thanh-propylene/index.json",
+  "title": "Bỏ hai hydrogen để mở một chuỗi sản phẩm: công nghệ PDH",
+  "summary": "Khi nguồn propylene từ các dây chuyền khác không khớp nhu cầu, nhà máy có thể sản xuất trực tiếp từ propane. Phản ứng khử hydrogen cần quản lý cả cân bằng nhiệt và tái sinh xúc tác.",
+  "category": "phanung",
+  "author": "Ban biên tập ChemDex",
+  "image": "/assets/library/organic-alkene.svg",
+  "tags": [
+    "PDH",
+    "Propane",
+    "Propylene",
+    "Khử hydrogen"
+  ],
+  "aliases": [],
+  "documentKind": "story",
+  "readingMinutes": 4,
+  "editorialEvidence": {
+    "language": "vi",
+    "scope": "chemical-family",
+    "contextLabel": "Bỏ hai hydrogen để mở một chuỗi sản phẩm: công nghệ PDH",
+    "reviewBasis": "Biên soạn theo các nguồn dẫn cuối bài; phân biệt kết quả đã thực hiện và hướng phát triển.",
+    "story": {
+      "status": "documented",
+      "section": "## Một phản ứng được xây để làm sản phẩm chính",
+      "sources": [
+        "https://www.clariant.com/en/Business-Units/Catalysts/Petrochemical-and-Refining-Catalysts/CATOFIN-Technology",
+        "https://www3.dfc.gov/environment/eia/ceyhan_turkey/Main_Body_ESIA/Ceyhan_ESIA_Final_Report_Part1.pdf"
+      ]
+    },
+    "application": {
+      "status": "documented",
+      "section": "## Ứng dụng hôm nay: tăng nguồn monomer nhưng vẫn phải tính cả chuỗi",
+      "sources": [
+        "https://www.clariant.com/en/Business-Units/Catalysts/Petrochemical-and-Refining-Catalysts/CATOFIN-Technology",
+        "https://www3.dfc.gov/environment/eia/ceyhan_turkey/Main_Body_ESIA/Ceyhan_ESIA_Final_Report_Part1.pdf"
+      ]
+    }
+  },
+  "content": "## Một phản ứng được xây để làm sản phẩm chính\n\nTài liệu của Clariant giải thích một thay đổi trong chuỗi olefin: khi các lò cracking dùng nguồn nguyên liệu nhẹ hơn, lượng propylene đi kèm có thể giảm. Điều đó tạo thêm nhu cầu cho những tuyến làm propylene trực tiếp từ propane.\n\nPDH, tức propane dehydrogenation, không phải chờ propylene xuất hiện như đồng sản phẩm của một dây chuyền lớn khác. Nó đặt propylene làm mục tiêu chính. Các công nghệ như CATOFIN và Oleflex dùng những thiết kế xúc tác và thiết bị khác nhau để thực hiện cùng biến đổi tổng thể.\n\nHồ sơ dự án Ceyhan năm 2023 mô tả một hệ Oleflex với tái sinh xúc tác liên tục. Đây là tài liệu thiết kế dự án, cần được đọc như mô tả công nghệ dự kiến trong dự án ấy, không tự coi là bằng chứng nhà máy đã hoàn tất.\n\n![Minh họa liên kết đôi tạo thành, không phải sơ đồ lò PDH](/assets/library/organic-alkene.svg)\n\n## Một liên kết đôi được tạo cùng dòng hydrogen\n\nPhương trình rút gọn là **C₃H₈ ⇌ C₃H₆ + H₂**. Hai hydrogen rời propane để tạo propylene có liên kết đôi. Hydrogen là một dòng sản phẩm cần được tách và quản lý, không phải nguyên tử biến mất trong phép tính.\n\nPhản ứng thu nhiệt và bị giới hạn bởi cân bằng. Cung cấp nhiệt, áp suất và việc xử lý dòng khí ảnh hưởng mức chuyển hóa có thể đạt. Chất xúc tác giúp phản ứng diễn ra ở tốc độ phù hợp nhưng không xóa giới hạn cân bằng.\n\nCác phản ứng phụ có thể tạo cốc hoặc những hydrocarbon khác. Khi cốc che bề mặt, xúc tác cần được phục hồi theo thiết kế. Do đó, chu trình phản ứng và tái sinh là phần cốt lõi của nhà máy.\n\nClariant mô tả vật liệu sinh nhiệt được nạp cùng xúc tác trong hệ CATOFIN. Nó trải qua những biến đổi oxi hóa–khử để hỗ trợ quản lý nhiệt trong chu kỳ. Đây là chức năng riêng của một vật liệu hỗ trợ, không đồng nghĩa mọi hạt xúc tác đều làm cùng việc.\n\nHai công nghệ có cùng phương trình vẫn có thể khác cách chuyển nhiệt, luân chuyển xúc tác và tổ chức thời gian vận hành.\n\n## Ứng dụng hôm nay: tăng nguồn monomer nhưng vẫn phải tính cả chuỗi\n\nPropylene đi vào polypropylene và nhiều chất trung gian hóa học. Việc có nguồn sản xuất trực tiếp giúp thay đổi quan hệ giữa nhu cầu của các chuỗi này với sản lượng của những quá trình cracking khác.\n\nTuy nhiên, lợi ích của PDH phụ thuộc nguồn propane, năng lượng, nhu cầu hydrogen và chi phí tách. Một giá nguyên liệu thuận lợi ở một khu vực không đảm bảo cùng kết quả ở nơi khác. Các dòng phụ trợ và khả năng vận hành lâu dài có ý nghĩa ngang công suất danh nghĩa.\n\nNgười đọc có thể dùng PDH để phân biệt phản ứng với cấu hình công nghệ. Phản ứng nói nguyên tử đổi liên kết thế nào; cấu hình cho biết làm sao tiếp tục lặp lại biến đổi ấy khi xúc tác suy giảm và nhiệt bị tiêu thụ.\n\nCâu chuyện này cho thấy một liên kết đôi có thể là cửa vào cả ngành polymer. Tạo được nó từ một khí bão hòa đòi hỏi nhà máy điều khiển những phần không có trong hình cấu trúc cuối: nơi đưa nhiệt vào, nơi lấy hydrogen ra và lúc đưa xúc tác trở lại trạng thái hoạt động.\n\n## Nguồn và đọc thêm\n\n- [Clariant · Công nghệ CATOFIN và quản lý nhiệt](https://www.clariant.com/en/Business-Units/Catalysts/Petrochemical-and-Refining-Catalysts/CATOFIN-Technology)\n- [Hồ sơ dự án Ceyhan · Mô tả PDH Oleflex và các dòng vật chất](https://www3.dfc.gov/environment/eia/ceyhan_turkey/Main_Body_ESIA/Ceyhan_ESIA_Final_Report_Part1.pdf)"
+}

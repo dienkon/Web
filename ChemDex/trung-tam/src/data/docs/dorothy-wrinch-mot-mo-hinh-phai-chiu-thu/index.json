@@ -1,0 +1,41 @@
+{
+  "id": "dorothy-wrinch-mot-mo-hinh-phai-chiu-thu",
+  "slug": "dorothy-wrinch-mot-mo-hinh-phai-chiu-thu",
+  "documentPath": "docs/dorothy-wrinch-mot-mo-hinh-phai-chiu-thu/index.json",
+  "title": "Dorothy Wrinch: một mô hình protein đẹp vẫn phải chịu phép thử",
+  "summary": "Giả thuyết cyclol tạo một kiến trúc hấp dẫn cho protein, rồi bị dữ liệu hóa học và cấu trúc thách thức. Câu chuyện cho thấy giá trị của việc phân biệt mô hình với bằng chứng.",
+  "category": "tieusu",
+  "author": "Ban biên tập ChemDex",
+  "image": "/assets/library/history-evidence.svg",
+  "tags": [
+    "Dorothy Wrinch",
+    "Cyclol",
+    "Lịch sử protein"
+  ],
+  "aliases": [],
+  "documentKind": "story",
+  "readingMinutes": 4,
+  "editorialEvidence": {
+    "language": "vi",
+    "scope": "chemical-family",
+    "contextLabel": "Dorothy Wrinch: một mô hình protein đẹp vẫn phải chịu phép thử",
+    "reviewBasis": "Biên soạn theo các nguồn dẫn cuối bài; phân biệt kết quả đã thực hiện và hướng phát triển.",
+    "story": {
+      "status": "documented",
+      "section": "## Hình học đưa ra một lời giải táo bạo",
+      "sources": [
+        "https://www.nature.com/articles/137411a0",
+        "https://royalsocietypublishing.org/doi/10.1098/rsnr.2010.0023"
+      ]
+    },
+    "application": {
+      "status": "documented",
+      "section": "## Ứng dụng hôm nay: mô hình sai vẫn có thể dạy cách làm khoa học",
+      "sources": [
+        "https://www.nature.com/articles/137411a0",
+        "https://royalsocietypublishing.org/doi/10.1098/rsnr.2010.0023"
+      ]
+    }
+  },
+  "content": "## Hình học đưa ra một lời giải táo bạo\n\nTrong thập niên 1930, Dorothy Wrinch đề xuất giả thuyết cyclol để mô tả cấu trúc protein. Bà xây những mạng liên kết và kiến trúc hình học có thể giải thích cách một đại phân tử được tổ chức.\n\nThời điểm đó, cấu trúc chi tiết của protein chưa được biết như hiện nay. Những mô hình cạnh tranh phải kết hợp dữ liệu thành phần, kích thước và tính chất còn hạn chế. Wrinch dùng nền tảng toán học để đưa ra một cấu trúc có tính hệ thống, với những hệ quả có thể thảo luận.\n\nGiả thuyết gây tranh luận mạnh và không được giữ lại như mô hình chung của protein. Điều đáng học là nó đã đi vào quá trình kiểm tra bằng các phép đo và lập luận hóa học, thay vì được chấp nhận chỉ vì có hình dạng cân đối hoặc giải thích được vài dữ kiện.\n\n![Minh họa chủ đề nghiên cứu; không phải chân dung hoặc dữ liệu thực nghiệm gốc](/assets/library/history-evidence.svg)\n\n## Một mạng liên kết cần phù hợp năng lượng và tính chất\n\nProtein chứa liên kết peptide và nhiều nhóm chức có hành vi hóa học xác định. Bất kỳ mô hình nào thay đổi cách các nhóm ấy nối với nhau đều phải giải thích được các phản ứng, phổ và khả năng phân hủy quan sát được.\n\nMột cấu trúc hình học đẹp có thể thỏa kích thước nhưng gặp khó về năng lượng hoặc thành phần liên kết. Các nhà nghiên cứu khác kiểm tra những hệ quả ấy, trong khi dữ liệu nhiễu xạ và hóa học tiếp tục tăng.\n\nTranh luận giúp làm rõ yêu cầu đối với mô hình protein: nó cần đúng không chỉ ở hình tổng thể mà cả ở những nhóm chức đang làm nên vật liệu. Những cấu trúc như xoắn alpha về sau được kiểm tra bằng nhiều loại bằng chứng, cho thấy cách một giả thuyết trở thành kiến thức cần sự hội tụ của dữ liệu độc lập.\n\n## Ứng dụng hôm nay: mô hình sai vẫn có thể dạy cách làm khoa học\n\nNghiên cứu hiện nay có những công cụ dự đoán cấu trúc rất mạnh. Câu chuyện Wrinch vẫn hữu ích vì nhắc rằng mô hình có vẻ hoàn chỉnh cần được đối chiếu với vật liệu thật và những phép đo ngoài hệ đã tạo ra mô hình.\n\nMột giả thuyết không đứng vững không làm toàn bộ công việc của người đề xuất mất ý nghĩa. Điều quan trọng là nó được nêu đủ rõ để chỉ ra điều gì có thể làm nó đúng hoặc sai. Khoa học tiến lên nhờ khả năng sửa và thay mô hình khi bằng chứng đòi hỏi.\n\nWrinch góp một chương khó nhưng đáng đọc trong lịch sử protein. Bà đặt hình học vào trung tâm câu hỏi, còn tranh luận cho thấy hình học phải đi cùng hóa học liên kết và năng lượng. Khi người đọc gặp một mô hình phân tử rất đẹp trên màn hình, câu hỏi tiếp theo vẫn nên là dữ liệu nào hỗ trợ từng phần của nó và phép thử nào có thể phân biệt nó với một cấu trúc khác.\n\n## Nguồn và đọc thêm\n\n- [Wrinch · Giả thuyết cấu trúc protein, 1936](https://www.nature.com/articles/137411a0)\n- [Royal Society · Dorothy Wrinch và lịch sử giả thuyết cyclol](https://royalsocietypublishing.org/doi/10.1098/rsnr.2010.0023)"
+}

@@ -1,0 +1,44 @@
+{
+  "id": "glucose-isomerase-mot-cong-thuc-hai-loai-duong",
+  "slug": "glucose-isomerase-mot-cong-thuc-hai-loai-duong",
+  "documentPath": "docs/glucose-isomerase-mot-cong-thuc-hai-loai-duong/index.json",
+  "title": "Cùng công thức nhưng khác vị trí carbonyl: enzyme làm fructose",
+  "summary": "Năm 1967, một quy trình enzyme đã tạo syrup fructose ở quy mô thương mại. Việc cố định glucose isomerase trên chất mang giúp xúc tác được dùng lại trong dòng liên tục.",
+  "category": "phanung",
+  "author": "Ban biên tập ChemDex",
+  "image": "/assets/library/organic-ketone.svg",
+  "tags": [
+    "Glucose isomerase",
+    "Đồng phân hóa",
+    "Enzyme cố định",
+    "Syrup"
+  ],
+  "aliases": [],
+  "documentKind": "story",
+  "readingMinutes": 4,
+  "editorialEvidence": {
+    "language": "vi",
+    "scope": "chemical-family",
+    "contextLabel": "Cùng công thức nhưng khác vị trí carbonyl: enzyme làm fructose",
+    "reviewBasis": "Biên soạn theo các nguồn dẫn cuối bài; phân biệt kết quả đã thực hiện và hướng phát triển.",
+    "story": {
+      "status": "documented",
+      "section": "## Một enzyme được giữ lại để dòng đường đi qua",
+      "sources": [
+        "https://www.ncbi.nlm.nih.gov/books/NBK236014/",
+        "https://www.mdpi.com/2073-4344/8/6/238",
+        "https://kenstoreylab.com/wp-content/uploads/2016/03/One-step-conversion-of-cellulose-to-fructose-using-coimmobilized-cellulase-%CE%B2-glucosidase-and-glucose-isomerase.pdf"
+      ]
+    },
+    "application": {
+      "status": "documented",
+      "section": "## Ứng dụng hôm nay: phản ứng phải đi cùng cấu hình thiết bị",
+      "sources": [
+        "https://www.ncbi.nlm.nih.gov/books/NBK236014/",
+        "https://www.mdpi.com/2073-4344/8/6/238",
+        "https://kenstoreylab.com/wp-content/uploads/2016/03/One-step-conversion-of-cellulose-to-fructose-using-coimmobilized-cellulase-%CE%B2-glucosidase-and-glucose-isomerase.pdf"
+      ]
+    }
+  },
+  "content": "## Một enzyme được giữ lại để dòng đường đi qua\n\nBáo cáo của National Research Council ghi Clinton Corn Processing tại Iowa bắt đầu giao syrup fructose sản xuất bằng enzyme vào năm 1967, sau hợp tác phát triển công nghệ với phía Nhật Bản.\n\nCác quy trình đầu dùng enzyme trong từng mẻ. Việc cố định hoặc giữ enzyme trong vật liệu rắn giúp sử dụng lại xúc tác và tổ chức dòng syrup đi qua một lớp cố định. Thay đổi này có ý nghĩa kinh tế lớn vì enzyme không cần bị bỏ theo từng dòng sản phẩm.\n\nCông nghệ không bắt đầu trực tiếp từ hạt ngô và đi ngay tới fructose. Tinh bột phải được chuyển thành dòng glucose phù hợp ở các công đoạn trước. Đồng phân hóa là một mắt xích nằm giữa chuỗi xử lý carbohydrate.\n\n![Minh họa nhóm carbonyl, không phải hình cấu trúc vòng đầy đủ của glucose và fructose](/assets/library/organic-ketone.svg)\n\n## Đổi cấu trúc mà giữ nguyên số nguyên tử\n\nGlucose và fructose có cùng công thức phân tử C₆H₁₂O₆ nhưng khác cấu trúc. Glucose isomerase giúp chuyển giữa những dạng phù hợp của hai đường, làm thay đổi vị trí của nhóm carbonyl trong biểu diễn mạch mở.\n\nĐây không phải thủy phân một disaccharide thành hai đường như lactase hoặc invertase. Số phân tử và cách cân bằng của quá trình khác, nên tên các enzyme không thể thay nhau.\n\nPhản ứng bị giới hạn bởi cân bằng. Một lớp enzyme không thể biến mọi glucose thành fructose chỉ bằng cách cho dòng đi qua lâu hơn vô hạn. Nếu muốn một tỷ lệ fructose khác, công nghệ có thể cần phân tách hoặc tổ chức những dòng bổ sung.\n\nCố định enzyme tạo những đánh đổi riêng. Cơ chất phải khuếch tán tới vùng hoạt động; chất mang cần đủ bền; hoạt tính có thể giảm theo thời gian. Vì vậy, dữ liệu về enzyme tự do chưa đủ để thiết kế một cột công nghiệp.\n\nCác công trình đã khảo sát những chất mang như cellulose biến tính hoặc alumina, đánh giá cả hoạt tính lẫn khả năng tái sử dụng và chế tạo.\n\n## Ứng dụng hôm nay: phản ứng phải đi cùng cấu hình thiết bị\n\nGlucose isomerase là một ví dụ kinh điển của enzyme cố định trong công nghiệp. Dòng nguyên liệu và sản phẩm có thể được tách khỏi xúc tác theo cách thuận tiện hơn khi enzyme được giữ trong lớp rắn.\n\nChất lượng đầu vào vẫn quan trọng vì những tạp chất có thể làm giảm hoạt tính hoặc ảnh hưởng tính ổn định. Nhà máy theo dõi chuyển hóa, nhiệt độ, độ giảm áp và tuổi lớp xúc tác để quyết định thời điểm thay hoặc tái tạo hệ.\n\nSyrup fructose là một nguyên liệu thực phẩm có thành phần cụ thể. Câu chuyện phản ứng không tự trả lời các câu hỏi dinh dưỡng cho mọi cách sử dụng; những câu hỏi đó cần được đặt theo lượng và tổng khẩu phần, không chỉ tên công nghệ.\n\nĐiều đáng nhớ ở mốc năm 1967 là một chức năng enzyme đã được nối với kỹ thuật dòng chảy và chất mang. Hóa học đổi vị trí nhóm chức, còn kỹ thuật giữ lại xúc tác để quá trình có thể lặp lại nhiều lần. Hai phần cùng làm cho một biến đổi phân tử trở thành công nghệ sản xuất.\n\n## Nguồn và đọc thêm\n\n- [National Research Council · Lịch sử thương mại hóa glucose isomerase](https://www.ncbi.nlm.nih.gov/books/NBK236014/)\n- [Industrial Applications of Enzymes · Enzyme cố định trong sản xuất syrup](https://www.mdpi.com/2073-4344/8/6/238)\n- [Nghiên cứu enzyme đồng cố định để tạo fructose, 1990](https://kenstoreylab.com/wp-content/uploads/2016/03/One-step-conversion-of-cellulose-to-fructose-using-coimmobilized-cellulase-%CE%B2-glucosidase-and-glucose-isomerase.pdf)"
+}

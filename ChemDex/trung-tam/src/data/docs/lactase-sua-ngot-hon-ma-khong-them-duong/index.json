@@ -1,0 +1,44 @@
+{
+  "id": "lactase-sua-ngot-hon-ma-khong-them-duong",
+  "slug": "lactase-sua-ngot-hon-ma-khong-them-duong",
+  "documentPath": "docs/lactase-sua-ngot-hon-ma-khong-them-duong/index.json",
+  "title": "Sữa có thể ngọt hơn mà không thêm đường: việc của lactase",
+  "summary": "Lactase cắt lactose thành glucose và galactose. Trong sản xuất sữa ít lactose, phản ứng đổi cấu trúc đường, không lấy toàn bộ carbohydrate ra khỏi sản phẩm.",
+  "category": "phanung",
+  "author": "Ban biên tập ChemDex",
+  "image": "/assets/library/organic-alcohol.svg",
+  "tags": [
+    "Lactase",
+    "Lactose",
+    "Thủy phân",
+    "Sữa"
+  ],
+  "aliases": [],
+  "documentKind": "story",
+  "readingMinutes": 4,
+  "editorialEvidence": {
+    "language": "vi",
+    "scope": "chemical-family",
+    "contextLabel": "Sữa có thể ngọt hơn mà không thêm đường: việc của lactase",
+    "reviewBasis": "Biên soạn theo các nguồn dẫn cuối bài; phân biệt kết quả đã thực hiện và hướng phát triển.",
+    "story": {
+      "status": "documented",
+      "section": "## Một nhãn sản phẩm dễ dẫn tới hai cách hiểu khác nhau",
+      "sources": [
+        "https://www.novonesis.com/en/biosolutions/food-and-beverages/dairy/saphera",
+        "https://www.niddk.nih.gov/health-information/digestive-diseases/lactose-intolerance/treatment",
+        "https://www.mdpi.com/2073-4344/8/6/238"
+      ]
+    },
+    "application": {
+      "status": "documented",
+      "section": "## Ứng dụng hôm nay: một phản ứng phục vụ một nhu cầu cụ thể",
+      "sources": [
+        "https://www.novonesis.com/en/biosolutions/food-and-beverages/dairy/saphera",
+        "https://www.niddk.nih.gov/health-information/digestive-diseases/lactose-intolerance/treatment",
+        "https://www.mdpi.com/2073-4344/8/6/238"
+      ]
+    }
+  },
+  "content": "## Một nhãn sản phẩm dễ dẫn tới hai cách hiểu khác nhau\n\nNhà cung cấp enzyme Novonesis mô tả Saphera như một lactase dùng trong sản xuất sữa và sản phẩm lên men ít lactose. Cơ chế được nêu rõ: lactose được chuyển thành glucose và galactose.\n\nĐiều đó khác với việc loại hết đường khỏi sữa. Hai monosaccharide tạo thành vẫn là carbohydrate, và độ ngọt cảm nhận của hỗn hợp có thể thay đổi dù không thêm cùng lượng đường từ bên ngoài.\n\nCâu chuyện vì thế bắt đầu từ một chi tiết trên nhãn: “không lactose” không đồng nghĩa “không đường”. Muốn biết thành phần dinh dưỡng, cần đọc dữ liệu của sản phẩm thực thay vì suy từ tên enzyme hoặc một tuyên bố về lactose.\n\n![Minh họa nhóm chức trong carbohydrate, không phải cấu trúc đầy đủ của lactose](/assets/library/organic-alcohol.svg)\n\n## Cắt một liên kết glycosidic bằng nước\n\nLactose là disaccharide gồm glucose và galactose nối với nhau bằng một liên kết glycosidic. Lactase, thuộc nhóm beta-galactosidase, xúc tác thủy phân liên kết đó.\n\nMột phân tử lớn hơn được tách thành hai phân tử nhỏ hơn, có sự tham gia của nước. Các nguyên tử carbon không biến mất; chúng được giữ trong sản phẩm. Vì thế, phản ứng không phải một cách làm cho năng lượng của toàn bộ lượng đường tự biến mất.\n\nEnzyme nhận diện cấu trúc của cơ chất. Một lactase không được giả định sẽ cắt mọi loại disaccharide giống nhau. Sucrose, maltose và lactose có những liên kết và cấu hình khác, cần được phân biệt khi chọn enzyme.\n\nNhiệt độ, pH và thời gian ảnh hưởng mức thủy phân. Trong sản xuất, bước dùng enzyme phải được bố trí phù hợp với xử lý nhiệt, lên men và thời gian lưu của sản phẩm.\n\nNhững hoạt tính phụ trong chế phẩm có thể ảnh hưởng hương vị hoặc protein, nên nhà cung cấp và nhà sản xuất cần kiểm soát chất lượng chế phẩm chứ không chỉ lượng hoạt tính lactase được ghi.\n\n## Ứng dụng hôm nay: một phản ứng phục vụ một nhu cầu cụ thể\n\nSản phẩm đã thủy phân lactose giúp mở thêm lựa chọn thực phẩm cho những người cần hạn chế lactose. Tuy nhiên, cơ chế này không loại protein sữa và không thể được xem như giải pháp cho mọi phản ứng bất lợi với sữa.\n\nNIDDK phân biệt lactose intolerance với những tình trạng khác và mô tả lactase là enzyme phân giải lactose. Bài này tập trung vào hóa học sản xuất, không đưa ra chẩn đoán hoặc hướng dẫn sử dụng enzyme cho từng cá nhân.\n\nTrong phát triển công thức, mức ngọt tăng từ đường đã thủy phân có thể được tính khi điều chỉnh lượng đường bổ sung. Hiệu quả cụ thể phụ thuộc công thức và cảm quan, không phải một tỷ lệ giảm cố định cho mọi sản phẩm.\n\nLactase là ví dụ về một biến đổi rất chọn lọc có thể tạo khác biệt lớn với người dùng. Nó không thay toàn bộ sữa thành một thực phẩm khác; nó thay đúng một kiểu liên kết trong thành phần đường. Hiểu điều ấy giúp đọc những tuyên bố trên nhãn chính xác hơn và thấy cách enzyme được dùng để điều chỉnh một tính chất cụ thể trong chuỗi chế biến.\n\n## Nguồn và đọc thêm\n\n- [Novonesis · Lactase Saphera và sản phẩm thủy phân](https://www.novonesis.com/en/biosolutions/food-and-beverages/dairy/saphera)\n- [NIDDK · Lactase và lactose intolerance](https://www.niddk.nih.gov/health-information/digestive-diseases/lactose-intolerance/treatment)\n- [Nghiên cứu các enzyme trong ứng dụng công nghiệp](https://www.mdpi.com/2073-4344/8/6/238)"
+}

@@ -1,0 +1,41 @@
+{
+  "id": "lars-onsager-hai-dong-van-chuyen-noi-nhau",
+  "slug": "lars-onsager-hai-dong-van-chuyen-noi-nhau",
+  "documentPath": "docs/lars-onsager-hai-dong-van-chuyen-noi-nhau/index.json",
+  "title": "Lars Onsager: khi hai dòng vận chuyển trả lời lẫn nhau",
+  "summary": "Những quan hệ thuận nghịch năm 1931 nối các hệ số của quá trình gần cân bằng. Dòng nhiệt, điện hay vật chất có thể được ghép trong cùng một mô tả.",
+  "category": "tieusu",
+  "author": "Ban biên tập ChemDex",
+  "image": "/assets/library/history-evidence.svg",
+  "tags": [
+    "Lars Onsager",
+    "Nhiệt động học",
+    "Vận chuyển"
+  ],
+  "aliases": [],
+  "documentKind": "story",
+  "readingMinutes": 3,
+  "editorialEvidence": {
+    "language": "vi",
+    "scope": "chemical-family",
+    "contextLabel": "Lars Onsager: khi hai dòng vận chuyển trả lời lẫn nhau",
+    "reviewBasis": "Biên soạn theo các nguồn dẫn cuối bài; phân biệt kết quả đã thực hiện và hướng phát triển.",
+    "story": {
+      "status": "documented",
+      "section": "## Một chênh lệch có thể làm xuất hiện nhiều dòng",
+      "sources": [
+        "https://doi.org/10.1103/PhysRev.37.405",
+        "https://www.nobelprize.org/prizes/chemistry/1968/onsager/lecture/"
+      ]
+    },
+    "application": {
+      "status": "documented",
+      "section": "## Ứng dụng hôm nay: các hiệu ứng ghép là cơ hội và giới hạn",
+      "sources": [
+        "https://doi.org/10.1103/PhysRev.37.405",
+        "https://www.nobelprize.org/prizes/chemistry/1968/onsager/lecture/"
+      ]
+    }
+  },
+  "content": "## Một chênh lệch có thể làm xuất hiện nhiều dòng\n\nNăm 1931, Lars Onsager công bố các quan hệ thuận nghịch cho những quá trình không thuận nghịch gần cân bằng. Trong một hệ, chênh lệch nhiệt độ không nhất thiết chỉ tạo dòng nhiệt; nó có thể liên quan đến dòng điện hoặc dòng vật chất.\n\nNhững hiệu ứng ghép đã được quan sát ở các bối cảnh khác nhau. Onsager tìm một nền tảng chung để liên hệ các hệ số mô tả chúng, dựa trên tính chất vi mô và những giả thiết phù hợp.\n\nÝ tưởng làm các phép đo không còn là những danh sách hệ số hoàn toàn độc lập. Một quan hệ được kiểm tra ở hướng này có thể ràng buộc cách hệ đáp ứng ở hướng ghép kia, tạo thêm khả năng kiểm chứng dữ liệu.\n\n![Minh họa chủ đề nghiên cứu; không phải chân dung hoặc dữ liệu thực nghiệm gốc](/assets/library/history-evidence.svg)\n\n## Gần cân bằng là một điều kiện có nội dung\n\nTrong miền tuyến tính gần cân bằng, các dòng được mô tả bằng những tổ hợp tuyến tính của lực nhiệt động. Những hệ số ghép phản ánh việc một lực có thể góp vào nhiều dòng.\n\nCác quan hệ Onsager không cho phép áp nguyên xi mọi hệ xa cân bằng hoặc mọi điều kiện có từ trường và những yếu tố phá đối xứng. Cách chọn biến và điều kiện cần được giữ rõ để công thức có ý nghĩa.\n\nMột hệ có nhiều thành phần còn cần phân biệt dòng đo trong hệ quy chiếu nào và những ràng buộc đang được áp. Điều đó khiến nhiệt động học vận chuyển trở thành công việc gắn chặt với thiết kế thí nghiệm. Một con số chỉ có thể so với con số khác khi chúng thực sự mô tả cùng điều kiện và cùng đại lượng.\n\n## Ứng dụng hôm nay: các hiệu ứng ghép là cơ hội và giới hạn\n\nNhững quan hệ vận chuyển được dùng khi nghiên cứu nhiệt điện, khuếch tán và nhiều hệ điện hóa. Chúng giúp tổ chức phép đo và kiểm tra tính nhất quán của mô hình trong miền phù hợp.\n\nTrong một thiết bị nhiệt điện, chẳng hạn, dòng điện và dòng nhiệt liên quan tới nhau. Thiết kế cần khai thác sự ghép có ích đồng thời quản lý những đường thất thoát. Một hệ số tốt riêng lẻ chưa đủ quyết định hiệu suất toàn thiết bị.\n\nCâu chuyện Onsager cho thấy một đóng góp hóa học có thể nằm trong quan hệ giữa các phép đo, thay vì một chất mới. Khi các dòng được xem như những đáp ứng của cùng một hệ, dữ liệu có thêm những ràng buộc để tự kiểm tra. Điều đó làm lý thuyết trở thành công cụ thực tế: nó chỉ ra điều gì phải phù hợp nếu mô hình và phép đo đang mô tả đúng vật chất trong những điều kiện đã nêu.\n\n## Nguồn và đọc thêm\n\n- [Onsager · Reciprocal Relations I, 1931](https://doi.org/10.1103/PhysRev.37.405)\n- [Lars Onsager · Bài giảng Nobel](https://www.nobelprize.org/prizes/chemistry/1968/onsager/lecture/)"
+}

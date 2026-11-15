@@ -1,0 +1,41 @@
+{
+  "id": "alfred-werner-hai-mau-cung-cong-thuc",
+  "slug": "alfred-werner-hai-mau-cung-cong-thuc",
+  "documentPath": "docs/alfred-werner-hai-mau-cung-cong-thuc/index.json",
+  "title": "Alfred Werner: hai màu có cùng thành phần nhưng khác cách sắp xếp",
+  "summary": "Các phức cobalt giúp Werner kiểm tra hình học phối trí. Số đồng phân và hoạt tính quang học trở thành bằng chứng cho cấu trúc ba chiều.",
+  "category": "tieusu",
+  "author": "Ban biên tập ChemDex",
+  "image": "/assets/library/history-evidence.svg",
+  "tags": [
+    "Alfred Werner",
+    "Phối trí",
+    "Đồng phân"
+  ],
+  "aliases": [],
+  "documentKind": "story",
+  "readingMinutes": 4,
+  "editorialEvidence": {
+    "language": "vi",
+    "scope": "chemical-family",
+    "contextLabel": "Alfred Werner: hai màu có cùng thành phần nhưng khác cách sắp xếp",
+    "reviewBasis": "Biên soạn theo các nguồn dẫn cuối bài; phân biệt kết quả đã thực hiện và hướng phát triển.",
+    "story": {
+      "status": "documented",
+      "section": "## Cùng thành phần mà không phải cùng chất",
+      "sources": [
+        "https://www.nobelprize.org/uploads/2018/06/werner-lecture.pdf",
+        "https://comptes-rendus.academie-sciences.fr/chimie/articles/en/10.1016/j.crci.2004.10.013/"
+      ]
+    },
+    "application": {
+      "status": "documented",
+      "section": "## Ứng dụng hôm nay: hình học quanh kim loại là một biến thiết kế",
+      "sources": [
+        "https://www.nobelprize.org/uploads/2018/06/werner-lecture.pdf",
+        "https://comptes-rendus.academie-sciences.fr/chimie/articles/en/10.1016/j.crci.2004.10.013/"
+      ]
+    }
+  },
+  "content": "## Cùng thành phần mà không phải cùng chất\n\nAlfred Werner nghiên cứu những hợp chất kim loại chứa ammonia và các nhóm khác, trong đó những mẫu có cùng thành phần tổng lại có màu và tính chất khác nhau. Cách ghép đơn giản các công thức không đủ giải thích số dạng thu được.\n\nLý thuyết phối trí năm 1893 của ông phân biệt những liên hệ quanh tâm kim loại và đưa hình học vào mô tả. Với hệ sáu phối trí, bố trí bát diện dự đoán số đồng phân hình học khác với một vòng phẳng hoặc lăng trụ.\n\nWerner và cộng sự tổng hợp, tách và so các dạng để kiểm tra dự đoán. Những thí nghiệm về đồng phân quang học đầu thế kỷ XX tiếp tục củng cố rằng cấu trúc ba chiều không chỉ là cách vẽ thuận tiện. Nó tạo những tính chất có thể đo ở mẫu thật.\n\n![Minh họa chủ đề nghiên cứu; không phải chân dung hoặc dữ liệu thực nghiệm gốc](/assets/library/history-evidence.svg)\n\n## Số đồng phân là một phép thử của mô hình\n\nNếu một mô hình dự đoán ba dạng nhưng thí nghiệm có hệ thống chỉ phù hợp hai dạng, đó là thông tin giúp lựa chọn hình học. Các vị trí tương đương và cách đặt những phối tử khác nhau quyết định số khả năng.\n\nHoạt tính quang học cung cấp phép kiểm tra khác. Những cấu hình không chồng khít ảnh gương có thể được tách thành các dạng làm quay ánh sáng phân cực theo những hướng khác nhau. Hiện tượng này cho thấy tính bất đối xứng có thể xuất hiện trong phức kim loại, không chỉ ở carbon có bốn nhóm khác nhau.\n\nDữ liệu cần được đọc cùng độ tinh khiết và trạng thái của mẫu trong dung dịch. Một phức có thể trao đổi phối tử hoặc đổi cấu hình, nên giữ được dạng để đo là phần của thí nghiệm. Werner dùng nhiều loại bằng chứng hóa học và vật lý để làm cho mô hình phối trí đứng vững trước những cách giải thích cạnh tranh.\n\n## Ứng dụng hôm nay: hình học quanh kim loại là một biến thiết kế\n\nHóa học phối trí hiện là nền tảng của xúc tác, vật liệu và nhiều hệ sinh học. Chọn phối tử và hình học ảnh hưởng cấu trúc điện tử, độ bền và khả năng phản ứng của tâm kim loại.\n\nMột công thức chỉ liệt kê nguyên tố chưa đủ mô tả chức năng. Cùng kim loại và cùng số nhóm có thể tạo những trạng thái khác nhau nếu cách sắp xếp hoặc điều kiện thay đổi.\n\nCâu chuyện Werner làm cho màu của một phức trở thành điểm đầu của cuộc điều tra sâu hơn. Điều cần hỏi không chỉ là mẫu chứa gì, mà các thành phần nằm ở đâu quanh tâm và có thể đổi vị trí bằng cách nào. Từ việc đếm đồng phân đến thiết kế xúc tác ngày nay, khả năng liên hệ hình học với dữ liệu đã biến các hợp chất kim loại từ những công thức khó hiểu thành những hệ có thể xây và kiểm tra có chủ đích.\n\n## Nguồn và đọc thêm\n\n- [Alfred Werner · Bài giảng Nobel](https://www.nobelprize.org/uploads/2018/06/werner-lecture.pdf)\n- [Académie des sciences · Đối chiếu các tổng hợp và đồng phân của Werner](https://comptes-rendus.academie-sciences.fr/chimie/articles/en/10.1016/j.crci.2004.10.013/)"
+}

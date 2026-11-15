@@ -1,0 +1,41 @@
+{
+  "id": "luis-leloir-duong-co-tam-ve-nucleotide",
+  "slug": "luis-leloir-duong-co-tam-ve-nucleotide",
+  "documentPath": "docs/luis-leloir-duong-co-tam-ve-nucleotide/index.json",
+  "title": "Luis Leloir: phân tử đường mang theo một phần nucleotide",
+  "summary": "UDP-glucose giúp giải thích cách đường được chuyển trong sinh tổng hợp. Leloir tìm một chất trung gian mà chức năng nằm trong cả phân tử, không chỉ phần glucose.",
+  "category": "tieusu",
+  "author": "Ban biên tập ChemDex",
+  "image": "/assets/library/history-evidence.svg",
+  "tags": [
+    "Luis Leloir",
+    "UDP-glucose",
+    "Sinh tổng hợp"
+  ],
+  "aliases": [],
+  "documentKind": "story",
+  "readingMinutes": 3,
+  "editorialEvidence": {
+    "language": "vi",
+    "scope": "chemical-family",
+    "contextLabel": "Luis Leloir: phân tử đường mang theo một phần nucleotide",
+    "reviewBasis": "Biên soạn theo các nguồn dẫn cuối bài; phân biệt kết quả đã thực hiện và hướng phát triển.",
+    "story": {
+      "status": "documented",
+      "section": "## Một hoạt tính trong dịch chiết cần được gọi tên",
+      "sources": [
+        "https://www.nobelprize.org/prizes/chemistry/1970/leloir/lecture/",
+        "https://www.nobelprize.org/prizes/chemistry/1970/leloir/biographical/"
+      ]
+    },
+    "application": {
+      "status": "documented",
+      "section": "## Ứng dụng hôm nay: đọc lớp carbohydrate bằng những bước tạo ra nó",
+      "sources": [
+        "https://www.nobelprize.org/prizes/chemistry/1970/leloir/lecture/",
+        "https://www.nobelprize.org/prizes/chemistry/1970/leloir/biographical/"
+      ]
+    }
+  },
+  "content": "## Một hoạt tính trong dịch chiết cần được gọi tên\n\nLuis Leloir và các cộng sự nghiên cứu chuyển hóa đường tại Buenos Aires, tìm những thành phần cần cho các phản ứng mà enzyme riêng chưa giải thích được. Công việc dẫn tới việc nhận diện UDP-glucose và những nucleotide đường liên quan.\n\nĐó là một kiểu vật liệu khác với glucose tự do. Phần đường được nối với một nhóm chứa nucleotide, tạo cơ chất phù hợp cho những enzyme chuyển nhóm đường trong quá trình tổng hợp.\n\nPhát hiện giúp giải thích vì sao có đủ đường trong dung dịch chưa chắc phản ứng xây carbohydrate diễn ra. Tế bào dùng những dạng được hoạt hóa và những enzyme nhận diện chúng. Một phần của phân tử dường như đi kèm đã trở thành chìa khóa để hiểu chức năng của toàn bộ cơ chất.\n\n![Minh họa chủ đề nghiên cứu; không phải chân dung hoặc dữ liệu thực nghiệm gốc](/assets/library/history-evidence.svg)\n\n## Chuyển một nhóm đường cần quản lý cả phần rời đi\n\nTrong các phản ứng glycosyltransferase, nucleotide đường có thể cho nhóm đường sang một đối tác phù hợp. Tính chọn lọc của enzyme quyết định đường nào được chuyển, tới vị trí nào và tạo kiểu liên kết nào.\n\nNhững khác biệt đó quan trọng vì carbohydrate không chỉ là chuỗi các đơn vị cùng tên. Cách nối và cấu hình liên kết tạo ra những cấu trúc có tính chất và vai trò khác nhau.\n\nLeloir cùng cộng sự xác định các chất trung gian bằng phân tách, phân tích thành phần và thử chức năng trong hệ enzyme. Mỗi phép đo loại một phần các khả năng. Bài giảng Nobel của ông cho thấy nghiên cứu đường đòi hỏi phối hợp hóa học với sinh hóa: biết công thức chưa đủ, nhưng chỉ có hoạt tính cũng chưa xác định được vật liệu nào đang thực hiện vai trò ấy.\n\n## Ứng dụng hôm nay: đọc lớp carbohydrate bằng những bước tạo ra nó\n\nNucleotide đường là nền tảng để nghiên cứu tổng hợp glycogen, polysaccharide và nhiều glycoconjugate. Những enzyme sử dụng chúng là đối tượng trong nghiên cứu chức năng tế bào và các phương pháp tạo carbohydrate có cấu trúc xác định.\n\nKhi một cấu trúc đường trên tế bào thay đổi, nguyên nhân có thể nằm ở nguồn nucleotide đường, enzyme chuyển hoặc quá trình vận chuyển. Đo một sản phẩm cuối cần được đặt trong mạng các bước tạo nó.\n\nCâu chuyện Leloir làm rõ một nguyên tắc chung của sinh tổng hợp: nguyên liệu thường được chuẩn bị dưới một dạng cụ thể trước khi đưa vào công việc xây dựng. Phần nucleotide không chỉ là nhãn nhận diện; nó tham gia vào năng lượng và hóa học của bước chuyển. Nhờ những chất trung gian ấy, các nguyên tử carbon có thể được tổ chức thành những cấu trúc đường rất đa dạng, thay vì chỉ tích tụ như một kho glucose không phân biệt.\n\n## Nguồn và đọc thêm\n\n- [Luis Leloir · Bài giảng Nobel](https://www.nobelprize.org/prizes/chemistry/1970/leloir/lecture/)\n- [Luis Leloir · Tự thuật và nghiên cứu nucleotide đường](https://www.nobelprize.org/prizes/chemistry/1970/leloir/biographical/)"
+}

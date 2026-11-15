@@ -1,0 +1,41 @@
+{
+  "id": "carl-cori-lactate-di-qua-hai-co-quan",
+  "slug": "carl-cori-lactate-di-qua-hai-co-quan",
+  "documentPath": "docs/carl-cori-lactate-di-qua-hai-co-quan/index.json",
+  "title": "Carl Cori: một dòng lactate nối cơ với gan",
+  "summary": "Các nghiên cứu của Carl và Gerty Cori cho thấy chuyển hóa cần được nhìn qua trao đổi giữa mô. Một cơ quan dùng carbon theo cách khác cơ quan tiếp theo.",
+  "category": "tieusu",
+  "author": "Ban biên tập ChemDex",
+  "image": "/assets/library/history-evidence.svg",
+  "tags": [
+    "Carl Cori",
+    "Chu trình Cori",
+    "Chuyển hóa"
+  ],
+  "aliases": [],
+  "documentKind": "story",
+  "readingMinutes": 4,
+  "editorialEvidence": {
+    "language": "vi",
+    "scope": "chemical-family",
+    "contextLabel": "Carl Cori: một dòng lactate nối cơ với gan",
+    "reviewBasis": "Biên soạn theo các nguồn dẫn cuối bài; phân biệt kết quả đã thực hiện và hướng phát triển.",
+    "story": {
+      "status": "documented",
+      "section": "## Sản phẩm của mô này trở thành nguyên liệu của mô khác",
+      "sources": [
+        "https://www.nobelprize.org/prizes/medicine/1947/cori-cf/lecture/",
+        "https://www.nobelprize.org/prizes/medicine/1947/cori-cf/biographical/"
+      ]
+    },
+    "application": {
+      "status": "documented",
+      "section": "## Ứng dụng hôm nay: đo dòng chuyển hóa thay vì chỉ nhìn lượng tồn",
+      "sources": [
+        "https://www.nobelprize.org/prizes/medicine/1947/cori-cf/lecture/",
+        "https://www.nobelprize.org/prizes/medicine/1947/cori-cf/biographical/"
+      ]
+    }
+  },
+  "content": "## Sản phẩm của mô này trở thành nguyên liệu của mô khác\n\nCarl Cori cùng Gerty Cori nghiên cứu cách carbohydrate được sử dụng và chuyển đổi trong cơ thể. Những công trình dẫn tới mô hình thường gọi là chu trình Cori, trong đó lactate tạo ở mô như cơ có thể đi tới gan và góp vào quá trình tạo lại glucose.\n\nĐiểm thay đổi là nhìn chuyển hóa như sự phối hợp giữa cơ quan. Nếu chỉ đo một mô riêng, một chất có thể trông như sản phẩm cuối hoặc phần phải loại bỏ. Theo dõi nó qua tuần hoàn cho thấy vật chất có thể tiếp tục một công việc khác.\n\nMô hình không nói rằng mọi lactate đều đi đúng một vòng duy nhất. Nó xác định một mối nối quan trọng trong mạng trao đổi, giúp đặt các thí nghiệm về dòng carbon và điều kiện khiến từng hướng đóng góp nhiều hay ít.\n\n![Minh họa chủ đề nghiên cứu; không phải chân dung hoặc dữ liệu thực nghiệm gốc](/assets/library/history-evidence.svg)\n\n## Một chu trình vật chất không phải chu trình năng lượng miễn phí\n\nCơ và gan có những nhiệm vụ và khả năng chuyển hóa khác nhau. Chuyển lactate trở lại glucose cần năng lượng; vì vậy, vòng tuần hoàn carbon không có nghĩa hệ tự tạo nhiên liệu mà không trả chi phí.\n\nCác phản ứng và dòng vận chuyển phải được tính cùng nhau. Nồng độ chất trong máu tại một thời điểm chưa đủ cho biết tốc độ nó được tạo và sử dụng, vì nhiều dòng có thể cùng đi vào hoặc rời khỏi kho đo.\n\nCông việc của Cori về glycogen và các enzyme bổ sung cấp phân tử cho bức tranh toàn cơ thể. Từ quan sát trao đổi giữa mô, nhóm đi tới những chất như glucose-1-phosphate và các bước có thể tái tạo ngoài tế bào. Hai thang nghiên cứu hỗ trợ nhau: mạng sinh lý đặt câu hỏi, còn hóa học enzyme giúp chỉ ra những đường biến đổi có thể thực hiện.\n\n## Ứng dụng hôm nay: đo dòng chuyển hóa thay vì chỉ nhìn lượng tồn\n\nNghiên cứu chuyển hóa hiện dùng dấu đồng vị và nhiều phép định lượng để theo dõi vật chất đi qua các mạng. Một chất có lượng nhỏ vẫn có thể được tạo và tiêu thụ rất nhanh; một kho lớn có thể thay đổi chậm.\n\nChu trình Cori giúp người học phân biệt sự bảo toàn carbon với chi phí năng lượng của những bước tái tạo. Nó cũng cho thấy chức năng của một chất phụ thuộc nơi và thời điểm, thay vì chỉ mang nhãn sản phẩm tốt hoặc chất thải.\n\nCâu chuyện Carl Cori đưa đường nối giữa cơ và gan vào một lập luận hóa học có thể kiểm tra. Cơ thể không phải tập hợp các bình phản ứng đứng riêng, mà là mạng các kho và dòng vận chuyển. Khi một sản phẩm rời mô này, câu hỏi khoa học cần đi cùng nó tới nơi tiếp theo. Chính cách theo dõi ấy làm những sơ đồ chuyển hóa trở thành mô tả của một hệ đang hoạt động.\n\n## Nguồn và đọc thêm\n\n- [Carl Cori · Bài giảng Nobel](https://www.nobelprize.org/prizes/medicine/1947/cori-cf/lecture/)\n- [Carl Cori · Tự thuật và nghiên cứu carbohydrate](https://www.nobelprize.org/prizes/medicine/1947/cori-cf/biographical/)"
+}

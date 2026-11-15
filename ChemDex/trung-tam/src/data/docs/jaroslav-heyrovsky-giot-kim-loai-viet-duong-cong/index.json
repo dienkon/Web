@@ -1,0 +1,41 @@
+{
+  "id": "jaroslav-heyrovsky-giot-kim-loai-viet-duong-cong",
+  "slug": "jaroslav-heyrovsky-giot-kim-loai-viet-duong-cong",
+  "documentPath": "docs/jaroslav-heyrovsky-giot-kim-loai-viet-duong-cong/index.json",
+  "title": "Jaroslav Heyrovský: giọt kim loại viết thành đường cong phân tích",
+  "summary": "Điện cực giọt thủy ngân cho bề mặt được làm mới liên tục. Heyrovský dùng dòng điện theo điện thế để hỏi dung dịch chứa gì và có bao nhiêu.",
+  "category": "tieusu",
+  "author": "Ban biên tập ChemDex",
+  "image": "/assets/library/history-evidence.svg",
+  "tags": [
+    "Jaroslav Heyrovský",
+    "Cực phổ",
+    "Điện hóa"
+  ],
+  "aliases": [],
+  "documentKind": "story",
+  "readingMinutes": 4,
+  "editorialEvidence": {
+    "language": "vi",
+    "scope": "chemical-family",
+    "contextLabel": "Jaroslav Heyrovský: giọt kim loại viết thành đường cong phân tích",
+    "reviewBasis": "Biên soạn theo các nguồn dẫn cuối bài; phân biệt kết quả đã thực hiện và hướng phát triển.",
+    "story": {
+      "status": "documented",
+      "section": "## Một bề mặt mới sau mỗi giọt",
+      "sources": [
+        "https://www.nobelprize.org/uploads/2018/06/heyrovsky-lecture.pdf",
+        "https://www.avcr.cz/en/media/press-releases/One-hundred-years-of-polarography/"
+      ]
+    },
+    "application": {
+      "status": "documented",
+      "section": "## Ứng dụng hôm nay: thiết kế điện cực để đọc hóa học",
+      "sources": [
+        "https://www.nobelprize.org/uploads/2018/06/heyrovsky-lecture.pdf",
+        "https://www.avcr.cz/en/media/press-releases/One-hundred-years-of-polarography/"
+      ]
+    }
+  },
+  "content": "## Một bề mặt mới sau mỗi giọt\n\nNăm 1922, Jaroslav Heyrovský nghiên cứu điện phân với điện cực thủy ngân nhỏ giọt và ghi những đường dòng điện theo điện thế có độ lặp lại cao. Mỗi giọt tạo một bề mặt mới, giúp giảm những biến đổi bề mặt tích lũy vốn làm phép đo khó ổn định.\n\nBan đầu, các điểm được ghi bằng tay. Năm 1924, Heyrovský cùng Masuzo Shikata phát triển thiết bị ghi tự động, được gọi là polarograph. Tên phương pháp cực phổ gắn với khả năng biến quá trình điện cực thành một đường cong có thể đọc.\n\nĐây là bước chuyển từ quan sát phản ứng điện hóa sang phép phân tích định lượng. Thiết bị cần giữ điện thế tham chiếu và môi trường đủ ổn định để phần thay đổi của dòng phản ánh đúng những chất đang được khảo sát.\n\n![Minh họa chủ đề nghiên cứu; không phải chân dung hoặc dữ liệu thực nghiệm gốc](/assets/library/history-evidence.svg)\n\n## Vị trí và chiều cao của sóng trả lời hai câu hỏi\n\nKhi điện thế thay đổi, một chất trong dung dịch có thể bắt đầu nhận hoặc nhường electron ở điện cực. Vùng thay đổi tín hiệu giúp nhận diện hành vi điện hóa, còn dòng giới hạn trong điều kiện phù hợp liên quan đến lượng chất và vận chuyển tới bề mặt.\n\nNhững quan hệ này cần mô hình và hiệu chuẩn. Tạp chất, oxygen hòa tan hoặc các phản ứng chồng lấp có thể làm đường cong khó đọc. Một sóng không tự là tên chất nếu thiếu bối cảnh của mẫu.\n\nThủy ngân có những tính chất hữu ích cho phương pháp lịch sử, đồng thời có yêu cầu quản lý riêng. Các hệ điện hóa hiện đại dùng nhiều loại điện cực và kỹ thuật xung khác nhau. Điều tiếp tục có giá trị là việc tổ chức bề mặt, điện thế và vận chuyển để tín hiệu trở thành phép đo đáng tin, chứ không phải giữ nguyên mọi vật liệu của thiết bị đầu tiên.\n\n## Ứng dụng hôm nay: thiết kế điện cực để đọc hóa học\n\nCực phổ góp nền tảng cho các phương pháp voltammetry và phân tích điện hóa được dùng trong nghiên cứu cảm biến, môi trường và vật liệu. Mỗi phương pháp chọn cách thay điện thế và đọc dòng để làm nổi bật thông tin cần thiết.\n\nMột tín hiệu nhạy vẫn cần tính chọn lọc và khả năng kiểm tra nền. Khi chuyển từ dung dịch chuẩn sang mẫu thực, những thành phần khác có thể thay đổi cả phản ứng điện cực lẫn quá trình vận chuyển.\n\nHeyrovský cho thấy một bề mặt nhỏ có thể trở thành bộ đọc hóa học nếu điều kiện của nó được xác định tốt. Giọt kim loại không viết chữ, nhưng đường cong nó tạo chứa thông tin về năng lượng chuyển electron và lượng chất đến bề mặt. Từ việc ghi từng điểm tới máy tự động, thành tựu nằm ở khả năng khiến thông tin ấy lặp lại đủ rõ để người khác sử dụng.\n\n## Nguồn và đọc thêm\n\n- [Jaroslav Heyrovský · Bài giảng Nobel](https://www.nobelprize.org/uploads/2018/06/heyrovsky-lecture.pdf)\n- [Viện Hàn lâm Khoa học Czech · Một thế kỷ cực phổ](https://www.avcr.cz/en/media/press-releases/One-hundred-years-of-polarography/)"
+}

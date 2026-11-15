@@ -1,0 +1,44 @@
+{
+  "id": "fischer-indole-xay-vong-o-giai-doan-muon",
+  "slug": "fischer-indole-xay-vong-o-giai-doan-muon",
+  "documentPath": "docs/fischer-indole-xay-vong-o-giai-doan-muon/index.json",
+  "title": "Xây vòng indole khi bộ khung đã gần hoàn chỉnh",
+  "summary": "Những tuyến tới sumatriptan dùng Fischer indole ở giai đoạn muộn. Điều đó đặt phản ứng đóng vòng trước nhiệm vụ giữ nguyên các nhóm chức đã được chuẩn bị ở những bước trước.",
+  "category": "phanung",
+  "author": "Ban biên tập ChemDex",
+  "image": "/assets/library/organic-aromatic.svg",
+  "tags": [
+    "Fischer indole",
+    "Dị vòng",
+    "Tái sắp xếp",
+    "Tổng hợp dược chất"
+  ],
+  "aliases": [],
+  "documentKind": "story",
+  "readingMinutes": 4,
+  "editorialEvidence": {
+    "language": "vi",
+    "scope": "chemical-family",
+    "contextLabel": "Xây vòng indole khi bộ khung đã gần hoàn chỉnh",
+    "reviewBasis": "Biên soạn theo các nguồn dẫn cuối bài; phân biệt kết quả đã thực hiện và hướng phát triển.",
+    "story": {
+      "status": "documented",
+      "section": "## Một vòng quan trọng được để lại cho chặng cuối",
+      "sources": [
+        "https://pmc.ncbi.nlm.nih.gov/articles/PMC3107522/",
+        "https://patents.google.com/patent/WO2006054311A2/en",
+        "https://pmc.ncbi.nlm.nih.gov/articles/PMC9092475/"
+      ]
+    },
+    "application": {
+      "status": "documented",
+      "section": "## Ứng dụng hôm nay: một con đường cổ vẫn cạnh tranh bằng phạm vi cơ chất",
+      "sources": [
+        "https://pmc.ncbi.nlm.nih.gov/articles/PMC3107522/",
+        "https://patents.google.com/patent/WO2006054311A2/en",
+        "https://pmc.ncbi.nlm.nih.gov/articles/PMC9092475/"
+      ]
+    }
+  },
+  "content": "## Một vòng quan trọng được để lại cho chặng cuối\n\nBài khảo sát các tuyến tổng hợp dược chất chứa vòng năm cạnh năm 2011 nêu sumatriptan và zolmitriptan như ví dụ dùng Fischer indole ở giai đoạn muộn. Vòng indole được hình thành sau khi những phần khác của phân tử đã được xây.\n\nMột hồ sơ sáng chế năm 2006 về sumatriptan tiếp tục thảo luận độ tinh khiết và cách cải thiện tuyến. Điều này cho thấy tạo được vòng không phải điểm kết thúc của phát triển quy trình; chất lượng và khả năng phân lập sản phẩm vẫn cần nhiều công việc.\n\nCác tài liệu có nhiều tuyến khác nhau tới cùng phân tử. Không nên ghép các bước ưu thế của những tuyến riêng thành một quy trình tưởng tượng hoặc coi một tuyến công bố là cách mọi nhà máy đang dùng.\n\n![Minh họa hệ thơm, không phải cấu trúc đầy đủ của sumatriptan](/assets/library/organic-aromatic.svg)\n\n## Hydrazone đổi cách nối rồi đóng vòng\n\nFischer indole bắt đầu từ một arylhydrazone hoặc tạo tiền chất ấy từ arylhydrazine và carbonyl. Qua những biến đổi được xúc tác trong môi trường phù hợp, hệ tái sắp xếp và đóng vòng để tạo bộ khung indole.\n\nMột nitrogen được giữ trong vòng, trong khi nitrogen còn lại rời hệ qua những bước tiếp theo. Điều này giúp phân biệt phản ứng với việc chỉ ngưng tụ hai chất rồi giữ nguyên cả nhóm hydrazine trong sản phẩm.\n\nVị trí nhóm thế trên vòng thơm và cấu trúc carbonyl ảnh hưởng những indole có thể tạo. Với carbonyl không đối xứng, hướng tạo tiền chất enehydrazine có thể dẫn tới những sản phẩm khác nhau, nên tính chọn lọc vùng là một câu hỏi quan trọng.\n\nĐiều kiện phản ứng phải đủ hoạt hóa quá trình nhưng không phá những nhóm chức đã có. Khi đóng vòng ở giai đoạn muộn, mỗi sản phẩm phụ có thể mang theo nhiều công sức của các bước trước, làm hiệu suất toàn tuyến giảm đáng kể.\n\nDo đó, một phản ứng có tên quen thuộc vẫn cần phát triển cụ thể cho từng bộ khung và chất lượng nguyên liệu.\n\n## Ứng dụng hôm nay: một con đường cổ vẫn cạnh tranh bằng phạm vi cơ chất\n\nIndole có mặt trong nhiều phân tử tự nhiên và chất được nghiên cứu cho ứng dụng sinh học. Fischer indole là một trong nhiều phương pháp để dựng bộ khung này, với lợi thế và giới hạn khác các tuyến ghép cặp hoặc đóng vòng khác.\n\nNhững nghiên cứu và bằng sáng chế hiện đại tập trung vào độ sạch, khả năng xử lý nhóm chức và giảm các bước phân lập. Chọn phương pháp cần dựa vào những mảnh nguyên liệu sẵn có và những vị trí đã được chức năng hóa.\n\nMột tổng quan năm 2021 về dị vòng nitrogen trình bày nhiều ví dụ tổng hợp, giúp thấy vòng indole không phải một mô-đun chỉ được làm theo duy nhất một cách. Cùng mục tiêu có thể có những lựa chọn khác khi nguyên liệu hoặc quy mô thay đổi.\n\nCâu chuyện đóng vòng muộn làm rõ giá trị của việc lập kế hoạch. Nhà hóa học có thể để một cấu trúc trung tâm xuất hiện gần cuối nếu phản ứng đủ phù hợp với những phần đã xây. Khi đó, phương pháp không chỉ tạo vòng; nó phải bảo vệ giá trị tích lũy của cả tuyến tổng hợp.\n\n## Nguồn và đọc thêm\n\n- [Các tuyến tới dược chất dị vòng năm cạnh, 2011](https://pmc.ncbi.nlm.nih.gov/articles/PMC3107522/)\n- [Bằng sáng chế về sumatriptan tinh khiết, 2006](https://patents.google.com/patent/WO2006054311A2/en)\n- [Tổng quan các dược chất chứa dị vòng nitrogen](https://pmc.ncbi.nlm.nih.gov/articles/PMC9092475/)"
+}

@@ -1,0 +1,44 @@
+{
+  "id": "wo3-cua-kinh-doi-mau-bang-ion",
+  "slug": "wo3-cua-kinh-doi-mau-bang-ion",
+  "documentPath": "docs/wo3-cua-kinh-doi-mau-bang-ion/index.json",
+  "title": "Cửa kính đổi màu vì ion đi vào một lớp oxide",
+  "summary": "Vật liệu điện sắc như tungsten oxide có thể đổi truyền sáng khi được cấp điện. Tính năng của cửa sổ phụ thuộc cả cấu trúc lớp và cách điều khiển trong công trình.",
+  "category": "khainiem",
+  "author": "Ban biên tập ChemDex",
+  "image": "/assets/library/photos/elements/W.jpg",
+  "tags": [
+    "Điện sắc",
+    "WO₃",
+    "Ion",
+    "Cửa sổ"
+  ],
+  "aliases": [],
+  "documentKind": "story",
+  "readingMinutes": 4,
+  "editorialEvidence": {
+    "language": "vi",
+    "scope": "chemical-family",
+    "contextLabel": "Cửa kính đổi màu vì ion đi vào một lớp oxide",
+    "reviewBasis": "Biên soạn theo các nguồn dẫn cuối bài; phân biệt kết quả đã thực hiện và hướng phát triển.",
+    "story": {
+      "status": "documented",
+      "section": "## Một cửa sổ được đặt cạnh hệ chiếu sáng và điều hòa",
+      "sources": [
+        "https://windows.lbl.gov/electrochromic-materials",
+        "https://www.energy.gov/sites/default/files/2023-12/bto-electrochromic-window-report-121123.pdf",
+        "https://arxiv.org/abs/2011.03895"
+      ]
+    },
+    "application": {
+      "status": "documented",
+      "section": "## Ứng dụng hôm nay: một vật liệu động cần một chiến lược sử dụng",
+      "sources": [
+        "https://windows.lbl.gov/electrochromic-materials",
+        "https://www.energy.gov/sites/default/files/2023-12/bto-electrochromic-window-report-121123.pdf",
+        "https://arxiv.org/abs/2011.03895"
+      ]
+    }
+  },
+  "content": "## Một cửa sổ được đặt cạnh hệ chiếu sáng và điều hòa\n\nTrong nghiên cứu cửa kính động, Lawrence Berkeley National Laboratory mô tả nguyên mẫu gồm các màng tungsten oxide và lithium nickel oxide ghép với chất dẫn ion polymer. Thiết bị có thể chuyển từ trạng thái sáng sang màu đậm hơn. Mục tiêu là thay đổi lượng ánh sáng và năng lượng mặt trời đi vào công trình theo nhu cầu.\n\nBáo cáo của Bộ Năng lượng Hoa Kỳ năm 2023 đặt cửa điện sắc trong bức tranh vận hành tòa nhà. Lợi ích không chỉ nằm ở việc kính có màu đẹp, mà ở khả năng quản lý chói, ánh sáng tự nhiên và tải nhiệt cùng với các hệ khác.\n\nMột tấm kính đổi truyền sáng chưa tự bảo đảm tiết kiệm năng lượng ở mọi nơi. Hướng nhà, khí hậu và cách điều khiển quyết định lúc nào nên cho nắng vào hoặc giảm nó.\n\n![Tungsten kim loại minh họa nguyên tố; lớp điện sắc trong bài là oxide chứa tungsten](/assets/library/photos/elements/W.jpg)\n\n## Điện tích làm thay đổi trạng thái quang của lớp vật liệu\n\nTrong những hệ oxide phù hợp, ion nhỏ như proton hoặc lithium cùng quá trình trao đổi electron đi vào hoặc rời lớp điện sắc. Trạng thái điện tử của vật liệu thay đổi, kéo theo khả năng hấp thụ ánh sáng. Đây là quá trình có thể đảo trong miền vận hành được thiết kế.\n\nWO₃ là một vật liệu được nghiên cứu rộng, nhưng thành phần, độ vô định hình, khuyết tật và chiều dày làm tính năng khác nhau. Không thể suy tốc độ chuyển màu và độ bền của mọi cửa từ công thức WO₃ riêng lẻ.\n\nThiết bị còn cần lớp dẫn điện trong suốt, chất dẫn ion, điện cực đối và phần đóng gói. Ion phải có đường đi đủ thuận lợi, còn electron cần được điều khiển qua mạch. Nếu một lớp bị suy giảm hoặc nước ngoài môi trường xâm nhập, khả năng đổi màu của toàn bộ hệ có thể bị ảnh hưởng.\n\n## Ứng dụng hôm nay: một vật liệu động cần một chiến lược sử dụng\n\nCác nghiên cứu đồng thời đo trở kháng điện và đáp ứng màu của tungsten oxide giúp tìm hiểu phần nào giới hạn tốc độ. Những phép đo theo thời gian có thể phân biệt vận chuyển ion với các bước đổi trạng thái quang, hỗ trợ thiết kế lớp tốt hơn.\n\nỞ quy mô công trình, cửa cần chuyển đều, đủ nhanh cho nhiệm vụ và giữ được tính năng qua nhiều chu kỳ. Việc phối hợp với cảm biến và điều khiển ánh sáng có thể quan trọng không kém thông số vật liệu tốt nhất trong phòng thí nghiệm.\n\nCâu chuyện điện sắc cho thấy một bề mặt xây dựng không nhất thiết phải giữ một tính chất quang cố định suốt ngày. Hóa học ion cho phép nó thay đổi có chủ đích, nhưng mỗi lần đổi màu là một quá trình vật chất thực chứ không chỉ lệnh phần mềm. Hiểu những đường đi của ion và electron giúp nối thiết kế nano với câu hỏi lớn hơn: người trong phòng có nhìn rõ, bớt chói và sử dụng năng lượng hợp lý hơn hay không.\n\n## Nguồn và đọc thêm\n\n- [Berkeley Lab · Vật liệu điện sắc và nguyên mẫu cửa](https://windows.lbl.gov/electrochromic-materials)\n- [U.S. DOE · Báo cáo cửa điện sắc, 2023](https://www.energy.gov/sites/default/files/2023-12/bto-electrochromic-window-report-121123.pdf)\n- [Nghiên cứu gốc · Động học điện và màu của WO₃](https://arxiv.org/abs/2011.03895)"
+}

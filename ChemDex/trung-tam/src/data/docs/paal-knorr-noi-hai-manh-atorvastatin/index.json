@@ -1,0 +1,44 @@
+{
+  "id": "paal-knorr-noi-hai-manh-atorvastatin",
+  "slug": "paal-knorr-noi-hai-manh-atorvastatin",
+  "documentPath": "docs/paal-knorr-noi-hai-manh-atorvastatin/index.json",
+  "title": "Vòng pyrrole được dựng tại điểm hội tụ của hai mảnh lớn",
+  "summary": "Trong một tuyến atorvastatin, Paal–Knorr nối mảnh diketone với nhánh amine đã có cấu hình. Bài toán công nghiệp là làm phản ứng đủ nhanh và sản phẩm đủ sạch, không chỉ tạo được vòng.",
+  "category": "phanung",
+  "author": "Ban biên tập ChemDex",
+  "image": "/assets/library/organic-aromatic.svg",
+  "tags": [
+    "Paal–Knorr",
+    "Pyrrole",
+    "Tổng hợp hội tụ",
+    "Quy trình"
+  ],
+  "aliases": [],
+  "documentKind": "story",
+  "readingMinutes": 4,
+  "editorialEvidence": {
+    "language": "vi",
+    "scope": "chemical-family",
+    "contextLabel": "Vòng pyrrole được dựng tại điểm hội tụ của hai mảnh lớn",
+    "reviewBasis": "Biên soạn theo các nguồn dẫn cuối bài; phân biệt kết quả đã thực hiện và hướng phát triển.",
+    "story": {
+      "status": "documented",
+      "section": "## Một bước phản ứng gánh công sức của nhiều bước trước",
+      "sources": [
+        "https://patents.google.com/patent/EP1861364A1/en",
+        "https://www.nesacs.org/pub_nucleus/2003/May03.pdf",
+        "https://www.cs.gordon.edu/courses/organic/golum/usepa/pdf%20nominations%202012/Pfizer%20%2812%29%20rev.pdf"
+      ]
+    },
+    "application": {
+      "status": "documented",
+      "section": "## Ứng dụng hôm nay: phát triển quy trình nối tiếp với sinh xúc tác",
+      "sources": [
+        "https://patents.google.com/patent/EP1861364A1/en",
+        "https://www.nesacs.org/pub_nucleus/2003/May03.pdf",
+        "https://www.cs.gordon.edu/courses/organic/golum/usepa/pdf%20nominations%202012/Pfizer%20%2812%29%20rev.pdf"
+      ]
+    }
+  },
+  "content": "## Một bước phản ứng gánh công sức của nhiều bước trước\n\nBằng sáng chế năm 2006 về trung gian atorvastatin mô tả Paal–Knorr là bước hội tụ quan trọng, nơi một mảnh amine và một diketone được nối để dựng bộ khung phân tử. Tài liệu nêu một vấn đề thực tế: sản phẩm có thể đạt hiệu suất tốt nhưng hình thành chậm.\n\nBản trình bày lịch sử của nhóm phát triển trong bản tin NESACS năm 2003 kể cách tuyến tuyến tính ban đầu chưa phù hợp cho sản xuất lớn. Xây nhánh với cấu hình đúng trước rồi ghép vào vòng bằng Paal–Knorr giúp tạo một kế hoạch hội tụ hơn.\n\nCâu chuyện cho thấy lợi ích của một phản ứng không chỉ nằm ở bản thân mối nối. Nó có thể thay cách chia công việc giữa những nhánh tổng hợp và giảm rủi ro phải mang toàn bộ phân tử qua một chuỗi dài.\n\n![Minh họa dị vòng thơm, không phải cấu trúc hoặc dạng thuốc atorvastatin](/assets/library/organic-aromatic.svg)\n\n## Một dicarbonyl và một amine tạo vòng pyrrole\n\nPaal–Knorr tạo pyrrole từ một hệ 1,4-dicarbonyl với ammonia hoặc amine phù hợp. Nitrogen từ đối tác amine đi vào vòng, trong khi các carbon của dicarbonyl dựng phần còn lại của bộ khung năm cạnh.\n\nNhững nhóm thế trên các mảnh đầu vào được đưa vào những vị trí xác định. Đây là lợi thế khi mục tiêu cần một vòng pyrrole mang nhiều nhóm khác nhau: chuẩn bị hai mảnh đúng cấu trúc giúp đặt các nhóm vào trước khi vòng hình thành.\n\nNhưng tiền chất có thể khó điều chế hoặc khó phản ứng vì cản trở không gian. Phản ứng tên gọi trong sách không tự đảm bảo một diketone có nhiều nhóm chức sẽ làm việc giống mẫu đơn giản.\n\nBước ngưng tụ tạo nước và phụ thuộc môi trường. Tính hòa tan, các cân bằng trung gian và cách lấy nước ra có thể ảnh hưởng tốc độ, trong khi những nhóm chức nhạy cảm phải được giữ nguyên.\n\nKhi nhánh amine đã có cấu hình được tạo công phu, việc giữ thông tin ấy qua bước đóng vòng là một yêu cầu chất lượng quan trọng, không chỉ một chi tiết trên hình cấu trúc.\n\n## Ứng dụng hôm nay: phát triển quy trình nối tiếp với sinh xúc tác\n\nHồ sơ Pfizer về phát triển atorvastatin còn cho thấy những bước sinh xúc tác phía trước có thể được kết hợp với Paal–Knorr và những công đoạn sau, giảm số trung gian phải phân lập trong tuyến được mô tả.\n\nĐó là ví dụ của việc công nghệ mới không nhất thiết loại phản ứng cổ điển. Enzyme tạo một mảnh có cấu hình phù hợp; phản ứng dị vòng quen thuộc ghép mảnh ấy vào bộ khung. Hai cách tiếp cận cùng góp phần vào một kế hoạch.\n\nBằng sáng chế là mô tả một giải pháp và phạm vi yêu cầu bảo hộ, không phải bằng chứng rằng mọi cơ sở hiện nay đều dùng cùng tuyến. Những số liệu quy trình cần được giữ đúng trường hợp và thời điểm.\n\nPaal–Knorr trong câu chuyện này là một bước dựng cấu trúc đồng thời nối hai nhánh công việc. Khi phản ứng được tối ưu đủ tốt, các mảnh đã chuẩn bị riêng có thể gặp nhau gần cuối, giữ phần giá trị tích lũy ở cả hai bên. Đó là lý do một phản ứng hơn một thế kỷ tuổi vẫn có thể nằm tại trung tâm của một dự án phát triển quy trình hiện đại.\n\n## Nguồn và đọc thêm\n\n- [Bằng sáng chế · Cải thiện bước Paal–Knorr cho trung gian atorvastatin](https://patents.google.com/patent/EP1861364A1/en)\n- [Nhóm phát triển · Lịch sử tuyến hội tụ, NESACS 2003](https://www.nesacs.org/pub_nucleus/2003/May03.pdf)\n- [Pfizer · Tích hợp sinh xúc tác và Paal–Knorr trong quy trình](https://www.cs.gordon.edu/courses/organic/golum/usepa/pdf%20nominations%202012/Pfizer%20%2812%29%20rev.pdf)"
+}

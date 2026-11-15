@@ -1,0 +1,44 @@
+{
+  "id": "quang-am-tu-anh-sang-toi-tieng-khi",
+  "slug": "quang-am-tu-anh-sang-toi-tieng-khi",
+  "documentPath": "docs/quang-am-tu-anh-sang-toi-tieng-khi/index.json",
+  "title": "Nghe ánh sáng bị hấp thụ: từ thí nghiệm của Bell tới cảm biến khí",
+  "summary": "Hiệu ứng quang âm biến năng lượng ánh sáng thành dao động có thể đo. Những âm thoa thạch anh giúp một nguyên lý thế kỷ XIX bước vào thiết bị phân tích nhỏ.",
+  "category": "khainiem",
+  "author": "Ban biên tập ChemDex",
+  "image": "/assets/library/apparatus-spectroscope.svg",
+  "tags": [
+    "Quang âm",
+    "Hấp thụ",
+    "Âm thoa",
+    "Khí vết"
+  ],
+  "aliases": [],
+  "documentKind": "story",
+  "readingMinutes": 4,
+  "editorialEvidence": {
+    "language": "vi",
+    "scope": "chemical-family",
+    "contextLabel": "Nghe ánh sáng bị hấp thụ: từ thí nghiệm của Bell tới cảm biến khí",
+    "reviewBasis": "Biên soạn theo các nguồn dẫn cuối bài; phân biệt kết quả đã thực hiện và hướng phát triển.",
+    "story": {
+      "status": "documented",
+      "section": "## Ánh nắng bị ngắt nhịp khiến vật liệu phát tiếng",
+      "sources": [
+        "https://ajsonline.org/article/63836-upon-the-production-of-sound-by-radiant-energy",
+        "https://opg.optica.org/ol/abstract.cfm?uri=ol-27-21-1902",
+        "https://arxiv.org/abs/2406.14521"
+      ]
+    },
+    "application": {
+      "status": "documented",
+      "section": "## Ứng dụng hôm nay: chọn bước sóng để nghe đúng chất",
+      "sources": [
+        "https://ajsonline.org/article/63836-upon-the-production-of-sound-by-radiant-energy",
+        "https://opg.optica.org/ol/abstract.cfm?uri=ol-27-21-1902",
+        "https://arxiv.org/abs/2406.14521"
+      ]
+    }
+  },
+  "content": "## Ánh nắng bị ngắt nhịp khiến vật liệu phát tiếng\n\nTrong báo cáo năm 1881, Alexander Graham Bell nhìn lại các thí nghiệm ông và Sumner Tainter đã trình bày năm trước: nhiều màng mỏng phát âm khi chịu một chùm nắng bị ngắt rất nhanh. Ông tiếp tục khảo sát những vật liệu và cấu hình để tìm hiểu quan hệ giữa hấp thụ bức xạ và âm thanh.\n\nCâu chuyện bắt đầu trong quá trình nghiên cứu truyền thông bằng ánh sáng, nhưng mở ra một con đường phân tích khác. Thay vì chỉ đo ánh sáng còn lại sau khi đi qua mẫu, có thể đo phản ứng cơ học khi mẫu đã hấp thụ năng lượng.\n\nỞ quy mô cảm biến, tai người được thay bằng bộ thu nhạy và tín hiệu được đồng bộ với nguồn kích thích. Một hiện tượng có thể nghe trong thí nghiệm trở thành phép đo định lượng khi các đường chuyển năng lượng được hiểu và hiệu chuẩn.\n\n![Minh họa phép phân tích quang; không phải sơ đồ cảm biến quang âm](/assets/library/apparatus-spectroscope.svg)\n\n## Hấp thụ, giãn nở và áp suất nối thành một chuỗi\n\nKhi phân tử khí hấp thụ ánh sáng ở bước sóng phù hợp, năng lượng có thể được chuyển qua va chạm thành chuyển động nhiệt. Nếu nguồn được điều biến, sự nóng lên và giãn nở tuần hoàn tạo dao động áp suất. Tần số, tốc độ thư giãn và hình học buồng ảnh hưởng cường độ tín hiệu.\n\nTín hiệu quang âm vì vậy phụ thuộc cả phổ hấp thụ lẫn cách khí trả năng lượng cho môi trường. Hai mẫu có cùng nồng độ chất đích nhưng thành phần nền khác có thể tạo đáp ứng khác. Độ ẩm và áp suất là những biến cần xem xét, không chỉ những thông tin phụ đi kèm số đo.\n\nNăm 2002, Kosterev và cộng sự giới thiệu quang âm tăng cường bằng thạch anh, dùng âm thoa làm phần tử nhận dao động. Cộng hưởng của âm thoa hỗ trợ phát hiện tín hiệu yếu và thiết kế nhỏ gọn. Nhưng vị trí chùm sáng và cách ghép âm vẫn phải được tối ưu cho hệ cụ thể.\n\n## Ứng dụng hôm nay: chọn bước sóng để nghe đúng chất\n\nQuang âm được nghiên cứu cho khí vết và nhiều môi trường hấp thụ khác. Các nguồn laser hẹp giúp chọn miền phổ, còn thiết kế cộng hưởng và xử lý tín hiệu giúp tăng độ nhạy. Một nghiên cứu năm 2024 về phát hiện methane dùng nguồn laser sợi lõi rỗng chứa khí cho thấy việc cải tiến nguồn sáng vẫn mở thêm khả năng cho phương pháp.\n\nĐộ nhạy cao trong điều kiện thử không tự mô tả mọi tình huống hiện trường. Cần xem nền khí, chất gây nhiễu, thời gian đáp ứng và hiệu chuẩn. Một cảm biến tốt không chỉ phát hiện được tín hiệu nhỏ mà còn biết tín hiệu ấy thuộc về chất nào trong mẫu đang đo.\n\nTừ đĩa mỏng dưới nắng tới âm thoa trong thiết bị, mạch nối là năng lượng đã được mẫu nhận vào. Phép đo không nhất thiết phải theo dõi cùng loại tín hiệu đã chiếu tới: ánh sáng có thể được chuyển thành âm, rồi thành điện. Chính chuỗi chuyển đổi ấy cho hóa học thêm một cách đọc những phân tử mà mắt thường không thấy.\n\n## Nguồn và đọc thêm\n\n- [Bell · Sự tạo âm bằng năng lượng bức xạ, 1881](https://ajsonline.org/article/63836-upon-the-production-of-sound-by-radiant-energy)\n- [Kosterev và cộng sự · QEPAS, 2002](https://opg.optica.org/ol/abstract.cfm?uri=ol-27-21-1902)\n- [Nghiên cứu gốc · Nguồn laser cho phát hiện methane quang âm, 2024](https://arxiv.org/abs/2406.14521)"
+}

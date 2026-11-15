@@ -1,0 +1,41 @@
+{
+  "id": "rosalyn-yalow-do-hormone-bang-su-canh-tranh",
+  "slug": "rosalyn-yalow-do-hormone-bang-su-canh-tranh",
+  "documentPath": "docs/rosalyn-yalow-do-hormone-bang-su-canh-tranh/index.json",
+  "title": "Rosalyn Yalow: đo một lượng hormone nhỏ bằng cuộc cạnh tranh gắn",
+  "summary": "Yalow và Solomon Berson dùng chất đánh dấu cùng kháng thể để định lượng insulin. Một tín hiệu phóng xạ trở thành thước đo gián tiếp của lượng chất không nhìn thấy.",
+  "category": "tieusu",
+  "author": "Ban biên tập ChemDex",
+  "image": "/assets/library/history-evidence.svg",
+  "tags": [
+    "Rosalyn Yalow",
+    "Radioimmunoassay",
+    "Insulin"
+  ],
+  "aliases": [],
+  "documentKind": "story",
+  "readingMinutes": 4,
+  "editorialEvidence": {
+    "language": "vi",
+    "scope": "chemical-family",
+    "contextLabel": "Rosalyn Yalow: đo một lượng hormone nhỏ bằng cuộc cạnh tranh gắn",
+    "reviewBasis": "Biên soạn theo các nguồn dẫn cuối bài; phân biệt kết quả đã thực hiện và hướng phát triển.",
+    "story": {
+      "status": "documented",
+      "section": "## Một kết quả theo dõi insulin mở câu hỏi mới",
+      "sources": [
+        "https://doi.org/10.1172/JCI104130",
+        "https://www.nobelprize.org/prizes/medicine/1977/yalow/lecture/"
+      ]
+    },
+    "application": {
+      "status": "documented",
+      "section": "## Từ insulin tới cách đo những chất rất ít trong cơ thể",
+      "sources": [
+        "https://doi.org/10.1172/JCI104130",
+        "https://www.nobelprize.org/prizes/medicine/1977/yalow/lecture/"
+      ]
+    }
+  },
+  "content": "## Một kết quả theo dõi insulin mở câu hỏi mới\n\nTrong nghiên cứu insulin đánh dấu phóng xạ, Rosalyn Yalow và Solomon Berson nhận ra sự hiện diện của kháng thể gắn insulin ở những người đã tiếp xúc với insulin từ nguồn động vật. Tương tác này không chỉ là trở ngại của phép đo; nó có thể được dùng làm công cụ.\n\nNăm 1960, họ công bố phương pháp định lượng insulin trong huyết tương bằng miễn dịch phóng xạ. Lượng hormone rất nhỏ được đọc qua sự cạnh tranh giữa insulin trong mẫu với insulin đã đánh dấu đối với kháng thể.\n\nPhương pháp giải một khó khăn của các phép thử dựa trên đáp ứng mô: nhiều thành phần trong mẫu có thể ảnh hưởng chuyển hóa glucose mà không phải chính insulin. Nhận diện bằng kháng thể mở một cách đặt câu hỏi gần hơn với phân tử cần đo.\n\n![Minh họa chủ đề nghiên cứu; không phải chân dung hoặc dữ liệu thực nghiệm gốc](/assets/library/history-evidence.svg)\n\n## Tín hiệu được đọc qua phần gắn và phần tự do\n\nTrong phép đo cạnh tranh, lượng insulin không đánh dấu ảnh hưởng tỷ lệ chất đánh dấu được kháng thể giữ lại. Khi quan hệ ấy được xác định bằng mẫu chuẩn, tín hiệu có thể được chuyển thành lượng chất trong mẫu chưa biết.\n\nĐộ nhạy không thay thế tính đặc hiệu. Kháng thể có thể nhận những cấu trúc liên quan ở các mức khác nhau, nên các chất tương tự và nền mẫu cần được khảo sát. Chuẩn và mẫu cũng phải trải qua những điều kiện đủ tương đồng.\n\nYalow và Berson mô tả chi tiết phép đo để người khác có thể kiểm tra và phát triển. Một phương pháp phân tích mạnh cần nhiều hơn ý tưởng cạnh tranh: phải tách được các phần phù hợp, giữ tín hiệu ổn định và biết khoảng nào của đường chuẩn cho thông tin đáng tin. Những yêu cầu ấy biến nguyên lý miễn dịch thành một phép định lượng.\n\n## Từ insulin tới cách đo những chất rất ít trong cơ thể\n\nMiễn dịch phóng xạ được mở rộng sang nhiều hormone và chất sinh học, tạo thay đổi lớn trong nghiên cứu nội tiết. Những thế hệ xét nghiệm sau có thể dùng nhãn enzyme hoặc phát quang thay cho đồng vị phóng xạ, nhưng vẫn cần giải bài toán nhận diện và hiệu chuẩn.\n\nMột kết quả nồng độ không tự là chẩn đoán. Nó cần được đọc theo thời điểm lấy mẫu, điều kiện sinh học và chất lượng của đúng phương pháp. Bài học từ lịch sử này thuộc về việc tạo một con số có ý nghĩa, trước khi dùng con số để trả lời câu hỏi khác.\n\nYalow cho thấy một tương tác từng làm phép theo dõi trở nên khó hiểu có thể được biến thành thước đo mới. Thay vì cố nhìn trực tiếp từng phân tử insulin, nhóm xây một hệ trong đó lượng insulin làm thay đổi một tín hiệu có thể ghi. Sự gián tiếp ấy là sức mạnh khi mọi mắt xích từ gắn, tách tới chuẩn đều được kiểm chứng.\n\n## Nguồn và đọc thêm\n\n- [Yalow và Berson · Định lượng insulin nội sinh, 1960](https://doi.org/10.1172/JCI104130)\n- [Rosalyn Yalow · Bài giảng Nobel](https://www.nobelprize.org/prizes/medicine/1977/yalow/lecture/)"
+}

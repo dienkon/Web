@@ -1,0 +1,41 @@
+{
+  "id": "arne-tiselius-protein-di-khac-trong-dien-truong",
+  "slug": "arne-tiselius-protein-di-khac-trong-dien-truong",
+  "documentPath": "docs/arne-tiselius-protein-di-khac-trong-dien-truong/index.json",
+  "title": "Arne Tiselius: protein đi khác nhau trong điện trường",
+  "summary": "Thiết bị điện di biên di động giúp Tiselius phân biệt các phần protein trong huyết thanh. Dòng điện trở thành công cụ đọc một hỗn hợp sinh học.",
+  "category": "tieusu",
+  "author": "Ban biên tập ChemDex",
+  "image": "/assets/library/history-evidence.svg",
+  "tags": [
+    "Arne Tiselius",
+    "Điện di",
+    "Protein huyết thanh"
+  ],
+  "aliases": [],
+  "documentKind": "story",
+  "readingMinutes": 4,
+  "editorialEvidence": {
+    "language": "vi",
+    "scope": "chemical-family",
+    "contextLabel": "Arne Tiselius: protein đi khác nhau trong điện trường",
+    "reviewBasis": "Biên soạn theo các nguồn dẫn cuối bài; phân biệt kết quả đã thực hiện và hướng phát triển.",
+    "story": {
+      "status": "documented",
+      "section": "## Một dung dịch không chỉ chứa một loại protein",
+      "sources": [
+        "https://doi.org/10.1039/TF9373300524",
+        "https://www.nobelprize.org/prizes/chemistry/1948/tiselius/lecture/"
+      ]
+    },
+    "application": {
+      "status": "documented",
+      "section": "## Ứng dụng hôm nay: phép tách làm lộ sự thay đổi của hỗn hợp",
+      "sources": [
+        "https://doi.org/10.1039/TF9373300524",
+        "https://www.nobelprize.org/prizes/chemistry/1948/tiselius/lecture/"
+      ]
+    }
+  },
+  "content": "## Một dung dịch không chỉ chứa một loại protein\n\nNăm 1937, Arne Tiselius công bố thiết bị điện di cải tiến để theo dõi các biên giữa những vùng protein đang chuyển động trong điện trường. Các phép đo huyết thanh giúp phân biệt albumin và những phần globulin theo hành vi điện di.\n\nMẫu có thể trông như một dung dịch đồng nhất với mắt thường. Khi đặt vào điều kiện thích hợp, những thành phần có độ linh động khác nhau tạo các dấu có thể ghi bằng hệ quang học.\n\nThiết bị cần hạn chế đối lưu và quản lý nhiệt sinh ra khi có dòng điện. Nếu dòng chất lỏng tự chuyển động mạnh, tín hiệu sẽ khó phản ánh riêng sự di chuyển của protein. Vì vậy, độ ổn định vật lý của mẫu là phần thiết yếu của một phép phân tích hóa học.\n\n![Minh họa chủ đề nghiên cứu; không phải chân dung hoặc dữ liệu thực nghiệm gốc](/assets/library/history-evidence.svg)\n\n## Điện tích phụ thuộc môi trường của protein\n\nProtein có những nhóm có thể nhận hoặc mất proton. Điện tích tổng và tương tác với môi trường thay đổi theo pH, khiến độ linh động điện di cũng đổi.\n\nMột phần protein chạy khác không tự cho biết đầy đủ cấu trúc của nó. Kích thước, hình dạng và môi trường đều góp vào hành vi. Các điều kiện phải được nêu rõ để kết quả của hai mẫu hoặc hai phòng thí nghiệm có thể so sánh.\n\nTiselius dùng những đường quang học để đọc sự thay đổi nồng độ theo vị trí. Dữ liệu trở thành một hồ sơ của hỗn hợp, cho thấy những thành phần mà cách đo tổng protein không phân biệt. Các nhóm được gọi theo độ linh động là phân loại thực nghiệm trong một hệ điều kiện, rồi những phương pháp khác tiếp tục làm rõ thành phần phân tử bên trong.\n\n## Ứng dụng hôm nay: phép tách làm lộ sự thay đổi của hỗn hợp\n\nĐiện di đã có nhiều dạng hiện đại, từ gel tới mao quản, phục vụ phân tích protein và acid nucleic. Chúng khác thiết bị biên di động ban đầu nhưng cùng khai thác sự khác nhau về chuyển động trong điện trường.\n\nKhi một mẫu có thêm hoặc mất một vùng tín hiệu, cần kiểm tra chuẩn bị mẫu, điều kiện và khả năng chồng lấp trước khi gán một ý nghĩa sinh học. Hình phân tách là bằng chứng phân tích, chưa tự là chẩn đoán hoặc cơ chế.\n\nCâu chuyện Tiselius cho thấy một dụng cụ có thể thay cách nhìn vật liệu quen thuộc. Huyết thanh không còn chỉ được mô tả bằng tổng lượng protein; nó có một cấu trúc thành phần có thể so giữa các mẫu. Để đọc được cấu trúc ấy, ông phải nối điện hóa, quang học và kiểm soát dòng chất lỏng trong cùng thiết kế. Những phần kỹ thuật đó làm một lực vô hình trở thành phương tiện hỏi những gì đang có trong dung dịch.\n\n## Nguồn và đọc thêm\n\n- [Tiselius · Thiết bị điện di protein, 1937](https://doi.org/10.1039/TF9373300524)\n- [Arne Tiselius · Bài giảng Nobel](https://www.nobelprize.org/prizes/chemistry/1948/tiselius/lecture/)"
+}

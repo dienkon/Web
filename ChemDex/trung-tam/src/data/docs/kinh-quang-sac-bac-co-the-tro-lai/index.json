@@ -1,0 +1,44 @@
+{
+  "id": "kinh-quang-sac-bac-co-the-tro-lai",
+  "slug": "kinh-quang-sac-bac-co-the-tro-lai",
+  "documentPath": "docs/kinh-quang-sac-bac-co-the-tro-lai/index.json",
+  "title": "Bạc trong kính sẫm dưới nắng rồi sáng trở lại",
+  "summary": "Những tinh thể silver halide rất nhỏ trong thủy tinh tạo một chu trình đổi truyền sáng. Môi trường giữ các sản phẩm gần nhau giúp phản ứng có thể quay lại.",
+  "category": "khainiem",
+  "author": "Ban biên tập ChemDex",
+  "image": "/assets/library/photos/elements/Ag.jpg",
+  "tags": [
+    "Quang sắc",
+    "Silver halide",
+    "Thủy tinh",
+    "Ánh sáng"
+  ],
+  "aliases": [],
+  "documentKind": "story",
+  "readingMinutes": 4,
+  "editorialEvidence": {
+    "language": "vi",
+    "scope": "chemical-family",
+    "contextLabel": "Bạc trong kính sẫm dưới nắng rồi sáng trở lại",
+    "reviewBasis": "Biên soạn theo các nguồn dẫn cuối bài; phân biệt kết quả đã thực hiện và hướng phát triển.",
+    "story": {
+      "status": "documented",
+      "section": "## Một vật liệu muốn đổi màu nhiều lần",
+      "sources": [
+        "https://pubmed.ncbi.nlm.nih.gov/17808277/",
+        "https://www.corning.com/worldwide/en/innovation/materials-science/glass/periodic-table-elements/silver.html",
+        "https://patents.google.com/patent/US3208860A/en"
+      ]
+    },
+    "application": {
+      "status": "documented",
+      "section": "## Ứng dụng hôm nay: thiết kế đáp ứng theo điều kiện chiếu sáng",
+      "sources": [
+        "https://pubmed.ncbi.nlm.nih.gov/17808277/",
+        "https://www.corning.com/worldwide/en/innovation/materials-science/glass/periodic-table-elements/silver.html",
+        "https://patents.google.com/patent/US3208860A/en"
+      ]
+    }
+  },
+  "content": "## Một vật liệu muốn đổi màu nhiều lần\n\nNăm 1964, Armistead và Stookey công bố thủy tinh silicate nhạy quang nhờ silver halide. Bằng sáng chế liên quan, được nộp năm 1962 và cấp năm 1965, mô tả những sản phẩm có độ truyền quang thay đổi thuận nghịch với bức xạ kích thích. Mục tiêu không phải ghi một ảnh vĩnh viễn như phim, mà tạo vật liệu có thể sẫm rồi trong lại.\n\nCorning nhìn lại công việc này như một phần lịch sử khai thác các hạt chứa bạc rất nhỏ trong thủy tinh. Thành phần và xử lý nhiệt quyết định cách những tinh thể được tạo và phân bố trong nền.\n\nMột chất nhạy sáng được đặt trong môi trường khác có thể cho hành vi khác sâu sắc. Silver halide trong phim ảnh và silver halide phân tán trong kính không nên bị gộp thành cùng một chu trình chỉ vì có chung tên hóa chất.\n\n![Bạc kim loại minh họa nguyên tố; không phải tinh thể silver halide trong kính quang sắc](/assets/library/photos/elements/Ag.jpg)\n\n## Giữ các thành phần ở gần để có đường quay về\n\nÁnh sáng tạo những thay đổi điện tích và trạng thái của bạc trong các hạt phù hợp, làm hấp thụ vùng nhìn thấy tăng. Khi nguồn kích thích được giảm hoặc bỏ đi, những quá trình ngược giúp trạng thái quang trở lại. Nền thủy tinh hạn chế sự khuếch tán xa của các thành phần, hỗ trợ khả năng phục hồi trong thiết kế thích hợp.\n\nCơ chế đầy đủ phụ thuộc chất nhạy, kích thước tinh thể và các thành phần điều chỉnh. Không nên rút mọi kính quang sắc thành một phương trình duy nhất rồi áp cho cả vật liệu hữu cơ trong tròng polymer hiện đại. Có nhiều họ công nghệ cùng tạo hiệu ứng mắt thấy giống nhau.\n\nTốc độ sẫm và sáng lại có thể phụ thuộc nhiệt độ và phổ ánh sáng. Một nguồn có nhiều tử ngoại khác với nguồn sáng trong nhà, nên cùng một tấm kính không nhất thiết đạt cùng độ màu trong mọi môi trường.\n\n## Ứng dụng hôm nay: thiết kế đáp ứng theo điều kiện chiếu sáng\n\nKính quang sắc được dùng trong các sản phẩm quang học thích hợp, còn nghiên cứu tiếp tục tìm cách điều chỉnh độ màu, tốc độ và độ bền chu kỳ. Những bằng sáng chế về chế tạo kính có mật độ quang cao ở chiều dày nhỏ cho thấy hiệu ứng vật liệu phải được điều chỉnh theo hình học sản phẩm.\n\nKhả năng đổi màu không tự nói toàn bộ hiệu năng bảo vệ mắt hoặc kiểm soát nhiệt; các chỉ tiêu ấy cần được đo theo miền bước sóng và tiêu chuẩn của sản phẩm. Một ảnh trước–sau dưới nắng chỉ cho thấy một phần của đáp ứng quang.\n\nĐiểm đáng nhớ là việc phản ứng có thể quay lại nhờ môi trường đã được thiết kế. Ánh sáng thay đổi trạng thái của những hạt nhỏ, còn thủy tinh giữ chúng trong một cấu trúc đủ ổn định để lặp lại. Vật liệu thông minh ở đây không cần cảm biến điện tử riêng; bản thân hóa học nhận kích thích và tạo đáp ứng, với những giới hạn được quyết định bởi thành phần và cách chế tạo.\n\n## Nguồn và đọc thêm\n\n- [Armistead và Stookey · Kính silver halide quang sắc, 1964](https://pubmed.ncbi.nlm.nih.gov/17808277/)\n- [Corning · Vai trò của bạc trong kính quang sắc](https://www.corning.com/worldwide/en/innovation/materials-science/glass/periodic-table-elements/silver.html)\n- [Bằng sáng chế · Vật liệu quang sắc, 1965](https://patents.google.com/patent/US3208860A/en)"
+}

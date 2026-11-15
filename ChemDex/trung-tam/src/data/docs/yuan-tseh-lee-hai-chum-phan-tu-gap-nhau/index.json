@@ -1,0 +1,41 @@
+{
+  "id": "yuan-tseh-lee-hai-chum-phan-tu-gap-nhau",
+  "slug": "yuan-tseh-lee-hai-chum-phan-tu-gap-nhau",
+  "documentPath": "docs/yuan-tseh-lee-hai-chum-phan-tu-gap-nhau/index.json",
+  "title": "Yuan T. Lee: cho hai chùm phân tử gặp nhau rồi đọc hướng chúng rời đi",
+  "summary": "Thiết bị chùm phân tử giao nhau giúp Lee khảo sát phản ứng qua phân bố sản phẩm. Góc bay và vận tốc trở thành dữ liệu về cơ chế va chạm.",
+  "category": "tieusu",
+  "author": "Ban biên tập ChemDex",
+  "image": "/assets/library/history-evidence.svg",
+  "tags": [
+    "Yuan T. Lee",
+    "Chùm phân tử",
+    "Động học"
+  ],
+  "aliases": [],
+  "documentKind": "story",
+  "readingMinutes": 4,
+  "editorialEvidence": {
+    "language": "vi",
+    "scope": "chemical-family",
+    "contextLabel": "Yuan T. Lee: cho hai chùm phân tử gặp nhau rồi đọc hướng chúng rời đi",
+    "reviewBasis": "Biên soạn theo các nguồn dẫn cuối bài; phân biệt kết quả đã thực hiện và hướng phát triển.",
+    "story": {
+      "status": "documented",
+      "section": "## Giảm đám đông để nhìn một cuộc gặp",
+      "sources": [
+        "https://www.nobelprize.org/prizes/chemistry/1986/lee/lecture/",
+        "https://www.nobelprize.org/prizes/chemistry/1986/lee/biographical/"
+      ]
+    },
+    "application": {
+      "status": "documented",
+      "section": "## Ứng dụng hôm nay: kiểm tra bề mặt năng lượng bằng dấu vết va chạm",
+      "sources": [
+        "https://www.nobelprize.org/prizes/chemistry/1986/lee/lecture/",
+        "https://www.nobelprize.org/prizes/chemistry/1986/lee/biographical/"
+      ]
+    }
+  },
+  "content": "## Giảm đám đông để nhìn một cuộc gặp\n\nYuan Tseh Lee phát triển những thiết bị chùm phân tử giao nhau cho phép nghiên cứu phản ứng trong điều kiện các cuộc va chạm được kiểm soát. Hai dòng hạt gặp nhau trong vùng xác định, rồi sản phẩm được ghi theo hướng và vận tốc.\n\nTrong một bình phản ứng thông thường, phân tử va chạm nhiều lần trước khi được đo. Những tương tác sau phản ứng có thể xóa một phần thông tin về cuộc gặp đã tạo sản phẩm. Chùm phân tử giúp giữ lại nhiều dấu vết hơn của giai đoạn ấy.\n\nThiết bị cần nguồn chùm, chân không, detector nhạy và cách phân biệt sản phẩm với những hạt không phản ứng. Công việc của Lee mở rộng phạm vi những hệ có thể khảo sát, làm cho kỹ thuật trở thành công cụ của động học hóa học chứ không chỉ một thí nghiệm hiếm với vài phản ứng thuận tiện.\n\n![Minh họa chủ đề nghiên cứu; không phải chân dung hoặc dữ liệu thực nghiệm gốc](/assets/library/history-evidence.svg)\n\n## Sản phẩm bay theo hướng nào cũng là một câu trả lời\n\nNếu phản ứng diễn ra nhanh sau va chạm, phân bố góc có thể mang dấu của hướng tiếp cận. Nếu hình thành một phức trung gian tồn tại lâu hơn, sự quay và phân bố năng lượng có thể để lại một kiểu tín hiệu khác.\n\nNhững quan hệ ấy không phải quy tắc đọc máy móc mọi hình phân bố. Cần mô hình động học và điều kiện năng lượng của các chùm. Khối lượng, trạng thái ban đầu và khả năng phát hiện đều ảnh hưởng dữ liệu.\n\nLee kết hợp thiết kế thiết bị với phân tích để chuyển tín hiệu trong hệ phòng thí nghiệm thành thông tin về hệ tâm khối lượng của phản ứng. Bước xử lý này cho phép hỏi năng lượng đã chia vào chuyển động tịnh tiến, quay và dao động ra sao. Một con số tốc độ tổng không chứa toàn bộ các chi tiết ấy, dù nó vẫn rất hữu ích cho những câu hỏi khác.\n\n## Ứng dụng hôm nay: kiểm tra bề mặt năng lượng bằng dấu vết va chạm\n\nĐộng học chùm phân tử cung cấp dữ liệu để kiểm tra các bề mặt thế năng và mô phỏng phản ứng. Khi lý thuyết dự đoán một đường đi, phân bố sản phẩm giúp xem đường đi ấy có tạo những dấu hiệu phù hợp hay không.\n\nCác nghiên cứu còn đóng góp cho hiểu biết về phản ứng trong khí quyển và những môi trường nơi trạng thái phân tử có vai trò quan trọng. Chuyển kết quả sang môi trường nhiều va chạm cần thêm mô hình, vì điều kiện không còn giống hệ chùm thưa.\n\nCâu chuyện Lee cho thấy hóa học có thể đọc một phản ứng không chỉ bằng tên sản phẩm. Hướng và tốc độ rời đi của sản phẩm là những dòng thông tin về cách liên kết đã biến đổi. Thiết bị được thiết kế để giữ những dòng ấy khỏi bị đám đông va chạm xóa đi, giúp một cuộc gặp rất ngắn trở thành sự kiện có thể phân tích.\n\n## Nguồn và đọc thêm\n\n- [Yuan T. Lee · Bài giảng Nobel](https://www.nobelprize.org/prizes/chemistry/1986/lee/lecture/)\n- [Yuan T. Lee · Tự thuật về phát triển thiết bị chùm phân tử](https://www.nobelprize.org/prizes/chemistry/1986/lee/biographical/)"
+}

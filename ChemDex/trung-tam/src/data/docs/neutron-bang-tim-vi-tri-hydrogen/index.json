@@ -1,0 +1,42 @@
+{
+  "id": "neutron-bang-tim-vi-tri-hydrogen",
+  "slug": "neutron-bang-tim-vi-tri-hydrogen",
+  "documentPath": "docs/neutron-bang-tim-vi-tri-hydrogen/index.json",
+  "title": "Trong tinh thể băng, hydrogen đứng ở đâu?",
+  "summary": "Nhiễu xạ neutron năm 1949 giúp phân biệt những mô hình cấu trúc băng mà dữ liệu tia X chưa giải quyết đủ. Nước nặng tạo một cách nhìn bổ sung vào mạng liên kết hydrogen.",
+  "category": "khainiem",
+  "author": "Ban biên tập ChemDex",
+  "image": "/assets/library/ionic-crystal.svg",
+  "tags": [
+    "Nhiễu xạ neutron",
+    "Băng",
+    "Hydrogen",
+    "Cấu trúc"
+  ],
+  "aliases": [],
+  "documentKind": "story",
+  "readingMinutes": 4,
+  "editorialEvidence": {
+    "language": "vi",
+    "scope": "chemical-family",
+    "contextLabel": "Trong tinh thể băng, hydrogen đứng ở đâu?",
+    "reviewBasis": "Biên soạn theo các nguồn dẫn cuối bài; phân biệt kết quả đã thực hiện và hướng phát triển.",
+    "story": {
+      "status": "documented",
+      "section": "## Biết chỗ oxygen chưa có nghĩa đã biết toàn bộ băng",
+      "sources": [
+        "https://doi.org/10.1103/PhysRev.75.1348",
+        "https://journals.iucr.org/a/issues/2013/01/00/wl5168/index.html"
+      ]
+    },
+    "application": {
+      "status": "documented",
+      "section": "## Ứng dụng hôm nay: dùng một phép nhìn bổ sung",
+      "sources": [
+        "https://doi.org/10.1103/PhysRev.75.1348",
+        "https://journals.iucr.org/a/issues/2013/01/00/wl5168/index.html"
+      ]
+    }
+  },
+  "content": "## Biết chỗ oxygen chưa có nghĩa đã biết toàn bộ băng\n\nNăm 1949, Wollan, Davidson và Shull công bố nghiên cứu nhiễu xạ neutron trên băng nước nặng dạng bột. Những vị trí oxygen đã được khảo sát bằng tia X, nhưng cách hydrogen phân bố giữa chúng còn có nhiều mô hình cạnh tranh. Nhóm so các cường độ đo được với dự đoán của bốn cách sắp xếp.\n\nDữ liệu loại những mô hình không phù hợp và ủng hộ cách mô tả có sự mất trật tự định hướng dưới các ràng buộc của cấu trúc nước đá. Đây là một kết quả đáng nhớ vì đối tượng quá quen thuộc. Một cục băng có thể được dùng hàng ngày trong khi những chi tiết cơ bản về hydrogen bên trong vẫn cần một loại phép đo mới để phân biệt.\n\nMẫu D₂O được chọn vì deuterium tạo điều kiện tán xạ thuận lợi hơn cho nghiên cứu này, không phải để biến băng thành một vật liệu không liên quan tới câu hỏi ban đầu.\n\n![Minh họa trật tự tinh thể; không phải mô hình cụ thể của băng D₂O](/assets/library/ionic-crystal.svg)\n\n## Neutron và tia X gặp những phần khác nhau của vật chất\n\nTia X tương tác mạnh với phân bố electron, nên những nguyên tố nhẹ như hydrogen có thể khó định vị cạnh các nguyên tử khác trong một số cấu trúc. Neutron tương tác với hạt nhân theo cách không tăng đơn giản cùng số electron. Hydrogen và deuterium có đặc tính tán xạ khác nhau, tạo cơ hội dùng thay đồng vị như một công cụ.\n\nNhiễu xạ vẫn dựa vào sự giao thoa của sóng tán xạ và việc so mô hình cấu trúc với cường độ đo. Không phải một ảnh chụp trực tiếp từng nguyên tử. Chất lượng mẫu, nền, độ phân giải và cách hiệu chỉnh quyết định những chi tiết nào có thể được ràng buộc.\n\nNghiên cứu băng cũng cho thấy có thể biết một mạng trung bình trong khi các phân tử có nhiều cách định hướng thỏa cùng quy tắc cục bộ. Trật tự của oxygen và mất trật tự của hydrogen không phải hai kết luận mâu thuẫn.\n\n## Ứng dụng hôm nay: dùng một phép nhìn bổ sung\n\nNhiễu xạ neutron tiếp tục phục vụ nghiên cứu hydrogen trong vật liệu, liên kết hydrogen và nhiều cấu trúc có tính từ. Nó thường được phối hợp với tia X và các phép quang phổ, vì những điểm mạnh không hoàn toàn trùng nhau. Nguồn neutron và kích thước mẫu cũng tạo các giới hạn thực tế cần tính trước.\n\nLịch sử phát triển phương pháp tại Oak Ridge cho thấy thử nghiệm trên các vật liệu đơn giản đã giúp xây nền cho những ứng dụng phức tạp hơn. Các nghiên cứu tiếp theo với đơn tinh thể băng củng cố những kết luận về cách tổ chức hydrogen.\n\nĐiều làm bài học này lâu bền là cách chọn công cụ theo phần thông tin còn thiếu. Khi một phép đo đã cho vị trí oxygen nhưng chưa đủ phân biệt hydrogen, không cần ép dữ liệu trả lời quá khả năng. Đổi loại tương tác giữa đầu dò và mẫu mở thêm một lớp bằng chứng. Cấu trúc của một vật quen thuộc được hiểu rõ hơn nhờ hai cách nhìn bổ sung, mỗi cách làm tốt phần việc riêng của mình.\n\n## Nguồn và đọc thêm\n\n- [Wollan, Davidson và Shull · Nhiễu xạ neutron của băng, 1949](https://doi.org/10.1103/PhysRev.75.1348)\n- [IUCr · Lịch sử phát triển nhiễu xạ neutron](https://journals.iucr.org/a/issues/2013/01/00/wl5168/index.html)"
+}

@@ -1,0 +1,44 @@
+{
+  "id": "digital-pcr-dem-ngan-rong-de-dem-adn",
+  "slug": "digital-pcr-dem-ngan-rong-de-dem-adn",
+  "documentPath": "docs/digital-pcr-dem-ngan-rong-de-dem-adn/index.json",
+  "title": "Đếm những ngăn không có tín hiệu để biết có bao nhiêu ADN",
+  "summary": "Digital PCR chia mẫu thành nhiều phần nhỏ rồi đọc dương hoặc âm. Phân bố ngẫu nhiên giải thích vì sao số ngăn dương không luôn bằng số phân tử ban đầu.",
+  "category": "khainiem",
+  "author": "Ban biên tập ChemDex",
+  "image": "/assets/library/organic-polymer.svg",
+  "tags": [
+    "Digital PCR",
+    "Poisson",
+    "Định lượng ADN",
+    "Phân vùng"
+  ],
+  "aliases": [],
+  "documentKind": "story",
+  "readingMinutes": 4,
+  "editorialEvidence": {
+    "language": "vi",
+    "scope": "chemical-family",
+    "contextLabel": "Đếm những ngăn không có tín hiệu để biết có bao nhiêu ADN",
+    "reviewBasis": "Biên soạn theo các nguồn dẫn cuối bài; phân biệt kết quả đã thực hiện và hướng phát triển.",
+    "story": {
+      "status": "documented",
+      "section": "## Một mẫu hiếm được tách khỏi phần đông",
+      "sources": [
+        "https://doi.org/10.1073/pnas.96.16.9236",
+        "https://www.nist.gov/system/files/documents/mml/bmd/genetics/Harenza_Sogat_2014.pdf",
+        "https://pmc.ncbi.nlm.nih.gov/articles/PMC5129430/"
+      ]
+    },
+    "application": {
+      "status": "documented",
+      "section": "## Ứng dụng hôm nay: định lượng với một chuỗi kiểm chứng rõ",
+      "sources": [
+        "https://doi.org/10.1073/pnas.96.16.9236",
+        "https://www.nist.gov/system/files/documents/mml/bmd/genetics/Harenza_Sogat_2014.pdf",
+        "https://pmc.ncbi.nlm.nih.gov/articles/PMC5129430/"
+      ]
+    }
+  },
+  "content": "## Một mẫu hiếm được tách khỏi phần đông\n\nNăm 1999, Vogelstein và Kinzler công bố Digital PCR để định lượng các trình tự biến thể chỉ chiếm một phần nhỏ trong mẫu ADN. Nhóm pha loãng và phân chia mẫu, khuếch đại riêng các phân tử rồi đọc bằng đầu dò huỳnh quang. Công trình minh họa khả năng phát hiện biến thể ras trong mẫu nghiên cứu từ bệnh nhân, không phải tuyên bố một phép thử duy nhất giải quyết mọi chẩn đoán.\n\nÝ tưởng là đổi một tín hiệu liên tục, tăng theo khuếch đại, thành nhiều quyết định có hoặc không trong những ngăn riêng. Khi các trình tự khác nhau không còn bị trộn trong cùng một phản ứng lớn, việc phân biệt một nhóm hiếm có thể trở nên thuận lợi hơn.\n\nCác triển khai về sau dùng vi giếng hoặc giọt để tạo số phân vùng lớn hơn. Hình thức thiết bị thay đổi, nhưng câu hỏi định lượng vẫn dựa trên cách phân tử được phân bố giữa các thể tích.\n\n![Minh họa chuỗi đại phân tử; không phải kết quả xét nghiệm ADN](/assets/library/organic-polymer.svg)\n\n## Một ngăn dương có thể chứa hơn một phân tử\n\nNếu các phân tử đi vào ngăn theo quá trình ngẫu nhiên thích hợp, số lượng mỗi ngăn có thể được mô tả bằng phân bố Poisson. Khi nồng độ không cực thấp, hai hay nhiều phân tử có thể rơi vào cùng một ngăn nhưng chỉ cho một kết quả dương. Đếm trực tiếp số ngăn dương sẽ đánh giá thấp số bản sao.\n\nTỷ lệ ngăn âm cung cấp thông tin để ước lượng số bản sao trung bình. Quan hệ này đòi hỏi các giả định về phân bố, thể tích và khả năng phát hiện. Mẫu vón, ADN liên kết thành cụm hoặc phân vùng không đồng đều có thể làm mô hình đơn giản không còn phù hợp.\n\nKhuếch đại cũng có thể bị ức chế hoặc không đạt tiêu chí tín hiệu, nên cần mẫu đối chứng và ngưỡng được xác nhận. “Digital” không có nghĩa kết quả tự thoát khỏi mọi sai số hóa học; nó chuyển một phần công việc sang kiểm soát phân vùng và xác suất.\n\n## Ứng dụng hôm nay: định lượng với một chuỗi kiểm chứng rõ\n\nDigital PCR được dùng trong nghiên cứu bản sao ADN, biến thể hiếm và vật liệu tham chiếu. Tài liệu NIST giới thiệu cách phân chia mẫu và đếm những mục tiêu có thể tiếp cận, nhấn mạnh vai trò của đo lường trong việc so các nền tảng. Thể tích thực của ngăn là một dữ kiện cần biết khi chuyển từ bản sao trên ngăn sang nồng độ.\n\nKết quả về một mục tiêu không tự mô tả toàn bộ bộ gen hoặc tình trạng sinh học. Phải biết đoạn nào được khuếch đại và phép thử đã được xác nhận cho loại mẫu nào. Trong ứng dụng y học, diễn giải còn thuộc quy trình chuyên môn riêng.\n\nĐiều thú vị là những ngăn không sáng lại giúp tính lượng vật chất có mặt. Số không không phải dữ liệu vô ích; nó là phần của một mô hình phân bố. Câu chuyện digital PCR nối phản ứng enzyme với thống kê theo cách rất cụ thể: chia mẫu đúng, đọc tín hiệu đúng và hiểu xác suất để biến nhiều câu trả lời có–không thành một phép định lượng.\n\n## Nguồn và đọc thêm\n\n- [Vogelstein và Kinzler · Digital PCR, 1999](https://doi.org/10.1073/pnas.96.16.9236)\n- [NIST · Nền tảng đo lường digital PCR](https://www.nist.gov/system/files/documents/mml/bmd/genetics/Harenza_Sogat_2014.pdf)\n- [Tổng quan lịch sử · Phát triển digital PCR](https://pmc.ncbi.nlm.nih.gov/articles/PMC5129430/)"
+}

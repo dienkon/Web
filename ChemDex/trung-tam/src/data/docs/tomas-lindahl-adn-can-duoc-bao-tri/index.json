@@ -1,0 +1,41 @@
+{
+  "id": "tomas-lindahl-adn-can-duoc-bao-tri",
+  "slug": "tomas-lindahl-adn-can-duoc-bao-tri",
+  "documentPath": "docs/tomas-lindahl-adn-can-duoc-bao-tri/index.json",
+  "title": "Tomas Lindahl: ADN tồn tại lâu vì luôn có người sửa",
+  "summary": "Một base có thể đổi tính chất ngay trong tế bào. Lindahl tìm thấy enzyme nhận ra dấu hỏng ấy và mở đường cho cơ chế sửa chữa cắt bỏ base.",
+  "category": "tieusu",
+  "author": "Ban biên tập ChemDex",
+  "image": "/assets/library/history-evidence.svg",
+  "tags": [
+    "Tomas Lindahl",
+    "Sửa chữa ADN",
+    "Uracil"
+  ],
+  "aliases": [],
+  "documentKind": "story",
+  "readingMinutes": 4,
+  "editorialEvidence": {
+    "language": "vi",
+    "scope": "chemical-family",
+    "contextLabel": "Tomas Lindahl: ADN tồn tại lâu vì luôn có người sửa",
+    "reviewBasis": "Biên soạn theo các nguồn dẫn cuối bài; phân biệt kết quả đã thực hiện và hướng phát triển.",
+    "story": {
+      "status": "documented",
+      "section": "## Một chữ trong ADN tự đổi thành chữ khác",
+      "sources": [
+        "https://pmc.ncbi.nlm.nih.gov/articles/PMC433833/",
+        "https://www.nobelprize.org/prizes/chemistry/2015/lindahl/lecture/"
+      ]
+    },
+    "application": {
+      "status": "documented",
+      "section": "## Bảo trì phân tử trở thành một câu hỏi về hệ sống",
+      "sources": [
+        "https://pmc.ncbi.nlm.nih.gov/articles/PMC433833/",
+        "https://www.nobelprize.org/prizes/chemistry/2015/lindahl/lecture/"
+      ]
+    }
+  },
+  "content": "## Một chữ trong ADN tự đổi thành chữ khác\n\nNăm 1974, Tomas Lindahl công bố enzyme từ E. coli có thể lấy uracil ra khỏi ADN. Uracil có thể xuất hiện khi cytosine bị mất nhóm amino. Thay đổi hóa học nhỏ ấy làm thông tin của phân tử không còn được đọc theo cùng cách.\n\nĐiều gây chú ý là ADN không cần gặp một tai nạn lớn mới bị tổn thương. Nước, nhiệt và những phản ứng tự phát đã tạo công việc bảo trì ngay trong môi trường sống. Sự bền vững của bộ gen vì vậy không đơn thuần là tính bền của một vật liệu để yên.\n\nEnzyme Lindahl nghiên cứu chọn uracil trong ADN và cắt liên kết giữa base với phần đường, để lại một vị trí thiếu base. Nó không chặt đứt cả chuỗi ngay tại bước ấy. Kết quả chỉ ra một cách xử lý tinh tế: nhận diện thành phần đã đổi, loại đúng phần đó rồi giao phần còn lại cho những bước sửa tiếp theo.\n\n![Minh họa chủ đề nghiên cứu; không phải chân dung hoặc dữ liệu thực nghiệm gốc](/assets/library/history-evidence.svg)\n\n## Một chỗ trống cũng là một trung gian có chức năng\n\nLoại base hỏng chưa hoàn thành sửa chữa. Chỗ trống trên ADN cần được xử lý, điền nucleotide phù hợp và nối lại khung. Chuỗi công việc về sau được gọi là sửa chữa cắt bỏ base, với nhiều enzyme phối hợp.\n\nTính chọn lọc là vấn đề trung tâm. Nếu hệ loại nhầm những base bình thường, chính cơ chế bảo vệ có thể tạo thêm hư hại. Nghiên cứu năm 1974 so sánh những chất mà enzyme tác động và những chất nó để nguyên, giúp xác định chức năng qua dữ liệu thay vì chỉ qua tên gọi.\n\nLindahl tiếp tục khảo sát nhiều loại tổn thương và các đường sửa chữa. Trong bài giảng Nobel, ông đặt các cơ chế ấy cạnh tốc độ mà ADN có thể tự biến đổi. Hai phía phải được xem cùng nhau: một bên tạo lỗi, bên kia nhận diện và xử lý. Lượng tổn thương đo được là kết quả của cả quá trình phát sinh lẫn quá trình loại bỏ.\n\n## Bảo trì phân tử trở thành một câu hỏi về hệ sống\n\nCác cơ chế sửa chữa ADN hiện là nền tảng nghiên cứu đột biến, lão hóa và bệnh. Những hệ khác nhau có các đường sửa bổ sung, và mức hoạt động của một enzyme cần được đọc trong bối cảnh của cả tế bào.\n\nTrong phòng thí nghiệm, có thể tạo mẫu mang tổn thương xác định rồi theo dõi từng bước xử lý. Cách làm giúp phân biệt enzyme nhận ra vị trí hỏng với enzyme thực hiện bước cắt, tổng hợp hoặc nối. Một tín hiệu sản phẩm cuối thấp chưa tự cho biết bước nào gặp vấn đề.\n\nCâu chuyện Lindahl thay đổi hình dung về ADN như một cuốn sách được cất trong két. Thông tin được giữ qua thời gian nhờ những phản ứng diễn ra liên tục, trong đó có các enzyme tìm một base đã đổi giữa rất nhiều base bình thường. Một công bố về việc lấy uracil khỏi chuỗi đã giúp làm rõ rằng sự ổn định của vật chất di truyền là một thành quả hoạt động, không chỉ một trạng thái có sẵn.\n\n## Nguồn và đọc thêm\n\n- [Lindahl · Enzyme loại uracil khỏi ADN, 1974](https://pmc.ncbi.nlm.nih.gov/articles/PMC433833/)\n- [Tomas Lindahl · Bài giảng Nobel](https://www.nobelprize.org/prizes/chemistry/2015/lindahl/lecture/)"
+}

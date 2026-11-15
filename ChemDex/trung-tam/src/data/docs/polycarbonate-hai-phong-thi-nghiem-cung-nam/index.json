@@ -1,0 +1,44 @@
+{
+  "id": "polycarbonate-hai-phong-thi-nghiem-cung-nam",
+  "slug": "polycarbonate-hai-phong-thi-nghiem-cung-nam",
+  "documentPath": "docs/polycarbonate-hai-phong-thi-nghiem-cung-nam/index.json",
+  "title": "Năm 1953, hai phòng thí nghiệm cùng mở một cánh cửa cho polycarbonate",
+  "summary": "Hermann Schnell ở Bayer và Daniel Fox ở GE phát triển polycarbonate độc lập. Tính trong suốt đi cùng độ dai đưa vật liệu tới nhiều công việc mà chỉ “giống kính” chưa giải thích đủ.",
+  "category": "hopchat",
+  "author": "Ban biên tập ChemDex",
+  "image": "/assets/library/organic-polymer.svg",
+  "tags": [
+    "Polycarbonate",
+    "Makrolon",
+    "Lexan",
+    "Nhựa kỹ thuật"
+  ],
+  "aliases": [],
+  "documentKind": "story",
+  "readingMinutes": 4,
+  "editorialEvidence": {
+    "language": "vi",
+    "scope": "chemical-family",
+    "contextLabel": "Năm 1953, hai phòng thí nghiệm cùng mở một cánh cửa cho polycarbonate",
+    "reviewBasis": "Biên soạn theo các nguồn dẫn cuối bài; phân biệt kết quả đã thực hiện và hướng phát triển.",
+    "story": {
+      "status": "documented",
+      "section": "## Một vật liệu có hai hành trình công nghiệp",
+      "sources": [
+        "https://www.covestro.com/en/company/covestro-worldwide/deutschland/covestro-in-deutschland/standorte/krefeld-uerdingen/70-jahre-polycarbonat",
+        "https://www.ge.com/news/press-releases/happy-birthday-lexan-resin-turns-50-50-yearsafter-its-discovery-ges-amazing-lexan",
+        "https://proceedings.aiche.org/conferences/aiche-annual-meeting/2008/proceeding/paper/25b-process-history-lexan-polycarbonate-resin"
+      ]
+    },
+    "application": {
+      "status": "documented",
+      "section": "## Ứng dụng hôm nay: trong suốt chỉ là một phần công việc",
+      "sources": [
+        "https://www.covestro.com/en/company/covestro-worldwide/deutschland/covestro-in-deutschland/standorte/krefeld-uerdingen/70-jahre-polycarbonat",
+        "https://www.ge.com/news/press-releases/happy-birthday-lexan-resin-turns-50-50-yearsafter-its-discovery-ges-amazing-lexan",
+        "https://proceedings.aiche.org/conferences/aiche-annual-meeting/2008/proceeding/paper/25b-process-history-lexan-polycarbonate-resin"
+      ]
+    }
+  },
+  "content": "## Một vật liệu có hai hành trình công nghiệp\n\nNăm 1953 xuất hiện trong cả lịch sử Makrolon của Bayer và Lexan của General Electric. Ở Đức, Hermann Schnell nghiên cứu họ polymer carbonate; ở Hoa Kỳ, Daniel Fox có công trình độc lập. Hai tên thương mại về sau gắn với những dòng sản phẩm được phát triển theo nhu cầu riêng.\n\nGE kể rằng Fox tham gia tìm vật liệu cách điện tốt hơn. Kết quả đã mở ra một nhóm nhựa kỹ thuật có nhiều ứng dụng rộng hơn nhiệm vụ khởi đầu. Lịch sử công nghiệp thường diễn ra như vậy: phép thử cho một mục đích làm lộ một tổ hợp tính chất hữu ích cho mục đích khác.\n\nMốc phát hiện cũng khác thời điểm sản xuất đủ ổn định để bán và khác lúc một sản phẩm cụ thể được đưa ra thị trường. Các tài liệu lịch sử quy trình của AIChE theo dõi sự phát triển ấy qua cả hóa học tổng hợp và công nghệ nhà máy, thay vì gói toàn bộ thành công vào một ngày trong phòng thí nghiệm.\n\n![Minh họa polymer; polycarbonate có nhóm carbonate trong mạch chính](/assets/library/organic-polymer.svg)\n\n## Nhóm carbonate nằm trong mạch, tính năng nằm trong cả vật liệu\n\nPolycarbonate là tên một họ polymer có nhóm carbonate trong mạch chính. Dạng thương mại quen thuộc dựa trên bisphenol A có cấu trúc góp phần tạo độ cứng, tính trong và khả năng chịu va đập. Những đặc điểm ấy thuộc kiến trúc của chuỗi và cách chuỗi tổ chức trong vật rắn.\n\nĐộ dai và độ cứng là hai tính chất khác nhau. Một tấm có thể cứng nhưng dễ nứt; một vật liệu chịu va đập tốt vẫn có thể cần bảo vệ bề mặt khỏi trầy. Vì thế, lựa chọn polycarbonate thường đi cùng câu hỏi về lớp phủ, độ dày và điều kiện tiếp xúc.\n\nCác tuyến tổng hợp cũng phát triển qua thời gian, gồm những cách dùng các nguyên liệu carbonate khác nhau và điều kiện vận hành riêng. Người đọc không cần thuộc một sơ đồ nhà máy để nhận ra ý chính: polymer cuối giống nhau về họ cấu trúc không có nghĩa mọi quy trình chế tạo giống nhau.\n\nGia công đưa thêm một lịch sử nhiệt và lực vào chi tiết. Ứng suất còn lại, độ ẩm trước gia công và môi trường sử dụng có thể tác động đến độ bền. Tính chất ghi cho mẫu chuẩn cần được đặt cạnh hình dạng thật của sản phẩm.\n\n## Ứng dụng hôm nay: trong suốt chỉ là một phần công việc\n\nPolycarbonate được dùng trong các tấm bảo vệ, linh kiện điện–điện tử, thiết bị và nhiều chi tiết cần kết hợp tính quang với cơ học. Covestro ghi nhận các công trình dùng tấm nhựa trong diện tích lớn; GE cũng mô tả những dòng đồng polymer và màng được phát triển để đáp ứng bề mặt hoặc thời tiết.\n\nMột cấp vật liệu cho vỏ máy không tự phù hợp cho mọi bộ phận quang học. Các yêu cầu về truyền sáng, va đập, cháy, nhiệt và lão hóa đặt ra những phép thử khác nhau. Công việc của nhà thiết kế là lựa chọn tổ hợp đủ dùng, không tìm một nhựa “tốt nhất” cho tất cả.\n\nHai hành trình năm 1953 cho thấy một phát hiện có thể được mở rộng bằng nhiều thế hệ quy trình và cấp sản phẩm. Vật liệu người dùng gặp hôm nay mang cả di sản cấu trúc phân tử lẫn những điều chỉnh rất cụ thể. Tấm trong suốt hữu ích vì nó làm được đúng công việc ở đúng nơi, chứ không chỉ vì có thể nhìn xuyên qua.\n\n## Nguồn và đọc thêm\n\n- [Covestro: 70 năm polycarbonate](https://www.covestro.com/en/company/covestro-worldwide/deutschland/covestro-in-deutschland/standorte/krefeld-uerdingen/70-jahre-polycarbonat)\n- [GE: lịch sử Lexan và Daniel Fox](https://www.ge.com/news/press-releases/happy-birthday-lexan-resin-turns-50-50-yearsafter-its-discovery-ges-amazing-lexan)\n- [AIChE: lịch sử quy trình Lexan](https://proceedings.aiche.org/conferences/aiche-annual-meeting/2008/proceeding/paper/25b-process-history-lexan-polycarbonate-resin)"
+}

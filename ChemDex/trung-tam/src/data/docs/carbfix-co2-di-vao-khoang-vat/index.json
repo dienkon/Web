@@ -1,0 +1,42 @@
+{
+  "id": "carbfix-co2-di-vao-khoang-vat",
+  "slug": "carbfix-co2-di-vao-khoang-vat",
+  "documentPath": "docs/carbfix-co2-di-vao-khoang-vat/index.json",
+  "title": "CO₂ đi vào đá: phản ứng khoáng hóa được theo dõi ở Iceland",
+  "summary": "Công trình CarbFix năm 2016 dùng chất chỉ dấu để kiểm tra CO₂ đã bơm xuống basalt đi đâu. Kết quả nhanh của thí nghiệm không phải tốc độ chung cho mọi loại đá hoặc địa điểm.",
+  "category": "phanung",
+  "author": "Ban biên tập ChemDex",
+  "image": "/assets/library/crystal-fcc.svg",
+  "tags": [
+    "CarbFix",
+    "Khoáng hóa",
+    "CO2",
+    "Basalt"
+  ],
+  "aliases": [],
+  "documentKind": "story",
+  "readingMinutes": 4,
+  "editorialEvidence": {
+    "language": "vi",
+    "scope": "chemical-family",
+    "contextLabel": "CO₂ đi vào đá: phản ứng khoáng hóa được theo dõi ở Iceland",
+    "reviewBasis": "Biên soạn theo các nguồn dẫn cuối bài; phân biệt kết quả đã thực hiện và hướng phát triển.",
+    "story": {
+      "status": "documented",
+      "section": "## Làm sao biết carbon đã thành khoáng?",
+      "sources": [
+        "https://doi.org/10.1126/science.aad8132",
+        "https://www.carbfix.com/how-it-works"
+      ]
+    },
+    "application": {
+      "status": "documented",
+      "section": "## Ứng dụng hôm nay: tính bền của lưu trữ đi cùng yêu cầu tài nguyên",
+      "sources": [
+        "https://doi.org/10.1126/science.aad8132",
+        "https://www.carbfix.com/how-it-works"
+      ]
+    }
+  },
+  "content": "## Làm sao biết carbon đã thành khoáng?\n\nCông trình Science năm 2016 của nhóm CarbFix báo cáo thí nghiệm bơm CO₂ đã hòa tan trong nước vào basalt ở Iceland. Các chất chỉ dấu và phép đo nước quan trắc được dùng để theo dõi carbon, thay vì chỉ tính lượng đã đi qua đường ống bơm.\n\nNhóm kết luận hơn 95% CO₂ được bơm trong phần thí nghiệm nghiên cứu đã chuyển thành khoáng carbonate trong chưa tới hai năm. Con số này gắn với đá, nước và thiết kế cụ thể của CarbFix; không nên dùng như thời gian mặc định cho mọi dự án lưu trữ địa chất.\n\nĐiểm mới trong cách kể là bằng chứng về số phận của carbon. Đưa một chất xuống sâu không tự chứng minh nó đã trở thành dạng khoáng ổn định; cần phép đo phân biệt những khả năng còn hòa tan, di chuyển hoặc kết tủa.\n\n![Minh họa khái niệm chất rắn kết tinh, không phải mạng tinh thể của carbonate ở CarbFix](/assets/library/crystal-fcc.svg)\n\n## Đá cung cấp cation, nước mang carbon tới nơi phản ứng\n\nCO₂ hòa tan làm nước có tính acid hơn và có thể thúc đẩy hòa tan một phần khoáng trong basalt. Những quá trình đó giải phóng các ion như calcium, magnesium và iron, là đối tác để carbon vô cơ tạo khoáng carbonate.\n\nKhi nước được trung hòa và thành phần thay đổi, điều kiện có thể thuận lợi cho kết tủa. Carbon chuyển từ dạng hòa tan sang một pha rắn có cấu trúc hóa học mới. Đây là phản ứng khoáng hóa, khác với việc khí chỉ bị giữ trong lỗ rỗng dưới một lớp đá chắn.\n\nNước không chỉ là phương tiện vận chuyển không liên quan. Lượng nước, thành phần ban đầu và cách trộn với nước trong tầng đá ảnh hưởng đường phản ứng. Những khoáng đã có sẵn cũng có thể hòa tan hoặc tái kết tủa.\n\nTốc độ còn phụ thuộc diện tích bề mặt phản ứng và khả năng dòng nước tiếp cận nó. Một mẫu đá nghiền trong phòng thí nghiệm không có cùng đặc điểm chuyển khối với khối đá nứt nẻ dưới lòng đất.\n\nCác mối liên hệ ấy giải thích vì sao khảo sát địa điểm là một phần của hóa học công nghệ, không chỉ là công việc xây dựng.\n\n## Ứng dụng hôm nay: tính bền của lưu trữ đi cùng yêu cầu tài nguyên\n\nCarbfix tiếp tục phát triển công nghệ hòa tan CO₂ trong nước và đưa vào những tầng đá phù hợp. Mục tiêu là tận dụng phản ứng tự nhiên nhưng tổ chức để nó xảy ra theo cách có thể theo dõi và kiểm chứng.\n\nMột dự án cần tính năng lượng thu CO₂, bơm nước, khả năng nguồn nước và những biến đổi địa hóa đi kèm. Khoáng hóa nhanh ở một thí nghiệm không tự trả lời toàn bộ câu hỏi về quy mô, chi phí hoặc vị trí khác.\n\nCông trình năm 2016 có giá trị như một bằng chứng thực địa cho đường phản ứng cụ thể. Những dự án tiếp theo cần dữ liệu riêng, với phương pháp quan trắc đủ mạnh để chứng minh lượng carbon còn ở đâu theo thời gian.\n\nCâu chuyện Iceland biến một hình dung thường nghe thành một câu hỏi có thể đo: CO₂ có thật sự trở thành một phần của khoáng hay chưa? Khi trả lời bằng chất chỉ dấu và cân bằng carbon, công nghệ lưu trữ đi từ lời hứa “giữ trong đá” tới bằng chứng hóa học về hình thức mà carbon đang tồn tại.\n\n## Nguồn và đọc thêm\n\n- [Matter và cộng sự · Khoáng hóa CO2 tại CarbFix, Science 2016](https://doi.org/10.1126/science.aad8132)\n- [Carbfix · Nguyên lý và các bước công nghệ](https://www.carbfix.com/how-it-works)"
+}

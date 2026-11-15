@@ -1,0 +1,41 @@
+{
+  "id": "paul-modrich-sua-loi-phai-chon-dung-mach",
+  "slug": "paul-modrich-sua-loi-phai-chon-dung-mach",
+  "documentPath": "docs/paul-modrich-sua-loi-phai-chon-dung-mach/index.json",
+  "title": "Paul Modrich: tìm được lỗi vẫn phải biết sửa mạch nào",
+  "summary": "Tái tạo hệ sửa bắt cặp sai ngoài tế bào giúp giải thích cách ADN được kiểm tra sau sao chép. Dấu nhận diện mạch là phần quyết định.",
+  "category": "tieusu",
+  "author": "Ban biên tập ChemDex",
+  "image": "/assets/library/history-evidence.svg",
+  "tags": [
+    "Paul Modrich",
+    "Bắt cặp sai",
+    "ADN"
+  ],
+  "aliases": [],
+  "documentKind": "story",
+  "readingMinutes": 4,
+  "editorialEvidence": {
+    "language": "vi",
+    "scope": "chemical-family",
+    "contextLabel": "Paul Modrich: tìm được lỗi vẫn phải biết sửa mạch nào",
+    "reviewBasis": "Biên soạn theo các nguồn dẫn cuối bài; phân biệt kết quả đã thực hiện và hướng phát triển.",
+    "story": {
+      "status": "documented",
+      "section": "## Hai chữ không khớp, nhưng chữ nào cần thay?",
+      "sources": [
+        "https://scholars.duke.edu/publication/753173",
+        "https://www.nobelprize.org/prizes/chemistry/2015/modrich/lecture/"
+      ]
+    },
+    "application": {
+      "status": "documented",
+      "section": "## Độ chính xác được xây qua nhiều lần kiểm tra",
+      "sources": [
+        "https://scholars.duke.edu/publication/753173",
+        "https://www.nobelprize.org/prizes/chemistry/2015/modrich/lecture/"
+      ]
+    }
+  },
+  "content": "## Hai chữ không khớp, nhưng chữ nào cần thay?\n\nNăm 1989, Robert Lahue, K. G. Au và Paul Modrich công bố hệ sửa bắt cặp sai của E. coli được tái tạo từ các thành phần tinh sạch. Mẫu ADN chứa một cặp base không bổ sung và một dấu methyl hóa ở vị trí khác. Nhóm có thể theo dõi hệ chọn mạch nào để sửa.\n\nĐây là câu hỏi sâu hơn việc nhận ra hình dạng bất thường. Khi hai mạch không khớp, chỉ biết có lỗi chưa đủ để quyết định bản nào làm chuẩn. Sửa theo hướng ngược có thể biến một sai sót mới thành thông tin được giữ lại.\n\nTrong hệ vi khuẩn được khảo sát, sự khác nhau về methyl hóa sau sao chép giúp định hướng quá trình. Một dấu ở xa chỗ bắt cặp sai vẫn tham gia vào quyết định, cho thấy việc kiểm tra không chỉ xảy ra tại một điểm nhỏ độc lập.\n\n![Minh họa chủ đề nghiên cứu; không phải chân dung hoặc dữ liệu thực nghiệm gốc](/assets/library/history-evidence.svg)\n\n## Một đội enzyme thay cho một chiếc tẩy đơn lẻ\n\nCác protein MutS, MutL, MutH cùng những enzyme và thành phần khác được ghép thành hệ hoạt động. Có phần nhận diện bất thường, có phần tạo đường xử lý, rồi các bước tổng hợp và nối ADN hoàn thiện kết quả.\n\nTái tạo ngoài tế bào cho phép bỏ từng thành phần hoặc thay đổi mẫu để hỏi vai trò cụ thể. Nếu chỉ đo toàn bộ tế bào, nhiều quá trình diễn ra đồng thời có thể che mối liên hệ giữa một protein và một bước phản ứng.\n\nModrich và cộng sự dùng những thiết kế ADN có thể phân biệt sản phẩm sửa theo từng hướng. Nhờ vậy, kết quả không chỉ là mẫu đã thay đổi, mà là thông tin về mạch được chọn. Công việc tiếp theo mở rộng sang hệ của tế bào người, nơi cách nhận diện mạch mới có những khác biệt so với cơ chế methyl hóa ở E. coli. Giữ sự phân biệt ấy giúp mô hình vi khuẩn trở thành điểm xuất phát thay vì khuôn áp cho mọi sinh vật.\n\n## Độ chính xác được xây qua nhiều lần kiểm tra\n\nSửa bắt cặp sai bổ sung một lớp kiểm soát sau những bước chọn nucleotide và sửa lỗi của bộ máy sao chép. Các lớp này làm việc cùng nhau để giảm khả năng một sai sót trở thành đột biến được truyền tiếp.\n\nNghiên cứu hệ sửa chữa có ý nghĩa khi tìm hiểu tính ổn định bộ gen và các bệnh liên quan. Trong từng trường hợp, phải xác định thành phần nào bị thay đổi và hậu quả thực nghiệm là gì, thay vì coi mọi lỗi ADN đều thuộc một đường sửa duy nhất.\n\nBài học từ Modrich cũng có giá trị về thiết kế phép đo. Một hệ phức tạp có thể được giải bằng cách tạo mẫu mà các kết quả cạnh tranh để lại dấu khác nhau. Khi biết đọc dấu ấy, nhà nghiên cứu nhìn thấy không chỉ việc sửa có xảy ra, mà còn quyết định đã được đưa ra theo hướng nào. Chiếc tẩy của tế bào chỉ hữu ích khi nó tìm được cả lỗi lẫn bản cần giữ.\n\n## Nguồn và đọc thêm\n\n- [Lahue, Au và Modrich · Hệ sửa ADN tái tạo, 1989](https://scholars.duke.edu/publication/753173)\n- [Paul Modrich · Bài giảng Nobel](https://www.nobelprize.org/prizes/chemistry/2015/modrich/lecture/)"
+}

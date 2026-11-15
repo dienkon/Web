@@ -1,0 +1,44 @@
+{
+  "id": "mannich-dat-nitrogen-vao-nhanh-carbon",
+  "slug": "mannich-dat-nitrogen-vao-nhanh-carbon",
+  "documentPath": "docs/mannich-dat-nitrogen-vao-nhanh-carbon/index.json",
+  "title": "Một nhánh chứa nitrogen được đặt vào đúng chỗ: phản ứng Mannich",
+  "summary": "Tuyến tổng hợp fluoxetine được lưu trong bằng sáng chế năm 1982 bắt đầu từ một Mannich base. Phản ứng tạo một mối nối C–C và đưa phần amine vào bộ khung cần xây.",
+  "category": "phanung",
+  "author": "Ban biên tập ChemDex",
+  "image": "/assets/library/organic-amine.svg",
+  "tags": [
+    "Mannich",
+    "Aminomethyl hóa",
+    "Carbonyl",
+    "Tổng hợp hữu cơ"
+  ],
+  "aliases": [],
+  "documentKind": "story",
+  "readingMinutes": 4,
+  "editorialEvidence": {
+    "language": "vi",
+    "scope": "chemical-family",
+    "contextLabel": "Một nhánh chứa nitrogen được đặt vào đúng chỗ: phản ứng Mannich",
+    "reviewBasis": "Biên soạn theo các nguồn dẫn cuối bài; phân biệt kết quả đã thực hiện và hướng phát triển.",
+    "story": {
+      "status": "documented",
+      "section": "## Một mảnh nitrogen được đưa vào khá sớm trong tuyến",
+      "sources": [
+        "https://pmc.ncbi.nlm.nih.gov/articles/PMC3894728/",
+        "https://www.sciencedirect.com/science/article/abs/pii/S2352554116300250",
+        "https://patents.google.com/patent/US4314081A/en"
+      ]
+    },
+    "application": {
+      "status": "documented",
+      "section": "## Ứng dụng hôm nay: trung gian đa chức để tiếp tục xây phân tử",
+      "sources": [
+        "https://pmc.ncbi.nlm.nih.gov/articles/PMC3894728/",
+        "https://www.sciencedirect.com/science/article/abs/pii/S2352554116300250",
+        "https://patents.google.com/patent/US4314081A/en"
+      ]
+    }
+  },
+  "content": "## Một mảnh nitrogen được đưa vào khá sớm trong tuyến\n\nBài tổng quan lịch sử fluoxetine mô tả tuyến do Molloy và Schmiegel công bố trong bằng sáng chế Hoa Kỳ năm 1982, từ đơn nộp năm 1974. Một phản ứng Mannich trên acetophenone tạo trung gian beta-aminoketone trước những biến đổi tiếp theo.\n\nVí dụ này cho thấy một phản ứng được chọn không chỉ để tạo nhóm chức ở bước cuối. Đặt nhánh chứa nitrogen từ sớm giúp xác lập bộ khung mà các bước sau sẽ điều chỉnh.\n\nCâu chuyện nói về hóa học tổng hợp một phân tử đã được nghiên cứu y học, không cung cấp cách tự điều chế hoặc sử dụng thuốc. Mỗi tuyến trong tài liệu là một trường hợp lịch sử và kỹ thuật, cần được phân biệt với quy trình sản xuất của mọi nhà cung cấp hiện tại.\n\n![Minh họa nhóm amine, không phải cấu trúc hoàn chỉnh hoặc dạng bào chế fluoxetine](/assets/library/organic-amine.svg)\n\n## Iminium gặp một carbon có thể tạo liên kết mới\n\nMannich thường kết hợp một amine, nguồn carbonyl phù hợp như formaldehyde và một cơ chất có vị trí carbon dễ tham gia phản ứng. Trung gian iminium từ amine và carbonyl đóng vai trò đối tác nhận electron.\n\nPhần enol hoặc dạng nucleophile tương ứng của hợp chất carbonyl khác tấn công để tạo liên kết carbon–carbon mới. Sản phẩm beta-aminocarbonyl giữ cả nhóm amine và carbonyl cho những bước tiếp theo.\n\nĐiều quan trọng là vị trí. Một ketone có nhiều vị trí có thể tạo enol có thể dẫn tới vấn đề chọn lọc; một amine khác có thể thay đổi hoạt tính hoặc sản phẩm. Vì vậy, tên phản ứng chưa đủ để dự đoán mọi tổ hợp.\n\nCác biến thể bất đối xứng sử dụng xúc tác hoặc thành phần chiral để kiểm soát tâm lập thể mới. Đây là phần phát triển vượt khỏi phản ứng Mannich cổ điển, không được giả định có sẵn trong mọi hệ.\n\nTính thuận nghịch của những bước tạo trung gian và những phản ứng cạnh tranh khiến thành phần môi trường ảnh hưởng kết quả. Một mũi tên ba nguyên liệu trên giấy che phía sau một mạng cân bằng hóa học.\n\n## Ứng dụng hôm nay: trung gian đa chức để tiếp tục xây phân tử\n\nMannich base được dùng trong nhiều tuyến tổng hợp chất hữu cơ có nitrogen. Nhóm carbonyl có thể được khử hoặc biến đổi, còn amine có thể được giữ hoặc chuyển chức năng tùy mục tiêu.\n\nNghiên cứu năm 2016 về tổng hợp fluoxetine bằng nghiền bi và hỗ trợ vi sóng khảo sát cách thay phương thức cung cấp năng lượng và giảm dung môi trong những bước đã biết. Kết quả thuộc hệ thí nghiệm được báo cáo, không chứng minh một phương pháp gia nhiệt luôn tốt hơn cho mọi tuyến.\n\nCác công trình kiểu này cho thấy phản ứng tên gọi lâu đời vẫn có thể được phát triển về kỹ thuật. Cần so sánh tổng số bước, lượng vật liệu, chất lượng sản phẩm và khả năng mở rộng, thay vì chỉ thời gian một phản ứng riêng.\n\nTừ acetophenone tới một trung gian có nhánh nitrogen, Mannich minh họa cách nhà tổng hợp đặt những chức năng cần thiết vào bộ khung trước khi hoàn thiện phân tử. Một mối nối sớm có thể quyết định phần lớn hình dáng của những gì được tạo ở cuối hành trình.\n\n## Nguồn và đọc thêm\n\n- [Classics in Chemical Neuroscience · Tuyến tổng hợp fluoxetine](https://pmc.ncbi.nlm.nih.gov/articles/PMC3894728/)\n- [Nghiên cứu nghiền bi và vi sóng cho các tuyến fluoxetine, 2016](https://www.sciencedirect.com/science/article/abs/pii/S2352554116300250)\n- [Bằng sáng chế Molloy và Schmiegel](https://patents.google.com/patent/US4314081A/en)"
+}

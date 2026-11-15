@@ -1,0 +1,41 @@
+{
+  "id": "james-sumner-enzyme-trong-tinh-the",
+  "slug": "james-sumner-enzyme-trong-tinh-the",
+  "documentPath": "docs/james-sumner-enzyme-trong-tinh-the/index.json",
+  "title": "James Sumner: một enzyme bước ra dưới dạng tinh thể",
+  "summary": "Urease kết tinh năm 1926 giúp kiểm tra bản chất hóa học của enzyme. Tinh thể có hoạt tính phải được đối chiếu để biết chất xúc tác có thực sự là protein.",
+  "category": "tieusu",
+  "author": "Ban biên tập ChemDex",
+  "image": "/assets/library/history-evidence.svg",
+  "tags": [
+    "James Sumner",
+    "Urease",
+    "Tinh sạch"
+  ],
+  "aliases": [],
+  "documentKind": "story",
+  "readingMinutes": 4,
+  "editorialEvidence": {
+    "language": "vi",
+    "scope": "chemical-family",
+    "contextLabel": "James Sumner: một enzyme bước ra dưới dạng tinh thể",
+    "reviewBasis": "Biên soạn theo các nguồn dẫn cuối bài; phân biệt kết quả đã thực hiện và hướng phát triển.",
+    "story": {
+      "status": "documented",
+      "section": "## Những tinh thể nhỏ vẫn làm phản ứng diễn ra",
+      "sources": [
+        "https://www.cup.lmu.de/ac/kluefers/homepage/L/bac/ur_crystals_1926.pdf",
+        "https://www.nobelprize.org/uploads/2018/06/sumner-lecture.pdf"
+      ]
+    },
+    "application": {
+      "status": "documented",
+      "section": "## Ứng dụng hôm nay: mẫu sạch giúp tách cơ chế khỏi hỗn hợp",
+      "sources": [
+        "https://www.cup.lmu.de/ac/kluefers/homepage/L/bac/ur_crystals_1926.pdf",
+        "https://www.nobelprize.org/uploads/2018/06/sumner-lecture.pdf"
+      ]
+    }
+  },
+  "content": "## Những tinh thể nhỏ vẫn làm phản ứng diễn ra\n\nNăm 1926, James Sumner báo cáo tinh thể protein từ đậu kiếm có hoạt tính phân giải urea rất cao. Ông đã theo đuổi bài toán nhiều năm, trong bối cảnh bản chất của enzyme vẫn còn tranh luận.\n\nTinh thể không tự chứng minh đã tìm được enzyme tinh khiết. Có thể một lượng chất hoạt động rất nhỏ đi cùng protein và tạo ra tín hiệu. Sumner phải so hoạt tính, thành phần và các đặc điểm của vật liệu qua những bước tinh sạch để bảo vệ kết luận.\n\nĐiều nổi bật là một chức năng sinh học được gắn với vật liệu có thể phân lập, cân và nghiên cứu như đối tượng hóa học. Enzyme không còn chỉ được mô tả qua tác dụng của một dịch chiết phức tạp; nó bắt đầu có một danh tính vật chất rõ hơn.\n\n![Minh họa chủ đề nghiên cứu; không phải chân dung hoặc dữ liệu thực nghiệm gốc](/assets/library/history-evidence.svg)\n\n## Hoạt tính cao và độ tinh khiết là hai câu hỏi liên quan\n\nMột mẫu cho phản ứng nhanh có thể chứa nhiều enzyme, nhưng cũng có thể chịu ảnh hưởng của chất kích hoạt hoặc chất ức chế trong nền. Vì vậy, hoạt tính riêng cần đi cùng những phép kiểm tra về thành phần và tính đồng nhất.\n\nTrong bài giảng Nobel, Sumner kể rằng chất lượng nguyên liệu đậu thay đổi đã khiến việc thu tinh thể gặp khó. Chi tiết này nhắc rằng vật liệu sinh học không phải một hóa chất chuẩn giống hệt qua mọi lô. Theo dõi nguồn và đặc tính mẫu là phần của khả năng lặp lại.\n\nUrease về sau được xác định là enzyme có kim loại trong trung tâm hoạt động. Điều đó làm bức tranh phong phú hơn cách nói chung enzyme là protein. Khung protein, thành phần phối trí và điều kiện môi trường cùng tạo chức năng. Công trình của Sumner mở nền tảng để những câu hỏi sâu hơn về cấu trúc và xúc tác có thể được đặt trên mẫu xác định.\n\n## Ứng dụng hôm nay: mẫu sạch giúp tách cơ chế khỏi hỗn hợp\n\nTinh sạch enzyme vẫn là bước quan trọng trong nghiên cứu hoạt tính và cấu trúc. Các phương pháp hiện đại thường phối hợp nhiều kỹ thuật, vì một dạng tinh thể hoặc một băng phân tích riêng chưa đủ bảo đảm mọi yêu cầu của mẫu.\n\nKhi đánh giá một enzyme, cần biết lượng protein có hoạt tính, mức ổn định và những thành phần cần thiết đi cùng. Những thông tin ấy ảnh hưởng cách so sánh các nghiên cứu và cách chuyển sang ứng dụng.\n\nCâu chuyện Sumner cho thấy sự thay đổi lớn có thể bắt đầu từ việc làm rõ vật liệu đang được đo. Một phản ứng trong dịch chiết có thể do nhiều thành phần góp phần; một mẫu được phân lập tốt giúp thu hẹp câu hỏi. Những tinh thể nhỏ năm 1926 không kết thúc nghiên cứu enzyme. Chúng tạo nền để người ta hỏi chính xác hơn phần nào của phân tử làm việc, vì sao nó chọn cơ chất và điều gì khiến hoạt tính mất đi.\n\n## Nguồn và đọc thêm\n\n- [Sumner · Phân lập và kết tinh urease, 1926](https://www.cup.lmu.de/ac/kluefers/homepage/L/bac/ur_crystals_1926.pdf)\n- [James Sumner · Bài giảng Nobel](https://www.nobelprize.org/uploads/2018/06/sumner-lecture.pdf)"
+}

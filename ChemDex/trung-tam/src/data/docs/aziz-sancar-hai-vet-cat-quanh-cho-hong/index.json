@@ -1,0 +1,41 @@
+{
+  "id": "aziz-sancar-hai-vet-cat-quanh-cho-hong",
+  "slug": "aziz-sancar-hai-vet-cat-quanh-cho-hong",
+  "documentPath": "docs/aziz-sancar-hai-vet-cat-quanh-cho-hong/index.json",
+  "title": "Aziz Sancar: hai vết cắt bao quanh một tổn thương ADN",
+  "summary": "Hệ UvrABC loại bỏ đoạn chứa tổn thương. Tế bào có thể thay cả một phần nhỏ thay vì chỉ sửa từng base.",
+  "category": "tieusu",
+  "author": "Ban biên tập ChemDex",
+  "image": "/assets/library/history-evidence.svg",
+  "tags": [
+    "Aziz Sancar",
+    "UvrABC",
+    "Sửa chữa nucleotide"
+  ],
+  "aliases": [],
+  "documentKind": "story",
+  "readingMinutes": 4,
+  "editorialEvidence": {
+    "language": "vi",
+    "scope": "chemical-family",
+    "contextLabel": "Aziz Sancar: hai vết cắt bao quanh một tổn thương ADN",
+    "reviewBasis": "Biên soạn theo các nguồn dẫn cuối bài; phân biệt kết quả đã thực hiện và hướng phát triển.",
+    "story": {
+      "status": "documented",
+      "section": "## Một đoạn ngắn bị lấy đi để cứu cả chuỗi",
+      "sources": [
+        "https://doi.org/10.1016/0092-8674(83)90354-9",
+        "https://www.nobelprize.org/prizes/chemistry/2015/sancar/lecture/"
+      ]
+    },
+    "application": {
+      "status": "documented",
+      "section": "## Theo dõi sửa chữa trong cả không gian và thời gian",
+      "sources": [
+        "https://doi.org/10.1016/0092-8674(83)90354-9",
+        "https://www.nobelprize.org/prizes/chemistry/2015/sancar/lecture/"
+      ]
+    }
+  },
+  "content": "## Một đoạn ngắn bị lấy đi để cứu cả chuỗi\n\nĐầu thập niên 1980, Aziz Sancar và W. Dean Rupp nghiên cứu những protein cần cho sửa tổn thương ADN ở E. coli. Các protein UvrA, UvrB và UvrC phối hợp tạo những vết cắt ở hai phía vùng hỏng trên một mạch.\n\nKết quả làm rõ rằng hệ không chỉ cắt ở một bên rồi chờ toàn bộ phần còn lại bị phân hủy. Nó xác định một đoạn chứa tổn thương để loại ra, chuẩn bị cho việc tổng hợp thay thế dựa trên mạch còn nguyên.\n\nÁnh sáng tử ngoại có thể tạo những liên kết bất thường giữa các base lân cận. Các tổn thương ấy làm ADN khác với nền bình thường. Bằng cách theo dõi vị trí và kích thước sản phẩm, nhóm nghiên cứu biến một hiện tượng sửa chữa của tế bào thành chuỗi thao tác phân tử có thể mô tả.\n\n![Minh họa chủ đề nghiên cứu; không phải chân dung hoặc dữ liệu thực nghiệm gốc](/assets/library/history-evidence.svg)\n\n## Nhận diện, mở đường và cắt là những nhiệm vụ khác nhau\n\nMột protein tìm được vùng bất thường chưa chắc tự thực hiện mọi phản ứng tiếp theo. Hệ sửa cắt bỏ nucleotide cần tổ chức các thành phần ở đúng nơi và đúng thứ tự.\n\nCác thí nghiệm với protein tinh sạch giúp hỏi thành phần nào cần để tạo phức, thành phần nào tham gia cắt và những bước nào cần năng lượng. Sản phẩm ADN được phân tích để nhận ra các vị trí tác động, thay vì chỉ đo sự sống sót của tế bào sau chiếu sáng.\n\nSancar còn nghiên cứu photolyase, enzyme dùng năng lượng ánh sáng để sửa một số tổn thương theo một đường khác. Hai cơ chế cùng bảo vệ ADN nhưng làm công việc bằng những cách riêng: một bên đảo tổn thương trực tiếp trong hệ phù hợp, bên kia lấy bỏ đoạn rồi thay thế. So sánh chúng cho thấy tế bào có nhiều giải pháp cho cùng vấn đề giữ thông tin, tùy loại hư hại và hệ sinh học.\n\n## Theo dõi sửa chữa trong cả không gian và thời gian\n\nNhững nghiên cứu tiếp theo mở rộng tới cơ chế ở tế bào người và cách hoạt động sửa chữa thay đổi theo điều kiện. Các công cụ đọc sản phẩm cắt trên phạm vi bộ gen giúp khảo sát nơi và lúc những đường sửa được sử dụng.\n\nMột phép đo tổng có thể che những khác biệt giữa vùng ADN đang được phiên mã và những vùng khác. Vì vậy, tổ chức không gian của bộ gen và thời điểm lấy mẫu trở thành phần của câu hỏi, bên cạnh công thức của tổn thương.\n\nCâu chuyện Sancar cho thấy bằng chứng cơ chế thường nằm trong những mảnh nhỏ được tạo ra. Đo đúng đoạn ADN bị cắt giúp nhận ra một thiết kế sửa chữa có giới hạn rõ: loại phần không dùng được, giữ mạch làm khuôn và xây lại chỗ thiếu. Các bước ấy góp phần làm cho bộ gen vẫn hoạt động trong môi trường nơi tổn thương hóa học luôn có thể xuất hiện.\n\n## Nguồn và đọc thêm\n\n- [Sancar và Rupp · Công trình UvrABC, 1983](https://doi.org/10.1016/0092-8674(83)90354-9)\n- [Aziz Sancar · Bài giảng Nobel](https://www.nobelprize.org/prizes/chemistry/2015/sancar/lecture/)"
+}

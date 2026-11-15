@@ -1,0 +1,42 @@
+{
+  "id": "donnan-gel-truong-len-roi-co-trong-muoi",
+  "slug": "donnan-gel-truong-len-roi-co-trong-muoi",
+  "documentPath": "docs/donnan-gel-truong-len-roi-co-trong-muoi/index.json",
+  "title": "Vì sao một gel hút nước mạnh lại co khi môi trường mặn hơn?",
+  "summary": "Điện tích cố định trong mạng polymer làm ion phân bố không đều giữa gel và dung dịch. Hiệu ứng Donnan là một phần của cân bằng quyết định độ trương.",
+  "category": "khainiem",
+  "author": "Ban biên tập ChemDex",
+  "image": "/assets/library/organic-polymer.svg",
+  "tags": [
+    "Donnan",
+    "Hydrogel",
+    "Thẩm thấu",
+    "Điện tích cố định"
+  ],
+  "aliases": [],
+  "documentKind": "story",
+  "readingMinutes": 4,
+  "editorialEvidence": {
+    "language": "vi",
+    "scope": "chemical-family",
+    "contextLabel": "Vì sao một gel hút nước mạnh lại co khi môi trường mặn hơn?",
+    "reviewBasis": "Biên soạn theo các nguồn dẫn cuối bài; phân biệt kết quả đã thực hiện và hướng phát triển.",
+    "story": {
+      "status": "documented",
+      "section": "## Một mạng giữ nước phản ứng với muối bên ngoài",
+      "sources": [
+        "https://ntnuopen.ntnu.no/ntnu-xmlui/bitstream/handle/11250/2684433/Gels_2020_Zurzul_et_al.pdf?sequence=1",
+        "https://pmc.ncbi.nlm.nih.gov/articles/PMC5445704/"
+      ]
+    },
+    "application": {
+      "status": "documented",
+      "section": "## Ứng dụng hôm nay: thiết kế vật liệu đáp ứng môi trường",
+      "sources": [
+        "https://ntnuopen.ntnu.no/ntnu-xmlui/bitstream/handle/11250/2684433/Gels_2020_Zurzul_et_al.pdf?sequence=1",
+        "https://pmc.ncbi.nlm.nih.gov/articles/PMC5445704/"
+      ]
+    }
+  },
+  "content": "## Một mạng giữ nước phản ứng với muối bên ngoài\n\nNghiên cứu năm 2020 về đóng góp Donnan và hiệu ứng ion riêng khảo sát độ trương của hydrogel trong một miền nồng độ muối rộng. Nhóm kết hợp thí nghiệm với mô hình để phân biệt phần có thể giải thích bằng phân bố điện tích với những tác động hóa học cụ thể của ion.\n\nGel không chỉ là một miếng bọt biển có những lỗ cố định. Mạng polymer có thể giãn hoặc co, trong khi nước và các ion nhỏ trao đổi với môi trường. Những nhóm tích điện gắn trên chuỗi không đi ra ngoài dễ như ion tự do, tạo điều kiện cho một phân bố bất đối xứng.\n\nMột thí nghiệm cho gel từ nước ít muối sang dung dịch đậm hơn có thể làm kích thước thay đổi. Để hiểu, phải tính cả lực đàn hồi của mạng lẫn xu hướng trộn và cân bằng điện hóa.\n\n![Minh họa mạng polymer; không phải cấu trúc đầy đủ của hydrogel trong nghiên cứu](/assets/library/organic-polymer.svg)\n\n## Trung hòa điện tích không có nghĩa hai phía giống hệt\n\nKhi điện tích cố định nằm trong gel, các ion đối dấu có xu hướng được giữ với lượng khác so với môi trường ngoài để đáp ứng điều kiện điện. Những ion cùng dấu cũng phân bố theo cân bằng điện hóa. Sự chênh lệch tổng hạt hòa tan góp vào áp suất thẩm thấu.\n\nThêm muối ngoài có thể làm giảm phần chênh lệch này và che chắn tương tác điện, khiến gel trương ít hơn trong nhiều hệ. Tuy nhiên, ion hóa trị khác nhau, liên kết đặc hiệu và thay đổi trạng thái ion hóa của polymer có thể tạo hành vi phức tạp hơn một quy tắc duy nhất.\n\nĐộ trương cuối cùng xuất hiện khi các đóng góp cân bằng nhau. Nếu chỉ tính Donnan mà bỏ độ đàn hồi hoặc chất lượng dung môi, mô hình có thể khớp sai. Cách gọi hiệu ứng tên riêng hữu ích khi nó chỉ rõ một thành phần của bài toán, không biến thành lời giải thích cho mọi hiện tượng gel.\n\n## Ứng dụng hôm nay: thiết kế vật liệu đáp ứng môi trường\n\nHydrogel tích điện được nghiên cứu cho hấp thụ, cảm biến, màng và nhiều ứng dụng sinh học. Muốn dùng sự trương như tín hiệu hoặc cơ cấu, cần biết tốc độ đáp ứng, tính đảo ngược và độ bền qua các lần đổi môi trường. Một mẫu tăng thể tích lớn trong nước tinh khiết có thể làm việc khác trong dung dịch có muối và nhiều chất tan.\n\nNhững nghiên cứu về hydrogel nền cellulose minh họa cách thành phần mạng, mật độ liên kết ngang và môi trường tác động đồng thời. Chỉ ghi một con số hút nước trên gram mà không nêu môi trường sẽ khó so các sản phẩm.\n\nCâu chuyện Donnan cho thấy màng hoặc mạng chọn lọc có thể tạo sự khác biệt nồng độ mà không cần một bơm cơ học riêng. Điện tích bị giữ tại chỗ định hình nơi các ion tự do phân bố, rồi sự phân bố ấy kéo theo nước. Kích thước miếng gel trở thành biểu hiện nhìn thấy của nhiều cân bằng ở cấp phân tử, giúp nối một hiện tượng mềm mại trong tay với những quan hệ điện hóa và nhiệt động học.\n\n## Nguồn và đọc thêm\n\n- [Nghiên cứu gốc · Donnan và hiệu ứng ion trong hydrogel, 2020](https://ntnuopen.ntnu.no/ntnu-xmlui/bitstream/handle/11250/2684433/Gels_2020_Zurzul_et_al.pdf?sequence=1)\n- [Nghiên cứu tổng quan · Thiết kế hydrogel nền cellulose](https://pmc.ncbi.nlm.nih.gov/articles/PMC5445704/)"
+}

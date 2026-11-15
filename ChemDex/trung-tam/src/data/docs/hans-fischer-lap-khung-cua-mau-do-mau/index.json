@@ -1,0 +1,41 @@
+{
+  "id": "hans-fischer-lap-khung-cua-mau-do-mau",
+  "slug": "hans-fischer-lap-khung-cua-mau-do-mau",
+  "documentPath": "docs/hans-fischer-lap-khung-cua-mau-do-mau/index.json",
+  "title": "Hans Fischer: lắp lại khung phân tử phía sau màu đỏ của máu",
+  "summary": "Tổng hợp hemin giúp kiểm tra cấu trúc của nhóm màu liên quan đến hemoglobin. Những vòng nhỏ được nối thành một kiến trúc có thể giữ kim loại.",
+  "category": "tieusu",
+  "author": "Ban biên tập ChemDex",
+  "image": "/assets/library/history-evidence.svg",
+  "tags": [
+    "Hans Fischer",
+    "Hemin",
+    "Porphyrin"
+  ],
+  "aliases": [],
+  "documentKind": "story",
+  "readingMinutes": 4,
+  "editorialEvidence": {
+    "language": "vi",
+    "scope": "chemical-family",
+    "contextLabel": "Hans Fischer: lắp lại khung phân tử phía sau màu đỏ của máu",
+    "reviewBasis": "Biên soạn theo các nguồn dẫn cuối bài; phân biệt kết quả đã thực hiện và hướng phát triển.",
+    "story": {
+      "status": "documented",
+      "section": "## Một chất tự nhiên được kiểm tra bằng cách làm lại",
+      "sources": [
+        "https://www.nobelprize.org/prizes/chemistry/1930/fischer/lecture/",
+        "https://www.nobelprize.org/prizes/chemistry/1930/fischer/biographical/"
+      ]
+    },
+    "application": {
+      "status": "documented",
+      "section": "## Tổng hợp trở thành bằng chứng độc lập",
+      "sources": [
+        "https://www.nobelprize.org/prizes/chemistry/1930/fischer/lecture/",
+        "https://www.nobelprize.org/prizes/chemistry/1930/fischer/biographical/"
+      ]
+    }
+  },
+  "content": "## Một chất tự nhiên được kiểm tra bằng cách làm lại\n\nCuối thập niên 1920, Hans Fischer và cộng sự hoàn thành tổng hợp hemin, một dẫn xuất chứa sắt của nhóm heme. Công việc góp phần xác nhận cách các thành phần của cấu trúc được nối với nhau.\n\nHemin gắn với một câu hỏi quen thuộc nhưng khó: chất màu của máu được xây ra sao? Phân tích thành phần cho biết những nguyên tố có mặt, còn phân hủy hóa học tạo các mảnh gợi ý. Tổng hợp cung cấp một phép kiểm tra khác: nếu cấu trúc đề xuất đúng, có thể xây một chất có những đặc tính tương ứng từ các đơn vị được biết.\n\nThành tựu ấy được Nobel Hóa học năm 1930 ghi nhận cùng công trình về sắc tố máu và thực vật. Câu chuyện nằm ở việc nối các bằng chứng, không chỉ ở màu đỏ dễ nhận ra của sản phẩm.\n\n![Minh họa chủ đề nghiên cứu; không phải chân dung hoặc dữ liệu thực nghiệm gốc](/assets/library/history-evidence.svg)\n\n## Những vòng nhỏ tạo khoang giữ kim loại\n\nKhung porphyrin có nhiều vòng chứa nitrogen liên kết thành một hệ lớn hơn. Các nitrogen hướng vào vùng trung tâm tạo môi trường phối trí cho kim loại. Nhóm thế quanh khung làm những hợp chất cùng họ có tính chất khác nhau.\n\nTổ chức electron trong hệ liên hợp góp phần vào khả năng hấp thụ ánh sáng. Nhưng màu không đủ để nhận diện cấu trúc duy nhất. Các chất gần nhau có thể có phổ tương tự, nên cần nhiều phép phân tích và biến đổi hóa học để đối chiếu.\n\nHeme trong hemoglobin còn nằm trong môi trường protein. Chức năng mang oxygen thuộc về toàn hệ, không thể quy cho một ion sắt trần hoặc một phân tử hemin tách riêng. Cách protein tổ chức vùng phối trí và những trạng thái liên quan quyết định hành vi sinh học. Tổng hợp khung màu giải một câu hỏi cấu trúc quan trọng, rồi mở những câu hỏi khác về chức năng.\n\n## Tổng hợp trở thành bằng chứng độc lập\n\nCông việc của Fischer mở nền tảng cho nghiên cứu porphyrin và những sắc tố liên quan. Các hệ có khung tương tự hiện được khảo sát trong sinh hóa, xúc tác và vật liệu quang học, với kim loại cùng nhóm thế được lựa chọn theo mục tiêu.\n\nMột ứng dụng mới cần biết chất có ổn định trong môi trường sử dụng và có thực hiện đúng phản ứng hay không. Sự giống nhau về khung không làm mọi porphyrin có cùng công dụng.\n\nBài học lâu dài nằm trong cách dùng tổng hợp để kiểm tra điều đã suy ra từ thiên nhiên. Khi sản phẩm làm trong phòng thí nghiệm được đối chiếu cẩn thận với chất tự nhiên, sự phù hợp hỗ trợ mô hình cấu trúc. Những vòng nhỏ qua nhiều bước phản ứng đã giúp hóa học trả lời một phần câu hỏi về màu của máu, đồng thời tạo ngôn ngữ để nghiên cứu những phân tử giữ kim loại trong nhiều hệ sống khác.\n\n## Nguồn và đọc thêm\n\n- [Hans Fischer · Bài giảng Nobel](https://www.nobelprize.org/prizes/chemistry/1930/fischer/lecture/)\n- [Hans Fischer · Tự thuật và các công trình sắc tố](https://www.nobelprize.org/prizes/chemistry/1930/fischer/biographical/)"
+}

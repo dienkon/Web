@@ -1,0 +1,41 @@
+{
+  "id": "vincent-du-vigneaud-lam-lai-mot-hormone",
+  "slug": "vincent-du-vigneaud-lam-lai-mot-hormone",
+  "documentPath": "docs/vincent-du-vigneaud-lam-lai-mot-hormone/index.json",
+  "title": "Vincent du Vigneaud: làm lại một hormone để kiểm tra cấu trúc",
+  "summary": "Tổng hợp oxytocin đầu thập niên 1950 nối phân tích trình tự với chức năng. Một peptide nhỏ trở thành bài kiểm tra lớn của hóa học protein.",
+  "category": "tieusu",
+  "author": "Ban biên tập ChemDex",
+  "image": "/assets/library/history-evidence.svg",
+  "tags": [
+    "Vincent du Vigneaud",
+    "Oxytocin",
+    "Peptide"
+  ],
+  "aliases": [],
+  "documentKind": "story",
+  "readingMinutes": 4,
+  "editorialEvidence": {
+    "language": "vi",
+    "scope": "chemical-family",
+    "contextLabel": "Vincent du Vigneaud: làm lại một hormone để kiểm tra cấu trúc",
+    "reviewBasis": "Biên soạn theo các nguồn dẫn cuối bài; phân biệt kết quả đã thực hiện và hướng phát triển.",
+    "story": {
+      "status": "documented",
+      "section": "## Một phân tử nhỏ có hoạt tính sinh học rõ",
+      "sources": [
+        "https://doi.org/10.1021/ja01115a553",
+        "https://www.nobelprize.org/prizes/chemistry/1955/vigneaud/lecture/"
+      ]
+    },
+    "application": {
+      "status": "documented",
+      "section": "## Ứng dụng hôm nay: sản phẩm tổng hợp làm rõ câu hỏi chức năng",
+      "sources": [
+        "https://doi.org/10.1021/ja01115a553",
+        "https://www.nobelprize.org/prizes/chemistry/1955/vigneaud/lecture/"
+      ]
+    }
+  },
+  "content": "## Một phân tử nhỏ có hoạt tính sinh học rõ\n\nNăm 1953, Vincent du Vigneaud và cộng sự báo cáo tổng hợp oxytocin. Hormone này là một peptide nhỏ có cầu disulfide tạo phần vòng, nhưng việc xác định và tạo lại đúng cấu trúc vẫn là thử thách lớn của thời kỳ ấy.\n\nNhóm đã phân tích thành phần, trình tự và những biến đổi của chất tự nhiên trước khi thiết kế tuyến tổng hợp. Sản phẩm được đối chiếu bằng những phép đo hóa học và sinh học, để kiểm tra liệu cấu trúc được đề xuất có thực sự tương ứng với vật liệu từ cơ thể hay không.\n\nTổng hợp vì thế không chỉ cung cấp một mẫu mới. Nó là phép thử độc lập cho lời giải cấu trúc: những mảnh đã biết được ghép theo kế hoạch, rồi sản phẩm phải đáp ứng các tiêu chí không do kế hoạch tự quyết định.\n\n![Minh họa chủ đề nghiên cứu; không phải chân dung hoặc dữ liệu thực nghiệm gốc](/assets/library/history-evidence.svg)\n\n## Thứ tự và cầu nối cùng quyết định hình dạng\n\nMột peptide không được xác định đầy đủ bằng danh sách amino acid. Thứ tự nối và cách các nhóm chức tạo cầu giữa những phần của chuỗi ảnh hưởng cấu trúc không gian.\n\nVới oxytocin, liên kết disulfide là một phần của tổ chức phân tử. Tạo đúng chuỗi nhưng sai trạng thái các nhóm sulfur có thể dẫn tới mẫu khác. Trong tổng hợp, những nhóm cần phản ứng ở bước này và những nhóm phải được giữ lại cho bước sau cần được quản lý bằng chiến lược bảo vệ phù hợp.\n\nCác nghiên cứu còn so sánh oxytocin với vasopressin, hormone có cấu trúc gần nhưng chức năng khác. Sự khác nhau của một số amino acid cho thấy thay đổi nhỏ trong phân tử có thể liên quan tới khác biệt sinh học lớn. Tuy nhiên, quan hệ ấy cần được đo bằng các phép thử đúng, không thể chỉ suy từ việc hai công thức trông gần nhau.\n\n## Ứng dụng hôm nay: sản phẩm tổng hợp làm rõ câu hỏi chức năng\n\nTổng hợp peptide giúp tạo mẫu xác định và những biến thể để khảo sát nhận diện phân tử. Các phương pháp đã phát triển mạnh sau thời du Vigneaud, nhưng nguyên tắc kiểm tra danh tính và hoạt tính vẫn ở trung tâm.\n\nMột peptide được tạo ra trong phòng thí nghiệm còn cần những đánh giá riêng nếu hướng tới sản phẩm sử dụng. Cấu trúc đúng là điều kiện quan trọng, chưa thay thế chất lượng, dạng bào chế và bằng chứng ứng dụng.\n\nCâu chuyện oxytocin làm rõ sức mạnh của việc kết hợp phân tích với tổng hợp. Phân tích chia vật liệu tự nhiên thành thông tin; tổng hợp dùng thông tin ấy để xây lại một mẫu có thể kiểm tra. Khi hai hướng gặp nhau và chức năng được đối chiếu, một công thức không còn chỉ là giả thuyết hợp lý. Nó trở thành mô tả có sức giải thích về một phân tử tham gia vào hoạt động của cơ thể.\n\n## Nguồn và đọc thêm\n\n- [Du Vigneaud và cộng sự · Tổng hợp oxytocin, 1953](https://doi.org/10.1021/ja01115a553)\n- [Vincent du Vigneaud · Bài giảng Nobel](https://www.nobelprize.org/prizes/chemistry/1955/vigneaud/lecture/)"
+}

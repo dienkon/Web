@@ -1,0 +1,44 @@
+{
+  "id": "hock-mot-trung-gian-cho-hai-san-pham",
+  "slug": "hock-mot-trung-gian-cho-hai-san-pham",
+  "documentPath": "docs/hock-mot-trung-gian-cho-hai-san-pham/index.json",
+  "title": "Một trung gian được tách thành hai sản phẩm: phản ứng Hock",
+  "summary": "Cumene hydroperoxide đứng giữa bước oxi hóa và cặp phenol–acetone. Theo dõi nồng độ trung gian giúp nhà máy nối hai công đoạn có yêu cầu khác nhau.",
+  "category": "phanung",
+  "author": "Ban biên tập ChemDex",
+  "image": "/assets/library/industrial-reactor.svg",
+  "tags": [
+    "Hock",
+    "Phenol",
+    "Acetone",
+    "Tái sắp xếp"
+  ],
+  "aliases": [],
+  "documentKind": "story",
+  "readingMinutes": 4,
+  "editorialEvidence": {
+    "language": "vi",
+    "scope": "chemical-family",
+    "contextLabel": "Một trung gian được tách thành hai sản phẩm: phản ứng Hock",
+    "reviewBasis": "Biên soạn theo các nguồn dẫn cuối bài; phân biệt kết quả đã thực hiện và hướng phát triển.",
+    "story": {
+      "status": "documented",
+      "section": "## Một phép đo hướng vào chất nằm giữa dây chuyền",
+      "sources": [
+        "https://documents.thermofisher.com/TFS-Assets/CAD/Application-Notes/D14214.pdf",
+        "https://www.styrolution.com/globalassets/ineos-group/businesses/ineos-phenol/products/value-chain-ineos-phenol-21.pdf",
+        "https://doi.org/10.1002/cber.19440770321"
+      ]
+    },
+    "application": {
+      "status": "documented",
+      "section": "## Ứng dụng hôm nay: nhìn cặp sản phẩm như một hệ liên kết",
+      "sources": [
+        "https://documents.thermofisher.com/TFS-Assets/CAD/Application-Notes/D14214.pdf",
+        "https://www.styrolution.com/globalassets/ineos-group/businesses/ineos-phenol/products/value-chain-ineos-phenol-21.pdf",
+        "https://doi.org/10.1002/cber.19440770321"
+      ]
+    }
+  },
+  "content": "## Một phép đo hướng vào chất nằm giữa dây chuyền\n\nTrong tài liệu ứng dụng của Thermo Fisher, quang phổ hồng ngoại gần được dùng để theo dõi cumene hydroperoxide trong quy trình Hock. Chất này vừa là sản phẩm của bước oxi hóa cumene, vừa là nguyên liệu cho bước tạo phenol và acetone.\n\nVị trí ấy khiến phép đo có ý nghĩa đặc biệt. Nếu chỉ theo dõi lượng sản phẩm cuối, người vận hành có thể biết muộn rằng hai công đoạn không còn phối hợp như mong muốn. Đo trung gian giúp nhìn vào điểm nối của chuỗi phản ứng.\n\nQuy trình gắn với công trình của Heinrich Hock và Shon Lang năm 1944. Nó cần được phân biệt với bước alkyl hóa benzene tạo cumene ở phía trước: đó là nguyên liệu cho chuỗi đang xét, không phải chính phản ứng phân cắt Hock.\n\n![Minh họa hệ phản ứng liên tiếp, không phải thiết kế vận hành với peroxide](/assets/library/industrial-reactor.svg)\n\n## Tái sắp xếp rồi phân cắt liên kết\n\nCumene được oxi hóa để tạo hydroperoxide. Trong môi trường acid thích hợp, trung gian trải qua sự tái sắp xếp và phân cắt, dẫn tới phenol và acetone. Hai sản phẩm hữu cơ có nguồn carbon từ cùng một phân tử ban đầu.\n\nPhương trình tổng thể giúp giải thích một ràng buộc thương mại: lượng phenol và acetone tạo thành không thể được điều chỉnh hoàn toàn độc lập nếu vẫn đi theo cùng tuyến. Nhu cầu của hai thị trường vì thế ảnh hưởng cách đánh giá một nhà máy.\n\nPhản ứng liên quan đến peroxide đòi hỏi kiểm soát nhiệt và thành phần nghiêm ngặt. Trong bài báo khoa học phổ thông, điều cần hiểu là vai trò trung gian và cân bằng vật chất; thông tin ấy không được biến thành hướng dẫn xử lý hỗn hợp phản ứng.\n\nSau phân cắt, những bước tinh chế tách phenol, acetone và các thành phần khác để đạt yêu cầu sử dụng. Một độ chuyển hóa cao của hydroperoxide chưa tự đảm bảo độ sạch của hai dòng thành phẩm.\n\nCác sản phẩm phụ như alpha-methylstyrene cũng có thể tham gia vào sơ đồ thu hồi của tổ hợp. Hình vẽ chỉ có hai mũi tên chính là khung giải thích, không phải bản kê đầy đủ mọi dòng.\n\n## Ứng dụng hôm nay: nhìn cặp sản phẩm như một hệ liên kết\n\nSơ đồ chuỗi giá trị của INEOS Phenol cho thấy phenol và acetone đi tiếp tới những hóa chất và vật liệu khác nhau. Chúng có thể gặp lại trong các tuyến tổng hợp phía sau, nhưng từng dòng vẫn cần chất lượng và thị trường riêng.\n\nNhững nghiên cứu về xúc tác acid rắn cho phân cắt Hock tìm cách thay đổi cách thực hiện bước phản ứng và phân tách xúc tác. Một hướng mới cần chứng minh độ ổn định trong môi trường thực, không chỉ hoạt tính ở thời gian ngắn.\n\nPhép đo hồng ngoại gần trong tài liệu kỹ thuật cho thấy vai trò của phân tích trong hóa học công nghiệp. Phản ứng nổi tiếng vẫn cần một cách theo dõi đủ nhanh và phù hợp với hỗn hợp thật để giữ chuỗi hoạt động ổn định.\n\nCâu chuyện Hock không chỉ là cách tạo hai chất quen thuộc. Nó là bài học về một trung gian đứng giữa hai công đoạn, về cặp sản phẩm bị ràng buộc bởi nguyên tử ban đầu và về việc nhà máy phải quản lý cả phản ứng lẫn thị trường của những gì phản ứng bắt buộc tạo ra.\n\n## Nguồn và đọc thêm\n\n- [Thermo Fisher · Theo dõi cumene hydroperoxide bằng FT-NIR](https://documents.thermofisher.com/TFS-Assets/CAD/Application-Notes/D14214.pdf)\n- [INEOS · Chuỗi giá trị phenol, acetone và các dẫn xuất](https://www.styrolution.com/globalassets/ineos-group/businesses/ineos-phenol/products/value-chain-ineos-phenol-21.pdf)\n- [Hock và Lang · Công trình về peroxide của dẫn xuất benzene, 1944](https://doi.org/10.1002/cber.19440770321)"
+}

@@ -1,0 +1,44 @@
+{
+  "id": "turing-phan-ung-khuech-tan-ve-hoa-van",
+  "slug": "turing-phan-ung-khuech-tan-ve-hoa-van",
+  "documentPath": "docs/turing-phan-ung-khuech-tan-ve-hoa-van/index.json",
+  "title": "Không ai vẽ từng chấm: phản ứng và khuếch tán tự tạo hoa văn",
+  "summary": "Thí nghiệm năm 1990 tạo những mẫu nồng độ đứng yên trong một hệ mở. Cấu trúc Turing cho thấy khuếch tán không chỉ làm mọi thứ đều ra trong mọi mạng phản ứng.",
+  "category": "khainiem",
+  "author": "Ban biên tập ChemDex",
+  "image": "/assets/library/lab-synthesis.svg",
+  "tags": [
+    "Turing",
+    "Phản ứng–khuếch tán",
+    "Tự tổ chức",
+    "Xa cân bằng"
+  ],
+  "aliases": [],
+  "documentKind": "story",
+  "readingMinutes": 4,
+  "editorialEvidence": {
+    "language": "vi",
+    "scope": "chemical-family",
+    "contextLabel": "Không ai vẽ từng chấm: phản ứng và khuếch tán tự tạo hoa văn",
+    "reviewBasis": "Biên soạn theo các nguồn dẫn cuối bài; phân biệt kết quả đã thực hiện và hướng phát triển.",
+    "story": {
+      "status": "documented",
+      "section": "## Một dự đoán toán học được kiểm bằng hóa học",
+      "sources": [
+        "https://doi.org/10.1103/PhysRevLett.64.2953",
+        "https://www.nature.com/articles/352610a0",
+        "https://pubmed.ncbi.nlm.nih.gov/8953211/"
+      ]
+    },
+    "application": {
+      "status": "documented",
+      "section": "## Ứng dụng hôm nay: hiểu cơ chế tạo hình, không gán mọi họa tiết cùng nguồn",
+      "sources": [
+        "https://doi.org/10.1103/PhysRevLett.64.2953",
+        "https://www.nature.com/articles/352610a0",
+        "https://pubmed.ncbi.nlm.nih.gov/8953211/"
+      ]
+    }
+  },
+  "content": "## Một dự đoán toán học được kiểm bằng hóa học\n\nNăm 1952, Alan Turing đề xuất rằng các phản ứng ghép với khuếch tán có thể làm một trạng thái đồng nhất mất ổn định và tạo hoa văn không gian. Năm 1990, Castets, Dulos, Boissonade và De Kepper báo cáo bằng chứng thực nghiệm về mẫu nồng độ đứng yên trong một reactor mở, được diễn giải là cấu trúc kiểu Turing.\n\nThiết kế phải duy trì hệ xa cân bằng bằng nguồn cung chất phản ứng và hạn chế các dòng đối lưu có thể tạo hoa văn theo cơ chế khác. Nhóm nhấn mạnh những đặc điểm như phá đối xứng và bước sóng nội tại của mẫu.\n\nĐây không phải hình ảnh thuốc nhuộm được bơm vào theo mẫu có sẵn. Các vùng xuất hiện từ động học nội tại và cách chất lan truyền, trong điều kiện biên được kiểm soát.\n\n![Minh họa hệ phản ứng; không phải ảnh mẫu Turing hoặc sơ đồ thao tác](/assets/library/lab-synthesis.svg)\n\n## Một mạng có tăng cường và kìm hãm\n\nTrong bức tranh activator–inhibitor đơn giản, một thành phần có thể thúc đẩy quá trình tạo thêm chính nó hoặc một bước liên quan, còn thành phần khác hạn chế quá trình. Nếu phạm vi và tốc độ lan truyền khác nhau theo cách phù hợp, một dao động nhỏ có thể được khuếch đại thành phân bố không gian.\n\nKhuếch tán thường được học như quá trình làm nồng độ đều hơn. Điều đó đúng khi xét một chất tự do không có phản ứng ghép phức tạp, nhưng trong mạng phi tuyến, sự khác nhau về khuếch tán có thể góp vào bất ổn. Không có mâu thuẫn; điều kiện của bài toán đã đổi.\n\nMột vệt màu có dạng chấm hoặc sọc chưa tự là mẫu Turing. Dòng chảy, kết tủa hoặc gradient áp đặt cũng có thể tạo hình. Cần kiểm cơ chế, tính đứng yên và cách khoảng cách đặc trưng đổi theo những tham số hệ.\n\n## Ứng dụng hôm nay: hiểu cơ chế tạo hình, không gán mọi họa tiết cùng nguồn\n\nNghiên cứu năm 1991 theo dõi chuyển từ trạng thái đồng nhất tới chấm lục giác và sọc trong một hệ hóa học. Các công trình sau đó khảo sát cách chấm tách và mẫu phát triển, tạo cầu nối với những câu hỏi về hình thái sinh học.\n\nNhững mô hình phản ứng–khuếch tán được dùng trong nhiều lĩnh vực, nhưng một họa tiết trên sinh vật không được chứng minh là Turing chỉ vì trông giống ảnh trong gel. Cần xác định chất tham gia, động học và vận chuyển thực tế. Mô hình có thể gợi giả thuyết và dự đoán cần thử.\n\nCâu chuyện này mở rộng cách nhìn cân bằng và trật tự. Một cấu trúc đều đặn không nhất thiết là tinh thể ở trạng thái cân bằng thấp năng lượng. Nó có thể được duy trì nhờ dòng vật chất và năng lượng liên tục. Hóa học không chỉ tạo chất mới; khi các phản ứng được nối với không gian, nó còn có thể tạo hình, với chiều dài đặc trưng phát sinh từ chính những quy luật động học và khuếch tán của hệ.\n\n## Nguồn và đọc thêm\n\n- [Castets và cộng sự · Bằng chứng mẫu Turing, 1990](https://doi.org/10.1103/PhysRevLett.64.2953)\n- [Nghiên cứu gốc · Chuyển sang mẫu chấm và sọc, 1991](https://www.nature.com/articles/352610a0)\n- [Dulos và cộng sự · Tạo hình trong hệ hóa học, 1996](https://pubmed.ncbi.nlm.nih.gov/8953211/)"
+}

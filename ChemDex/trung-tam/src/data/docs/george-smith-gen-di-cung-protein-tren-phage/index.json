@@ -1,0 +1,41 @@
+{
+  "id": "george-smith-gen-di-cung-protein-tren-phage",
+  "slug": "george-smith-gen-di-cung-protein-tren-phage",
+  "documentPath": "docs/george-smith-gen-di-cung-protein-tren-phage/index.json",
+  "title": "George Smith: để gene đi cùng protein được bày ở bên ngoài",
+  "summary": "Thực khuẩn thể mang thông tin ở trong và một đoạn protein ở ngoài. Thiết kế nối khả năng gắn với cách tìm lại gene tạo ra nó.",
+  "category": "tieusu",
+  "author": "Ban biên tập ChemDex",
+  "image": "/assets/library/history-evidence.svg",
+  "tags": [
+    "George Smith",
+    "Phage display",
+    "Protein"
+  ],
+  "aliases": [],
+  "documentKind": "story",
+  "readingMinutes": 4,
+  "editorialEvidence": {
+    "language": "vi",
+    "scope": "chemical-family",
+    "contextLabel": "George Smith: để gene đi cùng protein được bày ở bên ngoài",
+    "reviewBasis": "Biên soạn theo các nguồn dẫn cuối bài; phân biệt kết quả đã thực hiện và hướng phát triển.",
+    "story": {
+      "status": "documented",
+      "section": "## Một vật mang cả đặc tính lẫn địa chỉ của nó",
+      "sources": [
+        "https://pubmed.ncbi.nlm.nih.gov/4001944/",
+        "https://www.nobelprize.org/uploads/2018/10/smith-lecture.pdf"
+      ]
+    },
+    "application": {
+      "status": "documented",
+      "section": "## Một nền tảng để tìm phân tử có chức năng",
+      "sources": [
+        "https://pubmed.ncbi.nlm.nih.gov/4001944/",
+        "https://www.nobelprize.org/uploads/2018/10/smith-lecture.pdf"
+      ]
+    }
+  },
+  "content": "## Một vật mang cả đặc tính lẫn địa chỉ của nó\n\nNăm 1985, George Smith công bố thực khuẩn thể dạng sợi có một đoạn protein ngoại lai được ghép vào protein vỏ. Đoạn được trưng bày trên bề mặt có thể tiếp xúc với kháng thể, trong khi thông tin di truyền tương ứng nằm trong hạt phage.\n\nMối nối này giải quyết một vấn đề rất thực. Trong một hỗn hợp lớn, tìm được phân tử gắn mục tiêu vẫn còn việc xác định nó được tạo từ trình tự nào. Nếu đặc tính và gene cùng nằm trên một hạt, quá trình chọn hạt có thể đưa cả thông tin đi theo.\n\nSmith chứng minh các phage mang đoạn phù hợp được làm giàu bằng tương tác với kháng thể. Từ một mẫu ban đầu lẫn nhiều loại, phép chọn tạo một quần thể có thành phần khác. Kết quả mở nguyên tắc cho những thư viện phân tử lớn hơn về sau.\n\n![Minh họa chủ đề nghiên cứu; không phải chân dung hoặc dữ liệu thực nghiệm gốc](/assets/library/history-evidence.svg)\n\n## Chọn một khả năng bằng cách giữ lại hạt mang nó\n\nTrong phage display, nhiều biến thể có thể được tạo và tiếp xúc với mục tiêu. Những hạt còn giữ được sau các bước chọn được thu lại, nhân lên và phân tích.\n\nĐiều kiện của phép chọn quyết định đặc tính nào được ưu tiên. Một hạt bám rất mạnh vào vật chứa ngoài ý muốn cũng có thể được làm giàu nếu thiết kế không phân biệt nền với mục tiêu. Vì thế, đối chứng và cách rửa là phần của câu hỏi khoa học, không chỉ thao tác kỹ thuật.\n\nProtein được trưng bày còn phải gấp và tiếp cận được mục tiêu trong cấu hình ấy. Hành vi trên bề mặt phage có thể khác một protein tự do. Các biến thể được chọn thường cần được tạo lại ở dạng phù hợp rồi thử độc lập để xác nhận tính năng. Mối nối gene–protein làm việc tìm ứng viên thuận lợi hơn, nhưng không thay thế bước kiểm tra sau lựa chọn.\n\n## Một nền tảng để tìm phân tử có chức năng\n\nPhage display được phát triển thành công cụ chọn peptide, protein và kháng thể. Các nhóm khác, trong đó có Gregory Winter và cộng sự, mở rộng ý tưởng để tạo những thư viện và quy trình có mục tiêu riêng.\n\nGiá trị của nền tảng nằm ở khả năng lặp: tạo đa dạng, chọn theo chức năng, đọc thông tin rồi thiết kế vòng tiếp theo. Mỗi vòng có thể làm giàu những đặc điểm đã được phép thử nhìn thấy, nên chất lượng của tiêu chí chọn rất quan trọng.\n\nTrong bài giảng Nobel, Smith nhấn mạnh chuỗi đóng góp từ nhiều người. Một công cụ mạnh thường hình thành khi các ý tưởng về vector, protein và tương tác được nối lại. Hạt phage nhỏ trở thành một cách giữ địa chỉ của phân tử giữa một đám đông rất lớn. Nhờ đó, tìm được chức năng không còn là điểm kết thúc của cuộc tìm kiếm; nó có thể dẫn ngay tới thông tin để tạo và nghiên cứu phân tử ấy tiếp.\n\n## Nguồn và đọc thêm\n\n- [George Smith · Phage trình bày đoạn protein, 1985](https://pubmed.ncbi.nlm.nih.gov/4001944/)\n- [George Smith · Bài giảng Nobel](https://www.nobelprize.org/uploads/2018/10/smith-lecture.pdf)"
+}

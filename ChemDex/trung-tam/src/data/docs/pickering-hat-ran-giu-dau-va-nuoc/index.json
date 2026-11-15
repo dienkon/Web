@@ -1,0 +1,44 @@
+{
+  "id": "pickering-hat-ran-giu-dau-va-nuoc",
+  "slug": "pickering-hat-ran-giu-dau-va-nuoc",
+  "documentPath": "docs/pickering-hat-ran-giu-dau-va-nuoc/index.json",
+  "title": "Hạt rắn đứng ở ranh giới để giữ dầu và nước khỏi nhập giọt",
+  "summary": "Nhũ tương Pickering dùng những hạt có độ thấm ướt phù hợp để ổn định mặt phân cách. Mức bền và hình dạng giọt phụ thuộc cả cách các hạt chen nhau trên bề mặt.",
+  "category": "khainiem",
+  "author": "Ban biên tập ChemDex",
+  "image": "/assets/library/ionic-crystal.svg",
+  "tags": [
+    "Pickering",
+    "Nhũ tương",
+    "Hạt rắn",
+    "Mặt phân cách"
+  ],
+  "aliases": [],
+  "documentKind": "story",
+  "readingMinutes": 4,
+  "editorialEvidence": {
+    "language": "vi",
+    "scope": "chemical-family",
+    "contextLabel": "Hạt rắn đứng ở ranh giới để giữ dầu và nước khỏi nhập giọt",
+    "reviewBasis": "Biên soạn theo các nguồn dẫn cuối bài; phân biệt kết quả đã thực hiện và hướng phát triển.",
+    "story": {
+      "status": "documented",
+      "section": "## Một cách tạo nhũ không chỉ dựa vào chất hoạt động bề mặt",
+      "sources": [
+        "https://doi.org/10.1039/CT9079102001",
+        "https://arxiv.org/abs/1903.00305",
+        "https://link.springer.com/article/10.1140/epjs/s11734-026-02363-2"
+      ]
+    },
+    "application": {
+      "status": "documented",
+      "section": "## Ứng dụng hôm nay: lớp ranh giới là một vật liệu cần thiết kế",
+      "sources": [
+        "https://doi.org/10.1039/CT9079102001",
+        "https://arxiv.org/abs/1903.00305",
+        "https://link.springer.com/article/10.1140/epjs/s11734-026-02363-2"
+      ]
+    }
+  },
+  "content": "## Một cách tạo nhũ không chỉ dựa vào chất hoạt động bề mặt\n\nTrong công trình năm 1907, Spencer Pickering khảo sát các nhũ tương được ổn định bằng hạt rắn. Những quan sát trước đó của Ramsden cũng góp nền tảng cho lĩnh vực. Hạt có thể nằm tại ranh giới giữa hai chất lỏng không trộn lẫn và cản các giọt hợp lại.\n\nĐây là một vai trò khác với việc hòa tan hết hạt vào một pha. Vị trí của chúng ở mặt phân cách tạo chức năng. Hạt quá ưa một pha có thể rời khỏi ranh giới, trong khi độ thấm ướt phù hợp giúp chúng được giữ lại mạnh hơn.\n\nNhững nghiên cứu hiện đại quan tâm tới silica, cellulose, protein và nhiều loại hạt khác. Tên Pickering chỉ cơ chế ổn định bằng hạt, không xác định sẵn một thành phần hóa học hoặc bảo đảm mọi hệ đều phù hợp cho thực phẩm.\n\n![Minh họa hạt vật liệu; không phải mạng tinh thể bắt buộc của chất ổn định nhũ tương](/assets/library/ionic-crystal.svg)\n\n## Một lớp hạt có thể trở thành hàng rào cơ học\n\nHấp phụ hạt lên mặt phân cách làm giảm phần diện tích tiếp xúc trực tiếp giữa hai pha. Năng lượng để đưa hạt ra phụ thuộc kích thước, sức căng và góc thấm ướt. Khi nhiều hạt phủ mặt giọt, chúng có thể tạo một lớp cản sự nhập giọt theo cơ chế khác với các phân tử hoạt động bề mặt nhỏ.\n\nNhưng bền động học không đồng nghĩa cân bằng nhiệt động cuối cùng. Giọt vẫn có thể thay đổi qua va chạm, chuyển vật chất hoặc biến đổi lớp hạt. pH và muối có thể làm tương tác giữa hạt đổi, ảnh hưởng cấu trúc tại ranh giới.\n\nNghiên cứu về sự hợp giọt bị dừng cho thấy lớp hạt ngày càng chật khi diện tích tổng giảm sau khi các giọt bắt đầu nhập. Lớp này có thể ngăn quá trình hoàn tất, tạo hình dạng không cầu. Hình học và tốc độ quá trình cùng quyết định sản phẩm cuối.\n\n## Ứng dụng hôm nay: lớp ranh giới là một vật liệu cần thiết kế\n\nNhũ tương Pickering được nghiên cứu cho thực phẩm, lớp phủ, vật liệu xốp và vận chuyển những chất cần được giữ trong giọt. Chọn hạt có nguồn gốc sinh học có thể mở thêm ứng dụng, nhưng độ tương thích và an toàn phải được đánh giá cho đúng loại hạt và công thức.\n\nTổng quan năm 2026 nhấn mạnh các khó khăn mô hình hóa từ hình dạng hạt tới tính lưu biến của lớp giao diện. Một mô hình chỉ xem các hạt là cầu cứng đồng nhất có thể không mô tả tốt protein mềm hoặc cellulose dạng sợi.\n\nCâu chuyện này mở rộng khái niệm nhũ hóa: không phải lúc nào cần một phân tử có đầu ưa nước và đuôi kỵ nước riêng lẻ. Một hạt với bề mặt thích hợp cũng có thể tổ chức ranh giới hai pha. Khi người thiết kế hiểu hạt đứng ở đâu, bám mạnh thế nào và tương tác với hàng xóm ra sao, mặt phân cách trở thành một lớp vật liệu có thể điều chỉnh, thay vì chỉ là đường chia giữa dầu và nước.\n\n## Nguồn và đọc thêm\n\n- [Pickering · Emulsions, 1907](https://doi.org/10.1039/CT9079102001)\n- [Nghiên cứu gốc · Hợp giọt bị dừng trong nhũ tương Pickering](https://arxiv.org/abs/1903.00305)\n- [Tổng quan cơ chế · Hình học và độ bền nhũ tương Pickering, 2026](https://link.springer.com/article/10.1140/epjs/s11734-026-02363-2)"
+}

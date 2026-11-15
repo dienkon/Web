@@ -1,0 +1,46 @@
+{
+  "id": "barton-mccombie-bo-oxygen-giu-khung",
+  "slug": "barton-mccombie-bo-oxygen-giu-khung",
+  "documentPath": "docs/barton-mccombie-bo-oxygen-giu-khung/index.json",
+  "title": "Bỏ một oxygen mà giữ phần còn lại của bộ khung",
+  "summary": "Barton và McCombie năm 1975 phát triển cách thay nhóm OH bằng hydrogen qua cơ chế gốc. Những biến thể sau đó tìm cách giữ tính hữu ích mà giảm nhu cầu dùng dẫn xuất thiếc.",
+  "category": "phanung",
+  "author": "Ban biên tập ChemDex",
+  "image": "/assets/library/organic-alcohol.svg",
+  "tags": [
+    "Barton–McCombie",
+    "Khử oxygen",
+    "Gốc tự do",
+    "Tổng hợp"
+  ],
+  "aliases": [],
+  "documentKind": "story",
+  "readingMinutes": 4,
+  "editorialEvidence": {
+    "language": "vi",
+    "scope": "chemical-family",
+    "contextLabel": "Bỏ một oxygen mà giữ phần còn lại của bộ khung",
+    "reviewBasis": "Biên soạn theo các nguồn dẫn cuối bài; phân biệt kết quả đã thực hiện và hướng phát triển.",
+    "story": {
+      "status": "documented",
+      "section": "## Một nhóm OH hữu ích ở bước trước có thể cần biến mất ở bước sau",
+      "sources": [
+        "https://doi.org/10.1039/P19750001574",
+        "https://doi.org/10.1002/0471264180.or077.02",
+        "https://doi.org/10.1055/s-1990-21219",
+        "https://doi.org/10.1021/ol050886h"
+      ]
+    },
+    "application": {
+      "status": "documented",
+      "section": "## Ứng dụng hôm nay: dùng nhóm chức như một công cụ tạm thời",
+      "sources": [
+        "https://doi.org/10.1039/P19750001574",
+        "https://doi.org/10.1002/0471264180.or077.02",
+        "https://doi.org/10.1055/s-1990-21219",
+        "https://doi.org/10.1021/ol050886h"
+      ]
+    }
+  },
+  "content": "## Một nhóm OH hữu ích ở bước trước có thể cần biến mất ở bước sau\n\nNăm 1975, Derek Barton và Stuart McCombie công bố phương pháp deoxygenation cho các alcohol bậc hai. Công trình minh họa khả năng dùng trên những cấu trúc như đường và steroid, nơi nhiều nhóm chức cần được giữ nguyên.\n\nTrong tổng hợp, oxygen đôi khi giúp định hướng hoặc xây một cấu trúc, nhưng sản phẩm mục tiêu cuối không có nhóm đó. Loại nó theo cách không làm tái sắp xếp bộ khung là một nhiệm vụ riêng, không phải chỉ đảo ngược phản ứng tạo alcohol ban đầu.\n\nBarton–McCombie sử dụng một dẫn xuất đã được hoạt hóa của alcohol rồi khai thác cơ chế gốc để thay nhóm chứa oxygen bằng hydrogen. Sự lựa chọn cơ chế giúp tránh một số đường tái sắp xếp thường gặp khi dùng trung gian carbocation.\n\n![Minh họa nhóm alcohol được biến đổi, không phải quy trình thao tác deoxygenation](/assets/library/organic-alcohol.svg)\n\n## Tạo gốc carbon rồi đưa hydrogen vào đúng chỗ\n\nNhóm OH trước hết được chuyển thành dẫn xuất thiocarbonyl phù hợp. Trong chuỗi phản ứng gốc, liên kết carbon–oxygen được cắt theo đường dẫn tới gốc carbon, rồi gốc này nhận một nguyên tử hydrogen để tạo sản phẩm đã khử oxygen.\n\nTrong hệ kinh điển, hợp chất organotin hỗ trợ truyền hydrogen và duy trì chuỗi gốc. Nó làm phần việc hóa học cụ thể, nhưng đồng thời tạo thách thức về độc tính, làm sạch và chất thải chứa tin.\n\nVì thế, nhiều nghiên cứu tìm nguồn hydrogen và cách khơi mào khác. Một công trình năm 1990 dùng tris(trimethylsilyl)silane thay cho tác nhân thiếc trên những dẫn xuất của cholesterol, lanosterol và một đường được bảo vệ.\n\nThay tác nhân không có nghĩa mọi điều kiện hoặc phạm vi cơ chất đều giữ nguyên. Cần xem tốc độ trao hydrogen có cạnh tranh được với các phản ứng khác của gốc carbon hay không.\n\nNếu phân tử có liên kết đôi hoặc nhóm có thể bắt gốc, sản phẩm phụ hay phản ứng vòng hóa có thể xuất hiện. Cơ chế gốc mở những khả năng khác với cơ chế ion, nhưng không làm hệ miễn nhiễm với mọi phản ứng cạnh tranh.\n\n## Ứng dụng hôm nay: dùng nhóm chức như một công cụ tạm thời\n\nDeoxygenation được dùng trong tổng hợp sản phẩm tự nhiên và tạo các chất tương tự để nghiên cứu quan hệ cấu trúc–tính chất. Nó cho phép hỏi vai trò của một nhóm OH bằng cách so sánh với cấu trúc đã thay nó bằng hydrogen.\n\nBài tổng quan do McCombie và đồng nghiệp viết năm 2012 phân tích cả bước hoạt hóa alcohol lẫn bước khử, nhấn mạnh rằng hiệu quả của toàn tuyến phụ thuộc cả hai. Một bước gốc có hiệu suất cao không bù được mọi khó khăn nếu dẫn xuất ban đầu quá khó tạo hoặc không chọn lọc.\n\nNghiên cứu năm 2005 với persulfate và formate tiếp tục mở những lựa chọn khác cho phản ứng không dùng tác nhân thiếc truyền thống. Các kết quả được đánh giá theo những cơ chất và điều kiện đã khảo sát, không phải một công thức thay thế chung.\n\nCâu chuyện Barton–McCombie làm rõ tính linh hoạt của nhóm chức trong kế hoạch tổng hợp. Một oxygen có thể giúp xây phân tử rồi được lấy đi khi hoàn thành phần việc. Giá trị của phương pháp là thực hiện sự rút lui ấy mà giữ lại càng nhiều càng tốt những liên kết và cấu hình đã được tạo công phu trước đó.\n\n## Nguồn và đọc thêm\n\n- [Barton và McCombie · Công trình deoxygenation năm 1975](https://doi.org/10.1039/P19750001574)\n- [McCombie, Motherwell và Tozer · Cơ chế, phạm vi và giới hạn](https://doi.org/10.1002/0471264180.or077.02)\n- [Biến thể dùng silane thay tác nhân thiếc, 1990](https://doi.org/10.1055/s-1990-21219)\n- [Deoxygenation với persulfate và formate, 2005](https://doi.org/10.1021/ol050886h)"
+}

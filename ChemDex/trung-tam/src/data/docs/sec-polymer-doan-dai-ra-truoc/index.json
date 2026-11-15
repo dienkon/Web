@@ -1,0 +1,44 @@
+{
+  "id": "sec-polymer-doan-dai-ra-truoc",
+  "slug": "sec-polymer-doan-dai-ra-truoc",
+  "documentPath": "docs/sec-polymer-doan-dai-ra-truoc/index.json",
+  "title": "Trong chiếc cột này, chuỗi lớn có thể ra trước chuỗi nhỏ",
+  "summary": "Sắc ký loại trừ kích thước dùng lỗ rỗng để phân chia thời gian di chuyển của polymer. Nghiên cứu Moore và chuẩn polyethylene cho thấy phải hiệu chuẩn trước khi đổi thời gian thành khối lượng.",
+  "category": "khainiem",
+  "author": "Ban biên tập ChemDex",
+  "image": "/assets/library/organic-polymer.svg",
+  "tags": [
+    "SEC",
+    "GPC",
+    "Polymer",
+    "Phân bố khối lượng"
+  ],
+  "aliases": [],
+  "documentKind": "story",
+  "readingMinutes": 4,
+  "editorialEvidence": {
+    "language": "vi",
+    "scope": "chemical-family",
+    "contextLabel": "Trong chiếc cột này, chuỗi lớn có thể ra trước chuỗi nhỏ",
+    "reviewBasis": "Biên soạn theo các nguồn dẫn cuối bài; phân biệt kết quả đã thực hiện và hướng phát triển.",
+    "story": {
+      "status": "documented",
+      "section": "## Một phương pháp giúp đọc cả phân bố chuỗi",
+      "sources": [
+        "https://doi.org/10.1002/pol.1964.100020220",
+        "https://pmc.ncbi.nlm.nih.gov/articles/PMC6706565/",
+        "https://www.waters.com/nextgen/en/education/primers/beginners-guide-to-size-exclusion-chromatography/calibration-of-the-gpc-system1.html"
+      ]
+    },
+    "application": {
+      "status": "documented",
+      "section": "## Ứng dụng hôm nay: đọc phân bố với một thước phù hợp",
+      "sources": [
+        "https://doi.org/10.1002/pol.1964.100020220",
+        "https://pmc.ncbi.nlm.nih.gov/articles/PMC6706565/",
+        "https://www.waters.com/nextgen/en/education/primers/beginners-guide-to-size-exclusion-chromatography/calibration-of-the-gpc-system1.html"
+      ]
+    }
+  },
+  "content": "## Một phương pháp giúp đọc cả phân bố chuỗi\n\nNăm 1964, J. C. Moore công bố việc dùng gel polystyrene liên kết ngang dạng hạt để phân tách polymer trong dung môi hữu cơ. Thay điều kiện tạo gel làm thay đổi miền kích thước có thể đi vào lỗ. Detector ghi liên tục nồng độ dòng ra, tạo dữ liệu về phân bố thay vì chỉ một khối lượng trung bình.\n\nTrước đó, xây phân bố khối lượng polymer có thể đòi hỏi chia mẫu thành nhiều phần rồi đo từng phần bằng những kỹ thuật khác. Công trình của NBS về polyethylene chuẩn SRM 1475 năm 1972 mô tả cách dùng GPC và hiệu chuẩn để xác định phân bố nhanh hơn.\n\nMột mẫu polymer không phải đám phân tử có cùng độ dài. Phân bố rộng hay hẹp ảnh hưởng nhiều tính chất, nên việc đo toàn bộ đường phân bố có giá trị vượt khỏi một con số trung bình.\n\n![Minh họa các chuỗi polymer; không phải đường sắc ký SEC thực nghiệm](/assets/library/organic-polymer.svg)\n\n## Lỗ rỗng tạo những đường đi với thời gian khác nhau\n\nTrong cơ chế loại trừ kích thước lý tưởng, phân tử lớn khó đi vào nhiều lỗ nhỏ nên trải qua thể tích tiếp cận ít hơn và ra trước. Phân tử nhỏ có thể thăm nhiều không gian bên trong vật liệu nhồi, nên cần lâu hơn. Cách tách này khác việc một chất bám hóa học mạnh hơn vào pha tĩnh.\n\nĐại lượng liên quan trực tiếp là kích thước hoặc thể tích thủy động trong dung môi. Hai polymer có khối lượng bằng nhau nhưng độ phân nhánh hoặc cấu dạng khác nhau có thể ra ở thời điểm khác. Vì vậy, gán khối lượng bằng chuẩn của một polymer khác cần nêu rõ tính tương đối và giả định.\n\nCác tương tác hấp phụ không mong muốn có thể làm hệ lệch khỏi cơ chế lý tưởng. Lựa chọn dung môi, nhiệt độ và vật liệu cột giúp giảm những tác động ấy. Phạm vi hiệu chuẩn cũng có giới hạn: các phân tử cùng bị loại khỏi toàn bộ lỗ sẽ khó được phân biệt bằng cột đó.\n\n## Ứng dụng hôm nay: đọc phân bố với một thước phù hợp\n\nSEC được dùng rộng trong nghiên cứu và kiểm soát polymer, từ theo dõi phản ứng tới xem vật liệu đã bị cắt mạch hay kết hợp sau xử lý. Ghép detector tán xạ ánh sáng hoặc độ nhớt có thể cung cấp thêm thông tin để giảm sự phụ thuộc vào một kiểu hiệu chuẩn đơn giản.\n\nHướng dẫn của nhà sản xuất thiết bị nhấn mạnh việc dùng chuẩn được đặc trưng tốt và giữ điều kiện nhất quán. Độ trôi cột hoặc thay đổi dung môi có thể làm đường thời gian dịch, nên một đường chuẩn cũ không nên được xem như bất biến.\n\nCâu chuyện chuỗi lớn ra trước giúp phân biệt trực giác cơ học với cơ chế thực của phép tách. Cột không phải lưới giữ vật lớn ở đầu và cho vật nhỏ lọt nhanh; nó tạo thêm đường vòng mà chỉ những phân tử phù hợp mới đi vào. Hiểu đúng đường đi ấy là bước đầu để biến một sắc ký đồ thành thông tin về vật liệu polymer đang được thiết kế hoặc sử dụng.\n\n## Nguồn và đọc thêm\n\n- [Moore · GPC của polymer, 1964](https://doi.org/10.1002/pol.1964.100020220)\n- [NBS · Phân bố khối lượng polyethylene SRM 1475](https://pmc.ncbi.nlm.nih.gov/articles/PMC6706565/)\n- [Waters · Hiệu chuẩn hệ GPC](https://www.waters.com/nextgen/en/education/primers/beginners-guide-to-size-exclusion-chromatography/calibration-of-the-gpc-system1.html)"
+}

@@ -1,0 +1,41 @@
+{
+  "id": "nhiet-luong-ke-chat-chuan-benzoic-acid",
+  "slug": "nhiet-luong-ke-chat-chuan-benzoic-acid",
+  "documentPath": "docs/nhiet-luong-ke-chat-chuan-benzoic-acid/index.json",
+  "title": "Trước khi đo nhiệt của nhiên liệu, hãy đốt một chất đã biết",
+  "summary": "Benzoic acid chuẩn của NIST giúp kiểm tra nhiệt lượng kế đốt. Một con số năng lượng đáng tin bắt đầu từ cách hiệu chuẩn cả thiết bị.",
+  "category": "khainiem",
+  "author": "Ban biên tập ChemDex",
+  "image": "/assets/library/apparatus-calorimeter.svg",
+  "tags": [
+    "Nhiệt lượng kế",
+    "Hiệu chuẩn",
+    "Benzoic acid"
+  ],
+  "aliases": [],
+  "documentKind": "story",
+  "readingMinutes": 4,
+  "editorialEvidence": {
+    "language": "vi",
+    "scope": "chemical-family",
+    "contextLabel": "Trước khi đo nhiệt của nhiên liệu, hãy đốt một chất đã biết",
+    "reviewBasis": "Biên soạn theo các nguồn dẫn cuối bài; phân biệt kết quả đã thực hiện và hướng phát triển.",
+    "story": {
+      "status": "documented",
+      "section": "## Một lọ tinh thể trắng làm mốc cho phép đo nhiệt",
+      "sources": [
+        "https://tsapps.nist.gov/srmext/certificates/39j.pdf",
+        "https://tsapps.nist.gov/srmext/tables/203.1.pdf"
+      ]
+    },
+    "application": {
+      "status": "documented",
+      "section": "## Ứng dụng hôm nay: so sánh nhiên liệu bằng cùng một thước",
+      "sources": [
+        "https://tsapps.nist.gov/srmext/certificates/39j.pdf",
+        "https://tsapps.nist.gov/srmext/tables/203.1.pdf"
+      ]
+    }
+  },
+  "content": "## Một lọ tinh thể trắng làm mốc cho phép đo nhiệt\n\nNIST cung cấp benzoic acid SRM 39j làm chuẩn hiệu chuẩn các nhiệt lượng kế đốt kín. Hồ sơ chứng nhận mô tả việc tinh chế, kiểm tra độ tinh khiết và đối chiếu với những lô chuẩn trước. Điều phòng thí nghiệm cần không chỉ là một chất cháy được, mà là một lượng năng lượng được xác định kèm điều kiện và độ không đảm bảo.\n\nTrong phép đo, mẫu cháy làm nhiệt độ của hệ tăng. Nhưng cùng một năng lượng có thể tạo mức tăng khác nhau nếu lượng nước, bình chứa hoặc các phần khác của thiết bị thay đổi. Chất chuẩn giúp xác định cách cả hệ đáp ứng, để kết quả sau đó không chỉ là một con số từ nhiệt kế.\n\nMột bảng so sánh SRM của NIST còn nhắc rằng chứng chỉ là nguồn chính thức cho giá trị và độ không đảm bảo. Sự phân biệt ấy giữ vai trò quan trọng: một số làm tròn trên bảng giới thiệu không thay thế dữ liệu dùng để thiết lập phép đo chính xác.\n\n![Minh họa nhiệt lượng kế; không phải thiết kế chi tiết của một thiết bị đốt kín](/assets/library/apparatus-calorimeter.svg)\n\n## Nhiệt được truyền cho cả hệ, không chỉ mẫu nước\n\nNhiệt lượng kế cần một mô hình cân bằng năng lượng. Bình chứa, nước và các bộ phận tiếp xúc đều nhận hoặc mất nhiệt. Khi đốt lượng chuẩn đã biết, người phân tích suy ra hệ số liên hệ giữa năng lượng và tín hiệu nhiệt độ của cấu hình đang dùng.\n\nPhép đốt trong bình có thể tích gần như cố định còn cần được phân biệt với quá trình ở áp suất không đổi. Nội năng và enthalpy liên hệ nhưng không phải cùng một đại lượng trong mọi trường hợp. Những hiệu chỉnh cho điều kiện, quá trình mồi và sản phẩm cháy thuộc về phương pháp đo, không phải phần trang trí sau phép tính.\n\nĐộ tinh khiết của chuẩn cũng quan trọng vì tạp chất và nước có thể làm năng lượng tính trên khối lượng thay đổi. Cân mẫu, kiểm điều kiện và lặp phép thử là những cách kiểm tra hệ đang hoạt động như dự kiến. Một mẫu chuẩn tốt không cứu được mọi sai sót thao tác; nó tạo cơ hội phát hiện chúng.\n\n## Ứng dụng hôm nay: so sánh nhiên liệu bằng cùng một thước\n\nNhiệt lượng đốt được dùng trong nghiên cứu nhiên liệu và nhiều vật liệu chứa năng lượng. Các chuẩn khác nhau có thể giúp kiểm tra những miền ứng dụng khác nhau. Khi so sản phẩm, cần biết kết quả là giá trị nhiệt nào, mẫu khô hay có ẩm và những hiệu chỉnh đã được thực hiện.\n\nNăng lượng đốt của thực phẩm cũng không hoàn toàn đồng nhất với năng lượng cơ thể khai thác được; các quá trình tiêu hóa và chuyển hóa đặt thêm câu hỏi khác. Chiếc máy trả lời một câu hỏi vật lý–hóa học cụ thể, còn việc ứng dụng con số cần giữ đúng phạm vi ấy.\n\nLọ benzoic acid làm rõ một nguyên tắc của đo lường: trước khi tin một kết quả chưa biết, hãy chứng minh hệ đo đọc đúng thứ đã biết. Phòng thí nghiệm không cần mọi máy có cấu tạo giống hệt nhau, nhưng cần chúng liên hệ được tới những chuẩn phù hợp. Những tinh thể trắng vì thế đứng phía sau khả năng so một nhiên liệu hôm nay với một mẫu được đo ở nơi khác hoặc vào một thời điểm khác.\n\n## Nguồn và đọc thêm\n\n- [NIST · Chứng chỉ SRM 39j benzoic acid](https://tsapps.nist.gov/srmext/certificates/39j.pdf)\n- [NIST · Chuẩn cho nhiệt lượng đốt](https://tsapps.nist.gov/srmext/tables/203.1.pdf)"
+}

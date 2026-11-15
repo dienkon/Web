@@ -1,0 +1,42 @@
+{
+  "id": "butadiene-oxygen-giup-rut-hydrogen",
+  "slug": "butadiene-oxygen-giup-rut-hydrogen",
+  "documentPath": "docs/butadiene-oxygen-giup-rut-hydrogen/index.json",
+  "title": "Dùng oxygen để rút hydrogen: đường Oxo-D tới butadiene",
+  "summary": "Lịch sử TPC ghi việc triển khai Oxo-D ở Port Neches năm 1975. Khử hydrogen có oxi hóa tạo diene hữu ích cho cao su nhưng phải ngăn nguyên liệu đi quá xa thành CO₂.",
+  "category": "phanung",
+  "author": "Ban biên tập ChemDex",
+  "image": "/assets/library/organic-alkene.svg",
+  "tags": [
+    "Oxo-D",
+    "Butadiene",
+    "Khử hydrogen oxi hóa",
+    "Cao su"
+  ],
+  "aliases": [],
+  "documentKind": "story",
+  "readingMinutes": 4,
+  "editorialEvidence": {
+    "language": "vi",
+    "scope": "chemical-family",
+    "contextLabel": "Dùng oxygen để rút hydrogen: đường Oxo-D tới butadiene",
+    "reviewBasis": "Biên soạn theo các nguồn dẫn cuối bài; phân biệt kết quả đã thực hiện và hướng phát triển.",
+    "story": {
+      "status": "documented",
+      "section": "## Khi nguồn đồng sản phẩm không đủ cho nhu cầu",
+      "sources": [
+        "https://www.tpcgrp.com/about/history",
+        "https://www.gccpo.org/ElectronicPublication/SpecificationsEn/23205.pdf"
+      ]
+    },
+    "application": {
+      "status": "documented",
+      "section": "## Ứng dụng hôm nay: tạo diene rồi giữ nó đủ sạch cho polymer hóa",
+      "sources": [
+        "https://www.tpcgrp.com/about/history",
+        "https://www.gccpo.org/ElectronicPublication/SpecificationsEn/23205.pdf"
+      ]
+    }
+  },
+  "content": "## Khi nguồn đồng sản phẩm không đủ cho nhu cầu\n\nTrong dòng thời gian của TPC Group, năm 1975 ghi mốc Port Neches triển khai công nghệ Oxo-D. Quá trình chuyển n-butene thành butadiene là một cách tạo nguyên liệu cho cao su tổng hợp ngoài việc thu hồi nó từ những dòng cracking.\n\nButadiene có hai liên kết đôi liên hợp và là nguyên liệu của nhiều elastomer. Khi cơ cấu nguyên liệu của ngành cracking thay đổi, lượng butadiene đi kèm cũng có thể thay đổi. Những tuyến làm trực tiếp vì thế có ý nghĩa như một lựa chọn bổ sung.\n\nLịch sử công nghệ không chỉ có một phương pháp dehydrogenation. Có hệ khử hydrogen không dùng oxygen trực tiếp và có hệ oxi hóa chọn lọc. Chúng cần được phân biệt vì cách cân bằng nhiệt và sản phẩm đi kèm không giống nhau.\n\n![Minh họa liên kết đôi, không phải sơ đồ vận hành quá trình Oxo-D](/assets/library/organic-alkene.svg)\n\n## Oxygen nhận hydrogen, carbon cần được giữ lại\n\nTrong khử hydrogen có oxi hóa, n-butene phản ứng với oxygen để tạo butadiene và nước. Sự hình thành nước giúp thay đổi động lực so với việc chỉ tách H₂ khỏi hydrocarbon.\n\nTuy nhiên, oxygen cũng có thể đẩy các phản ứng oxi hóa sâu hơn. Nếu carbon đi tới CO hoặc CO₂, nguyên liệu không còn nằm trong diene mong muốn. Chọn lọc là bài toán giữ quá trình dừng ở mức loại hydrogen phù hợp.\n\nXúc tác oxide có thể cung cấp và nhận lại oxygen trong chu trình bề mặt. Những nghiên cứu về các hệ ferrite và oxide hỗn hợp khảo sát cách trạng thái kim loại cùng oxygen mạng ảnh hưởng tốc độ và sản phẩm.\n\nNhiệt sinh ra cần được quản lý để tránh những vùng có điều kiện khác xa phần còn lại. Trong thiết bị lớn, nhiệt và chuyển khối có thể làm một xúc tác thể hiện khác với kết quả trong lớp mẫu nhỏ.\n\nCác bằng sáng chế công nghệ bàn cả lượng oxygen, hơi nước và xử lý sản phẩm. Đó là những tham số của hệ chuyên dụng, không phải một công thức có thể chuyển thành thao tác tự làm từ phương trình tổng thể.\n\n## Ứng dụng hôm nay: tạo diene rồi giữ nó đủ sạch cho polymer hóa\n\nButadiene được dùng để tạo polybutadiene, styrene–butadiene và những vật liệu khác. Chất lượng monomer ảnh hưởng polymer hóa, nên dòng khí sau phản ứng phải được làm sạch và phân tách phù hợp.\n\nNhững hợp chất oxygen hóa hoặc các hydrocarbon có tính phản ứng khác có thể ảnh hưởng bước sau. Vì vậy, công nghệ không kết thúc khi máy phân tích phát hiện butadiene; nó cần tạo một dòng monomer đạt yêu cầu và quản lý phần còn lại.\n\nSo sánh các tuyến sản xuất phải xét cả nguyên liệu sẵn có, năng lượng, nhu cầu sản phẩm và cấu hình tổ hợp. Một công nghệ phù hợp khi butene có sẵn không nhất thiết là lựa chọn tốt nhất ở nơi có nguồn khác.\n\nCâu chuyện Oxo-D giúp thấy oxygen có thể được dùng để lấy hydrogen ra thay vì chỉ thêm oxygen vào sản phẩm cuối. Chính khả năng điều khiển mức oxi hóa ấy quyết định liệu nhà máy thu được một monomer quý hay chỉ tiêu thụ hydrocarbon để tạo những phân tử ít giá trị hơn.\n\n## Nguồn và đọc thêm\n\n- [TPC Group · Lịch sử triển khai Oxo-D tại Port Neches](https://www.tpcgrp.com/about/history)\n- [Tài liệu sáng chế · So sánh các tuyến dehydrogenation và Oxo-D](https://www.gccpo.org/ElectronicPublication/SpecificationsEn/23205.pdf)"
+}

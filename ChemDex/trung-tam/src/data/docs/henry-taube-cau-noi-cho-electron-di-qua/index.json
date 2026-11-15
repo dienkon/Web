@@ -1,0 +1,41 @@
+{
+  "id": "henry-taube-cau-noi-cho-electron-di-qua",
+  "slug": "henry-taube-cau-noi-cho-electron-di-qua",
+  "documentPath": "docs/henry-taube-cau-noi-cho-electron-di-qua/index.json",
+  "title": "Henry Taube: một cầu nối nhỏ giúp electron đi từ kim loại này sang kim loại khác",
+  "summary": "Thí nghiệm về chromium và cobalt dùng dấu của phối tử để phân biệt cơ chế chuyển electron. Sản phẩm kể lại một phần đường đi đã xảy ra.",
+  "category": "tieusu",
+  "author": "Ban biên tập ChemDex",
+  "image": "/assets/library/history-evidence.svg",
+  "tags": [
+    "Henry Taube",
+    "Chuyển electron",
+    "Phức kim loại"
+  ],
+  "aliases": [],
+  "documentKind": "story",
+  "readingMinutes": 4,
+  "editorialEvidence": {
+    "language": "vi",
+    "scope": "chemical-family",
+    "contextLabel": "Henry Taube: một cầu nối nhỏ giúp electron đi từ kim loại này sang kim loại khác",
+    "reviewBasis": "Biên soạn theo các nguồn dẫn cuối bài; phân biệt kết quả đã thực hiện và hướng phát triển.",
+    "story": {
+      "status": "documented",
+      "section": "## Electron đổi chỗ, một chloride cũng đi theo",
+      "sources": [
+        "https://www.nobelprize.org/prizes/chemistry/1983/taube/biographical/",
+        "https://www.nobelprize.org/prizes/chemistry/1983/taube/lecture/"
+      ]
+    },
+    "application": {
+      "status": "documented",
+      "section": "## Ứng dụng hôm nay: phản ứng oxi hóa–khử cần một đường đi",
+      "sources": [
+        "https://www.nobelprize.org/prizes/chemistry/1983/taube/biographical/",
+        "https://www.nobelprize.org/prizes/chemistry/1983/taube/lecture/"
+      ]
+    }
+  },
+  "content": "## Electron đổi chỗ, một chloride cũng đi theo\n\nNăm 1953, Henry Taube, Howard Myers và Ronald Rich công bố nghiên cứu phản ứng giữa những phức chứa chromium và cobalt. Một phối tử chloride xuất hiện ở sản phẩm chromium, cung cấp manh mối về cách hai tâm kim loại đã tiếp xúc.\n\nNếu chỉ nhìn thay đổi số oxi hóa, phản ứng có vẻ là electron đi từ bên này sang bên kia. Theo dõi phối tử giúp hỏi sâu hơn: hai phức có tạo một cầu nối tạm thời để quá trình diễn ra không?\n\nThí nghiệm tận dụng khác biệt về độ linh động phối tử của các trạng thái kim loại. Sau chuyển electron, sản phẩm giữ lại dấu vết đủ lâu để phân tích. Một thành phần không phải electron trở thành chứng cứ cho đường đi của electron.\n\n![Minh họa chủ đề nghiên cứu; không phải chân dung hoặc dữ liệu thực nghiệm gốc](/assets/library/history-evidence.svg)\n\n## Cầu trong và cầu ngoài là hai kiểu tiếp xúc\n\nTrong cơ chế cầu trong, các tâm kim loại có thể liên hệ qua một phối tử chung trong giai đoạn phản ứng. Ở cơ chế cầu ngoài, sự chuyển electron xảy ra mà không cần tạo cùng kiểu cầu phối trí ấy.\n\nPhân biệt này không chỉ là đặt tên hai hình vẽ. Nó dẫn tới những dự đoán về ảnh hưởng của phối tử, tốc độ và sản phẩm. Nếu một nhóm có thể làm cầu được thay bằng nhóm không phù hợp, hành vi của hệ có thể đổi theo cách giúp kiểm tra cơ chế.\n\nTaube cùng cộng sự phát triển nhiều phép thử dựa trên động học, sản phẩm và dấu đồng vị. Mỗi loại bằng chứng giới hạn một phần của mô hình. Một phản ứng nhanh hơn có thể có nhiều nguyên nhân, nhưng khi tốc độ và đường chuyển phối tử cùng khớp một lời giải, cơ chế có chỗ dựa vững hơn.\n\n## Ứng dụng hôm nay: phản ứng oxi hóa–khử cần một đường đi\n\nChuyển electron là phần của xúc tác, điện hóa và nhiều hệ sinh học. Công việc của Taube giúp người nghiên cứu nhìn xa hơn các số oxi hóa đầu và cuối để hỏi những tương tác nào làm quá trình xảy ra.\n\nTrong thiết kế chất xúc tác, phối tử không chỉ giữ kim loại ở trong dung dịch. Nó có thể điều chỉnh năng lượng, tạo đường tiếp cận hoặc tham gia trực tiếp vào một bước chuyển. Chọn phối tử vì thế là lựa chọn cơ chế, không chỉ lựa chọn tên hợp chất.\n\nCâu chuyện chloride đi theo electron cho thấy sản phẩm có thể lưu lịch sử phản ứng dưới dạng những liên kết còn lại. Khi biết thành phần nào thay đổi nhanh và thành phần nào giữ được dấu, nhà hóa học có thể biến một phản ứng đã kết thúc thành nguồn thông tin về những trạng thái ngắn ngủi ở giữa. Đó là cách một phép phân tích vật chất giúp đọc đường đi của một hạt không thể theo bằng mắt.\n\n## Nguồn và đọc thêm\n\n- [Henry Taube · Tự thuật nghiên cứu phức kim loại](https://www.nobelprize.org/prizes/chemistry/1983/taube/biographical/)\n- [Henry Taube · Bài giảng Nobel](https://www.nobelprize.org/prizes/chemistry/1983/taube/lecture/)"
+}

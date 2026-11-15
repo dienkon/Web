@@ -1,0 +1,42 @@
+{
+  "id": "marangoni-nhung-giot-tren-thanh-ly",
+  "slug": "marangoni-nhung-giot-tren-thanh-ly",
+  "documentPath": "docs/marangoni-nhung-giot-tren-thanh-ly/index.json",
+  "title": "Những giọt trên thành ly được kéo lên trước khi rơi xuống",
+  "summary": "Chênh lệch sức căng bề mặt làm hỗn hợp nước–ethanol chảy ngược lên một màng mỏng. Hiện tượng nước mắt rượu là một bài học về dòng Marangoni, không phải thước đo chất lượng đồ uống.",
+  "category": "khainiem",
+  "author": "Ban biên tập ChemDex",
+  "image": "/assets/library/organic-alcohol.svg",
+  "tags": [
+    "Marangoni",
+    "Sức căng bề mặt",
+    "Bay hơi",
+    "Dòng màng"
+  ],
+  "aliases": [],
+  "documentKind": "story",
+  "readingMinutes": 4,
+  "editorialEvidence": {
+    "language": "vi",
+    "scope": "chemical-family",
+    "contextLabel": "Những giọt trên thành ly được kéo lên trước khi rơi xuống",
+    "reviewBasis": "Biên soạn theo các nguồn dẫn cuối bài; phân biệt kết quả đã thực hiện và hướng phát triển.",
+    "story": {
+      "status": "documented",
+      "section": "## Một quan sát quen vẫn tiếp tục tạo nghiên cứu mới",
+      "sources": [
+        "https://www.nature.com/articles/srep16162",
+        "https://arxiv.org/abs/1909.09898"
+      ]
+    },
+    "application": {
+      "status": "documented",
+      "section": "## Ứng dụng hôm nay: điều khiển dòng ở nơi không tiện đặt bơm",
+      "sources": [
+        "https://www.nature.com/articles/srep16162",
+        "https://arxiv.org/abs/1909.09898"
+      ]
+    }
+  },
+  "content": "## Một quan sát quen vẫn tiếp tục tạo nghiên cứu mới\n\nJames Thomson giải thích định tính hiện tượng nước mắt rượu từ năm 1855. Trên thành ly, một màng lỏng có thể đi lên rồi tập trung thành giọt rơi xuống. Nghiên cứu năm 2015 và những mô hình sau đó tiếp tục khảo sát cách các dòng và bất ổn tạo hình giọt, cho thấy một hiện tượng quen chưa có nghĩa mọi chi tiết đã đơn giản.\n\nHệ gồm nước và ethanol, hai chất có độ bay hơi và ảnh hưởng sức căng khác nhau. Màng mỏng gần mép mất ethanol theo cách khác khối lỏng phía dưới, tạo gradient thành phần trên bề mặt.\n\nNhững giọt không phải thước đo trực tiếp mức ngon hay giá trị của rượu. Hình dạng ly, nhiệt độ, độ sạch và lịch sử làm ướt đều có thể ảnh hưởng điều người quan sát thấy.\n\n![Minh họa alcohol; không phải ảnh một mẫu đồ uống được đánh giá](/assets/library/organic-alcohol.svg)\n\n## Bề mặt có thể kéo chất lỏng về phía sức căng lớn hơn\n\nKhi sức căng bề mặt không đồng đều, một ứng suất tiếp tuyến xuất hiện và tạo dòng Marangoni. Trong hệ nước–ethanol đang bay hơi, vùng mất ethanol có thể có sức căng cao hơn, góp phần kéo chất lỏng lên màng. Trọng lực và sức căng ở hình dạng bề mặt cùng chống hoặc điều chỉnh dòng này.\n\nSự tích lũy ở vùng cao không kéo dài vô hạn. Màng có thể hình thành gờ rồi mất ổn định, tạo các giọt đi xuống. Nghiên cứu lý thuyết và thí nghiệm năm 2019–2020 xem xét những dạng sóng trong màng, trong đó lịch sử đã phủ ướt ly có ảnh hưởng đến kiểu tiến triển.\n\nĐây là lý do một mô hình chỉ có hai mũi tên lên–xuống giúp hiểu nguyên nhân chính nhưng chưa dự đoán mọi khoảng cách giữa giọt. Muốn giải hình dạng cần thêm độ dày màng, tốc độ bay hơi và điều kiện biên.\n\n## Ứng dụng hôm nay: điều khiển dòng ở nơi không tiện đặt bơm\n\nDòng Marangoni xuất hiện trong phủ màng, giọt bay hơi và nhiều hệ vi lưu. Gradient nhiệt cũng có thể tạo sức căng không đều, nên cần phân biệt đóng góp nhiệt với thành phần trong từng thí nghiệm. Một dòng tự xuất hiện có thể hữu ích để trộn hoặc vận chuyển, nhưng cũng gây lỗi độ đồng đều khi sản xuất lớp phủ.\n\nNhững nghiên cứu về nước mắt rượu dùng một hệ dễ quan sát để kiểm tra mô hình dòng màng mỏng. Giá trị nằm ở khả năng đối chiếu hình dạng và tốc độ, rồi chuyển kiến thức tới các hệ có cùng loại lực chi phối.\n\nCâu chuyện trên thành ly khiến sức căng bề mặt không còn chỉ là thứ giữ một giọt tròn. Khi nó thay đổi theo vị trí, bề mặt trở thành nguồn ứng suất có thể kéo chất lỏng đi. Một quá trình bay hơi rất nhỏ tạo sự chênh lệch hóa học, và sự chênh lệch ấy biến thành chuyển động nhìn thấy được trước mắt.\n\n## Nguồn và đọc thêm\n\n- [Nghiên cứu gốc · Tears of wine, 2015](https://www.nature.com/articles/srep16162)\n- [Nghiên cứu mô hình và thí nghiệm · Sóng trong nước mắt rượu](https://arxiv.org/abs/1909.09898)"
+}

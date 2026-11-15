@@ -1,0 +1,42 @@
+{
+  "id": "coulometer-bac-noi-khoi-luong-voi-dien-luong",
+  "slug": "coulometer-bac-noi-khoi-luong-voi-dien-luong",
+  "documentPath": "docs/coulometer-bac-noi-khoi-luong-voi-dien-luong/index.json",
+  "title": "Cân phần bạc mất đi để kiểm tra điện lượng",
+  "summary": "Các phép đo NBS dùng hòa tan bạc để xác định hằng số Faraday. Một phản ứng điện cực trở thành cầu nối giữa khối lượng, thời gian và dòng điện.",
+  "category": "khainiem",
+  "author": "Ban biên tập ChemDex",
+  "image": "/assets/library/photos/elements/Ag.jpg",
+  "tags": [
+    "Coulometry",
+    "Faraday",
+    "Bạc",
+    "Đo lường"
+  ],
+  "aliases": [],
+  "documentKind": "story",
+  "readingMinutes": 4,
+  "editorialEvidence": {
+    "language": "vi",
+    "scope": "chemical-family",
+    "contextLabel": "Cân phần bạc mất đi để kiểm tra điện lượng",
+    "reviewBasis": "Biên soạn theo các nguồn dẫn cuối bài; phân biệt kết quả đã thực hiện và hướng phát triển.",
+    "story": {
+      "status": "documented",
+      "section": "## Đổi từ cân lớp bám sang cân phần bị hòa tan",
+      "sources": [
+        "https://pmc.ncbi.nlm.nih.gov/articles/PMC5287045/",
+        "https://pmc.ncbi.nlm.nih.gov/articles/PMC6752668/"
+      ]
+    },
+    "application": {
+      "status": "documented",
+      "section": "## Ứng dụng hôm nay: coulometry đo chất bằng điện tích",
+      "sources": [
+        "https://pmc.ncbi.nlm.nih.gov/articles/PMC5287045/",
+        "https://pmc.ncbi.nlm.nih.gov/articles/PMC6752668/"
+      ]
+    }
+  },
+  "content": "## Đổi từ cân lớp bám sang cân phần bị hòa tan\n\nNăm 1960, Craig, Hoffman, Law và Hamer công bố phép xác định giá trị Faraday bằng hòa tan điện hóa bạc có độ tinh khiết cao. Phương pháp cổ điển thường cân bạc được kết tủa trên cathode; cách hòa tan anode giúp tránh một số khó khăn như chất bị giữ trong lớp bám.\n\nCác chuẩn dòng điện, khối lượng và thời gian của NBS cùng tham gia. Nhóm còn dùng bạc được xử lý để giảm oxygen và khảo sát nguồn sai số. Một phản ứng có phương trình rất ngắn vì thế trở thành phép đo phức tạp khi mục tiêu là độ chính xác cao.\n\nNăm 1980, Bower và Davis tiếp tục phép đo với phân tích tạp chất bằng khối phổ và cải tiến phương pháp. Sự nhất quán giữa các thế hệ thí nghiệm là một phần của việc kiểm tra cả hằng số lẫn hệ chuẩn đang dùng.\n\n![Mẫu bạc minh họa vật liệu điện cực; không phải anode của phép đo NBS](/assets/library/photos/elements/Ag.jpg)\n\n## Electron và nguyên tử gặp nhau trong một tỷ lệ\n\nỞ bước oxi hóa bạc thành ion hóa trị một, mỗi nguyên tử liên quan đến một electron trong phương trình lý tưởng. Nếu biết điện lượng đi qua và khối lượng bạc thực sự chuyển hóa, có thể nối số mol chất với lượng điện. Đó là cơ sở của quan hệ Faraday trong điện phân.\n\nĐiều kiện “thực sự chuyển hóa” rất quan trọng. Phản ứng phụ, bạc tự hòa tan hoặc những hạt rời khỏi điện cực có thể làm khối lượng mất không hoàn toàn tương ứng với điện lượng mong muốn. Tạp chất cũng có thể phản ứng theo hóa trị khác. Các hiệu chỉnh phải được dựa trên phép kiểm, không chỉ giả định mọi dòng điện đều làm cùng một việc.\n\nHằng số Faraday bằng tích hằng số Avogadro và điện tích nguyên tố. Trong SI hiện hành, hai giá trị số ấy đã được cố định, nên vai trò của phép đo hiện nay khác với thí nghiệm lịch sử xác định một hằng số chưa cố định. Quan hệ hóa học–điện vẫn hữu ích cho hiện thực và kiểm tra phép đo.\n\n## Ứng dụng hôm nay: coulometry đo chất bằng điện tích\n\nCác kỹ thuật coulometric được dùng trong định lượng và kiểm chuẩn khi phản ứng có thể được kiểm soát với hiệu suất đã biết. Thay vì thêm thuốc thử từ buret, có thể tạo hoặc tiêu thụ nó bằng điện rồi tích phân dòng theo thời gian. Lợi ích phải đi cùng kiểm tra phản ứng phụ và điểm cuối.\n\nCâu chuyện bạc không có nghĩa mọi điện cực đều là chuẩn khối lượng tốt. Nó cho thấy cần chọn một hệ hóa học có thể tinh chế, định lượng và hiểu những con đường sai lệch. Khi độ chính xác tăng, một phần tạp chất rất nhỏ có thể trở thành giới hạn chính.\n\nMột mảnh kim loại mất đi trong dung dịch đã giúp các nhà đo lường so hai thế giới tưởng xa nhau: số nguyên tử và dòng điện. Giá trị của thí nghiệm nằm ở việc biến phương trình thành một quá trình đủ sạch và đủ kiểm soát để mỗi lượng bạc được cân có thể được gắn với điện tích đã đi qua. Đó là điều khiến một định luật học trong sách trở thành một chiếc thước thực nghiệm.\n\n## Nguồn và đọc thêm\n\n- [Craig và cộng sự · Coulometer bạc, 1960](https://pmc.ncbi.nlm.nih.gov/articles/PMC5287045/)\n- [Bower và Davis · Đương lượng điện hóa bạc, 1980](https://pmc.ncbi.nlm.nih.gov/articles/PMC6752668/)"
+}

@@ -1,0 +1,44 @@
+{
+  "id": "passerini-ba-thanh-phan-giu-lai-nhieu-duong-di",
+  "slug": "passerini-ba-thanh-phan-giu-lai-nhieu-duong-di",
+  "documentPath": "docs/passerini-ba-thanh-phan-giu-lai-nhieu-duong-di/index.json",
+  "title": "Passerini sau một thế kỷ: ba thành phần và nhiều đường đi tiếp",
+  "summary": "Bài hồi cứu năm 2021 của nhóm nghiên cứu tại Genova cho thấy phản ứng Passerini không chỉ tạo một sản phẩm cuối. Những nhóm chức trong sản phẩm mở cơ hội đóng vòng và xây cấu trúc phức tạp hơn.",
+  "category": "phanung",
+  "author": "Ban biên tập ChemDex",
+  "image": "/assets/library/covalent-bonds.svg",
+  "tags": [
+    "Passerini",
+    "Đa thành phần",
+    "Isocyanide",
+    "Thiết kế hội tụ"
+  ],
+  "aliases": [],
+  "documentKind": "story",
+  "readingMinutes": 4,
+  "editorialEvidence": {
+    "language": "vi",
+    "scope": "chemical-family",
+    "contextLabel": "Passerini sau một thế kỷ: ba thành phần và nhiều đường đi tiếp",
+    "reviewBasis": "Biên soạn theo các nguồn dẫn cuối bài; phân biệt kết quả đã thực hiện và hướng phát triển.",
+    "story": {
+      "status": "documented",
+      "section": "## Một phản ứng được nhìn lại sau một trăm năm",
+      "sources": [
+        "https://pubs.rsc.org/en/content/articlepdf/2021/sc/d1sc03810a",
+        "https://www.organicreactions.org/pubchapter/the-passerini-reaction/",
+        "https://pmc.ncbi.nlm.nih.gov/articles/PMC9416173/"
+      ]
+    },
+    "application": {
+      "status": "documented",
+      "section": "## Ứng dụng hôm nay: chọn nhóm chức cho phần việc sau",
+      "sources": [
+        "https://pubs.rsc.org/en/content/articlepdf/2021/sc/d1sc03810a",
+        "https://www.organicreactions.org/pubchapter/the-passerini-reaction/",
+        "https://pmc.ncbi.nlm.nih.gov/articles/PMC9416173/"
+      ]
+    }
+  },
+  "content": "## Một phản ứng được nhìn lại sau một trăm năm\n\nNăm 2021, Luca Banfi và các đồng nghiệp tại Đại học Genova công bố bài The 100 Facets of the Passerini Reaction. Nhóm vừa tổng kết vừa kể những hướng mà họ đã tham gia phát triển: biến đổi sau phản ứng, thay thành phần và kiểm soát lập thể.\n\nPasserini được Mario Passerini công bố tại Florence năm 1921. Sau một thời kỳ ít được chú ý hơn, phương pháp được khai thác mạnh trở lại khi tổng hợp hội tụ và thư viện phân tử trở nên quan trọng.\n\nĐiểm hấp dẫn không chỉ là ba chất đầu vào tạo thành một chất phức tạp hơn. Sản phẩm còn giữ những nhóm chức có thể được dùng để xây thêm vòng hoặc tạo bộ khung mô phỏng peptide ở các bước sau.\n\n![Minh họa liên kết cộng hóa trị, không phải toàn bộ cấu trúc một sản phẩm Passerini](/assets/library/covalent-bonds.svg)\n\n## Ba đối tác được nối thành một hệ ester–amide\n\nPhản ứng Passerini kinh điển kết hợp một carbonyl, acid carboxylic và isocyanide để tạo alpha-acyloxyamide. Acid và carbonyl tương tác, rồi isocyanide tham gia vào chuỗi biến đổi dẫn tới sản phẩm có hai loại nhóm chức hữu ích.\n\nCác cơ chế được đề xuất cần được đọc theo môi trường và loại thành phần. Bài hồi cứu phân biệt phản ứng cổ điển với những biến thể dùng Lewis acid hoặc thay một đối tác, vì sản phẩm và đường trung gian có thể khác nhau.\n\nNếu carbonyl không đối xứng, một tâm lập thể mới có thể hình thành. Tạo được sản phẩm không đồng nghĩa đã chọn được một dạng không gian; những phương pháp bất đối xứng là một phần phát triển riêng của lĩnh vực.\n\nCác thành phần có hai nhóm chức được thiết kế có thể tiếp tục phản ứng sau bước Passerini, tạo dị vòng trong một chuỗi ngắn. Tuy nhiên, điều đó cần bố trí vị trí thích hợp, không phải mọi sản phẩm đều tự đóng vòng.\n\nSự linh hoạt này làm phương pháp hữu ích cho nghiên cứu cấu trúc, đồng thời đòi hỏi phân tích đầy đủ để biết phản ứng đã dừng ở bộ khung nào.\n\n## Ứng dụng hôm nay: chọn nhóm chức cho phần việc sau\n\nPasserini được dùng trong tổng hợp sản phẩm tự nhiên, các phân tử mô phỏng peptide và những chất để khảo sát hoạt tính. Những ví dụ được ghi trong tài liệu phản ứng đa thành phần cho thấy nó có thể rút ngắn một số tuyến khi các mảnh đầu vào phù hợp.\n\nNhưng độ gọn của sơ đồ không bảo đảm tính đơn giản của làm sạch. Isocyanide và những đối tác đa chức có thể tạo những đường phụ; môi trường và thứ tự phản ứng cần được kiểm tra trong hệ thực.\n\nMột thiết kế tốt xem sản phẩm Passerini như một điểm giao. Nhóm ester và amide có thể được giữ lại để phục vụ tương tác, hoặc được biến đổi chọn lọc để tạo bộ khung khác. Giá trị của bước đầu vì vậy phụ thuộc cả những gì được làm tiếp.\n\nCâu chuyện trăm năm của phản ứng cho thấy một phương pháp cũ có thể nhận thêm chức năng khi cách lập kế hoạch tổng hợp thay đổi. Từ ba nguyên liệu, nhà hóa học không chỉ tìm một sản phẩm nhanh; họ tìm một cấu trúc trung gian đủ giàu khả năng để mở những đường đi mà làm từng liên kết riêng lẻ có thể dài và tốn công hơn.\n\n## Nguồn và đọc thêm\n\n- [Banfi và cộng sự · The 100 Facets of the Passerini Reaction, 2021](https://pubs.rsc.org/en/content/articlepdf/2021/sc/d1sc03810a)\n- [Organic Reactions · Phạm vi của Passerini và các biến thể](https://www.organicreactions.org/pubchapter/the-passerini-reaction/)\n- [Các phản ứng đa thành phần trong tổng hợp hoạt chất](https://pmc.ncbi.nlm.nih.gov/articles/PMC9416173/)"
+}

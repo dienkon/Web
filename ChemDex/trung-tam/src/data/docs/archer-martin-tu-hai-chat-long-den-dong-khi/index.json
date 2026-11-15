@@ -1,0 +1,41 @@
+{
+  "id": "archer-martin-tu-hai-chat-long-den-dong-khi",
+  "slug": "archer-martin-tu-hai-chat-long-den-dong-khi",
+  "documentPath": "docs/archer-martin-tu-hai-chat-long-den-dong-khi/index.json",
+  "title": "Archer Martin: đổi pha chuyển động để sắc ký đi nhanh hơn",
+  "summary": "Sau sắc ký phân bố, Martin cùng Anthony James phát triển sắc ký khí–lỏng. Những phân tử dễ bay hơi được tách bằng thời gian chúng dành trong hai môi trường.",
+  "category": "tieusu",
+  "author": "Ban biên tập ChemDex",
+  "image": "/assets/library/history-evidence.svg",
+  "tags": [
+    "Archer Martin",
+    "Sắc ký khí",
+    "Phân bố"
+  ],
+  "aliases": [],
+  "documentKind": "story",
+  "readingMinutes": 3,
+  "editorialEvidence": {
+    "language": "vi",
+    "scope": "chemical-family",
+    "contextLabel": "Archer Martin: đổi pha chuyển động để sắc ký đi nhanh hơn",
+    "reviewBasis": "Biên soạn theo các nguồn dẫn cuối bài; phân biệt kết quả đã thực hiện và hướng phát triển.",
+    "story": {
+      "status": "documented",
+      "section": "## Một ý tưởng đã nằm trong công trình trước",
+      "sources": [
+        "https://doi.org/10.1042/bj0500679",
+        "https://www.nobelprize.org/prizes/chemistry/1952/martin/lecture/"
+      ]
+    },
+    "application": {
+      "status": "documented",
+      "section": "## Ứng dụng hôm nay: dòng khí mang theo một lịch sử tương tác",
+      "sources": [
+        "https://doi.org/10.1042/bj0500679",
+        "https://www.nobelprize.org/prizes/chemistry/1952/martin/lecture/"
+      ]
+    }
+  },
+  "content": "## Một ý tưởng đã nằm trong công trình trước\n\nTrong bài báo sắc ký phân bố năm 1941, Archer Martin và Richard Synge đã gợi khả năng dùng khí làm pha chuyển động. Đến đầu thập niên 1950, Martin cùng Anthony James phát triển phương pháp khí–lỏng thành một công cụ thực nghiệm.\n\nKhí đưa những chất dễ bay hơi qua cột, trong khi một pha lỏng được giữ lại trên chất mang. Các chất có mức phân bố khác nhau giữa hai pha sẽ ra ở những thời điểm khác nhau.\n\nBước tiến mở rộng mạnh khả năng phân tích các hỗn hợp hữu cơ phù hợp. Nhưng nó không chỉ là thay dung môi bằng khí trong cùng một bình. Cột, kiểm soát nhiệt, cách đưa mẫu và detector đều phải được thiết kế để những khác biệt nhỏ về lưu giữ trở thành tín hiệu đọc được.\n\n![Minh họa chủ đề nghiên cứu; không phải chân dung hoặc dữ liệu thực nghiệm gốc](/assets/library/history-evidence.svg)\n\n## Tách bằng nhiều lần trao đổi giữa hai môi trường\n\nMột phân tử trong cột không nhất thiết đi liên tục cùng tốc độ với khí. Nó có thể dành một phần thời gian trong pha lỏng, rồi trở lại dòng khí. Những lần trao đổi lặp lại tạo khác biệt về thời gian đi qua cột.\n\nĐộ bay hơi và tương tác với pha giữ cùng ảnh hưởng kết quả. Vì vậy, nhiệt độ và thành phần pha cố định cần được chọn theo hỗn hợp. Một chương trình tốt cho chất này có thể làm chất khác không tách hoặc bị biến đổi.\n\nCác lý thuyết về số đĩa và hiệu quả cột giúp diễn tả mức sắc nét của các vùng chất. Nhưng thời gian lưu không phải dấu căn cước tuyệt đối. Người phân tích cần chuẩn hoặc những detector cung cấp thông tin bổ sung, nhất là khi nhiều chất có thể ra gần nhau. Một đỉnh rõ vẫn có thể chứa hơn một thành phần.\n\n## Ứng dụng hôm nay: dòng khí mang theo một lịch sử tương tác\n\nSắc ký khí được dùng trong nhiều lĩnh vực phân tích nhiên liệu, hương, môi trường và hóa chất. Nó phù hợp với những chất có thể đưa qua hệ trong trạng thái cần thiết mà không bị phân hủy ngoài ý muốn.\n\nNhững thiết bị ghép khối phổ bổ sung khả năng nhận diện, nhưng vẫn dựa vào chất lượng của bước tách. Cách lấy mẫu và chuẩn bị cũng có thể quyết định chất nào thực sự đi vào máy.\n\nMartin giúp biến sự phân bố giữa các pha thành một công cụ có thể điều khiển bằng thiết kế cột và điều kiện. Dòng khí trông như chỉ vận chuyển mẫu, nhưng mỗi chất đã trải qua một số lần lưu lại khác nhau trước khi ra tới detector. Đọc được lịch sử tương tác ấy giúp hóa học phân biệt những thành phần mà mắt thường chỉ thấy như một chất lỏng hoặc một mùi chung.\n\n## Nguồn và đọc thêm\n\n- [James và Martin · Sắc ký khí–lỏng, 1952](https://doi.org/10.1042/bj0500679)\n- [Archer Martin · Bài giảng Nobel](https://www.nobelprize.org/prizes/chemistry/1952/martin/lecture/)"
+}

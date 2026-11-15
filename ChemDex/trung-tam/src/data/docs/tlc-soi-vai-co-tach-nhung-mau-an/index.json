@@ -1,0 +1,42 @@
+{
+  "id": "tlc-soi-vai-co-tach-nhung-mau-an",
+  "slug": "tlc-soi-vai-co-tach-nhung-mau-an",
+  "documentPath": "docs/tlc-soi-vai-co-tach-nhung-mau-an/index.json",
+  "title": "Một sợi vải cũ và những vệt màu chạy trên bản mỏng",
+  "summary": "Sắc ký lớp mỏng giúp khảo sát chất nhuộm của hiện vật dệt. Vị trí vệt là đầu mối được so với chuẩn, không phải căn cước tuyệt đối của màu.",
+  "category": "khainiem",
+  "author": "Ban biên tập ChemDex",
+  "image": "/assets/library/history-evidence.svg",
+  "tags": [
+    "TLC",
+    "Chất nhuộm",
+    "Di sản",
+    "Phân tách"
+  ],
+  "aliases": [],
+  "documentKind": "story",
+  "readingMinutes": 4,
+  "editorialEvidence": {
+    "language": "vi",
+    "scope": "chemical-family",
+    "contextLabel": "Một sợi vải cũ và những vệt màu chạy trên bản mỏng",
+    "reviewBasis": "Biên soạn theo các nguồn dẫn cuối bài; phân biệt kết quả đã thực hiện và hướng phát triển.",
+    "story": {
+      "status": "documented",
+      "section": "## Một phòng bảo tàng cần cách nhận diện màu với mẫu nhỏ",
+      "sources": [
+        "https://digitalcommons.unl.edu/archivaltheses/994/",
+        "https://www.brynmawr.edu/bulletin/students-analyze-early-byzantine-textiles-360deg"
+      ]
+    },
+    "application": {
+      "status": "documented",
+      "section": "## Ứng dụng hôm nay: một phép sàng lọc có bối cảnh",
+      "sources": [
+        "https://digitalcommons.unl.edu/archivaltheses/994/",
+        "https://www.brynmawr.edu/bulletin/students-analyze-early-byzantine-textiles-360deg"
+      ]
+    }
+  },
+  "content": "## Một phòng bảo tàng cần cách nhận diện màu với mẫu nhỏ\n\nTrong công trình năm 1971 tại Đại học Nebraska, Catherine Schweiger khảo sát các kỹ thuật phân tích chất nhuộm lịch sử và xây dựng một phương pháp sắc ký lớp mỏng có thể dùng trong phòng thí nghiệm bảo tàng. Kết luận đồng thời thừa nhận những giới hạn chuyên môn và nhu cầu hỗ trợ từ các cơ sở phân tích sâu hơn.\n\nNhiều thập niên sau, một chương trình tại Bryn Mawr cho sinh viên nghiên cứu vải Byzantine sớm bằng cách kết hợp lịch sử nghệ thuật với hóa học, trong đó TLC được dùng để nhận diện màu cổ. Một mảnh vải không chỉ kể bằng hình vẽ và kiểu dệt; chất tạo màu có thể bổ sung thông tin về công nghệ và nguyên liệu.\n\nLấy mẫu là quyết định có giá trị bảo tồn. Kỹ thuật cần làm việc với lượng nhỏ và dữ liệu phải đủ hữu ích để biện minh cho phần vật liệu đã được lấy khỏi hiện vật.\n\n![Minh họa khảo sát bằng chứng vật liệu; không phải ảnh mẫu vải hay bản TLC](/assets/library/history-evidence.svg)\n\n## Hai pha khiến các phân tử đi xa khác nhau\n\nTrong TLC, mẫu được đặt gần một đầu lớp pha tĩnh trên bản. Dung môi di chuyển dọc bản nhờ mao dẫn, mang các thành phần theo. Mức tương tác khác nhau với pha tĩnh và pha động khiến chúng đi những quãng khác nhau, tạo vệt hoặc chấm có thể quan sát.\n\nTỷ lệ quãng đường của chất so với mặt dung môi thường được dùng để mô tả vị trí. Nhưng giá trị phụ thuộc dung môi, loại bản, nhiệt độ, độ ẩm và lượng mẫu. Cùng vị trí trong một hệ không đủ chứng minh hai chất chắc chắn giống nhau; ngược lại, đổi điều kiện có thể làm cùng chất đi khác.\n\nSo mẫu với chất chuẩn trên cùng bản giúp giảm một phần sai khác điều kiện. Ánh sáng tử ngoại hoặc thuốc thử phù hợp có thể làm những chất không nhìn rõ bằng mắt trở nên quan sát được. Mỗi cách hiện vệt lại cần biết nó phản ứng hoặc đáp ứng với nhóm nào.\n\n## Ứng dụng hôm nay: một phép sàng lọc có bối cảnh\n\nTLC vẫn hữu ích trong giảng dạy, theo dõi phản ứng và một số nghiên cứu vật liệu lịch sử, nhất là khi cần so nhanh nhiều mẫu. Với chất nhuộm cổ, sản phẩm phân hủy, chất cầm màu và hỗn hợp ban đầu làm việc diễn giải phức tạp. Những phép đo phổ hoặc HPLC có thể được dùng để xác nhận các thành phần quan trọng.\n\nMột vệt đỏ không tự cho biết niên đại hoặc nguồn địa lý của sợi. Nó chỉ là một phần của câu chuyện vật liệu, cần đặt cạnh tư liệu, kiểu dệt và các mẫu so sánh. Công trình năm 1971 đáng nhớ vì vừa xây một phương pháp khả thi vừa nói rõ lúc nào cần năng lực phân tích bổ sung.\n\nBản mỏng trông đơn giản nhưng chứa một nguyên lý mạnh: cho các phân tử liên tục lựa chọn giữa hai môi trường, rồi biến sự khác biệt thành khoảng cách. Khi dùng đúng phạm vi, những vệt nhỏ giúp một màu đã phai trên hiện vật tiếp tục cung cấp thông tin, thay vì chỉ còn là cảm giác thị giác của người đang nhìn nó.\n\n## Nguồn và đọc thêm\n\n- [Schweiger · Phân tích chất nhuộm vải lịch sử, 1971](https://digitalcommons.unl.edu/archivaltheses/994/)\n- [Bryn Mawr · Nghiên cứu vải Byzantine bằng hóa học và lịch sử](https://www.brynmawr.edu/bulletin/students-analyze-early-byzantine-textiles-360deg)"
+}

@@ -1,0 +1,44 @@
+{
+  "id": "sonoluminescence-bong-khi-chop-sang",
+  "slug": "sonoluminescence-bong-khi-chop-sang",
+  "documentPath": "docs/sonoluminescence-bong-khi-chop-sang/index.json",
+  "title": "Một bong bóng được âm thanh giữ lại rồi phát ra chớp sáng",
+  "summary": "Phát quang của một bong bóng đơn cho phép khảo sát quá trình nén sụp rất nhanh. Ánh sáng giúp hỏi về điều kiện bên trong, nhưng mô hình cần nhiều dữ liệu hơn một chấm sáng.",
+  "category": "khainiem",
+  "author": "Ban biên tập ChemDex",
+  "image": "/assets/library/apparatus-spectroscope.svg",
+  "tags": [
+    "Sonoluminescence",
+    "Cavitation",
+    "Bong bóng",
+    "Năng lượng"
+  ],
+  "aliases": [],
+  "documentKind": "story",
+  "readingMinutes": 4,
+  "editorialEvidence": {
+    "language": "vi",
+    "scope": "chemical-family",
+    "contextLabel": "Một bong bóng được âm thanh giữ lại rồi phát ra chớp sáng",
+    "reviewBasis": "Biên soạn theo các nguồn dẫn cuối bài; phân biệt kết quả đã thực hiện và hướng phát triển.",
+    "story": {
+      "status": "documented",
+      "section": "## Một chấm sáng tưởng liên tục hóa ra là nhiều chớp ngắn",
+      "sources": [
+        "https://ora.ox.ac.uk/objects/uuid%3Ae83dd48c-4340-48e0-aab2-140cc9d2c463/files/m7455433d407030d7672368ca10ea01c7",
+        "https://arxiv.org/abs/chao-dyn/9608005",
+        "https://www.nature.com/articles/18786"
+      ]
+    },
+    "application": {
+      "status": "documented",
+      "section": "## Ứng dụng hôm nay: một đầu dò của cavitation",
+      "sources": [
+        "https://ora.ox.ac.uk/objects/uuid%3Ae83dd48c-4340-48e0-aab2-140cc9d2c463/files/m7455433d407030d7672368ca10ea01c7",
+        "https://arxiv.org/abs/chao-dyn/9608005",
+        "https://www.nature.com/articles/18786"
+      ]
+    }
+  },
+  "content": "## Một chấm sáng tưởng liên tục hóa ra là nhiều chớp ngắn\n\nFelipe Gaitan quan sát phát quang của một bong bóng được giữ ổn định trong trường âm năm 1989. Công trình năm 1992 cùng Crum, Church và Roy mô tả động học bán kính và những xung sáng xảy ra gắn với mỗi chu kỳ co sụp. Việc giữ một bong bóng duy nhất cho phép khảo sát chi tiết hơn hệ nhiều bong bóng cùng chuyển động.\n\nMột chấm sáng nhỏ nhìn bằng mắt có thể che một quá trình rất nhanh. Detector phù hợp cho thấy ánh sáng không phải dòng phát liên tục ở mức vi mô. Đo tán xạ laser từ bong bóng giúp liên hệ thời điểm phát sáng với sự thay đổi kích thước.\n\nSự kiểm soát này biến một hiện tượng gây tò mò thành một hệ thí nghiệm có thể dùng để kiểm tra các mô hình vật lý và hóa học.\n\n![Minh họa đo ánh sáng; không phải ảnh bong bóng phát quang trong thí nghiệm](/assets/library/apparatus-spectroscope.svg)\n\n## Năng lượng âm được tập trung khi bong bóng sụp\n\nÁp suất âm thay đổi làm bong bóng giãn và co. Trong miền điều kiện phù hợp, giai đoạn sụp có thể nén khí và hơi rất mạnh trong thời gian ngắn. Một phần năng lượng cuối cùng được phát ra dưới dạng ánh sáng, bên cạnh nhiệt và những quá trình khác.\n\nThành phần khí, lượng hòa tan, tính chất chất lỏng và cường độ kích thích ảnh hưởng trạng thái ổn định. Không phải cứ đưa siêu âm vào nước là tạo được một bong bóng đơn sáng lâu theo cùng cơ chế. Những vùng thông số có thể tồn tại ổn định cần được xác định bằng thí nghiệm và mô hình.\n\nPhổ ánh sáng và thời gian xung cung cấp những ràng buộc về điều kiện bên trong, nhưng việc suy nhiệt độ hoặc cơ chế phát xạ cần thận trọng. Hệ không đồng đều và thay đổi nhanh; một mô hình đơn giản có thể phù hợp một miền dữ liệu nhưng không bao trùm mọi loại phát quang đa bong bóng.\n\n## Ứng dụng hôm nay: một đầu dò của cavitation\n\nPhát quang âm là một cách nghiên cứu sự tập trung năng lượng trong cavitation, quá trình cũng liên quan tới hóa học siêu âm và tác động lên bề mặt. Những phân tích về giản đồ pha của bong bóng dùng các phương trình động học, khuếch tán khí và ổn định hóa học để kiểm tra miền tồn tại của trạng thái sáng.\n\nMột thí nghiệm phát chớp không tự là một nguồn năng lượng hữu ích hay bằng chứng cho những quá trình hạt nhân. Năng lượng phải được tính từ nguồn âm và các dòng trao đổi trong hệ. Giá trị chắc chắn hơn của hiện tượng là cung cấp một môi trường cực đoan cục bộ để nghiên cứu.\n\nCâu chuyện bong bóng cho thấy mắt thường có thể nhìn một hiệu ứng mà không thấy nhịp thật của nó. Để hiểu, cần đổi từ “có ánh sáng” sang các câu hỏi định lượng: lúc nào sáng, phổ gì, bong bóng lớn đến đâu và khí nào bên trong? Khi những dữ liệu ấy được ghép lại, chấm sáng trở thành một phép thử nghiêm túc về cách năng lượng chuyển từ chuyển động tập thể của chất lỏng vào một vùng rất nhỏ.\n\n## Nguồn và đọc thêm\n\n- [Gaitan và cộng sự · Bong bóng đơn và phát quang, 1992](https://ora.ox.ac.uk/objects/uuid%3Ae83dd48c-4340-48e0-aab2-140cc9d2c463/files/m7455433d407030d7672368ca10ea01c7)\n- [Nghiên cứu mô hình · Giản đồ pha bong bóng phát quang](https://arxiv.org/abs/chao-dyn/9608005)\n- [Apfel · Bối cảnh thí nghiệm bong bóng đơn](https://www.nature.com/articles/18786)"
+}

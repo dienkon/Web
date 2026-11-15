@@ -1,0 +1,44 @@
+{
+  "id": "peek-tu-me-polymer-den-chi-tiet-chiu-tai",
+  "slug": "peek-tu-me-polymer-den-chi-tiet-chiu-tai",
+  "documentPath": "docs/peek-tu-me-polymer-den-chi-tiet-chiu-tai/index.json",
+  "title": "Từ mẻ PEEK năm 1978 đến một chi tiết phải chịu tải lâu dài",
+  "summary": "Polyether ether ketone bước từ nhựa kỹ thuật sang những cấp vật liệu chuyên dụng. Khả năng gia công và chịu môi trường của polymer chỉ trở thành lợi ích khi thiết kế đúng cấp và đúng chi tiết.",
+  "category": "hopchat",
+  "author": "Ban biên tập ChemDex",
+  "image": "/assets/library/organic-polymer.svg",
+  "tags": [
+    "PEEK",
+    "PAEK",
+    "Nhựa kỹ thuật",
+    "Composite"
+  ],
+  "aliases": [],
+  "documentKind": "story",
+  "readingMinutes": 4,
+  "editorialEvidence": {
+    "language": "vi",
+    "scope": "chemical-family",
+    "contextLabel": "Từ mẻ PEEK năm 1978 đến một chi tiết phải chịu tải lâu dài",
+    "reviewBasis": "Biên soạn theo các nguồn dẫn cuối bài; phân biệt kết quả đã thực hiện và hướng phát triển.",
+    "story": {
+      "status": "documented",
+      "section": "## Một mốc sản xuất trên dòng thời gian",
+      "sources": [
+        "https://www.victrex.com/en/about-us/about-victrex",
+        "https://pmc.ncbi.nlm.nih.gov/articles/PMC2040108/",
+        "https://invibio.com/en/materials-solutions/implantable-peek"
+      ]
+    },
+    "application": {
+      "status": "documented",
+      "section": "## Ứng dụng hôm nay: giảm khối lượng cùng với kiểm tra đúng tải",
+      "sources": [
+        "https://www.victrex.com/en/about-us/about-victrex",
+        "https://pmc.ncbi.nlm.nih.gov/articles/PMC2040108/",
+        "https://invibio.com/en/materials-solutions/implantable-peek"
+      ]
+    }
+  },
+  "content": "## Một mốc sản xuất trên dòng thời gian\n\nVictrex ghi ngày 19 tháng 11 năm 1978 là mẻ chế tạo PEEK đầu tiên trong hành trình công nghệ từ ICI. Đến năm 1981, họ sản phẩm thương mại có cả những dạng gia cường bằng sợi thủy tinh hoặc carbon. Vật liệu mới đã được đưa vào công việc thiết kế, nơi tính chất phải đi cùng cách tạo hình.\n\nPEEK là polyether ether ketone, thuộc họ polyaryletherketone. Các đoạn vòng thơm nối với nhóm ether và ketone tạo một kiến trúc có thể chịu những môi trường mà nhiều nhựa phổ thông khó đáp ứng. Nhưng chính cấu trúc ấy cũng đặt yêu cầu cho điều kiện chế biến.\n\nTừ một mẻ polymer đến một vòng đệm hoặc một chi tiết chuyển động, còn có công việc kiểm soát hạt nguyên liệu, độ sạch, chất độn và khuôn. Dòng thời gian nhà máy ghi thêm những bước lọc nóng chảy và mở rộng chế tạo. Các khâu ít xuất hiện trên ảnh sản phẩm lại góp phần quyết định chất lượng lặp lại.\n\n![Minh họa chuỗi polymer, không phải công thức đầy đủ của PEEK](/assets/library/organic-polymer.svg)\n\n## Cấu trúc rắn giữ ký ức của quá trình làm nguội\n\nPEEK có thể tạo vùng kết tinh bên cạnh phần vô định hình. Lịch sử gia nhiệt, làm nguội và kích thước chi tiết ảnh hưởng trạng thái vật rắn thu được. Vì vậy, tên polymer chưa mô tả đầy đủ tính chất của một mẫu sau gia công.\n\nThêm sợi carbon có thể thay đổi độ cứng, độ bền và cách truyền tải, nhưng cũng làm vật liệu khác PEEK nguyên chất. Hướng sợi và sự phân bố của chúng quan trọng trong một chi tiết được ép hoặc tạo hình. Kết quả trên mẫu chuẩn cần được đối chiếu với tải thực.\n\nCác tổng quan vật liệu PAEK dùng trong thiết bị cấy ghép cho thấy phải phân biệt polymer công nghiệp với cấp được đánh giá cho mục đích đó. Những câu hỏi về độ sạch, xử lý, bề mặt và tính tương thích của cả thiết bị vượt xa việc nhìn công thức đơn vị lặp.\n\nVật liệu có thể ít cản ảnh X-quang hơn một số kim loại, một đặc điểm có ích trong những thiết kế nhất định. Tuy nhiên, khả năng quan sát không tự chứng minh độ bền hay đáp ứng mô. Mỗi lợi ích là một phần trong bảng yêu cầu của sản phẩm.\n\n## Ứng dụng hôm nay: giảm khối lượng cùng với kiểm tra đúng tải\n\nPEEK xuất hiện trong làm kín, cơ khí, điện tử, hàng không và những thiết bị y sinh được phát triển riêng. Victrex và Invibio cung cấp các dòng vật liệu có cấu hình khác nhau, trong đó có dạng gia cường hoặc thay đổi bề mặt. Những thông tin đó mô tả họ sản phẩm, không phải khuyến nghị lựa chọn thiết bị cho một cá nhân.\n\nMột kỹ sư thay kim loại bằng polymer cần tính độ cứng, mỏi, nhiệt, ma sát và giãn nở của cả chi tiết. Lợi ích giảm khối lượng có thể đi cùng thay đổi hình học hoặc phương pháp lắp. Thay vật liệu mà giữ nguyên mọi kích thước chưa chắc giữ được tính năng.\n\nCâu chuyện PEEK cho thấy nhựa kỹ thuật có thể nhận những công việc rất nặng khi được thiết kế cẩn thận. Mẻ năm 1978 là một dấu mốc; giá trị sử dụng được xây tiếp qua cấp nguyên liệu, phương pháp gia công và các phép thử. Polymer trở thành chi tiết đáng tin nhờ con đường nối các bước ấy.\n\n## Nguồn và đọc thêm\n\n- [Victrex: lịch sử PEEK và mẻ năm 1978](https://www.victrex.com/en/about-us/about-victrex)\n- [Kurtz và Devine: vật liệu PEEK trong thiết bị chịu tải, 2007](https://pmc.ncbi.nlm.nih.gov/articles/PMC2040108/)\n- [Invibio: các cấp PEEK dùng cho thiết bị cấy ghép](https://invibio.com/en/materials-solutions/implantable-peek)"
+}

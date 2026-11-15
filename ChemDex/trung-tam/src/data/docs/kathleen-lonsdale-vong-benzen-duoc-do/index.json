@@ -1,0 +1,41 @@
+{
+  "id": "kathleen-lonsdale-vong-benzen-duoc-do",
+  "slug": "kathleen-lonsdale-vong-benzen-duoc-do",
+  "documentPath": "docs/kathleen-lonsdale-vong-benzen-duoc-do/index.json",
+  "title": "Kathleen Lonsdale: chiếc vòng benzen được đưa ra trước phép đo",
+  "summary": "Tinh thể hexamethylbenzene giúp Lonsdale kiểm tra hình dạng một hệ vòng thơm. Một biểu tượng quen trên giấy được đối chiếu với dữ liệu tia X.",
+  "category": "tieusu",
+  "author": "Ban biên tập ChemDex",
+  "image": "/assets/library/history-evidence.svg",
+  "tags": [
+    "Kathleen Lonsdale",
+    "Benzen",
+    "Tinh thể học"
+  ],
+  "aliases": [],
+  "documentKind": "story",
+  "readingMinutes": 4,
+  "editorialEvidence": {
+    "language": "vi",
+    "scope": "chemical-family",
+    "contextLabel": "Kathleen Lonsdale: chiếc vòng benzen được đưa ra trước phép đo",
+    "reviewBasis": "Biên soạn theo các nguồn dẫn cuối bài; phân biệt kết quả đã thực hiện và hướng phát triển.",
+    "story": {
+      "status": "documented",
+      "section": "## Một phân tử thuận lợi để hỏi về chiếc vòng",
+      "sources": [
+        "https://doi.org/10.1098/rspa.1929.0081",
+        "https://www.iucr.org/people/crystallographers/lonsdale"
+      ]
+    },
+    "application": {
+      "status": "documented",
+      "section": "## Ứng dụng hôm nay: hình học là dữ liệu cần hỏi nguồn",
+      "sources": [
+        "https://doi.org/10.1098/rspa.1929.0081",
+        "https://www.iucr.org/people/crystallographers/lonsdale"
+      ]
+    }
+  },
+  "content": "## Một phân tử thuận lợi để hỏi về chiếc vòng\n\nNăm 1929, Kathleen Lonsdale công bố phân tích tinh thể hexamethylbenzene. Hợp chất này có sáu nhóm methyl quanh vòng benzen và tạo mẫu phù hợp cho việc khảo sát bằng tia X. Câu hỏi là sáu carbon của vòng được bố trí ra sao trong không gian.\n\nCác mô hình benzen đã được tranh luận từ lâu, nhưng hình vẽ hóa học cần bằng chứng hình học. Dữ liệu nhiễu xạ cho phép kiểm tra cách các nguyên tử được tổ chức và hỗ trợ cấu trúc vòng phẳng.\n\nLonsdale làm công việc trong thời kỳ tính toán cấu trúc cần nhiều thao tác đo và tính thủ công. Một kết luận gọn trong sách hôm nay có thể đứng trên những bảng số dài và những lần đối chiếu mô hình kiên nhẫn. Chọn được tinh thể thích hợp là một phần của lời giải, không chỉ một bước chuẩn bị tiện lợi.\n\n![Minh họa chủ đề nghiên cứu; không phải chân dung hoặc dữ liệu thực nghiệm gốc](/assets/library/history-evidence.svg)\n\n## Đốm nhiễu xạ không tự mang tên nguyên tử\n\nTinh thể lặp lại nhiều đơn vị phân tử, làm tín hiệu tán xạ có trật tự. Vị trí và cường độ các đốm liên quan tới cách mật độ electron phân bố, nhưng cần phương pháp phân tích để chuyển chúng thành mô hình cấu trúc.\n\nMột mô hình ứng viên phải giải thích được nhiều dữ liệu cùng lúc. Nếu chỉ chọn vài điểm thuận lợi, rất nhiều hình có thể trông hợp lý. Sức mạnh của cấu trúc nằm ở sự nhất quán trên toàn bộ phép đo và những ràng buộc hóa học.\n\nVòng phẳng còn khác với việc khẳng định các liên kết đơn và đôi nằm cố định như một hình Kekulé riêng lẻ. Những kết quả cấu trúc về sau cùng lý thuyết liên kết tiếp tục làm rõ sự tương đương của các vị trí trong vòng. Công trình của Lonsdale là một bước bằng chứng quan trọng trong chuỗi ấy, thay vì một thí nghiệm đơn lẻ chứa sẵn toàn bộ hiểu biết hiện đại về tính thơm.\n\n## Ứng dụng hôm nay: hình học là dữ liệu cần hỏi nguồn\n\nTinh thể học hiện cung cấp cấu trúc cho vật liệu, hợp chất hữu cơ và các phân tử sinh học. Khi sử dụng một mô hình, cần xem nó được xác định từ mẫu nào, dưới điều kiện nào và ở mức chi tiết nào.\n\nHình dạng của phân tử ảnh hưởng tương tác, đóng gói tinh thể và phản ứng. Nhưng tinh thể cũng có môi trường riêng; phân tử trong dung dịch có thể chuyển động hoặc tương tác khác. Những cách đo bổ sung giúp nối cấu trúc rắn với hành vi ở nơi sử dụng.\n\nCâu chuyện Lonsdale làm cho biểu tượng lục giác trong vở có một lịch sử thực nghiệm. Nó không chỉ là quy ước đẹp để viết nhanh. Các nhà nghiên cứu đã chọn mẫu, chiếu tia X, tính và so sánh để hỏi vòng ấy thật sự nằm thế nào trong không gian. Thói quen hỏi bằng chứng của một mô hình vẫn cần thiết ngay khi máy tính có thể dựng hình phân tử trong vài giây.\n\n## Nguồn và đọc thêm\n\n- [Lonsdale · Cấu trúc hexamethylbenzene, 1929](https://doi.org/10.1098/rspa.1929.0081)\n- [IUCr · Kathleen Lonsdale và tinh thể học](https://www.iucr.org/people/crystallographers/lonsdale)"
+}
