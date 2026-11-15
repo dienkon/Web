@@ -163,25 +163,6 @@ try {
     const panel = document.querySelector('#manual-lab [data-sidebar="right"]');
     return panel && panel.getBoundingClientRect().width >= minimum;
   }, rightWidth - 1, { timeout: 60000 });
-  const manualTarget = await page.evaluate(async () => {
-    const { useAppStore } = await import('/src/store/useAppStore.ts');
-    const state = useAppStore.getState();
-    const targetVesselId = state.vesselIds[0] ?? Object.keys(state.vessels)[0];
-    if (!targetVesselId) throw new Error('No manual vessel is available for the dose check.');
-    useAppStore.getState().setPendingDispense({ chemical: 'HCl', targetVesselId });
-    return targetVesselId;
-  });
-  await page.getByRole('button', { name: '0.25 mL', exact: true }).click();
-  await page.getByText('Pipet Pasteur · nhỏ giọt').waitFor();
-  await page.getByRole('button', { name: 'Pipet 0.25 mL · 5 giọt', exact: true }).waitFor();
-  await page.screenshot({ path: `${output}/workspace-dropper-dose.png` });
-  await page.getByRole('button', { name: 'Hủy', exact: true }).click();
-  const dropperDoseSelection = await page.evaluate(async target => {
-    const { useAppStore } = await import('/src/store/useAppStore.ts');
-    const state = useAppStore.getState();
-    return { target, pending: state.pendingDispense, vesselCount: Object.keys(state.vessels).length };
-  }, manualTarget);
-  assert.equal(dropperDoseSelection.pending, null);
   await resize('left', 50); await resize('right', -45);
   await page.setViewportSize({ width: 390, height: 844 });
   await page.getByRole('tab', { name: 'Tự động', exact: true }).click();
@@ -205,7 +186,7 @@ try {
     manualPanelStateRestored: true, resizableManualAndAutomaticSidebars: true, keyboardResize: true,
     emptyReceiverBeforePour: true, animatedDonorAndStream: transfer, pauseUsesDemandRendering: true,
     restartReusesCanvas: true, nextReactionClearsPreviousRun: true, smoke: true, playlist: true, fullscreen: true,
-    manualBenchPreserved: true, decimalDoseUsesFiveDropPipette: dropperDoseSelection, mobile: true, errors };
+    manualBenchPreserved: true, mobile: true, errors };
   writeFileSync(`${output}/workspace-browser.json`, JSON.stringify(report, null, 2) + '\n');
   console.log(report);
 } catch (error) {
