@@ -1,0 +1,74 @@
+{
+  "errors": [],
+  "stages": [
+    {
+      "id": "cu_agno3",
+      "phase": "dose",
+      "caption": "Thêm chất rắn Cu · 0.00 / 0.0635 g đã vào bình.",
+      "time": 18.916666666666874,
+      "formula": "Cu",
+      "fraction": 0,
+      "mass_g": 0.063546,
+      "arrived": 0,
+      "released": 1,
+      "airborneMass_g": 0.005295500000000001,
+      "valveOpen": false,
+      "steps": [
+        "Dọn bàn và dàn dụng cụ cần dùng",
+        "Rót dung dịch H2O · 9.60 mL",
+        "Rót dung dịch AgNO3 · 20.0 mL",
+        "Chuyển chất rắn Cu · 0.0635 g",
+        "Thiết lập điều kiện",
+        "Quan sát phản ứng cận cảnh",
+        "Đối chiếu sản phẩm"
+      ],
+      "screenshot": "01-solid-airborne-zero-grams.png",
+      "visibleCaption": true
+    },
+    {
+      "id": "cu_agno3",
+      "phase": "dose",
+      "caption": "Thêm chất rắn Cu · 0.00530 / 0.0635 g đã vào bình.",
+      "time": 19.0500000000002,
+      "formula": "Cu",
+      "fraction": 0.08333333333333333,
+      "mass_g": 0.063546,
+      "arrived": 1,
+      "released": 1,
+      "airborneMass_g": 0,
+      "valveOpen": false,
+      "steps": [
+        "Dọn bàn và dàn dụng cụ cần dùng",
+        "Rót dung dịch H2O · 9.60 mL",
+        "Rót dung dịch AgNO3 · 20.0 mL",
+        "Chuyển chất rắn Cu · 0.0635 g",
+        "Thiết lập điều kiện",
+        "Quan sát phản ứng cận cảnh",
+        "Đối chiếu sản phẩm"
+      ],
+      "screenshot": "02-solid-arrived-grams.png",
+      "visibleCaption": true
+    },
+    {
+      "id": "nh3_hcl",
+      "phase": "dose",
+      "caption": "Dẫn khí qua ống NH3 · 2.45 / 24.5 mL đã vào bình.",
+      "time": 4.933333333333321,
+      "formula": "NH3",
+      "fraction": 0.10003139467592602,
+      "mass_g": 0.017030999999999998,
+      "airborneMass_g": 0,
+      "valveOpen": true,
+      "steps": [
+        "Dọn bàn và dàn dụng cụ cần dùng",
+        "Dẫn NH3 · 24.5 mL",
+        "Dẫn HCl · 24.5 mL",
+        "Thiết lập điều kiện",
+        "Quan sát phản ứng cận cảnh",
+        "Đối chiếu sản phẩm"
+      ],
+      "screenshot": "03-open-gas-valve-millilitres.png",
+      "visibleCaption": true
+    }
+  ]
+}

@@ -239,10 +239,14 @@ export class AutoExperiment {
     this.donors = dosePlan.donors;
     this.sample = { ...shell(),
       liquidColor: '#f1f5f9', isSealed: this.baseline.isSealed && this.donors.every(d => d.row.phase === 'g'), studioProgramId: this.program.id };
+    const transferSteps = this.donors.map(d => {
+      const amount = d.row.phase === 's' ? d.row.mass_g : d.row.phase === 'g' ? gasVolumeMl(d.row.moles) : d.solutionVolume_ml;
+      return `${d.row.phase === 'g' ? 'Dẫn' : d.row.phase === 's' ? 'Chuyển chất rắn' : d.doseMode === 'dropper' ? 'Nhỏ bằng pipet' : 'Rót dung dịch'} ${d.row.formula} · ${amount.toPrecision(3)} ${d.row.phase === 's' ? 'g' : 'mL'}`;
+    });
     this.steps = this.protocol === 'golden-rain'
-      ? ['Chuẩn bị hai dung dịch trong', ...this.donors.map(d => `${d.doseMode === 'dropper' ? 'Nhỏ bằng pipet' : d.row.phase === 'l' ? 'Rót dung dịch' : 'Thêm'} ${d.row.formula}`),
-        'Quan sát kết tủa PbI₂ vàng mịn', 'Đun và khuấy đến khi kết tủa tan hết', 'Tắt đèn, chờ dung dịch nguội', 'Theo dõi phiến vàng mọc và lắng', 'Quan sát lớp cặn và dung dịch phía trên']
-      : ['Dọn bàn và dàn dụng cụ cần dùng', ...this.donors.map(d => `${d.row.phase === 'g' ? 'Dẫn' : d.row.phase === 's' ? 'Chuyển' : d.doseMode === 'dropper' ? 'Nhỏ bằng pipet' : 'Rót'} ${d.row.formula} (${d.row.phase})`),
+      ? ['Chuẩn bị hai dung dịch trong', ...transferSteps,
+        'Quan sát kết tủa PbI₂ vàng mịn', 'Gia nhiệt bằng đế điện và khuấy đến khi kết tủa tan hết', 'Tắt đế gia nhiệt điện, chờ dung dịch nguội', 'Theo dõi phiến vàng mọc và lắng', 'Quan sát lớp cặn và dung dịch phía trên']
+      : ['Dọn bàn và dàn dụng cụ cần dùng', ...transferSteps,
         'Thiết lập điều kiện', 'Quan sát phản ứng cận cảnh', 'Đối chiếu sản phẩm'];
     this.log.push('Đã dọn bàn tự động: chỉ giữ bình nhận và các chất cần cho lượt này.');
   }
@@ -261,19 +265,24 @@ export class AutoExperiment {
   }
   get caption() {
     const d = this.donors[this.donorIndex];
+    const amount = d?.row.phase === 's' ? d.row.mass_g : d?.row.phase === 'g' ? gasVolumeMl(d.row.moles) : d?.solutionVolume_ml ?? 0;
+    const received = amount * (d?.fraction ?? 0);
+    const quantity = `${received.toPrecision(3)} / ${amount.toPrecision(3)} ${d?.row.phase === 's' ? 'g' : 'mL'} đã vào bình.`;
+    const observation = this.progress > 0.001 ? ' ' + this.program.explain.observation_vi : '';
     return this.error ?? (this.phase === 'prepare' ? 'Dọn bàn tự động, đặt bình nhận rỗng và sắp các chất cần dùng lên khay.'
       : this.phase === 'carry' ? d?.row.phase === 'g' ? `Lắp ống dẫn ${d.row.formula}, nối đầu cấp khí vào bình phản ứng.` : d?.doseMode === 'dropper' ? `Đưa pipet chứa ${d.row.formula} đến phía trên mặt dung dịch.` : `Nhấc ${d?.row.formula} đến miệng bình nhận.`
-      : this.phase === 'dose' ? d?.row.phase === 'g' ? `Mở van cấp ${d.row.formula}, kiểm tra đường ống kín.`
-        : d?.doseMode === 'dropper' ? `Nhỏ từng giọt ${d.row.formula} bằng pipet · ${(d.solutionVolume_ml * d.fraction).toFixed(2)} / ${d.solutionVolume_ml.toFixed(2)} mL.`
+      : this.phase === 'dose' ? d?.row.phase === 'g'
+        ? `${this.phaseTime < AUTO_TIMING.tilt ? 'Kiểm tra đường ống kín trước khi mở van cấp' : this.gasValveOpen ? 'Dẫn khí qua ống' : 'Đóng van, chờ khí còn trong ống'} ${d.row.formula} · ${quantity}${observation}`
+        : d?.doseMode === 'dropper' ? `Nhỏ từng giọt ${d.row.formula} bằng pipet · ${quantity}`
         : this.phaseTime < AUTO_TIMING.tilt ? `Nghiêng dụng cụ ${d?.row.formula}, căn miệng vào bình nhận.`
-        : d?.row.phase === 'g' ? `Dẫn ${d.row.formula} qua ống · ${gasVolumeMl(d.row.moles * d.fraction).toFixed(1)} / ${gasVolumeMl(d.row.moles).toFixed(1)} mL.${this.progress > 0.001 ? ' ' + this.program.explain.observation_vi : ''}`
-        : `${d?.row.phase === 's' ? 'Thêm chất rắn' : 'Rót dung dịch'} ${d?.row.formula} · ${((d?.solutionVolume_ml ?? 0) * (d?.fraction ?? 0)).toFixed(2)} / ${(d?.solutionVolume_ml ?? 0).toFixed(2)} mL.${this.progress > 0.001 ? ' ' + this.program.explain.observation_vi : ''}`
-      : this.phase === 'return' ? d?.row.phase === 'g' ? 'Đóng van cấp khí, giữ ống dẫn và chờ dòng trong ống ngừng.' : 'Dựng thẳng, ngừng dòng và đặt dụng cụ về khay.'
+        : `${d?.row.phase === 's' ? 'Thêm chất rắn' : 'Rót dung dịch'} ${d?.row.formula} · ${quantity}${observation}`
+      : this.phase === 'return' ? d?.row.phase === 'g' ? `Đóng van cấp khí ${d.row.formula} · ${quantity} Giữ ống dẫn và chờ dòng trong ống ngừng.`
+        : d?.row.phase === 's' ? `Đã chuyển ${amount.toPrecision(3)} g ${d.row.formula} vào bình; đặt dụng cụ về khay.` : 'Dựng thẳng, ngừng dòng và đặt dụng cụ về khay.'
       : this.phase === 'condition' ? this.protocol === 'golden-rain' && this.goldenRainStage === 'dissolve'
         ? `Gia nhiệt bằng đế điện đến ${GOLDEN_RAIN_PROTOCOL.heatTarget_c} °C và chờ phần PbI₂ rắn tan hết. ${this.sample.temperature_c.toFixed(1)} °C · ${goldenRainInventory(this.sample).solid_g.toPrecision(3)} g còn rắn.`
         : this.conditionText
       : this.phase === 'react' ? this.program.explain.observation_vi
-      : this.phase === 'cool' ? `Tắt nguồn nhiệt, để dung dịch nguội tự nhiên. ${this.sample.temperature_c.toFixed(1)} °C; mầm và phiến PbI₂ sẽ phát triển theo độ tan.`
+      : this.phase === 'cool' ? `Tắt đế gia nhiệt điện, để dung dịch nguội tự nhiên. ${this.sample.temperature_c.toFixed(1)} °C; mầm và phiến PbI₂ sẽ phát triển theo độ tan.`
       : this.phase === 'settle' ? `Để yên, không khuấy. Theo dõi các phiến vàng lắng và phần dung dịch phía trên trong suốt dần. ${Math.round(this.settledFraction * 100)}% lượng rắn đã tới lớp cặn.`
       : this.phase === 'observe' ? 'Theo dõi phần đuôi khói, bọt và hạt sau khi nguồn phản ứng giảm.'
       : 'Đã hoàn tất trình tự. Có thể xem lại hoặc chọn thí nghiệm tiếp theo.');
