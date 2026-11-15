@@ -1,0 +1,2906 @@
+{
+  "errors": [],
+  "resources": [],
+  "stages": [
+    {
+      "label": "Vi lượng ≤0,2 mL tách giọt",
+      "id": "hno3_koh",
+      "phase": "dose",
+      "elapsed_s": 11.800000000000166,
+      "temperature_c": 24.983052705121768,
+      "transfer": {
+        "formula": "HNO3",
+        "amount_ml": 0.06666666666666667,
+        "mode": "dropper",
+        "fraction": 0,
+        "startedAt_s": 10.950000000000124,
+        "phaseTime_s": 0.850000000000001,
+        "streamVisible": false,
+        "streamCount": 0,
+        "dropsVisible": true,
+        "dropsCount": 1
+      },
+      "paused": true,
+      "progress": 0,
+      "sample": {
+        "volume_ml": 28.854799874574162,
+        "mass_g": 28.854799874574162,
+        "foam_ml": 0,
+        "contents": [
+          {
+            "formula": "H2O",
+            "phase": "l",
+            "mass_g": 28.854799874574162,
+            "moles": 1.601709679410167,
+            "concentration_M": 55.50929780738266
+          }
+        ]
+      },
+      "inventory": {
+        "water_g": 28.854799874574162,
+        "total_g": 0,
+        "solid_g": 0,
+        "dissolved_g": 0,
+        "plates_g": 0,
+        "dissolvedCapacity_g": 0.028192365408969078,
+        "clear": false,
+        "expectedColdSolid_g": 0
+      },
+      "settledFraction": 0,
+      "bodyFrame": {
+        "position": [
+          0,
+          1.0490434836652889,
+          0
+        ],
+        "scale": [
+          1.0090434836652888,
+          1.0090434836652888,
+          1.0090434836652888
+        ],
+        "expectedPosition": [
+          0,
+          1.0490434836652889,
+          0
+        ],
+        "expectedScale": 1.0090434836652888
+      },
+      "physical": [],
+      "evaporation": 0,
+      "nodes": [
+        {
+          "name": "auto_shared_body_auto_receiver",
+          "visible": true,
+          "ownVisible": true,
+          "position": [
+            0,
+            1.0490434836652889,
+            0
+          ],
+          "bounds": null,
+          "material": null
+        },
+        {
+          "name": "liquid_volume_auto_receiver",
+          "visible": true,
+          "ownVisible": true,
+          "count": 1,
+          "position": [
+            0,
+            0.08036173934661162,
+            0
+          ],
+          "geometry": "LatheGeometry",
+          "bounds": {
+            "min": [
+              -0.9649999737739563,
+              0,
+              -0.9649999737739563
+            ],
+            "max": [
+              0.9649999737739563,
+              1.940000057220459,
+              0.9649999737739563
+            ]
+          },
+          "material": {
+            "type": "MeshPhysicalMaterial",
+            "color": "f8fafc",
+            "opacity": 0.13019607843137257,
+            "transparent": true,
+            "roughness": 0.08,
+            "metalness": 0,
+            "uniforms": []
+          }
+        },
+        {
+          "name": "liquid_surface_auto_receiver",
+          "visible": true,
+          "ownVisible": true,
+          "count": 1,
+          "position": [
+            0,
+            0.30629994216523493,
+            0
+          ],
+          "geometry": "RingGeometry",
+          "bounds": {
+            "min": [
+              -1,
+              -1,
+              0
+            ],
+            "max": [
+              1,
+              1,
+              0
+            ]
+          },
+          "material": {
+            "type": "MeshPhysicalMaterial",
+            "color": "f8fafc",
+            "opacity": 0.19019607843137257,
+            "transparent": true,
+            "roughness": 0.06,
+            "metalness": 0,
+            "uniforms": []
+          }
+        },
+        {
+          "name": "physical_sim_auto_receiver",
+          "visible": true,
+          "ownVisible": true,
+          "position": [
+            0,
+            1.0490434836652889,
+            0
+          ],
+          "bounds": null,
+          "material": null
+        },
+        {
+          "name": "physical_bubbles_auto_receiver",
+          "visible": false,
+          "ownVisible": false,
+          "count": 45,
+          "position": [
+            0,
+            -10088.376749685558,
+            0
+          ],
+          "geometry": "PlaneGeometry",
+          "bounds": {
+            "min": [
+              -0.5,
+              -0.5,
+              0
+            ],
+            "max": [
+              0.5,
+              0.5,
+              0
+            ]
+          },
+          "material": {
+            "type": "MeshBasicMaterial",
+            "color": "f8fafc",
+            "opacity": 1,
+            "transparent": true,
+            "uniforms": []
+          }
+        },
+        {
+          "name": "sediment_bed_auto_receiver",
+          "visible": false,
+          "ownVisible": false,
+          "count": 1,
+          "position": [
+            0,
+            1.0490434836652889,
+            0
+          ],
+          "geometry": "BufferGeometry",
+          "bounds": {
+            "min": [
+              null,
+              null,
+              null
+            ],
+            "max": [
+              null,
+              null,
+              null
+            ]
+          },
+          "material": {
+            "type": "MeshStandardMaterial",
+            "color": "f8fafc",
+            "opacity": 0,
+            "transparent": true,
+            "roughness": 0.85,
+            "metalness": 0.08,
+            "uniforms": []
+          }
+        },
+        {
+          "name": "physical_mist_auto_receiver",
+          "visible": false,
+          "ownVisible": false,
+          "count": 25,
+          "position": [
+            0,
+            -9999.000000000002,
+            0
+          ],
+          "geometry": "PlaneGeometry",
+          "bounds": {
+            "min": [
+              -0.5,
+              -0.5,
+              0
+            ],
+            "max": [
+              0.5,
+              0.5,
+              0
+            ]
+          },
+          "material": {
+            "type": "MeshBasicMaterial",
+            "color": "f8fafc",
+            "opacity": 1,
+            "transparent": true,
+            "uniforms": []
+          }
+        },
+        {
+          "name": "vessel-transient-effects-auto_receiver",
+          "visible": true,
+          "ownVisible": true,
+          "position": [
+            0,
+            1.0490434836652889,
+            0
+          ],
+          "bounds": null,
+          "material": null
+        }
+      ],
+      "runtime": {
+        "matchingSample": true,
+        "managerSame": true,
+        "appearanceSame": true
+      },
+      "manualUnchanged": true,
+      "oldRendererMounted": false,
+      "render": {
+        "calls": 27,
+        "triangles": 5612,
+        "frame": 63
+      },
+      "screenshot": "00-microdose-drops.png"
+    },
+    {
+      "label": "Liều 1–2 mL rót thành dòng nhanh",
+      "id": "cuso4_naoh",
+      "phase": "dose",
+      "elapsed_s": 12.000000000000176,
+      "temperature_c": 24.981086798644586,
+      "transfer": {
+        "formula": "CuSO4",
+        "amount_ml": 2,
+        "mode": "pour",
+        "fraction": 0.0236678240740743,
+        "startedAt_s": 10.950000000000124,
+        "phaseTime_s": 1.0500000000000012,
+        "streamVisible": true,
+        "streamCount": 16,
+        "dropsVisible": false,
+        "dropsCount": 0
+      },
+      "paused": true,
+      "progress": 0,
+      "sample": {
+        "volume_ml": 25.866102923985057,
+        "mass_g": 25.868469706392464,
+        "foam_ml": 0,
+        "contents": [
+          {
+            "formula": "H2O",
+            "phase": "l",
+            "mass_g": 25.864692274334594,
+            "moles": 1.4357309061523489,
+            "concentration_M": 55.50627051827849
+          },
+          {
+            "formula": "CuSO4",
+            "phase": "aq",
+            "moles": 0.000023667824074074298,
+            "initialMoles": 0.001,
+            "mass_g": 0.0037774320578704062,
+            "concentration_M": 0.0009150131406972659
+          }
+        ]
+      },
+      "inventory": {
+        "water_g": 25.864692274334594,
+        "total_g": 0,
+        "solid_g": 0,
+        "dissolved_g": 0,
+        "plates_g": 0,
+        "dissolvedCapacity_g": 0.02526953076201996,
+        "clear": false,
+        "expectedColdSolid_g": 0
+      },
+      "settledFraction": 0,
+      "bodyFrame": {
+        "position": [
+          0,
+          1.0490434836652889,
+          0
+        ],
+        "scale": [
+          1.0090434836652888,
+          1.0090434836652888,
+          1.0090434836652888
+        ],
+        "expectedPosition": [
+          0,
+          1.0490434836652889,
+          0
+        ],
+        "expectedScale": 1.0090434836652888
+      },
+      "physical": [],
+      "evaporation": 0,
+      "nodes": [
+        {
+          "name": "auto_shared_body_auto_receiver",
+          "visible": true,
+          "ownVisible": true,
+          "position": [
+            0,
+            1.0490434836652889,
+            0
+          ],
+          "bounds": null,
+          "material": null
+        },
+        {
+          "name": "liquid_volume_auto_receiver",
+          "visible": true,
+          "ownVisible": true,
+          "count": 1,
+          "position": [
+            0,
+            0.08036173934661162,
+            0
+          ],
+          "geometry": "LatheGeometry",
+          "bounds": {
+            "min": [
+              -0.9649999737739563,
+              0,
+              -0.9649999737739563
+            ],
+            "max": [
+              0.9649999737739563,
+              1.940000057220459,
+              0.9649999737739563
+            ]
+          },
+          "material": {
+            "type": "MeshPhysicalMaterial",
+            "color": "f6f9fc",
+            "opacity": 0.13529411764705884,
+            "transparent": true,
+            "roughness": 0.08,
+            "metalness": 0,
+            "uniforms": []
+          }
+        },
+        {
+          "name": "liquid_surface_auto_receiver",
+          "visible": true,
+          "ownVisible": true,
+          "count": 1,
+          "position": [
+            0,
+            0.2828979147479309,
+            0
+          ],
+          "geometry": "RingGeometry",
+          "bounds": {
+            "min": [
+              -1,
+              -1,
+              0
+            ],
+            "max": [
+              1,
+              1,
+              0
+            ]
+          },
+          "material": {
+            "type": "MeshPhysicalMaterial",
+            "color": "f6f9fc",
+            "opacity": 0.19529411764705884,
+            "transparent": true,
+            "roughness": 0.06,
+            "metalness": 0,
+            "uniforms": []
+          }
+        },
+        {
+          "name": "physical_sim_auto_receiver",
+          "visible": true,
+          "ownVisible": true,
+          "position": [
+            0,
+            1.0490434836652889,
+            0
+          ],
+          "bounds": null,
+          "material": null
+        },
+        {
+          "name": "physical_bubbles_auto_receiver",
+          "visible": false,
+          "ownVisible": false,
+          "count": 45,
+          "position": [
+            0,
+            -10088.376749685558,
+            0
+          ],
+          "geometry": "PlaneGeometry",
+          "bounds": {
+            "min": [
+              -0.5,
+              -0.5,
+              0
+            ],
+            "max": [
+              0.5,
+              0.5,
+              0
+            ]
+          },
+          "material": {
+            "type": "MeshBasicMaterial",
+            "color": "f8fafc",
+            "opacity": 1,
+            "transparent": true,
+            "uniforms": []
+          }
+        },
+        {
+          "name": "sediment_bed_auto_receiver",
+          "visible": false,
+          "ownVisible": false,
+          "count": 1,
+          "position": [
+            0,
+            1.0490434836652889,
+            0
+          ],
+          "geometry": "BufferGeometry",
+          "bounds": {
+            "min": [
+              null,
+              null,
+              null
+            ],
+            "max": [
+              null,
+              null,
+              null
+            ]
+          },
+          "material": {
+            "type": "MeshStandardMaterial",
+            "color": "f8fafc",
+            "opacity": 0,
+            "transparent": true,
+            "roughness": 0.85,
+            "metalness": 0.08,
+            "uniforms": []
+          }
+        },
+        {
+          "name": "physical_mist_auto_receiver",
+          "visible": false,
+          "ownVisible": false,
+          "count": 25,
+          "position": [
+            0,
+            -9999.000000000002,
+            0
+          ],
+          "geometry": "PlaneGeometry",
+          "bounds": {
+            "min": [
+              -0.5,
+              -0.5,
+              0
+            ],
+            "max": [
+              0.5,
+              0.5,
+              0
+            ]
+          },
+          "material": {
+            "type": "MeshBasicMaterial",
+            "color": "f8fafc",
+            "opacity": 1,
+            "transparent": true,
+            "uniforms": []
+          }
+        },
+        {
+          "name": "vessel-transient-effects-auto_receiver",
+          "visible": true,
+          "ownVisible": true,
+          "position": [
+            0,
+            1.0490434836652889,
+            0
+          ],
+          "bounds": null,
+          "material": null
+        }
+      ],
+      "runtime": {
+        "matchingSample": true,
+        "managerSame": true,
+        "appearanceSame": true
+      },
+      "manualUnchanged": true,
+      "oldRendererMounted": false,
+      "render": {
+        "calls": 30,
+        "triangles": 7078,
+        "frame": 179
+      },
+      "screenshot": "00-ordinary-dose-pour.png"
+    },
+    {
+      "label": "Cu(OH)₂ dùng chung hạt và chất lỏng của bàn thí nghiệm",
+      "id": "cuso4_naoh",
+      "phase": "dose",
+      "elapsed_s": 19.40000000000018,
+      "temperature_c": 24.9693547523545,
+      "transfer": {
+        "formula": "NaOH",
+        "amount_ml": 2,
+        "mode": "pour",
+        "fraction": 0.043884543252743706,
+        "startedAt_s": 18.26666666666691,
+        "phaseTime_s": 1.1333333333333342,
+        "streamVisible": true,
+        "streamCount": 16,
+        "dropsVisible": false,
+        "dropsCount": 0
+      },
+      "paused": true,
+      "progress": 0.01601854457052973,
+      "sample": {
+        "volume_ml": 28.00533080182683,
+        "mass_g": 28.00884156528705,
+        "foam_ml": 0,
+        "contents": [
+          {
+            "formula": "H2O",
+            "phase": "l",
+            "mass_g": 27.845729065134083,
+            "moles": 1.545696867340222,
+            "concentration_M": 55.192951594751165
+          },
+          {
+            "formula": "CuSO4",
+            "phase": "aq",
+            "moles": 0.000983986058589159,
+            "initialMoles": 0.001,
+            "mass_g": 0.15704614292294697,
+            "concentration_M": 0.03513566990342325
+          },
+          {
+            "formula": "NaOH",
+            "phase": "aq",
+            "moles": 0.00005574120368380705,
+            "initialMoles": 0.002,
+            "mass_g": 0.0022294809237412305,
+            "concentration_M": 0.0019903783346908715
+          },
+          {
+            "formula": "Cu(OH)2",
+            "moles": 0.000016013941410840183,
+            "mass_g": 0.0015623201240415683,
+            "state": "s",
+            "phase": "s",
+            "solidOrigin": "precipitate",
+            "precipitateFormation": "gel"
+          },
+          {
+            "formula": "Na2SO4",
+            "moles": 0.000016013941410840183,
+            "mass_g": 0.002274556182230096,
+            "concentration_M": 0.0005718176130165751,
+            "state": "aq",
+            "phase": "aq"
+          }
+        ],
+        "precipitate": "Cu(OH)2"
+      },
+      "inventory": {
+        "water_g": 27.845729065134083,
+        "total_g": 0,
+        "solid_g": 0,
+        "dissolved_g": 0,
+        "plates_g": 0,
+        "dissolvedCapacity_g": 0.027196165754240133,
+        "clear": false,
+        "expectedColdSolid_g": 0
+      },
+      "settledFraction": 0,
+      "bodyFrame": {
+        "position": [
+          0,
+          1.0490434836652889,
+          0
+        ],
+        "scale": [
+          1.0090434836652888,
+          1.0090434836652888,
+          1.0090434836652888
+        ],
+        "expectedPosition": [
+          0,
+          1.0490434836652889,
+          0
+        ],
+        "expectedScale": 1.0090434836652888
+      },
+      "physical": [
+        {
+          "morphology": "gel_like",
+          "count": 128,
+          "sediment_g": 0
+        }
+      ],
+      "evaporation": 0,
+      "nodes": [
+        {
+          "name": "auto_shared_body_auto_receiver",
+          "visible": true,
+          "ownVisible": true,
+          "position": [
+            0,
+            1.0490434836652889,
+            0
+          ],
+          "bounds": null,
+          "material": null
+        },
+        {
+          "name": "liquid_volume_auto_receiver",
+          "visible": true,
+          "ownVisible": true,
+          "count": 1,
+          "position": [
+            0,
+            0.08036173934661162,
+            0
+          ],
+          "geometry": "LatheGeometry",
+          "bounds": {
+            "min": [
+              -0.9649999737739563,
+              0,
+              -0.9649999737739563
+            ],
+            "max": [
+              0.9649999737739563,
+              1.940000057220459,
+              0.9649999737739563
+            ]
+          },
+          "material": {
+            "type": "MeshPhysicalMaterial",
+            "color": "f4f8fb",
+            "opacity": 0.30244192761787314,
+            "transparent": true,
+            "roughness": 0.08,
+            "metalness": 0,
+            "uniforms": []
+          }
+        },
+        {
+          "name": "liquid_surface_auto_receiver",
+          "visible": true,
+          "ownVisible": true,
+          "count": 1,
+          "position": [
+            0,
+            0.2996520786442355,
+            0
+          ],
+          "geometry": "RingGeometry",
+          "bounds": {
+            "min": [
+              -1,
+              -1,
+              0
+            ],
+            "max": [
+              1,
+              1,
+              0
+            ]
+          },
+          "material": {
+            "type": "MeshPhysicalMaterial",
+            "color": "f5f8fb",
+            "opacity": 0.36207819618602105,
+            "transparent": true,
+            "roughness": 0.06,
+            "metalness": 0,
+            "uniforms": []
+          }
+        },
+        {
+          "name": "physical_sim_auto_receiver",
+          "visible": true,
+          "ownVisible": true,
+          "position": [
+            0,
+            1.0490434836652889,
+            0
+          ],
+          "bounds": null,
+          "material": null
+        },
+        {
+          "name": "physical_bubbles_auto_receiver",
+          "visible": false,
+          "ownVisible": false,
+          "count": 45,
+          "position": [
+            0,
+            -10088.376749685558,
+            0
+          ],
+          "geometry": "PlaneGeometry",
+          "bounds": {
+            "min": [
+              -0.5,
+              -0.5,
+              0
+            ],
+            "max": [
+              0.5,
+              0.5,
+              0
+            ]
+          },
+          "material": {
+            "type": "MeshBasicMaterial",
+            "color": "f8fafc",
+            "opacity": 1,
+            "transparent": true,
+            "uniforms": []
+          }
+        },
+        {
+          "name": "physical_precipitate_auto_receiver_Cu(OH)2",
+          "visible": true,
+          "ownVisible": true,
+          "count": 70,
+          "position": [
+            -0.1797311582706764,
+            0.2618822989530515,
+            0.04619025480089881
+          ],
+          "geometry": "IcosahedronGeometry",
+          "bounds": {
+            "min": [
+              -0.5788056254386902,
+              -0.47010400891304016,
+              -0.5556790232658386
+            ],
+            "max": [
+              0.5780794620513916,
+              0.469420850276947,
+              0.6001926064491272
+            ]
+          },
+          "material": {
+            "type": "MeshPhysicalMaterial",
+            "color": "6eadd2",
+            "opacity": 1,
+            "transparent": true,
+            "roughness": 0.75,
+            "metalness": 0,
+            "uniforms": []
+          }
+        },
+        {
+          "name": "sediment_bed_auto_receiver",
+          "visible": false,
+          "ownVisible": false,
+          "count": 1,
+          "position": [
+            0,
+            1.0490434836652889,
+            0
+          ],
+          "geometry": "BufferGeometry",
+          "bounds": {
+            "min": [
+              null,
+              null,
+              null
+            ],
+            "max": [
+              null,
+              null,
+              null
+            ]
+          },
+          "material": {
+            "type": "MeshStandardMaterial",
+            "color": "f8fafc",
+            "opacity": 0,
+            "transparent": true,
+            "roughness": 0.85,
+            "metalness": 0.08,
+            "uniforms": []
+          }
+        },
+        {
+          "name": "physical_mist_auto_receiver",
+          "visible": false,
+          "ownVisible": false,
+          "count": 25,
+          "position": [
+            0,
+            -9999.000000000002,
+            0
+          ],
+          "geometry": "PlaneGeometry",
+          "bounds": {
+            "min": [
+              -0.5,
+              -0.5,
+              0
+            ],
+            "max": [
+              0.5,
+              0.5,
+              0
+            ]
+          },
+          "material": {
+            "type": "MeshBasicMaterial",
+            "color": "f8fafc",
+            "opacity": 1,
+            "transparent": true,
+            "uniforms": []
+          }
+        },
+        {
+          "name": "vessel-transient-effects-auto_receiver",
+          "visible": true,
+          "ownVisible": true,
+          "position": [
+            0,
+            1.0490434836652889,
+            0
+          ],
+          "bounds": null,
+          "material": null
+        }
+      ],
+      "runtime": {
+        "matchingSample": true,
+        "managerSame": true,
+        "appearanceSame": true
+      },
+      "manualUnchanged": true,
+      "oldRendererMounted": false,
+      "render": {
+        "calls": 28,
+        "triangles": 7964,
+        "frame": 212
+      },
+      "screenshot": "01-copper-hydroxide.png"
+    },
+    {
+      "label": "Bạc mọc trên vật mang đồng từ phản ứng thực",
+      "id": "cu_agno3",
+      "phase": "dose",
+      "elapsed_s": 19.60000000000017,
+      "temperature_c": 24.981213723454598,
+      "transfer": {
+        "formula": "Cu",
+        "amount_ml": 0,
+        "mode": "pour",
+        "fraction": 0.25,
+        "startedAt_s": 18.26666666666691,
+        "phaseTime_s": 1.3333333333333335,
+        "streamVisible": false,
+        "streamCount": 0,
+        "dropsVisible": false,
+        "dropsCount": 0
+      },
+      "paused": true,
+      "progress": 0.009949980746812737,
+      "sample": {
+        "volume_ml": 29.996174982588343,
+        "mass_g": 30.013507990543303,
+        "foam_ml": 0,
+        "contents": [
+          {
+            "formula": "H2O",
+            "phase": "l",
+            "mass_g": 29.6578774905433,
+            "moles": 1.6462879539574407,
+            "concentration_M": 54.88326277977273
+          },
+          {
+            "formula": "AgNO3",
+            "phase": "aq",
+            "moles": 0.001980100038506374,
+            "initialMoles": 0.002,
+            "mass_g": 0.33636355374115484,
+            "concentration_M": 0.06601175115346367
+          },
+          {
+            "formula": "Cu",
+            "phase": "s",
+            "moles": 0.00024005001925318727,
+            "initialMoles": 0.001,
+            "mass_g": 0.015254218523463038
+          },
+          {
+            "formula": "Cu(NO3)2",
+            "moles": 0.000009949980746812781,
+            "mass_g": 0.0018661586889877244,
+            "concentration_M": 0.00033170831789681093,
+            "state": "aq",
+            "phase": "aq"
+          },
+          {
+            "formula": "Ag",
+            "phase": "s",
+            "state": "s",
+            "moles": 3.08641975308642e-7,
+            "mass_g": 0.00003329259259259259,
+            "solidOrigin": "precipitate",
+            "depositSubstrate": "Cu",
+            "depositionReactionId": "cu_agno3",
+            "depositCarrierFormula": "Cu"
+          },
+          {
+            "formula": "Ag",
+            "phase": "s",
+            "state": "s",
+            "moles": 0.000009316196351974192,
+            "mass_g": 0.0010049194680947524,
+            "solidOrigin": "precipitate",
+            "depositSubstrate": "Cu",
+            "depositionReactionId": "cu_agno3",
+            "depositCarrierFormula": "Cu",
+            "depositCarrierId": "stock:1"
+          },
+          {
+            "formula": "Ag",
+            "phase": "s",
+            "state": "s",
+            "moles": 0.0000015162020912653424,
+            "mass_g": 0.00016354968718060997,
+            "solidOrigin": "precipitate",
+            "depositSubstrate": "Cu",
+            "depositionReactionId": "cu_agno3",
+            "depositCarrierFormula": "Cu",
+            "depositReleased": true
+          },
+          {
+            "formula": "Ag",
+            "phase": "s",
+            "state": "s",
+            "moles": 0.000006033304671988942,
+            "mass_g": 0.0006508005083581033,
+            "solidOrigin": "precipitate",
+            "depositSubstrate": "Cu",
+            "depositionReactionId": "cu_agno3",
+            "depositCarrierFormula": "Cu",
+            "depositCarrierId": "stock:2"
+          },
+          {
+            "formula": "Ag",
+            "phase": "s",
+            "state": "s",
+            "moles": 0.0000027256164030884384,
+            "mass_g": 0.0002940067901683437,
+            "solidOrigin": "precipitate",
+            "depositSubstrate": "Cu",
+            "depositionReactionId": "cu_agno3",
+            "depositCarrierFormula": "Cu",
+            "depositCarrierId": "stock:3"
+          }
+        ],
+        "precipitate": "Ag"
+      },
+      "inventory": {
+        "water_g": 29.6578774905433,
+        "total_g": 0,
+        "solid_g": 0,
+        "dissolved_g": 0,
+        "plates_g": 0,
+        "dissolvedCapacity_g": 0.028975534200358432,
+        "clear": false,
+        "expectedColdSolid_g": 0
+      },
+      "settledFraction": 0,
+      "bodyFrame": {
+        "position": [
+          0,
+          1.0490434836652889,
+          0
+        ],
+        "scale": [
+          1.0090434836652888,
+          1.0090434836652888,
+          1.0090434836652888
+        ],
+        "expectedPosition": [
+          0,
+          1.0490434836652889,
+          0
+        ],
+        "expectedScale": 1.0090434836652888
+      },
+      "physical": [
+        {
+          "morphology": "granular",
+          "count": 128,
+          "sediment_g": 0
+        }
+      ],
+      "evaporation": 0,
+      "nodes": [
+        {
+          "name": "auto_shared_body_auto_receiver",
+          "visible": true,
+          "ownVisible": true,
+          "position": [
+            0,
+            1.0490434836652889,
+            0
+          ],
+          "bounds": null,
+          "material": null
+        },
+        {
+          "name": "liquid_volume_auto_receiver",
+          "visible": true,
+          "ownVisible": true,
+          "count": 1,
+          "position": [
+            0,
+            0.08036173934661162,
+            0
+          ],
+          "geometry": "LatheGeometry",
+          "bounds": {
+            "min": [
+              -0.9649999737739563,
+              0,
+              -0.9649999737739563
+            ],
+            "max": [
+              0.9649999737739563,
+              1.940000057220459,
+              0.9649999737739563
+            ]
+          },
+          "material": {
+            "type": "MeshPhysicalMaterial",
+            "color": "f8fafc",
+            "opacity": 0.13308609858031759,
+            "transparent": true,
+            "roughness": 0.08,
+            "metalness": 0,
+            "uniforms": []
+          }
+        },
+        {
+          "name": "liquid_surface_auto_receiver",
+          "visible": true,
+          "ownVisible": true,
+          "count": 1,
+          "position": [
+            0,
+            0.3152520432608362,
+            0
+          ],
+          "geometry": "RingGeometry",
+          "bounds": {
+            "min": [
+              -1,
+              -1,
+              0
+            ],
+            "max": [
+              1,
+              1,
+              0
+            ]
+          },
+          "material": {
+            "type": "MeshPhysicalMaterial",
+            "color": "f8fafc",
+            "opacity": 0.19306136614002908,
+            "transparent": true,
+            "roughness": 0.06,
+            "metalness": 0,
+            "uniforms": []
+          }
+        },
+        {
+          "name": "solids_auto_receiver",
+          "visible": true,
+          "ownVisible": true,
+          "position": [
+            0,
+            1.0490434836652889,
+            0
+          ],
+          "bounds": null,
+          "material": null
+        },
+        {
+          "name": "stock_solid_auto_receiver_Cu",
+          "visible": true,
+          "ownVisible": true,
+          "count": 3,
+          "position": [
+            0.007358319213585411,
+            0.08905414640743425,
+            -0.0036497244448099437
+          ],
+          "geometry": "ExtrudeGeometry",
+          "bounds": {
+            "min": [
+              -2.158336877822876,
+              -0.5256314277648926,
+              -2.1582260131835938
+            ],
+            "max": [
+              2.158336877822876,
+              0.5256314277648926,
+              2.1582260131835938
+            ]
+          },
+          "material": {
+            "type": "MeshPhysicalMaterial",
+            "color": "b87346",
+            "opacity": 1,
+            "transparent": false,
+            "roughness": 0.28,
+            "metalness": 0.88,
+            "uniforms": []
+          }
+        },
+        {
+          "name": "stock_coating_Cu_Ag",
+          "visible": true,
+          "ownVisible": true,
+          "count": 24,
+          "position": [
+            0.02765803093472796,
+            0.09439953611319474,
+            0.05879115984882047
+          ],
+          "geometry": "BufferGeometry",
+          "bounds": {
+            "min": [
+              -0.4828029274940491,
+              -0.6499999761581421,
+              -0.4866970479488373
+            ],
+            "max": [
+              0.4894959330558777,
+              0.7932929992675781,
+              0.4740414321422577
+            ]
+          },
+          "material": {
+            "type": "MeshStandardMaterial",
+            "color": "cbd5e1",
+            "opacity": 1,
+            "transparent": false,
+            "roughness": 0.6,
+            "metalness": 0.9,
+            "uniforms": []
+          },
+          "deposit": {
+            "product": "Ag",
+            "mass_g": 0.0019830193592137923,
+            "carrierIds": [
+              "stock:1",
+              "stock:3",
+              "stock:2"
+            ],
+            "support": "stock-mesh-surface"
+          }
+        },
+        {
+          "name": "physical_sim_auto_receiver",
+          "visible": true,
+          "ownVisible": true,
+          "position": [
+            0,
+            1.0490434836652889,
+            0
+          ],
+          "bounds": null,
+          "material": null
+        },
+        {
+          "name": "physical_bubbles_auto_receiver",
+          "visible": false,
+          "ownVisible": false,
+          "count": 45,
+          "position": [
+            0,
+            -10088.376749685558,
+            0
+          ],
+          "geometry": "PlaneGeometry",
+          "bounds": {
+            "min": [
+              -0.5,
+              -0.5,
+              0
+            ],
+            "max": [
+              0.5,
+              0.5,
+              0
+            ]
+          },
+          "material": {
+            "type": "MeshBasicMaterial",
+            "color": "f8fafc",
+            "opacity": 1,
+            "transparent": true,
+            "uniforms": []
+          }
+        },
+        {
+          "name": "physical_precipitate_auto_receiver_Ag",
+          "visible": true,
+          "ownVisible": true,
+          "count": 70,
+          "position": [
+            -0.18655871375117425,
+            0.2812482626816466,
+            0.31073318657202886
+          ],
+          "geometry": "BufferGeometry",
+          "bounds": {
+            "min": [
+              -0.48082008957862854,
+              -0.6499999761581421,
+              -0.48378705978393555
+            ],
+            "max": [
+              0.488646924495697,
+              0.7932929992675781,
+              0.4740414321422577
+            ]
+          },
+          "material": {
+            "type": "MeshPhysicalMaterial",
+            "color": "cbd5e1",
+            "opacity": 1,
+            "transparent": true,
+            "roughness": 0.4,
+            "metalness": 1,
+            "uniforms": []
+          }
+        },
+        {
+          "name": "sediment_bed_auto_receiver",
+          "visible": false,
+          "ownVisible": false,
+          "count": 1,
+          "position": [
+            0,
+            1.0490434836652889,
+            0
+          ],
+          "geometry": "BufferGeometry",
+          "bounds": {
+            "min": [
+              null,
+              null,
+              null
+            ],
+            "max": [
+              null,
+              null,
+              null
+            ]
+          },
+          "material": {
+            "type": "MeshStandardMaterial",
+            "color": "f8fafc",
+            "opacity": 0,
+            "transparent": true,
+            "roughness": 0.85,
+            "metalness": 0.08,
+            "uniforms": []
+          }
+        },
+        {
+          "name": "physical_mist_auto_receiver",
+          "visible": false,
+          "ownVisible": false,
+          "count": 25,
+          "position": [
+            0,
+            -9999.000000000002,
+            0
+          ],
+          "geometry": "PlaneGeometry",
+          "bounds": {
+            "min": [
+              -0.5,
+              -0.5,
+              0
+            ],
+            "max": [
+              0.5,
+              0.5,
+              0
+            ]
+          },
+          "material": {
+            "type": "MeshBasicMaterial",
+            "color": "f8fafc",
+            "opacity": 1,
+            "transparent": true,
+            "uniforms": []
+          }
+        },
+        {
+          "name": "vessel-transient-effects-auto_receiver",
+          "visible": true,
+          "ownVisible": true,
+          "position": [
+            0,
+            1.0490434836652889,
+            0
+          ],
+          "bounds": null,
+          "material": null
+        }
+      ],
+      "runtime": {
+        "matchingSample": true,
+        "managerSame": true,
+        "appearanceSame": true
+      },
+      "manualUnchanged": true,
+      "oldRendererMounted": false,
+      "render": {
+        "calls": 27,
+        "triangles": 29466,
+        "frame": 343
+      },
+      "screenshot": "02-copper-silver-coating.png"
+    },
+    {
+      "label": "Mẫu natri thực dùng chung viên kim loại và mặt dung dịch",
+      "id": "na_h2o",
+      "phase": "return",
+      "elapsed_s": 12.90000000000022,
+      "temperature_c": 25.02079889513368,
+      "transfer": {
+        "formula": "Na",
+        "amount_ml": 0,
+        "mode": "pour",
+        "fraction": 1,
+        "startedAt_s": 10.950000000000124,
+        "phaseTime_s": 0.06666666666666667,
+        "streamVisible": false,
+        "streamCount": 0,
+        "dropsVisible": false,
+        "dropsCount": 0
+      },
+      "paused": true,
+      "progress": 0.017267645161777145,
+      "sample": {
+        "volume_ml": 29.998620003015375,
+        "mass_g": 30.044565191442732,
+        "foam_ml": 0,
+        "contents": [
+          {
+            "formula": "H2O",
+            "phase": "l",
+            "moles": 1.665167796267565,
+            "initialMoles": 1.665278934221482,
+            "mass_g": 29.997997849760186,
+            "concentration_M": 55.50814657808216
+          },
+          {
+            "formula": "Na",
+            "phase": "s",
+            "moles": 0.0019654647096764457,
+            "initialMoles": 0.002,
+            "mass_g": 0.045186033675461486
+          },
+          {
+            "formula": "NaOH",
+            "moles": 0.00003453529032355431,
+            "mass_g": 0.0013813080070712016,
+            "concentration_M": 0.0011512293005505893,
+            "state": "aq",
+            "phase": "aq"
+          }
+        ]
+      },
+      "inventory": {
+        "water_g": 29.997997849760186,
+        "total_g": 0,
+        "solid_g": 0,
+        "dissolved_g": 0,
+        "plates_g": 0,
+        "dissolvedCapacity_g": 0.029339891733781123,
+        "clear": false,
+        "expectedColdSolid_g": 0
+      },
+      "settledFraction": 0,
+      "bodyFrame": {
+        "position": [
+          0,
+          1.0490434836652889,
+          0
+        ],
+        "scale": [
+          1.0090434836652888,
+          1.0090434836652888,
+          1.0090434836652888
+        ],
+        "expectedPosition": [
+          0,
+          1.0490434836652889,
+          0
+        ],
+        "expectedScale": 1.0090434836652888
+      },
+      "physical": [],
+      "evaporation": 0,
+      "nodes": [
+        {
+          "name": "auto_shared_body_auto_receiver",
+          "visible": true,
+          "ownVisible": true,
+          "position": [
+            0,
+            1.0490434836652889,
+            0
+          ],
+          "bounds": null,
+          "material": null
+        },
+        {
+          "name": "liquid_volume_auto_receiver",
+          "visible": true,
+          "ownVisible": true,
+          "count": 1,
+          "position": [
+            0,
+            0.08036173934661162,
+            0
+          ],
+          "geometry": "LatheGeometry",
+          "bounds": {
+            "min": [
+              -0.9649999737739563,
+              0,
+              -0.9649999737739563
+            ],
+            "max": [
+              0.9649999737739563,
+              1.940000057220459,
+              0.9649999737739563
+            ]
+          },
+          "material": {
+            "type": "MeshPhysicalMaterial",
+            "color": "f8fafc",
+            "opacity": 0.13019607843137257,
+            "transparent": true,
+            "roughness": 0.08,
+            "metalness": 0,
+            "uniforms": []
+          }
+        },
+        {
+          "name": "liquid_surface_auto_receiver",
+          "visible": true,
+          "ownVisible": true,
+          "count": 1,
+          "position": [
+            0,
+            0.31546047754014306,
+            0
+          ],
+          "geometry": "RingGeometry",
+          "bounds": {
+            "min": [
+              -1,
+              -1,
+              0
+            ],
+            "max": [
+              1,
+              1,
+              0
+            ]
+          },
+          "material": {
+            "type": "MeshPhysicalMaterial",
+            "color": "f8fafc",
+            "opacity": 0.19019607843137257,
+            "transparent": true,
+            "roughness": 0.06,
+            "metalness": 0,
+            "uniforms": []
+          }
+        },
+        {
+          "name": "solids_auto_receiver",
+          "visible": true,
+          "ownVisible": true,
+          "position": [
+            0,
+            1.0490434836652889,
+            0
+          ],
+          "bounds": null,
+          "material": null
+        },
+        {
+          "name": "sodium-contact-auto_receiver",
+          "visible": true,
+          "ownVisible": true,
+          "position": [
+            0,
+            1.0490434836652889,
+            0
+          ],
+          "bounds": null,
+          "material": null
+        },
+        {
+          "name": "sodium-metal",
+          "visible": true,
+          "ownVisible": true,
+          "count": 1,
+          "position": [
+            0,
+            0.26715631185172406,
+            0
+          ],
+          "geometry": "BufferGeometry",
+          "bounds": {
+            "min": [
+              -0.81736159324646,
+              -0.81736159324646,
+              -0.81736159324646
+            ],
+            "max": [
+              0.81736159324646,
+              0.81736159324646,
+              0.81736159324646
+            ]
+          },
+          "material": {
+            "type": "MeshStandardMaterial",
+            "color": "cbd5df",
+            "opacity": 1,
+            "transparent": false,
+            "roughness": 0.32,
+            "metalness": 0.92,
+            "uniforms": []
+          }
+        },
+        {
+          "name": "sodium-hydrogen-flame",
+          "visible": false,
+          "ownVisible": false,
+          "count": 1,
+          "position": [
+            0,
+            2.0580869673305777,
+            0
+          ],
+          "geometry": "ConeGeometry",
+          "bounds": {
+            "min": [
+              -0.10000000149011612,
+              -0.32499998807907104,
+              -0.10000000149011612
+            ],
+            "max": [
+              0.10000000149011612,
+              0.32499998807907104,
+              0.10000000149011612
+            ]
+          },
+          "material": {
+            "type": "ShaderMaterial",
+            "opacity": 1,
+            "transparent": true,
+            "vertexShader": "\n      uniform float uTime;\n      uniform float uIntensity;\n      varying vec3 vPosition;\n      varying vec2 vUv;\n      ",
+            "uniforms": [
+              "uTime",
+              "uIntensity"
+            ]
+          }
+        },
+        {
+          "name": "physical_sim_auto_receiver",
+          "visible": true,
+          "ownVisible": true,
+          "position": [
+            0,
+            1.0490434836652889,
+            0
+          ],
+          "bounds": null,
+          "material": null
+        },
+        {
+          "name": "physical_bubbles_auto_receiver",
+          "visible": true,
+          "ownVisible": true,
+          "count": 6,
+          "position": [
+            0.03762594911394752,
+            0.31552474644246153,
+            0.005824020616481525
+          ],
+          "geometry": "PlaneGeometry",
+          "bounds": {
+            "min": [
+              -0.5,
+              -0.5,
+              0
+            ],
+            "max": [
+              0.5,
+              0.5,
+              0
+            ]
+          },
+          "material": {
+            "type": "MeshBasicMaterial",
+            "color": "f8fafc",
+            "opacity": 1,
+            "transparent": true,
+            "uniforms": []
+          }
+        },
+        {
+          "name": "sediment_bed_auto_receiver",
+          "visible": false,
+          "ownVisible": false,
+          "count": 1,
+          "position": [
+            0,
+            1.0490434836652889,
+            0
+          ],
+          "geometry": "BufferGeometry",
+          "bounds": {
+            "min": [
+              null,
+              null,
+              null
+            ],
+            "max": [
+              null,
+              null,
+              null
+            ]
+          },
+          "material": {
+            "type": "MeshStandardMaterial",
+            "color": "f8fafc",
+            "opacity": 0,
+            "transparent": true,
+            "roughness": 0.85,
+            "metalness": 0.08,
+            "uniforms": []
+          }
+        },
+        {
+          "name": "physical_mist_auto_receiver",
+          "visible": false,
+          "ownVisible": false,
+          "count": 25,
+          "position": [
+            0,
+            -9999.000000000002,
+            0
+          ],
+          "geometry": "PlaneGeometry",
+          "bounds": {
+            "min": [
+              -0.5,
+              -0.5,
+              0
+            ],
+            "max": [
+              0.5,
+              0.5,
+              0
+            ]
+          },
+          "material": {
+            "type": "MeshBasicMaterial",
+            "color": "f8fafc",
+            "opacity": 1,
+            "transparent": true,
+            "uniforms": []
+          }
+        },
+        {
+          "name": "vessel-transient-effects-auto_receiver",
+          "visible": true,
+          "ownVisible": true,
+          "position": [
+            0,
+            1.0490434836652889,
+            0
+          ],
+          "bounds": null,
+          "material": null
+        }
+      ],
+      "runtime": {
+        "matchingSample": true,
+        "managerSame": true,
+        "appearanceSame": true
+      },
+      "manualUnchanged": true,
+      "oldRendererMounted": false,
+      "render": {
+        "calls": 22,
+        "triangles": 4522,
+        "frame": 439
+      },
+      "screenshot": "02-sodium-water-shared.png"
+    },
+    {
+      "label": "Oxy và MnO₂ dùng chung hạt, khí và chất lỏng",
+      "id": "h2o2_kmno4",
+      "phase": "complete",
+      "elapsed_s": 35.29999999999928,
+      "temperature_c": 27.499403700110292,
+      "transfer": {
+        "phaseTime_s": 0.016666666666666666,
+        "streamVisible": false,
+        "streamCount": 0,
+        "dropsVisible": false,
+        "dropsCount": 0
+      },
+      "paused": true,
+      "progress": 1,
+      "sample": {
+        "volume_ml": 29.705707618724222,
+        "mass_g": 29.904006000000017,
+        "foam_ml": 0,
+        "contents": [
+          {
+            "formula": "H2O2",
+            "phase": "aq",
+            "moles": 2.3852447794681098e-18,
+            "initialMoles": 0.003,
+            "mass_g": 8.11317159288283e-17,
+            "concentration_M": 8.029584112531399e-17
+          },
+          {
+            "formula": "H2O",
+            "phase": "l",
+            "mass_g": 29.61792399999999,
+            "moles": 1.644070163752428,
+            "concentration_M": 55.34526175421356
+          },
+          {
+            "formula": "KMnO4",
+            "phase": "aq",
+            "moles": 0,
+            "initialMoles": 0.002,
+            "mass_g": 0,
+            "concentration_M": 0
+          },
+          {
+            "formula": "MnO2",
+            "moles": 0.0019999999999999974,
+            "mass_g": 0.1738719999999998,
+            "state": "s",
+            "phase": "s",
+            "solidOrigin": "precipitate",
+            "precipitateFormation": "fine_powder"
+          },
+          {
+            "formula": "KOH",
+            "moles": 0.0019999999999999974,
+            "mass_g": 0.11220999999999987,
+            "concentration_M": 0.0673271287009958,
+            "state": "aq",
+            "phase": "aq"
+          }
+        ],
+        "precipitate": "MnO2"
+      },
+      "inventory": {
+        "water_g": 29.61792399999999,
+        "total_g": 0,
+        "solid_g": 0,
+        "dissolved_g": 0,
+        "plates_g": 0,
+        "dissolvedCapacity_g": 0.030990958949085594,
+        "clear": false,
+        "expectedColdSolid_g": 0
+      },
+      "settledFraction": 0,
+      "bodyFrame": {
+        "position": [
+          0,
+          1.0490434836652889,
+          0
+        ],
+        "scale": [
+          1.0090434836652888,
+          1.0090434836652888,
+          1.0090434836652888
+        ],
+        "expectedPosition": [
+          0,
+          1.0490434836652889,
+          0
+        ],
+        "expectedScale": 1.0090434836652888
+      },
+      "physical": [
+        {
+          "morphology": "fine_powder",
+          "count": 128,
+          "sediment_g": 5.5135056426428105e-8
+        }
+      ],
+      "evaporation": 0,
+      "nodes": [
+        {
+          "name": "auto_shared_body_auto_receiver",
+          "visible": true,
+          "ownVisible": true,
+          "position": [
+            0,
+            1.0490434836652889,
+            0
+          ],
+          "bounds": null,
+          "material": null
+        },
+        {
+          "name": "liquid_volume_auto_receiver",
+          "visible": true,
+          "ownVisible": true,
+          "count": 1,
+          "position": [
+            0,
+            0.08036173934661162,
+            0
+          ],
+          "geometry": "LatheGeometry",
+          "bounds": {
+            "min": [
+              -0.9649999737739563,
+              0,
+              -0.9649999737739563
+            ],
+            "max": [
+              0.9649999737739563,
+              1.940000057220459,
+              0.9649999737739563
+            ]
+          },
+          "material": {
+            "type": "MeshPhysicalMaterial",
+            "color": "3c302a",
+            "opacity": 0.956807837524122,
+            "transparent": true,
+            "roughness": 0.08,
+            "metalness": 0,
+            "uniforms": []
+          }
+        },
+        {
+          "name": "liquid_surface_auto_receiver",
+          "visible": true,
+          "ownVisible": true,
+          "count": 1,
+          "position": [
+            0,
+            0.31323358192145545,
+            0
+          ],
+          "geometry": "RingGeometry",
+          "bounds": {
+            "min": [
+              -1,
+              -1,
+              0
+            ],
+            "max": [
+              1,
+              1,
+              0
+            ]
+          },
+          "material": {
+            "type": "MeshPhysicalMaterial",
+            "color": "3c302b",
+            "opacity": 0.9570386507844288,
+            "transparent": true,
+            "roughness": 0.06,
+            "metalness": 0,
+            "uniforms": []
+          }
+        },
+        {
+          "name": "physical_sim_auto_receiver",
+          "visible": true,
+          "ownVisible": true,
+          "position": [
+            0,
+            1.0490434836652889,
+            0
+          ],
+          "bounds": null,
+          "material": null
+        },
+        {
+          "name": "physical_bubbles_auto_receiver",
+          "visible": false,
+          "ownVisible": false,
+          "count": 14,
+          "position": [
+            -0.659011545538925,
+            0.3245318035769843,
+            0.35554732393914107
+          ],
+          "geometry": "PlaneGeometry",
+          "bounds": {
+            "min": [
+              -0.5,
+              -0.5,
+              0
+            ],
+            "max": [
+              0.5,
+              0.5,
+              0
+            ]
+          },
+          "material": {
+            "type": "MeshBasicMaterial",
+            "color": "f8fafc",
+            "opacity": 1,
+            "transparent": true,
+            "uniforms": []
+          }
+        },
+        {
+          "name": "physical_precipitate_auto_receiver_MnO2",
+          "visible": true,
+          "ownVisible": true,
+          "count": 70,
+          "position": [
+            -0.24613908646600846,
+            0.1322350220437316,
+            0.40671350582934745
+          ],
+          "geometry": "IcosahedronGeometry",
+          "bounds": {
+            "min": [
+              -0.4253253936767578,
+              -0.4253253936767578,
+              -0.4253253936767578
+            ],
+            "max": [
+              0.4253253936767578,
+              0.4253253936767578,
+              0.4253253936767578
+            ]
+          },
+          "material": {
+            "type": "MeshPhysicalMaterial",
+            "color": "3c302a",
+            "opacity": 1,
+            "transparent": true,
+            "roughness": 0.95,
+            "metalness": 0,
+            "uniforms": []
+          }
+        },
+        {
+          "name": "sediment_bed_auto_receiver",
+          "visible": true,
+          "ownVisible": true,
+          "count": 1,
+          "position": [
+            0,
+            1.0490434836652889,
+            0
+          ],
+          "geometry": "LatheGeometry",
+          "bounds": {
+            "min": [
+              -0.9649900197982788,
+              -0.9599999785423279,
+              -0.9649900197982788
+            ],
+            "max": [
+              0.9649900197982788,
+              -0.9599999785423279,
+              0.9649900197982788
+            ]
+          },
+          "material": {
+            "type": "MeshStandardMaterial",
+            "color": "3c302a",
+            "opacity": 0.000002254788237613569,
+            "transparent": true,
+            "roughness": 0.9499999999999998,
+            "metalness": 0,
+            "uniforms": []
+          }
+        },
+        {
+          "name": "physical_mist_auto_receiver",
+          "visible": false,
+          "ownVisible": false,
+          "count": 25,
+          "position": [
+            0,
+            -9999.000000000002,
+            0
+          ],
+          "geometry": "PlaneGeometry",
+          "bounds": {
+            "min": [
+              -0.5,
+              -0.5,
+              0
+            ],
+            "max": [
+              0.5,
+              0.5,
+              0
+            ]
+          },
+          "material": {
+            "type": "MeshBasicMaterial",
+            "color": "f8fafc",
+            "opacity": 1,
+            "transparent": true,
+            "uniforms": []
+          }
+        },
+        {
+          "name": "vessel-transient-effects-auto_receiver",
+          "visible": true,
+          "ownVisible": true,
+          "position": [
+            0,
+            1.0490434836652889,
+            0
+          ],
+          "bounds": null,
+          "material": null
+        }
+      ],
+      "runtime": {
+        "matchingSample": true,
+        "managerSame": true,
+        "appearanceSame": true
+      },
+      "manualUnchanged": true,
+      "oldRendererMounted": false,
+      "render": {
+        "calls": 19,
+        "triangles": 5878,
+        "frame": 536
+      },
+      "screenshot": "02-shared-oxygen-reaction.png"
+    },
+    {
+      "label": "Mẫu oxy có chất hoạt động bề mặt thực — bọt khí hữu hạn",
+      "id": "h2o2_mno2",
+      "phase": "react",
+      "elapsed_s": 0.19999999999999998,
+      "temperature_c": 25.153978669257114,
+      "transfer": {
+        "formula": "H2O",
+        "amount_ml": 29.7734693877551,
+        "mode": "pour",
+        "fraction": 0,
+        "phaseTime_s": 0.19999999999999998,
+        "streamVisible": false,
+        "streamCount": 0,
+        "dropsVisible": false,
+        "dropsCount": 0
+      },
+      "paused": true,
+      "progress": 0.1285397915169908,
+      "sample": {
+        "volume_ml": 30,
+        "mass_g": 29.999162051271544,
+        "foam_ml": 1.8403338328297447,
+        "contents": [
+          {
+            "formula": "H2O2",
+            "phase": "aq",
+            "moles": 0.0017429204169660184,
+            "initialMoles": 0.002,
+            "mass_g": 0.059283695062682155,
+            "concentration_M": 0.058097347232200613
+          },
+          {
+            "formula": "MnO2",
+            "phase": "s",
+            "moles": 0.00001,
+            "initialMoles": 0.00001,
+            "mass_g": 0.0008693600000000001
+          },
+          {
+            "formula": "C12H25NaO4S",
+            "phase": "aq",
+            "mass_g": 0.2,
+            "moles": 0.0006935341808321024,
+            "concentration_M": 0.023117806027736748
+          },
+          {
+            "formula": "H2O",
+            "phase": "l",
+            "mass_g": 29.736603288688354,
+            "moles": 1.6506579677317987,
+            "concentration_M": 55.021932257726625
+          },
+          {
+            "formula": "O2",
+            "phase": "g",
+            "location": "foam",
+            "moles": 0.00007518305895703371,
+            "mass_g": 0.0024057075205071647
+          }
+        ]
+      },
+      "inventory": {
+        "water_g": 29.736603288688354,
+        "total_g": 0,
+        "solid_g": 0,
+        "dissolved_g": 0,
+        "plates_g": 0,
+        "dissolvedCapacity_g": 0.029191312493308516,
+        "clear": false,
+        "expectedColdSolid_g": 0
+      },
+      "settledFraction": 0,
+      "bodyFrame": {
+        "position": [
+          0,
+          1.0490434836652889,
+          0
+        ],
+        "scale": [
+          1.0090434836652888,
+          1.0090434836652888,
+          1.0090434836652888
+        ],
+        "expectedPosition": [
+          0,
+          1.0490434836652889,
+          0
+        ],
+        "expectedScale": 1.0090434836652888
+      },
+      "physical": [],
+      "evaporation": 0,
+      "nodes": [
+        {
+          "name": "auto_shared_body_auto_receiver",
+          "visible": true,
+          "ownVisible": true,
+          "position": [
+            0,
+            1.0490434836652889,
+            0
+          ],
+          "bounds": null,
+          "material": null
+        },
+        {
+          "name": "liquid_volume_auto_receiver",
+          "visible": true,
+          "ownVisible": true,
+          "count": 1,
+          "position": [
+            0,
+            0.08036173934661162,
+            0
+          ],
+          "geometry": "LatheGeometry",
+          "bounds": {
+            "min": [
+              -0.9649999737739563,
+              0,
+              -0.9649999737739563
+            ],
+            "max": [
+              0.9649999737739563,
+              1.940000057220459,
+              0.9649999737739563
+            ]
+          },
+          "material": {
+            "type": "MeshPhysicalMaterial",
+            "color": "f8fafc",
+            "opacity": 0.12,
+            "transparent": true,
+            "roughness": 0.08,
+            "metalness": 0,
+            "uniforms": []
+          }
+        },
+        {
+          "name": "liquid_surface_auto_receiver",
+          "visible": true,
+          "ownVisible": true,
+          "count": 1,
+          "position": [
+            0,
+            0.3152684156725297,
+            0
+          ],
+          "geometry": "RingGeometry",
+          "bounds": {
+            "min": [
+              -1,
+              -1,
+              0
+            ],
+            "max": [
+              1,
+              1,
+              0
+            ]
+          },
+          "material": {
+            "type": "MeshPhysicalMaterial",
+            "color": "f8fafc",
+            "opacity": 0.18,
+            "transparent": true,
+            "roughness": 0.06,
+            "metalness": 0,
+            "uniforms": []
+          }
+        },
+        {
+          "name": "solids_auto_receiver",
+          "visible": true,
+          "ownVisible": true,
+          "position": [
+            0,
+            1.0490434836652889,
+            0
+          ],
+          "bounds": null,
+          "material": null
+        },
+        {
+          "name": "physical_sim_auto_receiver",
+          "visible": true,
+          "ownVisible": true,
+          "position": [
+            0,
+            1.0490434836652889,
+            0
+          ],
+          "bounds": null,
+          "material": null
+        },
+        {
+          "name": "physical_bubbles_auto_receiver",
+          "visible": true,
+          "ownVisible": true,
+          "count": 34,
+          "position": [
+            -0.00006966422006607717,
+            0.3132309868353833,
+            -0.023588224745317243
+          ],
+          "geometry": "PlaneGeometry",
+          "bounds": {
+            "min": [
+              -0.5,
+              -0.5,
+              0
+            ],
+            "max": [
+              0.5,
+              0.5,
+              0
+            ]
+          },
+          "material": {
+            "type": "MeshBasicMaterial",
+            "color": "f8fafc",
+            "opacity": 1,
+            "transparent": true,
+            "uniforms": []
+          }
+        },
+        {
+          "name": "sediment_bed_auto_receiver",
+          "visible": false,
+          "ownVisible": false,
+          "count": 1,
+          "position": [
+            0,
+            1.0490434836652889,
+            0
+          ],
+          "geometry": "BufferGeometry",
+          "bounds": {
+            "min": [
+              null,
+              null,
+              null
+            ],
+            "max": [
+              null,
+              null,
+              null
+            ]
+          },
+          "material": {
+            "type": "MeshStandardMaterial",
+            "color": "f8fafc",
+            "opacity": 0,
+            "transparent": true,
+            "roughness": 0.85,
+            "metalness": 0.08,
+            "uniforms": []
+          }
+        },
+        {
+          "name": "physical_mist_auto_receiver",
+          "visible": false,
+          "ownVisible": false,
+          "count": 25,
+          "position": [
+            0,
+            -9999.000000000002,
+            0
+          ],
+          "geometry": "PlaneGeometry",
+          "bounds": {
+            "min": [
+              -0.5,
+              -0.5,
+              0
+            ],
+            "max": [
+              0.5,
+              0.5,
+              0
+            ]
+          },
+          "material": {
+            "type": "MeshBasicMaterial",
+            "color": "f8fafc",
+            "opacity": 1,
+            "transparent": true,
+            "uniforms": []
+          }
+        },
+        {
+          "name": "vessel-transient-effects-auto_receiver",
+          "visible": true,
+          "ownVisible": true,
+          "position": [
+            0,
+            1.0490434836652889,
+            0
+          ],
+          "bounds": null,
+          "material": null
+        },
+        {
+          "name": "foam_volume_auto_receiver",
+          "visible": true,
+          "ownVisible": true,
+          "count": 1,
+          "position": [
+            0,
+            0.08036173934661162,
+            0
+          ],
+          "geometry": "LatheGeometry",
+          "bounds": {
+            "min": [
+              -0.9649999737739563,
+              0,
+              -0.9649999737739563
+            ],
+            "max": [
+              0.9649999737739563,
+              1.940000057220459,
+              0.9649999737739563
+            ]
+          },
+          "material": {
+            "type": "MeshPhysicalMaterial",
+            "color": "ffffff",
+            "opacity": 0.72,
+            "transparent": true,
+            "roughness": 0.8,
+            "metalness": 0,
+            "uniforms": []
+          }
+        },
+        {
+          "name": "foam_surface_auto_receiver",
+          "visible": true,
+          "ownVisible": true,
+          "count": 1,
+          "position": [
+            0,
+            0.3296785561199862,
+            0
+          ],
+          "geometry": "RingGeometry",
+          "bounds": {
+            "min": [
+              -1,
+              -1,
+              0
+            ],
+            "max": [
+              1,
+              1,
+              0
+            ]
+          },
+          "material": {
+            "type": "MeshPhysicalMaterial",
+            "color": "ffffff",
+            "opacity": 0.8,
+            "transparent": true,
+            "roughness": 0.75,
+            "metalness": 0,
+            "uniforms": []
+          }
+        },
+        {
+          "name": "finite-foam-auto_receiver",
+          "visible": true,
+          "ownVisible": true,
+          "count": 16,
+          "position": [
+            0.4979849359294846,
+            0.31571870980532346,
+            0
+          ],
+          "geometry": "PlaneGeometry",
+          "bounds": {
+            "min": [
+              -0.5,
+              -0.5,
+              0
+            ],
+            "max": [
+              0.5,
+              0.5,
+              0
+            ]
+          },
+          "material": {
+            "type": "MeshBasicMaterial",
+            "color": "ffffff",
+            "opacity": 0.65,
+            "transparent": true,
+            "uniforms": []
+          }
+        }
+      ],
+      "runtime": {
+        "matchingSample": true,
+        "managerSame": true,
+        "appearanceSame": true
+      },
+      "manualUnchanged": true,
+      "oldRendererMounted": false,
+      "render": {
+        "calls": 37,
+        "triangles": 20286,
+        "frame": 660
+      },
+      "screenshot": "03-finite-surfactant-foam.png"
+    },
+    {
+      "label": "Nguồn hơi nước hữu hạn ở điểm sôi — mẫu kiểm tra renderer",
+      "id": "h2o2_mno2",
+      "phase": "observe",
+      "elapsed_s": 3.1999999999999935,
+      "temperature_c": 99.9742958054025,
+      "transfer": {
+        "formula": "H2O",
+        "amount_ml": 29.7734693877551,
+        "mode": "pour",
+        "fraction": 0,
+        "phaseTime_s": 0,
+        "streamVisible": false,
+        "streamCount": 0,
+        "dropsVisible": false,
+        "dropsCount": 0
+      },
+      "paused": true,
+      "progress": 1,
+      "sample": {
+        "volume_ml": 17.906504728141208,
+        "mass_g": 17.906504728141208,
+        "foam_ml": 0,
+        "contents": [
+          {
+            "formula": "H2O",
+            "phase": "l",
+            "mass_g": 17.906504728141037,
+            "moles": 0.9939775036436831
+          }
+        ]
+      },
+      "inventory": {
+        "water_g": 17.906504728141037,
+        "total_g": 0,
+        "solid_g": 0,
+        "dissolved_g": 0,
+        "plates_g": 0,
+        "dissolvedCapacity_g": 0.07589596631319664,
+        "clear": false,
+        "expectedColdSolid_g": 0
+      },
+      "settledFraction": 0,
+      "bodyFrame": {
+        "position": [
+          0,
+          1.0490434836652889,
+          0
+        ],
+        "scale": [
+          1.0090434836652888,
+          1.0090434836652888,
+          1.0090434836652888
+        ],
+        "expectedPosition": [
+          0,
+          1.0490434836652889,
+          0
+        ],
+        "expectedScale": 1.0090434836652888,
+        "mistPositionError": 4.482488437999842e-8
+      },
+      "physical": [],
+      "evaporation": 25,
+      "nodes": [
+        {
+          "name": "auto_shared_body_auto_receiver",
+          "visible": true,
+          "ownVisible": true,
+          "position": [
+            0,
+            1.0490434836652889,
+            0
+          ],
+          "bounds": null,
+          "material": null
+        },
+        {
+          "name": "liquid_volume_auto_receiver",
+          "visible": true,
+          "ownVisible": true,
+          "count": 1,
+          "position": [
+            0,
+            0.08036173934661162,
+            0
+          ],
+          "geometry": "LatheGeometry",
+          "bounds": {
+            "min": [
+              -0.9649999737739563,
+              0,
+              -0.9649999737739563
+            ],
+            "max": [
+              0.9649999737739563,
+              1.940000057220459,
+              0.9649999737739563
+            ]
+          },
+          "material": {
+            "type": "MeshPhysicalMaterial",
+            "color": "f8fafc",
+            "opacity": 0.13019607843137257,
+            "transparent": true,
+            "roughness": 0.08,
+            "metalness": 0,
+            "uniforms": []
+          }
+        },
+        {
+          "name": "liquid_surface_auto_receiver",
+          "visible": true,
+          "ownVisible": true,
+          "count": 1,
+          "position": [
+            0,
+            0.22057284857715553,
+            0
+          ],
+          "geometry": "RingGeometry",
+          "bounds": {
+            "min": [
+              -1,
+              -1,
+              0
+            ],
+            "max": [
+              1,
+              1,
+              0
+            ]
+          },
+          "material": {
+            "type": "MeshPhysicalMaterial",
+            "color": "f8fafc",
+            "opacity": 0.19019607843137257,
+            "transparent": true,
+            "roughness": 0.06,
+            "metalness": 0,
+            "uniforms": []
+          }
+        },
+        {
+          "name": "physical_sim_auto_receiver",
+          "visible": true,
+          "ownVisible": true,
+          "position": [
+            0,
+            1.0490434836652889,
+            0
+          ],
+          "bounds": null,
+          "material": null
+        },
+        {
+          "name": "physical_bubbles_auto_receiver",
+          "visible": true,
+          "ownVisible": true,
+          "count": 9,
+          "position": [
+            -0.23852372397797963,
+            0.2205728540140599,
+            0.4514796786129302
+          ],
+          "geometry": "PlaneGeometry",
+          "bounds": {
+            "min": [
+              -0.5,
+              -0.5,
+              0
+            ],
+            "max": [
+              0.5,
+              0.5,
+              0
+            ]
+          },
+          "material": {
+            "type": "MeshBasicMaterial",
+            "color": "f8fafc",
+            "opacity": 1,
+            "transparent": true,
+            "uniforms": []
+          }
+        },
+        {
+          "name": "sediment_bed_auto_receiver",
+          "visible": false,
+          "ownVisible": false,
+          "count": 1,
+          "position": [
+            0,
+            1.0490434836652889,
+            0
+          ],
+          "geometry": "BufferGeometry",
+          "bounds": {
+            "min": [
+              null,
+              null,
+              null
+            ],
+            "max": [
+              null,
+              null,
+              null
+            ]
+          },
+          "material": {
+            "type": "MeshStandardMaterial",
+            "color": "f8fafc",
+            "opacity": 0,
+            "transparent": true,
+            "roughness": 0.85,
+            "metalness": 0.08,
+            "uniforms": []
+          }
+        },
+        {
+          "name": "physical_mist_auto_receiver",
+          "visible": true,
+          "ownVisible": true,
+          "count": 25,
+          "position": [
+            1.730499148368836,
+            2.8568704128265385,
+            -0.19716414809226995
+          ],
+          "geometry": "PlaneGeometry",
+          "bounds": {
+            "min": [
+              -0.5,
+              -0.5,
+              0
+            ],
+            "max": [
+              0.5,
+              0.5,
+              0
+            ]
+          },
+          "material": {
+            "type": "MeshBasicMaterial",
+            "color": "f8fafc",
+            "opacity": 1,
+            "transparent": true,
+            "uniforms": []
+          }
+        },
+        {
+          "name": "vessel-transient-effects-auto_receiver",
+          "visible": true,
+          "ownVisible": true,
+          "position": [
+            0,
+            1.0490434836652889,
+            0
+          ],
+          "bounds": null,
+          "material": null
+        }
+      ],
+      "runtime": {
+        "matchingSample": true,
+        "managerSame": true,
+        "appearanceSame": true
+      },
+      "manualUnchanged": true,
+      "oldRendererMounted": false,
+      "render": {
+        "calls": 37,
+        "triangles": 24336,
+        "frame": 668
+      },
+      "screenshot": "03-finite-hot-water-mist.png"
+    }
+  ],
+  "assertions": {
+    "microdoseUsesSeparateDrops": true,
+    "ordinaryDoseUsesStream": true,
+    "ordinaryDoseFinishesQuickly": true,
+    "canonicalPrecipitate": true,
+    "canonicalLiquid": true,
+    "canonicalMistMounted": true,
+    "scopedManagerAndAppearance": true,
+    "oldRenderersAbsent": true,
+    "canonicalSilverCoating": true,
+    "canonicalSodiumPellet": true,
+    "canonicalOxygenReaction": true,
+    "noInventedFoamWithoutSurfactant": true,
+    "canonicalFiniteFoam": true,
+    "finiteFoamMassConserved": true,
+    "finiteSteamVisible": true,
+    "finiteSteamMassConserved": true,
+    "pauseStable": true,
+    "workbenchUnchanged": true,
+    "sharedBodyUsesCanonicalWorldScale": true,
+    "mistStaysInItsWorldFrame": true,
+    "noRuntimeErrors": true,
+    "resourcesLoaded": true,
+    "sourceUnchangedDuringAudit": true
+  },
+  "sourceBefore": {
+    "src/vfx/autoplay/AutoExperiment.ts": "da751547f40300a0069810a0ccbd3efb4df33403afb9d058f7ab4abdc2648625",
+    "src/vfx/autoplay/AutoExperimentScene.tsx": "2d395dd75a6b1f9b239b26efaa46ec4563ed2ffe51ce76ec93e078f188405164",
+    "src/vfx/autoplay/autoVisualRuntime.ts": "1f150eb37b713f728294238652601a1171190a6968f6db9016c22a02b7ca826f",
+    "src/simulation/render/PhysicalSimulationRenderer.tsx": "fded55eadc51e158c48fbffc11518743543f200128c8dd5b5e7a6ce92b381254",
+    "src/vfx/SharedVesselTransientEffects.tsx": "5f77ef9031774140753e94cbc04d90dc3fa8c97de95fc976ac24d2ceb4088e71",
+    "src/vfx/materials/liquid.tsx": "67d5b09b5985ecaad0a44ff11edcf89053d5507fe04a5f7e2d93466b09b6db3b"
+  },
+  "dosing": {
+    "formula": "CuSO4",
+    "amount_ml": 2,
+    "mode": "pour",
+    "doseDuration_s": 3.2500000000001616,
+    "fraction": 1
+  },
+  "foamFixture": {
+    "mode": "Authored oxygen_foam virtual specimen; actual automatic chemistry advances finite peroxide and explicit surfactant",
+    "initialMass_g": 30.00086936,
+    "surfactant_g": 0.2,
+    "state": {
+      "mass_g": 29.999162051271544,
+      "escaped_g": 0.0017073087284535074,
+      "evaporated_g": 0,
+      "returnedWall_g": 0,
+      "foamOxygen_g": 0.0024057075205071647
+    }
+  },
+  "thermalFixture": {
+    "mode": "Controlled pure-water fixture; actual finite thermal/wall/outflow functions, not an authored reaction",
+    "inputWater_g": 20,
+    "heatPower_W": 1600,
+    "heatingSeconds": 3,
+    "temperature_c": 99.9742958054025,
+    "remainingLiquid_g": 17.906504728141208,
+    "wall_g": 0.08712444896387339,
+    "released_g": 2.006370822895147,
+    "massError_g": 2.2737367544323206e-13,
+    "physicalMistParticles": 25,
+    "physicalVaporAccepted_g": 2.006370822895147
+  },
+  "sourceAfter": {
+    "src/vfx/autoplay/AutoExperiment.ts": "da751547f40300a0069810a0ccbd3efb4df33403afb9d058f7ab4abdc2648625",
+    "src/vfx/autoplay/AutoExperimentScene.tsx": "2d395dd75a6b1f9b239b26efaa46ec4563ed2ffe51ce76ec93e078f188405164",
+    "src/vfx/autoplay/autoVisualRuntime.ts": "1f150eb37b713f728294238652601a1171190a6968f6db9016c22a02b7ca826f",
+    "src/simulation/render/PhysicalSimulationRenderer.tsx": "fded55eadc51e158c48fbffc11518743543f200128c8dd5b5e7a6ce92b381254",
+    "src/vfx/SharedVesselTransientEffects.tsx": "5f77ef9031774140753e94cbc04d90dc3fa8c97de95fc976ac24d2ceb4088e71",
+    "src/vfx/materials/liquid.tsx": "67d5b09b5985ecaad0a44ff11edcf89053d5507fe04a5f7e2d93466b09b6db3b"
+  },
+  "generatedAt": "2026-11-15T11:56:08.371Z"
+}

@@ -1,5 +1,4 @@
 {
-  "error": "AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:\n+ actual - expected\n\n+ 49.99993321969275\n- 50\n",
   "errors": [],
   "automatic": {
     "falling": {
@@ -12,46 +11,46 @@
       "fraction": 0,
       "tip": [
         0,
-        2.44,
+        2.4580869673305776,
         0
       ],
       "lip": [
         0,
-        2.44,
+        2.4580869673305776,
         0
       ],
       "flight": {
         "start": [
           0,
-          2.44,
+          2.4580869673305776,
           0
         ],
         "target": [
           0,
-          0.30391432548124797,
+          0.30630103037277334,
           0
         ],
-        "gravity": 277.67881616184354,
-        "flightTime": 0.12403748647396584
+        "gravity": 280.18999999999994,
+        "flightTime": 0.12393335728292214
       },
       "schedule": {
         "count": 2,
-        "flightTime": 0.12403748647396584,
+        "flightTime": 0.12393335728292214,
         "period": 0.6,
         "releaseStart": 0.75,
-        "lastImpact": 1.474037486473966
+        "lastImpact": 1.4739333572829223
       },
       "drawnDrops": [
         [
           0,
-          2.0929014682769775,
+          2.107849359512329,
           0
         ]
       ],
       "streamVisible": false,
       "contact": {
         "point": [
-          -0.1658576115037922,
+          -0.1643711239294907,
           -0.7360804898451958,
           0
         ],
@@ -59,6 +58,11 @@
         "expiresAt_ms": 0,
         "color": "#e2f1fc"
       },
+      "contactWorld": [
+        -0.1658576115037922,
+        0.30630626193384025,
+        0
+      ],
       "receiverOrigin": [
         0,
         1.04,
@@ -76,34 +80,34 @@
       "fraction": 0.75,
       "tip": [
         0,
-        2.44,
+        2.4580869673305776,
         0
       ],
       "lip": [
         0,
-        2.44,
+        2.4580869673305776,
         0
       ],
       "flight": {
         "start": [
           0,
-          2.44,
+          2.4580869673305776,
           0
         ],
         "target": [
           0,
-          0.30391432548124797,
+          0.30630103037277334,
           0
         ],
-        "gravity": 277.67881616184354,
-        "flightTime": 0.12403748647396584
+        "gravity": 280.18999999999994,
+        "flightTime": 0.12393335728292214
       },
       "schedule": {
         "count": 2,
-        "flightTime": 0.12403748647396584,
+        "flightTime": 0.12393335728292214,
         "period": 0.6,
         "releaseStart": 0.75,
-        "lastImpact": 1.474037486473966
+        "lastImpact": 1.4739333572829223
       },
       "drawnDrops": [],
       "streamVisible": false,
@@ -117,6 +121,11 @@
         "expiresAt_ms": 0,
         "color": "#ffffff"
       },
+      "contactWorld": [
+        0,
+        0.30630103037277334,
+        0
+      ],
       "receiverOrigin": [
         0,
         1.04,
@@ -134,7 +143,7 @@
       ],
       "drop": [
         1.2,
-        1.3368046436916095,
+        1.1855753832690907,
         -1.3
       ],
       "receiverPosition": [
@@ -143,16 +152,37 @@
         -1.3
       ],
       "surfaceY": 0.15090429141879175,
-      "receiverMass_g": 49.99993321969275,
+      "receiverMass_g": 49.99993038401614,
+      "evaporated_ml": 0.00006961598388654751,
       "dose": {
         "id": 1,
         "chemical": "NaOH",
-        "targetId": "beaker_1794738526583_45ny0",
+        "targetId": "beaker_1794744020232_wbize",
         "type": "liquid",
         "amount": 0.12,
         "releasedAmount": 0,
         "awaitingContact": true
       }
+    },
+    "handheld": {
+      "tip": [
+        1.199999999461794,
+        0.9869391907149794,
+        -1.2999999997693403
+      ],
+      "jetEnds": [
+        [
+          1.199999999461794,
+          0.9869391906622798,
+          -1.2999999997693406
+        ],
+        [
+          1.2,
+          0.12926812520462777,
+          -1.3
+        ]
+      ],
+      "streamVisible": true
     }
   }
 }

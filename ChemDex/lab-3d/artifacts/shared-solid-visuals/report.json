@@ -1,0 +1,69 @@
+{
+  "mode": "controlled renderer fixtures; canonical chemistry is not advanced",
+  "errors": [],
+  "checks": [
+    {
+      "case": "inherited-sodium-melt-and-combustion-projection",
+      "sodium": {
+        "sharedSodium": true,
+        "scale": [
+          0.04814998162197638,
+          0.04814998162197638,
+          0.04814998162197638
+        ],
+        "position": [
+          0,
+          -0.8430021089724897,
+          0
+        ],
+        "roughness": 0.09,
+        "flameVisible": true,
+        "alternativeStock": false,
+        "liquid": true
+      }
+    },
+    {
+      "case": "shared-finite-carrier-coating",
+      "coating": {
+        "exists": true,
+        "count": 8,
+        "mass": 0.1,
+        "carrierIds": [
+          "iron-host"
+        ],
+        "center": [
+          0,
+          -0.3558255732059479,
+          0
+        ],
+        "world": [
+          0,
+          0.024150000269512636,
+          0
+        ],
+        "authoritative": [
+          0,
+          0.02415,
+          0
+        ],
+        "duplicatedCopperStock": false
+      }
+    },
+    {
+      "case": "inherited-ice-finite-foam-wall-beads",
+      "ice": {
+        "ice": true,
+        "iceScale": [
+          0.6390400927028528,
+          0.31952004635142645,
+          0.6390400927028528
+        ],
+        "foam": true,
+        "foamVisible": true,
+        "beadCount": 2,
+        "manualUnchanged": true
+      }
+    }
+  ],
+  "passed": true
+}

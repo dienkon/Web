@@ -1,10 +1,34 @@
 {
-  "generatedAt": "2026-11-15T09:51:12.872Z",
+  "generatedAt": "2026-11-15T12:03:09.590Z",
   "origin": "http://127.0.0.1:6767",
+  "sourceBefore": {
+    "src/vfx/autoplay/AutoExperiment.ts": "da751547f40300a0069810a0ccbd3efb4df33403afb9d058f7ab4abdc2648625",
+    "src/vfx/autoplay/AutoExperimentScene.tsx": "2d395dd75a6b1f9b239b26efaa46ec4563ed2ffe51ce76ec93e078f188405164",
+    "src/vfx/autoplay/autoVisualRuntime.ts": "1f150eb37b713f728294238652601a1171190a6968f6db9016c22a02b7ca826f",
+    "src/simulation/render/PhysicalSimulationRenderer.tsx": "fded55eadc51e158c48fbffc11518743543f200128c8dd5b5e7a6ce92b381254",
+    "src/vfx/SharedVesselTransientEffects.tsx": "5f77ef9031774140753e94cbc04d90dc3fa8c97de95fc976ac24d2ceb4088e71",
+    "src/vfx/materials/liquid.tsx": "67d5b09b5985ecaad0a44ff11edcf89053d5507fe04a5f7e2d93466b09b6db3b"
+  },
+  "sourceAfter": {
+    "src/vfx/autoplay/AutoExperiment.ts": "da751547f40300a0069810a0ccbd3efb4df33403afb9d058f7ab4abdc2648625",
+    "src/vfx/autoplay/AutoExperimentScene.tsx": "2d395dd75a6b1f9b239b26efaa46ec4563ed2ffe51ce76ec93e078f188405164",
+    "src/vfx/autoplay/autoVisualRuntime.ts": "1f150eb37b713f728294238652601a1171190a6968f6db9016c22a02b7ca826f",
+    "src/simulation/render/PhysicalSimulationRenderer.tsx": "fded55eadc51e158c48fbffc11518743543f200128c8dd5b5e7a6ce92b381254",
+    "src/vfx/SharedVesselTransientEffects.tsx": "5f77ef9031774140753e94cbc04d90dc3fa8c97de95fc976ac24d2ceb4088e71",
+    "src/vfx/materials/liquid.tsx": "67d5b09b5985ecaad0a44ff11edcf89053d5507fe04a5f7e2d93466b09b6db3b"
+  },
+  "sourceModules": [
+    "http://127.0.0.1:6767/src/simulation/render/VesselVisualContext.tsx?t=1794742986374",
+    "http://127.0.0.1:6767/src/vfx/autoplay/AutoExperiment.ts?t=1794743336567",
+    "http://127.0.0.1:6767/src/vfx/autoplay/AutoExperimentScene.tsx?t=1794743336567",
+    "http://127.0.0.1:6767/src/vfx/autoplay/autoVisualRuntime.ts?t=1794742986374"
+  ],
   "assertions": {
     "smallDoseUsesRenderedPipette": true,
     "smallDoseHasSeparateDrops": true,
     "coldFineYellowMesh": true,
+    "sharedLiquidAndRuntime": true,
+    "physicalMistMounted": true,
     "heatHasVisibleHotplateAndIndicator": true,
     "hotplateSitsBelowGlass": true,
     "heatingHasNoIntrusiveFlame": true,
@@ -20,28 +44,36 @@
     "reactionViewHasNoSidePanels": true,
     "noRuntimeOrShaderErrors": true,
     "sourceAndAssetResourcesLoaded": true,
-    "vietnameseColorWordPreserved": true
+    "vietnameseColorWordPreserved": true,
+    "sourceUnchangedDuringAudit": true
   },
   "stages": [
     {
       "label": "Liều nhỏ dùng pipet và giọt riêng",
       "elapsed_s": 11.800000000000166,
       "phase": "dose",
-      "caption": "Nhỏ từng giọt Pb(NO3)2 bằng pipet · 0.00 / 1.56 mL.",
-      "temperature_c": 24.98849700532414,
-      "volume_ml": 47.26855328105387,
+      "caption": "Nhỏ từng giọt HNO3 bằng pipet · 0.00 / 0.07 mL.",
+      "temperature_c": 24.983052705121768,
+      "volume_ml": 28.854799874574162,
       "inventory": {
-        "water_g": 47.26855328105387,
+        "water_g": 28.854799874574162,
         "total_g": 0,
         "solid_g": 0,
         "dissolved_g": 0,
         "plates_g": 0,
-        "dissolvedCapacity_g": 0.046190331500473435,
+        "dissolvedCapacity_g": 0.028192365408969078,
         "clear": false,
         "expectedColdSolid_g": 0
       },
-      "accountedMass_g": 50.207253750000014,
-      "massError_g": 1.4210854715202004e-14,
+      "accountedMass_g": 29.99999999999998,
+      "massError_g": -2.4868995751603507e-14,
+      "waterLedger": {
+        "grossEvaporated_g": 0.0012001254258195647,
+        "returnedWall_g": 0,
+        "wallRetained_g": 0,
+        "externalReleased_g": 0.0012001254258195647,
+        "outflow_g_s": 0.00016348079702385547
+      },
       "settledFraction": 0,
       "cloudiness": 0,
       "flame": false,
@@ -56,16 +88,26 @@
         "transparent": true
       },
       "liquidVisible": true,
+      "sharedRenderer": {
+        "liquidSurface": true,
+        "liquidVolume": true,
+        "physicalMistMounted": true,
+        "physicalMistVisible": false,
+        "physicalMistCount": 25,
+        "scopedSampleMatches": true,
+        "scopedManagerMatches": true,
+        "scopedAppearanceMatches": true
+      },
       "transfer": {
-        "formula": "Pb(NO3)2",
+        "formula": "HNO3",
         "doseMode": "dropper",
-        "volume_ml": 1.5624999999999998,
+        "volume_ml": 0.06666666666666667,
         "schedule": {
-          "count": 32,
-          "flightTime": 0.11909922058420672,
+          "count": 2,
+          "flightTime": 0.12393335728292214,
           "period": 0.6,
           "releaseStart": 0.75,
-          "lastImpact": 19.469099220584205
+          "lastImpact": 1.4739333572829223
         },
         "fraction": 0,
         "activeDropper": true,
@@ -80,29 +122,18 @@
         "burnerVisible": false,
         "flameMounted": false,
         "flameVisible": false,
-        "hotplateMounted": true,
-        "hotplateVisible": true,
+        "hotplateMounted": false,
+        "hotplateVisible": false,
         "vesselBaseY": 0.040000000000000036,
-        "hotplateBounds": {
-          "min": [
-            -1.0499999523162842,
-            2.2351741811588166e-10,
-            -1.024999976158142
-          ],
-          "max": [
-            1.0499999523162842,
-            0.03200000005215406,
-            1.0399999998882412
-          ]
-        },
-        "heatIndicatorMounted": true,
+        "hotplateBounds": null,
+        "heatIndicatorMounted": false,
         "heatIndicatorVisible": false
       },
       "camera": {
         "position": [
-          4.200510522232573,
-          3.700191445837215,
-          6.100765783348859
+          4.220735327919236,
+          3.7077757479697144,
+          6.131102991878854
         ],
         "fov": 38
       },
@@ -116,7 +147,7 @@
         "bottom": 856,
         "left": 0
       },
-      "renderCalls": 29,
+      "renderCalls": 27,
       "renderer": "WebKit WebGL",
       "panelsOpen": 0,
       "error": null,
@@ -124,25 +155,32 @@
     },
     {
       "label": "Kết tủa vàng mịn sau khi trộn lạnh",
-      "elapsed_s": 51.899999999998336,
+      "elapsed_s": 23.59999999999994,
       "phase": "condition",
       "caption": "Mẫu ở nhiệt độ thường.",
-      "temperature_c": 25.033208195018965,
-      "volume_ml": 50.11108430926149,
+      "temperature_c": 25.058623325957058,
+      "volume_ml": 50.14236060750627,
       "inventory": {
-        "water_g": 49.994949294584636,
-        "total_g": 0.144051372182974,
-        "solid_g": 0.0951446917489145,
-        "dissolved_g": 0.048906680434059505,
+        "water_g": 49.997606857506256,
+        "total_g": 0.1440508644029148,
+        "solid_g": 0.09571878347672735,
+        "dissolved_g": 0.04833208092618746,
         "plates_g": 0,
-        "dissolvedCapacity_g": 0.048914901599563215,
+        "dissolvedCapacity_g": 0.048951836207145556,
         "clear": false,
-        "expectedColdSolid_g": 0.09518130924751753
+        "expectedColdSolid_g": 0.09517820369970245
       },
-      "accountedMass_g": 50.20725375000009,
-      "massError_g": 9.237055564881302e-14,
+      "accountedMass_g": 50.20725374999995,
+      "massError_g": -4.973799150320701e-14,
+      "waterLedger": {
+        "grossEvaporated_g": 0.0023931424937249026,
+        "returnedWall_g": 0,
+        "wallRetained_g": 0,
+        "externalReleased_g": 0.0023931424937249026,
+        "outflow_g_s": 0
+      },
       "settledFraction": 0,
-      "cloudiness": 0.7986489810108272,
+      "cloudiness": 0.8001606638359183,
       "flame": false,
       "stirringDrive": 0,
       "drawn": [
@@ -152,11 +190,11 @@
           "color": "#eab308",
           "physicalParcels": 128,
           "suspendedParcels": 128,
-          "representedMass_g": 0.09514469174891448,
+          "representedMass_g": 0.09571878347672728,
           "settledMass_g": 0,
           "drawn": {
             "visible": true,
-            "count": 128,
+            "count": 70,
             "geometryType": "IcosahedronGeometry",
             "bounds": {
               "min": [
@@ -178,8 +216,8 @@
               "clearcoat": 0
             },
             "opacityRange": [
-              0.2864041030406952,
-              0.913634181022644
+              0.3350411653518677,
+              0.9079711437225342
             ]
           }
         }
@@ -193,6 +231,16 @@
         "transparent": true
       },
       "liquidVisible": true,
+      "sharedRenderer": {
+        "liquidSurface": true,
+        "liquidVolume": true,
+        "physicalMistMounted": true,
+        "physicalMistVisible": false,
+        "physicalMistCount": 25,
+        "scopedSampleMatches": true,
+        "scopedManagerMatches": true,
+        "scopedAppearanceMatches": true
+      },
       "transfer": {
         "activeDropper": false,
         "mountedDropper": false,
@@ -226,9 +274,9 @@
       },
       "camera": {
         "position": [
-          3.4012738600848142,
-          2.7015923251060165,
-          5.301273860084813
+          3.4012464465377557,
+          2.701490766198671,
+          5.301284899094056
         ],
         "fov": 38
       },
@@ -242,7 +290,7 @@
         "bottom": 856,
         "left": 0
       },
-      "renderCalls": 27,
+      "renderCalls": 24,
       "renderer": "WebKit WebGL",
       "panelsOpen": 0,
       "error": null,
@@ -250,25 +298,32 @@
     },
     {
       "label": "Bếp gia nhiệt đang đun và kết tủa đang tan",
-      "elapsed_s": 83.29999999999656,
+      "elapsed_s": 54.99999999999816,
       "phase": "condition",
-      "caption": "Gia nhiệt bằng đế điện đến 90 °C và chờ phần PbI₂ rắn tan hết. 60.1 °C · 0.0368 g còn rắn.",
-      "temperature_c": 60.05789859091422,
-      "volume_ml": 50.11108430926149,
+      "caption": "Gia nhiệt bằng đế điện đến 90 °C và chờ phần PbI₂ rắn tan hết. 60.1 °C · 0.0367 g còn rắn.",
+      "temperature_c": 60.08058892295837,
+      "volume_ml": 50.14236060750627,
       "inventory": {
-        "water_g": 49.994949294584636,
-        "total_g": 0.14406499999999953,
-        "solid_g": 0.03675821649870171,
-        "dissolved_g": 0.10730678350129783,
+        "water_g": 49.997606857506256,
+        "total_g": 0.14406500000000017,
+        "solid_g": 0.03670478266269614,
+        "dissolved_g": 0.10736021733730403,
         "plates_g": 0,
-        "dissolvedCapacity_g": 0.10971169833847992,
+        "dissolvedCapacity_g": 0.10976566600792875,
         "clear": false,
-        "expectedColdSolid_g": 0.09519493706454304
+        "expectedColdSolid_g": 0.0951923392967878
       },
-      "accountedMass_g": 50.20725375000009,
-      "massError_g": 9.237055564881302e-14,
+      "accountedMass_g": 50.20725374999995,
+      "massError_g": -4.973799150320701e-14,
+      "waterLedger": {
+        "grossEvaporated_g": 0.0023931424937249026,
+        "returnedWall_g": 0,
+        "wallRetained_g": 0,
+        "externalReleased_g": 0.0023931424937249026,
+        "outflow_g_s": 0
+      },
       "settledFraction": 0,
-      "cloudiness": 0.4809603788775375,
+      "cloudiness": 0.48028124846911524,
       "flame": true,
       "stirringDrive": 0.65,
       "drawn": [
@@ -278,11 +333,11 @@
           "color": "#eab308",
           "physicalParcels": 128,
           "suspendedParcels": 128,
-          "representedMass_g": 0.03675821649870171,
+          "representedMass_g": 0.036704782662696105,
           "settledMass_g": 0,
           "drawn": {
             "visible": true,
-            "count": 128,
+            "count": 70,
             "geometryType": "IcosahedronGeometry",
             "bounds": {
               "min": [
@@ -304,8 +359,8 @@
               "clearcoat": 0
             },
             "opacityRange": [
-              0.1524808555841446,
-              0.7820746898651123
+              0.1552574783563614,
+              0.769318699836731
             ]
           }
         }
@@ -319,6 +374,16 @@
         "transparent": true
       },
       "liquidVisible": true,
+      "sharedRenderer": {
+        "liquidSurface": true,
+        "liquidVolume": true,
+        "physicalMistMounted": true,
+        "physicalMistVisible": false,
+        "physicalMistCount": 25,
+        "scopedSampleMatches": true,
+        "scopedManagerMatches": true,
+        "scopedAppearanceMatches": true
+      },
       "transfer": {
         "activeDropper": false,
         "mountedDropper": false,
@@ -352,9 +417,9 @@
       },
       "camera": {
         "position": [
-          3.4000000000000967,
-          2.7000000000001223,
-          5.300000000000097
+          3.4000000000305532,
+          2.7000000000365434,
+          5.300000000031496
         ],
         "fov": 38
       },
@@ -368,7 +433,7 @@
         "bottom": 856,
         "left": 0
       },
-      "renderCalls": 28,
+      "renderCalls": 25,
       "renderer": "WebKit WebGL",
       "panelsOpen": 0,
       "error": null,
@@ -376,28 +441,70 @@
     },
     {
       "label": "Dung dịch nóng trong sau khi PbI₂ tan",
-      "elapsed_s": 105.29999999999531,
+      "elapsed_s": 76.89999999999692,
       "phase": "cool",
       "caption": "Tắt nguồn nhiệt, để dung dịch nguội tự nhiên. 90.0 °C; mầm và phiến PbI₂ sẽ phát triển theo độ tan.",
-      "temperature_c": 90.01016749791751,
-      "volume_ml": 50.11108430926149,
+      "temperature_c": 90.0161644630248,
+      "volume_ml": 50.14236060750627,
       "inventory": {
-        "water_g": 49.994949294584636,
-        "total_g": 0.14406499999999972,
-        "solid_g": 0,
-        "dissolved_g": 0.14406499999999972,
+        "water_g": 49.997606857506256,
+        "total_g": 0.14406500000000005,
+        "solid_g": 1.2489505571661461e-17,
+        "dissolved_g": 0.14406500000000005,
         "plates_g": 0,
-        "dissolvedCapacity_g": 0.18310976824279407,
+        "dissolvedCapacity_g": 0.183136174242625,
         "clear": true,
-        "expectedColdSolid_g": 0.09519493706454324
+        "expectedColdSolid_g": 0.09519233929678769
       },
-      "accountedMass_g": 50.20725375000009,
-      "massError_g": 9.237055564881302e-14,
+      "accountedMass_g": 50.20725374999995,
+      "massError_g": -4.973799150320701e-14,
+      "waterLedger": {
+        "grossEvaporated_g": 0.0023931424937249026,
+        "returnedWall_g": 0,
+        "wallRetained_g": 0,
+        "externalReleased_g": 0.0023931424937249026,
+        "outflow_g_s": 0
+      },
       "settledFraction": 0,
       "cloudiness": 0,
       "flame": false,
       "stirringDrive": 0,
-      "drawn": [],
+      "drawn": [
+        {
+          "key": "PbI2",
+          "morphology": "fine_powder",
+          "color": "#eab308",
+          "physicalParcels": 0,
+          "suspendedParcels": 0,
+          "representedMass_g": 0,
+          "settledMass_g": 0,
+          "drawn": {
+            "visible": false,
+            "count": 0,
+            "geometryType": "IcosahedronGeometry",
+            "bounds": {
+              "min": [
+                -0.4253253936767578,
+                -0.4253253936767578,
+                -0.4253253936767578
+              ],
+              "max": [
+                0.4253253936767578,
+                0.4253253936767578,
+                0.4253253936767578
+              ]
+            },
+            "material": {
+              "color": "eab308",
+              "roughness": 0.85,
+              "metalness": 0,
+              "opacity": 1,
+              "clearcoat": 0
+            },
+            "opacityRange": null
+          }
+        }
+      ],
       "bed": {
         "visible": false,
         "color": "f8fafc",
@@ -407,6 +514,16 @@
         "transparent": true
       },
       "liquidVisible": true,
+      "sharedRenderer": {
+        "liquidSurface": true,
+        "liquidVolume": true,
+        "physicalMistMounted": true,
+        "physicalMistVisible": false,
+        "physicalMistCount": 25,
+        "scopedSampleMatches": true,
+        "scopedManagerMatches": true,
+        "scopedAppearanceMatches": true
+      },
       "transfer": {
         "activeDropper": false,
         "mountedDropper": false,
@@ -440,9 +557,9 @@
       },
       "camera": {
         "position": [
-          3.426010860247811,
-          2.7173405734985403,
-          5.334681146997081
+          3.436149728734729,
+          2.7240998191564865,
+          5.3481996383129715
         ],
         "fov": 38
       },
@@ -456,7 +573,7 @@
         "bottom": 856,
         "left": 0
       },
-      "renderCalls": 26,
+      "renderCalls": 23,
       "renderer": "WebKit WebGL",
       "panelsOpen": 0,
       "error": null,
@@ -464,39 +581,80 @@
     },
     {
       "label": "Phiến vàng hình thành và lắng khi nguội",
-      "elapsed_s": 306.80000000004964,
+      "elapsed_s": 300.0000000000558,
       "phase": "cool",
-      "caption": "Tắt nguồn nhiệt, để dung dịch nguội tự nhiên. 73.6 °C; mầm và phiến PbI₂ sẽ phát triển theo độ tan.",
-      "temperature_c": 73.64797620240043,
-      "volume_ml": 50.11108430926149,
+      "caption": "Tắt nguồn nhiệt, để dung dịch nguội tự nhiên. 72.2 °C; mầm và phiến PbI₂ sẽ phát triển theo độ tan.",
+      "temperature_c": 72.16419007258247,
+      "volume_ml": 50.14236060750627,
       "inventory": {
-        "water_g": 49.994949294584636,
-        "total_g": 0.14406499999999925,
-        "solid_g": 0.0030114991953080145,
-        "dissolved_g": 0.14105350080469123,
-        "plates_g": 0.0030114991953080145,
-        "dissolvedCapacity_g": 0.14056844851675573,
+        "water_g": 49.997606857506256,
+        "total_g": 0.1440650000000007,
+        "solid_g": 0.006591489331227995,
+        "dissolved_g": 0.1374735106687727,
+        "plates_g": 0.006591489331227983,
+        "dissolvedCapacity_g": 0.1370091677121074,
         "clear": false,
-        "expectedColdSolid_g": 0.09519493706454277
+        "expectedColdSolid_g": 0.09519233929678833
       },
-      "accountedMass_g": 50.20725375000009,
-      "massError_g": 9.237055564881302e-14,
-      "settledFraction": 0.9883386956050491,
-      "cloudiness": 0.0001759558366010161,
+      "accountedMass_g": 50.20725374999995,
+      "massError_g": -4.973799150320701e-14,
+      "waterLedger": {
+        "grossEvaporated_g": 0.0023931424937249026,
+        "returnedWall_g": 0,
+        "wallRetained_g": 0,
+        "externalReleased_g": 0.0023931424937249026,
+        "outflow_g_s": 0
+      },
+      "settledFraction": 0.9944251414100667,
+      "cloudiness": 0.0001704551946704047,
       "flame": false,
       "stirringDrive": 0,
       "drawn": [
         {
+          "key": "PbI2",
+          "morphology": "fine_powder",
+          "color": "#eab308",
+          "physicalParcels": 0,
+          "suspendedParcels": 0,
+          "representedMass_g": 0,
+          "settledMass_g": 0,
+          "drawn": {
+            "visible": false,
+            "count": 0,
+            "geometryType": "IcosahedronGeometry",
+            "bounds": {
+              "min": [
+                -0.4253253936767578,
+                -0.4253253936767578,
+                -0.4253253936767578
+              ],
+              "max": [
+                0.4253253936767578,
+                0.4253253936767578,
+                0.4253253936767578
+              ]
+            },
+            "material": {
+              "color": "eab308",
+              "roughness": 0.85,
+              "metalness": 0,
+              "opacity": 1,
+              "clearcoat": 0
+            },
+            "opacityRange": null
+          }
+        },
+        {
           "key": "PbI2|CRYSTAL_PLATE",
           "morphology": "crystalline",
           "color": "#eab308",
-          "physicalParcels": 118,
-          "suspendedParcels": 118,
-          "representedMass_g": 0.003011499195308023,
-          "settledMass_g": 0.0029763811865063778,
+          "physicalParcels": 120,
+          "suspendedParcels": 120,
+          "representedMass_g": 0.006591489331227996,
+          "settledMass_g": 0.006554742710309345,
           "drawn": {
             "visible": true,
-            "count": 118,
+            "count": 35,
             "geometryType": "CylinderGeometry",
             "bounds": {
               "min": [
@@ -518,8 +676,8 @@
               "clearcoat": 0.65
             },
             "opacityRange": [
-              0.9193588495254517,
-              0.9198715090751648
+              0.9193809032440186,
+              0.9198324680328369
             ]
           }
         }
@@ -527,12 +685,22 @@
       "bed": {
         "visible": true,
         "color": "eab308",
-        "amount_g": 0.0029763811865063778,
-        "thickness": 0.00001249822402993317,
-        "opacity": 0.0019843007805402783,
+        "amount_g": 0.006554742710309345,
+        "thickness": 0.00002752424428142941,
+        "opacity": 0.004364719399388576,
         "transparent": true
       },
       "liquidVisible": true,
+      "sharedRenderer": {
+        "liquidSurface": true,
+        "liquidVolume": true,
+        "physicalMistMounted": true,
+        "physicalMistVisible": false,
+        "physicalMistCount": 25,
+        "scopedSampleMatches": true,
+        "scopedManagerMatches": true,
+        "scopedAppearanceMatches": true
+      },
       "transfer": {
         "activeDropper": false,
         "mountedDropper": false,
@@ -566,9 +734,9 @@
       },
       "camera": {
         "position": [
-          3.4000000000000004,
-          2.7,
-          5.3
+          3.4000000000000026,
+          2.6999999999999997,
+          5.3000000000000025
         ],
         "fov": 38
       },
@@ -582,7 +750,7 @@
         "bottom": 856,
         "left": 0
       },
-      "renderCalls": 28,
+      "renderCalls": 25,
       "renderer": "WebKit WebGL",
       "panelsOpen": 0,
       "error": null,
@@ -590,39 +758,80 @@
     },
     {
       "label": "Lớp phiến vàng lắng và dịch phía trên trong",
-      "elapsed_s": 2248.800000001023,
+      "elapsed_s": 2220.600000000664,
       "phase": "complete",
       "caption": "Đã hoàn tất trình tự. Có thể xem lại hoặc chọn thí nghiệm tiếp theo.",
-      "temperature_c": 27.96545061219753,
-      "volume_ml": 50.11108430926149,
+      "temperature_c": 27.96528965858987,
+      "volume_ml": 50.14236060750627,
       "inventory": {
-        "water_g": 49.994949294584636,
-        "total_g": 0.14406499999999975,
-        "solid_g": 0.09107795710506984,
-        "dissolved_g": 0.052987042894929906,
-        "plates_g": 0.09107795710506984,
-        "dissolvedCapacity_g": 0.0529697399655341,
+        "water_g": 49.997606857506256,
+        "total_g": 0.1440650000000015,
+        "solid_g": 0.09107537004847088,
+        "dissolved_g": 0.052989629951530615,
+        "plates_g": 0.09107537004847087,
+        "dissolvedCapacity_g": 0.052972327881514555,
         "clear": false,
-        "expectedColdSolid_g": 0.09519493706454327
+        "expectedColdSolid_g": 0.09519233929678914
       },
-      "accountedMass_g": 50.20725375000009,
-      "massError_g": 9.237055564881302e-14,
-      "settledFraction": 0.999980306391186,
-      "cloudiness": 0.000009255621866266495,
+      "accountedMass_g": 50.20725374999995,
+      "massError_g": -4.973799150320701e-14,
+      "waterLedger": {
+        "grossEvaporated_g": 0.0023931424937249026,
+        "returnedWall_g": 0,
+        "wallRetained_g": 0,
+        "externalReleased_g": 0.0023931424937249026,
+        "outflow_g_s": 0
+      },
+      "settledFraction": 0.999980604776783,
+      "cloudiness": 0.000009109102115933965,
       "flame": false,
       "stirringDrive": 0,
       "drawn": [
         {
+          "key": "PbI2",
+          "morphology": "fine_powder",
+          "color": "#eab308",
+          "physicalParcels": 0,
+          "suspendedParcels": 0,
+          "representedMass_g": 0,
+          "settledMass_g": 0,
+          "drawn": {
+            "visible": false,
+            "count": 0,
+            "geometryType": "IcosahedronGeometry",
+            "bounds": {
+              "min": [
+                -0.4253253936767578,
+                -0.4253253936767578,
+                -0.4253253936767578
+              ],
+              "max": [
+                0.4253253936767578,
+                0.4253253936767578,
+                0.4253253936767578
+              ]
+            },
+            "material": {
+              "color": "eab308",
+              "roughness": 0.85,
+              "metalness": 0,
+              "opacity": 1,
+              "clearcoat": 0
+            },
+            "opacityRange": null
+          }
+        },
+        {
           "key": "PbI2|CRYSTAL_PLATE",
           "morphology": "crystalline",
           "color": "#eab308",
-          "physicalParcels": 120,
-          "suspendedParcels": 120,
-          "representedMass_g": 0.09107795710508361,
-          "settledMass_g": 0.09107616345141104,
+          "physicalParcels": 123,
+          "suspendedParcels": 123,
+          "representedMass_g": 0.09107537004848433,
+          "settledMass_g": 0.09107360362133922,
           "drawn": {
             "visible": true,
-            "count": 120,
+            "count": 35,
             "geometryType": "CylinderGeometry",
             "bounds": {
               "min": [
@@ -644,8 +853,8 @@
               "clearcoat": 0.65
             },
             "opacityRange": [
-              0.9199661612510681,
-              0.9199986457824707
+              0.9199697375297546,
+              0.9199957251548767
             ]
           }
         }
@@ -653,12 +862,22 @@
       "bed": {
         "visible": true,
         "color": "eab308",
-        "amount_g": 0.09107616345141104,
-        "thickness": 0.0003824410326747074,
-        "opacity": 0.05896899601271442,
+        "amount_g": 0.09107360362133922,
+        "thickness": 0.00038243028360473996,
+        "opacity": 0.05896738845847712,
         "transparent": true
       },
       "liquidVisible": true,
+      "sharedRenderer": {
+        "liquidSurface": true,
+        "liquidVolume": true,
+        "physicalMistMounted": true,
+        "physicalMistVisible": false,
+        "physicalMistCount": 25,
+        "scopedSampleMatches": true,
+        "scopedManagerMatches": true,
+        "scopedAppearanceMatches": true
+      },
       "transfer": {
         "activeDropper": false,
         "mountedDropper": false,
@@ -692,9 +911,9 @@
       },
       "camera": {
         "position": [
-          3.46372666348416,
-          2.742484442322773,
-          5.384968884645544
+          3.4064185849427173,
+          2.7299157861861936,
+          5.304285324997338
         ],
         "fov": 38
       },
@@ -708,7 +927,7 @@
         "bottom": 856,
         "left": 0
       },
-      "renderCalls": 28,
+      "renderCalls": 25,
       "renderer": "WebKit WebGL",
       "panelsOpen": 0,
       "error": null,
