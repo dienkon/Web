@@ -1,6 +1,9 @@
 import type { SubstanceContent } from '../types/chemistry';
 import { identifySpecies, matchesReagent } from './speciesIdentity';
 
+/** Shared finite-inventory discovery threshold; retained rows are never deleted. */
+export const REAGENT_AMOUNT_THRESHOLD_MOL = 1e-12;
+
 /** Legacy stock rows may use words instead of the program's phase symbols. */
 export function reagentPhase(item: SubstanceContent): string | null {
   const raw = item.phase ?? item.state ?? identifySpecies(item.formula).phase;
@@ -11,7 +14,7 @@ export function reagentPhase(item: SubstanceContent): string | null {
 
 /** Only the finite inventory in the reaction compartment can be consumed.
  * Filter cake and foam remain in the ledger, but are not bulk reactants. */
-export function availableInBulk(item: SubstanceContent, threshold = 1e-12): boolean {
+export function availableInBulk(item: SubstanceContent, threshold = REAGENT_AMOUNT_THRESHOLD_MOL): boolean {
   return Number.isFinite(item.moles) && item.moles > threshold
     && (!item.location || item.location === 'bulk');
 }
@@ -24,7 +27,7 @@ export function bulkInventory(contents: readonly SubstanceContent[]): SubstanceC
 }
 
 export function availableReagent(item: SubstanceContent, formula: string,
-  expectedPhase?: string | null, threshold = 1e-12): boolean {
+  expectedPhase?: string | null, threshold = REAGENT_AMOUNT_THRESHOLD_MOL): boolean {
   if (!availableInBulk(item, threshold) || !matchesReagent(item.formula, formula)) return false;
   const phase = reagentPhase(item);
   const labelPhase = identifySpecies(item.formula).phase;

@@ -53,7 +53,7 @@ export class AutoStockDynamics {
         const layout = createStockSolidLayout(vessel.type, solid.morphology, solid.geometry,
           solidSceneVolume(vessel, mass_g / solid.density), undefined, undefined, true, solid.fixedCount);
         group = { formula, mass_g, density_kg_m3: solid.density * 1000, powder: solid.morphology === 'POWDER', unitVolume: 1,
-          vertices: Array.from(solid.geometry.getAttribute('position').array), wire: solid.geometry.userData.stockWire,
+          vertices: Array.from(solid.geometry.getAttribute('position').array), wire: solid.geometry.userData.stockWire, convexParts: solid.geometry.userData.stockConvexParts,
           seed: layout.pieces.map(piece => {
             piece.matrix.decompose(p, q, scale);
             return { position_m: scenePointToSI(vesselLocalToWorld(vessel, p.toArray())), rotation: q.toArray() as Quat };

@@ -16,6 +16,8 @@ export interface StockGroupInput {
   vertices: number[]; unitVolume: number; seed: { position_m: Vec3; rotation: Quat }[];
   /** Unit-material-volume wire centerline matching the rendered stock mesh. */
   wire?: { points: Vec3[]; radius: number };
+  /** Disjoint unit-mesh prisms preserving the actual bent/folded sheet. */
+  convexParts?: { vertices: number[]; volume: number }[];
   /** Derived coating load; core mass/scale and chemical rows remain separate. */
   carrierCoatings?: Record<string, { mass_g: number; volume_ml: number }>;
 }

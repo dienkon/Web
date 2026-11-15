@@ -44,6 +44,15 @@ const capsuleChange = (before: RAPIER.ColliderDesc, after: RAPIER.ColliderDesc) 
   const a = endpoints(before, before.shape), b = endpoints(after, after.shape);
   return (Math.max(a[0].distanceTo(b[0]), a[1].distanceTo(b[1])) + Math.abs(before.shape.radius - after.shape.radius)) / S;
 };
+const convexChange = (before: RAPIER.ColliderDesc, after: RAPIER.ColliderDesc) => {
+  if (!(before.shape instanceof RAPIER.ConvexPolyhedron) || !(after.shape instanceof RAPIER.ConvexPolyhedron)) return Infinity;
+  const a = before.shape.vertices, b = after.shape.vertices;
+  if (a.length !== b.length) return Infinity;
+  let maximum = 0;
+  for (let i = 0; i < a.length; i += 3) maximum = Math.max(maximum,
+    Math.hypot(a[i] - b[i], a[i + 1] - b[i + 1], a[i + 2] - b[i + 2]));
+  return maximum / S;
+};
 type Grain = { body: RAPIER.RigidBody; colliders: RAPIER.Collider[]; owner: string; pose: StockGrainPose; group: StockGroupInput; escaped: boolean;
   carried: boolean; coating: { mass_g: number; volume_ml: number }; volume_m3: number; collisionShapes: GrainShape[] };
 let initialized: Promise<void> | undefined;
@@ -161,6 +170,16 @@ export class StockWorld {
         .setTranslation(center.x, center.y, center.z).setRotation(rotation), weight: segment.materialLength / length };
     });
   }
+  private sheetShapes(group: StockGroupInput, scale: number): GrainShape[] | null {
+    if (!group.convexParts?.length) return null;
+    const volume = group.convexParts.reduce((sum, part) => sum + part.volume, 0);
+    if (!(volume > 0)) return null;
+    return group.convexParts.map(part => {
+      const desc = RAPIER.ColliderDesc.convexHull(new Float32Array(part.vertices.map(value => value * scale * S)));
+      if (!desc) throw new Error(`Degenerate sheet prism ${group.formula}`);
+      return { desc, weight: part.volume / volume };
+    });
+  }
   private create(owner: string, group: StockGroupInput, mass_g: number, position_m: Vec3, rotation: Quat,
     velocity_m_s: Vec3 = [0, 0, 0], angularVelocity_rad_s: Vec3 = [0, 0, 0], restored?: StockGrainPose) {
     const id = restored?.id ?? `stock:${++this.sequence}`;
@@ -174,7 +193,7 @@ export class StockWorld {
       .setLinvel(...solver(velocity_m_s)).setAngvel(vec(angularVelocity_rad_s)).setCcdEnabled(true)
       .setSoftCcdPrediction(group.wire ? 0 : 0.005 * S).setUserData({ stockId: id }));
     const wire = !group.powder ? this.wireShapes(group, scale, coating.volume_ml * 1e-6) : null;
-    const descriptors = wire ?? [{ desc: group.powder ? RAPIER.ColliderDesc.ball(Math.cbrt(volume_m3 * 3 / (4 * Math.PI)) * S)
+    const descriptors = wire ?? (!group.powder ? this.sheetShapes(group, collisionScale) : null) ?? [{ desc: group.powder ? RAPIER.ColliderDesc.ball(Math.cbrt(volume_m3 * 3 / (4 * Math.PI)) * S)
       : RAPIER.ColliderDesc.convexHull(new Float32Array(group.vertices.map(x => x * collisionScale * S))), weight: 1 }];
     if (descriptors.some(item => !item.desc)) { this.world.removeRigidBody(body); throw new Error(`Degenerate stock grain ${group.formula}`); }
     const totalMass_kg = (mass_g + coating.mass_g) / 1000;
@@ -186,6 +205,27 @@ export class StockWorld {
     const suffix = Number(id.split(':').at(-1)); if (Number.isSafeInteger(suffix)) this.sequence = Math.max(this.sequence, suffix);
   }
   private resize(g: Grain, group: StockGroupInput, mass_g: number) {
+    if (group.convexParts?.length && !group.powder && mass_g > 1e-12) {
+      const scale = Math.cbrt(mass_g / 1000 / group.density_kg_m3 / group.unitVolume);
+      const coating = group.carrierCoatings?.[g.pose.id] ?? { mass_g: 0, volume_ml: 0 };
+      const coreVolume = mass_g / 1000 / group.density_kg_m3;
+      const volume_m3 = coreVolume + coating.volume_ml * 1e-6;
+      const next = this.sheetShapes(group, scale * Math.cbrt(volume_m3 / coreVolume))!;
+      if (next.length === g.colliders.length) {
+        // Keep the body and its CCD trajectory while material is consumed.
+        // Accumulated shape lag is bounded by 5 um, half the solver allowance.
+        const rebuild = next.some((shape, i) => convexChange(g.collisionShapes[i].desc, shape.desc) > 0.000005);
+        g.colliders.forEach((collider, i) => {
+          if (rebuild) collider.setShape(next[i].desc.shape);
+          collider.setMass((mass_g + coating.mass_g) / 1000 * next[i].weight);
+        });
+        if (rebuild) g.collisionShapes = next;
+        g.body.recomputeMassPropertiesFromColliders();
+        g.pose = { ...g.pose, mass_g, scale_m: scale };
+        g.coating = coating; g.group = group; g.volume_m3 = volume_m3;
+        return;
+      }
+    }
     if (group.wire && !group.powder && mass_g > 1e-12) {
       const scale = Math.cbrt(mass_g / 1000 / group.density_kg_m3 / group.unitVolume);
       const coating = group.carrierCoatings?.[g.pose.id] ?? { mass_g: 0, volume_ml: 0 };

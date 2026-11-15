@@ -1,6 +1,6 @@
 import type { ActiveKineticsState } from '../store/useAppStore';
 import type { VesselState } from '../types/chemistry';
-import { assessProgramConditions } from '../science/conditions';
+import { assessProgramConditions, type ExperimentalEnvironment } from '../science/conditions';
 import { advanceMetalAcidProgress } from './metalAcidPlan';
 import { advanceHeatActivatedProgress } from './heatActivatedProgress';
 import { advanceCatalyticProgress } from './contactKinetics';
@@ -8,18 +8,44 @@ import { stepLandoltLedger } from './landoltClockLedger';
 import { landoltCapacity, landoltInventory } from '../science/landoltClock';
 import { reactionStockContactFraction, stockLiquidContactFraction } from '../physical/stockLiquidContact';
 import { aluminumStageFractions, aluminumStockProgressLimit } from './aluminumMaterialProgress';
-import { programStockProgressLimit } from './ledger';
+import { programMaximumReactionMoles, programStockProgressLimit } from './ledger';
+import { reactionReplayProgress } from './reactionProgress';
+import { availableReagent, REAGENT_AMOUNT_THRESHOLD_MOL } from '../science/reagentAvailability';
+
+/** Finish an already-running finite ledger only when its entire remaining
+ * stoichiometric step is below the SAME threshold used for reagent discovery.
+ * The caller still applies progress=1 through the ordinary conserved ledger;
+ * no trace row is deleted, no material is fabricated and no deadline changes. */
+function canFinishTraceRemainder(kinetics: ActiveKineticsState, vessel: VesselState, env: ExperimentalEnvironment) {
+  const program = kinetics.program, baseline = kinetics.initialVesselBaseline;
+  if (!program || !baseline || !(kinetics.progress > 0 && kinetics.progress < 1) || kinetics.materialStages
+    || program.chemistry.representation || ['iodine_clock', 'cuso4_nh3'].includes(program.id)) return false;
+  const extent = programMaximumReactionMoles(program, baseline);
+  const remaining = extent * (1 - reactionReplayProgress(kinetics, kinetics.progress));
+  if (!(remaining > 0) || !assessProgramConditions(program, vessel.contents, { ...env, reactantThreshold_mol: 0 }).ready
+    || programStockProgressLimit(program, baseline, vessel) < 1) return false;
+  return program.chemistry.species.filter(species => species.role === 'reactant').every(species => {
+    const needed = remaining * species.coeff;
+    const available = vessel.contents.filter(row => availableReagent(row, species.formula, species.phase, 0))
+      .reduce((sum, row) => sum + row.moles, 0);
+    const reference = baseline.contents.filter(row => availableReagent(row, species.formula, species.phase, 0))
+      .reduce((sum, row) => sum + row.moles, 0);
+    const arithmeticError = reference * Number.EPSILON * 32;
+    return needed <= REAGENT_AMOUNT_THRESHOLD_MOL && available + arithmeticError >= needed;
+  });
+}
 
 /** Shared eligibility and material clock for manual and automatic operation. */
 export function advanceReaction(kinetics: ActiveKineticsState, vessel: VesselState, dt: number,
   stirring = false, isHeated = false, light = false): number {
   const previous = kinetics.progress;
   if (!Number.isFinite(dt) || dt <= 0) return previous;
-  const assessment = kinetics.program ? assessProgramConditions(kinetics.program, vessel.contents, {
+  const environment: ExperimentalEnvironment = {
     temperature_c: vessel.temperature_c, pH: vessel.ph, volume_ml: vessel.volume_ml,
     isSealed: vessel.isSealed ?? false, requireInventory: true, isHeated, light,
     ignitedProgramId: kinetics.initialVesselBaseline?.ignitedProgramId,
-  }) : { ready: true, unmet: [] };
+  };
+  const assessment = kinetics.program ? assessProgramConditions(kinetics.program, vessel.contents, environment) : { ready: true, unmet: [] };
   kinetics.unmetConditions = assessment.unmet;
   const stageFractions = kinetics.materialStages ? aluminumStageFractions(kinetics.materialStages, previous) : [];
   const activeStage = kinetics.materialStages?.find((_, index) => stageFractions[index] < 1);
@@ -29,6 +55,11 @@ export function advanceReaction(kinetics: ActiveKineticsState, vessel: VesselSta
   if (!(contactFraction > 0)) {
     kinetics.unmetConditions = [...assessment.unmet, 'Chất rắn chưa tiếp xúc pha lỏng tham gia phản ứng.'];
     kinetics.actualProgressRate_s = 0; return previous;
+  }
+  if (!assessment.ready && canFinishTraceRemainder(kinetics, vessel, environment)) {
+    kinetics.unmetConditions = [];
+    kinetics.actualProgressRate_s = (1 - previous) / dt;
+    return 1;
   }
   if (kinetics.program?.id === 'iodine_clock') {
     const step = assessment.ready ? stepLandoltLedger(vessel, dt) : null;

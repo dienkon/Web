@@ -1,7 +1,7 @@
 import type { ReactionProgram } from '../shared/programSchema';
 import type { SubstanceContent } from '../types/chemistry';
 import { sameMolecularFormula } from './speciesIdentity';
-import { availableReagent, reagentPhase } from './reagentAvailability';
+import { availableReagent, reagentPhase, REAGENT_AMOUNT_THRESHOLD_MOL } from './reagentAvailability';
 import { copperAmmoniaEquilibrium } from './copperAmmoniaEquilibrium';
 import { landoltInventory } from './landoltClock';
 
@@ -15,6 +15,8 @@ export interface ExperimentalEnvironment {
   ignitedProgramId?: string;
   isSealed?: boolean;
   requireInventory?: boolean;
+  /** Existing finite reaction tails may inspect positive sub-threshold reactants. */
+  reactantThreshold_mol?: number;
 }
 
 export interface ConditionAssessment {
@@ -33,8 +35,8 @@ const DILUTE_ACID_CASES: Record<string, string> = {
   cu_hno3_dil: 'HNO3', cu_hno3_dilute: 'HNO3', zn_h2so4_dilute: 'H2SO4',
 };
 
-function present(contents: SubstanceContent[], formula: string, expectedPhase?: string): boolean {
-  return contents.some(item => availableReagent(item, formula, expectedPhase));
+function present(contents: SubstanceContent[], formula: string, expectedPhase?: string, threshold = REAGENT_AMOUNT_THRESHOLD_MOL): boolean {
+  return contents.some(item => availableReagent(item, formula, expectedPhase, threshold));
 }
 
 export function hasOxidizingAcid(contents: SubstanceContent[]): boolean {
@@ -49,6 +51,8 @@ export function assessProgramConditions(
   env: ExperimentalEnvironment,
 ): ConditionAssessment {
   const unmet: string[] = [];
+  const reactantThreshold = Number.isFinite(env.reactantThreshold_mol) && env.reactantThreshold_mol! >= 0
+    ? env.reactantThreshold_mol! : REAGENT_AMOUNT_THRESHOLD_MOL;
   const copperAmmonia = program.id === 'cuso4_nh3';
   const landolt = program.id === 'iodine_clock';
   if (contents.length > 0 || env.requireInventory) {
@@ -57,7 +61,7 @@ export function assessProgramConditions(
     if (landolt && !landoltInventory(contents, env.volume_ml ?? 0))
       unmet.push('Đồng hồ Landolt cần nước lỏng và hệ iodate/iodide/sulfite/sulfate Na/K được hỗ trợ; phối tử hoặc chất oxi hóa khác cần mô hình riêng.');
     for (const reagent of program.chemistry.species.filter(item => item.role === 'reactant' && !copperAmmonia && !landolt)) {
-      if (!present(contents, reagent.formula, reagent.phase))
+      if (!present(contents, reagent.formula, reagent.phase, reactantThreshold))
         unmet.push(`Thiếu lượng hoặc pha phù hợp của ${reagent.formula}.`);
     }
   }

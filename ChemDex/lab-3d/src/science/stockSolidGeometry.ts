@@ -31,8 +31,49 @@ function ribbonGeometry() {
   strip.absarc(0, 0, 0.73, Math.PI * 1.35, 0, true);
   strip.closePath();
   const g = new THREE.ExtrudeGeometry(strip, { depth: 0.32, bevelEnabled: false, curveSegments: 24 });
-  g.center();
+  g.computeBoundingBox();
+  const center = g.boundingBox!.getCenter(new THREE.Vector3());
+  g.translate(-center.x, -center.y, -center.z);
+  const points = strip.extractPoints(24).shape;
+  const outer = points.filter(point => Math.abs(point.length() - 0.8) < 1e-7).slice(0, -1);
+  const inner = points.filter(point => Math.abs(point.length() - 0.73) < 1e-7).reverse();
+  // Each straight inner contour edge needs its own convex sector. Use the
+  // exact same contour stations as ExtrudeGeometry: 48 disjoint quadrilateral
+  // prisms instead of 96 cap-triangle prisms, with no filled ribbon hole.
+  g.userData.stockConvexParts = outer.slice(0, -1).map((point, i) => {
+    const polygon = [point, outer[i + 1], inner[i + 1], inner[i]];
+    const area = Math.abs(polygon.reduce((sum, p, j) => {
+      const q = polygon[(j + 1) % polygon.length]; return sum + p.x * q.y - p.y * q.x;
+    }, 0)) / 2;
+    return { vertices: [0, 0.32].flatMap(z => polygon.flatMap(p =>
+      [Math.fround(Math.fround(p.x) - center.x), Math.fround(Math.fround(p.y) - center.y), Math.fround(Math.fround(z) - center.z)])), volume: area * 0.32 };
+  });
   return g;
+}
+
+/** The front cap triangulation partitions an extruded sheet without filling
+ * its bend or folded void. Extruding each cap triangle gives disjoint convex
+ * prisms whose union is exactly the closed rendered material. */
+function sheetConvexParts(geometry: THREE.BufferGeometry) {
+  const positions = geometry.getAttribute('position'), indices = geometry.index;
+  let minimumZ = Infinity, maximumZ = -Infinity;
+  for (let i = 0; i < positions.count; i++) {
+    minimumZ = Math.min(minimumZ, positions.getZ(i));
+    maximumZ = Math.max(maximumZ, positions.getZ(i));
+  }
+  const parts: { vertices: number[]; volume: number }[] = [];
+  const count = indices?.count ?? positions.count;
+  for (let i = 0; i < count; i += 3) {
+    const ids = [0, 1, 2].map(offset => indices ? indices.getX(i + offset) : i + offset);
+    if (ids.some(id => Math.abs(positions.getZ(id) - minimumZ) > 1e-7)) continue;
+    const triangle = ids.map(id => [positions.getX(id), positions.getY(id)]);
+    const [a, b, c] = triangle;
+    const area = Math.abs((b[0] - a[0]) * (c[1] - a[1]) - (b[1] - a[1]) * (c[0] - a[0])) / 2;
+    if (!(area > 1e-12)) continue;
+    parts.push({ vertices: [minimumZ, maximumZ].flatMap(z => triangle.flatMap(([x, y]) => [x, y, z])),
+      volume: area * (maximumZ - minimumZ) });
+  }
+  return parts;
 }
 
 /** Closed, faceted display models of macroscopic stock forms. Hydrates use
@@ -99,6 +140,10 @@ export function createStockSolidGeometry(morphology: SolidMorphology, formula = 
   wire = g.userData.stockWire;
   if (wire) g.userData.stockWire = { points: wire.points.map(point => point.multiplyScalar(normalization).toArray()),
     radius: wire.radius * normalization };
+  if (morphology === 'RIBBON') g.userData.stockConvexParts = g.userData.stockConvexParts.map((part: { vertices: number[]; volume: number }) => ({
+    vertices: part.vertices.map(value => Math.fround(value * normalization)), volume: part.volume * normalization ** 3,
+  }));
+  else if (morphology === 'FOIL') g.userData.stockConvexParts = sheetConvexParts(g);
   g.computeVertexNormals(); g.computeBoundingSphere();
   return g;
 }
