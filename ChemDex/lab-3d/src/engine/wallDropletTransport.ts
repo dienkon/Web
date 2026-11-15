@@ -18,6 +18,14 @@ const hash = (i: number) => { const n = Math.sin(i * 127.1 + 311.7) * 43758.5453
 const weights = Array.from({ length: COUNT }, (_, i) => 0.01 + hash(i + 1) ** 6);
 const weightSum = weights.reduce((a, b) => a + b, 0);
 
+function validCondensationBoundary(boundary: WallCondensationBoundary) {
+  return [boundary.regionArea_m2, boundary.dryWallTemperature_c, boundary.vaporSpecificEnthalpy_J_g,
+    boundary.gasTemperature_c, boundary.waterPressure_Pa, boundary.airSpeed_m_s].every(Number.isFinite)
+    && boundary.regionArea_m2 >= 0 && boundary.dryWallTemperature_c >= 0 && boundary.dryWallTemperature_c < 373.946
+    && boundary.waterPressure_Pa >= 0 && boundary.airSpeed_m_s >= 0 && boundary.gasTemperature_c > -273.15
+    && (boundary.availableVapor_g === undefined || Number.isFinite(boundary.availableVapor_g) && boundary.availableVapor_g >= 0);
+}
+
 /** Finite representative beads. Empty sites may nucleate again only when a
  * new, explicitly supplied condensate delivery gives them water. No wrapping.
  * Existing beads keep their location when the fill level changes. */
@@ -78,6 +86,18 @@ export function transportWallBeads(options: {
     return section;
   };
   const bottomMeridian = sectionAt(bottom).meridian;
+  const boundary = options.condensationBoundary;
+  // A dry exterior with no possible positive condensate has no mass to
+  // transport or exchange heat. Keep the exact validated empty-site layout
+  // and diagnostics, but avoid two full 48-bead substep traversals at 60 Hz.
+  if (!inner && options.initialMass_g === 0 && options.deposited_g === 0
+    && temperature_c >= 0 && temperature_c < 373.946 && boundary && validCondensationBoundary(boundary)
+    && (boundary.availableVapor_g === 0 || boundary.regionArea_m2 === 0
+      || boundary.vaporSpecificEnthalpy_J_g <= cp * boundary.dryWallTemperature_c
+      || waterPressureDrivenFluxG_M2_S(boundary.dryWallTemperature_c, boundary.gasTemperature_c,
+        boundary.waterPressure_Pa, boundary.airSpeed_m_s) >= 0)) {
+    return { ...diagnostics, beads, retained_g: 0, drained_g: 0, evaporated_g: 0 };
+  }
   const touchesBottom = (b: WallBead, contactRadius_m = wallDropCap(b.mass_g).contactRadius_m) =>
     b.y <= bottom || sectionAt(b.y).meridian - bottomMeridian <= contactRadius_m / METERS_PER_SCENE_UNIT + 1e-10;
   const drain = (b: WallBead) => {
@@ -112,11 +132,7 @@ export function transportWallBeads(options: {
     if (cb) {
       const supplied = cb.availableVapor_g ?? Infinity;
       const remaining = Math.max(0, supplied - diagnostics.condensed_g);
-      const validBoundary = [cb.regionArea_m2, cb.dryWallTemperature_c, cb.vaporSpecificEnthalpy_J_g,
-        cb.gasTemperature_c, cb.waterPressure_Pa, cb.airSpeed_m_s].every(Number.isFinite)
-        && cb.regionArea_m2 >= 0 && cb.dryWallTemperature_c >= 0 && cb.dryWallTemperature_c < 373.946
-        && cb.waterPressure_Pa >= 0 && cb.airSpeed_m_s >= 0 && cb.gasTemperature_c > -273.15
-        && (cb.availableVapor_g === undefined || Number.isFinite(cb.availableVapor_g) && cb.availableVapor_g >= 0);
+      const validBoundary = validCondensationBoundary(cb);
       if (validBoundary && remaining > 0) {
         let footprint = 0;
         for (const b of beads) if (b.mass_g > 0 && b.y >= bottom && b.y <= top) {

@@ -1,0 +1,1891 @@
+{
+  "generatedAt": "2026-11-15T12:12:24.822Z",
+  "commit": "1d2d935a",
+  "method": "Existing exact AutoExperiment fixed steps; CPU sampled100us; source unchanged. Render/WebGL excluded.",
+  "results": [
+    {
+      "kind": "hot-water",
+      "effects": false,
+      "repetitions": 4,
+      "frames": 600,
+      "totalSteps": 2400,
+      "wall_ms": 954.9332999999999,
+      "cpu_ms": 1296,
+      "mean_ms": 0.39392175000000285,
+      "p50_ms": 0.3065000000001419,
+      "p95_ms": 0.8662000000001626,
+      "max_ms": 4.7952000000000226,
+      "checks": [
+        {
+          "phase": "complete",
+          "error": null,
+          "temperature_c": 93.3025346514023,
+          "progress": 0,
+          "maxMassError_g": 5.684341886080802e-14,
+          "elapsed_s": 10.000000000000076,
+          "wallWater_g": 0.07447168930668474,
+          "finalContents": [
+            {
+              "formula": "H2O",
+              "phase": "l",
+              "mass_g": 49.92552831069329
+            }
+          ]
+        },
+        {
+          "phase": "complete",
+          "error": null,
+          "temperature_c": 93.3025346514023,
+          "progress": 0,
+          "maxMassError_g": 5.684341886080802e-14,
+          "elapsed_s": 10.000000000000076,
+          "wallWater_g": 0.07447168930668474,
+          "finalContents": [
+            {
+              "formula": "H2O",
+              "phase": "l",
+              "mass_g": 49.92552831069329
+            }
+          ]
+        },
+        {
+          "phase": "complete",
+          "error": null,
+          "temperature_c": 93.3025346514023,
+          "progress": 0,
+          "maxMassError_g": 5.684341886080802e-14,
+          "elapsed_s": 10.000000000000076,
+          "wallWater_g": 0.07447168930668474,
+          "finalContents": [
+            {
+              "formula": "H2O",
+              "phase": "l",
+              "mass_g": 49.92552831069329
+            }
+          ]
+        },
+        {
+          "phase": "complete",
+          "error": null,
+          "temperature_c": 93.3025346514023,
+          "progress": 0,
+          "maxMassError_g": 5.684341886080802e-14,
+          "elapsed_s": 10.000000000000076,
+          "wallWater_g": 0.07447168930668474,
+          "finalContents": [
+            {
+              "formula": "H2O",
+              "phase": "l",
+              "mass_g": 49.92552831069329
+            }
+          ]
+        }
+      ],
+      "profile": {
+        "hotSelf": [
+          {
+            "fn": "waterSaturationProperties /src/science/waterThermodynamics.ts:1",
+            "self_ms": 105.30000000000001,
+            "inclusive_ms": 155.67699999999994
+          },
+          {
+            "fn": "transportWallBeads /src/engine/wallDropletTransport.ts:1",
+            "self_ms": 99.15899999999993,
+            "inclusive_ms": 270.4989999999999
+          },
+          {
+            "fn": "identifySpecies /src/science/speciesIdentity.ts:1",
+            "self_ms": 86.236,
+            "inclusive_ms": 86.236
+          },
+          {
+            "fn": "waterSaturationPressurePa /src/science/waterSaturation.ts:1",
+            "self_ms": 73.281,
+            "inclusive_ms": 73.281
+          },
+          {
+            "fn": "(anonymous) /src/engine/wallDropletTransport.ts:1",
+            "self_ms": 57.516,
+            "inclusive_ms": 154.86399999999998
+          },
+          {
+            "fn": "applyThermalEnergy /src/engine/thermalState.ts:1",
+            "self_ms": 48.215999999999994,
+            "inclusive_ms": 313.8000000000001
+          },
+          {
+            "fn": "wallDropCap /src/science/wallDropletGeometry.ts:1",
+            "self_ms": 30.116999999999997,
+            "inclusive_ms": 30.116999999999997
+          },
+          {
+            "fn": "step /src/vfx/autoplay/AutoExperiment.ts:1",
+            "self_ms": 19.649,
+            "inclusive_ms": 910.9709999999993
+          },
+          {
+            "fn": "stepWetWallThermal /src/engine/wetWallThermal.ts:1",
+            "self_ms": 17.892,
+            "inclusive_ms": 126.29199999999992
+          },
+          {
+            "fn": "__name /src/science/aqueousWaterBoundary.ts:1",
+            "self_ms": 17.048,
+            "inclusive_ms": 29.307000000000006
+          },
+          {
+            "fn": "stepWallCondensation /src/engine/wallCondensation.ts:1",
+            "self_ms": 16.131,
+            "inclusive_ms": 356.4930000000004
+          },
+          {
+            "fn": "wallSurfaceSection /src/science/wallDropletGeometry.ts:1",
+            "self_ms": 15.881,
+            "inclusive_ms": 20.016999999999996
+          },
+          {
+            "fn": "stepVesselThermal /src/engine/thermalState.ts:1",
+            "self_ms": 12.590000000000002,
+            "inclusive_ms": 260.5730000000001
+          },
+          {
+            "fn": "(anonymous) /src/science/balance.ts:1",
+            "self_ms": 12.418000000000001,
+            "inclusive_ms": 13.876999999999999
+          },
+          {
+            "fn": "routeWaterVaporToWall /src/engine/waterVaporRouting.ts:1",
+            "self_ms": 12.337,
+            "inclusive_ms": 500.2810000000004
+          },
+          {
+            "fn": "evaporateWallFilm /src/science/wallFilmEvaporation.ts:1",
+            "self_ms": 12.01,
+            "inclusive_ms": 30.445999999999998
+          },
+          {
+            "fn": "projectAqueousSolution /src/engine/aqueousProjection.ts:1",
+            "self_ms": 11.434,
+            "inclusive_ms": 69.53600000000002
+          },
+          {
+            "fn": "waterSaturationTemperatureC /src/science/waterSaturation.ts:1",
+            "self_ms": 10.337,
+            "inclusive_ms": 30.624000000000002
+          }
+        ],
+        "hotInclusive": [
+          {
+            "fn": "tick /src/vfx/autoplay/AutoExperiment.ts:1",
+            "self_ms": 3.8980000000000006,
+            "inclusive_ms": 914.8689999999995
+          },
+          {
+            "fn": "step /src/vfx/autoplay/AutoExperiment.ts:1",
+            "self_ms": 19.649,
+            "inclusive_ms": 910.9709999999993
+          },
+          {
+            "fn": "routeWaterVaporToWall /src/engine/waterVaporRouting.ts:1",
+            "self_ms": 12.337,
+            "inclusive_ms": 500.2810000000004
+          },
+          {
+            "fn": "(anonymous) /src/science/evaporativeCooling.ts:1",
+            "self_ms": 4.693,
+            "inclusive_ms": 401.2919999999998
+          },
+          {
+            "fn": "stepWallCondensation /src/engine/wallCondensation.ts:1",
+            "self_ms": 16.131,
+            "inclusive_ms": 356.4930000000004
+          },
+          {
+            "fn": "applyThermalEnergy /src/engine/thermalState.ts:1",
+            "self_ms": 48.215999999999994,
+            "inclusive_ms": 313.8000000000001
+          },
+          {
+            "fn": "heat /src/vfx/autoplay/AutoExperiment.ts:1",
+            "self_ms": 1.1789999999999998,
+            "inclusive_ms": 270.5990000000001
+          },
+          {
+            "fn": "transportWallBeads /src/engine/wallDropletTransport.ts:1",
+            "self_ms": 99.15899999999993,
+            "inclusive_ms": 270.4989999999999
+          },
+          {
+            "fn": "applyThermalStep /src/vfx/autoplay/AutoExperiment.ts:1",
+            "self_ms": 5.494,
+            "inclusive_ms": 266.06700000000006
+          },
+          {
+            "fn": "integral /src/science/evaporativeCooling.ts:1",
+            "self_ms": 1.245,
+            "inclusive_ms": 263.0719999999999
+          },
+          {
+            "fn": "gauss /src/science/evaporativeCooling.ts:1",
+            "self_ms": 0.538,
+            "inclusive_ms": 261.8269999999999
+          },
+          {
+            "fn": "stepVesselThermal /src/engine/thermalState.ts:1",
+            "self_ms": 12.590000000000002,
+            "inclusive_ms": 260.5730000000001
+          },
+          {
+            "fn": "waterLatentHeatJ_G /src/science/waterThermodynamics.ts:1",
+            "self_ms": 4.122,
+            "inclusive_ms": 156.09399999999997
+          },
+          {
+            "fn": "waterSaturationProperties /src/science/waterThermodynamics.ts:1",
+            "self_ms": 105.30000000000001,
+            "inclusive_ms": 155.67699999999994
+          },
+          {
+            "fn": "(anonymous) /src/engine/wallDropletTransport.ts:1",
+            "self_ms": 57.516,
+            "inclusive_ms": 154.86399999999998
+          },
+          {
+            "fn": "evaporativeCooling /src/science/evaporativeCooling.ts:1",
+            "self_ms": 2.2699999999999996,
+            "inclusive_ms": 151.33999999999997
+          },
+          {
+            "fn": "stepWetWallThermal /src/engine/wetWallThermal.ts:1",
+            "self_ms": 17.892,
+            "inclusive_ms": 126.29199999999992
+          },
+          {
+            "fn": "identifySpecies /src/science/speciesIdentity.ts:1",
+            "self_ms": 86.236,
+            "inclusive_ms": 86.236
+          },
+          {
+            "fn": "waterSaturationPressurePa /src/science/waterSaturation.ts:1",
+            "self_ms": 73.281,
+            "inclusive_ms": 73.281
+          },
+          {
+            "fn": "projectAqueousSolution /src/engine/aqueousProjection.ts:1",
+            "self_ms": 11.434,
+            "inclusive_ms": 69.53600000000002
+          },
+          {
+            "fn": "sameMolecularFormula /src/science/speciesIdentity.ts:1",
+            "self_ms": 4.541,
+            "inclusive_ms": 61.658999999999985
+          },
+          {
+            "fn": "aqueousWaterBoundary /src/science/aqueousWaterBoundary.ts:1",
+            "self_ms": 3.8840000000000003,
+            "inclusive_ms": 58.732
+          },
+          {
+            "fn": "landoltInventory /src/science/landoltClock.ts:1",
+            "self_ms": 4.699,
+            "inclusive_ms": 43.916999999999994
+          },
+          {
+            "fn": "wallReturnCapacityG /src/engine/wallCondensation.ts:1",
+            "self_ms": 0.634,
+            "inclusive_ms": 41.082000000000015
+          }
+        ]
+      }
+    },
+    {
+      "kind": "hot-water",
+      "effects": true,
+      "repetitions": 2,
+      "frames": 600,
+      "totalSteps": 1200,
+      "wall_ms": 675.1824000000001,
+      "cpu_ms": 796,
+      "mean_ms": 0.45379716666666314,
+      "p50_ms": 0.38220000000001164,
+      "p95_ms": 0.8656000000000859,
+      "max_ms": 7.201399999999921,
+      "checks": [
+        {
+          "phase": "complete",
+          "error": null,
+          "temperature_c": 93.3025346514023,
+          "progress": 0,
+          "maxMassError_g": 5.684341886080802e-14,
+          "elapsed_s": 10.000000000000076,
+          "wallWater_g": 0.07447168930668474,
+          "finalContents": [
+            {
+              "formula": "H2O",
+              "phase": "l",
+              "mass_g": 49.92552831069329
+            }
+          ]
+        },
+        {
+          "phase": "complete",
+          "error": null,
+          "temperature_c": 93.3025346514023,
+          "progress": 0,
+          "maxMassError_g": 5.684341886080802e-14,
+          "elapsed_s": 10.000000000000076,
+          "wallWater_g": 0.07447168930668474,
+          "finalContents": [
+            {
+              "formula": "H2O",
+              "phase": "l",
+              "mass_g": 49.92552831069329
+            }
+          ]
+        }
+      ],
+      "profile": {
+        "hotSelf": [
+          {
+            "fn": "waterSaturationProperties /src/science/waterThermodynamics.ts:1",
+            "self_ms": 51.16499999999999,
+            "inclusive_ms": 72.109
+          },
+          {
+            "fn": "transportWallBeads /src/engine/wallDropletTransport.ts:1",
+            "self_ms": 48.547,
+            "inclusive_ms": 131.27299999999994
+          },
+          {
+            "fn": "identifySpecies /src/science/speciesIdentity.ts:1",
+            "self_ms": 44.206,
+            "inclusive_ms": 44.206
+          },
+          {
+            "fn": "waterSaturationPressurePa /src/science/waterSaturation.ts:1",
+            "self_ms": 27.862000000000005,
+            "inclusive_ms": 27.862000000000005
+          },
+          {
+            "fn": "(anonymous) /src/engine/wallDropletTransport.ts:1",
+            "self_ms": 26.862,
+            "inclusive_ms": 77.11599999999999
+          },
+          {
+            "fn": "step /src/vfx/autoplay/AutoExperiment.ts:1",
+            "self_ms": 23.645999999999994,
+            "inclusive_ms": 522.5440000000003
+          },
+          {
+            "fn": "applyThermalEnergy /src/engine/thermalState.ts:1",
+            "self_ms": 20.630000000000003,
+            "inclusive_ms": 151.504
+          },
+          {
+            "fn": "wallDropCap /src/science/wallDropletGeometry.ts:1",
+            "self_ms": 18.491000000000003,
+            "inclusive_ms": 18.491000000000003
+          },
+          {
+            "fn": "step /src/simulation/core/SimulationEngine.ts:1",
+            "self_ms": 15.170999999999998,
+            "inclusive_ms": 47.91800000000001
+          },
+          {
+            "fn": "stepWetWallThermal /src/engine/wetWallThermal.ts:1",
+            "self_ms": 14.779000000000002,
+            "inclusive_ms": 63.70700000000001
+          },
+          {
+            "fn": "create /src/physical/StockWorld.ts:1",
+            "self_ms": 10.798,
+            "inclusive_ms": 55.39799999999998
+          },
+          {
+            "fn": "wallSurfaceSection /src/science/wallDropletGeometry.ts:1",
+            "self_ms": 10.543,
+            "inclusive_ms": 14.339
+          },
+          {
+            "fn": "__name /src/science/aqueousWaterBoundary.ts:1",
+            "self_ms": 10.087,
+            "inclusive_ms": 23.814
+          },
+          {
+            "fn": "readComposition /src/science/balance.ts:1",
+            "self_ms": 7.8389999999999995,
+            "inclusive_ms": 18.804000000000002
+          },
+          {
+            "fn": "(anonymous) /src/science/evaporativeCooling.ts:1",
+            "self_ms": 5.4,
+            "inclusive_ms": 199.18100000000007
+          },
+          {
+            "fn": "(anonymous) /src/engine/wetWallThermal.ts:1",
+            "self_ms": 5.38,
+            "inclusive_ms": 21.182000000000002
+          },
+          {
+            "fn": "routeWaterVaporToWall /src/engine/waterVaporRouting.ts:1",
+            "self_ms": 5.364000000000001,
+            "inclusive_ms": 246.80800000000005
+          },
+          {
+            "fn": "(anonymous) /src/science/balance.ts:1",
+            "self_ms": 5.188000000000001,
+            "inclusive_ms": 6.8809999999999985
+          }
+        ],
+        "hotInclusive": [
+          {
+            "fn": "tick /src/vfx/autoplay/AutoExperiment.ts:1",
+            "self_ms": 2.575,
+            "inclusive_ms": 525.7490000000004
+          },
+          {
+            "fn": "step /src/vfx/autoplay/AutoExperiment.ts:1",
+            "self_ms": 23.645999999999994,
+            "inclusive_ms": 522.5440000000003
+          },
+          {
+            "fn": "routeWaterVaporToWall /src/engine/waterVaporRouting.ts:1",
+            "self_ms": 5.364000000000001,
+            "inclusive_ms": 246.80800000000005
+          },
+          {
+            "fn": "(anonymous) /src/science/evaporativeCooling.ts:1",
+            "self_ms": 5.4,
+            "inclusive_ms": 199.18100000000007
+          },
+          {
+            "fn": "stepWallCondensation /src/engine/wallCondensation.ts:1",
+            "self_ms": 5.16,
+            "inclusive_ms": 174.971
+          },
+          {
+            "fn": "applyThermalEnergy /src/engine/thermalState.ts:1",
+            "self_ms": 20.630000000000003,
+            "inclusive_ms": 151.504
+          },
+          {
+            "fn": "transportWallBeads /src/engine/wallDropletTransport.ts:1",
+            "self_ms": 48.547,
+            "inclusive_ms": 131.27299999999994
+          },
+          {
+            "fn": "integral /src/science/evaporativeCooling.ts:1",
+            "self_ms": 0,
+            "inclusive_ms": 130.64900000000006
+          },
+          {
+            "fn": "gauss /src/science/evaporativeCooling.ts:1",
+            "self_ms": 2.3369999999999997,
+            "inclusive_ms": 130.64900000000006
+          },
+          {
+            "fn": "heat /src/vfx/autoplay/AutoExperiment.ts:1",
+            "self_ms": 1.149,
+            "inclusive_ms": 123.717
+          },
+          {
+            "fn": "applyThermalStep /src/vfx/autoplay/AutoExperiment.ts:1",
+            "self_ms": 0.583,
+            "inclusive_ms": 120.51699999999998
+          },
+          {
+            "fn": "stepVesselThermal /src/engine/thermalState.ts:1",
+            "self_ms": 3.445,
+            "inclusive_ms": 119.93399999999998
+          },
+          {
+            "fn": "(anonymous) /src/engine/wallDropletTransport.ts:1",
+            "self_ms": 26.862,
+            "inclusive_ms": 77.11599999999999
+          },
+          {
+            "fn": "evaporativeCooling /src/science/evaporativeCooling.ts:1",
+            "self_ms": 1.186,
+            "inclusive_ms": 76.87799999999999
+          },
+          {
+            "fn": "waterSaturationProperties /src/science/waterThermodynamics.ts:1",
+            "self_ms": 51.16499999999999,
+            "inclusive_ms": 72.109
+          },
+          {
+            "fn": "waterLatentHeatJ_G /src/science/waterThermodynamics.ts:1",
+            "self_ms": 0,
+            "inclusive_ms": 70.932
+          },
+          {
+            "fn": "stepWetWallThermal /src/engine/wetWallThermal.ts:1",
+            "self_ms": 14.779000000000002,
+            "inclusive_ms": 63.70700000000001
+          },
+          {
+            "fn": "create /src/physical/StockWorld.ts:1",
+            "self_ms": 10.798,
+            "inclusive_ms": 55.39799999999998
+          },
+          {
+            "fn": "initialize /src/vfx/autoplay/AutoStockDynamics.ts:1",
+            "self_ms": 0,
+            "inclusive_ms": 54.28899999999998
+          },
+          {
+            "fn": "(anonymous) /src/vfx/autoplay/AutoStockDynamics.ts:1",
+            "self_ms": 0,
+            "inclusive_ms": 49.868999999999986
+          },
+          {
+            "fn": "step /src/simulation/core/SimulationEngine.ts:1",
+            "self_ms": 15.170999999999998,
+            "inclusive_ms": 47.91800000000001
+          },
+          {
+            "fn": "identifySpecies /src/science/speciesIdentity.ts:1",
+            "self_ms": 44.206,
+            "inclusive_ms": 44.206
+          },
+          {
+            "fn": "aqueousWaterBoundary /src/science/aqueousWaterBoundary.ts:1",
+            "self_ms": 4.469,
+            "inclusive_ms": 38.282000000000004
+          },
+          {
+            "fn": "projectAqueousSolution /src/engine/aqueousProjection.ts:1",
+            "self_ms": 2.8739999999999997,
+            "inclusive_ms": 32.596999999999994
+          }
+        ]
+      }
+    },
+    {
+      "kind": "precipitate-tail",
+      "effects": false,
+      "repetitions": 4,
+      "frames": 600,
+      "totalSteps": 2400,
+      "wall_ms": 1450.0905999999995,
+      "cpu_ms": 1625,
+      "mean_ms": 0.5976563333333301,
+      "p50_ms": 0.5052999999998065,
+      "p95_ms": 1.1188999999999396,
+      "max_ms": 2.292500000000018,
+      "checks": [
+        {
+          "phase": "complete",
+          "error": null,
+          "temperature_c": 25.314715013780116,
+          "progress": 1,
+          "maxMassError_g": 4.263256414560601e-14,
+          "elapsed_s": 10.000000000000076,
+          "wallWater_g": 0.00012904226485006557,
+          "finalContents": [
+            {
+              "formula": "CuSO4",
+              "phase": "aq",
+              "mass_g": 0.00004586393535310284
+            },
+            {
+              "formula": "NaOH",
+              "phase": "aq",
+              "mass_g": 0.000022987429008634656
+            },
+            {
+              "formula": "H2O",
+              "phase": "l",
+              "mass_g": 29.758707648574145
+            },
+            {
+              "formula": "Cu(OH)2",
+              "phase": "s",
+              "mass_g": 0.09753196472767856
+            },
+            {
+              "formula": "Na2SO4",
+              "phase": "aq",
+              "mass_g": 0.14199518390795973
+            }
+          ]
+        },
+        {
+          "phase": "complete",
+          "error": null,
+          "temperature_c": 25.314715013780116,
+          "progress": 1,
+          "maxMassError_g": 4.263256414560601e-14,
+          "elapsed_s": 10.000000000000076,
+          "wallWater_g": 0.00012904226485006557,
+          "finalContents": [
+            {
+              "formula": "CuSO4",
+              "phase": "aq",
+              "mass_g": 0.00004586393535310284
+            },
+            {
+              "formula": "NaOH",
+              "phase": "aq",
+              "mass_g": 0.000022987429008634656
+            },
+            {
+              "formula": "H2O",
+              "phase": "l",
+              "mass_g": 29.758707648574145
+            },
+            {
+              "formula": "Cu(OH)2",
+              "phase": "s",
+              "mass_g": 0.09753196472767856
+            },
+            {
+              "formula": "Na2SO4",
+              "phase": "aq",
+              "mass_g": 0.14199518390795973
+            }
+          ]
+        },
+        {
+          "phase": "complete",
+          "error": null,
+          "temperature_c": 25.314715013780116,
+          "progress": 1,
+          "maxMassError_g": 4.263256414560601e-14,
+          "elapsed_s": 10.000000000000076,
+          "wallWater_g": 0.00012904226485006557,
+          "finalContents": [
+            {
+              "formula": "CuSO4",
+              "phase": "aq",
+              "mass_g": 0.00004586393535310284
+            },
+            {
+              "formula": "NaOH",
+              "phase": "aq",
+              "mass_g": 0.000022987429008634656
+            },
+            {
+              "formula": "H2O",
+              "phase": "l",
+              "mass_g": 29.758707648574145
+            },
+            {
+              "formula": "Cu(OH)2",
+              "phase": "s",
+              "mass_g": 0.09753196472767856
+            },
+            {
+              "formula": "Na2SO4",
+              "phase": "aq",
+              "mass_g": 0.14199518390795973
+            }
+          ]
+        },
+        {
+          "phase": "complete",
+          "error": null,
+          "temperature_c": 25.314715013780116,
+          "progress": 1,
+          "maxMassError_g": 4.263256414560601e-14,
+          "elapsed_s": 10.000000000000076,
+          "wallWater_g": 0.00012904226485006557,
+          "finalContents": [
+            {
+              "formula": "CuSO4",
+              "phase": "aq",
+              "mass_g": 0.00004586393535310284
+            },
+            {
+              "formula": "NaOH",
+              "phase": "aq",
+              "mass_g": 0.000022987429008634656
+            },
+            {
+              "formula": "H2O",
+              "phase": "l",
+              "mass_g": 29.758707648574145
+            },
+            {
+              "formula": "Cu(OH)2",
+              "phase": "s",
+              "mass_g": 0.09753196472767856
+            },
+            {
+              "formula": "Na2SO4",
+              "phase": "aq",
+              "mass_g": 0.14199518390795973
+            }
+          ]
+        }
+      ],
+      "profile": {
+        "hotSelf": [
+          {
+            "fn": "identifySpecies /src/science/speciesIdentity.ts:1",
+            "self_ms": 315.983,
+            "inclusive_ms": 317.55400000000003
+          },
+          {
+            "fn": "waterSaturationPressurePa /src/science/waterSaturation.ts:1",
+            "self_ms": 105.94399999999999,
+            "inclusive_ms": 105.94399999999999
+          },
+          {
+            "fn": "transportWallBeads /src/engine/wallDropletTransport.ts:1",
+            "self_ms": 105.232,
+            "inclusive_ms": 285.39499999999987
+          },
+          {
+            "fn": "waterSaturationProperties /src/science/waterThermodynamics.ts:1",
+            "self_ms": 92.04200000000002,
+            "inclusive_ms": 151.31099999999998
+          },
+          {
+            "fn": "applyThermalEnergy /src/engine/thermalState.ts:1",
+            "self_ms": 79.05700000000002,
+            "inclusive_ms": 450.1549999999999
+          },
+          {
+            "fn": "(anonymous) /src/engine/wallDropletTransport.ts:1",
+            "self_ms": 52.52299999999998,
+            "inclusive_ms": 150.46499999999997
+          },
+          {
+            "fn": "wallDropCap /src/science/wallDropletGeometry.ts:1",
+            "self_ms": 44.766,
+            "inclusive_ms": 44.766
+          },
+          {
+            "fn": "(anonymous) /src/science/copperHydroxidePrecipitation.ts:1",
+            "self_ms": 37.183,
+            "inclusive_ms": 37.183
+          },
+          {
+            "fn": "step /src/vfx/autoplay/AutoExperiment.ts:1",
+            "self_ms": 32.611,
+            "inclusive_ms": 1385.0110000000013
+          },
+          {
+            "fn": "aqueousWaterBoundary /src/science/aqueousWaterBoundary.ts:1",
+            "self_ms": 25.325999999999997,
+            "inclusive_ms": 170.21800000000005
+          },
+          {
+            "fn": "__name /src/science/aqueousWaterBoundary.ts:1",
+            "self_ms": 24.877000000000002,
+            "inclusive_ms": 42.855000000000004
+          },
+          {
+            "fn": "routeWaterVaporToWall /src/engine/waterVaporRouting.ts:1",
+            "self_ms": 19.602,
+            "inclusive_ms": 763.3980000000006
+          },
+          {
+            "fn": "stepWetWallThermal /src/engine/wetWallThermal.ts:1",
+            "self_ms": 18.226999999999997,
+            "inclusive_ms": 169.41299999999987
+          },
+          {
+            "fn": "stepWallCondensation /src/engine/wallCondensation.ts:1",
+            "self_ms": 18.214000000000002,
+            "inclusive_ms": 563.291999999999
+          },
+          {
+            "fn": "waterSaturationTemperatureC /src/science/waterSaturation.ts:1",
+            "self_ms": 15.65,
+            "inclusive_ms": 52.216
+          },
+          {
+            "fn": "getPrecipitateProfile /src/simulation/core/SimulationConfig.ts:1",
+            "self_ms": 15.231000000000002,
+            "inclusive_ms": 77.09899999999999
+          },
+          {
+            "fn": "(anonymous) /src/engine/wallThermalPaths.ts:1",
+            "self_ms": 11.75,
+            "inclusive_ms": 19.691000000000003
+          },
+          {
+            "fn": "bodies /src/handling/solidOccupancy.ts:1",
+            "self_ms": 11.460999999999999,
+            "inclusive_ms": 97.43599999999999
+          }
+        ],
+        "hotInclusive": [
+          {
+            "fn": "tick /src/vfx/autoplay/AutoExperiment.ts:1",
+            "self_ms": 8.395,
+            "inclusive_ms": 1393.9730000000009
+          },
+          {
+            "fn": "step /src/vfx/autoplay/AutoExperiment.ts:1",
+            "self_ms": 32.611,
+            "inclusive_ms": 1385.0110000000013
+          },
+          {
+            "fn": "routeWaterVaporToWall /src/engine/waterVaporRouting.ts:1",
+            "self_ms": 19.602,
+            "inclusive_ms": 763.3980000000006
+          },
+          {
+            "fn": "stepWallCondensation /src/engine/wallCondensation.ts:1",
+            "self_ms": 18.214000000000002,
+            "inclusive_ms": 563.291999999999
+          },
+          {
+            "fn": "applyThermalEnergy /src/engine/thermalState.ts:1",
+            "self_ms": 79.05700000000002,
+            "inclusive_ms": 450.1549999999999
+          },
+          {
+            "fn": "(anonymous) /src/science/evaporativeCooling.ts:1",
+            "self_ms": 4.152,
+            "inclusive_ms": 400.496
+          },
+          {
+            "fn": "heat /src/vfx/autoplay/AutoExperiment.ts:1",
+            "self_ms": 2.198,
+            "inclusive_ms": 330.7409999999996
+          },
+          {
+            "fn": "applyThermalStep /src/vfx/autoplay/AutoExperiment.ts:1",
+            "self_ms": 2.34,
+            "inclusive_ms": 322.3729999999996
+          },
+          {
+            "fn": "stepVesselThermal /src/engine/thermalState.ts:1",
+            "self_ms": 6.607,
+            "inclusive_ms": 320.0329999999997
+          },
+          {
+            "fn": "identifySpecies /src/science/speciesIdentity.ts:1",
+            "self_ms": 315.983,
+            "inclusive_ms": 317.55400000000003
+          },
+          {
+            "fn": "transportWallBeads /src/engine/wallDropletTransport.ts:1",
+            "self_ms": 105.232,
+            "inclusive_ms": 285.39499999999987
+          },
+          {
+            "fn": "integral /src/science/evaporativeCooling.ts:1",
+            "self_ms": 1.9929999999999999,
+            "inclusive_ms": 261.688
+          },
+          {
+            "fn": "gauss /src/science/evaporativeCooling.ts:1",
+            "self_ms": 1.226,
+            "inclusive_ms": 259.695
+          },
+          {
+            "fn": "sameMolecularFormula /src/science/speciesIdentity.ts:1",
+            "self_ms": 0.6,
+            "inclusive_ms": 226.08199999999994
+          },
+          {
+            "fn": "aqueousWaterBoundary /src/science/aqueousWaterBoundary.ts:1",
+            "self_ms": 25.325999999999997,
+            "inclusive_ms": 170.21800000000005
+          },
+          {
+            "fn": "stepWetWallThermal /src/engine/wetWallThermal.ts:1",
+            "self_ms": 18.226999999999997,
+            "inclusive_ms": 169.41299999999987
+          },
+          {
+            "fn": "evaporativeCooling /src/science/evaporativeCooling.ts:1",
+            "self_ms": 1.779,
+            "inclusive_ms": 155.41799999999998
+          },
+          {
+            "fn": "(anonymous) /src/engine/wallCondensation.ts:1",
+            "self_ms": 10.969,
+            "inclusive_ms": 153.89799999999997
+          },
+          {
+            "fn": "waterSaturationProperties /src/science/waterThermodynamics.ts:1",
+            "self_ms": 92.04200000000002,
+            "inclusive_ms": 151.31099999999998
+          },
+          {
+            "fn": "wallReturnCapacityG /src/engine/wallCondensation.ts:1",
+            "self_ms": 0,
+            "inclusive_ms": 150.67400000000004
+          },
+          {
+            "fn": "(anonymous) /src/engine/wallDropletTransport.ts:1",
+            "self_ms": 52.52299999999998,
+            "inclusive_ms": 150.46499999999997
+          },
+          {
+            "fn": "waterLatentHeatJ_G /src/science/waterThermodynamics.ts:1",
+            "self_ms": 2.291,
+            "inclusive_ms": 149.922
+          },
+          {
+            "fn": "occupiedLiquidVolume /src/handling/solidOccupancy.ts:1",
+            "self_ms": 4.99,
+            "inclusive_ms": 123.24900000000001
+          },
+          {
+            "fn": "projectAqueousSolution /src/engine/aqueousProjection.ts:1",
+            "self_ms": 11.456999999999999,
+            "inclusive_ms": 109.52200000000006
+          }
+        ]
+      }
+    },
+    {
+      "kind": "precipitate-tail",
+      "effects": true,
+      "repetitions": 2,
+      "frames": 600,
+      "totalSteps": 1200,
+      "wall_ms": 1641.8172999999997,
+      "cpu_ms": 2125,
+      "mean_ms": 1.3614892499999944,
+      "p50_ms": 1.2394999999996799,
+      "p95_ms": 2.1607999999996537,
+      "max_ms": 9.234000000000378,
+      "checks": [
+        {
+          "phase": "complete",
+          "error": null,
+          "temperature_c": 25.314715013780116,
+          "progress": 1,
+          "maxMassError_g": 4.263256414560601e-14,
+          "elapsed_s": 10.000000000000076,
+          "wallWater_g": 0.00012904226485006557,
+          "finalContents": [
+            {
+              "formula": "CuSO4",
+              "phase": "aq",
+              "mass_g": 0.00004586393535310284
+            },
+            {
+              "formula": "NaOH",
+              "phase": "aq",
+              "mass_g": 0.000022987429008634656
+            },
+            {
+              "formula": "H2O",
+              "phase": "l",
+              "mass_g": 29.758707648574145
+            },
+            {
+              "formula": "Cu(OH)2",
+              "phase": "s",
+              "mass_g": 0.09753196472767856
+            },
+            {
+              "formula": "Na2SO4",
+              "phase": "aq",
+              "mass_g": 0.14199518390795973
+            }
+          ]
+        },
+        {
+          "phase": "complete",
+          "error": null,
+          "temperature_c": 25.314715013780116,
+          "progress": 1,
+          "maxMassError_g": 4.263256414560601e-14,
+          "elapsed_s": 10.000000000000076,
+          "wallWater_g": 0.00012904226485006557,
+          "finalContents": [
+            {
+              "formula": "CuSO4",
+              "phase": "aq",
+              "mass_g": 0.00004586393535310284
+            },
+            {
+              "formula": "NaOH",
+              "phase": "aq",
+              "mass_g": 0.000022987429008634656
+            },
+            {
+              "formula": "H2O",
+              "phase": "l",
+              "mass_g": 29.758707648574145
+            },
+            {
+              "formula": "Cu(OH)2",
+              "phase": "s",
+              "mass_g": 0.09753196472767856
+            },
+            {
+              "formula": "Na2SO4",
+              "phase": "aq",
+              "mass_g": 0.14199518390795973
+            }
+          ]
+        }
+      ],
+      "profile": {
+        "hotSelf": [
+          {
+            "fn": "identifySpecies /src/science/speciesIdentity.ts:1",
+            "self_ms": 214.33100000000005,
+            "inclusive_ms": 214.33100000000005
+          },
+          {
+            "fn": "waterSaturationPressurePa /src/science/waterSaturation.ts:1",
+            "self_ms": 160.7719999999999,
+            "inclusive_ms": 162.6049999999999
+          },
+          {
+            "fn": "sampleVelocity /src/simulation/effects/ConvectionSystem.ts:1",
+            "self_ms": 83.91199999999999,
+            "inclusive_ms": 115.98599999999993
+          },
+          {
+            "fn": "contourRadius /src/science/vesselDimensions.ts:1",
+            "self_ms": 72.18,
+            "inclusive_ms": 72.18
+          },
+          {
+            "fn": "step /src/simulation/effects/PrecipitationSystem.ts:1",
+            "self_ms": 71.464,
+            "inclusive_ms": 395.97599999999994
+          },
+          {
+            "fn": "update /src/simulation/effects/SuspensionDensityField.ts:1",
+            "self_ms": 64.45500000000001,
+            "inclusive_ms": 82.294
+          },
+          {
+            "fn": "waterSaturationProperties /src/science/waterThermodynamics.ts:1",
+            "self_ms": 57.65399999999998,
+            "inclusive_ms": 81.11999999999996
+          },
+          {
+            "fn": "transportWallBeads /src/engine/wallDropletTransport.ts:1",
+            "self_ms": 55.293000000000035,
+            "inclusive_ms": 138.95999999999998
+          },
+          {
+            "fn": "step /src/vfx/autoplay/AutoExperiment.ts:1",
+            "self_ms": 51.21199999999998,
+            "inclusive_ms": 1582.0999999999979
+          },
+          {
+            "fn": "applyThermalEnergy /src/engine/thermalState.ts:1",
+            "self_ms": 39.858000000000004,
+            "inclusive_ms": 226.58300000000003
+          },
+          {
+            "fn": "gaussian /src/core/rng.ts:1",
+            "self_ms": 33.556000000000004,
+            "inclusive_ms": 36.43600000000001
+          },
+          {
+            "fn": "step /src/simulation/core/SimulationEngine.ts:1",
+            "self_ms": 27.378999999999994,
+            "inclusive_ms": 690.9500000000016
+          },
+          {
+            "fn": "containParticle /src/simulation/effects/particleBounds.ts:1",
+            "self_ms": 25.068,
+            "inclusive_ms": 57.01600000000003
+          },
+          {
+            "fn": "waterSaturationTemperatureC /src/science/waterSaturation.ts:1",
+            "self_ms": 20.224,
+            "inclusive_ms": 151.75099999999995
+          },
+          {
+            "fn": "slideParticleAlongWall /src/simulation/effects/particleBounds.ts:1",
+            "self_ms": 19.834,
+            "inclusive_ms": 19.834
+          },
+          {
+            "fn": "step /src/simulation/effects/LiquidAppearanceField.ts:1",
+            "self_ms": 18.996000000000002,
+            "inclusive_ms": 27.678000000000004
+          },
+          {
+            "fn": "(anonymous) /src/engine/wallDropletTransport.ts:1",
+            "self_ms": 18.381999999999994,
+            "inclusive_ms": 56.142999999999994
+          },
+          {
+            "fn": "aqueousWaterBoundary /src/science/aqueousWaterBoundary.ts:1",
+            "self_ms": 16.337000000000003,
+            "inclusive_ms": 81.921
+          }
+        ],
+        "hotInclusive": [
+          {
+            "fn": "tick /src/vfx/autoplay/AutoExperiment.ts:1",
+            "self_ms": 9.376999999999999,
+            "inclusive_ms": 1591.4769999999978
+          },
+          {
+            "fn": "step /src/vfx/autoplay/AutoExperiment.ts:1",
+            "self_ms": 51.21199999999998,
+            "inclusive_ms": 1582.0999999999979
+          },
+          {
+            "fn": "step /src/simulation/core/SimulationEngine.ts:1",
+            "self_ms": 27.378999999999994,
+            "inclusive_ms": 690.9500000000016
+          },
+          {
+            "fn": "update /src/simulation/effects/PrecipitationSystem.ts:1",
+            "self_ms": 8.055000000000001,
+            "inclusive_ms": 405.237
+          },
+          {
+            "fn": "step /src/simulation/effects/PrecipitationSystem.ts:1",
+            "self_ms": 71.464,
+            "inclusive_ms": 395.97599999999994
+          },
+          {
+            "fn": "routeWaterVaporToWall /src/engine/waterVaporRouting.ts:1",
+            "self_ms": 7.039,
+            "inclusive_ms": 376.2980000000002
+          },
+          {
+            "fn": "stepWallCondensation /src/engine/wallCondensation.ts:1",
+            "self_ms": 10.071,
+            "inclusive_ms": 261.73100000000017
+          },
+          {
+            "fn": "applyThermalEnergy /src/engine/thermalState.ts:1",
+            "self_ms": 39.858000000000004,
+            "inclusive_ms": 226.58300000000003
+          },
+          {
+            "fn": "identifySpecies /src/science/speciesIdentity.ts:1",
+            "self_ms": 214.33100000000005,
+            "inclusive_ms": 214.33100000000005
+          },
+          {
+            "fn": "(anonymous) /src/science/evaporativeCooling.ts:1",
+            "self_ms": 1.75,
+            "inclusive_ms": 201.55799999999988
+          },
+          {
+            "fn": "heat /src/vfx/autoplay/AutoExperiment.ts:1",
+            "self_ms": 2.911,
+            "inclusive_ms": 178.4240000000001
+          },
+          {
+            "fn": "applyThermalStep /src/vfx/autoplay/AutoExperiment.ts:1",
+            "self_ms": 1.141,
+            "inclusive_ms": 172.71300000000005
+          },
+          {
+            "fn": "stepVesselThermal /src/engine/thermalState.ts:1",
+            "self_ms": 6.046,
+            "inclusive_ms": 171.57200000000006
+          },
+          {
+            "fn": "waterSaturationPressurePa /src/science/waterSaturation.ts:1",
+            "self_ms": 160.7719999999999,
+            "inclusive_ms": 162.6049999999999
+          },
+          {
+            "fn": "sameMolecularFormula /src/science/speciesIdentity.ts:1",
+            "self_ms": 0,
+            "inclusive_ms": 162.283
+          },
+          {
+            "fn": "waterSaturationTemperatureC /src/science/waterSaturation.ts:1",
+            "self_ms": 20.224,
+            "inclusive_ms": 151.75099999999995
+          },
+          {
+            "fn": "update /src/simulation/effects/EvaporationSystem.ts:1",
+            "self_ms": 7.957000000000001,
+            "inclusive_ms": 149.32799999999986
+          },
+          {
+            "fn": "waterPlumeVisibility /src/science/waterSurface.ts:1",
+            "self_ms": 1.6640000000000001,
+            "inclusive_ms": 139.03399999999988
+          },
+          {
+            "fn": "transportWallBeads /src/engine/wallDropletTransport.ts:1",
+            "self_ms": 55.293000000000035,
+            "inclusive_ms": 138.95999999999998
+          },
+          {
+            "fn": "waterPlumeState /src/science/moistAirFog.ts:1",
+            "self_ms": 1.022,
+            "inclusive_ms": 137.36999999999992
+          },
+          {
+            "fn": "equilibrateMoistAirWater /src/science/moistAirFog.ts:1",
+            "self_ms": 1.252,
+            "inclusive_ms": 136.34799999999993
+          },
+          {
+            "fn": "advance /src/simulation/effects/LiquidAppearanceField.ts:1",
+            "self_ms": 14.586,
+            "inclusive_ms": 136.034
+          },
+          {
+            "fn": "sampleVelocity /src/simulation/effects/LiquidMotionSystem.ts:1",
+            "self_ms": 15.231,
+            "inclusive_ms": 131.21699999999987
+          },
+          {
+            "fn": "integral /src/science/evaporativeCooling.ts:1",
+            "self_ms": 1.259,
+            "inclusive_ms": 131.15499999999992
+          }
+        ]
+      }
+    },
+    {
+      "kind": "co2-reaction",
+      "effects": false,
+      "repetitions": 4,
+      "frames": 600,
+      "totalSteps": 2400,
+      "wall_ms": 1912.7392999999993,
+      "cpu_ms": 2155,
+      "mean_ms": 0.7929775000000181,
+      "p50_ms": 0.7460000000000946,
+      "p95_ms": 1.4880000000002838,
+      "max_ms": 3.688299999999799,
+      "checks": [
+        {
+          "phase": "observe",
+          "error": null,
+          "temperature_c": 25.08800047882019,
+          "progress": 1,
+          "maxMassError_g": 2.1316282072803006e-14,
+          "elapsed_s": 10.000000000000076,
+          "wallWater_g": 0.00000614808942865157,
+          "finalContents": [
+            {
+              "formula": "CaCO3",
+              "phase": "s",
+              "mass_g": 0
+            },
+            {
+              "formula": "HCl",
+              "phase": "aq",
+              "mass_g": 0
+            },
+            {
+              "formula": "H2O",
+              "phase": "l",
+              "mass_g": 29.944604027378528
+            },
+            {
+              "formula": "CaCl2",
+              "phase": "aq",
+              "mass_g": 0.11097800000000001
+            }
+          ]
+        },
+        {
+          "phase": "observe",
+          "error": null,
+          "temperature_c": 25.08800047882019,
+          "progress": 1,
+          "maxMassError_g": 2.1316282072803006e-14,
+          "elapsed_s": 10.000000000000076,
+          "wallWater_g": 0.00000614808942865157,
+          "finalContents": [
+            {
+              "formula": "CaCO3",
+              "phase": "s",
+              "mass_g": 0
+            },
+            {
+              "formula": "HCl",
+              "phase": "aq",
+              "mass_g": 0
+            },
+            {
+              "formula": "H2O",
+              "phase": "l",
+              "mass_g": 29.944604027378528
+            },
+            {
+              "formula": "CaCl2",
+              "phase": "aq",
+              "mass_g": 0.11097800000000001
+            }
+          ]
+        },
+        {
+          "phase": "observe",
+          "error": null,
+          "temperature_c": 25.08800047882019,
+          "progress": 1,
+          "maxMassError_g": 2.1316282072803006e-14,
+          "elapsed_s": 10.000000000000076,
+          "wallWater_g": 0.00000614808942865157,
+          "finalContents": [
+            {
+              "formula": "CaCO3",
+              "phase": "s",
+              "mass_g": 0
+            },
+            {
+              "formula": "HCl",
+              "phase": "aq",
+              "mass_g": 0
+            },
+            {
+              "formula": "H2O",
+              "phase": "l",
+              "mass_g": 29.944604027378528
+            },
+            {
+              "formula": "CaCl2",
+              "phase": "aq",
+              "mass_g": 0.11097800000000001
+            }
+          ]
+        },
+        {
+          "phase": "observe",
+          "error": null,
+          "temperature_c": 25.08800047882019,
+          "progress": 1,
+          "maxMassError_g": 2.1316282072803006e-14,
+          "elapsed_s": 10.000000000000076,
+          "wallWater_g": 0.00000614808942865157,
+          "finalContents": [
+            {
+              "formula": "CaCO3",
+              "phase": "s",
+              "mass_g": 0
+            },
+            {
+              "formula": "HCl",
+              "phase": "aq",
+              "mass_g": 0
+            },
+            {
+              "formula": "H2O",
+              "phase": "l",
+              "mass_g": 29.944604027378528
+            },
+            {
+              "formula": "CaCl2",
+              "phase": "aq",
+              "mass_g": 0.11097800000000001
+            }
+          ]
+        }
+      ],
+      "profile": {
+        "hotSelf": [
+          {
+            "fn": "identifySpecies /src/science/speciesIdentity.ts:1",
+            "self_ms": 291.4369999999999,
+            "inclusive_ms": 292.03399999999993
+          },
+          {
+            "fn": "(anonymous) /src/science/powderPileGeometry.ts:1",
+            "self_ms": 108.33199999999998,
+            "inclusive_ms": 259.0300000000002
+          },
+          {
+            "fn": "sampleGeometrySurface /src/science/stockSurfaceSamples.ts:1",
+            "self_ms": 64.85100000000001,
+            "inclusive_ms": 221.94500000000014
+          },
+          {
+            "fn": "solidSupportFloor /src/science/vesselDimensions.ts:1",
+            "self_ms": 61.008999999999986,
+            "inclusive_ms": 89.57900000000001
+          },
+          {
+            "fn": "createPowderPileGeometry /src/science/powderPileGeometry.ts:1",
+            "self_ms": 47.698,
+            "inclusive_ms": 392.43699999999995
+          },
+          {
+            "fn": "transportWallBeads /src/engine/wallDropletTransport.ts:1",
+            "self_ms": 46.06,
+            "inclusive_ms": 101.59
+          },
+          {
+            "fn": "routeWaterVaporToWall /src/engine/waterVaporRouting.ts:1",
+            "self_ms": 38.59,
+            "inclusive_ms": 318.55200000000013
+          },
+          {
+            "fn": "(anonymous) /src/science/stockSurfaceSamples.ts:1",
+            "self_ms": 37.389,
+            "inclusive_ms": 129.13299999999992
+          },
+          {
+            "fn": "step /src/vfx/autoplay/AutoExperiment.ts:1",
+            "self_ms": 36.475,
+            "inclusive_ms": 1808.9359999999983
+          },
+          {
+            "fn": "waterSaturationPressurePa /src/science/waterSaturation.ts:1",
+            "self_ms": 33.39399999999999,
+            "inclusive_ms": 33.39399999999999
+          },
+          {
+            "fn": "waterSaturationProperties /src/science/waterThermodynamics.ts:1",
+            "self_ms": 30.627000000000002,
+            "inclusive_ms": 50.53099999999999
+          },
+          {
+            "fn": "staticStockImmersion /src/science/stockImmersion.ts:1",
+            "self_ms": 30.505999999999997,
+            "inclusive_ms": 37.824000000000005
+          },
+          {
+            "fn": "vesselInterior /src/science/vesselDimensions.ts:1",
+            "self_ms": 30.37899999999999,
+            "inclusive_ms": 30.37899999999999
+          },
+          {
+            "fn": "applyThermalEnergy /src/engine/thermalState.ts:1",
+            "self_ms": 29.947000000000003,
+            "inclusive_ms": 156.52999999999997
+          },
+          {
+            "fn": "stockLiquidContactFraction /src/physical/stockLiquidContact.ts:1",
+            "self_ms": 25.942,
+            "inclusive_ms": 794.0870000000004
+          },
+          {
+            "fn": "applyLedgerWithThermalSinks /src/engine/thermalLedger.ts:1",
+            "self_ms": 24.680999999999994,
+            "inclusive_ms": 79.378
+          },
+          {
+            "fn": "applyProgramToLedger /src/engine/ledger.ts:1",
+            "self_ms": 23.979000000000003,
+            "inclusive_ms": 264.74900000000014
+          },
+          {
+            "fn": "stepWallCondensation /src/engine/wallCondensation.ts:1",
+            "self_ms": 21.810000000000002,
+            "inclusive_ms": 200.23100000000002
+          }
+        ],
+        "hotInclusive": [
+          {
+            "fn": "tick /src/vfx/autoplay/AutoExperiment.ts:1",
+            "self_ms": 9.570999999999998,
+            "inclusive_ms": 1820.171999999998
+          },
+          {
+            "fn": "step /src/vfx/autoplay/AutoExperiment.ts:1",
+            "self_ms": 36.475,
+            "inclusive_ms": 1808.9359999999983
+          },
+          {
+            "fn": "advanceReaction /src/engine/advanceReaction.ts:1",
+            "self_ms": 2.7670000000000003,
+            "inclusive_ms": 817.4730000000013
+          },
+          {
+            "fn": "stockLiquidContactFraction /src/physical/stockLiquidContact.ts:1",
+            "self_ms": 25.942,
+            "inclusive_ms": 794.0870000000004
+          },
+          {
+            "fn": "(anonymous) /src/physical/stockLiquidContact.ts:1",
+            "self_ms": 20.212,
+            "inclusive_ms": 710.2910000000007
+          },
+          {
+            "fn": "reactionStockContactFraction /src/physical/stockLiquidContact.ts:1",
+            "self_ms": 0.663,
+            "inclusive_ms": 676.1070000000007
+          },
+          {
+            "fn": "createPowderPileGeometry /src/science/powderPileGeometry.ts:1",
+            "self_ms": 47.698,
+            "inclusive_ms": 392.43699999999995
+          },
+          {
+            "fn": "applyProgramWithThermalSinks /src/engine/thermalLedger.ts:1",
+            "self_ms": 9.597,
+            "inclusive_ms": 351.4119999999999
+          },
+          {
+            "fn": "routeWaterVaporToWall /src/engine/waterVaporRouting.ts:1",
+            "self_ms": 38.59,
+            "inclusive_ms": 318.55200000000013
+          },
+          {
+            "fn": "identifySpecies /src/science/speciesIdentity.ts:1",
+            "self_ms": 291.4369999999999,
+            "inclusive_ms": 292.03399999999993
+          },
+          {
+            "fn": "applyProgramToLedger /src/engine/ledger.ts:1",
+            "self_ms": 23.979000000000003,
+            "inclusive_ms": 264.74900000000014
+          },
+          {
+            "fn": "(anonymous) /src/science/powderPileGeometry.ts:1",
+            "self_ms": 108.33199999999998,
+            "inclusive_ms": 259.0300000000002
+          },
+          {
+            "fn": "sampleGeometrySurface /src/science/stockSurfaceSamples.ts:1",
+            "self_ms": 64.85100000000001,
+            "inclusive_ms": 221.94500000000014
+          },
+          {
+            "fn": "stepWallCondensation /src/engine/wallCondensation.ts:1",
+            "self_ms": 21.810000000000002,
+            "inclusive_ms": 200.23100000000002
+          },
+          {
+            "fn": "sameMolecularFormula /src/science/speciesIdentity.ts:1",
+            "self_ms": 1.685,
+            "inclusive_ms": 159.27200000000005
+          },
+          {
+            "fn": "applyThermalEnergy /src/engine/thermalState.ts:1",
+            "self_ms": 29.947000000000003,
+            "inclusive_ms": 156.52999999999997
+          },
+          {
+            "fn": "(anonymous) /src/science/conditions.ts:1",
+            "self_ms": 9.236999999999998,
+            "inclusive_ms": 151.05599999999998
+          },
+          {
+            "fn": "partitionDryStock /src/physical/stockLiquidContact.ts:1",
+            "self_ms": 9.847,
+            "inclusive_ms": 143.07199999999995
+          },
+          {
+            "fn": "(anonymous) /src/science/stockSurfaceSamples.ts:1",
+            "self_ms": 37.389,
+            "inclusive_ms": 129.13299999999992
+          },
+          {
+            "fn": "heat /src/vfx/autoplay/AutoExperiment.ts:1",
+            "self_ms": 1.21,
+            "inclusive_ms": 116.63400000000003
+          },
+          {
+            "fn": "applyThermalStep /src/vfx/autoplay/AutoExperiment.ts:1",
+            "self_ms": 11.172,
+            "inclusive_ms": 110.72300000000003
+          },
+          {
+            "fn": "stockPointInLiquid /src/physical/stockLiquidContact.ts:1",
+            "self_ms": 3.427,
+            "inclusive_ms": 109.02700000000002
+          },
+          {
+            "fn": "transportWallBeads /src/engine/wallDropletTransport.ts:1",
+            "self_ms": 46.06,
+            "inclusive_ms": 101.59
+          },
+          {
+            "fn": "stepVesselThermal /src/engine/thermalState.ts:1",
+            "self_ms": 4.37,
+            "inclusive_ms": 98.94800000000001
+          }
+        ]
+      }
+    },
+    {
+      "kind": "co2-reaction",
+      "effects": true,
+      "repetitions": 2,
+      "frames": 600,
+      "totalSteps": 1200,
+      "wall_ms": 5968.312400000001,
+      "cpu_ms": 8031,
+      "mean_ms": 4.96773008333334,
+      "p50_ms": 5.500799999999799,
+      "p95_ms": 8.8117000000002,
+      "max_ms": 124.9395999999997,
+      "checks": [
+        {
+          "phase": "observe",
+          "error": null,
+          "temperature_c": 25.088348294335976,
+          "progress": 1,
+          "maxMassError_g": 7.105427357601002e-15,
+          "elapsed_s": 10.000000000000076,
+          "wallWater_g": 0.000005896336403982842,
+          "finalContents": [
+            {
+              "formula": "CaCO3",
+              "phase": "s",
+              "mass_g": 0
+            },
+            {
+              "formula": "HCl",
+              "phase": "aq",
+              "mass_g": 0
+            },
+            {
+              "formula": "H2O",
+              "phase": "l",
+              "mass_g": 29.944626016951947
+            },
+            {
+              "formula": "CaCl2",
+              "phase": "aq",
+              "mass_g": 0.11097800000000001
+            }
+          ]
+        },
+        {
+          "phase": "observe",
+          "error": null,
+          "temperature_c": 25.088348294335976,
+          "progress": 1,
+          "maxMassError_g": 7.105427357601002e-15,
+          "elapsed_s": 10.000000000000076,
+          "wallWater_g": 0.000005896336403982842,
+          "finalContents": [
+            {
+              "formula": "CaCO3",
+              "phase": "s",
+              "mass_g": 0
+            },
+            {
+              "formula": "HCl",
+              "phase": "aq",
+              "mass_g": 0
+            },
+            {
+              "formula": "H2O",
+              "phase": "l",
+              "mass_g": 29.944626016951947
+            },
+            {
+              "formula": "CaCl2",
+              "phase": "aq",
+              "mass_g": 0.11097800000000001
+            }
+          ]
+        }
+      ],
+      "profile": {
+        "hotSelf": [
+          {
+            "fn": "identifySpecies /src/science/speciesIdentity.ts:1",
+            "self_ms": 487.84900000000005,
+            "inclusive_ms": 488.42499999999995
+          },
+          {
+            "fn": "(anonymous) /src/physical/stockLiquidContact.ts:1",
+            "self_ms": 441.96000000000004,
+            "inclusive_ms": 1632.0719999999988
+          },
+          {
+            "fn": "contourRadius /src/science/vesselDimensions.ts:1",
+            "self_ms": 187.12499999999997,
+            "inclusive_ms": 187.12499999999997
+          },
+          {
+            "fn": "(anonymous) /src/science/reactionGasSources.ts:1",
+            "self_ms": 72.41799999999998,
+            "inclusive_ms": 179.29900000000015
+          },
+          {
+            "fn": "step /src/vfx/autoplay/AutoExperiment.ts:1",
+            "self_ms": 64.35399999999998,
+            "inclusive_ms": 5664.615999999991
+          },
+          {
+            "fn": "staticStockImmersion /src/science/stockImmersion.ts:1",
+            "self_ms": 54.525,
+            "inclusive_ms": 69.48500000000001
+          },
+          {
+            "fn": "waterSaturationPressurePa /src/science/waterSaturation.ts:1",
+            "self_ms": 48.638999999999996,
+            "inclusive_ms": 48.638999999999996
+          },
+          {
+            "fn": "stockLiquidContactFraction /src/physical/stockLiquidContact.ts:1",
+            "self_ms": 44.629,
+            "inclusive_ms": 1080.0169999999998
+          },
+          {
+            "fn": "advance /src/physical/StockWorld.ts:1",
+            "self_ms": 40.12399999999999,
+            "inclusive_ms": 2406.587999999995
+          },
+          {
+            "fn": "reactionGasSources /src/science/reactionGasSources.ts:1",
+            "self_ms": 38.727999999999994,
+            "inclusive_ms": 252.0720000000002
+          },
+          {
+            "fn": "step /src/simulation/core/SimulationEngine.ts:1",
+            "self_ms": 37.783,
+            "inclusive_ms": 560.5699999999998
+          },
+          {
+            "fn": "step /src/simulation/effects/BoilingSystem.ts:1",
+            "self_ms": 35.032,
+            "inclusive_ms": 164.14099999999996
+          },
+          {
+            "fn": "transportWallBeads /src/engine/wallDropletTransport.ts:1",
+            "self_ms": 32.361,
+            "inclusive_ms": 76.37399999999997
+          },
+          {
+            "fn": "vesselOuterDimensions /src/science/vesselContours.ts:1",
+            "self_ms": 31.729999999999997,
+            "inclusive_ms": 41.287
+          },
+          {
+            "fn": "vortexHeight /src/science/liquidVortex.ts:1",
+            "self_ms": 31.694999999999993,
+            "inclusive_ms": 31.694999999999993
+          },
+          {
+            "fn": "sync /src/physical/StockWorld.ts:1",
+            "self_ms": 30.686,
+            "inclusive_ms": 390.46700000000044
+          },
+          {
+            "fn": "applyProgramToLedger /src/engine/ledger.ts:1",
+            "self_ms": 28.881,
+            "inclusive_ms": 859.5940000000011
+          },
+          {
+            "fn": "applyThermalEnergy /src/engine/thermalState.ts:1",
+            "self_ms": 28.304,
+            "inclusive_ms": 101.18199999999996
+          }
+        ],
+        "hotInclusive": [
+          {
+            "fn": "tick /src/vfx/autoplay/AutoExperiment.ts:1",
+            "self_ms": 15.545,
+            "inclusive_ms": 5681.026999999993
+          },
+          {
+            "fn": "step /src/vfx/autoplay/AutoExperiment.ts:1",
+            "self_ms": 64.35399999999998,
+            "inclusive_ms": 5664.615999999991
+          },
+          {
+            "fn": "advance /src/vfx/autoplay/AutoStockDynamics.ts:1",
+            "self_ms": 25.619000000000007,
+            "inclusive_ms": 3073.9689999999996
+          },
+          {
+            "fn": "advance /src/physical/StockWorld.ts:1",
+            "self_ms": 40.12399999999999,
+            "inclusive_ms": 2406.587999999995
+          },
+          {
+            "fn": "(anonymous) /src/physical/stockLiquidContact.ts:1",
+            "self_ms": 441.96000000000004,
+            "inclusive_ms": 1632.0719999999988
+          },
+          {
+            "fn": "stockLiquidContactFraction /src/physical/stockLiquidContact.ts:1",
+            "self_ms": 44.629,
+            "inclusive_ms": 1080.0169999999998
+          },
+          {
+            "fn": "applyProgramWithThermalSinks /src/engine/thermalLedger.ts:1",
+            "self_ms": 4.1259999999999994,
+            "inclusive_ms": 907.7870000000011
+          },
+          {
+            "fn": "applyProgramToLedger /src/engine/ledger.ts:1",
+            "self_ms": 28.881,
+            "inclusive_ms": 859.5940000000011
+          },
+          {
+            "fn": "stockGrainContacts /src/physical/stockLiquidContact.ts:1",
+            "self_ms": 9.278000000000002,
+            "inclusive_ms": 713.9309999999998
+          },
+          {
+            "fn": "advanceReaction /src/engine/advanceReaction.ts:1",
+            "self_ms": 8.995999999999997,
+            "inclusive_ms": 614.3669999999997
+          },
+          {
+            "fn": "partitionDryStock /src/physical/stockLiquidContact.ts:1",
+            "self_ms": 18.904,
+            "inclusive_ms": 582.34
+          },
+          {
+            "fn": "step /src/simulation/core/SimulationEngine.ts:1",
+            "self_ms": 37.783,
+            "inclusive_ms": 560.5699999999998
+          },
+          {
+            "fn": "identifySpecies /src/science/speciesIdentity.ts:1",
+            "self_ms": 487.84900000000005,
+            "inclusive_ms": 488.42499999999995
+          },
+          {
+            "fn": "allocateStockConsumption /src/physical/stockConsumption.ts:1",
+            "self_ms": 13.654,
+            "inclusive_ms": 414.16900000000066
+          },
+          {
+            "fn": "sameMolecularFormula /src/science/speciesIdentity.ts:1",
+            "self_ms": 2.68,
+            "inclusive_ms": 390.773
+          },
+          {
+            "fn": "sync /src/physical/StockWorld.ts:1",
+            "self_ms": 30.686,
+            "inclusive_ms": 390.46700000000044
+          },
+          {
+            "fn": "resize /src/physical/StockWorld.ts:1",
+            "self_ms": 7.976999999999999,
+            "inclusive_ms": 333.8630000000002
+          },
+          {
+            "fn": "programStockProgressLimit /src/engine/ledger.ts:1",
+            "self_ms": 3.1959999999999997,
+            "inclusive_ms": 319.5180000000001
+          },
+          {
+            "fn": "reactionGasSources /src/science/reactionGasSources.ts:1",
+            "self_ms": 38.727999999999994,
+            "inclusive_ms": 252.0720000000002
+          },
+          {
+            "fn": "reactionStockContactFraction /src/physical/stockLiquidContact.ts:1",
+            "self_ms": 3.1049999999999995,
+            "inclusive_ms": 234.76400000000015
+          },
+          {
+            "fn": "(anonymous) /src/science/metalSurfaceAppearance.ts:1",
+            "self_ms": 19.514,
+            "inclusive_ms": 227.219
+          },
+          {
+            "fn": "stockCarrierCoatings /src/physical/stockAdapter.ts:1",
+            "self_ms": 4.223,
+            "inclusive_ms": 207.07499999999987
+          },
+          {
+            "fn": "(anonymous) /src/physical/stockAdapter.ts:1",
+            "self_ms": 5.526,
+            "inclusive_ms": 204.2989999999999
+          },
+          {
+            "fn": "attachedMetalForCarrier /src/science/metalSurfaceAppearance.ts:1",
+            "self_ms": 5.618,
+            "inclusive_ms": 198.16799999999986
+          }
+        ]
+      }
+    }
+  ]
+}

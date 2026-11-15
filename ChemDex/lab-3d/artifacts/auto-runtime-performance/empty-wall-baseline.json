@@ -1,0 +1,42 @@
+[
+  {
+    "temperature_c": 25,
+    "mean_ms": 0.00981255,
+    "runs_ms": [
+      0.011652110000000005,
+      0.009583630000000004,
+      0.00943048,
+      0.009187959999999998,
+      0.009208569999999998
+    ],
+    "output": {
+      "beads": 48,
+      "retained_g": 0,
+      "condensed_g": 0,
+      "evaporated_g": 0,
+      "drained_g": 0,
+      "temperature_c": 25,
+      "condensationThermalLimit": null
+    }
+  },
+  {
+    "temperature_c": 88,
+    "mean_ms": 0.010290534,
+    "runs_ms": [
+      0.011042389999999989,
+      0.009983170000000019,
+      0.011852600000000007,
+      0.00920933,
+      0.009365179999999987
+    ],
+    "output": {
+      "beads": 48,
+      "retained_g": 0,
+      "condensed_g": 0,
+      "evaporated_g": 0,
+      "drained_g": 0,
+      "temperature_c": 88,
+      "condensationThermalLimit": null
+    }
+  }
+]

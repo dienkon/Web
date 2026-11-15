@@ -1,0 +1,5268 @@
+{
+  "baselineCommit": "1d2d935a",
+  "fixtures": [
+    {
+      "name": "dry-room",
+      "input": {
+        "initialMass_g": 0,
+        "deposited_g": 0,
+        "evaporated_g": 0,
+        "dt": 0.016666666666666666,
+        "points": [
+          [
+            0,
+            -1
+          ],
+          [
+            0.92,
+            -1
+          ],
+          [
+            1,
+            -0.95
+          ],
+          [
+            1,
+            0.95
+          ],
+          [
+            1.04,
+            1
+          ]
+        ],
+        "bottom": -0.96,
+        "top": -0.5,
+        "temperature_c": 25,
+        "inner": false,
+        "metersPerLocalUnit": 0.035,
+        "evaporationBoundary": {
+          "gasTemperature_c": 25,
+          "waterPressure_Pa": 1584.9122431569863,
+          "airSpeed_m_s": 0.1
+        },
+        "condensationBoundary": {
+          "gasTemperature_c": 25,
+          "waterPressure_Pa": 1584.9122431569863,
+          "airSpeed_m_s": 0.1,
+          "regionArea_m2": 0.01,
+          "dryWallTemperature_c": 25,
+          "vaporSpecificEnthalpy_J_g": 2500
+        }
+      },
+      "expected": {
+        "temperature_c": 25,
+        "vaporEnergy_J": 0,
+        "vaporSensibleEnergy_J": 0,
+        "vaporTemperatureMass_c_g": 0,
+        "motionModel": "quasi-steady-cap/iapws2008-saturation-reference",
+        "drainedSensibleEnergy_J": 0,
+        "condensed_g": 0,
+        "wetCondensed_g": 0,
+        "dryCondensed_g": 0,
+        "condensationReceivedEnergy_J": 0,
+        "condensationBoundaryHeat_J": 0,
+        "beads": [
+          {
+            "mass_g": 0,
+            "y": -0.5738324875894941,
+            "theta": 2.918950750129422,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.8750873765459691,
+            "theta": 0.10959975955848014,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.715294961525913,
+            "theta": 2.008928967818018,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.7347182083268344,
+            "theta": 6.048145078593493,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.7184567405941925,
+            "theta": 1.2399520062809692,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.8255585472882885,
+            "theta": 0.44166804716697844,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.7793148414611205,
+            "theta": 2.7901948714559754,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.6108117804468529,
+            "theta": 2.679935843593467,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.921768783168096,
+            "theta": 5.521227167627503,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.5909283307594766,
+            "theta": 3.3262147526184163,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.9133614240459573,
+            "theta": 4.532130479620307,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.7826465456073237,
+            "theta": 1.0018649870581027,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.7779309899663785,
+            "theta": 5.175411393838167,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.7813239224896388,
+            "theta": 4.061586112564412,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.5801658720181294,
+            "theta": 4.412425655159598,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.5973892622702478,
+            "theta": 5.6948232624873665,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.7442559534750253,
+            "theta": 4.145770085221923,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.5974745046111347,
+            "theta": 0.8650848127233902,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.5282652318367544,
+            "theta": 3.247189334903996,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.7437415491376305,
+            "theta": 5.639387748895713,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.8672420556580563,
+            "theta": 4.593916363467514,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.603700740772896,
+            "theta": 5.60902701268347,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.5604871249850767,
+            "theta": 0.09295460107510292,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.8098566183411021,
+            "theta": 0.8936214625551134,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.8206412285989135,
+            "theta": 4.4352422626257395,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.8507557168150233,
+            "theta": 1.6705799806074573,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.9316112999675605,
+            "theta": 4.320546916647061,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.708693549098578,
+            "theta": 5.687899603437748,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.6126458037795091,
+            "theta": 5.488584129125352,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.8010446551128989,
+            "theta": 2.046370601012328,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.7177228646926814,
+            "theta": 5.7795566512874075,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.8853005279664539,
+            "theta": 5.6069602985051,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.5703509400959883,
+            "theta": 6.260615016499242,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.9314618503558868,
+            "theta": 0.14351394771483092,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.7111559477978153,
+            "theta": 0.28567450032389474,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.7401459031178419,
+            "theta": 4.726312188090748,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.8109341898669227,
+            "theta": 5.898015532922453,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.7901294310791563,
+            "theta": 4.336019827807346,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.7954719256457538,
+            "theta": 0.13855748018377775,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.7870976055581123,
+            "theta": 4.71260597090893,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.9193812870629408,
+            "theta": 3.0912700820012677,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.6577622166923393,
+            "theta": 1.6703496478074573,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.8208172427786631,
+            "theta": 4.717157748828751,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.8050020267652289,
+            "theta": 6.027796095342376,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.6414206262428117,
+            "theta": 3.9234415687582347,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.7625069974494109,
+            "theta": 1.1793223087649916,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.9327378132266676,
+            "theta": 5.144419225092796,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.8964624669891927,
+            "theta": 3.3307733424105503,
+            "sliding": false
+          }
+        ],
+        "retained_g": 0,
+        "drained_g": 0,
+        "evaporated_g": 0
+      }
+    },
+    {
+      "name": "dry-hot",
+      "input": {
+        "initialMass_g": 0,
+        "deposited_g": 0,
+        "evaporated_g": 0,
+        "dt": 0.016666666666666666,
+        "points": [
+          [
+            0,
+            -1
+          ],
+          [
+            0.92,
+            -1
+          ],
+          [
+            1,
+            -0.95
+          ],
+          [
+            1,
+            0.95
+          ],
+          [
+            1.04,
+            1
+          ]
+        ],
+        "bottom": -0.96,
+        "top": -0.5,
+        "temperature_c": 88,
+        "inner": false,
+        "metersPerLocalUnit": 0.035,
+        "evaporationBoundary": {
+          "gasTemperature_c": 25,
+          "waterPressure_Pa": 1584.9122431569863,
+          "airSpeed_m_s": 0.1
+        },
+        "condensationBoundary": {
+          "gasTemperature_c": 25,
+          "waterPressure_Pa": 1584.9122431569863,
+          "airSpeed_m_s": 0.1,
+          "regionArea_m2": 0.01,
+          "dryWallTemperature_c": 88,
+          "vaporSpecificEnthalpy_J_g": 2500
+        }
+      },
+      "expected": {
+        "temperature_c": 88,
+        "vaporEnergy_J": 0,
+        "vaporSensibleEnergy_J": 0,
+        "vaporTemperatureMass_c_g": 0,
+        "motionModel": "quasi-steady-cap/iapws2008-saturation-reference",
+        "drainedSensibleEnergy_J": 0,
+        "condensed_g": 0,
+        "wetCondensed_g": 0,
+        "dryCondensed_g": 0,
+        "condensationReceivedEnergy_J": 0,
+        "condensationBoundaryHeat_J": 0,
+        "beads": [
+          {
+            "mass_g": 0,
+            "y": -0.5738324875894941,
+            "theta": 2.918950750129422,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.8750873765459691,
+            "theta": 0.10959975955848014,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.715294961525913,
+            "theta": 2.008928967818018,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.7347182083268344,
+            "theta": 6.048145078593493,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.7184567405941925,
+            "theta": 1.2399520062809692,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.8255585472882885,
+            "theta": 0.44166804716697844,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.7793148414611205,
+            "theta": 2.7901948714559754,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.6108117804468529,
+            "theta": 2.679935843593467,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.921768783168096,
+            "theta": 5.521227167627503,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.5909283307594766,
+            "theta": 3.3262147526184163,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.9133614240459573,
+            "theta": 4.532130479620307,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.7826465456073237,
+            "theta": 1.0018649870581027,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.7779309899663785,
+            "theta": 5.175411393838167,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.7813239224896388,
+            "theta": 4.061586112564412,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.5801658720181294,
+            "theta": 4.412425655159598,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.5973892622702478,
+            "theta": 5.6948232624873665,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.7442559534750253,
+            "theta": 4.145770085221923,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.5974745046111347,
+            "theta": 0.8650848127233902,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.5282652318367544,
+            "theta": 3.247189334903996,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.7437415491376305,
+            "theta": 5.639387748895713,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.8672420556580563,
+            "theta": 4.593916363467514,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.603700740772896,
+            "theta": 5.60902701268347,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.5604871249850767,
+            "theta": 0.09295460107510292,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.8098566183411021,
+            "theta": 0.8936214625551134,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.8206412285989135,
+            "theta": 4.4352422626257395,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.8507557168150233,
+            "theta": 1.6705799806074573,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.9316112999675605,
+            "theta": 4.320546916647061,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.708693549098578,
+            "theta": 5.687899603437748,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.6126458037795091,
+            "theta": 5.488584129125352,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.8010446551128989,
+            "theta": 2.046370601012328,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.7177228646926814,
+            "theta": 5.7795566512874075,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.8853005279664539,
+            "theta": 5.6069602985051,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.5703509400959883,
+            "theta": 6.260615016499242,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.9314618503558868,
+            "theta": 0.14351394771483092,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.7111559477978153,
+            "theta": 0.28567450032389474,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.7401459031178419,
+            "theta": 4.726312188090748,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.8109341898669227,
+            "theta": 5.898015532922453,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.7901294310791563,
+            "theta": 4.336019827807346,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.7954719256457538,
+            "theta": 0.13855748018377775,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.7870976055581123,
+            "theta": 4.71260597090893,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.9193812870629408,
+            "theta": 3.0912700820012677,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.6577622166923393,
+            "theta": 1.6703496478074573,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.8208172427786631,
+            "theta": 4.717157748828751,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.8050020267652289,
+            "theta": 6.027796095342376,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.6414206262428117,
+            "theta": 3.9234415687582347,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.7625069974494109,
+            "theta": 1.1793223087649916,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.9327378132266676,
+            "theta": 5.144419225092796,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.8964624669891927,
+            "theta": 3.3307733424105503,
+            "sliding": false
+          }
+        ],
+        "retained_g": 0,
+        "drained_g": 0,
+        "evaporated_g": 0
+      }
+    },
+    {
+      "name": "dry-preserved-layout",
+      "input": {
+        "initialMass_g": 0,
+        "deposited_g": 0,
+        "evaporated_g": 0,
+        "dt": 0.016666666666666666,
+        "points": [
+          [
+            0,
+            -1
+          ],
+          [
+            0.92,
+            -1
+          ],
+          [
+            1,
+            -0.95
+          ],
+          [
+            1,
+            0.95
+          ],
+          [
+            1.04,
+            1
+          ]
+        ],
+        "bottom": -0.96,
+        "top": -0.5,
+        "temperature_c": 25,
+        "inner": false,
+        "metersPerLocalUnit": 0.035,
+        "evaporationBoundary": {
+          "gasTemperature_c": 25,
+          "waterPressure_Pa": 1584.9122431569863,
+          "airSpeed_m_s": 0.1
+        },
+        "condensationBoundary": {
+          "gasTemperature_c": 25,
+          "waterPressure_Pa": 1584.9122431569863,
+          "airSpeed_m_s": 0.1,
+          "regionArea_m2": 0.01,
+          "dryWallTemperature_c": 25,
+          "vaporSpecificEnthalpy_J_g": 2500
+        },
+        "previous": [
+          {
+            "mass_g": 0,
+            "y": -0.5738324875894941,
+            "theta": 2.918950750129422,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.8740873765459691,
+            "theta": 0.12959975955848013,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.713294961525913,
+            "theta": 2.0489289678180183,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.7317182083268344,
+            "theta": 6.108145078593493,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.7144567405941925,
+            "theta": 1.3199520062809693,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.8205585472882885,
+            "theta": 0.5416680471669785,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.7733148414611205,
+            "theta": 2.9101948714559756,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.6038117804468529,
+            "theta": 2.819935843593467,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.913768783168096,
+            "theta": 5.681227167627503,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.5819283307594766,
+            "theta": 3.5062147526184164,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.9033614240459573,
+            "theta": 4.732130479620307,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.7716465456073237,
+            "theta": 1.2218649870581026,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.7659309899663785,
+            "theta": 5.415411393838167,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.7683239224896388,
+            "theta": 4.321586112564412,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.5661658720181294,
+            "theta": 4.692425655159599,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.5823892622702478,
+            "theta": 5.994823262487366,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.7282559534750253,
+            "theta": 4.465770085221923,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.5804745046111347,
+            "theta": 1.2050848127233902,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.5102652318367544,
+            "theta": 3.607189334903996,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.7247415491376304,
+            "theta": 6.019387748895713,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.8472420556580563,
+            "theta": 4.993916363467514,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.582700740772896,
+            "theta": 6.0290270126834695,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.5384871249850767,
+            "theta": 0.532954601075103,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.7868566183411021,
+            "theta": 1.3536214625551135,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.7966412285989135,
+            "theta": 4.915242262625739,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.8257557168150232,
+            "theta": 2.1705799806074575,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.9056112999675605,
+            "theta": 4.84054691664706,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.6816935490985779,
+            "theta": 6.227899603437748,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.584645803779509,
+            "theta": 6.048584129125352,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.7720446551128989,
+            "theta": 2.626370601012328,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.6877228646926814,
+            "theta": 6.379556651287407,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.8543005279664538,
+            "theta": 6.2269602985051,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.5383509400959883,
+            "theta": 6.900615016499241,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.8984618503558868,
+            "theta": 0.803513947714831,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.6771559477978153,
+            "theta": 0.9656745003238948,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.7051459031178419,
+            "theta": 5.426312188090749,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.7749341898669226,
+            "theta": 6.618015532922453,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.7531294310791563,
+            "theta": 5.076019827807346,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.7574719256457537,
+            "theta": 0.8985574801837778,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.7480976055581122,
+            "theta": 5.49260597090893,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.8793812870629407,
+            "theta": 3.8912700820012676,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.6167622166923392,
+            "theta": 2.4903496478074576,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.778817242778663,
+            "theta": 5.557157748828751,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.7620020267652289,
+            "theta": 6.8877960953423765,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.5974206262428117,
+            "theta": 4.803441568758235,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.7175069974494108,
+            "theta": 2.0793223087649917,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.8867378132266676,
+            "theta": 6.064419225092796,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.8494624669891927,
+            "theta": 4.270773342410551,
+            "sliding": false
+          }
+        ]
+      },
+      "expected": {
+        "temperature_c": 25,
+        "vaporEnergy_J": 0,
+        "vaporSensibleEnergy_J": 0,
+        "vaporTemperatureMass_c_g": 0,
+        "motionModel": "quasi-steady-cap/iapws2008-saturation-reference",
+        "drainedSensibleEnergy_J": 0,
+        "condensed_g": 0,
+        "wetCondensed_g": 0,
+        "dryCondensed_g": 0,
+        "condensationReceivedEnergy_J": 0,
+        "condensationBoundaryHeat_J": 0,
+        "beads": [
+          {
+            "mass_g": 0,
+            "y": -0.5738324875894941,
+            "theta": 2.918950750129422,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.8740873765459691,
+            "theta": 0.12959975955848013,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.713294961525913,
+            "theta": 2.0489289678180183,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.7317182083268344,
+            "theta": 6.108145078593493,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.7144567405941925,
+            "theta": 1.3199520062809693,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.8205585472882885,
+            "theta": 0.5416680471669785,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.7733148414611205,
+            "theta": 2.9101948714559756,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.6038117804468529,
+            "theta": 2.819935843593467,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.913768783168096,
+            "theta": 5.681227167627503,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.5819283307594766,
+            "theta": 3.5062147526184164,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.9033614240459573,
+            "theta": 4.732130479620307,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.7716465456073237,
+            "theta": 1.2218649870581026,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.7659309899663785,
+            "theta": 5.415411393838167,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.7683239224896388,
+            "theta": 4.321586112564412,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.5661658720181294,
+            "theta": 4.692425655159599,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.5823892622702478,
+            "theta": 5.994823262487366,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.7282559534750253,
+            "theta": 4.465770085221923,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.5804745046111347,
+            "theta": 1.2050848127233902,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.5102652318367544,
+            "theta": 3.607189334903996,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.7247415491376304,
+            "theta": 6.019387748895713,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.8472420556580563,
+            "theta": 4.993916363467514,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.582700740772896,
+            "theta": 6.0290270126834695,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.5384871249850767,
+            "theta": 0.532954601075103,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.7868566183411021,
+            "theta": 1.3536214625551135,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.7966412285989135,
+            "theta": 4.915242262625739,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.8257557168150232,
+            "theta": 2.1705799806074575,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.9056112999675605,
+            "theta": 4.84054691664706,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.6816935490985779,
+            "theta": 6.227899603437748,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.584645803779509,
+            "theta": 6.048584129125352,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.7720446551128989,
+            "theta": 2.626370601012328,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.6877228646926814,
+            "theta": 6.379556651287407,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.8543005279664538,
+            "theta": 6.2269602985051,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.5383509400959883,
+            "theta": 6.900615016499241,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.8984618503558868,
+            "theta": 0.803513947714831,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.6771559477978153,
+            "theta": 0.9656745003238948,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.7051459031178419,
+            "theta": 5.426312188090749,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.7749341898669226,
+            "theta": 6.618015532922453,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.7531294310791563,
+            "theta": 5.076019827807346,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.7574719256457537,
+            "theta": 0.8985574801837778,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.7480976055581122,
+            "theta": 5.49260597090893,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.8793812870629407,
+            "theta": 3.8912700820012676,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.6167622166923392,
+            "theta": 2.4903496478074576,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.778817242778663,
+            "theta": 5.557157748828751,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.7620020267652289,
+            "theta": 6.8877960953423765,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.5974206262428117,
+            "theta": 4.803441568758235,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.7175069974494108,
+            "theta": 2.0793223087649917,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.8867378132266676,
+            "theta": 6.064419225092796,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.8494624669891927,
+            "theta": 4.270773342410551,
+            "sliding": false
+          }
+        ],
+        "retained_g": 0,
+        "drained_g": 0,
+        "evaporated_g": 0
+      }
+    },
+    {
+      "name": "dry-zero-supply",
+      "input": {
+        "initialMass_g": 0,
+        "deposited_g": 0,
+        "evaporated_g": 0,
+        "dt": 0.016666666666666666,
+        "points": [
+          [
+            0,
+            -1
+          ],
+          [
+            0.92,
+            -1
+          ],
+          [
+            1,
+            -0.95
+          ],
+          [
+            1,
+            0.95
+          ],
+          [
+            1.04,
+            1
+          ]
+        ],
+        "bottom": -0.96,
+        "top": -0.5,
+        "temperature_c": 5,
+        "inner": false,
+        "metersPerLocalUnit": 0.035,
+        "evaporationBoundary": {
+          "gasTemperature_c": 25,
+          "waterPressure_Pa": 1584.9122431569863,
+          "airSpeed_m_s": 0.1
+        },
+        "condensationBoundary": {
+          "gasTemperature_c": 25,
+          "waterPressure_Pa": 1584.9122431569863,
+          "airSpeed_m_s": 0.1,
+          "regionArea_m2": 0.01,
+          "dryWallTemperature_c": 5,
+          "vaporSpecificEnthalpy_J_g": 2500,
+          "availableVapor_g": 0
+        }
+      },
+      "expected": {
+        "temperature_c": 5,
+        "vaporEnergy_J": 0,
+        "vaporSensibleEnergy_J": 0,
+        "vaporTemperatureMass_c_g": 0,
+        "motionModel": "quasi-steady-cap/iapws2008-saturation-reference",
+        "drainedSensibleEnergy_J": 0,
+        "condensed_g": 0,
+        "wetCondensed_g": 0,
+        "dryCondensed_g": 0,
+        "condensationReceivedEnergy_J": 0,
+        "condensationBoundaryHeat_J": 0,
+        "beads": [
+          {
+            "mass_g": 0,
+            "y": -0.5738324875894941,
+            "theta": 2.918950750129422,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.8750873765459691,
+            "theta": 0.10959975955848014,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.715294961525913,
+            "theta": 2.008928967818018,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.7347182083268344,
+            "theta": 6.048145078593493,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.7184567405941925,
+            "theta": 1.2399520062809692,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.8255585472882885,
+            "theta": 0.44166804716697844,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.7793148414611205,
+            "theta": 2.7901948714559754,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.6108117804468529,
+            "theta": 2.679935843593467,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.921768783168096,
+            "theta": 5.521227167627503,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.5909283307594766,
+            "theta": 3.3262147526184163,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.9133614240459573,
+            "theta": 4.532130479620307,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.7826465456073237,
+            "theta": 1.0018649870581027,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.7779309899663785,
+            "theta": 5.175411393838167,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.7813239224896388,
+            "theta": 4.061586112564412,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.5801658720181294,
+            "theta": 4.412425655159598,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.5973892622702478,
+            "theta": 5.6948232624873665,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.7442559534750253,
+            "theta": 4.145770085221923,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.5974745046111347,
+            "theta": 0.8650848127233902,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.5282652318367544,
+            "theta": 3.247189334903996,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.7437415491376305,
+            "theta": 5.639387748895713,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.8672420556580563,
+            "theta": 4.593916363467514,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.603700740772896,
+            "theta": 5.60902701268347,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.5604871249850767,
+            "theta": 0.09295460107510292,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.8098566183411021,
+            "theta": 0.8936214625551134,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.8206412285989135,
+            "theta": 4.4352422626257395,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.8507557168150233,
+            "theta": 1.6705799806074573,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.9316112999675605,
+            "theta": 4.320546916647061,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.708693549098578,
+            "theta": 5.687899603437748,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.6126458037795091,
+            "theta": 5.488584129125352,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.8010446551128989,
+            "theta": 2.046370601012328,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.7177228646926814,
+            "theta": 5.7795566512874075,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.8853005279664539,
+            "theta": 5.6069602985051,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.5703509400959883,
+            "theta": 6.260615016499242,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.9314618503558868,
+            "theta": 0.14351394771483092,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.7111559477978153,
+            "theta": 0.28567450032389474,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.7401459031178419,
+            "theta": 4.726312188090748,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.8109341898669227,
+            "theta": 5.898015532922453,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.7901294310791563,
+            "theta": 4.336019827807346,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.7954719256457538,
+            "theta": 0.13855748018377775,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.7870976055581123,
+            "theta": 4.71260597090893,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.9193812870629408,
+            "theta": 3.0912700820012677,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.6577622166923393,
+            "theta": 1.6703496478074573,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.8208172427786631,
+            "theta": 4.717157748828751,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.8050020267652289,
+            "theta": 6.027796095342376,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.6414206262428117,
+            "theta": 3.9234415687582347,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.7625069974494109,
+            "theta": 1.1793223087649916,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.9327378132266676,
+            "theta": 5.144419225092796,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.8964624669891927,
+            "theta": 3.3307733424105503,
+            "sliding": false
+          }
+        ],
+        "retained_g": 0,
+        "drained_g": 0,
+        "evaporated_g": 0
+      }
+    },
+    {
+      "name": "dry-zero-area",
+      "input": {
+        "initialMass_g": 0,
+        "deposited_g": 0,
+        "evaporated_g": 0,
+        "dt": 0.016666666666666666,
+        "points": [
+          [
+            0,
+            -1
+          ],
+          [
+            0.92,
+            -1
+          ],
+          [
+            1,
+            -0.95
+          ],
+          [
+            1,
+            0.95
+          ],
+          [
+            1.04,
+            1
+          ]
+        ],
+        "bottom": -0.96,
+        "top": -0.5,
+        "temperature_c": 5,
+        "inner": false,
+        "metersPerLocalUnit": 0.035,
+        "evaporationBoundary": {
+          "gasTemperature_c": 25,
+          "waterPressure_Pa": 1584.9122431569863,
+          "airSpeed_m_s": 0.1
+        },
+        "condensationBoundary": {
+          "gasTemperature_c": 25,
+          "waterPressure_Pa": 1584.9122431569863,
+          "airSpeed_m_s": 0.1,
+          "regionArea_m2": 0,
+          "dryWallTemperature_c": 5,
+          "vaporSpecificEnthalpy_J_g": 2500
+        }
+      },
+      "expected": {
+        "temperature_c": 5,
+        "vaporEnergy_J": 0,
+        "vaporSensibleEnergy_J": 0,
+        "vaporTemperatureMass_c_g": 0,
+        "motionModel": "quasi-steady-cap/iapws2008-saturation-reference",
+        "drainedSensibleEnergy_J": 0,
+        "condensed_g": 0,
+        "wetCondensed_g": 0,
+        "dryCondensed_g": 0,
+        "condensationReceivedEnergy_J": 0,
+        "condensationBoundaryHeat_J": 0,
+        "beads": [
+          {
+            "mass_g": 0,
+            "y": -0.5738324875894941,
+            "theta": 2.918950750129422,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.8750873765459691,
+            "theta": 0.10959975955848014,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.715294961525913,
+            "theta": 2.008928967818018,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.7347182083268344,
+            "theta": 6.048145078593493,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.7184567405941925,
+            "theta": 1.2399520062809692,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.8255585472882885,
+            "theta": 0.44166804716697844,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.7793148414611205,
+            "theta": 2.7901948714559754,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.6108117804468529,
+            "theta": 2.679935843593467,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.921768783168096,
+            "theta": 5.521227167627503,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.5909283307594766,
+            "theta": 3.3262147526184163,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.9133614240459573,
+            "theta": 4.532130479620307,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.7826465456073237,
+            "theta": 1.0018649870581027,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.7779309899663785,
+            "theta": 5.175411393838167,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.7813239224896388,
+            "theta": 4.061586112564412,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.5801658720181294,
+            "theta": 4.412425655159598,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.5973892622702478,
+            "theta": 5.6948232624873665,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.7442559534750253,
+            "theta": 4.145770085221923,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.5974745046111347,
+            "theta": 0.8650848127233902,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.5282652318367544,
+            "theta": 3.247189334903996,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.7437415491376305,
+            "theta": 5.639387748895713,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.8672420556580563,
+            "theta": 4.593916363467514,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.603700740772896,
+            "theta": 5.60902701268347,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.5604871249850767,
+            "theta": 0.09295460107510292,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.8098566183411021,
+            "theta": 0.8936214625551134,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.8206412285989135,
+            "theta": 4.4352422626257395,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.8507557168150233,
+            "theta": 1.6705799806074573,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.9316112999675605,
+            "theta": 4.320546916647061,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.708693549098578,
+            "theta": 5.687899603437748,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.6126458037795091,
+            "theta": 5.488584129125352,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.8010446551128989,
+            "theta": 2.046370601012328,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.7177228646926814,
+            "theta": 5.7795566512874075,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.8853005279664539,
+            "theta": 5.6069602985051,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.5703509400959883,
+            "theta": 6.260615016499242,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.9314618503558868,
+            "theta": 0.14351394771483092,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.7111559477978153,
+            "theta": 0.28567450032389474,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.7401459031178419,
+            "theta": 4.726312188090748,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.8109341898669227,
+            "theta": 5.898015532922453,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.7901294310791563,
+            "theta": 4.336019827807346,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.7954719256457538,
+            "theta": 0.13855748018377775,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.7870976055581123,
+            "theta": 4.71260597090893,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.9193812870629408,
+            "theta": 3.0912700820012677,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.6577622166923393,
+            "theta": 1.6703496478074573,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.8208172427786631,
+            "theta": 4.717157748828751,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.8050020267652289,
+            "theta": 6.027796095342376,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.6414206262428117,
+            "theta": 3.9234415687582347,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.7625069974494109,
+            "theta": 1.1793223087649916,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.9327378132266676,
+            "theta": 5.144419225092796,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.8964624669891927,
+            "theta": 3.3307733424105503,
+            "sliding": false
+          }
+        ],
+        "retained_g": 0,
+        "drained_g": 0,
+        "evaporated_g": 0
+      }
+    },
+    {
+      "name": "dry-no-latent-enthalpy",
+      "input": {
+        "initialMass_g": 0,
+        "deposited_g": 0,
+        "evaporated_g": 0,
+        "dt": 0.016666666666666666,
+        "points": [
+          [
+            0,
+            -1
+          ],
+          [
+            0.92,
+            -1
+          ],
+          [
+            1,
+            -0.95
+          ],
+          [
+            1,
+            0.95
+          ],
+          [
+            1.04,
+            1
+          ]
+        ],
+        "bottom": -0.96,
+        "top": -0.5,
+        "temperature_c": 5,
+        "inner": false,
+        "metersPerLocalUnit": 0.035,
+        "evaporationBoundary": {
+          "gasTemperature_c": 25,
+          "waterPressure_Pa": 1584.9122431569863,
+          "airSpeed_m_s": 0.1
+        },
+        "condensationBoundary": {
+          "gasTemperature_c": 25,
+          "waterPressure_Pa": 1584.9122431569863,
+          "airSpeed_m_s": 0.1,
+          "regionArea_m2": 0.01,
+          "dryWallTemperature_c": 5,
+          "vaporSpecificEnthalpy_J_g": 1
+        }
+      },
+      "expected": {
+        "temperature_c": 5,
+        "vaporEnergy_J": 0,
+        "vaporSensibleEnergy_J": 0,
+        "vaporTemperatureMass_c_g": 0,
+        "motionModel": "quasi-steady-cap/iapws2008-saturation-reference",
+        "drainedSensibleEnergy_J": 0,
+        "condensed_g": 0,
+        "wetCondensed_g": 0,
+        "dryCondensed_g": 0,
+        "condensationReceivedEnergy_J": 0,
+        "condensationBoundaryHeat_J": 0,
+        "beads": [
+          {
+            "mass_g": 0,
+            "y": -0.5738324875894941,
+            "theta": 2.918950750129422,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.8750873765459691,
+            "theta": 0.10959975955848014,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.715294961525913,
+            "theta": 2.008928967818018,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.7347182083268344,
+            "theta": 6.048145078593493,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.7184567405941925,
+            "theta": 1.2399520062809692,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.8255585472882885,
+            "theta": 0.44166804716697844,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.7793148414611205,
+            "theta": 2.7901948714559754,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.6108117804468529,
+            "theta": 2.679935843593467,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.921768783168096,
+            "theta": 5.521227167627503,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.5909283307594766,
+            "theta": 3.3262147526184163,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.9133614240459573,
+            "theta": 4.532130479620307,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.7826465456073237,
+            "theta": 1.0018649870581027,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.7779309899663785,
+            "theta": 5.175411393838167,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.7813239224896388,
+            "theta": 4.061586112564412,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.5801658720181294,
+            "theta": 4.412425655159598,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.5973892622702478,
+            "theta": 5.6948232624873665,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.7442559534750253,
+            "theta": 4.145770085221923,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.5974745046111347,
+            "theta": 0.8650848127233902,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.5282652318367544,
+            "theta": 3.247189334903996,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.7437415491376305,
+            "theta": 5.639387748895713,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.8672420556580563,
+            "theta": 4.593916363467514,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.603700740772896,
+            "theta": 5.60902701268347,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.5604871249850767,
+            "theta": 0.09295460107510292,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.8098566183411021,
+            "theta": 0.8936214625551134,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.8206412285989135,
+            "theta": 4.4352422626257395,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.8507557168150233,
+            "theta": 1.6705799806074573,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.9316112999675605,
+            "theta": 4.320546916647061,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.708693549098578,
+            "theta": 5.687899603437748,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.6126458037795091,
+            "theta": 5.488584129125352,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.8010446551128989,
+            "theta": 2.046370601012328,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.7177228646926814,
+            "theta": 5.7795566512874075,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.8853005279664539,
+            "theta": 5.6069602985051,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.5703509400959883,
+            "theta": 6.260615016499242,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.9314618503558868,
+            "theta": 0.14351394771483092,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.7111559477978153,
+            "theta": 0.28567450032389474,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.7401459031178419,
+            "theta": 4.726312188090748,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.8109341898669227,
+            "theta": 5.898015532922453,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.7901294310791563,
+            "theta": 4.336019827807346,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.7954719256457538,
+            "theta": 0.13855748018377775,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.7870976055581123,
+            "theta": 4.71260597090893,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.9193812870629408,
+            "theta": 3.0912700820012677,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.6577622166923393,
+            "theta": 1.6703496478074573,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.8208172427786631,
+            "theta": 4.717157748828751,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.8050020267652289,
+            "theta": 6.027796095342376,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.6414206262428117,
+            "theta": 3.9234415687582347,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.7625069974494109,
+            "theta": 1.1793223087649916,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.9327378132266676,
+            "theta": 5.144419225092796,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.8964624669891927,
+            "theta": 3.3307733424105503,
+            "sliding": false
+          }
+        ],
+        "retained_g": 0,
+        "drained_g": 0,
+        "evaporated_g": 0
+      }
+    },
+    {
+      "name": "dry-dew-boundary",
+      "input": {
+        "initialMass_g": 0,
+        "deposited_g": 0,
+        "evaporated_g": 0,
+        "dt": 0.016666666666666666,
+        "points": [
+          [
+            0,
+            -1
+          ],
+          [
+            0.92,
+            -1
+          ],
+          [
+            1,
+            -0.95
+          ],
+          [
+            1,
+            0.95
+          ],
+          [
+            1.04,
+            1
+          ]
+        ],
+        "bottom": -0.96,
+        "top": -0.5,
+        "temperature_c": 25,
+        "inner": false,
+        "metersPerLocalUnit": 0.035,
+        "evaporationBoundary": {
+          "gasTemperature_c": 25,
+          "waterPressure_Pa": 1584.9122431569863,
+          "airSpeed_m_s": 0.1
+        },
+        "condensationBoundary": {
+          "gasTemperature_c": 25,
+          "waterPressure_Pa": 3169.8244863139726,
+          "airSpeed_m_s": 0.1,
+          "regionArea_m2": 0.01,
+          "dryWallTemperature_c": 25,
+          "vaporSpecificEnthalpy_J_g": 2500
+        }
+      },
+      "expected": {
+        "temperature_c": 25,
+        "vaporEnergy_J": 0,
+        "vaporSensibleEnergy_J": 0,
+        "vaporTemperatureMass_c_g": 0,
+        "motionModel": "quasi-steady-cap/iapws2008-saturation-reference",
+        "drainedSensibleEnergy_J": 0,
+        "condensed_g": 0,
+        "wetCondensed_g": 0,
+        "dryCondensed_g": 0,
+        "condensationReceivedEnergy_J": 0,
+        "condensationBoundaryHeat_J": 0,
+        "beads": [
+          {
+            "mass_g": 0,
+            "y": -0.5738324875894941,
+            "theta": 2.918950750129422,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.8750873765459691,
+            "theta": 0.10959975955848014,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.715294961525913,
+            "theta": 2.008928967818018,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.7347182083268344,
+            "theta": 6.048145078593493,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.7184567405941925,
+            "theta": 1.2399520062809692,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.8255585472882885,
+            "theta": 0.44166804716697844,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.7793148414611205,
+            "theta": 2.7901948714559754,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.6108117804468529,
+            "theta": 2.679935843593467,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.921768783168096,
+            "theta": 5.521227167627503,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.5909283307594766,
+            "theta": 3.3262147526184163,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.9133614240459573,
+            "theta": 4.532130479620307,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.7826465456073237,
+            "theta": 1.0018649870581027,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.7779309899663785,
+            "theta": 5.175411393838167,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.7813239224896388,
+            "theta": 4.061586112564412,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.5801658720181294,
+            "theta": 4.412425655159598,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.5973892622702478,
+            "theta": 5.6948232624873665,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.7442559534750253,
+            "theta": 4.145770085221923,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.5974745046111347,
+            "theta": 0.8650848127233902,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.5282652318367544,
+            "theta": 3.247189334903996,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.7437415491376305,
+            "theta": 5.639387748895713,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.8672420556580563,
+            "theta": 4.593916363467514,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.603700740772896,
+            "theta": 5.60902701268347,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.5604871249850767,
+            "theta": 0.09295460107510292,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.8098566183411021,
+            "theta": 0.8936214625551134,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.8206412285989135,
+            "theta": 4.4352422626257395,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.8507557168150233,
+            "theta": 1.6705799806074573,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.9316112999675605,
+            "theta": 4.320546916647061,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.708693549098578,
+            "theta": 5.687899603437748,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.6126458037795091,
+            "theta": 5.488584129125352,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.8010446551128989,
+            "theta": 2.046370601012328,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.7177228646926814,
+            "theta": 5.7795566512874075,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.8853005279664539,
+            "theta": 5.6069602985051,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.5703509400959883,
+            "theta": 6.260615016499242,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.9314618503558868,
+            "theta": 0.14351394771483092,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.7111559477978153,
+            "theta": 0.28567450032389474,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.7401459031178419,
+            "theta": 4.726312188090748,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.8109341898669227,
+            "theta": 5.898015532922453,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.7901294310791563,
+            "theta": 4.336019827807346,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.7954719256457538,
+            "theta": 0.13855748018377775,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.7870976055581123,
+            "theta": 4.71260597090893,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.9193812870629408,
+            "theta": 3.0912700820012677,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.6577622166923393,
+            "theta": 1.6703496478074573,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.8208172427786631,
+            "theta": 4.717157748828751,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.8050020267652289,
+            "theta": 6.027796095342376,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.6414206262428117,
+            "theta": 3.9234415687582347,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.7625069974494109,
+            "theta": 1.1793223087649916,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.9327378132266676,
+            "theta": 5.144419225092796,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.8964624669891927,
+            "theta": 3.3307733424105503,
+            "sliding": false
+          }
+        ],
+        "retained_g": 0,
+        "drained_g": 0,
+        "evaporated_g": 0
+      }
+    },
+    {
+      "name": "cold-nucleation",
+      "input": {
+        "initialMass_g": 0,
+        "deposited_g": 0,
+        "evaporated_g": 0,
+        "dt": 0.016666666666666666,
+        "points": [
+          [
+            0,
+            -1
+          ],
+          [
+            0.92,
+            -1
+          ],
+          [
+            1,
+            -0.95
+          ],
+          [
+            1,
+            0.95
+          ],
+          [
+            1.04,
+            1
+          ]
+        ],
+        "bottom": -0.96,
+        "top": -0.5,
+        "temperature_c": 5,
+        "inner": false,
+        "metersPerLocalUnit": 0.035,
+        "evaporationBoundary": {
+          "gasTemperature_c": 25,
+          "waterPressure_Pa": 1584.9122431569863,
+          "airSpeed_m_s": 0.1
+        },
+        "condensationBoundary": {
+          "gasTemperature_c": 25,
+          "waterPressure_Pa": 1584.9122431569863,
+          "airSpeed_m_s": 0.1,
+          "regionArea_m2": 0.01,
+          "dryWallTemperature_c": 5,
+          "vaporSpecificEnthalpy_J_g": 2500
+        }
+      },
+      "expected": {
+        "temperature_c": 5.012705327472183,
+        "vaporEnergy_J": 0,
+        "vaporSensibleEnergy_J": 0,
+        "vaporTemperatureMass_c_g": 0,
+        "motionModel": "quasi-steady-cap/iapws2008-saturation-reference",
+        "drainedSensibleEnergy_J": 0,
+        "condensed_g": 0.0000034797618719620714,
+        "wetCondensed_g": 7.461678325425077e-11,
+        "dryCondensed_g": 0.0000034796872551788175,
+        "condensationReceivedEnergy_J": 0.00869940467990518,
+        "condensationBoundaryHeat_J": 0.008626423080568702,
+        "beads": [
+          {
+            "mass_g": 4.286601652620929e-9,
+            "y": -0.5738324875894941,
+            "theta": 2.918950750129422,
+            "sliding": false
+          },
+          {
+            "mass_g": 1.1672680708417014e-7,
+            "y": -0.8750873765459691,
+            "theta": 0.10959975955848014,
+            "sliding": false
+          },
+          {
+            "mass_g": 3.100688783201091e-8,
+            "y": -0.715294961525913,
+            "theta": 2.008928967818018,
+            "sliding": false
+          },
+          {
+            "mass_g": 9.96966574776907e-8,
+            "y": -0.7347182083268344,
+            "theta": 6.048145078593493,
+            "sliding": false
+          },
+          {
+            "mass_g": 1.7844983218586474e-8,
+            "y": -0.7184567405941925,
+            "theta": 1.2399520062809692,
+            "sliding": false
+          },
+          {
+            "mass_g": 3.884877550827536e-7,
+            "y": -0.8255585472882885,
+            "theta": 0.44166804716697844,
+            "sliding": false
+          },
+          {
+            "mass_g": 2.605441440061699e-7,
+            "y": -0.7793148414611205,
+            "theta": 2.7901948714559754,
+            "sliding": false
+          },
+          {
+            "mass_g": 1.367952985969176e-7,
+            "y": -0.6108117804468529,
+            "theta": 2.679935843593467,
+            "sliding": false
+          },
+          {
+            "mass_g": 3.168797762437432e-7,
+            "y": -0.921768783168096,
+            "theta": 5.521227167627503,
+            "sliding": false
+          },
+          {
+            "mass_g": 8.036741094380147e-8,
+            "y": -0.5909283307594766,
+            "theta": 3.3262147526184163,
+            "sliding": false
+          },
+          {
+            "mass_g": 3.64700167517373e-8,
+            "y": -0.9133614240459573,
+            "theta": 4.532130479620307,
+            "sliding": false
+          },
+          {
+            "mass_g": 4.318516957436867e-9,
+            "y": -0.7826465456073237,
+            "theta": 1.0018649870581027,
+            "sliding": false
+          },
+          {
+            "mass_g": 2.9209719172605573e-7,
+            "y": -0.7779309899663785,
+            "theta": 5.175411393838167,
+            "sliding": false
+          },
+          {
+            "mass_g": 4.287360181010853e-9,
+            "y": -0.7813239224896388,
+            "theta": 4.061586112564412,
+            "sliding": false
+          },
+          {
+            "mass_g": 1.4476318056225415e-7,
+            "y": -0.5801658720181294,
+            "theta": 4.412425655159598,
+            "sliding": false
+          },
+          {
+            "mass_g": 4.297653803116185e-9,
+            "y": -0.5973892622702478,
+            "theta": 5.6948232624873665,
+            "sliding": false
+          },
+          {
+            "mass_g": 4.286077504963534e-9,
+            "y": -0.7442559534750253,
+            "theta": 4.145770085221923,
+            "sliding": false
+          },
+          {
+            "mass_g": 3.0993685096984885e-7,
+            "y": -0.5974745046111347,
+            "theta": 0.8650848127233902,
+            "sliding": false
+          },
+          {
+            "mass_g": 4.312728898478783e-9,
+            "y": -0.5282652318367544,
+            "theta": 3.247189334903996,
+            "sliding": false
+          },
+          {
+            "mass_g": 6.817814966526369e-8,
+            "y": -0.7437415491376305,
+            "theta": 5.639387748895713,
+            "sliding": false
+          },
+          {
+            "mass_g": 4.286675147907584e-9,
+            "y": -0.8672420556580563,
+            "theta": 4.593916363467514,
+            "sliding": false
+          },
+          {
+            "mass_g": 5.876882018512128e-9,
+            "y": -0.603700740772896,
+            "theta": 5.60902701268347,
+            "sliding": false
+          },
+          {
+            "mass_g": 1.6692492765293603e-7,
+            "y": -0.5604871249850767,
+            "theta": 0.09295460107510292,
+            "sliding": false
+          },
+          {
+            "mass_g": 4.345753988683553e-9,
+            "y": -0.8098566183411021,
+            "theta": 0.8936214625551134,
+            "sliding": false
+          },
+          {
+            "mass_g": 1.4086839117951904e-8,
+            "y": -0.8206412285989135,
+            "theta": 4.4352422626257395,
+            "sliding": false
+          },
+          {
+            "mass_g": 2.121043960789892e-8,
+            "y": -0.8507557168150233,
+            "theta": 1.6705799806074573,
+            "sliding": false
+          },
+          {
+            "mass_g": 1.020701680450965e-8,
+            "y": -0.9316112999675605,
+            "theta": 4.320546916647061,
+            "sliding": false
+          },
+          {
+            "mass_g": 4.2860483666977904e-9,
+            "y": -0.708693549098578,
+            "theta": 5.687899603437748,
+            "sliding": false
+          },
+          {
+            "mass_g": 4.286052271358312e-9,
+            "y": -0.6126458037795091,
+            "theta": 5.488584129125352,
+            "sliding": false
+          },
+          {
+            "mass_g": 4.545531768738214e-9,
+            "y": -0.8010446551128989,
+            "theta": 2.046370601012328,
+            "sliding": false
+          },
+          {
+            "mass_g": 3.2007765535218215e-8,
+            "y": -0.7177228646926814,
+            "theta": 5.7795566512874075,
+            "sliding": false
+          },
+          {
+            "mass_g": 4.286039363751938e-9,
+            "y": -0.8853005279664539,
+            "theta": 5.6069602985051,
+            "sliding": false
+          },
+          {
+            "mass_g": 5.219159783833873e-9,
+            "y": -0.5703509400959883,
+            "theta": 6.260615016499242,
+            "sliding": false
+          },
+          {
+            "mass_g": 7.746462402641698e-8,
+            "y": -0.9314618503558868,
+            "theta": 0.14351394771483092,
+            "sliding": false
+          },
+          {
+            "mass_g": 4.286038999272773e-9,
+            "y": -0.7111559477978153,
+            "theta": 0.28567450032389474,
+            "sliding": false
+          },
+          {
+            "mass_g": 4.0389297983189303e-7,
+            "y": -0.7401459031178419,
+            "theta": 4.726312188090748,
+            "sliding": false
+          },
+          {
+            "mass_g": 4.286045459362842e-9,
+            "y": -0.8109341898669227,
+            "theta": 5.898015532922453,
+            "sliding": false
+          },
+          {
+            "mass_g": 4.642853535325515e-9,
+            "y": -0.7901294310791563,
+            "theta": 4.336019827807346,
+            "sliding": false
+          },
+          {
+            "mass_g": 2.1075185489572176e-7,
+            "y": -0.7954719256457538,
+            "theta": 0.13855748018377775,
+            "sliding": false
+          },
+          {
+            "mass_g": 4.2880650652361864e-9,
+            "y": -0.7870976055581123,
+            "theta": 4.71260597090893,
+            "sliding": false
+          },
+          {
+            "mass_g": 1.801660476323566e-8,
+            "y": -0.9193812870629408,
+            "theta": 3.0912700820012677,
+            "sliding": false
+          },
+          {
+            "mass_g": 4.547003852129109e-9,
+            "y": -0.6577622166923393,
+            "theta": 1.6703496478074573,
+            "sliding": false
+          },
+          {
+            "mass_g": 1.682766914286006e-8,
+            "y": -0.8208172427786631,
+            "theta": 4.717157748828751,
+            "sliding": false
+          },
+          {
+            "mass_g": 9.15171127730051e-9,
+            "y": -0.8050020267652289,
+            "theta": 6.027796095342376,
+            "sliding": false
+          },
+          {
+            "mass_g": 6.86821387475467e-8,
+            "y": -0.6414206262428117,
+            "theta": 3.9234415687582347,
+            "sliding": false
+          },
+          {
+            "mass_g": 3.3465082539710225e-8,
+            "y": -0.7625069974494109,
+            "theta": 1.1793223087649916,
+            "sliding": false
+          },
+          {
+            "mass_g": 7.971361703816238e-9,
+            "y": -0.9327378132266676,
+            "theta": 5.144419225092796,
+            "sliding": false
+          },
+          {
+            "mass_g": 4.334657535615248e-9,
+            "y": -0.8964624669891927,
+            "theta": 3.3307733424105503,
+            "sliding": false
+          }
+        ],
+        "retained_g": 0.0000034797618719620727,
+        "drained_g": 0,
+        "evaporated_g": 0
+      }
+    },
+    {
+      "name": "wet-hot-drying",
+      "input": {
+        "initialMass_g": 0.004,
+        "deposited_g": 0,
+        "evaporated_g": 0,
+        "dt": 0.016666666666666666,
+        "points": [
+          [
+            0,
+            -1
+          ],
+          [
+            0.92,
+            -1
+          ],
+          [
+            1,
+            -0.95
+          ],
+          [
+            1,
+            0.95
+          ],
+          [
+            1.04,
+            1
+          ]
+        ],
+        "bottom": -0.96,
+        "top": -0.5,
+        "temperature_c": 88,
+        "inner": false,
+        "metersPerLocalUnit": 0.035,
+        "evaporationBoundary": {
+          "gasTemperature_c": 25,
+          "waterPressure_Pa": 1584.9122431569863,
+          "airSpeed_m_s": 0.1
+        },
+        "condensationBoundary": {
+          "gasTemperature_c": 25,
+          "waterPressure_Pa": 1584.9122431569863,
+          "airSpeed_m_s": 0.1,
+          "regionArea_m2": 0.01,
+          "dryWallTemperature_c": 88,
+          "vaporSpecificEnthalpy_J_g": 2500
+        }
+      },
+      "expected": {
+        "temperature_c": 87.89324324273461,
+        "vaporEnergy_J": 0.0020738326997458176,
+        "vaporSensibleEnergy_J": 0.0002873260091273117,
+        "vaporTemperatureMass_c_g": 0.00006867256432297126,
+        "motionModel": "quasi-steady-cap/iapws2008-saturation-reference",
+        "drainedSensibleEnergy_J": 0,
+        "condensed_g": 0,
+        "wetCondensed_g": 0,
+        "dryCondensed_g": 0,
+        "condensationReceivedEnergy_J": 0,
+        "condensationBoundaryHeat_J": 0,
+        "beads": [
+          {
+            "mass_g": 0.000004924121531954277,
+            "y": -0.5738324875894941,
+            "theta": 2.918950750129422,
+            "sliding": false
+          },
+          {
+            "mass_g": 0.00013414957429670987,
+            "y": -0.8750873765459691,
+            "theta": 0.10959975955848014,
+            "sliding": false
+          },
+          {
+            "mass_g": 0.000035630400325589264,
+            "y": -0.715294961525913,
+            "theta": 2.008928967818018,
+            "sliding": false
+          },
+          {
+            "mass_g": 0.00011457604698304366,
+            "y": -0.7347182083268344,
+            "theta": 6.048145078593493,
+            "sliding": false
+          },
+          {
+            "mass_g": 0.000020504390609905876,
+            "y": -0.7184567405941925,
+            "theta": 1.2399520062809692,
+            "sliding": false
+          },
+          {
+            "mass_g": 0.00044650816921126243,
+            "y": -0.8255585472882885,
+            "theta": 0.44166804716697844,
+            "sliding": false
+          },
+          {
+            "mass_g": 0.00029944960666843996,
+            "y": -0.7793148414611205,
+            "theta": 2.7901948714559754,
+            "sliding": false
+          },
+          {
+            "mass_g": 0.0001572153951191917,
+            "y": -0.6108117804468529,
+            "theta": 2.679935843593467,
+            "sliding": false
+          },
+          {
+            "mass_g": 0.00036420159151403944,
+            "y": -0.921768783168096,
+            "theta": 5.521227167627503,
+            "sliding": false
+          },
+          {
+            "mass_g": 0.00009236028790050138,
+            "y": -0.5909283307594766,
+            "theta": 3.3262147526184163,
+            "sliding": false
+          },
+          {
+            "mass_g": 0.00004190894879178759,
+            "y": -0.9133614240459573,
+            "theta": 4.532130479620307,
+            "sliding": false
+          },
+          {
+            "mass_g": 0.000004960791984059174,
+            "y": -0.7826465456073237,
+            "theta": 1.0018649870581027,
+            "sliding": false
+          },
+          {
+            "mass_g": 0.0003357165134527147,
+            "y": -0.7779309899663785,
+            "theta": 5.175411393838167,
+            "sliding": false
+          },
+          {
+            "mass_g": 0.000004924993075042234,
+            "y": -0.7813239224896388,
+            "theta": 4.061586112564412,
+            "sliding": false
+          },
+          {
+            "mass_g": 0.00016637336806819687,
+            "y": -0.5801658720181294,
+            "theta": 4.412425655159598,
+            "sliding": false
+          },
+          {
+            "mass_g": 0.000004936820367353231,
+            "y": -0.5973892622702478,
+            "theta": 5.6948232624873665,
+            "sliding": false
+          },
+          {
+            "mass_g": 0.000004923519290478147,
+            "y": -0.7442559534750253,
+            "theta": 4.145770085221923,
+            "sliding": false
+          },
+          {
+            "mass_g": 0.0003562213913725488,
+            "y": -0.5974745046111347,
+            "theta": 0.8650848127233902,
+            "sliding": false
+          },
+          {
+            "mass_g": 0.000004954141543460168,
+            "y": -0.5282652318367544,
+            "theta": 3.247189334903996,
+            "sliding": false
+          },
+          {
+            "mass_g": 0.00007835091246698417,
+            "y": -0.7437415491376305,
+            "theta": 5.639387748895713,
+            "sliding": false
+          },
+          {
+            "mass_g": 0.000004924205977453136,
+            "y": -0.8672420556580563,
+            "theta": 4.593916363467514,
+            "sliding": false
+          },
+          {
+            "mass_g": 0.000006751386570837269,
+            "y": -0.603700740772896,
+            "theta": 5.60902701268347,
+            "sliding": false
+          },
+          {
+            "mass_g": 0.00019184533892892435,
+            "y": -0.5604871249850767,
+            "theta": 0.09295460107510292,
+            "sliding": false
+          },
+          {
+            "mass_g": 0.000004992087167299176,
+            "y": -0.8098566183411021,
+            "theta": 0.8936214625551134,
+            "sliding": false
+          },
+          {
+            "mass_g": 0.000016185598769256492,
+            "y": -0.8206412285989135,
+            "theta": 4.4352422626257395,
+            "sliding": false
+          },
+          {
+            "mass_g": 0.000024371989001058764,
+            "y": -0.8507557168150233,
+            "theta": 1.6705799806074573,
+            "sliding": false
+          },
+          {
+            "mass_g": 0.000011727106055074334,
+            "y": -0.9316112999675605,
+            "theta": 4.320546916647061,
+            "sliding": false
+          },
+          {
+            "mass_g": 0.000004923485810843642,
+            "y": -0.708693549098578,
+            "theta": 5.687899603437748,
+            "sliding": false
+          },
+          {
+            "mass_g": 0.000004923490297267378,
+            "y": -0.6126458037795091,
+            "theta": 5.488584129125352,
+            "sliding": false
+          },
+          {
+            "mass_g": 0.0000052216315344331645,
+            "y": -0.8010446551128989,
+            "theta": 2.046370601012328,
+            "sliding": false
+          },
+          {
+            "mass_g": 0.00003678066163675974,
+            "y": -0.7177228646926814,
+            "theta": 5.7795566512874075,
+            "sliding": false
+          },
+          {
+            "mass_g": 0.0000049234754665308035,
+            "y": -0.8853005279664539,
+            "theta": 5.6069602985051,
+            "sliding": false
+          },
+          {
+            "mass_g": 0.000005995639975499128,
+            "y": -0.5703509400959883,
+            "theta": 6.260615016499242,
+            "sliding": false
+          },
+          {
+            "mass_g": 0.00008902404125645232,
+            "y": -0.9314618503558868,
+            "theta": 0.14351394771483092,
+            "sliding": false
+          },
+          {
+            "mass_g": 0.000004923475047747156,
+            "y": -0.7111559477978153,
+            "theta": 0.28567450032389474,
+            "sliding": false
+          },
+          {
+            "mass_g": 0.0004642150871427813,
+            "y": -0.7401459031178419,
+            "theta": 4.726312188090748,
+            "sliding": false
+          },
+          {
+            "mass_g": 0.00000492348247033902,
+            "y": -0.8109341898669227,
+            "theta": 5.898015532922453,
+            "sliding": false
+          },
+          {
+            "mass_g": 0.000005333454660624744,
+            "y": -0.7901294310791563,
+            "theta": 4.336019827807346,
+            "sliding": false
+          },
+          {
+            "mass_g": 0.0002422189793813833,
+            "y": -0.7954719256457538,
+            "theta": 0.13855748018377775,
+            "sliding": false
+          },
+          {
+            "mass_g": 0.0000049258029814331845,
+            "y": -0.7870976055581123,
+            "theta": 4.71260597090893,
+            "sliding": false
+          },
+          {
+            "mass_g": 0.000020701617328450346,
+            "y": -0.9193812870629408,
+            "theta": 3.0912700820012677,
+            "sliding": false
+          },
+          {
+            "mass_g": 0.000005223322961851578,
+            "y": -0.6577622166923393,
+            "theta": 1.6703496478074573,
+            "sliding": false
+          },
+          {
+            "mass_g": 0.000019335301632441077,
+            "y": -0.8208172427786631,
+            "theta": 4.717157748828751,
+            "sliding": false
+          },
+          {
+            "mass_g": 0.000010514433888686132,
+            "y": -0.8050020267652289,
+            "theta": 6.027796095342376,
+            "sliding": false
+          },
+          {
+            "mass_g": 0.00007893015492255545,
+            "y": -0.6414206262428117,
+            "theta": 3.9234415687582347,
+            "sliding": false
+          },
+          {
+            "mass_g": 0.00003845549209598321,
+            "y": -0.7625069974494109,
+            "theta": 1.1793223087649916,
+            "sliding": false
+          },
+          {
+            "mass_g": 0.000009158091395682746,
+            "y": -0.9327378132266676,
+            "theta": 5.144419225092796,
+            "sliding": false
+          },
+          {
+            "mass_g": 0.000004979337406532289,
+            "y": -0.8964624669891927,
+            "theta": 3.3307733424105503,
+            "sliding": false
+          }
+        ],
+        "retained_g": 0.003999219156337444,
+        "drained_g": 0,
+        "evaporated_g": 7.808436625558931e-7
+      }
+    },
+    {
+      "name": "wet-cold-condensation",
+      "input": {
+        "initialMass_g": 0.004,
+        "deposited_g": 0,
+        "evaporated_g": 0,
+        "dt": 0.016666666666666666,
+        "points": [
+          [
+            0,
+            -1
+          ],
+          [
+            0.92,
+            -1
+          ],
+          [
+            1,
+            -0.95
+          ],
+          [
+            1,
+            0.95
+          ],
+          [
+            1.04,
+            1
+          ]
+        ],
+        "bottom": -0.96,
+        "top": -0.5,
+        "temperature_c": 5,
+        "inner": false,
+        "metersPerLocalUnit": 0.035,
+        "evaporationBoundary": {
+          "gasTemperature_c": 25,
+          "waterPressure_Pa": 1584.9122431569863,
+          "airSpeed_m_s": 0.1
+        },
+        "condensationBoundary": {
+          "gasTemperature_c": 25,
+          "waterPressure_Pa": 1584.9122431569863,
+          "airSpeed_m_s": 0.1,
+          "regionArea_m2": 0.01,
+          "dryWallTemperature_c": 5,
+          "vaporSpecificEnthalpy_J_g": 2500
+        }
+      },
+      "expected": {
+        "temperature_c": 5.001488440701119,
+        "vaporEnergy_J": 0,
+        "vaporSensibleEnergy_J": 0,
+        "vaporTemperatureMass_c_g": 0,
+        "motionModel": "quasi-steady-cap/iapws2008-saturation-reference",
+        "drainedSensibleEnergy_J": 0,
+        "condensed_g": 0.0000034830168014060894,
+        "wetCondensed_g": 1.0057051218352512e-8,
+        "dryCondensed_g": 0.000003472959750187737,
+        "condensationReceivedEnergy_J": 0.008707542003515225,
+        "condensationBoundaryHeat_J": 0.008609745057495415,
+        "beads": [
+          {
+            "mass_g": 0.000004931547755391136,
+            "y": -0.5738324875894941,
+            "theta": 2.918950750129422,
+            "sliding": false
+          },
+          {
+            "mass_g": 0.00013429457253748026,
+            "y": -0.8750873765459691,
+            "theta": 0.10959975955848014,
+            "sliding": false
+          },
+          {
+            "mass_g": 0.000035673122570678524,
+            "y": -0.715294961525913,
+            "theta": 2.008928967818018,
+            "sliding": false
+          },
+          {
+            "mass_g": 0.00011470120392961534,
+            "y": -0.7347182083268344,
+            "theta": 6.048145078593493,
+            "sliding": false
+          },
+          {
+            "mass_g": 0.000020530348121541988,
+            "y": -0.7184567405941925,
+            "theta": 1.2399520062809692,
+            "sliding": false
+          },
+          {
+            "mass_g": 0.0004469594317630862,
+            "y": -0.8255585472882885,
+            "theta": 0.44166804716697844,
+            "sliding": false
+          },
+          {
+            "mass_g": 0.0002997583195367352,
+            "y": -0.7793148414611205,
+            "theta": 2.7901948714559754,
+            "sliding": false
+          },
+          {
+            "mass_g": 0.00015738360238530451,
+            "y": -0.6108117804468529,
+            "theta": 2.679935843593467,
+            "sliding": false
+          },
+          {
+            "mass_g": 0.000364573316168068,
+            "y": -0.921768783168096,
+            "theta": 5.521227167627503,
+            "sliding": false
+          },
+          {
+            "mass_g": 0.00009246271949592175,
+            "y": -0.5909283307594766,
+            "theta": 3.3262147526184163,
+            "sliding": false
+          },
+          {
+            "mass_g": 0.000041958469099793224,
+            "y": -0.9133614240459573,
+            "theta": 4.532130479620307,
+            "sliding": false
+          },
+          {
+            "mass_g": 0.000004968265668640216,
+            "y": -0.7826465456073237,
+            "theta": 1.0018649870581027,
+            "sliding": false
+          },
+          {
+            "mass_g": 0.00033606057279859697,
+            "y": -0.7779309899663785,
+            "theta": 5.175411393838167,
+            "sliding": false
+          },
+          {
+            "mass_g": 0.000004932420426932494,
+            "y": -0.7813239224896388,
+            "theta": 4.061586112564412,
+            "sliding": false
+          },
+          {
+            "mass_g": 0.00016655074625205693,
+            "y": -0.5801658720181294,
+            "theta": 4.412425655159598,
+            "sliding": false
+          },
+          {
+            "mass_g": 0.000004944263030776207,
+            "y": -0.5973892622702478,
+            "theta": 5.6948232624873665,
+            "sliding": false
+          },
+          {
+            "mass_g": 0.000004930944734134155,
+            "y": -0.7442559534750253,
+            "theta": 4.145770085221923,
+            "sliding": false
+          },
+          {
+            "mass_g": 0.000356585373452761,
+            "y": -0.5974745046111347,
+            "theta": 0.8650848127233902,
+            "sliding": false
+          },
+          {
+            "mass_g": 0.000004961606623499258,
+            "y": -0.5282652318367544,
+            "theta": 3.247189334903996,
+            "sliding": false
+          },
+          {
+            "mass_g": 0.00007843887058023245,
+            "y": -0.7437415491376305,
+            "theta": 5.639387748895713,
+            "sliding": false
+          },
+          {
+            "mass_g": 0.000004931632310228992,
+            "y": -0.8672420556580563,
+            "theta": 4.593916363467514,
+            "sliding": false
+          },
+          {
+            "mass_g": 0.00000676113707368385,
+            "y": -0.603700740772896,
+            "theta": 5.60902701268347,
+            "sliding": false
+          },
+          {
+            "mass_g": 0.0001920481130851108,
+            "y": -0.5604871249850767,
+            "theta": 0.09295460107510292,
+            "sliding": false
+          },
+          {
+            "mass_g": 0.00000499960132559809,
+            "y": -0.8098566183411021,
+            "theta": 0.8936214625551134,
+            "sliding": false
+          },
+          {
+            "mass_g": 0.00001620661702770339,
+            "y": -0.8206412285989135,
+            "theta": 4.4352422626257395,
+            "sliding": false
+          },
+          {
+            "mass_g": 0.000024402300101533448,
+            "y": -0.8507557168150233,
+            "theta": 1.6705799806074573,
+            "sliding": false
+          },
+          {
+            "mass_g": 0.000011742906923901391,
+            "y": -0.9316112999675605,
+            "theta": 4.320546916647061,
+            "sliding": false
+          },
+          {
+            "mass_g": 0.00000493091121114999,
+            "y": -0.708693549098578,
+            "theta": 5.687899603437748,
+            "sliding": false
+          },
+          {
+            "mass_g": 0.000004930915703382779,
+            "y": -0.6126458037795091,
+            "theta": 5.488584129125352,
+            "sliding": false
+          },
+          {
+            "mass_g": 0.000005229441725672144,
+            "y": -0.8010446551128989,
+            "theta": 2.046370601012328,
+            "sliding": false
+          },
+          {
+            "mass_g": 0.000036824634895391935,
+            "y": -0.7177228646926814,
+            "theta": 5.7795566512874075,
+            "sliding": false
+          },
+          {
+            "mass_g": 0.000004930900853443258,
+            "y": -0.8853005279664539,
+            "theta": 5.6069602985051,
+            "sliding": false
+          },
+          {
+            "mass_g": 0.000006004438436516757,
+            "y": -0.5703509400959883,
+            "theta": 6.260615016499242,
+            "sliding": false
+          },
+          {
+            "mass_g": 0.00008912303734629882,
+            "y": -0.9314618503558868,
+            "theta": 0.14351394771483092,
+            "sliding": false
+          },
+          {
+            "mass_g": 0.000004930900434117366,
+            "y": -0.7111559477978153,
+            "theta": 0.28567450032389474,
+            "sliding": false
+          },
+          {
+            "mass_g": 0.0004646833936595607,
+            "y": -0.7401459031178419,
+            "theta": 4.726312188090748,
+            "sliding": false
+          },
+          {
+            "mass_g": 0.000004930907866320057,
+            "y": -0.8109341898669227,
+            "theta": 5.898015532922453,
+            "sliding": false
+          },
+          {
+            "mass_g": 0.0000053414085500614125,
+            "y": -0.7901294310791563,
+            "theta": 4.336019827807346,
+            "sliding": false
+          },
+          {
+            "mass_g": 0.00024247157843074318,
+            "y": -0.7954719256457538,
+            "theta": 0.13855748018377775,
+            "sliding": false
+          },
+          {
+            "mass_g": 0.000004933231381951451,
+            "y": -0.7870976055581123,
+            "theta": 4.71260597090893,
+            "sliding": false
+          },
+          {
+            "mass_g": 0.00002072779828582427,
+            "y": -0.9193812870629408,
+            "theta": 3.0912700820012677,
+            "sliding": false
+          },
+          {
+            "mass_g": 0.000005231135329121258,
+            "y": -0.6577622166923393,
+            "theta": 1.6703496478074573,
+            "sliding": false
+          },
+          {
+            "mass_g": 0.00001935993112057362,
+            "y": -0.8208172427786631,
+            "theta": 4.717157748828751,
+            "sliding": false
+          },
+          {
+            "mass_g": 0.000010528787535362672,
+            "y": -0.8050020267652289,
+            "theta": 6.027796095342376,
+            "sliding": false
+          },
+          {
+            "mass_g": 0.00007901871406333161,
+            "y": -0.6414206262428117,
+            "theta": 3.9234415687582347,
+            "sliding": false
+          },
+          {
+            "mass_g": 0.000038501282233928404,
+            "y": -0.7625069974494109,
+            "theta": 1.1793223087649916,
+            "sliding": false
+          },
+          {
+            "mass_g": 0.000009170807880578164,
+            "y": -0.9327378132266676,
+            "theta": 5.144419225092796,
+            "sliding": false
+          },
+          {
+            "mass_g": 0.000004986835079070628,
+            "y": -0.8964624669891927,
+            "theta": 3.3307733424105503,
+            "sliding": false
+          }
+        ],
+        "retained_g": 0.004003483016801405,
+        "drained_g": 0,
+        "evaporated_g": 0
+      }
+    },
+    {
+      "name": "unsupported-boundary",
+      "input": {
+        "initialMass_g": 0,
+        "deposited_g": 0,
+        "evaporated_g": 0,
+        "dt": 0.016666666666666666,
+        "points": [
+          [
+            0,
+            -1
+          ],
+          [
+            0.92,
+            -1
+          ],
+          [
+            1,
+            -0.95
+          ],
+          [
+            1,
+            0.95
+          ],
+          [
+            1.04,
+            1
+          ]
+        ],
+        "bottom": -0.96,
+        "top": -0.5,
+        "temperature_c": 25,
+        "inner": false,
+        "metersPerLocalUnit": 0.035,
+        "evaporationBoundary": {
+          "gasTemperature_c": 25,
+          "waterPressure_Pa": 1584.9122431569863,
+          "airSpeed_m_s": 0.1
+        },
+        "condensationBoundary": {
+          "gasTemperature_c": 25,
+          "waterPressure_Pa": 1584.9122431569863,
+          "airSpeed_m_s": -1,
+          "regionArea_m2": 0.01,
+          "dryWallTemperature_c": 25,
+          "vaporSpecificEnthalpy_J_g": 2500
+        }
+      },
+      "expected": {
+        "temperature_c": 25,
+        "vaporEnergy_J": 0,
+        "vaporSensibleEnergy_J": 0,
+        "vaporTemperatureMass_c_g": 0,
+        "motionModel": "quasi-steady-cap/iapws2008-saturation-reference",
+        "drainedSensibleEnergy_J": 0,
+        "condensed_g": 0,
+        "wetCondensed_g": 0,
+        "dryCondensed_g": 0,
+        "condensationReceivedEnergy_J": 0,
+        "condensationBoundaryHeat_J": 0,
+        "condensationThermalLimit": "unsupported-boundary",
+        "beads": [
+          {
+            "mass_g": 0,
+            "y": -0.5738324875894941,
+            "theta": 2.918950750129422,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.8750873765459691,
+            "theta": 0.10959975955848014,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.715294961525913,
+            "theta": 2.008928967818018,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.7347182083268344,
+            "theta": 6.048145078593493,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.7184567405941925,
+            "theta": 1.2399520062809692,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.8255585472882885,
+            "theta": 0.44166804716697844,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.7793148414611205,
+            "theta": 2.7901948714559754,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.6108117804468529,
+            "theta": 2.679935843593467,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.921768783168096,
+            "theta": 5.521227167627503,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.5909283307594766,
+            "theta": 3.3262147526184163,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.9133614240459573,
+            "theta": 4.532130479620307,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.7826465456073237,
+            "theta": 1.0018649870581027,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.7779309899663785,
+            "theta": 5.175411393838167,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.7813239224896388,
+            "theta": 4.061586112564412,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.5801658720181294,
+            "theta": 4.412425655159598,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.5973892622702478,
+            "theta": 5.6948232624873665,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.7442559534750253,
+            "theta": 4.145770085221923,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.5974745046111347,
+            "theta": 0.8650848127233902,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.5282652318367544,
+            "theta": 3.247189334903996,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.7437415491376305,
+            "theta": 5.639387748895713,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.8672420556580563,
+            "theta": 4.593916363467514,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.603700740772896,
+            "theta": 5.60902701268347,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.5604871249850767,
+            "theta": 0.09295460107510292,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.8098566183411021,
+            "theta": 0.8936214625551134,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.8206412285989135,
+            "theta": 4.4352422626257395,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.8507557168150233,
+            "theta": 1.6705799806074573,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.9316112999675605,
+            "theta": 4.320546916647061,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.708693549098578,
+            "theta": 5.687899603437748,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.6126458037795091,
+            "theta": 5.488584129125352,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.8010446551128989,
+            "theta": 2.046370601012328,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.7177228646926814,
+            "theta": 5.7795566512874075,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.8853005279664539,
+            "theta": 5.6069602985051,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.5703509400959883,
+            "theta": 6.260615016499242,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.9314618503558868,
+            "theta": 0.14351394771483092,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.7111559477978153,
+            "theta": 0.28567450032389474,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.7401459031178419,
+            "theta": 4.726312188090748,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.8109341898669227,
+            "theta": 5.898015532922453,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.7901294310791563,
+            "theta": 4.336019827807346,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.7954719256457538,
+            "theta": 0.13855748018377775,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.7870976055581123,
+            "theta": 4.71260597090893,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.9193812870629408,
+            "theta": 3.0912700820012677,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.6577622166923393,
+            "theta": 1.6703496478074573,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.8208172427786631,
+            "theta": 4.717157748828751,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.8050020267652289,
+            "theta": 6.027796095342376,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.6414206262428117,
+            "theta": 3.9234415687582347,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.7625069974494109,
+            "theta": 1.1793223087649916,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.9327378132266676,
+            "theta": 5.144419225092796,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.8964624669891927,
+            "theta": 3.3307733424105503,
+            "sliding": false
+          }
+        ],
+        "retained_g": 0,
+        "drained_g": 0,
+        "evaporated_g": 0
+      }
+    },
+    {
+      "name": "unsupported-film-temperature",
+      "input": {
+        "initialMass_g": 0,
+        "deposited_g": 0,
+        "evaporated_g": 0,
+        "dt": 0.016666666666666666,
+        "points": [
+          [
+            0,
+            -1
+          ],
+          [
+            0.92,
+            -1
+          ],
+          [
+            1,
+            -0.95
+          ],
+          [
+            1,
+            0.95
+          ],
+          [
+            1.04,
+            1
+          ]
+        ],
+        "bottom": -0.96,
+        "top": -0.5,
+        "temperature_c": -1,
+        "inner": false,
+        "metersPerLocalUnit": 0.035,
+        "evaporationBoundary": {
+          "gasTemperature_c": 25,
+          "waterPressure_Pa": 1584.9122431569863,
+          "airSpeed_m_s": 0.1
+        },
+        "condensationBoundary": {
+          "gasTemperature_c": 25,
+          "waterPressure_Pa": 1584.9122431569863,
+          "airSpeed_m_s": 0.1,
+          "regionArea_m2": 0.01,
+          "dryWallTemperature_c": 25,
+          "vaporSpecificEnthalpy_J_g": 2500
+        }
+      },
+      "expected": {
+        "temperature_c": -1,
+        "vaporEnergy_J": 0,
+        "vaporSensibleEnergy_J": 0,
+        "vaporTemperatureMass_c_g": 0,
+        "motionModel": "quasi-steady-cap/iapws2008-saturation-reference",
+        "drainedSensibleEnergy_J": 0,
+        "condensed_g": 0,
+        "wetCondensed_g": 0,
+        "dryCondensed_g": 0,
+        "condensationReceivedEnergy_J": 0,
+        "condensationBoundaryHeat_J": 0,
+        "condensationThermalLimit": "unsupported",
+        "beads": [
+          {
+            "mass_g": 0,
+            "y": -0.5738324875894941,
+            "theta": 2.918950750129422,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.8750873765459691,
+            "theta": 0.10959975955848014,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.715294961525913,
+            "theta": 2.008928967818018,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.7347182083268344,
+            "theta": 6.048145078593493,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.7184567405941925,
+            "theta": 1.2399520062809692,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.8255585472882885,
+            "theta": 0.44166804716697844,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.7793148414611205,
+            "theta": 2.7901948714559754,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.6108117804468529,
+            "theta": 2.679935843593467,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.921768783168096,
+            "theta": 5.521227167627503,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.5909283307594766,
+            "theta": 3.3262147526184163,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.9133614240459573,
+            "theta": 4.532130479620307,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.7826465456073237,
+            "theta": 1.0018649870581027,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.7779309899663785,
+            "theta": 5.175411393838167,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.7813239224896388,
+            "theta": 4.061586112564412,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.5801658720181294,
+            "theta": 4.412425655159598,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.5973892622702478,
+            "theta": 5.6948232624873665,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.7442559534750253,
+            "theta": 4.145770085221923,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.5974745046111347,
+            "theta": 0.8650848127233902,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.5282652318367544,
+            "theta": 3.247189334903996,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.7437415491376305,
+            "theta": 5.639387748895713,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.8672420556580563,
+            "theta": 4.593916363467514,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.603700740772896,
+            "theta": 5.60902701268347,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.5604871249850767,
+            "theta": 0.09295460107510292,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.8098566183411021,
+            "theta": 0.8936214625551134,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.8206412285989135,
+            "theta": 4.4352422626257395,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.8507557168150233,
+            "theta": 1.6705799806074573,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.9316112999675605,
+            "theta": 4.320546916647061,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.708693549098578,
+            "theta": 5.687899603437748,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.6126458037795091,
+            "theta": 5.488584129125352,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.8010446551128989,
+            "theta": 2.046370601012328,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.7177228646926814,
+            "theta": 5.7795566512874075,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.8853005279664539,
+            "theta": 5.6069602985051,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.5703509400959883,
+            "theta": 6.260615016499242,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.9314618503558868,
+            "theta": 0.14351394771483092,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.7111559477978153,
+            "theta": 0.28567450032389474,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.7401459031178419,
+            "theta": 4.726312188090748,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.8109341898669227,
+            "theta": 5.898015532922453,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.7901294310791563,
+            "theta": 4.336019827807346,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.7954719256457538,
+            "theta": 0.13855748018377775,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.7870976055581123,
+            "theta": 4.71260597090893,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.9193812870629408,
+            "theta": 3.0912700820012677,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.6577622166923393,
+            "theta": 1.6703496478074573,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.8208172427786631,
+            "theta": 4.717157748828751,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.8050020267652289,
+            "theta": 6.027796095342376,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.6414206262428117,
+            "theta": 3.9234415687582347,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.7625069974494109,
+            "theta": 1.1793223087649916,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.9327378132266676,
+            "theta": 5.144419225092796,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.8964624669891927,
+            "theta": 3.3307733424105503,
+            "sliding": false
+          }
+        ],
+        "retained_g": 0,
+        "drained_g": 0,
+        "evaporated_g": 0
+      }
+    },
+    {
+      "name": "inner-empty-wall",
+      "input": {
+        "initialMass_g": 0,
+        "deposited_g": 0,
+        "evaporated_g": 0,
+        "dt": 0.016666666666666666,
+        "points": [
+          [
+            0,
+            -1
+          ],
+          [
+            0.92,
+            -1
+          ],
+          [
+            1,
+            -0.95
+          ],
+          [
+            1,
+            0.95
+          ],
+          [
+            1.04,
+            1
+          ]
+        ],
+        "bottom": -0.96,
+        "top": -0.5,
+        "temperature_c": 25,
+        "inner": true,
+        "metersPerLocalUnit": 0.035,
+        "evaporationBoundary": {
+          "gasTemperature_c": 25,
+          "waterPressure_Pa": 1584.9122431569863,
+          "airSpeed_m_s": 0.1
+        },
+        "condensationBoundary": {
+          "gasTemperature_c": 25,
+          "waterPressure_Pa": 1584.9122431569863,
+          "airSpeed_m_s": 0.1,
+          "regionArea_m2": 0.01,
+          "dryWallTemperature_c": 25,
+          "vaporSpecificEnthalpy_J_g": 2500
+        }
+      },
+      "expected": {
+        "temperature_c": 25,
+        "vaporEnergy_J": 0,
+        "vaporSensibleEnergy_J": 0,
+        "vaporTemperatureMass_c_g": 0,
+        "motionModel": "quasi-steady-cap/iapws2008-saturation-reference",
+        "drainedSensibleEnergy_J": 0,
+        "condensed_g": 0,
+        "wetCondensed_g": 0,
+        "dryCondensed_g": 0,
+        "condensationReceivedEnergy_J": 0,
+        "condensationBoundaryHeat_J": 0,
+        "beads": [
+          {
+            "mass_g": 0,
+            "y": -0.5738324875894941,
+            "theta": 2.918950750129422,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.8750873765459691,
+            "theta": 0.10959975955848014,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.715294961525913,
+            "theta": 2.008928967818018,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.7347182083268344,
+            "theta": 6.048145078593493,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.7184567405941925,
+            "theta": 1.2399520062809692,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.8255585472882885,
+            "theta": 0.44166804716697844,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.7793148414611205,
+            "theta": 2.7901948714559754,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.6108117804468529,
+            "theta": 2.679935843593467,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.921768783168096,
+            "theta": 5.521227167627503,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.5909283307594766,
+            "theta": 3.3262147526184163,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.9133614240459573,
+            "theta": 4.532130479620307,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.7826465456073237,
+            "theta": 1.0018649870581027,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.7779309899663785,
+            "theta": 5.175411393838167,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.7813239224896388,
+            "theta": 4.061586112564412,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.5801658720181294,
+            "theta": 4.412425655159598,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.5973892622702478,
+            "theta": 5.6948232624873665,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.7442559534750253,
+            "theta": 4.145770085221923,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.5974745046111347,
+            "theta": 0.8650848127233902,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.5282652318367544,
+            "theta": 3.247189334903996,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.7437415491376305,
+            "theta": 5.639387748895713,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.8672420556580563,
+            "theta": 4.593916363467514,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.603700740772896,
+            "theta": 5.60902701268347,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.5604871249850767,
+            "theta": 0.09295460107510292,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.8098566183411021,
+            "theta": 0.8936214625551134,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.8206412285989135,
+            "theta": 4.4352422626257395,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.8507557168150233,
+            "theta": 1.6705799806074573,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.9316112999675605,
+            "theta": 4.320546916647061,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.708693549098578,
+            "theta": 5.687899603437748,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.6126458037795091,
+            "theta": 5.488584129125352,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.8010446551128989,
+            "theta": 2.046370601012328,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.7177228646926814,
+            "theta": 5.7795566512874075,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.8853005279664539,
+            "theta": 5.6069602985051,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.5703509400959883,
+            "theta": 6.260615016499242,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.9314618503558868,
+            "theta": 0.14351394771483092,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.7111559477978153,
+            "theta": 0.28567450032389474,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.7401459031178419,
+            "theta": 4.726312188090748,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.8109341898669227,
+            "theta": 5.898015532922453,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.7901294310791563,
+            "theta": 4.336019827807346,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.7954719256457538,
+            "theta": 0.13855748018377775,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.7870976055581123,
+            "theta": 4.71260597090893,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.9193812870629408,
+            "theta": 3.0912700820012677,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.6577622166923393,
+            "theta": 1.6703496478074573,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.8208172427786631,
+            "theta": 4.717157748828751,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.8050020267652289,
+            "theta": 6.027796095342376,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.6414206262428117,
+            "theta": 3.9234415687582347,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.7625069974494109,
+            "theta": 1.1793223087649916,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.9327378132266676,
+            "theta": 5.144419225092796,
+            "sliding": false
+          },
+          {
+            "mass_g": 0,
+            "y": -0.8964624669891927,
+            "theta": 3.3307733424105503,
+            "sliding": false
+          }
+        ],
+        "retained_g": 0,
+        "drained_g": 0,
+        "evaporated_g": 0
+      }
+    },
+    {
+      "name": "direct-deposit",
+      "input": {
+        "initialMass_g": 0,
+        "deposited_g": 0.001,
+        "evaporated_g": 0,
+        "dt": 0.016666666666666666,
+        "points": [
+          [
+            0,
+            -1
+          ],
+          [
+            0.92,
+            -1
+          ],
+          [
+            1,
+            -0.95
+          ],
+          [
+            1,
+            0.95
+          ],
+          [
+            1.04,
+            1
+          ]
+        ],
+        "bottom": -0.96,
+        "top": -0.5,
+        "temperature_c": 25,
+        "inner": false,
+        "metersPerLocalUnit": 0.035,
+        "evaporationBoundary": {
+          "gasTemperature_c": 25,
+          "waterPressure_Pa": 1584.9122431569863,
+          "airSpeed_m_s": 0.1
+        },
+        "condensationBoundary": {
+          "gasTemperature_c": 25,
+          "waterPressure_Pa": 1584.9122431569863,
+          "airSpeed_m_s": 0.1,
+          "regionArea_m2": 0.01,
+          "dryWallTemperature_c": 25,
+          "vaporSpecificEnthalpy_J_g": 2500
+        }
+      },
+      "expected": {
+        "temperature_c": 24.995920788834933,
+        "vaporEnergy_J": 0.000017798389723272877,
+        "vaporSensibleEnergy_J": 7.310209430857274e-7,
+        "vaporTemperatureMass_c_g": 1.7471819863425607e-7,
+        "motionModel": "quasi-steady-cap/iapws2008-saturation-reference",
+        "drainedSensibleEnergy_J": 0,
+        "condensed_g": 0,
+        "wetCondensed_g": 0,
+        "dryCondensed_g": 0,
+        "condensationReceivedEnergy_J": 0,
+        "condensationBoundaryHeat_J": 0,
+        "beads": [
+          {
+            "mass_g": 0.0000012317796001347648,
+            "y": -0.5738324875894941,
+            "theta": 2.918950750129422,
+            "sliding": false
+          },
+          {
+            "mass_g": 0.00003354417606543843,
+            "y": -0.8750873765459691,
+            "theta": 0.10959975955848014,
+            "sliding": false
+          },
+          {
+            "mass_g": 0.000008910402672778777,
+            "y": -0.715294961525913,
+            "theta": 2.008928967818018,
+            "sliding": false
+          },
+          {
+            "mass_g": 0.00002865011732933701,
+            "y": -0.7347182083268344,
+            "theta": 6.048145078593493,
+            "sliding": false
+          },
+          {
+            "mass_g": 0.0000051280366909994885,
+            "y": -0.7184567405941925,
+            "theta": 1.2399520062809692,
+            "sliding": false
+          },
+          {
+            "mass_g": 0.0001116421618800161,
+            "y": -0.8255585472882885,
+            "theta": 0.44166804716697844,
+            "sliding": false
+          },
+          {
+            "mass_g": 0.00007487398602587124,
+            "y": -0.7793148414611205,
+            "theta": 2.7901948714559754,
+            "sliding": false
+          },
+          {
+            "mass_g": 0.000039311387973755096,
+            "y": -0.6108117804468529,
+            "theta": 2.679935843593467,
+            "sliding": false
+          },
+          {
+            "mass_g": 0.00009106359713024704,
+            "y": -0.921768783168096,
+            "theta": 5.521227167627503,
+            "sliding": false
+          },
+          {
+            "mass_g": 0.000023095360368774093,
+            "y": -0.5909283307594766,
+            "theta": 3.3262147526184163,
+            "sliding": false
+          },
+          {
+            "mass_g": 0.000010480360026155675,
+            "y": -0.9133614240459573,
+            "theta": 4.532130479620307,
+            "sliding": false
+          },
+          {
+            "mass_g": 0.0000012409509278481763,
+            "y": -0.7826465456073237,
+            "theta": 1.0018649870581027,
+            "sliding": false
+          },
+          {
+            "mass_g": 0.00008394163010327708,
+            "y": -0.7779309899663785,
+            "theta": 5.175411393838167,
+            "sliding": false
+          },
+          {
+            "mass_g": 0.0000012319975743001225,
+            "y": -0.7813239224896388,
+            "theta": 4.061586112564412,
+            "sliding": false
+          },
+          {
+            "mass_g": 0.000041601171208054675,
+            "y": -0.5801658720181294,
+            "theta": 4.412425655159598,
+            "sliding": false
+          },
+          {
+            "mass_g": 0.000001234955596406766,
+            "y": -0.5973892622702478,
+            "theta": 5.6948232624873665,
+            "sliding": false
+          },
+          {
+            "mass_g": 0.00000123162897868234,
+            "y": -0.7442559534750253,
+            "theta": 4.145770085221923,
+            "sliding": false
+          },
+          {
+            "mass_g": 0.00008906835357826451,
+            "y": -0.5974745046111347,
+            "theta": 0.8650848127233902,
+            "sliding": false
+          },
+          {
+            "mass_g": 0.0000012392876446954996,
+            "y": -0.5282652318367544,
+            "theta": 3.247189334903996,
+            "sliding": false
+          },
+          {
+            "mass_g": 0.00001959246724175142,
+            "y": -0.7437415491376305,
+            "theta": 5.639387748895713,
+            "sliding": false
+          },
+          {
+            "mass_g": 0.0000012318007200743126,
+            "y": -0.8672420556580563,
+            "theta": 4.593916363467514,
+            "sliding": false
+          },
+          {
+            "mass_g": 0.00000168877128776581,
+            "y": -0.603700740772896,
+            "theta": 5.60902701268347,
+            "sliding": false
+          },
+          {
+            "mass_g": 0.0000479699438884204,
+            "y": -0.5604871249850767,
+            "theta": 0.09295460107510292,
+            "sliding": false
+          },
+          {
+            "mass_g": 0.0000012487778866007353,
+            "y": -0.8098566183411021,
+            "theta": 0.8936214625551134,
+            "sliding": false
+          },
+          {
+            "mass_g": 0.000004048055890095732,
+            "y": -0.8206412285989135,
+            "theta": 4.4352422626257395,
+            "sliding": false
+          },
+          {
+            "mass_g": 0.000006095173019225135,
+            "y": -0.8507557168150233,
+            "theta": 1.6705799806074573,
+            "sliding": false
+          },
+          {
+            "mass_g": 0.0000029331125768763185,
+            "y": -0.9316112999675605,
+            "theta": 4.320546916647061,
+            "sliding": false
+          },
+          {
+            "mass_g": 0.00000123162060537791,
+            "y": -0.708693549098578,
+            "theta": 5.687899603437748,
+            "sliding": false
+          },
+          {
+            "mass_g": 0.0000012316217274388977,
+            "y": -0.6126458037795091,
+            "theta": 5.488584129125352,
+            "sliding": false
+          },
+          {
+            "mass_g": 0.0000013061869796084246,
+            "y": -0.8010446551128989,
+            "theta": 2.046370601012328,
+            "sliding": false
+          },
+          {
+            "mass_g": 0.000009198027995077555,
+            "y": -0.7177228646926814,
+            "theta": 5.7795566512874075,
+            "sliding": false
+          },
+          {
+            "mass_g": 0.0000012316180182504864,
+            "y": -0.8853005279664539,
+            "theta": 5.6069602985051,
+            "sliding": false
+          },
+          {
+            "mass_g": 0.0000014997642864539348,
+            "y": -0.5703509400959883,
+            "theta": 6.260615016499242,
+            "sliding": false
+          },
+          {
+            "mass_g": 0.000022261170581458022,
+            "y": -0.9314618503558868,
+            "theta": 0.14351394771483092,
+            "sliding": false
+          },
+          {
+            "mass_g": 0.0000012316179135120978,
+            "y": -0.7111559477978153,
+            "theta": 0.28567450032389474,
+            "sliding": false
+          },
+          {
+            "mass_g": 0.00011606928848302928,
+            "y": -0.7401459031178419,
+            "theta": 4.726312188090748,
+            "sliding": false
+          },
+          {
+            "mass_g": 0.0000012316197699129304,
+            "y": -0.8109341898669227,
+            "theta": 5.898015532922453,
+            "sliding": false
+          },
+          {
+            "mass_g": 0.000001334153843803985,
+            "y": -0.7901294310791563,
+            "theta": 4.336019827807346,
+            "sliding": false
+          },
+          {
+            "mass_g": 0.00006056480172505459,
+            "y": -0.7954719256457538,
+            "theta": 0.13855748018377775,
+            "sliding": false
+          },
+          {
+            "mass_g": 0.0000012322001330352569,
+            "y": -0.7870976055581123,
+            "theta": 4.71260597090893,
+            "sliding": false
+          },
+          {
+            "mass_g": 0.00000517735578409455,
+            "y": -0.9193812870629408,
+            "theta": 3.0912700820012677,
+            "sliding": false
+          },
+          {
+            "mass_g": 0.0000013066100046840293,
+            "y": -0.6577622166923393,
+            "theta": 1.6703496478074573,
+            "sliding": false
+          },
+          {
+            "mass_g": 0.000004835690027700684,
+            "y": -0.8208172427786631,
+            "theta": 4.717157748828751,
+            "sliding": false
+          },
+          {
+            "mass_g": 0.0000026298507711019513,
+            "y": -0.8050020267652289,
+            "theta": 6.027796095342376,
+            "sliding": false
+          },
+          {
+            "mass_g": 0.000019737301183348556,
+            "y": -0.6414206262428117,
+            "theta": 3.9234415687582347,
+            "sliding": false
+          },
+          {
+            "mass_g": 0.00000961682185863237,
+            "y": -0.7625069974494109,
+            "theta": 1.1793223087649916,
+            "sliding": false
+          },
+          {
+            "mass_g": 0.000002290655880602527,
+            "y": -0.9327378132266676,
+            "theta": 5.144419225092796,
+            "sliding": false
+          },
+          {
+            "mass_g": 0.0000012455891586160238,
+            "y": -0.8964624669891927,
+            "theta": 3.3307733424105503,
+            "sliding": false
+          }
+        ],
+        "retained_g": 0.0009999930106166406,
+        "drained_g": 0,
+        "evaporated_g": 6.9893833592442475e-9
+      }
+    }
+  ]
+}
