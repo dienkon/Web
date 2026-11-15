@@ -1,0 +1,44 @@
+{
+  "id": "bet-dien-tich-trong-mot-gram-vat-lieu",
+  "slug": "bet-dien-tich-trong-mot-gram-vat-lieu",
+  "documentPath": "docs/bet-dien-tich-trong-mot-gram-vat-lieu/index.json",
+  "title": "Một gram vật liệu chứa bao nhiêu bề mặt?",
+  "summary": "Những mạng kim loại–hữu cơ có diện tích riêng rất lớn khiến con số mét vuông trên gram trở nên gây kinh ngạc. BET giải thích cách đo và vì sao con số ấy cần được đọc cùng điều kiện.",
+  "category": "khainiem",
+  "author": "Ban biên tập ChemDex",
+  "image": "/assets/library/ionic-crystal.svg",
+  "tags": [
+    "BET",
+    "Diện tích bề mặt",
+    "MOF",
+    "Hấp phụ"
+  ],
+  "aliases": [],
+  "documentKind": "story",
+  "readingMinutes": 4,
+  "editorialEvidence": {
+    "language": "vi",
+    "scope": "chemical-family",
+    "contextLabel": "Một gram vật liệu chứa bao nhiêu bề mặt?",
+    "reviewBasis": "Biên soạn theo các nguồn dẫn cuối bài; phân biệt kết quả đã thực hiện và hướng phát triển.",
+    "story": {
+      "status": "documented",
+      "section": "## Bề mặt không chỉ nằm ở phía ngoài hạt",
+      "sources": [
+        "https://doi.org/10.1021/ja3055639",
+        "https://doi.org/10.1021/ja01269a023",
+        "https://doi.org/10.1515/pac-2014-1117"
+      ]
+    },
+    "application": {
+      "status": "documented",
+      "section": "## Ứng dụng hôm nay: chỉ tiêu tốt khi đi cùng phép thử chức năng",
+      "sources": [
+        "https://doi.org/10.1021/ja3055639",
+        "https://doi.org/10.1021/ja01269a023",
+        "https://doi.org/10.1515/pac-2014-1117"
+      ]
+    }
+  },
+  "content": "## Bề mặt không chỉ nằm ở phía ngoài hạt\n\nNăm 2012, Omar Farha và cộng sự báo cáo hai vật liệu khung kim loại–hữu cơ có diện tích BET thực nghiệm xấp xỉ 7.000 mét vuông trên một gram. Con số vượt xa hình dung nếu chỉ nhìn kích thước một ít bột. Phần lớn bề mặt có thể tiếp cận nằm dọc những lỗ rỗng bên trong, không phải chỉ trên lớp vỏ của từng hạt.\n\nCông trình còn nhấn mạnh việc loại dung môi khỏi khung mà không làm sập cấu trúc. Vật liệu mới tổng hợp chứa đầy dung môi trong lỗ; để đo diện tích hữu ích, phải mở được không gian đó. Một sơ đồ tinh thể có nhiều khoảng trống chưa bảo đảm các khoảng trống vẫn tồn tại sau khi xử lý mẫu.\n\n![Minh họa mạng vật liệu; không phải cấu trúc tinh thể của NU-110](/assets/library/ionic-crystal.svg)\n\n## Đếm lớp phân tử để suy ra diện tích\n\nPhương pháp BET mang tên Brunauer, Emmett và Teller, từ công trình năm 1938 về hấp phụ nhiều lớp khí trên bề mặt. Thay vì đo từng ngóc ngách bằng thước, người nghiên cứu đo lượng khí hấp phụ khi áp suất thay đổi rồi dùng mô hình để ước lượng lượng phủ một lớp phân tử.\n\nTừ lượng ấy và diện tích quy ước của phân tử khí, diện tích bề mặt được tính ra. Vì vậy BET là giá trị dựa trên phép đo và mô hình, không phải một phép chụp toàn bộ bề mặt. Khí dùng, nhiệt độ, khoảng áp suất khớp và cách hoạt hóa mẫu cần được báo cáo. Chọn khoảng khớp không phù hợp có thể cho một con số lớn nhưng ít ý nghĩa vật lý.\n\n## Lỗ nhỏ làm mô hình cần được dùng cẩn thận\n\nBáo cáo kỹ thuật IUPAC năm 2015 hệ thống hóa cách trình bày dữ liệu hấp phụ, diện tích và phân bố kích thước lỗ. Với những lỗ rất nhỏ, cơ chế lấp đầy lỗ có thể khác bức tranh các lớp hấp phụ phẳng đơn giản. Các tiêu chí lựa chọn miền BET giúp tránh diễn giải máy móc.\n\nĐây là lý do hai vật liệu có cùng diện tích riêng chưa chắc giữ cùng lượng khí ở điều kiện sử dụng. Kích thước lỗ, hóa học bề mặt và mức tiếp cận của phân tử mục tiêu đều quan trọng. Một phân tử khí thăm dò nhỏ có thể đi vào nơi một phân tử lớn hơn không tới được; diện tích đo được cần gắn với nhiệm vụ.\n\n## Ứng dụng hôm nay: chỉ tiêu tốt khi đi cùng phép thử chức năng\n\nDiện tích riêng hỗ trợ đánh giá vật liệu hấp phụ, xúc tác và lưu trữ. Nhưng thiết kế còn phải xét độ bền, dung lượng ở áp suất thực, khả năng tái sinh và tốc độ truyền chất. Một khung có diện tích cao nhưng dễ hỏng khi gặp nước có thể không phù hợp với dòng khí ẩm mà nó được giao xử lý.\n\nCâu chuyện của các MOF diện tích lớn làm nổi bật cả sức mạnh lẫn giới hạn của một con số. BET giúp so sánh theo một ngôn ngữ đo lường chung, miễn là điều kiện và cách khớp được nêu rõ. Khi thấy quảng cáo “hàng nghìn mét vuông trong một gram”, câu hỏi tiếp theo nên là bề mặt nào thực sự tiếp cận được, bằng phân tử nào, và nó còn hoạt động sau bao nhiêu chu kỳ. Đó là bước từ kỷ lục vật liệu tới ứng dụng có thể kiểm tra.\n\n## Nguồn và đọc thêm\n\n- [Farha và cộng sự · MOF có diện tích riêng rất lớn, 2012](https://doi.org/10.1021/ja3055639)\n- [Brunauer, Emmett và Teller · Hấp phụ nhiều lớp, 1938](https://doi.org/10.1021/ja01269a023)\n- [IUPAC · Hướng dẫn diễn giải hấp phụ khí, 2015](https://doi.org/10.1515/pac-2014-1117)"
+}

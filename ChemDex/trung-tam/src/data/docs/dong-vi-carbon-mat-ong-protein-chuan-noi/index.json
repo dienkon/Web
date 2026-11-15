@@ -1,0 +1,43 @@
+{
+  "id": "dong-vi-carbon-mat-ong-protein-chuan-noi",
+  "slug": "dong-vi-carbon-mat-ong-protein-chuan-noi",
+  "documentPath": "docs/dong-vi-carbon-mat-ong-protein-chuan-noi/index.json",
+  "title": "Mật ong và chiếc chuẩn giấu trong phần protein",
+  "summary": "So sánh đồng vị carbon của đường với protein giúp phát hiện một số kiểu pha đường vào mật ong. Phép đo cũng cho thấy vì sao chữ ký hóa học luôn cần bối cảnh.",
+  "category": "khainiem",
+  "author": "Ban biên tập ChemDex",
+  "image": "/assets/library/organic-carbohydrate.svg",
+  "tags": [
+    "Đồng vị carbon",
+    "Mật ong",
+    "Chuẩn nội"
+  ],
+  "aliases": [],
+  "documentKind": "story",
+  "readingMinutes": 4,
+  "editorialEvidence": {
+    "language": "vi",
+    "scope": "chemical-family",
+    "contextLabel": "Mật ong và chiếc chuẩn giấu trong phần protein",
+    "reviewBasis": "Biên soạn theo các nguồn dẫn cuối bài; phân biệt kết quả đã thực hiện và hướng phát triển.",
+    "story": {
+      "status": "documented",
+      "section": "## Một giá trị bất thường chưa nói hết câu chuyện",
+      "sources": [
+        "https://doi.org/10.1093/jaoac/72.6.907",
+        "https://doi.org/10.1093/jaoac/81.3.610",
+        "https://www.osti.gov/biblio/2570698"
+      ]
+    },
+    "application": {
+      "status": "documented",
+      "section": "## Ứng dụng hôm nay: bằng chứng cho kiểm tra, không phải máy phán xử",
+      "sources": [
+        "https://doi.org/10.1093/jaoac/72.6.907",
+        "https://doi.org/10.1093/jaoac/81.3.610",
+        "https://www.osti.gov/biblio/2570698"
+      ]
+    }
+  },
+  "content": "## Một giá trị bất thường chưa nói hết câu chuyện\n\nNăm 1989, White và Winters công bố cách dùng phần protein của mật ong làm chuẩn nội cho phân tích tỷ số đồng vị carbon. Bài toán là phát hiện đường từ mía hoặc ngô được thêm vào. Nếu chỉ đo toàn bộ mật ong, một giá trị ở vùng ranh giới có thể gây tranh cãi vì mẫu tự nhiên vốn cũng có biến thiên.\n\nProtein cung cấp một điểm so sánh nằm trong chính mẫu. Khi thêm đường có chữ ký đồng vị khác, phần đường thay đổi còn protein có thể giữ thông tin gần với nguồn mật ban đầu. Tác giả kiểm tra những mẫu tinh khiết và mẫu nghi ngờ để xây dựng tiêu chí, thay vì cho rằng một con số duy nhất đủ phân loại tất cả sản phẩm.\n\n![Minh họa carbohydrate; không phải kết quả phổ của một mẫu mật ong](/assets/library/organic-carbohydrate.svg)\n\n## Chữ ký carbon đi từ cây tới mật\n\nThực vật sử dụng các con đường cố định carbon khác nhau, thường được gọi là C3 và C4. Chúng để lại khác biệt có thể đo trong tỷ lệ carbon-13 so với carbon-12. Mía và ngô thuộc nhóm C4; nhiều nguồn mật hoa thuộc nhóm C3. Sự khác biệt đó là cơ sở của phép kiểm tra, chứ không phải đường pha có một loại nguyên tố lạ.\n\nMáy đo tỷ số đồng vị cần hiệu chuẩn và mẫu phải được chuẩn bị theo quy trình. Khác biệt được biểu diễn tương đối so với chuẩn, thường bằng đơn vị phần nghìn. Không nên đọc con số ấy như phần trăm đường pha trực tiếp. Muốn suy ra tỷ lệ pha phải có mô hình trộn và biết những giả định về các nguồn nguyên liệu.\n\n## Cơ sở dữ liệu giúp kiểm tra giả thuyết\n\nNghiên cứu xác nhận năm 1998 mở rộng dữ liệu mật ong từ nhiều quốc gia. Việc dùng chuẩn nội giúp nhận ra một số mẫu chứa đường C4 dù giá trị của toàn bộ mật vẫn nằm trong khoảng từng được xem là bình thường. Kết quả cho thấy cách chọn điểm so sánh có thể quan trọng không kém độ nhạy của máy.\n\nMột hướng nghiên cứu khác dùng tỷ số đồng vị strontium để khảo sát nguồn địa lý của mật ong. Công trình được DOE lập hồ sơ năm 2025 nhận thấy mẫu có thể phù hợp dữ liệu địa phương đã công bố, nhưng mô hình dự đoán chưa luôn chính xác. Địa chất, nước, bụi và hành vi của ong làm câu chuyện nguồn gốc phức tạp hơn một bản đồ màu đơn giản.\n\n## Ứng dụng hôm nay: bằng chứng cho kiểm tra, không phải máy phán xử\n\nPhân tích đồng vị hỗ trợ xác thực thực phẩm và truy xuất nguồn gốc. Tuy nhiên, phép kiểm tra carbon hướng tới đường C4 không tự phát hiện mọi kiểu pha trộn, nhất là khi chất thêm có chữ ký gần với nền tự nhiên. Cũng cần lấy mẫu đại diện, biết lô hàng và phối hợp với các phép phân tích khác.\n\nBài học của phần protein rất cụ thể: khi nền tự nhiên thay đổi, một chuẩn nội thích hợp có thể giúp tách sự khác biệt vốn có khỏi sự thay đổi do can thiệp. Một phép đo đáng tin còn phải nói rõ điều nó chưa phân biệt được. Mật ong không trở nên đơn giản hơn sau khi đi qua máy; người phân tích có thêm cách đặt câu hỏi chính xác, rồi kiểm tra câu trả lời bằng nhiều lớp bằng chứng.\n\n## Nguồn và đọc thêm\n\n- [White và Winters · Protein mật ong làm chuẩn nội, 1989](https://doi.org/10.1093/jaoac/72.6.907)\n- [Xác nhận phương pháp đồng vị carbon trên mẫu quốc tế, 1998](https://doi.org/10.1093/jaoac/81.3.610)\n- [Nghiên cứu gốc · Đồng vị strontium và nguồn mật ong, 2025](https://www.osti.gov/biblio/2570698)"
+}

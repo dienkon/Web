@@ -1,0 +1,44 @@
+{
+  "id": "shop-ethylene-thanh-nhieu-do-dai-mach",
+  "slug": "shop-ethylene-thanh-nhieu-do-dai-mach",
+  "documentPath": "docs/shop-ethylene-thanh-nhieu-do-dai-mach/index.json",
+  "title": "SHOP không làm một phân tử duy nhất: chọn độ dài mạch từ ethylene",
+  "summary": "Tại Geismar, olefin cao là đầu vào của nhiều chuỗi sản phẩm. Quy trình SHOP kết hợp oligomer hóa, phân tách và chuyển hóa để đưa một nguyên liệu nhỏ tới những dải mạch cần thiết.",
+  "category": "phanung",
+  "author": "Ban biên tập ChemDex",
+  "image": "/assets/library/organic-alkene.svg",
+  "tags": [
+    "SHOP",
+    "Oligomer hóa",
+    "Ethylene",
+    "Olefin cao"
+  ],
+  "aliases": [],
+  "documentKind": "story",
+  "readingMinutes": 4,
+  "editorialEvidence": {
+    "language": "vi",
+    "scope": "chemical-family",
+    "contextLabel": "SHOP không làm một phân tử duy nhất: chọn độ dài mạch từ ethylene",
+    "reviewBasis": "Biên soạn theo các nguồn dẫn cuối bài; phân biệt kết quả đã thực hiện và hướng phát triển.",
+    "story": {
+      "status": "documented",
+      "section": "## Một cơ sở tạo nguyên liệu cho chất tẩy rửa và nhiều ngành khác",
+      "sources": [
+        "https://doi.org/10.1002/anie.201305308",
+        "https://www.prnewswire.com/news-releases/shell-starts-production-at-new-petrochemicals-unit-in-us-gulf-coast-300773519.html",
+        "https://www.shell.com/business-customers/chemicals/manufacturing-locations.html"
+      ]
+    },
+    "application": {
+      "status": "documented",
+      "section": "## Ứng dụng hôm nay: thiết kế một danh mục sản phẩm",
+      "sources": [
+        "https://doi.org/10.1002/anie.201305308",
+        "https://www.prnewswire.com/news-releases/shell-starts-production-at-new-petrochemicals-unit-in-us-gulf-coast-300773519.html",
+        "https://www.shell.com/business-customers/chemicals/manufacturing-locations.html"
+      ]
+    }
+  },
+  "content": "## Một cơ sở tạo nguyên liệu cho chất tẩy rửa và nhiều ngành khác\n\nTrang giới thiệu các cơ sở hóa chất của Shell mô tả Geismar sản xuất các olefin cao, alcohol và những sản phẩm liên quan. Năm 2019, Shell công bố hoàn thành bước mở rộng năng lực alpha olefin tại đây. Những chất ít được người tiêu dùng gọi tên đứng trước nhiều sản phẩm công nghiệp và sinh hoạt.\n\nNền công nghệ gắn với Shell Higher Olefins Process, thường viết SHOP, được Wilhelm Keim kể lại trong bài hồi cứu năm 2013. Câu chuyện không phải tìm cách nối ethylene thành chuỗi dài nhất có thể. Mục tiêu là tạo và quản lý những khoảng chiều dài mạch có giá trị sử dụng khác nhau.\n\n![Minh họa olefin, không phải phân bố sản phẩm hoặc thiết bị SHOP](/assets/library/organic-alkene.svg)\n\n## Oligomer hóa dừng trước khi thành một chuỗi polymer rất dài\n\nEthylene là phân tử nhỏ có hai carbon. Oligomer hóa nối nhiều đơn vị thành các phân tử lớn hơn nhưng vẫn trong những khoảng có thể phân tách và dùng như hóa chất riêng. Nó khác mục tiêu tạo polymer có chuỗi rất dài, dù cả hai đều liên quan đến tăng trưởng mạch.\n\nTrong SHOP, xúc tác dựa trên nickel và phối tử thích hợp giúp tạo một phân bố alpha olefin. Alpha olefin có liên kết đôi ở đầu mạch. Vị trí ấy quan trọng đối với những phản ứng tiếp theo; không thể chỉ dùng số carbon để gọi mọi olefin cùng chiều dài là tương đương.\n\nXác suất tăng trưởng và kết thúc mạch dẫn tới nhiều sản phẩm. Một nguyên liệu thống nhất không tự cho một cấu trúc duy nhất ở đầu ra. Quy trình được thiết kế để làm việc với chính sự phân bố đó.\n\n## Phân tách và chuyển hóa giúp sử dụng phần ngoài dải mong muốn\n\nMột phần đặc sắc của SHOP là kết nối oligomer hóa với những công đoạn như đồng phân hóa và metathesis trong cấu hình tổng thể. Các phân đoạn ngoài khoảng ưu tiên có thể được chuyển hóa để tạo những dải hữu ích hơn. Điều này khác việc chỉ bán mọi sản phẩm theo tỷ lệ tự xuất hiện.\n\nĐồng phân hóa đổi vị trí liên kết trong phân tử; metathesis phân bố lại những đoạn carbon quanh liên kết đôi. Hai loại phản ứng giữ vai trò khác nhau. Trộn chúng thành một thuật ngữ “tái chế” chung sẽ làm mất cách nhà máy điều chỉnh cấu trúc và độ dài mạch.\n\nCác hệ dung môi và phân tách còn giúp thu hồi xúc tác. Hiệu quả của quy trình vì thế nằm trong sự phối hợp nhiều chức năng, không thể được quy hoàn toàn cho tốc độ của một phản ứng oligomer hóa đơn lẻ.\n\n## Ứng dụng hôm nay: thiết kế một danh mục sản phẩm\n\nAlpha olefin và các dẫn xuất được dùng trong nhiều chuỗi như comonomer cho polymer, dầu bôi trơn và chất hoạt động bề mặt. Những ứng dụng cần độ dài mạch và cấu trúc khác nhau. Do đó, nhà máy phải cân bằng phân bố sản xuất với nhu cầu thực tế của những khách hàng khác nhau.\n\nBáo cáo của một nhà sản xuất phản ánh cấu hình và danh mục của họ; không nên suy ra mọi cơ sở olefin cao đều dùng SHOP. Công nghệ khác có thể tạo phân bố hoặc mức chọn lọc khác và phù hợp với mục tiêu khác.\n\nSHOP đưa ra một bài học thú vị về hóa học công nghiệp: sản phẩm là một phân bố không nhất thiết là điểm yếu nếu quy trình biết phân tách và chuyển hóa các phần đúng cách. Từ một phân tử ethylene nhỏ, giá trị xuất hiện nhờ khả năng tạo đúng những khoảng mạch mà các ngành sử dụng cần.\n\n## Nguồn và đọc thêm\n\n- [Wilhelm Keim · Lịch sử phát triển SHOP](https://doi.org/10.1002/anie.201305308)\n- [Shell · Mở rộng alpha olefin tại Geismar, 2019](https://www.prnewswire.com/news-releases/shell-starts-production-at-new-petrochemicals-unit-in-us-gulf-coast-300773519.html)\n- [Shell · Các dòng sản phẩm và cơ sở hóa chất](https://www.shell.com/business-customers/chemicals/manufacturing-locations.html)"
+}

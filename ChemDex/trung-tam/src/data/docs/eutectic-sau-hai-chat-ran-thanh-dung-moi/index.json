@@ -1,0 +1,44 @@
+{
+  "id": "eutectic-sau-hai-chat-ran-thanh-dung-moi",
+  "slug": "eutectic-sau-hai-chat-ran-thanh-dung-moi",
+  "documentPath": "docs/eutectic-sau-hai-chat-ran-thanh-dung-moi/index.json",
+  "title": "Hai chất rắn mở ra một môi trường lỏng: câu chuyện dung môi eutectic sâu",
+  "summary": "Hỗn hợp choline chloride và urea giúp đặt lại câu hỏi về dung môi. Những nghiên cứu xử lý kim loại cho thấy tính chất của hỗn hợp cần được đo thay vì suy từ từng thành phần.",
+  "category": "khainiem",
+  "author": "Ban biên tập ChemDex",
+  "image": "/assets/library/ionic-crystal.svg",
+  "tags": [
+    "Eutectic sâu",
+    "Choline chloride",
+    "Dung môi",
+    "Điện hóa"
+  ],
+  "aliases": [],
+  "documentKind": "story",
+  "readingMinutes": 4,
+  "editorialEvidence": {
+    "language": "vi",
+    "scope": "chemical-family",
+    "contextLabel": "Hai chất rắn mở ra một môi trường lỏng: câu chuyện dung môi eutectic sâu",
+    "reviewBasis": "Biên soạn theo các nguồn dẫn cuối bài; phân biệt kết quả đã thực hiện và hướng phát triển.",
+    "story": {
+      "status": "documented",
+      "section": "## Nhiệt độ nóng chảy của hỗn hợp gây chú ý",
+      "sources": [
+        "https://doi.org/10.1039/B210714G",
+        "https://doi.org/10.1179/002029605x17657",
+        "https://doi.org/10.1021/ja048266j"
+      ]
+    },
+    "application": {
+      "status": "documented",
+      "section": "## Ứng dụng hôm nay: lựa chọn phải dựa trên nhiệm vụ",
+      "sources": [
+        "https://doi.org/10.1039/B210714G",
+        "https://doi.org/10.1179/002029605x17657",
+        "https://doi.org/10.1021/ja048266j"
+      ]
+    }
+  },
+  "content": "## Nhiệt độ nóng chảy của hỗn hợp gây chú ý\n\nNăm 2003, Andrew Abbott và cộng sự báo cáo những tính chất dung môi của hỗn hợp choline chloride với urea. Các thành phần quen thuộc mở ra một hệ có thể ở dạng lỏng tại nhiệt độ môi trường trong thành phần thích hợp, dù từng chất riêng không có cùng hành vi ấy.\n\nKết quả nhắc rằng hỗn hợp là một đối tượng hóa học cần nghiên cứu riêng. Lấy nhiệt độ nóng chảy của hai chất rồi tính trung bình không dự đoán được toàn bộ giản đồ pha. Tương tác giữa các thành phần có thể làm trạng thái lỏng thuận lợi hơn đáng kể so với điều ta đoán từ những lọ hóa chất ban đầu.\n\n![Minh họa vật liệu ion; không phải cấu trúc đầy đủ của một dung môi eutectic sâu](/assets/library/ionic-crystal.svg)\n\n## Điểm eutectic và độ lệch khỏi hỗn hợp lý tưởng\n\nEutectic là thành phần tại đó hệ có nhiệt độ nóng chảy thấp nhất trong một kiểu giản đồ pha xác định. Với các hệ được gọi là dung môi eutectic sâu, tương tác mạnh và độ lệch khỏi hành vi lý tưởng là phần cần xem xét. Liên kết hydrogen, điện tích và cách sắp xếp các thành phần góp vào tính chất thu được.\n\nKhông nên dùng tên này cho mọi hỗn hợp lỏng một cách tùy tiện. Thành phần mol, lượng nước và nhiệt độ cần được ghi rõ. Một ít nước có thể làm độ nhớt và độ dẫn thay đổi đáng kể; khi thêm nhiều hơn, hệ có thể mang tính chất của dung dịch nước hơn là môi trường ban đầu. Cùng tên hai nguyên liệu chưa đủ để bảo đảm cùng dung môi. Vì vậy mẫu cần được mô tả bằng thành phần thực và hàm lượng nước đã kiểm tra.\n\n## Một bề mặt thép được xử lý bằng môi trường khác\n\nTrong nghiên cứu điện đánh bóng thép không gỉ công bố năm 2005, Abbott và cộng sự dùng hệ chứa ethylene glycol và choline chloride. Nhóm khảo sát quá trình hòa tan bề mặt và chất lượng đánh bóng, cho thấy loại môi trường này có thể phục vụ một nhiệm vụ xử lý kim loại cụ thể.\n\nMột công trình khác về choline chloride và acid carboxylic nghiên cứu độ nhớt, độ dẫn, sức căng bề mặt và khả năng hòa tan oxide kim loại. Những thông số ấy ảnh hưởng truyền khối và phản ứng điện cực. Chúng giải thích vì sao phát triển dung môi cần đo nhiều đặc tính đồng thời, không chỉ quan sát thấy hai chất đã trộn thành chất lỏng.\n\n## Ứng dụng hôm nay: lựa chọn phải dựa trên nhiệm vụ\n\nDung môi eutectic sâu được nghiên cứu cho tách, xử lý kim loại và nhiều biến đổi hóa học. Những ví dụ trên là kết quả trong hệ xác định; không đủ để gọi toàn bộ họ dung môi là an toàn, bền hoặc thân thiện môi trường. Cần tính cả thành phần, tạp chất, năng lượng tái sinh và dòng thải.\n\nKhi đọc một nghiên cứu mới, điều hữu ích là hỏi độ nhớt có làm chậm vận chuyển không, nước có được kiểm soát không và hiệu quả có giữ sau nhiều lần sử dụng không. Câu chuyện bắt đầu bằng sự bất ngờ của hai chất rắn tạo môi trường lỏng, nhưng giá trị ứng dụng đến từ việc hiểu chính xác môi trường ấy làm gì. Hỗn hợp không chỉ là danh sách nguyên liệu: nó có cấu trúc tương tác và hành vi riêng cần được kiểm chứng.\n\n## Nguồn và đọc thêm\n\n- [Abbott và cộng sự · Choline chloride–urea, 2003](https://doi.org/10.1039/B210714G)\n- [Abbott và cộng sự · Điện đánh bóng thép không gỉ, 2005](https://doi.org/10.1179/002029605x17657)\n- [Abbott và cộng sự · Hệ choline chloride–acid carboxylic, 2004](https://doi.org/10.1021/ja048266j)"
+}

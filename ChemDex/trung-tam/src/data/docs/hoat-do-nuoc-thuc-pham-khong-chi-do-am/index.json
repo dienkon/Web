@@ -1,0 +1,44 @@
+{
+  "id": "hoat-do-nuoc-thuc-pham-khong-chi-do-am",
+  "slug": "hoat-do-nuoc-thuc-pham-khong-chi-do-am",
+  "documentPath": "docs/hoat-do-nuoc-thuc-pham-khong-chi-do-am/index.json",
+  "title": "Nước trong thực phẩm: cân được nhiều chưa có nghĩa sẵn sàng như nhau",
+  "summary": "Hoạt độ nước giải thích vì sao lượng ẩm và khả năng hỗ trợ biến đổi trong thực phẩm là hai câu hỏi khác nhau. Phép đo bắt đầu từ cân bằng hơi nước và những chuẩn muối nhỏ.",
+  "category": "khainiem",
+  "author": "Ban biên tập ChemDex",
+  "image": "/assets/library/organic-carbohydrate.svg",
+  "tags": [
+    "Hoạt độ nước",
+    "Thực phẩm",
+    "Cân bằng",
+    "Đo lường"
+  ],
+  "aliases": [],
+  "documentKind": "story",
+  "readingMinutes": 4,
+  "editorialEvidence": {
+    "language": "vi",
+    "scope": "chemical-family",
+    "contextLabel": "Nước trong thực phẩm: cân được nhiều chưa có nghĩa sẵn sàng như nhau",
+    "reviewBasis": "Biên soạn theo các nguồn dẫn cuối bài; phân biệt kết quả đã thực hiện và hướng phát triển.",
+    "story": {
+      "status": "documented",
+      "section": "## Một thông số đi vào công việc kiểm tra thực phẩm",
+      "sources": [
+        "https://www.fda.gov/inspections-compliance-enforcement-and-criminal-investigations/inspection-technical-guides/water-activity-aw-foods",
+        "https://doi.org/10.6028/jres.081a.011",
+        "https://www.fda.gov/food/laboratory-methods-food/bam-chapter-18-yeasts-molds-and-mycotoxins"
+      ]
+    },
+    "application": {
+      "status": "documented",
+      "section": "## Ứng dụng hôm nay: một điều kiện trong nhiều điều kiện",
+      "sources": [
+        "https://www.fda.gov/inspections-compliance-enforcement-and-criminal-investigations/inspection-technical-guides/water-activity-aw-foods",
+        "https://doi.org/10.6028/jres.081a.011",
+        "https://www.fda.gov/food/laboratory-methods-food/bam-chapter-18-yeasts-molds-and-mycotoxins"
+      ]
+    }
+  },
+  "content": "## Một thông số đi vào công việc kiểm tra thực phẩm\n\nTrong tài liệu kỹ thuật năm 1984, FDA giải thích hoạt độ nước bằng tỷ số giữa áp suất hơi cân bằng của mẫu và của nước tinh khiết tại cùng nhiệt độ. Cách định nghĩa ấy đặt câu hỏi khác với phép cân xem một thực phẩm chứa bao nhiêu gram nước. Nước tương tác với đường, muối và các thành phần của nền mẫu, nên tổng lượng nước chưa nói hết hành vi của nó.\n\nĐây là khái niệm có ứng dụng cụ thể trong thiết kế và kiểm tra sản phẩm. Một thực phẩm đã mất nhiều nước vẫn cần được đánh giá trong công thức và điều kiện bảo quản của chính nó. Không thể chỉ nhìn bề mặt khô hoặc đọc một phần trăm ẩm để kết luận mọi quá trình đã bị ngăn lại.\n\n![Minh họa carbohydrate trong nền thực phẩm; không phải ảnh một sản phẩm đã được kiểm nghiệm](/assets/library/organic-carbohydrate.svg)\n\n## Để mẫu và không khí đạt cân bằng\n\nTrong một cách đo, mẫu được đặt trong không gian có kiểm soát để hơi nước đạt cân bằng. Độ ẩm tương đối cân bằng chia cho một trăm liên hệ với hoạt độ nước. Điều kiện nhiệt phải được quản lý vì áp suất hơi và đáp ứng thiết bị phụ thuộc nhiệt độ.\n\nMẫu không đồng nhất tạo thêm khó khăn. Một lớp nhân ẩm và vỏ khô có thể trao đổi nước theo thời gian; lấy phần nào để đo sẽ ảnh hưởng câu trả lời. Vì thế, phương pháp lấy mẫu, thời gian cân bằng và cách chuẩn bị đều thuộc phép đo. Hoạt độ nước là thông số của hệ trong điều kiện xác định, không phải một nhãn bất biến cho tên món ăn.\n\n## Những lọ muối làm chuẩn cho hơi nước\n\nCông trình của Lewis Greenspan tại NBS năm 1977 tổng hợp các điểm độ ẩm cố định từ dung dịch muối bão hòa. Những hệ như vậy tạo môi trường hơi nước có giá trị được đặc trưng theo nhiệt độ, hữu ích cho hiệu chuẩn và kiểm tra thiết bị. Một hỗn hợp trông đơn giản trong lọ lại giúp nối tín hiệu cảm biến với thang đo có căn cứ.\n\nTài liệu FDA cũng mô tả việc dùng những môi trường độ ẩm xác định để nghiên cứu quan hệ giữa lượng ẩm và hoạt độ nước. Đường đẳng nhiệt hấp phụ cho thấy hai đại lượng liên quan nhưng không thay thế nhau. Muốn chuyển từ một phép cân sang dự đoán hành vi, cần hiểu đường quan hệ của đúng nền sản phẩm.\n\n## Ứng dụng hôm nay: một điều kiện trong nhiều điều kiện\n\nHoạt độ nước được dùng cùng với nhiệt độ, pH, thành phần và bao gói khi đánh giá ổn định thực phẩm. Các phương pháp vi sinh của FDA vẫn cần những phép thử riêng để tìm nấm men, nấm mốc hoặc những vấn đề khác; một số đo hoạt độ không phải phép chứng minh vô trùng và không thay thế toàn bộ kiểm soát chất lượng.\n\nĐiều hữu ích nhất là sự phân biệt giữa “có bao nhiêu” và “ở trạng thái tương tác thế nào”. Trong hóa học, lượng của một thành phần và xu hướng tham gia quá trình của nó không luôn trùng nhau. Một chiếc bánh, một miếng trái cây khô hay một sản phẩm bột đều có thể giúp học khái niệm đó, miễn là kết luận được dựa trên phép đo phù hợp. Thông số chỉ có sức mạnh khi người dùng biết nó trả lời câu hỏi nào và còn thiếu những câu hỏi nào.\n\n## Nguồn và đọc thêm\n\n- [FDA · Hoạt độ nước trong thực phẩm](https://www.fda.gov/inspections-compliance-enforcement-and-criminal-investigations/inspection-technical-guides/water-activity-aw-foods)\n- [Greenspan/NBS · Điểm độ ẩm của dung dịch muối bão hòa, 1977](https://doi.org/10.6028/jres.081a.011)\n- [FDA · Phương pháp phân tích nấm men, nấm mốc và độc tố](https://www.fda.gov/food/laboratory-methods-food/bam-chapter-18-yeasts-molds-and-mycotoxins)"
+}

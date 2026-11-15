@@ -1,0 +1,44 @@
+{
+  "id": "xanes-mary-rose-luu-huynh-trong-go",
+  "slug": "xanes-mary-rose-luu-huynh-trong-go",
+  "documentPath": "docs/xanes-mary-rose-luu-huynh-trong-go/index.json",
+  "title": "Con tàu đã lên bờ, hóa học dưới đáy biển vẫn còn trong gỗ",
+  "summary": "XANES giúp phân biệt các dạng lưu huỳnh trong gỗ Mary Rose. Điều cần biết không chỉ là có bao nhiêu sulfur, mà còn nó có thể biến đổi thế nào khi gặp oxygen.",
+  "category": "khainiem",
+  "author": "Ban biên tập ChemDex",
+  "image": "/assets/library/history-evidence.svg",
+  "tags": [
+    "XANES",
+    "Mary Rose",
+    "Trạng thái hóa học",
+    "Di sản"
+  ],
+  "aliases": [],
+  "documentKind": "story",
+  "readingMinutes": 4,
+  "editorialEvidence": {
+    "language": "vi",
+    "scope": "chemical-family",
+    "contextLabel": "Con tàu đã lên bờ, hóa học dưới đáy biển vẫn còn trong gỗ",
+    "reviewBasis": "Biên soạn theo các nguồn dẫn cuối bài; phân biệt kết quả đã thực hiện và hướng phát triển.",
+    "story": {
+      "status": "documented",
+      "section": "## Một thành công trục vớt mở ra bài toán mới",
+      "sources": [
+        "https://doi.org/10.1073/pnas.0504490102",
+        "https://www.esrf.fr/news/general-old/general-2005/MARYROSE/index_html",
+        "https://maryrose.org/new-research-provides-crucial-information-on-degradation-processes-which-will-be-used-to-protect-the-mary-rose/"
+      ]
+    },
+    "application": {
+      "status": "documented",
+      "section": "## Ứng dụng hôm nay: bảo tồn cần theo dõi vật liệu đang đổi",
+      "sources": [
+        "https://doi.org/10.1073/pnas.0504490102",
+        "https://www.esrf.fr/news/general-old/general-2005/MARYROSE/index_html",
+        "https://maryrose.org/new-research-provides-crucial-information-on-degradation-processes-which-will-be-used-to-protect-the-mary-rose/"
+      ]
+    }
+  },
+  "content": "## Một thành công trục vớt mở ra bài toán mới\n\nMary Rose chìm năm 1545 và phần thân tàu được đưa lên khỏi biển năm 1982. Vật liệu gỗ từ môi trường thiếu oxygen chuyển sang môi trường có oxygen, mang theo những hợp chất đã tích tụ trong nhiều thế kỷ. Năm 2005, nhóm nghiên cứu công bố khảo sát sulfur và iron trong gỗ để hiểu nguy cơ hình thành acid làm suy thoái cấu trúc.\n\nCó sulfur không đồng nghĩa mọi phần gỗ đang chứa cùng một chất. Những dạng hữu cơ, sulfide và sulfur nguyên tố có thể có vị trí và khả năng phản ứng khác nhau. Đó là lúc danh sách nguyên tố trở nên chưa đủ: công việc bảo tồn cần biết trạng thái hóa học và đường biến đổi của từng nhóm.\n\n![Minh họa nghiên cứu vật liệu lịch sử; không phải ảnh tàu Mary Rose](/assets/library/history-evidence.svg)\n\n## Mép hấp thụ kể chuyện về electron\n\nXANES khảo sát cấu trúc phổ gần mép hấp thụ tia X của một nguyên tố. Vị trí và hình dạng các đặc trưng phổ thay đổi theo môi trường hóa học, giúp phân biệt những dạng sulfur có trạng thái khác nhau khi đối chiếu với mẫu chuẩn phù hợp.\n\nKhái niệm số oxi hóa trong sách vì vậy trở thành một câu hỏi có thể đưa vào phép đo. Nhưng một đỉnh phổ không tự là toàn bộ công thức phân tử. Mẫu gỗ phức tạp chứa nhiều dạng chồng lấp; phân tích phải nêu giả định và phối hợp các phép đo khác. XANES giúp biết dạng hóa học, còn bản đồ XRF giúp tìm nơi các nguyên tố tập trung.\n\n## Từ lượng sulfur đến những vị trí dễ tổn thương\n\nESRF mô tả việc khảo sát lát gỗ mỏng ở quy mô micromet để tìm các vùng giàu hợp chất hữu cơ chứa sulfur. Sự hiện diện của iron là mối quan tâm vì nó có thể tham gia các quá trình làm tăng nguy cơ tạo acid trong điều kiện phù hợp. Biết chất nằm ở đâu giúp đánh giá khả năng tiếp cận của oxygen, nước và biện pháp bảo tồn.\n\nNhững nghiên cứu sau được Mary Rose Trust giới thiệu kết hợp XANES, XRF và phổ hồng ngoại để so sánh trạng thái sulfur với mức suy thoái gỗ trong quá trình làm khô. Mối tương quan giữa các tín hiệu cung cấp thông tin mà một phép đo tổng thành phần khó cho được. Nó cũng giúp nhận ra những thành phần như zinc cần được xem xét thêm, thay vì cố giữ một lời giải thích duy nhất.\n\n## Ứng dụng hôm nay: bảo tồn cần theo dõi vật liệu đang đổi\n\nDữ liệu quang phổ hỗ trợ lựa chọn cách quản lý môi trường và nghiên cứu xử lý gỗ khảo cổ. Các biện pháp phải được kiểm tra trên vật liệu cụ thể; kết quả ở một mẫu không tự bảo đảm hiệu quả đồng đều trên toàn bộ thân tàu. Mục tiêu là hiểu và làm chậm những con đường suy thoái, không biến gỗ đã qua hàng thế kỷ thành vật liệu mới.\n\nMary Rose đưa XANES ra khỏi hình ảnh một đồ thị khó đọc. Những biến đổi ở electron liên quan trực tiếp tới khả năng giữ nguyên một di sản lớn. Câu hỏi đúng không chỉ là “trong gỗ có sulfur không”, mà là “sulfur đang ở dạng nào, tại đâu, và sẽ đi về đâu khi môi trường đổi”. Đó cũng là câu hỏi hữu ích với pin, xúc tác và nhiều vật liệu đang phản ứng trong đời sống.\n\n## Nguồn và đọc thêm\n\n- [Sandström và cộng sự · Sulfur trong gỗ Mary Rose, 2005](https://doi.org/10.1073/pnas.0504490102)\n- [ESRF · Khảo sát trạng thái hóa học và vị trí sulfur, 2005](https://www.esrf.fr/news/general-old/general-2005/MARYROSE/index_html)\n- [Mary Rose Trust · Nghiên cứu biến đổi sulfur khi làm khô gỗ](https://maryrose.org/new-research-provides-crucial-information-on-degradation-processes-which-will-be-used-to-protect-the-mary-rose/)"
+}

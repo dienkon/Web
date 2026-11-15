@@ -1,0 +1,44 @@
+{
+  "id": "fischer-tropsch-khi-thanh-sap",
+  "slug": "fischer-tropsch-khi-thanh-sap",
+  "documentPath": "docs/fischer-tropsch-khi-thanh-sap/index.json",
+  "title": "Trước khi thành nhiên liệu lỏng, khí đã trở thành sáp",
+  "summary": "Chuyến hàng đầu tiên từ Pearl GTL năm 2011 đi qua một hành trình hóa học dài. Fischer–Tropsch tạo ra một phổ mạch carbon, rồi nhà máy phải tiếp tục chọn và biến đổi chúng.",
+  "category": "phanung",
+  "author": "Ban biên tập ChemDex",
+  "image": "/assets/library/organic-alkane.svg",
+  "tags": [
+    "Fischer–Tropsch",
+    "GTL",
+    "Khí tổng hợp",
+    "Hydrocarbon"
+  ],
+  "aliases": [],
+  "documentKind": "story",
+  "readingMinutes": 4,
+  "editorialEvidence": {
+    "language": "vi",
+    "scope": "chemical-family",
+    "contextLabel": "Trước khi thành nhiên liệu lỏng, khí đã trở thành sáp",
+    "reviewBasis": "Biên soạn theo các nguồn dẫn cuối bài; phân biệt kết quả đã thực hiện và hướng phát triển.",
+    "story": {
+      "status": "documented",
+      "section": "## Chuyến hàng tháng 6 năm 2011",
+      "sources": [
+        "https://www.qatarenergy.qa/en/MediaCenter/Publications/2012%20Annual%20Report%20-%20English%202012.pdf",
+        "https://netl.doe.gov/sites/default/files/2026-02/Gasification%20Handbook.pdf",
+        "https://www.shell.com/what-we-do/oil-and-natural-gas/gas-to-liquids.html"
+      ]
+    },
+    "application": {
+      "status": "documented",
+      "section": "## Ứng dụng hôm nay: cùng phản ứng, dấu chân khác nhau",
+      "sources": [
+        "https://www.qatarenergy.qa/en/MediaCenter/Publications/2012%20Annual%20Report%20-%20English%202012.pdf",
+        "https://netl.doe.gov/sites/default/files/2026-02/Gasification%20Handbook.pdf",
+        "https://www.shell.com/what-we-do/oil-and-natural-gas/gas-to-liquids.html"
+      ]
+    }
+  },
+  "content": "## Chuyến hàng tháng 6 năm 2011\n\nNgày 13 tháng 6 năm 2011, lô hàng thương mại đầu tiên của Pearl GTL rời Ras Laffan ở Qatar. Báo cáo của Qatar Petroleum ghi nhận trước đó cơ sở đã tạo được sáp và nhiên liệu lỏng trong quá trình khởi động. Những mốc này kể một hành trình khác việc tách nhiên liệu từ dầu thô.\n\nNguyên liệu khí phải đi qua nhiều công đoạn để trở thành hỗn hợp sản phẩm có thể bán. Trong tuyến GTL, khí tổng hợp được chuyển hóa thành hydrocarbon qua hóa học Fischer–Tropsch; sản phẩm nặng tiếp tục được xử lý và phân tách. Sáp không phải một sự cố ngoài ý muốn, mà là phần quan trọng của cách tạo những sản phẩm ở cuối dây chuyền.\n\n![Minh họa mạch alkane, không phải ảnh sản phẩm hay nhà máy Pearl GTL](/assets/library/organic-alkane.svg)\n\n## Các đơn vị carbon nối lại trên bề mặt xúc tác\n\nKhí tổng hợp chứa carbon monoxide và hydrogen. Trong Fischer–Tropsch, chúng tham gia một mạng phản ứng trên xúc tác để tạo hydrocarbon và những sản phẩm liên quan. Một phương trình lý tưởng cho alkane có thể viết **nCO + (2n + 1)H₂ → CₙH₂ₙ₊₂ + nH₂O**.\n\nChữ n trong phương trình không phải một nút chỉnh trực tiếp để chọn đúng một chiều dài mạch. Thực tế, các quá trình tăng trưởng và kết thúc mạch tạo một phân bố sản phẩm. Cùng dòng nguyên liệu có thể cho những phân tử khí, lỏng và sáp, với tỷ lệ phụ thuộc hệ xúc tác và điều kiện.\n\nNETL mô tả xúc tác cobalt và iron trong các tuyến thương mại, đồng thời nhấn mạnh bài toán chọn lọc. Từ tên nguyên tố chưa thể suy ra toàn bộ phân bố sản phẩm; chất hỗ trợ, chất tăng cường và cách tổ chức thiết bị cũng tham gia.\n\n## Tỏa nhiệt nhiều khiến thiết bị trở thành một phần của hóa học\n\nPhản ứng Fischer–Tropsch giải phóng nhiệt. Nếu nhiệt không được lấy đi phù hợp, vùng phản ứng có thể không giữ được điều kiện mong muốn. Khi đó hoạt tính, phân bố sản phẩm và tuổi thọ xúc tác đều bị ảnh hưởng. Việc tăng quy mô không chỉ là làm một bình lớn hơn.\n\nSản phẩm đầu ra còn phải được nâng cấp. Các mạch nặng có thể được chuyển thành những dải phù hợp với nhiên liệu hoặc dầu gốc, rồi phân tách theo yêu cầu. Một kết quả tạo nhiều hydrocarbon không tự đồng nghĩa sản phẩm đạt chuẩn sử dụng cuối cùng.\n\nNhà máy cũng cần làm sạch khí đầu vào để bảo vệ xúc tác. Những phần ít xuất hiện trong phương trình, như tạp chất và xử lý nước sinh ra, có thể ảnh hưởng lớn đến độ tin cậy của cả hệ.\n\n## Ứng dụng hôm nay: cùng phản ứng, dấu chân khác nhau\n\nGTL tạo thêm một con đường từ khí tự nhiên tới sản phẩm lỏng. Fischer–Tropsch cũng được nghiên cứu trong những tuyến dùng khí tổng hợp từ nguồn khác. Tuy nhiên, đổi nguồn carbon không đủ để kết luận tác động môi trường của sản phẩm đã giảm; cần tính cả năng lượng tạo khí tổng hợp, hydrogen và xử lý sau phản ứng.\n\nNhiên liệu có ít một số tạp chất không đồng nghĩa chu trình carbon bằng không. Khi hydrocarbon bị đốt, carbon vẫn đi vào sản phẩm cháy. Lợi ích và chi phí phải được so sánh theo toàn bộ vòng đời cùng chức năng sử dụng.\n\nChuyến hàng Pearl GTL giúp hình dung một điều thường bị bỏ qua: hóa học có thể tạo sản phẩm hữu ích bằng cách đi qua hỗn hợp rộng rồi tiếp tục chế biến. Hiểu đúng quy trình cần nhìn cả sáp trung gian, công đoạn nâng cấp và những dòng vật chất chưa lên được tàu hàng.\n\n## Nguồn và đọc thêm\n\n- [Qatar Petroleum · Báo cáo 2012 về các mốc Pearl GTL năm 2011](https://www.qatarenergy.qa/en/MediaCenter/Publications/2012%20Annual%20Report%20-%20English%202012.pdf)\n- [NETL · Fischer–Tropsch trong sổ tay công nghệ khí hóa, 2026](https://netl.doe.gov/sites/default/files/2026-02/Gasification%20Handbook.pdf)\n- [Shell · Công nghệ và sản phẩm gas-to-liquids](https://www.shell.com/what-we-do/oil-and-natural-gas/gas-to-liquids.html)"
+}

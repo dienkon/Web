@@ -1,0 +1,44 @@
+{
+  "id": "jean-pierre-sauvage-hai-vong-khong-roi-nhau",
+  "slug": "jean-pierre-sauvage-hai-vong-khong-roi-nhau",
+  "documentPath": "docs/jean-pierre-sauvage-hai-vong-khong-roi-nhau/index.json",
+  "title": "Jean-Pierre Sauvage: hai chiếc vòng không cần hàn vẫn không rời nhau",
+  "summary": "Một ion đồng giúp đặt các mảnh phân tử vào đúng vị trí trước khi đóng vòng. Từ đó, Sauvage và cộng sự biến liên kết cơ học thành một đối tượng có thể thiết kế.",
+  "category": "tieusu",
+  "author": "Ban biên tập ChemDex",
+  "image": "/assets/library/covalent-bonds.svg",
+  "tags": [
+    "Jean-Pierre Sauvage",
+    "Catenane",
+    "Liên kết cơ học",
+    "Máy phân tử"
+  ],
+  "aliases": [],
+  "documentKind": "story",
+  "readingMinutes": 5,
+  "editorialEvidence": {
+    "language": "vi",
+    "scope": "chemical-family",
+    "contextLabel": "Jean-Pierre Sauvage: hai chiếc vòng không cần hàn vẫn không rời nhau",
+    "reviewBasis": "Biên soạn theo các nguồn dẫn cuối bài; phân biệt kết quả đã thực hiện và hướng phát triển.",
+    "story": {
+      "status": "documented",
+      "section": "## Đóng vòng sau khi đã luồn qua nhau",
+      "sources": [
+        "https://www.nobelprize.org/uploads/2018/06/sauvage-lecture.pdf",
+        "https://news.cnrs.fr/articles/jean-pierre-sauvage-a-nobel-for-molecular-machines",
+        "https://recherche.unistra.fr/actualites-recherche/archives-en-details/10645-nobel-de-chimie-2016-quand-les-molecules-se-font-machines.html"
+      ]
+    },
+    "application": {
+      "status": "documented",
+      "section": "## Ứng dụng hôm nay bắt đầu từ điều khiển có kiểm chứng",
+      "sources": [
+        "https://www.nobelprize.org/uploads/2018/06/sauvage-lecture.pdf",
+        "https://news.cnrs.fr/articles/jean-pierre-sauvage-a-nobel-for-molecular-machines",
+        "https://recherche.unistra.fr/actualites-recherche/archives-en-details/10645-nobel-de-chimie-2016-quand-les-molecules-se-font-machines.html"
+      ]
+    }
+  },
+  "content": "## Đóng vòng sau khi đã luồn qua nhau\n\nNăm 1983, Jean-Pierre Sauvage, Christiane Dietrich-Buchecker và Jean-Pierre Kintzinger công bố một cách tổng hợp catenane dựa trên ion đồng. Họ dùng sự phối trí để giữ các thành phần trong một bố trí thuận lợi, rồi thực hiện phản ứng đóng vòng. Hai vòng được tạo ra có thể móc vào nhau như những mắt xích.\n\nCatenane đã được nghiên cứu trước đó. Bước tiến của nhóm Strasbourg nằm ở cách tạo cấu trúc đan cài có chủ đích và thuận lợi hơn, không phải phát minh đầu tiên về ý tưởng hai vòng liên kết. Phân biệt ấy giúp nhận ra đổi mới thật: thay vì trông chờ hai mảnh tình cờ gặp đúng tư thế, hóa học phối trí chuẩn bị cuộc gặp.\n\nMột ion kim loại vốn gợi đến phản ứng oxi hóa–khử ở đây được giao nhiệm vụ tổ chức không gian. Câu chuyện mở ra từ khả năng nhìn một tương tác quen thuộc dưới góc độ khác.\n\n![Minh họa liên kết phân tử; không phải cấu trúc catenane được đo thực nghiệm](/assets/library/covalent-bonds.svg)\n\n## Liên kết nằm trong cách mắc vào nhau\n\nCác nguyên tử trong từng vòng vẫn nối bằng liên kết hóa học. Nhưng quan hệ giữ hai vòng với nhau là sự đan cài: nếu các vòng còn nguyên, chúng không thể tách ra chỉ bằng việc kéo xa. Liên kết cơ học vì thế khác một liên kết cộng hóa trị trực tiếp nối hai thành phần.\n\nĐiều đó tạo thêm quyền tự do chuyển động. Hai phần có thể đổi vị trí tương đối mà vẫn thuộc một hệ. Trong một phân tử thông thường, muốn thay đổi lớn cách sắp xếp có thể phải bẻ và tạo liên kết; một hệ đan cài mở những con đường chuyển động khác.\n\nTuy nhiên, tự do không có nghĩa mọi tư thế đều tương đương. Tương tác giữa các nhóm, ion và dung môi làm một số trạng thái thuận lợi hơn. Muốn điều khiển chuyển động, người nghiên cứu cần thay đổi sự ưu tiên đó bằng một tín hiệu có thể kiểm soát.\n\n## Từ mắt xích tới bộ phận chuyển động\n\nTrong bài giảng Nobel, Sauvage lần theo đường phát triển từ hình học đan cài tới các hệ có chuyển động do thay đổi điều kiện hóa học hoặc điện hóa. Thiết kế bắt đầu tính tới trạng thái đầu, trạng thái sau và cách đưa hệ trở lại, chứ không dừng ở việc tổng hợp một hình dạng thú vị.\n\nĐây là một yêu cầu cao hơn quan sát phân tử chuyển động nhiệt. Một bộ phận hữu ích phải đáp ứng theo cách có thể dự đoán. Nó cần có nguồn năng lượng, đường chuyển trạng thái và phép đo chứng minh rằng chuyển động mong muốn thực sự xảy ra.\n\nCNRS mô tả những cấu trúc giống cơ bắp nhân tạo ở cấp phân tử như một hướng khai thác khả năng ấy. Cách gọi giúp hình dung chức năng, nhưng không có nghĩa vật liệu đã thay thế cơ bắp sinh học hoặc trở thành thiết bị hoàn chỉnh trong đời sống.\n\n## Ứng dụng hôm nay bắt đầu từ điều khiển có kiểm chứng\n\nLiên kết cơ học hiện là nền tảng nghiên cứu công tắc, máy phân tử và vật liệu có kiến trúc đan cài. Tính hữu ích phụ thuộc điều người ta cần kiểm soát: khoảng cách, vị trí, khả năng tiếp cận hay đáp ứng của cả vật liệu. Mỗi hướng cần một thiết kế và bộ phép thử riêng.\n\nMột phân tử hoạt động trong dung dịch còn phải vượt qua nhiều bước nếu muốn đóng góp cho thiết bị: gắn vào môi trường phù hợp, duy trì hoạt động qua nhiều chu kỳ và truyền thay đổi nhỏ thành tín hiệu đọc được. Không thể lấy một hình phân tử chuyển động rồi suy ra ngay một cỗ máy thu nhỏ có mọi chức năng.\n\nSauvage giúp mở thêm một biến số cho hóa học tổng hợp: không chỉ nguyên tử nối với nguyên tử nào, mà các cấu phần mắc vào nhau ra sao. Hai chiếc vòng nhỏ đã làm ranh giới giữa cấu trúc và chuyển động trở thành nơi có thể thiết kế thí nghiệm.\n\n## Nguồn và đọc thêm\n\n- [Jean-Pierre Sauvage · Bài giảng Nobel](https://www.nobelprize.org/uploads/2018/06/sauvage-lecture.pdf)\n- [CNRS · Liên kết cơ học và máy phân tử](https://news.cnrs.fr/articles/jean-pierre-sauvage-a-nobel-for-molecular-machines)\n- [Đại học Strasbourg · Chương trình nghiên cứu máy phân tử](https://recherche.unistra.fr/actualites-recherche/archives-en-details/10645-nobel-de-chimie-2016-quand-les-molecules-se-font-machines.html)"
+}

@@ -1,0 +1,44 @@
+{
+  "id": "chloralkali-mang-ngan-tao-ba-san-pham",
+  "slug": "chloralkali-mang-ngan-tao-ba-san-pham",
+  "documentPath": "docs/chloralkali-mang-ngan-tao-ba-san-pham/index.json",
+  "title": "Tấm màng giữ ba sản phẩm đi đúng đường trong bể điện phân",
+  "summary": "Nhà máy màng của Asahi Chemical hoạt động từ năm 1975 là một mốc trong chlor-alkali. Tấm màng không chỉ chia bể; nó giúp kiểm soát những ion nào được đi qua.",
+  "category": "phanung",
+  "author": "Ban biên tập ChemDex",
+  "image": "/assets/library/photos/stories/water-electrolysis.jpg",
+  "tags": [
+    "Chlor-alkali",
+    "Điện phân",
+    "Màng trao đổi ion",
+    "Natri hydroxide"
+  ],
+  "aliases": [],
+  "documentKind": "story",
+  "readingMinutes": 4,
+  "editorialEvidence": {
+    "language": "vi",
+    "scope": "chemical-family",
+    "contextLabel": "Tấm màng giữ ba sản phẩm đi đúng đường trong bể điện phân",
+    "reviewBasis": "Biên soạn theo các nguồn dẫn cuối bài; phân biệt kết quả đã thực hiện và hướng phát triển.",
+    "story": {
+      "status": "documented",
+      "section": "## Từ nghiên cứu polymer tới một nhà máy năm 1975",
+      "sources": [
+        "https://doi.org/10.1021/bk-1982-0180.ch015",
+        "https://eurochlor.org/products/chlorine-cl/",
+        "https://chlor-alkali.asahi-kasei.co.jp/en/"
+      ]
+    },
+    "application": {
+      "status": "documented",
+      "section": "## Ứng dụng hôm nay: ba sản phẩm tạo ra ba mối liên hệ thị trường",
+      "sources": [
+        "https://doi.org/10.1021/bk-1982-0180.ch015",
+        "https://eurochlor.org/products/chlorine-cl/",
+        "https://chlor-alkali.asahi-kasei.co.jp/en/"
+      ]
+    }
+  },
+  "content": "## Từ nghiên cứu polymer tới một nhà máy năm 1975\n\nBáo cáo kỹ thuật của nhóm Asahi Chemical cho biết nhà máy chlor-alkali dùng màng bắt đầu vận hành trong năm 1975. Trước đó là nhiều năm khảo sát nhóm trao đổi ion, cấu trúc polymer, hiệu suất dòng và điện áp. Một vật liệu mỏng phải làm việc lâu dài trong môi trường hóa học đòi hỏi cao.\n\nMốc này không có nghĩa điện phân nước muối được phát minh năm 1975. Bước thay đổi là cách tổ chức sự ngăn cách và vận chuyển ion trong hệ. Công nghệ màng mở một tuyến sản xuất không dùng mercury hay asbestos như những thiết kế truyền thống nhất định.\n\n![Cụm cell của thiết bị điện phân](/assets/library/photos/stories/water-electrolysis.jpg)\n\n*Mặt trước các cell của một thiết bị điện phân; các cell được ghép thành cụm để vận hành. — CambridgeBayWeather; [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0). [Nguồn ảnh](https://commons.wikimedia.org/wiki/File:Front_cells.jpg).*\n\n## Nước muối đi vào, ba dòng sản phẩm đi ra\n\nPhương trình tổng thể của chlor-alkali có thể viết **2NaCl + 2H₂O → Cl₂ + H₂ + 2NaOH**. Chloride bị oxi hóa ở anode; nước tham gia quá trình tạo hydrogen và hydroxide ở cathode. Sodium cần được vận chuyển giữa các phần của cell theo cách duy trì cân bằng điện tích.\n\nNếu các sản phẩm trộn lại không kiểm soát, chúng có thể phản ứng với nhau hoặc làm chất lượng dòng thu được không đạt yêu cầu. Màng trao đổi ion giúp chọn lọc sự đi qua của ion trong khi hạn chế những dòng không mong muốn. Đây là chức năng hóa học của vật liệu, vượt quá việc đặt một vách ngăn cơ học.\n\nẢnh cụm điện phân trong bài chỉ minh họa cách nhiều cell được ghép thành thiết bị; nó không phải ảnh xác nhận cấu hình màng của nhà máy lịch sử.\n\n## Một muối hòa tan vẫn cần được làm sạch rất kỹ\n\nChất lượng dung dịch muối đầu vào ảnh hưởng màng và điện cực. Những ion không mong muốn có thể gây đóng cặn hoặc làm suy giảm hiệu quả. Việc tinh chế nguyên liệu không thể bị bỏ qua chỉ vì sodium chloride là chất dễ kiếm.\n\nSau cell còn có các bước xử lý chlorine, hydrogen và dung dịch kiềm. Lượng điện dùng ở cell là một thông số quan trọng, nhưng không đại diện toàn bộ năng lượng của nhà máy. Nồng độ sản phẩm, bơm, làm khô và những công đoạn phụ trợ cũng đóng góp.\n\nAsahi Kasei tiếp tục cung cấp màng và hệ điện phân hiện nay, cùng những dịch vụ theo dõi vận hành. Điều đó cho thấy thiết bị không phải tài sản được lắp xong rồi quên đi. Hiệu năng và tuổi thọ cần được quản lý qua dữ liệu và bảo trì.\n\n## Ứng dụng hôm nay: ba sản phẩm tạo ra ba mối liên hệ thị trường\n\nChlorine, sodium hydroxide và hydrogen phục vụ những nhu cầu công nghiệp khác nhau. Tỷ lệ tạo thành của chúng bị ràng buộc bởi phản ứng. Vì vậy, nhu cầu tăng đối với một sản phẩm có thể tạo áp lực tiêu thụ hoặc xử lý những dòng còn lại.\n\nMàng giúp cải thiện một công nghệ điện hóa, nhưng không xóa bài toán đồng sản phẩm và nguồn điện. Đánh giá một cơ sở cần biết điện đến từ đâu, sản phẩm được sử dụng ở đâu và nguyên liệu muối được chuẩn bị bằng cách nào.\n\nTừ nghiên cứu polymer đến nhà máy chlor-alkali, câu chuyện này cho thấy một vật liệu có thể thay đổi công nghệ mà không thay đổi phương trình tổng thể. Điều mới nằm ở việc hướng từng ion đi đúng đường, giữ sản phẩm tách biệt và duy trì chức năng ấy qua thời gian vận hành thực tế.\n\n## Nguồn và đọc thêm\n\n- [Nhóm Asahi Chemical · Phát triển màng và nhà máy năm 1975](https://doi.org/10.1021/bk-1982-0180.ch015)\n- [Euro Chlor · Nguyên lý điện phân chlorine và các đồng sản phẩm](https://eurochlor.org/products/chlorine-cl/)\n- [Asahi Kasei · Công nghệ màng chlor-alkali hiện tại](https://chlor-alkali.asahi-kasei.co.jp/en/)"
+}

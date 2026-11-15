@@ -1,0 +1,44 @@
+{
+  "id": "contact-acid-sulfuric-giu-nhiet-dung-cho",
+  "slug": "contact-acid-sulfuric-giu-nhiet-dung-cho",
+  "documentPath": "docs/contact-acid-sulfuric-giu-nhiet-dung-cho/index.json",
+  "title": "Acid sulfuric và nghệ thuật đặt nhiệt ở đúng chỗ",
+  "summary": "Xúc tác vanadium giúp oxi hóa sulfur dioxide, nhưng nhiều lớp xúc tác và các bước hấp thụ mới tạo thành một quy trình. Nhà máy acid là bài học về nhiệt, cân bằng và phân tách.",
+  "category": "phanung",
+  "author": "Ban biên tập ChemDex",
+  "image": "/assets/library/industrial-reactor.svg",
+  "tags": [
+    "Acid sulfuric",
+    "Vanadium",
+    "Cân bằng",
+    "Quy trình tiếp xúc"
+  ],
+  "aliases": [],
+  "documentKind": "story",
+  "readingMinutes": 5,
+  "editorialEvidence": {
+    "language": "vi",
+    "scope": "chemical-family",
+    "contextLabel": "Acid sulfuric và nghệ thuật đặt nhiệt ở đúng chỗ",
+    "reviewBasis": "Biên soạn theo các nguồn dẫn cuối bài; phân biệt kết quả đã thực hiện và hướng phát triển.",
+    "story": {
+      "status": "documented",
+      "section": "## Một vật liệu xúc tác có lịch sử hơn một thế kỷ",
+      "sources": [
+        "https://chemical-catalysts-and-adsorbents.basf.com/global/en/oxidation-dehydrogenation-catalysts/sulfuric-acid-catalysts",
+        "https://www.epa.gov/sites/default/files/2020-09/documents/8.10_sulfuric_acid.pdf",
+        "https://openstax.org/books/chemistry-2e/pages/13-3-shifting-equilibria-le-chateliers-principle"
+      ]
+    },
+    "application": {
+      "status": "documented",
+      "section": "## Ứng dụng hôm nay: đo hiệu quả ở cả ống khói và sản phẩm",
+      "sources": [
+        "https://chemical-catalysts-and-adsorbents.basf.com/global/en/oxidation-dehydrogenation-catalysts/sulfuric-acid-catalysts",
+        "https://www.epa.gov/sites/default/files/2020-09/documents/8.10_sulfuric_acid.pdf",
+        "https://openstax.org/books/chemistry-2e/pages/13-3-shifting-equilibria-le-chateliers-principle"
+      ]
+    }
+  },
+  "content": "## Một vật liệu xúc tác có lịch sử hơn một thế kỷ\n\nBASF ghi mốc phát triển xúc tác acid sulfuric dựa trên vanadium từ năm 1913. Những sản phẩm được giới thiệu hiện nay tiếp tục thay đổi về hình dạng và hiệu năng, dù phản ứng nền tảng đã được sử dụng rất lâu. Đây là một ví dụ rõ rằng công nghệ trưởng thành vẫn còn chỗ cho cải tiến.\n\nNgười đọc thường nhớ acid sulfuric bằng công thức H₂SO₄ hoặc khả năng làm đổi màu chỉ thị. Trong nhà máy, một phần quyết định lại nằm trước khi acid thành phẩm xuất hiện: chuyển sulfur dioxide thành sulfur trioxide với hiệu quả phù hợp, rồi thu sản phẩm theo cách kiểm soát được.\n\n![Minh họa một hệ phản ứng công nghiệp, không phải sơ đồ chế tạo acid](/assets/library/industrial-reactor.svg)\n\n## Một phản ứng thuận lợi cần vượt qua trở ngại tốc độ\n\nBước tiếp xúc được viết **2SO₂ + O₂ ⇌ 2SO₃**. Đây là phản ứng tỏa nhiệt. Ở những điều kiện nhiệt độ khác nhau, tốc độ đạt cân bằng và thành phần cân bằng không thay đổi theo cùng hướng có lợi. Nhà thiết kế phải chọn cách dung hòa, thay vì chỉ hỏi nhiệt độ nào làm phản ứng nhanh nhất.\n\nHệ xúc tác dựa trên vanadium tạo đường phản ứng có thể vận hành hiệu quả. Nó không cung cấp oxygen vô hạn và không xóa quy luật cân bằng. Khi thành phần khí thay đổi qua lớp xúc tác, phần chuyển hóa còn có thể đạt ở lớp sau cũng thay đổi.\n\nHình dạng viên xúc tác ảnh hưởng đến tiếp xúc, dòng khí và độ giảm áp. Vì vậy, cải tiến hình học vật liệu có thể mang lại lợi ích dù không thay đổi tên các chất trong phương trình.\n\n## Hấp thụ cũng là một cách thúc đẩy chuỗi sản xuất\n\nMô tả kỹ thuật của EPA phân biệt các cấu hình tiếp xúc và hấp thụ trong sản xuất acid. Lấy sản phẩm khỏi một dòng khí rồi xử lý phần còn lại là một cách tổ chức để cải thiện kết quả tổng thể. Các lớp phản ứng và thiết bị trao đổi nhiệt phải được đặt trong quan hệ với nhau.\n\nSO₃ không đơn giản được coi là một khí chỉ cần đổ vào nước tùy ý để có sản phẩm đạt chất lượng. Hấp thụ, tạo acid và kiểm soát sương acid là những phần kỹ thuật riêng. Một phương trình thể hiện đúng cân bằng nguyên tử chưa mô tả đầy đủ hành vi khi các pha tiếp xúc.\n\nNhiệt thu hồi từ quá trình có thể được sử dụng trong nhà máy. Nhưng hiệu quả thu hồi phụ thuộc thiết kế, chất lượng nguồn khí và cách kết nối với các nhu cầu nhiệt khác. Không nên biến khả năng thu nhiệt thành lời khẳng định mọi cơ sở đều tự cung cấp toàn bộ năng lượng.\n\n## Ứng dụng hôm nay: đo hiệu quả ở cả ống khói và sản phẩm\n\nAcid sulfuric là nguyên liệu của nhiều chuỗi công nghiệp, trong đó có sản xuất phân bón và xử lý vật liệu. Một cơ sở làm acid cần đồng thời đáp ứng lượng sản phẩm, nồng độ, độ sạch và yêu cầu kiểm soát khí thải. Hiệu suất phản ứng chỉ là một phần của các tiêu chí ấy.\n\nKhi một nhà cung cấp giới thiệu xúc tác mới, câu hỏi hữu ích gồm: nó làm việc tốt trong vùng nhiệt nào, giảm áp ra sao, có chịu được tạp chất và duy trì hoạt tính lâu không? Những thông số ấy liên kết hóa học bề mặt với năng lượng vận hành thực tế.\n\nTừ mốc vanadium năm 1913 đến những viên xúc tác có hình dạng mới, câu chuyện acid sulfuric nhắc rằng một phương trình có thể tồn tại hàng thế kỷ trong khi thiết bị tiếp tục thay đổi. Tiến bộ thường nằm ở việc đưa khí, nhiệt và sản phẩm qua đúng nơi, đúng thứ tự và với bằng chứng đo được.\n\n## Nguồn và đọc thêm\n\n- [BASF · Xúc tác sulfuric acid và lịch sử vanadium](https://chemical-catalysts-and-adsorbents.basf.com/global/en/oxidation-dehydrogenation-catalysts/sulfuric-acid-catalysts)\n- [U.S. EPA · AP-42, sản xuất acid sulfuric](https://www.epa.gov/sites/default/files/2020-09/documents/8.10_sulfuric_acid.pdf)\n- [OpenStax · Cân bằng, nhiệt độ và nguyên lý Le Châtelier](https://openstax.org/books/chemistry-2e/pages/13-3-shifting-equilibria-le-chateliers-principle)"
+}

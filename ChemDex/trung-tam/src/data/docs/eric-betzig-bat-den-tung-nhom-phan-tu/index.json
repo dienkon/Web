@@ -1,0 +1,44 @@
+{
+  "id": "eric-betzig-bat-den-tung-nhom-phan-tu",
+  "slug": "eric-betzig-bat-den-tung-nhom-phan-tu",
+  "documentPath": "docs/eric-betzig-bat-den-tung-nhom-phan-tu/index.json",
+  "title": "Eric Betzig: bật đèn từng nhóm nhỏ để nhìn rõ một cấu trúc đông đúc",
+  "summary": "PALM không yêu cầu mọi phân tử sáng cùng lúc. Betzig, Harald Hess và cộng sự tách chúng theo thời gian, xác định vị trí rồi ghép thành ảnh có độ phân giải cao hơn.",
+  "category": "tieusu",
+  "author": "Ban biên tập ChemDex",
+  "image": "/assets/library/apparatus-spectroscope.svg",
+  "tags": [
+    "Eric Betzig",
+    "PALM",
+    "Hiển vi",
+    "Protein huỳnh quang"
+  ],
+  "aliases": [],
+  "documentKind": "story",
+  "readingMinutes": 5,
+  "editorialEvidence": {
+    "language": "vi",
+    "scope": "chemical-family",
+    "contextLabel": "Eric Betzig: bật đèn từng nhóm nhỏ để nhìn rõ một cấu trúc đông đúc",
+    "reviewBasis": "Biên soạn theo các nguồn dẫn cuối bài; phân biệt kết quả đã thực hiện và hướng phát triển.",
+    "story": {
+      "status": "documented",
+      "section": "## Kính hiển vi bắt đầu trong phòng khách",
+      "sources": [
+        "https://www.janelia.org/sites/default/files/Library/Betzig%20PALM%20Science%202006.pdf",
+        "https://www.nobelprize.org/prizes/chemistry/2014/betzig/biographical/",
+        "https://www.janelia.org/archive/lattice-light-sheet-microscope"
+      ]
+    },
+    "application": {
+      "status": "documented",
+      "section": "## Ứng dụng hôm nay: ảnh được dựng từ những phép đọc có giới hạn",
+      "sources": [
+        "https://www.janelia.org/sites/default/files/Library/Betzig%20PALM%20Science%202006.pdf",
+        "https://www.nobelprize.org/prizes/chemistry/2014/betzig/biographical/",
+        "https://www.janelia.org/archive/lattice-light-sheet-microscope"
+      ]
+    }
+  },
+  "content": "## Kính hiển vi bắt đầu trong phòng khách\n\nTrong tự thuật Nobel, Eric Betzig kể ông cùng Harald Hess lắp nguyên mẫu PALM tại phòng khách của Hess năm 2005. Họ kết hợp khả năng kích hoạt những protein huỳnh quang với một ý tưởng về cách phân biệt các nguồn sáng nằm rất gần nhau.\n\nCông trình năm 2006 có sự tham gia của nhiều cộng sự, trong đó có những người cung cấp chuyên môn sinh học và protein đánh dấu. Các ảnh được tạo bằng nhiều lượt kích hoạt, xác định vị trí và làm mất huỳnh quang của những tập hợp phân tử thưa.\n\nKhác biệt của phương pháp nằm ở cách tổ chức phép quan sát. Nếu tất cả các phân tử gần nhau cùng sáng, tín hiệu chồng lấp. Nếu chỉ một phần nhỏ sáng trong mỗi lượt, có thể ước lượng vị trí từng nguồn riêng hơn, rồi cộng thông tin qua nhiều lượt.\n\n![Minh họa thiết bị quang học, không phải kính PALM đầu tiên](/assets/library/apparatus-spectroscope.svg)\n\n## Điểm sáng rộng vẫn có thể có tâm được đo chính xác\n\nDo nhiễu xạ, một nguồn rất nhỏ không xuất hiện như một điểm có kích thước bằng không trên ảnh. Nó tạo một phân bố sáng. Nhưng khi nguồn tách biệt và thu được đủ photon, có thể dùng mô hình để ước lượng tâm phân bố với độ chính xác nhỏ hơn bề rộng của chính vệt sáng.\n\nPALM khai thác sự khác biệt giữa bề rộng ảnh của một nguồn và độ chính xác định vị nguồn đó. Nó không làm ánh sáng ngừng tuân theo nhiễu xạ. Thay vào đó, thông tin được tách theo thời gian và xử lý dưới những điều kiện cho phép.\n\nĐộ chính xác định vị cũng không tự bằng độ phân giải của cả cấu trúc. Mật độ dấu đánh dấu, số lượt quan sát, nền và độ ổn định thiết bị đều ảnh hưởng ảnh cuối. Một điểm được định vị tốt nhưng quá ít điểm trên cấu trúc vẫn có thể bỏ sót hình dạng cần biết.\n\n## Nhiều lượt chụp tạo thêm một bài toán về thời gian\n\nBài báo gốc trình bày các mẫu cố định và lát mỏng để chứng minh phương pháp. Khi phải ghép nhiều lượt, chuyển động của mẫu hoặc trôi thiết bị có thể làm các vị trí không còn nằm trong cùng hệ tọa độ. Ảnh càng chi tiết càng đòi hỏi kiểm soát những sai lệch nhỏ.\n\nBetzig về sau tiếp tục phát triển những phương pháp khác phục vụ quan sát hệ sống, trong đó có kính hiển vi tấm sáng dạng mạng. Janelia mô tả việc chia sẻ thiết kế và cho các nhóm bên ngoài sử dụng thiết bị qua trung tâm ảnh tiên tiến. Đây là hướng tiếp theo với những đánh đổi khác, không phải chỉ tăng một con số độ phân giải của PALM.\n\nMục tiêu quan sát quyết định cách chọn công cụ. Một cấu trúc tĩnh cần chi tiết không gian; một quá trình nhanh còn cần giữ được thứ tự và thời gian các sự kiện.\n\n## Ứng dụng hôm nay: ảnh được dựng từ những phép đọc có giới hạn\n\nHiển vi định vị giúp nghiên cứu tổ chức của protein và những cấu trúc nhỏ trong tế bào. Khi đọc ảnh, cần xem dấu được gắn vào đâu, số lần một phân tử có thể được ghi nhận và cách dữ liệu thô được chuyển thành bản đồ vị trí.\n\nNhững điều đó đặc biệt quan trọng khi muốn đếm phân tử hoặc so sánh mật độ. Một chấm trong ảnh dựng không luôn tương ứng một phân tử duy nhất; nhấp nháy và hiệu suất đánh dấu có thể làm quan hệ phức tạp hơn.\n\nPhòng khách trong câu chuyện Betzig là một bối cảnh đáng nhớ, nhưng giá trị khoa học không đến từ sự giản dị của căn phòng. Nó đến từ cách đặt lại phép đo: tách một đám nguồn sáng chồng lấp thành các lượt có thể đọc, rồi kiểm tra những gì quá trình ghép ảnh thực sự cho phép kết luận.\n\n## Nguồn và đọc thêm\n\n- [Betzig và cộng sự · PALM, Science 2006](https://www.janelia.org/sites/default/files/Library/Betzig%20PALM%20Science%202006.pdf)\n- [Eric Betzig · Tự thuật Nobel](https://www.nobelprize.org/prizes/chemistry/2014/betzig/biographical/)\n- [Janelia · Kính hiển vi tấm sáng dạng mạng và chia sẻ công nghệ](https://www.janelia.org/archive/lattice-light-sheet-microscope)"
+}

@@ -1,0 +1,44 @@
+{
+  "id": "hydroformylation-them-mot-carbon",
+  "slug": "hydroformylation-them-mot-carbon",
+  "documentPath": "docs/hydroformylation-them-mot-carbon/index.json",
+  "title": "Thêm một carbon vào mạch: phát hiện ngoài dự kiến của Otto Roelen",
+  "summary": "Khi nghiên cứu khí tổng hợp, Otto Roelen gặp sản phẩm chứa oxygen ngoài điều ông đang tìm. Hydroformylation từ đó trở thành một con đường lớn tới aldehyde và alcohol công nghiệp.",
+  "category": "phanung",
+  "author": "Ban biên tập ChemDex",
+  "image": "/assets/library/organic-aldehyde.svg",
+  "tags": [
+    "Hydroformylation",
+    "Khí tổng hợp",
+    "Aldehyde",
+    "Chọn lọc"
+  ],
+  "aliases": [],
+  "documentKind": "story",
+  "readingMinutes": 4,
+  "editorialEvidence": {
+    "language": "vi",
+    "scope": "chemical-family",
+    "contextLabel": "Thêm một carbon vào mạch: phát hiện ngoài dự kiến của Otto Roelen",
+    "reviewBasis": "Biên soạn theo các nguồn dẫn cuối bài; phân biệt kết quả đã thực hiện và hướng phát triển.",
+    "story": {
+      "status": "documented",
+      "section": "## Sản phẩm phụ trở thành câu hỏi chính",
+      "sources": [
+        "https://doi.org/10.1002/anie.199421441",
+        "https://doi.org/10.1002/0471264180.or056.01",
+        "https://c4-chemicals.evonik.com/en/evonik-and-likat-discover-new-type-of-hydroformylation-177488.html"
+      ]
+    },
+    "application": {
+      "status": "documented",
+      "section": "## Ứng dụng hôm nay: chọn sản phẩm cho bước tiếp theo",
+      "sources": [
+        "https://doi.org/10.1002/anie.199421441",
+        "https://doi.org/10.1002/0471264180.or056.01",
+        "https://c4-chemicals.evonik.com/en/evonik-and-likat-discover-new-type-of-hydroformylation-177488.html"
+      ]
+    }
+  },
+  "content": "## Sản phẩm phụ trở thành câu hỏi chính\n\nNăm 1938 tại Ruhrchemie, Otto Roelen phát hiện phản ứng về sau được gọi là hydroformylation, hay tổng hợp oxo. Bối cảnh nghiên cứu gắn với khí tổng hợp và các sản phẩm olefin của công nghệ Fischer–Tropsch. Một hợp chất chứa oxygen xuất hiện đã dẫn nhóm nghiên cứu sang một con đường khác.\n\nTrong bài nghiên cứu lịch sử công nghệ, Boy Cornils và cộng sự mô tả Roelen không dừng ở việc ghi nhận chất lạ. Ông khảo sát khả năng áp dụng và tiến tới thiết kế thiết bị. Giá trị của phát hiện nằm trong việc nhận ra đó là một phản ứng có thể chủ động khai thác, thay vì một tạp chất cần loại bỏ khỏi thí nghiệm cũ.\n\n![Minh họa nhóm aldehyde, không phải sơ đồ đầy đủ của hydroformylation](/assets/library/organic-aldehyde.svg)\n\n## CO đóng góp carbon mới, hydrogen hoàn tất sản phẩm\n\nHydroformylation đưa carbon monoxide và hydrogen phản ứng với alkene để tạo aldehyde. Với ethylene, kết quả là propanal, dài hơn nguyên liệu một carbon: **C₂H₄ + CO + H₂ → C₂H₅CHO**. Nguyên tử carbon tăng thêm có nguồn rõ ràng từ CO; nó không xuất hiện do kéo giãn mạch cũ.\n\nVới nhiều alkene khác, có thể tạo aldehyde mạch thẳng và mạch nhánh. Hai sản phẩm cùng công thức phân tử nhưng có vị trí kết nối khác nhau. Nhà máy vì vậy quan tâm không chỉ phần trăm nguyên liệu đã phản ứng mà còn tỷ lệ giữa những cấu trúc thu được.\n\nPhức kim loại và các phối tử quanh nó ảnh hưởng đến sự ưu tiên ấy. Cobalt và rhodium thuộc những hệ xúc tác được phát triển cho quá trình, nhưng tên kim loại riêng lẻ không đủ mô tả tính năng của cả phức.\n\n## Giữ được xúc tác cũng quan trọng như tạo aldehyde\n\nMột xúc tác hòa tan có thể tiếp xúc tốt với cơ chất, nhưng khi sản phẩm cũng nằm trong pha lỏng thì tách hai thứ ra trở thành bài toán. Nếu mỗi mẻ sản phẩm mang theo một phần kim loại quý, lợi ích của tốc độ phản ứng có thể bị giảm bởi chi phí và yêu cầu tinh chế.\n\nNhững phát triển trong hydroformylation vì thế liên quan cả phối tử, dung môi và phân tách. Các thiết kế nhiều pha có thể giúp giữ xúc tác trong một môi trường trong khi sản phẩm chuyển sang môi trường khác. Đổi cách tách không nhất thiết đổi phương trình tổng thể, nhưng có thể thay đổi đáng kể khả năng vận hành.\n\nNghiên cứu của Evonik và LIKAT công bố năm 2022 cho thấy lĩnh vực vẫn tìm những hệ hoạt tính mới. Công bố nghiên cứu mở một hướng phát triển; nó không tự chứng minh một nhà máy hiện có đã chuyển sang công nghệ ấy.\n\n## Ứng dụng hôm nay: chọn sản phẩm cho bước tiếp theo\n\nAldehyde từ tổng hợp oxo có thể được chuyển tiếp thành alcohol hoặc những dẫn xuất khác. Các chuỗi sản phẩm liên quan đến chất hóa dẻo, dung môi và chất hoạt động bề mặt. Tính chất của sản phẩm cuối phụ thuộc cả cấu trúc mạch lẫn những phản ứng sau hydroformylation.\n\nBởi vậy, tỷ lệ mạch thẳng và nhánh cần được đọc theo thị trường và yêu cầu kỹ thuật cụ thể. Không có một loại đồng phân luôn tốt hơn cho mọi mục đích. Khả năng tạo đúng cấu trúc cần thiết và thu hồi phần còn lại mới quyết định hiệu quả của dây chuyền.\n\nCâu chuyện Roelen là ví dụ về cách một dấu hiệu ngoài dự kiến trở thành công nghệ khi được đặt đúng câu hỏi. Từ sản phẩm có thêm một carbon, các nhà hóa học học cách quản lý cả sự chọn lọc, dòng kim loại và những bước chuyển tiếp sang vật liệu dùng trong đời sống.\n\n## Nguồn và đọc thêm\n\n- [Cornils và cộng sự · Otto Roelen và hình thành xúc tác đồng thể công nghiệp](https://doi.org/10.1002/anie.199421441)\n- [Ojima và cộng sự · Cơ sở hóa học của hydroformylation](https://doi.org/10.1002/0471264180.or056.01)\n- [Evonik và LIKAT · Một hướng hydroformylation mới, 2022](https://c4-chemicals.evonik.com/en/evonik-and-likat-discover-new-type-of-hydroformylation-177488.html)"
+}

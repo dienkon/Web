@@ -1,0 +1,44 @@
+{
+  "id": "xrf-chan-dung-duoi-patch-of-grass",
+  "slug": "xrf-chan-dung-duoi-patch-of-grass",
+  "documentPath": "docs/xrf-chan-dung-duoi-patch-of-grass/index.json",
+  "title": "Khuôn mặt dưới thảm cỏ: tia X lần theo sắc tố trong tranh Van Gogh",
+  "summary": "Bản đồ mercury và antimony giúp làm rõ một chân dung bị phủ dưới Patch of Grass. XRF cho thấy nguyên tố có thể trở thành dấu vết của một hình ảnh đã mất khỏi tầm mắt.",
+  "category": "khainiem",
+  "author": "Ban biên tập ChemDex",
+  "image": "/assets/library/history-evidence.svg",
+  "tags": [
+    "XRF",
+    "Van Gogh",
+    "Sắc tố",
+    "Bảo tồn"
+  ],
+  "aliases": [],
+  "documentKind": "story",
+  "readingMinutes": 4,
+  "editorialEvidence": {
+    "language": "vi",
+    "scope": "chemical-family",
+    "contextLabel": "Khuôn mặt dưới thảm cỏ: tia X lần theo sắc tố trong tranh Van Gogh",
+    "reviewBasis": "Biên soạn theo các nguồn dẫn cuối bài; phân biệt kết quả đã thực hiện và hướng phát triển.",
+    "story": {
+      "status": "documented",
+      "section": "## Một bức tranh nằm dưới những màu xanh",
+      "sources": [
+        "https://doi.org/10.1021/ac800965g",
+        "https://photon-science.desy.de/news__events/news__highlights/archive/archive_of_2008/doris_iii_%27hidden%27_van_gogh_painting_revealed/index_eng.html",
+        "https://delta.tudelft.nl/en/article/hidden-van-gogh"
+      ]
+    },
+    "application": {
+      "status": "documented",
+      "section": "## Ứng dụng hôm nay: khảo sát trước khi can thiệp",
+      "sources": [
+        "https://doi.org/10.1021/ac800965g",
+        "https://photon-science.desy.de/news__events/news__highlights/archive/archive_of_2008/doris_iii_%27hidden%27_van_gogh_painting_revealed/index_eng.html",
+        "https://delta.tudelft.nl/en/article/hidden-van-gogh"
+      ]
+    }
+  },
+  "content": "## Một bức tranh nằm dưới những màu xanh\n\nNăm 2008, nhóm nghiên cứu do Joris Dik và Koen Janssens tham gia dùng huỳnh quang tia X synchrotron để khảo sát Patch of Grass của Vincent van Gogh. Trước đó người ta đã biết có hình ảnh bị phủ phía dưới; phép đo mới giúp làm rõ chân dung một phụ nữ qua những dấu vết nguyên tố trong sắc tố.\n\nTheo giới thiệu của TU Delft, mercury và antimony đặc biệt hữu ích trong việc tái dựng khuôn mặt. Không cần bóc lớp sơn xanh ở trên để trực tiếp nhìn lớp cũ, nhóm tạo một cách nhìn khác: mỗi điểm trên tranh được mô tả bằng tín hiệu hóa học. Bề mặt trông đồng nhất với mắt thường có thể chứa lịch sử vật liệu nhiều lớp.\n\n![Minh họa việc đọc bằng chứng lịch sử; không phải ảnh tác phẩm hoặc bản đồ XRF](/assets/library/history-evidence.svg)\n\n## Nguyên tử phát ra tín hiệu đặc trưng\n\nKhi được tia X kích thích, nguyên tử có thể mất electron ở lớp trong. Quá trình sắp xếp lại electron phát ra photon có năng lượng liên quan đến nguyên tố. Đo năng lượng và cường độ tín hiệu tại nhiều vị trí cho phép lập bản đồ phân bố nguyên tố, thường gọi là bản đồ XRF.\n\nĐó không phải bản ảnh màu gốc xuất hiện tự động. Một nguyên tố có thể hiện diện trong nhiều hợp chất, và nhiều lớp sơn cùng đóng góp tín hiệu. Để diễn giải sắc tố, nhà nghiên cứu cần hiểu hóa học vật liệu và cấu trúc lớp. Việc gán màu cho bản đồ máy tính cũng là một lựa chọn biểu diễn, cần được phân biệt với màu mà người họa sĩ từng nhìn thấy.\n\n## Phép đo đi cùng lịch sử tác phẩm\n\nCông trình trên Analytical Chemistry mô tả cách dùng bản đồ nguyên tố để hình dung lớp tranh ẩn. Tư liệu từ cơ sở synchrotron DESY cho thấy một bài toán lịch sử nghệ thuật đã tận dụng nguồn tia X và kỹ thuật detector chuyên sâu. Đây là hợp tác giữa nhà vật liệu, nhà hóa học và chuyên gia tác phẩm, không phải một máy quét tự xác nhận tác giả.\n\nBản đồ cần được đặt cạnh hình chụp thường, ảnh bức xạ và những thông tin đã biết về cách họa sĩ dùng lại toan. Một khuôn mặt nhận ra được là bằng chứng hấp dẫn, nhưng niên đại, hoàn cảnh và ý nghĩa của nó còn cần nghiên cứu khác. Mỗi phương pháp trả lời một phần câu hỏi, rồi các phần được đối chiếu.\n\n## Ứng dụng hôm nay: khảo sát trước khi can thiệp\n\nXRF hỗ trợ nghiên cứu sắc tố, lớp sơn và các vật liệu di sản, giúp lựa chọn nơi cần khảo sát sâu hoặc lấy mẫu nhỏ khi thật sự cần. Phương pháp được gọi là không phá hủy trong những điều kiện phù hợp, nhưng vẫn phải thiết kế liều chiếu và cách đo theo tính chất vật thể. Một tác phẩm quý không phải mẫu có thể lặp lại vô hạn.\n\nCâu chuyện Patch of Grass cho thấy sự khác nhau giữa nhìn và suy luận. Máy ghi photon; nhà nghiên cứu xây bản đồ; chuyên gia kết nối bản đồ với vật liệu và lịch sử. Chính chuỗi đó làm kết luận có thể kiểm tra. Một bức chân dung trở lại không phải vì tia X nhìn thấy mọi thứ, mà vì người nghiên cứu chọn được những dấu hóa học đủ đặc trưng để lần theo lớp hình ảnh đang bị che.\n\n## Nguồn và đọc thêm\n\n- [Dik và cộng sự · XRF lập bản đồ tranh ẩn, 2008](https://doi.org/10.1021/ac800965g)\n- [DESY · Tác phẩm Van Gogh được khảo sát tại DORIS III](https://photon-science.desy.de/news__events/news__highlights/archive/archive_of_2008/doris_iii_%27hidden%27_van_gogh_painting_revealed/index_eng.html)\n- [TU Delft · Hidden Van Gogh, 2008](https://delta.tudelft.nl/en/article/hidden-van-gogh)"
+}

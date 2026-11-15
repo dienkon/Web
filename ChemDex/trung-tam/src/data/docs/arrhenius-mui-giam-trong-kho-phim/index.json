@@ -1,0 +1,44 @@
+{
+  "id": "arrhenius-mui-giam-trong-kho-phim",
+  "slug": "arrhenius-mui-giam-trong-kho-phim",
+  "documentPath": "docs/arrhenius-mui-giam-trong-kho-phim/index.json",
+  "title": "Mùi giấm trong kho phim và câu hỏi về tốc độ thời gian hóa học",
+  "summary": "Phim cellulose acetate có thể giải phóng acid acetic khi suy thoái. Bảo quản lạnh nối một vấn đề di sản với động học phản ứng, đồng thời cho thấy giới hạn của việc dự đoán tuổi thọ.",
+  "category": "khainiem",
+  "author": "Ban biên tập ChemDex",
+  "image": "/assets/library/organic-polymer.svg",
+  "tags": [
+    "Arrhenius",
+    "Động học",
+    "Cellulose acetate",
+    "Bảo tồn"
+  ],
+  "aliases": [],
+  "documentKind": "story",
+  "readingMinutes": 4,
+  "editorialEvidence": {
+    "language": "vi",
+    "scope": "chemical-family",
+    "contextLabel": "Mùi giấm trong kho phim và câu hỏi về tốc độ thời gian hóa học",
+    "reviewBasis": "Biên soạn theo các nguồn dẫn cuối bài; phân biệt kết quả đã thực hiện và hướng phát triển.",
+    "story": {
+      "status": "documented",
+      "section": "## Một cuộn phim có thể tự báo rằng nó đang thay đổi",
+      "sources": [
+        "https://www.archives.gov/preservation/holdings-maintenance/film-based",
+        "https://www.canada.ca/en/conservation-institute/services/conservation-preservation-publications/technical-bulletins/care-plastic-negative.html",
+        "https://openstax.org/books/chemistry-2e/pages/12-5-collision-theory"
+      ]
+    },
+    "application": {
+      "status": "documented",
+      "section": "## Ứng dụng hôm nay: mua thêm thời gian để giữ ký ức",
+      "sources": [
+        "https://www.archives.gov/preservation/holdings-maintenance/film-based",
+        "https://www.canada.ca/en/conservation-institute/services/conservation-preservation-publications/technical-bulletins/care-plastic-negative.html",
+        "https://openstax.org/books/chemistry-2e/pages/12-5-collision-theory"
+      ]
+    }
+  },
+  "content": "## Một cuộn phim có thể tự báo rằng nó đang thay đổi\n\nTrong hướng dẫn bảo quản của Cơ quan Lưu trữ Quốc gia Hoa Kỳ, “hội chứng giấm” là dấu hiệu quan trọng cần theo dõi ở phim cellulose acetate. Khi vật liệu suy thoái, acid acetic có thể được giải phóng, cùng với biến dạng và giòn hóa. Một vật từng được dùng để lưu giữ hình ảnh lại trở thành một hệ phản ứng chậm ngay trong kho.\n\nNgười bảo tồn không chỉ quan tâm ảnh còn nhìn thấy được hôm nay. Họ cần biết cuộn nào đang thay đổi nhanh, cuộn nào nên ưu tiên sao chép và môi trường lưu giữ nào có thể kéo dài thời gian hữu ích. Mùi là một dấu hiệu, nhưng đánh giá còn cần kiểm tra có hệ thống thay vì chỉ dựa vào cảm nhận.\n\n![Minh họa polymer; không phải ảnh cuộn phim bị suy thoái](/assets/library/organic-polymer.svg)\n\n## Giảm nhiệt để làm chậm một con đường phản ứng\n\nPhương trình Arrhenius liên hệ hằng số tốc độ với nhiệt độ và năng lượng hoạt hóa trong những hệ phù hợp. Khi nhiệt độ thay đổi, tỷ lệ các trạng thái có khả năng vượt rào cản phản ứng cũng thay đổi. Điều đó giải thích vì sao làm lạnh có thể làm chậm nhiều quá trình hóa học.\n\nTuy nhiên, phương trình không cung cấp tuổi thọ của một cuộn phim chỉ từ tên polymer. Cần dữ liệu thực nghiệm và giả định về cơ chế. Một hệ có độ ẩm thay đổi, sản phẩm acid tích tụ hoặc chuyển pha vật lý có thể không tuân theo một đường ngoại suy đơn giản trên toàn bộ khoảng nhiệt độ. Mô hình hữu ích khi miền áp dụng được xác định rõ.\n\n## Môi trường lưu trữ là nhiều biến cùng lúc\n\nViện Bảo tồn Canada mô tả sự khác nhau giữa phim cellulose nitrate, cellulose acetate và polyester, cùng các cơ chế hư hỏng và cách quản lý bộ sưu tập. Phân biệt đúng nền phim là bước đầu, bởi những vật có vẻ ngoài gần nhau có thể cần điều kiện lưu giữ khác nhau.\n\nNhiệt độ thấp phải đi cùng quản lý ẩm, bao gói và cách đưa vật ra khỏi kho. Ngưng tụ trên bề mặt khi chuyển môi trường có thể tạo vấn đề khác. Bảo quản không chỉ là đặt nhiệt kế xuống một con số thấp; nó là giữ được điều kiện phù hợp trong cả thời gian lưu trữ lẫn những lần sử dụng.\n\n## Ứng dụng hôm nay: mua thêm thời gian để giữ ký ức\n\nNARA khuyến nghị theo dõi tình trạng, cân nhắc kho lạnh và sao chép hoặc số hóa đối với các vật liệu đang suy thoái. Làm lạnh giảm tốc độ của một số quá trình nhưng không hoàn nguyên phần polymer đã hỏng. Một bản số hóa giúp tiếp cận hình ảnh, còn vật gốc vẫn cần kế hoạch bảo tồn nếu có giá trị nghiên cứu.\n\nCâu chuyện phim acetate làm động học trở nên gần gũi: cùng một phản ứng có thể diễn ra đủ chậm để ta quên nó tồn tại, rồi bộc lộ hậu quả sau nhiều năm. Hiểu nhiệt độ ảnh hưởng tốc độ giúp lựa chọn hành động, nhưng dự đoán cần khiêm tốn trước độ phức tạp của vật thật. Bảo tồn mua thêm thời gian bằng điều kiện hóa học tốt hơn, đồng thời dùng thời gian ấy để kiểm kê, sao chép và giữ thông tin về nguồn gốc của từng cuộn phim.\n\n## Nguồn và đọc thêm\n\n- [NARA · Bảo quản các vật liệu nền phim](https://www.archives.gov/preservation/holdings-maintenance/film-based)\n- [Canadian Conservation Institute · Bảo quản âm bản nền nhựa](https://www.canada.ca/en/conservation-institute/services/conservation-preservation-publications/technical-bulletins/care-plastic-negative.html)\n- [OpenStax · Năng lượng hoạt hóa và phương trình Arrhenius](https://openstax.org/books/chemistry-2e/pages/12-5-collision-theory)"
+}

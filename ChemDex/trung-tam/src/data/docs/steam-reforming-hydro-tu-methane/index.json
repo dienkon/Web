@@ -1,0 +1,44 @@
+{
+  "id": "steam-reforming-hydro-tu-methane",
+  "slug": "steam-reforming-hydro-tu-methane",
+  "documentPath": "docs/steam-reforming-hydro-tu-methane/index.json",
+  "title": "Hydrogen không tự xuất hiện: hành trình từ methane qua lò reforming",
+  "summary": "Dự án Port Arthur cho thấy sản xuất hydrogen và quản lý carbon là hai phần của cùng một hệ. Hơi nước tham gia phản ứng, nhưng nguồn nhiệt và carbon vẫn phải được tính.",
+  "category": "phanung",
+  "author": "Ban biên tập ChemDex",
+  "image": "/assets/library/industrial-reactor.svg",
+  "tags": [
+    "Steam reforming",
+    "Hydrogen",
+    "Methane",
+    "Cân bằng vật chất"
+  ],
+  "aliases": [],
+  "documentKind": "story",
+  "readingMinutes": 4,
+  "editorialEvidence": {
+    "language": "vi",
+    "scope": "chemical-family",
+    "contextLabel": "Hydrogen không tự xuất hiện: hành trình từ methane qua lò reforming",
+    "reviewBasis": "Biên soạn theo các nguồn dẫn cuối bài; phân biệt kết quả đã thực hiện và hướng phát triển.",
+    "story": {
+      "status": "documented",
+      "section": "## Một dự án thu carbon đặt ngay cạnh nơi làm hydrogen",
+      "sources": [
+        "https://www.energy.gov/nepa/ea-1846-demonstration-carbon-dioxide-capture-and-sequestration-steam-methane-reforming-process",
+        "https://www.energy.gov/cmei/fuels/hydrogen-production-natural-gas-reforming",
+        "https://www.eia.gov/energyexplained/hydrogen/production-of-hydrogen.php"
+      ]
+    },
+    "application": {
+      "status": "documented",
+      "section": "## Ứng dụng hôm nay: hỏi nguồn năng lượng trước khi gắn nhãn",
+      "sources": [
+        "https://www.energy.gov/nepa/ea-1846-demonstration-carbon-dioxide-capture-and-sequestration-steam-methane-reforming-process",
+        "https://www.energy.gov/cmei/fuels/hydrogen-production-natural-gas-reforming",
+        "https://www.eia.gov/energyexplained/hydrogen/production-of-hydrogen.php"
+      ]
+    }
+  },
+  "content": "## Một dự án thu carbon đặt ngay cạnh nơi làm hydrogen\n\nDự án trình diễn tại Port Arthur, Texas, được DOE lập hồ sơ để thu CO₂ từ khí công nghệ của quá trình steam methane reforming. Sự gắn kết ấy làm rõ một thực tế: có hydrogen ở đầu ra không có nghĩa carbon trong nguyên liệu đã biến mất.\n\nHệ thống phục vụ sản xuất hydrogen quy mô lớn, và phần thu carbon được thiết kế cho một dòng xác định. Khi đọc mô tả dự án, cần phân biệt CO₂ trong khí công nghệ với mọi nguồn phát thải khác của cơ sở. Thu được một dòng không đồng nghĩa toàn bộ nhà máy đã trở thành hệ không phát thải.\n\n![Minh họa thiết bị phản ứng công nghiệp, không phải bản vẽ hệ Port Arthur](/assets/library/industrial-reactor.svg)\n\n## Hơi nước vừa là nguyên liệu vừa mang một bài toán năng lượng\n\nPhản ứng reforming methane thường được biểu diễn **CH₄ + H₂O → CO + 3H₂**. Cả methane và nước đóng góp nguyên tử hydrogen. Oxygen của nước đi vào carbon monoxide trong phương trình này. Bởi vậy, diễn đạt rằng máy chỉ “tách hydrogen có sẵn trong khí tự nhiên” là chưa đầy đủ.\n\nPhản ứng cần được cung cấp nhiệt. Nguồn nhiệt, truyền nhiệt qua thành thiết bị và hoạt động của xúc tác đều quyết định hệ có thể làm việc theo tốc độ mong muốn hay không. Một phương trình cân bằng không thể cho biết ngay lượng nhiên liệu phụ trợ phải dùng trong một nhà máy cụ thể.\n\nDOE mô tả bước water-gas shift tiếp theo, trong đó CO phản ứng với nước để tạo thêm H₂ và CO₂. Đó là bước hóa học riêng, có nhiệm vụ và điều kiện tối ưu khác bước reforming.\n\n## Hydrogen trong hỗn hợp khác hydrogen đạt yêu cầu\n\nSau các phản ứng, dòng khí vẫn chứa nhiều thành phần. Cần phân tách và làm sạch để đạt chất lượng phù hợp với nơi sử dụng. Một xưởng tổng hợp hóa chất và một hệ pin nhiên liệu có thể đặt ra những yêu cầu khác nhau về tạp chất.\n\nEIA mô tả vai trò của reforming trong các cơ sở công nghiệp và lọc dầu. Điều này giải thích vì sao sản xuất hydrogen thường được kết nối với mạng đường ống, nguồn khí nguyên liệu và các công đoạn tiêu thụ liên tục. Hydrogen là một dòng vật liệu cần cung cấp đúng lượng, đúng chất lượng, đúng thời điểm.\n\nKhi đánh giá công nghệ, phải tính cả khí chưa phản ứng, dòng thải từ làm sạch và nhu cầu nước. Không thể chỉ lấy khối lượng H₂ lý thuyết trong phương trình làm lượng sản phẩm thực tế có thể giao tới khách hàng.\n\n## Ứng dụng hôm nay: hỏi nguồn năng lượng trước khi gắn nhãn\n\nSteam reforming là một tuyến sản xuất hydrogen đang được sử dụng trong công nghiệp. Các dự án có thu carbon bổ sung một lớp công nghệ để quản lý một phần phát thải. Mức giảm thực tế phụ thuộc phạm vi thu, hiệu suất, nguồn năng lượng và những khâu trước nhà máy như khai thác, vận chuyển khí.\n\nBài học không phải phủ nhận vai trò của hydrogen, mà là xác định đúng nơi tác động xảy ra. Một thiết bị sử dụng H₂ tạo nước ở đầu ra vẫn phụ thuộc chuỗi cung cấp nhiên liệu. So sánh công bằng cần đặt cùng ranh giới hệ thống cho các phương án.\n\nPort Arthur đưa câu hỏi trừu tượng ấy vào một cơ sở cụ thể: carbon được thu từ đâu và đi tiếp tới đâu? Mỗi câu trả lời nối hóa học phản ứng với kỹ thuật phân tách, hạ tầng và phép tính phát thải. Chỉ khi nhìn đủ các phần, người đọc mới hiểu hydrogen được tạo ra với cái giá vật chất và năng lượng nào.\n\n## Nguồn và đọc thêm\n\n- [DOE · Dự án thu CO2 từ reforming tại Port Arthur](https://www.energy.gov/nepa/ea-1846-demonstration-carbon-dioxide-capture-and-sequestration-steam-methane-reforming-process)\n- [DOE · Nguyên lý reforming khí tự nhiên](https://www.energy.gov/cmei/fuels/hydrogen-production-natural-gas-reforming)\n- [EIA · Vai trò reforming trong sản xuất hydrogen](https://www.eia.gov/energyexplained/hydrogen/production-of-hydrogen.php)"
+}

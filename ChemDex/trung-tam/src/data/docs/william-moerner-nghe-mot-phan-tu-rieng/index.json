@@ -1,0 +1,46 @@
+{
+  "id": "william-moerner-nghe-mot-phan-tu-rieng",
+  "slug": "william-moerner-nghe-mot-phan-tu-rieng",
+  "documentPath": "docs/william-moerner-nghe-mot-phan-tu-rieng/index.json",
+  "title": "William Moerner: tìm tiếng nói của một phân tử giữa đám đông",
+  "summary": "Phép đo năm 1989 tách tín hiệu quang học của một phân tử trong chất rắn. Những nghiên cứu sau về nhấp nháy và chuyển trạng thái mở thêm cách nhìn những điều bị phép lấy trung bình che mất.",
+  "category": "tieusu",
+  "author": "Ban biên tập ChemDex",
+  "image": "/assets/library/apparatus-spectroscope.svg",
+  "tags": [
+    "William Moerner",
+    "Đơn phân tử",
+    "Quang phổ",
+    "Huỳnh quang"
+  ],
+  "aliases": [],
+  "documentKind": "story",
+  "readingMinutes": 5,
+  "editorialEvidence": {
+    "language": "vi",
+    "scope": "chemical-family",
+    "contextLabel": "William Moerner: tìm tiếng nói của một phân tử giữa đám đông",
+    "reviewBasis": "Biên soạn theo các nguồn dẫn cuối bài; phân biệt kết quả đã thực hiện và hướng phát triển.",
+    "story": {
+      "status": "documented",
+      "section": "## Một tín hiệu quá nhỏ so với thói quen đo cả mẫu",
+      "sources": [
+        "https://pubmed.ncbi.nlm.nih.gov/10040013/",
+        "https://www.nobelprize.org/uploads/2018/06/moerner-lecture.pdf",
+        "https://photonics.stanford.edu/people/william-moerner",
+        "https://www.nature.com/articles/41048"
+      ]
+    },
+    "application": {
+      "status": "documented",
+      "section": "## Ứng dụng hôm nay: nhìn sự đa dạng mà phép đo tổng bỏ qua",
+      "sources": [
+        "https://pubmed.ncbi.nlm.nih.gov/10040013/",
+        "https://www.nobelprize.org/uploads/2018/06/moerner-lecture.pdf",
+        "https://photonics.stanford.edu/people/william-moerner",
+        "https://www.nature.com/articles/41048"
+      ]
+    }
+  },
+  "content": "## Một tín hiệu quá nhỏ so với thói quen đo cả mẫu\n\nNăm 1989, William Moerner và Lothar Kador công bố việc phát hiện quang học và đo phổ của từng phân tử trong chất rắn ở nhiệt độ thấp. Kết quả đặt ra một cách quan sát khác với đo trung bình của vô số phân tử cùng lúc.\n\nMột tập hợp có thể cho đường phổ trơn, trong khi từng thành phần trải qua những môi trường cục bộ hơi khác nhau. Tách được tín hiệu riêng cho phép hỏi phân tử này có hành vi gì, nó thay đổi thế nào theo thời gian và khác phần còn lại ở điểm nào.\n\nBài giảng Nobel của Moerner trình bày công việc ban đầu trong bối cảnh nghiên cứu các vạch hấp thụ mở rộng do môi trường không đồng nhất. Bài toán rất cụ thể của quang phổ đã dẫn tới một thang đo mới cho hóa học, chứ không bắt đầu bằng một camera có thể nhìn nguyên tử như mắt nhìn hạt cát.\n\n![Minh họa quang phổ, không phải thiết bị của Moerner và Kador](/assets/library/apparatus-spectroscope.svg)\n\n## Lấy trung bình có thể che mất những quãng im lặng\n\nKhi nhiều phân tử đóng góp cùng lúc, một phân tử tạm ngừng phát sáng có thể được những phân tử khác bù lại. Tín hiệu tổng không nhất thiết cho thấy rõ từng lần bật, tắt hoặc chuyển trạng thái. Theo dõi riêng làm những biến động ấy trở thành dữ liệu.\n\nTuy nhiên, đo đơn phân tử không đồng nghĩa có thể bỏ qua thống kê. Một quỹ đạo riêng có thể không đại diện cho cả quần thể. Cần quan sát đủ mẫu, đánh giá tín hiệu nền và phân biệt thay đổi thật với giới hạn phát hiện của thiết bị.\n\nPhân tử cũng có thể bị ánh sáng tác động. Điều đang quan sát vừa là đối tượng hóa học vừa là nguồn tín hiệu do tương tác với bức xạ. Muốn hiểu nó, phải tính cả lịch sử chiếu và những trạng thái tối mà phép đo thông thường dễ bỏ qua.\n\n## GFP nhấp nháy mở thêm một khả năng\n\nNăm 1997, Robert Dickson, Andrew Cubitt, Roger Tsien và Moerner khảo sát các phiên bản GFP chuyển phổ về phía vàng ở cấp từng phân tử. Họ quan sát nhấp nháy và khả năng phục hồi huỳnh quang bằng ánh sáng trong những điều kiện phù hợp.\n\nKết quả cho thấy một chất đánh dấu không nhất thiết luôn sáng cho tới khi bị hỏng vĩnh viễn. Nó có thể đi qua trạng thái tối rồi trở lại. Hiểu hành vi ấy vừa giúp tránh đọc sai dữ liệu vừa mở khả năng điều khiển những phân tử nào đóng góp tín hiệu tại một thời điểm.\n\nStanford ghi nhận các nghiên cứu về điều khiển quang học như một trong những nền tảng cho hiển vi định vị vượt giới hạn thông thường. Đó là đóng góp về tính chất của nguồn sáng phân tử, bổ sung cho những phát triển về thiết bị và thuật toán của nhiều nhóm khác.\n\n## Ứng dụng hôm nay: nhìn sự đa dạng mà phép đo tổng bỏ qua\n\nQuang phổ và hiển vi đơn phân tử giúp nghiên cứu chuyển động, tương tác và sự không đồng nhất trong các hệ sinh học hoặc vật liệu. Phòng Moerner tiếp tục phát triển cách định vị và theo dõi ba chiều, đồng thời kiểm chứng độ chính xác của phép đo.\n\nĐối với người sử dụng dữ liệu, điều quan trọng là biết một chấm sáng đang đại diện cho gì và thời gian lấy mẫu đã bỏ qua những quá trình nào. Một phân tử nhấp nháy nhiều lần có thể bị đếm thành nhiều sự kiện nếu cách phân tích không phù hợp.\n\nThành tựu của Moerner không làm phép đo trung bình trở nên lỗi thời. Nó bổ sung một góc nhìn khác: thay vì chỉ hỏi cả đám đông hành xử thế nào, có thể nghe từng thành phần rồi xem tổng hợp của chúng tạo nên tín hiệu chung ra sao. Những khoảng im lặng từng chìm trong nền trở thành một phần của câu chuyện hóa học.\n\n## Nguồn và đọc thêm\n\n- [Moerner và Kador · Phát hiện quang học đơn phân tử, 1989](https://pubmed.ncbi.nlm.nih.gov/10040013/)\n- [William Moerner · Bài giảng Nobel 2014](https://www.nobelprize.org/uploads/2018/06/moerner-lecture.pdf)\n- [Stanford · Các hướng đo đơn phân tử và kiểm chứng hiện nay](https://photonics.stanford.edu/people/william-moerner)\n- [Dickson và cộng sự · GFP nhấp nháy và chuyển trạng thái, 1997](https://www.nature.com/articles/41048)"
+}

@@ -1,0 +1,44 @@
+{
+  "id": "ben-feringa-tu-cong-tac-den-vong-quay",
+  "slug": "ben-feringa-tu-cong-tac-den-vong-quay",
+  "documentPath": "docs/ben-feringa-tu-cong-tac-den-vong-quay/index.json",
+  "title": "Ben Feringa: khi công tắc không làm đúng ý lại mở đường cho động cơ",
+  "summary": "Nghiên cứu công tắc quang dẫn Feringa và cộng sự tới phân tử quay theo một chiều. Ánh sáng cung cấp năng lượng, còn cấu trúc bất đối xứng định hướng các bước chuyển.",
+  "category": "tieusu",
+  "author": "Ban biên tập ChemDex",
+  "image": "/assets/library/organic-alkene.svg",
+  "tags": [
+    "Ben Feringa",
+    "Động cơ phân tử",
+    "Quang hóa",
+    "Bất đối xứng"
+  ],
+  "aliases": [],
+  "documentKind": "story",
+  "readingMinutes": 5,
+  "editorialEvidence": {
+    "language": "vi",
+    "scope": "chemical-family",
+    "contextLabel": "Ben Feringa: khi công tắc không làm đúng ý lại mở đường cho động cơ",
+    "reviewBasis": "Biên soạn theo các nguồn dẫn cuối bài; phân biệt kết quả đã thực hiện và hướng phát triển.",
+    "story": {
+      "status": "documented",
+      "section": "## Một mục tiêu đổi hướng trong phòng thí nghiệm",
+      "sources": [
+        "https://www.nature.com/articles/43646",
+        "https://www.rug.nl/fse/news/science-in-focus/20240909-feringa25?lang=en",
+        "https://pure.rug.nl/ws/files/3092550/2001AccChemResFeringa.pdf"
+      ]
+    },
+    "application": {
+      "status": "documented",
+      "section": "## Ứng dụng hôm nay nằm trong những thử nghiệm có đích rõ",
+      "sources": [
+        "https://www.nature.com/articles/43646",
+        "https://www.rug.nl/fse/news/science-in-focus/20240909-feringa25?lang=en",
+        "https://pure.rug.nl/ws/files/3092550/2001AccChemResFeringa.pdf"
+      ]
+    }
+  },
+  "content": "## Một mục tiêu đổi hướng trong phòng thí nghiệm\n\nBài nhìn lại của Đại học Groningen năm 2024 kể rằng hệ dẫn tới động cơ đầu tiên của Ben Feringa vốn được hình dung như công tắc điều khiển bằng ánh sáng. Nhóm muốn phân tử đổi giữa những trạng thái có thể sử dụng như thông tin. Nhưng sự thay đổi quan sát được đã gợi ra một nhiệm vụ khác: chuyển động quay.\n\nNgày 9 tháng 9 năm 1999, Nagatoshi Koumura, Robert Zijlstra, Richard van Delden, Nobuyuki Harada và Feringa công bố một rotor phân tử chạy nhờ ánh sáng. Phân tử có thể thực hiện chu kỳ quay đầy đủ theo một chiều thông qua các bước quang hóa và nhiệt.\n\nĐiều mới không phải phân tử lần đầu biết chuyển động. Vấn đề là chuyển năng lượng cấp vào thành chuyển động có định hướng, thay vì để các thay đổi triệt tiêu nhau trong một quá trình đi tới rồi quay lui.\n\n![Minh họa liên kết đôi; không phải ảnh động cơ phân tử](/assets/library/organic-alkene.svg)\n\n## Liên kết đôi trở thành phần của một chu kỳ\n\nHệ được báo cáo dựa trên alkene có cấu trúc xoắn và các tâm bất đối xứng. Ánh sáng kích hoạt các bước đổi cấu hình quanh liên kết đôi; sau đó các bước đảo độ xoắn do nhiệt giúp đưa hệ sang trạng thái tiếp theo. Một vòng quay được chia thành những chặng có thể phân biệt.\n\nKhông nên hiểu hình vẽ rotor như cánh quạt kim loại thu nhỏ. Các nguyên tử không chuyển động theo cơ học của một trục có ổ bi trong không khí. Sự chuyển đổi liên quan đến bề mặt năng lượng và cấu trúc lập thể của phân tử.\n\nTính bất đối xứng giúp làm cho hai chiều không còn tương đương trong chu kỳ được thiết kế. Tuy vậy, cấu trúc một mình không cấp năng lượng vô tận. Khi không có nguồn kích thích phù hợp, hệ không trở thành động cơ vĩnh cửu khai thác chuyển động nhiệt miễn phí.\n\n## Tốc độ chỉ là một phần của khả năng làm việc\n\nTrong tổng thuật nghiên cứu do chính Feringa viết năm 2001, công tắc và động cơ được đặt trong cùng chương trình kiểm soát chuyển động. Thay cấu trúc có thể làm đổi rào năng lượng, tốc độ hoặc điều kiện vận hành. Những thay đổi ấy cần được xác nhận bằng phép đo, không chỉ suy từ hình dạng.\n\nMột động cơ chạy nhanh trong dung dịch chưa chắc tạo được chuyển động hữu ích ở một bề mặt hay trong vật liệu đông đặc. Cần nối phần chuyển động với nơi muốn truyền tác động. Đồng thời, hệ phải chịu được nhiều lần kích thích mà không chuyển thành sản phẩm hỏng.\n\nCác thế hệ nghiên cứu sau mở rộng cách sử dụng động cơ phân tử trong điều khiển tổ chức vật liệu và phản ứng. Đó là quá trình phát triển từng chức năng cụ thể, chứ không phải một phân tử duy nhất đã thay thế các máy móc thông thường.\n\n## Ứng dụng hôm nay nằm trong những thử nghiệm có đích rõ\n\nMáy phân tử cung cấp công cụ nghiên cứu cách chuyển năng lượng thành thay đổi định hướng ở thang rất nhỏ. Các mục tiêu như điều khiển cấu trúc vật liệu hoặc môi trường phản ứng cần một chuỗi chứng minh riêng: động cơ quay, tác động được truyền và chức năng mong muốn thực sự thay đổi.\n\nNhững phân biệt này không làm câu chuyện kém hấp dẫn. Chúng cho thấy thách thức thực sự của lĩnh vực nằm ở đâu. Tạo một thành phần chuyển động có thể là bước đầu rất khó; ghép nó vào hệ thực hiện công việc là bước khó khác.\n\nTừ công tắc tới rotor, Feringa cho thấy một kết quả không giống dự tính có thể trở thành hướng nghiên cứu nếu được phân tích đủ kỹ. Điều giữ câu chuyện trên nền khoa học là khả năng chia chuyển động thành các trạng thái, đo sự chuyển giữa chúng và kiểm tra nguồn năng lượng cho từng chu kỳ.\n\n## Nguồn và đọc thêm\n\n- [Koumura và cộng sự · Rotor một chiều điều khiển bằng ánh sáng, 1999](https://www.nature.com/articles/43646)\n- [Đại học Groningen · Nhìn lại 25 năm động cơ phân tử](https://www.rug.nl/fse/news/science-in-focus/20240909-feringa25?lang=en)\n- [Ben Feringa · Từ công tắc đến động cơ phân tử, 2001](https://pure.rug.nl/ws/files/3092550/2001AccChemResFeringa.pdf)"
+}

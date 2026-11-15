@@ -1,0 +1,44 @@
+{
+  "id": "suzuki-lap-khung-carbon-bang-boron",
+  "slug": "suzuki-lap-khung-carbon-bang-boron",
+  "documentPath": "docs/suzuki-lap-khung-carbon-bang-boron/index.json",
+  "title": "Ghép hai mảnh carbon: vì sao Suzuki trở thành công cụ của nhà tổng hợp",
+  "summary": "Từ công bố năm 1979 đến những phân tử lớn và hóa chất công nghiệp, phản ứng Suzuki cung cấp một cách nối các mảnh có sẵn. Giá trị nằm ở tính phù hợp với nhiều nhóm chức.",
+  "category": "phanung",
+  "author": "Ban biên tập ChemDex",
+  "image": "/assets/library/covalent-bonds.svg",
+  "tags": [
+    "Suzuki",
+    "Ghép cặp",
+    "Palladium",
+    "Organoboron"
+  ],
+  "aliases": [],
+  "documentKind": "story",
+  "readingMinutes": 5,
+  "editorialEvidence": {
+    "language": "vi",
+    "scope": "chemical-family",
+    "contextLabel": "Ghép hai mảnh carbon: vì sao Suzuki trở thành công cụ của nhà tổng hợp",
+    "reviewBasis": "Biên soạn theo các nguồn dẫn cuối bài; phân biệt kết quả đã thực hiện và hướng phát triển.",
+    "story": {
+      "status": "documented",
+      "section": "## Một biến đổi nhỏ ở điều kiện tạo khác biệt lớn",
+      "sources": [
+        "https://doi.org/10.1016/S0040-4039(01)95429-2",
+        "https://www.nobelprize.org/uploads/2018/06/advanced-chemistryprize2010.pdf",
+        "https://www.nobelprize.org/uploads/2018/06/suzuki_lecture.pdf"
+      ]
+    },
+    "application": {
+      "status": "documented",
+      "section": "## Ứng dụng hôm nay: đa dạng cấu trúc và kiểm soát chất lượng",
+      "sources": [
+        "https://doi.org/10.1016/S0040-4039(01)95429-2",
+        "https://www.nobelprize.org/uploads/2018/06/advanced-chemistryprize2010.pdf",
+        "https://www.nobelprize.org/uploads/2018/06/suzuki_lecture.pdf"
+      ]
+    }
+  },
+  "content": "## Một biến đổi nhỏ ở điều kiện tạo khác biệt lớn\n\nNăm 1979, Akira Suzuki và đồng nghiệp công bố ghép các hợp chất organoboron với những đối tác hữu cơ thích hợp dưới xúc tác palladium và sự có mặt của base. Tài liệu Nobel 2010 nhấn mạnh vai trò của điều kiện này trong việc làm boron trở thành đối tác thực dụng cho ghép cặp.\n\nĐến khi giải Nobel được trao, phản ứng đã đi vào cả tổng hợp phân tử tự nhiên phức tạp và hóa chất tinh. Một ví dụ công nghiệp được tài liệu chuyên sâu nêu là một bước Suzuki trong chuỗi boscalid. Đó là ví dụ về khả năng xây một bộ khung cụ thể, không phải lời khuyên sử dụng sản phẩm cuối.\n\n![Minh họa liên kết hóa học, không phải cấu trúc một sản phẩm Suzuki cụ thể](/assets/library/covalent-bonds.svg)\n\n## Hai mảnh được chuẩn bị trước gặp nhau trên kim loại\n\nGhép cặp Suzuki tạo một liên kết carbon–carbon giữa hai phần hữu cơ đã được chuẩn bị dưới các dạng phản ứng phù hợp. Một phía thường mang boron; phía kia có nhóm có thể tham gia chu trình xúc tác palladium. Các bước trong chu trình đưa hai nhóm hữu cơ tới gần nhau rồi giải phóng sản phẩm có liên kết mới.\n\nBase không chỉ là phụ gia để làm dung dịch có pH cao theo nghĩa chung. Nó ảnh hưởng trạng thái các loài chứa boron và những bước chuyển nhóm hữu cơ trong hệ. Tác dụng cụ thể phụ thuộc cơ chất, dung môi và hệ xúc tác đang sử dụng.\n\nPhương trình tổng quát giúp hình dung mối nối mới, nhưng không bảo đảm các nhóm chức khác sẽ hoàn toàn không bị ảnh hưởng. Khả năng dung nạp tốt là một ưu điểm cần được hiểu theo phạm vi đã chứng minh.\n\n## Ghép mảnh giúp đổi cách lập kế hoạch tổng hợp\n\nThay vì kéo dài một chuỗi từng nguyên tử một, nhà tổng hợp có thể xây hai mảnh riêng rồi nối chúng ở bước phù hợp. Cách tổ chức hội tụ có thể làm một mục tiêu lớn dễ quản lý hơn. Tuy nhiên, hai mảnh phải được điều chế, tinh chế và mang đúng chức năng để tham gia ghép.\n\nCác câu chuyện tổng hợp phân tử tự nhiên trong tài liệu Nobel cho thấy công cụ ghép cặp giúp tạo đủ vật liệu để nghiên cứu và kiểm tra cấu trúc. Việc tổng hợp được một phân tử có hoạt tính trong phép thử không tự chứng minh nó là thuốc hiệu quả hoặc an toàn. Hóa học cung cấp mẫu; những câu hỏi sinh học và ứng dụng cần bằng chứng riêng.\n\nNgay trong bước ghép, đồng sản phẩm chứa boron, muối và dư kim loại cũng cần được quản lý. Một mối nối đẹp trên giấy vẫn có những dòng vật chất ngoài phân tử mục tiêu.\n\n## Ứng dụng hôm nay: đa dạng cấu trúc và kiểm soát chất lượng\n\nSuzuki được dùng rộng trong nghiên cứu dược chất, hóa chất nông nghiệp và vật liệu hữu cơ. Lựa chọn các mảnh ghép khác nhau giúp tạo những họ cấu trúc để khảo sát mối liên hệ giữa cấu trúc và tính chất. Nhưng mỗi biến thể cần được xác nhận bằng phân tích, không chỉ suy từ kết quả của chất gần giống.\n\nKhi mở rộng quy mô, lượng palladium, tính sẵn có của nguyên liệu boron và khả năng loại tạp trở thành những tiêu chí quan trọng. Một phản ứng đạt hiệu suất cao trong bình nhỏ có thể cần thay đổi đáng kể trước khi phù hợp với sản xuất.\n\nCâu chuyện Suzuki cho thấy một phương pháp trở nên mạnh khi kết hợp được tính chọn lọc với khả năng dùng trên nhiều cấu trúc. Nó không chỉ tạo một phân tử nổi tiếng, mà thay đổi cách nhà hóa học chia mục tiêu lớn thành những phần có thể làm riêng rồi ghép lại.\n\n## Nguồn và đọc thêm\n\n- [Miyaura, Yamada và Suzuki · Công bố ghép organoborane, 1979](https://doi.org/10.1016/S0040-4039(01)95429-2)\n- [Nobel · Cơ sở khoa học ghép cặp palladium và ví dụ boscalid](https://www.nobelprize.org/uploads/2018/06/advanced-chemistryprize2010.pdf)\n- [Akira Suzuki · Bài giảng Nobel về ghép cặp organoboron](https://www.nobelprize.org/uploads/2018/06/suzuki_lecture.pdf)"
+}

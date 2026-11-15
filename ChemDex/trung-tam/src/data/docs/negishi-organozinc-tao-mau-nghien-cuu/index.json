@@ -1,0 +1,46 @@
+{
+  "id": "negishi-organozinc-tao-mau-nghien-cuu",
+  "slug": "negishi-organozinc-tao-mau-nghien-cuu",
+  "documentPath": "docs/negishi-organozinc-tao-mau-nghien-cuu/index.json",
+  "title": "Từ lượng mẫu hiếm tới phân tử trong phòng thí nghiệm: vai trò ghép Negishi",
+  "summary": "Một hợp chất tự nhiên có thể quá hiếm để nghiên cứu sâu. Ghép cặp organozinc cung cấp cách tạo các mối nối carbon trong tổng hợp, nhưng có mẫu không đồng nghĩa đã có thuốc.",
+  "category": "phanung",
+  "author": "Ban biên tập ChemDex",
+  "image": "/assets/library/covalent-bonds.svg",
+  "tags": [
+    "Negishi",
+    "Organozinc",
+    "Ghép cặp",
+    "Sản phẩm tự nhiên"
+  ],
+  "aliases": [],
+  "documentKind": "story",
+  "readingMinutes": 5,
+  "editorialEvidence": {
+    "language": "vi",
+    "scope": "chemical-family",
+    "contextLabel": "Từ lượng mẫu hiếm tới phân tử trong phòng thí nghiệm: vai trò ghép Negishi",
+    "reviewBasis": "Biên soạn theo các nguồn dẫn cuối bài; phân biệt kết quả đã thực hiện và hướng phát triển.",
+    "story": {
+      "status": "documented",
+      "section": "## Một phân tử từ biển cần nhiều vật liệu hơn biển cung cấp",
+      "sources": [
+        "https://doi.org/10.1021/jo00430a041",
+        "https://www.nobelprize.org/uploads/2018/06/advanced-chemistryprize2010.pdf",
+        "https://www.nobelprize.org/uploads/2018/06/popular-chemistryprize2010.pdf",
+        "https://www.nobelprize.org/uploads/2018/06/negishi_lecture.pdf"
+      ]
+    },
+    "application": {
+      "status": "documented",
+      "section": "## Ứng dụng hôm nay: hóa học tạo điều kiện cho những câu hỏi khác",
+      "sources": [
+        "https://doi.org/10.1021/jo00430a041",
+        "https://www.nobelprize.org/uploads/2018/06/advanced-chemistryprize2010.pdf",
+        "https://www.nobelprize.org/uploads/2018/06/popular-chemistryprize2010.pdf",
+        "https://www.nobelprize.org/uploads/2018/06/negishi_lecture.pdf"
+      ]
+    }
+  },
+  "content": "## Một phân tử từ biển cần nhiều vật liệu hơn biển cung cấp\n\nTài liệu phổ biến Nobel Hóa học 2010 kể câu chuyện discodermolide, chất được phân lập từ bọt biển và nghiên cứu về tác động lên tế bào. Lượng vật liệu tự nhiên có hạn đặt ra trở ngại: muốn khảo sát sâu cần đủ mẫu với chất lượng xác định.\n\nGhép cặp Negishi được sử dụng như một bước trong những tuyến tổng hợp phân tử này. Ví dụ cho thấy phương pháp tạo liên kết có thể tháo gỡ nút thắt về vật liệu nghiên cứu. Tuy nhiên, tài liệu năm 2010 đang nói về quá trình phát triển và thử nghiệm; bài này không biến câu chuyện đó thành khẳng định discodermolide đã trở thành thuốc được sử dụng.\n\n![Minh họa liên kết carbon trong tổng hợp, không phải cấu trúc discodermolide](/assets/library/covalent-bonds.svg)\n\n## Zinc mang một mảnh carbon tới chu trình ghép\n\nPhản ứng Negishi dùng hợp chất organozinc làm một đối tác trong ghép cặp có xúc tác kim loại chuyển tiếp, thường được trình bày với palladium hoặc nickel trong những hệ phù hợp. Nhóm hữu cơ được chuyển tới kim loại xúc tác để cuối cùng tạo liên kết carbon–carbon mới với đối tác kia.\n\nLựa chọn organozinc tạo sự cân bằng giữa khả năng phản ứng và mức dung nạp nhóm chức. Những thuốc thử hữu cơ kim loại hoạt động mạnh hơn không phải luôn tốt hơn: chúng có thể phản ứng với các phần khác của cơ chất trước khi tới mối nối cần tạo.\n\nCông việc của Negishi từ thập niên 1970 mở ra phương pháp có thể dùng trên nhiều cấu trúc. Nhưng phạm vi rộng không có nghĩa mọi organozinc đều bền ngoài môi trường thông thường hoặc có thể được thay thế lẫn nhau mà không kiểm tra.\n\n## Một mối nối còn phải giữ đúng hình học\n\nTrong tổng hợp phân tử phức tạp, liên kết cần tạo không chỉ được xác định bởi hai nguyên tử đầu cuối. Hình học quanh liên kết đôi và cấu hình ở những vị trí lân cận có thể quyết định tính chất của sản phẩm. Phản ứng ghép hữu ích khi giữ hoặc tạo được sự tổ chức cần thiết ấy.\n\nTài liệu chuyên sâu Nobel phân biệt các biến thể ghép palladium theo đối tác cơ kim và cơ chế truyền nhóm. Các tên Heck, Negishi và Suzuki không phải ba nhãn tùy ý cho cùng một phản ứng. Mỗi hướng có những lợi thế, giới hạn và nhu cầu chuẩn bị nguyên liệu riêng.\n\nĐể đi từ một phản ứng ghép tốt đến đủ mẫu nghiên cứu, còn nhiều bước tinh chế và xác nhận cấu trúc. Hiệu suất từng bước được tích lũy qua cả tuyến; một bước kém có thể làm lượng sản phẩm cuối giảm mạnh.\n\n## Ứng dụng hôm nay: hóa học tạo điều kiện cho những câu hỏi khác\n\nGhép Negishi là một công cụ trong tổng hợp hóa chất tinh, phân tử tự nhiên và các chất trung gian cần cấu trúc xác định. Nó giúp tạo những mẫu mà nghiên cứu sinh học hoặc vật liệu cần, nhưng không tự trả lời các câu hỏi về hiệu quả, độc tính hay độ bền của sản phẩm cuối.\n\nKhi mở rộng quy mô, cần xét nguồn organozinc, tạp kim loại, chất thải chứa zinc và khả năng giữ ổn định điều kiện. Một kết quả có tính chọn lọc cao vẫn cần được đặt trong cân bằng vật chất của toàn quá trình.\n\nCâu chuyện mẫu hiếm từ biển cho thấy giá trị của một phương pháp tổng hợp không chỉ là làm ra thứ chưa có. Nó còn giúp lấy một cấu trúc đã được thiên nhiên gợi ý và tạo đủ vật liệu để kiểm tra nghiêm túc. Mối nối carbon là bước mở cửa; kết luận về ứng dụng phải chờ những bằng chứng đi qua cánh cửa ấy.\n\n## Nguồn và đọc thêm\n\n- [Negishi, King và Okukado · Công bố nền tảng organozinc năm 1977](https://doi.org/10.1021/jo00430a041)\n- [Nobel · Cơ sở khoa học và phạm vi ghép Negishi](https://www.nobelprize.org/uploads/2018/06/advanced-chemistryprize2010.pdf)\n- [Nobel · Câu chuyện discodermolide và giới hạn ứng dụng tại thời điểm 2010](https://www.nobelprize.org/uploads/2018/06/popular-chemistryprize2010.pdf)\n- [Ei-ichi Negishi · Bài giảng Nobel về ghép cặp](https://www.nobelprize.org/uploads/2018/06/negishi_lecture.pdf)"
+}

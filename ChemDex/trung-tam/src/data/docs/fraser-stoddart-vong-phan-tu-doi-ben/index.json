@@ -1,0 +1,44 @@
+{
+  "id": "fraser-stoddart-vong-phan-tu-doi-ben",
+  "slug": "fraser-stoddart-vong-phan-tu-doi-ben",
+  "documentPath": "docs/fraser-stoddart-vong-phan-tu-doi-ben/index.json",
+  "title": "Fraser Stoddart: chiếc vòng phân tử đổi chỗ khi môi trường đổi",
+  "summary": "Từ con thoi năm 1991 đến hệ chuyển đổi năm 1994, Stoddart và cộng sự tìm cách điều khiển vị trí của một vòng luồn trên trục, thay vì chỉ chứng minh nó chuyển động.",
+  "category": "tieusu",
+  "author": "Ban biên tập ChemDex",
+  "image": "/assets/library/organic-polymer.svg",
+  "tags": [
+    "Fraser Stoddart",
+    "Rotaxane",
+    "Công tắc phân tử",
+    "Tự lắp ráp"
+  ],
+  "aliases": [],
+  "documentKind": "story",
+  "readingMinutes": 5,
+  "editorialEvidence": {
+    "language": "vi",
+    "scope": "chemical-family",
+    "contextLabel": "Fraser Stoddart: chiếc vòng phân tử đổi chỗ khi môi trường đổi",
+    "reviewBasis": "Biên soạn theo các nguồn dẫn cuối bài; phân biệt kết quả đã thực hiện và hướng phát triển.",
+    "story": {
+      "status": "documented",
+      "section": "## Một con thoi chỉ nhỏ bằng phân tử",
+      "sources": [
+        "https://www.nature.com/articles/369133a0",
+        "https://www.nobelprize.org/uploads/2018/06/stoddart-lecture.pdf",
+        "https://stoddart.northwestern.edu/fraser-stoddart/"
+      ]
+    },
+    "application": {
+      "status": "documented",
+      "section": "## Ứng dụng hôm nay: học cách biến vị trí thành chức năng",
+      "sources": [
+        "https://www.nature.com/articles/369133a0",
+        "https://www.nobelprize.org/uploads/2018/06/stoddart-lecture.pdf",
+        "https://stoddart.northwestern.edu/fraser-stoddart/"
+      ]
+    }
+  },
+  "content": "## Một con thoi chỉ nhỏ bằng phân tử\n\nNăm 1991, nhóm Fraser Stoddart công bố một rotaxane được gọi là con thoi phân tử. Một vòng nằm trên trục có các đầu chặn, có thể di chuyển giữa những vùng tương tác thuận lợi mà không rời khỏi trục. Vật được tổng hợp không chỉ có cấu trúc; nó còn có một chuyển động đáng nghiên cứu.\n\nĐến bài báo Nature năm 1994, Richard Bissell, Emilio Córdova, Angel Kaifer và Stoddart mô tả một hệ có thể chuyển giữa hai vị trí bằng thay đổi điều kiện hóa học hoặc điện hóa. Bước này đưa câu chuyện từ “vòng đang đi lại” sang “có thể tác động để ưu tiên một vị trí”.\n\nSự khác nhau rất quan trọng. Chuyển động ngẫu nhiên luôn hiện diện ở cấp phân tử. Một công tắc cần thêm cách đặt hệ vào trạng thái mong muốn, rồi xác nhận trạng thái ấy bằng phép đo.\n\n![Minh họa các cấu phần phân tử; không phải sơ đồ rotaxane của Stoddart](/assets/library/organic-polymer.svg)\n\n## Các đầu chặn giữ vòng, tương tác chọn chỗ dừng\n\nCấu trúc rotaxane thường được hình dung như một hạt vòng trên sợi dây có hai đầu phình lớn. Đó là phép ví von về hình học. Ở cấp phân tử, kích thước, hình dạng và các tương tác cụ thể quyết định vòng có bị giữ lại và thích ở vùng nào.\n\nCác vị trí trên trục không phải những bến đỗ có cơ cấu móc cơ khí. Chúng là vùng có quan hệ năng lượng thuận lợi với vòng. Khi thay đổi trạng thái oxi hóa hoặc mức proton hóa của hệ phù hợp, tương tác có thể đổi, làm phân bố vị trí của vòng thay đổi theo.\n\nCần mô tả một tập hợp phân tử bằng tỷ lệ và động học, thay vì tưởng tượng mọi chiếc vòng cùng nhảy tức thì theo một lệnh. Dữ liệu phổ cho phép kiểm tra tốc độ và mức ưu tiên; hình hoạt họa chỉ trình bày một cách hiểu của dữ liệu ấy.\n\n## Một lần đổi chỗ chưa phải bộ nhớ ổn định\n\nCông trình năm 1994 dùng cộng hưởng từ hạt nhân và phổ tử ngoại–khả kiến để khảo sát chuyển động trước và sau khi thay đổi điều kiện. Các phương pháp bổ sung nhau: điều quan sát được phải phù hợp với cấu trúc và trạng thái hóa học của mẫu.\n\nBài giảng Nobel của Stoddart trình bày nhiều bước tiếp theo, từ hệ đổi vị trí tới các cấu trúc thực hiện chuyển động phức tạp hơn. Tuy nhiên, một hệ có hai trạng thái chưa tự là linh kiện lưu trữ hữu ích. Cần biết trạng thái giữ được bao lâu, đọc nó bằng gì và có đổi trở lại nhiều lần mà không hỏng không.\n\nGắn phân tử lên bề mặt cũng có thể làm thay đổi hành vi so với dung dịch. Những cấu phần bên cạnh, đường truyền điện và cách cấp tín hiệu trở thành một phần của bài toán mới.\n\n## Ứng dụng hôm nay: học cách biến vị trí thành chức năng\n\nCác hệ đan cài của Stoddart là nền tảng cho nghiên cứu công tắc và máy phân tử, đồng thời cung cấp cách nghĩ về vật liệu mà chuyển động bên trong có thể được điều khiển. Điều được thiết kế là quan hệ giữa kích thích, trạng thái và đáp ứng, chứ không chỉ một hình phân tử lạ.\n\nKhi xem thông tin về thiết bị ở cấp nano, người đọc nên tìm xem kết quả được chứng minh ở cấp phân tử riêng, tập hợp trong dung dịch hay một linh kiện đã nối mạch. Ba mức ấy có yêu cầu khác nhau. Một bước tiến ở mức đầu vẫn rất quan trọng, nhưng không nên được kể như đã hoàn thành tất cả các bước còn lại.\n\nCon thoi phân tử mang một bài học dễ nhớ: để làm ra chức năng, đôi khi không cần tạo thêm liên kết mới trong mỗi chu kỳ. Có thể sử dụng cách các phần của một hệ di chuyển tương đối, miễn là vị trí ấy được kiểm soát và đo được.\n\n## Nguồn và đọc thêm\n\n- [Bissell và cộng sự · Con thoi chuyển đổi hóa học và điện hóa, 1994](https://www.nature.com/articles/369133a0)\n- [Fraser Stoddart · Bài giảng Nobel](https://www.nobelprize.org/uploads/2018/06/stoddart-lecture.pdf)\n- [Nhóm Stoddart tại Northwestern · Các mốc nghiên cứu](https://stoddart.northwestern.edu/fraser-stoddart/)"
+}

@@ -1,0 +1,44 @@
+{
+  "id": "adiponitrile-hai-dau-cho-nylon",
+  "slug": "adiponitrile-hai-dau-cho-nylon",
+  "documentPath": "docs/adiponitrile-hai-dau-cho-nylon/index.json",
+  "title": "Hai đầu phản ứng cho một sợi nylon: câu chuyện adiponitrile",
+  "summary": "Nhà máy ADN mới ở Thượng Hải năm 2022 là một mắt xích của chuỗi nylon 6,6. Hydrocyanation tạo chất trung gian có hai đầu chức năng, rồi còn nhiều phản ứng trước khi thành sợi.",
+  "category": "phanung",
+  "author": "Ban biên tập ChemDex",
+  "image": "/assets/library/photos/stories/nylon.jpg",
+  "tags": [
+    "Hydrocyanation",
+    "Adiponitrile",
+    "Nylon 6,6",
+    "Chọn lọc"
+  ],
+  "aliases": [],
+  "documentKind": "story",
+  "readingMinutes": 5,
+  "editorialEvidence": {
+    "language": "vi",
+    "scope": "chemical-family",
+    "contextLabel": "Hai đầu phản ứng cho một sợi nylon: câu chuyện adiponitrile",
+    "reviewBasis": "Biên soạn theo các nguồn dẫn cuối bài; phân biệt kết quả đã thực hiện và hướng phát triển.",
+    "story": {
+      "status": "documented",
+      "section": "## Một nhà máy làm chất ít người dùng biết tên",
+      "sources": [
+        "https://www.invista.com/news/invista-celebrates-inauguration-of-400-000-ton-year-adn-plant-at-the-shanghai-chemical-industry-park",
+        "https://doi.org/10.1016/S0360-0564(08)60257-6",
+        "https://www.epa.gov/sites/production/files/2020-11/documents/cyanide.pdf"
+      ]
+    },
+    "application": {
+      "status": "documented",
+      "section": "## Ứng dụng hôm nay: một cải tiến trước sợi vải rất xa",
+      "sources": [
+        "https://www.invista.com/news/invista-celebrates-inauguration-of-400-000-ton-year-adn-plant-at-the-shanghai-chemical-industry-park",
+        "https://doi.org/10.1016/S0360-0564(08)60257-6",
+        "https://www.epa.gov/sites/production/files/2020-11/documents/cyanide.pdf"
+      ]
+    }
+  },
+  "content": "## Một nhà máy làm chất ít người dùng biết tên\n\nNgày 25 tháng 11 năm 2022, INVISTA tổ chức lễ khánh thành cơ sở adiponitrile mới tại Thượng Hải. Công ty mô tả ADN là một nguyên liệu quan trọng trong chuỗi nylon 6,6, với công nghệ phát triển từ nền tảng nhiều thập niên trước. Người sử dụng áo quần hoặc chi tiết nhựa có thể biết nylon mà chưa từng gặp tên chất trung gian này.\n\nMối liên hệ ấy cần được đọc đúng: adiponitrile không phải nylon lỏng để kéo ngay thành sợi. Nó đi qua các biến đổi tiếp theo, trong đó có chuyển nhóm nitrile thành amine, rồi mới tham gia tạo polymer. Một công bố về ADN vì vậy là câu chuyện của một mắt xích, không phải toàn bộ chuỗi vật liệu.\n\n![Tất nylon trong bộ sưu tập Auckland Museum](/assets/library/photos/stories/nylon.jpg)\n\n*Tất nylon thuộc bộ sưu tập Auckland Museum, gắn với đời sống thập niên 1950–1960. — Auckland Museum; API data Catalogue record Photo; [CC BY 4.0](https://creativecommons.org/licenses/by/4.0). [Nguồn ảnh](https://commons.wikimedia.org/wiki/File:Pouch,_stocking_(AM_1999.154.33-3).jpg).*\n\n## Một mạch carbon phải có đúng hai đầu\n\nCon đường hydrocyanation phát triển tại DuPont dùng butadiene và hydrogen cyanide để tạo adiponitrile qua các bước có xúc tác. Công thức sản phẩm có hai nhóm nitrile ở hai đầu của mạch thích hợp cho chuỗi sản xuất tiếp theo. Cân bằng nguyên tử cho biết carbon và nitrogen được đưa vào từ đâu.\n\nNhưng tổng số nguyên tử không bảo đảm chúng được nối đúng chỗ. Các sản phẩm mạch nhánh hoặc vị trí liên kết khác có thể hình thành. Phản ứng cần tính chọn lọc cao để ưu tiên cấu trúc phù hợp, bởi một chất có cùng công thức tổng quát chưa chắc thay thế được nguyên liệu mong muốn trong bước sau.\n\nCác hệ xúc tác nickel cùng phối tử được nghiên cứu để kiểm soát những đường phản ứng này. Phối tử, trạng thái xúc tác và quá trình đồng phân hóa trung gian đều góp phần vào kết quả; không phải chỉ sự có mặt của kim loại là đủ.\n\n## Đường đi đến polymer còn phụ thuộc những chất rất ít\n\nNhững thảo luận kỹ thuật của người phát triển quy trình cho thấy hydrocyanation công nghiệp là mạng các bước liên quan, đi cùng phân tách và thu hồi. Chất trung gian cần được đưa tiếp đúng nơi trong khi chất xúc tác và những dòng khác được quản lý riêng.\n\nNguyên liệu cho polymer còn cần độ sạch phù hợp. Trong phản ứng tạo chuỗi dài, các thành phần có chức năng khác có thể ảnh hưởng đến chiều dài hoặc cấu trúc chuỗi. Vì vậy, chất lượng monomer không chỉ là yêu cầu trên giấy chứng nhận; nó liên quan đến tính năng vật liệu cuối.\n\nBài này chỉ giải thích vai trò và logic hóa học của tuyến sản xuất. Những nguyên liệu có độc tính cao và các điều kiện công nghiệp đòi hỏi hệ thống chuyên dụng, không được chuyển từ phương trình tổng thể thành hướng dẫn thao tác ngoài cơ sở được thiết kế cho chúng.\n\n## Ứng dụng hôm nay: một cải tiến trước sợi vải rất xa\n\nADN nối với chuỗi tạo hexamethylenediamine và nylon 6,6. Vật liệu cuối còn phụ thuộc đối tác monomer, quá trình polymer hóa, phụ gia và gia công. Một loại sợi, một nhựa kỹ thuật và một chi tiết đúc có thể chia sẻ nền hóa học nhưng khác cách tạo cấu trúc và yêu cầu sử dụng.\n\nKhi nhà sản xuất công bố công nghệ ADN thế hệ mới, các thước đo quan trọng gồm hiệu quả nguyên liệu, độ tin cậy và chất lượng sản phẩm. Chúng cần được đánh giá ở phạm vi được báo cáo, không tự biến thành lời khẳng định rằng mọi sản phẩm nylon đều có cùng lợi ích môi trường.\n\nCâu chuyện Thượng Hải cho thấy hóa học ở đầu chuỗi có thể định hình khả năng cung cấp vật liệu ở cuối chuỗi. Trước khi một sợi vải có màu sắc và hình dáng, những nhà hóa học đã phải giải bài toán tạo đúng một mạch carbon với đúng hai đầu chức năng.\n\n## Nguồn và đọc thêm\n\n- [INVISTA · Khánh thành cơ sở ADN Thượng Hải, 25/11/2022](https://www.invista.com/news/invista-celebrates-inauguration-of-400-000-ton-year-adn-plant-at-the-shanghai-chemical-industry-park)\n- [Tolman và cộng sự · Hydrocyanation olefin trong nghiên cứu công nghiệp](https://doi.org/10.1016/S0360-0564(08)60257-6)\n- [U.S. EPA · Các bước và dòng vật chất trong hydrocyanation tạo ADN](https://www.epa.gov/sites/production/files/2020-11/documents/cyanide.pdf)"
+}

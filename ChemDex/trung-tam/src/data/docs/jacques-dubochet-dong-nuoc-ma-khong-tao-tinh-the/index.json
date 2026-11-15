@@ -1,0 +1,46 @@
+{
+  "id": "jacques-dubochet-dong-nuoc-ma-khong-tao-tinh-the",
+  "slug": "jacques-dubochet-dong-nuoc-ma-khong-tao-tinh-the",
+  "documentPath": "docs/jacques-dubochet-dong-nuoc-ma-khong-tao-tinh-the/index.json",
+  "title": "Jacques Dubochet: làm nước đứng yên mà không để nó kết tinh",
+  "summary": "Muốn quan sát phân tử trong hiển vi điện tử, nước vừa cần được giữ lại vừa không được tạo tinh thể phá mẫu. Dubochet và cộng sự giải bài toán bằng lớp băng vô định hình rất mỏng.",
+  "category": "tieusu",
+  "author": "Ban biên tập ChemDex",
+  "image": "/assets/library/ionic-crystal.svg",
+  "tags": [
+    "Jacques Dubochet",
+    "Thủy tinh hóa",
+    "Cryo-EM",
+    "Nước"
+  ],
+  "aliases": [],
+  "documentKind": "story",
+  "readingMinutes": 5,
+  "editorialEvidence": {
+    "language": "vi",
+    "scope": "chemical-family",
+    "contextLabel": "Jacques Dubochet: làm nước đứng yên mà không để nó kết tinh",
+    "reviewBasis": "Biên soạn theo các nguồn dẫn cuối bài; phân biệt kết quả đã thực hiện và hướng phát triển.",
+    "story": {
+      "status": "documented",
+      "section": "## Nước là môi trường sống và cũng là trở ngại của phép đo",
+      "sources": [
+        "https://doi.org/10.1111/j.1365-2818.1981.tb02483.x",
+        "https://serval.unil.ch/resource/serval%3ABIB_BFB9DABF427A.P001/REF.pdf",
+        "https://www.embl.org/news/science/jacques-dubochet-awarded-nobel-prize-for-chemistry/",
+        "https://www.nobelprize.org/prizes/chemistry/2017/dubochet/lecture/"
+      ]
+    },
+    "application": {
+      "status": "documented",
+      "section": "## Ứng dụng hôm nay: chất lượng ảnh bắt đầu trước khi chụp",
+      "sources": [
+        "https://doi.org/10.1111/j.1365-2818.1981.tb02483.x",
+        "https://serval.unil.ch/resource/serval%3ABIB_BFB9DABF427A.P001/REF.pdf",
+        "https://www.embl.org/news/science/jacques-dubochet-awarded-nobel-prize-for-chemistry/",
+        "https://www.nobelprize.org/prizes/chemistry/2017/dubochet/lecture/"
+      ]
+    }
+  },
+  "content": "## Nước là môi trường sống và cũng là trở ngại của phép đo\n\nHiển vi điện tử làm việc trong điều kiện khiến nước lỏng của mẫu sinh học trở thành một vấn đề. Làm khô có thể thay đổi cấu trúc; đông lạnh thông thường lại có thể tạo tinh thể băng và làm các chất tan phân bố khác đi. Muốn giữ mẫu gần trạng thái ban đầu, phải giải quyết chính môi trường bao quanh phân tử.\n\nNăm 1981, Jacques Dubochet và Alasdair McDowall công bố việc thủy tinh hóa nước cho hiển vi điện tử. Trong những lớp rất mỏng được làm lạnh phù hợp, nước trở thành trạng thái rắn vô định hình thay vì phát triển thành tinh thể.\n\nMột công trình tiếp theo năm 1982 của nhóm tại EMBL khảo sát nước và dung dịch đông lạnh bằng hiển vi. Những nghiên cứu ấy biến câu hỏi chuẩn bị mẫu từ phần phụ kỹ thuật thành một nền tảng của phương pháp cấu trúc.\n\n![Minh họa trật tự tinh thể để đối chiếu khái niệm; băng thủy tinh trong cryo-EM không có mạng tinh thể như hình](/assets/library/ionic-crystal.svg)\n\n## Không phải loại bỏ nước, mà đổi cách nó đông lại\n\nTrong băng tinh thể, các phân tử có trật tự dài hạn. Băng thủy tinh thiếu kiểu trật tự đó. Làm lạnh đủ nhanh một lớp mẫu mỏng có thể ngăn quá trình tạo và lớn lên của tinh thể trong những điều kiện thích hợp.\n\nĐiều này không có nghĩa mọi cốc nước đều có thể biến thành cùng loại băng chỉ bằng cách làm lạnh sâu. Chiều dày, tốc độ truyền nhiệt và môi trường làm lạnh rất quan trọng. Một lớp mỏng trên lưới hiển vi là hệ khác hẳn một khối nước lớn.\n\nChuẩn bị tốt còn cần tránh để mẫu bị thay đổi trước khi đông. Các phân tử có thể tương tác với bề mặt hoặc có những hướng ưu tiên. Băng vô định hình giải một trở ngại lớn, nhưng không khiến mọi vấn đề về mẫu tự biến mất.\n\n## Giữ mẫu rồi vẫn phải hạn chế tác động của electron\n\nTrong công trình năm 1982, nhóm cũng xem xét tổn thương do chùm electron và những thay đổi khi mẫu được làm ấm. Điều đó cho thấy thủy tinh hóa không làm mẫu bất tử. Trạng thái đã giữ được cần được duy trì qua vận chuyển, ghi ảnh và xử lý.\n\nNhiệt độ thấp giúp giảm một số tác động, nhưng lượng electron dùng để đo vẫn cần được quản lý. Nếu chiếu quá mạnh để có ảnh dễ nhìn hơn, chính cấu trúc đang nghiên cứu có thể bị làm hỏng.\n\nEMBL kể lại quá trình phát triển như công việc phối hợp giữa người chuẩn bị mẫu, người chế tạo thiết bị và người phân tích ảnh. Một lớp nước đông đúng cách có thể ít gây chú ý hơn bức hình protein cuối cùng, nhưng thiếu nó thì nhiều bức hình sẽ không thể có cùng ý nghĩa.\n\n## Ứng dụng hôm nay: chất lượng ảnh bắt đầu trước khi chụp\n\nCryo-EM sử dụng mẫu được giữ trong lớp băng mỏng để nghiên cứu các đại phân tử và phức hợp. Phương pháp đã mở rộng khả năng xác định cấu trúc, nhưng thành công vẫn phụ thuộc việc mẫu phân bố, giữ hình dạng và cung cấp đủ những góc nhìn phù hợp.\n\nBài học Dubochet có thể áp dụng khi đọc mọi kết quả đo vật liệu nhạy cảm: trạng thái trong thiết bị có đại diện cho trạng thái cần nghiên cứu không? Một phép đo rất chính xác trên mẫu đã bị biến đổi có thể trả lời một câu hỏi khác với câu hỏi ban đầu.\n\nNước thường được coi là thứ nền không cần kể. Trong câu chuyện này, kiểm soát cách nước đông đã làm thay đổi khả năng nhìn vào phân tử sinh học. Một tiến bộ về cấu trúc bắt đầu bằng việc giữ môi trường của mẫu đủ trung thực, trước khi cố thu thêm chi tiết từ nó.\n\n## Nguồn và đọc thêm\n\n- [Dubochet và McDowall · Thủy tinh hóa nước, 1981](https://doi.org/10.1111/j.1365-2818.1981.tb02483.x)\n- [Dubochet và cộng sự · Nghiên cứu nước đông lạnh, 1982](https://serval.unil.ch/resource/serval%3ABIB_BFB9DABF427A.P001/REF.pdf)\n- [EMBL · Lịch sử phát triển thủy tinh hóa và cryo-EM](https://www.embl.org/news/science/jacques-dubochet-awarded-nobel-prize-for-chemistry/)\n- [Jacques Dubochet · Bài giảng Nobel về băng vô định hình](https://www.nobelprize.org/prizes/chemistry/2017/dubochet/lecture/)"
+}

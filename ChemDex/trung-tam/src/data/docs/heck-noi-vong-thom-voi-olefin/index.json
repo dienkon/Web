@@ -1,0 +1,44 @@
+{
+  "id": "heck-noi-vong-thom-voi-olefin",
+  "slug": "heck-noi-vong-thom-voi-olefin",
+  "documentPath": "docs/heck-noi-vong-thom-voi-olefin/index.json",
+  "title": "Richard Heck nối một vòng carbon với olefin và mở thêm đường tổng hợp",
+  "summary": "Phản ứng Heck đưa hai mảnh hữu cơ gặp nhau nhờ palladium rồi để lại liên kết đôi trong sản phẩm. Những ứng dụng công nghiệp cho thấy một mối nối có thể đổi cả tuyến sản xuất.",
+  "category": "phanung",
+  "author": "Ban biên tập ChemDex",
+  "image": "/assets/library/organic-alkene.svg",
+  "tags": [
+    "Heck",
+    "Palladium",
+    "Olefin",
+    "Tạo liên kết C–C"
+  ],
+  "aliases": [],
+  "documentKind": "story",
+  "readingMinutes": 4,
+  "editorialEvidence": {
+    "language": "vi",
+    "scope": "chemical-family",
+    "contextLabel": "Richard Heck nối một vòng carbon với olefin và mở thêm đường tổng hợp",
+    "reviewBasis": "Biên soạn theo các nguồn dẫn cuối bài; phân biệt kết quả đã thực hiện và hướng phát triển.",
+    "story": {
+      "status": "documented",
+      "section": "## Một loạt công trình và bước sửa đổi quan trọng",
+      "sources": [
+        "https://doi.org/10.1021/jo00979a024",
+        "https://www.nobelprize.org/uploads/2018/06/advanced-chemistryprize2010.pdf",
+        "https://www.nobelprize.org/uploads/2018/06/heck-lecture-slides.pdf"
+      ]
+    },
+    "application": {
+      "status": "documented",
+      "section": "## Ứng dụng hôm nay: một công cụ trong kế hoạch nhiều bước",
+      "sources": [
+        "https://doi.org/10.1021/jo00979a024",
+        "https://www.nobelprize.org/uploads/2018/06/advanced-chemistryprize2010.pdf",
+        "https://www.nobelprize.org/uploads/2018/06/heck-lecture-slides.pdf"
+      ]
+    }
+  },
+  "content": "## Một loạt công trình và bước sửa đổi quan trọng\n\nCuối thập niên 1960, Richard Heck công bố những phản ứng tạo liên kết carbon–carbon có palladium tham gia. Năm 1972, ông cùng J. P. Nolley giới thiệu dạng phản ứng dùng các halide hữu cơ và olefin, giúp mở rộng tính thực dụng của phương pháp.\n\nTài liệu Nobel Hóa học 2010 kể lại cách công việc này đóng góp vào tổng hợp nhiều hóa chất tinh. Các ví dụ lịch sử gồm những tuyến sản xuất liên quan đến naproxen, montelukast và vật liệu điện tử. Một bước ghép không làm ra toàn bộ các sản phẩm ấy, nhưng có thể thay đổi cách xây dựng phần khung carbon quan trọng.\n\n![Minh họa olefin, không phải sơ đồ điều chế một dược chất cụ thể](/assets/library/organic-alkene.svg)\n\n## Một liên kết đôi đi vào và một liên kết đôi mới đi ra\n\nTrong cách mô tả nền tảng, một nhóm hữu cơ từ đối tác halide được ghép với olefin nhờ chu trình palladium. Olefin phối trí với kim loại, rồi tham gia bước tạo liên kết carbon–carbon. Sau những biến đổi tiếp theo, sản phẩm được giải phóng với một liên kết đôi ở vị trí phù hợp.\n\nĐây là điểm giúp phân biệt Heck với những cách ghép cặp mà sản phẩm chính là liên kết đơn giữa hai mảnh đã được chức năng hóa. Không nên gom mọi phản ứng có palladium thành cùng một cơ chế chỉ vì chúng cùng tạo liên kết carbon.\n\nVị trí ghép và hình học của liên kết đôi có thể quan trọng đối với bước tổng hợp sau. Một hỗn hợp các đồng phân không tự tương đương một sản phẩm cấu hình xác định, ngay cả khi tất cả có cùng công thức phân tử.\n\n## Tái sinh palladium giữ cho chu trình tiếp tục\n\nPalladium thay đổi trạng thái phối trí và số oxi hóa hình thức trong chu trình. Việc giải phóng sản phẩm phải đi cùng đường tái tạo loài xúc tác có thể bắt đầu vòng mới. Các thành phần hỗ trợ trong môi trường phản ứng góp phần vào những bước đó.\n\nPhản ứng còn tạo những dòng đi kèm cần được tách, chẳng hạn muối từ nhóm rời và base. Vì vậy, lợi thế tạo mối nối trực tiếp không có nghĩa hiệu suất sử dụng mọi nguyên tử đều hoàn hảo. Đánh giá một tuyến cần tính cả cách chuẩn bị hai cơ chất đầu vào.\n\nNhững giới hạn về cơ chất, sự khử halogen hoặc sản phẩm ghép không mong muốn là lý do nghiên cứu xúc tác vẫn tiếp tục. Một phản ứng mang tên quen thuộc cung cấp hướng tiếp cận, chứ không thay thế việc kiểm chứng trên cấu trúc cụ thể.\n\n## Ứng dụng hôm nay: một công cụ trong kế hoạch nhiều bước\n\nHeck được sử dụng trong tổng hợp hữu cơ để tạo những khung có liên kết đôi và trong các mục tiêu phân tử phức tạp. Tài liệu Nobel ghi nhận các ứng dụng công nghiệp đã có, nhưng không nên lấy ví dụ từ năm 2010 để khẳng định mọi nhà sản xuất hiện nay vẫn dùng đúng một tuyến không đổi.\n\nLựa chọn phương pháp còn tùy nguyên liệu sẵn có, mức chọn lọc, lượng kim loại và yêu cầu loại tạp. Một tuyến khác có thể phù hợp hơn khi quy mô hoặc cấu trúc mục tiêu thay đổi. Giá trị của Heck nằm ở việc mở thêm một lựa chọn có cơ sở hóa học rõ ràng.\n\nCâu chuyện của những bài báo đầu tiên cho thấy công cụ tổng hợp thường mạnh lên qua sửa đổi. Tạo được một mối nối là bước đầu; làm cho nó dùng được với cơ chất thuận tiện và tái sinh xúc tác hiệu quả mới đưa phản ứng từ phát hiện thành phương pháp mà nhiều phòng nghiên cứu có thể dựa vào.\n\n## Nguồn và đọc thêm\n\n- [Heck và Nolley · Ghép halide hữu cơ với olefin, 1972](https://doi.org/10.1021/jo00979a024)\n- [Nobel · Cơ chế Heck và các ví dụ ứng dụng công nghiệp](https://www.nobelprize.org/uploads/2018/06/advanced-chemistryprize2010.pdf)\n- [Richard Heck · Bài giảng Nobel về ghép cặp palladium](https://www.nobelprize.org/uploads/2018/06/heck-lecture-slides.pdf)"
+}

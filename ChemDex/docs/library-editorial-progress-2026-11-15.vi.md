@@ -6,18 +6,18 @@ Mục tiêu được xác nhận: mọi tài liệu là bài viết tiếng Vi�
 
 | Mục | Trước đợt này | Hiện tại | Còn thiếu để đạt 1.001 |
 | --- | ---: | ---: | ---: |
-| Tiểu sử | 81 | 104 | 897 |
+| Tiểu sử | 81 | 124 | 877 |
 | Nguyên tố | 140 | 157 | 844 |
-| Khái niệm hóa học | 2 | 15 | 986 |
-| Phản ứng | 0 | 17 | 984 |
-| Câu chuyện các chất | 357 | 357 | 644 |
-| Tổng | 580 | 650 | 4.355 |
+| Khái niệm hóa học | 2 | 35 | 966 |
+| Phản ứng | 0 | 37 | 964 |
+| Câu chuyện các chất | 357 | 360 | 641 |
+| Tổng | 580 | 713 | 4.292 |
 
 Các con số là bài có ID, đường dẫn và nội dung riêng; không phải số công thức, lượt gắn thẻ hoặc trang nguồn. Không nhân bản một bài thành nhiều góc nhìn để đạt chỉ tiêu.
 
 ## Nội dung đã cập nhật
 
-- Viết 70 bài mới qua hai đợt: 25 chuyên đề đầu tiên và 45 bài đợt 2 (15 tiểu sử, 15 ứng dụng nguyên tố, 7 phản ứng và 8 khái niệm). Riêng đợt 2 có khoảng 27.873 từ theo phép đếm khoảng trắng; mỗi bài 541–673 từ, 3–4 phần và ít nhất 3 nguồn. Nội dung chính là văn xuôi tiếng Việt; một số thuật ngữ hóa học quốc tế được giữ nguyên.
+- Viết 70 bài mới trong hai đợt đầu: 25 chuyên đề đầu tiên và 45 bài đợt 2 (15 tiểu sử, 15 ứng dụng nguyên tố, 7 phản ứng và 8 khái niệm). Riêng đợt 2 có khoảng 27.873 từ theo phép đếm khoảng trắng; mỗi bài 541–673 từ, 3–4 phần và ít nhất 3 nguồn. Nội dung chính là văn xuôi tiếng Việt; một số thuật ngữ hóa học quốc tế được giữ nguyên.
 - Thêm câu chuyện/trường hợp thực tế và phần ứng dụng cho 79 hồ sơ hợp chất. Trong đó 10 bài đợt 2 có phần kể chuyện hoàn chỉnh khoảng 550–610 từ: N₂, benzen, glycerol, CsCl, SO₂, dung dịch sodium acetate, LiF, NaI, CO và acid acetic. Đưa lịch sử và ứng dụng có nguồn lên đầu 117 hồ sơ nguyên tố; phân biệt công dụng hiện tại, công dụng lịch sử, nghiên cứu và chưa có công dụng được ghi nhận.
 - Bổ sung ứng dụng cho 17 bài kể chuyện đã có; thêm trường hợp thực tế cho 2 bài hướng dẫn.
 - Cải thiện 93 hồ sơ lịch sử/tiểu sử cũ bằng bối cảnh nghiên cứu và ảnh. Trong đó 92 bài vẫn dùng ứng dụng của nguyên tố liên quan làm bối cảnh, chưa thay thế việc nghiên cứu riêng đóng góp và ảnh hưởng của từng nhân vật/nhóm.
@@ -26,9 +26,9 @@ Các con số là bài có ID, đường dẫn và nội dung riêng; không ph�
 
 ## Phần chưa hoàn tất
 
-- 272 hồ sơ hợp chất chưa có câu chuyện và ứng dụng được đối chiếu riêng. Chúng vẫn là bài tra cứu và được đánh dấu `missing` trong hồ sơ biên tập. Không gán lịch sử hoặc công dụng của một nguyên tố thành phần cho hợp chất.
+- 264 hồ sơ hợp chất chưa có câu chuyện và ứng dụng được đối chiếu riêng. Chúng vẫn là bài tra cứu và được đánh dấu `missing` trong hồ sơ biên tập. Không gán lịch sử hoặc công dụng của một nguyên tố thành phần cho hợp chất.
 - 92 hồ sơ lịch sử còn có ứng dụng ở mức bối cảnh liên quan. Cần viết sâu thêm theo công trình cụ thể.
-- Chưa đạt số lượng ở bất kỳ mục nào. Cần tiếp tục biên soạn 4.355 bài khác nhau và đối chiếu nguồn, hình ảnh, tính mới của từng bài.
+- Chưa đạt số lượng ở bất kỳ mục nào. Cần tiếp tục biên soạn 4.292 bài khác nhau và đối chiếu nguồn, hình ảnh, tính mới của từng bài.
 - Nguồn/đề mục được kiểm tra bằng công cụ chỉ xác nhận tính toàn vẹn của hồ sơ, không thay thế kiểm chứng sự kiện hoặc đánh giá văn chương.
 
 Danh sách bài và trạng thái chi tiết nằm trong `shared/library-editorial-audit.generated.json`. Trường `quantityTargetReached` kiểm số lượng; `editorialCoverageComplete` kiểm hồ sơ câu chuyện/ứng dụng tiếng Việt tường minh. `targetReached` chỉ đúng khi cả hai điều kiện đều đạt, và vẫn cần đánh giá biên tập về sự khác biệt nội dung.
@@ -60,3 +60,15 @@ Danh sách bài và trạng thái chi tiết nằm trong `shared/library-editori
 - Kiểm tra đợt 2: 27 kiểm tra tự động đạt; 3 kịch bản trình duyệt Chromium đạt, gồm danh sách phản ứng, ảnh có nguồn, đường dẫn mới, nhiều bài trên màn hình 390 px và phạm vi ứng dụng của bài sodium acetate/CO. Build production thành công. Sửa ảnh bìa SVG để giữ nguyên nội dung thay vì cắt chữ khi xem trên điện thoại.
 
 - Chạy lại builder đợt 2 trên 659 tệp JSON/route cho kết quả byte không đổi.
+
+## Đợt 3 — tiếp tục nội dung tiếng Việt
+
+- Bổ sung 63 bài riêng: 20 tiểu sử nghiên cứu, 20 phản ứng có trường hợp công nghiệp/tổng hợp cụ thể, 20 khái niệm qua phép đo hoặc ứng dụng thực, và 3 bài về PTFE, Kevlar, indigo. Tổng số bản thảo bài báo mới qua ba đợt là 133. Số 713 là toàn bộ tài liệu trong kho, bao gồm các hồ sơ cũ còn cần viết sâu; không khẳng định 713 bài đều đã hoàn tất biên tập.
+- Viết thêm phần báo chí khoảng 540–590 từ cho 8 hồ sơ hợp chất: KBr, CaF₂, dung dịch K₂CO₃, Fe₂O₃, acid formic, ammonium sulfate, propane và H₂S. Tổng số hồ sơ hợp chất được thêm câu chuyện/trường hợp riêng là 87; còn 264 hồ sơ cần tiếp tục. Các hồ sơ tiểu sử còn 79 ứng dụng ở mức bối cảnh; nhóm nguyên tố còn 13, như đã ghi trong kiểm kê.
+- Thêm 4 ảnh đã kiểm tra: các hạt cầu trên Sao Hỏa do Opportunity ghi lại, bó sợi aramid, mẫu indigo trong bộ sưu tập Dresden và cuộn băng PTFE. Manifest hiện có 32 hình, kèm giấy phép, nguồn, tác giả/đơn vị và hàm băm.
+- Rà chéo các trường hợp dễ nhầm: phân biệt xúc tác FCC tầng sôi năm 1942 với zeolite ở thập niên 1960; lễ khánh thành ADN năm 2022 với thời điểm sản xuất; công bố mở rộng Geismar tháng 1/2019 với khởi động tháng 12/2018; ảnh đầu dò với mô hình được dựng từ tín hiệu.
+- Các nguồn gốc và ảnh giữ ở phần đọc thêm trong từng bài. Tài liệu doanh nghiệp được dùng cho thông tin quy trình/sự kiện của chính doanh nghiệp, không coi lời quảng bá là đánh giá môi trường độc lập.
+
+- Thân bài của 63 bài mới đợt 3 có tổng 38.257 từ theo phép đếm khoảng trắng, mỗi bài 551–686 từ. Kiểm tra bản thảo, metadata và tên hóa học: 27 kiểm tra đạt. Dựng lại 722 tệp JSON/route cho kết quả byte không đổi.
+
+- Bốn kịch bản Chromium đợt 3 đạt; đã xem ảnh chụp màn hình điện thoại của bài indigo và màn hình máy tính của bài Fe₂O₃. Không tràn ngang; ảnh chọn đúng và nguồn/giấy phép hiện trong nội dung. Build production đợt 3 thành công; các cảnh báo bundle/CSS dùng chung đã được ghi ở phần kiểm tra trước.

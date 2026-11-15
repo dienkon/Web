@@ -1,0 +1,43 @@
+{
+  "id": "afm-pentacene-dau-do-gan-mot-phan-tu",
+  "slug": "afm-pentacene-dau-do-gan-mot-phan-tu",
+  "documentPath": "docs/afm-pentacene-dau-do-gan-mot-phan-tu/index.json",
+  "title": "Gắn một phân tử lên mũi dò để nhìn rõ một phân tử khác",
+  "summary": "Ảnh pentacene năm 2009 khiến cấu trúc phân tử hiện ra như một hình vẽ quen thuộc. Điều làm ảnh có ý nghĩa là hiểu lực, đầu dò và cách tạo độ tương phản.",
+  "category": "khainiem",
+  "author": "Ban biên tập ChemDex",
+  "image": "/assets/library/organic-aromatic.svg",
+  "tags": [
+    "AFM",
+    "Pentacene",
+    "Lực nguyên tử"
+  ],
+  "aliases": [],
+  "documentKind": "story",
+  "readingMinutes": 4,
+  "editorialEvidence": {
+    "language": "vi",
+    "scope": "chemical-family",
+    "contextLabel": "Gắn một phân tử lên mũi dò để nhìn rõ một phân tử khác",
+    "reviewBasis": "Biên soạn theo các nguồn dẫn cuối bài; phân biệt kết quả đã thực hiện và hướng phát triển.",
+    "story": {
+      "status": "documented",
+      "section": "## Một mũi dò được thay đổi bằng CO",
+      "sources": [
+        "https://doi.org/10.1126/science.1176210",
+        "https://doi.org/10.1103/PhysRevLett.56.930",
+        "https://doi.org/10.1126/science.1225621"
+      ]
+    },
+    "application": {
+      "status": "documented",
+      "section": "## Ứng dụng hôm nay: kiểm tra cấu trúc bằng một loại bằng chứng mới",
+      "sources": [
+        "https://doi.org/10.1126/science.1176210",
+        "https://doi.org/10.1103/PhysRevLett.56.930",
+        "https://doi.org/10.1126/science.1225621"
+      ]
+    }
+  },
+  "content": "## Một mũi dò được thay đổi bằng CO\n\nNăm 2009, Leo Gross và cộng sự công bố ảnh phân giải cấu trúc của pentacene bằng kính hiển vi lực nguyên tử. Đầu dò được biến đổi bằng một phân tử carbon monoxide, giúp tạo độ tương phản rõ hơn khi quét trên phân tử hấp phụ ở bề mặt. Hình ảnh gợi liên tưởng ngay tới các vòng carbon trong sách, nhưng nó được tạo từ tín hiệu lực, không phải từ ánh sáng phản xạ.\n\nViệc thay đổi đầu dò là trung tâm của câu chuyện. Trong một phép đo ở kích thước rất nhỏ, bộ phận “chạm” vào mẫu không còn là chi tiết trung tính. Tính chất hóa học và chuyển động của chính đầu dò tham gia quyết định hình ảnh thu được.\n\n![Sơ đồ minh họa vòng thơm; không phải ảnh AFM thực nghiệm](/assets/library/organic-aromatic.svg)\n\n## Lực làm đổi dao động\n\nAFM, được giới thiệu trong công trình của Binnig, Quate và Gerber năm 1986, theo dõi tương tác giữa đầu dò nhỏ và bề mặt. Trong các chế độ phù hợp, thay đổi tần số hoặc biên độ dao động cho biết lực đang tác động. Khác STM, tín hiệu cơ bản không nhất thiết là dòng xuyên hầm, nên có thể khảo sát nhiều loại bề mặt hơn.\n\nKhi đi rất gần một phân tử, các tương tác tầm ngắn trở nên quan trọng. Mỗi vị trí làm tín hiệu đổi theo cách khác nhau. Hệ đo phải kiểm soát khoảng cách, rung và trạng thái đầu dò; nếu đầu dò đổi hình hoặc kéo phân tử đi, ảnh có thể thay đổi dù người dùng tưởng mình vẫn đang đo cùng mẫu.\n\n## Vạch sáng không phải một sợi dây liên kết\n\nNghiên cứu năm 2012 của Gross và cộng sự tiếp tục dùng đầu dò gắn CO để phân biệt bậc liên kết trong những phân tử hấp phụ. Các liên kết có thể tạo độ sáng và chiều dài biểu kiến khác nhau. Công trình cũng chỉ rõ sự uốn của CO tại đầu dò góp phần khuếch đại một số khác biệt quan sát được.\n\nĐiều đó rất quan trọng khi đọc ảnh nổi tiếng. Một đường sáng không phải photon chụp trực tiếp “thanh nối” giữa hai quả cầu nguyên tử. Nó là độ tương phản được xây dựng từ tương tác và cách đáp ứng của đầu dò. Đối chiếu với tính toán, cấu trúc đã biết và những điều kiện quét khác giúp xác định phần nào thực sự phản ánh phân tử.\n\n## Ứng dụng hôm nay: kiểm tra cấu trúc bằng một loại bằng chứng mới\n\nAFM có thể bổ sung cho phổ và nhiễu xạ khi nghiên cứu phân tử trên bề mặt. Nó giúp khảo sát hình học, sự sắp xếp và những thay đổi do phản ứng trong các hệ thích hợp. Tuy nhiên, ảnh ở điều kiện nhiệt độ thấp và chân không không tự mô tả cấu trúc trung bình của phân tử đang chuyển động trong dung dịch.\n\nNhững bức ảnh đẹp nhất vì vậy vẫn cần chú thích về mẫu, đầu dò và điều kiện đo. Câu chuyện pentacene không làm công thức cấu tạo trở nên thừa; nó tạo thêm một cách kiểm tra những dự đoán của công thức ấy. Một phân tử CO nhỏ đã giúp mở rộng khả năng quan sát, đồng thời nhắc người nghiên cứu rằng công cụ đo luôn để lại dấu trong dữ liệu. Hiểu dấu ấy là một phần của việc nhìn thấy đúng.\n\n## Nguồn và đọc thêm\n\n- [Gross và cộng sự · Phân giải cấu trúc phân tử bằng AFM, 2009](https://doi.org/10.1126/science.1176210)\n- [Binnig, Quate và Gerber · Công trình AFM, 1986](https://doi.org/10.1103/PhysRevLett.56.930)\n- [Gross và cộng sự · Phân biệt bậc liên kết bằng AFM, 2012](https://doi.org/10.1126/science.1225621)"
+}

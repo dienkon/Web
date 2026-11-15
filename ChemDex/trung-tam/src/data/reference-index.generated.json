@@ -565,10 +565,10 @@
     "legacyIds": [
       "ho-so-74e47b523b16"
     ],
-    "title": "Propan (C₃H₈): thành phần, mô hình và phản ứng",
+    "title": "Propan (C₃H₈) — Đưa khí vào bình: bước đổi trạng thái đã thay cách dùng propane",
     "author": "ChemDex · Học cấu trúc",
     "category": "hopchat",
-    "summary": "Propan: phân tử / cấu tạo, cách đọc mô hình và nguồn dữ liệu. Phản ứng đi kèm điều kiện; câu hỏi có lời giải.",
+    "summary": "Đầu thế kỷ XX, công việc của Walter Snelling góp phần chỉ ra rằng những khí hydrocarbon như propane có thể hóa lỏng và được chứa ở áp suất phù hợp. Từ một phần của dòng khí nguyên liệu, chúng trở thành nhiên liệu có thể vận chuyển tới những nơi không có đường ống khí.",
     "image": "/assets/library/photos/substances/propan-c3h8.jpg",
     "chemicalFormula": "C₃H₈",
     "tags": [
@@ -586,21 +586,33 @@
     ],
     "documentKind": "reference",
     "lessonKind": "substance-guide",
-    "readingMinutes": 6,
+    "readingMinutes": 9,
     "editorialEvidence": {
       "language": "vi",
       "scope": "substance",
       "contextLabel": "Propan",
-      "reviewBasis": "editorial-audit-2026-11-15",
+      "reviewBasis": "source-read-2026-11-15",
       "story": {
-        "status": "missing",
-        "sources": [],
-        "reason": "Chưa có câu chuyện và ứng dụng được đối chiếu riêng cho Propan (C3H8); giữ nguyên bài tra cứu, không gán lịch sử hay công dụng của nguyên tố thành phần cho hợp chất."
+        "status": "documented",
+        "section": "Đưa khí vào bình: bước đổi trạng thái đã thay cách dùng propane",
+        "sources": [
+          "https://www.eia.gov/kids/energy-sources/propane/",
+          "https://www.energy.gov/sites/default/files/2023-08/Propane%20Supply%20Chain%20Backgrounder_v3-Formatted_041723_508.pdf",
+          "https://www.eia.gov/energyexplained/hydrocarbon-gas-liquids/uses-of-hydrocarbon-gas-liquids.php",
+          "https://afdc.energy.gov/fuels/propane-basics"
+        ]
       },
       "application": {
-        "status": "missing",
-        "sources": [],
-        "reason": "Chưa có câu chuyện và ứng dụng được đối chiếu riêng cho Propan (C3H8); giữ nguyên bài tra cứu, không gán lịch sử hay công dụng của nguyên tố thành phần cho hợp chất."
+        "status": "documented",
+        "kind": "use",
+        "scope": "substance",
+        "section": "Từ câu chuyện đến ứng dụng hôm nay",
+        "sources": [
+          "https://www.eia.gov/kids/energy-sources/propane/",
+          "https://www.energy.gov/sites/default/files/2023-08/Propane%20Supply%20Chain%20Backgrounder_v3-Formatted_041723_508.pdf",
+          "https://www.eia.gov/energyexplained/hydrocarbon-gas-liquids/uses-of-hydrocarbon-gas-liquids.php",
+          "https://afdc.energy.gov/fuels/propane-basics"
+        ]
       }
     }
   },
@@ -1072,10 +1084,10 @@
     "legacyIds": [
       "ho-so-363c2fef3382"
     ],
-    "title": "Axit fomic (CH₂O₂): thành phần, mô hình và phản ứng",
+    "title": "Axit fomic (CH₂O₂) — Cất hydrogen trong một chất lỏng: acid formic ở giữa hai chiều phản ứng",
     "author": "ChemDex · Học cấu trúc",
     "category": "hopchat",
-    "summary": "Axit fomic: phân tử / cấu tạo, cách đọc mô hình và nguồn dữ liệu. Phản ứng đi kèm điều kiện; câu hỏi có lời giải.",
+    "summary": "Tháng 3 năm 2012, Brookhaven và các cộng sự công bố hệ xúc tác có thể đi theo hai chiều: kết hợp hydrogen với carbon dioxide, hoặc giải phóng hydrogen từ hệ formate và acid formic. Thay đổi độ acid của môi trường giúp điều khiển hướng làm việc của hệ.",
     "image": "/assets/library/photos/substances/axit-fomic-ch2o2.jpg",
     "chemicalFormula": "CH₂O₂",
     "tags": [
@@ -1098,21 +1110,33 @@
     ],
     "documentKind": "reference",
     "lessonKind": "substance-guide",
-    "readingMinutes": 8,
+    "readingMinutes": 11,
     "editorialEvidence": {
       "language": "vi",
       "scope": "substance",
       "contextLabel": "Axit fomic",
-      "reviewBasis": "editorial-audit-2026-11-15",
+      "reviewBasis": "source-read-2026-11-15",
       "story": {
-        "status": "missing",
-        "sources": [],
-        "reason": "Chưa có câu chuyện và ứng dụng được đối chiếu riêng cho Axit fomic (CH2O2); giữ nguyên bài tra cứu, không gán lịch sử hay công dụng của nguyên tố thành phần cho hợp chất."
+        "status": "documented",
+        "section": "Cất hydrogen trong một chất lỏng: acid formic ở giữa hai chiều phản ứng",
+        "sources": [
+          "https://www.bnl.gov/newsroom/news.php?a=111400",
+          "https://www.aist.go.jp/aist_e/list/latest_research/2012/20120518/20120518.html",
+          "https://www.netl.doe.gov/projects/files/LifeCycleAssessmentofFormicAcidasLiquidHydrogenCarrier_121324.pdf",
+          "https://pubmed.ncbi.nlm.nih.gov/21940890/"
+        ]
       },
       "application": {
-        "status": "missing",
-        "sources": [],
-        "reason": "Chưa có câu chuyện và ứng dụng được đối chiếu riêng cho Axit fomic (CH2O2); giữ nguyên bài tra cứu, không gán lịch sử hay công dụng của nguyên tố thành phần cho hợp chất."
+        "status": "documented",
+        "kind": "use",
+        "scope": "substance",
+        "section": "Từ câu chuyện đến ứng dụng hôm nay",
+        "sources": [
+          "https://www.bnl.gov/newsroom/news.php?a=111400",
+          "https://www.aist.go.jp/aist_e/list/latest_research/2012/20120518/20120518.html",
+          "https://www.netl.doe.gov/projects/files/LifeCycleAssessmentofFormicAcidasLiquidHydrogenCarrier_121324.pdf",
+          "https://pubmed.ncbi.nlm.nih.gov/21940890/"
+        ]
       }
     }
   },
@@ -1857,10 +1881,10 @@
     "legacyIds": [
       "ho-so-9cf9be011cc0"
     ],
-    "title": "Hiđro sunfua (H₂S): thành phần, mô hình và phản ứng",
+    "title": "Hiđro sunfua (H₂S) — Trong một hang tối, hydrogen sulfide nuôi cả một câu hỏi về sự sống",
     "author": "ChemDex · Học cấu trúc",
     "category": "hopchat",
-    "summary": "Hiđro sunfua: phân tử / cấu tạo, cách đọc mô hình và nguồn dữ liệu. Phản ứng đi kèm điều kiện; câu hỏi có lời giải.",
+    "summary": "Ở Cueva de Villa Luz, Mexico, các nhà nghiên cứu khảo sát một hệ hang có dòng nước giàu hydrogen sulfide và những quần thể vi sinh vật đặc biệt. Nguồn năng lượng hóa học ấy giúp giải thích vì sao hệ sinh thái có thể phát triển ở nơi ánh sáng không phải điểm bắt đầu trực tiếp.",
     "image": "/assets/library/photos/substances/hidro-sunfua-h2s.png",
     "chemicalFormula": "H₂S",
     "tags": [
@@ -1882,21 +1906,33 @@
     ],
     "documentKind": "reference",
     "lessonKind": "substance-guide",
-    "readingMinutes": 6,
+    "readingMinutes": 10,
     "editorialEvidence": {
       "language": "vi",
       "scope": "substance",
       "contextLabel": "Hiđro sunfua",
-      "reviewBasis": "editorial-audit-2026-11-15",
+      "reviewBasis": "source-read-2026-11-15",
       "story": {
-        "status": "missing",
-        "sources": [],
-        "reason": "Chưa có câu chuyện và ứng dụng được đối chiếu riêng cho Hiđro sunfua (H2S); giữ nguyên bài tra cứu, không gán lịch sử hay công dụng của nguyên tố thành phần cho hợp chất."
+        "status": "documented",
+        "section": "Trong một hang tối, hydrogen sulfide nuôi cả một câu hỏi về sự sống",
+        "sources": [
+          "https://digitalcommons.usf.edu/kip_articles/1259/",
+          "https://www.jsg.utexas.edu/chemhydro/research/karst/active-sulfidic-cave-systems/",
+          "https://www.paquesglobal.com/applications/gas-desulfurization",
+          "https://research.wur.nl/en/publications/biocrystallization-for-elemental-sulfur-recovery/"
+        ]
       },
       "application": {
-        "status": "missing",
-        "sources": [],
-        "reason": "Chưa có câu chuyện và ứng dụng được đối chiếu riêng cho Hiđro sunfua (H2S); giữ nguyên bài tra cứu, không gán lịch sử hay công dụng của nguyên tố thành phần cho hợp chất."
+        "status": "documented",
+        "kind": "use",
+        "scope": "substance",
+        "section": "Từ câu chuyện đến ứng dụng hôm nay",
+        "sources": [
+          "https://digitalcommons.usf.edu/kip_articles/1259/",
+          "https://www.jsg.utexas.edu/chemhydro/research/karst/active-sulfidic-cave-systems/",
+          "https://www.paquesglobal.com/applications/gas-desulfurization",
+          "https://research.wur.nl/en/publications/biocrystallization-for-elemental-sulfur-recovery/"
+        ]
       }
     }
   },
@@ -2646,10 +2682,10 @@
     "legacyIds": [
       "ho-so-030c3a15992a"
     ],
-    "title": "Tinh thể canxi florua (CaF₂): thành phần, mô hình và phản ứng",
+    "title": "Tinh thể canxi florua (CaF₂) — Muốn chụp ảnh sắc nét, người ta đã học cách nuôi một tinh thể",
     "author": "ChemDex · Học cấu trúc",
     "category": "hopchat",
-    "summary": "Tinh thể canxi florua: đơn vị công thức, cách đọc mô hình và nguồn dữ liệu. Phản ứng đi kèm điều kiện; câu hỏi có lời giải.",
+    "summary": "Tháng 5 năm 1969, Canon đưa ra ống kính FL-F300mm f/5.6 dùng các thấu kính fluorite tổng hợp. Vật liệu làm nên bước tiến ấy là calcium fluoride, CaF₂. Thử thách không chỉ là tìm khoáng vật, mà là tạo được tinh thể đủ lớn và đủ sạch cho quang học.",
     "image": "/assets/library/photos/substances/tinh-the-canxi-florua-caf2.png",
     "chemicalFormula": "CaF₂",
     "tags": [
@@ -2668,21 +2704,33 @@
     ],
     "documentKind": "reference",
     "lessonKind": "substance-guide",
-    "readingMinutes": 7,
+    "readingMinutes": 11,
     "editorialEvidence": {
       "language": "vi",
       "scope": "substance",
       "contextLabel": "Tinh thể canxi florua",
-      "reviewBasis": "editorial-audit-2026-11-15",
+      "reviewBasis": "source-read-2026-11-15",
       "story": {
-        "status": "missing",
-        "sources": [],
-        "reason": "Chưa có câu chuyện và ứng dụng được đối chiếu riêng cho Tinh thể canxi florua (CaF2); giữ nguyên bài tra cứu, không gán lịch sử hay công dụng của nguyên tố thành phần cho hợp chất."
+        "status": "documented",
+        "section": "Muốn chụp ảnh sắc nét, người ta đã học cách nuôi một tinh thể",
+        "sources": [
+          "https://global.canon/en/c-museum/product/fl117.html",
+          "https://optron.canon/en/domain/fluorite/history.html",
+          "https://global.canon/en/news/2019/20191107.html",
+          "https://openstax.org/books/university-physics-volume-3/pages/1-5-dispersion"
+        ]
       },
       "application": {
-        "status": "missing",
-        "sources": [],
-        "reason": "Chưa có câu chuyện và ứng dụng được đối chiếu riêng cho Tinh thể canxi florua (CaF2); giữ nguyên bài tra cứu, không gán lịch sử hay công dụng của nguyên tố thành phần cho hợp chất."
+        "status": "documented",
+        "kind": "use",
+        "scope": "substance",
+        "section": "Từ câu chuyện đến ứng dụng hôm nay",
+        "sources": [
+          "https://global.canon/en/c-museum/product/fl117.html",
+          "https://optron.canon/en/domain/fluorite/history.html",
+          "https://global.canon/en/news/2019/20191107.html",
+          "https://openstax.org/books/university-physics-volume-3/pages/1-5-dispersion"
+        ]
       }
     }
   },
@@ -5475,10 +5523,10 @@
     "legacyIds": [
       "ho-so-0a35f289f374"
     ],
-    "title": "Amoni sunfat (Phân đạm SA) ((NH₄)₂SO₄): thành phần, mô hình và phản ứng",
+    "title": "Amoni sunfat (Phân đạm SA) ((NH₄)₂SO₄) — Một đường đi từ khí thải tới hạt phân bón",
     "author": "ChemDex · Học cấu trúc",
     "category": "hopchat",
-    "summary": "Amoni sunfat (Phân đạm SA): đơn vị công thức, cách đọc mô hình và nguồn dữ liệu. Phản ứng đi kèm điều kiện; câu hỏi có lời giải.",
+    "summary": "Tại Great Plains Synfuels Plant ở North Dakota, một hệ thống xử lý khí thải hoàn tất xây dựng năm 1996 được thiết kế để vừa loại sulfur dioxide, vừa tạo ammonium sulfate có thể bán làm phân bón. Một công đoạn kiểm soát ô nhiễm đồng thời trở thành công đoạn sản xuất.",
     "image": "/assets/library/photos/substances/amoni-sunfat-phan-dam-sa-nh4-2so4.jpg",
     "chemicalFormula": "(NH₄)₂SO₄",
     "tags": [
@@ -5497,21 +5545,33 @@
     ],
     "documentKind": "reference",
     "lessonKind": "substance-guide",
-    "readingMinutes": 8,
+    "readingMinutes": 12,
     "editorialEvidence": {
       "language": "vi",
       "scope": "substance",
       "contextLabel": "Amoni sunfat (Phân đạm SA)",
-      "reviewBasis": "editorial-audit-2026-11-15",
+      "reviewBasis": "source-read-2026-11-15",
       "story": {
-        "status": "missing",
-        "sources": [],
-        "reason": "Chưa có câu chuyện và ứng dụng được đối chiếu riêng cho Amoni sunfat (Phân đạm SA) ((NH4)2SO4); giữ nguyên bài tra cứu, không gán lịch sử hay công dụng của nguyên tố thành phần cho hợp chất."
+        "status": "documented",
+        "section": "Một đường đi từ khí thải tới hạt phân bón",
+        "sources": [
+          "https://www.netl.doe.gov/sites/default/files/netl-file/GTC01010.pdf",
+          "https://www.dakotagas.com/Products/fertilizers/ammonium-sulfate-dak-sul-45",
+          "https://blog-crop-news.extension.umn.edu/2023/06/field-notes-session-talks-soil-moisture.html",
+          "https://www.nrcs.usda.gov/sites/default/files/2022-10/National-Agronomy-Manual.pdf"
+        ]
       },
       "application": {
-        "status": "missing",
-        "sources": [],
-        "reason": "Chưa có câu chuyện và ứng dụng được đối chiếu riêng cho Amoni sunfat (Phân đạm SA) ((NH4)2SO4); giữ nguyên bài tra cứu, không gán lịch sử hay công dụng của nguyên tố thành phần cho hợp chất."
+        "status": "documented",
+        "kind": "use",
+        "scope": "substance",
+        "section": "Từ câu chuyện đến ứng dụng hôm nay",
+        "sources": [
+          "https://www.netl.doe.gov/sites/default/files/netl-file/GTC01010.pdf",
+          "https://www.dakotagas.com/Products/fertilizers/ammonium-sulfate-dak-sul-45",
+          "https://blog-crop-news.extension.umn.edu/2023/06/field-notes-session-talks-soil-moisture.html",
+          "https://www.nrcs.usda.gov/sites/default/files/2022-10/National-Agronomy-Manual.pdf"
+        ]
       }
     }
   },
@@ -5985,10 +6045,10 @@
     "legacyIds": [
       "ho-so-1f671a228359"
     ],
-    "title": "Dung dịch Kali cacbonat (Tro bếp) (K₂CO₃): thành phần, mô hình và phản ứng",
+    "title": "Dung dịch Kali cacbonat (Tro bếp) (K₂CO₃) — Bằng sáng chế đầu tiên của Hoa Kỳ bắt đầu từ tro",
     "author": "ChemDex · Học cấu trúc",
     "category": "hopchat",
-    "summary": "Dung dịch Kali cacbonat (Tro bếp): đơn vị công thức, cách đọc mô hình và nguồn dữ liệu. Phản ứng đi kèm điều kiện; câu hỏi có lời giải.",
+    "summary": "Ngày 31 tháng 7 năm 1790, Samuel Hopkins nhận bằng sáng chế đầu tiên của Hoa Kỳ cho một cải tiến trong sản xuất potash và pearl ash. Vật liệu gắn với tro củi bước vào một câu chuyện về tiêu chuẩn hóa hóa chất, rất lâu trước thời các nhà máy hiện đại.",
     "image": "/assets/library/photos/substances/dung-dich-kali-cacbonat-tro-bep-k2co3.jpg",
     "chemicalFormula": "K₂CO₃",
     "tags": [
@@ -6007,21 +6067,33 @@
     ],
     "documentKind": "reference",
     "lessonKind": "substance-guide",
-    "readingMinutes": 8,
+    "readingMinutes": 12,
     "editorialEvidence": {
       "language": "vi",
       "scope": "substance",
       "contextLabel": "Dung dịch Kali cacbonat (Tro bếp)",
-      "reviewBasis": "editorial-audit-2026-11-15",
+      "reviewBasis": "source-read-2026-11-15",
       "story": {
-        "status": "missing",
-        "sources": [],
-        "reason": "Chưa có câu chuyện và ứng dụng được đối chiếu riêng cho Dung dịch Kali cacbonat (Tro bếp) (K2CO3); giữ nguyên bài tra cứu, không gán lịch sử hay công dụng của nguyên tố thành phần cho hợp chất."
+        "status": "documented",
+        "section": "Bằng sáng chế đầu tiên của Hoa Kỳ bắt đầu từ tro",
+        "sources": [
+          "https://www.uspto.gov/about-us/history/freedom-250/history-presidentially-signed-patents",
+          "https://invention.si.edu/invention-stories/licensing-first-us-patent",
+          "https://www.agc-chemicals.com/jp/en/products/detail/index.html?pCode=JP-EN-C003",
+          "https://openstax.org/books/chemistry-2e/pages/14-4-hydrolysis-of-salts"
+        ]
       },
       "application": {
-        "status": "missing",
-        "sources": [],
-        "reason": "Chưa có câu chuyện và ứng dụng được đối chiếu riêng cho Dung dịch Kali cacbonat (Tro bếp) (K2CO3); giữ nguyên bài tra cứu, không gán lịch sử hay công dụng của nguyên tố thành phần cho hợp chất."
+        "status": "documented",
+        "kind": "use",
+        "scope": "substance",
+        "section": "Từ câu chuyện đến ứng dụng hôm nay",
+        "sources": [
+          "https://www.uspto.gov/about-us/history/freedom-250/history-presidentially-signed-patents",
+          "https://invention.si.edu/invention-stories/licensing-first-us-patent",
+          "https://www.agc-chemicals.com/jp/en/products/detail/index.html?pCode=JP-EN-C003",
+          "https://openstax.org/books/chemistry-2e/pages/14-4-hydrolysis-of-salts"
+        ]
       }
     }
   },
@@ -6294,11 +6366,11 @@
     "legacyIds": [
       "ho-so-b73c1d0771e5"
     ],
-    "title": "Sắt(III) oxit (Gỉ sắt) (Fe₂O₃): thành phần, mô hình và phản ứng",
+    "title": "Sắt(III) oxit (Gỉ sắt) (Fe₂O₃) — Những viên đá nhỏ khiến Sao Hỏa kể lại chuyện nước",
     "author": "ChemDex · Học cấu trúc",
     "category": "hopchat",
-    "summary": "Sắt(III) oxit (Gỉ sắt): đơn vị công thức, cách đọc mô hình và nguồn dữ liệu. Phản ứng đi kèm điều kiện; câu hỏi có lời giải.",
-    "image": "/assets/library/photos/substances/sat-iii-oxit-gi-sat-fe2o3.jpg",
+    "summary": "Năm 2004, xe tự hành Opportunity gặp những hạt tròn nhỏ trên Sao Hỏa. Nhóm nghiên cứu gọi chúng là “blueberries”. Chúng không phải quả, và manh mối đáng chú ý nằm ở hematite, một dạng tinh thể của iron(III) oxide.",
+    "image": "/assets/library/photos/stories/opportunity-hematite-spherules.jpg",
     "chemicalFormula": "Fe₂O₃",
     "tags": [
       "Thành phần ion",
@@ -6318,21 +6390,33 @@
     ],
     "documentKind": "reference",
     "lessonKind": "substance-guide",
-    "readingMinutes": 9,
+    "readingMinutes": 12,
     "editorialEvidence": {
       "language": "vi",
       "scope": "substance",
       "contextLabel": "Sắt(III) oxit (Gỉ sắt)",
-      "reviewBasis": "editorial-audit-2026-11-15",
+      "reviewBasis": "source-read-2026-11-15",
       "story": {
-        "status": "missing",
-        "sources": [],
-        "reason": "Chưa có câu chuyện và ứng dụng được đối chiếu riêng cho Sắt(III) oxit (Gỉ sắt) (Fe2O3); giữ nguyên bài tra cứu, không gán lịch sử hay công dụng của nguyên tố thành phần cho hợp chất."
+        "status": "documented",
+        "section": "Những viên đá nhỏ khiến Sao Hỏa kể lại chuyện nước",
+        "sources": [
+          "https://science.nasa.gov/resource/meridiani-planum-2/",
+          "https://science.nasa.gov/resource/discovery-served-up-in-a-bowl/",
+          "https://science.nasa.gov/resource/martian-blueberries-2/",
+          "https://openstax.org/books/chemistry-2e/pages/17-6-corrosion"
+        ]
       },
       "application": {
-        "status": "missing",
-        "sources": [],
-        "reason": "Chưa có câu chuyện và ứng dụng được đối chiếu riêng cho Sắt(III) oxit (Gỉ sắt) (Fe2O3); giữ nguyên bài tra cứu, không gán lịch sử hay công dụng của nguyên tố thành phần cho hợp chất."
+        "status": "documented",
+        "kind": "use",
+        "scope": "substance",
+        "section": "Từ câu chuyện đến ứng dụng hôm nay",
+        "sources": [
+          "https://science.nasa.gov/resource/meridiani-planum-2/",
+          "https://science.nasa.gov/resource/discovery-served-up-in-a-bowl/",
+          "https://science.nasa.gov/resource/martian-blueberries-2/",
+          "https://openstax.org/books/chemistry-2e/pages/17-6-corrosion"
+        ]
       }
     }
   },
@@ -12587,10 +12671,10 @@
     "legacyIds": [
       "ho-so-f64588f63a21"
     ],
-    "title": "kali bromua (KBr): thành phần, mô hình và phản ứng",
+    "title": "kali bromua (KBr) — Một viên muối phải im tiếng để mẫu vật được lên tiếng",
     "author": "ChemDex · Học cấu trúc",
     "category": "hopchat",
-    "summary": "kali bromua: đơn vị công thức, cách đọc mô hình và nguồn dữ liệu. Phản ứng đi kèm điều kiện; câu hỏi có lời giải.",
+    "summary": "Năm 1958, nhà nghiên cứu R. G. Milkey báo cáo một điều gây khó cho phép đo hồng ngoại: nghiền potassium bromide quá mạnh có thể làm xuất hiện các dải hấp thụ không thuộc mẫu cần phân tích. Vật liệu được chọn làm nền đã tự để lại dấu vết trong dữ liệu.",
     "image": "/assets/library/photos/substances/kali-bromua-kbr.jpg",
     "chemicalFormula": "KBr",
     "tags": [
@@ -12608,21 +12692,31 @@
     ],
     "documentKind": "reference",
     "lessonKind": "substance-guide",
-    "readingMinutes": 9,
+    "readingMinutes": 12,
     "editorialEvidence": {
       "language": "vi",
       "scope": "substance",
       "contextLabel": "kali bromua",
-      "reviewBasis": "editorial-audit-2026-11-15",
+      "reviewBasis": "source-read-2026-11-15",
       "story": {
-        "status": "missing",
-        "sources": [],
-        "reason": "Chưa có câu chuyện và ứng dụng được đối chiếu riêng cho kali bromua (KBr); giữ nguyên bài tra cứu, không gán lịch sử hay công dụng của nguyên tố thành phần cho hợp chất."
+        "status": "documented",
+        "section": "Một viên muối phải im tiếng để mẫu vật được lên tiếng",
+        "sources": [
+          "https://www.usgs.gov/publications/potassium-bromide-method-infrared-sampling",
+          "https://www.shimadzu.eu/service-support/technical-support/ftir/analysis_targets/powder.html",
+          "https://www.shimadzu.com/an/sites/shimadzu.com.an/files/pim/pim_document_file/applications/application_note/10477/jpa218034.pdf"
+        ]
       },
       "application": {
-        "status": "missing",
-        "sources": [],
-        "reason": "Chưa có câu chuyện và ứng dụng được đối chiếu riêng cho kali bromua (KBr); giữ nguyên bài tra cứu, không gán lịch sử hay công dụng của nguyên tố thành phần cho hợp chất."
+        "status": "documented",
+        "kind": "use",
+        "scope": "substance",
+        "section": "Từ câu chuyện đến ứng dụng hôm nay",
+        "sources": [
+          "https://www.usgs.gov/publications/potassium-bromide-method-infrared-sampling",
+          "https://www.shimadzu.eu/service-support/technical-support/ftir/analysis_targets/powder.html",
+          "https://www.shimadzu.com/an/sites/shimadzu.com.an/files/pim/pim_document_file/applications/application_note/10477/jpa218034.pdf"
+        ]
       }
     }
   },

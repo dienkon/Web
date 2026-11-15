@@ -1,0 +1,44 @@
+{
+  "id": "water-gas-shift-dieu-chinh-hon-hop",
+  "slug": "water-gas-shift-dieu-chinh-hon-hop",
+  "documentPath": "docs/water-gas-shift-dieu-chinh-hon-hop/index.json",
+  "title": "Đổi tỷ lệ trong một dòng khí: phản ứng shift làm phần việc còn lại",
+  "summary": "Một dòng khí tổng hợp chưa chắc đã có tỷ lệ phù hợp để sử dụng. Water-gas shift đưa hơi nước vào cuộc để đổi carbon monoxide thành thêm hydrogen.",
+  "category": "phanung",
+  "author": "Ban biên tập ChemDex",
+  "image": "/assets/library/industrial-reactor.svg",
+  "tags": [
+    "Water-gas shift",
+    "Cân bằng",
+    "Hydrogen",
+    "Khí tổng hợp"
+  ],
+  "aliases": [],
+  "documentKind": "story",
+  "readingMinutes": 4,
+  "editorialEvidence": {
+    "language": "vi",
+    "scope": "chemical-family",
+    "contextLabel": "Đổi tỷ lệ trong một dòng khí: phản ứng shift làm phần việc còn lại",
+    "reviewBasis": "Biên soạn theo các nguồn dẫn cuối bài; phân biệt kết quả đã thực hiện và hướng phát triển.",
+    "story": {
+      "status": "documented",
+      "section": "## Một báo cáo thiết kế phải dành riêng chỗ cho bước shift",
+      "sources": [
+        "https://netl.doe.gov/projects/files/AssessmentofHydrogenProductionwithCO2CaptureVolume1BaselineState-of-the-ArtPlants_111411.pdf",
+        "https://patents.google.com/patent/US20240001341A1/en",
+        "https://openstax.org/books/chemistry-2e/pages/13-3-shifting-equilibria-le-chateliers-principle"
+      ]
+    },
+    "application": {
+      "status": "documented",
+      "section": "## Ứng dụng hôm nay: điều chỉnh trước khi phân tách",
+      "sources": [
+        "https://netl.doe.gov/projects/files/AssessmentofHydrogenProductionwithCO2CaptureVolume1BaselineState-of-the-ArtPlants_111411.pdf",
+        "https://patents.google.com/patent/US20240001341A1/en",
+        "https://openstax.org/books/chemistry-2e/pages/13-3-shifting-equilibria-le-chateliers-principle"
+      ]
+    }
+  },
+  "content": "## Một báo cáo thiết kế phải dành riêng chỗ cho bước shift\n\nTrong đánh giá các tuyến sản xuất hydrogen có thu CO₂ năm 2011, NETL mô tả hệ water-gas shift nhiều giai đoạn với làm nguội giữa các bước. Đó là thiết kế mô hình dựa trên công nghệ thương mại, không phải bản tin khánh thành một nhà máy mới. Nó cho thấy vì sao phản ứng này được đặt riêng trong cả chuỗi xử lý.\n\nDòng khí đi ra từ một công đoạn tạo khí tổng hợp thường còn chứa CO, H₂, nước và các thành phần khác. Nếu mục tiêu là tăng lượng hydrogen hoặc chuẩn bị dòng khí cho tách carbon dioxide, cần thêm một bước điều chỉnh hóa học. Chỉ làm sạch hỗn hợp không tự đổi được tỷ lệ các phân tử bên trong.\n\n![Sơ đồ thiết bị minh họa xử lý khí, không phải thiết kế của NETL hoặc Topsoe](/assets/library/industrial-reactor.svg)\n\n## Nước đóng góp thêm hydrogen\n\nPhương trình cốt lõi là **CO + H₂O ⇌ CO₂ + H₂**. Một oxygen từ nước đi vào CO₂, còn hydrogen từ nước xuất hiện trong H₂. Carbon được giữ lại trong dòng vật chất dưới dạng khác; phản ứng không tiêu hủy nguyên tố carbon.\n\nHai chiều phản ứng có thể xảy ra. Ở điều kiện thích hợp, chiều tạo thêm hydrogen được ưu tiên; trong những hệ khác, phản ứng nghịch được dùng để tạo CO từ CO₂. Vì vậy, nói chung rằng “shift loại CO” là chưa đủ: phải biết mục tiêu và điều kiện của hệ đang xét.\n\nPhản ứng thuận tỏa nhiệt. Nhiệt độ ảnh hưởng đồng thời đến cân bằng và tốc độ, tạo ra một sự đánh đổi. Chất xúc tác giúp hệ tiến tới cân bằng nhanh hơn, nhưng không làm thay đổi vị trí cân bằng nhiệt động tại cùng điều kiện.\n\n## Vì sao cần nhiều lớp và những khoảng làm nguội?\n\nTổ chức các giai đoạn giúp tận dụng tốc độ ở vùng điều kiện này rồi tiếp tục chuyển hóa ở vùng khác. Làm nguội giữa các bước điều chỉnh nhiệt do phản ứng sinh ra. Thiết kế ấy là một ví dụ cụ thể về việc nhà máy phải quản lý cả nhiệt động học lẫn động học.\n\nXúc tác còn phải phù hợp với thành phần khí. Một hệ có sulfur và một dòng đã được khử sulfur có thể cần lựa chọn khác nhau. Không thể lấy tên “xúc tác shift” như bảo đảm rằng vật liệu chịu được mọi nguồn khí tổng hợp.\n\nĐơn sáng chế Topsoe công bố năm 2024 tiếp tục nghiên cứu cải thiện xúc tác water-gas shift. Tư liệu này chứng minh có hoạt động phát triển công nghệ; trạng thái sáng chế không phải bằng chứng rằng mọi biến thể trong tài liệu đã được sử dụng đại trà.\n\n## Ứng dụng hôm nay: điều chỉnh trước khi phân tách\n\nWater-gas shift có mặt trong các tuyến sản xuất hydrogen và xử lý khí tổng hợp. Khi CO được chuyển thành CO₂, những công đoạn thu CO₂ có thể được thiết kế cho dòng khí sau đó. Nhưng một bước shift hiệu quả không đồng nghĩa toàn bộ carbon đã được thu giữ: việc tách và quản lý CO₂ là phần việc tiếp theo.\n\nTính toán thực tế cần xét hơi nước cấp vào, nhiệt được thu hồi và chất lượng khí yêu cầu. Tạo thêm H₂ trong phản ứng có thể hữu ích, song không nên chỉ nhìn số mol tăng thêm rồi bỏ qua chi phí tạo hơi nước hoặc xử lý các dòng phụ.\n\nBài học từ hệ nhiều giai đoạn của NETL là một phản ứng ngắn có thể cần cả kiến trúc thiết bị dài. Các mũi tên không chỉ nối công thức; chúng còn nối những khoảng nhiệt độ, vật liệu xúc tác và công đoạn phân tách. Chính phần nối ấy làm dòng khí trở thành nguyên liệu dùng được.\n\n## Nguồn và đọc thêm\n\n- [NETL · Thiết kế cơ sở các tuyến hydrogen có thu CO2, 2011](https://netl.doe.gov/projects/files/AssessmentofHydrogenProductionwithCO2CaptureVolume1BaselineState-of-the-ArtPlants_111411.pdf)\n- [Topsoe · Đơn sáng chế cải thiện xúc tác shift, 2024](https://patents.google.com/patent/US20240001341A1/en)\n- [OpenStax · Ảnh hưởng của điều kiện và xúc tác đến cân bằng](https://openstax.org/books/chemistry-2e/pages/13-3-shifting-equilibria-le-chateliers-principle)"
+}

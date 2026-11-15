@@ -1,0 +1,44 @@
+{
+  "id": "basil-muoi-long-go-nut-that-phan-tach",
+  "slug": "basil-muoi-long-go-nut-that-phan-tach",
+  "documentPath": "docs/basil-muoi-long-go-nut-that-phan-tach/index.json",
+  "title": "Khi muối thôi làm nghẽn công đoạn: câu chuyện BASIL",
+  "summary": "Một chất bắt acid tạo muối lỏng thay cho bùn muối rắn đã giúp thay đổi quy trình của BASF. Chất lỏng ion có giá trị vì giải được một nút thắt cụ thể.",
+  "category": "khainiem",
+  "author": "Ban biên tập ChemDex",
+  "image": "/assets/library/industrial-reactor.svg",
+  "tags": [
+    "Chất lỏng ion",
+    "BASIL",
+    "Phân tách",
+    "Hóa học công nghiệp"
+  ],
+  "aliases": [],
+  "documentKind": "story",
+  "readingMinutes": 4,
+  "editorialEvidence": {
+    "language": "vi",
+    "scope": "chemical-family",
+    "contextLabel": "Khi muối thôi làm nghẽn công đoạn: câu chuyện BASIL",
+    "reviewBasis": "Biên soạn theo các nguồn dẫn cuối bài; phân biệt kết quả đã thực hiện và hướng phát triển.",
+    "story": {
+      "status": "documented",
+      "section": "## Phản ứng tạo sản phẩm, rồi để lại một việc khó",
+      "sources": [
+        "https://www.basf.com/dam/jcr%3A46ce8837-5e18-380b-acdb-4aa7946338ad/basf/www/global/documents/en/investor-relations/calendar-and-publications/reports/2005/BASF_Corporate_Report_2004.pdf",
+        "https://doi.org/10.1021/bk-2005-0902.ch010",
+        "https://pmc.ncbi.nlm.nih.gov/articles/PMC7664896/"
+      ]
+    },
+    "application": {
+      "status": "documented",
+      "section": "## Ứng dụng hôm nay: ít bay hơi không tự đồng nghĩa xanh",
+      "sources": [
+        "https://www.basf.com/dam/jcr%3A46ce8837-5e18-380b-acdb-4aa7946338ad/basf/www/global/documents/en/investor-relations/calendar-and-publications/reports/2005/BASF_Corporate_Report_2004.pdf",
+        "https://doi.org/10.1021/bk-2005-0902.ch010",
+        "https://pmc.ncbi.nlm.nih.gov/articles/PMC7664896/"
+      ]
+    }
+  },
+  "content": "## Phản ứng tạo sản phẩm, rồi để lại một việc khó\n\nTrong quy trình sản xuất tiền chất liên quan đến chất khơi mào quang của BASF, acid sinh ra cần được thu giữ. Tuyến cũ tạo muối rắn thành một hỗn hợp khó xử lý. BASIL thay đổi cách bắt acid để tạo một pha muối lỏng có thể tách khỏi pha sản phẩm thuận lợi hơn.\n\nBáo cáo thường niên BASF năm 2004 mô tả việc tránh công đoạn lọc muối mất thời gian và chuyển sang thiết bị liên tục nhỏ hơn. Thành tựu không chỉ là phản ứng chạy nhanh. Nó còn nằm ở việc sản phẩm đi ra được, dòng phụ được quản lý và thiết bị có thể vận hành theo cách phù hợp hơn.\n\n![Sơ đồ minh họa công đoạn công nghiệp; không phải bản thiết kế thiết bị BASIL](/assets/library/industrial-reactor.svg)\n\n## Muối không nhất thiết phải là hạt tinh thể\n\nMuối gồm cation và anion, nhưng nhiệt độ nóng chảy phụ thuộc cấu trúc và tương tác của chúng. Những ion có hình dạng và phân bố điện tích khác nhau có thể tạo hệ khó xếp thành mạng tinh thể chặt như các muối quen thuộc. Vì vậy, một số muối tồn tại ở dạng lỏng tại những nhiệt độ tương đối thấp.\n\nTrong BASIL, chất được chọn để bắt acid tạo ra một muối có trạng thái phù hợp với điều kiện quy trình. Không nên hiểu mọi “chất lỏng ion” đều lỏng ở nhiệt độ phòng, hoặc đều có cùng khả năng hòa tan. Việc chọn đúng cặp ion và điều kiện là phần thiết kế, giống như lựa chọn một dung môi cho nhiệm vụ cụ thể. Trong trường hợp được báo cáo, 1-methylimidazole nhận acid và tạo muối 1-methylimidazolium chloride; trạng thái lỏng của pha này phải được xét ở nhiệt độ quy trình.\n\n## Chọn chất cho cả công đoạn sau phản ứng\n\nMaase và Massonne của BASF trình bày quy trình thương mại trong một chương sách năm 2005. Một điểm hấp dẫn là kết hợp vai trò hóa học với khả năng phân pha và tái sinh. Chất phụ trợ không chỉ giúp phản ứng xảy ra mà còn ảnh hưởng cách tách sản phẩm và thu hồi vật liệu.\n\nĐó là một bài học quan trọng của hóa học quy trình. Một chất cho hiệu suất cao trong bình nhỏ có thể trở nên bất tiện khi tạo bùn khó khuấy hoặc khó lọc ở quy mô lớn. Ngược lại, thay một thành phần để dòng chảy dễ quản lý hơn có thể làm thay đổi thiết bị cần dùng. Phải đánh giá cả chuỗi thay vì chỉ so một mũi tên phản ứng.\n\n## Ứng dụng hôm nay: ít bay hơi không tự đồng nghĩa xanh\n\nTổng quan công nghiệp năm 2020 về chất lỏng ion nhấn mạnh các triển khai thương mại thực tế và những giới hạn. Áp suất hơi thấp có thể giảm một kiểu thất thoát, nhưng độc tính, nguyên liệu chế tạo, tái sinh và xử lý cuối vòng đời vẫn cần được xét. Tên gọi của một họ dung môi không phải nhãn bảo đảm môi trường.\n\nBASIL đáng nhớ vì lợi ích được gắn với một nút thắt có thể quan sát: muối rắn khó xử lý trở thành pha lỏng dễ tách trong hệ phù hợp. Khi đánh giá công nghệ mới, nên hỏi nó giải được bước nào, tạo thêm dòng nào và có giữ lợi ích khi chạy liên tục không. Hóa học trở thành công nghệ khi phản ứng, phân tách và vận hành cùng khớp với nhau.\n\n## Nguồn và đọc thêm\n\n- [BASF · Báo cáo năm 2004, phần BASIL](https://www.basf.com/dam/jcr%3A46ce8837-5e18-380b-acdb-4aa7946338ad/basf/www/global/documents/en/investor-relations/calendar-and-publications/reports/2005/BASF_Corporate_Report_2004.pdf)\n- [Maase và Massonne · Quy trình BASIL thương mại, 2005](https://doi.org/10.1021/bk-2005-0902.ch010)\n- [Greer, Jacquemin và Hardacre · Ứng dụng công nghiệp chất lỏng ion, 2020](https://pmc.ncbi.nlm.nih.gov/articles/PMC7664896/)"
+}

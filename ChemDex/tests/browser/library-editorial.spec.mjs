@@ -23,7 +23,7 @@ test('reaction category exposes its real total and opens a Vietnamese feature wi
 
 test('new long articles restore on mobile without horizontal overflow or translated prose',async({page})=>{
   await page.setViewportSize({width:390,height:844});
-  for(const slug of ['sabatier-tu-hoi-tho-den-nuoc','dorothy-hodgkin-doc-ban-do-phan-tu','ph-va-nhung-au-trung-hau','hermann-staudinger-phan-tu-khong-qua-lon','hafnium-oxide-lop-mang-biet-giu-ky-uc']){
+  for(const slug of ['sabatier-tu-hoi-tho-den-nuoc','dorothy-hodgkin-doc-ban-do-phan-tu','ph-va-nhung-au-trung-hau','hermann-staudinger-phan-tu-khong-qua-lon','hafnium-oxide-lop-mang-biet-giu-ky-uc','jean-pierre-sauvage-hai-vong-khong-roi-nhau','wacker-palladium-tro-lai-vong-phan-ung','xps-nhin-dien-cuc-duoi-lop-chat-long','indigo-mau-xanh-can-di-qua-mot-dang-khac']){
     await page.goto(`/trung-tam/tai-lieu-so/${slug}/`);
     await expect(page.locator('article')).toBeVisible();
     expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1)).toBe(true);
@@ -46,4 +46,21 @@ test('rewritten compound features keep their scientific scope and load the selec
   await page.goto('/trung-tam/tai-lieu-so/cacbon-monoxit-co/');
   await expect(article).toContainText('9 tháng 4 năm 2025');
   await expect(article).toContainText('không nên giới thiệu nó như một thiết bị vẫn đang gửi quan trắc mới');
+});
+
+
+test('wave three materials and Mars evidence display the chosen images with attribution',async({page})=>{
+  for(const [slug,photo,credit] of [
+    ['kevlar-dung-dich-duc-mo-loi-cho-soi-ben','aramid-fibers','Cjp24'],
+    ['indigo-mau-xanh-can-di-qua-mot-dang-khac','indigo-historical-collection','Shisha-Tom'],
+    ['sat-iii-oxit-gi-sat-fe2o3','opportunity-hematite-spherules','NASA/JPL/Cornell/USGS'],
+  ]){
+    await page.goto(`/trung-tam/tai-lieu-so/${slug}/`);
+    const article=page.locator('article');
+    await expect(article).toContainText(credit);
+    const image=article.locator(`img[src*="/stories/${photo}."]`).first();
+    await image.scrollIntoViewIfNeeded();
+    await expect.poll(()=>image.evaluate(img=>img.complete&&img.naturalWidth>0)).toBe(true);
+    await expect(article.locator('a[href*="commons.wikimedia.org"]')).not.toHaveCount(0);
+  }
 });

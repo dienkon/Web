@@ -1,0 +1,46 @@
+{
+  "id": "sohio-ba-nguyen-lieu-mot-monomer",
+  "slug": "sohio-ba-nguyen-lieu-mot-monomer",
+  "documentPath": "docs/sohio-ba-nguyen-lieu-mot-monomer/index.json",
+  "title": "Từ ba dòng nguyên liệu tới một monomer: bước ngoặt Sohio",
+  "summary": "Nhà máy Lima năm 1960 đưa ammoxidation thành con đường kinh tế tới acrylonitrile. Đằng sau phương trình ngắn là xúc tác nhiều nguyên tố và một chuỗi phân tách.",
+  "category": "phanung",
+  "author": "Ban biên tập ChemDex",
+  "image": "/assets/library/organic-polymer.svg",
+  "tags": [
+    "Sohio",
+    "Ammoxidation",
+    "Acrylonitrile",
+    "Polymer"
+  ],
+  "aliases": [],
+  "documentKind": "story",
+  "readingMinutes": 4,
+  "editorialEvidence": {
+    "language": "vi",
+    "scope": "chemical-family",
+    "contextLabel": "Từ ba dòng nguyên liệu tới một monomer: bước ngoặt Sohio",
+    "reviewBasis": "Biên soạn theo các nguồn dẫn cuối bài; phân biệt kết quả đã thực hiện và hướng phát triển.",
+    "story": {
+      "status": "documented",
+      "section": "## Một sản phẩm hữu ích từng quá đắt để mở rộng",
+      "sources": [
+        "https://www.acs.org/education/whatischemistry/landmarks/acrylonitrile.html",
+        "https://www.ineos.com/businesses/ineos-nitriles/technology/",
+        "https://www.epa.gov/sites/default/files/2020-11/documents/acrylonitrile.pdf",
+        "https://www.ineos.com/businesses/ineos-nitriles/products/acrylonitrile/"
+      ]
+    },
+    "application": {
+      "status": "documented",
+      "section": "## Ứng dụng hôm nay: monomer nối với nhiều tính chất vật liệu",
+      "sources": [
+        "https://www.acs.org/education/whatischemistry/landmarks/acrylonitrile.html",
+        "https://www.ineos.com/businesses/ineos-nitriles/technology/",
+        "https://www.epa.gov/sites/default/files/2020-11/documents/acrylonitrile.pdf",
+        "https://www.ineos.com/businesses/ineos-nitriles/products/acrylonitrile/"
+      ]
+    }
+  },
+  "content": "## Một sản phẩm hữu ích từng quá đắt để mở rộng\n\nAcrylonitrile đã được biết trước khi quy trình Sohio ra đời, nhưng các con đường sản xuất cũ có nhiều bước và chi phí cao. ACS kể lại cách nghiên cứu oxi hóa chọn lọc tại Standard Oil of Ohio đưa tới một bước ngoặt trong thập niên 1950.\n\nINEOS, đơn vị kế thừa mảng công nghệ, ghi nhà máy đầu tiên dùng quy trình Sohio tại Lima, Ohio, hoàn thành năm 1960. Điểm thay đổi không phải tạo thêm công dụng từ một công thức mới. Nó là làm cho một monomer đã có giá trị trở nên phù hợp với sản xuất quy mô lớn hơn, qua một tuyến nguyên liệu và xúc tác khác.\n\n![Minh họa polymer, không phải cấu trúc đầy đủ của acrylonitrile hay sản phẩm thương mại](/assets/library/organic-polymer.svg)\n\n## Nitrogen đi vào đúng nhóm chức\n\nAmmoxidation propylene dùng ammonia và oxygen để tạo acrylonitrile. Phương trình tổng thể được viết **2C₃H₆ + 2NH₃ + 3O₂ → 2C₃H₃N + 6H₂O**. Nitrogen từ ammonia đi vào nhóm nitrile của sản phẩm, còn hệ carbon của propylene được biến đổi theo cách giữ lại khả năng dùng làm monomer.\n\nĐây không phải trộn ba nguyên liệu rồi chúng chỉ có một đường phản ứng. Xúc tác nhiều thành phần giúp ưu tiên sản phẩm cần thiết trong một mạng oxi hóa và biến đổi liên quan. Các hệ oxide chứa molybdenum cùng những nguyên tố khác được phát triển để đáp ứng nhiệm vụ ấy.\n\nNhững khác biệt nhỏ trong cấu trúc và thành phần xúc tác có thể ảnh hưởng hoạt tính, chọn lọc và khả năng duy trì vận hành. Vì vậy, gọi chung là “bột xúc tác” sẽ bỏ mất một phần lớn của phát minh.\n\n## Một bước tạo sản phẩm không có nghĩa một thiết bị là xong\n\nTài liệu EPA mô tả phản ứng pha khí trên lớp xúc tác tầng sôi, sau đó là các bước thu hồi và tinh chế. Dòng ra không chỉ có acrylonitrile và nước. Các sản phẩm khác như acetonitrile và hydrogen cyanide cần được quản lý trong cấu hình sản xuất cụ thể.\n\nĐiều đó giúp đọc đúng cụm từ “quy trình một bước”. Nó nói về biến đổi hóa học chính từ nguyên liệu, không khẳng định toàn bộ dây chuyền chỉ gồm một bình phản ứng. Hấp thụ, tách, tinh chế và xử lý khí vẫn là phần bắt buộc để tạo sản phẩm dùng được.\n\nCác số liệu thị phần trong tài liệu lịch sử phản ánh thời điểm công bố. Bài này dùng chúng để hiểu quy mô ảnh hưởng của phát minh, không coi các con số cũ là thống kê thị trường ở thời điểm hiện tại.\n\n## Ứng dụng hôm nay: monomer nối với nhiều tính chất vật liệu\n\nAcrylonitrile được dùng trong polymer và copolymer phục vụ sợi, nhựa và cao su nitrile. Khi phối hợp với các monomer khác, tỷ lệ và cấu trúc chuỗi tạo ra những tính chất khác nhau. Một tên nguyên liệu chung không có nghĩa găng tay nitrile, sợi acrylic và nhựa ABS là cùng một vật liệu.\n\nINEOS tiếp tục giới thiệu công nghệ và xúc tác acrylonitrile như một mảng hoạt động công nghiệp. Dù vậy, mỗi cơ sở phải đánh giá nguyên liệu, năng lượng và quản lý những dòng đi kèm của mình. Lợi ích của tuyến phản ứng cần đi cùng kiểm soát phát thải và chất lượng.\n\nCâu chuyện Lima cho thấy một phát minh xúc tác có thể làm thay đổi những vật liệu con người nhìn thấy mỗi ngày mà không xuất hiện trên nhãn sản phẩm. Từ ba dòng nguyên liệu nhỏ, lựa chọn đúng phản ứng và phân tách đúng sản phẩm đã mở rộng khả năng sản xuất cả một nhóm polymer.\n\n## Nguồn và đọc thêm\n\n- [ACS · Lịch sử quy trình Sohio acrylonitrile](https://www.acs.org/education/whatischemistry/landmarks/acrylonitrile.html)\n- [INEOS Nitriles · Mốc Lima năm 1960 và công nghệ hiện tại](https://www.ineos.com/businesses/ineos-nitriles/technology/)\n- [U.S. EPA · Mô tả phản ứng, công đoạn tách và các dòng thải](https://www.epa.gov/sites/default/files/2020-11/documents/acrylonitrile.pdf)\n- [INEOS · Ứng dụng acrylonitrile trong sợi, ABS và cao su nitrile](https://www.ineos.com/businesses/ineos-nitriles/products/acrylonitrile/)"
+}

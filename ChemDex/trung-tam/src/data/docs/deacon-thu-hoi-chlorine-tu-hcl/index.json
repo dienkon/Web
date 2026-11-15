@@ -1,0 +1,44 @@
+{
+  "id": "deacon-thu-hoi-chlorine-tu-hcl",
+  "slug": "deacon-thu-hoi-chlorine-tu-hcl",
+  "documentPath": "docs/deacon-thu-hoi-chlorine-tu-hcl/index.json",
+  "title": "HCl có đường trở lại: tái sinh chlorine bằng phản ứng Deacon",
+  "summary": "Chlorine sau khi đi qua một chuỗi sản xuất có thể xuất hiện dưới dạng hydrogen chloride. Công nghệ oxi hóa HCl tìm cách đưa nguyên tố ấy về dòng nguyên liệu dùng lại.",
+  "category": "phanung",
+  "author": "Ban biên tập ChemDex",
+  "image": "/assets/library/industrial-reactor.svg",
+  "tags": [
+    "Deacon",
+    "Chlorine",
+    "Tuần hoàn",
+    "Ruthenium"
+  ],
+  "aliases": [],
+  "documentKind": "story",
+  "readingMinutes": 4,
+  "editorialEvidence": {
+    "language": "vi",
+    "scope": "chemical-family",
+    "contextLabel": "HCl có đường trở lại: tái sinh chlorine bằng phản ứng Deacon",
+    "reviewBasis": "Biên soạn theo các nguồn dẫn cuối bài; phân biệt kết quả đã thực hiện và hướng phát triển.",
+    "story": {
+      "status": "documented",
+      "section": "## Một sản phẩm phụ tăng theo sản lượng chính",
+      "sources": [
+        "https://www.sumitomo-chem.co.jp/english/rd/report/files/docs/20040100_p0e.pdf",
+        "https://www.jaci.or.jp/english/gscn/pdf/4GSC.pdf",
+        "https://eurochlor.org/products/chlorine-cl/"
+      ]
+    },
+    "application": {
+      "status": "documented",
+      "section": "## Ứng dụng hôm nay: tái chế được thiết kế ngay trong hóa học",
+      "sources": [
+        "https://www.sumitomo-chem.co.jp/english/rd/report/files/docs/20040100_p0e.pdf",
+        "https://www.jaci.or.jp/english/gscn/pdf/4GSC.pdf",
+        "https://eurochlor.org/products/chlorine-cl/"
+      ]
+    }
+  },
+  "content": "## Một sản phẩm phụ tăng theo sản lượng chính\n\nTài liệu giải Hóa học Xanh và Bền vững của Nhật Bản mô tả bài toán của các chuỗi tiêu thụ chlorine: sản phẩm chính tăng có thể kéo theo nhiều hydrogen chloride. Bán HCl dưới dạng acid hoặc dùng nó trong một ngành khác không phải lúc nào cũng cân bằng được lượng phát sinh.\n\nSumitomo phát triển công nghệ oxi hóa HCl với xúc tác ruthenium oxide trên chất mang và hệ thiết bị phù hợp. Báo cáo của công ty ghi cơ sở thương mại bắt đầu hoạt động năm 2003. Một chất thường được xem là dòng phụ đã trở thành nguồn để thu hồi chlorine, giảm phụ thuộc vào việc tạo mới toàn bộ chlorine từ điện phân muối.\n\n![Minh họa hệ thống phản ứng kín, không phải bản vẽ thiết bị Deacon](/assets/library/industrial-reactor.svg)\n\n## Đổi trạng thái hóa học, giữ nguyên nguyên tố\n\nPhản ứng tổng thể là **4HCl + O₂ ⇌ 2Cl₂ + 2H₂O**. Chlorine trong HCl được chuyển về dạng đơn chất Cl₂, trong khi oxygen tham gia tạo nước. Không có nguyên tử chlorine mới được sinh ra; quy trình lấy lại một nguyên tố đã đi vào nhà máy ở công đoạn trước.\n\nPhản ứng Deacon được biết từ thế kỷ XIX, nhưng một phản ứng có lịch sử lâu không đồng nghĩa vấn đề kỹ thuật đã được giải xong. Hoạt tính, độ bền và điều kiện cho phép vận hành quyết định công nghệ có dùng được ở quy mô thương mại hay không.\n\nHệ ruthenium của Sumitomo là một bước phát triển trong câu chuyện ấy. Không thể thay thế mô tả xúc tác cụ thể bằng câu chung rằng bất kỳ muối ruthenium nào cũng thực hiện cùng nhiệm vụ.\n\n## Giữ nhiệt và độ sạch trong một vòng tuần hoàn\n\nTài liệu phát triển công nghệ nhấn mạnh khả năng truyền nhiệt và hoạt động của lớp xúc tác. Phản ứng, nhiệt và dòng khí phải được quản lý đồng thời để giữ hiệu quả chuyển hóa. Phần HCl chưa phản ứng cũng cần được tách và xử lý theo thiết kế của quy trình.\n\nChlorine thu được cần đáp ứng yêu cầu của nơi sử dụng tiếp. Một vòng tái chế chỉ hữu ích khi sản phẩm quay lại không mang theo tạp chất gây khó cho công đoạn sau. Vì vậy, thu hồi nguyên tố và bảo đảm chất lượng nguyên liệu là hai công việc liên quan nhưng khác nhau.\n\nNgoài ra, tuần hoàn không tự khép kín mọi dòng. Oxygen, nước, năng lượng và những phần bị loại khỏi hệ vẫn cần được đưa vào cân bằng. Một mũi tên quay lại trên sơ đồ không chứng minh vật chất có thể chạy mãi mà không cần đầu vào bổ sung.\n\n## Ứng dụng hôm nay: tái chế được thiết kế ngay trong hóa học\n\nThu chlorine từ HCl là một cách kết nối các công đoạn trong chuỗi sản xuất sử dụng chlorine. Nó có thể giúp giải bài toán mất cân đối giữa nhu cầu chlorine, thị trường acid hydrochloric và những đồng sản phẩm của điện phân chlor-alkali.\n\nTính phù hợp phụ thuộc độ lớn và chất lượng dòng HCl, nhu cầu chlorine tại chỗ cùng hệ thống năng lượng. Không nên coi đây là một lựa chọn bắt buộc cho mọi cơ sở có HCl. Công nghệ tốt trong một tổ hợp tích hợp có thể kém phù hợp khi các dòng vật chất ở xa nhau.\n\nCâu chuyện Deacon cho thấy tái chế hóa học không chỉ xuất hiện sau khi người tiêu dùng vứt một đồ vật. Nó có thể nằm giữa hai phản ứng trong nhà máy: một nguyên tố vừa kết thúc vai trò ở sản phẩm phụ được đưa trở lại trạng thái có thể phục vụ công đoạn khác. Hiệu quả nằm ở cách giữ được cả nguyên tố và chất lượng của dòng quay về.\n\n## Nguồn và đọc thêm\n\n- [Sumitomo · Phát triển quy trình oxi hóa HCl, báo cáo 2004](https://www.sumitomo-chem.co.jp/english/rd/report/files/docs/20040100_p0e.pdf)\n- [JACI · Hồ sơ giải công nghệ thu hồi chlorine](https://www.jaci.or.jp/english/gscn/pdf/4GSC.pdf)\n- [Euro Chlor · Điện phân và các dòng đồng sản phẩm chlorine](https://eurochlor.org/products/chlorine-cl/)"
+}

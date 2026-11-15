@@ -1,0 +1,44 @@
+{
+  "id": "stm-xenon-nhung-chu-cai-bang-nguyen-tu",
+  "slug": "stm-xenon-nhung-chu-cai-bang-nguyen-tu",
+  "documentPath": "docs/stm-xenon-nhung-chu-cai-bang-nguyen-tu/index.json",
+  "title": "Những chữ cái bằng xenon: khi kính hiển vi học cách di chuyển nguyên tử",
+  "summary": "Eigler và Schweizer đã xếp các nguyên tử xenon trên nickel bằng kính hiển vi quét xuyên hầm. Thí nghiệm giúp phân biệt việc nhìn bề mặt với khả năng điều khiển nó.",
+  "category": "khainiem",
+  "author": "Ban biên tập ChemDex",
+  "image": "/assets/library/element-noble-gas.svg",
+  "tags": [
+    "STM",
+    "Xuyên hầm",
+    "Xenon",
+    "Nano"
+  ],
+  "aliases": [],
+  "documentKind": "story",
+  "readingMinutes": 4,
+  "editorialEvidence": {
+    "language": "vi",
+    "scope": "chemical-family",
+    "contextLabel": "Những chữ cái bằng xenon: khi kính hiển vi học cách di chuyển nguyên tử",
+    "reviewBasis": "Biên soạn theo các nguồn dẫn cuối bài; phân biệt kết quả đã thực hiện và hướng phát triển.",
+    "story": {
+      "status": "documented",
+      "section": "## Từ bản đồ bề mặt tới vật thể được sắp xếp",
+      "sources": [
+        "https://www.nature.com/articles/344524a0",
+        "https://www.ibm.com/history/scanning-tunneling-microscope",
+        "https://www.nobelprize.org/prizes/physics/1986/press-release/"
+      ]
+    },
+    "application": {
+      "status": "documented",
+      "section": "## Ứng dụng hôm nay: điều khiển nhỏ không đồng nghĩa sản xuất hàng loạt",
+      "sources": [
+        "https://www.nature.com/articles/344524a0",
+        "https://www.ibm.com/history/scanning-tunneling-microscope",
+        "https://www.nobelprize.org/prizes/physics/1986/press-release/"
+      ]
+    }
+  },
+  "content": "## Từ bản đồ bề mặt tới vật thể được sắp xếp\n\nCông trình công bố trên Nature năm 1990 của Donald Eigler và Erhard Schweizer mô tả việc đặt từng nguyên tử xenon trên bề mặt nickel đơn tinh thể ở nhiệt độ rất thấp. Hình các nguyên tử xếp thành chữ IBM trở thành một biểu tượng dễ nhớ, nhưng kết quả khoa học nằm ở khả năng kiểm soát vị trí ở cấp nguyên tử.\n\nMột dụng cụ ban đầu được phát triển để khảo sát bề mặt đã trở thành công cụ tác động lên bề mặt. Hai nhiệm vụ liên quan nhưng khác nhau: tạo ảnh không nhất thiết di chuyển được nguyên tử, còn kéo nguyên tử đi cần biết lực tương tác và điều kiện giữ nó tại nơi mong muốn.\n\n![Minh họa nhóm khí hiếm; không phải ảnh các nguyên tử xenon trong thí nghiệm IBM](/assets/library/element-noble-gas.svg)\n\n## Dòng điện qua khoảng trống rất hẹp\n\nKính hiển vi quét xuyên hầm, STM, đưa một mũi dò dẫn điện đến rất gần bề mặt dẫn điện phù hợp. Hiệu ứng xuyên hầm lượng tử cho phép dòng điện xuất hiện qua khoảng cách nhỏ dù cách nhìn cổ điển xem đó là một rào cản. Dòng phụ thuộc rất nhạy vào khoảng cách và trạng thái điện tử.\n\nKhi đầu dò quét, hệ điều khiển theo dõi tín hiệu để tạo bản đồ. Các gò trên ảnh không nên được hiểu đơn giản như ảnh chụp những quả cầu nguyên tử cứng. Độ tương phản còn phụ thuộc điện thế và cấu trúc điện tử của mẫu, cũng như đầu dò. Vì thế cùng một bề mặt có thể cho hình ảnh khác khi điều kiện đo thay đổi. So ảnh ở nhiều điện thế là một cách kiểm tra ảnh hưởng của trạng thái điện tử đối với độ tương phản.\n\n## Vì sao nguyên tử chịu đứng yên?\n\nTrong công trình xenon, nhiệt độ khoảng 4 K làm giảm chuyển động nhiệt của các nguyên tử hấp phụ. Bề mặt sạch và môi trường được kiểm soát giúp thao tác có thể lặp lại. Đó không phải cảnh người nghiên cứu dùng một chiếc kim trong không khí phòng để viết lên vật liệu thông thường.\n\nIBM ghi lại quá trình phát triển STM của Gerd Binnig và Heinrich Rohrer từ nhu cầu hiểu bề mặt. Nobel Vật lý năm 1986 ghi nhận phát minh này cùng với công trình về kính hiển vi điện tử. Việc giảm rung, kiểm soát vị trí và ổn định đầu dò là phần thiết yếu của thành tựu, dù ít nổi bật hơn bức ảnh những chữ cái.\n\n## Ứng dụng hôm nay: điều khiển nhỏ không đồng nghĩa sản xuất hàng loạt\n\nSTM tiếp tục được dùng trong nghiên cứu bề mặt, trạng thái điện tử và các hệ ở kích thước nano. Khả năng sắp xếp hoặc thay đổi một cấu trúc nhỏ giúp thử những ý tưởng về tương tác nguyên tử. Nhưng thao tác từng nguyên tử trong điều kiện đặc biệt khác rất xa việc chế tạo hàng tỷ linh kiện bền ở nhiệt độ thông thường.\n\nCâu chuyện xenon vì thế nên được đọc như một cột mốc về kiểm soát và phép đo, không phải lời tuyên bố đã giải xong mọi công nghệ nano. Giá trị nằm ở việc biến vị trí của nguyên tử từ thứ chỉ được suy luận thành đại lượng có thể tác động có chủ đích. Muốn đi tiếp tới ứng dụng, vẫn cần giải tốc độ, độ bền, môi trường và khả năng tích hợp của cả hệ.\n\n## Nguồn và đọc thêm\n\n- [Eigler và Schweizer · Đặt từng nguyên tử bằng STM, 1990](https://www.nature.com/articles/344524a0)\n- [IBM · Lịch sử và nguyên lý STM](https://www.ibm.com/history/scanning-tunneling-microscope)\n- [Nobel Prize · Vật lý 1986 và kính hiển vi](https://www.nobelprize.org/prizes/physics/1986/press-release/)"
+}

@@ -1,0 +1,44 @@
+{
+  "id": "anthraquinone-chuyen-vong-lam-peroxide",
+  "slug": "anthraquinone-chuyen-vong-lam-peroxide",
+  "documentPath": "docs/anthraquinone-chuyen-vong-lam-peroxide/index.json",
+  "title": "Chất mang đi một vòng, peroxide đi ra: cách làm H₂O₂ bằng anthraquinone",
+  "summary": "Tại Weißenstein, phương pháp điện phân lịch sử đã nhường chỗ cho chu trình anthraquinone. Một phân tử hữu cơ quay vòng giúp tạo hydrogen peroxide rồi được tái sử dụng.",
+  "category": "phanung",
+  "author": "Ban biên tập ChemDex",
+  "image": "/assets/library/organic-ketone.svg",
+  "tags": [
+    "Hydrogen peroxide",
+    "Anthraquinone",
+    "Tuần hoàn",
+    "Oxi hóa–khử"
+  ],
+  "aliases": [],
+  "documentKind": "story",
+  "readingMinutes": 4,
+  "editorialEvidence": {
+    "language": "vi",
+    "scope": "chemical-family",
+    "contextLabel": "Chất mang đi một vòng, peroxide đi ra: cách làm H₂O₂ bằng anthraquinone",
+    "reviewBasis": "Biên soạn theo các nguồn dẫn cuối bài; phân biệt kết quả đã thực hiện và hướng phát triển.",
+    "story": {
+      "status": "documented",
+      "section": "## Một cơ sở cũ đổi phương pháp sản xuất",
+      "sources": [
+        "https://www.evonik.com/en/company/worldwide-locations/europe/austria/weissenstein.html",
+        "https://www.evonik.com/content/dam/evonik/documents/AO_Hydrogen%20Peroxide_DINA4%20Brochure_English_01-2026.pdf.coredownload.pdf",
+        "https://www.epa.gov/system/files/documents/2023-03/Hydrogen%20Peroxide%20Supply%20Chain%20Profile.pdf"
+      ]
+    },
+    "application": {
+      "status": "documented",
+      "section": "## Ứng dụng hôm nay: hóa chất sạch ở đầu ra vẫn có quá trình phía sau",
+      "sources": [
+        "https://www.evonik.com/en/company/worldwide-locations/europe/austria/weissenstein.html",
+        "https://www.evonik.com/content/dam/evonik/documents/AO_Hydrogen%20Peroxide_DINA4%20Brochure_English_01-2026.pdf.coredownload.pdf",
+        "https://www.epa.gov/system/files/documents/2023-03/Hydrogen%20Peroxide%20Supply%20Chain%20Profile.pdf"
+      ]
+    }
+  },
+  "content": "## Một cơ sở cũ đổi phương pháp sản xuất\n\nCơ sở Weißenstein ở Áo được xây dựng đầu thế kỷ XX để sản xuất hydrogen peroxide bằng phương pháp điện phân. Trang giới thiệu hiện tại của Evonik cho biết phương pháp mang tên địa điểm này đã được thay bằng quá trình tự oxi hóa anthraquinone. Nhà máy còn đó, nhưng con đường hóa học tạo sản phẩm đã thay đổi.\n\nĐiểm đáng chú ý là công thức H₂O₂ không đổi. Cùng một sản phẩm có thể đi ra từ những công nghệ có nhu cầu năng lượng, nguyên liệu và phân tách khác nhau. Đọc nhãn hóa chất chưa đủ để biết nó đã được sản xuất như thế nào hoặc các dòng phụ của quá trình là gì.\n\n![Minh họa nhóm carbonyl, không phải cấu trúc đầy đủ của chất mang anthraquinone](/assets/library/organic-ketone.svg)\n\n## Không đưa mọi thứ vào một phản ứng trực tiếp\n\nTrong chu trình anthraquinone, một chất hữu cơ được hydrogen hóa rồi được oxi hóa trở lại. Khi bước oxi hóa diễn ra với oxygen, hydrogen peroxide được tạo thành và chất mang quay về trạng thái có thể bắt đầu vòng tiếp theo.\n\nTổng thể có thể nhìn như kết hợp hydrogen với oxygen để tạo H₂O₂, nhưng nhà máy không đơn giản thực hiện bằng cách trộn trực tiếp hai khí. Chu trình chất mang tách các chức năng thành những công đoạn khác nhau, cho phép kiểm soát sự chuyển hóa và thu sản phẩm.\n\nChất mang và dung môi không được coi là vật tư bất biến tuyệt đối. Những phản ứng phụ hoặc suy giảm qua nhiều vòng có thể làm thay đổi thành phần của dung dịch làm việc. Quy trình cần theo dõi và duy trì trạng thái thích hợp để chu trình tiếp tục hiệu quả.\n\n## Sản phẩm phải rời khỏi vòng mà không kéo cả vòng đi theo\n\nEvonik chia quá trình sản xuất thành các nhóm công đoạn hydrogen hóa, oxi hóa, chiết và làm sạch. Sau khi tạo H₂O₂, cần chuyển nó sang dòng sản phẩm phù hợp trong khi giữ lại phần lớn môi trường hữu cơ để tái sử dụng.\n\nĐó là bài toán phân bố giữa các pha. Phản ứng tốt nhưng chiết kém có thể làm sản phẩm khó thu hoặc kéo theo nhiều tạp chất. Chất lượng H₂O₂ cuối cùng còn phụ thuộc tinh chế, nồng độ và yêu cầu sử dụng. Một ứng dụng kỹ thuật thông thường và một công đoạn cần độ sạch cao không nhất thiết chấp nhận cùng mức tạp.\n\nHồ sơ của EPA về chuỗi cung ứng peroxide cho thấy sản phẩm được kết nối với nhiều ngành sử dụng. Các yêu cầu ấy quay ngược lại quyết định công việc phân tích và kiểm soát tại nơi sản xuất.\n\n## Ứng dụng hôm nay: hóa chất sạch ở đầu ra vẫn có quá trình phía sau\n\nHydrogen peroxide được dùng trong tẩy trắng, xử lý nước và các phản ứng tổng hợp phù hợp. Trong một số ứng dụng, sản phẩm phân hủy đơn giản của nó là lợi thế. Nhưng điều đó không cho phép bỏ qua năng lượng và các dòng hữu cơ đã tham gia quá trình sản xuất.\n\nMột chu trình có chất mang được tái sử dụng có thể giúp giảm tiêu thụ theo vòng, song vẫn cần bổ sung, bảo trì và xử lý phần suy giảm. Muốn đánh giá môi trường, cần biết hiệu quả thực tế của cả chuỗi, không chỉ nhìn phương trình phân hủy H₂O₂ ở nơi sử dụng.\n\nCâu chuyện Weißenstein cho thấy tiến bộ có thể là đổi đường đi mà vẫn giữ sản phẩm quen thuộc. Chất mang hữu cơ ít được nhắc trên nhãn chai lại làm phần việc quan trọng: nhận hydrogen, trả nó sang sản phẩm và quay lại. Nhà máy hoạt động nhờ khả năng giữ vòng ấy ổn định, không chỉ nhờ tạo peroxide một lần.\n\n## Nguồn và đọc thêm\n\n- [Evonik · Lịch sử và phương pháp hiện tại tại Weißenstein](https://www.evonik.com/en/company/worldwide-locations/europe/austria/weissenstein.html)\n- [Evonik · Bốn công đoạn của quá trình anthraquinone](https://www.evonik.com/content/dam/evonik/documents/AO_Hydrogen%20Peroxide_DINA4%20Brochure_English_01-2026.pdf.coredownload.pdf)\n- [U.S. EPA · Hồ sơ chuỗi cung ứng hydrogen peroxide](https://www.epa.gov/system/files/documents/2023-03/Hydrogen%20Peroxide%20Supply%20Chain%20Profile.pdf)"
+}
