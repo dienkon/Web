@@ -42,6 +42,7 @@ function packet(input = sample()): PourParcel {
     trajectory, sample: input, releasedVolume_ml: input.volume_ml, duration_s: 0.2, elapsed_s: 0, arrivedFraction: 0 };
 }
 function setup() {
+  useInstrumentStore.getState().clearPipettePresentations();
   const source = createStudioSample(getProgramById('hcl_naoh')!, shell);
   useAppStore.setState({ vessels: { source, receiver: { ...shell, id: 'receiver' } }, vesselIds: ['source', 'receiver'],
     selectedVesselId: 'source', moveMode: false, pipetteSample: null, activeKinetics: {}, pendingReactions: {},

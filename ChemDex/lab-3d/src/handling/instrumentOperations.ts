@@ -13,6 +13,7 @@ import { SimulationEngine } from '../simulation/core/SimulationEngine';
 import { prepareAliquotContact } from '../engine/aliquotContactChemistry';
 import { vesselHasBurnerHeat } from '../engine/burnerEnergy';
 import { uiText } from '../utils/uiText';
+import { pipetteHasRinseSample } from './instrumentRinse';
 
 export interface InstrumentResult {
   ok: boolean;
@@ -53,16 +54,21 @@ export function aspiratePipette(requested_ml = 10): InstrumentResult {
   const source = resolveInstrumentTarget();
   const problem = instrumentTargetProblem('pipette', source);
   if (problem || !source) return result('pipette', false, problem ?? 'Không có mẫu.');
+  if (state.isSimulationPaused) return result('pipette', false, 'Tiếp tục mô phỏng trước khi hút mẫu.');
+  if (state.draggingVesselId) return result('pipette', false, 'Đặt bình nguồn yên trên bàn trước khi hút mẫu.');
   if (state.moveMode) return result('pipette', false, 'Tắt chế độ di chuyển trước khi hút.');
   const loaded = state.pipetteSample;
-  if (loaded && loaded.volume_ml > 1e-6) return result('pipette', false, 'Pipet còn mẫu; nhả mẫu trước khi hút tiếp.');
+  if (pipetteHasRinseSample(loaded)) return result('pipette', false, 'Pipet còn mẫu hoặc cặn khô; nhả hoặc thu gom mẫu vào chất thải trước khi hút tiếp.');
+  if (!useInstrumentStore.getState().canQueuePipettePresentation(state.pourEpoch))
+    return result('pipette', false, 'Chờ pipet xử lý các lần chuyển mẫu trước khi hút tiếp.');
   if (!Number.isFinite(requested_ml) || requested_ml <= 0 || requested_ml > 10) {
     return result('pipette', false, 'Thể tích hút phải lớn hơn 0 và không vượt quá 10 mL.');
   }
   if (source.volume_ml <= 0) return result('pipette', false, 'Bình nguồn không có dung dịch.');
   const transfer = withdrawAliquot(source, requested_ml, mobileSolidInventory(source, SimulationEngine.findManager(source.id)));
-  state.commitPipetteTransfer({ vessel: transfer.vessel,
+  const accepted = state.commitPipetteTransfer({ vessel: transfer.vessel,
     sample: prepareAliquotContact(transfer.sample, state.activeKinetics[source.id]?.program?.id), withdrawal: true });
+  if (!accepted) return result('pipette', false, 'Chưa thể hút mẫu; mẫu vẫn được giữ trong bình nguồn.');
   state.setActiveTool('pipette');
   const chemical = transfer.sample.substances[0];
   if (chemical) state.touchToolChemical('pipette', chemical);
@@ -74,7 +80,11 @@ export function dispensePipette(requested_ml = 2.5, targetId?: string): Instrume
   const receiver = targetId === undefined ? resolveInstrumentTarget() : state.vessels[targetId] ?? null;
   const problem = instrumentTargetProblem('pipette', receiver);
   if (problem || !receiver) return result('pipette', false, problem ?? 'Không có bình nhận.');
+  if (state.isSimulationPaused) return result('pipette', false, 'Tiếp tục mô phỏng trước khi nhả mẫu.');
+  if (state.draggingVesselId) return result('pipette', false, 'Đặt bình nhận yên trên bàn trước khi nhả mẫu.');
   if (state.moveMode) return result('pipette', false, 'Tắt chế độ di chuyển trước khi nhả.');
+  if (!useInstrumentStore.getState().canQueuePipettePresentation(state.pourEpoch))
+    return result('pipette', false, 'Chờ pipet xử lý các lần chuyển mẫu trước khi nhả tiếp.');
   const sample = state.pipetteSample;
   if (!sample || sample.volume_ml <= 1e-6) return result('pipette', false, 'Pipet đang rỗng.');
   if (!Number.isFinite(requested_ml) || requested_ml <= 0 || requested_ml > 10) {
@@ -85,15 +95,27 @@ export function dispensePipette(requested_ml = 2.5, targetId?: string): Instrume
   const heated = vesselHasBurnerHeat(receiver, state.burners);
   const reacted = transfer.failureReason ? { vessel: transfer.vessel, kinetics: null, mixResult: null }
     : reactAliquotMixture(transfer.vessel, state.language, heated);
-  state.commitPipetteTransfer({ vessel: reacted.vessel, sample: transfer.sample, withdrawal: false,
+  const accepted = state.commitPipetteTransfer({ vessel: reacted.vessel, sample: transfer.sample, withdrawal: false,
     kinetics: reacted.kinetics, mixResult: reacted.mixResult, failureReason: transfer.failureReason });
+  if (!accepted) return result('pipette', false, 'Chưa thể nhả mẫu; mẫu vẫn được giữ trong pipet.');
   state.setActiveTool('pipette');
   return result('pipette', true, transfer.failureReason
     ? `Đã nhả ${transfer.dispensed_ml.toFixed(3)} mL; bình bị sốc nhiệt và mẫu chuyển ra bàn.`
     : `Đã nhả ${transfer.dispensed_ml.toFixed(3)} mL vào ${receiver.name}.`, transfer.dispensed_ml);
 }
 
+export function discardPipetteContents(): InstrumentResult {
+  const before = useAppStore.getState().pipetteSample;
+  if (!before) return result('pipette', false, 'Pipet đang rỗng.');
+  const accepted = useAppStore.getState().discardPipetteSample();
+  return result('pipette', accepted, accepted
+    ? `Đã thu gom ${before.mass_g.toPrecision(4)} g mẫu pipet vào chất thải; rửa pipet trước khi đổi mẫu.`
+    : 'Tiếp tục mô phỏng và chờ pipet chuyển mẫu xong trước khi thu gom.');
+}
+
 export function positionInstrument(id: InstrumentId, position: ToolPosition): InstrumentResult {
+  if (id === 'pipette' && useInstrumentStore.getState().hasPipettePresentation(useAppStore.getState().pourEpoch))
+    return result(id, false, 'Chờ pipet chuyển mẫu xong trước khi đổi vị trí.');
   if (useAppStore.getState().instrumentRinse?.tool === id) return result(id, false, 'Dừng rửa trước khi đổi vị trí dụng cụ.');
   if (!position.every(Number.isFinite)) return result(id, false, 'Tọa độ phải là số hữu hạn.');
   if (id === 'sponge') return result(id, false, 'Miếng lau đi theo con trỏ khi kích hoạt.');
@@ -111,6 +133,8 @@ export function returnInstrumentHome(id: InstrumentId): InstrumentResult {
 }
 
 export function stowInstrument(id: InstrumentId): InstrumentResult {
+  if (id === 'pipette' && useInstrumentStore.getState().hasPipettePresentation(useAppStore.getState().pourEpoch))
+    return result(id, false, 'Chờ pipet chuyển mẫu xong trước khi cất dụng cụ.');
   if (useAppStore.getState().instrumentRinse?.tool === id) return result(id, false, 'Dừng rửa trước khi cất dụng cụ.');
   if (id === 'balance' || id === 'burette') return result(id, false, 'Thiết bị này có vị trí cố định trên bàn.');
   if (useAppStore.getState().activeTool === id) useAppStore.getState().setActiveTool('none');

@@ -22,8 +22,12 @@ export const RINSE_FLOW_ML_S = 2;
 export const RINSE_DRAIN_S = 0.4;
 
 export function pipetteHasRinseSample(sample: LiquidAliquot | null): boolean {
-  return !!sample && (sample.volume_ml > 1e-10 || sample.mass_g > 1e-10
-    || sample.contents.some(row => row.mass_g > 1e-10 || row.moles > 1e-12));
+  return !!sample && (!Number.isFinite(sample.volume_ml) || sample.volume_ml < 0
+    || !Number.isFinite(sample.mass_g) || sample.mass_g < 0
+    || sample.contents.some(row => !Number.isFinite(row.mass_g) || row.mass_g < 0
+      || !Number.isFinite(row.moles) || row.moles < 0
+      || row.mass_g > 1e-10 || row.moles > 1e-12)
+    || sample.volume_ml > 1e-10 || sample.mass_g > 1e-10);
 }
 
 /** Labels alone do not establish a finite water supply. */

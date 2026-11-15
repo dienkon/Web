@@ -388,7 +388,7 @@ export interface LabMaterialSnapshot {
 export interface LabActionHistory {
   id: string;
   timestamp: number;
-  action: 'ADD_VESSEL' | 'REMOVE_VESSEL' | 'POUR' | 'HEAT' | 'MEASURE' | 'RESET' | 'TITRATE' | 'RINSE';
+  action: 'ADD_VESSEL' | 'REMOVE_VESSEL' | 'POUR' | 'HEAT' | 'MEASURE' | 'RESET' | 'TITRATE' | 'RINSE' | 'DISCARD';
   description_en: string;
   description_vi: string;
   snapshot: {

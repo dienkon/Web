@@ -21,8 +21,9 @@ function vessel(id: string, x: number, volume = 20): VesselState {
 describe('Shared keyboard and 3D instrument operations', () => {
   beforeEach(() => {
     useAppStore.setState({ vessels: { source: vessel('source', -2), receiver: vessel('receiver', 2, 0) }, vesselIds: ['source', 'receiver'], selectedVesselId: 'source', moveMode: false, activeKinetics: {}, burners: {} });
-    useAppStore.getState().setPipetteSample(null);
     useInstrumentStore.setState({ balanceTare_g: 0, notices: [], sequence: 0 });
+    useInstrumentStore.getState().clearPipettePresentations();
+    useAppStore.getState().setPipetteSample(null);
     useToolDockStore.setState({ positions: {}, dragging: null });
   });
 

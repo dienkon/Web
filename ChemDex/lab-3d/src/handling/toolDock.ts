@@ -5,6 +5,7 @@ import { useAppStore } from '../store/useAppStore';
 import { restingToolHeight, toolVisible } from './handheldRest';
 import { beginPointerDrag } from './pointerDrag';
 import { useToolDockStore, type ToolPosition } from './toolDockState';
+import { useInstrumentStore } from './instrumentState';
 export { useToolDockStore, type ToolPosition } from './toolDockState';
 
 
@@ -37,6 +38,7 @@ export function useToolDock(id: string, initial: ToolPosition, onMove?: (positio
   const onPointerDown = (event: ThreeEvent<PointerEvent>) => {
     if (!moveMode || event.button !== 0) return;
     event.stopPropagation();
+    if (id === 'pipette' && useInstrumentStore.getState().hasPipettePresentation(useAppStore.getState().pourEpoch)) return;
     if (useToolDockStore.getState().dragging !== null) return;
     cleanup.current?.();
     useAppStore.getState().setActiveTool('none');

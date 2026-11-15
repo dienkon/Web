@@ -1,0 +1,812 @@
+{
+  "errors": [],
+  "assertions": {
+    "fullDispenseKeepsAcceptedColor": true,
+    "actualStreamEndpoints": true,
+    "selectionAndToolCannotRetargetAcceptedTransfer": true,
+    "pauseFreezesReceiptAndPose": true,
+    "microdoseUsesFiniteDiscreteDrops": true,
+    "resetClearsStaleReceiptAndEffect": true,
+    "noRuntimeErrors": true,
+    "sourceStable": true
+  },
+  "sourceBefore": {
+    "src/handling/pipettePresentation.ts": "07c5bfd4b5ce6494cf28e897a0beeb44e9db4368ece57e0d2882f3e8f35914c5",
+    "src/handling/instrumentState.ts": "278feb03e5add8d9e5f348a9d7a1ff81b7460cd84e828cb446c9ff6e60a906a1",
+    "src/handling/instrumentOperations.ts": "13ebeacbe49e577ff20a8c1827beefe0336a87b31e835fb3dc8fba98c05bfd31",
+    "src/store/useAppStore.ts": "deffb71213a6673efc7899e99fae5adfd19e6da6c51b345583fed6785be8ddbc",
+    "src/components/three/interactions/InteractivePipette.tsx": "d1f89bd07f98371e7e03c82dacd61823d4ab2f18e9c0f3d16cda97be024e9e7b"
+  },
+  "stream": {
+    "result": {
+      "ok": true,
+      "message": "Đã nhả 1.000 mL vào receiverA.",
+      "transferred_ml": 1
+    },
+    "receipt": {
+      "id": 1,
+      "targetId": "receiverA",
+      "targetSignature": "[\"beaker\",100,-1,-0.135,0,0,0,null]",
+      "targetType": "beaker",
+      "targetCapacity_ml": 100,
+      "targetPose": {
+        "position": [
+          -1,
+          -0.135,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0,
+          1
+        ]
+      },
+      "epoch": 1,
+      "direction": "dispense",
+      "volume_ml": 1,
+      "color": "#b91c1c",
+      "toolRotation": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "before": {
+        "volume_ml": 1,
+        "color": "#b91c1c"
+      },
+      "after": {
+        "volume_ml": 0,
+        "color": null
+      },
+      "toolPosition": [
+        -1,
+        1.4969391909283,
+        0
+      ],
+      "outlet": [
+        -1,
+        0.4719391909283003,
+        0
+      ],
+      "surface": [
+        -1,
+        -1.1052612161814341,
+        0
+      ],
+      "position_s": 0.25,
+      "transfer_s": 0.25,
+      "drain_s": 0.1,
+      "duration_s": 0.6,
+      "elapsed_s": 0.259769999998808,
+      "drops": []
+    },
+    "queueLength": 1,
+    "sample": null,
+    "selected": "receiverA",
+    "activeTool": "pipette",
+    "paused": true,
+    "A": {
+      "volume_ml": 0.9999769012297574,
+      "mass_g": 0.9999769012297574
+    },
+    "B": {
+      "volume_ml": 0,
+      "mass_g": 0
+    },
+    "effectVisible": true,
+    "jetVisible": true,
+    "color": "b91c1c",
+    "dropsVisible": false,
+    "dropColor": "b91c1c",
+    "drawnDrops": [
+      {
+        "position": [
+          -1,
+          0.47193917632102966,
+          0
+        ],
+        "radius": 1
+      },
+      {
+        "position": [
+          -1,
+          0.47193917632102966,
+          0
+        ],
+        "radius": 1
+      },
+      {
+        "position": [
+          -1,
+          0.47193917632102966,
+          0
+        ],
+        "radius": 1
+      },
+      {
+        "position": [
+          -1,
+          0.47193917632102966,
+          0
+        ],
+        "radius": 1
+      }
+    ],
+    "jetEnds": [
+      [
+        -1,
+        0.4719391869852992,
+        -0.00007886001996132674
+      ],
+      [
+        -1,
+        -1.105261212238433,
+        0.00007886001996132674
+      ]
+    ],
+    "outlet": [
+      -1,
+      0.4719391909283002,
+      0
+    ],
+    "toolMatrix": [
+      1,
+      0,
+      0,
+      0,
+      0,
+      1,
+      0,
+      0,
+      0,
+      0,
+      1,
+      0,
+      -1,
+      1.4969391909283,
+      0,
+      1
+    ],
+    "dropMatrices": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      -1,
+      0.47193917632102966,
+      0,
+      1,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      -1,
+      0.47193917632102966,
+      0,
+      1,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      -1,
+      0.47193917632102966,
+      0,
+      1,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      -1,
+      0.47193917632102966,
+      0,
+      1
+    ],
+    "column": {
+      "visible": true,
+      "color": "b91c1c",
+      "scale": [
+        1,
+        0.11531040000057215,
+        1
+      ]
+    },
+    "userData": {
+      "id": 1,
+      "targetId": "receiverA",
+      "direction": "dispense",
+      "volume_ml": 1,
+      "color": "#b91c1c",
+      "elapsed_s": 0.259769999998808,
+      "phase": "transferring"
+    }
+  },
+  "retargeted": {
+    "result": {
+      "ok": true,
+      "message": "Đã nhả 1.000 mL vào receiverA.",
+      "transferred_ml": 1
+    },
+    "receipt": {
+      "id": 1,
+      "targetId": "receiverA",
+      "targetSignature": "[\"beaker\",100,-1,-0.135,0,0,0,null]",
+      "targetType": "beaker",
+      "targetCapacity_ml": 100,
+      "targetPose": {
+        "position": [
+          -1,
+          -0.135,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0,
+          1
+        ]
+      },
+      "epoch": 1,
+      "direction": "dispense",
+      "volume_ml": 1,
+      "color": "#b91c1c",
+      "toolRotation": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "before": {
+        "volume_ml": 1,
+        "color": "#b91c1c"
+      },
+      "after": {
+        "volume_ml": 0,
+        "color": null
+      },
+      "toolPosition": [
+        -1,
+        1.4969391909283,
+        0
+      ],
+      "outlet": [
+        -1,
+        0.4719391909283003,
+        0
+      ],
+      "surface": [
+        -1,
+        -1.1052612161814341,
+        0
+      ],
+      "position_s": 0.25,
+      "transfer_s": 0.25,
+      "drain_s": 0.1,
+      "duration_s": 0.6,
+      "elapsed_s": 0.259769999998808,
+      "drops": []
+    },
+    "queueLength": 1,
+    "sample": null,
+    "selected": "receiverB",
+    "activeTool": "thermometer",
+    "paused": true,
+    "A": {
+      "volume_ml": 0.9999769012297574,
+      "mass_g": 0.9999769012297574
+    },
+    "B": {
+      "volume_ml": 0,
+      "mass_g": 0
+    },
+    "effectVisible": true,
+    "jetVisible": true,
+    "color": "b91c1c",
+    "dropsVisible": false,
+    "dropColor": "b91c1c",
+    "drawnDrops": [
+      {
+        "position": [
+          -1,
+          0.47193917632102966,
+          0
+        ],
+        "radius": 1
+      },
+      {
+        "position": [
+          -1,
+          0.47193917632102966,
+          0
+        ],
+        "radius": 1
+      },
+      {
+        "position": [
+          -1,
+          0.47193917632102966,
+          0
+        ],
+        "radius": 1
+      },
+      {
+        "position": [
+          -1,
+          0.47193917632102966,
+          0
+        ],
+        "radius": 1
+      }
+    ],
+    "jetEnds": [
+      [
+        -1,
+        0.4719391869852992,
+        -0.00007886001996132674
+      ],
+      [
+        -1,
+        -1.105261212238433,
+        0.00007886001996132674
+      ]
+    ],
+    "outlet": [
+      -1,
+      0.4719391909283002,
+      0
+    ],
+    "toolMatrix": [
+      1,
+      0,
+      0,
+      0,
+      0,
+      1,
+      0,
+      0,
+      0,
+      0,
+      1,
+      0,
+      -1,
+      1.4969391909283,
+      0,
+      1
+    ],
+    "dropMatrices": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      -1,
+      0.47193917632102966,
+      0,
+      1,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      -1,
+      0.47193917632102966,
+      0,
+      1,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      -1,
+      0.47193917632102966,
+      0,
+      1,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      -1,
+      0.47193917632102966,
+      0,
+      1
+    ],
+    "column": {
+      "visible": true,
+      "color": "b91c1c",
+      "scale": [
+        1,
+        0.11531040000057215,
+        1
+      ]
+    },
+    "userData": {
+      "id": 1,
+      "targetId": "receiverA",
+      "direction": "dispense",
+      "volume_ml": 1,
+      "color": "#b91c1c",
+      "elapsed_s": 0.259769999998808,
+      "phase": "transferring"
+    }
+  },
+  "microdose": {
+    "result": {
+      "ok": true,
+      "message": "Đã nhả 0.120 mL vào receiverA.",
+      "transferred_ml": 0.12
+    },
+    "receipt": {
+      "id": 2,
+      "targetId": "receiverA",
+      "targetSignature": "[\"beaker\",100,-1,-0.135,0,0,0,null]",
+      "targetType": "beaker",
+      "targetCapacity_ml": 100,
+      "targetPose": {
+        "position": [
+          -1,
+          -0.135,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0,
+          1
+        ]
+      },
+      "epoch": 1,
+      "direction": "dispense",
+      "volume_ml": 0.12,
+      "color": "#b91c1c",
+      "toolRotation": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "before": {
+        "volume_ml": 0.12,
+        "color": "#b91c1c"
+      },
+      "after": {
+        "volume_ml": 0,
+        "color": null
+      },
+      "toolPosition": [
+        -1,
+        1.4969391909283,
+        0
+      ],
+      "outlet": [
+        -1,
+        0.4719391909283003,
+        0
+      ],
+      "surface": [
+        -1,
+        -1.0908382391901568,
+        0
+      ],
+      "position_s": 0.25,
+      "transfer_s": 0.5056178317301316,
+      "drain_s": 0.1,
+      "duration_s": 0.8556178317301316,
+      "elapsed_s": 0.2557200000047685,
+      "drops": [
+        {
+          "volume_ml": 0.05,
+          "release_s": 0,
+          "flight": {
+            "start": [
+              -1,
+              0.4719391909283003,
+              0
+            ],
+            "target": [
+              -1,
+              -1.0908382391901568,
+              0
+            ],
+            "gravity": 280.18999999999994,
+            "flightTime": 0.10561783173013166
+          }
+        },
+        {
+          "volume_ml": 0.05,
+          "release_s": 0.2,
+          "flight": {
+            "start": [
+              -1,
+              0.4719391909283003,
+              0
+            ],
+            "target": [
+              -1,
+              -1.0908382391901568,
+              0
+            ],
+            "gravity": 280.18999999999994,
+            "flightTime": 0.10561783173013166
+          }
+        },
+        {
+          "volume_ml": 0.01999999999999999,
+          "release_s": 0.4,
+          "flight": {
+            "start": [
+              -1,
+              0.4719391909283003,
+              0
+            ],
+            "target": [
+              -1,
+              -1.0908382391901568,
+              0
+            ],
+            "gravity": 280.18999999999994,
+            "flightTime": 0.10561783173013166
+          }
+        }
+      ]
+    },
+    "queueLength": 1,
+    "sample": null,
+    "selected": "receiverA",
+    "activeTool": "pipette",
+    "paused": true,
+    "A": {
+      "volume_ml": 1.1199541661185157,
+      "mass_g": 1.1199541661185157
+    },
+    "B": {
+      "volume_ml": 0,
+      "mass_g": 0
+    },
+    "effectVisible": true,
+    "jetVisible": false,
+    "color": "b91c1c",
+    "dropsVisible": true,
+    "dropColor": "b91c1c",
+    "drawnDrops": [
+      {
+        "position": [
+          -1,
+          0.46735551953315735,
+          0
+        ],
+        "radius": 0.06529688090085983
+      },
+      {
+        "position": [
+          -1,
+          0.47193917632102966,
+          0
+        ],
+        "radius": 1
+      },
+      {
+        "position": [
+          -1,
+          0.47193917632102966,
+          0
+        ],
+        "radius": 1
+      },
+      {
+        "position": [
+          -1,
+          0.47193917632102966,
+          0
+        ],
+        "radius": 1
+      }
+    ],
+    "jetEnds": [
+      [
+        -1,
+        0.4719391869852992,
+        -0.00007886001996132674
+      ],
+      [
+        -1,
+        -1.105261212238433,
+        0.00007886001996132674
+      ]
+    ],
+    "outlet": [
+      -1,
+      0.4719391909283002,
+      0
+    ],
+    "toolMatrix": [
+      1,
+      0,
+      0,
+      0,
+      0,
+      1,
+      0,
+      0,
+      0,
+      0,
+      1,
+      0,
+      -1,
+      1.4969391909283,
+      0,
+      1
+    ],
+    "dropMatrices": [
+      0.06529688090085983,
+      0,
+      0,
+      0,
+      0,
+      0.06529688090085983,
+      0,
+      0,
+      0,
+      0,
+      0.06529688090085983,
+      0,
+      -1,
+      0.46735551953315735,
+      0,
+      1,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      -1,
+      0.47193917632102966,
+      0,
+      1,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      -1,
+      0.47193917632102966,
+      0,
+      1,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      -1,
+      0.47193917632102966,
+      0,
+      1
+    ],
+    "column": {
+      "visible": true,
+      "color": "b91c1c",
+      "scale": [
+        1,
+        0.0084,
+        1
+      ]
+    },
+    "userData": {
+      "id": 2,
+      "targetId": "receiverA",
+      "direction": "dispense",
+      "volume_ml": 0.12,
+      "color": "#b91c1c",
+      "elapsed_s": 0.2557200000047685,
+      "phase": "transferring"
+    }
+  },
+  "reset": {
+    "result": {
+      "ok": true,
+      "message": "Đã nhả 0.120 mL vào receiverA.",
+      "transferred_ml": 0.12
+    },
+    "queueLength": 0,
+    "sample": null,
+    "selected": null,
+    "activeTool": "none",
+    "paused": true,
+    "effectVisible": false,
+    "jetVisible": false,
+    "dropsVisible": false,
+    "drawnDrops": [],
+    "jetEnds": [],
+    "column": {}
+  },
+  "sourceAfter": {
+    "src/handling/pipettePresentation.ts": "07c5bfd4b5ce6494cf28e897a0beeb44e9db4368ece57e0d2882f3e8f35914c5",
+    "src/handling/instrumentState.ts": "278feb03e5add8d9e5f348a9d7a1ff81b7460cd84e828cb446c9ff6e60a906a1",
+    "src/handling/instrumentOperations.ts": "13ebeacbe49e577ff20a8c1827beefe0336a87b31e835fb3dc8fba98c05bfd31",
+    "src/store/useAppStore.ts": "deffb71213a6673efc7899e99fae5adfd19e6da6c51b345583fed6785be8ddbc",
+    "src/components/three/interactions/InteractivePipette.tsx": "d1f89bd07f98371e7e03c82dacd61823d4ab2f18e9c0f3d16cda97be024e9e7b"
+  },
+  "generatedAt": "2026-11-15T15:01:15.654Z"
+}

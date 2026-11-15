@@ -6,6 +6,7 @@ import { useInstrumentStore } from '../handling/instrumentState';
 import { useToolDockStore } from '../handling/toolDock';
 import { readInstrument } from '../handling/instrumentReadings';
 import { InstrumentRinseStatus } from './InstrumentRinseStatus';
+import { pipetteHasRinseSample } from '../handling/instrumentRinse';
 import {
   activateInstrument,
   alignSelectedVessel,
@@ -15,6 +16,7 @@ import {
   depositSpatula,
   dispenseOneBuretteDrop,
   dispensePipette,
+  discardPipetteContents,
   instrumentTargetProblem,
   positionInstrument,
   resolveInstrumentTarget,
@@ -58,7 +60,9 @@ function NumberControl({ label, value, minimum, maximum, step, onChange }: {
 function PipetteActions({ disabled }: { disabled: boolean }) {
   const [volume, setVolume] = useState(2.5);
   const sample = useAppStore(state => state.pipetteSample);
-  const loaded = (sample?.volume_ml ?? 0) > 1e-6;
+  const loaded = pipetteHasRinseSample(sample);
+  const transferable = (sample?.volume_ml ?? 0) > 1e-6;
+  const paused = useAppStore(state => state.isSimulationPaused);
   return <div className="space-y-3">
     <NumberControl
       label="Thể tích mỗi thao tác (mL)"
@@ -69,11 +73,13 @@ function PipetteActions({ disabled }: { disabled: boolean }) {
       onChange={setVolume}
     />
     <div className="flex flex-wrap gap-2">
-      <button className={BUTTON} disabled={disabled || loaded} onClick={() => aspiratePipette(volume)}>Hút mẫu</button>
-      <button className={BUTTON} disabled={disabled || !loaded} onClick={() => dispensePipette(volume)}>Nhả mẫu</button>
-      <button className={BUTTON} disabled={loaded} onClick={() => rinseInstrument('pipette')}>Rửa pipet</button>
+      <button className={BUTTON} disabled={disabled || loaded || paused} onClick={() => aspiratePipette(volume)}>Hút mẫu</button>
+      <button className={BUTTON} disabled={disabled || !transferable || paused} onClick={() => dispensePipette(volume)}>Nhả mẫu</button>
+      <button className={BUTTON} disabled={!loaded || paused} onClick={discardPipetteContents}>Thu gom mẫu vào chất thải</button>
+      <button className={BUTTON} disabled={loaded || paused} onClick={() => rinseInstrument('pipette')}>Rửa pipet</button>
     </div>
-    {sample && sample.volume_ml > 0 && <div className="space-y-1 text-xs">
+    {loaded && !transferable && <p className="text-xs text-amber-800">Pipet còn cặn khô. Thu gom cặn vào chất thải trước khi rửa hoặc hút mẫu mới.</p>}
+    {sample && loaded && <div className="space-y-1 text-xs">
       <p className="font-medium">Số mol đang giữ</p>
       {sample.contents.filter(content => content.moles > 1e-12).map((content, index) => <p key={`${content.formula}-${index}`} className="flex justify-between">
         <span>{content.formula}</span>

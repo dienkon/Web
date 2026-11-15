@@ -1,17 +1,18 @@
-import React, { useRef, useState, useMemo } from 'react';
+import React, { useRef, useMemo } from 'react';
 import { simulationFrameDt } from '../../../core/clock';
-import { useFrame } from '@react-three/fiber';
+import { createPortal, useFrame, useThree } from '@react-three/fiber';
 import * as THREE from 'three';
 import { useAppStore } from '../../../store/useAppStore';
-import { ContinuousLiquidStream } from './ContinuousLiquidStream';
 import { useToolDock } from '../../../handling/toolDock';
 import { instrumentHome } from '../../../handling/instrumentCatalog';
 import { useInstrumentStore } from '../../../handling/instrumentState';
 import { aspiratePipette, dispensePipette } from '../../../handling/instrumentOperations';
 import { getWorldVesselProfile } from '../../../pour/physics/profiles';
-import { vesselWorldLiquidSurfaceY } from '../../../science/vesselGeometry';
 import { HANDHELD_PIPETTE_TIP_LOCAL_Y } from '../../../handling/dropFlight';
 import { RinsePoseMotion, rinseToolPose } from '../../../handling/instrumentRinseVisual';
+import { pipettePresentationView, pipetteTargetUnchanged, type PipettePresentation } from '../../../handling/pipettePresentation';
+import { pipetteHasRinseSample } from '../../../handling/instrumentRinse';
+import { SCENE_GRAVITY, streamRadiusForFlow } from '../../../science/sceneUnits';
 
 const glassMaterial = new THREE.MeshPhysicalMaterial({
   roughness: 0.05,
@@ -30,27 +31,26 @@ export const InteractivePipette = React.memo(function InteractivePipette({
   position?: [number, number, number];
 }) {
   const dock = useToolDock('pipette', initialPosition);
+  const scene = useThree(state => state.scene);
   const position = dock.position;
   const activeTool = useAppStore(state => state.activeTool);
   const setActiveTool = useAppStore(state => state.setActiveTool);
   const selectedVesselId = useAppStore(state => state.selectedVesselId);
   const rinsing = useAppStore(state => state.instrumentRinse?.tool === 'pipette');
 
-  const sample = useAppStore(state => state.pipetteSample);
-  const pulse = useInstrumentStore(state => state.pipettePulse);
-  const dispensing = useInstrumentStore(state => state.pipetteDispensing);
-  const pipetteVolume = sample?.volume_ml ?? 0;
-  const pipetteColor = sample?.color ?? '#38bdf8';
-  const pulseTime = useRef(0);
-  const lastPulse = useRef(pulse);
-  const [isBulbSqueezed, setIsBulbSqueezed] = useState(false);
-  const [isDispensing, setIsDispensing] = useState(false);
+  const presenting = useInstrumentStore(state => state.pipettePresentations.length > 0);
 
   const pipetteGroupRef = useRef<THREE.Group>(null);
   const rinseMotion = useRef(new RinsePoseMotion());
-  const streamFrom = useMemo<[number, number, number]>(() => [...initialPosition], []);
-  const streamTo = useMemo<[number, number, number]>(() => [...initialPosition], []);
-  const outletWorld = useMemo(() => new THREE.Vector3(), []);
+  const columnRef = useRef<THREE.Mesh>(null);
+  const bulbRef = useRef<THREE.Group>(null);
+  const effectRef = useRef<THREE.Group>(null);
+  const jetRef = useRef<THREE.Mesh>(null);
+  const rippleRef = useRef<THREE.Mesh>(null);
+  const dropsRef = useRef<THREE.InstancedMesh>(null);
+  const receiptMotion = useRef<{ id: number; from: THREE.Vector3; rotation: THREE.Quaternion } | null>(null);
+  const scratch = useMemo(() => ({ start: new THREE.Vector3(), end: new THREE.Vector3(), target: new THREE.Vector3(),
+    rotation: new THREE.Quaternion(), dummy: new THREE.Object3D() }), []);
   const targetId = targetVesselId ?? selectedVesselId;
   const targetVessel = useAppStore(state => targetId ? state.vessels[targetId] : undefined);
 
@@ -67,66 +67,120 @@ export const InteractivePipette = React.memo(function InteractivePipette({
   }, [isActive, targetVessel, position]);
 
   useFrame((_, delta) => {
-    if (lastPulse.current !== pulse) {
-      lastPulse.current = pulse;
-      pulseTime.current = 0.3;
-      setIsBulbSqueezed(true);
-      setIsDispensing(dispensing);
+    const group = pipetteGroupRef.current;
+    if (!group) return;
+    const app = useAppStore.getState(), dt = simulationFrameDt(delta, app);
+    const instrument = useInstrumentStore.getState();
+    instrument.advancePipettePresentation(dt, app.pourEpoch, receipt => pipetteTargetUnchanged(receipt, app.vessels[receipt.targetId]));
+    const receipt = useInstrumentStore.getState().pipettePresentations[0];
+    const view = receipt ? pipettePresentationView(receipt) : null;
+    const inventory = view?.inventory ?? { volume_ml: app.pipetteSample?.volume_ml ?? 0, color: app.pipetteSample?.color ?? null };
+    if (columnRef.current) {
+      const fill = Math.min(1, Math.max(0, inventory.volume_ml / 10));
+      columnRef.current.visible = fill > 0 && !!inventory.color;
+      columnRef.current.scale.y = fill * 1.2;
+      columnRef.current.position.y = -0.65 + fill * 0.6;
+      if (inventory.color) (columnRef.current.material as THREE.MeshStandardMaterial).color.set(inventory.color);
     }
-    if (pulseTime.current > 0) {
-      pulseTime.current -= simulationFrameDt(delta, useAppStore.getState());
-      if (pulseTime.current <= 0) {
-        setIsBulbSqueezed(false);
-        setIsDispensing(false);
-      }
+    if (bulbRef.current) bulbRef.current.scale.y = view?.phase === 'transferring'
+      ? receipt?.direction === 'dispense' ? 0.65 : 0.65 + view.progress * 0.35 : 1;
+    if (effectRef.current) effectRef.current.visible = !!receipt && receipt.direction === 'dispense' && view?.phase !== 'positioning';
+    if (receipt && view) {
+      group.visible = true;
+      group.userData.pipetteReceipt = { id: receipt.id, targetId: receipt.targetId, direction: receipt.direction,
+        volume_ml: receipt.volume_ml, color: receipt.color, elapsed_s: receipt.elapsed_s, phase: view.phase };
+      if (receiptMotion.current?.id !== receipt.id) receiptMotion.current = {
+        id: receipt.id, from: group.position.clone(), rotation: group.quaternion.clone(),
+      };
+      const t = Math.min(1, receipt.elapsed_s / receipt.position_s), progress = t * t * (3 - 2 * t);
+      group.position.lerpVectors(receiptMotion.current.from, scratch.target.fromArray(receipt.toolPosition), progress);
+      scratch.rotation.fromArray(receipt.toolRotation);
+      group.quaternion.slerpQuaternions(receiptMotion.current.rotation, scratch.rotation, progress);
+      drawReceipt(receipt, view);
+      return;
     }
-    if (!pipetteGroupRef.current) return;
-    const app = useAppStore.getState();
+    if (effectRef.current) effectRef.current.visible = false;
+    if (jetRef.current) jetRef.current.visible = false;
+    if (dropsRef.current) dropsRef.current.visible = false;
+    if (rippleRef.current) rippleRef.current.visible = false;
+    delete group.userData.pipetteReceipt;
+    receiptMotion.current = null;
     const rinse = app.instrumentRinse?.tool === 'pipette' ? app.instrumentRinse : null;
-    if (rinseMotion.current.apply(pipetteGroupRef.current, rinse, rinse && rinseToolPose(rinse), {
+    if (rinseMotion.current.apply(group, rinse, rinse && rinseToolPose(rinse), {
       position: [targetWorldPos.x, targetWorldPos.y, targetWorldPos.z],
       rotation: [isActive && targetVessel ? 0 : -Math.PI / 2, 0, 0],
-    }, simulationFrameDt(delta, app), app.pourEpoch)) { pipetteGroupRef.current.visible = true; return; }
-    pipetteGroupRef.current.visible = dock.visible;
-    pipetteGroupRef.current.position.lerp(targetWorldPos, 1 - Math.exp(-delta * 8));
-    pipetteGroupRef.current.rotation.set(isActive && targetVessel ? 0 : -Math.PI / 2, 0, 0);
-    pipetteGroupRef.current.updateWorldMatrix(true, false);
-    outletWorld.set(0, HANDHELD_PIPETTE_TIP_LOCAL_Y, 0).applyMatrix4(pipetteGroupRef.current.matrixWorld);
-    streamFrom[0] = outletWorld.x; streamFrom[1] = outletWorld.y; streamFrom[2] = outletWorld.z;
-    const receiver = targetId ? useAppStore.getState().vessels[targetId] : undefined;
-    streamTo[0] = receiver?.position[0] ?? outletWorld.x;
-    streamTo[1] = receiver ? receiver.position[1] + vesselWorldLiquidSurfaceY(receiver) : outletWorld.y - 0.5;
-    streamTo[2] = receiver?.position[2] ?? outletWorld.z;
+    }, dt, app.pourEpoch)) { group.visible = true; return; }
+    group.visible = dock.visible;
+    group.position.lerp(targetWorldPos, 1 - Math.exp(-dt * 8));
+    scratch.rotation.setFromEuler(new THREE.Euler(isActive && targetVessel ? 0 : -Math.PI / 2, 0, 0));
+    group.quaternion.slerp(scratch.rotation, 1 - Math.exp(-dt * 12));
   }, -1);
+
+  function drawReceipt(receipt: PipettePresentation, view: ReturnType<typeof pipettePresentationView>) {
+    const jet = jetRef.current, ripple = rippleRef.current, drops = dropsRef.current;
+    if (jet) {
+      jet.visible = view.stream;
+      if (view.stream) {
+        scratch.start.fromArray(receipt.outlet); scratch.end.fromArray(receipt.surface);
+        jet.position.copy(scratch.start).add(scratch.end).multiplyScalar(0.5);
+        jet.lookAt(scratch.end); jet.rotateX(Math.PI / 2);
+        const length = scratch.start.distanceTo(scratch.end);
+        const speed = Math.sqrt(2 * SCENE_GRAVITY * Math.max(0.005, (receipt.outlet[1] - receipt.surface[1]) / 2));
+        const radius = streamRadiusForFlow(view.flowRate_ml_s, speed);
+        jet.scale.set(radius, length, radius);
+        (jet.material as THREE.MeshPhysicalMaterial).color.set(receipt.color);
+      }
+    }
+    if (drops) {
+      drops.visible = receipt.drops.length > 0;
+      (drops.material as THREE.MeshPhysicalMaterial).color.set(receipt.color);
+      for (let i = 0; i < 4; i++) {
+        const drop = view.drops[i];
+        scratch.dummy.position.fromArray(drop?.position ?? receipt.outlet);
+        scratch.dummy.scale.setScalar(drop?.visible ? drop.radius : 0);
+        scratch.dummy.updateMatrix(); drops.setMatrixAt(i, scratch.dummy.matrix);
+      }
+      drops.instanceMatrix.needsUpdate = true;
+    }
+    if (ripple) {
+      const age = receipt.elapsed_s - receipt.position_s - receipt.transfer_s;
+      ripple.visible = age >= 0 && age < receipt.drain_s;
+      if (ripple.visible) {
+        ripple.position.fromArray(receipt.surface); ripple.position.y += 0.002;
+        const radius = Math.cbrt(receipt.volume_ml) * (0.04 + age * 0.5);
+        ripple.scale.setScalar(radius);
+        const material = ripple.material as THREE.MeshBasicMaterial;
+        material.color.set(receipt.color); material.opacity = (1 - age / receipt.drain_s) * 0.4;
+      }
+    }
+  }
 
   const handleBulbClick = (e: any) => {
     e.stopPropagation();
     if (dock.moveMode || rinsing || rinseMotion.current.hasPose) return;
     if (!isActive) { setActiveTool('pipette'); return; }
     if (targetVesselId) useAppStore.getState().setSelectedVesselId(targetVesselId);
-    if (pipetteVolume <= 0.000001) {
+    if (!pipetteHasRinseSample(useAppStore.getState().pipetteSample)) {
       aspiratePipette(10);
     } else {
       dispensePipette(2.5);
     }
   };
 
-  const fillRatio = pipetteVolume / 10;
-
-  if (!dock.visible && !rinsing && !rinseMotion.current.hasPose) return null;
+  if (!dock.visible && !rinsing && !rinseMotion.current.hasPose && !presenting) return null;
 
   return (
-    <group
+    <><group
       ref={pipetteGroupRef}
-      name="tool-pipette" visible={dock.visible || rinsing || rinseMotion.current.hasPose}
-      position={position} rotation={isActive ? [0, 0, 0] : [-Math.PI / 2, 0, 0]}
-      onPointerDown={event => { if (rinsing || rinseMotion.current.hasPose) event.stopPropagation(); else dock.onPointerDown(event); }}
+      name="tool-pipette" visible={dock.visible || rinsing || rinseMotion.current.hasPose || presenting}
+      position={position} rotation={[-Math.PI / 2, 0, 0]}
+      onPointerDown={event => { if (rinsing || rinseMotion.current.hasPose || presenting) event.stopPropagation(); else dock.onPointerDown(event); }}
       onClick={(e) => {
         e.stopPropagation();
         if (dock.moveMode || rinsing || rinseMotion.current.hasPose) return;
         setActiveTool(isActive ? 'none' : 'pipette');
       }}
-      onPointerOver={() => { document.body.style.cursor = rinsing || rinseMotion.current.hasPose ? 'wait' : dock.moveMode ? 'grab' : 'pointer'; }}
+      onPointerOver={() => { document.body.style.cursor = rinsing || rinseMotion.current.hasPose || presenting ? 'wait' : dock.moveMode ? 'grab' : 'pointer'; }}
       onPointerOut={() => { document.body.style.cursor = 'auto'; }}
     >
 {/* Glass Barrel Stem */}
@@ -143,12 +197,10 @@ export const InteractivePipette = React.memo(function InteractivePipette({
       ))}
 
       {/* Drawn Liquid Column Inside Capillary */}
-      {fillRatio > 0.01 && (
-        <mesh position={[0, -0.65 + (fillRatio * 1.2) / 2, 0]}>
-          <cylinderGeometry args={[0.038, 0.038, fillRatio * 1.2, 12]} />
-          <meshStandardMaterial color={pipetteColor} transparent opacity={0.8} roughness={0.1} />
-        </mesh>
-      )}
+      <mesh ref={columnRef} name="pipette-liquid-column" visible={false}>
+        <cylinderGeometry args={[0.038, 0.038, 1, 12]} />
+        <meshStandardMaterial transparent opacity={0.8} roughness={0.1} />
+      </mesh>
 
       {/* Narrow Drawn Tapered Delivery Tip */}
       <mesh name="tool-pipette-outlet" material={glassMaterial} position={[0, HANDHELD_PIPETTE_TIP_LOCAL_Y + 0.175, 0]}>
@@ -157,14 +209,16 @@ export const InteractivePipette = React.memo(function InteractivePipette({
 
       {/* Compressible Rubber Suction Bulb */}
       <group
+        ref={bulbRef}
+        name="pipette-bulb"
         position={[0, 0.85, 0]}
         onPointerDown={(event) => {
           if (rinsing || rinseMotion.current.hasPose) { event.stopPropagation(); return; }
+          if (dock.moveMode && presenting) { event.stopPropagation(); return; }
           if (dock.moveMode) dock.onPointerDown(event);
           else handleBulbClick(event);
         }}
         onClick={(event) => event.stopPropagation()}
-        scale={[1, isBulbSqueezed ? 0.65 : 1, 1]}
       >
         <mesh castShadow>
           <sphereGeometry args={[0.13, 16, 16]} />
@@ -176,16 +230,21 @@ export const InteractivePipette = React.memo(function InteractivePipette({
         </mesh>
       </group>
 
-      {/* Dispensing Droplet Stream */}
-      <ContinuousLiquidStream
-        name="pipette-stream"
-        fromPos={streamFrom}
-        toPos={streamTo}
-        color={pipetteColor}
-        flowRate={isDispensing ? 12 : 0}
-        thickness={0.02}
-        active={isDispensing && !rinsing}
-      />
     </group>
+      {createPortal(<group ref={effectRef} name="pipette-stream" visible={false}>
+        <mesh ref={jetRef} name="pipette-stream-jet" visible={false}>
+          <cylinderGeometry args={[1, 1, 1, 16, 1, true]} />
+          <meshPhysicalMaterial transparent opacity={0.82} transmission={0.4} roughness={0.06} ior={1.38} depthWrite={false} side={THREE.DoubleSide} />
+        </mesh>
+        <instancedMesh ref={dropsRef} name="pipette-transfer-drops" args={[undefined, undefined, 4]} frustumCulled={false} visible={false}>
+          <sphereGeometry args={[1, 12, 10]} />
+          <meshPhysicalMaterial transparent opacity={0.85} transmission={0.4} roughness={0.08} ior={1.38} depthWrite={false} />
+        </instancedMesh>
+        <mesh ref={rippleRef} name="pipette-transfer-ripple" visible={false} rotation={[-Math.PI / 2, 0, 0]}>
+          <ringGeometry args={[0.75, 1, 20]} />
+          <meshBasicMaterial transparent opacity={0.4} depthWrite={false} side={THREE.DoubleSide} />
+        </mesh>
+      </group>, scene)}
+    </>
   );
 });
