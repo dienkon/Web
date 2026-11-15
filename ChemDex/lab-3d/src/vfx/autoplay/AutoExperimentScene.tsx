@@ -20,6 +20,8 @@ import { getVesselProfile } from '../../pour/physics/profiles';
 import { solveLevel } from '../../pour/physics/retained';
 import { AutoGasApparatus, AutoGasReceiver } from './AutoGasApparatus';
 import { gasSourceHome, gasVolumeMl } from './gasDelivery';
+import { volumeDropRadius_scene } from '../../handling/liquidDosePlan';
+import { NOMINAL_DROP_ML } from '../../handling/doseTiming';
 
 const gasSpecies = [...Object.entries(GAS_FUME_TABLE).filter(([s, v]) => s !== 'H2O' && v.visible).map(([s]) => s), 'MgO'];
 const cameraPoses: Record<string, [[number, number, number], [number, number, number]]> = {
@@ -65,13 +67,14 @@ function DonorLiquid({ experiment: e, index }: { experiment: AutoExperiment; ind
   useEffect(() => () => geometry.dispose(), [geometry]);
   useFrame(() => {
     if (!root.current || !surface.current || !body.current) return;
-    const d = e.donors[index], fraction = d.row.mass_g > 0 ? d.remaining / d.row.mass_g : 0;
+    const d = e.donors[index], fraction = d.totalMass_g > 0 ? d.remaining / d.totalMass_g : 0;
     root.current.visible = fraction > 1e-5;
     if (!root.current.visible) return;
     const tilt = index === e.donorIndex ? e.donorPose.tilt : 0;
     if (cache.current.fraction !== fraction || cache.current.tilt !== tilt) {
       const profile = getVesselProfile('flask');
-      cache.current = { fraction, tilt, c: solveLevel(profile, Math.abs(tilt), profile.capacity_ml * 0.4 * fraction).c };
+      cache.current = { fraction, tilt, c: solveLevel(profile, Math.abs(tilt),
+        Math.min(profile.capacity_ml * 0.4, d.solutionVolume_ml * fraction)).c };
     }
     scratch.normal.set(Math.sin(tilt), Math.cos(tilt), 0);
     root.current.getWorldPosition(scratch.origin);
@@ -86,6 +89,24 @@ function DonorLiquid({ experiment: e, index }: { experiment: AutoExperiment; ind
       vertexShader={`uniform mat4 uBody; varying vec3 vBody; void main() { vBody = (uBody * vec4(position, 1.)).xyz; gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.); }`}
       fragmentShader={`uniform vec3 uColor; uniform float uOpacity; varying vec3 vBody; void main() { if (vBody.y < -.96 || vBody.y > 1.48) discard; float r = vBody.y < .7 ? mix(1.215, .35, (vBody.y + .96) / 1.66) : .35; if (dot(vBody.xz, vBody.xz) > r * r) discard; gl_FragColor = vec4(uColor, uOpacity);\n #include <tonemapping_fragment>\n #include <colorspace_fragment>\n }`} />
     </mesh>
+  </group>;
+}
+function DropperDonor({ experiment: e, index }: { experiment: AutoExperiment; index: number }) {
+  const liquid = useRef<THREE.Mesh>(null), color = e.donors[index].color;
+  useFrame(() => {
+    const donor = e.donors[index];
+    if (!liquid.current || donor.totalMass_g <= 0) return;
+    const fraction = Math.max(0, Math.min(1, donor.remaining / donor.totalMass_g));
+    liquid.current.visible = fraction > 0;
+    liquid.current.scale.y = Math.max(0.001, 0.5 * fraction);
+    liquid.current.position.y = -0.1 - 0.25 * (1 - fraction);
+  });
+  return <group name={`auto_dropper_${index}`}>
+    <mesh position={[0, 0.48, 0]}><sphereGeometry args={[0.17, 20, 14]} /><meshPhysicalMaterial color="#e7f8ff" transparent opacity={0.3} roughness={0.08} clearcoat={0.9} depthWrite={false} /></mesh>
+    <mesh position={[0, 0.16, 0]}><cylinderGeometry args={[0.07, 0.07, 0.55, 16]} /><meshPhysicalMaterial color="#dff5ff" transparent opacity={0.25} roughness={0.08} clearcoat={0.8} depthWrite={false} /></mesh>
+    <mesh ref={liquid} position={[0, -0.1, 0]}><cylinderGeometry args={[0.045, 0.045, 0.5, 12]} /><meshBasicMaterial color={color} transparent opacity={0.78} depthWrite={false} /></mesh>
+    <mesh position={[0, -0.34, 0]} rotation={[Math.PI, 0, 0]}><coneGeometry args={[0.07, 0.34, 12]} /><meshPhysicalMaterial color="#dff5ff" transparent opacity={0.3} roughness={0.08} clearcoat={0.8} depthWrite={false} /></mesh>
+    <mesh position={[0, -0.55, 0]}><cylinderGeometry args={[0.012, 0.012, 0.12, 8]} /><meshBasicMaterial color={color} transparent opacity={0.8} depthWrite={false} /></mesh>
   </group>;
 }
 function Particles({ experiment }: { experiment: AutoExperiment }) {
@@ -109,7 +130,7 @@ function Particles({ experiment }: { experiment: AutoExperiment }) {
       const s = experiment.physics.sedimentBed;
       bed.current.visible = s.amount_g > 1e-9;
       if (Math.abs(s.thickness - bedThickness.current) > 1e-5) {
-        bed.current.geometry.dispose(); bed.current.geometry = createSedimentGeometry('beaker', getVesselProfile('beaker', 100).baseY + s.thickness);
+        bed.current.geometry.dispose(); bed.current.geometry = createSedimentGeometry('beaker', getVesselProfile('beaker', experiment.sample.capacity_ml).baseY + s.thickness);
         bedThickness.current = s.thickness;
       }
       (bed.current.material as THREE.MeshStandardMaterial).color.set(s.color);
@@ -166,8 +187,10 @@ function Donor({ experiment: e, index }: { experiment: AutoExperiment; index: nu
   const donor = e.donors[index];
   if (donor.row.phase === 'g') return <AutoGasApparatus experiment={e} index={index}><ChemicalLabel text={`${donor.row.formula} · ${gasVolumeMl(donor.row.moles).toFixed(1)} mL`} position={[0, 0, 0]} /></AutoGasApparatus>;
   return <group ref={group} scale={0.6} position={donorHome(index)} name={`auto_donor_${index}`}>
-    <Glass small>{donor.row.phase === 's' ? <AutoSolidDonor experiment={e} index={index} /> : donor.row.phase !== 'g' ? <DonorLiquid experiment={e} index={index} /> : null}</Glass>
-    <ChemicalLabel text={donor.row.formula} position={[0, -0.1, 0.65]} />
+    {donor.row.phase === 's' ? <Glass small><AutoSolidDonor experiment={e} index={index} /></Glass>
+      : donor.doseMode === 'dropper' ? <DropperDonor experiment={e} index={index} />
+      : <Glass small><DonorLiquid experiment={e} index={index} /></Glass>}
+    <ChemicalLabel text={donor.doseMode === 'dropper' ? `${donor.row.formula} · ${donor.solutionVolume_ml.toFixed(2)} mL` : donor.row.formula} position={[0, -0.1, 0.65]} />
     {donor.row.phase === 'g' && <mesh position={[0, 1.55, 0]}><cylinderGeometry args={[0.2, 0.25, 0.12, 16]} /><meshStandardMaterial color="#537b88" metalness={0.8} roughness={0.25} /></mesh>}
   </group>;
 }
@@ -176,6 +199,7 @@ function Donor({ experiment: e, index }: { experiment: AutoExperiment; index: nu
  * and lets the final tail drain before the donor is righted and returned. */
 function Transfer({ experiment: e }: { experiment: AutoExperiment }) {
   const stream = useRef<THREE.InstancedMesh>(null);
+  const drops = useRef<THREE.InstancedMesh>(null);
   const splash = useRef<THREE.InstancedMesh>(null), ripples = useRef<THREE.InstancedMesh>(null);
   const scratch = useMemo(() => ({ a: new THREE.Vector3(), b: new THREE.Vector3(), direction: new THREE.Vector3(),
     up: new THREE.Vector3(0, 1, 0), object: new THREE.Object3D() }), []);
@@ -186,7 +210,9 @@ function Transfer({ experiment: e }: { experiment: AutoExperiment }) {
   useFrame(() => {
     const donor = e.donors[e.donorIndex], phase = donor?.row.phase;
     const active = e.streamActive, lip = e.donorLip, surface = 1.04 + vesselLiquidSurfaceY(e.sample);
-    const contact = e.phase === 'dose' && e.phaseTime >= AUTO_TIMING.tilt + AUTO_TIMING.flight && donor?.fraction < 1;
+    const contact = donor?.doseMode === 'dropper'
+      ? e.phase === 'dose' && (e.sample.recentPourContact?.remaining_s ?? 0) > 0
+      : e.phase === 'dose' && e.phaseTime >= AUTO_TIMING.tilt + AUTO_TIMING.flight && donor?.fraction < 1;
     const object = scratch.object;
     if (stream.current) {
       let count = 0;
@@ -204,6 +230,26 @@ function Transfer({ experiment: e }: { experiment: AutoExperiment }) {
       if (count) stream.current.instanceMatrix.needsUpdate = true;
       const material = stream.current.material as THREE.MeshStandardMaterial;
       material.color.set(donor?.color ?? '#dbeafe'); material.opacity = phase === 'g' ? 0.18 : 0.78;
+    }
+    if (drops.current) {
+      const donor = e.donors[e.donorIndex], schedule = donor?.dropSchedule;
+      let count = 0;
+      if (e.dropperActive && donor && schedule && donor.dropStartedAt !== undefined) {
+        const localTime = e.elapsed - donor.dropStartedAt, start = e.donorLip;
+        const flightTime = schedule.flightTime, surfaceY = 1.04 + vesselLiquidSurfaceY(e.sample);
+        for (let index = 0; index < schedule.count && count < 50; index++) {
+          const releaseAt = schedule.releaseStart + index * schedule.period, age = localTime - releaseAt;
+          if (age < 0 || age > flightTime) continue;
+          const volume = Math.min(NOMINAL_DROP_ML, donor.solutionVolume_ml - index * NOMINAL_DROP_ML);
+          const radius = volumeDropRadius_scene(volume), fall = Math.max(0, age);
+          object.position.set(start[0] + 0.12 * fall / flightTime, start[1] - 0.5 * 9.80665 / 0.035 * fall * fall, start[2]);
+          object.rotation.set(0, 0, 0); object.scale.setScalar(radius); object.updateMatrix();
+          drops.current.setMatrixAt(count++, object.matrix);
+        }
+      }
+      drops.current.count = count; drops.current.visible = count > 0;
+      if (count) drops.current.instanceMatrix.needsUpdate = true;
+      (drops.current.material as THREE.MeshStandardMaterial).color.set(donor?.color ?? '#dbeafe');
     }
     if (splash.current) {
       let count = 0;
@@ -230,6 +276,7 @@ function Transfer({ experiment: e }: { experiment: AutoExperiment }) {
   });
   return <>
     <instancedMesh ref={stream} args={[undefined, undefined, 16]} frustumCulled={false} visible={false} name="auto_transfer_stream"><cylinderGeometry args={[1, 1, 1, 8]} /><meshStandardMaterial transparent opacity={0.78} roughness={0.1} metalness={0.1} depthWrite={false} /></instancedMesh>
+    <instancedMesh ref={drops} name="auto_transfer_drops" args={[undefined, undefined, 50]} count={0} frustumCulled={false} visible={false} renderOrder={7}><sphereGeometry args={[1, 12, 10]} /><meshPhysicalMaterial transparent opacity={0.78} roughness={0.08} clearcoat={0.8} depthWrite={false} /></instancedMesh>
     {e.donors.map((donor, index) => donor.solid && <AutoSolidFlights key={index} experiment={e} index={index} />)}
     <instancedMesh ref={splash} args={[undefined, undefined, 16]} frustumCulled={false} visible={false}><sphereGeometry args={[1, 6, 4]} /><meshStandardMaterial transparent opacity={0.55} depthWrite={false} /></instancedMesh>
     <instancedMesh ref={ripples} args={[undefined, undefined, 3]} count={3} frustumCulled={false} visible={false}><ringGeometry args={[0.92, 1, 32]} /><meshBasicMaterial color="#c4e9ef" transparent opacity={0.23} depthWrite={false} side={THREE.DoubleSide} /></instancedMesh>
@@ -237,17 +284,17 @@ function Transfer({ experiment: e }: { experiment: AutoExperiment }) {
 }
 function ConditionTools({ experiment: e }: { experiment: AutoExperiment }) {
   const flame = useRef<THREE.Mesh>(null), heat = useRef<THREE.Mesh>(null), rod = useRef<THREE.Group>(null);
-  const heating = (e.program.chemistry.conditions?.minTemp_c ?? 25) > 25
+  const heating = e.heatingRequested || (e.program.chemistry.conditions?.minTemp_c ?? 25) > 25
     || !!getLessonDefinition(e.program.id)?.conditions.some(c => c.kind === 'temperature' && (c.minimum ?? 25) > 25);
   const ignition = e.program.chemistry.conditions?.activation === 'ignition' || e.program.chemistry.representation === 'emission';
   const stirring = e.program.chemistry.representation !== 'emission' && e.donors.some(d => d.row.phase === 'aq' || d.row.phase === 'l');
   const flameColor = e.program.visual.timeline.find(a => a.atom === 'flameCone')?.params.flameColor;
   useFrame(() => {
     if (flame.current) {
-      flame.current.visible = e.flame && ignition;
+      flame.current.visible = e.flame && (ignition || heating);
       flame.current.scale.y = 1 + Math.sin(e.elapsed * 17) * 0.06;
       (flame.current.material as THREE.MeshBasicMaterial).color.set(e.lessonVisuals?.flameColor
-        ?? (e.program.id === 'mg_o2_burn' ? '#fff4e1' : typeof flameColor === 'string' ? flameColor : '#57c9ff'));
+        ?? (ignition ? e.program.id === 'mg_o2_burn' ? '#fff4e1' : typeof flameColor === 'string' ? flameColor : '#57c9ff' : '#ff9b42'));
     }
     if (heat.current) {
       (heat.current.material as THREE.MeshBasicMaterial).opacity = e.flame ? 0.3 + 0.12 * Math.sin(e.elapsed * 5) : 0.05;
@@ -261,10 +308,18 @@ function ConditionTools({ experiment: e }: { experiment: AutoExperiment }) {
     }
   });
   return <>
-    {(heating || ignition) && <mesh ref={heat} rotation={[-Math.PI / 2, 0, 0]} position={[0, 0.028, 0]}><ringGeometry args={[0.97, 1.08, 48]} /><meshBasicMaterial color="#ff9b44" transparent opacity={0.05} depthWrite={false} /></mesh>}
-    {ignition && <mesh ref={flame} position={[0.5, 0.38, 0]} visible={false}><coneGeometry args={[0.08, 0.45, 16]} /><meshBasicMaterial color="#38bdf8" transparent opacity={0.85} depthWrite={false} /></mesh>}
+    {heating && <AlcoholBurner />}
+    {(heating || ignition) && <mesh ref={heat} rotation={[-Math.PI / 2, 0, 0]} position={[0, 0.028, 0]}><ringGeometry args={[0.29, 0.4, 48]} /><meshBasicMaterial color="#ff9b44" transparent opacity={0.05} depthWrite={false} /></mesh>}
+    {(heating || ignition) && <mesh ref={flame} position={[ignition ? 0.5 : 0, ignition ? 0.38 : 0.72, 0]} visible={false}><coneGeometry args={[0.11, 0.42, 16]} /><meshBasicMaterial color={ignition ? '#38bdf8' : '#ff9b42'} transparent opacity={0.75} depthWrite={false} /></mesh>}
     {stirring && <group ref={rod}><mesh><cylinderGeometry args={[0.025, 0.025, 1.95, 12]} /><meshPhysicalMaterial color="#d9eff8" transparent opacity={0.55} roughness={0.05} depthWrite={false} /></mesh></group>}
   </>;
+}
+function AlcoholBurner() {
+  return <group position={[0, 0.08, 0]} name="auto_alcohol_burner">
+    <mesh position={[0, 0.08, 0]}><cylinderGeometry args={[0.25, 0.32, 0.16, 24]} /><meshStandardMaterial color="#87949a" metalness={0.72} roughness={0.32} /></mesh>
+    <mesh position={[0, 0.28, 0]}><cylinderGeometry args={[0.105, 0.15, 0.28, 20]} /><meshStandardMaterial color="#9ba6aa" metalness={0.7} roughness={0.27} /></mesh>
+    <mesh position={[0, 0.45, 0]}><cylinderGeometry args={[0.045, 0.07, 0.12, 16]} /><meshStandardMaterial color="#47555b" metalness={0.72} roughness={0.24} /></mesh>
+  </group>;
 }
 function BenchShadows({ experiment: e }: { experiment: AutoExperiment }) {
   const mesh = useRef<THREE.InstancedMesh>(null), scratch = useMemo(() => new THREE.Object3D(), []);

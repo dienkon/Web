@@ -8,6 +8,7 @@ import { useQualityStore } from '../../vfx/quality';
 import { getGlassMaterials, createVesselLatheGeometry } from '../../vfx/materials/glass';
 import { vesselWorldLiquidSurfaceY, liquidGeometry } from '../../science/vesselGeometry';
 import { fallingContactTime, dropSchedule, landedDropFraction, SCENE_GRAVITY, stockLiquidPacket, stockArrivedFraction, STOCK_RELEASE_START_S, STOCK_RELEASE_END_S } from '../../handling/doseTiming';
+import { liquidDosePlan, liquidDropAmount, volumeDropRadius_scene } from '../../handling/liquidDosePlan';
 import { createStockSolidGeometry, stockSolidChunkCount } from './stockSolidGeometry';
 import { stockSolidMaterial } from '../../science/stockAppearance';
 import { solidSceneVolume } from '../../science/vesselDimensions';
@@ -54,7 +55,8 @@ export const AddingAnimation = React.memo(function AddingAnimation({
   const chemData = getChemical(chemical);
   const color = chemData.color || '#38bdf8';
   const type = chemData.type;
-  const isDropper = chemData.category === 'indicator' || chemical === 'Phenolphthalein' || chemical === 'MethylOrange';
+  const isDropper = chemData.type === 'liquid' && (chemData.category === 'indicator' || chemical === 'Phenolphthalein'
+    || chemical === 'MethylOrange' || liquidDosePlan(amount).mode === 'dropper');
   const morphology: SolidMorphology = getSolidMorphology(chemical);
 
   const groupRef = useRef<THREE.Group>(null);
@@ -308,7 +310,7 @@ export const AddingAnimation = React.memo(function AddingAnimation({
       if (!groupRef.current) return;
 
       const tipY = mouthY + 0.45;
-      const fallHeight = tipY - (targetY + initialSurface.current);
+      const fallHeight = Math.max(0, tipY - (liquidSurfaceY + 0.08));
       const schedule = dropSchedule(amount, fallHeight);
       const landedFraction = landedDropFraction(elapsed, amount, fallHeight);
       deliver(landedFraction);
@@ -329,7 +331,8 @@ export const AddingAnimation = React.memo(function AddingAnimation({
           dropRef.current.visible = falling;
           dropRef.current.position.set(targetX, tipY - 0.5 * SCENE_GRAVITY * Math.max(0, fallTime) ** 2, targetZ);
           const stretch = 1 + Math.min(0.7, Math.max(0, fallTime));
-          dropRef.current.scale.set(0.035 / Math.sqrt(stretch), 0.035 * stretch, 0.035 / Math.sqrt(stretch));
+          const radius = volumeDropRadius_scene(liquidDropAmount(amount, index));
+          dropRef.current.scale.set(radius / Math.sqrt(stretch), radius * stretch, radius / Math.sqrt(stretch));
         }
         if (rippleRef.current) {
           const sinceImpact = fallTime - schedule.flightTime;

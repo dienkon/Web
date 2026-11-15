@@ -44,7 +44,7 @@ export interface AutoSolidDose {
 
 /** Calibrate the displayed donor's 0.6 scale to the receiver's physical units. */
 export function autoDonorVessel(): Pick<VesselState, 'type' | 'capacity_ml'> {
-  const cm = getVesselProfile('beaker', 100).sceneScale * AUTO_DONOR_SCALE;
+  const cm = getVesselProfile('beaker', 250).sceneScale * AUTO_DONOR_SCALE;
   return { type: 'flask', capacity_ml: vesselInterior('flask').volume * cm ** 3 };
 }
 export function createAutoSolidDose(formula: string, mass_g: number): AutoSolidDose {
@@ -54,7 +54,7 @@ export function createAutoSolidDose(formula: string, mass_g: number): AutoSolidD
   return { pieces: layout.pieces.map(p => p.matrix), flights: [], released: 0, arrived: 0 };
 }
 
-export const autoSolidGravity = GRAVITY_M_S2 / metersPerModelUnit(getVesselProfile('beaker', 100));
+export const autoSolidGravity = GRAVITY_M_S2 / metersPerModelUnit(getVesselProfile('beaker', 250));
 export function solidFlightPosition(flight: AutoSolidFlight, time: number, out = new Vector3()) {
   const t = Math.max(0, time - flight.releaseAt);
   return out.set(flight.position[0] + flight.velocity[0] * t,

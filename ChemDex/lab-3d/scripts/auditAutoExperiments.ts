@@ -11,7 +11,8 @@ for (const entry of AUTO_EXPERIMENTS) {
   await e.stocks.initialize();
   const initialMass_g = e.sample.mass_g + e.donors.reduce((sum, d) => sum + d.remaining, 0);
   let peakParticles = 0, peakCloudParticles = 0;
-  for (let frame = 0; frame < 2600 && !['complete', 'error'].includes(e.phase); frame++) {
+  const maxSeconds = entry.id === 'golden_rain' ? 2400 : entry.id === 'iodine_clock' ? 840 : 260;
+  for (let frame = 0; frame < maxSeconds * 10 && !['complete', 'error'].includes(e.phase); frame++) {
     e.tick(0.1);
     peakParticles = Math.max(peakParticles, [...e.physics.precipitationSystems.values()].reduce((sum, s) => sum + s.particles.length, 0));
     peakCloudParticles = Math.max(peakCloudParticles, [...e.clouds.clouds.values()].reduce((sum, c) => sum + c.system.particles.length, 0));

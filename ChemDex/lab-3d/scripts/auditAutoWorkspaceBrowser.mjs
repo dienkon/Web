@@ -14,7 +14,9 @@ page.on('console', message => { if (message.type() === 'error' && /shader|webgl|
 
 async function resize(side, delta) {
   const panel = page.locator(`[data-sidebar="${side}"]`), handle = panel.getByRole('separator');
+  await panel.waitFor({ state: 'visible' });
   const before = await panel.boundingBox(), grip = await handle.boundingBox();
+  assert.ok(before && grip, `${side} sidebar and resize handle must be visible`);
   await page.mouse.move(grip.x + grip.width / 2, grip.y + grip.height / 2);
   await page.mouse.down();
   await page.mouse.move(grip.x + grip.width / 2 + delta, grip.y + grip.height / 2, { steps: 8 });
@@ -22,6 +24,18 @@ async function resize(side, delta) {
   const after = await panel.boundingBox();
   assert.ok(after.width > before.width + 40, `${side} sidebar must widen`);
   return after.width;
+}
+
+async function openCatalog() {
+  if (!(await page.locator('#automatic-lab [data-sidebar="left"]').count()))
+    await page.getByRole('button', { name: 'Hiện danh mục tự động', exact: true }).click();
+  await page.getByRole('textbox', { name: 'Tìm thí nghiệm tự động' }).waitFor();
+}
+
+async function selectExperiment(name) {
+  await openCatalog();
+  await page.getByRole('button', { name, exact: true }).first().click();
+  await page.waitForFunction(() => !document.querySelector('#automatic-lab [data-sidebar]'));
 }
 
 // The audit instruments the director in the dev browser, without shipping a
@@ -42,7 +56,22 @@ async function advance(predicate) {
 }
 
 try {
-  await page.goto(`${origin}/?mode=auto`, { waitUntil: 'domcontentloaded' });
+  await page.goto(origin, { waitUntil: 'domcontentloaded' });
+  await page.getByRole('button', { name: 'Kho hóa chất và dụng cụ', exact: true }).click();
+  await page.getByRole('button', { name: 'Thông tin bình và phản ứng', exact: true }).click();
+  await page.locator('#manual-lab [data-sidebar="left"]').waitFor({ state: 'visible' });
+  await page.locator('#manual-lab [data-sidebar="right"]').waitFor({ state: 'visible' });
+  await page.evaluate(async () => {
+    const { useAppStore } = await import('/src/store/useAppStore.ts');
+    const state = useAppStore.getState();
+    window.__manualBefore = JSON.stringify({ vessels: state.vessels, burners: state.burners });
+    window.__manualPanelsBefore = { left: state.leftSidebarOpen, right: state.rightSidebarOpen };
+  });
+  await page.getByRole('tab', { name: 'Tự động', exact: true }).click();
+  await page.getByRole('button', { name: 'Hiện danh mục tự động', exact: true }).waitFor({ timeout: 60000 });
+  assert.equal(await page.locator('#automatic-lab [data-sidebar]').count(), 0, 'Automatic panels start collapsed');
+  assert.equal(await page.getByRole('button', { name: 'Hiện danh mục tự động', exact: true }).getAttribute('aria-expanded'), 'false');
+  await page.getByRole('button', { name: 'Hiện danh mục tự động' }).click();
   await page.getByRole('textbox', { name: 'Tìm thí nghiệm tự động' }).waitFor({ timeout: 60000 });
   assert.equal(await page.getByRole('tab', { name: 'Tự động', exact: true }).getAttribute('aria-selected'), 'true');
   await page.evaluate(async () => {
@@ -50,10 +79,8 @@ try {
     const { AutoExperiment } = await import(directorUrl);
     const original = AutoExperiment.prototype.tick;
     AutoExperiment.prototype.tick = function (delta) { window.__autoAudit = this; return original.call(this, delta); };
-    const { useAppStore } = await import('/src/store/useAppStore.ts');
-    window.__manualBefore = JSON.stringify({ vessels: useAppStore.getState().vessels, burners: useAppStore.getState().burners });
   });
-  await page.getByRole('button', { name: 'CuSO4 + NaOH', exact: true }).first().click();
+  await selectExperiment('CuSO4 + NaOH');
   await page.waitForFunction(() => !!window.__autoAudit);
   await page.evaluate(async () => {
     const url = performance.getEntriesByType('resource').map(entry => entry.name).find(name => /@react-three_fiber\.js/.test(name));
@@ -75,6 +102,8 @@ try {
   assert.deepEqual(transfer.pose, transfer.expected); assert.ok(transfer.tilt < -1);
   assert.equal(transfer.visible, true); assert.ok(transfer.segments > 0);
   await page.screenshot({ path: `${output}/workspace-pour.png` });
+  await openCatalog();
+  await page.getByRole('button', { name: 'Hiện trình tự tự động', exact: true }).click();
   const leftWidth = await resize('left', 80), rightWidth = await resize('right', -70);
   assert.equal(await page.evaluate(() => document.querySelector('canvas') === window.__canvasBefore), true);
   assert.equal(await page.evaluate(() => window.__autoStore.getState().frameloop), 'demand');
@@ -83,6 +112,8 @@ try {
   const clock = await page.locator('[data-auto-elapsed]').getAttribute('data-auto-elapsed');
   await page.waitForTimeout(500);
   assert.equal(await page.locator('[data-auto-elapsed]').getAttribute('data-auto-elapsed'), clock);
+  await page.getByRole('button', { name: 'Đóng danh mục tự động', exact: true }).click();
+  await page.getByRole('button', { name: 'Đóng trình tự tự động', exact: true }).click();
   const precipitate = await advance("e.phase === 'react' || e.phase === 'observe' || e.phase === 'complete'");
   assert.ok(precipitate.mass > 0);
   await page.getByRole('button', { name: 'Góc cận cảnh' }).click();
@@ -92,13 +123,13 @@ try {
   await page.waitForFunction(() => window.__autoAudit.elapsed < 2 && window.__autoAudit.donorIndex === 0);
   assert.equal(await page.evaluate(() => window.__autoAudit.sample.mass_g), 0);
   assert.equal(await page.evaluate(() => document.querySelector('canvas') === window.__canvasBefore), true, 'Restart reuses the WebGL context');
-  await page.getByRole('button', { name: 'Cu + HNO3', exact: true }).first().click();
+  await selectExperiment('Cu + HNO3');
   await page.waitForFunction(() => window.__autoAudit.program.id === 'cu_hno3_conc');
   const smoke = await advance('e.clouds.clouds.size > 0 && [...e.clouds.clouds.values()].some(c => c.system.particles.length > 10)');
   assert.ok(smoke.clouds > 10);
   await page.getByRole('button', { name: 'Góc cận cảnh' }).click(); await page.waitForTimeout(900);
   await page.screenshot({ path: `${output}/workspace-smoke.png` });
-  await page.getByRole('button', { name: 'NH3 + HCl', exact: true }).first().click();
+  await selectExperiment('NH3 + HCl');
   await page.waitForFunction(() => window.__autoAudit.program.id === 'nh3_hcl');
   const clean = await page.evaluate(() => ({ mass: window.__autoAudit.sample.mass_g, clouds: window.__autoAudit.clouds.clouds.size,
     donorMeshes: window.__autoStore.getState().scene.children.flatMap(c => c.children).length }));
@@ -124,14 +155,39 @@ try {
   // The lazy manual scene can suspend again after its panel first appears.
   // Wait for its canvas and scope the assertion to the manual workspace.
   await page.locator('#manual-lab canvas').waitFor({ state: 'visible', timeout: 60000 });
+  assert.deepEqual(await page.evaluate(async () => {
+    const { useAppStore } = await import('/src/store/useAppStore.ts');
+    return { left: useAppStore.getState().leftSidebarOpen, right: useAppStore.getState().rightSidebarOpen };
+  }), await page.evaluate(() => window.__manualPanelsBefore), 'Exiting automatic mode restores the prior manual panel state');
   await page.waitForFunction(minimum => {
     const panel = document.querySelector('#manual-lab [data-sidebar="right"]');
     return panel && panel.getBoundingClientRect().width >= minimum;
   }, rightWidth - 1, { timeout: 60000 });
+  const manualTarget = await page.evaluate(async () => {
+    const { useAppStore } = await import('/src/store/useAppStore.ts');
+    const state = useAppStore.getState();
+    const targetVesselId = state.vesselIds[0] ?? Object.keys(state.vessels)[0];
+    if (!targetVesselId) throw new Error('No manual vessel is available for the dose check.');
+    useAppStore.getState().setPendingDispense({ chemical: 'HCl', targetVesselId });
+    return targetVesselId;
+  });
+  await page.getByRole('button', { name: '0.25 mL', exact: true }).click();
+  await page.getByText('Pipet Pasteur · nhỏ giọt').waitFor();
+  await page.getByRole('button', { name: 'Pipet 0.25 mL · 5 giọt', exact: true }).waitFor();
+  await page.screenshot({ path: `${output}/workspace-dropper-dose.png` });
+  await page.getByRole('button', { name: 'Hủy', exact: true }).click();
+  const dropperDoseSelection = await page.evaluate(async target => {
+    const { useAppStore } = await import('/src/store/useAppStore.ts');
+    const state = useAppStore.getState();
+    return { target, pending: state.pendingDispense, vesselCount: Object.keys(state.vessels).length };
+  }, manualTarget);
+  assert.equal(dropperDoseSelection.pending, null);
   await resize('left', 50); await resize('right', -45);
   await page.setViewportSize({ width: 390, height: 844 });
   await page.getByRole('tab', { name: 'Tự động', exact: true }).click();
-  await page.getByRole('button', { name: 'CuSO4 + NaOH', exact: true }).first().click();
+  await page.getByRole('button', { name: 'Hiện danh mục tự động', exact: true }).waitFor();
+  assert.equal(await page.locator('#automatic-lab [data-sidebar]').count(), 0, 'Mobile panels start collapsed');
+  await selectExperiment('CuSO4 + NaOH');
   await page.waitForFunction(() => window.__autoAudit.program.id === 'cuso4_naoh');
   assert.equal(await page.locator('[data-sidebar]').count(), 0, 'Mobile panels close after selection');
   await advance("e.phase === 'dose' && e.phaseTime > 1.4");
@@ -139,15 +195,17 @@ try {
   assert.equal(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth), true);
   await page.getByRole('button', { name: 'Hiện danh mục tự động' }).click();
   assert.equal(await page.locator('[data-sidebar="left"]').count(), 1);
-  await page.getByRole('button', { name: 'Đóng danh mục tự động' }).click();
+  await page.getByRole('button', { name: 'Đóng các bảng tự động', exact: true }).click({ position: { x: 375, y: 80 } });
+  assert.equal(await page.locator('#automatic-lab [data-sidebar]').count(), 0, 'Mobile backdrop dismisses panels');
   await page.getByRole('button', { name: 'Hiện trình tự tự động' }).click();
   assert.equal(await page.locator('[data-sidebar="right"]').count(), 1);
   await page.getByRole('button', { name: 'Đóng trình tự tự động' }).click();
   assert.deepEqual(errors, []);
-  const report = { automaticTab: true, resizableManualAndAutomaticSidebars: true, keyboardResize: true,
+  const report = { automaticTab: true, collapsedCornerControls: true, panelsCloseAfterSelection: true, mobileBackdrop: true,
+    manualPanelStateRestored: true, resizableManualAndAutomaticSidebars: true, keyboardResize: true,
     emptyReceiverBeforePour: true, animatedDonorAndStream: transfer, pauseUsesDemandRendering: true,
     restartReusesCanvas: true, nextReactionClearsPreviousRun: true, smoke: true, playlist: true, fullscreen: true,
-    manualBenchPreserved: true, mobile: true, errors };
+    manualBenchPreserved: true, decimalDoseUsesFiveDropPipette: dropperDoseSelection, mobile: true, errors };
   writeFileSync(`${output}/workspace-browser.json`, JSON.stringify(report, null, 2) + '\n');
   console.log(report);
 } catch (error) {

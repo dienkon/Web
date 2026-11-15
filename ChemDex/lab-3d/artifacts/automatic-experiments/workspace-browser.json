@@ -1,5 +1,9 @@
 {
   "automaticTab": true,
+  "collapsedCornerControls": true,
+  "panelsCloseAfterSelection": true,
+  "mobileBackdrop": true,
+  "manualPanelStateRestored": true,
   "resizableManualAndAutomaticSidebars": true,
   "keyboardResize": true,
   "emptyReceiverBeforePour": true,

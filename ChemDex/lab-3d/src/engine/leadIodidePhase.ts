@@ -36,7 +36,11 @@ export function partitionLeadIodide(vessel: VesselState, dt: number): Partial<Ve
   const currentSolid = entries.filter(item => phase(item) === 's').reduce((sum, item) => sum + item.mass_g, 0);
   const stocks = entries.filter(item => phase(item) === 's' && !isContactSuspensionRow(reactiveVessel, item));
   const currentPrecipitate = currentSolid - stocks.reduce((sum, item) => sum + item.mass_g, 0);
-  const saturation = checkSaturation('PbI2', totalMass, vessel.volume_ml, vessel.temperature_c);
+  // The curve is per volume of water, not per solution volume. Retain the
+  // existing dilute-water 1 g/mL proxy, but only actual liquid water supplies it.
+  const solventWater_g = bulk.filter(item => sameMolecularFormula(item.formula, 'H2O') && phase(item) === 'l')
+    .reduce((sum, item) => sum + item.mass_g, 0);
+  const saturation = checkSaturation('PbI2', totalMass, solventWater_g, vessel.temperature_c);
   const targetSolid = saturation.excessPrecipitate_g;
   const difference = targetSolid - currentSolid;
   const previous = vessel.leadIodidePhaseHistory;

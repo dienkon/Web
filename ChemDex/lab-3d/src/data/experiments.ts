@@ -158,48 +158,40 @@ export const EXPERIMENT_CURRICULUM: ExperimentGuide[] = [
     title_vi: 'Tổng hợp "Mưa Vàng" (Kết tủa Chì Iotua PbI2)',
     category: 'precipitation',
     difficulty: 'intermediate',
-    objective_en: 'Synthesize glittering golden-yellow crystals of lead(II) iodide through double displacement precipitation.',
-    objective_vi: 'Thực hiện phản ứng trao đổi tạo kết tủa chì(II) iotua lấp lánh như những hạt mưa vàng kim óng ánh.',
-    theory_en: 'Lead(II) nitrate reacts with potassium iodide: Pb(NO₃)₂ + 2KI → PbI₂↓ + 2KNO₃. Lead iodide has low solubility at room temperature, precipitating as hexagonal golden flakes.',
-    theory_vi: 'Chì(II) nitrat phản ứng với kali iotua: Pb(NO₃)₂ + 2KI → PbI₂↓ + 2KNO₃. Muối PbI2 ít tan trong nước lạnh tạo thành các vi tinh thể màu vàng kim óng ánh.',
+    objective_en: 'Observe the initial fine yellow PbI2 precipitate, dissolve it in hot water, then allow larger yellow plates to recrystallize and settle during natural cooling.',
+    objective_vi: 'Quan sát PbI₂ vàng mịn xuất hiện khi trộn; gia nhiệt đến khi tan trong, tắt nhiệt rồi để nguội tự nhiên cho phiến vàng tái kết tinh và lắng.',
+    theory_en: 'Lead(II) nitrate reacts stoichiometrically with potassium iodide to form yellow PbI2 and soluble potassium nitrate. The initial room-temperature precipitate is fine material; the golden-rain demonstration then heats a suitably dilute mixture until PbI2 dissolves and cools it so larger plates crystallize from solution.',
+    theory_vi: 'Chì(II) nitrat phản ứng theo tỉ lệ với kali iodua tạo PbI₂ vàng và kali nitrat tan. Kết tủa ban đầu ở nhiệt độ phòng là hạt mịn; hiệu ứng mưa vàng cần dung dịch đủ loãng, đun đến khi PbI₂ tan rồi làm nguội để phiến lớn kết tinh từ dung dịch.',
     safetyAdvisory_en: 'Lead compounds are toxic heavy metals. Never ingest or dump down municipal drain.',
     safetyAdvisory_vi: 'Muối chì là kim loại nặng độc hại. Thu gom vào bình chất thải nguy hại chuyên dụng.',
     requiredEquipment: ['Beaker', 'Test Tube', 'Bunsen Burner'],
     allowedChemicals: ['KI', 'Pb(NO3)2', 'H2O'],
-    simulationAlgorithm_en: `Classical Nucleation & Micro-Platelet Crystallization:
-1. Supersaturation Ratio: S = ([Pb2+][I-]^2 / Ksp)^(1/3) with Ksp = 9.8e-9.
-2. Homogeneous Nucleation Rate: J = J0 * exp(-16π*gamma^3*v_m^2 / (3*(k_B*T)^3*(ln S)^2)).
-3. Anisotropic Hexagonal Growth & Stokes Settling:
-   Platelet aspect ratio ~ 1:8, terminal settling velocity v_t = 2*r^2*(rho_p - rho_f)*g / (9*mu).
-   Specular glitter: normal vector alignment with specular highlight reflection.`,
-    simulationAlgorithm_vi: `Thuật toán Tạo Mầm Cổ Điển & Tinh Thể Bản Lục Giác:
-1. Độ quá bão hòa S kích hoạt tạo mầm đồng thể bùng nổ khi tích số ion vượt Ksp = 9.8e-9.
-2. Tinh thể PbI2 phát triển dị hướng dạng phiến lục giác lấp lánh (tỉ lệ cạnh/dày ~ 8:1).
-3. Vận tốc lắng trọng trường Stokes kết hợp hiệu ứng phản xạ ánh sáng lấp lánh như mưa vàng kim.`,
+    simulationAlgorithm_en: `Finite aqueous inventory with a temperature-dependent water-solubility approximation. Mixing creates a fine precipitate; heating changes actual vessel temperature and the solid dissolves only as the supported saturation model permits. Cooling grows a separately tagged plate population from dissolved PbI2, then finite particles settle under the existing transport model. Nucleation, plate drag and growth rates are illustrative, not experimentally calibrated.`,
+    simulationAlgorithm_vi: `Mô hình kho nước hữu hạn dùng gần đúng độ tan phụ thuộc nhiệt độ. Trộn tạo kết tủa mịn; nhiệt độ bình tăng thật và chỉ phần PbI₂ được mô hình hòa tan mới tan. Khi nguội, phần đã hòa tan lớn dần thành quần thể phiến riêng rồi lắng theo mô hình hạt hữu hạn. Tạo mầm, lực cản phiến và tốc độ tăng trưởng chỉ để minh họa, chưa hiệu chuẩn thực nghiệm.`,
     phenomenologyCases: [
       {
         id: 'golden_rain_instant_yellow_burst',
         name_en: 'Case 1: Explosive Supersaturation Flash',
         name_vi: 'Trường hợp 1: Chớp bùng phát kết tủa vàng quá bão hòa',
-        description_en: 'Contact interface explodes into a bright opaque canary yellow cloud as billions of sub-micron nuclei form instantaneously.',
-        description_vi: 'Vùng tiếp xúc giữa 2 dung dịch bùng nổ tức thì một đám mây màu vàng chanh rực rỡ do hàng tỉ mầm vi tinh thể sinh ra.',
-        algorithm: 'Instant supersaturation S >> 100; burst nucleation rate J -> max; high optical scattering.'
+        description_en: 'A fine yellow cloud appears where the two colorless aqueous solutions mix; cloudiness depends on finite reagent dose and mixing.',
+        description_vi: 'Đám hạt vàng mịn xuất hiện ở vùng hai dung dịch không màu vừa tiếp xúc; độ đục phụ thuộc lượng thuốc thử hữu hạn và sự hòa trộn.',
+        algorithm: 'Finite stoichiometric ledger and the supported aqueous precipitation route; no assumed explosion or billions of rendered particles.'
       },
       {
         id: 'golden_rain_glittering_hexagonal_floc',
         name_en: 'Case 2: Hexagonal Platelet Ripening & Golden Glitter',
         name_vi: 'Trường hợp 2: Tinh thể bản lục giác lớn dần & lấp lánh như mưa vàng',
-        description_en: 'Ostwald ripening grows flat hexagonal platelets (~10-15 µm). As they flutter through water, specular reflections create the famed glittering golden rain effect.',
-        description_vi: 'Quá trình Ostwald làm các phiến tinh thể lục giác lớn dần; khi chao liệng trong nước, mặt phẳng tinh thể phản xạ ánh sáng lấp lánh như mưa vàng óng ánh.',
-        algorithm: 'Platelet rotation matrix dot light vector; dynamic specular glitter highlights.'
+        description_en: 'After the precipitate dissolves in hot water, cooling produces a distinct representative plate population that glints and falls through the liquid.',
+        description_vi: 'Sau khi kết tủa tan trong nước nóng, quá trình nguội tạo quần thể phiến riêng; các mặt tinh thể bắt sáng rồi rơi qua dung dịch.',
+        algorithm: 'Cooling history changes the modeled population profile. Crystal dimensions, facet growth and platelet settling remain illustrative.'
       },
       {
         id: 'golden_rain_compact_sedimentation',
         name_en: 'Case 3: Quiescent Stokes Sedimentation Bed',
         name_vi: 'Trường hợp 3: Lắng đọng trọng trường tạo lớp trầm tích đáy vàng rực',
-        description_en: 'Dense lead iodide (rho = 6.16 g/cm³) gently settles to the bottom, leaving a transparent colorless supernatant above a glittering golden bed.',
-        description_vi: 'Do tỉ trọng lớn (6.16 g/cm³), các hạt PbI2 từ từ lắng xuống đáy theo định luật Stokes, tạo một lớp trầm tích vàng kim lộng lẫy dưới đáy cốc.',
-        algorithm: 'Stokes settling velocity v_t ~ 0.12 mm/s; liquid transmittance returns to 1.0.'
+        description_en: 'Leave the cooled sample undisturbed. Suspended plates settle into a finite bed while the supernatant clears according to the simulated particle transport.',
+        description_vi: 'Để yên mẫu đã nguội. Phiến đang lơ lửng lắng thành lớp cặn hữu hạn, phần dung dịch phía trên trong dần theo vận chuyển hạt mô phỏng.',
+        algorithm: 'Finite settling population and bed inventory; exact terminal speeds and clearing times are not calibrated for PbI2 plates.'
       }
     ],
     steps: [
@@ -218,8 +210,26 @@ export const EXPERIMENT_CURRICULUM: ExperimentGuide[] = [
         title_vi: 'Thêm Kali Iotua',
         instruction_en: 'Pour KI solution into the beaker with Pb(NO3)2.',
         instruction_vi: 'Đổ dung dịch KI vào cốc chứa Pb(NO3)2.',
-        expectedResult_en: 'Instant explosion of brilliant canary yellow precipitate!',
-        expectedResult_vi: 'Xuất hiện tức thì kết tủa màu vàng tươi rực rỡ!'
+        expectedResult_en: 'A fine yellow PbI2 precipitate appears at the mixing interface.',
+        expectedResult_vi: 'Kết tủa PbI₂ vàng mịn xuất hiện ở vùng tiếp xúc.'
+      },
+      {
+        stepNumber: 3,
+        title_en: 'Heat until the precipitate dissolves',
+        title_vi: 'Đun đến khi kết tủa tan',
+        instruction_en: 'Warm the dilute mixture and stir gently until the yellow solid dissolves; do not claim a clear endpoint while solid remains.',
+        instruction_vi: 'Gia nhiệt hỗn hợp loãng và khuấy nhẹ đến khi chất rắn vàng tan; chưa gọi là trong khi vẫn còn kết tủa.',
+        expectedResult_en: 'The actual sample warms and becomes clear only when the modeled dissolved inventory supports it.',
+        expectedResult_vi: 'Mẫu tăng nhiệt thật và chỉ trong khi lượng PbI₂ hòa tan cho phép.'
+      },
+      {
+        stepNumber: 4,
+        title_en: 'Cool and leave undisturbed',
+        title_vi: 'Để nguội tự nhiên và chờ lắng',
+        instruction_en: 'Turn off heating, allow the solution to cool naturally, and wait for yellow plates to grow and settle.',
+        instruction_vi: 'Tắt đun, để dung dịch nguội tự nhiên rồi chờ phiến vàng mọc và lắng xuống.',
+        expectedResult_en: 'A separate plate population grows from dissolved PbI2 and settles to the bottom.',
+        expectedResult_vi: 'Quần thể phiến riêng tăng trưởng từ PbI₂ hòa tan rồi lắng xuống đáy.'
       }
     ],
     quizzes: [

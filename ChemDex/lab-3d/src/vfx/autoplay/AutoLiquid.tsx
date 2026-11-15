@@ -12,7 +12,7 @@ import { createSpatialLiquidAppearance, shadeSpatialLiquid } from '../materials/
  * Render geometry never substitutes a smaller cylinder for the particle bounds. */
 export function AutoLiquid({ experiment: e }: { experiment: AutoExperiment }) {
   const root = useRef<THREE.Group>(null), cap = useRef<THREE.Mesh>(null);
-  const profile = useMemo(() => getVesselProfile('beaker', 100), []);
+  const profile = useMemo(() => getVesselProfile('beaker', e.sample.capacity_ml), [e, e.sample.capacity_ml]);
   const geometry = useMemo(() => new THREE.LatheGeometry([
     ...profile.contour!.map(([r, y]) => new THREE.Vector2(r, y)), new THREE.Vector2(0, profile.baseY + profile.H),
   ], 48), [profile]);

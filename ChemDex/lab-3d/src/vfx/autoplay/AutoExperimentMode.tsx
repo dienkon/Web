@@ -8,7 +8,7 @@ import { getLessonDefinition } from '../../lesson/catalog';
 import { setTheaterActive } from '../../render/theaterActivity';
 import { ErrorBoundary } from '../../components/ErrorBoundary';
 
-const recommended = ['cu_hno3_conc', 'nh3_hcl', 'h2o2_mno2', 'cuso4_naoh', 'pbno32_ki', 'fe_cuso4', 'mg_o2_burn', 'thiosulfate_acid_clock'];
+const recommended = ['cu_hno3_conc', 'nh3_hcl', 'h2o2_mno2', 'cuso4_naoh', 'pbno32_ki', 'golden_rain', 'fe_cuso4', 'mg_o2_burn', 'thiosulfate_acid_clock'];
 export function AutoExperimentCatalog({ onStart, activeId }: { onStart: (id: string, button?: HTMLButtonElement) => void; activeId?: string }) {
   const [query, setQuery] = useState(''), [category, setCategory] = useState('all');
   const start = onStart;
@@ -51,7 +51,7 @@ export function AutoExperimentMode() {
         if (!document.fullscreenElement) void document.documentElement.requestFullscreen?.().catch(() => {});
       } catch (e) { setError(e instanceof Error ? e.message : 'Không thể mở thí nghiệm.'); }
     }} />
-    {experiment && createPortal(<Theater key={experiment.program.id} initial={experiment} ownsFullscreen={ownsFullscreen.current} returnFocus={opener.current} onClose={() => {
+    {experiment && createPortal(<Theater key={experiment.id} initial={experiment} ownsFullscreen={ownsFullscreen.current} returnFocus={opener.current} onClose={() => {
       setExperiment(null);
     }} />, document.body)}
   </>;
@@ -92,17 +92,17 @@ function Theater({ initial, ownsFullscreen, returnFocus, onClose }: { initial: A
   useEffect(() => {
     if (!playlist) return;
     const timer = setInterval(() => { if (!e.paused && e.phase === 'complete' && e.phaseTime > 3) {
-      const index = AUTO_EXPERIMENTS.findIndex(p => p.id === e.program.id);
+      const index = AUTO_EXPERIMENTS.findIndex(p => p.id === e.id);
       change(AUTO_EXPERIMENTS[(index + 1) % AUTO_EXPERIMENTS.length].id);
     } }, 300);
     return () => clearInterval(timer);
   }, [playlist, e]);
-  const entry = AUTO_EXPERIMENTS.find(p => p.id === e.program.id)!;
+  const entry = AUTO_EXPERIMENTS.find(p => p.id === e.id)!;
   const lesson = getLessonDefinition(e.program.id);
-  return <div ref={root} tabIndex={-1} role="dialog" aria-modal="true" aria-label="Rạp thí nghiệm tự động" data-auto-phase={e.phase} data-auto-program={e.program.id} data-auto-elapsed={e.elapsed.toFixed(3)} data-auto-clouds={[...e.clouds.clouds.values()].reduce((n, c) => n + c.system.particles.length, 0)} className="fixed inset-0 z-[200] bg-[#091321] font-sans text-white outline-none"
+  return <div ref={root} tabIndex={-1} role="dialog" aria-modal="true" aria-label="Rạp thí nghiệm tự động" data-auto-phase={e.phase} data-auto-program={e.id} data-auto-elapsed={e.elapsed.toFixed(3)} data-auto-clouds={[...e.clouds.clouds.values()].reduce((n, c) => n + c.system.particles.length, 0)} className="fixed inset-0 z-[200] bg-[#091321] font-sans text-white outline-none"
     onKeyDown={event => { event.stopPropagation(); if (event.key === 'Escape') { event.preventDefault(); onClose(); }
       if (event.code === 'Space' && !(event.target instanceof HTMLInputElement || event.target instanceof HTMLSelectElement || event.target instanceof HTMLButtonElement)) { event.preventDefault(); e.paused = !e.paused; refresh(n => n + 1); } }}>
-    <div className="absolute inset-0" data-testid="auto-experiment-scene"><ErrorBoundary fallbackTitle="Không thể vẽ sân khấu 3D" onReset={() => change(e.program.id)}>
+    <div className="absolute inset-0" data-testid="auto-experiment-scene"><ErrorBoundary fallbackTitle="Không thể vẽ sân khấu 3D" onReset={() => change(e.id)}>
       <React.Suspense fallback={null}><AutoExperimentScene experiment={e} runKey={sceneEpoch.current} /></React.Suspense>
     </ErrorBoundary></div>
     <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-slate-950/90 via-transparent to-slate-950/95" />
@@ -137,8 +137,8 @@ function Theater({ initial, ownsFullscreen, returnFocus, onClose }: { initial: A
       </div>
       <div className="flex flex-wrap items-center justify-between gap-2 rounded-2xl border border-white/10 bg-slate-900/90 p-2 backdrop-blur-xl">
         <div className="flex items-center gap-1"><button aria-label={e.paused ? 'Tiếp tục tự động' : 'Tạm dừng tự động'} className="rounded-xl bg-cyan-300 p-3 text-slate-950 hover:bg-cyan-200" onClick={() => { e.paused = !e.paused; refresh(n => n + 1); }}>{e.paused ? <Play size={18} /> : <Pause size={18} />}</button>
-          <button aria-label="Làm lại thí nghiệm" className="rounded-xl p-3 hover:bg-white/10" onClick={() => change(e.program.id)}><RotateCcw size={17} /></button>
-          <button aria-label="Thí nghiệm tiếp theo" className="rounded-xl p-3 hover:bg-white/10" onClick={() => change(AUTO_EXPERIMENTS[(AUTO_EXPERIMENTS.findIndex(p => p.id === e.program.id) + 1) % AUTO_EXPERIMENTS.length].id)}><SkipForward size={18} /></button>
+          <button aria-label="Làm lại thí nghiệm" className="rounded-xl p-3 hover:bg-white/10" onClick={() => change(e.id)}><RotateCcw size={17} /></button>
+          <button aria-label="Thí nghiệm tiếp theo" className="rounded-xl p-3 hover:bg-white/10" onClick={() => change(AUTO_EXPERIMENTS[(AUTO_EXPERIMENTS.findIndex(p => p.id === e.id) + 1) % AUTO_EXPERIMENTS.length].id)}><SkipForward size={18} /></button>
           <select aria-label="Tốc độ tự động" className="rounded-lg border border-white/10 bg-slate-800 p-2 text-xs" value={e.speed} onChange={event => { e.speed = Number(event.target.value); refresh(n => n + 1); }}><option value={0.5}>0.5×</option><option value={1}>1×</option><option value={2}>2×</option><option value={4}>4×</option></select>
         </div>
         <div className="flex items-center gap-1">{(['wide', 'transfer', 'close', 'surface'] as const).map((view, i) => <button key={view} aria-label={['Góc toàn cảnh', 'Góc rót chất', 'Góc cận cảnh', 'Góc mặt dịch'][i]}

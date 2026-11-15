@@ -39,26 +39,31 @@ import { blendLiquidOptics, liquidOptics } from '../../pour/physics/mixing';
 import { supernatantColor } from '../../science/supernatantAppearance';
 import { pourContactRemaining } from '../../science/pourContactActivity';
 import { Quaternion, Vector3 } from 'three';
-import { autoSolid, autoSolidGravity, AUTO_DONOR_SCALE, createAutoSolidDose, solidFlightPosition, type AutoSolidDose } from './autoSolid';
+import { autoSolid, autoSolidGravity, AUTO_DONOR_SCALE, solidFlightPosition } from './autoSolid';
 import { vesselLocalToWorld, vesselBodyTransform } from '../../science/vesselScale';
 import { scenePointToSI } from '../../science/sceneUnits';
 import type { StockContactBirth } from '../../physical/stockTypes';
+import { dropSchedule, landedDropFraction } from '../../handling/doseTiming';
+import { automaticDonors, type AutoDonor } from './autoDonors';
+import { partitionLeadIodide } from '../../engine/leadIodidePhase';
+import { createGoldenRainSample, goldenRainInventory, GOLDEN_RAIN_PROTOCOL } from '../../science/goldenRainProtocol';
 
-export type AutoPhase = 'prepare' | 'carry' | 'dose' | 'return' | 'condition' | 'react' | 'observe' | 'complete' | 'error';
+export type AutoPhase = 'prepare' | 'carry' | 'dose' | 'return' | 'condition' | 'react' | 'cool' | 'settle' | 'observe' | 'complete' | 'error';
 export type AutoCamera = 'wide' | 'transfer' | 'close' | 'surface';
-export const AUTO_EXPERIMENTS = ALL_HANDCRAFTED_PROGRAMS.map(program => ({
-  id: program.id, program,
+type AutoProtocol = 'golden-rain';
+export const AUTO_EXPERIMENTS = [...ALL_HANDCRAFTED_PROGRAMS.map(program => ({
+  id: program.id, program, protocol: undefined as AutoProtocol | undefined,
   title: getLessonDefinition(program.id)?.title_vi ?? (program.chemistry.representation === 'emission'
     ? `Phép thử ngọn lửa · ${program.chemistry.species.map(s => s.formula).join(', ')}`
     : program.chemistry.species.filter(s => s.role === 'reactant').map(s => s.formula).join(' + ')),
   category: getLessonDefinition(program.id) ? 'Bài học' : program.visual.after.gasesOffgassed.length ? 'Tạo khí / khói'
     : program.visual.after.precipitate ? 'Kết tủa' : 'Đổi màu / cân bằng',
-}));
-export interface AutoDonor { row: SubstanceContent; color: string; remaining: number; fraction: number; doseStartedAt?: number; solid?: AutoSolidDose }
+})), { id: 'golden_rain', protocol: 'golden-rain' as const, program: ALL_HANDCRAFTED_PROGRAMS.find(program => program.id === 'pbno32_ki')!,
+  title: 'Mưa vàng PbI₂ · đun tan và làm nguội', category: 'Kết tinh' }];
 export const AUTO_TIMING = { prepare: 1.6, carry: 2, tilt: 0.55, flow: 2.4, flight: 0.28, upright: 0.55, return: 1.5 } as const;
 const RECEIVER_BODY_MATRIX = [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 1.04, 0, 1];
 export const donorHome = (i: number): [number, number, number] => [-3.9 + i % 3 * 0.95, 0.63, 1.2 + Math.floor(i / 3) * 1.15];
-const shell = (): VesselState => ({ id: 'auto_receiver', type: 'beaker', name: 'Bình phản ứng', capacity_ml: 100,
+const shell = (): VesselState => ({ id: 'auto_receiver', type: 'beaker', name: 'Bình nhận 250 mL', capacity_ml: 250,
   position: [0, 1.04, 0], rotationY: 0, isLocked: false, contents: [], substances: [], mass_g: 0,
   volume_ml: 0, volume: 0, temperature_c: 25, ph: 7, hasGas: false, hasPrecipitate: false, isBoiling: false });
 const smooth = (t: number) => { const x = Math.max(0, Math.min(1, t)); return x * x * (3 - 2 * x); };
@@ -75,6 +80,8 @@ function donorPouringTilt(remaining: number) {
 /** An isolated virtual experiment. Neither specimens, clocks, lesson sessions
  * nor exhaust receipts are written to the user's workbench or persistence. */
 export class AutoExperiment {
+  readonly id: string;
+  readonly protocol?: AutoProtocol;
   readonly program: ReactionProgram;
   readonly physics = new VesselSimulationManager('auto_receiver', 'medium');
   readonly clouds = new GasCloudRepository();
@@ -100,6 +107,7 @@ export class AutoExperiment {
   stirringIntensity = 0.65;
   get stirringDrive() {
     if (this.sample.volume_ml <= 0.2 || this.emission) return 0;
+    if (this.protocol === 'golden-rain' && ['cool', 'settle', 'observe', 'complete'].includes(this.phase)) return 0;
     const immersion = this.phase === 'condition' ? smooth((this.phaseTime - 0.5) / 0.9)
       : this.phase === 'react' ? 1 : this.phase === 'observe' ? 1 - smooth(this.phaseTime / 1.4) : 0;
     return this.stirringIntensity * immersion;
@@ -111,6 +119,7 @@ export class AutoExperiment {
   private lesson?: LessonSession;
   private emission: boolean;
   private heatTarget = 25;
+  private goldenRainStage: 'mix' | 'dissolve' | 'cool' | 'settle' = 'mix';
   private reactionTime = 0;
   private lessonWater_g = 0;
   private contactProgress = 0;
@@ -150,6 +159,8 @@ export class AutoExperiment {
   constructor(id: string, private readonly simulateEffects = true) {
     const entry = AUTO_EXPERIMENTS.find(e => e.id === id);
     if (!entry) throw new Error('Không tìm thấy thí nghiệm.');
+    this.id = entry.id;
+    this.protocol = entry.protocol;
     this.program = entry.program;
     this.emission = this.program.chemistry.representation === 'emission';
     const definition = getLessonDefinition(id);
@@ -167,7 +178,8 @@ export class AutoExperiment {
       const contents = this.program.chemistry.species.filter(s => s.role === 'spectator').map(s => ({
         formula: s.formula, phase: s.phase, moles: s.coeff * 1e-5, mass_g: s.coeff * 1e-5 * computeMolarMass(s.formula) }));
       this.baseline = { ...shell(), contents, mass_g: contents.reduce((sum, c) => sum + c.mass_g, 0), liquidColor: '#ffffff' };
-    } else this.baseline = createStudioSample(this.program, shell());
+    } else this.baseline = this.protocol === 'golden-rain'
+      ? createGoldenRainSample(shell()) : createStudioSample(this.program, shell());
     this.baseline = { ...this.baseline, isSealed: this.program.chemistry.species.some(s => s.role === 'reactant' && s.phase === 'g') };
     const conditions = this.program.chemistry.conditions;
     if (!definition && !this.emission && !this.program.chemistry.representation && conditions?.activation !== 'ignition'
@@ -183,31 +195,53 @@ export class AutoExperiment {
     this.heatTarget = definition?.conditions.find(c => c.kind === 'temperature')?.minimum
       ?? this.program.chemistry.conditions?.minTemp_c ?? 25;
     // Even the solvent travels from a finite donor; a new bench starts empty.
-    const order = (c: SubstanceContent) => c.formula === 'H2O' && c.phase === 'l' ? 0 : c.phase === 'g' ? 2 : 1;
-    const rows = this.baseline.contents.filter(c => c.mass_g > 1e-12 && c.moles > 1e-12).sort((a, b) => order(a) - order(b));
-    this.donors = rows.map(row => ({ row: { ...row },
-      color: this.program.chemistry.species.find(s => s.formula === row.formula && s.phase === row.phase)?.colorHex ?? '#f8fafc',
-      remaining: row.mass_g, fraction: 0, ...(row.phase === 's' ? { solid: createAutoSolidDose(row.formula, row.mass_g) } : {}) }));
+    const dosePlan = automaticDonors(this.baseline.contents, this.program);
+    if (dosePlan.addedWater_g > 0) {
+      const water = { formula: 'H2O', phase: 'l', mass_g: dosePlan.addedWater_g,
+        moles: dosePlan.addedWater_g / 18.015 };
+      this.baseline = { ...this.baseline, contents: [...this.baseline.contents, water],
+        substances: [...new Set([...this.baseline.substances, 'H2O'])], mass_g: this.baseline.mass_g + dosePlan.addedWater_g,
+        volume_ml: this.baseline.volume_ml + dosePlan.addedWater_g, volume: (this.baseline.volume_ml + dosePlan.addedWater_g) / this.baseline.capacity_ml };
+    }
+    this.donors = dosePlan.donors;
     this.sample = { ...shell(),
       liquidColor: '#f1f5f9', isSealed: this.baseline.isSealed && this.donors.every(d => d.row.phase === 'g'), studioProgramId: this.program.id };
-    this.steps = ['Dọn bàn và dàn dụng cụ cần dùng', ...this.donors.map(d => `${d.row.phase === 'g' ? 'Dẫn' : d.row.phase === 's' ? 'Chuyển' : 'Rót'} ${d.row.formula} (${d.row.phase})`),
-      'Thiết lập điều kiện', 'Quan sát phản ứng cận cảnh', 'Đối chiếu sản phẩm'];
+    this.steps = this.protocol === 'golden-rain'
+      ? ['Chuẩn bị hai dung dịch trong', ...this.donors.map(d => `${d.doseMode === 'dropper' ? 'Nhỏ bằng pipet' : d.row.phase === 'l' ? 'Rót dung dịch' : 'Thêm'} ${d.row.formula}`),
+        'Quan sát kết tủa PbI₂ vàng mịn', 'Đun và khuấy đến khi kết tủa tan hết', 'Tắt đèn, chờ dung dịch nguội', 'Theo dõi phiến vàng mọc và lắng', 'Quan sát lớp cặn và dung dịch phía trên']
+      : ['Dọn bàn và dàn dụng cụ cần dùng', ...this.donors.map(d => `${d.row.phase === 'g' ? 'Dẫn' : d.row.phase === 's' ? 'Chuyển' : d.doseMode === 'dropper' ? 'Nhỏ bằng pipet' : 'Rót'} ${d.row.formula} (${d.row.phase})`),
+        'Thiết lập điều kiện', 'Quan sát phản ứng cận cảnh', 'Đối chiếu sản phẩm'];
     this.log.push('Đã dọn bàn tự động: chỉ giữ bình nhận và các chất cần cho lượt này.');
   }
   get stepIndex() {
+    if (this.protocol === 'golden-rain') {
+      if (this.phase === 'prepare') return 0;
+      if (['carry', 'dose', 'return'].includes(this.phase)) return Math.min(this.steps.length - 1, this.donorIndex + 1);
+      if (this.phase === 'react') return this.donors.length + 1;
+      if (this.goldenRainStage === 'dissolve') return this.donors.length + 2;
+      if (this.phase === 'cool' || this.goldenRainStage === 'cool') return this.donors.length + 3;
+      if (this.phase === 'settle' || this.goldenRainStage === 'settle') return this.donors.length + 4;
+      return this.steps.length - 1;
+    }
     return this.phase === 'prepare' ? 0 : ['carry', 'dose', 'return'].includes(this.phase) ? this.donorIndex + 1
       : this.phase === 'condition' ? this.donors.length + 1 : this.phase === 'react' ? this.donors.length + 2 : this.steps.length - 1;
   }
   get caption() {
     const d = this.donors[this.donorIndex];
     return this.error ?? (this.phase === 'prepare' ? 'Dọn bàn tự động, đặt bình nhận rỗng và sắp các chất cần dùng lên khay.'
-      : this.phase === 'carry' ? d?.row.phase === 'g' ? `Lắp ống dẫn ${d.row.formula}, nối đầu cấp khí vào bình phản ứng.` : `Nhấc ${d?.row.formula} đến miệng bình nhận.`
-      : this.phase === 'dose' ? this.phaseTime < AUTO_TIMING.tilt ? d?.row.phase === 'g' ? `Mở van cấp ${d.row.formula}, kiểm tra đường ống kín.` : `Nghiêng dụng cụ ${d?.row.formula}, căn miệng vào bình nhận.`
+      : this.phase === 'carry' ? d?.row.phase === 'g' ? `Lắp ống dẫn ${d.row.formula}, nối đầu cấp khí vào bình phản ứng.` : d?.doseMode === 'dropper' ? `Đưa pipet chứa ${d.row.formula} đến phía trên mặt dung dịch.` : `Nhấc ${d?.row.formula} đến miệng bình nhận.`
+      : this.phase === 'dose' ? d?.row.phase === 'g' ? `Mở van cấp ${d.row.formula}, kiểm tra đường ống kín.`
+        : d?.doseMode === 'dropper' ? `Nhỏ từng giọt ${d.row.formula} bằng pipet · ${(d.solutionVolume_ml * d.fraction).toFixed(2)} / ${d.solutionVolume_ml.toFixed(2)} mL.`
+        : this.phaseTime < AUTO_TIMING.tilt ? `Nghiêng dụng cụ ${d?.row.formula}, căn miệng vào bình nhận.`
         : d?.row.phase === 'g' ? `Dẫn ${d.row.formula} qua ống · ${gasVolumeMl(d.row.moles * d.fraction).toFixed(1)} / ${gasVolumeMl(d.row.moles).toFixed(1)} mL.${this.progress > 0.001 ? ' ' + this.program.explain.observation_vi : ''}`
-        : `${d?.row.phase === 's' ? 'Thêm chất rắn' : 'Rót'} ${d?.row.formula} tiếp xúc mẫu · ${((d?.row.mass_g ?? 0) * (d?.fraction ?? 0)).toPrecision(3)} / ${(d?.row.mass_g ?? 0).toPrecision(3)} g.${this.progress > 0.001 ? ' ' + this.program.explain.observation_vi : ''}`
+        : `${d?.row.phase === 's' ? 'Thêm chất rắn' : 'Rót dung dịch'} ${d?.row.formula} · ${((d?.solutionVolume_ml ?? 0) * (d?.fraction ?? 0)).toFixed(2)} / ${(d?.solutionVolume_ml ?? 0).toFixed(2)} mL.${this.progress > 0.001 ? ' ' + this.program.explain.observation_vi : ''}`
       : this.phase === 'return' ? d?.row.phase === 'g' ? 'Đóng van cấp khí, giữ ống dẫn và chờ dòng trong ống ngừng.' : 'Dựng thẳng, ngừng dòng và đặt dụng cụ về khay.'
-      : this.phase === 'condition' ? this.conditionText
+      : this.phase === 'condition' ? this.protocol === 'golden-rain' && this.goldenRainStage === 'dissolve'
+        ? `Gia nhiệt bằng đèn cồn đến ${GOLDEN_RAIN_PROTOCOL.heatTarget_c} °C và chờ phần PbI₂ rắn tan hết. ${this.sample.temperature_c.toFixed(1)} °C · ${goldenRainInventory(this.sample).solid_g.toPrecision(3)} g còn rắn.`
+        : this.conditionText
       : this.phase === 'react' ? this.program.explain.observation_vi
+      : this.phase === 'cool' ? `Tắt nguồn nhiệt, để dung dịch nguội tự nhiên. ${this.sample.temperature_c.toFixed(1)} °C; mầm và phiến PbI₂ sẽ phát triển theo độ tan.`
+      : this.phase === 'settle' ? `Để yên, không khuấy. Theo dõi các phiến vàng lắng và phần dung dịch phía trên trong suốt dần. ${Math.round(this.settledFraction * 100)}% lượng rắn đã tới lớp cặn.`
       : this.phase === 'observe' ? 'Theo dõi phần đuôi khói, bọt và hạt sau khi nguồn phản ứng giảm.'
       : 'Đã hoàn tất trình tự. Có thể xem lại hoặc chọn thí nghiệm tiếp theo.');
   }
@@ -217,7 +251,8 @@ export class AutoExperiment {
       return { label: 'I₂ quy đổi', value: `${((t?.iodine ?? 0) * 1000).toPrecision(3)} mmol` };
     }
     // Reversible phase changes do not have a monotone conversion percentage.
-    return this.program.id === 'cuso4_nh3'
+    return this.protocol === 'golden-rain' ? { label: 'PbI₂ kết tinh', value: `${goldenRainInventory(this.sample).plates_g.toPrecision(3)} g phiến` }
+      : this.program.id === 'cuso4_nh3'
       ? { label: 'Kết tủa', value: `${(this.sample.precipitateAmount_g ?? 0).toPrecision(3)} g` }
       : { label: 'Phản ứng', value: `${(this.progress * 100).toFixed(1)}%` };
   }
@@ -233,7 +268,13 @@ export class AutoExperiment {
     this.phase = phase; this.phaseTime = 0;
     if (['error', 'observe', 'complete'].includes(phase)) this.flame = false;
     if (phase === 'dose') {
-      this.donors[this.donorIndex].doseStartedAt = this.elapsed;
+      const donor = this.donors[this.donorIndex];
+      donor.doseStartedAt = this.elapsed;
+      if (donor.doseMode === 'dropper') {
+        donor.dropStartedAt = this.elapsed;
+        donor.dropFallHeight = Math.max(0, this.donorLip[1] - (this.sample.position[1] + vesselLiquidSurfaceY(this.sample)));
+        donor.dropSchedule = dropSchedule(donor.solutionVolume_ml, donor.dropFallHeight);
+      }
       // A gas donor uses a connected inlet after the open liquid transfers.
       if (this.donors[this.donorIndex].row.phase === 'g') this.sample.isSealed = true;
     }
@@ -276,23 +317,26 @@ export class AutoExperiment {
       const receiverBeforeDose = this.sample;
       if (donor.row.phase === 'g' && portion > 0) gasArrival = { formula: identifySpecies(donor.row.formula).formula, moles: donor.row.moles * portion };
       const contents = this.sample.contents.map(c => ({ ...c }));
-      let row = contents.find(c => c.formula === donor.row.formula && c.phase === donor.row.phase);
-      if (!row) { row = { ...donor.row, moles: 0, mass_g: 0 }; contents.push(row); }
-      row.moles += donor.row.moles * portion; row.mass_g += donor.row.mass_g * portion;
+      if (donor.row.phase !== 'aq' && donor.row.phase !== 'l') {
+        let row = contents.find(c => c.formula === donor.row.formula && c.phase === donor.row.phase);
+        if (!row) { row = { ...donor.row, moles: 0, mass_g: 0 }; contents.push(row); }
+        row.moles += donor.row.moles * portion; row.mass_g += donor.row.mass_g * portion;
+      }
       donor.fraction = fraction;
-      donor.remaining = donor.row.mass_g * (1 - (donor.solid ? donor.solid.released / donor.solid.pieces.length : fraction));
+      donor.remaining = donor.totalMass_g * (1 - (donor.solid ? donor.solid.released / donor.solid.pieces.length : fraction));
       const fluid = contents.filter(c => c.phase === 'aq' || c.phase === 'l').reduce((sum, c) => sum + c.mass_g, 0);
       const volume_ml = fluid / (this.baseline.density_g_ml ?? 1);
       this.sample = { ...this.sample, contents, substances: contents.map(c => c.formula),
         mass_g: contents.reduce((sum, c) => sum + c.mass_g, 0), volume_ml, volume: volume_ml / this.sample.capacity_ml,
-        liquidColor: portion > 0 && ['aq', 'l'].includes(donor.row.phase) ? supernatantColor(contents, volume_ml)
-          ?? blendLiquidOptics(liquidOptics(this.sample.liquidColor ?? '#f8fafc'), this.sample.volume_ml,
-            liquidOptics(donor.color), donor.row.mass_g * portion / (this.baseline.density_g_ml ?? 1)).hex : this.sample.liquidColor };
+        liquidColor: this.sample.liquidColor };
       if (portion > 0 && ['aq', 'l'].includes(donor.row.phase ?? '')) {
-        const mass_g = donor.row.mass_g * portion;
-        const arrival = receivePourAliquot(receiverBeforeDose, { volume_ml: mass_g / (this.baseline.density_g_ml ?? 1),
-          mass_g, temperature_c: 25, color: donor.color, substances: [donor.row.formula],
-          contents: [{ ...donor.row, mass_g, moles: donor.row.moles * portion }] });
+        const aliquotContents = donor.components.map(component => ({ ...component,
+          mass_g: component.mass_g * portion, moles: component.moles * portion })).filter(component => component.mass_g > 1e-14);
+        const mass_g = aliquotContents.reduce((sum, component) => sum + component.mass_g, 0);
+        const volume_ml = donor.solutionVolume_ml * portion;
+        const arrival = receivePourAliquot(receiverBeforeDose, { volume_ml, mass_g,
+          temperature_c: 25, color: donor.color, substances: [...new Set(aliquotContents.map(component => component.formula))],
+          contents: aliquotContents });
         this.sample = arrival.vessel;
         if (arrival.spill.mass_g > 1e-10) this.transferWaste.push(arrival.spill);
         if (arrival.failureReason || arrival.spill.mass_g > 1e-10)
@@ -310,8 +354,18 @@ export class AutoExperiment {
       this.enter(this.donorIndex < this.donors.length ? 'carry' : 'condition');
     } else if (this.phase === 'condition') {
       this.flame = this.lesson ? this.heatTarget > 25 || this.emission : burnerIsBurning(this.lamp);
-      if (this.phaseTime > 180) throw new Error('Nguồn nhiệt không đưa mẫu đến điều kiện cần thiết.');
-      if (this.phaseTime >= 4 && (this.lesson || this.heatTarget <= 25 || this.sample.temperature_c >= this.heatTarget)) {
+      if (this.phaseTime > 180 && this.protocol !== 'golden-rain') throw new Error('Nguồn nhiệt không đưa mẫu đến điều kiện cần thiết.');
+      if (this.protocol === 'golden-rain') {
+        const state = goldenRainInventory(this.sample);
+        if (this.goldenRainStage === 'mix' && this.phaseTime >= 4 && state.solid_g > 1e-9) {
+          const plan = planStudioProgram(this.program, this.sample, 'vi');
+          if (!plan.kinetics) throw new Error(plan.unmet.join(' '));
+          this.baseline = structuredClone(this.sample);
+          this.kinetics = plan.kinetics; this.replayProgress = 0; this.enter('react');
+        } else if (this.goldenRainStage === 'dissolve' && this.sample.temperature_c >= GOLDEN_RAIN_PROTOCOL.heatTarget_c && state.clear) {
+          this.heatTarget = 25; this.goldenRainStage = 'cool'; this.enter('cool');
+        }
+      } else if (this.phaseTime >= 4 && (this.lesson || this.heatTarget <= 25 || this.sample.temperature_c >= this.heatTarget)) {
         if (!this.lesson && (this.program.chemistry.conditions?.activation === 'ignition' || this.emission)) {
           const mouth = vesselLocalToWorld(this.sample, [0, vesselInterior(this.sample.type).topY, 0]);
           if (!burnerIsBurning(this.lamp) || !pointInAlcoholFlame(mouth, this.lamp.position)) return;
@@ -386,13 +440,29 @@ export class AutoExperiment {
         const patch: Partial<VesselState> = this.replayProgress > previousReplay || this.program.id === 'iodine_clock'
           ? applyProgramWithThermalSinks(this.program, this.baseline, this.sample, this.replayProgress, dt) : { hasGas: false };
         if (patch.gasReplayBlocked) throw new Error('Mẫu đã chạm giới hạn mô hình pha khí.');
-        this.sample = { ...this.sample, ...patch };
+        this.sample = { ...this.sample, ...patch, evaporated_ml: patch.evaporated_ml ?? this.sample.evaporated_ml ?? 0 };
         // An ignited specimen can sustain its own combustion while reactants
         // remain; a switched-off lamp alone does not extinguish magnesium.
         if (this.program.chemistry.conditions?.activation === 'ignition') this.flame = this.replayProgress > previousReplay;
-        if (this.replayProgress === 1) { this.progress = 1; this.flame = false; this.enter('observe'); }
+        if (this.replayProgress === 1) {
+          this.progress = 1; this.flame = false;
+          if (this.protocol === 'golden-rain' && this.goldenRainStage === 'mix') {
+            this.goldenRainStage = 'dissolve'; this.heatTarget = GOLDEN_RAIN_PROTOCOL.heatTarget_c;
+            this.enter('condition');
+          } else this.enter('observe');
+        }
       }
-      if (this.reactionTime > 180) throw new Error('Chưa đạt trạng thái cuối sau 180 giây mô phỏng. Kiểm tra điều kiện của bài.');
+      // The clock has a visible switch followed by a real trace-reagent tail;
+      // its terminal test belongs to the Landolt material model, not a timer.
+      if (this.phase === 'react' && this.reactionTime > 180 && this.protocol !== 'golden-rain' && this.program.id !== 'iodine_clock')
+        throw new Error('Chưa đạt trạng thái cuối sau 180 giây mô phỏng. Kiểm tra điều kiện của bài.');
+    } else if (this.phase === 'cool') {
+      const state = goldenRainInventory(this.sample);
+      if (this.sample.temperature_c <= 25 + GOLDEN_RAIN_PROTOCOL.finalTemperatureAboveAmbient_c && state.solid_g > 0) {
+        this.goldenRainStage = 'settle'; this.enter('settle');
+      }
+    } else if (this.phase === 'settle') {
+      if (this.settledFraction >= 0.9) this.enter('observe');
     } else if (this.phase === 'observe' && this.phaseTime >= 8) this.enter('complete');
     if (this.phase === 'return' || this.phase === 'condition') this.advanceContact(dt);
     this.sample.gasFlux = measureGasFlux(this.sample, previous, dt);
@@ -400,9 +470,11 @@ export class AutoExperiment {
     // inlet bubbles are rendered at the tube tip, never emitted again at the floor.
     if (gasArrival) this.sample.gasFlux.generated_mol_s[gasArrival.formula] = Math.max(0,
       (this.sample.gasFlux.generated_mol_s[gasArrival.formula] ?? 0) - gasArrival.moles / dt);
+    const phasePatch = partitionLeadIodide(this.sample, dt);
+    if (phasePatch) this.sample = { ...this.sample, ...phasePatch };
     if (!this.simulateEffects) return;
     const gas = gasVisualState(this.sample);
-    const profile = getVesselProfile('beaker', 100);
+    const profile = getVesselProfile('beaker', this.sample.capacity_ml);
     const aerosols = solidAerosolVisuals(this.sample, previous, this.program.id, dt);
     this.aerosolSuspended_g += aerosols.reduce((sum, a) => sum + a.mol_s * dt * computeMolarMass(a.formula), 0);
     const deposited = this.aerosolSuspended_g * -Math.expm1(-dt / 12);
@@ -422,6 +494,7 @@ export class AutoExperiment {
       reactionProgram: this.program,
       reactionGasRate: gas.bubbleRate });
     this.stocks.advance(this.sample, dt, this.physics.vortex.surface);
+    if (this.protocol === 'golden-rain' && this.phase === 'settle') this.goldenRainStage = 'settle';
     if (this.sample.volume_ml > 0.01) this.appearance.advance(dt, {
       color: supernatantColor(this.sample.contents, this.sample.volume_ml) ?? this.sample.liquidColor ?? '#f8fafc',
       turbidity: this.physics.cloudiness, radius: profile.r(vesselLiquidSurfaceY(this.sample)),
@@ -440,6 +513,12 @@ export class AutoExperiment {
   get inFlightMass_g() {
     return this.donors.reduce((sum, d) => sum + (d.solid?.flights.reduce((mass, f) => mass + (f.arrived ? 0 : f.mass_g), 0) ?? 0), 0);
   }
+  get settledFraction() {
+    const state = goldenRainInventory(this.sample), total = state.solid_g;
+    if (!(total > 1e-12)) return 0;
+    return Math.max(0, Math.min(1, this.physics.sedimentBed.amount_g / total));
+  }
+  get heatingRequested() { return this.heatTarget > this.sample.temperature_c + 0.5; }
   private advanceSolidDose(donor: AutoDonor) {
     const dose = donor.solid!, count = dose.pieces.length, solid = autoSolid(donor.row.formula);
     const births: StockContactBirth[] = [], position = new Vector3(), q = new Quaternion(), scale = new Vector3();
@@ -487,7 +566,8 @@ export class AutoExperiment {
       const before = this.sample, plan = planStudioProgram(this.program, before, 'vi');
       if (!plan.kinetics) return;
       const fraction = advanceReaction(plan.kinetics, before, dt, this.stirringDrive > 0, this.flame);
-      this.sample = { ...before, ...applyProgramWithThermalSinks(this.program, before, before, fraction, dt) };
+      const patch = applyProgramWithThermalSinks(this.program, before, before, fraction, dt);
+      this.sample = { ...before, ...patch, evaporated_ml: patch.evaporated_ml ?? before.evaporated_ml ?? 0 };
       this.contactProgress = 0;
       return;
     }
@@ -515,10 +595,10 @@ export class AutoExperiment {
     this.contactKinetics = kinetics;
     const patch = applyProgramWithThermalSinks(this.program, before, before, fraction, dt);
     if (patch.gasReplayBlocked) return;
-    this.sample = { ...this.sample, ...patch };
+    this.sample = { ...this.sample, ...patch, evaporated_ml: patch.evaporated_ml ?? this.sample.evaporated_ml ?? 0 };
     const held = this.sample.contents.filter(c => sameMolecularFormula(c.formula, ref.formula) && c.phase === ref.phase).reduce((sum, c) => sum + c.moles, 0);
-    const pending = this.donors.filter(d => sameMolecularFormula(d.row.formula, ref.formula) && d.row.phase === ref.phase)
-      .reduce((sum, d) => sum + d.row.moles * (1 - d.fraction), 0);
+    const pending = this.donors.flatMap(d => d.components).filter(c => sameMolecularFormula(c.formula, ref.formula) && c.phase === ref.phase)
+      .reduce((sum, c) => sum + c.moles * (1 - (this.donors.find(d => d.components.includes(c))?.fraction ?? 0)), 0);
     this.contactProgress = Math.max(this.contactProgress, Math.min(1, Math.max(0, (ref.initial - held - pending) / ref.consumed)));
     this.progress = this.contactProgress;
   }
@@ -532,26 +612,34 @@ export class AutoExperiment {
       : this.phase === 'return' ? 1 - smooth((time - AUTO_TIMING.upright) / AUTO_TIMING.return) : this.phase === 'dose' ? 1 : 0;
     const position = home.map((n, k) => n + (hover[k] - n) * t) as [number, number, number];
     position[1] += Math.sin(t * Math.PI) * 0.8;
+    const donor = this.donors[this.donorIndex];
+    if (donor?.doseMode === 'dropper') return { position, tilt: 0 };
     const remaining = this.phase === 'dose' ? 1 - smooth((time - AUTO_TIMING.tilt - AUTO_TIMING.flight) / AUTO_TIMING.flow) : 0;
     const pouringTilt = this.phase === 'dose' || this.phase === 'return' ? donorPouringTilt(remaining) : 0;
     return { position, tilt: this.phase === 'dose' ? -pouringTilt * smooth(time / AUTO_TIMING.tilt)
       : this.phase === 'return' ? this.returnTilt * (1 - smooth(time / AUTO_TIMING.upright)) : 0 };
   }
   get transferFraction() {
-    const dose = this.donors[this.donorIndex]?.solid;
+    const donor = this.donors[this.donorIndex];
+    const dose = donor?.solid;
     if (dose) return dose.arrived / dose.pieces.length;
+    if (donor?.doseMode === 'dropper' && donor.dropSchedule && donor.dropStartedAt !== undefined)
+      return landedDropFraction(this.elapsed - donor.dropStartedAt, donor.solutionVolume_ml, donor.dropFallHeight ?? 1);
     return smooth((this.phaseTime - AUTO_TIMING.tilt - AUTO_TIMING.flight) / AUTO_TIMING.flow);
   }
   get streamActive() {
-    return this.donors[this.donorIndex]?.row.phase !== 'g' && this.phase === 'dose' && this.phaseTime >= AUTO_TIMING.tilt
+    const donor = this.donors[this.donorIndex];
+    return donor?.row.phase !== 'g' && donor?.doseMode !== 'dropper' && this.phase === 'dose' && this.phaseTime >= AUTO_TIMING.tilt
       && this.phaseTime < AUTO_TIMING.tilt + AUTO_TIMING.flow + AUTO_TIMING.flight;
   }
+  get dropperActive() { return this.phase === 'dose' && this.donors[this.donorIndex]?.doseMode === 'dropper'; }
   /** World-space pouring edge, shared by the vessel and all transfer effects. */
   get donorLip(): [number, number, number] {
     return this.donorLipAt(this.phaseTime);
   }
   donorLipAt(time: number): [number, number, number] {
     const { position, tilt } = this.donorPoseAt(time);
+    if (this.donors[this.donorIndex]?.doseMode === 'dropper') return [position[0], position[1] - 0.61 * 0.6, position[2]];
     const x = 0.35 * 0.6, y = 1.48 * 0.6;
     return [position[0] + x * Math.cos(tilt) - y * Math.sin(tilt),
       position[1] + x * Math.sin(tilt) + y * Math.cos(tilt), position[2]];

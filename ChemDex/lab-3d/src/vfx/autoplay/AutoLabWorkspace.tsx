@@ -60,7 +60,7 @@ function Playback({ experiment: e, restart, next, playlist, setPlaylist }: {
 }) {
   useReadout();
   return <div className="pointer-events-none absolute inset-x-0 bottom-0 z-10 bg-gradient-to-t from-[#091321] via-[#091321]/85 to-transparent px-3 pb-3 pt-10 sm:px-5 sm:pb-5"
-    data-auto-phase={e.phase} data-auto-program={e.program.id} data-auto-elapsed={e.elapsed.toFixed(3)} data-auto-donor={e.donorIndex}
+    data-auto-phase={e.phase} data-auto-program={e.id} data-auto-elapsed={e.elapsed.toFixed(3)} data-auto-donor={e.donorIndex}
     data-auto-clouds={[...e.clouds.clouds.values()].reduce((n, c) => n + c.system.particles.length, 0)}>
     <div className="mx-auto max-w-3xl space-y-2">
       <div className="pointer-events-auto rounded-xl border border-white/10 bg-slate-950/85 p-3 text-white">
@@ -100,30 +100,36 @@ export default function AutoLabWorkspace({ onExit }: { onExit: () => void }) {
   const root = useRef<HTMLDivElement>(null), serial = useRef(0);
   const e = run?.experiment;
   useEffect(() => {
-    const paused = useAppStore.getState().isSimulationPaused;
+    const { isSimulationPaused: paused, leftSidebarOpen, rightSidebarOpen } = useAppStore.getState();
     useAppStore.getState().setSimulationPaused(true);
-    useAppStore.setState({ leftSidebarOpen: true, ...(window.innerWidth < 768 ? { rightSidebarOpen: false } : {}) });
-    const narrow = window.matchMedia('(max-width: 767px)');
+    // The automatic bench is a full-width stage. Panels stay closed until the
+    // compact corner launcher is used, so they never cover the reaction view.
+    useAppStore.setState({ leftSidebarOpen: false, rightSidebarOpen: false });
+    const narrow = window.matchMedia('(max-width: 1023px)');
     const resize = () => { if (narrow.matches) useAppStore.setState({ leftSidebarOpen: false, rightSidebarOpen: false }); };
     narrow.addEventListener('change', resize);
-    return () => { narrow.removeEventListener('change', resize); useAppStore.getState().setSimulationPaused(paused); };
+    return () => {
+      narrow.removeEventListener('change', resize);
+      useAppStore.setState({ leftSidebarOpen, rightSidebarOpen });
+      useAppStore.getState().setSimulationPaused(paused);
+    };
   }, []);
   const start = (id: string) => {
     try {
       const experiment = new AutoExperiment(id);
       if (e) { experiment.speed = e.speed; experiment.stirringIntensity = e.stirringIntensity; }
       setRun({ experiment, key: ++serial.current }); setError('');
-      if (window.innerWidth < 768) useAppStore.setState({ leftSidebarOpen: false, rightSidebarOpen: false });
+      useAppStore.setState({ leftSidebarOpen: false, rightSidebarOpen: false });
     } catch (error) { setError(error instanceof Error ? error.message : 'Không thể mở thí nghiệm.'); }
   };
-  const next = () => start(AUTO_EXPERIMENTS[(AUTO_EXPERIMENTS.findIndex(item => item.id === e?.program.id) + 1) % AUTO_EXPERIMENTS.length].id);
+  const next = () => start(AUTO_EXPERIMENTS[(AUTO_EXPERIMENTS.findIndex(item => item.id === e?.id) + 1) % AUTO_EXPERIMENTS.length].id);
   useEffect(() => {
     if (!playlist || !e) return;
     const timer = window.setInterval(() => { if (!document.hidden && !e.paused && e.phase === 'complete' && e.phaseTime > 3) next(); }, 300);
     return () => clearInterval(timer);
   }, [playlist, e]);
-  const toggleLeft = () => useAppStore.setState({ leftSidebarOpen: !leftOpen, ...(window.innerWidth < 768 ? { rightSidebarOpen: false } : {}) });
-  const toggleRight = () => useAppStore.setState({ rightSidebarOpen: !rightOpen, ...(window.innerWidth < 768 ? { leftSidebarOpen: false } : {}) });
+  const toggleLeft = () => useAppStore.setState({ leftSidebarOpen: !leftOpen, ...(window.innerWidth < 1024 ? { rightSidebarOpen: false } : {}) });
+  const toggleRight = () => useAppStore.setState({ rightSidebarOpen: !rightOpen, ...(window.innerWidth < 1024 ? { leftSidebarOpen: false } : {}) });
   return <div ref={root} className="relative flex min-h-0 flex-1 overflow-hidden" role="tabpanel" id="automatic-lab" aria-label="Bàn thí nghiệm tự động"
     onKeyDown={event => {
       if (event.key === 'Escape' && document.fullscreenElement === root.current) {
@@ -133,22 +139,23 @@ export default function AutoLabWorkspace({ onExit }: { onExit: () => void }) {
         event.preventDefault(); e.paused = !e.paused;
       }
     }}>
+    {(leftOpen || rightOpen) && <button className="lab-sidebar-backdrop" aria-label="Đóng các bảng tự động" onClick={() => useAppStore.setState({ leftSidebarOpen: false, rightSidebarOpen: false })} />}
     {leftOpen && <ResizableSidebar side="left" className="border-r border-slate-200 bg-white">
       <header className="flex items-center justify-between border-b border-slate-100 px-4 py-3"><h2 className="flex items-center gap-2 text-xs font-bold"><Film size={15} className="text-cyan-600" />Danh mục tự động</h2><button aria-label="Đóng danh mục tự động" onClick={toggleLeft} className="rounded p-1 text-slate-400 hover:bg-slate-100"><X size={14} /></button></header>
       <div className="min-h-0 flex-1 overflow-y-auto p-3 text-xs">
-        <AutoExperimentCatalog onStart={start} activeId={e?.program.id} />
+        <AutoExperimentCatalog onStart={start} activeId={e?.id} />
       </div>
     </ResizableSidebar>}
     <main tabIndex={0} className="relative min-w-0 flex-1 bg-[#091321] outline-none" aria-label="Sân khấu phản ứng tự động">
       {error && <p role="alert" className="absolute inset-x-12 top-20 z-20 rounded bg-red-950 p-3 text-xs text-red-200">{error}</p>}
       {e && run ? <>
-        <div className="absolute inset-x-0 top-0 bottom-44 sm:bottom-36" data-testid="auto-experiment-scene"><ErrorBoundary fallbackTitle="Không thể vẽ bàn tự động" onReset={() => start(e.program.id)}><AutoExperimentScene experiment={e} runKey={run.key} /></ErrorBoundary></div>
-        <header className="pointer-events-none absolute inset-x-0 top-0 bg-gradient-to-b from-slate-950/95 to-transparent px-12 pb-14 pt-5 text-white">
+        <div className="absolute inset-x-0 top-0 bottom-44 sm:bottom-36" data-testid="auto-experiment-scene"><ErrorBoundary fallbackTitle="Không thể vẽ bàn tự động" onReset={() => start(e.id)}><AutoExperimentScene experiment={e} runKey={run.key} /></ErrorBoundary></div>
+        <header className="pointer-events-none absolute inset-x-0 top-0 bg-gradient-to-b from-slate-950/95 to-transparent pl-4 pr-36 pb-14 pt-5 text-white">
           <p className="text-[9px] font-semibold uppercase tracking-[0.2em] text-cyan-300">ChemDex · Auto Lab</p>
-          <h2 className="mt-1 truncate text-sm font-semibold">{AUTO_EXPERIMENTS.find(item => item.id === e.program.id)?.title}</h2>
+          <h2 className="mt-1 truncate text-sm font-semibold">{AUTO_EXPERIMENTS.find(item => item.id === e.id)?.title}</h2>
           <p className="mt-1 text-[10px] text-slate-400">Bàn đã dọn · Chỉ dụng cụ cần dùng</p>
         </header>
-        <Playback key={run.key} experiment={e} restart={() => start(e.program.id)} next={next} playlist={playlist} setPlaylist={setPlaylist} />
+        <Playback key={run.key} experiment={e} restart={() => start(e.id)} next={next} playlist={playlist} setPlaylist={setPlaylist} />
       </> : <div className="absolute inset-0 flex items-center justify-center p-12 text-center text-white">
         <div className="max-w-sm"><span className="mx-auto mb-5 flex h-20 w-20 items-center justify-center rounded-3xl border border-cyan-300/20 bg-cyan-300/5 text-cyan-200"><FlaskConical size={38} strokeWidth={1} /></span>
           <p className="mb-2 text-[10px] uppercase tracking-[0.25em] text-cyan-300">Bàn tự động đã sẵn sàng</p>
@@ -157,12 +164,18 @@ export default function AutoLabWorkspace({ onExit }: { onExit: () => void }) {
           {!leftOpen && <button onClick={toggleLeft} className="mt-5 inline-flex items-center gap-2 rounded-lg bg-cyan-300 px-4 py-2 text-xs font-semibold text-slate-950"><Search size={14} />Chọn phản ứng</button>}
         </div>
       </div>}
-      <button aria-label={leftOpen ? 'Ẩn danh mục tự động' : 'Hiện danh mục tự động'} onClick={toggleLeft} className="absolute left-2 top-4 z-20 rounded-lg border border-white/10 bg-slate-900/80 p-2 text-slate-200">{leftOpen ? <ChevronLeft size={16} /> : <ChevronRight size={16} />}</button>
-      <div className="absolute right-2 top-4 z-20 flex flex-col gap-2"><button aria-label={rightOpen ? 'Ẩn trình tự tự động' : 'Hiện trình tự tự động'} onClick={toggleRight} className="rounded-lg border border-white/10 bg-slate-900/80 p-2 text-slate-200">{rightOpen ? <ChevronRight size={16} /> : <ChevronLeft size={16} />}</button>
-        <button aria-label="Toàn màn hình bàn tự động" title="Toàn màn hình" className="rounded-lg border border-white/10 bg-slate-900/80 p-2 text-slate-200" onClick={() => {
+      <div className="absolute right-3 top-3 z-20 flex items-center gap-1 rounded-xl border border-white/10 bg-slate-950/75 p-1 text-slate-200 shadow-lg backdrop-blur-sm">
+        <button aria-expanded={leftOpen} aria-controls="lab-left-panel" aria-label={leftOpen ? 'Ẩn danh mục tự động' : 'Hiện danh mục tự động'} title={leftOpen ? 'Ẩn kho phản ứng' : 'Mở kho phản ứng'} onClick={toggleLeft} className={`rounded-lg p-2 hover:bg-white/10 ${leftOpen ? 'bg-white/15 text-cyan-200' : ''}`}>
+          {leftOpen ? <ChevronLeft size={16} /> : <Search size={16} />}
+        </button>
+        <button aria-expanded={rightOpen} aria-controls="lab-right-panel" aria-label={rightOpen ? 'Ẩn trình tự tự động' : 'Hiện trình tự tự động'} title={rightOpen ? 'Ẩn trình tự & quan sát' : 'Mở trình tự & quan sát'} onClick={toggleRight} className={`rounded-lg p-2 hover:bg-white/10 ${rightOpen ? 'bg-white/15 text-cyan-200' : ''}`}>
+          {rightOpen ? <ChevronRight size={16} /> : <Film size={16} />}
+        </button>
+        <button aria-label="Toàn màn hình bàn tự động" title="Toàn màn hình" className="rounded-lg p-2 hover:bg-white/10" onClick={() => {
           if (document.fullscreenElement === root.current) void document.exitFullscreen().catch(() => {});
           else void root.current?.requestFullscreen?.().catch(() => {});
-        }}><Maximize size={15} /></button></div>
+        }}><Maximize size={15} /></button>
+      </div>
     </main>
     {rightOpen && <ResizableSidebar side="right" className="border-l border-slate-200 bg-white">
       <header className="flex items-center justify-between border-b border-slate-100 px-4 py-3"><h2 className="text-xs font-bold">Trình tự & quan sát</h2><button aria-label="Đóng trình tự tự động" className="rounded p-1 text-slate-400 hover:bg-slate-100" onClick={toggleRight}><X size={14} /></button></header>

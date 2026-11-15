@@ -3,6 +3,7 @@ import { useAppStore, getChemical } from '../store/useAppStore';
 import { labSound } from '../utils/audio';
 import { Scale, Droplet, Beaker, Check, X, Sparkles, TestTube, ArrowRight, AlertTriangle } from 'lucide-react';
 import { NOMINAL_DROP_ML } from '../handling/doseTiming';
+import { liquidDosePlan } from '../handling/liquidDosePlan';
 
 interface InnerProps {
   pendingDispense: {
@@ -23,10 +24,11 @@ function DosageModalDialog({ pendingDispense }: InnerProps) {
 
   const isSolid = chemDef.type === 'solid';
   const isIndicator = chemDef.category === 'indicator' || chemical === 'Phenolphthalein';
-
   // Smart default measurement values based on chemical physical state
-  const defaultAmount = chemical === 'Na' ? 0.1 : isSolid ? 2.0 : (isIndicator ? 2 : 20);
+  const defaultAmount = chemical === 'Na' ? 0.1 : isSolid ? 2.0 : (isIndicator ? 2 : 5);
   const [amount, setAmount] = useState<number>(defaultAmount);
+  const plannedVolume_ml = isIndicator ? amount * NOMINAL_DROP_ML : amount;
+  const dosePlan = liquidDosePlan(isSolid ? 0 : plannedVolume_ml);
 
   const t = (en: string, vi: string) => language === 'en' ? en : vi;
 
@@ -41,14 +43,14 @@ function DosageModalDialog({ pendingDispense }: InnerProps) {
     // Play realistic procedural audio
     if (isSolid) {
       labSound.playSolidDrop();
-    } else {
+    } else if (dosePlan.mode === 'pour') {
       labSound.playLiquidPour(1.4);
     }
 
     // Trigger pour animation and store amount with appropriate scale
     triggerPour(chemical, targetVesselId, isIndicator ? amount * NOMINAL_DROP_ML : amount);
     setPendingDispense(null);
-  }, [isSolid, chemical, targetVesselId, isIndicator, amount, triggerPour, setPendingDispense, activeTool, chemDef.color]);
+  }, [isSolid, chemical, targetVesselId, isIndicator, amount, triggerPour, setPendingDispense, activeTool, chemDef.color, dosePlan.mode]);
 
   const confirmRef = React.useRef(handleConfirm);
   confirmRef.current = handleConfirm;
@@ -178,7 +180,7 @@ function DosageModalDialog({ pendingDispense }: InnerProps) {
               </div>
 
               {/* Quick Preset Buttons */}
-              <div className="flex gap-1.5 pt-0.5">
+              <div className="grid grid-cols-4 gap-1.5 pt-0.5">
                 {(chemical === 'Na' ? [0.1, 0.2, 0.5, 1.0] : [0.5, 1.0, 2.0, 5.0]).map(val => (
                   <button
                     key={val}
@@ -204,7 +206,7 @@ function DosageModalDialog({ pendingDispense }: InnerProps) {
               <div className="flex items-center justify-between">
                 <span className="text-xs font-bold uppercase tracking-wider text-pink-700 flex items-center gap-1.5">
                   <Droplet size={15} />
-                  {t('Dropper Pipette', 'Ống Nhỏ Giọt Chuẩn')}
+                  {t('Dropper Pipette', 'Pipet nhỏ giọt')}
                 </span>
                 <span className="text-[10px] text-slate-400 font-medium">{t('Unit: Drops', 'Đơn vị: Giọt')}</span>
               </div>
@@ -247,10 +249,10 @@ function DosageModalDialog({ pendingDispense }: InnerProps) {
             <div className="space-y-3">
               <div className="flex items-center justify-between">
                 <span className="text-xs font-bold uppercase tracking-wider text-blue-700 flex items-center gap-1.5">
-                  <TestTube size={15} />
-                  {t('Smart Volumetric Dispenser', 'Đong Thể Tích Tự Động')}
+                  {dosePlan.mode === 'dropper' ? <Droplet size={15} /> : <TestTube size={15} />}
+                  {dosePlan.mode === 'dropper' ? t('Pasteur pipette · dropwise', 'Pipet Pasteur · nhỏ giọt') : t('Volumetric pour', 'Rót định lượng')}
                 </span>
-                <span className="text-[10px] text-slate-400 font-medium">{t('Unit: Milliliters (mL)', 'Đơn vị: Mililit (mL)')}</span>
+                <span className="text-[10px] text-slate-400 font-medium">{dosePlan.mode === 'dropper' ? `${dosePlan.dropCount} ${t('drops', 'giọt')}` : t('Unit: Milliliters (mL)', 'Đơn vị: Mililit (mL)')}</span>
               </div>
 
               {/* Liquid Volume Readout Display */}
@@ -272,25 +274,25 @@ function DosageModalDialog({ pendingDispense }: InnerProps) {
 
               {/* Volume Slider */}
               <div className="space-y-1">
-                <input 
-                  type="range" 
-                  min="5" 
-                  max="100" 
-                  step="5"
+                <input
+                  type="range"
+                  min="0.05"
+                  max="100"
+                  step="0.05"
                   value={amount}
-                  onChange={e => setAmount(parseInt(e.target.value, 10))}
+                  onChange={e => setAmount(parseFloat(e.target.value))}
                   className="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-blue-600"
                 />
                 <div className="flex justify-between text-[10px] text-slate-400 font-mono">
-                  <span>5 mL</span>
+                  <span>0.05 mL</span>
                   <span>50 mL</span>
                   <span>100 mL</span>
                 </div>
               </div>
 
               {/* Quick Volume Preset Buttons */}
-              <div className="flex gap-1.5 pt-0.5">
-                {[10, 20, 30, 50].map(val => (
+              <div className="grid grid-cols-4 gap-1.5 pt-0.5">
+                {[0.25, 0.5, 1, 2, 5, 10, 20].map(val => (
                   <button
                     key={val}
                     type="button"
@@ -301,7 +303,7 @@ function DosageModalDialog({ pendingDispense }: InnerProps) {
                         : 'bg-slate-100 text-slate-700 hover:bg-slate-200'
                     }`}
                   >
-                    {val}mL
+                    {val} mL
                   </button>
                 ))}
               </div>
@@ -334,7 +336,9 @@ function DosageModalDialog({ pendingDispense }: InnerProps) {
                     ? (activeTool === 'spatula' ? t(`Load ${amount.toFixed(1)}g on spatula`, `Lấy ${amount.toFixed(1)}g lên thìa`) : t(`Add ${amount.toFixed(1)}g to Vessel`, `Cân & Thêm ${amount.toFixed(1)}g`))
                   : isIndicator
                   ? t(`Add ${amount} Drops`, `Nhỏ ${amount} giọt`)
-                  : t(`Pour ${amount} mL to Vessel`, `Đong & Rót ${amount} mL`)}
+                  : dosePlan.mode === 'dropper'
+                  ? t(`Pipette ${amount.toFixed(2)} mL · ${dosePlan.dropCount} drops`, `Pipet ${amount.toFixed(2)} mL · ${dosePlan.dropCount} giọt`)
+                  : t(`Pour ${amount.toFixed(2)} mL to Vessel`, `Đong & Rót ${amount.toFixed(2)} mL`)}
               </span>
             </button>
           </div>

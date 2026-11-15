@@ -4,7 +4,7 @@ import type { ActiveKineticsState, Language } from '../store/useAppStore';
 import { CHEMICAL_DATABASE } from '../data/chemicals';
 import { computeMolarMass, applyProgramToLedger } from './ledger';
 import { readComposition } from '../science/balance';
-import { sameMolecularFormula } from '../science/speciesIdentity';
+import { identifySpecies, sameMolecularFormula } from '../science/speciesIdentity';
 import { bulkInventory } from '../science/reagentAvailability';
 import { baritePrecipitationExtent } from '../science/baritePrecipitation';
 import { magnesiumHydroxideExtent } from '../science/magnesiumHydroxidePrecipitation';
@@ -46,19 +46,25 @@ export function createStudioSample(program: ReactionProgram, shell: VesselState,
   if (variant && program.id !== 'h2o2_mno2') throw new Error('Biến thể bọt chỉ dành cho mẫu O2 đã khai báo.');
   const concentrated = ['cu_hno3_conc', 'cu_conc_h2so4', 'kcl_conc_h2so4', 'water_into_h2so4', 'h2so4_dilution'].includes(program.id);
   const aluminumSpecimen = isAluminumReaction(program.id);
-  const extent = concentrated ? 0.01 : aluminumSpecimen ? 0.0001 : 0.001;
+  const extent = concentrated ? 0.01 : aluminumSpecimen ? 0.0001 : program.id === 'iodine_clock' ? 0.0005 : 0.001;
   const contents: SubstanceContent[] = [];
   for (const species of program.chemistry.species.filter(item => item.role !== 'product')) {
     if (program.chemistry.representation === 'indicator' && ['In_basic', 'HIn_acidic', 'In_blue'].includes(species.formula)) continue;
+    // Water in the clock equation is the solvent pool, not a separate bottle
+    // of four moles of water. The automatic director transfers solvent with
+    // each finite aqueous stock solution.
+    if (program.id === 'iodine_clock' && species.formula === 'H2O') continue;
     const indicator = ['Phenolphthalein', 'Methyl_Orange', 'Bromothymol_Blue'].includes(species.formula);
     // The copper demonstration adds genuinely excess ammonia (2 M in the
     // authored 30 mL specimen), rather than assuming 4 equivalents clears gel.
-    const moles = program.id === 'iodine_clock' && species.formula === 'KIO3' ? 0.002
+    const moles = program.id === 'iodine_clock' && species.formula === 'KIO3' ? 0.001
       : program.id === 'cuso4_nh3' && species.formula === 'NH3' ? 0.06
       : indicator ? 1e-7 : species.role === 'reactant' || program.chemistry.representation === 'indicator' ? species.coeff * extent : 1e-5;
     if (!Number.isFinite(moles) || moles <= 0) throw new Error('Lượng mẫu không hợp lệ.');
     let formula = species.formula;
-    if (concentrated && ['HNO3', 'H2SO4'].some(acid => sameMolecularFormula(acid, formula))) formula += ' (conc)';
+    if (concentrated && ['HNO3', 'H2SO4'].some(acid => sameMolecularFormula(acid, formula))) {
+      if (identifySpecies(formula).concentration !== 'concentrated') formula += ' (conc)';
+    }
     else if (['cu_hno3_dil', 'cu_hno3_dilute', 'zn_h2so4_dilute'].includes(program.id)
       && ['HNO3', 'H2SO4'].some(acid => sameMolecularFormula(acid, formula))) formula += ' (dil)';
     contents.push({ formula, phase: species.phase, moles, initialMoles: moles,
