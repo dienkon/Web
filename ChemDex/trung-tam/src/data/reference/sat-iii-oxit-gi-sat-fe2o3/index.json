@@ -30,6 +30,22 @@
   "documentKind": "reference",
   "lessonKind": "substance-guide",
   "readingMinutes": 9,
+  "editorialEvidence": {
+    "language": "vi",
+    "scope": "substance",
+    "contextLabel": "Sắt(III) oxit (Gỉ sắt)",
+    "reviewBasis": "editorial-audit-2026-11-15",
+    "story": {
+      "status": "missing",
+      "sources": [],
+      "reason": "Chưa có câu chuyện và ứng dụng được đối chiếu riêng cho Sắt(III) oxit (Gỉ sắt) (Fe2O3); giữ nguyên bài tra cứu, không gán lịch sử hay công dụng của nguyên tố thành phần cho hợp chất."
+    },
+    "application": {
+      "status": "missing",
+      "sources": [],
+      "reason": "Chưa có câu chuyện và ứng dụng được đối chiếu riêng cho Sắt(III) oxit (Gỉ sắt) (Fe2O3); giữ nguyên bài tra cứu, không gán lịch sử hay công dụng của nguyên tố thành phần cho hợp chất."
+    }
+  },
   "chemicalEvidence": {
     "formula": "Fe2O3",
     "representativeId": "chem-fe2o3",

@@ -2,11 +2,11 @@
   "id": "nha-khoa-hoc-carlo-perrier-va-emilio-segre",
   "slug": "nha-khoa-hoc-carlo-perrier-va-emilio-segre",
   "documentPath": "docs/nha-khoa-hoc-carlo-perrier-va-emilio-segre/index.json",
-  "title": "Carlo Perrier và Emilio Segrè — dấu mốc khám phá hóa học",
+  "title": "Carlo Perrier và Emilio Segrè — lần theo dấu vết technetium",
   "author": "Ban biên tập ChemDex",
   "category": "tieusu",
-  "summary": "Hồ sơ lịch sử liên quan đến Technetium (Tc); phân biệt phát hiện, cô lập và đặt tên theo từng trường hợp.",
-  "image": "/assets/library/history-evidence.svg",
+  "summary": "Năm 1937, Carlo Perrier và Emilio Segrè đã tách được technetium từ một mẫu molybdenum bị chiếu xạ trong cyclotron. Technetium là nguyên tố đầu tiên được tạo ra nhân tạo, và tên gọi bắt nguồn từ tiếng Hy Lạp technē, nghĩa là “nhân tạo”.",
+  "image": "/assets/library/photos/elements/Tc.jpg",
   "tags": [
     "Lịch sử hóa học",
     "Tc"
@@ -15,6 +15,26 @@
     "Carlo Perrier và Emilio Segrè"
   ],
   "documentKind": "biography",
-  "readingMinutes": 1,
-  "content": "# Carlo Perrier và Emilio Segrè — dấu mốc khám phá hóa học\n\nHồ sơ lịch sử liên quan đến Technetium (Tc); phân biệt phát hiện, cô lập và đặt tên theo từng trường hợp.\n\n## Technetium (Tc)\n\nNăm 1937, Carlo Perrier và Emilio Segrè đã tách được Technetium từ một mẫu Molybdenum bị chiếu xạ trong cyclotron. Technetium là nguyên tố đầu tiên được tạo ra nhân tạo, và tên gọi bắt nguồn từ tiếng Hy Lạp technē, nghĩa là “nhân tạo”.\n\n**Mốc lịch sử:** 1937. **Địa điểm ghi trong hồ sơ:** Ý.\n\n[Đọc tài liệu về Technetium](/trung-tam/tai-lieu-so/technetium-tc/).\n\n[Royal Society of Chemistry — thông tin nguyên tố](https://periodic-table.rsc.org/element/43/technetium)\n\n## Cách đọc các mốc lịch sử\n\nPhát hiện một nguyên tố, cô lập đơn chất và đặt tên có thể là những công việc khác nhau, diễn ra ở các thời điểm khác nhau. Một nhóm nghiên cứu hoặc cơ quan không được xem như một cá nhân. Với nguyên tố được biết từ cổ đại, hồ sơ không gán một người khám phá. Các ghi nhận trên dẫn về tài liệu của nguyên tố và nguồn tham khảo tương ứng; không bổ sung lời trích dẫn hay giai thoại đời tư chưa có căn cứ."
+  "readingMinutes": 2,
+  "editorialEvidence": {
+    "language": "vi",
+    "scope": "related-element",
+    "contextLabel": "Technetium (Tc)",
+    "reviewBasis": "existing-element-dossier",
+    "story": {
+      "status": "documented",
+      "section": "## Cuộc tìm kiếm dẫn đến technetium",
+      "sources": [
+        "https://periodic-table.rsc.org/element/43/technetium"
+      ]
+    },
+    "application": {
+      "status": "context-only",
+      "section": "## Từ dấu mốc nghiên cứu đến công việc hôm nay",
+      "sources": [
+        "https://periodic-table.rsc.org/element/43/technetium"
+      ]
+    }
+  },
+  "content": "## Cuộc tìm kiếm dẫn đến technetium\n\nNăm 1937, Carlo Perrier và Emilio Segrè đã tách được technetium từ một mẫu molybdenum bị chiếu xạ trong cyclotron. Technetium là nguyên tố đầu tiên được tạo ra nhân tạo, và tên gọi bắt nguồn từ tiếng Hy Lạp technē, nghĩa là “nhân tạo”.\n\nNhững người hoặc cơ sở được ghi nhận trong câu chuyện này là **Carlo Perrier và Emilio Segrè**.\n\n![Hình minh họa technetium](/assets/library/photos/elements/Tc.jpg)\n\n*Hình minh họa chủ đề technetium. [Nguồn hình: bộ ảnh nguyên tố](https://en.wikipedia.org/wiki/Technetium).*\n\n## Bằng chứng đã thay đổi điều gì?\n\nĐiều làm một phát hiện có sức nặng là khả năng phân biệt chất đang nghiên cứu với những chất đã biết. Mẫu vật có thể chứa nhiều thành phần; tên khoáng vật hoặc màu sắc chưa đủ xác định nguyên tố. Tách mẫu, so sánh phản ứng và diễn giải phép đo nối với nhau thành một lập luận. Bởi vậy, ngày nhận ra một nguyên tố, ngày cô lập được đơn chất và ngày tên gọi được thống nhất có thể khác nhau.\n\n## Từ dấu mốc nghiên cứu đến công việc hôm nay\n\n### Technetium (Tc)\n\n⁹⁹ᵐTc là ứng dụng quan trọng nhất của technetium. Nó được sử dụng làm chất đánh dấu phóng xạ trong nhiều kỹ thuật chẩn đoán hình ảnh.\n\nCác hợp chất chứa ⁹⁹ᵐTc được gắn với những chất có khả năng tập trung tại các cơ quan khác nhau để tạo hình ảnh.\n\n[Đọc tiếp về Technetium](/trung-tam/tai-lieu-so/technetium-tc/).\n\nNhững ứng dụng này thuộc về hành trình phát triển tiếp theo của nguyên tố. Từ phát hiện đến thiết bị sử dụng được còn có công việc của nhiều thế hệ: tạo vật liệu đủ sạch, hiểu tính chất, thiết kế quy trình và kiểm tra độ bền. Vai trò của người khám phá nằm ở dấu mốc được kể ở trên; các công nghệ xuất hiện sau đó cần được ghi nhận cho đúng công trình.\n\n## Nguồn và đọc tiếp\n\n- [Hội Hóa học Hoàng gia Anh · Technetium](https://periodic-table.rsc.org/element/43/technetium)"
 }

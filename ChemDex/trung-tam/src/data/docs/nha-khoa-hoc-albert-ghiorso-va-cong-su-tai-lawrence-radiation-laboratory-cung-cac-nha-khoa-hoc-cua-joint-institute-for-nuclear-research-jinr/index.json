@@ -2,11 +2,11 @@
   "id": "nha-khoa-hoc-albert-ghiorso-va-cong-su-tai-lawrence-radiation-laboratory-cung-cac-nha-khoa-hoc-cua-joint-institute-for-nuclear-research-jinr",
   "slug": "nha-khoa-hoc-albert-ghiorso-va-cong-su-tai-lawrence-radiation-laboratory-cung-cac-nha-khoa-hoc-cua-joint-institute-for-nuclear-research-jinr",
   "documentPath": "docs/nha-khoa-hoc-albert-ghiorso-va-cong-su-tai-lawrence-radiation-laboratory-cung-cac-nha-khoa-hoc-cua-joint-institute-for-nuclear-research-jinr/index.json",
-  "title": "Albert Ghiorso và cộng sự tại Lawrence Radiation Laboratory, cùng các nhà khoa học của Joint Institute for Nuclear Research (JINR). — dấu mốc khám phá hóa học",
+  "title": "Lawrencium: cuộc tìm kiếm của các nhóm nghiên cứu",
   "author": "Ban biên tập ChemDex",
   "category": "tieusu",
-  "summary": "Hồ sơ lịch sử liên quan đến Lawrencium (Lr); phân biệt phát hiện, cô lập và đặt tên theo từng trường hợp.",
-  "image": "/assets/library/history-evidence.svg",
+  "summary": "Lawrencium được tạo ra lần đầu tiên bằng cách bắn phá californium-252 bằng các ion bo-10. Phản ứng: ²⁵²Cf + ¹⁰B → ²⁶¹Lr + n Tên lawrencium được đặt để vinh danh Ernest O.",
+  "image": "/assets/library/photos/elements/Lr.jpg",
   "tags": [
     "Lịch sử hóa học",
     "Lr"
@@ -15,6 +15,26 @@
     "Albert Ghiorso và cộng sự tại Lawrence Radiation Laboratory, cùng các nhà khoa học của Joint Institute for Nuclear Research (JINR)."
   ],
   "documentKind": "biography",
-  "readingMinutes": 1,
-  "content": "# Albert Ghiorso và cộng sự tại Lawrence Radiation Laboratory, cùng các nhà khoa học của Joint Institute for Nuclear Research (JINR). — dấu mốc khám phá hóa học\n\nHồ sơ lịch sử liên quan đến Lawrencium (Lr); phân biệt phát hiện, cô lập và đặt tên theo từng trường hợp.\n\n## Lawrencium (Lr)\n\nLawrencium được tạo ra lần đầu tiên bằng cách bắn phá Californium-252 bằng các ion Boron-10. Phản ứng: ²⁵²Cf + ¹⁰B → ²⁶¹Lr + n Tên Lawrencium được đặt để vinh danh Ernest O. Lawrence, nhà vật lý người Mỹ và là người phát minh cyclotron.\n\n**Mốc lịch sử:** 1961. **Địa điểm ghi trong hồ sơ:** Berkeley, California, Hoa Kỳ.\n\n[Đọc tài liệu về Lawrencium](/trung-tam/tai-lieu-so/lawrencium-lr/).\n\n[Royal Society of Chemistry — thông tin nguyên tố](https://periodic-table.rsc.org/element/103/lawrencium)\n\n## Cách đọc các mốc lịch sử\n\nPhát hiện một nguyên tố, cô lập đơn chất và đặt tên có thể là những công việc khác nhau, diễn ra ở các thời điểm khác nhau. Một nhóm nghiên cứu hoặc cơ quan không được xem như một cá nhân. Với nguyên tố được biết từ cổ đại, hồ sơ không gán một người khám phá. Các ghi nhận trên dẫn về tài liệu của nguyên tố và nguồn tham khảo tương ứng; không bổ sung lời trích dẫn hay giai thoại đời tư chưa có căn cứ."
+  "readingMinutes": 2,
+  "editorialEvidence": {
+    "language": "vi",
+    "scope": "related-element",
+    "contextLabel": "Lawrencium (Lr)",
+    "reviewBasis": "existing-element-dossier",
+    "story": {
+      "status": "documented",
+      "section": "## Cuộc tìm kiếm dẫn đến lawrencium",
+      "sources": [
+        "https://periodic-table.rsc.org/element/103/lawrencium"
+      ]
+    },
+    "application": {
+      "status": "context-only",
+      "section": "## Từ dấu mốc nghiên cứu đến công việc hôm nay",
+      "sources": [
+        "https://periodic-table.rsc.org/element/103/lawrencium"
+      ]
+    }
+  },
+  "content": "## Cuộc tìm kiếm dẫn đến lawrencium\n\nLawrencium được tạo ra lần đầu tiên bằng cách bắn phá californium-252 bằng các ion bo-10. Phản ứng: ²⁵²Cf + ¹⁰B → ²⁶¹Lr + n Tên lawrencium được đặt để vinh danh Ernest O. Lawrence, nhà vật lý người Mỹ và là người phát minh cyclotron.\n\nNhững người hoặc cơ sở được ghi nhận trong câu chuyện này là **Albert Ghiorso và cộng sự tại Lawrence Radiation Laboratory, cùng các nhà khoa học của Joint Institute for Nuclear Research (JINR).**.\n\n![Hình minh họa lawrencium](/assets/library/photos/elements/Lr.jpg)\n\n*Hình minh họa chủ đề lawrencium. [Nguồn hình: bộ ảnh nguyên tố](https://en.wikipedia.org/wiki/Lawrencium).*\n\n## Bằng chứng đã thay đổi điều gì?\n\nỞ những nguyên tố được tạo ra bằng phản ứng hạt nhân, bằng chứng có thể xuất hiện dưới dạng một chuỗi tín hiệu phân rã. Các nhà nghiên cứu phải nối những tín hiệu ấy với quá trình tạo mẫu, kiểm tra sản phẩm và đối chiếu sự kiện lặp lại. Đổi một nguyên tố thành nguyên tố khác đòi hỏi thay đổi hạt nhân; phản ứng hóa học thông thường chỉ sắp xếp lại electron và liên kết. Chính sự khác biệt này khiến cuộc tìm kiếm cần đến những công cụ vượt xa bình phản ứng quen thuộc.\n\n## Từ dấu mốc nghiên cứu đến công việc hôm nay\n\n### Lawrencium (Lr)\n\nLawrencium được sử dụng gần như hoàn toàn trong nghiên cứu vật lý hạt nhân và hóa học actini.\n\nLawrencium rất quan trọng vì nó giúp xác định cấu hình electron ở cuối dãy actini.\n\n[Đọc tiếp về Lawrencium](/trung-tam/tai-lieu-so/lawrencium-lr/).\n\nNhững ứng dụng này thuộc về hành trình phát triển tiếp theo của nguyên tố. Từ phát hiện đến thiết bị sử dụng được còn có công việc của nhiều thế hệ: tạo vật liệu đủ sạch, hiểu tính chất, thiết kế quy trình và kiểm tra độ bền. Vai trò của người khám phá nằm ở dấu mốc được kể ở trên; các công nghệ xuất hiện sau đó cần được ghi nhận cho đúng công trình.\n\n## Nguồn và đọc tiếp\n\n- [Hội Hóa học Hoàng gia Anh · Lawrencium](https://periodic-table.rsc.org/element/103/lawrencium)"
 }

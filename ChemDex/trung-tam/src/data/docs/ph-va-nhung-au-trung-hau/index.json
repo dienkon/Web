@@ -1,0 +1,44 @@
+{
+  "id": "ph-va-nhung-au-trung-hau",
+  "slug": "ph-va-nhung-au-trung-hau",
+  "documentPath": "docs/ph-va-nhung-au-trung-hau/index.json",
+  "title": "Khi hàu non không lớn: pH bước ra khỏi sách giáo khoa",
+  "summary": "Sự cố ở các trại giống hàu vùng Tây Bắc Thái Bình Dương đưa hóa học carbonate vào quyết định lấy nước, nuôi giống và bảo vệ sinh kế.",
+  "category": "khainiem",
+  "author": "Ban biên tập ChemDex",
+  "image": "/assets/library/photos/stories/oyster.jpg",
+  "tags": [
+    "pH",
+    "Đại dương",
+    "Cân bằng hóa học",
+    "Carbonate"
+  ],
+  "aliases": [],
+  "documentKind": "story",
+  "readingMinutes": 4,
+  "editorialEvidence": {
+    "language": "vi",
+    "scope": "chemical-family",
+    "contextLabel": "Khi hàu non không lớn: pH bước ra khỏi sách giáo khoa",
+    "reviewBasis": "Biên soạn theo các nguồn dẫn cuối bài; phân biệt kết quả đã thực hiện và hướng phát triển.",
+    "story": {
+      "status": "documented",
+      "section": "## Một mùa giống đặt ra câu hỏi về nước biển",
+      "sources": [
+        "https://oceanacidification.noaa.gov/oap_pubs/impacts-of-coastal-acidification-on-the-pacific-northwest-shellfish-industry-and-adaptation-strategies-implemented-in-response/",
+        "https://oceanservice.noaa.gov/facts/acidification.html",
+        "https://ioos.noaa.gov/project/pacific-ocean-acidification-project/"
+      ]
+    },
+    "application": {
+      "status": "documented",
+      "section": "## Ứng dụng hôm nay: chọn thời điểm lấy nước bằng dữ liệu",
+      "sources": [
+        "https://oceanacidification.noaa.gov/oap_pubs/impacts-of-coastal-acidification-on-the-pacific-northwest-shellfish-industry-and-adaptation-strategies-implemented-in-response/",
+        "https://oceanservice.noaa.gov/facts/acidification.html",
+        "https://ioos.noaa.gov/project/pacific-ocean-acidification-project/"
+      ]
+    }
+  },
+  "content": "## Một mùa giống đặt ra câu hỏi về nước biển\n\nTừ năm 2007, các trại giống hàu ở bờ Tây Hoa Kỳ ghi nhận những đợt chết bất thường của ấu trùng. Tại Whiskey Creek ở Oregon, việc theo dõi hóa học nước đầu vào giúp liên hệ khả năng sống của hàu non với trạng thái bão hòa aragonite, một dạng calcium carbonate tạo vỏ.\n\nVấn đề không thể giải thích chỉ bằng việc nước trông sạch hay đục. Những thay đổi khó nhìn thấy trong thành phần hòa tan đã ảnh hưởng đến giai đoạn đầu đời của con vật. Hợp tác giữa người nuôi và nhà khoa học biến phép đo hóa học thành công cụ hỗ trợ sản xuất.\n\n![Hàu Thái Bình Dương với lớp vỏ cứng](/assets/library/photos/stories/oyster.jpg)\n\n*Hàu Thái Bình Dương từ vùng Marennes-Oléron, Pháp; ảnh minh họa sinh vật tạo vỏ calcium carbonate. — David.Monniaux; [CC BY-SA 3.0](https://creativecommons.org/licenses/by-sa/3.0/). [Nguồn ảnh](https://commons.wikimedia.org/wiki/File:Crassostrea_gigas_p1040848.jpg).*\n\n## Acid hóa không có nghĩa nước biển đã thành một bể acid\n\nKhi CO₂ đi vào nước, hệ carbonate thay đổi. Những cân bằng giữa CO₂ hòa tan, acid carbonic, bicarbonate và carbonate liên hệ với nồng độ ion hydrogen. Tăng lượng CO₂ có thể làm pH giảm và khiến điều kiện tạo calcium carbonate trở nên kém thuận lợi hơn.\n\nNước biển vẫn có thể mang tính kiềm trong lúc đang acid hóa. Thuật ngữ acid hóa mô tả xu hướng pH giảm, không buộc giá trị pH phải đi qua 7. Nhầm hai ý này khiến người đọc bỏ qua những biến đổi quan trọng chỉ vì nước chưa đạt trạng thái thường gọi là acid.\n\npH cũng không phải thước đo duy nhất. Hai mẫu nước có cùng pH vẫn có thể khác về độ kiềm tổng và hệ carbonate. Với sinh vật tạo vỏ, trạng thái bão hòa của khoáng vật liên quan là thông tin cần thêm. Một chỉ số dễ nhớ không thể thay thế toàn bộ đặc điểm hóa học của môi trường.\n\n## Ứng dụng hôm nay: chọn thời điểm lấy nước bằng dữ liệu\n\nCác hệ quan trắc tại trại giống giúp nhận biết điều kiện nước không thuận lợi. Theo nghiên cứu được NOAA giới thiệu, theo dõi hóa học và xử lý nước đã hỗ trợ cải thiện sản xuất giống. Đây là ứng dụng trực tiếp của cân bằng hóa học: đo trước, hiểu dòng nước đầu vào rồi quyết định cách vận hành.\n\nBiện pháp thích nghi ở trại giống không tự giải quyết toàn bộ nguyên nhân acid hóa ngoài biển. Nước ven bờ còn chịu tác động của nước trồi, nhiệt độ, hô hấp và quang hợp. Vì thế, số liệu cần được đọc theo thời gian và địa điểm, thay vì lấy một kết quả đo đơn lẻ để kết luận cho cả vùng biển.\n\nVới người học hóa học, câu chuyện hàu non đổi ý nghĩa của việc đo pH. Đó không chỉ là đổi màu giấy thử. Nó là một phần của hệ thống quyết định có ảnh hưởng đến sinh vật, công việc và nguồn thực phẩm. Câu hỏi hữu ích tiếp theo không phải chỉ “pH bằng bao nhiêu?”, mà là “giá trị này thay đổi vì đâu, và sinh vật đang cần điều kiện gì để phát triển?”.\n\n## Nguồn và đọc thêm\n\n- [Barton và cộng sự, 2015 · Tác động và thích nghi của ngành nuôi nhuyễn thể](https://oceanacidification.noaa.gov/oap_pubs/impacts-of-coastal-acidification-on-the-pacific-northwest-shellfish-industry-and-adaptation-strategies-implemented-in-response/)\n- [NOAA · Acid hóa đại dương là gì?](https://oceanservice.noaa.gov/facts/acidification.html)\n- [NOAA IOOS · Theo dõi hóa học nước cho trại giống](https://ioos.noaa.gov/project/pacific-ocean-acidification-project/)"
+}

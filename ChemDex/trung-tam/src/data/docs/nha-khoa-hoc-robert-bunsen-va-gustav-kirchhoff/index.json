@@ -2,11 +2,11 @@
   "id": "nha-khoa-hoc-robert-bunsen-va-gustav-kirchhoff",
   "slug": "nha-khoa-hoc-robert-bunsen-va-gustav-kirchhoff",
   "documentPath": "docs/nha-khoa-hoc-robert-bunsen-va-gustav-kirchhoff/index.json",
-  "title": "Robert Bunsen và Gustav Kirchhoff — dấu mốc khám phá hóa học",
+  "title": "Robert Bunsen và Gustav Kirchhoff — lần theo dấu vết rubidium, cesium",
   "author": "Ban biên tập ChemDex",
   "category": "tieusu",
-  "summary": "Hồ sơ lịch sử liên quan đến Rubidium (Rb), Cesium (Cs); phân biệt phát hiện, cô lập và đặt tên theo từng trường hợp.",
-  "image": "/assets/library/history-evidence.svg",
+  "summary": "Rubidium được phát hiện năm 1861 khi Robert Bunsen và Gustav Kirchhoff phân tích khoáng vật Lepidolite bằng phương pháp quang phổ. Họ nhận ra hai vạch phổ màu đỏ đặc trưng chưa từng được quan sát trước đó.",
+  "image": "/assets/library/photos/elements/Rb.jpg",
   "tags": [
     "Lịch sử hóa học",
     "Rb",
@@ -16,6 +16,28 @@
     "Robert Bunsen và Gustav Kirchhoff"
   ],
   "documentKind": "biography",
-  "readingMinutes": 1,
-  "content": "# Robert Bunsen và Gustav Kirchhoff — dấu mốc khám phá hóa học\n\nHồ sơ lịch sử liên quan đến Rubidium (Rb), Cesium (Cs); phân biệt phát hiện, cô lập và đặt tên theo từng trường hợp.\n\n## Rubidium (Rb)\n\nRubidium được phát hiện năm 1861 khi Robert Bunsen và Gustav Kirchhoff phân tích khoáng vật Lepidolite bằng phương pháp quang phổ. Họ nhận ra hai vạch phổ màu đỏ đặc trưng chưa từng được quan sát trước đó. Tên Rubidium bắt nguồn từ tiếng Latin rubidus, nghĩa là “đỏ sẫm”.\n\n**Mốc lịch sử:** 1861. **Địa điểm ghi trong hồ sơ:** Đức.\n\n[Đọc tài liệu về Rubidium](/trung-tam/tai-lieu-so/rubidium-rb/).\n\n[Royal Society of Chemistry — thông tin nguyên tố](https://periodic-table.rsc.org/element/37/rubidium)\n\n## Cesium (Cs)\n\nCesium được phát hiện năm 1860 bằng phương pháp quang phổ khi Robert Bunsen và Gustav Kirchhoff phân tích nước khoáng. Họ quan sát thấy hai vạch phổ màu xanh đặc trưng, từ đó xác định sự tồn tại của nguyên tố mới. Tên Cesium bắt nguồn từ tiếng Latin caesius, nghĩa là “xanh da trời”.\n\n**Mốc lịch sử:** 1860. **Địa điểm ghi trong hồ sơ:** Đức.\n\n[Đọc tài liệu về Cesium](/trung-tam/tai-lieu-so/cesium-cs/).\n\n[Royal Society of Chemistry — thông tin nguyên tố](https://periodic-table.rsc.org/element/55/caesium)\n\n## Cách đọc các mốc lịch sử\n\nPhát hiện một nguyên tố, cô lập đơn chất và đặt tên có thể là những công việc khác nhau, diễn ra ở các thời điểm khác nhau. Một nhóm nghiên cứu hoặc cơ quan không được xem như một cá nhân. Với nguyên tố được biết từ cổ đại, hồ sơ không gán một người khám phá. Các ghi nhận trên dẫn về tài liệu của nguyên tố và nguồn tham khảo tương ứng; không bổ sung lời trích dẫn hay giai thoại đời tư chưa có căn cứ."
+  "readingMinutes": 3,
+  "editorialEvidence": {
+    "language": "vi",
+    "scope": "related-element",
+    "contextLabel": "Rubidium (Rb), Cesium (Cs)",
+    "reviewBasis": "existing-element-dossier",
+    "story": {
+      "status": "documented",
+      "section": "## Cuộc tìm kiếm dẫn đến rubidium",
+      "sources": [
+        "https://periodic-table.rsc.org/element/37/rubidium",
+        "https://periodic-table.rsc.org/element/55/caesium"
+      ]
+    },
+    "application": {
+      "status": "context-only",
+      "section": "## Từ dấu mốc nghiên cứu đến công việc hôm nay",
+      "sources": [
+        "https://periodic-table.rsc.org/element/37/rubidium",
+        "https://periodic-table.rsc.org/element/55/caesium"
+      ]
+    }
+  },
+  "content": "## Cuộc tìm kiếm dẫn đến rubidium\n\nRubidium được phát hiện năm 1861 khi Robert Bunsen và Gustav Kirchhoff phân tích khoáng vật Lepidolite bằng phương pháp quang phổ. Họ nhận ra hai vạch phổ màu đỏ đặc trưng chưa từng được quan sát trước đó. Tên rubidium bắt nguồn từ tiếng Latin rubidus, nghĩa là “đỏ sẫm”.\n\nNhững người hoặc cơ sở được ghi nhận trong câu chuyện này là **Robert Bunsen và Gustav Kirchhoff**.\n\n![Hình minh họa rubidium](/assets/library/photos/elements/Rb.jpg)\n\n*Hình minh họa chủ đề rubidium. [Nguồn hình: bộ ảnh nguyên tố](https://en.wikipedia.org/wiki/Rubidium).*\n\n## Thêm một dấu mốc: Cesium (Cs)\n\nCesium được phát hiện năm 1860 bằng phương pháp quang phổ khi Robert Bunsen và Gustav Kirchhoff phân tích nước khoáng. Họ quan sát thấy hai vạch phổ màu xanh đặc trưng, từ đó xác định sự tồn tại của nguyên tố mới. Tên cesium bắt nguồn từ tiếng Latin caesius, nghĩa là “xanh da trời”.\n\nNhững người hoặc cơ sở được ghi nhận trong câu chuyện này là **Robert Bunsen và Gustav Kirchhoff**.\n\n## Bằng chứng đã thay đổi điều gì?\n\nÁnh sáng giúp cuộc tìm kiếm đi xa hơn màu sắc nhìn bằng mắt. Khi tách ánh sáng thành quang phổ, người nghiên cứu có thể so sánh vị trí những vạch sáng và tìm dấu hiệu chưa giải thích được bằng các chất đã biết. Từ một dấu hiệu ấy đến kết luận về nguyên tố mới vẫn cần kiểm tra nguồn phát sáng và những chất có thể lẫn trong mẫu. Một vạch phổ là bằng chứng phải giải thích, chứ tên gọi chưa tự sinh ra từ màu của ngọn lửa.\n\n## Từ dấu mốc nghiên cứu đến công việc hôm nay\n\n### Rubidium (Rb)\n\nRubidium được sử dụng trong một số loại rubidium atomic clocks nhờ đặc tính chuyển mức năng lượng ổn định của nguyên tử.\n\nRubidium được sử dụng trong nghiên cứu nguyên tử lạnh và Bose–Einstein condensate.\n\n[Đọc tiếp về Rubidium](/trung-tam/tai-lieu-so/rubidium-rb/).\n\n### Cesium (Cs)\n\nCesium-133 được sử dụng để định nghĩa đơn vị giây trong hệ SI thông qua tần số chuyển tiếp nguyên tử.\n\nĐồng hồ nguyên tử cesium được sử dụng trong các hệ thống cần đo thời gian cực kỳ chính xác.\n\n[Đọc tiếp về Cesium](/trung-tam/tai-lieu-so/cesium-cs/).\n\nNhững ứng dụng này thuộc về hành trình phát triển tiếp theo của nguyên tố. Từ phát hiện đến thiết bị sử dụng được còn có công việc của nhiều thế hệ: tạo vật liệu đủ sạch, hiểu tính chất, thiết kế quy trình và kiểm tra độ bền. Vai trò của người khám phá nằm ở dấu mốc được kể ở trên; các công nghệ xuất hiện sau đó cần được ghi nhận cho đúng công trình.\n\n## Nguồn và đọc tiếp\n\n- [Hội Hóa học Hoàng gia Anh · Rubidium](https://periodic-table.rsc.org/element/37/rubidium)\n- [Hội Hóa học Hoàng gia Anh · Cesium](https://periodic-table.rsc.org/element/55/caesium)"
 }

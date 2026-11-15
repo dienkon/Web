@@ -2,11 +2,11 @@
   "id": "nha-khoa-hoc-marguerite-perey",
   "slug": "nha-khoa-hoc-marguerite-perey",
   "documentPath": "docs/nha-khoa-hoc-marguerite-perey/index.json",
-  "title": "Marguerite Perey — dấu mốc khám phá hóa học",
+  "title": "Marguerite Perey — lần theo dấu vết francium",
   "author": "Ban biên tập ChemDex",
   "category": "tieusu",
-  "summary": "Hồ sơ lịch sử liên quan đến Francium (Fr); phân biệt phát hiện, cô lập và đặt tên theo từng trường hợp.",
-  "image": "/assets/library/history-evidence.svg",
+  "summary": "Francium được Marguerite Perey phát hiện vào năm 1939 khi bà nghiên cứu sự phân rã của actinium-227. Bà nhận thấy một sản phẩm phân rã mới và xác định đó là nguyên tố số 87.",
+  "image": "/assets/library/photos/elements/Fr.jpg",
   "tags": [
     "Lịch sử hóa học",
     "Fr"
@@ -15,6 +15,26 @@
     "Marguerite Perey"
   ],
   "documentKind": "biography",
-  "readingMinutes": 1,
-  "content": "# Marguerite Perey — dấu mốc khám phá hóa học\n\nHồ sơ lịch sử liên quan đến Francium (Fr); phân biệt phát hiện, cô lập và đặt tên theo từng trường hợp.\n\n## Francium (Fr)\n\nFrancium được Marguerite Perey phát hiện vào năm 1939 khi bà nghiên cứu sự phân rã của Actinium-227. Bà nhận thấy một sản phẩm phân rã mới và xác định đó là nguyên tố số 87. Nguyên tố được đặt tên Francium để vinh danh nước Pháp (France).\n\n**Mốc lịch sử:** 1939. **Địa điểm ghi trong hồ sơ:** Pháp.\n\n[Đọc tài liệu về Francium](/trung-tam/tai-lieu-so/francium-fr/).\n\n[Royal Society of Chemistry — thông tin nguyên tố](https://periodic-table.rsc.org/element/87/francium)\n\n## Cách đọc các mốc lịch sử\n\nPhát hiện một nguyên tố, cô lập đơn chất và đặt tên có thể là những công việc khác nhau, diễn ra ở các thời điểm khác nhau. Một nhóm nghiên cứu hoặc cơ quan không được xem như một cá nhân. Với nguyên tố được biết từ cổ đại, hồ sơ không gán một người khám phá. Các ghi nhận trên dẫn về tài liệu của nguyên tố và nguồn tham khảo tương ứng; không bổ sung lời trích dẫn hay giai thoại đời tư chưa có căn cứ."
+  "readingMinutes": 2,
+  "editorialEvidence": {
+    "language": "vi",
+    "scope": "related-element",
+    "contextLabel": "Francium (Fr)",
+    "reviewBasis": "existing-element-dossier",
+    "story": {
+      "status": "documented",
+      "section": "## Cuộc tìm kiếm dẫn đến francium",
+      "sources": [
+        "https://periodic-table.rsc.org/element/87/francium"
+      ]
+    },
+    "application": {
+      "status": "context-only",
+      "section": "## Từ dấu mốc nghiên cứu đến công việc hôm nay",
+      "sources": [
+        "https://periodic-table.rsc.org/element/87/francium"
+      ]
+    }
+  },
+  "content": "## Cuộc tìm kiếm dẫn đến francium\n\nFrancium được Marguerite Perey phát hiện vào năm 1939 khi bà nghiên cứu sự phân rã của actinium-227. Bà nhận thấy một sản phẩm phân rã mới và xác định đó là nguyên tố số 87. Nguyên tố được đặt tên francium để vinh danh nước Pháp (France).\n\nNhững người hoặc cơ sở được ghi nhận trong câu chuyện này là **Marguerite Perey**.\n\n![Hình minh họa francium](/assets/library/photos/elements/Fr.jpg)\n\n*Hình minh họa chủ đề francium. [Nguồn hình: bộ ảnh nguyên tố](https://commons.wikimedia.org/wiki/File:Francium_(Element_-_87)_2.jpg).*\n\n## Bằng chứng đã thay đổi điều gì?\n\nĐiều làm một phát hiện có sức nặng là khả năng phân biệt chất đang nghiên cứu với những chất đã biết. Mẫu vật có thể chứa nhiều thành phần; tên khoáng vật hoặc màu sắc chưa đủ xác định nguyên tố. Tách mẫu, so sánh phản ứng và diễn giải phép đo nối với nhau thành một lập luận. Bởi vậy, ngày nhận ra một nguyên tố, ngày cô lập được đơn chất và ngày tên gọi được thống nhất có thể khác nhau.\n\n## Từ dấu mốc nghiên cứu đến công việc hôm nay\n\n### Francium (Fr)\n\nCực kỳ hiếm.\n\nTất cả đồng vị đều phóng xạ.\n\n[Đọc tiếp về Francium](/trung-tam/tai-lieu-so/francium-fr/).\n\nNhững ứng dụng này thuộc về hành trình phát triển tiếp theo của nguyên tố. Từ phát hiện đến thiết bị sử dụng được còn có công việc của nhiều thế hệ: tạo vật liệu đủ sạch, hiểu tính chất, thiết kế quy trình và kiểm tra độ bền. Vai trò của người khám phá nằm ở dấu mốc được kể ở trên; các công nghệ xuất hiện sau đó cần được ghi nhận cho đúng công trình.\n\n## Nguồn và đọc tiếp\n\n- [Hội Hóa học Hoàng gia Anh · Francium](https://periodic-table.rsc.org/element/87/francium)"
 }

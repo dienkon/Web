@@ -27,6 +27,22 @@
   "documentKind": "reference",
   "lessonKind": "substance-guide",
   "readingMinutes": 8,
+  "editorialEvidence": {
+    "language": "vi",
+    "scope": "substance",
+    "contextLabel": "bạc cacbonat",
+    "reviewBasis": "editorial-audit-2026-11-15",
+    "story": {
+      "status": "missing",
+      "sources": [],
+      "reason": "Chưa có câu chuyện và ứng dụng được đối chiếu riêng cho bạc cacbonat (Ag2CO3); giữ nguyên bài tra cứu, không gán lịch sử hay công dụng của nguyên tố thành phần cho hợp chất."
+    },
+    "application": {
+      "status": "missing",
+      "sources": [],
+      "reason": "Chưa có câu chuyện và ứng dụng được đối chiếu riêng cho bạc cacbonat (Ag2CO3); giữ nguyên bài tra cứu, không gán lịch sử hay công dụng của nguyên tố thành phần cho hợp chất."
+    }
+  },
   "chemicalEvidence": {
     "formula": "Ag2CO3",
     "representativeId": "formula-Ag2CO3",

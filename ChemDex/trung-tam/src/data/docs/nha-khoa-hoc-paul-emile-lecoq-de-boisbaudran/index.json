@@ -2,11 +2,11 @@
   "id": "nha-khoa-hoc-paul-emile-lecoq-de-boisbaudran",
   "slug": "nha-khoa-hoc-paul-emile-lecoq-de-boisbaudran",
   "documentPath": "docs/nha-khoa-hoc-paul-emile-lecoq-de-boisbaudran/index.json",
-  "title": "Paul-Émile Lecoq de Boisbaudran — dấu mốc khám phá hóa học",
+  "title": "Paul-Émile Lecoq de Boisbaudran — lần theo dấu vết gali, samarium, dysprosium",
   "author": "Ban biên tập ChemDex",
   "category": "tieusu",
-  "summary": "Hồ sơ lịch sử liên quan đến Gali (Ga), Samarium (Sm), Dysprosium (Dy); phân biệt phát hiện, cô lập và đặt tên theo từng trường hợp.",
-  "image": "/assets/library/history-evidence.svg",
+  "summary": "Năm 1875, Paul-Émile Lecoq de Boisbaudran phát hiện gali trong một mẫu Sphalerite bằng phương pháp quang phổ. Sự tồn tại của gali trước đó đã được Dmitri Mendeleev dự đoán dựa trên khoảng trống trong bảng tuần hoàn và ông gọi nguyên tố chưa biết là Eka-nhôm.",
+  "image": "/assets/library/photos/elements/Ga.png",
   "tags": [
     "Lịch sử hóa học",
     "Ga",
@@ -17,6 +17,30 @@
     "Paul-Émile Lecoq de Boisbaudran"
   ],
   "documentKind": "biography",
-  "readingMinutes": 2,
-  "content": "# Paul-Émile Lecoq de Boisbaudran — dấu mốc khám phá hóa học\n\nHồ sơ lịch sử liên quan đến Gali (Ga), Samarium (Sm), Dysprosium (Dy); phân biệt phát hiện, cô lập và đặt tên theo từng trường hợp.\n\n## Gali (Ga)\n\nNăm 1875, Paul-Émile Lecoq de Boisbaudran phát hiện Gallium trong một mẫu Sphalerite bằng phương pháp quang phổ. Sự tồn tại của Gallium trước đó đã được Dmitri Mendeleev dự đoán dựa trên khoảng trống trong bảng tuần hoàn và ông gọi nguyên tố chưa biết là Eka-aluminium.\n\n**Mốc lịch sử:** 1875. **Địa điểm ghi trong hồ sơ:** Pháp.\n\n[Đọc tài liệu về Gali](/trung-tam/tai-lieu-so/gali-ga/).\n\n[Royal Society of Chemistry — thông tin nguyên tố](https://periodic-table.rsc.org/element/31/gallium)\n\n## Samarium (Sm)\n\nSamarium được phát hiện khi Paul-Émile Lecoq de Boisbaudran nghiên cứu khoáng vật Samarskite. Ông phát hiện các vạch phổ mới và xác định sự tồn tại của một nguyên tố đất hiếm mới. Sau đó, Samarium được điều chế ở dạng tương đối tinh khiết hơn. Tên Samarium bắt nguồn từ tên khoáng vật Samarskite, vốn được đặt theo tên của Vasili Samarsky-Bykhovets, một kỹ sư khai mỏ người Nga.\n\n**Mốc lịch sử:** 1879. **Địa điểm ghi trong hồ sơ:** Pháp.\n\n[Đọc tài liệu về Samarium](/trung-tam/tai-lieu-so/samarium-sm/).\n\n[Royal Society of Chemistry — thông tin nguyên tố](https://periodic-table.rsc.org/element/62/samarium)\n\n## Dysprosium (Dy)\n\nNăm 1886, Paul-Émile Lecoq de Boisbaudran phát hiện Dysprosium khi nghiên cứu Holmium oxide. Ông nhận thấy một chất mới thông qua các đặc điểm phổ và tiến hành nhiều bước tinh chế để tách nó khỏi các nguyên tố đất hiếm khác. Tên Dysprosium bắt nguồn từ tiếng Hy Lạp dysprositos, nghĩa là “khó có được” hoặc “khó tiếp cận”, phản ánh việc nguyên tố này rất khó tách khỏi các Lanthanide khác.\n\n**Mốc lịch sử:** 1886. **Địa điểm ghi trong hồ sơ:** Pháp.\n\n[Đọc tài liệu về Dysprosium](/trung-tam/tai-lieu-so/dysprosium-dy/).\n\n[Royal Society of Chemistry — thông tin nguyên tố](https://periodic-table.rsc.org/element/66/dysprosium)\n\n## Cách đọc các mốc lịch sử\n\nPhát hiện một nguyên tố, cô lập đơn chất và đặt tên có thể là những công việc khác nhau, diễn ra ở các thời điểm khác nhau. Một nhóm nghiên cứu hoặc cơ quan không được xem như một cá nhân. Với nguyên tố được biết từ cổ đại, hồ sơ không gán một người khám phá. Các ghi nhận trên dẫn về tài liệu của nguyên tố và nguồn tham khảo tương ứng; không bổ sung lời trích dẫn hay giai thoại đời tư chưa có căn cứ."
+  "readingMinutes": 4,
+  "editorialEvidence": {
+    "language": "vi",
+    "scope": "related-element",
+    "contextLabel": "Gali (Ga), Samarium (Sm), Dysprosium (Dy)",
+    "reviewBasis": "existing-element-dossier",
+    "story": {
+      "status": "documented",
+      "section": "## Cuộc tìm kiếm dẫn đến gali",
+      "sources": [
+        "https://periodic-table.rsc.org/element/31/gallium",
+        "https://periodic-table.rsc.org/element/62/samarium",
+        "https://periodic-table.rsc.org/element/66/dysprosium"
+      ]
+    },
+    "application": {
+      "status": "context-only",
+      "section": "## Từ dấu mốc nghiên cứu đến công việc hôm nay",
+      "sources": [
+        "https://periodic-table.rsc.org/element/31/gallium",
+        "https://periodic-table.rsc.org/element/62/samarium",
+        "https://periodic-table.rsc.org/element/66/dysprosium"
+      ]
+    }
+  },
+  "content": "## Cuộc tìm kiếm dẫn đến gali\n\nNăm 1875, Paul-Émile Lecoq de Boisbaudran phát hiện gali trong một mẫu Sphalerite bằng phương pháp quang phổ. Sự tồn tại của gali trước đó đã được Dmitri Mendeleev dự đoán dựa trên khoảng trống trong bảng tuần hoàn và ông gọi nguyên tố chưa biết là Eka-nhôm.\n\nNhững người hoặc cơ sở được ghi nhận trong câu chuyện này là **Paul-Émile Lecoq de Boisbaudran**.\n\n![Hình minh họa gali](/assets/library/photos/elements/Ga.png)\n\n*Hình minh họa chủ đề gali. [Nguồn hình: bộ ảnh nguyên tố](https://en.wikipedia.org/wiki/Gallium).*\n\n## Thêm một dấu mốc: Samarium (Sm)\n\nSamarium được phát hiện khi Paul-Émile Lecoq de Boisbaudran nghiên cứu khoáng vật Samarskite. Ông phát hiện các vạch phổ mới và xác định sự tồn tại của một nguyên tố đất hiếm mới. Sau đó, samarium được điều chế ở dạng tương đối tinh khiết hơn. Tên samarium bắt nguồn từ tên khoáng vật Samarskite, vốn được đặt theo tên của Vasili Samarsky-Bykhovets, một kỹ sư khai mỏ người Nga.\n\nNhững người hoặc cơ sở được ghi nhận trong câu chuyện này là **Paul-Émile Lecoq de Boisbaudran**.\n\n## Thêm một dấu mốc: Dysprosium (Dy)\n\nNăm 1886, Paul-Émile Lecoq de Boisbaudran phát hiện dysprosium khi nghiên cứu holmium oxit. Ông nhận thấy một chất mới thông qua các đặc điểm phổ và tiến hành nhiều bước tinh chế để tách nó khỏi các nguyên tố đất hiếm khác. Tên dysprosium bắt nguồn từ tiếng Hy Lạp dysprositos, nghĩa là “khó có được” hoặc “khó tiếp cận”, phản ánh việc nguyên tố này rất khó tách khỏi các lantan khác.\n\nNhững người hoặc cơ sở được ghi nhận trong câu chuyện này là **Paul-Émile Lecoq de Boisbaudran**.\n\n## Bằng chứng đã thay đổi điều gì?\n\nÁnh sáng giúp cuộc tìm kiếm đi xa hơn màu sắc nhìn bằng mắt. Khi tách ánh sáng thành quang phổ, người nghiên cứu có thể so sánh vị trí những vạch sáng và tìm dấu hiệu chưa giải thích được bằng các chất đã biết. Từ một dấu hiệu ấy đến kết luận về nguyên tố mới vẫn cần kiểm tra nguồn phát sáng và những chất có thể lẫn trong mẫu. Một vạch phổ là bằng chứng phải giải thích, chứ tên gọi chưa tự sinh ra từ màu của ngọn lửa.\n\n## Từ dấu mốc nghiên cứu đến công việc hôm nay\n\n### Gali (Ga)\n\nGali là thành phần quan trọng của gali arsenide (GaAs) và gali nitrua (GaN).\n\nGaN được sử dụng rộng rãi trong LED xanh lam, LED trắng và các thiết bị quang điện.\n\n[Đọc tiếp về Gali](/trung-tam/tai-lieu-so/gali-ga/).\n\n### Samarium (Sm)\n\nSamarium được sử dụng để chế tạo samarium–coban (SmCo), một loại nam châm vĩnh cửu mạnh có khả năng hoạt động tốt ở nhiệt độ cao.\n\nDo ¹⁴⁹Sm có tiết diện bắt neutron rất lớn, samarium có vai trò trong việc hấp thụ neutron và kiểm soát phản ứng hạt nhân.\n\n[Đọc tiếp về Samarium](/trung-tam/tai-lieu-so/samarium-sm/).\n\n### Dysprosium (Dy)\n\nDysprosium được thêm vào nam châm neodymium–sắt–bo (Nd-Fe-B) để tăng khả năng duy trì từ tính ở nhiệt độ cao, đặc biệt trong động cơ điện và các thiết bị công suất cao.\n\nDysprosium có khả năng hấp thụ neutron mạnh nên được sử dụng trong một số vật liệu hấp thụ neutron.\n\n[Đọc tiếp về Dysprosium](/trung-tam/tai-lieu-so/dysprosium-dy/).\n\nNhững ứng dụng này thuộc về hành trình phát triển tiếp theo của nguyên tố. Từ phát hiện đến thiết bị sử dụng được còn có công việc của nhiều thế hệ: tạo vật liệu đủ sạch, hiểu tính chất, thiết kế quy trình và kiểm tra độ bền. Vai trò của người khám phá nằm ở dấu mốc được kể ở trên; các công nghệ xuất hiện sau đó cần được ghi nhận cho đúng công trình.\n\n## Nguồn và đọc tiếp\n\n- [Hội Hóa học Hoàng gia Anh · Gali](https://periodic-table.rsc.org/element/31/gallium)\n- [Hội Hóa học Hoàng gia Anh · Samarium](https://periodic-table.rsc.org/element/62/samarium)\n- [Hội Hóa học Hoàng gia Anh · Dysprosium](https://periodic-table.rsc.org/element/66/dysprosium)"
 }

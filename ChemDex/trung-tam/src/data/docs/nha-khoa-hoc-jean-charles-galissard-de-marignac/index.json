@@ -2,11 +2,11 @@
   "id": "nha-khoa-hoc-jean-charles-galissard-de-marignac",
   "slug": "nha-khoa-hoc-jean-charles-galissard-de-marignac",
   "documentPath": "docs/nha-khoa-hoc-jean-charles-galissard-de-marignac/index.json",
-  "title": "Jean Charles Galissard de Marignac — dấu mốc khám phá hóa học",
+  "title": "Jean Charles Galissard de Marignac — lần theo dấu vết gadolinium, ytterbium",
   "author": "Ban biên tập ChemDex",
   "category": "tieusu",
-  "summary": "Hồ sơ lịch sử liên quan đến Gadolinium (Gd), Ytterbium (Yb); phân biệt phát hiện, cô lập và đặt tên theo từng trường hợp.",
-  "image": "/assets/library/history-evidence.svg",
+  "summary": "Năm 1880, Jean Charles Galissard de Marignac phát hiện một nguyên tố đất hiếm mới trong Didymium và samarium thông qua sự khác biệt về tính chất và phổ của các hợp chất. Sau đó, Paul-Émile Lecoq de Boisbaudran đã tách được gadolinium tương đối tinh khiết vào năm 1886.",
+  "image": "/assets/library/photos/elements/Gd.jpg",
   "tags": [
     "Lịch sử hóa học",
     "Gd",
@@ -16,6 +16,28 @@
     "Jean Charles Galissard de Marignac"
   ],
   "documentKind": "biography",
-  "readingMinutes": 2,
-  "content": "# Jean Charles Galissard de Marignac — dấu mốc khám phá hóa học\n\nHồ sơ lịch sử liên quan đến Gadolinium (Gd), Ytterbium (Yb); phân biệt phát hiện, cô lập và đặt tên theo từng trường hợp.\n\n## Gadolinium (Gd)\n\nNăm 1880, Jean Charles Galissard de Marignac phát hiện một nguyên tố đất hiếm mới trong Didymium và Samarium thông qua sự khác biệt về tính chất và phổ của các hợp chất. Sau đó, Paul-Émile Lecoq de Boisbaudran đã tách được Gadolinium tương đối tinh khiết vào năm 1886. Tên Gadolinium được đặt theo tên nhà hóa học người Phần Lan Johan Gadolin, người có nhiều đóng góp trong nghiên cứu các nguyên tố đất hiếm.\n\n**Mốc lịch sử:** 1880. **Địa điểm ghi trong hồ sơ:** Geneva, Thụy Sĩ.\n\n[Đọc tài liệu về Gadolinium](/trung-tam/tai-lieu-so/gadolinium-gd/).\n\n[Royal Society of Chemistry — thông tin nguyên tố](https://periodic-table.rsc.org/element/64/gadolinium)\n\n## Ytterbium (Yb)\n\nNăm 1878, Jean Charles Galissard de Marignac phát hiện một thành phần mới trong khoáng vật Erbia. Ông đặt tên cho oxide mới là Ytterbia. Sau đó, các nhà khoa học tiếp tục nghiên cứu và tách Ytterbium khỏi các nguyên tố đất hiếm khác. Năm 1953, Ytterbium kim loại tương đối tinh khiết mới được điều chế. Tên Ytterbium bắt nguồn từ Ytterby, một ngôi làng ở Thụy Điển. Đây cũng là nguồn gốc tên của Yttrium, Terbium và Erbium.\n\n**Mốc lịch sử:** 1878. **Địa điểm ghi trong hồ sơ:** Geneva, Thụy Sĩ.\n\n[Đọc tài liệu về Ytterbium](/trung-tam/tai-lieu-so/ytterbium-yb/).\n\n[Royal Society of Chemistry — thông tin nguyên tố](https://periodic-table.rsc.org/element/70/ytterbium)\n\n## Cách đọc các mốc lịch sử\n\nPhát hiện một nguyên tố, cô lập đơn chất và đặt tên có thể là những công việc khác nhau, diễn ra ở các thời điểm khác nhau. Một nhóm nghiên cứu hoặc cơ quan không được xem như một cá nhân. Với nguyên tố được biết từ cổ đại, hồ sơ không gán một người khám phá. Các ghi nhận trên dẫn về tài liệu của nguyên tố và nguồn tham khảo tương ứng; không bổ sung lời trích dẫn hay giai thoại đời tư chưa có căn cứ."
+  "readingMinutes": 4,
+  "editorialEvidence": {
+    "language": "vi",
+    "scope": "related-element",
+    "contextLabel": "Gadolinium (Gd), Ytterbium (Yb)",
+    "reviewBasis": "existing-element-dossier",
+    "story": {
+      "status": "documented",
+      "section": "## Cuộc tìm kiếm dẫn đến gadolinium",
+      "sources": [
+        "https://periodic-table.rsc.org/element/64/gadolinium",
+        "https://periodic-table.rsc.org/element/70/ytterbium"
+      ]
+    },
+    "application": {
+      "status": "context-only",
+      "section": "## Từ dấu mốc nghiên cứu đến công việc hôm nay",
+      "sources": [
+        "https://periodic-table.rsc.org/element/64/gadolinium",
+        "https://periodic-table.rsc.org/element/70/ytterbium"
+      ]
+    }
+  },
+  "content": "## Cuộc tìm kiếm dẫn đến gadolinium\n\nNăm 1880, Jean Charles Galissard de Marignac phát hiện một nguyên tố đất hiếm mới trong Didymium và samarium thông qua sự khác biệt về tính chất và phổ của các hợp chất. Sau đó, Paul-Émile Lecoq de Boisbaudran đã tách được gadolinium tương đối tinh khiết vào năm 1886. Tên gadolinium được đặt theo tên nhà hóa học người Phần Lan Johan Gadolin, người có nhiều đóng góp trong nghiên cứu các nguyên tố đất hiếm.\n\nNhững người hoặc cơ sở được ghi nhận trong câu chuyện này là **Jean Charles Galissard de Marignac**.\n\n![Hình minh họa gadolinium](/assets/library/photos/elements/Gd.jpg)\n\n*Hình minh họa chủ đề gadolinium. [Nguồn hình: bộ ảnh nguyên tố](https://en.wikipedia.org/wiki/Gadolinium).*\n\n## Thêm một dấu mốc: Ytterbium (Yb)\n\nNăm 1878, Jean Charles Galissard de Marignac phát hiện một thành phần mới trong khoáng vật Erbia. Ông đặt tên cho oxit mới là Ytterbia. Sau đó, các nhà khoa học tiếp tục nghiên cứu và tách ytterbium khỏi các nguyên tố đất hiếm khác. Năm 1953, ytterbium kim loại tương đối tinh khiết mới được điều chế. Tên ytterbium bắt nguồn từ Ytterby, một ngôi làng ở Thụy Điển. Đây cũng là nguồn gốc tên của yttrium, terbium và erbium.\n\nNhững người hoặc cơ sở được ghi nhận trong câu chuyện này là **Jean Charles Galissard de Marignac**.\n\n## Bằng chứng đã thay đổi điều gì?\n\nĐiều làm một phát hiện có sức nặng là khả năng phân biệt chất đang nghiên cứu với những chất đã biết. Mẫu vật có thể chứa nhiều thành phần; tên khoáng vật hoặc màu sắc chưa đủ xác định nguyên tố. Tách mẫu, so sánh phản ứng và diễn giải phép đo nối với nhau thành một lập luận. Bởi vậy, ngày nhận ra một nguyên tố, ngày cô lập được đơn chất và ngày tên gọi được thống nhất có thể khác nhau.\n\n## Từ dấu mốc nghiên cứu đến công việc hôm nay\n\n### Gadolinium (Gd)\n\nCác hợp chất phức của Gd³⁺ được sử dụng làm chất tương phản trong chụp cộng hưởng từ (MRI), giúp làm nổi bật một số mô và cấu trúc trong hình ảnh.\n\nDo khả năng hấp thụ neutron rất mạnh, gadolinium được sử dụng trong thanh điều khiển và vật liệu hấp thụ neutron.\n\n[Đọc tiếp về Gadolinium](/trung-tam/tai-lieu-so/gadolinium-gd/).\n\n### Ytterbium (Yb)\n\nYtterbium được sử dụng làm chất pha tạp trong ytterbium-doped fiber laser, một loại laser hiệu suất cao được sử dụng trong công nghiệp và viễn thông.\n\nLaser pha tạp ytterbium có thể đạt công suất lớn và hiệu suất cao, được sử dụng trong cắt, hàn và gia công vật liệu.\n\n[Đọc tiếp về Ytterbium](/trung-tam/tai-lieu-so/ytterbium-yb/).\n\nNhững ứng dụng này thuộc về hành trình phát triển tiếp theo của nguyên tố. Từ phát hiện đến thiết bị sử dụng được còn có công việc của nhiều thế hệ: tạo vật liệu đủ sạch, hiểu tính chất, thiết kế quy trình và kiểm tra độ bền. Vai trò của người khám phá nằm ở dấu mốc được kể ở trên; các công nghệ xuất hiện sau đó cần được ghi nhận cho đúng công trình.\n\n## Nguồn và đọc tiếp\n\n- [Hội Hóa học Hoàng gia Anh · Gadolinium](https://periodic-table.rsc.org/element/64/gadolinium)\n- [Hội Hóa học Hoàng gia Anh · Ytterbium](https://periodic-table.rsc.org/element/70/ytterbium)"
 }

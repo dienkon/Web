@@ -2,11 +2,11 @@
   "id": "nha-khoa-hoc-stanley-g-thompson-kenneth-street-jr-albert-ghiorso-va-glenn-t-seaborg",
   "slug": "nha-khoa-hoc-stanley-g-thompson-kenneth-street-jr-albert-ghiorso-va-glenn-t-seaborg",
   "documentPath": "docs/nha-khoa-hoc-stanley-g-thompson-kenneth-street-jr-albert-ghiorso-va-glenn-t-seaborg/index.json",
-  "title": "Stanley G. Thompson, Kenneth Street Jr., Albert Ghiorso và Glenn T. Seaborg — dấu mốc khám phá hóa học",
+  "title": "Stanley G. Thompson, Kenneth Street Jr., Albert Ghiorso và Glenn T. Seaborg — lần theo dấu vết californium",
   "author": "Ban biên tập ChemDex",
   "category": "tieusu",
-  "summary": "Hồ sơ lịch sử liên quan đến Californium (Cf); phân biệt phát hiện, cô lập và đặt tên theo từng trường hợp.",
-  "image": "/assets/library/history-evidence.svg",
+  "summary": "Californium được tạo ra lần đầu tiên vào năm 1950 bằng cách bắn phá curium-242 bằng các hạt alpha trong cyclotron. Phản ứng tạo californium-245: ²⁴²Cm + ⁴He → ²⁴⁵Cf + n Tên californium được đặt theo California, nơi nguyên tố được phát hiện.",
+  "image": "/assets/library/photos/elements/Cf.jpg",
   "tags": [
     "Lịch sử hóa học",
     "Cf"
@@ -15,6 +15,26 @@
     "Stanley G. Thompson, Kenneth Street Jr., Albert Ghiorso và Glenn T. Seaborg"
   ],
   "documentKind": "biography",
-  "readingMinutes": 1,
-  "content": "# Stanley G. Thompson, Kenneth Street Jr., Albert Ghiorso và Glenn T. Seaborg — dấu mốc khám phá hóa học\n\nHồ sơ lịch sử liên quan đến Californium (Cf); phân biệt phát hiện, cô lập và đặt tên theo từng trường hợp.\n\n## Californium (Cf)\n\nCalifornium được tạo ra lần đầu tiên vào năm 1950 bằng cách bắn phá Curium-242 bằng các hạt alpha trong cyclotron. Phản ứng tạo Californium-245: ²⁴²Cm + ⁴He → ²⁴⁵Cf + n Tên Californium được đặt theo California, nơi nguyên tố được phát hiện.\n\n**Mốc lịch sử:** 1950. **Địa điểm ghi trong hồ sơ:** Berkeley, California, Hoa Kỳ.\n\n[Đọc tài liệu về Californium](/trung-tam/tai-lieu-so/californium-cf/).\n\n[Royal Society of Chemistry — thông tin nguyên tố](https://periodic-table.rsc.org/element/98/californium)\n\n## Cách đọc các mốc lịch sử\n\nPhát hiện một nguyên tố, cô lập đơn chất và đặt tên có thể là những công việc khác nhau, diễn ra ở các thời điểm khác nhau. Một nhóm nghiên cứu hoặc cơ quan không được xem như một cá nhân. Với nguyên tố được biết từ cổ đại, hồ sơ không gán một người khám phá. Các ghi nhận trên dẫn về tài liệu của nguyên tố và nguồn tham khảo tương ứng; không bổ sung lời trích dẫn hay giai thoại đời tư chưa có căn cứ."
+  "readingMinutes": 2,
+  "editorialEvidence": {
+    "language": "vi",
+    "scope": "related-element",
+    "contextLabel": "Californium (Cf)",
+    "reviewBasis": "existing-element-dossier",
+    "story": {
+      "status": "documented",
+      "section": "## Cuộc tìm kiếm dẫn đến californium",
+      "sources": [
+        "https://periodic-table.rsc.org/element/98/californium"
+      ]
+    },
+    "application": {
+      "status": "context-only",
+      "section": "## Từ dấu mốc nghiên cứu đến công việc hôm nay",
+      "sources": [
+        "https://periodic-table.rsc.org/element/98/californium"
+      ]
+    }
+  },
+  "content": "## Cuộc tìm kiếm dẫn đến californium\n\nCalifornium được tạo ra lần đầu tiên vào năm 1950 bằng cách bắn phá curium-242 bằng các hạt alpha trong cyclotron. Phản ứng tạo californium-245: ²⁴²Cm + ⁴He → ²⁴⁵Cf + n Tên californium được đặt theo California, nơi nguyên tố được phát hiện.\n\nNhững người hoặc cơ sở được ghi nhận trong câu chuyện này là **Stanley G. Thompson, Kenneth Street Jr., Albert Ghiorso và Glenn T. Seaborg**.\n\n![Hình minh họa californium](/assets/library/photos/elements/Cf.jpg)\n\n*Hình minh họa chủ đề californium. [Nguồn hình: bộ ảnh nguyên tố](https://en.wikipedia.org/wiki/Californium).*\n\n## Bằng chứng đã thay đổi điều gì?\n\nỞ những nguyên tố được tạo ra bằng phản ứng hạt nhân, bằng chứng có thể xuất hiện dưới dạng một chuỗi tín hiệu phân rã. Các nhà nghiên cứu phải nối những tín hiệu ấy với quá trình tạo mẫu, kiểm tra sản phẩm và đối chiếu sự kiện lặp lại. Đổi một nguyên tố thành nguyên tố khác đòi hỏi thay đổi hạt nhân; phản ứng hóa học thông thường chỉ sắp xếp lại electron và liên kết. Chính sự khác biệt này khiến cuộc tìm kiếm cần đến những công cụ vượt xa bình phản ứng quen thuộc.\n\n## Từ dấu mốc nghiên cứu đến công việc hôm nay\n\n### Californium (Cf)\n\n²⁵²Cf là nguồn neutron mạnh và có thể được sử dụng trong các thiết bị chuyên dụng tạo neutron.\n\nNguồn neutron từ ²⁵²Cf được sử dụng trong một số kỹ thuật phân tích kích hoạt neutron để xác định thành phần nguyên tố của vật liệu.\n\n[Đọc tiếp về Californium](/trung-tam/tai-lieu-so/californium-cf/).\n\nNhững ứng dụng này thuộc về hành trình phát triển tiếp theo của nguyên tố. Từ phát hiện đến thiết bị sử dụng được còn có công việc của nhiều thế hệ: tạo vật liệu đủ sạch, hiểu tính chất, thiết kế quy trình và kiểm tra độ bền. Vai trò của người khám phá nằm ở dấu mốc được kể ở trên; các công nghệ xuất hiện sau đó cần được ghi nhận cho đúng công trình.\n\n## Nguồn và đọc tiếp\n\n- [Hội Hóa học Hoàng gia Anh · Californium](https://periodic-table.rsc.org/element/98/californium)"
 }

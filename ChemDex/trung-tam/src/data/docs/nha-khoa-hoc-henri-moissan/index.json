@@ -2,11 +2,11 @@
   "id": "nha-khoa-hoc-henri-moissan",
   "slug": "nha-khoa-hoc-henri-moissan",
   "documentPath": "docs/nha-khoa-hoc-henri-moissan/index.json",
-  "title": "Henri Moissan — dấu mốc khám phá hóa học",
+  "title": "Henri Moissan — lần theo dấu vết flo",
   "author": "Ban biên tập ChemDex",
   "category": "tieusu",
-  "summary": "Hồ sơ lịch sử liên quan đến Flo (F); phân biệt phát hiện, cô lập và đặt tên theo từng trường hợp.",
-  "image": "/assets/library/history-evidence.svg",
+  "summary": "Flo là nguyên tố rất khó cô lập do tính Oxy hóa cực mạnh. Năm 1886, Henri Moissan lần đầu tiên điều chế được flo dạng đơn chất bằng phương pháp điện phân hỗn hợp hiđro florua và kali florua nóng chảy.",
+  "image": "/assets/library/photos/elements/F.jpg",
   "tags": [
     "Lịch sử hóa học",
     "F"
@@ -15,6 +15,26 @@
     "Henri Moissan"
   ],
   "documentKind": "biography",
-  "readingMinutes": 1,
-  "content": "# Henri Moissan — dấu mốc khám phá hóa học\n\nHồ sơ lịch sử liên quan đến Flo (F); phân biệt phát hiện, cô lập và đặt tên theo từng trường hợp.\n\n## Flo (F)\n\nFluorine là nguyên tố rất khó cô lập do tính Oxy hóa cực mạnh. Năm 1886, Henri Moissan lần đầu tiên điều chế được Fluorine dạng đơn chất bằng phương pháp điện phân hỗn hợp Hydrogen fluoride và Potassium fluoride nóng chảy. Ông được trao giải Nobel Hóa học năm 1906 cho công trình nghiên cứu Fluorine.\n\n**Mốc lịch sử:** 1886. **Địa điểm ghi trong hồ sơ:** Pháp.\n\n[Đọc tài liệu về Flo](/trung-tam/tai-lieu-so/flo-f/).\n\n[Royal Society of Chemistry — thông tin nguyên tố](https://periodic-table.rsc.org/element/9/fluorine)\n\n## Cách đọc các mốc lịch sử\n\nPhát hiện một nguyên tố, cô lập đơn chất và đặt tên có thể là những công việc khác nhau, diễn ra ở các thời điểm khác nhau. Một nhóm nghiên cứu hoặc cơ quan không được xem như một cá nhân. Với nguyên tố được biết từ cổ đại, hồ sơ không gán một người khám phá. Các ghi nhận trên dẫn về tài liệu của nguyên tố và nguồn tham khảo tương ứng; không bổ sung lời trích dẫn hay giai thoại đời tư chưa có căn cứ."
+  "readingMinutes": 2,
+  "editorialEvidence": {
+    "language": "vi",
+    "scope": "related-element",
+    "contextLabel": "Flo (F)",
+    "reviewBasis": "existing-element-dossier",
+    "story": {
+      "status": "documented",
+      "section": "## Cuộc tìm kiếm dẫn đến flo",
+      "sources": [
+        "https://periodic-table.rsc.org/element/9/fluorine"
+      ]
+    },
+    "application": {
+      "status": "context-only",
+      "section": "## Từ dấu mốc nghiên cứu đến công việc hôm nay",
+      "sources": [
+        "https://periodic-table.rsc.org/element/9/fluorine"
+      ]
+    }
+  },
+  "content": "## Cuộc tìm kiếm dẫn đến flo\n\nFlo là nguyên tố rất khó cô lập do tính Oxy hóa cực mạnh. Năm 1886, Henri Moissan lần đầu tiên điều chế được flo dạng đơn chất bằng phương pháp điện phân hỗn hợp hiđro florua và kali florua nóng chảy. Ông được trao giải Nobel Hóa học năm 1906 cho công trình nghiên cứu flo.\n\nNhững người hoặc cơ sở được ghi nhận trong câu chuyện này là **Henri Moissan**.\n\n![Hình minh họa flo](/assets/library/photos/elements/F.jpg)\n\n*Hình minh họa chủ đề flo. [Nguồn hình: bộ ảnh nguyên tố](https://en.wikipedia.org/wiki/Fluorine).*\n\n## Bằng chứng đã thay đổi điều gì?\n\nTrong phép điện phân, dòng điện làm thay đổi trạng thái hóa học của các chất ở điện cực. Cách làm ấy mở đường đến những kim loại khó tách bằng các phương pháp quen thuộc trước đó. Người nghiên cứu còn phải nhận ra phần vừa thu được là gì, phân biệt nó với hợp chất ban đầu và kiểm tra phản ứng của mẫu. Công việc cô lập vì thế bổ sung cho công việc nhận diện: biết một nguyên tố có mặt và giữ được nó dưới dạng đơn chất là hai bước nối tiếp nhau.\n\n## Từ dấu mốc nghiên cứu đến công việc hôm nay\n\n### Flo (F)\n\nFlo được sử dụng để sản xuất nhiều hợp chất florua.\n\nMột số hợp chất flo, đặc biệt uranium hexafluoride (UF₆), được sử dụng trong quá trình xử lý và làm giàu uranium.\n\n[Đọc tiếp về Flo](/trung-tam/tai-lieu-so/flo-f/).\n\nNhững ứng dụng này thuộc về hành trình phát triển tiếp theo của nguyên tố. Từ phát hiện đến thiết bị sử dụng được còn có công việc của nhiều thế hệ: tạo vật liệu đủ sạch, hiểu tính chất, thiết kế quy trình và kiểm tra độ bền. Vai trò của người khám phá nằm ở dấu mốc được kể ở trên; các công nghệ xuất hiện sau đó cần được ghi nhận cho đúng công trình.\n\n## Nguồn và đọc tiếp\n\n- [Hội Hóa học Hoàng gia Anh · Flo](https://periodic-table.rsc.org/element/9/fluorine)"
 }

@@ -2,11 +2,11 @@
   "id": "lich-su-phat-hien-c",
   "slug": "lich-su-phat-hien-c",
   "documentPath": "docs/lich-su-phat-hien-c/index.json",
-  "title": "Lịch sử phát hiện Cacbon",
+  "title": "Cacbon: một lịch sử có trước tên người phát hiện",
   "author": "Ban biên tập ChemDex",
   "category": "nguyento",
-  "summary": "Hồ sơ lịch sử liên quan đến Cacbon (C); phân biệt phát hiện, cô lập và đặt tên theo từng trường hợp.",
-  "image": "/assets/library/history-evidence.svg",
+  "summary": "Cacbon đã được con người biết đến từ thời cổ đại dưới dạng than, muội than và kim cương. Cacbon được công nhận là một nguyên tố hóa học vào cuối thế kỷ XVIII.",
+  "image": "/assets/library/photos/elements/C.jpg",
   "tags": [
     "Lịch sử hóa học",
     "C"
@@ -15,6 +15,26 @@
     "Không xác định một cá nhân cụ thể"
   ],
   "documentKind": "biography",
-  "readingMinutes": 1,
-  "content": "# Lịch sử phát hiện Cacbon\n\nHồ sơ lịch sử liên quan đến Cacbon (C); phân biệt phát hiện, cô lập và đặt tên theo từng trường hợp.\n\n## Cacbon (C)\n\nCarbon đã được con người biết đến từ thời cổ đại dưới dạng than, muội than và kim cương. Carbon được công nhận là một nguyên tố hóa học vào cuối thế kỷ XVIII. Antoine Lavoisier đã xác định Carbon là một nguyên tố và nghiên cứu quá trình Carbon cháy tạo thành khí Carbon dioxide.\n\n**Mốc lịch sử:** Thời cổ đại. **Địa điểm ghi trong hồ sơ:** Nhiều nền văn minh cổ đại.\n\n[Đọc tài liệu về Cacbon](/trung-tam/tai-lieu-so/carbon-c/).\n\n[Royal Society of Chemistry — thông tin nguyên tố](https://periodic-table.rsc.org/element/6/carbon)\n\n## Cách đọc các mốc lịch sử\n\nPhát hiện một nguyên tố, cô lập đơn chất và đặt tên có thể là những công việc khác nhau, diễn ra ở các thời điểm khác nhau. Một nhóm nghiên cứu hoặc cơ quan không được xem như một cá nhân. Với nguyên tố được biết từ cổ đại, hồ sơ không gán một người khám phá. Các ghi nhận trên dẫn về tài liệu của nguyên tố và nguồn tham khảo tương ứng; không bổ sung lời trích dẫn hay giai thoại đời tư chưa có căn cứ."
+  "readingMinutes": 2,
+  "editorialEvidence": {
+    "language": "vi",
+    "scope": "related-element",
+    "contextLabel": "Cacbon (C)",
+    "reviewBasis": "existing-element-dossier",
+    "story": {
+      "status": "documented",
+      "section": "## Dấu vết cacbon trong lịch sử",
+      "sources": [
+        "https://periodic-table.rsc.org/element/6/carbon"
+      ]
+    },
+    "application": {
+      "status": "context-only",
+      "section": "## Từ dấu mốc nghiên cứu đến công việc hôm nay",
+      "sources": [
+        "https://periodic-table.rsc.org/element/6/carbon"
+      ]
+    }
+  },
+  "content": "## Dấu vết cacbon trong lịch sử\n\nCacbon đã được con người biết đến từ thời cổ đại dưới dạng than, muội than và kim cương. Cacbon được công nhận là một nguyên tố hóa học vào cuối thế kỷ XVIII. Antoine Lavoisier đã xác định cacbon là một nguyên tố và nghiên cứu quá trình cacbon cháy tạo thành khí cacbon đioxit.\n\n![Hình minh họa cacbon](/assets/library/photos/elements/C.jpg)\n\n*Hình minh họa chủ đề cacbon. [Nguồn hình: bộ ảnh nguyên tố](https://en.wikipedia.org/wiki/Carbon).*\n\n## Bằng chứng đã thay đổi điều gì?\n\nVới cacbon, việc con người biết sử dụng một vật liệu và việc hóa học nhận diện nguyên tố trong vật liệu ấy thuộc về những thời kỳ khác nhau. Một đồ vật cổ có thể cho biết người xưa đã biết khai thác, nung hoặc tạo hình; nó chưa cho biết họ đã có khái niệm nguyên tử như ngày nay. Vì thế, câu chuyện này cần được đọc qua dấu tích vật liệu và sự thay đổi cách hiểu, thay vì tìm một ngày phát minh duy nhất.\n\n## Từ dấu mốc nghiên cứu đến công việc hôm nay\n\n### Cacbon (C)\n\nThan và các nhiên liệu chứa cacbon được sử dụng để sản xuất nhiệt và năng lượng.\n\nCacbon và than cốc được sử dụng trong sản xuất sắt và Steel.\n\n[Đọc tiếp về Cacbon](/trung-tam/tai-lieu-so/carbon-c/).\n\nNhững ứng dụng này thuộc về hành trình phát triển tiếp theo của nguyên tố. Từ phát hiện đến thiết bị sử dụng được còn có công việc của nhiều thế hệ: tạo vật liệu đủ sạch, hiểu tính chất, thiết kế quy trình và kiểm tra độ bền. Vai trò của người khám phá nằm ở dấu mốc được kể ở trên; các công nghệ xuất hiện sau đó cần được ghi nhận cho đúng công trình.\n\n## Nguồn và đọc tiếp\n\n- [Hội Hóa học Hoàng gia Anh · Cacbon](https://periodic-table.rsc.org/element/6/carbon)"
 }

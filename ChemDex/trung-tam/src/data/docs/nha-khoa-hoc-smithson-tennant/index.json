@@ -2,11 +2,11 @@
   "id": "nha-khoa-hoc-smithson-tennant",
   "slug": "nha-khoa-hoc-smithson-tennant",
   "documentPath": "docs/nha-khoa-hoc-smithson-tennant/index.json",
-  "title": "Smithson Tennant — dấu mốc khám phá hóa học",
+  "title": "Smithson Tennant — lần theo dấu vết osmium, iridium",
   "author": "Ban biên tập ChemDex",
   "category": "tieusu",
-  "summary": "Hồ sơ lịch sử liên quan đến Osmium (Os), Iridium (Ir); phân biệt phát hiện, cô lập và đặt tên theo từng trường hợp.",
-  "image": "/assets/library/history-evidence.svg",
+  "summary": "Osmium được Smithson Tennant phát hiện vào năm 1803 khi nghiên cứu cặn không tan còn lại sau khi hòa tan bạch kim trong nước cường toan. Ông nhận thấy một chất tạo ra mùi đặc trưng và đặt tên là osmium, bắt nguồn từ tiếng Hy Lạp osme, nghĩa là “mùi”.",
+  "image": "/assets/library/photos/elements/Os.jpg",
   "tags": [
     "Lịch sử hóa học",
     "Os",
@@ -16,6 +16,28 @@
     "Smithson Tennant"
   ],
   "documentKind": "biography",
-  "readingMinutes": 1,
-  "content": "# Smithson Tennant — dấu mốc khám phá hóa học\n\nHồ sơ lịch sử liên quan đến Osmium (Os), Iridium (Ir); phân biệt phát hiện, cô lập và đặt tên theo từng trường hợp.\n\n## Osmium (Os)\n\nOsmium được Smithson Tennant phát hiện vào năm 1803 khi nghiên cứu cặn không tan còn lại sau khi hòa tan Platinum trong nước cường toan. Ông nhận thấy một chất tạo ra mùi đặc trưng và đặt tên là Osmium, bắt nguồn từ tiếng Hy Lạp osme, nghĩa là “mùi”.\n\n**Mốc lịch sử:** 1803. **Địa điểm ghi trong hồ sơ:** Anh.\n\n[Đọc tài liệu về Osmium](/trung-tam/tai-lieu-so/osmium-os/).\n\n[Royal Society of Chemistry — thông tin nguyên tố](https://periodic-table.rsc.org/element/76/osmium)\n\n## Iridium (Ir)\n\nIridium được Smithson Tennant phát hiện cùng thời điểm với Osmium khi nghiên cứu phần cặn không tan của Platinum trong nước cường toan. Tên Iridium bắt nguồn từ tiếng Latin Iris, nữ thần cầu vồng trong thần thoại Hy Lạp, do màu sắc đa dạng của các hợp chất Iridium.\n\n**Mốc lịch sử:** 1803. **Địa điểm ghi trong hồ sơ:** Anh.\n\n[Đọc tài liệu về Iridium](/trung-tam/tai-lieu-so/iridium-ir/).\n\n[Royal Society of Chemistry — thông tin nguyên tố](https://periodic-table.rsc.org/element/77/iridium)\n\n## Cách đọc các mốc lịch sử\n\nPhát hiện một nguyên tố, cô lập đơn chất và đặt tên có thể là những công việc khác nhau, diễn ra ở các thời điểm khác nhau. Một nhóm nghiên cứu hoặc cơ quan không được xem như một cá nhân. Với nguyên tố được biết từ cổ đại, hồ sơ không gán một người khám phá. Các ghi nhận trên dẫn về tài liệu của nguyên tố và nguồn tham khảo tương ứng; không bổ sung lời trích dẫn hay giai thoại đời tư chưa có căn cứ."
+  "readingMinutes": 3,
+  "editorialEvidence": {
+    "language": "vi",
+    "scope": "related-element",
+    "contextLabel": "Osmium (Os), Iridium (Ir)",
+    "reviewBasis": "existing-element-dossier",
+    "story": {
+      "status": "documented",
+      "section": "## Cuộc tìm kiếm dẫn đến osmium",
+      "sources": [
+        "https://periodic-table.rsc.org/element/76/osmium",
+        "https://periodic-table.rsc.org/element/77/iridium"
+      ]
+    },
+    "application": {
+      "status": "context-only",
+      "section": "## Từ dấu mốc nghiên cứu đến công việc hôm nay",
+      "sources": [
+        "https://periodic-table.rsc.org/element/76/osmium",
+        "https://periodic-table.rsc.org/element/77/iridium"
+      ]
+    }
+  },
+  "content": "## Cuộc tìm kiếm dẫn đến osmium\n\nOsmium được Smithson Tennant phát hiện vào năm 1803 khi nghiên cứu cặn không tan còn lại sau khi hòa tan bạch kim trong nước cường toan. Ông nhận thấy một chất tạo ra mùi đặc trưng và đặt tên là osmium, bắt nguồn từ tiếng Hy Lạp osme, nghĩa là “mùi”.\n\nNhững người hoặc cơ sở được ghi nhận trong câu chuyện này là **Smithson Tennant**.\n\n![Hình minh họa osmium](/assets/library/photos/elements/Os.jpg)\n\n*Hình minh họa chủ đề osmium. [Nguồn hình: bộ ảnh nguyên tố](https://en.wikipedia.org/wiki/Osmium).*\n\n## Thêm một dấu mốc: Iridium (Ir)\n\nIridium được Smithson Tennant phát hiện cùng thời điểm với osmium khi nghiên cứu phần cặn không tan của bạch kim trong nước cường toan. Tên iridium bắt nguồn từ tiếng Latin Iris, nữ thần cầu vồng trong thần thoại Hy Lạp, do màu sắc đa dạng của các hợp chất iridium.\n\nNhững người hoặc cơ sở được ghi nhận trong câu chuyện này là **Smithson Tennant**.\n\n## Bằng chứng đã thay đổi điều gì?\n\nĐiều làm một phát hiện có sức nặng là khả năng phân biệt chất đang nghiên cứu với những chất đã biết. Mẫu vật có thể chứa nhiều thành phần; tên khoáng vật hoặc màu sắc chưa đủ xác định nguyên tố. Tách mẫu, so sánh phản ứng và diễn giải phép đo nối với nhau thành một lập luận. Bởi vậy, ngày nhận ra một nguyên tố, ngày cô lập được đơn chất và ngày tên gọi được thống nhất có thể khác nhau.\n\n## Từ dấu mốc nghiên cứu đến công việc hôm nay\n\n### Osmium (Os)\n\nOsmium được sử dụng trong một số hợp kim đặc biệt để tăng độ cứng và khả năng chống mài mòn.\n\nOsmium từng được sử dụng trong hợp kim làm đầu ngòi bút và các chi tiết chịu mài mòn.\n\n[Đọc tiếp về Osmium](/trung-tam/tai-lieu-so/osmium-os/).\n\n### Iridium (Ir)\n\nIridium được sử dụng trong điện cực của một số loại bugi do có độ cứng, nhiệt độ nóng chảy cao và khả năng chống ăn mòn tốt.\n\nĐược sử dụng để tạo các hợp kim có độ bền và khả năng chịu nhiệt cao.\n\n[Đọc tiếp về Iridium](/trung-tam/tai-lieu-so/iridium-ir/).\n\nNhững ứng dụng này thuộc về hành trình phát triển tiếp theo của nguyên tố. Từ phát hiện đến thiết bị sử dụng được còn có công việc của nhiều thế hệ: tạo vật liệu đủ sạch, hiểu tính chất, thiết kế quy trình và kiểm tra độ bền. Vai trò của người khám phá nằm ở dấu mốc được kể ở trên; các công nghệ xuất hiện sau đó cần được ghi nhận cho đúng công trình.\n\n## Nguồn và đọc tiếp\n\n- [Hội Hóa học Hoàng gia Anh · Osmium](https://periodic-table.rsc.org/element/76/osmium)\n- [Hội Hóa học Hoàng gia Anh · Iridium](https://periodic-table.rsc.org/element/77/iridium)"
 }

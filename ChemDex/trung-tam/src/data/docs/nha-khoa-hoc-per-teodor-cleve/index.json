@@ -2,11 +2,11 @@
   "id": "nha-khoa-hoc-per-teodor-cleve",
   "slug": "nha-khoa-hoc-per-teodor-cleve",
   "documentPath": "docs/nha-khoa-hoc-per-teodor-cleve/index.json",
-  "title": "Per Teodor Cleve — dấu mốc khám phá hóa học",
+  "title": "Per Teodor Cleve — lần theo dấu vết holmium, thulium",
   "author": "Ban biên tập ChemDex",
   "category": "tieusu",
-  "summary": "Hồ sơ lịch sử liên quan đến Holmium (Ho), Thulium (Tm); phân biệt phát hiện, cô lập và đặt tên theo từng trường hợp.",
-  "image": "/assets/library/history-evidence.svg",
+  "summary": "Năm 1879, nhà hóa học Thụy Điển Per Teodor Cleve tiến hành phân tích Erbia và nhận thấy nó chứa nhiều nguyên tố khác nhau. Ông tách được hai oxit mới và đặt tên chúng là Holmia và Thulia.",
+  "image": "/assets/library/photos/elements/Ho.jpg",
   "tags": [
     "Lịch sử hóa học",
     "Ho",
@@ -16,6 +16,28 @@
     "Per Teodor Cleve"
   ],
   "documentKind": "biography",
-  "readingMinutes": 2,
-  "content": "# Per Teodor Cleve — dấu mốc khám phá hóa học\n\nHồ sơ lịch sử liên quan đến Holmium (Ho), Thulium (Tm); phân biệt phát hiện, cô lập và đặt tên theo từng trường hợp.\n\n## Holmium (Ho)\n\nNăm 1879, nhà hóa học Thụy Điển Per Teodor Cleve tiến hành phân tích Erbia và nhận thấy nó chứa nhiều nguyên tố khác nhau. Ông tách được hai oxide mới và đặt tên chúng là Holmia và Thulia. Holmium được xác định từ Holmia. Đồng thời, Marc Delafontaine và Jacques-Louis Soret cũng độc lập quan sát được các vạch phổ đặc trưng của nguyên tố này. Tên Holmium bắt nguồn từ Holmia, tên Latin của Stockholm, thủ đô Thụy Điển.\n\n**Mốc lịch sử:** 1879. **Địa điểm ghi trong hồ sơ:** Uppsala, Thụy Điển.\n\n[Đọc tài liệu về Holmium](/trung-tam/tai-lieu-so/holmium-ho/).\n\n[Royal Society of Chemistry — thông tin nguyên tố](https://periodic-table.rsc.org/element/67/holmium)\n\n## Thulium (Tm)\n\nNăm 1879, Per Teodor Cleve nghiên cứu Erbia và nhận thấy nó chứa nhiều thành phần khác nhau. Ông tách được hai chất mới, trong đó có Thulia, sau này được xác định là oxide của Thulium. Tên Thulium bắt nguồn từ Thule, tên cổ được dùng để chỉ một vùng đất xa xôi ở phía Bắc châu Âu.\n\n**Mốc lịch sử:** 1879. **Địa điểm ghi trong hồ sơ:** Uppsala, Thụy Điển.\n\n[Đọc tài liệu về Thulium](/trung-tam/tai-lieu-so/thulium-tm/).\n\n[Royal Society of Chemistry — thông tin nguyên tố](https://periodic-table.rsc.org/element/69/thulium)\n\n## Cách đọc các mốc lịch sử\n\nPhát hiện một nguyên tố, cô lập đơn chất và đặt tên có thể là những công việc khác nhau, diễn ra ở các thời điểm khác nhau. Một nhóm nghiên cứu hoặc cơ quan không được xem như một cá nhân. Với nguyên tố được biết từ cổ đại, hồ sơ không gán một người khám phá. Các ghi nhận trên dẫn về tài liệu của nguyên tố và nguồn tham khảo tương ứng; không bổ sung lời trích dẫn hay giai thoại đời tư chưa có căn cứ."
+  "readingMinutes": 3,
+  "editorialEvidence": {
+    "language": "vi",
+    "scope": "related-element",
+    "contextLabel": "Holmium (Ho), Thulium (Tm)",
+    "reviewBasis": "existing-element-dossier",
+    "story": {
+      "status": "documented",
+      "section": "## Cuộc tìm kiếm dẫn đến holmium",
+      "sources": [
+        "https://periodic-table.rsc.org/element/67/holmium",
+        "https://periodic-table.rsc.org/element/69/thulium"
+      ]
+    },
+    "application": {
+      "status": "context-only",
+      "section": "## Từ dấu mốc nghiên cứu đến công việc hôm nay",
+      "sources": [
+        "https://periodic-table.rsc.org/element/67/holmium",
+        "https://periodic-table.rsc.org/element/69/thulium"
+      ]
+    }
+  },
+  "content": "## Cuộc tìm kiếm dẫn đến holmium\n\nNăm 1879, nhà hóa học Thụy Điển Per Teodor Cleve tiến hành phân tích Erbia và nhận thấy nó chứa nhiều nguyên tố khác nhau. Ông tách được hai oxit mới và đặt tên chúng là Holmia và Thulia. Holmium được xác định từ Holmia. Đồng thời, Marc Delafontaine và Jacques-Louis Soret cũng độc lập quan sát được các vạch phổ đặc trưng của nguyên tố này. Tên holmium bắt nguồn từ Holmia, tên Latin của Stockholm, thủ đô Thụy Điển.\n\nNhững người hoặc cơ sở được ghi nhận trong câu chuyện này là **Per Teodor Cleve**.\n\n![Hình minh họa holmium](/assets/library/photos/elements/Ho.jpg)\n\n*Hình minh họa chủ đề holmium. [Nguồn hình: bộ ảnh nguyên tố](https://en.wikipedia.org/wiki/Holmium).*\n\n## Thêm một dấu mốc: Thulium (Tm)\n\nNăm 1879, Per Teodor Cleve nghiên cứu Erbia và nhận thấy nó chứa nhiều thành phần khác nhau. Ông tách được hai chất mới, trong đó có Thulia, sau này được xác định là oxit của thulium. Tên thulium bắt nguồn từ Thule, tên cổ được dùng để chỉ một vùng đất xa xôi ở phía Bắc châu Âu.\n\nNhững người hoặc cơ sở được ghi nhận trong câu chuyện này là **Per Teodor Cleve**.\n\n## Bằng chứng đã thay đổi điều gì?\n\nÁnh sáng giúp cuộc tìm kiếm đi xa hơn màu sắc nhìn bằng mắt. Khi tách ánh sáng thành quang phổ, người nghiên cứu có thể so sánh vị trí những vạch sáng và tìm dấu hiệu chưa giải thích được bằng các chất đã biết. Từ một dấu hiệu ấy đến kết luận về nguyên tố mới vẫn cần kiểm tra nguồn phát sáng và những chất có thể lẫn trong mẫu. Một vạch phổ là bằng chứng phải giải thích, chứ tên gọi chưa tự sinh ra từ màu của ngọn lửa.\n\n## Từ dấu mốc nghiên cứu đến công việc hôm nay\n\n### Holmium (Ho)\n\nYAG: holmium được sử dụng trong holmium-doped yttrium Aluminum Garnet (Ho:YAG), một loại laser phát ra bức xạ hồng ngoại. Nó có ứng dụng trong y tế và một số lĩnh vực kỹ thuật.\n\nLaser holmium được sử dụng trong một số thủ thuật y khoa, đặc biệt trong các ứng dụng liên quan đến tiết niệu.\n\n[Đọc tiếp về Holmium](/trung-tam/tai-lieu-so/holmium-ho/).\n\n### Thulium (Tm)\n\n¹⁷⁰Tm có thể được sử dụng làm nguồn bức xạ trong một số thiết bị chuyên dụng.\n\nThulium được sử dụng trong laser pha tạp thulium, đặc biệt là các laser phát bức xạ hồng ngoại.\n\n[Đọc tiếp về Thulium](/trung-tam/tai-lieu-so/thulium-tm/).\n\nNhững ứng dụng này thuộc về hành trình phát triển tiếp theo của nguyên tố. Từ phát hiện đến thiết bị sử dụng được còn có công việc của nhiều thế hệ: tạo vật liệu đủ sạch, hiểu tính chất, thiết kế quy trình và kiểm tra độ bền. Vai trò của người khám phá nằm ở dấu mốc được kể ở trên; các công nghệ xuất hiện sau đó cần được ghi nhận cho đúng công trình.\n\n## Nguồn và đọc tiếp\n\n- [Hội Hóa học Hoàng gia Anh · Holmium](https://periodic-table.rsc.org/element/67/holmium)\n- [Hội Hóa học Hoàng gia Anh · Thulium](https://periodic-table.rsc.org/element/69/thulium)"
 }

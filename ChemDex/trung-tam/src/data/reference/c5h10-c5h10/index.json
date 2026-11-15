@@ -25,6 +25,22 @@
   "documentKind": "reference",
   "lessonKind": "isomer-comparison",
   "readingMinutes": 4,
+  "editorialEvidence": {
+    "language": "vi",
+    "scope": "substance",
+    "contextLabel": "C5H10",
+    "reviewBasis": "editorial-audit-2026-11-15",
+    "story": {
+      "status": "missing",
+      "sources": [],
+      "reason": "Chưa có câu chuyện và ứng dụng được đối chiếu riêng cho C5H10 (C5H10); giữ nguyên bài tra cứu, không gán lịch sử hay công dụng của nguyên tố thành phần cho hợp chất."
+    },
+    "application": {
+      "status": "missing",
+      "sources": [],
+      "reason": "Chưa có câu chuyện và ứng dụng được đối chiếu riêng cho C5H10 (C5H10); giữ nguyên bài tra cứu, không gán lịch sử hay công dụng của nguyên tố thành phần cho hợp chất."
+    }
+  },
   "chemicalEvidence": {
     "formula": "C5H10",
     "representativeId": "formula-C5H10",

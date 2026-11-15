@@ -8,7 +8,10 @@ import {isomerGroupFor} from '../shared/chemistry/molecular-isomers.mjs';
 import {resolveLabExperiment} from '../shared/chemistry/study-links.mjs';
 import {isomerLesson, isomerCoverSVG} from './isomer-lesson.mjs';
 import {substanceLesson} from './substance-lesson.mjs';
+import {substanceNarrative} from './substance-narratives.mjs';
 import {buildStudyReferences} from './build-study-references.mjs';
+import {buildEditorialLibrary} from './build-editorial-library.mjs';
+import './refresh-story-articles.mjs';
 import ionicComponents from '../shared/ionic-components.generated.json' with {type:'json'};
 
 process.chdir(path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..'));
@@ -98,19 +101,20 @@ for (const [key,group] of groups) {
   const crystalIds=[...new Set(group.flatMap(s=>crystalLinks[s.id]??[]))];
   const lesson=isomers?null:substanceLesson({subject:{...s,material},name,prettyFormula:pFormula,counts,massTerms,mass,element,detail,ions,modelURL,crystals:crystalIds.map(id=>crystals.get(id)).filter(Boolean),reactions:selected,reactionSources:reactionData.sources,formulas});
   const rawSections=isomers?isomerLesson(isomers,modelURL,counts,mass):lesson.sections;
+  const narrative=substanceNarrative({id,subject:{...s,material},name,counts,element,detail,details:detailCache,isomers});
   const media=resolveReferenceMedia({id,element,name,pFormula,material});
-  const sections=enrichSectionsWithMedia({rawSections,media,isomers,name,pFormula,material});
+  const sections=[...narrative.sections,...enrichSectionsWithMedia({rawSections,media,isomers,name,pFormula,material})];
   const content=sections.join('\n\n'), wordCount=content.trim().split(/\s+/).length;
 
   const meta={
     id,slug:id,documentPath:`reference/${id}/index.json`,legacyIds:['ho-so-'+hash.slice(0,12)],
-    title:isomers?`${display}: các đồng phân và cách đọc mô hình 3D`:safeMeta(`${name}${material?'':` (${pFormula})`}: thành phần, mô hình và phản ứng`),
+    title:narrative.title?safeMeta(`${name}${material?'':` (${pFormula})`} — ${narrative.title}`):isomers?`${display}: các đồng phân và cách đọc mô hình 3D`:safeMeta(`${name}${material?'':` (${pFormula})`}: thành phần, mô hình và phản ứng`),
     author:'ChemDex · Học cấu trúc',category:element?'nguyento':'hopchat',
-    summary:isomers?`Phân biệt một số đồng phân ${display} qua tên, cấu tạo, mô hình 3D và câu hỏi có lời giải.`:safeMeta(`${name}: ${lesson.label.toLowerCase()}, cách đọc mô hình và nguồn dữ liệu. Phản ứng đi kèm điều kiện; câu hỏi có lời giải.`),
+    summary:narrative.summary?safeMeta(narrative.summary):isomers?`Phân biệt một số đồng phân ${display} qua tên, cấu tạo, mô hình 3D và câu hỏi có lời giải.`:safeMeta(`${name}: ${lesson.label.toLowerCase()}, cách đọc mô hình và nguồn dữ liệu. Phản ứng đi kèm điều kiện; câu hỏi có lời giải.`),
     image:media.image,chemicalFormula:material?'Hỗn hợp':pFormula,
     tags:[isomers?'Đồng phân & Cấu tạo':material?'Vật liệu & Hỗn hợp':element?'Nguyên tố':ions?'Thành phần ion':'Cấu trúc & Phản ứng',safeMeta(s.material?s.materialLabel:formula),...selected.slice(0,2).map(r=>safeMeta(r.topic_vi))],
     aliases:[...new Set(group.flatMap(r=>[r.name_vi,r.name_en,r.material?r.materialLabel:r.formula,...(r.aliases??[])]).filter(Boolean).map(a=>s.material&&/^H2O$/i.test(a)?s.materialLabel:a))],
-    substanceIds:group.map(r=>r.id),documentKind:'reference',lessonKind:isomers?'isomer-comparison':'substance-guide',readingMinutes:Math.max(2,Math.ceil(wordCount/180)),
+    substanceIds:group.map(r=>r.id),documentKind:'reference',lessonKind:isomers?'isomer-comparison':'substance-guide',readingMinutes:Math.max(2,Math.ceil(wordCount/180)),editorialEvidence:narrative.editorialEvidence,
   };
   if(isomers)for(const dir of assetDirs)writeTextIfChanged(path.join(dir,`${id}.svg`),isomerCoverSVG(isomers));
   fs.mkdirSync(path.join(output,id),{recursive:true});
@@ -142,6 +146,7 @@ for(const doc of [...authored,...generated])for(const alias of [doc.id,doc.slug?
 }
 writeTextIfChanged('shared/library-routes.generated.json',JSON.stringify(routes,null,2)+'\n');
 buildStudyReferences();
+buildEditorialLibrary();
 console.log(`Reference library: ${generated.length} evidence-based lessons; ${Object.keys(links).length} subject links.`);
 
 function getLibraryPhotos() {

@@ -27,6 +27,22 @@
   "documentKind": "reference",
   "lessonKind": "substance-guide",
   "readingMinutes": 5,
+  "editorialEvidence": {
+    "language": "vi",
+    "scope": "substance",
+    "contextLabel": "Chỉ thị bromothymol xanh (0,0001 M)",
+    "reviewBasis": "editorial-audit-2026-11-15",
+    "story": {
+      "status": "missing",
+      "sources": [],
+      "reason": "Chưa có câu chuyện và ứng dụng được đối chiếu riêng cho Chỉ thị bromothymol xanh (0,0001 M) (C27H28Br2O5S); giữ nguyên bài tra cứu, không gán lịch sử hay công dụng của nguyên tố thành phần cho hợp chất."
+    },
+    "application": {
+      "status": "missing",
+      "sources": [],
+      "reason": "Chưa có câu chuyện và ứng dụng được đối chiếu riêng cho Chỉ thị bromothymol xanh (0,0001 M) (C27H28Br2O5S); giữ nguyên bài tra cứu, không gán lịch sử hay công dụng của nguyên tố thành phần cho hợp chất."
+    }
+  },
   "chemicalEvidence": {
     "formula": "C27H28Br2O5S",
     "representativeId": "lab3d-340",

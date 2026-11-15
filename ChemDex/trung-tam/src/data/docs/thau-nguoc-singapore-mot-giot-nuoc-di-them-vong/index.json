@@ -1,0 +1,46 @@
+{
+  "id": "thau-nguoc-singapore-mot-giot-nuoc-di-them-vong",
+  "slug": "thau-nguoc-singapore-mot-giot-nuoc-di-them-vong",
+  "documentPath": "docs/thau-nguoc-singapore-mot-giot-nuoc-di-them-vong/index.json",
+  "title": "Một giọt nước đi thêm vòng: Singapore đã biến màng lọc thành hạ tầng như thế nào?",
+  "summary": "Từ những chai NEWater trong ngày Quốc khánh 2002 đến nhà máy khử mặn, thẩm thấu ngược cho thấy một khái niệm hóa học có thể thay đổi cách thành phố tìm nước.",
+  "category": "khainiem",
+  "author": "Ban biên tập ChemDex",
+  "image": "/assets/library/photos/stories/desalination.jpg",
+  "tags": [
+    "Thẩm thấu ngược",
+    "Nước",
+    "Singapore",
+    "Màng lọc"
+  ],
+  "aliases": [],
+  "documentKind": "story",
+  "readingMinutes": 5,
+  "editorialEvidence": {
+    "language": "vi",
+    "scope": "chemical-family",
+    "contextLabel": "Một giọt nước đi thêm vòng: Singapore đã biến màng lọc thành hạ tầng như thế nào?",
+    "reviewBasis": "Biên soạn theo các nguồn dẫn cuối bài; phân biệt kết quả đã thực hiện và hướng phát triển.",
+    "story": {
+      "status": "documented",
+      "section": "## Chai nước xuất hiện giữa ngày hội",
+      "sources": [
+        "https://www.pub.gov.sg/Public/WaterLoop/OurWaterStory/NEWater",
+        "https://openstax.org/books/chemistry-2e/pages/11-4-colligative-properties",
+        "https://www.pub.gov.sg/Public/WaterLoop/OurWaterStory/DesalinatedWater",
+        "https://www.mse.gov.sg/latest-news/written-reply-to-parliamentary-question-on-unit-cost-and-energy-intensity-of-desalinated-water-vs-newater-and-imported-water/"
+      ]
+    },
+    "application": {
+      "status": "documented",
+      "section": "## Ứng dụng hôm nay: nguồn nước gắn với hóa đơn năng lượng",
+      "sources": [
+        "https://www.pub.gov.sg/Public/WaterLoop/OurWaterStory/NEWater",
+        "https://openstax.org/books/chemistry-2e/pages/11-4-colligative-properties",
+        "https://www.pub.gov.sg/Public/WaterLoop/OurWaterStory/DesalinatedWater",
+        "https://www.mse.gov.sg/latest-news/written-reply-to-parliamentary-question-on-unit-cost-and-energy-intensity-of-desalinated-water-vs-newater-and-imported-water/"
+      ]
+    }
+  },
+  "content": "## Chai nước xuất hiện giữa ngày hội\n\nNgày 9/8/2002, trong lễ Quốc khánh Singapore, hàng chục nghìn người được giới thiệu những chai nước mang tên NEWater. Câu chuyện đáng chú ý nằm ở hành trình trước đó của nước: nó từng được sử dụng, thu gom, xử lý rồi làm sạch thêm để có thể đi vào một vòng sử dụng mới. Một công nghệ vốn ẩn trong đường ống đã bước ra trước công chúng.\n\nTheo cơ quan quản lý nước PUB, nhóm thử nghiệm công nghệ màng được lập năm 1998. Đằng sau một chai nước là cả quá trình chứng minh chất lượng, vận hành thử và giải thích cho xã hội. Thành công không chỉ là tìm được cách giữ tạp chất lại. Nhà máy còn phải tạo ra nước ổn định ngày này qua ngày khác, và người dùng phải hiểu vì sao có thể tin vào quy trình ấy.\n\n![Thiết bị thẩm thấu ngược ở El Prat](/assets/library/photos/stories/desalination.jpg)\n\n*Hệ thống thẩm thấu ngược tại nhà máy khử mặn El Prat gần Barcelona, Tây Ban Nha. — James Grellier; [CC BY-SA 3.0](https://creativecommons.org/licenses/by-sa/3.0). [Nguồn ảnh](https://commons.wikimedia.org/wiki/File:Reverse_osmosis_desalination_plant.JPG).*\n\n## Đi ngược chiều thẩm thấu\n\nMột màng bán thấm cho dung môi đi qua thuận lợi hơn nhiều chất tan. Nếu hai phía chứa dung dịch có nồng độ khác nhau, nước có xu hướng chuyển về phía dung dịch đậm đặc hơn. Đó là cơ sở của hiện tượng thẩm thấu. Muốn đảo chiều dòng nước, kỹ sư đặt áp suất đủ lớn lên phía dung dịch cần xử lý.\n\nTrong thẩm thấu ngược, nước đi qua màng tạo thành dòng sản phẩm; phần còn lại giữ nồng độ chất tan cao hơn. Muối không biến mất và phân tử nước cũng không được tạo ra từ hư không. Hệ thống đang phân chia vật chất giữa hai dòng. Vì vậy, đọc sơ đồ nhà máy phải nhìn cả dòng nước sạch lẫn dòng cô đặc. Chỉ quan sát đầu ra trong suốt chưa đủ để đánh giá toàn bộ quá trình.\n\n## Một tấm màng không làm tất cả\n\nNEWater dùng nhiều công đoạn nối tiếp: lọc để giảm các hạt và vi sinh vật, thẩm thấu ngược để loại phần lớn chất hòa tan, rồi xử lý bằng tia cực tím. Cách bố trí ấy giúp mỗi bước giải quyết một phần công việc. Tải tạp chất phía trước quá lớn có thể khiến màng nhanh bẩn, làm lưu lượng giảm hoặc tăng nhu cầu năng lượng.\n\nKhử mặn nước biển là một ứng dụng khác của nguyên lý này. Singapore mở nhà máy SingSpring vào tháng 9/2005. Tuy cùng dùng màng, nước biển và nước đã qua xử lý có thành phần đầu vào khác nhau; không thể lấy điều kiện của một nguồn để áp cho nguồn còn lại. Ảnh minh họa trong bài là nhà máy El Prat ở Tây Ban Nha, giúp quan sát thiết bị thẩm thấu ngược, không phải ảnh chụp cơ sở NEWater.\n\n## Ứng dụng hôm nay: nguồn nước gắn với hóa đơn năng lượng\n\nNước tái sử dụng chất lượng cao có giá trị với những ngành cần nước rất sạch. Trong hệ thống Singapore, NEWater còn có thể được đưa vào hồ chứa để hòa trộn trước khi tiếp tục xử lý tại nhà máy nước. Người đọc vì thế cần phân biệt nước ở một công đoạn với nước cuối cùng được cấp đến vòi.\n\nTháng 1/2026, Bộ Phát triển bền vững và Môi trường Singapore tiếp tục xác nhận khử mặn tiêu tốn năng lượng và chi phí cao hơn NEWater. Cơ quan này nêu hướng nghiên cứu màng và công nghệ tiền xử lý nhằm giảm gánh nặng đó. Bài học của thành phố là mỗi nguồn nước có cái giá riêng: màng tốt hơn phải đi cùng bảo dưỡng, kiểm soát chất lượng và sử dụng tiết kiệm. Một khái niệm về dung dịch chỉ trở thành hạ tầng bền vững khi toàn bộ vòng đời được tính đến.\n\n## Nguồn và đọc thêm\n\n- [PUB · Hành trình và quy trình NEWater](https://www.pub.gov.sg/Public/WaterLoop/OurWaterStory/NEWater)\n- [OpenStax · Áp suất thẩm thấu và thẩm thấu ngược](https://openstax.org/books/chemistry-2e/pages/11-4-colligative-properties)\n- [PUB · Các nhà máy khử mặn Singapore](https://www.pub.gov.sg/Public/WaterLoop/OurWaterStory/DesalinatedWater)\n- [MSE Singapore · Trả lời Quốc hội về năng lượng của nước, 12/1/2026](https://www.mse.gov.sg/latest-news/written-reply-to-parliamentary-question-on-unit-cost-and-energy-intensity-of-desalinated-water-vs-newater-and-imported-water/)"
+}

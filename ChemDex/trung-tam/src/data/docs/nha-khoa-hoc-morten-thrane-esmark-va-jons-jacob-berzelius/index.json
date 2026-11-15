@@ -2,11 +2,11 @@
   "id": "nha-khoa-hoc-morten-thrane-esmark-va-jons-jacob-berzelius",
   "slug": "nha-khoa-hoc-morten-thrane-esmark-va-jons-jacob-berzelius",
   "documentPath": "docs/nha-khoa-hoc-morten-thrane-esmark-va-jons-jacob-berzelius/index.json",
-  "title": "Morten Thrane Esmark và Jöns Jacob Berzelius — dấu mốc khám phá hóa học",
+  "title": "Morten Thrane Esmark và Jöns Jacob Berzelius — lần theo dấu vết thorium",
   "author": "Ban biên tập ChemDex",
   "category": "tieusu",
-  "summary": "Hồ sơ lịch sử liên quan đến Thorium (Th); phân biệt phát hiện, cô lập và đặt tên theo từng trường hợp.",
-  "image": "/assets/library/history-evidence.svg",
+  "summary": "Năm 1828, nhà khoáng vật học Morten Thrane Esmark phát hiện một khoáng vật màu đen trên đảo Løvøya, Na Uy. Ông gửi mẫu cho Jöns Jacob Berzelius nghiên cứu.",
+  "image": "/assets/library/photos/elements/Th.jpg",
   "tags": [
     "Lịch sử hóa học",
     "Th"
@@ -15,6 +15,26 @@
     "Morten Thrane Esmark và Jöns Jacob Berzelius"
   ],
   "documentKind": "biography",
-  "readingMinutes": 1,
-  "content": "# Morten Thrane Esmark và Jöns Jacob Berzelius — dấu mốc khám phá hóa học\n\nHồ sơ lịch sử liên quan đến Thorium (Th); phân biệt phát hiện, cô lập và đặt tên theo từng trường hợp.\n\n## Thorium (Th)\n\nNăm 1828, nhà khoáng vật học Morten Thrane Esmark phát hiện một khoáng vật màu đen trên đảo Løvøya, Na Uy. Ông gửi mẫu cho Jöns Jacob Berzelius nghiên cứu. Berzelius xác định trong khoáng vật có một nguyên tố mới và đặt tên là Thorium, theo Thor, vị thần sấm sét trong thần thoại Bắc Âu. Đến năm 1898, Marie Curie và Gerhard Carl Schmidt độc lập phát hiện Thorium có tính phóng xạ.\n\n**Mốc lịch sử:** 1828. **Địa điểm ghi trong hồ sơ:** Na Uy và Thụy Điển.\n\n[Đọc tài liệu về Thorium](/trung-tam/tai-lieu-so/thorium-th/).\n\n[Royal Society of Chemistry — thông tin nguyên tố](https://periodic-table.rsc.org/element/90/thorium)\n\n## Cách đọc các mốc lịch sử\n\nPhát hiện một nguyên tố, cô lập đơn chất và đặt tên có thể là những công việc khác nhau, diễn ra ở các thời điểm khác nhau. Một nhóm nghiên cứu hoặc cơ quan không được xem như một cá nhân. Với nguyên tố được biết từ cổ đại, hồ sơ không gán một người khám phá. Các ghi nhận trên dẫn về tài liệu của nguyên tố và nguồn tham khảo tương ứng; không bổ sung lời trích dẫn hay giai thoại đời tư chưa có căn cứ."
+  "readingMinutes": 3,
+  "editorialEvidence": {
+    "language": "vi",
+    "scope": "related-element",
+    "contextLabel": "Thorium (Th)",
+    "reviewBasis": "existing-element-dossier",
+    "story": {
+      "status": "documented",
+      "section": "## Cuộc tìm kiếm dẫn đến thorium",
+      "sources": [
+        "https://periodic-table.rsc.org/element/90/thorium"
+      ]
+    },
+    "application": {
+      "status": "context-only",
+      "section": "## Từ dấu mốc nghiên cứu đến công việc hôm nay",
+      "sources": [
+        "https://periodic-table.rsc.org/element/90/thorium"
+      ]
+    }
+  },
+  "content": "## Cuộc tìm kiếm dẫn đến thorium\n\nNăm 1828, nhà khoáng vật học Morten Thrane Esmark phát hiện một khoáng vật màu đen trên đảo Løvøya, Na Uy. Ông gửi mẫu cho Jöns Jacob Berzelius nghiên cứu. Berzelius xác định trong khoáng vật có một nguyên tố mới và đặt tên là thorium, theo Thor, vị thần sấm sét trong thần thoại Bắc Âu. Đến năm 1898, Marie Curie và Gerhard Carl Schmidt độc lập phát hiện thorium có tính phóng xạ.\n\nNhững người hoặc cơ sở được ghi nhận trong câu chuyện này là **Morten Thrane Esmark và Jöns Jacob Berzelius**.\n\n![Hình minh họa thorium](/assets/library/photos/elements/Th.jpg)\n\n*Hình minh họa chủ đề thorium. [Nguồn hình: bộ ảnh nguyên tố](https://en.wikipedia.org/wiki/Thorium).*\n\n## Bằng chứng đã thay đổi điều gì?\n\nĐiều làm một phát hiện có sức nặng là khả năng phân biệt chất đang nghiên cứu với những chất đã biết. Mẫu vật có thể chứa nhiều thành phần; tên khoáng vật hoặc màu sắc chưa đủ xác định nguyên tố. Tách mẫu, so sánh phản ứng và diễn giải phép đo nối với nhau thành một lập luận. Bởi vậy, ngày nhận ra một nguyên tố, ngày cô lập được đơn chất và ngày tên gọi được thống nhất có thể khác nhau.\n\n## Từ dấu mốc nghiên cứu đến công việc hôm nay\n\n### Thorium (Th)\n\n²³²Th có thể hấp thụ neutron và qua chuỗi biến đổi hạt nhân tạo thành ²³³U, một đồng vị có khả năng phân hạch. Vì vậy thorium được nghiên cứu như một nguồn nhiên liệu hạt nhân tiềm năng.\n\nThO₂ có nhiệt độ nóng chảy rất cao và từng được sử dụng trong một số vật liệu chịu nhiệt.\n\n[Đọc tiếp về Thorium](/trung-tam/tai-lieu-so/thorium-th/).\n\nNhững ứng dụng này thuộc về hành trình phát triển tiếp theo của nguyên tố. Từ phát hiện đến thiết bị sử dụng được còn có công việc của nhiều thế hệ: tạo vật liệu đủ sạch, hiểu tính chất, thiết kế quy trình và kiểm tra độ bền. Vai trò của người khám phá nằm ở dấu mốc được kể ở trên; các công nghệ xuất hiện sau đó cần được ghi nhận cho đúng công trình.\n\n## Nguồn và đọc tiếp\n\n- [Hội Hóa học Hoàng gia Anh · Thorium](https://periodic-table.rsc.org/element/90/thorium)"
 }

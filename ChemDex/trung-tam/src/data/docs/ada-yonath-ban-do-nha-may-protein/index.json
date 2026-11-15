@@ -1,0 +1,46 @@
+{
+  "id": "ada-yonath-ban-do-nha-may-protein",
+  "slug": "ada-yonath-ban-do-nha-may-protein",
+  "documentPath": "docs/ada-yonath-ban-do-nha-may-protein/index.json",
+  "title": "Ada Yonath: bản đồ của nơi tế bào lắp ráp protein",
+  "summary": "Từ những tinh thể khó đo, nghiên cứu ribôxôm của Ada Yonath giúp giải thích sự tổng hợp protein và cách một số kháng sinh can thiệp vào quá trình ấy.",
+  "category": "tieusu",
+  "author": "Ban biên tập ChemDex",
+  "image": "/assets/library/history-evidence.svg",
+  "tags": [
+    "Ada Yonath",
+    "Ribôxôm",
+    "Cấu trúc sinh học",
+    "Kháng sinh"
+  ],
+  "aliases": [
+    "Ada E. Yonath"
+  ],
+  "documentKind": "story",
+  "readingMinutes": 5,
+  "editorialEvidence": {
+    "language": "vi",
+    "scope": "chemical-family",
+    "contextLabel": "Ada Yonath: bản đồ của nơi tế bào lắp ráp protein",
+    "reviewBasis": "Biên soạn theo các nguồn dẫn cuối bài; phân biệt kết quả đã thực hiện và hướng phát triển.",
+    "story": {
+      "status": "documented",
+      "section": "## Một bộ máy sống cần được nhìn ở cấp nguyên tử",
+      "sources": [
+        "https://www.weizmann.ac.il/csb/faculty_pages/Yonath/00Sc_activities.html",
+        "https://wis-wander.weizmann.ac.il/chemistry/antibiotics-action",
+        "https://pubmed.ncbi.nlm.nih.gov/15487937/"
+      ]
+    },
+    "application": {
+      "status": "documented",
+      "section": "## Ứng dụng hôm nay: hiểu vị trí tác động của kháng sinh",
+      "sources": [
+        "https://www.weizmann.ac.il/csb/faculty_pages/Yonath/00Sc_activities.html",
+        "https://wis-wander.weizmann.ac.il/chemistry/antibiotics-action",
+        "https://pubmed.ncbi.nlm.nih.gov/15487937/"
+      ]
+    }
+  },
+  "content": "## Một bộ máy sống cần được nhìn ở cấp nguyên tử\n\nRibôxôm đọc thông tin di truyền để lắp ráp protein. Nhưng biết chức năng chung chưa cho biết các thành phần bên trong phối hợp ra sao. Đối với Ada Yonath, tìm cấu trúc của bộ máy ấy là cách đi vào một trong những hoạt động nền tảng của tế bào.\n\nNhóm của bà bắt đầu nghiên cứu tinh thể học ribôxôm từ khoảng năm 1980. Theo hồ sơ nghiên cứu tại Viện Weizmann, các cấu trúc của những tiểu đơn vị ribôxôm ở trạng thái hoạt động được xác định trong các công trình năm 2000 và 2001. Quãng thời gian dài phản ánh độ khó của đối tượng: đây là một tổ hợp lớn gồm ARN và protein, cần được giữ trong trạng thái phù hợp để đo.\n\nNăm 2009, Yonath nhận Nobel Hóa học cùng Venkatraman Ramakrishnan và Thomas Steitz cho nghiên cứu cấu trúc và chức năng ribôxôm. Thành tựu giúp một hoạt động từng được mô tả bằng sơ đồ trở thành hệ có thể khảo sát bằng vị trí, tương tác và các trạng thái cụ thể.\n\n![Minh họa hồ sơ nghiên cứu và bằng chứng khoa học](/assets/library/history-evidence.svg)\n\n## Cấu trúc cho thấy phân công bên trong ribôxôm\n\nRibôxôm có hai tiểu đơn vị phối hợp với nhau. Tiểu đơn vị nhỏ tham gia đọc thông tin; tiểu đơn vị lớn tạo liên kết peptit giữa các axit amin và có đường đi cho chuỗi protein mới hình thành. Những chức năng ấy đòi hỏi các phân tử được đặt đúng vị trí vào đúng giai đoạn.\n\nHình dung ribôxôm như một nhà máy giúp người mới học tiếp cận, nhưng đây không phải một cỗ máy kim loại thu nhỏ. Nó hoạt động nhờ tương tác phân tử và chuyển động của các thành phần. ARN không chỉ là bản ghi thông tin ở đâu đó bên ngoài; nó là thành phần quan trọng của chính bộ máy.\n\nKhi có cấu trúc, nhà nghiên cứu có thể kiểm tra vị trí những phân tử tham gia, khoảng cách giữa chúng và sự thay đổi khi một chất khác gắn vào. Dữ liệu ấy phải được đọc trong bối cảnh điều kiện đo. Một cấu trúc cung cấp một trạng thái của hệ, trong khi hoạt động đầy đủ gồm nhiều bước liên tiếp.\n\nĐó là nơi dữ liệu cấu trúc và phép đo chức năng gặp nhau. Nếu một phân tử gắn ở vùng quan trọng, cần kiểm tra nó thực sự làm thay đổi quá trình tổng hợp protein như thế nào. Vị trí trên bản đồ gợi ý cơ chế; thí nghiệm hoạt tính giúp xác nhận ý nghĩa của vị trí ấy.\n\n## Ứng dụng hôm nay: hiểu vị trí tác động của kháng sinh\n\nMột số kháng sinh tác động lên ribôxôm của vi khuẩn. Nhóm Yonath khảo sát các phức hợp giữa ribôxôm và thuốc để hiểu cách chúng gắn, cản trở hoạt động và liên quan đến những cơ chế kháng thuốc. Viện Weizmann mô tả các công trình đã làm rõ những vị trí và cách tác động khác nhau.\n\nSự phân biệt giữa ribôxôm của vi khuẩn và của con người có ý nghĩa với tính chọn lọc. Tuy nhiên, xác định được một vị trí khác nhau chưa tự bảo đảm có một thuốc hữu ích. Một phân tử còn phải đi đến đích, ổn định đủ lâu và được kiểm tra hiệu quả cùng tính an toàn bằng quy trình nghiên cứu thích hợp.\n\nTrong nghiên cứu hiện nay, bản đồ cấu trúc giúp lựa chọn giả thuyết và thiết kế các phép thử có mục tiêu. Khi một biến đổi ở vi khuẩn làm giảm tác dụng của thuốc, dữ liệu không gian có thể giúp giải thích vì sao sự gắn kết hoặc hoạt động bị thay đổi. Từ đó, nhà nghiên cứu cân nhắc những hướng điều chỉnh phân tử.\n\nCâu chuyện Yonath cho thấy nghiên cứu cơ bản và nhu cầu thực tế có thể gặp nhau sau một hành trình rất dài. Việc tìm cấu trúc một tổ hợp phân tử không chỉ làm hình minh họa sinh học đẹp hơn. Nó mở thêm cách đặt câu hỏi về sự sống và về những chất mà con người dùng để can thiệp vào hoạt động của vi sinh vật.\n\n## Nguồn và đọc thêm\n\n- [Viện Weizmann · Công trình khoa học của Ada Yonath](https://www.weizmann.ac.il/csb/faculty_pages/Yonath/00Sc_activities.html)\n- [Viện Weizmann · Quan sát kháng sinh tác động lên ribôxôm](https://wis-wander.weizmann.ac.il/chemistry/antibiotics-action)\n- [Yonath · Tinh thể học ribôxôm và sự cản trở của kháng sinh](https://pubmed.ncbi.nlm.nih.gov/15487937/)"
+}

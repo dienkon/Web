@@ -26,6 +26,22 @@
   "documentKind": "reference",
   "lessonKind": "substance-guide",
   "readingMinutes": 6,
+  "editorialEvidence": {
+    "language": "vi",
+    "scope": "substance",
+    "contextLabel": "C2H5COOC3H7",
+    "reviewBasis": "editorial-audit-2026-11-15",
+    "story": {
+      "status": "missing",
+      "sources": [],
+      "reason": "Chưa có câu chuyện và ứng dụng được đối chiếu riêng cho C2H5COOC3H7 (C2H5COOC3H7); giữ nguyên bài tra cứu, không gán lịch sử hay công dụng của nguyên tố thành phần cho hợp chất."
+    },
+    "application": {
+      "status": "missing",
+      "sources": [],
+      "reason": "Chưa có câu chuyện và ứng dụng được đối chiếu riêng cho C2H5COOC3H7 (C2H5COOC3H7); giữ nguyên bài tra cứu, không gán lịch sử hay công dụng của nguyên tố thành phần cho hợp chất."
+    }
+  },
   "chemicalEvidence": {
     "formula": "C2H5COOC3H7",
     "representativeId": "formula-C2H5COOC3H7",

@@ -47,6 +47,13 @@ test('source transform preserves interpolation and chemical formulae without a r
   assert.equal(catalog.row.name_vi,'water');assert.equal(catalog.row.name_search,'Nước');
 });
 
+test('Vietnamese editorial manuscripts and photo credits survive the production naming transform',()=>{
+  const article={id:'nuoc-trong-doi-song',documentPath:'docs/nuoc-trong-doi-song/index.json',title:'Nước và đồng trong đời sống',summary:'Làm sao tạo nước?',content:'Tạo nước từ hydrogen. Ảnh: Đồng Minh; CC BY-SA 4.0.',editorialEvidence:{language:'vi'}};
+  assert.deepEqual(chemicalData(article),article);
+  assert.deepEqual(chemicalData([article]),[article]);
+  assert.equal(chemicalData({name_vi:'Nước',name_en:'water',formula:'H2O'}).name_vi,'water','The catalog naming convention still applies outside editorial prose.');
+});
+
 test('chemical labels cannot rename HTML controls, source IDs, search aliases or selector arguments',()=>{
   const source='globalThis.row={id:"Nước",name_vi:"Nước",name_en:"water",aliases:["Nước"]}; document.getElementById("Nước"); const lookup={"Nước":1}; lookup["Nước"];';
   const output=chemicalSource(source);

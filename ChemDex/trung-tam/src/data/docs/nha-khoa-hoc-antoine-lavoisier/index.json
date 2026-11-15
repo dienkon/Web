@@ -6,7 +6,7 @@
   "author": "Ban biên tập ChemDex",
   "category": "tieusu",
   "summary": "Vai trò trong cách giải thích sự cháy và thành phần của nước, theo American Chemical Society.",
-  "image": "/assets/library/history-evidence.svg",
+  "image": "/assets/library/photos/elements/C.jpg",
   "tags": [
     "Lịch sử hóa học"
   ],
@@ -17,6 +17,26 @@
     "Antoine-Laurent de Lavoisier"
   ],
   "documentKind": "biography",
-  "readingMinutes": 1,
-  "content": "## Đóng góp được ghi nhận\n\nLavoisier giải thích sự cháy bằng phản ứng với oxygen, thay cho thuyết phlogiston. Ông dùng kết quả thực nghiệm và phép cân để phát triển cách nghiên cứu định lượng trong hóa học. Nghiên cứu về nước giúp xác lập rằng nước là hợp chất, thay vì một nguyên tố.\n\n## Đọc đúng vai trò lịch sử\n\nACS phân biệt đóng góp của Lavoisier với việc Priestley thu được oxygen và công việc của Cavendish về nước. Không gán mọi phát hiện trong câu chuyện cho một người, hoặc xem Lavoisier là người đầu tiên biết carbon.\n\n## Đọc tiếp\n\n- [Tài liệu C](/trung-tam/tai-lieu-so/carbon-c/)\n- [Tài liệu O](/trung-tam/tai-lieu-so/oxy-o/)\n- [Tài liệu H2O](/trung-tam/tai-lieu-so/nuoc-h2o/)\n\n## Nguồn\n\n- [ACS · The Chemical Revolution of Antoine-Laurent Lavoisier](https://www.acs.org/education/whatischemistry/landmarks/lavoisier.html)"
+  "readingMinutes": 3,
+  "editorialEvidence": {
+    "language": "vi",
+    "scope": "chemical-family",
+    "contextLabel": "Phép đo khối lượng và tính lượng chất",
+    "reviewBasis": "source-read-2026-11-15",
+    "story": {
+      "status": "documented",
+      "section": "## Khi chất cháy lại nặng thêm",
+      "sources": [
+        "https://www.acs.org/education/whatischemistry/landmarks/lavoisier.html"
+      ]
+    },
+    "application": {
+      "status": "documented",
+      "section": "## Từ phép cân đến tính lượng nguyên liệu",
+      "sources": [
+        "https://openstax.org/books/chemistry-2e/pages/4-3-reaction-stoichiometry"
+      ]
+    }
+  },
+  "content": "## Khi chất cháy lại nặng thêm\n\nĐốt một vật, người quan sát thường chờ phần còn lại nhẹ đi. Nhưng khi nung một số kim loại trong không khí, sản phẩm lại nặng hơn ban đầu. Với Antoine Lavoisier, sự tăng khối lượng là một dấu vết cần giải thích. Học thuyết phlogiston khi ấy xem sự cháy như quá trình chất cháy mất đi một thành phần; phép cân đặt cách giải thích ấy trước một câu hỏi khó.\n\nLavoisier nghiên cứu vai trò của không khí và đi đến cách giải thích sự cháy bằng sự kết hợp với oxy. Kết quả của Priestley về khí thu được khi nung oxit thủy ngân và nghiên cứu của Cavendish về nước góp phần vào cuộc chuyển đổi này. Thành tựu hình thành qua thí nghiệm và cách diễn giải của nhiều người. Lavoisier giữ vai trò then chốt trong việc gắn phép đo khối lượng với một hệ thống giải thích hóa học.\n\n![Minh họa chủ đề Cacbon](/assets/library/photos/elements/C.jpg)\n\n*Hình minh họa chủ đề Cacbon; [nguồn hình](https://en.wikipedia.org/wiki/Carbon).*\n\n## Đọc đúng vai trò lịch sử\n\nACS phân biệt đóng góp của Lavoisier với việc Priestley thu được oxi và công việc của Cavendish về nước. Không gán mọi phát hiện trong câu chuyện cho một người, hoặc xem Lavoisier là người đầu tiên biết cacbon.\n\n## Từ phép cân đến tính lượng nguyên liệu\n\nNgày nay, cách theo dõi lượng chất xuất hiện trong từng bài toán tính theo phương trình. Nếu một phản ứng tạo ra khí, chỉ cân phần rắn còn lại sẽ bỏ sót vật chất đã đi khỏi bình. Khi kiểm kê đủ các dòng vào và ra, người làm thí nghiệm mới có thể kiểm tra phản ứng và phát hiện thất thoát.\n\nChẳng hạn, phương trình **2H₂ + O₂ → 2H₂O** cho biết hai mol hiđro phản ứng với một mol oxy để tạo hai mol nước. Hệ số biểu diễn tỉ lệ số hạt hoặc số mol, không có nghĩa hai gam hiđro chỉ cần một gam oxy. Muốn tính khối lượng phải dùng thêm khối lượng mol.\n\nTrong sản xuất, phép tính ấy giúp ước lượng lượng nguyên liệu cần đưa vào và lượng sản phẩm có thể thu được. Kết quả thực tế còn phụ thuộc độ tinh khiết, hiệu suất và những phản ứng phụ. Một định luật bảo toàn không xóa bỏ các giới hạn đó; nó giúp nhận ra phần vật chất chưa được giải thích. Đó là cách tinh thần định lượng của cuộc cách mạng hóa học tiếp tục làm việc trong phòng thí nghiệm hôm nay.\n\n## Đọc tiếp\n\n- [Tài liệu C](/trung-tam/tai-lieu-so/carbon-c/)\n- [Tài liệu O](/trung-tam/tai-lieu-so/oxy-o/)\n- [Tài liệu H2O](/trung-tam/tai-lieu-so/nuoc-h2o/)\n\n## Nguồn\n\n- [ACS · The Chemical Revolution of Antoine-Laurent Lavoisier](https://www.acs.org/education/whatischemistry/landmarks/lavoisier.html)\n- [OpenStax · Tính lượng chất theo phương trình](https://openstax.org/books/chemistry-2e/pages/4-3-reaction-stoichiometry)"
 }

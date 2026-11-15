@@ -2,11 +2,11 @@
   "id": "nha-khoa-hoc-kasimir-fajans-va-oswald-helmuth-gohring",
   "slug": "nha-khoa-hoc-kasimir-fajans-va-oswald-helmuth-gohring",
   "documentPath": "docs/nha-khoa-hoc-kasimir-fajans-va-oswald-helmuth-gohring/index.json",
-  "title": "Kasimir Fajans và Oswald Helmuth Göhring — dấu mốc khám phá hóa học",
+  "title": "Kasimir Fajans và Oswald Helmuth Göhring — lần theo dấu vết protactinium",
   "author": "Ban biên tập ChemDex",
   "category": "tieusu",
-  "summary": "Hồ sơ lịch sử liên quan đến Protactinium (Pa); phân biệt phát hiện, cô lập và đặt tên theo từng trường hợp.",
-  "image": "/assets/library/history-evidence.svg",
+  "summary": "Năm 1913, Kasimir Fajans và Oswald Helmuth Göhring phát hiện một đồng vị phóng xạ mới trong chuỗi phân rã của uranium-238. Đồng vị này được xác định là ²³⁴Pa và ban đầu được gọi là Brevium, do có chu kỳ bán rã rất ngắn.",
+  "image": "/assets/library/photos/elements/Pa.jpg",
   "tags": [
     "Lịch sử hóa học",
     "Pa"
@@ -15,6 +15,26 @@
     "Kasimir Fajans và Oswald Helmuth Göhring"
   ],
   "documentKind": "biography",
-  "readingMinutes": 1,
-  "content": "# Kasimir Fajans và Oswald Helmuth Göhring — dấu mốc khám phá hóa học\n\nHồ sơ lịch sử liên quan đến Protactinium (Pa); phân biệt phát hiện, cô lập và đặt tên theo từng trường hợp.\n\n## Protactinium (Pa)\n\nNăm 1913, Kasimir Fajans và Oswald Helmuth Göhring phát hiện một đồng vị phóng xạ mới trong chuỗi phân rã của Uranium-238. Đồng vị này được xác định là ²³⁴Pa và ban đầu được gọi là Brevium, do có chu kỳ bán rã rất ngắn. Đến năm 1917, Lise Meitner và Otto Hahn độc lập xác định một đồng vị sống lâu hơn là ²³¹Pa, đồng thời làm rõ vị trí của nguyên tố này trong chuỗi phân rã của Uranium. Tên Protactinium có nghĩa gần như “tiền thân của Actinium”, bởi ²³¹Pa phân rã tạo thành Actinium-227.\n\n**Mốc lịch sử:** 1913. **Địa điểm ghi trong hồ sơ:** Karlsruhe, Đức.\n\n[Đọc tài liệu về Protactinium](/trung-tam/tai-lieu-so/protactinium-pa/).\n\n[Royal Society of Chemistry — thông tin nguyên tố](https://periodic-table.rsc.org/element/91/protactinium)\n\n## Cách đọc các mốc lịch sử\n\nPhát hiện một nguyên tố, cô lập đơn chất và đặt tên có thể là những công việc khác nhau, diễn ra ở các thời điểm khác nhau. Một nhóm nghiên cứu hoặc cơ quan không được xem như một cá nhân. Với nguyên tố được biết từ cổ đại, hồ sơ không gán một người khám phá. Các ghi nhận trên dẫn về tài liệu của nguyên tố và nguồn tham khảo tương ứng; không bổ sung lời trích dẫn hay giai thoại đời tư chưa có căn cứ."
+  "readingMinutes": 3,
+  "editorialEvidence": {
+    "language": "vi",
+    "scope": "related-element",
+    "contextLabel": "Protactinium (Pa)",
+    "reviewBasis": "existing-element-dossier",
+    "story": {
+      "status": "documented",
+      "section": "## Cuộc tìm kiếm dẫn đến protactinium",
+      "sources": [
+        "https://periodic-table.rsc.org/element/91/protactinium"
+      ]
+    },
+    "application": {
+      "status": "context-only",
+      "section": "## Từ dấu mốc nghiên cứu đến công việc hôm nay",
+      "sources": [
+        "https://periodic-table.rsc.org/element/91/protactinium"
+      ]
+    }
+  },
+  "content": "## Cuộc tìm kiếm dẫn đến protactinium\n\nNăm 1913, Kasimir Fajans và Oswald Helmuth Göhring phát hiện một đồng vị phóng xạ mới trong chuỗi phân rã của uranium-238. Đồng vị này được xác định là ²³⁴Pa và ban đầu được gọi là Brevium, do có chu kỳ bán rã rất ngắn. Đến năm 1917, Lise Meitner và Otto Hahn độc lập xác định một đồng vị sống lâu hơn là ²³¹Pa, đồng thời làm rõ vị trí của nguyên tố này trong chuỗi phân rã của uranium. Tên protactinium có nghĩa gần như “tiền thân của actinium”, bởi ²³¹Pa phân rã tạo thành actinium-227.\n\nNhững người hoặc cơ sở được ghi nhận trong câu chuyện này là **Kasimir Fajans và Oswald Helmuth Göhring**.\n\n![Hình minh họa protactinium](/assets/library/photos/elements/Pa.jpg)\n\n*Hình minh họa chủ đề protactinium. [Nguồn hình: bộ ảnh nguyên tố](https://en.wikipedia.org/wiki/Protactinium).*\n\n## Bằng chứng đã thay đổi điều gì?\n\nỞ những nguyên tố được tạo ra bằng phản ứng hạt nhân, bằng chứng có thể xuất hiện dưới dạng một chuỗi tín hiệu phân rã. Các nhà nghiên cứu phải nối những tín hiệu ấy với quá trình tạo mẫu, kiểm tra sản phẩm và đối chiếu sự kiện lặp lại. Đổi một nguyên tố thành nguyên tố khác đòi hỏi thay đổi hạt nhân; phản ứng hóa học thông thường chỉ sắp xếp lại electron và liên kết. Chính sự khác biệt này khiến cuộc tìm kiếm cần đến những công cụ vượt xa bình phản ứng quen thuộc.\n\n## Từ dấu mốc nghiên cứu đến công việc hôm nay\n\n### Protactinium (Pa)\n\nProtactinium chủ yếu được sử dụng trong nghiên cứu khoa học, đặc biệt là nghiên cứu chuỗi phân rã phóng xạ và cấu trúc hạt nhân.\n\nHệ đồng vị ²³¹Pa–²³⁰Th được sử dụng trong một số phương pháp nghiên cứu tuổi và lịch sử trầm tích biển, nhờ chu kỳ bán rã tương đối dài của ²³¹Pa.\n\n[Đọc tiếp về Protactinium](/trung-tam/tai-lieu-so/protactinium-pa/).\n\nNhững ứng dụng này thuộc về hành trình phát triển tiếp theo của nguyên tố. Từ phát hiện đến thiết bị sử dụng được còn có công việc của nhiều thế hệ: tạo vật liệu đủ sạch, hiểu tính chất, thiết kế quy trình và kiểm tra độ bền. Vai trò của người khám phá nằm ở dấu mốc được kể ở trên; các công nghệ xuất hiện sau đó cần được ghi nhận cho đúng công trình.\n\n## Nguồn và đọc tiếp\n\n- [Hội Hóa học Hoàng gia Anh · Protactinium](https://periodic-table.rsc.org/element/91/protactinium)"
 }

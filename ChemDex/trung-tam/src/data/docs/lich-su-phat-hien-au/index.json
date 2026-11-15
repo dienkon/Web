@@ -2,11 +2,11 @@
   "id": "lich-su-phat-hien-au",
   "slug": "lich-su-phat-hien-au",
   "documentPath": "docs/lich-su-phat-hien-au/index.json",
-  "title": "Lịch sử phát hiện Vàng",
+  "title": "Vàng: một lịch sử có trước tên người phát hiện",
   "author": "Ban biên tập ChemDex",
   "category": "nguyento",
-  "summary": "Hồ sơ lịch sử liên quan đến Vàng (Au); phân biệt phát hiện, cô lập và đặt tên theo từng trường hợp.",
-  "image": "/assets/library/history-evidence.svg",
+  "summary": "Vàng là một trong những nguyên tố đầu tiên được con người biết đến và sử dụng. Các đồ vật bằng vàng đã được tìm thấy trong nhiều nền văn minh cổ đại.",
+  "image": "/assets/library/photos/elements/Au.jpg",
   "tags": [
     "Lịch sử hóa học",
     "Au"
@@ -15,6 +15,26 @@
     "Không xác định — Gold đã được con người biết đến từ thời tiền sử."
   ],
   "documentKind": "biography",
-  "readingMinutes": 1,
-  "content": "# Lịch sử phát hiện Vàng\n\nHồ sơ lịch sử liên quan đến Vàng (Au); phân biệt phát hiện, cô lập và đặt tên theo từng trường hợp.\n\n## Vàng (Au)\n\nGold là một trong những nguyên tố đầu tiên được con người biết đến và sử dụng. Các đồ vật bằng Gold đã được tìm thấy trong nhiều nền văn minh cổ đại. Do Gold có thể tồn tại ở dạng kim loại tự nhiên và không dễ bị Oxy hóa, nó có thể được thu thập và gia công mà không cần các kỹ thuật luyện kim phức tạp.\n\n**Mốc lịch sử:** Thời tiền sử. **Địa điểm ghi trong hồ sơ:** Không xác định.\n\n[Đọc tài liệu về Vàng](/trung-tam/tai-lieu-so/vang-au/).\n\n[Royal Society of Chemistry — thông tin nguyên tố](https://periodic-table.rsc.org/element/79/gold)\n\n## Cách đọc các mốc lịch sử\n\nPhát hiện một nguyên tố, cô lập đơn chất và đặt tên có thể là những công việc khác nhau, diễn ra ở các thời điểm khác nhau. Một nhóm nghiên cứu hoặc cơ quan không được xem như một cá nhân. Với nguyên tố được biết từ cổ đại, hồ sơ không gán một người khám phá. Các ghi nhận trên dẫn về tài liệu của nguyên tố và nguồn tham khảo tương ứng; không bổ sung lời trích dẫn hay giai thoại đời tư chưa có căn cứ."
+  "readingMinutes": 2,
+  "editorialEvidence": {
+    "language": "vi",
+    "scope": "related-element",
+    "contextLabel": "Vàng (Au)",
+    "reviewBasis": "existing-element-dossier",
+    "story": {
+      "status": "documented",
+      "section": "## Dấu vết vàng trong lịch sử",
+      "sources": [
+        "https://periodic-table.rsc.org/element/79/gold"
+      ]
+    },
+    "application": {
+      "status": "context-only",
+      "section": "## Từ dấu mốc nghiên cứu đến công việc hôm nay",
+      "sources": [
+        "https://periodic-table.rsc.org/element/79/gold"
+      ]
+    }
+  },
+  "content": "## Dấu vết vàng trong lịch sử\n\nVàng là một trong những nguyên tố đầu tiên được con người biết đến và sử dụng. Các đồ vật bằng vàng đã được tìm thấy trong nhiều nền văn minh cổ đại. Do vàng có thể tồn tại ở dạng kim loại tự nhiên và không dễ bị Oxy hóa, nó có thể được thu thập và gia công mà không cần các kỹ thuật luyện kim phức tạp.\n\n![Hình minh họa vàng](/assets/library/photos/elements/Au.jpg)\n\n*Hình minh họa chủ đề vàng. [Nguồn hình: bộ ảnh nguyên tố](https://en.wikipedia.org/wiki/Gold).*\n\n## Bằng chứng đã thay đổi điều gì?\n\nVới vàng, việc con người biết sử dụng một vật liệu và việc hóa học nhận diện nguyên tố trong vật liệu ấy thuộc về những thời kỳ khác nhau. Một đồ vật cổ có thể cho biết người xưa đã biết khai thác, nung hoặc tạo hình; nó chưa cho biết họ đã có khái niệm nguyên tử như ngày nay. Vì thế, câu chuyện này cần được đọc qua dấu tích vật liệu và sự thay đổi cách hiểu, thay vì tìm một ngày phát minh duy nhất.\n\n## Từ dấu mốc nghiên cứu đến công việc hôm nay\n\n### Vàng (Au)\n\nVàng được sử dụng rộng rãi trong trang sức nhờ màu sắc đặc trưng, độ bền và khả năng chống ăn mòn.\n\nVàng được sử dụng làm tài sản dự trữ và trong một số loại tiền xu, thỏi vàng.\n\n[Đọc tiếp về Vàng](/trung-tam/tai-lieu-so/vang-au/).\n\nNhững ứng dụng này thuộc về hành trình phát triển tiếp theo của nguyên tố. Từ phát hiện đến thiết bị sử dụng được còn có công việc của nhiều thế hệ: tạo vật liệu đủ sạch, hiểu tính chất, thiết kế quy trình và kiểm tra độ bền. Vai trò của người khám phá nằm ở dấu mốc được kể ở trên; các công nghệ xuất hiện sau đó cần được ghi nhận cho đúng công trình.\n\n## Nguồn và đọc tiếp\n\n- [Hội Hóa học Hoàng gia Anh · Vàng](https://periodic-table.rsc.org/element/79/gold)"
 }

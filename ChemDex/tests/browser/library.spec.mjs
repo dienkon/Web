@@ -54,12 +54,12 @@ test('library finds chemical stories by accent-free names, aliases and subscript
   await expect(results).toContainText(/ethanol/i);
   await search.fill('H₂O');
   await expect(results.locator('h3')).toHaveCount(1);
-  await expect(results).toContainText(/water/i);
+  await expect(results).toContainText(/nước|water/i);
   await search.fill('khong co chat nay 56789');
   await expect(page.getByRole('heading',{name:'Không tìm thấy tài liệu'})).toBeVisible();
   await search.fill('metan');
   await results.getByRole('heading').click();
   await expect(page).toHaveURL(/(?:doc=chat-metan|\/tai-lieu-so\/metan-ch4\/)/);
   await page.locator('article summary').filter({hasText:'Tra cứu công thức'}).click();
-  await expect(page.locator('article pre')).toContainText(/CH4[(]g[)] [+] 2O2[(]g[)]/);
+  await expect(page.locator('article details').first()).toContainText('CH₄(g) + 2O₂(g) → CO₂(g) + 2H₂O(g)');
 });

@@ -2,11 +2,11 @@
   "id": "nha-khoa-hoc-marie-curie-va-pierre-curie",
   "slug": "nha-khoa-hoc-marie-curie-va-pierre-curie",
   "documentPath": "docs/nha-khoa-hoc-marie-curie-va-pierre-curie/index.json",
-  "title": "Marie Curie và Pierre Curie — dấu mốc khám phá hóa học",
+  "title": "Marie Curie và Pierre Curie — lần theo dấu vết polonium, radium",
   "author": "Ban biên tập ChemDex",
   "category": "tieusu",
-  "summary": "Hồ sơ lịch sử liên quan đến Polonium (Po), Radium (Ra); phân biệt phát hiện, cô lập và đặt tên theo từng trường hợp.",
-  "image": "/assets/library/history-evidence.svg",
+  "summary": "Polonium được Marie Curie và Pierre Curie phát hiện năm 1898 trong quá trình nghiên cứu khoáng vật Uraninite. Họ nhận thấy Uraninite có tính phóng xạ mạnh hơn mức có thể giải thích chỉ bằng uranium, từ đó phát hiện một nguyên tố phóng xạ mới.",
+  "image": "/assets/library/photos/elements/Po.jpg",
   "tags": [
     "Lịch sử hóa học",
     "Po",
@@ -16,6 +16,28 @@
     "Marie Curie và Pierre Curie"
   ],
   "documentKind": "biography",
-  "readingMinutes": 2,
-  "content": "# Marie Curie và Pierre Curie — dấu mốc khám phá hóa học\n\nHồ sơ lịch sử liên quan đến Polonium (Po), Radium (Ra); phân biệt phát hiện, cô lập và đặt tên theo từng trường hợp.\n\n## Polonium (Po)\n\nPolonium được Marie Curie và Pierre Curie phát hiện năm 1898 trong quá trình nghiên cứu khoáng vật Uraninite. Họ nhận thấy Uraninite có tính phóng xạ mạnh hơn mức có thể giải thích chỉ bằng Uranium, từ đó phát hiện một nguyên tố phóng xạ mới. Marie Curie đặt tên Polonium theo tên Latin của quê hương bà — Polonia (Ba Lan).\n\n**Mốc lịch sử:** 1898. **Địa điểm ghi trong hồ sơ:** Pháp.\n\n[Đọc tài liệu về Polonium](/trung-tam/tai-lieu-so/polonium-po/).\n\n[Royal Society of Chemistry — thông tin nguyên tố](https://periodic-table.rsc.org/element/84/polonium)\n\n## Radium (Ra)\n\nRadium được Marie Curie và Pierre Curie phát hiện vào năm 1898 khi nghiên cứu quặng Uraninite. Họ nhận thấy quặng Uranium có tính phóng xạ mạnh hơn dự kiến và sau quá trình xử lý, đã phát hiện một nguyên tố phóng xạ mới. Tên Radium bắt nguồn từ tiếng Latin radius, nghĩa là “tia”, dựa trên tính phóng xạ mạnh của nguyên tố.\n\n**Mốc lịch sử:** 1898. **Địa điểm ghi trong hồ sơ:** Pháp.\n\n[Đọc tài liệu về Radium](/trung-tam/tai-lieu-so/radium-ra/).\n\n[Royal Society of Chemistry — thông tin nguyên tố](https://periodic-table.rsc.org/element/88/radium)\n\n## Cách đọc các mốc lịch sử\n\nPhát hiện một nguyên tố, cô lập đơn chất và đặt tên có thể là những công việc khác nhau, diễn ra ở các thời điểm khác nhau. Một nhóm nghiên cứu hoặc cơ quan không được xem như một cá nhân. Với nguyên tố được biết từ cổ đại, hồ sơ không gán một người khám phá. Các ghi nhận trên dẫn về tài liệu của nguyên tố và nguồn tham khảo tương ứng; không bổ sung lời trích dẫn hay giai thoại đời tư chưa có căn cứ."
+  "readingMinutes": 3,
+  "editorialEvidence": {
+    "language": "vi",
+    "scope": "related-element",
+    "contextLabel": "Polonium (Po), Radium (Ra)",
+    "reviewBasis": "existing-element-dossier",
+    "story": {
+      "status": "documented",
+      "section": "## Cuộc tìm kiếm dẫn đến polonium",
+      "sources": [
+        "https://periodic-table.rsc.org/element/84/polonium",
+        "https://periodic-table.rsc.org/element/88/radium"
+      ]
+    },
+    "application": {
+      "status": "context-only",
+      "section": "## Từ dấu mốc nghiên cứu đến công việc hôm nay",
+      "sources": [
+        "https://periodic-table.rsc.org/element/84/polonium",
+        "https://periodic-table.rsc.org/element/88/radium"
+      ]
+    }
+  },
+  "content": "## Cuộc tìm kiếm dẫn đến polonium\n\nPolonium được Marie Curie và Pierre Curie phát hiện năm 1898 trong quá trình nghiên cứu khoáng vật Uraninite. Họ nhận thấy Uraninite có tính phóng xạ mạnh hơn mức có thể giải thích chỉ bằng uranium, từ đó phát hiện một nguyên tố phóng xạ mới. Marie Curie đặt tên polonium theo tên Latin của quê hương bà — Polonia (Ba Lan).\n\nNhững người hoặc cơ sở được ghi nhận trong câu chuyện này là **Marie Curie và Pierre Curie**.\n\n![Hình minh họa polonium](/assets/library/photos/elements/Po.jpg)\n\n*Hình minh họa chủ đề polonium. [Nguồn hình: bộ ảnh nguyên tố](https://en.wikipedia.org/wiki/Polonium).*\n\n## Thêm một dấu mốc: Radium (Ra)\n\nRadium được Marie Curie và Pierre Curie phát hiện vào năm 1898 khi nghiên cứu quặng Uraninite. Họ nhận thấy quặng uranium có tính phóng xạ mạnh hơn dự kiến và sau quá trình xử lý, đã phát hiện một nguyên tố phóng xạ mới. Tên radium bắt nguồn từ tiếng Latin radius, nghĩa là “tia”, dựa trên tính phóng xạ mạnh của nguyên tố.\n\nNhững người hoặc cơ sở được ghi nhận trong câu chuyện này là **Marie Curie và Pierre Curie**.\n\n## Bằng chứng đã thay đổi điều gì?\n\nĐiều làm một phát hiện có sức nặng là khả năng phân biệt chất đang nghiên cứu với những chất đã biết. Mẫu vật có thể chứa nhiều thành phần; tên khoáng vật hoặc màu sắc chưa đủ xác định nguyên tố. Tách mẫu, so sánh phản ứng và diễn giải phép đo nối với nhau thành một lập luận. Bởi vậy, ngày nhận ra một nguyên tố, ngày cô lập được đơn chất và ngày tên gọi được thống nhất có thể khác nhau.\n\n## Từ dấu mốc nghiên cứu đến công việc hôm nay\n\n### Polonium (Po)\n\n²¹⁰Po từng được sử dụng làm nguồn bức xạ Alpha trong một số thiết bị chuyên dụng.\n\nPolonium-210 từng được sử dụng trong một số thiết bị khử tĩnh điện.\n\n[Đọc tiếp về Polonium](/trung-tam/tai-lieu-so/polonium-po/).\n\n### Radium (Ra)\n\nTrong thế kỷ XX, radium từng được sử dụng trong sơn phát quang cho đồng hồ và thiết bị đo. Ứng dụng này hiện đã bị loại bỏ do nguy cơ phóng xạ.\n\nRadium được sử dụng trong nghiên cứu phóng xạ và chuỗi phân rã tự nhiên.\n\n[Đọc tiếp về Radium](/trung-tam/tai-lieu-so/radium-ra/).\n\nNhững ứng dụng này thuộc về hành trình phát triển tiếp theo của nguyên tố. Từ phát hiện đến thiết bị sử dụng được còn có công việc của nhiều thế hệ: tạo vật liệu đủ sạch, hiểu tính chất, thiết kế quy trình và kiểm tra độ bền. Vai trò của người khám phá nằm ở dấu mốc được kể ở trên; các công nghệ xuất hiện sau đó cần được ghi nhận cho đúng công trình.\n\n## Nguồn và đọc tiếp\n\n- [Hội Hóa học Hoàng gia Anh · Polonium](https://periodic-table.rsc.org/element/84/polonium)\n- [Hội Hóa học Hoàng gia Anh · Radium](https://periodic-table.rsc.org/element/88/radium)"
 }

@@ -28,6 +28,22 @@
   "documentKind": "reference",
   "lessonKind": "substance-guide",
   "readingMinutes": 6,
+  "editorialEvidence": {
+    "language": "vi",
+    "scope": "substance",
+    "contextLabel": "Hexan / Dung Môi Hữu Cơ (C6H14)",
+    "reviewBasis": "editorial-audit-2026-11-15",
+    "story": {
+      "status": "missing",
+      "sources": [],
+      "reason": "Chưa có câu chuyện và ứng dụng được đối chiếu riêng cho Hexan / Dung Môi Hữu Cơ (C6H14) (C6H14); giữ nguyên bài tra cứu, không gán lịch sử hay công dụng của nguyên tố thành phần cho hợp chất."
+    },
+    "application": {
+      "status": "missing",
+      "sources": [],
+      "reason": "Chưa có câu chuyện và ứng dụng được đối chiếu riêng cho Hexan / Dung Môi Hữu Cơ (C6H14) (C6H14); giữ nguyên bài tra cứu, không gán lịch sử hay công dụng của nguyên tố thành phần cho hợp chất."
+    }
+  },
   "chemicalEvidence": {
     "formula": "C6H14",
     "representativeId": "lab3d-335",

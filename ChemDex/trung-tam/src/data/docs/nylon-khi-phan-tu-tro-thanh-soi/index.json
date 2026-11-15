@@ -1,0 +1,42 @@
+{
+  "id": "nylon-khi-phan-tu-tro-thanh-soi",
+  "slug": "nylon-khi-phan-tu-tro-thanh-soi",
+  "documentPath": "docs/nylon-khi-phan-tu-tro-thanh-soi/index.json",
+  "title": "Kéo một phân tử thành sợi: câu chuyện nylon bắt đầu từ chiều dài",
+  "summary": "Nghiên cứu của Wallace Carothers đưa các phân tử nhỏ thành chuỗi dài. Để có một sợi nylon dùng được, phản ứng mới chỉ là bước đầu.",
+  "category": "phanung",
+  "author": "Ban biên tập ChemDex",
+  "image": "/assets/library/photos/stories/nylon.jpg",
+  "tags": [
+    "Nylon",
+    "Polymer",
+    "Trùng ngưng",
+    "Vật liệu"
+  ],
+  "aliases": [],
+  "documentKind": "story",
+  "readingMinutes": 4,
+  "editorialEvidence": {
+    "language": "vi",
+    "scope": "chemical-family",
+    "contextLabel": "Kéo một phân tử thành sợi: câu chuyện nylon bắt đầu từ chiều dài",
+    "reviewBasis": "Biên soạn theo các nguồn dẫn cuối bài; phân biệt kết quả đã thực hiện và hướng phát triển.",
+    "story": {
+      "status": "documented",
+      "section": "## Câu hỏi lớn nằm trong một chuỗi rất dài",
+      "sources": [
+        "https://www.acs.org/education/whatischemistry/landmarks/carotherspolymers.html",
+        "https://openstax.org/books/organic-chemistry/pages/31-4-step-growth-polymers"
+      ]
+    },
+    "application": {
+      "status": "documented",
+      "section": "## Ứng dụng hôm nay: công thức giống nhau vẫn có thể cho sợi khác nhau",
+      "sources": [
+        "https://www.acs.org/education/whatischemistry/landmarks/carotherspolymers.html",
+        "https://openstax.org/books/organic-chemistry/pages/31-4-step-growth-polymers"
+      ]
+    }
+  },
+  "content": "## Câu hỏi lớn nằm trong một chuỗi rất dài\n\nKhi Wallace Carothers đến DuPont năm 1928, bản chất của polymer vẫn là chủ đề tranh luận. Những vật liệu như cao su hay cellulose có thật, nhưng giải thích cấu trúc của chúng không đơn giản. Carothers chọn một hướng kiểm tra trực tiếp: dùng phản ứng đã biết để nối các phân tử nhỏ thành những chuỗi dài.\n\nTừ chương trình nghiên cứu đó, nylon trở thành một bước ngoặt của vật liệu sợi tổng hợp. Điều đáng kể không chỉ là tìm được một chất mới, mà còn là nối được cách suy nghĩ về liên kết hóa học với một vật liệu có thể gia công và sản xuất.\n\n![Tất nylon trong bộ sưu tập Auckland Museum](/assets/library/photos/stories/nylon.jpg)\n\n*Tất nylon thuộc bộ sưu tập Auckland Museum, gắn với đời sống thập niên 1950–1960. — Auckland Museum; API data Catalogue record Photo; [CC BY 4.0](https://creativecommons.org/licenses/by/4.0). [Nguồn ảnh](https://commons.wikimedia.org/wiki/File:Pouch,_stocking_(AM_1999.154.33-3).jpg).*\n\n## Hai đầu phản ứng mở đường cho chuỗi nối tiếp\n\nMột phân tử chỉ có một vị trí phản ứng thường kết thúc quá trình nối sau một bước. Nếu mỗi phân tử có hai nhóm chức thích hợp, hai đầu còn lại có thể tiếp tục nối với những phân tử khác. Đó là ý tưởng cốt lõi khi tạo polyamide từ diamine và dicarboxylic acid.\n\nVới nylon 6,6, liên kết amide xuất hiện dọc mạch. Trong cách biểu diễn trùng ngưng từ acid và amine, nước là sản phẩm phụ. Khi phản ứng tiến gần hoàn toàn và tỉ lệ nhóm chức được kiểm soát tốt, chiều dài mạch có thể tăng mạnh. Chỉ một sự thiếu cân đối nhỏ ở hai loại đầu mạch cũng có thể làm nhiều chuỗi dừng sớm.\n\nTên nylon không chỉ một vật liệu duy nhất. Nylon 6 và nylon 6,6 có nguyên liệu và cách tạo mạch khác nhau. Vì thế, giải thích một mẫu sợi cần bắt đầu bằng đúng loại polymer, không lấy một phương trình đại diện cho mọi sản phẩm mang tên thương mại gần giống nhau.\n\n## Ứng dụng hôm nay: công thức giống nhau vẫn có thể cho sợi khác nhau\n\nSau phản ứng, polymer còn phải được tạo hình. Hướng sắp xếp của các mạch, độ kết tinh, độ ẩm và điều kiện gia công ảnh hưởng đến tính chất cuối cùng. Một sơ đồ mắt xích lặp lại giúp nhận diện hóa học; nó chưa nói đầy đủ một sợi sẽ chịu kéo ra sao hay một chi tiết sẽ bền đến mức nào.\n\nPolyamide được dùng trong sợi dệt và vật liệu kỹ thuật. Việc chọn chúng cần cân nhắc môi trường làm việc, sự hấp thụ nước và yêu cầu cơ học. Bền khi sử dụng cũng đặt ra bài toán sau sử dụng: vật liệu tồn tại lâu cần được thu gom và xử lý phù hợp, còn sợi pha nhiều loại có thể khó phân tách.\n\nNhìn lại Carothers, ta thấy nghiên cứu cơ bản và sản xuất không tách rời nhau. Hiểu cơ chế nối mạch giúp kiểm soát vật liệu; hiểu cách vật liệu được dùng lại đặt thêm câu hỏi cho phản ứng. Sợi nylon vì thế kể một câu chuyện dài hơn công thức: từ hai đầu nhóm chức đến dây chuyền gia công, từ sản phẩm hữu ích đến trách nhiệm với vòng đời của nó.\n\n## Nguồn và đọc thêm\n\n- [ACS · Wallace Carothers và sự phát triển của nylon](https://www.acs.org/education/whatischemistry/landmarks/carotherspolymers.html)\n- [OpenStax · Polymer trùng ngưng](https://openstax.org/books/organic-chemistry/pages/31-4-step-growth-polymers)"
+}

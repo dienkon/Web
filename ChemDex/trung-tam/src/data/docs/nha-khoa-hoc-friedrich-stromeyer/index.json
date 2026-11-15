@@ -2,11 +2,11 @@
   "id": "nha-khoa-hoc-friedrich-stromeyer",
   "slug": "nha-khoa-hoc-friedrich-stromeyer",
   "documentPath": "docs/nha-khoa-hoc-friedrich-stromeyer/index.json",
-  "title": "Friedrich Stromeyer — dấu mốc khám phá hóa học",
+  "title": "Friedrich Stromeyer — lần theo dấu vết cadmium",
   "author": "Ban biên tập ChemDex",
   "category": "tieusu",
-  "summary": "Hồ sơ lịch sử liên quan đến Cadmium (Cd); phân biệt phát hiện, cô lập và đặt tên theo từng trường hợp.",
-  "image": "/assets/library/history-evidence.svg",
+  "summary": "Năm 1817, Friedrich Stromeyer phát hiện cadmium khi nghiên cứu kẽm cacbonat. Ông nhận thấy một số mẫu kẽm oxit có màu vàng bất thường và xác định nguyên nhân là do một nguyên tố mới.",
+  "image": "/assets/library/photos/elements/Cd.jpg",
   "tags": [
     "Lịch sử hóa học",
     "Cd"
@@ -15,6 +15,26 @@
     "Friedrich Stromeyer"
   ],
   "documentKind": "biography",
-  "readingMinutes": 1,
-  "content": "# Friedrich Stromeyer — dấu mốc khám phá hóa học\n\nHồ sơ lịch sử liên quan đến Cadmium (Cd); phân biệt phát hiện, cô lập và đặt tên theo từng trường hợp.\n\n## Cadmium (Cd)\n\nNăm 1817, Friedrich Stromeyer phát hiện Cadmium khi nghiên cứu Zinc carbonate. Ông nhận thấy một số mẫu Zinc oxide có màu vàng bất thường và xác định nguyên nhân là do một nguyên tố mới. Tên Cadmium bắt nguồn từ cadmia, tên cổ của Zinc carbonate.\n\n**Mốc lịch sử:** 1817. **Địa điểm ghi trong hồ sơ:** Đức.\n\n[Đọc tài liệu về Cadmium](/trung-tam/tai-lieu-so/cadmium-cd/).\n\n[Royal Society of Chemistry — thông tin nguyên tố](https://periodic-table.rsc.org/element/48/cadmium)\n\n## Cách đọc các mốc lịch sử\n\nPhát hiện một nguyên tố, cô lập đơn chất và đặt tên có thể là những công việc khác nhau, diễn ra ở các thời điểm khác nhau. Một nhóm nghiên cứu hoặc cơ quan không được xem như một cá nhân. Với nguyên tố được biết từ cổ đại, hồ sơ không gán một người khám phá. Các ghi nhận trên dẫn về tài liệu của nguyên tố và nguồn tham khảo tương ứng; không bổ sung lời trích dẫn hay giai thoại đời tư chưa có căn cứ."
+  "readingMinutes": 2,
+  "editorialEvidence": {
+    "language": "vi",
+    "scope": "related-element",
+    "contextLabel": "Cadmium (Cd)",
+    "reviewBasis": "existing-element-dossier",
+    "story": {
+      "status": "documented",
+      "section": "## Cuộc tìm kiếm dẫn đến cadmium",
+      "sources": [
+        "https://periodic-table.rsc.org/element/48/cadmium"
+      ]
+    },
+    "application": {
+      "status": "context-only",
+      "section": "## Từ dấu mốc nghiên cứu đến công việc hôm nay",
+      "sources": [
+        "https://periodic-table.rsc.org/element/48/cadmium"
+      ]
+    }
+  },
+  "content": "## Cuộc tìm kiếm dẫn đến cadmium\n\nNăm 1817, Friedrich Stromeyer phát hiện cadmium khi nghiên cứu kẽm cacbonat. Ông nhận thấy một số mẫu kẽm oxit có màu vàng bất thường và xác định nguyên nhân là do một nguyên tố mới. Tên cadmium bắt nguồn từ cadmia, tên cổ của kẽm cacbonat.\n\nNhững người hoặc cơ sở được ghi nhận trong câu chuyện này là **Friedrich Stromeyer**.\n\n![Hình minh họa cadmium](/assets/library/photos/elements/Cd.jpg)\n\n*Hình minh họa chủ đề cadmium. [Nguồn hình: bộ ảnh nguyên tố](https://en.wikipedia.org/wiki/Cadmium).*\n\n## Bằng chứng đã thay đổi điều gì?\n\nĐiều làm một phát hiện có sức nặng là khả năng phân biệt chất đang nghiên cứu với những chất đã biết. Mẫu vật có thể chứa nhiều thành phần; tên khoáng vật hoặc màu sắc chưa đủ xác định nguyên tố. Tách mẫu, so sánh phản ứng và diễn giải phép đo nối với nhau thành một lập luận. Bởi vậy, ngày nhận ra một nguyên tố, ngày cô lập được đơn chất và ngày tên gọi được thống nhất có thể khác nhau.\n\n## Từ dấu mốc nghiên cứu đến công việc hôm nay\n\n### Cadmium (Cd)\n\nCadmium từng được sử dụng rộng rãi trong pin Ni-Cd có khả năng sạc lại.\n\nCadmium được dùng để tạo lớp phủ bảo vệ một số kim loại khỏi ăn mòn.\n\n[Đọc tiếp về Cadmium](/trung-tam/tai-lieu-so/cadmium-cd/).\n\nNhững ứng dụng này thuộc về hành trình phát triển tiếp theo của nguyên tố. Từ phát hiện đến thiết bị sử dụng được còn có công việc của nhiều thế hệ: tạo vật liệu đủ sạch, hiểu tính chất, thiết kế quy trình và kiểm tra độ bền. Vai trò của người khám phá nằm ở dấu mốc được kể ở trên; các công nghệ xuất hiện sau đó cần được ghi nhận cho đúng công trình.\n\n## Nguồn và đọc tiếp\n\n- [Hội Hóa học Hoàng gia Anh · Cadmium](https://periodic-table.rsc.org/element/48/cadmium)"
 }

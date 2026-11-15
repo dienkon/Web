@@ -9,14 +9,17 @@
   "articles": [
     {
       "id": "001_H",
-      "title": "Hydrogen (H) — Từ khí cháy đến câu hỏi water được tạo nên từ gì?",
+      "title": "Hydrogen (H) — Từ khí cháy đến câu hỏi nước được tạo nên từ gì?",
       "subjectIds": [
         "atom-H"
       ],
-      "sections": 4,
-      "characters": 3261,
+      "sections": 5,
+      "characters": 4306,
       "externalSources": [
+        "https://creativecommons.org/publicdomain/zero/1.0/deed.en",
+        "https://commons.wikimedia.org/wiki/File:Hydrogen_fuel_cell_bus_in_Daiba_2.jpg",
         "https://periodic-table.rsc.org/element/1/hydrogen",
+        "https://www.energy.gov/cmei/fuels/fuel-cells",
         "https://openstax.org/books/chemistry-2e/pages/3-1-formula-mass-and-the-mole-concept",
         "https://openstax.org/books/chemistry-2e/pages/2-6-ionic-and-molecular-compounds"
       ]
@@ -27,8 +30,8 @@
       "subjectIds": [
         "atom-He"
       ],
-      "sections": 4,
-      "characters": 3266,
+      "sections": 5,
+      "characters": 3907,
       "externalSources": [
         "https://periodic-table.rsc.org/element/2/helium",
         "https://www.acs.org/education/whatischemistry/landmarks/heliumnaturalgas.html",
@@ -42,26 +45,30 @@
       "subjectIds": [
         "formula-Li"
       ],
-      "sections": 4,
-      "characters": 3229,
+      "sections": 5,
+      "characters": 4327,
       "externalSources": [
+        "https://creativecommons.org/publicdomain/zero/1.0/deed.en",
+        "https://commons.wikimedia.org/wiki/File:18650_and_21700_lithium_ion_battery_cell.jpg",
         "https://periodic-table.rsc.org/element/3/lithium",
         "https://www.nobelprize.org/prizes/chemistry/2019/summary/",
+        "https://www.nobelprize.org/uploads/2019/10/press-chemistry-2019-2.pdf",
         "https://openstax.org/books/chemistry-2e/pages/3-1-formula-mass-and-the-mole-concept",
         "https://openstax.org/books/chemistry-2e/pages/2-6-ionic-and-molecular-compounds"
       ]
     },
     {
       "id": "004_C",
-      "title": "Carbon (C) — Vì sao diamond và graphite lại là cùng một nguyên tố?",
+      "title": "Carbon (C) — Vì sao kim cương và graphit lại là cùng một nguyên tố?",
       "subjectIds": [
         "chem-c"
       ],
-      "sections": 4,
-      "characters": 3288,
+      "sections": 5,
+      "characters": 3973,
       "externalSources": [
         "https://periodic-table.rsc.org/element/6/carbon",
         "https://www.nobelprize.org/prizes/physics/2010/summary/",
+        "https://www.nobelprize.org/uploads/2019/10/whittingham-lecture.pdf",
         "https://openstax.org/books/chemistry-2e/pages/3-1-formula-mass-and-the-mole-concept",
         "https://openstax.org/books/chemistry-2e/pages/2-6-ionic-and-molecular-compounds"
       ]
@@ -72,9 +79,11 @@
       "subjectIds": [
         "atom-N"
       ],
-      "sections": 4,
-      "characters": 3331,
+      "sections": 5,
+      "characters": 4319,
       "externalSources": [
+        "https://creativecommons.org/licenses/by-sa/2.0",
+        "https://commons.wikimedia.org/wiki/File:Severnside_fertilizer_works_-_geograph.org.uk_-_189990.jpg",
         "https://periodic-table.rsc.org/element/7/nitrogen",
         "https://www.sciencehistory.org/education/scientific-biographies/fritz-haber/",
         "https://openstax.org/books/chemistry-2e/pages/3-1-formula-mass-and-the-mole-concept",
@@ -87,11 +96,14 @@
       "subjectIds": [
         "atom-O"
       ],
-      "sections": 4,
-      "characters": 3252,
+      "sections": 5,
+      "characters": 4440,
       "externalSources": [
+        "https://www.jpl.nasa.gov/jpl-image-use-policy/",
+        "https://commons.wikimedia.org/wiki/File:PIA24201-MarsPerseveranceRover-MoxieTwin-2021019.jpg",
         "https://www.acs.org/education/whatischemistry/landmarks/josephpriestleyoxygen.html",
         "https://periodic-table.rsc.org/element/8/oxygen",
+        "https://www.nasa.gov/missions/mars-2020-perseverance/perseverance-rover/nasas-oxygen-generating-experiment-moxie-completes-mars-mission/",
         "https://openstax.org/books/chemistry-2e/pages/3-1-formula-mass-and-the-mole-concept",
         "https://openstax.org/books/chemistry-2e/pages/2-6-ionic-and-molecular-compounds"
       ]
@@ -102,8 +114,8 @@
       "subjectIds": [
         "chem-na"
       ],
-      "sections": 4,
-      "characters": 3213,
+      "sections": 5,
+      "characters": 3826,
       "externalSources": [
         "https://www.rigb.org/about-us/our-history",
         "https://periodic-table.rsc.org/element/11/sodium",
@@ -117,10 +129,13 @@
       "subjectIds": [
         "chem-fe"
       ],
-      "sections": 4,
-      "characters": 3190,
+      "sections": 5,
+      "characters": 4204,
       "externalSources": [
+        "https://creativecommons.org/licenses/by-sa/4.0",
+        "https://commons.wikimedia.org/wiki/File:Rusty_scraps_of_iron.jpg",
         "https://periodic-table.rsc.org/element/26/iron",
+        "https://openstax.org/books/chemistry-2e/pages/17-6-corrosion",
         "https://openstax.org/books/chemistry-2e/pages/3-1-formula-mass-and-the-mole-concept",
         "https://openstax.org/books/chemistry-2e/pages/2-6-ionic-and-molecular-compounds"
       ]
@@ -131,10 +146,13 @@
       "subjectIds": [
         "chem-cu"
       ],
-      "sections": 4,
-      "characters": 3213,
+      "sections": 5,
+      "characters": 4328,
       "externalSources": [
+        "https://creativecommons.org/licenses/by-sa/3.0",
+        "https://commons.wikimedia.org/wiki/File:BR_stainlessless_steel_starter_sheets_for_copper_refining.png",
         "https://periodic-table.rsc.org/element/29/copper",
+        "https://openstax.org/books/chemistry-2e/pages/17-7-electrolysis",
         "https://openstax.org/books/chemistry-2e/pages/3-1-formula-mass-and-the-mole-concept",
         "https://openstax.org/books/chemistry-2e/pages/2-6-ionic-and-molecular-compounds"
       ]
@@ -145,8 +163,8 @@
       "subjectIds": [
         "formula-Ag"
       ],
-      "sections": 4,
-      "characters": 3117,
+      "sections": 5,
+      "characters": 3657,
       "externalSources": [
         "https://periodic-table.rsc.org/element/47/silver",
         "https://openstax.org/books/chemistry-2e/pages/3-1-formula-mass-and-the-mole-concept",
@@ -157,8 +175,8 @@
       "id": "011_HistoryPT",
       "title": "Bảng tuần hoàn — Những ô trống trở thành dự đoán có thể kiểm tra",
       "subjectIds": [],
-      "sections": 4,
-      "characters": 2045,
+      "sections": 5,
+      "characters": 2625,
       "externalSources": [
         "https://periodic-table.rsc.org/history/about"
       ]
@@ -167,33 +185,40 @@
       "id": "012_SafetyRules",
       "title": "An toàn phòng thí nghiệm — Chuẩn bị và xử lý tình huống",
       "subjectIds": [],
-      "sections": 4,
-      "characters": 2428,
-      "externalSources": []
+      "sections": 6,
+      "characters": 3805,
+      "externalSources": [
+        "https://www.csb.gov/texas-tech-university-chemistry-lab-explosion/",
+        "https://www.depts.ttu.edu/research/responsible-research/CSB-response/index.php"
+      ]
     },
     {
       "id": "013_HTML_Sample",
       "title": "Đọc mô hình phân tử — Từ công thức đến hình dạng",
       "subjectIds": [],
-      "sections": 7,
-      "characters": 3067,
+      "sections": 9,
+      "characters": 4320,
       "externalSources": [
-        "https://openstax.org/books/chemistry-2e/pages/7-6-molecular-structure-and-polarity",
-        "https://cccbdb.nist.gov/"
+        "https://www.iucr.org/what-we-do/awards-and-prizes/nobel-prize/w.h.bragg",
+        "https://cccbdb.nist.gov/",
+        "https://openstax.org/books/chemistry-2e/pages/7-6-molecular-structure-and-polarity"
       ]
     },
     {
       "id": "chat-nuoc",
-      "title": "Water (H₂O) — Thí nghiệm khiến một “nguyên tố” trở thành hợp chất",
+      "title": "nước (H₂O) — Thí nghiệm khiến một “nguyên tố” trở thành hợp chất",
       "subjectIds": [
         "cid-962",
         "chem-h2o"
       ],
-      "sections": 4,
-      "characters": 3968,
+      "sections": 5,
+      "characters": 5008,
       "externalSources": [
+        "https://creativecommons.org/licenses/by-sa/4.0",
+        "https://commons.wikimedia.org/wiki/File:Front_cells.jpg",
         "https://periodic-table.rsc.org/element/1/hydrogen",
         "https://periodic-table.rsc.org/element/8/oxygen",
+        "https://www.nasa.gov/reference/environmental-control-and-life-support-systems-eclss/",
         "https://chem.washington.edu/lecture-demos/activity-series-alkali-metals-water",
         "https://pubchem.ncbi.nlm.nih.gov/compound/962",
         "https://openstax.org/books/chemistry-2e/pages/3-1-formula-mass-and-the-mole-concept",
@@ -207,11 +232,15 @@
         "cid-222",
         "chem-nh3"
       ],
-      "sections": 4,
-      "characters": 4246,
+      "sections": 5,
+      "characters": 5392,
       "externalSources": [
+        "https://creativecommons.org/licenses/by-sa/2.0",
+        "https://commons.wikimedia.org/wiki/File:Severnside_fertilizer_works_-_geograph.org.uk_-_189990.jpg",
         "https://www.sciencehistory.org/education/scientific-biographies/fritz-haber/",
         "https://pmc.ncbi.nlm.nih.gov/articles/PMC5554788/",
+        "https://periodic-table.rsc.org/element/7/nitrogen",
+        "https://www.iea.org/reports/ammonia-technology-roadmap",
         "https://openstax.org/books/chemistry-2e/pages/4-2-classifying-chemical-reactions",
         "https://openstax.org/books/chemistry-2e/pages/14-7-acid-base-titrations",
         "https://pubchem.ncbi.nlm.nih.gov/compound/222",
@@ -226,10 +255,13 @@
         "crystal-nacl",
         "chem-nacl"
       ],
-      "sections": 4,
-      "characters": 4170,
+      "sections": 5,
+      "characters": 5158,
       "externalSources": [
+        "https://creativecommons.org/licenses/by-sa/3.0",
+        "https://commons.wikimedia.org/wiki/File:Reverse_osmosis_desalination_plant.JPG",
         "https://www.nobelprize.org/prizes/physics/1915/ceremony-speech/",
+        "https://www.usgs.gov/special-topics/water-science-school/science/desalination",
         "https://openstax.org/books/chemistry-2e/pages/4-2-classifying-chemical-reactions",
         "https://chemed.chem.purdue.edu/genchem/topicreview/bp/ch18/soluble.php",
         "https://openstax.org/books/chemistry-2e/pages/15-1-precipitation-and-dissolution",
@@ -245,10 +277,13 @@
         "cid-702",
         "chem-c2h5oh"
       ],
-      "sections": 4,
-      "characters": 4212,
+      "sections": 5,
+      "characters": 5423,
       "externalSources": [
+        "https://creativecommons.org/licenses/by-sa/2.0",
+        "https://commons.wikimedia.org/wiki/File:Two_loaves_of_pagnotta_made_with_a_biga,_or_starter_dough._heavenly..jpg",
         "https://pmc.ncbi.nlm.nih.gov/articles/539767/",
+        "https://www.eia.gov/energyexplained/biofuels/ethanol.php",
         "https://openstax.org/books/chemistry-2e/pages/4-1-writing-and-balancing-chemical-equations",
         "https://pubchem.ncbi.nlm.nih.gov/compound/702",
         "https://openstax.org/books/chemistry-2e/pages/3-1-formula-mass-and-the-mole-concept",
@@ -262,10 +297,13 @@
         "cid-280",
         "chem-co2"
       ],
-      "sections": 4,
-      "characters": 3925,
+      "sections": 5,
+      "characters": 5057,
       "externalSources": [
+        "https://creativecommons.org/licenses/by-sa/3.0/",
+        "https://commons.wikimedia.org/wiki/File:Crassostrea_gigas_p1040848.jpg",
         "https://journals.physiology.org/doi/10.1152/ajplung.00020.2014",
+        "https://oceanacidification.noaa.gov/oap_pubs/impacts-of-coastal-acidification-on-the-pacific-northwest-shellfish-industry-and-adaptation-strategies-implemented-in-response/",
         "https://openstax.org/books/chemistry-2e/pages/4-2-classifying-chemical-reactions",
         "https://pubchem.ncbi.nlm.nih.gov/compound/280",
         "https://openstax.org/books/chemistry-2e/pages/3-1-formula-mass-and-the-mole-concept",
@@ -278,11 +316,12 @@
       "subjectIds": [
         "cid-297"
       ],
-      "sections": 4,
-      "characters": 4183,
+      "sections": 5,
+      "characters": 4899,
       "externalSources": [
         "https://books.rsc.org/books/monograph/2257/chapter/8249235/Introducing-Methane",
         "https://esdac.jrc.ec.europa.eu/content/il-metano-compie-250-anni",
+        "https://www.eia.gov/energyexplained/natural-gas/natural-gas-and-the-environment.php",
         "https://openstax.org/books/chemistry-2e/pages/4-1-writing-and-balancing-chemical-equations",
         "https://pubchem.ncbi.nlm.nih.gov/compound/297",
         "https://openstax.org/books/chemistry-2e/pages/3-1-formula-mass-and-the-mole-concept",
@@ -291,14 +330,15 @@
     },
     {
       "id": "metanol-ch4o",
-      "title": "Metanol (CH₄O): thành phần, mô hình và phản ứng",
+      "title": "Metanol (CH₄O) — Một nguyên liệu từng gắn với gỗ bước vào nhà máy tổng hợp",
       "subjectIds": [
         "cid-887",
         "formula-CH3OH"
       ],
-      "sections": 7,
-      "characters": 8221,
+      "sections": 9,
+      "characters": 9200,
       "externalSources": [
+        "https://chemical-catalysts-and-adsorbents.basf.com/global/en/sustainability-process-catalysts/SYNSPIRE-Methanol-Catalysts",
         "https://www.crystallography.net/cod/4503066.html",
         "https://openstax.org/books/organic-chemistry/pages/21-6-chemistry-of-esters",
         "https://openstax.org/books/chemistry-2e/pages/4-1-writing-and-balancing-chemical-equations",
@@ -313,14 +353,15 @@
     },
     {
       "id": "axeton-c3h6o",
-      "title": "Axeton (C₃H₆O): thành phần, mô hình và phản ứng",
+      "title": "Axeton (C₃H₆O) — Vi khuẩn trở thành một phần của nhà máy dung môi",
       "subjectIds": [
         "cid-180",
         "lab3d-334"
       ],
-      "sections": 7,
-      "characters": 4556,
+      "sections": 9,
+      "characters": 5575,
       "externalSources": [
+        "https://www.weizmann.ac.il/WeizmannCompass/sections/people-behind-the-science/chaim-weizmann%E2%80%99s-acetone-patent-turns-100",
         "https://www.crystallography.net/cod/7110463.html",
         "https://pubchem.ncbi.nlm.nih.gov/compound/180",
         "https://openstax.org/books/chemistry-2e/pages/3-1-formula-mass-and-the-mole-concept",
@@ -376,13 +417,16 @@
     },
     {
       "id": "oxi-o2",
-      "title": "Oxi (O₂): thành phần, mô hình và phản ứng",
+      "title": "Oxi (O₂) — Khi không khí không còn là một chất duy nhất",
       "subjectIds": [
         "cid-977"
       ],
-      "sections": 7,
-      "characters": 7455,
+      "sections": 9,
+      "characters": 8802,
       "externalSources": [
+        "https://commons.wikimedia.org/wiki/File:Hydrogen_fuel_cell_bus_in_Daiba_2.jpg",
+        "https://www.acs.org/education/whatischemistry/landmarks/josephpriestleyoxygen.html",
+        "https://www.energy.gov/cmei/fuels/fuel-cells",
         "https://rruff.geo.arizona.edu/AMS/amcsd.php",
         "https://chem.washington.edu/lecture-demos/decomposition-h2o2-mno2",
         "https://openstax.org/books/chemistry-2e/pages/18-9-occurrence-preparation-and-compounds-of-oxygen",
@@ -398,13 +442,16 @@
     },
     {
       "id": "hidro-h2",
-      "title": "Hiđro (H₂): thành phần, mô hình và phản ứng",
+      "title": "Hiđro (H₂) — Một chất khí, hai con đường lấy năng lượng",
       "subjectIds": [
         "cid-783"
       ],
-      "sections": 6,
-      "characters": 7056,
+      "sections": 8,
+      "characters": 8478,
       "externalSources": [
+        "https://commons.wikimedia.org/wiki/File:Hydrogen_fuel_cell_bus_in_Daiba_2.jpg",
+        "https://www.energy.gov/cmei/fuels/fuel-cell-animation-text-version",
+        "https://www.hydrogen.energy.gov/program-areas/fuel-cells",
         "https://openstax.org/books/chemistry-2e/pages/4-2-classifying-chemical-reactions",
         "https://openstax.org/books/chemistry-2e/pages/17-3-electrode-and-cell-potentials",
         "https://chem.washington.edu/lecture-demos/activity-series-alkali-metals-water",
@@ -458,13 +505,14 @@
     },
     {
       "id": "eten-c2h4",
-      "title": "Eten (C₂H₄): thành phần, mô hình và phản ứng",
+      "title": "Eten (C₂H₄) — Một chất khí dẫn tới lớp nhựa quen thuộc",
       "subjectIds": [
         "cid-6325"
       ],
-      "sections": 6,
-      "characters": 6697,
+      "sections": 8,
+      "characters": 7577,
       "externalSources": [
+        "https://collection.sciencemuseumgroup.org.uk/objects/co9243",
         "https://openstax.org/books/organic-chemistry/pages/17-6-reactions-of-alcohols",
         "https://openstax.org/books/chemistry-2e/pages/4-1-writing-and-balancing-chemical-equations",
         "https://pubchem.ncbi.nlm.nih.gov/compound/6325",
@@ -478,13 +526,14 @@
     },
     {
       "id": "axetilen-c2h2",
-      "title": "Axetilen (C₂H₂): thành phần, mô hình và phản ứng",
+      "title": "Axetilen (C₂H₂) — Một sản phẩm ngoài dự kiến mở đường cho ngành khí công nghiệp",
       "subjectIds": [
         "cid-6326"
       ],
-      "sections": 6,
-      "characters": 6071,
+      "sections": 8,
+      "characters": 7021,
       "externalSources": [
+        "https://www.acs.org/education/whatischemistry/landmarks/calciumcarbideacetylene.html",
         "https://openstax.org/books/chemistry-2e/pages/4-2-classifying-chemical-reactions",
         "https://openstax.org/books/chemistry-2e/pages/4-1-writing-and-balancing-chemical-equations",
         "https://pubchem.ncbi.nlm.nih.gov/compound/6326",
@@ -517,13 +566,15 @@
     },
     {
       "id": "propen-c3h6",
-      "title": "Propen (C₃H₆): thành phần, mô hình và phản ứng",
+      "title": "Propen (C₃H₆) — Tính chất của nhựa còn nằm trong trật tự của chuỗi",
       "subjectIds": [
         "cid-8252"
       ],
-      "sections": 6,
-      "characters": 5193,
+      "sections": 8,
+      "characters": 6292,
       "externalSources": [
+        "https://alumni.polimi.it/en/2022/03/17/i-giorni-di-natta-la-squadra-il-lavoro-e-la-passione-dietro-al-nobel/",
+        "https://www.nobelprize.org/prizes/themes/the-nobel-prize-in-chemistry-the-development-of-modern-chemistry/",
         "https://openstax.org/books/chemistry-2e/pages/4-1-writing-and-balancing-chemical-equations",
         "https://pubchem.ncbi.nlm.nih.gov/compound/8252",
         "https://openstax.org/books/chemistry-2e/pages/3-1-formula-mass-and-the-mole-concept",
@@ -613,14 +664,15 @@
     },
     {
       "id": "phenol-c6h6o",
-      "title": "Phenol (C₆H₆O): thành phần, mô hình và phản ứng",
+      "title": "Phenol (C₆H₆O) — Từ khối nhựa cứng đầu đến chiếc vỏ điện thoại",
       "subjectIds": [
         "cid-996",
         "chem-phenol"
       ],
-      "sections": 6,
-      "characters": 4066,
+      "sections": 8,
+      "characters": 5024,
       "externalSources": [
+        "https://www.acs.org/education/whatischemistry/landmarks/bakelite.html",
         "https://pubchem.ncbi.nlm.nih.gov/compound/996",
         "https://openstax.org/books/chemistry-2e/pages/3-1-formula-mass-and-the-mole-concept",
         "https://openstax.org/books/chemistry-2e/pages/3-2-determining-empirical-and-molecular-formulas",
@@ -632,13 +684,15 @@
     },
     {
       "id": "anilin-c6h7n",
-      "title": "Anilin (C₆H₇N): thành phần, mô hình và phản ứng",
+      "title": "Anilin (C₆H₇N) — Màu tím bước ra từ một thí nghiệm không đi đến đích",
       "subjectIds": [
         "cid-6115"
       ],
-      "sections": 6,
-      "characters": 4079,
+      "sections": 8,
+      "characters": 5086,
       "externalSources": [
+        "https://www.si.edu/object/perkin-mauve%3Anmah_2344",
+        "https://products.basf.com/global/en/cm/aniline",
         "https://pubchem.ncbi.nlm.nih.gov/compound/6115",
         "https://openstax.org/books/chemistry-2e/pages/3-1-formula-mass-and-the-mole-concept",
         "https://openstax.org/books/chemistry-2e/pages/3-2-determining-empirical-and-molecular-formulas",
@@ -650,13 +704,14 @@
     },
     {
       "id": "fomandehit-ch2o",
-      "title": "Fomanđehit (CH₂O): thành phần, mô hình và phản ứng",
+      "title": "Fomanđehit (CH₂O) — Từ khối nhựa cứng đầu đến chiếc vỏ điện thoại",
       "subjectIds": [
         "cid-712"
       ],
-      "sections": 6,
-      "characters": 4112,
+      "sections": 8,
+      "characters": 5070,
       "externalSources": [
+        "https://www.acs.org/education/whatischemistry/landmarks/bakelite.html",
         "https://pubchem.ncbi.nlm.nih.gov/compound/712",
         "https://openstax.org/books/chemistry-2e/pages/3-1-formula-mass-and-the-mole-concept",
         "https://openstax.org/books/chemistry-2e/pages/3-2-determining-empirical-and-molecular-formulas",
@@ -749,13 +804,16 @@
     },
     {
       "id": "ure-ch4n2o",
-      "title": "Urê (CH₄N₂O): thành phần, mô hình và phản ứng",
+      "title": "Urê (CH₄N₂O) — Một chất của cơ thể xuất hiện trong bình thí nghiệm",
       "subjectIds": [
         "cid-1176"
       ],
-      "sections": 7,
-      "characters": 4563,
+      "sections": 9,
+      "characters": 5812,
       "externalSources": [
+        "https://collection.sciencemuseumgroup.org.uk/objects/co13173/",
+        "https://www.epa.gov/eg/fertilizer-manufacturing-effluent-guidelines",
+        "https://www.nrcs.usda.gov/sites/default/files/2022-10/National-Agronomy-Manual.pdf",
         "https://rruff.geo.arizona.edu/AMS/amcsd.php",
         "https://pubchem.ncbi.nlm.nih.gov/compound/1176",
         "https://openstax.org/books/chemistry-2e/pages/3-1-formula-mass-and-the-mole-concept",
@@ -768,14 +826,15 @@
     },
     {
       "id": "glucozo-c6h12o6",
-      "title": "Glucozơ (C₆H₁₂O₆): thành phần, mô hình và phản ứng",
+      "title": "Glucozơ (C₆H₁₂O₆) — Một phản ứng được đưa lên dải giấy nhỏ",
       "subjectIds": [
         "cid-5793",
         "chem-c6h12o6"
       ],
-      "sections": 7,
-      "characters": 5447,
+      "sections": 9,
+      "characters": 6288,
       "externalSources": [
+        "https://www.acs.org/explore/women-scientists/helen-m-free.html",
         "https://www.crystallography.net/cod/5000067.html",
         "https://openstax.org/books/organic-chemistry/pages/17-6-reactions-of-alcohols",
         "https://pubchem.ncbi.nlm.nih.gov/compound/5793",
@@ -809,13 +868,14 @@
     },
     {
       "id": "saccarozo-c12h22o11",
-      "title": "Saccarozơ (C₁₂H₂₂O₁₁): thành phần, mô hình và phản ứng",
+      "title": "Saccarozơ (C₁₂H₂₂O₁₁) — Đằng sau hạt đường là một cách tiết kiệm hơi nước",
       "subjectIds": [
         "cid-5988"
       ],
-      "sections": 7,
-      "characters": 4629,
+      "sections": 9,
+      "characters": 5552,
       "externalSources": [
+        "https://www.acs.org/education/whatischemistry/landmarks/norbertrillieux.html",
         "https://www.crystallography.net/cod/2300557.html",
         "https://pubchem.ncbi.nlm.nih.gov/compound/5988",
         "https://openstax.org/books/chemistry-2e/pages/3-1-formula-mass-and-the-mole-concept",
@@ -847,14 +907,15 @@
     },
     {
       "id": "hidro-peoxit-h2o2",
-      "title": "Hiđro peoxit (H₂O₂): thành phần, mô hình và phản ứng",
+      "title": "Hiđro peoxit (H₂O₂) — Thêm một oxygen, câu chuyện của nước đổi hẳn",
       "subjectIds": [
         "cid-784",
         "chem-h2o2"
       ],
-      "sections": 7,
-      "characters": 5556,
+      "sections": 9,
+      "characters": 6466,
       "externalSources": [
+        "https://www.epa.gov/system/files/documents/2023-03/Hydrogen%20Peroxide%20Supply%20Chain%20Profile.pdf",
         "https://www.crystallography.net/cod/1008189.html",
         "https://chem.washington.edu/lecture-demos/decomposition-h2o2-mno2",
         "https://pubchem.ncbi.nlm.nih.gov/compound/784",
@@ -868,13 +929,16 @@
     },
     {
       "id": "ozon-o3",
-      "title": "Ozon (O₃): thành phần, mô hình và phản ứng",
+      "title": "Ozon (O₃) — Cũng là ozone, vì sao nơi này cần giữ, nơi khác cần giảm?",
       "subjectIds": [
         "cid-248"
       ],
-      "sections": 6,
-      "characters": 3568,
+      "sections": 8,
+      "characters": 4868,
       "externalSources": [
+        "https://commons.wikimedia.org/wiki/File:Antarcitc_ozone_layer_2006_09_24.jpg",
+        "https://commons.wikimedia.org/wiki/Commons:Public_domain",
+        "https://www.epa.gov/ozone-pollution-and-your-patients-health/what-ozone",
         "https://pubchem.ncbi.nlm.nih.gov/compound/248",
         "https://openstax.org/books/chemistry-2e/pages/3-1-formula-mass-and-the-mole-concept",
         "https://openstax.org/books/chemistry-2e/pages/2-6-ionic-and-molecular-compounds",
@@ -946,14 +1010,15 @@
     },
     {
       "id": "hidro-clorua-clh",
-      "title": "Hiđro clorua (ClH): thành phần, mô hình và phản ứng",
+      "title": "Hiđro clorua (ClH) — Một vật liệu trao đổi ion cũng cần được phục hồi",
       "subjectIds": [
         "cid-313",
         "chem-hcl"
       ],
-      "sections": 8,
-      "characters": 8724,
+      "sections": 10,
+      "characters": 9594,
       "externalSources": [
+        "https://www.epa.gov/system/files/documents/2023-03/Hydrochloric%20Acid%20Supply%20Chain%20Profile.pdf",
         "https://rruff.geo.arizona.edu/AMS/amcsd.php",
         "https://openstax.org/books/chemistry-2e/pages/4-2-classifying-chemical-reactions",
         "https://openstax.org/books/chemistry-2e/pages/17-3-electrode-and-cell-potentials",
@@ -1029,14 +1094,15 @@
     },
     {
       "id": "axit-sulfuric-h2o4s",
-      "title": "Axit sulfuric (H₂O₄S): thành phần, mô hình và phản ứng",
+      "title": "Axit sulfuric (H₂O₄S) — Điều chỉnh một con số pH có thể thay đổi cả công đoạn",
       "subjectIds": [
         "cid-1118",
         "chem-h2so4"
       ],
-      "sections": 7,
-      "characters": 8203,
+      "sections": 9,
+      "characters": 8999,
       "externalSources": [
+        "https://nepis.epa.gov/Exe/ZyPURL.cgi?Dockey=P1017QFW.txt",
         "https://openstax.org/books/chemistry-2e/pages/4-2-classifying-chemical-reactions",
         "https://openstax.org/books/chemistry-2e/pages/17-3-electrode-and-cell-potentials",
         "https://openstax.org/books/chemistry-2e/pages/14-7-acid-base-titrations",
@@ -1051,14 +1117,15 @@
     },
     {
       "id": "axit-phosphoric-h3o4p",
-      "title": "Axit phosphoric (H₃O₄P): thành phần, mô hình và phản ứng",
+      "title": "Axit phosphoric (H₃O₄P) — Bảo vệ chất lượng nước còn là câu chuyện bên trong đường ống",
       "subjectIds": [
         "cid-1004",
         "chem-h3po4"
       ],
-      "sections": 6,
-      "characters": 4173,
+      "sections": 8,
+      "characters": 5054,
       "externalSources": [
+        "https://www.epa.gov/lead/why-do-water-systems-add-phosphate-drinking-water-what-are-health-effects-drinking-water",
         "https://pubchem.ncbi.nlm.nih.gov/compound/1004",
         "https://openstax.org/books/chemistry-2e/pages/3-1-formula-mass-and-the-mole-concept",
         "https://openstax.org/books/chemistry-2e/pages/3-2-determining-empirical-and-molecular-formulas",
@@ -1070,13 +1137,17 @@
     },
     {
       "id": "xiclohexan-c6h12",
-      "title": "Xiclohexan (C₆H₁₂): thành phần, mô hình và phản ứng",
+      "title": "Xiclohexan (C₆H₁₂) — Một vòng sáu carbon nằm trên con đường tới sợi nylon",
       "subjectIds": [
         "cid-8078"
       ],
-      "sections": 6,
-      "characters": 5233,
+      "sections": 8,
+      "characters": 6640,
       "externalSources": [
+        "https://commons.wikimedia.org/wiki/File:Pouch,_stocking_(AM_1999.154.33-3",
+        "https://creativecommons.org/licenses/by/4.0",
+        "https://www.energy.gov/sites/prod/files/2013/11/f4/profile_full.pdf",
+        "https://www.cpchem.com/what-we-do/solutions/aromatics/products/cyclohexane",
         "https://openstax.org/books/chemistry-2e/pages/4-1-writing-and-balancing-chemical-equations",
         "https://pubchem.ncbi.nlm.nih.gov/compound/8078",
         "https://openstax.org/books/chemistry-2e/pages/3-1-formula-mass-and-the-mole-concept",
@@ -1107,13 +1178,17 @@
     },
     {
       "id": "aspirin-c9h8o4",
-      "title": "Aspirin (C₉H₈O₄): thành phần, mô hình và phản ứng",
+      "title": "Aspirin (C₉H₈O₄) — Từ tên một chất đến một cái tên trên quảng cáo năm 1918",
       "subjectIds": [
         "cid-2244"
       ],
-      "sections": 7,
-      "characters": 4588,
+      "sections": 9,
+      "characters": 6034,
       "externalSources": [
+        "https://commons.wikimedia.org/wiki/File:Bayer-Tablets_of_Aspirin_ad_1918.png",
+        "https://commons.wikimedia.org/wiki/Commons:Public_domain",
+        "https://www.acs.org/molecule-of-the-week/archive/a/aspirin.html",
+        "https://www.nlm.nih.gov/exhibition/the-story-of-aspirin/index.html",
         "https://www.crystallography.net/cod/7050902.html",
         "https://pubchem.ncbi.nlm.nih.gov/compound/2244",
         "https://openstax.org/books/chemistry-2e/pages/3-1-formula-mass-and-the-mole-concept",
@@ -1312,13 +1387,15 @@
     },
     {
       "id": "natri-hidroxit-xut-naoh",
-      "title": "Natri hiđroxit (Xút) (NaOH): thành phần, mô hình và phản ứng",
+      "title": "Natri hiđroxit (Xút) (NaOH) — Từ gỗ tới giấy, rồi trở lại vòng tuần hoàn hóa chất",
       "subjectIds": [
         "chem-naoh"
       ],
-      "sections": 8,
-      "characters": 8374,
+      "sections": 10,
+      "characters": 9401,
       "externalSources": [
+        "https://www.epa.gov/sites/production/files/2016-12/documents/154_tech_review_memo.pdf",
+        "https://nepis.epa.gov/Exe/ZyPURL.cgi?Dockey=2000WU3L.TXT",
         "https://www.crystallography.net/cod/8104275.html",
         "https://openstax.org/books/chemistry-2e/pages/4-2-classifying-chemical-reactions",
         "https://openstax.org/books/chemistry-2e/pages/14-7-acid-base-titrations",
@@ -1412,13 +1489,15 @@
     },
     {
       "id": "natri-sunfat-na2so4",
-      "title": "Natri sunfat (Na₂SO₄): thành phần, mô hình và phản ứng",
+      "title": "Natri sunfat (Na₂SO₄) — Từ gỗ tới giấy, rồi trở lại vòng tuần hoàn hóa chất",
       "subjectIds": [
         "chem-na2so4"
       ],
-      "sections": 8,
-      "characters": 8395,
+      "sections": 10,
+      "characters": 9422,
       "externalSources": [
+        "https://www.epa.gov/sites/production/files/2016-12/documents/154_tech_review_memo.pdf",
+        "https://nepis.epa.gov/Exe/ZyPURL.cgi?Dockey=2000WU3L.TXT",
         "https://rruff.geo.arizona.edu/AMS/amcsd.php",
         "https://openstax.org/books/chemistry-2e/pages/4-2-classifying-chemical-reactions",
         "https://chemed.chem.purdue.edu/genchem/topicreview/bp/ch18/soluble.php",
@@ -1433,13 +1512,14 @@
     },
     {
       "id": "dong-ii-sunfat-cuso4",
-      "title": "Đồng(II) sunfat (CuSO₄): thành phần, mô hình và phản ứng",
+      "title": "Đồng(II) sunfat (CuSO₄) — Từ tinh thể xanh đến một hỗn hợp bảo vệ cây trồng",
       "subjectIds": [
         "chem-cuso4"
       ],
-      "sections": 8,
-      "characters": 8827,
+      "sections": 10,
+      "characters": 9712,
       "externalSources": [
+        "https://ipm.ucanr.edu/PMG/PESTNOTES/pn7481.html",
         "https://rruff.geo.arizona.edu/AMS/amcsd.php",
         "https://openstax.org/books/chemistry-2e/pages/17-3-electrode-and-cell-potentials",
         "https://openstax.org/books/chemistry-2e/pages/4-2-classifying-chemical-reactions",
@@ -1453,13 +1533,14 @@
     },
     {
       "id": "sat-iii-clorua-fecl3",
-      "title": "Sắt(III) clorua (FeCl₃): thành phần, mô hình và phản ứng",
+      "title": "Sắt(III) clorua (FeCl₃) — Muốn nước trong hơn, trước hết phải gom những hạt rất nhỏ",
       "subjectIds": [
         "chem-fecl3"
       ],
-      "sections": 8,
-      "characters": 8754,
+      "sections": 10,
+      "characters": 9696,
       "externalSources": [
+        "https://www.epa.gov/pesticide-science-and-assessing-pesticide-risks/finalization-guidance-incorporation-water-treatment",
         "https://rruff.geo.arizona.edu/AMS/amcsd.php",
         "https://openstax.org/books/chemistry-2e/pages/4-2-classifying-chemical-reactions",
         "https://openstax.org/books/chemistry-2e/pages/14-7-acid-base-titrations",
@@ -1474,13 +1555,15 @@
     },
     {
       "id": "sat-ii-sunfat-feso4",
-      "title": "Sắt(II) sunfat (FeSO₄): thành phần, mô hình và phản ứng",
+      "title": "Sắt(II) sunfat (FeSO₄) — Một muối sắt nằm trong những dòng chữ của quá khứ",
       "subjectIds": [
         "chem-feso4"
       ],
-      "sections": 8,
-      "characters": 8681,
+      "sections": 10,
+      "characters": 9615,
       "externalSources": [
+        "https://www.fitzmuseum.cam.ac.uk/illuminated/lab/overview-of-artists-materials/iron-gall-ink/type/material",
+        "https://www.ifla.org/iron-gall-ink/",
         "https://rruff.geo.arizona.edu/AMS/amcsd.php",
         "https://openstax.org/books/chemistry-2e/pages/17-3-electrode-and-cell-potentials",
         "https://openstax.org/books/chemistry-2e/pages/4-2-classifying-chemical-reactions",
@@ -1494,13 +1577,14 @@
     },
     {
       "id": "natri-hidrocacbonat-muoi-no-nahco3",
-      "title": "Natri hiđrocacbonat (Muối nở) (NaHCO₃): thành phần, mô hình và phản ứng",
+      "title": "Natri hiđrocacbonat (Muối nở) (NaHCO₃) — Một nhà máy soda bắt đầu từ việc chọn chất nào kết tủa",
       "subjectIds": [
         "chem-nahco3"
       ],
-      "sections": 8,
-      "characters": 8075,
+      "sections": 10,
+      "characters": 8911,
       "externalSources": [
+        "https://edu.rsc.org/download?ac=15607",
         "https://rruff.geo.arizona.edu/AMS/amcsd.php",
         "https://openstax.org/books/chemistry-2e/pages/4-2-classifying-chemical-reactions",
         "https://openstax.org/books/chemistry-2e/pages/18-9-occurrence-preparation-and-compounds-of-oxygen",
@@ -1513,13 +1597,14 @@
     },
     {
       "id": "natri-cacbonat-soda-na2co3",
-      "title": "Natri cacbonat (Soda) (Na₂CO₃): thành phần, mô hình và phản ứng",
+      "title": "Natri cacbonat (Soda) (Na₂CO₃) — Một nhà máy soda bắt đầu từ việc chọn chất nào kết tủa",
       "subjectIds": [
         "chem-na2co3"
       ],
-      "sections": 8,
-      "characters": 8295,
+      "sections": 10,
+      "characters": 9131,
       "externalSources": [
+        "https://edu.rsc.org/download?ac=15607",
         "https://rruff.geo.arizona.edu/AMS/amcsd.php",
         "https://openstax.org/books/chemistry-2e/pages/4-2-classifying-chemical-reactions",
         "https://openstax.org/books/chemistry-2e/pages/18-9-occurrence-preparation-and-compounds-of-oxygen",
@@ -1534,13 +1619,15 @@
     },
     {
       "id": "canxi-clorua-cacl2",
-      "title": "Canxi clorua (CaCl₂): thành phần, mô hình và phản ứng",
+      "title": "Canxi clorua (CaCl₂) — Những muối xuất hiện trước một đợt băng tuyết",
       "subjectIds": [
         "chem-cacl2"
       ],
-      "sections": 8,
-      "characters": 8288,
+      "sections": 10,
+      "characters": 9342,
       "externalSources": [
+        "https://roads.maryland.gov/mdotsha/pages/pressreleasedetails.aspx?PageId=818&newsId=157",
+        "https://www.epa.gov/system/files/documents/2021-11/bmp-deicing-material-application-and-storage.pdf",
         "https://rruff.geo.arizona.edu/AMS/amcsd.php",
         "https://openstax.org/books/chemistry-2e/pages/4-2-classifying-chemical-reactions",
         "https://openstax.org/books/chemistry-2e/pages/14-7-acid-base-titrations",
@@ -1553,13 +1640,15 @@
     },
     {
       "id": "thuoc-tim-kmno4",
-      "title": "Thuốc tím (KMnO₄): thành phần, mô hình và phản ứng",
+      "title": "Thuốc tím (KMnO₄) — Màu tím trong câu chuyện xử lý nước",
       "subjectIds": [
         "chem-kmno4"
       ],
-      "sections": 7,
-      "characters": 4410,
+      "sections": 9,
+      "characters": 5488,
       "externalSources": [
+        "https://www.epa.gov/system/files/documents/2023-03/Potassium%20Permanganate%20Supply%20Chain%20Profile.pdf",
+        "https://guidelines.nhmrc.gov.au/australian-drinking-water-guidelines/part-5/treatment-chemicals/potassium-permanganate",
         "https://www.crystallography.net/cod/2310631.html",
         "https://openstax.org/books/chemistry-2e/pages/3-1-formula-mass-and-the-mole-concept",
         "https://openstax.org/books/chemistry-2e/pages/3-2-determining-empirical-and-molecular-formulas",
@@ -1570,15 +1659,16 @@
     },
     {
       "id": "kem-zn",
-      "title": "Kẽm (Zn): thành phần, mô hình và phản ứng",
+      "title": "Kẽm (Zn) — Từ dấu mốc khám phá đến mạ zinc",
       "subjectIds": [
         "chem-zn"
       ],
-      "sections": 8,
-      "characters": 7130,
+      "sections": 10,
+      "characters": 8147,
       "externalSources": [
-        "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+        "https://commons.wikimedia.org/wiki/File:Planispheric_Astrolabe_MET_DP105325.jpg",
         "https://periodic-table.rsc.org/element/30/zinc",
+        "https://rruff.geo.arizona.edu/AMS/amcsd.php",
         "https://openstax.org/books/chemistry-2e/pages/4-2-classifying-chemical-reactions",
         "https://openstax.org/books/chemistry-2e/pages/17-3-electrode-and-cell-potentials",
         "https://openstax.org/books/chemistry-2e/pages/3-1-formula-mass-and-the-mole-concept",
@@ -1589,13 +1679,17 @@
     },
     {
       "id": "canxi-cacbonat-da-voi-caco3",
-      "title": "Canxi cacbonat (Đá vôi) (CaCO₃): thành phần, mô hình và phản ứng",
+      "title": "Canxi cacbonat (Đá vôi) (CaCO₃) — Những hạt vôi trong bê tông cổ kể lại cách người La Mã xây dựng",
       "subjectIds": [
         "chem-caco3"
       ],
-      "sections": 8,
-      "characters": 8305,
+      "sections": 10,
+      "characters": 9871,
       "externalSources": [
+        "https://commons.wikimedia.org/wiki/File:Travertine_stalactite_(Mammoth_Cave,_Kentucky,_USA",
+        "https://creativecommons.org/licenses/by/2.0",
+        "https://dspace.mit.edu/entities/publication/d114c164-bdc9-4faf-8cd2-bb5075acfc0e",
+        "https://www.epa.gov/waterutilityresponse/water-treatment-chemical-supply-chain-profiles",
         "https://rruff.geo.arizona.edu/AMS/amcsd.php",
         "https://openstax.org/books/chemistry-2e/pages/4-2-classifying-chemical-reactions",
         "https://chemed.chem.purdue.edu/genchem/topicreview/bp/ch18/soluble.php",
@@ -1655,13 +1749,16 @@
     },
     {
       "id": "nuoc-voi-trong-canxi-hidroxit-ca-oh-2",
-      "title": "Nước vôi trong / Canxi hiđroxit (Ca(OH)₂): thành phần, mô hình và phản ứng",
+      "title": "Nước vôi trong / Canxi hiđroxit (Ca(OH)₂) — Những hạt vôi trong bê tông cổ kể lại cách người La Mã xây dựng",
       "subjectIds": [
         "chem-caoh2"
       ],
-      "sections": 8,
-      "characters": 8171,
+      "sections": 10,
+      "characters": 9664,
       "externalSources": [
+        "https://commons.wikimedia.org/wiki/File:Cement_kiln_in_Gorazdze_Cement_plant.JPG",
+        "https://dspace.mit.edu/entities/publication/d114c164-bdc9-4faf-8cd2-bb5075acfc0e",
+        "https://www.epa.gov/waterutilityresponse/water-treatment-chemical-supply-chain-profiles",
         "https://rruff.geo.arizona.edu/AMS/amcsd.php",
         "https://openstax.org/books/chemistry-2e/pages/4-2-classifying-chemical-reactions",
         "https://openstax.org/books/chemistry-2e/pages/14-7-acid-base-titrations",
@@ -1674,15 +1771,17 @@
     },
     {
       "id": "sat-fe-composition",
-      "title": "Sắt (Fe): thành phần, mô hình và phản ứng",
+      "title": "Sắt (Fe) — Từ dấu mốc khám phá đến sản xuất thép",
       "subjectIds": [
         "chem-fe"
       ],
-      "sections": 8,
-      "characters": 8011,
+      "sections": 10,
+      "characters": 9075,
       "externalSources": [
-        "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+        "https://commons.wikimedia.org/wiki/File:Rusty_scraps_of_iron.jpg",
+        "https://creativecommons.org/licenses/by-sa/4.0",
         "https://periodic-table.rsc.org/element/26/iron",
+        "https://rruff.geo.arizona.edu/AMS/amcsd.php",
         "https://openstax.org/books/chemistry-2e/pages/17-3-electrode-and-cell-potentials",
         "https://openstax.org/books/chemistry-2e/pages/4-2-classifying-chemical-reactions",
         "https://openstax.org/books/chemistry-2e/pages/3-1-formula-mass-and-the-mole-concept",
@@ -1693,15 +1792,17 @@
     },
     {
       "id": "dong-cu-composition",
-      "title": "Đồng (Cu): thành phần, mô hình và phản ứng",
+      "title": "Đồng (Cu) — Từ dấu mốc khám phá đến dây điện",
       "subjectIds": [
         "chem-cu"
       ],
-      "sections": 8,
-      "characters": 7697,
+      "sections": 10,
+      "characters": 8852,
       "externalSources": [
-        "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+        "https://commons.wikimedia.org/wiki/File:BR_stainlessless_steel_starter_sheets_for_copper_refining.png",
+        "https://creativecommons.org/licenses/by-sa/3.0",
         "https://periodic-table.rsc.org/element/29/copper",
+        "https://rruff.geo.arizona.edu/AMS/amcsd.php",
         "https://openstax.org/books/chemistry-2e/pages/17-3-electrode-and-cell-potentials",
         "https://openstax.org/books/chemistry-2e/pages/4-2-classifying-chemical-reactions",
         "https://openstax.org/books/organic-chemistry/pages/17-6-reactions-of-alcohols",
@@ -1713,15 +1814,17 @@
     },
     {
       "id": "nhom-al",
-      "title": "Nhôm (Al): thành phần, mô hình và phản ứng",
+      "title": "Nhôm (Al) — Từ dấu mốc khám phá đến hàng không và giao thông",
       "subjectIds": [
         "chem-al"
       ],
-      "sections": 8,
-      "characters": 7122,
+      "sections": 10,
+      "characters": 8226,
       "externalSources": [
-        "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+        "https://commons.wikimedia.org/wiki/File:Production_of_aluminium_pot_(melting_of_aluminium",
+        "https://creativecommons.org/licenses/by-sa/4.0",
         "https://periodic-table.rsc.org/element/13/aluminium",
+        "https://rruff.geo.arizona.edu/AMS/amcsd.php",
         "https://openstax.org/books/chemistry-2e/pages/4-2-classifying-chemical-reactions",
         "https://openstax.org/books/chemistry-2e/pages/17-3-electrode-and-cell-potentials",
         "https://openstax.org/books/chemistry-2e/pages/3-1-formula-mass-and-the-mole-concept",
@@ -1732,15 +1835,17 @@
     },
     {
       "id": "magie-mg",
-      "title": "Magie (Mg): thành phần, mô hình và phản ứng",
+      "title": "Magie (Mg) — Từ dấu mốc khám phá đến hợp kim",
       "subjectIds": [
         "chem-mg"
       ],
-      "sections": 8,
-      "characters": 7724,
+      "sections": 10,
+      "characters": 8731,
       "externalSources": [
-        "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+        "https://commons.wikimedia.org/wiki/File:Alloy_and_metal_samples_-_Beryllium-Copper,_Inconel,_Steel,_Titanium,_Aluminum,_Magnesium.jpg",
+        "https://creativecommons.org/licenses/by-sa/2.0",
         "https://periodic-table.rsc.org/element/12/magnesium",
+        "https://rruff.geo.arizona.edu/AMS/amcsd.php",
         "https://openstax.org/books/chemistry-2e/pages/17-3-electrode-and-cell-potentials",
         "https://openstax.org/books/chemistry-2e/pages/4-2-classifying-chemical-reactions",
         "https://openstax.org/books/chemistry-2e/pages/3-1-formula-mass-and-the-mole-concept",
@@ -1751,15 +1856,17 @@
     },
     {
       "id": "natri-na-composition",
-      "title": "Natri (Na): thành phần, mô hình và phản ứng",
+      "title": "Natri (Na) — Từ dấu mốc khám phá đến sản xuất sodium compounds",
       "subjectIds": [
         "chem-na"
       ],
-      "sections": 8,
-      "characters": 5319,
+      "sections": 10,
+      "characters": 6273,
       "externalSources": [
-        "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+        "https://commons.wikimedia.org/wiki/File:Alloy_and_metal_samples_-_Beryllium-Copper,_Inconel,_Steel,_Titanium,_Aluminum,_Magnesium.jpg",
+        "https://creativecommons.org/licenses/by-sa/2.0",
         "https://periodic-table.rsc.org/element/11/sodium",
+        "https://rruff.geo.arizona.edu/AMS/amcsd.php",
         "https://chem.washington.edu/lecture-demos/activity-series-alkali-metals-water",
         "https://openstax.org/books/chemistry-2e/pages/3-1-formula-mass-and-the-mole-concept",
         "https://openstax.org/books/chemistry-2e/pages/2-6-ionic-and-molecular-compounds",
@@ -1830,13 +1937,14 @@
     },
     {
       "id": "nhom-clorua-alcl3",
-      "title": "Nhôm clorua (AlCl₃): thành phần, mô hình và phản ứng",
+      "title": "Nhôm clorua (AlCl₃) — Muốn nước trong hơn, trước hết phải gom những hạt rất nhỏ",
       "subjectIds": [
         "chem-alcl3"
       ],
-      "sections": 8,
-      "characters": 9041,
+      "sections": 10,
+      "characters": 9983,
       "externalSources": [
+        "https://www.epa.gov/pesticide-science-and-assessing-pesticide-risks/finalization-guidance-incorporation-water-treatment",
         "https://www.crystallography.net/cod/1535669.html",
         "https://openstax.org/books/chemistry-2e/pages/4-2-classifying-chemical-reactions",
         "https://openstax.org/books/chemistry-2e/pages/17-3-electrode-and-cell-potentials",
@@ -1872,13 +1980,15 @@
     },
     {
       "id": "natri-sunfua-na2s",
-      "title": "Natri sunfua (Na₂S): thành phần, mô hình và phản ứng",
+      "title": "Natri sunfua (Na₂S) — Từ gỗ tới giấy, rồi trở lại vòng tuần hoàn hóa chất",
       "subjectIds": [
         "chem-na2s"
       ],
-      "sections": 8,
-      "characters": 7670,
+      "sections": 10,
+      "characters": 8697,
       "externalSources": [
+        "https://www.epa.gov/sites/production/files/2016-12/documents/154_tech_review_memo.pdf",
+        "https://nepis.epa.gov/Exe/ZyPURL.cgi?Dockey=2000WU3L.TXT",
         "https://rruff.geo.arizona.edu/AMS/amcsd.php",
         "https://openstax.org/books/chemistry-2e/pages/4-2-classifying-chemical-reactions",
         "https://chemed.chem.purdue.edu/genchem/topicreview/bp/ch18/soluble.php",
@@ -1892,13 +2002,14 @@
     },
     {
       "id": "natri-sunfit-na2so3",
-      "title": "Natri sunfit (Na₂SO₃): thành phần, mô hình và phản ứng",
+      "title": "Natri sunfit (Na₂SO₃) — Loại oxygen khỏi nơi ta thường muốn giữ oxygen",
       "subjectIds": [
         "chem-na2so3"
       ],
-      "sections": 8,
-      "characters": 6576,
+      "sections": 10,
+      "characters": 7418,
       "externalSources": [
+        "https://www.energy.gov/sites/default/files/2026-04/DOE-HDBK-1015-93_VOL2.pdf",
         "https://rruff.geo.arizona.edu/AMS/amcsd.php",
         "https://openstax.org/books/chemistry-2e/pages/4-2-classifying-chemical-reactions",
         "https://openstax.org/books/chemistry-2e/pages/3-1-formula-mass-and-the-mole-concept",
@@ -1910,13 +2021,14 @@
     },
     {
       "id": "amoni-clorua-nh4cl",
-      "title": "Amoni clorua (NH₄Cl): thành phần, mô hình và phản ứng",
+      "title": "Amoni clorua (NH₄Cl) — Khi pin thôi là một bình chất lỏng khó mang theo",
       "subjectIds": [
         "chem-nh4cl"
       ],
-      "sections": 8,
-      "characters": 7569,
+      "sections": 10,
+      "characters": 8444,
       "externalSources": [
+        "https://www.acs.org/education/whatischemistry/landmarks/drycellbattery.html",
         "https://rruff.geo.arizona.edu/AMS/amcsd.php",
         "https://openstax.org/books/chemistry-2e/pages/4-2-classifying-chemical-reactions",
         "https://openstax.org/books/chemistry-2e/pages/14-7-acid-base-titrations",
@@ -2011,13 +2123,14 @@
     },
     {
       "id": "magie-hidroxit-mg-oh-2",
-      "title": "Magie hiđroxit (Mg(OH)₂): thành phần, mô hình và phản ứng",
+      "title": "Magie hiđroxit (Mg(OH)₂) — Một chất phụ gia giúp thay đổi cách nhựa phản ứng với nhiệt",
       "subjectIds": [
         "chem-mgoh2"
       ],
-      "sections": 8,
-      "characters": 8895,
+      "sections": 10,
+      "characters": 9752,
       "externalSources": [
+        "https://periodic-table.rsc.org/element/12/magnesium",
         "https://rruff.geo.arizona.edu/AMS/amcsd.php",
         "https://openstax.org/books/chemistry-2e/pages/4-2-classifying-chemical-reactions",
         "https://chemed.chem.purdue.edu/genchem/topicreview/bp/ch18/soluble.php",
@@ -2033,13 +2146,14 @@
     },
     {
       "id": "nhom-hidroxit-al-oh-3",
-      "title": "Nhôm hiđroxit (Al(OH)₃): thành phần, mô hình và phản ứng",
+      "title": "Nhôm hiđroxit (Al(OH)₃) — Chất đầu ở một nhà máy có thể đứng sau nước sạch ở nơi khác",
       "subjectIds": [
         "chem-aloh3"
       ],
-      "sections": 8,
-      "characters": 8850,
+      "sections": 10,
+      "characters": 9774,
       "externalSources": [
+        "https://www.epa.gov/waterutilityresponse/water-treatment-chemical-supply-chain-profiles",
         "https://rruff.geo.arizona.edu/AMS/amcsd.php",
         "https://openstax.org/books/chemistry-2e/pages/4-2-classifying-chemical-reactions",
         "https://chemed.chem.purdue.edu/genchem/topicreview/bp/ch18/soluble.php",
@@ -2139,13 +2253,15 @@
     },
     {
       "id": "dung-dich-kali-clorua-kcl",
-      "title": "Dung dịch Kali clorua (KCl): thành phần, mô hình và phản ứng",
+      "title": "Dung dịch Kali clorua (KCl) — Trên đồng ruộng, nguồn potassium không chỉ có một công thức",
       "subjectIds": [
         "chem-kcl"
       ],
-      "sections": 8,
-      "characters": 8176,
+      "sections": 10,
+      "characters": 9255,
       "externalSources": [
+        "https://efotg.sc.egov.usda.gov/references/Public/AZ/NutriFacts-NA-3_Potassium.pdf",
+        "https://www.cdfa.ca.gov/is/ffldrs/frep/FertilizationGuidelines/Annual_Crops.html",
         "https://rruff.geo.arizona.edu/AMS/amcsd.php",
         "https://openstax.org/books/chemistry-2e/pages/4-2-classifying-chemical-reactions",
         "https://openstax.org/books/chemistry-2e/pages/14-7-acid-base-titrations",
@@ -2158,13 +2274,15 @@
     },
     {
       "id": "kali-nitrat-diem-tieu-kno3",
-      "title": "Kali nitrat (Diêm tiêu) (KNO₃): thành phần, mô hình và phản ứng",
+      "title": "Kali nitrat (Diêm tiêu) (KNO₃) — Trên đồng ruộng, nguồn potassium không chỉ có một công thức",
       "subjectIds": [
         "chem-kno3"
       ],
-      "sections": 8,
-      "characters": 8379,
+      "sections": 10,
+      "characters": 9458,
       "externalSources": [
+        "https://efotg.sc.egov.usda.gov/references/Public/AZ/NutriFacts-NA-3_Potassium.pdf",
+        "https://www.cdfa.ca.gov/is/ffldrs/frep/FertilizationGuidelines/Annual_Crops.html",
         "https://rruff.geo.arizona.edu/AMS/amcsd.php",
         "https://openstax.org/books/chemistry-2e/pages/4-2-classifying-chemical-reactions",
         "https://chemed.chem.purdue.edu/genchem/topicreview/bp/ch18/soluble.php",
@@ -2179,13 +2297,14 @@
     },
     {
       "id": "natri-nitrat-diem-tieu-chile-nano3",
-      "title": "Natri nitrat (Diêm tiêu Chile) (NaNO₃): thành phần, mô hình và phản ứng",
+      "title": "Natri nitrat (Diêm tiêu Chile) (NaNO₃) — Một mỏ khoáng có thể nối với nguồn dinh dưỡng của cánh đồng",
       "subjectIds": [
         "chem-nano3"
       ],
-      "sections": 8,
-      "characters": 8442,
+      "sections": 10,
+      "characters": 9303,
       "externalSources": [
+        "https://pubs.usgs.gov/fs/fs155-99/fs155-99.html",
         "https://rruff.geo.arizona.edu/AMS/amcsd.php",
         "https://openstax.org/books/chemistry-2e/pages/4-2-classifying-chemical-reactions",
         "https://chemed.chem.purdue.edu/genchem/topicreview/bp/ch18/soluble.php",
@@ -2220,13 +2339,14 @@
     },
     {
       "id": "dung-dich-sat-iii-sunfat-fe2-so4-3",
-      "title": "Dung dịch Sắt(III) sunfat (Fe₂(SO₄)₃): thành phần, mô hình và phản ứng",
+      "title": "Dung dịch Sắt(III) sunfat (Fe₂(SO₄)₃) — Muốn nước trong hơn, trước hết phải gom những hạt rất nhỏ",
       "subjectIds": [
         "chem-fe2so43"
       ],
-      "sections": 8,
-      "characters": 8500,
+      "sections": 10,
+      "characters": 9442,
       "externalSources": [
+        "https://www.epa.gov/pesticide-science-and-assessing-pesticide-risks/finalization-guidance-incorporation-water-treatment",
         "https://rruff.geo.arizona.edu/AMS/amcsd.php",
         "https://openstax.org/books/chemistry-2e/pages/4-2-classifying-chemical-reactions",
         "https://openstax.org/books/chemistry-2e/pages/14-7-acid-base-titrations",
@@ -2303,13 +2423,15 @@
     },
     {
       "id": "dung-dich-magie-clorua-mgcl2",
-      "title": "Dung dịch Magie clorua (MgCl₂): thành phần, mô hình và phản ứng",
+      "title": "Dung dịch Magie clorua (MgCl₂) — Những muối xuất hiện trước một đợt băng tuyết",
       "subjectIds": [
         "chem-mgcl2"
       ],
-      "sections": 8,
-      "characters": 8492,
+      "sections": 10,
+      "characters": 9546,
       "externalSources": [
+        "https://roads.maryland.gov/mdotsha/pages/pressreleasedetails.aspx?PageId=818&newsId=157",
+        "https://www.epa.gov/system/files/documents/2021-11/bmp-deicing-material-application-and-storage.pdf",
         "https://rruff.geo.arizona.edu/AMS/amcsd.php",
         "https://openstax.org/books/chemistry-2e/pages/4-2-classifying-chemical-reactions",
         "https://openstax.org/books/chemistry-2e/pages/17-3-electrode-and-cell-potentials",
@@ -2323,13 +2445,17 @@
     },
     {
       "id": "amoni-nitrat-nh4no3",
-      "title": "Amoni nitrat (NH₄NO₃): thành phần, mô hình và phản ứng",
+      "title": "Amoni nitrat (NH₄NO₃) — Hai dạng nitrogen đi cùng trong một hạt phân bón",
       "subjectIds": [
         "chem-nh4no3"
       ],
-      "sections": 8,
-      "characters": 7574,
+      "sections": 10,
+      "characters": 8974,
       "externalSources": [
+        "https://commons.wikimedia.org/wiki/File:Severnside_fertilizer_works_-_geograph.org.uk_-_189990.jpg",
+        "https://creativecommons.org/licenses/by-sa/2.0",
+        "https://efotg.sc.egov.usda.gov/references/public/AZ/Ammonium_Nitrate.pdf",
+        "https://www.epa.gov/eg/fertilizer-manufacturing-effluent-guidelines",
         "https://rruff.geo.arizona.edu/AMS/amcsd.php",
         "https://openstax.org/books/chemistry-2e/pages/4-2-classifying-chemical-reactions",
         "https://openstax.org/books/chemistry-2e/pages/14-7-acid-base-titrations",
@@ -2365,13 +2491,14 @@
     },
     {
       "id": "dung-dich-natri-thiosulfat-na2s2o3",
-      "title": "Dung dịch Natri thiosulfat (Na₂S₂O₃): thành phần, mô hình và phản ứng",
+      "title": "Dung dịch Natri thiosulfat (Na₂S₂O₃) — Làm sao giữ một bức ảnh khỏi tiếp tục đổi màu?",
       "subjectIds": [
         "chem-na2s2o3"
       ],
-      "sections": 7,
-      "characters": 4573,
+      "sections": 9,
+      "characters": 5519,
       "externalSources": [
+        "https://www.acs.org/content/dam/acsorg/education/whatischemistry/landmarks/eastman-kodak/kodak-booklet.pdf",
         "https://www.crystallography.net/cod/2310480.html",
         "https://openstax.org/books/chemistry-2e/pages/3-1-formula-mass-and-the-mole-concept",
         "https://openstax.org/books/chemistry-2e/pages/3-2-determining-empirical-and-molecular-formulas",
@@ -2439,13 +2566,14 @@
     },
     {
       "id": "bac-clorua-agcl",
-      "title": "Bạc clorua (AgCl): thành phần, mô hình và phản ứng",
+      "title": "Bạc clorua (AgCl) — Làm sao giữ một bức ảnh khỏi tiếp tục đổi màu?",
       "subjectIds": [
         "chem-agcl"
       ],
-      "sections": 8,
-      "characters": 7081,
+      "sections": 10,
+      "characters": 8027,
       "externalSources": [
+        "https://www.acs.org/content/dam/acsorg/education/whatischemistry/landmarks/eastman-kodak/kodak-booklet.pdf",
         "https://rruff.geo.arizona.edu/AMS/amcsd.php",
         "https://openstax.org/books/chemistry-2e/pages/4-2-classifying-chemical-reactions",
         "https://chemed.chem.purdue.edu/genchem/topicreview/bp/ch18/soluble.php",
@@ -2459,13 +2587,14 @@
     },
     {
       "id": "bac-bromua-agbr",
-      "title": "Bạc bromua (AgBr): thành phần, mô hình và phản ứng",
+      "title": "Bạc bromua (AgBr) — Làm sao giữ một bức ảnh khỏi tiếp tục đổi màu?",
       "subjectIds": [
         "chem-agbr"
       ],
-      "sections": 8,
-      "characters": 6996,
+      "sections": 10,
+      "characters": 7942,
       "externalSources": [
+        "https://www.acs.org/content/dam/acsorg/education/whatischemistry/landmarks/eastman-kodak/kodak-booklet.pdf",
         "https://rruff.geo.arizona.edu/AMS/amcsd.php",
         "https://openstax.org/books/chemistry-2e/pages/4-2-classifying-chemical-reactions",
         "https://chemed.chem.purdue.edu/genchem/topicreview/bp/ch18/soluble.php",
@@ -2479,13 +2608,14 @@
     },
     {
       "id": "bac-iodua-agi",
-      "title": "Bạc iođua (AgI): thành phần, mô hình và phản ứng",
+      "title": "Bạc iođua (AgI) — Làm sao giữ một bức ảnh khỏi tiếp tục đổi màu?",
       "subjectIds": [
         "chem-agi"
       ],
-      "sections": 8,
-      "characters": 6957,
+      "sections": 10,
+      "characters": 7903,
       "externalSources": [
+        "https://www.acs.org/content/dam/acsorg/education/whatischemistry/landmarks/eastman-kodak/kodak-booklet.pdf",
         "https://rruff.geo.arizona.edu/AMS/amcsd.php",
         "https://openstax.org/books/chemistry-2e/pages/4-2-classifying-chemical-reactions",
         "https://chemed.chem.purdue.edu/genchem/topicreview/bp/ch18/soluble.php",
@@ -2519,13 +2649,14 @@
     },
     {
       "id": "bari-sunfat-baso4",
-      "title": "Bari sunfat (BaSO₄): thành phần, mô hình và phản ứng",
+      "title": "Bari sunfat (BaSO₄) — Một chất khó tan giúp làm rõ hình ảnh bên trong cơ thể",
       "subjectIds": [
         "chem-baso4"
       ],
-      "sections": 8,
-      "characters": 7184,
+      "sections": 10,
+      "characters": 8018,
       "externalSources": [
+        "https://periodic-table.rsc.org/element/56/barium",
         "https://rruff.geo.arizona.edu/AMS/amcsd.php",
         "https://openstax.org/books/chemistry-2e/pages/4-2-classifying-chemical-reactions",
         "https://chemed.chem.purdue.edu/genchem/topicreview/bp/ch18/soluble.php",
@@ -2559,15 +2690,17 @@
     },
     {
       "id": "luu-huynh-s",
-      "title": "Lưu huỳnh (S): thành phần, mô hình và phản ứng",
+      "title": "Lưu huỳnh (S) — Từ dấu mốc khám phá đến sản xuất sulfuric acid",
       "subjectIds": [
         "chem-s"
       ],
-      "sections": 8,
-      "characters": 5207,
+      "sections": 10,
+      "characters": 6159,
       "externalSources": [
-        "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+        "https://commons.wikimedia.org/wiki/File:Manure_spreading_Hlokozi_2007_11_29.jpg",
+        "https://creativecommons.org/licenses/by-sa/4.0",
         "https://periodic-table.rsc.org/element/16/sulfur",
+        "https://rruff.geo.arizona.edu/AMS/amcsd.php",
         "https://openstax.org/books/chemistry-2e/pages/4-2-classifying-chemical-reactions",
         "https://openstax.org/books/chemistry-2e/pages/3-1-formula-mass-and-the-mole-concept",
         "https://openstax.org/books/chemistry-2e/pages/2-6-ionic-and-molecular-compounds",
@@ -2577,15 +2710,17 @@
     },
     {
       "id": "cacbon-c",
-      "title": "Cacbon (C): thành phần, mô hình và phản ứng",
+      "title": "Cacbon (C) — Từ dấu mốc khám phá đến nhiên liệu",
       "subjectIds": [
         "chem-c"
       ],
-      "sections": 8,
-      "characters": 5217,
+      "sections": 10,
+      "characters": 6234,
       "externalSources": [
-        "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+        "https://commons.wikimedia.org/wiki/File:Alloy_and_metal_samples_-_Beryllium-Copper,_Inconel,_Steel,_Titanium,_Aluminum,_Magnesium.jpg",
+        "https://creativecommons.org/licenses/by-sa/2.0",
         "https://periodic-table.rsc.org/element/6/carbon",
+        "https://rruff.geo.arizona.edu/AMS/amcsd.php",
         "https://openstax.org/books/chemistry-2e/pages/4-1-writing-and-balancing-chemical-equations",
         "https://openstax.org/books/chemistry-2e/pages/3-1-formula-mass-and-the-mole-concept",
         "https://openstax.org/books/chemistry-2e/pages/2-6-ionic-and-molecular-compounds",
@@ -2595,15 +2730,17 @@
     },
     {
       "id": "photpho-p",
-      "title": "Photpho (P): thành phần, mô hình và phản ứng",
+      "title": "Photpho (P) — Từ dấu mốc khám phá đến phân bón",
       "subjectIds": [
         "chem-p"
       ],
-      "sections": 8,
-      "characters": 4354,
+      "sections": 10,
+      "characters": 5294,
       "externalSources": [
-        "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+        "https://commons.wikimedia.org/wiki/File:Manure_spreading_Hlokozi_2007_11_29.jpg",
+        "https://creativecommons.org/licenses/by-sa/4.0",
         "https://periodic-table.rsc.org/element/15/phosphorus",
+        "https://rruff.geo.arizona.edu/AMS/amcsd.php",
         "https://openstax.org/books/chemistry-2e/pages/3-1-formula-mass-and-the-mole-concept",
         "https://openstax.org/books/chemistry-2e/pages/2-6-ionic-and-molecular-compounds",
         "https://openstax.org/books/chemistry-2e/pages/10-6-lattice-structures-in-crystalline-solids",
@@ -2612,13 +2749,14 @@
     },
     {
       "id": "mangan-dioxit-bot-mno2",
-      "title": "Mangan đioxit bột (MnO₂): thành phần, mô hình và phản ứng",
+      "title": "Mangan đioxit bột (MnO₂) — Khi pin thôi là một bình chất lỏng khó mang theo",
       "subjectIds": [
         "chem-mno2"
       ],
-      "sections": 8,
-      "characters": 5034,
+      "sections": 10,
+      "characters": 5909,
       "externalSources": [
+        "https://www.acs.org/education/whatischemistry/landmarks/drycellbattery.html",
         "https://rruff.geo.arizona.edu/AMS/amcsd.php",
         "https://openstax.org/books/chemistry-2e/pages/3-1-formula-mass-and-the-mole-concept",
         "https://openstax.org/books/chemistry-2e/pages/3-2-determining-empirical-and-molecular-formulas",
@@ -2670,13 +2808,16 @@
     },
     {
       "id": "canxi-oxit-voi-song-cao",
-      "title": "Canxi oxit (Vôi sống) (CaO): thành phần, mô hình và phản ứng",
+      "title": "Canxi oxit (Vôi sống) (CaO) — Những hạt vôi trong bê tông cổ kể lại cách người La Mã xây dựng",
       "subjectIds": [
         "chem-cao"
       ],
-      "sections": 8,
-      "characters": 8169,
+      "sections": 10,
+      "characters": 9662,
       "externalSources": [
+        "https://commons.wikimedia.org/wiki/File:Cement_kiln_in_Gorazdze_Cement_plant.JPG",
+        "https://dspace.mit.edu/entities/publication/d114c164-bdc9-4faf-8cd2-bb5075acfc0e",
+        "https://www.epa.gov/waterutilityresponse/water-treatment-chemical-supply-chain-profiles",
         "https://rruff.geo.arizona.edu/AMS/amcsd.php",
         "https://openstax.org/books/chemistry-2e/pages/18-9-occurrence-preparation-and-compounds-of-oxygen",
         "https://openstax.org/books/chemistry-2e/pages/4-2-classifying-chemical-reactions",
@@ -2779,15 +2920,17 @@
     },
     {
       "id": "bac-ag-composition",
-      "title": "Bạc (Ag): thành phần, mô hình và phản ứng",
+      "title": "Bạc (Ag) — Từ dấu mốc khám phá đến điện tử",
       "subjectIds": [
         "formula-Ag"
       ],
-      "sections": 8,
-      "characters": 6821,
+      "sections": 10,
+      "characters": 7776,
       "externalSources": [
-        "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+        "https://commons.wikimedia.org/wiki/File:SEG_DVD_430_-_Printed_circuit_board-4276.jpg",
+        "https://creativecommons.org/licenses/by-sa/4.0",
         "https://periodic-table.rsc.org/element/47/silver",
+        "https://rruff.geo.arizona.edu/AMS/amcsd.php",
         "https://openstax.org/books/chemistry-2e/pages/17-3-electrode-and-cell-potentials",
         "https://openstax.org/books/chemistry-2e/pages/18-9-occurrence-preparation-and-compounds-of-oxygen",
         "https://openstax.org/books/chemistry-2e/pages/3-1-formula-mass-and-the-mole-concept",
@@ -2898,13 +3041,14 @@
     },
     {
       "id": "nhom-sunfat-al2-so4-3",
-      "title": "nhôm sunfat (Al₂(SO₄)₃): thành phần, mô hình và phản ứng",
+      "title": "nhôm sunfat (Al₂(SO₄)₃) — Muốn nước trong hơn, trước hết phải gom những hạt rất nhỏ",
       "subjectIds": [
         "formula-Al2(SO4)3"
       ],
-      "sections": 8,
-      "characters": 9314,
+      "sections": 10,
+      "characters": 10256,
       "externalSources": [
+        "https://www.epa.gov/pesticide-science-and-assessing-pesticide-risks/finalization-guidance-incorporation-water-treatment",
         "https://rruff.geo.arizona.edu/AMS/amcsd.php",
         "https://openstax.org/books/chemistry-2e/pages/4-2-classifying-chemical-reactions",
         "https://openstax.org/books/chemistry-2e/pages/17-3-electrode-and-cell-potentials",
@@ -3642,15 +3786,17 @@
     },
     {
       "id": "canxi-ca",
-      "title": "Canxi (Ca): thành phần, mô hình và phản ứng",
+      "title": "Canxi (Ca) — Từ dấu mốc khám phá đến xây dựng",
       "subjectIds": [
         "formula-Ca"
       ],
-      "sections": 8,
-      "characters": 5088,
+      "sections": 10,
+      "characters": 6027,
       "externalSources": [
-        "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+        "https://commons.wikimedia.org/wiki/File:Construction_site_in_Cologne,_Germany_(2017",
+        "https://creativecommons.org/licenses/by-sa/4.0",
         "https://periodic-table.rsc.org/element/20/calcium",
+        "https://rruff.geo.arizona.edu/AMS/amcsd.php",
         "https://openstax.org/books/chemistry-2e/pages/4-2-classifying-chemical-reactions",
         "https://openstax.org/books/chemistry-2e/pages/3-1-formula-mass-and-the-mole-concept",
         "https://openstax.org/books/chemistry-2e/pages/2-6-ionic-and-molecular-compounds",
@@ -3807,15 +3953,16 @@
     },
     {
       "id": "cadmium-cd",
-      "title": "Cadmium (Cd): thành phần, mô hình và phản ứng",
+      "title": "Cadmium (Cd) — Từ dấu mốc khám phá đến pin nickel-cadmium",
       "subjectIds": [
         "formula-Cd"
       ],
-      "sections": 8,
-      "characters": 7120,
+      "sections": 10,
+      "characters": 8075,
       "externalSources": [
-        "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+        "https://commons.wikimedia.org/wiki/File:Batteries.jpg",
         "https://periodic-table.rsc.org/element/48/cadmium",
+        "https://rruff.geo.arizona.edu/AMS/amcsd.php",
         "https://openstax.org/books/chemistry-2e/pages/17-3-electrode-and-cell-potentials",
         "https://openstax.org/books/chemistry-2e/pages/4-2-classifying-chemical-reactions",
         "https://openstax.org/books/chemistry-2e/pages/3-1-formula-mass-and-the-mole-concept",
@@ -4021,13 +4168,14 @@
     },
     {
       "id": "cadimi-sunfua-cds",
-      "title": "cadimi sunfua (CdS): thành phần, mô hình và phản ứng",
+      "title": "cadimi sunfua (CdS) — Màu vàng của Van Gogh dưới chùm tia X",
       "subjectIds": [
         "formula-CdS"
       ],
-      "sections": 8,
-      "characters": 7005,
+      "sections": 10,
+      "characters": 7897,
       "externalSources": [
+        "https://www.esrf.fr/news/general/van-gogh-cds/index_html",
         "https://rruff.geo.arizona.edu/AMS/amcsd.php",
         "https://openstax.org/books/chemistry-2e/pages/4-2-classifying-chemical-reactions",
         "https://chemed.chem.purdue.edu/genchem/topicreview/bp/ch18/soluble.php",
@@ -4041,13 +4189,14 @@
     },
     {
       "id": "cadimi-sunfat-cdso4",
-      "title": "cadimi sunfat (CdSO₄): thành phần, mô hình và phản ứng",
+      "title": "cadimi sunfat (CdSO₄) — Màu vàng của Van Gogh dưới chùm tia X",
       "subjectIds": [
         "formula-CdSO4"
       ],
-      "sections": 7,
-      "characters": 8059,
+      "sections": 9,
+      "characters": 8951,
       "externalSources": [
+        "https://www.esrf.fr/news/general/van-gogh-cds/index_html",
         "https://openstax.org/books/chemistry-2e/pages/4-2-classifying-chemical-reactions",
         "https://openstax.org/books/chemistry-2e/pages/17-3-electrode-and-cell-potentials",
         "https://openstax.org/books/chemistry-2e/pages/14-7-acid-base-titrations",
@@ -4060,13 +4209,14 @@
     },
     {
       "id": "ch3ch2ch2ch2oh-ch3ch2ch2ch2oh",
-      "title": "CH3CH2CH2CH2OH (CH₃CH₂CH₂CH₂OH): thành phần, mô hình và phản ứng",
+      "title": "CH3CH2CH2CH2OH (CH₃CH₂CH₂CH₂OH) — Vi khuẩn trở thành một phần của nhà máy dung môi",
       "subjectIds": [
         "formula-CH3CH2CH2CH2OH"
       ],
-      "sections": 6,
-      "characters": 7437,
+      "sections": 8,
+      "characters": 8456,
       "externalSources": [
+        "https://www.weizmann.ac.il/WeizmannCompass/sections/people-behind-the-science/chaim-weizmann%E2%80%99s-acetone-patent-turns-100",
         "https://openstax.org/books/organic-chemistry/pages/21-6-chemistry-of-esters",
         "https://openstax.org/books/chemistry-2e/pages/4-1-writing-and-balancing-chemical-equations",
         "https://openstax.org/books/chemistry-2e/pages/3-1-formula-mass-and-the-mole-concept",
@@ -4167,13 +4317,14 @@
     },
     {
       "id": "kali-axetat-ch3cook",
-      "title": "kali axetat (CH₃COOK): thành phần, mô hình và phản ứng",
+      "title": "kali axetat (CH₃COOK) — Một loại acetate đi vào hệ thống chống băng trên cầu",
       "subjectIds": [
         "formula-CH3COOK"
       ],
-      "sections": 7,
-      "characters": 7810,
+      "sections": 9,
+      "characters": 8693,
       "externalSources": [
+        "https://stormwater.pca.state.mn.us/how_salt_works_and_overview_of_deicing_chemicals",
         "https://openstax.org/books/chemistry-2e/pages/4-2-classifying-chemical-reactions",
         "https://openstax.org/books/chemistry-2e/pages/14-7-acid-base-titrations",
         "https://openstax.org/books/chemistry-2e/pages/3-1-formula-mass-and-the-mole-concept",
@@ -4220,15 +4371,17 @@
     },
     {
       "id": "coban-co",
-      "title": "Coban (Co): thành phần, mô hình và phản ứng",
+      "title": "Coban (Co) — Từ dấu mốc khám phá đến pin lithium-ion",
       "subjectIds": [
         "formula-Co"
       ],
-      "sections": 8,
-      "characters": 7085,
+      "sections": 10,
+      "characters": 8081,
       "externalSources": [
-        "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+        "https://commons.wikimedia.org/wiki/File:Li_ion_laptop_battery.jpg",
+        "https://creativecommons.org/licenses/by-sa/3.0",
         "https://periodic-table.rsc.org/element/27/cobalt",
+        "https://rruff.geo.arizona.edu/AMS/amcsd.php",
         "https://openstax.org/books/chemistry-2e/pages/17-3-electrode-and-cell-potentials",
         "https://openstax.org/books/chemistry-2e/pages/4-2-classifying-chemical-reactions",
         "https://openstax.org/books/chemistry-2e/pages/3-1-formula-mass-and-the-mole-concept",
@@ -5027,15 +5180,17 @@
     },
     {
       "id": "kali-k",
-      "title": "Kali (K): thành phần, mô hình và phản ứng",
+      "title": "Kali (K) — Từ dấu mốc khám phá đến phân bón",
       "subjectIds": [
         "formula-K"
       ],
-      "sections": 8,
-      "characters": 5183,
+      "sections": 10,
+      "characters": 6101,
       "externalSources": [
-        "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+        "https://commons.wikimedia.org/wiki/File:Manure_spreading_Hlokozi_2007_11_29.jpg",
+        "https://creativecommons.org/licenses/by-sa/4.0",
         "https://periodic-table.rsc.org/element/19/potassium",
+        "https://rruff.geo.arizona.edu/AMS/amcsd.php",
         "https://chem.washington.edu/lecture-demos/activity-series-alkali-metals-water",
         "https://openstax.org/books/chemistry-2e/pages/3-1-formula-mass-and-the-mole-concept",
         "https://openstax.org/books/chemistry-2e/pages/2-6-ionic-and-molecular-compounds",
@@ -5120,13 +5275,15 @@
     },
     {
       "id": "kali-sunfat-k2so4",
-      "title": "kali sunfat (K₂SO₄): thành phần, mô hình và phản ứng",
+      "title": "kali sunfat (K₂SO₄) — Trên đồng ruộng, nguồn potassium không chỉ có một công thức",
       "subjectIds": [
         "formula-K2SO4"
       ],
-      "sections": 8,
-      "characters": 8283,
+      "sections": 10,
+      "characters": 9362,
       "externalSources": [
+        "https://efotg.sc.egov.usda.gov/references/Public/AZ/NutriFacts-NA-3_Potassium.pdf",
+        "https://www.cdfa.ca.gov/is/ffldrs/frep/FertilizationGuidelines/Annual_Crops.html",
         "https://rruff.geo.arizona.edu/AMS/amcsd.php",
         "https://openstax.org/books/chemistry-2e/pages/4-2-classifying-chemical-reactions",
         "https://openstax.org/books/chemistry-2e/pages/14-7-acid-base-titrations",
@@ -5232,15 +5389,17 @@
     },
     {
       "id": "liti-li-composition",
-      "title": "Liti (Li): thành phần, mô hình và phản ứng",
+      "title": "Liti (Li) — Từ dấu mốc khám phá đến pin và ắc quy",
       "subjectIds": [
         "formula-Li"
       ],
-      "sections": 8,
-      "characters": 5155,
+      "sections": 10,
+      "characters": 6378,
       "externalSources": [
-        "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+        "https://commons.wikimedia.org/wiki/File:Lithium-Ion_Cell_cylindric.JPG",
+        "https://creativecommons.org/licenses/by-sa/3.0",
         "https://periodic-table.rsc.org/element/3/lithium",
+        "https://rruff.geo.arizona.edu/AMS/amcsd.php",
         "https://chem.washington.edu/lecture-demos/activity-series-alkali-metals-water",
         "https://openstax.org/books/chemistry-2e/pages/3-1-formula-mass-and-the-mole-concept",
         "https://openstax.org/books/chemistry-2e/pages/2-6-ionic-and-molecular-compounds",
@@ -5307,13 +5466,15 @@
     },
     {
       "id": "liti-bromua-libr",
-      "title": "liti bromua (LiBr): thành phần, mô hình và phản ứng",
+      "title": "liti bromua (LiBr) — Dùng nhiệt thải để làm lạnh: vai trò ít quen của lithium",
       "subjectIds": [
         "formula-LiBr"
       ],
-      "sections": 8,
-      "characters": 8093,
+      "sections": 10,
+      "characters": 9158,
       "externalSources": [
+        "https://www.energy.gov/sites/default/files/2014/05/f16/steam14_chillers.pdf",
+        "https://www.energy.gov/sites/prod/files/2017/06/f35/CHP-Absorption%20Chiller-compliant.pdf",
         "https://rruff.geo.arizona.edu/AMS/amcsd.php",
         "https://openstax.org/books/chemistry-2e/pages/4-2-classifying-chemical-reactions",
         "https://openstax.org/books/chemistry-2e/pages/14-7-acid-base-titrations",
@@ -5403,13 +5564,14 @@
     },
     {
       "id": "liti-hidroxit-lioh",
-      "title": "liti hiđroxit (LiOH): thành phần, mô hình và phản ứng",
+      "title": "liti hiđroxit (LiOH) — Apollo 13: vấn đề sống còn trong một chiếc hộp lọc",
       "subjectIds": [
         "formula-LiOH"
       ],
-      "sections": 8,
-      "characters": 8168,
+      "sections": 10,
+      "characters": 9073,
       "externalSources": [
+        "https://www.nasa.gov/missions/apollo/apollo-13-mission-details/",
         "https://rruff.geo.arizona.edu/AMS/amcsd.php",
         "https://chem.washington.edu/lecture-demos/activity-series-alkali-metals-water",
         "https://openstax.org/books/chemistry-2e/pages/4-2-classifying-chemical-reactions",
@@ -5577,13 +5739,14 @@
     },
     {
       "id": "mgo-mgo",
-      "title": "MgO (MgO): thành phần, mô hình và phản ứng",
+      "title": "MgO (MgO) — Hai chất bột trắng giúp tách ra một nguyên tố mới",
       "subjectIds": [
         "formula-MgO"
       ],
-      "sections": 8,
-      "characters": 7281,
+      "sections": 10,
+      "characters": 8104,
       "externalSources": [
+        "https://periodic-table.rsc.org/element/12/magnesium",
         "https://rruff.geo.arizona.edu/AMS/amcsd.php",
         "https://openstax.org/books/chemistry-2e/pages/4-2-classifying-chemical-reactions",
         "https://openstax.org/books/chemistry-2e/pages/18-9-occurrence-preparation-and-compounds-of-oxygen",
@@ -5614,15 +5777,17 @@
     },
     {
       "id": "mangan-mn",
-      "title": "Mangan (Mn): thành phần, mô hình và phản ứng",
+      "title": "Mangan (Mn) — Từ dấu mốc khám phá đến sản xuất thép",
       "subjectIds": [
         "formula-Mn"
       ],
-      "sections": 8,
-      "characters": 7111,
+      "sections": 10,
+      "characters": 8073,
       "externalSources": [
-        "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+        "https://commons.wikimedia.org/wiki/File:SteelMill_interior.jpg",
+        "https://creativecommons.org/licenses/by/2.0",
         "https://periodic-table.rsc.org/element/25/manganese",
+        "https://rruff.geo.arizona.edu/AMS/amcsd.php",
         "https://openstax.org/books/chemistry-2e/pages/17-3-electrode-and-cell-potentials",
         "https://openstax.org/books/chemistry-2e/pages/4-2-classifying-chemical-reactions",
         "https://openstax.org/books/chemistry-2e/pages/3-1-formula-mass-and-the-mole-concept",
@@ -5976,13 +6141,14 @@
     },
     {
       "id": "naalo2-naalo2",
-      "title": "NaAlO2 (NaAlO₂): thành phần, mô hình và phản ứng",
+      "title": "NaAlO2 (NaAlO₂) — Khi nhà máy cần aluminium nhưng không muốn thêm sulfate",
       "subjectIds": [
         "formula-NaAlO2"
       ],
-      "sections": 6,
-      "characters": 4772,
+      "sections": 8,
+      "characters": 5687,
       "externalSources": [
+        "https://www.publications.usace.army.mil/portals/76/publications/engineermanuals/em_1110-1-4012.pdf",
         "https://openstax.org/books/chemistry-2e/pages/4-2-classifying-chemical-reactions",
         "https://openstax.org/books/chemistry-2e/pages/3-1-formula-mass-and-the-mole-concept",
         "https://openstax.org/books/chemistry-2e/pages/3-2-determining-empirical-and-molecular-formulas",
@@ -6090,15 +6256,17 @@
     },
     {
       "id": "niken-ni",
-      "title": "Niken (Ni): thành phần, mô hình và phản ứng",
+      "title": "Niken (Ni) — Từ dấu mốc khám phá đến thép không gỉ",
       "subjectIds": [
         "formula-Ni"
       ],
-      "sections": 8,
-      "characters": 7062,
+      "sections": 10,
+      "characters": 8067,
       "externalSources": [
-        "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+        "https://commons.wikimedia.org/wiki/File:Sink_and_taps_in_the_men%27s_locker_room_3_BW.jpg",
+        "https://creativecommons.org/licenses/by-sa/4.0",
         "https://periodic-table.rsc.org/element/28/nickel",
+        "https://rruff.geo.arizona.edu/AMS/amcsd.php",
         "https://openstax.org/books/chemistry-2e/pages/17-3-electrode-and-cell-potentials",
         "https://openstax.org/books/chemistry-2e/pages/4-2-classifying-chemical-reactions",
         "https://openstax.org/books/chemistry-2e/pages/3-1-formula-mass-and-the-mole-concept",
@@ -6343,15 +6511,16 @@
     },
     {
       "id": "chi-pb",
-      "title": "Chì (Pb): thành phần, mô hình và phản ứng",
+      "title": "Chì (Pb) — Từ dấu mốc khám phá đến ắc quy",
       "subjectIds": [
         "formula-Pb"
       ],
-      "sections": 8,
-      "characters": 6280,
+      "sections": 10,
+      "characters": 7354,
       "externalSources": [
-        "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+        "https://commons.wikimedia.org/wiki/File:Photo-CarBattery.jpg",
         "https://periodic-table.rsc.org/element/82/lead",
+        "https://rruff.geo.arizona.edu/AMS/amcsd.php",
         "https://openstax.org/books/chemistry-2e/pages/17-3-electrode-and-cell-potentials",
         "https://openstax.org/books/chemistry-2e/pages/3-1-formula-mass-and-the-mole-concept",
         "https://openstax.org/books/chemistry-2e/pages/2-6-ionic-and-molecular-compounds",
@@ -6517,13 +6686,14 @@
     },
     {
       "id": "chi-ii-cromat-pbcro4",
-      "title": "chì(II) cromat (PbCrO₄): thành phần, mô hình và phản ứng",
+      "title": "chì(II) cromat (PbCrO₄) — Khi ánh sáng làm một màu vàng dần tối đi",
       "subjectIds": [
         "formula-PbCrO4"
       ],
-      "sections": 8,
-      "characters": 7109,
+      "sections": 10,
+      "characters": 8042,
       "externalSources": [
+        "https://www.esrf.fr/cms/live/live/en/sites/www/home/UsersAndScience/Experiments/ID21/cultural-heritage-activities-at-id21/future/CY.html",
         "https://rruff.geo.arizona.edu/AMS/amcsd.php",
         "https://openstax.org/books/chemistry-2e/pages/4-2-classifying-chemical-reactions",
         "https://chemed.chem.purdue.edu/genchem/topicreview/bp/ch18/soluble.php",
@@ -6598,15 +6768,16 @@
     },
     {
       "id": "tin-sn",
-      "title": "Tin (Sn): thành phần, mô hình và phản ứng",
+      "title": "Tin (Sn) — Từ dấu mốc khám phá đến hàn",
       "subjectIds": [
         "formula-Sn"
       ],
-      "sections": 8,
-      "characters": 6341,
+      "sections": 10,
+      "characters": 7384,
       "externalSources": [
-        "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+        "https://commons.wikimedia.org/wiki/File:US_Navy_090715-N-5821P-002_Aviation_Support_Equipment_Technician_Airman_Anthony_Hammond_performs_tungsten_inert_gas_welding_during_a_training_evolution.jpg",
         "https://periodic-table.rsc.org/element/50/tin",
+        "https://rruff.geo.arizona.edu/AMS/amcsd.php",
         "https://openstax.org/books/chemistry-2e/pages/4-2-classifying-chemical-reactions",
         "https://openstax.org/books/chemistry-2e/pages/17-3-electrode-and-cell-potentials",
         "https://openstax.org/books/chemistry-2e/pages/3-1-formula-mass-and-the-mole-concept",
@@ -6708,13 +6879,14 @@
     },
     {
       "id": "stronti-nitrat-sr-no3-2",
-      "title": "stronti nitrat (Sr(NO₃)₂): thành phần, mô hình và phản ứng",
+      "title": "stronti nitrat (Sr(NO₃)₂) — Màu đỏ đã giúp kể câu chuyện một nguyên tố",
       "subjectIds": [
         "formula-Sr(NO3)2"
       ],
-      "sections": 8,
-      "characters": 8234,
+      "sections": 10,
+      "characters": 9111,
       "externalSources": [
+        "https://periodic-table.rsc.org/element/38/strontium",
         "https://rruff.geo.arizona.edu/AMS/amcsd.php",
         "https://openstax.org/books/chemistry-2e/pages/4-2-classifying-chemical-reactions",
         "https://openstax.org/books/chemistry-2e/pages/14-7-acid-base-titrations",
@@ -6821,13 +6993,14 @@
     },
     {
       "id": "stronti-cacbonat-srco3",
-      "title": "stronti cacbonat (SrCO₃): thành phần, mô hình và phản ứng",
+      "title": "stronti cacbonat (SrCO₃) — Màu đỏ đã giúp kể câu chuyện một nguyên tố",
       "subjectIds": [
         "formula-SrCO3"
       ],
-      "sections": 8,
-      "characters": 8409,
+      "sections": 10,
+      "characters": 9286,
       "externalSources": [
+        "https://periodic-table.rsc.org/element/38/strontium",
         "https://rruff.geo.arizona.edu/AMS/amcsd.php",
         "https://openstax.org/books/chemistry-2e/pages/4-2-classifying-chemical-reactions",
         "https://chemed.chem.purdue.edu/genchem/topicreview/bp/ch18/soluble.php",
@@ -7034,13 +7207,14 @@
     },
     {
       "id": "kem-clorua-zncl2",
-      "title": "kẽm clorua (ZnCl₂): thành phần, mô hình và phản ứng",
+      "title": "kẽm clorua (ZnCl₂) — Khi pin thôi là một bình chất lỏng khó mang theo",
       "subjectIds": [
         "formula-ZnCl2"
       ],
-      "sections": 8,
-      "characters": 8468,
+      "sections": 10,
+      "characters": 9343,
       "externalSources": [
+        "https://www.acs.org/education/whatischemistry/landmarks/drycellbattery.html",
         "https://rruff.geo.arizona.edu/AMS/amcsd.php",
         "https://openstax.org/books/chemistry-2e/pages/4-2-classifying-chemical-reactions",
         "https://openstax.org/books/chemistry-2e/pages/17-3-electrode-and-cell-potentials",
@@ -7092,13 +7266,14 @@
     },
     {
       "id": "zno-zno",
-      "title": "ZnO (ZnO): thành phần, mô hình và phản ứng",
+      "title": "ZnO (ZnO) — Không còn ánh kim: zinc đi vào sơn và cao su",
       "subjectIds": [
         "formula-ZnO"
       ],
-      "sections": 8,
-      "characters": 7270,
+      "sections": 10,
+      "characters": 8086,
       "externalSources": [
+        "https://periodic-table.rsc.org/element/30/zinc",
         "https://rruff.geo.arizona.edu/AMS/amcsd.php",
         "https://openstax.org/books/chemistry-2e/pages/4-2-classifying-chemical-reactions",
         "https://openstax.org/books/chemistry-2e/pages/18-9-occurrence-preparation-and-compounds-of-oxygen",
@@ -7112,13 +7287,14 @@
     },
     {
       "id": "kem-sunfua-zns",
-      "title": "kẽm sunfua (ZnS): thành phần, mô hình và phản ứng",
+      "title": "kẽm sunfua (ZnS) — Từ quặng zinc đến vật liệu phát sáng",
       "subjectIds": [
         "formula-ZnS"
       ],
-      "sections": 8,
-      "characters": 6965,
+      "sections": 10,
+      "characters": 7789,
       "externalSources": [
+        "https://periodic-table.rsc.org/element/30/zinc",
         "https://rruff.geo.arizona.edu/AMS/amcsd.php",
         "https://openstax.org/books/chemistry-2e/pages/4-2-classifying-chemical-reactions",
         "https://chemed.chem.purdue.edu/genchem/topicreview/bp/ch18/soluble.php",
@@ -7164,13 +7340,14 @@
     },
     {
       "id": "natri-bisunfit-0-05m-nahso3",
-      "title": "Natri Bisunfit (0.05M) (NaHSO₃): thành phần, mô hình và phản ứng",
+      "title": "Natri Bisunfit (0.05M) (NaHSO₃) — Sau khử trùng, một công đoạn có thể cần loại chlorine dư",
       "subjectIds": [
         "lab3d-332"
       ],
-      "sections": 6,
-      "characters": 4056,
+      "sections": 8,
+      "characters": 4938,
       "externalSources": [
+        "https://www.michigan.gov/egle/about/organization/water-resources/npdes/select-water-treatment-additives",
         "https://openstax.org/books/chemistry-2e/pages/3-1-formula-mass-and-the-mole-concept",
         "https://openstax.org/books/chemistry-2e/pages/3-2-determining-empirical-and-molecular-formulas",
         "https://openstax.org/books/chemistry-2e/pages/2-6-ionic-and-molecular-compounds",
@@ -7213,13 +7390,14 @@
     },
     {
       "id": "dong-ii-sunfat-ngam-nuoc-tinh-the-lam-cuso4-5h2o",
-      "title": "Đồng(II) Sunfat Ngậm Nước (Tinh Thể Lam) (CuSO₄·5H₂O): thành phần, mô hình và phản ứng",
+      "title": "Đồng(II) Sunfat Ngậm Nước (Tinh Thể Lam) (CuSO₄·5H₂O) — Từ tinh thể xanh đến một hỗn hợp bảo vệ cây trồng",
       "subjectIds": [
         "lab3d-336"
       ],
-      "sections": 8,
-      "characters": 5357,
+      "sections": 10,
+      "characters": 6242,
       "externalSources": [
+        "https://ipm.ucanr.edu/PMG/PESTNOTES/pn7481.html",
         "https://rruff.geo.arizona.edu/AMS/amcsd.php",
         "https://openstax.org/books/chemistry-2e/pages/3-1-formula-mass-and-the-mole-concept",
         "https://openstax.org/books/chemistry-2e/pages/3-2-determining-empirical-and-molecular-formulas",
@@ -7263,13 +7441,15 @@
     },
     {
       "id": "sat-ii-sunfat-ngam-7-nuoc-thanh-phan-feso4-7h2o",
-      "title": "Sắt(II) Sunfat Ngậm 7 Nước (Thanh Phàn) (FeSO₄·7H₂O): thành phần, mô hình và phản ứng",
+      "title": "Sắt(II) Sunfat Ngậm 7 Nước (Thanh Phàn) (FeSO₄·7H₂O) — Một muối sắt nằm trong những dòng chữ của quá khứ",
       "subjectIds": [
         "lab3d-339"
       ],
-      "sections": 8,
-      "characters": 5353,
+      "sections": 10,
+      "characters": 6287,
       "externalSources": [
+        "https://www.fitzmuseum.cam.ac.uk/illuminated/lab/overview-of-artists-materials/iron-gall-ink/type/material",
+        "https://www.ifla.org/iron-gall-ink/",
         "https://rruff.geo.arizona.edu/AMS/amcsd.php",
         "https://openstax.org/books/chemistry-2e/pages/3-1-formula-mass-and-the-mole-concept",
         "https://openstax.org/books/chemistry-2e/pages/3-2-determining-empirical-and-molecular-formulas",
@@ -7296,15 +7476,17 @@
     },
     {
       "id": "heli-he-atom",
-      "title": "Heli (He): thành phần, mô hình và phản ứng",
+      "title": "Heli (He) — Từ dấu mốc khám phá đến làm mát siêu dẫn",
       "subjectIds": [
         "atom-He"
       ],
-      "sections": 8,
-      "characters": 4691,
+      "sections": 10,
+      "characters": 6080,
       "externalSources": [
-        "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+        "https://commons.wikimedia.org/wiki/File:MRI-Philips.JPG",
+        "https://creativecommons.org/licenses/by/3.0",
         "https://periodic-table.rsc.org/element/2/helium",
+        "https://rruff.geo.arizona.edu/AMS/amcsd.php",
         "https://openstax.org/books/chemistry-2e/pages/3-1-formula-mass-and-the-mole-concept",
         "https://openstax.org/books/chemistry-2e/pages/2-6-ionic-and-molecular-compounds",
         "https://openstax.org/books/chemistry-2e/pages/10-6-lattice-structures-in-crystalline-solids",
@@ -7313,15 +7495,17 @@
     },
     {
       "id": "beri-be",
-      "title": "Beri (Be): thành phần, mô hình và phản ứng",
+      "title": "Beri (Be) — Từ dấu mốc khám phá đến hợp kim",
       "subjectIds": [
         "atom-Be"
       ],
-      "sections": 8,
-      "characters": 4317,
+      "sections": 10,
+      "characters": 5234,
       "externalSources": [
-        "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+        "https://commons.wikimedia.org/wiki/File:Alloy_and_metal_samples_-_Beryllium-Copper,_Inconel,_Steel,_Titanium,_Aluminum,_Magnesium.jpg",
+        "https://creativecommons.org/licenses/by-sa/2.0",
         "https://periodic-table.rsc.org/element/4/beryllium",
+        "https://rruff.geo.arizona.edu/AMS/amcsd.php",
         "https://openstax.org/books/chemistry-2e/pages/3-1-formula-mass-and-the-mole-concept",
         "https://openstax.org/books/chemistry-2e/pages/2-6-ionic-and-molecular-compounds",
         "https://openstax.org/books/chemistry-2e/pages/10-6-lattice-structures-in-crystalline-solids",
@@ -7330,15 +7514,17 @@
     },
     {
       "id": "bo-b",
-      "title": "Bo (B): thành phần, mô hình và phản ứng",
+      "title": "Bo (B) — Từ dấu mốc khám phá đến thủy tinh chịu nhiệt",
       "subjectIds": [
         "atom-B"
       ],
-      "sections": 8,
-      "characters": 4314,
+      "sections": 10,
+      "characters": 5322,
       "externalSources": [
-        "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+        "https://commons.wikimedia.org/wiki/File:Fassade_Wilhelmstrasse_65,_Berlin-Mitte,_160417,_ako.jpg",
+        "https://creativecommons.org/licenses/by/3.0/de/deed.en",
         "https://periodic-table.rsc.org/element/5/boron",
+        "https://rruff.geo.arizona.edu/AMS/amcsd.php",
         "https://openstax.org/books/chemistry-2e/pages/3-1-formula-mass-and-the-mole-concept",
         "https://openstax.org/books/chemistry-2e/pages/2-6-ionic-and-molecular-compounds",
         "https://openstax.org/books/chemistry-2e/pages/10-6-lattice-structures-in-crystalline-solids",
@@ -7347,15 +7533,17 @@
     },
     {
       "id": "nito-n-atom",
-      "title": "Nitơ (N): thành phần, mô hình và phản ứng",
+      "title": "Nitơ (N) — Từ dấu mốc khám phá đến sản xuất ammonia",
       "subjectIds": [
         "atom-N"
       ],
-      "sections": 8,
-      "characters": 4445,
+      "sections": 10,
+      "characters": 5514,
       "externalSources": [
-        "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+        "https://commons.wikimedia.org/wiki/File:Haber-Bosch-En.svg",
+        "https://creativecommons.org/licenses/by-sa/4.0",
         "https://periodic-table.rsc.org/element/7/nitrogen",
+        "https://rruff.geo.arizona.edu/AMS/amcsd.php",
         "https://openstax.org/books/chemistry-2e/pages/3-1-formula-mass-and-the-mole-concept",
         "https://openstax.org/books/chemistry-2e/pages/2-6-ionic-and-molecular-compounds",
         "https://openstax.org/books/chemistry-2e/pages/10-6-lattice-structures-in-crystalline-solids",
@@ -7364,15 +7552,17 @@
     },
     {
       "id": "oxi-o",
-      "title": "Oxi (O): thành phần, mô hình và phản ứng",
+      "title": "Oxi (O) — Từ dấu mốc khám phá đến y tế",
       "subjectIds": [
         "atom-O"
       ],
-      "sections": 8,
-      "characters": 4465,
+      "sections": 10,
+      "characters": 5431,
       "externalSources": [
-        "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+        "https://commons.wikimedia.org/wiki/File:Simple_face_mask.jpg",
+        "https://creativecommons.org/licenses/by-sa/4.0",
         "https://periodic-table.rsc.org/element/8/oxygen",
+        "https://rruff.geo.arizona.edu/AMS/amcsd.php",
         "https://openstax.org/books/chemistry-2e/pages/3-1-formula-mass-and-the-mole-concept",
         "https://openstax.org/books/chemistry-2e/pages/2-6-ionic-and-molecular-compounds",
         "https://openstax.org/books/chemistry-2e/pages/10-6-lattice-structures-in-crystalline-solids",
@@ -7381,15 +7571,17 @@
     },
     {
       "id": "flo-f",
-      "title": "Flo (F): thành phần, mô hình và phản ứng",
+      "title": "Flo (F) — Từ dấu mốc khám phá đến sản xuất fluoride",
       "subjectIds": [
         "atom-F"
       ],
-      "sections": 8,
-      "characters": 4409,
+      "sections": 10,
+      "characters": 5474,
       "externalSources": [
-        "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+        "https://commons.wikimedia.org/wiki/File:Advanced_Test_Reactor_001.jpg",
+        "https://creativecommons.org/licenses/by/2.0",
         "https://periodic-table.rsc.org/element/9/fluorine",
+        "https://rruff.geo.arizona.edu/AMS/amcsd.php",
         "https://openstax.org/books/chemistry-2e/pages/3-1-formula-mass-and-the-mole-concept",
         "https://openstax.org/books/chemistry-2e/pages/2-6-ionic-and-molecular-compounds",
         "https://openstax.org/books/chemistry-2e/pages/10-6-lattice-structures-in-crystalline-solids",
@@ -7398,15 +7590,17 @@
     },
     {
       "id": "neon-ne",
-      "title": "Neon (Ne): thành phần, mô hình và phản ứng",
+      "title": "Neon (Ne) — Từ dấu mốc khám phá đến đèn neon",
       "subjectIds": [
         "atom-Ne"
       ],
-      "sections": 8,
-      "characters": 4378,
+      "sections": 10,
+      "characters": 5294,
       "externalSources": [
-        "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+        "https://commons.wikimedia.org/wiki/File:Neon_lights_art_installation.jpg",
+        "https://creativecommons.org/licenses/by-sa/4.0",
         "https://periodic-table.rsc.org/element/10/neon",
+        "https://rruff.geo.arizona.edu/AMS/amcsd.php",
         "https://openstax.org/books/chemistry-2e/pages/3-1-formula-mass-and-the-mole-concept",
         "https://openstax.org/books/chemistry-2e/pages/2-6-ionic-and-molecular-compounds",
         "https://openstax.org/books/chemistry-2e/pages/10-6-lattice-structures-in-crystalline-solids",
@@ -7415,15 +7609,17 @@
     },
     {
       "id": "silic-si",
-      "title": "Silic (Si): thành phần, mô hình và phản ứng",
+      "title": "Silic (Si) — Từ dấu mốc khám phá đến chất bán dẫn",
       "subjectIds": [
         "atom-Si"
       ],
-      "sections": 8,
-      "characters": 4351,
+      "sections": 10,
+      "characters": 5429,
       "externalSources": [
-        "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+        "https://commons.wikimedia.org/wiki/File:Multicrystalline_silicon_wafer_with_thin_film_iridescence.jpg",
+        "https://creativecommons.org/licenses/by-sa/4.0",
         "https://periodic-table.rsc.org/element/14/silicon",
+        "https://rruff.geo.arizona.edu/AMS/amcsd.php",
         "https://openstax.org/books/chemistry-2e/pages/3-1-formula-mass-and-the-mole-concept",
         "https://openstax.org/books/chemistry-2e/pages/2-6-ionic-and-molecular-compounds",
         "https://openstax.org/books/chemistry-2e/pages/10-6-lattice-structures-in-crystalline-solids",
@@ -7432,15 +7628,17 @@
     },
     {
       "id": "clo-cl",
-      "title": "Clo (Cl): thành phần, mô hình và phản ứng",
+      "title": "Clo (Cl) — Từ dấu mốc khám phá đến khử trùng nước",
       "subjectIds": [
         "atom-Cl"
       ],
-      "sections": 8,
-      "characters": 4363,
+      "sections": 10,
+      "characters": 5345,
       "externalSources": [
-        "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+        "https://commons.wikimedia.org/wiki/File:Dalecarlia_Water_Treatment_Plant.jpg",
+        "https://creativecommons.org/licenses/by-sa/3.0",
         "https://periodic-table.rsc.org/element/17/chlorine",
+        "https://rruff.geo.arizona.edu/AMS/amcsd.php",
         "https://openstax.org/books/chemistry-2e/pages/3-1-formula-mass-and-the-mole-concept",
         "https://openstax.org/books/chemistry-2e/pages/2-6-ionic-and-molecular-compounds",
         "https://openstax.org/books/chemistry-2e/pages/10-6-lattice-structures-in-crystalline-solids",
@@ -7449,15 +7647,16 @@
     },
     {
       "id": "argon-ar",
-      "title": "Argon (Ar): thành phần, mô hình và phản ứng",
+      "title": "Argon (Ar) — Từ dấu mốc khám phá đến hàn",
       "subjectIds": [
         "atom-Ar"
       ],
-      "sections": 8,
-      "characters": 4417,
+      "sections": 10,
+      "characters": 5587,
       "externalSources": [
-        "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+        "https://commons.wikimedia.org/wiki/File:US_Navy_090715-N-5821P-002_Aviation_Support_Equipment_Technician_Airman_Anthony_Hammond_performs_tungsten_inert_gas_welding_during_a_training_evolution.jpg",
         "https://periodic-table.rsc.org/element/18/argon",
+        "https://rruff.geo.arizona.edu/AMS/amcsd.php",
         "https://openstax.org/books/chemistry-2e/pages/3-1-formula-mass-and-the-mole-concept",
         "https://openstax.org/books/chemistry-2e/pages/2-6-ionic-and-molecular-compounds",
         "https://openstax.org/books/chemistry-2e/pages/10-6-lattice-structures-in-crystalline-solids",
@@ -7466,15 +7665,17 @@
     },
     {
       "id": "scandi-sc",
-      "title": "Scandi (Sc): thành phần, mô hình và phản ứng",
+      "title": "Scandi (Sc) — Từ dấu mốc khám phá đến hợp kim aluminium",
       "subjectIds": [
         "atom-Sc"
       ],
-      "sections": 8,
-      "characters": 4546,
+      "sections": 10,
+      "characters": 5804,
       "externalSources": [
-        "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+        "https://commons.wikimedia.org/wiki/File:Alloy_and_metal_samples_-_Beryllium-Copper,_Inconel,_Steel,_Titanium,_Aluminum,_Magnesium.jpg",
+        "https://creativecommons.org/licenses/by-sa/2.0",
         "https://periodic-table.rsc.org/element/21/scandium",
+        "https://rruff.geo.arizona.edu/AMS/amcsd.php",
         "https://openstax.org/books/chemistry-2e/pages/3-1-formula-mass-and-the-mole-concept",
         "https://openstax.org/books/chemistry-2e/pages/2-6-ionic-and-molecular-compounds",
         "https://openstax.org/books/chemistry-2e/pages/10-6-lattice-structures-in-crystalline-solids",
@@ -7483,15 +7684,17 @@
     },
     {
       "id": "titan-ti",
-      "title": "Titan (Ti): thành phần, mô hình và phản ứng",
+      "title": "Titan (Ti) — Từ dấu mốc khám phá đến hàng không và vũ trụ",
       "subjectIds": [
         "atom-Ti"
       ],
-      "sections": 8,
-      "characters": 4395,
+      "sections": 10,
+      "characters": 5471,
       "externalSources": [
-        "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+        "https://commons.wikimedia.org/wiki/File:Torpedo_car_refractory_bricks.JPG",
+        "https://creativecommons.org/licenses/by/3.0",
         "https://periodic-table.rsc.org/element/22/titanium",
+        "https://rruff.geo.arizona.edu/AMS/amcsd.php",
         "https://openstax.org/books/chemistry-2e/pages/3-1-formula-mass-and-the-mole-concept",
         "https://openstax.org/books/chemistry-2e/pages/2-6-ionic-and-molecular-compounds",
         "https://openstax.org/books/chemistry-2e/pages/10-6-lattice-structures-in-crystalline-solids",
@@ -7500,15 +7703,17 @@
     },
     {
       "id": "vanadi-v",
-      "title": "Vanadi (V): thành phần, mô hình và phản ứng",
+      "title": "Vanadi (V) — Từ dấu mốc khám phá đến sản xuất thép",
       "subjectIds": [
         "atom-V"
       ],
-      "sections": 8,
-      "characters": 4528,
+      "sections": 10,
+      "characters": 5699,
       "externalSources": [
-        "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+        "https://commons.wikimedia.org/wiki/File:SteelMill_interior.jpg",
+        "https://creativecommons.org/licenses/by/2.0",
         "https://periodic-table.rsc.org/element/23/vanadium",
+        "https://rruff.geo.arizona.edu/AMS/amcsd.php",
         "https://openstax.org/books/chemistry-2e/pages/3-1-formula-mass-and-the-mole-concept",
         "https://openstax.org/books/chemistry-2e/pages/2-6-ionic-and-molecular-compounds",
         "https://openstax.org/books/chemistry-2e/pages/10-6-lattice-structures-in-crystalline-solids",
@@ -7517,15 +7722,17 @@
     },
     {
       "id": "crom-cr",
-      "title": "Crom (Cr): thành phần, mô hình và phản ứng",
+      "title": "Crom (Cr) — Từ dấu mốc khám phá đến sản xuất thép không gỉ",
       "subjectIds": [
         "atom-Cr"
       ],
-      "sections": 8,
-      "characters": 4400,
+      "sections": 10,
+      "characters": 5428,
       "externalSources": [
-        "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+        "https://commons.wikimedia.org/wiki/File:SteelMill_interior.jpg",
+        "https://creativecommons.org/licenses/by/2.0",
         "https://periodic-table.rsc.org/element/24/chromium",
+        "https://rruff.geo.arizona.edu/AMS/amcsd.php",
         "https://openstax.org/books/chemistry-2e/pages/3-1-formula-mass-and-the-mole-concept",
         "https://openstax.org/books/chemistry-2e/pages/2-6-ionic-and-molecular-compounds",
         "https://openstax.org/books/chemistry-2e/pages/10-6-lattice-structures-in-crystalline-solids",
@@ -7534,15 +7741,17 @@
     },
     {
       "id": "gali-ga",
-      "title": "Gali (Ga): thành phần, mô hình và phản ứng",
+      "title": "Gali (Ga) — Từ dấu mốc khám phá đến chất bán dẫn",
       "subjectIds": [
         "atom-Ga"
       ],
-      "sections": 8,
-      "characters": 4399,
+      "sections": 10,
+      "characters": 5444,
       "externalSources": [
-        "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+        "https://commons.wikimedia.org/wiki/File:Blue_LED.jpg",
+        "https://creativecommons.org/licenses/by-sa/3.0",
         "https://periodic-table.rsc.org/element/31/gallium",
+        "https://rruff.geo.arizona.edu/AMS/amcsd.php",
         "https://openstax.org/books/chemistry-2e/pages/3-1-formula-mass-and-the-mole-concept",
         "https://openstax.org/books/chemistry-2e/pages/2-6-ionic-and-molecular-compounds",
         "https://openstax.org/books/chemistry-2e/pages/10-6-lattice-structures-in-crystalline-solids",
@@ -7551,15 +7760,16 @@
     },
     {
       "id": "gecmani-ge",
-      "title": "Gecmani (Ge): thành phần, mô hình và phản ứng",
+      "title": "Gecmani (Ge) — Từ dấu mốc khám phá đến chất bán dẫn",
       "subjectIds": [
         "atom-Ge"
       ],
-      "sections": 8,
-      "characters": 4318,
+      "sections": 10,
+      "characters": 5223,
       "externalSources": [
-        "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+        "https://commons.wikimedia.org/wiki/File:ICC_2008_Poland_Silicon_Wafer_1_edit.png",
         "https://periodic-table.rsc.org/element/32/germanium",
+        "https://rruff.geo.arizona.edu/AMS/amcsd.php",
         "https://openstax.org/books/chemistry-2e/pages/3-1-formula-mass-and-the-mole-concept",
         "https://openstax.org/books/chemistry-2e/pages/2-6-ionic-and-molecular-compounds",
         "https://openstax.org/books/chemistry-2e/pages/10-6-lattice-structures-in-crystalline-solids",
@@ -7568,15 +7778,16 @@
     },
     {
       "id": "asen-as",
-      "title": "Asen (As): thành phần, mô hình và phản ứng",
+      "title": "Asen (As) — Từ dấu mốc khám phá đến bán dẫn",
       "subjectIds": [
         "atom-As"
       ],
-      "sections": 8,
-      "characters": 4345,
+      "sections": 10,
+      "characters": 5254,
       "externalSources": [
-        "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+        "https://commons.wikimedia.org/wiki/File:ICC_2008_Poland_Silicon_Wafer_1_edit.png",
         "https://periodic-table.rsc.org/element/33/arsenic",
+        "https://rruff.geo.arizona.edu/AMS/amcsd.php",
         "https://openstax.org/books/chemistry-2e/pages/3-1-formula-mass-and-the-mole-concept",
         "https://openstax.org/books/chemistry-2e/pages/2-6-ionic-and-molecular-compounds",
         "https://openstax.org/books/chemistry-2e/pages/10-6-lattice-structures-in-crystalline-solids",
@@ -7585,15 +7796,17 @@
     },
     {
       "id": "selen-se",
-      "title": "Selen (Se): thành phần, mô hình và phản ứng",
+      "title": "Selen (Se) — Từ dấu mốc khám phá đến điện tử",
       "subjectIds": [
         "atom-Se"
       ],
-      "sections": 8,
-      "characters": 4448,
+      "sections": 10,
+      "characters": 5488,
       "externalSources": [
-        "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+        "https://commons.wikimedia.org/wiki/File:SEG_DVD_430_-_Printed_circuit_board-4276.jpg",
+        "https://creativecommons.org/licenses/by-sa/4.0",
         "https://periodic-table.rsc.org/element/34/selenium",
+        "https://rruff.geo.arizona.edu/AMS/amcsd.php",
         "https://openstax.org/books/chemistry-2e/pages/3-1-formula-mass-and-the-mole-concept",
         "https://openstax.org/books/chemistry-2e/pages/2-6-ionic-and-molecular-compounds",
         "https://openstax.org/books/chemistry-2e/pages/10-6-lattice-structures-in-crystalline-solids",
@@ -7602,15 +7815,16 @@
     },
     {
       "id": "brom-br",
-      "title": "Brom (Br): thành phần, mô hình và phản ứng",
+      "title": "Brom (Br) — Từ dấu mốc khám phá đến chất chống cháy",
       "subjectIds": [
         "atom-Br"
       ],
-      "sections": 8,
-      "characters": 4371,
+      "sections": 10,
+      "characters": 5398,
       "externalSources": [
-        "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+        "https://commons.wikimedia.org/wiki/File:Flame_Retardant_Research_-_LDH_materials_(16241017250",
         "https://periodic-table.rsc.org/element/35/bromine",
+        "https://rruff.geo.arizona.edu/AMS/amcsd.php",
         "https://openstax.org/books/chemistry-2e/pages/3-1-formula-mass-and-the-mole-concept",
         "https://openstax.org/books/chemistry-2e/pages/2-6-ionic-and-molecular-compounds",
         "https://openstax.org/books/chemistry-2e/pages/10-6-lattice-structures-in-crystalline-solids",
@@ -7619,15 +7833,17 @@
     },
     {
       "id": "kripton-kr",
-      "title": "Kripton (Kr): thành phần, mô hình và phản ứng",
+      "title": "Kripton (Kr) — Từ dấu mốc khám phá đến đèn chiếu sáng",
       "subjectIds": [
         "atom-Kr"
       ],
-      "sections": 8,
-      "characters": 4390,
+      "sections": 10,
+      "characters": 5332,
       "externalSources": [
-        "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+        "https://commons.wikimedia.org/wiki/File:Guiding_the_Milky_Way_(potw2222a",
+        "https://creativecommons.org/licenses/by/4.0",
         "https://periodic-table.rsc.org/element/36/krypton",
+        "https://rruff.geo.arizona.edu/AMS/amcsd.php",
         "https://openstax.org/books/chemistry-2e/pages/3-1-formula-mass-and-the-mole-concept",
         "https://openstax.org/books/chemistry-2e/pages/2-6-ionic-and-molecular-compounds",
         "https://openstax.org/books/chemistry-2e/pages/10-6-lattice-structures-in-crystalline-solids",
@@ -7636,15 +7852,16 @@
     },
     {
       "id": "rubidium-rb",
-      "title": "Rubidium (Rb): thành phần, mô hình và phản ứng",
+      "title": "Rubidium (Rb) — Từ dấu mốc khám phá đến đồng hồ nguyên tử",
       "subjectIds": [
         "atom-Rb"
       ],
-      "sections": 8,
-      "characters": 4436,
+      "sections": 10,
+      "characters": 5502,
       "externalSources": [
-        "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+        "https://commons.wikimedia.org/wiki/File:Caesium_clock_block.svg",
         "https://periodic-table.rsc.org/element/37/rubidium",
+        "https://rruff.geo.arizona.edu/AMS/amcsd.php",
         "https://openstax.org/books/chemistry-2e/pages/3-1-formula-mass-and-the-mole-concept",
         "https://openstax.org/books/chemistry-2e/pages/2-6-ionic-and-molecular-compounds",
         "https://openstax.org/books/chemistry-2e/pages/10-6-lattice-structures-in-crystalline-solids",
@@ -7653,15 +7870,17 @@
     },
     {
       "id": "strontium-sr",
-      "title": "Strontium (Sr): thành phần, mô hình và phản ứng",
+      "title": "Strontium (Sr) — Từ dấu mốc khám phá đến pháo hoa",
       "subjectIds": [
         "atom-Sr"
       ],
-      "sections": 8,
-      "characters": 4390,
+      "sections": 10,
+      "characters": 5311,
       "externalSources": [
-        "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+        "https://commons.wikimedia.org/wiki/File:New_Year%27s_Eve_on_Sydney_Harbour.jpg",
+        "https://creativecommons.org/licenses/by-sa/2.0",
         "https://periodic-table.rsc.org/element/38/strontium",
+        "https://rruff.geo.arizona.edu/AMS/amcsd.php",
         "https://openstax.org/books/chemistry-2e/pages/3-1-formula-mass-and-the-mole-concept",
         "https://openstax.org/books/chemistry-2e/pages/2-6-ionic-and-molecular-compounds",
         "https://openstax.org/books/chemistry-2e/pages/10-6-lattice-structures-in-crystalline-solids",
@@ -7670,15 +7889,17 @@
     },
     {
       "id": "yttrium-y",
-      "title": "Yttrium (Y): thành phần, mô hình và phản ứng",
+      "title": "Yttrium (Y) — Từ dấu mốc khám phá đến laser",
       "subjectIds": [
         "atom-Y"
       ],
-      "sections": 8,
-      "characters": 4389,
+      "sections": 10,
+      "characters": 5434,
       "externalSources": [
-        "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+        "https://commons.wikimedia.org/wiki/File:Guiding_the_Milky_Way_(potw2222a",
+        "https://creativecommons.org/licenses/by/4.0",
         "https://periodic-table.rsc.org/element/39/yttrium",
+        "https://rruff.geo.arizona.edu/AMS/amcsd.php",
         "https://openstax.org/books/chemistry-2e/pages/3-1-formula-mass-and-the-mole-concept",
         "https://openstax.org/books/chemistry-2e/pages/2-6-ionic-and-molecular-compounds",
         "https://openstax.org/books/chemistry-2e/pages/10-6-lattice-structures-in-crystalline-solids",
@@ -7687,15 +7908,17 @@
     },
     {
       "id": "zirconium-zr",
-      "title": "Zirconium (Zr): thành phần, mô hình và phản ứng",
+      "title": "Zirconium (Zr) — Từ dấu mốc khám phá đến công nghiệp hạt nhân",
       "subjectIds": [
         "atom-Zr"
       ],
-      "sections": 8,
-      "characters": 4360,
+      "sections": 10,
+      "characters": 5354,
       "externalSources": [
-        "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+        "https://commons.wikimedia.org/wiki/File:Advanced_Test_Reactor_001.jpg",
+        "https://creativecommons.org/licenses/by/2.0",
         "https://periodic-table.rsc.org/element/40/zirconium",
+        "https://rruff.geo.arizona.edu/AMS/amcsd.php",
         "https://openstax.org/books/chemistry-2e/pages/3-1-formula-mass-and-the-mole-concept",
         "https://openstax.org/books/chemistry-2e/pages/2-6-ionic-and-molecular-compounds",
         "https://openstax.org/books/chemistry-2e/pages/10-6-lattice-structures-in-crystalline-solids",
@@ -7704,15 +7927,17 @@
     },
     {
       "id": "niobium-nb",
-      "title": "Niobium (Nb): thành phần, mô hình và phản ứng",
+      "title": "Niobium (Nb) — Từ dấu mốc khám phá đến hợp kim thép",
       "subjectIds": [
         "atom-Nb"
       ],
-      "sections": 8,
-      "characters": 4336,
+      "sections": 10,
+      "characters": 5229,
       "externalSources": [
-        "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+        "https://commons.wikimedia.org/wiki/File:SteelMill_interior.jpg",
+        "https://creativecommons.org/licenses/by/2.0",
         "https://periodic-table.rsc.org/element/41/niobium",
+        "https://rruff.geo.arizona.edu/AMS/amcsd.php",
         "https://openstax.org/books/chemistry-2e/pages/3-1-formula-mass-and-the-mole-concept",
         "https://openstax.org/books/chemistry-2e/pages/2-6-ionic-and-molecular-compounds",
         "https://openstax.org/books/chemistry-2e/pages/10-6-lattice-structures-in-crystalline-solids",
@@ -7721,15 +7946,17 @@
     },
     {
       "id": "molybdenum-mo",
-      "title": "Molybdenum (Mo): thành phần, mô hình và phản ứng",
+      "title": "Molybdenum (Mo) — Từ dấu mốc khám phá đến thép hợp kim",
       "subjectIds": [
         "atom-Mo"
       ],
-      "sections": 8,
-      "characters": 4397,
+      "sections": 10,
+      "characters": 5317,
       "externalSources": [
-        "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+        "https://commons.wikimedia.org/wiki/File:SteelMill_interior.jpg",
+        "https://creativecommons.org/licenses/by/2.0",
         "https://periodic-table.rsc.org/element/42/molybdenum",
+        "https://rruff.geo.arizona.edu/AMS/amcsd.php",
         "https://openstax.org/books/chemistry-2e/pages/3-1-formula-mass-and-the-mole-concept",
         "https://openstax.org/books/chemistry-2e/pages/2-6-ionic-and-molecular-compounds",
         "https://openstax.org/books/chemistry-2e/pages/10-6-lattice-structures-in-crystalline-solids",
@@ -7738,15 +7965,16 @@
     },
     {
       "id": "technetium-tc",
-      "title": "Technetium (Tc): thành phần, mô hình và phản ứng",
+      "title": "Technetium (Tc) — Từ dấu mốc khám phá đến y học hạt nhân",
       "subjectIds": [
         "atom-Tc"
       ],
-      "sections": 8,
-      "characters": 4569,
+      "sections": 10,
+      "characters": 5605,
       "externalSources": [
-        "https://en.wikipedia.org/wiki/Technetium",
+        "https://commons.wikimedia.org/wiki/File:Lung_scintigraphy_keosys.JPG",
         "https://periodic-table.rsc.org/element/43/technetium",
+        "https://en.wikipedia.org/wiki/Technetium",
         "https://openstax.org/books/chemistry-2e/pages/3-1-formula-mass-and-the-mole-concept",
         "https://openstax.org/books/chemistry-2e/pages/2-6-ionic-and-molecular-compounds",
         "https://openstax.org/books/chemistry-2e/pages/10-6-lattice-structures-in-crystalline-solids"
@@ -7754,15 +7982,17 @@
     },
     {
       "id": "ruthenium-ru",
-      "title": "Ruthenium (Ru): thành phần, mô hình và phản ứng",
+      "title": "Ruthenium (Ru) — Từ dấu mốc khám phá đến xúc tác",
       "subjectIds": [
         "atom-Ru"
       ],
-      "sections": 8,
-      "characters": 4294,
+      "sections": 10,
+      "characters": 5109,
       "externalSources": [
-        "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+        "https://commons.wikimedia.org/wiki/File:Catalysts.JPG",
+        "https://creativecommons.org/licenses/by-sa/4.0",
         "https://periodic-table.rsc.org/element/44/ruthenium",
+        "https://rruff.geo.arizona.edu/AMS/amcsd.php",
         "https://openstax.org/books/chemistry-2e/pages/3-1-formula-mass-and-the-mole-concept",
         "https://openstax.org/books/chemistry-2e/pages/2-6-ionic-and-molecular-compounds",
         "https://openstax.org/books/chemistry-2e/pages/10-6-lattice-structures-in-crystalline-solids",
@@ -7771,15 +8001,17 @@
     },
     {
       "id": "rhodium-rh",
-      "title": "Rhodium (Rh): thành phần, mô hình và phản ứng",
+      "title": "Rhodium (Rh) — Từ dấu mốc khám phá đến bộ chuyển đổi xúc tác",
       "subjectIds": [
         "atom-Rh"
       ],
-      "sections": 8,
-      "characters": 4413,
+      "sections": 10,
+      "characters": 5614,
       "externalSources": [
-        "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+        "https://commons.wikimedia.org/wiki/File:Aufgeschnittener_Metall_Katalysator_f%C3%BCr_ein_Auto.jpg",
+        "https://creativecommons.org/licenses/by-sa/2.0",
         "https://periodic-table.rsc.org/element/45/rhodium",
+        "https://rruff.geo.arizona.edu/AMS/amcsd.php",
         "https://openstax.org/books/chemistry-2e/pages/3-1-formula-mass-and-the-mole-concept",
         "https://openstax.org/books/chemistry-2e/pages/2-6-ionic-and-molecular-compounds",
         "https://openstax.org/books/chemistry-2e/pages/10-6-lattice-structures-in-crystalline-solids",
@@ -7788,15 +8020,17 @@
     },
     {
       "id": "palladium-pd",
-      "title": "Palladium (Pd): thành phần, mô hình và phản ứng",
+      "title": "Palladium (Pd) — Từ dấu mốc khám phá đến bộ chuyển đổi xúc tác",
       "subjectIds": [
         "atom-Pd"
       ],
-      "sections": 8,
-      "characters": 4332,
+      "sections": 10,
+      "characters": 5356,
       "externalSources": [
-        "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+        "https://commons.wikimedia.org/wiki/File:Aufgeschnittener_Metall_Katalysator_f%C3%BCr_ein_Auto.jpg",
+        "https://creativecommons.org/licenses/by-sa/2.0",
         "https://periodic-table.rsc.org/element/46/palladium",
+        "https://rruff.geo.arizona.edu/AMS/amcsd.php",
         "https://openstax.org/books/chemistry-2e/pages/3-1-formula-mass-and-the-mole-concept",
         "https://openstax.org/books/chemistry-2e/pages/2-6-ionic-and-molecular-compounds",
         "https://openstax.org/books/chemistry-2e/pages/10-6-lattice-structures-in-crystalline-solids",
@@ -7805,15 +8039,17 @@
     },
     {
       "id": "indium-in",
-      "title": "Indium (In): thành phần, mô hình và phản ứng",
+      "title": "Indium (In) — Từ dấu mốc khám phá đến màn hình cảm ứng",
       "subjectIds": [
         "atom-In"
       ],
-      "sections": 8,
-      "characters": 4395,
+      "sections": 10,
+      "characters": 5434,
       "externalSources": [
-        "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+        "https://commons.wikimedia.org/wiki/File:Wiktionnaire_sur_IPhone_(1",
+        "https://creativecommons.org/licenses/by-sa/3.0",
         "https://periodic-table.rsc.org/element/49/indium",
+        "https://rruff.geo.arizona.edu/AMS/amcsd.php",
         "https://openstax.org/books/chemistry-2e/pages/3-1-formula-mass-and-the-mole-concept",
         "https://openstax.org/books/chemistry-2e/pages/2-6-ionic-and-molecular-compounds",
         "https://openstax.org/books/chemistry-2e/pages/10-6-lattice-structures-in-crystalline-solids",
@@ -7822,15 +8058,17 @@
     },
     {
       "id": "antimony-sb",
-      "title": "Antimony (Sb): thành phần, mô hình và phản ứng",
+      "title": "Antimony (Sb) — Từ dấu mốc khám phá đến hợp kim",
       "subjectIds": [
         "atom-Sb"
       ],
-      "sections": 8,
-      "characters": 4416,
+      "sections": 10,
+      "characters": 5374,
       "externalSources": [
-        "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+        "https://commons.wikimedia.org/wiki/File:Alloy_and_metal_samples_-_Beryllium-Copper,_Inconel,_Steel,_Titanium,_Aluminum,_Magnesium.jpg",
+        "https://creativecommons.org/licenses/by-sa/2.0",
         "https://periodic-table.rsc.org/element/51/antimony",
+        "https://rruff.geo.arizona.edu/AMS/amcsd.php",
         "https://openstax.org/books/chemistry-2e/pages/3-1-formula-mass-and-the-mole-concept",
         "https://openstax.org/books/chemistry-2e/pages/2-6-ionic-and-molecular-compounds",
         "https://openstax.org/books/chemistry-2e/pages/10-6-lattice-structures-in-crystalline-solids",
@@ -7839,15 +8077,16 @@
     },
     {
       "id": "tellurium-te",
-      "title": "Tellurium (Te): thành phần, mô hình và phản ứng",
+      "title": "Tellurium (Te) — Từ dấu mốc khám phá đến pin mặt trời",
       "subjectIds": [
         "atom-Te"
       ],
-      "sections": 8,
-      "characters": 4427,
+      "sections": 10,
+      "characters": 5390,
       "externalSources": [
-        "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+        "https://commons.wikimedia.org/wiki/File:Solar_cell.png",
         "https://periodic-table.rsc.org/element/52/tellurium",
+        "https://rruff.geo.arizona.edu/AMS/amcsd.php",
         "https://openstax.org/books/chemistry-2e/pages/3-1-formula-mass-and-the-mole-concept",
         "https://openstax.org/books/chemistry-2e/pages/2-6-ionic-and-molecular-compounds",
         "https://openstax.org/books/chemistry-2e/pages/10-6-lattice-structures-in-crystalline-solids",
@@ -7856,15 +8095,17 @@
     },
     {
       "id": "iot-i",
-      "title": "Iot (I): thành phần, mô hình và phản ứng",
+      "title": "Iot (I) — Từ dấu mốc khám phá đến y tế",
       "subjectIds": [
         "atom-I"
       ],
-      "sections": 8,
-      "characters": 4371,
+      "sections": 10,
+      "characters": 5453,
       "externalSources": [
-        "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+        "https://commons.wikimedia.org/wiki/File:Iodized_salt_packet.jpg",
+        "https://creativecommons.org/licenses/by-sa/4.0",
         "https://periodic-table.rsc.org/element/53/iodine",
+        "https://rruff.geo.arizona.edu/AMS/amcsd.php",
         "https://openstax.org/books/chemistry-2e/pages/3-1-formula-mass-and-the-mole-concept",
         "https://openstax.org/books/chemistry-2e/pages/2-6-ionic-and-molecular-compounds",
         "https://openstax.org/books/chemistry-2e/pages/10-6-lattice-structures-in-crystalline-solids",
@@ -7873,15 +8114,17 @@
     },
     {
       "id": "xenon-xe",
-      "title": "Xenon (Xe): thành phần, mô hình và phản ứng",
+      "title": "Xenon (Xe) — Từ dấu mốc khám phá đến đèn xenon",
       "subjectIds": [
         "atom-Xe"
       ],
-      "sections": 8,
-      "characters": 4361,
+      "sections": 10,
+      "characters": 5474,
       "externalSources": [
-        "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+        "https://commons.wikimedia.org/wiki/File:Xenon_short_arc_1.jpg",
+        "https://creativecommons.org/licenses/by/2.5",
         "https://periodic-table.rsc.org/element/54/xenon",
+        "https://rruff.geo.arizona.edu/AMS/amcsd.php",
         "https://openstax.org/books/chemistry-2e/pages/3-1-formula-mass-and-the-mole-concept",
         "https://openstax.org/books/chemistry-2e/pages/2-6-ionic-and-molecular-compounds",
         "https://openstax.org/books/chemistry-2e/pages/10-6-lattice-structures-in-crystalline-solids",
@@ -7890,15 +8133,16 @@
     },
     {
       "id": "cesium-cs",
-      "title": "Cesium (Cs): thành phần, mô hình và phản ứng",
+      "title": "Cesium (Cs) — Từ dấu mốc khám phá đến đồng hồ nguyên tử",
       "subjectIds": [
         "atom-Cs"
       ],
-      "sections": 8,
-      "characters": 4426,
+      "sections": 10,
+      "characters": 5475,
       "externalSources": [
-        "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+        "https://commons.wikimedia.org/wiki/File:Caesium_clock_block.svg",
         "https://periodic-table.rsc.org/element/55/caesium",
+        "https://rruff.geo.arizona.edu/AMS/amcsd.php",
         "https://openstax.org/books/chemistry-2e/pages/3-1-formula-mass-and-the-mole-concept",
         "https://openstax.org/books/chemistry-2e/pages/2-6-ionic-and-molecular-compounds",
         "https://openstax.org/books/chemistry-2e/pages/10-6-lattice-structures-in-crystalline-solids",
@@ -7907,15 +8151,16 @@
     },
     {
       "id": "bari-ba",
-      "title": "Bari (Ba): thành phần, mô hình và phản ứng",
+      "title": "Bari (Ba) — Từ dấu mốc khám phá đến y tế",
       "subjectIds": [
         "atom-Ba"
       ],
-      "sections": 8,
-      "characters": 4291,
+      "sections": 10,
+      "characters": 5142,
       "externalSources": [
-        "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+        "https://commons.wikimedia.org/wiki/File:Lung_scintigraphy_keosys.JPG",
         "https://periodic-table.rsc.org/element/56/barium",
+        "https://rruff.geo.arizona.edu/AMS/amcsd.php",
         "https://openstax.org/books/chemistry-2e/pages/3-1-formula-mass-and-the-mole-concept",
         "https://openstax.org/books/chemistry-2e/pages/2-6-ionic-and-molecular-compounds",
         "https://openstax.org/books/chemistry-2e/pages/10-6-lattice-structures-in-crystalline-solids",
@@ -7924,15 +8169,17 @@
     },
     {
       "id": "lanthanum-la",
-      "title": "Lanthanum (La): thành phần, mô hình và phản ứng",
+      "title": "Lanthanum (La) — Từ dấu mốc khám phá đến kính quang học",
       "subjectIds": [
         "atom-La"
       ],
-      "sections": 8,
-      "characters": 4464,
+      "sections": 10,
+      "characters": 5525,
       "externalSources": [
-        "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+        "https://commons.wikimedia.org/wiki/File:Fassade_Wilhelmstrasse_65,_Berlin-Mitte,_160417,_ako.jpg",
+        "https://creativecommons.org/licenses/by/3.0/de/deed.en",
         "https://periodic-table.rsc.org/element/57/lanthanum",
+        "https://rruff.geo.arizona.edu/AMS/amcsd.php",
         "https://openstax.org/books/chemistry-2e/pages/3-1-formula-mass-and-the-mole-concept",
         "https://openstax.org/books/chemistry-2e/pages/2-6-ionic-and-molecular-compounds",
         "https://openstax.org/books/chemistry-2e/pages/10-6-lattice-structures-in-crystalline-solids",
@@ -7941,15 +8188,17 @@
     },
     {
       "id": "cerium-ce",
-      "title": "Cerium (Ce): thành phần, mô hình và phản ứng",
+      "title": "Cerium (Ce) — Từ dấu mốc khám phá đến đánh bóng kính",
       "subjectIds": [
         "atom-Ce"
       ],
-      "sections": 8,
-      "characters": 4595,
+      "sections": 10,
+      "characters": 5858,
       "externalSources": [
-        "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+        "https://commons.wikimedia.org/wiki/File:Fassade_Wilhelmstrasse_65,_Berlin-Mitte,_160417,_ako.jpg",
+        "https://creativecommons.org/licenses/by/3.0/de/deed.en",
         "https://periodic-table.rsc.org/element/58/cerium",
+        "https://rruff.geo.arizona.edu/AMS/amcsd.php",
         "https://openstax.org/books/chemistry-2e/pages/3-1-formula-mass-and-the-mole-concept",
         "https://openstax.org/books/chemistry-2e/pages/2-6-ionic-and-molecular-compounds",
         "https://openstax.org/books/chemistry-2e/pages/10-6-lattice-structures-in-crystalline-solids",
@@ -7958,15 +8207,17 @@
     },
     {
       "id": "praseodymium-pr",
-      "title": "Praseodymium (Pr): thành phần, mô hình và phản ứng",
+      "title": "Praseodymium (Pr) — Từ dấu mốc khám phá đến nam châm",
       "subjectIds": [
         "atom-Pr"
       ],
-      "sections": 8,
-      "characters": 4636,
+      "sections": 10,
+      "characters": 5880,
       "externalSources": [
-        "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+        "https://commons.wikimedia.org/wiki/File:Magnetite_sample_with_neodymium_magnet.jpg",
+        "https://creativecommons.org/licenses/by-sa/3.0",
         "https://periodic-table.rsc.org/element/59/praseodymium",
+        "https://rruff.geo.arizona.edu/AMS/amcsd.php",
         "https://openstax.org/books/chemistry-2e/pages/3-1-formula-mass-and-the-mole-concept",
         "https://openstax.org/books/chemistry-2e/pages/2-6-ionic-and-molecular-compounds",
         "https://openstax.org/books/chemistry-2e/pages/10-6-lattice-structures-in-crystalline-solids",
@@ -7975,15 +8226,17 @@
     },
     {
       "id": "neodymium-nd",
-      "title": "Neodymium (Nd): thành phần, mô hình và phản ứng",
+      "title": "Neodymium (Nd) — Từ dấu mốc khám phá đến nam châm nd-fe-b",
       "subjectIds": [
         "atom-Nd"
       ],
-      "sections": 8,
-      "characters": 4475,
+      "sections": 10,
+      "characters": 5721,
       "externalSources": [
-        "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+        "https://commons.wikimedia.org/wiki/File:Magnetite_sample_with_neodymium_magnet.jpg",
+        "https://creativecommons.org/licenses/by-sa/3.0",
         "https://periodic-table.rsc.org/element/60/neodymium",
+        "https://rruff.geo.arizona.edu/AMS/amcsd.php",
         "https://openstax.org/books/chemistry-2e/pages/3-1-formula-mass-and-the-mole-concept",
         "https://openstax.org/books/chemistry-2e/pages/2-6-ionic-and-molecular-compounds",
         "https://openstax.org/books/chemistry-2e/pages/10-6-lattice-structures-in-crystalline-solids",
@@ -7992,15 +8245,16 @@
     },
     {
       "id": "promethium-pm",
-      "title": "Promethium (Pm): thành phần, mô hình và phản ứng",
+      "title": "Promethium (Pm) — Từ dấu mốc khám phá đến nguồn phóng xạ",
       "subjectIds": [
         "atom-Pm"
       ],
-      "sections": 8,
-      "characters": 4785,
+      "sections": 10,
+      "characters": 5958,
       "externalSources": [
-        "https://en.wikipedia.org/wiki/Promethium",
+        "https://commons.wikimedia.org/wiki/File:Batteries.jpg",
         "https://periodic-table.rsc.org/element/61/promethium",
+        "https://en.wikipedia.org/wiki/Promethium",
         "https://openstax.org/books/chemistry-2e/pages/3-1-formula-mass-and-the-mole-concept",
         "https://openstax.org/books/chemistry-2e/pages/2-6-ionic-and-molecular-compounds",
         "https://openstax.org/books/chemistry-2e/pages/10-6-lattice-structures-in-crystalline-solids"
@@ -8008,15 +8262,17 @@
     },
     {
       "id": "samarium-sm",
-      "title": "Samarium (Sm): thành phần, mô hình và phản ứng",
+      "title": "Samarium (Sm) — Từ dấu mốc khám phá đến nam châm",
       "subjectIds": [
         "atom-Sm"
       ],
-      "sections": 8,
-      "characters": 4540,
+      "sections": 10,
+      "characters": 5735,
       "externalSources": [
-        "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+        "https://commons.wikimedia.org/wiki/File:Magnetite_sample_with_neodymium_magnet.jpg",
+        "https://creativecommons.org/licenses/by-sa/3.0",
         "https://periodic-table.rsc.org/element/62/samarium",
+        "https://rruff.geo.arizona.edu/AMS/amcsd.php",
         "https://openstax.org/books/chemistry-2e/pages/3-1-formula-mass-and-the-mole-concept",
         "https://openstax.org/books/chemistry-2e/pages/2-6-ionic-and-molecular-compounds",
         "https://openstax.org/books/chemistry-2e/pages/10-6-lattice-structures-in-crystalline-solids",
@@ -8025,15 +8281,17 @@
     },
     {
       "id": "europium-eu",
-      "title": "Europium (Eu): thành phần, mô hình và phản ứng",
+      "title": "Europium (Eu) — Từ dấu mốc khám phá đến màn hình và tv",
       "subjectIds": [
         "atom-Eu"
       ],
-      "sections": 8,
-      "characters": 4447,
+      "sections": 10,
+      "characters": 5534,
       "externalSources": [
-        "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+        "https://commons.wikimedia.org/wiki/File:Wiktionnaire_sur_IPhone_(1",
+        "https://creativecommons.org/licenses/by-sa/3.0",
         "https://periodic-table.rsc.org/element/63/europium",
+        "https://rruff.geo.arizona.edu/AMS/amcsd.php",
         "https://openstax.org/books/chemistry-2e/pages/3-1-formula-mass-and-the-mole-concept",
         "https://openstax.org/books/chemistry-2e/pages/2-6-ionic-and-molecular-compounds",
         "https://openstax.org/books/chemistry-2e/pages/10-6-lattice-structures-in-crystalline-solids",
@@ -8042,15 +8300,17 @@
     },
     {
       "id": "gadolinium-gd",
-      "title": "Gadolinium (Gd): thành phần, mô hình và phản ứng",
+      "title": "Gadolinium (Gd) — Từ dấu mốc khám phá đến mri",
       "subjectIds": [
         "atom-Gd"
       ],
-      "sections": 8,
-      "characters": 4601,
+      "sections": 10,
+      "characters": 5831,
       "externalSources": [
-        "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+        "https://commons.wikimedia.org/wiki/File:MRI-Philips.JPG",
+        "https://creativecommons.org/licenses/by/3.0",
         "https://periodic-table.rsc.org/element/64/gadolinium",
+        "https://rruff.geo.arizona.edu/AMS/amcsd.php",
         "https://openstax.org/books/chemistry-2e/pages/3-1-formula-mass-and-the-mole-concept",
         "https://openstax.org/books/chemistry-2e/pages/2-6-ionic-and-molecular-compounds",
         "https://openstax.org/books/chemistry-2e/pages/10-6-lattice-structures-in-crystalline-solids",
@@ -8059,15 +8319,18 @@
     },
     {
       "id": "terbium-tb",
-      "title": "Terbium (Tb): thành phần, mô hình và phản ứng",
+      "title": "Terbium (Tb) — Từ dấu mốc khám phá đến phosphor xanh lục",
       "subjectIds": [
         "atom-Tb"
       ],
-      "sections": 8,
-      "characters": 4597,
+      "sections": 10,
+      "characters": 6098,
       "externalSources": [
-        "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+        "https://commons.wikimedia.org/wiki/File:Fluorescent_lamps_artistic.jpg",
+        "https://www.flickr.com/photos/72396314@N00/404614118",
+        "https://creativecommons.org/licenses/by/2.0",
         "https://periodic-table.rsc.org/element/65/terbium",
+        "https://rruff.geo.arizona.edu/AMS/amcsd.php",
         "https://openstax.org/books/chemistry-2e/pages/3-1-formula-mass-and-the-mole-concept",
         "https://openstax.org/books/chemistry-2e/pages/2-6-ionic-and-molecular-compounds",
         "https://openstax.org/books/chemistry-2e/pages/10-6-lattice-structures-in-crystalline-solids",
@@ -8076,15 +8339,17 @@
     },
     {
       "id": "dysprosium-dy",
-      "title": "Dysprosium (Dy): thành phần, mô hình và phản ứng",
+      "title": "Dysprosium (Dy) — Từ dấu mốc khám phá đến nam châm nd-fe-b",
       "subjectIds": [
         "atom-Dy"
       ],
-      "sections": 8,
-      "characters": 4576,
+      "sections": 10,
+      "characters": 5809,
       "externalSources": [
-        "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+        "https://commons.wikimedia.org/wiki/File:Magnetite_sample_with_neodymium_magnet.jpg",
+        "https://creativecommons.org/licenses/by-sa/3.0",
         "https://periodic-table.rsc.org/element/66/dysprosium",
+        "https://rruff.geo.arizona.edu/AMS/amcsd.php",
         "https://openstax.org/books/chemistry-2e/pages/3-1-formula-mass-and-the-mole-concept",
         "https://openstax.org/books/chemistry-2e/pages/2-6-ionic-and-molecular-compounds",
         "https://openstax.org/books/chemistry-2e/pages/10-6-lattice-structures-in-crystalline-solids",
@@ -8093,15 +8358,17 @@
     },
     {
       "id": "holmium-ho",
-      "title": "Holmium (Ho): thành phần, mô hình và phản ứng",
+      "title": "Holmium (Ho) — Từ dấu mốc khám phá đến laser ho",
       "subjectIds": [
         "atom-Ho"
       ],
-      "sections": 8,
-      "characters": 4557,
+      "sections": 10,
+      "characters": 5856,
       "externalSources": [
-        "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+        "https://commons.wikimedia.org/wiki/File:Guiding_the_Milky_Way_(potw2222a",
+        "https://creativecommons.org/licenses/by/4.0",
         "https://periodic-table.rsc.org/element/67/holmium",
+        "https://rruff.geo.arizona.edu/AMS/amcsd.php",
         "https://openstax.org/books/chemistry-2e/pages/3-1-formula-mass-and-the-mole-concept",
         "https://openstax.org/books/chemistry-2e/pages/2-6-ionic-and-molecular-compounds",
         "https://openstax.org/books/chemistry-2e/pages/10-6-lattice-structures-in-crystalline-solids",
@@ -8110,15 +8377,16 @@
     },
     {
       "id": "erbium-er",
-      "title": "Erbium (Er): thành phần, mô hình và phản ứng",
+      "title": "Erbium (Er) — Từ dấu mốc khám phá đến cáp quang",
       "subjectIds": [
         "atom-Er"
       ],
-      "sections": 8,
-      "characters": 4536,
+      "sections": 10,
+      "characters": 5759,
       "externalSources": [
-        "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+        "https://commons.wikimedia.org/wiki/File:Fibreoptic.jpg",
         "https://periodic-table.rsc.org/element/68/erbium",
+        "https://rruff.geo.arizona.edu/AMS/amcsd.php",
         "https://openstax.org/books/chemistry-2e/pages/3-1-formula-mass-and-the-mole-concept",
         "https://openstax.org/books/chemistry-2e/pages/2-6-ionic-and-molecular-compounds",
         "https://openstax.org/books/chemistry-2e/pages/10-6-lattice-structures-in-crystalline-solids",
@@ -8127,15 +8395,17 @@
     },
     {
       "id": "thulium-tm",
-      "title": "Thulium (Tm): thành phần, mô hình và phản ứng",
+      "title": "Thulium (Tm) — Từ dấu mốc khám phá đến nguồn tia x",
       "subjectIds": [
         "atom-Tm"
       ],
-      "sections": 8,
-      "characters": 4419,
+      "sections": 10,
+      "characters": 5480,
       "externalSources": [
-        "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+        "https://commons.wikimedia.org/wiki/File:Guiding_the_Milky_Way_(potw2222a",
+        "https://creativecommons.org/licenses/by/4.0",
         "https://periodic-table.rsc.org/element/69/thulium",
+        "https://rruff.geo.arizona.edu/AMS/amcsd.php",
         "https://openstax.org/books/chemistry-2e/pages/3-1-formula-mass-and-the-mole-concept",
         "https://openstax.org/books/chemistry-2e/pages/2-6-ionic-and-molecular-compounds",
         "https://openstax.org/books/chemistry-2e/pages/10-6-lattice-structures-in-crystalline-solids",
@@ -8144,15 +8414,16 @@
     },
     {
       "id": "ytterbium-yb",
-      "title": "Ytterbium (Yb): thành phần, mô hình và phản ứng",
+      "title": "Ytterbium (Yb) — Từ dấu mốc khám phá đến laser sợi quang",
       "subjectIds": [
         "atom-Yb"
       ],
-      "sections": 8,
-      "characters": 4601,
+      "sections": 10,
+      "characters": 5892,
       "externalSources": [
-        "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+        "https://commons.wikimedia.org/wiki/File:Fibreoptic.jpg",
         "https://periodic-table.rsc.org/element/70/ytterbium",
+        "https://rruff.geo.arizona.edu/AMS/amcsd.php",
         "https://openstax.org/books/chemistry-2e/pages/3-1-formula-mass-and-the-mole-concept",
         "https://openstax.org/books/chemistry-2e/pages/2-6-ionic-and-molecular-compounds",
         "https://openstax.org/books/chemistry-2e/pages/10-6-lattice-structures-in-crystalline-solids",
@@ -8161,15 +8432,16 @@
     },
     {
       "id": "lutetium-lu",
-      "title": "Lutetium (Lu): thành phần, mô hình và phản ứng",
+      "title": "Lutetium (Lu) — Từ dấu mốc khám phá đến y học hạt nhân",
       "subjectIds": [
         "atom-Lu"
       ],
-      "sections": 8,
-      "characters": 4551,
+      "sections": 10,
+      "characters": 5852,
       "externalSources": [
-        "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+        "https://commons.wikimedia.org/wiki/File:Lung_scintigraphy_keosys.JPG",
         "https://periodic-table.rsc.org/element/71/lutetium",
+        "https://rruff.geo.arizona.edu/AMS/amcsd.php",
         "https://openstax.org/books/chemistry-2e/pages/3-1-formula-mass-and-the-mole-concept",
         "https://openstax.org/books/chemistry-2e/pages/2-6-ionic-and-molecular-compounds",
         "https://openstax.org/books/chemistry-2e/pages/10-6-lattice-structures-in-crystalline-solids",
@@ -8178,15 +8450,16 @@
     },
     {
       "id": "hafnium-hf",
-      "title": "Hafnium (Hf): thành phần, mô hình và phản ứng",
+      "title": "Hafnium (Hf) — Từ dấu mốc khám phá đến thanh điều khiển lò phản ứng hạt nhân",
       "subjectIds": [
         "atom-Hf"
       ],
-      "sections": 8,
-      "characters": 4378,
+      "sections": 10,
+      "characters": 5398,
       "externalSources": [
-        "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+        "https://commons.wikimedia.org/wiki/File:PWR_control_rod_assemby.jpg",
         "https://periodic-table.rsc.org/element/72/hafnium",
+        "https://rruff.geo.arizona.edu/AMS/amcsd.php",
         "https://openstax.org/books/chemistry-2e/pages/3-1-formula-mass-and-the-mole-concept",
         "https://openstax.org/books/chemistry-2e/pages/2-6-ionic-and-molecular-compounds",
         "https://openstax.org/books/chemistry-2e/pages/10-6-lattice-structures-in-crystalline-solids",
@@ -8195,15 +8468,16 @@
     },
     {
       "id": "tantalum-ta",
-      "title": "Tantalum (Ta): thành phần, mô hình và phản ứng",
+      "title": "Tantalum (Ta) — Từ dấu mốc khám phá đến tụ điện",
       "subjectIds": [
         "atom-Ta"
       ],
-      "sections": 8,
-      "characters": 4373,
+      "sections": 10,
+      "characters": 5366,
       "externalSources": [
-        "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+        "https://commons.wikimedia.org/wiki/File:Tantal-P1100196c.jpg",
         "https://periodic-table.rsc.org/element/73/tantalum",
+        "https://rruff.geo.arizona.edu/AMS/amcsd.php",
         "https://openstax.org/books/chemistry-2e/pages/3-1-formula-mass-and-the-mole-concept",
         "https://openstax.org/books/chemistry-2e/pages/2-6-ionic-and-molecular-compounds",
         "https://openstax.org/books/chemistry-2e/pages/10-6-lattice-structures-in-crystalline-solids",
@@ -8212,15 +8486,16 @@
     },
     {
       "id": "tungsten-w",
-      "title": "Tungsten (W): thành phần, mô hình và phản ứng",
+      "title": "Tungsten (W) — Từ dấu mốc khám phá đến dây tóc bóng đèn",
       "subjectIds": [
         "atom-W"
       ],
-      "sections": 8,
-      "characters": 4352,
+      "sections": 10,
+      "characters": 5411,
       "externalSources": [
-        "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+        "https://commons.wikimedia.org/wiki/File:Gluehlampe_01_KMJ.png",
         "https://periodic-table.rsc.org/element/74/tungsten",
+        "https://rruff.geo.arizona.edu/AMS/amcsd.php",
         "https://openstax.org/books/chemistry-2e/pages/3-1-formula-mass-and-the-mole-concept",
         "https://openstax.org/books/chemistry-2e/pages/2-6-ionic-and-molecular-compounds",
         "https://openstax.org/books/chemistry-2e/pages/10-6-lattice-structures-in-crystalline-solids",
@@ -8229,15 +8504,17 @@
     },
     {
       "id": "rhenium-re",
-      "title": "Rhenium (Re): thành phần, mô hình và phản ứng",
+      "title": "Rhenium (Re) — Từ dấu mốc khám phá đến siêu hợp kim",
       "subjectIds": [
         "atom-Re"
       ],
-      "sections": 8,
-      "characters": 4405,
+      "sections": 10,
+      "characters": 5472,
       "externalSources": [
-        "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+        "https://commons.wikimedia.org/wiki/File:Alloy_and_metal_samples_-_Beryllium-Copper,_Inconel,_Steel,_Titanium,_Aluminum,_Magnesium.jpg",
+        "https://creativecommons.org/licenses/by-sa/2.0",
         "https://periodic-table.rsc.org/element/75/rhenium",
+        "https://rruff.geo.arizona.edu/AMS/amcsd.php",
         "https://openstax.org/books/chemistry-2e/pages/3-1-formula-mass-and-the-mole-concept",
         "https://openstax.org/books/chemistry-2e/pages/2-6-ionic-and-molecular-compounds",
         "https://openstax.org/books/chemistry-2e/pages/10-6-lattice-structures-in-crystalline-solids",
@@ -8246,15 +8523,17 @@
     },
     {
       "id": "osmium-os",
-      "title": "Osmium (Os): thành phần, mô hình và phản ứng",
+      "title": "Osmium (Os) — Từ dấu mốc khám phá đến hợp kim",
       "subjectIds": [
         "atom-Os"
       ],
-      "sections": 8,
-      "characters": 4377,
+      "sections": 10,
+      "characters": 5428,
       "externalSources": [
-        "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+        "https://commons.wikimedia.org/wiki/File:Alloy_and_metal_samples_-_Beryllium-Copper,_Inconel,_Steel,_Titanium,_Aluminum,_Magnesium.jpg",
+        "https://creativecommons.org/licenses/by-sa/2.0",
         "https://periodic-table.rsc.org/element/76/osmium",
+        "https://rruff.geo.arizona.edu/AMS/amcsd.php",
         "https://openstax.org/books/chemistry-2e/pages/3-1-formula-mass-and-the-mole-concept",
         "https://openstax.org/books/chemistry-2e/pages/2-6-ionic-and-molecular-compounds",
         "https://openstax.org/books/chemistry-2e/pages/10-6-lattice-structures-in-crystalline-solids",
@@ -8263,15 +8542,17 @@
     },
     {
       "id": "iridium-ir",
-      "title": "Iridium (Ir): thành phần, mô hình và phản ứng",
+      "title": "Iridium (Ir) — Từ dấu mốc khám phá đến bugi",
       "subjectIds": [
         "atom-Ir"
       ],
-      "sections": 8,
-      "characters": 4401,
+      "sections": 10,
+      "characters": 5409,
       "externalSources": [
-        "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+        "https://commons.wikimedia.org/wiki/File:Buj%C3%ADa_Bosch_Yttrium_Super_Plus.JPG",
+        "https://creativecommons.org/licenses/by-sa/4.0",
         "https://periodic-table.rsc.org/element/77/iridium",
+        "https://rruff.geo.arizona.edu/AMS/amcsd.php",
         "https://openstax.org/books/chemistry-2e/pages/3-1-formula-mass-and-the-mole-concept",
         "https://openstax.org/books/chemistry-2e/pages/2-6-ionic-and-molecular-compounds",
         "https://openstax.org/books/chemistry-2e/pages/10-6-lattice-structures-in-crystalline-solids",
@@ -8280,15 +8561,17 @@
     },
     {
       "id": "bach-kim-pt",
-      "title": "Bạch kim (Pt): thành phần, mô hình và phản ứng",
+      "title": "Bạch kim (Pt) — Từ dấu mốc khám phá đến bộ xúc tác khí thải",
       "subjectIds": [
         "atom-Pt"
       ],
-      "sections": 8,
-      "characters": 4482,
+      "sections": 10,
+      "characters": 5665,
       "externalSources": [
-        "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+        "https://commons.wikimedia.org/wiki/File:Aufgeschnittener_Metall_Katalysator_f%C3%BCr_ein_Auto.jpg",
+        "https://creativecommons.org/licenses/by-sa/2.0",
         "https://periodic-table.rsc.org/element/78/platinum",
+        "https://rruff.geo.arizona.edu/AMS/amcsd.php",
         "https://openstax.org/books/chemistry-2e/pages/3-1-formula-mass-and-the-mole-concept",
         "https://openstax.org/books/chemistry-2e/pages/2-6-ionic-and-molecular-compounds",
         "https://openstax.org/books/chemistry-2e/pages/10-6-lattice-structures-in-crystalline-solids",
@@ -8297,15 +8580,16 @@
     },
     {
       "id": "vang-au",
-      "title": "Vàng (Au): thành phần, mô hình và phản ứng",
+      "title": "Vàng (Au) — Từ dấu mốc khám phá đến trang sức",
       "subjectIds": [
         "atom-Au"
       ],
-      "sections": 8,
-      "characters": 4460,
+      "sections": 10,
+      "characters": 5705,
       "externalSources": [
-        "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+        "https://commons.wikimedia.org/wiki/File:Pectoral_and_Necklace_of_Sithathoryunet_with_the_Name_of_Senwosret_II_MET_DT531.jpg",
         "https://periodic-table.rsc.org/element/79/gold",
+        "https://rruff.geo.arizona.edu/AMS/amcsd.php",
         "https://openstax.org/books/chemistry-2e/pages/3-1-formula-mass-and-the-mole-concept",
         "https://openstax.org/books/chemistry-2e/pages/2-6-ionic-and-molecular-compounds",
         "https://openstax.org/books/chemistry-2e/pages/10-6-lattice-structures-in-crystalline-solids",
@@ -8314,13 +8598,15 @@
     },
     {
       "id": "thuy-ngan-hg",
-      "title": "Thủy ngân (Hg): thành phần, mô hình và phản ứng",
+      "title": "Thủy ngân (Hg) — Từ dấu mốc khám phá đến thiết bị đo",
       "subjectIds": [
         "atom-Hg"
       ],
-      "sections": 7,
-      "characters": 4118,
+      "sections": 9,
+      "characters": 5287,
       "externalSources": [
+        "https://commons.wikimedia.org/wiki/File:Mercury_Thermometer.jpg",
+        "https://creativecommons.org/licenses/by-sa/3.0",
         "https://periodic-table.rsc.org/element/80/mercury",
         "https://openstax.org/books/chemistry-2e/pages/3-1-formula-mass-and-the-mole-concept",
         "https://openstax.org/books/chemistry-2e/pages/2-6-ionic-and-molecular-compounds",
@@ -8330,15 +8616,16 @@
     },
     {
       "id": "thallium-tl",
-      "title": "Thallium (Tl): thành phần, mô hình và phản ứng",
+      "title": "Thallium (Tl) — Từ dấu mốc khám phá đến điện tử",
       "subjectIds": [
         "atom-Tl"
       ],
-      "sections": 8,
-      "characters": 4414,
+      "sections": 10,
+      "characters": 5368,
       "externalSources": [
-        "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+        "https://commons.wikimedia.org/wiki/File:ICC_2008_Poland_Silicon_Wafer_1_edit.png",
         "https://periodic-table.rsc.org/element/81/thallium",
+        "https://rruff.geo.arizona.edu/AMS/amcsd.php",
         "https://openstax.org/books/chemistry-2e/pages/3-1-formula-mass-and-the-mole-concept",
         "https://openstax.org/books/chemistry-2e/pages/2-6-ionic-and-molecular-compounds",
         "https://openstax.org/books/chemistry-2e/pages/10-6-lattice-structures-in-crystalline-solids",
@@ -8347,15 +8634,17 @@
     },
     {
       "id": "bismuth-bi",
-      "title": "Bismuth (Bi): thành phần, mô hình và phản ứng",
+      "title": "Bismuth (Bi) — Từ dấu mốc khám phá đến y học",
       "subjectIds": [
         "atom-Bi"
       ],
-      "sections": 8,
-      "characters": 4481,
+      "sections": 10,
+      "characters": 5637,
       "externalSources": [
-        "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+        "https://commons.wikimedia.org/wiki/File:Alloy_and_metal_samples_-_Beryllium-Copper,_Inconel,_Steel,_Titanium,_Aluminum,_Magnesium.jpg",
+        "https://creativecommons.org/licenses/by-sa/2.0",
         "https://periodic-table.rsc.org/element/83/bismuth",
+        "https://rruff.geo.arizona.edu/AMS/amcsd.php",
         "https://openstax.org/books/chemistry-2e/pages/3-1-formula-mass-and-the-mole-concept",
         "https://openstax.org/books/chemistry-2e/pages/2-6-ionic-and-molecular-compounds",
         "https://openstax.org/books/chemistry-2e/pages/10-6-lattice-structures-in-crystalline-solids",
@@ -8364,15 +8653,17 @@
     },
     {
       "id": "polonium-po",
-      "title": "Polonium (Po): thành phần, mô hình và phản ứng",
+      "title": "Polonium (Po) — Từ dấu mốc khám phá đến nguồn alpha",
       "subjectIds": [
         "atom-Po"
       ],
-      "sections": 8,
-      "characters": 4651,
+      "sections": 10,
+      "characters": 5757,
       "externalSources": [
-        "https://www.webelements.com/polonium/crystal_structure.html",
+        "https://commons.wikimedia.org/wiki/File:Part_of_UNILAC_GSI.jpg",
+        "https://creativecommons.org/licenses/by-sa/3.0",
         "https://periodic-table.rsc.org/element/84/polonium",
+        "https://www.webelements.com/polonium/crystal_structure.html",
         "https://openstax.org/books/chemistry-2e/pages/3-1-formula-mass-and-the-mole-concept",
         "https://openstax.org/books/chemistry-2e/pages/2-6-ionic-and-molecular-compounds",
         "https://openstax.org/books/chemistry-2e/pages/10-6-lattice-structures-in-crystalline-solids",
@@ -8381,13 +8672,14 @@
     },
     {
       "id": "astatine-at",
-      "title": "Astatine (At): thành phần, mô hình và phản ứng",
+      "title": "Astatine (At) — Một phát hiện mở thêm câu hỏi nghiên cứu",
       "subjectIds": [
         "atom-At"
       ],
-      "sections": 7,
-      "characters": 4128,
+      "sections": 9,
+      "characters": 5156,
       "externalSources": [
+        "https://commons.wikimedia.org/wiki/File:Lung_scintigraphy_keosys.JPG",
         "https://periodic-table.rsc.org/element/85/astatine",
         "https://openstax.org/books/chemistry-2e/pages/3-1-formula-mass-and-the-mole-concept",
         "https://openstax.org/books/chemistry-2e/pages/2-6-ionic-and-molecular-compounds",
@@ -8397,13 +8689,15 @@
     },
     {
       "id": "radon-rn",
-      "title": "Radon (Rn): thành phần, mô hình và phản ứng",
+      "title": "Radon (Rn) — Từ dấu mốc khám phá đến nghiên cứu phóng xạ",
       "subjectIds": [
         "atom-Rn"
       ],
-      "sections": 7,
-      "characters": 4036,
+      "sections": 9,
+      "characters": 5073,
       "externalSources": [
+        "https://commons.wikimedia.org/wiki/File:Part_of_UNILAC_GSI.jpg",
+        "https://creativecommons.org/licenses/by-sa/3.0",
         "https://periodic-table.rsc.org/element/86/radon",
         "https://openstax.org/books/chemistry-2e/pages/3-1-formula-mass-and-the-mole-concept",
         "https://openstax.org/books/chemistry-2e/pages/2-6-ionic-and-molecular-compounds",
@@ -8413,13 +8707,15 @@
     },
     {
       "id": "francium-fr",
-      "title": "Francium (Fr): thành phần, mô hình và phản ứng",
+      "title": "Francium (Fr) — Một phát hiện mở thêm câu hỏi nghiên cứu",
       "subjectIds": [
         "atom-Fr"
       ],
-      "sections": 7,
-      "characters": 4083,
+      "sections": 9,
+      "characters": 5046,
       "externalSources": [
+        "https://commons.wikimedia.org/wiki/File:Part_of_UNILAC_GSI.jpg",
+        "https://creativecommons.org/licenses/by-sa/3.0",
         "https://periodic-table.rsc.org/element/87/francium",
         "https://openstax.org/books/chemistry-2e/pages/3-1-formula-mass-and-the-mole-concept",
         "https://openstax.org/books/chemistry-2e/pages/2-6-ionic-and-molecular-compounds",
@@ -8429,15 +8725,17 @@
     },
     {
       "id": "radium-ra",
-      "title": "Radium (Ra): thành phần, mô hình và phản ứng",
+      "title": "Radium (Ra) — Từ dấu mốc khám phá đến y học lịch sử",
       "subjectIds": [
         "atom-Ra"
       ],
-      "sections": 8,
-      "characters": 4604,
+      "sections": 10,
+      "characters": 5860,
       "externalSources": [
-        "https://en.wikipedia.org/wiki/Radium",
+        "https://commons.wikimedia.org/wiki/File:Radiation_therapy.jpg",
+        "https://creativecommons.org/licenses/by/2.0",
         "https://periodic-table.rsc.org/element/88/radium",
+        "https://en.wikipedia.org/wiki/Radium",
         "https://openstax.org/books/chemistry-2e/pages/3-1-formula-mass-and-the-mole-concept",
         "https://openstax.org/books/chemistry-2e/pages/2-6-ionic-and-molecular-compounds",
         "https://openstax.org/books/chemistry-2e/pages/10-6-lattice-structures-in-crystalline-solids"
@@ -8445,15 +8743,16 @@
     },
     {
       "id": "actinium-ac",
-      "title": "Actinium (Ac): thành phần, mô hình và phản ứng",
+      "title": "Actinium (Ac) — Từ dấu mốc khám phá đến y học hạt nhân",
       "subjectIds": [
         "atom-Ac"
       ],
-      "sections": 8,
-      "characters": 4905,
+      "sections": 10,
+      "characters": 6178,
       "externalSources": [
-        "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+        "https://commons.wikimedia.org/wiki/File:Lung_scintigraphy_keosys.JPG",
         "https://periodic-table.rsc.org/element/89/actinium",
+        "https://rruff.geo.arizona.edu/AMS/amcsd.php",
         "https://openstax.org/books/chemistry-2e/pages/3-1-formula-mass-and-the-mole-concept",
         "https://openstax.org/books/chemistry-2e/pages/2-6-ionic-and-molecular-compounds",
         "https://openstax.org/books/chemistry-2e/pages/10-6-lattice-structures-in-crystalline-solids",
@@ -8462,15 +8761,17 @@
     },
     {
       "id": "thorium-th",
-      "title": "Thorium (Th): thành phần, mô hình và phản ứng",
+      "title": "Thorium (Th) — Từ dấu mốc khám phá đến năng lượng hạt nhân",
       "subjectIds": [
         "atom-Th"
       ],
-      "sections": 8,
-      "characters": 4545,
+      "sections": 10,
+      "characters": 5904,
       "externalSources": [
-        "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+        "https://commons.wikimedia.org/wiki/File:Advanced_Test_Reactor_001.jpg",
+        "https://creativecommons.org/licenses/by/2.0",
         "https://periodic-table.rsc.org/element/90/thorium",
+        "https://rruff.geo.arizona.edu/AMS/amcsd.php",
         "https://openstax.org/books/chemistry-2e/pages/3-1-formula-mass-and-the-mole-concept",
         "https://openstax.org/books/chemistry-2e/pages/2-6-ionic-and-molecular-compounds",
         "https://openstax.org/books/chemistry-2e/pages/10-6-lattice-structures-in-crystalline-solids",
@@ -8479,15 +8780,17 @@
     },
     {
       "id": "protactinium-pa",
-      "title": "Protactinium (Pa): thành phần, mô hình và phản ứng",
+      "title": "Protactinium (Pa) — Một phát hiện mở thêm câu hỏi nghiên cứu",
       "subjectIds": [
         "atom-Pa"
       ],
-      "sections": 8,
-      "characters": 4709,
+      "sections": 10,
+      "characters": 6137,
       "externalSources": [
-        "https://en.wikipedia.org/wiki/Protactinium",
+        "https://commons.wikimedia.org/wiki/File:Part_of_UNILAC_GSI.jpg",
+        "https://creativecommons.org/licenses/by-sa/3.0",
         "https://periodic-table.rsc.org/element/91/protactinium",
+        "https://en.wikipedia.org/wiki/Protactinium",
         "https://openstax.org/books/chemistry-2e/pages/3-1-formula-mass-and-the-mole-concept",
         "https://openstax.org/books/chemistry-2e/pages/2-6-ionic-and-molecular-compounds",
         "https://openstax.org/books/chemistry-2e/pages/10-6-lattice-structures-in-crystalline-solids"
@@ -8495,15 +8798,17 @@
     },
     {
       "id": "uranium-u",
-      "title": "Uranium (U): thành phần, mô hình và phản ứng",
+      "title": "Uranium (U) — Từ dấu mốc khám phá đến năng lượng hạt nhân",
       "subjectIds": [
         "atom-U"
       ],
-      "sections": 8,
-      "characters": 4532,
+      "sections": 10,
+      "characters": 5799,
       "externalSources": [
-        "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+        "https://commons.wikimedia.org/wiki/File:Advanced_Test_Reactor_001.jpg",
+        "https://creativecommons.org/licenses/by/2.0",
         "https://periodic-table.rsc.org/element/92/uranium",
+        "https://rruff.geo.arizona.edu/AMS/amcsd.php",
         "https://openstax.org/books/chemistry-2e/pages/3-1-formula-mass-and-the-mole-concept",
         "https://openstax.org/books/chemistry-2e/pages/2-6-ionic-and-molecular-compounds",
         "https://openstax.org/books/chemistry-2e/pages/10-6-lattice-structures-in-crystalline-solids",
@@ -8512,15 +8817,17 @@
     },
     {
       "id": "neptunium-np",
-      "title": "Neptunium (Np): thành phần, mô hình và phản ứng",
+      "title": "Neptunium (Np) — Từ dấu mốc khám phá đến nghiên cứu hạt nhân",
       "subjectIds": [
         "atom-Np"
       ],
-      "sections": 8,
-      "characters": 4770,
+      "sections": 10,
+      "characters": 6069,
       "externalSources": [
-        "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+        "https://commons.wikimedia.org/wiki/File:Part_of_UNILAC_GSI.jpg",
+        "https://creativecommons.org/licenses/by-sa/3.0",
         "https://periodic-table.rsc.org/element/93/neptunium",
+        "https://rruff.geo.arizona.edu/AMS/amcsd.php",
         "https://openstax.org/books/chemistry-2e/pages/3-1-formula-mass-and-the-mole-concept",
         "https://openstax.org/books/chemistry-2e/pages/2-6-ionic-and-molecular-compounds",
         "https://openstax.org/books/chemistry-2e/pages/10-6-lattice-structures-in-crystalline-solids",
@@ -8529,15 +8836,17 @@
     },
     {
       "id": "plutonium-pu",
-      "title": "Plutonium (Pu): thành phần, mô hình và phản ứng",
+      "title": "Plutonium (Pu) — Từ dấu mốc khám phá đến năng lượng hạt nhân",
       "subjectIds": [
         "atom-Pu"
       ],
-      "sections": 8,
-      "characters": 4693,
+      "sections": 10,
+      "characters": 6001,
       "externalSources": [
-        "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+        "https://commons.wikimedia.org/wiki/File:Advanced_Test_Reactor_001.jpg",
+        "https://creativecommons.org/licenses/by/2.0",
         "https://periodic-table.rsc.org/element/94/plutonium",
+        "https://rruff.geo.arizona.edu/AMS/amcsd.php",
         "https://openstax.org/books/chemistry-2e/pages/3-1-formula-mass-and-the-mole-concept",
         "https://openstax.org/books/chemistry-2e/pages/2-6-ionic-and-molecular-compounds",
         "https://openstax.org/books/chemistry-2e/pages/10-6-lattice-structures-in-crystalline-solids",
@@ -8546,15 +8855,17 @@
     },
     {
       "id": "americium-am",
-      "title": "Americium (Am): thành phần, mô hình và phản ứng",
+      "title": "Americium (Am) — Từ dấu mốc khám phá đến thiết bị báo khói",
       "subjectIds": [
         "atom-Am"
       ],
-      "sections": 8,
-      "characters": 4719,
+      "sections": 10,
+      "characters": 5939,
       "externalSources": [
-        "https://rruff.geo.arizona.edu/AMS/amcsd.php",
+        "https://commons.wikimedia.org/wiki/File:Smoke_detector.JPG",
+        "https://creativecommons.org/licenses/by-sa/3.0",
         "https://periodic-table.rsc.org/element/95/americium",
+        "https://rruff.geo.arizona.edu/AMS/amcsd.php",
         "https://openstax.org/books/chemistry-2e/pages/3-1-formula-mass-and-the-mole-concept",
         "https://openstax.org/books/chemistry-2e/pages/2-6-ionic-and-molecular-compounds",
         "https://openstax.org/books/chemistry-2e/pages/10-6-lattice-structures-in-crystalline-solids",
@@ -8563,15 +8874,17 @@
     },
     {
       "id": "curium-cm",
-      "title": "Curium (Cm): thành phần, mô hình và phản ứng",
+      "title": "Curium (Cm) — Từ dấu mốc khám phá đến nguồn năng lượng phóng xạ",
       "subjectIds": [
         "atom-Cm"
       ],
-      "sections": 8,
-      "characters": 4617,
+      "sections": 10,
+      "characters": 5858,
       "externalSources": [
-        "https://www.webelements.com/curium/crystal_structure.html",
+        "https://commons.wikimedia.org/wiki/File:Part_of_UNILAC_GSI.jpg",
+        "https://creativecommons.org/licenses/by-sa/3.0",
         "https://periodic-table.rsc.org/element/96/curium",
+        "https://www.webelements.com/curium/crystal_structure.html",
         "https://openstax.org/books/chemistry-2e/pages/3-1-formula-mass-and-the-mole-concept",
         "https://openstax.org/books/chemistry-2e/pages/2-6-ionic-and-molecular-compounds",
         "https://openstax.org/books/chemistry-2e/pages/10-6-lattice-structures-in-crystalline-solids",
@@ -8580,15 +8893,17 @@
     },
     {
       "id": "berkelium-bk",
-      "title": "Berkelium (Bk): thành phần, mô hình và phản ứng",
+      "title": "Berkelium (Bk) — Một phát hiện mở thêm câu hỏi nghiên cứu",
       "subjectIds": [
         "atom-Bk"
       ],
-      "sections": 8,
-      "characters": 4665,
+      "sections": 10,
+      "characters": 5800,
       "externalSources": [
-        "https://webelements.co.uk/berkelium/crystal_structure.html",
+        "https://commons.wikimedia.org/wiki/File:Part_of_UNILAC_GSI.jpg",
+        "https://creativecommons.org/licenses/by-sa/3.0",
         "https://periodic-table.rsc.org/element/97/berkelium",
+        "https://webelements.co.uk/berkelium/crystal_structure.html",
         "https://openstax.org/books/chemistry-2e/pages/3-1-formula-mass-and-the-mole-concept",
         "https://openstax.org/books/chemistry-2e/pages/2-6-ionic-and-molecular-compounds",
         "https://openstax.org/books/chemistry-2e/pages/10-6-lattice-structures-in-crystalline-solids",
@@ -8597,13 +8912,15 @@
     },
     {
       "id": "californium-cf",
-      "title": "Californium (Cf): thành phần, mô hình và phản ứng",
+      "title": "Californium (Cf) — Từ dấu mốc khám phá đến nguồn neutron",
       "subjectIds": [
         "atom-Cf"
       ],
-      "sections": 7,
-      "characters": 4158,
+      "sections": 9,
+      "characters": 5294,
       "externalSources": [
+        "https://commons.wikimedia.org/wiki/File:Large_hole_drilling_rig.jpg",
+        "https://creativecommons.org/licenses/by-sa/4.0",
         "https://periodic-table.rsc.org/element/98/californium",
         "https://openstax.org/books/chemistry-2e/pages/3-1-formula-mass-and-the-mole-concept",
         "https://openstax.org/books/chemistry-2e/pages/2-6-ionic-and-molecular-compounds",
@@ -8613,13 +8930,15 @@
     },
     {
       "id": "einsteinium-es",
-      "title": "Einsteinium (Es): thành phần, mô hình và phản ứng",
+      "title": "Einsteinium (Es) — Một phát hiện mở thêm câu hỏi nghiên cứu",
       "subjectIds": [
         "atom-Es"
       ],
-      "sections": 7,
-      "characters": 4355,
+      "sections": 9,
+      "characters": 5575,
       "externalSources": [
+        "https://commons.wikimedia.org/wiki/File:Part_of_UNILAC_GSI.jpg",
+        "https://creativecommons.org/licenses/by-sa/3.0",
         "https://periodic-table.rsc.org/element/99/einsteinium",
         "https://openstax.org/books/chemistry-2e/pages/3-1-formula-mass-and-the-mole-concept",
         "https://openstax.org/books/chemistry-2e/pages/2-6-ionic-and-molecular-compounds",
@@ -8629,13 +8948,15 @@
     },
     {
       "id": "fermium-fm",
-      "title": "Fermium (Fm): thành phần, mô hình và phản ứng",
+      "title": "Fermium (Fm) — Một phát hiện mở thêm câu hỏi nghiên cứu",
       "subjectIds": [
         "atom-Fm"
       ],
-      "sections": 7,
-      "characters": 4237,
+      "sections": 9,
+      "characters": 5374,
       "externalSources": [
+        "https://commons.wikimedia.org/wiki/File:Part_of_UNILAC_GSI.jpg",
+        "https://creativecommons.org/licenses/by-sa/3.0",
         "https://periodic-table.rsc.org/element/100/fermium",
         "https://openstax.org/books/chemistry-2e/pages/3-1-formula-mass-and-the-mole-concept",
         "https://openstax.org/books/chemistry-2e/pages/2-6-ionic-and-molecular-compounds",
@@ -8645,13 +8966,15 @@
     },
     {
       "id": "mendelevium-md",
-      "title": "Mendelevium (Md): thành phần, mô hình và phản ứng",
+      "title": "Mendelevium (Md) — Một phát hiện mở thêm câu hỏi nghiên cứu",
       "subjectIds": [
         "atom-Md"
       ],
-      "sections": 7,
-      "characters": 4290,
+      "sections": 9,
+      "characters": 5379,
       "externalSources": [
+        "https://commons.wikimedia.org/wiki/File:Part_of_UNILAC_GSI.jpg",
+        "https://creativecommons.org/licenses/by-sa/3.0",
         "https://periodic-table.rsc.org/element/101/mendelevium",
         "https://openstax.org/books/chemistry-2e/pages/3-1-formula-mass-and-the-mole-concept",
         "https://openstax.org/books/chemistry-2e/pages/2-6-ionic-and-molecular-compounds",
@@ -8661,13 +8984,15 @@
     },
     {
       "id": "nobelium-no",
-      "title": "Nobelium (No): thành phần, mô hình và phản ứng",
+      "title": "Nobelium (No) — Một phát hiện mở thêm câu hỏi nghiên cứu",
       "subjectIds": [
         "atom-No"
       ],
-      "sections": 7,
-      "characters": 4173,
+      "sections": 9,
+      "characters": 5072,
       "externalSources": [
+        "https://commons.wikimedia.org/wiki/File:Part_of_UNILAC_GSI.jpg",
+        "https://creativecommons.org/licenses/by-sa/3.0",
         "https://periodic-table.rsc.org/element/102/nobelium",
         "https://openstax.org/books/chemistry-2e/pages/3-1-formula-mass-and-the-mole-concept",
         "https://openstax.org/books/chemistry-2e/pages/2-6-ionic-and-molecular-compounds",
@@ -8677,13 +9002,15 @@
     },
     {
       "id": "lawrencium-lr",
-      "title": "Lawrencium (Lr): thành phần, mô hình và phản ứng",
+      "title": "Lawrencium (Lr) — Một phát hiện mở thêm câu hỏi nghiên cứu",
       "subjectIds": [
         "atom-Lr"
       ],
-      "sections": 7,
-      "characters": 4203,
+      "sections": 9,
+      "characters": 5176,
       "externalSources": [
+        "https://commons.wikimedia.org/wiki/File:Part_of_UNILAC_GSI.jpg",
+        "https://creativecommons.org/licenses/by-sa/3.0",
         "https://periodic-table.rsc.org/element/103/lawrencium",
         "https://openstax.org/books/chemistry-2e/pages/3-1-formula-mass-and-the-mole-concept",
         "https://openstax.org/books/chemistry-2e/pages/2-6-ionic-and-molecular-compounds",
@@ -8693,13 +9020,15 @@
     },
     {
       "id": "rutherfordium-rf",
-      "title": "Rutherfordium (Rf): thành phần, mô hình và phản ứng",
+      "title": "Rutherfordium (Rf) — Một phát hiện mở thêm câu hỏi nghiên cứu",
       "subjectIds": [
         "atom-Rf"
       ],
-      "sections": 7,
-      "characters": 4344,
+      "sections": 9,
+      "characters": 5419,
       "externalSources": [
+        "https://commons.wikimedia.org/wiki/File:Part_of_UNILAC_GSI.jpg",
+        "https://creativecommons.org/licenses/by-sa/3.0",
         "https://periodic-table.rsc.org/element/104/rutherfordium",
         "https://openstax.org/books/chemistry-2e/pages/3-1-formula-mass-and-the-mole-concept",
         "https://openstax.org/books/chemistry-2e/pages/2-6-ionic-and-molecular-compounds",
@@ -8709,13 +9038,15 @@
     },
     {
       "id": "dubnium-db",
-      "title": "Dubnium (Db): thành phần, mô hình và phản ứng",
+      "title": "Dubnium (Db) — Một phát hiện mở thêm câu hỏi nghiên cứu",
       "subjectIds": [
         "atom-Db"
       ],
-      "sections": 7,
-      "characters": 4241,
+      "sections": 9,
+      "characters": 5275,
       "externalSources": [
+        "https://commons.wikimedia.org/wiki/File:Part_of_UNILAC_GSI.jpg",
+        "https://creativecommons.org/licenses/by-sa/3.0",
         "https://periodic-table.rsc.org/element/105/dubnium",
         "https://openstax.org/books/chemistry-2e/pages/3-1-formula-mass-and-the-mole-concept",
         "https://openstax.org/books/chemistry-2e/pages/2-6-ionic-and-molecular-compounds",
@@ -8725,13 +9056,15 @@
     },
     {
       "id": "seaborgium-sg",
-      "title": "Seaborgium (Sg): thành phần, mô hình và phản ứng",
+      "title": "Seaborgium (Sg) — Một phát hiện mở thêm câu hỏi nghiên cứu",
       "subjectIds": [
         "atom-Sg"
       ],
-      "sections": 7,
-      "characters": 4307,
+      "sections": 9,
+      "characters": 5444,
       "externalSources": [
+        "https://commons.wikimedia.org/wiki/File:Part_of_UNILAC_GSI.jpg",
+        "https://creativecommons.org/licenses/by-sa/3.0",
         "https://periodic-table.rsc.org/element/106/seaborgium",
         "https://openstax.org/books/chemistry-2e/pages/3-1-formula-mass-and-the-mole-concept",
         "https://openstax.org/books/chemistry-2e/pages/2-6-ionic-and-molecular-compounds",
@@ -8741,13 +9074,15 @@
     },
     {
       "id": "bohrium-bh",
-      "title": "Bohrium (Bh): thành phần, mô hình và phản ứng",
+      "title": "Bohrium (Bh) — Một phát hiện mở thêm câu hỏi nghiên cứu",
       "subjectIds": [
         "atom-Bh"
       ],
-      "sections": 7,
-      "characters": 4210,
+      "sections": 9,
+      "characters": 5191,
       "externalSources": [
+        "https://commons.wikimedia.org/wiki/File:Part_of_UNILAC_GSI.jpg",
+        "https://creativecommons.org/licenses/by-sa/3.0",
         "https://periodic-table.rsc.org/element/107/bohrium",
         "https://openstax.org/books/chemistry-2e/pages/3-1-formula-mass-and-the-mole-concept",
         "https://openstax.org/books/chemistry-2e/pages/2-6-ionic-and-molecular-compounds",
@@ -8757,13 +9092,15 @@
     },
     {
       "id": "hassium-hs",
-      "title": "Hassium (Hs): thành phần, mô hình và phản ứng",
+      "title": "Hassium (Hs) — Một phát hiện mở thêm câu hỏi nghiên cứu",
       "subjectIds": [
         "atom-Hs"
       ],
-      "sections": 7,
-      "characters": 4077,
+      "sections": 9,
+      "characters": 4976,
       "externalSources": [
+        "https://commons.wikimedia.org/wiki/File:Part_of_UNILAC_GSI.jpg",
+        "https://creativecommons.org/licenses/by-sa/3.0",
         "https://periodic-table.rsc.org/element/108/hassium",
         "https://openstax.org/books/chemistry-2e/pages/3-1-formula-mass-and-the-mole-concept",
         "https://openstax.org/books/chemistry-2e/pages/2-6-ionic-and-molecular-compounds",
@@ -8773,13 +9110,15 @@
     },
     {
       "id": "meitnerium-mt",
-      "title": "Meitnerium (Mt): thành phần, mô hình và phản ứng",
+      "title": "Meitnerium (Mt) — Một phát hiện mở thêm câu hỏi nghiên cứu",
       "subjectIds": [
         "atom-Mt"
       ],
-      "sections": 7,
-      "characters": 4171,
+      "sections": 9,
+      "characters": 5136,
       "externalSources": [
+        "https://commons.wikimedia.org/wiki/File:Part_of_UNILAC_GSI.jpg",
+        "https://creativecommons.org/licenses/by-sa/3.0",
         "https://periodic-table.rsc.org/element/109/meitnerium",
         "https://openstax.org/books/chemistry-2e/pages/3-1-formula-mass-and-the-mole-concept",
         "https://openstax.org/books/chemistry-2e/pages/2-6-ionic-and-molecular-compounds",
@@ -8789,13 +9128,15 @@
     },
     {
       "id": "darmstadtium-ds",
-      "title": "Darmstadtium (Ds): thành phần, mô hình và phản ứng",
+      "title": "Darmstadtium (Ds) — Một phát hiện mở thêm câu hỏi nghiên cứu",
       "subjectIds": [
         "atom-Ds"
       ],
-      "sections": 7,
-      "characters": 4151,
+      "sections": 9,
+      "characters": 5078,
       "externalSources": [
+        "https://commons.wikimedia.org/wiki/File:Part_of_UNILAC_GSI.jpg",
+        "https://creativecommons.org/licenses/by-sa/3.0",
         "https://periodic-table.rsc.org/element/110/darmstadtium",
         "https://openstax.org/books/chemistry-2e/pages/3-1-formula-mass-and-the-mole-concept",
         "https://openstax.org/books/chemistry-2e/pages/2-6-ionic-and-molecular-compounds",
@@ -8805,13 +9146,15 @@
     },
     {
       "id": "roentgenium-rg",
-      "title": "Roentgenium (Rg): thành phần, mô hình và phản ứng",
+      "title": "Roentgenium (Rg) — Một phát hiện mở thêm câu hỏi nghiên cứu",
       "subjectIds": [
         "atom-Rg"
       ],
-      "sections": 7,
-      "characters": 4144,
+      "sections": 9,
+      "characters": 5083,
       "externalSources": [
+        "https://commons.wikimedia.org/wiki/File:Part_of_UNILAC_GSI.jpg",
+        "https://creativecommons.org/licenses/by-sa/3.0",
         "https://periodic-table.rsc.org/element/111/roentgenium",
         "https://openstax.org/books/chemistry-2e/pages/3-1-formula-mass-and-the-mole-concept",
         "https://openstax.org/books/chemistry-2e/pages/2-6-ionic-and-molecular-compounds",
@@ -8821,13 +9164,15 @@
     },
     {
       "id": "copernicium-cn",
-      "title": "Copernicium (Cn): thành phần, mô hình và phản ứng",
+      "title": "Copernicium (Cn) — Một phát hiện mở thêm câu hỏi nghiên cứu",
       "subjectIds": [
         "atom-Cn"
       ],
-      "sections": 7,
-      "characters": 4139,
+      "sections": 9,
+      "characters": 5070,
       "externalSources": [
+        "https://commons.wikimedia.org/wiki/File:Part_of_UNILAC_GSI.jpg",
+        "https://creativecommons.org/licenses/by-sa/3.0",
         "https://periodic-table.rsc.org/element/112/copernicium",
         "https://openstax.org/books/chemistry-2e/pages/3-1-formula-mass-and-the-mole-concept",
         "https://openstax.org/books/chemistry-2e/pages/2-6-ionic-and-molecular-compounds",
@@ -8837,13 +9182,15 @@
     },
     {
       "id": "nihonium-nh",
-      "title": "Nihonium (Nh): thành phần, mô hình và phản ứng",
+      "title": "Nihonium (Nh) — Một phát hiện mở thêm câu hỏi nghiên cứu",
       "subjectIds": [
         "atom-Nh"
       ],
-      "sections": 7,
-      "characters": 4152,
+      "sections": 9,
+      "characters": 5152,
       "externalSources": [
+        "https://commons.wikimedia.org/wiki/File:Part_of_UNILAC_GSI.jpg",
+        "https://creativecommons.org/licenses/by-sa/3.0",
         "https://periodic-table.rsc.org/element/113/nihonium",
         "https://openstax.org/books/chemistry-2e/pages/3-1-formula-mass-and-the-mole-concept",
         "https://openstax.org/books/chemistry-2e/pages/2-6-ionic-and-molecular-compounds",
@@ -8853,13 +9200,15 @@
     },
     {
       "id": "flerovium-fl",
-      "title": "Flerovium (Fl): thành phần, mô hình và phản ứng",
+      "title": "Flerovium (Fl) — Một phát hiện mở thêm câu hỏi nghiên cứu",
       "subjectIds": [
         "atom-Fl"
       ],
-      "sections": 7,
-      "characters": 4204,
+      "sections": 9,
+      "characters": 5162,
       "externalSources": [
+        "https://commons.wikimedia.org/wiki/File:Part_of_UNILAC_GSI.jpg",
+        "https://creativecommons.org/licenses/by-sa/3.0",
         "https://periodic-table.rsc.org/element/114/flerovium",
         "https://openstax.org/books/chemistry-2e/pages/3-1-formula-mass-and-the-mole-concept",
         "https://openstax.org/books/chemistry-2e/pages/2-6-ionic-and-molecular-compounds",
@@ -8869,13 +9218,15 @@
     },
     {
       "id": "moscovium-mc",
-      "title": "Moscovium (Mc): thành phần, mô hình và phản ứng",
+      "title": "Moscovium (Mc) — Một phát hiện mở thêm câu hỏi nghiên cứu",
       "subjectIds": [
         "atom-Mc"
       ],
-      "sections": 7,
-      "characters": 4160,
+      "sections": 9,
+      "characters": 5077,
       "externalSources": [
+        "https://commons.wikimedia.org/wiki/File:Part_of_UNILAC_GSI.jpg",
+        "https://creativecommons.org/licenses/by-sa/3.0",
         "https://periodic-table.rsc.org/element/115/moscovium",
         "https://openstax.org/books/chemistry-2e/pages/3-1-formula-mass-and-the-mole-concept",
         "https://openstax.org/books/chemistry-2e/pages/2-6-ionic-and-molecular-compounds",
@@ -8885,13 +9236,15 @@
     },
     {
       "id": "livermorium-lv",
-      "title": "Livermorium (Lv): thành phần, mô hình và phản ứng",
+      "title": "Livermorium (Lv) — Một phát hiện mở thêm câu hỏi nghiên cứu",
       "subjectIds": [
         "atom-Lv"
       ],
-      "sections": 7,
-      "characters": 4223,
+      "sections": 9,
+      "characters": 5192,
       "externalSources": [
+        "https://commons.wikimedia.org/wiki/File:Part_of_UNILAC_GSI.jpg",
+        "https://creativecommons.org/licenses/by-sa/3.0",
         "https://periodic-table.rsc.org/element/116/livermorium",
         "https://openstax.org/books/chemistry-2e/pages/3-1-formula-mass-and-the-mole-concept",
         "https://openstax.org/books/chemistry-2e/pages/2-6-ionic-and-molecular-compounds",
@@ -8901,13 +9254,15 @@
     },
     {
       "id": "tennessine-ts",
-      "title": "Tennessine (Ts): thành phần, mô hình và phản ứng",
+      "title": "Tennessine (Ts) — Một phát hiện mở thêm câu hỏi nghiên cứu",
       "subjectIds": [
         "atom-Ts"
       ],
-      "sections": 7,
-      "characters": 4379,
+      "sections": 9,
+      "characters": 5445,
       "externalSources": [
+        "https://commons.wikimedia.org/wiki/File:Part_of_UNILAC_GSI.jpg",
+        "https://creativecommons.org/licenses/by-sa/3.0",
         "https://periodic-table.rsc.org/element/117/tennessine",
         "https://openstax.org/books/chemistry-2e/pages/3-1-formula-mass-and-the-mole-concept",
         "https://openstax.org/books/chemistry-2e/pages/2-6-ionic-and-molecular-compounds",
@@ -8917,13 +9272,15 @@
     },
     {
       "id": "oganesson-og",
-      "title": "Oganesson (Og): thành phần, mô hình và phản ứng",
+      "title": "Oganesson (Og) — Một phát hiện mở thêm câu hỏi nghiên cứu",
       "subjectIds": [
         "atom-Og"
       ],
-      "sections": 7,
-      "characters": 4198,
+      "sections": 9,
+      "characters": 5175,
       "externalSources": [
+        "https://commons.wikimedia.org/wiki/File:Part_of_UNILAC_GSI.jpg",
+        "https://creativecommons.org/licenses/by-sa/3.0",
         "https://periodic-table.rsc.org/element/118/oganesson",
         "https://openstax.org/books/chemistry-2e/pages/3-1-formula-mass-and-the-mole-concept",
         "https://openstax.org/books/chemistry-2e/pages/2-6-ionic-and-molecular-compounds",

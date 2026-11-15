@@ -2,11 +2,11 @@
   "id": "nha-khoa-hoc-duoc-ghi-nhan-chinh-thuc-cho-nhom-nghien-cuu-tai-joint-institute-for-nuclear-research-jinr-dubna-do-georgy-flyorov-dung-dau",
   "slug": "nha-khoa-hoc-duoc-ghi-nhan-chinh-thuc-cho-nhom-nghien-cuu-tai-joint-institute-for-nuclear-research-jinr-dubna-do-georgy-flyorov-dung-dau",
   "documentPath": "docs/nha-khoa-hoc-duoc-ghi-nhan-chinh-thuc-cho-nhom-nghien-cuu-tai-joint-institute-for-nuclear-research-jinr-dubna-do-georgy-flyorov-dung-dau/index.json",
-  "title": "Được ghi nhận chính thức cho nhóm nghiên cứu tại Joint Institute for Nuclear Research (JINR), Dubna, do Georgy Flyorov đứng đầu. — dấu mốc khám phá hóa học",
+  "title": "Nobelium: cuộc tìm kiếm của các nhóm nghiên cứu",
   "author": "Ban biên tập ChemDex",
   "category": "tieusu",
-  "summary": "Hồ sơ lịch sử liên quan đến Nobelium (No); phân biệt phát hiện, cô lập và đặt tên theo từng trường hợp.",
-  "image": "/assets/library/history-evidence.svg",
+  "summary": "Nobelium được tạo ra bằng cách bắn phá curium-246 bằng các ion cacbon-12: ²⁴⁶Cm + ¹²C → ²⁵⁶No + 2n Tên nobelium được đặt để vinh danh Alfred Nobel, người sáng lập giải Nobel.",
+  "image": "/assets/library/photos/elements/No.jpg",
   "tags": [
     "Lịch sử hóa học",
     "No"
@@ -15,6 +15,26 @@
     "Được ghi nhận chính thức cho nhóm nghiên cứu tại Joint Institute for Nuclear Research (JINR), Dubna, do Georgy Flyorov đứng đầu."
   ],
   "documentKind": "biography",
-  "readingMinutes": 1,
-  "content": "# Được ghi nhận chính thức cho nhóm nghiên cứu tại Joint Institute for Nuclear Research (JINR), Dubna, do Georgy Flyorov đứng đầu. — dấu mốc khám phá hóa học\n\nHồ sơ lịch sử liên quan đến Nobelium (No); phân biệt phát hiện, cô lập và đặt tên theo từng trường hợp.\n\n## Nobelium (No)\n\nNobelium được tạo ra bằng cách bắn phá Curium-246 bằng các ion Carbon-12: ²⁴⁶Cm + ¹²C → ²⁵⁶No + 2n Tên Nobelium được đặt để vinh danh Alfred Nobel, người sáng lập giải Nobel.\n\n**Mốc lịch sử:** 1966 (sau nhiều tranh cãi về các tuyên bố phát hiện trước đó). **Địa điểm ghi trong hồ sơ:** Dubna, Liên Xô.\n\n[Đọc tài liệu về Nobelium](/trung-tam/tai-lieu-so/nobelium-no/).\n\n[Royal Society of Chemistry — thông tin nguyên tố](https://periodic-table.rsc.org/element/102/nobelium)\n\n## Cách đọc các mốc lịch sử\n\nPhát hiện một nguyên tố, cô lập đơn chất và đặt tên có thể là những công việc khác nhau, diễn ra ở các thời điểm khác nhau. Một nhóm nghiên cứu hoặc cơ quan không được xem như một cá nhân. Với nguyên tố được biết từ cổ đại, hồ sơ không gán một người khám phá. Các ghi nhận trên dẫn về tài liệu của nguyên tố và nguồn tham khảo tương ứng; không bổ sung lời trích dẫn hay giai thoại đời tư chưa có căn cứ."
+  "readingMinutes": 2,
+  "editorialEvidence": {
+    "language": "vi",
+    "scope": "related-element",
+    "contextLabel": "Nobelium (No)",
+    "reviewBasis": "existing-element-dossier",
+    "story": {
+      "status": "documented",
+      "section": "## Cuộc tìm kiếm dẫn đến nobelium",
+      "sources": [
+        "https://periodic-table.rsc.org/element/102/nobelium"
+      ]
+    },
+    "application": {
+      "status": "context-only",
+      "section": "## Từ dấu mốc nghiên cứu đến công việc hôm nay",
+      "sources": [
+        "https://periodic-table.rsc.org/element/102/nobelium"
+      ]
+    }
+  },
+  "content": "## Cuộc tìm kiếm dẫn đến nobelium\n\nNobelium được tạo ra bằng cách bắn phá curium-246 bằng các ion cacbon-12: ²⁴⁶Cm + ¹²C → ²⁵⁶No + 2n Tên nobelium được đặt để vinh danh Alfred Nobel, người sáng lập giải Nobel.\n\nNhững người hoặc cơ sở được ghi nhận trong câu chuyện này là **Được ghi nhận chính thức cho nhóm nghiên cứu tại Joint Institute for Nuclear Research (JINR), Dubna, do Georgy Flyorov đứng đầu.**.\n\n![Hình minh họa nobelium](/assets/library/photos/elements/No.jpg)\n\n*Hình minh họa chủ đề nobelium. [Nguồn hình: bộ ảnh nguyên tố](https://en.wikipedia.org/wiki/Nobelium).*\n\n## Bằng chứng đã thay đổi điều gì?\n\nỞ những nguyên tố được tạo ra bằng phản ứng hạt nhân, bằng chứng có thể xuất hiện dưới dạng một chuỗi tín hiệu phân rã. Các nhà nghiên cứu phải nối những tín hiệu ấy với quá trình tạo mẫu, kiểm tra sản phẩm và đối chiếu sự kiện lặp lại. Đổi một nguyên tố thành nguyên tố khác đòi hỏi thay đổi hạt nhân; phản ứng hóa học thông thường chỉ sắp xếp lại electron và liên kết. Chính sự khác biệt này khiến cuộc tìm kiếm cần đến những công cụ vượt xa bình phản ứng quen thuộc.\n\n## Từ dấu mốc nghiên cứu đến công việc hôm nay\n\n### Nobelium (No)\n\nNobelium gần như chỉ được sử dụng trong nghiên cứu vật lý hạt nhân và hóa học actini.\n\nNobelium đặc biệt quan trọng để nghiên cứu ảnh hưởng của cấu hình 5f¹⁴ lên tính chất hóa học của các actini nặng.\n\n[Đọc tiếp về Nobelium](/trung-tam/tai-lieu-so/nobelium-no/).\n\nNhững ứng dụng này thuộc về hành trình phát triển tiếp theo của nguyên tố. Từ phát hiện đến thiết bị sử dụng được còn có công việc của nhiều thế hệ: tạo vật liệu đủ sạch, hiểu tính chất, thiết kế quy trình và kiểm tra độ bền. Vai trò của người khám phá nằm ở dấu mốc được kể ở trên; các công nghệ xuất hiện sau đó cần được ghi nhận cho đúng công trình.\n\n## Nguồn và đọc tiếp\n\n- [Hội Hóa học Hoàng gia Anh · Nobelium](https://periodic-table.rsc.org/element/102/nobelium)"
 }

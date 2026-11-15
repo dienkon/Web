@@ -1,0 +1,46 @@
+{
+  "id": "anode-hi-sinh-davy-vo-tau",
+  "slug": "anode-hi-sinh-davy-vo-tau",
+  "documentPath": "docs/anode-hi-sinh-davy-vo-tau/index.json",
+  "title": "Miếng kim loại chịu mòn thay con tàu: câu hỏi Humphry Davy đặt ra năm 1824",
+  "summary": "Từ những tấm đồng bọc tàu của hải quân Anh đến hệ thống bảo vệ công trình dưới nước, chống ăn mòn có thể bắt đầu bằng việc cho một kim loại khác bị ăn mòn có kiểm soát.",
+  "category": "phanung",
+  "author": "Ban biên tập ChemDex",
+  "image": "/assets/library/photos/stories/iron-rust.jpg",
+  "tags": [
+    "Ăn mòn",
+    "Anode hi sinh",
+    "Điện hóa",
+    "Humphry Davy"
+  ],
+  "aliases": [],
+  "documentKind": "story",
+  "readingMinutes": 5,
+  "editorialEvidence": {
+    "language": "vi",
+    "scope": "chemical-family",
+    "contextLabel": "Miếng kim loại chịu mòn thay con tàu: câu hỏi Humphry Davy đặt ra năm 1824",
+    "reviewBasis": "Biên soạn theo các nguồn dẫn cuối bài; phân biệt kết quả đã thực hiện và hướng phát triển.",
+    "story": {
+      "status": "documented",
+      "section": "## Khi lớp áo đồng xuống cấp giữa biển",
+      "sources": [
+        "https://knowledge.electrochem.org/estir/hist/hist-03-Davy-2.pdf",
+        "https://openstax.org/books/chemistry-2e/pages/17-6-corrosion",
+        "https://www.publications.usace.army.mil/Portals/76/Users/182/86/2486/11EM_1110-2-2704%20%28003%29.pdf",
+        "https://www.sam.usace.army.mil/Missions/Military-Missions/Engineering/Corrosion-Control-and-Cathodic-Protection-Systems/"
+      ]
+    },
+    "application": {
+      "status": "documented",
+      "section": "## Ứng dụng hôm nay: bảo vệ cũng cần được đo",
+      "sources": [
+        "https://knowledge.electrochem.org/estir/hist/hist-03-Davy-2.pdf",
+        "https://openstax.org/books/chemistry-2e/pages/17-6-corrosion",
+        "https://www.publications.usace.army.mil/Portals/76/Users/182/86/2486/11EM_1110-2-2704%20%28003%29.pdf",
+        "https://www.sam.usace.army.mil/Missions/Military-Missions/Engineering/Corrosion-Control-and-Cathodic-Protection-Systems/"
+      ]
+    }
+  },
+  "content": "## Khi lớp áo đồng xuống cấp giữa biển\n\nNgày 22/1/1824, một công trình của Humphry Davy được đọc trước Royal Society. Đề tài không phải một chất mới lạ, mà là sự ăn mòn những tấm đồng bọc tàu trong nước biển. Hải quân cần biết vì sao lớp kim loại ấy xuống cấp và liệu có thể kéo dài thời gian sử dụng. Davy bắt đầu bằng thí nghiệm với các mẫu đồng thay vì chỉ quy mọi hư hỏng cho tạp chất.\n\nBản công bố ghi lại việc ông khảo sát ảnh hưởng của những kim loại khác khi nối với đồng. Đó là một ví dụ sớm của tư duy điện hóa ứng dụng: môi trường dẫn điện và cặp kim loại có thể thay đổi nơi diễn ra phản ứng. Muốn giữ một bề mặt bền hơn, đôi khi phải thay đổi cả mạch điện hóa bao quanh nó.\n\n![Mảnh sắt bị gỉ ngoài trời](/assets/library/photos/stories/iron-rust.jpg)\n\n*Các mảnh sắt gỉ đặt ngoài trời tại Gåseberg, Thụy Điển — dấu vết dễ thấy của quá trình ăn mòn. — W.carter; [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0). [Nguồn ảnh](https://commons.wikimedia.org/wiki/File:Rusty_scraps_of_iron.jpg).*\n\n## Đổi nơi mất electron\n\nKhi sắt bị ăn mòn, kim loại có thể nhường electron và đi vào dung dịch: Fe → Fe²⁺ + 2e⁻. Ở vị trí khác trên bề mặt, một chất nhận electron; trong nước có oxygen, phản ứng khử oxygen thường tham gia. Những quá trình nối nhau qua kim loại và dung dịch tạo thành các vùng điện hóa, dù không hề có dây điện hay pin bán sẵn.\n\nNếu nối thép với một anode phù hợp, chẳng hạn hợp kim nền kẽm được chọn cho điều kiện thiết kế, anode ấy bị oxi hóa ưu tiên. Electron được cấp tới kết cấu cần bảo vệ, làm giảm xu hướng kim loại kết cấu hòa tan. Tên gọi “hi sinh” diễn tả việc vật liệu bảo vệ bị tiêu hao. Nó không phải lớp bùa chống nước biển và cũng không thể làm cho thép miễn nhiễm với mọi dạng hư hỏng.\n\n## Một cục kẽm không thể đặt ở đâu cũng được\n\nTài liệu thiết kế của Công binh Hoa Kỳ phân biệt hệ anode galvanic với hệ bảo vệ dùng nguồn điện ngoài. Anode galvanic không cần bộ nguồn riêng, nhưng phải được lựa chọn và bố trí phù hợp. Khi bị tiêu hao, nó cần thay thế; nếu mối nối điện kém hoặc dòng bảo vệ không đến được vùng cần thiết, hiệu quả cũng giảm.\n\nTình trạng lớp sơn, diện tích bề mặt hở, độ dẫn điện của môi trường và vị trí anode đều tham gia bài toán. Một kết cấu có lớp phủ tốt thường cần ít dòng bảo vệ hơn một bề mặt lớn để trần. Vì vậy, bảo vệ cathode và sơn phủ có thể bổ trợ nhau. Ảnh sắt gỉ trong bài minh họa hậu quả ăn mòn; nó không phải bằng chứng một hệ bảo vệ cụ thể đã thất bại.\n\n## Ứng dụng hôm nay: bảo vệ cũng cần được đo\n\nTrong công trình thủy, hệ chống ăn mòn được kiểm tra bằng đo điện thế, khảo sát tình trạng anode và theo dõi lớp phủ. Người vận hành không chỉ chờ nhìn thấy gỉ rồi mới kết luận. Cùng một nguyên lý có thể được áp dụng cho nhiều kết cấu tiếp xúc chất điện ly, nhưng thiết kế cho nước biển không thể tự động chép sang mọi loại đất hoặc nước ngọt.\n\nĐiều còn nguyên giá trị từ câu hỏi của Davy là cách đưa hóa học vào bài toán tuổi thọ. Một chi tiết nhỏ được thiết kế để hao đi có thể giúp bảo vệ một kết cấu lớn hơn nhiều. Muốn đánh giá hệ thống, phải hỏi kim loại nào đang mất electron, dòng điện khép kín bằng đường nào và sự bảo vệ còn duy trì đến khi nào. Những câu hỏi ấy cụ thể hơn nhiều so với việc gọi chung một vật liệu là “chống gỉ”.\n\n## Nguồn và đọc thêm\n\n- [Humphry Davy · Công trình nguyên bản về ăn mòn đồng trong nước biển, 1824](https://knowledge.electrochem.org/estir/hist/hist-03-Davy-2.pdf)\n- [OpenStax · Ăn mòn và bảo vệ cathode](https://openstax.org/books/chemistry-2e/pages/17-6-corrosion)\n- [USACE · Cathodic Protection Systems for Civil Works Structures, 2021](https://www.publications.usace.army.mil/Portals/76/Users/182/86/2486/11EM_1110-2-2704%20%28003%29.pdf)\n- [USACE · Trung tâm kỹ thuật kiểm soát ăn mòn](https://www.sam.usace.army.mil/Missions/Military-Missions/Engineering/Corrosion-Control-and-Cathodic-Protection-Systems/)"
+}

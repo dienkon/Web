@@ -1,0 +1,1101 @@
+[
+  {
+    "id": "moxie-tao-oxy-tren-sao-hoa",
+    "slug": "moxie-tao-oxy-tren-sao-hoa",
+    "documentPath": "docs/moxie-tao-oxy-tren-sao-hoa/index.json",
+    "title": "122 gram oxy trên Sao Hỏa: một thí nghiệm nhỏ cho chuyến trở về rất xa",
+    "summary": "MOXIE đã tách oxy từ khí quyển Sao Hỏa. Phía sau 122 gram sản phẩm là bài toán điện phân, năng lượng và nhiên liệu cho hành trình trở về Trái Đất.",
+    "category": "phanung",
+    "author": "Ban biên tập ChemDex",
+    "image": "/assets/library/photos/stories/moxie.jpg",
+    "tags": [
+      "Điện phân",
+      "Sao Hỏa",
+      "Oxy",
+      "CO2"
+    ],
+    "aliases": [],
+    "documentKind": "story",
+    "readingMinutes": 4,
+    "editorialEvidence": {
+      "language": "vi",
+      "scope": "chemical-family",
+      "contextLabel": "122 gram oxy trên Sao Hỏa: một thí nghiệm nhỏ cho chuyến trở về rất xa",
+      "reviewBasis": "Biên soạn theo các nguồn dẫn cuối bài; phân biệt kết quả đã thực hiện và hướng phát triển.",
+      "story": {
+        "status": "documented",
+        "section": "## Một chiếc máy mang theo câu hỏi về đường về",
+        "sources": [
+          "https://www.nasa.gov/missions/mars-2020-perseverance/perseverance-rover/nasas-oxygen-generating-experiment-moxie-completes-mars-mission/",
+          "https://openstax.org/books/chemistry-2e/pages/17-7-electrolysis"
+        ]
+      },
+      "application": {
+        "status": "documented",
+        "section": "## Ứng dụng hôm nay: thử nghiệm đã thành công, nhà máy vẫn là bước tiếp theo",
+        "sources": [
+          "https://www.nasa.gov/missions/mars-2020-perseverance/perseverance-rover/nasas-oxygen-generating-experiment-moxie-completes-mars-mission/",
+          "https://openstax.org/books/chemistry-2e/pages/17-7-electrolysis"
+        ]
+      }
+    }
+  },
+  {
+    "id": "sabatier-tu-hoi-tho-den-nuoc",
+    "slug": "sabatier-tu-hoi-tho-den-nuoc",
+    "documentPath": "docs/sabatier-tu-hoi-tho-den-nuoc/index.json",
+    "title": "Từ hơi thở thành nước: vòng tuần hoàn chưa khép kín trên trạm vũ trụ",
+    "summary": "Trên ISS, carbon dioxide do phi hành gia thở ra được đưa vào phản ứng Sabatier. Vì sao tạo được nước mà hệ thống vẫn chưa thể tự nuôi sống mình mãi mãi?",
+    "category": "phanung",
+    "author": "Ban biên tập ChemDex",
+    "image": "/assets/library/photos/stories/iss.jpg",
+    "tags": [
+      "Sabatier",
+      "Xúc tác",
+      "Nước",
+      "Trạm vũ trụ"
+    ],
+    "aliases": [],
+    "documentKind": "story",
+    "readingMinutes": 4,
+    "editorialEvidence": {
+      "language": "vi",
+      "scope": "chemical-family",
+      "contextLabel": "Từ hơi thở thành nước: vòng tuần hoàn chưa khép kín trên trạm vũ trụ",
+      "reviewBasis": "Biên soạn theo các nguồn dẫn cuối bài; phân biệt kết quả đã thực hiện và hướng phát triển.",
+      "story": {
+        "status": "documented",
+        "section": "## Carbon dioxide có một chặng đường thứ hai",
+        "sources": [
+          "https://www.nasa.gov/reference/environmental-control-and-life-support-systems-eclss/",
+          "https://www.nasa.gov/spacecraft-oxygen-recovery-scor/"
+        ]
+      },
+      "application": {
+        "status": "documented",
+        "section": "## Ứng dụng hôm nay: tiết kiệm nước bằng cách quản lý cả khí thải",
+        "sources": [
+          "https://www.nasa.gov/reference/environmental-control-and-life-support-systems-eclss/",
+          "https://www.nasa.gov/spacecraft-oxygen-recovery-scor/"
+        ]
+      }
+    }
+  },
+  {
+    "id": "hall-heroult-dong-dien-va-nhom",
+    "slug": "hall-heroult-dong-dien-va-nhom",
+    "documentPath": "docs/hall-heroult-dong-dien-va-nhom/index.json",
+    "title": "Những giọt kim loại năm 1886 và cuộc đổi đời của nhôm",
+    "summary": "Nhôm từng khó điều chế dù nguyên tố này rất phổ biến. Bước ngoặt Hall–Héroult cho thấy một dung môi phù hợp có thể làm thay đổi cả ngành vật liệu.",
+    "category": "phanung",
+    "author": "Ban biên tập ChemDex",
+    "image": "/assets/library/photos/stories/aluminium-recycling.jpg",
+    "tags": [
+      "Nhôm",
+      "Hall–Héroult",
+      "Điện phân",
+      "Công nghiệp"
+    ],
+    "aliases": [],
+    "documentKind": "story",
+    "readingMinutes": 4,
+    "editorialEvidence": {
+      "language": "vi",
+      "scope": "chemical-family",
+      "contextLabel": "Những giọt kim loại năm 1886 và cuộc đổi đời của nhôm",
+      "reviewBasis": "Biên soạn theo các nguồn dẫn cuối bài; phân biệt kết quả đã thực hiện và hướng phát triển.",
+      "story": {
+        "status": "documented",
+        "section": "## Một kim loại phổ biến nhưng khó lấy ra",
+        "sources": [
+          "https://www.acs.org/education/whatischemistry/landmarks/aluminumprocess.html",
+          "https://openstax.org/books/chemistry-2e/pages/17-7-electrolysis",
+          "https://periodic-table.rsc.org/element/13/aluminium"
+        ]
+      },
+      "application": {
+        "status": "documented",
+        "section": "## Ứng dụng hôm nay: giá trị của nhôm đã nằm sẵn trong chiếc lon cũ",
+        "sources": [
+          "https://www.acs.org/education/whatischemistry/landmarks/aluminumprocess.html",
+          "https://openstax.org/books/chemistry-2e/pages/17-7-electrolysis",
+          "https://periodic-table.rsc.org/element/13/aluminium"
+        ]
+      }
+    }
+  },
+  {
+    "id": "nylon-khi-phan-tu-tro-thanh-soi",
+    "slug": "nylon-khi-phan-tu-tro-thanh-soi",
+    "documentPath": "docs/nylon-khi-phan-tu-tro-thanh-soi/index.json",
+    "title": "Kéo một phân tử thành sợi: câu chuyện nylon bắt đầu từ chiều dài",
+    "summary": "Nghiên cứu của Wallace Carothers đưa các phân tử nhỏ thành chuỗi dài. Để có một sợi nylon dùng được, phản ứng mới chỉ là bước đầu.",
+    "category": "phanung",
+    "author": "Ban biên tập ChemDex",
+    "image": "/assets/library/photos/stories/nylon.jpg",
+    "tags": [
+      "Nylon",
+      "Polymer",
+      "Trùng ngưng",
+      "Vật liệu"
+    ],
+    "aliases": [],
+    "documentKind": "story",
+    "readingMinutes": 4,
+    "editorialEvidence": {
+      "language": "vi",
+      "scope": "chemical-family",
+      "contextLabel": "Kéo một phân tử thành sợi: câu chuyện nylon bắt đầu từ chiều dài",
+      "reviewBasis": "Biên soạn theo các nguồn dẫn cuối bài; phân biệt kết quả đã thực hiện và hướng phát triển.",
+      "story": {
+        "status": "documented",
+        "section": "## Câu hỏi lớn nằm trong một chuỗi rất dài",
+        "sources": [
+          "https://www.acs.org/education/whatischemistry/landmarks/carotherspolymers.html",
+          "https://openstax.org/books/organic-chemistry/pages/31-4-step-growth-polymers"
+        ]
+      },
+      "application": {
+        "status": "documented",
+        "section": "## Ứng dụng hôm nay: công thức giống nhau vẫn có thể cho sợi khác nhau",
+        "sources": [
+          "https://www.acs.org/education/whatischemistry/landmarks/carotherspolymers.html",
+          "https://openstax.org/books/organic-chemistry/pages/31-4-step-growth-polymers"
+        ]
+      }
+    }
+  },
+  {
+    "id": "click-hoa-hoc-noi-phan-tu",
+    "slug": "click-hoa-hoc-noi-phan-tu",
+    "documentPath": "docs/click-hoa-hoc-noi-phan-tu/index.json",
+    "title": "Một cú “click” giữa các phân tử: khi phản ứng phải chọn đúng đối tác",
+    "summary": "Hóa học click giúp lắp ghép phân tử; hóa học trực giao sinh học còn đòi hỏi phản ứng hoạt động giữa môi trường sống phức tạp mà ít làm xáo trộn nó.",
+    "category": "phanung",
+    "author": "Ban biên tập ChemDex",
+    "image": "/assets/library/photos/stories/click-chemistry-meldal.jpg",
+    "tags": [
+      "Hóa học click",
+      "Nobel 2022",
+      "Xúc tác",
+      "Sinh học"
+    ],
+    "aliases": [],
+    "documentKind": "story",
+    "readingMinutes": 4,
+    "editorialEvidence": {
+      "language": "vi",
+      "scope": "chemical-family",
+      "contextLabel": "Một cú “click” giữa các phân tử: khi phản ứng phải chọn đúng đối tác",
+      "reviewBasis": "Biên soạn theo các nguồn dẫn cuối bài; phân biệt kết quả đã thực hiện và hướng phát triển.",
+      "story": {
+        "status": "documented",
+        "section": "## Từ bình phản ứng đến môi trường sống",
+        "sources": [
+          "https://www.nobelprize.org/uploads/2022/10/popular-chemistryprize2022.pdf",
+          "https://www.nobelprize.org/uploads/2022/10/advanced-chemistryprize2022.pdf"
+        ]
+      },
+      "application": {
+        "status": "documented",
+        "section": "## Ứng dụng hôm nay: nhìn thấy những phân tử vốn khó theo dõi",
+        "sources": [
+          "https://www.nobelprize.org/uploads/2022/10/popular-chemistryprize2022.pdf",
+          "https://www.nobelprize.org/uploads/2022/10/advanced-chemistryprize2022.pdf"
+        ]
+      }
+    }
+  },
+  {
+    "id": "ph-va-nhung-au-trung-hau",
+    "slug": "ph-va-nhung-au-trung-hau",
+    "documentPath": "docs/ph-va-nhung-au-trung-hau/index.json",
+    "title": "Khi hàu non không lớn: pH bước ra khỏi sách giáo khoa",
+    "summary": "Sự cố ở các trại giống hàu vùng Tây Bắc Thái Bình Dương đưa hóa học carbonate vào quyết định lấy nước, nuôi giống và bảo vệ sinh kế.",
+    "category": "khainiem",
+    "author": "Ban biên tập ChemDex",
+    "image": "/assets/library/photos/stories/oyster.jpg",
+    "tags": [
+      "pH",
+      "Đại dương",
+      "Cân bằng hóa học",
+      "Carbonate"
+    ],
+    "aliases": [],
+    "documentKind": "story",
+    "readingMinutes": 4,
+    "editorialEvidence": {
+      "language": "vi",
+      "scope": "chemical-family",
+      "contextLabel": "Khi hàu non không lớn: pH bước ra khỏi sách giáo khoa",
+      "reviewBasis": "Biên soạn theo các nguồn dẫn cuối bài; phân biệt kết quả đã thực hiện và hướng phát triển.",
+      "story": {
+        "status": "documented",
+        "section": "## Một mùa giống đặt ra câu hỏi về nước biển",
+        "sources": [
+          "https://oceanacidification.noaa.gov/oap_pubs/impacts-of-coastal-acidification-on-the-pacific-northwest-shellfish-industry-and-adaptation-strategies-implemented-in-response/",
+          "https://oceanservice.noaa.gov/facts/acidification.html",
+          "https://ioos.noaa.gov/project/pacific-ocean-acidification-project/"
+        ]
+      },
+      "application": {
+        "status": "documented",
+        "section": "## Ứng dụng hôm nay: chọn thời điểm lấy nước bằng dữ liệu",
+        "sources": [
+          "https://oceanacidification.noaa.gov/oap_pubs/impacts-of-coastal-acidification-on-the-pacific-northwest-shellfish-industry-and-adaptation-strategies-implemented-in-response/",
+          "https://oceanservice.noaa.gov/facts/acidification.html",
+          "https://ioos.noaa.gov/project/pacific-ocean-acidification-project/"
+        ]
+      }
+    }
+  },
+  {
+    "id": "kinh-te-nguyen-tu-ibuprofen",
+    "slug": "kinh-te-nguyen-tu-ibuprofen",
+    "documentPath": "docs/kinh-te-nguyen-tu-ibuprofen/index.json",
+    "title": "Một viên thuốc, hai con đường: vì sao nhà hóa học phải đếm cả chất thải?",
+    "summary": "Quy trình ibuprofen của BHC rút từ sáu bước xuống ba bước. Câu chuyện cho thấy hiệu suất cao và sử dụng nguyên tử hiệu quả là hai điều khác nhau.",
+    "category": "khainiem",
+    "author": "Ban biên tập ChemDex",
+    "image": "/assets/library/photos/stories/chromatography.jpg",
+    "tags": [
+      "Hóa học xanh",
+      "Kinh tế nguyên tử",
+      "Ibuprofen",
+      "Sản xuất"
+    ],
+    "aliases": [],
+    "documentKind": "story",
+    "readingMinutes": 4,
+    "editorialEvidence": {
+      "language": "vi",
+      "scope": "chemical-family",
+      "contextLabel": "Một viên thuốc, hai con đường: vì sao nhà hóa học phải đếm cả chất thải?",
+      "reviewBasis": "Biên soạn theo các nguồn dẫn cuối bài; phân biệt kết quả đã thực hiện và hướng phát triển.",
+      "story": {
+        "status": "documented",
+        "section": "## Đổi tuyến đường thay vì chỉ dọn phần còn lại",
+        "sources": [
+          "https://www.epa.gov/greenchemistry/presidential-green-chemistry-challenge-1997-greener-synthetic-pathways-award",
+          "https://www.epa.gov/sites/production/files/2015-10/documents/c15-kirchhoff-p1.pdf",
+          "https://www.acs.org/green-chemistry-sustainability/principles/12-principles-of-green-chemistry.html"
+        ]
+      },
+      "application": {
+        "status": "documented",
+        "section": "## Ứng dụng hôm nay: thiết kế sản xuất từ cả đầu vào lẫn đầu ra",
+        "sources": [
+          "https://www.epa.gov/greenchemistry/presidential-green-chemistry-challenge-1997-greener-synthetic-pathways-award",
+          "https://www.epa.gov/sites/production/files/2015-10/documents/c15-kirchhoff-p1.pdf",
+          "https://www.acs.org/green-chemistry-sustainability/principles/12-principles-of-green-chemistry.html"
+        ]
+      }
+    }
+  },
+  {
+    "id": "xen-cai-ion-pin-sac",
+    "slug": "xen-cai-ion-pin-sac",
+    "documentPath": "docs/xen-cai-ion-pin-sac/index.json",
+    "title": "Vì sao pin sạc được? Hành trình đi và về của ion lithium",
+    "summary": "Từ các vật liệu điện cực của Whittingham, Goodenough và Yoshino, phản ứng xen cài trở thành nền tảng của pin lithium-ion. Khả năng quay lại cũng có giới hạn.",
+    "category": "khainiem",
+    "author": "Ban biên tập ChemDex",
+    "image": "/assets/library/photos/stories/lithium-battery-inside.jpg",
+    "tags": [
+      "Pin lithium-ion",
+      "Điện hóa",
+      "Xen cài",
+      "Lưu trữ năng lượng"
+    ],
+    "aliases": [],
+    "documentKind": "story",
+    "readingMinutes": 4,
+    "editorialEvidence": {
+      "language": "vi",
+      "scope": "chemical-family",
+      "contextLabel": "Vì sao pin sạc được? Hành trình đi và về của ion lithium",
+      "reviewBasis": "Biên soạn theo các nguồn dẫn cuối bài; phân biệt kết quả đã thực hiện và hướng phát triển.",
+      "story": {
+        "status": "documented",
+        "section": "## Ba bước tiến để một viên pin có thể quay lại",
+        "sources": [
+          "https://www.nobelprize.org/uploads/2019/10/press-chemistry-2019-2.pdf",
+          "https://www.nobelprize.org/uploads/2019/10/whittingham-lecture.pdf",
+          "https://www.nobelprize.org/uploads/2019/10/advanced-chemistryprize2019-2.pdf"
+        ]
+      },
+      "application": {
+        "status": "documented",
+        "section": "## Ứng dụng hôm nay: mỗi thiết kế là một lựa chọn ưu tiên",
+        "sources": [
+          "https://www.nobelprize.org/uploads/2019/10/press-chemistry-2019-2.pdf",
+          "https://www.nobelprize.org/uploads/2019/10/whittingham-lecture.pdf",
+          "https://www.nobelprize.org/uploads/2019/10/advanced-chemistryprize2019-2.pdf"
+        ]
+      }
+    }
+  },
+  {
+    "id": "chu-trinh-xuc-tac-va-tang-ozone",
+    "slug": "chu-trinh-xuc-tac-va-tang-ozone",
+    "documentPath": "docs/chu-trinh-xuc-tac-va-tang-ozone/index.json",
+    "title": "Vì sao một lượng nhỏ chlorine có thể làm mất nhiều ozone?",
+    "summary": "Lỗ thủng tầng ozone đưa phản ứng dây chuyền và xúc tác ra thành vấn đề toàn cầu. Chìa khóa nằm ở việc một tác nhân được tái tạo sau mỗi vòng phản ứng.",
+    "category": "phanung",
+    "author": "Ban biên tập ChemDex",
+    "image": "/assets/library/photos/stories/ozone.jpg",
+    "tags": [
+      "Ozone",
+      "Xúc tác",
+      "Khí quyển",
+      "Môi trường"
+    ],
+    "aliases": [],
+    "documentKind": "story",
+    "readingMinutes": 4,
+    "editorialEvidence": {
+      "language": "vi",
+      "scope": "chemical-family",
+      "contextLabel": "Vì sao một lượng nhỏ chlorine có thể làm mất nhiều ozone?",
+      "reviewBasis": "Biên soạn theo các nguồn dẫn cuối bài; phân biệt kết quả đã thực hiện và hướng phát triển.",
+      "story": {
+        "status": "documented",
+        "section": "## Một phát hiện làm thay đổi cách nhìn về khí quyển",
+        "sources": [
+          "https://ozone.unep.org/20-questions-and-answers",
+          "https://ozone.unep.org/node/16127",
+          "https://openstax.org/books/chemistry-2e/pages/12-7-catalysis"
+        ]
+      },
+      "application": {
+        "status": "documented",
+        "section": "## Ứng dụng hôm nay: theo dõi phục hồi cần nhiều hơn một bức ảnh",
+        "sources": [
+          "https://ozone.unep.org/20-questions-and-answers",
+          "https://ozone.unep.org/node/16127",
+          "https://openstax.org/books/chemistry-2e/pages/12-7-catalysis"
+        ]
+      }
+    }
+  },
+  {
+    "id": "dorothy-hodgkin-doc-ban-do-phan-tu",
+    "slug": "dorothy-hodgkin-doc-ban-do-phan-tu",
+    "documentPath": "docs/dorothy-hodgkin-doc-ban-do-phan-tu/index.json",
+    "title": "Dorothy Hodgkin: đọc bản đồ phân tử từ những đốm sáng",
+    "summary": "Từ penicillin đến vitamin B₁₂ và insulin, Dorothy Hodgkin giúp hóa học đi từ biết một chất có tác dụng đến biết các nguyên tử của nó nằm ở đâu.",
+    "category": "tieusu",
+    "author": "Ban biên tập ChemDex",
+    "image": "/assets/library/history-evidence.svg",
+    "tags": [
+      "Dorothy Hodgkin",
+      "Tinh thể học",
+      "Vitamin B12",
+      "Cấu trúc phân tử"
+    ],
+    "aliases": [
+      "Dorothy Crowfoot Hodgkin"
+    ],
+    "documentKind": "story",
+    "readingMinutes": 5,
+    "editorialEvidence": {
+      "language": "vi",
+      "scope": "chemical-family",
+      "contextLabel": "Dorothy Hodgkin: đọc bản đồ phân tử từ những đốm sáng",
+      "reviewBasis": "Biên soạn theo các nguồn dẫn cuối bài; phân biệt kết quả đã thực hiện và hướng phát triển.",
+      "story": {
+        "status": "documented",
+        "section": "## Một chất có ích vẫn có thể giấu cấu trúc của mình",
+        "sources": [
+          "https://www.iucr.org/what-we-do/awards-and-prizes/nobel-prize/hodgkin",
+          "https://www.medsci.ox.ac.uk/about-us/history-of-medical-sciences/our-history/women-in-oxford-medical-sciences/professor-dorothy-hodgkin",
+          "https://www.iucr.org/people/crystallographers/the-papers-of-dorothy-mary-crowfoot-hodgkin"
+        ]
+      },
+      "application": {
+        "status": "documented",
+        "section": "## Ứng dụng hôm nay: biết hình dạng để đặt câu hỏi tốt hơn",
+        "sources": [
+          "https://www.iucr.org/what-we-do/awards-and-prizes/nobel-prize/hodgkin",
+          "https://www.medsci.ox.ac.uk/about-us/history-of-medical-sciences/our-history/women-in-oxford-medical-sciences/professor-dorothy-hodgkin",
+          "https://www.iucr.org/people/crystallographers/the-papers-of-dorothy-mary-crowfoot-hodgkin"
+        ]
+      }
+    }
+  },
+  {
+    "id": "john-goodenough-bon-volt-trong-mang-tinh-the",
+    "slug": "john-goodenough-bon-volt-trong-mang-tinh-the",
+    "documentPath": "docs/john-goodenough-bon-volt-trong-mang-tinh-the/index.json",
+    "title": "John Goodenough: bốn vôn bắt đầu từ một câu hỏi về tinh thể",
+    "summary": "Năm 1980, một vật liệu điện cực chứa liti và coban mở thêm không gian cho pin sạc. Đột phá nằm trong cách nguyên tử giữ và nhả ion.",
+    "category": "tieusu",
+    "author": "Ban biên tập ChemDex",
+    "image": "/assets/library/photos/stories/lithium-battery.jpg",
+    "tags": [
+      "John Goodenough",
+      "Pin ion liti",
+      "Điện cực",
+      "Tinh thể"
+    ],
+    "aliases": [
+      "John B. Goodenough"
+    ],
+    "documentKind": "story",
+    "readingMinutes": 5,
+    "editorialEvidence": {
+      "language": "vi",
+      "scope": "chemical-family",
+      "contextLabel": "John Goodenough: bốn vôn bắt đầu từ một câu hỏi về tinh thể",
+      "reviewBasis": "Biên soạn theo các nguồn dẫn cuối bài; phân biệt kết quả đã thực hiện và hướng phát triển.",
+      "story": {
+        "status": "documented",
+        "section": "## Điện áp nằm ở đâu trong một vật liệu?",
+        "sources": [
+          "https://www.nobelprize.org/prizes/chemistry/2019/goodenough/biographical/",
+          "https://www.nobelprize.org/uploads/2019/10/advanced-chemistryprize2019-2.pdf",
+          "https://www.energy.gov/science/doe-explainsbatteries"
+        ]
+      },
+      "application": {
+        "status": "documented",
+        "section": "## Ứng dụng hôm nay: viên pin là kết quả của cả một chuỗi lựa chọn",
+        "sources": [
+          "https://www.nobelprize.org/prizes/chemistry/2019/goodenough/biographical/",
+          "https://www.nobelprize.org/uploads/2019/10/advanced-chemistryprize2019-2.pdf",
+          "https://www.energy.gov/science/doe-explainsbatteries"
+        ]
+      }
+    }
+  },
+  {
+    "id": "stanley-whittingham-ion-di-vao-lop-vat-lieu",
+    "slug": "stanley-whittingham-ion-di-vao-lop-vat-lieu",
+    "documentPath": "docs/stanley-whittingham-ion-di-vao-lop-vat-lieu/index.json",
+    "title": "Stanley Whittingham: cho ion đi vào vật liệu mà không phá sập ngôi nhà",
+    "summary": "Nghiên cứu titan đisunfua của Whittingham đặt nền móng cho pin sạc bằng một ý tưởng: trao đổi ion trong khi giữ lại khung vật liệu.",
+    "category": "tieusu",
+    "author": "Ban biên tập ChemDex",
+    "image": "/assets/library/photos/stories/lithium-battery-inside.jpg",
+    "tags": [
+      "Stanley Whittingham",
+      "Pin sạc",
+      "Vật liệu lớp",
+      "Điện hóa"
+    ],
+    "aliases": [
+      "M. Stanley Whittingham"
+    ],
+    "documentKind": "story",
+    "readingMinutes": 5,
+    "editorialEvidence": {
+      "language": "vi",
+      "scope": "chemical-family",
+      "contextLabel": "Stanley Whittingham: cho ion đi vào vật liệu mà không phá sập ngôi nhà",
+      "reviewBasis": "Biên soạn theo các nguồn dẫn cuối bài; phân biệt kết quả đã thực hiện và hướng phát triển.",
+      "story": {
+        "status": "documented",
+        "section": "## Một hướng đi trong cuộc tìm kiếm năng lượng",
+        "sources": [
+          "https://pubmed.ncbi.nlm.nih.gov/17748676/",
+          "https://www.nobelprize.org/uploads/2019/10/whittingham-lecture.pdf",
+          "https://www.cei.washington.edu/research/energy-storage/lithium-ion-battery/"
+        ]
+      },
+      "application": {
+        "status": "documented",
+        "section": "## Ứng dụng hôm nay: hiểu đường đi của ion để thiết kế pin",
+        "sources": [
+          "https://pubmed.ncbi.nlm.nih.gov/17748676/",
+          "https://www.nobelprize.org/uploads/2019/10/whittingham-lecture.pdf",
+          "https://www.cei.washington.edu/research/energy-storage/lithium-ion-battery/"
+        ]
+      }
+    }
+  },
+  {
+    "id": "akira-yoshino-dua-pin-ra-khoi-phong-thi-nghiem",
+    "slug": "akira-yoshino-dua-pin-ra-khoi-phong-thi-nghiem",
+    "documentPath": "docs/akira-yoshino-dua-pin-ra-khoi-phong-thi-nghiem/index.json",
+    "title": "Akira Yoshino: bước cuối để viên pin có thể đi cùng con người",
+    "summary": "Yoshino ghép vật liệu điện cực thành một hệ pin có triển vọng thương mại. Câu chuyện cho thấy phát minh còn nằm ở việc chọn những thành phần làm việc được cùng nhau.",
+    "category": "tieusu",
+    "author": "Ban biên tập ChemDex",
+    "image": "/assets/library/photos/stories/lithium-battery.jpg",
+    "tags": [
+      "Akira Yoshino",
+      "Pin ion liti",
+      "Cacbon",
+      "Thiết bị di động"
+    ],
+    "aliases": [
+      "Akira Yoshino"
+    ],
+    "documentKind": "story",
+    "readingMinutes": 5,
+    "editorialEvidence": {
+      "language": "vi",
+      "scope": "chemical-family",
+      "contextLabel": "Akira Yoshino: bước cuối để viên pin có thể đi cùng con người",
+      "reviewBasis": "Biên soạn theo các nguồn dẫn cuối bài; phân biệt kết quả đã thực hiện và hướng phát triển.",
+      "story": {
+        "status": "documented",
+        "section": "## Thế giới muốn mang thiết bị ra khỏi ổ cắm",
+        "sources": [
+          "https://www.asahi-kasei.com/asahikasei-brands/yoshino/interview",
+          "https://www.asahi-kasei.com/asahikasei-brands/yoshino/profile",
+          "https://rsc.riken.jp/fjworkshop2014/participants/Akira.Yoshino.html"
+        ]
+      },
+      "application": {
+        "status": "documented",
+        "section": "## Ứng dụng hôm nay: tính di động có một nền móng hóa học",
+        "sources": [
+          "https://www.asahi-kasei.com/asahikasei-brands/yoshino/interview",
+          "https://www.asahi-kasei.com/asahikasei-brands/yoshino/profile",
+          "https://rsc.riken.jp/fjworkshop2014/participants/Akira.Yoshino.html"
+        ]
+      }
+    }
+  },
+  {
+    "id": "frances-arnold-tien-hoa-trong-ong-nghiem",
+    "slug": "frances-arnold-tien-hoa-trong-ong-nghiem",
+    "documentPath": "docs/frances-arnold-tien-hoa-trong-ong-nghiem/index.json",
+    "title": "Frances Arnold: để tiến hóa cùng làm việc trong phòng thí nghiệm",
+    "summary": "Thay vì đoán hết cách sửa một protein, Frances Arnold tạo biến thể rồi chọn bằng phép đo. Cách làm mở đường cho những enzym phù hợp với sản xuất hóa học.",
+    "category": "tieusu",
+    "author": "Ban biên tập ChemDex",
+    "image": "/assets/library/history-evidence.svg",
+    "tags": [
+      "Frances Arnold",
+      "Enzym",
+      "Tiến hóa định hướng",
+      "Xúc tác sinh học"
+    ],
+    "aliases": [
+      "Frances H. Arnold"
+    ],
+    "documentKind": "story",
+    "readingMinutes": 5,
+    "editorialEvidence": {
+      "language": "vi",
+      "scope": "chemical-family",
+      "contextLabel": "Frances Arnold: để tiến hóa cùng làm việc trong phòng thí nghiệm",
+      "reviewBasis": "Biên soạn theo các nguồn dẫn cuối bài; phân biệt kết quả đã thực hiện và hướng phát triển.",
+      "story": {
+        "status": "documented",
+        "section": "## Khi hiểu biết chưa đủ để thiết kế từng thay đổi",
+        "sources": [
+          "https://www.caltech.edu/about/news/frances-arnold-wins-2018-nobel-prize-chemistry-83926",
+          "https://www.nobelprize.org/uploads/2018/10/popular-chemistryprize2018.pdf",
+          "https://www.nobelprize.org/prizes/chemistry/2018/arnold/biographical/"
+        ]
+      },
+      "application": {
+        "status": "documented",
+        "section": "## Ứng dụng hôm nay: xúc tác được chọn cho một công việc cụ thể",
+        "sources": [
+          "https://www.caltech.edu/about/news/frances-arnold-wins-2018-nobel-prize-chemistry-83926",
+          "https://www.nobelprize.org/uploads/2018/10/popular-chemistryprize2018.pdf",
+          "https://www.nobelprize.org/prizes/chemistry/2018/arnold/biographical/"
+        ]
+      }
+    }
+  },
+  {
+    "id": "ahmed-zewail-nhin-phan-ung-khi-dang-xay-ra",
+    "slug": "ahmed-zewail-nhin-phan-ung-khi-dang-xay-ra",
+    "documentPath": "docs/ahmed-zewail-nhin-phan-ung-khi-dang-xay-ra/index.json",
+    "title": "Ahmed Zewail: đo phản ứng trước khi nó kịp trở thành sản phẩm",
+    "summary": "Những xung laser cực ngắn giúp Ahmed Zewail theo dõi biến đổi ở thang femtô giây, mở thêm chiều thời gian cho bức tranh liên kết hóa học.",
+    "category": "tieusu",
+    "author": "Ban biên tập ChemDex",
+    "image": "/assets/library/history-evidence.svg",
+    "tags": [
+      "Ahmed Zewail",
+      "Laser",
+      "Động học phản ứng",
+      "Quang phổ"
+    ],
+    "aliases": [
+      "Ahmed H. Zewail"
+    ],
+    "documentKind": "story",
+    "readingMinutes": 5,
+    "editorialEvidence": {
+      "language": "vi",
+      "scope": "chemical-family",
+      "contextLabel": "Ahmed Zewail: đo phản ứng trước khi nó kịp trở thành sản phẩm",
+      "reviewBasis": "Biên soạn theo các nguồn dẫn cuối bài; phân biệt kết quả đã thực hiện và hướng phát triển.",
+      "story": {
+        "status": "documented",
+        "section": "## Có gì xảy ra giữa hai vế phương trình?",
+        "sources": [
+          "https://www.caltech.edu/about/news/ahmed-zewail-1946-2016-51594",
+          "https://www.degruyterbrill.com/de/document/doi/10.1351/pac200072122219/html",
+          "https://authors.library.caltech.edu/records/3znyg-9yz34"
+        ]
+      },
+      "application": {
+        "status": "documented",
+        "section": "## Ứng dụng hôm nay: hiểu vật liệu trong lúc nó biến đổi",
+        "sources": [
+          "https://www.caltech.edu/about/news/ahmed-zewail-1946-2016-51594",
+          "https://www.degruyterbrill.com/de/document/doi/10.1351/pac200072122219/html",
+          "https://authors.library.caltech.edu/records/3znyg-9yz34"
+        ]
+      }
+    }
+  },
+  {
+    "id": "ada-yonath-ban-do-nha-may-protein",
+    "slug": "ada-yonath-ban-do-nha-may-protein",
+    "documentPath": "docs/ada-yonath-ban-do-nha-may-protein/index.json",
+    "title": "Ada Yonath: bản đồ của nơi tế bào lắp ráp protein",
+    "summary": "Từ những tinh thể khó đo, nghiên cứu ribôxôm của Ada Yonath giúp giải thích sự tổng hợp protein và cách một số kháng sinh can thiệp vào quá trình ấy.",
+    "category": "tieusu",
+    "author": "Ban biên tập ChemDex",
+    "image": "/assets/library/history-evidence.svg",
+    "tags": [
+      "Ada Yonath",
+      "Ribôxôm",
+      "Cấu trúc sinh học",
+      "Kháng sinh"
+    ],
+    "aliases": [
+      "Ada E. Yonath"
+    ],
+    "documentKind": "story",
+    "readingMinutes": 5,
+    "editorialEvidence": {
+      "language": "vi",
+      "scope": "chemical-family",
+      "contextLabel": "Ada Yonath: bản đồ của nơi tế bào lắp ráp protein",
+      "reviewBasis": "Biên soạn theo các nguồn dẫn cuối bài; phân biệt kết quả đã thực hiện và hướng phát triển.",
+      "story": {
+        "status": "documented",
+        "section": "## Một bộ máy sống cần được nhìn ở cấp nguyên tử",
+        "sources": [
+          "https://www.weizmann.ac.il/csb/faculty_pages/Yonath/00Sc_activities.html",
+          "https://wis-wander.weizmann.ac.il/chemistry/antibiotics-action",
+          "https://pubmed.ncbi.nlm.nih.gov/15487937/"
+        ]
+      },
+      "application": {
+        "status": "documented",
+        "section": "## Ứng dụng hôm nay: hiểu vị trí tác động của kháng sinh",
+        "sources": [
+          "https://www.weizmann.ac.il/csb/faculty_pages/Yonath/00Sc_activities.html",
+          "https://wis-wander.weizmann.ac.il/chemistry/antibiotics-action",
+          "https://pubmed.ncbi.nlm.nih.gov/15487937/"
+        ]
+      }
+    }
+  },
+  {
+    "id": "dan-shechtman-trat-tu-khong-lap-lai",
+    "slug": "dan-shechtman-trat-tu-khong-lap-lai",
+    "documentPath": "docs/dan-shechtman-trat-tu-khong-lap-lai/index.json",
+    "title": "Dan Shechtman: khi vật chất có trật tự mà không lặp lại như dự đoán",
+    "summary": "Một hợp kim nhôm–mangan buộc tinh thể học xem lại cách định nghĩa trật tự. Câu chuyện giả tinh thể cho thấy một phát hiện lớn không cần lập tức trở thành sản phẩm đại trà.",
+    "category": "tieusu",
+    "author": "Ban biên tập ChemDex",
+    "image": "/assets/library/photos/elements/Al.jpg",
+    "tags": [
+      "Dan Shechtman",
+      "Giả tinh thể",
+      "Nhiễu xạ",
+      "Vật liệu"
+    ],
+    "aliases": [
+      "Dan Shechtman"
+    ],
+    "documentKind": "story",
+    "readingMinutes": 5,
+    "editorialEvidence": {
+      "language": "vi",
+      "scope": "chemical-family",
+      "contextLabel": "Dan Shechtman: khi vật chất có trật tự mà không lặp lại như dự đoán",
+      "reviewBasis": "Biên soạn theo các nguồn dẫn cuối bài; phân biệt kết quả đã thực hiện và hướng phát triển.",
+      "story": {
+        "status": "documented",
+        "section": "## Một mẫu hợp kim làm khó cách hiểu quen thuộc",
+        "sources": [
+          "https://www.nist.gov/nist-and-nobel/dan-shechtman/context-discovery-dan-shechtman",
+          "https://www.nist.gov/nist-and-nobel/dan-shechtman/prizes-legacy-dan-shechtman",
+          "https://www.nobelprize.org/uploads/2018/06/advanced-chemistryprize2011-1.pdf"
+        ]
+      },
+      "application": {
+        "status": "documented",
+        "section": "## Ứng dụng hôm nay: thay đổi cách thiết kế trước khi thay đổi thị trường",
+        "sources": [
+          "https://www.nist.gov/nist-and-nobel/dan-shechtman/context-discovery-dan-shechtman",
+          "https://www.nist.gov/nist-and-nobel/dan-shechtman/prizes-legacy-dan-shechtman",
+          "https://www.nobelprize.org/uploads/2018/06/advanced-chemistryprize2011-1.pdf"
+        ]
+      }
+    }
+  },
+  {
+    "id": "thau-nguoc-singapore-mot-giot-nuoc-di-them-vong",
+    "slug": "thau-nguoc-singapore-mot-giot-nuoc-di-them-vong",
+    "documentPath": "docs/thau-nguoc-singapore-mot-giot-nuoc-di-them-vong/index.json",
+    "title": "Một giọt nước đi thêm vòng: Singapore đã biến màng lọc thành hạ tầng như thế nào?",
+    "summary": "Từ những chai NEWater trong ngày Quốc khánh 2002 đến nhà máy khử mặn, thẩm thấu ngược cho thấy một khái niệm hóa học có thể thay đổi cách thành phố tìm nước.",
+    "category": "khainiem",
+    "author": "Ban biên tập ChemDex",
+    "image": "/assets/library/photos/stories/desalination.jpg",
+    "tags": [
+      "Thẩm thấu ngược",
+      "Nước",
+      "Singapore",
+      "Màng lọc"
+    ],
+    "aliases": [],
+    "documentKind": "story",
+    "readingMinutes": 5,
+    "editorialEvidence": {
+      "language": "vi",
+      "scope": "chemical-family",
+      "contextLabel": "Một giọt nước đi thêm vòng: Singapore đã biến màng lọc thành hạ tầng như thế nào?",
+      "reviewBasis": "Biên soạn theo các nguồn dẫn cuối bài; phân biệt kết quả đã thực hiện và hướng phát triển.",
+      "story": {
+        "status": "documented",
+        "section": "## Chai nước xuất hiện giữa ngày hội",
+        "sources": [
+          "https://www.pub.gov.sg/Public/WaterLoop/OurWaterStory/NEWater",
+          "https://openstax.org/books/chemistry-2e/pages/11-4-colligative-properties",
+          "https://www.pub.gov.sg/Public/WaterLoop/OurWaterStory/DesalinatedWater",
+          "https://www.mse.gov.sg/latest-news/written-reply-to-parliamentary-question-on-unit-cost-and-energy-intensity-of-desalinated-water-vs-newater-and-imported-water/"
+        ]
+      },
+      "application": {
+        "status": "documented",
+        "section": "## Ứng dụng hôm nay: nguồn nước gắn với hóa đơn năng lượng",
+        "sources": [
+          "https://www.pub.gov.sg/Public/WaterLoop/OurWaterStory/NEWater",
+          "https://openstax.org/books/chemistry-2e/pages/11-4-colligative-properties",
+          "https://www.pub.gov.sg/Public/WaterLoop/OurWaterStory/DesalinatedWater",
+          "https://www.mse.gov.sg/latest-news/written-reply-to-parliamentary-question-on-unit-cost-and-energy-intensity-of-desalinated-water-vs-newater-and-imported-water/"
+        ]
+      }
+    }
+  },
+  {
+    "id": "sac-ky-tu-vet-mau-den-chuan-tra-xanh",
+    "slug": "sac-ky-tu-vet-mau-den-chuan-tra-xanh",
+    "documentPath": "docs/sac-ky-tu-vet-mau-den-chuan-tra-xanh/index.json",
+    "title": "Sắc ký: làm sao buộc một hỗn hợp kể tên từng thành phần?",
+    "summary": "Martin và Synge tìm cách tách những chất nằm lẫn trong nhau. Từ bước ngoặt ấy đến vật liệu chuẩn trà xanh của NIST, sắc ký trở thành cách biến một mẫu khó hiểu thành dữ liệu có thể kiểm tra.",
+    "category": "khainiem",
+    "author": "Ban biên tập ChemDex",
+    "image": "/assets/library/photos/stories/chromatography.jpg",
+    "tags": [
+      "Sắc ký",
+      "Phân tích",
+      "HPLC",
+      "Đo lường"
+    ],
+    "aliases": [],
+    "documentKind": "story",
+    "readingMinutes": 5,
+    "editorialEvidence": {
+      "language": "vi",
+      "scope": "chemical-family",
+      "contextLabel": "Sắc ký: làm sao buộc một hỗn hợp kể tên từng thành phần?",
+      "reviewBasis": "Biên soạn theo các nguồn dẫn cuối bài; phân biệt kết quả đã thực hiện và hướng phát triển.",
+      "story": {
+        "status": "documented",
+        "section": "## Hai nhà nghiên cứu và bài toán hỗn hợp",
+        "sources": [
+          "https://www.nobelprize.org/uploads/2018/06/martin-lecture.pdf",
+          "https://www.nobelprize.org/uploads/2018/06/synge-lecture.pdf",
+          "https://www.shimadzu.com/es-es/an/service-support/technical-support/analysis-basics/fundamentals/results2.html",
+          "https://www.nist.gov/publications/development-and-certification-green-tea-containing-standard-reference-materials"
+        ]
+      },
+      "application": {
+        "status": "documented",
+        "section": "## Ứng dụng hôm nay: một chén trà cũng cần thước đo",
+        "sources": [
+          "https://www.nobelprize.org/uploads/2018/06/martin-lecture.pdf",
+          "https://www.nobelprize.org/uploads/2018/06/synge-lecture.pdf",
+          "https://www.shimadzu.com/es-es/an/service-support/technical-support/analysis-basics/fundamentals/results2.html",
+          "https://www.nist.gov/publications/development-and-certification-green-tea-containing-standard-reference-materials"
+        ]
+      }
+    }
+  },
+  {
+    "id": "dong-dien-phan-townsville-tam-thep-1978",
+    "slug": "dong-dien-phan-townsville-tam-thep-1978",
+    "documentPath": "docs/dong-dien-phan-townsville-tam-thep-1978/index.json",
+    "title": "Tấm thép trong bể đồng: thay đổi năm 1978 ở Townsville đã làm sạch kim loại ra sao?",
+    "summary": "Tinh luyện điện chuyển đồng từ anode có tạp chất sang cathode. Khi Townsville đưa tấm cathode thép không gỉ tái sử dụng vào vận hành, một phản ứng quen thuộc bước sang cách tổ chức công nghiệp mới.",
+    "category": "phanung",
+    "author": "Ban biên tập ChemDex",
+    "image": "/assets/library/photos/stories/copper-refining.png",
+    "tags": [
+      "Tinh luyện đồng",
+      "Điện phân",
+      "Cu",
+      "Công nghiệp"
+    ],
+    "aliases": [],
+    "documentKind": "story",
+    "readingMinutes": 5,
+    "editorialEvidence": {
+      "language": "vi",
+      "scope": "chemical-family",
+      "contextLabel": "Tấm thép trong bể đồng: thay đổi năm 1978 ở Townsville đã làm sạch kim loại ra sao?",
+      "reviewBasis": "Biên soạn theo các nguồn dẫn cuối bài; phân biệt kết quả đã thực hiện và hướng phát triển.",
+      "story": {
+        "status": "documented",
+        "section": "## Một cải tiến nằm ở nơi kim loại bám xuống",
+        "sources": [
+          "https://www.glencoretechnology.com/en/technologies/isakidd/about",
+          "https://openstax.org/books/chemistry-2e/pages/17-7-electrolysis",
+          "https://www.glencoretechnology.com/en/knowledge/media-news/electrorefining-of-copper",
+          "https://www.glencore.com.au/operations-and-projects/metals/copper-refineries"
+        ]
+      },
+      "application": {
+        "status": "documented",
+        "section": "## Ứng dụng hôm nay: chất lượng bắt đầu trước khi kéo dây",
+        "sources": [
+          "https://www.glencoretechnology.com/en/technologies/isakidd/about",
+          "https://openstax.org/books/chemistry-2e/pages/17-7-electrolysis",
+          "https://www.glencoretechnology.com/en/knowledge/media-news/electrorefining-of-copper",
+          "https://www.glencore.com.au/operations-and-projects/metals/copper-refineries"
+        ]
+      }
+    }
+  },
+  {
+    "id": "anode-hi-sinh-davy-vo-tau",
+    "slug": "anode-hi-sinh-davy-vo-tau",
+    "documentPath": "docs/anode-hi-sinh-davy-vo-tau/index.json",
+    "title": "Miếng kim loại chịu mòn thay con tàu: câu hỏi Humphry Davy đặt ra năm 1824",
+    "summary": "Từ những tấm đồng bọc tàu của hải quân Anh đến hệ thống bảo vệ công trình dưới nước, chống ăn mòn có thể bắt đầu bằng việc cho một kim loại khác bị ăn mòn có kiểm soát.",
+    "category": "phanung",
+    "author": "Ban biên tập ChemDex",
+    "image": "/assets/library/photos/stories/iron-rust.jpg",
+    "tags": [
+      "Ăn mòn",
+      "Anode hi sinh",
+      "Điện hóa",
+      "Humphry Davy"
+    ],
+    "aliases": [],
+    "documentKind": "story",
+    "readingMinutes": 5,
+    "editorialEvidence": {
+      "language": "vi",
+      "scope": "chemical-family",
+      "contextLabel": "Miếng kim loại chịu mòn thay con tàu: câu hỏi Humphry Davy đặt ra năm 1824",
+      "reviewBasis": "Biên soạn theo các nguồn dẫn cuối bài; phân biệt kết quả đã thực hiện và hướng phát triển.",
+      "story": {
+        "status": "documented",
+        "section": "## Khi lớp áo đồng xuống cấp giữa biển",
+        "sources": [
+          "https://knowledge.electrochem.org/estir/hist/hist-03-Davy-2.pdf",
+          "https://openstax.org/books/chemistry-2e/pages/17-6-corrosion",
+          "https://www.publications.usace.army.mil/Portals/76/Users/182/86/2486/11EM_1110-2-2704%20%28003%29.pdf",
+          "https://www.sam.usace.army.mil/Missions/Military-Missions/Engineering/Corrosion-Control-and-Cathodic-Protection-Systems/"
+        ]
+      },
+      "application": {
+        "status": "documented",
+        "section": "## Ứng dụng hôm nay: bảo vệ cũng cần được đo",
+        "sources": [
+          "https://knowledge.electrochem.org/estir/hist/hist-03-Davy-2.pdf",
+          "https://openstax.org/books/chemistry-2e/pages/17-6-corrosion",
+          "https://www.publications.usace.army.mil/Portals/76/Users/182/86/2486/11EM_1110-2-2704%20%28003%29.pdf",
+          "https://www.sam.usace.army.mil/Missions/Military-Missions/Engineering/Corrosion-Control-and-Cathodic-Protection-Systems/"
+        ]
+      }
+    }
+  },
+  {
+    "id": "men-banh-mi-pasteur-bot-no",
+    "slug": "men-banh-mi-pasteur-bot-no",
+    "documentPath": "docs/men-banh-mi-pasteur-bot-no/index.json",
+    "title": "Trong lúc khối bột nghỉ, một nhà máy nhỏ đang làm việc",
+    "summary": "Từ các mẻ lên men khiến Pasteur chú ý ở Lille đến ruột bánh mì trên bàn ăn, carbon dioxide là dấu hiệu của một chuỗi phản ứng do tế bào men vận hành.",
+    "category": "phanung",
+    "author": "Ban biên tập ChemDex",
+    "image": "/assets/library/photos/stories/bread-fermentation.jpg",
+    "tags": [
+      "Lên men",
+      "Bánh mì",
+      "Enzyme",
+      "Carbon dioxide"
+    ],
+    "aliases": [],
+    "documentKind": "story",
+    "readingMinutes": 5,
+    "editorialEvidence": {
+      "language": "vi",
+      "scope": "chemical-family",
+      "contextLabel": "Trong lúc khối bột nghỉ, một nhà máy nhỏ đang làm việc",
+      "reviewBasis": "Biên soạn theo các nguồn dẫn cuối bài; phân biệt kết quả đã thực hiện và hướng phát triển.",
+      "story": {
+        "status": "documented",
+        "section": "## Một câu hỏi từ các xưởng làm rượu",
+        "sources": [
+          "https://www.pasteur.fr/fr/nous-connaitre/premiere-epoque-1847-1862",
+          "https://www.kingarthurbaking.com/pro/reference/yeast",
+          "https://www.nobelprize.org/prizes/themes/the-nobel-prize-in-chemistry-the-development-of-modern-chemistry/",
+          "https://www.kingarthurbaking.com/blog/2019/07/22/bulk-fermentation"
+        ]
+      },
+      "application": {
+        "status": "documented",
+        "section": "## Ứng dụng hôm nay: nhìn khối bột, đừng chỉ nhìn đồng hồ",
+        "sources": [
+          "https://www.pasteur.fr/fr/nous-connaitre/premiere-epoque-1847-1862",
+          "https://www.kingarthurbaking.com/pro/reference/yeast",
+          "https://www.nobelprize.org/prizes/themes/the-nobel-prize-in-chemistry-the-development-of-modern-chemistry/",
+          "https://www.kingarthurbaking.com/blog/2019/07/22/bulk-fermentation"
+        ]
+      }
+    }
+  },
+  {
+    "id": "bo-xuc-tac-ba-chuc-nang-ong-xa",
+    "slug": "bo-xuc-tac-ba-chuc-nang-ong-xa",
+    "documentPath": "docs/bo-xuc-tac-ba-chuc-nang-ong-xa/index.json",
+    "title": "Phòng phản ứng dưới gầm xe: chiếc hộp khiến khí thải đổi thành phần",
+    "summary": "Từ bộ xúc tác trên xe đời 1975 đến công nghệ ba chức năng của Engelhard năm 1976, xử lý khí thải là cuộc phối hợp khó giữa bề mặt kim loại, nhiệt độ và tỉ lệ nhiên liệu–không khí.",
+    "category": "phanung",
+    "author": "Ban biên tập ChemDex",
+    "image": "/assets/library/photos/stories/catalytic-converter.jpg",
+    "tags": [
+      "Xúc tác",
+      "Khí thải",
+      "Oxi hóa khử",
+      "Ô tô"
+    ],
+    "aliases": [],
+    "documentKind": "story",
+    "readingMinutes": 5,
+    "editorialEvidence": {
+      "language": "vi",
+      "scope": "chemical-family",
+      "contextLabel": "Phòng phản ứng dưới gầm xe: chiếc hộp khiến khí thải đổi thành phần",
+      "reviewBasis": "Biên soạn theo các nguồn dẫn cuối bài; phân biệt kết quả đã thực hiện và hướng phát triển.",
+      "story": {
+        "status": "documented",
+        "section": "## Một chiếc hộp xuất hiện trong đường ống xả",
+        "sources": [
+          "https://rosap.ntl.bts.gov/view/dot/10766/dot_10766_DS1.pdf",
+          "https://www.basf.com/es/es/who-we-are/historia/solutions/environmentally_friendly_solutions",
+          "https://openstax.org/books/chemistry-2e/pages/12-7-catalysis",
+          "https://basf-catalystsmetals.com/sites/default/files/attachments/Edison-Patent-Award-2024-Press-Release-EN-Final.pdf"
+        ]
+      },
+      "application": {
+        "status": "documented",
+        "section": "## Ứng dụng hôm nay: giảm chất độc không đồng nghĩa xóa carbon",
+        "sources": [
+          "https://rosap.ntl.bts.gov/view/dot/10766/dot_10766_DS1.pdf",
+          "https://www.basf.com/es/es/who-we-are/historia/solutions/environmentally_friendly_solutions",
+          "https://openstax.org/books/chemistry-2e/pages/12-7-catalysis",
+          "https://basf-catalystsmetals.com/sites/default/files/attachments/Edison-Patent-Award-2024-Press-Release-EN-Final.pdf"
+        ]
+      }
+    }
+  },
+  {
+    "id": "silicon-pin-mat-troi-bell-labs-1954",
+    "slug": "silicon-pin-mat-troi-bell-labs-1954",
+    "documentPath": "docs/silicon-pin-mat-troi-bell-labs-1954/index.json",
+    "title": "Silicon bước ra nắng: từ tế bào quang điện năm 1954 đến mái nhà phát điện",
+    "summary": "Một mẫu pin nhỏ trong bảo tàng nối liền nghiên cứu bán dẫn của Bell Labs với những tấm quang điện ngày nay. Câu chuyện silicon nằm ở độ tinh khiết, cách pha tạp và khả năng điều khiển điện tích.",
+    "category": "nguyento",
+    "author": "Ban biên tập ChemDex",
+    "image": "/assets/library/photos/stories/silicon-solar.jpg",
+    "tags": [
+      "Silicon",
+      "Si",
+      "Pin mặt trời",
+      "Bán dẫn"
+    ],
+    "aliases": [],
+    "documentKind": "story",
+    "readingMinutes": 5,
+    "editorialEvidence": {
+      "language": "vi",
+      "scope": "chemical-family",
+      "contextLabel": "Silicon bước ra nắng: từ tế bào quang điện năm 1954 đến mái nhà phát điện",
+      "reviewBasis": "Biên soạn theo các nguồn dẫn cuối bài; phân biệt kết quả đã thực hiện và hướng phát triển.",
+      "story": {
+        "status": "documented",
+        "section": "## Hiện vật nhỏ của một bước ngoặt",
+        "sources": [
+          "https://americanhistory.si.edu/ne/collections/object/nmah_1805541",
+          "https://www.si.edu/object/nmah_1347671",
+          "https://www.energy.gov/cmei/systems/solar-photovoltaic-cell-basics",
+          "https://www.energy.gov/cmei/systems/articles/pv-cells-101-primer-solar-photovoltaic-cell"
+        ]
+      },
+      "application": {
+        "status": "documented",
+        "section": "## Ứng dụng hôm nay: tấm pin làm việc trong một hệ thống",
+        "sources": [
+          "https://americanhistory.si.edu/ne/collections/object/nmah_1805541",
+          "https://www.si.edu/object/nmah_1347671",
+          "https://www.energy.gov/cmei/systems/solar-photovoltaic-cell-basics",
+          "https://www.energy.gov/cmei/systems/articles/pv-cells-101-primer-solar-photovoltaic-cell"
+        ]
+      }
+    }
+  },
+  {
+    "id": "gallium-nitride-led-xanh-anh-sang-trang",
+    "slug": "gallium-nitride-led-xanh-anh-sang-trang",
+    "documentPath": "docs/gallium-nitride-led-xanh-anh-sang-trang/index.json",
+    "title": "Gallium và màu xanh còn thiếu: bước ngoặt khiến LED có thể thắp sáng căn phòng",
+    "summary": "Akasaki, Amano và Nakamura theo đuổi gallium nitride khi vật liệu này còn rất khó chế tạo. LED xanh hiệu quả xuất hiện đã mở đường cho một kiểu ánh sáng trắng khác.",
+    "category": "nguyento",
+    "author": "Ban biên tập ChemDex",
+    "image": "/assets/library/photos/stories/blue-led.jpg",
+    "tags": [
+      "Gallium",
+      "GaN",
+      "LED",
+      "Nobel 2014"
+    ],
+    "aliases": [],
+    "documentKind": "story",
+    "readingMinutes": 5,
+    "editorialEvidence": {
+      "language": "vi",
+      "scope": "chemical-family",
+      "contextLabel": "Gallium và màu xanh còn thiếu: bước ngoặt khiến LED có thể thắp sáng căn phòng",
+      "reviewBasis": "Biên soạn theo các nguồn dẫn cuối bài; phân biệt kết quả đã thực hiện và hướng phát triển.",
+      "story": {
+        "status": "documented",
+        "section": "## Một màu sắc làm khó cả ngành",
+        "sources": [
+          "https://www.nobelprize.org/prizes/physics/2014/press-release/",
+          "https://www.nobelprize.org/uploads/2018/06/advanced-physicsprize2014.pdf",
+          "https://www.energy.gov/cmei/ssl/led-basics",
+          "https://www.energystar.gov/products/learn-about-led-lighting"
+        ]
+      },
+      "application": {
+        "status": "documented",
+        "section": "## Ứng dụng hôm nay: con chip chưa phải cả chiếc đèn",
+        "sources": [
+          "https://www.nobelprize.org/prizes/physics/2014/press-release/",
+          "https://www.nobelprize.org/uploads/2018/06/advanced-physicsprize2014.pdf",
+          "https://www.energy.gov/cmei/ssl/led-basics",
+          "https://www.energystar.gov/products/learn-about-led-lighting"
+        ]
+      }
+    }
+  }
+]

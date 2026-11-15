@@ -136,6 +136,10 @@ export function chemicalData(value, field = '') {
   if (typeof value === 'string') return chemicalText(value, {exact: /name|title|label/i.test(field)});
   if (Array.isArray(value)) return value.map(row => chemicalData(row, field));
   if (!value || typeof value !== 'object') return value;
+  // Reviewed Vietnamese manuscripts are prose, not catalog labels. Rewriting
+  // words such as “nước”, “đồng” or “chì” here damages sentences and image
+  // attribution. Their scientific terminology is selected by the author.
+  if (value.editorialEvidence?.language === 'vi' && value.documentPath && value.title) return value;
   const result = Object.fromEntries(Object.entries(value).map(([k,v])=>[k,chemicalData(v,k)]));
   if (value.name_vi || value.nameVi || (value.defaultPhase && value.formula)) {
     const old = value.name_vi ?? value.nameVi;

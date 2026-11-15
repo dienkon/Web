@@ -28,6 +28,22 @@
   "documentKind": "reference",
   "lessonKind": "substance-guide",
   "readingMinutes": 8,
+  "editorialEvidence": {
+    "language": "vi",
+    "scope": "substance",
+    "contextLabel": "Amoni sunfat (Phân đạm SA)",
+    "reviewBasis": "editorial-audit-2026-11-15",
+    "story": {
+      "status": "missing",
+      "sources": [],
+      "reason": "Chưa có câu chuyện và ứng dụng được đối chiếu riêng cho Amoni sunfat (Phân đạm SA) ((NH4)2SO4); giữ nguyên bài tra cứu, không gán lịch sử hay công dụng của nguyên tố thành phần cho hợp chất."
+    },
+    "application": {
+      "status": "missing",
+      "sources": [],
+      "reason": "Chưa có câu chuyện và ứng dụng được đối chiếu riêng cho Amoni sunfat (Phân đạm SA) ((NH4)2SO4); giữ nguyên bài tra cứu, không gán lịch sử hay công dụng của nguyên tố thành phần cho hợp chất."
+    }
+  },
   "chemicalEvidence": {
     "formula": "(NH4)2SO4",
     "representativeId": "chem-nh42so4",

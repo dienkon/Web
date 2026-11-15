@@ -1,0 +1,46 @@
+{
+  "id": "akira-yoshino-dua-pin-ra-khoi-phong-thi-nghiem",
+  "slug": "akira-yoshino-dua-pin-ra-khoi-phong-thi-nghiem",
+  "documentPath": "docs/akira-yoshino-dua-pin-ra-khoi-phong-thi-nghiem/index.json",
+  "title": "Akira Yoshino: bước cuối để viên pin có thể đi cùng con người",
+  "summary": "Yoshino ghép vật liệu điện cực thành một hệ pin có triển vọng thương mại. Câu chuyện cho thấy phát minh còn nằm ở việc chọn những thành phần làm việc được cùng nhau.",
+  "category": "tieusu",
+  "author": "Ban biên tập ChemDex",
+  "image": "/assets/library/photos/stories/lithium-battery.jpg",
+  "tags": [
+    "Akira Yoshino",
+    "Pin ion liti",
+    "Cacbon",
+    "Thiết bị di động"
+  ],
+  "aliases": [
+    "Akira Yoshino"
+  ],
+  "documentKind": "story",
+  "readingMinutes": 5,
+  "editorialEvidence": {
+    "language": "vi",
+    "scope": "chemical-family",
+    "contextLabel": "Akira Yoshino: bước cuối để viên pin có thể đi cùng con người",
+    "reviewBasis": "Biên soạn theo các nguồn dẫn cuối bài; phân biệt kết quả đã thực hiện và hướng phát triển.",
+    "story": {
+      "status": "documented",
+      "section": "## Thế giới muốn mang thiết bị ra khỏi ổ cắm",
+      "sources": [
+        "https://www.asahi-kasei.com/asahikasei-brands/yoshino/interview",
+        "https://www.asahi-kasei.com/asahikasei-brands/yoshino/profile",
+        "https://rsc.riken.jp/fjworkshop2014/participants/Akira.Yoshino.html"
+      ]
+    },
+    "application": {
+      "status": "documented",
+      "section": "## Ứng dụng hôm nay: tính di động có một nền móng hóa học",
+      "sources": [
+        "https://www.asahi-kasei.com/asahikasei-brands/yoshino/interview",
+        "https://www.asahi-kasei.com/asahikasei-brands/yoshino/profile",
+        "https://rsc.riken.jp/fjworkshop2014/participants/Akira.Yoshino.html"
+      ]
+    }
+  },
+  "content": "## Thế giới muốn mang thiết bị ra khỏi ổ cắm\n\nTrong cuộc phỏng vấn do Asahi Kasei công bố, Akira Yoshino nhắc lại nhu cầu về thiết bị điện tử gọn, nhẹ và có thể mang theo trong những năm 1980. Một thiết bị chỉ thật sự di động khi nguồn điện của nó cũng đáp ứng được yêu cầu ấy. Pin vì thế trở thành một phần quyết định của thiết kế sản phẩm.\n\nYoshino không bắt đầu từ một khoảng trống. Công trình về vật liệu điện cực của những người đi trước đã mở đường. Ông lựa chọn cách ghép điện cực dương chứa liti–coban oxit với điện cực âm từ vật liệu cacbon, tiến đến cấu trúc cơ bản của pin ion liti vào năm 1985.\n\nThay liti kim loại ở điện cực âm là một quyết định quan trọng. Cacbon có thể làm nơi tiếp nhận liti trong quá trình nạp điện. Hệ pin có cơ hội giữ lợi ích của hóa học liti trong khi giảm một khó khăn lớn của các thiết kế trước. Giải Nobel Hóa học năm 2019 ghi nhận đóng góp của Yoshino cùng Whittingham và Goodenough trong quá trình phát triển này.\n\n![Pin lithium-ion dạng trụ](/assets/library/photos/stories/lithium-battery.jpg)\n\n*Hai cell pin lithium-ion dạng trụ 18650 và 21700 do EVE Energy sản xuất. — Sevenethics; [CC0](https://creativecommons.org/publicdomain/zero/1.0/deed.en). [Nguồn ảnh](https://commons.wikimedia.org/wiki/File:18650_and_21700_lithium_ion_battery_cell.jpg).*\n\n## Một phát minh được tạo bằng sự tương thích\n\nCó một vật liệu tốt chưa đủ để có một viên pin tốt. Hai điện cực cần làm việc trong phạm vi điện thế phù hợp; chất điện phân phải dẫn ion; các thành phần cần chịu được môi trường hóa học của nhau. Mỗi phần đều có thể trở thành điểm giới hạn của hệ.\n\nTrong pin ion liti, liti chuyển giữa hai điện cực khi sạc và xả. Dòng electron bên ngoài cung cấp năng lượng cho thiết bị hoặc nhận năng lượng từ bộ sạc. Các ion bên trong giữ cho quá trình trao đổi điện tích có thể tiếp diễn. Nếu chỉ nhìn tên nguyên tố, ta sẽ bỏ qua cách nó được giữ trong những vật liệu khác nhau.\n\nĐiện cực cacbon cũng không đồng nghĩa mọi loại than đều có thể thay thế nhau. Cấu trúc, tạp chất, bề mặt và khả năng tiếp nhận ion ảnh hưởng đến hoạt động của cell. Một vật liệu cần được lựa chọn và chế tạo theo yêu cầu cụ thể, rồi kiểm tra cùng các bộ phận còn lại.\n\nTừ mẫu thử đến sản phẩm còn có việc kiểm soát nhiệt, ngăn đoản mạch, thiết kế vỏ và tạo quy trình sản xuất ổn định. Câu chuyện Yoshino đặt sự phối hợp ấy vào trung tâm. Đột phá khoa học được nối với một hệ có thể sử dụng lặp lại ngoài phòng thí nghiệm, nơi người dùng không kiểm soát từng thông số như nhà nghiên cứu.\n\n## Ứng dụng hôm nay: tính di động có một nền móng hóa học\n\nĐiện thoại, máy tính xách tay và nhiều phương tiện điện dựa vào khả năng lưu trữ năng lượng trong một thể tích tương đối nhỏ. Người dùng thường cảm nhận điều đó qua số giờ hoạt động, quãng đường đi được hoặc thời gian chờ sạc. Phía sau các thông số ấy là lựa chọn về vật liệu điện cực và thiết kế toàn hệ.\n\nSự thành công của pin ion liti không có nghĩa một công thức đã giải xong mọi nhu cầu. Thiết bị nhỏ và xe điện có thể ưu tiên khác nhau về tuổi thọ, công suất, giá thành và khối lượng. Các họ vật liệu mới tiếp tục xuất hiện; những đánh đổi vẫn cần được đo trong điều kiện sử dụng thật.\n\nNhìn từ bài học này, một thông báo pin mới nên được đọc như báo cáo về cả hệ. Kết quả trên một điện cực thử nghiệm chưa nói hết điều xảy ra khi ghép cell, đóng môđun và vận hành lâu dài. Mức năng lượng đạt được cần đi cùng thông tin về độ bền và điều kiện đo.\n\nĐóng góp của Yoshino giúp lịch sử công nghệ trở nên gần gũi: có những phát minh lớn đến từ việc hiểu đúng nhu cầu đời sống rồi chọn các thành phần hóa học có thể cùng đáp ứng. Khi rút bộ sạc khỏi điện thoại, ta đang hưởng lợi từ rất nhiều quyết định nhỏ đã được kiểm nghiệm để năng lượng có thể đi cùng mình.\n\n## Nguồn và đọc thêm\n\n- [Asahi Kasei · Phỏng vấn Akira Yoshino](https://www.asahi-kasei.com/asahikasei-brands/yoshino/interview)\n- [Asahi Kasei · Hồ sơ và các mốc phát minh của Yoshino](https://www.asahi-kasei.com/asahikasei-brands/yoshino/profile)\n- [RIKEN · Hồ sơ công trình của Akira Yoshino](https://rsc.riken.jp/fjworkshop2014/participants/Akira.Yoshino.html)"
+}

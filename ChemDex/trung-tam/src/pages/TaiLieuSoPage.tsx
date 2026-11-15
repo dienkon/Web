@@ -7,7 +7,7 @@ import { ReaderView } from '../components/ReaderView';
 import { PanelDrawer } from '../components/PanelDrawer';
 import { Toast } from '../components/Toast';
 import { useLocalStorage } from '../hooks/useLocalStorage';
-import { libraryDocs, fetchDocFull, getCategoryConfig, DocFull, categories, resolveDocId, docURL } from '../utils/config';
+import { libraryDocs, fetchDocFull, getCategoryConfig, DocFull, categories, categoryCounts, resolveDocId, docURL } from '../utils/config';
 import { RefreshCw } from 'lucide-react';
 import { filterLibraryDocs } from '../utils/librarySearch';
 
@@ -230,7 +230,7 @@ export default function App() {
                   <div className="flex items-center justify-between mb-6">
                     <h3 className="text-xl font-extrabold text-slate-900 dark:text-slate-100 flex items-center gap-3">
                       <svg className="w-6 h-6 text-teal-600 dark:text-teal-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg>
-                      {activeCatConfig ? activeCatConfig.label : (searchQuery ? 'Kết quả tìm kiếm' : 'Thư viện nguyên tố và hợp chất')}
+                      {activeCatConfig ? activeCatConfig.label : (searchQuery ? 'Kết quả tìm kiếm' : 'Thư viện hóa học')}
                       {searchQuery && <span className="text-slate-500 dark:text-slate-400 text-sm ml-2 font-normal">Từ khóa: "{searchQuery}"</span>}
                     </h3>
                     <div className="flex items-center gap-2">
@@ -241,7 +241,7 @@ export default function App() {
 
                   <div className="flex flex-wrap gap-2.5 mb-6" aria-label="Lọc danh mục tài liệu">
                     <button onClick={() => setActiveCategory(null)} aria-pressed={!activeCategory} className={`px-4 py-2 rounded-xl border text-sm font-bold transition-all cursor-pointer ${!activeCategory ? 'border-sky-500 bg-sky-600 text-white shadow-sm' : 'border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800/80 text-slate-700 dark:text-slate-200 hover:border-sky-300 dark:hover:border-sky-500/60 hover:bg-sky-50 dark:hover:bg-slate-800'}`}>Tất cả</button>
-                    {categories.map(cat => <button key={cat.id} onClick={() => setActiveCategory(cat.id)} aria-pressed={activeCategory===cat.id} className={`px-4 py-2 rounded-xl border text-sm font-bold transition-all cursor-pointer ${activeCategory===cat.id ? 'border-sky-500 bg-sky-600 text-white shadow-sm' : 'border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800/80 text-slate-700 dark:text-slate-200 hover:border-sky-300 dark:hover:border-sky-500/60 hover:bg-sky-50 dark:hover:bg-slate-800'}`}>{cat.label}</button>)}
+                    {categories.map(cat => <button key={cat.id} onClick={() => setActiveCategory(cat.id)} aria-pressed={activeCategory===cat.id} className={`px-4 py-2 rounded-xl border text-sm font-bold transition-all cursor-pointer ${activeCategory===cat.id ? 'border-sky-500 bg-sky-600 text-white shadow-sm' : 'border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800/80 text-slate-700 dark:text-slate-200 hover:border-sky-300 dark:hover:border-sky-500/60 hover:bg-sky-50 dark:hover:bg-slate-800'}`}>{cat.label} <span className="ml-1.5 text-xs opacity-75">{categoryCounts[cat.id].toLocaleString('vi-VN')}</span></button>)}
                   </div>
                   <div className="flex flex-wrap gap-2 mb-5" aria-label="Loại bài đọc">
                     {[['all','Mọi bài đọc'],['story','Câu chuyện'],['biography','Nhà khoa học'],['reference','Hồ sơ chất']].map(([kind,label])=><button key={kind} type="button" aria-pressed={readingKind===kind} onClick={()=>setReadingKind(kind)} className={`px-3 py-2 rounded-lg border text-sm cursor-pointer ${readingKind===kind?'bg-sky-600 border-sky-600 text-white':'border-slate-400 text-slate-600 dark:text-slate-200'}`}>{label}</button>)}

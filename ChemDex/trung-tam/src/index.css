@@ -200,6 +200,7 @@ body { overflow:visible !important; }
   font-weight: 600;
   text-decoration: underline;
   text-underline-offset: 3px;
+  overflow-wrap: anywhere;
 }
 
 .markdown-body details {

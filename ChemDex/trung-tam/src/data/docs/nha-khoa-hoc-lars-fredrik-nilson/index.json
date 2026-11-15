@@ -2,11 +2,11 @@
   "id": "nha-khoa-hoc-lars-fredrik-nilson",
   "slug": "nha-khoa-hoc-lars-fredrik-nilson",
   "documentPath": "docs/nha-khoa-hoc-lars-fredrik-nilson/index.json",
-  "title": "Lars Fredrik Nilson — dấu mốc khám phá hóa học",
+  "title": "Lars Fredrik Nilson — lần theo dấu vết scandi",
   "author": "Ban biên tập ChemDex",
   "category": "tieusu",
-  "summary": "Hồ sơ lịch sử liên quan đến Scandi (Sc); phân biệt phát hiện, cô lập và đặt tên theo từng trường hợp.",
-  "image": "/assets/library/history-evidence.svg",
+  "summary": "Năm 1879, Lars Fredrik Nilson phát hiện scandi khi nghiên cứu các khoáng vật chứa Rare earth elements. Ông tách được một oxit mới và xác định đó là oxit của một nguyên tố chưa được biết đến.",
+  "image": "/assets/library/photos/elements/Sc.jpg",
   "tags": [
     "Lịch sử hóa học",
     "Sc"
@@ -15,6 +15,26 @@
     "Lars Fredrik Nilson"
   ],
   "documentKind": "biography",
-  "readingMinutes": 1,
-  "content": "# Lars Fredrik Nilson — dấu mốc khám phá hóa học\n\nHồ sơ lịch sử liên quan đến Scandi (Sc); phân biệt phát hiện, cô lập và đặt tên theo từng trường hợp.\n\n## Scandi (Sc)\n\nNăm 1879, Lars Fredrik Nilson phát hiện Scandium khi nghiên cứu các khoáng vật chứa Rare earth elements. Ông tách được một oxide mới và xác định đó là oxide của một nguyên tố chưa được biết đến. Sau đó nguyên tố này được đặt tên là Scandium, bắt nguồn từ Scandia, tên Latin của Scandinavia. Việc phát hiện Scandium cũng xác nhận dự đoán trước đó của Dmitri Mendeleev về nguyên tố mà ông gọi là “eka-boron”.\n\n**Mốc lịch sử:** 1879. **Địa điểm ghi trong hồ sơ:** Thụy Điển.\n\n[Đọc tài liệu về Scandi](/trung-tam/tai-lieu-so/scandi-sc/).\n\n[Royal Society of Chemistry — thông tin nguyên tố](https://periodic-table.rsc.org/element/21/scandium)\n\n## Cách đọc các mốc lịch sử\n\nPhát hiện một nguyên tố, cô lập đơn chất và đặt tên có thể là những công việc khác nhau, diễn ra ở các thời điểm khác nhau. Một nhóm nghiên cứu hoặc cơ quan không được xem như một cá nhân. Với nguyên tố được biết từ cổ đại, hồ sơ không gán một người khám phá. Các ghi nhận trên dẫn về tài liệu của nguyên tố và nguồn tham khảo tương ứng; không bổ sung lời trích dẫn hay giai thoại đời tư chưa có căn cứ."
+  "readingMinutes": 2,
+  "editorialEvidence": {
+    "language": "vi",
+    "scope": "related-element",
+    "contextLabel": "Scandi (Sc)",
+    "reviewBasis": "existing-element-dossier",
+    "story": {
+      "status": "documented",
+      "section": "## Cuộc tìm kiếm dẫn đến scandi",
+      "sources": [
+        "https://periodic-table.rsc.org/element/21/scandium"
+      ]
+    },
+    "application": {
+      "status": "context-only",
+      "section": "## Từ dấu mốc nghiên cứu đến công việc hôm nay",
+      "sources": [
+        "https://periodic-table.rsc.org/element/21/scandium"
+      ]
+    }
+  },
+  "content": "## Cuộc tìm kiếm dẫn đến scandi\n\nNăm 1879, Lars Fredrik Nilson phát hiện scandi khi nghiên cứu các khoáng vật chứa Rare earth elements. Ông tách được một oxit mới và xác định đó là oxit của một nguyên tố chưa được biết đến. Sau đó nguyên tố này được đặt tên là scandi, bắt nguồn từ Scandia, tên Latin của Scandinavia. Việc phát hiện scandi cũng xác nhận dự đoán trước đó của Dmitri Mendeleev về nguyên tố mà ông gọi là “eka-bo”.\n\nNhững người hoặc cơ sở được ghi nhận trong câu chuyện này là **Lars Fredrik Nilson**.\n\n![Hình minh họa scandi](/assets/library/photos/elements/Sc.jpg)\n\n*Hình minh họa chủ đề scandi. [Nguồn hình: bộ ảnh nguyên tố](https://en.wikipedia.org/wiki/Scandium).*\n\n## Bằng chứng đã thay đổi điều gì?\n\nĐiều làm một phát hiện có sức nặng là khả năng phân biệt chất đang nghiên cứu với những chất đã biết. Mẫu vật có thể chứa nhiều thành phần; tên khoáng vật hoặc màu sắc chưa đủ xác định nguyên tố. Tách mẫu, so sánh phản ứng và diễn giải phép đo nối với nhau thành một lập luận. Bởi vậy, ngày nhận ra một nguyên tố, ngày cô lập được đơn chất và ngày tên gọi được thống nhất có thể khác nhau.\n\n## Từ dấu mốc nghiên cứu đến công việc hôm nay\n\n### Scandi (Sc)\n\nScandi được thêm vào nhôm để tăng độ bền, độ cứng và khả năng chịu nhiệt của hợp kim.\n\nNhôm–scandi alloys được nghiên cứu và sử dụng trong một số bộ phận yêu cầu vật liệu nhẹ nhưng bền.\n\n[Đọc tiếp về Scandi](/trung-tam/tai-lieu-so/scandi-sc/).\n\nNhững ứng dụng này thuộc về hành trình phát triển tiếp theo của nguyên tố. Từ phát hiện đến thiết bị sử dụng được còn có công việc của nhiều thế hệ: tạo vật liệu đủ sạch, hiểu tính chất, thiết kế quy trình và kiểm tra độ bền. Vai trò của người khám phá nằm ở dấu mốc được kể ở trên; các công nghệ xuất hiện sau đó cần được ghi nhận cho đúng công trình.\n\n## Nguồn và đọc tiếp\n\n- [Hội Hóa học Hoàng gia Anh · Scandi](https://periodic-table.rsc.org/element/21/scandium)"
 }

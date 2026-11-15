@@ -2,11 +2,11 @@
   "id": "nha-khoa-hoc-pierre-janssen-joseph-norman-lockyer-va-william-ramsay",
   "slug": "nha-khoa-hoc-pierre-janssen-joseph-norman-lockyer-va-william-ramsay",
   "documentPath": "docs/nha-khoa-hoc-pierre-janssen-joseph-norman-lockyer-va-william-ramsay/index.json",
-  "title": "Pierre Janssen, Joseph Norman Lockyer và William Ramsay — dấu mốc khám phá hóa học",
+  "title": "Pierre Janssen, Joseph Norman Lockyer và William Ramsay — lần theo dấu vết heli",
   "author": "Ban biên tập ChemDex",
   "category": "tieusu",
-  "summary": "Hồ sơ lịch sử liên quan đến Heli (He); phân biệt phát hiện, cô lập và đặt tên theo từng trường hợp.",
-  "image": "/assets/library/history-evidence.svg",
+  "summary": "Năm 1868, nhà thiên văn học người Pháp Pierre Janssen quan sát quang phổ mặt trời trong một lần nhật thực tại Ấn Độ và phát hiện một vạch vàng chưa từng biết tới. Nhà thiên văn học người Anh Joseph Norman Lockyer sau đó kết luận đây là một nguyên tố mới và đặt tên là heli (theo tên Helios – thần Mặt Trời trong thần thoại Hy Lạp).",
+  "image": "/assets/library/photos/elements/He.jpg",
   "tags": [
     "Lịch sử hóa học",
     "He"
@@ -15,6 +15,26 @@
     "Pierre Janssen, Joseph Norman Lockyer và William Ramsay"
   ],
   "documentKind": "biography",
-  "readingMinutes": 1,
-  "content": "# Pierre Janssen, Joseph Norman Lockyer và William Ramsay — dấu mốc khám phá hóa học\n\nHồ sơ lịch sử liên quan đến Heli (He); phân biệt phát hiện, cô lập và đặt tên theo từng trường hợp.\n\n## Heli (He)\n\nNăm 1868, nhà thiên văn học người Pháp Pierre Janssen quan sát quang phổ mặt trời trong một lần nhật thực tại Ấn Độ và phát hiện một vạch vàng chưa từng biết tới. Nhà thiên văn học người Anh Joseph Norman Lockyer sau đó kết luận đây là một nguyên tố mới và đặt tên là Helium (theo tên Helios – thần Mặt Trời trong thần thoại Hy Lạp). Đến năm 1895, nhà hóa học người Scotland William Ramsay đã cô lập thành công Helium trên Trái Đất bằng cách xử lý khoáng vật cleveite bằng acid.\n\n**Mốc lịch sử:** 1868 (thiên văn), 1895 (cô lập trên Trái Đất). **Địa điểm ghi trong hồ sơ:** Quan sát quang phổ Mặt Trời tại Guntur, Ấn Độ (1868); nghiên cứu tại Anh và cô lập trên Trái Đất tại London (1895)..\n\n[Đọc tài liệu về Heli](/trung-tam/tai-lieu-so/heli-he/).\n\n[Royal Society of Chemistry — thông tin nguyên tố](https://periodic-table.rsc.org/element/2/helium)\n\n## Cách đọc các mốc lịch sử\n\nPhát hiện một nguyên tố, cô lập đơn chất và đặt tên có thể là những công việc khác nhau, diễn ra ở các thời điểm khác nhau. Một nhóm nghiên cứu hoặc cơ quan không được xem như một cá nhân. Với nguyên tố được biết từ cổ đại, hồ sơ không gán một người khám phá. Các ghi nhận trên dẫn về tài liệu của nguyên tố và nguồn tham khảo tương ứng; không bổ sung lời trích dẫn hay giai thoại đời tư chưa có căn cứ."
+  "readingMinutes": 3,
+  "editorialEvidence": {
+    "language": "vi",
+    "scope": "related-element",
+    "contextLabel": "Heli (He)",
+    "reviewBasis": "existing-element-dossier",
+    "story": {
+      "status": "documented",
+      "section": "## Cuộc tìm kiếm dẫn đến heli",
+      "sources": [
+        "https://periodic-table.rsc.org/element/2/helium"
+      ]
+    },
+    "application": {
+      "status": "context-only",
+      "section": "## Từ dấu mốc nghiên cứu đến công việc hôm nay",
+      "sources": [
+        "https://periodic-table.rsc.org/element/2/helium"
+      ]
+    }
+  },
+  "content": "## Cuộc tìm kiếm dẫn đến heli\n\nNăm 1868, nhà thiên văn học người Pháp Pierre Janssen quan sát quang phổ mặt trời trong một lần nhật thực tại Ấn Độ và phát hiện một vạch vàng chưa từng biết tới. Nhà thiên văn học người Anh Joseph Norman Lockyer sau đó kết luận đây là một nguyên tố mới và đặt tên là heli (theo tên Helios – thần Mặt Trời trong thần thoại Hy Lạp). Đến năm 1895, nhà hóa học người Scotland William Ramsay đã cô lập thành công heli trên Trái Đất bằng cách xử lý khoáng vật cleveite bằng axit.\n\nNhững người hoặc cơ sở được ghi nhận trong câu chuyện này là **Pierre Janssen, Joseph Norman Lockyer và William Ramsay**.\n\n![Hình minh họa heli](/assets/library/photos/elements/He.jpg)\n\n*Hình minh họa chủ đề heli. [Nguồn hình: bộ ảnh nguyên tố](https://en.wikipedia.org/wiki/Helium).*\n\n## Bằng chứng đã thay đổi điều gì?\n\nÁnh sáng giúp cuộc tìm kiếm đi xa hơn màu sắc nhìn bằng mắt. Khi tách ánh sáng thành quang phổ, người nghiên cứu có thể so sánh vị trí những vạch sáng và tìm dấu hiệu chưa giải thích được bằng các chất đã biết. Từ một dấu hiệu ấy đến kết luận về nguyên tố mới vẫn cần kiểm tra nguồn phát sáng và những chất có thể lẫn trong mẫu. Một vạch phổ là bằng chứng phải giải thích, chứ tên gọi chưa tự sinh ra từ màu của ngọn lửa.\n\n## Từ dấu mốc nghiên cứu đến công việc hôm nay\n\n### Heli (He)\n\nHeli lỏng là chất làm lạnh cốt lõi để duy trì nhiệt độ siêu thấp cho các cuộn nam châm siêu dẫn trong máy chụp cộng hưởng từ (MRI) y tế và máy gia tốc hạt năng lượng cao.\n\nHe dùng để bơm khí cầu vì nhẹ và không cháy; khí nén và môi trường thiếu oxi vẫn có rủi ro.\n\n[Đọc tiếp về Heli](/trung-tam/tai-lieu-so/heli-he/).\n\nNhững ứng dụng này thuộc về hành trình phát triển tiếp theo của nguyên tố. Từ phát hiện đến thiết bị sử dụng được còn có công việc của nhiều thế hệ: tạo vật liệu đủ sạch, hiểu tính chất, thiết kế quy trình và kiểm tra độ bền. Vai trò của người khám phá nằm ở dấu mốc được kể ở trên; các công nghệ xuất hiện sau đó cần được ghi nhận cho đúng công trình.\n\n## Nguồn và đọc tiếp\n\n- [Hội Hóa học Hoàng gia Anh · Heli](https://periodic-table.rsc.org/element/2/helium)"
 }

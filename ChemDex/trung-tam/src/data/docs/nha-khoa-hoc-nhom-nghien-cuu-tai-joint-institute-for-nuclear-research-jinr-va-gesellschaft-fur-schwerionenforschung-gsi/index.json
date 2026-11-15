@@ -2,11 +2,11 @@
   "id": "nha-khoa-hoc-nhom-nghien-cuu-tai-joint-institute-for-nuclear-research-jinr-va-gesellschaft-fur-schwerionenforschung-gsi",
   "slug": "nha-khoa-hoc-nhom-nghien-cuu-tai-joint-institute-for-nuclear-research-jinr-va-gesellschaft-fur-schwerionenforschung-gsi",
   "documentPath": "docs/nha-khoa-hoc-nhom-nghien-cuu-tai-joint-institute-for-nuclear-research-jinr-va-gesellschaft-fur-schwerionenforschung-gsi/index.json",
-  "title": "Nhóm nghiên cứu tại Joint Institute for Nuclear Research (JINR) và Gesellschaft für Schwerionenforschung (GSI) — dấu mốc khám phá hóa học",
+  "title": "Bohrium: cuộc tìm kiếm của các nhóm nghiên cứu",
   "author": "Ban biên tập ChemDex",
   "category": "tieusu",
-  "summary": "Hồ sơ lịch sử liên quan đến Bohrium (Bh); phân biệt phát hiện, cô lập và đặt tên theo từng trường hợp.",
-  "image": "/assets/library/history-evidence.svg",
+  "summary": "Bohrium được tổng hợp lần đầu năm 1981 tại GSI bằng cách bắn phá bismuth-209 bằng hạt nhân crom-54: ²⁰⁹Bi + ⁵⁴Cr → ²⁶²Bh + n Nguyên tố được đặt tên bohrium để vinh danh nhà vật lý Đan Mạch Niels Bohr, người có những đóng góp quan trọng cho việc phát triển mô hình nguyên tử và cơ học lượng tử.",
+  "image": "/assets/library/photos/elements/Bh.jpg",
   "tags": [
     "Lịch sử hóa học",
     "Bh"
@@ -15,6 +15,26 @@
     "Nhóm nghiên cứu tại Joint Institute for Nuclear Research (JINR) và Gesellschaft für Schwerionenforschung (GSI)"
   ],
   "documentKind": "biography",
-  "readingMinutes": 1,
-  "content": "# Nhóm nghiên cứu tại Joint Institute for Nuclear Research (JINR) và Gesellschaft für Schwerionenforschung (GSI) — dấu mốc khám phá hóa học\n\nHồ sơ lịch sử liên quan đến Bohrium (Bh); phân biệt phát hiện, cô lập và đặt tên theo từng trường hợp.\n\n## Bohrium (Bh)\n\nBohrium được tổng hợp lần đầu năm 1981 tại GSI bằng cách bắn phá Bismuth-209 bằng hạt nhân Chromium-54: ²⁰⁹Bi + ⁵⁴Cr → ²⁶²Bh + n Nguyên tố được đặt tên Bohrium để vinh danh nhà vật lý Đan Mạch Niels Bohr, người có những đóng góp quan trọng cho việc phát triển mô hình nguyên tử và cơ học lượng tử.\n\n**Mốc lịch sử:** 1981. **Địa điểm ghi trong hồ sơ:** Darmstadt, Tây Đức.\n\n[Đọc tài liệu về Bohrium](/trung-tam/tai-lieu-so/bohrium-bh/).\n\n[Royal Society of Chemistry — thông tin nguyên tố](https://periodic-table.rsc.org/element/107/bohrium)\n\n## Cách đọc các mốc lịch sử\n\nPhát hiện một nguyên tố, cô lập đơn chất và đặt tên có thể là những công việc khác nhau, diễn ra ở các thời điểm khác nhau. Một nhóm nghiên cứu hoặc cơ quan không được xem như một cá nhân. Với nguyên tố được biết từ cổ đại, hồ sơ không gán một người khám phá. Các ghi nhận trên dẫn về tài liệu của nguyên tố và nguồn tham khảo tương ứng; không bổ sung lời trích dẫn hay giai thoại đời tư chưa có căn cứ."
+  "readingMinutes": 2,
+  "editorialEvidence": {
+    "language": "vi",
+    "scope": "related-element",
+    "contextLabel": "Bohrium (Bh)",
+    "reviewBasis": "existing-element-dossier",
+    "story": {
+      "status": "documented",
+      "section": "## Cuộc tìm kiếm dẫn đến bohrium",
+      "sources": [
+        "https://periodic-table.rsc.org/element/107/bohrium"
+      ]
+    },
+    "application": {
+      "status": "context-only",
+      "section": "## Từ dấu mốc nghiên cứu đến công việc hôm nay",
+      "sources": [
+        "https://periodic-table.rsc.org/element/107/bohrium"
+      ]
+    }
+  },
+  "content": "## Cuộc tìm kiếm dẫn đến bohrium\n\nBohrium được tổng hợp lần đầu năm 1981 tại GSI bằng cách bắn phá bismuth-209 bằng hạt nhân crom-54: ²⁰⁹Bi + ⁵⁴Cr → ²⁶²Bh + n Nguyên tố được đặt tên bohrium để vinh danh nhà vật lý Đan Mạch Niels Bohr, người có những đóng góp quan trọng cho việc phát triển mô hình nguyên tử và cơ học lượng tử.\n\nNhững người hoặc cơ sở được ghi nhận trong câu chuyện này là **Nhóm nghiên cứu tại Joint Institute for Nuclear Research (JINR) và Gesellschaft für Schwerionenforschung (GSI)**.\n\n![Hình minh họa bohrium](/assets/library/photos/elements/Bh.jpg)\n\n*Hình minh họa chủ đề bohrium. [Nguồn hình: bộ ảnh nguyên tố](https://en.wikipedia.org/wiki/Bohrium).*\n\n## Bằng chứng đã thay đổi điều gì?\n\nỞ những nguyên tố được tạo ra bằng phản ứng hạt nhân, bằng chứng có thể xuất hiện dưới dạng một chuỗi tín hiệu phân rã. Các nhà nghiên cứu phải nối những tín hiệu ấy với quá trình tạo mẫu, kiểm tra sản phẩm và đối chiếu sự kiện lặp lại. Đổi một nguyên tố thành nguyên tố khác đòi hỏi thay đổi hạt nhân; phản ứng hóa học thông thường chỉ sắp xếp lại electron và liên kết. Chính sự khác biệt này khiến cuộc tìm kiếm cần đến những công cụ vượt xa bình phản ứng quen thuộc.\n\n## Từ dấu mốc nghiên cứu đến công việc hôm nay\n\n### Bohrium (Bh)\n\nBohrium không có ứng dụng công nghiệp hoặc dân dụng.\n\nNghiên cứu tính chất của các hạt nhân siêu nặng.\n\n[Đọc tiếp về Bohrium](/trung-tam/tai-lieu-so/bohrium-bh/).\n\nNhững ứng dụng này thuộc về hành trình phát triển tiếp theo của nguyên tố. Từ phát hiện đến thiết bị sử dụng được còn có công việc của nhiều thế hệ: tạo vật liệu đủ sạch, hiểu tính chất, thiết kế quy trình và kiểm tra độ bền. Vai trò của người khám phá nằm ở dấu mốc được kể ở trên; các công nghệ xuất hiện sau đó cần được ghi nhận cho đúng công trình.\n\n## Nguồn và đọc tiếp\n\n- [Hội Hóa học Hoàng gia Anh · Bohrium](https://periodic-table.rsc.org/element/107/bohrium)"
 }

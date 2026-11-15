@@ -1,0 +1,42 @@
+{
+  "id": "sabatier-tu-hoi-tho-den-nuoc",
+  "slug": "sabatier-tu-hoi-tho-den-nuoc",
+  "documentPath": "docs/sabatier-tu-hoi-tho-den-nuoc/index.json",
+  "title": "Từ hơi thở thành nước: vòng tuần hoàn chưa khép kín trên trạm vũ trụ",
+  "summary": "Trên ISS, carbon dioxide do phi hành gia thở ra được đưa vào phản ứng Sabatier. Vì sao tạo được nước mà hệ thống vẫn chưa thể tự nuôi sống mình mãi mãi?",
+  "category": "phanung",
+  "author": "Ban biên tập ChemDex",
+  "image": "/assets/library/photos/stories/iss.jpg",
+  "tags": [
+    "Sabatier",
+    "Xúc tác",
+    "Nước",
+    "Trạm vũ trụ"
+  ],
+  "aliases": [],
+  "documentKind": "story",
+  "readingMinutes": 4,
+  "editorialEvidence": {
+    "language": "vi",
+    "scope": "chemical-family",
+    "contextLabel": "Từ hơi thở thành nước: vòng tuần hoàn chưa khép kín trên trạm vũ trụ",
+    "reviewBasis": "Biên soạn theo các nguồn dẫn cuối bài; phân biệt kết quả đã thực hiện và hướng phát triển.",
+    "story": {
+      "status": "documented",
+      "section": "## Carbon dioxide có một chặng đường thứ hai",
+      "sources": [
+        "https://www.nasa.gov/reference/environmental-control-and-life-support-systems-eclss/",
+        "https://www.nasa.gov/spacecraft-oxygen-recovery-scor/"
+      ]
+    },
+    "application": {
+      "status": "documented",
+      "section": "## Ứng dụng hôm nay: tiết kiệm nước bằng cách quản lý cả khí thải",
+      "sources": [
+        "https://www.nasa.gov/reference/environmental-control-and-life-support-systems-eclss/",
+        "https://www.nasa.gov/spacecraft-oxygen-recovery-scor/"
+      ]
+    }
+  },
+  "content": "## Carbon dioxide có một chặng đường thứ hai\n\nTrong hệ thống duy trì sự sống trên Trạm Vũ trụ Quốc tế, carbon dioxide từ hơi thở không chỉ là thứ cần loại khỏi khoang. NASA mô tả một nhánh xử lý đưa khí này cùng hydrogen vào thiết bị phản ứng Sabatier để thu hồi nước. Một phần dòng vật chất tưởng như đã thành chất thải có thể quay lại phục vụ sinh hoạt.\n\nSự kết nối đáng chú ý nằm ở thiết bị tạo oxy: nước được điện phân, tạo ra oxy cho khoang và hydrogen cho quá trình tiếp theo. Ghép hai phản ứng lại mở ra khả năng tiết kiệm hàng tiếp tế. Nhưng nó cũng bộc lộ ngay một giới hạn: một phần hydrogen rời hệ thống trong methane.\n\n![Trạm Vũ trụ Quốc tế nhìn từ Crew Dragon](/assets/library/photos/stories/iss.jpg)\n\n*Trạm Vũ trụ Quốc tế được chụp từ tàu Crew Dragon Endeavour trong chuyến bay vòng quanh trạm tháng 11/2021. — NASA; [Tư liệu gốc](https://www.flickr.com/photos/nasa2explore/51749924967/in/photostream/) ; see also [Tư liệu gốc](https://images.nasa.gov/details-jsc2021e064211_alt); [Public domain](https://commons.wikimedia.org/wiki/Commons:Public_domain). [Nguồn ảnh](https://commons.wikimedia.org/wiki/File:The_station_pictured_from_the_SpaceX_Crew_Dragon_5.jpg).*\n\n## Đọc vòng tuần hoàn bằng cách đếm nguyên tử\n\nPhản ứng Sabatier thường được biểu diễn **CO₂ + 4H₂ → CH₄ + 2H₂O**. Một phân tử CO₂ mang hai nguyên tử oxygen; cả hai đi vào hai phân tử nước. Bốn phân tử H₂ cung cấp tám nguyên tử hydrogen: bốn đi vào nước, bốn còn lại đi vào methane.\n\nNếu tiếp tục điện phân hai phân tử nước, ta thu lại hai phân tử H₂ và một phân tử O₂. Lượng hydrogen thu hồi vẫn ít hơn lượng đã dùng cho bước Sabatier. Chỉ nhìn mũi tên tạo nước có thể khiến ta tưởng vòng tuần hoàn đã kín; theo dõi từng nguyên tố cho thấy nó còn một cửa thoát.\n\nXúc tác giúp phản ứng diễn ra theo tốc độ và mức chọn lọc phù hợp. Nó không xóa bỏ cân bằng vật chất hay cung cấp năng lượng miễn phí. Trong một thiết bị thực, nhiệt độ, lưu lượng, độ sạch của nguyên liệu và khả năng tản nhiệt đều quyết định hệ thống có vận hành ổn định hay không.\n\n## Ứng dụng hôm nay: tiết kiệm nước bằng cách quản lý cả khí thải\n\nNASA đang nghiên cứu những hướng nâng mức thu hồi oxy, trong đó có cách tận dụng hydrogen tốt hơn và các tuyến phản ứng khác. Điều này cho thấy công nghệ không dừng ở việc chứng minh một phản ứng có xảy ra. Vấn đề là sử dụng được bao nhiêu vật chất sau nhiều vòng chạy, với khối lượng thiết bị và mức bảo trì chấp nhận được.\n\nTrên mặt đất, cách tư duy ấy xuất hiện trong thiết kế nhà máy: một dòng thải của công đoạn này có thể thành nguyên liệu cho công đoạn khác. Tuy nhiên, khả năng tái sử dụng còn phụ thuộc tạp chất và năng lượng cần để thu hồi. Không phải mọi vòng tái chế đều đem lại cùng lợi ích.\n\nCâu chuyện trên ISS là một ví dụ rõ của hóa học hệ thống. Khi xem một công nghệ được quảng bá là tuần hoàn, hãy lần theo cả carbon, hydrogen và oxygen. Những nguyên tử biến mất khỏi sơ đồ đơn giản thường vẫn đang ở đâu đó trong khí xả, nước thải hoặc sản phẩm phụ. Chính phần ít được chú ý ấy quyết định vòng tuần hoàn có thể đi xa đến đâu.\n\n## Nguồn và đọc thêm\n\n- [NASA · Hệ thống kiểm soát môi trường và duy trì sự sống](https://www.nasa.gov/reference/environmental-control-and-life-support-systems-eclss/)\n- [NASA · Dự án thu hồi oxy SCOR](https://www.nasa.gov/spacecraft-oxygen-recovery-scor/)"
+}

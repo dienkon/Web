@@ -2,11 +2,11 @@
   "id": "nha-khoa-hoc-eugene-anatole-demarcay",
   "slug": "nha-khoa-hoc-eugene-anatole-demarcay",
   "documentPath": "docs/nha-khoa-hoc-eugene-anatole-demarcay/index.json",
-  "title": "Eugène-Anatole Demarçay — dấu mốc khám phá hóa học",
+  "title": "Eugène-Anatole Demarçay — lần theo dấu vết europium",
   "author": "Ban biên tập ChemDex",
   "category": "tieusu",
-  "summary": "Hồ sơ lịch sử liên quan đến Europium (Eu); phân biệt phát hiện, cô lập và đặt tên theo từng trường hợp.",
-  "image": "/assets/library/history-evidence.svg",
+  "summary": "Năm 1892, Paul-Émile Lecoq de Boisbaudran nhận thấy một số vạch phổ bất thường trong samarium. Sau đó, Eugène-Anatole Demarçay tiến hành nghiên cứu và tách được nguyên tố mới từ các mẫu samarium.",
+  "image": "/assets/library/photos/elements/Eu.jpg",
   "tags": [
     "Lịch sử hóa học",
     "Eu"
@@ -15,6 +15,26 @@
     "Eugène-Anatole Demarçay"
   ],
   "documentKind": "biography",
-  "readingMinutes": 1,
-  "content": "# Eugène-Anatole Demarçay — dấu mốc khám phá hóa học\n\nHồ sơ lịch sử liên quan đến Europium (Eu); phân biệt phát hiện, cô lập và đặt tên theo từng trường hợp.\n\n## Europium (Eu)\n\nNăm 1892, Paul-Émile Lecoq de Boisbaudran nhận thấy một số vạch phổ bất thường trong Samarium. Sau đó, Eugène-Anatole Demarçay tiến hành nghiên cứu và tách được nguyên tố mới từ các mẫu Samarium. Năm 1901, Demarçay công bố việc phát hiện Europium. Tên Europium được đặt theo Europe (châu Âu).\n\n**Mốc lịch sử:** 1901. **Địa điểm ghi trong hồ sơ:** Pháp.\n\n[Đọc tài liệu về Europium](/trung-tam/tai-lieu-so/europium-eu/).\n\n[Royal Society of Chemistry — thông tin nguyên tố](https://periodic-table.rsc.org/element/63/europium)\n\n## Cách đọc các mốc lịch sử\n\nPhát hiện một nguyên tố, cô lập đơn chất và đặt tên có thể là những công việc khác nhau, diễn ra ở các thời điểm khác nhau. Một nhóm nghiên cứu hoặc cơ quan không được xem như một cá nhân. Với nguyên tố được biết từ cổ đại, hồ sơ không gán một người khám phá. Các ghi nhận trên dẫn về tài liệu của nguyên tố và nguồn tham khảo tương ứng; không bổ sung lời trích dẫn hay giai thoại đời tư chưa có căn cứ."
+  "readingMinutes": 2,
+  "editorialEvidence": {
+    "language": "vi",
+    "scope": "related-element",
+    "contextLabel": "Europium (Eu)",
+    "reviewBasis": "existing-element-dossier",
+    "story": {
+      "status": "documented",
+      "section": "## Cuộc tìm kiếm dẫn đến europium",
+      "sources": [
+        "https://periodic-table.rsc.org/element/63/europium"
+      ]
+    },
+    "application": {
+      "status": "context-only",
+      "section": "## Từ dấu mốc nghiên cứu đến công việc hôm nay",
+      "sources": [
+        "https://periodic-table.rsc.org/element/63/europium"
+      ]
+    }
+  },
+  "content": "## Cuộc tìm kiếm dẫn đến europium\n\nNăm 1892, Paul-Émile Lecoq de Boisbaudran nhận thấy một số vạch phổ bất thường trong samarium. Sau đó, Eugène-Anatole Demarçay tiến hành nghiên cứu và tách được nguyên tố mới từ các mẫu samarium. Năm 1901, Demarçay công bố việc phát hiện europium. Tên europium được đặt theo Europe (châu Âu).\n\nNhững người hoặc cơ sở được ghi nhận trong câu chuyện này là **Eugène-Anatole Demarçay**.\n\n![Hình minh họa europium](/assets/library/photos/elements/Eu.jpg)\n\n*Hình minh họa chủ đề europium. [Nguồn hình: bộ ảnh nguyên tố](https://en.wikipedia.org/wiki/Europium).*\n\n## Bằng chứng đã thay đổi điều gì?\n\nÁnh sáng giúp cuộc tìm kiếm đi xa hơn màu sắc nhìn bằng mắt. Khi tách ánh sáng thành quang phổ, người nghiên cứu có thể so sánh vị trí những vạch sáng và tìm dấu hiệu chưa giải thích được bằng các chất đã biết. Từ một dấu hiệu ấy đến kết luận về nguyên tố mới vẫn cần kiểm tra nguồn phát sáng và những chất có thể lẫn trong mẫu. Một vạch phổ là bằng chứng phải giải thích, chứ tên gọi chưa tự sinh ra từ màu của ngọn lửa.\n\n## Từ dấu mốc nghiên cứu đến công việc hôm nay\n\n### Europium (Eu)\n\nEuropium compounds là chất phát quang quan trọng, đặc biệt tạo màu đỏ trong màn hình và các hệ thống hiển thị.\n\nEuropium được sử dụng trong phosphor để tạo ánh sáng màu đỏ và góp phần tạo ánh sáng trắng.\n\n[Đọc tiếp về Europium](/trung-tam/tai-lieu-so/europium-eu/).\n\nNhững ứng dụng này thuộc về hành trình phát triển tiếp theo của nguyên tố. Từ phát hiện đến thiết bị sử dụng được còn có công việc của nhiều thế hệ: tạo vật liệu đủ sạch, hiểu tính chất, thiết kế quy trình và kiểm tra độ bền. Vai trò của người khám phá nằm ở dấu mốc được kể ở trên; các công nghệ xuất hiện sau đó cần được ghi nhận cho đúng công trình.\n\n## Nguồn và đọc tiếp\n\n- [Hội Hóa học Hoàng gia Anh · Europium](https://periodic-table.rsc.org/element/63/europium)"
 }

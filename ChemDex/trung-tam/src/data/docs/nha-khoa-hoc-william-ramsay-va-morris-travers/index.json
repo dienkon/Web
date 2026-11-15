@@ -2,11 +2,11 @@
   "id": "nha-khoa-hoc-william-ramsay-va-morris-travers",
   "slug": "nha-khoa-hoc-william-ramsay-va-morris-travers",
   "documentPath": "docs/nha-khoa-hoc-william-ramsay-va-morris-travers/index.json",
-  "title": "William Ramsay và Morris Travers — dấu mốc khám phá hóa học",
+  "title": "William Ramsay và Morris Travers — lần theo dấu vết neon, kripton, xenon",
   "author": "Ban biên tập ChemDex",
   "category": "tieusu",
-  "summary": "Hồ sơ lịch sử liên quan đến Neon (Ne), Kripton (Kr), Xenon (Xe); phân biệt phát hiện, cô lập và đặt tên theo từng trường hợp.",
-  "image": "/assets/library/history-evidence.svg",
+  "summary": "Năm 1898, William Ramsay và Morris Travers phát hiện neon khi nghiên cứu phần khí còn lại sau khi hóa lỏng và tách các thành phần của không khí. Họ thu được một khí mới có quang phổ đặc trưng.",
+  "image": "/assets/library/photos/elements/Ne.jpg",
   "tags": [
     "Lịch sử hóa học",
     "Ne",
@@ -17,6 +17,30 @@
     "William Ramsay và Morris Travers"
   ],
   "documentKind": "biography",
-  "readingMinutes": 2,
-  "content": "# William Ramsay và Morris Travers — dấu mốc khám phá hóa học\n\nHồ sơ lịch sử liên quan đến Neon (Ne), Kripton (Kr), Xenon (Xe); phân biệt phát hiện, cô lập và đặt tên theo từng trường hợp.\n\n## Neon (Ne)\n\nNăm 1898, William Ramsay và Morris Travers phát hiện Neon khi nghiên cứu phần khí còn lại sau khi hóa lỏng và tách các thành phần của không khí. Họ thu được một khí mới có quang phổ đặc trưng. Tên Neon bắt nguồn từ tiếng Hy Lạp neos, nghĩa là “mới”.\n\n**Mốc lịch sử:** 1898. **Địa điểm ghi trong hồ sơ:** Anh.\n\n[Đọc tài liệu về Neon](/trung-tam/tai-lieu-so/neon-ne/).\n\n[Royal Society of Chemistry — thông tin nguyên tố](https://periodic-table.rsc.org/element/10/neon)\n\n## Kripton (Kr)\n\nNăm 1898, William Ramsay và Morris Travers phát hiện Krypton khi nghiên cứu phần khí còn lại sau khi làm bay hơi các thành phần chính của không khí lỏng. Tên Krypton bắt nguồn từ tiếng Hy Lạp kryptos, nghĩa là “ẩn giấu”.\n\n**Mốc lịch sử:** 1898. **Địa điểm ghi trong hồ sơ:** Anh.\n\n[Đọc tài liệu về Kripton](/trung-tam/tai-lieu-so/kripton-kr/).\n\n[Royal Society of Chemistry — thông tin nguyên tố](https://periodic-table.rsc.org/element/36/krypton)\n\n## Xenon (Xe)\n\nNăm 1898, William Ramsay và Morris Travers phát hiện Xenon khi nghiên cứu phần cặn còn lại sau khi tách các khí khác khỏi không khí hóa lỏng. Tên Xenon bắt nguồn từ tiếng Hy Lạp xenos, nghĩa là “xa lạ” hoặc “người khách”.\n\n**Mốc lịch sử:** 1898. **Địa điểm ghi trong hồ sơ:** Anh.\n\n[Đọc tài liệu về Xenon](/trung-tam/tai-lieu-so/xenon-xe/).\n\n[Royal Society of Chemistry — thông tin nguyên tố](https://periodic-table.rsc.org/element/54/xenon)\n\n## Cách đọc các mốc lịch sử\n\nPhát hiện một nguyên tố, cô lập đơn chất và đặt tên có thể là những công việc khác nhau, diễn ra ở các thời điểm khác nhau. Một nhóm nghiên cứu hoặc cơ quan không được xem như một cá nhân. Với nguyên tố được biết từ cổ đại, hồ sơ không gán một người khám phá. Các ghi nhận trên dẫn về tài liệu của nguyên tố và nguồn tham khảo tương ứng; không bổ sung lời trích dẫn hay giai thoại đời tư chưa có căn cứ."
+  "readingMinutes": 4,
+  "editorialEvidence": {
+    "language": "vi",
+    "scope": "related-element",
+    "contextLabel": "Neon (Ne), Kripton (Kr), Xenon (Xe)",
+    "reviewBasis": "existing-element-dossier",
+    "story": {
+      "status": "documented",
+      "section": "## Cuộc tìm kiếm dẫn đến neon",
+      "sources": [
+        "https://periodic-table.rsc.org/element/10/neon",
+        "https://periodic-table.rsc.org/element/36/krypton",
+        "https://periodic-table.rsc.org/element/54/xenon"
+      ]
+    },
+    "application": {
+      "status": "context-only",
+      "section": "## Từ dấu mốc nghiên cứu đến công việc hôm nay",
+      "sources": [
+        "https://periodic-table.rsc.org/element/10/neon",
+        "https://periodic-table.rsc.org/element/36/krypton",
+        "https://periodic-table.rsc.org/element/54/xenon"
+      ]
+    }
+  },
+  "content": "## Cuộc tìm kiếm dẫn đến neon\n\nNăm 1898, William Ramsay và Morris Travers phát hiện neon khi nghiên cứu phần khí còn lại sau khi hóa lỏng và tách các thành phần của không khí. Họ thu được một khí mới có quang phổ đặc trưng. Tên neon bắt nguồn từ tiếng Hy Lạp neos, nghĩa là “mới”.\n\nNhững người hoặc cơ sở được ghi nhận trong câu chuyện này là **William Ramsay và Morris Travers**.\n\n![Hình minh họa neon](/assets/library/photos/elements/Ne.jpg)\n\n*Hình minh họa chủ đề neon. [Nguồn hình: bộ ảnh nguyên tố](https://en.wikipedia.org/wiki/Neon).*\n\n## Thêm một dấu mốc: Kripton (Kr)\n\nNăm 1898, William Ramsay và Morris Travers phát hiện kripton khi nghiên cứu phần khí còn lại sau khi làm bay hơi các thành phần chính của không khí lỏng. Tên kripton bắt nguồn từ tiếng Hy Lạp kryptos, nghĩa là “ẩn giấu”.\n\nNhững người hoặc cơ sở được ghi nhận trong câu chuyện này là **William Ramsay và Morris Travers**.\n\n## Thêm một dấu mốc: Xenon (Xe)\n\nNăm 1898, William Ramsay và Morris Travers phát hiện xenon khi nghiên cứu phần cặn còn lại sau khi tách các khí khác khỏi không khí hóa lỏng. Tên xenon bắt nguồn từ tiếng Hy Lạp xenos, nghĩa là “xa lạ” hoặc “người khách”.\n\nNhững người hoặc cơ sở được ghi nhận trong câu chuyện này là **William Ramsay và Morris Travers**.\n\n## Bằng chứng đã thay đổi điều gì?\n\nÁnh sáng giúp cuộc tìm kiếm đi xa hơn màu sắc nhìn bằng mắt. Khi tách ánh sáng thành quang phổ, người nghiên cứu có thể so sánh vị trí những vạch sáng và tìm dấu hiệu chưa giải thích được bằng các chất đã biết. Từ một dấu hiệu ấy đến kết luận về nguyên tố mới vẫn cần kiểm tra nguồn phát sáng và những chất có thể lẫn trong mẫu. Một vạch phổ là bằng chứng phải giải thích, chứ tên gọi chưa tự sinh ra từ màu của ngọn lửa.\n\n## Từ dấu mốc nghiên cứu đến công việc hôm nay\n\n### Neon (Ne)\n\nDùng trong biển hiệu và các loại đèn phóng điện tạo ánh sáng đỏ cam đặc trưng.\n\nSử dụng trong một số thiết bị điện và điện tử.\n\n[Đọc tiếp về Neon](/trung-tam/tai-lieu-so/neon-ne/).\n\n### Kripton (Kr)\n\nKripton được sử dụng trong một số loại đèn và nguồn sáng đặc biệt.\n\nKripton được sử dụng trong một số hệ thống laser, đặc biệt là kripton ion laser.\n\n[Đọc tiếp về Kripton](/trung-tam/tai-lieu-so/kripton-kr/).\n\n### Xenon (Xe)\n\nXenon được sử dụng trong đèn flash, đèn chiếu sáng cường độ cao và một số loại đèn pha.\n\nXenon được sử dụng trong một số hệ thống laser excimer.\n\n[Đọc tiếp về Xenon](/trung-tam/tai-lieu-so/xenon-xe/).\n\nNhững ứng dụng này thuộc về hành trình phát triển tiếp theo của nguyên tố. Từ phát hiện đến thiết bị sử dụng được còn có công việc của nhiều thế hệ: tạo vật liệu đủ sạch, hiểu tính chất, thiết kế quy trình và kiểm tra độ bền. Vai trò của người khám phá nằm ở dấu mốc được kể ở trên; các công nghệ xuất hiện sau đó cần được ghi nhận cho đúng công trình.\n\n## Nguồn và đọc tiếp\n\n- [Hội Hóa học Hoàng gia Anh · Neon](https://periodic-table.rsc.org/element/10/neon)\n- [Hội Hóa học Hoàng gia Anh · Kripton](https://periodic-table.rsc.org/element/36/krypton)\n- [Hội Hóa học Hoàng gia Anh · Xenon](https://periodic-table.rsc.org/element/54/xenon)"
 }

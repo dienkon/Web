@@ -2,11 +2,11 @@
   "id": "nha-khoa-hoc-humphry-davy",
   "slug": "nha-khoa-hoc-humphry-davy",
   "documentPath": "docs/nha-khoa-hoc-humphry-davy/index.json",
-  "title": "Humphry Davy — dấu mốc khám phá hóa học",
+  "title": "Humphry Davy — lần theo dấu vết natri, kali, canxi và những nguyên tố khác",
   "author": "Ban biên tập ChemDex",
   "category": "tieusu",
-  "summary": "Hồ sơ lịch sử liên quan đến Natri (Na), Kali (K), Canxi (Ca), Bari (Ba); phân biệt phát hiện, cô lập và đặt tên theo từng trường hợp.",
-  "image": "/assets/library/history-evidence.svg",
+  "summary": "Năm 1807, Humphry Davy lần đầu tiên cô lập được natri bằng phương pháp điện phân natri hiđroxit nóng chảy. Trước đó, các hợp chất của natri như natri cacbonat đã được con người biết đến từ lâu.",
+  "image": "/assets/library/photos/elements/Na.jpg",
   "tags": [
     "Lịch sử hóa học",
     "Na",
@@ -18,6 +18,32 @@
     "Humphry Davy"
   ],
   "documentKind": "biography",
-  "readingMinutes": 2,
-  "content": "# Humphry Davy — dấu mốc khám phá hóa học\n\nHồ sơ lịch sử liên quan đến Natri (Na), Kali (K), Canxi (Ca), Bari (Ba); phân biệt phát hiện, cô lập và đặt tên theo từng trường hợp.\n\n## Natri (Na)\n\nNăm 1807, Humphry Davy lần đầu tiên cô lập được Sodium bằng phương pháp điện phân Sodium hydroxide nóng chảy. Trước đó, các hợp chất của Sodium như Sodium carbonate đã được con người biết đến từ lâu.\n\n**Mốc lịch sử:** 1807. **Địa điểm ghi trong hồ sơ:** Anh.\n\n[Đọc tài liệu về Natri](/trung-tam/tai-lieu-so/natri-na/).\n\n[Royal Society of Chemistry — thông tin nguyên tố](https://periodic-table.rsc.org/element/11/sodium)\n\n## Kali (K)\n\nNăm 1807, Humphry Davy điều chế được Potassium kim loại bằng phương pháp điện phân Potassium hydroxide nóng chảy. Đây là một trong những kim loại kiềm đầu tiên được Davy tách thành công ở dạng đơn chất.\n\n**Mốc lịch sử:** 1807. **Địa điểm ghi trong hồ sơ:** Anh.\n\n[Đọc tài liệu về Kali](/trung-tam/tai-lieu-so/kali-k/).\n\n[Royal Society of Chemistry — thông tin nguyên tố](https://periodic-table.rsc.org/element/19/potassium)\n\n## Canxi (Ca)\n\nNăm 1808, Humphry Davy điều chế được Calcium kim loại bằng phương pháp điện phân hỗn hợp nóng chảy chứa Calcium oxide và Mercury(II) oxide. Sau đó ông loại Mercury để thu được Calcium.\n\n**Mốc lịch sử:** 1808. **Địa điểm ghi trong hồ sơ:** Anh.\n\n[Đọc tài liệu về Canxi](/trung-tam/tai-lieu-so/canxi-ca/).\n\n[Royal Society of Chemistry — thông tin nguyên tố](https://periodic-table.rsc.org/element/20/calcium)\n\n## Bari (Ba)\n\nBarium được Humphry Davy cô lập lần đầu vào năm 1808 bằng phương pháp điện phân Barium oxide nóng chảy. Trước đó, các hợp chất của Barium đã được biết đến và nghiên cứu từ thế kỷ XVIII.\n\n**Mốc lịch sử:** 1808. **Địa điểm ghi trong hồ sơ:** Anh.\n\n[Đọc tài liệu về Bari](/trung-tam/tai-lieu-so/bari-ba/).\n\n[Royal Society of Chemistry — thông tin nguyên tố](https://periodic-table.rsc.org/element/56/barium)\n\n## Cách đọc các mốc lịch sử\n\nPhát hiện một nguyên tố, cô lập đơn chất và đặt tên có thể là những công việc khác nhau, diễn ra ở các thời điểm khác nhau. Một nhóm nghiên cứu hoặc cơ quan không được xem như một cá nhân. Với nguyên tố được biết từ cổ đại, hồ sơ không gán một người khám phá. Các ghi nhận trên dẫn về tài liệu của nguyên tố và nguồn tham khảo tương ứng; không bổ sung lời trích dẫn hay giai thoại đời tư chưa có căn cứ."
+  "readingMinutes": 4,
+  "editorialEvidence": {
+    "language": "vi",
+    "scope": "related-element",
+    "contextLabel": "Natri (Na), Kali (K), Canxi (Ca), Bari (Ba)",
+    "reviewBasis": "existing-element-dossier",
+    "story": {
+      "status": "documented",
+      "section": "## Cuộc tìm kiếm dẫn đến natri",
+      "sources": [
+        "https://periodic-table.rsc.org/element/11/sodium",
+        "https://periodic-table.rsc.org/element/19/potassium",
+        "https://periodic-table.rsc.org/element/20/calcium",
+        "https://periodic-table.rsc.org/element/56/barium"
+      ]
+    },
+    "application": {
+      "status": "context-only",
+      "section": "## Từ dấu mốc nghiên cứu đến công việc hôm nay",
+      "sources": [
+        "https://periodic-table.rsc.org/element/11/sodium",
+        "https://periodic-table.rsc.org/element/19/potassium",
+        "https://periodic-table.rsc.org/element/20/calcium",
+        "https://periodic-table.rsc.org/element/56/barium"
+      ]
+    }
+  },
+  "content": "## Cuộc tìm kiếm dẫn đến natri\n\nNăm 1807, Humphry Davy lần đầu tiên cô lập được natri bằng phương pháp điện phân natri hiđroxit nóng chảy. Trước đó, các hợp chất của natri như natri cacbonat đã được con người biết đến từ lâu.\n\nNhững người hoặc cơ sở được ghi nhận trong câu chuyện này là **Humphry Davy**.\n\n![Hình minh họa natri](/assets/library/photos/elements/Na.jpg)\n\n*Hình minh họa chủ đề natri. [Nguồn hình: bộ ảnh nguyên tố](https://en.wikipedia.org/wiki/Sodium).*\n\n## Thêm một dấu mốc: Kali (K)\n\nNăm 1807, Humphry Davy điều chế được kali kim loại bằng phương pháp điện phân kali hiđroxit nóng chảy. Đây là một trong những kim loại kiềm đầu tiên được Davy tách thành công ở dạng đơn chất.\n\nNhững người hoặc cơ sở được ghi nhận trong câu chuyện này là **Humphry Davy**.\n\n## Thêm một dấu mốc: Canxi (Ca)\n\nNăm 1808, Humphry Davy điều chế được canxi kim loại bằng phương pháp điện phân hỗn hợp nóng chảy chứa canxi oxit và thủy ngân(II) oxit. Sau đó ông loại thủy ngân để thu được canxi.\n\nNhững người hoặc cơ sở được ghi nhận trong câu chuyện này là **Humphry Davy**.\n\n## Thêm một dấu mốc: Bari (Ba)\n\nBari được Humphry Davy cô lập lần đầu vào năm 1808 bằng phương pháp điện phân bari oxit nóng chảy. Trước đó, các hợp chất của bari đã được biết đến và nghiên cứu từ thế kỷ XVIII.\n\nNhững người hoặc cơ sở được ghi nhận trong câu chuyện này là **Humphry Davy**.\n\n## Bằng chứng đã thay đổi điều gì?\n\nTrong phép điện phân, dòng điện làm thay đổi trạng thái hóa học của các chất ở điện cực. Cách làm ấy mở đường đến những kim loại khó tách bằng các phương pháp quen thuộc trước đó. Người nghiên cứu còn phải nhận ra phần vừa thu được là gì, phân biệt nó với hợp chất ban đầu và kiểm tra phản ứng của mẫu. Công việc cô lập vì thế bổ sung cho công việc nhận diện: biết một nguyên tố có mặt và giữ được nó dưới dạng đơn chất là hai bước nối tiếp nhau.\n\n## Từ dấu mốc nghiên cứu đến công việc hôm nay\n\n### Natri (Na)\n\nNatri được sử dụng làm nguyên liệu để sản xuất nhiều hợp chất natri.\n\nNatri được sử dụng trong một số hợp kim và vật liệu đặc biệt.\n\n[Đọc tiếp về Natri](/trung-tam/tai-lieu-so/natri-na/).\n\n### Kali (K)\n\nKali compounds là nguồn kali quan trọng trong sản xuất phân bón.\n\nKOH, K₂CO₃ và nhiều kali compounds được sử dụng trong công nghiệp hóa chất.\n\n[Đọc tiếp về Kali](/trung-tam/tai-lieu-so/kali-k/).\n\n### Canxi (Ca)\n\nCanxi compounds như canxi cacbonat và canxi oxit được sử dụng rộng rãi trong sản xuất xi măng, vôi và vật liệu xây dựng.\n\nCanxi được sử dụng làm chất khử và chất loại bỏ một số tạp chất trong luyện kim.\n\n[Đọc tiếp về Canxi](/trung-tam/tai-lieu-so/canxi-ca/).\n\n### Bari (Ba)\n\nBari sunfat (BaSO₄) được sử dụng làm chất cản quang trong một số phương pháp chẩn đoán hình ảnh đường tiêu hóa.\n\nBarite (BaSO₄) được sử dụng trong dung dịch khoan nhờ khối lượng riêng cao.\n\n[Đọc tiếp về Bari](/trung-tam/tai-lieu-so/bari-ba/).\n\nNhững ứng dụng này thuộc về hành trình phát triển tiếp theo của nguyên tố. Từ phát hiện đến thiết bị sử dụng được còn có công việc của nhiều thế hệ: tạo vật liệu đủ sạch, hiểu tính chất, thiết kế quy trình và kiểm tra độ bền. Vai trò của người khám phá nằm ở dấu mốc được kể ở trên; các công nghệ xuất hiện sau đó cần được ghi nhận cho đúng công trình.\n\n## Nguồn và đọc tiếp\n\n- [Hội Hóa học Hoàng gia Anh · Natri](https://periodic-table.rsc.org/element/11/sodium)\n- [Hội Hóa học Hoàng gia Anh · Kali](https://periodic-table.rsc.org/element/19/potassium)\n- [Hội Hóa học Hoàng gia Anh · Canxi](https://periodic-table.rsc.org/element/20/calcium)\n- [Hội Hóa học Hoàng gia Anh · Bari](https://periodic-table.rsc.org/element/56/barium)"
 }

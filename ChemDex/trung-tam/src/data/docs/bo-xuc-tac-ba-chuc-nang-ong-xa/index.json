@@ -1,0 +1,46 @@
+{
+  "id": "bo-xuc-tac-ba-chuc-nang-ong-xa",
+  "slug": "bo-xuc-tac-ba-chuc-nang-ong-xa",
+  "documentPath": "docs/bo-xuc-tac-ba-chuc-nang-ong-xa/index.json",
+  "title": "Phòng phản ứng dưới gầm xe: chiếc hộp khiến khí thải đổi thành phần",
+  "summary": "Từ bộ xúc tác trên xe đời 1975 đến công nghệ ba chức năng của Engelhard năm 1976, xử lý khí thải là cuộc phối hợp khó giữa bề mặt kim loại, nhiệt độ và tỉ lệ nhiên liệu–không khí.",
+  "category": "phanung",
+  "author": "Ban biên tập ChemDex",
+  "image": "/assets/library/photos/stories/catalytic-converter.jpg",
+  "tags": [
+    "Xúc tác",
+    "Khí thải",
+    "Oxi hóa khử",
+    "Ô tô"
+  ],
+  "aliases": [],
+  "documentKind": "story",
+  "readingMinutes": 5,
+  "editorialEvidence": {
+    "language": "vi",
+    "scope": "chemical-family",
+    "contextLabel": "Phòng phản ứng dưới gầm xe: chiếc hộp khiến khí thải đổi thành phần",
+    "reviewBasis": "Biên soạn theo các nguồn dẫn cuối bài; phân biệt kết quả đã thực hiện và hướng phát triển.",
+    "story": {
+      "status": "documented",
+      "section": "## Một chiếc hộp xuất hiện trong đường ống xả",
+      "sources": [
+        "https://rosap.ntl.bts.gov/view/dot/10766/dot_10766_DS1.pdf",
+        "https://www.basf.com/es/es/who-we-are/historia/solutions/environmentally_friendly_solutions",
+        "https://openstax.org/books/chemistry-2e/pages/12-7-catalysis",
+        "https://basf-catalystsmetals.com/sites/default/files/attachments/Edison-Patent-Award-2024-Press-Release-EN-Final.pdf"
+      ]
+    },
+    "application": {
+      "status": "documented",
+      "section": "## Ứng dụng hôm nay: giảm chất độc không đồng nghĩa xóa carbon",
+      "sources": [
+        "https://rosap.ntl.bts.gov/view/dot/10766/dot_10766_DS1.pdf",
+        "https://www.basf.com/es/es/who-we-are/historia/solutions/environmentally_friendly_solutions",
+        "https://openstax.org/books/chemistry-2e/pages/12-7-catalysis",
+        "https://basf-catalystsmetals.com/sites/default/files/attachments/Edison-Patent-Award-2024-Press-Release-EN-Final.pdf"
+      ]
+    }
+  },
+  "content": "## Một chiếc hộp xuất hiện trong đường ống xả\n\nỞ Hoa Kỳ, các bộ chuyển đổi xúc tác nhằm giảm carbon monoxide và hydrocarbon xuất hiện rộng rãi trên xe đời 1975. Sau đó, công nghệ ba chức năng mở rộng mục tiêu sang xử lý nitrogen oxide. Theo lịch sử công nghệ do BASF công bố, Engelhard đưa bộ xúc tác ba chức năng cho động cơ xăng ra thị trường năm 1976.\n\nĐây không phải một chiếc túi giữ khói lại đến lúc đem đổ. Khí đi qua vùng có vật liệu xúc tác và tham gia phản ứng hóa học. Thiết bị nằm khuất dưới gầm xe, nhưng tác động của nó gắn với không khí mọi người cùng hít thở. Để hoạt động tốt trong dòng khí liên tục thay đổi, nó cần nhiều hơn một kim loại quý được đặt vào vỏ thép.\n\n![Bộ chuyển đổi xúc tác ô tô cắt mở](/assets/library/photos/stories/catalytic-converter.jpg)\n\n*Bộ chuyển đổi xúc tác của ô tô được cắt mở để quan sát cấu trúc bên trong. — User Stahlkocher on de.wikipedia; Originally from de.wikipedia ; description page is (was) here; [CC BY-SA 2.0](https://creativecommons.org/licenses/by-sa/2.0). [Nguồn ảnh](https://commons.wikimedia.org/wiki/File:Aufgeschnittener_Metall_Katalysator_f%C3%BCr_ein_Auto.jpg).*\n\n## Ba mục tiêu trong một dòng khí\n\nHydrocarbon chưa cháy hết và carbon monoxide có thể bị oxi hóa, tạo thêm carbon dioxide và nước. Trong khi đó, các oxide của nitrogen cần được khử để góp phần tạo nitrogen phân tử. Một cách viết minh họa cho CO là 2CO + O₂ → 2CO₂; một phản ứng tổng quát minh họa khác là 2CO + 2NO → 2CO₂ + N₂.\n\nNhững phương trình ấy cho thấy yêu cầu phối hợp: môi trường quá dư oxygen thuận lợi cho oxi hóa nhưng có thể làm bước khử NOx khó hơn. Tỉ lệ nhiên liệu–không khí và tín hiệu cảm biến vì thế có vai trò quan trọng. “Ba chức năng” nói đến ba nhóm chất ô nhiễm được xử lý, không có nghĩa mỗi chiếc xe chứa đúng ba hạt xúc tác hoặc ba phản ứng đơn lẻ tách biệt.\n\n## Bề mặt lớn, lượng kim loại nhỏ\n\nTrong xúc tác dị thể, phân tử khí tương tác với bề mặt rắn. Các vật liệu nền có nhiều kênh và lớp phủ giúp tạo diện tích tiếp xúc lớn trong một thể tích gọn. Platinum, palladium hoặc rhodium được dùng trong những công thức xúc tác khác nhau; hiệu quả phụ thuộc cách phân tán và môi trường bề mặt, không chỉ tổng khối lượng kim loại.\n\nChất xúc tác tạo đường phản ứng nhanh hơn, nhưng không xóa bỏ mọi giới hạn. Khi hệ còn lạnh, tốc độ chuyển hóa có thể thấp. Nhiệt độ quá cao hoặc chất gây nhiễm bẩn có thể làm vật liệu suy giảm. Vì vậy, hoạt động của bộ chuyển đổi gắn với động cơ, nhiên liệu, quản lý nhiệt và bảo dưỡng. Chỉ nhìn vỏ ngoài nguyên vẹn không đủ kết luận bề mặt bên trong còn thực hiện tốt nhiệm vụ.\n\n## Ứng dụng hôm nay: giảm chất độc không đồng nghĩa xóa carbon\n\nNăm 2024, BASF và Heesung công bố một công nghệ bẫy NOx kết hợp xúc tác ba chức năng, nhằm xử lý những điều kiện vận hành mà bộ xúc tác thông thường còn gặp khó. Điều đó cho thấy ngay cả một thiết bị đã có hàng chục năm ứng dụng vẫn tiếp tục cần cải tiến khi cách điều khiển động cơ thay đổi.\n\nĐọc lợi ích của bộ xúc tác cũng cần giữ đúng phạm vi. Chuyển CO thành CO₂ giúp giảm một chất khí độc, nhưng carbon vẫn đi ra khỏi xe. Bộ chuyển đổi không phải thiết bị thu giữ carbon dioxide và cũng không biến mọi khí thải thành không khí sạch tuyệt đối. Giá trị của công nghệ nằm ở việc giảm những thành phần cụ thể bằng phản ứng có thể đo được. Chiếc hộp dưới gầm xe là một bài học về hóa học thực tế: thành công phải được đánh giá đúng chất, đúng điều kiện và đúng giới hạn.\n\n## Nguồn và đọc thêm\n\n- [Bộ Giao thông Hoa Kỳ · Lịch sử và chức năng bộ chuyển đổi xúc tác](https://rosap.ntl.bts.gov/view/dot/10766/dot_10766_DS1.pdf)\n- [BASF · Engelhard và bộ xúc tác ba chức năng năm 1976](https://www.basf.com/es/es/who-we-are/historia/solutions/environmentally_friendly_solutions)\n- [OpenStax · Cơ chế và vai trò chất xúc tác](https://openstax.org/books/chemistry-2e/pages/12-7-catalysis)\n- [BASF ECMS · Công nghệ kiểm soát NOx nhận Edison Patent Award, 2024](https://basf-catalystsmetals.com/sites/default/files/attachments/Edison-Patent-Award-2024-Press-Release-EN-Final.pdf)"
+}

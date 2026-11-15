@@ -3,11 +3,11 @@
     "id": "nha-khoa-hoc-henry-cavendish",
     "slug": "nha-khoa-hoc-henry-cavendish",
     "documentPath": "docs/nha-khoa-hoc-henry-cavendish/index.json",
-    "title": "Henry Cavendish — dấu mốc khám phá hóa học",
+    "title": "Henry Cavendish — lần theo dấu vết hiđro",
     "author": "Ban biên tập ChemDex",
     "category": "tieusu",
-    "summary": "Hồ sơ lịch sử liên quan đến Hiđro (H); phân biệt phát hiện, cô lập và đặt tên theo từng trường hợp.",
-    "image": "/assets/library/history-evidence.svg",
+    "summary": "Năm 1766, Henry Cavendish là người đầu tiên công nhận hiđro là một chất khí riêng biệt bằng cách cho kim loại phản ứng với axit và gọi nó là “khí dễ cháy” (khí dễ cháy). Đến năm 1783, Antoine Lavoisier đã xác định khi đốt cháy chất khí này trong oxi sẽ tạo thành nước, từ đó đặt tên cho nguyên tố là hiđro (bắt nguồn từ tiếng Hy Lạp mang nghĩa “sinh ra nước”).",
+    "image": "/assets/library/photos/elements/H.jpg",
     "tags": [
       "Lịch sử hóa học",
       "H"
@@ -16,17 +16,37 @@
       "Henry Cavendish"
     ],
     "documentKind": "biography",
-    "readingMinutes": 1
+    "readingMinutes": 2,
+    "editorialEvidence": {
+      "language": "vi",
+      "scope": "related-element",
+      "contextLabel": "Hiđro (H)",
+      "reviewBasis": "existing-element-dossier",
+      "story": {
+        "status": "documented",
+        "section": "## Cuộc tìm kiếm dẫn đến hiđro",
+        "sources": [
+          "https://periodic-table.rsc.org/element/1/hydrogen"
+        ]
+      },
+      "application": {
+        "status": "context-only",
+        "section": "## Từ dấu mốc nghiên cứu đến công việc hôm nay",
+        "sources": [
+          "https://periodic-table.rsc.org/element/1/hydrogen"
+        ]
+      }
+    }
   },
   {
     "id": "nha-khoa-hoc-pierre-janssen-joseph-norman-lockyer-va-william-ramsay",
     "slug": "nha-khoa-hoc-pierre-janssen-joseph-norman-lockyer-va-william-ramsay",
     "documentPath": "docs/nha-khoa-hoc-pierre-janssen-joseph-norman-lockyer-va-william-ramsay/index.json",
-    "title": "Pierre Janssen, Joseph Norman Lockyer và William Ramsay — dấu mốc khám phá hóa học",
+    "title": "Pierre Janssen, Joseph Norman Lockyer và William Ramsay — lần theo dấu vết heli",
     "author": "Ban biên tập ChemDex",
     "category": "tieusu",
-    "summary": "Hồ sơ lịch sử liên quan đến Heli (He); phân biệt phát hiện, cô lập và đặt tên theo từng trường hợp.",
-    "image": "/assets/library/history-evidence.svg",
+    "summary": "Năm 1868, nhà thiên văn học người Pháp Pierre Janssen quan sát quang phổ mặt trời trong một lần nhật thực tại Ấn Độ và phát hiện một vạch vàng chưa từng biết tới. Nhà thiên văn học người Anh Joseph Norman Lockyer sau đó kết luận đây là một nguyên tố mới và đặt tên là heli (theo tên Helios – thần Mặt Trời trong thần thoại Hy Lạp).",
+    "image": "/assets/library/photos/elements/He.jpg",
     "tags": [
       "Lịch sử hóa học",
       "He"
@@ -35,17 +55,37 @@
       "Pierre Janssen, Joseph Norman Lockyer và William Ramsay"
     ],
     "documentKind": "biography",
-    "readingMinutes": 1
+    "readingMinutes": 3,
+    "editorialEvidence": {
+      "language": "vi",
+      "scope": "related-element",
+      "contextLabel": "Heli (He)",
+      "reviewBasis": "existing-element-dossier",
+      "story": {
+        "status": "documented",
+        "section": "## Cuộc tìm kiếm dẫn đến heli",
+        "sources": [
+          "https://periodic-table.rsc.org/element/2/helium"
+        ]
+      },
+      "application": {
+        "status": "context-only",
+        "section": "## Từ dấu mốc nghiên cứu đến công việc hôm nay",
+        "sources": [
+          "https://periodic-table.rsc.org/element/2/helium"
+        ]
+      }
+    }
   },
   {
     "id": "nha-khoa-hoc-johan-august-arfwedson",
     "slug": "nha-khoa-hoc-johan-august-arfwedson",
     "documentPath": "docs/nha-khoa-hoc-johan-august-arfwedson/index.json",
-    "title": "Johan August Arfwedson — dấu mốc khám phá hóa học",
+    "title": "Johan August Arfwedson — lần theo dấu vết liti",
     "author": "Ban biên tập ChemDex",
     "category": "tieusu",
-    "summary": "Hồ sơ lịch sử liên quan đến Liti (Li); phân biệt phát hiện, cô lập và đặt tên theo từng trường hợp.",
-    "image": "/assets/library/history-evidence.svg",
+    "summary": "Johan August Arfwedson nhận ra liti trong petalite năm 1817. Tên gọi gắn với nguồn gốc khoáng vật.",
+    "image": "/assets/library/photos/elements/Li.png",
     "tags": [
       "Lịch sử hóa học",
       "Li"
@@ -54,17 +94,37 @@
       "Johan August Arfwedson"
     ],
     "documentKind": "biography",
-    "readingMinutes": 1
+    "readingMinutes": 2,
+    "editorialEvidence": {
+      "language": "vi",
+      "scope": "related-element",
+      "contextLabel": "Liti (Li)",
+      "reviewBasis": "existing-element-dossier",
+      "story": {
+        "status": "documented",
+        "section": "## Cuộc tìm kiếm dẫn đến liti",
+        "sources": [
+          "https://periodic-table.rsc.org/element/3/lithium"
+        ]
+      },
+      "application": {
+        "status": "context-only",
+        "section": "## Từ dấu mốc nghiên cứu đến công việc hôm nay",
+        "sources": [
+          "https://periodic-table.rsc.org/element/3/lithium"
+        ]
+      }
+    }
   },
   {
     "id": "nha-khoa-hoc-louis-nicolas-vauquelin",
     "slug": "nha-khoa-hoc-louis-nicolas-vauquelin",
     "documentPath": "docs/nha-khoa-hoc-louis-nicolas-vauquelin/index.json",
-    "title": "Louis Nicolas Vauquelin — dấu mốc khám phá hóa học",
+    "title": "Louis Nicolas Vauquelin — lần theo dấu vết beri, crom",
     "author": "Ban biên tập ChemDex",
     "category": "tieusu",
-    "summary": "Hồ sơ lịch sử liên quan đến Beri (Be), Crom (Cr); phân biệt phát hiện, cô lập và đặt tên theo từng trường hợp.",
-    "image": "/assets/library/history-evidence.svg",
+    "summary": "Năm 1798, Louis Nicolas Vauquelin phát hiện một oxit mới khi phân tích Beryll và Emerald. Kim loại beri sau đó được Friedrich Wöhler và Antoine Bussy điều chế độc lập vào năm 1828.",
+    "image": "/assets/library/photos/elements/Be.jpg",
     "tags": [
       "Lịch sử hóa học",
       "Be",
@@ -74,17 +134,39 @@
       "Louis Nicolas Vauquelin"
     ],
     "documentKind": "biography",
-    "readingMinutes": 1
+    "readingMinutes": 3,
+    "editorialEvidence": {
+      "language": "vi",
+      "scope": "related-element",
+      "contextLabel": "Beri (Be), Crom (Cr)",
+      "reviewBasis": "existing-element-dossier",
+      "story": {
+        "status": "documented",
+        "section": "## Cuộc tìm kiếm dẫn đến beri",
+        "sources": [
+          "https://periodic-table.rsc.org/element/4/beryllium",
+          "https://periodic-table.rsc.org/element/24/chromium"
+        ]
+      },
+      "application": {
+        "status": "context-only",
+        "section": "## Từ dấu mốc nghiên cứu đến công việc hôm nay",
+        "sources": [
+          "https://periodic-table.rsc.org/element/4/beryllium",
+          "https://periodic-table.rsc.org/element/24/chromium"
+        ]
+      }
+    }
   },
   {
     "id": "nha-khoa-hoc-joseph-louis-gay-lussac-louis-jacques-thenard-va-humphry-davy",
     "slug": "nha-khoa-hoc-joseph-louis-gay-lussac-louis-jacques-thenard-va-humphry-davy",
     "documentPath": "docs/nha-khoa-hoc-joseph-louis-gay-lussac-louis-jacques-thenard-va-humphry-davy/index.json",
-    "title": "Joseph Louis Gay-Lussac, Louis Jacques Thénard và Humphry Davy — dấu mốc khám phá hóa học",
+    "title": "Joseph Louis Gay-Lussac, Louis Jacques Thénard và Humphry Davy — lần theo dấu vết bo",
     "author": "Ban biên tập ChemDex",
     "category": "tieusu",
-    "summary": "Hồ sơ lịch sử liên quan đến Bo (B); phân biệt phát hiện, cô lập và đặt tên theo từng trường hợp.",
-    "image": "/assets/library/history-evidence.svg",
+    "summary": "Năm 1808, Gay-Lussac và Thénard ở Pháp, cùng Davy ở Anh, độc lập điều chế được bo ở dạng tương đối không tinh khiết từ các hợp chất của bo. Davy đặt tên nguyên tố là bo, liên hệ với Borax.",
+    "image": "/assets/library/photos/elements/B.jpg",
     "tags": [
       "Lịch sử hóa học",
       "B"
@@ -93,17 +175,37 @@
       "Joseph Louis Gay-Lussac, Louis Jacques Thénard và Humphry Davy"
     ],
     "documentKind": "biography",
-    "readingMinutes": 1
+    "readingMinutes": 2,
+    "editorialEvidence": {
+      "language": "vi",
+      "scope": "related-element",
+      "contextLabel": "Bo (B)",
+      "reviewBasis": "existing-element-dossier",
+      "story": {
+        "status": "documented",
+        "section": "## Cuộc tìm kiếm dẫn đến bo",
+        "sources": [
+          "https://periodic-table.rsc.org/element/5/boron"
+        ]
+      },
+      "application": {
+        "status": "context-only",
+        "section": "## Từ dấu mốc nghiên cứu đến công việc hôm nay",
+        "sources": [
+          "https://periodic-table.rsc.org/element/5/boron"
+        ]
+      }
+    }
   },
   {
     "id": "lich-su-phat-hien-c",
     "slug": "lich-su-phat-hien-c",
     "documentPath": "docs/lich-su-phat-hien-c/index.json",
-    "title": "Lịch sử phát hiện Cacbon",
+    "title": "Cacbon: một lịch sử có trước tên người phát hiện",
     "author": "Ban biên tập ChemDex",
     "category": "nguyento",
-    "summary": "Hồ sơ lịch sử liên quan đến Cacbon (C); phân biệt phát hiện, cô lập và đặt tên theo từng trường hợp.",
-    "image": "/assets/library/history-evidence.svg",
+    "summary": "Cacbon đã được con người biết đến từ thời cổ đại dưới dạng than, muội than và kim cương. Cacbon được công nhận là một nguyên tố hóa học vào cuối thế kỷ XVIII.",
+    "image": "/assets/library/photos/elements/C.jpg",
     "tags": [
       "Lịch sử hóa học",
       "C"
@@ -112,17 +214,37 @@
       "Không xác định một cá nhân cụ thể"
     ],
     "documentKind": "biography",
-    "readingMinutes": 1
+    "readingMinutes": 2,
+    "editorialEvidence": {
+      "language": "vi",
+      "scope": "related-element",
+      "contextLabel": "Cacbon (C)",
+      "reviewBasis": "existing-element-dossier",
+      "story": {
+        "status": "documented",
+        "section": "## Dấu vết cacbon trong lịch sử",
+        "sources": [
+          "https://periodic-table.rsc.org/element/6/carbon"
+        ]
+      },
+      "application": {
+        "status": "context-only",
+        "section": "## Từ dấu mốc nghiên cứu đến công việc hôm nay",
+        "sources": [
+          "https://periodic-table.rsc.org/element/6/carbon"
+        ]
+      }
+    }
   },
   {
     "id": "nha-khoa-hoc-daniel-rutherford",
     "slug": "nha-khoa-hoc-daniel-rutherford",
     "documentPath": "docs/nha-khoa-hoc-daniel-rutherford/index.json",
-    "title": "Daniel Rutherford — dấu mốc khám phá hóa học",
+    "title": "Daniel Rutherford — lần theo dấu vết nitơ",
     "author": "Ban biên tập ChemDex",
     "category": "tieusu",
-    "summary": "Hồ sơ lịch sử liên quan đến Nitơ (N); phân biệt phát hiện, cô lập và đặt tên theo từng trường hợp.",
-    "image": "/assets/library/history-evidence.svg",
+    "summary": "Năm 1772, Daniel Rutherford nghiên cứu phần không khí còn lại sau khi oxi bị loại bỏ và xác định đây là một loại khí không duy trì sự cháy và sự hô hấp. Nitơ sau đó được nghiên cứu sâu hơn bởi các nhà hóa học khác.",
+    "image": "/assets/library/photos/elements/N.jpg",
     "tags": [
       "Lịch sử hóa học",
       "N"
@@ -131,17 +253,37 @@
       "Daniel Rutherford"
     ],
     "documentKind": "biography",
-    "readingMinutes": 1
+    "readingMinutes": 2,
+    "editorialEvidence": {
+      "language": "vi",
+      "scope": "related-element",
+      "contextLabel": "Nitơ (N)",
+      "reviewBasis": "existing-element-dossier",
+      "story": {
+        "status": "documented",
+        "section": "## Cuộc tìm kiếm dẫn đến nitơ",
+        "sources": [
+          "https://periodic-table.rsc.org/element/7/nitrogen"
+        ]
+      },
+      "application": {
+        "status": "context-only",
+        "section": "## Từ dấu mốc nghiên cứu đến công việc hôm nay",
+        "sources": [
+          "https://periodic-table.rsc.org/element/7/nitrogen"
+        ]
+      }
+    }
   },
   {
     "id": "nha-khoa-hoc-joseph-priestley-va-carl-wilhelm-scheele",
     "slug": "nha-khoa-hoc-joseph-priestley-va-carl-wilhelm-scheele",
     "documentPath": "docs/nha-khoa-hoc-joseph-priestley-va-carl-wilhelm-scheele/index.json",
-    "title": "Joseph Priestley và Carl Wilhelm Scheele — dấu mốc khám phá hóa học",
+    "title": "Joseph Priestley và Carl Wilhelm Scheele — lần theo dấu vết oxi",
     "author": "Ban biên tập ChemDex",
     "category": "tieusu",
-    "summary": "Hồ sơ lịch sử liên quan đến Oxi (O); phân biệt phát hiện, cô lập và đặt tên theo từng trường hợp.",
-    "image": "/assets/library/history-evidence.svg",
+    "summary": "Năm 1774, Joseph Priestley điều chế được oxi bằng cách nung thủy ngân(II) oxit và công bố kết quả. Carl Wilhelm Scheele cũng điều chế được oxi độc lập trước đó, khoảng năm 1772, nhưng công trình của ông được công bố sau.",
+    "image": "/assets/library/photos/elements/O.jpg",
     "tags": [
       "Lịch sử hóa học",
       "O"
@@ -150,17 +292,37 @@
       "Joseph Priestley và Carl Wilhelm Scheele"
     ],
     "documentKind": "biography",
-    "readingMinutes": 1
+    "readingMinutes": 2,
+    "editorialEvidence": {
+      "language": "vi",
+      "scope": "related-element",
+      "contextLabel": "Oxi (O)",
+      "reviewBasis": "existing-element-dossier",
+      "story": {
+        "status": "documented",
+        "section": "## Cuộc tìm kiếm dẫn đến oxi",
+        "sources": [
+          "https://periodic-table.rsc.org/element/8/oxygen"
+        ]
+      },
+      "application": {
+        "status": "context-only",
+        "section": "## Từ dấu mốc nghiên cứu đến công việc hôm nay",
+        "sources": [
+          "https://periodic-table.rsc.org/element/8/oxygen"
+        ]
+      }
+    }
   },
   {
     "id": "nha-khoa-hoc-henri-moissan",
     "slug": "nha-khoa-hoc-henri-moissan",
     "documentPath": "docs/nha-khoa-hoc-henri-moissan/index.json",
-    "title": "Henri Moissan — dấu mốc khám phá hóa học",
+    "title": "Henri Moissan — lần theo dấu vết flo",
     "author": "Ban biên tập ChemDex",
     "category": "tieusu",
-    "summary": "Hồ sơ lịch sử liên quan đến Flo (F); phân biệt phát hiện, cô lập và đặt tên theo từng trường hợp.",
-    "image": "/assets/library/history-evidence.svg",
+    "summary": "Flo là nguyên tố rất khó cô lập do tính Oxy hóa cực mạnh. Năm 1886, Henri Moissan lần đầu tiên điều chế được flo dạng đơn chất bằng phương pháp điện phân hỗn hợp hiđro florua và kali florua nóng chảy.",
+    "image": "/assets/library/photos/elements/F.jpg",
     "tags": [
       "Lịch sử hóa học",
       "F"
@@ -169,17 +331,37 @@
       "Henri Moissan"
     ],
     "documentKind": "biography",
-    "readingMinutes": 1
+    "readingMinutes": 2,
+    "editorialEvidence": {
+      "language": "vi",
+      "scope": "related-element",
+      "contextLabel": "Flo (F)",
+      "reviewBasis": "existing-element-dossier",
+      "story": {
+        "status": "documented",
+        "section": "## Cuộc tìm kiếm dẫn đến flo",
+        "sources": [
+          "https://periodic-table.rsc.org/element/9/fluorine"
+        ]
+      },
+      "application": {
+        "status": "context-only",
+        "section": "## Từ dấu mốc nghiên cứu đến công việc hôm nay",
+        "sources": [
+          "https://periodic-table.rsc.org/element/9/fluorine"
+        ]
+      }
+    }
   },
   {
     "id": "nha-khoa-hoc-william-ramsay-va-morris-travers",
     "slug": "nha-khoa-hoc-william-ramsay-va-morris-travers",
     "documentPath": "docs/nha-khoa-hoc-william-ramsay-va-morris-travers/index.json",
-    "title": "William Ramsay và Morris Travers — dấu mốc khám phá hóa học",
+    "title": "William Ramsay và Morris Travers — lần theo dấu vết neon, kripton, xenon",
     "author": "Ban biên tập ChemDex",
     "category": "tieusu",
-    "summary": "Hồ sơ lịch sử liên quan đến Neon (Ne), Kripton (Kr), Xenon (Xe); phân biệt phát hiện, cô lập và đặt tên theo từng trường hợp.",
-    "image": "/assets/library/history-evidence.svg",
+    "summary": "Năm 1898, William Ramsay và Morris Travers phát hiện neon khi nghiên cứu phần khí còn lại sau khi hóa lỏng và tách các thành phần của không khí. Họ thu được một khí mới có quang phổ đặc trưng.",
+    "image": "/assets/library/photos/elements/Ne.jpg",
     "tags": [
       "Lịch sử hóa học",
       "Ne",
@@ -190,17 +372,41 @@
       "William Ramsay và Morris Travers"
     ],
     "documentKind": "biography",
-    "readingMinutes": 2
+    "readingMinutes": 4,
+    "editorialEvidence": {
+      "language": "vi",
+      "scope": "related-element",
+      "contextLabel": "Neon (Ne), Kripton (Kr), Xenon (Xe)",
+      "reviewBasis": "existing-element-dossier",
+      "story": {
+        "status": "documented",
+        "section": "## Cuộc tìm kiếm dẫn đến neon",
+        "sources": [
+          "https://periodic-table.rsc.org/element/10/neon",
+          "https://periodic-table.rsc.org/element/36/krypton",
+          "https://periodic-table.rsc.org/element/54/xenon"
+        ]
+      },
+      "application": {
+        "status": "context-only",
+        "section": "## Từ dấu mốc nghiên cứu đến công việc hôm nay",
+        "sources": [
+          "https://periodic-table.rsc.org/element/10/neon",
+          "https://periodic-table.rsc.org/element/36/krypton",
+          "https://periodic-table.rsc.org/element/54/xenon"
+        ]
+      }
+    }
   },
   {
     "id": "nha-khoa-hoc-humphry-davy",
     "slug": "nha-khoa-hoc-humphry-davy",
     "documentPath": "docs/nha-khoa-hoc-humphry-davy/index.json",
-    "title": "Humphry Davy — dấu mốc khám phá hóa học",
+    "title": "Humphry Davy — lần theo dấu vết natri, kali, canxi và những nguyên tố khác",
     "author": "Ban biên tập ChemDex",
     "category": "tieusu",
-    "summary": "Hồ sơ lịch sử liên quan đến Natri (Na), Kali (K), Canxi (Ca), Bari (Ba); phân biệt phát hiện, cô lập và đặt tên theo từng trường hợp.",
-    "image": "/assets/library/history-evidence.svg",
+    "summary": "Năm 1807, Humphry Davy lần đầu tiên cô lập được natri bằng phương pháp điện phân natri hiđroxit nóng chảy. Trước đó, các hợp chất của natri như natri cacbonat đã được con người biết đến từ lâu.",
+    "image": "/assets/library/photos/elements/Na.jpg",
     "tags": [
       "Lịch sử hóa học",
       "Na",
@@ -212,17 +418,43 @@
       "Humphry Davy"
     ],
     "documentKind": "biography",
-    "readingMinutes": 2
+    "readingMinutes": 4,
+    "editorialEvidence": {
+      "language": "vi",
+      "scope": "related-element",
+      "contextLabel": "Natri (Na), Kali (K), Canxi (Ca), Bari (Ba)",
+      "reviewBasis": "existing-element-dossier",
+      "story": {
+        "status": "documented",
+        "section": "## Cuộc tìm kiếm dẫn đến natri",
+        "sources": [
+          "https://periodic-table.rsc.org/element/11/sodium",
+          "https://periodic-table.rsc.org/element/19/potassium",
+          "https://periodic-table.rsc.org/element/20/calcium",
+          "https://periodic-table.rsc.org/element/56/barium"
+        ]
+      },
+      "application": {
+        "status": "context-only",
+        "section": "## Từ dấu mốc nghiên cứu đến công việc hôm nay",
+        "sources": [
+          "https://periodic-table.rsc.org/element/11/sodium",
+          "https://periodic-table.rsc.org/element/19/potassium",
+          "https://periodic-table.rsc.org/element/20/calcium",
+          "https://periodic-table.rsc.org/element/56/barium"
+        ]
+      }
+    }
   },
   {
     "id": "nha-khoa-hoc-joseph-black",
     "slug": "nha-khoa-hoc-joseph-black",
     "documentPath": "docs/nha-khoa-hoc-joseph-black/index.json",
-    "title": "Joseph Black — dấu mốc khám phá hóa học",
+    "title": "Joseph Black — lần theo dấu vết magie",
     "author": "Ban biên tập ChemDex",
     "category": "tieusu",
-    "summary": "Hồ sơ lịch sử liên quan đến Magie (Mg); phân biệt phát hiện, cô lập và đặt tên theo từng trường hợp.",
-    "image": "/assets/library/history-evidence.svg",
+    "summary": "Năm 1755, Joseph Black phân biệt magie compounds với canxi compounds và xác định magie là một thành phần riêng biệt. Đến năm 1808, Humphry Davy cô lập được magie ở dạng kim loại bằng phương pháp điện hóa.",
+    "image": "/assets/library/photos/elements/Mg.jpg",
     "tags": [
       "Lịch sử hóa học",
       "Mg"
@@ -231,17 +463,37 @@
       "Joseph Black"
     ],
     "documentKind": "biography",
-    "readingMinutes": 1
+    "readingMinutes": 2,
+    "editorialEvidence": {
+      "language": "vi",
+      "scope": "related-element",
+      "contextLabel": "Magie (Mg)",
+      "reviewBasis": "existing-element-dossier",
+      "story": {
+        "status": "documented",
+        "section": "## Cuộc tìm kiếm dẫn đến magie",
+        "sources": [
+          "https://periodic-table.rsc.org/element/12/magnesium"
+        ]
+      },
+      "application": {
+        "status": "context-only",
+        "section": "## Từ dấu mốc nghiên cứu đến công việc hôm nay",
+        "sources": [
+          "https://periodic-table.rsc.org/element/12/magnesium"
+        ]
+      }
+    }
   },
   {
     "id": "nha-khoa-hoc-hans-christian-rsted",
     "slug": "nha-khoa-hoc-hans-christian-rsted",
     "documentPath": "docs/nha-khoa-hoc-hans-christian-rsted/index.json",
-    "title": "Hans Christian Ørsted — dấu mốc khám phá hóa học",
+    "title": "Hans Christian Ørsted — lần theo dấu vết nhôm",
     "author": "Ban biên tập ChemDex",
     "category": "tieusu",
-    "summary": "Hồ sơ lịch sử liên quan đến Nhôm (Al); phân biệt phát hiện, cô lập và đặt tên theo từng trường hợp.",
-    "image": "/assets/library/history-evidence.svg",
+    "summary": "Năm 1825, Hans Christian Ørsted công bố việc điều chế một dạng nhôm không tinh khiết từ nhôm clorua bằng cách khử với hỗn hợp kali và thủy ngân amalgam. Friedrich Wöhler tiếp tục nghiên cứu và đến năm 1827 điều chế được nhôm ở dạng tương đối tinh khiết hơn.",
+    "image": "/assets/library/photos/elements/Al.jpg",
     "tags": [
       "Lịch sử hóa học",
       "Al"
@@ -250,17 +502,37 @@
       "Hans Christian Ørsted"
     ],
     "documentKind": "biography",
-    "readingMinutes": 1
+    "readingMinutes": 2,
+    "editorialEvidence": {
+      "language": "vi",
+      "scope": "related-element",
+      "contextLabel": "Nhôm (Al)",
+      "reviewBasis": "existing-element-dossier",
+      "story": {
+        "status": "documented",
+        "section": "## Cuộc tìm kiếm dẫn đến nhôm",
+        "sources": [
+          "https://periodic-table.rsc.org/element/13/aluminium"
+        ]
+      },
+      "application": {
+        "status": "context-only",
+        "section": "## Từ dấu mốc nghiên cứu đến công việc hôm nay",
+        "sources": [
+          "https://periodic-table.rsc.org/element/13/aluminium"
+        ]
+      }
+    }
   },
   {
     "id": "nha-khoa-hoc-jons-jacob-berzelius",
     "slug": "nha-khoa-hoc-jons-jacob-berzelius",
     "documentPath": "docs/nha-khoa-hoc-jons-jacob-berzelius/index.json",
-    "title": "Jöns Jacob Berzelius — dấu mốc khám phá hóa học",
+    "title": "Jöns Jacob Berzelius — lần theo dấu vết silic",
     "author": "Ban biên tập ChemDex",
     "category": "tieusu",
-    "summary": "Hồ sơ lịch sử liên quan đến Silic (Si); phân biệt phát hiện, cô lập và đặt tên theo từng trường hợp.",
-    "image": "/assets/library/history-evidence.svg",
+    "summary": "Năm 1824, Jöns Jacob Berzelius điều chế được silic vô định hình bằng cách khử silic tetrafluoride với kali. Ông nhận ra đây là một nguyên tố mới.",
+    "image": "/assets/library/photos/elements/Si.jpg",
     "tags": [
       "Lịch sử hóa học",
       "Si"
@@ -269,17 +541,37 @@
       "Jöns Jacob Berzelius"
     ],
     "documentKind": "biography",
-    "readingMinutes": 1
+    "readingMinutes": 2,
+    "editorialEvidence": {
+      "language": "vi",
+      "scope": "related-element",
+      "contextLabel": "Silic (Si)",
+      "reviewBasis": "existing-element-dossier",
+      "story": {
+        "status": "documented",
+        "section": "## Cuộc tìm kiếm dẫn đến silic",
+        "sources": [
+          "https://periodic-table.rsc.org/element/14/silicon"
+        ]
+      },
+      "application": {
+        "status": "context-only",
+        "section": "## Từ dấu mốc nghiên cứu đến công việc hôm nay",
+        "sources": [
+          "https://periodic-table.rsc.org/element/14/silicon"
+        ]
+      }
+    }
   },
   {
     "id": "nha-khoa-hoc-hennig-brand",
     "slug": "nha-khoa-hoc-hennig-brand",
     "documentPath": "docs/nha-khoa-hoc-hennig-brand/index.json",
-    "title": "Hennig Brand — dấu mốc khám phá hóa học",
+    "title": "Hennig Brand — lần theo dấu vết photpho",
     "author": "Ban biên tập ChemDex",
     "category": "tieusu",
-    "summary": "Hồ sơ lịch sử liên quan đến Photpho (P); phân biệt phát hiện, cô lập và đặt tên theo từng trường hợp.",
-    "image": "/assets/library/history-evidence.svg",
+    "summary": "Năm 1669, Hennig Brand phát hiện photpho khi thực hiện các thí nghiệm với nước tiểu. Ông thu được một chất phát sáng trong bóng tối và gọi nó là photpho, bắt nguồn từ tiếng Hy Lạp với nghĩa là “mang ánh sáng”.",
+    "image": "/assets/library/photos/elements/P.jpg",
     "tags": [
       "Lịch sử hóa học",
       "P"
@@ -288,17 +580,37 @@
       "Hennig Brand"
     ],
     "documentKind": "biography",
-    "readingMinutes": 1
+    "readingMinutes": 2,
+    "editorialEvidence": {
+      "language": "vi",
+      "scope": "related-element",
+      "contextLabel": "Photpho (P)",
+      "reviewBasis": "existing-element-dossier",
+      "story": {
+        "status": "documented",
+        "section": "## Cuộc tìm kiếm dẫn đến photpho",
+        "sources": [
+          "https://periodic-table.rsc.org/element/15/phosphorus"
+        ]
+      },
+      "application": {
+        "status": "context-only",
+        "section": "## Từ dấu mốc nghiên cứu đến công việc hôm nay",
+        "sources": [
+          "https://periodic-table.rsc.org/element/15/phosphorus"
+        ]
+      }
+    }
   },
   {
     "id": "lich-su-phat-hien-s",
     "slug": "lich-su-phat-hien-s",
     "documentPath": "docs/lich-su-phat-hien-s/index.json",
-    "title": "Lịch sử phát hiện Lưu huỳnh",
+    "title": "Lưu huỳnh: một lịch sử có trước tên người phát hiện",
     "author": "Ban biên tập ChemDex",
     "category": "nguyento",
-    "summary": "Hồ sơ lịch sử liên quan đến Lưu huỳnh (S); phân biệt phát hiện, cô lập và đặt tên theo từng trường hợp.",
-    "image": "/assets/library/history-evidence.svg",
+    "summary": "Lưu huỳnh đã được con người biết đến và sử dụng từ thời cổ đại. Các nền văn minh cổ đã sử dụng lưu huỳnh trong y học, tôn giáo và các hoạt động khác.",
+    "image": "/assets/library/photos/elements/S.jpg",
     "tags": [
       "Lịch sử hóa học",
       "S"
@@ -307,17 +619,37 @@
       "Đã được biết đến từ thời cổ đại"
     ],
     "documentKind": "biography",
-    "readingMinutes": 1
+    "readingMinutes": 2,
+    "editorialEvidence": {
+      "language": "vi",
+      "scope": "related-element",
+      "contextLabel": "Lưu huỳnh (S)",
+      "reviewBasis": "existing-element-dossier",
+      "story": {
+        "status": "documented",
+        "section": "## Dấu vết lưu huỳnh trong lịch sử",
+        "sources": [
+          "https://periodic-table.rsc.org/element/16/sulfur"
+        ]
+      },
+      "application": {
+        "status": "context-only",
+        "section": "## Từ dấu mốc nghiên cứu đến công việc hôm nay",
+        "sources": [
+          "https://periodic-table.rsc.org/element/16/sulfur"
+        ]
+      }
+    }
   },
   {
     "id": "nha-khoa-hoc-carl-wilhelm-scheele",
     "slug": "nha-khoa-hoc-carl-wilhelm-scheele",
     "documentPath": "docs/nha-khoa-hoc-carl-wilhelm-scheele/index.json",
-    "title": "Carl Wilhelm Scheele — dấu mốc khám phá hóa học",
+    "title": "Carl Wilhelm Scheele — lần theo dấu vết clo, molybdenum",
     "author": "Ban biên tập ChemDex",
     "category": "tieusu",
-    "summary": "Hồ sơ lịch sử liên quan đến Clo (Cl), Molybdenum (Mo); phân biệt phát hiện, cô lập và đặt tên theo từng trường hợp.",
-    "image": "/assets/library/history-evidence.svg",
+    "summary": "Năm 1774, Carl Wilhelm Scheele điều chế được khí Clo bằng cách cho mangan đioxit tác dụng với clohiđric axit. Ban đầu ông cho rằng đây là một hợp chất.",
+    "image": "/assets/library/photos/elements/Cl.jpg",
     "tags": [
       "Lịch sử hóa học",
       "Cl",
@@ -327,17 +659,39 @@
       "Carl Wilhelm Scheele"
     ],
     "documentKind": "biography",
-    "readingMinutes": 1
+    "readingMinutes": 3,
+    "editorialEvidence": {
+      "language": "vi",
+      "scope": "related-element",
+      "contextLabel": "Clo (Cl), Molybdenum (Mo)",
+      "reviewBasis": "existing-element-dossier",
+      "story": {
+        "status": "documented",
+        "section": "## Cuộc tìm kiếm dẫn đến clo",
+        "sources": [
+          "https://periodic-table.rsc.org/element/17/chlorine",
+          "https://periodic-table.rsc.org/element/42/molybdenum"
+        ]
+      },
+      "application": {
+        "status": "context-only",
+        "section": "## Từ dấu mốc nghiên cứu đến công việc hôm nay",
+        "sources": [
+          "https://periodic-table.rsc.org/element/17/chlorine",
+          "https://periodic-table.rsc.org/element/42/molybdenum"
+        ]
+      }
+    }
   },
   {
     "id": "nha-khoa-hoc-lord-rayleigh-va-william-ramsay",
     "slug": "nha-khoa-hoc-lord-rayleigh-va-william-ramsay",
     "documentPath": "docs/nha-khoa-hoc-lord-rayleigh-va-william-ramsay/index.json",
-    "title": "Lord Rayleigh và William Ramsay — dấu mốc khám phá hóa học",
+    "title": "Lord Rayleigh và William Ramsay — lần theo dấu vết argon",
     "author": "Ban biên tập ChemDex",
     "category": "tieusu",
-    "summary": "Hồ sơ lịch sử liên quan đến Argon (Ar); phân biệt phát hiện, cô lập và đặt tên theo từng trường hợp.",
-    "image": "/assets/library/history-evidence.svg",
+    "summary": "Năm 1894, Lord Rayleigh và William Ramsay phát hiện argon khi nghiên cứu nitơ trong không khí. Họ nhận thấy nitơ thu được từ không khí có khối lượng lớn hơn nitơ được điều chế từ các hợp chất hóa học.",
+    "image": "/assets/library/photos/elements/Ar.jpg",
     "tags": [
       "Lịch sử hóa học",
       "Ar"
@@ -346,17 +700,37 @@
       "Lord Rayleigh và William Ramsay"
     ],
     "documentKind": "biography",
-    "readingMinutes": 1
+    "readingMinutes": 2,
+    "editorialEvidence": {
+      "language": "vi",
+      "scope": "related-element",
+      "contextLabel": "Argon (Ar)",
+      "reviewBasis": "existing-element-dossier",
+      "story": {
+        "status": "documented",
+        "section": "## Cuộc tìm kiếm dẫn đến argon",
+        "sources": [
+          "https://periodic-table.rsc.org/element/18/argon"
+        ]
+      },
+      "application": {
+        "status": "context-only",
+        "section": "## Từ dấu mốc nghiên cứu đến công việc hôm nay",
+        "sources": [
+          "https://periodic-table.rsc.org/element/18/argon"
+        ]
+      }
+    }
   },
   {
     "id": "nha-khoa-hoc-lars-fredrik-nilson",
     "slug": "nha-khoa-hoc-lars-fredrik-nilson",
     "documentPath": "docs/nha-khoa-hoc-lars-fredrik-nilson/index.json",
-    "title": "Lars Fredrik Nilson — dấu mốc khám phá hóa học",
+    "title": "Lars Fredrik Nilson — lần theo dấu vết scandi",
     "author": "Ban biên tập ChemDex",
     "category": "tieusu",
-    "summary": "Hồ sơ lịch sử liên quan đến Scandi (Sc); phân biệt phát hiện, cô lập và đặt tên theo từng trường hợp.",
-    "image": "/assets/library/history-evidence.svg",
+    "summary": "Năm 1879, Lars Fredrik Nilson phát hiện scandi khi nghiên cứu các khoáng vật chứa Rare earth elements. Ông tách được một oxit mới và xác định đó là oxit của một nguyên tố chưa được biết đến.",
+    "image": "/assets/library/photos/elements/Sc.jpg",
     "tags": [
       "Lịch sử hóa học",
       "Sc"
@@ -365,17 +739,37 @@
       "Lars Fredrik Nilson"
     ],
     "documentKind": "biography",
-    "readingMinutes": 1
+    "readingMinutes": 2,
+    "editorialEvidence": {
+      "language": "vi",
+      "scope": "related-element",
+      "contextLabel": "Scandi (Sc)",
+      "reviewBasis": "existing-element-dossier",
+      "story": {
+        "status": "documented",
+        "section": "## Cuộc tìm kiếm dẫn đến scandi",
+        "sources": [
+          "https://periodic-table.rsc.org/element/21/scandium"
+        ]
+      },
+      "application": {
+        "status": "context-only",
+        "section": "## Từ dấu mốc nghiên cứu đến công việc hôm nay",
+        "sources": [
+          "https://periodic-table.rsc.org/element/21/scandium"
+        ]
+      }
+    }
   },
   {
     "id": "nha-khoa-hoc-william-gregor",
     "slug": "nha-khoa-hoc-william-gregor",
     "documentPath": "docs/nha-khoa-hoc-william-gregor/index.json",
-    "title": "William Gregor — dấu mốc khám phá hóa học",
+    "title": "William Gregor — lần theo dấu vết titan",
     "author": "Ban biên tập ChemDex",
     "category": "tieusu",
-    "summary": "Hồ sơ lịch sử liên quan đến Titan (Ti); phân biệt phát hiện, cô lập và đặt tên theo từng trường hợp.",
-    "image": "/assets/library/history-evidence.svg",
+    "summary": "Năm 1791, William Gregor phát hiện một oxit mới trong khoáng vật ilmenite và nhận ra nó chứa một nguyên tố chưa được biết đến. Năm 1795, Martin Heinrich Klaproth phát hiện lại nguyên tố này trong rutile và đặt tên là titan, theo các Titan trong thần thoại Hy Lạp.",
+    "image": "/assets/library/photos/elements/Ti.jpg",
     "tags": [
       "Lịch sử hóa học",
       "Ti"
@@ -384,17 +778,37 @@
       "William Gregor"
     ],
     "documentKind": "biography",
-    "readingMinutes": 1
+    "readingMinutes": 2,
+    "editorialEvidence": {
+      "language": "vi",
+      "scope": "related-element",
+      "contextLabel": "Titan (Ti)",
+      "reviewBasis": "existing-element-dossier",
+      "story": {
+        "status": "documented",
+        "section": "## Cuộc tìm kiếm dẫn đến titan",
+        "sources": [
+          "https://periodic-table.rsc.org/element/22/titanium"
+        ]
+      },
+      "application": {
+        "status": "context-only",
+        "section": "## Từ dấu mốc nghiên cứu đến công việc hôm nay",
+        "sources": [
+          "https://periodic-table.rsc.org/element/22/titanium"
+        ]
+      }
+    }
   },
   {
     "id": "nha-khoa-hoc-andres-manuel-del-rio",
     "slug": "nha-khoa-hoc-andres-manuel-del-rio",
     "documentPath": "docs/nha-khoa-hoc-andres-manuel-del-rio/index.json",
-    "title": "Andrés Manuel del Río — dấu mốc khám phá hóa học",
+    "title": "Andrés Manuel del Río — lần theo dấu vết vanadi",
     "author": "Ban biên tập ChemDex",
     "category": "tieusu",
-    "summary": "Hồ sơ lịch sử liên quan đến Vanadi (V); phân biệt phát hiện, cô lập và đặt tên theo từng trường hợp.",
-    "image": "/assets/library/history-evidence.svg",
+    "summary": "Năm 1801, Andrés Manuel del Río phát hiện một nguyên tố mới trong quặng chì ở Mexico. Ông nhận thấy các hợp chất của nguyên tố này có nhiều màu sắc khác nhau và ban đầu đặt tên là erythronium.",
+    "image": "/assets/library/photos/elements/V.jpg",
     "tags": [
       "Lịch sử hóa học",
       "V"
@@ -403,17 +817,37 @@
       "Andrés Manuel del Río"
     ],
     "documentKind": "biography",
-    "readingMinutes": 1
+    "readingMinutes": 3,
+    "editorialEvidence": {
+      "language": "vi",
+      "scope": "related-element",
+      "contextLabel": "Vanadi (V)",
+      "reviewBasis": "existing-element-dossier",
+      "story": {
+        "status": "documented",
+        "section": "## Cuộc tìm kiếm dẫn đến vanadi",
+        "sources": [
+          "https://periodic-table.rsc.org/element/23/vanadium"
+        ]
+      },
+      "application": {
+        "status": "context-only",
+        "section": "## Từ dấu mốc nghiên cứu đến công việc hôm nay",
+        "sources": [
+          "https://periodic-table.rsc.org/element/23/vanadium"
+        ]
+      }
+    }
   },
   {
     "id": "nha-khoa-hoc-johan-gottlieb-gahn",
     "slug": "nha-khoa-hoc-johan-gottlieb-gahn",
     "documentPath": "docs/nha-khoa-hoc-johan-gottlieb-gahn/index.json",
-    "title": "Johan Gottlieb Gahn — dấu mốc khám phá hóa học",
+    "title": "Johan Gottlieb Gahn — lần theo dấu vết mangan",
     "author": "Ban biên tập ChemDex",
     "category": "tieusu",
-    "summary": "Hồ sơ lịch sử liên quan đến Mangan (Mn); phân biệt phát hiện, cô lập và đặt tên theo từng trường hợp.",
-    "image": "/assets/library/history-evidence.svg",
+    "summary": "Năm 1774, Johan Gottlieb Gahn đã điều chế được mangan kim loại bằng cách khử mangan đioxit (MnO₂) với cacbon. Trước đó, mangan compounds đã được biết đến và sử dụng từ lâu, nhưng chưa được xác định là nguyên tố riêng biệt.",
+    "image": "/assets/library/photos/elements/Mn.jpg",
     "tags": [
       "Lịch sử hóa học",
       "Mn"
@@ -422,17 +856,37 @@
       "Johan Gottlieb Gahn"
     ],
     "documentKind": "biography",
-    "readingMinutes": 1
+    "readingMinutes": 2,
+    "editorialEvidence": {
+      "language": "vi",
+      "scope": "related-element",
+      "contextLabel": "Mangan (Mn)",
+      "reviewBasis": "existing-element-dossier",
+      "story": {
+        "status": "documented",
+        "section": "## Cuộc tìm kiếm dẫn đến mangan",
+        "sources": [
+          "https://periodic-table.rsc.org/element/25/manganese"
+        ]
+      },
+      "application": {
+        "status": "context-only",
+        "section": "## Từ dấu mốc nghiên cứu đến công việc hôm nay",
+        "sources": [
+          "https://periodic-table.rsc.org/element/25/manganese"
+        ]
+      }
+    }
   },
   {
     "id": "lich-su-phat-hien-fe",
     "slug": "lich-su-phat-hien-fe",
     "documentPath": "docs/lich-su-phat-hien-fe/index.json",
-    "title": "Lịch sử phát hiện Sắt",
+    "title": "Sắt: một lịch sử có trước tên người phát hiện",
     "author": "Ban biên tập ChemDex",
     "category": "nguyento",
-    "summary": "Hồ sơ lịch sử liên quan đến Sắt (Fe); phân biệt phát hiện, cô lập và đặt tên theo từng trường hợp.",
-    "image": "/assets/library/history-evidence.svg",
+    "summary": "Sắt là một trong những kim loại được con người biết đến và sử dụng từ rất sớm. Sắt từ thiên thạch có thể đã được sử dụng trước khi con người phát triển kỹ thuật luyện sắt từ quặng.",
+    "image": "/assets/library/photos/elements/Fe.jpg",
     "tags": [
       "Lịch sử hóa học",
       "Fe"
@@ -441,17 +895,37 @@
       "Không xác định — Iron đã được con người sử dụng từ thời tiền sử."
     ],
     "documentKind": "biography",
-    "readingMinutes": 1
+    "readingMinutes": 2,
+    "editorialEvidence": {
+      "language": "vi",
+      "scope": "related-element",
+      "contextLabel": "Sắt (Fe)",
+      "reviewBasis": "existing-element-dossier",
+      "story": {
+        "status": "documented",
+        "section": "## Dấu vết sắt trong lịch sử",
+        "sources": [
+          "https://periodic-table.rsc.org/element/26/iron"
+        ]
+      },
+      "application": {
+        "status": "context-only",
+        "section": "## Từ dấu mốc nghiên cứu đến công việc hôm nay",
+        "sources": [
+          "https://periodic-table.rsc.org/element/26/iron"
+        ]
+      }
+    }
   },
   {
     "id": "nha-khoa-hoc-georg-brandt",
     "slug": "nha-khoa-hoc-georg-brandt",
     "documentPath": "docs/nha-khoa-hoc-georg-brandt/index.json",
-    "title": "Georg Brandt — dấu mốc khám phá hóa học",
+    "title": "Georg Brandt — lần theo dấu vết coban",
     "author": "Ban biên tập ChemDex",
     "category": "tieusu",
-    "summary": "Hồ sơ lịch sử liên quan đến Coban (Co); phân biệt phát hiện, cô lập và đặt tên theo từng trường hợp.",
-    "image": "/assets/library/history-evidence.svg",
+    "summary": "Năm 1735, Georg Brandt đã chứng minh rằng một chất có trong các quặng coban là một nguyên tố kim loại mới, khác với bismuth. Ông nghiên cứu coban vì các hợp chất của nó đã được sử dụng từ trước để tạo màu xanh cho thủy tinh và đồ gốm.",
+    "image": "/assets/library/photos/elements/Co.jpg",
     "tags": [
       "Lịch sử hóa học",
       "Co"
@@ -460,17 +934,37 @@
       "Georg Brandt"
     ],
     "documentKind": "biography",
-    "readingMinutes": 1
+    "readingMinutes": 2,
+    "editorialEvidence": {
+      "language": "vi",
+      "scope": "related-element",
+      "contextLabel": "Coban (Co)",
+      "reviewBasis": "existing-element-dossier",
+      "story": {
+        "status": "documented",
+        "section": "## Cuộc tìm kiếm dẫn đến coban",
+        "sources": [
+          "https://periodic-table.rsc.org/element/27/cobalt"
+        ]
+      },
+      "application": {
+        "status": "context-only",
+        "section": "## Từ dấu mốc nghiên cứu đến công việc hôm nay",
+        "sources": [
+          "https://periodic-table.rsc.org/element/27/cobalt"
+        ]
+      }
+    }
   },
   {
     "id": "nha-khoa-hoc-axel-fredrik-cronstedt",
     "slug": "nha-khoa-hoc-axel-fredrik-cronstedt",
     "documentPath": "docs/nha-khoa-hoc-axel-fredrik-cronstedt/index.json",
-    "title": "Axel Fredrik Cronstedt — dấu mốc khám phá hóa học",
+    "title": "Axel Fredrik Cronstedt — lần theo dấu vết niken",
     "author": "Ban biên tập ChemDex",
     "category": "tieusu",
-    "summary": "Hồ sơ lịch sử liên quan đến Niken (Ni); phân biệt phát hiện, cô lập và đặt tên theo từng trường hợp.",
-    "image": "/assets/library/history-evidence.svg",
+    "summary": "Năm 1751, Axel Fredrik Cronstedt nghiên cứu một loại quặng màu đỏ nâu được gọi là Kupfernickel. Ông nhận ra quặng này chứa một kim loại mới và đặt tên nguyên tố là niken, bắt nguồn từ tên gọi Kupfernickel.",
+    "image": "/assets/library/photos/elements/Ni.jpg",
     "tags": [
       "Lịch sử hóa học",
       "Ni"
@@ -479,17 +973,37 @@
       "Axel Fredrik Cronstedt"
     ],
     "documentKind": "biography",
-    "readingMinutes": 1
+    "readingMinutes": 2,
+    "editorialEvidence": {
+      "language": "vi",
+      "scope": "related-element",
+      "contextLabel": "Niken (Ni)",
+      "reviewBasis": "existing-element-dossier",
+      "story": {
+        "status": "documented",
+        "section": "## Cuộc tìm kiếm dẫn đến niken",
+        "sources": [
+          "https://periodic-table.rsc.org/element/28/nickel"
+        ]
+      },
+      "application": {
+        "status": "context-only",
+        "section": "## Từ dấu mốc nghiên cứu đến công việc hôm nay",
+        "sources": [
+          "https://periodic-table.rsc.org/element/28/nickel"
+        ]
+      }
+    }
   },
   {
     "id": "lich-su-phat-hien-cu",
     "slug": "lich-su-phat-hien-cu",
     "documentPath": "docs/lich-su-phat-hien-cu/index.json",
-    "title": "Lịch sử phát hiện Đồng",
+    "title": "Đồng: một lịch sử có trước tên người phát hiện",
     "author": "Ban biên tập ChemDex",
     "category": "nguyento",
-    "summary": "Hồ sơ lịch sử liên quan đến Đồng (Cu); phân biệt phát hiện, cô lập và đặt tên theo từng trường hợp.",
-    "image": "/assets/library/history-evidence.svg",
+    "summary": "Đồng là một trong những kim loại đầu tiên được con người khai thác và sử dụng. Đồng tự nhiên có thể được tìm thấy dưới dạng kim loại tự do, nên con người có thể sử dụng nó trước khi phát triển kỹ thuật luyện kim phức tạp.",
+    "image": "/assets/library/photos/elements/Cu.jpg",
     "tags": [
       "Lịch sử hóa học",
       "Cu"
@@ -498,17 +1012,37 @@
       "Không xác định — Copper đã được con người biết đến từ thời cổ đại."
     ],
     "documentKind": "biography",
-    "readingMinutes": 1
+    "readingMinutes": 2,
+    "editorialEvidence": {
+      "language": "vi",
+      "scope": "related-element",
+      "contextLabel": "Đồng (Cu)",
+      "reviewBasis": "existing-element-dossier",
+      "story": {
+        "status": "documented",
+        "section": "## Dấu vết đồng trong lịch sử",
+        "sources": [
+          "https://periodic-table.rsc.org/element/29/copper"
+        ]
+      },
+      "application": {
+        "status": "context-only",
+        "section": "## Từ dấu mốc nghiên cứu đến công việc hôm nay",
+        "sources": [
+          "https://periodic-table.rsc.org/element/29/copper"
+        ]
+      }
+    }
   },
   {
     "id": "lich-su-phat-hien-zn",
     "slug": "lich-su-phat-hien-zn",
     "documentPath": "docs/lich-su-phat-hien-zn/index.json",
-    "title": "Lịch sử phát hiện Kẽm",
+    "title": "Kẽm: một lịch sử có trước tên người phát hiện",
     "author": "Ban biên tập ChemDex",
     "category": "nguyento",
-    "summary": "Hồ sơ lịch sử liên quan đến Kẽm (Zn); phân biệt phát hiện, cô lập và đặt tên theo từng trường hợp.",
-    "image": "/assets/library/history-evidence.svg",
+    "summary": "Kẽm compounds đã được sử dụng từ thời cổ đại, đặc biệt trong sản xuất Brass. Kẽm kim loại được sản xuất ở quy mô đáng kể tại Ấn Độ vào khoảng thế kỷ XII–XIII.",
+    "image": "/assets/library/photos/elements/Zn.jpg",
     "tags": [
       "Lịch sử hóa học",
       "Zn"
@@ -517,17 +1051,37 @@
       "Không xác định chính xác. Zinc đã được sử dụng từ thời cổ đại; Zinc kim loại được điều chế và sử dụng rộng rãi ở Ấn Độ."
     ],
     "documentKind": "biography",
-    "readingMinutes": 1
+    "readingMinutes": 2,
+    "editorialEvidence": {
+      "language": "vi",
+      "scope": "related-element",
+      "contextLabel": "Kẽm (Zn)",
+      "reviewBasis": "existing-element-dossier",
+      "story": {
+        "status": "documented",
+        "section": "## Dấu vết kẽm trong lịch sử",
+        "sources": [
+          "https://periodic-table.rsc.org/element/30/zinc"
+        ]
+      },
+      "application": {
+        "status": "context-only",
+        "section": "## Từ dấu mốc nghiên cứu đến công việc hôm nay",
+        "sources": [
+          "https://periodic-table.rsc.org/element/30/zinc"
+        ]
+      }
+    }
   },
   {
     "id": "nha-khoa-hoc-paul-emile-lecoq-de-boisbaudran",
     "slug": "nha-khoa-hoc-paul-emile-lecoq-de-boisbaudran",
     "documentPath": "docs/nha-khoa-hoc-paul-emile-lecoq-de-boisbaudran/index.json",
-    "title": "Paul-Émile Lecoq de Boisbaudran — dấu mốc khám phá hóa học",
+    "title": "Paul-Émile Lecoq de Boisbaudran — lần theo dấu vết gali, samarium, dysprosium",
     "author": "Ban biên tập ChemDex",
     "category": "tieusu",
-    "summary": "Hồ sơ lịch sử liên quan đến Gali (Ga), Samarium (Sm), Dysprosium (Dy); phân biệt phát hiện, cô lập và đặt tên theo từng trường hợp.",
-    "image": "/assets/library/history-evidence.svg",
+    "summary": "Năm 1875, Paul-Émile Lecoq de Boisbaudran phát hiện gali trong một mẫu Sphalerite bằng phương pháp quang phổ. Sự tồn tại của gali trước đó đã được Dmitri Mendeleev dự đoán dựa trên khoảng trống trong bảng tuần hoàn và ông gọi nguyên tố chưa biết là Eka-nhôm.",
+    "image": "/assets/library/photos/elements/Ga.png",
     "tags": [
       "Lịch sử hóa học",
       "Ga",
@@ -538,17 +1092,41 @@
       "Paul-Émile Lecoq de Boisbaudran"
     ],
     "documentKind": "biography",
-    "readingMinutes": 2
+    "readingMinutes": 4,
+    "editorialEvidence": {
+      "language": "vi",
+      "scope": "related-element",
+      "contextLabel": "Gali (Ga), Samarium (Sm), Dysprosium (Dy)",
+      "reviewBasis": "existing-element-dossier",
+      "story": {
+        "status": "documented",
+        "section": "## Cuộc tìm kiếm dẫn đến gali",
+        "sources": [
+          "https://periodic-table.rsc.org/element/31/gallium",
+          "https://periodic-table.rsc.org/element/62/samarium",
+          "https://periodic-table.rsc.org/element/66/dysprosium"
+        ]
+      },
+      "application": {
+        "status": "context-only",
+        "section": "## Từ dấu mốc nghiên cứu đến công việc hôm nay",
+        "sources": [
+          "https://periodic-table.rsc.org/element/31/gallium",
+          "https://periodic-table.rsc.org/element/62/samarium",
+          "https://periodic-table.rsc.org/element/66/dysprosium"
+        ]
+      }
+    }
   },
   {
     "id": "nha-khoa-hoc-clemens-winkler",
     "slug": "nha-khoa-hoc-clemens-winkler",
     "documentPath": "docs/nha-khoa-hoc-clemens-winkler/index.json",
-    "title": "Clemens Winkler — dấu mốc khám phá hóa học",
+    "title": "Clemens Winkler — lần theo dấu vết gecmani",
     "author": "Ban biên tập ChemDex",
     "category": "tieusu",
-    "summary": "Hồ sơ lịch sử liên quan đến Gecmani (Ge); phân biệt phát hiện, cô lập và đặt tên theo từng trường hợp.",
-    "image": "/assets/library/history-evidence.svg",
+    "summary": "Năm 1886, Clemens Winkler phát hiện gecmani khi phân tích khoáng vật Argyrodite. Sự tồn tại của nguyên tố này trước đó đã được Dmitri Mendeleev dự đoán và gọi là Eka-silic.",
+    "image": "/assets/library/photos/elements/Ge.jpg",
     "tags": [
       "Lịch sử hóa học",
       "Ge"
@@ -557,17 +1135,37 @@
       "Clemens Winkler"
     ],
     "documentKind": "biography",
-    "readingMinutes": 1
+    "readingMinutes": 2,
+    "editorialEvidence": {
+      "language": "vi",
+      "scope": "related-element",
+      "contextLabel": "Gecmani (Ge)",
+      "reviewBasis": "existing-element-dossier",
+      "story": {
+        "status": "documented",
+        "section": "## Cuộc tìm kiếm dẫn đến gecmani",
+        "sources": [
+          "https://periodic-table.rsc.org/element/32/germanium"
+        ]
+      },
+      "application": {
+        "status": "context-only",
+        "section": "## Từ dấu mốc nghiên cứu đến công việc hôm nay",
+        "sources": [
+          "https://periodic-table.rsc.org/element/32/germanium"
+        ]
+      }
+    }
   },
   {
     "id": "nha-khoa-hoc-albertus-magnus",
     "slug": "nha-khoa-hoc-albertus-magnus",
     "documentPath": "docs/nha-khoa-hoc-albertus-magnus/index.json",
-    "title": "Albertus Magnus — dấu mốc khám phá hóa học",
+    "title": "Albertus Magnus — lần theo dấu vết asen",
     "author": "Ban biên tập ChemDex",
     "category": "tieusu",
-    "summary": "Hồ sơ lịch sử liên quan đến Asen (As); phân biệt phát hiện, cô lập và đặt tên theo từng trường hợp.",
-    "image": "/assets/library/history-evidence.svg",
+    "summary": "Albertus Magnus được ghi nhận là người đầu tiên mô tả việc điều chế asen kim loại bằng cách nung nóng asen sunfua với xà phòng. Tuy nhiên, các asen compounds đã được con người biết đến và sử dụng từ thời cổ đại.",
+    "image": "/assets/library/photos/elements/As.jpg",
     "tags": [
       "Lịch sử hóa học",
       "As"
@@ -576,17 +1174,37 @@
       "Albertus Magnus"
     ],
     "documentKind": "biography",
-    "readingMinutes": 1
+    "readingMinutes": 2,
+    "editorialEvidence": {
+      "language": "vi",
+      "scope": "related-element",
+      "contextLabel": "Asen (As)",
+      "reviewBasis": "existing-element-dossier",
+      "story": {
+        "status": "documented",
+        "section": "## Cuộc tìm kiếm dẫn đến asen",
+        "sources": [
+          "https://periodic-table.rsc.org/element/33/arsenic"
+        ]
+      },
+      "application": {
+        "status": "context-only",
+        "section": "## Từ dấu mốc nghiên cứu đến công việc hôm nay",
+        "sources": [
+          "https://periodic-table.rsc.org/element/33/arsenic"
+        ]
+      }
+    }
   },
   {
     "id": "nha-khoa-hoc-jons-jacob-berzelius-va-johan-gottlieb-gahn",
     "slug": "nha-khoa-hoc-jons-jacob-berzelius-va-johan-gottlieb-gahn",
     "documentPath": "docs/nha-khoa-hoc-jons-jacob-berzelius-va-johan-gottlieb-gahn/index.json",
-    "title": "Jöns Jacob Berzelius và Johan Gottlieb Gahn — dấu mốc khám phá hóa học",
+    "title": "Jöns Jacob Berzelius và Johan Gottlieb Gahn — lần theo dấu vết selen",
     "author": "Ban biên tập ChemDex",
     "category": "tieusu",
-    "summary": "Hồ sơ lịch sử liên quan đến Selen (Se); phân biệt phát hiện, cô lập và đặt tên theo từng trường hợp.",
-    "image": "/assets/library/history-evidence.svg",
+    "summary": "Năm 1817, Jöns Jacob Berzelius phát hiện selen khi nghiên cứu một chất cặn trong quá trình sản xuất sunfuric axit. Ban đầu, ông cho rằng đó là tellurium, nhưng sau khi nghiên cứu thêm, ông xác định đây là một nguyên tố mới.",
+    "image": "/assets/library/photos/elements/Se.jpg",
     "tags": [
       "Lịch sử hóa học",
       "Se"
@@ -595,17 +1213,37 @@
       "Jöns Jacob Berzelius và Johan Gottlieb Gahn"
     ],
     "documentKind": "biography",
-    "readingMinutes": 1
+    "readingMinutes": 2,
+    "editorialEvidence": {
+      "language": "vi",
+      "scope": "related-element",
+      "contextLabel": "Selen (Se)",
+      "reviewBasis": "existing-element-dossier",
+      "story": {
+        "status": "documented",
+        "section": "## Cuộc tìm kiếm dẫn đến selen",
+        "sources": [
+          "https://periodic-table.rsc.org/element/34/selenium"
+        ]
+      },
+      "application": {
+        "status": "context-only",
+        "section": "## Từ dấu mốc nghiên cứu đến công việc hôm nay",
+        "sources": [
+          "https://periodic-table.rsc.org/element/34/selenium"
+        ]
+      }
+    }
   },
   {
     "id": "nha-khoa-hoc-antoine-jerome-balard",
     "slug": "nha-khoa-hoc-antoine-jerome-balard",
     "documentPath": "docs/nha-khoa-hoc-antoine-jerome-balard/index.json",
-    "title": "Antoine Jérôme Balard — dấu mốc khám phá hóa học",
+    "title": "Antoine Jérôme Balard — lần theo dấu vết brom",
     "author": "Ban biên tập ChemDex",
     "category": "tieusu",
-    "summary": "Hồ sơ lịch sử liên quan đến Brom (Br); phân biệt phát hiện, cô lập và đặt tên theo từng trường hợp.",
-    "image": "/assets/library/history-evidence.svg",
+    "summary": "Năm 1826, Antoine Jérôme Balard phát hiện một chất lỏng màu nâu đỏ khi nghiên cứu nước muối từ các đầm muối ở Montpellier, Pháp. Ông nhận ra đây là một nguyên tố mới và đặt tên brom, bắt nguồn từ tiếng Hy Lạp brōmos, nghĩa là “mùi hôi”.",
+    "image": "/assets/library/photos/elements/Br.jpg",
     "tags": [
       "Lịch sử hóa học",
       "Br"
@@ -614,17 +1252,37 @@
       "Antoine Jérôme Balard"
     ],
     "documentKind": "biography",
-    "readingMinutes": 1
+    "readingMinutes": 2,
+    "editorialEvidence": {
+      "language": "vi",
+      "scope": "related-element",
+      "contextLabel": "Brom (Br)",
+      "reviewBasis": "existing-element-dossier",
+      "story": {
+        "status": "documented",
+        "section": "## Cuộc tìm kiếm dẫn đến brom",
+        "sources": [
+          "https://periodic-table.rsc.org/element/35/bromine"
+        ]
+      },
+      "application": {
+        "status": "context-only",
+        "section": "## Từ dấu mốc nghiên cứu đến công việc hôm nay",
+        "sources": [
+          "https://periodic-table.rsc.org/element/35/bromine"
+        ]
+      }
+    }
   },
   {
     "id": "nha-khoa-hoc-robert-bunsen-va-gustav-kirchhoff",
     "slug": "nha-khoa-hoc-robert-bunsen-va-gustav-kirchhoff",
     "documentPath": "docs/nha-khoa-hoc-robert-bunsen-va-gustav-kirchhoff/index.json",
-    "title": "Robert Bunsen và Gustav Kirchhoff — dấu mốc khám phá hóa học",
+    "title": "Robert Bunsen và Gustav Kirchhoff — lần theo dấu vết rubidium, cesium",
     "author": "Ban biên tập ChemDex",
     "category": "tieusu",
-    "summary": "Hồ sơ lịch sử liên quan đến Rubidium (Rb), Cesium (Cs); phân biệt phát hiện, cô lập và đặt tên theo từng trường hợp.",
-    "image": "/assets/library/history-evidence.svg",
+    "summary": "Rubidium được phát hiện năm 1861 khi Robert Bunsen và Gustav Kirchhoff phân tích khoáng vật Lepidolite bằng phương pháp quang phổ. Họ nhận ra hai vạch phổ màu đỏ đặc trưng chưa từng được quan sát trước đó.",
+    "image": "/assets/library/photos/elements/Rb.jpg",
     "tags": [
       "Lịch sử hóa học",
       "Rb",
@@ -634,17 +1292,39 @@
       "Robert Bunsen và Gustav Kirchhoff"
     ],
     "documentKind": "biography",
-    "readingMinutes": 1
+    "readingMinutes": 3,
+    "editorialEvidence": {
+      "language": "vi",
+      "scope": "related-element",
+      "contextLabel": "Rubidium (Rb), Cesium (Cs)",
+      "reviewBasis": "existing-element-dossier",
+      "story": {
+        "status": "documented",
+        "section": "## Cuộc tìm kiếm dẫn đến rubidium",
+        "sources": [
+          "https://periodic-table.rsc.org/element/37/rubidium",
+          "https://periodic-table.rsc.org/element/55/caesium"
+        ]
+      },
+      "application": {
+        "status": "context-only",
+        "section": "## Từ dấu mốc nghiên cứu đến công việc hôm nay",
+        "sources": [
+          "https://periodic-table.rsc.org/element/37/rubidium",
+          "https://periodic-table.rsc.org/element/55/caesium"
+        ]
+      }
+    }
   },
   {
     "id": "nha-khoa-hoc-adair-crawford",
     "slug": "nha-khoa-hoc-adair-crawford",
     "documentPath": "docs/nha-khoa-hoc-adair-crawford/index.json",
-    "title": "Adair Crawford — dấu mốc khám phá hóa học",
+    "title": "Adair Crawford — lần theo dấu vết strontium",
     "author": "Ban biên tập ChemDex",
     "category": "tieusu",
-    "summary": "Hồ sơ lịch sử liên quan đến Strontium (Sr); phân biệt phát hiện, cô lập và đặt tên theo từng trường hợp.",
-    "image": "/assets/library/history-evidence.svg",
+    "summary": "Năm 1790, Adair Crawford nhận ra một khoáng vật được tìm thấy gần Strontian, Scotland có tính chất khác với các hợp chất bari đã biết. Đến năm 1808, Humphry Davy lần đầu tiên cô lập được strontium kim loại bằng phương pháp điện phân.",
+    "image": "/assets/library/photos/elements/Sr.jpg",
     "tags": [
       "Lịch sử hóa học",
       "Sr"
@@ -653,17 +1333,37 @@
       "Adair Crawford"
     ],
     "documentKind": "biography",
-    "readingMinutes": 1
+    "readingMinutes": 2,
+    "editorialEvidence": {
+      "language": "vi",
+      "scope": "related-element",
+      "contextLabel": "Strontium (Sr)",
+      "reviewBasis": "existing-element-dossier",
+      "story": {
+        "status": "documented",
+        "section": "## Cuộc tìm kiếm dẫn đến strontium",
+        "sources": [
+          "https://periodic-table.rsc.org/element/38/strontium"
+        ]
+      },
+      "application": {
+        "status": "context-only",
+        "section": "## Từ dấu mốc nghiên cứu đến công việc hôm nay",
+        "sources": [
+          "https://periodic-table.rsc.org/element/38/strontium"
+        ]
+      }
+    }
   },
   {
     "id": "nha-khoa-hoc-johan-gadolin",
     "slug": "nha-khoa-hoc-johan-gadolin",
     "documentPath": "docs/nha-khoa-hoc-johan-gadolin/index.json",
-    "title": "Johan Gadolin — dấu mốc khám phá hóa học",
+    "title": "Johan Gadolin — lần theo dấu vết yttrium",
     "author": "Ban biên tập ChemDex",
     "category": "tieusu",
-    "summary": "Hồ sơ lịch sử liên quan đến Yttrium (Y); phân biệt phát hiện, cô lập và đặt tên theo từng trường hợp.",
-    "image": "/assets/library/history-evidence.svg",
+    "summary": "Năm 1794, Johan Gadolin phát hiện một loại oxit mới trong khoáng vật được tìm thấy tại Ytterby, Thụy Điển. Sau đó, nhiều nguyên tố đất hiếm khác cũng được phát hiện từ cùng loại khoáng vật này.",
+    "image": "/assets/library/photos/elements/Y.jpg",
     "tags": [
       "Lịch sử hóa học",
       "Y"
@@ -672,17 +1372,37 @@
       "Johan Gadolin"
     ],
     "documentKind": "biography",
-    "readingMinutes": 1
+    "readingMinutes": 2,
+    "editorialEvidence": {
+      "language": "vi",
+      "scope": "related-element",
+      "contextLabel": "Yttrium (Y)",
+      "reviewBasis": "existing-element-dossier",
+      "story": {
+        "status": "documented",
+        "section": "## Cuộc tìm kiếm dẫn đến yttrium",
+        "sources": [
+          "https://periodic-table.rsc.org/element/39/yttrium"
+        ]
+      },
+      "application": {
+        "status": "context-only",
+        "section": "## Từ dấu mốc nghiên cứu đến công việc hôm nay",
+        "sources": [
+          "https://periodic-table.rsc.org/element/39/yttrium"
+        ]
+      }
+    }
   },
   {
     "id": "nha-khoa-hoc-martin-heinrich-klaproth",
     "slug": "nha-khoa-hoc-martin-heinrich-klaproth",
     "documentPath": "docs/nha-khoa-hoc-martin-heinrich-klaproth/index.json",
-    "title": "Martin Heinrich Klaproth — dấu mốc khám phá hóa học",
+    "title": "Martin Heinrich Klaproth — lần theo dấu vết zirconium, uranium",
     "author": "Ban biên tập ChemDex",
     "category": "tieusu",
-    "summary": "Hồ sơ lịch sử liên quan đến Zirconium (Zr), Uranium (U); phân biệt phát hiện, cô lập và đặt tên theo từng trường hợp.",
-    "image": "/assets/library/history-evidence.svg",
+    "summary": "Năm 1789, Martin Heinrich Klaproth phát hiện một nguyên tố mới trong Zircon và xác định oxit của nó. Đến năm 1824, Jöns Jacob Berzelius điều chế được zirconium ở dạng tương đối tinh khiết.",
+    "image": "/assets/library/photos/elements/Zr.jpg",
     "tags": [
       "Lịch sử hóa học",
       "Zr",
@@ -692,17 +1412,39 @@
       "Martin Heinrich Klaproth"
     ],
     "documentKind": "biography",
-    "readingMinutes": 1
+    "readingMinutes": 3,
+    "editorialEvidence": {
+      "language": "vi",
+      "scope": "related-element",
+      "contextLabel": "Zirconium (Zr), Uranium (U)",
+      "reviewBasis": "existing-element-dossier",
+      "story": {
+        "status": "documented",
+        "section": "## Cuộc tìm kiếm dẫn đến zirconium",
+        "sources": [
+          "https://periodic-table.rsc.org/element/40/zirconium",
+          "https://periodic-table.rsc.org/element/92/uranium"
+        ]
+      },
+      "application": {
+        "status": "context-only",
+        "section": "## Từ dấu mốc nghiên cứu đến công việc hôm nay",
+        "sources": [
+          "https://periodic-table.rsc.org/element/40/zirconium",
+          "https://periodic-table.rsc.org/element/92/uranium"
+        ]
+      }
+    }
   },
   {
     "id": "nha-khoa-hoc-charles-hatchett",
     "slug": "nha-khoa-hoc-charles-hatchett",
     "documentPath": "docs/nha-khoa-hoc-charles-hatchett/index.json",
-    "title": "Charles Hatchett — dấu mốc khám phá hóa học",
+    "title": "Charles Hatchett — lần theo dấu vết niobium",
     "author": "Ban biên tập ChemDex",
     "category": "tieusu",
-    "summary": "Hồ sơ lịch sử liên quan đến Niobium (Nb); phân biệt phát hiện, cô lập và đặt tên theo từng trường hợp.",
-    "image": "/assets/library/history-evidence.svg",
+    "summary": "Năm 1801, Charles Hatchett nghiên cứu một loại quặng được gửi từ Mỹ và phát hiện một nguyên tố mới. Ông đặt tên nguyên tố là Columbium.",
+    "image": "/assets/library/photos/elements/Nb.jpg",
     "tags": [
       "Lịch sử hóa học",
       "Nb"
@@ -711,17 +1453,37 @@
       "Charles Hatchett"
     ],
     "documentKind": "biography",
-    "readingMinutes": 1
+    "readingMinutes": 2,
+    "editorialEvidence": {
+      "language": "vi",
+      "scope": "related-element",
+      "contextLabel": "Niobium (Nb)",
+      "reviewBasis": "existing-element-dossier",
+      "story": {
+        "status": "documented",
+        "section": "## Cuộc tìm kiếm dẫn đến niobium",
+        "sources": [
+          "https://periodic-table.rsc.org/element/41/niobium"
+        ]
+      },
+      "application": {
+        "status": "context-only",
+        "section": "## Từ dấu mốc nghiên cứu đến công việc hôm nay",
+        "sources": [
+          "https://periodic-table.rsc.org/element/41/niobium"
+        ]
+      }
+    }
   },
   {
     "id": "nha-khoa-hoc-carlo-perrier-va-emilio-segre",
     "slug": "nha-khoa-hoc-carlo-perrier-va-emilio-segre",
     "documentPath": "docs/nha-khoa-hoc-carlo-perrier-va-emilio-segre/index.json",
-    "title": "Carlo Perrier và Emilio Segrè — dấu mốc khám phá hóa học",
+    "title": "Carlo Perrier và Emilio Segrè — lần theo dấu vết technetium",
     "author": "Ban biên tập ChemDex",
     "category": "tieusu",
-    "summary": "Hồ sơ lịch sử liên quan đến Technetium (Tc); phân biệt phát hiện, cô lập và đặt tên theo từng trường hợp.",
-    "image": "/assets/library/history-evidence.svg",
+    "summary": "Năm 1937, Carlo Perrier và Emilio Segrè đã tách được technetium từ một mẫu molybdenum bị chiếu xạ trong cyclotron. Technetium là nguyên tố đầu tiên được tạo ra nhân tạo, và tên gọi bắt nguồn từ tiếng Hy Lạp technē, nghĩa là “nhân tạo”.",
+    "image": "/assets/library/photos/elements/Tc.jpg",
     "tags": [
       "Lịch sử hóa học",
       "Tc"
@@ -730,17 +1492,37 @@
       "Carlo Perrier và Emilio Segrè"
     ],
     "documentKind": "biography",
-    "readingMinutes": 1
+    "readingMinutes": 2,
+    "editorialEvidence": {
+      "language": "vi",
+      "scope": "related-element",
+      "contextLabel": "Technetium (Tc)",
+      "reviewBasis": "existing-element-dossier",
+      "story": {
+        "status": "documented",
+        "section": "## Cuộc tìm kiếm dẫn đến technetium",
+        "sources": [
+          "https://periodic-table.rsc.org/element/43/technetium"
+        ]
+      },
+      "application": {
+        "status": "context-only",
+        "section": "## Từ dấu mốc nghiên cứu đến công việc hôm nay",
+        "sources": [
+          "https://periodic-table.rsc.org/element/43/technetium"
+        ]
+      }
+    }
   },
   {
     "id": "nha-khoa-hoc-karl-ernst-claus",
     "slug": "nha-khoa-hoc-karl-ernst-claus",
     "documentPath": "docs/nha-khoa-hoc-karl-ernst-claus/index.json",
-    "title": "Karl Ernst Claus — dấu mốc khám phá hóa học",
+    "title": "Karl Ernst Claus — lần theo dấu vết ruthenium",
     "author": "Ban biên tập ChemDex",
     "category": "tieusu",
-    "summary": "Hồ sơ lịch sử liên quan đến Ruthenium (Ru); phân biệt phát hiện, cô lập và đặt tên theo từng trường hợp.",
-    "image": "/assets/library/history-evidence.svg",
+    "summary": "Năm 1844, Karl Ernst Claus đã tách và xác định ruthenium từ quặng bạch kim. Ông đặt tên nguyên tố theo Ruthenia, tên Latin của Nga.",
+    "image": "/assets/library/photos/elements/Ru.jpg",
     "tags": [
       "Lịch sử hóa học",
       "Ru"
@@ -749,17 +1531,37 @@
       "Karl Ernst Claus"
     ],
     "documentKind": "biography",
-    "readingMinutes": 1
+    "readingMinutes": 2,
+    "editorialEvidence": {
+      "language": "vi",
+      "scope": "related-element",
+      "contextLabel": "Ruthenium (Ru)",
+      "reviewBasis": "existing-element-dossier",
+      "story": {
+        "status": "documented",
+        "section": "## Cuộc tìm kiếm dẫn đến ruthenium",
+        "sources": [
+          "https://periodic-table.rsc.org/element/44/ruthenium"
+        ]
+      },
+      "application": {
+        "status": "context-only",
+        "section": "## Từ dấu mốc nghiên cứu đến công việc hôm nay",
+        "sources": [
+          "https://periodic-table.rsc.org/element/44/ruthenium"
+        ]
+      }
+    }
   },
   {
     "id": "nha-khoa-hoc-william-hyde-wollaston",
     "slug": "nha-khoa-hoc-william-hyde-wollaston",
     "documentPath": "docs/nha-khoa-hoc-william-hyde-wollaston/index.json",
-    "title": "William Hyde Wollaston — dấu mốc khám phá hóa học",
+    "title": "William Hyde Wollaston — lần theo dấu vết rhodium, palladium",
     "author": "Ban biên tập ChemDex",
     "category": "tieusu",
-    "summary": "Hồ sơ lịch sử liên quan đến Rhodium (Rh), Palladium (Pd); phân biệt phát hiện, cô lập và đặt tên theo từng trường hợp.",
-    "image": "/assets/library/history-evidence.svg",
+    "summary": "Năm 1803, William Hyde Wollaston phát hiện rhodium trong quặng bạch kim. Ông nhận thấy các hợp chất của nguyên tố mới có màu sắc đặc trưng, đặc biệt là các hợp chất tạo màu đỏ.",
+    "image": "/assets/library/photos/elements/Rh.jpg",
     "tags": [
       "Lịch sử hóa học",
       "Rh",
@@ -769,17 +1571,39 @@
       "William Hyde Wollaston"
     ],
     "documentKind": "biography",
-    "readingMinutes": 1
+    "readingMinutes": 3,
+    "editorialEvidence": {
+      "language": "vi",
+      "scope": "related-element",
+      "contextLabel": "Rhodium (Rh), Palladium (Pd)",
+      "reviewBasis": "existing-element-dossier",
+      "story": {
+        "status": "documented",
+        "section": "## Cuộc tìm kiếm dẫn đến rhodium",
+        "sources": [
+          "https://periodic-table.rsc.org/element/45/rhodium",
+          "https://periodic-table.rsc.org/element/46/palladium"
+        ]
+      },
+      "application": {
+        "status": "context-only",
+        "section": "## Từ dấu mốc nghiên cứu đến công việc hôm nay",
+        "sources": [
+          "https://periodic-table.rsc.org/element/45/rhodium",
+          "https://periodic-table.rsc.org/element/46/palladium"
+        ]
+      }
+    }
   },
   {
     "id": "lich-su-phat-hien-ag",
     "slug": "lich-su-phat-hien-ag",
     "documentPath": "docs/lich-su-phat-hien-ag/index.json",
-    "title": "Lịch sử phát hiện Bạc",
+    "title": "Bạc: một lịch sử có trước tên người phát hiện",
     "author": "Ban biên tập ChemDex",
     "category": "nguyento",
-    "summary": "Hồ sơ lịch sử liên quan đến Bạc (Ag); phân biệt phát hiện, cô lập và đặt tên theo từng trường hợp.",
-    "image": "/assets/library/history-evidence.svg",
+    "summary": "Bạc là một trong những kim loại được con người biết đến và sử dụng từ thời cổ đại. Nó từng được sử dụng để chế tạo đồ trang sức, tiền xu và các vật dụng khác.",
+    "image": "/assets/library/photos/elements/Ag.jpg",
     "tags": [
       "Lịch sử hóa học",
       "Ag"
@@ -788,17 +1612,37 @@
       "Chưa xác định — Silver đã được con người biết đến từ thời cổ đại."
     ],
     "documentKind": "biography",
-    "readingMinutes": 1
+    "readingMinutes": 2,
+    "editorialEvidence": {
+      "language": "vi",
+      "scope": "related-element",
+      "contextLabel": "Bạc (Ag)",
+      "reviewBasis": "existing-element-dossier",
+      "story": {
+        "status": "documented",
+        "section": "## Dấu vết bạc trong lịch sử",
+        "sources": [
+          "https://periodic-table.rsc.org/element/47/silver"
+        ]
+      },
+      "application": {
+        "status": "context-only",
+        "section": "## Từ dấu mốc nghiên cứu đến công việc hôm nay",
+        "sources": [
+          "https://periodic-table.rsc.org/element/47/silver"
+        ]
+      }
+    }
   },
   {
     "id": "nha-khoa-hoc-friedrich-stromeyer",
     "slug": "nha-khoa-hoc-friedrich-stromeyer",
     "documentPath": "docs/nha-khoa-hoc-friedrich-stromeyer/index.json",
-    "title": "Friedrich Stromeyer — dấu mốc khám phá hóa học",
+    "title": "Friedrich Stromeyer — lần theo dấu vết cadmium",
     "author": "Ban biên tập ChemDex",
     "category": "tieusu",
-    "summary": "Hồ sơ lịch sử liên quan đến Cadmium (Cd); phân biệt phát hiện, cô lập và đặt tên theo từng trường hợp.",
-    "image": "/assets/library/history-evidence.svg",
+    "summary": "Năm 1817, Friedrich Stromeyer phát hiện cadmium khi nghiên cứu kẽm cacbonat. Ông nhận thấy một số mẫu kẽm oxit có màu vàng bất thường và xác định nguyên nhân là do một nguyên tố mới.",
+    "image": "/assets/library/photos/elements/Cd.jpg",
     "tags": [
       "Lịch sử hóa học",
       "Cd"
@@ -807,17 +1651,37 @@
       "Friedrich Stromeyer"
     ],
     "documentKind": "biography",
-    "readingMinutes": 1
+    "readingMinutes": 2,
+    "editorialEvidence": {
+      "language": "vi",
+      "scope": "related-element",
+      "contextLabel": "Cadmium (Cd)",
+      "reviewBasis": "existing-element-dossier",
+      "story": {
+        "status": "documented",
+        "section": "## Cuộc tìm kiếm dẫn đến cadmium",
+        "sources": [
+          "https://periodic-table.rsc.org/element/48/cadmium"
+        ]
+      },
+      "application": {
+        "status": "context-only",
+        "section": "## Từ dấu mốc nghiên cứu đến công việc hôm nay",
+        "sources": [
+          "https://periodic-table.rsc.org/element/48/cadmium"
+        ]
+      }
+    }
   },
   {
     "id": "nha-khoa-hoc-ferdinand-reich-va-hieronymus-theodor-richter",
     "slug": "nha-khoa-hoc-ferdinand-reich-va-hieronymus-theodor-richter",
     "documentPath": "docs/nha-khoa-hoc-ferdinand-reich-va-hieronymus-theodor-richter/index.json",
-    "title": "Ferdinand Reich và Hieronymus Theodor Richter — dấu mốc khám phá hóa học",
+    "title": "Ferdinand Reich và Hieronymus Theodor Richter — lần theo dấu vết indium",
     "author": "Ban biên tập ChemDex",
     "category": "tieusu",
-    "summary": "Hồ sơ lịch sử liên quan đến Indium (In); phân biệt phát hiện, cô lập và đặt tên theo từng trường hợp.",
-    "image": "/assets/library/history-evidence.svg",
+    "summary": "Năm 1863, Ferdinand Reich và Hieronymus Theodor Richter phát hiện indium khi phân tích quặng kẽm bằng phương pháp quang phổ. Họ nhận thấy một vạch phổ màu chàm đặc trưng chưa từng được biết đến.",
+    "image": "/assets/library/photos/elements/In.jpg",
     "tags": [
       "Lịch sử hóa học",
       "In"
@@ -826,17 +1690,37 @@
       "Ferdinand Reich và Hieronymus Theodor Richter"
     ],
     "documentKind": "biography",
-    "readingMinutes": 1
+    "readingMinutes": 2,
+    "editorialEvidence": {
+      "language": "vi",
+      "scope": "related-element",
+      "contextLabel": "Indium (In)",
+      "reviewBasis": "existing-element-dossier",
+      "story": {
+        "status": "documented",
+        "section": "## Cuộc tìm kiếm dẫn đến indium",
+        "sources": [
+          "https://periodic-table.rsc.org/element/49/indium"
+        ]
+      },
+      "application": {
+        "status": "context-only",
+        "section": "## Từ dấu mốc nghiên cứu đến công việc hôm nay",
+        "sources": [
+          "https://periodic-table.rsc.org/element/49/indium"
+        ]
+      }
+    }
   },
   {
     "id": "lich-su-phat-hien-sn",
     "slug": "lich-su-phat-hien-sn",
     "documentPath": "docs/lich-su-phat-hien-sn/index.json",
-    "title": "Lịch sử phát hiện Tin",
+    "title": "Tin: một lịch sử có trước tên người phát hiện",
     "author": "Ban biên tập ChemDex",
     "category": "nguyento",
-    "summary": "Hồ sơ lịch sử liên quan đến Tin (Sn); phân biệt phát hiện, cô lập và đặt tên theo từng trường hợp.",
-    "image": "/assets/library/history-evidence.svg",
+    "summary": "Tin là một trong những kim loại được con người sử dụng từ thời cổ đại. Việc kết hợp tin với đồng tạo ra Bronze, mở đầu cho thời kỳ Đồ Đồng.",
+    "image": "/assets/library/photos/elements/Sn.jpg",
     "tags": [
       "Lịch sử hóa học",
       "Sn"
@@ -845,17 +1729,37 @@
       "Không xác định — Tin đã được con người biết đến từ thời cổ đại."
     ],
     "documentKind": "biography",
-    "readingMinutes": 1
+    "readingMinutes": 2,
+    "editorialEvidence": {
+      "language": "vi",
+      "scope": "related-element",
+      "contextLabel": "Tin (Sn)",
+      "reviewBasis": "existing-element-dossier",
+      "story": {
+        "status": "documented",
+        "section": "## Dấu vết tin trong lịch sử",
+        "sources": [
+          "https://periodic-table.rsc.org/element/50/tin"
+        ]
+      },
+      "application": {
+        "status": "context-only",
+        "section": "## Từ dấu mốc nghiên cứu đến công việc hôm nay",
+        "sources": [
+          "https://periodic-table.rsc.org/element/50/tin"
+        ]
+      }
+    }
   },
   {
     "id": "lich-su-phat-hien-sb",
     "slug": "lich-su-phat-hien-sb",
     "documentPath": "docs/lich-su-phat-hien-sb/index.json",
-    "title": "Lịch sử phát hiện Antimony",
+    "title": "Antimony: một lịch sử có trước tên người phát hiện",
     "author": "Ban biên tập ChemDex",
     "category": "nguyento",
-    "summary": "Hồ sơ lịch sử liên quan đến Antimony (Sb); phân biệt phát hiện, cô lập và đặt tên theo từng trường hợp.",
-    "image": "/assets/library/history-evidence.svg",
+    "summary": "Các hợp chất của antimony đã được sử dụng từ thời cổ đại. Antimony nguyên chất được xác định và điều chế rõ ràng hơn trong thời kỳ Trung Cổ.",
+    "image": "/assets/library/photos/elements/Sb.jpg",
     "tags": [
       "Lịch sử hóa học",
       "Sb"
@@ -864,17 +1768,37 @@
       "Không xác định — Antimony và các hợp chất của nó đã được con người biết đến từ thời cổ đại."
     ],
     "documentKind": "biography",
-    "readingMinutes": 1
+    "readingMinutes": 2,
+    "editorialEvidence": {
+      "language": "vi",
+      "scope": "related-element",
+      "contextLabel": "Antimony (Sb)",
+      "reviewBasis": "existing-element-dossier",
+      "story": {
+        "status": "documented",
+        "section": "## Dấu vết antimony trong lịch sử",
+        "sources": [
+          "https://periodic-table.rsc.org/element/51/antimony"
+        ]
+      },
+      "application": {
+        "status": "context-only",
+        "section": "## Từ dấu mốc nghiên cứu đến công việc hôm nay",
+        "sources": [
+          "https://periodic-table.rsc.org/element/51/antimony"
+        ]
+      }
+    }
   },
   {
     "id": "nha-khoa-hoc-franz-joseph-muller-von-reichenstein",
     "slug": "nha-khoa-hoc-franz-joseph-muller-von-reichenstein",
     "documentPath": "docs/nha-khoa-hoc-franz-joseph-muller-von-reichenstein/index.json",
-    "title": "Franz-Joseph Müller von Reichenstein — dấu mốc khám phá hóa học",
+    "title": "Franz-Joseph Müller von Reichenstein — lần theo dấu vết tellurium",
     "author": "Ban biên tập ChemDex",
     "category": "tieusu",
-    "summary": "Hồ sơ lịch sử liên quan đến Tellurium (Te); phân biệt phát hiện, cô lập và đặt tên theo từng trường hợp.",
-    "image": "/assets/library/history-evidence.svg",
+    "summary": "Năm 1782, Franz-Joseph Müller von Reichenstein phát hiện một nguyên tố mới khi nghiên cứu quặng vàng. Sau đó, Martin Heinrich Klaproth xác nhận nguyên tố này vào năm 1798 và đặt tên là tellurium, bắt nguồn từ tiếng Latin Tellus, nghĩa là “Trái Đất”.",
+    "image": "/assets/library/photos/elements/Te.jpg",
     "tags": [
       "Lịch sử hóa học",
       "Te"
@@ -883,17 +1807,37 @@
       "Franz-Joseph Müller von Reichenstein"
     ],
     "documentKind": "biography",
-    "readingMinutes": 1
+    "readingMinutes": 2,
+    "editorialEvidence": {
+      "language": "vi",
+      "scope": "related-element",
+      "contextLabel": "Tellurium (Te)",
+      "reviewBasis": "existing-element-dossier",
+      "story": {
+        "status": "documented",
+        "section": "## Cuộc tìm kiếm dẫn đến tellurium",
+        "sources": [
+          "https://periodic-table.rsc.org/element/52/tellurium"
+        ]
+      },
+      "application": {
+        "status": "context-only",
+        "section": "## Từ dấu mốc nghiên cứu đến công việc hôm nay",
+        "sources": [
+          "https://periodic-table.rsc.org/element/52/tellurium"
+        ]
+      }
+    }
   },
   {
     "id": "nha-khoa-hoc-bernard-courtois",
     "slug": "nha-khoa-hoc-bernard-courtois",
     "documentPath": "docs/nha-khoa-hoc-bernard-courtois/index.json",
-    "title": "Bernard Courtois — dấu mốc khám phá hóa học",
+    "title": "Bernard Courtois — lần theo dấu vết iot",
     "author": "Ban biên tập ChemDex",
     "category": "tieusu",
-    "summary": "Hồ sơ lịch sử liên quan đến Iot (I); phân biệt phát hiện, cô lập và đặt tên theo từng trường hợp.",
-    "image": "/assets/library/history-evidence.svg",
+    "summary": "Năm 1811, Bernard Courtois phát hiện iot khi nghiên cứu tro của rong biển. Ông nhận thấy một chất có màu tím và tạo ra hơi màu tím khi được đun nóng.",
+    "image": "/assets/library/photos/elements/I.jpg",
     "tags": [
       "Lịch sử hóa học",
       "I"
@@ -902,17 +1846,37 @@
       "Bernard Courtois"
     ],
     "documentKind": "biography",
-    "readingMinutes": 1
+    "readingMinutes": 2,
+    "editorialEvidence": {
+      "language": "vi",
+      "scope": "related-element",
+      "contextLabel": "Iot (I)",
+      "reviewBasis": "existing-element-dossier",
+      "story": {
+        "status": "documented",
+        "section": "## Cuộc tìm kiếm dẫn đến iot",
+        "sources": [
+          "https://periodic-table.rsc.org/element/53/iodine"
+        ]
+      },
+      "application": {
+        "status": "context-only",
+        "section": "## Từ dấu mốc nghiên cứu đến công việc hôm nay",
+        "sources": [
+          "https://periodic-table.rsc.org/element/53/iodine"
+        ]
+      }
+    }
   },
   {
     "id": "nha-khoa-hoc-carl-gustaf-mosander",
     "slug": "nha-khoa-hoc-carl-gustaf-mosander",
     "documentPath": "docs/nha-khoa-hoc-carl-gustaf-mosander/index.json",
-    "title": "Carl Gustaf Mosander — dấu mốc khám phá hóa học",
+    "title": "Carl Gustaf Mosander — lần theo dấu vết lanthanum, terbium, erbium",
     "author": "Ban biên tập ChemDex",
     "category": "tieusu",
-    "summary": "Hồ sơ lịch sử liên quan đến Lanthanum (La), Terbium (Tb), Erbium (Er); phân biệt phát hiện, cô lập và đặt tên theo từng trường hợp.",
-    "image": "/assets/library/history-evidence.svg",
+    "summary": "Lanthanum được Carl Gustaf Mosander phát hiện khi ông nghiên cứu cerium. Ông nhận thấy cerium oxit chứa một nguyên tố mới và tách được oxit của lanthanum.",
+    "image": "/assets/library/photos/elements/La.jpg",
     "tags": [
       "Lịch sử hóa học",
       "La",
@@ -923,17 +1887,41 @@
       "Carl Gustaf Mosander"
     ],
     "documentKind": "biography",
-    "readingMinutes": 2
+    "readingMinutes": 4,
+    "editorialEvidence": {
+      "language": "vi",
+      "scope": "related-element",
+      "contextLabel": "Lanthanum (La), Terbium (Tb), Erbium (Er)",
+      "reviewBasis": "existing-element-dossier",
+      "story": {
+        "status": "documented",
+        "section": "## Cuộc tìm kiếm dẫn đến lanthanum",
+        "sources": [
+          "https://periodic-table.rsc.org/element/57/lanthanum",
+          "https://periodic-table.rsc.org/element/65/terbium",
+          "https://periodic-table.rsc.org/element/68/erbium"
+        ]
+      },
+      "application": {
+        "status": "context-only",
+        "section": "## Từ dấu mốc nghiên cứu đến công việc hôm nay",
+        "sources": [
+          "https://periodic-table.rsc.org/element/57/lanthanum",
+          "https://periodic-table.rsc.org/element/65/terbium",
+          "https://periodic-table.rsc.org/element/68/erbium"
+        ]
+      }
+    }
   },
   {
     "id": "nha-khoa-hoc-jons-jacob-berzelius-va-wilhelm-hisinger-martin-heinrich-klaproth-doc-lap-phat-hien-cerium-oxide",
     "slug": "nha-khoa-hoc-jons-jacob-berzelius-va-wilhelm-hisinger-martin-heinrich-klaproth-doc-lap-phat-hien-cerium-oxide",
     "documentPath": "docs/nha-khoa-hoc-jons-jacob-berzelius-va-wilhelm-hisinger-martin-heinrich-klaproth-doc-lap-phat-hien-cerium-oxide/index.json",
-    "title": "Jöns Jacob Berzelius và Wilhelm Hisinger; Martin Heinrich Klaproth độc lập phát hiện Cerium oxide. — dấu mốc khám phá hóa học",
+    "title": "Jöns Jacob Berzelius và Wilhelm Hisinger; Martin Heinrich Klaproth độc lập phát hiện Cerium oxide. — lần theo dấu vết cerium",
     "author": "Ban biên tập ChemDex",
     "category": "tieusu",
-    "summary": "Hồ sơ lịch sử liên quan đến Cerium (Ce); phân biệt phát hiện, cô lập và đặt tên theo từng trường hợp.",
-    "image": "/assets/library/history-evidence.svg",
+    "summary": "Năm 1803, Berzelius và Hisinger nghiên cứu một khoáng vật mới ở Thụy Điển và phát hiện một nguyên tố mới. Cùng thời gian đó, Martin Heinrich Klaproth ở Đức cũng độc lập phát hiện oxit của nguyên tố này.",
+    "image": "/assets/library/photos/elements/Ce.jpg",
     "tags": [
       "Lịch sử hóa học",
       "Ce"
@@ -942,17 +1930,37 @@
       "Jöns Jacob Berzelius và Wilhelm Hisinger; Martin Heinrich Klaproth độc lập phát hiện Cerium oxide."
     ],
     "documentKind": "biography",
-    "readingMinutes": 1
+    "readingMinutes": 3,
+    "editorialEvidence": {
+      "language": "vi",
+      "scope": "related-element",
+      "contextLabel": "Cerium (Ce)",
+      "reviewBasis": "existing-element-dossier",
+      "story": {
+        "status": "documented",
+        "section": "## Cuộc tìm kiếm dẫn đến cerium",
+        "sources": [
+          "https://periodic-table.rsc.org/element/58/cerium"
+        ]
+      },
+      "application": {
+        "status": "context-only",
+        "section": "## Từ dấu mốc nghiên cứu đến công việc hôm nay",
+        "sources": [
+          "https://periodic-table.rsc.org/element/58/cerium"
+        ]
+      }
+    }
   },
   {
     "id": "nha-khoa-hoc-carl-auer-von-welsbach",
     "slug": "nha-khoa-hoc-carl-auer-von-welsbach",
     "documentPath": "docs/nha-khoa-hoc-carl-auer-von-welsbach/index.json",
-    "title": "Carl Auer von Welsbach — dấu mốc khám phá hóa học",
+    "title": "Carl Auer von Welsbach — lần theo dấu vết praseodymium, neodymium",
     "author": "Ban biên tập ChemDex",
     "category": "tieusu",
-    "summary": "Hồ sơ lịch sử liên quan đến Praseodymium (Pr), Neodymium (Nd); phân biệt phát hiện, cô lập và đặt tên theo từng trường hợp.",
-    "image": "/assets/library/history-evidence.svg",
+    "summary": "Praseodymium được Carl Auer von Welsbach tách ra từ một chất trước đó được gọi là Didymium. Didymium ban đầu được cho là một nguyên tố duy nhất, nhưng Welsbach chứng minh rằng nó thực chất là hỗn hợp của praseodymium và neodymium.",
+    "image": "/assets/library/photos/elements/Pr.jpg",
     "tags": [
       "Lịch sử hóa học",
       "Pr",
@@ -962,17 +1970,39 @@
       "Carl Auer von Welsbach"
     ],
     "documentKind": "biography",
-    "readingMinutes": 2
+    "readingMinutes": 3,
+    "editorialEvidence": {
+      "language": "vi",
+      "scope": "related-element",
+      "contextLabel": "Praseodymium (Pr), Neodymium (Nd)",
+      "reviewBasis": "existing-element-dossier",
+      "story": {
+        "status": "documented",
+        "section": "## Cuộc tìm kiếm dẫn đến praseodymium",
+        "sources": [
+          "https://periodic-table.rsc.org/element/59/praseodymium",
+          "https://periodic-table.rsc.org/element/60/neodymium"
+        ]
+      },
+      "application": {
+        "status": "context-only",
+        "section": "## Từ dấu mốc nghiên cứu đến công việc hôm nay",
+        "sources": [
+          "https://periodic-table.rsc.org/element/59/praseodymium",
+          "https://periodic-table.rsc.org/element/60/neodymium"
+        ]
+      }
+    }
   },
   {
     "id": "nha-khoa-hoc-jacob-a-marinsky-lawrence-e-glendenin-va-charles-d-coryell",
     "slug": "nha-khoa-hoc-jacob-a-marinsky-lawrence-e-glendenin-va-charles-d-coryell",
     "documentPath": "docs/nha-khoa-hoc-jacob-a-marinsky-lawrence-e-glendenin-va-charles-d-coryell/index.json",
-    "title": "Jacob A. Marinsky, Lawrence E. Glendenin và Charles D. Coryell — dấu mốc khám phá hóa học",
+    "title": "Jacob A. Marinsky, Lawrence E. Glendenin và Charles D. Coryell — lần theo dấu vết promethium",
     "author": "Ban biên tập ChemDex",
     "category": "tieusu",
-    "summary": "Hồ sơ lịch sử liên quan đến Promethium (Pm); phân biệt phát hiện, cô lập và đặt tên theo từng trường hợp.",
-    "image": "/assets/library/history-evidence.svg",
+    "summary": "Promethium được phát hiện khi nhóm nghiên cứu phân tích các sản phẩm phân hạch của uranium tại Oak Ridge. Họ đã tách và xác định một nguyên tố đất hiếm mới, có số hiệu nguyên tử 61.",
+    "image": "/assets/library/photos/elements/Pm.png",
     "tags": [
       "Lịch sử hóa học",
       "Pm"
@@ -981,17 +2011,37 @@
       "Jacob A. Marinsky, Lawrence E. Glendenin và Charles D. Coryell"
     ],
     "documentKind": "biography",
-    "readingMinutes": 1
+    "readingMinutes": 3,
+    "editorialEvidence": {
+      "language": "vi",
+      "scope": "related-element",
+      "contextLabel": "Promethium (Pm)",
+      "reviewBasis": "existing-element-dossier",
+      "story": {
+        "status": "documented",
+        "section": "## Cuộc tìm kiếm dẫn đến promethium",
+        "sources": [
+          "https://periodic-table.rsc.org/element/61/promethium"
+        ]
+      },
+      "application": {
+        "status": "context-only",
+        "section": "## Từ dấu mốc nghiên cứu đến công việc hôm nay",
+        "sources": [
+          "https://periodic-table.rsc.org/element/61/promethium"
+        ]
+      }
+    }
   },
   {
     "id": "nha-khoa-hoc-eugene-anatole-demarcay",
     "slug": "nha-khoa-hoc-eugene-anatole-demarcay",
     "documentPath": "docs/nha-khoa-hoc-eugene-anatole-demarcay/index.json",
-    "title": "Eugène-Anatole Demarçay — dấu mốc khám phá hóa học",
+    "title": "Eugène-Anatole Demarçay — lần theo dấu vết europium",
     "author": "Ban biên tập ChemDex",
     "category": "tieusu",
-    "summary": "Hồ sơ lịch sử liên quan đến Europium (Eu); phân biệt phát hiện, cô lập và đặt tên theo từng trường hợp.",
-    "image": "/assets/library/history-evidence.svg",
+    "summary": "Năm 1892, Paul-Émile Lecoq de Boisbaudran nhận thấy một số vạch phổ bất thường trong samarium. Sau đó, Eugène-Anatole Demarçay tiến hành nghiên cứu và tách được nguyên tố mới từ các mẫu samarium.",
+    "image": "/assets/library/photos/elements/Eu.jpg",
     "tags": [
       "Lịch sử hóa học",
       "Eu"
@@ -1000,17 +2050,37 @@
       "Eugène-Anatole Demarçay"
     ],
     "documentKind": "biography",
-    "readingMinutes": 1
+    "readingMinutes": 2,
+    "editorialEvidence": {
+      "language": "vi",
+      "scope": "related-element",
+      "contextLabel": "Europium (Eu)",
+      "reviewBasis": "existing-element-dossier",
+      "story": {
+        "status": "documented",
+        "section": "## Cuộc tìm kiếm dẫn đến europium",
+        "sources": [
+          "https://periodic-table.rsc.org/element/63/europium"
+        ]
+      },
+      "application": {
+        "status": "context-only",
+        "section": "## Từ dấu mốc nghiên cứu đến công việc hôm nay",
+        "sources": [
+          "https://periodic-table.rsc.org/element/63/europium"
+        ]
+      }
+    }
   },
   {
     "id": "nha-khoa-hoc-jean-charles-galissard-de-marignac",
     "slug": "nha-khoa-hoc-jean-charles-galissard-de-marignac",
     "documentPath": "docs/nha-khoa-hoc-jean-charles-galissard-de-marignac/index.json",
-    "title": "Jean Charles Galissard de Marignac — dấu mốc khám phá hóa học",
+    "title": "Jean Charles Galissard de Marignac — lần theo dấu vết gadolinium, ytterbium",
     "author": "Ban biên tập ChemDex",
     "category": "tieusu",
-    "summary": "Hồ sơ lịch sử liên quan đến Gadolinium (Gd), Ytterbium (Yb); phân biệt phát hiện, cô lập và đặt tên theo từng trường hợp.",
-    "image": "/assets/library/history-evidence.svg",
+    "summary": "Năm 1880, Jean Charles Galissard de Marignac phát hiện một nguyên tố đất hiếm mới trong Didymium và samarium thông qua sự khác biệt về tính chất và phổ của các hợp chất. Sau đó, Paul-Émile Lecoq de Boisbaudran đã tách được gadolinium tương đối tinh khiết vào năm 1886.",
+    "image": "/assets/library/photos/elements/Gd.jpg",
     "tags": [
       "Lịch sử hóa học",
       "Gd",
@@ -1020,17 +2090,39 @@
       "Jean Charles Galissard de Marignac"
     ],
     "documentKind": "biography",
-    "readingMinutes": 2
+    "readingMinutes": 4,
+    "editorialEvidence": {
+      "language": "vi",
+      "scope": "related-element",
+      "contextLabel": "Gadolinium (Gd), Ytterbium (Yb)",
+      "reviewBasis": "existing-element-dossier",
+      "story": {
+        "status": "documented",
+        "section": "## Cuộc tìm kiếm dẫn đến gadolinium",
+        "sources": [
+          "https://periodic-table.rsc.org/element/64/gadolinium",
+          "https://periodic-table.rsc.org/element/70/ytterbium"
+        ]
+      },
+      "application": {
+        "status": "context-only",
+        "section": "## Từ dấu mốc nghiên cứu đến công việc hôm nay",
+        "sources": [
+          "https://periodic-table.rsc.org/element/64/gadolinium",
+          "https://periodic-table.rsc.org/element/70/ytterbium"
+        ]
+      }
+    }
   },
   {
     "id": "nha-khoa-hoc-per-teodor-cleve",
     "slug": "nha-khoa-hoc-per-teodor-cleve",
     "documentPath": "docs/nha-khoa-hoc-per-teodor-cleve/index.json",
-    "title": "Per Teodor Cleve — dấu mốc khám phá hóa học",
+    "title": "Per Teodor Cleve — lần theo dấu vết holmium, thulium",
     "author": "Ban biên tập ChemDex",
     "category": "tieusu",
-    "summary": "Hồ sơ lịch sử liên quan đến Holmium (Ho), Thulium (Tm); phân biệt phát hiện, cô lập và đặt tên theo từng trường hợp.",
-    "image": "/assets/library/history-evidence.svg",
+    "summary": "Năm 1879, nhà hóa học Thụy Điển Per Teodor Cleve tiến hành phân tích Erbia và nhận thấy nó chứa nhiều nguyên tố khác nhau. Ông tách được hai oxit mới và đặt tên chúng là Holmia và Thulia.",
+    "image": "/assets/library/photos/elements/Ho.jpg",
     "tags": [
       "Lịch sử hóa học",
       "Ho",
@@ -1040,17 +2132,39 @@
       "Per Teodor Cleve"
     ],
     "documentKind": "biography",
-    "readingMinutes": 2
+    "readingMinutes": 3,
+    "editorialEvidence": {
+      "language": "vi",
+      "scope": "related-element",
+      "contextLabel": "Holmium (Ho), Thulium (Tm)",
+      "reviewBasis": "existing-element-dossier",
+      "story": {
+        "status": "documented",
+        "section": "## Cuộc tìm kiếm dẫn đến holmium",
+        "sources": [
+          "https://periodic-table.rsc.org/element/67/holmium",
+          "https://periodic-table.rsc.org/element/69/thulium"
+        ]
+      },
+      "application": {
+        "status": "context-only",
+        "section": "## Từ dấu mốc nghiên cứu đến công việc hôm nay",
+        "sources": [
+          "https://periodic-table.rsc.org/element/67/holmium",
+          "https://periodic-table.rsc.org/element/69/thulium"
+        ]
+      }
+    }
   },
   {
     "id": "nha-khoa-hoc-georges-urbain",
     "slug": "nha-khoa-hoc-georges-urbain",
     "documentPath": "docs/nha-khoa-hoc-georges-urbain/index.json",
-    "title": "Georges Urbain — dấu mốc khám phá hóa học",
+    "title": "Georges Urbain — lần theo dấu vết lutetium",
     "author": "Ban biên tập ChemDex",
     "category": "tieusu",
-    "summary": "Hồ sơ lịch sử liên quan đến Lutetium (Lu); phân biệt phát hiện, cô lập và đặt tên theo từng trường hợp.",
-    "image": "/assets/library/history-evidence.svg",
+    "summary": "Lutetium được phát hiện vào năm 1907 bởi nhà hóa học người Pháp Georges Urbain khi ông nghiên cứu và tách ytterbium thành các thành phần khác nhau. Cùng thời gian đó, Carl Auer von Welsbach ở Áo cũng nghiên cứu ytterbium và phát hiện một nguyên tố tương ứng, nhưng Urbain là người được công nhận chính thức về việc đặt tên và công bố lutetium.",
+    "image": "/assets/library/photos/elements/Lu.jpg",
     "tags": [
       "Lịch sử hóa học",
       "Lu"
@@ -1059,17 +2173,37 @@
       "Georges Urbain"
     ],
     "documentKind": "biography",
-    "readingMinutes": 1
+    "readingMinutes": 3,
+    "editorialEvidence": {
+      "language": "vi",
+      "scope": "related-element",
+      "contextLabel": "Lutetium (Lu)",
+      "reviewBasis": "existing-element-dossier",
+      "story": {
+        "status": "documented",
+        "section": "## Cuộc tìm kiếm dẫn đến lutetium",
+        "sources": [
+          "https://periodic-table.rsc.org/element/71/lutetium"
+        ]
+      },
+      "application": {
+        "status": "context-only",
+        "section": "## Từ dấu mốc nghiên cứu đến công việc hôm nay",
+        "sources": [
+          "https://periodic-table.rsc.org/element/71/lutetium"
+        ]
+      }
+    }
   },
   {
     "id": "nha-khoa-hoc-dirk-coster-va-george-de-hevesy",
     "slug": "nha-khoa-hoc-dirk-coster-va-george-de-hevesy",
     "documentPath": "docs/nha-khoa-hoc-dirk-coster-va-george-de-hevesy/index.json",
-    "title": "Dirk Coster và George de Hevesy — dấu mốc khám phá hóa học",
+    "title": "Dirk Coster và George de Hevesy — lần theo dấu vết hafnium",
     "author": "Ban biên tập ChemDex",
     "category": "tieusu",
-    "summary": "Hồ sơ lịch sử liên quan đến Hafnium (Hf); phân biệt phát hiện, cô lập và đặt tên theo từng trường hợp.",
-    "image": "/assets/library/history-evidence.svg",
+    "summary": "Hafnium được phát hiện khi Dirk Coster và George de Hevesy phân tích zirconium bằng phương pháp tia X. Họ xác định được một nguyên tố mới nằm cùng nhóm với zirconium.",
+    "image": "/assets/library/photos/elements/Hf.jpg",
     "tags": [
       "Lịch sử hóa học",
       "Hf"
@@ -1078,17 +2212,37 @@
       "Dirk Coster và George de Hevesy"
     ],
     "documentKind": "biography",
-    "readingMinutes": 1
+    "readingMinutes": 2,
+    "editorialEvidence": {
+      "language": "vi",
+      "scope": "related-element",
+      "contextLabel": "Hafnium (Hf)",
+      "reviewBasis": "existing-element-dossier",
+      "story": {
+        "status": "documented",
+        "section": "## Cuộc tìm kiếm dẫn đến hafnium",
+        "sources": [
+          "https://periodic-table.rsc.org/element/72/hafnium"
+        ]
+      },
+      "application": {
+        "status": "context-only",
+        "section": "## Từ dấu mốc nghiên cứu đến công việc hôm nay",
+        "sources": [
+          "https://periodic-table.rsc.org/element/72/hafnium"
+        ]
+      }
+    }
   },
   {
     "id": "nha-khoa-hoc-anders-gustaf-ekeberg",
     "slug": "nha-khoa-hoc-anders-gustaf-ekeberg",
     "documentPath": "docs/nha-khoa-hoc-anders-gustaf-ekeberg/index.json",
-    "title": "Anders Gustaf Ekeberg — dấu mốc khám phá hóa học",
+    "title": "Anders Gustaf Ekeberg — lần theo dấu vết tantalum",
     "author": "Ban biên tập ChemDex",
     "category": "tieusu",
-    "summary": "Hồ sơ lịch sử liên quan đến Tantalum (Ta); phân biệt phát hiện, cô lập và đặt tên theo từng trường hợp.",
-    "image": "/assets/library/history-evidence.svg",
+    "summary": "Anders Gustaf Ekeberg phát hiện tantalum khi nghiên cứu một loại khoáng vật chứa tantalum. Tên nguyên tố bắt nguồn từ Tantalus, một nhân vật trong thần thoại Hy Lạp, do tantalum oxit có tính chất khó hòa tan trong axit.",
+    "image": "/assets/library/photos/elements/Ta.jpg",
     "tags": [
       "Lịch sử hóa học",
       "Ta"
@@ -1097,17 +2251,37 @@
       "Anders Gustaf Ekeberg"
     ],
     "documentKind": "biography",
-    "readingMinutes": 1
+    "readingMinutes": 2,
+    "editorialEvidence": {
+      "language": "vi",
+      "scope": "related-element",
+      "contextLabel": "Tantalum (Ta)",
+      "reviewBasis": "existing-element-dossier",
+      "story": {
+        "status": "documented",
+        "section": "## Cuộc tìm kiếm dẫn đến tantalum",
+        "sources": [
+          "https://periodic-table.rsc.org/element/73/tantalum"
+        ]
+      },
+      "application": {
+        "status": "context-only",
+        "section": "## Từ dấu mốc nghiên cứu đến công việc hôm nay",
+        "sources": [
+          "https://periodic-table.rsc.org/element/73/tantalum"
+        ]
+      }
+    }
   },
   {
     "id": "nha-khoa-hoc-juan-jose-va-fausto-elhuyar",
     "slug": "nha-khoa-hoc-juan-jose-va-fausto-elhuyar",
     "documentPath": "docs/nha-khoa-hoc-juan-jose-va-fausto-elhuyar/index.json",
-    "title": "Juan José và Fausto Elhuyar — dấu mốc khám phá hóa học",
+    "title": "Juan José và Fausto Elhuyar — lần theo dấu vết tungsten",
     "author": "Ban biên tập ChemDex",
     "category": "tieusu",
-    "summary": "Hồ sơ lịch sử liên quan đến Tungsten (W); phân biệt phát hiện, cô lập và đặt tên theo từng trường hợp.",
-    "image": "/assets/library/history-evidence.svg",
+    "summary": "Năm 1783, hai anh em Juan José và Fausto Elhuyar đã điều chế được tungsten bằng cách khử tungsten oxit thu được từ khoáng vật Wolframite. Ký hiệu W bắt nguồn từ tên Wolfram, một tên gọi khác của tungsten.",
+    "image": "/assets/library/photos/elements/W.jpg",
     "tags": [
       "Lịch sử hóa học",
       "W"
@@ -1116,17 +2290,37 @@
       "Juan José và Fausto Elhuyar"
     ],
     "documentKind": "biography",
-    "readingMinutes": 1
+    "readingMinutes": 2,
+    "editorialEvidence": {
+      "language": "vi",
+      "scope": "related-element",
+      "contextLabel": "Tungsten (W)",
+      "reviewBasis": "existing-element-dossier",
+      "story": {
+        "status": "documented",
+        "section": "## Cuộc tìm kiếm dẫn đến tungsten",
+        "sources": [
+          "https://periodic-table.rsc.org/element/74/tungsten"
+        ]
+      },
+      "application": {
+        "status": "context-only",
+        "section": "## Từ dấu mốc nghiên cứu đến công việc hôm nay",
+        "sources": [
+          "https://periodic-table.rsc.org/element/74/tungsten"
+        ]
+      }
+    }
   },
   {
     "id": "nha-khoa-hoc-walter-noddack-ida-tacke-va-otto-berg",
     "slug": "nha-khoa-hoc-walter-noddack-ida-tacke-va-otto-berg",
     "documentPath": "docs/nha-khoa-hoc-walter-noddack-ida-tacke-va-otto-berg/index.json",
-    "title": "Walter Noddack, Ida Tacke và Otto Berg — dấu mốc khám phá hóa học",
+    "title": "Walter Noddack, Ida Tacke và Otto Berg — lần theo dấu vết rhenium",
     "author": "Ban biên tập ChemDex",
     "category": "tieusu",
-    "summary": "Hồ sơ lịch sử liên quan đến Rhenium (Re); phân biệt phát hiện, cô lập và đặt tên theo từng trường hợp.",
-    "image": "/assets/library/history-evidence.svg",
+    "summary": "Rhenium được phát hiện năm 1925 thông qua phân tích quang phổ của quặng bạch kim và Columbite. Đây là một trong những nguyên tố cuối cùng được phát hiện có đồng vị bền tồn tại tự nhiên.",
+    "image": "/assets/library/photos/elements/Re.jpg",
     "tags": [
       "Lịch sử hóa học",
       "Re"
@@ -1135,17 +2329,37 @@
       "Walter Noddack, Ida Tacke và Otto Berg"
     ],
     "documentKind": "biography",
-    "readingMinutes": 1
+    "readingMinutes": 2,
+    "editorialEvidence": {
+      "language": "vi",
+      "scope": "related-element",
+      "contextLabel": "Rhenium (Re)",
+      "reviewBasis": "existing-element-dossier",
+      "story": {
+        "status": "documented",
+        "section": "## Cuộc tìm kiếm dẫn đến rhenium",
+        "sources": [
+          "https://periodic-table.rsc.org/element/75/rhenium"
+        ]
+      },
+      "application": {
+        "status": "context-only",
+        "section": "## Từ dấu mốc nghiên cứu đến công việc hôm nay",
+        "sources": [
+          "https://periodic-table.rsc.org/element/75/rhenium"
+        ]
+      }
+    }
   },
   {
     "id": "nha-khoa-hoc-smithson-tennant",
     "slug": "nha-khoa-hoc-smithson-tennant",
     "documentPath": "docs/nha-khoa-hoc-smithson-tennant/index.json",
-    "title": "Smithson Tennant — dấu mốc khám phá hóa học",
+    "title": "Smithson Tennant — lần theo dấu vết osmium, iridium",
     "author": "Ban biên tập ChemDex",
     "category": "tieusu",
-    "summary": "Hồ sơ lịch sử liên quan đến Osmium (Os), Iridium (Ir); phân biệt phát hiện, cô lập và đặt tên theo từng trường hợp.",
-    "image": "/assets/library/history-evidence.svg",
+    "summary": "Osmium được Smithson Tennant phát hiện vào năm 1803 khi nghiên cứu cặn không tan còn lại sau khi hòa tan bạch kim trong nước cường toan. Ông nhận thấy một chất tạo ra mùi đặc trưng và đặt tên là osmium, bắt nguồn từ tiếng Hy Lạp osme, nghĩa là “mùi”.",
+    "image": "/assets/library/photos/elements/Os.jpg",
     "tags": [
       "Lịch sử hóa học",
       "Os",
@@ -1155,17 +2369,39 @@
       "Smithson Tennant"
     ],
     "documentKind": "biography",
-    "readingMinutes": 1
+    "readingMinutes": 3,
+    "editorialEvidence": {
+      "language": "vi",
+      "scope": "related-element",
+      "contextLabel": "Osmium (Os), Iridium (Ir)",
+      "reviewBasis": "existing-element-dossier",
+      "story": {
+        "status": "documented",
+        "section": "## Cuộc tìm kiếm dẫn đến osmium",
+        "sources": [
+          "https://periodic-table.rsc.org/element/76/osmium",
+          "https://periodic-table.rsc.org/element/77/iridium"
+        ]
+      },
+      "application": {
+        "status": "context-only",
+        "section": "## Từ dấu mốc nghiên cứu đến công việc hôm nay",
+        "sources": [
+          "https://periodic-table.rsc.org/element/76/osmium",
+          "https://periodic-table.rsc.org/element/77/iridium"
+        ]
+      }
+    }
   },
   {
     "id": "lich-su-phat-hien-pt",
     "slug": "lich-su-phat-hien-pt",
     "documentPath": "docs/lich-su-phat-hien-pt/index.json",
-    "title": "Lịch sử phát hiện Bạch kim",
+    "title": "Bạch kim: một lịch sử có trước tên người phát hiện",
     "author": "Ban biên tập ChemDex",
     "category": "nguyento",
-    "summary": "Hồ sơ lịch sử liên quan đến Bạch kim (Pt); phân biệt phát hiện, cô lập và đặt tên theo từng trường hợp.",
-    "image": "/assets/library/history-evidence.svg",
+    "summary": "Bạch kim đã được người bản địa Nam Mỹ sử dụng từ trước thời kỳ châu Âu tiếp xúc với châu Mỹ. Năm 1735, nhà khoa học Tây Ban Nha Antonio de Ulloa đã đưa bạch kim vào tài liệu khoa học châu Âu.",
+    "image": "/assets/library/photos/elements/Pt.jpg",
     "tags": [
       "Lịch sử hóa học",
       "Pt"
@@ -1174,17 +2410,37 @@
       "Người bản địa Nam Mỹ đã sử dụng từ thời cổ đại; được Antonio de Ulloa mô tả ở châu Âu."
     ],
     "documentKind": "biography",
-    "readingMinutes": 1
+    "readingMinutes": 2,
+    "editorialEvidence": {
+      "language": "vi",
+      "scope": "related-element",
+      "contextLabel": "Bạch kim (Pt)",
+      "reviewBasis": "existing-element-dossier",
+      "story": {
+        "status": "documented",
+        "section": "## Dấu vết bạch kim trong lịch sử",
+        "sources": [
+          "https://periodic-table.rsc.org/element/78/platinum"
+        ]
+      },
+      "application": {
+        "status": "context-only",
+        "section": "## Từ dấu mốc nghiên cứu đến công việc hôm nay",
+        "sources": [
+          "https://periodic-table.rsc.org/element/78/platinum"
+        ]
+      }
+    }
   },
   {
     "id": "lich-su-phat-hien-au",
     "slug": "lich-su-phat-hien-au",
     "documentPath": "docs/lich-su-phat-hien-au/index.json",
-    "title": "Lịch sử phát hiện Vàng",
+    "title": "Vàng: một lịch sử có trước tên người phát hiện",
     "author": "Ban biên tập ChemDex",
     "category": "nguyento",
-    "summary": "Hồ sơ lịch sử liên quan đến Vàng (Au); phân biệt phát hiện, cô lập và đặt tên theo từng trường hợp.",
-    "image": "/assets/library/history-evidence.svg",
+    "summary": "Vàng là một trong những nguyên tố đầu tiên được con người biết đến và sử dụng. Các đồ vật bằng vàng đã được tìm thấy trong nhiều nền văn minh cổ đại.",
+    "image": "/assets/library/photos/elements/Au.jpg",
     "tags": [
       "Lịch sử hóa học",
       "Au"
@@ -1193,17 +2449,37 @@
       "Không xác định — Gold đã được con người biết đến từ thời tiền sử."
     ],
     "documentKind": "biography",
-    "readingMinutes": 1
+    "readingMinutes": 2,
+    "editorialEvidence": {
+      "language": "vi",
+      "scope": "related-element",
+      "contextLabel": "Vàng (Au)",
+      "reviewBasis": "existing-element-dossier",
+      "story": {
+        "status": "documented",
+        "section": "## Dấu vết vàng trong lịch sử",
+        "sources": [
+          "https://periodic-table.rsc.org/element/79/gold"
+        ]
+      },
+      "application": {
+        "status": "context-only",
+        "section": "## Từ dấu mốc nghiên cứu đến công việc hôm nay",
+        "sources": [
+          "https://periodic-table.rsc.org/element/79/gold"
+        ]
+      }
+    }
   },
   {
     "id": "lich-su-phat-hien-hg",
     "slug": "lich-su-phat-hien-hg",
     "documentPath": "docs/lich-su-phat-hien-hg/index.json",
-    "title": "Lịch sử phát hiện Thủy ngân",
+    "title": "Thủy ngân: một lịch sử có trước tên người phát hiện",
     "author": "Ban biên tập ChemDex",
     "category": "nguyento",
-    "summary": "Hồ sơ lịch sử liên quan đến Thủy ngân (Hg); phân biệt phát hiện, cô lập và đặt tên theo từng trường hợp.",
-    "image": "/assets/library/history-evidence.svg",
+    "summary": "Thủy ngân là một trong những nguyên tố đã được con người biết đến từ thời cổ đại. Các vật thể chứa thủy ngân đã được tìm thấy trong những di tích cổ.",
+    "image": "/assets/library/photos/elements/Hg.jpg",
     "tags": [
       "Lịch sử hóa học",
       "Hg"
@@ -1212,17 +2488,37 @@
       "Không xác định — Mercury đã được con người biết đến từ thời cổ đại."
     ],
     "documentKind": "biography",
-    "readingMinutes": 1
+    "readingMinutes": 2,
+    "editorialEvidence": {
+      "language": "vi",
+      "scope": "related-element",
+      "contextLabel": "Thủy ngân (Hg)",
+      "reviewBasis": "existing-element-dossier",
+      "story": {
+        "status": "documented",
+        "section": "## Dấu vết thủy ngân trong lịch sử",
+        "sources": [
+          "https://periodic-table.rsc.org/element/80/mercury"
+        ]
+      },
+      "application": {
+        "status": "context-only",
+        "section": "## Từ dấu mốc nghiên cứu đến công việc hôm nay",
+        "sources": [
+          "https://periodic-table.rsc.org/element/80/mercury"
+        ]
+      }
+    }
   },
   {
     "id": "nha-khoa-hoc-william-crookes",
     "slug": "nha-khoa-hoc-william-crookes",
     "documentPath": "docs/nha-khoa-hoc-william-crookes/index.json",
-    "title": "William Crookes — dấu mốc khám phá hóa học",
+    "title": "William Crookes — lần theo dấu vết thallium",
     "author": "Ban biên tập ChemDex",
     "category": "tieusu",
-    "summary": "Hồ sơ lịch sử liên quan đến Thallium (Tl); phân biệt phát hiện, cô lập và đặt tên theo từng trường hợp.",
-    "image": "/assets/library/history-evidence.svg",
+    "summary": "Thallium được William Crookes phát hiện vào năm 1861 khi phân tích cặn còn lại từ quá trình sản xuất sunfuric axit. Ông nhận ra một vạch phổ màu xanh lục mới và đặt tên nguyên tố là thallium, bắt nguồn từ tiếng Hy Lạp thallos, nghĩa là “chồi non” hoặc “cành xanh”.",
+    "image": "/assets/library/photos/elements/Tl.jpg",
     "tags": [
       "Lịch sử hóa học",
       "Tl"
@@ -1231,17 +2527,37 @@
       "William Crookes"
     ],
     "documentKind": "biography",
-    "readingMinutes": 1
+    "readingMinutes": 2,
+    "editorialEvidence": {
+      "language": "vi",
+      "scope": "related-element",
+      "contextLabel": "Thallium (Tl)",
+      "reviewBasis": "existing-element-dossier",
+      "story": {
+        "status": "documented",
+        "section": "## Cuộc tìm kiếm dẫn đến thallium",
+        "sources": [
+          "https://periodic-table.rsc.org/element/81/thallium"
+        ]
+      },
+      "application": {
+        "status": "context-only",
+        "section": "## Từ dấu mốc nghiên cứu đến công việc hôm nay",
+        "sources": [
+          "https://periodic-table.rsc.org/element/81/thallium"
+        ]
+      }
+    }
   },
   {
     "id": "lich-su-phat-hien-pb",
     "slug": "lich-su-phat-hien-pb",
     "documentPath": "docs/lich-su-phat-hien-pb/index.json",
-    "title": "Lịch sử phát hiện Chì",
+    "title": "Chì: một lịch sử có trước tên người phát hiện",
     "author": "Ban biên tập ChemDex",
     "category": "nguyento",
-    "summary": "Hồ sơ lịch sử liên quan đến Chì (Pb); phân biệt phát hiện, cô lập và đặt tên theo từng trường hợp.",
-    "image": "/assets/library/history-evidence.svg",
+    "summary": "Chì là một trong những kim loại được con người biết đến và sử dụng từ rất sớm. Các vật phẩm bằng chì đã được tìm thấy trong nhiều nền văn minh cổ đại.",
+    "image": "/assets/library/photos/elements/Pb.jpg",
     "tags": [
       "Lịch sử hóa học",
       "Pb"
@@ -1250,17 +2566,37 @@
       "Không xác định — Lead đã được con người biết đến từ thời cổ đại."
     ],
     "documentKind": "biography",
-    "readingMinutes": 1
+    "readingMinutes": 2,
+    "editorialEvidence": {
+      "language": "vi",
+      "scope": "related-element",
+      "contextLabel": "Chì (Pb)",
+      "reviewBasis": "existing-element-dossier",
+      "story": {
+        "status": "documented",
+        "section": "## Dấu vết chì trong lịch sử",
+        "sources": [
+          "https://periodic-table.rsc.org/element/82/lead"
+        ]
+      },
+      "application": {
+        "status": "context-only",
+        "section": "## Từ dấu mốc nghiên cứu đến công việc hôm nay",
+        "sources": [
+          "https://periodic-table.rsc.org/element/82/lead"
+        ]
+      }
+    }
   },
   {
     "id": "lich-su-phat-hien-bi",
     "slug": "lich-su-phat-hien-bi",
     "documentPath": "docs/lich-su-phat-hien-bi/index.json",
-    "title": "Lịch sử phát hiện Bismuth",
+    "title": "Bismuth: một lịch sử có trước tên người phát hiện",
     "author": "Ban biên tập ChemDex",
     "category": "nguyento",
-    "summary": "Hồ sơ lịch sử liên quan đến Bismuth (Bi); phân biệt phát hiện, cô lập và đặt tên theo từng trường hợp.",
-    "image": "/assets/library/history-evidence.svg",
+    "summary": "Bismuth đã được con người biết đến từ thời cổ đại, nhưng trong thời gian dài bị nhầm lẫn với chì và tin do có vẻ ngoài và một số tính chất tương tự. Đến thế kỷ XVIII, bismuth được xác định là một nguyên tố riêng biệt.",
+    "image": "/assets/library/photos/elements/Bi.jpg",
     "tags": [
       "Lịch sử hóa học",
       "Bi"
@@ -1269,17 +2605,37 @@
       "Không xác định — Bismuth đã được biết đến từ thời cổ đại."
     ],
     "documentKind": "biography",
-    "readingMinutes": 1
+    "readingMinutes": 2,
+    "editorialEvidence": {
+      "language": "vi",
+      "scope": "related-element",
+      "contextLabel": "Bismuth (Bi)",
+      "reviewBasis": "existing-element-dossier",
+      "story": {
+        "status": "documented",
+        "section": "## Dấu vết bismuth trong lịch sử",
+        "sources": [
+          "https://periodic-table.rsc.org/element/83/bismuth"
+        ]
+      },
+      "application": {
+        "status": "context-only",
+        "section": "## Từ dấu mốc nghiên cứu đến công việc hôm nay",
+        "sources": [
+          "https://periodic-table.rsc.org/element/83/bismuth"
+        ]
+      }
+    }
   },
   {
     "id": "nha-khoa-hoc-marie-curie-va-pierre-curie",
     "slug": "nha-khoa-hoc-marie-curie-va-pierre-curie",
     "documentPath": "docs/nha-khoa-hoc-marie-curie-va-pierre-curie/index.json",
-    "title": "Marie Curie và Pierre Curie — dấu mốc khám phá hóa học",
+    "title": "Marie Curie và Pierre Curie — lần theo dấu vết polonium, radium",
     "author": "Ban biên tập ChemDex",
     "category": "tieusu",
-    "summary": "Hồ sơ lịch sử liên quan đến Polonium (Po), Radium (Ra); phân biệt phát hiện, cô lập và đặt tên theo từng trường hợp.",
-    "image": "/assets/library/history-evidence.svg",
+    "summary": "Polonium được Marie Curie và Pierre Curie phát hiện năm 1898 trong quá trình nghiên cứu khoáng vật Uraninite. Họ nhận thấy Uraninite có tính phóng xạ mạnh hơn mức có thể giải thích chỉ bằng uranium, từ đó phát hiện một nguyên tố phóng xạ mới.",
+    "image": "/assets/library/photos/elements/Po.jpg",
     "tags": [
       "Lịch sử hóa học",
       "Po",
@@ -1289,17 +2645,39 @@
       "Marie Curie và Pierre Curie"
     ],
     "documentKind": "biography",
-    "readingMinutes": 2
+    "readingMinutes": 3,
+    "editorialEvidence": {
+      "language": "vi",
+      "scope": "related-element",
+      "contextLabel": "Polonium (Po), Radium (Ra)",
+      "reviewBasis": "existing-element-dossier",
+      "story": {
+        "status": "documented",
+        "section": "## Cuộc tìm kiếm dẫn đến polonium",
+        "sources": [
+          "https://periodic-table.rsc.org/element/84/polonium",
+          "https://periodic-table.rsc.org/element/88/radium"
+        ]
+      },
+      "application": {
+        "status": "context-only",
+        "section": "## Từ dấu mốc nghiên cứu đến công việc hôm nay",
+        "sources": [
+          "https://periodic-table.rsc.org/element/84/polonium",
+          "https://periodic-table.rsc.org/element/88/radium"
+        ]
+      }
+    }
   },
   {
     "id": "nha-khoa-hoc-dale-r-corson-kenneth-ross-mackenzie-va-emilio-g-segre",
     "slug": "nha-khoa-hoc-dale-r-corson-kenneth-ross-mackenzie-va-emilio-g-segre",
     "documentPath": "docs/nha-khoa-hoc-dale-r-corson-kenneth-ross-mackenzie-va-emilio-g-segre/index.json",
-    "title": "Dale R. Corson, Kenneth Ross MacKenzie và Emilio G. Segrè — dấu mốc khám phá hóa học",
+    "title": "Dale R. Corson, Kenneth Ross MacKenzie và Emilio G. Segrè — lần theo dấu vết astatine",
     "author": "Ban biên tập ChemDex",
     "category": "tieusu",
-    "summary": "Hồ sơ lịch sử liên quan đến Astatine (At); phân biệt phát hiện, cô lập và đặt tên theo từng trường hợp.",
-    "image": "/assets/library/history-evidence.svg",
+    "summary": "Astatine được tổng hợp lần đầu tại University of California, Berkeley vào năm 1940 bằng cách bắn phá bismuth-209 bằng hạt Alpha. Tên astatine bắt nguồn từ tiếng Hy Lạp astatos, nghĩa là “không ổn định”, phản ánh tính phóng xạ và sự không bền của nguyên tố này.",
+    "image": "/assets/library/photos/elements/At.jpg",
     "tags": [
       "Lịch sử hóa học",
       "At"
@@ -1308,17 +2686,37 @@
       "Dale R. Corson, Kenneth Ross MacKenzie và Emilio G. Segrè"
     ],
     "documentKind": "biography",
-    "readingMinutes": 1
+    "readingMinutes": 2,
+    "editorialEvidence": {
+      "language": "vi",
+      "scope": "related-element",
+      "contextLabel": "Astatine (At)",
+      "reviewBasis": "existing-element-dossier",
+      "story": {
+        "status": "documented",
+        "section": "## Cuộc tìm kiếm dẫn đến astatine",
+        "sources": [
+          "https://periodic-table.rsc.org/element/85/astatine"
+        ]
+      },
+      "application": {
+        "status": "context-only",
+        "section": "## Từ dấu mốc nghiên cứu đến công việc hôm nay",
+        "sources": [
+          "https://periodic-table.rsc.org/element/85/astatine"
+        ]
+      }
+    }
   },
   {
     "id": "nha-khoa-hoc-friedrich-ernst-dorn",
     "slug": "nha-khoa-hoc-friedrich-ernst-dorn",
     "documentPath": "docs/nha-khoa-hoc-friedrich-ernst-dorn/index.json",
-    "title": "Friedrich Ernst Dorn — dấu mốc khám phá hóa học",
+    "title": "Friedrich Ernst Dorn — lần theo dấu vết radon",
     "author": "Ban biên tập ChemDex",
     "category": "tieusu",
-    "summary": "Hồ sơ lịch sử liên quan đến Radon (Rn); phân biệt phát hiện, cô lập và đặt tên theo từng trường hợp.",
-    "image": "/assets/library/history-evidence.svg",
+    "summary": "Radon được Friedrich Ernst Dorn phát hiện vào năm 1900 khi nghiên cứu chất khí phóng xạ sinh ra từ radium. Ban đầu, chất này được gọi là radium emanation (radium emanation).",
+    "image": "/assets/library/photos/elements/Rn.jpg",
     "tags": [
       "Lịch sử hóa học",
       "Rn"
@@ -1327,17 +2725,37 @@
       "Friedrich Ernst Dorn"
     ],
     "documentKind": "biography",
-    "readingMinutes": 1
+    "readingMinutes": 2,
+    "editorialEvidence": {
+      "language": "vi",
+      "scope": "related-element",
+      "contextLabel": "Radon (Rn)",
+      "reviewBasis": "existing-element-dossier",
+      "story": {
+        "status": "documented",
+        "section": "## Cuộc tìm kiếm dẫn đến radon",
+        "sources": [
+          "https://periodic-table.rsc.org/element/86/radon"
+        ]
+      },
+      "application": {
+        "status": "context-only",
+        "section": "## Từ dấu mốc nghiên cứu đến công việc hôm nay",
+        "sources": [
+          "https://periodic-table.rsc.org/element/86/radon"
+        ]
+      }
+    }
   },
   {
     "id": "nha-khoa-hoc-marguerite-perey",
     "slug": "nha-khoa-hoc-marguerite-perey",
     "documentPath": "docs/nha-khoa-hoc-marguerite-perey/index.json",
-    "title": "Marguerite Perey — dấu mốc khám phá hóa học",
+    "title": "Marguerite Perey — lần theo dấu vết francium",
     "author": "Ban biên tập ChemDex",
     "category": "tieusu",
-    "summary": "Hồ sơ lịch sử liên quan đến Francium (Fr); phân biệt phát hiện, cô lập và đặt tên theo từng trường hợp.",
-    "image": "/assets/library/history-evidence.svg",
+    "summary": "Francium được Marguerite Perey phát hiện vào năm 1939 khi bà nghiên cứu sự phân rã của actinium-227. Bà nhận thấy một sản phẩm phân rã mới và xác định đó là nguyên tố số 87.",
+    "image": "/assets/library/photos/elements/Fr.jpg",
     "tags": [
       "Lịch sử hóa học",
       "Fr"
@@ -1346,17 +2764,37 @@
       "Marguerite Perey"
     ],
     "documentKind": "biography",
-    "readingMinutes": 1
+    "readingMinutes": 2,
+    "editorialEvidence": {
+      "language": "vi",
+      "scope": "related-element",
+      "contextLabel": "Francium (Fr)",
+      "reviewBasis": "existing-element-dossier",
+      "story": {
+        "status": "documented",
+        "section": "## Cuộc tìm kiếm dẫn đến francium",
+        "sources": [
+          "https://periodic-table.rsc.org/element/87/francium"
+        ]
+      },
+      "application": {
+        "status": "context-only",
+        "section": "## Từ dấu mốc nghiên cứu đến công việc hôm nay",
+        "sources": [
+          "https://periodic-table.rsc.org/element/87/francium"
+        ]
+      }
+    }
   },
   {
     "id": "nha-khoa-hoc-andre-louis-debierne-1899-friedrich-oskar-giesel-phat-hien-doc-lap-nam-1902",
     "slug": "nha-khoa-hoc-andre-louis-debierne-1899-friedrich-oskar-giesel-phat-hien-doc-lap-nam-1902",
     "documentPath": "docs/nha-khoa-hoc-andre-louis-debierne-1899-friedrich-oskar-giesel-phat-hien-doc-lap-nam-1902/index.json",
-    "title": "André-Louis Debierne (1899); Friedrich Oskar Giesel phát hiện độc lập năm 1902. — dấu mốc khám phá hóa học",
+    "title": "André-Louis Debierne (1899); Friedrich Oskar Giesel phát hiện độc lập năm 1902. — lần theo dấu vết actinium",
     "author": "Ban biên tập ChemDex",
     "category": "tieusu",
-    "summary": "Hồ sơ lịch sử liên quan đến Actinium (Ac); phân biệt phát hiện, cô lập và đặt tên theo từng trường hợp.",
-    "image": "/assets/library/history-evidence.svg",
+    "summary": "Debierne công bố actinium năm 1899 tại Paris; Giesel phát hiện độc lập năm 1902. Thành phần mẫu ban đầu và quyền ưu tiên từng được tranh luận.",
+    "image": "/assets/library/photos/elements/Ac.png",
     "tags": [
       "Lịch sử hóa học",
       "Ac"
@@ -1365,17 +2803,37 @@
       "André-Louis Debierne (1899); Friedrich Oskar Giesel phát hiện độc lập năm 1902."
     ],
     "documentKind": "biography",
-    "readingMinutes": 1
+    "readingMinutes": 3,
+    "editorialEvidence": {
+      "language": "vi",
+      "scope": "related-element",
+      "contextLabel": "Actinium (Ac)",
+      "reviewBasis": "existing-element-dossier",
+      "story": {
+        "status": "documented",
+        "section": "## Cuộc tìm kiếm dẫn đến actinium",
+        "sources": [
+          "https://periodic-table.rsc.org/element/89/actinium"
+        ]
+      },
+      "application": {
+        "status": "context-only",
+        "section": "## Từ dấu mốc nghiên cứu đến công việc hôm nay",
+        "sources": [
+          "https://periodic-table.rsc.org/element/89/actinium"
+        ]
+      }
+    }
   },
   {
     "id": "nha-khoa-hoc-morten-thrane-esmark-va-jons-jacob-berzelius",
     "slug": "nha-khoa-hoc-morten-thrane-esmark-va-jons-jacob-berzelius",
     "documentPath": "docs/nha-khoa-hoc-morten-thrane-esmark-va-jons-jacob-berzelius/index.json",
-    "title": "Morten Thrane Esmark và Jöns Jacob Berzelius — dấu mốc khám phá hóa học",
+    "title": "Morten Thrane Esmark và Jöns Jacob Berzelius — lần theo dấu vết thorium",
     "author": "Ban biên tập ChemDex",
     "category": "tieusu",
-    "summary": "Hồ sơ lịch sử liên quan đến Thorium (Th); phân biệt phát hiện, cô lập và đặt tên theo từng trường hợp.",
-    "image": "/assets/library/history-evidence.svg",
+    "summary": "Năm 1828, nhà khoáng vật học Morten Thrane Esmark phát hiện một khoáng vật màu đen trên đảo Løvøya, Na Uy. Ông gửi mẫu cho Jöns Jacob Berzelius nghiên cứu.",
+    "image": "/assets/library/photos/elements/Th.jpg",
     "tags": [
       "Lịch sử hóa học",
       "Th"
@@ -1384,17 +2842,37 @@
       "Morten Thrane Esmark và Jöns Jacob Berzelius"
     ],
     "documentKind": "biography",
-    "readingMinutes": 1
+    "readingMinutes": 3,
+    "editorialEvidence": {
+      "language": "vi",
+      "scope": "related-element",
+      "contextLabel": "Thorium (Th)",
+      "reviewBasis": "existing-element-dossier",
+      "story": {
+        "status": "documented",
+        "section": "## Cuộc tìm kiếm dẫn đến thorium",
+        "sources": [
+          "https://periodic-table.rsc.org/element/90/thorium"
+        ]
+      },
+      "application": {
+        "status": "context-only",
+        "section": "## Từ dấu mốc nghiên cứu đến công việc hôm nay",
+        "sources": [
+          "https://periodic-table.rsc.org/element/90/thorium"
+        ]
+      }
+    }
   },
   {
     "id": "nha-khoa-hoc-kasimir-fajans-va-oswald-helmuth-gohring",
     "slug": "nha-khoa-hoc-kasimir-fajans-va-oswald-helmuth-gohring",
     "documentPath": "docs/nha-khoa-hoc-kasimir-fajans-va-oswald-helmuth-gohring/index.json",
-    "title": "Kasimir Fajans và Oswald Helmuth Göhring — dấu mốc khám phá hóa học",
+    "title": "Kasimir Fajans và Oswald Helmuth Göhring — lần theo dấu vết protactinium",
     "author": "Ban biên tập ChemDex",
     "category": "tieusu",
-    "summary": "Hồ sơ lịch sử liên quan đến Protactinium (Pa); phân biệt phát hiện, cô lập và đặt tên theo từng trường hợp.",
-    "image": "/assets/library/history-evidence.svg",
+    "summary": "Năm 1913, Kasimir Fajans và Oswald Helmuth Göhring phát hiện một đồng vị phóng xạ mới trong chuỗi phân rã của uranium-238. Đồng vị này được xác định là ²³⁴Pa và ban đầu được gọi là Brevium, do có chu kỳ bán rã rất ngắn.",
+    "image": "/assets/library/photos/elements/Pa.jpg",
     "tags": [
       "Lịch sử hóa học",
       "Pa"
@@ -1403,17 +2881,37 @@
       "Kasimir Fajans và Oswald Helmuth Göhring"
     ],
     "documentKind": "biography",
-    "readingMinutes": 1
+    "readingMinutes": 3,
+    "editorialEvidence": {
+      "language": "vi",
+      "scope": "related-element",
+      "contextLabel": "Protactinium (Pa)",
+      "reviewBasis": "existing-element-dossier",
+      "story": {
+        "status": "documented",
+        "section": "## Cuộc tìm kiếm dẫn đến protactinium",
+        "sources": [
+          "https://periodic-table.rsc.org/element/91/protactinium"
+        ]
+      },
+      "application": {
+        "status": "context-only",
+        "section": "## Từ dấu mốc nghiên cứu đến công việc hôm nay",
+        "sources": [
+          "https://periodic-table.rsc.org/element/91/protactinium"
+        ]
+      }
+    }
   },
   {
     "id": "nha-khoa-hoc-edwin-mcmillan-va-philip-h-abelson",
     "slug": "nha-khoa-hoc-edwin-mcmillan-va-philip-h-abelson",
     "documentPath": "docs/nha-khoa-hoc-edwin-mcmillan-va-philip-h-abelson/index.json",
-    "title": "Edwin McMillan và Philip H. Abelson — dấu mốc khám phá hóa học",
+    "title": "Edwin McMillan và Philip H. Abelson — lần theo dấu vết neptunium",
     "author": "Ban biên tập ChemDex",
     "category": "tieusu",
-    "summary": "Hồ sơ lịch sử liên quan đến Neptunium (Np); phân biệt phát hiện, cô lập và đặt tên theo từng trường hợp.",
-    "image": "/assets/library/history-evidence.svg",
+    "summary": "Năm 1940, Edwin McMillan và Philip H. Abelson tạo ra neptunium bằng cách bắn phá uranium-238 bằng neutron trong máy gia tốc hạt.",
+    "image": "/assets/library/photos/elements/Np.jpg",
     "tags": [
       "Lịch sử hóa học",
       "Np"
@@ -1422,17 +2920,37 @@
       "Edwin McMillan và Philip H. Abelson"
     ],
     "documentKind": "biography",
-    "readingMinutes": 1
+    "readingMinutes": 3,
+    "editorialEvidence": {
+      "language": "vi",
+      "scope": "related-element",
+      "contextLabel": "Neptunium (Np)",
+      "reviewBasis": "existing-element-dossier",
+      "story": {
+        "status": "documented",
+        "section": "## Cuộc tìm kiếm dẫn đến neptunium",
+        "sources": [
+          "https://periodic-table.rsc.org/element/93/neptunium"
+        ]
+      },
+      "application": {
+        "status": "context-only",
+        "section": "## Từ dấu mốc nghiên cứu đến công việc hôm nay",
+        "sources": [
+          "https://periodic-table.rsc.org/element/93/neptunium"
+        ]
+      }
+    }
   },
   {
     "id": "nha-khoa-hoc-glenn-t-seaborg-arthur-wahl-joseph-w-kennedy-va-edwin-mcmillan",
     "slug": "nha-khoa-hoc-glenn-t-seaborg-arthur-wahl-joseph-w-kennedy-va-edwin-mcmillan",
     "documentPath": "docs/nha-khoa-hoc-glenn-t-seaborg-arthur-wahl-joseph-w-kennedy-va-edwin-mcmillan/index.json",
-    "title": "Glenn T. Seaborg, Arthur Wahl, Joseph W. Kennedy và Edwin McMillan — dấu mốc khám phá hóa học",
+    "title": "Glenn T. Seaborg, Arthur Wahl, Joseph W. Kennedy và Edwin McMillan — lần theo dấu vết plutonium",
     "author": "Ban biên tập ChemDex",
     "category": "tieusu",
-    "summary": "Hồ sơ lịch sử liên quan đến Plutonium (Pu); phân biệt phát hiện, cô lập và đặt tên theo từng trường hợp.",
-    "image": "/assets/library/history-evidence.svg",
+    "summary": "Plutonium được tạo ra lần đầu tiên vào tháng 12 năm 1940 bằng cách bắn phá uranium-238 bằng Deuteron. Quá trình này tạo ra neptunium-238, sau đó phân rã beta thành plutonium-238.",
+    "image": "/assets/library/photos/elements/Pu.jpg",
     "tags": [
       "Lịch sử hóa học",
       "Pu"
@@ -1441,17 +2959,37 @@
       "Glenn T. Seaborg, Arthur Wahl, Joseph W. Kennedy và Edwin McMillan"
     ],
     "documentKind": "biography",
-    "readingMinutes": 1
+    "readingMinutes": 3,
+    "editorialEvidence": {
+      "language": "vi",
+      "scope": "related-element",
+      "contextLabel": "Plutonium (Pu)",
+      "reviewBasis": "existing-element-dossier",
+      "story": {
+        "status": "documented",
+        "section": "## Cuộc tìm kiếm dẫn đến plutonium",
+        "sources": [
+          "https://periodic-table.rsc.org/element/94/plutonium"
+        ]
+      },
+      "application": {
+        "status": "context-only",
+        "section": "## Từ dấu mốc nghiên cứu đến công việc hôm nay",
+        "sources": [
+          "https://periodic-table.rsc.org/element/94/plutonium"
+        ]
+      }
+    }
   },
   {
     "id": "nha-khoa-hoc-glenn-t-seaborg-ralph-a-james-leon-o-morgan-va-albert-ghiorso",
     "slug": "nha-khoa-hoc-glenn-t-seaborg-ralph-a-james-leon-o-morgan-va-albert-ghiorso",
     "documentPath": "docs/nha-khoa-hoc-glenn-t-seaborg-ralph-a-james-leon-o-morgan-va-albert-ghiorso/index.json",
-    "title": "Glenn T. Seaborg, Ralph A. James, Leon O. Morgan và Albert Ghiorso — dấu mốc khám phá hóa học",
+    "title": "Glenn T. Seaborg, Ralph A. James, Leon O. Morgan và Albert Ghiorso — lần theo dấu vết americium",
     "author": "Ban biên tập ChemDex",
     "category": "tieusu",
-    "summary": "Hồ sơ lịch sử liên quan đến Americium (Am); phân biệt phát hiện, cô lập và đặt tên theo từng trường hợp.",
-    "image": "/assets/library/history-evidence.svg",
+    "summary": "Americium được tạo ra lần đầu tiên vào năm 1944 bằng cách bắn phá plutonium-239 bằng neutron, tạo ra plutonium-240, sau đó tiếp tục trải qua các quá trình hạt nhân để hình thành americium-241. Đồng vị ²⁴¹Am là đồng vị quan trọng nhất của nguyên tố này.",
+    "image": "/assets/library/photos/elements/Am.jpg",
     "tags": [
       "Lịch sử hóa học",
       "Am"
@@ -1460,17 +2998,37 @@
       "Glenn T. Seaborg, Ralph A. James, Leon O. Morgan và Albert Ghiorso"
     ],
     "documentKind": "biography",
-    "readingMinutes": 1
+    "readingMinutes": 3,
+    "editorialEvidence": {
+      "language": "vi",
+      "scope": "related-element",
+      "contextLabel": "Americium (Am)",
+      "reviewBasis": "existing-element-dossier",
+      "story": {
+        "status": "documented",
+        "section": "## Cuộc tìm kiếm dẫn đến americium",
+        "sources": [
+          "https://periodic-table.rsc.org/element/95/americium"
+        ]
+      },
+      "application": {
+        "status": "context-only",
+        "section": "## Từ dấu mốc nghiên cứu đến công việc hôm nay",
+        "sources": [
+          "https://periodic-table.rsc.org/element/95/americium"
+        ]
+      }
+    }
   },
   {
     "id": "nha-khoa-hoc-glenn-t-seaborg-ralph-a-james-va-albert-ghiorso",
     "slug": "nha-khoa-hoc-glenn-t-seaborg-ralph-a-james-va-albert-ghiorso",
     "documentPath": "docs/nha-khoa-hoc-glenn-t-seaborg-ralph-a-james-va-albert-ghiorso/index.json",
-    "title": "Glenn T. Seaborg, Ralph A. James và Albert Ghiorso — dấu mốc khám phá hóa học",
+    "title": "Glenn T. Seaborg, Ralph A. James và Albert Ghiorso — lần theo dấu vết curium",
     "author": "Ban biên tập ChemDex",
     "category": "tieusu",
-    "summary": "Hồ sơ lịch sử liên quan đến Curium (Cm); phân biệt phát hiện, cô lập và đặt tên theo từng trường hợp.",
-    "image": "/assets/library/history-evidence.svg",
+    "summary": "Curium được tạo ra lần đầu tiên vào năm 1944 bằng cách bắn phá plutonium-239 bằng các hạt alpha trong máy gia tốc hạt. Phản ứng tạo curium-242: ²³⁹Pu + ⁴He → ²⁴²Cm + n curium được đặt tên để vinh danh Marie Curie và Pierre Curie, những người có đóng góp quan trọng trong nghiên cứu phóng xạ.",
+    "image": "/assets/library/photos/elements/Cm.jpg",
     "tags": [
       "Lịch sử hóa học",
       "Cm"
@@ -1479,17 +3037,37 @@
       "Glenn T. Seaborg, Ralph A. James và Albert Ghiorso"
     ],
     "documentKind": "biography",
-    "readingMinutes": 1
+    "readingMinutes": 3,
+    "editorialEvidence": {
+      "language": "vi",
+      "scope": "related-element",
+      "contextLabel": "Curium (Cm)",
+      "reviewBasis": "existing-element-dossier",
+      "story": {
+        "status": "documented",
+        "section": "## Cuộc tìm kiếm dẫn đến curium",
+        "sources": [
+          "https://periodic-table.rsc.org/element/96/curium"
+        ]
+      },
+      "application": {
+        "status": "context-only",
+        "section": "## Từ dấu mốc nghiên cứu đến công việc hôm nay",
+        "sources": [
+          "https://periodic-table.rsc.org/element/96/curium"
+        ]
+      }
+    }
   },
   {
     "id": "nha-khoa-hoc-stanley-g-thompson-albert-ghiorso-va-glenn-t-seaborg",
     "slug": "nha-khoa-hoc-stanley-g-thompson-albert-ghiorso-va-glenn-t-seaborg",
     "documentPath": "docs/nha-khoa-hoc-stanley-g-thompson-albert-ghiorso-va-glenn-t-seaborg/index.json",
-    "title": "Stanley G. Thompson, Albert Ghiorso và Glenn T. Seaborg — dấu mốc khám phá hóa học",
+    "title": "Stanley G. Thompson, Albert Ghiorso và Glenn T. Seaborg — lần theo dấu vết berkelium",
     "author": "Ban biên tập ChemDex",
     "category": "tieusu",
-    "summary": "Hồ sơ lịch sử liên quan đến Berkelium (Bk); phân biệt phát hiện, cô lập và đặt tên theo từng trường hợp.",
-    "image": "/assets/library/history-evidence.svg",
+    "summary": "Berkelium được tạo ra lần đầu tiên vào tháng 12 năm 1949 tại University of California, Berkeley bằng cách bắn phá americium-241 bằng các hạt alpha trong cyclotron. Phản ứng tạo ra berkelium-243: ²⁴¹Am + ⁴He → ²⁴³Bk + 2n Tên berkelium được đặt theo Berkeley, thành phố nơi nguyên tố được phát hiện.",
+    "image": "/assets/library/photos/elements/Bk.jpg",
     "tags": [
       "Lịch sử hóa học",
       "Bk"
@@ -1498,17 +3076,37 @@
       "Stanley G. Thompson, Albert Ghiorso và Glenn T. Seaborg"
     ],
     "documentKind": "biography",
-    "readingMinutes": 1
+    "readingMinutes": 3,
+    "editorialEvidence": {
+      "language": "vi",
+      "scope": "related-element",
+      "contextLabel": "Berkelium (Bk)",
+      "reviewBasis": "existing-element-dossier",
+      "story": {
+        "status": "documented",
+        "section": "## Cuộc tìm kiếm dẫn đến berkelium",
+        "sources": [
+          "https://periodic-table.rsc.org/element/97/berkelium"
+        ]
+      },
+      "application": {
+        "status": "context-only",
+        "section": "## Từ dấu mốc nghiên cứu đến công việc hôm nay",
+        "sources": [
+          "https://periodic-table.rsc.org/element/97/berkelium"
+        ]
+      }
+    }
   },
   {
     "id": "nha-khoa-hoc-stanley-g-thompson-kenneth-street-jr-albert-ghiorso-va-glenn-t-seaborg",
     "slug": "nha-khoa-hoc-stanley-g-thompson-kenneth-street-jr-albert-ghiorso-va-glenn-t-seaborg",
     "documentPath": "docs/nha-khoa-hoc-stanley-g-thompson-kenneth-street-jr-albert-ghiorso-va-glenn-t-seaborg/index.json",
-    "title": "Stanley G. Thompson, Kenneth Street Jr., Albert Ghiorso và Glenn T. Seaborg — dấu mốc khám phá hóa học",
+    "title": "Stanley G. Thompson, Kenneth Street Jr., Albert Ghiorso và Glenn T. Seaborg — lần theo dấu vết californium",
     "author": "Ban biên tập ChemDex",
     "category": "tieusu",
-    "summary": "Hồ sơ lịch sử liên quan đến Californium (Cf); phân biệt phát hiện, cô lập và đặt tên theo từng trường hợp.",
-    "image": "/assets/library/history-evidence.svg",
+    "summary": "Californium được tạo ra lần đầu tiên vào năm 1950 bằng cách bắn phá curium-242 bằng các hạt alpha trong cyclotron. Phản ứng tạo californium-245: ²⁴²Cm + ⁴He → ²⁴⁵Cf + n Tên californium được đặt theo California, nơi nguyên tố được phát hiện.",
+    "image": "/assets/library/photos/elements/Cf.jpg",
     "tags": [
       "Lịch sử hóa học",
       "Cf"
@@ -1517,17 +3115,37 @@
       "Stanley G. Thompson, Kenneth Street Jr., Albert Ghiorso và Glenn T. Seaborg"
     ],
     "documentKind": "biography",
-    "readingMinutes": 1
+    "readingMinutes": 2,
+    "editorialEvidence": {
+      "language": "vi",
+      "scope": "related-element",
+      "contextLabel": "Californium (Cf)",
+      "reviewBasis": "existing-element-dossier",
+      "story": {
+        "status": "documented",
+        "section": "## Cuộc tìm kiếm dẫn đến californium",
+        "sources": [
+          "https://periodic-table.rsc.org/element/98/californium"
+        ]
+      },
+      "application": {
+        "status": "context-only",
+        "section": "## Từ dấu mốc nghiên cứu đến công việc hôm nay",
+        "sources": [
+          "https://periodic-table.rsc.org/element/98/californium"
+        ]
+      }
+    }
   },
   {
     "id": "nha-khoa-hoc-albert-ghiorso-va-cong-su",
     "slug": "nha-khoa-hoc-albert-ghiorso-va-cong-su",
     "documentPath": "docs/nha-khoa-hoc-albert-ghiorso-va-cong-su/index.json",
-    "title": "Albert Ghiorso và cộng sự — dấu mốc khám phá hóa học",
+    "title": "Albert Ghiorso và cộng sự — lần theo dấu vết einsteinium, fermium, seaborgium",
     "author": "Ban biên tập ChemDex",
     "category": "tieusu",
-    "summary": "Hồ sơ lịch sử liên quan đến Einsteinium (Es), Fermium (Fm), Seaborgium (Sg); phân biệt phát hiện, cô lập và đặt tên theo từng trường hợp.",
-    "image": "/assets/library/history-evidence.svg",
+    "summary": "Einsteinium được phát hiện trong các mảnh vụn của vụ thử Ivy Mike, vụ thử bom nhiệt hạch đầu tiên của Hoa Kỳ vào năm 1952. Một lượng cực kỳ nhỏ einsteinium-253 được hình thành do các hạt nhân uranium hấp thụ nhiều neutron liên tiếp rồi trải qua các quá trình phân rã beta.",
+    "image": "/assets/library/photos/elements/Es.jpg",
     "tags": [
       "Lịch sử hóa học",
       "Es",
@@ -1538,17 +3156,41 @@
       "Albert Ghiorso và cộng sự"
     ],
     "documentKind": "biography",
-    "readingMinutes": 3
+    "readingMinutes": 4,
+    "editorialEvidence": {
+      "language": "vi",
+      "scope": "related-element",
+      "contextLabel": "Einsteinium (Es), Fermium (Fm), Seaborgium (Sg)",
+      "reviewBasis": "existing-element-dossier",
+      "story": {
+        "status": "documented",
+        "section": "## Cuộc tìm kiếm dẫn đến einsteinium",
+        "sources": [
+          "https://periodic-table.rsc.org/element/99/einsteinium",
+          "https://periodic-table.rsc.org/element/100/fermium",
+          "https://periodic-table.rsc.org/element/106/seaborgium"
+        ]
+      },
+      "application": {
+        "status": "context-only",
+        "section": "## Từ dấu mốc nghiên cứu đến công việc hôm nay",
+        "sources": [
+          "https://periodic-table.rsc.org/element/99/einsteinium",
+          "https://periodic-table.rsc.org/element/100/fermium",
+          "https://periodic-table.rsc.org/element/106/seaborgium"
+        ]
+      }
+    }
   },
   {
     "id": "nha-khoa-hoc-albert-ghiorso-bernard-g-harvey-gregory-r-choppin-stanley-g-thompson-va-glenn-t-seaborg",
     "slug": "nha-khoa-hoc-albert-ghiorso-bernard-g-harvey-gregory-r-choppin-stanley-g-thompson-va-glenn-t-seaborg",
     "documentPath": "docs/nha-khoa-hoc-albert-ghiorso-bernard-g-harvey-gregory-r-choppin-stanley-g-thompson-va-glenn-t-seaborg/index.json",
-    "title": "Albert Ghiorso, Bernard G. Harvey, Gregory R. Choppin, Stanley G. Thompson và Glenn T. Seaborg — dấu mốc khám phá hóa học",
+    "title": "Albert Ghiorso, Bernard G. Harvey, Gregory R. Choppin, Stanley G. Thompson và Glenn T. Seaborg — lần theo dấu vết mendelevium",
     "author": "Ban biên tập ChemDex",
     "category": "tieusu",
-    "summary": "Hồ sơ lịch sử liên quan đến Mendelevium (Md); phân biệt phát hiện, cô lập và đặt tên theo từng trường hợp.",
-    "image": "/assets/library/history-evidence.svg",
+    "summary": "Mendelevium được tạo ra lần đầu tiên vào năm 1955 bằng cách bắn phá einsteinium-253 bằng các hạt alpha trong cyclotron. Phản ứng: ²⁵³Es + ⁴He → ²⁵⁶Md + n Chỉ 17 nguyên tử mendelevium được tạo ra trong thí nghiệm ban đầu.",
+    "image": "/assets/library/photos/elements/Md.jpg",
     "tags": [
       "Lịch sử hóa học",
       "Md"
@@ -1557,17 +3199,37 @@
       "Albert Ghiorso, Bernard G. Harvey, Gregory R. Choppin, Stanley G. Thompson và Glenn T. Seaborg"
     ],
     "documentKind": "biography",
-    "readingMinutes": 1
+    "readingMinutes": 3,
+    "editorialEvidence": {
+      "language": "vi",
+      "scope": "related-element",
+      "contextLabel": "Mendelevium (Md)",
+      "reviewBasis": "existing-element-dossier",
+      "story": {
+        "status": "documented",
+        "section": "## Cuộc tìm kiếm dẫn đến mendelevium",
+        "sources": [
+          "https://periodic-table.rsc.org/element/101/mendelevium"
+        ]
+      },
+      "application": {
+        "status": "context-only",
+        "section": "## Từ dấu mốc nghiên cứu đến công việc hôm nay",
+        "sources": [
+          "https://periodic-table.rsc.org/element/101/mendelevium"
+        ]
+      }
+    }
   },
   {
     "id": "nha-khoa-hoc-duoc-ghi-nhan-chinh-thuc-cho-nhom-nghien-cuu-tai-joint-institute-for-nuclear-research-jinr-dubna-do-georgy-flyorov-dung-dau",
     "slug": "nha-khoa-hoc-duoc-ghi-nhan-chinh-thuc-cho-nhom-nghien-cuu-tai-joint-institute-for-nuclear-research-jinr-dubna-do-georgy-flyorov-dung-dau",
     "documentPath": "docs/nha-khoa-hoc-duoc-ghi-nhan-chinh-thuc-cho-nhom-nghien-cuu-tai-joint-institute-for-nuclear-research-jinr-dubna-do-georgy-flyorov-dung-dau/index.json",
-    "title": "Được ghi nhận chính thức cho nhóm nghiên cứu tại Joint Institute for Nuclear Research (JINR), Dubna, do Georgy Flyorov đứng đầu. — dấu mốc khám phá hóa học",
+    "title": "Nobelium: cuộc tìm kiếm của các nhóm nghiên cứu",
     "author": "Ban biên tập ChemDex",
     "category": "tieusu",
-    "summary": "Hồ sơ lịch sử liên quan đến Nobelium (No); phân biệt phát hiện, cô lập và đặt tên theo từng trường hợp.",
-    "image": "/assets/library/history-evidence.svg",
+    "summary": "Nobelium được tạo ra bằng cách bắn phá curium-246 bằng các ion cacbon-12: ²⁴⁶Cm + ¹²C → ²⁵⁶No + 2n Tên nobelium được đặt để vinh danh Alfred Nobel, người sáng lập giải Nobel.",
+    "image": "/assets/library/photos/elements/No.jpg",
     "tags": [
       "Lịch sử hóa học",
       "No"
@@ -1576,17 +3238,37 @@
       "Được ghi nhận chính thức cho nhóm nghiên cứu tại Joint Institute for Nuclear Research (JINR), Dubna, do Georgy Flyorov đứng đầu."
     ],
     "documentKind": "biography",
-    "readingMinutes": 1
+    "readingMinutes": 2,
+    "editorialEvidence": {
+      "language": "vi",
+      "scope": "related-element",
+      "contextLabel": "Nobelium (No)",
+      "reviewBasis": "existing-element-dossier",
+      "story": {
+        "status": "documented",
+        "section": "## Cuộc tìm kiếm dẫn đến nobelium",
+        "sources": [
+          "https://periodic-table.rsc.org/element/102/nobelium"
+        ]
+      },
+      "application": {
+        "status": "context-only",
+        "section": "## Từ dấu mốc nghiên cứu đến công việc hôm nay",
+        "sources": [
+          "https://periodic-table.rsc.org/element/102/nobelium"
+        ]
+      }
+    }
   },
   {
     "id": "nha-khoa-hoc-albert-ghiorso-va-cong-su-tai-lawrence-radiation-laboratory-cung-cac-nha-khoa-hoc-cua-joint-institute-for-nuclear-research-jinr",
     "slug": "nha-khoa-hoc-albert-ghiorso-va-cong-su-tai-lawrence-radiation-laboratory-cung-cac-nha-khoa-hoc-cua-joint-institute-for-nuclear-research-jinr",
     "documentPath": "docs/nha-khoa-hoc-albert-ghiorso-va-cong-su-tai-lawrence-radiation-laboratory-cung-cac-nha-khoa-hoc-cua-joint-institute-for-nuclear-research-jinr/index.json",
-    "title": "Albert Ghiorso và cộng sự tại Lawrence Radiation Laboratory, cùng các nhà khoa học của Joint Institute for Nuclear Research (JINR). — dấu mốc khám phá hóa học",
+    "title": "Lawrencium: cuộc tìm kiếm của các nhóm nghiên cứu",
     "author": "Ban biên tập ChemDex",
     "category": "tieusu",
-    "summary": "Hồ sơ lịch sử liên quan đến Lawrencium (Lr); phân biệt phát hiện, cô lập và đặt tên theo từng trường hợp.",
-    "image": "/assets/library/history-evidence.svg",
+    "summary": "Lawrencium được tạo ra lần đầu tiên bằng cách bắn phá californium-252 bằng các ion bo-10. Phản ứng: ²⁵²Cf + ¹⁰B → ²⁶¹Lr + n Tên lawrencium được đặt để vinh danh Ernest O.",
+    "image": "/assets/library/photos/elements/Lr.jpg",
     "tags": [
       "Lịch sử hóa học",
       "Lr"
@@ -1595,17 +3277,37 @@
       "Albert Ghiorso và cộng sự tại Lawrence Radiation Laboratory, cùng các nhà khoa học của Joint Institute for Nuclear Research (JINR)."
     ],
     "documentKind": "biography",
-    "readingMinutes": 1
+    "readingMinutes": 2,
+    "editorialEvidence": {
+      "language": "vi",
+      "scope": "related-element",
+      "contextLabel": "Lawrencium (Lr)",
+      "reviewBasis": "existing-element-dossier",
+      "story": {
+        "status": "documented",
+        "section": "## Cuộc tìm kiếm dẫn đến lawrencium",
+        "sources": [
+          "https://periodic-table.rsc.org/element/103/lawrencium"
+        ]
+      },
+      "application": {
+        "status": "context-only",
+        "section": "## Từ dấu mốc nghiên cứu đến công việc hôm nay",
+        "sources": [
+          "https://periodic-table.rsc.org/element/103/lawrencium"
+        ]
+      }
+    }
   },
   {
     "id": "nha-khoa-hoc-nhom-nghien-cuu-tai-joint-institute-for-nuclear-research-jinr-va-lawrence-berkeley-national-laboratory-lbnl",
     "slug": "nha-khoa-hoc-nhom-nghien-cuu-tai-joint-institute-for-nuclear-research-jinr-va-lawrence-berkeley-national-laboratory-lbnl",
     "documentPath": "docs/nha-khoa-hoc-nhom-nghien-cuu-tai-joint-institute-for-nuclear-research-jinr-va-lawrence-berkeley-national-laboratory-lbnl/index.json",
-    "title": "Nhóm nghiên cứu tại Joint Institute for Nuclear Research (JINR) và Lawrence Berkeley National Laboratory (LBNL) — dấu mốc khám phá hóa học",
+    "title": "Rutherfordium: cuộc tìm kiếm của các nhóm nghiên cứu",
     "author": "Ban biên tập ChemDex",
     "category": "tieusu",
-    "summary": "Hồ sơ lịch sử liên quan đến Rutherfordium (Rf); phân biệt phát hiện, cô lập và đặt tên theo từng trường hợp.",
-    "image": "/assets/library/history-evidence.svg",
+    "summary": "Rutherfordium được tạo ra lần đầu năm 1964 tại Dubna bằng cách bắn phá plutonium-242 bằng ion neon-22: ²⁴²Pu + ²²Ne → ²⁶⁰Rf + 4n Việc phát hiện nguyên tố này sau đó trở thành một phần của tranh chấp tên nguyên tố giữa các nhóm nghiên cứu ở Liên Xô và Hoa Kỳ. Cuối cùng, IUPAC chính thức đặt tên rutherfordium vào năm 1997 để vinh danh nhà vật lý Ernest Rutherford.",
+    "image": "/assets/library/photos/elements/Rf.jpg",
     "tags": [
       "Lịch sử hóa học",
       "Rf"
@@ -1614,17 +3316,37 @@
       "Nhóm nghiên cứu tại Joint Institute for Nuclear Research (JINR) và Lawrence Berkeley National Laboratory (LBNL)"
     ],
     "documentKind": "biography",
-    "readingMinutes": 1
+    "readingMinutes": 3,
+    "editorialEvidence": {
+      "language": "vi",
+      "scope": "related-element",
+      "contextLabel": "Rutherfordium (Rf)",
+      "reviewBasis": "existing-element-dossier",
+      "story": {
+        "status": "documented",
+        "section": "## Cuộc tìm kiếm dẫn đến rutherfordium",
+        "sources": [
+          "https://periodic-table.rsc.org/element/104/rutherfordium"
+        ]
+      },
+      "application": {
+        "status": "context-only",
+        "section": "## Từ dấu mốc nghiên cứu đến công việc hôm nay",
+        "sources": [
+          "https://periodic-table.rsc.org/element/104/rutherfordium"
+        ]
+      }
+    }
   },
   {
     "id": "nha-khoa-hoc-nhom-nghien-cuu-tai-joint-institute-for-nuclear-research-jinr-va-nhom-tai-lawrence-berkeley-laboratory-lbl",
     "slug": "nha-khoa-hoc-nhom-nghien-cuu-tai-joint-institute-for-nuclear-research-jinr-va-nhom-tai-lawrence-berkeley-laboratory-lbl",
     "documentPath": "docs/nha-khoa-hoc-nhom-nghien-cuu-tai-joint-institute-for-nuclear-research-jinr-va-nhom-tai-lawrence-berkeley-laboratory-lbl/index.json",
-    "title": "Nhóm nghiên cứu tại Joint Institute for Nuclear Research (JINR) và nhóm tại Lawrence Berkeley Laboratory (LBL) — dấu mốc khám phá hóa học",
+    "title": "Dubnium: cuộc tìm kiếm của các nhóm nghiên cứu",
     "author": "Ban biên tập ChemDex",
     "category": "tieusu",
-    "summary": "Hồ sơ lịch sử liên quan đến Dubnium (Db); phân biệt phát hiện, cô lập và đặt tên theo từng trường hợp.",
-    "image": "/assets/library/history-evidence.svg",
+    "summary": "Dubnium được tổng hợp lần đầu vào khoảng năm 1967 tại Dubna bằng cách bắn phá americium-243 bằng ion neon-22: ²⁴³Am + ²²Ne → ²⁶¹Db + 4n Việc phát hiện dubnium cũng dẫn đến tranh chấp về tên gọi giữa các nhóm nghiên cứu. Năm 1997, IUPAC chính thức chấp nhận tên dubnium, lấy theo Dubna, nơi nguyên tố được nghiên cứu và tổng hợp.",
+    "image": "/assets/library/photos/elements/Db.jpg",
     "tags": [
       "Lịch sử hóa học",
       "Db"
@@ -1633,17 +3355,37 @@
       "Nhóm nghiên cứu tại Joint Institute for Nuclear Research (JINR) và nhóm tại Lawrence Berkeley Laboratory (LBL)"
     ],
     "documentKind": "biography",
-    "readingMinutes": 1
+    "readingMinutes": 3,
+    "editorialEvidence": {
+      "language": "vi",
+      "scope": "related-element",
+      "contextLabel": "Dubnium (Db)",
+      "reviewBasis": "existing-element-dossier",
+      "story": {
+        "status": "documented",
+        "section": "## Cuộc tìm kiếm dẫn đến dubnium",
+        "sources": [
+          "https://periodic-table.rsc.org/element/105/dubnium"
+        ]
+      },
+      "application": {
+        "status": "context-only",
+        "section": "## Từ dấu mốc nghiên cứu đến công việc hôm nay",
+        "sources": [
+          "https://periodic-table.rsc.org/element/105/dubnium"
+        ]
+      }
+    }
   },
   {
     "id": "nha-khoa-hoc-nhom-nghien-cuu-tai-joint-institute-for-nuclear-research-jinr-va-gesellschaft-fur-schwerionenforschung-gsi",
     "slug": "nha-khoa-hoc-nhom-nghien-cuu-tai-joint-institute-for-nuclear-research-jinr-va-gesellschaft-fur-schwerionenforschung-gsi",
     "documentPath": "docs/nha-khoa-hoc-nhom-nghien-cuu-tai-joint-institute-for-nuclear-research-jinr-va-gesellschaft-fur-schwerionenforschung-gsi/index.json",
-    "title": "Nhóm nghiên cứu tại Joint Institute for Nuclear Research (JINR) và Gesellschaft für Schwerionenforschung (GSI) — dấu mốc khám phá hóa học",
+    "title": "Bohrium: cuộc tìm kiếm của các nhóm nghiên cứu",
     "author": "Ban biên tập ChemDex",
     "category": "tieusu",
-    "summary": "Hồ sơ lịch sử liên quan đến Bohrium (Bh); phân biệt phát hiện, cô lập và đặt tên theo từng trường hợp.",
-    "image": "/assets/library/history-evidence.svg",
+    "summary": "Bohrium được tổng hợp lần đầu năm 1981 tại GSI bằng cách bắn phá bismuth-209 bằng hạt nhân crom-54: ²⁰⁹Bi + ⁵⁴Cr → ²⁶²Bh + n Nguyên tố được đặt tên bohrium để vinh danh nhà vật lý Đan Mạch Niels Bohr, người có những đóng góp quan trọng cho việc phát triển mô hình nguyên tử và cơ học lượng tử.",
+    "image": "/assets/library/photos/elements/Bh.jpg",
     "tags": [
       "Lịch sử hóa học",
       "Bh"
@@ -1652,17 +3394,37 @@
       "Nhóm nghiên cứu tại Joint Institute for Nuclear Research (JINR) và Gesellschaft für Schwerionenforschung (GSI)"
     ],
     "documentKind": "biography",
-    "readingMinutes": 1
+    "readingMinutes": 2,
+    "editorialEvidence": {
+      "language": "vi",
+      "scope": "related-element",
+      "contextLabel": "Bohrium (Bh)",
+      "reviewBasis": "existing-element-dossier",
+      "story": {
+        "status": "documented",
+        "section": "## Cuộc tìm kiếm dẫn đến bohrium",
+        "sources": [
+          "https://periodic-table.rsc.org/element/107/bohrium"
+        ]
+      },
+      "application": {
+        "status": "context-only",
+        "section": "## Từ dấu mốc nghiên cứu đến công việc hôm nay",
+        "sources": [
+          "https://periodic-table.rsc.org/element/107/bohrium"
+        ]
+      }
+    }
   },
   {
     "id": "nha-khoa-hoc-nhom-nghien-cuu-tai-gesellschaft-fur-schwerionenforschung-gsi",
     "slug": "nha-khoa-hoc-nhom-nghien-cuu-tai-gesellschaft-fur-schwerionenforschung-gsi",
     "documentPath": "docs/nha-khoa-hoc-nhom-nghien-cuu-tai-gesellschaft-fur-schwerionenforschung-gsi/index.json",
-    "title": "Nhóm nghiên cứu tại Gesellschaft für Schwerionenforschung (GSI) — dấu mốc khám phá hóa học",
+    "title": "Nhóm nghiên cứu tại Gesellschaft für Schwerionenforschung (GSI) — lần theo dấu vết hassium, meitnerium, darmstadtium và những nguyên tố khác",
     "author": "Ban biên tập ChemDex",
     "category": "tieusu",
-    "summary": "Hồ sơ lịch sử liên quan đến Hassium (Hs), Meitnerium (Mt), Darmstadtium (Ds), Roentgenium (Rg), Copernicium (Cn); phân biệt phát hiện, cô lập và đặt tên theo từng trường hợp.",
-    "image": "/assets/library/history-evidence.svg",
+    "summary": "Hassium được tổng hợp lần đầu vào năm 1984 tại GSI bằng cách bắn phá chì-208 bằng sắt-58: ²⁰⁸Pb + ⁵⁸Fe → ²⁶⁵Hs + n Tên hassium bắt nguồn từ Hassia, tên Latin của bang Hesse ở Đức, nơi đặt phòng thí nghiệm GSI.",
+    "image": "/assets/library/photos/elements/Hs.jpg",
     "tags": [
       "Lịch sử hóa học",
       "Hs",
@@ -1675,17 +3437,45 @@
       "Nhóm nghiên cứu tại Gesellschaft für Schwerionenforschung (GSI)"
     ],
     "documentKind": "biography",
-    "readingMinutes": 3
+    "readingMinutes": 5,
+    "editorialEvidence": {
+      "language": "vi",
+      "scope": "related-element",
+      "contextLabel": "Hassium (Hs), Meitnerium (Mt), Darmstadtium (Ds), Roentgenium (Rg), Copernicium (Cn)",
+      "reviewBasis": "existing-element-dossier",
+      "story": {
+        "status": "documented",
+        "section": "## Cuộc tìm kiếm dẫn đến hassium",
+        "sources": [
+          "https://periodic-table.rsc.org/element/108/hassium",
+          "https://periodic-table.rsc.org/element/109/meitnerium",
+          "https://periodic-table.rsc.org/element/110/darmstadtium",
+          "https://periodic-table.rsc.org/element/111/roentgenium",
+          "https://periodic-table.rsc.org/element/112/copernicium"
+        ]
+      },
+      "application": {
+        "status": "context-only",
+        "section": "## Từ dấu mốc nghiên cứu đến công việc hôm nay",
+        "sources": [
+          "https://periodic-table.rsc.org/element/108/hassium",
+          "https://periodic-table.rsc.org/element/109/meitnerium",
+          "https://periodic-table.rsc.org/element/110/darmstadtium",
+          "https://periodic-table.rsc.org/element/111/roentgenium",
+          "https://periodic-table.rsc.org/element/112/copernicium"
+        ]
+      }
+    }
   },
   {
     "id": "nha-khoa-hoc-nhom-nghien-cuu-tai-riken-nhat-ban",
     "slug": "nha-khoa-hoc-nhom-nghien-cuu-tai-riken-nhat-ban",
     "documentPath": "docs/nha-khoa-hoc-nhom-nghien-cuu-tai-riken-nhat-ban/index.json",
-    "title": "Nhóm nghiên cứu tại RIKEN, Nhật Bản — dấu mốc khám phá hóa học",
+    "title": "Nhóm nghiên cứu tại RIKEN, Nhật Bản — lần theo dấu vết nihonium",
     "author": "Ban biên tập ChemDex",
     "category": "tieusu",
-    "summary": "Hồ sơ lịch sử liên quan đến Nihonium (Nh); phân biệt phát hiện, cô lập và đặt tên theo từng trường hợp.",
-    "image": "/assets/library/history-evidence.svg",
+    "summary": "Nihonium được tổng hợp lần đầu tại RIKEN bằng cách bắn phá bismuth-209 bằng kẽm-70: ²⁰⁹Bi + ⁷⁰Zn → ²⁷⁸Nh + n Sau nhiều năm thí nghiệm, RIKEN đã tạo và xác nhận các nguyên tử nihonium thông qua chuỗi phân rã của chúng. Tên nihonium bắt nguồn từ Nihon (日本), một cách đọc tiếng Nhật của tên nước Nhật Bản.",
+    "image": "/assets/library/photos/elements/Nh.jpg",
     "tags": [
       "Lịch sử hóa học",
       "Nh"
@@ -1694,17 +3484,37 @@
       "Nhóm nghiên cứu tại RIKEN, Nhật Bản"
     ],
     "documentKind": "biography",
-    "readingMinutes": 1
+    "readingMinutes": 2,
+    "editorialEvidence": {
+      "language": "vi",
+      "scope": "related-element",
+      "contextLabel": "Nihonium (Nh)",
+      "reviewBasis": "existing-element-dossier",
+      "story": {
+        "status": "documented",
+        "section": "## Cuộc tìm kiếm dẫn đến nihonium",
+        "sources": [
+          "https://periodic-table.rsc.org/element/113/nihonium"
+        ]
+      },
+      "application": {
+        "status": "context-only",
+        "section": "## Từ dấu mốc nghiên cứu đến công việc hôm nay",
+        "sources": [
+          "https://periodic-table.rsc.org/element/113/nihonium"
+        ]
+      }
+    }
   },
   {
     "id": "nha-khoa-hoc-nhom-nghien-cuu-tai-joint-institute-for-nuclear-research-jinr-va-lawrence-livermore-national-laboratory-llnl",
     "slug": "nha-khoa-hoc-nhom-nghien-cuu-tai-joint-institute-for-nuclear-research-jinr-va-lawrence-livermore-national-laboratory-llnl",
     "documentPath": "docs/nha-khoa-hoc-nhom-nghien-cuu-tai-joint-institute-for-nuclear-research-jinr-va-lawrence-livermore-national-laboratory-llnl/index.json",
-    "title": "Nhóm nghiên cứu tại Joint Institute for Nuclear Research (JINR) và Lawrence Livermore National Laboratory (LLNL) — dấu mốc khám phá hóa học",
+    "title": "Flerovium: cuộc tìm kiếm của các nhóm nghiên cứu",
     "author": "Ban biên tập ChemDex",
     "category": "tieusu",
-    "summary": "Hồ sơ lịch sử liên quan đến Flerovium (Fl); phân biệt phát hiện, cô lập và đặt tên theo từng trường hợp.",
-    "image": "/assets/library/history-evidence.svg",
+    "summary": "Flerovium được tổng hợp lần đầu vào năm 1999 tại Dubna bằng cách bắn phá plutonium-244 bằng canxi-48: ²⁴⁴Pu + ⁴⁸Ca → ²⁸⁹Fl + 3n Tên flerovium được đặt để vinh danh Georgy Flyorov, nhà vật lý hạt nhân người Nga và người sáng lập Joint Institute for Nuclear Research.",
+    "image": "/assets/library/photos/elements/Fl.jpg",
     "tags": [
       "Lịch sử hóa học",
       "Fl"
@@ -1713,17 +3523,37 @@
       "Nhóm nghiên cứu tại Joint Institute for Nuclear Research (JINR) và Lawrence Livermore National Laboratory (LLNL)"
     ],
     "documentKind": "biography",
-    "readingMinutes": 1
+    "readingMinutes": 2,
+    "editorialEvidence": {
+      "language": "vi",
+      "scope": "related-element",
+      "contextLabel": "Flerovium (Fl)",
+      "reviewBasis": "existing-element-dossier",
+      "story": {
+        "status": "documented",
+        "section": "## Cuộc tìm kiếm dẫn đến flerovium",
+        "sources": [
+          "https://periodic-table.rsc.org/element/114/flerovium"
+        ]
+      },
+      "application": {
+        "status": "context-only",
+        "section": "## Từ dấu mốc nghiên cứu đến công việc hôm nay",
+        "sources": [
+          "https://periodic-table.rsc.org/element/114/flerovium"
+        ]
+      }
+    }
   },
   {
     "id": "nha-khoa-hoc-nhom-nghien-cuu-joint-institute-for-nuclear-research-jinr-phoi-hop-voi-lawrence-livermore-national-laboratory-llnl",
     "slug": "nha-khoa-hoc-nhom-nghien-cuu-joint-institute-for-nuclear-research-jinr-phoi-hop-voi-lawrence-livermore-national-laboratory-llnl",
     "documentPath": "docs/nha-khoa-hoc-nhom-nghien-cuu-joint-institute-for-nuclear-research-jinr-phoi-hop-voi-lawrence-livermore-national-laboratory-llnl/index.json",
-    "title": "Nhóm nghiên cứu Joint Institute for Nuclear Research (JINR), phối hợp với Lawrence Livermore National Laboratory (LLNL) — dấu mốc khám phá hóa học",
+    "title": "Moscovium: cuộc tìm kiếm của các nhóm nghiên cứu",
     "author": "Ban biên tập ChemDex",
     "category": "tieusu",
-    "summary": "Hồ sơ lịch sử liên quan đến Moscovium (Mc); phân biệt phát hiện, cô lập và đặt tên theo từng trường hợp.",
-    "image": "/assets/library/history-evidence.svg",
+    "summary": "Moscovium được tổng hợp lần đầu vào năm 2003 bằng cách bắn phá americium-243 bằng canxi-48: ²⁴³Am + ⁴⁸Ca → ²⁸⁸Mc + 3n Tên moscovium được đặt theo Moscow Oblast, khu vực nơi đặt Joint Institute for Nuclear Research.",
+    "image": "/assets/library/photos/elements/Mc.jpg",
     "tags": [
       "Lịch sử hóa học",
       "Mc"
@@ -1732,17 +3562,37 @@
       "Nhóm nghiên cứu Joint Institute for Nuclear Research (JINR), phối hợp với Lawrence Livermore National Laboratory (LLNL)"
     ],
     "documentKind": "biography",
-    "readingMinutes": 1
+    "readingMinutes": 2,
+    "editorialEvidence": {
+      "language": "vi",
+      "scope": "related-element",
+      "contextLabel": "Moscovium (Mc)",
+      "reviewBasis": "existing-element-dossier",
+      "story": {
+        "status": "documented",
+        "section": "## Cuộc tìm kiếm dẫn đến moscovium",
+        "sources": [
+          "https://periodic-table.rsc.org/element/115/moscovium"
+        ]
+      },
+      "application": {
+        "status": "context-only",
+        "section": "## Từ dấu mốc nghiên cứu đến công việc hôm nay",
+        "sources": [
+          "https://periodic-table.rsc.org/element/115/moscovium"
+        ]
+      }
+    }
   },
   {
     "id": "nha-khoa-hoc-joint-institute-for-nuclear-research-jinr-phoi-hop-voi-lawrence-livermore-national-laboratory-llnl",
     "slug": "nha-khoa-hoc-joint-institute-for-nuclear-research-jinr-phoi-hop-voi-lawrence-livermore-national-laboratory-llnl",
     "documentPath": "docs/nha-khoa-hoc-joint-institute-for-nuclear-research-jinr-phoi-hop-voi-lawrence-livermore-national-laboratory-llnl/index.json",
-    "title": "Joint Institute for Nuclear Research (JINR) phối hợp với Lawrence Livermore National Laboratory (LLNL) — dấu mốc khám phá hóa học",
+    "title": "Joint Institute for Nuclear Research (JINR) phối hợp với Lawrence Livermore National Laboratory (LLNL) — lần theo dấu vết livermorium, oganesson",
     "author": "Ban biên tập ChemDex",
     "category": "tieusu",
-    "summary": "Hồ sơ lịch sử liên quan đến Livermorium (Lv), Oganesson (Og); phân biệt phát hiện, cô lập và đặt tên theo từng trường hợp.",
-    "image": "/assets/library/history-evidence.svg",
+    "summary": "Livermorium được tổng hợp lần đầu vào năm 2000 bằng cách bắn phá curium-248 bằng canxi-48: ²⁴⁸Cm + ⁴⁸Ca → ²⁹²Lv + 4n Tên livermorium được đặt để vinh danh Lawrence Livermore National Laboratory ở California, Hoa Kỳ, nơi có đóng góp quan trọng vào việc phát hiện nguyên tố.",
+    "image": "/assets/library/photos/elements/Lv.jpg",
     "tags": [
       "Lịch sử hóa học",
       "Lv",
@@ -1752,17 +3602,39 @@
       "Joint Institute for Nuclear Research (JINR) phối hợp với Lawrence Livermore National Laboratory (LLNL)"
     ],
     "documentKind": "biography",
-    "readingMinutes": 1
+    "readingMinutes": 3,
+    "editorialEvidence": {
+      "language": "vi",
+      "scope": "related-element",
+      "contextLabel": "Livermorium (Lv), Oganesson (Og)",
+      "reviewBasis": "existing-element-dossier",
+      "story": {
+        "status": "documented",
+        "section": "## Cuộc tìm kiếm dẫn đến livermorium",
+        "sources": [
+          "https://periodic-table.rsc.org/element/116/livermorium",
+          "https://periodic-table.rsc.org/element/118/oganesson"
+        ]
+      },
+      "application": {
+        "status": "context-only",
+        "section": "## Từ dấu mốc nghiên cứu đến công việc hôm nay",
+        "sources": [
+          "https://periodic-table.rsc.org/element/116/livermorium",
+          "https://periodic-table.rsc.org/element/118/oganesson"
+        ]
+      }
+    }
   },
   {
     "id": "nha-khoa-hoc-joint-institute-for-nuclear-research-jinr-oak-ridge-national-laboratory-ornl-lawrence-livermore-national-laboratory-llnl-va-vanderbilt-university",
     "slug": "nha-khoa-hoc-joint-institute-for-nuclear-research-jinr-oak-ridge-national-laboratory-ornl-lawrence-livermore-national-laboratory-llnl-va-vanderbilt-university",
     "documentPath": "docs/nha-khoa-hoc-joint-institute-for-nuclear-research-jinr-oak-ridge-national-laboratory-ornl-lawrence-livermore-national-laboratory-llnl-va-vanderbilt-university/index.json",
-    "title": "Joint Institute for Nuclear Research (JINR), Oak Ridge National Laboratory (ORNL), Lawrence Livermore National Laboratory (LLNL) và Vanderbilt University — dấu mốc khám phá hóa học",
+    "title": "Tennessine: cuộc tìm kiếm của các nhóm nghiên cứu",
     "author": "Ban biên tập ChemDex",
     "category": "tieusu",
-    "summary": "Hồ sơ lịch sử liên quan đến Tennessine (Ts); phân biệt phát hiện, cô lập và đặt tên theo từng trường hợp.",
-    "image": "/assets/library/history-evidence.svg",
+    "summary": "Tennessine được tổng hợp lần đầu vào năm 2010 bằng cách bắn phá berkelium-249 bằng canxi-48: Thực tế, phản ứng tạo ra các đồng vị tennessine thông qua các kênh phát neutron, trong đó đáng chú ý là: ²⁴⁹Bk + ⁴⁸Ca → ²⁹⁴Ts + 3n Tên tennessine được đặt theo Tennessee, Hoa Kỳ, nhằm ghi nhận những đóng góp của các cơ sở nghiên cứu tại bang Tennessee, đặc biệt là Oak Ridge National Laboratory.",
+    "image": "/assets/library/photos/elements/Ts.jpg",
     "tags": [
       "Lịch sử hóa học",
       "Ts"
@@ -1771,7 +3643,27 @@
       "Joint Institute for Nuclear Research (JINR), Oak Ridge National Laboratory (ORNL), Lawrence Livermore National Laboratory (LLNL) và Vanderbilt University"
     ],
     "documentKind": "biography",
-    "readingMinutes": 1
+    "readingMinutes": 3,
+    "editorialEvidence": {
+      "language": "vi",
+      "scope": "related-element",
+      "contextLabel": "Tennessine (Ts)",
+      "reviewBasis": "existing-element-dossier",
+      "story": {
+        "status": "documented",
+        "section": "## Cuộc tìm kiếm dẫn đến tennessine",
+        "sources": [
+          "https://periodic-table.rsc.org/element/117/tennessine"
+        ]
+      },
+      "application": {
+        "status": "context-only",
+        "section": "## Từ dấu mốc nghiên cứu đến công việc hôm nay",
+        "sources": [
+          "https://periodic-table.rsc.org/element/117/tennessine"
+        ]
+      }
+    }
   },
   {
     "id": "nha-khoa-hoc-antoine-lavoisier",
@@ -1781,7 +3673,7 @@
     "author": "Ban biên tập ChemDex",
     "category": "tieusu",
     "summary": "Vai trò trong cách giải thích sự cháy và thành phần của nước, theo American Chemical Society.",
-    "image": "/assets/library/history-evidence.svg",
+    "image": "/assets/library/photos/elements/C.jpg",
     "tags": [
       "Lịch sử hóa học"
     ],
@@ -1792,6 +3684,26 @@
       "Antoine-Laurent de Lavoisier"
     ],
     "documentKind": "biography",
-    "readingMinutes": 1
+    "readingMinutes": 3,
+    "editorialEvidence": {
+      "language": "vi",
+      "scope": "chemical-family",
+      "contextLabel": "Phép đo khối lượng và tính lượng chất",
+      "reviewBasis": "source-read-2026-11-15",
+      "story": {
+        "status": "documented",
+        "section": "## Khi chất cháy lại nặng thêm",
+        "sources": [
+          "https://www.acs.org/education/whatischemistry/landmarks/lavoisier.html"
+        ]
+      },
+      "application": {
+        "status": "documented",
+        "section": "## Từ phép cân đến tính lượng nguyên liệu",
+        "sources": [
+          "https://openstax.org/books/chemistry-2e/pages/4-3-reaction-stoichiometry"
+        ]
+      }
+    }
   }
 ]

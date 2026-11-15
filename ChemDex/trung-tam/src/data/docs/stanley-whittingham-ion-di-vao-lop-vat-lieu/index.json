@@ -1,0 +1,46 @@
+{
+  "id": "stanley-whittingham-ion-di-vao-lop-vat-lieu",
+  "slug": "stanley-whittingham-ion-di-vao-lop-vat-lieu",
+  "documentPath": "docs/stanley-whittingham-ion-di-vao-lop-vat-lieu/index.json",
+  "title": "Stanley Whittingham: cho ion đi vào vật liệu mà không phá sập ngôi nhà",
+  "summary": "Nghiên cứu titan đisunfua của Whittingham đặt nền móng cho pin sạc bằng một ý tưởng: trao đổi ion trong khi giữ lại khung vật liệu.",
+  "category": "tieusu",
+  "author": "Ban biên tập ChemDex",
+  "image": "/assets/library/photos/stories/lithium-battery-inside.jpg",
+  "tags": [
+    "Stanley Whittingham",
+    "Pin sạc",
+    "Vật liệu lớp",
+    "Điện hóa"
+  ],
+  "aliases": [
+    "M. Stanley Whittingham"
+  ],
+  "documentKind": "story",
+  "readingMinutes": 5,
+  "editorialEvidence": {
+    "language": "vi",
+    "scope": "chemical-family",
+    "contextLabel": "Stanley Whittingham: cho ion đi vào vật liệu mà không phá sập ngôi nhà",
+    "reviewBasis": "Biên soạn theo các nguồn dẫn cuối bài; phân biệt kết quả đã thực hiện và hướng phát triển.",
+    "story": {
+      "status": "documented",
+      "section": "## Một hướng đi trong cuộc tìm kiếm năng lượng",
+      "sources": [
+        "https://pubmed.ncbi.nlm.nih.gov/17748676/",
+        "https://www.nobelprize.org/uploads/2019/10/whittingham-lecture.pdf",
+        "https://www.cei.washington.edu/research/energy-storage/lithium-ion-battery/"
+      ]
+    },
+    "application": {
+      "status": "documented",
+      "section": "## Ứng dụng hôm nay: hiểu đường đi của ion để thiết kế pin",
+      "sources": [
+        "https://pubmed.ncbi.nlm.nih.gov/17748676/",
+        "https://www.nobelprize.org/uploads/2019/10/whittingham-lecture.pdf",
+        "https://www.cei.washington.edu/research/energy-storage/lithium-ion-battery/"
+      ]
+    }
+  },
+  "content": "## Một hướng đi trong cuộc tìm kiếm năng lượng\n\nCuộc khủng hoảng dầu mỏ những năm 1970 tạo thêm động lực tìm kiếm các công nghệ năng lượng khác. Trong bối cảnh ấy, Stanley Whittingham nghiên cứu những vật liệu có thể tiếp nhận ion liti. Titan đisunfua, TiS₂, trở thành một lựa chọn đáng chú ý vì cấu trúc lớp của nó.\n\nBài báo năm 1976 của Whittingham trên tạp chí Science mô tả phản ứng điện hóa giữa liti và TiS₂ làm cơ sở cho một hệ pin mới. Điểm cốt lõi là quá trình có thể diễn ra thuận nghịch trong khi vật liệu vẫn giữ được cấu trúc. Một điện cực không nhất thiết phải bị biến thành một khối chất hoàn toàn khác sau mỗi lần cung cấp điện.\n\nĐây là một bước đi khác với hình dung đơn giản rằng pin chỉ chứa hai hóa chất chờ phản ứng hết. Nếu vật liệu có thể nhận và nhả ion nhiều lần, cùng một cell có cơ hội được nạp lại. Nhưng để biến ý tưởng ấy thành sản phẩm, còn phải giải quyết những giới hạn của toàn bộ hệ, đặc biệt ở điện cực liti kim loại.\n\n![Cấu tạo bên trong cell lithium-ion](/assets/library/photos/stories/lithium-battery-inside.jpg)\n\n*Một cell lithium-ion 18650 trước khi đóng vỏ, cho thấy phần điện cực cuộn bên trong. — RudolfSimon; [CC BY-SA 3.0](https://creativecommons.org/licenses/by-sa/3.0). [Nguồn ảnh](https://commons.wikimedia.org/wiki/File:Lithium-Ion_Cell_cylindric.JPG).*\n\n## Chèn ion vào giữa các lớp có nghĩa là gì?\n\nTrong vật liệu lớp, các nguyên tử tạo nên những phần cấu trúc xếp nối nhau. Một số vật liệu cho phép ion đi vào những vị trí phù hợp mà không phá hủy hoàn toàn bộ khung. Quá trình chèn ion này thường được gọi là xen cài. Đây là một biến đổi điện hóa: chuyển động của ion đi kèm trao đổi electron và thay đổi trạng thái oxi hóa.\n\nMột cách viết khái quát là TiS₂ nhận một lượng liti để tạo LiₓTiS₂. Chữ x biểu diễn mức liti được đưa vào trong phạm vi mà vật liệu cho phép. Nó không có nghĩa có thể tăng lượng liti vô hạn. Số vị trí, tương tác giữa các ion và độ ổn định của mạng đều đặt ra giới hạn.\n\nĐể sạc lại, quá trình phải đi theo chiều ngược với mức tổn hao chấp nhận được. Nếu vật liệu nứt vỡ, thành phần phản ứng với chất điện phân hoặc ion bị giữ lại, phần năng lượng có thể lấy ra ở vòng sau giảm đi. Bởi vậy, một phản ứng thuận nghịch trên phương trình và một viên pin bền qua nhiều chu kỳ là hai mức kiểm chứng khác nhau.\n\nHệ pin đầu tiên của Whittingham sử dụng liti kim loại và gặp vấn đề an toàn do tính phản ứng mạnh của vật liệu này. Hạn chế ấy không làm mất giá trị phát hiện về xen cài. Nó chỉ rõ rằng một điện cực tốt cần được ghép với một đối tác thích hợp, cùng chất điện phân và thiết kế kiểm soát phù hợp.\n\n## Ứng dụng hôm nay: hiểu đường đi của ion để thiết kế pin\n\nÝ tưởng dùng vật liệu làm nơi chứa ion tiếp tục là một công cụ quan trọng trong nghiên cứu pin. Ở nhiều pin ion liti hiện đại, hai điện cực đều tham gia giữ và nhả liti trong quá trình sạc–xả. Các vật liệu cụ thể đã thay đổi và đa dạng hơn nhiều so với TiS₂ trong công trình ban đầu.\n\nỨng dụng thực tế nằm ở khả năng kiểm soát hai đường đi khác nhau. Ion đi qua môi trường dẫn ion bên trong; electron đi qua mạch ngoài để làm việc. Nếu electron đi tắt trong cell, năng lượng có thể giải phóng ở nơi không mong muốn. Nếu ion đi quá khó, viên pin không đáp ứng được dòng điện cần thiết. Vật liệu, màng ngăn và chất điện phân cùng quyết định hành vi ấy.\n\nKhi người dùng mong pin vừa nhẹ, sạc nhanh, bền và rẻ, nhà hóa học phải đặt các yêu cầu đó lên cùng một hệ vật liệu. Việc thay một điện cực có thể tác động đến điện áp, tốc độ, nhiệt sinh ra và những phản ứng phụ. Câu chuyện không kết thúc ở việc tìm được chất có thể chứa nhiều liti nhất.\n\nWhittingham đem lại một cách nghĩ lâu dài: hãy tìm cấu trúc có thể tham gia biến đổi nhiều lần mà vẫn giữ được chức năng. Từ một hợp chất lớp, ý tưởng ấy mở ra cả chương nghiên cứu về tuổi thọ và khả năng phục hồi của vật liệu điện hóa.\n\n## Nguồn và đọc thêm\n\n- [Whittingham, 1976 · Lưu trữ điện và hóa học xen cài](https://pubmed.ncbi.nlm.nih.gov/17748676/)\n- [Whittingham · Bài giảng Nobel về nguồn gốc pin liti](https://www.nobelprize.org/uploads/2019/10/whittingham-lecture.pdf)\n- [Đại học Washington · Cơ chế hoạt động pin ion liti](https://www.cei.washington.edu/research/energy-storage/lithium-ion-battery/)"
+}

@@ -1,0 +1,44 @@
+{
+  "id": "kinh-te-nguyen-tu-ibuprofen",
+  "slug": "kinh-te-nguyen-tu-ibuprofen",
+  "documentPath": "docs/kinh-te-nguyen-tu-ibuprofen/index.json",
+  "title": "Một viên thuốc, hai con đường: vì sao nhà hóa học phải đếm cả chất thải?",
+  "summary": "Quy trình ibuprofen của BHC rút từ sáu bước xuống ba bước. Câu chuyện cho thấy hiệu suất cao và sử dụng nguyên tử hiệu quả là hai điều khác nhau.",
+  "category": "khainiem",
+  "author": "Ban biên tập ChemDex",
+  "image": "/assets/library/photos/stories/chromatography.jpg",
+  "tags": [
+    "Hóa học xanh",
+    "Kinh tế nguyên tử",
+    "Ibuprofen",
+    "Sản xuất"
+  ],
+  "aliases": [],
+  "documentKind": "story",
+  "readingMinutes": 4,
+  "editorialEvidence": {
+    "language": "vi",
+    "scope": "chemical-family",
+    "contextLabel": "Một viên thuốc, hai con đường: vì sao nhà hóa học phải đếm cả chất thải?",
+    "reviewBasis": "Biên soạn theo các nguồn dẫn cuối bài; phân biệt kết quả đã thực hiện và hướng phát triển.",
+    "story": {
+      "status": "documented",
+      "section": "## Đổi tuyến đường thay vì chỉ dọn phần còn lại",
+      "sources": [
+        "https://www.epa.gov/greenchemistry/presidential-green-chemistry-challenge-1997-greener-synthetic-pathways-award",
+        "https://www.epa.gov/sites/production/files/2015-10/documents/c15-kirchhoff-p1.pdf",
+        "https://www.acs.org/green-chemistry-sustainability/principles/12-principles-of-green-chemistry.html"
+      ]
+    },
+    "application": {
+      "status": "documented",
+      "section": "## Ứng dụng hôm nay: thiết kế sản xuất từ cả đầu vào lẫn đầu ra",
+      "sources": [
+        "https://www.epa.gov/greenchemistry/presidential-green-chemistry-challenge-1997-greener-synthetic-pathways-award",
+        "https://www.epa.gov/sites/production/files/2015-10/documents/c15-kirchhoff-p1.pdf",
+        "https://www.acs.org/green-chemistry-sustainability/principles/12-principles-of-green-chemistry.html"
+      ]
+    }
+  },
+  "content": "## Đổi tuyến đường thay vì chỉ dọn phần còn lại\n\nNăm 1997, chương trình Hóa học Xanh của EPA trao giải cho quy trình sản xuất ibuprofen của BHC. Tuyến tổng hợp mới dùng ba bước thay cho sáu bước của phương pháp trước đó, đồng thời thu hồi và tái sử dụng một sản phẩm phụ. Quy trình đã được thương mại hóa từ năm 1992.\n\nĐây là một thay đổi ở ngay cách tạo sản phẩm. Nếu chỉ nhìn công thức cuối cùng, người đọc dễ bỏ qua sự khác biệt giữa hai con đường. Nhưng đối với một nhà máy, mỗi bước còn kéo theo thiết bị, nguyên liệu, dung môi, công đoạn phân tách và những dòng cần xử lý.\n\n![Thiết bị sắc ký lỏng HPLC](/assets/library/photos/stories/chromatography.jpg)\n\n*Một hệ thống sắc ký lỏng hiệu năng cao (HPLC) trong phòng thí nghiệm. — Cyberwork 95; [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0). [Nguồn ảnh](https://commons.wikimedia.org/wiki/File:HPLC_Instrument.jpg).*\n\n## Hiệu suất và kinh tế nguyên tử trả lời hai câu hỏi\n\nHiệu suất phản ứng so sánh lượng sản phẩm thực tế thu được với lượng tối đa tính theo chất giới hạn. Một phản ứng có thể đạt hiệu suất cao mà vẫn tạo ra nhiều sản phẩm phụ theo đúng phương trình. Làm phản ứng hoàn hảo hơn chưa chắc đã thay đổi sự phân bố nguyên tử đó.\n\nKinh tế nguyên tử hỏi có bao nhiêu khối lượng nguyên tử của các chất phản ứng được đưa vào sản phẩm mong muốn. Về nguyên tắc tính, nó dựa trên phương trình hóa học cân bằng. Chỉ số này hướng người thiết kế nhìn ngay từ đầu vào phần vật chất có thể bị chuyển sang sản phẩm phụ.\n\nHai chỉ số không thay thế nhau. Một tuyến có kinh tế nguyên tử tốt trên giấy vẫn có thể tiêu thụ nhiều dung môi khi tinh chế. Ngược lại, thu hồi một sản phẩm phụ có giá trị có thể cải thiện cách sử dụng tài nguyên trong thực tế. Đánh giá đầy đủ cần biết ranh giới tính toán và những dòng vật chất nào đã được đưa vào phép tính.\n\n## Ứng dụng hôm nay: thiết kế sản xuất từ cả đầu vào lẫn đầu ra\n\nTrường hợp ibuprofen thường được dùng để dạy hóa học xanh vì nó nối một quyết định ở cấp phân tử với hiệu quả của quy trình công nghiệp. Rút ngắn tuyến tổng hợp có thể giảm số lần chuyển đổi và phân tách, nhưng lợi ích cụ thể vẫn phải được đo bằng dữ liệu của nhà máy.\n\nNgười đọc cũng cần phân biệt phương pháp sản xuất với cách sử dụng thuốc. Một quy trình ít chất thải hơn không thay đổi chỉ định hay biến sản phẩm thành thuốc phù hợp với mọi người. Bài học ở đây thuộc về thiết kế hóa học và quản lý tài nguyên.\n\nKhi gặp một công nghệ được gọi là xanh, có thể bắt đầu bằng ba câu hỏi: nguyên tử đi đâu, năng lượng đến từ đâu, và phần nào được thu hồi thật sự? Những câu hỏi ấy không làm mất đi giá trị của đổi mới. Chúng giúp nhận ra chính xác đổi mới xảy ra ở đâu, tránh đánh đồng một con số đẹp với toàn bộ vòng đời sản phẩm.\n\n## Nguồn và đọc thêm\n\n- [EPA · Giải thưởng quy trình ibuprofen BHC, 1997](https://www.epa.gov/greenchemistry/presidential-green-chemistry-challenge-1997-greener-synthetic-pathways-award)\n- [ACS/EPA · Ví dụ về tổng hợp ibuprofen và sử dụng nguyên tử](https://www.epa.gov/sites/production/files/2015-10/documents/c15-kirchhoff-p1.pdf)\n- [ACS · Các nguyên tắc hóa học xanh](https://www.acs.org/green-chemistry-sustainability/principles/12-principles-of-green-chemistry.html)"
+}

@@ -2,11 +2,11 @@
   "id": "nha-khoa-hoc-carl-wilhelm-scheele",
   "slug": "nha-khoa-hoc-carl-wilhelm-scheele",
   "documentPath": "docs/nha-khoa-hoc-carl-wilhelm-scheele/index.json",
-  "title": "Carl Wilhelm Scheele — dấu mốc khám phá hóa học",
+  "title": "Carl Wilhelm Scheele — lần theo dấu vết clo, molybdenum",
   "author": "Ban biên tập ChemDex",
   "category": "tieusu",
-  "summary": "Hồ sơ lịch sử liên quan đến Clo (Cl), Molybdenum (Mo); phân biệt phát hiện, cô lập và đặt tên theo từng trường hợp.",
-  "image": "/assets/library/history-evidence.svg",
+  "summary": "Năm 1774, Carl Wilhelm Scheele điều chế được khí Clo bằng cách cho mangan đioxit tác dụng với clohiđric axit. Ban đầu ông cho rằng đây là một hợp chất.",
+  "image": "/assets/library/photos/elements/Cl.jpg",
   "tags": [
     "Lịch sử hóa học",
     "Cl",
@@ -16,6 +16,28 @@
     "Carl Wilhelm Scheele"
   ],
   "documentKind": "biography",
-  "readingMinutes": 1,
-  "content": "# Carl Wilhelm Scheele — dấu mốc khám phá hóa học\n\nHồ sơ lịch sử liên quan đến Clo (Cl), Molybdenum (Mo); phân biệt phát hiện, cô lập và đặt tên theo từng trường hợp.\n\n## Clo (Cl)\n\nNăm 1774, Carl Wilhelm Scheele điều chế được khí Clo bằng cách cho Manganese dioxide tác dụng với Hydrochloric acid. Ban đầu ông cho rằng đây là một hợp chất. Năm 1810, Humphry Davy chứng minh Clo là một nguyên tố và đặt tên là Chlorine.\n\n**Mốc lịch sử:** 1774. **Địa điểm ghi trong hồ sơ:** Thụy Điển.\n\n[Đọc tài liệu về Clo](/trung-tam/tai-lieu-so/clo-cl/).\n\n[Royal Society of Chemistry — thông tin nguyên tố](https://periodic-table.rsc.org/element/17/chlorine)\n\n## Molybdenum (Mo)\n\nNăm 1778, Carl Wilhelm Scheele xác định rằng Molybdenite (MoS₂) không phải là hợp chất của Lead như từng nghĩ mà chứa một nguyên tố mới. Đến năm 1781, Peter Jacob Hjelm điều chế được Molybdenum kim loại tương đối tinh khiết.\n\n**Mốc lịch sử:** 1778. **Địa điểm ghi trong hồ sơ:** Thụy Điển.\n\n[Đọc tài liệu về Molybdenum](/trung-tam/tai-lieu-so/molybdenum-mo/).\n\n[Royal Society of Chemistry — thông tin nguyên tố](https://periodic-table.rsc.org/element/42/molybdenum)\n\n## Cách đọc các mốc lịch sử\n\nPhát hiện một nguyên tố, cô lập đơn chất và đặt tên có thể là những công việc khác nhau, diễn ra ở các thời điểm khác nhau. Một nhóm nghiên cứu hoặc cơ quan không được xem như một cá nhân. Với nguyên tố được biết từ cổ đại, hồ sơ không gán một người khám phá. Các ghi nhận trên dẫn về tài liệu của nguyên tố và nguồn tham khảo tương ứng; không bổ sung lời trích dẫn hay giai thoại đời tư chưa có căn cứ."
+  "readingMinutes": 3,
+  "editorialEvidence": {
+    "language": "vi",
+    "scope": "related-element",
+    "contextLabel": "Clo (Cl), Molybdenum (Mo)",
+    "reviewBasis": "existing-element-dossier",
+    "story": {
+      "status": "documented",
+      "section": "## Cuộc tìm kiếm dẫn đến clo",
+      "sources": [
+        "https://periodic-table.rsc.org/element/17/chlorine",
+        "https://periodic-table.rsc.org/element/42/molybdenum"
+      ]
+    },
+    "application": {
+      "status": "context-only",
+      "section": "## Từ dấu mốc nghiên cứu đến công việc hôm nay",
+      "sources": [
+        "https://periodic-table.rsc.org/element/17/chlorine",
+        "https://periodic-table.rsc.org/element/42/molybdenum"
+      ]
+    }
+  },
+  "content": "## Cuộc tìm kiếm dẫn đến clo\n\nNăm 1774, Carl Wilhelm Scheele điều chế được khí Clo bằng cách cho mangan đioxit tác dụng với clohiđric axit. Ban đầu ông cho rằng đây là một hợp chất. Năm 1810, Humphry Davy chứng minh Clo là một nguyên tố và đặt tên là clo.\n\nNhững người hoặc cơ sở được ghi nhận trong câu chuyện này là **Carl Wilhelm Scheele**.\n\n![Hình minh họa clo](/assets/library/photos/elements/Cl.jpg)\n\n*Hình minh họa chủ đề clo. [Nguồn hình: bộ ảnh nguyên tố](https://en.wikipedia.org/wiki/Chlorine).*\n\n## Thêm một dấu mốc: Molybdenum (Mo)\n\nNăm 1778, Carl Wilhelm Scheele xác định rằng Molybdenite (MoS₂) không phải là hợp chất của chì như từng nghĩ mà chứa một nguyên tố mới. Đến năm 1781, Peter Jacob Hjelm điều chế được molybdenum kim loại tương đối tinh khiết.\n\nNhững người hoặc cơ sở được ghi nhận trong câu chuyện này là **Carl Wilhelm Scheele**.\n\n## Bằng chứng đã thay đổi điều gì?\n\nĐiều làm một phát hiện có sức nặng là khả năng phân biệt chất đang nghiên cứu với những chất đã biết. Mẫu vật có thể chứa nhiều thành phần; tên khoáng vật hoặc màu sắc chưa đủ xác định nguyên tố. Tách mẫu, so sánh phản ứng và diễn giải phép đo nối với nhau thành một lập luận. Bởi vậy, ngày nhận ra một nguyên tố, ngày cô lập được đơn chất và ngày tên gọi được thống nhất có thể khác nhau.\n\n## Từ dấu mốc nghiên cứu đến công việc hôm nay\n\n### Clo (Cl)\n\nClo được sử dụng để tiêu diệt nhiều vi sinh vật trong nước uống và nước hồ bơi.\n\nClo là nguyên liệu quan trọng để sản xuất Vinyl clorua và Polyvinyl clorua (PVC).\n\n[Đọc tiếp về Clo](/trung-tam/tai-lieu-so/clo-cl/).\n\n### Molybdenum (Mo)\n\nMolybdenum được thêm vào thép để tăng độ cứng, độ bền và khả năng chịu nhiệt.\n\nDùng trong các bộ phận phải làm việc ở nhiệt độ cao.\n\n[Đọc tiếp về Molybdenum](/trung-tam/tai-lieu-so/molybdenum-mo/).\n\nNhững ứng dụng này thuộc về hành trình phát triển tiếp theo của nguyên tố. Từ phát hiện đến thiết bị sử dụng được còn có công việc của nhiều thế hệ: tạo vật liệu đủ sạch, hiểu tính chất, thiết kế quy trình và kiểm tra độ bền. Vai trò của người khám phá nằm ở dấu mốc được kể ở trên; các công nghệ xuất hiện sau đó cần được ghi nhận cho đúng công trình.\n\n## Nguồn và đọc tiếp\n\n- [Hội Hóa học Hoàng gia Anh · Clo](https://periodic-table.rsc.org/element/17/chlorine)\n- [Hội Hóa học Hoàng gia Anh · Molybdenum](https://periodic-table.rsc.org/element/42/molybdenum)"
 }

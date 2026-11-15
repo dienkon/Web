@@ -41,7 +41,8 @@ test('every primary subject article is substantive, structured, sourced and incl
       assert.match(article.content,/## So sánh các ví dụ/);
       assert.ok(article.chemicalEvidence.exampleCids.length>=2);
     }else if(meta.lessonKind==='substance-guide'){
-      assert.ok(wordCount>=250&&wordCount<=1800,`${meta.id}: keep a substantive, concise guide (${wordCount} words)`);
+      const maxWords=article.editorialEvidence?.story?.status==='documented'?2200:1800;
+      assert.ok(wordCount>=250&&wordCount<=maxWords,`${meta.id}: keep the lesson and its sourced feature concise (${wordCount} words)`);
       assert.ok(!/Biên niên sử phản ứng|Vũ điệu va chạm|độ tinh khiết 99,99|toàn bộ tọa độ.*chuẩn xác/.test(article.content),meta.id);
       assert.ok(!/phân tử nước[₀-₉]/.test(meta.title),meta.id);
     }else assert.ok(wordCount>=250,meta.id);

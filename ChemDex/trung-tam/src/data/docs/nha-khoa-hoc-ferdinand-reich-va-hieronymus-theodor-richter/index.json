@@ -2,11 +2,11 @@
   "id": "nha-khoa-hoc-ferdinand-reich-va-hieronymus-theodor-richter",
   "slug": "nha-khoa-hoc-ferdinand-reich-va-hieronymus-theodor-richter",
   "documentPath": "docs/nha-khoa-hoc-ferdinand-reich-va-hieronymus-theodor-richter/index.json",
-  "title": "Ferdinand Reich và Hieronymus Theodor Richter — dấu mốc khám phá hóa học",
+  "title": "Ferdinand Reich và Hieronymus Theodor Richter — lần theo dấu vết indium",
   "author": "Ban biên tập ChemDex",
   "category": "tieusu",
-  "summary": "Hồ sơ lịch sử liên quan đến Indium (In); phân biệt phát hiện, cô lập và đặt tên theo từng trường hợp.",
-  "image": "/assets/library/history-evidence.svg",
+  "summary": "Năm 1863, Ferdinand Reich và Hieronymus Theodor Richter phát hiện indium khi phân tích quặng kẽm bằng phương pháp quang phổ. Họ nhận thấy một vạch phổ màu chàm đặc trưng chưa từng được biết đến.",
+  "image": "/assets/library/photos/elements/In.jpg",
   "tags": [
     "Lịch sử hóa học",
     "In"
@@ -15,6 +15,26 @@
     "Ferdinand Reich và Hieronymus Theodor Richter"
   ],
   "documentKind": "biography",
-  "readingMinutes": 1,
-  "content": "# Ferdinand Reich và Hieronymus Theodor Richter — dấu mốc khám phá hóa học\n\nHồ sơ lịch sử liên quan đến Indium (In); phân biệt phát hiện, cô lập và đặt tên theo từng trường hợp.\n\n## Indium (In)\n\nNăm 1863, Ferdinand Reich và Hieronymus Theodor Richter phát hiện Indium khi phân tích quặng Zinc bằng phương pháp quang phổ. Họ nhận thấy một vạch phổ màu chàm đặc trưng chưa từng được biết đến. Từ đó, nguyên tố mới được đặt tên là Indium.\n\n**Mốc lịch sử:** 1863. **Địa điểm ghi trong hồ sơ:** Đức.\n\n[Đọc tài liệu về Indium](/trung-tam/tai-lieu-so/indium-in/).\n\n[Royal Society of Chemistry — thông tin nguyên tố](https://periodic-table.rsc.org/element/49/indium)\n\n## Cách đọc các mốc lịch sử\n\nPhát hiện một nguyên tố, cô lập đơn chất và đặt tên có thể là những công việc khác nhau, diễn ra ở các thời điểm khác nhau. Một nhóm nghiên cứu hoặc cơ quan không được xem như một cá nhân. Với nguyên tố được biết từ cổ đại, hồ sơ không gán một người khám phá. Các ghi nhận trên dẫn về tài liệu của nguyên tố và nguồn tham khảo tương ứng; không bổ sung lời trích dẫn hay giai thoại đời tư chưa có căn cứ."
+  "readingMinutes": 2,
+  "editorialEvidence": {
+    "language": "vi",
+    "scope": "related-element",
+    "contextLabel": "Indium (In)",
+    "reviewBasis": "existing-element-dossier",
+    "story": {
+      "status": "documented",
+      "section": "## Cuộc tìm kiếm dẫn đến indium",
+      "sources": [
+        "https://periodic-table.rsc.org/element/49/indium"
+      ]
+    },
+    "application": {
+      "status": "context-only",
+      "section": "## Từ dấu mốc nghiên cứu đến công việc hôm nay",
+      "sources": [
+        "https://periodic-table.rsc.org/element/49/indium"
+      ]
+    }
+  },
+  "content": "## Cuộc tìm kiếm dẫn đến indium\n\nNăm 1863, Ferdinand Reich và Hieronymus Theodor Richter phát hiện indium khi phân tích quặng kẽm bằng phương pháp quang phổ. Họ nhận thấy một vạch phổ màu chàm đặc trưng chưa từng được biết đến. Từ đó, nguyên tố mới được đặt tên là indium.\n\nNhững người hoặc cơ sở được ghi nhận trong câu chuyện này là **Ferdinand Reich và Hieronymus Theodor Richter**.\n\n![Hình minh họa indium](/assets/library/photos/elements/In.jpg)\n\n*Hình minh họa chủ đề indium. [Nguồn hình: bộ ảnh nguyên tố](https://en.wikipedia.org/wiki/Indium).*\n\n## Bằng chứng đã thay đổi điều gì?\n\nÁnh sáng giúp cuộc tìm kiếm đi xa hơn màu sắc nhìn bằng mắt. Khi tách ánh sáng thành quang phổ, người nghiên cứu có thể so sánh vị trí những vạch sáng và tìm dấu hiệu chưa giải thích được bằng các chất đã biết. Từ một dấu hiệu ấy đến kết luận về nguyên tố mới vẫn cần kiểm tra nguồn phát sáng và những chất có thể lẫn trong mẫu. Một vạch phổ là bằng chứng phải giải thích, chứ tên gọi chưa tự sinh ra từ màu của ngọn lửa.\n\n## Từ dấu mốc nghiên cứu đến công việc hôm nay\n\n### Indium (In)\n\nIndium tin oxit (ITO) được sử dụng rộng rãi làm lớp phủ dẫn điện trong màn hình cảm ứng và màn hình phẳng.\n\nITO cũng được sử dụng trong các điện cực trong suốt của màn hình LCD.\n\n[Đọc tiếp về Indium](/trung-tam/tai-lieu-so/indium-in/).\n\nNhững ứng dụng này thuộc về hành trình phát triển tiếp theo của nguyên tố. Từ phát hiện đến thiết bị sử dụng được còn có công việc của nhiều thế hệ: tạo vật liệu đủ sạch, hiểu tính chất, thiết kế quy trình và kiểm tra độ bền. Vai trò của người khám phá nằm ở dấu mốc được kể ở trên; các công nghệ xuất hiện sau đó cần được ghi nhận cho đúng công trình.\n\n## Nguồn và đọc tiếp\n\n- [Hội Hóa học Hoàng gia Anh · Indium](https://periodic-table.rsc.org/element/49/indium)"
 }

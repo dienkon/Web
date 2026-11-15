@@ -1,0 +1,46 @@
+{
+  "id": "john-goodenough-bon-volt-trong-mang-tinh-the",
+  "slug": "john-goodenough-bon-volt-trong-mang-tinh-the",
+  "documentPath": "docs/john-goodenough-bon-volt-trong-mang-tinh-the/index.json",
+  "title": "John Goodenough: bốn vôn bắt đầu từ một câu hỏi về tinh thể",
+  "summary": "Năm 1980, một vật liệu điện cực chứa liti và coban mở thêm không gian cho pin sạc. Đột phá nằm trong cách nguyên tử giữ và nhả ion.",
+  "category": "tieusu",
+  "author": "Ban biên tập ChemDex",
+  "image": "/assets/library/photos/stories/lithium-battery.jpg",
+  "tags": [
+    "John Goodenough",
+    "Pin ion liti",
+    "Điện cực",
+    "Tinh thể"
+  ],
+  "aliases": [
+    "John B. Goodenough"
+  ],
+  "documentKind": "story",
+  "readingMinutes": 5,
+  "editorialEvidence": {
+    "language": "vi",
+    "scope": "chemical-family",
+    "contextLabel": "John Goodenough: bốn vôn bắt đầu từ một câu hỏi về tinh thể",
+    "reviewBasis": "Biên soạn theo các nguồn dẫn cuối bài; phân biệt kết quả đã thực hiện và hướng phát triển.",
+    "story": {
+      "status": "documented",
+      "section": "## Điện áp nằm ở đâu trong một vật liệu?",
+      "sources": [
+        "https://www.nobelprize.org/prizes/chemistry/2019/goodenough/biographical/",
+        "https://www.nobelprize.org/uploads/2019/10/advanced-chemistryprize2019-2.pdf",
+        "https://www.energy.gov/science/doe-explainsbatteries"
+      ]
+    },
+    "application": {
+      "status": "documented",
+      "section": "## Ứng dụng hôm nay: viên pin là kết quả của cả một chuỗi lựa chọn",
+      "sources": [
+        "https://www.nobelprize.org/prizes/chemistry/2019/goodenough/biographical/",
+        "https://www.nobelprize.org/uploads/2019/10/advanced-chemistryprize2019-2.pdf",
+        "https://www.energy.gov/science/doe-explainsbatteries"
+      ]
+    }
+  },
+  "content": "## Điện áp nằm ở đâu trong một vật liệu?\n\nKhi John Goodenough nghiên cứu vật liệu điện cực tại Oxford, vấn đề không chỉ là làm một viên pin to hơn. Câu hỏi là liệu một cấu trúc hóa học khác có thể tạo ra điện áp cao hơn mà vẫn cho phép liti đi vào rồi đi ra. Thay đổi vật liệu có nghĩa là thay đổi mức năng lượng của phản ứng bên trong pin.\n\nNăm 1980, nhóm nghiên cứu công bố kết quả về vật liệu oxit chứa liti và coban. Các thử nghiệm cho điện áp xấp xỉ bốn vôn so với điện cực liti. Trong bản tự thuật Nobel, Goodenough ghi nhận công việc của Koichi Mizushima và Phillip Wiseman trong cuộc tìm kiếm này. Đó là thành quả của một nhóm cùng giải quyết bài toán vật liệu.\n\nCon số bốn vôn trở thành dấu mốc vì nó mở đường đến loại pin có thể mang nhiều năng lượng trong một khối lượng nhỏ. Nhưng điện áp chỉ là một phần của câu chuyện. Một điện cực hữu ích còn phải nhận và trả lại ion nhiều lần, giữ được cấu trúc và làm việc với những thành phần khác của cell pin.\n\n![Pin lithium-ion dạng trụ](/assets/library/photos/stories/lithium-battery.jpg)\n\n*Hai cell pin lithium-ion dạng trụ 18650 và 21700 do EVE Energy sản xuất. — Sevenethics; [CC0](https://creativecommons.org/publicdomain/zero/1.0/deed.en). [Nguồn ảnh](https://commons.wikimedia.org/wiki/File:18650_and_21700_lithium_ion_battery_cell.jpg).*\n\n## Khung tinh thể phải còn đó sau mỗi lần sạc\n\nCó thể hình dung điện cực như một cấu trúc có những vị trí dành cho ion liti. Khi pin hoạt động, một phần ion rời khỏi hoặc trở lại các vị trí ấy. Đồng thời, trạng thái oxi hóa của các thành phần điện cực thay đổi để cân bằng điện tích. Quá trình này nối chuyển động của ion bên trong cell với dòng electron chạy qua thiết bị bên ngoài.\n\nHình dung ấy có ích nếu không quên rằng tinh thể là một hệ tương tác hóa học. Các vị trí không phải những ngăn rỗng hoàn toàn độc lập. Khi số ion thay đổi, khoảng cách nguyên tử và mức năng lượng cũng có thể thay đổi. Rút quá nhiều liti hoặc vận hành ngoài điều kiện phù hợp có thể làm vật liệu mất ổn định.\n\nĐiện áp đo bằng vôn khác với dung lượng điện đo bằng ampe giờ. Hai pin có cùng điện áp vẫn có thể cung cấp lượng điện khác nhau. Năng lượng có quan hệ với cả điện áp lẫn lượng điện chuyển qua; đánh giá một vật liệu còn cần xem khối lượng, thể tích và tốc độ làm việc.\n\nGoodenough vì thế không chỉ góp thêm một công thức vào danh mục hợp chất. Công trình của ông cho thấy thiết kế cấu trúc điện tử và mạng tinh thể có thể thay đổi khả năng của một thiết bị rất quen thuộc. Tính chất ở cấp nguyên tử trở thành lựa chọn kỹ thuật ở cấp sản phẩm.\n\n## Ứng dụng hôm nay: viên pin là kết quả của cả một chuỗi lựa chọn\n\nPin ion liti đã trở thành một nền tảng cho thiết bị điện tử di động, xe điện và hệ thống lưu trữ điện. Tuy nhiên, tên gọi ấy bao gồm nhiều họ vật liệu điện cực. Không phải mọi pin ion liti hiện nay đều dùng cùng hợp chất coban của dấu mốc năm 1980.\n\nĐiều tiếp tục được sử dụng rộng rãi là cách thiết kế một hệ có thể chuyển ion qua lại và quản lý năng lượng điện hóa. Nhà phát triển cân nhắc điện áp, dung lượng, tuổi thọ, độ bền nhiệt và nguồn nguyên liệu. Tăng một thông số có thể làm thông số khác khó đạt hơn; không có một con số duy nhất thay cho toàn bộ chất lượng viên pin.\n\nBộ Năng lượng Hoa Kỳ giải thích rằng các quá trình sạc và xả không đảo ngược hoàn hảo mãi mãi. Những thay đổi hóa học và cấu trúc tích lũy có thể làm pin suy giảm. Vì vậy, công việc nghiên cứu vẫn tiếp diễn ngay cả khi pin sạc đã xuất hiện ở khắp nơi.\n\nCâu chuyện Goodenough giúp ta đọc một thông báo về pin mới bằng những câu hỏi cụ thể hơn. Vật liệu tăng điện áp hay tăng lượng ion có thể trao đổi? Nó đã làm việc qua bao nhiêu chu kỳ? Kết quả được đo trên vật liệu riêng hay trên một cell hoàn chỉnh? Những câu hỏi ấy nối bài học oxi hóa–khử với chiếc điện thoại đang được cắm sạc trên bàn.\n\n## Nguồn và đọc thêm\n\n- [John Goodenough · Tự thuật Nobel](https://www.nobelprize.org/prizes/chemistry/2019/goodenough/biographical/)\n- [Nobel 2019 · Cơ sở khoa học của pin ion liti](https://www.nobelprize.org/uploads/2019/10/advanced-chemistryprize2019-2.pdf)\n- [Bộ Năng lượng Hoa Kỳ · Hóa học của pin](https://www.energy.gov/science/doe-explainsbatteries)"
+}

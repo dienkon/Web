@@ -2,11 +2,11 @@
   "id": "nha-khoa-hoc-joseph-black",
   "slug": "nha-khoa-hoc-joseph-black",
   "documentPath": "docs/nha-khoa-hoc-joseph-black/index.json",
-  "title": "Joseph Black — dấu mốc khám phá hóa học",
+  "title": "Joseph Black — lần theo dấu vết magie",
   "author": "Ban biên tập ChemDex",
   "category": "tieusu",
-  "summary": "Hồ sơ lịch sử liên quan đến Magie (Mg); phân biệt phát hiện, cô lập và đặt tên theo từng trường hợp.",
-  "image": "/assets/library/history-evidence.svg",
+  "summary": "Năm 1755, Joseph Black phân biệt magie compounds với canxi compounds và xác định magie là một thành phần riêng biệt. Đến năm 1808, Humphry Davy cô lập được magie ở dạng kim loại bằng phương pháp điện hóa.",
+  "image": "/assets/library/photos/elements/Mg.jpg",
   "tags": [
     "Lịch sử hóa học",
     "Mg"
@@ -15,6 +15,26 @@
     "Joseph Black"
   ],
   "documentKind": "biography",
-  "readingMinutes": 1,
-  "content": "# Joseph Black — dấu mốc khám phá hóa học\n\nHồ sơ lịch sử liên quan đến Magie (Mg); phân biệt phát hiện, cô lập và đặt tên theo từng trường hợp.\n\n## Magie (Mg)\n\nNăm 1755, Joseph Black phân biệt Magnesium compounds với Calcium compounds và xác định Magnesium là một thành phần riêng biệt. Đến năm 1808, Humphry Davy cô lập được Magnesium ở dạng kim loại bằng phương pháp điện hóa.\n\n**Mốc lịch sử:** 1755. **Địa điểm ghi trong hồ sơ:** Scotland.\n\n[Đọc tài liệu về Magie](/trung-tam/tai-lieu-so/magie-mg/).\n\n[Royal Society of Chemistry — thông tin nguyên tố](https://periodic-table.rsc.org/element/12/magnesium)\n\n## Cách đọc các mốc lịch sử\n\nPhát hiện một nguyên tố, cô lập đơn chất và đặt tên có thể là những công việc khác nhau, diễn ra ở các thời điểm khác nhau. Một nhóm nghiên cứu hoặc cơ quan không được xem như một cá nhân. Với nguyên tố được biết từ cổ đại, hồ sơ không gán một người khám phá. Các ghi nhận trên dẫn về tài liệu của nguyên tố và nguồn tham khảo tương ứng; không bổ sung lời trích dẫn hay giai thoại đời tư chưa có căn cứ."
+  "readingMinutes": 2,
+  "editorialEvidence": {
+    "language": "vi",
+    "scope": "related-element",
+    "contextLabel": "Magie (Mg)",
+    "reviewBasis": "existing-element-dossier",
+    "story": {
+      "status": "documented",
+      "section": "## Cuộc tìm kiếm dẫn đến magie",
+      "sources": [
+        "https://periodic-table.rsc.org/element/12/magnesium"
+      ]
+    },
+    "application": {
+      "status": "context-only",
+      "section": "## Từ dấu mốc nghiên cứu đến công việc hôm nay",
+      "sources": [
+        "https://periodic-table.rsc.org/element/12/magnesium"
+      ]
+    }
+  },
+  "content": "## Cuộc tìm kiếm dẫn đến magie\n\nNăm 1755, Joseph Black phân biệt magie compounds với canxi compounds và xác định magie là một thành phần riêng biệt. Đến năm 1808, Humphry Davy cô lập được magie ở dạng kim loại bằng phương pháp điện hóa.\n\nNhững người hoặc cơ sở được ghi nhận trong câu chuyện này là **Joseph Black**.\n\n![Hình minh họa magie](/assets/library/photos/elements/Mg.jpg)\n\n*Hình minh họa chủ đề magie. [Nguồn hình: bộ ảnh nguyên tố](https://en.wikipedia.org/wiki/Magnesium).*\n\n## Bằng chứng đã thay đổi điều gì?\n\nĐiều làm một phát hiện có sức nặng là khả năng phân biệt chất đang nghiên cứu với những chất đã biết. Mẫu vật có thể chứa nhiều thành phần; tên khoáng vật hoặc màu sắc chưa đủ xác định nguyên tố. Tách mẫu, so sánh phản ứng và diễn giải phép đo nối với nhau thành một lập luận. Bởi vậy, ngày nhận ra một nguyên tố, ngày cô lập được đơn chất và ngày tên gọi được thống nhất có thể khác nhau.\n\n## Từ dấu mốc nghiên cứu đến công việc hôm nay\n\n### Magie (Mg)\n\nMagie được sử dụng để sản xuất các hợp kim nhẹ cho phương tiện và thiết bị kỹ thuật.\n\nHợp kim magie được sử dụng trong một số bộ phận cần giảm khối lượng.\n\n[Đọc tiếp về Magie](/trung-tam/tai-lieu-so/magie-mg/).\n\nNhững ứng dụng này thuộc về hành trình phát triển tiếp theo của nguyên tố. Từ phát hiện đến thiết bị sử dụng được còn có công việc của nhiều thế hệ: tạo vật liệu đủ sạch, hiểu tính chất, thiết kế quy trình và kiểm tra độ bền. Vai trò của người khám phá nằm ở dấu mốc được kể ở trên; các công nghệ xuất hiện sau đó cần được ghi nhận cho đúng công trình.\n\n## Nguồn và đọc tiếp\n\n- [Hội Hóa học Hoàng gia Anh · Magie](https://periodic-table.rsc.org/element/12/magnesium)"
 }

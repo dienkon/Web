@@ -1,0 +1,46 @@
+{
+  "id": "dorothy-hodgkin-doc-ban-do-phan-tu",
+  "slug": "dorothy-hodgkin-doc-ban-do-phan-tu",
+  "documentPath": "docs/dorothy-hodgkin-doc-ban-do-phan-tu/index.json",
+  "title": "Dorothy Hodgkin: đọc bản đồ phân tử từ những đốm sáng",
+  "summary": "Từ penicillin đến vitamin B₁₂ và insulin, Dorothy Hodgkin giúp hóa học đi từ biết một chất có tác dụng đến biết các nguyên tử của nó nằm ở đâu.",
+  "category": "tieusu",
+  "author": "Ban biên tập ChemDex",
+  "image": "/assets/library/history-evidence.svg",
+  "tags": [
+    "Dorothy Hodgkin",
+    "Tinh thể học",
+    "Vitamin B12",
+    "Cấu trúc phân tử"
+  ],
+  "aliases": [
+    "Dorothy Crowfoot Hodgkin"
+  ],
+  "documentKind": "story",
+  "readingMinutes": 5,
+  "editorialEvidence": {
+    "language": "vi",
+    "scope": "chemical-family",
+    "contextLabel": "Dorothy Hodgkin: đọc bản đồ phân tử từ những đốm sáng",
+    "reviewBasis": "Biên soạn theo các nguồn dẫn cuối bài; phân biệt kết quả đã thực hiện và hướng phát triển.",
+    "story": {
+      "status": "documented",
+      "section": "## Một chất có ích vẫn có thể giấu cấu trúc của mình",
+      "sources": [
+        "https://www.iucr.org/what-we-do/awards-and-prizes/nobel-prize/hodgkin",
+        "https://www.medsci.ox.ac.uk/about-us/history-of-medical-sciences/our-history/women-in-oxford-medical-sciences/professor-dorothy-hodgkin",
+        "https://www.iucr.org/people/crystallographers/the-papers-of-dorothy-mary-crowfoot-hodgkin"
+      ]
+    },
+    "application": {
+      "status": "documented",
+      "section": "## Ứng dụng hôm nay: biết hình dạng để đặt câu hỏi tốt hơn",
+      "sources": [
+        "https://www.iucr.org/what-we-do/awards-and-prizes/nobel-prize/hodgkin",
+        "https://www.medsci.ox.ac.uk/about-us/history-of-medical-sciences/our-history/women-in-oxford-medical-sciences/professor-dorothy-hodgkin",
+        "https://www.iucr.org/people/crystallographers/the-papers-of-dorothy-mary-crowfoot-hodgkin"
+      ]
+    }
+  },
+  "content": "## Một chất có ích vẫn có thể giấu cấu trúc của mình\n\nPenicillin đã trở thành một câu chuyện lớn của y học khi Dorothy Crowfoot Hodgkin tìm cách xác định cấu trúc của nó. Biết một chất có tác dụng sinh học chưa đủ để chỉ ra các nguyên tử nối với nhau ra sao. Một công thức phân tử có thể cho biết số nguyên tử từng loại, nhưng vẫn để ngỏ nhiều cách sắp xếp. Bài toán của Hodgkin là tìm bằng chứng không gian cho một phân tử rất khó nhìn trực tiếp.\n\nBà sử dụng nhiễu xạ tia X. Một tinh thể được đặt trong chùm tia; trên ảnh xuất hiện các đốm do sóng tán xạ giao thoa. Những đốm sáng ấy cần được đo và tính toán để suy ra cấu trúc. Chúng không phải bức ảnh phóng to có sẵn hình từng nguyên tử.\n\nLiên đoàn Tinh thể học Quốc tế ghi nhận các nghiên cứu của Hodgkin về penicillin, vitamin B₁₂ và insulin. Giải Nobel Hóa học năm 1964 tôn vinh việc xác định cấu trúc những chất sinh hóa quan trọng bằng tia X. Câu chuyện hấp dẫn ở một thay đổi rất cụ thể: điều từng phải đoán từ phản ứng hóa học có thể được đối chiếu với một bản đồ không gian.\n\n![Minh họa tư liệu và bằng chứng khoa học](/assets/library/history-evidence.svg)\n\n## Đi từ tín hiệu đến mô hình cần nhiều hơn một bức ảnh\n\nTrong tinh thể, rất nhiều đơn vị cấu trúc sắp xếp có trật tự. Sự lặp lại làm tín hiệu đủ rõ để đo. Tuy nhiên, ảnh nhiễu xạ cung cấp thông tin theo cách gián tiếp: vị trí và cường độ các đốm liên quan đến sự phân bố mật độ electron. Nhà nghiên cứu phải tìm mô hình giải thích được tập dữ liệu ấy, kiểm tra sai số và sửa mô hình khi bằng chứng đòi hỏi.\n\nVitamin B₁₂ cho thấy độ lớn của thử thách. Theo hồ sơ IUCr, việc phân tích kéo dài nhiều năm và sử dụng những máy tính điện tử thời kỳ đầu. Cấu trúc phức tạp khiến việc chỉ nhìn công thức rồi vẽ một hình hợp lý trở nên không đủ. Một mô hình đẹp phải đứng vững trước số liệu thực nghiệm.\n\nVới insulin, Hodgkin chụp ảnh tia X tinh thể từ năm 1935; đến năm 1969, nhóm của bà công bố cấu trúc ba chiều của một dạng tinh thể insulin. Khoảng cách giữa hai mốc cho thấy một phép đo ban đầu có thể mở ra hành trình dài. Mẫu, phương pháp tính và khả năng phân tích đều phải trưởng thành cùng nhau.\n\nKhi xoay một mô hình phân tử trên màn hình hôm nay, ta có thể quên mất phần công việc ấy. Các quả cầu và thanh nối là cách trình bày kết quả. Giá trị khoa học nằm ở dữ liệu làm cơ sở cho vị trí nguyên tử, không nằm ở độ mượt của chuyển động xoay.\n\n## Ứng dụng hôm nay: biết hình dạng để đặt câu hỏi tốt hơn\n\nCấu trúc phân tử giúp người nghiên cứu hỏi vì sao một nhóm hóa học phản ứng theo cách nhất định, phần nào của phân tử có thể tiếp xúc với đối tác và thay đổi vị trí nguyên tử sẽ gây hệ quả gì. Trong nghiên cứu thuốc, đó là một nền tảng để xây dựng giả thuyết và lựa chọn thí nghiệm tiếp theo.\n\nMột mô hình cấu trúc vẫn có giới hạn. Phân tử trong tinh thể được quan sát ở điều kiện cụ thể; phân tử trong dung dịch có thể chuyển động, đổi cấu dạng và tương tác với môi trường. Vì thế, dữ liệu cấu trúc cần đi cùng phép đo chức năng. Nhìn thấy hình dạng không tự chứng minh hiệu quả điều trị hay tính an toàn của một chất.\n\nDi sản của Hodgkin hiện diện rõ trong cách khoa học kết nối các loại bằng chứng. Công thức trả lời có những nguyên tử nào; cấu trúc trả lời chúng được bố trí ra sao; thí nghiệm sinh hóa trả lời hệ hoạt động như thế nào. Khi ba câu hỏi được đặt cạnh nhau, một chất quen thuộc trở thành một đối tượng có thể hiểu sâu và kiểm tra được.\n\nĐó cũng là lý do câu chuyện về bà phù hợp với người học hóa học hôm nay. Trước một mô hình rất thuyết phục, hãy hỏi nó được xác định bằng phương pháp nào. Câu hỏi ấy dẫn ta từ hình minh họa đến công trình khoa học thực sự đứng phía sau.\n\n## Nguồn và đọc thêm\n\n- [IUCr · Công trình của Dorothy Hodgkin](https://www.iucr.org/what-we-do/awards-and-prizes/nobel-prize/hodgkin)\n- [Đại học Oxford · Dorothy Hodgkin trong lịch sử khoa học y sinh](https://www.medsci.ox.ac.uk/about-us/history-of-medical-sciences/our-history/women-in-oxford-medical-sciences/professor-dorothy-hodgkin)\n- [IUCr · Tư liệu nghiên cứu của Dorothy Hodgkin](https://www.iucr.org/people/crystallographers/the-papers-of-dorothy-mary-crowfoot-hodgkin)"
+}

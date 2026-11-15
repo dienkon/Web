@@ -2,11 +2,11 @@
   "id": "nha-khoa-hoc-andre-louis-debierne-1899-friedrich-oskar-giesel-phat-hien-doc-lap-nam-1902",
   "slug": "nha-khoa-hoc-andre-louis-debierne-1899-friedrich-oskar-giesel-phat-hien-doc-lap-nam-1902",
   "documentPath": "docs/nha-khoa-hoc-andre-louis-debierne-1899-friedrich-oskar-giesel-phat-hien-doc-lap-nam-1902/index.json",
-  "title": "André-Louis Debierne (1899); Friedrich Oskar Giesel phát hiện độc lập năm 1902. — dấu mốc khám phá hóa học",
+  "title": "André-Louis Debierne (1899); Friedrich Oskar Giesel phát hiện độc lập năm 1902. — lần theo dấu vết actinium",
   "author": "Ban biên tập ChemDex",
   "category": "tieusu",
-  "summary": "Hồ sơ lịch sử liên quan đến Actinium (Ac); phân biệt phát hiện, cô lập và đặt tên theo từng trường hợp.",
-  "image": "/assets/library/history-evidence.svg",
+  "summary": "Debierne công bố actinium năm 1899 tại Paris; Giesel phát hiện độc lập năm 1902. Thành phần mẫu ban đầu và quyền ưu tiên từng được tranh luận.",
+  "image": "/assets/library/photos/elements/Ac.png",
   "tags": [
     "Lịch sử hóa học",
     "Ac"
@@ -15,6 +15,26 @@
     "André-Louis Debierne (1899); Friedrich Oskar Giesel phát hiện độc lập năm 1902."
   ],
   "documentKind": "biography",
-  "readingMinutes": 1,
-  "content": "# André-Louis Debierne (1899); Friedrich Oskar Giesel phát hiện độc lập năm 1902. — dấu mốc khám phá hóa học\n\nHồ sơ lịch sử liên quan đến Actinium (Ac); phân biệt phát hiện, cô lập và đặt tên theo từng trường hợp.\n\n## Actinium (Ac)\n\nDebierne công bố actinium năm 1899 tại Paris; Giesel phát hiện độc lập năm 1902. Thành phần mẫu ban đầu và quyền ưu tiên từng được tranh luận. Tuy nhiên, trước đó vào năm 1899, nhà hóa học người Pháp André-Louis Debierne đã phát hiện một nguyên tố phóng xạ mới trong các sản phẩm của Pitchblende và đặt tên là Actinium. Phát hiện của Debierne được công nhận là phát hiện chính thức của nguyên tố. Tên Actinium bắt nguồn từ tiếng Hy Lạp aktis/aktinos, nghĩa là “tia sáng”, do tính phóng xạ mạnh của nguyên tố.\n\n**Mốc lịch sử:** 1899 (Debierne), 1902 (Giesel độc lập). **Địa điểm ghi trong hồ sơ:** Braunschweig, Đức.\n\n[Đọc tài liệu về Actinium](/trung-tam/tai-lieu-so/actinium-ac/).\n\n[Royal Society of Chemistry — thông tin nguyên tố](https://periodic-table.rsc.org/element/89/actinium)\n\n## Cách đọc các mốc lịch sử\n\nPhát hiện một nguyên tố, cô lập đơn chất và đặt tên có thể là những công việc khác nhau, diễn ra ở các thời điểm khác nhau. Một nhóm nghiên cứu hoặc cơ quan không được xem như một cá nhân. Với nguyên tố được biết từ cổ đại, hồ sơ không gán một người khám phá. Các ghi nhận trên dẫn về tài liệu của nguyên tố và nguồn tham khảo tương ứng; không bổ sung lời trích dẫn hay giai thoại đời tư chưa có căn cứ."
+  "readingMinutes": 3,
+  "editorialEvidence": {
+    "language": "vi",
+    "scope": "related-element",
+    "contextLabel": "Actinium (Ac)",
+    "reviewBasis": "existing-element-dossier",
+    "story": {
+      "status": "documented",
+      "section": "## Cuộc tìm kiếm dẫn đến actinium",
+      "sources": [
+        "https://periodic-table.rsc.org/element/89/actinium"
+      ]
+    },
+    "application": {
+      "status": "context-only",
+      "section": "## Từ dấu mốc nghiên cứu đến công việc hôm nay",
+      "sources": [
+        "https://periodic-table.rsc.org/element/89/actinium"
+      ]
+    }
+  },
+  "content": "## Cuộc tìm kiếm dẫn đến actinium\n\nDebierne công bố actinium năm 1899 tại Paris; Giesel phát hiện độc lập năm 1902. Thành phần mẫu ban đầu và quyền ưu tiên từng được tranh luận. Tuy nhiên, trước đó vào năm 1899, nhà hóa học người Pháp André-Louis Debierne đã phát hiện một nguyên tố phóng xạ mới trong các sản phẩm của Pitchblende và đặt tên là actinium. Phát hiện của Debierne được công nhận là phát hiện chính thức của nguyên tố. Tên actinium bắt nguồn từ tiếng Hy Lạp aktis/aktinos, nghĩa là “tia sáng”, do tính phóng xạ mạnh của nguyên tố.\n\nNhững người hoặc cơ sở được ghi nhận trong câu chuyện này là **André-Louis Debierne (1899); Friedrich Oskar Giesel phát hiện độc lập năm 1902.**.\n\n![Hình minh họa actinium](/assets/library/photos/elements/Ac.png)\n\n*Hình minh họa chủ đề actinium. [Nguồn hình: bộ ảnh nguyên tố](https://en.wikipedia.org/wiki/Actinium).*\n\n## Bằng chứng đã thay đổi điều gì?\n\nĐiều làm một phát hiện có sức nặng là khả năng phân biệt chất đang nghiên cứu với những chất đã biết. Mẫu vật có thể chứa nhiều thành phần; tên khoáng vật hoặc màu sắc chưa đủ xác định nguyên tố. Tách mẫu, so sánh phản ứng và diễn giải phép đo nối với nhau thành một lập luận. Bởi vậy, ngày nhận ra một nguyên tố, ngày cô lập được đơn chất và ngày tên gọi được thống nhất có thể khác nhau.\n\n## Từ dấu mốc nghiên cứu đến công việc hôm nay\n\n### Actinium (Ac)\n\n²²⁵Ac là ứng viên quan trọng cho liệu pháp alpha nhắm trúng đích (Targeted Alpha Therapy – TAT).\n\nMột số nguồn neutron trong nghiên cứu sử dụng actinium hoặc các sản phẩm phân rã của nó, nhưng đây là ứng dụng chuyên dụng.\n\n[Đọc tiếp về Actinium](/trung-tam/tai-lieu-so/actinium-ac/).\n\nNhững ứng dụng này thuộc về hành trình phát triển tiếp theo của nguyên tố. Từ phát hiện đến thiết bị sử dụng được còn có công việc của nhiều thế hệ: tạo vật liệu đủ sạch, hiểu tính chất, thiết kế quy trình và kiểm tra độ bền. Vai trò của người khám phá nằm ở dấu mốc được kể ở trên; các công nghệ xuất hiện sau đó cần được ghi nhận cho đúng công trình.\n\n## Nguồn và đọc tiếp\n\n- [Hội Hóa học Hoàng gia Anh · Actinium](https://periodic-table.rsc.org/element/89/actinium)"
 }

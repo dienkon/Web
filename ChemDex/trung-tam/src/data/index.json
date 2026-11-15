@@ -1,7 +1,7 @@
 [
   {
     "id": "001_H",
-    "title": "Hydrogen (H) — Từ khí cháy đến câu hỏi water được tạo nên từ gì?",
+    "title": "Hydrogen (H) — Từ khí cháy đến câu hỏi nước được tạo nên từ gì?",
     "author": "Ban biên tập ChemDex",
     "category": "nguyento",
     "summary": "Năm 1766, Henry Cavendish công bố nghiên cứu về một chất khí thoát ra khi cho kim loại phản ứng với acid. Khí ấy nhẹ và cháy được. Người làm thí nghiệm khi đó chưa có bảng tuần hoàn hay cách viết H₂ như ngày nay; phân biệt một loại khí với không khí đã là một vấn đề cần chứng minh bằng thực nghiệm.",
@@ -19,7 +19,26 @@
     "aliases": [
       "Hiđro",
       "Hydrogen"
-    ]
+    ],
+    "editorialEvidence": {
+      "language": "vi",
+      "scope": "element",
+      "reviewBasis": "existing-story-and-sourced-application",
+      "story": {
+        "status": "documented",
+        "section": "Một chất khí làm thay đổi cách hiểu về nước",
+        "sources": [
+          "https://periodic-table.rsc.org/element/1/hydrogen"
+        ]
+      },
+      "application": {
+        "status": "documented",
+        "section": "Ứng dụng trong đời sống hôm nay",
+        "sources": [
+          "https://www.energy.gov/cmei/fuels/fuel-cells"
+        ]
+      }
+    }
   },
   {
     "id": "002_He",
@@ -40,7 +59,27 @@
     "aliases": [
       "Heli",
       "Helium"
-    ]
+    ],
+    "editorialEvidence": {
+      "language": "vi",
+      "scope": "element",
+      "reviewBasis": "existing-story-and-sourced-application",
+      "story": {
+        "status": "documented",
+        "section": "Một vạch sáng chưa có tên",
+        "sources": [
+          "https://periodic-table.rsc.org/element/2/helium",
+          "https://www.acs.org/education/whatischemistry/landmarks/heliumnaturalgas.html"
+        ]
+      },
+      "application": {
+        "status": "documented",
+        "section": "Ứng dụng trong đời sống hôm nay",
+        "sources": [
+          "https://periodic-table.rsc.org/element/2/helium"
+        ]
+      }
+    }
   },
   {
     "id": "003_Li",
@@ -61,14 +100,34 @@
     "aliases": [
       "Liti",
       "Lithium"
-    ]
+    ],
+    "editorialEvidence": {
+      "language": "vi",
+      "scope": "element",
+      "reviewBasis": "existing-story-and-sourced-application",
+      "story": {
+        "status": "documented",
+        "section": "Một nguyên tố mới trong mẫu đá",
+        "sources": [
+          "https://periodic-table.rsc.org/element/3/lithium",
+          "https://www.nobelprize.org/prizes/chemistry/2019/summary/"
+        ]
+      },
+      "application": {
+        "status": "documented",
+        "section": "Ứng dụng trong đời sống hôm nay",
+        "sources": [
+          "https://www.nobelprize.org/uploads/2019/10/press-chemistry-2019-2.pdf"
+        ]
+      }
+    }
   },
   {
     "id": "004_C",
-    "title": "Carbon (C) — Vì sao diamond và graphite lại là cùng một nguyên tố?",
+    "title": "Carbon (C) — Vì sao kim cương và graphit lại là cùng một nguyên tố?",
     "author": "Ban biên tập ChemDex",
     "category": "nguyento",
-    "summary": "Diamond và graphite khác nhau đến mức chỉ nhìn bằng mắt rất khó đoán chúng có cùng nguyên tố cấu thành. Một vật liệu nổi tiếng vì độ cứng và độ trong; vật liệu kia để lại vết trên giấy. Lịch sử nhận diện carbon vì thế cũng là lịch sử tách biệt hình dáng của mẫu với thành phần của nó.",
+    "summary": "kim cương và graphit khác nhau đến mức chỉ nhìn bằng mắt rất khó đoán chúng có cùng nguyên tố cấu thành. Một vật liệu nổi tiếng vì độ cứng và độ trong; vật liệu kia để lại vết trên giấy. Lịch sử nhận diện carbon vì thế cũng là lịch sử tách biệt hình dáng của mẫu với thành phần của nó.",
     "image": "/assets/library/photos/docs/carbon-c/cover.jpg",
     "tags": [
       "Phi kim",
@@ -82,7 +141,28 @@
     "aliases": [
       "Cacbon",
       "Carbon"
-    ]
+    ],
+    "editorialEvidence": {
+      "language": "vi",
+      "scope": "element",
+      "reviewBasis": "existing-story-and-sourced-application",
+      "story": {
+        "status": "documented",
+        "section": "Hai vật liệu khác nhau, cùng một nguyên tố",
+        "sources": [
+          "https://periodic-table.rsc.org/element/6/carbon",
+          "https://www.nobelprize.org/prizes/physics/2010/summary/"
+        ]
+      },
+      "application": {
+        "status": "documented",
+        "section": "Ứng dụng trong đời sống hôm nay",
+        "sources": [
+          "https://periodic-table.rsc.org/element/6/carbon",
+          "https://www.nobelprize.org/uploads/2019/10/whittingham-lecture.pdf"
+        ]
+      }
+    }
   },
   {
     "id": "005_N",
@@ -103,7 +183,27 @@
     "aliases": [
       "Nitơ",
       "Nitrogen"
-    ]
+    ],
+    "editorialEvidence": {
+      "language": "vi",
+      "scope": "element",
+      "reviewBasis": "existing-story-and-sourced-application",
+      "story": {
+        "status": "documented",
+        "section": "Khi phần khí còn lại cũng là một phát hiện",
+        "sources": [
+          "https://periodic-table.rsc.org/element/7/nitrogen",
+          "https://www.sciencehistory.org/education/scientific-biographies/fritz-haber/"
+        ]
+      },
+      "application": {
+        "status": "documented",
+        "section": "Ứng dụng trong đời sống hôm nay",
+        "sources": [
+          "https://periodic-table.rsc.org/element/7/nitrogen"
+        ]
+      }
+    }
   },
   {
     "id": "006_O",
@@ -124,7 +224,27 @@
     "aliases": [
       "Oxi",
       "Oxygen"
-    ]
+    ],
+    "editorialEvidence": {
+      "language": "vi",
+      "scope": "element",
+      "reviewBasis": "existing-story-and-sourced-application",
+      "story": {
+        "status": "documented",
+        "section": "Cùng một chất khí, những cách hiểu khác nhau",
+        "sources": [
+          "https://www.acs.org/education/whatischemistry/landmarks/josephpriestleyoxygen.html",
+          "https://periodic-table.rsc.org/element/8/oxygen"
+        ]
+      },
+      "application": {
+        "status": "documented",
+        "section": "Ứng dụng trong đời sống hôm nay",
+        "sources": [
+          "https://www.nasa.gov/missions/mars-2020-perseverance/perseverance-rover/nasas-oxygen-generating-experiment-moxie-completes-mars-mission/"
+        ]
+      }
+    }
   },
   {
     "id": "007_Na",
@@ -145,7 +265,27 @@
     "aliases": [
       "Natri",
       "Sodium"
-    ]
+    ],
+    "editorialEvidence": {
+      "language": "vi",
+      "scope": "element",
+      "reviewBasis": "existing-story-and-sourced-application",
+      "story": {
+        "status": "documented",
+        "section": "Dòng điện mở một con đường khác",
+        "sources": [
+          "https://www.rigb.org/about-us/our-history",
+          "https://periodic-table.rsc.org/element/11/sodium"
+        ]
+      },
+      "application": {
+        "status": "documented",
+        "section": "Ứng dụng trong đời sống hôm nay",
+        "sources": [
+          "https://periodic-table.rsc.org/element/11/sodium"
+        ]
+      }
+    }
   },
   {
     "id": "008_Fe",
@@ -166,7 +306,27 @@
     "aliases": [
       "Sắt",
       "Iron"
-    ]
+    ],
+    "editorialEvidence": {
+      "language": "vi",
+      "scope": "element",
+      "reviewBasis": "existing-story-and-sourced-application",
+      "story": {
+        "status": "documented",
+        "section": "Một kim loại có lịch sử lâu hơn tên người phát hiện",
+        "sources": [
+          "https://periodic-table.rsc.org/element/26/iron"
+        ]
+      },
+      "application": {
+        "status": "documented",
+        "section": "Ứng dụng trong đời sống hôm nay",
+        "sources": [
+          "https://periodic-table.rsc.org/element/26/iron",
+          "https://openstax.org/books/chemistry-2e/pages/17-6-corrosion"
+        ]
+      }
+    }
   },
   {
     "id": "009_Cu",
@@ -180,14 +340,34 @@
       "Dẫn điện",
       "Hợp kim"
     ],
-    "readingMinutes": 2,
+    "readingMinutes": 3,
     "slug": "dong-cu",
     "documentPath": "docs/dong-cu/index.json",
     "documentKind": "story",
     "aliases": [
       "Đồng",
       "Copper"
-    ]
+    ],
+    "editorialEvidence": {
+      "language": "vi",
+      "scope": "element",
+      "reviewBasis": "existing-story-and-sourced-application",
+      "story": {
+        "status": "documented",
+        "section": "Một vật liệu đi cùng sự phát triển của kỹ thuật",
+        "sources": [
+          "https://periodic-table.rsc.org/element/29/copper"
+        ]
+      },
+      "application": {
+        "status": "documented",
+        "section": "Ứng dụng trong đời sống hôm nay",
+        "sources": [
+          "https://periodic-table.rsc.org/element/29/copper",
+          "https://openstax.org/books/chemistry-2e/pages/17-7-electrolysis"
+        ]
+      }
+    }
   },
   {
     "id": "010_Ag",
@@ -208,7 +388,26 @@
     "aliases": [
       "Bạc",
       "Silver"
-    ]
+    ],
+    "editorialEvidence": {
+      "language": "vi",
+      "scope": "element",
+      "reviewBasis": "existing-story-and-sourced-application",
+      "story": {
+        "status": "documented",
+        "section": "Từ vật quý đến vật liệu nhạy sáng",
+        "sources": [
+          "https://periodic-table.rsc.org/element/47/silver"
+        ]
+      },
+      "application": {
+        "status": "documented",
+        "section": "Ứng dụng trong đời sống hôm nay",
+        "sources": [
+          "https://periodic-table.rsc.org/element/47/silver"
+        ]
+      }
+    }
   },
   {
     "id": "011_HistoryPT",
@@ -225,7 +424,26 @@
     "readingMinutes": 2,
     "slug": "bien-nien-su-bang-tuan-hoan",
     "documentPath": "docs/bien-nien-su-bang-tuan-hoan/index.json",
-    "documentKind": "story"
+    "documentKind": "story",
+    "editorialEvidence": {
+      "language": "vi",
+      "scope": "substance",
+      "reviewBasis": "existing-story-and-sourced-application",
+      "story": {
+        "status": "documented",
+        "section": "Mendeleev để lại những chỗ chưa có nguyên tố",
+        "sources": [
+          "https://periodic-table.rsc.org/history/about"
+        ]
+      },
+      "application": {
+        "status": "documented",
+        "section": "Ứng dụng trong đời sống hôm nay",
+        "sources": [
+          "https://periodic-table.rsc.org/history/about"
+        ]
+      }
+    }
   },
   {
     "id": "012_SafetyRules",
@@ -239,10 +457,31 @@
       "Thực hành",
       "Cấp cứu"
     ],
-    "readingMinutes": 7,
+    "readingMinutes": 5,
     "slug": "bai-hoc-xuong-mau-trong-phong-thi-nghiem",
     "documentPath": "docs/bai-hoc-xuong-mau-trong-phong-thi-nghiem/index.json",
-    "documentKind": "guide"
+    "documentKind": "guide",
+    "editorialEvidence": {
+      "language": "vi",
+      "scope": "chemical-family",
+      "reviewBasis": "documented-case-and-practice",
+      "story": {
+        "status": "documented",
+        "section": "Một sự cố đã thay đổi cách nhìn về an toàn",
+        "sources": [
+          "https://www.csb.gov/texas-tech-university-chemistry-lab-explosion/",
+          "https://www.depts.ttu.edu/research/responsible-research/CSB-response/index.php"
+        ]
+      },
+      "application": {
+        "status": "documented",
+        "section": "Ứng dụng hôm nay: chuẩn bị trước khi bắt đầu",
+        "sources": [
+          "https://www.csb.gov/texas-tech-university-chemistry-lab-explosion/",
+          "https://www.depts.ttu.edu/research/responsible-research/CSB-response/index.php"
+        ]
+      }
+    }
   },
   {
     "id": "013_HTML_Sample",
@@ -256,17 +495,38 @@
       "Template",
       "Mẫu"
     ],
-    "readingMinutes": 7,
+    "readingMinutes": 5,
     "slug": "nghe-thuat-truc-quan-hoa-phan-tu",
     "documentPath": "docs/nghe-thuat-truc-quan-hoa-phan-tu/index.json",
-    "documentKind": "guide"
+    "documentKind": "guide",
+    "editorialEvidence": {
+      "language": "vi",
+      "scope": "chemical-family",
+      "reviewBasis": "documented-case-and-practice",
+      "story": {
+        "status": "documented",
+        "section": "Từ các vết nhiễu xạ đến mô hình nguyên tử",
+        "sources": [
+          "https://www.iucr.org/what-we-do/awards-and-prizes/nobel-prize/w.h.bragg",
+          "https://cccbdb.nist.gov/"
+        ]
+      },
+      "application": {
+        "status": "documented",
+        "section": "Ứng dụng hôm nay: mô hình giúp kiểm tra điều gì?",
+        "sources": [
+          "https://www.iucr.org/what-we-do/awards-and-prizes/nobel-prize/w.h.bragg",
+          "https://cccbdb.nist.gov/"
+        ]
+      }
+    }
   },
   {
     "id": "chat-nuoc",
-    "title": "Water (H₂O) — Thí nghiệm khiến một “nguyên tố” trở thành hợp chất",
+    "title": "nước (H₂O) — Thí nghiệm khiến một “nguyên tố” trở thành hợp chất",
     "author": "Ban biên tập ChemDex",
     "category": "hopchat",
-    "summary": "Water có mặt trong đời sống lâu đến mức câu hỏi nó được tạo nên từ gì từng không hề hiển nhiên. Trong nhiều hệ thống tư tưởng cổ, water được xếp vào những thành phần cơ bản của thế giới. Để thay đổi quan niệm ấy cần một thí nghiệm có thể giải thích được nguồn gốc của sản phẩm.",
+    "summary": "nước có mặt trong đời sống lâu đến mức câu hỏi nó được tạo nên từ gì từng không hề hiển nhiên. Trong nhiều hệ thống tư tưởng cổ, nước được xếp vào những thành phần cơ bản của thế giới. Để thay đổi quan niệm ấy cần một thí nghiệm có thể giải thích được nguồn gốc của sản phẩm.",
     "image": "/assets/library/photos/docs/nuoc-h2o/cover.jpg",
     "tags": [
       "H2O",
@@ -282,10 +542,30 @@
       "cid-962",
       "chem-h2o"
     ],
-    "readingMinutes": 2,
+    "readingMinutes": 3,
     "slug": "nuoc-h2o",
     "documentPath": "docs/nuoc-h2o/index.json",
-    "documentKind": "story"
+    "documentKind": "story",
+    "editorialEvidence": {
+      "language": "vi",
+      "scope": "substance",
+      "reviewBasis": "existing-story-and-sourced-application",
+      "story": {
+        "status": "documented",
+        "section": "nước từng được xem là một nguyên tố",
+        "sources": [
+          "https://periodic-table.rsc.org/element/1/hydrogen",
+          "https://periodic-table.rsc.org/element/8/oxygen"
+        ]
+      },
+      "application": {
+        "status": "documented",
+        "section": "Ứng dụng trong đời sống hôm nay",
+        "sources": [
+          "https://www.nasa.gov/reference/environmental-control-and-life-support-systems-eclss/"
+        ]
+      }
+    }
   },
   {
     "id": "chat-amoniac",
@@ -308,10 +588,31 @@
       "cid-222",
       "chem-nh3"
     ],
-    "readingMinutes": 2,
+    "readingMinutes": 3,
     "slug": "amoniac-nh3",
     "documentPath": "docs/amoniac-nh3/index.json",
-    "documentKind": "story"
+    "documentKind": "story",
+    "editorialEvidence": {
+      "language": "vi",
+      "scope": "substance",
+      "reviewBasis": "existing-story-and-sourced-application",
+      "story": {
+        "status": "documented",
+        "section": "Nitrogen có trong không khí, nhưng cây trồng vẫn thiếu đạm",
+        "sources": [
+          "https://www.sciencehistory.org/education/scientific-biographies/fritz-haber/",
+          "https://pmc.ncbi.nlm.nih.gov/articles/PMC5554788/"
+        ]
+      },
+      "application": {
+        "status": "documented",
+        "section": "Ứng dụng trong đời sống hôm nay",
+        "sources": [
+          "https://periodic-table.rsc.org/element/7/nitrogen",
+          "https://www.iea.org/reports/ammonia-technology-roadmap"
+        ]
+      }
+    }
   },
   {
     "id": "chat-natri-clorua",
@@ -335,10 +636,29 @@
       "crystal-nacl",
       "chem-nacl"
     ],
-    "readingMinutes": 2,
+    "readingMinutes": 3,
     "slug": "natri-clorua-nacl",
     "documentPath": "docs/natri-clorua-nacl/index.json",
-    "documentKind": "story"
+    "documentKind": "story",
+    "editorialEvidence": {
+      "language": "vi",
+      "scope": "substance",
+      "reviewBasis": "existing-story-and-sourced-application",
+      "story": {
+        "status": "documented",
+        "section": "Một chất quen thuộc trở thành phép thử cho phương pháp mới",
+        "sources": [
+          "https://www.nobelprize.org/prizes/physics/1915/ceremony-speech/"
+        ]
+      },
+      "application": {
+        "status": "documented",
+        "section": "Ứng dụng trong đời sống hôm nay",
+        "sources": [
+          "https://www.usgs.gov/special-topics/water-science-school/science/desalination"
+        ]
+      }
+    }
   },
   {
     "id": "chat-etanol",
@@ -362,10 +682,29 @@
       "cid-702",
       "chem-c2h5oh"
     ],
-    "readingMinutes": 2,
+    "readingMinutes": 3,
     "slug": "etanol-c2h5oh",
     "documentPath": "docs/etanol-c2h5oh/index.json",
-    "documentKind": "story"
+    "documentKind": "story",
+    "editorialEvidence": {
+      "language": "vi",
+      "scope": "substance",
+      "reviewBasis": "existing-story-and-sourced-application",
+      "story": {
+        "status": "documented",
+        "section": "Một mảnh gốm có thể kể chuyện con người đã uống gì?",
+        "sources": [
+          "https://pmc.ncbi.nlm.nih.gov/articles/539767/"
+        ]
+      },
+      "application": {
+        "status": "documented",
+        "section": "Ứng dụng trong đời sống hôm nay",
+        "sources": [
+          "https://www.eia.gov/energyexplained/biofuels/ethanol.php"
+        ]
+      }
+    }
   },
   {
     "id": "chat-carbon-dioxide",
@@ -389,10 +728,29 @@
       "cid-280",
       "chem-co2"
     ],
-    "readingMinutes": 2,
+    "readingMinutes": 3,
     "slug": "carbon-dioxide-co2",
     "documentPath": "docs/carbon-dioxide-co2/index.json",
-    "documentKind": "story"
+    "documentKind": "story",
+    "editorialEvidence": {
+      "language": "vi",
+      "scope": "substance",
+      "reviewBasis": "existing-story-and-sourced-application",
+      "story": {
+        "status": "documented",
+        "section": "Một phần khối lượng đã đi đâu?",
+        "sources": [
+          "https://journals.physiology.org/doi/10.1152/ajplung.00020.2014"
+        ]
+      },
+      "application": {
+        "status": "documented",
+        "section": "Ứng dụng trong đời sống hôm nay",
+        "sources": [
+          "https://oceanacidification.noaa.gov/oap_pubs/impacts-of-coastal-acidification-on-the-pacific-northwest-shellfish-industry-and-adaptation-strategies-implemented-in-response/"
+        ]
+      }
+    }
   },
   {
     "id": "chat-metan",
@@ -418,6 +776,26 @@
     "readingMinutes": 2,
     "slug": "metan-ch4",
     "documentPath": "docs/metan-ch4/index.json",
-    "documentKind": "story"
+    "documentKind": "story",
+    "editorialEvidence": {
+      "language": "vi",
+      "scope": "substance",
+      "reviewBasis": "existing-story-and-sourced-application",
+      "story": {
+        "status": "documented",
+        "section": "Những bọt khí ở hồ Maggiore",
+        "sources": [
+          "https://books.rsc.org/books/monograph/2257/chapter/8249235/Introducing-Methane",
+          "https://esdac.jrc.ec.europa.eu/content/il-metano-compie-250-anni"
+        ]
+      },
+      "application": {
+        "status": "documented",
+        "section": "Ứng dụng trong đời sống hôm nay",
+        "sources": [
+          "https://www.eia.gov/energyexplained/natural-gas/natural-gas-and-the-environment.php"
+        ]
+      }
+    }
   }
 ]

@@ -1,0 +1,46 @@
+{
+  "id": "gallium-nitride-led-xanh-anh-sang-trang",
+  "slug": "gallium-nitride-led-xanh-anh-sang-trang",
+  "documentPath": "docs/gallium-nitride-led-xanh-anh-sang-trang/index.json",
+  "title": "Gallium và màu xanh còn thiếu: bước ngoặt khiến LED có thể thắp sáng căn phòng",
+  "summary": "Akasaki, Amano và Nakamura theo đuổi gallium nitride khi vật liệu này còn rất khó chế tạo. LED xanh hiệu quả xuất hiện đã mở đường cho một kiểu ánh sáng trắng khác.",
+  "category": "nguyento",
+  "author": "Ban biên tập ChemDex",
+  "image": "/assets/library/photos/stories/blue-led.jpg",
+  "tags": [
+    "Gallium",
+    "GaN",
+    "LED",
+    "Nobel 2014"
+  ],
+  "aliases": [],
+  "documentKind": "story",
+  "readingMinutes": 5,
+  "editorialEvidence": {
+    "language": "vi",
+    "scope": "chemical-family",
+    "contextLabel": "Gallium và màu xanh còn thiếu: bước ngoặt khiến LED có thể thắp sáng căn phòng",
+    "reviewBasis": "Biên soạn theo các nguồn dẫn cuối bài; phân biệt kết quả đã thực hiện và hướng phát triển.",
+    "story": {
+      "status": "documented",
+      "section": "## Một màu sắc làm khó cả ngành",
+      "sources": [
+        "https://www.nobelprize.org/prizes/physics/2014/press-release/",
+        "https://www.nobelprize.org/uploads/2018/06/advanced-physicsprize2014.pdf",
+        "https://www.energy.gov/cmei/ssl/led-basics",
+        "https://www.energystar.gov/products/learn-about-led-lighting"
+      ]
+    },
+    "application": {
+      "status": "documented",
+      "section": "## Ứng dụng hôm nay: con chip chưa phải cả chiếc đèn",
+      "sources": [
+        "https://www.nobelprize.org/prizes/physics/2014/press-release/",
+        "https://www.nobelprize.org/uploads/2018/06/advanced-physicsprize2014.pdf",
+        "https://www.energy.gov/cmei/ssl/led-basics",
+        "https://www.energystar.gov/products/learn-about-led-lighting"
+      ]
+    }
+  },
+  "content": "## Một màu sắc làm khó cả ngành\n\nNgày 7/10/2014, Nobel Vật lý được công bố cho Isamu Akasaki, Hiroshi Amano và Shuji Nakamura vì LED xanh hiệu quả. Thông cáo nhắc tới bước ngoặt đầu thập niên 1990: họ tạo được ánh sáng xanh mạnh từ vật liệu bán dẫn, hoàn thành một thách thức đã kéo dài nhiều năm. Akasaki và Amano làm việc tại Nagoya; Nakamura nghiên cứu ở Nichia.\n\nLED đỏ và xanh lục đã tồn tại trước đó, nhưng tạo nguồn xanh lam hiệu quả khó hơn nhiều. Bài toán không thể giải bằng cách nhuộm vỏ đèn thành màu xanh. Các nhà nghiên cứu phải làm chủ vật liệu phát sáng và cách đưa điện tích vào đúng nơi. Gallium trong câu chuyện này hoạt động trong hợp chất và cấu trúc bán dẫn, không phải một giọt kim loại tự phát ánh sáng khi có dòng điện.\n\n![Cận cảnh LED xanh lam](/assets/library/photos/stories/blue-led.jpg)\n\n*Cận cảnh linh kiện LED xanh lam trong ảnh chụp năm 2005. — MrX at English Wikipedia; Transferred from en.wikipedia to Commons by SMasters using CommonsHelper . ( Original text: Own Work ); [CC BY-SA 3.0](https://creativecommons.org/licenses/by-sa/3.0). [Nguồn ảnh](https://commons.wikimedia.org/wiki/File:Blue_LED.jpg).*\n\n## Vì sao chọn gallium nitride?\n\nGaN có đặc tính vùng năng lượng phù hợp với các thiết bị phát ánh sáng năng lượng cao. Tuy nhiên, ý tưởng vật liệu phù hợp chưa đủ để tạo linh kiện tốt. Nuôi được lớp tinh thể có chất lượng cần thiết và tạo được vùng loại p là những trở ngại lớn. Các công trình được Nobel ghi nhận giải quyết dần những trở ngại ấy bằng kỹ thuật tăng trưởng và xử lý vật liệu.\n\nNhững cấu trúc sau đó còn kết hợp các hợp kim chứa indium hoặc aluminium để điều khiển đặc tính. Vì thế nói “LED xanh làm bằng gallium” là một cách nói quá ngắn. Cần biết gallium kết hợp với nguyên tố nào, ở lớp nào, và các lớp nối với nhau ra sao. Cùng một nguyên tố có thể xuất hiện trong những vật liệu mang tính chất rất khác nhau.\n\n## Từ photon xanh đến ánh sáng trắng\n\nMột LED thường phát mạnh trong một vùng màu tương đối hẹp. Để tạo ánh sáng trắng, có thể phối hợp nhiều màu hoặc dùng vật liệu phát quang chuyển một phần ánh sáng sang vùng bước sóng khác. Trong nhiều đèn trắng, ánh sáng xanh kích thích lớp phosphor; phần ánh sáng đã chuyển đổi hòa với phần xanh còn lại tạo cảm giác trắng.\n\nPhosphor ở đây là tên gọi vật liệu phát quang, không đồng nghĩa nó phải là nguyên tố phosphorus. Màu trắng cuối cùng phụ thuộc phổ phát xạ và thiết kế. Hai bóng cùng ghi “LED trắng” vẫn có thể khiến màu đồ vật khác nhau. Độ sáng nhìn thấy, công suất điện và chất lượng màu là các thông số liên quan nhưng không thay thế được cho nhau.\n\n## Ứng dụng hôm nay: con chip chưa phải cả chiếc đèn\n\nDOE mô tả LED hiện được dùng trong nhiều kiểu chiếu sáng và có thể phối hợp cảm biến, điều chỉnh độ sáng, điều khiển thời gian hoạt động. Kích thước nhỏ giúp thiết kế quang học đưa ánh sáng tới nơi cần dùng. Nhưng đèn hoàn chỉnh còn có bộ nguồn, tản nhiệt, lớp chuyển đổi màu và vỏ; hiệu quả của một con chip không tự trở thành hiệu quả của toàn bộ sản phẩm.\n\nĐiều khiến câu chuyện LED xanh đáng nhớ là khoảng cách giữa một ý tưởng đúng và một vật dụng phổ biến. Hợp chất GaN từng khó nuôi tinh thể đã trở thành nền tảng để những nguồn sáng nhỏ phục vụ căn phòng, đường phố và màn hình. Tiến bộ nằm trong hàng loạt bước kiểm soát vật liệu rất cụ thể. Khi bật một bóng đèn trắng, người dùng đang thấy kết quả của cả một lịch sử nghiên cứu về màu xanh khó tạo ấy.\n\n## Nguồn và đọc thêm\n\n- [Nobel Prize · Thông cáo Nobel Vật lý 2014](https://www.nobelprize.org/prizes/physics/2014/press-release/)\n- [Viện Hàn lâm Khoa học Thụy Điển · Bối cảnh khoa học của LED xanh](https://www.nobelprize.org/uploads/2018/06/advanced-physicsprize2014.pdf)\n- [DOE · Nguyên lý LED và các cách tạo ánh sáng trắng](https://www.energy.gov/cmei/ssl/led-basics)\n- [ENERGY STAR · Đặc điểm của chiếu sáng LED](https://www.energystar.gov/products/learn-about-led-lighting)"
+}

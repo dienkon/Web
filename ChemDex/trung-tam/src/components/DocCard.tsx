@@ -85,7 +85,7 @@ export function DocCard({ doc, onClick, isBookmarked, onToggleBookmark, onTagCli
         <div className="flex flex-wrap items-center justify-between gap-x-2 gap-y-1 text-xs text-teal-700 dark:text-teal-400 mb-2">
           <span className="font-semibold truncate max-w-[60%]">{doc.author}</span>
           <span className="shrink-0 text-slate-500 dark:text-slate-400 font-medium">
-            {doc.readingMinutes ?? 5} phút đọc • 1.000+ chữ
+            {doc.readingMinutes ?? 5} phút đọc
           </span>
         </div>
 

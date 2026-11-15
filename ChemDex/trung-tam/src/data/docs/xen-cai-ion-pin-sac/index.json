@@ -1,0 +1,44 @@
+{
+  "id": "xen-cai-ion-pin-sac",
+  "slug": "xen-cai-ion-pin-sac",
+  "documentPath": "docs/xen-cai-ion-pin-sac/index.json",
+  "title": "Vì sao pin sạc được? Hành trình đi và về của ion lithium",
+  "summary": "Từ các vật liệu điện cực của Whittingham, Goodenough và Yoshino, phản ứng xen cài trở thành nền tảng của pin lithium-ion. Khả năng quay lại cũng có giới hạn.",
+  "category": "khainiem",
+  "author": "Ban biên tập ChemDex",
+  "image": "/assets/library/photos/stories/lithium-battery-inside.jpg",
+  "tags": [
+    "Pin lithium-ion",
+    "Điện hóa",
+    "Xen cài",
+    "Lưu trữ năng lượng"
+  ],
+  "aliases": [],
+  "documentKind": "story",
+  "readingMinutes": 4,
+  "editorialEvidence": {
+    "language": "vi",
+    "scope": "chemical-family",
+    "contextLabel": "Vì sao pin sạc được? Hành trình đi và về của ion lithium",
+    "reviewBasis": "Biên soạn theo các nguồn dẫn cuối bài; phân biệt kết quả đã thực hiện và hướng phát triển.",
+    "story": {
+      "status": "documented",
+      "section": "## Ba bước tiến để một viên pin có thể quay lại",
+      "sources": [
+        "https://www.nobelprize.org/uploads/2019/10/press-chemistry-2019-2.pdf",
+        "https://www.nobelprize.org/uploads/2019/10/whittingham-lecture.pdf",
+        "https://www.nobelprize.org/uploads/2019/10/advanced-chemistryprize2019-2.pdf"
+      ]
+    },
+    "application": {
+      "status": "documented",
+      "section": "## Ứng dụng hôm nay: mỗi thiết kế là một lựa chọn ưu tiên",
+      "sources": [
+        "https://www.nobelprize.org/uploads/2019/10/press-chemistry-2019-2.pdf",
+        "https://www.nobelprize.org/uploads/2019/10/whittingham-lecture.pdf",
+        "https://www.nobelprize.org/uploads/2019/10/advanced-chemistryprize2019-2.pdf"
+      ]
+    }
+  },
+  "content": "## Ba bước tiến để một viên pin có thể quay lại\n\nNobel Hóa học 2019 ghi nhận John Goodenough, Stanley Whittingham và Akira Yoshino cho sự phát triển của pin lithium-ion. Những đóng góp của họ gắn với vật liệu có thể tiếp nhận và nhả ion lithium. Yoshino sử dụng vật liệu carbon ở điện cực âm, thay cho lithium kim loại có tính hoạt động cao.\n\nĐường đi từ một vật liệu thú vị đến một viên pin dùng được không chỉ là tìm ra điện áp lớn. Hai điện cực, chất điện ly và cách vận hành phải tương thích. Một phía có thể tích trữ ion rất tốt nhưng vẫn không đủ nếu phía còn lại nhanh chóng mất cấu trúc hoặc xảy ra phản ứng ngoài ý muốn.\n\n![Cấu tạo bên trong cell lithium-ion](/assets/library/photos/stories/lithium-battery-inside.jpg)\n\n*Một cell lithium-ion 18650 trước khi đóng vỏ, cho thấy phần điện cực cuộn bên trong. — RudolfSimon; [CC BY-SA 3.0](https://creativecommons.org/licenses/by-sa/3.0). [Nguồn ảnh](https://commons.wikimedia.org/wiki/File:Lithium-Ion_Cell_cylindric.JPG).*\n\n## Ion đi trong pin, electron đi qua thiết bị\n\nTrong một mô hình pin xen cài, vật liệu điện cực đóng vai trò khung chủ có chỗ để ion đi vào và rời ra. Khi phóng điện, ion lithium dịch chuyển qua chất điện ly, còn electron đi qua mạch ngoài để cấp năng lượng cho thiết bị. Khi sạc, nguồn điện ngoài thúc đẩy quá trình theo chiều ngược lại trong giới hạn cho phép.\n\nĐiều này khác với hình ảnh đơn giản rằng pin là một hộp chứa sẵn electron rồi cạn dần. Năng lượng khả dụng liên quan đến trạng thái hóa học của hệ. Mạch ngoài và đường vận chuyển ion phải phối hợp; nếu một đường bị gián đoạn, quá trình không tiếp tục bình thường.\n\nKhung vật liệu cần chịu được nhiều lần thay đổi thành phần. Khi ion đi vào hoặc rời ra, thể tích và trạng thái của điện cực có thể đổi. Những phản ứng phụ ở bề mặt cũng tiêu hao vật chất hoặc làm tăng trở kháng. Vì vậy, tính thuận nghịch trong phương trình không đồng nghĩa tuổi thọ vô hạn.\n\n## Ứng dụng hôm nay: mỗi thiết kế là một lựa chọn ưu tiên\n\nPin lithium-ion có nhiều hệ vật liệu. Chọn điện cực cho điện thoại, xe điện hay lưu trữ điện không nhất thiết dẫn đến cùng một phương án. Mật độ năng lượng, khả năng cấp công suất, tuổi thọ, chi phí và nguồn nguyên liệu đều có thể ảnh hưởng lựa chọn.\n\nTên lithium-ion vì thế chỉ một họ công nghệ, không bảo đảm mọi viên pin có cùng tính chất. Các mạch quản lý theo dõi trạng thái vận hành để giữ pin trong giới hạn thiết kế. Chỉ nhìn số dung lượng ghi trên vỏ sẽ bỏ qua nhiều yếu tố quyết định cách pin hoạt động trong thực tế.\n\nCâu chuyện xen cài nối một khái niệm vi mô với thao tác cắm sạc hằng ngày. Vật liệu không phải phông nền đứng yên: nó trực tiếp tham gia lưu trữ và giải phóng năng lượng. Để một chiếc xe đi thêm nhiều vòng đời sử dụng, nhà hóa học phải hiểu điều gì xảy ra trong từng vòng đi và về của ion.\n\n## Nguồn và đọc thêm\n\n- [Nobel Prize · Thông cáo Hóa học 2019](https://www.nobelprize.org/uploads/2019/10/press-chemistry-2019-2.pdf)\n- [M. Stanley Whittingham · Bài giảng Nobel về nguồn gốc pin lithium](https://www.nobelprize.org/uploads/2019/10/whittingham-lecture.pdf)\n- [Nobel Prize · Cơ sở khoa học pin lithium-ion](https://www.nobelprize.org/uploads/2019/10/advanced-chemistryprize2019-2.pdf)"
+}

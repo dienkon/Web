@@ -2,11 +2,11 @@
   "id": "lich-su-phat-hien-fe",
   "slug": "lich-su-phat-hien-fe",
   "documentPath": "docs/lich-su-phat-hien-fe/index.json",
-  "title": "Lịch sử phát hiện Sắt",
+  "title": "Sắt: một lịch sử có trước tên người phát hiện",
   "author": "Ban biên tập ChemDex",
   "category": "nguyento",
-  "summary": "Hồ sơ lịch sử liên quan đến Sắt (Fe); phân biệt phát hiện, cô lập và đặt tên theo từng trường hợp.",
-  "image": "/assets/library/history-evidence.svg",
+  "summary": "Sắt là một trong những kim loại được con người biết đến và sử dụng từ rất sớm. Sắt từ thiên thạch có thể đã được sử dụng trước khi con người phát triển kỹ thuật luyện sắt từ quặng.",
+  "image": "/assets/library/photos/elements/Fe.jpg",
   "tags": [
     "Lịch sử hóa học",
     "Fe"
@@ -15,6 +15,26 @@
     "Không xác định — Iron đã được con người sử dụng từ thời tiền sử."
   ],
   "documentKind": "biography",
-  "readingMinutes": 1,
-  "content": "# Lịch sử phát hiện Sắt\n\nHồ sơ lịch sử liên quan đến Sắt (Fe); phân biệt phát hiện, cô lập và đặt tên theo từng trường hợp.\n\n## Sắt (Fe)\n\nIron là một trong những kim loại được con người biết đến và sử dụng từ rất sớm. Iron từ thiên thạch có thể đã được sử dụng trước khi con người phát triển kỹ thuật luyện Iron từ quặng. Đến thời kỳ Iron Age, kỹ thuật luyện Iron từ quặng phát triển mạnh và Iron trở thành vật liệu quan trọng.\n\n**Mốc lịch sử:** Khoảng thiên niên kỷ 2 TCN đối với Iron luyện từ quặng; không có một năm phát hiện chính xác.. **Địa điểm ghi trong hồ sơ:** Không xác định; Iron được sử dụng độc lập ở nhiều nền văn minh cổ đại..\n\n[Đọc tài liệu về Sắt](/trung-tam/tai-lieu-so/sat-fe/).\n\n[Royal Society of Chemistry — thông tin nguyên tố](https://periodic-table.rsc.org/element/26/iron)\n\n## Cách đọc các mốc lịch sử\n\nPhát hiện một nguyên tố, cô lập đơn chất và đặt tên có thể là những công việc khác nhau, diễn ra ở các thời điểm khác nhau. Một nhóm nghiên cứu hoặc cơ quan không được xem như một cá nhân. Với nguyên tố được biết từ cổ đại, hồ sơ không gán một người khám phá. Các ghi nhận trên dẫn về tài liệu của nguyên tố và nguồn tham khảo tương ứng; không bổ sung lời trích dẫn hay giai thoại đời tư chưa có căn cứ."
+  "readingMinutes": 2,
+  "editorialEvidence": {
+    "language": "vi",
+    "scope": "related-element",
+    "contextLabel": "Sắt (Fe)",
+    "reviewBasis": "existing-element-dossier",
+    "story": {
+      "status": "documented",
+      "section": "## Dấu vết sắt trong lịch sử",
+      "sources": [
+        "https://periodic-table.rsc.org/element/26/iron"
+      ]
+    },
+    "application": {
+      "status": "context-only",
+      "section": "## Từ dấu mốc nghiên cứu đến công việc hôm nay",
+      "sources": [
+        "https://periodic-table.rsc.org/element/26/iron"
+      ]
+    }
+  },
+  "content": "## Dấu vết sắt trong lịch sử\n\nSắt là một trong những kim loại được con người biết đến và sử dụng từ rất sớm. Sắt từ thiên thạch có thể đã được sử dụng trước khi con người phát triển kỹ thuật luyện sắt từ quặng. Đến thời kỳ sắt Age, kỹ thuật luyện sắt từ quặng phát triển mạnh và sắt trở thành vật liệu quan trọng.\n\n![Hình minh họa sắt](/assets/library/photos/elements/Fe.jpg)\n\n*Hình minh họa chủ đề sắt. [Nguồn hình: bộ ảnh nguyên tố](https://en.wikipedia.org/wiki/Iron).*\n\n## Bằng chứng đã thay đổi điều gì?\n\nVới sắt, việc con người biết sử dụng một vật liệu và việc hóa học nhận diện nguyên tố trong vật liệu ấy thuộc về những thời kỳ khác nhau. Một đồ vật cổ có thể cho biết người xưa đã biết khai thác, nung hoặc tạo hình; nó chưa cho biết họ đã có khái niệm nguyên tử như ngày nay. Vì thế, câu chuyện này cần được đọc qua dấu tích vật liệu và sự thay đổi cách hiểu, thay vì tìm một ngày phát minh duy nhất.\n\n## Từ dấu mốc nghiên cứu đến công việc hôm nay\n\n### Sắt (Fe)\n\nSắt là thành phần chính của thép và nhiều loại hợp kim.\n\nSteel được sử dụng rộng rãi trong cầu, nhà cao tầng, đường ray và các công trình.\n\n[Đọc tiếp về Sắt](/trung-tam/tai-lieu-so/sat-fe/).\n\nNhững ứng dụng này thuộc về hành trình phát triển tiếp theo của nguyên tố. Từ phát hiện đến thiết bị sử dụng được còn có công việc của nhiều thế hệ: tạo vật liệu đủ sạch, hiểu tính chất, thiết kế quy trình và kiểm tra độ bền. Vai trò của người khám phá nằm ở dấu mốc được kể ở trên; các công nghệ xuất hiện sau đó cần được ghi nhận cho đúng công trình.\n\n## Nguồn và đọc tiếp\n\n- [Hội Hóa học Hoàng gia Anh · Sắt](https://periodic-table.rsc.org/element/26/iron)"
 }

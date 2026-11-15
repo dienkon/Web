@@ -1,0 +1,42 @@
+{
+  "id": "moxie-tao-oxy-tren-sao-hoa",
+  "slug": "moxie-tao-oxy-tren-sao-hoa",
+  "documentPath": "docs/moxie-tao-oxy-tren-sao-hoa/index.json",
+  "title": "122 gram oxy trên Sao Hỏa: một thí nghiệm nhỏ cho chuyến trở về rất xa",
+  "summary": "MOXIE đã tách oxy từ khí quyển Sao Hỏa. Phía sau 122 gram sản phẩm là bài toán điện phân, năng lượng và nhiên liệu cho hành trình trở về Trái Đất.",
+  "category": "phanung",
+  "author": "Ban biên tập ChemDex",
+  "image": "/assets/library/photos/stories/moxie.jpg",
+  "tags": [
+    "Điện phân",
+    "Sao Hỏa",
+    "Oxy",
+    "CO2"
+  ],
+  "aliases": [],
+  "documentKind": "story",
+  "readingMinutes": 4,
+  "editorialEvidence": {
+    "language": "vi",
+    "scope": "chemical-family",
+    "contextLabel": "122 gram oxy trên Sao Hỏa: một thí nghiệm nhỏ cho chuyến trở về rất xa",
+    "reviewBasis": "Biên soạn theo các nguồn dẫn cuối bài; phân biệt kết quả đã thực hiện và hướng phát triển.",
+    "story": {
+      "status": "documented",
+      "section": "## Một chiếc máy mang theo câu hỏi về đường về",
+      "sources": [
+        "https://www.nasa.gov/missions/mars-2020-perseverance/perseverance-rover/nasas-oxygen-generating-experiment-moxie-completes-mars-mission/",
+        "https://openstax.org/books/chemistry-2e/pages/17-7-electrolysis"
+      ]
+    },
+    "application": {
+      "status": "documented",
+      "section": "## Ứng dụng hôm nay: thử nghiệm đã thành công, nhà máy vẫn là bước tiếp theo",
+      "sources": [
+        "https://www.nasa.gov/missions/mars-2020-perseverance/perseverance-rover/nasas-oxygen-generating-experiment-moxie-completes-mars-mission/",
+        "https://openstax.org/books/chemistry-2e/pages/17-7-electrolysis"
+      ]
+    }
+  },
+  "content": "## Một chiếc máy mang theo câu hỏi về đường về\n\nTháng 9 năm 2023, NASA công bố MOXIE đã kết thúc các lần vận hành trên xe tự hành Perseverance. Thiết bị tạo được tổng cộng 122 gram oxy sau 16 lần chạy trên Sao Hỏa. Khối lượng ấy nhỏ so với nhu cầu của một chuyến bay có người, nhưng nó trả lời được câu hỏi lớn: liệu con người có thể lấy một phần vật tư cho hành trình trở về ngay tại nơi mình đến?\n\nMOXIE hút khí quyển giàu carbon dioxide, rồi dùng quá trình điện hóa để tạo oxy. Đây là thử nghiệm công nghệ trên một hành tinh khác, chưa phải hệ thống nuôi sống phi hành đoàn. Giá trị của nó nằm ở việc biến một ý tưởng trên bản vẽ thành kết quả đo được trong môi trường thật.\n\n![Mô hình kỹ thuật MOXIE được thử nghiệm tại JPL](/assets/library/photos/stories/moxie.jpg)\n\n*Bản mô hình kỹ thuật của MOXIE trong thử nghiệm tại JPL năm 2021; hộp nhôm mạ vàng chứa bộ điện phân oxide rắn. — NASA/JPL-Caltech; Courtesy NASA/JPL-Caltech; [Public domain](https://www.jpl.nasa.gov/jpl-image-use-policy/). [Nguồn ảnh](https://commons.wikimedia.org/wiki/File:PIA24201-MarsPerseveranceRover-MoxieTwin-2021019.jpg).*\n\n## Hai nguyên tử oxy đi về hai phía\n\nPhương trình tổng quát có thể viết **2CO₂ → 2CO + O₂**. Đếm nguyên tử hai vế cho thấy carbon và oxygen đều được bảo toàn. Nhưng phương trình cân bằng chưa nói phản ứng có tự chạy hay không. Muốn tách một phân tử bền thành những sản phẩm khác, hệ thống phải được cung cấp năng lượng và có đường dẫn phù hợp cho các hạt mang điện.\n\nỞ đây, carbon monoxide là sản phẩm đi kèm, còn oxy phải được tách riêng và kiểm tra. Không thể lấy hỗn hợp khí sau phản ứng rồi gọi toàn bộ là khí thở. Sự khác biệt giữa một phương trình trên giấy và thiết bị sử dụng được nằm ở những việc như tách dòng, đo độ tinh khiết, quản lý nhiệt và duy trì dòng điện.\n\nĐiện phân cũng không tạo thêm nguyên tử. Nó sắp xếp lại các nguyên tử vốn đã có trong nguyên liệu. Khi viết đúng phương trình, ta nhìn thấy ngay giới hạn vật chất: để sản xuất một lượng O₂ nhất định cần đưa vào một lượng CO₂ tương ứng, bất kể thiết bị được thiết kế tinh vi đến đâu.\n\n## Ứng dụng hôm nay: thử nghiệm đã thành công, nhà máy vẫn là bước tiếp theo\n\nMOXIE chứng minh khả năng khai thác tài nguyên tại chỗ. Đối với một nhiệm vụ có người, oxy còn phục vụ vai trò chất oxy hóa cho động cơ tên lửa. Oxy giúp nhiên liệu cháy; bản thân nó không phải nhiên liệu. Chính sự phân biệt này giải thích vì sao nhu cầu cho chuyến phóng lên có thể lớn hơn nhiều nhu cầu hô hấp.\n\nĐể đi từ thử nghiệm đến hệ thống vận hành, bài toán còn bao gồm sản xuất liên tục, hóa lỏng và lưu trữ sản phẩm. Một kết quả đạt được trong từng đợt hoạt động không tự bảo đảm độ tin cậy nhiều tháng hoặc nhiều năm.\n\nTrên Trái Đất, nguyên lý dùng điện để điều khiển biến đổi hóa học đã hiện diện trong luyện kim, sản xuất hóa chất và lưu trữ năng lượng. Câu chuyện MOXIE khiến những khái niệm ấy trở nên cụ thể: mỗi bình khí có một nguồn nguyên liệu, một hóa đơn năng lượng và một chuỗi kiểm soát chất lượng đứng phía sau. Muốn đánh giá một công nghệ, cần đọc cả ba.\n\n## Nguồn và đọc thêm\n\n- [NASA/JPL · Kết quả nhiệm vụ MOXIE, 2023](https://www.nasa.gov/missions/mars-2020-perseverance/perseverance-rover/nasas-oxygen-generating-experiment-moxie-completes-mars-mission/)\n- [OpenStax · Điện phân](https://openstax.org/books/chemistry-2e/pages/17-7-electrolysis)"
+}

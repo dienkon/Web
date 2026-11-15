@@ -1,0 +1,44 @@
+{
+  "id": "hall-heroult-dong-dien-va-nhom",
+  "slug": "hall-heroult-dong-dien-va-nhom",
+  "documentPath": "docs/hall-heroult-dong-dien-va-nhom/index.json",
+  "title": "Những giọt kim loại năm 1886 và cuộc đổi đời của nhôm",
+  "summary": "Nhôm từng khó điều chế dù nguyên tố này rất phổ biến. Bước ngoặt Hall–Héroult cho thấy một dung môi phù hợp có thể làm thay đổi cả ngành vật liệu.",
+  "category": "phanung",
+  "author": "Ban biên tập ChemDex",
+  "image": "/assets/library/photos/stories/aluminium-recycling.jpg",
+  "tags": [
+    "Nhôm",
+    "Hall–Héroult",
+    "Điện phân",
+    "Công nghiệp"
+  ],
+  "aliases": [],
+  "documentKind": "story",
+  "readingMinutes": 4,
+  "editorialEvidence": {
+    "language": "vi",
+    "scope": "chemical-family",
+    "contextLabel": "Những giọt kim loại năm 1886 và cuộc đổi đời của nhôm",
+    "reviewBasis": "Biên soạn theo các nguồn dẫn cuối bài; phân biệt kết quả đã thực hiện và hướng phát triển.",
+    "story": {
+      "status": "documented",
+      "section": "## Một kim loại phổ biến nhưng khó lấy ra",
+      "sources": [
+        "https://www.acs.org/education/whatischemistry/landmarks/aluminumprocess.html",
+        "https://openstax.org/books/chemistry-2e/pages/17-7-electrolysis",
+        "https://periodic-table.rsc.org/element/13/aluminium"
+      ]
+    },
+    "application": {
+      "status": "documented",
+      "section": "## Ứng dụng hôm nay: giá trị của nhôm đã nằm sẵn trong chiếc lon cũ",
+      "sources": [
+        "https://www.acs.org/education/whatischemistry/landmarks/aluminumprocess.html",
+        "https://openstax.org/books/chemistry-2e/pages/17-7-electrolysis",
+        "https://periodic-table.rsc.org/element/13/aluminium"
+      ]
+    }
+  },
+  "content": "## Một kim loại phổ biến nhưng khó lấy ra\n\nNgày 23 tháng 2 năm 1886, Charles Martin Hall tạo được nhôm bằng cách cho dòng điện đi qua nhôm oxide hòa tan trong cryolite nóng chảy. Cùng năm, Paul Héroult phát triển độc lập phương pháp tương tự tại Pháp. Tên hai người về sau gắn với một quy trình nền tảng của ngành nhôm.\n\nĐiều gây ngạc nhiên là nhôm không phải nguyên tố hiếm trong vỏ Trái Đất. Khó khăn nằm ở việc tách nó khỏi hợp chất. Trữ lượng nguyên tố và sự dễ dàng điều chế đơn chất là hai câu hỏi khác nhau. Những giọt nhôm của Hall đánh dấu lời giải cho câu hỏi thứ hai.\n\n![Nấu lại nhôm tại Kaduna](/assets/library/photos/stories/aluminium-recycling.jpg)\n\n*Nhôm được nấu lại trong nồi kim loại tại khu chợ Pantaker cũ ở Kaduna, Nigeria. — Kambai Akau; [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0). [Nguồn ảnh](https://commons.wikimedia.org/wiki/File:Production_of_aluminium_pot_(melting_of_aluminium)_9.jpg).*\n\n## Vì sao không đơn giản điện phân một cốc nước muối nhôm?\n\nMột dung dịch nước có nhiều loài hóa học cùng tham gia cạnh tranh ở điện cực. Có ion nhôm trong dung dịch không có nghĩa nhôm kim loại sẽ dễ dàng được thu ở cathode; quá trình tạo hydrogen có thể chiếm ưu thế. Muốn thiết kế phản ứng, cần xét cả môi trường chứ không chỉ tên ion mong muốn.\n\nQuy trình Hall–Héroult dùng môi trường muối nóng chảy. Cryolite giúp hòa tan nhôm oxide và tạo môi trường dẫn điện thích hợp. Ở cathode, các loài chứa nhôm nhận electron để tạo kim loại. Phương trình bán phản ứng thường được viết giản lược **Al³⁺ + 3e⁻ → Al**; đó là cách ghi cân bằng electron, không phải mô tả đầy đủ mọi phức ion trong bể.\n\nĐiện cực carbon cũng tham gia biến đổi ở phía anode. Vì vậy không nên mô tả quy trình truyền thống như thể chỉ tiêu thụ điện và giải phóng oxy sạch. Muốn đánh giá tác động của một kilogram nhôm phải xét điện năng, vật liệu điện cực và các công đoạn chuẩn bị nguyên liệu.\n\n## Ứng dụng hôm nay: giá trị của nhôm đã nằm sẵn trong chiếc lon cũ\n\nNhôm có mặt trong bao bì, giao thông, xây dựng và truyền tải điện. Với mỗi ứng dụng, người ta còn lựa chọn hợp kim và phương pháp gia công để đạt cơ tính cần thiết; ký hiệu Al trên bảng tuần hoàn không tự giải thích toàn bộ tính chất của một chi tiết máy.\n\nTái chế có một lợi thế hóa học: kim loại trong phế liệu đã được tách khỏi oxide ở một vòng sản xuất trước. Nấu lại vật liệu phù hợp không cần lặp nguyên vẹn công đoạn khử từ quặng. Tuy vậy, phân loại hợp kim và kiểm soát tạp chất vẫn quan trọng, vì trộn mọi loại phế liệu không tự cho ra sản phẩm đạt yêu cầu.\n\nCâu chuyện năm 1886 nối với đời sống qua chính công đoạn thu gom và phân loại hôm nay. Một lon nhôm đã dùng chứa không chỉ vật chất mà còn chứa kết quả của một quá trình điều chế tốn công sức. Giữ được vật liệu trong chuỗi sử dụng giúp tránh phải bắt đầu lại từ liên kết bền trong quặng. Đó là lý do hóa học của sản xuất và thiết kế tái chế cần được đọc cùng nhau.\n\n## Nguồn và đọc thêm\n\n- [ACS · Lịch sử quy trình Hall–Héroult](https://www.acs.org/education/whatischemistry/landmarks/aluminumprocess.html)\n- [OpenStax · Điện phân và điều chế kim loại](https://openstax.org/books/chemistry-2e/pages/17-7-electrolysis)\n- [Royal Society of Chemistry · Aluminium](https://periodic-table.rsc.org/element/13/aluminium)"
+}

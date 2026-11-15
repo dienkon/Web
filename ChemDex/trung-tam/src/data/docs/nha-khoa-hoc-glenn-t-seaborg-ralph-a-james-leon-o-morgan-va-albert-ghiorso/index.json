@@ -2,11 +2,11 @@
   "id": "nha-khoa-hoc-glenn-t-seaborg-ralph-a-james-leon-o-morgan-va-albert-ghiorso",
   "slug": "nha-khoa-hoc-glenn-t-seaborg-ralph-a-james-leon-o-morgan-va-albert-ghiorso",
   "documentPath": "docs/nha-khoa-hoc-glenn-t-seaborg-ralph-a-james-leon-o-morgan-va-albert-ghiorso/index.json",
-  "title": "Glenn T. Seaborg, Ralph A. James, Leon O. Morgan và Albert Ghiorso — dấu mốc khám phá hóa học",
+  "title": "Glenn T. Seaborg, Ralph A. James, Leon O. Morgan và Albert Ghiorso — lần theo dấu vết americium",
   "author": "Ban biên tập ChemDex",
   "category": "tieusu",
-  "summary": "Hồ sơ lịch sử liên quan đến Americium (Am); phân biệt phát hiện, cô lập và đặt tên theo từng trường hợp.",
-  "image": "/assets/library/history-evidence.svg",
+  "summary": "Americium được tạo ra lần đầu tiên vào năm 1944 bằng cách bắn phá plutonium-239 bằng neutron, tạo ra plutonium-240, sau đó tiếp tục trải qua các quá trình hạt nhân để hình thành americium-241. Đồng vị ²⁴¹Am là đồng vị quan trọng nhất của nguyên tố này.",
+  "image": "/assets/library/photos/elements/Am.jpg",
   "tags": [
     "Lịch sử hóa học",
     "Am"
@@ -15,6 +15,26 @@
     "Glenn T. Seaborg, Ralph A. James, Leon O. Morgan và Albert Ghiorso"
   ],
   "documentKind": "biography",
-  "readingMinutes": 1,
-  "content": "# Glenn T. Seaborg, Ralph A. James, Leon O. Morgan và Albert Ghiorso — dấu mốc khám phá hóa học\n\nHồ sơ lịch sử liên quan đến Americium (Am); phân biệt phát hiện, cô lập và đặt tên theo từng trường hợp.\n\n## Americium (Am)\n\nAmericium được tạo ra lần đầu tiên vào năm 1944 bằng cách bắn phá Plutonium-239 bằng neutron, tạo ra Plutonium-240, sau đó tiếp tục trải qua các quá trình hạt nhân để hình thành Americium-241. Đồng vị ²⁴¹Am là đồng vị quan trọng nhất của nguyên tố này. Tên Americium được đặt theo Americas (châu Mỹ), tương tự cách Europium được đặt theo Europe (châu Âu).\n\n**Mốc lịch sử:** 1944. **Địa điểm ghi trong hồ sơ:** Chicago, Illinois, Hoa Kỳ.\n\n[Đọc tài liệu về Americium](/trung-tam/tai-lieu-so/americium-am/).\n\n[Royal Society of Chemistry — thông tin nguyên tố](https://periodic-table.rsc.org/element/95/americium)\n\n## Cách đọc các mốc lịch sử\n\nPhát hiện một nguyên tố, cô lập đơn chất và đặt tên có thể là những công việc khác nhau, diễn ra ở các thời điểm khác nhau. Một nhóm nghiên cứu hoặc cơ quan không được xem như một cá nhân. Với nguyên tố được biết từ cổ đại, hồ sơ không gán một người khám phá. Các ghi nhận trên dẫn về tài liệu của nguyên tố và nguồn tham khảo tương ứng; không bổ sung lời trích dẫn hay giai thoại đời tư chưa có căn cứ."
+  "readingMinutes": 3,
+  "editorialEvidence": {
+    "language": "vi",
+    "scope": "related-element",
+    "contextLabel": "Americium (Am)",
+    "reviewBasis": "existing-element-dossier",
+    "story": {
+      "status": "documented",
+      "section": "## Cuộc tìm kiếm dẫn đến americium",
+      "sources": [
+        "https://periodic-table.rsc.org/element/95/americium"
+      ]
+    },
+    "application": {
+      "status": "context-only",
+      "section": "## Từ dấu mốc nghiên cứu đến công việc hôm nay",
+      "sources": [
+        "https://periodic-table.rsc.org/element/95/americium"
+      ]
+    }
+  },
+  "content": "## Cuộc tìm kiếm dẫn đến americium\n\nAmericium được tạo ra lần đầu tiên vào năm 1944 bằng cách bắn phá plutonium-239 bằng neutron, tạo ra plutonium-240, sau đó tiếp tục trải qua các quá trình hạt nhân để hình thành americium-241. Đồng vị ²⁴¹Am là đồng vị quan trọng nhất của nguyên tố này. Tên americium được đặt theo Americas (châu Mỹ), tương tự cách europium được đặt theo Europe (châu Âu).\n\nNhững người hoặc cơ sở được ghi nhận trong câu chuyện này là **Glenn T. Seaborg, Ralph A. James, Leon O. Morgan và Albert Ghiorso**.\n\n![Hình minh họa americium](/assets/library/photos/elements/Am.jpg)\n\n*Hình minh họa chủ đề americium. [Nguồn hình: bộ ảnh nguyên tố](https://en.wikipedia.org/wiki/Americium).*\n\n## Bằng chứng đã thay đổi điều gì?\n\nỞ những nguyên tố được tạo ra bằng phản ứng hạt nhân, bằng chứng có thể xuất hiện dưới dạng một chuỗi tín hiệu phân rã. Các nhà nghiên cứu phải nối những tín hiệu ấy với quá trình tạo mẫu, kiểm tra sản phẩm và đối chiếu sự kiện lặp lại. Đổi một nguyên tố thành nguyên tố khác đòi hỏi thay đổi hạt nhân; phản ứng hóa học thông thường chỉ sắp xếp lại electron và liên kết. Chính sự khác biệt này khiến cuộc tìm kiếm cần đến những công cụ vượt xa bình phản ứng quen thuộc.\n\n## Từ dấu mốc nghiên cứu đến công việc hôm nay\n\n### Americium (Am)\n\n²⁴¹Am được sử dụng trong nhiều thiết bị báo khói ion hóa. Bức xạ alpha từ ²⁴¹Am giúp ion hóa không khí trong buồng cảm biến; khi khói đi vào, dòng ion bị thay đổi và thiết bị phát hiện khói.\n\nMột số nguồn americium được sử dụng trong các thiết bị đo công nghiệp chuyên dụng.\n\n[Đọc tiếp về Americium](/trung-tam/tai-lieu-so/americium-am/).\n\nNhững ứng dụng này thuộc về hành trình phát triển tiếp theo của nguyên tố. Từ phát hiện đến thiết bị sử dụng được còn có công việc của nhiều thế hệ: tạo vật liệu đủ sạch, hiểu tính chất, thiết kế quy trình và kiểm tra độ bền. Vai trò của người khám phá nằm ở dấu mốc được kể ở trên; các công nghệ xuất hiện sau đó cần được ghi nhận cho đúng công trình.\n\n## Nguồn và đọc tiếp\n\n- [Hội Hóa học Hoàng gia Anh · Americium](https://periodic-table.rsc.org/element/95/americium)"
 }

@@ -2,11 +2,11 @@
   "id": "nha-khoa-hoc-glenn-t-seaborg-arthur-wahl-joseph-w-kennedy-va-edwin-mcmillan",
   "slug": "nha-khoa-hoc-glenn-t-seaborg-arthur-wahl-joseph-w-kennedy-va-edwin-mcmillan",
   "documentPath": "docs/nha-khoa-hoc-glenn-t-seaborg-arthur-wahl-joseph-w-kennedy-va-edwin-mcmillan/index.json",
-  "title": "Glenn T. Seaborg, Arthur Wahl, Joseph W. Kennedy và Edwin McMillan — dấu mốc khám phá hóa học",
+  "title": "Glenn T. Seaborg, Arthur Wahl, Joseph W. Kennedy và Edwin McMillan — lần theo dấu vết plutonium",
   "author": "Ban biên tập ChemDex",
   "category": "tieusu",
-  "summary": "Hồ sơ lịch sử liên quan đến Plutonium (Pu); phân biệt phát hiện, cô lập và đặt tên theo từng trường hợp.",
-  "image": "/assets/library/history-evidence.svg",
+  "summary": "Plutonium được tạo ra lần đầu tiên vào tháng 12 năm 1940 bằng cách bắn phá uranium-238 bằng Deuteron. Quá trình này tạo ra neptunium-238, sau đó phân rã beta thành plutonium-238.",
+  "image": "/assets/library/photos/elements/Pu.jpg",
   "tags": [
     "Lịch sử hóa học",
     "Pu"
@@ -15,6 +15,26 @@
     "Glenn T. Seaborg, Arthur Wahl, Joseph W. Kennedy và Edwin McMillan"
   ],
   "documentKind": "biography",
-  "readingMinutes": 1,
-  "content": "# Glenn T. Seaborg, Arthur Wahl, Joseph W. Kennedy và Edwin McMillan — dấu mốc khám phá hóa học\n\nHồ sơ lịch sử liên quan đến Plutonium (Pu); phân biệt phát hiện, cô lập và đặt tên theo từng trường hợp.\n\n## Plutonium (Pu)\n\nPlutonium được tạo ra lần đầu tiên vào tháng 12 năm 1940 bằng cách bắn phá Uranium-238 bằng Deuteron. Quá trình này tạo ra Neptunium-238, sau đó phân rã beta thành Plutonium-238. ²³⁸U + ²H → ²³⁸Np + 2n ²³⁸Np → ²³⁸Pu + β⁻ Tên Plutonium được đặt theo Pluto, tiếp nối cách đặt tên của Uranium và Neptunium theo các thiên thể.\n\n**Mốc lịch sử:** 1940. **Địa điểm ghi trong hồ sơ:** Berkeley, California, Hoa Kỳ.\n\n[Đọc tài liệu về Plutonium](/trung-tam/tai-lieu-so/plutonium-pu/).\n\n[Royal Society of Chemistry — thông tin nguyên tố](https://periodic-table.rsc.org/element/94/plutonium)\n\n## Cách đọc các mốc lịch sử\n\nPhát hiện một nguyên tố, cô lập đơn chất và đặt tên có thể là những công việc khác nhau, diễn ra ở các thời điểm khác nhau. Một nhóm nghiên cứu hoặc cơ quan không được xem như một cá nhân. Với nguyên tố được biết từ cổ đại, hồ sơ không gán một người khám phá. Các ghi nhận trên dẫn về tài liệu của nguyên tố và nguồn tham khảo tương ứng; không bổ sung lời trích dẫn hay giai thoại đời tư chưa có căn cứ."
+  "readingMinutes": 3,
+  "editorialEvidence": {
+    "language": "vi",
+    "scope": "related-element",
+    "contextLabel": "Plutonium (Pu)",
+    "reviewBasis": "existing-element-dossier",
+    "story": {
+      "status": "documented",
+      "section": "## Cuộc tìm kiếm dẫn đến plutonium",
+      "sources": [
+        "https://periodic-table.rsc.org/element/94/plutonium"
+      ]
+    },
+    "application": {
+      "status": "context-only",
+      "section": "## Từ dấu mốc nghiên cứu đến công việc hôm nay",
+      "sources": [
+        "https://periodic-table.rsc.org/element/94/plutonium"
+      ]
+    }
+  },
+  "content": "## Cuộc tìm kiếm dẫn đến plutonium\n\nPlutonium được tạo ra lần đầu tiên vào tháng 12 năm 1940 bằng cách bắn phá uranium-238 bằng Deuteron. Quá trình này tạo ra neptunium-238, sau đó phân rã beta thành plutonium-238. ²³⁸U + ²H → ²³⁸Np + 2n ²³⁸Np → ²³⁸Pu + β⁻ Tên plutonium được đặt theo Pluto, tiếp nối cách đặt tên của uranium và neptunium theo các thiên thể.\n\nNhững người hoặc cơ sở được ghi nhận trong câu chuyện này là **Glenn T. Seaborg, Arthur Wahl, Joseph W. Kennedy và Edwin McMillan**.\n\n![Hình minh họa plutonium](/assets/library/photos/elements/Pu.jpg)\n\n*Hình minh họa chủ đề plutonium. [Nguồn hình: bộ ảnh nguyên tố](https://en.wikipedia.org/wiki/Plutonium).*\n\n## Bằng chứng đã thay đổi điều gì?\n\nỞ những nguyên tố được tạo ra bằng phản ứng hạt nhân, bằng chứng có thể xuất hiện dưới dạng một chuỗi tín hiệu phân rã. Các nhà nghiên cứu phải nối những tín hiệu ấy với quá trình tạo mẫu, kiểm tra sản phẩm và đối chiếu sự kiện lặp lại. Đổi một nguyên tố thành nguyên tố khác đòi hỏi thay đổi hạt nhân; phản ứng hóa học thông thường chỉ sắp xếp lại electron và liên kết. Chính sự khác biệt này khiến cuộc tìm kiếm cần đến những công cụ vượt xa bình phản ứng quen thuộc.\n\n## Từ dấu mốc nghiên cứu đến công việc hôm nay\n\n### Plutonium (Pu)\n\nMột số đồng vị plutonium, đặc biệt ²³⁹Pu, có khả năng phân hạch và có thể được sử dụng trong nhiên liệu hạt nhân trong các hệ thống được quản lý nghiêm ngặt.\n\n²³⁸Pu được sử dụng trong máy phát nhiệt điện đồng vị phóng xạ (RTG) để cung cấp điện cho một số tàu thăm dò và thiết bị không gian. Nhiệt sinh ra từ quá trình phân rã phóng xạ được chuyển thành điện năng.\n\n[Đọc tiếp về Plutonium](/trung-tam/tai-lieu-so/plutonium-pu/).\n\nNhững ứng dụng này thuộc về hành trình phát triển tiếp theo của nguyên tố. Từ phát hiện đến thiết bị sử dụng được còn có công việc của nhiều thế hệ: tạo vật liệu đủ sạch, hiểu tính chất, thiết kế quy trình và kiểm tra độ bền. Vai trò của người khám phá nằm ở dấu mốc được kể ở trên; các công nghệ xuất hiện sau đó cần được ghi nhận cho đúng công trình.\n\n## Nguồn và đọc tiếp\n\n- [Hội Hóa học Hoàng gia Anh · Plutonium](https://periodic-table.rsc.org/element/94/plutonium)"
 }

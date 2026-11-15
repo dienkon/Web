@@ -2,11 +2,11 @@
   "id": "lich-su-phat-hien-hg",
   "slug": "lich-su-phat-hien-hg",
   "documentPath": "docs/lich-su-phat-hien-hg/index.json",
-  "title": "Lịch sử phát hiện Thủy ngân",
+  "title": "Thủy ngân: một lịch sử có trước tên người phát hiện",
   "author": "Ban biên tập ChemDex",
   "category": "nguyento",
-  "summary": "Hồ sơ lịch sử liên quan đến Thủy ngân (Hg); phân biệt phát hiện, cô lập và đặt tên theo từng trường hợp.",
-  "image": "/assets/library/history-evidence.svg",
+  "summary": "Thủy ngân là một trong những nguyên tố đã được con người biết đến từ thời cổ đại. Các vật thể chứa thủy ngân đã được tìm thấy trong những di tích cổ.",
+  "image": "/assets/library/photos/elements/Hg.jpg",
   "tags": [
     "Lịch sử hóa học",
     "Hg"
@@ -15,6 +15,26 @@
     "Không xác định — Mercury đã được con người biết đến từ thời cổ đại."
   ],
   "documentKind": "biography",
-  "readingMinutes": 1,
-  "content": "# Lịch sử phát hiện Thủy ngân\n\nHồ sơ lịch sử liên quan đến Thủy ngân (Hg); phân biệt phát hiện, cô lập và đặt tên theo từng trường hợp.\n\n## Thủy ngân (Hg)\n\nMercury là một trong những nguyên tố đã được con người biết đến từ thời cổ đại. Các vật thể chứa Mercury đã được tìm thấy trong những di tích cổ. Người Hy Lạp và La Mã đã biết đến và sử dụng Mercury trong nhiều mục đích khác nhau. Tên Mercury trong tiếng Anh bắt nguồn từ tên vị thần Mercury của La Mã, còn ký hiệu Hg bắt nguồn từ tên Latin Hydrargyrum, có nghĩa gần với “bạc lỏng”.\n\n**Mốc lịch sử:** Thời cổ đại. **Địa điểm ghi trong hồ sơ:** Không xác định.\n\n[Đọc tài liệu về Thủy ngân](/trung-tam/tai-lieu-so/thuy-ngan-hg/).\n\n[Royal Society of Chemistry — thông tin nguyên tố](https://periodic-table.rsc.org/element/80/mercury)\n\n## Cách đọc các mốc lịch sử\n\nPhát hiện một nguyên tố, cô lập đơn chất và đặt tên có thể là những công việc khác nhau, diễn ra ở các thời điểm khác nhau. Một nhóm nghiên cứu hoặc cơ quan không được xem như một cá nhân. Với nguyên tố được biết từ cổ đại, hồ sơ không gán một người khám phá. Các ghi nhận trên dẫn về tài liệu của nguyên tố và nguồn tham khảo tương ứng; không bổ sung lời trích dẫn hay giai thoại đời tư chưa có căn cứ."
+  "readingMinutes": 2,
+  "editorialEvidence": {
+    "language": "vi",
+    "scope": "related-element",
+    "contextLabel": "Thủy ngân (Hg)",
+    "reviewBasis": "existing-element-dossier",
+    "story": {
+      "status": "documented",
+      "section": "## Dấu vết thủy ngân trong lịch sử",
+      "sources": [
+        "https://periodic-table.rsc.org/element/80/mercury"
+      ]
+    },
+    "application": {
+      "status": "context-only",
+      "section": "## Từ dấu mốc nghiên cứu đến công việc hôm nay",
+      "sources": [
+        "https://periodic-table.rsc.org/element/80/mercury"
+      ]
+    }
+  },
+  "content": "## Dấu vết thủy ngân trong lịch sử\n\nThủy ngân là một trong những nguyên tố đã được con người biết đến từ thời cổ đại. Các vật thể chứa thủy ngân đã được tìm thấy trong những di tích cổ. Người Hy Lạp và La Mã đã biết đến và sử dụng thủy ngân trong nhiều mục đích khác nhau. Tên thủy ngân trong tiếng Anh bắt nguồn từ tên vị thần thủy ngân của La Mã, còn ký hiệu Hg bắt nguồn từ tên Latin Hydrargyrum, có nghĩa gần với “bạc lỏng”.\n\n![Hình minh họa thủy ngân](/assets/library/photos/elements/Hg.jpg)\n\n*Hình minh họa chủ đề thủy ngân. [Nguồn hình: bộ ảnh nguyên tố](https://en.wikipedia.org/wiki/Mercury).*\n\n## Bằng chứng đã thay đổi điều gì?\n\nVới thủy ngân, việc con người biết sử dụng một vật liệu và việc hóa học nhận diện nguyên tố trong vật liệu ấy thuộc về những thời kỳ khác nhau. Một đồ vật cổ có thể cho biết người xưa đã biết khai thác, nung hoặc tạo hình; nó chưa cho biết họ đã có khái niệm nguyên tử như ngày nay. Vì thế, câu chuyện này cần được đọc qua dấu tích vật liệu và sự thay đổi cách hiểu, thay vì tìm một ngày phát minh duy nhất.\n\n## Từ dấu mốc nghiên cứu đến công việc hôm nay\n\n### Thủy ngân (Hg)\n\nThủy ngân từng được sử dụng rộng rãi trong nhiệt kế, áp kế và các thiết bị đo áp suất.\n\nThủy ngân được sử dụng trong một số loại đèn phóng điện và đèn huỳnh quang.\n\n[Đọc tiếp về Thủy ngân](/trung-tam/tai-lieu-so/thuy-ngan-hg/).\n\nNhững ứng dụng này thuộc về hành trình phát triển tiếp theo của nguyên tố. Từ phát hiện đến thiết bị sử dụng được còn có công việc của nhiều thế hệ: tạo vật liệu đủ sạch, hiểu tính chất, thiết kế quy trình và kiểm tra độ bền. Vai trò của người khám phá nằm ở dấu mốc được kể ở trên; các công nghệ xuất hiện sau đó cần được ghi nhận cho đúng công trình.\n\n## Nguồn và đọc tiếp\n\n- [Hội Hóa học Hoàng gia Anh · Thủy ngân](https://periodic-table.rsc.org/element/80/mercury)"
 }

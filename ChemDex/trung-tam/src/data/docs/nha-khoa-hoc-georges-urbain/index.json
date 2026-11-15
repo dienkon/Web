@@ -2,11 +2,11 @@
   "id": "nha-khoa-hoc-georges-urbain",
   "slug": "nha-khoa-hoc-georges-urbain",
   "documentPath": "docs/nha-khoa-hoc-georges-urbain/index.json",
-  "title": "Georges Urbain — dấu mốc khám phá hóa học",
+  "title": "Georges Urbain — lần theo dấu vết lutetium",
   "author": "Ban biên tập ChemDex",
   "category": "tieusu",
-  "summary": "Hồ sơ lịch sử liên quan đến Lutetium (Lu); phân biệt phát hiện, cô lập và đặt tên theo từng trường hợp.",
-  "image": "/assets/library/history-evidence.svg",
+  "summary": "Lutetium được phát hiện vào năm 1907 bởi nhà hóa học người Pháp Georges Urbain khi ông nghiên cứu và tách ytterbium thành các thành phần khác nhau. Cùng thời gian đó, Carl Auer von Welsbach ở Áo cũng nghiên cứu ytterbium và phát hiện một nguyên tố tương ứng, nhưng Urbain là người được công nhận chính thức về việc đặt tên và công bố lutetium.",
+  "image": "/assets/library/photos/elements/Lu.jpg",
   "tags": [
     "Lịch sử hóa học",
     "Lu"
@@ -15,6 +15,26 @@
     "Georges Urbain"
   ],
   "documentKind": "biography",
-  "readingMinutes": 1,
-  "content": "# Georges Urbain — dấu mốc khám phá hóa học\n\nHồ sơ lịch sử liên quan đến Lutetium (Lu); phân biệt phát hiện, cô lập và đặt tên theo từng trường hợp.\n\n## Lutetium (Lu)\n\nLutetium được phát hiện vào năm 1907 bởi nhà hóa học người Pháp Georges Urbain khi ông nghiên cứu và tách Ytterbium thành các thành phần khác nhau. Cùng thời gian đó, Carl Auer von Welsbach ở Áo cũng nghiên cứu Ytterbium và phát hiện một nguyên tố tương ứng, nhưng Urbain là người được công nhận chính thức về việc đặt tên và công bố Lutetium. Tên Lutetium bắt nguồn từ Lutetia, tên Latin cổ của Paris.\n\n**Mốc lịch sử:** 1907. **Địa điểm ghi trong hồ sơ:** Paris, Pháp.\n\n[Đọc tài liệu về Lutetium](/trung-tam/tai-lieu-so/lutetium-lu/).\n\n[Royal Society of Chemistry — thông tin nguyên tố](https://periodic-table.rsc.org/element/71/lutetium)\n\n## Cách đọc các mốc lịch sử\n\nPhát hiện một nguyên tố, cô lập đơn chất và đặt tên có thể là những công việc khác nhau, diễn ra ở các thời điểm khác nhau. Một nhóm nghiên cứu hoặc cơ quan không được xem như một cá nhân. Với nguyên tố được biết từ cổ đại, hồ sơ không gán một người khám phá. Các ghi nhận trên dẫn về tài liệu của nguyên tố và nguồn tham khảo tương ứng; không bổ sung lời trích dẫn hay giai thoại đời tư chưa có căn cứ."
+  "readingMinutes": 3,
+  "editorialEvidence": {
+    "language": "vi",
+    "scope": "related-element",
+    "contextLabel": "Lutetium (Lu)",
+    "reviewBasis": "existing-element-dossier",
+    "story": {
+      "status": "documented",
+      "section": "## Cuộc tìm kiếm dẫn đến lutetium",
+      "sources": [
+        "https://periodic-table.rsc.org/element/71/lutetium"
+      ]
+    },
+    "application": {
+      "status": "context-only",
+      "section": "## Từ dấu mốc nghiên cứu đến công việc hôm nay",
+      "sources": [
+        "https://periodic-table.rsc.org/element/71/lutetium"
+      ]
+    }
+  },
+  "content": "## Cuộc tìm kiếm dẫn đến lutetium\n\nLutetium được phát hiện vào năm 1907 bởi nhà hóa học người Pháp Georges Urbain khi ông nghiên cứu và tách ytterbium thành các thành phần khác nhau. Cùng thời gian đó, Carl Auer von Welsbach ở Áo cũng nghiên cứu ytterbium và phát hiện một nguyên tố tương ứng, nhưng Urbain là người được công nhận chính thức về việc đặt tên và công bố lutetium. Tên lutetium bắt nguồn từ Lutetia, tên Latin cổ của Paris.\n\nNhững người hoặc cơ sở được ghi nhận trong câu chuyện này là **Georges Urbain**.\n\n![Hình minh họa lutetium](/assets/library/photos/elements/Lu.jpg)\n\n*Hình minh họa chủ đề lutetium. [Nguồn hình: bộ ảnh nguyên tố](https://en.wikipedia.org/wiki/Lutetium).*\n\n## Bằng chứng đã thay đổi điều gì?\n\nĐiều làm một phát hiện có sức nặng là khả năng phân biệt chất đang nghiên cứu với những chất đã biết. Mẫu vật có thể chứa nhiều thành phần; tên khoáng vật hoặc màu sắc chưa đủ xác định nguyên tố. Tách mẫu, so sánh phản ứng và diễn giải phép đo nối với nhau thành một lập luận. Bởi vậy, ngày nhận ra một nguyên tố, ngày cô lập được đơn chất và ngày tên gọi được thống nhất có thể khác nhau.\n\n## Từ dấu mốc nghiên cứu đến công việc hôm nay\n\n### Lutetium (Lu)\n\nĐồng vị ¹⁷⁷Lu là một trong những đồng vị phóng xạ nhân tạo quan trọng của lutetium. Nó được sử dụng trong liệu pháp phóng xạ nhắm trúng đích (targeted radionuclide therapy).\n\nLu₂SiO₅ (LSO) và Lu₂Si₂O₇ (LSO/LYSO-related scintillators) là những vật liệu scintillator quan trọng trong các hệ thống PET (Positron Emission Tomography).\n\n[Đọc tiếp về Lutetium](/trung-tam/tai-lieu-so/lutetium-lu/).\n\nNhững ứng dụng này thuộc về hành trình phát triển tiếp theo của nguyên tố. Từ phát hiện đến thiết bị sử dụng được còn có công việc của nhiều thế hệ: tạo vật liệu đủ sạch, hiểu tính chất, thiết kế quy trình và kiểm tra độ bền. Vai trò của người khám phá nằm ở dấu mốc được kể ở trên; các công nghệ xuất hiện sau đó cần được ghi nhận cho đúng công trình.\n\n## Nguồn và đọc tiếp\n\n- [Hội Hóa học Hoàng gia Anh · Lutetium](https://periodic-table.rsc.org/element/71/lutetium)"
 }
