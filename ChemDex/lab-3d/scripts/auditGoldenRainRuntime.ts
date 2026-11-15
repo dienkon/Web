@@ -30,10 +30,7 @@ function snapshot() {
     meanPhysicalRadius_m: system.particles.length
       ? system.particles.reduce((sum, particle) => sum + (particle.physicalRadius_m ?? 0), 0) / system.particles.length : 0,
   }));
-  const accountedMass_g = vessel.mass_g + (vessel.evaporated_ml ?? 0)
-    + Object.values(vessel.escapedGas_g ?? {}).reduce((sum, mass) => sum + mass, 0)
-    + experiment.donors.reduce((sum, donor) => sum + donor.remaining, 0) + experiment.inFlightMass_g
-    + experiment.transferWaste.reduce((sum, waste) => sum + waste.mass_g, 0);
+  const accountedMass_g = experiment.accountedMass_g;
   return { elapsed_s: experiment.elapsed, phase: experiment.phase, caption: experiment.caption,
     temperature_c: vessel.temperature_c, volume_ml: vessel.volume_ml, mass_g: vessel.mass_g,
     evaporatedWater_g: vessel.evaporated_ml ?? 0, accountedMass_g, massError_g: accountedMass_g - initialMass_g,

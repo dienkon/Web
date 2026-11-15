@@ -14,8 +14,7 @@ describe('Isolated automatic experiments for the system catalog', () => {
       e.tick(0.1);
       if (e.phase === 'dose') {
         sawDose = true;
-        expect(e.sample.mass_g + Object.values(e.sample.escapedGas_g ?? {}).reduce((sum, g) => sum + g, 0)
-          + (e.sample.evaporated_ml ?? 0) + e.inFlightMass_g + e.donors.reduce((sum, d) => sum + d.remaining, 0), id).toBeCloseTo(initialMass, 7);
+        expect(e.accountedMass_g, id).toBeCloseTo(initialMass, 7);
       }
     }
     expect(e.error, id).toBeNull(); expect(e.phase, id).toBe('complete');
@@ -24,7 +23,7 @@ describe('Isolated automatic experiments for the system catalog', () => {
     expect(sawDose || e.donors.length === 0).toBe(true);
     expect(e.donors.every(d => d.remaining === 0)).toBe(true);
     expect(useAppStore.getState()).toBe(before);
-    const finalMass = e.sample.mass_g + Object.values(e.sample.escapedGas_g ?? {}).reduce((sum, g) => sum + g, 0) + (e.sample.evaporated_ml ?? 0);
+    const finalMass = e.accountedMass_g;
     expect(finalMass, id).toBeCloseTo(initialMass, 5);
   }, 120000);
   it('freezes dosing, gas and camera decisions while paused; clocks agree across frame rates', () => {

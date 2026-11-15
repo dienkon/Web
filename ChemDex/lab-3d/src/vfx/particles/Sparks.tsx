@@ -7,7 +7,7 @@ import { useQualityStore, QUALITY_CONFIGS } from '../quality';
 import { getSparkTexture } from '../textures';
 import { PRNG } from '../../core/rng';
 import { simulationFrameDt } from '../../core/clock';
-import { useAppStore } from '../../store/useAppStore';
+import { useVesselVisualStore } from '../../simulation/render/VesselVisualContext';
 import { advanceSplatterFlight } from '../../science/splatterFlight';
 import { LAB_PHYSICS } from '../../engine/interactionEngine';
 import { vfxBus } from '../bus';
@@ -31,6 +31,7 @@ export const Sparks = React.memo(function Sparks({
   listenToEvents = false,
   groundY = LAB_PHYSICS.TABLE_SURFACE_Y,
 }: SparksProps) {
+  const visualStore = useVesselVisualStore();
   const rng = useMemo(() => new PRNG(), []);
   const meshRef = useRef<THREE.InstancedMesh>(null);
   const effectiveTier = useQualityStore((state) => state.effectiveTier);
@@ -110,7 +111,7 @@ export const Sparks = React.memo(function Sparks({
 
   useFrame((frame, delta) => {
     if (!meshRef.current) return;
-    const dt = simulationFrameDt(delta, useAppStore.getState());
+    const dt = simulationFrameDt(delta, visualStore.getState());
 
     // Continuous emission
     if (active && rate > 0) {

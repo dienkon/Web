@@ -10,6 +10,7 @@ import { useInstrumentStore } from '../../../handling/instrumentState';
 import { aspiratePipette, dispensePipette } from '../../../handling/instrumentOperations';
 import { getWorldVesselProfile } from '../../../pour/physics/profiles';
 import { vesselWorldLiquidSurfaceY } from '../../../science/vesselGeometry';
+import { HANDHELD_PIPETTE_TIP_LOCAL_Y } from '../../../handling/dropFlight';
 
 const glassMaterial = new THREE.MeshPhysicalMaterial({
   roughness: 0.05,
@@ -44,6 +45,9 @@ export const InteractivePipette = React.memo(function InteractivePipette({
   const [isDispensing, setIsDispensing] = useState(false);
 
   const pipetteGroupRef = useRef<THREE.Group>(null);
+  const streamFrom = useMemo<[number, number, number]>(() => [...initialPosition], []);
+  const streamTo = useMemo<[number, number, number]>(() => [...initialPosition], []);
+  const outletWorld = useMemo(() => new THREE.Vector3(), []);
   const targetId = targetVesselId ?? selectedVesselId;
   const targetVessel = useAppStore(state => targetId ? state.vessels[targetId] : undefined);
 
@@ -54,7 +58,7 @@ export const InteractivePipette = React.memo(function InteractivePipette({
   const targetWorldPos = useMemo(() => {
     if (isActive && targetVessel) {
       return new THREE.Vector3(targetVessel.position[0], targetVessel.position[1]
-        + getWorldVesselProfile(targetVessel.type, targetVessel.capacity_ml).lipLocal[1] + 0.8, targetVessel.position[2]);
+        + getWorldVesselProfile(targetVessel.type, targetVessel.capacity_ml).lipLocal[1] + 0.1 - HANDHELD_PIPETTE_TIP_LOCAL_Y, targetVessel.position[2]);
     }
     return new THREE.Vector3(...position);
   }, [isActive, targetVessel, position]);
@@ -76,7 +80,14 @@ export const InteractivePipette = React.memo(function InteractivePipette({
     if (!pipetteGroupRef.current) return;
     pipetteGroupRef.current.position.lerp(targetWorldPos, 1 - Math.exp(-delta * 8));
     pipetteGroupRef.current.rotation.set(isActive && targetVessel ? 0 : -Math.PI / 2, 0, 0);
-  });
+    pipetteGroupRef.current.updateWorldMatrix(true, false);
+    outletWorld.set(0, HANDHELD_PIPETTE_TIP_LOCAL_Y, 0).applyMatrix4(pipetteGroupRef.current.matrixWorld);
+    streamFrom[0] = outletWorld.x; streamFrom[1] = outletWorld.y; streamFrom[2] = outletWorld.z;
+    const receiver = targetId ? useAppStore.getState().vessels[targetId] : undefined;
+    streamTo[0] = receiver?.position[0] ?? outletWorld.x;
+    streamTo[1] = receiver ? receiver.position[1] + vesselWorldLiquidSurfaceY(receiver) : outletWorld.y - 0.5;
+    streamTo[2] = receiver?.position[2] ?? outletWorld.z;
+  }, -1);
 
   const handleBulbClick = (e: any) => {
     e.stopPropagation();
@@ -89,13 +100,6 @@ export const InteractivePipette = React.memo(function InteractivePipette({
       dispensePipette(2.5);
     }
   };
-
-  const streamFrom: [number, number, number] = targetVessel
-    ? [targetVessel.position[0], targetVessel.position[1] + getWorldVesselProfile(targetVessel.type, targetVessel.capacity_ml).lipLocal[1] + 0.1, targetVessel.position[2]]
-    : [position[0], position[1] - 0.7, position[2]];
-  const streamTo: [number, number, number] = targetVessel
-    ? [targetVessel.position[0], targetVessel.position[1] + vesselWorldLiquidSurfaceY(targetVessel), targetVessel.position[2]]
-    : [position[0], position[1] - 1.2, position[2]];
 
   const fillRatio = pipetteVolume / 10;
 
@@ -137,7 +141,7 @@ export const InteractivePipette = React.memo(function InteractivePipette({
       )}
 
       {/* Narrow Drawn Tapered Delivery Tip */}
-      <mesh material={glassMaterial} position={[0, -0.85, 0]}>
+      <mesh name="tool-pipette-outlet" material={glassMaterial} position={[0, HANDHELD_PIPETTE_TIP_LOCAL_Y + 0.175, 0]}>
         <cylinderGeometry args={[0.045, 0.012, 0.35, 16]} />
       </mesh>
 

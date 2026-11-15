@@ -52,7 +52,6 @@ export const SolidContentsRenderer = React.memo(function SolidContentsRenderer({
   radius = 0.75,
   baseY = -0.95,
 }: SolidContentsRendererProps) {
-  const visualRuntime = useVesselVisualRuntime();
   const vessel = useVesselVisualState(state => state.vessels[vesselId]);
   const dissolvingMap = useVesselVisualState(state => state.dissolvingSubstances[vesselId]);
   const dissolving = dissolvingMap || EMPTY_DISSOLVING;
@@ -65,11 +64,9 @@ export const SolidContentsRenderer = React.memo(function SolidContentsRenderer({
 
   // Filter only solid substances present in the vessel
   const solidSubstances = vessel.substances.filter(sub => {
-    const sedimentOwnsProduct = visualRuntime?.externallyStepped && [...visualRuntime.manager.precipitationSystems.values()]
-      .some(system => sameMolecularFormula(system.profile.id, sub));
     const entries = vessel.contents.filter(item => item.formula === sub);
     if (entries.length) return entries.some(item => item.phase === 's' && item.location !== 'filter' && item.mass_g > 0
-      && (!(vessel.volume_ml > 0.05 || sedimentOwnsProduct) || !isSuspensionRow(item, vessel.contents, vessel.precipitateSubstance)));
+      && (vessel.volume_ml <= 0.05 || !isSuspensionRow(item, vessel.contents, vessel.precipitateSubstance)));
     const chem = getChemical(sub);
     return chem && chem.type === 'solid' && vessel.volume_ml <= 0.05;
   });
@@ -460,12 +457,10 @@ export const SolidSubstanceMesh = React.memo(function SolidSubstanceMesh({
   const reduced = useQualityStore(s => s.effectiveTier === 'low' || s.effectiveTier === 'potato');
   const stockChemical = getChemical(substance);
   const chemical = stockChemical?.type === 'solid' ? stockChemical : getChemical(`${substance} (s)`);
-  const sedimentOwnsProduct = visualRuntime?.externallyStepped && [...visualRuntime.manager.precipitationSystems.values()]
-    .some(system => sameMolecularFormula(system.profile.id, substance));
   const rows = vessel?.contents.filter(c => c.formula === substance && c.phase === 's'
     && c.location !== 'filter' && c.location !== 'foam'
     && !(attachedMetalMassForRow(vessel, c) > 0)
-    && (!(vessel.volume_ml > 0.05 || sedimentOwnsProduct) || !isSuspensionRow(c, vessel.contents, vessel.precipitateSubstance))) ?? [];
+    && (vessel.volume_ml <= 0.05 || !isSuspensionRow(c, vessel.contents, vessel.precipitateSubstance))) ?? [];
   const mass = rows.reduce((sum, row) => sum + Math.max(0, row.mass_g), 0);
   const product = rows.some(c => c.solidOrigin === 'precipitate') ? getPrecipitateProfile(substance) : null;
   const density = product && product.modelBasis !== 'generic_fallback'

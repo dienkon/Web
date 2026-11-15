@@ -1,8 +1,10 @@
 import { describe, expect, it } from 'vitest';
 import { AutoExperiment, AUTO_EXPERIMENTS } from '../src/vfx/autoplay/AutoExperiment';
 import { gasInlet, gasSourceHome, gasSyringeSize, gasVolumeMl } from '../src/vfx/autoplay/gasDelivery';
-import { getVesselProfile } from '../src/pour/physics/profiles';
-import { vesselLiquidSurfaceY } from '../src/science/vesselGeometry';
+import { receiverSurfaceWorld } from '../src/vfx/autoplay/receiverFrame';
+import { CENTIMETERS_PER_SCENE_UNIT } from '../src/science/sceneUnits';
+import { vesselLocalToWorld } from '../src/science/vesselScale';
+import { vesselInterior } from '../src/science/vesselDimensions';
 
 describe('automatic gas reagents use a finite metered delivery line', () => {
   it.each(AUTO_EXPERIMENTS.filter(e => e.program.chemistry.species.some(s => s.phase === 'g' && s.role === 'reactant')).map(e => [e.id]))('%s never lifts or tilts a gas source and never emits a pouring stream', id => {
@@ -30,12 +32,12 @@ describe('automatic gas reagents use a finite metered delivery line', () => {
     const e = new AutoExperiment('cuso4_naoh', false);
     for (let i = 0; i < 200 && e.sample.volume_ml < 10; i++) e.tick(0.1);
     const inlet = gasInlet(e, 0);
-    expect(inlet[1]).toBeLessThan(1.04 + vesselLiquidSurfaceY(e.sample));
-    expect(inlet[1]).toBeGreaterThan(1.04 - 0.96);
+    expect(inlet[1]).toBeLessThan(receiverSurfaceWorld(e.sample)[1]);
+    expect(inlet[1]).toBeGreaterThan(vesselLocalToWorld(e.sample, [0, vesselInterior(e.sample.type).floorY, 0])[1]);
   });
   it('uses a gas syringe whose calibrated barrel volume matches the finite molar stock', () => {
     for (const n of [0.001, 0.003, 0.005]) {
-      const size = gasSyringeSize(n), cm = getVesselProfile('beaker', new AutoExperiment('nh3_hcl', false).sample.capacity_ml).sceneScale;
+      const size = gasSyringeSize(n), cm = CENTIMETERS_PER_SCENE_UNIT;
       expect(Math.PI * size.radius ** 2 * size.length * cm ** 3).toBeCloseTo(gasVolumeMl(n), 9);
     }
   });

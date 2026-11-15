@@ -384,7 +384,7 @@ export const RealisticLiquid = React.memo(function RealisticLiquid({
     const isPaused = visualStore.getState().isSimulationPaused;
     const dt = simulationFrameDt(delta, { timeScale, isSimulationPaused: isPaused });
 
-    simulationTime.current += dt;
+    simulationTime.current = visualRuntime?.elapsed?.() ?? simulationTime.current + dt;
     uniforms.uTime.value = simulationTime.current;
 
     // Decay dynamic surface ripples
@@ -647,7 +647,7 @@ export const RealisticLiquid = React.memo(function RealisticLiquid({
       causticMeshRef.current.visible = bottomVolume_ml <= 0;
       // This projection belongs on the world bench even when the body has
       // a capacity-dependent scale or is tilted for pouring.
-      worldSurfPt.set(vessel.position[0], -1.155, vessel.position[2]);
+      worldSurfPt.set(vessel.position[0], visualRuntime?.benchY ?? -1.155, vessel.position[2]);
       causticMeshRef.current.position.copy(meshGroupRef.current.worldToLocal(worldSurfPt));
       causticMeshRef.current.quaternion.copy(invContainerQuat);
       causticMeshRef.current.rotateX(-Math.PI / 2);

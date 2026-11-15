@@ -11,7 +11,7 @@ import { VesselEffectsFrame } from '../simulation/render/VesselEffectsFrame';
 import { vfxBus } from './bus';
 import { getReactionVfxRecipe, sampleRecipeProgress, ReactionVfxRecipe } from './recipes/reactionVfx';
 import { getGenericVfxRecipe } from './recipes/generic';
-import { GasClouds, Sparks, Foam, Splash, AcidSplatter } from './particles';
+import { GasClouds, Sparks, Splash, AcidSplatter } from './particles';
 import { PhysicalSimulationRenderer } from '../simulation/render/PhysicalSimulationRenderer';
 import { canStirVessel, inversionAgitation, stirringTarget } from '../science/stirring';
 import { labSound } from '../utils/audio';
@@ -26,6 +26,7 @@ import { SimulationEngine } from '../simulation/core/SimulationEngine';
 import { gasVisualState } from './gasVisualState';
 import { LAB_PHYSICS } from '../engine/interactionEngine';
 import { precipitateComponents } from '../science/precipitateInventory';
+import { SharedVesselTransientEffects } from './SharedVesselTransientEffects';
 
 // Expanding shockwave ripple on table surface
 interface ShockwaveSlot {
@@ -326,7 +327,6 @@ export const VfxDirector = React.memo(function VfxDirector() {
           || sampled.precipitateActive
           || !!activeRecipe.precipitate);
 
-        const effectiveFoamRate = hasLiquid && emission.running ? (sampled.foamRate > 0 ? sampled.foamRate : (activeRecipe.foam?.active ? 20 : 0)) : 0;
 
         return (
           <group key={vesselId} position={pos}>
@@ -355,41 +355,7 @@ export const VfxDirector = React.memo(function VfxDirector() {
             {/* Colored exhaust belongs to the room, independently of this
                 conditional reaction/source tree. */}
 
-            {/* Declarative Sparks & Energetic Micro-Flashes */}
-            {(reactionIsEmitting(kinetics) && (activeRecipe.sparks?.active || !!simRuntime?.customData?.hasSparks)) && (
-              <Sparks
-                origin={[0, liquidTopY - pos[1], 0]}
-                groundY={LAB_PHYSICS.TABLE_SURFACE_Y - pos[1]}
-                rate={activeRecipe.sparks?.rate || 30}
-                burstCount={activeRecipe.sparks?.burstCount || 15}
-                color={activeRecipe.sparks?.color || (simRuntime?.customData?.sparkColor as string) || '#f59e0b'}
-                active={true}
-              />
-            )}
-
-            {/* 6. Foam */}
-            {((vessel.foam_ml && vessel.foam_ml > 0.05) || effectiveFoamRate > 0) && (
-              <VesselEffectsFrame vessel={vessel}><Foam
-                vesselId={vesselId}
-                capacity_ml={vessel.capacity_ml}
-                active={true}
-              /></VesselEffectsFrame>
-            )}
-
-            {/* 7. Special Effect: Endothermic Frost */}
-            {activeRecipe.specialEffect === 'frost' && vessel.temperature_c <= 0 && (
-              <mesh position={[0, 0, 0]} renderOrder={5}>
-                <cylinderGeometry args={[0.99, 0.99, 1.8, 24, 1, true]} />
-                <meshStandardMaterial
-                  color="#e0f2fe"
-                  roughness={0.9}
-                  metalness={0.1}
-                  transparent
-                  opacity={0.55}
-                  depthWrite={false}
-                />
-              </mesh>
-            )}
+            <SharedVesselTransientEffects vesselId={vesselId} recipe={activeRecipe} />
           </group>
         );
       })}

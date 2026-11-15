@@ -1,15 +1,28 @@
 import { chromium } from '@playwright/test';
 import assert from 'node:assert/strict';
-import { mkdirSync, writeFileSync } from 'node:fs';
+import { mkdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { resolve } from 'node:path';
+import { createHash } from 'node:crypto';
 
 const origin = process.env.LAB_AUDIT_ORIGIN ?? 'http://127.0.0.1:6767';
 const output = resolve(process.env.LAB_GOLDEN_RAIN_OUTPUT ?? 'artifacts/reaction-fidelity/golden-rain-browser');
 mkdirSync(output, { recursive: true });
+const sourceFiles = ['src/vfx/autoplay/AutoExperiment.ts', 'src/vfx/autoplay/AutoExperimentScene.tsx',
+  'src/vfx/autoplay/autoVisualRuntime.ts', 'src/simulation/render/PhysicalSimulationRenderer.tsx',
+  'src/vfx/SharedVesselTransientEffects.tsx', 'src/vfx/materials/liquid.tsx'];
+const fingerprint = () => Object.fromEntries(sourceFiles.map(file => [file,
+  createHash('sha256').update(readFileSync(resolve(file))).digest('hex')]));
+const sourceBefore = fingerprint();
 const browser = await chromium.launch({ headless: true, args: ['--use-angle=swiftshader', '--enable-webgl', '--enable-unsafe-swiftshader'] });
 const page = await browser.newPage({ viewport: { width: 1440, height: 1000 } });
 // Long physical runs must not be reset by unrelated development hot updates.
-await page.routeWebSocket('**', () => {});
+await page.routeWebSocket('**', route => {
+  const server = route.connectToServer();
+  server.onMessage(message => {
+    let type; try { type = JSON.parse(String(message)).type; } catch { /* Worker/socket traffic. */ }
+    if (type !== 'update' && type !== 'full-reload') route.send(message);
+  });
+});
 await page.addInitScript(() => performance.setResourceTimingBufferSize(10000));
 const errors = [], resourceFailures = [], stages = [];
 let nextProgress_s = 300;
@@ -39,6 +52,7 @@ async function advanceUntil(expression, maximumElapsed_s) {
       window.__goldenCanvasStore.getState().invalidate();
       return { done: done(e, window.__goldenInventory(e.sample)), elapsed_s: e.elapsed, phase: e.phase, error: e.error, steps };
     }, { expression, maximumElapsed_s });
+    await page.waitForFunction(() => window.__goldenRuntime.store.getState().vessels[window.__goldenAudit.sample.id] === window.__goldenAudit.sample);
     if (result.error) throw new Error(result.error);
     if (result.elapsed_s >= nextProgress_s) {
       console.log(JSON.stringify({ event: 'advancing', phase: result.phase, elapsed_s: +result.elapsed_s.toFixed(1) }));
@@ -61,7 +75,7 @@ async function capture(label, file, camera = 'close') {
     const e = window.__goldenAudit, root = window.__goldenCanvasStore.getState(), scene = root.scene;
     const inventory = window.__goldenInventory(e.sample);
     const drawn = [...e.physics.precipitationSystems.entries()].map(([key, system]) => {
-      const mesh = scene.getObjectByName(`auto_precipitate_${key}`);
+      const mesh = scene.getObjectByName(`physical_precipitate_${e.sample.id}_${key}`);
       if (mesh?.geometry) mesh.geometry.computeBoundingBox();
       const box = mesh?.geometry?.boundingBox;
       return { key, morphology: system.profile.morphology, color: system.profile.color,
@@ -75,7 +89,10 @@ async function capture(label, file, camera = 'close') {
             ? Array.from(mesh.geometry.getAttribute('aParticleOpacity').array.slice(0, mesh.count))
               .reduce((range, value) => [Math.min(range[0], value), Math.max(range[1], value)], [1, 0]) : null } : null };
     });
-    const bed = scene.getObjectByName('auto_sediment_bed'), liquid = scene.getObjectByName('auto_liquid');
+    const bed = scene.getObjectByName(`sediment_bed_${e.sample.id}`);
+    const liquid = scene.getObjectByName(`liquid_surface_${e.sample.id}`);
+    const liquidVolume = scene.getObjectByName(`liquid_volume_${e.sample.id}`);
+    const mist = scene.getObjectByName(`physical_mist_${e.sample.id}`);
     const donor = e.donors[e.donorIndex], dropper = scene.getObjectByName(`auto_dropper_${e.donorIndex}`);
     const drops = scene.getObjectByName('auto_transfer_drops'), stream = scene.getObjectByName('auto_transfer_stream');
     const burner = scene.getObjectByName('auto_alcohol_burner'), flame = scene.getObjectByName('auto_condition_flame');
@@ -83,17 +100,26 @@ async function capture(label, file, camera = 'close') {
     scene.updateMatrixWorld(true);
     const hotplateBounds = hotplate ? new window.__goldenBox3().setFromObject(hotplate) : null;
     const vesselBaseY = 1.04 - 1;
-    const accountedMass_g = e.sample.mass_g + (e.sample.evaporated_ml ?? 0)
+    const returnedWall_g = e.sample.wallCondensation?.returned_g ?? 0;
+    const wallRetained_g = (e.sample.wallCondensation?.inner_g ?? 0) + (e.sample.wallCondensation?.outer_g ?? 0);
+    const accountedMass_g = e.sample.mass_g + (e.sample.evaporated_ml ?? 0) - returnedWall_g
       + Object.values(e.sample.escapedGas_g ?? {}).reduce((sum, mass) => sum + mass, 0)
       + e.donors.reduce((sum, donor) => sum + donor.remaining, 0) + e.inFlightMass_g
       + e.transferWaste.reduce((sum, waste) => sum + waste.mass_g, 0);
     return { label, elapsed_s: e.elapsed, phase: e.phase, caption: e.caption,
       temperature_c: e.sample.temperature_c, volume_ml: e.sample.volume_ml,
       inventory, accountedMass_g, massError_g: accountedMass_g - window.__goldenInitialMass,
+      waterLedger: { grossEvaporated_g: e.sample.evaporated_ml ?? 0, returnedWall_g, wallRetained_g,
+        externalReleased_g: e.sample.waterVaporReleased_g ?? 0, outflow_g_s: e.sample.waterVaporOutflow_g_s ?? 0 },
       settledFraction: e.settledFraction, cloudiness: e.physics.cloudiness, flame: e.flame, stirringDrive: e.stirringDrive,
       drawn, bed: { visible: bed?.visible, color: bed?.material.color.getHexString(), amount_g: e.physics.sedimentBed.amount_g,
         thickness: e.physics.sedimentBed.thickness, opacity: bed?.material.opacity,
         transparent: bed?.material.transparent }, liquidVisible: !!liquid?.visible,
+      sharedRenderer: { liquidSurface: !!liquid?.visible, liquidVolume: !!liquidVolume?.visible,
+        physicalMistMounted: !!mist, physicalMistVisible: !!mist?.visible, physicalMistCount: mist?.count ?? 0,
+        scopedSampleMatches: window.__goldenRuntime.store.getState().vessels[e.sample.id] === e.sample,
+        scopedManagerMatches: window.__goldenRuntime.runtime.manager === e.physics,
+        scopedAppearanceMatches: window.__goldenRuntime.runtime.appearance === e.appearance },
       transfer: { formula: donor?.row.formula, doseMode: donor?.doseMode, volume_ml: donor?.solutionVolume_ml,
         schedule: donor?.dropSchedule, fraction: donor?.fraction, activeDropper: e.dropperActive,
         mountedDropper: !!dropper, dropperVisible: !!dropper?.visible,
@@ -120,9 +146,10 @@ async function capture(label, file, camera = 'close') {
 
 try {
   await page.goto(`${origin}/?mode=auto`, { waitUntil: 'domcontentloaded' });
-  await page.getByRole('button', { name: 'Hiện danh mục tự động', exact: true }).click();
+  if (!(await page.locator('#automatic-lab [data-sidebar="left"]').count()))
+    await page.getByRole('button', { name: 'Hiện danh mục tự động', exact: true }).click();
   await page.getByRole('textbox', { name: 'Tìm thí nghiệm tự động' }).waitFor({ timeout: 60000 });
-  const goldenRainTitle = await page.evaluate(async () => {
+  const experimentTitles = await page.evaluate(async () => {
     const resources = performance.getEntriesByType('resource').map(entry => entry.name);
     const directorUrl = resources.findLast(name => /\/AutoExperiment\.ts(?:\?|$)/.test(name));
     const protocolUrl = resources.findLast(name => /\/goldenRainProtocol\.ts(?:\?|$)/.test(name));
@@ -132,13 +159,13 @@ try {
     window.__goldenInventory = goldenRainInventory;
     window.__goldenTick = AutoExperiment.prototype.tick;
     AutoExperiment.prototype.tick = function () { window.__goldenAudit = this; };
-    return AUTO_EXPERIMENTS.find(entry => entry.id === 'golden_rain').title;
+    window.__goldenSourceModules = resources.filter(url => /\/(AutoExperiment\.(ts|tsx)|autoVisualRuntime\.ts|AutoExperimentScene\.tsx|VesselVisualContext\.tsx)(?:\?|$)/.test(url));
+    return { goldenRain: AUTO_EXPERIMENTS.find(entry => entry.id === 'golden_rain').title,
+      microdose: AUTO_EXPERIMENTS.find(entry => entry.id === 'hno3_koh').title };
   });
-  await page.getByRole('button', { name: goldenRainTitle, exact: true }).first().click();
-  await page.waitForFunction(() => window.__goldenAudit?.id === 'golden_rain');
-  await page.evaluate(async () => {
-    const e = window.__goldenAudit;
-    e.paused = true; e.speed = 1;
+  async function bindMountedSharedRuntime() {
+    await page.evaluate(async () => {
+    const e = window.__goldenAudit; e.paused = true; e.speed = 1;
     await e.stocks.initialize();
     const url = performance.getEntriesByType('resource').map(entry => entry.name).findLast(name => /@react-three_fiber\.js/.test(name));
     if (!url) throw new Error('The mounted React Three renderer module is unavailable.');
@@ -148,10 +175,32 @@ try {
     const { Box3 } = await import(threeUrl);
     window.__goldenBox3 = Box3;
     window.__goldenCanvasStore = _roots.get(document.querySelector('#automatic-lab canvas')).store;
+    const root = _roots.get(document.querySelector('#automatic-lab canvas'));
+    const pending = [root.fiber.current];
+    while (pending.length) {
+      const node = pending.pop(); if (!node) continue;
+      const value = node.memoizedProps?.value;
+      if (value?.manager === e.physics && value?.store) { window.__goldenRuntime = { runtime: value, store: value.store }; break; }
+      if (node.child) pending.push(node.child); if (node.sibling) pending.push(node.sibling);
+    }
+    if (!window.__goldenRuntime) throw new Error('Shared automatic vessel renderer did not receive its scoped runtime.');
     window.__goldenInitialMass = e.sample.mass_g + e.donors.reduce((sum, donor) => sum + donor.remaining, 0);
-  });
-  await advanceUntil("e.dropperActive && e.phaseTime >= 0.79 && e.phaseTime < e.donors[e.donorIndex].dropSchedule.releaseStart + e.donors[e.donorIndex].dropSchedule.flightTime", 40);
+    });
+    await page.waitForFunction(() => window.__goldenRuntime.store.getState().vessels[window.__goldenAudit.sample.id] === window.__goldenAudit.sample);
+  }
+  if (!(await page.locator('#automatic-lab [data-sidebar="left"]').count()))
+    await page.getByRole('button', { name: 'Hiện danh mục tự động', exact: true }).click();
+  await page.getByRole('textbox', { name: 'Tìm thí nghiệm tự động' }).fill(experimentTitles.microdose);
+  await page.getByRole('button', { name: experimentTitles.microdose, exact: false }).first().click();
+  await page.waitForFunction(() => window.__goldenAudit?.id === 'hno3_koh');
+  await bindMountedSharedRuntime();
+  await advanceUntil("e.dropperActive && e.phaseTime >= e.donors[e.donorIndex].dropSchedule.releaseStart + e.donors[e.donorIndex].dropSchedule.flightTime * .35", 40);
   const pipette = await capture('Liều nhỏ dùng pipet và giọt riêng', '00-small-dose-pipette.png', 'transfer');
+  await page.getByRole('button', { name: 'Hiện danh mục tự động', exact: true }).click();
+  await page.getByRole('textbox', { name: 'Tìm thí nghiệm tự động' }).fill(experimentTitles.goldenRain);
+  await page.getByRole('button', { name: experimentTitles.goldenRain, exact: false }).first().click();
+  await page.waitForFunction(() => window.__goldenAudit?.id === 'golden_rain');
+  await bindMountedSharedRuntime();
   await advanceUntil("e.phase === 'condition' && inventory.solid_g > 0.08 && e.sample.temperature_c < 30", 80);
   const cold = await capture('Kết tủa vàng mịn sau khi trộn lạnh', '01-cold-yellow-precipitate.png');
   await advanceUntil("e.phase === 'condition' && e.flame && e.sample.temperature_c >= 60 && inventory.solid_g > 0", 180);
@@ -162,11 +211,15 @@ try {
   const plates = await capture('Phiến vàng hình thành và lắng khi nguội', '04-cooling-golden-plates.png');
   await advanceUntil("e.phase === 'complete' && e.settledFraction >= 0.9", 3600);
   const settled = await capture('Lớp phiến vàng lắng và dịch phía trên trong', '05-settled-golden-bed.png');
+  const sourceAfter = fingerprint();
   const assertions = {
     smallDoseUsesRenderedPipette: pipette.transfer.activeDropper && pipette.transfer.doseMode === 'dropper'
-      && pipette.transfer.volume_ml <= 2 && pipette.transfer.mountedDropper && pipette.transfer.dropperVisible,
+      && pipette.transfer.volume_ml <= 0.2 && pipette.transfer.mountedDropper && pipette.transfer.dropperVisible,
     smallDoseHasSeparateDrops: pipette.transfer.dropsVisible && pipette.transfer.drawnDrops > 0 && !pipette.transfer.streamVisible,
     coldFineYellowMesh: cold.drawn.some(row => row.morphology === 'fine_powder' && row.drawn?.visible && row.drawn.count > 0),
+    sharedLiquidAndRuntime: stages.every(stage => stage.sharedRenderer.liquidSurface && stage.sharedRenderer.liquidVolume
+      && stage.sharedRenderer.scopedSampleMatches && stage.sharedRenderer.scopedManagerMatches && stage.sharedRenderer.scopedAppearanceMatches),
+    physicalMistMounted: stages.every(stage => stage.sharedRenderer.physicalMistMounted),
     heatHasVisibleHotplateAndIndicator: heating.flame && heating.heatingApparatus.hotplateVisible && heating.heatingApparatus.heatIndicatorVisible,
     hotplateSitsBelowGlass: !!heating.heatingApparatus.hotplateBounds
       && heating.heatingApparatus.hotplateBounds.max[1] <= heating.heatingApparatus.vesselBaseY + 0.001,
@@ -185,9 +238,11 @@ try {
     reactionViewHasNoSidePanels: stages.every(stage => stage.panelsOpen === 0),
     noRuntimeOrShaderErrors: errors.length === 0,
     sourceAndAssetResourcesLoaded: resourceFailures.length === 0,
-    vietnameseColorWordPreserved: goldenRainTitle.startsWith('Mưa vàng'),
+    vietnameseColorWordPreserved: experimentTitles.goldenRain.startsWith('Mưa vàng'),
+    sourceUnchangedDuringAudit: JSON.stringify(sourceBefore) === JSON.stringify(sourceAfter),
   };
-  const report = { generatedAt: new Date().toISOString(), origin, assertions, stages, errors, resourceFailures,
+  const report = { generatedAt: new Date().toISOString(), origin, sourceBefore, sourceAfter,
+    sourceModules: await page.evaluate(() => window.__goldenSourceModules), assertions, stages, errors, resourceFailures,
     method: 'Mounted Auto Lab scene; ordinary fixed 60 Hz director in bounded 12 s batches, paused only for screenshots.',
     limitations: ['Representative grain display is magnified; mesh inspection is not experimental particle-size calibration.',
       'Water solubility, crystal growth and equivalent-sphere settling use the current illustrative transport model.'] };

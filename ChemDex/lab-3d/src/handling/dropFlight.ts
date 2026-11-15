@@ -12,6 +12,7 @@ export interface VerticalDropFlight {
 export const STOCK_DROPPER_TIP_LOCAL_Y = -0.875;
 export const AUTO_DROPPER_TIP_LOCAL_Y = -0.61;
 export const AUTO_DROPPER_SCALE = 0.6;
+export const HANDHELD_PIPETTE_TIP_LOCAL_Y = -1.025;
 
 /** Snapshot the outlet and receiving surface once. Rendering and material
  * arrival then share a vertical path even when the receiver's fill changes. */

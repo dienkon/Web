@@ -9,7 +9,7 @@ import { stockSolidMaterial } from '../src/science/stockAppearance';
 import { solidSceneVolume } from '../src/science/vesselDimensions';
 import { getVesselProfile } from '../src/pour/physics/profiles';
 import { vesselWorldToLocal } from '../src/science/vesselScale';
-import { siPointToScene } from '../src/science/sceneUnits';
+import { siPointToScene, CENTIMETERS_PER_SCENE_UNIT, SCENE_GRAVITY } from '../src/science/sceneUnits';
 import { vesselLiquidSurfaceY } from '../src/science/vesselGeometry';
 import type { VesselState } from '../src/types/chemistry';
 
@@ -26,9 +26,8 @@ describe('automatic and manual solid parity', () => {
     expect(solid.morphology).toBe(getSolidMorphology(formula));
     expect(solid.material).toEqual(stockSolidMaterial(findChemical(formula), getSolidMorphology(formula)));
     const volume = dose.pieces.reduce((sum, matrix) => sum + matrix.determinant() * AUTO_DONOR_SCALE ** 3, 0);
-    // Donors share the actual automatic receiver's physical coordinate scale.
-    const receiver = new AutoExperiment('cuso4_naoh', false).sample;
-    const cmPerUnit = getVesselProfile(receiver.type, receiver.capacity_ml).sceneScale;
+    // Donors and airborne pieces are rendered in global world scene units.
+    const cmPerUnit = CENTIMETERS_PER_SCENE_UNIT;
     // Unit meshes store Float32 vertices; compare physical volume relatively.
     expect(volume * cmPerUnit ** 3 / (0.5 / solid.density)).toBeCloseTo(1, 6);
   });
@@ -36,6 +35,9 @@ describe('automatic and manual solid parity', () => {
     expect(findChemical('NaOH').type).toBe('liquid');
     expect(autoSolid('NaOH').density).toBe(findChemical('NaOH (s)').density);
     expect(autoSolid('NaOH').material.metalness).toBe(0);
+  });
+  it('uses global scene gravity for airborne stock rather than the receiver model scale', () => {
+    expect(autoSolidGravity).toBe(SCENE_GRAVITY);
   });
   it.each(['Na', 'K'])('keeps %s as one finite pellet like the manual bench', formula => {
     expect(createAutoSolidDose(formula, 0.1).pieces.length).toBe(1);

@@ -7,11 +7,7 @@ import { createVesselLatheGeometry, getGlassMaterials } from '../materials/glass
 import { vesselLiquidSurfaceY } from '../../science/vesselGeometry';
 import { GasCloudLayer } from '../particles/GasPlume';
 import { GAS_FUME_TABLE } from '../catalog/gasTable';
-import { createSedimentGeometry } from '../../simulation/effects/sedimentGeometry';
-import { sedimentBedOptics } from '../../science/sedimentOptics';
-import { AutoPrecipitateLayer } from './AutoPrecipitateLayer';
-import { AutoLiquid } from './AutoLiquid';
-import { AutoSolidContents, AutoSolidDonor, AutoSolidFlights } from './AutoSolidContents';
+import { AutoSolidDonor, AutoSolidFlights } from './AutoSolidContents';
 import { getLessonDefinition } from '../../lesson/catalog';
 import { useQualityStore } from '../quality';
 import { useRenderDpr } from '../../render/renderResolution';
@@ -23,7 +19,16 @@ import { AutoGasApparatus, AutoGasReceiver } from './AutoGasApparatus';
 import { gasSourceHome, gasVolumeMl } from './gasDelivery';
 import { liquidDropAmount } from '../../handling/liquidDosePlan';
 import { dropFlightPosition, dropRadius, AUTO_DROPPER_TIP_LOCAL_Y, AUTO_DROPPER_SCALE } from '../../handling/dropFlight';
-import { metersPerModelUnit } from '../../science/sceneUnits';
+import { vesselBodyTransform } from '../../science/vesselScale';
+import { receiverSurfaceWorld } from './receiverFrame';
+import { RealisticLiquid } from '../materials/liquid';
+import { SolidContentsRenderer } from '../../components/three/SolidContentsRenderer';
+import { VesselPhysicalEffects } from '../../components/three/Vessels';
+import { SharedVesselTransientEffects } from '../SharedVesselTransientEffects';
+import { PhysicalSimulationRenderer } from '../../simulation/render/PhysicalSimulationRenderer';
+import { VesselVisualProvider, useVesselVisualState } from '../../simulation/render/VesselVisualContext';
+import { createAutoVisualRuntime } from './autoVisualRuntime';
+import { registerVesselBody } from '../../simulation/render/vesselBodyFrames';
 
 const gasSpecies = [...Object.entries(GAS_FUME_TABLE).filter(([s, v]) => s !== 'H2O' && v.visible).map(([s]) => s), 'MgO'];
 const cameraPoses: Record<string, [[number, number, number], [number, number, number]]> = {
@@ -111,69 +116,6 @@ function DropperDonor({ experiment: e, index }: { experiment: AutoExperiment; in
     <mesh name={`auto_dropper_outlet_${index}`} position={[0, AUTO_DROPPER_TIP_LOCAL_Y + 0.06, 0]}><cylinderGeometry args={[0.012, 0.012, 0.12, 8]} /><meshBasicMaterial color={color} transparent opacity={0.8} depthWrite={false} /></mesh>
   </group>;
 }
-function Particles({ experiment }: { experiment: AutoExperiment }) {
-  const bubbles = useRef<THREE.InstancedMesh>(null), bed = useRef<THREE.Mesh>(null);
-  const scratch = useMemo(() => new THREE.Object3D(), []), color = useMemo(() => new THREE.Color(), []);
-  const bedThickness = useRef(-1);
-  useEffect(() => () => bed.current?.geometry.dispose(), []);
-  useFrame(() => {
-    if (bubbles.current) {
-      let count = 0;
-      for (const p of experiment.physics.boilingSystem.bubbles) {
-        if (count >= 100) break;
-        scratch.position.set(p.x, p.y, p.z); scratch.rotation.set(0, 0, 0);
-        scratch.scale.set(p.radius, p.radius * p.aspectRatio, p.radius); scratch.updateMatrix();
-        bubbles.current.setMatrixAt(count++, scratch.matrix);
-      }
-      bubbles.current.count = count; bubbles.current.visible = count > 0;
-      if (count) bubbles.current.instanceMatrix.needsUpdate = true;
-    }
-    if (bed.current) {
-      const s = experiment.physics.sedimentBed;
-      bed.current.visible = s.amount_g > 1e-9;
-      if (Math.abs(s.thickness - bedThickness.current) > 1e-5) {
-        bed.current.geometry.dispose(); bed.current.geometry = createSedimentGeometry('beaker', getVesselProfile('beaker', experiment.sample.capacity_ml).baseY + s.thickness);
-        bedThickness.current = s.thickness;
-      }
-      (bed.current.material as THREE.MeshStandardMaterial).color.set(s.color);
-      const material = bed.current.material as THREE.MeshStandardMaterial;
-      const aerosol = experiment.program.id === 'nh3_hcl' && experiment.sample.volume_ml < 0.01;
-      material.roughness = s.roughness; material.metalness = s.metalness;
-      material.opacity = aerosol
-        ? -Math.expm1(-experiment.aerosolDeposited_g / 0.015)
-        : sedimentBedOptics(experiment.sample, getVesselProfile('beaker', experiment.sample.capacity_ml).baseY + s.thickness,
-          [...experiment.physics.precipitationSystems.values()].map(system => ({ mass_g: system.sedimentBed.amount_g, profile: system.profile }))).opacity;
-    }
-  });
-  return <>
-    {[...new Set(experiment.program.chemistry.species.filter(s => s.phase === 's').map(s => s.formula))].map(formula =>
-      <AutoPrecipitateLayer key={formula} experiment={experiment} formula={formula} />)}
-    <instancedMesh ref={bubbles} args={[undefined, undefined, 100]} frustumCulled={false} renderOrder={6}>
-      <sphereGeometry args={[1, 10, 8]} /><meshPhysicalMaterial color="#ccefff" transparent opacity={0.34} roughness={0.02} metalness={0.1} clearcoat={1} depthWrite={false} />
-    </instancedMesh>
-    <mesh ref={bed} name="auto_sediment_bed" visible={false}><bufferGeometry /><meshStandardMaterial color="white" roughness={0.85} transparent depthWrite={false} /></mesh>
-  </>;
-}
-function Specimen({ experiment: e }: { experiment: AutoExperiment }) {
-  const mirror = useRef<THREE.Mesh>(null), layer = useRef<THREE.Mesh>(null);
-  useFrame(() => {
-    if (mirror.current) {
-      const deposition = e.lessonVisuals?.deposition ?? 0;
-      mirror.current.visible = deposition > 0.001;
-      (mirror.current.material as THREE.MeshStandardMaterial).opacity = deposition * 0.85;
-    }
-    if (layer.current) {
-      const split = e.lessonVisuals?.phaseSplit ?? 0;
-      layer.current.visible = split > 0.001;
-      layer.current.position.y = vesselLiquidSurfaceY(e.sample) - 0.06; layer.current.scale.y = Math.max(0.001, split * 0.2);
-    }
-  });
-  return <>
-    <AutoSolidContents experiment={e} />
-    <mesh ref={mirror} visible={false}><cylinderGeometry args={[0.96, 0.96, 1.25, 48, 1, true, 0, Math.PI * 1.2]} /><meshStandardMaterial color="#dce5ed" metalness={1} roughness={0.1} transparent opacity={0.8} side={THREE.DoubleSide} depthWrite={false} /></mesh>
-    <mesh ref={layer} visible={false} renderOrder={4}><cylinderGeometry args={[0.84, 0.84, 1, 48]} /><meshStandardMaterial color="#f4dfa8" transparent opacity={0.65} depthWrite={false} /></mesh>
-  </>;
-}
 function Donor({ experiment: e, index }: { experiment: AutoExperiment; index: number }) {
   const group = useRef<THREE.Group>(null);
   useFrame(() => {
@@ -212,7 +154,7 @@ function Transfer({ experiment: e }: { experiment: AutoExperiment }) {
   };
   useFrame(() => {
     const donor = e.donors[e.donorIndex], phase = donor?.row.phase;
-    const active = e.streamActive, lip = e.donorLip, surface = 1.04 + vesselLiquidSurfaceY(e.sample);
+    const active = e.streamActive, lip = e.donorLip, surface = receiverSurfaceWorld(e.sample)[1];
     const contact = donor?.doseMode === 'dropper'
       ? ['dose', 'return'].includes(e.phase) && (e.sample.recentPourContact?.remaining_s ?? 0) > 0
       : e.phase === 'dose' && e.phaseTime >= AUTO_TIMING.tilt + AUTO_TIMING.flight && donor?.fraction < 1;
@@ -246,7 +188,7 @@ function Transfer({ experiment: e }: { experiment: AutoExperiment }) {
           const releaseAt = schedule.releaseStart + index * schedule.period, age = localTime - releaseAt;
           if (age < 0 || age > flightTime) continue;
           const volume = liquidDropAmount(donor.solutionVolume_ml, index);
-          const radius = dropRadius(volume, metersPerModelUnit(getVesselProfile(e.sample.type, e.sample.capacity_ml)));
+          const radius = dropRadius(volume);
           object.position.set(...dropFlightPosition(flight, age));
           object.rotation.set(0, 0, 0); object.scale.setScalar(radius); object.updateMatrix();
           drops.current.setMatrixAt(count++, object.matrix);
@@ -361,18 +303,33 @@ function Choreography({ experiment: e }: { experiment: AutoExperiment }) {
   </>;
 }
 function Receiver({ experiment: e }: { experiment: AutoExperiment }) {
-  const root = useRef<THREE.Group>(null);
+  const root = useRef<THREE.Group>(null), body = useRef<THREE.Group>(null);
+  const sample = useVesselVisualState(state => state.vessels[e.sample.id]);
+  const transform = vesselBodyTransform(sample);
+  useEffect(() => body.current ? registerVesselBody(e.sample.id, body.current) : undefined, [e]);
   useFrame(() => {
-    if (root.current) root.current.position.y = 1.04 + (e.phase === 'prepare' ? Math.max(0, 1 - e.phaseTime / 1.2) ** 2 * 0.6 : 0);
-  });
-  return <group ref={root} position={[0, 1.04, 0]}><Glass><AutoLiquid experiment={e} /><Specimen experiment={e} /><Particles experiment={e} /></Glass></group>;
+    if (root.current) root.current.position.set(sample.position[0], sample.position[1]
+      + (e.phase === 'prepare' ? Math.max(0, 1 - e.phaseTime / 1.2) ** 2 * 0.6 : 0), sample.position[2]);
+  }, -2.75);
+  return <group ref={root} position={sample.position}><group ref={body} name={`auto_shared_body_${sample.id}`}
+    scale={transform.scale} position={[0, transform.offsetY, 0]}>
+    <Glass>
+      <RealisticLiquid vesselId={sample.id} vesselType={sample.type} capacity_ml={sample.capacity_ml} />
+      <SolidContentsRenderer vesselId={sample.id} radius={0.82} baseY={-0.95} />
+      <VesselPhysicalEffects vessel={sample} fogRadius={0.96} fogHeight={1.1} fogY={0.4}
+        stainRadius={0.95} stainBaseY={-0.95} stainHeightRange={1.8} fumeY={1.1} surgeRadius={0.65} surgeY={-0.3} />
+      <PhysicalSimulationRenderer vesselId={sample.id} baseY={-0.96} mouthY={1} radius={0.965} mouthRadius={0.98} />
+      <SharedVesselTransientEffects vesselId={sample.id} frame="body" />
+    </Glass>
+  </group></group>;
 }
-function Director({ experiment: e }: { experiment: AutoExperiment }) {
+function Director({ experiment: e, publish }: { experiment: AutoExperiment; publish: () => void }) {
   const controls = useRef<any>(null);
   const invalidate = useThree(s => s.invalidate);
   const position = useMemo(() => new THREE.Vector3(), []), target = useMemo(() => new THREE.Vector3(), []);
   useFrame(({ camera, size }, delta) => {
     if (!document.hidden) e.tick(delta);
+    publish();
     if (controls.current) controls.current.enabled = !e.automaticCamera;
     if (e.automaticCamera) {
       const pose = cameraPoses[e.camera]; position.set(...pose[0]); target.set(...pose[1]);
@@ -414,6 +371,7 @@ function AutoRenderActivity({ experiment: e }: { experiment: AutoExperiment }) {
   return null;
 }
 export const AutoExperimentScene = React.memo(function AutoExperimentScene({ experiment, runKey = experiment.program.id }: { experiment: AutoExperiment; runKey?: number | string }) {
+  const visuals = useMemo(() => createAutoVisualRuntime(experiment), [experiment]);
   const container = useRef<HTMLDivElement>(null), tier = useQualityStore(s => s.effectiveTier);
   const dpr = useRenderDpr(container, tier);
   useEffect(() => {
@@ -439,11 +397,11 @@ export const AutoExperimentScene = React.memo(function AutoExperimentScene({ exp
     <pointLight position={[-4, 4, -2]} intensity={40} color="#72d9ff" /><pointLight position={[3, 3, -4]} intensity={25} color="#ffc992" />
     <Environment resolution={128} frames={1}><Lightformer intensity={4} position={[0, 5, -4]} scale={[8, 4, 1]} />
       <Lightformer intensity={2} position={[-4, 2, 0]} rotation={[0, Math.PI / 2, 0]} scale={[3, 5, 1]} /></Environment>
-    <Director experiment={experiment} />
+    <Director experiment={experiment} publish={visuals.publish} />
     <mesh rotation={[-Math.PI / 2, 0, 0]} receiveShadow><planeGeometry args={[30, 30]} /><meshStandardMaterial color="#162637" metalness={0.2} roughness={0.42} /></mesh>
     <gridHelper args={[16, 32, '#284254', '#1b3040']} position={[0, 0.002, 0]} />
     <group key={runKey}>
-    <Receiver experiment={experiment} />
+    <VesselVisualProvider value={visuals.runtime}><Receiver experiment={experiment} /></VesselVisualProvider>
     <Choreography experiment={experiment} />
     <group>{species.map(species => <GasCloudLayer key={species} species={species} repository={experiment.clouds} />)}</group>
     </group>

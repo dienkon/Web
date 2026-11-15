@@ -56,8 +56,7 @@ export const AddingAnimation = React.memo(function AddingAnimation({
   const chemData = getChemical(chemical);
   const color = chemData.color || '#38bdf8';
   const type = chemData.type;
-  const isDropper = chemData.type === 'liquid' && (chemData.category === 'indicator' || chemical === 'Phenolphthalein'
-    || chemical === 'MethylOrange' || liquidDosePlan(amount).mode === 'dropper');
+  const isDropper = chemData.type === 'liquid' && liquidDosePlan(amount).mode === 'dropper';
   const morphology: SolidMorphology = getSolidMorphology(chemical);
 
   const groupRef = useRef<THREE.Group>(null);

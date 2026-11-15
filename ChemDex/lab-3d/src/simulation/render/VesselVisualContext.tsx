@@ -13,6 +13,7 @@ export interface VesselVisualRuntime {
   appearance?: LiquidAppearanceField;
   externallyStepped: boolean;
   elapsed?: () => number;
+  benchY?: number;
 }
 const VisualContext = createContext<VesselVisualRuntime | null>(null);
 export const VesselVisualProvider = VisualContext.Provider;

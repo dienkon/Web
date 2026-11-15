@@ -40,14 +40,26 @@ import { supernatantColor } from '../../science/supernatantAppearance';
 import { pourContactRemaining } from '../../science/pourContactActivity';
 import { Quaternion, Vector3 } from 'three';
 import { autoSolid, autoSolidGravity, AUTO_DONOR_SCALE, solidFlightPosition } from './autoSolid';
-import { vesselLocalToWorld, vesselBodyTransform } from '../../science/vesselScale';
-import { scenePointToSI, metersPerModelUnit } from '../../science/sceneUnits';
+import { vesselLocalToWorld, vesselWorldToLocal, vesselBodyTransform } from '../../science/vesselScale';
+import { scenePointToSI, METERS_PER_SCENE_UNIT } from '../../science/sceneUnits';
+import { receiverBodyMatrix, receiverLipWorld, receiverSurfaceWorld } from './receiverFrame';
 import type { StockContactBirth } from '../../physical/stockTypes';
 import { dropSchedule, landedScheduledDropFraction } from '../../handling/doseTiming';
 import { verticalDropFlight, AUTO_DROPPER_TIP_LOCAL_Y, AUTO_DROPPER_SCALE } from '../../handling/dropFlight';
 import { automaticDonors, type AutoDonor } from './autoDonors';
 import { partitionLeadIodide } from '../../engine/leadIodidePhase';
 import { createGoldenRainSample, goldenRainInventory, GOLDEN_RAIN_PROTOCOL } from '../../science/goldenRainProtocol';
+import { routeWaterVaporToWall, finalizeWaterVaporOutflow } from '../../engine/waterVaporRouting';
+import { stepFoamInventory } from '../../engine/foamInventory';
+import { partitionSodiumChloride } from '../../engine/sodiumChloridePhase';
+import { partitionCalcite } from '../../engine/calcitePhase';
+import { partitionBarite } from '../../engine/baritePhase';
+import { partitionCalciumHydroxide } from '../../engine/calciumHydroxidePhase';
+import { partitionSilverHalide } from '../../engine/silverChloridePhase';
+import { partitionMagnesiumHydroxide } from '../../engine/magnesiumHydroxidePhase';
+import { projectAqueousSolution } from '../../engine/aqueousProjection';
+import { stepHydrogenExhaustCombustion, sodiumExternalIgnition } from '../../engine/hydrogenExhaustCombustion';
+import { isSodiumWaterReaction, sodiumMetalMass } from '../../science/sodiumWater';
 
 export type AutoPhase = 'prepare' | 'carry' | 'dose' | 'return' | 'condition' | 'react' | 'cool' | 'settle' | 'observe' | 'complete' | 'error';
 export type AutoCamera = 'wide' | 'transfer' | 'close' | 'surface';
@@ -62,7 +74,6 @@ export const AUTO_EXPERIMENTS = [...ALL_HANDCRAFTED_PROGRAMS.map(program => ({
 })), { id: 'golden_rain', protocol: 'golden-rain' as const, program: ALL_HANDCRAFTED_PROGRAMS.find(program => program.id === 'pbno32_ki')!,
   title: 'Mưa vàng PbI₂ · đun tan và làm nguội', category: 'Kết tinh' }];
 export const AUTO_TIMING = { prepare: 1.6, carry: 2, tilt: 0.55, flow: 2.4, flight: 0.28, upright: 0.55, return: 1.5 } as const;
-const RECEIVER_BODY_MATRIX = [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 1.04, 0, 1];
 export const donorHome = (i: number): [number, number, number] => [-3.9 + i % 3 * 0.95, 0.63, 1.2 + Math.floor(i / 3) * 1.15];
 const shell = (): VesselState => ({ id: 'auto_receiver', type: 'beaker', name: 'Bình nhận 250 mL', capacity_ml: 250,
   position: [0, 1.04, 0], rotationY: 0, isLocked: false, contents: [], substances: [], mass_g: 0,
@@ -131,14 +142,22 @@ export class AutoExperiment {
   private contactKinetics?: ActiveKineticsState;
   private lamp: BurnerState = { id: 'auto_lamp', position: [0, -0.21, 0], isOn: false,
     intensity: 5, fuelLevel_ml: 120, ethanolVolumeFraction: 0.96 };
+  private wallThermalHandoff = { includedDryHeat_J: 0, enabled: false };
+  private applyThermalStep(dt: number, power: number) {
+    const thermal = stepVesselThermal(this.sample, dt, power);
+    this.wallThermalHandoff = { includedDryHeat_J: thermal.wallThermalDryCredit_J ?? 0,
+      enabled: thermal.wallThermalEligible ?? false };
+    this.sample = { ...this.sample, ...thermal };
+  }
   private heat(dt: number) {
+    this.wallThermalHandoff = { includedDryHeat_J: 0, enabled: false };
     if (this.lesson) return;
     if (this.protocol === 'golden-rain') {
       const heating = this.sourceEnabled && this.heatTarget > 25 && this.phase === 'condition';
       const power = heating ? GOLDEN_RAIN_PROTOCOL.heaterPower_W : 0;
       this.flame = heating;
       this.electricalHeat_J += power * dt;
-      this.sample = { ...this.sample, ...stepVesselThermal(this.sample, dt, power) };
+      this.applyThermalStep(dt, power);
       return;
     }
     const ignition = this.program.chemistry.conditions?.activation === 'ignition' || this.emission;
@@ -148,12 +167,16 @@ export class AutoExperiment {
     const burn = stepAlcoholBurner(this.lamp, dt); this.lamp = burn.burner;
     this.flame = burnerIsBurning(this.lamp);
     const energy = this.heatTarget > 25 ? allocateBurnerHeat(this.lamp, burn.capturableHeat_J, [this.sample]).energyByVessel_J.get(this.sample.id) ?? 0 : 0;
-    this.sample = { ...this.sample, ...stepVesselThermal(this.sample, dt, energy / dt) };
+    this.applyThermalStep(dt, energy / dt);
   }
   private returnTilt = 0;
   private contactReference?: { formula: string; phase: string; initial: number; consumed: number };
   private contactCadence_s = 0;
   get lessonVisuals() { return this.lesson?.visuals; }
+  get renderKinetics(): ActiveKineticsState | undefined {
+    const kinetics = this.kinetics ?? this.contactKinetics;
+    return kinetics ? { ...kinetics, progress: this.progress, initialVesselBaseline: this.baseline } : undefined;
+  }
   get hasGasSupply() { return this.donors.some(d => d.row.phase === 'g'); }
   gasOrdinal(index: number) { return this.donors.slice(0, index).filter(d => d.row.phase === 'g').length; }
   get gasValveOpen() {
@@ -282,8 +305,7 @@ export class AutoExperiment {
       donor.doseStartedAt = this.elapsed;
       if (donor.doseMode === 'dropper') {
         donor.dropStartedAt = this.elapsed;
-        donor.dropFlight = verticalDropFlight(this.donorLip, this.sample.position[1] + vesselLiquidSurfaceY(this.sample),
-          metersPerModelUnit(getVesselProfile(this.sample.type, this.sample.capacity_ml)));
+        donor.dropFlight = verticalDropFlight(this.donorLip, receiverSurfaceWorld(this.sample)[1]);
         donor.dropFallHeight = donor.dropFlight.start[1] - donor.dropFlight.target[1];
         donor.dropSchedule = dropSchedule(donor.solutionVolume_ml, donor.dropFallHeight, donor.dropFlight.gravity);
       }
@@ -357,9 +379,9 @@ export class AutoExperiment {
       if (portion > 0) {
         const lip = this.donorLip, inlet = donor.row.phase === 'g' ? gasInlet(this, this.gasOrdinal(this.donorIndex)) : undefined;
         const dropContact = donor.doseMode === 'dropper' ? donor.dropFlight?.target : undefined;
-        this.sample.recentPourContact = { point: inlet ? [inlet[0], inlet[1] - 1.04, inlet[2]]
-          : dropContact ? [dropContact[0] - this.sample.position[0], dropContact[1] - this.sample.position[1], dropContact[2] - this.sample.position[2]]
-          : [solidContact?.[0] ?? lip[0] + 0.12, vesselLiquidSurfaceY(this.sample), solidContact?.[2] ?? lip[2]], remaining_s: 0.25, expiresAt_ms: 0, color: donor.color };
+        const worldContact = inlet ?? dropContact ?? [lip[0] + 0.12, receiverSurfaceWorld(this.sample)[1], lip[2]];
+        this.sample.recentPourContact = { point: solidContact ?? vesselWorldToLocal(this.sample, worldContact),
+          remaining_s: 0.25, expiresAt_ms: 0, color: donor.color };
       }
       this.advanceContact(dt);
       if (fraction >= 1) this.enter('return');
@@ -486,6 +508,29 @@ export class AutoExperiment {
       (this.sample.gasFlux.generated_mol_s[gasArrival.formula] ?? 0) - gasArrival.moles / dt);
     const phasePatch = partitionLeadIodide(this.sample, dt);
     if (phasePatch) this.sample = { ...this.sample, ...phasePatch };
+    const foam = stepFoamInventory(this.sample, previous, dt);
+    if (foam) this.sample = { ...this.sample, ...foam };
+    if (['observe', 'complete', 'cool', 'settle'].includes(this.phase)) {
+      const phaseModels: ((v: VesselState, seconds: number) => Partial<VesselState> | null)[] = [
+        (v, seconds) => partitionSodiumChloride(v, seconds, this.stirringDrive > 0),
+        (v, seconds) => partitionCalcite(v, seconds, this.stirringDrive > 0), partitionBarite,
+        partitionCalciumHydroxide, partitionSilverHalide, partitionMagnesiumHydroxide];
+      for (const partition of phaseModels) {
+        const patch = partition(this.sample, dt);
+        if (patch) this.sample = { ...this.sample, ...patch };
+      }
+    }
+    const combustion = stepHydrogenExhaustCombustion(this.sample, previous, dt,
+      isSodiumWaterReaction(this.renderKinetics?.reactionId), sodiumExternalIgnition(this.sample, { [this.lamp.id]: this.lamp }),
+      sodiumMetalMass(this.baseline));
+    if (combustion) this.sample = { ...this.sample, hydrogenCombustion: combustion };
+    const aqueous = projectAqueousSolution(this.sample);
+    if (aqueous) this.sample = { ...this.sample, ...aqueous };
+    const routedVapor = routeWaterVaporToWall(this.sample, previous, dt, this.wallThermalHandoff);
+    this.sample = finalizeWaterVaporOutflow(routedVapor.vessel, previous, routedVapor.availableVapor_g, dt,
+      routedVapor.availableVaporEnergy_J, routedVapor.availableVaporTemperatureMass_c_g);
+    const finalAqueous = projectAqueousSolution(this.sample);
+    if (finalAqueous) this.sample = { ...this.sample, ...finalAqueous };
     if (!this.simulateEffects) return;
     const gas = gasVisualState(this.sample);
     const profile = getVesselProfile('beaker', this.sample.capacity_ml);
@@ -494,17 +539,18 @@ export class AutoExperiment {
     const deposited = this.aerosolSuspended_g * -Math.expm1(-dt / 12);
     this.aerosolSuspended_g -= deposited; this.aerosolDeposited_g += deposited;
     const visible = [...gas.visible.filter(g => g.mol_s > 0), ...retainedGasVisuals(this.sample), ...aerosols];
+    const receiver = this.sample;
     this.clouds.advance(dt, visible.map(g => ({ vesselId: this.sample.id, revision: 1, receipt: this.sample.gasFlux!, seconds: dt,
       species: g.formula, input: { rate: g.rate, mol_s: g.mol_s, temperature_c: this.sample.temperature_c, ambient_c: 25,
         molarMass: g.molarMass, mouthY: profile.baseY + profile.H, mouthRadius: profile.mouthR,
-        floorY: 0.03, wind_m_s: 0.015, sourceToWorld: ([x, y, z]) => [x, y + 1.04, z],
+        floorY: 0.03, wind_m_s: 0.015, sourceToWorld: point => vesselLocalToWorld(receiver, point),
         chamber: { profile, bottomY: vesselLiquidSurfaceY(this.sample), sealed: !!this.sample.isSealed,
           inletJet: this.hasGasSupply && this.sample.volume_ml < 0.01,
           sourcePoint: this.sample.recentPourContact?.point,
           ...(this.hasGasSupply ? { vent: [0, 1.42, -0.35] as const } : {}) } } })));
     this.physics.step(this.sample, dt, { thermalStateAuthoritative: true, liquidMotionAuthoritative: true,
       agitation: this.stirringDrive,
-      bodyMatrixWorld: RECEIVER_BODY_MATRIX,
+      bodyMatrixWorld: receiverBodyMatrix(this.sample).elements,
       reactionProgram: this.program,
       reactionGasRate: gas.bubbleRate });
     this.stocks.advance(this.sample, dt, this.physics.vortex.surface);
@@ -522,6 +568,14 @@ export class AutoExperiment {
       contactColor: ['aq', 'l'].includes(this.donors[this.donorIndex]?.row.phase) ? this.sample.recentPourContact?.color : undefined,
       reactionRate_s1: this.progress > previousProgress ? Math.LN2 / Math.max(0.05, this.program.chemistry.kinetics.halfTime_s || 1) : 0,
     });
+  }
+  /** Gross source exhaust/evaporation include water later returned from the
+   * wall. Subtract that return once; all still-held doses retain ownership. */
+  get accountedMass_g() {
+    return this.sample.mass_g + Object.values(this.sample.escapedGas_g ?? {}).reduce((sum, mass) => sum + mass, 0)
+      + (this.sample.evaporated_ml ?? 0) - (this.sample.wallCondensation?.returned_g ?? 0)
+      + this.donors.reduce((sum, donor) => sum + donor.remaining, 0) + this.inFlightMass_g
+      + this.transferWaste.reduce((sum, waste) => sum + waste.mass_g, 0);
   }
   /** Mass in free flight belongs to neither the donor nor the receiving liquid. */
   get inFlightMass_g() {
@@ -545,12 +599,13 @@ export class AutoExperiment {
       // Keep material volume when moving from donor-local to receiver units.
       const size = scale.x * AUTO_DONOR_SCALE;
       const radius = solid.geometry.boundingSphere!.radius * size;
-      const targetY = this.sample.position[1] + vesselLiquidSurfaceY(this.sample) + radius;
+      const targetY = receiverSurfaceWorld(this.sample)[1] + radius;
       const vy = -0.2, distance = Math.max(0, start[1] - targetY);
       const duration = (vy + Math.sqrt(vy * vy + 2 * autoSolidGravity * distance)) / autoSolidGravity;
       const flightTime = Math.max(1 / 120, duration);
-      const targetX = Math.max(-0.35, Math.min(0.35, start[0] + 0.12));
-      const targetZ = Math.sin(i * 2.399963) * 0.2;
+      const receiverScale = vesselBodyTransform(this.sample).scale;
+      const targetX = this.sample.position[0] + Math.max(-0.35 * receiverScale, Math.min(0.35 * receiverScale, start[0] + 0.12 - this.sample.position[0]));
+      const targetZ = this.sample.position[2] + Math.sin(i * 2.399963) * 0.2 * receiverScale;
       dose.flights.push({ mass_g, releaseAt, arrivalAt: releaseAt + flightTime, arrived: false,
         position: start, velocity: [(targetX - start[0]) / flightTime, vy, (targetZ - start[2]) / flightTime], rotation: q.clone(), scale: size });
       dose.released++;
@@ -559,12 +614,10 @@ export class AutoExperiment {
       if (flight.arrived || this.phaseTime < flight.arrivalAt) continue;
       flight.arrived = true; dose.arrived++;
       const p = solidFlightPosition(flight, flight.arrivalAt);
-      p.y -= this.sample.position[1];
-      contact = p.toArray();
-      const meters = vesselBodyTransform(this.sample).metersPerLocalUnit;
-      births.push({ mass_g: flight.mass_g, position_m: scenePointToSI(vesselLocalToWorld(this.sample, p.toArray())),
-        rotation: flight.rotation.toArray(), velocity_m_s: [flight.velocity[0] * meters,
-          (flight.velocity[1] - autoSolidGravity * (flight.arrivalAt - flight.releaseAt)) * meters, flight.velocity[2] * meters],
+      contact = vesselWorldToLocal(this.sample, p.toArray());
+      births.push({ mass_g: flight.mass_g, position_m: scenePointToSI(p.toArray()),
+        rotation: flight.rotation.toArray(), velocity_m_s: [flight.velocity[0] * METERS_PER_SCENE_UNIT,
+          (flight.velocity[1] - autoSolidGravity * (flight.arrivalAt - flight.releaseAt)) * METERS_PER_SCENE_UNIT, flight.velocity[2] * METERS_PER_SCENE_UNIT],
         angularVelocity_rad_s: [0, 0, 0] });
     }
     if (this.simulateEffects) this.stocks.addContact(this.sample.id, donor.row.formula, births);
@@ -623,7 +676,7 @@ export class AutoExperiment {
     if (this.donors[this.donorIndex]?.row.phase === 'g') return { position: gasSourceHome(this.gasOrdinal(this.donorIndex), this.donors[this.donorIndex].row.moles), tilt: 0 };
     const donor = this.donors[this.donorIndex];
     const home = donorHome(this.donorIndex), hover: [number, number, number] = donor?.doseMode === 'dropper'
-      ? [this.sample.position[0], this.sample.position[1] + getVesselProfile(this.sample.type).lipLocal[1] + 0.4 - AUTO_DROPPER_TIP_LOCAL_Y * AUTO_DROPPER_SCALE, this.sample.position[2]]
+      ? [this.sample.position[0], receiverLipWorld(this.sample)[1] + 0.4 - AUTO_DROPPER_TIP_LOCAL_Y * AUTO_DROPPER_SCALE, this.sample.position[2]]
       : [-1, 2.8, 0];
     const t = this.phase === 'carry' ? smooth(time / AUTO_TIMING.carry)
       : this.phase === 'return' ? 1 - smooth((time - AUTO_TIMING.upright) / AUTO_TIMING.return) : this.phase === 'dose' ? 1 : 0;

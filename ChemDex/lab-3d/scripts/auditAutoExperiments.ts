@@ -17,7 +17,7 @@ for (const entry of AUTO_EXPERIMENTS) {
     peakParticles = Math.max(peakParticles, [...e.physics.precipitationSystems.values()].reduce((sum, s) => sum + s.particles.length, 0));
     peakCloudParticles = Math.max(peakCloudParticles, [...e.clouds.clouds.values()].reduce((sum, c) => sum + c.system.particles.length, 0));
   }
-  const finalMass_g = e.sample.mass_g + Object.values(e.sample.escapedGas_g ?? {}).reduce((sum, mass) => sum + mass, 0) + (e.sample.evaporated_ml ?? 0);
+  const finalMass_g = e.accountedMass_g;
   const ok = e.phase === 'complete' && !e.error && Math.abs(finalMass_g - initialMass_g) < 1e-5
     && peakParticles <= e.physics.maxPrecipitateParticles && useAppStore.getState() === before;
   results.push({ id: entry.id, ok, phase: e.phase, error: e.error, seconds: e.elapsed,

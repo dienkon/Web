@@ -4,12 +4,14 @@ import * as THREE from 'three';
 import { AUTO_TIMING, type AutoExperiment } from './AutoExperiment';
 import { gasInlet, gasPort, gasSourceHome, gasSyringeSize, gasVolumeMl, inverseDoseFraction } from './gasDelivery';
 import { vesselLiquidSurfaceY } from '../../science/vesselGeometry';
+import { vesselBodyTransform } from '../../science/vesselScale';
+import { receiverSurfaceWorld } from './receiverFrame';
 
 const ease = (t: number) => { const x = Math.max(0, Math.min(1, t)); return x * x * (3 - 2 * x); };
 /** A metered gas syringe stays on its stand. A closed valve, flexible hose,
  * ground-glass inlet and (for liquid samples) submerged outlet replace pouring. */
 export function AutoGasApparatus({ experiment: e, index, children }: { experiment: AutoExperiment; index: number; children?: React.ReactNode }) {
-  const donor = e.donors[index], ordinal = e.gasOrdinal(index), home = gasSourceHome(ordinal, donor.row.moles), port = gasPort(ordinal);
+  const donor = e.donors[index], ordinal = e.gasOrdinal(index), home = gasSourceHome(ordinal, donor.row.moles), port = gasPort(ordinal, e.sample);
   const { radius, length } = gasSyringeSize(donor.row.moles), outletX = length / 2 + 0.15;
   const plunger = useRef<THREE.Group>(null), valve = useRef<THREE.Mesh>(null), pipe = useRef<THREE.Mesh>(null);
   const hose = useRef<THREE.InstancedMesh>(null), bubbles = useRef<THREE.InstancedMesh>(null);
@@ -40,14 +42,14 @@ export function AutoGasApparatus({ experiment: e, index, children }: { experimen
     if (pipe.current) {
       const length = port[1] - inlet[1]; pipe.current.position.set(port[0], (port[1] + inlet[1]) / 2 + lift, port[2]); pipe.current.scale.y = length;
       pipe.current.userData.connected = connected >= 0.999;
-      pipe.current.userData.submerged = connected >= 0.999 && e.sample.volume_ml > 0.2 && inlet[1] < 1.04 + vesselLiquidSurfaceY(e.sample);
+      pipe.current.userData.submerged = connected >= 0.999 && e.sample.volume_ml > 0.2 && inlet[1] < receiverSurfaceWorld(e.sample)[1];
     }
     if (bubbles.current) {
       let count = 0;
       if (donor.doseStartedAt !== undefined && e.sample.volume_ml > 0.2 && connected >= 0.999) {
         const volume = gasVolumeMl(donor.row.moles), total = Math.max(1, Math.min(180, Math.ceil(volume / 0.08)));
         const born = Math.floor(donor.fraction * total), now = e.elapsed - donor.doseStartedAt;
-        const surface = 1.04 + vesselLiquidSurfaceY(e.sample), speed = 0.8;
+        const surface = receiverSurfaceWorld(e.sample)[1], speed = 0.8;
         for (let i = Math.max(0, born - 24); i < born; i++) {
           const age = now - (AUTO_TIMING.tilt + AUTO_TIMING.flight + AUTO_TIMING.flow * inverseDoseFraction((i + 0.5) / total));
           const y = inlet[1] + age * speed;
@@ -83,14 +85,16 @@ export function AutoGasApparatus({ experiment: e, index, children }: { experimen
 }
 export function AutoGasReceiver({ experiment: e }: { experiment: AutoExperiment }) {
   const root = useRef<THREE.Group>(null), first = e.donors.findIndex(d => d.row.phase === 'g');
+  const transform = vesselBodyTransform(e.sample);
   useFrame(() => {
     if (!root.current) return;
     root.current.visible = first >= 0 && e.donorIndex >= first && e.phase !== 'prepare';
-    root.current.position.y = e.donorIndex === first && e.phase === 'carry' ? (1 - ease(e.phaseTime / AUTO_TIMING.carry)) * 0.55 : 0;
+    root.current.position.set(e.sample.position[0], e.sample.position[1]
+      + (e.donorIndex === first && e.phase === 'carry' ? (1 - ease(e.phaseTime / AUTO_TIMING.carry)) * 0.55 : 0), e.sample.position[2]);
   });
-  return <group ref={root} visible={false} name="auto_gas_receiver_cap">
-    <mesh position={[0, 2.04, 0]}><cylinderGeometry args={[1, 1, 0.08, 48]} /><meshStandardMaterial color="#50626b" roughness={0.5} transparent opacity={0.82} /></mesh>
-    <mesh position={[0, 2.11, 0]} rotation={[Math.PI / 2, 0, 0]}><torusGeometry args={[0.055, 0.015, 8, 16]} /><meshStandardMaterial color="#98abb1" /></mesh>
-    <mesh position={[0, 2.25, -0.35]}><cylinderGeometry args={[0.035, 0.035, 0.42, 12]} /><meshPhysicalMaterial color="#d9edf3" transparent opacity={0.5} roughness={0.05} /></mesh>
-  </group>;
+  return <group ref={root} visible={false} name="auto_gas_receiver_cap"><group scale={transform.scale} position={[0, transform.offsetY, 0]}>
+    <mesh position={[0, 1, 0]}><cylinderGeometry args={[1, 1, 0.08, 48]} /><meshStandardMaterial color="#50626b" roughness={0.5} transparent opacity={0.82} /></mesh>
+    <mesh position={[0, 1.07, 0]} rotation={[Math.PI / 2, 0, 0]}><torusGeometry args={[0.055, 0.015, 8, 16]} /><meshStandardMaterial color="#98abb1" /></mesh>
+    <mesh position={[0, 1.21, -0.35]}><cylinderGeometry args={[0.035, 0.035, 0.42, 12]} /><meshPhysicalMaterial color="#d9edf3" transparent opacity={0.5} roughness={0.05} /></mesh>
+  </group></group>;
 }

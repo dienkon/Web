@@ -4,6 +4,8 @@ import { dropSchedule, landedScheduledDropFraction } from '../src/handling/doseT
 import { GRAVITY_M_S2, metersPerModelUnit } from '../src/science/sceneUnits';
 import { getVesselProfile } from '../src/pour/physics/profiles';
 import { AutoExperiment } from '../src/vfx/autoplay/AutoExperiment';
+import { vesselWorldToLocal } from '../src/science/vesselScale';
+import { receiverLipWorld } from '../src/vfx/autoplay/receiverFrame';
 
 describe('liquid drops share their visible outlet and receiving contact', () => {
   it('falls vertically to the exact translated surface without an extra horizontal offset', () => {
@@ -47,11 +49,9 @@ describe('liquid drops share their visible outlet and receiving contact', () => 
     expect(flight.start[0]).toBe(experiment.sample.position[0]);
     expect(flight.start[2]).toBe(experiment.sample.position[2]);
     expect(experiment.donorPose.position[1] + AUTO_DROPPER_TIP_LOCAL_Y * AUTO_DROPPER_SCALE).toBeCloseTo(flight.start[1], 12);
-    expect(flight.start[1]).toBeGreaterThan(experiment.sample.position[1] + getVesselProfile('beaker').lipLocal[1]);
+    expect(flight.start[1]).toBeGreaterThan(receiverLipWorld(experiment.sample)[1]);
     for (let frame = 0; frame < 120 && donor.fraction === 0; frame++) experiment.tick(1 / 60);
     expect(donor.fraction).toBeCloseTo(0.05 / 0.12, 12);
-    expect(experiment.sample.recentPourContact!.point).toEqual([
-      flight.target[0] - experiment.sample.position[0], flight.target[1] - experiment.sample.position[1], flight.target[2] - experiment.sample.position[2],
-    ]);
+    expect(experiment.sample.recentPourContact!.point).toEqual(vesselWorldToLocal(experiment.sample, flight.target));
   });
 });

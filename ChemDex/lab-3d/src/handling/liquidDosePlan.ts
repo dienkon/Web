@@ -4,8 +4,6 @@ import { METERS_PER_SCENE_UNIT } from '../science/sceneUnits';
 /** Use discrete drops only for microdoses; ordinary 1–2 mL transfers pour.
  * This is an interaction policy, not a laboratory drop calibration. */
 export const DROPPER_CAPACITY_ML = 0.2;
-export const DROPPER_TIP_LOCAL_Y = -1;
-export const DROPPER_TIP_CLEARANCE = 0.18;
 export function liquidDosePlan(amount_ml: number) {
   const amount = Number.isFinite(amount_ml) ? Math.max(0, amount_ml) : 0;
   const mode = amount > 0 && amount <= DROPPER_CAPACITY_ML ? 'dropper' as const : 'pour' as const;

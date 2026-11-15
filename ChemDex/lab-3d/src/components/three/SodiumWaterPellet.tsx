@@ -197,7 +197,7 @@ export function SodiumWaterPellet({ vesselId }: { vesselId: string }) {
       <sphereGeometry args={[1, 8, 6]} />
       <meshPhysicalMaterial color="#f8fafc" transparent opacity={0.55} roughness={0.06} metalness={0.1} depthWrite={false} />
     </instancedMesh>
-    <mesh ref={flame} material={flameMaterial} visible={false} dispose={null}>
+    <mesh ref={flame} name="sodium-hydrogen-flame" material={flameMaterial} visible={false} dispose={null}>
       <coneGeometry args={[0.1, 0.65, 16, 24]} />
     </mesh>
     <pointLight ref={light} color="#9ccfff" intensity={0} distance={2} />

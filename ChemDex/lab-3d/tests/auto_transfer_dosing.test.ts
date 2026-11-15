@@ -11,18 +11,18 @@ describe('automatic finite liquid delivery', () => {
     const copper = experiment.donors.find(donor => sameMolecularFormula(donor.row.formula, 'CuSO4'))!;
     expect(copper.solutionVolume_ml).toBeCloseTo(copper.row.moles / copperStock.defaultConcentration! * 1000, 12);
     expect(copper.components.some(component => sameMolecularFormula(component.formula, 'H2O') && component.phase === 'l')).toBe(true);
-    expect(copper.doseMode).toBe('dropper');
+    expect(copper.doseMode).toBe('pour');
     for (const donor of experiment.donors) expect(donor.totalMass_g)
       .toBeCloseTo(donor.components.reduce((sum, component) => sum + component.mass_g, 0), 10);
   });
 
   it('uses finite separate drops whose receiver inventory changes only at contact', () => {
-    const experiment = new AutoExperiment('hcl_naoh', false);
+    const experiment = new AutoExperiment('hno3_koh', false);
     for (let i = 0; i < 60 * 120 && !(experiment.phase === 'dose' && experiment.donors[experiment.donorIndex]?.doseMode === 'dropper'); i++)
       experiment.tick(1 / 60);
     expect(experiment.phase).toBe('dose');
     const donor = experiment.donors[experiment.donorIndex];
-    expect(donor.solutionVolume_ml).toBeLessThanOrEqual(2);
+    expect(donor.solutionVolume_ml).toBeLessThanOrEqual(0.2);
     expect(donor.dropSchedule?.count).toBeGreaterThan(1);
     const total = experiment.sample.mass_g + experiment.donors.reduce((sum, item) => sum + item.remaining, 0);
     const initialMoles = experiment.sample.contents.find(row => sameMolecularFormula(row.formula, donor.row.formula))?.moles ?? 0;
@@ -30,7 +30,7 @@ describe('automatic finite liquid delivery', () => {
     expect(donor.fraction).toBe(0);
     expect(experiment.sample.contents.find(row => sameMolecularFormula(row.formula, donor.row.formula))?.moles ?? 0).toBe(initialMoles);
     for (let i = 0; i < 120 && donor.fraction === 0; i++) experiment.tick(1 / 60);
-    expect(donor.fraction).toBeCloseTo(1 / donor.dropSchedule!.count, 10);
+    expect(donor.fraction).toBeCloseTo(Math.min(0.05, donor.solutionVolume_ml) / donor.solutionVolume_ml, 10);
     expect(experiment.sample.contents.find(row => sameMolecularFormula(row.formula, donor.row.formula))?.moles).toBeGreaterThan(0);
     expect(experiment.sample.mass_g + (experiment.sample.evaporated_ml ?? 0)
       + experiment.donors.reduce((sum, item) => sum + item.remaining, 0) + experiment.inFlightMass_g).toBeCloseTo(total, 2);
