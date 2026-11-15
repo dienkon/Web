@@ -1,0 +1,46 @@
+{
+  "id": "kapton-nam-lop-mang-che-kinh-webb",
+  "slug": "kapton-nam-lop-mang-che-kinh-webb",
+  "documentPath": "docs/kapton-nam-lop-mang-che-kinh-webb/index.json",
+  "title": "Năm lớp màng Kapton mở ra một vùng lạnh cho kính Webb",
+  "summary": "Ngày 4/1/2022, tấm chắn nắng của Webb hoàn tất triển khai. Phía sau một thao tác cơ khí phức tạp là bài toán vật liệu: giữ màng đủ mỏng, bền và phù hợp với đường thoát nhiệt.",
+  "category": "hopchat",
+  "author": "Ban biên tập ChemDex",
+  "image": "/assets/library/photos/stories/webb-sunshield-test.jpg",
+  "tags": [
+    "Kapton",
+    "Polyimide",
+    "Webb",
+    "Vật liệu không gian"
+  ],
+  "aliases": [],
+  "documentKind": "story",
+  "readingMinutes": 5,
+  "editorialEvidence": {
+    "language": "vi",
+    "scope": "chemical-family",
+    "contextLabel": "Năm lớp màng Kapton mở ra một vùng lạnh cho kính Webb",
+    "reviewBasis": "Biên soạn theo các nguồn dẫn cuối bài; phân biệt kết quả đã thực hiện và hướng phát triển.",
+    "story": {
+      "status": "documented",
+      "section": "## Một tấm chắn phải mở sau khi rời Trái Đất",
+      "sources": [
+        "https://www.nasa.gov/news-release/sunshield-successfully-deploys-on-nasas-next-flagship-telescope/",
+        "https://www.nasa.gov/universe/the-complex-material-engineering-of-nasas-webb-telescope-sunshield/",
+        "https://science.nasa.gov/mission/webb/webbs-sunshield/",
+        "https://science.nasa.gov/mission/webb/sunshield-membrane-coatings/"
+      ]
+    },
+    "application": {
+      "status": "documented",
+      "section": "## Ứng dụng hôm nay: giúp tín hiệu yếu có cơ hội xuất hiện",
+      "sources": [
+        "https://www.nasa.gov/news-release/sunshield-successfully-deploys-on-nasas-next-flagship-telescope/",
+        "https://www.nasa.gov/universe/the-complex-material-engineering-of-nasas-webb-telescope-sunshield/",
+        "https://science.nasa.gov/mission/webb/webbs-sunshield/",
+        "https://science.nasa.gov/mission/webb/sunshield-membrane-coatings/"
+      ]
+    }
+  },
+  "content": "## Một tấm chắn phải mở sau khi rời Trái Đất\n\nNgày 4 tháng 1 năm 2022, nhóm Webb hoàn tất căng các lớp tấm chắn nắng. Bộ phận có kích thước gần một sân tennis đã phải được gấp lại để nằm trong khoang tên lửa, rồi mở bằng điều khiển từ xa sau phóng. Khả năng làm việc của vật liệu phụ thuộc vào việc nó đến được đúng hình dạng trong không gian.\n\nNASA ghi lại chuỗi mở các kết cấu đỡ, tách tháp kính, mở thanh ngang rồi căng màng. Hàng loạt cơ cấu nhả, bản lề, động cơ, ròng rọc và dây cáp phải phối hợp. Mỗi lớp cần được đưa tới vị trí riêng; năm lớp xếp chạm nhau sẽ không làm đúng phần việc của thiết kế.\n\nKính quan sát hồng ngoại tìm những tín hiệu nhiệt rất yếu. Nhiệt từ Mặt Trời, Trái Đất, Mặt Trăng và chính phần tàu có thể cản trở nhiệm vụ ấy. Tấm chắn tạo điều kiện nhiệt cho vùng quang học, để những phần khác của đài quan sát tiếp tục làm công việc của chúng.\n\n![Tấm chắn nắng năm lớp của Webb trong thử triển khai trên Trái Đất](/assets/library/photos/stories/webb-sunshield-test.jpg)\n\n*Thử triển khai và căng tấm chắn Webb ngày 17/12/2020; đây là ảnh thử nghiệm trên mặt đất, không phải ảnh chụp khi triển khai trong không gian. — Chris Gunn; NASA/Chris Gunn; [Public domain](https://commons.wikimedia.org/wiki/Template:PD-USGov-NASA). [Nguồn ảnh](https://commons.wikimedia.org/wiki/File:NASA%E2%80%99s_Webb_Sunshield_Successfully_Unfolds_and_Tensions_in_Final_Tests.jpg).*\n\n## Polymer giữ hình, lớp phủ điều khiển bức xạ\n\nCác màng dùng Kapton, một vật liệu polyimide. Tên thương mại này gắn với nhiều cấp màng phục vụ những nhu cầu kỹ thuật khác nhau; tấm chắn Webb dùng vật liệu được lựa chọn cho nhiệm vụ riêng. Không thể lấy một cuộn băng cách điện có cùng tên rồi xem đó là toàn bộ hệ tấm chắn.\n\nMỗi lớp có phủ nhôm; mặt hướng Mặt Trời của hai lớp nóng hơn còn có lớp phủ silicon được xử lý. Polymer cung cấp nền màng, còn bề mặt phủ góp phần điều khiển hấp thụ, phản xạ, phát xạ và tích điện. Tính năng cuối cùng thuộc về vật liệu nhiều lớp đã gia công.\n\nTrên Trái Đất, màng polyimide còn được dùng trong cách điện và điện tử. Khả năng chịu môi trường nhiệt của nó là một lý do được cân nhắc, nhưng thiết kế không gian đòi hỏi thêm hiểu biết về co giãn, lỗ thủng và độ bền sau nhiều công đoạn chế tạo.\n\n## Giữ khoảng hở cũng là một phần của vật liệu\n\nGiữa các lớp có khoảng không để nhiệt bức xạ đi ra ở mép. Hình dạng và kích thước từng màng được tính để hướng dòng trao đổi năng lượng. Một vật liệu chịu nóng tốt vẫn cần cách sắp xếp đúng mới bảo vệ được phía lạnh.\n\nCác dải gia cường tạo những ô hạn chế đường lan của vết rách. Chi tiết ấy thừa nhận màng mỏng có thể bị hư hại cục bộ, rồi tìm cách giữ hậu quả trong vùng nhỏ hơn. Kỹ thuật làm màng vì thế bao gồm cả việc dự đoán kiểu hỏng, không chỉ đo độ bền của một mẫu hoàn hảo.\n\nKhi nhiệt độ thay đổi, vật liệu co giãn. Thử nghiệm dưới điều kiện nhiệt và chân không giúp đối chiếu dự đoán hình dạng. Trên Webb, hóa học polymer, lớp phủ và lực căng không phải ba câu chuyện tách rời: chúng cùng quyết định một tấm màng sẽ đứng ở đâu và trao đổi nhiệt ra sao.\n\n## Ứng dụng hôm nay: giúp tín hiệu yếu có cơ hội xuất hiện\n\nTấm chắn là một bộ phận của kiến trúc nhiệt Webb. Nó không làm mọi thiết bị có cùng nhiệt độ và cũng không thay toàn bộ các hệ làm lạnh. Những thiết bị quan sát ở các vùng hồng ngoại khác nhau có yêu cầu riêng, được đáp ứng bằng nhiều thành phần phối hợp.\n\nGiá trị của Kapton trong trường hợp này nằm ở khả năng trở thành một màng kỹ thuật có thể chế tạo, gấp, triển khai và giữ hình cùng các lớp phủ. Công việc ấy nằm phía sau những ảnh thiên văn người xem thường chú ý trước tiên. Để đọc được ánh sáng rất xa, đôi khi điều kiện đầu tiên là tổ chức thật tốt đường đi của nhiệt ngay bên cạnh máy đo.\n\n## Nguồn và đọc thêm\n\n- [NASA: hoàn tất triển khai tấm chắn ngày 4/1/2022](https://www.nasa.gov/news-release/sunshield-successfully-deploys-on-nasas-next-flagship-telescope/)\n- [NASA: kỹ thuật vật liệu tấm chắn Webb](https://www.nasa.gov/universe/the-complex-material-engineering-of-nasas-webb-telescope-sunshield/)\n- [NASA Science: cấu tạo và vai trò tấm chắn](https://science.nasa.gov/mission/webb/webbs-sunshield/)\n- [NASA: các lớp phủ trên màng](https://science.nasa.gov/mission/webb/sunshield-membrane-coatings/)"
+}

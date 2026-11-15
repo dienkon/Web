@@ -1,0 +1,44 @@
+{
+  "id": "baizer-dong-dien-noi-hai-acrylonitrile",
+  "slug": "baizer-dong-dien-noi-hai-acrylonitrile",
+  "documentPath": "docs/baizer-dong-dien-noi-hai-acrylonitrile/index.json",
+  "title": "Dòng điện nối hai phân tử: con đường adiponitrile của Manuel Baizer",
+  "summary": "Một nhiệm vụ năm 1959 đưa Baizer tới ghép khử acrylonitrile bằng điện hóa. Để thành quy trình, dòng electron và môi trường nước phải được thiết kế cùng nhau.",
+  "category": "phanung",
+  "author": "Ban biên tập ChemDex",
+  "image": "/assets/library/apparatus-voltaic-pile.svg",
+  "tags": [
+    "Điện hóa hữu cơ",
+    "Baizer",
+    "Adiponitrile",
+    "Ghép khử"
+  ],
+  "aliases": [],
+  "documentKind": "story",
+  "readingMinutes": 4,
+  "editorialEvidence": {
+    "language": "vi",
+    "scope": "chemical-family",
+    "contextLabel": "Dòng điện nối hai phân tử: con đường adiponitrile của Manuel Baizer",
+    "reviewBasis": "Biên soạn theo các nguồn dẫn cuối bài; phân biệt kết quả đã thực hiện và hướng phát triển.",
+    "story": {
+      "status": "documented",
+      "section": "## Một nhiệm vụ nghiên cứu có đích đến công nghiệp",
+      "sources": [
+        "https://garfield.library.upenn.edu/classics1986/A1986A368400001.pdf",
+        "https://doi.org/10.1149/1.2426086",
+        "https://patents.google.com/patent/US3193477A/en"
+      ]
+    },
+    "application": {
+      "status": "documented",
+      "section": "## Ứng dụng hôm nay: điện hóa phải được đọc như một quy trình hóa học đầy đủ",
+      "sources": [
+        "https://garfield.library.upenn.edu/classics1986/A1986A368400001.pdf",
+        "https://doi.org/10.1149/1.2426086",
+        "https://patents.google.com/patent/US3193477A/en"
+      ]
+    }
+  },
+  "content": "## Một nhiệm vụ nghiên cứu có đích đến công nghiệp\n\nTrong hồi tưởng viết năm 1986, Manuel Baizer kể rằng cuối năm 1959 ông được giao nghiên cứu lại khả năng chuyển acrylonitrile thành adiponitrile. Đích đến là một chất trung gian của chuỗi nylon, nhưng cách tiếp cận dùng dòng điện để thúc đẩy ghép khử.\n\nBài công bố năm 1964 mô tả ảnh hưởng của môi trường điện ly và thiết kế cell lên kết quả. Một bằng sáng chế liên quan còn dành sự chú ý cho việc lấy sản phẩm ra khỏi môi trường phản ứng. Như vậy, ngay từ đầu câu chuyện đã có cả phản ứng và phân tách.\n\nCon đường này cần được phân biệt với hydrocyanation butadiene đã dùng trong những nhà máy ADN khác. Hai tuyến có thể tạo cùng một sản phẩm, nhưng dùng nguyên liệu, cơ chế và các dòng vật chất khác nhau. Tên ADN không tự tiết lộ nó đã được làm theo cách nào.\n\n![Minh họa nguồn điện hóa, không phải thiết kế cell sản xuất adiponitrile](/assets/library/apparatus-voltaic-pile.svg)\n\n## Electron là đầu vào có thể đo được\n\nTrong ghép khử, hai phân tử acrylonitrile được kết nối thành một mạch lớn hơn đồng thời nhận các thành phần cần thiết để tạo sản phẩm bão hòa phù hợp. Điện cực cung cấp electron cho đường phản ứng; các proton hoặc nguồn hydrogen trong môi trường tham gia hoàn tất cân bằng.\n\nKhông phải mọi electron đi qua cell đều nhất thiết tạo sản phẩm mong muốn. Những phản ứng cạnh tranh có thể tiêu thụ điện tích. Vì vậy, hiệu suất dòng là một thước đo riêng bên cạnh hiệu suất hóa học theo nguyên liệu.\n\nBaizer khảo sát môi trường có những ion hỗ trợ vừa giúp dẫn điện vừa ảnh hưởng trạng thái của chất hữu cơ gần điện cực. Lớp dung dịch sát bề mặt không nhất thiết có thành phần giống hoàn toàn phần dung dịch còn lại. Hiện tượng chuyển khối vì thế có thể làm thay đổi phân bố sản phẩm.\n\nNếu điều kiện không phù hợp, phản ứng khử đơn giản hoặc những đường khác cạnh tranh với việc ghép hai phân tử. Câu hỏi không chỉ là điện áp đã đủ lớn hay chưa, mà là nguyên liệu gặp electron ở môi trường nào.\n\n## Ứng dụng hôm nay: điện hóa phải được đọc như một quy trình hóa học đầy đủ\n\nTổng hợp điện hóa hữu cơ tiếp tục được nghiên cứu để thay một số tác nhân oxi hóa hoặc khử bằng điện cực. Trường hợp adiponitrile là một mốc công nghiệp quan trọng, cho thấy điện hóa có thể đi xa hơn những thí nghiệm minh họa tạo khí hoặc mạ kim loại.\n\nTuy nhiên, điện không phải nguyên liệu không có nguồn gốc. Điện năng, tuổi thọ điện cực, điện ly, phân tách và xử lý dòng phụ đều góp phần vào đánh giá. Lợi ích của một tuyến phải được so với các phương pháp khác cho cùng sản phẩm và cùng yêu cầu chất lượng.\n\nBằng sáng chế của Baizer về chiết sản phẩm nhắc rằng mối nối carbon thành công chỉ giải quyết một phần. Muốn vận hành liên tục, sản phẩm phải rời hệ, những thành phần cần dùng lại phải quay về, và thành phần môi trường phải giữ được trong khoảng có ích.\n\nCâu chuyện từ nhiệm vụ năm 1959 tới một quy trình được phát triển cho nhà máy cho thấy sức mạnh của điện hóa nằm ở khả năng điều khiển trao đổi electron. Giá trị ấy được hiện thực hóa khi bề mặt, dòng chất lỏng và đường đi của sản phẩm cùng được thiết kế, chứ không chỉ khi bật nguồn điện.\n\n## Nguồn và đọc thêm\n\n- [Manuel Baizer · Hồi tưởng nghiên cứu điện hóa ADN](https://garfield.library.upenn.edu/classics1986/A1986A368400001.pdf)\n- [Baizer · Electrolytic Reductive Coupling: Acrylonitrile, 1964](https://doi.org/10.1149/1.2426086)\n- [Baizer · Bằng sáng chế kết hợp phản ứng và chiết sản phẩm](https://patents.google.com/patent/US3193477A/en)"
+}

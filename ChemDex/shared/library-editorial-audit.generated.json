@@ -8,9 +8,9 @@
     "index.json",
     "reference-index.generated.json"
   ],
-  "targetPerCategory": 1001,
-  "documentCount": 713,
-  "uniqueDocumentCount": 713,
+  "targetPerCategory": 500,
+  "documentCount": 811,
+  "uniqueDocumentCount": 811,
   "quantityTargetReached": false,
   "editorialCoverageComplete": false,
   "targetReached": false,
@@ -18,122 +18,122 @@
     {
       "id": "tieusu",
       "label": "Tiểu Sử",
-      "documentCount": 124,
-      "uniqueDocumentCount": 124,
-      "documentedArticleCount": 45,
-      "target": 1001,
-      "remaining": 877,
+      "documentCount": 154,
+      "uniqueDocumentCount": 154,
+      "documentedArticleCount": 75,
+      "target": 500,
+      "remaining": 346,
       "story": {
-        "documented": 124,
+        "documented": 154,
         "context-only": 0,
         "unreviewed": 0,
         "missing": 0,
         "invalid": 0
       },
       "application": {
-        "documented": 45,
+        "documented": 75,
         "context-only": 79,
         "unreviewed": 0,
         "missing": 0,
         "invalid": 0
       },
-      "declaredVietnamese": 124
+      "declaredVietnamese": 154
     },
     {
       "id": "nguyento",
       "label": "Nguyên Tố",
-      "documentCount": 157,
-      "uniqueDocumentCount": 157,
-      "documentedArticleCount": 144,
-      "target": 1001,
-      "remaining": 844,
+      "documentCount": 162,
+      "uniqueDocumentCount": 162,
+      "documentedArticleCount": 149,
+      "target": 500,
+      "remaining": 338,
       "story": {
-        "documented": 157,
+        "documented": 162,
         "context-only": 0,
         "unreviewed": 0,
         "missing": 0,
         "invalid": 0
       },
       "application": {
-        "documented": 144,
+        "documented": 149,
         "context-only": 13,
         "unreviewed": 0,
         "missing": 0,
         "invalid": 0
       },
-      "declaredVietnamese": 157
+      "declaredVietnamese": 162
     },
     {
       "id": "khainiem",
       "label": "Khái Niệm Hóa Học",
-      "documentCount": 35,
-      "uniqueDocumentCount": 35,
-      "documentedArticleCount": 35,
-      "target": 1001,
-      "remaining": 966,
+      "documentCount": 65,
+      "uniqueDocumentCount": 65,
+      "documentedArticleCount": 65,
+      "target": 500,
+      "remaining": 435,
       "story": {
-        "documented": 35,
+        "documented": 65,
         "context-only": 0,
         "unreviewed": 0,
         "missing": 0,
         "invalid": 0
       },
       "application": {
-        "documented": 35,
+        "documented": 65,
         "context-only": 0,
         "unreviewed": 0,
         "missing": 0,
         "invalid": 0
       },
-      "declaredVietnamese": 35
+      "declaredVietnamese": 65
     },
     {
       "id": "phanung",
       "label": "Phản Ứng",
-      "documentCount": 37,
-      "uniqueDocumentCount": 37,
-      "documentedArticleCount": 37,
-      "target": 1001,
-      "remaining": 964,
+      "documentCount": 67,
+      "uniqueDocumentCount": 67,
+      "documentedArticleCount": 67,
+      "target": 500,
+      "remaining": 433,
       "story": {
-        "documented": 37,
+        "documented": 67,
         "context-only": 0,
         "unreviewed": 0,
         "missing": 0,
         "invalid": 0
       },
       "application": {
-        "documented": 37,
+        "documented": 67,
         "context-only": 0,
         "unreviewed": 0,
         "missing": 0,
         "invalid": 0
       },
-      "declaredVietnamese": 37
+      "declaredVietnamese": 67
     },
     {
       "id": "hopchat",
       "label": "Câu chuyện các chất",
-      "documentCount": 360,
-      "uniqueDocumentCount": 360,
-      "documentedArticleCount": 96,
-      "target": 1001,
-      "remaining": 641,
+      "documentCount": 363,
+      "uniqueDocumentCount": 363,
+      "documentedArticleCount": 105,
+      "target": 500,
+      "remaining": 137,
       "story": {
-        "documented": 96,
+        "documented": 105,
         "context-only": 0,
         "unreviewed": 0,
-        "missing": 264,
+        "missing": 258,
         "invalid": 0
       },
       "application": {
-        "documented": 96,
+        "documented": 105,
         "context-only": 0,
         "unreviewed": 0,
-        "missing": 264,
+        "missing": 258,
         "invalid": 0
       },
-      "declaredVietnamese": 360
+      "declaredVietnamese": 363
     }
   ],
   "duplicates": {
@@ -7116,6 +7116,3164 @@
       "evidenceScope": "chemical-family"
     },
     {
+      "id": "ytterbium-hai-dong-ho-doc-do-cao",
+      "slug": "ytterbium-hai-dong-ho-doc-do-cao",
+      "title": "Hai chiếc đồng hồ ytterbium bắt đầu nhìn thấy độ cao",
+      "category": "nguyento",
+      "indexFile": "editorial-index.generated.json",
+      "documentPath": "docs/ytterbium-hai-dong-ho-doc-do-cao/index.json",
+      "contentHash": "e8ad2f93b4504b4c00e3d9067056d7af30a0c9eb8167e2099d784b938a0ed095",
+      "wordCount": 749,
+      "inlineImageCount": 1,
+      "sourceCount": 3,
+      "declaredLanguage": "vi",
+      "story": {
+        "status": "documented",
+        "section": "## Một cuộc đối chiếu giữa hai cỗ máy",
+        "sources": [
+          "https://www.nist.gov/news-events/news/2018/11/nist-atomic-clocks-now-keep-time-well-enough-improve-models-earth",
+          "https://doi.org/10.1038/s41586-018-0738-2",
+          "https://www.nist.gov/programs-projects/yb-optical-lattice-clock"
+        ]
+      },
+      "application": {
+        "status": "documented",
+        "section": "## Ứng dụng hôm nay: xây một mạng đối chiếu",
+        "sources": [
+          "https://www.nist.gov/news-events/news/2018/11/nist-atomic-clocks-now-keep-time-well-enough-improve-models-earth",
+          "https://doi.org/10.1038/s41586-018-0738-2",
+          "https://www.nist.gov/programs-projects/yb-optical-lattice-clock"
+        ]
+      },
+      "evidenceScope": "element"
+    },
+    {
+      "id": "rubidium-dam-may-lanh-jila-1995",
+      "slug": "rubidium-dam-may-lanh-jila-1995",
+      "title": "Đám mây rubidium năm 1995: khi nhiều nguyên tử chia sẻ một trạng thái",
+      "category": "nguyento",
+      "indexFile": "editorial-index.generated.json",
+      "documentPath": "docs/rubidium-dam-may-lanh-jila-1995/index.json",
+      "contentHash": "0b0b5f379bbe032b15641f19252923f1034d2049c15607c7408e9fbf84d0f13a",
+      "wordCount": 809,
+      "inlineImageCount": 1,
+      "sourceCount": 6,
+      "declaredLanguage": "vi",
+      "story": {
+        "status": "documented",
+        "section": "## Dấu hiệu nhỏ trong một đám mây nhỏ",
+        "sources": [
+          "https://www.nist.gov/news-events/news/1995/07/physicists-create-new-state-matter-record-low-temperature",
+          "https://doi.org/10.1126/science.269.5221.198",
+          "https://www.nasa.gov/centers-and-facilities/johnson/station-science-top-news-august-29-2024/",
+          "https://doi.org/10.1038/s41467-024-50585-6"
+        ]
+      },
+      "application": {
+        "status": "documented",
+        "section": "## Từ bàn JILA đến cảm biến sóng vật chất",
+        "sources": [
+          "https://www.nist.gov/news-events/news/1995/07/physicists-create-new-state-matter-record-low-temperature",
+          "https://doi.org/10.1126/science.269.5221.198",
+          "https://www.nasa.gov/centers-and-facilities/johnson/station-science-top-news-august-29-2024/",
+          "https://doi.org/10.1038/s41467-024-50585-6"
+        ]
+      },
+      "evidenceScope": "element"
+    },
+    {
+      "id": "holmium-laser-doc-co2-tu-may-bay",
+      "slug": "holmium-laser-doc-co2-tu-may-bay",
+      "title": "Holmium gửi hai xung sáng xuống đất để đọc CO₂",
+      "category": "nguyento",
+      "indexFile": "editorial-index.generated.json",
+      "documentPath": "docs/holmium-laser-doc-co2-tu-may-bay/index.json",
+      "contentHash": "e87df13956ce275ef2f64d0e158d6a394c93aadb26882095f5078c125ada209a",
+      "wordCount": 748,
+      "inlineImageCount": 1,
+      "sourceCount": 4,
+      "declaredLanguage": "vi",
+      "story": {
+        "status": "documented",
+        "section": "## Hai xung gần nhau, hai mức hấp thụ",
+        "sources": [
+          "https://science.nasa.gov/science-research/science-enabling-technology/technology-highlights/first-flights-co2-detecting-lidar/",
+          "https://ntrs.nasa.gov/api/citations/20160006423/downloads/20160006423.pdf",
+          "https://doi.org/10.1364/AO.54.001387",
+          "https://ntrs.nasa.gov/citations/20230007898"
+        ]
+      },
+      "application": {
+        "status": "documented",
+        "section": "## Ứng dụng hôm nay: kiểm chứng đường tới quan trắc rộng hơn",
+        "sources": [
+          "https://science.nasa.gov/science-research/science-enabling-technology/technology-highlights/first-flights-co2-detecting-lidar/",
+          "https://ntrs.nasa.gov/api/citations/20160006423/downloads/20160006423.pdf",
+          "https://doi.org/10.1364/AO.54.001387",
+          "https://ntrs.nasa.gov/citations/20230007898"
+        ]
+      },
+      "evidenceScope": "element"
+    },
+    {
+      "id": "dysprosium-dam-may-sieu-ran",
+      "slug": "dysprosium-dam-may-sieu-ran",
+      "title": "Đám mây dysprosium vừa có trật tự vừa giữ tính chảy lượng tử",
+      "category": "nguyento",
+      "indexFile": "editorial-index.generated.json",
+      "documentPath": "docs/dysprosium-dam-may-sieu-ran/index.json",
+      "contentHash": "e4bf483db6e69221a9c9319ec0f2a8a73fe35e288fdd71beed191226c0efbef3",
+      "wordCount": 757,
+      "inlineImageCount": 1,
+      "sourceCount": 3,
+      "declaredLanguage": "vi",
+      "story": {
+        "status": "documented",
+        "section": "## Một cái tên tưởng như tự mâu thuẫn",
+        "sources": [
+          "https://doi.org/10.1103/PhysRevX.9.021012",
+          "https://www.uibk.ac.at/en/newsroom/2019/quantum-gas-turns-supersolid/",
+          "https://pmc.ncbi.nlm.nih.gov/articles/PMC11111407/"
+        ]
+      },
+      "application": {
+        "status": "documented",
+        "section": "## Ứng dụng hôm nay nằm ở một phòng thí nghiệm điều khiển được",
+        "sources": [
+          "https://doi.org/10.1103/PhysRevX.9.021012",
+          "https://www.uibk.ac.at/en/newsroom/2019/quantum-gas-turns-supersolid/",
+          "https://pmc.ncbi.nlm.nih.gov/articles/PMC11111407/"
+        ]
+      },
+      "evidenceScope": "element"
+    },
+    {
+      "id": "bismuth-vong-kim-loai-giu-nam-cham",
+      "slug": "bismuth-vong-kim-loai-giu-nam-cham",
+      "title": "Một vòng bismuth giúp nam châm đứng giữa không trung",
+      "category": "nguyento",
+      "indexFile": "editorial-index.generated.json",
+      "documentPath": "docs/bismuth-vong-kim-loai-giu-nam-cham/index.json",
+      "contentHash": "5fe30532f7486d7a491ada66c1c8982cf4d9136fac3d834fb4b63f59140ab5fd",
+      "wordCount": 751,
+      "inlineImageCount": 1,
+      "sourceCount": 4,
+      "declaredLanguage": "vi",
+      "story": {
+        "status": "documented",
+        "section": "## Một nam châm cần thêm sự ổn định",
+        "sources": [
+          "https://doi.org/10.1038/22444",
+          "https://sciencedemonstrations.fas.harvard.edu/presentations/diamagnetic-levitation",
+          "https://instructional-resources.physics.uiowa.edu/5g3055-diamagnetic-bismuth",
+          "https://doi.org/10.1088/0143-0807/18/4/012"
+        ]
+      },
+      "application": {
+        "status": "documented",
+        "section": "## Ứng dụng hôm nay: làm hiệu ứng yếu trở nên đo được",
+        "sources": [
+          "https://doi.org/10.1038/22444",
+          "https://sciencedemonstrations.fas.harvard.edu/presentations/diamagnetic-levitation",
+          "https://instructional-resources.physics.uiowa.edu/5g3055-diamagnetic-bismuth",
+          "https://doi.org/10.1088/0143-0807/18/4/012"
+        ]
+      },
+      "evidenceScope": "element"
+    },
+    {
+      "id": "kapton-nam-lop-mang-che-kinh-webb",
+      "slug": "kapton-nam-lop-mang-che-kinh-webb",
+      "title": "Năm lớp màng Kapton mở ra một vùng lạnh cho kính Webb",
+      "category": "hopchat",
+      "indexFile": "editorial-index.generated.json",
+      "documentPath": "docs/kapton-nam-lop-mang-che-kinh-webb/index.json",
+      "contentHash": "f2b7270b6be8a772c5f1fab18104e63629382bd39c132398e9d715aadc7cbf5f",
+      "wordCount": 787,
+      "inlineImageCount": 1,
+      "sourceCount": 6,
+      "declaredLanguage": "vi",
+      "story": {
+        "status": "documented",
+        "section": "## Một tấm chắn phải mở sau khi rời Trái Đất",
+        "sources": [
+          "https://www.nasa.gov/news-release/sunshield-successfully-deploys-on-nasas-next-flagship-telescope/",
+          "https://www.nasa.gov/universe/the-complex-material-engineering-of-nasas-webb-telescope-sunshield/",
+          "https://science.nasa.gov/mission/webb/webbs-sunshield/",
+          "https://science.nasa.gov/mission/webb/sunshield-membrane-coatings/"
+        ]
+      },
+      "application": {
+        "status": "documented",
+        "section": "## Ứng dụng hôm nay: giúp tín hiệu yếu có cơ hội xuất hiện",
+        "sources": [
+          "https://www.nasa.gov/news-release/sunshield-successfully-deploys-on-nasas-next-flagship-telescope/",
+          "https://www.nasa.gov/universe/the-complex-material-engineering-of-nasas-webb-telescope-sunshield/",
+          "https://science.nasa.gov/mission/webb/webbs-sunshield/",
+          "https://science.nasa.gov/mission/webb/sunshield-membrane-coatings/"
+        ]
+      },
+      "evidenceScope": "chemical-family"
+    },
+    {
+      "id": "xanh-pho-mau-cua-song-va-dau-vet-thoi-gian",
+      "slug": "xanh-pho-mau-cua-song-va-dau-vet-thoi-gian",
+      "title": "Màu xanh của Đại lãng: hóa học đi qua bàn in Hokusai",
+      "category": "hopchat",
+      "indexFile": "editorial-index.generated.json",
+      "documentPath": "docs/xanh-pho-mau-cua-song-va-dau-vet-thoi-gian/index.json",
+      "contentHash": "0a37d0a28816f1f5f87885ab5707df6a95a564f61400fbed4db78fe672e5c10b",
+      "wordCount": 789,
+      "inlineImageCount": 1,
+      "sourceCount": 6,
+      "declaredLanguage": "vi",
+      "story": {
+        "status": "documented",
+        "section": "## Không chỉ có nét vẽ của Hokusai",
+        "sources": [
+          "https://www.metmuseum.org/essays/hokusai-great-wave",
+          "https://www.nationalgallery.org.uk/media/15510/kirby_saunders2004.pdf",
+          "https://journals.iucr.org/s/issues/2013/03/00/fv5008/index.html",
+          "https://collections.lacma.org/object/88781"
+        ]
+      },
+      "application": {
+        "status": "documented",
+        "section": "## Ứng dụng hôm nay: đọc vật liệu để giữ tác phẩm",
+        "sources": [
+          "https://www.metmuseum.org/essays/hokusai-great-wave",
+          "https://www.nationalgallery.org.uk/media/15510/kirby_saunders2004.pdf",
+          "https://journals.iucr.org/s/issues/2013/03/00/fv5008/index.html",
+          "https://collections.lacma.org/object/88781"
+        ]
+      },
+      "evidenceScope": "chemical-family"
+    },
+    {
+      "id": "dmso-giup-te-bao-di-qua-dong-lanh",
+      "slug": "dmso-giup-te-bao-di-qua-dong-lanh",
+      "title": "DMSO và thử thách đưa tế bào qua một lần đông lạnh",
+      "category": "hopchat",
+      "indexFile": "editorial-index.generated.json",
+      "documentPath": "docs/dmso-giup-te-bao-di-qua-dong-lanh/index.json",
+      "contentHash": "efcff8f408d96437bc64812235c274a1d32ea5aceb12b87654928989d597c110",
+      "wordCount": 778,
+      "inlineImageCount": 1,
+      "sourceCount": 6,
+      "declaredLanguage": "vi",
+      "story": {
+        "status": "documented",
+        "section": "## Sống sau khi rã đông mới là câu trả lời",
+        "sources": [
+          "https://doi.org/10.1038/1831394a0",
+          "https://doi.org/10.1038/1901204a0",
+          "https://www.atcc.org/resources/technical-documents/cryogenic-storage-of-animal-cells",
+          "https://www.atcc.org/resources/culture-guides/animal-cell-culture-guide"
+        ]
+      },
+      "application": {
+        "status": "documented",
+        "section": "## Ứng dụng hôm nay: tạo một điểm khởi đầu có thể quay lại",
+        "sources": [
+          "https://doi.org/10.1038/1831394a0",
+          "https://doi.org/10.1038/1901204a0",
+          "https://www.atcc.org/resources/technical-documents/cryogenic-storage-of-animal-cells",
+          "https://www.atcc.org/resources/culture-guides/animal-cell-culture-guide"
+        ]
+      },
+      "evidenceScope": "chemical-family"
+    },
+    {
+      "id": "dsc-chocolate-doc-nhung-dinh-nong-chay",
+      "slug": "dsc-chocolate-doc-nhung-dinh-nong-chay",
+      "title": "Tiếng bẻ của thanh chocolate bắt đầu từ một đồ thị nhiệt",
+      "category": "khainiem",
+      "indexFile": "editorial-index.generated.json",
+      "documentPath": "docs/dsc-chocolate-doc-nhung-dinh-nong-chay/index.json",
+      "contentHash": "a48f4fc3bf92ea7b2b3ccd27a595dad7342a3fd554f7bcfd4a8e944daf8fbfaf",
+      "wordCount": 677,
+      "inlineImageCount": 1,
+      "sourceCount": 3,
+      "declaredLanguage": "vi",
+      "story": {
+        "status": "documented",
+        "section": "## Một thanh chocolate không chỉ cần đủ cacao",
+        "sources": [
+          "https://academic.oup.com/ijfst/article/40/9/953/7911377",
+          "https://www.sciencedirect.com/science/article/pii/S0969806X04003019",
+          "https://pmc.ncbi.nlm.nih.gov/articles/PMC12063059/"
+        ]
+      },
+      "application": {
+        "status": "documented",
+        "section": "## Từ đường cong đến kiểm soát chất lượng",
+        "sources": [
+          "https://academic.oup.com/ijfst/article/40/9/953/7911377",
+          "https://www.sciencedirect.com/science/article/pii/S0969806X04003019",
+          "https://pmc.ncbi.nlm.nih.gov/articles/PMC12063059/"
+        ]
+      },
+      "evidenceScope": "chemical-family"
+    },
+    {
+      "id": "chuyen-thuy-tinh-dau-tay-say-dong-kho",
+      "slug": "chuyen-thuy-tinh-dau-tay-say-dong-kho",
+      "title": "Vì sao miếng dâu sấy giòn có thể xẹp xuống mà không hề tan chảy?",
+      "category": "khainiem",
+      "indexFile": "editorial-index.generated.json",
+      "documentPath": "docs/chuyen-thuy-tinh-dau-tay-say-dong-kho/index.json",
+      "contentHash": "cf7e75d6e64ca9a8fbd43eff7dd0fc54e65d3edcfeb95489ed405d2037dbd599",
+      "wordCount": 663,
+      "inlineImageCount": 1,
+      "sourceCount": 3,
+      "declaredLanguage": "vi",
+      "story": {
+        "status": "documented",
+        "section": "## Cấu trúc xốp cần được giữ sau khi máy sấy dừng",
+        "sources": [
+          "https://academic.oup.com/ijfst/article/44/10/1869/7865099",
+          "https://doi.org/10.1111/j.1365-2621.1991.tb07970.x",
+          "https://doi.org/10.1016/0260-8774(95)90050-L"
+        ]
+      },
+      "application": {
+        "status": "documented",
+        "section": "## Ứng dụng hôm nay: thiết kế cả công thức lẫn môi trường",
+        "sources": [
+          "https://academic.oup.com/ijfst/article/44/10/1869/7865099",
+          "https://doi.org/10.1111/j.1365-2621.1991.tb07970.x",
+          "https://doi.org/10.1016/0260-8774(95)90050-L"
+        ]
+      },
+      "evidenceScope": "chemical-family"
+    },
+    {
+      "id": "ritonavir-khi-phan-tu-doi-cach-xep-hang",
+      "slug": "ritonavir-khi-phan-tu-doi-cach-xep-hang",
+      "title": "Mùa hè 1998: cùng phân tử ritonavir, một cách xếp khác làm đổi sản phẩm",
+      "category": "khainiem",
+      "indexFile": "editorial-index.generated.json",
+      "documentPath": "docs/ritonavir-khi-phan-tu-doi-cach-xep-hang/index.json",
+      "contentHash": "2a165fe1b307e12df204e24e7d375f564c99317590f527e7812b8a95e3163252",
+      "wordCount": 678,
+      "inlineImageCount": 1,
+      "sourceCount": 3,
+      "declaredLanguage": "vi",
+      "story": {
+        "status": "documented",
+        "section": "## Công thức phân tử vẫn đúng nhưng kết quả đã khác",
+        "sources": [
+          "https://pubmed.ncbi.nlm.nih.gov/11474792/",
+          "https://pmc.ncbi.nlm.nih.gov/articles/PMC151315/",
+          "https://pubs.rsc.org/en/content/articlehtml/2018/fd/c8fd00069g"
+        ]
+      },
+      "application": {
+        "status": "documented",
+        "section": "## Ứng dụng hôm nay: kiểm soát chất rắn như một phần của thiết kế",
+        "sources": [
+          "https://pubmed.ncbi.nlm.nih.gov/11474792/",
+          "https://pmc.ncbi.nlm.nih.gov/articles/PMC151315/",
+          "https://pubs.rsc.org/en/content/articlehtml/2018/fd/c8fd00069g"
+        ]
+      },
+      "evidenceScope": "chemical-family"
+    },
+    {
+      "id": "cocrystal-caffeine-mot-ban-dong-hanh-trong-tinh-the",
+      "slug": "cocrystal-caffeine-mot-ban-dong-hanh-trong-tinh-the",
+      "title": "Caffeine tìm một bạn đồng hành trong mạng tinh thể",
+      "category": "khainiem",
+      "indexFile": "editorial-index.generated.json",
+      "documentPath": "docs/cocrystal-caffeine-mot-ban-dong-hanh-trong-tinh-the/index.json",
+      "contentHash": "3e7e101b0c556c76e7e4f4ef722dd70e46521c19cadeaf8af0d6fe55612a38e5",
+      "wordCount": 679,
+      "inlineImageCount": 1,
+      "sourceCount": 3,
+      "declaredLanguage": "vi",
+      "story": {
+        "status": "documented",
+        "section": "## Một phân tử quen thuộc gặp vấn đề rất vật lý",
+        "sources": [
+          "https://doi.org/10.1021/cg0496540",
+          "https://www.sciencedirect.com/science/article/abs/pii/S0378517309004013",
+          "https://pubmed.ncbi.nlm.nih.gov/17497885/"
+        ]
+      },
+      "application": {
+        "status": "documented",
+        "section": "## Ứng dụng hôm nay: thay tính chất bằng tổ chức phân tử",
+        "sources": [
+          "https://doi.org/10.1021/cg0496540",
+          "https://www.sciencedirect.com/science/article/abs/pii/S0378517309004013",
+          "https://pubmed.ncbi.nlm.nih.gov/17497885/"
+        ]
+      },
+      "evidenceScope": "chemical-family"
+    },
+    {
+      "id": "phan-tan-ran-vo-dinh-hinh-itraconazole",
+      "slug": "phan-tan-ran-vo-dinh-hinh-itraconazole",
+      "title": "Giấu dược chất trong nền polymer để nó rời chất rắn dễ hơn",
+      "category": "khainiem",
+      "indexFile": "editorial-index.generated.json",
+      "documentPath": "docs/phan-tan-ran-vo-dinh-hinh-itraconazole/index.json",
+      "contentHash": "0c2dfe4474359a216d161e04258e0e761d99d2213a7f96b5f530ca0320bf4394",
+      "wordCount": 664,
+      "inlineImageCount": 1,
+      "sourceCount": 3,
+      "declaredLanguage": "vi",
+      "story": {
+        "status": "documented",
+        "section": "## Khi phân tử hữu ích lại khó rời khỏi tinh thể",
+        "sources": [
+          "https://doi.org/10.1016/S0378-5173(01)00867-5",
+          "https://pubmed.ncbi.nlm.nih.gov/15019081/",
+          "https://pubmed.ncbi.nlm.nih.gov/16563676/"
+        ]
+      },
+      "application": {
+        "status": "documented",
+        "section": "## Ứng dụng hôm nay: vật liệu phải giữ tính năng qua vòng đời",
+        "sources": [
+          "https://doi.org/10.1016/S0378-5173(01)00867-5",
+          "https://pubmed.ncbi.nlm.nih.gov/15019081/",
+          "https://pubmed.ncbi.nlm.nih.gov/16563676/"
+        ]
+      },
+      "evidenceScope": "chemical-family"
+    },
+    {
+      "id": "aerogel-giu-bo-khung-khi-chat-long-roi-di",
+      "slug": "aerogel-giu-bo-khung-khi-chat-long-roi-di",
+      "title": "Giữ lại bộ khung khi chất lỏng rời đi: từ Kistler tới bụi sao chổi",
+      "category": "khainiem",
+      "indexFile": "editorial-index.generated.json",
+      "documentPath": "docs/aerogel-giu-bo-khung-khi-chat-long-roi-di/index.json",
+      "contentHash": "86925a2dafa3946b0c3316efb57206f26c69c8848b3d9a7c731bed32a1edff2d",
+      "wordCount": 652,
+      "inlineImageCount": 1,
+      "sourceCount": 5,
+      "declaredLanguage": "vi",
+      "story": {
+        "status": "documented",
+        "section": "## Một khối gel thay hình khi mất nước",
+        "sources": [
+          "https://www.nature.com/articles/127741a0",
+          "https://www.jpl.nasa.gov/missions/stardust/",
+          "https://www.nasa.gov/technology/tech-transfer-spinoffs/comet-catching-nasa-technology-enables-exotic-works-of-art/"
+        ]
+      },
+      "application": {
+        "status": "documented",
+        "section": "## Ứng dụng hôm nay: mỗi lỗ rỗng có một công việc",
+        "sources": [
+          "https://www.nature.com/articles/127741a0",
+          "https://www.jpl.nasa.gov/missions/stardust/",
+          "https://www.nasa.gov/technology/tech-transfer-spinoffs/comet-catching-nasa-technology-enables-exotic-works-of-art/"
+        ]
+      },
+      "evidenceScope": "chemical-family"
+    },
+    {
+      "id": "la-sen-giot-nuoc-mang-bui-di",
+      "slug": "la-sen-giot-nuoc-mang-bui-di",
+      "title": "Giọt nước mang bụi đi: chiếc lá sen không cần phải nhẵn",
+      "category": "khainiem",
+      "indexFile": "editorial-index.generated.json",
+      "documentPath": "docs/la-sen-giot-nuoc-mang-bui-di/index.json",
+      "contentHash": "54c7f3c3f1a6065074285569f18a0b05ac2646970ee86a40a6bb151f0db2618e",
+      "wordCount": 658,
+      "inlineImageCount": 1,
+      "sourceCount": 4,
+      "declaredLanguage": "vi",
+      "story": {
+        "status": "documented",
+        "section": "## Bề mặt sạch nhất không phải bề mặt phẳng nhất",
+        "sources": [
+          "https://doi.org/10.1007/s004250050096",
+          "https://beilstein-journals.org/bjnano/articles/8/41",
+          "https://pmc.ncbi.nlm.nih.gov/articles/PMC10753341/",
+          "https://beilstein-journals.org/bjnano/articles/8/42"
+        ]
+      },
+      "application": {
+        "status": "documented",
+        "section": "## Ứng dụng hôm nay: thiết kế đường tiếp xúc",
+        "sources": [
+          "https://doi.org/10.1007/s004250050096",
+          "https://beilstein-journals.org/bjnano/articles/8/41",
+          "https://pmc.ncbi.nlm.nih.gov/articles/PMC10753341/",
+          "https://beilstein-journals.org/bjnano/articles/8/42"
+        ]
+      },
+      "evidenceScope": "chemical-family"
+    },
+    {
+      "id": "vang-keo-faraday-mau-do-cua-kim-loai",
+      "slug": "vang-keo-faraday-mau-do-cua-kim-loai",
+      "title": "Vì sao chai vàng của Faraday lại đỏ?",
+      "category": "khainiem",
+      "indexFile": "editorial-index.generated.json",
+      "documentPath": "docs/vang-keo-faraday-mau-do-cua-kim-loai/index.json",
+      "contentHash": "a55a38c55aeaa6e980bf78f4f01fc2de7c624e2eb8425b3fad919de047f5a632",
+      "wordCount": 662,
+      "inlineImageCount": 1,
+      "sourceCount": 4,
+      "declaredLanguage": "vi",
+      "story": {
+        "status": "documented",
+        "section": "## Một thứ chất lỏng đỏ xuất hiện bên cạnh lá vàng",
+        "sources": [
+          "https://www.rigb.org/explore-science/explore/collection/michael-faradays-gold-colloids",
+          "https://doi.org/10.1098/rstl.1857.0011",
+          "https://www.nature.com/articles/physci241020a0",
+          "https://pmc.ncbi.nlm.nih.gov/articles/PMC2996072/"
+        ]
+      },
+      "application": {
+        "status": "documented",
+        "section": "## Ứng dụng hôm nay: màu là một tín hiệu có thể thiết kế",
+        "sources": [
+          "https://www.rigb.org/explore-science/explore/collection/michael-faradays-gold-colloids",
+          "https://doi.org/10.1098/rstl.1857.0011",
+          "https://www.nature.com/articles/physci241020a0",
+          "https://pmc.ncbi.nlm.nih.gov/articles/PMC2996072/"
+        ]
+      },
+      "evidenceScope": "chemical-family"
+    },
+    {
+      "id": "hat-vang-vach-mau-tren-dai-thu",
+      "slug": "hat-vang-vach-mau-tren-dai-thu",
+      "title": "Từ hạt vàng đến một vạch màu: hóa học phía sau dải thử dòng ngang",
+      "category": "khainiem",
+      "indexFile": "editorial-index.generated.json",
+      "documentPath": "docs/hat-vang-vach-mau-tren-dai-thu/index.json",
+      "contentHash": "5bd953079c0c354b01449fa0efd0b959ed1ad34a34c093ad23ac4cbb66f26e5a",
+      "wordCount": 666,
+      "inlineImageCount": 1,
+      "sourceCount": 3,
+      "declaredLanguage": "vi",
+      "story": {
+        "status": "documented",
+        "section": "## Một vạch xuất hiện nhờ nhiều hạt tập trung",
+        "sources": [
+          "https://pubs.rsc.org/en/content/articlehtml/2022/lc/d1lc00960e",
+          "https://pmc.ncbi.nlm.nih.gov/articles/PMC9377422/",
+          "https://pmc.ncbi.nlm.nih.gov/articles/PMC12098874/"
+        ]
+      },
+      "application": {
+        "status": "documented",
+        "section": "## Ứng dụng hôm nay: một màu cần cả hệ kiểm chứng",
+        "sources": [
+          "https://pubs.rsc.org/en/content/articlehtml/2022/lc/d1lc00960e",
+          "https://pmc.ncbi.nlm.nih.gov/articles/PMC9377422/",
+          "https://pmc.ncbi.nlm.nih.gov/articles/PMC12098874/"
+        ]
+      },
+      "evidenceScope": "chemical-family"
+    },
+    {
+      "id": "sers-nghe-dau-van-tay-mot-phan-tu",
+      "slug": "sers-nghe-dau-van-tay-mot-phan-tu",
+      "title": "Nghe dấu vân tay của một phân tử giữa những hạt bạc",
+      "category": "khainiem",
+      "indexFile": "editorial-index.generated.json",
+      "documentPath": "docs/sers-nghe-dau-van-tay-mot-phan-tu/index.json",
+      "contentHash": "8e3ab7df966d3bac743595bbe1f5d4ff7e0ac55131217c8fb0c21086bebe2690",
+      "wordCount": 647,
+      "inlineImageCount": 1,
+      "sourceCount": 3,
+      "declaredLanguage": "vi",
+      "story": {
+        "status": "documented",
+        "section": "## Một tín hiệu vốn yếu bỗng trở nên nổi bật",
+        "sources": [
+          "https://pubmed.ncbi.nlm.nih.gov/9027306/",
+          "https://doi.org/10.1103/PhysRevLett.78.1667",
+          "https://arxiv.org/abs/physics/0509153"
+        ]
+      },
+      "application": {
+        "status": "documented",
+        "section": "## Ứng dụng hôm nay: tìm độ nhạy có thể dùng lặp lại",
+        "sources": [
+          "https://pubmed.ncbi.nlm.nih.gov/9027306/",
+          "https://doi.org/10.1103/PhysRevLett.78.1667",
+          "https://arxiv.org/abs/physics/0509153"
+        ]
+      },
+      "evidenceScope": "chemical-family"
+    },
+    {
+      "id": "raman-sherloc-doc-da-tren-sao-hoa",
+      "slug": "raman-sherloc-doc-da-tren-sao-hoa",
+      "title": "Đọc đá trên Sao Hỏa: Raman và huỳnh quang kể hai phần của câu chuyện",
+      "category": "khainiem",
+      "indexFile": "editorial-index.generated.json",
+      "documentPath": "docs/raman-sherloc-doc-da-tren-sao-hoa/index.json",
+      "contentHash": "7702a6ac86cce4a17254ccd953b0d6d6f3f24ea17a3553b20d7737a2cf964de5",
+      "wordCount": 642,
+      "inlineImageCount": 1,
+      "sourceCount": 3,
+      "declaredLanguage": "vi",
+      "story": {
+        "status": "documented",
+        "section": "## Một phòng phân tích ở cuối cánh tay robot",
+        "sources": [
+          "https://microdevices.jpl.nasa.gov/capabilities/optical-components/sherloc/",
+          "https://www.nature.com/articles/s41586-023-06143-z",
+          "https://pubmed.ncbi.nlm.nih.gov/39321302/"
+        ]
+      },
+      "application": {
+        "status": "documented",
+        "section": "## Ứng dụng hôm nay: ghép tín hiệu với nơi nó xuất hiện",
+        "sources": [
+          "https://microdevices.jpl.nasa.gov/capabilities/optical-components/sherloc/",
+          "https://www.nature.com/articles/s41586-023-06143-z",
+          "https://pubmed.ncbi.nlm.nih.gov/39321302/"
+        ]
+      },
+      "evidenceScope": "chemical-family"
+    },
+    {
+      "id": "flim-do-thoi-gian-tat-sang-nadh",
+      "slug": "flim-do-thoi-gian-tat-sang-nadh",
+      "title": "Không chỉ sáng đến đâu, mà sáng trong bao lâu: FLIM đọc môi trường phân tử",
+      "category": "khainiem",
+      "indexFile": "editorial-index.generated.json",
+      "documentPath": "docs/flim-do-thoi-gian-tat-sang-nadh/index.json",
+      "contentHash": "fef9e13a89b17fc21183e273874e9b21de81bb244b9b3ee94bcdd088654723d6",
+      "wordCount": 653,
+      "inlineImageCount": 1,
+      "sourceCount": 3,
+      "declaredLanguage": "vi",
+      "story": {
+        "status": "documented",
+        "section": "## Hai vùng cùng sáng có thể khác về thời gian",
+        "sources": [
+          "https://pubmed.ncbi.nlm.nih.gov/1741380/",
+          "https://pmc.ncbi.nlm.nih.gov/articles/PMC3842212/",
+          "https://pmc.ncbi.nlm.nih.gov/articles/PMC7449714/"
+        ]
+      },
+      "application": {
+        "status": "documented",
+        "section": "## Ứng dụng hôm nay: thêm một trục thông tin cho ảnh",
+        "sources": [
+          "https://pubmed.ncbi.nlm.nih.gov/1741380/",
+          "https://pmc.ncbi.nlm.nih.gov/articles/PMC3842212/",
+          "https://pmc.ncbi.nlm.nih.gov/articles/PMC7449714/"
+        ]
+      },
+      "evidenceScope": "chemical-family"
+    },
+    {
+      "id": "fret-thuoc-do-giua-hai-dau-phat-sang",
+      "slug": "fret-thuoc-do-giua-hai-dau-phat-sang",
+      "title": "Chiếc thước đo không có vạch chia, chỉ có hai đầu phát sáng",
+      "category": "khainiem",
+      "indexFile": "editorial-index.generated.json",
+      "documentPath": "docs/fret-thuoc-do-giua-hai-dau-phat-sang/index.json",
+      "contentHash": "5fdba973320489340eb04434986018cb42c753a78ee03057f8e64617f55f86b4",
+      "wordCount": 660,
+      "inlineImageCount": 1,
+      "sourceCount": 3,
+      "declaredLanguage": "vi",
+      "story": {
+        "status": "documented",
+        "section": "## Một đoạn nối để kiểm tra quan hệ giữa khoảng cách và tín hiệu",
+        "sources": [
+          "https://pmc.ncbi.nlm.nih.gov/articles/PMC335755/",
+          "https://pmc.ncbi.nlm.nih.gov/articles/PMC39010/",
+          "https://pmc.ncbi.nlm.nih.gov/articles/PMC549440/"
+        ]
+      },
+      "application": {
+        "status": "documented",
+        "section": "## Ứng dụng hôm nay: đo chuyển động với những giả định tường minh",
+        "sources": [
+          "https://pmc.ncbi.nlm.nih.gov/articles/PMC335755/",
+          "https://pmc.ncbi.nlm.nih.gov/articles/PMC39010/",
+          "https://pmc.ncbi.nlm.nih.gov/articles/PMC549440/"
+        ]
+      },
+      "evidenceScope": "chemical-family"
+    },
+    {
+      "id": "cd-protein-hai-chieu-xoan-cua-anh-sang",
+      "slug": "cd-protein-hai-chieu-xoan-cua-anh-sang",
+      "title": "Hai chiều xoắn của ánh sáng giúp đọc cách protein gấp cuộn",
+      "category": "khainiem",
+      "indexFile": "editorial-index.generated.json",
+      "documentPath": "docs/cd-protein-hai-chieu-xoan-cua-anh-sang/index.json",
+      "contentHash": "4701b08e99f7b983fe1e43413bd5f5be9c68afbb6e9cf594266cb1d8b9fca723",
+      "wordCount": 666,
+      "inlineImageCount": 1,
+      "sourceCount": 3,
+      "declaredLanguage": "vi",
+      "story": {
+        "status": "documented",
+        "section": "## Một phổ không dự kiến xuất hiện khi gia nhiệt",
+        "sources": [
+          "https://doi.org/10.1021/bi00838a031",
+          "https://garfield.library.upenn.edu/classics1982/A1982NT91500001.pdf",
+          "https://pubmed.ncbi.nlm.nih.gov/25596417/"
+        ]
+      },
+      "application": {
+        "status": "documented",
+        "section": "## Ứng dụng hôm nay: so sánh có ý nghĩa hơn một đường cong đẹp",
+        "sources": [
+          "https://doi.org/10.1021/bi00838a031",
+          "https://garfield.library.upenn.edu/classics1982/A1982NT91500001.pdf",
+          "https://pubmed.ncbi.nlm.nih.gov/25596417/"
+        ]
+      },
+      "evidenceScope": "chemical-family"
+    },
+    {
+      "id": "dien-di-mao-quan-adn-duong-doc-nho-lai",
+      "slug": "dien-di-mao-quan-adn-duong-doc-nho-lai",
+      "title": "Khi đường chạy ADN thu nhỏ thành một mao quản",
+      "category": "khainiem",
+      "indexFile": "editorial-index.generated.json",
+      "documentPath": "docs/dien-di-mao-quan-adn-duong-doc-nho-lai/index.json",
+      "contentHash": "86a321e867af7f42c9a1f96be56463024252e4813ecaf056f75588986074fbf6",
+      "wordCount": 622,
+      "inlineImageCount": 1,
+      "sourceCount": 3,
+      "declaredLanguage": "vi",
+      "story": {
+        "status": "documented",
+        "section": "## Một nút thắt nằm ở thời gian chờ các đoạn ADN tách ra",
+        "sources": [
+          "https://pmc.ncbi.nlm.nih.gov/articles/PMC330505/",
+          "https://academic.oup.com/nar/article/18/15/4417/1048868",
+          "https://pubmed.ncbi.nlm.nih.gov/9456053/"
+        ]
+      },
+      "application": {
+        "status": "documented",
+        "section": "## Ứng dụng hôm nay: một công cụ trong nhiều cách đọc ADN",
+        "sources": [
+          "https://pmc.ncbi.nlm.nih.gov/articles/PMC330505/",
+          "https://academic.oup.com/nar/article/18/15/4417/1048868",
+          "https://pubmed.ncbi.nlm.nih.gov/9456053/"
+        ]
+      },
+      "evidenceScope": "chemical-family"
+    },
+    {
+      "id": "sac-ky-chiral-cellulose-giu-hai-anh-guong",
+      "slug": "sac-ky-chiral-cellulose-giu-hai-anh-guong",
+      "title": "Một cột cellulose biến đổi giữ hai ảnh gương lâu khác nhau",
+      "category": "khainiem",
+      "indexFile": "editorial-index.generated.json",
+      "documentPath": "docs/sac-ky-chiral-cellulose-giu-hai-anh-guong/index.json",
+      "contentHash": "480efe0573e483afd7b473b395cba88e49d19397584e9145dea6cd55302acff9",
+      "wordCount": 609,
+      "inlineImageCount": 1,
+      "sourceCount": 3,
+      "declaredLanguage": "vi",
+      "story": {
+        "status": "documented",
+        "section": "## Hai chất giống nhau trước nhiều phép đo thường",
+        "sources": [
+          "https://doi.org/10.1021/ja00330a057",
+          "https://onlinelibrary.wiley.com/doi/10.1002/pola.23215",
+          "https://doi.org/10.1016/S0021-9673(01)83736-5"
+        ]
+      },
+      "application": {
+        "status": "documented",
+        "section": "## Ứng dụng hôm nay: đo thành phần lập thể trước khi kết luận",
+        "sources": [
+          "https://doi.org/10.1021/ja00330a057",
+          "https://onlinelibrary.wiley.com/doi/10.1002/pola.23215",
+          "https://doi.org/10.1016/S0021-9673(01)83736-5"
+        ]
+      },
+      "evidenceScope": "chemical-family"
+    },
+    {
+      "id": "dosy-tach-tin-hieu-bang-toc-do-khuech-tan",
+      "slug": "dosy-tach-tin-hieu-bang-toc-do-khuech-tan",
+      "title": "Không tách mẫu khỏi ống: DOSY phân nhóm tín hiệu theo chuyển động",
+      "category": "khainiem",
+      "indexFile": "editorial-index.generated.json",
+      "documentPath": "docs/dosy-tach-tin-hieu-bang-toc-do-khuech-tan/index.json",
+      "contentHash": "5d08ce22dcdf6154c9a5a5320cf49a18f9c99e99d4f131dbd0b326b702b0f0bf",
+      "wordCount": 639,
+      "inlineImageCount": 1,
+      "sourceCount": 3,
+      "declaredLanguage": "vi",
+      "story": {
+        "status": "documented",
+        "section": "## Hỗn hợp có quá nhiều đỉnh trên một trục",
+        "sources": [
+          "https://doi.org/10.1021/ja00034a071",
+          "https://pmc.ncbi.nlm.nih.gov/articles/PMC2666195/",
+          "https://onlinelibrary.wiley.com/doi/full/10.1002/marc.202500303"
+        ]
+      },
+      "application": {
+        "status": "documented",
+        "section": "## Ứng dụng hôm nay: thêm bằng chứng trước khi gán cấu trúc",
+        "sources": [
+          "https://doi.org/10.1021/ja00034a071",
+          "https://pmc.ncbi.nlm.nih.gov/articles/PMC2666195/",
+          "https://onlinelibrary.wiley.com/doi/full/10.1002/marc.202500303"
+        ]
+      },
+      "evidenceScope": "chemical-family"
+    },
+    {
+      "id": "ion-di-chuyen-trong-pin-perovskite",
+      "slug": "ion-di-chuyen-trong-pin-perovskite",
+      "title": "Trong pin mặt trời perovskite, không chỉ electron đang chuyển động",
+      "category": "khainiem",
+      "indexFile": "editorial-index.generated.json",
+      "documentPath": "docs/ion-di-chuyen-trong-pin-perovskite/index.json",
+      "contentHash": "b4400493d3b85fdc2b36a23c1adacf6fbc5d60bc3920efa5358bf3884bba5c46",
+      "wordCount": 632,
+      "inlineImageCount": 1,
+      "sourceCount": 3,
+      "declaredLanguage": "vi",
+      "story": {
+        "status": "documented",
+        "section": "## Hai lần quét có thể cho hai đường khác nhau",
+        "sources": [
+          "https://www.nature.com/articles/ncomms8497",
+          "https://www.nature.com/articles/ncomms13831",
+          "https://pubs.rsc.org/en/content/articlehtml/2016/ee/c5ee02740c"
+        ]
+      },
+      "application": {
+        "status": "documented",
+        "section": "## Ứng dụng hôm nay: đo ổn định và thiết kế giao diện",
+        "sources": [
+          "https://www.nature.com/articles/ncomms8497",
+          "https://www.nature.com/articles/ncomms13831",
+          "https://pubs.rsc.org/en/content/articlehtml/2016/ee/c5ee02740c"
+        ]
+      },
+      "evidenceScope": "chemical-family"
+    },
+    {
+      "id": "nhiet-dien-cu2se-trat-tu-va-chuyen-dong",
+      "slug": "nhiet-dien-cu2se-trat-tu-va-chuyen-dong",
+      "title": "Cho điện đi qua, giữ nhiệt lại: sự mất trật tự hữu ích trong copper selenide",
+      "category": "khainiem",
+      "indexFile": "editorial-index.generated.json",
+      "documentPath": "docs/nhiet-dien-cu2se-trat-tu-va-chuyen-dong/index.json",
+      "contentHash": "9185bc78539213c31522ac6d5590447aaa18365509961a763d0e14197d11be13",
+      "wordCount": 654,
+      "inlineImageCount": 1,
+      "sourceCount": 3,
+      "declaredLanguage": "vi",
+      "story": {
+        "status": "documented",
+        "section": "## Một vật liệu muốn dẫn điện nhưng không dẫn nhiệt quá tốt",
+        "sources": [
+          "https://www.nature.com/articles/nmat3273",
+          "https://arxiv.org/abs/2308.03559",
+          "https://www.nature.com/articles/s41563-024-01815-1"
+        ]
+      },
+      "application": {
+        "status": "documented",
+        "section": "## Ứng dụng hôm nay: chỉ số vật liệu chưa phải hiệu suất hệ thống",
+        "sources": [
+          "https://www.nature.com/articles/nmat3273",
+          "https://arxiv.org/abs/2308.03559",
+          "https://www.nature.com/articles/s41563-024-01815-1"
+        ]
+      },
+      "evidenceScope": "chemical-family"
+    },
+    {
+      "id": "cmc-diem-gap-tren-duong-suc-cang",
+      "slug": "cmc-diem-gap-tren-duong-suc-cang",
+      "title": "Điểm gấp trên đường sức căng: khi chất hoạt động bề mặt bắt đầu tụ nhóm",
+      "category": "khainiem",
+      "indexFile": "editorial-index.generated.json",
+      "documentPath": "docs/cmc-diem-gap-tren-duong-suc-cang/index.json",
+      "contentHash": "88acfb633184911d1346a9a19913af50a51ece23b305a3a96e4c1308bf8152c9",
+      "wordCount": 649,
+      "inlineImageCount": 1,
+      "sourceCount": 3,
+      "declaredLanguage": "vi",
+      "story": {
+        "status": "documented",
+        "section": "## Một loạt dung dịch cho một đường đổi dốc",
+        "sources": [
+          "https://pubmed.ncbi.nlm.nih.gov/29332160/",
+          "https://doi.org/10.1021/la981149f",
+          "https://www.sciencedirect.com/science/article/pii/S0378381214002027"
+        ]
+      },
+      "application": {
+        "status": "documented",
+        "section": "## Ứng dụng hôm nay: chọn vùng hoạt động của công thức",
+        "sources": [
+          "https://pubmed.ncbi.nlm.nih.gov/29332160/",
+          "https://doi.org/10.1021/la981149f",
+          "https://www.sciencedirect.com/science/article/pii/S0378381214002027"
+        ]
+      },
+      "evidenceScope": "chemical-family"
+    },
+    {
+      "id": "krafft-giat-lanh-khi-chat-tay-ket-tinh",
+      "slug": "krafft-giat-lanh-khi-chat-tay-ket-tinh",
+      "title": "Giặt lạnh không chỉ là phản ứng chậm hơn: chất tẩy có thể chưa tan đủ",
+      "category": "khainiem",
+      "indexFile": "editorial-index.generated.json",
+      "documentPath": "docs/krafft-giat-lanh-khi-chat-tay-ket-tinh/index.json",
+      "contentHash": "bc6d940344db9d14279dde3352ed3f066194ff872d5df757c026596399a26f07",
+      "wordCount": 670,
+      "inlineImageCount": 1,
+      "sourceCount": 3,
+      "declaredLanguage": "vi",
+      "story": {
+        "status": "documented",
+        "section": "## Nhiệt độ thấp làm lộ một giới hạn khác",
+        "sources": [
+          "https://www.sciencedirect.com/science/article/abs/pii/S0021979718310221",
+          "https://arxiv.org/abs/2105.11824",
+          "https://pmc.ncbi.nlm.nih.gov/articles/PMC7658934/"
+        ]
+      },
+      "application": {
+        "status": "documented",
+        "section": "## Ứng dụng hôm nay: công thức phải sống qua thời tiết và bảo quản",
+        "sources": [
+          "https://www.sciencedirect.com/science/article/abs/pii/S0021979718310221",
+          "https://arxiv.org/abs/2105.11824",
+          "https://pmc.ncbi.nlm.nih.gov/articles/PMC7658934/"
+        ]
+      },
+      "evidenceScope": "chemical-family"
+    },
+    {
+      "id": "diem-duc-mot-dung-dich-thanh-hai-pha",
+      "slug": "diem-duc-mot-dung-dich-thanh-hai-pha",
+      "title": "Làm đục để tách: khi dung dịch chất hoạt động bề mặt chia thành hai pha",
+      "category": "khainiem",
+      "indexFile": "editorial-index.generated.json",
+      "documentPath": "docs/diem-duc-mot-dung-dich-thanh-hai-pha/index.json",
+      "contentHash": "ef675366e6ba3ce618a5d887a33f1898648c017bcd6cbdd41f8552669607cbd6",
+      "wordCount": 635,
+      "inlineImageCount": 1,
+      "sourceCount": 3,
+      "declaredLanguage": "vi",
+      "story": {
+        "status": "documented",
+        "section": "## Một kỹ thuật gom zinc vào phần thể tích nhỏ",
+        "sources": [
+          "https://pubmed.ncbi.nlm.nih.gov/18962328/",
+          "https://doi.org/10.1016/S0021-9258(19)69848-0",
+          "https://eprints.lib.hokudai.ac.jp/repo/huscap/all/71706/Anal.sci.14-875.pdf"
+        ]
+      },
+      "application": {
+        "status": "documented",
+        "section": "## Ứng dụng hôm nay: phân tách bằng thay môi trường",
+        "sources": [
+          "https://pubmed.ncbi.nlm.nih.gov/18962328/",
+          "https://doi.org/10.1016/S0021-9258(19)69848-0",
+          "https://eprints.lib.hokudai.ac.jp/repo/huscap/all/71706/Anal.sci.14-875.pdf"
+        ]
+      },
+      "evidenceScope": "chemical-family"
+    },
+    {
+      "id": "zeta-potential-nuoc-song-doi-theo-mua",
+      "slug": "zeta-potential-nuoc-song-doi-theo-mua",
+      "title": "Nước sông đổi theo mùa, điện tích của hạt cũng đổi",
+      "category": "khainiem",
+      "indexFile": "editorial-index.generated.json",
+      "documentPath": "docs/zeta-potential-nuoc-song-doi-theo-mua/index.json",
+      "contentHash": "a485a3fa5d23eba9a8bb56b015e80e32ccbdad27b4d85d12f1e67ef11037815b",
+      "wordCount": 667,
+      "inlineImageCount": 1,
+      "sourceCount": 3,
+      "declaredLanguage": "vi",
+      "story": {
+        "status": "documented",
+        "section": "## Một thông số quen không theo kịp toàn bộ thay đổi",
+        "sources": [
+          "https://doi.org/10.1016/j.jwpe.2026.109916",
+          "https://pubmed.ncbi.nlm.nih.gov/16830564/",
+          "https://doi.org/10.1016/j.colsurfa.2006.03.009"
+        ]
+      },
+      "application": {
+        "status": "documented",
+        "section": "## Ứng dụng hôm nay: kết hợp chỉ báo để điều khiển tốt hơn",
+        "sources": [
+          "https://doi.org/10.1016/j.jwpe.2026.109916",
+          "https://pubmed.ncbi.nlm.nih.gov/16830564/",
+          "https://doi.org/10.1016/j.colsurfa.2006.03.009"
+        ]
+      },
+      "evidenceScope": "chemical-family"
+    },
+    {
+      "id": "sol-gel-silica-tu-hat-den-lop-phu-quang",
+      "slug": "sol-gel-silica-tu-hat-den-lop-phu-quang",
+      "title": "Từ những hạt silica đều nhau tới lớp phủ để ánh sáng đi qua",
+      "category": "khainiem",
+      "indexFile": "editorial-index.generated.json",
+      "documentPath": "docs/sol-gel-silica-tu-hat-den-lop-phu-quang/index.json",
+      "contentHash": "00abd64be1982188c7b5baab22e8115cd2ef8fc51751ed62f5cefcabd6679a00",
+      "wordCount": 636,
+      "inlineImageCount": 1,
+      "sourceCount": 3,
+      "declaredLanguage": "vi",
+      "story": {
+        "status": "documented",
+        "section": "## Một bộ hạt đồng đều để giảm sự mơ hồ",
+        "sources": [
+          "https://doi.org/10.1016/0021-9797(68)90272-5",
+          "https://matsc.ktu.lt/index.php/MatSc/article/view/26643",
+          "https://pmc.ncbi.nlm.nih.gov/articles/PMC9956885/"
+        ]
+      },
+      "application": {
+        "status": "documented",
+        "section": "## Ứng dụng hôm nay: chức năng nằm trong cả hóa học và hình học",
+        "sources": [
+          "https://doi.org/10.1016/0021-9797(68)90272-5",
+          "https://matsc.ktu.lt/index.php/MatSc/article/view/26643",
+          "https://pmc.ncbi.nlm.nih.gov/articles/PMC9956885/"
+        ]
+      },
+      "evidenceScope": "chemical-family"
+    },
+    {
+      "id": "hat-bui-feldspar-mo-cua-cho-bang",
+      "slug": "hat-bui-feldspar-mo-cua-cho-bang",
+      "title": "Một hạt bụi nhỏ có thể thay đổi lúc giọt nước đóng băng",
+      "category": "khainiem",
+      "indexFile": "editorial-index.generated.json",
+      "documentPath": "docs/hat-bui-feldspar-mo-cua-cho-bang/index.json",
+      "contentHash": "aabb782be83f838f0b9c31154369f0c56f27bdada71213bc42f1510d913b42d1",
+      "wordCount": 646,
+      "inlineImageCount": 1,
+      "sourceCount": 3,
+      "declaredLanguage": "vi",
+      "story": {
+        "status": "documented",
+        "section": "## Bụi ít hơn vẫn có thể giữ vai trò lớn",
+        "sources": [
+          "https://www.nature.com/articles/nature12278",
+          "https://pubmed.ncbi.nlm.nih.gov/27940582/",
+          "https://pubs.rsc.org/en/content/articlehtml/2017/cp/c7cp04898j"
+        ]
+      },
+      "application": {
+        "status": "documented",
+        "section": "## Ứng dụng hôm nay: mô hình mây cần đầu vào từ bề mặt",
+        "sources": [
+          "https://www.nature.com/articles/nature12278",
+          "https://pubmed.ncbi.nlm.nih.gov/27940582/",
+          "https://pubs.rsc.org/en/content/articlehtml/2017/cp/c7cp04898j"
+        ]
+      },
+      "evidenceScope": "chemical-family"
+    },
+    {
+      "id": "dong-vi-hydrogen-soi-duong-enzyme",
+      "slug": "dong-vi-hydrogen-soi-duong-enzyme",
+      "title": "Thay một hydrogen nặng hơn để hỏi enzyme đã làm gì",
+      "category": "khainiem",
+      "indexFile": "editorial-index.generated.json",
+      "documentPath": "docs/dong-vi-hydrogen-soi-duong-enzyme/index.json",
+      "contentHash": "a6971620289cffe2325ae098e0c1fc298ae6eadbe02a0fefb6639fabef533080",
+      "wordCount": 671,
+      "inlineImageCount": 1,
+      "sourceCount": 3,
+      "declaredLanguage": "vi",
+      "story": {
+        "status": "documented",
+        "section": "## Một thay đổi rất nhỏ làm tốc độ đổi mạnh",
+        "sources": [
+          "https://doi.org/10.1021/ja012205t",
+          "https://pubmed.ncbi.nlm.nih.gov/7578005/",
+          "https://pmc.ncbi.nlm.nih.gov/articles/PMC10013837/"
+        ]
+      },
+      "application": {
+        "status": "documented",
+        "section": "## Ứng dụng hôm nay: kiểm tra cơ chế bằng một phép thay thế tinh tế",
+        "sources": [
+          "https://doi.org/10.1021/ja012205t",
+          "https://pubmed.ncbi.nlm.nih.gov/7578005/",
+          "https://pmc.ncbi.nlm.nih.gov/articles/PMC10013837/"
+        ]
+      },
+      "evidenceScope": "chemical-family"
+    },
+    {
+      "id": "kinetic-proofreading-tra-gia-de-doc-dung",
+      "slug": "kinetic-proofreading-tra-gia-de-doc-dung",
+      "title": "Trả thêm năng lượng để đọc đúng: mạng phản ứng biết kiểm tra lại",
+      "category": "khainiem",
+      "indexFile": "editorial-index.generated.json",
+      "documentPath": "docs/kinetic-proofreading-tra-gia-de-doc-dung/index.json",
+      "contentHash": "8bd449da8824d26f0e12be9e73d84abafdbb7bed6ef778ed979d256eea49e73a",
+      "wordCount": 649,
+      "inlineImageCount": 1,
+      "sourceCount": 4,
+      "declaredLanguage": "vi",
+      "story": {
+        "status": "documented",
+        "section": "## Một khác biệt nhỏ có vẻ chưa đủ cho độ chính xác quan sát được",
+        "sources": [
+          "https://pmc.ncbi.nlm.nih.gov/articles/PMC434344/",
+          "https://pmc.ncbi.nlm.nih.gov/articles/PMC393225/",
+          "https://www.nobelprize.org/uploads/2018/06/ramakrishnan_lecture.pdf",
+          "https://pni.princeton.edu/people/john-j-hopfield/now-what"
+        ]
+      },
+      "application": {
+        "status": "documented",
+        "section": "## Ứng dụng hôm nay: tìm chức năng trong sơ đồ phản ứng",
+        "sources": [
+          "https://pmc.ncbi.nlm.nih.gov/articles/PMC434344/",
+          "https://pmc.ncbi.nlm.nih.gov/articles/PMC393225/",
+          "https://www.nobelprize.org/uploads/2018/06/ramakrishnan_lecture.pdf",
+          "https://pni.princeton.edu/people/john-j-hopfield/now-what"
+        ]
+      },
+      "evidenceScope": "chemical-family"
+    },
+    {
+      "id": "cobalt-hong-xanh-can-bang-thanh-tin-hieu",
+      "slug": "cobalt-hong-xanh-can-bang-thanh-tin-hieu",
+      "title": "Từ hồng sang xanh: khi cân bằng hóa học trở thành một tín hiệu",
+      "category": "khainiem",
+      "indexFile": "editorial-index.generated.json",
+      "documentPath": "docs/cobalt-hong-xanh-can-bang-thanh-tin-hieu/index.json",
+      "contentHash": "a160c3c15571aaacfa63388e2c21eebecdb7e2af2a44711f5596b5f5e88b47f5",
+      "wordCount": 628,
+      "inlineImageCount": 1,
+      "sourceCount": 4,
+      "declaredLanguage": "vi",
+      "story": {
+        "status": "documented",
+        "section": "## Một thí nghiệm có thể đi và về",
+        "sources": [
+          "https://edu.rsc.org/experiments/the-equilibrium-between-two-coloured-cobalt-species/1.article",
+          "https://www.sensorsportal.com/HTML/DIGEST/april_08/P_267.pdf",
+          "https://link.springer.com/article/10.1186/s11671-017-2139-0",
+          "https://edu.rsc.org/cpd/understanding-equilibrium-a-delicate-balance/2000012.article"
+        ]
+      },
+      "application": {
+        "status": "documented",
+        "section": "## Ứng dụng hôm nay: từ màu nhìn thấy tới số đo có chuẩn",
+        "sources": [
+          "https://edu.rsc.org/experiments/the-equilibrium-between-two-coloured-cobalt-species/1.article",
+          "https://www.sensorsportal.com/HTML/DIGEST/april_08/P_267.pdf",
+          "https://link.springer.com/article/10.1186/s11671-017-2139-0",
+          "https://edu.rsc.org/cpd/understanding-equilibrium-a-delicate-balance/2000012.article"
+        ]
+      },
+      "evidenceScope": "chemical-family"
+    },
+    {
+      "id": "trao-doi-ion-tach-nhung-dat-hiem-giong-nhau",
+      "slug": "trao-doi-ion-tach-nhung-dat-hiem-giong-nhau",
+      "title": "Tách những ion quá giống nhau: đất hiếm đi qua cột nhựa",
+      "category": "khainiem",
+      "indexFile": "editorial-index.generated.json",
+      "documentPath": "docs/trao-doi-ion-tach-nhung-dat-hiem-giong-nhau/index.json",
+      "contentHash": "6cfc02896462b957c1525d7d6f908240e5e487f59874f3224ae95eaf023c4213",
+      "wordCount": 658,
+      "inlineImageCount": 1,
+      "sourceCount": 3,
+      "declaredLanguage": "vi",
+      "story": {
+        "status": "documented",
+        "section": "## Nhu cầu mẫu tinh khiết gặp một họ nguyên tố rất giống nhau",
+        "sources": [
+          "https://doi.org/10.1021/ja01196a011",
+          "https://doi.org/10.1021/ja01638a074",
+          "https://www.nasonline.org/wp-content/uploads/2024/06/spedding-f-h.pdf"
+        ]
+      },
+      "application": {
+        "status": "documented",
+        "section": "## Ứng dụng hôm nay: chọn công nghệ theo độ tinh khiết và quy mô",
+        "sources": [
+          "https://doi.org/10.1021/ja01196a011",
+          "https://doi.org/10.1021/ja01638a074",
+          "https://www.nasonline.org/wp-content/uploads/2024/06/spedding-f-h.pdf"
+        ]
+      },
+      "evidenceScope": "chemical-family"
+    },
+    {
+      "id": "cyclodextrin-giu-vanillin-trong-khoang-rong",
+      "slug": "cyclodextrin-giu-vanillin-trong-khoang-rong",
+      "title": "Một chiếc vòng đường giữ hương vanillin bằng khoảng rỗng bên trong",
+      "category": "khainiem",
+      "indexFile": "editorial-index.generated.json",
+      "documentPath": "docs/cyclodextrin-giu-vanillin-trong-khoang-rong/index.json",
+      "contentHash": "2eff3605509ef80c34d5491ae53a8ad08c79924d45dc524c9991b38c324e6c44",
+      "wordCount": 622,
+      "inlineImageCount": 1,
+      "sourceCount": 3,
+      "declaredLanguage": "vi",
+      "story": {
+        "status": "documented",
+        "section": "## Hương có thể rời sản phẩm trước khi người dùng thưởng thức",
+        "sources": [
+          "https://pubmed.ncbi.nlm.nih.gov/21928857/",
+          "https://doi.org/10.1002/ffj.3115",
+          "https://www.sciencedirect.com/science/article/abs/pii/S030881460600135X"
+        ]
+      },
+      "application": {
+        "status": "documented",
+        "section": "## Ứng dụng hôm nay: giữ và thả là hai nửa của thiết kế",
+        "sources": [
+          "https://pubmed.ncbi.nlm.nih.gov/21928857/",
+          "https://doi.org/10.1002/ffj.3115",
+          "https://www.sciencedirect.com/science/article/abs/pii/S030881460600135X"
+        ]
+      },
+      "evidenceScope": "chemical-family"
+    },
+    {
+      "id": "kurt-wuthrich-cau-truc-khong-can-tinh-the",
+      "slug": "kurt-wuthrich-cau-truc-khong-can-tinh-the",
+      "title": "Kurt Wüthrich: tìm hình dạng protein khi phân tử vẫn ở trong dung dịch",
+      "category": "tieusu",
+      "indexFile": "editorial-index.generated.json",
+      "documentPath": "docs/kurt-wuthrich-cau-truc-khong-can-tinh-the/index.json",
+      "contentHash": "1a9dcced33cd1183f58c27863a72a9417e6cf185c52844618fea14e7b28ffbad",
+      "wordCount": 742,
+      "inlineImageCount": 1,
+      "sourceCount": 3,
+      "declaredLanguage": "vi",
+      "story": {
+        "status": "documented",
+        "section": "## Từ những đỉnh phổ chen chúc tới một mô hình",
+        "sources": [
+          "https://doi.org/10.1016/0022-2836(85)90347-X",
+          "https://www.nobelprize.org/prizes/chemistry/2002/wuthrich/lecture/",
+          "https://www.nobelprize.org/prizes/chemistry/2002/wuthrich/biographical/"
+        ]
+      },
+      "application": {
+        "status": "documented",
+        "section": "## Ứng dụng hôm nay: chọn phương pháp theo phần câu chuyện cần biết",
+        "sources": [
+          "https://doi.org/10.1016/0022-2836(85)90347-X",
+          "https://www.nobelprize.org/prizes/chemistry/2002/wuthrich/lecture/",
+          "https://www.nobelprize.org/prizes/chemistry/2002/wuthrich/biographical/"
+        ]
+      },
+      "evidenceScope": "chemical-family"
+    },
+    {
+      "id": "richard-ernst-bien-tieng-vong-thanh-pho",
+      "slug": "richard-ernst-bien-tieng-vong-thanh-pho",
+      "title": "Richard Ernst: nghe tiếng đáp của các hạt nhân rồi tách nó thành phổ",
+      "category": "tieusu",
+      "indexFile": "editorial-index.generated.json",
+      "documentPath": "docs/richard-ernst-bien-tieng-vong-thanh-pho/index.json",
+      "contentHash": "0056c4f4c818216d3dcb32294492ef0408e4b8faecfaca3daa5345b6586c6361",
+      "wordCount": 720,
+      "inlineImageCount": 1,
+      "sourceCount": 3,
+      "declaredLanguage": "vi",
+      "story": {
+        "status": "documented",
+        "section": "## Một phép đo được thay cách đặt câu hỏi",
+        "sources": [
+          "https://doi.org/10.1063/1.1719961",
+          "https://doi.org/10.1063/1.432450",
+          "https://www.nobelprize.org/uploads/2018/06/ernst-lecture.pdf"
+        ]
+      },
+      "application": {
+        "status": "documented",
+        "section": "## Ứng dụng hôm nay: hóa học hiện diện trong thiết kế tín hiệu",
+        "sources": [
+          "https://doi.org/10.1063/1.1719961",
+          "https://doi.org/10.1063/1.432450",
+          "https://www.nobelprize.org/uploads/2018/06/ernst-lecture.pdf"
+        ]
+      },
+      "evidenceScope": "chemical-family"
+    },
+    {
+      "id": "george-olah-giu-carbocation-de-dat-cau-hoi",
+      "slug": "george-olah-giu-carbocation-de-dat-cau-hoi",
+      "title": "George Olah: giữ carbocation đủ lâu để hỏi nó có cấu trúc gì",
+      "category": "tieusu",
+      "indexFile": "editorial-index.generated.json",
+      "documentPath": "docs/george-olah-giu-carbocation-de-dat-cau-hoi/index.json",
+      "contentHash": "fe291c84425bf2fbf5d7e4452702135424f2239076c421780f1dbc34459d173f",
+      "wordCount": 723,
+      "inlineImageCount": 1,
+      "sourceCount": 3,
+      "declaredLanguage": "vi",
+      "story": {
+        "status": "documented",
+        "section": "## Một mũi tên cơ chế cần bằng chứng vật chất",
+        "sources": [
+          "https://www.nobelprize.org/uploads/2018/06/olah-lecture.pdf",
+          "https://doi.org/10.1126/science.1238849",
+          "https://www.nobelprize.org/prizes/chemistry/1994/olah/biographical/"
+        ]
+      },
+      "application": {
+        "status": "documented",
+        "section": "## Ứng dụng hôm nay: hiểu trung gian để hiểu tính chọn lọc",
+        "sources": [
+          "https://www.nobelprize.org/uploads/2018/06/olah-lecture.pdf",
+          "https://doi.org/10.1126/science.1238849",
+          "https://www.nobelprize.org/prizes/chemistry/1994/olah/biographical/"
+        ]
+      },
+      "evidenceScope": "chemical-family"
+    },
+    {
+      "id": "martin-karplus-protein-chuyen-dong-trong-may",
+      "slug": "martin-karplus-protein-chuyen-dong-trong-may",
+      "title": "Martin Karplus: một protein không còn đứng yên trong máy tính",
+      "category": "tieusu",
+      "indexFile": "editorial-index.generated.json",
+      "documentPath": "docs/martin-karplus-protein-chuyen-dong-trong-may/index.json",
+      "contentHash": "c0c363d4c7172b3b83438aa0f6c7a127c2976c809ec3bd6bb3aabb7f2fd883f6",
+      "wordCount": 694,
+      "inlineImageCount": 1,
+      "sourceCount": 3,
+      "declaredLanguage": "vi",
+      "story": {
+        "status": "documented",
+        "section": "## Chạy thời gian cho một cấu trúc đã biết",
+        "sources": [
+          "https://www.nature.com/articles/267585a0",
+          "https://www.nobelprize.org/uploads/2018/06/karplus-lecture.pdf",
+          "https://chemistry.harvard.edu/people/martin-karplus"
+        ]
+      },
+      "application": {
+        "status": "documented",
+        "section": "## Ứng dụng hôm nay: xem mô phỏng như một thí nghiệm có điều kiện",
+        "sources": [
+          "https://www.nature.com/articles/267585a0",
+          "https://www.nobelprize.org/uploads/2018/06/karplus-lecture.pdf",
+          "https://chemistry.harvard.edu/people/martin-karplus"
+        ]
+      },
+      "evidenceScope": "chemical-family"
+    },
+    {
+      "id": "michael-levitt-giam-chi-tiet-de-thay-gap-cuon",
+      "slug": "michael-levitt-giam-chi-tiet-de-thay-gap-cuon",
+      "title": "Michael Levitt: bớt chi tiết để nhìn thấy câu hỏi về gấp cuộn",
+      "category": "tieusu",
+      "indexFile": "editorial-index.generated.json",
+      "documentPath": "docs/michael-levitt-giam-chi-tiet-de-thay-gap-cuon/index.json",
+      "contentHash": "d5e498bd8a3fd61f8fbf57b8a9582f0cdead26cf63b2743571b5e86ab315b707",
+      "wordCount": 722,
+      "inlineImageCount": 1,
+      "sourceCount": 3,
+      "declaredLanguage": "vi",
+      "story": {
+        "status": "documented",
+        "section": "## Toàn bộ nguyên tử có thể che mất bài toán muốn giải",
+        "sources": [
+          "https://www.nature.com/articles/253694a0",
+          "https://www.nobelprize.org/uploads/2018/06/levitt-lecture.pdf",
+          "https://profiles.stanford.edu/michael-levitt"
+        ]
+      },
+      "application": {
+        "status": "documented",
+        "section": "## Ứng dụng hôm nay: nhiều mức mô tả cùng phục vụ một hệ",
+        "sources": [
+          "https://www.nature.com/articles/253694a0",
+          "https://www.nobelprize.org/uploads/2018/06/levitt-lecture.pdf",
+          "https://profiles.stanford.edu/michael-levitt"
+        ]
+      },
+      "evidenceScope": "chemical-family"
+    },
+    {
+      "id": "arieh-warshel-phan-ung-nho-trong-enzyme-lon",
+      "slug": "arieh-warshel-phan-ung-nho-trong-enzyme-lon",
+      "title": "Arieh Warshel: một phản ứng nhỏ nằm trong môi trường enzyme rất lớn",
+      "category": "tieusu",
+      "indexFile": "editorial-index.generated.json",
+      "documentPath": "docs/arieh-warshel-phan-ung-nho-trong-enzyme-lon/index.json",
+      "contentHash": "e1ee7997dfcc39d68ba3160fa4d2fd49ff805f9bb60ad138cf3bf34f339eabbd",
+      "wordCount": 715,
+      "inlineImageCount": 1,
+      "sourceCount": 3,
+      "declaredLanguage": "vi",
+      "story": {
+        "status": "documented",
+        "section": "## Tâm phản ứng không làm việc trong khoảng không",
+        "sources": [
+          "https://doi.org/10.1016/0022-2836(76)90311-9",
+          "https://www.nobelprize.org/uploads/2018/06/warshel-lecture.pdf",
+          "https://dornsife.usc.edu/profile/arieh-warshel/"
+        ]
+      },
+      "application": {
+        "status": "documented",
+        "section": "## Ứng dụng hôm nay: dự đoán phải trả lời bằng số và điều kiện",
+        "sources": [
+          "https://doi.org/10.1016/0022-2836(76)90311-9",
+          "https://www.nobelprize.org/uploads/2018/06/warshel-lecture.pdf",
+          "https://dornsife.usc.edu/profile/arieh-warshel/"
+        ]
+      },
+      "evidenceScope": "chemical-family"
+    },
+    {
+      "id": "walter-kohn-tu-dam-may-electron-den-nang-luong",
+      "slug": "walter-kohn-tu-dam-may-electron-den-nang-luong",
+      "title": "Walter Kohn: từ đám mây electron tới năng lượng của vật chất",
+      "category": "tieusu",
+      "indexFile": "editorial-index.generated.json",
+      "documentPath": "docs/walter-kohn-tu-dam-may-electron-den-nang-luong/index.json",
+      "contentHash": "1ecf9ca2573dfdf879fe4962368c0b87e8b3623c536cd7cfabe08a6129f96da9",
+      "wordCount": 723,
+      "inlineImageCount": 1,
+      "sourceCount": 3,
+      "declaredLanguage": "vi",
+      "story": {
+        "status": "documented",
+        "section": "## Một hệ nhiều electron quá lớn để theo dõi trực tiếp",
+        "sources": [
+          "https://doi.org/10.1103/PhysRev.136.B864",
+          "https://doi.org/10.1103/PhysRev.140.A1133",
+          "https://www.nobelprize.org/uploads/2018/06/kohn-lecture.pdf"
+        ]
+      },
+      "application": {
+        "status": "documented",
+        "section": "## Ứng dụng hôm nay: một công cụ mạnh cần mô tả rõ giả thiết",
+        "sources": [
+          "https://doi.org/10.1103/PhysRev.136.B864",
+          "https://doi.org/10.1103/PhysRev.140.A1133",
+          "https://www.nobelprize.org/uploads/2018/06/kohn-lecture.pdf"
+        ]
+      },
+      "evidenceScope": "chemical-family"
+    },
+    {
+      "id": "john-pople-tinh-nang-luong-de-so-voi-thi-nghiem",
+      "slug": "john-pople-tinh-nang-luong-de-so-voi-thi-nghiem",
+      "title": "John Pople: một phép tính phải trả lời được những con số của hóa học",
+      "category": "tieusu",
+      "indexFile": "editorial-index.generated.json",
+      "documentPath": "docs/john-pople-tinh-nang-luong-de-so-voi-thi-nghiem/index.json",
+      "contentHash": "46c69df69cb35d53dd4e6c825756fbc8778fc64d6258dc36e23cd4e02838fbef",
+      "wordCount": 698,
+      "inlineImageCount": 1,
+      "sourceCount": 3,
+      "declaredLanguage": "vi",
+      "story": {
+        "status": "documented",
+        "section": "## Một công thức tính chung cho nhiều phân tử",
+        "sources": [
+          "https://doi.org/10.1063/1.456415",
+          "https://www.nobelprize.org/uploads/2018/06/pople-lecture.pdf",
+          "https://cccbdb.nist.gov/"
+        ]
+      },
+      "application": {
+        "status": "documented",
+        "section": "## Ứng dụng hôm nay: kết quả tính phải có hồ sơ điều kiện",
+        "sources": [
+          "https://doi.org/10.1063/1.456415",
+          "https://www.nobelprize.org/uploads/2018/06/pople-lecture.pdf",
+          "https://cccbdb.nist.gov/"
+        ]
+      },
+      "evidenceScope": "chemical-family"
+    },
+    {
+      "id": "alan-heeger-hai-vat-lieu-trong-mot-mang-pin",
+      "slug": "alan-heeger-hai-vat-lieu-trong-mot-mang-pin",
+      "title": "Alan Heeger: trộn hai vật liệu để điện tích có đường thoát",
+      "category": "tieusu",
+      "indexFile": "editorial-index.generated.json",
+      "documentPath": "docs/alan-heeger-hai-vat-lieu-trong-mot-mang-pin/index.json",
+      "contentHash": "d6ee1f841bd8106347b3b09b7e10a9d7f6110f1dfdb18577593b4cee8c3a8416",
+      "wordCount": 688,
+      "inlineImageCount": 1,
+      "sourceCount": 3,
+      "declaredLanguage": "vi",
+      "story": {
+        "status": "documented",
+        "section": "## Chỉ hấp thụ ánh sáng vẫn chưa đủ tạo dòng hữu ích",
+        "sources": [
+          "https://pure.rug.nl/ws/files/3621108/1995YuScience.pdf",
+          "https://www.nobelprize.org/uploads/2018/06/heeger-lecture.pdf",
+          "https://arxiv.org/abs/1010.5021"
+        ]
+      },
+      "application": {
+        "status": "documented",
+        "section": "## Ứng dụng hôm nay: vật liệu mềm vẫn cần độ bền dài hạn",
+        "sources": [
+          "https://pure.rug.nl/ws/files/3621108/1995YuScience.pdf",
+          "https://www.nobelprize.org/uploads/2018/06/heeger-lecture.pdf",
+          "https://arxiv.org/abs/1010.5021"
+        ]
+      },
+      "evidenceScope": "chemical-family"
+    },
+    {
+      "id": "alan-macdiarmid-acid-lam-polymer-dan-dien",
+      "slug": "alan-macdiarmid-acid-lam-polymer-dan-dien",
+      "title": "Alan MacDiarmid: acid làm thay đổi cách một polymer dẫn điện",
+      "category": "tieusu",
+      "indexFile": "editorial-index.generated.json",
+      "documentPath": "docs/alan-macdiarmid-acid-lam-polymer-dan-dien/index.json",
+      "contentHash": "b2fc6f9c6d539cdb46df823deb8157be68208306802ad2755892e51823983504",
+      "wordCount": 681,
+      "inlineImageCount": 1,
+      "sourceCount": 3,
+      "declaredLanguage": "vi",
+      "story": {
+        "status": "documented",
+        "section": "## Một polymer quen lâu vẫn còn câu hỏi mới",
+        "sources": [
+          "https://doi.org/10.1080/00268948508080110",
+          "https://doi.org/10.1039/C39870001784",
+          "https://www.nobelprize.org/uploads/2018/06/macdiarmid-lecture.pdf"
+        ]
+      },
+      "application": {
+        "status": "documented",
+        "section": "## Ứng dụng hôm nay: dùng đáp ứng điện để hỏi về môi trường",
+        "sources": [
+          "https://doi.org/10.1080/00268948508080110",
+          "https://doi.org/10.1039/C39870001784",
+          "https://www.nobelprize.org/uploads/2018/06/macdiarmid-lecture.pdf"
+        ]
+      },
+      "evidenceScope": "chemical-family"
+    },
+    {
+      "id": "hideki-shirakawa-mang-bac-tu-acetylene",
+      "slug": "hideki-shirakawa-mang-bac-tu-acetylene",
+      "title": "Hideki Shirakawa: từ lớp màng ánh bạc tới polymer dẫn điện",
+      "category": "tieusu",
+      "indexFile": "editorial-index.generated.json",
+      "documentPath": "docs/hideki-shirakawa-mang-bac-tu-acetylene/index.json",
+      "contentHash": "2992a6fbd755e197768babc6087d0a3314babb046651f2642f7693dd9a8524b7",
+      "wordCount": 688,
+      "inlineImageCount": 1,
+      "sourceCount": 3,
+      "declaredLanguage": "vi",
+      "story": {
+        "status": "documented",
+        "section": "## Một hình thái khác làm thay đổi thí nghiệm có thể làm",
+        "sources": [
+          "https://doi.org/10.1039/C39770000578",
+          "https://www.nobelprize.org/prizes/chemistry/2000/shirakawa/biographical/",
+          "https://www.nobelprize.org/uploads/2018/06/shirakawa-lecture.pdf"
+        ]
+      },
+      "application": {
+        "status": "documented",
+        "section": "## Ứng dụng hôm nay: mẫu chuẩn bị tốt có thể mở cả lĩnh vực",
+        "sources": [
+          "https://doi.org/10.1039/C39770000578",
+          "https://www.nobelprize.org/prizes/chemistry/2000/shirakawa/biographical/",
+          "https://www.nobelprize.org/uploads/2018/06/shirakawa-lecture.pdf"
+        ]
+      },
+      "evidenceScope": "chemical-family"
+    },
+    {
+      "id": "ryoji-noyori-hinh-hoc-trong-mui-bac-ha",
+      "slug": "ryoji-noyori-hinh-hoc-trong-mui-bac-ha",
+      "title": "Ryoji Noyori: hình học của chất xúc tác đi vào mùi bạc hà",
+      "category": "tieusu",
+      "indexFile": "editorial-index.generated.json",
+      "documentPath": "docs/ryoji-noyori-hinh-hoc-trong-mui-bac-ha/index.json",
+      "contentHash": "d8e8c820810ac204aca46d3b37ed6a79932336fe193162d91f81923fceb4eff1",
+      "wordCount": 679,
+      "inlineImageCount": 1,
+      "sourceCount": 3,
+      "declaredLanguage": "vi",
+      "story": {
+        "status": "documented",
+        "section": "## Một phân tử hương cần đúng cách sắp xếp",
+        "sources": [
+          "https://www.takasago.com/en/finechemicals/history.html",
+          "https://www.nobelprize.org/uploads/2018/06/noyori-lecture.pdf",
+          "https://www.mext.go.jp/component/english/__icsFiles/afieldfile/2017/04/14/1384513_004.pdf"
+        ]
+      },
+      "application": {
+        "status": "documented",
+        "section": "## Ứng dụng hôm nay: chọn đúng dạng ngay từ phản ứng",
+        "sources": [
+          "https://www.takasago.com/en/finechemicals/history.html",
+          "https://www.nobelprize.org/uploads/2018/06/noyori-lecture.pdf",
+          "https://www.mext.go.jp/component/english/__icsFiles/afieldfile/2017/04/14/1384513_004.pdf"
+        ]
+      },
+      "evidenceScope": "chemical-family"
+    },
+    {
+      "id": "charles-pedersen-tap-chat-giu-ion",
+      "slug": "charles-pedersen-tap-chat-giu-ion",
+      "title": "Charles Pedersen: phần sản phẩm rất ít lại giữ được một ion",
+      "category": "tieusu",
+      "indexFile": "editorial-index.generated.json",
+      "documentPath": "docs/charles-pedersen-tap-chat-giu-ion/index.json",
+      "contentHash": "ffb22160cf8c3ed6c9ce32559dab1394d44a9735761a744ae2e7260ce7a6a232",
+      "wordCount": 696,
+      "inlineImageCount": 1,
+      "sourceCount": 3,
+      "declaredLanguage": "vi",
+      "story": {
+        "status": "documented",
+        "section": "## Một phần nhỏ của phản ứng trở thành câu hỏi lớn",
+        "sources": [
+          "https://doi.org/10.1021/ja01002a035",
+          "https://www.nobelprize.org/uploads/2018/06/pedersen-lecture.pdf",
+          "https://www.acs.org/education/whatischemistry/landmarks/charlespedersen.html"
+        ]
+      },
+      "application": {
+        "status": "documented",
+        "section": "## Ứng dụng hôm nay: chọn ion là một chức năng có thể thiết kế",
+        "sources": [
+          "https://doi.org/10.1021/ja01002a035",
+          "https://www.nobelprize.org/uploads/2018/06/pedersen-lecture.pdf",
+          "https://www.acs.org/education/whatischemistry/landmarks/charlespedersen.html"
+        ]
+      },
+      "evidenceScope": "chemical-family"
+    },
+    {
+      "id": "donald-cram-phan-tu-lam-binh-phan-ung",
+      "slug": "donald-cram-phan-tu-lam-binh-phan-ung",
+      "title": "Donald Cram: dùng một phân tử làm chiếc bình giữ chất quá phản ứng",
+      "category": "tieusu",
+      "indexFile": "editorial-index.generated.json",
+      "documentPath": "docs/donald-cram-phan-tu-lam-binh-phan-ung/index.json",
+      "contentHash": "b0e3f3bfdb1be36c4ba1fac5119d4a57511e9d06abd117e9a127004288dd2c37",
+      "wordCount": 694,
+      "inlineImageCount": 1,
+      "sourceCount": 3,
+      "declaredLanguage": "vi",
+      "story": {
+        "status": "documented",
+        "section": "## Một chiếc bình chỉ đủ chứa một vị khách",
+        "sources": [
+          "https://doi.org/10.1002/anie.199110241",
+          "https://www.nobelprize.org/uploads/2018/06/cram-lecture.pdf",
+          "https://www.chemistry.ucla.edu/directory/cram-donald-j/"
+        ]
+      },
+      "application": {
+        "status": "documented",
+        "section": "## Ứng dụng hôm nay: môi trường nhỏ để kiểm soát phản ứng",
+        "sources": [
+          "https://doi.org/10.1002/anie.199110241",
+          "https://www.nobelprize.org/uploads/2018/06/cram-lecture.pdf",
+          "https://www.chemistry.ucla.edu/directory/cram-donald-j/"
+        ]
+      },
+      "evidenceScope": "chemical-family"
+    },
+    {
+      "id": "jean-marie-lehn-ion-trong-chiec-long-phan-tu",
+      "slug": "jean-marie-lehn-ion-trong-chiec-long-phan-tu",
+      "title": "Jean-Marie Lehn: giữ ion trong một chiếc lồng phân tử",
+      "category": "tieusu",
+      "indexFile": "editorial-index.generated.json",
+      "documentPath": "docs/jean-marie-lehn-ion-trong-chiec-long-phan-tu/index.json",
+      "contentHash": "7684df6c0a9dc0c2de2bdb38f2720250eb71b68a80e9eaeffe20f80d23d02ca5",
+      "wordCount": 699,
+      "inlineImageCount": 1,
+      "sourceCount": 3,
+      "declaredLanguage": "vi",
+      "story": {
+        "status": "documented",
+        "section": "## Từ vòng phẳng tới một khoang ba chiều",
+        "sources": [
+          "https://doi.org/10.1016/S0040-4039(01)88300-3",
+          "https://www.nobelprize.org/uploads/2018/06/lehn-lecture.pdf",
+          "https://doi.org/10.1126/science.1071063"
+        ]
+      },
+      "application": {
+        "status": "documented",
+        "section": "## Ứng dụng hôm nay: thiết kế quan hệ giữa các thành phần",
+        "sources": [
+          "https://doi.org/10.1016/S0040-4039(01)88300-3",
+          "https://www.nobelprize.org/uploads/2018/06/lehn-lecture.pdf",
+          "https://doi.org/10.1126/science.1071063"
+        ]
+      },
+      "evidenceScope": "chemical-family"
+    },
+    {
+      "id": "peter-mitchell-dat-mang-vao-trung-tam-nang-luong",
+      "slug": "peter-mitchell-dat-mang-vao-trung-tam-nang-luong",
+      "title": "Peter Mitchell: đặt một tấm màng vào trung tâm câu chuyện năng lượng",
+      "category": "tieusu",
+      "indexFile": "editorial-index.generated.json",
+      "documentPath": "docs/peter-mitchell-dat-mang-vao-trung-tam-nang-luong/index.json",
+      "contentHash": "6e82537ebf4ecdd68921c264c571409253ab2a5142e69276c36a4b4f3ea506ce",
+      "wordCount": 678,
+      "inlineImageCount": 1,
+      "sourceCount": 3,
+      "declaredLanguage": "vi",
+      "story": {
+        "status": "documented",
+        "section": "## Một cách nối hai quá trình bằng không gian",
+        "sources": [
+          "https://www.nature.com/articles/191144a0",
+          "https://doi.org/10.1073/pnas.55.1.170",
+          "https://www.nobelprize.org/uploads/2018/06/mitchell-lecture.pdf"
+        ]
+      },
+      "application": {
+        "status": "documented",
+        "section": "## Ứng dụng hôm nay: năng lượng sinh học cần một kiến trúc",
+        "sources": [
+          "https://www.nature.com/articles/191144a0",
+          "https://doi.org/10.1073/pnas.55.1.170",
+          "https://www.nobelprize.org/uploads/2018/06/mitchell-lecture.pdf"
+        ]
+      },
+      "evidenceScope": "chemical-family"
+    },
+    {
+      "id": "paul-boyer-nang-luong-de-tha-atp",
+      "slug": "paul-boyer-nang-luong-de-tha-atp",
+      "title": "Paul Boyer: năng lượng còn cần để thả ATP khỏi enzyme",
+      "category": "tieusu",
+      "indexFile": "editorial-index.generated.json",
+      "documentPath": "docs/paul-boyer-nang-luong-de-tha-atp/index.json",
+      "contentHash": "477bf88ff4d81bb9e884528d6ea70071e6b849d4838b1b773bae832536dff950",
+      "wordCount": 701,
+      "inlineImageCount": 1,
+      "sourceCount": 3,
+      "declaredLanguage": "vi",
+      "story": {
+        "status": "documented",
+        "section": "## Những nguyên tử oxygen đi qua đâu?",
+        "sources": [
+          "https://www.nobelprize.org/uploads/2018/06/boyer-lecture.pdf",
+          "https://mediatheque.lindau-nobel.org/meetings/1998/programme/30632",
+          "https://www.nature.com/articles/d41586-018-05880-w"
+        ]
+      },
+      "application": {
+        "status": "documented",
+        "section": "## Ứng dụng hôm nay: đọc enzyme như một chu trình",
+        "sources": [
+          "https://www.nobelprize.org/uploads/2018/06/boyer-lecture.pdf",
+          "https://mediatheque.lindau-nobel.org/meetings/1998/programme/30632",
+          "https://www.nature.com/articles/d41586-018-05880-w"
+        ]
+      },
+      "evidenceScope": "chemical-family"
+    },
+    {
+      "id": "john-walker-ba-vi-tri-khong-giong-nhau",
+      "slug": "john-walker-ba-vi-tri-khong-giong-nhau",
+      "title": "John Walker: ba vị trí giống nhau trong trình tự nhưng khác nhau lúc làm việc",
+      "category": "tieusu",
+      "indexFile": "editorial-index.generated.json",
+      "documentPath": "docs/john-walker-ba-vi-tri-khong-giong-nhau/index.json",
+      "contentHash": "922cdcbb60fd9ef3935923e7184171fbd0cd19db55f121667fdb5ee40a427c5a",
+      "wordCount": 671,
+      "inlineImageCount": 1,
+      "sourceCount": 3,
+      "declaredLanguage": "vi",
+      "story": {
+        "status": "documented",
+        "section": "## Một bản đồ bắt được ba trạng thái trong cùng mẫu",
+        "sources": [
+          "https://www.nature.com/articles/370621a0",
+          "https://www.nobelprize.org/uploads/2024/06/walker-nobel-lecture.pdf",
+          "https://www.mrc-mbu.cam.ac.uk/people/walker"
+        ]
+      },
+      "application": {
+        "status": "documented",
+        "section": "## Ứng dụng hôm nay: một cấu trúc có thể giải thích sự phối hợp",
+        "sources": [
+          "https://www.nature.com/articles/370621a0",
+          "https://www.nobelprize.org/uploads/2024/06/walker-nobel-lecture.pdf",
+          "https://www.mrc-mbu.cam.ac.uk/people/walker"
+        ]
+      },
+      "evidenceScope": "chemical-family"
+    },
+    {
+      "id": "peter-agre-te-bao-phong-len-vi-nuoc",
+      "slug": "peter-agre-te-bao-phong-len-vi-nuoc",
+      "title": "Peter Agre: tế bào phồng lên làm lộ một đường đi của nước",
+      "category": "tieusu",
+      "indexFile": "editorial-index.generated.json",
+      "documentPath": "docs/peter-agre-te-bao-phong-len-vi-nuoc/index.json",
+      "contentHash": "1c14e786ba77b85243319a0985b7b4999a392d2ffa18a8d684f77b2f88e1e208",
+      "wordCount": 657,
+      "inlineImageCount": 1,
+      "sourceCount": 3,
+      "declaredLanguage": "vi",
+      "story": {
+        "status": "documented",
+        "section": "## Một protein xuất hiện ngoài mục tiêu ban đầu",
+        "sources": [
+          "https://doi.org/10.1126/science.256.5055.385",
+          "https://www.nobelprize.org/uploads/2018/06/agre-lecture.pdf",
+          "https://publichealth.jhu.edu/faculty/1714/peter-agre"
+        ]
+      },
+      "application": {
+        "status": "documented",
+        "section": "## Ứng dụng hôm nay: nước đi qua màng theo những con đường được tổ chức",
+        "sources": [
+          "https://doi.org/10.1126/science.256.5055.385",
+          "https://www.nobelprize.org/uploads/2018/06/agre-lecture.pdf",
+          "https://publichealth.jhu.edu/faculty/1714/peter-agre"
+        ]
+      },
+      "evidenceScope": "chemical-family"
+    },
+    {
+      "id": "roderick-mackinnon-ion-nho-hon-van-bi-giu-ngoai",
+      "slug": "roderick-mackinnon-ion-nho-hon-van-bi-giu-ngoai",
+      "title": "Roderick MacKinnon: vì sao ion nhỏ hơn vẫn không qua được kênh?",
+      "category": "tieusu",
+      "indexFile": "editorial-index.generated.json",
+      "documentPath": "docs/roderick-mackinnon-ion-nho-hon-van-bi-giu-ngoai/index.json",
+      "contentHash": "908793d126ab2865e9641c711196d7afa46ca24fab99f0e6470c0bea5d5aad65",
+      "wordCount": 661,
+      "inlineImageCount": 1,
+      "sourceCount": 3,
+      "declaredLanguage": "vi",
+      "story": {
+        "status": "documented",
+        "section": "## Một chiếc lọc gây khó cho trực giác",
+        "sources": [
+          "https://pubmed.ncbi.nlm.nih.gov/9525859/",
+          "https://www.nobelprize.org/uploads/2018/06/mackinnon-lecture.pdf",
+          "https://lab.rockefeller.edu/mackinnon/publications"
+        ]
+      },
+      "application": {
+        "status": "documented",
+        "section": "## Ứng dụng hôm nay: nhận diện ion bằng năng lượng, không chỉ bằng kích thước",
+        "sources": [
+          "https://pubmed.ncbi.nlm.nih.gov/9525859/",
+          "https://www.nobelprize.org/uploads/2018/06/mackinnon-lecture.pdf",
+          "https://lab.rockefeller.edu/mackinnon/publications"
+        ]
+      },
+      "evidenceScope": "chemical-family"
+    },
+    {
+      "id": "otto-diels-lan-khung-carbon-cua-cholesterol",
+      "slug": "otto-diels-lan-khung-carbon-cua-cholesterol",
+      "title": "Otto Diels: lần theo khung carbon khi phân tử đã đổi dạng",
+      "category": "tieusu",
+      "indexFile": "editorial-index.generated.json",
+      "documentPath": "docs/otto-diels-lan-khung-carbon-cua-cholesterol/index.json",
+      "contentHash": "8112c7a1e5c7e4ea665ae863fc3a56de1243642c964fc5fbe39e07a69e76216d",
+      "wordCount": 708,
+      "inlineImageCount": 1,
+      "sourceCount": 3,
+      "declaredLanguage": "vi",
+      "story": {
+        "status": "documented",
+        "section": "## Một sản phẩm đơn giản hơn được dùng như manh mối",
+        "sources": [
+          "https://www.nobelprize.org/uploads/2018/06/diels-lecture.pdf",
+          "https://www.nobelprize.org/prizes/chemistry/1950/diels/biographical/",
+          "https://www.nature.com/articles/129277a0"
+        ]
+      },
+      "application": {
+        "status": "documented",
+        "section": "## Ứng dụng hôm nay: phản ứng vẫn có thể là phép thử cấu trúc",
+        "sources": [
+          "https://www.nobelprize.org/uploads/2018/06/diels-lecture.pdf",
+          "https://www.nobelprize.org/prizes/chemistry/1950/diels/biographical/",
+          "https://www.nature.com/articles/129277a0"
+        ]
+      },
+      "evidenceScope": "chemical-family"
+    },
+    {
+      "id": "edwin-krebs-them-phosphate-doi-hoat-tinh",
+      "slug": "edwin-krebs-them-phosphate-doi-hoat-tinh",
+      "title": "Edwin Krebs: một nhóm phosphate làm enzyme đổi cách hoạt động",
+      "category": "tieusu",
+      "indexFile": "editorial-index.generated.json",
+      "documentPath": "docs/edwin-krebs-them-phosphate-doi-hoat-tinh/index.json",
+      "contentHash": "11fcfc0f34d68e794faae4f411d5f2d263d5aa9ed1f11296d44bae25bb52d0c2",
+      "wordCount": 672,
+      "inlineImageCount": 1,
+      "sourceCount": 3,
+      "declaredLanguage": "vi",
+      "story": {
+        "status": "documented",
+        "section": "## Hai dạng enzyme khiến người nghiên cứu phải hỏi lại",
+        "sources": [
+          "https://masspec.scripps.edu/learn/metabolomics/pdf/1955_Fischer.pdf",
+          "https://www.nobelprize.org/uploads/2018/06/krebs-lecture-1.pdf",
+          "https://pmc.ncbi.nlm.nih.gov/articles/PMC3023531/"
+        ]
+      },
+      "application": {
+        "status": "documented",
+        "section": "## Ứng dụng hôm nay: theo dõi chức năng sau biến đổi",
+        "sources": [
+          "https://masspec.scripps.edu/learn/metabolomics/pdf/1955_Fischer.pdf",
+          "https://www.nobelprize.org/uploads/2018/06/krebs-lecture-1.pdf",
+          "https://pmc.ncbi.nlm.nih.gov/articles/PMC3023531/"
+        ]
+      },
+      "evidenceScope": "chemical-family"
+    },
+    {
+      "id": "derek-barton-nhin-steroid-trong-khong-gian",
+      "slug": "derek-barton-nhin-steroid-trong-khong-gian",
+      "title": "Derek Barton: những vòng trên giấy bắt đầu có phía trên và phía dưới",
+      "category": "tieusu",
+      "indexFile": "editorial-index.generated.json",
+      "documentPath": "docs/derek-barton-nhin-steroid-trong-khong-gian/index.json",
+      "contentHash": "dac312e3ee3c225b5261d8e8daa680fcdb7c0ce77aab4424138a43ab20beadb6",
+      "wordCount": 682,
+      "inlineImageCount": 1,
+      "sourceCount": 3,
+      "declaredLanguage": "vi",
+      "story": {
+        "status": "documented",
+        "section": "## Một câu hỏi về phản ứng dẫn tới cách nhìn ba chiều",
+        "sources": [
+          "https://doi.org/10.1007/BF02170915",
+          "https://www.nobelprize.org/uploads/2018/06/barton-lecture.pdf",
+          "https://openstax.org/books/organic-chemistry/pages/4-5-conformations-of-cyclohexane"
+        ]
+      },
+      "application": {
+        "status": "documented",
+        "section": "## Ứng dụng hôm nay: phân tử phản ứng trong không gian, không trên trang giấy",
+        "sources": [
+          "https://doi.org/10.1007/BF02170915",
+          "https://www.nobelprize.org/uploads/2018/06/barton-lecture.pdf",
+          "https://openstax.org/books/organic-chemistry/pages/4-5-conformations-of-cyclohexane"
+        ]
+      },
+      "evidenceScope": "chemical-family"
+    },
+    {
+      "id": "odd-hassel-cho-vong-carbon-roi-mat-phang",
+      "slug": "odd-hassel-cho-vong-carbon-roi-mat-phang",
+      "title": "Odd Hassel: những vòng carbon rời khỏi mặt phẳng của trang giấy",
+      "category": "tieusu",
+      "indexFile": "editorial-index.generated.json",
+      "documentPath": "docs/odd-hassel-cho-vong-carbon-roi-mat-phang/index.json",
+      "contentHash": "65c16ed0c1e3f8bc0e481c3e5888334210b9b3ed74eeb8e735c715bd55c565ab",
+      "wordCount": 685,
+      "inlineImageCount": 1,
+      "sourceCount": 3,
+      "declaredLanguage": "vi",
+      "story": {
+        "status": "documented",
+        "section": "## Dữ liệu tán xạ thay cho một hình lục giác quá gọn",
+        "sources": [
+          "https://www.nobelprize.org/uploads/2018/06/hassel-lecture.pdf",
+          "https://www.nobelprize.org/prizes/chemistry/1969/hassel/biographical/",
+          "https://openstax.org/books/organic-chemistry/pages/4-5-conformations-of-cyclohexane"
+        ]
+      },
+      "application": {
+        "status": "documented",
+        "section": "## Ứng dụng hôm nay: mô hình phải cho phép phân tử chuyển động",
+        "sources": [
+          "https://www.nobelprize.org/uploads/2018/06/hassel-lecture.pdf",
+          "https://www.nobelprize.org/prizes/chemistry/1969/hassel/biographical/",
+          "https://openstax.org/books/organic-chemistry/pages/4-5-conformations-of-cyclohexane"
+        ]
+      },
+      "evidenceScope": "chemical-family"
+    },
+    {
+      "id": "kenichi-fukui-electron-o-ria-quyet-dinh",
+      "slug": "kenichi-fukui-electron-o-ria-quyet-dinh",
+      "title": "Kenichi Fukui: những electron ở rìa giúp dự đoán nơi phản ứng bắt đầu",
+      "category": "tieusu",
+      "indexFile": "editorial-index.generated.json",
+      "documentPath": "docs/kenichi-fukui-electron-o-ria-quyet-dinh/index.json",
+      "contentHash": "e94e536b4d6663f5dbaac32b304ba6f1f1509b0170af06324fd2aa6642664c65",
+      "wordCount": 693,
+      "inlineImageCount": 1,
+      "sourceCount": 3,
+      "declaredLanguage": "vi",
+      "story": {
+        "status": "documented",
+        "section": "## Mười lăm hydrocarbon để kiểm tra một ý tưởng",
+        "sources": [
+          "https://doi.org/10.1063/1.1700523",
+          "https://www.nobelprize.org/uploads/2018/06/fukui-lecture.pdf",
+          "https://doi.org/10.1002/ijch.197500040"
+        ]
+      },
+      "application": {
+        "status": "documented",
+        "section": "## Ứng dụng hôm nay: giản lược để dự đoán, rồi kiểm tra điều đã giản lược",
+        "sources": [
+          "https://doi.org/10.1063/1.1700523",
+          "https://www.nobelprize.org/uploads/2018/06/fukui-lecture.pdf",
+          "https://doi.org/10.1002/ijch.197500040"
+        ]
+      },
+      "evidenceScope": "chemical-family"
+    },
+    {
+      "id": "roald-hoffmann-lien-ket-doi-theo-nhip-nao",
+      "slug": "roald-hoffmann-lien-ket-doi-theo-nhip-nao",
+      "title": "Roald Hoffmann: những orbital quyết định hai đầu mạch quay theo cách nào",
+      "category": "tieusu",
+      "indexFile": "editorial-index.generated.json",
+      "documentPath": "docs/roald-hoffmann-lien-ket-doi-theo-nhip-nao/index.json",
+      "contentHash": "e6a8fbc56ea9eadaebe76be5633f152ac791ac9797ac49e3af55ca0786e5870c",
+      "wordCount": 690,
+      "inlineImageCount": 1,
+      "sourceCount": 3,
+      "declaredLanguage": "vi",
+      "story": {
+        "status": "documented",
+        "section": "## Một phản ứng biết chọn hướng trước khi người ta hiểu vì sao",
+        "sources": [
+          "https://doi.org/10.1021/ja01080a054",
+          "https://www.nobelprize.org/prizes/chemistry/1981/hoffmann/lecture/",
+          "https://openstax.org/books/organic-chemistry/pages/30-2-electrocyclic-reactions"
+        ]
+      },
+      "application": {
+        "status": "documented",
+        "section": "## Ứng dụng hôm nay: giải thích đường đi, không chỉ gọi tên phản ứng",
+        "sources": [
+          "https://doi.org/10.1021/ja01080a054",
+          "https://www.nobelprize.org/prizes/chemistry/1981/hoffmann/lecture/",
+          "https://openstax.org/books/organic-chemistry/pages/30-2-electrocyclic-reactions"
+        ]
+      },
+      "evidenceScope": "chemical-family"
+    },
+    {
+      "id": "manfred-eigen-khuay-nhe-can-bang-de-do-toc-do",
+      "slug": "manfred-eigen-khuay-nhe-can-bang-de-do-toc-do",
+      "title": "Manfred Eigen: làm lệch cân bằng để đo những phản ứng quá nhanh",
+      "category": "tieusu",
+      "indexFile": "editorial-index.generated.json",
+      "documentPath": "docs/manfred-eigen-khuay-nhe-can-bang-de-do-toc-do/index.json",
+      "contentHash": "c914861992be815c937f00de13be8ad68006e14a7857b014b00170484817070e",
+      "wordCount": 689,
+      "inlineImageCount": 1,
+      "sourceCount": 3,
+      "declaredLanguage": "vi",
+      "story": {
+        "status": "documented",
+        "section": "## Phản ứng đã xong trước khi trộn xong thì đo bằng cách nào?",
+        "sources": [
+          "https://www.nobelprize.org/uploads/2018/06/eigen-lecture.pdf",
+          "https://www.si.edu/media/NMAH/NMAH-AC0771_eigen.pdf",
+          "https://www.nobelprize.org/prizes/chemistry/1967/eigen/biographical/"
+        ]
+      },
+      "application": {
+        "status": "documented",
+        "section": "## Ứng dụng hôm nay: để sự hồi phục tiết lộ cơ chế",
+        "sources": [
+          "https://www.nobelprize.org/uploads/2018/06/eigen-lecture.pdf",
+          "https://www.si.edu/media/NMAH/NMAH-AC0771_eigen.pdf",
+          "https://www.nobelprize.org/prizes/chemistry/1967/eigen/biographical/"
+        ]
+      },
+      "evidenceScope": "chemical-family"
+    },
+    {
+      "id": "george-porter-chop-sang-bat-chat-trung-gian",
+      "slug": "george-porter-chop-sang-bat-chat-trung-gian",
+      "title": "George Porter: một chớp sáng để bắt dấu chất vừa xuất hiện",
+      "category": "tieusu",
+      "indexFile": "editorial-index.generated.json",
+      "documentPath": "docs/george-porter-chop-sang-bat-chat-trung-gian/index.json",
+      "contentHash": "5a8bdf9d34cf79ae43735f45fd41e4384167f0d06151f0ee6e339d35fe55a734",
+      "wordCount": 682,
+      "inlineImageCount": 1,
+      "sourceCount": 3,
+      "declaredLanguage": "vi",
+      "story": {
+        "status": "documented",
+        "section": "## Tạo phản ứng nhanh rồi đọc ngay phần còn lại",
+        "sources": [
+          "https://www.nature.com/articles/164658a0",
+          "https://www.nobelprize.org/uploads/2018/06/porter-lecture.pdf",
+          "https://www.nobelprize.org/prizes/chemistry/1967/porter/biographical/"
+        ]
+      },
+      "application": {
+        "status": "documented",
+        "section": "## Ứng dụng hôm nay: quá trình quan trọng có thể nằm giữa hai ảnh",
+        "sources": [
+          "https://www.nature.com/articles/164658a0",
+          "https://www.nobelprize.org/uploads/2018/06/porter-lecture.pdf",
+          "https://www.nobelprize.org/prizes/chemistry/1967/porter/biographical/"
+        ]
+      },
+      "evidenceScope": "chemical-family"
+    },
+    {
+      "id": "aaron-klug-adn-quan-quanh-loi-protein",
+      "slug": "aaron-klug-adn-quan-quanh-loi-protein",
+      "title": "Aaron Klug: nhìn cách một sợi ADN dài được quấn quanh protein",
+      "category": "tieusu",
+      "indexFile": "editorial-index.generated.json",
+      "documentPath": "docs/aaron-klug-adn-quan-quanh-loi-protein/index.json",
+      "contentHash": "b711c9556a43cbf7c4444543066bad617377b0ae3ef5ecba92f8d6c7647371fd",
+      "wordCount": 654,
+      "inlineImageCount": 1,
+      "sourceCount": 3,
+      "declaredLanguage": "vi",
+      "story": {
+        "status": "documented",
+        "section": "## Thông tin di truyền còn cần một cách đóng gói",
+        "sources": [
+          "https://www.nature.com/articles/311532a0",
+          "https://www.nobelprize.org/uploads/2018/06/klug-lecture.pdf",
+          "https://mrclmb.ac.uk/news-events/articles/aaron-klug-1926-2018/"
+        ]
+      },
+      "application": {
+        "status": "documented",
+        "section": "## Ứng dụng hôm nay: bộ gen được nghiên cứu cùng môi trường vật chất",
+        "sources": [
+          "https://www.nature.com/articles/311532a0",
+          "https://www.nobelprize.org/uploads/2018/06/klug-lecture.pdf",
+          "https://mrclmb.ac.uk/news-events/articles/aaron-klug-1926-2018/"
+        ]
+      },
+      "evidenceScope": "chemical-family"
+    },
+    {
+      "id": "aaron-ciechanover-nhan-nho-truoc-khi-pha-protein",
+      "slug": "aaron-ciechanover-nhan-nho-truoc-khi-pha-protein",
+      "title": "Aaron Ciechanover: chiếc nhãn nhỏ đứng trước việc phá một protein",
+      "category": "tieusu",
+      "indexFile": "editorial-index.generated.json",
+      "documentPath": "docs/aaron-ciechanover-nhan-nho-truoc-khi-pha-protein/index.json",
+      "contentHash": "508739de80a33db83af75f685e609e2956d95ce82718a035f14d1059e84a4060",
+      "wordCount": 650,
+      "inlineImageCount": 1,
+      "sourceCount": 3,
+      "declaredLanguage": "vi",
+      "story": {
+        "status": "documented",
+        "section": "## Phân hủy mà lại cần ATP",
+        "sources": [
+          "https://doi.org/10.1016/0006-291X(78)91249-4",
+          "https://doi.org/10.1073/pnas.77.4.1783",
+          "https://www.nobelprize.org/uploads/2018/06/ciechanover-lecture.pdf"
+        ]
+      },
+      "application": {
+        "status": "documented",
+        "section": "## Ứng dụng hôm nay: tuổi thọ protein là một biến điều khiển",
+        "sources": [
+          "https://doi.org/10.1016/0006-291X(78)91249-4",
+          "https://doi.org/10.1073/pnas.77.4.1783",
+          "https://www.nobelprize.org/uploads/2018/06/ciechanover-lecture.pdf"
+        ]
+      },
+      "evidenceScope": "chemical-family"
+    },
+    {
+      "id": "diels-alder-vat-lieu-han-lai",
+      "slug": "diels-alder-vat-lieu-han-lai",
+      "title": "Vết nứt khép lại khi gia nhiệt: một vai mới của phản ứng Diels–Alder",
+      "category": "phanung",
+      "indexFile": "editorial-index.generated.json",
+      "documentPath": "docs/diels-alder-vat-lieu-han-lai/index.json",
+      "contentHash": "5480748d0eb911274a2865c6928766e52b5a39b6739bd5eb6ee2f04020ae2f02",
+      "wordCount": 704,
+      "inlineImageCount": 1,
+      "sourceCount": 3,
+      "declaredLanguage": "vi",
+      "story": {
+        "status": "documented",
+        "section": "## Một khối rắn không phải chịu vết nứt mãi mãi",
+        "sources": [
+          "https://doi.org/10.1126/science.1065879",
+          "https://doi.org/10.1021/ma0210675",
+          "https://openstax.org/books/organic-chemistry/pages/14-4-the-diels-alder-cycloaddition-reaction"
+        ]
+      },
+      "application": {
+        "status": "documented",
+        "section": "## Ứng dụng hôm nay: thiết kế tuổi thọ từ mối nối phân tử",
+        "sources": [
+          "https://doi.org/10.1126/science.1065879",
+          "https://doi.org/10.1021/ma0210675",
+          "https://openstax.org/books/organic-chemistry/pages/14-4-the-diels-alder-cycloaddition-reaction"
+        ]
+      },
+      "evidenceScope": "chemical-family"
+    },
+    {
+      "id": "robinson-annulation-xay-them-vong",
+      "slug": "robinson-annulation-xay-them-vong",
+      "title": "Xây thêm một vòng carbon: vì sao Robinson annulation hữu ích cho khung steroid",
+      "category": "phanung",
+      "indexFile": "editorial-index.generated.json",
+      "documentPath": "docs/robinson-annulation-xay-them-vong/index.json",
+      "contentHash": "861fd8cef8bb9786e45bb9caed134d2968e11b398f889c83fc9137c0a3022166",
+      "wordCount": 677,
+      "inlineImageCount": 1,
+      "sourceCount": 3,
+      "declaredLanguage": "vi",
+      "story": {
+        "status": "documented",
+        "section": "## Một trung gian hai vòng chứa tham vọng lớn",
+        "sources": [
+          "https://doi.org/10.1021/jo00925a003",
+          "https://www.nobelprize.org/uploads/2021/11/list-lecture.pdf",
+          "https://openstax.org/books/organic-chemistry/pages/23-12-the-robinson-annulation-reaction"
+        ]
+      },
+      "application": {
+        "status": "documented",
+        "section": "## Ứng dụng hôm nay: chia một mục tiêu khó thành những bước xây khung",
+        "sources": [
+          "https://doi.org/10.1021/jo00925a003",
+          "https://www.nobelprize.org/uploads/2021/11/list-lecture.pdf",
+          "https://openstax.org/books/organic-chemistry/pages/23-12-the-robinson-annulation-reaction"
+        ]
+      },
+      "evidenceScope": "chemical-family"
+    },
+    {
+      "id": "proline-aldol-mot-amino-acid-lam-xuc-tac",
+      "slug": "proline-aldol-mot-amino-acid-lam-xuc-tac",
+      "title": "Một amino acid làm phần việc của hệ lớn: thí nghiệm aldol năm 2000",
+      "category": "phanung",
+      "indexFile": "editorial-index.generated.json",
+      "documentPath": "docs/proline-aldol-mot-amino-acid-lam-xuc-tac/index.json",
+      "contentHash": "bb8a1eff02bab2c0ab8c385a151c3c2e17041920fc3a0d3909afc45183cf4bbc",
+      "wordCount": 684,
+      "inlineImageCount": 1,
+      "sourceCount": 3,
+      "declaredLanguage": "vi",
+      "story": {
+        "status": "documented",
+        "section": "## Câu hỏi được thu nhỏ đến một amino acid",
+        "sources": [
+          "https://doi.org/10.1021/ja994280y",
+          "https://www.nobelprize.org/uploads/2021/11/list-lecture.pdf",
+          "https://openstax.org/books/organic-chemistry/pages/23-1-carbonyl-condensations-the-aldol-reaction"
+        ]
+      },
+      "application": {
+        "status": "documented",
+        "section": "## Ứng dụng hôm nay: từ một kết quả đơn giản đến thiết kế xúc tác mới",
+        "sources": [
+          "https://doi.org/10.1021/ja994280y",
+          "https://www.nobelprize.org/uploads/2021/11/list-lecture.pdf",
+          "https://openstax.org/books/organic-chemistry/pages/23-1-carbonyl-condensations-the-aldol-reaction"
+        ]
+      },
+      "evidenceScope": "chemical-family"
+    },
+    {
+      "id": "iminium-macmillan-doi-tinh-phan-ung",
+      "slug": "iminium-macmillan-doi-tinh-phan-ung",
+      "title": "Gắn tạm một amine để đổi tính phản ứng: ý tưởng iminium của MacMillan",
+      "category": "phanung",
+      "indexFile": "editorial-index.generated.json",
+      "documentPath": "docs/iminium-macmillan-doi-tinh-phan-ung/index.json",
+      "contentHash": "b9a23db8c79137c6dad0e4297d449b5a0d803aeb1807d3b5ac23625cce670629",
+      "wordCount": 679,
+      "inlineImageCount": 1,
+      "sourceCount": 3,
+      "declaredLanguage": "vi",
+      "story": {
+        "status": "documented",
+        "section": "## Một cách khác để làm đối tác nhận liên kết hoạt động hơn",
+        "sources": [
+          "https://doi.org/10.1021/ja000092s",
+          "https://macmillan.princeton.edu/wp-content/uploads/aldrichimica.pdf",
+          "https://collaborate.princeton.edu/en/publications/the-first-general-enantioselective-catalytic-diels-alder-reaction/"
+        ]
+      },
+      "application": {
+        "status": "documented",
+        "section": "## Ứng dụng hôm nay: một nguyên lý hoạt hóa đi qua nhiều phản ứng",
+        "sources": [
+          "https://doi.org/10.1021/ja000092s",
+          "https://macmillan.princeton.edu/wp-content/uploads/aldrichimica.pdf",
+          "https://collaborate.princeton.edu/en/publications/the-first-general-enantioselective-catalytic-diels-alder-reaction/"
+        ]
+      },
+      "evidenceScope": "chemical-family"
+    },
+    {
+      "id": "sharpless-epoxidation-oxygen-den-dung-mat",
+      "slug": "sharpless-epoxidation-oxygen-den-dung-mat",
+      "title": "Đưa oxygen tới đúng mặt: bước ngoặt epoxidation của Katsuki và Sharpless",
+      "category": "phanung",
+      "indexFile": "editorial-index.generated.json",
+      "documentPath": "docs/sharpless-epoxidation-oxygen-den-dung-mat/index.json",
+      "contentHash": "fc0e38f3f1efa2454d7f56dbdfefec9e98f51e4c49ef43bad798a11fdf7b6b45",
+      "wordCount": 648,
+      "inlineImageCount": 1,
+      "sourceCount": 3,
+      "declaredLanguage": "vi",
+      "story": {
+        "status": "documented",
+        "section": "## Một vòng ba cạnh mang thông tin cho nhiều bước sau",
+        "sources": [
+          "https://doi.org/10.1021/ja00538a077",
+          "https://www.nobelprize.org/uploads/2018/06/advanced-chemistryprize2001.pdf",
+          "https://sharpless.scripps.edu/publications/"
+        ]
+      },
+      "application": {
+        "status": "documented",
+        "section": "## Ứng dụng hôm nay: tạo một khối cấu trúc có thể đi nhiều hướng",
+        "sources": [
+          "https://doi.org/10.1021/ja00538a077",
+          "https://www.nobelprize.org/uploads/2018/06/advanced-chemistryprize2001.pdf",
+          "https://sharpless.scripps.edu/publications/"
+        ]
+      },
+      "evidenceScope": "chemical-family"
+    },
+    {
+      "id": "dihydroxylation-hai-nhom-oh-cung-mot-phia",
+      "slug": "dihydroxylation-hai-nhom-oh-cung-mot-phia",
+      "title": "Hai nhóm OH xuất hiện có trật tự: hành trình tới AD-mix",
+      "category": "phanung",
+      "indexFile": "editorial-index.generated.json",
+      "documentPath": "docs/dihydroxylation-hai-nhom-oh-cung-mot-phia/index.json",
+      "contentHash": "a66d6f398a528339a8295207cd33aadb74ea1fb771e80f3f7e73e463ccb8bd48",
+      "wordCount": 712,
+      "inlineImageCount": 1,
+      "sourceCount": 3,
+      "declaredLanguage": "vi",
+      "story": {
+        "status": "documented",
+        "section": "## Từ công trình năm 1988 tới hỗn hợp được chuẩn hóa",
+        "sources": [
+          "https://doi.org/10.1021/ja00214a053",
+          "https://doi.org/10.1021/jo00036a003",
+          "https://hwpi.harvard.edu/files/myers/files/23-sharpless_asymmetric_dihydroxylation_reaction.pdf"
+        ]
+      },
+      "application": {
+        "status": "documented",
+        "section": "## Ứng dụng hôm nay: tạo diol để tiếp tục xây phân tử",
+        "sources": [
+          "https://doi.org/10.1021/ja00214a053",
+          "https://doi.org/10.1021/jo00036a003",
+          "https://hwpi.harvard.edu/files/myers/files/23-sharpless_asymmetric_dihydroxylation_reaction.pdf"
+        ]
+      },
+      "evidenceScope": "chemical-family"
+    },
+    {
+      "id": "jacobsen-salen-alkene-khong-co-diem-bam",
+      "slug": "jacobsen-salen-alkene-khong-co-diem-bam",
+      "title": "Khi alkene không có điểm bám: manganese–salen mở một đường epoxidation",
+      "category": "phanung",
+      "indexFile": "editorial-index.generated.json",
+      "documentPath": "docs/jacobsen-salen-alkene-khong-co-diem-bam/index.json",
+      "contentHash": "e3b56ec5b52e8c24a8145c013ff66769a29d7aba1b0d8a247685a852efa8ab0b",
+      "wordCount": 682,
+      "inlineImageCount": 1,
+      "sourceCount": 3,
+      "declaredLanguage": "vi",
+      "story": {
+        "status": "documented",
+        "section": "## Khoảng trống còn lại sau một thành tựu lớn",
+        "sources": [
+          "https://doi.org/10.1021/ja00163a052",
+          "https://jacobsengroup.sites.fas.harvard.edu/publications.html",
+          "https://ethz.ch/content/dam/ethz/special-interest/chab/organic-chemistry/bode-group-dam/documents/open-source-lecture-notes/olefin-addition-reactions-2015.pdf"
+        ]
+      },
+      "application": {
+        "status": "documented",
+        "section": "## Ứng dụng hôm nay: chọn phương pháp theo loại alkene",
+        "sources": [
+          "https://doi.org/10.1021/ja00163a052",
+          "https://jacobsengroup.sites.fas.harvard.edu/publications.html",
+          "https://ethz.ch/content/dam/ethz/special-interest/chab/organic-chemistry/bode-group-dam/documents/open-source-lecture-notes/olefin-addition-reactions-2015.pdf"
+        ]
+      },
+      "evidenceScope": "chemical-family"
+    },
+    {
+      "id": "buchwald-hartwig-noi-carbon-voi-nitrogen",
+      "slug": "buchwald-hartwig-noi-carbon-voi-nitrogen",
+      "title": "Một mối nối C–N mở thêm đường tới phân tử mới",
+      "category": "phanung",
+      "indexFile": "editorial-index.generated.json",
+      "documentPath": "docs/buchwald-hartwig-noi-carbon-voi-nitrogen/index.json",
+      "contentHash": "28524bf68ceadd539b4da561fdd28f557da4466de7e3e217f23e99cf6d2fdddd",
+      "wordCount": 690,
+      "inlineImageCount": 1,
+      "sourceCount": 3,
+      "declaredLanguage": "vi",
+      "story": {
+        "status": "documented",
+        "section": "## Phản ứng đã có manh mối nhưng chưa đủ thuận tiện",
+        "sources": [
+          "https://doi.org/10.1021/ja00096a059",
+          "https://doi.org/10.1002/anie.201904795",
+          "https://reagents.acsgcipr.org/reagent-guides/buchwald-hartwig-amination/"
+        ]
+      },
+      "application": {
+        "status": "documented",
+        "section": "## Ứng dụng hôm nay: từ thư viện phân tử tới quy trình sản xuất",
+        "sources": [
+          "https://doi.org/10.1021/ja00096a059",
+          "https://doi.org/10.1002/anie.201904795",
+          "https://reagents.acsgcipr.org/reagent-guides/buchwald-hartwig-amination/"
+        ]
+      },
+      "evidenceScope": "chemical-family"
+    },
+    {
+      "id": "sonogashira-lien-ket-ba-trong-trung-gian",
+      "slug": "sonogashira-lien-ket-ba-trong-trung-gian",
+      "title": "Giữ một liên kết ba trong bộ khung: Sonogashira qua câu chuyện trung gian erlotinib",
+      "category": "phanung",
+      "indexFile": "editorial-index.generated.json",
+      "documentPath": "docs/sonogashira-lien-ket-ba-trong-trung-gian/index.json",
+      "contentHash": "b9fb7f6540c754a0045d6c0c221b3f0b42800a7c130af86d3d75d46ddecd4720",
+      "wordCount": 671,
+      "inlineImageCount": 1,
+      "sourceCount": 3,
+      "declaredLanguage": "vi",
+      "story": {
+        "status": "documented",
+        "section": "## Một mảnh nhỏ cần có mặt trong một phân tử lớn",
+        "sources": [
+          "https://doi.org/10.1016/S0040-4039(00)91094-3",
+          "https://pmc.ncbi.nlm.nih.gov/articles/PMC8007125/",
+          "https://pmc.ncbi.nlm.nih.gov/articles/PMC10698743/"
+        ]
+      },
+      "application": {
+        "status": "documented",
+        "section": "## Ứng dụng hôm nay: phát triển phản ứng cùng phần việc phân tách",
+        "sources": [
+          "https://doi.org/10.1016/S0040-4039(00)91094-3",
+          "https://pmc.ncbi.nlm.nih.gov/articles/PMC8007125/",
+          "https://pmc.ncbi.nlm.nih.gov/articles/PMC10698743/"
+        ]
+      },
+      "evidenceScope": "chemical-family"
+    },
+    {
+      "id": "stille-khau-vong-lon-rapamycin",
+      "slug": "stille-khau-vong-lon-rapamycin",
+      "title": "Hai mối ghép khép một vòng lớn: đường tổng hợp rapamycin năm 1993",
+      "category": "phanung",
+      "indexFile": "editorial-index.generated.json",
+      "documentPath": "docs/stille-khau-vong-lon-rapamycin/index.json",
+      "contentHash": "7da1d7351b500beeafd307ae293de48e13793a4f8c40d346bb7409b7790dd0bd",
+      "wordCount": 681,
+      "inlineImageCount": 1,
+      "sourceCount": 3,
+      "declaredLanguage": "vi",
+      "story": {
+        "status": "documented",
+        "section": "## Một thao tác khâu trong kế hoạch tổng hợp",
+        "sources": [
+          "https://doi.org/10.1021/ja00063a093",
+          "https://pmc.ncbi.nlm.nih.gov/articles/PMC2665039/",
+          "https://doi.org/10.1002/anie.200300638"
+        ]
+      },
+      "application": {
+        "status": "documented",
+        "section": "## Ứng dụng hôm nay: một công cụ mạnh đi kèm bài toán thiếc",
+        "sources": [
+          "https://doi.org/10.1021/ja00063a093",
+          "https://pmc.ncbi.nlm.nih.gov/articles/PMC2665039/",
+          "https://doi.org/10.1002/anie.200300638"
+        ]
+      },
+      "evidenceScope": "chemical-family"
+    },
+    {
+      "id": "kumada-tu-moi-noi-den-chuoi-dan-dien",
+      "slug": "kumada-tu-moi-noi-den-chuoi-dan-dien",
+      "title": "Từ ghép hai mảnh tới giữ nhịp cho cả chuỗi: Kumada trong polymer liên hợp",
+      "category": "phanung",
+      "indexFile": "editorial-index.generated.json",
+      "documentPath": "docs/kumada-tu-moi-noi-den-chuoi-dan-dien/index.json",
+      "contentHash": "84e093c9551223c188533ddb144c390fd09e60c89e872afbbe639b33fb623b66",
+      "wordCount": 690,
+      "inlineImageCount": 1,
+      "sourceCount": 3,
+      "declaredLanguage": "vi",
+      "story": {
+        "status": "documented",
+        "section": "## Một phản ứng nối carbon trở thành công cụ làm vật liệu",
+        "sources": [
+          "https://doi.org/10.1021/ja00767a075",
+          "https://pmc.ncbi.nlm.nih.gov/articles/PMC3740766/",
+          "https://doi.org/10.1021/ma901410k"
+        ]
+      },
+      "application": {
+        "status": "documented",
+        "section": "## Ứng dụng hôm nay: tính lặp lại là một tính năng của vật liệu",
+        "sources": [
+          "https://doi.org/10.1021/ja00767a075",
+          "https://pmc.ncbi.nlm.nih.gov/articles/PMC3740766/",
+          "https://doi.org/10.1021/ma901410k"
+        ]
+      },
+      "evidenceScope": "chemical-family"
+    },
+    {
+      "id": "hiyama-lien-ket-ben-can-duoc-danh-thuc",
+      "slug": "hiyama-lien-ket-ben-can-duoc-danh-thuc",
+      "title": "Một liên kết bền cần được đánh thức: silicon trong phản ứng Hiyama",
+      "category": "phanung",
+      "indexFile": "editorial-index.generated.json",
+      "documentPath": "docs/hiyama-lien-ket-ben-can-duoc-danh-thuc/index.json",
+      "contentHash": "b4d103ef02f5a5db72033aa714f25fd79562b1893eb1d06a5207ca1fd2bfefca",
+      "wordCount": 668,
+      "inlineImageCount": 1,
+      "sourceCount": 3,
+      "declaredLanguage": "vi",
+      "story": {
+        "status": "documented",
+        "section": "## Silicon không chỉ ở trong kính và vi mạch",
+        "sources": [
+          "https://doi.org/10.1021/jo00239a056",
+          "https://pmc.ncbi.nlm.nih.gov/articles/PMC2648401/",
+          "https://pmc.ncbi.nlm.nih.gov/articles/PMC9933925/"
+        ]
+      },
+      "application": {
+        "status": "documented",
+        "section": "## Ứng dụng hôm nay: giữ một nhóm chờ đến lượt phản ứng",
+        "sources": [
+          "https://doi.org/10.1021/jo00239a056",
+          "https://pmc.ncbi.nlm.nih.gov/articles/PMC2648401/",
+          "https://pmc.ncbi.nlm.nih.gov/articles/PMC9933925/"
+        ]
+      },
+      "evidenceScope": "chemical-family"
+    },
+    {
+      "id": "grignard-tu-binh-me-sang-dong-chay",
+      "slug": "grignard-tu-binh-me-sang-dong-chay",
+      "title": "Một thuốc thử trăm tuổi đi vào dòng chảy: Grignard và phép đo ngay trên đường ống",
+      "category": "phanung",
+      "indexFile": "editorial-index.generated.json",
+      "documentPath": "docs/grignard-tu-binh-me-sang-dong-chay/index.json",
+      "contentHash": "1aeaab827795f525d399b0fbef4fbeceff26da95cd7b1707a6bc8bcce88ceedb",
+      "wordCount": 694,
+      "inlineImageCount": 1,
+      "sourceCount": 3,
+      "declaredLanguage": "vi",
+      "story": {
+        "status": "documented",
+        "section": "## Bên cạnh phản ứng là một phép đo đang chạy",
+        "sources": [
+          "https://doi.org/10.1016/j.tetlet.2015.11.077",
+          "https://doi.org/10.1021/acs.oprd.9b00493",
+          "https://openstax.org/books/organic-chemistry/pages/17-5-alcohols-from-carbonyl-compounds-grignard-reaction"
+        ]
+      },
+      "application": {
+        "status": "documented",
+        "section": "## Ứng dụng hôm nay: đo để hiểu trạng thái thật của dòng sản phẩm",
+        "sources": [
+          "https://doi.org/10.1016/j.tetlet.2015.11.077",
+          "https://doi.org/10.1021/acs.oprd.9b00493",
+          "https://openstax.org/books/organic-chemistry/pages/17-5-alcohols-from-carbonyl-compounds-grignard-reaction"
+        ]
+      },
+      "evidenceScope": "chemical-family"
+    },
+    {
+      "id": "wittig-vitamin-a-mot-lien-ket-doi-quyet-dinh",
+      "slug": "wittig-vitamin-a-mot-lien-ket-doi-quyet-dinh",
+      "title": "Vitamin A và mối nối mà nhà máy còn thiếu",
+      "category": "phanung",
+      "indexFile": "editorial-index.generated.json",
+      "documentPath": "docs/wittig-vitamin-a-mot-lien-ket-doi-quyet-dinh/index.json",
+      "contentHash": "a19427777cd84d8e8c59de53f34981c701d1ea0ff3e632f75d376d5150ef9e52",
+      "wordCount": 687,
+      "inlineImageCount": 1,
+      "sourceCount": 3,
+      "declaredLanguage": "vi",
+      "story": {
+        "status": "documented",
+        "section": "## Làm ra được chưa có nghĩa làm ra theo cách phù hợp",
+        "sources": [
+          "https://www.basf.com/global/de/who-we-are/history/joint-success/formula_for_success",
+          "https://openstax.org/books/organic-chemistry/pages/19-11-nucleophilic-addition-of-phosphorus-ylides-the-wittig-reaction",
+          "https://doi.org/10.1021/acs.oprd.3c00161"
+        ]
+      },
+      "application": {
+        "status": "documented",
+        "section": "## Ứng dụng hôm nay: chọn đúng mối nối, rồi tối ưu toàn tuyến",
+        "sources": [
+          "https://www.basf.com/global/de/who-we-are/history/joint-success/formula_for_success",
+          "https://openstax.org/books/organic-chemistry/pages/19-11-nucleophilic-addition-of-phosphorus-ylides-the-wittig-reaction",
+          "https://doi.org/10.1021/acs.oprd.3c00161"
+        ]
+      },
+      "evidenceScope": "chemical-family"
+    },
+    {
+      "id": "hwe-ket-tua-bat-ngo-mo-loi-olefin",
+      "slug": "hwe-ket-tua-bat-ngo-mo-loi-olefin",
+      "title": "Kết tủa ngoài dự kiến và một đường mới tới alkene",
+      "category": "phanung",
+      "indexFile": "editorial-index.generated.json",
+      "documentPath": "docs/hwe-ket-tua-bat-ngo-mo-loi-olefin/index.json",
+      "contentHash": "139e70561f2fb13999cb5fc0c94a4edfe75f9345811caa5860f8c975fee7d1d9",
+      "wordCount": 664,
+      "inlineImageCount": 1,
+      "sourceCount": 3,
+      "declaredLanguage": "vi",
+      "story": {
+        "status": "documented",
+        "section": "## Từ một monomer khó giữ sang một phản ứng khác",
+        "sources": [
+          "https://garfield.library.upenn.edu/classics1983/A1983RA29000001.pdf",
+          "https://doi.org/10.1021/ja01468a042",
+          "https://pmc.ncbi.nlm.nih.gov/articles/PMC9609750/"
+        ]
+      },
+      "application": {
+        "status": "documented",
+        "section": "## Ứng dụng hôm nay: xây chuỗi liên hợp với hình học có chủ đích",
+        "sources": [
+          "https://garfield.library.upenn.edu/classics1983/A1983RA29000001.pdf",
+          "https://doi.org/10.1021/ja01468a042",
+          "https://pmc.ncbi.nlm.nih.gov/articles/PMC9609750/"
+        ]
+      },
+      "evidenceScope": "chemical-family"
+    },
+    {
+      "id": "wilkinson-kim-loai-hoa-tan-van-tao-hydrogenation",
+      "slug": "wilkinson-kim-loai-hoa-tan-van-tao-hydrogenation",
+      "title": "Xúc tác không cần là một mặt kim loại: câu chuyện của Wilkinson",
+      "category": "phanung",
+      "indexFile": "editorial-index.generated.json",
+      "documentPath": "docs/wilkinson-kim-loai-hoa-tan-van-tao-hydrogenation/index.json",
+      "contentHash": "c733981b3fab645bac6707dbf58fa3319e7cde3c12eab586cdc60c35a49d1528",
+      "wordCount": 695,
+      "inlineImageCount": 1,
+      "sourceCount": 3,
+      "declaredLanguage": "vi",
+      "story": {
+        "status": "documented",
+        "section": "## Một phức chất trở thành công cụ khảo sát cơ chế",
+        "sources": [
+          "https://doi.org/10.1039/J19660001711",
+          "https://www.chm.bris.ac.uk/motm/wilcat/wilcatjs.htm",
+          "https://www.acs.org/molecule-of-the-week/archive/w/wilkinsons-catalyst.html"
+        ]
+      },
+      "application": {
+        "status": "documented",
+        "section": "## Ứng dụng hôm nay: hiểu vai trò của phối tử để thiết kế hệ mới",
+        "sources": [
+          "https://doi.org/10.1039/J19660001711",
+          "https://www.chm.bris.ac.uk/motm/wilcat/wilcatjs.htm",
+          "https://www.acs.org/molecule-of-the-week/archive/w/wilkinsons-catalyst.html"
+        ]
+      },
+      "evidenceScope": "chemical-family"
+    },
+    {
+      "id": "noyori-ikariya-muon-hydrogen-tu-alcohol",
+      "slug": "noyori-ikariya-muon-hydrogen-tu-alcohol",
+      "title": "Mượn hydrogen từ một alcohol: hai phần của xúc tác Noyori–Ikariya",
+      "category": "phanung",
+      "indexFile": "editorial-index.generated.json",
+      "documentPath": "docs/noyori-ikariya-muon-hydrogen-tu-alcohol/index.json",
+      "contentHash": "28cf0e9ddc8a3d9ab96e94c501044f16f2b59c8691ca22c25ed2dc314b5ee802",
+      "wordCount": 664,
+      "inlineImageCount": 1,
+      "sourceCount": 3,
+      "declaredLanguage": "vi",
+      "story": {
+        "status": "documented",
+        "section": "## Một ketone nhận hydrogen từ phân tử khác",
+        "sources": [
+          "https://doi.org/10.1021/ja00133a037",
+          "https://pmc.ncbi.nlm.nih.gov/articles/PMC6272002/",
+          "https://www.sciencedirect.com/science/article/pii/S001085452200488X"
+        ]
+      },
+      "application": {
+        "status": "documented",
+        "section": "## Ứng dụng hôm nay: tạo alcohol và amine có cấu hình xác định",
+        "sources": [
+          "https://doi.org/10.1021/ja00133a037",
+          "https://pmc.ncbi.nlm.nih.gov/articles/PMC6272002/",
+          "https://www.sciencedirect.com/science/article/pii/S001085452200488X"
+        ]
+      },
+      "evidenceScope": "chemical-family"
+    },
+    {
+      "id": "photoredox-nickel-hai-chu-trinh-gap-nhau",
+      "slug": "photoredox-nickel-hai-chu-trinh-gap-nhau",
+      "title": "Khi ánh sáng giao việc cho nickel: cuộc gặp của hai chu trình xúc tác",
+      "category": "phanung",
+      "indexFile": "editorial-index.generated.json",
+      "documentPath": "docs/photoredox-nickel-hai-chu-trinh-gap-nhau/index.json",
+      "contentHash": "462071a9df4d2e563b4eae5e07b982c4c0bee9ffa80c65e119acb537de19dab3",
+      "wordCount": 679,
+      "inlineImageCount": 1,
+      "sourceCount": 3,
+      "declaredLanguage": "vi",
+      "story": {
+        "status": "documented",
+        "section": "## Hai nhóm nghiên cứu mang tới hai khả năng khác nhau",
+        "sources": [
+          "https://pmc.ncbi.nlm.nih.gov/articles/PMC4296524/",
+          "https://www.nature.com/articles/nature14875",
+          "https://pmc.ncbi.nlm.nih.gov/articles/PMC8667460/"
+        ]
+      },
+      "application": {
+        "status": "documented",
+        "section": "## Ứng dụng hôm nay: thêm những nguyên liệu có thể được ghép",
+        "sources": [
+          "https://pmc.ncbi.nlm.nih.gov/articles/PMC4296524/",
+          "https://www.nature.com/articles/nature14875",
+          "https://pmc.ncbi.nlm.nih.gov/articles/PMC8667460/"
+        ]
+      },
+      "evidenceScope": "chemical-family"
+    },
+    {
+      "id": "baizer-dong-dien-noi-hai-acrylonitrile",
+      "slug": "baizer-dong-dien-noi-hai-acrylonitrile",
+      "title": "Dòng điện nối hai phân tử: con đường adiponitrile của Manuel Baizer",
+      "category": "phanung",
+      "indexFile": "editorial-index.generated.json",
+      "documentPath": "docs/baizer-dong-dien-noi-hai-acrylonitrile/index.json",
+      "contentHash": "a77d78fdc6c7ba948ec2829fe14c1fd4b2922f894177bcf4ad57b19c893323d1",
+      "wordCount": 676,
+      "inlineImageCount": 1,
+      "sourceCount": 3,
+      "declaredLanguage": "vi",
+      "story": {
+        "status": "documented",
+        "section": "## Một nhiệm vụ nghiên cứu có đích đến công nghiệp",
+        "sources": [
+          "https://garfield.library.upenn.edu/classics1986/A1986A368400001.pdf",
+          "https://doi.org/10.1149/1.2426086",
+          "https://patents.google.com/patent/US3193477A/en"
+        ]
+      },
+      "application": {
+        "status": "documented",
+        "section": "## Ứng dụng hôm nay: điện hóa phải được đọc như một quy trình hóa học đầy đủ",
+        "sources": [
+          "https://garfield.library.upenn.edu/classics1986/A1986A368400001.pdf",
+          "https://doi.org/10.1149/1.2426086",
+          "https://patents.google.com/patent/US3193477A/en"
+        ]
+      },
+      "evidenceScope": "chemical-family"
+    },
+    {
+      "id": "kolbe-mat-co2-roi-noi-hai-mach",
+      "slug": "kolbe-mat-co2-roi-noi-hai-mach",
+      "title": "Mất một đầu carbon rồi nối hai mạch: Kolbe trở lại trong nghiên cứu nguyên liệu sinh học",
+      "category": "phanung",
+      "indexFile": "editorial-index.generated.json",
+      "documentPath": "docs/kolbe-mat-co2-roi-noi-hai-mach/index.json",
+      "contentHash": "a9f4aec62049fa20a505aefaf5592103a544abd369a057550f56633a6ef36ca0",
+      "wordCount": 671,
+      "inlineImageCount": 1,
+      "sourceCount": 3,
+      "declaredLanguage": "vi",
+      "story": {
+        "status": "documented",
+        "section": "## Một phản ứng cổ gặp nguyên liệu mới",
+        "sources": [
+          "https://doi.org/10.1002/cctc.201901443",
+          "https://pmc.ncbi.nlm.nih.gov/articles/PMC5786875/",
+          "https://doi.org/10.1039/QJ8500200157"
+        ]
+      },
+      "application": {
+        "status": "documented",
+        "section": "## Ứng dụng hôm nay: thiết kế bề mặt để dùng electron có ích",
+        "sources": [
+          "https://doi.org/10.1002/cctc.201901443",
+          "https://pmc.ncbi.nlm.nih.gov/articles/PMC5786875/",
+          "https://doi.org/10.1039/QJ8500200157"
+        ]
+      },
+      "evidenceScope": "chemical-family"
+    },
+    {
+      "id": "birch-bai-hoc-tu-pin-lithium",
+      "slug": "birch-bai-hoc-tu-pin-lithium",
+      "title": "Một phản ứng khử vòng thơm mượn ý tưởng từ pin lithium-ion",
+      "category": "phanung",
+      "indexFile": "editorial-index.generated.json",
+      "documentPath": "docs/birch-bai-hoc-tu-pin-lithium/index.json",
+      "contentHash": "28c3d39c73b81e8c5a2e514c4c0bca945c44d699024608e401957107b7ee7ae2",
+      "wordCount": 718,
+      "inlineImageCount": 1,
+      "sourceCount": 3,
+      "declaredLanguage": "vi",
+      "story": {
+        "status": "documented",
+        "section": "## Một bài toán tổng hợp được nhìn qua kinh nghiệm của pin",
+        "sources": [
+          "https://pmc.ncbi.nlm.nih.gov/articles/PMC7001862/",
+          "https://pmc.ncbi.nlm.nih.gov/articles/PMC10571048/",
+          "https://openstax.org/books/organic-chemistry/pages/16-9-reduction-of-aromatic-compounds"
+        ]
+      },
+      "application": {
+        "status": "documented",
+        "section": "## Ứng dụng hôm nay: làm cho một phép biến đổi hữu ích dễ tiếp cận hơn",
+        "sources": [
+          "https://pmc.ncbi.nlm.nih.gov/articles/PMC7001862/",
+          "https://pmc.ncbi.nlm.nih.gov/articles/PMC10571048/",
+          "https://openstax.org/books/organic-chemistry/pages/16-9-reduction-of-aromatic-compounds"
+        ]
+      },
+      "evidenceScope": "chemical-family"
+    },
+    {
+      "id": "cumene-zeolite-chon-mot-nhanh-tren-vong",
+      "slug": "cumene-zeolite-chon-mot-nhanh-tren-vong",
+      "title": "Gắn một nhánh vào vòng benzene: zeolite thay đổi quy trình cumene",
+      "category": "phanung",
+      "indexFile": "editorial-index.generated.json",
+      "documentPath": "docs/cumene-zeolite-chon-mot-nhanh-tren-vong/index.json",
+      "contentHash": "14dc589b9e45cb6a8c6b54b47ec2f993bcc0cb87142baeb98edb8991b7537181",
+      "wordCount": 688,
+      "inlineImageCount": 1,
+      "sourceCount": 3,
+      "declaredLanguage": "vi",
+      "story": {
+        "status": "documented",
+        "section": "## Một chất xúc tác mới bước vào tuyến sản xuất quen thuộc",
+        "sources": [
+          "https://journal.jza-online.org/10.20731/zeoraito.17.1.2/",
+          "https://www.badgerlicensing.com/sites/badger/files/2023-12/technology-timeline-diagram-large.pdf",
+          "https://openstax.org/books/organic-chemistry/pages/16-3-alkylation-and-acylation-of-aromatic-rings-the-friedel-crafts-reaction"
+        ]
+      },
+      "application": {
+        "status": "documented",
+        "section": "## Ứng dụng hôm nay: một mối nối đứng trước phenol và acetone",
+        "sources": [
+          "https://journal.jza-online.org/10.20731/zeoraito.17.1.2/",
+          "https://www.badgerlicensing.com/sites/badger/files/2023-12/technology-timeline-diagram-large.pdf",
+          "https://openstax.org/books/organic-chemistry/pages/16-3-alkylation-and-acylation-of-aromatic-rings-the-friedel-crafts-reaction"
+        ]
+      },
+      "evidenceScope": "chemical-family"
+    },
+    {
+      "id": "nitrobenzene-nhiet-phan-ung-thanh-nguon-luc",
+      "slug": "nitrobenzene-nhiet-phan-ung-thanh-nguon-luc",
+      "title": "Không chỉ lấy nhiệt ra: thiết kế đoạn nhiệt trong sản xuất nitrobenzene",
+      "category": "phanung",
+      "indexFile": "editorial-index.generated.json",
+      "documentPath": "docs/nitrobenzene-nhiet-phan-ung-thanh-nguon-luc/index.json",
+      "contentHash": "34e5c2c59e6befe9e429aa447b8795c3b7db1862f4e2ff4c7e7e37ee080a2a3d",
+      "wordCount": 684,
+      "inlineImageCount": 1,
+      "sourceCount": 3,
+      "declaredLanguage": "vi",
+      "story": {
+        "status": "documented",
+        "section": "## Một phản ứng đã biết, một cách quản lý nhiệt khác",
+        "sources": [
+          "https://doi.org/10.1021/bk-2013-1155.ch001",
+          "https://patents.google.com/patent/JP2013535459A/en",
+          "https://openstax.org/books/organic-chemistry/pages/16-2-other-aromatic-substitutions"
+        ]
+      },
+      "application": {
+        "status": "documented",
+        "section": "## Ứng dụng hôm nay: phản ứng và phân tách phải được thiết kế cùng nhau",
+        "sources": [
+          "https://doi.org/10.1021/bk-2013-1155.ch001",
+          "https://patents.google.com/patent/JP2013535459A/en",
+          "https://openstax.org/books/organic-chemistry/pages/16-2-other-aromatic-substitutions"
+        ]
+      },
+      "evidenceScope": "chemical-family"
+    },
+    {
+      "id": "chung-cat-phan-ung-methyl-acetate",
+      "slug": "chung-cat-phan-ung-methyl-acetate",
+      "title": "Một tháp làm nhiều phần việc: methyl acetate và chưng cất phản ứng",
+      "category": "phanung",
+      "indexFile": "editorial-index.generated.json",
+      "documentPath": "docs/chung-cat-phan-ung-methyl-acetate/index.json",
+      "contentHash": "2a4dd967da0bb3a360cfb9b6232a51cc7f043faf88e051a81b25f6a3b293cd8f",
+      "wordCount": 695,
+      "inlineImageCount": 1,
+      "sourceCount": 3,
+      "declaredLanguage": "vi",
+      "story": {
+        "status": "documented",
+        "section": "## Một sơ đồ nhiều thiết bị được vẽ lại",
+        "sources": [
+          "https://patents.google.com/patent/US4435595A/en",
+          "https://www.osti.gov/servlets/purl/6759429",
+          "https://openstax.org/books/chemistry-2e/pages/13-3-shifting-equilibria-le-chateliers-principle"
+        ]
+      },
+      "application": {
+        "status": "documented",
+        "section": "## Ứng dụng hôm nay: ít thiết bị hơn có thể đòi hỏi điều khiển tốt hơn",
+        "sources": [
+          "https://patents.google.com/patent/US4435595A/en",
+          "https://www.osti.gov/servlets/purl/6759429",
+          "https://openstax.org/books/chemistry-2e/pages/13-3-shifting-equilibria-le-chateliers-principle"
+        ]
+      },
+      "evidenceScope": "chemical-family"
+    },
+    {
+      "id": "biodiesel-doi-ester-truoc-khi-vao-dong-co",
+      "slug": "biodiesel-doi-ester-truoc-khi-vao-dong-co",
+      "title": "Chiếc bán tải ở Yellowstone chạy bằng gì: phản ứng đằng sau biodiesel",
+      "category": "phanung",
+      "indexFile": "editorial-index.generated.json",
+      "documentPath": "docs/biodiesel-doi-ester-truoc-khi-vao-dong-co/index.json",
+      "contentHash": "63a6037c609d60421e727c62fba667d3370bf467e1081d3bca9d87eed5776509",
+      "wordCount": 674,
+      "inlineImageCount": 1,
+      "sourceCount": 3,
+      "declaredLanguage": "vi",
+      "story": {
+        "status": "documented",
+        "section": "## Một chiếc xe trở thành nơi kiểm tra nhiên liệu",
+        "sources": [
+          "https://www.biodieseleducation.org/Literature/TechNotes/TN01_Pioneers.pdf",
+          "https://rosap.ntl.bts.gov/view/dot/9546/dot_9546_DS1.pdf",
+          "https://www.waterboards.ca.gov/water_issues/programs/ust/regulatory/biodiesel/nrel2009.pdf"
+        ]
+      },
+      "application": {
+        "status": "documented",
+        "section": "## Ứng dụng hôm nay: thử nghiệm động cơ cần đi cùng tiêu chuẩn chất lượng",
+        "sources": [
+          "https://www.biodieseleducation.org/Literature/TechNotes/TN01_Pioneers.pdf",
+          "https://rosap.ntl.bts.gov/view/dot/9546/dot_9546_DS1.pdf",
+          "https://www.waterboards.ca.gov/water_issues/programs/ust/regulatory/biodiesel/nrel2009.pdf"
+        ]
+      },
+      "evidenceScope": "chemical-family"
+    },
+    {
+      "id": "polyurethane-tu-phan-ung-den-bot-mem-va-bot-cung",
+      "slug": "polyurethane-tu-phan-ung-den-bot-mem-va-bot-cung",
+      "title": "Cùng một họ liên kết, hai thế giới vật liệu: polyurethane từ đệm ghế tới lớp cách nhiệt",
+      "category": "phanung",
+      "indexFile": "editorial-index.generated.json",
+      "documentPath": "docs/polyurethane-tu-phan-ung-den-bot-mem-va-bot-cung/index.json",
+      "contentHash": "443de9dfedeb1e7e40489377cfa701ff540900412a935247ae977a7d433384ab",
+      "wordCount": 698,
+      "inlineImageCount": 1,
+      "sourceCount": 3,
+      "declaredLanguage": "vi",
+      "story": {
+        "status": "documented",
+        "section": "## Một phát hiện cần nhiều năm mới tìm được chỗ đứng",
+        "sources": [
+          "https://www.covestro.com/en/company/covestro-worldwide/japan/covestro-in-japan/history",
+          "https://doi.org/10.1002/ange.19470590901",
+          "https://openstax.org/books/organic-chemistry/pages/31-4-step-growth-polymers"
+        ]
+      },
+      "application": {
+        "status": "documented",
+        "section": "## Ứng dụng hôm nay: tên họ không thay thế thiết kế vật liệu",
+        "sources": [
+          "https://www.covestro.com/en/company/covestro-worldwide/japan/covestro-in-japan/history",
+          "https://doi.org/10.1002/ange.19470590901",
+          "https://openstax.org/books/organic-chemistry/pages/31-4-step-growth-polymers"
+        ]
+      },
+      "evidenceScope": "chemical-family"
+    },
+    {
+      "id": "epoxy-dong-ran-va-duong-thao-mang",
+      "slug": "epoxy-dong-ran-va-duong-thao-mang",
+      "title": "Keo đã đóng rắn có đường tháo mạng: câu hỏi từ cánh quạt ngoài khơi",
+      "category": "phanung",
+      "indexFile": "editorial-index.generated.json",
+      "documentPath": "docs/epoxy-dong-ran-va-duong-thao-mang/index.json",
+      "contentHash": "0a5d5bcce5da64e71530eeea48a6a6edf6afe82abbac01bc336177e344277be7",
+      "wordCount": 709,
+      "inlineImageCount": 1,
+      "sourceCount": 4,
+      "declaredLanguage": "vi",
+      "story": {
+        "status": "documented",
+        "section": "## Một cánh quạt đặt câu hỏi cho chất kết dính bên trong",
+        "sources": [
+          "https://www.rwe.com/en/press/rwe-renewables/2022-08-01-first-turbine-commissioned-at-rwes-kaskasi-wind-farm/",
+          "https://www.siemensgamesa.com/global/en/home/press-releases/080122-siemens-gamesa-press-release-recycle-wind-blade-offshore-kaskasi-germany.html",
+          "https://www.adityabirlachemicals.com/recyclamine.php",
+          "https://patents.google.com/patent/US2324483A/en"
+        ]
+      },
+      "application": {
+        "status": "documented",
+        "section": "## Ứng dụng hôm nay: thiết kế tái chế trước khi vật liệu thành hình",
+        "sources": [
+          "https://www.rwe.com/en/press/rwe-renewables/2022-08-01-first-turbine-commissioned-at-rwes-kaskasi-wind-farm/",
+          "https://www.siemensgamesa.com/global/en/home/press-releases/080122-siemens-gamesa-press-release-recycle-wind-blade-offshore-kaskasi-germany.html",
+          "https://www.adityabirlachemicals.com/recyclamine.php",
+          "https://patents.google.com/patent/US2324483A/en"
+        ]
+      },
+      "evidenceScope": "chemical-family"
+    },
+    {
+      "id": "hydrosilylation-silicone-dong-ran-khong-thoat-khi",
+      "slug": "hydrosilylation-silicone-dong-ran-khong-thoat-khi",
+      "title": "Silicone thành mạng nhờ một mối nối mới: vai trò xúc tác Karstedt",
+      "category": "phanung",
+      "indexFile": "editorial-index.generated.json",
+      "documentPath": "docs/hydrosilylation-silicone-dong-ran-khong-thoat-khi/index.json",
+      "contentHash": "1ea2e338263409079b838af7255d01337ec0cbe12851b3d231f729ca11917d20",
+      "wordCount": 674,
+      "inlineImageCount": 1,
+      "sourceCount": 3,
+      "declaredLanguage": "vi",
+      "story": {
+        "status": "documented",
+        "section": "## Một phức platinum được thiết kế cho vật liệu silicone",
+        "sources": [
+          "https://patents.google.com/patent/US3775452A/en",
+          "https://patents.google.com/patent/CA2259255A1/en",
+          "https://www.dow.com/en-us/faq/platinum-catalyzed-silicone-inhibitors.html"
+        ]
+      },
+      "application": {
+        "status": "documented",
+        "section": "## Ứng dụng hôm nay: bề mặt bên cạnh cũng có thể làm phản ứng dừng",
+        "sources": [
+          "https://patents.google.com/patent/US3775452A/en",
+          "https://patents.google.com/patent/CA2259255A1/en",
+          "https://www.dow.com/en-us/faq/platinum-catalyzed-silicone-inhibitors.html"
+        ]
+      },
+      "evidenceScope": "chemical-family"
+    },
+    {
+      "id": "luu-hoa-cao-su-giu-tri-nho-hinh-dang",
+      "slug": "luu-hoa-cao-su-giu-tri-nho-hinh-dang",
+      "title": "Giữ lại hình dạng cho cao su: điều những cầu sulfur làm được",
+      "category": "phanung",
+      "indexFile": "editorial-index.generated.json",
+      "documentPath": "docs/luu-hoa-cao-su-giu-tri-nho-hinh-dang/index.json",
+      "contentHash": "09dbb53e95099cade99da181a46bf2a644b7725318da4a8f8d83d957ca8cfe35",
+      "wordCount": 734,
+      "inlineImageCount": 1,
+      "sourceCount": 3,
+      "declaredLanguage": "vi",
+      "story": {
+        "status": "documented",
+        "section": "## Bằng sáng chế nói về một vấn đề rất đời thường",
+        "sources": [
+          "https://patents.google.com/patent/US3633A/en",
+          "https://www.michelinman.com/auto/assistance/glossary",
+          "https://pmc.ncbi.nlm.nih.gov/articles/PMC9003078/"
+        ]
+      },
+      "application": {
+        "status": "documented",
+        "section": "## Ứng dụng hôm nay: độ bền sử dụng đi cùng khó khăn tháo mạng",
+        "sources": [
+          "https://patents.google.com/patent/US3633A/en",
+          "https://www.michelinman.com/auto/assistance/glossary",
+          "https://pmc.ncbi.nlm.nih.gov/articles/PMC9003078/"
+        ]
+      },
+      "evidenceScope": "chemical-family"
+    },
+    {
+      "id": "pet-tu-con-soi-den-chai-trong",
+      "slug": "pet-tu-con-soi-den-chai-trong",
+      "title": "Trước chiếc chai trong là một cuộn sợi: phản ứng tạo PET",
+      "category": "phanung",
+      "indexFile": "editorial-index.generated.json",
+      "documentPath": "docs/pet-tu-con-soi-den-chai-trong/index.json",
+      "contentHash": "cf2b4478c2fd48ee83d5b8746faafb706277cc46a17759c8479a0aae805a2f6e",
+      "wordCount": 710,
+      "inlineImageCount": 1,
+      "sourceCount": 3,
+      "declaredLanguage": "vi",
+      "story": {
+        "status": "documented",
+        "section": "## Cuộn sợi kể một lịch sử khác chiếc chai",
+        "sources": [
+          "https://collection.sciencemuseumgroup.org.uk/objects/co12871/first-sample-of-100-spun-terylene-yarn",
+          "https://www.nature.com/articles/158930a0",
+          "https://openstax.org/books/organic-chemistry/pages/31-4-step-growth-polymers"
+        ]
+      },
+      "application": {
+        "status": "documented",
+        "section": "## Ứng dụng hôm nay: cấu trúc phân tử và lịch sử gia công cùng quyết định tính năng",
+        "sources": [
+          "https://collection.sciencemuseumgroup.org.uk/objects/co12871/first-sample-of-100-spun-terylene-yarn",
+          "https://www.nature.com/articles/158930a0",
+          "https://openstax.org/books/organic-chemistry/pages/31-4-step-growth-polymers"
+        ]
+      },
+      "evidenceScope": "chemical-family"
+    },
+    {
       "id": "001_H",
       "slug": "hydrogen-h",
       "title": "Hydrogen (H) — Từ khí cháy đến câu hỏi nước được tạo nên từ gì?",
@@ -9099,22 +12257,32 @@
     {
       "id": "kali-hidroxit-koh",
       "slug": "kali-hidroxit-koh",
-      "title": "Kali hiđroxit (KOH): thành phần, mô hình và phản ứng",
+      "title": "Kali hiđroxit (KOH) — Dung dịch KOH nối hai điện cực trong nguồn điện Apollo",
       "category": "hopchat",
       "indexFile": "reference-index.generated.json",
       "documentPath": "reference/kali-hidroxit-koh/index.json",
-      "contentHash": "0f515e0258200ad9900a0f9c372105ed668fe650abd002748611901649a9cff5",
-      "wordCount": 1387,
+      "contentHash": "3f84bab7bffee9682bef4109b45d39a4f2a527343b8c312de289151339107346",
+      "wordCount": 2028,
       "inlineImageCount": 1,
-      "sourceCount": 8,
+      "sourceCount": 11,
       "declaredLanguage": "vi",
       "story": {
-        "status": "missing",
-        "reason": "Chưa có câu chuyện và ứng dụng được đối chiếu riêng cho Kali hiđroxit (KOH); giữ nguyên bài tra cứu, không gán lịch sử hay công dụng của nguyên tố thành phần cho hợp chất."
+        "status": "documented",
+        "section": "Dung dịch KOH nối hai điện cực trong nguồn điện Apollo",
+        "sources": [
+          "https://ntrs.nasa.gov/api/citations/20070021785/downloads/20070021785.pdf",
+          "https://ntrs.nasa.gov/api/citations/19720007373/downloads/19720007373.pdf",
+          "https://www.energy.gov/cmei/fuels/types-fuel-cells"
+        ]
       },
       "application": {
-        "status": "missing",
-        "reason": "Chưa có câu chuyện và ứng dụng được đối chiếu riêng cho Kali hiđroxit (KOH); giữ nguyên bài tra cứu, không gán lịch sử hay công dụng của nguyên tố thành phần cho hợp chất."
+        "status": "documented",
+        "section": "Từ câu chuyện đến ứng dụng hôm nay",
+        "sources": [
+          "https://ntrs.nasa.gov/api/citations/20070021785/downloads/20070021785.pdf",
+          "https://ntrs.nasa.gov/api/citations/19720007373/downloads/19720007373.pdf",
+          "https://www.energy.gov/cmei/fuels/types-fuel-cells"
+        ]
       },
       "evidenceScope": "substance"
     },
@@ -9143,22 +12311,36 @@
     {
       "id": "bac-nitrat-agno3",
       "slug": "bac-nitrat-agno3",
-      "title": "Bạc nitrat (AgNO₃): thành phần, mô hình và phản ứng",
+      "title": "Bạc nitrat (AgNO₃) — Khi dấu tay trên giấy được hiện ra nhờ một muối bạc",
       "category": "hopchat",
       "indexFile": "reference-index.generated.json",
       "documentPath": "reference/bac-nitrat-agno3/index.json",
-      "contentHash": "f01a359ba353e7e20a6d83935a2978e79372deb434c013ed21bfe3ec2cb9877f",
-      "wordCount": 1538,
-      "inlineImageCount": 1,
-      "sourceCount": 11,
+      "contentHash": "f6cac0248b60799268aa8badaa46001d7ea7cc97db93c78d5594a94a2e87aecd",
+      "wordCount": 2175,
+      "inlineImageCount": 2,
+      "sourceCount": 18,
       "declaredLanguage": "vi",
       "story": {
-        "status": "missing",
-        "reason": "Chưa có câu chuyện và ứng dụng được đối chiếu riêng cho Bạc nitrat (AgNO3); giữ nguyên bài tra cứu, không gán lịch sử hay công dụng của nguyên tố thành phần cho hợp chất."
+        "status": "documented",
+        "section": "Khi dấu tay trên giấy được hiện ra nhờ một muối bạc",
+        "sources": [
+          "https://www.fbi.gov/history/artifacts/barker-karpis-gang-and-russell-gibsons-notebook",
+          "https://archives.fbi.gov/archives/about-us/lab/forensic-science-communications/fsc/oct2007/research/2007_10_research01_test2a.htm",
+          "https://assets.publishing.service.gov.uk/media/5a7b695f40f0b64646935fae/fsb-chap5-alt-development.pdf",
+          "https://pubmed.ncbi.nlm.nih.gov/21661253/",
+          "https://pmc.ncbi.nlm.nih.gov/articles/PMC5873944/"
+        ]
       },
       "application": {
-        "status": "missing",
-        "reason": "Chưa có câu chuyện và ứng dụng được đối chiếu riêng cho Bạc nitrat (AgNO3); giữ nguyên bài tra cứu, không gán lịch sử hay công dụng của nguyên tố thành phần cho hợp chất."
+        "status": "documented",
+        "section": "Từ câu chuyện đến ứng dụng hôm nay",
+        "sources": [
+          "https://www.fbi.gov/history/artifacts/barker-karpis-gang-and-russell-gibsons-notebook",
+          "https://archives.fbi.gov/archives/about-us/lab/forensic-science-communications/fsc/oct2007/research/2007_10_research01_test2a.htm",
+          "https://assets.publishing.service.gov.uk/media/5a7b695f40f0b64646935fae/fsb-chap5-alt-development.pdf",
+          "https://pubmed.ncbi.nlm.nih.gov/21661253/",
+          "https://pmc.ncbi.nlm.nih.gov/articles/PMC5873944/"
+        ]
       },
       "evidenceScope": "substance"
     },
@@ -9477,22 +12659,32 @@
     {
       "id": "chi-thi-phenolphtalein-c20h14o4",
       "slug": "chi-thi-phenolphtalein-c20h14o4",
-      "title": "Chỉ thị Phenolphtalein (C₂₀H₁₄O₄): thành phần, mô hình và phản ứng",
+      "title": "Chỉ thị Phenolphtalein (C₂₀H₁₄O₄) — Vệt hồng trên bê tông kể điều gì về một công trình?",
       "category": "hopchat",
       "indexFile": "reference-index.generated.json",
       "documentPath": "reference/chi-thi-phenolphtalein-c20h14o4/index.json",
-      "contentHash": "4b6dd961d8cc2057eb4d7764c55cfc013ac1d5ec66ac20c09c994fab86baf2e2",
-      "wordCount": 722,
-      "inlineImageCount": 1,
-      "sourceCount": 6,
+      "contentHash": "d7ebafbf236f8b1d0cbf60b9022081b5d4574ef48d61086ec38ef63bcaa9cb4b",
+      "wordCount": 1420,
+      "inlineImageCount": 2,
+      "sourceCount": 11,
       "declaredLanguage": "vi",
       "story": {
-        "status": "missing",
-        "reason": "Chưa có câu chuyện và ứng dụng được đối chiếu riêng cho Chỉ thị Phenolphtalein (C20H14O4); giữ nguyên bài tra cứu, không gán lịch sử hay công dụng của nguyên tố thành phần cho hợp chất."
+        "status": "documented",
+        "section": "Vệt hồng trên bê tông kể điều gì về một công trình?",
+        "sources": [
+          "https://doi.org/10.1617/s11527-024-02424-9",
+          "https://doi.org/10.1617/s11527-026-02966-0",
+          "https://rosap.ntl.bts.gov/view/dot/50239/dot_50239_DS1.pdf"
+        ]
       },
       "application": {
-        "status": "missing",
-        "reason": "Chưa có câu chuyện và ứng dụng được đối chiếu riêng cho Chỉ thị Phenolphtalein (C20H14O4); giữ nguyên bài tra cứu, không gán lịch sử hay công dụng của nguyên tố thành phần cho hợp chất."
+        "status": "documented",
+        "section": "Từ câu chuyện đến ứng dụng hôm nay",
+        "sources": [
+          "https://doi.org/10.1617/s11527-024-02424-9",
+          "https://doi.org/10.1617/s11527-026-02966-0",
+          "https://rosap.ntl.bts.gov/view/dot/50239/dot_50239_DS1.pdf"
+        ]
       },
       "evidenceScope": "substance"
     },
@@ -10351,22 +13543,32 @@
     {
       "id": "dung-dich-magie-sunfat-muoi-epsom-mgso4",
       "slug": "dung-dich-magie-sunfat-muoi-epsom-mgso4",
-      "title": "Dung dịch Magie sunfat (Muối Epsom) (MgSO₄): thành phần, mô hình và phản ứng",
+      "title": "Dung dịch Magie sunfat (Muối Epsom) (MgSO₄) — Muối Epsom trong bài toán giữ nhiệt qua mùa",
       "category": "hopchat",
       "indexFile": "reference-index.generated.json",
       "documentPath": "reference/dung-dich-magie-sunfat-muoi-epsom-mgso4/index.json",
-      "contentHash": "aa8646d00506ee4eab60236ddaa25b128c66e758cff0a89c35a01871996973d1",
-      "wordCount": 1578,
+      "contentHash": "83fa84647bdad43a1d932c8317995d02764dadd64a214a8298418c3f84e8988d",
+      "wordCount": 2146,
       "inlineImageCount": 1,
-      "sourceCount": 9,
+      "sourceCount": 12,
       "declaredLanguage": "vi",
       "story": {
-        "status": "missing",
-        "reason": "Chưa có câu chuyện và ứng dụng được đối chiếu riêng cho Dung dịch Magie sunfat (Muối Epsom) (MgSO4); giữ nguyên bài tra cứu, không gán lịch sử hay công dụng của nguyên tố thành phần cho hợp chất."
+        "status": "documented",
+        "section": "Muối Epsom trong bài toán giữ nhiệt qua mùa",
+        "sources": [
+          "https://www.sciencedirect.com/science/article/pii/S0017931010004679",
+          "https://pegoretti.dii.unitn.it/resources/Untitled-Folder/Papers/282-Zambotti-magnesium-sulfate-TES_JAC-2021.pdf",
+          "https://doi.org/10.1016/j.enconman.2023.118000"
+        ]
       },
       "application": {
-        "status": "missing",
-        "reason": "Chưa có câu chuyện và ứng dụng được đối chiếu riêng cho Dung dịch Magie sunfat (Muối Epsom) (MgSO4); giữ nguyên bài tra cứu, không gán lịch sử hay công dụng của nguyên tố thành phần cho hợp chất."
+        "status": "documented",
+        "section": "Từ câu chuyện đến ứng dụng hôm nay",
+        "sources": [
+          "https://www.sciencedirect.com/science/article/pii/S0017931010004679",
+          "https://pegoretti.dii.unitn.it/resources/Untitled-Folder/Papers/282-Zambotti-magnesium-sulfate-TES_JAC-2021.pdf",
+          "https://doi.org/10.1016/j.enconman.2023.118000"
+        ]
       },
       "evidenceScope": "substance"
     },
@@ -14175,22 +17377,34 @@
     {
       "id": "liti-clorua-licl",
       "slug": "liti-clorua-licl",
-      "title": "liti clorua (LiCl): thành phần, mô hình và phản ứng",
+      "title": "liti clorua (LiCl) — Muối hút ẩm bước vào một kiểu máy điều hòa khác",
       "category": "hopchat",
       "indexFile": "reference-index.generated.json",
       "documentPath": "reference/liti-clorua-licl/index.json",
-      "contentHash": "183a53764b23c86c4732e0d51e030236de169368bd4e5f343d7fdee47b0d32a3",
-      "wordCount": 1464,
+      "contentHash": "5231c90dcd682df0cb84732e485b0dc81ff824b8e166ba0bb04af95915714ea7",
+      "wordCount": 2120,
       "inlineImageCount": 1,
-      "sourceCount": 8,
+      "sourceCount": 12,
       "declaredLanguage": "vi",
       "story": {
-        "status": "missing",
-        "reason": "Chưa có câu chuyện và ứng dụng được đối chiếu riêng cho liti clorua (LiCl); giữ nguyên bài tra cứu, không gán lịch sử hay công dụng của nguyên tố thành phần cho hợp chất."
+        "status": "documented",
+        "section": "Muối hút ẩm bước vào một kiểu máy điều hòa khác",
+        "sources": [
+          "https://docs.nlr.gov/docs/fy12osti/54755.pdf",
+          "https://www.energy.gov/sites/default/files/2014/03/f12/Non-Vapor%20Compression%20HVAC%20Report.pdf",
+          "https://www.epa.gov/natural-gas-star-program/desiccant-dehydrators",
+          "https://www.ailresearchinnovate.com/our-technologies"
+        ]
       },
       "application": {
-        "status": "missing",
-        "reason": "Chưa có câu chuyện và ứng dụng được đối chiếu riêng cho liti clorua (LiCl); giữ nguyên bài tra cứu, không gán lịch sử hay công dụng của nguyên tố thành phần cho hợp chất."
+        "status": "documented",
+        "section": "Từ câu chuyện đến ứng dụng hôm nay",
+        "sources": [
+          "https://docs.nlr.gov/docs/fy12osti/54755.pdf",
+          "https://www.energy.gov/sites/default/files/2014/03/f12/Non-Vapor%20Compression%20HVAC%20Report.pdf",
+          "https://www.epa.gov/natural-gas-star-program/desiccant-dehydrators",
+          "https://www.ailresearchinnovate.com/our-technologies"
+        ]
       },
       "evidenceScope": "substance"
     },
@@ -16365,22 +19579,32 @@
     {
       "id": "kali-iodat-0-05m-kio3",
       "slug": "kali-iodat-0-05m-kio3",
-      "title": "Kali Iodat (0.05M) (KIO₃): thành phần, mô hình và phản ứng",
+      "title": "Kali Iodat (0.05M) (KIO₃) — Giữ iod trong hạt muối: công việc thầm lặng của potassium iodate",
       "category": "hopchat",
       "indexFile": "reference-index.generated.json",
       "documentPath": "reference/kali-iodat-0-05m-kio3/index.json",
-      "contentHash": "505e11e2d3d875b7a77cabcd2ae039ae34b2be9617dbf5e8a1a03058b07abe2b",
-      "wordCount": 732,
+      "contentHash": "d6f30cbed4cc640b5486003692402fd046bb3a55d5bbf9b367b0b3e8cf31213e",
+      "wordCount": 1402,
       "inlineImageCount": 1,
-      "sourceCount": 5,
+      "sourceCount": 8,
       "declaredLanguage": "vi",
       "story": {
-        "status": "missing",
-        "reason": "Chưa có câu chuyện và ứng dụng được đối chiếu riêng cho Kali Iodat (0.05M) (KIO3); giữ nguyên bài tra cứu, không gán lịch sử hay công dụng của nguyên tố thành phần cho hợp chất."
+        "status": "documented",
+        "section": "Giữ iod trong hạt muối: công việc thầm lặng của potassium iodate",
+        "sources": [
+          "https://pmc.ncbi.nlm.nih.gov/articles/PMC2542096/",
+          "https://iris.who.int/bitstream/handle/10665/136908/9789241507929_eng.pdf",
+          "https://downloads.unido.org/ot/46/88/4688493/00001-10000_05048.pdf"
+        ]
       },
       "application": {
-        "status": "missing",
-        "reason": "Chưa có câu chuyện và ứng dụng được đối chiếu riêng cho Kali Iodat (0.05M) (KIO3); giữ nguyên bài tra cứu, không gán lịch sử hay công dụng của nguyên tố thành phần cho hợp chất."
+        "status": "documented",
+        "section": "Từ câu chuyện đến ứng dụng hôm nay",
+        "sources": [
+          "https://pmc.ncbi.nlm.nih.gov/articles/PMC2542096/",
+          "https://iris.who.int/bitstream/handle/10665/136908/9789241507929_eng.pdf",
+          "https://downloads.unido.org/ot/46/88/4688493/00001-10000_05048.pdf"
+        ]
       },
       "evidenceScope": "substance"
     },

@@ -1,0 +1,44 @@
+{
+  "id": "dihydroxylation-hai-nhom-oh-cung-mot-phia",
+  "slug": "dihydroxylation-hai-nhom-oh-cung-mot-phia",
+  "documentPath": "docs/dihydroxylation-hai-nhom-oh-cung-mot-phia/index.json",
+  "title": "Hai nhóm OH xuất hiện có trật tự: hành trình tới AD-mix",
+  "summary": "Phản ứng dihydroxylation bất đối xứng biến một liên kết đôi thành hai tâm chức năng hữu ích. Phối tử vừa tạo ưu tiên lập thể vừa giúp đường xúc tác cạnh tranh với phản ứng nền.",
+  "category": "phanung",
+  "author": "Ban biên tập ChemDex",
+  "image": "/assets/library/organic-alcohol.svg",
+  "tags": [
+    "Dihydroxylation",
+    "Sharpless",
+    "Osmium",
+    "Diol"
+  ],
+  "aliases": [],
+  "documentKind": "story",
+  "readingMinutes": 4,
+  "editorialEvidence": {
+    "language": "vi",
+    "scope": "chemical-family",
+    "contextLabel": "Hai nhóm OH xuất hiện có trật tự: hành trình tới AD-mix",
+    "reviewBasis": "Biên soạn theo các nguồn dẫn cuối bài; phân biệt kết quả đã thực hiện và hướng phát triển.",
+    "story": {
+      "status": "documented",
+      "section": "## Từ công trình năm 1988 tới hỗn hợp được chuẩn hóa",
+      "sources": [
+        "https://doi.org/10.1021/ja00214a053",
+        "https://doi.org/10.1021/jo00036a003",
+        "https://hwpi.harvard.edu/files/myers/files/23-sharpless_asymmetric_dihydroxylation_reaction.pdf"
+      ]
+    },
+    "application": {
+      "status": "documented",
+      "section": "## Ứng dụng hôm nay: tạo diol để tiếp tục xây phân tử",
+      "sources": [
+        "https://doi.org/10.1021/ja00214a053",
+        "https://doi.org/10.1021/jo00036a003",
+        "https://hwpi.harvard.edu/files/myers/files/23-sharpless_asymmetric_dihydroxylation_reaction.pdf"
+      ]
+    }
+  },
+  "content": "## Từ công trình năm 1988 tới hỗn hợp được chuẩn hóa\n\nNăm 1988, Eric Jacobsen, István Markó, William Mungall, Georg Schröder và K. Barry Sharpless công bố dihydroxylation bất đối xứng thông qua xúc tác được phối tử tăng tốc. Đó là một cách đưa hai nhóm OH vào alkene với thông tin không gian được kiểm soát.\n\nNhững cải tiến tiếp theo dẫn tới các hệ quen thuộc dưới tên AD-mix α và β. Tài liệu năm 1992 mô tả các phối tử có thể chọn hai hướng ưu tiên khác nhau. Việc đưa những thành phần cần thiết thành một hệ được mô tả rõ làm phương pháp dễ được sử dụng và so sánh giữa các phòng nghiên cứu hơn.\n\nNhưng chữ “mix” không nói rằng mọi thành phần đều làm cùng một việc. Có nguồn osmium, phối tử bất đối xứng, thành phần hỗ trợ môi trường và chất giúp khép chu trình oxi hóa. Chính việc phân công chức năng ấy làm hệ hoạt động lặp lại.\n\n![Minh họa nhóm alcohol, không phải công thức đầy đủ của diol bất đối xứng](/assets/library/organic-alcohol.svg)\n\n## Chọn một mặt trước khi tạo hai nhóm chức\n\nDihydroxylation tạo hai nhóm hydroxyl trên hai carbon từng nối đôi với nhau. Trong đường phản ứng được xét, hai oxygen được đưa vào theo quan hệ lập thể có tính tổ chức. Phối tử bất đối xứng quanh trung tâm kim loại khiến hai mặt của alkene có những đường tiếp cận không tương đương.\n\nMột thách thức là phản ứng cũng có thể xảy ra qua đường không được phối tử kiểm soát tốt. Nếu đường nền tạo sản phẩm gần hỗn hợp đối quang còn diễn ra mạnh, kết quả cuối bị pha loãng về tính chọn lọc. Khái niệm tăng tốc bởi phối tử giúp giải thích vì sao phối tử có thể làm hơn việc tạo ra một cái hốc có hình dạng lệch.\n\nTrong chu trình xúc tác, kim loại phải được đưa về trạng thái có thể tiếp tục phản ứng. Chất oxi hóa phụ trợ thực hiện vai trò khác với phối tử chỉ dẫn lập thể. Đổi một thành phần có thể tác động đến tốc độ hoặc hiệu suất mà không tác động theo cùng cách đến tỷ lệ đồng phân.\n\nHệ này có những vùng cơ chất hoạt động tốt hơn vùng khác. Độ thế và hình học liên kết đôi là dữ kiện cần đọc, thay vì chỉ nhận diện trong phân tử có ký hiệu C=C.\n\n## Ứng dụng hôm nay: tạo diol để tiếp tục xây phân tử\n\nDiol liền kề có cấu hình xác định là trung gian hữu ích cho tổng hợp những chất nhiều oxygen và nhiều tâm bất đối xứng. Hai nhóm OH có thể được bảo vệ hoặc biến đổi theo những đường khác nhau, nên bước tạo chúng mở ra nhiều lựa chọn cho phần còn lại của kế hoạch tổng hợp.\n\nTrong nghiên cứu hiện nay, dữ liệu về dihydroxylation còn được dùng để xây mô hình dự đoán tính chọn lọc và kiểm tra chúng bằng thí nghiệm mới. Một phản ứng đã có hàng chục năm lịch sử vẫn cung cấp bài toán về quan hệ giữa cấu trúc, môi trường xúc tác và kết quả.\n\nTính thực dụng của AD-mix không loại bỏ yêu cầu quản lý những chất chứa osmium hoặc kiểm tra tạp chất ở sản phẩm. Giá trị thật nằm ở khả năng tạo kết quả đáng tin trong phạm vi đã biết, rồi nhận ra trường hợp nào cần nghiên cứu thêm.\n\nCâu chuyện của hai nhóm OH cho thấy việc chuẩn hóa một phương pháp cũng là một đóng góp khoa học. Khi các vai trò được hiểu và hệ được mô tả rõ, một kết quả của nhóm phát minh có thể trở thành công cụ để những nhóm khác xây các cấu trúc hoàn toàn mới.\n\n## Nguồn và đọc thêm\n\n- [Jacobsen và cộng sự · Dihydroxylation qua xúc tác tăng tốc bởi phối tử, 1988](https://doi.org/10.1021/ja00214a053)\n- [Sharpless và cộng sự · Hệ dihydroxylation thực dụng, 1992](https://doi.org/10.1021/jo00036a003)\n- [Harvard, nhóm Myers · Cơ chế và vai trò các thành phần của AD](https://hwpi.harvard.edu/files/myers/files/23-sharpless_asymmetric_dihydroxylation_reaction.pdf)"
+}

@@ -1,0 +1,44 @@
+{
+  "id": "robinson-annulation-xay-them-vong",
+  "slug": "robinson-annulation-xay-them-vong",
+  "documentPath": "docs/robinson-annulation-xay-them-vong/index.json",
+  "title": "Xây thêm một vòng carbon: vì sao Robinson annulation hữu ích cho khung steroid",
+  "summary": "Một phép cộng liên hợp nối tiếp đóng vòng aldol có thể dựng thêm vòng sáu cạnh. Những nghiên cứu về trung gian hai vòng cho thấy bước xây khung quan trọng nhưng chưa phải cả tuyến làm steroid.",
+  "category": "phanung",
+  "author": "Ban biên tập ChemDex",
+  "image": "/assets/library/covalent-bonds.svg",
+  "tags": [
+    "Robinson annulation",
+    "Aldol",
+    "Michael",
+    "Khung vòng"
+  ],
+  "aliases": [],
+  "documentKind": "story",
+  "readingMinutes": 4,
+  "editorialEvidence": {
+    "language": "vi",
+    "scope": "chemical-family",
+    "contextLabel": "Xây thêm một vòng carbon: vì sao Robinson annulation hữu ích cho khung steroid",
+    "reviewBasis": "Biên soạn theo các nguồn dẫn cuối bài; phân biệt kết quả đã thực hiện và hướng phát triển.",
+    "story": {
+      "status": "documented",
+      "section": "## Một trung gian hai vòng chứa tham vọng lớn",
+      "sources": [
+        "https://doi.org/10.1021/jo00925a003",
+        "https://www.nobelprize.org/uploads/2021/11/list-lecture.pdf",
+        "https://openstax.org/books/organic-chemistry/pages/23-12-the-robinson-annulation-reaction"
+      ]
+    },
+    "application": {
+      "status": "documented",
+      "section": "## Ứng dụng hôm nay: chia một mục tiêu khó thành những bước xây khung",
+      "sources": [
+        "https://doi.org/10.1021/jo00925a003",
+        "https://www.nobelprize.org/uploads/2021/11/list-lecture.pdf",
+        "https://openstax.org/books/organic-chemistry/pages/23-12-the-robinson-annulation-reaction"
+      ]
+    }
+  },
+  "content": "## Một trung gian hai vòng chứa tham vọng lớn\n\nTrong công trình công bố năm 1974, Zoltan Hajos và David Parrish mô tả cách tạo những trung gian hai vòng bất đối xứng liên quan tới tổng hợp sản phẩm tự nhiên. Các cấu trúc ấy được quan tâm vì bộ khung nhiều vòng của steroid rất khó xây đúng cả vị trí lẫn hình học.\n\nCâu chuyện cần một chi tiết ít được nhắc: trong bài giảng Nobel, Benjamin List nói những nghiên cứu này từng được xem là cơ sở cho tuyến công nghiệp tới steroid, nhưng kỳ vọng đó không trở thành cách sản xuất chủ đạo như người ta hình dung. Một trung gian tổng hợp đẹp và một quy trình thương mại thành công là hai thành tựu khác nhau.\n\nDù vậy, giá trị phương pháp vẫn lớn. Chúng cho thấy có thể tổ chức những phản ứng carbonyl thành chuỗi xây vòng, đồng thời kiểm soát sự bất đối xứng. Bước aldol nội phân tử của Hajos–Parrish cần được phân biệt với toàn bộ chuỗi Robinson annulation, vốn còn có bước tạo tiền chất bằng cộng Michael.\n\n![Minh họa liên kết cộng hóa trị, không phải cấu trúc một steroid cụ thể](/assets/library/covalent-bonds.svg)\n\n## Nối một nhánh trước, khép vòng sau\n\nRobinson annulation ghép hai phản ứng quen thuộc theo đúng thứ tự. Đầu tiên, một đối tác carbon có tính nucleophile cộng vào hệ carbonyl liên hợp của đối tác khác theo kiểu Michael. Kết quả tạo một mạch có các nhóm carbonyl nằm ở vị trí cho phép phản ứng tiếp trong cùng phân tử.\n\nBước aldol nội phân tử sau đó tạo một liên kết carbon–carbon mới để khép vòng. Sau những biến đổi phù hợp, sản phẩm thường có khung cyclohexenone. Tên “annulation” phản ánh việc xây thêm vòng, thay vì chỉ đổi một nhóm chức trên khung có sẵn.\n\nƯu điểm của chuỗi này là sử dụng quan hệ vị trí trong tiền chất. Các nhóm không thể nằm tùy ý rồi vẫn cho cùng vòng mong muốn. Độ dài nhánh, những vị trí có thể tạo enolate và hình học của cấu trúc đều ảnh hưởng kết quả.\n\nVới mục tiêu nhiều vòng, hướng nối ở chỗ tiếp giáp vòng có thể quyết định khả năng đi tới cấu trúc cuối. Vì thế, bản vẽ hai vòng phẳng chỉ là phần đầu của câu chuyện; những nhóm nhô về hai phía không gian cũng cần được xác định.\n\n## Ứng dụng hôm nay: chia một mục tiêu khó thành những bước xây khung\n\nRobinson annulation tiếp tục được dùng để lập kế hoạch tổng hợp các phân tử có vòng sáu cạnh và những bộ khung nhiều vòng. Trong giáo trình OpenStax, nó được minh họa qua một tuyến tới estrone, giúp người học nhìn thấy cách một bước xây vòng nằm giữa nhiều công đoạn khác.\n\nTrong nghiên cứu hiện nay, những biến thể bất đối xứng và tổ chức phản ứng liên tiếp mở thêm lựa chọn cho cấu trúc phức tạp. Tính hữu ích không chỉ nằm ở lượng sản phẩm của một bước, mà còn ở số liên kết và phần thông tin lập thể được dựng đúng để các bước sau có thể sử dụng.\n\nCâu chuyện trung gian steroid giúp tránh hai cực đoan khi nhìn một phát minh. Một phương pháp chưa thay thế quy trình thương mại không có nghĩa nó vô giá trị; ngược lại, tạo được một khung quan trọng cũng chưa đủ để tuyên bố đã giải quyết cả chuỗi sản xuất. Thành tựu của phản ứng nằm ở việc làm cho một phần khó của bộ khung trở thành công việc có thể thiết kế và kiểm tra.\n\n## Nguồn và đọc thêm\n\n- [Hajos và Parrish · Tổng hợp bất đối xứng trung gian hai vòng, 1974](https://doi.org/10.1021/jo00925a003)\n- [Benjamin List · Bài giảng Nobel và bối cảnh công nghiệp của phản ứng tiền thân](https://www.nobelprize.org/uploads/2021/11/list-lecture.pdf)\n- [OpenStax · Chuỗi Michael–aldol trong Robinson annulation](https://openstax.org/books/organic-chemistry/pages/23-12-the-robinson-annulation-reaction)"
+}

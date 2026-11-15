@@ -42,7 +42,7 @@ function evidenceStatus(evidence, part, content) {
 }
 
 /** This is a structural audit, not an automated fact-check or literary review. */
-export function auditLibraryEditorial({root = repositoryRoot, targetPerCategory = 1001} = {}) {
+export function auditLibraryEditorial({root = repositoryRoot, targetPerCategory = 500} = {}) {
   if (!Number.isInteger(targetPerCategory) || targetPerCategory < 1) throw new Error('Target must be a positive integer.');
   const dataRoot = path.resolve(root, 'trung-tam/src/data');
   const categories = readJSON(path.join(dataRoot, 'config.json')).categories;

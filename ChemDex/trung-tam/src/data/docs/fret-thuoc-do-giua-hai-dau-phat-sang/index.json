@@ -1,0 +1,43 @@
+{
+  "id": "fret-thuoc-do-giua-hai-dau-phat-sang",
+  "slug": "fret-thuoc-do-giua-hai-dau-phat-sang",
+  "documentPath": "docs/fret-thuoc-do-giua-hai-dau-phat-sang/index.json",
+  "title": "Chiếc thước đo không có vạch chia, chỉ có hai đầu phát sáng",
+  "summary": "FRET dùng sự truyền năng lượng giữa hai nhãn để khảo sát khoảng cách ở kích thước phân tử. Từ polyproline năm 1967, chiếc thước còn phải được kiểm tra độ mềm của chính nó.",
+  "category": "khainiem",
+  "author": "Ban biên tập ChemDex",
+  "image": "/assets/library/covalent-bonds.svg",
+  "tags": [
+    "FRET",
+    "Khoảng cách phân tử",
+    "Huỳnh quang"
+  ],
+  "aliases": [],
+  "documentKind": "story",
+  "readingMinutes": 4,
+  "editorialEvidence": {
+    "language": "vi",
+    "scope": "chemical-family",
+    "contextLabel": "Chiếc thước đo không có vạch chia, chỉ có hai đầu phát sáng",
+    "reviewBasis": "Biên soạn theo các nguồn dẫn cuối bài; phân biệt kết quả đã thực hiện và hướng phát triển.",
+    "story": {
+      "status": "documented",
+      "section": "## Một đoạn nối để kiểm tra quan hệ giữa khoảng cách và tín hiệu",
+      "sources": [
+        "https://pmc.ncbi.nlm.nih.gov/articles/PMC335755/",
+        "https://pmc.ncbi.nlm.nih.gov/articles/PMC39010/",
+        "https://pmc.ncbi.nlm.nih.gov/articles/PMC549440/"
+      ]
+    },
+    "application": {
+      "status": "documented",
+      "section": "## Ứng dụng hôm nay: đo chuyển động với những giả định tường minh",
+      "sources": [
+        "https://pmc.ncbi.nlm.nih.gov/articles/PMC335755/",
+        "https://pmc.ncbi.nlm.nih.gov/articles/PMC39010/",
+        "https://pmc.ncbi.nlm.nih.gov/articles/PMC549440/"
+      ]
+    }
+  },
+  "content": "## Một đoạn nối để kiểm tra quan hệ giữa khoảng cách và tín hiệu\n\nNăm 1967, Lubert Stryer và Richard Haugland dùng những đoạn polyproline có độ dài xác định để đặt hai nhóm hấp thụ–phát sáng cách nhau. Họ khảo sát sự truyền năng lượng kích thích và giới thiệu khả năng dùng hiện tượng như một chiếc thước quang phổ. Vật liệu phân tử vừa là đối tượng vừa là phần hiệu chuẩn của phép đo.\n\nTheo mô hình Förster, tốc độ truyền trong điều kiện phù hợp phụ thuộc rất mạnh vào khoảng cách, theo lũy thừa bậc sáu nghịch đảo. Một thay đổi nhỏ ở khoảng cách có thể tạo khác biệt rõ trong tín hiệu. Đó là lợi thế khi muốn theo dõi những chuyển động mà kính hiển vi thông thường không trực tiếp phân giải được.\n\n![Minh họa khoảng cách và cấu trúc phân tử; không phải dữ liệu FRET thực nghiệm](/assets/library/covalent-bonds.svg)\n\n## Năng lượng đi từ donor tới acceptor\n\nMột nhãn cho, thường gọi là donor, được kích thích. Nếu nhãn nhận phù hợp nằm đủ gần, năng lượng có thể chuyển sang nó qua tương tác cộng hưởng, không phải vì donor phát một photon đi xa rồi photon tình cờ bị bắt lại. Hiệu suất phụ thuộc phổ của hai nhãn, định hướng và môi trường, ngoài khoảng cách.\n\nVì thế, FRET không phải chiếc thước cứng có một phép đổi màu–nanomet dùng cho mọi hệ. Vị trí gắn nhãn, độ linh động của đoạn nối và khả năng nhãn làm thay đổi phân tử cần được kiểm tra. Một kết quả đo khoảng cách thực ra mô tả khoảng cách giữa các nhãn trong những giả định đã nêu, không tự bằng khoảng cách giữa mọi vị trí sinh học mà người nghiên cứu quan tâm.\n\n## Từ trung bình của nhiều phân tử tới từng cặp\n\nNăm 1996, Taekjip Ha và cộng sự trình bày FRET giữa một donor và một acceptor nối qua các đoạn ADN ngắn. Theo dõi từng cặp mở đường cho việc nhìn thấy sự khác biệt hoặc chuyển đổi mà phép đo trung bình có thể che khuất. Hai quần thể có trạng thái khác nhau không nhất thiết hiện thành một hình ảnh rõ trong số đo gộp.\n\nĐến năm 2005, Schuler và cộng sự quay lại chiếc thước polyproline bằng huỳnh quang phân tử đơn và mô phỏng. Những đoạn dài không hành xử hoàn toàn như thanh cứng; sự uốn có thể làm khoảng cách hai đầu ngắn hơn. Chiếc thước cũng là một phân tử có chuyển động, nên hiệu chuẩn phải theo kịp cách hiểu cấu trúc.\n\n## Ứng dụng hôm nay: đo chuyển động với những giả định tường minh\n\nFRET được dùng trong nghiên cứu gấp cuộn, tương tác và các thay đổi cấu dạng. Một chuỗi tín hiệu theo thời gian có thể giúp phân biệt trạng thái mở và đóng, hoặc sự tiếp cận của hai thành phần. Các kết luận thường được kiểm tra thêm bằng thay vị trí nhãn, đổi điều kiện và đo đặc tính quang của nhãn riêng.\n\nĐiều đẹp trong câu chuyện là một quá trình trao đổi năng lượng trở thành thông tin hình học. Nhưng thành công không nằm ở việc quên đi những yếu tố khác; nó nằm ở khả năng đo và ràng buộc chúng. Từ đoạn polyproline tới máy phân tử đang chuyển động, FRET giúp người nghiên cứu hỏi “hai phần đã tiến lại gần nhau chưa” bằng ánh sáng, đồng thời giữ rõ đâu là tín hiệu trực tiếp và đâu là khoảng cách được suy ra từ mô hình.\n\n## Nguồn và đọc thêm\n\n- [Stryer và Haugland · Energy Transfer: A Spectroscopic Ruler, 1967](https://pmc.ncbi.nlm.nih.gov/articles/PMC335755/)\n- [Ha và cộng sự · FRET của từng cặp nhãn, 1996](https://pmc.ncbi.nlm.nih.gov/articles/PMC39010/)\n- [Schuler và cộng sự · Kiểm tra lại chiếc thước polyproline, 2005](https://pmc.ncbi.nlm.nih.gov/articles/PMC549440/)"
+}

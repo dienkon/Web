@@ -1,0 +1,44 @@
+{
+  "id": "otto-diels-lan-khung-carbon-cua-cholesterol",
+  "slug": "otto-diels-lan-khung-carbon-cua-cholesterol",
+  "documentPath": "docs/otto-diels-lan-khung-carbon-cua-cholesterol/index.json",
+  "title": "Otto Diels: lần theo khung carbon khi phân tử đã đổi dạng",
+  "summary": "Trước khi nổi tiếng với tổng hợp diene, Diels nghiên cứu cách biến sterol thành những sản phẩm dễ nhận diện hơn. Một phản ứng phân hủy có thể trở thành công cụ đọc cấu trúc.",
+  "category": "tieusu",
+  "author": "Ban biên tập ChemDex",
+  "image": "/assets/library/organic-aromatic.svg",
+  "tags": [
+    "Otto Diels",
+    "Cholesterol",
+    "Cấu trúc hữu cơ",
+    "Lịch sử phân tích"
+  ],
+  "aliases": [],
+  "documentKind": "story",
+  "readingMinutes": 4,
+  "editorialEvidence": {
+    "language": "vi",
+    "scope": "chemical-family",
+    "contextLabel": "Otto Diels: lần theo khung carbon khi phân tử đã đổi dạng",
+    "reviewBasis": "Biên soạn theo các nguồn dẫn cuối bài; phân biệt kết quả đã thực hiện và hướng phát triển.",
+    "story": {
+      "status": "documented",
+      "section": "## Một sản phẩm đơn giản hơn được dùng như manh mối",
+      "sources": [
+        "https://www.nobelprize.org/uploads/2018/06/diels-lecture.pdf",
+        "https://www.nobelprize.org/prizes/chemistry/1950/diels/biographical/",
+        "https://www.nature.com/articles/129277a0"
+      ]
+    },
+    "application": {
+      "status": "documented",
+      "section": "## Ứng dụng hôm nay: phản ứng vẫn có thể là phép thử cấu trúc",
+      "sources": [
+        "https://www.nobelprize.org/uploads/2018/06/diels-lecture.pdf",
+        "https://www.nobelprize.org/prizes/chemistry/1950/diels/biographical/",
+        "https://www.nature.com/articles/129277a0"
+      ]
+    }
+  },
+  "content": "## Một sản phẩm đơn giản hơn được dùng như manh mối\n\nTrong bài giảng Nobel, Otto Diels kể lại công việc nghiên cứu cholesterol bằng những biến đổi với selenium. Ông thu được một hydrocarbon thơm kết tinh tốt, có công thức C₁₈H₁₆, từ một chất ban đầu phức tạp hơn nhiều.\n\nMục tiêu không phải sản xuất một dẫn xuất có công dụng thương mại ngay lập tức. Sản phẩm được dùng để hỏi về phần khung carbon của sterol. Ở thời điểm các công cụ phổ hiện đại chưa có, chuỗi phản ứng và đặc tính của dẫn xuất là những nguồn bằng chứng quan trọng.\n\nDiels cũng mô tả khó khăn khi xác định cấu trúc sản phẩm. Câu chuyện cho thấy một phản ứng tạo chất mới chỉ mở ra thêm dữ liệu; để biến nó thành lời giải về chất cũ cần một lập luận đủ cẩn thận.\n\n![Minh họa hệ vòng hữu cơ, không phải cấu trúc đầy đủ của cholesterol](/assets/library/organic-aromatic.svg)\n\n## Biến đổi phân tử không bảo đảm giữ nguyên mọi quan hệ\n\nKhi dùng phản ứng để suy cấu trúc, người nghiên cứu cần biết phần nào có thể được giữ và phần nào có thể tái sắp xếp. Một sản phẩm thơm bền có thể làm lộ một mô típ của khung, nhưng không tự kể toàn bộ cấu hình không gian của chất ban đầu.\n\nCholesterol chứa nhiều thông tin hơn công thức tổng quát: cách các vòng nối nhau, nhóm thế và các tâm bất đối xứng. Những biến đổi mạnh có thể xóa bớt những thông tin ấy. Do đó, kết luận phải được xây từ nhiều loại dẫn xuất và phép so sánh.\n\nPhương pháp hóa học cổ điển thường giống một cuộc điều tra bằng dấu vết. Mỗi phản ứng loại bỏ một số khả năng, đồng thời có thể tạo những câu hỏi mới. Điều thuyết phục là sự nhất quán của nhiều mảnh bằng chứng, không phải một sản phẩm đẹp duy nhất.\n\n## Lịch sử cấu trúc còn đi qua nhiều nhóm nghiên cứu\n\nCác nghiên cứu về sterol được tiếp nối bởi nhiều nhà hóa học và những phương pháp khác, trong đó có tinh thể học. Công trình của John Bernal đầu thập niên 1930 giúp đưa thêm bằng chứng hình học vào lĩnh vực.\n\nĐiều này làm rõ vai trò của Diels mà không đặt toàn bộ việc giải cấu trúc cholesterol vào một người. Ông cung cấp một công cụ và những sản phẩm đặc trưng có ảnh hưởng đến cách các nhóm suy luận.\n\nBên cạnh công việc ấy, Diels cùng Kurt Alder phát triển tổng hợp diene được trao Nobel năm 1950. Hai mạch nghiên cứu cho thấy hóa hữu cơ vừa tạo phương pháp xây phân tử vừa tìm phương pháp đọc những cấu trúc thiên nhiên đã có.\n\n## Ứng dụng hôm nay: phản ứng vẫn có thể là phép thử cấu trúc\n\nCác công cụ phổ và nhiễu xạ hiện đại đã thay đổi mạnh việc xác định cấu trúc. Tuy nhiên, biến đổi hóa học có kiểm soát vẫn giúp kiểm tra vị trí nhóm chức, cấu hình hoặc quan hệ giữa các chất trong những bài toán phù hợp.\n\nKhi một mô hình cấu trúc được đề xuất, tổng hợp hoặc tạo dẫn xuất rồi so sánh có thể cung cấp bằng chứng độc lập. Mỗi cách kiểm tra cần được thiết kế sao cho kết quả phân biệt được những giả thuyết đang cạnh tranh.\n\nCâu chuyện Diels không phải lời mời lặp các thao tác hóa học lịch sử. Giá trị nằm ở cách đọc giới hạn của một dấu vết: sản phẩm này giữ thông tin gì và đã làm mất điều gì? Thói quen ấy vẫn quan trọng khi máy hiện đại cung cấp nhiều dữ liệu hơn bao giờ hết, bởi dữ liệu chỉ trả lời đúng khi câu hỏi về nguồn gốc của nó được giữ rõ.\n\n## Nguồn và đọc thêm\n\n- [Otto Diels · Bài giảng Nobel và nghiên cứu sterol](https://www.nobelprize.org/uploads/2018/06/diels-lecture.pdf)\n- [Otto Diels · Hồ sơ sự nghiệp Nobel](https://www.nobelprize.org/prizes/chemistry/1950/diels/biographical/)\n- [Bernal · Tinh thể học các hợp chất sterol, 1932](https://www.nature.com/articles/129277a0)"
+}

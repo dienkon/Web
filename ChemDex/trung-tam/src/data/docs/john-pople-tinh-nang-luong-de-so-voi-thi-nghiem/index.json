@@ -1,0 +1,44 @@
+{
+  "id": "john-pople-tinh-nang-luong-de-so-voi-thi-nghiem",
+  "slug": "john-pople-tinh-nang-luong-de-so-voi-thi-nghiem",
+  "documentPath": "docs/john-pople-tinh-nang-luong-de-so-voi-thi-nghiem/index.json",
+  "title": "John Pople: một phép tính phải trả lời được những con số của hóa học",
+  "summary": "Gaussian-1 năm 1989 là ví dụ về cách Pople và cộng sự kết hợp nhiều bước tính để dự đoán năng lượng. Độ tin cậy được xây bằng đối chiếu có hệ thống, không bằng độ phức tạp của tên phương pháp.",
+  "category": "tieusu",
+  "author": "Ban biên tập ChemDex",
+  "image": "/assets/library/orbital-hybridization.svg",
+  "tags": [
+    "John Pople",
+    "Hóa lượng tử",
+    "Gaussian",
+    "Năng lượng phân tử"
+  ],
+  "aliases": [],
+  "documentKind": "story",
+  "readingMinutes": 4,
+  "editorialEvidence": {
+    "language": "vi",
+    "scope": "chemical-family",
+    "contextLabel": "John Pople: một phép tính phải trả lời được những con số của hóa học",
+    "reviewBasis": "Biên soạn theo các nguồn dẫn cuối bài; phân biệt kết quả đã thực hiện và hướng phát triển.",
+    "story": {
+      "status": "documented",
+      "section": "## Một công thức tính chung cho nhiều phân tử",
+      "sources": [
+        "https://doi.org/10.1063/1.456415",
+        "https://www.nobelprize.org/uploads/2018/06/pople-lecture.pdf",
+        "https://cccbdb.nist.gov/"
+      ]
+    },
+    "application": {
+      "status": "documented",
+      "section": "## Ứng dụng hôm nay: kết quả tính phải có hồ sơ điều kiện",
+      "sources": [
+        "https://doi.org/10.1063/1.456415",
+        "https://www.nobelprize.org/uploads/2018/06/pople-lecture.pdf",
+        "https://cccbdb.nist.gov/"
+      ]
+    }
+  },
+  "content": "## Một công thức tính chung cho nhiều phân tử\n\nNăm 1989, John Pople cùng Martin Head-Gordon, Douglas Fox, Krishnan Raghavachari và Larry Curtiss công bố Gaussian-1, một quy trình dự đoán năng lượng phân tử. Thay vì dựa vào một phép tính duy nhất ở mức cực cao, phương pháp kết hợp các bước và hiệu chỉnh được tổ chức có hệ thống.\n\nMục tiêu là những đại lượng mà hóa học cần: năng lượng tạo thành, năng lượng ion hóa và các chênh lệch liên quan. Một mô hình chỉ cho hình phân tử đẹp chưa đủ; nó phải đối diện với những con số có thể so cùng thí nghiệm.\n\nĐó là nét xuyên suốt sự nghiệp Pople. Các phương pháp và chương trình được phát triển để nhiều nhà hóa học có thể sử dụng, đồng thời các giới hạn cần được kiểm tra trên những tập dữ liệu tham chiếu.\n\n![Minh họa mô hình electron, không phải dữ liệu năng lượng Gaussian-1](/assets/library/orbital-hybridization.svg)\n\n## Xấp xỉ được chia thành những phần có thể đánh giá\n\nTính cấu trúc electron đòi hỏi chọn cách biểu diễn orbital và mức xử lý tương quan giữa electron. Mỗi lựa chọn tiêu tốn công tính và để lại sai số. Trong phương pháp tổng hợp như Gaussian-1, các thành phần được kết hợp nhằm đạt độ chính xác hữu ích với nguồn lực khả thi.\n\nCách làm không biến sai số thành thứ tự động triệt tiêu. Nó cần được kiểm tra trên những loại hệ thuộc phạm vi đã thiết kế. Khi chuyển sang một phân tử có đặc điểm khác hẳn tập tham chiếu, phải đánh giá lại mức tin cậy.\n\nMột giá trị năng lượng tuyệt đối rất lớn có thể được tính tới nhiều chữ số, nhưng đại lượng hóa học thường là chênh lệch nhỏ giữa các trạng thái. Số chữ số xuất hiện trên màn hình vì thế không tự cho biết chênh lệch ấy chính xác đến đâu.\n\n## Chuẩn thực nghiệm trở thành đối tác của phần mềm\n\nCơ sở dữ liệu hóa học tính toán của NIST đối chiếu những loại dữ liệu lý thuyết và thực nghiệm, cho thấy tinh thần đánh giá mà Pople thúc đẩy tiếp tục có vai trò. Muốn cải tiến phương pháp phải biết nó làm tốt và làm kém ở đâu.\n\nCác bước kiểm tra còn bao gồm cấu trúc, tần số dao động và những hiệu chỉnh liên quan đến trạng thái của mẫu. So một năng lượng điện tử với một đại lượng nhiệt hóa học mà bỏ qua khác biệt định nghĩa có thể tạo sự không khớp giả.\n\nBài giảng Nobel của Pople trình bày hóa học lượng tử như một lĩnh vực cần những mô hình có khả năng tiên đoán. Chương trình máy tính là phương tiện triển khai; nền khoa học nằm trong cách phương pháp được định nghĩa và kiểm chứng.\n\n## Ứng dụng hôm nay: kết quả tính phải có hồ sơ điều kiện\n\nCác công cụ tính toán hỗ trợ lựa chọn cấu trúc, khảo sát đường phản ứng và giải thích phổ. Người dùng cần ghi rõ phương pháp, bộ hàm cơ sở và những giả thiết môi trường để người khác hiểu kết quả đang mô tả hệ nào.\n\nMột phép tính nhanh có thể rất hữu ích ở giai đoạn sàng lọc, còn một kết luận định lượng có thể cần phương pháp khác. Chọn đúng mức tính theo câu hỏi giúp tiết kiệm nguồn lực mà vẫn giữ chất lượng bằng chứng.\n\nPople làm cho phép tính trở thành một phần quen thuộc của công việc hóa học bằng cách đặt nó trước những tiêu chí cụ thể. Thành công không chỉ là cho máy giải một hệ phương trình. Nó là tạo một quy trình mà người sử dụng biết phải nhập gì, so với gì và nên tin kết quả trong khoảng nào.\n\n## Nguồn và đọc thêm\n\n- [Pople và cộng sự · Gaussian-1, 1989](https://doi.org/10.1063/1.456415)\n- [John Pople · Bài giảng Nobel](https://www.nobelprize.org/uploads/2018/06/pople-lecture.pdf)\n- [NIST · Cơ sở đối chiếu dữ liệu hóa học tính toán](https://cccbdb.nist.gov/)"
+}

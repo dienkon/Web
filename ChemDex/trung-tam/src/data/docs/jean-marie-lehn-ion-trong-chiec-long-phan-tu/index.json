@@ -1,0 +1,44 @@
+{
+  "id": "jean-marie-lehn-ion-trong-chiec-long-phan-tu",
+  "slug": "jean-marie-lehn-ion-trong-chiec-long-phan-tu",
+  "documentPath": "docs/jean-marie-lehn-ion-trong-chiec-long-phan-tu/index.json",
+  "title": "Jean-Marie Lehn: giữ ion trong một chiếc lồng phân tử",
+  "summary": "Cryptand bao quanh ion bằng một cấu trúc ba chiều. Lehn và cộng sự dùng các khoang này để phát triển nguyên tắc nhận diện và tổ chức những hệ lớn hơn một phân tử riêng lẻ.",
+  "category": "tieusu",
+  "author": "Ban biên tập ChemDex",
+  "image": "/assets/library/ionic-crystal.svg",
+  "tags": [
+    "Jean-Marie Lehn",
+    "Cryptand",
+    "Siêu phân tử",
+    "Nhận diện"
+  ],
+  "aliases": [],
+  "documentKind": "story",
+  "readingMinutes": 4,
+  "editorialEvidence": {
+    "language": "vi",
+    "scope": "chemical-family",
+    "contextLabel": "Jean-Marie Lehn: giữ ion trong một chiếc lồng phân tử",
+    "reviewBasis": "Biên soạn theo các nguồn dẫn cuối bài; phân biệt kết quả đã thực hiện và hướng phát triển.",
+    "story": {
+      "status": "documented",
+      "section": "## Từ vòng phẳng tới một khoang ba chiều",
+      "sources": [
+        "https://doi.org/10.1016/S0040-4039(01)88300-3",
+        "https://www.nobelprize.org/uploads/2018/06/lehn-lecture.pdf",
+        "https://doi.org/10.1126/science.1071063"
+      ]
+    },
+    "application": {
+      "status": "documented",
+      "section": "## Ứng dụng hôm nay: thiết kế quan hệ giữa các thành phần",
+      "sources": [
+        "https://doi.org/10.1016/S0040-4039(01)88300-3",
+        "https://www.nobelprize.org/uploads/2018/06/lehn-lecture.pdf",
+        "https://doi.org/10.1126/science.1071063"
+      ]
+    }
+  },
+  "content": "## Từ vòng phẳng tới một khoang ba chiều\n\nCuối thập niên 1960, Jean-Marie Lehn cùng Bernard Dietrich và Jean-Pierre Sauvage phát triển các hợp chất có nhiều cầu nối tạo khoang ba chiều. Những phân tử được gọi là cryptand có thể bao quanh cation bằng các nguyên tử cho electron hướng vào trong.\n\nCâu hỏi mở rộng từ việc một vòng giữ ion thế nào tới việc một lồng có thể lựa chọn và bảo vệ ion ra sao. Tổ chức ba chiều tạo thêm những cách kiểm soát, đồng thời đặt ra bài toán tổng hợp phức tạp hơn.\n\nTrong những công trình về sau, Lehn dùng những nguyên tắc này để xây hóa học siêu phân tử: nghiên cứu các hệ hình thành từ những tương tác giữa các phân tử. Tên gọi mới không thay thế hóa học liên kết cũ; nó mở thêm cấp độ tổ chức cần được giải thích.\n\n![Minh họa tương tác ion, không phải cấu trúc cryptand thực nghiệm](/assets/library/ionic-crystal.svg)\n\n## Sự phù hợp phải tính cả vật chủ và môi trường\n\nIon bị bao quanh không mất điện tích hay trở thành nguyên tố khác. Môi trường phối trí của nó thay đổi, và điều đó ảnh hưởng năng lượng, độ tan hoặc khả năng phản ứng của phức.\n\nKích thước khoang là một yếu tố, nhưng tính chọn lọc còn phụ thuộc cách sắp xếp các nguyên tử tương tác, độ mềm của khung và dung môi. Một ion có thể phải rời lớp solvat ban đầu trước khi được nhận vào khoang. Lợi ích của tương tác mới phải được xét cùng chi phí của những thay đổi ấy.\n\nVì vậy, thiết kế nhận diện không giống chỉ cắt một lỗ đúng đường kính. Nó là cân bằng giữa nhiều đóng góp năng lượng và chuyển động. Các phép đo độ bền phức giúp kiểm tra liệu mô hình hình học có thực sự dự đoán được hành vi trong dung dịch.\n\n## Tổ chức tự phát vẫn cần điều kiện và năng lượng\n\nLehn tiếp tục nghiên cứu những hệ mà nhiều thành phần tự tổ chức nhờ những tương tác đã được cài vào cấu trúc. Mỗi mảnh có các khả năng kết nối, còn môi trường và điều kiện quyết định tổ hợp nào được ưu tiên.\n\nTừ “tự lắp ráp” dễ gây cảm giác không cần kiểm soát. Thực tế, thành phần, nồng độ, nhiệt độ và thời gian đều có thể làm hệ đi tới những cấu trúc khác nhau hoặc mắc ở trạng thái chưa cân bằng.\n\nBài giảng Nobel và các bài tổng thuật của Lehn đặt nhận diện, vận chuyển và xúc tác cạnh nhau. Một sự kết hợp giữa các phân tử có thể trở thành chức năng nếu có cách điều khiển đầu vào, đọc đầu ra và đưa hệ qua những chu kỳ cần thiết.\n\n## Ứng dụng hôm nay: thiết kế quan hệ giữa các thành phần\n\nHóa học siêu phân tử hỗ trợ nghiên cứu cảm biến, vật liệu đáp ứng và những cấu trúc có thể tái tổ chức. Các hệ cần được đánh giá ở môi trường phù hợp vì nước, muối hoặc thành phần cạnh tranh có thể làm thay đổi sự kết hợp.\n\nMột vật liệu nhận diện tốt trong dung môi tinh khiết chưa chắc giữ được chọn lọc trong mẫu thực phức tạp. Tính thuận nghịch có thể giúp tái sinh nhưng cũng làm cấu trúc nhạy với điều kiện. Những đánh đổi đó thuộc chính nhiệm vụ thiết kế.\n\nChiếc lồng của Lehn giúp hóa học đi từ danh sách phân tử tới những quan hệ có thể lựa chọn. Khi cách các thành phần nhận ra nhau được xây bằng cấu trúc và kiểm tra bằng phép đo, việc tạo một hệ lớn hơn không còn chỉ là trộn các chất rồi chờ điều gì xảy ra.\n\n## Nguồn và đọc thêm\n\n- [Dietrich, Lehn và Sauvage · Các hệ đa vòng nhận cation, 1969](https://doi.org/10.1016/S0040-4039(01)88300-3)\n- [Jean-Marie Lehn · Bài giảng Nobel](https://www.nobelprize.org/uploads/2018/06/lehn-lecture.pdf)\n- [Jean-Marie Lehn · Hóa học siêu phân tử hướng tới hệ phức tạp](https://doi.org/10.1126/science.1071063)"
+}

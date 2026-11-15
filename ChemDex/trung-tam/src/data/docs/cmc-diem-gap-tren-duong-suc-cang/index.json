@@ -1,0 +1,44 @@
+{
+  "id": "cmc-diem-gap-tren-duong-suc-cang",
+  "slug": "cmc-diem-gap-tren-duong-suc-cang",
+  "documentPath": "docs/cmc-diem-gap-tren-duong-suc-cang/index.json",
+  "title": "Điểm gấp trên đường sức căng: khi chất hoạt động bề mặt bắt đầu tụ nhóm",
+  "summary": "CMC được suy ra từ những thay đổi tính chất khi nồng độ tăng. So sánh nhiều phương pháp cho thấy một mốc quen thuộc cũng cần định nghĩa và điều kiện đo rõ ràng.",
+  "category": "khainiem",
+  "author": "Ban biên tập ChemDex",
+  "image": "/assets/library/organic-alkane.svg",
+  "tags": [
+    "CMC",
+    "Micelle",
+    "Sức căng bề mặt",
+    "Tự tập hợp"
+  ],
+  "aliases": [],
+  "documentKind": "story",
+  "readingMinutes": 4,
+  "editorialEvidence": {
+    "language": "vi",
+    "scope": "chemical-family",
+    "contextLabel": "Điểm gấp trên đường sức căng: khi chất hoạt động bề mặt bắt đầu tụ nhóm",
+    "reviewBasis": "Biên soạn theo các nguồn dẫn cuối bài; phân biệt kết quả đã thực hiện và hướng phát triển.",
+    "story": {
+      "status": "documented",
+      "section": "## Một loạt dung dịch cho một đường đổi dốc",
+      "sources": [
+        "https://pubmed.ncbi.nlm.nih.gov/29332160/",
+        "https://doi.org/10.1021/la981149f",
+        "https://www.sciencedirect.com/science/article/pii/S0378381214002027"
+      ]
+    },
+    "application": {
+      "status": "documented",
+      "section": "## Ứng dụng hôm nay: chọn vùng hoạt động của công thức",
+      "sources": [
+        "https://pubmed.ncbi.nlm.nih.gov/29332160/",
+        "https://doi.org/10.1021/la981149f",
+        "https://www.sciencedirect.com/science/article/pii/S0378381214002027"
+      ]
+    }
+  },
+  "content": "## Một loạt dung dịch cho một đường đổi dốc\n\nTrong nghiên cứu so sánh phương pháp công bố năm 2018, các tác giả xác định nồng độ micelle tới hạn bằng huỳnh quang, độ dẫn điện và sức căng bề mặt cho những chất hoạt động bề mặt ion và không ion. Các kỹ thuật không luôn có cùng độ nhạy hoặc độ không đảm bảo, dù cùng hướng tới một mốc tập hợp trong dung dịch.\n\nCách tiếp cận nhắc rằng CMC không xuất hiện như một chữ số tự in trên phân tử. Người nghiên cứu pha loạt mẫu, đo một tính chất, rồi lựa chọn cách nhận ra vùng thay đổi. Phương pháp phù hợp với chất ion có thể không phù hợp như vậy với một chất không ion; đầu dò huỳnh quang cũng cần được kiểm tra vai trò của chính nó.\n\n![Minh họa mạch hydrocarbon; không phải sơ đồ hoàn chỉnh của micelle](/assets/library/organic-alkane.svg)\n\n## Phân tử đơn và tập hợp cùng tồn tại\n\nChất hoạt động bề mặt có những phần tương tác khác nhau với nước. Ở nồng độ thích hợp, việc tập hợp giúp giảm tiếp xúc bất lợi của các phần kỵ nước, tạo micelle hoặc những cấu trúc khác. Trạng thái này là cân bằng động: phân tử có thể trao đổi giữa tập hợp và dung dịch.\n\nCMC thường được dùng để mô tả vùng bắt đầu có lượng micelle đáng kể trong điều kiện xác định. Nó không có nghĩa mọi phân tử lập tức biến mất khỏi dạng đơn, cũng không bảo đảm micelle luôn hình cầu. Nồng độ cao hơn, muối hoặc thay đổi nhiệt có thể dẫn đến cấu trúc khác. Mô hình hình cầu rất hữu ích để bắt đầu, nhưng vật liệu thực có cả một giản đồ trạng thái.\n\n## Bề mặt và dung dịch không kể chính xác cùng câu chuyện\n\nMột nghiên cứu năm 1999 đo sức căng và độ dẫn của SDS cùng các hỗn hợp cho thấy phải phân biệt cực tiểu trên đường sức căng với vùng cân bằng dùng để suy CMC. Các quá trình ở mặt phân cách có thể làm cách chọn điểm trở nên không đơn giản.\n\nNghiên cứu năm 2014 về SDS trong môi trường có chất lỏng ion kết hợp độ dẫn, huỳnh quang và NMR để xem sự tập hợp thay đổi ra sao. Điều này làm rõ một đặc tính quan trọng: CMC phụ thuộc môi trường, không phải hằng số chỉ cần tra theo tên hóa chất. Chất thêm vào có thể tác động lên tương tác điện, độ hòa tan và cách các đầu phân cực đứng cạnh nhau.\n\n## Ứng dụng hôm nay: chọn vùng hoạt động của công thức\n\nHiểu micelle giúp thiết kế chất tẩy rửa, hệ hòa tan và nhiều môi trường phản ứng. Nhưng hiệu quả làm sạch còn phụ thuộc bề mặt bẩn, dầu, cơ học và khả năng giữ chất bẩn trong dòng nước. Không thể chỉ tăng nồng độ vượt CMC rồi kết luận hiệu quả tăng tương ứng.\n\nGiá trị của mốc CMC nằm ở việc giúp phân chia những chế độ hành vi để đặt thí nghiệm đúng chỗ. Khi đọc một số liệu, cần biết chất nào, dung môi nào, nhiệt độ nào và phép đo nào. Điểm gấp trên đường sức căng là dấu hiệu của sự tổ chức lại ở cấp phân tử; để biến nó thành công thức có ích, người nghiên cứu phải nối dấu hiệu ấy với nhiệm vụ thực của cả hỗn hợp.\n\n## Nguồn và đọc thêm\n\n- [Nghiên cứu gốc · So sánh ba cách xác định CMC, 2018](https://pubmed.ncbi.nlm.nih.gov/29332160/)\n- [Nghiên cứu gốc · Sức căng và CMC của hỗn hợp, 1999](https://doi.org/10.1021/la981149f)\n- [Nghiên cứu gốc · Môi trường chất lỏng ion và micelle SDS, 2014](https://www.sciencedirect.com/science/article/pii/S0378381214002027)"
+}

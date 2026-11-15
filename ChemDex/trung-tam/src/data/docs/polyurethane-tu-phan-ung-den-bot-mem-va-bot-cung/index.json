@@ -1,0 +1,44 @@
+{
+  "id": "polyurethane-tu-phan-ung-den-bot-mem-va-bot-cung",
+  "slug": "polyurethane-tu-phan-ung-den-bot-mem-va-bot-cung",
+  "documentPath": "docs/polyurethane-tu-phan-ung-den-bot-mem-va-bot-cung/index.json",
+  "title": "Cùng một họ liên kết, hai thế giới vật liệu: polyurethane từ đệm ghế tới lớp cách nhiệt",
+  "summary": "Otto Bayer và đồng nghiệp phát triển hóa học polyurethane từ năm 1937. Thay cấu trúc những đối tác phản ứng có thể đưa vật liệu từ mềm đàn hồi sang mạng cứng nhẹ.",
+  "category": "phanung",
+  "author": "Ban biên tập ChemDex",
+  "image": "/assets/library/organic-polymer.svg",
+  "tags": [
+    "Polyurethane",
+    "Polyaddition",
+    "Liên kết ngang",
+    "Vật liệu"
+  ],
+  "aliases": [],
+  "documentKind": "story",
+  "readingMinutes": 4,
+  "editorialEvidence": {
+    "language": "vi",
+    "scope": "chemical-family",
+    "contextLabel": "Cùng một họ liên kết, hai thế giới vật liệu: polyurethane từ đệm ghế tới lớp cách nhiệt",
+    "reviewBasis": "Biên soạn theo các nguồn dẫn cuối bài; phân biệt kết quả đã thực hiện và hướng phát triển.",
+    "story": {
+      "status": "documented",
+      "section": "## Một phát hiện cần nhiều năm mới tìm được chỗ đứng",
+      "sources": [
+        "https://www.covestro.com/en/company/covestro-worldwide/japan/covestro-in-japan/history",
+        "https://doi.org/10.1002/ange.19470590901",
+        "https://openstax.org/books/organic-chemistry/pages/31-4-step-growth-polymers"
+      ]
+    },
+    "application": {
+      "status": "documented",
+      "section": "## Ứng dụng hôm nay: tên họ không thay thế thiết kế vật liệu",
+      "sources": [
+        "https://www.covestro.com/en/company/covestro-worldwide/japan/covestro-in-japan/history",
+        "https://doi.org/10.1002/ange.19470590901",
+        "https://openstax.org/books/organic-chemistry/pages/31-4-step-growth-polymers"
+      ]
+    }
+  },
+  "content": "## Một phát hiện cần nhiều năm mới tìm được chỗ đứng\n\nCovestro ghi mốc năm 1937 cho công việc của Otto Bayer tại Leverkusen về polyurethane. Lịch sử công ty cũng nhấn mạnh rằng ưu thế của vật liệu mới chưa rõ ngay từ đầu; phải qua nhiều năm phát triển mới có thể tạo những sản phẩm phù hợp với các nhiệm vụ cụ thể.\n\nBài báo năm 1947 của chính Otto Bayer mô tả phương pháp polyaddition dùng diisocyanate. Tư liệu này cho thấy nền tảng hóa học được trình bày như một họ khả năng, không phải công thức duy nhất cho một loại bọt mà người dùng ngày nay nhìn thấy.\n\nĐến các mốc thương mại sau đó, polyurethane xuất hiện trong đệm, lớp phủ và vật liệu cách nhiệt. Một câu hỏi thú vị nảy sinh: vì sao vật mềm để ngồi và vật cứng để giữ nhiệt lại có thể cùng mang một tên họ polymer? Câu trả lời nằm ở đối tác phản ứng và cách những mối nối được phân bố.\n\n![Minh họa chuỗi và mạng polymer, không phải ảnh cấu trúc bọt polyurethane cụ thể](/assets/library/organic-polymer.svg)\n\n## Tạo liên kết urethane mà không bắt buộc tách một phân tử nhỏ\n\nNhóm alcohol phản ứng với nhóm isocyanate để tạo liên kết urethane. Nếu mỗi đối tác có nhiều vị trí phù hợp, quá trình lặp lại tạo chuỗi dài hoặc mạng. Ở phản ứng tạo urethane lý tưởng, các nguyên tử của hai nhóm được giữ trong liên kết mới; không bắt buộc có nước bị tách ra như trong một số phản ứng ngưng tụ.\n\nĐiều này giúp phân biệt “phát triển theo bước” với “ngưng tụ”. Một polymer có thể lớn lên qua phản ứng giữa nhiều phân tử ở các kích thước khác nhau mà không phải mỗi mối nối đều giải phóng một phân tử nhỏ.\n\nĐộ dài và tính linh động của phần polyol ảnh hưởng đến độ mềm. Số nhóm chức và mức liên kết ngang ảnh hưởng việc các chuỗi có thể trượt, kéo dài hoặc giữ thành mạng cứng. Những đoạn tương đối mềm và cứng trong cấu trúc còn có thể sắp xếp thành các vùng có vai trò khác nhau.\n\nKhi tạo bọt, quá trình sinh khí và quá trình hình thành mạng cần được cân bằng. Bọt khí không phải lỗ rỗng được khoan vào khối nhựa sau khi nó đã cứng; cấu trúc ô hình thành cùng diễn biến phản ứng và dòng chảy của vật liệu.\n\n## Ứng dụng hôm nay: tên họ không thay thế thiết kế vật liệu\n\nPolyurethane được sử dụng trong nhiều dạng, từ bọt mềm, bọt cứng tới elastomer và lớp phủ. Mỗi dạng có thành phần và cấu trúc được thiết kế cho nhiệm vụ khác nhau. Vì vậy, tính chất của một miếng đệm không thể được gán cho mọi sản phẩm có chữ PU trên nhãn.\n\nCác phát triển về nguồn polyol và tái chế tiếp tục thay đổi cách làm vật liệu. Tuy nhiên, thay một phần nguyên liệu không đủ chứng minh toàn bộ sản phẩm có tác động môi trường thấp hơn; cần kiểm tra cả tính năng sử dụng, tuổi thọ và khả năng xử lý cuối vòng đời.\n\nCâu chuyện từ năm 1937 cho thấy công thức nhóm chức là một ngôn ngữ chung, còn thiết kế polymer là cách viết rất nhiều câu khác nhau bằng ngôn ngữ ấy. Đổi một đối tác hoặc số điểm nối có thể làm vật liệu nhận một công việc hoàn toàn mới.\n\nMột phản ứng thành công trong bình chỉ mở ra khả năng. Để thành đệm ghế hoặc lớp cách nhiệt, vật liệu phải có cấu trúc ô, độ bền và mức ổn định đúng yêu cầu. Hóa học polyurethane trở thành một ngành lớn nhờ khả năng điều chỉnh những yếu tố ấy theo mục đích sử dụng.\n\n## Nguồn và đọc thêm\n\n- [Covestro · Lịch sử công việc polyurethane từ năm 1937](https://www.covestro.com/en/company/covestro-worldwide/japan/covestro-in-japan/history)\n- [Otto Bayer · Phương pháp polyaddition diisocyanate, 1947](https://doi.org/10.1002/ange.19470590901)\n- [OpenStax · Polyurethane và polymer phát triển theo bước](https://openstax.org/books/organic-chemistry/pages/31-4-step-growth-polymers)"
+}

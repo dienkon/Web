@@ -1,0 +1,44 @@
+{
+  "id": "photoredox-nickel-hai-chu-trinh-gap-nhau",
+  "slug": "photoredox-nickel-hai-chu-trinh-gap-nhau",
+  "documentPath": "docs/photoredox-nickel-hai-chu-trinh-gap-nhau/index.json",
+  "title": "Khi ánh sáng giao việc cho nickel: cuộc gặp của hai chu trình xúc tác",
+  "summary": "Năm 2014, ghép xúc tác quang oxi hóa–khử với nickel mở cách dùng acid carboxylic làm đối tác tạo liên kết carbon. Ánh sáng không chỉ làm nóng bình phản ứng.",
+  "category": "phanung",
+  "author": "Ban biên tập ChemDex",
+  "image": "/assets/library/apparatus-spectroscope.svg",
+  "tags": [
+    "Photoredox",
+    "Nickel",
+    "Iridium",
+    "Ghép cặp"
+  ],
+  "aliases": [],
+  "documentKind": "story",
+  "readingMinutes": 4,
+  "editorialEvidence": {
+    "language": "vi",
+    "scope": "chemical-family",
+    "contextLabel": "Khi ánh sáng giao việc cho nickel: cuộc gặp của hai chu trình xúc tác",
+    "reviewBasis": "Biên soạn theo các nguồn dẫn cuối bài; phân biệt kết quả đã thực hiện và hướng phát triển.",
+    "story": {
+      "status": "documented",
+      "section": "## Hai nhóm nghiên cứu mang tới hai khả năng khác nhau",
+      "sources": [
+        "https://pmc.ncbi.nlm.nih.gov/articles/PMC4296524/",
+        "https://www.nature.com/articles/nature14875",
+        "https://pmc.ncbi.nlm.nih.gov/articles/PMC8667460/"
+      ]
+    },
+    "application": {
+      "status": "documented",
+      "section": "## Ứng dụng hôm nay: thêm những nguyên liệu có thể được ghép",
+      "sources": [
+        "https://pmc.ncbi.nlm.nih.gov/articles/PMC4296524/",
+        "https://www.nature.com/articles/nature14875",
+        "https://pmc.ncbi.nlm.nih.gov/articles/PMC8667460/"
+      ]
+    }
+  },
+  "content": "## Hai nhóm nghiên cứu mang tới hai khả năng khác nhau\n\nTrong công trình Science năm 2014, các nhóm Abigail Doyle và David MacMillan kết hợp kinh nghiệm về nickel với hóa học quang oxi hóa–khử. Họ muốn dùng những nhóm chức sẵn có như acid carboxylic để tham gia ghép carbon, thay vì luôn chuẩn bị đối tác cơ kim theo những con đường truyền thống.\n\nKết quả được trình bày qua ghép khử carboxyl giữa các acid phù hợp với halide thơm. Cùng giai đoạn, nhóm Gary Molander độc lập phát triển sự kết hợp photoredox–nickel với những đối tác organoboron. Hai công trình liên quan nhưng sử dụng nguồn gốc gốc tự do khác nhau.\n\nĐiểm chung là chia công việc cho hai chu trình. Một hệ dùng ánh sáng để tạo hoặc điều chỉnh loài phản ứng; hệ nickel tổ chức việc ghép những mảnh carbon. Khả năng mới xuất hiện khi các bước của chúng gặp nhau đúng thời điểm.\n\n![Minh họa dụng cụ quang học, không phải thiết bị photoredox hoặc sơ đồ chu trình nickel](/assets/library/apparatus-spectroscope.svg)\n\n## Photon làm thay đổi khả năng trao đổi electron\n\nPhức quang xúc tác chứa iridium trong hệ được nghiên cứu hấp thụ ánh sáng và đi vào trạng thái kích thích. Ở trạng thái đó, khả năng nhận hoặc cho electron khác trạng thái ban đầu. Nhờ vậy, những biến đổi một electron có thể được khai thác để tạo trung gian gốc tự do.\n\nVới acid carboxylic phù hợp, quá trình oxi hóa và mất CO₂ tạo một trung gian carbon có thể được nickel tiếp nhận trong đường ghép. CO₂ là một sản phẩm của bước loại nhóm carboxyl; carbon này không được giữ lại trong bộ khung mục tiêu. Phép đếm nguyên tử giúp phân biệt kiểu ghép ấy với việc nối nguyên vẹn hai phân tử đầu vào.\n\nCác trạng thái oxi hóa và phối trí của nickel thay đổi qua chu trình. Nghiên cứu cơ chế sau đó cho thấy không phải mọi hệ metallaphotoredox đều đi theo đúng một sơ đồ duy nhất; có trường hợp chuyển electron, trường hợp chuyển năng lượng hoặc các đường hoạt hóa khác góp phần.\n\nVì thế, dùng đèn sáng hơn không mặc nhiên làm phản ứng tốt hơn. Photon phải được hấp thụ bởi đúng thành phần và dẫn tới đường hóa học hữu ích.\n\n## Ứng dụng hôm nay: thêm những nguyên liệu có thể được ghép\n\nPhotoredox–nickel được dùng trong phát triển phương pháp tạo liên kết carbon–carbon và carbon–heteroatom. Một nghiên cứu năm 2015 về tạo liên kết C–O cho thấy điều chỉnh trạng thái của nickel bằng quang xúc tác có thể mở những bước trước đó khó xảy ra trong chu trình hiệu quả.\n\nNhững phương pháp này hấp dẫn cho việc tạo nhiều biến thể phân tử trong nghiên cứu dược và vật liệu. Nhưng phạm vi phản ứng phải được đánh giá trên những cơ chất đủ đa dạng, không chỉ vài ví dụ dễ. Khi tăng quy mô, đường đi của ánh sáng và khả năng truyền photon vào toàn bộ dung dịch trở thành bài toán thiết bị riêng.\n\nCác tác giả của những công trình cơ chế tiếp tục phân biệt điều đã đo được với trung gian còn được đề xuất. Một sơ đồ đẹp là công cụ tổ chức giả thuyết; quang phổ, động học và phép thử kiểm soát giúp xác định nó đúng tới đâu.\n\nCâu chuyện năm 2014 cho thấy một đổi mới có thể nằm ở việc ghép hai năng lực đã có. Ánh sáng tạo cơ hội trao đổi electron, nickel cung cấp đường nối phân tử. Chức năng của cả hệ lớn hơn việc đặt thêm một bóng đèn bên cạnh xúc tác kim loại.\n\n## Nguồn và đọc thêm\n\n- [Zuo, Doyle, MacMillan và cộng sự · Ghép photoredox–nickel, 2014](https://pmc.ncbi.nlm.nih.gov/articles/PMC4296524/)\n- [Tạo liên kết C–O bằng điều chỉnh trạng thái nickel, 2015](https://www.nature.com/articles/nature14875)\n- [Nghiên cứu cơ chế quang loại chlorine trong ghép nickel/photoredox](https://pmc.ncbi.nlm.nih.gov/articles/PMC8667460/)"
+}

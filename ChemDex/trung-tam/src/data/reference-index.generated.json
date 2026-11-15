@@ -2801,10 +2801,10 @@
     "legacyIds": [
       "ho-so-416c377718b2"
     ],
-    "title": "Kali hiđroxit (KOH): thành phần, mô hình và phản ứng",
+    "title": "Kali hiđroxit (KOH) — Dung dịch KOH nối hai điện cực trong nguồn điện Apollo",
     "author": "ChemDex · Học cấu trúc",
     "category": "hopchat",
-    "summary": "Kali hiđroxit: đơn vị công thức, cách đọc mô hình và nguồn dữ liệu. Phản ứng đi kèm điều kiện; câu hỏi có lời giải.",
+    "summary": "Pin nhiên liệu trên tàu Apollo biến hydrogen và oxygen thành điện cùng nước. Bên trong, potassium hydroxide giữ một nhiệm vụ ít xuất hiện trên ảnh tàu vũ trụ: tạo môi trường dẫn ion để hai điện cực phối hợp thành một nguồn điện.",
     "image": "/assets/library/photos/substances/kali-hidroxit-koh.jpg",
     "chemicalFormula": "KOH",
     "tags": [
@@ -2828,21 +2828,31 @@
     ],
     "documentKind": "reference",
     "lessonKind": "substance-guide",
-    "readingMinutes": 8,
+    "readingMinutes": 12,
     "editorialEvidence": {
       "language": "vi",
       "scope": "substance",
       "contextLabel": "Kali hiđroxit",
-      "reviewBasis": "editorial-audit-2026-11-15",
+      "reviewBasis": "source-read-2026-11-15",
       "story": {
-        "status": "missing",
-        "sources": [],
-        "reason": "Chưa có câu chuyện và ứng dụng được đối chiếu riêng cho Kali hiđroxit (KOH); giữ nguyên bài tra cứu, không gán lịch sử hay công dụng của nguyên tố thành phần cho hợp chất."
+        "status": "documented",
+        "section": "Dung dịch KOH nối hai điện cực trong nguồn điện Apollo",
+        "sources": [
+          "https://ntrs.nasa.gov/api/citations/20070021785/downloads/20070021785.pdf",
+          "https://ntrs.nasa.gov/api/citations/19720007373/downloads/19720007373.pdf",
+          "https://www.energy.gov/cmei/fuels/types-fuel-cells"
+        ]
       },
       "application": {
-        "status": "missing",
-        "sources": [],
-        "reason": "Chưa có câu chuyện và ứng dụng được đối chiếu riêng cho Kali hiđroxit (KOH); giữ nguyên bài tra cứu, không gán lịch sử hay công dụng của nguyên tố thành phần cho hợp chất."
+        "status": "documented",
+        "kind": "use",
+        "scope": "substance",
+        "section": "Từ câu chuyện đến ứng dụng hôm nay",
+        "sources": [
+          "https://ntrs.nasa.gov/api/citations/20070021785/downloads/20070021785.pdf",
+          "https://ntrs.nasa.gov/api/citations/19720007373/downloads/19720007373.pdf",
+          "https://www.energy.gov/cmei/fuels/types-fuel-cells"
+        ]
       }
     }
   },
@@ -2900,11 +2910,11 @@
     "legacyIds": [
       "ho-so-ead36eeeffb3"
     ],
-    "title": "Bạc nitrat (AgNO₃): thành phần, mô hình và phản ứng",
+    "title": "Bạc nitrat (AgNO₃) — Khi dấu tay trên giấy được hiện ra nhờ một muối bạc",
     "author": "ChemDex · Học cấu trúc",
     "category": "hopchat",
-    "summary": "Bạc nitrat: đơn vị công thức, cách đọc mô hình và nguồn dữ liệu. Phản ứng đi kèm điều kiện; câu hỏi có lời giải.",
-    "image": "/assets/library/photos/substances/bac-nitrat-agno3.jpg",
+    "summary": "Trong cuộc điều tra vụ bắt cóc William A. Hamm Jr., Phòng thí nghiệm FBI dùng silver nitrate để hiện dấu vân tay trên thư đòi tiền chuộc. Tờ giấy mang thông tin ngoài những dòng chữ: phần cặn bàn tay để lại có thể được chuyển thành tín hiệu hóa học.",
+    "image": "/assets/library/photos/stories/fbi-gibson-notebook.jpg",
     "chemicalFormula": "AgNO₃",
     "tags": [
       "Thành phần ion",
@@ -2924,21 +2934,35 @@
     ],
     "documentKind": "reference",
     "lessonKind": "substance-guide",
-    "readingMinutes": 9,
+    "readingMinutes": 13,
     "editorialEvidence": {
       "language": "vi",
       "scope": "substance",
       "contextLabel": "Bạc nitrat",
-      "reviewBasis": "editorial-audit-2026-11-15",
+      "reviewBasis": "source-read-2026-11-15",
       "story": {
-        "status": "missing",
-        "sources": [],
-        "reason": "Chưa có câu chuyện và ứng dụng được đối chiếu riêng cho Bạc nitrat (AgNO3); giữ nguyên bài tra cứu, không gán lịch sử hay công dụng của nguyên tố thành phần cho hợp chất."
+        "status": "documented",
+        "section": "Khi dấu tay trên giấy được hiện ra nhờ một muối bạc",
+        "sources": [
+          "https://www.fbi.gov/history/artifacts/barker-karpis-gang-and-russell-gibsons-notebook",
+          "https://archives.fbi.gov/archives/about-us/lab/forensic-science-communications/fsc/oct2007/research/2007_10_research01_test2a.htm",
+          "https://assets.publishing.service.gov.uk/media/5a7b695f40f0b64646935fae/fsb-chap5-alt-development.pdf",
+          "https://pubmed.ncbi.nlm.nih.gov/21661253/",
+          "https://pmc.ncbi.nlm.nih.gov/articles/PMC5873944/"
+        ]
       },
       "application": {
-        "status": "missing",
-        "sources": [],
-        "reason": "Chưa có câu chuyện và ứng dụng được đối chiếu riêng cho Bạc nitrat (AgNO3); giữ nguyên bài tra cứu, không gán lịch sử hay công dụng của nguyên tố thành phần cho hợp chất."
+        "status": "documented",
+        "kind": "use",
+        "scope": "substance",
+        "section": "Từ câu chuyện đến ứng dụng hôm nay",
+        "sources": [
+          "https://www.fbi.gov/history/artifacts/barker-karpis-gang-and-russell-gibsons-notebook",
+          "https://archives.fbi.gov/archives/about-us/lab/forensic-science-communications/fsc/oct2007/research/2007_10_research01_test2a.htm",
+          "https://assets.publishing.service.gov.uk/media/5a7b695f40f0b64646935fae/fsb-chap5-alt-development.pdf",
+          "https://pubmed.ncbi.nlm.nih.gov/21661253/",
+          "https://pmc.ncbi.nlm.nih.gov/articles/PMC5873944/"
+        ]
       }
     }
   },
@@ -3571,11 +3595,11 @@
     "legacyIds": [
       "ho-so-8a51186e7327"
     ],
-    "title": "Chỉ thị Phenolphtalein (C₂₀H₁₄O₄): thành phần, mô hình và phản ứng",
+    "title": "Chỉ thị Phenolphtalein (C₂₀H₁₄O₄) — Vệt hồng trên bê tông kể điều gì về một công trình?",
     "author": "ChemDex · Học cấu trúc",
     "category": "hopchat",
-    "summary": "Chỉ thị Phenolphtalein: phân tử / cấu tạo, cách đọc mô hình và nguồn dữ liệu. Phản ứng đi kèm điều kiện; câu hỏi có lời giải.",
-    "image": "/assets/library/photos/substances/chi-thi-phenolphtalein-c20h14o4.jpg",
+    "summary": "Một mặt cắt bê tông có thể hiện lên vùng hồng bên cạnh vùng không màu khi được khảo sát bằng phenolphthalein. Ranh giới ấy hữu ích cho nghiên cứu carbonat hóa, nhưng nó không phải một bức ảnh trực tiếp của cốt thép đang ăn mòn.",
+    "image": "/assets/library/photos/stories/phenolphthalein-concrete.jpg",
     "chemicalFormula": "C₂₀H₁₄O₄",
     "tags": [
       "Cấu trúc & Phản ứng",
@@ -3593,21 +3617,31 @@
     ],
     "documentKind": "reference",
     "lessonKind": "substance-guide",
-    "readingMinutes": 5,
+    "readingMinutes": 8,
     "editorialEvidence": {
       "language": "vi",
       "scope": "substance",
       "contextLabel": "Chỉ thị Phenolphtalein",
-      "reviewBasis": "editorial-audit-2026-11-15",
+      "reviewBasis": "source-read-2026-11-15",
       "story": {
-        "status": "missing",
-        "sources": [],
-        "reason": "Chưa có câu chuyện và ứng dụng được đối chiếu riêng cho Chỉ thị Phenolphtalein (C20H14O4); giữ nguyên bài tra cứu, không gán lịch sử hay công dụng của nguyên tố thành phần cho hợp chất."
+        "status": "documented",
+        "section": "Vệt hồng trên bê tông kể điều gì về một công trình?",
+        "sources": [
+          "https://doi.org/10.1617/s11527-024-02424-9",
+          "https://doi.org/10.1617/s11527-026-02966-0",
+          "https://rosap.ntl.bts.gov/view/dot/50239/dot_50239_DS1.pdf"
+        ]
       },
       "application": {
-        "status": "missing",
-        "sources": [],
-        "reason": "Chưa có câu chuyện và ứng dụng được đối chiếu riêng cho Chỉ thị Phenolphtalein (C20H14O4); giữ nguyên bài tra cứu, không gán lịch sử hay công dụng của nguyên tố thành phần cho hợp chất."
+        "status": "documented",
+        "kind": "use",
+        "scope": "substance",
+        "section": "Từ câu chuyện đến ứng dụng hôm nay",
+        "sources": [
+          "https://doi.org/10.1617/s11527-024-02424-9",
+          "https://doi.org/10.1617/s11527-026-02966-0",
+          "https://rosap.ntl.bts.gov/view/dot/50239/dot_50239_DS1.pdf"
+        ]
       }
     }
   },
@@ -5364,10 +5398,10 @@
     "legacyIds": [
       "ho-so-71f2df04f46f"
     ],
-    "title": "Dung dịch Magie sunfat (Muối Epsom) (MgSO₄): thành phần, mô hình và phản ứng",
+    "title": "Dung dịch Magie sunfat (Muối Epsom) (MgSO₄) — Muối Epsom trong bài toán giữ nhiệt qua mùa",
     "author": "ChemDex · Học cấu trúc",
     "category": "hopchat",
-    "summary": "Dung dịch Magie sunfat (Muối Epsom): đơn vị công thức, cách đọc mô hình và nguồn dữ liệu. Phản ứng đi kèm điều kiện; câu hỏi có lời giải.",
+    "summary": "Năm 2010, một nghiên cứu dùng magnesium sulfate heptahydrate làm mẫu để tính cách lưu năng lượng bằng phản ứng tách nước. Câu hỏi đặt ra khác hẳn việc giữ một bể nước nóng: có thể cất năng lượng trong trạng thái hóa học của vật liệu rồi lấy lại khi cần không?",
     "image": "/assets/library/photos/substances/dung-dich-magie-sunfat-muoi-epsom-mgso4.jpg",
     "chemicalFormula": "MgSO₄",
     "tags": [
@@ -5386,21 +5420,31 @@
     ],
     "documentKind": "reference",
     "lessonKind": "substance-guide",
-    "readingMinutes": 9,
+    "readingMinutes": 12,
     "editorialEvidence": {
       "language": "vi",
       "scope": "substance",
       "contextLabel": "Dung dịch Magie sunfat (Muối Epsom)",
-      "reviewBasis": "editorial-audit-2026-11-15",
+      "reviewBasis": "source-read-2026-11-15",
       "story": {
-        "status": "missing",
-        "sources": [],
-        "reason": "Chưa có câu chuyện và ứng dụng được đối chiếu riêng cho Dung dịch Magie sunfat (Muối Epsom) (MgSO4); giữ nguyên bài tra cứu, không gán lịch sử hay công dụng của nguyên tố thành phần cho hợp chất."
+        "status": "documented",
+        "section": "Muối Epsom trong bài toán giữ nhiệt qua mùa",
+        "sources": [
+          "https://www.sciencedirect.com/science/article/pii/S0017931010004679",
+          "https://pegoretti.dii.unitn.it/resources/Untitled-Folder/Papers/282-Zambotti-magnesium-sulfate-TES_JAC-2021.pdf",
+          "https://doi.org/10.1016/j.enconman.2023.118000"
+        ]
       },
       "application": {
-        "status": "missing",
-        "sources": [],
-        "reason": "Chưa có câu chuyện và ứng dụng được đối chiếu riêng cho Dung dịch Magie sunfat (Muối Epsom) (MgSO4); giữ nguyên bài tra cứu, không gán lịch sử hay công dụng của nguyên tố thành phần cho hợp chất."
+        "status": "documented",
+        "kind": "use",
+        "scope": "substance",
+        "section": "Từ câu chuyện đến ứng dụng hôm nay",
+        "sources": [
+          "https://www.sciencedirect.com/science/article/pii/S0017931010004679",
+          "https://pegoretti.dii.unitn.it/resources/Untitled-Folder/Papers/282-Zambotti-magnesium-sulfate-TES_JAC-2021.pdf",
+          "https://doi.org/10.1016/j.enconman.2023.118000"
+        ]
       }
     }
   },
@@ -13104,10 +13148,10 @@
     "legacyIds": [
       "ho-so-4f4a82ce853f"
     ],
-    "title": "liti clorua (LiCl): thành phần, mô hình và phản ứng",
+    "title": "liti clorua (LiCl) — Muối hút ẩm bước vào một kiểu máy điều hòa khác",
     "author": "ChemDex · Học cấu trúc",
     "category": "hopchat",
-    "summary": "liti clorua: đơn vị công thức, cách đọc mô hình và nguồn dữ liệu. Phản ứng đi kèm điều kiện; câu hỏi có lời giải.",
+    "summary": "Trong các nguyên mẫu DEVap được NREL phân tích năm 2012, một dung dịch lithium chloride tham gia làm khô không khí trước khi công đoạn bay hơi làm việc. Chất muối không thay máy nén bằng một phép màu; nó giúp tách bài toán độ ẩm khỏi bài toán hạ nhiệt.",
     "image": "/assets/library/photos/substances/liti-clorua-licl.jpg",
     "chemicalFormula": "LiCl",
     "tags": [
@@ -13125,21 +13169,33 @@
     ],
     "documentKind": "reference",
     "lessonKind": "substance-guide",
-    "readingMinutes": 9,
+    "readingMinutes": 12,
     "editorialEvidence": {
       "language": "vi",
       "scope": "substance",
       "contextLabel": "liti clorua",
-      "reviewBasis": "editorial-audit-2026-11-15",
+      "reviewBasis": "source-read-2026-11-15",
       "story": {
-        "status": "missing",
-        "sources": [],
-        "reason": "Chưa có câu chuyện và ứng dụng được đối chiếu riêng cho liti clorua (LiCl); giữ nguyên bài tra cứu, không gán lịch sử hay công dụng của nguyên tố thành phần cho hợp chất."
+        "status": "documented",
+        "section": "Muối hút ẩm bước vào một kiểu máy điều hòa khác",
+        "sources": [
+          "https://docs.nlr.gov/docs/fy12osti/54755.pdf",
+          "https://www.energy.gov/sites/default/files/2014/03/f12/Non-Vapor%20Compression%20HVAC%20Report.pdf",
+          "https://www.epa.gov/natural-gas-star-program/desiccant-dehydrators",
+          "https://www.ailresearchinnovate.com/our-technologies"
+        ]
       },
       "application": {
-        "status": "missing",
-        "sources": [],
-        "reason": "Chưa có câu chuyện và ứng dụng được đối chiếu riêng cho liti clorua (LiCl); giữ nguyên bài tra cứu, không gán lịch sử hay công dụng của nguyên tố thành phần cho hợp chất."
+        "status": "documented",
+        "kind": "use",
+        "scope": "substance",
+        "section": "Từ câu chuyện đến ứng dụng hôm nay",
+        "sources": [
+          "https://docs.nlr.gov/docs/fy12osti/54755.pdf",
+          "https://www.energy.gov/sites/default/files/2014/03/f12/Non-Vapor%20Compression%20HVAC%20Report.pdf",
+          "https://www.epa.gov/natural-gas-star-program/desiccant-dehydrators",
+          "https://www.ailresearchinnovate.com/our-technologies"
+        ]
       }
     }
   },
@@ -17554,10 +17610,10 @@
     "legacyIds": [
       "ho-so-f0a704cb6c8d"
     ],
-    "title": "Kali Iodat (0.05M) (KIO₃): thành phần, mô hình và phản ứng",
+    "title": "Kali Iodat (0.05M) (KIO₃) — Giữ iod trong hạt muối: công việc thầm lặng của potassium iodate",
     "author": "ChemDex · Học cấu trúc",
     "category": "hopchat",
-    "summary": "Kali Iodat (0.05M): phân tử / cấu tạo, cách đọc mô hình và nguồn dữ liệu. Phản ứng đi kèm điều kiện; câu hỏi có lời giải.",
+    "summary": "Năm 1953, F. C. Kelly tổng hợp các nghiên cứu về một vấn đề rất thực tế: iod được thêm vào muối có thể mất đi trong bảo quản. Hiệu quả của việc bổ sung vi chất phụ thuộc cả vào điều xảy ra sau khi muối rời nơi sản xuất.",
     "image": "/assets/library/photos/substances/kali-iodat-0-05m-kio3.jpg",
     "chemicalFormula": "KIO₃",
     "tags": [
@@ -17574,21 +17630,31 @@
     ],
     "documentKind": "reference",
     "lessonKind": "substance-guide",
-    "readingMinutes": 5,
+    "readingMinutes": 8,
     "editorialEvidence": {
       "language": "vi",
       "scope": "substance",
       "contextLabel": "Kali Iodat (0.05M)",
-      "reviewBasis": "editorial-audit-2026-11-15",
+      "reviewBasis": "source-read-2026-11-15",
       "story": {
-        "status": "missing",
-        "sources": [],
-        "reason": "Chưa có câu chuyện và ứng dụng được đối chiếu riêng cho Kali Iodat (0.05M) (KIO3); giữ nguyên bài tra cứu, không gán lịch sử hay công dụng của nguyên tố thành phần cho hợp chất."
+        "status": "documented",
+        "section": "Giữ iod trong hạt muối: công việc thầm lặng của potassium iodate",
+        "sources": [
+          "https://pmc.ncbi.nlm.nih.gov/articles/PMC2542096/",
+          "https://iris.who.int/bitstream/handle/10665/136908/9789241507929_eng.pdf",
+          "https://downloads.unido.org/ot/46/88/4688493/00001-10000_05048.pdf"
+        ]
       },
       "application": {
-        "status": "missing",
-        "sources": [],
-        "reason": "Chưa có câu chuyện và ứng dụng được đối chiếu riêng cho Kali Iodat (0.05M) (KIO3); giữ nguyên bài tra cứu, không gán lịch sử hay công dụng của nguyên tố thành phần cho hợp chất."
+        "status": "documented",
+        "kind": "use",
+        "scope": "substance",
+        "section": "Từ câu chuyện đến ứng dụng hôm nay",
+        "sources": [
+          "https://pmc.ncbi.nlm.nih.gov/articles/PMC2542096/",
+          "https://iris.who.int/bitstream/handle/10665/136908/9789241507929_eng.pdf",
+          "https://downloads.unido.org/ot/46/88/4688493/00001-10000_05048.pdf"
+        ]
       }
     }
   },

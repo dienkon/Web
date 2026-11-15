@@ -1,0 +1,44 @@
+{
+  "id": "krafft-giat-lanh-khi-chat-tay-ket-tinh",
+  "slug": "krafft-giat-lanh-khi-chat-tay-ket-tinh",
+  "documentPath": "docs/krafft-giat-lanh-khi-chat-tay-ket-tinh/index.json",
+  "title": "Giặt lạnh không chỉ là phản ứng chậm hơn: chất tẩy có thể chưa tan đủ",
+  "summary": "Điểm Krafft đặt một giới hạn pha cho một số chất hoạt động bề mặt ion. Nghiên cứu hỗn hợp cho thấy cách cải thiện tính năng ở nhiệt độ thấp phải xét cả độ tan.",
+  "category": "khainiem",
+  "author": "Ban biên tập ChemDex",
+  "image": "/assets/library/organic-alkane.svg",
+  "tags": [
+    "Điểm Krafft",
+    "Chất tẩy rửa",
+    "Độ tan",
+    "Nhiệt độ thấp"
+  ],
+  "aliases": [],
+  "documentKind": "story",
+  "readingMinutes": 4,
+  "editorialEvidence": {
+    "language": "vi",
+    "scope": "chemical-family",
+    "contextLabel": "Giặt lạnh không chỉ là phản ứng chậm hơn: chất tẩy có thể chưa tan đủ",
+    "reviewBasis": "Biên soạn theo các nguồn dẫn cuối bài; phân biệt kết quả đã thực hiện và hướng phát triển.",
+    "story": {
+      "status": "documented",
+      "section": "## Nhiệt độ thấp làm lộ một giới hạn khác",
+      "sources": [
+        "https://www.sciencedirect.com/science/article/abs/pii/S0021979718310221",
+        "https://arxiv.org/abs/2105.11824",
+        "https://pmc.ncbi.nlm.nih.gov/articles/PMC7658934/"
+      ]
+    },
+    "application": {
+      "status": "documented",
+      "section": "## Ứng dụng hôm nay: công thức phải sống qua thời tiết và bảo quản",
+      "sources": [
+        "https://www.sciencedirect.com/science/article/abs/pii/S0021979718310221",
+        "https://arxiv.org/abs/2105.11824",
+        "https://pmc.ncbi.nlm.nih.gov/articles/PMC7658934/"
+      ]
+    }
+  },
+  "content": "## Nhiệt độ thấp làm lộ một giới hạn khác\n\nMột nghiên cứu về hiệu năng hỗn hợp chất hoạt động bề mặt ở nhiệt độ thấp công bố năm 2019 đặt câu hỏi gắn với tiết kiệm năng lượng giặt: làm sao duy trì làm sạch khi nước lạnh hơn? Với một số chất ion, khó khăn không chỉ nằm ở tốc độ. Chất có thể chuyển sang pha tinh thể và không còn cung cấp đủ lượng hòa tan để tạo micelle như mong muốn.\n\nĐiểm Krafft mô tả mối liên hệ giữa độ tan của chất rắn và sự hình thành tập hợp trong hệ thích hợp. Vì vậy, một chất hoạt động tốt khi ấm có thể thay đổi hành vi mạnh ở một vùng nhiệt độ. Công thức giặt là bài toán giản đồ pha, bên cạnh hóa học tương tác với dầu và bề mặt vải.\n\n![Minh họa mạch hữu cơ của chất hoạt động bề mặt; không phải công thức nước giặt](/assets/library/organic-alkane.svg)\n\n## Muốn tạo micelle trước hết phải có chất trong dung dịch\n\nỞ dưới vùng Krafft, độ tan cân bằng của một số chất hoạt động bề mặt ion có thể quá thấp để đạt chế độ micelle thông thường. Khi nhiệt độ tăng đủ, lượng hòa tan và trạng thái tập hợp thay đổi rõ. Đó là sự khác biệt với việc chỉ nói phân tử chuyển động nhanh hơn khi nóng.\n\nGiá trị này phụ thuộc chất, độ tinh khiết, ion đối và thành phần môi trường. Không nên lấy nhiệt độ Krafft của một hóa chất tinh khiết trong nước để gán nguyên vẹn cho sản phẩm nhiều thành phần. Chất hoạt động bề mặt thứ hai có thể tham gia tập hợp hỗn hợp và làm thay đổi độ tan của thành phần khó tan hơn.\n\n## Hỗn hợp tạo thêm một con đường sử dụng\n\nNghiên cứu năm 2021 về methyl ester sulfonate và chất không ion khảo sát các giản đồ pha, cho thấy thành phần ion có thể được đưa vào micelle hỗn hợp của hệ vẫn hòa tan ở nhiệt độ thấp hơn. Lợi ích nằm ở tương tác giữa các thành phần, không đơn giản là pha loãng chất khó tan.\n\nMột công trình năm 2020 tổng hợp và đánh giá chất hoạt động bề mặt từ methyl ester acid béo của dầu sesame cũng đo nhiệt độ Krafft cùng các thông số dung dịch. Việc báo cáo đặc tính này giúp xác định miền ứng dụng cần khảo sát, thay vì chỉ dựa vào nguồn nguyên liệu tái tạo để kết luận sản phẩm phù hợp cho mọi điều kiện giặt.\n\n## Ứng dụng hôm nay: công thức phải sống qua thời tiết và bảo quản\n\nThiết kế chất tẩy cho nhiệt độ thấp cần xét pha khi sử dụng và cả khi sản phẩm nằm trong chai. Kết tinh, tách pha hoặc thay đổi độ nhớt có thể ảnh hưởng khả năng phân phối đúng liều và tính đồng đều. Các phép thử hiệu năng trên vết bẩn thực vẫn cần đi cùng phép đo tính chất dung dịch.\n\nCâu chuyện Krafft giúp giải thích vì sao thêm một thành phần nhỏ có thể tạo khác biệt lớn, và vì sao thay nhiệt độ đôi khi tạo bước chuyển đột ngột thay vì thay đổi từ từ. Một chai chất tẩy không phải danh sách phân tử độc lập; chúng liên tục chọn cách đứng trong tinh thể, trong dung dịch và trong tập hợp. Giữ được lựa chọn phù hợp ở nhiệt độ mong muốn là một phần quan trọng của việc làm sạch với ít năng lượng hơn.\n\n## Nguồn và đọc thêm\n\n- [Nghiên cứu gốc · Hiệu năng hỗn hợp ở nhiệt độ thấp](https://www.sciencedirect.com/science/article/abs/pii/S0021979718310221)\n- [Nghiên cứu gốc · Độ tan dưới điểm Krafft trong micelle hỗn hợp, 2021](https://arxiv.org/abs/2105.11824)\n- [Nghiên cứu gốc · Tính chất dung dịch chất hoạt động bề mặt từ sesame, 2020](https://pmc.ncbi.nlm.nih.gov/articles/PMC7658934/)"
+}

@@ -1,0 +1,46 @@
+{
+  "id": "vang-keo-faraday-mau-do-cua-kim-loai",
+  "slug": "vang-keo-faraday-mau-do-cua-kim-loai",
+  "documentPath": "docs/vang-keo-faraday-mau-do-cua-kim-loai/index.json",
+  "title": "Vì sao chai vàng của Faraday lại đỏ?",
+  "summary": "Các mẫu vàng keo còn lưu tại Royal Institution mở câu chuyện về kích thước hạt, tán xạ và màu sắc. Kim loại ở dạng phân tán nhỏ không còn phản ứng với ánh sáng như một thỏi vàng.",
+  "category": "khainiem",
+  "author": "Ban biên tập ChemDex",
+  "image": "/assets/library/photos/elements/Au.jpg",
+  "tags": [
+    "Keo",
+    "Vàng nano",
+    "Tán xạ",
+    "Plasmon"
+  ],
+  "aliases": [],
+  "documentKind": "story",
+  "readingMinutes": 4,
+  "editorialEvidence": {
+    "language": "vi",
+    "scope": "chemical-family",
+    "contextLabel": "Vì sao chai vàng của Faraday lại đỏ?",
+    "reviewBasis": "Biên soạn theo các nguồn dẫn cuối bài; phân biệt kết quả đã thực hiện và hướng phát triển.",
+    "story": {
+      "status": "documented",
+      "section": "## Một thứ chất lỏng đỏ xuất hiện bên cạnh lá vàng",
+      "sources": [
+        "https://www.rigb.org/explore-science/explore/collection/michael-faradays-gold-colloids",
+        "https://doi.org/10.1098/rstl.1857.0011",
+        "https://www.nature.com/articles/physci241020a0",
+        "https://pmc.ncbi.nlm.nih.gov/articles/PMC2996072/"
+      ]
+    },
+    "application": {
+      "status": "documented",
+      "section": "## Ứng dụng hôm nay: màu là một tín hiệu có thể thiết kế",
+      "sources": [
+        "https://www.rigb.org/explore-science/explore/collection/michael-faradays-gold-colloids",
+        "https://doi.org/10.1098/rstl.1857.0011",
+        "https://www.nature.com/articles/physci241020a0",
+        "https://pmc.ncbi.nlm.nih.gov/articles/PMC2996072/"
+      ]
+    }
+  },
+  "content": "## Một thứ chất lỏng đỏ xuất hiện bên cạnh lá vàng\n\nRoyal Institution lưu những mẫu vàng keo Faraday tạo trong thập niên 1850, với hiện vật được ghi niên đại 1856. Khi nghiên cứu vàng rất mỏng và ánh sáng, ông nhận thấy một chất lỏng màu ruby trong quá trình xử lý. Năm 1857, Faraday công bố nghiên cứu về quan hệ giữa vàng, các kim loại khác và ánh sáng.\n\nÁnh sáng đi qua mẫu tạo một vùng sáng có thể quan sát từ bên, gợi rằng trong chất lỏng có những hạt rất nhỏ đang tán xạ. Vàng không biến thành một nguyên tố màu đỏ mới. Nó tồn tại dưới dạng phân tán mà tương tác quang học khác đáng kể so với khối kim loại quen thuộc.\n\n![Vàng kim loại minh họa nguyên tố; không phải mẫu keo đỏ của Faraday](/assets/library/photos/elements/Au.jpg)\n\n## Kích thước trở thành một biến của tính chất\n\nTrong hạt kim loại nhỏ, electron có thể đáp ứng tập thể với trường điện từ của ánh sáng. Hiện tượng cộng hưởng plasmon cục bộ góp phần tạo hấp thụ và tán xạ mạnh trong những vùng bước sóng nhất định. Kích thước, hình dạng và môi trường quanh hạt đều ảnh hưởng đến đáp ứng này.\n\nVì thế, màu không phải chiếc thước duy nhất để suy kích thước. Một mẫu đổi màu có thể do hạt lớn lên, kết tụ hoặc môi trường bề mặt đổi. Phổ quang, kính hiển vi và những phép đo phân bố kích thước giúp phân biệt các khả năng. Cùng công thức nguyên tố Au, một thỏi, một lá mỏng và một hệ keo có thể đưa ánh sáng đi theo những cách khác nhau.\n\n## Muốn nghiên cứu hạt phải làm hạt đồng đều hơn\n\nCông trình của Frens năm 1973 trình bày cách điều khiển tạo mầm để điều chỉnh kích thước trong những huyền phù vàng gần đơn phân tán. Bước tiến này cho phép nghiên cứu có hệ thống hơn mối liên hệ giữa chế tạo, kích thước và tính chất. Một lọ màu đẹp trở thành một hệ vật liệu có thể so sánh giữa các thí nghiệm.\n\nCác nghiên cứu tổng hợp sau đó tiếp tục xem xét tạo mầm, phát triển hạt và vai trò của chất ổn định. Bề mặt hạt cần được quản lý để chúng không nhanh chóng dính thành khối lớn. Chất bao quanh không chỉ là thứ còn sót từ tổng hợp; nó có thể quyết định độ bền của hệ keo và khả năng gắn những phân tử khác lên hạt.\n\n## Ứng dụng hôm nay: màu là một tín hiệu có thể thiết kế\n\nVàng nano được nghiên cứu và sử dụng trong các hệ cảm biến, nhãn quang và vật liệu tương tác với ánh sáng. Những ứng dụng ấy khai thác khả năng điều chỉnh bề mặt và tín hiệu quang, nhưng tính năng thuộc về cấu trúc và hệ thử cụ thể. Một lọ vàng keo bất kỳ không tự trở thành một công cụ phân tích có độ chính xác đã biết.\n\nCác chai Faraday khiến lịch sử này trở nên hữu hình: một mẫu vật từ thế kỷ XIX vẫn cho phép đặt câu hỏi về ánh sáng và những hạt mắt thường không nhìn thấy. Hóa học nano không chỉ bắt đầu khi xuất hiện chữ “nano” trên tên sản phẩm. Nó phát triển từ việc nhận ra rằng kích thước và trạng thái phân tán có thể quan trọng ngang với thành phần, rồi học cách chế tạo, đo và kiểm soát chúng.\n\n## Nguồn và đọc thêm\n\n- [Royal Institution · Các mẫu vàng keo của Faraday](https://www.rigb.org/explore-science/explore/collection/michael-faradays-gold-colloids)\n- [Faraday · Quan hệ giữa vàng và ánh sáng, 1857](https://doi.org/10.1098/rstl.1857.0011)\n- [Frens · Điều khiển kích thước huyền phù vàng, 1973](https://www.nature.com/articles/physci241020a0)\n- [Nghiên cứu tổng quan · Hạt nano kim loại và tính chất quang](https://pmc.ncbi.nlm.nih.gov/articles/PMC2996072/)"
+}

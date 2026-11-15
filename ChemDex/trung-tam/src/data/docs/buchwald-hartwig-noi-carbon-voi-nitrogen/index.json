@@ -1,0 +1,44 @@
+{
+  "id": "buchwald-hartwig-noi-carbon-voi-nitrogen",
+  "slug": "buchwald-hartwig-noi-carbon-voi-nitrogen",
+  "documentPath": "docs/buchwald-hartwig-noi-carbon-voi-nitrogen/index.json",
+  "title": "Một mối nối C–N mở thêm đường tới phân tử mới",
+  "summary": "Từ những hệ cần dẫn xuất thiếc đến amination trực tiếp, Buchwald–Hartwig thay đổi cách xây arylamine. Hiểu cơ chế và thiết kế phối tử đi cùng nhau trong quá trình mở rộng phản ứng.",
+  "category": "phanung",
+  "author": "Ban biên tập ChemDex",
+  "image": "/assets/library/organic-amine.svg",
+  "tags": [
+    "Buchwald–Hartwig",
+    "Amination",
+    "Palladium",
+    "Liên kết C–N"
+  ],
+  "aliases": [],
+  "documentKind": "story",
+  "readingMinutes": 4,
+  "editorialEvidence": {
+    "language": "vi",
+    "scope": "chemical-family",
+    "contextLabel": "Một mối nối C–N mở thêm đường tới phân tử mới",
+    "reviewBasis": "Biên soạn theo các nguồn dẫn cuối bài; phân biệt kết quả đã thực hiện và hướng phát triển.",
+    "story": {
+      "status": "documented",
+      "section": "## Phản ứng đã có manh mối nhưng chưa đủ thuận tiện",
+      "sources": [
+        "https://doi.org/10.1021/ja00096a059",
+        "https://doi.org/10.1002/anie.201904795",
+        "https://reagents.acsgcipr.org/reagent-guides/buchwald-hartwig-amination/"
+      ]
+    },
+    "application": {
+      "status": "documented",
+      "section": "## Ứng dụng hôm nay: từ thư viện phân tử tới quy trình sản xuất",
+      "sources": [
+        "https://doi.org/10.1021/ja00096a059",
+        "https://doi.org/10.1002/anie.201904795",
+        "https://reagents.acsgcipr.org/reagent-guides/buchwald-hartwig-amination/"
+      ]
+    }
+  },
+  "content": "## Phản ứng đã có manh mối nhưng chưa đủ thuận tiện\n\nNhững nghiên cứu từ thập niên 1980 cho thấy palladium có thể hỗ trợ tạo liên kết giữa carbon vòng thơm và nitrogen. Tuy nhiên, các hệ ban đầu cần những đối tác như aminostannane, khiến phạm vi và tính thuận tiện còn hạn chế.\n\nNăm 1994, nhóm Stephen Buchwald mở rộng phản ứng với các aminostannane được tạo ngay trong hệ. Sang năm 1995, các nhóm Buchwald và John Hartwig báo cáo những phương pháp không cần đối tác thiếc theo cách đó. Từ một biến đổi có tiền lệ, nhiều cải tiến về cơ chế và phối tử giúp nó trở thành công cụ tổng hợp phổ biến hơn.\n\nHồ sơ hồi cứu 25 năm của phản ứng nhấn mạnh chuỗi phát triển này. Tên hai nhà nghiên cứu không xóa những đóng góp trước đó; nó gắn với giai đoạn làm cho amination xúc tác palladium trở nên tổng quát và thực dụng.\n\n![Minh họa nhóm amine, không phải một sản phẩm thương mại hoặc toàn bộ chu trình Buchwald–Hartwig](/assets/library/organic-amine.svg)\n\n## Palladium đưa hai phần của mối nối vào cùng một chu trình\n\nMột đối tác aryl hoặc heteroaryl có nhóm rời phù hợp tham gia chu trình với amine. Qua những bước tạo trung gian trên kim loại, liên kết carbon–nitrogen được hình thành và sản phẩm rời xúc tác. Base và phối tử góp phần vào các bước khác nhau của chu trình.\n\nPhương pháp đặc biệt hữu ích khi phản ứng thế ái nhân thơm cổ điển không thuận lợi với cơ chất đang xét. Không phải mọi vòng thơm mang halogen đều dễ cho amine thế trực tiếp; hoạt hóa bằng kim loại mở thêm một đường đi.\n\nKhả năng phản ứng của amine cũng đa dạng. Amine bậc một, bậc hai, amide hoặc những nguồn nitrogen khác không có cùng tính chất. Phối tử phù hợp cho một nhóm cơ chất chưa chắc là lựa chọn tốt cho nhóm khác. Những họ phối tử phát triển về sau mở rộng các tổ hợp có thể ghép được.\n\nNgoài sản phẩm mong muốn còn có thể xảy ra phản ứng cạnh tranh hoặc mất hoạt tính xúc tác. Nghiên cứu cơ chế giúp xác định bước nào đang giới hạn và thay đổi thành phần nào có khả năng cải thiện kết quả.\n\n## Ứng dụng hôm nay: từ thư viện phân tử tới quy trình sản xuất\n\nLiên kết aryl–nitrogen xuất hiện trong nhiều phân tử được nghiên cứu cho dược phẩm và vật liệu. Buchwald–Hartwig cho phép nối những mảnh đã chuẩn bị riêng, giúp tạo nhanh các biến thể để khảo sát cấu trúc và tính chất.\n\nHướng dẫn của nhóm công nghiệp dược thuộc ACS Green Chemistry Institute trình bày những lựa chọn cơ chất và những cân nhắc khi dùng phản ứng. Ở quy mô sản xuất, người ta còn xem xét nguồn nguyên liệu, độ chọn lọc, dư palladium và phương pháp phân tách. Một phản ứng phù hợp để làm nhiều mẫu nhỏ có thể cần được phát triển lại trước khi dùng cho lượng lớn.\n\nCông việc về các hệ xúc tác mới tiếp tục mở rộng phạm vi, nhưng một điều đã rõ từ câu chuyện lịch sử: bỏ được một đối tác bất tiện có thể quan trọng ngang việc tăng hiệu suất. Việc chuyển từ các hệ cần dẫn xuất thiếc sang những tuyến amination thuận tiện hơn đã làm mối nối C–N dễ trở thành một lựa chọn trong kế hoạch tổng hợp thường ngày.\n\nMột cải tiến nhỏ trên phối tử vì vậy có thể ảnh hưởng đến nhiều cấu trúc ở cuối chuỗi. Nó thay đổi những tổ hợp nào nhà hóa học có thể ghép, không chỉ tốc độ tạo ra một sản phẩm đã biết.\n\n## Nguồn và đọc thêm\n\n- [Guram và Buchwald · Amination với aminostannane tạo tại chỗ, 1994](https://doi.org/10.1021/ja00096a059)\n- [Dorel, Grugel và Haydl · Hồi cứu 25 năm phát triển amination](https://doi.org/10.1002/anie.201904795)\n- [ACSGCI Pharmaceutical Roundtable · Phạm vi ứng dụng Buchwald–Hartwig](https://reagents.acsgcipr.org/reagent-guides/buchwald-hartwig-amination/)"
+}

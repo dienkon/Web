@@ -1,0 +1,44 @@
+{
+  "id": "edwin-krebs-them-phosphate-doi-hoat-tinh",
+  "slug": "edwin-krebs-them-phosphate-doi-hoat-tinh",
+  "documentPath": "docs/edwin-krebs-them-phosphate-doi-hoat-tinh/index.json",
+  "title": "Edwin Krebs: một nhóm phosphate làm enzyme đổi cách hoạt động",
+  "summary": "Thí nghiệm trên phosphorylase cơ năm 1955 dẫn Krebs và Edmond Fischer tới điều hòa protein bằng biến đổi thuận nghịch. Tế bào có thể đổi chức năng mà không cần làm lại toàn bộ protein.",
+  "category": "tieusu",
+  "author": "Ban biên tập ChemDex",
+  "image": "/assets/library/lab-synthesis.svg",
+  "tags": [
+    "Edwin Krebs",
+    "Edmond Fischer",
+    "Phosphoryl hóa",
+    "Điều hòa enzyme"
+  ],
+  "aliases": [],
+  "documentKind": "story",
+  "readingMinutes": 4,
+  "editorialEvidence": {
+    "language": "vi",
+    "scope": "chemical-family",
+    "contextLabel": "Edwin Krebs: một nhóm phosphate làm enzyme đổi cách hoạt động",
+    "reviewBasis": "Biên soạn theo các nguồn dẫn cuối bài; phân biệt kết quả đã thực hiện và hướng phát triển.",
+    "story": {
+      "status": "documented",
+      "section": "## Hai dạng enzyme khiến người nghiên cứu phải hỏi lại",
+      "sources": [
+        "https://masspec.scripps.edu/learn/metabolomics/pdf/1955_Fischer.pdf",
+        "https://www.nobelprize.org/uploads/2018/06/krebs-lecture-1.pdf",
+        "https://pmc.ncbi.nlm.nih.gov/articles/PMC3023531/"
+      ]
+    },
+    "application": {
+      "status": "documented",
+      "section": "## Ứng dụng hôm nay: theo dõi chức năng sau biến đổi",
+      "sources": [
+        "https://masspec.scripps.edu/learn/metabolomics/pdf/1955_Fischer.pdf",
+        "https://www.nobelprize.org/uploads/2018/06/krebs-lecture-1.pdf",
+        "https://pmc.ncbi.nlm.nih.gov/articles/PMC3023531/"
+      ]
+    }
+  },
+  "content": "## Hai dạng enzyme khiến người nghiên cứu phải hỏi lại\n\nNăm 1955, Edwin Krebs và Edmond Fischer công bố các nghiên cứu về việc chuyển glycogen phosphorylase ở cơ từ dạng b sang dạng a. Hai dạng có đặc điểm hoạt tính khác nhau, và quá trình chuyển đổi trong dịch chiết cần những thành phần cụ thể.\n\nATP và ion kim loại hóa trị hai xuất hiện như các yêu cầu quan trọng. Những thí nghiệm đánh dấu phosphate tiếp theo giúp nhóm xác định rằng một nhóm phosphoryl được chuyển lên protein. Một enzyme khác xúc tác công việc ấy.\n\nPhát hiện mở cách điều hòa mới: tế bào không nhất thiết phải phân hủy rồi tổng hợp lại toàn bộ protein để thay đổi hoạt tính. Nó có thể thêm hoặc lấy đi một nhóm hóa học trong một chu trình được kiểm soát.\n\n![Minh họa phân tích sinh hóa, không phải ảnh mẫu cơ trong thí nghiệm 1955](/assets/library/lab-synthesis.svg)\n\n## Phosphate làm thay đổi nhiều hơn khối lượng\n\nGắn một nhóm phosphate thay đổi điện tích và các tương tác tại vùng protein liên quan. Hệ có thể nhận một phân bố cấu dạng khác, kéo theo sự thay đổi chức năng.\n\nNhưng phosphoryl hóa không luôn có nghĩa bật hoạt tính. Tác động phụ thuộc protein, vị trí và trạng thái của hệ. Cùng một kiểu biến đổi hóa học có thể kích hoạt, ức chế hoặc thay đổi cách tương tác trong những trường hợp khác nhau.\n\nCác enzyme kinase và phosphatase tạo những đường thêm và loại nhóm phosphate. Vì vậy, mức phosphoryl hóa quan sát được phản ánh cân bằng động giữa nhiều quá trình. Một ảnh chụp trạng thái tại một thời điểm cần được đọc cùng điều kiện tạo ra nó.\n\n## Một hệ chuyển hóa trở thành nguyên tắc điều hòa rộng hơn\n\nCông việc bắt đầu từ phosphorylase, một enzyme trong chuyển hóa glycogen. Các nghiên cứu sau cho thấy phosphoryl hóa thuận nghịch xuất hiện trong nhiều quá trình khác của tế bào, từ chuyển hóa đến truyền tín hiệu.\n\nBài giảng Nobel của Krebs nhìn lại cách các thí nghiệm cụ thể dẫn tới sự mở rộng ấy. Sự phổ biến của nguyên tắc được xác lập bằng nhiều hệ khác nhau; nó không được suy ra chỉ vì một phản ứng đầu tiên có vẻ hợp lý.\n\nKrebs và Fischer cũng làm việc trên nền các nghiên cứu trước của những nhóm khác về phosphorylase. Ghi đúng chuỗi đóng góp giúp thấy khoa học tiến lên bằng cách giải từng câu hỏi còn thiếu, thay vì một khoảnh khắc làm xuất hiện toàn bộ lĩnh vực.\n\n## Ứng dụng hôm nay: theo dõi chức năng sau biến đổi\n\nPhosphoryl hóa là đối tượng của nghiên cứu sinh học tế bào và phát triển dược chất. Để hiểu một vị trí biến đổi, cần đo cả mức hiện diện lẫn ảnh hưởng chức năng, vì dấu phosphate có thể là nguyên nhân, hệ quả hoặc một phần của phản hồi.\n\nCác kỹ thuật phân tích có thể tìm rất nhiều vị trí trên nhiều protein. Danh sách lớn không tự cho biết vị trí nào quyết định hiện tượng đang nghiên cứu. Cần thí nghiệm có đối chứng để liên hệ biến đổi với hoạt động cụ thể.\n\nCâu chuyện Krebs đưa khái niệm nhóm chức vào một hệ sống động. Một thay đổi hóa học nhỏ có thể được dùng như cách điều chỉnh protein đã có sẵn, nhưng sức mạnh nằm trong mạng enzyme kiểm soát lúc nào và ở đâu thay đổi ấy xảy ra. Hóa học ở đây không chỉ xây vật liệu của tế bào; nó còn góp phần điều khiển cách vật liệu ấy làm việc.\n\n## Nguồn và đọc thêm\n\n- [Fischer và Krebs · Chuyển phosphorylase b thành a, 1955](https://masspec.scripps.edu/learn/metabolomics/pdf/1955_Fischer.pdf)\n- [Edwin Krebs · Bài giảng Nobel](https://www.nobelprize.org/uploads/2018/06/krebs-lecture-1.pdf)\n- [ASBMB · Những công trình nền tảng về phosphoryl hóa thuận nghịch](https://pmc.ncbi.nlm.nih.gov/articles/PMC3023531/)"
+}

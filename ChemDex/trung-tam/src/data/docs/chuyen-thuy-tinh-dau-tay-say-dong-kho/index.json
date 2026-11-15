@@ -1,0 +1,44 @@
+{
+  "id": "chuyen-thuy-tinh-dau-tay-say-dong-kho",
+  "slug": "chuyen-thuy-tinh-dau-tay-say-dong-kho",
+  "documentPath": "docs/chuyen-thuy-tinh-dau-tay-say-dong-kho/index.json",
+  "title": "Vì sao miếng dâu sấy giòn có thể xẹp xuống mà không hề tan chảy?",
+  "summary": "Chuyển thủy tinh làm thay đổi độ linh động của một nền thực phẩm vô định hình. Các nghiên cứu dâu sấy đông khô cho thấy nước có thể đóng vai trò chất hóa dẻo.",
+  "category": "khainiem",
+  "author": "Ban biên tập ChemDex",
+  "image": "/assets/library/organic-carbohydrate.svg",
+  "tags": [
+    "Chuyển thủy tinh",
+    "Tg",
+    "Thực phẩm",
+    "Hóa dẻo"
+  ],
+  "aliases": [],
+  "documentKind": "story",
+  "readingMinutes": 4,
+  "editorialEvidence": {
+    "language": "vi",
+    "scope": "chemical-family",
+    "contextLabel": "Vì sao miếng dâu sấy giòn có thể xẹp xuống mà không hề tan chảy?",
+    "reviewBasis": "Biên soạn theo các nguồn dẫn cuối bài; phân biệt kết quả đã thực hiện và hướng phát triển.",
+    "story": {
+      "status": "documented",
+      "section": "## Cấu trúc xốp cần được giữ sau khi máy sấy dừng",
+      "sources": [
+        "https://academic.oup.com/ijfst/article/44/10/1869/7865099",
+        "https://doi.org/10.1111/j.1365-2621.1991.tb07970.x",
+        "https://doi.org/10.1016/0260-8774(95)90050-L"
+      ]
+    },
+    "application": {
+      "status": "documented",
+      "section": "## Ứng dụng hôm nay: thiết kế cả công thức lẫn môi trường",
+      "sources": [
+        "https://academic.oup.com/ijfst/article/44/10/1869/7865099",
+        "https://doi.org/10.1111/j.1365-2621.1991.tb07970.x",
+        "https://doi.org/10.1016/0260-8774(95)90050-L"
+      ]
+    }
+  },
+  "content": "## Cấu trúc xốp cần được giữ sau khi máy sấy dừng\n\nTrong nghiên cứu năm 2009 về dâu nghiền sấy đông khô, các tác giả khảo sát việc bổ sung trehalose, sucrose và maltodextrin cùng những ảnh hưởng đến tính chất sản phẩm. Một thông số họ theo dõi là nhiệt độ chuyển thủy tinh. Bổ sung thành phần không chỉ đổi vị: nó có thể thay đổi trạng thái cơ học của nền chất rắn sau sấy.\n\nVật liệu xốp có thể co xẹp hoặc trở nên dính trong bảo quản dù chưa trải qua một đỉnh nóng chảy rõ như nước đá. Hiện tượng khiến người làm thực phẩm phải nhìn xa hơn câu hỏi đã loại được bao nhiêu nước. Cần biết phần vật chất còn lại đang ở trạng thái nào và có giữ được trạng thái ấy trong môi trường dự kiến hay không.\n\n![Minh họa carbohydrate trong nền thực phẩm; không phải ảnh mẫu dâu của nghiên cứu](/assets/library/organic-carbohydrate.svg)\n\n## Thủy tinh là cách các phân tử bị giữ lại\n\nTrong một chất rắn vô định hình, các thành phần không xếp thành mạng tinh thể lặp đều trên khoảng cách dài. Ở dưới vùng chuyển thủy tinh, chuyển động cấu trúc diễn ra chậm trên thang thời gian quan sát. Khi nhiệt độ tăng hoặc thành phần thay đổi, độ linh động tăng và vật liệu có thể mềm hơn, có tính gần chất lỏng hơn.\n\nTg vì vậy không giống một điểm nóng chảy cân bằng duy nhất. Giá trị đo phụ thuộc phương pháp và lịch sử mẫu. Với thực phẩm nhiều thành phần, thường cần xem một vùng chuyển và trạng thái của từng phần. Gọi sản phẩm là “khô” chưa mô tả đủ khả năng chuyển động của các phân tử trong nó.\n\n## Một ít nước có thể làm nền mềm đi\n\nRoos và Karel năm 1991 nghiên cứu các mô hình thực phẩm đường vô định hình và cho thấy độ ẩm ảnh hưởng những chuyển biến nhiệt. Nước đóng vai trò chất hóa dẻo: trong những hệ khảo sát, tăng ẩm làm giảm nhiệt độ chuyển thủy tinh và thay đổi quá trình kết tinh theo thời gian.\n\nĐiều này nối vật liệu với bao gói. Nếu sản phẩm hút ẩm, nó có thể đi qua vùng chuyển dù nhiệt độ kho không tăng. Những nghiên cứu dùng giản đồ trạng thái kết hợp thành phần với nhiệt độ giúp biểu diễn điều ấy rõ hơn. Đường đi của sản phẩm trên giản đồ có thể thay đổi chỉ vì một bao bì cho hơi nước đi qua nhanh hơn dự kiến.\n\n## Ứng dụng hôm nay: thiết kế cả công thức lẫn môi trường\n\nKhái niệm chuyển thủy tinh hỗ trợ phát triển bột thực phẩm, sản phẩm sấy và các hệ đông lạnh. Nó giúp giải thích độ dính, co xẹp và một số biến đổi cấu trúc. Tuy nhiên, dưới Tg không đồng nghĩa mọi phản ứng hóa học đều dừng; những quá trình khác vẫn cần được kiểm tra bằng dữ liệu bảo quản thực tế.\n\nVới sản phẩm dâu, quyết định không chỉ là chọn chất bổ sung nâng Tg cao nhất. Hương vị, độ giòn, khả năng hút ẩm và cảm giác khi ăn đều cần được cân nhắc. Một miếng dâu sấy giữ được cấu trúc là kết quả của sự phối hợp giữa trạng thái phân tử và thiết kế sản phẩm. Những lỗ xốp tưởng như chỉ chứa không khí thực ra dựa vào một nền vật liệu phải đủ chậm để không tự chảy, co và dính trong thời gian chờ người dùng mở gói.\n\n## Nguồn và đọc thêm\n\n- [Nghiên cứu gốc · Thành phần và dâu nghiền sấy đông khô, 2009](https://academic.oup.com/ijfst/article/44/10/1869/7865099)\n- [Roos và Karel · Nước hóa dẻo mô hình thực phẩm, 1991](https://doi.org/10.1111/j.1365-2621.1991.tb07970.x)\n- [Roos · Giản đồ trạng thái của polymer thực phẩm, 1995](https://doi.org/10.1016/0260-8774(95)90050-L)"
+}

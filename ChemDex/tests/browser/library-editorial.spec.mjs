@@ -23,7 +23,7 @@ test('reaction category exposes its real total and opens a Vietnamese feature wi
 
 test('new long articles restore on mobile without horizontal overflow or translated prose',async({page})=>{
   await page.setViewportSize({width:390,height:844});
-  for(const slug of ['sabatier-tu-hoi-tho-den-nuoc','dorothy-hodgkin-doc-ban-do-phan-tu','ph-va-nhung-au-trung-hau','hermann-staudinger-phan-tu-khong-qua-lon','hafnium-oxide-lop-mang-biet-giu-ky-uc','jean-pierre-sauvage-hai-vong-khong-roi-nhau','wacker-palladium-tro-lai-vong-phan-ung','xps-nhin-dien-cuc-duoi-lop-chat-long','indigo-mau-xanh-can-di-qua-mot-dang-khac']){
+  for(const slug of ['sabatier-tu-hoi-tho-den-nuoc','dorothy-hodgkin-doc-ban-do-phan-tu','ph-va-nhung-au-trung-hau','hermann-staudinger-phan-tu-khong-qua-lon','hafnium-oxide-lop-mang-biet-giu-ky-uc','jean-pierre-sauvage-hai-vong-khong-roi-nhau','wacker-palladium-tro-lai-vong-phan-ung','xps-nhin-dien-cuc-duoi-lop-chat-long','indigo-mau-xanh-can-di-qua-mot-dang-khac','ytterbium-hai-dong-ho-doc-do-cao','kapton-nam-lop-mang-che-kinh-webb','kurt-wuthrich-cau-truc-khong-can-tinh-the']){
     await page.goto(`/trung-tam/tai-lieu-so/${slug}/`);
     await expect(page.locator('article')).toBeVisible();
     expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1)).toBe(true);
@@ -49,11 +49,18 @@ test('rewritten compound features keep their scientific scope and load the selec
 });
 
 
-test('wave three materials and Mars evidence display the chosen images with attribution',async({page})=>{
+test('materials and experimental evidence display the chosen images with attribution',async({page})=>{
+  await page.setViewportSize({width:390,height:844});
   for(const [slug,photo,credit] of [
     ['kevlar-dung-dich-duc-mo-loi-cho-soi-ben','aramid-fibers','Cjp24'],
     ['indigo-mau-xanh-can-di-qua-mot-dang-khac','indigo-historical-collection','Shisha-Tom'],
     ['sat-iii-oxit-gi-sat-fe2o3','opportunity-hematite-spherules','NASA/JPL/Cornell/USGS'],
+    ['kapton-nam-lop-mang-che-kinh-webb','webb-sunshield-test','Chris Gunn'],
+    ['xanh-pho-mau-cua-song-va-dau-vet-thoi-gian','hokusai-great-wave','Katsushika Hokusai'],
+    ['rubidium-dam-may-lanh-jila-1995','jila-rubidium-condensation','NIST/JILA/CU-Boulder'],
+    ['aerogel-giu-bo-khung-khi-chat-long-roi-di','aerogel-hand','NASA/JPL-Caltech'],
+    ['chi-thi-phenolphtalein-c20h14o4','phenolphthalein-concrete','Patrick Oberdörfer'],
+    ['bac-nitrat-agno3','fbi-gibson-notebook','Federal Bureau of Investigation'],
   ]){
     await page.goto(`/trung-tam/tai-lieu-so/${slug}/`);
     const article=page.locator('article');
@@ -62,5 +69,6 @@ test('wave three materials and Mars evidence display the chosen images with attr
     await image.scrollIntoViewIfNeeded();
     await expect.poll(()=>image.evaluate(img=>img.complete&&img.naturalWidth>0)).toBe(true);
     await expect(article.locator('a[href*="commons.wikimedia.org"]')).not.toHaveCount(0);
+    expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1)).toBe(true);
   }
 });

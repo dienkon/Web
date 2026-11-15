@@ -1,17 +1,17 @@
 # Tiến độ biên tập kho tài liệu số — 15/11/2026
 
-Mục tiêu được xác nhận: mọi tài liệu là bài viết tiếng Việt đầy đủ, có câu chuyện thực tế và liên hệ ứng dụng hiện nay; hơn 1.000 tài liệu khác nhau trong từng mục. Tài liệu ngoại ngữ chỉ được dùng làm nguồn. Mục tiêu **chưa hoàn tất**.
+Mục tiêu cập nhật theo yêu cầu ngày 15/11/2026: mọi tài liệu là bài viết tiếng Việt đầy đủ, có câu chuyện thực tế và liên hệ ứng dụng hiện nay; **500 tài liệu khác nhau trong từng mục**. Người dùng yêu cầu đẩy nhanh bổ sung và giảm mốc ban đầu 1.000+ xuống 500. Tài liệu ngoại ngữ chỉ được dùng làm nguồn. Mục tiêu **chưa hoàn tất**.
 
 ## Kiểm kê
 
-| Mục | Trước đợt này | Hiện tại | Còn thiếu để đạt 1.001 |
+| Mục | Ban đầu | Hiện tại | Còn thiếu để đạt 500 |
 | --- | ---: | ---: | ---: |
-| Tiểu sử | 81 | 124 | 877 |
-| Nguyên tố | 140 | 157 | 844 |
-| Khái niệm hóa học | 2 | 35 | 966 |
-| Phản ứng | 0 | 37 | 964 |
-| Câu chuyện các chất | 357 | 360 | 641 |
-| Tổng | 580 | 713 | 4.292 |
+| Tiểu sử | 81 | 154 | 346 |
+| Nguyên tố | 140 | 162 | 338 |
+| Khái niệm hóa học | 2 | 65 | 435 |
+| Phản ứng | 0 | 67 | 433 |
+| Câu chuyện các chất | 357 | 363 | 137 |
+| Tổng | 580 | 811 | 1.689 |
 
 Các con số là bài có ID, đường dẫn và nội dung riêng; không phải số công thức, lượt gắn thẻ hoặc trang nguồn. Không nhân bản một bài thành nhiều góc nhìn để đạt chỉ tiêu.
 
@@ -26,9 +26,9 @@ Các con số là bài có ID, đường dẫn và nội dung riêng; không ph�
 
 ## Phần chưa hoàn tất
 
-- 264 hồ sơ hợp chất chưa có câu chuyện và ứng dụng được đối chiếu riêng. Chúng vẫn là bài tra cứu và được đánh dấu `missing` trong hồ sơ biên tập. Không gán lịch sử hoặc công dụng của một nguyên tố thành phần cho hợp chất.
+- 258 hồ sơ hợp chất chưa có câu chuyện và ứng dụng được đối chiếu riêng. Chúng vẫn là bài tra cứu và được đánh dấu `missing` trong hồ sơ biên tập. Không gán lịch sử hoặc công dụng của một nguyên tố thành phần cho hợp chất.
 - 92 hồ sơ lịch sử còn có ứng dụng ở mức bối cảnh liên quan. Cần viết sâu thêm theo công trình cụ thể.
-- Chưa đạt số lượng ở bất kỳ mục nào. Cần tiếp tục biên soạn 4.292 bài khác nhau và đối chiếu nguồn, hình ảnh, tính mới của từng bài.
+- Chưa đạt số lượng ở bất kỳ mục nào. Cần tiếp tục biên soạn 1.689 bài khác nhau và đối chiếu nguồn, hình ảnh, tính mới của từng bài.
 - Nguồn/đề mục được kiểm tra bằng công cụ chỉ xác nhận tính toàn vẹn của hồ sơ, không thay thế kiểm chứng sự kiện hoặc đánh giá văn chương.
 
 Danh sách bài và trạng thái chi tiết nằm trong `shared/library-editorial-audit.generated.json`. Trường `quantityTargetReached` kiểm số lượng; `editorialCoverageComplete` kiểm hồ sơ câu chuyện/ứng dụng tiếng Việt tường minh. `targetReached` chỉ đúng khi cả hai điều kiện đều đạt, và vẫn cần đánh giá biên tập về sự khác biệt nội dung.
@@ -39,7 +39,7 @@ Danh sách bài và trạng thái chi tiết nằm trong `shared/library-editori
 2. Viết câu chuyện dẫn nhập, giải thích hóa học và ứng dụng có giới hạn rõ; không tự tạo lời thoại, đời tư hoặc gán công dụng chung cho một nhóm muối.
 3. Thêm bản thảo vào `scripts/data/editorial-*.mjs` hoặc case hợp chất vào `scripts/data/substance-stories*.mjs`; ảnh mới đi vào manifest `story-photo-sources.json`.
 4. Chạy `npm run library:build`, `npm run library:audit-editorial`, `npm run test:library` và build ứng dụng trung tâm.
-5. Chạy `npm run library:target` để đối chiếu toàn bộ mục tiêu. Lệnh này hiện phải trả trạng thái chưa đạt; không đổi ngưỡng để làm kiểm tra xanh.
+5. Chạy `npm run library:target` để đối chiếu toàn bộ mục tiêu 500 bài/mục được người dùng cập nhật. Lệnh này hiện phải trả trạng thái chưa đạt; chỉ đổi ngưỡng khi người dùng sửa yêu cầu.
 
 ## Kiểm tra kỹ thuật của đợt này
 
@@ -72,3 +72,12 @@ Danh sách bài và trạng thái chi tiết nằm trong `shared/library-editori
 - Thân bài của 63 bài mới đợt 3 có tổng 38.257 từ theo phép đếm khoảng trắng, mỗi bài 551–686 từ. Kiểm tra bản thảo, metadata và tên hóa học: 27 kiểm tra đạt. Dựng lại 722 tệp JSON/route cho kết quả byte không đổi.
 
 - Bốn kịch bản Chromium đợt 3 đạt; đã xem ảnh chụp màn hình điện thoại của bài indigo và màn hình máy tính của bài Fe₂O₃. Không tràn ngang; ảnh chọn đúng và nguồn/giấy phép hiện trong nội dung. Build production đợt 3 thành công; các cảnh báo bundle/CSS dùng chung đã được ghi ở phần kiểm tra trước.
+
+## Đợt 4 — tăng tốc và đổi mục tiêu theo yêu cầu
+
+- Người dùng giảm mục tiêu xuống **500 bài đầy đủ tiếng Việt mỗi mục** và yêu cầu bổ sung nhanh. Audit dùng ngưỡng mới 500, vẫn báo chưa đạt. Đợt này bổ sung 98 bài: 30 tiểu sử, 30 khái niệm, 30 phản ứng, 5 ứng dụng nguyên tố và 3 câu chuyện vật liệu. Các bản thảo mới có tổng 57.254 từ theo phép đếm khoảng trắng, mỗi bài 510–674 từ. Tổng số bài báo biên soạn mới qua bốn đợt là 231.
+- Thêm phần kể chuyện có nguồn cho 6 hồ sơ sẵn có: LiCl và nguyên mẫu DEVap, KOH trong nguồn điện Apollo, MgSO₄ trong nghiên cứu lưu nhiệt, KIO₃ trong muối iod, phenolphthalein khảo sát bê tông và AgNO₃ hiện dấu tay. Giữ đúng phân biệt dung dịch/hydrate, thuốc thử/phụ gia thực phẩm và chất điện li/nhiên liệu. Còn 258 hồ sơ chất cần viết sâu; 92 hồ sơ lịch sử vẫn ở mức bối cảnh ứng dụng.
+- Tìm và đưa vào bài 6 hình mới: thử tấm chắn Webb trên mặt đất, bản in Đại lãng của Hokusai, biểu diễn dữ liệu ngưng tụ rubidium, aerogel NASA/JPL, thử phenolphthalein trên bê tông và sổ lưu trữ FBI. Manifest hiện có 38 hình, 37 hình được sử dụng; giữ tác giả, giấy phép, nguồn và SHA-256. Chú thích tách ảnh hiện vật khỏi biểu diễn dữ liệu và ảnh minh họa chủ đề.
+- Rà chéo đã sửa DOI/đường dẫn sai trong các bản thảo, đổi báo cáo NREL sang địa chỉ lưu trữ chính thức `docs.nlr.gov`, ghi bài MgSO₄–silica gel theo tập xuất bản 2024, phân biệt năm thử nghiệm với năm công bố. Giữ ghi nhận khi chỉ đọc được abstract hoặc nguồn liên quan; không coi HTTP thành công là bằng chứng đã đọc toàn văn.
+- 27 kiểm tra thư viện và tên hóa học đạt. Rút gọn hai phần dẫn nhập bị dài khi ghép với phụ lục cũ. Chạy lại builder trên 818 tệp JSON/route cho kết quả byte không đổi. Build production thành công, với các cảnh báo bundle/CSS đã biết. Audit xác nhận 811 tài liệu riêng, không có lỗi cấu trúc; còn thiếu 1.689 bài để đạt mốc mới.
+- 4 kịch bản Chromium trên bản dựng cuối đạt: bộ đếm danh mục, đường dẫn chia sẻ, màn hình 390 px và tải đúng các hình mới kèm ghi công/giấy phép. Đợt tiếp theo đang được biên soạn song song; chưa tính bản nháp vào kiểm kê.

@@ -1,0 +1,44 @@
+{
+  "id": "donald-cram-phan-tu-lam-binh-phan-ung",
+  "slug": "donald-cram-phan-tu-lam-binh-phan-ung",
+  "documentPath": "docs/donald-cram-phan-tu-lam-binh-phan-ung/index.json",
+  "title": "Donald Cram: dùng một phân tử làm chiếc bình giữ chất quá phản ứng",
+  "summary": "Cyclobutadiene dễ biến đổi được nghiên cứu bên trong một vật chủ phân tử. Cram và cộng sự cho thấy khoang chứa có thể làm thay đổi những cuộc gặp mà một phân tử được phép có.",
+  "category": "tieusu",
+  "author": "Ban biên tập ChemDex",
+  "image": "/assets/library/organic-aromatic.svg",
+  "tags": [
+    "Donald Cram",
+    "Chủ–khách",
+    "Khoang phân tử",
+    "Cyclobutadiene"
+  ],
+  "aliases": [],
+  "documentKind": "story",
+  "readingMinutes": 4,
+  "editorialEvidence": {
+    "language": "vi",
+    "scope": "chemical-family",
+    "contextLabel": "Donald Cram: dùng một phân tử làm chiếc bình giữ chất quá phản ứng",
+    "reviewBasis": "Biên soạn theo các nguồn dẫn cuối bài; phân biệt kết quả đã thực hiện và hướng phát triển.",
+    "story": {
+      "status": "documented",
+      "section": "## Một chiếc bình chỉ đủ chứa một vị khách",
+      "sources": [
+        "https://doi.org/10.1002/anie.199110241",
+        "https://www.nobelprize.org/uploads/2018/06/cram-lecture.pdf",
+        "https://www.chemistry.ucla.edu/directory/cram-donald-j/"
+      ]
+    },
+    "application": {
+      "status": "documented",
+      "section": "## Ứng dụng hôm nay: môi trường nhỏ để kiểm soát phản ứng",
+      "sources": [
+        "https://doi.org/10.1002/anie.199110241",
+        "https://www.nobelprize.org/uploads/2018/06/cram-lecture.pdf",
+        "https://www.chemistry.ucla.edu/directory/cram-donald-j/"
+      ]
+    }
+  },
+  "content": "## Một chiếc bình chỉ đủ chứa một vị khách\n\nNăm 1991, Donald Cram, Martin Tanner và Robert Thomas công bố việc tạo và giữ cyclobutadiene trong khoang của một hemicarcerand. Chất khách này dễ tham gia phản ứng khi gặp những đối tác phù hợp; khoang vật chủ hạn chế một số cuộc gặp ấy.\n\nThí nghiệm đưa khái niệm bình phản ứng xuống cấp phân tử. Thành bình không phải thủy tinh, mà là một cấu trúc hữu cơ đã được tổng hợp để tạo không gian bên trong. Tính chất của khách cần được nghiên cứu cùng điều kiện mà khoang áp đặt.\n\nCram đã dành nhiều năm thiết kế vật chủ có khả năng nhận diện và giữ những phân tử khác. Trường hợp cyclobutadiene làm rõ một chức năng đặc biệt: không chỉ chọn khách nào đi vào, mà còn thay đổi số phận hóa học của khách sau khi ở trong.\n\n![Minh họa cấu trúc hữu cơ, không phải hình phân tử vật chủ của Cram](/assets/library/organic-aromatic.svg)\n\n## Khoang chứa là một môi trường, không phải khoảng trống vô hình\n\nKích thước và hình dạng của khoang quyết định vị khách có đủ chỗ hay không. Các nhóm hướng vào trong tạo môi trường tương tác khác dung môi bên ngoài. Những yếu tố ấy có thể làm thay đổi cấu dạng, chuyển động hoặc khả năng tiếp cận của tác chất.\n\nMột vật chủ đóng kín hơn có thể giữ khách lâu, nhưng việc đưa khách vào hoặc lấy ra cũng khó hơn. Tốc độ trao đổi và độ bền phức là các câu hỏi riêng. Thiết kế cần biết mục tiêu là giữ ổn định, vận chuyển hay cho phép phản ứng có kiểm soát.\n\nVới chất phản ứng mạnh, tách nó khỏi những phân tử cùng loại có thể hạn chế một đường biến đổi. Tuy nhiên, khoang không làm mất các quy luật hóa học của khách; nó thay đổi môi trường và các đối tác mà khách gặp được.\n\n## Quan sát chất khách bằng những dấu hiệu gián tiếp\n\nCác phép phổ và phản ứng được dùng để kiểm tra vật liệu bên trong khoang. Người nghiên cứu phải phân biệt tín hiệu của chủ, khách và những sản phẩm có thể hình thành ngoài ý muốn.\n\nMột sản phẩm sau khi mở khoang có thể cung cấp bằng chứng, nhưng cũng cần xét liệu quá trình mở đã làm khách thay đổi hay chưa. Vì vậy, phương pháp theo dõi tại trạng thái được giữ có giá trị đặc biệt.\n\nTrong bài giảng Nobel, Cram trình bày những nguyên tắc như sự bổ sung hình dạng và mức tổ chức sẵn của vật chủ. Chúng giúp giải thích vì sao một thiết kế giữ khách hiệu quả hơn thiết kế khác, thay vì xem mọi khoang chỉ khác nhau ở kích thước.\n\n## Ứng dụng hôm nay: môi trường nhỏ để kiểm soát phản ứng\n\nHóa học chủ–khách tiếp tục được nghiên cứu trong nhận diện, phân tách và những khoang có chức năng xúc tác. Mục tiêu có thể là ưu tiên một cấu dạng hoặc làm cho các cơ chất gặp nhau theo cách thuận lợi hơn.\n\nĐể đánh giá ứng dụng, cần xem khả năng tái sử dụng, tốc độ trao đổi và phạm vi cơ chất. Một vị khách đặc biệt được giữ thành công chưa bảo đảm vật chủ ấy phù hợp với mọi phân tử hoặc với sản xuất quy mô lớn.\n\nCâu chuyện Cram gợi một cách thiết kế khác: thay vì chỉ sửa chất phản ứng, có thể sửa không gian mà nó được phép hoạt động. Khi chiếc bình cũng là một phân tử, hóa học của thành bình trở thành một phần của cơ chế. Đó là ý tưởng khiến một khoang rất nhỏ mở ra những thí nghiệm khó làm trong dung dịch thông thường.\n\n## Nguồn và đọc thêm\n\n- [Cram, Tanner và Thomas · The Taming of Cyclobutadiene, 1991](https://doi.org/10.1002/anie.199110241)\n- [Donald Cram · Bài giảng Nobel về chủ–khách](https://www.nobelprize.org/uploads/2018/06/cram-lecture.pdf)\n- [UCLA · Donald Cram và hóa học phân tử chủ](https://www.chemistry.ucla.edu/directory/cram-donald-j/)"
+}

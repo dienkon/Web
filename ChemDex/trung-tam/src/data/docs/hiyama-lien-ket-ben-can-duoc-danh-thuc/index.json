@@ -1,0 +1,44 @@
+{
+  "id": "hiyama-lien-ket-ben-can-duoc-danh-thuc",
+  "slug": "hiyama-lien-ket-ben-can-duoc-danh-thuc",
+  "documentPath": "docs/hiyama-lien-ket-ben-can-duoc-danh-thuc/index.json",
+  "title": "Một liên kết bền cần được đánh thức: silicon trong phản ứng Hiyama",
+  "summary": "Độ bền của hợp chất organosilicon vừa thuận tiện cho xử lý vừa gây khó cho ghép cặp. Hiyama và những phát triển sau đó tìm cách bật tính phản ứng đúng lúc.",
+  "category": "phanung",
+  "author": "Ban biên tập ChemDex",
+  "image": "/assets/library/covalent-bonds.svg",
+  "tags": [
+    "Hiyama",
+    "Organosilicon",
+    "Ghép cặp",
+    "Hoạt hóa"
+  ],
+  "aliases": [],
+  "documentKind": "story",
+  "readingMinutes": 4,
+  "editorialEvidence": {
+    "language": "vi",
+    "scope": "chemical-family",
+    "contextLabel": "Một liên kết bền cần được đánh thức: silicon trong phản ứng Hiyama",
+    "reviewBasis": "Biên soạn theo các nguồn dẫn cuối bài; phân biệt kết quả đã thực hiện và hướng phát triển.",
+    "story": {
+      "status": "documented",
+      "section": "## Silicon không chỉ ở trong kính và vi mạch",
+      "sources": [
+        "https://doi.org/10.1021/jo00239a056",
+        "https://pmc.ncbi.nlm.nih.gov/articles/PMC2648401/",
+        "https://pmc.ncbi.nlm.nih.gov/articles/PMC9933925/"
+      ]
+    },
+    "application": {
+      "status": "documented",
+      "section": "## Ứng dụng hôm nay: giữ một nhóm chờ đến lượt phản ứng",
+      "sources": [
+        "https://doi.org/10.1021/jo00239a056",
+        "https://pmc.ncbi.nlm.nih.gov/articles/PMC2648401/",
+        "https://pmc.ncbi.nlm.nih.gov/articles/PMC9933925/"
+      ]
+    }
+  },
+  "content": "## Silicon không chỉ ở trong kính và vi mạch\n\nNăm 1988, Yasuo Hatanaka và Tamejiro Hiyama công bố ghép organosilane với halide hữu cơ nhờ xúc tác palladium và chất hỗ trợ chứa fluoride. Công việc cho thấy một liên kết carbon–silicon tương đối bền có thể trở thành nguồn cung cấp nhóm carbon trong tổng hợp.\n\nSự ổn định là điểm hấp dẫn: nhiều organosilane có thể được phân lập và mang qua những bước phản ứng khác. Nhưng chính liên kết bền cũng làm chúng khó truyền nhóm hữu cơ khi cần ghép. Phương pháp phải giải quyết hai mong muốn trái chiều: giữ nguyên trong lúc chuẩn bị, phản ứng được ở bước đã chọn.\n\nNhững phát triển của nhóm Scott Denmark về organosilanol và muối của chúng đưa tới các cách hoạt hóa khác, trong đó có những hệ không cần thêm fluoride. Tên phản ứng vì vậy bao gồm một lịch sử mở rộng, không phải một công thức duy nhất giữ nguyên từ năm 1988.\n\n![Minh họa liên kết cộng hóa trị, không phải mạng silicon bán dẫn](/assets/library/covalent-bonds.svg)\n\n## Thay môi trường phối trí để carbon có thể chuyển đi\n\nSilicon có thể tham gia những trạng thái phối trí làm thay đổi tính chất của liên kết carbon–silicon. Trong nhiều hệ Hiyama, tác nhân hoạt hóa giúp tạo loài có khả năng truyền nhóm hữu cơ tới kim loại xúc tác thuận lợi hơn.\n\nSau bước chuyển nhóm, chu trình kim loại tạo mối nối carbon–carbon với phần hữu cơ của đối tác khác. Silicon không nhất thiết nằm trong sản phẩm mục tiêu; nó là một phần của đối tác được thiết kế để giao nhóm carbon ở đúng thời điểm.\n\nVới organosilanol, nhóm OH gắn trên silicon và trạng thái của nó ảnh hưởng cách hoạt hóa. Do đó, không thể thay một organosilane bất kỳ cho một silanol rồi giả định phản ứng giữ nguyên. Những nhóm quanh silicon là thông tin hóa học cần thiết, không phải phần trang trí của công thức.\n\nTính chọn lọc cũng liên quan tới cấu trúc của nhóm được chuyển. Các vinyl silane có thể mang thông tin hình học cần được giữ khi tạo liên kết mới. Khi cơ chất trở nên đông đúc hơn, phương pháp có thể cần thiết kế riêng.\n\n## Ứng dụng hôm nay: giữ một nhóm chờ đến lượt phản ứng\n\nCông trình công bố năm 2023 về ghép Hiyama–Denmark với vinyl silane thế nhiều minh họa một giới hạn vẫn đang được mở rộng. Những cơ chất ổn định và có hình học kiểm soát được rất hấp dẫn cho tổng hợp giai đoạn muộn, nhưng độ bền của chúng cũng khiến hoạt hóa trở thành thách thức.\n\nƯu điểm thực tế của một đối tác silicon phải được so cùng cách điều chế nó. Silicon phổ biến trong tự nhiên không đồng nghĩa mọi organosilane cần thiết đều có sẵn với giá thấp hoặc có chuỗi sản xuất đơn giản. Các bước chuẩn bị và làm sạch vẫn quyết định tính phù hợp của tuyến tổng hợp.\n\nTrong thiết kế phân tử, một nhóm có thể nằm yên qua vài bước rồi được kích hoạt chọn lọc là công cụ quý. Nó cho phép nhà hóa học chia công việc theo thứ tự, bảo toàn phần cấu trúc đã có và nối thêm phần mới ở giai đoạn thích hợp.\n\nCâu chuyện Hiyama cho thấy tính bền và tính phản ứng không phải hai nhãn cố định của một phân tử. Chúng phụ thuộc môi trường và đối tác. Thiết kế xúc tác thành công đôi khi là tìm đúng cách đánh thức một liên kết đã được giữ yên suốt phần trước của hành trình.\n\n## Nguồn và đọc thêm\n\n- [Hatanaka và Hiyama · Công trình ghép organosilane, 1988](https://doi.org/10.1021/jo00239a056)\n- [Denmark và Regens · Organosilanol và các cách hoạt hóa mới](https://pmc.ncbi.nlm.nih.gov/articles/PMC2648401/)\n- [Ghép Hiyama–Denmark với vinyl silane thế nhiều, 2023](https://pmc.ncbi.nlm.nih.gov/articles/PMC9933925/)"
+}

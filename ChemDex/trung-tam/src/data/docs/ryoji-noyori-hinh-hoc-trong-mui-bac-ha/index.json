@@ -1,0 +1,44 @@
+{
+  "id": "ryoji-noyori-hinh-hoc-trong-mui-bac-ha",
+  "slug": "ryoji-noyori-hinh-hoc-trong-mui-bac-ha",
+  "documentPath": "docs/ryoji-noyori-hinh-hoc-trong-mui-bac-ha/index.json",
+  "title": "Ryoji Noyori: hình học của chất xúc tác đi vào mùi bạc hà",
+  "summary": "BINAP giúp một bước đồng phân hóa ưu tiên cấu hình cần cho chuỗi sản xuất menthol. Câu chuyện cho thấy thiết kế phối tử có thể nối nghiên cứu lập thể với một nguyên liệu quen thuộc.",
+  "category": "tieusu",
+  "author": "Ban biên tập ChemDex",
+  "image": "/assets/library/organic-alcohol.svg",
+  "tags": [
+    "Ryoji Noyori",
+    "BINAP",
+    "Menthol",
+    "Xúc tác bất đối xứng"
+  ],
+  "aliases": [],
+  "documentKind": "story",
+  "readingMinutes": 4,
+  "editorialEvidence": {
+    "language": "vi",
+    "scope": "chemical-family",
+    "contextLabel": "Ryoji Noyori: hình học của chất xúc tác đi vào mùi bạc hà",
+    "reviewBasis": "Biên soạn theo các nguồn dẫn cuối bài; phân biệt kết quả đã thực hiện và hướng phát triển.",
+    "story": {
+      "status": "documented",
+      "section": "## Một phân tử hương cần đúng cách sắp xếp",
+      "sources": [
+        "https://www.takasago.com/en/finechemicals/history.html",
+        "https://www.nobelprize.org/uploads/2018/06/noyori-lecture.pdf",
+        "https://www.mext.go.jp/component/english/__icsFiles/afieldfile/2017/04/14/1384513_004.pdf"
+      ]
+    },
+    "application": {
+      "status": "documented",
+      "section": "## Ứng dụng hôm nay: chọn đúng dạng ngay từ phản ứng",
+      "sources": [
+        "https://www.takasago.com/en/finechemicals/history.html",
+        "https://www.nobelprize.org/uploads/2018/06/noyori-lecture.pdf",
+        "https://www.mext.go.jp/component/english/__icsFiles/afieldfile/2017/04/14/1384513_004.pdf"
+      ]
+    }
+  },
+  "content": "## Một phân tử hương cần đúng cách sắp xếp\n\nTakasago ghi nhận năm 1983 là mốc triển khai công nghiệp bước đồng phân hóa bất đối xứng trong tuyến tổng hợp l-menthol, dựa trên công việc hợp tác với nhóm Ryoji Noyori. Thành phần then chốt là hệ rhodium phối hợp với BINAP, một phối tử được phát triển trước đó.\n\nMenthol có nhiều đồng phân lập thể. Tạo đúng công thức phân tử chưa xác định được dạng mong muốn. Trong sản xuất, việc ưu tiên cấu hình từ sớm có thể làm thay đổi các bước tách và xử lý về sau.\n\nĐóng góp của chất xúc tác nằm ở một bước trong cả tuyến, không phải biến một nguyên liệu bất kỳ thẳng thành hương bạc hà. Câu chuyện hấp dẫn chính ở sự nối tiếp: một quyết định về hình học quanh kim loại mở đường cho một chuỗi biến đổi có thể sản xuất.\n\n![Minh họa nhóm alcohol, không phải cấu trúc riêng của menthol hay BINAP](/assets/library/organic-alcohol.svg)\n\n## Phối tử tạo một môi trường không còn đối xứng\n\nBINAP có cấu trúc bất đối xứng gắn với sự sắp xếp của hai phần vòng thơm. Khi phối trí với kim loại, nó tạo môi trường ba chiều ảnh hưởng cách cơ chất tiếp cận và biến đổi.\n\nHai con đường tạo các dạng đối quang có thể có năng lượng khác nhau trong môi trường ấy. Chất xúc tác không nhận biết một tên gọi thương mại; nó ưu tiên những tương tác hình học và điện tử phù hợp trong từng bước của chu trình.\n\nVì vậy, cùng BINAP nhưng đổi kim loại, cơ chất hoặc điều kiện có thể cho hành vi khác. Phối tử nổi tiếng không phải chìa khóa dùng cho mọi ổ. Nghiên cứu cần xác định cấu hình, hoạt tính và độ bền của đúng hệ đang dùng.\n\n## Từ phân tử được thiết kế tới nguyên liệu được cung cấp\n\nLịch sử của Takasago đặt phát triển BINAP, sản xuất phối tử và đưa quy trình menthol vào công nghiệp trong những mốc liên tiếp. Một ý tưởng tốt còn phải đi qua khả năng cung cấp chất xúc tác đủ sạch và vận hành ổn định.\n\nTài liệu khoa học và công nghệ của Nhật Bản dùng trường hợp này để minh họa hợp tác giữa đại học và doanh nghiệp. Các nhóm giải những nhiệm vụ bổ sung nhau, từ cơ sở lập thể tới điều kiện phù hợp với dây chuyền.\n\nNoyori về sau phát triển nhiều hệ xúc tác bất đối xứng khác. Không nên gom mọi thành tựu của chúng thành tính năng của riêng một phức rhodium trong tuyến menthol. Mỗi công trình có cấu trúc, cơ chất và phép kiểm chứng riêng.\n\n## Ứng dụng hôm nay: chọn đúng dạng ngay từ phản ứng\n\nTổng hợp bất đối xứng là công cụ để tạo những chất có cấu hình xác định trong nghiên cứu và sản xuất. Giá trị không chỉ ở tỷ lệ một dạng cao, mà còn ở hiệu suất, độ tinh sạch và khả năng giảm các bước xử lý không cần thiết.\n\nKhi đọc một thông báo về xúc tác mới, cần phân biệt độ chọn lọc lập thể với lượng sản phẩm thu được. Một mẫu rất giàu dạng mong muốn vẫn cần được kiểm tra các tạp khác và chứng minh tính ổn định khi tăng quy mô.\n\nMenthol làm câu chuyện Noyori gần đời sống mà vẫn giữ bản chất hóa học. Mùi quen thuộc đứng ở cuối một chuỗi lựa chọn về hình học phân tử. Trước khi sản phẩm tới người dùng, một phối tử đã giúp các nguyên tử đi theo con đường ưu tiên trong những điều kiện được thiết kế và đo lường cẩn thận.\n\n## Nguồn và đọc thêm\n\n- [Takasago · Lịch sử BINAP và tuyến menthol](https://www.takasago.com/en/finechemicals/history.html)\n- [Ryoji Noyori · Bài giảng Nobel](https://www.nobelprize.org/uploads/2018/06/noyori-lecture.pdf)\n- [MEXT · Trường hợp hợp tác phát triển menthol, 2016](https://www.mext.go.jp/component/english/__icsFiles/afieldfile/2017/04/14/1384513_004.pdf)"
+}

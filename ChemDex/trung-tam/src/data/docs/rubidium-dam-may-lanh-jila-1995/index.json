@@ -1,0 +1,46 @@
+{
+  "id": "rubidium-dam-may-lanh-jila-1995",
+  "slug": "rubidium-dam-may-lanh-jila-1995",
+  "documentPath": "docs/rubidium-dam-may-lanh-jila-1995/index.json",
+  "title": "Đám mây rubidium năm 1995: khi nhiều nguyên tử chia sẻ một trạng thái",
+  "summary": "Ngày 5/6/1995, nhóm JILA tạo ngưng tụ Bose–Einstein trong khí rubidium loãng. Thành quả ấy mở thêm một cách tổ chức vật chất để khảo sát hành vi lượng tử.",
+  "category": "nguyento",
+  "author": "Ban biên tập ChemDex",
+  "image": "/assets/library/photos/stories/jila-rubidium-condensation.png",
+  "tags": [
+    "Rubidium",
+    "JILA",
+    "Ngưng tụ Bose–Einstein",
+    "Nguyên tử lạnh"
+  ],
+  "aliases": [],
+  "documentKind": "story",
+  "readingMinutes": 5,
+  "editorialEvidence": {
+    "language": "vi",
+    "scope": "element",
+    "contextLabel": "Đám mây rubidium năm 1995: khi nhiều nguyên tử chia sẻ một trạng thái",
+    "reviewBasis": "Biên soạn theo các nguồn dẫn cuối bài; phân biệt kết quả đã thực hiện và hướng phát triển.",
+    "story": {
+      "status": "documented",
+      "section": "## Dấu hiệu nhỏ trong một đám mây nhỏ",
+      "sources": [
+        "https://www.nist.gov/news-events/news/1995/07/physicists-create-new-state-matter-record-low-temperature",
+        "https://doi.org/10.1126/science.269.5221.198",
+        "https://www.nasa.gov/centers-and-facilities/johnson/station-science-top-news-august-29-2024/",
+        "https://doi.org/10.1038/s41467-024-50585-6"
+      ]
+    },
+    "application": {
+      "status": "documented",
+      "section": "## Từ bàn JILA đến cảm biến sóng vật chất",
+      "sources": [
+        "https://www.nist.gov/news-events/news/1995/07/physicists-create-new-state-matter-record-low-temperature",
+        "https://doi.org/10.1126/science.269.5221.198",
+        "https://www.nasa.gov/centers-and-facilities/johnson/station-science-top-news-august-29-2024/",
+        "https://doi.org/10.1038/s41467-024-50585-6"
+      ]
+    }
+  },
+  "content": "## Dấu hiệu nhỏ trong một đám mây nhỏ\n\nỞ JILA, viện chung của NIST và Đại học Colorado Boulder, nhóm nghiên cứu của Eric Cornell và Carl Wieman theo đuổi trạng thái được Bose và Einstein dự đoán nhiều thập niên trước. Ngày 5 tháng 6 năm 1995, họ tạo được ngưng tụ Bose–Einstein từ rubidium. Kết quả công bố trên Science tháng 7 năm ấy.\n\nHệ thống nằm trên bàn thí nghiệm với laser, bẫy từ và bộ điều khiển. Mẫu quan trọng chỉ gồm khoảng hai nghìn nguyên tử trong một phần đám mây. Một vật thể nhỏ đến vậy vẫn đủ cho thấy sự thay đổi rõ trong cách phân bố các nguyên tử khi nhiệt độ được hạ xuống rất thấp.\n\nĐiều nhóm tìm không phải một viên kim loại rubidium bị đông cứng. Đó là khí loãng ở chế độ lượng tử, nơi nhiều nguyên tử boson cùng chiếm một trạng thái. Sự khác biệt nằm ở cách hệ tập thể được tổ chức, không thể đọc chỉ từ màu hay độ cứng của nguyên tố trong lọ.\n\n![Biểu diễn dữ liệu phân bố khí rubidium trước và trong ngưng tụ Bose–Einstein](/assets/library/photos/stories/jila-rubidium-condensation.png)\n\n*Biểu diễn ba chiều các phân bố nguyên tử trong thí nghiệm JILA năm 1995. Màu và độ cao thể hiện dữ liệu; đây không phải màu nhìn thấy của nguyên tử. — NIST/JILA/CU-Boulder; NIST Image; [Public domain](https://commons.wikimedia.org/wiki/Template:PD-USGov-NIST). [Nguồn ảnh](https://commons.wikimedia.org/wiki/File:Bose_Einstein_condensate.png).*\n\n## Laser làm chậm, bay hơi làm lạnh tiếp\n\nPhoton có thể trao đổi động lượng với nguyên tử. Nhóm dùng ánh sáng được chọn phù hợp để làm chậm và gom các nguyên tử, rồi tiếp tục bằng bẫy từ và làm lạnh bay hơi. Những nguyên tử có năng lượng cao được loại ra để phần còn lại đạt trạng thái lạnh hơn.\n\nNhưng lạnh là một vế; mật độ và khả năng giữ mẫu cũng quan trọng. Các nguyên tử không được phép mất khỏi vùng bẫy quá nhanh. Thiết kế bẫy có thế biến đổi theo thời gian là một phần giúp nhóm tiến tới điều kiện cần thiết cho ngưng tụ.\n\nTrong công bố gốc, mẫu là ⁸⁷Rb. Việc chọn đồng vị quan trọng vì tính chất lượng tử của nguyên tử phụ thuộc cả cấu tạo hạt nhân và electron. Không phải cứ làm lạnh bất kỳ vật liệu nào đến cùng một nhiệt độ là tự có cùng trạng thái tập thể.\n\n## Một trạng thái chung không xóa mất nguyên tử\n\nCụm từ “siêu nguyên tử” thường được dùng trong các bản tin để gợi hình. Nó dễ làm người đọc tưởng nhiều hạt nhân đã hợp nhất thành một hạt mới. Thực tế, ngưng tụ diễn tả việc nhiều nguyên tử cùng chiếm trạng thái lượng tử; không phải phản ứng hạt nhân.\n\nPhân bố sau khi cho mẫu giãn nở giúp nhóm nhận ra thành phần ngưng tụ giữa phần khí nhiệt. Tín hiệu được đối chiếu với dự đoán của hệ khí lượng tử. Cách nhìn ấy nối một ảnh đo được với mô hình vật lý, thay vì chỉ dựa vào chuyện mẫu có vẻ đứng yên.\n\nThí nghiệm năm 1995 mở một môi trường có thể điều khiển để nghiên cứu tính kết hợp và tương tác giữa nguyên tử. Người nghiên cứu có thêm khả năng chuẩn bị lại mẫu, thay đổi điều kiện và xem hiện tượng tập thể đáp ứng ra sao.\n\n## Từ bàn JILA đến cảm biến sóng vật chất\n\nMột bước nối hiện đại là giao thoa nguyên tử. Sóng vật chất được điều khiển theo những đường khác nhau rồi cho giao thoa; chênh lệch pha mang thông tin về lực hoặc chuyển động mà hệ trải qua. Nó sử dụng những công cụ nguyên tử lạnh phát triển qua nhiều thế hệ thí nghiệm.\n\nNghiên cứu Cold Atom Lab năm 2024 báo cáo các phép thử giao thoa trong môi trường Trạm Vũ trụ Quốc tế, có cả khảo sát ảnh hưởng rung của trạm. NASA mô tả rubidium lạnh trong các thí nghiệm này như một nền tảng phát triển phép đo, chưa phải thiết bị đã thay thế mọi cảm biến trên tàu.\n\nKhoảng cách từ hai nghìn nguyên tử ở JILA đến một cảm biến trong quỹ đạo được lấp bằng công nghệ laser, bẫy, đọc tín hiệu và điều khiển. Rubidium góp một hệ nguyên tử có thể chuẩn bị rất kỹ; giá trị của nó hiện ra khi người nghiên cứu biến trạng thái lượng tử thành dữ liệu kiểm tra được.\n\n## Nguồn và đọc thêm\n\n- [NIST: thông báo thí nghiệm năm 1995](https://www.nist.gov/news-events/news/1995/07/physicists-create-new-state-matter-record-low-temperature)\n- [Anderson và cộng sự: ngưng tụ Bose–Einstein, Science 1995](https://doi.org/10.1126/science.269.5221.198)\n- [NASA: rubidium và giao thoa trên ISS, tháng 8/2024](https://www.nasa.gov/centers-and-facilities/johnson/station-science-top-news-august-29-2024/)\n- [Các thí nghiệm giao thoa Cold Atom Lab, 2024](https://doi.org/10.1038/s41467-024-50585-6)"
+}

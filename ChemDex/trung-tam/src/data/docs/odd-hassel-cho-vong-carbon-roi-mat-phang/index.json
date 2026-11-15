@@ -1,0 +1,44 @@
+{
+  "id": "odd-hassel-cho-vong-carbon-roi-mat-phang",
+  "slug": "odd-hassel-cho-vong-carbon-roi-mat-phang",
+  "documentPath": "docs/odd-hassel-cho-vong-carbon-roi-mat-phang/index.json",
+  "title": "Odd Hassel: những vòng carbon rời khỏi mặt phẳng của trang giấy",
+  "summary": "Nhiễu xạ electron giúp Hassel khảo sát hình dạng phân tử trong pha khí. Các kết quả về vòng carbon góp nền tảng cho cách giải thích cấu dạng và phản ứng hữu cơ.",
+  "category": "tieusu",
+  "author": "Ban biên tập ChemDex",
+  "image": "/assets/library/covalent-bonds.svg",
+  "tags": [
+    "Odd Hassel",
+    "Nhiễu xạ electron",
+    "Cyclohexane",
+    "Cấu dạng"
+  ],
+  "aliases": [],
+  "documentKind": "story",
+  "readingMinutes": 4,
+  "editorialEvidence": {
+    "language": "vi",
+    "scope": "chemical-family",
+    "contextLabel": "Odd Hassel: những vòng carbon rời khỏi mặt phẳng của trang giấy",
+    "reviewBasis": "Biên soạn theo các nguồn dẫn cuối bài; phân biệt kết quả đã thực hiện và hướng phát triển.",
+    "story": {
+      "status": "documented",
+      "section": "## Dữ liệu tán xạ thay cho một hình lục giác quá gọn",
+      "sources": [
+        "https://www.nobelprize.org/uploads/2018/06/hassel-lecture.pdf",
+        "https://www.nobelprize.org/prizes/chemistry/1969/hassel/biographical/",
+        "https://openstax.org/books/organic-chemistry/pages/4-5-conformations-of-cyclohexane"
+      ]
+    },
+    "application": {
+      "status": "documented",
+      "section": "## Ứng dụng hôm nay: mô hình phải cho phép phân tử chuyển động",
+      "sources": [
+        "https://www.nobelprize.org/uploads/2018/06/hassel-lecture.pdf",
+        "https://www.nobelprize.org/prizes/chemistry/1969/hassel/biographical/",
+        "https://openstax.org/books/organic-chemistry/pages/4-5-conformations-of-cyclohexane"
+      ]
+    }
+  },
+  "content": "## Dữ liệu tán xạ thay cho một hình lục giác quá gọn\n\nOdd Hassel phát triển nghiên cứu nhiễu xạ electron của các phân tử khí tại Oslo và dùng phương pháp này để khảo sát những cấu trúc hữu cơ. Với các vòng chứa sáu carbon, câu hỏi là các nguyên tử thực sự được bố trí thế nào trong không gian.\n\nMột hình lục giác phẳng rất thuận tiện khi viết công thức, nhưng nó có thể che mất hình dạng thực và những tương tác quyết định độ bền. Các phép đo của Hassel giúp xác lập những cấu dạng không phẳng của vòng và các dẫn xuất.\n\nĐiểm đặc biệt của pha khí là giảm một số ảnh hưởng của mạng tinh thể lên cấu trúc quan sát. Tuy nhiên, mẫu vẫn có thể chứa những cấu dạng với tỷ lệ khác nhau, nên dữ liệu phải được diễn giải bằng mô hình phù hợp.\n\n![Minh họa cấu trúc không gian, không phải ảnh nhiễu xạ electron của Hassel](/assets/library/covalent-bonds.svg)\n\n## Electron tán xạ cung cấp khoảng cách gián tiếp\n\nChùm electron tương tác với phân tử tạo một mẫu hình tán xạ liên quan đến các khoảng cách trong hệ. Nhà nghiên cứu so sánh dữ liệu với những cấu trúc ứng viên để tìm mô tả phù hợp.\n\nKhông có hình từng nguyên tử xuất hiện sẵn như những quả cầu trong mô hình học tập. Các khoảng cách và sự phân bố được suy ra từ tín hiệu tổng, với những giới hạn do dao động và hỗn hợp cấu dạng.\n\nVì vậy, biết cấu trúc cần nhiều hơn một phép khớp tốt. Mô hình phải hợp lý về liên kết, tương thích với các phép đo khác và không dùng quá nhiều tự do để che sai lệch. Cách kiểm tra ấy làm nhiễu xạ thành bằng chứng hóa học chứ không chỉ một đường cong.\n\n## Hình dạng giúp giải thích những tính chất tưởng rời nhau\n\nCác cấu dạng của vòng liên hệ với khoảng cách giữa nhóm thế, tính chất vật lý và khả năng phản ứng. Khi hình dạng được hiểu rõ hơn, những dữ kiện vốn cần nhớ riêng bắt đầu có thể được nối bằng cùng một mô hình.\n\nBài giảng Nobel của Hassel đặt những nghiên cứu này trong lịch sử phân tích cấu dạng và các tương tác giữa phân tử. Barton phát triển mạnh việc dùng cấu dạng để giải thích phản ứng; công việc của hai người bổ sung nhau qua những loại bằng chứng khác nhau.\n\nSự hợp tác trong ý nghĩa khoa học không nhất thiết là cùng làm mọi thí nghiệm. Một nhóm tạo công cụ đo hình học, nhóm khác thử sức giải thích của hình học ấy trên hóa học của những hệ lớn hơn.\n\n## Ứng dụng hôm nay: mô hình phải cho phép phân tử chuyển động\n\nCấu dạng hiện là phần cơ bản của nghiên cứu phân tử, từ dung dịch tới tương tác với protein. Một hình dạng đơn lẻ thường chỉ là đại diện; nhiều cấu dạng có thể cùng góp vào tính chất đo được.\n\nKhi so sánh hai chất, cần xem chúng khác nhau ở khả năng chuyển động và phân bố cấu dạng nào, không chỉ ở vị trí các nét nối trên giấy. Dung môi và nhiệt độ có thể làm thay đổi mức ưu tiên của những trạng thái ấy.\n\nHassel giúp hóa học giữ một khoảng cách cần thiết giữa ký hiệu và vật thể. Hình vẽ phẳng là ngôn ngữ tiện dụng, còn phân tử sống trong ba chiều. Việc đo và kiểm tra hình dạng ấy đã tạo nền tảng để các lời giải thích phản ứng dựa vào không gian thực, thay vì chỉ dựa vào sự thuận mắt của một công thức trên trang sách.\n\n## Nguồn và đọc thêm\n\n- [Odd Hassel · Bài giảng Nobel](https://www.nobelprize.org/uploads/2018/06/hassel-lecture.pdf)\n- [Odd Hassel · Hồ sơ nghiên cứu Nobel](https://www.nobelprize.org/prizes/chemistry/1969/hassel/biographical/)\n- [OpenStax · Cấu dạng cyclohexane và mô hình ba chiều](https://openstax.org/books/organic-chemistry/pages/4-5-conformations-of-cyclohexane)"
+}

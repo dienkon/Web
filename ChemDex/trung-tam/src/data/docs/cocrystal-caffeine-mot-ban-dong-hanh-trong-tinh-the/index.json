@@ -1,0 +1,44 @@
+{
+  "id": "cocrystal-caffeine-mot-ban-dong-hanh-trong-tinh-the",
+  "slug": "cocrystal-caffeine-mot-ban-dong-hanh-trong-tinh-the",
+  "documentPath": "docs/cocrystal-caffeine-mot-ban-dong-hanh-trong-tinh-the/index.json",
+  "title": "Caffeine tìm một bạn đồng hành trong mạng tinh thể",
+  "summary": "Đồng kết tinh có thể đổi tính chất của chất rắn mà không cần tạo một phân tử cộng hóa trị mới. Nghiên cứu caffeine và độ ẩm cho thấy phải chọn đúng đối tác và kiểm tra đúng môi trường.",
+  "category": "khainiem",
+  "author": "Ban biên tập ChemDex",
+  "image": "/assets/library/organic-aromatic.svg",
+  "tags": [
+    "Đồng tinh thể",
+    "Caffeine",
+    "Liên kết hydrogen",
+    "Độ ẩm"
+  ],
+  "aliases": [],
+  "documentKind": "story",
+  "readingMinutes": 4,
+  "editorialEvidence": {
+    "language": "vi",
+    "scope": "chemical-family",
+    "contextLabel": "Caffeine tìm một bạn đồng hành trong mạng tinh thể",
+    "reviewBasis": "Biên soạn theo các nguồn dẫn cuối bài; phân biệt kết quả đã thực hiện và hướng phát triển.",
+    "story": {
+      "status": "documented",
+      "section": "## Một phân tử quen thuộc gặp vấn đề rất vật lý",
+      "sources": [
+        "https://doi.org/10.1021/cg0496540",
+        "https://www.sciencedirect.com/science/article/abs/pii/S0378517309004013",
+        "https://pubmed.ncbi.nlm.nih.gov/17497885/"
+      ]
+    },
+    "application": {
+      "status": "documented",
+      "section": "## Ứng dụng hôm nay: thay tính chất bằng tổ chức phân tử",
+      "sources": [
+        "https://doi.org/10.1021/cg0496540",
+        "https://www.sciencedirect.com/science/article/abs/pii/S0378517309004013",
+        "https://pubmed.ncbi.nlm.nih.gov/17497885/"
+      ]
+    }
+  },
+  "content": "## Một phân tử quen thuộc gặp vấn đề rất vật lý\n\nNăm 2005, Trask, Motherwell và Jones công bố nghiên cứu dùng caffeine làm mô hình để tìm dạng tinh thể ổn định hơn trước độ ẩm. Nhóm tạo và khảo sát các đồng tinh thể với một số acid dicarboxylic. Các mẫu không cho kết quả giống nhau: lựa chọn phân tử đi cùng quyết định cấu trúc và hành vi khi tiếp xúc hơi nước.\n\nĐiểm hấp dẫn là caffeine không cần biến thành một phân tử cộng hóa trị hoàn toàn khác để vật liệu đổi tính chất. Một thành phần thứ hai có thể tham gia mạng tinh thể, tạo những tương tác mới giữa các phân tử. Hóa học ở khoảng cách giữa các phân tử trở thành công cụ thiết kế trạng thái rắn.\n\n![Minh họa phân tử hữu cơ; không phải cấu trúc của một đồng tinh thể caffeine](/assets/library/organic-aromatic.svg)\n\n## Cùng một tinh thể khác với trộn hai loại bột\n\nTrong đồng tinh thể, các thành phần cùng hiện diện theo một cấu trúc tinh thể xác định. Trộn cơ học hai bột có thể chỉ tạo hỗn hợp của hai pha; để kết luận đã tạo đồng tinh thể cần bằng chứng cấu trúc và các phép đo phù hợp. Nhiễu xạ giúp phân biệt mạng mới với tổng đơn giản của những mạng cũ.\n\nLiên kết hydrogen thường đóng vai trò trong việc tổ chức mạng, nhưng không phải mọi cặp có khả năng tạo liên kết hydrogen đều kết tinh thành sản phẩm mong muốn. Cạnh tranh với dung môi, nước và các kiểu đóng gói khác làm kết quả cần được kiểm tra. Ranh giới với muối và dạng solvate cũng đòi hỏi mô tả rõ trạng thái của các thành phần.\n\n## Độ ẩm thử thách mạng mới như thế nào?\n\nTrong nghiên cứu năm 2005, đồng tinh thể caffeine với oxalic acid giữ được trạng thái vật lý trong những phép thử độ ẩm kéo dài vài tuần, trong khi các mẫu khác kém ổn định hơn. Đó là kết quả trong phạm vi thử nghiệm, không phải lời khẳng định vật liệu bền ở mọi điều kiện hoặc phù hợp để sử dụng làm sản phẩm.\n\nNghiên cứu sau dùng kính hiển vi lực nguyên tử theo dõi bề mặt các đồng tinh thể caffeine khi bảo quản ở độ ẩm có kiểm soát. Những thay đổi trên bề mặt cung cấp lớp thông tin khác với phép đo trung bình toàn mẫu. Các nghiên cứu sàng lọc hydrate còn cho thấy nước có thể trở thành một thành phần của cấu trúc mới, thay vì chỉ là tác nhân bên ngoài.\n\n## Ứng dụng hôm nay: thay tính chất bằng tổ chức phân tử\n\nKỹ thuật đồng kết tinh được nghiên cứu để điều chỉnh độ tan, độ ổn định và khả năng gia công của vật liệu phân tử. Với mỗi ứng dụng, lựa chọn chất đi cùng còn phải xét độ phù hợp, độ tinh khiết và khả năng duy trì dạng rắn. Một cấu trúc đẹp trên dữ liệu nhiễu xạ chỉ là một phần của hồ sơ.\n\nCâu chuyện caffeine làm rõ một tầng thiết kế nằm giữa phản ứng tạo phân tử mới và việc chỉ thay cách đóng gói sản phẩm. Các phân tử có thể giữ nguyên nhiều đặc điểm của mình nhưng đổi cách tổ chức chung, giống những thành viên quen thuộc tạo ra một cấu trúc tập thể khác. Giá trị của đồng tinh thể được xác nhận bằng tính chất đo được và sự ổn định khi gặp môi trường thật, không chỉ bằng việc đặt hai tên hóa chất cạnh nhau.\n\n## Nguồn và đọc thêm\n\n- [Trask, Motherwell và Jones · Đồng tinh thể caffeine và độ ẩm, 2005](https://doi.org/10.1021/cg0496540)\n- [Nghiên cứu gốc · Bề mặt đồng tinh thể caffeine dưới độ ẩm kiểm soát, 2009](https://www.sciencedirect.com/science/article/abs/pii/S0378517309004013)\n- [Nghiên cứu gốc · Sàng lọc hydrate đồng tinh thể bằng nghiền, 2007](https://pubmed.ncbi.nlm.nih.gov/17497885/)"
+}

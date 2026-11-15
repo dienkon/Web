@@ -1,0 +1,46 @@
+{
+  "id": "cobalt-hong-xanh-can-bang-thanh-tin-hieu",
+  "slug": "cobalt-hong-xanh-can-bang-thanh-tin-hieu",
+  "documentPath": "docs/cobalt-hong-xanh-can-bang-thanh-tin-hieu/index.json",
+  "title": "Từ hồng sang xanh: khi cân bằng hóa học trở thành một tín hiệu",
+  "summary": "Các phức cobalt đổi màu khi môi trường phối trí thay đổi. Một thí nghiệm lớp học và những màng cảm biến cho thấy cách nối cân bằng với phép đo.",
+  "category": "khainiem",
+  "author": "Ban biên tập ChemDex",
+  "image": "/assets/library/photos/elements/Co.jpg",
+  "tags": [
+    "Cân bằng",
+    "Le Chatelier",
+    "Phức chất",
+    "Cảm biến"
+  ],
+  "aliases": [],
+  "documentKind": "story",
+  "readingMinutes": 4,
+  "editorialEvidence": {
+    "language": "vi",
+    "scope": "chemical-family",
+    "contextLabel": "Từ hồng sang xanh: khi cân bằng hóa học trở thành một tín hiệu",
+    "reviewBasis": "Biên soạn theo các nguồn dẫn cuối bài; phân biệt kết quả đã thực hiện và hướng phát triển.",
+    "story": {
+      "status": "documented",
+      "section": "## Một thí nghiệm có thể đi và về",
+      "sources": [
+        "https://edu.rsc.org/experiments/the-equilibrium-between-two-coloured-cobalt-species/1.article",
+        "https://www.sensorsportal.com/HTML/DIGEST/april_08/P_267.pdf",
+        "https://link.springer.com/article/10.1186/s11671-017-2139-0",
+        "https://edu.rsc.org/cpd/understanding-equilibrium-a-delicate-balance/2000012.article"
+      ]
+    },
+    "application": {
+      "status": "documented",
+      "section": "## Ứng dụng hôm nay: từ màu nhìn thấy tới số đo có chuẩn",
+      "sources": [
+        "https://edu.rsc.org/experiments/the-equilibrium-between-two-coloured-cobalt-species/1.article",
+        "https://www.sensorsportal.com/HTML/DIGEST/april_08/P_267.pdf",
+        "https://link.springer.com/article/10.1186/s11671-017-2139-0",
+        "https://edu.rsc.org/cpd/understanding-equilibrium-a-delicate-balance/2000012.article"
+      ]
+    }
+  },
+  "content": "## Một thí nghiệm có thể đi và về\n\nTrong thí nghiệm do Royal Society of Chemistry giới thiệu, dung dịch chứa các dạng cobalt(II) có thể chuyển giữa màu hồng và xanh khi nồng độ chloride hoặc nhiệt độ thay đổi. Quá trình có thể đảo lại, giúp người học nhìn thấy cân bằng thay vì chỉ đọc hai mũi tên trên giấy.\n\nHai dạng thường được dùng để mô tả là phức aqua [Co(H₂O)₆]²⁺ và phức chloride [CoCl₄]²⁻. Cobalt vẫn ở số oxi hóa +2, nhưng môi trường phối trí và hình học khác nhau làm đáp ứng với ánh sáng đổi. Đổi màu ở đây không nhất thiết là bằng chứng của một phản ứng oxi hóa–khử.\n\n![Cobalt kim loại minh họa nguyên tố; màu trong bài thuộc các phức cobalt(II), không phải mẫu kim loại](/assets/library/photos/elements/Co.jpg)\n\n## Thay điều kiện, hệ tìm một phân bố mới\n\nMô hình tổng quát viết phức aqua cộng chloride cân bằng với phức chloride và nước. Tăng lượng chloride có thể làm phân bố dịch theo phía phức chloride trong điều kiện thích hợp. Thay nhiệt độ cũng đổi cân bằng vì các trạng thái có năng lượng và entropy khác nhau.\n\nNguyên lý Le Chatelier là cách dự đoán định tính hữu ích, nhưng không phải cơ chế giải thích mọi chi tiết. Cần biết phản ứng được viết theo chiều nào, chiều đó thu hay tỏa nhiệt và thành phần thực của dung dịch. Pha loãng cũng thay nhiều nồng độ cùng lúc, nên việc kể rằng hệ “muốn chống lại” tác động chỉ là lối nói tắt cho một quan hệ nhiệt động cụ thể.\n\n## Đặt hệ đổi màu vào một màng mỏng\n\nNghiên cứu năm 2008 của Nath và cộng sự chế tạo màng polymer chứa cobalt chloride và theo dõi ánh sáng truyền qua khi độ ẩm thay đổi. Chiều dày màng ảnh hưởng đáp ứng, cho thấy việc đưa chất nhạy vào một nền vật liệu tạo thêm những biến thiết kế.\n\nMột công trình năm 2017 dùng màng sợi nano polyamide chứa cobalt chloride để nghiên cứu cảm biến màu độ ẩm. Mạng sợi tạo diện tích tiếp xúc với hơi nước, trong khi chất nhạy cung cấp thay đổi quang. Những nghiên cứu ấy là các cấu hình cảm biến được thử nghiệm, không phải khẳng định một phương trình dung dịch đơn giản mô tả đầy đủ mọi dạng cobalt trong màng.\n\n## Ứng dụng hôm nay: từ màu nhìn thấy tới số đo có chuẩn\n\nMuốn biến đổi màu thành phép đo, cần hiệu chuẩn theo độ ẩm, nhiệt độ và thời gian đáp ứng. Cũng phải kiểm tra độ đảo ngược, độ trễ và độ bền qua nhiều chu kỳ. Nền polymer có thể hút nước và thay đổi cấu trúc, nên tín hiệu cuối cùng thuộc cả hệ vật liệu.\n\nCác cảm biến chứa cobalt còn cần đánh giá phù hợp vật liệu và cách đóng gói cho ứng dụng cụ thể; nghiên cứu nguyên lý không tự xác nhận sản phẩm được phép tiếp xúc thực phẩm hay cơ thể. Điểm hấp dẫn là một cân bằng có thể trở thành tín hiệu đọc được. Màu hồng và xanh nối bài học phức chất với kỹ thuật cảm biến, miễn là người thiết kế giữ rõ mối quan hệ giữa trạng thái hóa học, điều kiện môi trường và con số muốn báo cho người dùng.\n\n## Nguồn và đọc thêm\n\n- [RSC · Cân bằng hai dạng cobalt có màu](https://edu.rsc.org/experiments/the-equilibrium-between-two-coloured-cobalt-species/1.article)\n- [Nath và cộng sự · Màng polymer cảm biến độ ẩm, 2008](https://www.sensorsportal.com/HTML/DIGEST/april_08/P_267.pdf)\n- [Nghiên cứu gốc · Màng sợi nano polyamide–CoCl₂, 2017](https://link.springer.com/article/10.1186/s11671-017-2139-0)\n- [RSC · Giải thích cân bằng bằng nhiệt động học](https://edu.rsc.org/cpd/understanding-equilibrium-a-delicate-balance/2000012.article)"
+}

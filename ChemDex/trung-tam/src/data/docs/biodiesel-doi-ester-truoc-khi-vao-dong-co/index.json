@@ -1,0 +1,44 @@
+{
+  "id": "biodiesel-doi-ester-truoc-khi-vao-dong-co",
+  "slug": "biodiesel-doi-ester-truoc-khi-vao-dong-co",
+  "documentPath": "docs/biodiesel-doi-ester-truoc-khi-vao-dong-co/index.json",
+  "title": "Chiếc bán tải ở Yellowstone chạy bằng gì: phản ứng đằng sau biodiesel",
+  "summary": "Dự án năm 1995 dùng biodiesel do Đại học Idaho sản xuất cho một xe ở Yellowstone. Nhiên liệu ấy là các ester đã được chuyển hóa, không đơn giản là dầu thực vật đổ thẳng vào bình.",
+  "category": "phanung",
+  "author": "Ban biên tập ChemDex",
+  "image": "/assets/library/organic-ester.svg",
+  "tags": [
+    "Biodiesel",
+    "Transesterification",
+    "Triglyceride",
+    "Glycerol"
+  ],
+  "aliases": [],
+  "documentKind": "story",
+  "readingMinutes": 4,
+  "editorialEvidence": {
+    "language": "vi",
+    "scope": "chemical-family",
+    "contextLabel": "Chiếc bán tải ở Yellowstone chạy bằng gì: phản ứng đằng sau biodiesel",
+    "reviewBasis": "Biên soạn theo các nguồn dẫn cuối bài; phân biệt kết quả đã thực hiện và hướng phát triển.",
+    "story": {
+      "status": "documented",
+      "section": "## Một chiếc xe trở thành nơi kiểm tra nhiên liệu",
+      "sources": [
+        "https://www.biodieseleducation.org/Literature/TechNotes/TN01_Pioneers.pdf",
+        "https://rosap.ntl.bts.gov/view/dot/9546/dot_9546_DS1.pdf",
+        "https://www.waterboards.ca.gov/water_issues/programs/ust/regulatory/biodiesel/nrel2009.pdf"
+      ]
+    },
+    "application": {
+      "status": "documented",
+      "section": "## Ứng dụng hôm nay: thử nghiệm động cơ cần đi cùng tiêu chuẩn chất lượng",
+      "sources": [
+        "https://www.biodieseleducation.org/Literature/TechNotes/TN01_Pioneers.pdf",
+        "https://rosap.ntl.bts.gov/view/dot/9546/dot_9546_DS1.pdf",
+        "https://www.waterboards.ca.gov/water_issues/programs/ust/regulatory/biodiesel/nrel2009.pdf"
+      ]
+    }
+  },
+  "content": "## Một chiếc xe trở thành nơi kiểm tra nhiên liệu\n\nĐại học Idaho ghi nhận dự án “Truck-in-the-Park” bắt đầu tại Yellowstone năm 1995 với một xe bán tải Dodge dùng B100 do trường sản xuất. Một nghiên cứu vận hành về sau theo dõi quãng đường và tình trạng động cơ, đưa câu chuyện từ bình phản ứng tới điều kiện sử dụng thực tế.\n\nNguồn của Bộ Giao thông Hoa Kỳ mô tả nhiên liệu trong giai đoạn khởi đầu là ester ethyl từ dầu hạt cải. Chi tiết ấy quan trọng: một số tài liệu phổ biến viết ngắn thành “chạy bằng dầu cải”, dễ làm người đọc tưởng dầu nguyên trạng và biodiesel là cùng một chất.\n\nB100 nói về tỷ lệ biodiesel trong nhiên liệu, không nói rằng chỉ có một phân tử ester duy nhất. Thành phần acid béo của nguồn dầu tạo ra hỗn hợp ester với những tính chất cần được kiểm tra.\n\n![Minh họa nhóm ester, không phải ảnh nhiên liệu của dự án Yellowstone](/assets/library/organic-ester.svg)\n\n## Đổi phần alcohol của ester để thay đổi tính chất\n\nDầu và mỡ chứa nhiều triglyceride: ba gốc acid béo gắn với một khung glycerol. Trong transesterification, chúng phản ứng với alcohol phù hợp để tạo các ester mới và giải phóng glycerol sang dòng sản phẩm đi kèm.\n\nVới methanol, sản phẩm gồm các methyl ester; với ethanol, các ethyl ester tương ứng được tạo thành. Phần mạch acid béo phần lớn được giữ lại, nhưng việc tách chúng khỏi khung triglyceride làm thay đổi những tính chất vật lý quan trọng, trong đó có độ nhớt.\n\nĐiều này giải thích vì sao biodiesel không thể được định nghĩa chỉ bằng nguồn gốc thực vật. Có nguồn nguyên liệu sinh học là bước đầu; phản ứng chuyển hóa và chất lượng sau làm sạch mới xác định dòng nhiên liệu có phù hợp hay không.\n\nNước, acid béo tự do và tạp chất trong dầu đầu vào có thể ảnh hưởng đường phản ứng. Dầu mới và dầu đã qua sử dụng không nhất thiết đi qua cùng một chuỗi xử lý. Glycerol, alcohol còn dư và các thành phần phụ cũng phải được quản lý trước khi sản phẩm được sử dụng.\n\n## Ứng dụng hôm nay: thử nghiệm động cơ cần đi cùng tiêu chuẩn chất lượng\n\nHướng dẫn của NREL phân biệt biodiesel với dầu thực vật thô và trình bày những yếu tố liên quan đến bảo quản, nhiệt độ thấp và tương thích vật liệu. Các hỗn hợp như B20 hay B100 có yêu cầu sử dụng khác nhau; kinh nghiệm của một xe trình diễn không thay thế khuyến cáo cho mọi động cơ.\n\nNguồn nguyên liệu cũng ảnh hưởng tính chất của hỗn hợp ester. Tỷ lệ các mạch bão hòa và không bão hòa góp phần quyết định hành vi khi lạnh và độ ổn định oxi hóa. Vì vậy, tên “biodiesel” không đủ để dự đoán toàn bộ tính năng của một lô sản phẩm.\n\nCâu chuyện Yellowstone có giá trị vì kết hợp hai loại bằng chứng: hóa học xác định nhiên liệu đã được tạo ra thế nào, còn vận hành cho biết nó làm việc ra sao trong hệ thực. Những kết quả về một dự án ở thời điểm đó cần được giữ đúng phạm vi, không biến thành lời hứa cho mọi nguồn dầu và mọi khí hậu.\n\nPhản ứng đổi ester đứng giữa một nguồn dầu và một nhiên liệu có thể kiểm soát chất lượng. Chặng đường ấy cho thấy một thay đổi cấu trúc không quá lớn trên giấy có thể quyết định liệu vật liệu có đi được từ trang trại tới một nhiệm vụ kỹ thuật cụ thể hay không.\n\n## Nguồn và đọc thêm\n\n- [Đại học Idaho · Dự án Yellowstone và lịch sử biodiesel](https://www.biodieseleducation.org/Literature/TechNotes/TN01_Pioneers.pdf)\n- [U.S. DOT · Mô tả nhiên liệu ester ethyl ở Yellowstone](https://rosap.ntl.bts.gov/view/dot/9546/dot_9546_DS1.pdf)\n- [NREL · Biodiesel Handling and Use Guide, 2008](https://www.waterboards.ca.gov/water_issues/programs/ust/regulatory/biodiesel/nrel2009.pdf)"
+}

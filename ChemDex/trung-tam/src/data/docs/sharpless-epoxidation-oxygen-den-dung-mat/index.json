@@ -1,0 +1,44 @@
+{
+  "id": "sharpless-epoxidation-oxygen-den-dung-mat",
+  "slug": "sharpless-epoxidation-oxygen-den-dung-mat",
+  "documentPath": "docs/sharpless-epoxidation-oxygen-den-dung-mat/index.json",
+  "title": "Đưa oxygen tới đúng mặt: bước ngoặt epoxidation của Katsuki và Sharpless",
+  "summary": "Năm 1980, một hệ xúc tác tạo epoxide từ alcohol allylic với tính chọn lọc cao mở thêm đường tới phân tử bất đối xứng. Nhóm OH của cơ chất trở thành điểm định hướng quan trọng.",
+  "category": "phanung",
+  "author": "Ban biên tập ChemDex",
+  "image": "/assets/library/organic-alcohol.svg",
+  "tags": [
+    "Sharpless",
+    "Epoxidation",
+    "Titanium",
+    "Lập thể"
+  ],
+  "aliases": [],
+  "documentKind": "story",
+  "readingMinutes": 4,
+  "editorialEvidence": {
+    "language": "vi",
+    "scope": "chemical-family",
+    "contextLabel": "Đưa oxygen tới đúng mặt: bước ngoặt epoxidation của Katsuki và Sharpless",
+    "reviewBasis": "Biên soạn theo các nguồn dẫn cuối bài; phân biệt kết quả đã thực hiện và hướng phát triển.",
+    "story": {
+      "status": "documented",
+      "section": "## Một vòng ba cạnh mang thông tin cho nhiều bước sau",
+      "sources": [
+        "https://doi.org/10.1021/ja00538a077",
+        "https://www.nobelprize.org/uploads/2018/06/advanced-chemistryprize2001.pdf",
+        "https://sharpless.scripps.edu/publications/"
+      ]
+    },
+    "application": {
+      "status": "documented",
+      "section": "## Ứng dụng hôm nay: tạo một khối cấu trúc có thể đi nhiều hướng",
+      "sources": [
+        "https://doi.org/10.1021/ja00538a077",
+        "https://www.nobelprize.org/uploads/2018/06/advanced-chemistryprize2001.pdf",
+        "https://sharpless.scripps.edu/publications/"
+      ]
+    }
+  },
+  "content": "## Một vòng ba cạnh mang thông tin cho nhiều bước sau\n\nNăm 1980, Tsutomu Katsuki và K. Barry Sharpless công bố phương pháp epoxidation bất đối xứng có tính thực dụng cao. Cơ chất trung tâm là alcohol allylic, tức nhóm OH ở vị trí gần liên kết đôi. Sản phẩm epoxide tạo ra một vòng ba cạnh chứa oxygen với cấu hình có thể được kiểm soát.\n\nMột vòng nhỏ như vậy có thể là điểm xuất phát cho nhiều biến đổi tiếp theo. Khi mở vòng theo đường phù hợp, nhà tổng hợp thu được những cấu trúc chứa oxygen hoặc nitrogen ở các vị trí xác định. Vì thế, việc chọn mặt ngay lúc tạo epoxide có thể ảnh hưởng một chuỗi phản ứng dài về sau.\n\nNobel Hóa học 2001 ghi nhận công trình oxi hóa bất đối xứng của Sharpless. Thành tựu không phải phát hiện rằng alkene có thể thành epoxide, mà là làm cho việc chọn một dạng không gian trở nên dự đoán và sử dụng được hơn.\n\n![Minh họa alcohol; không phải cấu trúc epoxide hoặc hỗn hợp xúc tác](/assets/library/organic-alcohol.svg)\n\n## Nhóm OH giúp cơ chất đi vào đúng tư thế\n\nHệ xúc tác kinh điển kết hợp thành phần chứa titanium với dẫn xuất tartrate bất đối xứng và chất oxi hóa phù hợp. Nhóm alcohol của cơ chất hỗ trợ tương tác với môi trường kim loại. Cách đặt cơ chất trong môi trường ấy làm hai mặt liên kết đôi không còn tương đương về đường phản ứng.\n\nĐổi dạng đối quang của thành phần tartrate có thể đổi hướng ưu tiên tạo sản phẩm. Đây là thông tin hữu ích khi lập kế hoạch tổng hợp: thay vì tạo hỗn hợp rồi tách, có thể lựa chọn hệ để ưu tiên dạng cần ngay từ bước phản ứng.\n\nNhưng yêu cầu về cơ chất là một phần của phương pháp. Không thể bỏ nhóm alcohol định hướng khỏi hình rồi giả định mọi alkene chưa chức năng hóa sẽ cho cùng mức chọn lọc. Những phương pháp epoxidation khác được phát triển chính để giải quyết những phạm vi cơ chất khác.\n\nCấu hình mong muốn cũng phải được xác nhận bằng phân tích. Một quy tắc hình học là công cụ dự đoán và ghi nhớ, không thay thế dữ liệu của mẫu thực tế.\n\n## Ứng dụng hôm nay: tạo một khối cấu trúc có thể đi nhiều hướng\n\nEpoxy alcohol bất đối xứng được dùng như trung gian trong nghiên cứu tổng hợp các phân tử phức tạp. Sự kết hợp nhóm alcohol, vòng epoxide và cấu hình xác định tạo nhiều khả năng biến đổi chọn lọc. Giá trị của bước đầu tăng lên khi những bước sau khai thác được phần thông tin lập thể đã tạo.\n\nCác công trình sau đó cải thiện khả năng dùng lượng xúc tác thấp hơn và mở rộng cách vận hành. Chất xúc tác có hoạt tính không đồng nghĩa môi trường phản ứng hoặc sản phẩm có thể được xử lý tùy ý; trong sản xuất, độ ổn định và loại tạp vẫn là những yêu cầu kỹ thuật cụ thể.\n\nCâu chuyện Katsuki–Sharpless giúp thấy vì sao một nhóm chức có sẵn trong cơ chất đôi khi là lợi thế thiết kế. Nhóm OH không chỉ chờ bị biến đổi ở cuối tuyến; nó giúp đặt phân tử vào đúng vị trí khi oxygen được đưa vào. Một điểm bám nhỏ tạo ra khác biệt lớn cho hình học của sản phẩm.\n\n## Nguồn và đọc thêm\n\n- [Katsuki và Sharpless · Công trình epoxidation bất đối xứng, 1980](https://doi.org/10.1021/ja00538a077)\n- [Nobel · Cơ sở khoa học các phản ứng oxi hóa bất đối xứng](https://www.nobelprize.org/uploads/2018/06/advanced-chemistryprize2001.pdf)\n- [Scripps Research · Danh mục công trình epoxidation và các cải tiến của nhóm Sharpless](https://sharpless.scripps.edu/publications/)"
+}

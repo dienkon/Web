@@ -5788,5 +5788,4240 @@
         ]
       }
     }
+  },
+  {
+    "id": "ytterbium-hai-dong-ho-doc-do-cao",
+    "slug": "ytterbium-hai-dong-ho-doc-do-cao",
+    "documentPath": "docs/ytterbium-hai-dong-ho-doc-do-cao/index.json",
+    "title": "Hai chiếc đồng hồ ytterbium bắt đầu nhìn thấy độ cao",
+    "summary": "Năm 2018, hai đồng hồ mạng quang tại NIST đạt mức đồng thuận khiến ảnh hưởng của hấp dẫn trở thành điều phải tính. Ytterbium giúp phép đo thời gian tiến gần công việc khảo sát Trái Đất.",
+    "category": "nguyento",
+    "author": "Ban biên tập ChemDex",
+    "image": "/assets/library/photos/elements/Yb.jpg",
+    "tags": [
+      "Ytterbium",
+      "Đồng hồ nguyên tử",
+      "Mạng quang",
+      "Đo lường"
+    ],
+    "aliases": [],
+    "documentKind": "story",
+    "readingMinutes": 5,
+    "editorialEvidence": {
+      "language": "vi",
+      "scope": "element",
+      "contextLabel": "Hai chiếc đồng hồ ytterbium bắt đầu nhìn thấy độ cao",
+      "reviewBasis": "Biên soạn theo các nguồn dẫn cuối bài; phân biệt kết quả đã thực hiện và hướng phát triển.",
+      "story": {
+        "status": "documented",
+        "section": "## Một cuộc đối chiếu giữa hai cỗ máy",
+        "sources": [
+          "https://www.nist.gov/news-events/news/2018/11/nist-atomic-clocks-now-keep-time-well-enough-improve-models-earth",
+          "https://doi.org/10.1038/s41586-018-0738-2",
+          "https://www.nist.gov/programs-projects/yb-optical-lattice-clock"
+        ]
+      },
+      "application": {
+        "status": "documented",
+        "section": "## Ứng dụng hôm nay: xây một mạng đối chiếu",
+        "sources": [
+          "https://www.nist.gov/news-events/news/2018/11/nist-atomic-clocks-now-keep-time-well-enough-improve-models-earth",
+          "https://doi.org/10.1038/s41586-018-0738-2",
+          "https://www.nist.gov/programs-projects/yb-optical-lattice-clock"
+        ]
+      }
+    }
+  },
+  {
+    "id": "rubidium-dam-may-lanh-jila-1995",
+    "slug": "rubidium-dam-may-lanh-jila-1995",
+    "documentPath": "docs/rubidium-dam-may-lanh-jila-1995/index.json",
+    "title": "Đám mây rubidium năm 1995: khi nhiều nguyên tử chia sẻ một trạng thái",
+    "summary": "Ngày 5/6/1995, nhóm JILA tạo ngưng tụ Bose–Einstein trong khí rubidium loãng. Thành quả ấy mở thêm một cách tổ chức vật chất để khảo sát hành vi lượng tử.",
+    "category": "nguyento",
+    "author": "Ban biên tập ChemDex",
+    "image": "/assets/library/photos/stories/jila-rubidium-condensation.png",
+    "tags": [
+      "Rubidium",
+      "JILA",
+      "Ngưng tụ Bose–Einstein",
+      "Nguyên tử lạnh"
+    ],
+    "aliases": [],
+    "documentKind": "story",
+    "readingMinutes": 5,
+    "editorialEvidence": {
+      "language": "vi",
+      "scope": "element",
+      "contextLabel": "Đám mây rubidium năm 1995: khi nhiều nguyên tử chia sẻ một trạng thái",
+      "reviewBasis": "Biên soạn theo các nguồn dẫn cuối bài; phân biệt kết quả đã thực hiện và hướng phát triển.",
+      "story": {
+        "status": "documented",
+        "section": "## Dấu hiệu nhỏ trong một đám mây nhỏ",
+        "sources": [
+          "https://www.nist.gov/news-events/news/1995/07/physicists-create-new-state-matter-record-low-temperature",
+          "https://doi.org/10.1126/science.269.5221.198",
+          "https://www.nasa.gov/centers-and-facilities/johnson/station-science-top-news-august-29-2024/",
+          "https://doi.org/10.1038/s41467-024-50585-6"
+        ]
+      },
+      "application": {
+        "status": "documented",
+        "section": "## Từ bàn JILA đến cảm biến sóng vật chất",
+        "sources": [
+          "https://www.nist.gov/news-events/news/1995/07/physicists-create-new-state-matter-record-low-temperature",
+          "https://doi.org/10.1126/science.269.5221.198",
+          "https://www.nasa.gov/centers-and-facilities/johnson/station-science-top-news-august-29-2024/",
+          "https://doi.org/10.1038/s41467-024-50585-6"
+        ]
+      }
+    }
+  },
+  {
+    "id": "holmium-laser-doc-co2-tu-may-bay",
+    "slug": "holmium-laser-doc-co2-tu-may-bay",
+    "documentPath": "docs/holmium-laser-doc-co2-tu-may-bay/index.json",
+    "title": "Holmium gửi hai xung sáng xuống đất để đọc CO₂",
+    "summary": "Trong chiến dịch bay tháng 3/2015, NASA thử lidar 2 micromet đo CO₂ theo cả cột không khí. Holmium trong môi trường laser góp phần tạo ra ánh sáng đúng vùng phổ cần khảo sát.",
+    "category": "nguyento",
+    "author": "Ban biên tập ChemDex",
+    "image": "/assets/library/photos/elements/Ho.jpg",
+    "tags": [
+      "Holmium",
+      "Lidar",
+      "CO₂",
+      "Viễn thám"
+    ],
+    "aliases": [],
+    "documentKind": "story",
+    "readingMinutes": 5,
+    "editorialEvidence": {
+      "language": "vi",
+      "scope": "element",
+      "contextLabel": "Holmium gửi hai xung sáng xuống đất để đọc CO₂",
+      "reviewBasis": "Biên soạn theo các nguồn dẫn cuối bài; phân biệt kết quả đã thực hiện và hướng phát triển.",
+      "story": {
+        "status": "documented",
+        "section": "## Hai xung gần nhau, hai mức hấp thụ",
+        "sources": [
+          "https://science.nasa.gov/science-research/science-enabling-technology/technology-highlights/first-flights-co2-detecting-lidar/",
+          "https://ntrs.nasa.gov/api/citations/20160006423/downloads/20160006423.pdf",
+          "https://doi.org/10.1364/AO.54.001387",
+          "https://ntrs.nasa.gov/citations/20230007898"
+        ]
+      },
+      "application": {
+        "status": "documented",
+        "section": "## Ứng dụng hôm nay: kiểm chứng đường tới quan trắc rộng hơn",
+        "sources": [
+          "https://science.nasa.gov/science-research/science-enabling-technology/technology-highlights/first-flights-co2-detecting-lidar/",
+          "https://ntrs.nasa.gov/api/citations/20160006423/downloads/20160006423.pdf",
+          "https://doi.org/10.1364/AO.54.001387",
+          "https://ntrs.nasa.gov/citations/20230007898"
+        ]
+      }
+    }
+  },
+  {
+    "id": "dysprosium-dam-may-sieu-ran",
+    "slug": "dysprosium-dam-may-sieu-ran",
+    "documentPath": "docs/dysprosium-dam-may-sieu-ran/index.json",
+    "title": "Đám mây dysprosium vừa có trật tự vừa giữ tính chảy lượng tử",
+    "summary": "Các thí nghiệm năm 2019 dùng khí dysprosium cực lạnh để khảo sát dấu hiệu siêu rắn. Đến năm 2024, phép đo dựa trên hiệu ứng Josephson tiếp tục kiểm tra phần siêu lỏng của hệ.",
+    "category": "nguyento",
+    "author": "Ban biên tập ChemDex",
+    "image": "/assets/library/photos/elements/Dy.jpg",
+    "tags": [
+      "Dysprosium",
+      "Siêu rắn",
+      "Khí lượng tử",
+      "Josephson"
+    ],
+    "aliases": [],
+    "documentKind": "story",
+    "readingMinutes": 5,
+    "editorialEvidence": {
+      "language": "vi",
+      "scope": "element",
+      "contextLabel": "Đám mây dysprosium vừa có trật tự vừa giữ tính chảy lượng tử",
+      "reviewBasis": "Biên soạn theo các nguồn dẫn cuối bài; phân biệt kết quả đã thực hiện và hướng phát triển.",
+      "story": {
+        "status": "documented",
+        "section": "## Một cái tên tưởng như tự mâu thuẫn",
+        "sources": [
+          "https://doi.org/10.1103/PhysRevX.9.021012",
+          "https://www.uibk.ac.at/en/newsroom/2019/quantum-gas-turns-supersolid/",
+          "https://pmc.ncbi.nlm.nih.gov/articles/PMC11111407/"
+        ]
+      },
+      "application": {
+        "status": "documented",
+        "section": "## Ứng dụng hôm nay nằm ở một phòng thí nghiệm điều khiển được",
+        "sources": [
+          "https://doi.org/10.1103/PhysRevX.9.021012",
+          "https://www.uibk.ac.at/en/newsroom/2019/quantum-gas-turns-supersolid/",
+          "https://pmc.ncbi.nlm.nih.gov/articles/PMC11111407/"
+        ]
+      }
+    }
+  },
+  {
+    "id": "bismuth-vong-kim-loai-giu-nam-cham",
+    "slug": "bismuth-vong-kim-loai-giu-nam-cham",
+    "documentPath": "docs/bismuth-vong-kim-loai-giu-nam-cham/index.json",
+    "title": "Một vòng bismuth giúp nam châm đứng giữa không trung",
+    "summary": "Một công bố Nature năm 1999 dùng bismuth để ổn định nam châm lơ lửng. Thí nghiệm khiến tính nghịch từ yếu thường khó nhận ra trở thành một chuyển động có thể nhìn thấy.",
+    "category": "nguyento",
+    "author": "Ban biên tập ChemDex",
+    "image": "/assets/library/photos/elements/Bi.jpg",
+    "tags": [
+      "Bismuth",
+      "Nghịch từ",
+      "Levitation",
+      "Từ trường"
+    ],
+    "aliases": [],
+    "documentKind": "story",
+    "readingMinutes": 5,
+    "editorialEvidence": {
+      "language": "vi",
+      "scope": "element",
+      "contextLabel": "Một vòng bismuth giúp nam châm đứng giữa không trung",
+      "reviewBasis": "Biên soạn theo các nguồn dẫn cuối bài; phân biệt kết quả đã thực hiện và hướng phát triển.",
+      "story": {
+        "status": "documented",
+        "section": "## Một nam châm cần thêm sự ổn định",
+        "sources": [
+          "https://doi.org/10.1038/22444",
+          "https://sciencedemonstrations.fas.harvard.edu/presentations/diamagnetic-levitation",
+          "https://instructional-resources.physics.uiowa.edu/5g3055-diamagnetic-bismuth",
+          "https://doi.org/10.1088/0143-0807/18/4/012"
+        ]
+      },
+      "application": {
+        "status": "documented",
+        "section": "## Ứng dụng hôm nay: làm hiệu ứng yếu trở nên đo được",
+        "sources": [
+          "https://doi.org/10.1038/22444",
+          "https://sciencedemonstrations.fas.harvard.edu/presentations/diamagnetic-levitation",
+          "https://instructional-resources.physics.uiowa.edu/5g3055-diamagnetic-bismuth",
+          "https://doi.org/10.1088/0143-0807/18/4/012"
+        ]
+      }
+    }
+  },
+  {
+    "id": "kapton-nam-lop-mang-che-kinh-webb",
+    "slug": "kapton-nam-lop-mang-che-kinh-webb",
+    "documentPath": "docs/kapton-nam-lop-mang-che-kinh-webb/index.json",
+    "title": "Năm lớp màng Kapton mở ra một vùng lạnh cho kính Webb",
+    "summary": "Ngày 4/1/2022, tấm chắn nắng của Webb hoàn tất triển khai. Phía sau một thao tác cơ khí phức tạp là bài toán vật liệu: giữ màng đủ mỏng, bền và phù hợp với đường thoát nhiệt.",
+    "category": "hopchat",
+    "author": "Ban biên tập ChemDex",
+    "image": "/assets/library/photos/stories/webb-sunshield-test.jpg",
+    "tags": [
+      "Kapton",
+      "Polyimide",
+      "Webb",
+      "Vật liệu không gian"
+    ],
+    "aliases": [],
+    "documentKind": "story",
+    "readingMinutes": 5,
+    "editorialEvidence": {
+      "language": "vi",
+      "scope": "chemical-family",
+      "contextLabel": "Năm lớp màng Kapton mở ra một vùng lạnh cho kính Webb",
+      "reviewBasis": "Biên soạn theo các nguồn dẫn cuối bài; phân biệt kết quả đã thực hiện và hướng phát triển.",
+      "story": {
+        "status": "documented",
+        "section": "## Một tấm chắn phải mở sau khi rời Trái Đất",
+        "sources": [
+          "https://www.nasa.gov/news-release/sunshield-successfully-deploys-on-nasas-next-flagship-telescope/",
+          "https://www.nasa.gov/universe/the-complex-material-engineering-of-nasas-webb-telescope-sunshield/",
+          "https://science.nasa.gov/mission/webb/webbs-sunshield/",
+          "https://science.nasa.gov/mission/webb/sunshield-membrane-coatings/"
+        ]
+      },
+      "application": {
+        "status": "documented",
+        "section": "## Ứng dụng hôm nay: giúp tín hiệu yếu có cơ hội xuất hiện",
+        "sources": [
+          "https://www.nasa.gov/news-release/sunshield-successfully-deploys-on-nasas-next-flagship-telescope/",
+          "https://www.nasa.gov/universe/the-complex-material-engineering-of-nasas-webb-telescope-sunshield/",
+          "https://science.nasa.gov/mission/webb/webbs-sunshield/",
+          "https://science.nasa.gov/mission/webb/sunshield-membrane-coatings/"
+        ]
+      }
+    }
+  },
+  {
+    "id": "xanh-pho-mau-cua-song-va-dau-vet-thoi-gian",
+    "slug": "xanh-pho-mau-cua-song-va-dau-vet-thoi-gian",
+    "documentPath": "docs/xanh-pho-mau-cua-song-va-dau-vet-thoi-gian/index.json",
+    "title": "Màu xanh của Đại lãng: hóa học đi qua bàn in Hokusai",
+    "summary": "Phân tích tại The Met cho thấy thợ in phối hợp xanh Phổ và indigo để tạo độ sâu cho con sóng. Sắc tố tổng hợp đầu thế kỷ XVIII tiếp tục đặt câu hỏi cho người bảo tồn hôm nay.",
+    "category": "hopchat",
+    "author": "Ban biên tập ChemDex",
+    "image": "/assets/library/photos/stories/hokusai-great-wave.jpg",
+    "tags": [
+      "Xanh Phổ",
+      "Prussian blue",
+      "Hokusai",
+      "Bảo tồn"
+    ],
+    "aliases": [],
+    "documentKind": "story",
+    "readingMinutes": 5,
+    "editorialEvidence": {
+      "language": "vi",
+      "scope": "chemical-family",
+      "contextLabel": "Màu xanh của Đại lãng: hóa học đi qua bàn in Hokusai",
+      "reviewBasis": "Biên soạn theo các nguồn dẫn cuối bài; phân biệt kết quả đã thực hiện và hướng phát triển.",
+      "story": {
+        "status": "documented",
+        "section": "## Không chỉ có nét vẽ của Hokusai",
+        "sources": [
+          "https://www.metmuseum.org/essays/hokusai-great-wave",
+          "https://www.nationalgallery.org.uk/media/15510/kirby_saunders2004.pdf",
+          "https://journals.iucr.org/s/issues/2013/03/00/fv5008/index.html",
+          "https://collections.lacma.org/object/88781"
+        ]
+      },
+      "application": {
+        "status": "documented",
+        "section": "## Ứng dụng hôm nay: đọc vật liệu để giữ tác phẩm",
+        "sources": [
+          "https://www.metmuseum.org/essays/hokusai-great-wave",
+          "https://www.nationalgallery.org.uk/media/15510/kirby_saunders2004.pdf",
+          "https://journals.iucr.org/s/issues/2013/03/00/fv5008/index.html",
+          "https://collections.lacma.org/object/88781"
+        ]
+      }
+    }
+  },
+  {
+    "id": "dmso-giup-te-bao-di-qua-dong-lanh",
+    "slug": "dmso-giup-te-bao-di-qua-dong-lanh",
+    "documentPath": "docs/dmso-giup-te-bao-di-qua-dong-lanh/index.json",
+    "title": "DMSO và thử thách đưa tế bào qua một lần đông lạnh",
+    "summary": "Năm 1959, Lovelock và Bishop công bố khả năng bảo vệ tế bào của dimethyl sulfoxide khi đông và rã. Hôm nay, vai trò ấy tiếp tục nằm trong quy trình duy trì những bộ sưu tập tế bào nghiên cứu.",
+    "category": "hopchat",
+    "author": "Ban biên tập ChemDex",
+    "image": "/assets/library/photos/stories/cryopreservation-dewar.jpg",
+    "tags": [
+      "DMSO",
+      "Dimethyl sulfoxide",
+      "Bảo quản lạnh",
+      "Nuôi cấy tế bào"
+    ],
+    "aliases": [],
+    "documentKind": "story",
+    "readingMinutes": 5,
+    "editorialEvidence": {
+      "language": "vi",
+      "scope": "chemical-family",
+      "contextLabel": "DMSO và thử thách đưa tế bào qua một lần đông lạnh",
+      "reviewBasis": "Biên soạn theo các nguồn dẫn cuối bài; phân biệt kết quả đã thực hiện và hướng phát triển.",
+      "story": {
+        "status": "documented",
+        "section": "## Sống sau khi rã đông mới là câu trả lời",
+        "sources": [
+          "https://doi.org/10.1038/1831394a0",
+          "https://doi.org/10.1038/1901204a0",
+          "https://www.atcc.org/resources/technical-documents/cryogenic-storage-of-animal-cells",
+          "https://www.atcc.org/resources/culture-guides/animal-cell-culture-guide"
+        ]
+      },
+      "application": {
+        "status": "documented",
+        "section": "## Ứng dụng hôm nay: tạo một điểm khởi đầu có thể quay lại",
+        "sources": [
+          "https://doi.org/10.1038/1831394a0",
+          "https://doi.org/10.1038/1901204a0",
+          "https://www.atcc.org/resources/technical-documents/cryogenic-storage-of-animal-cells",
+          "https://www.atcc.org/resources/culture-guides/animal-cell-culture-guide"
+        ]
+      }
+    }
+  },
+  {
+    "id": "dsc-chocolate-doc-nhung-dinh-nong-chay",
+    "slug": "dsc-chocolate-doc-nhung-dinh-nong-chay",
+    "documentPath": "docs/dsc-chocolate-doc-nhung-dinh-nong-chay/index.json",
+    "title": "Tiếng bẻ của thanh chocolate bắt đầu từ một đồ thị nhiệt",
+    "summary": "DSC giúp theo dõi những cấu trúc tinh thể trong bơ cacao. Đằng sau bề mặt bóng và tiếng bẻ giòn là cuộc cạnh tranh giữa các dạng rắn của chất béo.",
+    "category": "khainiem",
+    "author": "Ban biên tập ChemDex",
+    "image": "/assets/library/apparatus-calorimeter.svg",
+    "tags": [
+      "DSC",
+      "Chocolate",
+      "Đa hình",
+      "Nhiệt lượng"
+    ],
+    "aliases": [],
+    "documentKind": "story",
+    "readingMinutes": 4,
+    "editorialEvidence": {
+      "language": "vi",
+      "scope": "chemical-family",
+      "contextLabel": "Tiếng bẻ của thanh chocolate bắt đầu từ một đồ thị nhiệt",
+      "reviewBasis": "Biên soạn theo các nguồn dẫn cuối bài; phân biệt kết quả đã thực hiện và hướng phát triển.",
+      "story": {
+        "status": "documented",
+        "section": "## Một thanh chocolate không chỉ cần đủ cacao",
+        "sources": [
+          "https://academic.oup.com/ijfst/article/40/9/953/7911377",
+          "https://www.sciencedirect.com/science/article/pii/S0969806X04003019",
+          "https://pmc.ncbi.nlm.nih.gov/articles/PMC12063059/"
+        ]
+      },
+      "application": {
+        "status": "documented",
+        "section": "## Từ đường cong đến kiểm soát chất lượng",
+        "sources": [
+          "https://academic.oup.com/ijfst/article/40/9/953/7911377",
+          "https://www.sciencedirect.com/science/article/pii/S0969806X04003019",
+          "https://pmc.ncbi.nlm.nih.gov/articles/PMC12063059/"
+        ]
+      }
+    }
+  },
+  {
+    "id": "chuyen-thuy-tinh-dau-tay-say-dong-kho",
+    "slug": "chuyen-thuy-tinh-dau-tay-say-dong-kho",
+    "documentPath": "docs/chuyen-thuy-tinh-dau-tay-say-dong-kho/index.json",
+    "title": "Vì sao miếng dâu sấy giòn có thể xẹp xuống mà không hề tan chảy?",
+    "summary": "Chuyển thủy tinh làm thay đổi độ linh động của một nền thực phẩm vô định hình. Các nghiên cứu dâu sấy đông khô cho thấy nước có thể đóng vai trò chất hóa dẻo.",
+    "category": "khainiem",
+    "author": "Ban biên tập ChemDex",
+    "image": "/assets/library/organic-carbohydrate.svg",
+    "tags": [
+      "Chuyển thủy tinh",
+      "Tg",
+      "Thực phẩm",
+      "Hóa dẻo"
+    ],
+    "aliases": [],
+    "documentKind": "story",
+    "readingMinutes": 4,
+    "editorialEvidence": {
+      "language": "vi",
+      "scope": "chemical-family",
+      "contextLabel": "Vì sao miếng dâu sấy giòn có thể xẹp xuống mà không hề tan chảy?",
+      "reviewBasis": "Biên soạn theo các nguồn dẫn cuối bài; phân biệt kết quả đã thực hiện và hướng phát triển.",
+      "story": {
+        "status": "documented",
+        "section": "## Cấu trúc xốp cần được giữ sau khi máy sấy dừng",
+        "sources": [
+          "https://academic.oup.com/ijfst/article/44/10/1869/7865099",
+          "https://doi.org/10.1111/j.1365-2621.1991.tb07970.x",
+          "https://doi.org/10.1016/0260-8774(95)90050-L"
+        ]
+      },
+      "application": {
+        "status": "documented",
+        "section": "## Ứng dụng hôm nay: thiết kế cả công thức lẫn môi trường",
+        "sources": [
+          "https://academic.oup.com/ijfst/article/44/10/1869/7865099",
+          "https://doi.org/10.1111/j.1365-2621.1991.tb07970.x",
+          "https://doi.org/10.1016/0260-8774(95)90050-L"
+        ]
+      }
+    }
+  },
+  {
+    "id": "ritonavir-khi-phan-tu-doi-cach-xep-hang",
+    "slug": "ritonavir-khi-phan-tu-doi-cach-xep-hang",
+    "documentPath": "docs/ritonavir-khi-phan-tu-doi-cach-xep-hang/index.json",
+    "title": "Mùa hè 1998: cùng phân tử ritonavir, một cách xếp khác làm đổi sản phẩm",
+    "summary": "Một dạng tinh thể ít tan hơn của ritonavir xuất hiện và gây khó cho sản xuất. Câu chuyện trở thành bài học về đa hình và việc kiểm soát trạng thái rắn.",
+    "category": "khainiem",
+    "author": "Ban biên tập ChemDex",
+    "image": "/assets/library/ionic-crystal.svg",
+    "tags": [
+      "Đa hình",
+      "Ritonavir",
+      "Tinh thể",
+      "Độ tan"
+    ],
+    "aliases": [],
+    "documentKind": "story",
+    "readingMinutes": 4,
+    "editorialEvidence": {
+      "language": "vi",
+      "scope": "chemical-family",
+      "contextLabel": "Mùa hè 1998: cùng phân tử ritonavir, một cách xếp khác làm đổi sản phẩm",
+      "reviewBasis": "Biên soạn theo các nguồn dẫn cuối bài; phân biệt kết quả đã thực hiện và hướng phát triển.",
+      "story": {
+        "status": "documented",
+        "section": "## Công thức phân tử vẫn đúng nhưng kết quả đã khác",
+        "sources": [
+          "https://pubmed.ncbi.nlm.nih.gov/11474792/",
+          "https://pmc.ncbi.nlm.nih.gov/articles/PMC151315/",
+          "https://pubs.rsc.org/en/content/articlehtml/2018/fd/c8fd00069g"
+        ]
+      },
+      "application": {
+        "status": "documented",
+        "section": "## Ứng dụng hôm nay: kiểm soát chất rắn như một phần của thiết kế",
+        "sources": [
+          "https://pubmed.ncbi.nlm.nih.gov/11474792/",
+          "https://pmc.ncbi.nlm.nih.gov/articles/PMC151315/",
+          "https://pubs.rsc.org/en/content/articlehtml/2018/fd/c8fd00069g"
+        ]
+      }
+    }
+  },
+  {
+    "id": "cocrystal-caffeine-mot-ban-dong-hanh-trong-tinh-the",
+    "slug": "cocrystal-caffeine-mot-ban-dong-hanh-trong-tinh-the",
+    "documentPath": "docs/cocrystal-caffeine-mot-ban-dong-hanh-trong-tinh-the/index.json",
+    "title": "Caffeine tìm một bạn đồng hành trong mạng tinh thể",
+    "summary": "Đồng kết tinh có thể đổi tính chất của chất rắn mà không cần tạo một phân tử cộng hóa trị mới. Nghiên cứu caffeine và độ ẩm cho thấy phải chọn đúng đối tác và kiểm tra đúng môi trường.",
+    "category": "khainiem",
+    "author": "Ban biên tập ChemDex",
+    "image": "/assets/library/organic-aromatic.svg",
+    "tags": [
+      "Đồng tinh thể",
+      "Caffeine",
+      "Liên kết hydrogen",
+      "Độ ẩm"
+    ],
+    "aliases": [],
+    "documentKind": "story",
+    "readingMinutes": 4,
+    "editorialEvidence": {
+      "language": "vi",
+      "scope": "chemical-family",
+      "contextLabel": "Caffeine tìm một bạn đồng hành trong mạng tinh thể",
+      "reviewBasis": "Biên soạn theo các nguồn dẫn cuối bài; phân biệt kết quả đã thực hiện và hướng phát triển.",
+      "story": {
+        "status": "documented",
+        "section": "## Một phân tử quen thuộc gặp vấn đề rất vật lý",
+        "sources": [
+          "https://doi.org/10.1021/cg0496540",
+          "https://www.sciencedirect.com/science/article/abs/pii/S0378517309004013",
+          "https://pubmed.ncbi.nlm.nih.gov/17497885/"
+        ]
+      },
+      "application": {
+        "status": "documented",
+        "section": "## Ứng dụng hôm nay: thay tính chất bằng tổ chức phân tử",
+        "sources": [
+          "https://doi.org/10.1021/cg0496540",
+          "https://www.sciencedirect.com/science/article/abs/pii/S0378517309004013",
+          "https://pubmed.ncbi.nlm.nih.gov/17497885/"
+        ]
+      }
+    }
+  },
+  {
+    "id": "phan-tan-ran-vo-dinh-hinh-itraconazole",
+    "slug": "phan-tan-ran-vo-dinh-hinh-itraconazole",
+    "documentPath": "docs/phan-tan-ran-vo-dinh-hinh-itraconazole/index.json",
+    "title": "Giấu dược chất trong nền polymer để nó rời chất rắn dễ hơn",
+    "summary": "Phân tán rắn vô định hình được nghiên cứu cho những phân tử khó tan. Các thí nghiệm với itraconazole cho thấy trạng thái pha phải được kiểm tra trong cả chế tạo lẫn bảo quản.",
+    "category": "khainiem",
+    "author": "Ban biên tập ChemDex",
+    "image": "/assets/library/organic-polymer.svg",
+    "tags": [
+      "Vô định hình",
+      "Phân tán rắn",
+      "Polymer",
+      "Độ hòa tan"
+    ],
+    "aliases": [],
+    "documentKind": "story",
+    "readingMinutes": 4,
+    "editorialEvidence": {
+      "language": "vi",
+      "scope": "chemical-family",
+      "contextLabel": "Giấu dược chất trong nền polymer để nó rời chất rắn dễ hơn",
+      "reviewBasis": "Biên soạn theo các nguồn dẫn cuối bài; phân biệt kết quả đã thực hiện và hướng phát triển.",
+      "story": {
+        "status": "documented",
+        "section": "## Khi phân tử hữu ích lại khó rời khỏi tinh thể",
+        "sources": [
+          "https://doi.org/10.1016/S0378-5173(01)00867-5",
+          "https://pubmed.ncbi.nlm.nih.gov/15019081/",
+          "https://pubmed.ncbi.nlm.nih.gov/16563676/"
+        ]
+      },
+      "application": {
+        "status": "documented",
+        "section": "## Ứng dụng hôm nay: vật liệu phải giữ tính năng qua vòng đời",
+        "sources": [
+          "https://doi.org/10.1016/S0378-5173(01)00867-5",
+          "https://pubmed.ncbi.nlm.nih.gov/15019081/",
+          "https://pubmed.ncbi.nlm.nih.gov/16563676/"
+        ]
+      }
+    }
+  },
+  {
+    "id": "aerogel-giu-bo-khung-khi-chat-long-roi-di",
+    "slug": "aerogel-giu-bo-khung-khi-chat-long-roi-di",
+    "documentPath": "docs/aerogel-giu-bo-khung-khi-chat-long-roi-di/index.json",
+    "title": "Giữ lại bộ khung khi chất lỏng rời đi: từ Kistler tới bụi sao chổi",
+    "summary": "Aerogel xuất hiện từ câu hỏi làm khô gel mà không phá sập cấu trúc. Nhiều thập niên sau, mạng silica nhẹ trở thành nơi hạt bụi vũ trụ có thể để lại dấu vết.",
+    "category": "khainiem",
+    "author": "Ban biên tập ChemDex",
+    "image": "/assets/library/photos/stories/aerogel-hand.jpg",
+    "tags": [
+      "Aerogel",
+      "Gel",
+      "Siêu tới hạn",
+      "Stardust"
+    ],
+    "aliases": [],
+    "documentKind": "story",
+    "readingMinutes": 4,
+    "editorialEvidence": {
+      "language": "vi",
+      "scope": "chemical-family",
+      "contextLabel": "Giữ lại bộ khung khi chất lỏng rời đi: từ Kistler tới bụi sao chổi",
+      "reviewBasis": "Biên soạn theo các nguồn dẫn cuối bài; phân biệt kết quả đã thực hiện và hướng phát triển.",
+      "story": {
+        "status": "documented",
+        "section": "## Một khối gel thay hình khi mất nước",
+        "sources": [
+          "https://www.nature.com/articles/127741a0",
+          "https://www.jpl.nasa.gov/missions/stardust/",
+          "https://www.nasa.gov/technology/tech-transfer-spinoffs/comet-catching-nasa-technology-enables-exotic-works-of-art/"
+        ]
+      },
+      "application": {
+        "status": "documented",
+        "section": "## Ứng dụng hôm nay: mỗi lỗ rỗng có một công việc",
+        "sources": [
+          "https://www.nature.com/articles/127741a0",
+          "https://www.jpl.nasa.gov/missions/stardust/",
+          "https://www.nasa.gov/technology/tech-transfer-spinoffs/comet-catching-nasa-technology-enables-exotic-works-of-art/"
+        ]
+      }
+    }
+  },
+  {
+    "id": "la-sen-giot-nuoc-mang-bui-di",
+    "slug": "la-sen-giot-nuoc-mang-bui-di",
+    "documentPath": "docs/la-sen-giot-nuoc-mang-bui-di/index.json",
+    "title": "Giọt nước mang bụi đi: chiếc lá sen không cần phải nhẵn",
+    "summary": "Cấu trúc gồ ghề ở nhiều thang kích thước giúp lá sen đẩy nước và tự làm sạch. Câu chuyện thay đổi cách thiết kế bề mặt chống bám bẩn.",
+    "category": "khainiem",
+    "author": "Ban biên tập ChemDex",
+    "image": "/assets/library/history-evidence.svg",
+    "tags": [
+      "Thấm ướt",
+      "Lá sen",
+      "Bề mặt",
+      "Mao dẫn"
+    ],
+    "aliases": [],
+    "documentKind": "story",
+    "readingMinutes": 4,
+    "editorialEvidence": {
+      "language": "vi",
+      "scope": "chemical-family",
+      "contextLabel": "Giọt nước mang bụi đi: chiếc lá sen không cần phải nhẵn",
+      "reviewBasis": "Biên soạn theo các nguồn dẫn cuối bài; phân biệt kết quả đã thực hiện và hướng phát triển.",
+      "story": {
+        "status": "documented",
+        "section": "## Bề mặt sạch nhất không phải bề mặt phẳng nhất",
+        "sources": [
+          "https://doi.org/10.1007/s004250050096",
+          "https://beilstein-journals.org/bjnano/articles/8/41",
+          "https://pmc.ncbi.nlm.nih.gov/articles/PMC10753341/",
+          "https://beilstein-journals.org/bjnano/articles/8/42"
+        ]
+      },
+      "application": {
+        "status": "documented",
+        "section": "## Ứng dụng hôm nay: thiết kế đường tiếp xúc",
+        "sources": [
+          "https://doi.org/10.1007/s004250050096",
+          "https://beilstein-journals.org/bjnano/articles/8/41",
+          "https://pmc.ncbi.nlm.nih.gov/articles/PMC10753341/",
+          "https://beilstein-journals.org/bjnano/articles/8/42"
+        ]
+      }
+    }
+  },
+  {
+    "id": "vang-keo-faraday-mau-do-cua-kim-loai",
+    "slug": "vang-keo-faraday-mau-do-cua-kim-loai",
+    "documentPath": "docs/vang-keo-faraday-mau-do-cua-kim-loai/index.json",
+    "title": "Vì sao chai vàng của Faraday lại đỏ?",
+    "summary": "Các mẫu vàng keo còn lưu tại Royal Institution mở câu chuyện về kích thước hạt, tán xạ và màu sắc. Kim loại ở dạng phân tán nhỏ không còn phản ứng với ánh sáng như một thỏi vàng.",
+    "category": "khainiem",
+    "author": "Ban biên tập ChemDex",
+    "image": "/assets/library/photos/elements/Au.jpg",
+    "tags": [
+      "Keo",
+      "Vàng nano",
+      "Tán xạ",
+      "Plasmon"
+    ],
+    "aliases": [],
+    "documentKind": "story",
+    "readingMinutes": 4,
+    "editorialEvidence": {
+      "language": "vi",
+      "scope": "chemical-family",
+      "contextLabel": "Vì sao chai vàng của Faraday lại đỏ?",
+      "reviewBasis": "Biên soạn theo các nguồn dẫn cuối bài; phân biệt kết quả đã thực hiện và hướng phát triển.",
+      "story": {
+        "status": "documented",
+        "section": "## Một thứ chất lỏng đỏ xuất hiện bên cạnh lá vàng",
+        "sources": [
+          "https://www.rigb.org/explore-science/explore/collection/michael-faradays-gold-colloids",
+          "https://doi.org/10.1098/rstl.1857.0011",
+          "https://www.nature.com/articles/physci241020a0",
+          "https://pmc.ncbi.nlm.nih.gov/articles/PMC2996072/"
+        ]
+      },
+      "application": {
+        "status": "documented",
+        "section": "## Ứng dụng hôm nay: màu là một tín hiệu có thể thiết kế",
+        "sources": [
+          "https://www.rigb.org/explore-science/explore/collection/michael-faradays-gold-colloids",
+          "https://doi.org/10.1098/rstl.1857.0011",
+          "https://www.nature.com/articles/physci241020a0",
+          "https://pmc.ncbi.nlm.nih.gov/articles/PMC2996072/"
+        ]
+      }
+    }
+  },
+  {
+    "id": "hat-vang-vach-mau-tren-dai-thu",
+    "slug": "hat-vang-vach-mau-tren-dai-thu",
+    "documentPath": "docs/hat-vang-vach-mau-tren-dai-thu/index.json",
+    "title": "Từ hạt vàng đến một vạch màu: hóa học phía sau dải thử dòng ngang",
+    "summary": "Hạt vàng có thể mang bộ phận nhận diện và tạo tín hiệu dễ nhìn trên màng xốp. Để có một phép thử hữu ích, màu sắc phải đi cùng dòng chảy và tính chọn lọc.",
+    "category": "khainiem",
+    "author": "Ban biên tập ChemDex",
+    "image": "/assets/library/apparatus-spectroscope.svg",
+    "tags": [
+      "Dòng ngang",
+      "Vàng nano",
+      "Plasmon",
+      "Cảm biến"
+    ],
+    "aliases": [],
+    "documentKind": "story",
+    "readingMinutes": 4,
+    "editorialEvidence": {
+      "language": "vi",
+      "scope": "chemical-family",
+      "contextLabel": "Từ hạt vàng đến một vạch màu: hóa học phía sau dải thử dòng ngang",
+      "reviewBasis": "Biên soạn theo các nguồn dẫn cuối bài; phân biệt kết quả đã thực hiện và hướng phát triển.",
+      "story": {
+        "status": "documented",
+        "section": "## Một vạch xuất hiện nhờ nhiều hạt tập trung",
+        "sources": [
+          "https://pubs.rsc.org/en/content/articlehtml/2022/lc/d1lc00960e",
+          "https://pmc.ncbi.nlm.nih.gov/articles/PMC9377422/",
+          "https://pmc.ncbi.nlm.nih.gov/articles/PMC12098874/"
+        ]
+      },
+      "application": {
+        "status": "documented",
+        "section": "## Ứng dụng hôm nay: một màu cần cả hệ kiểm chứng",
+        "sources": [
+          "https://pubs.rsc.org/en/content/articlehtml/2022/lc/d1lc00960e",
+          "https://pmc.ncbi.nlm.nih.gov/articles/PMC9377422/",
+          "https://pmc.ncbi.nlm.nih.gov/articles/PMC12098874/"
+        ]
+      }
+    }
+  },
+  {
+    "id": "sers-nghe-dau-van-tay-mot-phan-tu",
+    "slug": "sers-nghe-dau-van-tay-mot-phan-tu",
+    "documentPath": "docs/sers-nghe-dau-van-tay-mot-phan-tu/index.json",
+    "title": "Nghe dấu vân tay của một phân tử giữa những hạt bạc",
+    "summary": "Hai công trình năm 1997 đưa SERS tới mức tín hiệu của từng phân tử. Những điểm tăng cường rất mạnh cũng đặt ra câu hỏi khó về độ lặp lại và bằng chứng.",
+    "category": "khainiem",
+    "author": "Ban biên tập ChemDex",
+    "image": "/assets/library/apparatus-spectroscope.svg",
+    "tags": [
+      "SERS",
+      "Raman",
+      "Phân tử đơn",
+      "Bề mặt bạc"
+    ],
+    "aliases": [],
+    "documentKind": "story",
+    "readingMinutes": 4,
+    "editorialEvidence": {
+      "language": "vi",
+      "scope": "chemical-family",
+      "contextLabel": "Nghe dấu vân tay của một phân tử giữa những hạt bạc",
+      "reviewBasis": "Biên soạn theo các nguồn dẫn cuối bài; phân biệt kết quả đã thực hiện và hướng phát triển.",
+      "story": {
+        "status": "documented",
+        "section": "## Một tín hiệu vốn yếu bỗng trở nên nổi bật",
+        "sources": [
+          "https://pubmed.ncbi.nlm.nih.gov/9027306/",
+          "https://doi.org/10.1103/PhysRevLett.78.1667",
+          "https://arxiv.org/abs/physics/0509153"
+        ]
+      },
+      "application": {
+        "status": "documented",
+        "section": "## Ứng dụng hôm nay: tìm độ nhạy có thể dùng lặp lại",
+        "sources": [
+          "https://pubmed.ncbi.nlm.nih.gov/9027306/",
+          "https://doi.org/10.1103/PhysRevLett.78.1667",
+          "https://arxiv.org/abs/physics/0509153"
+        ]
+      }
+    }
+  },
+  {
+    "id": "raman-sherloc-doc-da-tren-sao-hoa",
+    "slug": "raman-sherloc-doc-da-tren-sao-hoa",
+    "documentPath": "docs/raman-sherloc-doc-da-tren-sao-hoa/index.json",
+    "title": "Đọc đá trên Sao Hỏa: Raman và huỳnh quang kể hai phần của câu chuyện",
+    "summary": "SHERLOC kết hợp tín hiệu dao động với phát quang để khảo sát vật liệu ở Jezero. Những cách diễn giải cạnh tranh cho thấy một phổ hấp dẫn vẫn cần bối cảnh khoáng vật.",
+    "category": "khainiem",
+    "author": "Ban biên tập ChemDex",
+    "image": "/assets/library/apparatus-spectroscope.svg",
+    "tags": [
+      "Raman",
+      "SHERLOC",
+      "Sao Hỏa",
+      "Huỳnh quang"
+    ],
+    "aliases": [],
+    "documentKind": "story",
+    "readingMinutes": 4,
+    "editorialEvidence": {
+      "language": "vi",
+      "scope": "chemical-family",
+      "contextLabel": "Đọc đá trên Sao Hỏa: Raman và huỳnh quang kể hai phần của câu chuyện",
+      "reviewBasis": "Biên soạn theo các nguồn dẫn cuối bài; phân biệt kết quả đã thực hiện và hướng phát triển.",
+      "story": {
+        "status": "documented",
+        "section": "## Một phòng phân tích ở cuối cánh tay robot",
+        "sources": [
+          "https://microdevices.jpl.nasa.gov/capabilities/optical-components/sherloc/",
+          "https://www.nature.com/articles/s41586-023-06143-z",
+          "https://pubmed.ncbi.nlm.nih.gov/39321302/"
+        ]
+      },
+      "application": {
+        "status": "documented",
+        "section": "## Ứng dụng hôm nay: ghép tín hiệu với nơi nó xuất hiện",
+        "sources": [
+          "https://microdevices.jpl.nasa.gov/capabilities/optical-components/sherloc/",
+          "https://www.nature.com/articles/s41586-023-06143-z",
+          "https://pubmed.ncbi.nlm.nih.gov/39321302/"
+        ]
+      }
+    }
+  },
+  {
+    "id": "flim-do-thoi-gian-tat-sang-nadh",
+    "slug": "flim-do-thoi-gian-tat-sang-nadh",
+    "documentPath": "docs/flim-do-thoi-gian-tat-sang-nadh/index.json",
+    "title": "Không chỉ sáng đến đâu, mà sáng trong bao lâu: FLIM đọc môi trường phân tử",
+    "summary": "Thời gian sống huỳnh quang giúp phân biệt NADH tự do với NADH gắn protein. Hình ảnh mới được tạo từ nhịp tắt của ánh sáng thay vì chỉ độ sáng.",
+    "category": "khainiem",
+    "author": "Ban biên tập ChemDex",
+    "image": "/assets/library/apparatus-spectroscope.svg",
+    "tags": [
+      "FLIM",
+      "Huỳnh quang",
+      "NADH",
+      "Hình ảnh"
+    ],
+    "aliases": [],
+    "documentKind": "story",
+    "readingMinutes": 4,
+    "editorialEvidence": {
+      "language": "vi",
+      "scope": "chemical-family",
+      "contextLabel": "Không chỉ sáng đến đâu, mà sáng trong bao lâu: FLIM đọc môi trường phân tử",
+      "reviewBasis": "Biên soạn theo các nguồn dẫn cuối bài; phân biệt kết quả đã thực hiện và hướng phát triển.",
+      "story": {
+        "status": "documented",
+        "section": "## Hai vùng cùng sáng có thể khác về thời gian",
+        "sources": [
+          "https://pubmed.ncbi.nlm.nih.gov/1741380/",
+          "https://pmc.ncbi.nlm.nih.gov/articles/PMC3842212/",
+          "https://pmc.ncbi.nlm.nih.gov/articles/PMC7449714/"
+        ]
+      },
+      "application": {
+        "status": "documented",
+        "section": "## Ứng dụng hôm nay: thêm một trục thông tin cho ảnh",
+        "sources": [
+          "https://pubmed.ncbi.nlm.nih.gov/1741380/",
+          "https://pmc.ncbi.nlm.nih.gov/articles/PMC3842212/",
+          "https://pmc.ncbi.nlm.nih.gov/articles/PMC7449714/"
+        ]
+      }
+    }
+  },
+  {
+    "id": "fret-thuoc-do-giua-hai-dau-phat-sang",
+    "slug": "fret-thuoc-do-giua-hai-dau-phat-sang",
+    "documentPath": "docs/fret-thuoc-do-giua-hai-dau-phat-sang/index.json",
+    "title": "Chiếc thước đo không có vạch chia, chỉ có hai đầu phát sáng",
+    "summary": "FRET dùng sự truyền năng lượng giữa hai nhãn để khảo sát khoảng cách ở kích thước phân tử. Từ polyproline năm 1967, chiếc thước còn phải được kiểm tra độ mềm của chính nó.",
+    "category": "khainiem",
+    "author": "Ban biên tập ChemDex",
+    "image": "/assets/library/covalent-bonds.svg",
+    "tags": [
+      "FRET",
+      "Khoảng cách phân tử",
+      "Huỳnh quang"
+    ],
+    "aliases": [],
+    "documentKind": "story",
+    "readingMinutes": 4,
+    "editorialEvidence": {
+      "language": "vi",
+      "scope": "chemical-family",
+      "contextLabel": "Chiếc thước đo không có vạch chia, chỉ có hai đầu phát sáng",
+      "reviewBasis": "Biên soạn theo các nguồn dẫn cuối bài; phân biệt kết quả đã thực hiện và hướng phát triển.",
+      "story": {
+        "status": "documented",
+        "section": "## Một đoạn nối để kiểm tra quan hệ giữa khoảng cách và tín hiệu",
+        "sources": [
+          "https://pmc.ncbi.nlm.nih.gov/articles/PMC335755/",
+          "https://pmc.ncbi.nlm.nih.gov/articles/PMC39010/",
+          "https://pmc.ncbi.nlm.nih.gov/articles/PMC549440/"
+        ]
+      },
+      "application": {
+        "status": "documented",
+        "section": "## Ứng dụng hôm nay: đo chuyển động với những giả định tường minh",
+        "sources": [
+          "https://pmc.ncbi.nlm.nih.gov/articles/PMC335755/",
+          "https://pmc.ncbi.nlm.nih.gov/articles/PMC39010/",
+          "https://pmc.ncbi.nlm.nih.gov/articles/PMC549440/"
+        ]
+      }
+    }
+  },
+  {
+    "id": "cd-protein-hai-chieu-xoan-cua-anh-sang",
+    "slug": "cd-protein-hai-chieu-xoan-cua-anh-sang",
+    "documentPath": "docs/cd-protein-hai-chieu-xoan-cua-anh-sang/index.json",
+    "title": "Hai chiều xoắn của ánh sáng giúp đọc cách protein gấp cuộn",
+    "summary": "Lưỡng sắc tròn đo sự khác nhau trong hấp thụ hai trạng thái phân cực. Một nghiên cứu năm 1969 đã dùng những phổ tham chiếu để ước lượng cấu trúc thứ cấp của protein.",
+    "category": "khainiem",
+    "author": "Ban biên tập ChemDex",
+    "image": "/assets/library/organic-polymer.svg",
+    "tags": [
+      "CD",
+      "Protein",
+      "Cấu trúc thứ cấp",
+      "Quang phổ"
+    ],
+    "aliases": [],
+    "documentKind": "story",
+    "readingMinutes": 4,
+    "editorialEvidence": {
+      "language": "vi",
+      "scope": "chemical-family",
+      "contextLabel": "Hai chiều xoắn của ánh sáng giúp đọc cách protein gấp cuộn",
+      "reviewBasis": "Biên soạn theo các nguồn dẫn cuối bài; phân biệt kết quả đã thực hiện và hướng phát triển.",
+      "story": {
+        "status": "documented",
+        "section": "## Một phổ không dự kiến xuất hiện khi gia nhiệt",
+        "sources": [
+          "https://doi.org/10.1021/bi00838a031",
+          "https://garfield.library.upenn.edu/classics1982/A1982NT91500001.pdf",
+          "https://pubmed.ncbi.nlm.nih.gov/25596417/"
+        ]
+      },
+      "application": {
+        "status": "documented",
+        "section": "## Ứng dụng hôm nay: so sánh có ý nghĩa hơn một đường cong đẹp",
+        "sources": [
+          "https://doi.org/10.1021/bi00838a031",
+          "https://garfield.library.upenn.edu/classics1982/A1982NT91500001.pdf",
+          "https://pubmed.ncbi.nlm.nih.gov/25596417/"
+        ]
+      }
+    }
+  },
+  {
+    "id": "dien-di-mao-quan-adn-duong-doc-nho-lai",
+    "slug": "dien-di-mao-quan-adn-duong-doc-nho-lai",
+    "documentPath": "docs/dien-di-mao-quan-adn-duong-doc-nho-lai/index.json",
+    "title": "Khi đường chạy ADN thu nhỏ thành một mao quản",
+    "summary": "Điện di mao quản kết hợp gel mỏng với phát hiện huỳnh quang để tăng tốc đọc ADN. Những nghiên cứu đầu thập niên 1990 cho thấy tốc độ phải được cân bằng với độ phân giải.",
+    "category": "khainiem",
+    "author": "Ban biên tập ChemDex",
+    "image": "/assets/library/apparatus-spectroscope.svg",
+    "tags": [
+      "Điện di mao quản",
+      "ADN",
+      "Phân tách",
+      "Huỳnh quang"
+    ],
+    "aliases": [],
+    "documentKind": "story",
+    "readingMinutes": 4,
+    "editorialEvidence": {
+      "language": "vi",
+      "scope": "chemical-family",
+      "contextLabel": "Khi đường chạy ADN thu nhỏ thành một mao quản",
+      "reviewBasis": "Biên soạn theo các nguồn dẫn cuối bài; phân biệt kết quả đã thực hiện và hướng phát triển.",
+      "story": {
+        "status": "documented",
+        "section": "## Một nút thắt nằm ở thời gian chờ các đoạn ADN tách ra",
+        "sources": [
+          "https://pmc.ncbi.nlm.nih.gov/articles/PMC330505/",
+          "https://academic.oup.com/nar/article/18/15/4417/1048868",
+          "https://pubmed.ncbi.nlm.nih.gov/9456053/"
+        ]
+      },
+      "application": {
+        "status": "documented",
+        "section": "## Ứng dụng hôm nay: một công cụ trong nhiều cách đọc ADN",
+        "sources": [
+          "https://pmc.ncbi.nlm.nih.gov/articles/PMC330505/",
+          "https://academic.oup.com/nar/article/18/15/4417/1048868",
+          "https://pubmed.ncbi.nlm.nih.gov/9456053/"
+        ]
+      }
+    }
+  },
+  {
+    "id": "sac-ky-chiral-cellulose-giu-hai-anh-guong",
+    "slug": "sac-ky-chiral-cellulose-giu-hai-anh-guong",
+    "documentPath": "docs/sac-ky-chiral-cellulose-giu-hai-anh-guong/index.json",
+    "title": "Một cột cellulose biến đổi giữ hai ảnh gương lâu khác nhau",
+    "summary": "Những dẫn xuất polysaccharide tạo môi trường bất đối xứng để tách đồng phân đối quang. Kết quả năm 1984 của nhóm Okamoto mở ra một họ pha tĩnh quan trọng.",
+    "category": "khainiem",
+    "author": "Ban biên tập ChemDex",
+    "image": "/assets/library/organic-polymer.svg",
+    "tags": [
+      "Sắc ký chiral",
+      "Cellulose",
+      "Đồng phân đối quang",
+      "HPLC"
+    ],
+    "aliases": [],
+    "documentKind": "story",
+    "readingMinutes": 4,
+    "editorialEvidence": {
+      "language": "vi",
+      "scope": "chemical-family",
+      "contextLabel": "Một cột cellulose biến đổi giữ hai ảnh gương lâu khác nhau",
+      "reviewBasis": "Biên soạn theo các nguồn dẫn cuối bài; phân biệt kết quả đã thực hiện và hướng phát triển.",
+      "story": {
+        "status": "documented",
+        "section": "## Hai chất giống nhau trước nhiều phép đo thường",
+        "sources": [
+          "https://doi.org/10.1021/ja00330a057",
+          "https://onlinelibrary.wiley.com/doi/10.1002/pola.23215",
+          "https://doi.org/10.1016/S0021-9673(01)83736-5"
+        ]
+      },
+      "application": {
+        "status": "documented",
+        "section": "## Ứng dụng hôm nay: đo thành phần lập thể trước khi kết luận",
+        "sources": [
+          "https://doi.org/10.1021/ja00330a057",
+          "https://onlinelibrary.wiley.com/doi/10.1002/pola.23215",
+          "https://doi.org/10.1016/S0021-9673(01)83736-5"
+        ]
+      }
+    }
+  },
+  {
+    "id": "dosy-tach-tin-hieu-bang-toc-do-khuech-tan",
+    "slug": "dosy-tach-tin-hieu-bang-toc-do-khuech-tan",
+    "documentPath": "docs/dosy-tach-tin-hieu-bang-toc-do-khuech-tan/index.json",
+    "title": "Không tách mẫu khỏi ống: DOSY phân nhóm tín hiệu theo chuyển động",
+    "summary": "DOSY bổ sung trục khuếch tán cho phổ NMR, giúp đọc những thành phần đang nằm chung trong dung dịch. Nhưng hệ số khuếch tán không phải cân phân tử trực tiếp.",
+    "category": "khainiem",
+    "author": "Ban biên tập ChemDex",
+    "image": "/assets/library/apparatus-spectroscope.svg",
+    "tags": [
+      "DOSY",
+      "NMR",
+      "Khuếch tán",
+      "Hỗn hợp"
+    ],
+    "aliases": [],
+    "documentKind": "story",
+    "readingMinutes": 4,
+    "editorialEvidence": {
+      "language": "vi",
+      "scope": "chemical-family",
+      "contextLabel": "Không tách mẫu khỏi ống: DOSY phân nhóm tín hiệu theo chuyển động",
+      "reviewBasis": "Biên soạn theo các nguồn dẫn cuối bài; phân biệt kết quả đã thực hiện và hướng phát triển.",
+      "story": {
+        "status": "documented",
+        "section": "## Hỗn hợp có quá nhiều đỉnh trên một trục",
+        "sources": [
+          "https://doi.org/10.1021/ja00034a071",
+          "https://pmc.ncbi.nlm.nih.gov/articles/PMC2666195/",
+          "https://onlinelibrary.wiley.com/doi/full/10.1002/marc.202500303"
+        ]
+      },
+      "application": {
+        "status": "documented",
+        "section": "## Ứng dụng hôm nay: thêm bằng chứng trước khi gán cấu trúc",
+        "sources": [
+          "https://doi.org/10.1021/ja00034a071",
+          "https://pmc.ncbi.nlm.nih.gov/articles/PMC2666195/",
+          "https://onlinelibrary.wiley.com/doi/full/10.1002/marc.202500303"
+        ]
+      }
+    }
+  },
+  {
+    "id": "ion-di-chuyen-trong-pin-perovskite",
+    "slug": "ion-di-chuyen-trong-pin-perovskite",
+    "documentPath": "docs/ion-di-chuyen-trong-pin-perovskite/index.json",
+    "title": "Trong pin mặt trời perovskite, không chỉ electron đang chuyển động",
+    "summary": "Đường dòng–áp có thể phụ thuộc lịch sử đo khi các ion và khuyết tật di chuyển chậm. Nghiên cứu perovskite cho thấy vật liệu quang điện cần được hiểu trên nhiều thang thời gian.",
+    "category": "khainiem",
+    "author": "Ban biên tập ChemDex",
+    "image": "/assets/library/crystal-perovskite.svg",
+    "tags": [
+      "Perovskite",
+      "Di chuyển ion",
+      "Trễ",
+      "Pin mặt trời"
+    ],
+    "aliases": [],
+    "documentKind": "story",
+    "readingMinutes": 4,
+    "editorialEvidence": {
+      "language": "vi",
+      "scope": "chemical-family",
+      "contextLabel": "Trong pin mặt trời perovskite, không chỉ electron đang chuyển động",
+      "reviewBasis": "Biên soạn theo các nguồn dẫn cuối bài; phân biệt kết quả đã thực hiện và hướng phát triển.",
+      "story": {
+        "status": "documented",
+        "section": "## Hai lần quét có thể cho hai đường khác nhau",
+        "sources": [
+          "https://www.nature.com/articles/ncomms8497",
+          "https://www.nature.com/articles/ncomms13831",
+          "https://pubs.rsc.org/en/content/articlehtml/2016/ee/c5ee02740c"
+        ]
+      },
+      "application": {
+        "status": "documented",
+        "section": "## Ứng dụng hôm nay: đo ổn định và thiết kế giao diện",
+        "sources": [
+          "https://www.nature.com/articles/ncomms8497",
+          "https://www.nature.com/articles/ncomms13831",
+          "https://pubs.rsc.org/en/content/articlehtml/2016/ee/c5ee02740c"
+        ]
+      }
+    }
+  },
+  {
+    "id": "nhiet-dien-cu2se-trat-tu-va-chuyen-dong",
+    "slug": "nhiet-dien-cu2se-trat-tu-va-chuyen-dong",
+    "documentPath": "docs/nhiet-dien-cu2se-trat-tu-va-chuyen-dong/index.json",
+    "title": "Cho điện đi qua, giữ nhiệt lại: sự mất trật tự hữu ích trong copper selenide",
+    "summary": "Cu₂₋ₓSe gợi một thiết kế nhiệt điện có mạng selenium tương đối ổn định và các ion copper linh động. Lợi ích truyền nhiệt thấp phải được cân bằng với độ bền khi làm việc.",
+    "category": "khainiem",
+    "author": "Ban biên tập ChemDex",
+    "image": "/assets/library/crystal-fcc.svg",
+    "tags": [
+      "Nhiệt điện",
+      "Siêu ion",
+      "Dẫn nhiệt",
+      "Vật liệu"
+    ],
+    "aliases": [],
+    "documentKind": "story",
+    "readingMinutes": 4,
+    "editorialEvidence": {
+      "language": "vi",
+      "scope": "chemical-family",
+      "contextLabel": "Cho điện đi qua, giữ nhiệt lại: sự mất trật tự hữu ích trong copper selenide",
+      "reviewBasis": "Biên soạn theo các nguồn dẫn cuối bài; phân biệt kết quả đã thực hiện và hướng phát triển.",
+      "story": {
+        "status": "documented",
+        "section": "## Một vật liệu muốn dẫn điện nhưng không dẫn nhiệt quá tốt",
+        "sources": [
+          "https://www.nature.com/articles/nmat3273",
+          "https://arxiv.org/abs/2308.03559",
+          "https://www.nature.com/articles/s41563-024-01815-1"
+        ]
+      },
+      "application": {
+        "status": "documented",
+        "section": "## Ứng dụng hôm nay: chỉ số vật liệu chưa phải hiệu suất hệ thống",
+        "sources": [
+          "https://www.nature.com/articles/nmat3273",
+          "https://arxiv.org/abs/2308.03559",
+          "https://www.nature.com/articles/s41563-024-01815-1"
+        ]
+      }
+    }
+  },
+  {
+    "id": "cmc-diem-gap-tren-duong-suc-cang",
+    "slug": "cmc-diem-gap-tren-duong-suc-cang",
+    "documentPath": "docs/cmc-diem-gap-tren-duong-suc-cang/index.json",
+    "title": "Điểm gấp trên đường sức căng: khi chất hoạt động bề mặt bắt đầu tụ nhóm",
+    "summary": "CMC được suy ra từ những thay đổi tính chất khi nồng độ tăng. So sánh nhiều phương pháp cho thấy một mốc quen thuộc cũng cần định nghĩa và điều kiện đo rõ ràng.",
+    "category": "khainiem",
+    "author": "Ban biên tập ChemDex",
+    "image": "/assets/library/organic-alkane.svg",
+    "tags": [
+      "CMC",
+      "Micelle",
+      "Sức căng bề mặt",
+      "Tự tập hợp"
+    ],
+    "aliases": [],
+    "documentKind": "story",
+    "readingMinutes": 4,
+    "editorialEvidence": {
+      "language": "vi",
+      "scope": "chemical-family",
+      "contextLabel": "Điểm gấp trên đường sức căng: khi chất hoạt động bề mặt bắt đầu tụ nhóm",
+      "reviewBasis": "Biên soạn theo các nguồn dẫn cuối bài; phân biệt kết quả đã thực hiện và hướng phát triển.",
+      "story": {
+        "status": "documented",
+        "section": "## Một loạt dung dịch cho một đường đổi dốc",
+        "sources": [
+          "https://pubmed.ncbi.nlm.nih.gov/29332160/",
+          "https://doi.org/10.1021/la981149f",
+          "https://www.sciencedirect.com/science/article/pii/S0378381214002027"
+        ]
+      },
+      "application": {
+        "status": "documented",
+        "section": "## Ứng dụng hôm nay: chọn vùng hoạt động của công thức",
+        "sources": [
+          "https://pubmed.ncbi.nlm.nih.gov/29332160/",
+          "https://doi.org/10.1021/la981149f",
+          "https://www.sciencedirect.com/science/article/pii/S0378381214002027"
+        ]
+      }
+    }
+  },
+  {
+    "id": "krafft-giat-lanh-khi-chat-tay-ket-tinh",
+    "slug": "krafft-giat-lanh-khi-chat-tay-ket-tinh",
+    "documentPath": "docs/krafft-giat-lanh-khi-chat-tay-ket-tinh/index.json",
+    "title": "Giặt lạnh không chỉ là phản ứng chậm hơn: chất tẩy có thể chưa tan đủ",
+    "summary": "Điểm Krafft đặt một giới hạn pha cho một số chất hoạt động bề mặt ion. Nghiên cứu hỗn hợp cho thấy cách cải thiện tính năng ở nhiệt độ thấp phải xét cả độ tan.",
+    "category": "khainiem",
+    "author": "Ban biên tập ChemDex",
+    "image": "/assets/library/organic-alkane.svg",
+    "tags": [
+      "Điểm Krafft",
+      "Chất tẩy rửa",
+      "Độ tan",
+      "Nhiệt độ thấp"
+    ],
+    "aliases": [],
+    "documentKind": "story",
+    "readingMinutes": 4,
+    "editorialEvidence": {
+      "language": "vi",
+      "scope": "chemical-family",
+      "contextLabel": "Giặt lạnh không chỉ là phản ứng chậm hơn: chất tẩy có thể chưa tan đủ",
+      "reviewBasis": "Biên soạn theo các nguồn dẫn cuối bài; phân biệt kết quả đã thực hiện và hướng phát triển.",
+      "story": {
+        "status": "documented",
+        "section": "## Nhiệt độ thấp làm lộ một giới hạn khác",
+        "sources": [
+          "https://www.sciencedirect.com/science/article/abs/pii/S0021979718310221",
+          "https://arxiv.org/abs/2105.11824",
+          "https://pmc.ncbi.nlm.nih.gov/articles/PMC7658934/"
+        ]
+      },
+      "application": {
+        "status": "documented",
+        "section": "## Ứng dụng hôm nay: công thức phải sống qua thời tiết và bảo quản",
+        "sources": [
+          "https://www.sciencedirect.com/science/article/abs/pii/S0021979718310221",
+          "https://arxiv.org/abs/2105.11824",
+          "https://pmc.ncbi.nlm.nih.gov/articles/PMC7658934/"
+        ]
+      }
+    }
+  },
+  {
+    "id": "diem-duc-mot-dung-dich-thanh-hai-pha",
+    "slug": "diem-duc-mot-dung-dich-thanh-hai-pha",
+    "documentPath": "docs/diem-duc-mot-dung-dich-thanh-hai-pha/index.json",
+    "title": "Làm đục để tách: khi dung dịch chất hoạt động bề mặt chia thành hai pha",
+    "summary": "Từ phép định lượng zinc năm 1978 đến tách protein màng, điểm đục trở thành một công cụ phân bố vật chất. Nhiệt độ thay đổi môi trường mà các chất lựa chọn.",
+    "category": "khainiem",
+    "author": "Ban biên tập ChemDex",
+    "image": "/assets/library/lab-synthesis.svg",
+    "tags": [
+      "Điểm đục",
+      "Chiết",
+      "Micelle",
+      "Phân pha"
+    ],
+    "aliases": [],
+    "documentKind": "story",
+    "readingMinutes": 4,
+    "editorialEvidence": {
+      "language": "vi",
+      "scope": "chemical-family",
+      "contextLabel": "Làm đục để tách: khi dung dịch chất hoạt động bề mặt chia thành hai pha",
+      "reviewBasis": "Biên soạn theo các nguồn dẫn cuối bài; phân biệt kết quả đã thực hiện và hướng phát triển.",
+      "story": {
+        "status": "documented",
+        "section": "## Một kỹ thuật gom zinc vào phần thể tích nhỏ",
+        "sources": [
+          "https://pubmed.ncbi.nlm.nih.gov/18962328/",
+          "https://doi.org/10.1016/S0021-9258(19)69848-0",
+          "https://eprints.lib.hokudai.ac.jp/repo/huscap/all/71706/Anal.sci.14-875.pdf"
+        ]
+      },
+      "application": {
+        "status": "documented",
+        "section": "## Ứng dụng hôm nay: phân tách bằng thay môi trường",
+        "sources": [
+          "https://pubmed.ncbi.nlm.nih.gov/18962328/",
+          "https://doi.org/10.1016/S0021-9258(19)69848-0",
+          "https://eprints.lib.hokudai.ac.jp/repo/huscap/all/71706/Anal.sci.14-875.pdf"
+        ]
+      }
+    }
+  },
+  {
+    "id": "zeta-potential-nuoc-song-doi-theo-mua",
+    "slug": "zeta-potential-nuoc-song-doi-theo-mua",
+    "documentPath": "docs/zeta-potential-nuoc-song-doi-theo-mua/index.json",
+    "title": "Nước sông đổi theo mùa, điện tích của hạt cũng đổi",
+    "summary": "Thế zeta giúp theo dõi khả năng kết tụ trong xử lý nước. Nghiên cứu lấy mẫu suốt một năm cho thấy chỉ đo tổng lượng hữu cơ chưa đủ để dự đoán nhu cầu hóa chất.",
+    "category": "khainiem",
+    "author": "Ban biên tập ChemDex",
+    "image": "/assets/library/ionic-crystal.svg",
+    "tags": [
+      "Thế zeta",
+      "Keo tụ",
+      "Nước",
+      "Điện tích"
+    ],
+    "aliases": [],
+    "documentKind": "story",
+    "readingMinutes": 4,
+    "editorialEvidence": {
+      "language": "vi",
+      "scope": "chemical-family",
+      "contextLabel": "Nước sông đổi theo mùa, điện tích của hạt cũng đổi",
+      "reviewBasis": "Biên soạn theo các nguồn dẫn cuối bài; phân biệt kết quả đã thực hiện và hướng phát triển.",
+      "story": {
+        "status": "documented",
+        "section": "## Một thông số quen không theo kịp toàn bộ thay đổi",
+        "sources": [
+          "https://doi.org/10.1016/j.jwpe.2026.109916",
+          "https://pubmed.ncbi.nlm.nih.gov/16830564/",
+          "https://doi.org/10.1016/j.colsurfa.2006.03.009"
+        ]
+      },
+      "application": {
+        "status": "documented",
+        "section": "## Ứng dụng hôm nay: kết hợp chỉ báo để điều khiển tốt hơn",
+        "sources": [
+          "https://doi.org/10.1016/j.jwpe.2026.109916",
+          "https://pubmed.ncbi.nlm.nih.gov/16830564/",
+          "https://doi.org/10.1016/j.colsurfa.2006.03.009"
+        ]
+      }
+    }
+  },
+  {
+    "id": "sol-gel-silica-tu-hat-den-lop-phu-quang",
+    "slug": "sol-gel-silica-tu-hat-den-lop-phu-quang",
+    "documentPath": "docs/sol-gel-silica-tu-hat-den-lop-phu-quang/index.json",
+    "title": "Từ những hạt silica đều nhau tới lớp phủ để ánh sáng đi qua",
+    "summary": "Phương pháp Stöber tạo một nền tảng chế tạo hạt silica có kích thước kiểm soát. Những lớp phủ quang cho thấy khoảng rỗng giữa hạt cũng có thể là thành phần thiết kế.",
+    "category": "khainiem",
+    "author": "Ban biên tập ChemDex",
+    "image": "/assets/library/ionic-crystal.svg",
+    "tags": [
+      "Sol–gel",
+      "Silica",
+      "Lớp phủ",
+      "Chiết suất"
+    ],
+    "aliases": [],
+    "documentKind": "story",
+    "readingMinutes": 4,
+    "editorialEvidence": {
+      "language": "vi",
+      "scope": "chemical-family",
+      "contextLabel": "Từ những hạt silica đều nhau tới lớp phủ để ánh sáng đi qua",
+      "reviewBasis": "Biên soạn theo các nguồn dẫn cuối bài; phân biệt kết quả đã thực hiện và hướng phát triển.",
+      "story": {
+        "status": "documented",
+        "section": "## Một bộ hạt đồng đều để giảm sự mơ hồ",
+        "sources": [
+          "https://doi.org/10.1016/0021-9797(68)90272-5",
+          "https://matsc.ktu.lt/index.php/MatSc/article/view/26643",
+          "https://pmc.ncbi.nlm.nih.gov/articles/PMC9956885/"
+        ]
+      },
+      "application": {
+        "status": "documented",
+        "section": "## Ứng dụng hôm nay: chức năng nằm trong cả hóa học và hình học",
+        "sources": [
+          "https://doi.org/10.1016/0021-9797(68)90272-5",
+          "https://matsc.ktu.lt/index.php/MatSc/article/view/26643",
+          "https://pmc.ncbi.nlm.nih.gov/articles/PMC9956885/"
+        ]
+      }
+    }
+  },
+  {
+    "id": "hat-bui-feldspar-mo-cua-cho-bang",
+    "slug": "hat-bui-feldspar-mo-cua-cho-bang",
+    "documentPath": "docs/hat-bui-feldspar-mo-cua-cho-bang/index.json",
+    "title": "Một hạt bụi nhỏ có thể thay đổi lúc giọt nước đóng băng",
+    "summary": "Feldspar trong bụi khoáng giúp tạo mầm băng trong một số điều kiện mây. Các nghiên cứu bề mặt cho thấy lượng khoáng chưa đủ: hình học những vị trí hoạt động cũng quan trọng.",
+    "category": "khainiem",
+    "author": "Ban biên tập ChemDex",
+    "image": "/assets/library/earth-minerals.svg",
+    "tags": [
+      "Tạo mầm",
+      "Băng",
+      "Mây",
+      "Feldspar"
+    ],
+    "aliases": [],
+    "documentKind": "story",
+    "readingMinutes": 4,
+    "editorialEvidence": {
+      "language": "vi",
+      "scope": "chemical-family",
+      "contextLabel": "Một hạt bụi nhỏ có thể thay đổi lúc giọt nước đóng băng",
+      "reviewBasis": "Biên soạn theo các nguồn dẫn cuối bài; phân biệt kết quả đã thực hiện và hướng phát triển.",
+      "story": {
+        "status": "documented",
+        "section": "## Bụi ít hơn vẫn có thể giữ vai trò lớn",
+        "sources": [
+          "https://www.nature.com/articles/nature12278",
+          "https://pubmed.ncbi.nlm.nih.gov/27940582/",
+          "https://pubs.rsc.org/en/content/articlehtml/2017/cp/c7cp04898j"
+        ]
+      },
+      "application": {
+        "status": "documented",
+        "section": "## Ứng dụng hôm nay: mô hình mây cần đầu vào từ bề mặt",
+        "sources": [
+          "https://www.nature.com/articles/nature12278",
+          "https://pubmed.ncbi.nlm.nih.gov/27940582/",
+          "https://pubs.rsc.org/en/content/articlehtml/2017/cp/c7cp04898j"
+        ]
+      }
+    }
+  },
+  {
+    "id": "dong-vi-hydrogen-soi-duong-enzyme",
+    "slug": "dong-vi-hydrogen-soi-duong-enzyme",
+    "documentPath": "docs/dong-vi-hydrogen-soi-duong-enzyme/index.json",
+    "title": "Thay một hydrogen nặng hơn để hỏi enzyme đã làm gì",
+    "summary": "Hiệu ứng đồng vị động học giúp lần theo bước chuyển hydrogen trong enzyme. Soybean lipoxygenase trở thành một hệ nghiên cứu nổi bật về rào cản phản ứng và xuyên hầm.",
+    "category": "khainiem",
+    "author": "Ban biên tập ChemDex",
+    "image": "/assets/library/organic-polymer.svg",
+    "tags": [
+      "Hiệu ứng đồng vị",
+      "Enzyme",
+      "Xuyên hầm",
+      "Động học"
+    ],
+    "aliases": [],
+    "documentKind": "story",
+    "readingMinutes": 4,
+    "editorialEvidence": {
+      "language": "vi",
+      "scope": "chemical-family",
+      "contextLabel": "Thay một hydrogen nặng hơn để hỏi enzyme đã làm gì",
+      "reviewBasis": "Biên soạn theo các nguồn dẫn cuối bài; phân biệt kết quả đã thực hiện và hướng phát triển.",
+      "story": {
+        "status": "documented",
+        "section": "## Một thay đổi rất nhỏ làm tốc độ đổi mạnh",
+        "sources": [
+          "https://doi.org/10.1021/ja012205t",
+          "https://pubmed.ncbi.nlm.nih.gov/7578005/",
+          "https://pmc.ncbi.nlm.nih.gov/articles/PMC10013837/"
+        ]
+      },
+      "application": {
+        "status": "documented",
+        "section": "## Ứng dụng hôm nay: kiểm tra cơ chế bằng một phép thay thế tinh tế",
+        "sources": [
+          "https://doi.org/10.1021/ja012205t",
+          "https://pubmed.ncbi.nlm.nih.gov/7578005/",
+          "https://pmc.ncbi.nlm.nih.gov/articles/PMC10013837/"
+        ]
+      }
+    }
+  },
+  {
+    "id": "kinetic-proofreading-tra-gia-de-doc-dung",
+    "slug": "kinetic-proofreading-tra-gia-de-doc-dung",
+    "documentPath": "docs/kinetic-proofreading-tra-gia-de-doc-dung/index.json",
+    "title": "Trả thêm năng lượng để đọc đúng: mạng phản ứng biết kiểm tra lại",
+    "summary": "Kinetic proofreading giải thích cách hệ sinh học tăng tính chọn lọc vượt một bước nhận diện đơn lẻ. Ribosome cho thấy độ chính xác được xây bằng cả một chuỗi quyết định.",
+    "category": "khainiem",
+    "author": "Ban biên tập ChemDex",
+    "image": "/assets/library/organic-polymer.svg",
+    "tags": [
+      "Kinetic proofreading",
+      "Ribosome",
+      "Động học",
+      "Độ chính xác"
+    ],
+    "aliases": [],
+    "documentKind": "story",
+    "readingMinutes": 4,
+    "editorialEvidence": {
+      "language": "vi",
+      "scope": "chemical-family",
+      "contextLabel": "Trả thêm năng lượng để đọc đúng: mạng phản ứng biết kiểm tra lại",
+      "reviewBasis": "Biên soạn theo các nguồn dẫn cuối bài; phân biệt kết quả đã thực hiện và hướng phát triển.",
+      "story": {
+        "status": "documented",
+        "section": "## Một khác biệt nhỏ có vẻ chưa đủ cho độ chính xác quan sát được",
+        "sources": [
+          "https://pmc.ncbi.nlm.nih.gov/articles/PMC434344/",
+          "https://pmc.ncbi.nlm.nih.gov/articles/PMC393225/",
+          "https://www.nobelprize.org/uploads/2018/06/ramakrishnan_lecture.pdf",
+          "https://pni.princeton.edu/people/john-j-hopfield/now-what"
+        ]
+      },
+      "application": {
+        "status": "documented",
+        "section": "## Ứng dụng hôm nay: tìm chức năng trong sơ đồ phản ứng",
+        "sources": [
+          "https://pmc.ncbi.nlm.nih.gov/articles/PMC434344/",
+          "https://pmc.ncbi.nlm.nih.gov/articles/PMC393225/",
+          "https://www.nobelprize.org/uploads/2018/06/ramakrishnan_lecture.pdf",
+          "https://pni.princeton.edu/people/john-j-hopfield/now-what"
+        ]
+      }
+    }
+  },
+  {
+    "id": "cobalt-hong-xanh-can-bang-thanh-tin-hieu",
+    "slug": "cobalt-hong-xanh-can-bang-thanh-tin-hieu",
+    "documentPath": "docs/cobalt-hong-xanh-can-bang-thanh-tin-hieu/index.json",
+    "title": "Từ hồng sang xanh: khi cân bằng hóa học trở thành một tín hiệu",
+    "summary": "Các phức cobalt đổi màu khi môi trường phối trí thay đổi. Một thí nghiệm lớp học và những màng cảm biến cho thấy cách nối cân bằng với phép đo.",
+    "category": "khainiem",
+    "author": "Ban biên tập ChemDex",
+    "image": "/assets/library/photos/elements/Co.jpg",
+    "tags": [
+      "Cân bằng",
+      "Le Chatelier",
+      "Phức chất",
+      "Cảm biến"
+    ],
+    "aliases": [],
+    "documentKind": "story",
+    "readingMinutes": 4,
+    "editorialEvidence": {
+      "language": "vi",
+      "scope": "chemical-family",
+      "contextLabel": "Từ hồng sang xanh: khi cân bằng hóa học trở thành một tín hiệu",
+      "reviewBasis": "Biên soạn theo các nguồn dẫn cuối bài; phân biệt kết quả đã thực hiện và hướng phát triển.",
+      "story": {
+        "status": "documented",
+        "section": "## Một thí nghiệm có thể đi và về",
+        "sources": [
+          "https://edu.rsc.org/experiments/the-equilibrium-between-two-coloured-cobalt-species/1.article",
+          "https://www.sensorsportal.com/HTML/DIGEST/april_08/P_267.pdf",
+          "https://link.springer.com/article/10.1186/s11671-017-2139-0",
+          "https://edu.rsc.org/cpd/understanding-equilibrium-a-delicate-balance/2000012.article"
+        ]
+      },
+      "application": {
+        "status": "documented",
+        "section": "## Ứng dụng hôm nay: từ màu nhìn thấy tới số đo có chuẩn",
+        "sources": [
+          "https://edu.rsc.org/experiments/the-equilibrium-between-two-coloured-cobalt-species/1.article",
+          "https://www.sensorsportal.com/HTML/DIGEST/april_08/P_267.pdf",
+          "https://link.springer.com/article/10.1186/s11671-017-2139-0",
+          "https://edu.rsc.org/cpd/understanding-equilibrium-a-delicate-balance/2000012.article"
+        ]
+      }
+    }
+  },
+  {
+    "id": "trao-doi-ion-tach-nhung-dat-hiem-giong-nhau",
+    "slug": "trao-doi-ion-tach-nhung-dat-hiem-giong-nhau",
+    "documentPath": "docs/trao-doi-ion-tach-nhung-dat-hiem-giong-nhau/index.json",
+    "title": "Tách những ion quá giống nhau: đất hiếm đi qua cột nhựa",
+    "summary": "Nhóm Spedding dùng trao đổi ion và chất tạo phức để tách các nguyên tố đất hiếm. Những khác biệt nhỏ được lặp lại dọc cột trở thành các vùng vật liệu riêng.",
+    "category": "khainiem",
+    "author": "Ban biên tập ChemDex",
+    "image": "/assets/library/element-lanthanide.svg",
+    "tags": [
+      "Trao đổi ion",
+      "Đất hiếm",
+      "Tạo phức",
+      "Phân tách"
+    ],
+    "aliases": [],
+    "documentKind": "story",
+    "readingMinutes": 4,
+    "editorialEvidence": {
+      "language": "vi",
+      "scope": "chemical-family",
+      "contextLabel": "Tách những ion quá giống nhau: đất hiếm đi qua cột nhựa",
+      "reviewBasis": "Biên soạn theo các nguồn dẫn cuối bài; phân biệt kết quả đã thực hiện và hướng phát triển.",
+      "story": {
+        "status": "documented",
+        "section": "## Nhu cầu mẫu tinh khiết gặp một họ nguyên tố rất giống nhau",
+        "sources": [
+          "https://doi.org/10.1021/ja01196a011",
+          "https://doi.org/10.1021/ja01638a074",
+          "https://www.nasonline.org/wp-content/uploads/2024/06/spedding-f-h.pdf"
+        ]
+      },
+      "application": {
+        "status": "documented",
+        "section": "## Ứng dụng hôm nay: chọn công nghệ theo độ tinh khiết và quy mô",
+        "sources": [
+          "https://doi.org/10.1021/ja01196a011",
+          "https://doi.org/10.1021/ja01638a074",
+          "https://www.nasonline.org/wp-content/uploads/2024/06/spedding-f-h.pdf"
+        ]
+      }
+    }
+  },
+  {
+    "id": "cyclodextrin-giu-vanillin-trong-khoang-rong",
+    "slug": "cyclodextrin-giu-vanillin-trong-khoang-rong",
+    "documentPath": "docs/cyclodextrin-giu-vanillin-trong-khoang-rong/index.json",
+    "title": "Một chiếc vòng đường giữ hương vanillin bằng khoảng rỗng bên trong",
+    "summary": "Cyclodextrin có thể tạo phức bao với phân tử hương, thay đổi độ tan và cách giải phóng. Kích thước khoang và trạng thái vật liệu quyết định mức giữ thực tế.",
+    "category": "khainiem",
+    "author": "Ban biên tập ChemDex",
+    "image": "/assets/library/organic-carbohydrate.svg",
+    "tags": [
+      "Cyclodextrin",
+      "Chủ–khách",
+      "Vanillin",
+      "Bao hương"
+    ],
+    "aliases": [],
+    "documentKind": "story",
+    "readingMinutes": 4,
+    "editorialEvidence": {
+      "language": "vi",
+      "scope": "chemical-family",
+      "contextLabel": "Một chiếc vòng đường giữ hương vanillin bằng khoảng rỗng bên trong",
+      "reviewBasis": "Biên soạn theo các nguồn dẫn cuối bài; phân biệt kết quả đã thực hiện và hướng phát triển.",
+      "story": {
+        "status": "documented",
+        "section": "## Hương có thể rời sản phẩm trước khi người dùng thưởng thức",
+        "sources": [
+          "https://pubmed.ncbi.nlm.nih.gov/21928857/",
+          "https://doi.org/10.1002/ffj.3115",
+          "https://www.sciencedirect.com/science/article/abs/pii/S030881460600135X"
+        ]
+      },
+      "application": {
+        "status": "documented",
+        "section": "## Ứng dụng hôm nay: giữ và thả là hai nửa của thiết kế",
+        "sources": [
+          "https://pubmed.ncbi.nlm.nih.gov/21928857/",
+          "https://doi.org/10.1002/ffj.3115",
+          "https://www.sciencedirect.com/science/article/abs/pii/S030881460600135X"
+        ]
+      }
+    }
+  },
+  {
+    "id": "kurt-wuthrich-cau-truc-khong-can-tinh-the",
+    "slug": "kurt-wuthrich-cau-truc-khong-can-tinh-the",
+    "documentPath": "docs/kurt-wuthrich-cau-truc-khong-can-tinh-the/index.json",
+    "title": "Kurt Wüthrich: tìm hình dạng protein khi phân tử vẫn ở trong dung dịch",
+    "summary": "Một protein không chịu kết tinh vẫn có thể kể về cấu trúc của mình. Wüthrich và cộng sự học cách nối các tín hiệu cộng hưởng từ thành những ràng buộc không gian.",
+    "category": "tieusu",
+    "author": "Ban biên tập ChemDex",
+    "image": "/assets/library/apparatus-spectroscope.svg",
+    "tags": [
+      "Kurt Wüthrich",
+      "NMR",
+      "Protein",
+      "Cấu trúc dung dịch"
+    ],
+    "aliases": [],
+    "documentKind": "story",
+    "readingMinutes": 5,
+    "editorialEvidence": {
+      "language": "vi",
+      "scope": "chemical-family",
+      "contextLabel": "Kurt Wüthrich: tìm hình dạng protein khi phân tử vẫn ở trong dung dịch",
+      "reviewBasis": "Biên soạn theo các nguồn dẫn cuối bài; phân biệt kết quả đã thực hiện và hướng phát triển.",
+      "story": {
+        "status": "documented",
+        "section": "## Từ những đỉnh phổ chen chúc tới một mô hình",
+        "sources": [
+          "https://doi.org/10.1016/0022-2836(85)90347-X",
+          "https://www.nobelprize.org/prizes/chemistry/2002/wuthrich/lecture/",
+          "https://www.nobelprize.org/prizes/chemistry/2002/wuthrich/biographical/"
+        ]
+      },
+      "application": {
+        "status": "documented",
+        "section": "## Ứng dụng hôm nay: chọn phương pháp theo phần câu chuyện cần biết",
+        "sources": [
+          "https://doi.org/10.1016/0022-2836(85)90347-X",
+          "https://www.nobelprize.org/prizes/chemistry/2002/wuthrich/lecture/",
+          "https://www.nobelprize.org/prizes/chemistry/2002/wuthrich/biographical/"
+        ]
+      }
+    }
+  },
+  {
+    "id": "richard-ernst-bien-tieng-vong-thanh-pho",
+    "slug": "richard-ernst-bien-tieng-vong-thanh-pho",
+    "documentPath": "docs/richard-ernst-bien-tieng-vong-thanh-pho/index.json",
+    "title": "Richard Ernst: nghe tiếng đáp của các hạt nhân rồi tách nó thành phổ",
+    "summary": "Thay vì lần lượt dò từng tần số, Ernst và Weston Anderson dùng xung rồi biến đổi Fourier. Đổi cách thu dữ liệu đã mở rộng những gì cộng hưởng từ có thể đo.",
+    "category": "tieusu",
+    "author": "Ban biên tập ChemDex",
+    "image": "/assets/library/apparatus-spectroscope.svg",
+    "tags": [
+      "Richard Ernst",
+      "NMR",
+      "Fourier",
+      "Phổ nhiều chiều"
+    ],
+    "aliases": [],
+    "documentKind": "story",
+    "readingMinutes": 4,
+    "editorialEvidence": {
+      "language": "vi",
+      "scope": "chemical-family",
+      "contextLabel": "Richard Ernst: nghe tiếng đáp của các hạt nhân rồi tách nó thành phổ",
+      "reviewBasis": "Biên soạn theo các nguồn dẫn cuối bài; phân biệt kết quả đã thực hiện và hướng phát triển.",
+      "story": {
+        "status": "documented",
+        "section": "## Một phép đo được thay cách đặt câu hỏi",
+        "sources": [
+          "https://doi.org/10.1063/1.1719961",
+          "https://doi.org/10.1063/1.432450",
+          "https://www.nobelprize.org/uploads/2018/06/ernst-lecture.pdf"
+        ]
+      },
+      "application": {
+        "status": "documented",
+        "section": "## Ứng dụng hôm nay: hóa học hiện diện trong thiết kế tín hiệu",
+        "sources": [
+          "https://doi.org/10.1063/1.1719961",
+          "https://doi.org/10.1063/1.432450",
+          "https://www.nobelprize.org/uploads/2018/06/ernst-lecture.pdf"
+        ]
+      }
+    }
+  },
+  {
+    "id": "george-olah-giu-carbocation-de-dat-cau-hoi",
+    "slug": "george-olah-giu-carbocation-de-dat-cau-hoi",
+    "documentPath": "docs/george-olah-giu-carbocation-de-dat-cau-hoi/index.json",
+    "title": "George Olah: giữ carbocation đủ lâu để hỏi nó có cấu trúc gì",
+    "summary": "Những ion trung gian thường biến mất rất nhanh. Olah dùng môi trường acid đặc biệt và các phép đo phổ để đưa chúng từ hình vẽ cơ chế thành đối tượng có thể khảo sát.",
+    "category": "tieusu",
+    "author": "Ban biên tập ChemDex",
+    "image": "/assets/library/organic-alkane.svg",
+    "tags": [
+      "George Olah",
+      "Carbocation",
+      "Siêu acid",
+      "Cấu trúc"
+    ],
+    "aliases": [],
+    "documentKind": "story",
+    "readingMinutes": 5,
+    "editorialEvidence": {
+      "language": "vi",
+      "scope": "chemical-family",
+      "contextLabel": "George Olah: giữ carbocation đủ lâu để hỏi nó có cấu trúc gì",
+      "reviewBasis": "Biên soạn theo các nguồn dẫn cuối bài; phân biệt kết quả đã thực hiện và hướng phát triển.",
+      "story": {
+        "status": "documented",
+        "section": "## Một mũi tên cơ chế cần bằng chứng vật chất",
+        "sources": [
+          "https://www.nobelprize.org/uploads/2018/06/olah-lecture.pdf",
+          "https://doi.org/10.1126/science.1238849",
+          "https://www.nobelprize.org/prizes/chemistry/1994/olah/biographical/"
+        ]
+      },
+      "application": {
+        "status": "documented",
+        "section": "## Ứng dụng hôm nay: hiểu trung gian để hiểu tính chọn lọc",
+        "sources": [
+          "https://www.nobelprize.org/uploads/2018/06/olah-lecture.pdf",
+          "https://doi.org/10.1126/science.1238849",
+          "https://www.nobelprize.org/prizes/chemistry/1994/olah/biographical/"
+        ]
+      }
+    }
+  },
+  {
+    "id": "martin-karplus-protein-chuyen-dong-trong-may",
+    "slug": "martin-karplus-protein-chuyen-dong-trong-may",
+    "documentPath": "docs/martin-karplus-protein-chuyen-dong-trong-may/index.json",
+    "title": "Martin Karplus: một protein không còn đứng yên trong máy tính",
+    "summary": "Mô phỏng BPTI năm 1977 giúp nhìn protein như hệ chuyển động. Từ tọa độ nguyên tử ban đầu, nhóm Karplus kiểm tra những dao động mà một mô hình tĩnh không kể hết.",
+    "category": "tieusu",
+    "author": "Ban biên tập ChemDex",
+    "image": "/assets/library/covalent-bonds.svg",
+    "tags": [
+      "Martin Karplus",
+      "Động lực học phân tử",
+      "BPTI",
+      "Mô phỏng"
+    ],
+    "aliases": [],
+    "documentKind": "story",
+    "readingMinutes": 4,
+    "editorialEvidence": {
+      "language": "vi",
+      "scope": "chemical-family",
+      "contextLabel": "Martin Karplus: một protein không còn đứng yên trong máy tính",
+      "reviewBasis": "Biên soạn theo các nguồn dẫn cuối bài; phân biệt kết quả đã thực hiện và hướng phát triển.",
+      "story": {
+        "status": "documented",
+        "section": "## Chạy thời gian cho một cấu trúc đã biết",
+        "sources": [
+          "https://www.nature.com/articles/267585a0",
+          "https://www.nobelprize.org/uploads/2018/06/karplus-lecture.pdf",
+          "https://chemistry.harvard.edu/people/martin-karplus"
+        ]
+      },
+      "application": {
+        "status": "documented",
+        "section": "## Ứng dụng hôm nay: xem mô phỏng như một thí nghiệm có điều kiện",
+        "sources": [
+          "https://www.nature.com/articles/267585a0",
+          "https://www.nobelprize.org/uploads/2018/06/karplus-lecture.pdf",
+          "https://chemistry.harvard.edu/people/martin-karplus"
+        ]
+      }
+    }
+  },
+  {
+    "id": "michael-levitt-giam-chi-tiet-de-thay-gap-cuon",
+    "slug": "michael-levitt-giam-chi-tiet-de-thay-gap-cuon",
+    "documentPath": "docs/michael-levitt-giam-chi-tiet-de-thay-gap-cuon/index.json",
+    "title": "Michael Levitt: bớt chi tiết để nhìn thấy câu hỏi về gấp cuộn",
+    "summary": "Mô hình đơn giản hóa protein năm 1975 không cố giữ mọi nguyên tử. Levitt và Warshel chọn những đặc điểm cần thiết để khảo sát cách một chuỗi có thể tìm tới cấu trúc gấp.",
+    "category": "tieusu",
+    "author": "Ban biên tập ChemDex",
+    "image": "/assets/library/organic-polymer.svg",
+    "tags": [
+      "Michael Levitt",
+      "Gấp cuộn protein",
+      "Mô hình thô",
+      "Tính toán"
+    ],
+    "aliases": [],
+    "documentKind": "story",
+    "readingMinutes": 5,
+    "editorialEvidence": {
+      "language": "vi",
+      "scope": "chemical-family",
+      "contextLabel": "Michael Levitt: bớt chi tiết để nhìn thấy câu hỏi về gấp cuộn",
+      "reviewBasis": "Biên soạn theo các nguồn dẫn cuối bài; phân biệt kết quả đã thực hiện và hướng phát triển.",
+      "story": {
+        "status": "documented",
+        "section": "## Toàn bộ nguyên tử có thể che mất bài toán muốn giải",
+        "sources": [
+          "https://www.nature.com/articles/253694a0",
+          "https://www.nobelprize.org/uploads/2018/06/levitt-lecture.pdf",
+          "https://profiles.stanford.edu/michael-levitt"
+        ]
+      },
+      "application": {
+        "status": "documented",
+        "section": "## Ứng dụng hôm nay: nhiều mức mô tả cùng phục vụ một hệ",
+        "sources": [
+          "https://www.nature.com/articles/253694a0",
+          "https://www.nobelprize.org/uploads/2018/06/levitt-lecture.pdf",
+          "https://profiles.stanford.edu/michael-levitt"
+        ]
+      }
+    }
+  },
+  {
+    "id": "arieh-warshel-phan-ung-nho-trong-enzyme-lon",
+    "slug": "arieh-warshel-phan-ung-nho-trong-enzyme-lon",
+    "documentPath": "docs/arieh-warshel-phan-ung-nho-trong-enzyme-lon/index.json",
+    "title": "Arieh Warshel: một phản ứng nhỏ nằm trong môi trường enzyme rất lớn",
+    "summary": "Muốn tính một phản ứng enzyme, không thể bỏ môi trường xung quanh tâm hoạt động. Warshel và Levitt kết hợp các mức mô tả để nghiên cứu cả biến đổi liên kết lẫn ảnh hưởng của protein.",
+    "category": "tieusu",
+    "author": "Ban biên tập ChemDex",
+    "image": "/assets/library/covalent-bonds.svg",
+    "tags": [
+      "Arieh Warshel",
+      "QM/MM",
+      "Enzyme",
+      "Điện tĩnh"
+    ],
+    "aliases": [],
+    "documentKind": "story",
+    "readingMinutes": 4,
+    "editorialEvidence": {
+      "language": "vi",
+      "scope": "chemical-family",
+      "contextLabel": "Arieh Warshel: một phản ứng nhỏ nằm trong môi trường enzyme rất lớn",
+      "reviewBasis": "Biên soạn theo các nguồn dẫn cuối bài; phân biệt kết quả đã thực hiện và hướng phát triển.",
+      "story": {
+        "status": "documented",
+        "section": "## Tâm phản ứng không làm việc trong khoảng không",
+        "sources": [
+          "https://doi.org/10.1016/0022-2836(76)90311-9",
+          "https://www.nobelprize.org/uploads/2018/06/warshel-lecture.pdf",
+          "https://dornsife.usc.edu/profile/arieh-warshel/"
+        ]
+      },
+      "application": {
+        "status": "documented",
+        "section": "## Ứng dụng hôm nay: dự đoán phải trả lời bằng số và điều kiện",
+        "sources": [
+          "https://doi.org/10.1016/0022-2836(76)90311-9",
+          "https://www.nobelprize.org/uploads/2018/06/warshel-lecture.pdf",
+          "https://dornsife.usc.edu/profile/arieh-warshel/"
+        ]
+      }
+    }
+  },
+  {
+    "id": "walter-kohn-tu-dam-may-electron-den-nang-luong",
+    "slug": "walter-kohn-tu-dam-may-electron-den-nang-luong",
+    "documentPath": "docs/walter-kohn-tu-dam-may-electron-den-nang-luong/index.json",
+    "title": "Walter Kohn: từ đám mây electron tới năng lượng của vật chất",
+    "summary": "Hai công trình năm 1964 và 1965 thay đổi cách tính hệ nhiều electron. Mật độ trở thành điểm xuất phát, nhưng đưa ý tưởng chính xác thành phép tính hữu ích vẫn cần những xấp xỉ được kiểm tra.",
+    "category": "tieusu",
+    "author": "Ban biên tập ChemDex",
+    "image": "/assets/library/orbital-hybridization.svg",
+    "tags": [
+      "Walter Kohn",
+      "DFT",
+      "Mật độ electron",
+      "Hóa lượng tử"
+    ],
+    "aliases": [],
+    "documentKind": "story",
+    "readingMinutes": 5,
+    "editorialEvidence": {
+      "language": "vi",
+      "scope": "chemical-family",
+      "contextLabel": "Walter Kohn: từ đám mây electron tới năng lượng của vật chất",
+      "reviewBasis": "Biên soạn theo các nguồn dẫn cuối bài; phân biệt kết quả đã thực hiện và hướng phát triển.",
+      "story": {
+        "status": "documented",
+        "section": "## Một hệ nhiều electron quá lớn để theo dõi trực tiếp",
+        "sources": [
+          "https://doi.org/10.1103/PhysRev.136.B864",
+          "https://doi.org/10.1103/PhysRev.140.A1133",
+          "https://www.nobelprize.org/uploads/2018/06/kohn-lecture.pdf"
+        ]
+      },
+      "application": {
+        "status": "documented",
+        "section": "## Ứng dụng hôm nay: một công cụ mạnh cần mô tả rõ giả thiết",
+        "sources": [
+          "https://doi.org/10.1103/PhysRev.136.B864",
+          "https://doi.org/10.1103/PhysRev.140.A1133",
+          "https://www.nobelprize.org/uploads/2018/06/kohn-lecture.pdf"
+        ]
+      }
+    }
+  },
+  {
+    "id": "john-pople-tinh-nang-luong-de-so-voi-thi-nghiem",
+    "slug": "john-pople-tinh-nang-luong-de-so-voi-thi-nghiem",
+    "documentPath": "docs/john-pople-tinh-nang-luong-de-so-voi-thi-nghiem/index.json",
+    "title": "John Pople: một phép tính phải trả lời được những con số của hóa học",
+    "summary": "Gaussian-1 năm 1989 là ví dụ về cách Pople và cộng sự kết hợp nhiều bước tính để dự đoán năng lượng. Độ tin cậy được xây bằng đối chiếu có hệ thống, không bằng độ phức tạp của tên phương pháp.",
+    "category": "tieusu",
+    "author": "Ban biên tập ChemDex",
+    "image": "/assets/library/orbital-hybridization.svg",
+    "tags": [
+      "John Pople",
+      "Hóa lượng tử",
+      "Gaussian",
+      "Năng lượng phân tử"
+    ],
+    "aliases": [],
+    "documentKind": "story",
+    "readingMinutes": 4,
+    "editorialEvidence": {
+      "language": "vi",
+      "scope": "chemical-family",
+      "contextLabel": "John Pople: một phép tính phải trả lời được những con số của hóa học",
+      "reviewBasis": "Biên soạn theo các nguồn dẫn cuối bài; phân biệt kết quả đã thực hiện và hướng phát triển.",
+      "story": {
+        "status": "documented",
+        "section": "## Một công thức tính chung cho nhiều phân tử",
+        "sources": [
+          "https://doi.org/10.1063/1.456415",
+          "https://www.nobelprize.org/uploads/2018/06/pople-lecture.pdf",
+          "https://cccbdb.nist.gov/"
+        ]
+      },
+      "application": {
+        "status": "documented",
+        "section": "## Ứng dụng hôm nay: kết quả tính phải có hồ sơ điều kiện",
+        "sources": [
+          "https://doi.org/10.1063/1.456415",
+          "https://www.nobelprize.org/uploads/2018/06/pople-lecture.pdf",
+          "https://cccbdb.nist.gov/"
+        ]
+      }
+    }
+  },
+  {
+    "id": "alan-heeger-hai-vat-lieu-trong-mot-mang-pin",
+    "slug": "alan-heeger-hai-vat-lieu-trong-mot-mang-pin",
+    "documentPath": "docs/alan-heeger-hai-vat-lieu-trong-mot-mang-pin/index.json",
+    "title": "Alan Heeger: trộn hai vật liệu để điện tích có đường thoát",
+    "summary": "Pin quang điện polymer năm 1995 dùng mạng tiếp xúc bên trong màng. Câu chuyện chuyển từ khả năng dẫn điện của polymer sang cách tổ chức vật liệu để thu năng lượng ánh sáng.",
+    "category": "tieusu",
+    "author": "Ban biên tập ChemDex",
+    "image": "/assets/library/organic-polymer.svg",
+    "tags": [
+      "Alan Heeger",
+      "Quang điện hữu cơ",
+      "Fullerene",
+      "Màng mỏng"
+    ],
+    "aliases": [],
+    "documentKind": "story",
+    "readingMinutes": 4,
+    "editorialEvidence": {
+      "language": "vi",
+      "scope": "chemical-family",
+      "contextLabel": "Alan Heeger: trộn hai vật liệu để điện tích có đường thoát",
+      "reviewBasis": "Biên soạn theo các nguồn dẫn cuối bài; phân biệt kết quả đã thực hiện và hướng phát triển.",
+      "story": {
+        "status": "documented",
+        "section": "## Chỉ hấp thụ ánh sáng vẫn chưa đủ tạo dòng hữu ích",
+        "sources": [
+          "https://pure.rug.nl/ws/files/3621108/1995YuScience.pdf",
+          "https://www.nobelprize.org/uploads/2018/06/heeger-lecture.pdf",
+          "https://arxiv.org/abs/1010.5021"
+        ]
+      },
+      "application": {
+        "status": "documented",
+        "section": "## Ứng dụng hôm nay: vật liệu mềm vẫn cần độ bền dài hạn",
+        "sources": [
+          "https://pure.rug.nl/ws/files/3621108/1995YuScience.pdf",
+          "https://www.nobelprize.org/uploads/2018/06/heeger-lecture.pdf",
+          "https://arxiv.org/abs/1010.5021"
+        ]
+      }
+    }
+  },
+  {
+    "id": "alan-macdiarmid-acid-lam-polymer-dan-dien",
+    "slug": "alan-macdiarmid-acid-lam-polymer-dan-dien",
+    "documentPath": "docs/alan-macdiarmid-acid-lam-polymer-dan-dien/index.json",
+    "title": "Alan MacDiarmid: acid làm thay đổi cách một polymer dẫn điện",
+    "summary": "Với polyaniline, trạng thái proton hóa là một biến thiết kế bên cạnh trạng thái oxi hóa. Các nghiên cứu thập niên 1980 mở một cách điều chỉnh độ dẫn của vật liệu hữu cơ.",
+    "category": "tieusu",
+    "author": "Ban biên tập ChemDex",
+    "image": "/assets/library/organic-polymer.svg",
+    "tags": [
+      "Alan MacDiarmid",
+      "Polyaniline",
+      "Proton hóa",
+      "Polymer dẫn điện"
+    ],
+    "aliases": [],
+    "documentKind": "story",
+    "readingMinutes": 4,
+    "editorialEvidence": {
+      "language": "vi",
+      "scope": "chemical-family",
+      "contextLabel": "Alan MacDiarmid: acid làm thay đổi cách một polymer dẫn điện",
+      "reviewBasis": "Biên soạn theo các nguồn dẫn cuối bài; phân biệt kết quả đã thực hiện và hướng phát triển.",
+      "story": {
+        "status": "documented",
+        "section": "## Một polymer quen lâu vẫn còn câu hỏi mới",
+        "sources": [
+          "https://doi.org/10.1080/00268948508080110",
+          "https://doi.org/10.1039/C39870001784",
+          "https://www.nobelprize.org/uploads/2018/06/macdiarmid-lecture.pdf"
+        ]
+      },
+      "application": {
+        "status": "documented",
+        "section": "## Ứng dụng hôm nay: dùng đáp ứng điện để hỏi về môi trường",
+        "sources": [
+          "https://doi.org/10.1080/00268948508080110",
+          "https://doi.org/10.1039/C39870001784",
+          "https://www.nobelprize.org/uploads/2018/06/macdiarmid-lecture.pdf"
+        ]
+      }
+    }
+  },
+  {
+    "id": "hideki-shirakawa-mang-bac-tu-acetylene",
+    "slug": "hideki-shirakawa-mang-bac-tu-acetylene",
+    "documentPath": "docs/hideki-shirakawa-mang-bac-tu-acetylene/index.json",
+    "title": "Hideki Shirakawa: từ lớp màng ánh bạc tới polymer dẫn điện",
+    "summary": "Một cách tạo polyacetylene dạng màng giúp các nhà nghiên cứu khảo sát tính chất mà bột khó cho thấy. Khi màng được xử lý bằng chất nhận electron, độ dẫn thay đổi mạnh.",
+    "category": "tieusu",
+    "author": "Ban biên tập ChemDex",
+    "image": "/assets/library/organic-polymer.svg",
+    "tags": [
+      "Hideki Shirakawa",
+      "Polyacetylene",
+      "Màng polymer",
+      "Pha tạp"
+    ],
+    "aliases": [],
+    "documentKind": "story",
+    "readingMinutes": 4,
+    "editorialEvidence": {
+      "language": "vi",
+      "scope": "chemical-family",
+      "contextLabel": "Hideki Shirakawa: từ lớp màng ánh bạc tới polymer dẫn điện",
+      "reviewBasis": "Biên soạn theo các nguồn dẫn cuối bài; phân biệt kết quả đã thực hiện và hướng phát triển.",
+      "story": {
+        "status": "documented",
+        "section": "## Một hình thái khác làm thay đổi thí nghiệm có thể làm",
+        "sources": [
+          "https://doi.org/10.1039/C39770000578",
+          "https://www.nobelprize.org/prizes/chemistry/2000/shirakawa/biographical/",
+          "https://www.nobelprize.org/uploads/2018/06/shirakawa-lecture.pdf"
+        ]
+      },
+      "application": {
+        "status": "documented",
+        "section": "## Ứng dụng hôm nay: mẫu chuẩn bị tốt có thể mở cả lĩnh vực",
+        "sources": [
+          "https://doi.org/10.1039/C39770000578",
+          "https://www.nobelprize.org/prizes/chemistry/2000/shirakawa/biographical/",
+          "https://www.nobelprize.org/uploads/2018/06/shirakawa-lecture.pdf"
+        ]
+      }
+    }
+  },
+  {
+    "id": "ryoji-noyori-hinh-hoc-trong-mui-bac-ha",
+    "slug": "ryoji-noyori-hinh-hoc-trong-mui-bac-ha",
+    "documentPath": "docs/ryoji-noyori-hinh-hoc-trong-mui-bac-ha/index.json",
+    "title": "Ryoji Noyori: hình học của chất xúc tác đi vào mùi bạc hà",
+    "summary": "BINAP giúp một bước đồng phân hóa ưu tiên cấu hình cần cho chuỗi sản xuất menthol. Câu chuyện cho thấy thiết kế phối tử có thể nối nghiên cứu lập thể với một nguyên liệu quen thuộc.",
+    "category": "tieusu",
+    "author": "Ban biên tập ChemDex",
+    "image": "/assets/library/organic-alcohol.svg",
+    "tags": [
+      "Ryoji Noyori",
+      "BINAP",
+      "Menthol",
+      "Xúc tác bất đối xứng"
+    ],
+    "aliases": [],
+    "documentKind": "story",
+    "readingMinutes": 4,
+    "editorialEvidence": {
+      "language": "vi",
+      "scope": "chemical-family",
+      "contextLabel": "Ryoji Noyori: hình học của chất xúc tác đi vào mùi bạc hà",
+      "reviewBasis": "Biên soạn theo các nguồn dẫn cuối bài; phân biệt kết quả đã thực hiện và hướng phát triển.",
+      "story": {
+        "status": "documented",
+        "section": "## Một phân tử hương cần đúng cách sắp xếp",
+        "sources": [
+          "https://www.takasago.com/en/finechemicals/history.html",
+          "https://www.nobelprize.org/uploads/2018/06/noyori-lecture.pdf",
+          "https://www.mext.go.jp/component/english/__icsFiles/afieldfile/2017/04/14/1384513_004.pdf"
+        ]
+      },
+      "application": {
+        "status": "documented",
+        "section": "## Ứng dụng hôm nay: chọn đúng dạng ngay từ phản ứng",
+        "sources": [
+          "https://www.takasago.com/en/finechemicals/history.html",
+          "https://www.nobelprize.org/uploads/2018/06/noyori-lecture.pdf",
+          "https://www.mext.go.jp/component/english/__icsFiles/afieldfile/2017/04/14/1384513_004.pdf"
+        ]
+      }
+    }
+  },
+  {
+    "id": "charles-pedersen-tap-chat-giu-ion",
+    "slug": "charles-pedersen-tap-chat-giu-ion",
+    "documentPath": "docs/charles-pedersen-tap-chat-giu-ion/index.json",
+    "title": "Charles Pedersen: phần sản phẩm rất ít lại giữ được một ion",
+    "summary": "Một sản phẩm phụ có hiệu suất nhỏ dẫn Pedersen tới ether vòng vương miện. Khả năng nhận diện ion bắt đầu từ việc ông không bỏ qua một tính chất khác thường.",
+    "category": "tieusu",
+    "author": "Ban biên tập ChemDex",
+    "image": "/assets/library/ionic-crystal.svg",
+    "tags": [
+      "Charles Pedersen",
+      "Crown ether",
+      "Nhận diện phân tử",
+      "Ion"
+    ],
+    "aliases": [],
+    "documentKind": "story",
+    "readingMinutes": 4,
+    "editorialEvidence": {
+      "language": "vi",
+      "scope": "chemical-family",
+      "contextLabel": "Charles Pedersen: phần sản phẩm rất ít lại giữ được một ion",
+      "reviewBasis": "Biên soạn theo các nguồn dẫn cuối bài; phân biệt kết quả đã thực hiện và hướng phát triển.",
+      "story": {
+        "status": "documented",
+        "section": "## Một phần nhỏ của phản ứng trở thành câu hỏi lớn",
+        "sources": [
+          "https://doi.org/10.1021/ja01002a035",
+          "https://www.nobelprize.org/uploads/2018/06/pedersen-lecture.pdf",
+          "https://www.acs.org/education/whatischemistry/landmarks/charlespedersen.html"
+        ]
+      },
+      "application": {
+        "status": "documented",
+        "section": "## Ứng dụng hôm nay: chọn ion là một chức năng có thể thiết kế",
+        "sources": [
+          "https://doi.org/10.1021/ja01002a035",
+          "https://www.nobelprize.org/uploads/2018/06/pedersen-lecture.pdf",
+          "https://www.acs.org/education/whatischemistry/landmarks/charlespedersen.html"
+        ]
+      }
+    }
+  },
+  {
+    "id": "donald-cram-phan-tu-lam-binh-phan-ung",
+    "slug": "donald-cram-phan-tu-lam-binh-phan-ung",
+    "documentPath": "docs/donald-cram-phan-tu-lam-binh-phan-ung/index.json",
+    "title": "Donald Cram: dùng một phân tử làm chiếc bình giữ chất quá phản ứng",
+    "summary": "Cyclobutadiene dễ biến đổi được nghiên cứu bên trong một vật chủ phân tử. Cram và cộng sự cho thấy khoang chứa có thể làm thay đổi những cuộc gặp mà một phân tử được phép có.",
+    "category": "tieusu",
+    "author": "Ban biên tập ChemDex",
+    "image": "/assets/library/organic-aromatic.svg",
+    "tags": [
+      "Donald Cram",
+      "Chủ–khách",
+      "Khoang phân tử",
+      "Cyclobutadiene"
+    ],
+    "aliases": [],
+    "documentKind": "story",
+    "readingMinutes": 4,
+    "editorialEvidence": {
+      "language": "vi",
+      "scope": "chemical-family",
+      "contextLabel": "Donald Cram: dùng một phân tử làm chiếc bình giữ chất quá phản ứng",
+      "reviewBasis": "Biên soạn theo các nguồn dẫn cuối bài; phân biệt kết quả đã thực hiện và hướng phát triển.",
+      "story": {
+        "status": "documented",
+        "section": "## Một chiếc bình chỉ đủ chứa một vị khách",
+        "sources": [
+          "https://doi.org/10.1002/anie.199110241",
+          "https://www.nobelprize.org/uploads/2018/06/cram-lecture.pdf",
+          "https://www.chemistry.ucla.edu/directory/cram-donald-j/"
+        ]
+      },
+      "application": {
+        "status": "documented",
+        "section": "## Ứng dụng hôm nay: môi trường nhỏ để kiểm soát phản ứng",
+        "sources": [
+          "https://doi.org/10.1002/anie.199110241",
+          "https://www.nobelprize.org/uploads/2018/06/cram-lecture.pdf",
+          "https://www.chemistry.ucla.edu/directory/cram-donald-j/"
+        ]
+      }
+    }
+  },
+  {
+    "id": "jean-marie-lehn-ion-trong-chiec-long-phan-tu",
+    "slug": "jean-marie-lehn-ion-trong-chiec-long-phan-tu",
+    "documentPath": "docs/jean-marie-lehn-ion-trong-chiec-long-phan-tu/index.json",
+    "title": "Jean-Marie Lehn: giữ ion trong một chiếc lồng phân tử",
+    "summary": "Cryptand bao quanh ion bằng một cấu trúc ba chiều. Lehn và cộng sự dùng các khoang này để phát triển nguyên tắc nhận diện và tổ chức những hệ lớn hơn một phân tử riêng lẻ.",
+    "category": "tieusu",
+    "author": "Ban biên tập ChemDex",
+    "image": "/assets/library/ionic-crystal.svg",
+    "tags": [
+      "Jean-Marie Lehn",
+      "Cryptand",
+      "Siêu phân tử",
+      "Nhận diện"
+    ],
+    "aliases": [],
+    "documentKind": "story",
+    "readingMinutes": 4,
+    "editorialEvidence": {
+      "language": "vi",
+      "scope": "chemical-family",
+      "contextLabel": "Jean-Marie Lehn: giữ ion trong một chiếc lồng phân tử",
+      "reviewBasis": "Biên soạn theo các nguồn dẫn cuối bài; phân biệt kết quả đã thực hiện và hướng phát triển.",
+      "story": {
+        "status": "documented",
+        "section": "## Từ vòng phẳng tới một khoang ba chiều",
+        "sources": [
+          "https://doi.org/10.1016/S0040-4039(01)88300-3",
+          "https://www.nobelprize.org/uploads/2018/06/lehn-lecture.pdf",
+          "https://doi.org/10.1126/science.1071063"
+        ]
+      },
+      "application": {
+        "status": "documented",
+        "section": "## Ứng dụng hôm nay: thiết kế quan hệ giữa các thành phần",
+        "sources": [
+          "https://doi.org/10.1016/S0040-4039(01)88300-3",
+          "https://www.nobelprize.org/uploads/2018/06/lehn-lecture.pdf",
+          "https://doi.org/10.1126/science.1071063"
+        ]
+      }
+    }
+  },
+  {
+    "id": "peter-mitchell-dat-mang-vao-trung-tam-nang-luong",
+    "slug": "peter-mitchell-dat-mang-vao-trung-tam-nang-luong",
+    "documentPath": "docs/peter-mitchell-dat-mang-vao-trung-tam-nang-luong/index.json",
+    "title": "Peter Mitchell: đặt một tấm màng vào trung tâm câu chuyện năng lượng",
+    "summary": "Giả thuyết hóa thẩm năm 1961 giải thích cách vận chuyển electron có thể liên kết với tạo ATP qua chênh lệch điện hóa proton. Màng trở thành bộ phận chức năng, không chỉ vỏ bao.",
+    "category": "tieusu",
+    "author": "Ban biên tập ChemDex",
+    "image": "/assets/library/covalent-bonds.svg",
+    "tags": [
+      "Peter Mitchell",
+      "Hóa thẩm",
+      "Gradient proton",
+      "ATP"
+    ],
+    "aliases": [],
+    "documentKind": "story",
+    "readingMinutes": 4,
+    "editorialEvidence": {
+      "language": "vi",
+      "scope": "chemical-family",
+      "contextLabel": "Peter Mitchell: đặt một tấm màng vào trung tâm câu chuyện năng lượng",
+      "reviewBasis": "Biên soạn theo các nguồn dẫn cuối bài; phân biệt kết quả đã thực hiện và hướng phát triển.",
+      "story": {
+        "status": "documented",
+        "section": "## Một cách nối hai quá trình bằng không gian",
+        "sources": [
+          "https://www.nature.com/articles/191144a0",
+          "https://doi.org/10.1073/pnas.55.1.170",
+          "https://www.nobelprize.org/uploads/2018/06/mitchell-lecture.pdf"
+        ]
+      },
+      "application": {
+        "status": "documented",
+        "section": "## Ứng dụng hôm nay: năng lượng sinh học cần một kiến trúc",
+        "sources": [
+          "https://www.nature.com/articles/191144a0",
+          "https://doi.org/10.1073/pnas.55.1.170",
+          "https://www.nobelprize.org/uploads/2018/06/mitchell-lecture.pdf"
+        ]
+      }
+    }
+  },
+  {
+    "id": "paul-boyer-nang-luong-de-tha-atp",
+    "slug": "paul-boyer-nang-luong-de-tha-atp",
+    "documentPath": "docs/paul-boyer-nang-luong-de-tha-atp/index.json",
+    "title": "Paul Boyer: năng lượng còn cần để thả ATP khỏi enzyme",
+    "summary": "Các thí nghiệm đồng vị oxygen dẫn Boyer tới cơ chế đổi liên kết. ATP synthase không chỉ tạo một sản phẩm; nó phải liên tục đổi trạng thái để nhận nguyên liệu và giải phóng ATP.",
+    "category": "tieusu",
+    "author": "Ban biên tập ChemDex",
+    "image": "/assets/library/organic-polymer.svg",
+    "tags": [
+      "Paul Boyer",
+      "ATP synthase",
+      "Đồng vị oxygen",
+      "Xúc tác quay"
+    ],
+    "aliases": [],
+    "documentKind": "story",
+    "readingMinutes": 4,
+    "editorialEvidence": {
+      "language": "vi",
+      "scope": "chemical-family",
+      "contextLabel": "Paul Boyer: năng lượng còn cần để thả ATP khỏi enzyme",
+      "reviewBasis": "Biên soạn theo các nguồn dẫn cuối bài; phân biệt kết quả đã thực hiện và hướng phát triển.",
+      "story": {
+        "status": "documented",
+        "section": "## Những nguyên tử oxygen đi qua đâu?",
+        "sources": [
+          "https://www.nobelprize.org/uploads/2018/06/boyer-lecture.pdf",
+          "https://mediatheque.lindau-nobel.org/meetings/1998/programme/30632",
+          "https://www.nature.com/articles/d41586-018-05880-w"
+        ]
+      },
+      "application": {
+        "status": "documented",
+        "section": "## Ứng dụng hôm nay: đọc enzyme như một chu trình",
+        "sources": [
+          "https://www.nobelprize.org/uploads/2018/06/boyer-lecture.pdf",
+          "https://mediatheque.lindau-nobel.org/meetings/1998/programme/30632",
+          "https://www.nature.com/articles/d41586-018-05880-w"
+        ]
+      }
+    }
+  },
+  {
+    "id": "john-walker-ba-vi-tri-khong-giong-nhau",
+    "slug": "john-walker-ba-vi-tri-khong-giong-nhau",
+    "documentPath": "docs/john-walker-ba-vi-tri-khong-giong-nhau/index.json",
+    "title": "John Walker: ba vị trí giống nhau trong trình tự nhưng khác nhau lúc làm việc",
+    "summary": "Cấu trúc F₁-ATPase năm 1994 cho thấy ba tiểu đơn vị xúc tác ở những trạng thái khác nhau. Hình học bất đối xứng trở thành bằng chứng cho một chu trình phối hợp.",
+    "category": "tieusu",
+    "author": "Ban biên tập ChemDex",
+    "image": "/assets/library/history-evidence.svg",
+    "tags": [
+      "John Walker",
+      "ATP synthase",
+      "Cấu trúc protein",
+      "Cơ chế quay"
+    ],
+    "aliases": [],
+    "documentKind": "story",
+    "readingMinutes": 4,
+    "editorialEvidence": {
+      "language": "vi",
+      "scope": "chemical-family",
+      "contextLabel": "John Walker: ba vị trí giống nhau trong trình tự nhưng khác nhau lúc làm việc",
+      "reviewBasis": "Biên soạn theo các nguồn dẫn cuối bài; phân biệt kết quả đã thực hiện và hướng phát triển.",
+      "story": {
+        "status": "documented",
+        "section": "## Một bản đồ bắt được ba trạng thái trong cùng mẫu",
+        "sources": [
+          "https://www.nature.com/articles/370621a0",
+          "https://www.nobelprize.org/uploads/2024/06/walker-nobel-lecture.pdf",
+          "https://www.mrc-mbu.cam.ac.uk/people/walker"
+        ]
+      },
+      "application": {
+        "status": "documented",
+        "section": "## Ứng dụng hôm nay: một cấu trúc có thể giải thích sự phối hợp",
+        "sources": [
+          "https://www.nature.com/articles/370621a0",
+          "https://www.nobelprize.org/uploads/2024/06/walker-nobel-lecture.pdf",
+          "https://www.mrc-mbu.cam.ac.uk/people/walker"
+        ]
+      }
+    }
+  },
+  {
+    "id": "peter-agre-te-bao-phong-len-vi-nuoc",
+    "slug": "peter-agre-te-bao-phong-len-vi-nuoc",
+    "documentPath": "docs/peter-agre-te-bao-phong-len-vi-nuoc/index.json",
+    "title": "Peter Agre: tế bào phồng lên làm lộ một đường đi của nước",
+    "summary": "Protein CHIP28 từng là thành phần chưa rõ chức năng trong mẫu hồng cầu. Khi được biểu hiện ở tế bào trứng ếch, nó làm thay đổi mạnh khả năng nước đi qua màng.",
+    "category": "tieusu",
+    "author": "Ban biên tập ChemDex",
+    "image": "/assets/library/organic-polymer.svg",
+    "tags": [
+      "Peter Agre",
+      "Aquaporin",
+      "Màng tế bào",
+      "Nước"
+    ],
+    "aliases": [],
+    "documentKind": "story",
+    "readingMinutes": 4,
+    "editorialEvidence": {
+      "language": "vi",
+      "scope": "chemical-family",
+      "contextLabel": "Peter Agre: tế bào phồng lên làm lộ một đường đi của nước",
+      "reviewBasis": "Biên soạn theo các nguồn dẫn cuối bài; phân biệt kết quả đã thực hiện và hướng phát triển.",
+      "story": {
+        "status": "documented",
+        "section": "## Một protein xuất hiện ngoài mục tiêu ban đầu",
+        "sources": [
+          "https://doi.org/10.1126/science.256.5055.385",
+          "https://www.nobelprize.org/uploads/2018/06/agre-lecture.pdf",
+          "https://publichealth.jhu.edu/faculty/1714/peter-agre"
+        ]
+      },
+      "application": {
+        "status": "documented",
+        "section": "## Ứng dụng hôm nay: nước đi qua màng theo những con đường được tổ chức",
+        "sources": [
+          "https://doi.org/10.1126/science.256.5055.385",
+          "https://www.nobelprize.org/uploads/2018/06/agre-lecture.pdf",
+          "https://publichealth.jhu.edu/faculty/1714/peter-agre"
+        ]
+      }
+    }
+  },
+  {
+    "id": "roderick-mackinnon-ion-nho-hon-van-bi-giu-ngoai",
+    "slug": "roderick-mackinnon-ion-nho-hon-van-bi-giu-ngoai",
+    "documentPath": "docs/roderick-mackinnon-ion-nho-hon-van-bi-giu-ngoai/index.json",
+    "title": "Roderick MacKinnon: vì sao ion nhỏ hơn vẫn không qua được kênh?",
+    "summary": "Cấu trúc kênh potassium năm 1998 cho thấy tính chọn lọc không chỉ là kích thước một lỗ. Môi trường phối trí phải bù được những tương tác mà ion bỏ lại trong nước.",
+    "category": "tieusu",
+    "author": "Ban biên tập ChemDex",
+    "image": "/assets/library/ionic-crystal.svg",
+    "tags": [
+      "Roderick MacKinnon",
+      "Kênh potassium",
+      "KcsA",
+      "Chọn lọc ion"
+    ],
+    "aliases": [],
+    "documentKind": "story",
+    "readingMinutes": 4,
+    "editorialEvidence": {
+      "language": "vi",
+      "scope": "chemical-family",
+      "contextLabel": "Roderick MacKinnon: vì sao ion nhỏ hơn vẫn không qua được kênh?",
+      "reviewBasis": "Biên soạn theo các nguồn dẫn cuối bài; phân biệt kết quả đã thực hiện và hướng phát triển.",
+      "story": {
+        "status": "documented",
+        "section": "## Một chiếc lọc gây khó cho trực giác",
+        "sources": [
+          "https://pubmed.ncbi.nlm.nih.gov/9525859/",
+          "https://www.nobelprize.org/uploads/2018/06/mackinnon-lecture.pdf",
+          "https://lab.rockefeller.edu/mackinnon/publications"
+        ]
+      },
+      "application": {
+        "status": "documented",
+        "section": "## Ứng dụng hôm nay: nhận diện ion bằng năng lượng, không chỉ bằng kích thước",
+        "sources": [
+          "https://pubmed.ncbi.nlm.nih.gov/9525859/",
+          "https://www.nobelprize.org/uploads/2018/06/mackinnon-lecture.pdf",
+          "https://lab.rockefeller.edu/mackinnon/publications"
+        ]
+      }
+    }
+  },
+  {
+    "id": "otto-diels-lan-khung-carbon-cua-cholesterol",
+    "slug": "otto-diels-lan-khung-carbon-cua-cholesterol",
+    "documentPath": "docs/otto-diels-lan-khung-carbon-cua-cholesterol/index.json",
+    "title": "Otto Diels: lần theo khung carbon khi phân tử đã đổi dạng",
+    "summary": "Trước khi nổi tiếng với tổng hợp diene, Diels nghiên cứu cách biến sterol thành những sản phẩm dễ nhận diện hơn. Một phản ứng phân hủy có thể trở thành công cụ đọc cấu trúc.",
+    "category": "tieusu",
+    "author": "Ban biên tập ChemDex",
+    "image": "/assets/library/organic-aromatic.svg",
+    "tags": [
+      "Otto Diels",
+      "Cholesterol",
+      "Cấu trúc hữu cơ",
+      "Lịch sử phân tích"
+    ],
+    "aliases": [],
+    "documentKind": "story",
+    "readingMinutes": 4,
+    "editorialEvidence": {
+      "language": "vi",
+      "scope": "chemical-family",
+      "contextLabel": "Otto Diels: lần theo khung carbon khi phân tử đã đổi dạng",
+      "reviewBasis": "Biên soạn theo các nguồn dẫn cuối bài; phân biệt kết quả đã thực hiện và hướng phát triển.",
+      "story": {
+        "status": "documented",
+        "section": "## Một sản phẩm đơn giản hơn được dùng như manh mối",
+        "sources": [
+          "https://www.nobelprize.org/uploads/2018/06/diels-lecture.pdf",
+          "https://www.nobelprize.org/prizes/chemistry/1950/diels/biographical/",
+          "https://www.nature.com/articles/129277a0"
+        ]
+      },
+      "application": {
+        "status": "documented",
+        "section": "## Ứng dụng hôm nay: phản ứng vẫn có thể là phép thử cấu trúc",
+        "sources": [
+          "https://www.nobelprize.org/uploads/2018/06/diels-lecture.pdf",
+          "https://www.nobelprize.org/prizes/chemistry/1950/diels/biographical/",
+          "https://www.nature.com/articles/129277a0"
+        ]
+      }
+    }
+  },
+  {
+    "id": "edwin-krebs-them-phosphate-doi-hoat-tinh",
+    "slug": "edwin-krebs-them-phosphate-doi-hoat-tinh",
+    "documentPath": "docs/edwin-krebs-them-phosphate-doi-hoat-tinh/index.json",
+    "title": "Edwin Krebs: một nhóm phosphate làm enzyme đổi cách hoạt động",
+    "summary": "Thí nghiệm trên phosphorylase cơ năm 1955 dẫn Krebs và Edmond Fischer tới điều hòa protein bằng biến đổi thuận nghịch. Tế bào có thể đổi chức năng mà không cần làm lại toàn bộ protein.",
+    "category": "tieusu",
+    "author": "Ban biên tập ChemDex",
+    "image": "/assets/library/lab-synthesis.svg",
+    "tags": [
+      "Edwin Krebs",
+      "Edmond Fischer",
+      "Phosphoryl hóa",
+      "Điều hòa enzyme"
+    ],
+    "aliases": [],
+    "documentKind": "story",
+    "readingMinutes": 4,
+    "editorialEvidence": {
+      "language": "vi",
+      "scope": "chemical-family",
+      "contextLabel": "Edwin Krebs: một nhóm phosphate làm enzyme đổi cách hoạt động",
+      "reviewBasis": "Biên soạn theo các nguồn dẫn cuối bài; phân biệt kết quả đã thực hiện và hướng phát triển.",
+      "story": {
+        "status": "documented",
+        "section": "## Hai dạng enzyme khiến người nghiên cứu phải hỏi lại",
+        "sources": [
+          "https://masspec.scripps.edu/learn/metabolomics/pdf/1955_Fischer.pdf",
+          "https://www.nobelprize.org/uploads/2018/06/krebs-lecture-1.pdf",
+          "https://pmc.ncbi.nlm.nih.gov/articles/PMC3023531/"
+        ]
+      },
+      "application": {
+        "status": "documented",
+        "section": "## Ứng dụng hôm nay: theo dõi chức năng sau biến đổi",
+        "sources": [
+          "https://masspec.scripps.edu/learn/metabolomics/pdf/1955_Fischer.pdf",
+          "https://www.nobelprize.org/uploads/2018/06/krebs-lecture-1.pdf",
+          "https://pmc.ncbi.nlm.nih.gov/articles/PMC3023531/"
+        ]
+      }
+    }
+  },
+  {
+    "id": "derek-barton-nhin-steroid-trong-khong-gian",
+    "slug": "derek-barton-nhin-steroid-trong-khong-gian",
+    "documentPath": "docs/derek-barton-nhin-steroid-trong-khong-gian/index.json",
+    "title": "Derek Barton: những vòng trên giấy bắt đầu có phía trên và phía dưới",
+    "summary": "Barton dùng cấu dạng để giải thích khác biệt phản ứng của steroid. Những liên kết vẽ giống nhau trên mặt giấy có thể đặt nhóm chức vào môi trường không gian rất khác.",
+    "category": "tieusu",
+    "author": "Ban biên tập ChemDex",
+    "image": "/assets/library/covalent-bonds.svg",
+    "tags": [
+      "Derek Barton",
+      "Cấu dạng",
+      "Steroid",
+      "Hóa học lập thể"
+    ],
+    "aliases": [],
+    "documentKind": "story",
+    "readingMinutes": 4,
+    "editorialEvidence": {
+      "language": "vi",
+      "scope": "chemical-family",
+      "contextLabel": "Derek Barton: những vòng trên giấy bắt đầu có phía trên và phía dưới",
+      "reviewBasis": "Biên soạn theo các nguồn dẫn cuối bài; phân biệt kết quả đã thực hiện và hướng phát triển.",
+      "story": {
+        "status": "documented",
+        "section": "## Một câu hỏi về phản ứng dẫn tới cách nhìn ba chiều",
+        "sources": [
+          "https://doi.org/10.1007/BF02170915",
+          "https://www.nobelprize.org/uploads/2018/06/barton-lecture.pdf",
+          "https://openstax.org/books/organic-chemistry/pages/4-5-conformations-of-cyclohexane"
+        ]
+      },
+      "application": {
+        "status": "documented",
+        "section": "## Ứng dụng hôm nay: phân tử phản ứng trong không gian, không trên trang giấy",
+        "sources": [
+          "https://doi.org/10.1007/BF02170915",
+          "https://www.nobelprize.org/uploads/2018/06/barton-lecture.pdf",
+          "https://openstax.org/books/organic-chemistry/pages/4-5-conformations-of-cyclohexane"
+        ]
+      }
+    }
+  },
+  {
+    "id": "odd-hassel-cho-vong-carbon-roi-mat-phang",
+    "slug": "odd-hassel-cho-vong-carbon-roi-mat-phang",
+    "documentPath": "docs/odd-hassel-cho-vong-carbon-roi-mat-phang/index.json",
+    "title": "Odd Hassel: những vòng carbon rời khỏi mặt phẳng của trang giấy",
+    "summary": "Nhiễu xạ electron giúp Hassel khảo sát hình dạng phân tử trong pha khí. Các kết quả về vòng carbon góp nền tảng cho cách giải thích cấu dạng và phản ứng hữu cơ.",
+    "category": "tieusu",
+    "author": "Ban biên tập ChemDex",
+    "image": "/assets/library/covalent-bonds.svg",
+    "tags": [
+      "Odd Hassel",
+      "Nhiễu xạ electron",
+      "Cyclohexane",
+      "Cấu dạng"
+    ],
+    "aliases": [],
+    "documentKind": "story",
+    "readingMinutes": 4,
+    "editorialEvidence": {
+      "language": "vi",
+      "scope": "chemical-family",
+      "contextLabel": "Odd Hassel: những vòng carbon rời khỏi mặt phẳng của trang giấy",
+      "reviewBasis": "Biên soạn theo các nguồn dẫn cuối bài; phân biệt kết quả đã thực hiện và hướng phát triển.",
+      "story": {
+        "status": "documented",
+        "section": "## Dữ liệu tán xạ thay cho một hình lục giác quá gọn",
+        "sources": [
+          "https://www.nobelprize.org/uploads/2018/06/hassel-lecture.pdf",
+          "https://www.nobelprize.org/prizes/chemistry/1969/hassel/biographical/",
+          "https://openstax.org/books/organic-chemistry/pages/4-5-conformations-of-cyclohexane"
+        ]
+      },
+      "application": {
+        "status": "documented",
+        "section": "## Ứng dụng hôm nay: mô hình phải cho phép phân tử chuyển động",
+        "sources": [
+          "https://www.nobelprize.org/uploads/2018/06/hassel-lecture.pdf",
+          "https://www.nobelprize.org/prizes/chemistry/1969/hassel/biographical/",
+          "https://openstax.org/books/organic-chemistry/pages/4-5-conformations-of-cyclohexane"
+        ]
+      }
+    }
+  },
+  {
+    "id": "kenichi-fukui-electron-o-ria-quyet-dinh",
+    "slug": "kenichi-fukui-electron-o-ria-quyet-dinh",
+    "documentPath": "docs/kenichi-fukui-electron-o-ria-quyet-dinh/index.json",
+    "title": "Kenichi Fukui: những electron ở rìa giúp dự đoán nơi phản ứng bắt đầu",
+    "summary": "Công trình năm 1952 so sánh orbital cao nhất đã có electron với tính phản ứng của hydrocarbon thơm. Một phần của cấu trúc điện tử trở thành công cụ lựa chọn giữa nhiều vị trí.",
+    "category": "tieusu",
+    "author": "Ban biên tập ChemDex",
+    "image": "/assets/library/orbital-pi-conjugation.svg",
+    "tags": [
+      "Kenichi Fukui",
+      "Orbital biên",
+      "HOMO",
+      "Tính phản ứng"
+    ],
+    "aliases": [],
+    "documentKind": "story",
+    "readingMinutes": 4,
+    "editorialEvidence": {
+      "language": "vi",
+      "scope": "chemical-family",
+      "contextLabel": "Kenichi Fukui: những electron ở rìa giúp dự đoán nơi phản ứng bắt đầu",
+      "reviewBasis": "Biên soạn theo các nguồn dẫn cuối bài; phân biệt kết quả đã thực hiện và hướng phát triển.",
+      "story": {
+        "status": "documented",
+        "section": "## Mười lăm hydrocarbon để kiểm tra một ý tưởng",
+        "sources": [
+          "https://doi.org/10.1063/1.1700523",
+          "https://www.nobelprize.org/uploads/2018/06/fukui-lecture.pdf",
+          "https://doi.org/10.1002/ijch.197500040"
+        ]
+      },
+      "application": {
+        "status": "documented",
+        "section": "## Ứng dụng hôm nay: giản lược để dự đoán, rồi kiểm tra điều đã giản lược",
+        "sources": [
+          "https://doi.org/10.1063/1.1700523",
+          "https://www.nobelprize.org/uploads/2018/06/fukui-lecture.pdf",
+          "https://doi.org/10.1002/ijch.197500040"
+        ]
+      }
+    }
+  },
+  {
+    "id": "roald-hoffmann-lien-ket-doi-theo-nhip-nao",
+    "slug": "roald-hoffmann-lien-ket-doi-theo-nhip-nao",
+    "documentPath": "docs/roald-hoffmann-lien-ket-doi-theo-nhip-nao/index.json",
+    "title": "Roald Hoffmann: những orbital quyết định hai đầu mạch quay theo cách nào",
+    "summary": "Công trình với Woodward năm 1965 giải thích tính lập thể của phản ứng điện vòng. Mô hình orbital giúp nối điều kiện nhiệt hoặc ánh sáng với con đường tạo liên kết.",
+    "category": "tieusu",
+    "author": "Ban biên tập ChemDex",
+    "image": "/assets/library/orbital-pi-conjugation.svg",
+    "tags": [
+      "Roald Hoffmann",
+      "Đối xứng orbital",
+      "Điện vòng",
+      "Hóa lượng tử"
+    ],
+    "aliases": [],
+    "documentKind": "story",
+    "readingMinutes": 4,
+    "editorialEvidence": {
+      "language": "vi",
+      "scope": "chemical-family",
+      "contextLabel": "Roald Hoffmann: những orbital quyết định hai đầu mạch quay theo cách nào",
+      "reviewBasis": "Biên soạn theo các nguồn dẫn cuối bài; phân biệt kết quả đã thực hiện và hướng phát triển.",
+      "story": {
+        "status": "documented",
+        "section": "## Một phản ứng biết chọn hướng trước khi người ta hiểu vì sao",
+        "sources": [
+          "https://doi.org/10.1021/ja01080a054",
+          "https://www.nobelprize.org/prizes/chemistry/1981/hoffmann/lecture/",
+          "https://openstax.org/books/organic-chemistry/pages/30-2-electrocyclic-reactions"
+        ]
+      },
+      "application": {
+        "status": "documented",
+        "section": "## Ứng dụng hôm nay: giải thích đường đi, không chỉ gọi tên phản ứng",
+        "sources": [
+          "https://doi.org/10.1021/ja01080a054",
+          "https://www.nobelprize.org/prizes/chemistry/1981/hoffmann/lecture/",
+          "https://openstax.org/books/organic-chemistry/pages/30-2-electrocyclic-reactions"
+        ]
+      }
+    }
+  },
+  {
+    "id": "manfred-eigen-khuay-nhe-can-bang-de-do-toc-do",
+    "slug": "manfred-eigen-khuay-nhe-can-bang-de-do-toc-do",
+    "documentPath": "docs/manfred-eigen-khuay-nhe-can-bang-de-do-toc-do/index.json",
+    "title": "Manfred Eigen: làm lệch cân bằng để đo những phản ứng quá nhanh",
+    "summary": "Thay vì cố trộn hai chất nhanh hơn, Eigen theo dõi hệ quay về cân bằng sau một xung thay đổi điều kiện. Những chuyển hóa tưởng nằm ngoài khả năng đo trở thành dữ liệu động học.",
+    "category": "tieusu",
+    "author": "Ban biên tập ChemDex",
+    "image": "/assets/library/apparatus-calorimeter.svg",
+    "tags": [
+      "Manfred Eigen",
+      "Thư giãn hóa học",
+      "Động học",
+      "Cân bằng"
+    ],
+    "aliases": [],
+    "documentKind": "story",
+    "readingMinutes": 4,
+    "editorialEvidence": {
+      "language": "vi",
+      "scope": "chemical-family",
+      "contextLabel": "Manfred Eigen: làm lệch cân bằng để đo những phản ứng quá nhanh",
+      "reviewBasis": "Biên soạn theo các nguồn dẫn cuối bài; phân biệt kết quả đã thực hiện và hướng phát triển.",
+      "story": {
+        "status": "documented",
+        "section": "## Phản ứng đã xong trước khi trộn xong thì đo bằng cách nào?",
+        "sources": [
+          "https://www.nobelprize.org/uploads/2018/06/eigen-lecture.pdf",
+          "https://www.si.edu/media/NMAH/NMAH-AC0771_eigen.pdf",
+          "https://www.nobelprize.org/prizes/chemistry/1967/eigen/biographical/"
+        ]
+      },
+      "application": {
+        "status": "documented",
+        "section": "## Ứng dụng hôm nay: để sự hồi phục tiết lộ cơ chế",
+        "sources": [
+          "https://www.nobelprize.org/uploads/2018/06/eigen-lecture.pdf",
+          "https://www.si.edu/media/NMAH/NMAH-AC0771_eigen.pdf",
+          "https://www.nobelprize.org/prizes/chemistry/1967/eigen/biographical/"
+        ]
+      }
+    }
+  },
+  {
+    "id": "george-porter-chop-sang-bat-chat-trung-gian",
+    "slug": "george-porter-chop-sang-bat-chat-trung-gian",
+    "documentPath": "docs/george-porter-chop-sang-bat-chat-trung-gian/index.json",
+    "title": "George Porter: một chớp sáng để bắt dấu chất vừa xuất hiện",
+    "summary": "Flash photolysis tạo ra những chất sống ngắn rồi dùng một phép đọc tiếp theo để theo dõi chúng. Porter và Norrish mở cách nghiên cứu các bước mà sản phẩm cuối không kể hết.",
+    "category": "tieusu",
+    "author": "Ban biên tập ChemDex",
+    "image": "/assets/library/apparatus-spectroscope.svg",
+    "tags": [
+      "George Porter",
+      "Quang phân chớp",
+      "Gốc tự do",
+      "Động học"
+    ],
+    "aliases": [],
+    "documentKind": "story",
+    "readingMinutes": 4,
+    "editorialEvidence": {
+      "language": "vi",
+      "scope": "chemical-family",
+      "contextLabel": "George Porter: một chớp sáng để bắt dấu chất vừa xuất hiện",
+      "reviewBasis": "Biên soạn theo các nguồn dẫn cuối bài; phân biệt kết quả đã thực hiện và hướng phát triển.",
+      "story": {
+        "status": "documented",
+        "section": "## Tạo phản ứng nhanh rồi đọc ngay phần còn lại",
+        "sources": [
+          "https://www.nature.com/articles/164658a0",
+          "https://www.nobelprize.org/uploads/2018/06/porter-lecture.pdf",
+          "https://www.nobelprize.org/prizes/chemistry/1967/porter/biographical/"
+        ]
+      },
+      "application": {
+        "status": "documented",
+        "section": "## Ứng dụng hôm nay: quá trình quan trọng có thể nằm giữa hai ảnh",
+        "sources": [
+          "https://www.nature.com/articles/164658a0",
+          "https://www.nobelprize.org/uploads/2018/06/porter-lecture.pdf",
+          "https://www.nobelprize.org/prizes/chemistry/1967/porter/biographical/"
+        ]
+      }
+    }
+  },
+  {
+    "id": "aaron-klug-adn-quan-quanh-loi-protein",
+    "slug": "aaron-klug-adn-quan-quanh-loi-protein",
+    "documentPath": "docs/aaron-klug-adn-quan-quanh-loi-protein/index.json",
+    "title": "Aaron Klug: nhìn cách một sợi ADN dài được quấn quanh protein",
+    "summary": "Cấu trúc lõi nucleosome năm 1984 cho thấy tổ chức vật chất của chromatin. Klug và cộng sự kết hợp nhiều phương pháp để đi từ ảnh và tinh thể tới một kiến trúc phân tử.",
+    "category": "tieusu",
+    "author": "Ban biên tập ChemDex",
+    "image": "/assets/library/history-evidence.svg",
+    "tags": [
+      "Aaron Klug",
+      "Nucleosome",
+      "Chromatin",
+      "Sinh học cấu trúc"
+    ],
+    "aliases": [],
+    "documentKind": "story",
+    "readingMinutes": 4,
+    "editorialEvidence": {
+      "language": "vi",
+      "scope": "chemical-family",
+      "contextLabel": "Aaron Klug: nhìn cách một sợi ADN dài được quấn quanh protein",
+      "reviewBasis": "Biên soạn theo các nguồn dẫn cuối bài; phân biệt kết quả đã thực hiện và hướng phát triển.",
+      "story": {
+        "status": "documented",
+        "section": "## Thông tin di truyền còn cần một cách đóng gói",
+        "sources": [
+          "https://www.nature.com/articles/311532a0",
+          "https://www.nobelprize.org/uploads/2018/06/klug-lecture.pdf",
+          "https://mrclmb.ac.uk/news-events/articles/aaron-klug-1926-2018/"
+        ]
+      },
+      "application": {
+        "status": "documented",
+        "section": "## Ứng dụng hôm nay: bộ gen được nghiên cứu cùng môi trường vật chất",
+        "sources": [
+          "https://www.nature.com/articles/311532a0",
+          "https://www.nobelprize.org/uploads/2018/06/klug-lecture.pdf",
+          "https://mrclmb.ac.uk/news-events/articles/aaron-klug-1926-2018/"
+        ]
+      }
+    }
+  },
+  {
+    "id": "aaron-ciechanover-nhan-nho-truoc-khi-pha-protein",
+    "slug": "aaron-ciechanover-nhan-nho-truoc-khi-pha-protein",
+    "documentPath": "docs/aaron-ciechanover-nhan-nho-truoc-khi-pha-protein/index.json",
+    "title": "Aaron Ciechanover: chiếc nhãn nhỏ đứng trước việc phá một protein",
+    "summary": "Một thành phần bền nhiệt trong dịch hồng cầu lưới dẫn Ciechanover, Hershko và Rose tới hệ ubiquitin. Phân hủy protein cũng là quá trình được lựa chọn và tổ chức bằng năng lượng.",
+    "category": "tieusu",
+    "author": "Ban biên tập ChemDex",
+    "image": "/assets/library/lab-synthesis.svg",
+    "tags": [
+      "Aaron Ciechanover",
+      "Ubiquitin",
+      "Phân hủy protein",
+      "ATP"
+    ],
+    "aliases": [],
+    "documentKind": "story",
+    "readingMinutes": 4,
+    "editorialEvidence": {
+      "language": "vi",
+      "scope": "chemical-family",
+      "contextLabel": "Aaron Ciechanover: chiếc nhãn nhỏ đứng trước việc phá một protein",
+      "reviewBasis": "Biên soạn theo các nguồn dẫn cuối bài; phân biệt kết quả đã thực hiện và hướng phát triển.",
+      "story": {
+        "status": "documented",
+        "section": "## Phân hủy mà lại cần ATP",
+        "sources": [
+          "https://doi.org/10.1016/0006-291X(78)91249-4",
+          "https://doi.org/10.1073/pnas.77.4.1783",
+          "https://www.nobelprize.org/uploads/2018/06/ciechanover-lecture.pdf"
+        ]
+      },
+      "application": {
+        "status": "documented",
+        "section": "## Ứng dụng hôm nay: tuổi thọ protein là một biến điều khiển",
+        "sources": [
+          "https://doi.org/10.1016/0006-291X(78)91249-4",
+          "https://doi.org/10.1073/pnas.77.4.1783",
+          "https://www.nobelprize.org/uploads/2018/06/ciechanover-lecture.pdf"
+        ]
+      }
+    }
+  },
+  {
+    "id": "diels-alder-vat-lieu-han-lai",
+    "slug": "diels-alder-vat-lieu-han-lai",
+    "documentPath": "docs/diels-alder-vat-lieu-han-lai/index.json",
+    "title": "Vết nứt khép lại khi gia nhiệt: một vai mới của phản ứng Diels–Alder",
+    "summary": "Năm 2002, nhóm nghiên cứu tạo polymer có những mối nối có thể tháo rồi nối lại. Một phản ứng thường được dạy để xây vòng carbon trở thành công cụ thiết kế khả năng sửa chữa.",
+    "category": "phanung",
+    "author": "Ban biên tập ChemDex",
+    "image": "/assets/library/organic-polymer.svg",
+    "tags": [
+      "Diels–Alder",
+      "Polymer",
+      "Tự phục hồi",
+      "Liên kết thuận nghịch"
+    ],
+    "aliases": [],
+    "documentKind": "story",
+    "readingMinutes": 4,
+    "editorialEvidence": {
+      "language": "vi",
+      "scope": "chemical-family",
+      "contextLabel": "Vết nứt khép lại khi gia nhiệt: một vai mới của phản ứng Diels–Alder",
+      "reviewBasis": "Biên soạn theo các nguồn dẫn cuối bài; phân biệt kết quả đã thực hiện và hướng phát triển.",
+      "story": {
+        "status": "documented",
+        "section": "## Một khối rắn không phải chịu vết nứt mãi mãi",
+        "sources": [
+          "https://doi.org/10.1126/science.1065879",
+          "https://doi.org/10.1021/ma0210675",
+          "https://openstax.org/books/organic-chemistry/pages/14-4-the-diels-alder-cycloaddition-reaction"
+        ]
+      },
+      "application": {
+        "status": "documented",
+        "section": "## Ứng dụng hôm nay: thiết kế tuổi thọ từ mối nối phân tử",
+        "sources": [
+          "https://doi.org/10.1126/science.1065879",
+          "https://doi.org/10.1021/ma0210675",
+          "https://openstax.org/books/organic-chemistry/pages/14-4-the-diels-alder-cycloaddition-reaction"
+        ]
+      }
+    }
+  },
+  {
+    "id": "robinson-annulation-xay-them-vong",
+    "slug": "robinson-annulation-xay-them-vong",
+    "documentPath": "docs/robinson-annulation-xay-them-vong/index.json",
+    "title": "Xây thêm một vòng carbon: vì sao Robinson annulation hữu ích cho khung steroid",
+    "summary": "Một phép cộng liên hợp nối tiếp đóng vòng aldol có thể dựng thêm vòng sáu cạnh. Những nghiên cứu về trung gian hai vòng cho thấy bước xây khung quan trọng nhưng chưa phải cả tuyến làm steroid.",
+    "category": "phanung",
+    "author": "Ban biên tập ChemDex",
+    "image": "/assets/library/covalent-bonds.svg",
+    "tags": [
+      "Robinson annulation",
+      "Aldol",
+      "Michael",
+      "Khung vòng"
+    ],
+    "aliases": [],
+    "documentKind": "story",
+    "readingMinutes": 4,
+    "editorialEvidence": {
+      "language": "vi",
+      "scope": "chemical-family",
+      "contextLabel": "Xây thêm một vòng carbon: vì sao Robinson annulation hữu ích cho khung steroid",
+      "reviewBasis": "Biên soạn theo các nguồn dẫn cuối bài; phân biệt kết quả đã thực hiện và hướng phát triển.",
+      "story": {
+        "status": "documented",
+        "section": "## Một trung gian hai vòng chứa tham vọng lớn",
+        "sources": [
+          "https://doi.org/10.1021/jo00925a003",
+          "https://www.nobelprize.org/uploads/2021/11/list-lecture.pdf",
+          "https://openstax.org/books/organic-chemistry/pages/23-12-the-robinson-annulation-reaction"
+        ]
+      },
+      "application": {
+        "status": "documented",
+        "section": "## Ứng dụng hôm nay: chia một mục tiêu khó thành những bước xây khung",
+        "sources": [
+          "https://doi.org/10.1021/jo00925a003",
+          "https://www.nobelprize.org/uploads/2021/11/list-lecture.pdf",
+          "https://openstax.org/books/organic-chemistry/pages/23-12-the-robinson-annulation-reaction"
+        ]
+      }
+    }
+  },
+  {
+    "id": "proline-aldol-mot-amino-acid-lam-xuc-tac",
+    "slug": "proline-aldol-mot-amino-acid-lam-xuc-tac",
+    "documentPath": "docs/proline-aldol-mot-amino-acid-lam-xuc-tac/index.json",
+    "title": "Một amino acid làm phần việc của hệ lớn: thí nghiệm aldol năm 2000",
+    "summary": "List, Lerner và Barbas khảo sát liệu proline có thể nối hai phân tử carbonyl với tính chọn lọc hay không. Kết quả đưa một phân tử nhỏ vào trung tâm của câu chuyện xúc tác hữu cơ.",
+    "category": "phanung",
+    "author": "Ban biên tập ChemDex",
+    "image": "/assets/library/organic-ketone.svg",
+    "tags": [
+      "Proline",
+      "Aldol",
+      "Enamine",
+      "Xúc tác hữu cơ"
+    ],
+    "aliases": [],
+    "documentKind": "story",
+    "readingMinutes": 4,
+    "editorialEvidence": {
+      "language": "vi",
+      "scope": "chemical-family",
+      "contextLabel": "Một amino acid làm phần việc của hệ lớn: thí nghiệm aldol năm 2000",
+      "reviewBasis": "Biên soạn theo các nguồn dẫn cuối bài; phân biệt kết quả đã thực hiện và hướng phát triển.",
+      "story": {
+        "status": "documented",
+        "section": "## Câu hỏi được thu nhỏ đến một amino acid",
+        "sources": [
+          "https://doi.org/10.1021/ja994280y",
+          "https://www.nobelprize.org/uploads/2021/11/list-lecture.pdf",
+          "https://openstax.org/books/organic-chemistry/pages/23-1-carbonyl-condensations-the-aldol-reaction"
+        ]
+      },
+      "application": {
+        "status": "documented",
+        "section": "## Ứng dụng hôm nay: từ một kết quả đơn giản đến thiết kế xúc tác mới",
+        "sources": [
+          "https://doi.org/10.1021/ja994280y",
+          "https://www.nobelprize.org/uploads/2021/11/list-lecture.pdf",
+          "https://openstax.org/books/organic-chemistry/pages/23-1-carbonyl-condensations-the-aldol-reaction"
+        ]
+      }
+    }
+  },
+  {
+    "id": "iminium-macmillan-doi-tinh-phan-ung",
+    "slug": "iminium-macmillan-doi-tinh-phan-ung",
+    "documentPath": "docs/iminium-macmillan-doi-tinh-phan-ung/index.json",
+    "title": "Gắn tạm một amine để đổi tính phản ứng: ý tưởng iminium của MacMillan",
+    "summary": "Công trình năm 2000 dùng một chất xúc tác hữu cơ để hoạt hóa đối tác Diels–Alder. Điều mới là tổ chức lại khả năng phản ứng bằng liên kết tạm thời và hình học có chủ đích.",
+    "category": "phanung",
+    "author": "Ban biên tập ChemDex",
+    "image": "/assets/library/organic-aldehyde.svg",
+    "tags": [
+      "Iminium",
+      "MacMillan",
+      "Xúc tác hữu cơ",
+      "Diels–Alder"
+    ],
+    "aliases": [],
+    "documentKind": "story",
+    "readingMinutes": 4,
+    "editorialEvidence": {
+      "language": "vi",
+      "scope": "chemical-family",
+      "contextLabel": "Gắn tạm một amine để đổi tính phản ứng: ý tưởng iminium của MacMillan",
+      "reviewBasis": "Biên soạn theo các nguồn dẫn cuối bài; phân biệt kết quả đã thực hiện và hướng phát triển.",
+      "story": {
+        "status": "documented",
+        "section": "## Một cách khác để làm đối tác nhận liên kết hoạt động hơn",
+        "sources": [
+          "https://doi.org/10.1021/ja000092s",
+          "https://macmillan.princeton.edu/wp-content/uploads/aldrichimica.pdf",
+          "https://collaborate.princeton.edu/en/publications/the-first-general-enantioselective-catalytic-diels-alder-reaction/"
+        ]
+      },
+      "application": {
+        "status": "documented",
+        "section": "## Ứng dụng hôm nay: một nguyên lý hoạt hóa đi qua nhiều phản ứng",
+        "sources": [
+          "https://doi.org/10.1021/ja000092s",
+          "https://macmillan.princeton.edu/wp-content/uploads/aldrichimica.pdf",
+          "https://collaborate.princeton.edu/en/publications/the-first-general-enantioselective-catalytic-diels-alder-reaction/"
+        ]
+      }
+    }
+  },
+  {
+    "id": "sharpless-epoxidation-oxygen-den-dung-mat",
+    "slug": "sharpless-epoxidation-oxygen-den-dung-mat",
+    "documentPath": "docs/sharpless-epoxidation-oxygen-den-dung-mat/index.json",
+    "title": "Đưa oxygen tới đúng mặt: bước ngoặt epoxidation của Katsuki và Sharpless",
+    "summary": "Năm 1980, một hệ xúc tác tạo epoxide từ alcohol allylic với tính chọn lọc cao mở thêm đường tới phân tử bất đối xứng. Nhóm OH của cơ chất trở thành điểm định hướng quan trọng.",
+    "category": "phanung",
+    "author": "Ban biên tập ChemDex",
+    "image": "/assets/library/organic-alcohol.svg",
+    "tags": [
+      "Sharpless",
+      "Epoxidation",
+      "Titanium",
+      "Lập thể"
+    ],
+    "aliases": [],
+    "documentKind": "story",
+    "readingMinutes": 4,
+    "editorialEvidence": {
+      "language": "vi",
+      "scope": "chemical-family",
+      "contextLabel": "Đưa oxygen tới đúng mặt: bước ngoặt epoxidation của Katsuki và Sharpless",
+      "reviewBasis": "Biên soạn theo các nguồn dẫn cuối bài; phân biệt kết quả đã thực hiện và hướng phát triển.",
+      "story": {
+        "status": "documented",
+        "section": "## Một vòng ba cạnh mang thông tin cho nhiều bước sau",
+        "sources": [
+          "https://doi.org/10.1021/ja00538a077",
+          "https://www.nobelprize.org/uploads/2018/06/advanced-chemistryprize2001.pdf",
+          "https://sharpless.scripps.edu/publications/"
+        ]
+      },
+      "application": {
+        "status": "documented",
+        "section": "## Ứng dụng hôm nay: tạo một khối cấu trúc có thể đi nhiều hướng",
+        "sources": [
+          "https://doi.org/10.1021/ja00538a077",
+          "https://www.nobelprize.org/uploads/2018/06/advanced-chemistryprize2001.pdf",
+          "https://sharpless.scripps.edu/publications/"
+        ]
+      }
+    }
+  },
+  {
+    "id": "dihydroxylation-hai-nhom-oh-cung-mot-phia",
+    "slug": "dihydroxylation-hai-nhom-oh-cung-mot-phia",
+    "documentPath": "docs/dihydroxylation-hai-nhom-oh-cung-mot-phia/index.json",
+    "title": "Hai nhóm OH xuất hiện có trật tự: hành trình tới AD-mix",
+    "summary": "Phản ứng dihydroxylation bất đối xứng biến một liên kết đôi thành hai tâm chức năng hữu ích. Phối tử vừa tạo ưu tiên lập thể vừa giúp đường xúc tác cạnh tranh với phản ứng nền.",
+    "category": "phanung",
+    "author": "Ban biên tập ChemDex",
+    "image": "/assets/library/organic-alcohol.svg",
+    "tags": [
+      "Dihydroxylation",
+      "Sharpless",
+      "Osmium",
+      "Diol"
+    ],
+    "aliases": [],
+    "documentKind": "story",
+    "readingMinutes": 4,
+    "editorialEvidence": {
+      "language": "vi",
+      "scope": "chemical-family",
+      "contextLabel": "Hai nhóm OH xuất hiện có trật tự: hành trình tới AD-mix",
+      "reviewBasis": "Biên soạn theo các nguồn dẫn cuối bài; phân biệt kết quả đã thực hiện và hướng phát triển.",
+      "story": {
+        "status": "documented",
+        "section": "## Từ công trình năm 1988 tới hỗn hợp được chuẩn hóa",
+        "sources": [
+          "https://doi.org/10.1021/ja00214a053",
+          "https://doi.org/10.1021/jo00036a003",
+          "https://hwpi.harvard.edu/files/myers/files/23-sharpless_asymmetric_dihydroxylation_reaction.pdf"
+        ]
+      },
+      "application": {
+        "status": "documented",
+        "section": "## Ứng dụng hôm nay: tạo diol để tiếp tục xây phân tử",
+        "sources": [
+          "https://doi.org/10.1021/ja00214a053",
+          "https://doi.org/10.1021/jo00036a003",
+          "https://hwpi.harvard.edu/files/myers/files/23-sharpless_asymmetric_dihydroxylation_reaction.pdf"
+        ]
+      }
+    }
+  },
+  {
+    "id": "jacobsen-salen-alkene-khong-co-diem-bam",
+    "slug": "jacobsen-salen-alkene-khong-co-diem-bam",
+    "documentPath": "docs/jacobsen-salen-alkene-khong-co-diem-bam/index.json",
+    "title": "Khi alkene không có điểm bám: manganese–salen mở một đường epoxidation",
+    "summary": "Các công trình năm 1990 của nhóm Jacobsen và Katsuki nhắm tới những alkene không có nhóm OH định hướng. Khung phối tử quanh manganese tạo một cách chọn mặt khác.",
+    "category": "phanung",
+    "author": "Ban biên tập ChemDex",
+    "image": "/assets/library/organic-alkene.svg",
+    "tags": [
+      "Jacobsen–Katsuki",
+      "Manganese",
+      "Salen",
+      "Epoxidation"
+    ],
+    "aliases": [],
+    "documentKind": "story",
+    "readingMinutes": 4,
+    "editorialEvidence": {
+      "language": "vi",
+      "scope": "chemical-family",
+      "contextLabel": "Khi alkene không có điểm bám: manganese–salen mở một đường epoxidation",
+      "reviewBasis": "Biên soạn theo các nguồn dẫn cuối bài; phân biệt kết quả đã thực hiện và hướng phát triển.",
+      "story": {
+        "status": "documented",
+        "section": "## Khoảng trống còn lại sau một thành tựu lớn",
+        "sources": [
+          "https://doi.org/10.1021/ja00163a052",
+          "https://jacobsengroup.sites.fas.harvard.edu/publications.html",
+          "https://ethz.ch/content/dam/ethz/special-interest/chab/organic-chemistry/bode-group-dam/documents/open-source-lecture-notes/olefin-addition-reactions-2015.pdf"
+        ]
+      },
+      "application": {
+        "status": "documented",
+        "section": "## Ứng dụng hôm nay: chọn phương pháp theo loại alkene",
+        "sources": [
+          "https://doi.org/10.1021/ja00163a052",
+          "https://jacobsengroup.sites.fas.harvard.edu/publications.html",
+          "https://ethz.ch/content/dam/ethz/special-interest/chab/organic-chemistry/bode-group-dam/documents/open-source-lecture-notes/olefin-addition-reactions-2015.pdf"
+        ]
+      }
+    }
+  },
+  {
+    "id": "buchwald-hartwig-noi-carbon-voi-nitrogen",
+    "slug": "buchwald-hartwig-noi-carbon-voi-nitrogen",
+    "documentPath": "docs/buchwald-hartwig-noi-carbon-voi-nitrogen/index.json",
+    "title": "Một mối nối C–N mở thêm đường tới phân tử mới",
+    "summary": "Từ những hệ cần dẫn xuất thiếc đến amination trực tiếp, Buchwald–Hartwig thay đổi cách xây arylamine. Hiểu cơ chế và thiết kế phối tử đi cùng nhau trong quá trình mở rộng phản ứng.",
+    "category": "phanung",
+    "author": "Ban biên tập ChemDex",
+    "image": "/assets/library/organic-amine.svg",
+    "tags": [
+      "Buchwald–Hartwig",
+      "Amination",
+      "Palladium",
+      "Liên kết C–N"
+    ],
+    "aliases": [],
+    "documentKind": "story",
+    "readingMinutes": 4,
+    "editorialEvidence": {
+      "language": "vi",
+      "scope": "chemical-family",
+      "contextLabel": "Một mối nối C–N mở thêm đường tới phân tử mới",
+      "reviewBasis": "Biên soạn theo các nguồn dẫn cuối bài; phân biệt kết quả đã thực hiện và hướng phát triển.",
+      "story": {
+        "status": "documented",
+        "section": "## Phản ứng đã có manh mối nhưng chưa đủ thuận tiện",
+        "sources": [
+          "https://doi.org/10.1021/ja00096a059",
+          "https://doi.org/10.1002/anie.201904795",
+          "https://reagents.acsgcipr.org/reagent-guides/buchwald-hartwig-amination/"
+        ]
+      },
+      "application": {
+        "status": "documented",
+        "section": "## Ứng dụng hôm nay: từ thư viện phân tử tới quy trình sản xuất",
+        "sources": [
+          "https://doi.org/10.1021/ja00096a059",
+          "https://doi.org/10.1002/anie.201904795",
+          "https://reagents.acsgcipr.org/reagent-guides/buchwald-hartwig-amination/"
+        ]
+      }
+    }
+  },
+  {
+    "id": "sonogashira-lien-ket-ba-trong-trung-gian",
+    "slug": "sonogashira-lien-ket-ba-trong-trung-gian",
+    "documentPath": "docs/sonogashira-lien-ket-ba-trong-trung-gian/index.json",
+    "title": "Giữ một liên kết ba trong bộ khung: Sonogashira qua câu chuyện trung gian erlotinib",
+    "summary": "Phản ứng Sonogashira nối alkyne với đối tác thơm mà giữ lại liên kết ba. Các nghiên cứu phát triển quy trình cho trung gian erlotinib cho thấy dung môi và môi trường xúc tác quan trọng tới đâu.",
+    "category": "phanung",
+    "author": "Ban biên tập ChemDex",
+    "image": "/assets/library/organic-alkyne.svg",
+    "tags": [
+      "Sonogashira",
+      "Alkyne",
+      "Ghép cặp",
+      "Phát triển quy trình"
+    ],
+    "aliases": [],
+    "documentKind": "story",
+    "readingMinutes": 4,
+    "editorialEvidence": {
+      "language": "vi",
+      "scope": "chemical-family",
+      "contextLabel": "Giữ một liên kết ba trong bộ khung: Sonogashira qua câu chuyện trung gian erlotinib",
+      "reviewBasis": "Biên soạn theo các nguồn dẫn cuối bài; phân biệt kết quả đã thực hiện và hướng phát triển.",
+      "story": {
+        "status": "documented",
+        "section": "## Một mảnh nhỏ cần có mặt trong một phân tử lớn",
+        "sources": [
+          "https://doi.org/10.1016/S0040-4039(00)91094-3",
+          "https://pmc.ncbi.nlm.nih.gov/articles/PMC8007125/",
+          "https://pmc.ncbi.nlm.nih.gov/articles/PMC10698743/"
+        ]
+      },
+      "application": {
+        "status": "documented",
+        "section": "## Ứng dụng hôm nay: phát triển phản ứng cùng phần việc phân tách",
+        "sources": [
+          "https://doi.org/10.1016/S0040-4039(00)91094-3",
+          "https://pmc.ncbi.nlm.nih.gov/articles/PMC8007125/",
+          "https://pmc.ncbi.nlm.nih.gov/articles/PMC10698743/"
+        ]
+      }
+    }
+  },
+  {
+    "id": "stille-khau-vong-lon-rapamycin",
+    "slug": "stille-khau-vong-lon-rapamycin",
+    "documentPath": "docs/stille-khau-vong-lon-rapamycin/index.json",
+    "title": "Hai mối ghép khép một vòng lớn: đường tổng hợp rapamycin năm 1993",
+    "summary": "Nhóm Nicolaou dùng ghép Stille để nối những đầu mạch trong tổng hợp rapamycin. Ví dụ này cho thấy đóng vòng lớn là bài toán hình học và lựa chọn phản ứng, không chỉ kéo hai đầu lại gần.",
+    "category": "phanung",
+    "author": "Ban biên tập ChemDex",
+    "image": "/assets/library/covalent-bonds.svg",
+    "tags": [
+      "Stille",
+      "Vòng lớn",
+      "Rapamycin",
+      "Tổng hợp toàn phần"
+    ],
+    "aliases": [],
+    "documentKind": "story",
+    "readingMinutes": 4,
+    "editorialEvidence": {
+      "language": "vi",
+      "scope": "chemical-family",
+      "contextLabel": "Hai mối ghép khép một vòng lớn: đường tổng hợp rapamycin năm 1993",
+      "reviewBasis": "Biên soạn theo các nguồn dẫn cuối bài; phân biệt kết quả đã thực hiện và hướng phát triển.",
+      "story": {
+        "status": "documented",
+        "section": "## Một thao tác khâu trong kế hoạch tổng hợp",
+        "sources": [
+          "https://doi.org/10.1021/ja00063a093",
+          "https://pmc.ncbi.nlm.nih.gov/articles/PMC2665039/",
+          "https://doi.org/10.1002/anie.200300638"
+        ]
+      },
+      "application": {
+        "status": "documented",
+        "section": "## Ứng dụng hôm nay: một công cụ mạnh đi kèm bài toán thiếc",
+        "sources": [
+          "https://doi.org/10.1021/ja00063a093",
+          "https://pmc.ncbi.nlm.nih.gov/articles/PMC2665039/",
+          "https://doi.org/10.1002/anie.200300638"
+        ]
+      }
+    }
+  },
+  {
+    "id": "kumada-tu-moi-noi-den-chuoi-dan-dien",
+    "slug": "kumada-tu-moi-noi-den-chuoi-dan-dien",
+    "documentPath": "docs/kumada-tu-moi-noi-den-chuoi-dan-dien/index.json",
+    "title": "Từ ghép hai mảnh tới giữ nhịp cho cả chuỗi: Kumada trong polymer liên hợp",
+    "summary": "Một phản ứng ghép được công bố năm 1972 về sau góp phần tạo polymer thiophene có trật tự. Những nghiên cứu năm 2004 và hệ dòng liên tục cho thấy xúc tác còn có thể quyết định cách chuỗi lớn lên.",
+    "category": "phanung",
+    "author": "Ban biên tập ChemDex",
+    "image": "/assets/library/organic-polymer.svg",
+    "tags": [
+      "Kumada",
+      "Polymer liên hợp",
+      "P3HT",
+      "Nickel"
+    ],
+    "aliases": [],
+    "documentKind": "story",
+    "readingMinutes": 4,
+    "editorialEvidence": {
+      "language": "vi",
+      "scope": "chemical-family",
+      "contextLabel": "Từ ghép hai mảnh tới giữ nhịp cho cả chuỗi: Kumada trong polymer liên hợp",
+      "reviewBasis": "Biên soạn theo các nguồn dẫn cuối bài; phân biệt kết quả đã thực hiện và hướng phát triển.",
+      "story": {
+        "status": "documented",
+        "section": "## Một phản ứng nối carbon trở thành công cụ làm vật liệu",
+        "sources": [
+          "https://doi.org/10.1021/ja00767a075",
+          "https://pmc.ncbi.nlm.nih.gov/articles/PMC3740766/",
+          "https://doi.org/10.1021/ma901410k"
+        ]
+      },
+      "application": {
+        "status": "documented",
+        "section": "## Ứng dụng hôm nay: tính lặp lại là một tính năng của vật liệu",
+        "sources": [
+          "https://doi.org/10.1021/ja00767a075",
+          "https://pmc.ncbi.nlm.nih.gov/articles/PMC3740766/",
+          "https://doi.org/10.1021/ma901410k"
+        ]
+      }
+    }
+  },
+  {
+    "id": "hiyama-lien-ket-ben-can-duoc-danh-thuc",
+    "slug": "hiyama-lien-ket-ben-can-duoc-danh-thuc",
+    "documentPath": "docs/hiyama-lien-ket-ben-can-duoc-danh-thuc/index.json",
+    "title": "Một liên kết bền cần được đánh thức: silicon trong phản ứng Hiyama",
+    "summary": "Độ bền của hợp chất organosilicon vừa thuận tiện cho xử lý vừa gây khó cho ghép cặp. Hiyama và những phát triển sau đó tìm cách bật tính phản ứng đúng lúc.",
+    "category": "phanung",
+    "author": "Ban biên tập ChemDex",
+    "image": "/assets/library/covalent-bonds.svg",
+    "tags": [
+      "Hiyama",
+      "Organosilicon",
+      "Ghép cặp",
+      "Hoạt hóa"
+    ],
+    "aliases": [],
+    "documentKind": "story",
+    "readingMinutes": 4,
+    "editorialEvidence": {
+      "language": "vi",
+      "scope": "chemical-family",
+      "contextLabel": "Một liên kết bền cần được đánh thức: silicon trong phản ứng Hiyama",
+      "reviewBasis": "Biên soạn theo các nguồn dẫn cuối bài; phân biệt kết quả đã thực hiện và hướng phát triển.",
+      "story": {
+        "status": "documented",
+        "section": "## Silicon không chỉ ở trong kính và vi mạch",
+        "sources": [
+          "https://doi.org/10.1021/jo00239a056",
+          "https://pmc.ncbi.nlm.nih.gov/articles/PMC2648401/",
+          "https://pmc.ncbi.nlm.nih.gov/articles/PMC9933925/"
+        ]
+      },
+      "application": {
+        "status": "documented",
+        "section": "## Ứng dụng hôm nay: giữ một nhóm chờ đến lượt phản ứng",
+        "sources": [
+          "https://doi.org/10.1021/jo00239a056",
+          "https://pmc.ncbi.nlm.nih.gov/articles/PMC2648401/",
+          "https://pmc.ncbi.nlm.nih.gov/articles/PMC9933925/"
+        ]
+      }
+    }
+  },
+  {
+    "id": "grignard-tu-binh-me-sang-dong-chay",
+    "slug": "grignard-tu-binh-me-sang-dong-chay",
+    "documentPath": "docs/grignard-tu-binh-me-sang-dong-chay/index.json",
+    "title": "Một thuốc thử trăm tuổi đi vào dòng chảy: Grignard và phép đo ngay trên đường ống",
+    "summary": "Các nghiên cứu năm 2016 và 2020 đưa việc tạo thuốc thử Grignard vào hệ liên tục có phân tích trực tuyến. Phản ứng quen thuộc thay đổi khi chất rắn, nhiệt và thời gian lưu được quản lý theo cách khác.",
+    "category": "phanung",
+    "author": "Ban biên tập ChemDex",
+    "image": "/assets/library/industrial-reactor.svg",
+    "tags": [
+      "Grignard",
+      "Hóa học dòng",
+      "Organomagnesium",
+      "Phân tích trực tuyến"
+    ],
+    "aliases": [],
+    "documentKind": "story",
+    "readingMinutes": 4,
+    "editorialEvidence": {
+      "language": "vi",
+      "scope": "chemical-family",
+      "contextLabel": "Một thuốc thử trăm tuổi đi vào dòng chảy: Grignard và phép đo ngay trên đường ống",
+      "reviewBasis": "Biên soạn theo các nguồn dẫn cuối bài; phân biệt kết quả đã thực hiện và hướng phát triển.",
+      "story": {
+        "status": "documented",
+        "section": "## Bên cạnh phản ứng là một phép đo đang chạy",
+        "sources": [
+          "https://doi.org/10.1016/j.tetlet.2015.11.077",
+          "https://doi.org/10.1021/acs.oprd.9b00493",
+          "https://openstax.org/books/organic-chemistry/pages/17-5-alcohols-from-carbonyl-compounds-grignard-reaction"
+        ]
+      },
+      "application": {
+        "status": "documented",
+        "section": "## Ứng dụng hôm nay: đo để hiểu trạng thái thật của dòng sản phẩm",
+        "sources": [
+          "https://doi.org/10.1016/j.tetlet.2015.11.077",
+          "https://doi.org/10.1021/acs.oprd.9b00493",
+          "https://openstax.org/books/organic-chemistry/pages/17-5-alcohols-from-carbonyl-compounds-grignard-reaction"
+        ]
+      }
+    }
+  },
+  {
+    "id": "wittig-vitamin-a-mot-lien-ket-doi-quyet-dinh",
+    "slug": "wittig-vitamin-a-mot-lien-ket-doi-quyet-dinh",
+    "documentPath": "docs/wittig-vitamin-a-mot-lien-ket-doi-quyet-dinh/index.json",
+    "title": "Vitamin A và mối nối mà nhà máy còn thiếu",
+    "summary": "BASF đã tạo được vitamin A bằng một tuyến chưa đủ kinh tế trước khi phản ứng Wittig mở lối khác. Câu chuyện cho thấy một mối nối đôi có thể thay đổi cả kế hoạch sản xuất.",
+    "category": "phanung",
+    "author": "Ban biên tập ChemDex",
+    "image": "/assets/library/organic-alkene.svg",
+    "tags": [
+      "Wittig",
+      "Vitamin A",
+      "Olefination",
+      "Phosphorus"
+    ],
+    "aliases": [],
+    "documentKind": "story",
+    "readingMinutes": 4,
+    "editorialEvidence": {
+      "language": "vi",
+      "scope": "chemical-family",
+      "contextLabel": "Vitamin A và mối nối mà nhà máy còn thiếu",
+      "reviewBasis": "Biên soạn theo các nguồn dẫn cuối bài; phân biệt kết quả đã thực hiện và hướng phát triển.",
+      "story": {
+        "status": "documented",
+        "section": "## Làm ra được chưa có nghĩa làm ra theo cách phù hợp",
+        "sources": [
+          "https://www.basf.com/global/de/who-we-are/history/joint-success/formula_for_success",
+          "https://openstax.org/books/organic-chemistry/pages/19-11-nucleophilic-addition-of-phosphorus-ylides-the-wittig-reaction",
+          "https://doi.org/10.1021/acs.oprd.3c00161"
+        ]
+      },
+      "application": {
+        "status": "documented",
+        "section": "## Ứng dụng hôm nay: chọn đúng mối nối, rồi tối ưu toàn tuyến",
+        "sources": [
+          "https://www.basf.com/global/de/who-we-are/history/joint-success/formula_for_success",
+          "https://openstax.org/books/organic-chemistry/pages/19-11-nucleophilic-addition-of-phosphorus-ylides-the-wittig-reaction",
+          "https://doi.org/10.1021/acs.oprd.3c00161"
+        ]
+      }
+    }
+  },
+  {
+    "id": "hwe-ket-tua-bat-ngo-mo-loi-olefin",
+    "slug": "hwe-ket-tua-bat-ngo-mo-loi-olefin",
+    "documentPath": "docs/hwe-ket-tua-bat-ngo-mo-loi-olefin/index.json",
+    "title": "Kết tủa ngoài dự kiến và một đường mới tới alkene",
+    "summary": "Wadsworth ban đầu muốn tạo monomer chứa phosphorus. Một phản ứng cho sản phẩm khác đã dẫn tới phương pháp olefination được dùng rộng, rồi tiếp tục được chỉnh để chọn hình học E hoặc Z.",
+    "category": "phanung",
+    "author": "Ban biên tập ChemDex",
+    "image": "/assets/library/organic-alkene.svg",
+    "tags": [
+      "Horner–Wadsworth–Emmons",
+      "Phosphonate",
+      "Olefination",
+      "E/Z"
+    ],
+    "aliases": [],
+    "documentKind": "story",
+    "readingMinutes": 4,
+    "editorialEvidence": {
+      "language": "vi",
+      "scope": "chemical-family",
+      "contextLabel": "Kết tủa ngoài dự kiến và một đường mới tới alkene",
+      "reviewBasis": "Biên soạn theo các nguồn dẫn cuối bài; phân biệt kết quả đã thực hiện và hướng phát triển.",
+      "story": {
+        "status": "documented",
+        "section": "## Từ một monomer khó giữ sang một phản ứng khác",
+        "sources": [
+          "https://garfield.library.upenn.edu/classics1983/A1983RA29000001.pdf",
+          "https://doi.org/10.1021/ja01468a042",
+          "https://pmc.ncbi.nlm.nih.gov/articles/PMC9609750/"
+        ]
+      },
+      "application": {
+        "status": "documented",
+        "section": "## Ứng dụng hôm nay: xây chuỗi liên hợp với hình học có chủ đích",
+        "sources": [
+          "https://garfield.library.upenn.edu/classics1983/A1983RA29000001.pdf",
+          "https://doi.org/10.1021/ja01468a042",
+          "https://pmc.ncbi.nlm.nih.gov/articles/PMC9609750/"
+        ]
+      }
+    }
+  },
+  {
+    "id": "wilkinson-kim-loai-hoa-tan-van-tao-hydrogenation",
+    "slug": "wilkinson-kim-loai-hoa-tan-van-tao-hydrogenation",
+    "documentPath": "docs/wilkinson-kim-loai-hoa-tan-van-tao-hydrogenation/index.json",
+    "title": "Xúc tác không cần là một mặt kim loại: câu chuyện của Wilkinson",
+    "summary": "Phức rhodium hòa tan giúp hydrogen hóa olefin và trở thành hệ mẫu để hiểu xúc tác đồng thể. Những phối tử quanh kim loại quyết định nhiều hơn vẻ ngoài của một chai tinh thể.",
+    "category": "phanung",
+    "author": "Ban biên tập ChemDex",
+    "image": "/assets/library/organic-alkene.svg",
+    "tags": [
+      "Wilkinson",
+      "Rhodium",
+      "Hydrogen hóa",
+      "Xúc tác đồng thể"
+    ],
+    "aliases": [],
+    "documentKind": "story",
+    "readingMinutes": 4,
+    "editorialEvidence": {
+      "language": "vi",
+      "scope": "chemical-family",
+      "contextLabel": "Xúc tác không cần là một mặt kim loại: câu chuyện của Wilkinson",
+      "reviewBasis": "Biên soạn theo các nguồn dẫn cuối bài; phân biệt kết quả đã thực hiện và hướng phát triển.",
+      "story": {
+        "status": "documented",
+        "section": "## Một phức chất trở thành công cụ khảo sát cơ chế",
+        "sources": [
+          "https://doi.org/10.1039/J19660001711",
+          "https://www.chm.bris.ac.uk/motm/wilcat/wilcatjs.htm",
+          "https://www.acs.org/molecule-of-the-week/archive/w/wilkinsons-catalyst.html"
+        ]
+      },
+      "application": {
+        "status": "documented",
+        "section": "## Ứng dụng hôm nay: hiểu vai trò của phối tử để thiết kế hệ mới",
+        "sources": [
+          "https://doi.org/10.1039/J19660001711",
+          "https://www.chm.bris.ac.uk/motm/wilcat/wilcatjs.htm",
+          "https://www.acs.org/molecule-of-the-week/archive/w/wilkinsons-catalyst.html"
+        ]
+      }
+    }
+  },
+  {
+    "id": "noyori-ikariya-muon-hydrogen-tu-alcohol",
+    "slug": "noyori-ikariya-muon-hydrogen-tu-alcohol",
+    "documentPath": "docs/noyori-ikariya-muon-hydrogen-tu-alcohol/index.json",
+    "title": "Mượn hydrogen từ một alcohol: hai phần của xúc tác Noyori–Ikariya",
+    "summary": "Một phân tử cho hydrogen có thể thay vai trò cấp H₂ trực tiếp trong những phản ứng phù hợp. Hệ ruthenium–diamine cho thấy kim loại và phối tử có thể cùng tham gia chuyển hydrogen.",
+    "category": "phanung",
+    "author": "Ban biên tập ChemDex",
+    "image": "/assets/library/organic-alcohol.svg",
+    "tags": [
+      "Transfer hydrogenation",
+      "Noyori–Ikariya",
+      "Ruthenium",
+      "Alcohol bất đối xứng"
+    ],
+    "aliases": [],
+    "documentKind": "story",
+    "readingMinutes": 4,
+    "editorialEvidence": {
+      "language": "vi",
+      "scope": "chemical-family",
+      "contextLabel": "Mượn hydrogen từ một alcohol: hai phần của xúc tác Noyori–Ikariya",
+      "reviewBasis": "Biên soạn theo các nguồn dẫn cuối bài; phân biệt kết quả đã thực hiện và hướng phát triển.",
+      "story": {
+        "status": "documented",
+        "section": "## Một ketone nhận hydrogen từ phân tử khác",
+        "sources": [
+          "https://doi.org/10.1021/ja00133a037",
+          "https://pmc.ncbi.nlm.nih.gov/articles/PMC6272002/",
+          "https://www.sciencedirect.com/science/article/pii/S001085452200488X"
+        ]
+      },
+      "application": {
+        "status": "documented",
+        "section": "## Ứng dụng hôm nay: tạo alcohol và amine có cấu hình xác định",
+        "sources": [
+          "https://doi.org/10.1021/ja00133a037",
+          "https://pmc.ncbi.nlm.nih.gov/articles/PMC6272002/",
+          "https://www.sciencedirect.com/science/article/pii/S001085452200488X"
+        ]
+      }
+    }
+  },
+  {
+    "id": "photoredox-nickel-hai-chu-trinh-gap-nhau",
+    "slug": "photoredox-nickel-hai-chu-trinh-gap-nhau",
+    "documentPath": "docs/photoredox-nickel-hai-chu-trinh-gap-nhau/index.json",
+    "title": "Khi ánh sáng giao việc cho nickel: cuộc gặp của hai chu trình xúc tác",
+    "summary": "Năm 2014, ghép xúc tác quang oxi hóa–khử với nickel mở cách dùng acid carboxylic làm đối tác tạo liên kết carbon. Ánh sáng không chỉ làm nóng bình phản ứng.",
+    "category": "phanung",
+    "author": "Ban biên tập ChemDex",
+    "image": "/assets/library/apparatus-spectroscope.svg",
+    "tags": [
+      "Photoredox",
+      "Nickel",
+      "Iridium",
+      "Ghép cặp"
+    ],
+    "aliases": [],
+    "documentKind": "story",
+    "readingMinutes": 4,
+    "editorialEvidence": {
+      "language": "vi",
+      "scope": "chemical-family",
+      "contextLabel": "Khi ánh sáng giao việc cho nickel: cuộc gặp của hai chu trình xúc tác",
+      "reviewBasis": "Biên soạn theo các nguồn dẫn cuối bài; phân biệt kết quả đã thực hiện và hướng phát triển.",
+      "story": {
+        "status": "documented",
+        "section": "## Hai nhóm nghiên cứu mang tới hai khả năng khác nhau",
+        "sources": [
+          "https://pmc.ncbi.nlm.nih.gov/articles/PMC4296524/",
+          "https://www.nature.com/articles/nature14875",
+          "https://pmc.ncbi.nlm.nih.gov/articles/PMC8667460/"
+        ]
+      },
+      "application": {
+        "status": "documented",
+        "section": "## Ứng dụng hôm nay: thêm những nguyên liệu có thể được ghép",
+        "sources": [
+          "https://pmc.ncbi.nlm.nih.gov/articles/PMC4296524/",
+          "https://www.nature.com/articles/nature14875",
+          "https://pmc.ncbi.nlm.nih.gov/articles/PMC8667460/"
+        ]
+      }
+    }
+  },
+  {
+    "id": "baizer-dong-dien-noi-hai-acrylonitrile",
+    "slug": "baizer-dong-dien-noi-hai-acrylonitrile",
+    "documentPath": "docs/baizer-dong-dien-noi-hai-acrylonitrile/index.json",
+    "title": "Dòng điện nối hai phân tử: con đường adiponitrile của Manuel Baizer",
+    "summary": "Một nhiệm vụ năm 1959 đưa Baizer tới ghép khử acrylonitrile bằng điện hóa. Để thành quy trình, dòng electron và môi trường nước phải được thiết kế cùng nhau.",
+    "category": "phanung",
+    "author": "Ban biên tập ChemDex",
+    "image": "/assets/library/apparatus-voltaic-pile.svg",
+    "tags": [
+      "Điện hóa hữu cơ",
+      "Baizer",
+      "Adiponitrile",
+      "Ghép khử"
+    ],
+    "aliases": [],
+    "documentKind": "story",
+    "readingMinutes": 4,
+    "editorialEvidence": {
+      "language": "vi",
+      "scope": "chemical-family",
+      "contextLabel": "Dòng điện nối hai phân tử: con đường adiponitrile của Manuel Baizer",
+      "reviewBasis": "Biên soạn theo các nguồn dẫn cuối bài; phân biệt kết quả đã thực hiện và hướng phát triển.",
+      "story": {
+        "status": "documented",
+        "section": "## Một nhiệm vụ nghiên cứu có đích đến công nghiệp",
+        "sources": [
+          "https://garfield.library.upenn.edu/classics1986/A1986A368400001.pdf",
+          "https://doi.org/10.1149/1.2426086",
+          "https://patents.google.com/patent/US3193477A/en"
+        ]
+      },
+      "application": {
+        "status": "documented",
+        "section": "## Ứng dụng hôm nay: điện hóa phải được đọc như một quy trình hóa học đầy đủ",
+        "sources": [
+          "https://garfield.library.upenn.edu/classics1986/A1986A368400001.pdf",
+          "https://doi.org/10.1149/1.2426086",
+          "https://patents.google.com/patent/US3193477A/en"
+        ]
+      }
+    }
+  },
+  {
+    "id": "kolbe-mat-co2-roi-noi-hai-mach",
+    "slug": "kolbe-mat-co2-roi-noi-hai-mach",
+    "documentPath": "docs/kolbe-mat-co2-roi-noi-hai-mach/index.json",
+    "title": "Mất một đầu carbon rồi nối hai mạch: Kolbe trở lại trong nghiên cứu nguyên liệu sinh học",
+    "summary": "Điện phân Kolbe biến carboxylate thành những mảnh có thể ghép đôi. Các nghiên cứu với acid béo cho thấy phản ứng cổ vẫn đặt ra câu hỏi mới về điện cực, chọn lọc và cách thu sản phẩm.",
+    "category": "phanung",
+    "author": "Ban biên tập ChemDex",
+    "image": "/assets/library/organic-alkane.svg",
+    "tags": [
+      "Kolbe",
+      "Điện phân",
+      "Acid béo",
+      "Khử carboxyl"
+    ],
+    "aliases": [],
+    "documentKind": "story",
+    "readingMinutes": 4,
+    "editorialEvidence": {
+      "language": "vi",
+      "scope": "chemical-family",
+      "contextLabel": "Mất một đầu carbon rồi nối hai mạch: Kolbe trở lại trong nghiên cứu nguyên liệu sinh học",
+      "reviewBasis": "Biên soạn theo các nguồn dẫn cuối bài; phân biệt kết quả đã thực hiện và hướng phát triển.",
+      "story": {
+        "status": "documented",
+        "section": "## Một phản ứng cổ gặp nguyên liệu mới",
+        "sources": [
+          "https://doi.org/10.1002/cctc.201901443",
+          "https://pmc.ncbi.nlm.nih.gov/articles/PMC5786875/",
+          "https://doi.org/10.1039/QJ8500200157"
+        ]
+      },
+      "application": {
+        "status": "documented",
+        "section": "## Ứng dụng hôm nay: thiết kế bề mặt để dùng electron có ích",
+        "sources": [
+          "https://doi.org/10.1002/cctc.201901443",
+          "https://pmc.ncbi.nlm.nih.gov/articles/PMC5786875/",
+          "https://doi.org/10.1039/QJ8500200157"
+        ]
+      }
+    }
+  },
+  {
+    "id": "birch-bai-hoc-tu-pin-lithium",
+    "slug": "birch-bai-hoc-tu-pin-lithium",
+    "documentPath": "docs/birch-bai-hoc-tu-pin-lithium/index.json",
+    "title": "Một phản ứng khử vòng thơm mượn ý tưởng từ pin lithium-ion",
+    "summary": "Nghiên cứu năm 2019 tìm đường điện hóa thay cho một số điều kiện khó của khử Birch. Chất phụ gia bảo vệ môi trường điện cực trở thành chìa khóa mở rộng phạm vi phản ứng.",
+    "category": "phanung",
+    "author": "Ban biên tập ChemDex",
+    "image": "/assets/library/organic-alkene.svg",
+    "tags": [
+      "Birch",
+      "Điện hóa",
+      "Khử vòng thơm",
+      "Thiết kế quy trình"
+    ],
+    "aliases": [],
+    "documentKind": "story",
+    "readingMinutes": 4,
+    "editorialEvidence": {
+      "language": "vi",
+      "scope": "chemical-family",
+      "contextLabel": "Một phản ứng khử vòng thơm mượn ý tưởng từ pin lithium-ion",
+      "reviewBasis": "Biên soạn theo các nguồn dẫn cuối bài; phân biệt kết quả đã thực hiện và hướng phát triển.",
+      "story": {
+        "status": "documented",
+        "section": "## Một bài toán tổng hợp được nhìn qua kinh nghiệm của pin",
+        "sources": [
+          "https://pmc.ncbi.nlm.nih.gov/articles/PMC7001862/",
+          "https://pmc.ncbi.nlm.nih.gov/articles/PMC10571048/",
+          "https://openstax.org/books/organic-chemistry/pages/16-9-reduction-of-aromatic-compounds"
+        ]
+      },
+      "application": {
+        "status": "documented",
+        "section": "## Ứng dụng hôm nay: làm cho một phép biến đổi hữu ích dễ tiếp cận hơn",
+        "sources": [
+          "https://pmc.ncbi.nlm.nih.gov/articles/PMC7001862/",
+          "https://pmc.ncbi.nlm.nih.gov/articles/PMC10571048/",
+          "https://openstax.org/books/organic-chemistry/pages/16-9-reduction-of-aromatic-compounds"
+        ]
+      }
+    }
+  },
+  {
+    "id": "cumene-zeolite-chon-mot-nhanh-tren-vong",
+    "slug": "cumene-zeolite-chon-mot-nhanh-tren-vong",
+    "documentPath": "docs/cumene-zeolite-chon-mot-nhanh-tren-vong/index.json",
+    "title": "Gắn một nhánh vào vòng benzene: zeolite thay đổi quy trình cumene",
+    "summary": "Công nghệ Mobil–Badger dùng zeolite MCM-22 đi vào vận hành thương mại năm 1996. Tính chọn lọc và cách xử lý những sản phẩm alkyl hóa nhiều lần quyết định hiệu quả của cả tuyến.",
+    "category": "phanung",
+    "author": "Ban biên tập ChemDex",
+    "image": "/assets/library/industrial-reactor.svg",
+    "tags": [
+      "Cumene",
+      "Alkyl hóa",
+      "Zeolite",
+      "Friedel–Crafts"
+    ],
+    "aliases": [],
+    "documentKind": "story",
+    "readingMinutes": 4,
+    "editorialEvidence": {
+      "language": "vi",
+      "scope": "chemical-family",
+      "contextLabel": "Gắn một nhánh vào vòng benzene: zeolite thay đổi quy trình cumene",
+      "reviewBasis": "Biên soạn theo các nguồn dẫn cuối bài; phân biệt kết quả đã thực hiện và hướng phát triển.",
+      "story": {
+        "status": "documented",
+        "section": "## Một chất xúc tác mới bước vào tuyến sản xuất quen thuộc",
+        "sources": [
+          "https://journal.jza-online.org/10.20731/zeoraito.17.1.2/",
+          "https://www.badgerlicensing.com/sites/badger/files/2023-12/technology-timeline-diagram-large.pdf",
+          "https://openstax.org/books/organic-chemistry/pages/16-3-alkylation-and-acylation-of-aromatic-rings-the-friedel-crafts-reaction"
+        ]
+      },
+      "application": {
+        "status": "documented",
+        "section": "## Ứng dụng hôm nay: một mối nối đứng trước phenol và acetone",
+        "sources": [
+          "https://journal.jza-online.org/10.20731/zeoraito.17.1.2/",
+          "https://www.badgerlicensing.com/sites/badger/files/2023-12/technology-timeline-diagram-large.pdf",
+          "https://openstax.org/books/organic-chemistry/pages/16-3-alkylation-and-acylation-of-aromatic-rings-the-friedel-crafts-reaction"
+        ]
+      }
+    }
+  },
+  {
+    "id": "nitrobenzene-nhiet-phan-ung-thanh-nguon-luc",
+    "slug": "nitrobenzene-nhiet-phan-ung-thanh-nguon-luc",
+    "documentPath": "docs/nitrobenzene-nhiet-phan-ung-thanh-nguon-luc/index.json",
+    "title": "Không chỉ lấy nhiệt ra: thiết kế đoạn nhiệt trong sản xuất nitrobenzene",
+    "summary": "Từ nghiên cứu năm 1974, tuyến mononitrobenzene đoạn nhiệt đã được phát triển thành công nghệ lớn. Nhiệt sinh ra được đưa vào thiết kế thu hồi acid thay vì chỉ xem như phần phải loại bỏ.",
+    "category": "phanung",
+    "author": "Ban biên tập ChemDex",
+    "image": "/assets/library/industrial-reactor.svg",
+    "tags": [
+      "Nitration",
+      "Nitrobenzene",
+      "Tích hợp nhiệt",
+      "Công nghiệp"
+    ],
+    "aliases": [],
+    "documentKind": "story",
+    "readingMinutes": 4,
+    "editorialEvidence": {
+      "language": "vi",
+      "scope": "chemical-family",
+      "contextLabel": "Không chỉ lấy nhiệt ra: thiết kế đoạn nhiệt trong sản xuất nitrobenzene",
+      "reviewBasis": "Biên soạn theo các nguồn dẫn cuối bài; phân biệt kết quả đã thực hiện và hướng phát triển.",
+      "story": {
+        "status": "documented",
+        "section": "## Một phản ứng đã biết, một cách quản lý nhiệt khác",
+        "sources": [
+          "https://doi.org/10.1021/bk-2013-1155.ch001",
+          "https://patents.google.com/patent/JP2013535459A/en",
+          "https://openstax.org/books/organic-chemistry/pages/16-2-other-aromatic-substitutions"
+        ]
+      },
+      "application": {
+        "status": "documented",
+        "section": "## Ứng dụng hôm nay: phản ứng và phân tách phải được thiết kế cùng nhau",
+        "sources": [
+          "https://doi.org/10.1021/bk-2013-1155.ch001",
+          "https://patents.google.com/patent/JP2013535459A/en",
+          "https://openstax.org/books/organic-chemistry/pages/16-2-other-aromatic-substitutions"
+        ]
+      }
+    }
+  },
+  {
+    "id": "chung-cat-phan-ung-methyl-acetate",
+    "slug": "chung-cat-phan-ung-methyl-acetate",
+    "documentPath": "docs/chung-cat-phan-ung-methyl-acetate/index.json",
+    "title": "Một tháp làm nhiều phần việc: methyl acetate và chưng cất phản ứng",
+    "summary": "Eastman kết hợp tạo ester với phân tách ngay trong tháp. Khi sản phẩm được lấy đi trong lúc phản ứng diễn ra, cách tổ chức cả nhà máy có thể thay đổi.",
+    "category": "phanung",
+    "author": "Ban biên tập ChemDex",
+    "image": "/assets/library/apparatus-alembic.svg",
+    "tags": [
+      "Chưng cất phản ứng",
+      "Ester hóa",
+      "Cân bằng",
+      "Methyl acetate"
+    ],
+    "aliases": [],
+    "documentKind": "story",
+    "readingMinutes": 4,
+    "editorialEvidence": {
+      "language": "vi",
+      "scope": "chemical-family",
+      "contextLabel": "Một tháp làm nhiều phần việc: methyl acetate và chưng cất phản ứng",
+      "reviewBasis": "Biên soạn theo các nguồn dẫn cuối bài; phân biệt kết quả đã thực hiện và hướng phát triển.",
+      "story": {
+        "status": "documented",
+        "section": "## Một sơ đồ nhiều thiết bị được vẽ lại",
+        "sources": [
+          "https://patents.google.com/patent/US4435595A/en",
+          "https://www.osti.gov/servlets/purl/6759429",
+          "https://openstax.org/books/chemistry-2e/pages/13-3-shifting-equilibria-le-chateliers-principle"
+        ]
+      },
+      "application": {
+        "status": "documented",
+        "section": "## Ứng dụng hôm nay: ít thiết bị hơn có thể đòi hỏi điều khiển tốt hơn",
+        "sources": [
+          "https://patents.google.com/patent/US4435595A/en",
+          "https://www.osti.gov/servlets/purl/6759429",
+          "https://openstax.org/books/chemistry-2e/pages/13-3-shifting-equilibria-le-chateliers-principle"
+        ]
+      }
+    }
+  },
+  {
+    "id": "biodiesel-doi-ester-truoc-khi-vao-dong-co",
+    "slug": "biodiesel-doi-ester-truoc-khi-vao-dong-co",
+    "documentPath": "docs/biodiesel-doi-ester-truoc-khi-vao-dong-co/index.json",
+    "title": "Chiếc bán tải ở Yellowstone chạy bằng gì: phản ứng đằng sau biodiesel",
+    "summary": "Dự án năm 1995 dùng biodiesel do Đại học Idaho sản xuất cho một xe ở Yellowstone. Nhiên liệu ấy là các ester đã được chuyển hóa, không đơn giản là dầu thực vật đổ thẳng vào bình.",
+    "category": "phanung",
+    "author": "Ban biên tập ChemDex",
+    "image": "/assets/library/organic-ester.svg",
+    "tags": [
+      "Biodiesel",
+      "Transesterification",
+      "Triglyceride",
+      "Glycerol"
+    ],
+    "aliases": [],
+    "documentKind": "story",
+    "readingMinutes": 4,
+    "editorialEvidence": {
+      "language": "vi",
+      "scope": "chemical-family",
+      "contextLabel": "Chiếc bán tải ở Yellowstone chạy bằng gì: phản ứng đằng sau biodiesel",
+      "reviewBasis": "Biên soạn theo các nguồn dẫn cuối bài; phân biệt kết quả đã thực hiện và hướng phát triển.",
+      "story": {
+        "status": "documented",
+        "section": "## Một chiếc xe trở thành nơi kiểm tra nhiên liệu",
+        "sources": [
+          "https://www.biodieseleducation.org/Literature/TechNotes/TN01_Pioneers.pdf",
+          "https://rosap.ntl.bts.gov/view/dot/9546/dot_9546_DS1.pdf",
+          "https://www.waterboards.ca.gov/water_issues/programs/ust/regulatory/biodiesel/nrel2009.pdf"
+        ]
+      },
+      "application": {
+        "status": "documented",
+        "section": "## Ứng dụng hôm nay: thử nghiệm động cơ cần đi cùng tiêu chuẩn chất lượng",
+        "sources": [
+          "https://www.biodieseleducation.org/Literature/TechNotes/TN01_Pioneers.pdf",
+          "https://rosap.ntl.bts.gov/view/dot/9546/dot_9546_DS1.pdf",
+          "https://www.waterboards.ca.gov/water_issues/programs/ust/regulatory/biodiesel/nrel2009.pdf"
+        ]
+      }
+    }
+  },
+  {
+    "id": "polyurethane-tu-phan-ung-den-bot-mem-va-bot-cung",
+    "slug": "polyurethane-tu-phan-ung-den-bot-mem-va-bot-cung",
+    "documentPath": "docs/polyurethane-tu-phan-ung-den-bot-mem-va-bot-cung/index.json",
+    "title": "Cùng một họ liên kết, hai thế giới vật liệu: polyurethane từ đệm ghế tới lớp cách nhiệt",
+    "summary": "Otto Bayer và đồng nghiệp phát triển hóa học polyurethane từ năm 1937. Thay cấu trúc những đối tác phản ứng có thể đưa vật liệu từ mềm đàn hồi sang mạng cứng nhẹ.",
+    "category": "phanung",
+    "author": "Ban biên tập ChemDex",
+    "image": "/assets/library/organic-polymer.svg",
+    "tags": [
+      "Polyurethane",
+      "Polyaddition",
+      "Liên kết ngang",
+      "Vật liệu"
+    ],
+    "aliases": [],
+    "documentKind": "story",
+    "readingMinutes": 4,
+    "editorialEvidence": {
+      "language": "vi",
+      "scope": "chemical-family",
+      "contextLabel": "Cùng một họ liên kết, hai thế giới vật liệu: polyurethane từ đệm ghế tới lớp cách nhiệt",
+      "reviewBasis": "Biên soạn theo các nguồn dẫn cuối bài; phân biệt kết quả đã thực hiện và hướng phát triển.",
+      "story": {
+        "status": "documented",
+        "section": "## Một phát hiện cần nhiều năm mới tìm được chỗ đứng",
+        "sources": [
+          "https://www.covestro.com/en/company/covestro-worldwide/japan/covestro-in-japan/history",
+          "https://doi.org/10.1002/ange.19470590901",
+          "https://openstax.org/books/organic-chemistry/pages/31-4-step-growth-polymers"
+        ]
+      },
+      "application": {
+        "status": "documented",
+        "section": "## Ứng dụng hôm nay: tên họ không thay thế thiết kế vật liệu",
+        "sources": [
+          "https://www.covestro.com/en/company/covestro-worldwide/japan/covestro-in-japan/history",
+          "https://doi.org/10.1002/ange.19470590901",
+          "https://openstax.org/books/organic-chemistry/pages/31-4-step-growth-polymers"
+        ]
+      }
+    }
+  },
+  {
+    "id": "epoxy-dong-ran-va-duong-thao-mang",
+    "slug": "epoxy-dong-ran-va-duong-thao-mang",
+    "documentPath": "docs/epoxy-dong-ran-va-duong-thao-mang/index.json",
+    "title": "Keo đã đóng rắn có đường tháo mạng: câu hỏi từ cánh quạt ngoài khơi",
+    "summary": "Kaskasi đưa cánh quạt có hệ nhựa thiết kế cho tái chế vào vận hành năm 2022. Câu chuyện bắt đầu từ phản ứng đóng rắn: tạo một mạng bền, rồi nghĩ trước cách xử lý nó cuối vòng đời.",
+    "category": "phanung",
+    "author": "Ban biên tập ChemDex",
+    "image": "/assets/library/organic-polymer.svg",
+    "tags": [
+      "Epoxy",
+      "Đóng rắn",
+      "Composite",
+      "Tái chế"
+    ],
+    "aliases": [],
+    "documentKind": "story",
+    "readingMinutes": 4,
+    "editorialEvidence": {
+      "language": "vi",
+      "scope": "chemical-family",
+      "contextLabel": "Keo đã đóng rắn có đường tháo mạng: câu hỏi từ cánh quạt ngoài khơi",
+      "reviewBasis": "Biên soạn theo các nguồn dẫn cuối bài; phân biệt kết quả đã thực hiện và hướng phát triển.",
+      "story": {
+        "status": "documented",
+        "section": "## Một cánh quạt đặt câu hỏi cho chất kết dính bên trong",
+        "sources": [
+          "https://www.rwe.com/en/press/rwe-renewables/2022-08-01-first-turbine-commissioned-at-rwes-kaskasi-wind-farm/",
+          "https://www.siemensgamesa.com/global/en/home/press-releases/080122-siemens-gamesa-press-release-recycle-wind-blade-offshore-kaskasi-germany.html",
+          "https://www.adityabirlachemicals.com/recyclamine.php",
+          "https://patents.google.com/patent/US2324483A/en"
+        ]
+      },
+      "application": {
+        "status": "documented",
+        "section": "## Ứng dụng hôm nay: thiết kế tái chế trước khi vật liệu thành hình",
+        "sources": [
+          "https://www.rwe.com/en/press/rwe-renewables/2022-08-01-first-turbine-commissioned-at-rwes-kaskasi-wind-farm/",
+          "https://www.siemensgamesa.com/global/en/home/press-releases/080122-siemens-gamesa-press-release-recycle-wind-blade-offshore-kaskasi-germany.html",
+          "https://www.adityabirlachemicals.com/recyclamine.php",
+          "https://patents.google.com/patent/US2324483A/en"
+        ]
+      }
+    }
+  },
+  {
+    "id": "hydrosilylation-silicone-dong-ran-khong-thoat-khi",
+    "slug": "hydrosilylation-silicone-dong-ran-khong-thoat-khi",
+    "documentPath": "docs/hydrosilylation-silicone-dong-ran-khong-thoat-khi/index.json",
+    "title": "Silicone thành mạng nhờ một mối nối mới: vai trò xúc tác Karstedt",
+    "summary": "Bằng sáng chế năm 1973 về phức platinum–siloxane giúp định hình hệ silicone đóng rắn bằng phản ứng cộng. Vật liệu có thể đông lại mà không cần tạo sản phẩm phụ nhỏ ở mỗi mối nối.",
+    "category": "phanung",
+    "author": "Ban biên tập ChemDex",
+    "image": "/assets/library/organic-polymer.svg",
+    "tags": [
+      "Hydrosilylation",
+      "Silicone",
+      "Platinum",
+      "Đóng rắn"
+    ],
+    "aliases": [],
+    "documentKind": "story",
+    "readingMinutes": 4,
+    "editorialEvidence": {
+      "language": "vi",
+      "scope": "chemical-family",
+      "contextLabel": "Silicone thành mạng nhờ một mối nối mới: vai trò xúc tác Karstedt",
+      "reviewBasis": "Biên soạn theo các nguồn dẫn cuối bài; phân biệt kết quả đã thực hiện và hướng phát triển.",
+      "story": {
+        "status": "documented",
+        "section": "## Một phức platinum được thiết kế cho vật liệu silicone",
+        "sources": [
+          "https://patents.google.com/patent/US3775452A/en",
+          "https://patents.google.com/patent/CA2259255A1/en",
+          "https://www.dow.com/en-us/faq/platinum-catalyzed-silicone-inhibitors.html"
+        ]
+      },
+      "application": {
+        "status": "documented",
+        "section": "## Ứng dụng hôm nay: bề mặt bên cạnh cũng có thể làm phản ứng dừng",
+        "sources": [
+          "https://patents.google.com/patent/US3775452A/en",
+          "https://patents.google.com/patent/CA2259255A1/en",
+          "https://www.dow.com/en-us/faq/platinum-catalyzed-silicone-inhibitors.html"
+        ]
+      }
+    }
+  },
+  {
+    "id": "luu-hoa-cao-su-giu-tri-nho-hinh-dang",
+    "slug": "luu-hoa-cao-su-giu-tri-nho-hinh-dang",
+    "documentPath": "docs/luu-hoa-cao-su-giu-tri-nho-hinh-dang/index.json",
+    "title": "Giữ lại hình dạng cho cao su: điều những cầu sulfur làm được",
+    "summary": "Bằng sáng chế năm 1844 của Charles Goodyear ghi một bước ngoặt trong xử lý cao su. Các mối nối giữa chuỗi giúp vật liệu đàn hồi làm việc ổn định hơn, đồng thời tạo bài toán tái chế khó hơn.",
+    "category": "phanung",
+    "author": "Ban biên tập ChemDex",
+    "image": "/assets/library/organic-polymer.svg",
+    "tags": [
+      "Lưu hóa",
+      "Cao su",
+      "Sulfur",
+      "Liên kết ngang"
+    ],
+    "aliases": [],
+    "documentKind": "story",
+    "readingMinutes": 5,
+    "editorialEvidence": {
+      "language": "vi",
+      "scope": "chemical-family",
+      "contextLabel": "Giữ lại hình dạng cho cao su: điều những cầu sulfur làm được",
+      "reviewBasis": "Biên soạn theo các nguồn dẫn cuối bài; phân biệt kết quả đã thực hiện và hướng phát triển.",
+      "story": {
+        "status": "documented",
+        "section": "## Bằng sáng chế nói về một vấn đề rất đời thường",
+        "sources": [
+          "https://patents.google.com/patent/US3633A/en",
+          "https://www.michelinman.com/auto/assistance/glossary",
+          "https://pmc.ncbi.nlm.nih.gov/articles/PMC9003078/"
+        ]
+      },
+      "application": {
+        "status": "documented",
+        "section": "## Ứng dụng hôm nay: độ bền sử dụng đi cùng khó khăn tháo mạng",
+        "sources": [
+          "https://patents.google.com/patent/US3633A/en",
+          "https://www.michelinman.com/auto/assistance/glossary",
+          "https://pmc.ncbi.nlm.nih.gov/articles/PMC9003078/"
+        ]
+      }
+    }
+  },
+  {
+    "id": "pet-tu-con-soi-den-chai-trong",
+    "slug": "pet-tu-con-soi-den-chai-trong",
+    "documentPath": "docs/pet-tu-con-soi-den-chai-trong/index.json",
+    "title": "Trước chiếc chai trong là một cuộn sợi: phản ứng tạo PET",
+    "summary": "Bảo tàng còn giữ mẫu sợi Terylene từ khoảng năm 1949. Hành trình từ polyester làm sợi tới chai nhựa bắt đầu bằng việc nối các monomer và quản lý những phân tử nhỏ được tách ra.",
+    "category": "phanung",
+    "author": "Ban biên tập ChemDex",
+    "image": "/assets/library/organic-polymer.svg",
+    "tags": [
+      "PET",
+      "Trùng ngưng",
+      "Polyester",
+      "Terylene"
+    ],
+    "aliases": [],
+    "documentKind": "story",
+    "readingMinutes": 4,
+    "editorialEvidence": {
+      "language": "vi",
+      "scope": "chemical-family",
+      "contextLabel": "Trước chiếc chai trong là một cuộn sợi: phản ứng tạo PET",
+      "reviewBasis": "Biên soạn theo các nguồn dẫn cuối bài; phân biệt kết quả đã thực hiện và hướng phát triển.",
+      "story": {
+        "status": "documented",
+        "section": "## Cuộn sợi kể một lịch sử khác chiếc chai",
+        "sources": [
+          "https://collection.sciencemuseumgroup.org.uk/objects/co12871/first-sample-of-100-spun-terylene-yarn",
+          "https://www.nature.com/articles/158930a0",
+          "https://openstax.org/books/organic-chemistry/pages/31-4-step-growth-polymers"
+        ]
+      },
+      "application": {
+        "status": "documented",
+        "section": "## Ứng dụng hôm nay: cấu trúc phân tử và lịch sử gia công cùng quyết định tính năng",
+        "sources": [
+          "https://collection.sciencemuseumgroup.org.uk/objects/co12871/first-sample-of-100-spun-terylene-yarn",
+          "https://www.nature.com/articles/158930a0",
+          "https://openstax.org/books/organic-chemistry/pages/31-4-step-growth-polymers"
+        ]
+      }
+    }
   }
 ]

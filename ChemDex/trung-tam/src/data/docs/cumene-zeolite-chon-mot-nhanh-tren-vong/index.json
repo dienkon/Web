@@ -1,0 +1,44 @@
+{
+  "id": "cumene-zeolite-chon-mot-nhanh-tren-vong",
+  "slug": "cumene-zeolite-chon-mot-nhanh-tren-vong",
+  "documentPath": "docs/cumene-zeolite-chon-mot-nhanh-tren-vong/index.json",
+  "title": "Gắn một nhánh vào vòng benzene: zeolite thay đổi quy trình cumene",
+  "summary": "Công nghệ Mobil–Badger dùng zeolite MCM-22 đi vào vận hành thương mại năm 1996. Tính chọn lọc và cách xử lý những sản phẩm alkyl hóa nhiều lần quyết định hiệu quả của cả tuyến.",
+  "category": "phanung",
+  "author": "Ban biên tập ChemDex",
+  "image": "/assets/library/industrial-reactor.svg",
+  "tags": [
+    "Cumene",
+    "Alkyl hóa",
+    "Zeolite",
+    "Friedel–Crafts"
+  ],
+  "aliases": [],
+  "documentKind": "story",
+  "readingMinutes": 4,
+  "editorialEvidence": {
+    "language": "vi",
+    "scope": "chemical-family",
+    "contextLabel": "Gắn một nhánh vào vòng benzene: zeolite thay đổi quy trình cumene",
+    "reviewBasis": "Biên soạn theo các nguồn dẫn cuối bài; phân biệt kết quả đã thực hiện và hướng phát triển.",
+    "story": {
+      "status": "documented",
+      "section": "## Một chất xúc tác mới bước vào tuyến sản xuất quen thuộc",
+      "sources": [
+        "https://journal.jza-online.org/10.20731/zeoraito.17.1.2/",
+        "https://www.badgerlicensing.com/sites/badger/files/2023-12/technology-timeline-diagram-large.pdf",
+        "https://openstax.org/books/organic-chemistry/pages/16-3-alkylation-and-acylation-of-aromatic-rings-the-friedel-crafts-reaction"
+      ]
+    },
+    "application": {
+      "status": "documented",
+      "section": "## Ứng dụng hôm nay: một mối nối đứng trước phenol và acetone",
+      "sources": [
+        "https://journal.jza-online.org/10.20731/zeoraito.17.1.2/",
+        "https://www.badgerlicensing.com/sites/badger/files/2023-12/technology-timeline-diagram-large.pdf",
+        "https://openstax.org/books/organic-chemistry/pages/16-3-alkylation-and-acylation-of-aromatic-rings-the-friedel-crafts-reaction"
+      ]
+    }
+  },
+  "content": "## Một chất xúc tác mới bước vào tuyến sản xuất quen thuộc\n\nBài giới thiệu kỹ thuật của người phát triển công nghệ Mobil–Badger ghi hệ cumene dùng zeolite MCM-22 bắt đầu vận hành thương mại tháng 5 năm 1996. Dòng thời gian của Badger ghi nhận việc giới thiệu công nghệ từ năm 1993 và ký giấy phép đầu tiên năm 1994.\n\nCumene đã được sản xuất trước đó bằng những hệ xúc tác acid khác. Thay vật liệu xúc tác mở cơ hội cải thiện tính chọn lọc, độ ổn định và cách bố trí công đoạn. Đây là một thay đổi trong đường sản xuất chất trung gian, không phải việc tìm ra một phân tử hoàn toàn mới.\n\nCumene còn gọi là isopropylbenzene: một vòng benzene mang nhánh ba carbon. Tên gọi ngắn gọn ấy che phía sau bài toán phải ưu tiên gắn đúng một nhánh trong môi trường nơi các phản ứng tiếp theo vẫn có thể xảy ra.\n\n![Minh họa thiết bị công nghiệp, không phải cấu trúc lỗ MCM-22 hay sơ đồ vận hành](/assets/library/industrial-reactor.svg)\n\n## Phản ứng thế giữ vòng thơm và thay một hydrogen\n\nTrong alkyl hóa benzene với propylene, môi trường acid tạo điều kiện để nhóm carbon mới được gắn vào vòng. Phản ứng thuộc họ thế ái điện tử thơm: một hydrogen trên vòng được thay bằng nhóm hữu cơ, trong khi tính thơm được khôi phục ở sản phẩm.\n\nNhóm alkyl mới có thể làm vòng dễ tham gia alkyl hóa tiếp. Vì vậy, chỉ muốn tạo một nhánh không có nghĩa hệ sẽ tự dừng đúng ở đó. Những sản phẩm mang nhiều nhánh cần được hạn chế hoặc đưa sang công đoạn chuyển alkyl phù hợp để thu lại giá trị.\n\nZeolite cung cấp các tâm acid trong một cấu trúc lỗ xác định. Khả năng tiếp cận và môi trường quanh tâm phản ứng ảnh hưởng mức ưu tiên giữa những đường có thể xảy ra. Không nên hình dung lỗ vật liệu như một chiếc rây cơ học chỉ lọc sản phẩm sau khi phản ứng đã xong; nó tham gia điều kiện hình thành sản phẩm.\n\nTrong một hệ thực, chất xúc tác còn cần giữ hoạt tính qua thời gian và chịu được tạp chất ở mức được thiết kế. Một tính chọn lọc tốt trong lần thử ngắn chưa kể hết tuổi thọ vận hành.\n\n## Ứng dụng hôm nay: một mối nối đứng trước phenol và acetone\n\nCumene là nguyên liệu quan trọng của tuyến sản xuất phenol và acetone. Điều này nối alkyl hóa với những sản phẩm cuối như nhựa, sợi và hóa chất khác. Tuy nhiên, bước biến cumene thành các sản phẩm ấy là một chuỗi phản ứng riêng, không nên gộp vào phương trình alkyl hóa ban đầu.\n\nCác số liệu năng lực hoặc số nhà máy trong tài liệu Badger phản ánh thời điểm của tài liệu. Bài này dùng chúng để hiểu quá trình thương mại hóa một xúc tác, không coi là thống kê thị trường hiện tại. Giá trị kỹ thuật có thể đọc rõ hơn qua nguyên liệu được dùng, những dòng được tuần hoàn và hiệu suất duy trì theo thời gian.\n\nCâu chuyện MCM-22 cho thấy một vật liệu có lỗ ở cấp phân tử có thể ảnh hưởng quyết định ở quy mô nhà máy. Nó giúp điều chỉnh nơi phản ứng xảy ra và những cấu trúc có cơ hội hình thành.\n\nTừ góc nhìn người học, cumene là ví dụ để đi xa hơn quy tắc “vòng thơm cộng thêm nhánh”. Nhà máy cần một nhánh cụ thể, tỷ lệ sản phẩm thích hợp và đường xử lý phần đã phản ứng quá mức. Chọn lọc hóa học trở thành giá trị khi toàn bộ những phần ấy được nối thành một quy trình.\n\n## Nguồn và đọc thêm\n\n- [Các nhà phát triển Mobil–Badger · Công nghệ cumene và mốc 1996](https://journal.jza-online.org/10.20731/zeoraito.17.1.2/)\n- [Badger · Dòng thời gian công nghệ cumene](https://www.badgerlicensing.com/sites/badger/files/2023-12/technology-timeline-diagram-large.pdf)\n- [OpenStax · Alkyl hóa và acyl hóa vòng thơm](https://openstax.org/books/organic-chemistry/pages/16-3-alkylation-and-acylation-of-aromatic-rings-the-friedel-crafts-reaction)"
+}

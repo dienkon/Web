@@ -1,0 +1,44 @@
+{
+  "id": "sonogashira-lien-ket-ba-trong-trung-gian",
+  "slug": "sonogashira-lien-ket-ba-trong-trung-gian",
+  "documentPath": "docs/sonogashira-lien-ket-ba-trong-trung-gian/index.json",
+  "title": "Giữ một liên kết ba trong bộ khung: Sonogashira qua câu chuyện trung gian erlotinib",
+  "summary": "Phản ứng Sonogashira nối alkyne với đối tác thơm mà giữ lại liên kết ba. Các nghiên cứu phát triển quy trình cho trung gian erlotinib cho thấy dung môi và môi trường xúc tác quan trọng tới đâu.",
+  "category": "phanung",
+  "author": "Ban biên tập ChemDex",
+  "image": "/assets/library/organic-alkyne.svg",
+  "tags": [
+    "Sonogashira",
+    "Alkyne",
+    "Ghép cặp",
+    "Phát triển quy trình"
+  ],
+  "aliases": [],
+  "documentKind": "story",
+  "readingMinutes": 4,
+  "editorialEvidence": {
+    "language": "vi",
+    "scope": "chemical-family",
+    "contextLabel": "Giữ một liên kết ba trong bộ khung: Sonogashira qua câu chuyện trung gian erlotinib",
+    "reviewBasis": "Biên soạn theo các nguồn dẫn cuối bài; phân biệt kết quả đã thực hiện và hướng phát triển.",
+    "story": {
+      "status": "documented",
+      "section": "## Một mảnh nhỏ cần có mặt trong một phân tử lớn",
+      "sources": [
+        "https://doi.org/10.1016/S0040-4039(00)91094-3",
+        "https://pmc.ncbi.nlm.nih.gov/articles/PMC8007125/",
+        "https://pmc.ncbi.nlm.nih.gov/articles/PMC10698743/"
+      ]
+    },
+    "application": {
+      "status": "documented",
+      "section": "## Ứng dụng hôm nay: phát triển phản ứng cùng phần việc phân tách",
+      "sources": [
+        "https://doi.org/10.1016/S0040-4039(00)91094-3",
+        "https://pmc.ncbi.nlm.nih.gov/articles/PMC8007125/",
+        "https://pmc.ncbi.nlm.nih.gov/articles/PMC10698743/"
+      ]
+    }
+  },
+  "content": "## Một mảnh nhỏ cần có mặt trong một phân tử lớn\n\nTrong nghiên cứu năm 2023 về môi trường phản ứng, nhóm tác giả dùng một trung gian của erlotinib làm trường hợp kiểm tra phản ứng Sonogashira trên xúc tác palladium đơn nguyên tử. Mục tiêu là đi xa hơn phản ứng mẫu để đánh giá một tình huống tổng hợp có ý nghĩa thực tế.\n\nMột nghiên cứu khác năm 2021 khảo sát dung môi thay thế cho ghép Heck–Cassar–Sonogashira và cũng dùng trung gian liên quan đến erlotinib. Hai công trình không chứng minh toàn bộ ngành sản xuất đã chuyển sang các điều kiện mới; chúng cho thấy một phản ứng quen thuộc vẫn cần phát triển khi đổi chất xúc tác hoặc yêu cầu quy trình.\n\nCâu chuyện nền bắt đầu từ công bố năm 1975 của Kenkichi Sonogashira, Yasuo Tohda và Nobue Hagihara về cách tạo các acetylene thế bằng phản ứng ghép có xúc tác.\n\n![Minh họa liên kết ba carbon–carbon, không phải cấu trúc thuốc erlotinib](/assets/library/organic-alkyne.svg)\n\n## Nối ở đầu alkyne, không xóa liên kết ba\n\nTrong dạng phản ứng quen thuộc, hydrogen ở đầu một alkyne được thay bằng một nhóm hữu cơ từ đối tác aryl hoặc vinyl phù hợp. Liên kết carbon–carbon mới hình thành, trong khi phần liên kết ba được giữ lại như một thành phần cấu trúc.\n\nPalladium tham gia chu trình ghép; trong nhiều hệ kinh điển, copper hỗ trợ hoạt hóa đối tác alkyne. Các biến thể không dùng copper hoặc dùng xúc tác cố định đã được nghiên cứu để đáp ứng những mục tiêu khác. Vì vậy, tên Sonogashira chỉ một họ chiến lược, không phải một danh sách thành phần bất biến.\n\nMột phản ứng cạnh tranh đáng chú ý là các alkyne tự ghép với nhau. Tình trạng bề mặt xúc tác, oxygen trong hệ và những thành phần môi trường có thể ảnh hưởng việc nguyên liệu đi vào đường mong muốn hay đường phụ.\n\nDung môi còn tham gia vận chuyển chất, hòa tan cơ chất và ổn định những loài hóa học trong chu trình. Đổi dung môi theo tiêu chí môi trường không đơn giản là thay một chất lỏng bằng chất lỏng khác cùng thể tích; cần đo lại tốc độ, chọn lọc và cách tách sản phẩm.\n\n## Ứng dụng hôm nay: phát triển phản ứng cùng phần việc phân tách\n\nCác alkyne thơm là thành phần cấu trúc hữu ích trong nghiên cứu dược chất, vật liệu liên hợp và các đầu dò phân tử. Sonogashira cung cấp một cách chuẩn bị những mối nối ấy từ các mảnh tương đối thuận tiện.\n\nNghiên cứu trung gian erlotinib năm 2023 xem xét thiết kế môi trường cùng khả năng sử dụng xúc tác rắn. Đối với một công nghệ như vậy, thu hồi vật liệu xúc tác chưa đủ; còn phải kiểm tra hoạt tính sau sử dụng, kim loại đi vào sản phẩm và hiệu quả ở quy mô được báo cáo.\n\nNhững câu hỏi này giải thích vì sao một phương pháp gần nửa thế kỷ tuổi vẫn có thể tạo ra nghiên cứu mới. Mối nối phân tử đã quen thuộc, nhưng cách tạo nó có thể thay đổi khi yêu cầu nguyên liệu, dung môi và tinh chế thay đổi.\n\nTrong một bộ khung lớn, liên kết ba là chi tiết nhỏ nhưng có thể ảnh hưởng hình học và tương tác của toàn phân tử. Giá trị của Sonogashira nằm ở việc đặt chi tiết ấy vào đúng vị trí, rồi làm cho quá trình tạo và làm sạch sản phẩm đủ đáng tin để những nhóm nghiên cứu khác có thể tiếp tục sử dụng.\n\n## Nguồn và đọc thêm\n\n- [Sonogashira, Tohda và Hagihara · Công bố năm 1975](https://doi.org/10.1016/S0040-4039(00)91094-3)\n- [Nghiên cứu Sonogashira trong dung môi thay thế, 2021](https://pmc.ncbi.nlm.nih.gov/articles/PMC8007125/)\n- [Thiết kế môi trường cho tổng hợp nhiều gram với xúc tác đơn nguyên tử, 2023](https://pmc.ncbi.nlm.nih.gov/articles/PMC10698743/)"
+}

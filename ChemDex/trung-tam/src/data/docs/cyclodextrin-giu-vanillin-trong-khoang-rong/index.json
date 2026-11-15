@@ -1,0 +1,44 @@
+{
+  "id": "cyclodextrin-giu-vanillin-trong-khoang-rong",
+  "slug": "cyclodextrin-giu-vanillin-trong-khoang-rong",
+  "documentPath": "docs/cyclodextrin-giu-vanillin-trong-khoang-rong/index.json",
+  "title": "Một chiếc vòng đường giữ hương vanillin bằng khoảng rỗng bên trong",
+  "summary": "Cyclodextrin có thể tạo phức bao với phân tử hương, thay đổi độ tan và cách giải phóng. Kích thước khoang và trạng thái vật liệu quyết định mức giữ thực tế.",
+  "category": "khainiem",
+  "author": "Ban biên tập ChemDex",
+  "image": "/assets/library/organic-carbohydrate.svg",
+  "tags": [
+    "Cyclodextrin",
+    "Chủ–khách",
+    "Vanillin",
+    "Bao hương"
+  ],
+  "aliases": [],
+  "documentKind": "story",
+  "readingMinutes": 4,
+  "editorialEvidence": {
+    "language": "vi",
+    "scope": "chemical-family",
+    "contextLabel": "Một chiếc vòng đường giữ hương vanillin bằng khoảng rỗng bên trong",
+    "reviewBasis": "Biên soạn theo các nguồn dẫn cuối bài; phân biệt kết quả đã thực hiện và hướng phát triển.",
+    "story": {
+      "status": "documented",
+      "section": "## Hương có thể rời sản phẩm trước khi người dùng thưởng thức",
+      "sources": [
+        "https://pubmed.ncbi.nlm.nih.gov/21928857/",
+        "https://doi.org/10.1002/ffj.3115",
+        "https://www.sciencedirect.com/science/article/abs/pii/S030881460600135X"
+      ]
+    },
+    "application": {
+      "status": "documented",
+      "section": "## Ứng dụng hôm nay: giữ và thả là hai nửa của thiết kế",
+      "sources": [
+        "https://pubmed.ncbi.nlm.nih.gov/21928857/",
+        "https://doi.org/10.1002/ffj.3115",
+        "https://www.sciencedirect.com/science/article/abs/pii/S030881460600135X"
+      ]
+    }
+  },
+  "content": "## Hương có thể rời sản phẩm trước khi người dùng thưởng thức\n\nMột nghiên cứu năm 2011 tạo các phức bao rắn của vanillin với alpha-, beta- và gamma-cyclodextrin để khảo sát độ bền nhiệt và sự giải phóng. Các cấu hình không giữ vanillin như nhau. Kích thước và tương tác của khoang chủ ảnh hưởng đến lượng phân tử khách thoát ra khi điều kiện thay đổi.\n\nBài toán rất gần công nghệ hương: một chất có mùi hấp dẫn vẫn cần được giữ trong quá trình chế tạo, vận chuyển và bảo quản, rồi được giải phóng theo cách phù hợp khi sử dụng. Bao hương không nhất thiết là dựng một vỏ kín lớn quanh giọt; nó cũng có thể diễn ra ở quy mô một phức phân tử.\n\n![Minh họa carbohydrate; không phải cấu trúc đã xác định của phức vanillin–cyclodextrin](/assets/library/organic-carbohydrate.svg)\n\n## Khoang trong và bề mặt ngoài có môi trường khác nhau\n\nCyclodextrin là các vòng oligosaccharide có hình học tạo một khoang. Môi trường bên trong tương đối khác với bề mặt giàu nhóm hydroxyl tiếp xúc nước. Một phân tử khách có phần hình học và tương tác phù hợp có thể đi vào khoang, tạo cân bằng chủ–khách.\n\nĐây không phải liên kết cộng hóa trị biến vanillin thành một phân tử hoàn toàn mới. Khách có thể vào và ra, còn phân bố phụ thuộc môi trường và nồng độ. Cũng không phải bất kỳ phân tử nào cũng được giữ tốt hơn trong vòng lớn nhất; sự phù hợp về kích thước, định hướng và những tương tác ở miệng khoang cùng quyết định.\n\n## Đổi một nhóm bên hông cũng đổi khả năng bao\n\nNghiên cứu năm 2012 so sánh vanillin với p-hydroxybenzaldehyde để tìm hiểu ảnh hưởng của nhóm thế bên hông tới tương tác với beta-cyclodextrin. Nhóm kết hợp NMR và tính toán để đề xuất định hướng thuận lợi của phân tử trong khoang. Một thay đổi nhỏ trên khách có thể làm hiệu suất bao khác đi.\n\nMột công trình khác khảo sát phức vanillin–beta-cyclodextrin bằng các phép đo độ tan, cấu trúc và hoạt tính trong hệ thử. Những kết quả cho thấy việc tạo phức ảnh hưởng nhiều tính chất cùng lúc. Không thể chỉ đo lượng hương giữ ban đầu rồi kết luận toàn bộ hiệu năng của một công thức thực phẩm đã được xác định.\n\n## Ứng dụng hôm nay: giữ và thả là hai nửa của thiết kế\n\nCyclodextrin được nghiên cứu làm chất mang cho các hợp chất hương và nhiều phân tử khác. Với sản phẩm cụ thể, cần kiểm tra cả khả năng giữ trong chế biến lẫn giải phóng khi người dùng tiếp xúc. Độ ẩm, nhiệt độ và các thành phần cạnh tranh có thể làm cân bằng chủ–khách thay đổi.\n\nMột phức giữ quá mạnh có thể làm tín hiệu hương xuất hiện kém, còn giữ quá yếu có thể không bảo vệ được trong lưu trữ. Câu chuyện vanillin vì thế là bài toán điều chỉnh cân bằng, không đơn giản là nhốt càng nhiều càng tốt. Chiếc vòng đường tạo một môi trường nhỏ cho phân tử hương, nhưng thành công cuối cùng nằm ở cách môi trường ấy phối hợp với cả sản phẩm. Khoảng rỗng trở thành công cụ hóa học khi ta biết ai có thể đi vào, ở lại bao lâu và rời đi trong điều kiện nào.\n\n## Nguồn và đọc thêm\n\n- [Nghiên cứu gốc · Phức bao rắn vanillin–cyclodextrin, 2011](https://pubmed.ncbi.nlm.nih.gov/21928857/)\n- [Nghiên cứu gốc · Nhóm thế ảnh hưởng bao vanillin, 2012](https://doi.org/10.1002/ffj.3115)\n- [Nghiên cứu gốc · Độ tan và cấu trúc phức vanillin–beta-cyclodextrin](https://www.sciencedirect.com/science/article/abs/pii/S030881460600135X)"
+}

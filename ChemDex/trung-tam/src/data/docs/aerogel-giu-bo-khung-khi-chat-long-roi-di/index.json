@@ -1,0 +1,44 @@
+{
+  "id": "aerogel-giu-bo-khung-khi-chat-long-roi-di",
+  "slug": "aerogel-giu-bo-khung-khi-chat-long-roi-di",
+  "documentPath": "docs/aerogel-giu-bo-khung-khi-chat-long-roi-di/index.json",
+  "title": "Giữ lại bộ khung khi chất lỏng rời đi: từ Kistler tới bụi sao chổi",
+  "summary": "Aerogel xuất hiện từ câu hỏi làm khô gel mà không phá sập cấu trúc. Nhiều thập niên sau, mạng silica nhẹ trở thành nơi hạt bụi vũ trụ có thể để lại dấu vết.",
+  "category": "khainiem",
+  "author": "Ban biên tập ChemDex",
+  "image": "/assets/library/photos/stories/aerogel-hand.jpg",
+  "tags": [
+    "Aerogel",
+    "Gel",
+    "Siêu tới hạn",
+    "Stardust"
+  ],
+  "aliases": [],
+  "documentKind": "story",
+  "readingMinutes": 4,
+  "editorialEvidence": {
+    "language": "vi",
+    "scope": "chemical-family",
+    "contextLabel": "Giữ lại bộ khung khi chất lỏng rời đi: từ Kistler tới bụi sao chổi",
+    "reviewBasis": "Biên soạn theo các nguồn dẫn cuối bài; phân biệt kết quả đã thực hiện và hướng phát triển.",
+    "story": {
+      "status": "documented",
+      "section": "## Một khối gel thay hình khi mất nước",
+      "sources": [
+        "https://www.nature.com/articles/127741a0",
+        "https://www.jpl.nasa.gov/missions/stardust/",
+        "https://www.nasa.gov/technology/tech-transfer-spinoffs/comet-catching-nasa-technology-enables-exotic-works-of-art/"
+      ]
+    },
+    "application": {
+      "status": "documented",
+      "section": "## Ứng dụng hôm nay: mỗi lỗ rỗng có một công việc",
+      "sources": [
+        "https://www.nature.com/articles/127741a0",
+        "https://www.jpl.nasa.gov/missions/stardust/",
+        "https://www.nasa.gov/technology/tech-transfer-spinoffs/comet-catching-nasa-technology-enables-exotic-works-of-art/"
+      ]
+    }
+  },
+  "content": "## Một khối gel thay hình khi mất nước\n\nNăm 1931, Samuel Kistler công bố bài Coherent Expanded Aerogels and Jellies. Ông quan tâm đến bộ khung của gel và vấn đề thường gặp khi lấy chất lỏng ra bằng bay hơi: mẫu co lại, cấu trúc có thể thay đổi sâu sắc. Nếu phần rắn đã tạo thành một mạng liên tục, có cách nào giữ mạng ấy khi chất lỏng rời đi?\n\nCâu hỏi chuyển trọng tâm từ thành phần sang con đường xử lý. Một gel ướt và một chất rắn khô có thể xuất phát từ cùng nguyên liệu nhưng kết thúc với độ rỗng rất khác. Để tạo vật liệu nhẹ, cần bảo vệ khoảng không bên trong, chứ không chỉ làm giảm lượng chất rắn ban đầu.\n\n![Mẫu aerogel nhẹ trên bàn tay](/assets/library/photos/stories/aerogel-hand.jpg)\n\n*Mẫu aerogel trong tư liệu NASA/JPL-Caltech, minh họa vật liệu xốp; không phải mẫu MgSO₄ trong aerogel SiOC của nghiên cứu lưu nhiệt. — Courtesy NASA/JPL-Caltech; NASA Stardust Website; [Public domain](https://commons.wikimedia.org/wiki/Template:PD-USGov-NASA). [Nguồn ảnh](https://commons.wikimedia.org/wiki/File:Aerogel_hand.jpg).*\n\n## Bề mặt phân cách có thể kéo sập lỗ rỗng\n\nKhi chất lỏng bay hơi khỏi các lỗ nhỏ, bề mặt phân cách lỏng–khí tạo lực mao dẫn lên mạng. Với một khung yếu, các lực ấy có thể làm nó co hoặc biến dạng. Kích thước lỗ và tính chất bề mặt vì thế ảnh hưởng mạnh đến kết quả làm khô.\n\nSấy siêu tới hạn là một cách tránh đi qua bề mặt phân cách lỏng–khí theo đường thông thường. Khi chọn được chất lỏng và đường thay đổi nhiệt độ–áp suất phù hợp, mạng có thể được giữ tốt hơn. Tuy nhiên, aerogel có nhiều phương pháp chế tạo; không nên coi mọi sản phẩm mang tên đó đều dùng chính xác quy trình lịch sử của Kistler hoặc có cùng thành phần.\n\n## Một nơi hạ tốc cho hạt bụi rất nhanh\n\nTrong nhiệm vụ Stardust, NASA dùng aerogel silica nhẹ làm bộ thu mẫu. Tàu bay qua vùng quanh sao chổi Wild 2 năm 2004, rồi đưa các mẫu trở về Trái Đất năm 2006. Vật liệu rỗng giúp hạt xuyên vào và giảm tốc qua một quãng đường, để lại vết có thể khảo sát thay vì chỉ va vào một bề mặt cứng.\n\nĐây là ứng dụng rất khác với cách nhiệt. Giá trị nằm ở mật độ, cấu trúc và khả năng giữ lại dấu vết hạt. Đưa aerogel lên tàu còn đòi hỏi chế tạo đồng đều và kiểm tra vật liệu cho chuyến bay. Tên gọi nhẹ như không khí không mô tả hết công sức tạo ra một bộ thu mẫu có thể dùng cho nghiên cứu nguồn gốc Hệ Mặt Trời.\n\n## Ứng dụng hôm nay: mỗi lỗ rỗng có một công việc\n\nAerogel được phát triển cho cách nhiệt, thu mẫu và nhiều vật liệu chức năng khác. NASA còn ghi nhận những ứng dụng chuyển giao và nghệ thuật từ kinh nghiệm chế tạo cho Stardust. Không có một chỉ tiêu duy nhất làm mọi aerogel tốt: cần cân bằng độ bền, độ rỗng, tương tác với môi trường và nhiệm vụ của sản phẩm.\n\nTừ khối gel trong bài báo năm 1931 tới bộ thu bụi sao chổi, mạch câu chuyện là giữ cấu trúc khi thay môi trường. Một khoảng trống chỉ có ích nếu bộ khung xung quanh đủ bền để duy trì nó. Hóa học của aerogel vì vậy không chỉ nằm trong các liên kết tạo silica hay polymer; nó còn nằm trong cách đưa chất lỏng ra khỏi những khoảng nhỏ nhất mà không làm mất kiến trúc đã xây dựng.\n\n## Nguồn và đọc thêm\n\n- [Kistler · Coherent Expanded Aerogels and Jellies, 1931](https://www.nature.com/articles/127741a0)\n- [NASA JPL · Nhiệm vụ Stardust và thu mẫu aerogel](https://www.jpl.nasa.gov/missions/stardust/)\n- [NASA · Chế tạo aerogel và các ứng dụng chuyển giao, 2025](https://www.nasa.gov/technology/tech-transfer-spinoffs/comet-catching-nasa-technology-enables-exotic-works-of-art/)"
+}

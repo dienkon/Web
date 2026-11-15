@@ -1,0 +1,44 @@
+{
+  "id": "dosy-tach-tin-hieu-bang-toc-do-khuech-tan",
+  "slug": "dosy-tach-tin-hieu-bang-toc-do-khuech-tan",
+  "documentPath": "docs/dosy-tach-tin-hieu-bang-toc-do-khuech-tan/index.json",
+  "title": "Không tách mẫu khỏi ống: DOSY phân nhóm tín hiệu theo chuyển động",
+  "summary": "DOSY bổ sung trục khuếch tán cho phổ NMR, giúp đọc những thành phần đang nằm chung trong dung dịch. Nhưng hệ số khuếch tán không phải cân phân tử trực tiếp.",
+  "category": "khainiem",
+  "author": "Ban biên tập ChemDex",
+  "image": "/assets/library/apparatus-spectroscope.svg",
+  "tags": [
+    "DOSY",
+    "NMR",
+    "Khuếch tán",
+    "Hỗn hợp"
+  ],
+  "aliases": [],
+  "documentKind": "story",
+  "readingMinutes": 4,
+  "editorialEvidence": {
+    "language": "vi",
+    "scope": "chemical-family",
+    "contextLabel": "Không tách mẫu khỏi ống: DOSY phân nhóm tín hiệu theo chuyển động",
+    "reviewBasis": "Biên soạn theo các nguồn dẫn cuối bài; phân biệt kết quả đã thực hiện và hướng phát triển.",
+    "story": {
+      "status": "documented",
+      "section": "## Hỗn hợp có quá nhiều đỉnh trên một trục",
+      "sources": [
+        "https://doi.org/10.1021/ja00034a071",
+        "https://pmc.ncbi.nlm.nih.gov/articles/PMC2666195/",
+        "https://onlinelibrary.wiley.com/doi/full/10.1002/marc.202500303"
+      ]
+    },
+    "application": {
+      "status": "documented",
+      "section": "## Ứng dụng hôm nay: thêm bằng chứng trước khi gán cấu trúc",
+      "sources": [
+        "https://doi.org/10.1021/ja00034a071",
+        "https://pmc.ncbi.nlm.nih.gov/articles/PMC2666195/",
+        "https://onlinelibrary.wiley.com/doi/full/10.1002/marc.202500303"
+      ]
+    }
+  },
+  "content": "## Hỗn hợp có quá nhiều đỉnh trên một trục\n\nNăm 1992, Kevin Morris và Charles Johnson giới thiệu phổ NMR hai chiều sắp theo khuếch tán. Một chiều giữ thông tin dịch chuyển hóa học quen thuộc; chiều còn lại thể hiện hệ số khuếch tán được suy ra từ chuỗi phép đo. Các đỉnh của cùng một loài có thể được nhóm lại nhờ chúng đi cùng một kiểu chuyển động trong dung dịch.\n\nCách trình bày thường gợi liên tưởng tới sắc ký, nhưng mẫu không bị tách thành các bình riêng. Công việc diễn ra trong dữ liệu của cùng một ống NMR. Đây là một lợi thế khi muốn khảo sát hỗn hợp hoặc những cân bằng mà thao tác phân tách vật lý có thể làm thay đổi.\n\n![Minh họa phổ phân tích; không phải dữ liệu DOSY của một hỗn hợp cụ thể](/assets/library/apparatus-spectroscope.svg)\n\n## Gradient ghi dấu chuyển động ngẫu nhiên\n\nTrong phép đo dùng gradient từ trường xung, sự dịch chuyển của phân tử trong khoảng thời gian xác định làm ảnh hưởng tín hiệu hồi âm. Khi thay cường độ gradient, mức suy giảm giúp ước lượng hệ số khuếch tán. Những loài có chuyển động khác nhau có thể tạo các đường suy giảm khác nhau.\n\nTrong cùng dung môi và điều kiện, kích thước thủy động học thường liên quan đến khuếch tán, nhưng hình dạng, độ nhớt và tương tác cũng có vai trò. Vì vậy, DOSY không đọc khối lượng phân tử như một chiếc cân. Một phân tử gắn thành cụm hoặc trao đổi nhanh giữa nhiều trạng thái có thể cho giá trị biểu kiến cần mô hình riêng để diễn giải.\n\n## Những trung gian phản ứng được hỏi thêm một câu\n\nNghiên cứu về DOSY đa hạt nhân năm 2008 minh họa việc dùng thông tin khuếch tán để khảo sát các trung gian phản ứng và trạng thái kết hợp trong dung dịch. Phổ hóa học cho biết môi trường nguyên tử, còn khuếch tán bổ sung một ràng buộc về đối tượng đang mang tín hiệu ấy.\n\nNhững nghiên cứu gần đây tiếp tục khai thác DOSY để đánh giá phân bố kích thước polymer. Một mẫu polymer có nhiều độ dài chuỗi không phải hỗn hợp của vài phân tử rời rạc đơn giản, nên cách khớp và giả định về phân bố có ý nghĩa lớn. Sự chồng đỉnh và tỷ số tín hiệu trên nhiễu cũng quyết định những khác biệt nào có thể được giải ra đáng tin.\n\n## Ứng dụng hôm nay: thêm bằng chứng trước khi gán cấu trúc\n\nDOSY hữu ích khi cần hỏi các tín hiệu có thuộc cùng một đối tượng hay không, một thành phần có kết hợp với thành phần khác không, hoặc mẫu có thay đổi kích thước biểu kiến theo điều kiện không. Nhiệt độ ổn định và kiểm soát đối lưu rất quan trọng, bởi chuyển động khối của dung dịch có thể làm sai cách đọc khuếch tán.\n\nCâu chuyện cho thấy đôi khi không cần một phép phân tách mới, mà cần thêm một chiều đo phù hợp. Hai đỉnh gần nhau trên trục hóa học có thể được phân biệt bằng chuyển động, còn hai loài khuếch tán giống nhau vẫn cần thông tin khác. DOSY không hứa giải mọi hỗn hợp; nó cho người nghiên cứu một câu hỏi bổ sung có sức nặng: những tín hiệu này đang cùng di chuyển như thế nào trong chính môi trường chúng được đo?\n\n## Nguồn và đọc thêm\n\n- [Morris và Johnson · DOSY hai chiều, 1992](https://doi.org/10.1021/ja00034a071)\n- [Nghiên cứu phương pháp · DOSY đa hạt nhân cho trung gian phản ứng](https://pmc.ncbi.nlm.nih.gov/articles/PMC2666195/)\n- [Nghiên cứu gốc · Phân bố polymer bằng DOSY, 2025](https://onlinelibrary.wiley.com/doi/full/10.1002/marc.202500303)"
+}

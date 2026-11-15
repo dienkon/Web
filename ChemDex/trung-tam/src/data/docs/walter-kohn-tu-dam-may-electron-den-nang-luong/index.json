@@ -1,0 +1,44 @@
+{
+  "id": "walter-kohn-tu-dam-may-electron-den-nang-luong",
+  "slug": "walter-kohn-tu-dam-may-electron-den-nang-luong",
+  "documentPath": "docs/walter-kohn-tu-dam-may-electron-den-nang-luong/index.json",
+  "title": "Walter Kohn: từ đám mây electron tới năng lượng của vật chất",
+  "summary": "Hai công trình năm 1964 và 1965 thay đổi cách tính hệ nhiều electron. Mật độ trở thành điểm xuất phát, nhưng đưa ý tưởng chính xác thành phép tính hữu ích vẫn cần những xấp xỉ được kiểm tra.",
+  "category": "tieusu",
+  "author": "Ban biên tập ChemDex",
+  "image": "/assets/library/orbital-hybridization.svg",
+  "tags": [
+    "Walter Kohn",
+    "DFT",
+    "Mật độ electron",
+    "Hóa lượng tử"
+  ],
+  "aliases": [],
+  "documentKind": "story",
+  "readingMinutes": 5,
+  "editorialEvidence": {
+    "language": "vi",
+    "scope": "chemical-family",
+    "contextLabel": "Walter Kohn: từ đám mây electron tới năng lượng của vật chất",
+    "reviewBasis": "Biên soạn theo các nguồn dẫn cuối bài; phân biệt kết quả đã thực hiện và hướng phát triển.",
+    "story": {
+      "status": "documented",
+      "section": "## Một hệ nhiều electron quá lớn để theo dõi trực tiếp",
+      "sources": [
+        "https://doi.org/10.1103/PhysRev.136.B864",
+        "https://doi.org/10.1103/PhysRev.140.A1133",
+        "https://www.nobelprize.org/uploads/2018/06/kohn-lecture.pdf"
+      ]
+    },
+    "application": {
+      "status": "documented",
+      "section": "## Ứng dụng hôm nay: một công cụ mạnh cần mô tả rõ giả thiết",
+      "sources": [
+        "https://doi.org/10.1103/PhysRev.136.B864",
+        "https://doi.org/10.1103/PhysRev.140.A1133",
+        "https://www.nobelprize.org/uploads/2018/06/kohn-lecture.pdf"
+      ]
+    }
+  },
+  "content": "## Một hệ nhiều electron quá lớn để theo dõi trực tiếp\n\nNăm 1964, Pierre Hohenberg và Walter Kohn công bố công trình về khí electron không đồng nhất. Họ chỉ ra vai trò nền tảng của mật độ electron đối với trạng thái cơ bản của một hệ. Thay vì bắt đầu bằng một hàm phụ thuộc tọa độ của tất cả electron, có thể tổ chức lý thuyết quanh một đại lượng trong không gian ba chiều.\n\nĐó là sự thay đổi lớn về cách đặt bài toán, không phải lời hứa rằng mọi tính toán sẽ tự trở nên dễ. Lý thuyết xác lập mối quan hệ, nhưng dạng hàm năng lượng cần dùng trong thực tế vẫn là một phần phải tìm hiểu.\n\nNăm 1965, Kohn và Lu Jeu Sham đưa ra phương pháp có thể triển khai bằng một hệ tham chiếu thích hợp. Hai bước nối tiếp biến mật độ từ ý tưởng trung tâm thành nền tảng của một họ phương pháp tính được dùng rộng về sau.\n\n![Minh họa phân bố electron, không phải kết quả tính DFT cho một mẫu cụ thể](/assets/library/orbital-hybridization.svg)\n\n## Mật độ đơn giản hơn nhưng vẫn mang thông tin phức tạp\n\nMật độ electron cho biết cách điện tích âm phân bố quanh các hạt nhân. Những vùng tập trung và phân bố ấy liên quan đến liên kết, cấu trúc và năng lượng. Tuy vậy, nhìn một đám mây màu trên màn hình chưa đủ để suy mọi tính chất của vật liệu.\n\nTrong cách Kohn–Sham, phần khó liên quan đến trao đổi và tương quan electron được đưa vào một hàm cần xấp xỉ. Các lựa chọn khác nhau có thể phù hợp với những loại hệ hoặc đại lượng khác nhau. Tên DFT vì thế không xác định duy nhất một chất lượng tính toán.\n\nSự gọn của biểu diễn giúp nhiều hệ trở nên khả thi hơn, nhưng vẫn cần kiểm tra hội tụ, cách mô tả electron và điều kiện của bài toán. Một định lý chính xác và một chương trình dùng xấp xỉ là hai cấp độ cần phân biệt.\n\n## Từ vật lý chất rắn tới câu hỏi hóa học\n\nBài giảng Nobel của Kohn trình bày DFT như một con đường tới cấu trúc electron của vật chất. Những ứng dụng mở rộng từ kim loại và bán dẫn tới phân tử và các hệ hóa học, nhờ công việc của nhiều nhóm phát triển hàm và phương pháp số.\n\nKhi tính năng lượng của hai cấu trúc, người nghiên cứu muốn biết chênh lệch có đủ tin cậy để chọn giữa chúng không. Sai số chung có thể triệt tiêu trong trường hợp này nhưng không trong trường hợp khác. Vì vậy, đánh giá phương pháp cần gắn với đại lượng mục tiêu.\n\nMột cấu trúc tối ưu trong mô hình cũng chưa đại diện mọi trạng thái ở nhiệt độ thực. Chuyển động, dung môi và những thành phần bị bỏ khỏi mô hình có thể cần bổ sung để nối phép tính với thí nghiệm.\n\n## Ứng dụng hôm nay: một công cụ mạnh cần mô tả rõ giả thiết\n\nDFT là công cụ nghiên cứu vật liệu, phản ứng và bề mặt xúc tác. Nó cho phép so sánh các giả thuyết về cấu trúc hoặc năng lượng trước khi thiết kế những phép thử khó. Giá trị tăng lên khi dự đoán được đối chiếu với dữ liệu độc lập.\n\nKhi đọc một kết quả, cần biết hàm nào được dùng, hệ được mô tả ra sao và kết luận có nhạy với xấp xỉ hay không. Hai bảng số cùng mang nhãn DFT có thể dựa trên những lựa chọn rất khác nhau.\n\nKohn giúp làm cho một bài toán nhiều electron trở nên có thể tiếp cận bằng cách đổi đại lượng trung tâm. Thành công ấy không loại bỏ độ phức tạp của vật chất; nó đặt độ phức tạp vào một dạng mà người nghiên cứu có thể phát triển, kiểm tra và dùng để hỏi những câu cụ thể hơn.\n\n## Nguồn và đọc thêm\n\n- [Hohenberg và Kohn · Inhomogeneous Electron Gas, 1964](https://doi.org/10.1103/PhysRev.136.B864)\n- [Kohn và Sham · Phương trình tự hợp, 1965](https://doi.org/10.1103/PhysRev.140.A1133)\n- [Walter Kohn · Bài giảng Nobel](https://www.nobelprize.org/uploads/2018/06/kohn-lecture.pdf)"
+}

@@ -1,0 +1,44 @@
+{
+  "id": "hwe-ket-tua-bat-ngo-mo-loi-olefin",
+  "slug": "hwe-ket-tua-bat-ngo-mo-loi-olefin",
+  "documentPath": "docs/hwe-ket-tua-bat-ngo-mo-loi-olefin/index.json",
+  "title": "Kết tủa ngoài dự kiến và một đường mới tới alkene",
+  "summary": "Wadsworth ban đầu muốn tạo monomer chứa phosphorus. Một phản ứng cho sản phẩm khác đã dẫn tới phương pháp olefination được dùng rộng, rồi tiếp tục được chỉnh để chọn hình học E hoặc Z.",
+  "category": "phanung",
+  "author": "Ban biên tập ChemDex",
+  "image": "/assets/library/organic-alkene.svg",
+  "tags": [
+    "Horner–Wadsworth–Emmons",
+    "Phosphonate",
+    "Olefination",
+    "E/Z"
+  ],
+  "aliases": [],
+  "documentKind": "story",
+  "readingMinutes": 4,
+  "editorialEvidence": {
+    "language": "vi",
+    "scope": "chemical-family",
+    "contextLabel": "Kết tủa ngoài dự kiến và một đường mới tới alkene",
+    "reviewBasis": "Biên soạn theo các nguồn dẫn cuối bài; phân biệt kết quả đã thực hiện và hướng phát triển.",
+    "story": {
+      "status": "documented",
+      "section": "## Từ một monomer khó giữ sang một phản ứng khác",
+      "sources": [
+        "https://garfield.library.upenn.edu/classics1983/A1983RA29000001.pdf",
+        "https://doi.org/10.1021/ja01468a042",
+        "https://pmc.ncbi.nlm.nih.gov/articles/PMC9609750/"
+      ]
+    },
+    "application": {
+      "status": "documented",
+      "section": "## Ứng dụng hôm nay: xây chuỗi liên hợp với hình học có chủ đích",
+      "sources": [
+        "https://garfield.library.upenn.edu/classics1983/A1983RA29000001.pdf",
+        "https://doi.org/10.1021/ja01468a042",
+        "https://pmc.ncbi.nlm.nih.gov/articles/PMC9609750/"
+      ]
+    }
+  },
+  "content": "## Từ một monomer khó giữ sang một phản ứng khác\n\nTrong hồi tưởng năm 1983, William Wadsworth kể rằng nghiên cứu tại Rohm and Haas không bắt đầu bằng mục tiêu tìm phản ứng tạo alkene mới. Nhóm muốn chuẩn bị monomer chứa phosphorus cho vật liệu có khả năng hạn chế cháy. Một sản phẩm quá dễ polymer hóa khiến công việc thử nghiệm trở nên khó khăn.\n\nKhi đổi đối tác carbonyl, nhóm thấy một kết tủa và thu được sản phẩm olefin thay vì đi theo con đường mong muốn ban đầu. Quan sát ấy dẫn tới công trình cùng William Emmons công bố năm 1961 về sử dụng carbanion phosphonate trong tổng hợp olefin.\n\nHorner và đồng nghiệp cũng có những công trình liên quan ở giai đoạn trước. Tên Horner–Wadsworth–Emmons lưu lại lịch sử nhiều đóng góp, thay vì một khoảnh khắc phát minh duy nhất được kể quá gọn.\n\n![Minh họa liên kết đôi, không phải cơ chế đầy đủ của HWE](/assets/library/organic-alkene.svg)\n\n## Một đối tác phosphorus khác tạo cách làm khác\n\nTrong HWE, đối tác phosphonate được hoạt hóa để phản ứng với aldehyde hoặc ketone, tạo liên kết carbon–carbon đôi. Phosphorus giúp tổ chức đường phản ứng nhưng thường không ở lại trong sản phẩm hữu cơ mục tiêu.\n\nSo với các đối tác phosphorane của Wittig, nhiều phosphonate phù hợp có cách điều chế và tính phản ứng khác. Những nhóm hút electron cạnh vị trí phản ứng có thể ổn định dạng hoạt động. Sản phẩm đi kèm chứa phosphorus cũng có hành vi phân tách khác, tạo một lợi thế thực dụng trong nhiều trường hợp.\n\nVới nhiều hệ kinh điển, sản phẩm E được ưu tiên. Nhưng đây không phải định luật cho mọi phản ứng mang tên HWE. Cấu tạo thuốc thử, ion đi kèm, dung môi và điều kiện ảnh hưởng các đường dẫn tới E hoặc Z.\n\nCông trình Still–Gennari năm 1983 là một bước nổi bật trong việc phát triển biến thể ưu tiên Z. Những nghiên cứu sau đó tiếp tục thay cấu trúc đối tác phosphonate để cải thiện tính chọn lọc. Tên phản ứng chung vì vậy phải đi cùng thông tin về biến thể được sử dụng.\n\n## Ứng dụng hôm nay: xây chuỗi liên hợp với hình học có chủ đích\n\nHWE được dùng để tạo những alkene có nhóm chức hữu ích, bao gồm các hệ liên hợp cần cho tổng hợp phân tử phức tạp. Vị trí và hình học liên kết đôi có thể quyết định khả năng của bước phản ứng sau hoặc tính chất của sản phẩm cuối.\n\nNghiên cứu năm 2022 về các thuốc thử kiểu Still–Gennari cải biến cho thấy bài toán chọn Z vẫn là chủ đề có dữ liệu mới. Kết quả được báo cáo theo những cơ chất đã thử; nhà tổng hợp cần xem chúng có gần với mục tiêu của mình hay không trước khi dự đoán phạm vi rộng hơn.\n\nMột phần sức mạnh của phương pháp nằm ở khả năng chọn đối tác để điều khiển kết quả thay vì chấp nhận hỗn hợp rồi dành nhiều công sức tách. Tuy nhiên, độ sạch và tỷ lệ đồng phân cuối vẫn phải được xác nhận bằng phép đo phù hợp.\n\nKết tủa mà Wadsworth không chờ đợi đã dẫn tới một công cụ đi xa hơn chương trình polymer ban đầu. Câu chuyện nhắc rằng một phản ứng “không cho thứ muốn tìm” có thể rất giá trị nếu sản phẩm được xác định cẩn thận. Phát minh bắt đầu ở chỗ nhà nghiên cứu đổi câu hỏi sau khi dữ liệu không đi theo dự định.\n\n## Nguồn và đọc thêm\n\n- [Wadsworth · Hồi tưởng công trình tại Rohm and Haas](https://garfield.library.upenn.edu/classics1983/A1983RA29000001.pdf)\n- [Wadsworth và Emmons · Phosphonate carbanion trong tổng hợp olefin, 1961](https://doi.org/10.1021/ja01468a042)\n- [Các thuốc thử Still–Gennari cải biến và tính chọn lọc Z, 2022](https://pmc.ncbi.nlm.nih.gov/articles/PMC9609750/)"
+}

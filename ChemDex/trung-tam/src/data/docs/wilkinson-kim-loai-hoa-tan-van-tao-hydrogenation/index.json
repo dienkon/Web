@@ -1,0 +1,44 @@
+{
+  "id": "wilkinson-kim-loai-hoa-tan-van-tao-hydrogenation",
+  "slug": "wilkinson-kim-loai-hoa-tan-van-tao-hydrogenation",
+  "documentPath": "docs/wilkinson-kim-loai-hoa-tan-van-tao-hydrogenation/index.json",
+  "title": "Xúc tác không cần là một mặt kim loại: câu chuyện của Wilkinson",
+  "summary": "Phức rhodium hòa tan giúp hydrogen hóa olefin và trở thành hệ mẫu để hiểu xúc tác đồng thể. Những phối tử quanh kim loại quyết định nhiều hơn vẻ ngoài của một chai tinh thể.",
+  "category": "phanung",
+  "author": "Ban biên tập ChemDex",
+  "image": "/assets/library/organic-alkene.svg",
+  "tags": [
+    "Wilkinson",
+    "Rhodium",
+    "Hydrogen hóa",
+    "Xúc tác đồng thể"
+  ],
+  "aliases": [],
+  "documentKind": "story",
+  "readingMinutes": 4,
+  "editorialEvidence": {
+    "language": "vi",
+    "scope": "chemical-family",
+    "contextLabel": "Xúc tác không cần là một mặt kim loại: câu chuyện của Wilkinson",
+    "reviewBasis": "Biên soạn theo các nguồn dẫn cuối bài; phân biệt kết quả đã thực hiện và hướng phát triển.",
+    "story": {
+      "status": "documented",
+      "section": "## Một phức chất trở thành công cụ khảo sát cơ chế",
+      "sources": [
+        "https://doi.org/10.1039/J19660001711",
+        "https://www.chm.bris.ac.uk/motm/wilcat/wilcatjs.htm",
+        "https://www.acs.org/molecule-of-the-week/archive/w/wilkinsons-catalyst.html"
+      ]
+    },
+    "application": {
+      "status": "documented",
+      "section": "## Ứng dụng hôm nay: hiểu vai trò của phối tử để thiết kế hệ mới",
+      "sources": [
+        "https://doi.org/10.1039/J19660001711",
+        "https://www.chm.bris.ac.uk/motm/wilcat/wilcatjs.htm",
+        "https://www.acs.org/molecule-of-the-week/archive/w/wilkinsons-catalyst.html"
+      ]
+    }
+  },
+  "content": "## Một phức chất trở thành công cụ khảo sát cơ chế\n\nTrong các công trình năm 1965 và 1966, John Osborn, Frank Jardine, John Young và Geoffrey Wilkinson nghiên cứu những phức rhodium có triphenylphosphine và khả năng xúc tác hydrogen hóa. Phức thường được gọi là xúc tác Wilkinson, RhCl(PPh₃)₃, trở thành một hệ quen thuộc của hóa học cơ kim.\n\nTrước đó, nhiều người đã biết dùng bề mặt kim loại để hydrogen hóa. Điểm hấp dẫn ở đây là một môi trường phân tử có thể được điều chỉnh bằng những nhóm phối trí xung quanh trung tâm kim loại. Phản ứng không chỉ xảy ra trên một bột xúc tác khó mô tả từng vị trí, mà có thể được khảo sát qua các loài hòa tan.\n\nNhững nghiên cứu tiếp theo theo dõi tốc độ với các cơ chất khác nhau và tìm các trung gian. Một chất có tên tuổi vì ứng dụng tổng hợp đồng thời trở thành mẫu để học cách một chu trình xúc tác thực sự vận hành.\n\n![Minh họa olefin là một nhóm cơ chất, không phải ảnh xúc tác Wilkinson](/assets/library/organic-alkene.svg)\n\n## Tạo chỗ trống rồi đưa hydrogen và alkene vào chu trình\n\nCác phối tử không phải lớp vỏ bất động. Trong cách mô tả cơ chế, một phần phối tử có thể tách ra để tạo vị trí cho các đối tác khác tương tác. Hydrogen được hoạt hóa trên kim loại, alkene tham gia và những bước chuyển nhóm tạo ra sản phẩm đã được hydrogen hóa.\n\nPhối tử ảnh hưởng cả điện tử lẫn không gian. Nhóm quanh rhodium có thể làm một bước thuận lợi hơn nhưng đồng thời làm bước khác chậm đi. Vì vậy, chất xúc tác không được tối ưu chỉ bằng cách làm cho kim loại “giữ hydrogen mạnh hơn”. Nó phải nhận, chuyển và nhả các thành phần theo một vòng hoàn chỉnh.\n\nĐộ thế của liên kết đôi ảnh hưởng tốc độ và tính chọn lọc. Một alkene ít cản trở và một alkene đông đúc không có cùng khả năng tiếp cận môi trường xúc tác. Sự khác biệt này có thể được khai thác khi phân tử chứa nhiều vị trí phản ứng.\n\nCông thức của phức ban đầu cũng không có nghĩa mọi nguyên tử luôn nằm trong đúng một cấu trúc ấy trong suốt phản ứng. Nghiên cứu cơ chế phải xác định những loài nào có mặt và những loài nào thực sự tham gia tạo sản phẩm.\n\n## Ứng dụng hôm nay: hiểu vai trò của phối tử để thiết kế hệ mới\n\nXúc tác Wilkinson và các hệ liên quan được dùng trong tổng hợp và giảng dạy về hydrogen hóa đồng thể. ACS năm 2024 nhắc lại phạm vi nghiên cứu rộng của phức này, cùng những phản ứng khác có thể khai thác ở những điều kiện phù hợp.\n\nSự phát triển của xúc tác bất đối xứng về sau cho thấy việc thiết kế môi trường quanh kim loại có thể đi thêm một bước: không chỉ ưu tiên nhóm chức mà còn ưu tiên một dạng không gian của sản phẩm. Phức Wilkinson thông thường không tự có tính chọn lọc đối quang như một hệ được thiết kế riêng cho nhiệm vụ đó.\n\nTrong thực hành tổng hợp, lượng kim loại, độ bền và cách loại dư xúc tác cần được tính cùng hiệu suất phản ứng. Một hệ hòa tan dễ khảo sát không nhất thiết là hệ dễ thu hồi nhất ở mọi quy mô.\n\nCâu chuyện của rhodium–phosphine làm rõ rằng xúc tác là một cấu trúc đang làm việc, không phải một nguyên tố đứng riêng. Những nhóm gắn quanh kim loại tạo ra khả năng nhận biết và nhịp chuyển hóa; thay chúng có thể thay cả cách một phân tử đi qua phản ứng.\n\n## Nguồn và đọc thêm\n\n- [Osborn, Jardine, Young và Wilkinson · Công trình cơ sở, 1966](https://doi.org/10.1039/J19660001711)\n- [Đại học Bristol · Cấu trúc, lịch sử và hoạt tính xúc tác Wilkinson](https://www.chm.bris.ac.uk/motm/wilcat/wilcatjs.htm)\n- [ACS · Hồ sơ Wilkinson’s catalyst, 2024](https://www.acs.org/molecule-of-the-week/archive/w/wilkinsons-catalyst.html)"
+}

@@ -1,0 +1,44 @@
+{
+  "id": "stille-khau-vong-lon-rapamycin",
+  "slug": "stille-khau-vong-lon-rapamycin",
+  "documentPath": "docs/stille-khau-vong-lon-rapamycin/index.json",
+  "title": "Hai mối ghép khép một vòng lớn: đường tổng hợp rapamycin năm 1993",
+  "summary": "Nhóm Nicolaou dùng ghép Stille để nối những đầu mạch trong tổng hợp rapamycin. Ví dụ này cho thấy đóng vòng lớn là bài toán hình học và lựa chọn phản ứng, không chỉ kéo hai đầu lại gần.",
+  "category": "phanung",
+  "author": "Ban biên tập ChemDex",
+  "image": "/assets/library/covalent-bonds.svg",
+  "tags": [
+    "Stille",
+    "Vòng lớn",
+    "Rapamycin",
+    "Tổng hợp toàn phần"
+  ],
+  "aliases": [],
+  "documentKind": "story",
+  "readingMinutes": 4,
+  "editorialEvidence": {
+    "language": "vi",
+    "scope": "chemical-family",
+    "contextLabel": "Hai mối ghép khép một vòng lớn: đường tổng hợp rapamycin năm 1993",
+    "reviewBasis": "Biên soạn theo các nguồn dẫn cuối bài; phân biệt kết quả đã thực hiện và hướng phát triển.",
+    "story": {
+      "status": "documented",
+      "section": "## Một thao tác khâu trong kế hoạch tổng hợp",
+      "sources": [
+        "https://doi.org/10.1021/ja00063a093",
+        "https://pmc.ncbi.nlm.nih.gov/articles/PMC2665039/",
+        "https://doi.org/10.1002/anie.200300638"
+      ]
+    },
+    "application": {
+      "status": "documented",
+      "section": "## Ứng dụng hôm nay: một công cụ mạnh đi kèm bài toán thiếc",
+      "sources": [
+        "https://doi.org/10.1021/ja00063a093",
+        "https://pmc.ncbi.nlm.nih.gov/articles/PMC2665039/",
+        "https://doi.org/10.1002/anie.200300638"
+      ]
+    }
+  },
+  "content": "## Một thao tác khâu trong kế hoạch tổng hợp\n\nNăm 1993, nhóm K. C. Nicolaou công bố tổng hợp toàn phần rapamycin. Trong bài hồi cứu của chính nhóm nghiên cứu, một bước được nhắc như điểm đặc biệt là chuỗi ghép Stille kép, giúp nối một mảnh có hai điểm phản ứng với tiền chất mạch mở để khép hệ vòng lớn.\n\nCông việc ấy không chỉ cần tạo được liên kết bất kỳ giữa hai carbon. Sản phẩm phải giữ nhiều nhóm chức và một vùng gồm các liên kết đôi có hình học xác định. Nếu một phản ứng phá đi phần cấu trúc đã xây trong những bước trước, toàn bộ kế hoạch có thể mất giá trị.\n\nVí dụ rapamycin cho thấy tổng hợp toàn phần là một phép kiểm tra khắt khe đối với phương pháp. Một phản ứng hữu ích trên phân tử nhỏ cần chứng minh còn làm việc được khi xung quanh là một bộ khung đông đúc và nhiều vị trí có thể phản ứng.\n\n![Minh họa liên kết cộng hóa trị, không phải cấu trúc vòng lớn của rapamycin](/assets/library/covalent-bonds.svg)\n\n## Organotin mang một mảnh tới palladium\n\nGhép Stille dùng hợp chất organotin làm một đối tác để tạo liên kết carbon–carbon với đối tác hữu cơ có nhóm rời thích hợp. Trong chu trình xúc tác, nhóm hữu cơ được chuyển từ tin tới kim loại xúc tác rồi ghép với mảnh còn lại.\n\nMột ưu điểm giúp phương pháp đi vào tổng hợp sản phẩm tự nhiên là khả năng dung nạp nhiều nhóm chức trong những điều kiện phù hợp. Điều này tạo cơ hội ghép ở giai đoạn muộn, khi phân tử đã mang nhiều phần nhạy cảm mà một thuốc thử mạnh hơn có thể làm biến đổi.\n\nTrong chiến lược khép vòng, cần phân biệt ghép giữa hai phân tử với ghép trong cùng phân tử. Sau mối nối đầu tiên, hai đầu còn lại phải gặp nhau theo cách phù hợp để tạo vòng. Những sản phẩm chưa khép hoặc phản ứng liên phân tử cạnh tranh là các khả năng cần được theo dõi.\n\nVòng lớn không tự dễ tạo chỉ vì có nhiều chỗ uốn. Sự sắp xếp của toàn bộ tiền chất ảnh hưởng cơ hội hai đầu tiến tới một hình học có thể phản ứng.\n\n## Ứng dụng hôm nay: một công cụ mạnh đi kèm bài toán thiếc\n\nStille tiếp tục xuất hiện trong tổng hợp phân tử phức tạp và một số polymer liên hợp. Khi những phương pháp ghép khác không đáp ứng tốt yêu cầu cơ chất hoặc lập thể, nó có thể là một lựa chọn đáng khảo sát.\n\nMặt trái cụ thể là quản lý hợp chất organotin và tạp chất chứa tin. Sản phẩm dùng cho nghiên cứu sinh học hoặc vật liệu cần được tinh chế theo yêu cầu của mục đích đó. Khả năng tạo mối nối tốt không xóa chi phí thu gom, phân tích và xử lý những dòng đi kèm.\n\nCâu chuyện rapamycin cũng không nên được hiểu như hướng dẫn sử dụng thuốc hay tuyên bố tổng hợp toàn phần là con đường sản xuất thương mại tối ưu. Trong công trình năm 1993, mục tiêu là xây được cấu trúc phức tạp bằng một tuyến hóa học có thể kiểm chứng.\n\nNhìn vào thao tác khâu vòng, người đọc có thể thấy vì sao nhà tổng hợp cần nhiều công cụ ghép cặp khác nhau. Một phản ứng được chọn không chỉ vì tên tuổi, mà vì nó giữ được những gì đã xây và tạo đúng phần còn thiếu. Hai liên kết mới ở cuối tuyến có thể là nơi nhiều năm phát triển phương pháp được đặt vào thử thách cùng lúc.\n\n## Nguồn và đọc thêm\n\n- [Nicolaou và cộng sự · Tổng hợp toàn phần rapamycin, 1993](https://doi.org/10.1021/ja00063a093)\n- [Nhóm Nicolaou · Hồi cứu chiến lược khép vòng bằng Stille](https://pmc.ncbi.nlm.nih.gov/articles/PMC2665039/)\n- [Espinet và Echavarren · Cơ chế của phản ứng Stille](https://doi.org/10.1002/anie.200300638)"
+}

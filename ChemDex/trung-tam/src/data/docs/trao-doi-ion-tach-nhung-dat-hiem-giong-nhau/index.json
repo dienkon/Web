@@ -1,0 +1,44 @@
+{
+  "id": "trao-doi-ion-tach-nhung-dat-hiem-giong-nhau",
+  "slug": "trao-doi-ion-tach-nhung-dat-hiem-giong-nhau",
+  "documentPath": "docs/trao-doi-ion-tach-nhung-dat-hiem-giong-nhau/index.json",
+  "title": "Tách những ion quá giống nhau: đất hiếm đi qua cột nhựa",
+  "summary": "Nhóm Spedding dùng trao đổi ion và chất tạo phức để tách các nguyên tố đất hiếm. Những khác biệt nhỏ được lặp lại dọc cột trở thành các vùng vật liệu riêng.",
+  "category": "khainiem",
+  "author": "Ban biên tập ChemDex",
+  "image": "/assets/library/element-lanthanide.svg",
+  "tags": [
+    "Trao đổi ion",
+    "Đất hiếm",
+    "Tạo phức",
+    "Phân tách"
+  ],
+  "aliases": [],
+  "documentKind": "story",
+  "readingMinutes": 4,
+  "editorialEvidence": {
+    "language": "vi",
+    "scope": "chemical-family",
+    "contextLabel": "Tách những ion quá giống nhau: đất hiếm đi qua cột nhựa",
+    "reviewBasis": "Biên soạn theo các nguồn dẫn cuối bài; phân biệt kết quả đã thực hiện và hướng phát triển.",
+    "story": {
+      "status": "documented",
+      "section": "## Nhu cầu mẫu tinh khiết gặp một họ nguyên tố rất giống nhau",
+      "sources": [
+        "https://doi.org/10.1021/ja01196a011",
+        "https://doi.org/10.1021/ja01638a074",
+        "https://www.nasonline.org/wp-content/uploads/2024/06/spedding-f-h.pdf"
+      ]
+    },
+    "application": {
+      "status": "documented",
+      "section": "## Ứng dụng hôm nay: chọn công nghệ theo độ tinh khiết và quy mô",
+      "sources": [
+        "https://doi.org/10.1021/ja01196a011",
+        "https://doi.org/10.1021/ja01638a074",
+        "https://www.nasonline.org/wp-content/uploads/2024/06/spedding-f-h.pdf"
+      ]
+    }
+  },
+  "content": "## Nhu cầu mẫu tinh khiết gặp một họ nguyên tố rất giống nhau\n\nBài báo năm 1947 của Spedding, Voigt, Gladrow và Sleight mở đầu bằng khó khăn lâu đời của việc tách đất hiếm. Nhiều nguyên tố có tính chất hóa học gần nhau, khiến một thao tác chỉ làm giàu được một phần. Nhóm báo cáo tách lượng đáng kể bằng nhựa trao đổi ion, rồi giải hấp với dung dịch có chất tạo phức như citrate ở pH được kiểm soát.\n\nCông việc cung cấp mẫu tinh khiết cho nghiên cứu, đồng thời biến một bài toán nhận diện nguyên tố thành bài toán quy trình có thể mở rộng. Những khác biệt nhỏ không bị bỏ qua; chúng được khai thác nhiều lần liên tiếp để tích lũy thành khoảng cách có thể thu riêng.\n\n![Minh họa nhóm lanthanide; không phải ảnh cột tách đất hiếm lịch sử](/assets/library/element-lanthanide.svg)\n\n## Ion chọn giữa nhựa và dung dịch\n\nNhựa trao đổi ion chứa những nhóm tích điện gắn trên nền rắn. Ion trong dung dịch có thể trao đổi với các ion liên quan đến những nhóm ấy. Khi thêm chất tạo phức, phần kim loại tự do và phần nằm trong phức thay đổi, làm cân bằng phân bố giữa nhựa và pha lỏng thay đổi theo từng nguyên tố.\n\nNếu các ion có độ bền phức hoặc mức tương tác với nhựa hơi khác nhau, chúng có thể di chuyển dọc cột với tốc độ khác nhau. Cột tạo nhiều cơ hội phân bố nối tiếp. Không cần một bước duy nhất nhận diện hoàn hảo mọi nguyên tố; sự khác biệt được tích lũy qua một quãng đường và điều kiện vận hành phù hợp.\n\n## Hiểu cơ chế để nâng quy mô\n\nSpedding và Powell năm 1954 công bố nghiên cứu định lượng về giải hấp bằng citrate, nhằm giải thích các phân bố quan sát được. Những dữ liệu cân bằng và pH giúp quy trình bớt phụ thuộc vào thử–sai. Nghiên cứu cùng thời còn cho thấy tạp chất, nước và biến đổi môi trường có thể làm kết quả thay đổi, nên kiểm soát điều kiện rất quan trọng.\n\nHồi ký của Viện Hàn lâm Khoa học Hoa Kỳ mô tả bước cải thiện khi chuyển sang EDTA trong những cấu hình thích hợp và phát triển quy mô pilot. Khả năng cung cấp lượng lớn hơn các hợp chất tinh khiết tạo điều kiện cho những nghiên cứu và ứng dụng tiếp theo. Tách nguyên tố không chỉ là phần cuối của khai khoáng; nó có thể mở đầu cho cả một lĩnh vực vật liệu.\n\n## Ứng dụng hôm nay: chọn công nghệ theo độ tinh khiết và quy mô\n\nTrao đổi ion là một công cụ trong nhiều tuyến phân tách và tinh sạch. Với đất hiếm, các quy trình công nghiệp còn dùng những công nghệ khác như chiết dung môi; không nên xem cột nhựa lịch sử là lời giải duy nhất cho mọi nguồn quặng hoặc sản lượng. Thành phần đầu vào, độ tinh khiết đích, năng lượng và dòng thải quyết định lựa chọn.\n\nCâu chuyện năm 1947 làm rõ sức mạnh của quá trình lặp. Hai ion gần như giống nhau trước một phép thử vẫn có thể được tách khi những khác biệt cân bằng nhỏ được khai thác có hệ thống. Phía sau một mẫu đất hiếm tinh khiết dùng trong nghiên cứu là cả hành trình di chuyển, gắn và rời giữa hai pha. Hóa học phân tách biến sự khác nhau rất nhỏ thành vật liệu có thể cầm trên tay.\n\n## Nguồn và đọc thêm\n\n- [Spedding và cộng sự · Tách đất hiếm bằng trao đổi ion, 1947](https://doi.org/10.1021/ja01196a011)\n- [Spedding và Powell · Cơ chế giải hấp citrate, 1954](https://doi.org/10.1021/ja01638a074)\n- [National Academy of Sciences · Lịch sử nghiên cứu và mở rộng quy mô](https://www.nasonline.org/wp-content/uploads/2024/06/spedding-f-h.pdf)"
+}

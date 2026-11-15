@@ -1,0 +1,44 @@
+{
+  "id": "peter-mitchell-dat-mang-vao-trung-tam-nang-luong",
+  "slug": "peter-mitchell-dat-mang-vao-trung-tam-nang-luong",
+  "documentPath": "docs/peter-mitchell-dat-mang-vao-trung-tam-nang-luong/index.json",
+  "title": "Peter Mitchell: đặt một tấm màng vào trung tâm câu chuyện năng lượng",
+  "summary": "Giả thuyết hóa thẩm năm 1961 giải thích cách vận chuyển electron có thể liên kết với tạo ATP qua chênh lệch điện hóa proton. Màng trở thành bộ phận chức năng, không chỉ vỏ bao.",
+  "category": "tieusu",
+  "author": "Ban biên tập ChemDex",
+  "image": "/assets/library/covalent-bonds.svg",
+  "tags": [
+    "Peter Mitchell",
+    "Hóa thẩm",
+    "Gradient proton",
+    "ATP"
+  ],
+  "aliases": [],
+  "documentKind": "story",
+  "readingMinutes": 4,
+  "editorialEvidence": {
+    "language": "vi",
+    "scope": "chemical-family",
+    "contextLabel": "Peter Mitchell: đặt một tấm màng vào trung tâm câu chuyện năng lượng",
+    "reviewBasis": "Biên soạn theo các nguồn dẫn cuối bài; phân biệt kết quả đã thực hiện và hướng phát triển.",
+    "story": {
+      "status": "documented",
+      "section": "## Một cách nối hai quá trình bằng không gian",
+      "sources": [
+        "https://www.nature.com/articles/191144a0",
+        "https://doi.org/10.1073/pnas.55.1.170",
+        "https://www.nobelprize.org/uploads/2018/06/mitchell-lecture.pdf"
+      ]
+    },
+    "application": {
+      "status": "documented",
+      "section": "## Ứng dụng hôm nay: năng lượng sinh học cần một kiến trúc",
+      "sources": [
+        "https://www.nature.com/articles/191144a0",
+        "https://doi.org/10.1073/pnas.55.1.170",
+        "https://www.nobelprize.org/uploads/2018/06/mitchell-lecture.pdf"
+      ]
+    }
+  },
+  "content": "## Một cách nối hai quá trình bằng không gian\n\nNăm 1961, Peter Mitchell công bố trên Nature một cách giải thích sự ghép giữa vận chuyển electron và tạo ATP. Ông đặt các quá trình chuyển hydrogen và điện tích qua màng vào trung tâm của cơ chế, thay vì chỉ tìm một chất trung gian giàu năng lượng hòa tan.\n\nTrong cách nhìn này, vị trí và hướng của các thành phần có ý nghĩa quyết định. Nếu màng không giữ được sự phân tách phù hợp, những phản ứng riêng vẫn có thể xảy ra nhưng mối nối năng lượng cần cho hệ sẽ bị mất.\n\nGiả thuyết gặp nhiều tranh luận và cần bằng chứng tích lũy. Điều đáng nhớ là nó thay đổi loại câu hỏi phải hỏi: ngoài chất nào phản ứng, còn phải biết chất và điện tích đi qua đâu trong một cấu trúc có hướng.\n\n![Minh họa cấu phần phân tử, không phải sơ đồ màng ty thể đầy đủ](/assets/library/covalent-bonds.svg)\n\n## Chênh lệch proton gồm cả hóa học và điện\n\nHai phía màng có thể khác nồng độ proton và khác điện thế. Cả hai đóng góp vào chênh lệch điện hóa mà một proton cảm nhận khi di chuyển qua hệ thích hợp.\n\nVì thế, nói đơn giản “bên này nhiều acid hơn” chỉ kể một phần. Cách đo và điều kiện ion quyết định hai phần đóng góp ra sao. Một gradient có thể được tạo bởi những quá trình tiêu thụ năng lượng rồi được dùng để thúc đẩy công việc khác.\n\nMàng cũng không cần hoàn toàn không cho bất kỳ vật gì đi qua. Nó cần tính chọn lọc và những protein có chức năng cụ thể. Rò rỉ ngoài đường hữu ích có thể làm mất khả năng ghép năng lượng, giống như một sự cố của toàn hệ chứ không chỉ của một phản ứng riêng.\n\n## Một bước nhảy pH trở thành phép thử nổi tiếng\n\nNăm 1966, André Jagendorf và Ernesto Uribe tạo điều kiện chênh lệch acid–base qua màng lục lạp và quan sát hình thành ATP. Công trình của họ cung cấp một phép thử quan trọng cho ý tưởng rằng chênh lệch qua màng có thể làm công việc ngay cả khi không dùng ánh sáng theo cách thông thường của quang hợp.\n\nĐây là đóng góp độc lập cần được ghi đúng tên. Lý thuyết của Mitchell và thí nghiệm của các nhóm khác hỗ trợ nhau qua những câu hỏi có thể kiểm tra.\n\nBài giảng Nobel của Mitchell trình bày một hệ thống lập luận nối vận chuyển, màng và enzyme. Thành công nằm ở khả năng làm nhiều kết quả trước đó trở nên nhất quán trong cùng một mô tả có thể tiếp tục thử nghiệm.\n\n## Ứng dụng hôm nay: năng lượng sinh học cần một kiến trúc\n\nKhái niệm chênh lệch điện hóa qua màng được dùng để hiểu hô hấp tế bào, quang hợp và nhiều quá trình vận chuyển. Nó giúp phân biệt năng lượng được lưu trong một phân tử với năng lượng được giữ bởi trạng thái phân bố của cả hệ.\n\nKhi nghiên cứu một màng nhân tạo hoặc một protein vận chuyển, người ta phải đo hướng, độ rò và những điều kiện điện hóa. Có đủ các thành phần trong một hỗn hợp chưa bảo đảm chúng được tổ chức thành thiết bị có chức năng.\n\nMitchell làm cho không gian trở thành một phần của hóa học năng lượng. Tấm màng không chỉ ngăn cách trong và ngoài; nó giúp giữ một trạng thái mà hệ có thể sử dụng. Nhìn từ đó, việc tế bào tạo ATP là câu chuyện của cả dòng electron, dòng proton và cấu trúc nối hai dòng ấy với công việc cần thực hiện.\n\n## Nguồn và đọc thêm\n\n- [Peter Mitchell · Giả thuyết hóa thẩm, 1961](https://www.nature.com/articles/191144a0)\n- [Jagendorf và Uribe · ATP từ chuyển tiếp acid–base, 1966](https://doi.org/10.1073/pnas.55.1.170)\n- [Peter Mitchell · Bài giảng Nobel](https://www.nobelprize.org/uploads/2018/06/mitchell-lecture.pdf)"
+}

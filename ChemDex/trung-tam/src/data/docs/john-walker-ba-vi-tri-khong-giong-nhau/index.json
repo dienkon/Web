@@ -1,0 +1,44 @@
+{
+  "id": "john-walker-ba-vi-tri-khong-giong-nhau",
+  "slug": "john-walker-ba-vi-tri-khong-giong-nhau",
+  "documentPath": "docs/john-walker-ba-vi-tri-khong-giong-nhau/index.json",
+  "title": "John Walker: ba vị trí giống nhau trong trình tự nhưng khác nhau lúc làm việc",
+  "summary": "Cấu trúc F₁-ATPase năm 1994 cho thấy ba tiểu đơn vị xúc tác ở những trạng thái khác nhau. Hình học bất đối xứng trở thành bằng chứng cho một chu trình phối hợp.",
+  "category": "tieusu",
+  "author": "Ban biên tập ChemDex",
+  "image": "/assets/library/history-evidence.svg",
+  "tags": [
+    "John Walker",
+    "ATP synthase",
+    "Cấu trúc protein",
+    "Cơ chế quay"
+  ],
+  "aliases": [],
+  "documentKind": "story",
+  "readingMinutes": 4,
+  "editorialEvidence": {
+    "language": "vi",
+    "scope": "chemical-family",
+    "contextLabel": "John Walker: ba vị trí giống nhau trong trình tự nhưng khác nhau lúc làm việc",
+    "reviewBasis": "Biên soạn theo các nguồn dẫn cuối bài; phân biệt kết quả đã thực hiện và hướng phát triển.",
+    "story": {
+      "status": "documented",
+      "section": "## Một bản đồ bắt được ba trạng thái trong cùng mẫu",
+      "sources": [
+        "https://www.nature.com/articles/370621a0",
+        "https://www.nobelprize.org/uploads/2024/06/walker-nobel-lecture.pdf",
+        "https://www.mrc-mbu.cam.ac.uk/people/walker"
+      ]
+    },
+    "application": {
+      "status": "documented",
+      "section": "## Ứng dụng hôm nay: một cấu trúc có thể giải thích sự phối hợp",
+      "sources": [
+        "https://www.nature.com/articles/370621a0",
+        "https://www.nobelprize.org/uploads/2024/06/walker-nobel-lecture.pdf",
+        "https://www.mrc-mbu.cam.ac.uk/people/walker"
+      ]
+    }
+  },
+  "content": "## Một bản đồ bắt được ba trạng thái trong cùng mẫu\n\nNăm 1994, Jan Pieter Abrahams, Andrew Leslie, René Lutter và John Walker công bố cấu trúc F₁-ATPase từ ty thể tim bò ở độ phân giải 2,8 ångström. Ba tiểu đơn vị beta xúc tác có cấu dạng và nucleotide gắn khác nhau trong cùng phức.\n\nĐó là chi tiết có ý nghĩa cơ chế. Những phần có trình tự tương ứng không nhất thiết làm cùng một việc tại cùng thời điểm. Sự bất đối xứng gợi cách các vị trí có thể luân phiên qua những trạng thái của chu trình.\n\nKết quả cung cấp bằng chứng cấu trúc mạnh cho ý tưởng đổi liên kết của Paul Boyer. Nó nối một mô hình xây từ phép đo sinh hóa với hình ảnh phân tử đủ chi tiết để đặt các câu hỏi về tương tác và chuyển động.\n\n![Minh họa phân tích bằng chứng cấu trúc, không phải bản đồ F₁-ATPase](/assets/library/history-evidence.svg)\n\n## Một trục bất đối xứng có thể tạo nhịp cho các vị trí\n\nMiền gamma nằm trong phần trung tâm có cấu trúc không đối xứng. Khi chuyển động tương đối với vòng các tiểu đơn vị xung quanh, nó có thể làm các vị trí trải qua môi trường hình học khác nhau.\n\nHình dung cơ học giúp giải thích sự phối hợp, nhưng các phần vẫn là protein với tương tác phân tử và tính linh động. Không nên xem chúng như bánh răng thép thu nhỏ có hình hoàn toàn cứng.\n\nBản đồ năm 1994 là một trạng thái được xác định từ tinh thể. Từ đó có thể đề xuất chuyển động, còn trình tự thời gian và tốc độ phải được kiểm tra bằng những phương pháp khác. Cấu trúc mở đường cho cơ chế chứ không tự thay thế mọi phép đo chức năng.\n\n## Phần hòa tan phải nối với phần nằm trong màng\n\nATP synthase gồm những miền có nhiệm vụ khác nhau. F₁ chứa các vị trí xúc tác, còn miền màng liên quan đến dòng proton và chuyển đổi năng lượng. Nghiên cứu một phần giúp giải câu hỏi cụ thể, nhưng cơ chế toàn hệ cần mối nối giữa chúng.\n\nBài giảng Nobel của Walker mô tả lịch sử công việc tinh sạch, xác định trình tự và nghiên cứu cấu trúc. Những bước chuẩn bị vật liệu đó thường ít được nhìn thấy trong hình cuối, dù chúng quyết định chất lượng mẫu.\n\nCác nghiên cứu tiếp theo ở MRC Mitochondrial Biology Unit mở rộng sang cấu trúc và cơ chế của cả phức. Những phần mới không làm công trình ban đầu lỗi thời; chúng giúp đặt nó trong một kiến trúc hoàn chỉnh hơn.\n\n## Ứng dụng hôm nay: một cấu trúc có thể giải thích sự phối hợp\n\nATP synthase tiếp tục là đối tượng quan trọng của sinh học năng lượng và nghiên cứu enzyme. So sánh các trạng thái, các loài và những điều kiện hoạt động giúp tìm những nguyên tắc chung cùng những khác biệt cần lưu ý.\n\nKhi dùng cấu trúc để giải thích chức năng, người nghiên cứu phải chỉ rõ phần nào được quan sát trực tiếp và phần nào là chuyển động được suy ra. Những phép đo độc lập làm mô hình mạnh hơn khi cùng hỗ trợ một cơ chế.\n\nCâu chuyện Walker làm nổi bật giá trị của sự không giống nhau trong một hệ lặp. Ba vị trí có vẻ tương tự trên bản vẽ tổ chức có thể ở ba chặng khác nhau của công việc. Nhìn ra điều ấy giúp biến một phức protein thành một chu trình có phối hợp, nơi hình dạng và năng lượng được nối với dòng vật chất đi qua.\n\n## Nguồn và đọc thêm\n\n- [Abrahams và cộng sự · Cấu trúc F₁-ATPase, 1994](https://www.nature.com/articles/370621a0)\n- [John Walker · Bài giảng Nobel](https://www.nobelprize.org/uploads/2024/06/walker-nobel-lecture.pdf)\n- [MRC Mitochondrial Biology Unit · John Walker](https://www.mrc-mbu.cam.ac.uk/people/walker)"
+}

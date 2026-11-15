@@ -1,0 +1,44 @@
+{
+  "id": "noyori-ikariya-muon-hydrogen-tu-alcohol",
+  "slug": "noyori-ikariya-muon-hydrogen-tu-alcohol",
+  "documentPath": "docs/noyori-ikariya-muon-hydrogen-tu-alcohol/index.json",
+  "title": "Mượn hydrogen từ một alcohol: hai phần của xúc tác Noyori–Ikariya",
+  "summary": "Một phân tử cho hydrogen có thể thay vai trò cấp H₂ trực tiếp trong những phản ứng phù hợp. Hệ ruthenium–diamine cho thấy kim loại và phối tử có thể cùng tham gia chuyển hydrogen.",
+  "category": "phanung",
+  "author": "Ban biên tập ChemDex",
+  "image": "/assets/library/organic-alcohol.svg",
+  "tags": [
+    "Transfer hydrogenation",
+    "Noyori–Ikariya",
+    "Ruthenium",
+    "Alcohol bất đối xứng"
+  ],
+  "aliases": [],
+  "documentKind": "story",
+  "readingMinutes": 4,
+  "editorialEvidence": {
+    "language": "vi",
+    "scope": "chemical-family",
+    "contextLabel": "Mượn hydrogen từ một alcohol: hai phần của xúc tác Noyori–Ikariya",
+    "reviewBasis": "Biên soạn theo các nguồn dẫn cuối bài; phân biệt kết quả đã thực hiện và hướng phát triển.",
+    "story": {
+      "status": "documented",
+      "section": "## Một ketone nhận hydrogen từ phân tử khác",
+      "sources": [
+        "https://doi.org/10.1021/ja00133a037",
+        "https://pmc.ncbi.nlm.nih.gov/articles/PMC6272002/",
+        "https://www.sciencedirect.com/science/article/pii/S001085452200488X"
+      ]
+    },
+    "application": {
+      "status": "documented",
+      "section": "## Ứng dụng hôm nay: tạo alcohol và amine có cấu hình xác định",
+      "sources": [
+        "https://doi.org/10.1021/ja00133a037",
+        "https://pmc.ncbi.nlm.nih.gov/articles/PMC6272002/",
+        "https://www.sciencedirect.com/science/article/pii/S001085452200488X"
+      ]
+    }
+  },
+  "content": "## Một ketone nhận hydrogen từ phân tử khác\n\nNăm 1995, Shohei Hashiguchi, Akio Fujii, Jun Takehara, Takao Ikariya và Ryoji Noyori báo cáo hydrogen hóa chuyển bất đối xứng của ketone thơm bằng phức ruthenium có phối tử diamine. Thay vì chỉ nghĩ tới bình khí H₂, nhóm sử dụng một phân tử hữu cơ làm nguồn cho hydrogen.\n\nVới hệ dùng isopropanol, alcohol cho hydrogen được chuyển thành acetone trong khi ketone mục tiêu được chuyển thành alcohol. Hai biến đổi ghép với nhau trong một quá trình chuyển hydrogen. Một sản phẩm phụ xuất hiện ở phía chất cho là phần thiết yếu của cân bằng, không phải dấu hiệu nguyên liệu bị thất thoát không giải thích được.\n\nPhối tử bất đối xứng giúp ưu tiên một dạng alcohol. Như vậy, hệ phải giải hai nhiệm vụ cùng lúc: chuyển được hydrogen và đưa nó tới cơ chất theo cách tạo cấu hình mong muốn.\n\n![Minh họa alcohol, không phải cấu trúc phức ruthenium–diamine](/assets/library/organic-alcohol.svg)\n\n## Kim loại không làm việc một mình\n\nTrong cách giải thích cơ chế của họ xúc tác Noyori–Ikariya, trung tâm kim loại và phần phối tử chứa nitrogen phối hợp để chuyển các thành phần của hydrogen tới carbonyl. Mô hình này khác với hình ảnh cơ chất bắt buộc phải nằm lâu trên kim loại rồi nhận từng nguyên tử theo một đường đơn giản.\n\nTính chất của liên kết Ru–H và nhóm N–H trong môi trường xúc tác có thể cùng ảnh hưởng bước chuyển hóa. Bộ khung bất đối xứng quanh chúng làm hai cách tiếp cận của ketone không tương đương. Đây là ví dụ rõ của sự hợp tác giữa kim loại và phối tử.\n\nNguồn cho hydrogen có thể khác nhau giữa các biến thể. Những hệ dùng formic acid hoặc muối formate có cân bằng vật chất và sản phẩm đi kèm khác hệ dùng alcohol. Vì vậy, cụm từ “không cần H₂ trực tiếp” chưa đủ để mô tả toàn quy trình.\n\nChuyển hóa và độ dư đối quang vẫn phải được báo cáo riêng. Một nghiên cứu xúc tác có thể tăng lượng sản phẩm nhưng chưa đạt mức chọn lọc cần cho ứng dụng; điều chỉnh phối tử là một trong những hướng để giải sự đánh đổi ấy.\n\n## Ứng dụng hôm nay: tạo alcohol và amine có cấu hình xác định\n\nHydrogen hóa chuyển bất đối xứng được dùng để chuẩn bị các trung gian chiral trong nghiên cứu tổng hợp. Những hệ liên quan còn được mở rộng sang imine để tạo amine, nhưng cơ chất và cơ chế chi tiết cần được xét theo từng trường hợp.\n\nNghiên cứu về cố định các xúc tác Noyori–Ikariya trên silica, polymer hoặc môi trường khác hướng tới cải thiện thu hồi và cách sử dụng. Một xúc tác được gắn lên vật liệu có thể thuận tiện cho phân tách, nhưng cần kiểm tra liệu hoạt tính và tính chọn lọc có được giữ lại sau những lần dùng tiếp hay không.\n\nĐiểm làm phản ứng này hấp dẫn không phải lời hứa rằng một nguồn hydrogen luôn sạch hơn nguồn khác. Nó mở thêm lựa chọn: dùng một chất cho phù hợp với cơ chất và thiết bị đang có. Quy trình cuối vẫn cần tính đến phần chất cho bị chuyển hóa và những bước tách sản phẩm.\n\nCâu chuyện năm 1995 giúp người đọc nhìn phối tử như một phần chủ động của xúc tác. Những nguyên tử quanh kim loại có thể tham gia giao nhận hydrogen, đồng thời định hướng không gian. Chúng tạo ra chức năng mà chỉ một ký hiệu Ru trong bảng tuần hoàn không thể tự giải thích.\n\n## Nguồn và đọc thêm\n\n- [Hashiguchi và cộng sự · Công trình transfer hydrogenation, 1995](https://doi.org/10.1021/ja00133a037)\n- [Nghiên cứu cơ chế Noyori–Ikariya với imine](https://pmc.ncbi.nlm.nih.gov/articles/PMC6272002/)\n- [Xúc tác Noyori–Ikariya trên chất mang và các hướng ứng dụng](https://www.sciencedirect.com/science/article/pii/S001085452200488X)"
+}

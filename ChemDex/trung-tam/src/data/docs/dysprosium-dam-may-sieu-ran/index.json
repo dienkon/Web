@@ -1,0 +1,44 @@
+{
+  "id": "dysprosium-dam-may-sieu-ran",
+  "slug": "dysprosium-dam-may-sieu-ran",
+  "documentPath": "docs/dysprosium-dam-may-sieu-ran/index.json",
+  "title": "Đám mây dysprosium vừa có trật tự vừa giữ tính chảy lượng tử",
+  "summary": "Các thí nghiệm năm 2019 dùng khí dysprosium cực lạnh để khảo sát dấu hiệu siêu rắn. Đến năm 2024, phép đo dựa trên hiệu ứng Josephson tiếp tục kiểm tra phần siêu lỏng của hệ.",
+  "category": "nguyento",
+  "author": "Ban biên tập ChemDex",
+  "image": "/assets/library/photos/elements/Dy.jpg",
+  "tags": [
+    "Dysprosium",
+    "Siêu rắn",
+    "Khí lượng tử",
+    "Josephson"
+  ],
+  "aliases": [],
+  "documentKind": "story",
+  "readingMinutes": 5,
+  "editorialEvidence": {
+    "language": "vi",
+    "scope": "element",
+    "contextLabel": "Đám mây dysprosium vừa có trật tự vừa giữ tính chảy lượng tử",
+    "reviewBasis": "Biên soạn theo các nguồn dẫn cuối bài; phân biệt kết quả đã thực hiện và hướng phát triển.",
+    "story": {
+      "status": "documented",
+      "section": "## Một cái tên tưởng như tự mâu thuẫn",
+      "sources": [
+        "https://doi.org/10.1103/PhysRevX.9.021012",
+        "https://www.uibk.ac.at/en/newsroom/2019/quantum-gas-turns-supersolid/",
+        "https://pmc.ncbi.nlm.nih.gov/articles/PMC11111407/"
+      ]
+    },
+    "application": {
+      "status": "documented",
+      "section": "## Ứng dụng hôm nay nằm ở một phòng thí nghiệm điều khiển được",
+      "sources": [
+        "https://doi.org/10.1103/PhysRevX.9.021012",
+        "https://www.uibk.ac.at/en/newsroom/2019/quantum-gas-turns-supersolid/",
+        "https://pmc.ncbi.nlm.nih.gov/articles/PMC11111407/"
+      ]
+    }
+  },
+  "content": "## Một cái tên tưởng như tự mâu thuẫn\n\nChất rắn gợi hình ảnh các vị trí có trật tự; chất lỏng lại gợi khả năng chảy. Vì thế, “siêu rắn” dễ nghe như một cách đặt tên gây chú ý. Với các nhóm nghiên cứu khí lượng tử, đó là câu hỏi thực nghiệm: một hệ có thể tự tạo cấu trúc mật độ tuần hoàn đồng thời duy trì tính kết hợp và đáp ứng siêu lỏng hay không?\n\nNăm 2019, những công trình với nguyên tử có mômen từ mạnh đưa câu hỏi ấy tới khí erbium và dysprosium cực lạnh. Nhóm Innsbruck báo cáo các dấu hiệu siêu rắn tồn tại lâu hơn trong hệ dysprosium mà họ khảo sát, tạo điều kiện xem xét trạng thái này kỹ hơn.\n\nTrong bài PRX năm 2019, nhóm so sánh hai nguyên tố trong những điều kiện họ chuẩn bị được. Tính kết hợp của các biến điệu mật độ trong ¹⁶⁴Dy tồn tại hơn 150 mili giây, trong khi trường hợp ¹⁶⁶Er chỉ tồn tại vài chục mili giây. Những khoảng thời gian ngắn ấy quyết định nhóm có thể tiếp tục đặt phép đo nào lên mẫu.\n\n![Mẫu dysprosium minh họa nguyên tố, không phải ảnh khí lượng tử trong bẫy](/assets/library/photos/elements/Dy.jpg)\n\n## Từ tính đưa thêm một tương tác vào trò chơi\n\nDysprosium được quan tâm vì mômen từ lớn của nguyên tử. Trong khí loãng cực lạnh, tương tác lưỡng cực từ có thể cạnh tranh với tương tác tầm ngắn. Điều chỉnh tương quan ấy giúp nhóm đi qua các chế độ mà mật độ không còn phân bố như một đám mây trơn đơn giản.\n\nCác đỉnh mật độ hình thành không phải những hạt bụi bị kết tụ ngẫu nhiên. Câu hỏi then chốt là chúng còn liên hệ về pha với nhau đến mức nào. Một cấu trúc có các đỉnh tách biệt nhưng mất liên hệ pha không tự đáp ứng đầy đủ những đặc trưng đang tìm của siêu rắn.\n\nNhóm phải quan sát cả trật tự không gian lẫn tính kết hợp. Các phép đo sau giãn nở và việc thay đổi điều kiện bẫy giúp đối chiếu trạng thái thu được. Kết quả phụ thuộc số hạt, tương tác và cách chuẩn bị, nên không phải tính chất của một mẩu dysprosium ở nhiệt độ phòng.\n\n## Hỏi sâu hơn bằng hiệu ứng Josephson\n\nMột bài báo Nature công bố tháng 5 năm 2024 nghiên cứu phần siêu lỏng của hệ dysprosium qua hiệu ứng Josephson. Trong hệ có mật độ biến điệu, các vùng đậm đặc liên hệ với nhau qua phần mật độ thấp hơn. Dao động pha và trao đổi hạt cung cấp thông tin về liên kết giữa những vùng ấy.\n\nĐiểm quan trọng là đi từ nhìn thấy cấu trúc đến đo một đại lượng mô tả đáp ứng siêu lỏng. Hình ảnh có các đỉnh chưa trả lời hết chuyện hệ sẽ phản ứng thế nào khi bị tác động. Phép đo mới thử đặt định lượng lên đặc trưng từng được tìm qua nhiều dấu hiệu khác nhau.\n\nNó cũng cho thấy một trạng thái lượng tử có thể được khảo sát theo nhiều lớp bằng chứng. Mô hình dự đoán điều gì, máy thực sự đo đại lượng nào và cách suy đại lượng mong muốn từ tín hiệu phải được nối rõ ràng.\n\n## Ứng dụng hôm nay nằm ở một phòng thí nghiệm điều khiển được\n\nKhí dysprosium siêu rắn hiện là nền tảng nghiên cứu vật lý nhiều hạt và các pha lượng tử. Hệ cho phép điều chỉnh tương tác, hình học và số hạt để kiểm tra những mô tả lý thuyết. Giá trị thực tế trước mắt là một công cụ khám phá có thể chuẩn bị lại và đo có kiểm soát.\n\nNhững kết quả này không có nghĩa một hợp kim chứa dysprosium sẽ tự trở thành vật liệu siêu rắn cho máy móc thông thường. Mẫu khí loãng trong bẫy, ở nhiệt độ cực thấp, có điều kiện hoàn toàn riêng. Chính khả năng tạo và giữ các điều kiện ấy làm cho nguyên tố đất hiếm góp thêm một cửa sổ nhìn vào cách vật chất tổ chức tập thể.\n\n## Nguồn và đọc thêm\n\n- [Chomaz và cộng sự: hành vi siêu rắn, PRX 2019](https://doi.org/10.1103/PhysRevX.9.021012)\n- [Đại học Innsbruck: khí lượng tử siêu rắn](https://www.uibk.ac.at/en/newsroom/2019/quantum-gas-turns-supersolid/)\n- [Biagioni và cộng sự: đo phần siêu lỏng, Nature 2024](https://pmc.ncbi.nlm.nih.gov/articles/PMC11111407/)"
+}

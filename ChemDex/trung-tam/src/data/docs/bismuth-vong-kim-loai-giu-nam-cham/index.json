@@ -1,0 +1,46 @@
+{
+  "id": "bismuth-vong-kim-loai-giu-nam-cham",
+  "slug": "bismuth-vong-kim-loai-giu-nam-cham",
+  "documentPath": "docs/bismuth-vong-kim-loai-giu-nam-cham/index.json",
+  "title": "Một vòng bismuth giúp nam châm đứng giữa không trung",
+  "summary": "Một công bố Nature năm 1999 dùng bismuth để ổn định nam châm lơ lửng. Thí nghiệm khiến tính nghịch từ yếu thường khó nhận ra trở thành một chuyển động có thể nhìn thấy.",
+  "category": "nguyento",
+  "author": "Ban biên tập ChemDex",
+  "image": "/assets/library/photos/elements/Bi.jpg",
+  "tags": [
+    "Bismuth",
+    "Nghịch từ",
+    "Levitation",
+    "Từ trường"
+  ],
+  "aliases": [],
+  "documentKind": "story",
+  "readingMinutes": 5,
+  "editorialEvidence": {
+    "language": "vi",
+    "scope": "element",
+    "contextLabel": "Một vòng bismuth giúp nam châm đứng giữa không trung",
+    "reviewBasis": "Biên soạn theo các nguồn dẫn cuối bài; phân biệt kết quả đã thực hiện và hướng phát triển.",
+    "story": {
+      "status": "documented",
+      "section": "## Một nam châm cần thêm sự ổn định",
+      "sources": [
+        "https://doi.org/10.1038/22444",
+        "https://sciencedemonstrations.fas.harvard.edu/presentations/diamagnetic-levitation",
+        "https://instructional-resources.physics.uiowa.edu/5g3055-diamagnetic-bismuth",
+        "https://doi.org/10.1088/0143-0807/18/4/012"
+      ]
+    },
+    "application": {
+      "status": "documented",
+      "section": "## Ứng dụng hôm nay: làm hiệu ứng yếu trở nên đo được",
+      "sources": [
+        "https://doi.org/10.1038/22444",
+        "https://sciencedemonstrations.fas.harvard.edu/presentations/diamagnetic-levitation",
+        "https://instructional-resources.physics.uiowa.edu/5g3055-diamagnetic-bismuth",
+        "https://doi.org/10.1088/0143-0807/18/4/012"
+      ]
+    }
+  },
+  "content": "## Một nam châm cần thêm sự ổn định\n\nCông bố “Magnet levitation at your fingertips” trên Nature tháng 7 năm 1999 mô tả một cách giữ nam châm lơ lửng có sự tham gia của bismuth. Hình học thí nghiệm dùng một ống trụ bismuth để giúp ổn định vị trí. Kim loại không chỉ được đặt cạnh hệ để làm vật trang trí.\n\nMột nam châm có thể được nâng bởi từ trường khác nhưng vẫn lệch sang bên hoặc đổi hướng. Cân bằng lực ở đúng một điểm chưa bảo đảm vật quay lại điểm đó khi hơi bị xô. Bài toán ổn định vì thế quan trọng như bài toán nâng được khối lượng.\n\nBismuth tạo thêm phản ứng với từ trường và giúp tổ chức vùng cân bằng. Điều lạ mắt của một nam châm nổi trên không bắt đầu bằng một câu hỏi rất cơ học: nếu vật rời vị trí một chút, lực nào đưa nó trở về?\n\n![Tinh thể bismuth minh họa nguyên tố nghịch từ, khác hình học vòng dùng trong thí nghiệm](/assets/library/photos/elements/Bi.jpg)\n\n## Nghịch từ thường yếu, nhưng không bằng không\n\nTrong vật liệu nghịch từ, phản ứng cảm ứng có xu hướng chống lại từ trường đặt vào. Vật liệu bị đẩy về phía vùng trường yếu hơn trong cấu hình phù hợp. Bismuth và graphite có đáp ứng nghịch từ đáng kể so với nhiều vật liệu thông dụng, nên thường xuất hiện trong các thí nghiệm minh họa.\n\nTuy vậy, không phải cầm một mẩu bismuth đưa tới nam châm bất kỳ là thấy nó bay. Lực còn phụ thuộc cường độ trường, mức biến thiên trường và hình dạng hệ. Cách bố trí vật liệu cùng nam châm quyết định liệu hiệu ứng nhỏ có đủ tạo một trạng thái quan sát được hay không.\n\nNghịch từ của bismuth cũng khác hiệu ứng đẩy từ rất mạnh của một chất siêu dẫn trong điều kiện thích hợp. Hai trường hợp có thể cùng tạo hình ảnh lơ lửng nhưng cơ chế và điều kiện nhiệt độ không đồng nhất. Chọn đúng lời giải thích giúp hình ảnh đẹp trở thành một phép học vật lý có ý nghĩa.\n\n## Đọc thí nghiệm qua lực và hình học\n\nTài liệu minh họa của Harvard dùng các vật liệu nghịch từ để khảo sát sự ổn định của nam châm. Bài trình diễn tại Đại học Iowa có thiết bị dùng bismuth thay cho các tấm graphite. Chỉ thay vật liệu mà giữ nguyên toàn bộ khoảng cách không phải lúc nào cũng cho cùng kết quả.\n\nTrong những thiết kế ấy, nam châm tạo trường, vật liệu nghịch từ đáp ứng với trường và trọng lực kéo xuống. Mỗi chi tiết có vai trò riêng. Bismuth giúp tạo một phần điều kiện ổn định; nó không cấp năng lượng cho một động cơ vô tận.\n\nCũng cần phân biệt thí nghiệm vòng bismuth với hình ảnh con ếch lơ lửng nổi tiếng của nhóm Geim. Thí nghiệm con ếch dựa vào đáp ứng của vật thể chứa nhiều nước trong từ trường mạnh. Không có bismuth được thêm vào con vật để tạo hiệu ứng. Hai câu chuyện cùng thuộc nghiên cứu nghịch từ nhưng khác mẫu và cấu hình.\n\n## Ứng dụng hôm nay: làm hiệu ứng yếu trở nên đo được\n\nBismuth vẫn hữu ích trong trình diễn và nghiên cứu những bố trí lơ lửng nghịch từ. Một hệ cơ học nhìn thấy được giúp người học kiểm tra sự khác nhau giữa cân bằng và ổn định, giữa cường độ trường và độ biến thiên trường. Đây là ứng dụng giáo dục và thực nghiệm, không phải tuyên bố rằng vòng bismuth đã thay thế ổ đỡ công nghiệp nói chung.\n\nTừ một nguyên tố thường được nhớ qua tinh thể nhiều màu, thí nghiệm mở sang tính chất không thể nhận ra chỉ bằng mắt. Bismuth khiến một đáp ứng từ yếu góp phần giữ một vật ở vị trí xác định. Điều đáng xem không chỉ là khoảng hở dưới nam châm, mà là cách hình học biến một tính chất vật liệu thành lực phục hồi.\n\n## Nguồn và đọc thêm\n\n- [Geim và cộng sự: nam châm lơ lửng, Nature 1999](https://doi.org/10.1038/22444)\n- [Harvard: trình diễn lơ lửng nghịch từ](https://sciencedemonstrations.fas.harvard.edu/presentations/diamagnetic-levitation)\n- [Đại học Iowa: thiết bị dùng bismuth nghịch từ](https://instructional-resources.physics.uiowa.edu/5g3055-diamagnetic-bismuth)\n- [Berry và Geim: phân tích lơ lửng nghịch từ, 1997](https://doi.org/10.1088/0143-0807/18/4/012)"
+}

@@ -1,0 +1,44 @@
+{
+  "id": "roald-hoffmann-lien-ket-doi-theo-nhip-nao",
+  "slug": "roald-hoffmann-lien-ket-doi-theo-nhip-nao",
+  "documentPath": "docs/roald-hoffmann-lien-ket-doi-theo-nhip-nao/index.json",
+  "title": "Roald Hoffmann: những orbital quyết định hai đầu mạch quay theo cách nào",
+  "summary": "Công trình với Woodward năm 1965 giải thích tính lập thể của phản ứng điện vòng. Mô hình orbital giúp nối điều kiện nhiệt hoặc ánh sáng với con đường tạo liên kết.",
+  "category": "tieusu",
+  "author": "Ban biên tập ChemDex",
+  "image": "/assets/library/orbital-pi-conjugation.svg",
+  "tags": [
+    "Roald Hoffmann",
+    "Đối xứng orbital",
+    "Điện vòng",
+    "Hóa lượng tử"
+  ],
+  "aliases": [],
+  "documentKind": "story",
+  "readingMinutes": 4,
+  "editorialEvidence": {
+    "language": "vi",
+    "scope": "chemical-family",
+    "contextLabel": "Roald Hoffmann: những orbital quyết định hai đầu mạch quay theo cách nào",
+    "reviewBasis": "Biên soạn theo các nguồn dẫn cuối bài; phân biệt kết quả đã thực hiện và hướng phát triển.",
+    "story": {
+      "status": "documented",
+      "section": "## Một phản ứng biết chọn hướng trước khi người ta hiểu vì sao",
+      "sources": [
+        "https://doi.org/10.1021/ja01080a054",
+        "https://www.nobelprize.org/prizes/chemistry/1981/hoffmann/lecture/",
+        "https://openstax.org/books/organic-chemistry/pages/30-2-electrocyclic-reactions"
+      ]
+    },
+    "application": {
+      "status": "documented",
+      "section": "## Ứng dụng hôm nay: giải thích đường đi, không chỉ gọi tên phản ứng",
+      "sources": [
+        "https://doi.org/10.1021/ja01080a054",
+        "https://www.nobelprize.org/prizes/chemistry/1981/hoffmann/lecture/",
+        "https://openstax.org/books/organic-chemistry/pages/30-2-electrocyclic-reactions"
+      ]
+    }
+  },
+  "content": "## Một phản ứng biết chọn hướng trước khi người ta hiểu vì sao\n\nNăm 1965, Robert Woodward và Roald Hoffmann công bố bài về lập thể của phản ứng điện vòng. Trong những phản ứng này, các đầu của một hệ liên hợp có thể đóng lại thành liên kết mới hoặc một vòng có thể mở ra.\n\nĐiều cần giải thích là hướng quay của các phần đầu mạch. Những điều kiện khác nhau, như gia nhiệt và chiếu sáng, có thể dẫn tới những yêu cầu lập thể khác nhau. Chỉ đếm số nguyên tử ở hai vế không nói được vì sao phân tử chọn đường này thay vì đường kia.\n\nHoffmann mang các phép tính và mô hình orbital vào cuộc đối thoại với dữ kiện tổng hợp của Woodward. Kết quả mở một chương trình nghiên cứu rộng hơn về bảo toàn đối xứng orbital trong những quá trình phối hợp.\n\n![Minh họa orbital pi, không phải sơ đồ đầy đủ của một phản ứng điện vòng](/assets/library/orbital-pi-conjugation.svg)\n\n## Pha của orbital ảnh hưởng cách liên kết hình thành\n\nOrbital có những phần với quan hệ pha, thường được biểu diễn bằng hai màu hoặc dấu. Các dấu này không phải điện tích dương và âm được sơn lên phân tử. Chúng là thông tin của mô tả sóng dùng để xét sự kết hợp.\n\nKhi các phần của hệ chuyển động, cách những orbital liên quan nối tiếp nhau có thể thuận lợi hoặc không thuận lợi cho một đường phản ứng phối hợp. Những quy tắc được xây từ đó giúp dự đoán hướng chuyển động trong phạm vi cơ chế đang xét.\n\nTừ “được phép” và “bị cấm” cần được hiểu theo ngữ cảnh. Một đường không thuận lợi theo đối xứng không có nghĩa chất không thể phản ứng bằng cơ chế khác, hoặc mọi phản ứng được phép đều nhanh. Năng lượng và những đường cạnh tranh vẫn cần được xét.\n\n## Quy tắc mạnh vì có thể tạo dự đoán mới\n\nCác bài tiếp theo của Woodward và Hoffmann mở rộng lập luận sang cộng vòng và những chuyển vị khác. Một hệ thống ý tưởng giúp nối nhiều hiện tượng trước đó được học như từng trường hợp riêng.\n\nTrong bài giảng Nobel, Hoffmann trình bày giá trị của những mô hình định tính dựa trên orbital. Phép tính có thể hỗ trợ, nhưng hình ảnh đơn giản đúng chỗ giúp người làm hóa học nhìn ra quan hệ và đặt câu hỏi mới.\n\nMô hình phải chịu thử thách của sản phẩm và điều kiện. Nếu kết quả không theo dự đoán, cần kiểm tra cơ chế có thực sự phối hợp như giả định không, trạng thái kích thích nào tham gia và những ràng buộc hình học nào đã bị bỏ qua.\n\n## Ứng dụng hôm nay: giải thích đường đi, không chỉ gọi tên phản ứng\n\nCác quy tắc orbital giúp lập kế hoạch tổng hợp và đọc tính lập thể của nhiều biến đổi hữu cơ. Người dùng cần xác định loại quá trình và số electron tham gia phù hợp trước khi áp dụng.\n\nNhững công cụ tính toán ngày nay có thể khảo sát năng lượng chi tiết hơn, nhưng khả năng xây một lời giải định tính vẫn quan trọng. Nó giúp chọn phép thử có giá trị và nhận ra khi một kết quả cần cơ chế khác.\n\nCâu chuyện Hoffmann cho thấy toán học có thể đi vào hóa học qua một câu hỏi rất cụ thể: hai đầu mạch phải quay cùng hay ngược chiều để hình thành liên kết? Khi câu trả lời được nối với orbital và kiểm tra bằng thí nghiệm, hình vẽ cơ chế không còn chỉ là một cách kể sau sự kiện. Nó trở thành công cụ dự đoán điều có thể xảy ra tiếp theo.\n\n## Nguồn và đọc thêm\n\n- [Woodward và Hoffmann · Lập thể phản ứng điện vòng, 1965](https://doi.org/10.1021/ja01080a054)\n- [Roald Hoffmann · Bài giảng Nobel](https://www.nobelprize.org/prizes/chemistry/1981/hoffmann/lecture/)\n- [OpenStax · Phản ứng điện vòng và cấu trúc orbital](https://openstax.org/books/organic-chemistry/pages/30-2-electrocyclic-reactions)"
+}

@@ -1,0 +1,44 @@
+{
+  "id": "ritonavir-khi-phan-tu-doi-cach-xep-hang",
+  "slug": "ritonavir-khi-phan-tu-doi-cach-xep-hang",
+  "documentPath": "docs/ritonavir-khi-phan-tu-doi-cach-xep-hang/index.json",
+  "title": "Mùa hè 1998: cùng phân tử ritonavir, một cách xếp khác làm đổi sản phẩm",
+  "summary": "Một dạng tinh thể ít tan hơn của ritonavir xuất hiện và gây khó cho sản xuất. Câu chuyện trở thành bài học về đa hình và việc kiểm soát trạng thái rắn.",
+  "category": "khainiem",
+  "author": "Ban biên tập ChemDex",
+  "image": "/assets/library/ionic-crystal.svg",
+  "tags": [
+    "Đa hình",
+    "Ritonavir",
+    "Tinh thể",
+    "Độ tan"
+  ],
+  "aliases": [],
+  "documentKind": "story",
+  "readingMinutes": 4,
+  "editorialEvidence": {
+    "language": "vi",
+    "scope": "chemical-family",
+    "contextLabel": "Mùa hè 1998: cùng phân tử ritonavir, một cách xếp khác làm đổi sản phẩm",
+    "reviewBasis": "Biên soạn theo các nguồn dẫn cuối bài; phân biệt kết quả đã thực hiện và hướng phát triển.",
+    "story": {
+      "status": "documented",
+      "section": "## Công thức phân tử vẫn đúng nhưng kết quả đã khác",
+      "sources": [
+        "https://pubmed.ncbi.nlm.nih.gov/11474792/",
+        "https://pmc.ncbi.nlm.nih.gov/articles/PMC151315/",
+        "https://pubs.rsc.org/en/content/articlehtml/2018/fd/c8fd00069g"
+      ]
+    },
+    "application": {
+      "status": "documented",
+      "section": "## Ứng dụng hôm nay: kiểm soát chất rắn như một phần của thiết kế",
+      "sources": [
+        "https://pubmed.ncbi.nlm.nih.gov/11474792/",
+        "https://pmc.ncbi.nlm.nih.gov/articles/PMC151315/",
+        "https://pubs.rsc.org/en/content/articlehtml/2018/fd/c8fd00069g"
+      ]
+    }
+  },
+  "content": "## Công thức phân tử vẫn đúng nhưng kết quả đã khác\n\nMùa hè năm 1998, nguồn cung viên nang bán rắn Norvir bị đe dọa khi một dạng tinh thể ritonavir ít tan hơn xuất hiện. Báo cáo của nhóm Abbott công bố năm 2001 mô tả việc xác định hai dạng tinh thể và các mạng liên kết hydrogen khác nhau. Chất vẫn mang cùng tên và cùng kết nối nguyên tử, nhưng cách tồn tại ở trạng thái rắn đã thay đổi.\n\nSự việc cho thấy kiểm tra định danh phân tử chưa đủ cho một sản phẩm cần hòa tan theo yêu cầu. Một cấu trúc đóng gói mới có thể làm thay đổi bước vật liệu rời pha rắn. Từ góc độ nhà máy, đây không phải thay đổi nhỏ trong hình vẽ: nó ảnh hưởng khả năng tạo ra sản phẩm có tính năng đã được kiểm chứng.\n\n![Minh họa mạng tinh thể; không phải cấu trúc tinh thể ritonavir](/assets/library/ionic-crystal.svg)\n\n## Đa hình bắt đầu từ cách phân tử đứng cạnh nhau\n\nĐa hình là khả năng một chất có nhiều cấu trúc tinh thể. Trong trường hợp ritonavir, sự thay đổi còn liên quan đến cấu dạng phân tử và mạng liên kết hydrogen. Cùng một phân tử linh động có thể xoay các phần của nó theo những cách khác, rồi ổn định trong những cách đóng gói khác nhau.\n\nĐộ tan phụ thuộc cả tương tác trong tinh thể và tương tác với dung môi. Nếu trạng thái rắn được ổn định mạnh hơn, việc đưa phân tử ra khỏi mạng có thể trở nên kém thuận lợi trong điều kiện nhất định. Điều đó không cho phép dự đoán mọi chất chỉ bằng một quy tắc đơn giản, nhưng giải thích vì sao cấu trúc rắn phải được đo bằng nhiễu xạ và các kỹ thuật bổ sung.\n\n## Tìm tinh thể bằng nhiều ngả thay vì một quy trình\n\nMột nghiên cứu sàng lọc kết tinh công suất cao công bố năm 2003 khảo sát khoảng hai nghìn thí nghiệm và tìm thêm các dạng tinh thể, gồm dạng chứa nước hoặc dung môi. Kết quả mở rộng bản đồ trạng thái rắn của ritonavir, cho thấy hai dạng đã gây chú ý chưa phải toàn bộ khả năng của hệ.\n\nMầm tinh thể, tạp chất và điều kiện môi trường có thể ảnh hưởng dạng được tạo ra. Những trường hợp gọi là “đa hình biến mất” không có nghĩa dạng cũ bị xóa khỏi các định luật hóa học. Chúng nhấn mạnh khó khăn thực tế của việc tái tạo một dạng khi điều kiện tạo mầm và lịch sử vật liệu đã thay đổi.\n\n## Ứng dụng hôm nay: kiểm soát chất rắn như một phần của thiết kế\n\nNghiên cứu phát triển dược phẩm sử dụng sàng lọc đa hình, phân tích nhiệt, nhiễu xạ và theo dõi ổn định để nhận biết các khả năng biến đổi. Những nghiên cứu mô phỏng tinh thể còn đặt câu hỏi liệu có thể cảnh báo các dạng bền chưa quan sát được hay không. Dự đoán cần được đối chiếu với thí nghiệm, vì tồn tại về năng lượng và xuất hiện được trong thực tế là hai vấn đề khác nhau.\n\nBài này nói về vật liệu và sản xuất, không hướng dẫn dùng thuốc. Câu chuyện ritonavir khiến chữ “tinh thể” có trọng lượng thực tế: sản phẩm không chỉ cần đúng phân tử mà còn cần đúng trạng thái, được giữ ổn định trong điều kiện sử dụng. Khi các phân tử đổi cách xếp hàng, một dây chuyền có thể phải học lại cách tạo ra vật liệu vốn tưởng đã được hiểu rõ.\n\n## Nguồn và đọc thêm\n\n- [Bauer và cộng sự · Đa hình cấu dạng của ritonavir, 2001](https://pubmed.ncbi.nlm.nih.gov/11474792/)\n- [Nghiên cứu gốc · Sàng lọc các dạng tinh thể ritonavir, 2003](https://pmc.ncbi.nlm.nih.gov/articles/PMC151315/)\n- [Nghiên cứu mô phỏng · Những trường hợp như ritonavir còn ở đâu, 2018](https://pubs.rsc.org/en/content/articlehtml/2018/fd/c8fd00069g)"
+}

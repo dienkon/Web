@@ -1,0 +1,44 @@
+{
+  "id": "diem-duc-mot-dung-dich-thanh-hai-pha",
+  "slug": "diem-duc-mot-dung-dich-thanh-hai-pha",
+  "documentPath": "docs/diem-duc-mot-dung-dich-thanh-hai-pha/index.json",
+  "title": "Làm đục để tách: khi dung dịch chất hoạt động bề mặt chia thành hai pha",
+  "summary": "Từ phép định lượng zinc năm 1978 đến tách protein màng, điểm đục trở thành một công cụ phân bố vật chất. Nhiệt độ thay đổi môi trường mà các chất lựa chọn.",
+  "category": "khainiem",
+  "author": "Ban biên tập ChemDex",
+  "image": "/assets/library/lab-synthesis.svg",
+  "tags": [
+    "Điểm đục",
+    "Chiết",
+    "Micelle",
+    "Phân pha"
+  ],
+  "aliases": [],
+  "documentKind": "story",
+  "readingMinutes": 4,
+  "editorialEvidence": {
+    "language": "vi",
+    "scope": "chemical-family",
+    "contextLabel": "Làm đục để tách: khi dung dịch chất hoạt động bề mặt chia thành hai pha",
+    "reviewBasis": "Biên soạn theo các nguồn dẫn cuối bài; phân biệt kết quả đã thực hiện và hướng phát triển.",
+    "story": {
+      "status": "documented",
+      "section": "## Một kỹ thuật gom zinc vào phần thể tích nhỏ",
+      "sources": [
+        "https://pubmed.ncbi.nlm.nih.gov/18962328/",
+        "https://doi.org/10.1016/S0021-9258(19)69848-0",
+        "https://eprints.lib.hokudai.ac.jp/repo/huscap/all/71706/Anal.sci.14-875.pdf"
+      ]
+    },
+    "application": {
+      "status": "documented",
+      "section": "## Ứng dụng hôm nay: phân tách bằng thay môi trường",
+      "sources": [
+        "https://pubmed.ncbi.nlm.nih.gov/18962328/",
+        "https://doi.org/10.1016/S0021-9258(19)69848-0",
+        "https://eprints.lib.hokudai.ac.jp/repo/huscap/all/71706/Anal.sci.14-875.pdf"
+      ]
+    }
+  },
+  "content": "## Một kỹ thuật gom zinc vào phần thể tích nhỏ\n\nNăm 1978, Watanabe và Tanaka công bố phương pháp chiết zinc dưới dạng phức với PAN bằng dung dịch chất hoạt động bề mặt không ion. Khi hệ vượt qua điều kiện điểm đục, nó tách thành một pha giàu chất hoạt động bề mặt và một pha nghèo hơn. Phức zinc tập trung vào phần thể tích nhỏ, hỗ trợ phép đo hấp thụ sau đó.\n\nNhóm áp dụng phương pháp cho zinc trong nước máy. Đây là một ví dụ cụ thể về tiền làm giàu mẫu: không cần tạo thêm chất cần đo, mà chuyển nó từ một thể tích lớn sang một vùng nhỏ hơn để tín hiệu dễ phát hiện. Phân pha trở thành một công đoạn có chủ đích.\n\n![Minh họa phân tách trong phòng thí nghiệm; không phải hướng dẫn thao tác chiết](/assets/library/lab-synthesis.svg)\n\n## Mờ đi vì hệ không còn đồng nhất\n\nỞ một số chất hoạt động bề mặt không ion, tăng nhiệt độ làm thay đổi tương tác giữa nhóm ưa nước và nước. Hệ có thể đi vào miền hai pha, gây tán xạ ánh sáng và nhìn đục hơn. Điều kiện phụ thuộc thành phần, nồng độ và các chất thêm vào; không phải mọi chất hoạt động bề mặt đều có cùng điểm đục.\n\nCũng cần phân biệt với sự kết tinh ở nhiệt độ thấp quanh vùng Krafft. Hai hiện tượng đều có thể làm mẫu đổi vẻ ngoài, nhưng cơ chế và giản đồ pha khác nhau. Quan sát bằng mắt giúp nhận ra có biến đổi; muốn biết biến đổi gì phải khảo sát thành phần và tính chất của các pha.\n\n## Protein màng tìm về môi trường phù hợp\n\nNăm 1981, Bordier khảo sát phân pha của Triton X-114 và sự phân bố protein. Những protein có tính kỵ nước phù hợp có thể ưu tiên pha giàu chất tẩy, mở một hướng tách dựa trên cách chúng tương tác với môi trường micelle.\n\nCác tổng kết về hệ hai pha micelle sau đó mô tả cả ứng dụng và những yếu tố cần kiểm soát khi xử lý protein. Một chất đi vào pha giàu micelle không chỉ vì kích thước; tính kỵ nước, điện tích và sự liên kết với các thành phần khác đều có thể ảnh hưởng. Với mẫu sinh học, còn cần biết quá trình có giữ được cấu trúc và chức năng mong muốn hay không.\n\n## Ứng dụng hôm nay: phân tách bằng thay môi trường\n\nChiết điểm đục được nghiên cứu trong phân tích vết, xử lý mẫu và tách các thành phần sinh học. Nó có thể giảm nhu cầu một số dung môi hữu cơ, nhưng vẫn tạo các dòng cần xử lý và đòi hỏi kiểm tra độ thu hồi. Chất hoạt động bề mặt còn lại có thể ảnh hưởng phép đo kế tiếp, nên quá trình phải được thiết kế theo toàn bộ chuỗi phân tích.\n\nBài học ở đây là một dung dịch trong suốt chưa chắc luôn là trạng thái tiện dụng nhất. Đôi khi chủ động đưa hệ tới hai pha giúp phân chia các chất theo tương tác của chúng. Từ zinc trong mẫu nước tới protein trong màng tế bào, cùng một ý tưởng xuất hiện: thay điều kiện để vật chất tự chọn nơi ở khác nhau, rồi kiểm tra xem sự lựa chọn ấy có đủ chọn lọc và lặp lại cho nhiệm vụ cần làm hay không.\n\n## Nguồn và đọc thêm\n\n- [Watanabe và Tanaka · Chiết zinc bằng điểm đục, 1978](https://pubmed.ncbi.nlm.nih.gov/18962328/)\n- [Bordier · Protein màng trong hệ Triton X-114, 1981](https://doi.org/10.1016/S0021-9258(19)69848-0)\n- [Tổng quan chuyên môn · Hệ hai pha micelle và protein, 1998](https://eprints.lib.hokudai.ac.jp/repo/huscap/all/71706/Anal.sci.14-875.pdf)"
+}

@@ -1,0 +1,46 @@
+{
+  "id": "dmso-giup-te-bao-di-qua-dong-lanh",
+  "slug": "dmso-giup-te-bao-di-qua-dong-lanh",
+  "documentPath": "docs/dmso-giup-te-bao-di-qua-dong-lanh/index.json",
+  "title": "DMSO và thử thách đưa tế bào qua một lần đông lạnh",
+  "summary": "Năm 1959, Lovelock và Bishop công bố khả năng bảo vệ tế bào của dimethyl sulfoxide khi đông và rã. Hôm nay, vai trò ấy tiếp tục nằm trong quy trình duy trì những bộ sưu tập tế bào nghiên cứu.",
+  "category": "hopchat",
+  "author": "Ban biên tập ChemDex",
+  "image": "/assets/library/photos/stories/cryopreservation-dewar.jpg",
+  "tags": [
+    "DMSO",
+    "Dimethyl sulfoxide",
+    "Bảo quản lạnh",
+    "Nuôi cấy tế bào"
+  ],
+  "aliases": [],
+  "documentKind": "story",
+  "readingMinutes": 5,
+  "editorialEvidence": {
+    "language": "vi",
+    "scope": "chemical-family",
+    "contextLabel": "DMSO và thử thách đưa tế bào qua một lần đông lạnh",
+    "reviewBasis": "Biên soạn theo các nguồn dẫn cuối bài; phân biệt kết quả đã thực hiện và hướng phát triển.",
+    "story": {
+      "status": "documented",
+      "section": "## Sống sau khi rã đông mới là câu trả lời",
+      "sources": [
+        "https://doi.org/10.1038/1831394a0",
+        "https://doi.org/10.1038/1901204a0",
+        "https://www.atcc.org/resources/technical-documents/cryogenic-storage-of-animal-cells",
+        "https://www.atcc.org/resources/culture-guides/animal-cell-culture-guide"
+      ]
+    },
+    "application": {
+      "status": "documented",
+      "section": "## Ứng dụng hôm nay: tạo một điểm khởi đầu có thể quay lại",
+      "sources": [
+        "https://doi.org/10.1038/1831394a0",
+        "https://doi.org/10.1038/1901204a0",
+        "https://www.atcc.org/resources/technical-documents/cryogenic-storage-of-animal-cells",
+        "https://www.atcc.org/resources/culture-guides/animal-cell-culture-guide"
+      ]
+    }
+  },
+  "content": "## Sống sau khi rã đông mới là câu trả lời\n\nGiữ một mẫu ở nhiệt độ thấp nghe như chỉ cần một thiết bị đủ lạnh. Với tế bào, phần khó còn nằm ở lúc nước đóng băng và khi mẫu được làm ấm trở lại. Màng tế bào, nồng độ các chất hòa tan và cấu trúc bên trong đều có thể bị tác động.\n\nNăm 1959, J. E. Lovelock và M. W. H. Bishop công bố trên Nature công trình về dimethyl sulfoxide, thường gọi DMSO, trong bảo vệ tế bào trước tổn thương đông lạnh. Những thí nghiệm với hồng cầu bò góp phần nhận diện một chất có thể làm thay đổi kết quả sau chu kỳ đông và rã.\n\nĐiểm cần quan sát là khả năng tế bào đi qua quy trình và còn giữ được chức năng mong muốn. Một lọ vẫn nguyên vẹn hay một mẫu nhìn có vẻ đông đẹp chưa phải bằng chứng sinh học. Bài toán bảo quản bắt buộc nối điều kiện xử lý với phép kiểm tra sau đó.\n\n![Bình Dewar dùng để bảo quản lạnh bằng nitơ lỏng](/assets/library/photos/stories/cryopreservation-dewar.jpg)\n\n*Bình bảo quản lạnh trong ảnh của U.S. Fish and Wildlife Service năm 2011; minh họa thiết bị, không phải phòng thí nghiệm Kew. — Cody Meshes / U.S. Fish and Wildlife Service; [Public domain](https://creativecommons.org/publicdomain/mark/1.0/). [Nguồn ảnh](https://commons.wikimedia.org/wiki/File:Cryopreservation_Dewar_(5544588680).jpg).*\n\n## Một phân tử nhỏ làm thay đổi môi trường nước\n\nDMSO có công thức (CH₃)₂SO. Trong bảo quản lạnh, nó được dùng như chất bảo vệ có thể đi vào tế bào, tham gia điều chỉnh môi trường nơi nước đóng băng và các chất hòa tan bị cô đặc. Vai trò của nó khác nguồn lạnh bên ngoài.\n\nKhi băng hình thành, phần lỏng còn lại thay đổi thành phần. Nước di chuyển qua màng theo điều kiện của hệ, và tốc độ hạ nhiệt quyết định tế bào có kịp đáp ứng hay không. Vì vậy, lượng chất bảo vệ không thể được xét tách khỏi thời gian tiếp xúc, tốc độ làm lạnh và loại tế bào.\n\nDMSO cũng có tác động riêng lên tế bào. Tài liệu kỹ thuật của ATCC yêu cầu chọn điều kiện thích hợp cho từng dòng và chú ý xử lý sau rã đông. Chất giúp vượt qua một giai đoạn không nhất thiết phù hợp để ở lại lâu trong mọi môi trường nuôi cấy.\n\n## Từ một mẫu thử đến kho giống tế bào\n\nNăm 1961, một công trình khác trên Nature khảo sát bảo quản tủy xương chuột ở nhiệt độ thấp với DMSO. Đó là một đối tượng sinh học và phép đánh giá khác với hồng cầu. Lịch sử phát triển đi qua việc thử trên từng hệ, thay vì lấy một kết quả ban đầu áp cho tất cả mẫu sống.\n\nNgày nay, các bộ sưu tập tế bào sử dụng mẫu đông lạnh để giữ nguồn khởi đầu cho nghiên cứu. Tài liệu ATCC mô tả nhiều môi trường có DMSO, đồng thời chỉ rõ nồng độ tối ưu thay đổi theo dòng. Môi trường còn có những thành phần khác giúp mẫu đáp ứng với toàn bộ quy trình.\n\nKho mẫu cũng cần nhận diện tế bào, hồ sơ lô và kiểm tra nhiễm. Một dòng được bảo quản tốt nhưng nhầm danh tính vẫn có thể làm sai thí nghiệm. Hóa chất bảo vệ là một mắt xích trong hệ thống duy trì chất lượng, cùng với nhãn, dữ liệu và phép kiểm tra sinh học.\n\n## Ứng dụng hôm nay: tạo một điểm khởi đầu có thể quay lại\n\nMẫu giống lưu trữ giúp phòng thí nghiệm quay về nguồn đã kiểm tra khi cần bắt đầu đợt nuôi mới. Việc ấy hỗ trợ so sánh thí nghiệm và giảm phụ thuộc vào một quần thể đã nuôi qua quá nhiều lần chuyển. Hiệu quả phải được đánh giá bằng mức phục hồi và những đặc điểm của đúng dòng tế bào.\n\nBài học từ DMSO là bảo quản không đồng nghĩa làm mẫu bất động rồi quên đi. Người nghiên cứu cần thiết kế cả đường đi xuống nhiệt độ thấp và đường trở lại điều kiện hoạt động. Một phân tử nhỏ trở nên hữu ích khi nó giúp hành trình ấy giữ được phần sinh học mà thí nghiệm muốn nghiên cứu.\n\n## Nguồn và đọc thêm\n\n- [Lovelock và Bishop: DMSO bảo vệ tế bào, Nature 1959](https://doi.org/10.1038/1831394a0)\n- [Ashwood-Smith: bảo quản tủy xương chuột, Nature 1961](https://doi.org/10.1038/1901204a0)\n- [ATCC: lưu trữ lạnh tế bào động vật](https://www.atcc.org/resources/technical-documents/cryogenic-storage-of-animal-cells)\n- [ATCC: hướng dẫn nuôi cấy tế bào động vật](https://www.atcc.org/resources/culture-guides/animal-cell-culture-guide)"
+}

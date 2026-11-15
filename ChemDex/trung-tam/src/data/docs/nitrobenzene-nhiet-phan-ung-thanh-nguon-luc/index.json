@@ -1,0 +1,44 @@
+{
+  "id": "nitrobenzene-nhiet-phan-ung-thanh-nguon-luc",
+  "slug": "nitrobenzene-nhiet-phan-ung-thanh-nguon-luc",
+  "documentPath": "docs/nitrobenzene-nhiet-phan-ung-thanh-nguon-luc/index.json",
+  "title": "Không chỉ lấy nhiệt ra: thiết kế đoạn nhiệt trong sản xuất nitrobenzene",
+  "summary": "Từ nghiên cứu năm 1974, tuyến mononitrobenzene đoạn nhiệt đã được phát triển thành công nghệ lớn. Nhiệt sinh ra được đưa vào thiết kế thu hồi acid thay vì chỉ xem như phần phải loại bỏ.",
+  "category": "phanung",
+  "author": "Ban biên tập ChemDex",
+  "image": "/assets/library/industrial-reactor.svg",
+  "tags": [
+    "Nitration",
+    "Nitrobenzene",
+    "Tích hợp nhiệt",
+    "Công nghiệp"
+  ],
+  "aliases": [],
+  "documentKind": "story",
+  "readingMinutes": 4,
+  "editorialEvidence": {
+    "language": "vi",
+    "scope": "chemical-family",
+    "contextLabel": "Không chỉ lấy nhiệt ra: thiết kế đoạn nhiệt trong sản xuất nitrobenzene",
+    "reviewBasis": "Biên soạn theo các nguồn dẫn cuối bài; phân biệt kết quả đã thực hiện và hướng phát triển.",
+    "story": {
+      "status": "documented",
+      "section": "## Một phản ứng đã biết, một cách quản lý nhiệt khác",
+      "sources": [
+        "https://doi.org/10.1021/bk-2013-1155.ch001",
+        "https://patents.google.com/patent/JP2013535459A/en",
+        "https://openstax.org/books/organic-chemistry/pages/16-2-other-aromatic-substitutions"
+      ]
+    },
+    "application": {
+      "status": "documented",
+      "section": "## Ứng dụng hôm nay: phản ứng và phân tách phải được thiết kế cùng nhau",
+      "sources": [
+        "https://doi.org/10.1021/bk-2013-1155.ch001",
+        "https://patents.google.com/patent/JP2013535459A/en",
+        "https://openstax.org/books/organic-chemistry/pages/16-2-other-aromatic-substitutions"
+      ]
+    }
+  },
+  "content": "## Một phản ứng đã biết, một cách quản lý nhiệt khác\n\nTrong chương sách kỹ thuật năm 2013, những người phát triển công nghệ kể lại hành trình quy trình mononitrobenzene đoạn nhiệt từ nghiên cứu quy mô bàn năm 1974 tới sử dụng công nghiệp. Câu chuyện cho thấy cải tiến có thể nằm ở cách tổ chức năng lượng và tuần hoàn, dù phương trình hóa học đã quen thuộc từ lâu.\n\nNitrobenzene là một chất trung gian quan trọng của tuyến đi tới aniline và những sản phẩm tiếp theo. Để làm ra nó, nhóm nitro được đưa vào vòng benzene bằng phản ứng thế. Phản ứng giải phóng nhiệt; trong nhà máy, cách kiểm soát và tận dụng nhiệt ấy là một phần của công nghệ.\n\nCùng thời kỳ có những tuyến thiết kế khác nhau, trong đó có phương án dùng sự sôi của hỗn hợp để lấy nhiệt ra. Bởi vậy, “nitration công nghiệp” không phải tên của một cấu hình thiết bị duy nhất.\n\n![Minh họa thiết bị công nghiệp, không phải sơ đồ thao tác nitration](/assets/library/industrial-reactor.svg)\n\n## Một nhóm mới trên vòng, nhiều dòng mới quanh thiết bị\n\nPhản ứng nitration thơm đưa nitrogen và oxygen vào nhóm nitro gắn trên vòng. Cơ chế thế ái điện tử giải thích vì sao tính thơm của vòng được khôi phục sau các bước phản ứng, và vì sao sản phẩm không phải chỉ là benzene giữ thêm một phân tử acid ở bên ngoài.\n\nMôi trường acid góp phần tạo tác nhân phản ứng thích hợp. Sau chuyển hóa, thành phần nước và acid thay đổi, nên khả năng dùng lại môi trường phụ thuộc bước tách và phục hồi. Cân bằng nguyên liệu không thể chỉ tính benzene và nitrobenzene.\n\nỞ cách tổ chức đoạn nhiệt, nhiệt sinh ra làm nhiệt độ dòng phản ứng thay đổi trong phạm vi được thiết kế. Nhiệt ấy có thể được liên kết với công đoạn phục hồi acid ở phía sau. “Đoạn nhiệt” không có nghĩa bỏ kiểm soát nhiệt hoặc để phản ứng tự diễn ra không giới hạn.\n\nDo phản ứng và môi trường có những yêu cầu an toàn nghiêm ngặt, kiến thức ở đây là nguyên lý công nghệ. Nó không phải hướng dẫn phối trộn, gia nhiệt hoặc vận hành thiết bị ngoài cơ sở chuyên dụng.\n\n## Ứng dụng hôm nay: phản ứng và phân tách phải được thiết kế cùng nhau\n\nNhững bằng sáng chế phát triển sau đó tiếp tục chú ý tới tuần hoàn acid, xử lý sản phẩm phụ và chất lượng nitrobenzene. Điều này phản ánh một thực tế của công nghệ lâu năm: sau khi tạo được sản phẩm, phần tối ưu lớn thường nằm trong những dòng quay lại và những tạp chất tích lũy.\n\nTuyến đi tới aniline đưa nitrobenzene vào các chuỗi vật liệu như polyurethane. Điều đó không làm mọi sản phẩm cuối có cùng tính chất với chất trung gian; mỗi bước biến đổi tạo ra cấu trúc mới và những yêu cầu chất lượng mới.\n\nMột ví dụ công nghiệp hữu ích cần được đọc trên cả hai bản đồ: bản đồ phản ứng cho biết các nguyên tử đổi liên kết, còn bản đồ dòng vật chất và nhiệt cho biết quy trình sống được như thế nào. Tối ưu một bản đồ mà bỏ quên bản đồ kia có thể chuyển khó khăn sang phân xưởng khác.\n\nHành trình từ nghiên cứu năm 1974 giúp thấy vai trò của kỹ thuật hóa học trong phát minh. Nhiệt vốn là hệ quả của phản ứng được đưa trở lại thành một yếu tố thiết kế. Khi làm được điều đó trong một hệ được kiểm soát, nhà máy có thể giảm những công việc phải làm riêng ở phía sau.\n\n## Nguồn và đọc thêm\n\n- [Các nhà phát triển · Lịch sử quy trình mononitrobenzene đoạn nhiệt](https://doi.org/10.1021/bk-2013-1155.ch001)\n- [Bằng sáng chế về sản xuất nitrobenzene đoạn nhiệt](https://patents.google.com/patent/JP2013535459A/en)\n- [OpenStax · Nitration trong các phản ứng thế thơm](https://openstax.org/books/organic-chemistry/pages/16-2-other-aromatic-substitutions)"
+}

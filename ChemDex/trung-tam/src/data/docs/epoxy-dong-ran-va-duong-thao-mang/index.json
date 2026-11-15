@@ -1,0 +1,46 @@
+{
+  "id": "epoxy-dong-ran-va-duong-thao-mang",
+  "slug": "epoxy-dong-ran-va-duong-thao-mang",
+  "documentPath": "docs/epoxy-dong-ran-va-duong-thao-mang/index.json",
+  "title": "Keo đã đóng rắn có đường tháo mạng: câu hỏi từ cánh quạt ngoài khơi",
+  "summary": "Kaskasi đưa cánh quạt có hệ nhựa thiết kế cho tái chế vào vận hành năm 2022. Câu chuyện bắt đầu từ phản ứng đóng rắn: tạo một mạng bền, rồi nghĩ trước cách xử lý nó cuối vòng đời.",
+  "category": "phanung",
+  "author": "Ban biên tập ChemDex",
+  "image": "/assets/library/organic-polymer.svg",
+  "tags": [
+    "Epoxy",
+    "Đóng rắn",
+    "Composite",
+    "Tái chế"
+  ],
+  "aliases": [],
+  "documentKind": "story",
+  "readingMinutes": 4,
+  "editorialEvidence": {
+    "language": "vi",
+    "scope": "chemical-family",
+    "contextLabel": "Keo đã đóng rắn có đường tháo mạng: câu hỏi từ cánh quạt ngoài khơi",
+    "reviewBasis": "Biên soạn theo các nguồn dẫn cuối bài; phân biệt kết quả đã thực hiện và hướng phát triển.",
+    "story": {
+      "status": "documented",
+      "section": "## Một cánh quạt đặt câu hỏi cho chất kết dính bên trong",
+      "sources": [
+        "https://www.rwe.com/en/press/rwe-renewables/2022-08-01-first-turbine-commissioned-at-rwes-kaskasi-wind-farm/",
+        "https://www.siemensgamesa.com/global/en/home/press-releases/080122-siemens-gamesa-press-release-recycle-wind-blade-offshore-kaskasi-germany.html",
+        "https://www.adityabirlachemicals.com/recyclamine.php",
+        "https://patents.google.com/patent/US2324483A/en"
+      ]
+    },
+    "application": {
+      "status": "documented",
+      "section": "## Ứng dụng hôm nay: thiết kế tái chế trước khi vật liệu thành hình",
+      "sources": [
+        "https://www.rwe.com/en/press/rwe-renewables/2022-08-01-first-turbine-commissioned-at-rwes-kaskasi-wind-farm/",
+        "https://www.siemensgamesa.com/global/en/home/press-releases/080122-siemens-gamesa-press-release-recycle-wind-blade-offshore-kaskasi-germany.html",
+        "https://www.adityabirlachemicals.com/recyclamine.php",
+        "https://patents.google.com/patent/US2324483A/en"
+      ]
+    }
+  },
+  "content": "## Một cánh quạt đặt câu hỏi cho chất kết dính bên trong\n\nNgày 1 tháng 8 năm 2022, RWE thông báo turbine đầu tiên tại dự án Kaskasi có cánh quạt thiết kế cho khả năng tái chế đã phát điện. Siemens Gamesa ghi việc lắp đặt cánh RecyclableBlade thương mại diễn ra trong tháng 7 cùng năm.\n\nBài toán nằm ở composite: sợi gia cường và nền nhựa làm việc tốt với nhau khi sử dụng, nhưng cũng khó tách khỏi nhau khi hết vòng đời. Độ bền của mạng polymer, vốn là ưu điểm trong vận hành, trở thành trở ngại cho thu hồi vật liệu.\n\nCông bố của nhà sản xuất mô tả hệ nhựa mới cho phép tách các thành phần trong điều kiện xử lý xác định. Không phải toàn bộ những cánh quạt epoxy đã tồn tại trước đó tự có khả năng này. Nó là một lựa chọn được đưa vào công thức vật liệu, nối phản ứng đóng rắn ban đầu với kế hoạch tháo mạng về sau.\n\n![Minh họa mạng polymer, không phải bản vẽ cấu tạo nhựa của RecyclableBlade](/assets/library/organic-polymer.svg)\n\n## Vòng epoxide mở ra để nối những phân tử thành mạng\n\nTrong những hệ epoxy đóng rắn bằng amine, nhóm amine phản ứng với vòng epoxide, mở vòng và tạo liên kết mới. Khi nhựa và chất đóng rắn có nhiều điểm phản ứng, các phân tử được nối thành một mạng ba chiều.\n\nQuá trình ấy khác việc dung môi bay hơi để lại một lớp keo khô. Mạng cộng hóa trị mới được hình thành. Sau khi đóng rắn đủ, vật liệu không chảy lại như một nhựa nhiệt dẻo thông thường khi được làm nóng trong vùng sử dụng.\n\nTính chất phụ thuộc loại nhựa, chất đóng rắn, tỷ lệ nhóm chức và mức phản ứng đã đạt. Chỉ nói “epoxy hai thành phần” chưa cho biết độ cứng, nhiệt độ làm việc hay khả năng chịu môi trường của sản phẩm cuối.\n\nMột hướng thiết kế chất đóng rắn như Recyclamine đưa các vị trí có thể cắt vào mạng. Trong điều kiện được định trước, những mối nối ấy cho phép chuyển mạng nhiệt rắn thành các phần có thể thu hồi. Vị trí cắt phải đủ ổn định khi sử dụng nhưng có thể được xử lý ở cuối vòng đời: hai yêu cầu cần được cân bằng.\n\n## Ứng dụng hôm nay: thiết kế tái chế trước khi vật liệu thành hình\n\nEpoxy được dùng trong keo, lớp phủ, điện tử và composite. Với sản phẩm lớn như cánh quạt, việc lấy lại sợi và nền nhựa có giá trị cần một quá trình phù hợp với kích thước, tạp chất và trạng thái lão hóa của vật liệu thực.\n\nMột thông báo lắp đặt cánh mới chứng minh công nghệ đã đi vào một ứng dụng thương mại cụ thể. Nó không đồng nghĩa toàn bộ cánh ấy đã trải qua hết tuổi thọ rồi được tái chế ở quy mô lớn. Khả năng thiết kế cho thu hồi và kết quả vận hành chuỗi thu hồi cần được theo dõi như hai loại bằng chứng khác nhau.\n\nAditya Birla Chemicals mô tả những chất đóng rắn có điểm cắt được thiết kế cho các hệ epoxy, với các lựa chọn tính năng khác nhau. Điều này cho thấy khả năng tái chế không phải một phụ gia chung có thể rắc vào mọi nhựa rồi giữ nguyên mọi tính chất.\n\nKaskasi làm nổi bật một thay đổi trong cách đặt câu hỏi: chất kết dính tốt không chỉ phải giữ sợi chắc trong gió và nước biển, mà còn cần được xem xét sẽ đi đâu khi công việc ấy kết thúc. Phản ứng đóng rắn có thể là nơi bắt đầu thiết kế lời giải, thay vì chờ đến lúc vật liệu thành chất thải.\n\n## Nguồn và đọc thêm\n\n- [RWE · Turbine đầu tiên ở Kaskasi, 1/8/2022](https://www.rwe.com/en/press/rwe-renewables/2022-08-01-first-turbine-commissioned-at-rwes-kaskasi-wind-farm/)\n- [Siemens Gamesa · RecyclableBlade được lắp thương mại tháng 7/2022](https://www.siemensgamesa.com/global/en/home/press-releases/080122-siemens-gamesa-press-release-recycle-wind-blade-offshore-kaskasi-germany.html)\n- [Aditya Birla Chemicals · Chất đóng rắn epoxy với điểm cắt được thiết kế](https://www.adityabirlachemicals.com/recyclamine.php)\n- [Pierre Castan · Bằng sáng chế nhựa nhiệt rắn nền tảng, 1943](https://patents.google.com/patent/US2324483A/en)"
+}

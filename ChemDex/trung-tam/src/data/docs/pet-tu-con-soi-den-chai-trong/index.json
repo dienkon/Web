@@ -1,0 +1,44 @@
+{
+  "id": "pet-tu-con-soi-den-chai-trong",
+  "slug": "pet-tu-con-soi-den-chai-trong",
+  "documentPath": "docs/pet-tu-con-soi-den-chai-trong/index.json",
+  "title": "Trước chiếc chai trong là một cuộn sợi: phản ứng tạo PET",
+  "summary": "Bảo tàng còn giữ mẫu sợi Terylene từ khoảng năm 1949. Hành trình từ polyester làm sợi tới chai nhựa bắt đầu bằng việc nối các monomer và quản lý những phân tử nhỏ được tách ra.",
+  "category": "phanung",
+  "author": "Ban biên tập ChemDex",
+  "image": "/assets/library/organic-polymer.svg",
+  "tags": [
+    "PET",
+    "Trùng ngưng",
+    "Polyester",
+    "Terylene"
+  ],
+  "aliases": [],
+  "documentKind": "story",
+  "readingMinutes": 4,
+  "editorialEvidence": {
+    "language": "vi",
+    "scope": "chemical-family",
+    "contextLabel": "Trước chiếc chai trong là một cuộn sợi: phản ứng tạo PET",
+    "reviewBasis": "Biên soạn theo các nguồn dẫn cuối bài; phân biệt kết quả đã thực hiện và hướng phát triển.",
+    "story": {
+      "status": "documented",
+      "section": "## Cuộn sợi kể một lịch sử khác chiếc chai",
+      "sources": [
+        "https://collection.sciencemuseumgroup.org.uk/objects/co12871/first-sample-of-100-spun-terylene-yarn",
+        "https://www.nature.com/articles/158930a0",
+        "https://openstax.org/books/organic-chemistry/pages/31-4-step-growth-polymers"
+      ]
+    },
+    "application": {
+      "status": "documented",
+      "section": "## Ứng dụng hôm nay: cấu trúc phân tử và lịch sử gia công cùng quyết định tính năng",
+      "sources": [
+        "https://collection.sciencemuseumgroup.org.uk/objects/co12871/first-sample-of-100-spun-terylene-yarn",
+        "https://www.nature.com/articles/158930a0",
+        "https://openstax.org/books/organic-chemistry/pages/31-4-step-growth-polymers"
+      ]
+    }
+  },
+  "content": "## Cuộn sợi kể một lịch sử khác chiếc chai\n\nScience Museum Group lưu một mẫu sợi Terylene được kéo khoảng năm 1949 tại Shirley Institute. Hồ sơ hiện vật ghi công việc năm 1941 của John Rex Whinfield và James Tennant Dickson về polyethylene terephthalate, hay PET, rồi quá trình phát triển thương mại dưới tên Terylene.\n\nĐiều thú vị là mẫu sợi ấy được làm trên máy kéo sợi vốn dành cho cotton. Một polymer mới bước vào đời sống qua thiết bị và thói quen của ngành dệt đã tồn tại. Chai nước trong suốt, hình ảnh người đọc thường nghĩ tới khi nghe PET, chỉ là một trong nhiều dạng sản phẩm từ cùng họ hóa học.\n\nTrong bài Nature năm 1946, chính Whinfield mô tả Terylene như polymer tạo sợi từ terephthalic acid và ethylene glycol. Tư liệu giúp thấy câu hỏi ban đầu hướng tới việc nối những phân tử nhỏ thành chuỗi có thể kéo và giữ tính năng của sợi.\n\n![Minh họa chuỗi polyester, không phải ảnh cuộn Terylene của bảo tàng](/assets/library/organic-polymer.svg)\n\n## Chuỗi lớn lên qua những nhóm chức ở hai đầu\n\nPET có các đơn vị lặp nối với nhau bằng liên kết ester. Trong một tuyến quen thuộc, các nhóm acid của terephthalic acid phản ứng với các nhóm alcohol của ethylene glycol. Các tuyến công nghiệp khác có thể bắt đầu từ dẫn xuất ester tương ứng, nên loại phân tử nhỏ được tách ra ở giai đoạn đầu có thể khác.\n\nMuốn tạo chuỗi dài, cần mức phản ứng cao của những nhóm chức thích hợp và kiểm soát quan hệ giữa các đầu có thể phản ứng. Một lượng nhỏ thành phần chỉ có một chức năng có thể giới hạn sự kéo dài chuỗi. Tạp chất vì vậy ảnh hưởng không chỉ màu sắc mà cả cấu trúc phân tử của polymer.\n\nViệc lấy các phân tử nhỏ khỏi môi trường phản ứng giúp chuỗi tiếp tục phát triển trong các giai đoạn phù hợp. Phản ứng, độ nhớt và khả năng truyền khối thay đổi cùng nhau khi vật liệu trở nên đặc hơn. Đó là lý do điều kiện của nhà máy không thể được suy ra chỉ từ một phương trình ester hóa đơn giản.\n\nSau khi có polymer, kéo sợi hoặc tạo hình chai làm các chuỗi sắp xếp theo những cách khác nhau. Cùng tên PET không có nghĩa mọi sản phẩm có cùng mức kết tinh, định hướng hoặc độ bền.\n\n## Ứng dụng hôm nay: cấu trúc phân tử và lịch sử gia công cùng quyết định tính năng\n\nPET được dùng trong sợi polyester, bao bì và nhiều sản phẩm khác. Những ứng dụng ấy khai thác các đặc tính khác nhau, nên chất lượng nguyên liệu và quá trình gia công được lựa chọn theo mục đích. Một loại PET phù hợp cho sợi chưa chắc có thể đưa nguyên trạng vào mọi dây chuyền chai.\n\nTái chế cơ học cần giữ hoặc phục hồi những tính chất đủ dùng, trong khi tái chế hóa học tìm cách cắt liên kết để thu những thành phần có thể tổng hợp lại. Đây là các câu chuyện công nghệ khác với bước trùng ngưng ban đầu, dù chúng gặp nhau ở cùng những nhóm ester.\n\nMẫu Terylene trong bảo tàng khiến lịch sử vật liệu trở nên cụ thể: một cuộn sợi nhỏ là dấu vết của việc các nhà hóa học đã tạo được chuỗi đủ dài và ngành dệt đã tìm được cách biến nó thành sản phẩm. Từ đó đến chiếc chai, hóa học không thay toàn bộ nguyên lý; kỹ thuật thay cách chuỗi được tổ chức và sử dụng.\n\nĐọc PET theo hành trình ấy giúp người dùng nhìn vượt qua ký hiệu trên đáy chai. Phía sau là phản ứng nối monomer, công việc lấy sản phẩm phụ ra khỏi hệ và một lịch sử nhiệt–cơ quyết định hình dạng vật liệu đang cầm trên tay.\n\n## Nguồn và đọc thêm\n\n- [Science Museum Group · Mẫu sợi Terylene khoảng năm 1949](https://collection.sciencemuseumgroup.org.uk/objects/co12871/first-sample-of-100-spun-terylene-yarn)\n- [J. R. Whinfield · Chemistry of Terylene, 1946](https://www.nature.com/articles/158930a0)\n- [OpenStax · Polyester và polymer phát triển theo bước](https://openstax.org/books/organic-chemistry/pages/31-4-step-growth-polymers)"
+}

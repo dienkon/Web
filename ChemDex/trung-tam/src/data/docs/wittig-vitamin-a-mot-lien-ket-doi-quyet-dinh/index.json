@@ -1,0 +1,44 @@
+{
+  "id": "wittig-vitamin-a-mot-lien-ket-doi-quyet-dinh",
+  "slug": "wittig-vitamin-a-mot-lien-ket-doi-quyet-dinh",
+  "documentPath": "docs/wittig-vitamin-a-mot-lien-ket-doi-quyet-dinh/index.json",
+  "title": "Vitamin A và mối nối mà nhà máy còn thiếu",
+  "summary": "BASF đã tạo được vitamin A bằng một tuyến chưa đủ kinh tế trước khi phản ứng Wittig mở lối khác. Câu chuyện cho thấy một mối nối đôi có thể thay đổi cả kế hoạch sản xuất.",
+  "category": "phanung",
+  "author": "Ban biên tập ChemDex",
+  "image": "/assets/library/organic-alkene.svg",
+  "tags": [
+    "Wittig",
+    "Vitamin A",
+    "Olefination",
+    "Phosphorus"
+  ],
+  "aliases": [],
+  "documentKind": "story",
+  "readingMinutes": 4,
+  "editorialEvidence": {
+    "language": "vi",
+    "scope": "chemical-family",
+    "contextLabel": "Vitamin A và mối nối mà nhà máy còn thiếu",
+    "reviewBasis": "Biên soạn theo các nguồn dẫn cuối bài; phân biệt kết quả đã thực hiện và hướng phát triển.",
+    "story": {
+      "status": "documented",
+      "section": "## Làm ra được chưa có nghĩa làm ra theo cách phù hợp",
+      "sources": [
+        "https://www.basf.com/global/de/who-we-are/history/joint-success/formula_for_success",
+        "https://openstax.org/books/organic-chemistry/pages/19-11-nucleophilic-addition-of-phosphorus-ylides-the-wittig-reaction",
+        "https://doi.org/10.1021/acs.oprd.3c00161"
+      ]
+    },
+    "application": {
+      "status": "documented",
+      "section": "## Ứng dụng hôm nay: chọn đúng mối nối, rồi tối ưu toàn tuyến",
+      "sources": [
+        "https://www.basf.com/global/de/who-we-are/history/joint-success/formula_for_success",
+        "https://openstax.org/books/organic-chemistry/pages/19-11-nucleophilic-addition-of-phosphorus-ylides-the-wittig-reaction",
+        "https://doi.org/10.1021/acs.oprd.3c00161"
+      ]
+    }
+  },
+  "content": "## Làm ra được chưa có nghĩa làm ra theo cách phù hợp\n\nTheo niên sử BASF, Walter Reppe giao cho Horst Pommer phát triển tuyến tổng hợp vitamin A từ năm 1953. Nhóm có được sản phẩm vào giữa thập niên, nhưng phương pháp chưa đạt yêu cầu kinh tế. Bước thúc đẩy quan trọng đến từ nghiên cứu ngoài công ty: phản ứng Wittig.\n\nPhương pháp mới giúp ghép những phần carbon theo một cách khác. Việc triển khai vẫn cần nhiều năm phát triển kỹ thuật, từ cơ sở nhỏ đến nhà máy lớn tại Ludwigshafen. Những nguồn lịch sử có cách chia mốc khởi động khác nhau; điểm được chúng thống nhất là vai trò của olefination Wittig trong tuyến BASF.\n\nMột kết quả phòng thí nghiệm vì thế không được đưa nguyên xi vào nhà máy. Nó cung cấp mối nối hóa học còn thiếu, rồi nhóm phát triển quy trình phải làm cho toàn bộ chuỗi trở nên vận hành và tinh chế được.\n\n![Minh họa liên kết đôi trong phân tử hữu cơ, không phải dạng bào chế vitamin A](/assets/library/organic-alkene.svg)\n\n## Đổi nhóm carbonyl thành liên kết carbon–carbon đôi\n\nTrong phản ứng Wittig, một ylide chứa phosphorus phản ứng với aldehyde hoặc ketone để tạo alkene. Oxygen của carbonyl đi vào sản phẩm chứa phosphorus, còn carbon carbonyl được nối đôi với carbon từ đối tác ylide.\n\nSự định vị ấy rất hữu ích: liên kết đôi mới xuất hiện tại nơi đã được chọn bằng hai mảnh đầu vào. Nhà tổng hợp không cần tạo nhiều vị trí liên kết đôi rồi hy vọng tách được vị trí đúng. Tuy nhiên, hình học E hoặc Z vẫn cần được xem xét, đặc biệt trong những chuỗi có nhiều liên kết đôi như vitamin A.\n\nOpenStax dùng chính tuyến ghép một mảnh 15 carbon với một mảnh 5 carbon làm ví dụ công nghiệp. Cách chia ấy biến một khung dài thành những phần có thể chuẩn bị riêng. Phản ứng ghép chỉ thành công về chiến lược khi hai mảnh được làm ra đủ hiệu quả và đúng dạng.\n\nPhosphine oxide ở dòng đi kèm không phải chi tiết vô hình. Nó cần được tách và đưa vào cân bằng vật chất của quá trình, dù không nằm trong hình cấu trúc vitamin A ở trang cuối.\n\n## Ứng dụng hôm nay: chọn đúng mối nối, rồi tối ưu toàn tuyến\n\nMột tổng quan công nghiệp năm 2023 về 75 năm sản xuất vitamin A phân tích nhiều con đường đã được phát triển, gồm tuyến Wittig và những phương pháp olefination khác. Sự tồn tại của nhiều tuyến cho thấy một sản phẩm có thể được tiếp cận bằng những lựa chọn nguyên liệu và công nghệ khác nhau.\n\nWittig còn được dùng rộng trong tổng hợp các phân tử cần liên kết đôi ở vị trí xác định. Tùy loại ylide và carbonyl, tính chọn lọc, tốc độ và cách tách sản phẩm có thể khác. Một phương pháp hợp với một mối nối trong vitamin A không tự trở thành lựa chọn tốt nhất cho mọi alkene.\n\nCâu chuyện Pommer và BASF giúp nhìn thấy phần thường bị che sau cụm từ “tổng hợp thành công”. Công việc còn phải trả lời có thể chuẩn bị nguyên liệu, thu hồi sản phẩm và vận hành ổn định hay không. Một phản ứng mới có giá trị lớn khi nó thay đổi được câu trả lời cho những câu hỏi đó.\n\nVitamin A trong bài là trường hợp lịch sử của hóa học sản xuất. Giá trị học tập nằm ở cách một liên kết đôi được thiết kế và tạo ra, không ở việc suy từ tuyến tổng hợp sang nhu cầu hay cách sử dụng sản phẩm dinh dưỡng của một cá nhân.\n\n## Nguồn và đọc thêm\n\n- [BASF · Horst Pommer và tuyến tổng hợp vitamin A](https://www.basf.com/global/de/who-we-are/history/joint-success/formula_for_success)\n- [OpenStax · Phản ứng Wittig và ví dụ vitamin A](https://openstax.org/books/organic-chemistry/pages/19-11-nucleophilic-addition-of-phosphorus-ylides-the-wittig-reaction)\n- [Các nhà hóa học công nghiệp · 75 năm sản xuất vitamin A, 2023](https://doi.org/10.1021/acs.oprd.3c00161)"
+}

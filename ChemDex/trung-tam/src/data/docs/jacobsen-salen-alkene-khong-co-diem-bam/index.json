@@ -1,0 +1,44 @@
+{
+  "id": "jacobsen-salen-alkene-khong-co-diem-bam",
+  "slug": "jacobsen-salen-alkene-khong-co-diem-bam",
+  "documentPath": "docs/jacobsen-salen-alkene-khong-co-diem-bam/index.json",
+  "title": "Khi alkene không có điểm bám: manganese–salen mở một đường epoxidation",
+  "summary": "Các công trình năm 1990 của nhóm Jacobsen và Katsuki nhắm tới những alkene không có nhóm OH định hướng. Khung phối tử quanh manganese tạo một cách chọn mặt khác.",
+  "category": "phanung",
+  "author": "Ban biên tập ChemDex",
+  "image": "/assets/library/organic-alkene.svg",
+  "tags": [
+    "Jacobsen–Katsuki",
+    "Manganese",
+    "Salen",
+    "Epoxidation"
+  ],
+  "aliases": [],
+  "documentKind": "story",
+  "readingMinutes": 4,
+  "editorialEvidence": {
+    "language": "vi",
+    "scope": "chemical-family",
+    "contextLabel": "Khi alkene không có điểm bám: manganese–salen mở một đường epoxidation",
+    "reviewBasis": "Biên soạn theo các nguồn dẫn cuối bài; phân biệt kết quả đã thực hiện và hướng phát triển.",
+    "story": {
+      "status": "documented",
+      "section": "## Khoảng trống còn lại sau một thành tựu lớn",
+      "sources": [
+        "https://doi.org/10.1021/ja00163a052",
+        "https://jacobsengroup.sites.fas.harvard.edu/publications.html",
+        "https://ethz.ch/content/dam/ethz/special-interest/chab/organic-chemistry/bode-group-dam/documents/open-source-lecture-notes/olefin-addition-reactions-2015.pdf"
+      ]
+    },
+    "application": {
+      "status": "documented",
+      "section": "## Ứng dụng hôm nay: chọn phương pháp theo loại alkene",
+      "sources": [
+        "https://doi.org/10.1021/ja00163a052",
+        "https://jacobsengroup.sites.fas.harvard.edu/publications.html",
+        "https://ethz.ch/content/dam/ethz/special-interest/chab/organic-chemistry/bode-group-dam/documents/open-source-lecture-notes/olefin-addition-reactions-2015.pdf"
+      ]
+    }
+  },
+  "content": "## Khoảng trống còn lại sau một thành tựu lớn\n\nEpoxidation bất đối xứng của alcohol allylic đã cho nhà hóa học một công cụ mạnh, nhưng nhiều alkene không có nhóm OH thuận tiện để định hướng. Bài toán ấy được các nhóm của Eric Jacobsen và Tsutomu Katsuki theo đuổi độc lập, với các kết quả quan trọng công bố năm 1990.\n\nTrong công trình của Wei Zhang, John Loebach, Scott Wilson và Jacobsen, một phức manganese với phối tử salen bất đối xứng được dùng để epoxidation các olefin chưa chức năng hóa. Sự thay đổi về phạm vi cơ chất rất đáng kể: nhà tổng hợp không còn luôn phải có sẵn đúng nhóm alcohol ở gần liên kết đôi để sử dụng một đường oxi hóa chọn mặt.\n\nNhững bài tiếp theo năm 1991 tiếp tục điều chỉnh bộ khung phối tử và điều kiện của hệ. Danh mục công trình của nhóm cho thấy phản ứng không xuất hiện như một công thức hoàn hảo duy nhất; nó mạnh lên qua nhiều lần sửa cấu trúc và kiểm tra.\n\n![Minh họa alkene chưa chức năng hóa, không phải hình học chính xác của phức manganese–salen](/assets/library/organic-alkene.svg)\n\n## Hình học quanh kim loại làm việc thay cho điểm neo trên cơ chất\n\nSalen là một họ phối tử có các nguyên tử cho electron phối trí với kim loại, tạo một môi trường có hình học xác định. Khi bộ khung ấy mang tính bất đối xứng, đường đưa oxygen tới hai mặt của alkene có thể có mức thuận lợi khác nhau.\n\nTrong chu trình epoxidation, chất oxi hóa tạo ra dạng hoạt động của hệ manganese, rồi oxygen được chuyển tới liên kết đôi. Cách mô tả chi tiết có thể thay đổi theo hệ và cơ chất; bài học cốt lõi là kim loại, phối tử và tác nhân oxi hóa làm những phần việc phối hợp với nhau.\n\nCác cis-olefin phù hợp thường đáp ứng tốt hơn những loại cơ chất khác trong những hệ kinh điển. Tài liệu giảng dạy của ETH Zurich nhấn mạnh giới hạn đối với trans-olefin. Vì vậy, “không cần nhóm OH định hướng” không đồng nghĩa “mọi liên kết đôi đều được xử lý như nhau”.\n\nEpoxide thu được có thể tiếp tục mở vòng để tạo những cấu trúc khác. Thông tin lập thể tạo ở bước oxi hóa có thể được giữ hoặc chuyển theo cơ chế của bước tiếp theo; nó là một nguồn giá trị cần được bảo toàn trong cả tuyến tổng hợp.\n\n## Ứng dụng hôm nay: chọn phương pháp theo loại alkene\n\nCác hệ manganese–salen và những phát triển liên quan được dùng trong nghiên cứu tổng hợp trung gian bất đối xứng. Khả năng tiếp cận những epoxide từ alkene không có nhóm dẫn đường mở thêm lựa chọn khi cấu trúc mục tiêu không phù hợp với phương pháp khác.\n\nBài toán hiện nay không chỉ là chọn giữa hai tên phản ứng nổi tiếng. Nhà hóa học cân nhắc dạng liên kết đôi, nhóm chức đi kèm, độ chọn lọc cần đạt và cách thu hồi sản phẩm. Cùng một chất xúc tác có thể cho kết quả rất khác khi thay một nhóm thế gần vùng phản ứng.\n\nCâu chuyện Jacobsen–Katsuki cho thấy giới hạn của một phương pháp có thể trở thành câu hỏi khởi đầu cho phương pháp kế tiếp. Nhóm OH từng giúp định hướng phản ứng; khi nó vắng mặt, thông tin được chuyển sang môi trường do phối tử tạo quanh kim loại. Đó là một cách di chuyển phần “chỉ dẫn” từ cơ chất sang xúc tác, giúp bộ công cụ tổng hợp mở rộng thêm một vùng cấu trúc quan trọng.\n\n## Nguồn và đọc thêm\n\n- [Zhang, Loebach, Wilson và Jacobsen · Epoxidation olefin chưa chức năng hóa, 1990](https://doi.org/10.1021/ja00163a052)\n- [Nhóm Jacobsen tại Harvard · Các công trình phát triển xúc tác salen](https://jacobsengroup.sites.fas.harvard.edu/publications.html)\n- [ETH Zurich, nhóm Bode · Phạm vi và giới hạn của epoxidation bất đối xứng](https://ethz.ch/content/dam/ethz/special-interest/chab/organic-chemistry/bode-group-dam/documents/open-source-lecture-notes/olefin-addition-reactions-2015.pdf)"
+}
