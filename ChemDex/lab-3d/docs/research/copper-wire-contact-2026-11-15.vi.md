@@ -26,6 +26,6 @@ API bên ngoài giữ đơn vị SI. Nội bộ Rapier vẫn đổi mét sang ce
 
 `scripts/auditStockWirePerformance.ts` ghi riêng thời gian CPU, thời gian thực, số frame, thời gian mô phỏng, tiếp xúc và tiến độ. Không dùng một timeout để suy rằng phản ứng bị kẹt hoặc để quy toàn bộ chậm trễ cho CPU. Artifact `artifacts/copper-wire-contact/timing.json` không bao gồm renderer hay FPS toàn ứng dụng.
 
-Lượt audit cuối: Cu/Ag đạt tiến độ 0,150095 sau 1.288 frame / 21,4667 s mô phỏng; 12/12 carrier ngập nước, bạc bám 0,0323809067 g. Thời gian thực 13,21 s, CPU 14,05 s. Với 12 phoi khô, số cặp ứng viên đếm theo hai chiều là 672; cả 12 nghỉ trên đáy ở 0,8 s mô phỏng, 0,2 s tiếp theo tốn 2,61 ms. Đây là mẫu đo cụ thể trên máy hiện tại; không suy ra FPS tương tác từ phép chạy không renderer.
+Lượt audit cuối sau tối ưu cắt thể tích: Cu/Ag đạt tiến độ 0,150095 sau 1.288 frame / 21,4667 s mô phỏng; 12/12 carrier ngập nước, bạc bám 0,0323809067 g. Thời gian thực 9,16 s, CPU 9,687 s. Với 12 phoi khô, số cặp ứng viên đếm theo hai chiều là 672; cả 12 nghỉ trên đáy ở 0,8 s mô phỏng, 0,2 s tiếp theo tốn 2,68 ms. Đây là mẫu đo cụ thể trên máy hiện tại; không suy ra FPS tương tác từ phép chạy không renderer.
 
 Kết quả cuối và hiệu năng tích hợp được ghi trong [kế hoạch nâng cấp](realism-upgrade-plan-2026-11-14.vi.md) sau lượt tổng kiểm tra. Vỏ capsule là xấp xỉ tiếp xúc của dây cứng; chưa mô phỏng biến dạng phoi hoặc hình học nhánh kim loại bám.

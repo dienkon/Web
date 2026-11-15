@@ -1,0 +1,77 @@
+{
+  "route": "cu_conc_h2so4",
+  "baselineCommit": "16a97049",
+  "sampling": "Node inspector CPU profiler, separate processes; timings are diagnostic rather than controlled A/B",
+  "beforeWall_ms": 4708.2874,
+  "afterWall_ms": 4131.6209,
+  "beforeClippedSelf_ms": 2957.506000000001,
+  "afterClippedSelf_ms": 2034.4999999999995,
+  "beforePhases": {
+    "prepare": {
+      "ticks": 17,
+      "ms": 4.916800000000194
+    },
+    "carry": {
+      "ticks": 60,
+      "ms": 20.99969999999894
+    },
+    "dose": {
+      "ticks": 95,
+      "ms": 412.9501000000007
+    },
+    "return": {
+      "ticks": 61,
+      "ms": 22.89690000000064
+    },
+    "condition": {
+      "ticks": 41,
+      "ms": 39.44250000000034
+    },
+    "react": {
+      "ticks": 244,
+      "ms": 4171.804100000008
+    },
+    "observe": {
+      "ticks": 81,
+      "ms": 12.935899999999492
+    }
+  },
+  "afterPhases": {
+    "prepare": {
+      "ticks": 17,
+      "ms": 8.821199999999862
+    },
+    "carry": {
+      "ticks": 60,
+      "ms": 59.34199999999851
+    },
+    "dose": {
+      "ticks": 95,
+      "ms": 607.433900000002
+    },
+    "return": {
+      "ticks": 61,
+      "ms": 61.42930000000024
+    },
+    "condition": {
+      "ticks": 41,
+      "ms": 42.03740000000107
+    },
+    "react": {
+      "ticks": 244,
+      "ms": 3287.8120000000063
+    },
+    "observe": {
+      "ticks": 81,
+      "ms": 15.173400000001493
+    }
+  },
+  "finalState": {
+    "error": null,
+    "phase": "complete",
+    "progress": 1
+  },
+  "targetedVitest_ms": 2855,
+  "timeout_ms": 15000,
+  "note": "Full-suite failure occurred under different load; the isolated baseline was already below the timeout. See ab-benchmark.json for controlled identical-input comparisons."
+}

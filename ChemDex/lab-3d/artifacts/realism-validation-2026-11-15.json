@@ -1,0 +1,30 @@
+{
+  "checkedAt": "2026-11-15T03:23:47.1592428Z",
+  "tests": {
+    "command": "npx vitest run --maxWorkers=1 --reporter=default",
+    "files": 258,
+    "passed": 3454,
+    "duration_s": 359.53,
+    "total": 3454
+  },
+  "lint": "passed",
+  "build": "passed",
+  "buildNotes": "Existing chunks over 500 kB remain",
+  "browserAudits": [
+    "auditCarrierMassSync.mjs",
+    "auditPrecipitateFormation.mjs",
+    "auditMetalDepositionBrowser.mjs",
+    "auditStirringRod.mjs",
+    "auditReactionGasSources.mjs"
+  ],
+  "browserErrors": 0,
+  "shaderErrors": 0,
+  "performanceArtifact": "realism-performance-2026-11-15/headless-performance.json",
+  "wireArtifact": "copper-wire-contact/timing.json",
+  "exactClippingBenchmark": "contact-route-profile/ab-benchmark.json",
+  "limitations": [
+    "CPU measurements exclude WebGL and do not establish full-app FPS",
+    "Parallel run exceeded 5 ms mean smoke budget; final serial run passed unchanged budgets",
+    "Formation rates, dendrite porosity and coating detachment are not experimentally calibrated"
+  ]
+}

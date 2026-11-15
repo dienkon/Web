@@ -22,7 +22,38 @@
           "turbidity": 0
         }
       ],
-      "fixture": "Synthetic finite inventory isolates renderer volume, carrier provenance and an unrelated latest reaction. Reaction kinetics are not exercised here.",
+      "escapedPose": {
+        "id": "escaped-coat",
+        "formula": "Fe (nail)",
+        "mass_g": 1,
+        "scale_m": 0.005027380495330161,
+        "position_m": [
+          -0.001589609682559967,
+          -0.03930383682250976,
+          0.11975958824157715
+        ],
+        "rotation": [
+          0.4450986385345459,
+          -0.5984205007553101,
+          -0.5232775211334229,
+          0.412262886762619
+        ],
+        "velocity_m_s": [
+          0,
+          0,
+          0
+        ],
+        "angularVelocity_rad_s": [
+          0,
+          0,
+          0
+        ],
+        "sleeping": true,
+        "powder": false,
+        "contacting": true,
+        "vesselId": "coat-0"
+      },
+      "fixture": "Synthetic finite inventory isolates renderer volume, carrier provenance and an unrelated latest reaction. The escaped coated nail is settled by StockWorld before pausing. Reaction kinetics are not exercised here.",
       "records": [
         {
           "name": "stock_coating_Fe (nail)_Cu",
@@ -33,7 +64,7 @@
             "escaped-coat"
           ],
           "support": "stock-mesh-surface",
-          "materialVolume": 0.00013015410125256856,
+          "materialVolume": 0.00013015411053103428,
           "metalness": 0.9
         },
         {
@@ -76,21 +107,22 @@
     {
       "mode": "auto",
       "id": "fe_cuso4",
-      "progress": 0.15145835628068846,
+      "progress": 0.1514603652252685,
+      "elapsed_s": 21.450000000000063,
       "error": null,
       "records": [],
       "powder": {
-        "materialVolume": 0.00040269947406114447,
-        "expectedVolume": 0.0004026994740620961,
-        "coatingVolume_ml": 0.0010741710611844454
+        "materialVolume": 0.0004026994736351351,
+        "expectedVolume": 0.0004026994736349356,
+        "coatingVolume_ml": 0.0010741853089960883
       },
       "depositRows": [
         {
           "formula": "Cu",
           "phase": "s",
           "state": "s",
-          "moles": 0.0000054095304698801375,
-          "mass_g": 0.000343754023239003,
+          "moles": 0.000005409520067494314,
+          "mass_g": 0.00034375336220899373,
           "solidOrigin": "precipitate",
           "depositSubstrate": "Fe",
           "depositionReactionId": "fe_cuso4",
@@ -100,8 +132,8 @@
           "formula": "Cu",
           "phase": "s",
           "state": "s",
-          "moles": 0.0000054095304438570254,
-          "mass_g": 0.0003437540215853387,
+          "moles": 0.000005409520563692595,
+          "mass_g": 0.0003437533937404096,
           "solidOrigin": "precipitate",
           "depositSubstrate": "Fe",
           "depositionReactionId": "fe_cuso4",
@@ -111,8 +143,8 @@
           "formula": "Cu",
           "phase": "s",
           "state": "s",
-          "moles": 0.000005409530103587132,
-          "mass_g": 0.0003437539999625478,
+          "moles": 0.0000054093543832588,
+          "mass_g": 0.0003437428336385638,
           "solidOrigin": "precipitate",
           "depositSubstrate": "Fe",
           "depositionReactionId": "fe_cuso4",
@@ -122,8 +154,8 @@
           "formula": "Cu",
           "phase": "s",
           "state": "s",
-          "moles": 0.000005409530509767352,
-          "mass_g": 0.0003437540257736763,
+          "moles": 0.000005409520466565842,
+          "mass_g": 0.0003437533875683929,
           "solidOrigin": "precipitate",
           "depositSubstrate": "Fe",
           "depositionReactionId": "fe_cuso4",
@@ -133,8 +165,8 @@
           "formula": "Cu",
           "phase": "s",
           "state": "s",
-          "moles": 0.0000054095305410387545,
-          "mass_g": 0.0003437540277608487,
+          "moles": 0.0000054095205966331895,
+          "mass_g": 0.0003437533958336528,
           "solidOrigin": "precipitate",
           "depositSubstrate": "Fe",
           "depositionReactionId": "fe_cuso4",
@@ -144,8 +176,8 @@
           "formula": "Cu",
           "phase": "s",
           "state": "s",
-          "moles": 0.000005409530309060714,
-          "mass_g": 0.00034375401301957206,
+          "moles": 0.000005409520224382925,
+          "mass_g": 0.00034375337217863765,
           "solidOrigin": "precipitate",
           "depositSubstrate": "Fe",
           "depositionReactionId": "fe_cuso4",
@@ -155,8 +187,8 @@
           "formula": "Cu",
           "phase": "s",
           "state": "s",
-          "moles": 0.000005407308107756886,
-          "mass_g": 0.00034361280101551913,
+          "moles": 0.000005406897471357817,
+          "mass_g": 0.00034358670671490394,
           "solidOrigin": "precipitate",
           "depositSubstrate": "Fe",
           "depositionReactionId": "fe_cuso4",
@@ -166,8 +198,8 @@
           "formula": "Cu",
           "phase": "s",
           "state": "s",
-          "moles": 0.000005409530338935875,
-          "mass_g": 0.0003437540149180192,
+          "moles": 0.000005409521102881021,
+          "mass_g": 0.00034375342800367745,
           "solidOrigin": "precipitate",
           "depositSubstrate": "Fe",
           "depositionReactionId": "fe_cuso4",
@@ -177,8 +209,8 @@
           "formula": "Cu",
           "phase": "s",
           "state": "s",
-          "moles": 0.000005409531063056352,
-          "mass_g": 0.0003437540609329789,
+          "moles": 0.000005409521251041761,
+          "mass_g": 0.0003437534374186998,
           "solidOrigin": "precipitate",
           "depositSubstrate": "Fe",
           "depositionReactionId": "fe_cuso4",
@@ -188,8 +220,8 @@
           "formula": "Cu",
           "phase": "s",
           "state": "s",
-          "moles": 0.0000054081852057501245,
-          "mass_g": 0.00034366853708459727,
+          "moles": 0.000005407658048106681,
+          "mass_g": 0.00034363503832498724,
           "solidOrigin": "precipitate",
           "depositSubstrate": "Fe",
           "depositionReactionId": "fe_cuso4",
@@ -199,8 +231,8 @@
           "formula": "Cu",
           "phase": "s",
           "state": "s",
-          "moles": 0.000005407991362970502,
-          "mass_g": 0.0003436562191513233,
+          "moles": 0.000005408664723312912,
+          "mass_g": 0.00034369900850764244,
           "solidOrigin": "precipitate",
           "depositSubstrate": "Fe",
           "depositionReactionId": "fe_cuso4",
@@ -210,8 +242,8 @@
           "formula": "Cu",
           "phase": "s",
           "state": "s",
-          "moles": 0.000005409530118682057,
-          "mass_g": 0.00034375400092177003,
+          "moles": 0.000005409519931984138,
+          "mass_g": 0.000343753353597864,
           "solidOrigin": "precipitate",
           "depositSubstrate": "Fe",
           "depositionReactionId": "fe_cuso4",
@@ -221,8 +253,8 @@
           "formula": "Cu",
           "phase": "s",
           "state": "s",
-          "moles": 0.000005409531703066124,
-          "mass_g": 0.0003437541016030396,
+          "moles": 0.00000540952139574896,
+          "mass_g": 0.00034375344661426323,
           "solidOrigin": "precipitate",
           "depositSubstrate": "Fe",
           "depositionReactionId": "fe_cuso4",
@@ -232,8 +264,8 @@
           "formula": "Cu",
           "phase": "s",
           "state": "s",
-          "moles": 0.000005409531534293552,
-          "mass_g": 0.0003437540908782183,
+          "moles": 0.00000540952033912015,
+          "mass_g": 0.000343753379469729,
           "solidOrigin": "precipitate",
           "depositSubstrate": "Fe",
           "depositionReactionId": "fe_cuso4",
@@ -243,8 +275,8 @@
           "formula": "Cu",
           "phase": "s",
           "state": "s",
-          "moles": 0.000005409530481984162,
-          "mass_g": 0.00034375402400816567,
+          "moles": 0.000005409520162190081,
+          "mass_g": 0.00034375336822653095,
           "solidOrigin": "precipitate",
           "depositSubstrate": "Fe",
           "depositionReactionId": "fe_cuso4",
@@ -254,8 +286,8 @@
           "formula": "Cu",
           "phase": "s",
           "state": "s",
-          "moles": 0.000005409530583146259,
-          "mass_g": 0.0003437540304366121,
+          "moles": 0.000005409520903174871,
+          "mass_g": 0.0003437534153131505,
           "solidOrigin": "precipitate",
           "depositSubstrate": "Fe",
           "depositionReactionId": "fe_cuso4",
@@ -265,8 +297,8 @@
           "formula": "Cu",
           "phase": "s",
           "state": "s",
-          "moles": 0.000005409530240705142,
-          "mass_g": 0.0003437540086758492,
+          "moles": 0.0000054095200373808686,
+          "mass_g": 0.00034375336029540465,
           "solidOrigin": "precipitate",
           "depositSubstrate": "Fe",
           "depositionReactionId": "fe_cuso4",
@@ -276,8 +308,8 @@
           "formula": "Cu",
           "phase": "s",
           "state": "s",
-          "moles": 0.000005409530626583253,
-          "mass_g": 0.00034375403319685926,
+          "moles": 0.000005409520171147806,
+          "mass_g": 0.00034375336879575834,
           "solidOrigin": "precipitate",
           "depositSubstrate": "Fe",
           "depositionReactionId": "fe_cuso4",
@@ -287,8 +319,8 @@
           "formula": "Cu",
           "phase": "s",
           "state": "s",
-          "moles": 0.0000054095302468772715,
-          "mass_g": 0.00034375400906806297,
+          "moles": 0.000005409520241647822,
+          "mass_g": 0.0003437533732757526,
           "solidOrigin": "precipitate",
           "depositSubstrate": "Fe",
           "depositionReactionId": "fe_cuso4",
@@ -298,8 +330,8 @@
           "formula": "Cu",
           "phase": "s",
           "state": "s",
-          "moles": 0.0000054095304829935526,
-          "mass_g": 0.00034375402407230853,
+          "moles": 0.000005409520245461557,
+          "mass_g": 0.00034375337351810005,
           "solidOrigin": "precipitate",
           "depositSubstrate": "Fe",
           "depositionReactionId": "fe_cuso4",
@@ -309,8 +341,8 @@
           "formula": "Cu",
           "phase": "s",
           "state": "s",
-          "moles": 0.000005407780346152469,
-          "mass_g": 0.00034364280987660465,
+          "moles": 0.000005409520418184997,
+          "mass_g": 0.0003437533844939839,
           "solidOrigin": "precipitate",
           "depositSubstrate": "Fe",
           "depositionReactionId": "fe_cuso4",
@@ -320,8 +352,8 @@
           "formula": "Cu",
           "phase": "s",
           "state": "s",
-          "moles": 0.000005409530835286689,
-          "mass_g": 0.0003437540464591279,
+          "moles": 0.000005409268268438352,
+          "mass_g": 0.0003437373613861838,
           "solidOrigin": "precipitate",
           "depositSubstrate": "Fe",
           "depositionReactionId": "fe_cuso4",
@@ -331,8 +363,8 @@
           "formula": "Cu",
           "phase": "s",
           "state": "s",
-          "moles": 0.0000054095314475885954,
-          "mass_g": 0.00034375408536846484,
+          "moles": 0.000005409521194030599,
+          "mass_g": 0.00034375343379586845,
           "solidOrigin": "precipitate",
           "depositSubstrate": "Fe",
           "depositionReactionId": "fe_cuso4",
@@ -342,8 +374,8 @@
           "formula": "Cu",
           "phase": "s",
           "state": "s",
-          "moles": 0.000005409530209175995,
-          "mass_g": 0.0003437540066722977,
+          "moles": 0.000005409520168930322,
+          "mass_g": 0.000343753368654846,
           "solidOrigin": "precipitate",
           "depositSubstrate": "Fe",
           "depositionReactionId": "fe_cuso4",
@@ -353,8 +385,8 @@
           "formula": "Cu",
           "phase": "s",
           "state": "s",
-          "moles": 0.0000054078875237798,
-          "mass_g": 0.0003436496205861111,
+          "moles": 0.0000054090714027690126,
+          "mass_g": 0.0003437248513603595,
           "solidOrigin": "precipitate",
           "depositSubstrate": "Fe",
           "depositionReactionId": "fe_cuso4",
@@ -364,8 +396,8 @@
           "formula": "Cu",
           "phase": "s",
           "state": "s",
-          "moles": 0.00000540953077469138,
-          "mass_g": 0.00034375404260853843,
+          "moles": 0.00000540952030997309,
+          "mass_g": 0.00034375337761755,
           "solidOrigin": "precipitate",
           "depositSubstrate": "Fe",
           "depositionReactionId": "fe_cuso4",
@@ -375,8 +407,8 @@
           "formula": "Cu",
           "phase": "s",
           "state": "s",
-          "moles": 0.000005409530131561637,
-          "mass_g": 0.00034375400174021587,
+          "moles": 0.000005409520753494643,
+          "mass_g": 0.00034375340580157054,
           "solidOrigin": "precipitate",
           "depositSubstrate": "Fe",
           "depositionReactionId": "fe_cuso4",
@@ -386,8 +418,8 @@
           "formula": "Cu",
           "phase": "s",
           "state": "s",
-          "moles": 0.000005409530538459736,
-          "mass_g": 0.0003437540275969624,
+          "moles": 0.000005409520382863985,
+          "mass_g": 0.00034375338224947483,
           "solidOrigin": "precipitate",
           "depositSubstrate": "Fe",
           "depositionReactionId": "fe_cuso4",
@@ -397,122 +429,123 @@
       "carriers": [
         {
           "id": "stock:1",
-          "mass_g": 0.0016923690566238278
+          "mass_g": 0.0016923696375450647
         },
         {
           "id": "stock:2",
-          "mass_g": 0.0016923690580770907
+          "mass_g": 0.0016923696098348725
         },
         {
           "id": "stock:3",
-          "mass_g": 0.0016923690770794622
+          "mass_g": 0.001692378890181197
         },
         {
           "id": "stock:4",
-          "mass_g": 0.0016923690543963245
+          "mass_g": 0.0016923696152589156
         },
         {
           "id": "stock:5",
-          "mass_g": 0.0016923690526499786
+          "mass_g": 0.0016923696079953082
         },
         {
           "id": "stock:6",
-          "mass_g": 0.0016923690656047866
+          "mass_g": 0.001692369628783621
         },
         {
           "id": "stock:7",
-          "mass_g": 0.0016924931644366023
+          "mass_g": 0.0016925160964263092
         },
         {
           "id": "stock:8",
-          "mass_g": 0.0016923690639364104
+          "mass_g": 0.0016923695797238947
         },
         {
           "id": "stock:9",
-          "mass_g": 0.0016923690234979041
+          "mass_g": 0.0016923695714498583
         },
         {
           "id": "stock:10",
-          "mass_g": 0.0016924441828991671
+          "mass_g": 0.001692473622017767
         },
         {
           "id": "stock:11",
-          "mass_g": 0.0016924550080491955
+          "mass_g": 0.0016924174042408763
         },
         {
           "id": "stock:12",
-          "mass_g": 0.0016923690762364846
+          "mass_g": 0.0016923696451126302
         },
         {
           "id": "stock:13",
-          "mass_g": 0.0016923689877565594
+          "mass_g": 0.0016923695633686863
         },
         {
           "id": "stock:14",
-          "mass_g": 0.0016923689971816607
+          "mass_g": 0.0016923696223761213
         },
         {
           "id": "stock:15",
-          "mass_g": 0.0016923690559478752
+          "mass_g": 0.0016923696322567777
         },
         {
           "id": "stock:16",
-          "mass_g": 0.0016923690502984843
+          "mass_g": 0.0016923695908764873
         },
         {
           "id": "stock:17",
-          "mass_g": 0.001692369069422107
+          "mass_g": 0.0016923696392267516
         },
         {
           "id": "stock:18",
-          "mass_g": 0.001692369047872752
+          "mass_g": 0.0016923696317565455
         },
         {
           "id": "stock:19",
-          "mass_g": 0.0016923690690774248
+          "mass_g": 0.0016923696278194646
         },
         {
           "id": "stock:20",
-          "mass_g": 0.0016923690558915132
+          "mass_g": 0.0016923696276064859
         },
         {
           "id": "stock:21",
-          "mass_g": 0.0016924667922834015
+          "mass_g": 0.0016923696179607453
         },
         {
           "id": "stock:22",
-          "mass_g": 0.0016923690362177018
+          "mass_g": 0.0016923836992633464
         },
         {
           "id": "stock:23",
-          "mass_g": 0.0016923690020237
+          "mass_g": 0.0016923695746336482
         },
         {
           "id": "stock:24",
-          "mass_g": 0.001692369071182852
+          "mass_g": 0.0016923696318803738
         },
         {
           "id": "stock:25",
-          "mass_g": 0.0016924608069488112
+          "mass_g": 0.0016923946932266582
         },
         {
           "id": "stock:26",
-          "mass_g": 0.0016923690396016457
+          "mass_g": 0.0016923696240038416
         },
         {
           "id": "stock:27",
-          "mass_g": 0.0016923690755172268
+          "mass_g": 0.0016923695992353777
         },
         {
           "id": "stock:28",
-          "mass_g": 0.0016923690527940014
+          "mass_g": 0.0016923696199332497
         }
       ]
     },
     {
       "mode": "auto",
       "id": "cu_agno3",
-      "progress": 0.15006764871666875,
+      "progress": 0.15009505467463,
+      "elapsed_s": 21.46666666666673,
       "error": null,
       "records": [
         {
@@ -520,7 +553,7 @@
           "count": 96,
           "capacity": 96,
           "product": "Ag",
-          "mass_g": 0.03237499426353938,
+          "mass_g": 0.03238090671528595,
           "carrierIds": [
             "stock:1",
             "stock:2",
@@ -536,8 +569,8 @@
             "stock:12"
           ],
           "support": "stock-mesh-surface",
-          "materialVolume": 0.0001749953993296955,
-          "expectedVolume": 0.00017499539902647666
+          "materialVolume": 0.00017502735860793834,
+          "expectedVolume": 0.00017502735739052125
         }
       ],
       "depositRows": [
@@ -545,8 +578,8 @@
           "formula": "Ag",
           "phase": "s",
           "state": "s",
-          "moles": 0.00002120110386022126,
-          "mass_g": 0.0022869206711943458,
+          "moles": 0.000025015839510138866,
+          "mass_g": 0.002698408576279657,
           "solidOrigin": "precipitate",
           "depositSubstrate": "Cu",
           "depositionReactionId": "cu_agno3",
@@ -556,8 +589,8 @@
           "formula": "Ag",
           "phase": "s",
           "state": "s",
-          "moles": 0.000019707545041041098,
-          "mass_g": 0.002125813468487022,
+          "moles": 0.000025015844861153138,
+          "mass_g": 0.0026984091534828663,
           "solidOrigin": "precipitate",
           "depositSubstrate": "Cu",
           "depositionReactionId": "cu_agno3",
@@ -567,8 +600,8 @@
           "formula": "Ag",
           "phase": "s",
           "state": "s",
-          "moles": 0.000019554782390452765,
-          "mass_g": 0.0021093352668933585,
+          "moles": 0.000025015843653984465,
+          "mass_g": 0.0026984090232679957,
           "solidOrigin": "precipitate",
           "depositSubstrate": "Cu",
           "depositionReactionId": "cu_agno3",
@@ -578,8 +611,8 @@
           "formula": "Ag",
           "phase": "s",
           "state": "s",
-          "moles": 0.00002689450311403528,
-          "mass_g": 0.0029010562619047556,
+          "moles": 0.000025015841124877645,
+          "mass_g": 0.002698408750458302,
           "solidOrigin": "precipitate",
           "depositSubstrate": "Cu",
           "depositionReactionId": "cu_agno3",
@@ -589,8 +622,8 @@
           "formula": "Ag",
           "phase": "s",
           "state": "s",
-          "moles": 0.00002669264861724713,
-          "mass_g": 0.0028792826210452148,
+          "moles": 0.000025015843757216334,
+          "mass_g": 0.0026984090344034112,
           "solidOrigin": "precipitate",
           "depositSubstrate": "Cu",
           "depositionReactionId": "cu_agno3",
@@ -600,8 +633,8 @@
           "formula": "Ag",
           "phase": "s",
           "state": "s",
-          "moles": 0.000026911512679409468,
-          "mass_g": 0.0029028910497025397,
+          "moles": 0.000025015840261323266,
+          "mass_g": 0.002698408657308418,
           "solidOrigin": "precipitate",
           "depositSubstrate": "Cu",
           "depositionReactionId": "cu_agno3",
@@ -611,8 +644,8 @@
           "formula": "Ag",
           "phase": "s",
           "state": "s",
-          "moles": 0.000026900125800034855,
-          "mass_g": 0.002901662769798161,
+          "moles": 0.00002501584338099954,
+          "mass_g": 0.0026984089938216576,
           "solidOrigin": "precipitate",
           "depositSubstrate": "Cu",
           "depositionReactionId": "cu_agno3",
@@ -622,8 +655,8 @@
           "formula": "Ag",
           "phase": "s",
           "state": "s",
-          "moles": 0.000026777873700476697,
-          "mass_g": 0.0028884756803230186,
+          "moles": 0.0000250158447770513,
+          "mass_g": 0.00269840914441097,
           "solidOrigin": "precipitate",
           "depositSubstrate": "Cu",
           "depositionReactionId": "cu_agno3",
@@ -633,8 +666,8 @@
           "formula": "Ag",
           "phase": "s",
           "state": "s",
-          "moles": 0.000026181335684078183,
-          "mass_g": 0.0028241283175701446,
+          "moles": 0.000025015840302975907,
+          "mass_g": 0.0026984086618014073,
           "solidOrigin": "precipitate",
           "depositSubstrate": "Cu",
           "depositionReactionId": "cu_agno3",
@@ -644,8 +677,8 @@
           "formula": "Ag",
           "phase": "s",
           "state": "s",
-          "moles": 0.000026170505878569546,
-          "mass_g": 0.0028229601281095397,
+          "moles": 0.00002501584503681602,
+          "mass_g": 0.002698409172431269,
           "solidOrigin": "precipitate",
           "depositSubstrate": "Cu",
           "depositionReactionId": "cu_agno3",
@@ -655,8 +688,8 @@
           "formula": "Ag",
           "phase": "s",
           "state": "s",
-          "moles": 0.00002691022126686374,
-          "mass_g": 0.0029027517476140573,
+          "moles": 0.000025015841004742643,
+          "mass_g": 0.002698408737499578,
           "solidOrigin": "precipitate",
           "depositSubstrate": "Cu",
           "depositionReactionId": "cu_agno3",
@@ -666,8 +699,8 @@
           "formula": "Ag",
           "phase": "s",
           "state": "s",
-          "moles": 0.00002623313940090878,
-          "mass_g": 0.002829716280897228,
+          "moles": 0.000025015841677980598,
+          "mass_g": 0.0026984088101204124,
           "solidOrigin": "precipitate",
           "depositSubstrate": "Cu",
           "depositionReactionId": "cu_agno3",
@@ -677,51 +710,51 @@
       "carriers": [
         {
           "id": "stock:1",
-          "mass_g": 0.00462187732704919
+          "mass_g": 0.004500671731244355
         },
         {
           "id": "stock:2",
-          "mass_g": 0.004669332171410996
+          "mass_g": 0.0045006715612265855
         },
         {
           "id": "stock:3",
-          "mass_g": 0.00467418589910814
+          "mass_g": 0.004500671599581951
         },
         {
           "id": "stock:4",
-          "mass_g": 0.0044409809525577625
+          "mass_g": 0.004500671679939262
         },
         {
           "id": "stock:5",
-          "mass_g": 0.004447394475484219
+          "mass_g": 0.004500671596301963
         },
         {
           "id": "stock:6",
-          "mass_g": 0.004440440507637126
+          "mass_g": 0.004500671707376972
         },
         {
           "id": "stock:7",
-          "mass_g": 0.0044408023029554895
+          "mass_g": 0.0045006716082554975
         },
         {
           "id": "stock:8",
-          "mass_g": 0.004444686618914748
+          "mass_g": 0.004500671563898743
         },
         {
           "id": "stock:9",
-          "mass_g": 0.0044636404213097905
+          "mass_g": 0.004500671706053545
         },
         {
           "id": "stock:10",
-          "mass_g": 0.004463984516720216
+          "mass_g": 0.004500671555645247
         },
         {
           "id": "stock:11",
-          "mass_g": 0.004440481539687944
+          "mass_g": 0.004500671683756307
         },
         {
           "id": "stock:12",
-          "mass_g": 0.004461994461814948
+          "mass_g": 0.004500671662365534
         }
       ]
     }

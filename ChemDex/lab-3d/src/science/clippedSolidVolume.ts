@@ -31,6 +31,25 @@ export function clippedSolidVolume(mesh: CompiledSolid, planes: readonly SolidCl
   let input = new Float64Array(24), output = new Float64Array(24), sum = 0;
   const a = mesh.triangles, [ox, oy, oz] = origin;
   for (let i = 0; i < a.length; i += 9) {
+    let outside = false, inside = true;
+    for (const plane of planes) {
+      const [nx, ny, nz] = plane.normal, offset = plane.offset;
+      const da = nx * a[i] + ny * a[i + 1] + nz * a[i + 2] - offset;
+      const db = nx * a[i + 3] + ny * a[i + 4] + nz * a[i + 5] - offset;
+      const dc = nx * a[i + 6] + ny * a[i + 7] + nz * a[i + 8] - offset;
+      // Convex halfspaces cannot intersect a triangle wholly outside them.
+      // Coplanar vertices retain the same inclusive boundary as the clipper.
+      if (da > 0 && db > 0 && dc > 0) { outside = true; break; }
+      if (!(da <= 0 && db <= 0 && dc <= 0)) inside = false;
+    }
+    if (outside) continue;
+    if (inside) {
+      const ax = a[i] - ox, ay = a[i + 1] - oy, az = a[i + 2] - oz;
+      const bx = a[i + 3] - ox, by = a[i + 4] - oy, bz = a[i + 5] - oz;
+      const cx = a[i + 6] - ox, cy = a[i + 7] - oy, cz = a[i + 8] - oz;
+      sum += ax * (by * cz - bz * cy) + ay * (bz * cx - bx * cz) + az * (bx * cy - by * cx);
+      continue;
+    }
     for (let j = 0; j < 9; j++) input[j] = a[i + j];
     let count = 3;
     for (const plane of planes) {

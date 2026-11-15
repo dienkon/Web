@@ -44,11 +44,23 @@ try {
             vessels[v.id] = v;
             g.dispose();
         }
-        const source = vessels['coat-0'], p = { ...source.stockMotion.grains[0], id: 'escaped-coat', vesselId: source.id, position_m: [0, .0, .12] }, contents = [{ ...source.contents[1], mass_g: p.mass_g, moles: p.mass_g / mm(p.formula) }, { formula: 'Cu', phase: 's', solidOrigin: 'precipitate', depositSubstrate: 'Fe', depositionReactionId: 'fe_cuso4', depositCarrierId: p.id, mass_g: .05, moles: .05 / mm('Cu') }];
-        const spill = { id: 'coated-spill', position: [0, 0, .12 / .035], contents, substances: [p.formula, 'Cu'], mass_g: p.mass_g + .05, volume_ml: 0, radius: .1, color: '#777777', temperature_c: 25, isHazard: false, timestamp: 0, stockMotion: p };
+        const source = vessels['coat-0'], p = { ...source.stockMotion.grains[0], id: 'escaped-coat', vesselId: source.id,
+            position_m: [0, .04, .12], rotation: new three.Quaternion().setFromEuler(new three.Euler(1.4, .2, .3)).toArray() },
+            contents = [{ ...source.contents[1], mass_g: p.mass_g, moles: p.mass_g / mm(p.formula) }, { formula: 'Cu', phase: 's', solidOrigin: 'precipitate', depositSubstrate: 'Fe', depositionReactionId: 'fe_cuso4', depositCarrierId: p.id, mass_g: .05, moles: .05 / mm('Cu') }];
+        const { StockWorld } = await import(resource('/src/physical/StockWorld.ts') ?? '/src/physical/StockWorld.ts');
+        const { stockGroup, stockCarrierCoatings } = await import(resource('/src/physical/stockAdapter.ts') ?? '/src/physical/stockAdapter.ts');
+        const group = stockGroup(p.formula, p.mass_g), settledWorld = await StockWorld.create();
+        group.carrierCoatings = stockCarrierCoatings({ ...source, contents, stockMotion: { tick: 0, grains: [p] } }, p.formula);
+        try {
+            settledWorld.sync({ containers: [], contacts: [], spills: [{ ...p, group }] });
+            for (let i = 0; i < 240; i++) settledWorld.advance(1 / 120, false);
+            Object.assign(p, settledWorld.snapshot().grains.find(grain => grain.pose.id === p.id).pose);
+        } finally { settledWorld.free(); }
+        if (!p.contacting || Math.hypot(...p.velocity_m_s) > .005) throw Error('Escaped coated fixture must rest on the real table');
+        const spill = { id: 'coated-spill', position: p.position_m.map(n => n / .035), contents, substances: [p.formula, 'Cu'], mass_g: p.mass_g + .05, volume_ml: 0, radius: .1, color: '#777777', temperature_c: 25, isHazard: false, timestamp: 0, stockMotion: p };
         app.setState({ vessels, vesselIds: Object.keys(vessels), burners: {}, burnerIds: [], activeKinetics: {}, pendingReactions: {}, spills: { [spill.id]: spill }, inFlightPours: [], isSimulationPaused: true, leftSidebarOpen: false, rightSidebarOpen: false, selectedVesselId: null });
         root.getState().internal.subscribe({ current: ({ camera }) => { camera.position.set(0, 4, 11); camera.lookAt(0, -.2, 1.8); camera.updateMatrixWorld(); } }, 0, root);
-        window.metalAudit = { app, root, three, solidSceneVolume, SimulationEngine, freePrecipitateCohorts, currentMixedPrecipitateTurbidity };
+        window.metalAudit = { app, root, three, solidSceneVolume, SimulationEngine, freePrecipitateCohorts, currentMixedPrecipitateTurbidity, escapedPose: p };
     });
     await page.waitForTimeout(1800);
     const manual = await page.evaluate(() => {
@@ -81,7 +93,8 @@ try {
     assert.ok(Math.abs(escaped.materialVolume / (.05 / 8.96 * 1e-6 / .035 ** 3) - 1) < 2e-6);
     const haze = await page.evaluate(() => { const a = window.metalAudit; return Object.values(a.app.getState().vessels).map(v => { const manager = a.SimulationEngine.getManager(v.id, 'low'); const liquid = a.root.getState().scene.getObjectByName(`liquid_volume_${v.id}`); return { id: v.id, hasSnapshot: manager.hasPrecipitationSnapshot, liquidOpacity: liquid?.material.opacity, freeCohorts: a.freePrecipitateCohorts(v).length, cloudiness: manager.cloudiness, turbidity: a.currentMixedPrecipitateTurbidity(v, manager) }; }); });
     for (const state of haze) { assert.equal(state.freeCohorts, 0); assert.equal(state.cloudiness, 0); assert.equal(state.turbidity, 0); assert.ok(state.liquidOpacity < 0.3); }
-    report.checks.push({ mode: 'manual-and-escaped', haze, fixture: 'Synthetic finite inventory isolates renderer volume, carrier provenance and an unrelated latest reaction. Reaction kinetics are not exercised here.', records: manual });
+    report.checks.push({ mode: 'manual-and-escaped', haze, escapedPose: await page.evaluate(() => window.metalAudit.escapedPose),
+        fixture: 'Synthetic finite inventory isolates renderer volume, carrier provenance and an unrelated latest reaction. The escaped coated nail is settled by StockWorld before pausing. Reaction kinetics are not exercised here.', records: manual });
     await page.screenshot({ path: `${output}/manual-and-escaped.png` });
     await page.goto(`${origin}/?mode=auto`, { waitUntil: 'domcontentloaded' });
     await page.getByRole('textbox', { name: 'Tìm thí nghiệm tự động' }).waitFor({ timeout: 60000 });

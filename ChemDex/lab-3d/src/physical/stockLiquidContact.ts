@@ -52,6 +52,9 @@ export interface StockGrainContact {
 }
 
 export function stockGrainContacts(vessel: VesselState, formula: string, aqueousOnly = true): StockGrainContact[] {
+  // This API returns posed carrier IDs only. Static geometry is evaluated by
+  // the caller's aggregate contact query; computing it here cannot add an ID.
+  if (!vessel.stockMotion?.grains.some(pose => pose.mass_g > 0 && sameMolecularFormula(pose.formula, formula))) return [];
   const contacts: StockGrainContact[] = [];
   stockLiquidContactFraction(vessel, formula, aqueousOnly, contacts);
   return contacts;

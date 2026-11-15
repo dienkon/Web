@@ -75,9 +75,17 @@ Mục tiêu rộng tiếp tục hoạt động; vòng này giải quyết các l
 2. **Lịch sử hình thành kết tủa**: PbI₂ bột mịn và tấm tinh thể, PbCl₂ bột và kim được vận chuyển riêng. Tăng trưởng hoặc phản ứng tạo sản phẩm mới không đổi toàn bộ phần cũ sang hình thái mới. Rót lấy đúng phần huyền phù của từng dạng. Xem [cohort kết tủa](precipitate-formation-cohorts-2026-11-15.vi.md).
 3. **Kim loại bám**: lưu nền/ID/route cùng lượng chất, giữ qua phản ứng khác và replay. Mesh tay/tự động/vũng biểu diễn thể tích kim loại; lực đỡ, tràn, thu lại và phản ứng trong vũng giữ riêng lõi/lớp bám. Xem [kiểm chứng lớp bám](metal-surface-deposition.vi.md).
 4. **Phoi đồng và đáy bình**: thay hull lấp khoảng trống của dây bằng các capsule có sai lệch hình học được giới hạn; sửa kích thước đặc trưng của solver. Kiểm cả xuyên đáy, khoảng hở, tải trọng lớp bạc và phản ứng Cu/Ag sau chuyển liều thật. Xem [tiếp xúc phoi đồng](copper-wire-contact-2026-11-15.vi.md).
+5. **Chi phí tiếp xúc**: bỏ phép dựng hình tĩnh khi chỉ truy vấn ID hạt; phân loại tam giác để chỉ cắt các mặt đi qua biên chất lỏng. A/B cùng dữ liệu giữ nguyên kết quả, phép cắt nhanh 1,99× và phân vùng tĩnh nhanh 1,63×. Xem [đối chiếu CPU](stock-contact-clipping-performance-2026-11-15.vi.md).
 
 Rà soát chéo còn sửa việc thu hạt vào bình đầy rút lẫn nước/hexane và việc dữ liệu lưu cũ mất hình thái tinh thể khi sinh thêm bột. Các hồi quy giữ nguyên lớp nước dưới, khối lượng từng chất, hạt macrostock cùng công thức và quần thể tinh thể cũ.
 
-Kết quả tổng của vòng này sẽ được bổ sung sau khi test, build và kiểm tra trình duyệt trên mã tích hợp hoàn tất.
+Kết quả tổng trên mã tích hợp:
+
+- `npx vitest run --maxWorkers=1 --reporter=default`: **3.454/3.454 kiểm thử, 258/258 tệp**, 359,53 s. Toàn bộ kịch bản phản ứng tự động, các ca tiếp xúc, khuấy, chuyển pha và vận chuyển đều qua.
+- Benchmark ba bình trong lượt tổng: trung bình **3,182 ms**, P95 **6,217 ms**, retained heap tăng **4,244 MB**. Giữ nguyên ngưỡng trung bình 5 ms/P95 10 ms. Artifact `artifacts/realism-performance-2026-11-15/headless-performance.json`; không gồm WebGL/FPS.
+- Lượt song song trước đó qua toàn bộ assertion hành vi nhưng benchmark CPU đạt 5,68 ms và trượt ngân sách. Vì phép đo thời gian chịu tải đồng thời, lượt cuối chạy tuần tự; không tăng ngưỡng hoặc bỏ test. Lỗi timeout Cu/H₂SO₄ ở lượt đầu đã dẫn đến tối ưu hình học có A/B cùng dữ liệu, không đổi kinetics.
+- `npm run lint` và `npm run build`: **qua**. Build vẫn báo chunk lớn hơn 500 kB; tốc độ tải toàn ứng dụng chưa được coi là đã giải quyết.
+- Năm audit trình duyệt trên mã cuối đều qua: `auditCarrierMassSync`, `auditPrecipitateFormation`, `auditMetalDepositionBrowser`, `auditStirringRod`, `auditReactionGasSources`. Không có lỗi JavaScript/shader; đã xem ảnh đũa trong ống nghiệm, sáu mẫu tinh thể, bạc trên phoi đồng và đinh phủ đồng nghỉ trên bàn. Hạt khô trong fixture worker vẫn được pause có chủ ý để kiểm tính bất biến của pose.
+- Cu/Ag chạy chuyển liều thật đạt tiến độ 0,150095 sau 21,4667 s mô phỏng, 12/12 hạt ngập, 0,0323809067 g Ag. Audit CPU riêng trên mã cuối mất 9,16 s; kiểm GPU có 96 cụm bám và thể tích khớp kho trong ngưỡng 2×10⁻⁶ tương đối.
 
 Ưu tiên kế tiếp vẫn là thiếu sót có thể tái hiện: lịch sử lớp bám nhiều tầng và điểm bám khi tải lại, kim loại sinh trong vũng, tiếp xúc ngoài mặt thủy tĩnh, rồi độ phủ dữ liệu khoa học và tải thao tác toàn ứng dụng. Không coi kết quả test logic là chứng nhận động học, màu hay cơ chế bong bám đã khớp thực nghiệm. Mục tiêu tiếp tục hoạt động.
