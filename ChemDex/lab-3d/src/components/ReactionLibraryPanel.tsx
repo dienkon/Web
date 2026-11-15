@@ -1,4 +1,5 @@
 import React, { useEffect, useMemo, useState } from 'react';
+import { LibraryProgramLauncher, ReactionQuickStartPanel } from './ReactionQuickStartPanel';
 import type { ReactionObservationGuide } from '../science/reactionObservationGuide';
 const DynamicLessonPanel = React.lazy(() => import('../lesson/LessonPanel').then(module => ({ default: module.LessonPanel })));
 const ReactionCatalogPanel = React.lazy(() => import('./ReactionCatalogPanel'));
@@ -9,6 +10,7 @@ type ReactionEntry = {
   topic_vi: string;
   equation: string;
   runtime: string;
+  programId?: string;
   protocolStatus: string;
   observation_vi: string;
   explanation_vi: string;
@@ -57,6 +59,7 @@ export default function ReactionLibraryPanel() {
   const selected = entries.find(entry => entry.id === selectedId);
 
   return <>
+    <ReactionQuickStartPanel />
     <div className="mb-3 flex flex-wrap gap-2 text-xs" role="group" aria-label="Chọn thư viện phản ứng">
       <button className="rounded border bg-white px-3 py-2 font-semibold" aria-pressed={!catalogOpen} onClick={() => setCatalogOpen(false)}>Bài thực hành</button>
       <button className="rounded border bg-white px-3 py-2 font-semibold text-teal-800" aria-pressed={catalogOpen} onClick={() => setCatalogOpen(true)}>Kho mở rộng & chuỗi</button>
@@ -83,6 +86,7 @@ export default function ReactionLibraryPanel() {
     </> : <article className="space-y-3">
       <button onClick={() => setSelectedId(null)} className="font-semibold text-teal-800">← Danh mục</button>
       <p className="font-mono break-words rounded bg-white p-2">{selected.equation}</p>
+      {selected.runtime === 'existing_program' && selected.programId && <LibraryProgramLauncher key={selected.id} programId={selected.programId} />}
       {selected.runtime === 'lesson_simulation' && <React.Suspense fallback={<p>Đang tải bài mô phỏng…</p>}>
         <DynamicLessonPanel key={selected.id} reactionId={selected.id} />
       </React.Suspense>}

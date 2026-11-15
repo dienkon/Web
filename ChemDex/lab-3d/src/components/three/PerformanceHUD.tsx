@@ -63,21 +63,24 @@ export const PerformanceHUD = React.memo(function PerformanceHUD() {
 
 
   return (
-    <div
-      className={`absolute top-4 right-4 z-20 pointer-events-auto transition-all duration-300 transform ${
-        isActive 
-          ? 'opacity-90 translate-y-0 scale-100' 
-          : 'opacity-40 -translate-y-1 scale-95 hover:opacity-100'
+    <details
+      className={`lab-performance-hud absolute top-3 right-3 z-20 pointer-events-auto transition-opacity duration-300 ${
+        isActive
+          ? 'opacity-90'
+          : 'opacity-60 hover:opacity-100'
       }`}
     >
-      <div className="bg-slate-950/80 backdrop-blur-md border border-slate-700/60 rounded-full px-3 py-1 shadow-lg flex items-center gap-2.5 text-white">
+      <summary className="flex cursor-pointer list-none items-center gap-1.5 rounded-xl border border-slate-700/60 bg-slate-950/80 px-2.5 py-2 text-[10px] font-mono text-slate-200" aria-label="Hiệu năng và chất lượng đồ họa">
+        <Activity size={12} /><span>{stats.samples ? stats.fps : '…'} FPS</span>
+      </summary>
+      <div className="lab-performance-details bg-slate-950/80 backdrop-blur-md border border-slate-700/60 rounded-full px-3 py-1 shadow-lg flex items-center gap-2.5 text-white">
         <div className="flex items-center gap-1.5">
           <span className={`w-2 h-2 rounded-full animate-pulse ${stats.fps >= 50 ? 'bg-emerald-400 shadow-emerald-400/50' : stats.fps >= 30 ? 'bg-amber-400' : 'bg-red-400'} shadow-sm`} />
           <span className="text-[11px] font-mono font-bold tracking-tight">
             {stats.samples ? stats.fps : '…'} <span className="text-[9px] font-normal text-slate-400">FPS</span>
           </span>
         </div>
-        
+
         <span className="w-px h-3 bg-slate-700/80" />
 
         <span className="text-[10px] font-mono text-slate-300" title={`P95: ${stats.p95_ms} ms · ${stats.drawCalls} draw calls · ${stats.triangles} triangles`}>
@@ -104,7 +107,7 @@ export const PerformanceHUD = React.memo(function PerformanceHUD() {
           <option value="medium">Cân bằng</option><option value="high">Đẹp</option><option value="ultra">Rất đẹp</option>
         </select>
       </div>
-    </div>
+    </details>
   );
 });
 

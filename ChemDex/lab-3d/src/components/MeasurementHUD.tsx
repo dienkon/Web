@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import { useAppStore } from '../store/useAppStore';
-import { Thermometer, Gauge, Scale, Pipette, Wand2 } from 'lucide-react';
+import { Thermometer, Gauge, Scale, Pipette, Wand2, ChevronDown, Wrench } from 'lucide-react';
 import { formatTemperature, formatPH, formatMass } from '../utils/units';
 import { readSample } from '../handling/instrumentReadings';
 import { calculateVesselMass } from '../engine/interactionEngine';
@@ -11,7 +11,11 @@ export function MeasurementHUD() {
   const vessels = useAppStore(state => state.vessels);
   const language = useAppStore(state => state.language);
   const activeTool = useAppStore(state => state.activeTool);
-  const setActiveTool = useAppStore(state => state.setActiveTool);
+  const palette = useRef<HTMLDetailsElement>(null);
+  const setActiveTool = (tool: ReturnType<typeof useAppStore.getState>['activeTool']) => {
+    useAppStore.getState().setActiveTool(tool);
+    if (palette.current) palette.current.open = false;
+  };
   const spills = useAppStore(state => state.spills);
   const timeScale = useAppStore(state => state.timeScale);
   const spillCount = Object.keys(spills || {}).length;
@@ -25,10 +29,18 @@ export function MeasurementHUD() {
     ? solutionAcidity(observation.ph, observation.referenceTemperature_c) : null;
 
   return (
-    <div className="flex items-center gap-2 bg-white/90 backdrop-blur-md px-3 py-1.5 rounded-lg border border-slate-200/80 shadow-md">
+    <details ref={palette} className="lab-measurement-palette pointer-events-auto" onKeyDown={event => {
+      if (event.key === 'Escape' && palette.current) { palette.current.open = false; palette.current.querySelector('summary')?.focus(); }
+    }}>
+      <summary className="flex cursor-pointer list-none items-center gap-2 rounded-xl border border-slate-200 bg-white/95 px-3 py-2 text-xs font-semibold text-slate-700 shadow-sm">
+        <Wrench size={15} /><span>{t('Tools & readings', 'Dụng cụ & số đo')}</span>
+        {activeTool !== 'none' && <span className="h-1.5 w-1.5 rounded-full bg-cyan-600" />}
+        <ChevronDown size={12} />
+      </summary>
+      <div className="lab-measurement-grid">
       {/* Interactive Pipette / Dropper */}
-      <button 
-        onClick={() => setActiveTool(activeTool === 'pipette' ? 'none' : 'pipette')}
+      <button
+        onClick={() => setActiveTool(activeTool === 'pipette' ? 'none' : 'pipette')} aria-pressed={activeTool === 'pipette'}
         className={`flex items-center gap-1.5 px-2.5 py-1 rounded text-xs font-semibold transition-colors ${
           activeTool === 'pipette' ? 'bg-amber-500 text-white shadow-sm' : 'bg-slate-100 hover:bg-slate-200 text-slate-700'
         }`}
@@ -39,8 +51,8 @@ export function MeasurementHUD() {
       </button>
 
       {/* Interactive Glass Stirring Rod */}
-      <button 
-        onClick={() => setActiveTool(activeTool === 'stirring_rod' ? 'none' : 'stirring_rod')}
+      <button
+        onClick={() => setActiveTool(activeTool === 'stirring_rod' ? 'none' : 'stirring_rod')} aria-pressed={activeTool === 'stirring_rod'}
         className={`flex items-center gap-1.5 px-2.5 py-1 rounded text-xs font-semibold transition-colors ${
           activeTool === 'stirring_rod' ? 'bg-cyan-600 text-white shadow-sm' : 'bg-slate-100 hover:bg-slate-200 text-slate-700'
         }`}
@@ -51,8 +63,8 @@ export function MeasurementHUD() {
       </button>
 
       {/* Interactive Solid Spatula */}
-      <button 
-        onClick={() => setActiveTool(activeTool === 'spatula' ? 'none' : 'spatula')}
+      <button
+        onClick={() => setActiveTool(activeTool === 'spatula' ? 'none' : 'spatula')} aria-pressed={activeTool === 'spatula'}
         className={`flex items-center gap-1.5 px-2.5 py-1 rounded text-xs font-semibold transition-colors ${
           activeTool === 'spatula' ? 'bg-violet-600 text-white shadow-sm' : 'bg-slate-100 hover:bg-slate-200 text-slate-700'
         }`}
@@ -66,8 +78,8 @@ export function MeasurementHUD() {
       </button>
 
       {/* Interactive Sponge / Cleaning Wiper */}
-      <button 
-        onClick={() => setActiveTool(activeTool === 'sponge' ? 'none' : 'sponge')}
+      <button
+        onClick={() => setActiveTool(activeTool === 'sponge' ? 'none' : 'sponge')} aria-pressed={activeTool === 'sponge'}
         className={`flex items-center gap-1.5 px-2.5 py-1 rounded text-xs font-semibold transition-colors ${
           activeTool === 'sponge' ? 'bg-amber-600 text-white shadow-sm ring-2 ring-amber-300' : 'bg-slate-100 hover:bg-slate-200 text-slate-700'
         }`}
@@ -83,8 +95,8 @@ export function MeasurementHUD() {
       </button>
 
       {/* Thermometer Tool */}
-      <button 
-        onClick={() => setActiveTool(activeTool === 'thermometer' ? 'none' : 'thermometer')}
+      <button
+        onClick={() => setActiveTool(activeTool === 'thermometer' ? 'none' : 'thermometer')} aria-pressed={activeTool === 'thermometer'}
         className={`flex items-center gap-1.5 px-2.5 py-1 rounded text-xs font-semibold transition-colors ${
           activeTool === 'thermometer' ? 'bg-red-500 text-white shadow-sm' : 'bg-slate-100 hover:bg-slate-200 text-slate-700'
         }`}
@@ -97,8 +109,8 @@ export function MeasurementHUD() {
       </button>
 
       {/* pH Meter Tool */}
-      <button 
-        onClick={() => setActiveTool(activeTool === 'ph_meter' ? 'none' : 'ph_meter')}
+      <button
+        onClick={() => setActiveTool(activeTool === 'ph_meter' ? 'none' : 'ph_meter')} aria-pressed={activeTool === 'ph_meter'}
         className={`flex items-center gap-1.5 px-2.5 py-1 rounded text-xs font-semibold transition-colors ${
           activeTool === 'ph_meter' ? 'bg-indigo-600 text-white shadow-sm' : 'bg-slate-100 hover:bg-slate-200 text-slate-700'
         }`}
@@ -107,16 +119,16 @@ export function MeasurementHUD() {
       >
         <Gauge size={14} />
         <span>pH {formatPH(ph)}</span>
-        <span 
-          className="w-2 h-2 rounded-full border border-white/50" 
+        <span
+          className="w-2 h-2 rounded-full border border-white/50"
           style={{ backgroundColor: acidity === 'acidic' ? '#ef4444' : acidity === 'basic' ? '#3b82f6'
             : acidity === 'neutral' ? '#22c55e' : '#94a3b8' }}
         />
       </button>
 
       {/* Analytical Balance Tool */}
-      <button 
-        onClick={() => setActiveTool(activeTool === 'balance' ? 'none' : 'balance')}
+      <button
+        onClick={() => setActiveTool(activeTool === 'balance' ? 'none' : 'balance')} aria-pressed={activeTool === 'balance'}
         className={`flex items-center gap-1.5 px-2.5 py-1 rounded text-xs font-semibold transition-colors ${
           activeTool === 'balance' ? 'bg-emerald-600 text-white shadow-sm' : 'bg-slate-100 hover:bg-slate-200 text-slate-700'
         }`}
@@ -128,7 +140,7 @@ export function MeasurementHUD() {
       </button>
 
       {Number.isFinite(timeScale) && timeScale > 0 && timeScale !== 1 && (
-        <div 
+        <div
           className="flex items-center gap-1 px-2.5 py-1 rounded text-xs font-bold bg-amber-500/15 border border-amber-500/40 text-amber-700 dark:text-amber-300 shadow-sm animate-pulse select-none"
           title={t('Selected simulation clock speed.', 'Tốc độ đồng hồ mô phỏng đang chọn.')}
         >
@@ -136,6 +148,7 @@ export function MeasurementHUD() {
           <span>{t(`simulation ×${timeScale}`, `mô phỏng ×${timeScale}`)}</span>
         </div>
       )}
-    </div>
+      </div>
+    </details>
   );
 }

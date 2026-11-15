@@ -16,6 +16,7 @@ import { liquidInventoryMass } from '../handling/solidOccupancy';
 import type { StockContainerInput, StockGroupInput } from './stockTypes';
 import type { Quat } from './types';
 import { attachedMetalForCarrier } from '../science/metalSurfaceAppearance';
+import { supportsVesselVortex, vesselVortexSurface } from '../science/vesselLiquidMotion';
 
 const geometries = new Map<string, BufferGeometry>();
 const vertices = new Map<string, number[]>();
@@ -74,6 +75,7 @@ export function stockContainer(v: VesselState, restore: boolean, vortex?: import
     const offset = surface && ('c' in surface ? surface.c : surface.offset);
     const level = scenePointToSI(vesselLocalToWorld(v, offset !== null && offset !== undefined ? n.clone().multiplyScalar(offset).toArray() : [0, vesselLiquidSurfaceY(v), 0]));
     fluid = { normal: [0, 1, 0], offset_m: level[1], density_kg_m3: density * 1000, viscosity_Pas: (v.viscosity_mPa_s ?? 1) / 1000 };
+    vortex = v.liquidMotion ? vesselVortexSurface(v) : supportsVesselVortex(v) ? vortex : undefined;
     if (vortex) {
       const origin = scenePointToSI(vesselLocalToWorld(v, [0, 0, 0]));
       const scale = getVesselProfile(v.type, v.capacity_ml).sceneScale / 100;

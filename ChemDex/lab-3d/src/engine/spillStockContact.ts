@@ -1,19 +1,68 @@
-import type { SpillState, SubstanceContent } from '../types/chemistry';
+import type { SpillState, SubstanceContent, VesselState } from '../types/chemistry';
 import { stockWetContact, type StockWetContact } from '../physical/stockWetContact';
 import { identifySpecies } from '../science/speciesIdentity';
 import { sampleHeatCapacity } from './thermalState';
-import { releaseUnsupportedMetalDeposits } from '../science/metalSurfaceAppearance';
+import { metalDepositCarrierFormula, releaseUnsupportedMetalDeposits } from '../science/metalSurfaceAppearance';
+import { stockSurfacePoints } from '../science/stockSurfaceSamples';
+import { withStockContactContext, type StockContactEvaluator } from '../physical/stockContactContext';
+import { allocateStockConsumption } from '../physical/stockConsumption';
 
 const identity = (formula: string) => identifySpecies(formula).formula.toLowerCase();
 const stock = (c: SubstanceContent) => c.phase === 's' && c.solidOrigin !== 'precipitate'
   && !c.depositSubstrate && (!c.location || c.location === 'bulk');
 const boundTo = (row: SubstanceContent, grain: SpillState) => row.phase === 's'
   && (!row.location || row.location === 'bulk') && !row.depositReleased && !!row.depositSubstrate
-  && identity(row.depositSubstrate) === identity(grain.stockMotion!.formula)
+  && identity(metalDepositCarrierFormula(row)!) === identity(grain.stockMotion!.formula)
   && (!row.depositCarrierId || row.depositCarrierId === grain.stockMotion!.id);
 const coreRows = (grain: SpillState) => grain.contents!.filter(row => stock(row)
   && identity(row.formula) === identity(grain.stockMotion!.formula));
 export interface WetStock { grain: SpillState; contact: StockWetContact }
+
+export interface WetStockContactContext {
+  stockMotion: NonNullable<VesselState['stockMotion']>;
+  evaluate: StockContactEvaluator;
+}
+
+/** Resolve chemistry against the measured sessile-drop surface in world SI.
+ * This context is temporary; neither a synthetic beaker nor a screen-space
+ * area can replace the actual wetted carrier in the material ledger. */
+function wetStockContactContext(wet: WetStock[]): WetStockContactContext {
+  const measured = wet.map(({ grain, contact }) => {
+    const pose = grain.stockMotion!, totalArea = stockSurfacePoints(pose.formula, pose.powder).area * pose.scale_m ** 2;
+    return { id: pose.id, formula: pose.formula, mass_g: pose.mass_g, wetFraction: contact.fraction,
+      totalArea, wetArea: totalArea * contact.fraction };
+  });
+  return { stockMotion: { tick: 0, grains: wet.map(({ grain }) => grain.stockMotion!) },
+    evaluate: (vessel, formula) => {
+      const rows = vessel.contents.filter(row => row.phase === 's' && (!row.location || row.location === 'bulk')
+        && row.mass_g > 0 && identity(row.formula) === identity(formula));
+      if (!rows.length) return { fraction: 0, contacts: [] };
+      const coreMass = rows.filter(stock).reduce((sum, row) => sum + row.mass_g, 0);
+      const poses = vessel.stockMotion?.grains.filter(pose => pose.mass_g > 0 && identity(pose.formula) === identity(formula)) ?? [];
+      const represented = poses.reduce((sum, pose) => sum + pose.mass_g, 0), ratio = Math.min(1, coreMass / Math.max(represented, 1e-30));
+      const contacts = poses.flatMap(pose => {
+        const contact = measured.find(item => item.id === pose.id);
+        if (!contact) return [];
+        const relativeScale = Math.cbrt(pose.mass_g * ratio / Math.max(contact.mass_g, 1e-30));
+        return [{ ...contact, mass_g: pose.mass_g * ratio,
+          totalArea: contact.totalArea * relativeScale ** 2, wetArea: contact.wetArea * relativeScale ** 2 }];
+      });
+      const totalArea = contacts.reduce((sum, contact) => sum + contact.totalArea, 0);
+      const wetArea = contacts.reduce((sum, contact) => sum + contact.wetArea, 0);
+      const posedMass = contacts.reduce((sum, contact) => sum + contact.mass_g, 0);
+      // Loose solids already in the liquid pool retain its unresolved bulk
+      // contact approximation. They are never made into a mechanical carrier.
+      let wetMass = Math.max(0, coreMass - posedMass) + posedMass * (totalArea > 0 ? wetArea / totalArea : 0);
+      for (const row of rows.filter(row => !stock(row))) {
+        const host = !row.depositReleased && row.depositCarrierId
+          ? measured.find(contact => contact.id === row.depositCarrierId
+            && identity(contact.formula) === identity(metalDepositCarrierFormula(row) ?? '')) : undefined;
+        wetMass += row.mass_g * (host?.wetFraction ?? 1);
+      }
+      const mass = rows.reduce((sum, row) => sum + row.mass_g, 0);
+      return { fraction: Math.max(0, Math.min(1, wetMass / mass)), contacts };
+    } };
+}
 
 /** A body may feed one pool per step, regardless of record insertion order. */
 export function assignWetStock(spills: Record<string, SpillState>): Map<string, WetStock[]> {
@@ -59,12 +108,14 @@ export function combineWetStock(pool: SpillState, wet: WetStock[]) {
     const mass = loose + masses.reduce((sum, value) => sum + value, 0);
     fractions.set(formula, mass > 0 ? (loose + wet.reduce((sum, w, i) => sum + masses[i] * w.contact.fraction, 0)) / mass : 0);
   }
-  return { sample, fractions };
+  return { sample, fractions, contactContext: wetStockContactContext(wet) };
 }
 
-/** Allocate the actual consumed solid among wetted sources with capacity
- * limits. Weight affects kinetics/ownership, never atom or mass creation. */
-export function splitWetStock(pool: SpillState, wet: WetStock[], sample: SpillState, reacted: SpillState) {
+/** Use the same finite material allocation as the reaction depositor: loose
+ * pool stock first, then wetted carriers by measured area and capacity. The
+ * contact fraction affects the rate, never atom or mass creation. */
+export function splitWetStock(pool: SpillState, wet: WetStock[], sample: SpillState, reacted: SpillState,
+  contactContext = wetStockContactContext(wet)) {
   const changed = reacted.contents !== sample.contents;
   if (!changed) {
     const patch = { gasRate_mol_s: reacted.gasRate_mol_s, vaporRate_g_s: reacted.vaporRate_g_s,
@@ -77,25 +128,22 @@ export function splitWetStock(pool: SpillState, wet: WetStock[], sample: SpillSt
   const retained = (reacted.contents ?? []).filter(c => !(stock(c) && formulas.has(identity(c.formula))) && !isOwnedCoating(c));
   const remaining = new Map<string, SubstanceContent[]>();
   const consumed = new Map<string, number>();
+  const before = withStockContactContext({ ...sample, stockMotion: contactContext.stockMotion } as unknown as VesselState,
+    contactContext.evaluate);
+  const allocated = allocateStockConsumption(before, reacted.contents ?? [])!;
   for (const formula of formulas) {
-    const sources = [{ id: pool.id, rows: (pool.contents ?? []).filter(c => stock(c) && identity(c.formula) === formula), fraction: 1 },
-      ...wet.filter(w => identity(w.grain.stockMotion!.formula) === formula).map(w => ({ id: w.grain.id, rows: coreRows(w.grain), fraction: w.contact.fraction }))];
-    const masses = sources.map(s => s.rows.reduce((m, c) => m + c.mass_g, 0)), taken = masses.map(() => 0);
-    const total = masses.reduce((m, c) => m + c, 0);
+    const sources = [{ id: pool.id, carrierId: undefined, rows: (pool.contents ?? []).filter(c => stock(c) && identity(c.formula) === formula) },
+      ...wet.filter(w => identity(w.grain.stockMotion!.formula) === formula)
+        .map(w => ({ id: w.grain.id, carrierId: w.grain.stockMotion!.id, rows: coreRows(w.grain) }))];
+    const masses = sources.map(s => s.rows.reduce((m, c) => m + c.mass_g, 0));
     const after = (reacted.contents ?? []).filter(c => stock(c) && identity(c.formula) === formula).reduce((m, c) => m + c.mass_g, 0);
-    let demand = Math.max(0, total - after);
-    // At most one source saturates per pass; no unbounded convergence loop.
-    for (let pass = 0; demand > 1e-14 && pass <= sources.length; pass++) {
-      const weights = masses.map((m, i) => Math.max(0, m - taken[i]) * sources[i].fraction), sum = weights.reduce((s, w) => s + w, 0);
-      if (!(sum > 0)) break;
-      const step = demand;
-      for (let i = 0; i < sources.length; i++) { const take = Math.min(masses[i] - taken[i], step * weights[i] / sum); taken[i] += take; demand -= take; }
-    }
+    const kept = sources.map((source, i) => i === 0 ? 0 : allocated.grains.find(pose => pose.id === source.carrierId)?.mass_g ?? masses[i]);
+    kept[0] = Math.min(masses[0], Math.max(0, after - kept.reduce((sum, mass) => sum + mass, 0)));
     for (let i = 0; i < sources.length; i++) {
-      const keep = masses[i] > 0 ? Math.max(0, 1 - taken[i] / masses[i]) : 0;
+      const keep = masses[i] > 0 ? Math.max(0, Math.min(1, kept[i] / masses[i])) : 0;
       const rows = sources[i].rows.map(c => ({ ...c, mass_g: c.mass_g * keep, moles: c.moles * keep })).filter(c => c.mass_g > 0);
       if (sources[i].id === pool.id) retained.push(...rows);
-      else { remaining.set(sources[i].id, rows); consumed.set(sources[i].id, taken[i]); }
+      else { remaining.set(sources[i].id, rows); consumed.set(sources[i].id, masses[i] - kept[i]); }
     }
   }
   const grains = wet.map(({ grain }) => {
@@ -103,7 +151,7 @@ export function splitWetStock(pool: SpillState, wet: WetStock[], sample: SpillSt
     const coatings = (reacted.contents ?? []).filter(row => row.depositCarrierId === pose.id && isOwnedCoating(row));
     const beforeCoating = grain.contents!.filter(row => boundTo(row, grain)).reduce((sum, row) => sum + row.mass_g, 0);
     const afterCoating = (reacted.contents ?? []).filter(row => row.depositCarrierId === pose.id
-      && !!row.depositSubstrate && identity(row.depositSubstrate) === identity(pose.formula)).reduce((sum, row) => sum + row.mass_g, 0);
+      && !!row.depositSubstrate && identity(metalDepositCarrierFormula(row)!) === identity(pose.formula)).reduce((sum, row) => sum + row.mass_g, 0);
     consumed.set(grain.id, (consumed.get(grain.id) ?? 0) + Math.max(0, beforeCoating - afterCoating));
     if (!(coreMass > 1e-12)) {
       // The mechanical carrier has disappeared. Its coating now belongs to

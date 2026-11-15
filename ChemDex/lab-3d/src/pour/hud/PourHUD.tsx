@@ -25,8 +25,8 @@ export const PourHUD = React.memo(function PourHUD() {
   const targetName = targetVessel?.name || (lang === 'vi' ? 'Bình nhận' : 'Target Vessel');
 
   return (
-    <div className="fixed bottom-6 left-1/2 -translate-x-1/2 z-40 pointer-events-none select-none">
-      <div className="bg-slate-900/90 backdrop-blur-md border border-slate-700/80 rounded-2xl px-6 py-3 shadow-2xl flex items-center gap-6 text-white text-xs sm:text-sm">
+    <div data-pour-hud className="lab-pour-hud">
+      <div className="bg-slate-900/90 backdrop-blur-md border border-slate-700/80 rounded-2xl shadow-2xl text-white lab-pour-readouts">
         {/* Vessel Target & Aim Indicator */}
         <div className="flex items-center gap-2">
           <span className={`w-3 h-3 rounded-full animate-pulse ${

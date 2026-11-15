@@ -1,6 +1,7 @@
 import { ALL_HANDCRAFTED_PROGRAMS } from '../programs/library';
 import type { ReactionProgram } from '../../shared/programSchema';
 import type { VesselState, SubstanceContent } from '../../types/chemistry';
+import { advanceVesselLiquidMotion } from '../../science/vesselLiquidMotion';
 import { createStudioSample, planStudioProgram } from '../../engine/studioProgram';
 import { advanceReaction } from '../../engine/advanceReaction';
 import { landoltInventory } from '../../science/landoltClock';
@@ -258,6 +259,8 @@ export class AutoExperiment {
     this.elapsed += dt; this.phaseTime += dt;
     const previous = this.sample;
     this.heat(dt);
+    const liquidMotion = advanceVesselLiquidMotion(this.sample, dt, this.stirringDrive);
+    if (liquidMotion !== this.sample.liquidMotion) this.sample = { ...this.sample, liquidMotion };
     const previousProgress = this.progress;
     let gasArrival: { formula: string; moles: number } | undefined;
     if (this.sample.recentPourContact) this.sample = { ...this.sample, recentPourContact: {
@@ -413,7 +416,7 @@ export class AutoExperiment {
           inletJet: this.hasGasSupply && this.sample.volume_ml < 0.01,
           sourcePoint: this.sample.recentPourContact?.point,
           ...(this.hasGasSupply ? { vent: [0, 1.42, -0.35] as const } : {}) } } })));
-    this.physics.step(this.sample, dt, { thermalStateAuthoritative: true,
+    this.physics.step(this.sample, dt, { thermalStateAuthoritative: true, liquidMotionAuthoritative: true,
       agitation: this.stirringDrive,
       bodyMatrixWorld: RECEIVER_BODY_MATRIX,
       reactionProgram: this.program,

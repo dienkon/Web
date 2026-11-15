@@ -1,0 +1,504 @@
+{
+  "errors": [],
+  "shaderErrors": [],
+  "checks": [
+    {
+      "kind": "chemistry",
+      "vessel": {
+        "mass_g": 61.2733774,
+        "layers": [
+          {
+            "formula": "Cu",
+            "phase": "s",
+            "state": "s",
+            "moles": 0.0014,
+            "mass_g": 0.0889644,
+            "solidOrigin": "precipitate",
+            "depositSubstrate": "Fe",
+            "depositionReactionId": "fe_cuso4",
+            "depositCarrierFormula": "Fe",
+            "depositCarrierId": "stock:1"
+          },
+          {
+            "formula": "Ag",
+            "phase": "s",
+            "state": "s",
+            "moles": 0.0002,
+            "mass_g": 0.0215736,
+            "solidOrigin": "precipitate",
+            "depositSubstrate": "Cu",
+            "depositionReactionId": "cu_agno3",
+            "depositCarrierFormula": "Fe",
+            "depositCarrierId": "stock:1"
+          }
+        ],
+        "carriers": [
+          {
+            "id": "stock:1",
+            "formula": "Fe (nail)",
+            "mass_g": 0.110538,
+            "volume_ml": 0.011983691071428569
+          }
+        ]
+      },
+      "puddle": {
+        "firstContact": {
+          "fraction": 1,
+          "position": [
+            1.9800797772587704,
+            -1.1496664495895998,
+            1.0397472736945061
+          ]
+        },
+        "grain": {
+          "id": "puddle-nail",
+          "position": [
+            1.9910736083984373,
+            -1.1522768565586634,
+            0.9988613128662109
+          ],
+          "volume_ml": 0,
+          "mass_g": 0.10127929934304888,
+          "contents": [
+            {
+              "formula": "Fe (nail)",
+              "moles": 0.0016245494084989882,
+              "mass_g": 0.09072296171762602,
+              "phase": "s"
+            },
+            {
+              "formula": "Cu",
+              "phase": "s",
+              "state": "s",
+              "moles": 0.00016612119764301234,
+              "mass_g": 0.010556337625422865,
+              "solidOrigin": "precipitate",
+              "depositSubstrate": "Fe",
+              "depositionReactionId": "fe_cuso4",
+              "depositCarrierFormula": "Fe",
+              "depositCarrierId": "puddle-carrier"
+            }
+          ],
+          "substances": [
+            "Fe (nail)",
+            "Cu"
+          ],
+          "radius": 0.1161681266587563,
+          "color": "#777",
+          "temperature_c": 25.604914725537164,
+          "isHazard": false,
+          "timestamp": 0,
+          "stockMotion": {
+            "id": "puddle-carrier",
+            "vesselId": "outside",
+            "formula": "Fe (nail)",
+            "mass_g": 0.09072296171762602,
+            "scale_m": 0.002258989240678848,
+            "position_m": [
+              0.06968757629394531,
+              -0.040329689979553225,
+              0.034960145950317385
+            ],
+            "rotation": [
+              0.6866925358772278,
+              -0.19437453150749207,
+              -0.013543128967285156,
+              0.7003488540649414
+            ],
+            "velocity_m_s": [
+              -0.00006628782954066992,
+              -0.000016063499497249723,
+              -0.000016128879506140946
+            ],
+            "angularVelocity_rad_s": [
+              -0.016658516600728035,
+              -0.0000035233822472946486,
+              0.06846465170383453
+            ],
+            "powder": false,
+            "sleeping": false,
+            "contacting": true
+          }
+        },
+        "pool": {
+          "id": "copper-puddle",
+          "position": [
+            2,
+            -1.175,
+            1
+          ],
+          "volume_ml": 10,
+          "radius": 1.0280445513718925,
+          "contents": [
+            {
+              "formula": "H2O",
+              "moles": 0.5550929780738274,
+              "mass_g": 10.000000000000002,
+              "phase": "l",
+              "concentration_M": 55.50929780738274
+            },
+            {
+              "formula": "CuSO4",
+              "moles": 0.000460437366786005,
+              "mass_g": 0.07348672461377997,
+              "phase": "aq",
+              "concentration_M": 0.0460437366786005
+            },
+            {
+              "formula": "FeSO4",
+              "moles": 0.00016612119764301234,
+              "mass_g": 0.02523397604317122,
+              "concentration_M": 0.016612119764301235,
+              "state": "aq",
+              "phase": "aq"
+            }
+          ],
+          "color": "#91d8fd",
+          "temperature_c": 25.604914725537164,
+          "isHazard": false,
+          "timestamp": 0,
+          "mass_g": 10.098720700656953,
+          "substances": [
+            "H2O",
+            "CuSO4",
+            "FeSO4"
+          ],
+          "reactionProgramId": "fe_cuso4",
+          "escapedGas_g": {},
+          "gasRate_mol_s": 0,
+          "vaporRate_g_s": 0,
+          "reactionHeat_J": 25.561068681330315,
+          "thermalVaporEnthalpy_J": 0,
+          "thermalVaporSensibleEnthalpy_J": 0,
+          "thermalEnergyOutsideModel_J": 0,
+          "solidContactSites": [
+            {
+              "grainId": "puddle-carrier",
+              "position": [
+                1.9808054258779166,
+                -1.1497405777318725,
+                1.0385639294657485
+              ],
+              "weight": 0.0001987976611547565
+            }
+          ]
+        },
+        "attached": {
+          "mass_g": 0.010556337625422865,
+          "volume_ml": 0.0011781626814088017
+        }
+      }
+    },
+    {
+      "kind": "rendered",
+      "meshes": [
+        {
+          "name": "stock_coating_Fe (nail)_Cu",
+          "product": "Cu",
+          "mass_g": 0.010556337625422865,
+          "carrierIds": [
+            "puddle-carrier"
+          ],
+          "support": "stock-mesh-surface",
+          "count": 8,
+          "volume": 0.000027479013441879116,
+          "expected": 0.000027479012977464754,
+          "escaped": true
+        },
+        {
+          "name": "stock_coating_Fe (nail)_Ag",
+          "product": "Ag",
+          "mass_g": 0.0215736,
+          "carrierIds": [
+            "stock:1"
+          ],
+          "support": "stock-mesh-surface",
+          "count": 8,
+          "volume": 0.00011661101531939286,
+          "expected": 0.00011661100878369285,
+          "escaped": false
+        },
+        {
+          "name": "stock_coating_Fe (nail)_Cu",
+          "product": "Cu",
+          "mass_g": 0.0889644,
+          "carrierIds": [
+            "stock:1"
+          ],
+          "support": "stock-mesh-surface",
+          "count": 8,
+          "volume": 0.0005635266631079933,
+          "expected": 0.0005635266687624698,
+          "escaped": false
+        }
+      ]
+    },
+    {
+      "kind": "json-restore",
+      "meshes": [
+        {
+          "name": "stock_coating_Fe (nail)_Cu",
+          "product": "Cu",
+          "mass_g": 0.010556337625422865,
+          "carrierIds": [
+            "puddle-carrier"
+          ],
+          "support": "stock-mesh-surface",
+          "count": 8,
+          "volume": 0.000027479013441879116,
+          "expected": 0.000027479012977464754,
+          "escaped": true
+        },
+        {
+          "name": "stock_coating_Fe (nail)_Ag",
+          "product": "Ag",
+          "mass_g": 0.0215736,
+          "carrierIds": [
+            "stock:1"
+          ],
+          "support": "stock-mesh-surface",
+          "count": 8,
+          "volume": 0.00011661101531939286,
+          "expected": 0.00011661100878369285,
+          "escaped": false
+        },
+        {
+          "name": "stock_coating_Fe (nail)_Cu",
+          "product": "Cu",
+          "mass_g": 0.0889644,
+          "carrierIds": [
+            "stock:1"
+          ],
+          "support": "stock-mesh-surface",
+          "count": 8,
+          "volume": 0.0005635266631079933,
+          "expected": 0.0005635266687624698,
+          "escaped": false
+        }
+      ]
+    }
+  ],
+  "scene": {
+    "vesselIds": [
+      "layered-nail"
+    ],
+    "vessels": [
+      "layered-nail"
+    ],
+    "spills": [
+      "copper-puddle",
+      "puddle-nail"
+    ],
+    "meshes": [
+      {
+        "name": "tool-balance"
+      },
+      {
+        "name": "balance-tare"
+      },
+      {
+        "name": "burette-stream"
+      },
+      {
+        "name": "burette-stream-jet",
+        "count": 1
+      },
+      {
+        "name": "burette-stream-ripple",
+        "count": 1
+      },
+      {
+        "name": "tool-burette"
+      },
+      {
+        "name": "burette-stopcock"
+      },
+      {
+        "name": "spill-bubbles:copper-puddle",
+        "count": 16
+      },
+      {
+        "name": "spill-optics:copper-puddle",
+        "count": 1
+      },
+      {
+        "name": "spill-optics:reflection:copper-puddle",
+        "count": 1
+      },
+      {
+        "name": "escaped_puddle-carrier",
+        "count": 1
+      },
+      {
+        "name": "stock_coating_Fe (nail)_Cu",
+        "count": 8,
+        "metalDeposit": {
+          "product": "Cu",
+          "mass_g": 0.010556337625422865,
+          "carrierIds": [
+            "puddle-carrier"
+          ],
+          "support": "stock-mesh-surface"
+        }
+      },
+      {
+        "name": "lesson-simulation-layer"
+      },
+      {
+        "name": "physical_pour_stream_system"
+      },
+      {
+        "name": "finite_pour_transport"
+      },
+      {
+        "name": "finite_air_stream",
+        "count": 1
+      },
+      {
+        "name": "finite_exterior_film",
+        "count": 1
+      },
+      {
+        "name": "simulation_debug_gizmos"
+      },
+      {
+        "name": "vfx_director_layer"
+      },
+      {
+        "name": "room_gas_clouds"
+      },
+      {
+        "name": "gas_clouds_Cl2",
+        "count": 0
+      },
+      {
+        "name": "gas_clouds_Br2",
+        "count": 0
+      },
+      {
+        "name": "gas_clouds_I2",
+        "count": 0
+      },
+      {
+        "name": "gas_clouds_NO2",
+        "count": 0
+      },
+      {
+        "name": "gas_clouds_NH4Cl",
+        "count": 0
+      },
+      {
+        "name": "gas_clouds_SO3",
+        "count": 0
+      },
+      {
+        "name": "gas_clouds_Steam",
+        "count": 0
+      },
+      {
+        "name": "gas_clouds_MgO_smoke",
+        "count": 0
+      },
+      {
+        "name": "gas_clouds_Soot",
+        "count": 0
+      },
+      {
+        "name": "gas_clouds_MgO",
+        "count": 0
+      },
+      {
+        "name": "reaction-event-sparks",
+        "count": 0
+      },
+      {
+        "name": "acid_splatter_system"
+      },
+      {
+        "name": "reaction-radiant-flash"
+      },
+      {
+        "name": "rupture-impulse:0",
+        "count": 1
+      },
+      {
+        "name": "rupture-impulse:1",
+        "count": 1
+      },
+      {
+        "name": "rupture-impulse:2",
+        "count": 1
+      },
+      {
+        "name": "rupture-impulse:3",
+        "count": 1
+      },
+      {
+        "name": "vessel_effect_frame_layered-nail"
+      },
+      {
+        "name": "physical_sim_layered-nail"
+      },
+      {
+        "name": "physical_bubbles_layered-nail",
+        "count": 20
+      },
+      {
+        "name": "sediment_bed_layered-nail",
+        "count": 1
+      },
+      {
+        "name": "physical_mist_layered-nail",
+        "count": 15
+      },
+      {
+        "name": "vessel_si_body_layered-nail"
+      },
+      {
+        "name": "liquid_volume_layered-nail",
+        "count": 1
+      },
+      {
+        "name": "liquid_surface_layered-nail",
+        "count": 1
+      },
+      {
+        "name": "solids_layered-nail"
+      },
+      {
+        "name": "stock-solid-Fe (nail)"
+      },
+      {
+        "name": "stock_solid_layered-nail_Fe (nail)",
+        "count": 1
+      },
+      {
+        "name": "stock_coating_Fe (nail)_Ag",
+        "count": 8,
+        "metalDeposit": {
+          "product": "Ag",
+          "mass_g": 0.0215736,
+          "carrierIds": [
+            "stock:1"
+          ],
+          "support": "stock-mesh-surface"
+        }
+      },
+      {
+        "name": "stock_coating_Fe (nail)_Cu",
+        "count": 8,
+        "metalDeposit": {
+          "product": "Cu",
+          "mass_g": 0.0889644,
+          "carrierIds": [
+            "stock:1"
+          ],
+          "support": "stock-mesh-surface"
+        }
+      }
+    ],
+    "stores": [
+      "http://127.0.0.1:6778/src/store/useAppStore.ts?t=1794717444282"
+    ]
+  }
+}

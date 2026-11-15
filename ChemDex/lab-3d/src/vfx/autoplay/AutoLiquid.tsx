@@ -5,6 +5,7 @@ import type { AutoExperiment } from './AutoExperiment';
 import { getVesselProfile } from '../../pour/physics/profiles';
 import { vesselLiquidSurfaceY } from '../../science/vesselGeometry';
 import { VORTEX_GLSL } from '../../science/liquidVortex';
+import { supportsVesselVortex, vesselVortexSurface } from '../../science/vesselLiquidMotion';
 import { createSpatialLiquidAppearance, shadeSpatialLiquid } from '../materials/spatialLiquidAppearance';
 
 /** The actual beaker contour, with one volume-preserving pressure surface.
@@ -50,11 +51,13 @@ export function AutoLiquid({ experiment: e }: { experiment: AutoExperiment }) {
   useEffect(() => () => { geometry.dispose(); materials.body.dispose(); materials.surface.dispose(); }, [geometry, materials]);
   useFrame(() => {
     if (!root.current || !cap.current) return;
-    const sample = e.sample, fillY = vesselLiquidSurfaceY(sample), vortex = e.physics.vortex.surface;
+    const sample = e.sample, fillY = vesselLiquidSurfaceY(sample);
+    const vortex = sample.liquidMotion ? vesselVortexSurface(sample)
+      : supportsVesselVortex(sample) ? e.physics.vortex.surface : undefined;
     root.current.visible = sample.volume_ml > 0.01;
     cap.current.position.y = fillY;
-    uniforms.uFillY.value = fillY; uniforms.uPhase.value = e.physics.vortex.phase_rad;
-    uniforms.uVortex.value.set((vortex?.coreRadius ?? 1) ** 2, vortex?.amplitude ?? 0, vortex?.offset ?? fillY, e.physics.vortex.angularSpeed_rad_s);
+    uniforms.uFillY.value = fillY; uniforms.uPhase.value = vortex?.phase_rad ?? 0;
+    uniforms.uVortex.value.set((vortex?.coreRadius ?? 1) ** 2, vortex?.amplitude ?? 0, vortex?.offset ?? fillY, vortex?.angularSpeed_rad_s ?? 0);
     root.current.updateWorldMatrix(true, false);
     appearance.update(e.physics.suspensionColor, root.current.matrixWorld,
       e.physics.precipitationSystems.values().next().value?.renderBounds);

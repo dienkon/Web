@@ -75,6 +75,15 @@ export const DEFAULT_SIMULATION_CONFIG: SimulationConfig = {
  * never be used to calculate drag, Brownian diffusion or bed contact.
  */
 export const PRECIPITATE_PROFILES: Record<string, PrecipitateProfile> = {
+  // Halite crystallized from the supported binary NaCl/water phase model.
+  // Cubic habit and 2.16 g/cm3: Kansas Geological Survey, Halite (Salt).
+  // Particle size, growth/settling closure and optical coefficients remain
+  // illustrative; this is not a measured nucleation or crystal-growth model.
+  NaCl: {
+    id: 'NaCl', modelBasis: 'uncalibrated_transport', morphology: 'crystalline', color: '#ffffff',
+    particleDensity_g_cm3: 2.16, baseParticleRadius_mm: 0.001, displayRadius_scene: 0.001,
+    aggregationRate: 0.4, cloudinessFactor: 0.35, specularReflectivity: 0.45, roughness: 0.3,
+  },
   // Appearance coverage for products already described by precipitates.ts.
   // Direct mixing does not imply the large needles of recrystallized PbCl2.
   PbCl2: {

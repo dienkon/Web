@@ -103,7 +103,8 @@ function mergeContents(vessel: VesselState, sample: LiquidAliquot, fraction: num
       && content.liquidLayer === source.liquidLayer && content.location === source.location
       && content.solidOrigin === source.solidOrigin && content.precipitateFormation === source.precipitateFormation
       && content.depositSubstrate === source.depositSubstrate && content.depositionReactionId === source.depositionReactionId
-      && content.depositCarrierId === source.depositCarrierId && content.depositReleased === source.depositReleased);
+      && content.depositCarrierId === source.depositCarrierId && content.depositCarrierFormula === source.depositCarrierFormula
+      && content.depositReleased === source.depositReleased);
     if (target) {
       target.moles += source.moles * fraction;
       target.mass_g += source.mass_g * fraction;

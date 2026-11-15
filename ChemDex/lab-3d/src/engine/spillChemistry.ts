@@ -10,13 +10,17 @@ import { DEFAULT_LAB_ENVIRONMENT, type LabEnvironment } from '../science/labEnvi
 import { assessProgramConditions } from '../science/conditions';
 import type { ReactionProgram } from '../shared/programSchema';
 import { identifySpecies, sameMolecularFormula } from '../science/speciesIdentity';
-import { assignWetStock, combineWetStock, splitWetStock } from './spillStockContact';
+import { assignWetStock, combineWetStock, splitWetStock, type WetStockContactContext } from './spillStockContact';
 import { stepSpillSuspension } from '../science/spillSuspension';
+import { metalDepositionRoute } from '../science/metalSurfaceAppearance';
+import { withStockContactContext } from '../physical/stockContactContext';
+import { stockLiquidContactFraction } from '../physical/stockLiquidContact';
 
 function contactHalfTime(program: ReactionProgram): number | null {
   const chemistry = program.chemistry, rate = chemistry.kinetics;
   if (program.provenance === 'fallback' || !rate || !(rate.halfTime_s > 0) || !Number.isFinite(rate.halfTime_s)
-    || !['instant', 'surface_limited', 'first_order'].includes(rate.model)
+    || !(['instant', 'surface_limited', 'first_order'].includes(rate.model)
+      || rate.model === 'diffusion_limited' && !!metalDepositionRoute(program.id))
     || ['indicator', 'emission', 'dilution'].includes(chemistry.representation ?? '')) return null;
   const reactants = chemistry.species.filter(s => s.role === 'reactant');
   return reactants.length && reactants.every(s => ['aq', 'l', 's'].includes(s.phase)) ? rate.halfTime_s : null;
@@ -44,12 +48,12 @@ function sodiumContactStep(spill: SpillState, reference: VesselState, dt: number
 /** An open puddle has no glass heat capacity or sealed headspace. Resolve only
  * authored contact chemistry; never infer heating/ignition from a VFX preset. */
 export function stepSpillChemistry(spill: SpillState, dt: number, room: LabEnvironment = DEFAULT_LAB_ENVIRONMENT,
-  solidContactFractions?: Map<string, number>): SpillState {
+  solidContactFractions?: Map<string, number>, contactContext?: WetStockContactContext): SpillState {
   if (!(dt > 0) || !Number.isFinite(dt)) return spill;
   if (!(spill.volume_ml > 0) || !spill.contents?.length || spill.contents.some(c => c.liquidLayer === 'organic')
     || !spill.contents.some(c => sameMolecularFormula(c.formula, 'H2O') && c.phase === 'l' && c.moles > 1e-12))
     return stoppedSources(spill);
-  const reference: VesselState = { id: spill.id, name: 'Workbench spill', type: 'beaker',
+  const vessel: VesselState = { id: spill.id, name: 'Workbench spill', type: 'beaker',
     position: spill.position, rotationY: 0, isLocked: false, capacity_ml: spill.volume_ml,
     volume_ml: spill.volume_ml, volume: 1, mass_g: spill.mass_g, contents: spill.contents,
     substances: spill.substances, temperature_c: spill.temperature_c ?? 25, ph: 7,
@@ -58,6 +62,7 @@ export function stepSpillChemistry(spill: SpillState, dt: number, room: LabEnvir
     thermalVaporEnthalpy_J: spill.thermalVaporEnthalpy_J,
     thermalVaporSensibleEnthalpy_J: spill.thermalVaporSensibleEnthalpy_J,
     thermalEnergyOutsideModel_J: spill.thermalEnergyOutsideModel_J };
+  const reference = contactContext ? withStockContactContext({ ...vessel, stockMotion: contactContext.stockMotion }, contactContext.evaluate) : vessel;
   const sodium = sodiumWaterContact(reference);
   const environment = { temperature_c: reference.temperature_c, volume_ml: spill.volume_ml, isHeated: false, isSealed: false };
   const preferred = spill.reactionProgramId ? getProgramById(spill.reactionProgramId) : undefined;
@@ -73,7 +78,8 @@ export function stepSpillChemistry(spill: SpillState, dt: number, room: LabEnvir
       ? { ...spill, gasRate_mol_s: 0, vaporRate_g_s: 0, reactionProgramId: undefined } : spill;
   const sodiumStep = sodium ? sodiumContactStep(spill, reference, dt) : null;
   const wetFraction = Math.min(1, ...program.chemistry.species.filter(s => s.role === 'reactant' && s.phase === 's')
-    .map(s => solidContactFractions?.get(identifySpecies(s.formula).formula.toLowerCase()) ?? 1));
+    .map(s => contactContext ? stockLiquidContactFraction(reference, s.formula)
+      : solidContactFractions?.get(identifySpecies(s.formula).formula.toLowerCase()) ?? 1));
   const progress = sodiumStep ? sodiumStep.progress : -Math.expm1(-Math.LN2 * dt * wetFraction / halfTime!);
   const next = applyProgramToLedger(program, reference, progress, { deferThermal: true });
   const heat = next.programHeatApplied_J ?? 0;
@@ -121,8 +127,8 @@ export function stepWorkbenchSpills(spills: Record<string, SpillState>, dt: numb
     const wet = contacts.get(id);
     let next: SpillState;
     if (wet?.length) {
-      const { sample, fractions } = combineWetStock(spill, wet);
-      const split = splitWetStock(spill, wet, sample, stepSpillChemistry(sample, dt, room, fractions));
+      const { sample, fractions, contactContext } = combineWetStock(spill, wet);
+      const split = splitWetStock(spill, wet, sample, stepSpillChemistry(sample, dt, room, fractions, contactContext), contactContext);
       next = split.pool;
       for (const grain of split.grains) {
         if (grain === spills[grain.id]) continue;

@@ -19,9 +19,17 @@ View your app in AI Studio: https://ai.studio/apps/615b7b6b-733d-472b-ae02-99247
 3. Run the app:
    `npm run dev`
 
+## Giao diện gọn và thao tác trực tiếp
+
+Menu **ChemDex** ở góc chứa điều hướng website. Mở kho bằng nút **Hóa chất**, thông tin bình bằng **Quan sát**; `Esc` đóng các bảng. **Dụng cụ & số đo** mở đũa khuấy, pipet, khăn lau và số đo. **Thiết lập** chứa góc nhìn, môi trường, âm thanh và công cụ nâng cao.
+
+Trong **Hóa chất → Bài học**, chọn thẻ hiện tượng rồi **Tạo mẫu và chạy trên bàn** để khởi động chương trình cục bộ. Mẫu cần nhiệt/mồi phải đủ điều kiện. Khi bình nguồn gần bình nhận, giữ nút **Giữ để rót** (hoặc Space/Enter khi nút có focus); thả để ngừng và hạ bình. Tia rửa có thể hoàn tác/làm lại cùng lượng vật chất đã chuyển.
+
+[Nâng cấp và kiểm chứng ngày 15/11/2026](docs/research/compact-lab-upgrade-2026-11-15.vi.md) gồm UI desktop/mobile, sửa rót/rửa, lớp kim loại nhiều tầng, mặt xoáy chung và tinh thể muối.
+
 ## Vật lí có kiểm chứng — bản thử nghiệm
 
-Mở **Vật lí** trên thanh công cụ để bật runtime Rapier trong Worker, xem 184 hồ sơ vật thể/chất và dùng bàn kiểm chứng lực, áp suất, hút pipet, bể nhiệt, thu khí, độ nhớt và nóng chảy băng. Nhánh mới tắt mặc định: tải lớn, hình học phụ kiện và hiệu chuẩn thực nghiệm còn chưa đạt đủ tiêu chí nghiệm thu.
+Mở **Thiết lập → Vật lí** trên thanh công cụ để bật runtime Rapier trong Worker, xem 184 hồ sơ vật thể/chất và dùng bàn kiểm chứng lực, áp suất, hút pipet, bể nhiệt, thu khí, độ nhớt và nóng chảy băng. Nhánh mới tắt mặc định: tải lớn, hình học phụ kiện và hiệu chuẩn thực nghiệm còn chưa đạt đủ tiêu chí nghiệm thu.
 
 [Báo cáo triển khai và giới hạn](docs/research/verified-physics.vi.md). Chạy `npm run physics:audit` để tạo bảng bao phủ, `npm run physics:benchmark` để đo CPU; audit giao diện bằng `node scripts/auditVerifiedPhysics.mjs` khi Vite chạy ở cổng 6773.
 

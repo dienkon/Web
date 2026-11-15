@@ -1,5 +1,6 @@
 import { useAppStore } from '../../store/useAppStore';
 import { debounceSaveLocalState, pushHistorySnapshot, canUndo, canRedo } from '../../store/persistence';
+import { shardManager } from '../../damage/Shards';
 import { PourSessionState } from './modes';
 
 /**
@@ -29,7 +30,9 @@ export const storeBridge = {
     const store = useAppStore.getState();
     if (store.pourEpoch !== epoch) return;
     const materials = { inFlightPours: store.inFlightPours, spills: store.spills,
-      wasteMass_g: store.wasteMass_g, wasteContents: store.wasteContents };
+      wasteMass_g: store.wasteMass_g, wasteContents: store.wasteContents,
+      pipetteSample: store.pipetteSample, workbenchEscapedGas_g: store.workbenchEscapedGas_g,
+      glassDebris: shardManager.snapshot() };
     pushHistorySnapshot('POUR', store.vessels, store.burners, 'Poured sample', 'Rót mẫu định lượng', materials);
     debounceSaveLocalState(store.vessels, store.burners, materials);
     useAppStore.setState({ canUndo: canUndo(), canRedo: canRedo() });

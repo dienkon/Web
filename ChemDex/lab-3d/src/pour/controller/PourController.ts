@@ -6,7 +6,7 @@ import { useAppStore } from '../../store/useAppStore';
 import { getWorldVesselProfile } from '../physics/profiles';
 import { calculateVesselWeirFlow, findVesselPouringTilt } from '../physics/vesselFlow';
 import { decantLiquid, canReceivePour } from '../../engine/decantTransfer';
-import { clampTilt } from '../../handling/limits';
+import { clampTilt, getHandleLimits } from '../../handling/limits';
 import { calculateStreamBallistics } from '../physics/ballistics';
 import { mobileSolidInventory } from '../../science/suspensionTransport';
 import { SimulationEngine } from '../../simulation/core/SimulationEngine';
@@ -114,7 +114,8 @@ class PourControllerClass {
     if (!sourceVessel || this.activeSession || opts.sourceId === opts.targetId) return;
     const finiteVesselMode = !['STOCK_BOTTLE', 'DROPPER', 'SOLID'].includes(opts.mode);
     const recipient = opts.targetId ? store.vessels[opts.targetId] : null;
-    if (finiteVesselMode && ((!(sourceVessel.volume_ml > 0) && opts.mode !== 'HAND_TILT')
+    if (finiteVesselMode && (getHandleLimits(sourceVessel.type).fixedInClamp
+      || (!(sourceVessel.volume_ml > 0) && opts.mode !== 'HAND_TILT')
       || (sourceVessel.volume_ml > 0 && !decantLiquid(sourceVessel, recipient ?? null, 0.001))
       || (opts.targetId && (!recipient || !canReceivePour(recipient))))) return;
     if (opts.requestedVolume_ml !== undefined && (!Number.isFinite(opts.requestedVolume_ml) || opts.requestedVolume_ml <= 0)) return;
@@ -188,6 +189,9 @@ class PourControllerClass {
     const store = useAppStore.getState();
     const sourceVessel = store.vessels[this.activeSession.sourceId];
     this.activeSession.targetTilt = clampTilt(sourceVessel?.type, rad);
+    // Explicitly returning the dial/wheel to upright ends the gesture even
+    // before its first drop. Otherwise the tilting state has no exit.
+    if (this.activeSession.targetTilt === 0) this.stopPour();
   }
 
   /** Stop the held gesture on the simulation clock; no delayed callback can
@@ -526,7 +530,7 @@ class PourControllerClass {
           : (session.requestedVolume_ml || 20);
         await storeBridge.commitAddChemical(session.targetId, session.chemical, amount);
       }
-    } else {
+    } else if (session.released_ml > 0) {
       await storeBridge.completeLivePour(session.sourceId, session.targetId);
     }
     if (useAppStore.getState().pourEpoch !== epoch) return;
@@ -537,7 +541,7 @@ class PourControllerClass {
       transferred_ml: session.transferred_ml
     });
 
-    if (!this.activeSession) useAppStore.getState().setIsPouring(false);
+    if (!this.activeSession) useAppStore.setState({ isPouring: false, isPourTiltLocked: false });
 
     this.notify();
   }
@@ -546,16 +550,10 @@ class PourControllerClass {
    * Cancels the active pour gracefully (tilts back and returns to table).
    */
   public cancelPour(): void {
+    this.syncEpoch();
     if (!this.activeSession) return;
-    if (this.activeSession.phase === 'pouring' || this.activeSession.phase === 'tilting') {
-      this.activeSession.phase = 'dripping';
-      this.activeSession.targetTilt = 0;
-    } else if (this.activeSession.phase === 'lifting') {
-      this.activeSession.phase = 'returning';
-    } else {
-      storeBridge.cancelPour(this.activeSession);
-      void this.commitCurrentPour();
-    }
+    storeBridge.cancelPour(this.activeSession);
+    this.stopPour();
   }
 }
 

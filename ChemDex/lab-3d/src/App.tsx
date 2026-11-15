@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { LabScene } from './components/three/LabScene';
 import { useAppStore, CHEMICALS, getChemical } from './store/useAppStore';
 import { WorkbenchToolbar } from './components/WorkbenchToolbar';
+import { LabNavigation } from './components/LabNavigation';
 import { MeasurementHUD } from './components/MeasurementHUD';
 import { VesselInspector } from './components/VesselInspector';
 import { TitrationPanel } from './components/TitrationPanel';
@@ -15,7 +16,7 @@ const AutoLabWorkspace = React.lazy(() => import('./vfx/autoplay/AutoLabWorkspac
 import { getChemicalHazardsAndPpe } from './engine/safetyEngine';
 const VfxGallery = React.lazy(() => import('./vfx/dev/VfxGallery').then(m => ({ default: m.VfxGallery })));
 const SimulationDebugPanel = React.lazy(() => import('./simulation/ui/SimulationDebugPanel').then(m => ({ default: m.SimulationDebugPanel })));
-const isDev = Boolean((import.meta as any).env?.DEV) || (typeof window !== 'undefined' && (window.location.search.includes('dev=1') || window.location.search.includes('vfx=1')));
+const isDev = (typeof window !== 'undefined' && (window.location.search.includes('dev=1') || window.location.search.includes('vfx=1')));
 import { PourHUD } from './pour/hud/PourHUD';
 import { PourInput } from './pour/input/PourInput';
 import { ControlRing } from './ui/ControlRing';
@@ -24,8 +25,8 @@ import { Toast } from './components/Toast';
 import { RadialMenu } from './ui/RadialMenu';
 import { handleLabKeyDown } from './input/KeyMap';
 import { EXPERIMENT_CURRICULUM } from './data/experiments';
-import { 
-  Beaker, FlaskConical, AlertTriangle, Info, X, Plus, Move, 
+import {
+  Beaker, FlaskConical, AlertTriangle, Info, X, Plus, Move,
   Search, ShieldAlert, Sparkles, Droplet, Flame, TestTube, Scale, BookOpen,
   Thermometer, Pipette, Wand2, Filter, Layers,
   ChevronLeft, ChevronRight, PanelLeftClose, PanelRightClose
@@ -40,13 +41,13 @@ function LeftSidebar() {
   const [search, setSearch] = useState('');
   const [equipSearch, setEquipSearch] = useState('');
   const [filterType, setFilterType] = useState<'all' | 'liquid' | 'solid' | 'indicator'>('all');
-  
+
   const t = (en: string, vi: string) => language === 'en' ? en : vi;
 
   // Filter chemicals (memoized to eliminate lag during drag and typing)
   const filteredChemicals = React.useMemo(() => {
     return CHEMICALS.filter(c => {
-      const matchesSearch = c.formula.toLowerCase().includes(search.toLowerCase()) || 
+      const matchesSearch = c.formula.toLowerCase().includes(search.toLowerCase()) ||
         [c.name_en,c.name_vi,c.name_search??''].some(name=>name.toLowerCase().includes(search.toLowerCase()));
       if (!matchesSearch) return false;
       if (filterType === 'all') return true;
@@ -67,32 +68,32 @@ function LeftSidebar() {
     <ResizableSidebar side="left" className="bg-white border-r border-slate-200 shadow-sm">
       {/* Sidebar Tabs */}
       <div className="flex items-center border-b border-slate-200 bg-slate-50/50">
-        <button 
-          onClick={() => setActiveTab('chemicals')} 
+        <button
+          onClick={() => setActiveTab('chemicals')}
           className={`flex-1 py-2.5 text-[11px] font-bold uppercase tracking-wider transition-colors ${
             activeTab === 'chemicals' ? 'bg-white text-blue-600 border-b-2 border-blue-600' : 'text-slate-500 hover:bg-slate-100'
           }`}
         >
           {t('Chemicals', 'Hóa chất')}
         </button>
-        <button 
-          onClick={() => setActiveTab('instruments')} 
+        <button
+          onClick={() => setActiveTab('instruments')}
           className={`flex-1 py-2.5 text-[11px] font-bold uppercase tracking-wider transition-colors ${
             activeTab === 'instruments' ? 'bg-white text-blue-600 border-b-2 border-blue-600' : 'text-slate-500 hover:bg-slate-100'
           }`}
         >
           {t('Equipment', 'Dụng cụ')}
         </button>
-        <button 
-          onClick={() => setActiveTab('experiments')} 
+        <button
+          onClick={() => setActiveTab('experiments')}
           className={`flex-1 py-2.5 text-[11px] font-bold uppercase tracking-wider transition-colors ${
             activeTab === 'experiments' ? 'bg-white text-blue-600 border-b-2 border-blue-600' : 'text-slate-500 hover:bg-slate-100'
           }`}
         >
           {t('Guide', 'Bài học')}
         </button>
-        <button 
-          onClick={() => setActiveTab('safety')} 
+        <button
+          onClick={() => setActiveTab('safety')}
           className={`flex-1 py-2.5 text-[11px] font-bold uppercase tracking-wider transition-colors ${
             activeTab === 'safety' ? 'bg-white text-amber-600 border-b-2 border-amber-600' : 'text-slate-500 hover:bg-slate-100'
           }`}
@@ -101,8 +102,8 @@ function LeftSidebar() {
         </button>
         <button
           onClick={useAppStore.getState().toggleLeftSidebar}
-          className="md:hidden px-2.5 py-2 text-slate-400 hover:text-slate-700"
-          title="Close"
+          className="px-2.5 py-2 text-slate-400 hover:text-slate-700"
+          aria-label={t('Close panel', 'Đóng bảng')} title={t('Close panel', 'Đóng bảng')}
         >
           <X size={15} />
         </button>
@@ -115,9 +116,9 @@ function LeftSidebar() {
           <div className="p-2.5 border-b border-slate-100 bg-white space-y-1.5">
             <div className="relative">
               <Search size={13} className="absolute left-2.5 top-2.5 text-slate-400" />
-              <input 
-                type="text" 
-                placeholder={t('Search chemical...', 'Tìm hóa chất...')} 
+              <input
+                type="text"
+                placeholder={t('Search chemical...', 'Tìm hóa chất...')}
                 value={search}
                 onChange={e => setSearch(e.target.value)}
                 className="w-full text-xs pl-8 pr-3 py-1.5 border border-slate-200 rounded-lg outline-none focus:border-blue-500 transition-colors bg-slate-50/50"
@@ -137,7 +138,7 @@ function LeftSidebar() {
                 </button>
               ))}
             </div>
-            
+
             <p className="text-[10px] text-slate-400 leading-tight">
               {t('💡 Drag into vessel to weigh (g) or measure (mL).', '💡 Kéo vào bình để cân (g) hoặc đong (mL).')}
             </p>
@@ -146,7 +147,7 @@ function LeftSidebar() {
           {/* Chemical List */}
           <div className="flex-1 overflow-y-auto p-2.5 space-y-1.5">
             {filteredChemicals.map((chem, idx) => (
-              <div 
+              <div
                 key={`${chem.formula}_${idx}`}
                 draggable={!isMixing}
                 onDragStart={(e) => {
@@ -169,14 +170,14 @@ function LeftSidebar() {
                     state.setPendingDispense({ chemical: chem.formula, targetVesselId: target });
                   }
                 }}
-                className={`flex items-center justify-between p-2 rounded-lg transition-all border border-slate-200/70 select-none group 
+                className={`flex items-center justify-between p-2 rounded-lg transition-all border border-slate-200/70 select-none group
                   ${isMixing ? 'opacity-50 cursor-not-allowed bg-slate-50' : 'hover:bg-blue-50/60 hover:border-blue-300 cursor-grab bg-white shadow-xs active:cursor-grabbing'}`}
                 title={t('Click to measure or drag into vessel', 'Nhấn để đong/cân hoặc kéo vào bình')}
               >
                 <div className="flex items-center gap-2 min-w-0">
-                  <div 
-                    className="w-3.5 h-3.5 rounded-full border border-slate-300 shadow-inner shrink-0" 
-                    style={{ backgroundColor: chem.color }} 
+                  <div
+                    className="w-3.5 h-3.5 rounded-full border border-slate-300 shadow-inner shrink-0"
+                    style={{ backgroundColor: chem.color }}
                   />
                   <div className="flex flex-col min-w-0">
                     <span className="text-xs font-bold text-slate-900 group-hover:text-blue-700 transition-colors leading-tight">
@@ -311,9 +312,9 @@ function LeftSidebar() {
             <div className="p-2.5 border-b border-slate-100 bg-white">
               <div className="relative">
                 <Search size={13} className="absolute left-2.5 top-2.5 text-slate-400" />
-                <input 
-                  type="text" 
-                  placeholder={t('Search 20+ apparatus...', 'Tìm hơn 20 loại dụng cụ...')} 
+                <input
+                  type="text"
+                  placeholder={t('Search 20+ apparatus...', 'Tìm hơn 20 loại dụng cụ...')}
                   value={equipSearch}
                   onChange={e => setEquipSearch(e.target.value)}
                   className="w-full text-xs pl-8 pr-3 py-1.5 border border-slate-200 rounded-lg outline-none focus:border-blue-500 transition-colors bg-slate-50/50"
@@ -324,9 +325,9 @@ function LeftSidebar() {
             {/* Categorized Sections */}
             <div className="flex-1 p-3 overflow-y-auto space-y-3.5">
               {categories.map(cat => {
-                const visibleItems = cat.items.filter(it => 
-                  !q || 
-                  it.name_en.toLowerCase().includes(q) || 
+                const visibleItems = cat.items.filter(it =>
+                  !q ||
+                  it.name_en.toLowerCase().includes(q) ||
                   it.name_vi.toLowerCase().includes(q) ||
                   it.type.toLowerCase().includes(q)
                 );
@@ -416,7 +417,7 @@ const RightSidebar = React.memo(function RightSidebar() {
   const language = useAppStore(state => state.language);
   const selectedVesselId = useAppStore(state => state.selectedVesselId);
   const [activeTab, setActiveTab] = useState<'vessel' | 'reaction' | 'titration'>('vessel');
-  
+
   // When a vessel is clicked/selected, automatically switch to vessel tab
   useEffect(() => {
     if (selectedVesselId) {
@@ -465,13 +466,13 @@ const RightSidebar = React.memo(function RightSidebar() {
         </button>
         <button
           onClick={useAppStore.getState().toggleRightSidebar}
-          className="md:hidden px-2.5 py-2 text-slate-400 hover:text-slate-700"
-          title="Close"
+          className="px-2.5 py-2 text-slate-400 hover:text-slate-700"
+          aria-label={t('Close panel', 'Đóng bảng')} title={t('Close panel', 'Đóng bảng')}
         >
           <X size={15} />
         </button>
       </div>
-      
+
       <div className="flex-1 overflow-y-auto p-3.5 space-y-3">
         {activeTab === 'vessel' ? (
           <VesselInspector />
@@ -485,7 +486,7 @@ const RightSidebar = React.memo(function RightSidebar() {
                 <p className="text-xs text-slate-500 font-medium animate-pulse">{t('Analyzing chemical dynamics...', 'Đang tính toán động học phản ứng...')}</p>
               </div>
             )}
-            
+
             {mixError && (
               <div className="p-3 bg-red-50 text-red-600 text-xs rounded-xl border border-red-200">
                 {t('Error', 'Lỗi')}: {mixError}
@@ -538,7 +539,7 @@ const RightSidebar = React.memo(function RightSidebar() {
                     </div>
                   )}
                 </section>
-                
+
                 {/* Physical Observations */}
                 <section className="space-y-1">
                   <h3 className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">{t('Physical Phenomena', 'Hiện tượng quan sát được')}</h3>
@@ -572,23 +573,23 @@ const TargetRecognitionHUD = React.memo(function TargetRecognitionHUD() {
   const hoveredVesselId = useAppStore(state => state.hoveredVesselId);
   const isDraggingChemical = useAppStore(state => !!state.isDraggingChemical);
   const language = useAppStore(state => state.language);
-  
+
   const targetId = nearestPourTargetId || (isDraggingChemical ? hoveredVesselId : null);
   const target = useAppStore(state => targetId ? state.vessels[targetId] : null);
 
   if (!target) return null;
 
   return (
-    <div className="absolute top-4 left-1/2 -translate-x-1/2 z-30 pointer-events-none animate-in fade-in zoom-in-95 duration-150">
+    <div className="lab-target-hud absolute top-16 left-1/2 -translate-x-1/2 z-10 pointer-events-none max-w-[calc(100%-1.5rem)]">
       <div className="bg-emerald-600/90 backdrop-blur-md text-white text-xs font-bold px-4 py-2 rounded-full shadow-xl border border-emerald-400/50 flex items-center gap-2">
         <span className="w-2 h-2 rounded-full bg-white animate-ping" />
         <span>
-          {nearestPourTargetId 
+          {nearestPourTargetId
             ? (language === 'en' ? `🎯 Pour liquid into: ${target.name}` : `🎯 Nhận diện đích rót: ${target.name}`)
             : (language === 'en' ? `🎯 Drop into: ${target.name}` : `🎯 Nhận diện thả vào: ${target.name}`)}
         </span>
-        <span className="text-[10px] bg-emerald-700 px-2 py-0.5 rounded-full font-mono">
-          {target.volume_ml} mL
+        <span className="shrink-0 text-[10px] bg-emerald-700 px-2 py-0.5 rounded-full font-mono">
+          {Number.isFinite(target.volume_ml) ? target.volume_ml.toFixed(1) : '0.0'} mL
         </span>
       </div>
     </div>
@@ -622,6 +623,25 @@ export default function App() {
   const toggleLeftSidebar = useAppStore(state => state.toggleLeftSidebar);
   const toggleRightSidebar = useAppStore(state => state.toggleRightSidebar);
 
+  const lastPanels = React.useRef({ left: leftSidebarOpen, right: rightSidebarOpen });
+  useEffect(() => {
+    const previous = lastPanels.current;
+    lastPanels.current = { left: leftSidebarOpen, right: rightSidebarOpen };
+    if (workspace === 'manual' && window.innerWidth < 1024 && leftSidebarOpen && rightSidebarOpen) {
+      useAppStore.setState(previous.left && !previous.right ? { leftSidebarOpen: false } : { rightSidebarOpen: false });
+    }
+  }, [leftSidebarOpen, rightSidebarOpen, workspace]);
+  useEffect(() => {
+    const close = (event: KeyboardEvent) => {
+      if (event.key !== 'Escape') return;
+      const panel = document.activeElement?.closest('[data-sidebar]')?.getAttribute('data-sidebar');
+      useAppStore.setState({ leftSidebarOpen: false, rightSidebarOpen: false });
+      if (panel) document.querySelector<HTMLButtonElement>(`[aria-controls="lab-${panel}-panel"]`)?.focus();
+    };
+    window.addEventListener('keydown', close);
+    return () => window.removeEventListener('keydown', close);
+  }, []);
+
   useEffect(() => {
     if (workspace === 'auto') return;
     const onKeyDown = (e: KeyboardEvent) => {
@@ -634,93 +654,15 @@ export default function App() {
   const t = (en: string, vi: string) => language === 'en' ? en : vi;
 
   return (
-    <div className="flex flex-col h-screen w-full overflow-hidden bg-slate-50 font-sans text-slate-800 select-none">
-      
+    <div className="lab-app flex flex-col h-dvh w-full overflow-hidden bg-slate-50 font-sans text-slate-800 select-none">
+
       {/* Gentle Top-Right Toast Notification System */}
       <Toast />
 
       {/* Chemical Measurement, Litmus Paper & Student Lab Report Dialogs */}
       {workspace === 'manual' && <><DosageModal /><LitmusTestModal /><LabReportModal /></>}
 
-      {/* Primary Navigation Bar */}
-      {!isPresentationMode && (
-        <nav className="h-12 bg-white border-b border-slate-200 flex items-center justify-between px-3 md:px-4 shrink-0 z-20 shadow-2xs relative">
-          <div className="flex items-center gap-2.5">
-            <div className="w-7 h-7 bg-blue-600 rounded-lg flex items-center justify-center shadow-md shadow-blue-600/20">
-              <FlaskConical size={16} className="text-white" />
-            </div>
-            <div>
-              <h1 className="text-xs font-bold tracking-tight uppercase">
-                Virtual <span className="text-blue-600">ChemLab</span>
-              </h1>
-              <span className="text-[9px] text-slate-400 font-medium block -mt-0.5">
-                {t('Realistic 3D Chemistry Studio', 'Phòng Thí Nghiệm Hóa Học Ảo 3D')}
-              </span>
-            </div>
-          </div>
-
-          {/* ChemDex Central Ecosystem Navigation Links */}
-          <div className="flex items-center gap-1 bg-slate-100/90 px-1.5 py-1 rounded-xl border border-slate-200/80 text-xs shadow-inner">
-            <a 
-              href="../" 
-              className="px-2.5 py-1 rounded-lg font-semibold text-slate-700 hover:text-blue-600 hover:bg-white transition-all flex items-center gap-1.5 shadow-2xs"
-              title="Về Trang chủ ChemDex / Bảng tuần hoàn"
-            >
-              <span className="text-blue-500 font-bold">←</span>
-              <span>ChemDex</span>
-            </a>
-            <span className="w-px h-3.5 bg-slate-300 hidden sm:block" />
-            <a 
-              href="../tai-lieu-so.html" 
-              className="hidden sm:inline-block px-2.5 py-1 rounded-lg font-medium text-slate-600 hover:text-blue-600 hover:bg-white transition-all shadow-2xs"
-            >
-              {t('Documents', 'Tài liệu số')}
-            </a>
-            <a 
-              href="../tien-ich/" 
-              className="hidden md:inline-block px-2.5 py-1 rounded-lg font-medium text-slate-600 hover:text-blue-600 hover:bg-white transition-all shadow-2xs"
-            >
-              {t('Utilities', 'Tiện ích')}
-            </a>
-            <a 
-              href="../trung-tam/" 
-              className="hidden lg:inline-block px-2.5 py-1 rounded-lg font-medium text-slate-600 hover:text-blue-600 hover:bg-white transition-all shadow-2xs"
-            >
-              {t('Arena', 'Đấu trường')}
-            </a>
-          </div>
-          
-          <div className="flex items-center gap-1.5">
-            <a href="?view=assets" className="p-1.5 rounded-lg text-xs font-semibold flex items-center gap-1.5 text-emerald-700 bg-emerald-50 hover:bg-emerald-100" title="Khám phá toàn bộ mô hình 3D cận cảnh">
-              <Layers size={16} /><span className="hidden sm:inline">Mô hình 3D</span>
-            </a>
-            <button 
-              onClick={toggleLeftSidebar} 
-              className={`p-1.5 rounded-lg text-xs font-semibold flex items-center gap-1.5 transition-colors ${leftSidebarOpen ? 'text-blue-600 bg-blue-50' : 'text-slate-500 hover:bg-slate-100'}`} 
-              title={t('Toggle Chemical & Tool Catalog', 'Mở/Đóng danh mục')}
-            >
-              <Beaker size={16} />
-              <span className="hidden sm:inline">{t('Catalog', 'Hóa chất')}</span>
-            </button>
-            <button 
-              onClick={toggleRightSidebar} 
-              className={`p-1.5 rounded-lg text-xs font-semibold flex items-center gap-1.5 transition-colors ${rightSidebarOpen ? 'text-blue-600 bg-blue-50' : 'text-slate-500 hover:bg-slate-100'}`} 
-              title={t('Toggle Reaction Insights & Titration', 'Mở/Đóng phản ứng & chuẩn độ')}
-            >
-              <Info size={16} />
-              <span className="hidden sm:inline">{t('Insights', 'Phản ứng')}</span>
-            </button>
-          </div>
-        </nav>
-      )}
-
-      {!isPresentationMode && <div role="tablist" aria-label={t('Lab mode', 'Chế độ thí nghiệm')} className="flex shrink-0 items-center gap-1 border-b border-slate-200 bg-white px-3 py-1.5">
-        <button role="tab" id="manual-lab-tab" aria-selected={workspace === 'manual'} aria-controls="manual-lab" onClick={() => changeWorkspace('manual')}
-          className={`flex items-center gap-2 rounded-lg px-3 py-2 text-xs font-semibold ${workspace === 'manual' ? 'bg-blue-50 text-blue-700' : 'text-slate-500 hover:bg-slate-50'}`}><Move size={14} />{t('Hands-on', 'Thao tác')}</button>
-        <button role="tab" id="automatic-lab-tab" aria-selected={workspace === 'auto'} aria-controls="automatic-lab" onClick={() => changeWorkspace('auto')}
-          className={`flex items-center gap-2 rounded-lg px-3 py-2 text-xs font-semibold ${workspace === 'auto' ? 'bg-cyan-50 text-cyan-800' : 'text-slate-500 hover:bg-slate-50'}`}><Wand2 size={14} />{t('Automatic', 'Tự động')}</button>
-        <span className="ml-auto hidden text-[10px] text-slate-400 sm:block">{t('Drag a panel edge to resize', 'Kéo mép sidebar để đổi chiều rộng')}</span>
-      </div>}
+      {!isPresentationMode && <LabNavigation workspace={workspace} onWorkspaceChange={changeWorkspace} />}
 
       {workspace === 'auto' ? <React.Suspense fallback={<div className="grid flex-1 place-items-center bg-[#091321] text-sm text-cyan-100">Đang chuẩn bị bàn tự động…</div>}><AutoLabWorkspace onExit={() => changeWorkspace('manual')} /></React.Suspense> : <React.Suspense fallback={<div className="grid flex-1 place-items-center bg-slate-100 text-sm text-slate-500">Đang chuẩn bị bàn thao tác…</div>}>
       {/* Workbench Secondary Toolbar (Camera, Undo/Redo, Grid, Modes, Speeds) */}
@@ -728,31 +670,16 @@ export default function App() {
 
       {/* Main Lab Area */}
       <div id="manual-lab" role="tabpanel" aria-labelledby="manual-lab-tab" className="flex flex-1 min-h-0 overflow-hidden relative">
+        {(leftSidebarOpen || rightSidebarOpen) && <button className="lab-sidebar-backdrop" aria-label={t('Close panels', 'Đóng các bảng')}
+          onClick={() => useAppStore.setState({ leftSidebarOpen: false, rightSidebarOpen: false })} />}
         <LeftSidebar />
 
         {/* 3D Interactive Workbench Viewport */}
-        <main 
-          className="flex-1 flex flex-col relative bg-slate-100 overflow-hidden"
+        <main
+          data-lab-viewport className="flex-1 min-w-0 flex flex-col relative bg-slate-100 overflow-hidden"
         >
-          {/* Quick Panel Collapse/Expand Floating Buttons on Edges */}
-          <button
-            onClick={(e) => { e.stopPropagation(); toggleLeftSidebar(); }}
-            className="absolute left-2 top-1/2 -translate-y-1/2 z-20 p-1.5 bg-white/90 backdrop-blur-md rounded-r-lg border border-l-0 border-slate-300 text-slate-600 hover:text-blue-600 shadow-md transition-all hover:pl-2"
-            title={leftSidebarOpen ? t('Hide chemicals panel', 'Ẩn bảng hóa chất') : t('Show chemicals panel', 'Hiện bảng hóa chất')}
-          >
-            {leftSidebarOpen ? <ChevronLeft size={15} /> : <ChevronRight size={15} />}
-          </button>
-
-          <button
-            onClick={(e) => { e.stopPropagation(); toggleRightSidebar(); }}
-            className="absolute right-2 top-1/2 -translate-y-1/2 z-20 p-1.5 bg-white/90 backdrop-blur-md rounded-l-lg border border-r-0 border-slate-300 text-slate-600 hover:text-blue-600 shadow-md transition-all hover:pr-2"
-            title={rightSidebarOpen ? t('Hide reaction panel', 'Ẩn bảng thông tin') : t('Show reaction panel', 'Hiện bảng thông tin')}
-          >
-            {rightSidebarOpen ? <ChevronRight size={15} /> : <ChevronLeft size={15} />}
-          </button>
-
           {/* Top-Left Floating Controls: Measurement Telemetry HUD */}
-          <div className="absolute top-4 left-4 z-20 pointer-events-auto flex flex-col gap-2">
+          <div className="absolute top-3 left-3 right-3 z-20 pointer-events-none flex flex-col items-start gap-2">
             <MeasurementHUD />
           </div>
 
@@ -777,7 +704,7 @@ export default function App() {
         </main>
 
         <RightSidebar />
-        {(
+        {isDev && (
           <React.Suspense fallback={null}>
             <VfxGallery />
           </React.Suspense>

@@ -89,3 +89,13 @@ Kết quả tổng trên mã tích hợp:
 - Cu/Ag chạy chuyển liều thật đạt tiến độ 0,150095 sau 21,4667 s mô phỏng, 12/12 hạt ngập, 0,0323809067 g Ag. Audit CPU riêng trên mã cuối mất 9,16 s; kiểm GPU có 96 cụm bám và thể tích khớp kho trong ngưỡng 2×10⁻⁶ tương đối.
 
 Ưu tiên kế tiếp vẫn là thiếu sót có thể tái hiện: lịch sử lớp bám nhiều tầng và điểm bám khi tải lại, kim loại sinh trong vũng, tiếp xúc ngoài mặt thủy tĩnh, rồi độ phủ dữ liệu khoa học và tải thao tác toàn ứng dụng. Không coi kết quả test logic là chứng nhận động học, màu hay cơ chế bong bám đã khớp thực nghiệm. Mục tiêu tiếp tục hoạt động.
+
+## Vòng tiếp xúc và vật nền — tiếp tục ngày 15/11/2026
+
+Từ baseline sạch `1767a90b`, đã tái hiện ba lỗi còn lại: Ag sinh từ lớp Cu trên Fe bị biến thành huyền phù, kim loại sinh trong vũng mất carrier, và phần ngập hóa học trái với mặt xoáy khi khuấy. Thực hiện sửa nguồn gốc vật nền, dùng tiếp xúc vũng đo từ pose thật, và thống nhất lịch sử chuyển động chất lỏng cho hóa học/cơ học/renderer. Ca tái hiện, nguồn đối chiếu và giới hạn được ghi trong [liên tục tiếp xúc và vật nền](surface-contact-continuity-2026-11-15.vi.md).
+
+Kiểm chứng bắt buộc gồm vật nền khô/ướt cùng công thức, sản phẩm từ kho tự do và kho bám, tiêu thụ hết lớp trung gian hoặc lõi, chuyển/thu carrier, replay và lưu/khôi phục. Mặt xoáy cần kiểm cả vùng tâm khô và vành ướt, spin-up/spin-down, pause và đồng hồ các chế độ. Sau hồi quy tập trung sẽ chạy toàn bộ test, TypeScript/build, trình duyệt thật và commit trực tiếp `main`.
+
+## Tích hợp yêu cầu UI và thao tác — 15/11/2026
+
+Vòng tiếp xúc/vật nền đã được tích hợp cùng giao diện gọn, rót/rửa có hồi quy, khởi động phản ứng cục bộ và hình thái tinh thể NaCl. Bộ tổng 3.515 kiểm thử/262 tệp đã qua; các kiểm tra trình duyệt xem [báo cáo nâng cấp tích hợp](compact-lab-upgrade-2026-11-15.vi.md). Các giới hạn hiệu chuẩn/mao dẫn/bóc tách nêu trên vẫn là giới hạn mô hình, không phải cam kết đã giải chính xác thực nghiệm mọi chất.

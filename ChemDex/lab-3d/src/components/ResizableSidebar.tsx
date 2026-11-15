@@ -40,9 +40,9 @@ export function ResizableSidebar({ side, children, className = '' }: {
     document.documentElement.classList.remove('sidebar-resizing');
   };
   useEffect(() => () => { cancelAnimationFrame(frame.current); document.documentElement.classList.remove('sidebar-resizing'); }, []);
-  const limit = (next: number) => clamp(Math.min(next, window.innerWidth < 768
+  const limit = (next: number) => clamp(Math.min(next, window.innerWidth < 1024
     ? window.innerWidth * 0.85 : Math.max(220, window.innerWidth - otherWidth - 300)));
-  return <aside ref={root} data-sidebar={side} className={`resizable-sidebar resizable-sidebar-${side} ${className}`}
+  return <aside ref={root} id={`lab-${side}-panel`} aria-label={language === 'en' ? (side === 'left' ? 'Catalog' : 'Vessel and reactions') : (side === 'left' ? 'Kho hóa chất và dụng cụ' : 'Thông tin bình và phản ứng')} data-sidebar={side} className={`resizable-sidebar resizable-sidebar-${side} ${className}`}
     style={{ '--sidebar-width': `${width}px`, '--opposite-width': `${otherWidth}px` } as React.CSSProperties}>
     {children}
     <div role="separator" aria-orientation="vertical" aria-label={label} aria-valuemin={220} aria-valuemax={560}

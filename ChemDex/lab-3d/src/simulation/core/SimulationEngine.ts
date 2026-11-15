@@ -32,6 +32,7 @@ import { DEFAULT_LAB_ENVIRONMENT, waterBoilingPointAtPressure } from '../../scie
 import { waterSaturationPressurePa } from '../../science/waterSaturation';
 import { WATER_CP_J_G_K } from '../../engine/waterProperties';
 import { LiquidVortex } from '../../science/liquidVortex';
+import { supportsVesselVortex, vesselVortexSurface } from '../../science/vesselLiquidMotion';
 import { supportsCompactHindrance } from '../../science/hinderedSettling';
 import type { ReactionProgram } from '../../shared/programSchema';
 import { reactionGasSources } from '../../science/reactionGasSources';
@@ -143,6 +144,15 @@ export class VesselSimulationManager {
     this.suspensionOutflowApplied_g.clear();
   }
 
+  /** Hydrate a saved/paused specimen without advancing simulation time. */
+  public syncLiquidMotion(vessel: VesselState, fluid?: ReturnType<typeof suspensionFluidProperties>, upright = true, authoritative = false): boolean {
+    if (!vessel.liquidMotion && !authoritative) return false;
+    const accepted = upright ? vesselVortexSurface(vessel, fluid) : undefined;
+    this.vortex.setMotion(accepted?.angularSpeed_rad_s ?? 0, vessel.liquidMotion?.phase_rad ?? 0,
+      getVesselProfile(vessel.type, vessel.capacity_ml), accepted?.meanLevel ?? vesselLiquidSurfaceY(vessel), !!accepted);
+    return true;
+  }
+
   /**
    * Executes one deterministic physical simulation substep
    */
@@ -156,6 +166,8 @@ export class VesselSimulationManager {
       airflowVector?: [number, number, number];
       ambientTemp_c?: number;
       thermalStateAuthoritative?: boolean;
+      /** Missing accepted motion means rest, including the first render frame. */
+      liquidMotionAuthoritative?: boolean;
       reactionGasRate?: number;
       reactionProgram?: ReactionProgram;
       reactionPrecipitateActive?: boolean;
@@ -215,6 +227,7 @@ export class VesselSimulationManager {
     }
     const bodyMatrix = elements ? this.bodyFrame!.matrix : undefined;
     const localUp = bodyMatrix ? this.bodyFrame!.up
+      : vessel.physicalMotion ? new THREE.Vector3(0, 1, 0).applyQuaternion(new THREE.Quaternion(...vessel.physicalMotion.rotation).invert())
       : new THREE.Vector3(Math.sin(vessel.rotationZ ?? 0), Math.cos(vessel.rotationZ ?? 0), 0);
     const localToWorld = bodyMatrix ? this.bodyFrame!.toWorld
       : (point: [number, number, number]) => vesselLocalToWorld(vessel, point);
@@ -232,7 +245,8 @@ export class VesselSimulationManager {
         plane: solved ? { normal: localUp.toArray(), offset: solved.c } : liquidParticlePlane(profile, surfaceVolume, localUp.toArray()) };
     }
     if (fluid.carrierMode !== 'liquid') this.vortex.reset();
-    else this.vortex.advance(dt, agitation, profile, fillY, viscosity_mPa_s, density_g_ml, vessel.stirringDirection ?? 1, localUp.y > 0.999);
+    else if (!this.syncLiquidMotion(surfaceVessel, fluid, localUp.y > 1 - 1e-8, options.liquidMotionAuthoritative)) this.vortex.advance(dt, agitation, profile, fillY, viscosity_mPa_s, density_g_ml,
+      vessel.stirringDirection ?? 1, localUp.y > 1 - 1e-8 && supportsVesselVortex(surfaceVessel));
     const surfacePlane: LiquidPlane | undefined = this.vortex.surface
       ? { normal: [0, 1, 0], offset: fillY, vortex: this.vortex.surface } : this.surfaceFrameCache!.plane;
     const mouthY = profile.baseY + profile.H;

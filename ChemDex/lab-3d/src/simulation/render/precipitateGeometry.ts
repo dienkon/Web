@@ -23,6 +23,9 @@ export function createPrecipitateGeometry(profile: PrecipitateProfile, detail: '
       branch(new THREE.Vector3(0, y, 0), new THREE.Vector3(Math.cos(a) * 0.48, y + 0.32, Math.sin(a) * 0.48), 0.045);
     }
     geometry = mergeGeometries(pieces); pieces.forEach(g => g.dispose());
+  } else if (profile.id === 'NaCl') {
+    // Equal edges and flat faces; corners remain inside the transport envelope.
+    geometry = new THREE.BoxGeometry(1, 1, 1);
   } else if (profile.id === 'PbCl2' && profile.morphology === 'crystalline') {
     geometry = new THREE.CylinderGeometry(0.07, 0.07, 1.5, 4);
   } else if (profile.morphology === 'crystalline') {

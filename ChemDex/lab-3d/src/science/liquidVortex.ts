@@ -50,6 +50,13 @@ export class LiquidVortex {
   surface?: VortexSurface;
   private last?: { profile: VesselProfile; fill: number; speed: number };
   reset() { this.angularSpeed_rad_s = this.phase_rad = 0; this.surface = this.last = undefined; }
+  /** Restore accepted motion and derive its boundary without advancing time.
+   * Chemistry, rendering and rigid stock can read the same saved motion. */
+  setMotion(angularSpeed_rad_s: number, phase_rad: number, profile: VesselProfile, fillY: number, upright = true) {
+    this.angularSpeed_rad_s = Number.isFinite(angularSpeed_rad_s) ? angularSpeed_rad_s : 0;
+    this.phase_rad = Number.isFinite(phase_rad) ? phase_rad : 0;
+    this.refreshSurface(profile, fillY, upright);
+  }
   advance(dt: number, intensity: number, profile: VesselProfile, fillY: number, viscosity_mPa_s: number, density_g_ml: number, direction = 1, upright = true) {
     if (![dt, intensity, fillY, viscosity_mPa_s, density_g_ml, direction].every(Number.isFinite)
       || !(dt > 0) || !(viscosity_mPa_s > 0) || !(density_g_ml > 0)) return;
@@ -62,8 +69,14 @@ export class LiquidVortex {
     const previous = this.angularSpeed_rad_s;
     this.angularSpeed_rad_s += (target - previous) * -Math.expm1(-dt / tau);
     if (Math.abs(this.angularSpeed_rad_s) < 0.005 && !target) this.angularSpeed_rad_s = 0;
+    this.refreshSurface(profile, fillY, upright);
+    this.phase_rad = (this.phase_rad + (previous + this.angularSpeed_rad_s) * dt / 2) % (Math.PI * 2);
+    if (this.surface) this.surface.phase_rad = this.phase_rad;
+  }
+  private refreshSurface(profile: VesselProfile, fillY: number, upright: boolean) {
+    const depth = fillY - profile.baseY, radius = profile.r(fillY), scale = metersPerModelUnit(profile);
+    const available = upright && depth > 0.01 && radius > 0.01;
     if (!available || Math.abs(this.angularSpeed_rad_s) < 0.005) {
-      this.phase_rad = (this.phase_rad + (previous + this.angularSpeed_rad_s) * dt / 2) % (Math.PI * 2);
       this.surface = this.last = undefined; return;
     }
     const coreRadius = radius * 0.28, a2 = coreRadius ** 2, r2 = radius ** 2;
@@ -76,7 +89,6 @@ export class LiquidVortex {
     // Limit the carrier as well as the surface, retaining dh/dr=v²/(g*r).
     // Air-core entrainment/overflow are outside this reduced stirring model.
     if (amplitude < pressureAmplitude) this.angularSpeed_rad_s = Math.sign(this.angularSpeed_rad_s) * Math.sqrt(2 * GRAVITY_M_S2 * amplitude / (a2 * scale));
-    this.phase_rad = (this.phase_rad + (previous + this.angularSpeed_rad_s) * dt / 2) % (Math.PI * 2);
     const old = this.last;
     let offset = fillY - amplitude * mean;
     if (profile.type !== 'beaker' && profile.type !== 'cylinder') {

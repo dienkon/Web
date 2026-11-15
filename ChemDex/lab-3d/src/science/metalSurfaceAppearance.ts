@@ -17,6 +17,11 @@ export function supportedMetalDepositProducts(substrate: string): string[] {
   return [...new Set(Object.values(routes).filter(route => sameMolecularFormula(route.substrate, substrate)).map(route => route.product))];
 }
 
+/** The reacted surface can itself be a coating. The original mechanical
+ * carrier remains the support when that intermediate metal is consumed. */
+export const metalDepositCarrierFormula = (row: Pick<SubstanceContent, 'depositCarrierFormula' | 'depositSubstrate'>) =>
+  row.depositCarrierFormula ?? row.depositSubstrate;
+
 export function metalDepositMetadata(reactionId: string, product: string): Pick<SubstanceContent, 'depositSubstrate' | 'depositionReactionId'> {
   const route = metalDepositionRoute(reactionId);
   return route && sameMolecularFormula(route.product, product)
@@ -35,9 +40,10 @@ const substrateMass = (contents: readonly SubstanceContent[], formula: string, l
 export function attachedMetalMassForRow(vessel: VesselState, row: SubstanceContent): number {
   if (!bulkSolid(row) || row.depositReleased) return 0;
   if (row.depositSubstrate) {
-    if (!(substrateMass(vessel.contents, row.depositSubstrate, vessel.precipitateSubstance) > 1e-12)) return 0;
+    const carrierFormula = metalDepositCarrierFormula(row)!;
+    if (!(substrateMass(vessel.contents, carrierFormula, vessel.precipitateSubstance) > 1e-12)) return 0;
     if (row.depositCarrierId && !vessel.stockMotion?.grains.some(pose => pose.id === row.depositCarrierId
-      && pose.mass_g > 1e-12 && sameMolecularFormula(pose.formula, row.depositSubstrate!))) return 0;
+      && pose.mass_g > 1e-12 && sameMolecularFormula(pose.formula, carrierFormula))) return 0;
     return row.mass_g;
   }
   const route = metalDepositionRoute(vessel.lastReactionId ?? vessel.studioProgramId);
@@ -59,7 +65,7 @@ export function attachedMetalMassForCarrier(vessel: VesselState, carrierId: stri
     const mass = attachedMetalMassForRow(vessel, row);
     if (!mass) return sum;
     if (row.depositCarrierId) return sum + (row.depositCarrierId === carrierId ? mass : 0);
-    const substrate = row.depositSubstrate ?? legacy?.substrate;
+    const substrate = metalDepositCarrierFormula(row) ?? legacy?.substrate;
     return sum + (substrate && sameMolecularFormula(substrate, pose.formula) && totalCore > 0 ? mass * pose.mass_g / totalCore : 0);
   }, 0);
 }
@@ -77,6 +83,7 @@ export function attachedMetalForCarrier(vessel: VesselState, carrierId: string):
 }
 
 export interface MetalSurfaceAppearance {
+  /** Root mechanical support used by the renderer; chemical substrate is on each row. */
   substrate: string; product: string; color: string; substrateMass_g: number; attachedMass_g: number; colorFraction: number;
 }
 export function metalSurfaceAppearances(vessel: VesselState): MetalSurfaceAppearance[] {
@@ -85,7 +92,7 @@ export function metalSurfaceAppearances(vessel: VesselState): MetalSurfaceAppear
   for (const row of vessel.contents) {
     const attached = attachedMetalMassForRow(vessel, row);
     if (!(attached > 0)) continue;
-    const substrate = row.depositSubstrate ?? legacy!.substrate, product = identifySpecies(row.formula).formula;
+    const substrate = metalDepositCarrierFormula(row) ?? legacy!.substrate, product = identifySpecies(row.formula).formula;
     const key = `${substrate}|${product}`, old = groups.get(key);
     if (old) old.attachedMass_g += attached;
     else groups.set(key, { substrate, product, color: product === 'Ag' ? '#cbd5e1' : product === 'Pb' ? '#676b70' : '#b87346',
@@ -104,12 +111,12 @@ export const metalSurfaceAppearance = (vessel: VesselState) => metalSurfaceAppea
 export function releaseUnsupportedMetalDeposits(contents: readonly SubstanceContent[],
   stockMotion?: VesselState['stockMotion']): SubstanceContent[] {
   return contents.map(row => row.depositSubstrate && !row.depositReleased
-    && (!(substrateMass(contents, row.depositSubstrate) > 1e-12)
+    && (!(substrateMass(contents, metalDepositCarrierFormula(row)!) > 1e-12)
       // Omitted motion is an unresolved/static inventory, not evidence of a
       // lost host. An accepted snapshot (including zero-mass tombstones) is
       // authoritative for explicit carrier IDs, even if siblings survive.
       || row.depositCarrierId && stockMotion !== undefined && !stockMotion.grains.some(pose =>
-        pose.id === row.depositCarrierId && pose.mass_g > 1e-12 && sameMolecularFormula(pose.formula, row.depositSubstrate!)))
+        pose.id === row.depositCarrierId && pose.mass_g > 1e-12 && sameMolecularFormula(pose.formula, metalDepositCarrierFormula(row)!)))
     ? { ...row, depositReleased: true } : row);
 }
 
@@ -123,7 +130,7 @@ export function splitAttachedMetal(vessel: VesselState, substrateFormula: string
   const transferredContents: SubstanceContent[] = [];
   const legacy = metalDepositionRoute(vessel.lastReactionId ?? vessel.studioProgramId);
   const remainingContents = vessel.contents.flatMap(row => {
-    const attached = attachedMetalMassForRow(vessel, row), substrate = row.depositSubstrate ?? legacy?.substrate;
+    const attached = attachedMetalMassForRow(vessel, row), substrate = metalDepositCarrierFormula(row) ?? legacy?.substrate;
     if (!(attached > 0) || !substrate || !sameMolecularFormula(substrate, substrateFormula)) return [row];
     const share = attached / row.mass_g * (row.depositCarrierId ? row.depositCarrierId === carrierId ? fraction : 0 : sharedFraction);
     if (!(share > 0)) return [row];

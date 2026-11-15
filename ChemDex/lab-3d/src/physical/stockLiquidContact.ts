@@ -15,7 +15,10 @@ import { isSuspensionRow } from '../science/precipitateInventory';
 import { liquidSurfaceVolume } from '../engine/waterPhase';
 import { getVesselProfile } from '../pour/physics/profiles';
 import { solveLevel } from '../pour/physics/retained';
-import { attachedMetalMassForRow } from '../science/metalSurfaceAppearance';
+import { attachedMetalMassForRow, metalDepositCarrierFormula } from '../science/metalSurfaceAppearance';
+import { evaluatedStockContact } from './stockContactContext';
+import { vesselVortexSurface } from '../science/vesselLiquidMotion';
+import { vortexHeight } from '../science/liquidVortex';
 
 const geometries = new Map<string, BufferGeometry>();
 const powderSurfaces = new Map<string, StockSurfaceSample[]>();
@@ -52,6 +55,8 @@ export interface StockGrainContact {
 }
 
 export function stockGrainContacts(vessel: VesselState, formula: string, aqueousOnly = true): StockGrainContact[] {
+  const overridden = evaluatedStockContact(vessel, formula, aqueousOnly);
+  if (overridden) return overridden.contacts;
   // This API returns posed carrier IDs only. Static geometry is evaluated by
   // the caller's aggregate contact query; computing it here cannot add an ID.
   if (!vessel.stockMotion?.grains.some(pose => pose.mass_g > 0 && sameMolecularFormula(pose.formula, formula))) return [];
@@ -63,18 +68,19 @@ export function stockGrainContacts(vessel: VesselState, formula: string, aqueous
 /** A coating uses its real host surface; it is not an independent floor grain.
  * Released deposits retain the unresolved suspension contact model. */
 function attachedContactFraction(vessel: VesselState, row: SubstanceContent, aqueousOnly = true): number | null {
-  if (!row.depositSubstrate || sameMolecularFormula(row.depositSubstrate, row.formula)
+  const carrierFormula = metalDepositCarrierFormula(row);
+  if (!carrierFormula || sameMolecularFormula(carrierFormula, row.formula)
     || !(attachedMetalMassForRow(vessel, row) > 0)) return null;
-  if (row.depositCarrierId) return stockGrainContacts(vessel, row.depositSubstrate, aqueousOnly)
+  if (row.depositCarrierId) return stockGrainContacts(vessel, carrierFormula, aqueousOnly)
     .find(contact => contact.id === row.depositCarrierId)?.wetFraction ?? 0;
-  return stockLiquidContactFraction(vessel, row.depositSubstrate, aqueousOnly);
+  return stockLiquidContactFraction(vessel, carrierFormula, aqueousOnly);
 }
 
 /** Keep protected coating provenance separate from a free pool of its metal. */
 export function stockProtectionKey(row: SubstanceContent): string {
   const formula = identifySpecies(row.formula).formula;
   return row.depositSubstrate && !row.depositReleased
-    ? `${formula}|${row.depositSubstrate}|${row.depositCarrierId ?? ''}` : formula;
+    ? `${formula}|${row.depositSubstrate}|${metalDepositCarrierFormula(row)}|${row.depositCarrierId ?? ''}` : formula;
 }
 
 /** Shared point predicate for contact area and newly formed surface deposits.
@@ -91,10 +97,11 @@ function stockPointInLiquid(vessel: VesselState, aqueousOnly: boolean): (point: 
   const up = new Vector3(0, 1, 0).applyQuaternion(rotation.invert()), n = up.toArray() as [number, number, number];
   const profile = getVesselProfile(vessel.type, vessel.capacity_ml), interior = vesselInterior(vessel.type);
   const densities = phaseDensities(vessel), liquidDensity = Math.max(densities.aqueous, densities.organic, 1e-9);
+  const vortex = vesselVortexSurface(geometryVessel);
   const level = (volume: number) => solveStockLiquidSurface(geometryVessel, n, liquidDensity, volume)?.c
     ?? solveLevel(profile, Math.atan2(Math.hypot(n[0], n[2]), n[1]),
       volume + Math.max(0, liquidSurfaceVolume(vessel) - vessel.volume_ml) * volume / vessel.volume_ml).c;
-  let ceiling = level(vessel.volume_ml), floor = -Infinity;
+  let ceiling = vortex ? Infinity : level(vessel.volume_ml), floor = -Infinity;
   if (aqueousOnly && layers.organic > 0) {
     const separation = separatedLayers(vessel), boundary = level(separation.lowerVolume_ml);
     if (separation.lower === 'aqueous') ceiling = boundary; else floor = boundary;
@@ -103,12 +110,14 @@ function stockPointInLiquid(vessel: VesselState, aqueousOnly: boolean): (point: 
     const height = up.dot(p);
     return p.y >= interior.floorY - 1e-8 && p.y <= interior.topY
       && Math.hypot(p.x, p.z) <= contourRadius(interior.points, p.y) + 1e-8
-      && height < ceiling && height > floor;
+      && (vortex ? p.y < vortexHeight(p.x, p.z, vortex) : height < ceiling) && height > floor;
   };
 }
 
 export function stockLiquidContactFraction(vessel: VesselState, formula: string, aqueousOnly = true,
   contacts?: StockGrainContact[]): number {
+  const overridden = evaluatedStockContact(vessel, formula, aqueousOnly);
+  if (overridden) { contacts?.push(...overridden.contacts); return overridden.fraction; }
   if (vessel.isShattered || !(vessel.volume_ml > 0)) return 0;
   const allRows = vessel.contents.filter(row => ['s', 'solid'].includes(row.phase ?? row.state ?? '')
     && (!row.location || row.location === 'bulk') && row.mass_g > 0 && sameMolecularFormula(row.formula, formula));
@@ -142,7 +151,7 @@ export function stockLiquidContactFraction(vessel: VesselState, formula: string,
       append(surface.points, surface.area, stockLocalMatrix(vessel, { ...pose, scale_m: pose.scale_m * Math.cbrt(ratio) }));
       const area = totalArea - previousTotal, wet = wetArea - previousWet;
       contacts?.push({ id: pose.id, formula: pose.formula, mass_g: pose.mass_g * ratio,
-        wetFraction: area > 0 ? wet / area : 0, wetArea: wet, totalArea: area });
+        wetFraction: area > 0 ? Math.max(0, Math.min(1, wet / area)) : 0, wetArea: Math.max(0, Math.min(area, wet)), totalArea: area });
     }
   } else {
     const stock = findChemical(formula), chemical = stock.type === 'solid' ? stock : findChemical(`${formula} (s)`);

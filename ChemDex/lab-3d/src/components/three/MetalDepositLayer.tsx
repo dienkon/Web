@@ -1,8 +1,8 @@
-import React, { useEffect, useMemo, useRef } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { useFrame } from '@react-three/fiber';
 import * as THREE from 'three';
 import type { VesselState } from '../../types/chemistry';
-import { attachedMetalMassForCarrier, DEPOSIT_DENSITY_G_ML, metalSurfaceAppearances, supportedMetalDepositProducts } from '../../science/metalSurfaceAppearance';
+import { attachedMetalMassForCarrier, DEPOSIT_DENSITY_G_ML, metalSurfaceAppearances } from '../../science/metalSurfaceAppearance';
 import { DEPOSIT_AGGREGATES_PER_CARRIER, metalDepositAnchors, metalDepositPlacement, type MetalDepositAnchor } from '../../science/metalDepositGeometry';
 import { sameMolecularFormula } from '../../science/speciesIdentity';
 import { solidSceneVolume } from '../../science/vesselDimensions';
@@ -21,7 +21,19 @@ export interface MetalDepositFrame { vessel: VesselState; geometry: THREE.Buffer
 export function MetalDepositLayers({ substrate, readFrame, capacity }: {
   substrate: string; readFrame: () => MetalDepositFrame | null; capacity: number;
 }) {
-  return <>{supportedMetalDepositProducts(substrate).map(product => <MetalDepositLayer key={product}
+  const [products, setProducts] = useState<string[]>([]), productKey = useRef('');
+  useFrame(() => {
+    const frame = readFrame();
+    const next = frame ? [...new Set(metalSurfaceAppearances(frame.vessel).filter(group =>
+      sameMolecularFormula(group.substrate, substrate) && DEPOSIT_DENSITY_G_ML[group.product] > 0)
+      .map(group => group.product))].sort() : [];
+    const key = next.join('|');
+    if (key !== productKey.current) { productKey.current = key; setProducts(next); }
+  });
+  // Register only metals that actually exist on this mechanical host. Silver
+  // grown by consuming its copper coat therefore renders on an iron carrier,
+  // without allocating every possible metal palette for each uncoated grain.
+  return <>{products.map(product => <MetalDepositLayer key={product}
     substrate={substrate} product={product} readFrame={readFrame} capacity={capacity} />)}</>;
 }
 

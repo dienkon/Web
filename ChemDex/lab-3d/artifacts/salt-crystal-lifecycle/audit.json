@@ -1,0 +1,41 @@
+{
+  "errors": [],
+  "shaderErrors": [],
+  "ids": [
+    "appearance-2-0",
+    "appearance-2-1",
+    "appearance-2-2"
+  ],
+  "growth": [
+    {
+      "id": "appearance-2-0",
+      "solid_g": 0,
+      "total_g": 38,
+      "represented_g": 0
+    },
+    {
+      "id": "appearance-2-1",
+      "solid_g": 0.16290016652070977,
+      "total_g": 41,
+      "represented_g": 0.1629001665207098,
+      "density": 2.16,
+      "morphology": "crystalline"
+    }
+  ],
+  "dilution": [
+    {
+      "id": "appearance-2-0",
+      "solid_g": 0,
+      "total_g": 38,
+      "represented_g": 0
+    },
+    {
+      "id": "appearance-2-1",
+      "solid_g": 0.03634794024396338,
+      "total_g": 51,
+      "represented_g": 0.03634794024396338,
+      "density": 2.16,
+      "morphology": "crystalline"
+    }
+  ]
+}

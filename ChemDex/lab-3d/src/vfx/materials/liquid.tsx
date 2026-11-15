@@ -29,6 +29,7 @@ import { liquidOpacity, suspensionColorWeight } from '../../science/liquidOptics
 import { createLiquidVolumeGeometry, liquidMeshLayout, liquidMeshOrigin } from './liquidGeometry';
 import { LIQUID_SURFACE_GLSL } from './liquidSurfaceShader';
 import { VORTEX_GLSL } from '../../science/liquidVortex';
+import { supportsVesselVortex, vesselVortexSurface } from '../../science/vesselLiquidMotion';
 import { FOAM_CELL_DIAMETER_M, shadeFoamCells } from './foamAppearance';
 import { metersPerModelUnit } from '../../science/sceneUnits';
 import { LiquidAppearanceField } from '../../simulation/effects/LiquidAppearanceField';
@@ -426,9 +427,10 @@ export const RealisticLiquid = React.memo(function RealisticLiquid({
     // Same inventory-derived surface as dosing, recoil and buoyancy.
     const fillY = liquidLevelForVolume(vesselType, volume, capacity);
     uniforms.uFillY.value = fillY;
-    const vortex = SimulationEngine.findManager(vesselId)?.vortex.surface;
+    const vortex = vessel.liquidMotion ? vesselVortexSurface(vessel) : supportsVesselVortex(vessel)
+      ? SimulationEngine.findManager(vesselId)?.vortex.surface : undefined;
     uniforms.uVortex.value.set((vortex?.coreRadius ?? 1) ** 2, vortex?.amplitude ?? 0,
-      fillY + (vortex ? vortex.offset - vortex.meanLevel : 0), vortex?.angularSpeed_rad_s ?? 0);
+      vortex?.offset ?? fillY, vortex?.angularSpeed_rad_s ?? 0);
 
     const surfaceR = getVesselInnerRadius(vesselType, fillY - baseY);
     uniforms.uSurfaceRadius.value = surfaceR;
@@ -556,8 +558,10 @@ export const RealisticLiquid = React.memo(function RealisticLiquid({
     }
 
     // 2. Gravity-aligned clipping plane and meniscus disk
-    // World gravity normal with dynamic slosh perturbation (points strictly downward in world space)
-    const worldGravityNormal = new THREE.Vector3(sl.x, -1.0, sl.z).normalize();
+    // A vortex already defines the physical free surface. Tilting its cap
+    // again would detach it from body clipping and chemistry after movement;
+    // slosh remains visible through the bounded optical waves above.
+    const worldGravityNormal = new THREE.Vector3(vortex ? 0 : sl.x, -1.0, vortex ? 0 : sl.z).normalize();
     
     // Solve the plane inside the rotated reservoir, keeping geometric volume.
     meshGroupRef.current.getWorldQuaternion(_scratchQuat);

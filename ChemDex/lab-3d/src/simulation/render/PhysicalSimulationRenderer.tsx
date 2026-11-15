@@ -16,6 +16,7 @@ import { bubbleOpacity, withParticleOpacity } from './particleAppearance';
 import { activePrecipitateVessels, precipitateSceneBudget } from './precipitateBudget';
 import { studioProgramForReaction } from '../../engine/studioProgram';
 
+
 export interface PhysicalSimulationRendererProps {
   vesselId: string;
   baseY: number;
@@ -98,6 +99,7 @@ export const PhysicalSimulationRenderer = React.memo(function PhysicalSimulation
     mgr.step(vessel, dt, {
       bodyMatrixWorld: groupRef.current?.matrixWorld.elements,
       thermalStateAuthoritative: true,
+      liquidMotionAuthoritative: f.agitationOverride === undefined,
       heatPower_W: vessel.thermalHeatingPower_W ?? 0,
       agitation: f.agitationOverride === undefined ? vesselAgitation(vessel, app) : f.agitationOverride,
       reactionGasRate: f.reactionGasRate,
@@ -149,6 +151,8 @@ export const PhysicalSimulationRenderer = React.memo(function PhysicalSimulation
     groupRef.current?.updateWorldMatrix(true, false);
     if (groupRef.current) bodyMatrix.copy(groupRef.current.matrixWorld);
     inverseBodyQuat.setFromRotationMatrix(bodyRotation.extractRotation(bodyMatrix)).invert();
+
+    mgr.syncLiquidMotion(vessel, undefined, true, forcing.current.agitationOverride === undefined);
 
     // Quantitative steps ran in PhysicalEffectsRuntime before this upload.
 

@@ -2,15 +2,16 @@ import type { ParticleBounds } from '../effects/particleBounds';
 import { pointPlaneDepth } from '../effects/liquidParticleFrame';
 import type { PhysicalPrecipitateParticle, PrecipitateProfile } from '../core/SimulationTypes';
 
-/** A representative floc is a visual glyph, not one physical primary particle.
+/** A representative aggregate/crystal is a glyph, not one physical primary particle.
  * Enlarge only its display radius, at the same center and within glass/liquid.
  * Transport radius, mass, Brownian motion, settling and bulk opacity stay owned
  * by the quantitative population model. Fine powder remains a fine haze. */
 export function readablePrecipitateRadius(p: Pick<PhysicalPrecipitateParticle, 'x' | 'y' | 'z' | 'radius'>,
   profile: Pick<PrecipitateProfile, 'morphology'>, bounds?: ParticleBounds, enlarge = true) {
   if (!bounds) return p.radius;
-  const target = enlarge && ['gel_like', 'flocculent'].includes(profile.morphology)
-    ? Math.max(p.radius, Math.min(0.025, bounds.radius * 0.025)) : p.radius;
+  const factor = profile.morphology === 'crystalline' ? 0.015
+    : ['gel_like', 'flocculent'].includes(profile.morphology) ? 0.025 : 0;
+  const target = enlarge && factor > 0 ? Math.max(p.radius, Math.min(factor, bounds.radius * factor)) : p.radius;
   const vessel = bounds.vesselProfile, top = vessel ? vessel.baseY + vessel.H : bounds.surfaceY;
   const vortex = bounds.surfacePlane?.vortex;
   const slope = vortex ? 0.65 * vortex.amplitude / vortex.coreRadius : 0;

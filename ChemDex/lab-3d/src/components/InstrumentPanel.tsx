@@ -217,7 +217,7 @@ export default function InstrumentPanel({ onClose }: { onClose: () => void }) {
     ref={root}
     tabIndex={-1}
     aria-label="Điều khiển dụng cụ"
-    className="fixed right-4 top-24 bottom-6 z-50 flex w-[370px] max-w-[calc(100vw-2rem)] flex-col rounded-xl border border-slate-300 bg-white shadow-xl outline-none"
+    className="fixed right-3 top-[104px] bottom-3 z-[70] flex w-[370px] max-w-[calc(100vw-2rem)] flex-col rounded-xl border border-slate-300 bg-white shadow-xl outline-none"
   >
     <div className="flex shrink-0 items-center justify-between border-b px-4 py-3">
       <h2 className="flex items-center gap-2 text-sm font-semibold"><Wrench size={16} />Điều khiển dụng cụ</h2>

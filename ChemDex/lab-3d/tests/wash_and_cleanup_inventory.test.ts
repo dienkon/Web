@@ -1,6 +1,7 @@
 import { afterEach, describe, expect, it } from 'vitest';
 import { useAppStore } from '../src/store/useAppStore';
 import { releaseShatteredInventory } from '../src/engine/shatterInventory';
+import { clearHistory, getHistoryList, pushHistorySnapshot } from '../src/store/persistence';
 import { computeMolarMass } from '../src/engine/ledger';
 import type { SubstanceContent, VesselState } from '../src/types/chemistry';
 
@@ -17,7 +18,7 @@ const bottle = (patch: Partial<VesselState> = {}) => vessel('wash', [entry('H2O'
   type: 'wash_bottle', volume_ml: 20, volume: 0.2, washDose_ml: 5, washTargetId: 'target', ...patch,
 });
 const baseline = useAppStore.getState();
-afterEach(() => useAppStore.setState(baseline));
+afterEach(() => { useAppStore.setState(baseline); clearHistory(); });
 function setup(source = bottle(), target = vessel('target', [])) {
   useAppStore.setState({ vessels: { [source.id]: source, [target.id]: target },
     vesselIds: [source.id, target.id], activeKinetics: {}, pendingReactions: {}, dissolvingSubstances: {},
@@ -77,6 +78,45 @@ describe('Finite wash bottle, breakage and cleanup', () => {
     state = useAppStore.getState();
     expect(state.vessels.target.volume_ml).toBe(0);
     expect(Object.values(state.spills)[0].mass_g).toBeCloseTo(5, 12);
+  });
+  it.each(['target', 'bench', 'overflow'] as const)('undoes and redoes one squeeze into %s with its full inventory', destination => {
+    setup(bottle({ washTargetId: destination === 'bench' ? null : 'target' }),
+      vessel('target', [], { capacity_ml: destination === 'overflow' ? 2 : 100 }));
+    useAppStore.setState({ inFlightPours: [], isSimulationPaused: false, pipetteSample: null });
+    clearHistory();
+    const before = useAppStore.getState();
+    pushHistorySnapshot('RESET', before.vessels, before.burners, 'Before rinse', 'Trước khi tia', {
+      inFlightPours: [], spills: {}, wasteMass_g: 0, wasteContents: [],
+    });
+    before.squirtWashBottle('wash');
+    const after = useAppStore.getState();
+    expect(after.canUndo).toBe(true);
+    expect(getHistoryList()).toHaveLength(2);
+    expect(after.vessels.wash.volume_ml).toBe(15);
+    const totalMass = () => {
+      const state = useAppStore.getState();
+      return Object.values(state.vessels).reduce((sum, v) => sum + v.mass_g, 0)
+        + Object.values(state.spills).reduce((sum, spill) => sum + spill.mass_g, 0)
+        + state.inFlightPours.reduce((sum, parcel) => sum + parcel.sample.mass_g, 0);
+    };
+    expect(totalMass()).toBeCloseTo(20, 10);
+    after.undo();
+    expect(useAppStore.getState().vessels.wash.volume_ml).toBe(20);
+    expect(useAppStore.getState().vessels.target.volume_ml).toBe(0);
+    expect(Object.values(useAppStore.getState().spills)).toHaveLength(0);
+    expect(useAppStore.getState().inFlightPours).toHaveLength(0);
+    useAppStore.getState().redo();
+    expect(useAppStore.getState().vessels).toEqual(after.vessels);
+    expect(useAppStore.getState().spills).toEqual(after.spills);
+    expect(useAppStore.getState().inFlightPours).toEqual(after.inFlightPours);
+    expect(totalMass()).toBeCloseTo(20, 10);
+    useAppStore.getState().advancePourTransport(2);
+    expect(totalMass()).toBeCloseTo(20, 10);
+  });
+  it('does not add an undo entry when a squeeze is rejected', () => {
+    setup(bottle({ washTargetId: 'missing' })); clearHistory();
+    useAppStore.getState().squirtWashBottle('wash');
+    expect(getHistoryList()).toHaveLength(0);
   });
   it('dilutes actual acid concentration without inventing a neutralization reaction', () => {
     const acid = entry('HCl', computeMolarMass('HCl') * 0.001, 'aq');

@@ -1,5 +1,6 @@
 import { afterEach, describe, expect, it, vi } from 'vitest';
 import { useAppStore } from '../src/store/useAppStore';
+import { storeBridge } from '../src/pour/controller/store-bridge';
 import { PourController } from '../src/pour/controller/PourController';
 import { advancePourParcel, pourFlightInterval, pourTargetPose } from '../src/engine/pourTransport';
 import { traceLaunchedStream } from '../src/pour/physics/ballistics';
@@ -9,7 +10,7 @@ import { LAB_PHYSICS } from '../src/engine/interactionEngine';
 import { computeMolarMass } from '../src/engine/ledger';
 import { readComposition } from '../src/science/balance';
 import { TransitStreamGeometry } from '../src/pour/render/transitGeometry';
-import { clearHistory, debounceSaveLocalState, loadPersistedLabState, pushHistorySnapshot } from '../src/store/persistence';
+import { clearHistory, getHistoryList, debounceSaveLocalState, loadPersistedLabState, pushHistorySnapshot } from '../src/store/persistence';
 import type { LabMaterialSnapshot, SubstanceContent, VesselState } from '../src/types/chemistry';
 import { vfxBus } from '../src/vfx/bus';
 
@@ -238,6 +239,22 @@ describe('Finite material in a pouring stream', () => {
     expect(useAppStore.getState().vessels.target.volume_ml).toBeCloseTo(10, 10);
     useAppStore.getState().advancePourTransport(1);
     conserved(before);
+  });
+
+  it('keeps pipette contents and escaped gas when a pour checkpoint is restored', async () => {
+    setup(); clearHistory();
+    const pipette = { volume_ml: 1, mass_g: 1, temperature_c: 25, color: '#fff', substances: ['H2O'],
+      contents: [item('H2O', 1, 'l')] };
+    useAppStore.setState({ pipetteSample: pipette, workbenchEscapedGas_g: { H2: 0.02 } });
+    await storeBridge.completeLivePour('source', null);
+    expect(getHistoryList()[0].snapshot.materials?.pipetteSample).toEqual(pipette);
+    expect(getHistoryList()[0].snapshot.materials?.workbenchEscapedGas_g).toEqual({ H2: 0.02 });
+    useAppStore.setState({ pipetteSample: null, workbenchEscapedGas_g: {} });
+    const state = useAppStore.getState();
+    pushHistorySnapshot('RESET', state.vessels, state.burners, 'Later', 'Sau');
+    state.undo();
+    expect(useAppStore.getState().pipetteSample).toEqual(pipette);
+    expect(useAppStore.getState().workbenchEscapedGas_g).toEqual({ H2: 0.02 });
   });
 
   it('saves the depleted source and in-flight matter in one atomic record and can resume it', () => {

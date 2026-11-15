@@ -55,6 +55,8 @@ export interface SubstanceContent {
   depositSubstrate?: string;
   depositionReactionId?: string;
   depositCarrierId?: string;
+  /** Root mechanical core; may differ from the consumed surface metal. */
+  depositCarrierFormula?: string;
   /** Released metal cannot attach to a later stock addition. */
   depositReleased?: boolean;
   liquidLayer?: 'aqueous' | 'organic';
@@ -95,6 +97,8 @@ export type VesselType =
   | 'hot_plate';
 
 export interface VesselState {
+  /** Accepted stirring motion shared by chemistry, rigid contacts and rendering. */
+  liquidMotion?: import('../science/vesselLiquidMotion').VesselLiquidMotionState;
   dynamicSolids?: import('../physical/types').DynamicSolid[];
   stockMotion?: { tick: number; grains: import('../physical/stockTypes').StockGrainPose[] };
   dynamicLoad_g?: number;

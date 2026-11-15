@@ -1,12 +1,14 @@
 import { afterEach, describe, expect, it } from 'vitest';
 import { useAppStore } from '../src/store/useAppStore';
 import { PourController } from '../src/pour/controller/PourController';
+import { clearHistory, getHistoryList } from '../src/store/persistence';
 import type { VesselState } from '../src/types/chemistry';
 
 const initial = useAppStore.getState();
 afterEach(() => {
   useAppStore.setState({ ...initial, pourEpoch: useAppStore.getState().pourEpoch + 1 }, true);
   PourController.getSession();
+  clearHistory();
 });
 function setup(type = 'beaker', volume = 50) {
   const vessel = (id: string, ml: number): VesselState => ({
@@ -42,6 +44,40 @@ describe('Vessel-to-vessel gesture and automatic dosing', () => {
     expect(PourController.getSession()).toBeNull();
     expect(useAppStore.getState().vessels.source.volume_ml).toBe(50);
     expect(useAppStore.getState().vessels.target.volume_ml).toBe(0);
+  });
+  it.each([3, 90])('returns a dry pour gesture to the bench when tilt is reset after %i frames', async frames => {
+    setup(); clearHistory();
+    useAppStore.getState().setPourTiltLocked(true);
+    PourController.beginPour({ mode: 'HAND_TILT', sourceId: 'source', targetId: 'target' });
+    PourController.setTilt(0.3);
+    tick(frames);
+    PourController.setTilt(0);
+    tick(300);
+    await Promise.resolve();
+    expect(PourController.getSession()).toBeNull();
+    expect(useAppStore.getState().isPouring).toBe(false);
+    expect(useAppStore.getState().isPourTiltLocked).toBe(false);
+    expect(useAppStore.getState().vessels.source.volume_ml).toBe(50);
+    expect(useAppStore.getState().vessels.target.volume_ml).toBe(0);
+    expect(getHistoryList()).toHaveLength(0);
+  });
+  it('releases the camera lock after cancellation without creating a no-op history entry', async () => {
+    setup(); clearHistory();
+    useAppStore.getState().setPourTiltLocked(true);
+    PourController.beginPour({ mode: 'ASSIST', sourceId: 'source', targetId: 'target' });
+    tick(3);
+    PourController.cancelPour(); tick(300);
+    await Promise.resolve();
+    expect(PourController.getSession()).toBeNull();
+    expect(useAppStore.getState().isPourTiltLocked).toBe(false);
+    expect(getHistoryList()).toHaveLength(0);
+  });
+  it('does not start a pour with a clamped source that cannot tilt', () => {
+    setup('burette');
+    useAppStore.setState(s => ({ vessels: { ...s.vessels, target: { ...s.vessels.target, type: 'beaker' } } }));
+    PourController.beginPour({ mode: 'ASSIST', sourceId: 'source', targetId: 'target' });
+    expect(PourController.getSession()).toBeNull();
+    expect(useAppStore.getState().isPouring).toBe(false);
   });
   it('rejects self transfer and an empty source', () => {
     setup();

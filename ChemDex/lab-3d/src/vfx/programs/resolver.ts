@@ -1,6 +1,6 @@
 /**
  * resolver.ts — 5-Tier Reaction Program Resolution Pipeline
- * 
+ *
  * Implements §2.2 Resolution Pipeline:
  * Priority (first hit wins):
  * 1. handcrafted — exact match in the program library / legacy controllers
@@ -60,7 +60,14 @@ for (const program of ALL_HANDCRAFTED_PROGRAMS) {
   const key = canonicalProgramKey(reactants);
   if (key && !HANDCRAFTED_BY_KEY.has(key)) HANDCRAFTED_BY_KEY.set(key, program);
   const setKey = [...new Set(reactants.map(formula => identifySpecies(formula).formula.toLowerCase()))].sort().join('+');
-  if (setKey) HANDCRAFTED_BY_REACTANT_SET.set(setKey, [...(HANDCRAFTED_BY_REACTANT_SET.get(setKey) ?? []), program]);
+  const catalysts = program.chemistry.species.filter(species => species.role === 'catalyst').map(species => species.formula);
+  if (program.chemistry.conditions?.catalyst) catalysts.push(program.chemistry.conditions.catalyst);
+  // A real inventory lists its catalyst as well as its reactants. Index both
+  // forms: condition checks still require the catalyst's finite, correct phase.
+  const withCatalysts = [...new Set([...reactants, ...catalysts].map(formula => identifySpecies(formula).formula.toLowerCase()))].sort().join('+');
+  for (const candidateKey of new Set([setKey, withCatalysts])) {
+    if (candidateKey) HANDCRAFTED_BY_REACTANT_SET.set(candidateKey, [...(HANDCRAFTED_BY_REACTANT_SET.get(candidateKey) ?? []), program]);
+  }
 }
 
 export function getHandcraftedProgramIndexStats() {
@@ -321,8 +328,11 @@ export function findHandcraftedProgram(substances: string[], contents: Substance
       .filter(s => s.role === 'reactant')
       .map(s => identifySpecies(s.formula).formula.toLowerCase());
     // Tracking stock solvent may be omitted unless the program consumes water.
-    const relevantInput = normInput.filter(input => input !== 'h2o' || progSubs.includes('h2o'));
-    if (progSubs.length === relevantInput.length && progSubs.every(ps => relevantInput.includes(ps))) return prog;
+    const relevantInput = [...new Set(normInput.filter(input => input !== 'h2o' || progSubs.includes('h2o')))];
+    const auxiliary = prog.chemistry.species.filter(s => s.role === 'catalyst').map(s => identifySpecies(s.formula).formula.toLowerCase());
+    if (prog.chemistry.conditions?.catalyst) auxiliary.push(identifySpecies(prog.chemistry.conditions.catalyst).formula.toLowerCase());
+    if (progSubs.every(ps => relevantInput.includes(ps))
+      && relevantInput.every(input => progSubs.includes(input) || auxiliary.includes(input))) return prog;
   }
 
   return null;

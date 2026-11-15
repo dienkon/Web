@@ -1,0 +1,349 @@
+{
+  "errors": [],
+  "sizes": [
+    {
+      "viewport": {
+        "width": 1480,
+        "height": 1000
+      },
+      "canvas": {
+        "x": 0,
+        "y": 92,
+        "width": 1480,
+        "height": 908
+      },
+      "initial": [
+        {
+          "label": "Điều hướng phòng lab",
+          "x": 0,
+          "y": 0,
+          "right": 1480,
+          "bottom": 48
+        },
+        {
+          "label": "Menu ChemDex",
+          "x": 12,
+          "y": 6.5,
+          "right": 143.546875,
+          "bottom": 40.5
+        },
+        {
+          "label": "Thao tác",
+          "x": 157.546875,
+          "y": 8.5,
+          "right": 240.25,
+          "bottom": 38.5
+        },
+        {
+          "label": "Tự động",
+          "x": 242.25,
+          "y": 8.5,
+          "right": 324.515625,
+          "bottom": 38.5
+        },
+        {
+          "label": "Kho hóa chất và dụng cụ",
+          "x": 1280.9375,
+          "y": 6.5,
+          "right": 1372.578125,
+          "bottom": 40.5
+        },
+        {
+          "label": "Thông tin bình và phản ứng",
+          "x": 1376.578125,
+          "y": 6.5,
+          "right": 1468,
+          "bottom": 40.5
+        },
+        {
+          "label": "Điều khiển bàn thí nghiệm",
+          "x": 0,
+          "y": 48,
+          "right": 1480,
+          "bottom": 92
+        },
+        {
+          "label": "Điều khiển dụng cụ",
+          "x": 12,
+          "y": 53.5,
+          "right": 91.984375,
+          "bottom": 85.5
+        },
+        {
+          "label": "Hoàn tác",
+          "x": 95.984375,
+          "y": 53.5,
+          "right": 127.984375,
+          "bottom": 85.5
+        },
+        {
+          "label": "Làm lại",
+          "x": 129.984375,
+          "y": 53.5,
+          "right": 161.984375,
+          "bottom": 85.5
+        },
+        {
+          "label": "Di chuyển dụng cụ",
+          "x": 170.984375,
+          "y": 53.5,
+          "right": 257.625,
+          "bottom": 85.5
+        },
+        {
+          "label": "Tiếp tục phản ứng",
+          "x": 1302.5625,
+          "y": 53.5,
+          "right": 1334.5625,
+          "bottom": 85.5
+        },
+        {
+          "label": "Thiết lập bàn thí nghiệm",
+          "x": 1387.5625,
+          "y": 53.5,
+          "right": 1468,
+          "bottom": 85.5
+        },
+        {
+          "label": "Dụng cụ & số đo",
+          "x": 12,
+          "y": 104,
+          "right": 172.078125,
+          "bottom": 138
+        },
+        {
+          "label": "Hiệu năng và chất lượng đồ họa",
+          "x": 1400.5,
+          "y": 104,
+          "right": 1468,
+          "bottom": 137
+        }
+      ],
+      "launched": {
+        "id": "studio_sample_1794718027671_xpyvi9",
+        "contents": [
+          {
+            "formula": "CuSO4",
+            "phase": "aq",
+            "moles": 0.00011570364860384087,
+            "initialMoles": 0.001,
+            "mass_g": 0.01846653372447021,
+            "concentration_M": 0.0038567937081128855
+          },
+          {
+            "formula": "NaOH",
+            "phase": "aq",
+            "moles": 0.00023140729720768174,
+            "initialMoles": 0.002,
+            "mass_g": 0.009255597666415646,
+            "concentration_M": 0.007713587416225771
+          },
+          {
+            "formula": "H2O",
+            "phase": "l",
+            "mass_g": 29.760361830374663,
+            "moles": 1.6519767876977332,
+            "concentration_M": 55.06597095013415
+          },
+          {
+            "formula": "Cu(OH)2",
+            "moles": 0.0008842963513961592,
+            "mass_g": 0.08627195204220929,
+            "state": "s",
+            "phase": "s",
+            "solidOrigin": "precipitate",
+            "precipitateFormation": "gel"
+          },
+          {
+            "formula": "Na2SO4",
+            "moles": 0.0008842963513961592,
+            "mass_g": 0.12560191656690486,
+            "concentration_M": 0.02947658648042558,
+            "state": "aq",
+            "phase": "aq"
+          }
+        ],
+        "active": true,
+        "paused": false
+      },
+      "pointerVolume": 2.5834681627852034,
+      "settled": {
+        "pouring": false,
+        "rotationZ": 0
+      },
+      "passed": true
+    },
+    {
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "canvas": {
+        "x": 0,
+        "y": 92,
+        "width": 390,
+        "height": 752
+      },
+      "initial": [
+        {
+          "label": "Điều hướng phòng lab",
+          "x": 0,
+          "y": 0,
+          "right": 390,
+          "bottom": 48
+        },
+        {
+          "label": "Menu ChemDex",
+          "x": 8,
+          "y": 6.5,
+          "right": 55,
+          "bottom": 40.5
+        },
+        {
+          "label": "Thao tác",
+          "x": 62,
+          "y": 8.5,
+          "right": 136.703125,
+          "bottom": 38.5
+        },
+        {
+          "label": "Tự động",
+          "x": 138.703125,
+          "y": 8.5,
+          "right": 212.96875,
+          "bottom": 38.5
+        },
+        {
+          "label": "Kho hóa chất và dụng cụ",
+          "x": 312,
+          "y": 6.5,
+          "right": 345,
+          "bottom": 40.5
+        },
+        {
+          "label": "Thông tin bình và phản ứng",
+          "x": 349,
+          "y": 6.5,
+          "right": 382,
+          "bottom": 40.5
+        },
+        {
+          "label": "Điều khiển bàn thí nghiệm",
+          "x": 0,
+          "y": 48,
+          "right": 390,
+          "bottom": 92
+        },
+        {
+          "label": "Điều khiển dụng cụ",
+          "x": 8,
+          "y": 53.5,
+          "right": 40,
+          "bottom": 85.5
+        },
+        {
+          "label": "Hoàn tác",
+          "x": 42,
+          "y": 53.5,
+          "right": 74,
+          "bottom": 85.5
+        },
+        {
+          "label": "Làm lại",
+          "x": 76,
+          "y": 53.5,
+          "right": 108,
+          "bottom": 85.5
+        },
+        {
+          "label": "Di chuyển dụng cụ",
+          "x": 115,
+          "y": 53.5,
+          "right": 147,
+          "bottom": 85.5
+        },
+        {
+          "label": "Tiếp tục phản ứng",
+          "x": 265,
+          "y": 53.5,
+          "right": 297,
+          "bottom": 85.5
+        },
+        {
+          "label": "Thiết lập bàn thí nghiệm",
+          "x": 350,
+          "y": 53.5,
+          "right": 382,
+          "bottom": 85.5
+        },
+        {
+          "label": "Dụng cụ & số đo",
+          "x": 12,
+          "y": 104,
+          "right": 172.078125,
+          "bottom": 138
+        },
+        {
+          "label": "Hiệu năng và chất lượng đồ họa",
+          "x": 310.5,
+          "y": 104,
+          "right": 378,
+          "bottom": 137
+        }
+      ],
+      "launched": {
+        "id": "studio_sample_1794718049173_e2drzj",
+        "contents": [
+          {
+            "formula": "CuSO4",
+            "phase": "aq",
+            "moles": 0.0001789015655104235,
+            "initialMoles": 0.001,
+            "mass_g": 0.028553047658594614,
+            "concentration_M": 0.005963392179646352
+          },
+          {
+            "formula": "NaOH",
+            "phase": "aq",
+            "moles": 0.000357803131020847,
+            "initialMoles": 0.002,
+            "mass_g": 0.014311051831440819,
+            "concentration_M": 0.011926784359292704
+          },
+          {
+            "formula": "H2O",
+            "phase": "l",
+            "mass_g": 29.7603704823374,
+            "moles": 1.6519772679621092,
+            "concentration_M": 55.06597095013415
+          },
+          {
+            "formula": "Cu(OH)2",
+            "moles": 0.0008210984344895765,
+            "mass_g": 0.08010636326880309,
+            "state": "s",
+            "phase": "s",
+            "solidOrigin": "precipitate",
+            "precipitateFormation": "gel"
+          },
+          {
+            "formula": "Na2SO4",
+            "moles": 0.0008210984344895765,
+            "mass_g": 0.1166255372411615,
+            "concentration_M": 0.02736997839557593,
+            "state": "aq",
+            "phase": "aq"
+          }
+        ],
+        "active": true,
+        "paused": false
+      },
+      "pointerVolume": 2.483599873089404,
+      "settled": {
+        "pouring": false,
+        "rotationZ": 0
+      },
+      "passed": true
+    }
+  ]
+}

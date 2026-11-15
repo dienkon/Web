@@ -22,7 +22,10 @@ export function canStirVessel(vessel: StirringVessel) {
   if (vessel.isSealed || vessel.isShattered || (vessel.volume_ml !== undefined && !(vessel.volume_ml > 0.05))) return false;
   const q = vessel.physicalMotion?.rotation;
   const up = q ? 1 - 2 * (q[0] ** 2 + q[2] ** 2) : Math.cos(vessel.rotationZ ?? 0);
-  return Number.isFinite(up) && up > 0.999;
+  // The current rod path and vortex both assume a vertical vessel axis.
+  // Even a 0.04-rad lean lets a vertical rod strike a narrow flask neck.
+  // Retain tolerance for ordinary quaternion/settling roundoff only.
+  return Number.isFinite(up) && up >= 1 - 1e-8;
 }
 
 /** The renderer gates forcing while the rod is lifted or being inserted. */

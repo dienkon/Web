@@ -62,7 +62,13 @@ try {
         root.getState().internal.subscribe({ current: ({ camera }) => { camera.position.set(0, 4, 11); camera.lookAt(0, -.2, 1.8); camera.updateMatrixWorld(); } }, 0, root);
         window.metalAudit = { app, root, three, solidSceneVolume, SimulationEngine, freePrecipitateCohorts, currentMixedPrecipitateTurbidity, escapedPose: p };
     });
-    await page.waitForTimeout(1800);
+    await page.waitForFunction(() => {
+        let count = 0;
+        window.metalAudit.root.getState().scene.traverse(mesh => {
+            if (mesh.userData?.metalDeposit && mesh.count > 0) count++;
+        });
+        return count === 3;
+    }, undefined, { timeout: 30000 });
     const manual = await page.evaluate(() => {
         const a = window.metalAudit, scene = a.root.getState().scene, records = [];
         const volume = g => { const p = g.getAttribute('position'), idx = g.index, A = new a.three.Vector3(), B = new a.three.Vector3(), C = new a.three.Vector3(); let sum = 0; for (let i = 0; i < (idx?.count ?? p.count); i += 3) {

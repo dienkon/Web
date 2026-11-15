@@ -1,6 +1,7 @@
 import { stepHydrogenExhaustCombustion, sodiumExternalIgnition } from '../engine/hydrogenExhaustCombustion';
 import { isLandoltCandidate } from '../science/landoltClock';
 import { canStirVessel, vesselAgitation, FLASK_INVERSION_DURATION_S } from '../science/stirring';
+import { advanceVesselLiquidMotion, hasVesselLiquidMotion } from '../science/vesselLiquidMotion';
 import { acceptedFrameSeconds } from '../core/clock';
 import { create } from 'zustand';
 import { Vector3 } from 'three';
@@ -1655,6 +1656,7 @@ export const useAppStore = create<AppState>((set, get) => {
           || partitionBarite(v, 1 / 60) !== null || partitionCalciumHydroxide(v, 1 / 60) !== null
           || partitionSilverHalide(v, 1 / 60) !== null || partitionMagnesiumHydroxide(v, 1 / 60) !== null));
       const anyAqueousChange = Object.values(state.vessels).some(v => projectAqueousSolution(v) !== null);
+      const anyLiquidMotion = Object.values(state.vessels).some(v => hasVesselLiquidMotion(v) || vesselAgitation(v, state) > 0);
 
       // Fast exit if simulation state has no ongoing physical or chemical dynamics
       if (
@@ -1670,7 +1672,7 @@ export const useAppStore = create<AppState>((set, get) => {
         !anyMist && !anySurfaceExchange
         && !anyPhaseChange
         && !anyAqueousChange
-        && !anyFunnelFlow
+        && !anyFunnelFlow && !anyLiquidMotion
       ) {
         return;
       }
@@ -1691,6 +1693,16 @@ export const useAppStore = create<AppState>((set, get) => {
       const vaporEnergyBudgets = new Map<string, number>();
       const vaporTemperatureBudgets = new Map<string, number>();
       const wallThermalHandoffs = new Map<string, { includedDryHeat_J: number; enabled: boolean }>();
+
+      // Accept liquid motion once before any chemistry/contact projection.
+      // Renderers and workers read this state and never advance a second clock.
+      for (const [id, vessel] of Object.entries(newVessels)) {
+        if (id.startsWith('lesson_vessel_')) continue;
+        const liquidMotion = advanceVesselLiquidMotion(vessel, effectiveDt, vesselAgitation(vessel, state));
+        if (liquidMotion !== vessel.liquidMotion) {
+          newVessels[id] = { ...vessel, liquidMotion }; vesselsUpdated = true;
+        }
+      }
 
       // Consume once, then distribute one finite heat budget across all receivers.
       const heatByVessel_J = new Map<string, number>();
@@ -2915,7 +2927,10 @@ export const useAppStore = create<AppState>((set, get) => {
       labSound.playLiquidPour(0.5);
       // Rinsing adds actual sample material. It is not proof that an unknown
       // insoluble stain has been removed or chemically neutralized.
-      debounceSaveLocalState(get().vessels, get().burners);
+      const rinsed = get();
+      pushHistorySnapshot('POUR', rinsed.vessels, rinsed.burners, 'Dispensed wash bottle', 'Tia dung dịch từ bình rửa');
+      set({ canUndo: checkCanUndo(), canRedo: checkCanRedo() });
+      debounceSaveLocalState(rinsed.vessels, rinsed.burners);
       if (targetId) void get().settleVesselMixture(targetId);
     },
 

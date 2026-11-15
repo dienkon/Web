@@ -76,47 +76,23 @@ export const PourInput = React.memo(function PourInput() {
     };
   }, [selectedVesselId, nearestPourTargetId]);
 
-  // Touch / Hold-to-Pour controls: smooth progressive tilt
-  const holdIntervalRef = useRef<any>(null);
-
+  // The held button uses the same fill-aware angle as Space. A fixed-angle
+  // ramp can leave a low-filled flask hovering for seconds without a drop.
   const handleHoldStart = () => {
-    isPouringButtonActive.current = true;
-    let target = 0.65;
     const current = PourController.getSession();
-    if (current) {
-      PourController.setTilt(target);
-    } else if (selectedVesselId && nearestPourTargetId) {
-      PourController.beginPour({
-        mode: 'ASSIST',
-        sourceId: selectedVesselId,
-        targetId: nearestPourTargetId
-      });
-      PourController.setTilt(target);
+    if (!current && selectedVesselId && nearestPourTargetId) {
+      PourController.beginPour({ mode: 'ASSIST', sourceId: selectedVesselId, targetId: nearestPourTargetId });
     }
-    heldSessionId.current = PourController.getSession()?.id ?? null;
-
-    // Slowly increase tilt if user keeps holding
-    if (holdIntervalRef.current) clearInterval(holdIntervalRef.current);
-    holdIntervalRef.current = setInterval(() => {
-      const sess = PourController.getSession();
-      if (!sess || sess.id !== heldSessionId.current) {
-        clearInterval(holdIntervalRef.current);
-        holdIntervalRef.current = null;
-        isPouringButtonActive.current = false;
-        return;
-      }
-      target = Math.min(maxTilt, target + 0.04);
-      PourController.setTilt(target);
-    }, 120);
+    const next = PourController.getSession();
+    if (!next || !['lifting', 'tilting', 'pouring'].includes(next.phase)) return;
+    isPouringButtonActive.current = true;
+    heldSessionId.current = next.id;
+    PourController.useAssistedTilt();
   };
 
   const handleHoldEnd = () => {
     if (!isPouringButtonActive.current) return;
     isPouringButtonActive.current = false;
-    if (holdIntervalRef.current) {
-      clearInterval(holdIntervalRef.current);
-      holdIntervalRef.current = null;
-    }
     if (heldSessionId.current === PourController.getSession()?.id) PourController.stopPour();
     heldSessionId.current = null;
   };
@@ -126,8 +102,10 @@ export const PourInput = React.memo(function PourInput() {
     window.addEventListener('blur', release);
     return () => {
       window.removeEventListener('blur', release);
-      if (holdIntervalRef.current) clearInterval(holdIntervalRef.current);
-      if (isPouringButtonActive.current && heldSessionId.current === PourController.getSession()?.id) PourController.stopPour();
+      if ((isPouringButtonActive.current && heldSessionId.current === PourController.getSession()?.id)
+        || (spaceSessionId.current !== null && spaceSessionId.current === PourController.getSession()?.id)) {
+        PourController.stopPour();
+      }
     };
   }, []);
 
@@ -138,8 +116,8 @@ export const PourInput = React.memo(function PourInput() {
   const currentDeg = session ? Math.round((session.tilt * 180) / Math.PI) : 0;
 
   return (
-    <div 
-      className="fixed right-6 bottom-24 z-40 flex flex-col items-end gap-3 select-none"
+    <div
+      data-pour-controls className="lab-pour-controls"
       onWheel={(e) => {
         e.stopPropagation();
         const delta = e.deltaY < 0 ? 0.04 : -0.04;
@@ -161,7 +139,7 @@ export const PourInput = React.memo(function PourInput() {
         <div className="flex items-center justify-between w-full text-xs text-slate-300 font-medium">
           <div className="flex items-center gap-1.5">
             <RotateCw className="w-3.5 h-3.5 text-amber-400" />
-            <span>{lang === 'vi' ? 'Độ nghiêng & Tốc độ rót' : 'Tilt & Flow Rate'}</span>
+            <span>{lang === 'vi' ? 'Góc nghiêng rót' : 'Pour tilt'}</span>
           </div>
           <span className="font-mono text-amber-400 font-bold">{currentDeg}°</span>
         </div>
@@ -169,6 +147,7 @@ export const PourInput = React.memo(function PourInput() {
         {/* Rotary Range Slider */}
         <input
           type="range"
+          aria-label={lang === 'vi' ? 'Góc nghiêng rót' : 'Pour tilt angle'}
           min="0"
           max={Math.round(maxTilt * 180 / Math.PI)}
           value={session ? Math.round(session.targetTilt * 180 / Math.PI) : 0}
@@ -220,6 +199,17 @@ export const PourInput = React.memo(function PourInput() {
 
       {/* Large Tactile "Hold to Pour" Button */}
       <button
+        onKeyDown={(event) => {
+          if (event.key !== ' ' && event.key !== 'Enter') return;
+          event.preventDefault();
+          if (!event.repeat) handleHoldStart();
+        }}
+        onKeyUp={(event) => {
+          if (event.key !== ' ' && event.key !== 'Enter') return;
+          event.preventDefault();
+          handleHoldEnd();
+        }}
+        onBlur={handleHoldEnd}
         onPointerDown={(event) => { if (event.button !== 0) return; event.currentTarget.setPointerCapture(event.pointerId); handleHoldStart(); }}
         onPointerUp={handleHoldEnd}
         onPointerCancel={handleHoldEnd}

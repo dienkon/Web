@@ -10,6 +10,7 @@ export const CheatSheet: React.FC = () => {
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.target instanceof HTMLInputElement || e.target instanceof HTMLTextAreaElement) return;
+      if (e.key === 'Escape') setIsOpen(false);
       if (e.key === '?' || (e.shiftKey && e.key === '/')) {
         setIsOpen(prev => !prev);
       }
@@ -23,7 +24,7 @@ export const CheatSheet: React.FC = () => {
       {/* Floating help toggle button */}
       <button
         onClick={() => setIsOpen(true)}
-        className="fixed bottom-6 left-6 z-40 bg-slate-800/90 hover:bg-slate-700/90 text-slate-300 hover:text-white border border-slate-700/70 p-2.5 rounded-2xl shadow-xl backdrop-blur-md transition-all active:scale-95 flex items-center gap-2 text-xs font-medium"
+        className="absolute bottom-3 left-3 z-20 bg-slate-800/90 hover:bg-slate-700/90 text-slate-300 hover:text-white border border-slate-700/70 p-2.5 rounded-2xl shadow-xl backdrop-blur-md transition-all active:scale-95 flex items-center gap-2 text-xs font-medium"
         title={lang === 'vi' ? 'Bảng phím tắt (?)' : 'Shortcuts Cheat-Sheet (?)'}
       >
         <HelpCircle className="w-4 h-4 text-cyan-400" />
@@ -36,7 +37,7 @@ export const CheatSheet: React.FC = () => {
           <div className="bg-slate-900 border border-slate-700 rounded-3xl max-w-lg w-full p-6 shadow-2xl relative text-slate-200">
             <button
               onClick={() => setIsOpen(false)}
-              className="absolute top-5 right-5 text-slate-400 hover:text-white p-1 rounded-xl hover:bg-slate-800 transition-colors"
+              aria-label={lang === 'vi' ? 'Đóng trợ giúp' : 'Close help'} className="absolute top-5 right-5 text-slate-400 hover:text-white p-1 rounded-xl hover:bg-slate-800 transition-colors"
             >
               <X className="w-5 h-5" />
             </button>
