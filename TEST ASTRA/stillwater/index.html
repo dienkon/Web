@@ -1,0 +1,379 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#f4f3ec" />
+    <meta
+      name="description"
+      content="A quiet, interactive pocket of nature. Pick up a ball, make a splash, and watch the ripples at Stillwater."
+    />
+    <title>stillwater — a moment outside</title>
+    <link
+      rel="icon"
+      type="image/svg+xml"
+      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='18' fill='%23f4f3ec'/%3E%3Cg fill='none' stroke='%23505e42' stroke-width='3'%3E%3Cellipse cx='32' cy='39' rx='23' ry='10'/%3E%3Cellipse cx='32' cy='35' rx='14' ry='6'/%3E%3C/g%3E%3Cpath d='M32 12c-3 6-7 9-7 14a7 7 0 0014 0c0-5-4-8-7-14z' fill='%23505e42'/%3E%3C/svg%3E"
+    />
+  </head>
+  <body>
+    <svg class="svg-defs" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <symbol id="i-ripple" viewBox="0 0 32 32">
+          <ellipse cx="16" cy="22" rx="13" ry="5" />
+          <path
+            d="M9 18.5c-2.5 1-2.5 3 0 4s11.5 1.7 14-1M16 3c-2 4-4.5 6-4.5 9a4.5 4.5 0 0 0 9 0C20.5 9 18 7 16 3Z"
+          />
+        </symbol>
+        <symbol id="i-sound" viewBox="0 0 24 24">
+          <path d="m11 5-5 4H3v6h3l5 4V5Z" />
+          <path d="M15 8a6 6 0 0 1 0 8m3-11a10 10 0 0 1 0 14" />
+        </symbol>
+        <symbol id="i-info" viewBox="0 0 24 24">
+          <circle cx="12" cy="12" r="9" />
+          <path d="M12 11v6m0-10v.01" />
+        </symbol>
+        <symbol id="i-chevron" viewBox="0 0 24 24">
+          <path d="m7 14 5-5 5 5" />
+        </symbol>
+        <symbol id="i-sun" viewBox="0 0 24 24">
+          <circle cx="12" cy="12" r="4" />
+          <path
+            d="M12 2v2m0 16v2M2 12h2m16 0h2M4.93 4.93l1.42 1.42m11.3 11.3 1.42 1.42m0-14.14-1.42 1.42m-11.3 11.3-1.42 1.42"
+          />
+        </symbol>
+        <symbol id="i-sunset" viewBox="0 0 24 24">
+          <path
+            d="M3 17h18M5 21h14M6 13a6 6 0 0 1 12 0M12 2v3M3 7l2 2m16-2-2 2"
+          />
+        </symbol>
+        <symbol id="i-moon" viewBox="0 0 24 24">
+          <path d="M20.8 13.2A9 9 0 0 1 10.8 3a9 9 0 1 0 10 10.2Z" />
+        </symbol>
+        <symbol id="i-wind" viewBox="0 0 24 24">
+          <path
+            d="M3 8h12a3 3 0 1 0-3-3M2 12h17a3 3 0 1 1-3 3M3 16h5a3 3 0 1 1-3 3"
+          />
+        </symbol>
+        <symbol id="i-wave" viewBox="0 0 24 24">
+          <path
+            d="M2 8c3-4 4 4 7 0s4 4 7 0 4 4 6 0M2 16c3-4 4 4 7 0s4 4 7 0 4 4 6 0"
+          />
+        </symbol>
+        <symbol id="i-reset" viewBox="0 0 24 24">
+          <path d="M3 10a9 9 0 1 1 2.5 8M3 4v6h6" />
+        </symbol>
+        <symbol id="i-drop" viewBox="0 0 24 24">
+          <path d="M12 3c-2 4-6 7-6 11a6 6 0 0 0 12 0c0-4-4-7-6-11Z" />
+          <path d="M9 14a3 3 0 0 0 3 3" />
+        </symbol>
+        <symbol id="i-hand" viewBox="0 0 24 24">
+          <path
+            d="M8 12V6a2 2 0 0 1 4 0v5-7a2 2 0 0 1 4 0v8-5a2 2 0 0 1 4 0v9a6 6 0 0 1-6 6h-1a6 6 0 0 1-5-2.7l-4-6a2 2 0 0 1 3-2.5l1 1.2Z"
+          />
+        </symbol>
+        <symbol id="i-mouse" viewBox="0 0 24 24">
+          <rect x="6" y="2" width="12" height="20" rx="6" />
+          <path d="M12 2v6" />
+        </symbol>
+        <symbol id="i-orbit" viewBox="0 0 24 24">
+          <ellipse
+            cx="12"
+            cy="12"
+            rx="10"
+            ry="5"
+            transform="rotate(-35 12 12)"
+          />
+          <path d="M15 4h4v4" />
+          <circle cx="12" cy="12" r="1" />
+        </symbol>
+        <symbol id="i-zoom" viewBox="0 0 24 24">
+          <circle cx="10" cy="10" r="6" />
+          <path d="m15 15 6 6M7 10h6m-3-3v6" />
+        </symbol>
+        <symbol id="i-pause" viewBox="0 0 24 24">
+          <path d="M8 5v14M16 5v14" />
+        </symbol>
+        <symbol id="i-play" viewBox="0 0 24 24">
+          <path d="m7 4 14 8-14 8V4Z" />
+        </symbol>
+        <symbol id="i-camera" viewBox="0 0 24 24">
+          <path d="M3 7h4l2-3h6l2 3h4v13H3V7Z" />
+          <circle cx="12" cy="13" r="4" />
+        </symbol>
+        <symbol id="i-close" viewBox="0 0 24 24">
+          <path d="m6 6 12 12M6 18 18 6" />
+        </symbol>
+        <symbol id="i-arrow" viewBox="0 0 24 24">
+          <path d="M5 12h14m-5-5 5 5-5 5" />
+        </symbol>
+      </defs>
+    </svg>
+
+    <header class="site-header">
+      <a class="brand" href="./" aria-label="Stillwater home"
+        ><svg class="brand-mark" aria-hidden="true">
+          <use href="#i-ripple" /></svg
+        ><span>stillwater<span class="brand-period">.</span></span></a
+      >
+      <span class="brand-note">A moment outside.</span>
+      <nav class="header-actions" aria-label="Scene information">
+        <button
+          id="sound"
+          class="sound-button"
+          type="button"
+          aria-label="Enable nature sounds"
+          aria-pressed="false"
+        >
+          <svg aria-hidden="true"><use href="#i-sound" /></svg
+          ><span>Sound off</span><span class="sound-indicator"></span>
+        </button>
+        <span class="header-divider"></span>
+        <button
+          id="about"
+          class="icon-button"
+          type="button"
+          aria-label="About Stillwater"
+          title="About Stillwater"
+        >
+          <svg aria-hidden="true"><use href="#i-info" /></svg>
+        </button>
+      </nav>
+    </header>
+
+    <main class="playground" aria-label="Interactive grassy field and pond">
+      <canvas
+        id="scene"
+        aria-label="Interactive 3D pond. Drag the ball to pick it up and release to throw. Drag the landscape to orbit the camera."
+        tabindex="0"
+      ></canvas>
+      <div class="scene-vignette" aria-hidden="true"></div>
+
+      <section class="intro">
+        <p class="eyebrow">
+          <span class="eyebrow-line"></span>AN INTERACTIVE NATURE STUDY
+        </p>
+        <h1>A little room<br />to unwind<span>.</span></h1>
+        <p class="intro-copy">Slow down. Make a little splash.</p>
+      </section>
+
+      <aside class="environment-panel" aria-label="Environment controls">
+        <button
+          id="toggle-panel"
+          class="panel-heading"
+          aria-expanded="true"
+          aria-controls="panel-content"
+          type="button"
+        >
+          <span><span class="live-dot"></span>Your little world</span
+          ><svg aria-hidden="true"><use href="#i-chevron" /></svg>
+        </button>
+        <div id="panel-content" class="panel-content">
+          <div class="control-section time-section">
+            <div class="control-label">
+              <span>Time of day</span
+              ><span class="control-caption">Set the mood</span>
+            </div>
+            <div class="light-presets" role="group" aria-label="Time of day">
+              <button
+                class="light-preset"
+                data-light="morning"
+                aria-pressed="false"
+                type="button"
+              >
+                <svg aria-hidden="true"><use href="#i-sun" /></svg
+                ><span>Morning</span>
+              </button>
+              <button
+                class="light-preset active"
+                data-light="golden"
+                aria-pressed="true"
+                type="button"
+              >
+                <svg aria-hidden="true"><use href="#i-sunset" /></svg
+                ><span>Golden hour</span>
+              </button>
+              <button
+                class="light-preset"
+                data-light="dusk"
+                aria-pressed="false"
+                type="button"
+              >
+                <svg aria-hidden="true"><use href="#i-moon" /></svg
+                ><span>Dusk</span>
+              </button>
+            </div>
+          </div>
+
+          <div class="control-section slider-section">
+            <div class="control-label">
+              <label for="wind"
+                ><svg aria-hidden="true"><use href="#i-wind" /></svg>Wind</label
+              ><span id="wind-label" class="control-caption"
+                >Gentle breeze</span
+              >
+            </div>
+            <input
+              id="wind"
+              class="range-input"
+              type="range"
+              min="0"
+              max="1"
+              step="0.01"
+              value="0.35"
+              aria-label="Wind intensity"
+              style="--range-fill: 35%"
+            />
+            <div class="range-endpoints">
+              <span>Still</span><span>Breezy</span>
+            </div>
+          </div>
+
+          <div class="control-section slider-section">
+            <div class="control-label">
+              <label for="waves"
+                ><svg aria-hidden="true"><use href="#i-wave" /></svg
+                >Water</label
+              ><span id="waves-label" class="control-caption"
+                >Soft ripples</span
+              >
+            </div>
+            <input
+              id="waves"
+              class="range-input"
+              type="range"
+              min="0"
+              max="1"
+              step="0.01"
+              value="0.4"
+              aria-label="Water wave intensity"
+              style="--range-fill: 40%"
+            />
+            <div class="range-endpoints">
+              <span>Calm</span><span>Lively</span>
+            </div>
+          </div>
+
+          <div class="ball-actions">
+            <button id="drop-ball" class="button-primary" type="button">
+              <svg aria-hidden="true"><use href="#i-drop" /></svg>Drop into
+              pond<svg class="button-arrow" aria-hidden="true">
+                <use href="#i-arrow" />
+              </svg>
+            </button>
+            <button id="reset-ball" class="button-secondary" type="button">
+              <svg aria-hidden="true"><use href="#i-reset" /></svg>Reset ball
+            </button>
+          </div>
+          <p class="panel-footnote">
+            <span></span>A small escape. No score to keep.
+          </p>
+        </div>
+      </aside>
+
+      <div class="interaction-hint" id="interaction-hint">
+        <span class="hint-icon"
+          ><svg aria-hidden="true"><use href="#i-hand" /></svg
+        ></span>
+        <div>
+          <strong>Grab the ball. Make some ripples.</strong
+          ><span>Drag to pick up · Release to throw</span>
+        </div>
+        <span class="hint-sparkle" aria-hidden="true">✧</span>
+      </div>
+
+      <footer class="scene-footer">
+        <div class="control-guide" aria-label="Camera and ball controls">
+          <span
+            ><svg aria-hidden="true"><use href="#i-orbit" /></svg
+            ><span><b>Drag</b> to orbit</span></span
+          ><span
+            ><svg aria-hidden="true"><use href="#i-zoom" /></svg
+            ><span><b>Scroll</b> to zoom</span></span
+          ><span class="guide-throw"
+            ><svg aria-hidden="true"><use href="#i-mouse" /></svg
+            ><span><b>Grab & release</b> to throw</span></span
+          >
+        </div>
+        <div class="render-controls">
+          <span class="fps-indicator"
+            ><span class="live-dot"></span><span id="fps">60</span
+            ><span class="fps-unit">FPS</span></span
+          ><span class="footer-divider"></span
+          ><button
+            id="quality"
+            class="quality-button"
+            type="button"
+            title="Switch rendering quality"
+            aria-label="Rendering quality: High"
+          >
+            <span class="quality-dot"></span>High</button
+          ><span class="footer-divider"></span
+          ><button
+            id="pause"
+            class="icon-button"
+            type="button"
+            aria-label="Pause animation"
+            aria-pressed="false"
+            title="Pause animation"
+          >
+            <svg aria-hidden="true"><use href="#i-pause" /></svg></button
+          ><button
+            id="reset-view"
+            class="icon-button"
+            type="button"
+            aria-label="Reset camera view"
+            title="Reset camera view"
+          >
+            <svg aria-hidden="true"><use href="#i-camera" /></svg>
+          </button>
+        </div>
+      </footer>
+
+      <div id="loading" class="loading-overlay" role="status">
+        <div class="loading-ripple">
+          <span></span><span></span><span></span>
+        </div>
+        <strong>A little quiet is loading.</strong
+        ><span>Growing your corner of the world</span>
+      </div>
+      <div id="toast" class="toast" role="status" aria-live="polite"></div>
+    </main>
+
+    <dialog
+      id="about-dialog"
+      class="about-dialog"
+      aria-labelledby="about-title"
+    >
+      <button
+        id="close-about"
+        class="icon-button dialog-close"
+        type="button"
+        aria-label="Close about"
+      >
+        <svg aria-hidden="true"><use href="#i-close" /></svg>
+      </button>
+      <svg class="about-mark" aria-hidden="true"><use href="#i-ripple" /></svg>
+      <p class="eyebrow">A MOMENT OUTSIDE</p>
+      <h2 id="about-title">
+        Nothing to finish.<br />Just a little space to play.
+      </h2>
+      <p>
+        Stillwater is a small, living landscape for a slower moment in your day.
+        Catch the light, stir the water, and see where the ball takes you.
+      </p>
+      <div class="about-instructions">
+        <span
+          ><svg aria-hidden="true"><use href="#i-hand" /></svg
+          ><strong>Pick up & throw</strong
+          ><span>Drag the ball, then release.</span></span
+        ><span
+          ><svg aria-hidden="true"><use href="#i-orbit" /></svg
+          ><strong>Find your angle</strong
+          ><span>Drag the field. Scroll to explore.</span></span
+        >
+      </div>
+      <p class="about-signoff">Take your time. The ripples will wait.</p>
+    </dialog>
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>
