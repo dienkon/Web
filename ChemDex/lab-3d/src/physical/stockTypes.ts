@@ -30,11 +30,15 @@ export interface StockContainerInput {
 }
 export interface StockSpillPose extends StockGrainPose { vesselId: string; group?: StockGroupInput; restore?: boolean }
 export interface StockWorldInput { containers: StockContainerInput[]; contacts: StockContactReceipt[]; spills: StockSpillPose[] }
+export interface StockContainerPose {
+  id: string; position_m: Vec3; rotation: Quat; carryStock?: boolean;
+}
 export interface StockBoundaryFrame {
   seconds: number;
-  containers: { id: string; position_m: Vec3; rotation: Quat }[];
+  containers: (StockContainerPose & { releaseStock?: boolean })[];
 }
 export interface StockWorldSnapshot {
+  containers: StockContainerPose[];
   tick: number; grains: { vesselId: string; pose: StockGrainPose }[]; appliedContacts: number[];
   escapes: { vesselId: string; pose: StockGrainPose }[];
   captures: { vesselId: string; pose: StockGrainPose }[];

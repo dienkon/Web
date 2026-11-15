@@ -4,7 +4,7 @@ import { resolve } from 'node:path';
 
 // Build a classic script using Node's standard library, without installing packages.
 // Order follows the dependencies between the small, project-owned modules.
-const files = ['questions.mjs', 'session.mjs', 'panels.mjs', 'effects.mjs', 'app.mjs'];
+const files = ['questions.mjs', 'practice-questions.mjs', 'session.mjs', 'panels.mjs', 'effects.mjs', 'app.mjs'];
 
 export async function browserBundle() {
   const parts = await Promise.all(files.map(async file => {

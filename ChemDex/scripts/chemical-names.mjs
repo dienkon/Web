@@ -112,7 +112,7 @@ for (const [vi, en] of Object.entries({
 // calls, observer, or name guessing is required in a running application.
 const escape = value => value.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 const phrasePattern = new RegExp(`(?<![\\p{L}\\p{N}_])(?:${[...names.keys()].sort((a,b)=>b.length-a.length).map(escape).join('|')})(?![\\p{L}\\p{N}_])`, 'giu');
-const protectedPattern = /(?:https?:\/\/|\/[\w-])[^\s<>"'`)]*|(?<![\p{L}])(?:đồng (?:bộ|thời|ý|hành|nhất|đều|nghĩa|vị)|cộng đồng|hội đồng|hợp đồng|bất đồng|bo (?:góc|tròn|mạch)|chì(?:a|m)|bạc (?:màu|hà)|vàng (?:nhạt|cam|nâu|đậm|óng|tươi)|màu vàng|(?:đất|nhà|các|nhiều|mọi) nước|nước (?:ngoài|ta|này|khác|Anh|Pháp|Đức|Mỹ|Ý|Nga|Thụy Điển|Nhật|Trung Quốc|Việt Nam|rửa bát))(?![\p{L}])/giu;
+const protectedPattern = /(?:https?:\/\/|\/[\w-])[^\s<>"'`)]*|(?<![\p{L}])(?:đồng (?:bộ|thời|ý|hành|nhất|đều|nghĩa|vị)|cộng đồng|hội đồng|hợp đồng|bất đồng|bo (?:góc|tròn|mạch)|chì(?:a|m)|bạc (?:màu|hà)|vàng (?:nhạt|cam|nâu|đậm|óng|tươi)|(?:màu|mưa|phiến|ánh|sắc|kết tủa) vàng|(?:đất|nhà|các|nhiều|mọi) nước|nước (?:ngoài|ta|này|khác|Anh|Pháp|Đức|Mỹ|Ý|Nga|Thụy Điển|Nhật|Trung Quốc|Việt Nam|rửa bát))(?![\p{L}])/giu;
 
 export function chemicalText(text, {exact = false} = {}) {
   if (exact && names.has(key(text))) return names.get(key(text));

@@ -7,7 +7,7 @@ import { freePrecipitateCohorts } from '../../science/freePrecipitateCohorts';
 import { SedimentMesh } from './SedimentMesh';
 import { getBubbleSpriteTexture, getSoftParticleTexture } from '../../vfx/textures';
 import { useQualityStore } from '../../vfx/quality';
-import { useAppStore } from '../../store/useAppStore';
+import { useVesselVisualRuntime, useVesselVisualState, useVesselVisualStore } from './VesselVisualContext';
 import { PrecipitateParticleLayer } from './PrecipitateParticleLayer';
 import { vesselAgitation } from '../../science/stirring';
 import { createInstancedMistMaterial, mistParticleAppearance } from './mistAppearance';
@@ -42,7 +42,9 @@ export const PhysicalSimulationRenderer = React.memo(function PhysicalSimulation
   reactionPrecipitateSubstance,
   agitationOverride,
 }: PhysicalSimulationRendererProps) {
-  const componentSignature = useAppStore(state => {
+  const runtime = useVesselVisualRuntime(), store = useVesselVisualStore();
+  const external = runtime?.externallyStepped ?? false;
+  const componentSignature = useVesselVisualState(state => {
     const vessel = state.vessels[vesselId];
     if (!vessel) return '[]';
     const active = reactionPrecipitateSubstance || vessel.precipitateSubstance;
@@ -50,11 +52,11 @@ export const PhysicalSimulationRenderer = React.memo(function PhysicalSimulation
   });
   const components = useMemo(() => JSON.parse(componentSignature) as [string, string, string | null][], [componentSignature]);
   const effectiveTier = useQualityStore((state) => state.effectiveTier);
-  const mgr = useMemo(() => SimulationEngine.getManager(vesselId, effectiveTier), [vesselId, effectiveTier]);
-  const activePrecipitates = useAppStore(state => activePrecipitateVessels(state.vessels));
+  const mgr = useMemo(() => runtime?.manager ?? SimulationEngine.getManager(vesselId, effectiveTier), [runtime?.manager, vesselId, effectiveTier]);
+  const activePrecipitates = useVesselVisualState(state => activePrecipitateVessels(state.vessels));
   const budget = precipitateSceneBudget(effectiveTier, activePrecipitates);
   const precipitateBudget = Math.max(components.length, budget.physical);
-  useEffect(() => mgr.setPrecipitateBudget(precipitateBudget), [mgr, precipitateBudget]);
+  useEffect(() => { if (!external) mgr.setPrecipitateBudget(precipitateBudget); }, [mgr, precipitateBudget, external]);
 
   const bubbleMeshRef = useRef<THREE.InstancedMesh>(null);
   const evaporationMeshRef = useRef<THREE.InstancedMesh>(null);
@@ -91,24 +93,27 @@ export const PhysicalSimulationRenderer = React.memo(function PhysicalSimulation
   const bodyRotation = useMemo(() => new THREE.Matrix4(), []);
   const forcing = useRef({ agitationOverride, reactionGasRate, reactionPrecipitateActive, reactionPrecipitateSubstance });
   forcing.current = { agitationOverride, reactionGasRate, reactionPrecipitateActive, reactionPrecipitateSubstance };
-  useEffect(() => physicalEffectsRuntime.register(vesselId, dt => {
-    const app = useAppStore.getState(), vessel = app.vessels[vesselId];
-    if (!vessel || vessel.isShattered) return;
-    groupRef.current?.updateWorldMatrix(true, false);
-    const f = forcing.current;
-    mgr.step(vessel, dt, {
-      bodyMatrixWorld: groupRef.current?.matrixWorld.elements,
-      thermalStateAuthoritative: true,
-      liquidMotionAuthoritative: f.agitationOverride === undefined,
-      heatPower_W: vessel.thermalHeatingPower_W ?? 0,
-      agitation: f.agitationOverride === undefined ? vesselAgitation(vessel, app) : f.agitationOverride,
-      reactionGasRate: f.reactionGasRate,
-      reactionProgram: app.activeKinetics[vesselId]?.program ?? studioProgramForReaction(
-        app.activeKinetics[vesselId]?.reactionId ?? vessel.lastReactionId ?? vessel.studioProgramId ?? ''),
-      reactionPrecipitateActive: f.reactionPrecipitateActive,
-      reactionPrecipitateSubstance: f.reactionPrecipitateSubstance,
+  useEffect(() => {
+    if (external) return;
+    return physicalEffectsRuntime.register(vesselId, dt => {
+      const app = store.getState(), vessel = app.vessels[vesselId];
+      if (!vessel || vessel.isShattered) return;
+      groupRef.current?.updateWorldMatrix(true, false);
+      const f = forcing.current;
+      mgr.step(vessel, dt, {
+        bodyMatrixWorld: groupRef.current?.matrixWorld.elements,
+        thermalStateAuthoritative: true,
+        liquidMotionAuthoritative: f.agitationOverride === undefined,
+        heatPower_W: vessel.thermalHeatingPower_W ?? 0,
+        agitation: f.agitationOverride === undefined ? vesselAgitation(vessel, app) : f.agitationOverride,
+        reactionGasRate: f.reactionGasRate,
+        reactionProgram: app.activeKinetics[vesselId]?.program ?? studioProgramForReaction(
+          app.activeKinetics[vesselId]?.reactionId ?? vessel.lastReactionId ?? vessel.studioProgramId ?? ''),
+        reactionPrecipitateActive: f.reactionPrecipitateActive,
+        reactionPrecipitateSubstance: f.reactionPrecipitateSubstance,
+      });
     });
-  }), [mgr, vesselId]);
+  }, [mgr, vesselId, store, external]);
 
   // Initialize all instanced matrices to scale 0 at (0, -9999, 0)
   const zeroInstances = (mesh: THREE.InstancedMesh | null, maxCount: number) => {
@@ -131,18 +136,17 @@ export const PhysicalSimulationRenderer = React.memo(function PhysicalSimulation
     return () => {
       // A renderer may remount when quality/canvas settings change. The sample
       // still owns its population history; only removing the vessel retires it.
-      const live = useAppStore.getState().vessels[vesselId];
+      if (external) return;
+      const live = store.getState().vessels[vesselId];
       if (!live) SimulationEngine.removeManager(vesselId);
       else if (live.isShattered) mgr.reset();
     };
-  }, [mgr, vesselId]);
+  }, [mgr, vesselId, store, external]);
 
   useFrame((state) => {
-    const vessel = useAppStore.getState().vessels[vesselId];
+    const vessel = store.getState().vessels[vesselId];
     if (!vessel || vessel.isShattered || (vessel.volume_ml ?? 0) <= 0.2) {
-      if (vessel?.isShattered) {
-        mgr.reset();
-      }
+      if (vessel?.isShattered && !external) mgr.reset();
       if (bubbleMeshRef.current?.visible) bubbleMeshRef.current.visible = false;
       if (evaporationMeshRef.current?.visible) evaporationMeshRef.current.visible = false;
       if (!vessel || vessel.isShattered) return;
@@ -152,7 +156,7 @@ export const PhysicalSimulationRenderer = React.memo(function PhysicalSimulation
     if (groupRef.current) bodyMatrix.copy(groupRef.current.matrixWorld);
     inverseBodyQuat.setFromRotationMatrix(bodyRotation.extractRotation(bodyMatrix)).invert();
 
-    mgr.syncLiquidMotion(vessel, undefined, true, forcing.current.agitationOverride === undefined);
+    if (!external) mgr.syncLiquidMotion(vessel, undefined, true, forcing.current.agitationOverride === undefined);
 
     // Quantitative steps ran in PhysicalEffectsRuntime before this upload.
 
@@ -264,6 +268,8 @@ export const PhysicalSimulationRenderer = React.memo(function PhysicalSimulation
         baseY={baseY}
         radius={radius}
         sedimentBed={mgr.sedimentBed}
+        readOpticalCohorts={() => [...mgr.precipitationSystems.values()].map(system => ({
+          mass_g: system.sedimentBed.amount_g, profile: system.profile }))}
       />
 
       {/* 4. Surface Evaporation Vapor InstancedMesh */}

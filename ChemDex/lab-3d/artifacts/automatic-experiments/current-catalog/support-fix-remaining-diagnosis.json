@@ -1,0 +1,738 @@
+[
+  {
+    "id": "mg_hcl",
+    "phase": "error",
+    "error": "Chưa đạt trạng thái cuối sau 180 giây mô phỏng. Kiểm tra điều kiện của bài.",
+    "p": 0.6813901032601553,
+    "replay": 0.6470205105466059,
+    "contactProgress": 0.09736994284504263,
+    "contact": 0,
+    "rate": 0,
+    "unmet": [
+      "Chất rắn chưa tiếp xúc pha lỏng tham gia phản ứng."
+    ],
+    "limit": 0.6470205105466059,
+    "contents": [
+      {
+        "formula": "H2O",
+        "phase": "l",
+        "mass_g": 29.925878450600596,
+        "moles": 1.6611644990619272,
+        "concentration_M": 55.37376759528047
+      },
+      {
+        "formula": "HCl",
+        "phase": "aq",
+        "moles": 0.0006372197934796917,
+        "initialMoles": 0.002,
+        "mass_g": 0.023231759230682606,
+        "concentration_M": 0.021241280301368667
+      },
+      {
+        "formula": "Mg",
+        "phase": "s",
+        "moles": 0.0003186098967398448,
+        "initialMoles": 0.001,
+        "mass_g": 0.007743813540261928
+      },
+      {
+        "formula": "MgCl2",
+        "moles": 0.0006813901032601542,
+        "mass_g": 0.06487174478088298,
+        "concentration_M": 0.02271366697335454,
+        "state": "aq",
+        "phase": "aq"
+      }
+    ],
+    "grains": [
+      {
+        "formula": "Mg",
+        "mass": 0.00774380953475652,
+        "local": [
+          0.05489787915155068,
+          -2.1193182184568493,
+          -0.32831868217133864
+        ],
+        "scale": 0.0016448834770381147,
+        "velocity": [
+          0.000008136467076838017,
+          -0.000002318281913176179,
+          0.000025738386902958154
+        ],
+        "contacting": true,
+        "rotation": [
+          0.921305775642395,
+          0.26756882667541504,
+          -0.27092239260673523,
+          -0.07876342535018921
+        ]
+      },
+      {
+        "formula": "Mg",
+        "mass": 5.843108690817112e-10,
+        "local": [
+          0.010623098580573306,
+          -0.9606494273112011,
+          0.4303272937819533
+        ],
+        "scale": 0.0000069507484610484,
+        "velocity": [
+          0.000067010628990829,
+          0.00007593287155032158,
+          -0.0009882766753435135
+        ],
+        "contacting": true,
+        "rotation": [
+          -0.3979816436767578,
+          0.8353118896484375,
+          -0.3593887686729431,
+          -0.12126174569129944
+        ]
+      },
+      {
+        "formula": "Mg",
+        "mass": 3.421194538359685e-9,
+        "local": [
+          -0.9175052638060723,
+          -2.2052297295145156,
+          0.42322412373965734
+        ],
+        "scale": 0.000012527839301546943,
+        "velocity": [
+          0.0005549306422472,
+          0.0000023989006876945497,
+          0.00006757221184670925
+        ],
+        "contacting": true,
+        "rotation": [
+          0.7029595375061035,
+          -0.5736024975776672,
+          -0.33035627007484436,
+          -0.26017850637435913
+        ]
+      }
+    ],
+    "contacts": [
+      {
+        "id": "stock:3",
+        "formula": "Mg",
+        "mass_g": 0.00774380953475652,
+        "wetFraction": 0,
+        "wetArea": 0,
+        "totalArea": 0.03209294089949259
+      },
+      {
+        "id": "stock:2",
+        "formula": "Mg",
+        "mass_g": 5.843108690817112e-10,
+        "wetFraction": 0,
+        "wetArea": 0,
+        "totalArea": 5.730630858735708e-7
+      },
+      {
+        "id": "stock:1",
+        "formula": "Mg",
+        "mass_g": 3.421194538359685e-9,
+        "wetFraction": 0,
+        "wetArea": 0,
+        "totalArea": 0.0000018616225201384395
+      }
+    ],
+    "samples": [
+      {
+        "t": 30.09999999999957,
+        "p": 0,
+        "contact": 0
+      },
+      {
+        "t": 60.09999999999787,
+        "p": 0.6755529279511598,
+        "contact": 0.028822012911516336
+      },
+      {
+        "t": 90.09999999999617,
+        "p": 0.6813899168854108,
+        "contact": 0
+      },
+      {
+        "t": 120.09999999999447,
+        "p": 0.6813899168854108,
+        "contact": 0
+      },
+      {
+        "t": 150.0000000000115,
+        "p": 0.6813899168854108,
+        "contact": 0
+      },
+      {
+        "t": 180.00000000003539,
+        "p": 0.6813899168854108,
+        "contact": 0
+      },
+      {
+        "t": 210.00000000005926,
+        "p": 0.6813901032601553,
+        "contact": 0
+      }
+    ]
+  },
+  {
+    "id": "mg_cuso4",
+    "phase": "error",
+    "error": "Chưa đạt trạng thái cuối sau 180 giây mô phỏng. Kiểm tra điều kiện của bài.",
+    "p": 0.12989368178492577,
+    "replay": 0,
+    "contactProgress": 0.12989368178492577,
+    "contact": 0,
+    "rate": 0,
+    "unmet": [
+      "Chất rắn chưa tiếp xúc pha lỏng tham gia phản ứng."
+    ],
+    "limit": 0,
+    "contents": [
+      {
+        "formula": "H2O",
+        "phase": "l",
+        "mass_g": 29.80360648767604,
+        "moles": 1.6543772682584519,
+        "concentration_M": 55.21762365811253
+      },
+      {
+        "formula": "CuSO4",
+        "phase": "aq",
+        "moles": 0.0008701063182150747,
+        "initialMoles": 0.001,
+        "mass_g": 0.13887070859976236,
+        "concentration_M": 0.029041109890632903
+      },
+      {
+        "formula": "Mg",
+        "phase": "s",
+        "moles": 0.0008701063182150742,
+        "initialMoles": 0.001,
+        "mass_g": 0.021147934064217378
+      },
+      {
+        "formula": "MgSO4",
+        "moles": 0.00012989368178492635,
+        "mass_g": 0.01563413343331552,
+        "concentration_M": 0.0043353974196547705,
+        "state": "aq",
+        "phase": "aq"
+      },
+      {
+        "formula": "Cu",
+        "phase": "s",
+        "state": "s",
+        "moles": 7.936507936507936e-7,
+        "mass_g": 0.000050433333333333324,
+        "solidOrigin": "precipitate",
+        "precipitateFormation": "fine_powder",
+        "depositSubstrate": "Mg",
+        "depositionReactionId": "mg_cuso4",
+        "depositCarrierFormula": "Mg"
+      },
+      {
+        "formula": "Cu",
+        "phase": "s",
+        "state": "s",
+        "moles": 0.000020212595315502114,
+        "mass_g": 0.001284429581918897,
+        "solidOrigin": "precipitate",
+        "precipitateFormation": "fine_powder",
+        "depositSubstrate": "Mg",
+        "depositionReactionId": "mg_cuso4",
+        "depositCarrierFormula": "Mg",
+        "depositCarrierId": "stock:1"
+      },
+      {
+        "formula": "Cu",
+        "phase": "s",
+        "state": "s",
+        "moles": 0.0000036238790248273287,
+        "mass_g": 0.00023028301651167743,
+        "solidOrigin": "precipitate",
+        "precipitateFormation": "fine_powder",
+        "depositSubstrate": "Mg",
+        "depositionReactionId": "mg_cuso4",
+        "depositCarrierFormula": "Mg",
+        "depositReleased": true
+      },
+      {
+        "formula": "Cu",
+        "phase": "s",
+        "state": "s",
+        "moles": 0.000048675359946272757,
+        "mass_g": 0.00309312442314585,
+        "solidOrigin": "precipitate",
+        "precipitateFormation": "fine_powder",
+        "depositSubstrate": "Mg",
+        "depositionReactionId": "mg_cuso4",
+        "depositCarrierFormula": "Mg",
+        "depositCarrierId": "stock:2"
+      },
+      {
+        "formula": "Cu",
+        "phase": "s",
+        "state": "s",
+        "moles": 0.000056588196704673005,
+        "mass_g": 0.003595953547795152,
+        "solidOrigin": "precipitate",
+        "precipitateFormation": "fine_powder",
+        "depositSubstrate": "Mg",
+        "depositionReactionId": "mg_cuso4",
+        "depositCarrierFormula": "Mg",
+        "depositCarrierId": "stock:3"
+      }
+    ],
+    "grains": [
+      {
+        "formula": "Mg",
+        "mass": 0.006657501848600845,
+        "local": [
+          -0.01601001067939451,
+          -2.188310199633502,
+          -0.10382497707634285
+        ],
+        "scale": 0.0015640621841985513,
+        "velocity": [
+          -8.465799794521444e-10,
+          -1.4193259403327829e-8,
+          5.601709673896948e-10
+        ],
+        "contacting": true,
+        "rotation": [
+          0.27303004264831543,
+          0.6488165855407715,
+          0.6543577909469604,
+          -0.27623841166496277
+        ]
+      },
+      {
+        "formula": "Mg",
+        "mass": 0.006899322360632826,
+        "local": [
+          1.475948245622557,
+          -2.192640096801028,
+          -0.44122042339556294
+        ],
+        "scale": 0.001582774566382485,
+        "velocity": [
+          -0.001506820023059845,
+          -0.004947370886802673,
+          0.005199721455574036
+        ],
+        "contacting": true,
+        "rotation": [
+          0.6227458715438843,
+          0.2589413523674011,
+          -0.24836046993732452,
+          0.6953086256980896
+        ]
+      },
+      {
+        "formula": "Mg",
+        "mass": 0.007591109854983708,
+        "local": [
+          -0.04623992443884087,
+          -2.1878229191171896,
+          0.036235463215584005
+        ],
+        "scale": 0.0016339998388498914,
+        "velocity": [
+          1.793747372857979e-9,
+          9.62172748586454e-9,
+          4.893510663350753e-10
+        ],
+        "contacting": true,
+        "rotation": [
+          -0.7097882032394409,
+          -0.019798578694462776,
+          0.01918533816933632,
+          -0.7038755416870117
+        ]
+      }
+    ],
+    "contacts": [
+      {
+        "id": "stock:3",
+        "formula": "Mg",
+        "mass_g": 0.006657501848600845,
+        "wetFraction": 0,
+        "wetArea": 0,
+        "totalArea": 0.029016663781610587
+      },
+      {
+        "id": "stock:2",
+        "formula": "Mg",
+        "mass_g": 0.006899322360632826,
+        "wetFraction": 0,
+        "wetArea": 0,
+        "totalArea": 0.02971511192694013
+      },
+      {
+        "id": "stock:1",
+        "formula": "Mg",
+        "mass_g": 0.007591109854983708,
+        "wetFraction": 0,
+        "wetArea": 0,
+        "totalArea": 0.03166964911882875
+      }
+    ],
+    "samples": [
+      {
+        "t": 30.09999999999957,
+        "p": 0,
+        "contact": 0
+      },
+      {
+        "t": 60.09999999999787,
+        "p": 0.12989368178492577,
+        "contact": 0
+      },
+      {
+        "t": 90.09999999999617,
+        "p": 0.12989368178492577,
+        "contact": 0
+      },
+      {
+        "t": 120.09999999999447,
+        "p": 0.12989368178492577,
+        "contact": 0
+      },
+      {
+        "t": 150.0000000000115,
+        "p": 0.12989368178492577,
+        "contact": 0
+      },
+      {
+        "t": 180.00000000003539,
+        "p": 0.12989368178492577,
+        "contact": 0
+      },
+      {
+        "t": 210.00000000005926,
+        "p": 0.12989368178492577,
+        "contact": 0
+      }
+    ]
+  },
+  {
+    "id": "al_naoh_h2",
+    "phase": "error",
+    "error": "Chưa đạt trạng thái cuối sau 180 giây mô phỏng. Kiểm tra điều kiện của bài.",
+    "p": 0.5218644764312365,
+    "replay": 0,
+    "contactProgress": 0.5218644764312365,
+    "contact": 0,
+    "rate": 0,
+    "unmet": [
+      "Chất rắn chưa tiếp xúc pha lỏng tham gia phản ứng."
+    ],
+    "limit": 0,
+    "contents": [
+      {
+        "formula": "H2O",
+        "phase": "l",
+        "moles": 1.6594686487830586,
+        "initialMoles": 1.6608385234526784,
+        "mass_g": 29.8953277078268,
+        "concentration_M": 55.30470123216504
+      },
+      {
+        "formula": "NaOH",
+        "phase": "aq",
+        "moles": 0.0009562710471375275,
+        "initialMoles": 0.002,
+        "mass_g": 0.038247973072359685,
+        "concentration_M": 0.03186940867951544
+      },
+      {
+        "formula": "Al",
+        "phase": "s",
+        "moles": 0.000956271047137527,
+        "initialMoles": 0.002,
+        "mass_g": 0.025802105393864752
+      },
+      {
+        "formula": "NaAlO2",
+        "moles": 0.0010437289528624734,
+        "mass_g": 0.08555446226613694,
+        "concentration_M": 0.034784096673203056,
+        "state": "aq",
+        "phase": "aq"
+      }
+    ],
+    "grains": [
+      {
+        "formula": "Al",
+        "mass": 0.025802105148657856,
+        "local": [
+          -0.06561222785253601,
+          -2.191674581984695,
+          0.17593960747745208
+        ],
+        "scale": 0.0021220899675789607,
+        "velocity": [
+          0,
+          0,
+          0
+        ],
+        "contacting": true,
+        "rotation": [
+          0.9938076138496399,
+          0.058731403201818466,
+          0.09415970742702484,
+          0.005564390681684017
+        ]
+      },
+      {
+        "formula": "Al",
+        "mass": 2.4520689645423537e-10,
+        "local": [
+          0.020528113659563398,
+          -0.9600542757288042,
+          -0.003534785018197076
+        ],
+        "scale": 0.000004494930407028519,
+        "velocity": [
+          0,
+          0,
+          0
+        ],
+        "contacting": true,
+        "rotation": [
+          0.004718140698969364,
+          0.09397467225790024,
+          -0.047195304185152054,
+          0.9944441914558411
+        ]
+      }
+    ],
+    "contacts": [
+      {
+        "id": "stock:2",
+        "formula": "Al",
+        "mass_g": 0.025802105148657856,
+        "wetFraction": 0,
+        "wetArea": 0,
+        "totalArea": 0.1389294609873077
+      },
+      {
+        "id": "stock:1",
+        "formula": "Al",
+        "mass_g": 2.4520689645423537e-10,
+        "wetFraction": 0,
+        "wetArea": 0,
+        "totalArea": 6.233223714957603e-7
+      }
+    ],
+    "samples": [
+      {
+        "t": 30.09999999999957,
+        "p": 0,
+        "contact": 0
+      },
+      {
+        "t": 60.09999999999787,
+        "p": 0.5218644764312365,
+        "contact": 0
+      },
+      {
+        "t": 90.09999999999617,
+        "p": 0.5218644764312365,
+        "contact": 0
+      },
+      {
+        "t": 120.09999999999447,
+        "p": 0.5218644764312365,
+        "contact": 0
+      },
+      {
+        "t": 150.0000000000115,
+        "p": 0.5218644764312365,
+        "contact": 0
+      },
+      {
+        "t": 180.00000000003539,
+        "p": 0.5218644764312365,
+        "contact": 0
+      },
+      {
+        "t": 210.00000000005926,
+        "p": 0.5218644764312365,
+        "contact": 0
+      }
+    ]
+  },
+  {
+    "id": "kmno4_hcl",
+    "phase": "error",
+    "error": "Chưa đạt trạng thái cuối sau 180 giây mô phỏng. Kiểm tra điều kiện của bài.",
+    "p": 0.9999999999649183,
+    "replay": 0.9999999639527604,
+    "contactProgress": 0.9990267839702365,
+    "contact": 1,
+    "rate": 0,
+    "unmet": [
+      "Thiếu lượng hoặc pha phù hợp của KMnO4.",
+      "Thiếu lượng hoặc pha phù hợp của HCl."
+    ],
+    "limit": 1,
+    "contents": [
+      {
+        "formula": "H2O",
+        "phase": "l",
+        "mass_g": 29.559595276948755,
+        "moles": 1.6408323772938527,
+        "concentration_M": 54.739084426548764
+      },
+      {
+        "formula": "HCl",
+        "phase": "aq",
+        "moles": 5.613080224957986e-13,
+        "initialMoles": 0.016,
+        "mass_g": 2.046416788415183e-11,
+        "concentration_M": 1.872554909196194e-11
+      },
+      {
+        "formula": "KMnO4",
+        "phase": "s",
+        "moles": 7.016675541849228e-14,
+        "initialMoles": 0.002,
+        "mass_g": 1.1088592692295172e-11
+      },
+      {
+        "formula": "KCl",
+        "moles": 0.0019999999999298344,
+        "mass_g": 0.1490959999947693,
+        "concentration_M": 0.06672111689422773,
+        "state": "aq",
+        "phase": "aq"
+      },
+      {
+        "formula": "MnCl2",
+        "moles": 0.0019999999999298344,
+        "mass_g": 0.2516759999911705,
+        "concentration_M": 0.06672111689422773,
+        "state": "aq",
+        "phase": "aq"
+      }
+    ],
+    "grains": [],
+    "contacts": [],
+    "samples": [
+      {
+        "t": 30.09999999999957,
+        "p": 0.999938546933804,
+        "contact": 0.8892536544458529
+      },
+      {
+        "t": 60.09999999999787,
+        "p": 0.9999999999649183,
+        "contact": 1
+      },
+      {
+        "t": 90.09999999999617,
+        "p": 0.9999999999649183,
+        "contact": 1
+      },
+      {
+        "t": 120.09999999999447,
+        "p": 0.9999999999649183,
+        "contact": 1
+      },
+      {
+        "t": 150.0000000000115,
+        "p": 0.9999999999649183,
+        "contact": 1
+      },
+      {
+        "t": 180.00000000003539,
+        "p": 0.9999999999649183,
+        "contact": 1
+      }
+    ]
+  },
+  {
+    "id": "feoh3_hcl",
+    "phase": "error",
+    "error": "Chưa đạt trạng thái cuối sau 180 giây mô phỏng. Kiểm tra điều kiện của bài.",
+    "p": 0.9999999998971951,
+    "replay": 0.9999999945209613,
+    "contactProgress": 0.9812367038667669,
+    "contact": 1,
+    "rate": 0,
+    "unmet": [
+      "Thiếu lượng hoặc pha phù hợp của Fe(OH)3.",
+      "Thiếu lượng hoặc pha phù hợp của HCl."
+    ],
+    "limit": 1,
+    "contents": [
+      {
+        "formula": "H2O",
+        "phase": "l",
+        "mass_g": 29.943473654080115,
+        "moles": 1.662141196451852,
+        "concentration_M": 55.319777309277804
+      },
+      {
+        "formula": "HCl",
+        "phase": "aq",
+        "moles": 3.0841447424363386e-13,
+        "initialMoles": 0.003,
+        "mass_g": 1.1244174901974405e-11,
+        "concentration_M": 1.0264723641130236e-11
+      },
+      {
+        "formula": "Fe(OH)3",
+        "phase": "s",
+        "moles": 1.028058795862416e-13,
+        "initialMoles": 0.001,
+        "mass_g": 1.0986453127863295e-11
+      },
+      {
+        "formula": "FeCl3",
+        "moles": 0.0009999999998971942,
+        "mass_g": 0.1621949999833254,
+        "concentration_M": 0.03328223704561376,
+        "state": "aq",
+        "phase": "aq"
+      }
+    ],
+    "grains": [],
+    "contacts": [],
+    "samples": [
+      {
+        "t": 30.09999999999957,
+        "p": 0.9956088998961908,
+        "contact": 0.938587097001346
+      },
+      {
+        "t": 60.09999999999787,
+        "p": 0.9999999998971951,
+        "contact": 1
+      },
+      {
+        "t": 90.09999999999617,
+        "p": 0.9999999998971951,
+        "contact": 1
+      },
+      {
+        "t": 120.09999999999447,
+        "p": 0.9999999998971951,
+        "contact": 1
+      },
+      {
+        "t": 150.0000000000115,
+        "p": 0.9999999998971951,
+        "contact": 1
+      },
+      {
+        "t": 180.00000000003539,
+        "p": 0.9999999998971951,
+        "contact": 1
+      }
+    ]
+  }
+]

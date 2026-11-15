@@ -41,9 +41,10 @@ import { pourContactRemaining } from '../../science/pourContactActivity';
 import { Quaternion, Vector3 } from 'three';
 import { autoSolid, autoSolidGravity, AUTO_DONOR_SCALE, solidFlightPosition } from './autoSolid';
 import { vesselLocalToWorld, vesselBodyTransform } from '../../science/vesselScale';
-import { scenePointToSI } from '../../science/sceneUnits';
+import { scenePointToSI, metersPerModelUnit } from '../../science/sceneUnits';
 import type { StockContactBirth } from '../../physical/stockTypes';
-import { dropSchedule, landedDropFraction } from '../../handling/doseTiming';
+import { dropSchedule, landedScheduledDropFraction } from '../../handling/doseTiming';
+import { verticalDropFlight, AUTO_DROPPER_TIP_LOCAL_Y, AUTO_DROPPER_SCALE } from '../../handling/dropFlight';
 import { automaticDonors, type AutoDonor } from './autoDonors';
 import { partitionLeadIodide } from '../../engine/leadIodidePhase';
 import { createGoldenRainSample, goldenRainInventory, GOLDEN_RAIN_PROTOCOL } from '../../science/goldenRainProtocol';
@@ -104,6 +105,7 @@ export class AutoExperiment {
   automaticCamera = true;
   error: string | null = null;
   flame = false;
+  electricalHeat_J = 0;
   stirringIntensity = 0.65;
   get stirringDrive() {
     if (this.sample.volume_ml <= 0.2 || this.emission) return 0;
@@ -131,6 +133,14 @@ export class AutoExperiment {
     intensity: 5, fuelLevel_ml: 120, ethanolVolumeFraction: 0.96 };
   private heat(dt: number) {
     if (this.lesson) return;
+    if (this.protocol === 'golden-rain') {
+      const heating = this.sourceEnabled && this.heatTarget > 25 && this.phase === 'condition';
+      const power = heating ? GOLDEN_RAIN_PROTOCOL.heaterPower_W : 0;
+      this.flame = heating;
+      this.electricalHeat_J += power * dt;
+      this.sample = { ...this.sample, ...stepVesselThermal(this.sample, dt, power) };
+      return;
+    }
     const ignition = this.program.chemistry.conditions?.activation === 'ignition' || this.emission;
     const mouth = vesselLocalToWorld(this.sample, [0, vesselInterior(this.sample.type).topY, 0]);
     this.lamp = { ...this.lamp, position: ignition ? [mouth[0], mouth[1] - 1.1, mouth[2]] : [0, -0.21, 0],
@@ -237,7 +247,7 @@ export class AutoExperiment {
         : `${d?.row.phase === 's' ? 'Thêm chất rắn' : 'Rót dung dịch'} ${d?.row.formula} · ${((d?.solutionVolume_ml ?? 0) * (d?.fraction ?? 0)).toFixed(2)} / ${(d?.solutionVolume_ml ?? 0).toFixed(2)} mL.${this.progress > 0.001 ? ' ' + this.program.explain.observation_vi : ''}`
       : this.phase === 'return' ? d?.row.phase === 'g' ? 'Đóng van cấp khí, giữ ống dẫn và chờ dòng trong ống ngừng.' : 'Dựng thẳng, ngừng dòng và đặt dụng cụ về khay.'
       : this.phase === 'condition' ? this.protocol === 'golden-rain' && this.goldenRainStage === 'dissolve'
-        ? `Gia nhiệt bằng đèn cồn đến ${GOLDEN_RAIN_PROTOCOL.heatTarget_c} °C và chờ phần PbI₂ rắn tan hết. ${this.sample.temperature_c.toFixed(1)} °C · ${goldenRainInventory(this.sample).solid_g.toPrecision(3)} g còn rắn.`
+        ? `Gia nhiệt bằng đế điện đến ${GOLDEN_RAIN_PROTOCOL.heatTarget_c} °C và chờ phần PbI₂ rắn tan hết. ${this.sample.temperature_c.toFixed(1)} °C · ${goldenRainInventory(this.sample).solid_g.toPrecision(3)} g còn rắn.`
         : this.conditionText
       : this.phase === 'react' ? this.program.explain.observation_vi
       : this.phase === 'cool' ? `Tắt nguồn nhiệt, để dung dịch nguội tự nhiên. ${this.sample.temperature_c.toFixed(1)} °C; mầm và phiến PbI₂ sẽ phát triển theo độ tan.`
@@ -272,8 +282,10 @@ export class AutoExperiment {
       donor.doseStartedAt = this.elapsed;
       if (donor.doseMode === 'dropper') {
         donor.dropStartedAt = this.elapsed;
-        donor.dropFallHeight = Math.max(0, this.donorLip[1] - (this.sample.position[1] + vesselLiquidSurfaceY(this.sample)));
-        donor.dropSchedule = dropSchedule(donor.solutionVolume_ml, donor.dropFallHeight);
+        donor.dropFlight = verticalDropFlight(this.donorLip, this.sample.position[1] + vesselLiquidSurfaceY(this.sample),
+          metersPerModelUnit(getVesselProfile(this.sample.type, this.sample.capacity_ml)));
+        donor.dropFallHeight = donor.dropFlight.start[1] - donor.dropFlight.target[1];
+        donor.dropSchedule = dropSchedule(donor.solutionVolume_ml, donor.dropFallHeight, donor.dropFlight.gravity);
       }
       // A gas donor uses a connected inlet after the open liquid transfers.
       if (this.donors[this.donorIndex].row.phase === 'g') this.sample.isSealed = true;
@@ -344,7 +356,9 @@ export class AutoExperiment {
       }
       if (portion > 0) {
         const lip = this.donorLip, inlet = donor.row.phase === 'g' ? gasInlet(this, this.gasOrdinal(this.donorIndex)) : undefined;
+        const dropContact = donor.doseMode === 'dropper' ? donor.dropFlight?.target : undefined;
         this.sample.recentPourContact = { point: inlet ? [inlet[0], inlet[1] - 1.04, inlet[2]]
+          : dropContact ? [dropContact[0] - this.sample.position[0], dropContact[1] - this.sample.position[1], dropContact[2] - this.sample.position[2]]
           : [solidContact?.[0] ?? lip[0] + 0.12, vesselLiquidSurfaceY(this.sample), solidContact?.[2] ?? lip[2]], remaining_s: 0.25, expiresAt_ms: 0, color: donor.color };
       }
       this.advanceContact(dt);
@@ -353,7 +367,7 @@ export class AutoExperiment {
       this.donorIndex++;
       this.enter(this.donorIndex < this.donors.length ? 'carry' : 'condition');
     } else if (this.phase === 'condition') {
-      this.flame = this.lesson ? this.heatTarget > 25 || this.emission : burnerIsBurning(this.lamp);
+      if (this.protocol !== 'golden-rain') this.flame = this.lesson ? this.heatTarget > 25 || this.emission : burnerIsBurning(this.lamp);
       if (this.phaseTime > 180 && this.protocol !== 'golden-rain') throw new Error('Nguồn nhiệt không đưa mẫu đến điều kiện cần thiết.');
       if (this.protocol === 'golden-rain') {
         const state = goldenRainInventory(this.sample);
@@ -363,7 +377,7 @@ export class AutoExperiment {
           this.baseline = structuredClone(this.sample);
           this.kinetics = plan.kinetics; this.replayProgress = 0; this.enter('react');
         } else if (this.goldenRainStage === 'dissolve' && this.sample.temperature_c >= GOLDEN_RAIN_PROTOCOL.heatTarget_c && state.clear) {
-          this.heatTarget = 25; this.goldenRainStage = 'cool'; this.enter('cool');
+          this.heatTarget = 25; this.flame = false; this.goldenRainStage = 'cool'; this.enter('cool');
         }
       } else if (this.phaseTime >= 4 && (this.lesson || this.heatTarget <= 25 || this.sample.temperature_c >= this.heatTarget)) {
         if (!this.lesson && (this.program.chemistry.conditions?.activation === 'ignition' || this.emission)) {
@@ -607,12 +621,14 @@ export class AutoExperiment {
   }
   donorPoseAt(time: number): { position: [number, number, number]; tilt: number } {
     if (this.donors[this.donorIndex]?.row.phase === 'g') return { position: gasSourceHome(this.gasOrdinal(this.donorIndex), this.donors[this.donorIndex].row.moles), tilt: 0 };
-    const home = donorHome(this.donorIndex), hover: [number, number, number] = [-1, 2.8, 0];
+    const donor = this.donors[this.donorIndex];
+    const home = donorHome(this.donorIndex), hover: [number, number, number] = donor?.doseMode === 'dropper'
+      ? [this.sample.position[0], this.sample.position[1] + getVesselProfile(this.sample.type).lipLocal[1] + 0.4 - AUTO_DROPPER_TIP_LOCAL_Y * AUTO_DROPPER_SCALE, this.sample.position[2]]
+      : [-1, 2.8, 0];
     const t = this.phase === 'carry' ? smooth(time / AUTO_TIMING.carry)
       : this.phase === 'return' ? 1 - smooth((time - AUTO_TIMING.upright) / AUTO_TIMING.return) : this.phase === 'dose' ? 1 : 0;
     const position = home.map((n, k) => n + (hover[k] - n) * t) as [number, number, number];
     position[1] += Math.sin(t * Math.PI) * 0.8;
-    const donor = this.donors[this.donorIndex];
     if (donor?.doseMode === 'dropper') return { position, tilt: 0 };
     const remaining = this.phase === 'dose' ? 1 - smooth((time - AUTO_TIMING.tilt - AUTO_TIMING.flight) / AUTO_TIMING.flow) : 0;
     const pouringTilt = this.phase === 'dose' || this.phase === 'return' ? donorPouringTilt(remaining) : 0;
@@ -624,7 +640,7 @@ export class AutoExperiment {
     const dose = donor?.solid;
     if (dose) return dose.arrived / dose.pieces.length;
     if (donor?.doseMode === 'dropper' && donor.dropSchedule && donor.dropStartedAt !== undefined)
-      return landedDropFraction(this.elapsed - donor.dropStartedAt, donor.solutionVolume_ml, donor.dropFallHeight ?? 1);
+      return landedScheduledDropFraction(this.elapsed - donor.dropStartedAt, donor.solutionVolume_ml, donor.dropSchedule);
     return smooth((this.phaseTime - AUTO_TIMING.tilt - AUTO_TIMING.flight) / AUTO_TIMING.flow);
   }
   get streamActive() {
@@ -639,7 +655,7 @@ export class AutoExperiment {
   }
   donorLipAt(time: number): [number, number, number] {
     const { position, tilt } = this.donorPoseAt(time);
-    if (this.donors[this.donorIndex]?.doseMode === 'dropper') return [position[0], position[1] - 0.61 * 0.6, position[2]];
+    if (this.donors[this.donorIndex]?.doseMode === 'dropper') return [position[0], position[1] + AUTO_DROPPER_TIP_LOCAL_Y * AUTO_DROPPER_SCALE, position[2]];
     const x = 0.35 * 0.6, y = 1.48 * 0.6;
     return [position[0] + x * Math.cos(tilt) - y * Math.sin(tilt),
       position[1] + x * Math.sin(tilt) + y * Math.cos(tilt), position[2]];

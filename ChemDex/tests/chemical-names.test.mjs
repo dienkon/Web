@@ -85,3 +85,12 @@ test('generated chemistry answers inherit English naming without dropping task i
   assert.match(params.config.systemInstruction,/standard English.*IUPAC/);
   assert.equal(params.config.temperature,0.2);assert.equal(params.contents,'Hỏi về muối ăn');
 });
+
+
+test('Golden Rain and crystal colour prose do not become the element Gold',()=>{
+  const prose='Mưa vàng PbI₂ · đun tan và làm nguội. Phiến vàng lắng dần, ánh vàng trong kết tủa vàng.';
+  assert.equal(chemicalText(prose),prose);
+  const context={};vm.runInNewContext(chemicalSource('globalThis.caption='+JSON.stringify(prose)+';'),context);
+  assert.equal(context.caption,prose);
+  assert.equal(chemicalText('Vàng',{exact:true}),'Gold');
+});

@@ -989,7 +989,7 @@ export function LabScene() {
         )}
         
         {/* Chemical Bottle/Dropper Pouring Animation */}
-        {pouringChemical?.chemical === 'Na' ? (
+          {pouringChemical?.chemical === 'Na' && pouringChemical.source?.kind !== 'spatula' ? (
           <SodiumDoseAnimation key={pouringChemical.id} doseId={pouringChemical.id} targetId={pouringChemical.targetId}
             amount={pouringChemical.amount} onComplete={() => clearPour(pouringChemical.id)} />
         ) : pouringChemical && (

@@ -9,7 +9,8 @@ import { getSolubilityLimit_g_100ml } from '../simulation/chemistry/SolubilityEn
  * https://citadel.sjfc.edu/faculty/aignatchenko/Golden-rain.html */
 export const GOLDEN_RAIN_PROTOCOL = {
   water_g: 50, leadNitrate_mol: 0.0003125, potassiumIodide_mol: 0.000625,
-  heatTarget_c: 90, clearSolidFraction: 0.001, finalTemperatureAboveAmbient_c: 3,
+  // Illustrative coupled electrical power for the virtual heating plate.
+  heaterPower_W: 350, heatTarget_c: 90, clearSolidFraction: 0.001, finalTemperatureAboveAmbient_c: 3,
   source: 'https://citadel.sjfc.edu/faculty/aignatchenko/Golden-rain.html',
 } as const;
 

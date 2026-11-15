@@ -1,0 +1,725 @@
+{
+  "generatedAt": "2026-11-15T09:51:12.872Z",
+  "origin": "http://127.0.0.1:6767",
+  "assertions": {
+    "smallDoseUsesRenderedPipette": true,
+    "smallDoseHasSeparateDrops": true,
+    "coldFineYellowMesh": true,
+    "heatHasVisibleHotplateAndIndicator": true,
+    "hotplateSitsBelowGlass": true,
+    "heatingHasNoIntrusiveFlame": true,
+    "heatOffAfterDissolving": true,
+    "hotSolidDissolved": true,
+    "coolingCrystalMesh": true,
+    "plateGeometryIsThin": true,
+    "settledAtLeast90Percent": true,
+    "traceSedimentPreservesBottomVisibility": true,
+    "sequenceUsesCooling": true,
+    "finiteMassConserved": true,
+    "liquidAndCanvasVisible": true,
+    "reactionViewHasNoSidePanels": true,
+    "noRuntimeOrShaderErrors": true,
+    "sourceAndAssetResourcesLoaded": true,
+    "vietnameseColorWordPreserved": true
+  },
+  "stages": [
+    {
+      "label": "Liều nhỏ dùng pipet và giọt riêng",
+      "elapsed_s": 11.800000000000166,
+      "phase": "dose",
+      "caption": "Nhỏ từng giọt Pb(NO3)2 bằng pipet · 0.00 / 1.56 mL.",
+      "temperature_c": 24.98849700532414,
+      "volume_ml": 47.26855328105387,
+      "inventory": {
+        "water_g": 47.26855328105387,
+        "total_g": 0,
+        "solid_g": 0,
+        "dissolved_g": 0,
+        "plates_g": 0,
+        "dissolvedCapacity_g": 0.046190331500473435,
+        "clear": false,
+        "expectedColdSolid_g": 0
+      },
+      "accountedMass_g": 50.207253750000014,
+      "massError_g": 1.4210854715202004e-14,
+      "settledFraction": 0,
+      "cloudiness": 0,
+      "flame": false,
+      "stirringDrive": 0,
+      "drawn": [],
+      "bed": {
+        "visible": false,
+        "color": "f8fafc",
+        "amount_g": 0,
+        "thickness": 0,
+        "opacity": 0,
+        "transparent": true
+      },
+      "liquidVisible": true,
+      "transfer": {
+        "formula": "Pb(NO3)2",
+        "doseMode": "dropper",
+        "volume_ml": 1.5624999999999998,
+        "schedule": {
+          "count": 32,
+          "flightTime": 0.11909922058420672,
+          "period": 0.6,
+          "releaseStart": 0.75,
+          "lastImpact": 19.469099220584205
+        },
+        "fraction": 0,
+        "activeDropper": true,
+        "mountedDropper": true,
+        "dropperVisible": true,
+        "dropsVisible": true,
+        "drawnDrops": 1,
+        "streamVisible": false
+      },
+      "heatingApparatus": {
+        "burnerMounted": false,
+        "burnerVisible": false,
+        "flameMounted": false,
+        "flameVisible": false,
+        "hotplateMounted": true,
+        "hotplateVisible": true,
+        "vesselBaseY": 0.040000000000000036,
+        "hotplateBounds": {
+          "min": [
+            -1.0499999523162842,
+            2.2351741811588166e-10,
+            -1.024999976158142
+          ],
+          "max": [
+            1.0499999523162842,
+            0.03200000005215406,
+            1.0399999998882412
+          ]
+        },
+        "heatIndicatorMounted": true,
+        "heatIndicatorVisible": false
+      },
+      "camera": {
+        "position": [
+          4.200510522232573,
+          3.700191445837215,
+          6.100765783348859
+        ],
+        "fov": 38
+      },
+      "canvas": {
+        "x": 0,
+        "y": 48,
+        "width": 1440,
+        "height": 808,
+        "top": 48,
+        "right": 1440,
+        "bottom": 856,
+        "left": 0
+      },
+      "renderCalls": 29,
+      "renderer": "WebKit WebGL",
+      "panelsOpen": 0,
+      "error": null,
+      "screenshot": "00-small-dose-pipette.png"
+    },
+    {
+      "label": "Kết tủa vàng mịn sau khi trộn lạnh",
+      "elapsed_s": 51.899999999998336,
+      "phase": "condition",
+      "caption": "Mẫu ở nhiệt độ thường.",
+      "temperature_c": 25.033208195018965,
+      "volume_ml": 50.11108430926149,
+      "inventory": {
+        "water_g": 49.994949294584636,
+        "total_g": 0.144051372182974,
+        "solid_g": 0.0951446917489145,
+        "dissolved_g": 0.048906680434059505,
+        "plates_g": 0,
+        "dissolvedCapacity_g": 0.048914901599563215,
+        "clear": false,
+        "expectedColdSolid_g": 0.09518130924751753
+      },
+      "accountedMass_g": 50.20725375000009,
+      "massError_g": 9.237055564881302e-14,
+      "settledFraction": 0,
+      "cloudiness": 0.7986489810108272,
+      "flame": false,
+      "stirringDrive": 0,
+      "drawn": [
+        {
+          "key": "PbI2",
+          "morphology": "fine_powder",
+          "color": "#eab308",
+          "physicalParcels": 128,
+          "suspendedParcels": 128,
+          "representedMass_g": 0.09514469174891448,
+          "settledMass_g": 0,
+          "drawn": {
+            "visible": true,
+            "count": 128,
+            "geometryType": "IcosahedronGeometry",
+            "bounds": {
+              "min": [
+                -0.4253253936767578,
+                -0.4253253936767578,
+                -0.4253253936767578
+              ],
+              "max": [
+                0.4253253936767578,
+                0.4253253936767578,
+                0.4253253936767578
+              ]
+            },
+            "material": {
+              "color": "eab308",
+              "roughness": 0.85,
+              "metalness": 0,
+              "opacity": 1,
+              "clearcoat": 0
+            },
+            "opacityRange": [
+              0.2864041030406952,
+              0.913634181022644
+            ]
+          }
+        }
+      ],
+      "bed": {
+        "visible": false,
+        "color": "f8fafc",
+        "amount_g": 0,
+        "thickness": 0,
+        "opacity": 0,
+        "transparent": true
+      },
+      "liquidVisible": true,
+      "transfer": {
+        "activeDropper": false,
+        "mountedDropper": false,
+        "dropperVisible": false,
+        "dropsVisible": false,
+        "drawnDrops": 0,
+        "streamVisible": false
+      },
+      "heatingApparatus": {
+        "burnerMounted": false,
+        "burnerVisible": false,
+        "flameMounted": false,
+        "flameVisible": false,
+        "hotplateMounted": true,
+        "hotplateVisible": true,
+        "vesselBaseY": 0.040000000000000036,
+        "hotplateBounds": {
+          "min": [
+            -1.0499999523162842,
+            2.2351741811588166e-10,
+            -1.024999976158142
+          ],
+          "max": [
+            1.0499999523162842,
+            0.03200000005215406,
+            1.0399999998882412
+          ]
+        },
+        "heatIndicatorMounted": true,
+        "heatIndicatorVisible": false
+      },
+      "camera": {
+        "position": [
+          3.4012738600848142,
+          2.7015923251060165,
+          5.301273860084813
+        ],
+        "fov": 38
+      },
+      "canvas": {
+        "x": 0,
+        "y": 48,
+        "width": 1440,
+        "height": 808,
+        "top": 48,
+        "right": 1440,
+        "bottom": 856,
+        "left": 0
+      },
+      "renderCalls": 27,
+      "renderer": "WebKit WebGL",
+      "panelsOpen": 0,
+      "error": null,
+      "screenshot": "01-cold-yellow-precipitate.png"
+    },
+    {
+      "label": "Bếp gia nhiệt đang đun và kết tủa đang tan",
+      "elapsed_s": 83.29999999999656,
+      "phase": "condition",
+      "caption": "Gia nhiệt bằng đế điện đến 90 °C và chờ phần PbI₂ rắn tan hết. 60.1 °C · 0.0368 g còn rắn.",
+      "temperature_c": 60.05789859091422,
+      "volume_ml": 50.11108430926149,
+      "inventory": {
+        "water_g": 49.994949294584636,
+        "total_g": 0.14406499999999953,
+        "solid_g": 0.03675821649870171,
+        "dissolved_g": 0.10730678350129783,
+        "plates_g": 0,
+        "dissolvedCapacity_g": 0.10971169833847992,
+        "clear": false,
+        "expectedColdSolid_g": 0.09519493706454304
+      },
+      "accountedMass_g": 50.20725375000009,
+      "massError_g": 9.237055564881302e-14,
+      "settledFraction": 0,
+      "cloudiness": 0.4809603788775375,
+      "flame": true,
+      "stirringDrive": 0.65,
+      "drawn": [
+        {
+          "key": "PbI2",
+          "morphology": "fine_powder",
+          "color": "#eab308",
+          "physicalParcels": 128,
+          "suspendedParcels": 128,
+          "representedMass_g": 0.03675821649870171,
+          "settledMass_g": 0,
+          "drawn": {
+            "visible": true,
+            "count": 128,
+            "geometryType": "IcosahedronGeometry",
+            "bounds": {
+              "min": [
+                -0.4253253936767578,
+                -0.4253253936767578,
+                -0.4253253936767578
+              ],
+              "max": [
+                0.4253253936767578,
+                0.4253253936767578,
+                0.4253253936767578
+              ]
+            },
+            "material": {
+              "color": "eab308",
+              "roughness": 0.85,
+              "metalness": 0,
+              "opacity": 1,
+              "clearcoat": 0
+            },
+            "opacityRange": [
+              0.1524808555841446,
+              0.7820746898651123
+            ]
+          }
+        }
+      ],
+      "bed": {
+        "visible": false,
+        "color": "f8fafc",
+        "amount_g": 0,
+        "thickness": 0,
+        "opacity": 0,
+        "transparent": true
+      },
+      "liquidVisible": true,
+      "transfer": {
+        "activeDropper": false,
+        "mountedDropper": false,
+        "dropperVisible": false,
+        "dropsVisible": false,
+        "drawnDrops": 0,
+        "streamVisible": false
+      },
+      "heatingApparatus": {
+        "burnerMounted": false,
+        "burnerVisible": false,
+        "flameMounted": false,
+        "flameVisible": false,
+        "hotplateMounted": true,
+        "hotplateVisible": true,
+        "vesselBaseY": 0.040000000000000036,
+        "hotplateBounds": {
+          "min": [
+            -1.0499999523162842,
+            2.2351741811588166e-10,
+            -1.024999976158142
+          ],
+          "max": [
+            1.0499999523162842,
+            0.03200000005215406,
+            1.0399999998882412
+          ]
+        },
+        "heatIndicatorMounted": true,
+        "heatIndicatorVisible": true
+      },
+      "camera": {
+        "position": [
+          3.4000000000000967,
+          2.7000000000001223,
+          5.300000000000097
+        ],
+        "fov": 38
+      },
+      "canvas": {
+        "x": 0,
+        "y": 48,
+        "width": 1440,
+        "height": 808,
+        "top": 48,
+        "right": 1440,
+        "bottom": 856,
+        "left": 0
+      },
+      "renderCalls": 28,
+      "renderer": "WebKit WebGL",
+      "panelsOpen": 0,
+      "error": null,
+      "screenshot": "02-heating-dissolution.png"
+    },
+    {
+      "label": "Dung dịch nóng trong sau khi PbI₂ tan",
+      "elapsed_s": 105.29999999999531,
+      "phase": "cool",
+      "caption": "Tắt nguồn nhiệt, để dung dịch nguội tự nhiên. 90.0 °C; mầm và phiến PbI₂ sẽ phát triển theo độ tan.",
+      "temperature_c": 90.01016749791751,
+      "volume_ml": 50.11108430926149,
+      "inventory": {
+        "water_g": 49.994949294584636,
+        "total_g": 0.14406499999999972,
+        "solid_g": 0,
+        "dissolved_g": 0.14406499999999972,
+        "plates_g": 0,
+        "dissolvedCapacity_g": 0.18310976824279407,
+        "clear": true,
+        "expectedColdSolid_g": 0.09519493706454324
+      },
+      "accountedMass_g": 50.20725375000009,
+      "massError_g": 9.237055564881302e-14,
+      "settledFraction": 0,
+      "cloudiness": 0,
+      "flame": false,
+      "stirringDrive": 0,
+      "drawn": [],
+      "bed": {
+        "visible": false,
+        "color": "f8fafc",
+        "amount_g": 0,
+        "thickness": 0,
+        "opacity": 0,
+        "transparent": true
+      },
+      "liquidVisible": true,
+      "transfer": {
+        "activeDropper": false,
+        "mountedDropper": false,
+        "dropperVisible": false,
+        "dropsVisible": false,
+        "drawnDrops": 0,
+        "streamVisible": false
+      },
+      "heatingApparatus": {
+        "burnerMounted": false,
+        "burnerVisible": false,
+        "flameMounted": false,
+        "flameVisible": false,
+        "hotplateMounted": true,
+        "hotplateVisible": true,
+        "vesselBaseY": 0.040000000000000036,
+        "hotplateBounds": {
+          "min": [
+            -1.0499999523162842,
+            2.2351741811588166e-10,
+            -1.024999976158142
+          ],
+          "max": [
+            1.0499999523162842,
+            0.03200000005215406,
+            1.0399999998882412
+          ]
+        },
+        "heatIndicatorMounted": true,
+        "heatIndicatorVisible": false
+      },
+      "camera": {
+        "position": [
+          3.426010860247811,
+          2.7173405734985403,
+          5.334681146997081
+        ],
+        "fov": 38
+      },
+      "canvas": {
+        "x": 0,
+        "y": 48,
+        "width": 1440,
+        "height": 808,
+        "top": 48,
+        "right": 1440,
+        "bottom": 856,
+        "left": 0
+      },
+      "renderCalls": 26,
+      "renderer": "WebKit WebGL",
+      "panelsOpen": 0,
+      "error": null,
+      "screenshot": "03-hot-clear-dissolution.png"
+    },
+    {
+      "label": "Phiến vàng hình thành và lắng khi nguội",
+      "elapsed_s": 306.80000000004964,
+      "phase": "cool",
+      "caption": "Tắt nguồn nhiệt, để dung dịch nguội tự nhiên. 73.6 °C; mầm và phiến PbI₂ sẽ phát triển theo độ tan.",
+      "temperature_c": 73.64797620240043,
+      "volume_ml": 50.11108430926149,
+      "inventory": {
+        "water_g": 49.994949294584636,
+        "total_g": 0.14406499999999925,
+        "solid_g": 0.0030114991953080145,
+        "dissolved_g": 0.14105350080469123,
+        "plates_g": 0.0030114991953080145,
+        "dissolvedCapacity_g": 0.14056844851675573,
+        "clear": false,
+        "expectedColdSolid_g": 0.09519493706454277
+      },
+      "accountedMass_g": 50.20725375000009,
+      "massError_g": 9.237055564881302e-14,
+      "settledFraction": 0.9883386956050491,
+      "cloudiness": 0.0001759558366010161,
+      "flame": false,
+      "stirringDrive": 0,
+      "drawn": [
+        {
+          "key": "PbI2|CRYSTAL_PLATE",
+          "morphology": "crystalline",
+          "color": "#eab308",
+          "physicalParcels": 118,
+          "suspendedParcels": 118,
+          "representedMass_g": 0.003011499195308023,
+          "settledMass_g": 0.0029763811865063778,
+          "drawn": {
+            "visible": true,
+            "count": 118,
+            "geometryType": "CylinderGeometry",
+            "bounds": {
+              "min": [
+                -0.6235383152961731,
+                -0.029999999329447746,
+                -0.7200000286102295
+              ],
+              "max": [
+                0.6235383152961731,
+                0.029999999329447746,
+                0.7200000286102295
+              ]
+            },
+            "material": {
+              "color": "eab308",
+              "roughness": 0.18,
+              "metalness": 0,
+              "opacity": 1,
+              "clearcoat": 0.65
+            },
+            "opacityRange": [
+              0.9193588495254517,
+              0.9198715090751648
+            ]
+          }
+        }
+      ],
+      "bed": {
+        "visible": true,
+        "color": "eab308",
+        "amount_g": 0.0029763811865063778,
+        "thickness": 0.00001249822402993317,
+        "opacity": 0.0019843007805402783,
+        "transparent": true
+      },
+      "liquidVisible": true,
+      "transfer": {
+        "activeDropper": false,
+        "mountedDropper": false,
+        "dropperVisible": false,
+        "dropsVisible": false,
+        "drawnDrops": 0,
+        "streamVisible": false
+      },
+      "heatingApparatus": {
+        "burnerMounted": false,
+        "burnerVisible": false,
+        "flameMounted": false,
+        "flameVisible": false,
+        "hotplateMounted": true,
+        "hotplateVisible": true,
+        "vesselBaseY": 0.040000000000000036,
+        "hotplateBounds": {
+          "min": [
+            -1.0499999523162842,
+            2.2351741811588166e-10,
+            -1.024999976158142
+          ],
+          "max": [
+            1.0499999523162842,
+            0.03200000005215406,
+            1.0399999998882412
+          ]
+        },
+        "heatIndicatorMounted": true,
+        "heatIndicatorVisible": false
+      },
+      "camera": {
+        "position": [
+          3.4000000000000004,
+          2.7,
+          5.3
+        ],
+        "fov": 38
+      },
+      "canvas": {
+        "x": 0,
+        "y": 48,
+        "width": 1440,
+        "height": 808,
+        "top": 48,
+        "right": 1440,
+        "bottom": 856,
+        "left": 0
+      },
+      "renderCalls": 28,
+      "renderer": "WebKit WebGL",
+      "panelsOpen": 0,
+      "error": null,
+      "screenshot": "04-cooling-golden-plates.png"
+    },
+    {
+      "label": "Lớp phiến vàng lắng và dịch phía trên trong",
+      "elapsed_s": 2248.800000001023,
+      "phase": "complete",
+      "caption": "Đã hoàn tất trình tự. Có thể xem lại hoặc chọn thí nghiệm tiếp theo.",
+      "temperature_c": 27.96545061219753,
+      "volume_ml": 50.11108430926149,
+      "inventory": {
+        "water_g": 49.994949294584636,
+        "total_g": 0.14406499999999975,
+        "solid_g": 0.09107795710506984,
+        "dissolved_g": 0.052987042894929906,
+        "plates_g": 0.09107795710506984,
+        "dissolvedCapacity_g": 0.0529697399655341,
+        "clear": false,
+        "expectedColdSolid_g": 0.09519493706454327
+      },
+      "accountedMass_g": 50.20725375000009,
+      "massError_g": 9.237055564881302e-14,
+      "settledFraction": 0.999980306391186,
+      "cloudiness": 0.000009255621866266495,
+      "flame": false,
+      "stirringDrive": 0,
+      "drawn": [
+        {
+          "key": "PbI2|CRYSTAL_PLATE",
+          "morphology": "crystalline",
+          "color": "#eab308",
+          "physicalParcels": 120,
+          "suspendedParcels": 120,
+          "representedMass_g": 0.09107795710508361,
+          "settledMass_g": 0.09107616345141104,
+          "drawn": {
+            "visible": true,
+            "count": 120,
+            "geometryType": "CylinderGeometry",
+            "bounds": {
+              "min": [
+                -0.6235383152961731,
+                -0.029999999329447746,
+                -0.7200000286102295
+              ],
+              "max": [
+                0.6235383152961731,
+                0.029999999329447746,
+                0.7200000286102295
+              ]
+            },
+            "material": {
+              "color": "eab308",
+              "roughness": 0.18,
+              "metalness": 0,
+              "opacity": 1,
+              "clearcoat": 0.65
+            },
+            "opacityRange": [
+              0.9199661612510681,
+              0.9199986457824707
+            ]
+          }
+        }
+      ],
+      "bed": {
+        "visible": true,
+        "color": "eab308",
+        "amount_g": 0.09107616345141104,
+        "thickness": 0.0003824410326747074,
+        "opacity": 0.05896899601271442,
+        "transparent": true
+      },
+      "liquidVisible": true,
+      "transfer": {
+        "activeDropper": false,
+        "mountedDropper": false,
+        "dropperVisible": false,
+        "dropsVisible": false,
+        "drawnDrops": 0,
+        "streamVisible": false
+      },
+      "heatingApparatus": {
+        "burnerMounted": false,
+        "burnerVisible": false,
+        "flameMounted": false,
+        "flameVisible": false,
+        "hotplateMounted": true,
+        "hotplateVisible": true,
+        "vesselBaseY": 0.040000000000000036,
+        "hotplateBounds": {
+          "min": [
+            -1.0499999523162842,
+            2.2351741811588166e-10,
+            -1.024999976158142
+          ],
+          "max": [
+            1.0499999523162842,
+            0.03200000005215406,
+            1.0399999998882412
+          ]
+        },
+        "heatIndicatorMounted": true,
+        "heatIndicatorVisible": false
+      },
+      "camera": {
+        "position": [
+          3.46372666348416,
+          2.742484442322773,
+          5.384968884645544
+        ],
+        "fov": 38
+      },
+      "canvas": {
+        "x": 0,
+        "y": 48,
+        "width": 1440,
+        "height": 808,
+        "top": 48,
+        "right": 1440,
+        "bottom": 856,
+        "left": 0
+      },
+      "renderCalls": 28,
+      "renderer": "WebKit WebGL",
+      "panelsOpen": 0,
+      "error": null,
+      "screenshot": "05-settled-golden-bed.png"
+    }
+  ],
+  "errors": [],
+  "resourceFailures": [],
+  "method": "Mounted Auto Lab scene; ordinary fixed 60 Hz director in bounded 12 s batches, paused only for screenshots.",
+  "limitations": [
+    "Representative grain display is magnified; mesh inspection is not experimental particle-size calibration.",
+    "Water solubility, crystal growth and equivalent-sphere settling use the current illustrative transport model."
+  ]
+}

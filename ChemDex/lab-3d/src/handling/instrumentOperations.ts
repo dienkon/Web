@@ -224,17 +224,14 @@ export async function depositSpatula(): Promise<InstrumentResult> {
   const problem = instrumentTargetProblem('spatula', vessel);
   if (problem || !vessel) return result('spatula', false, problem ?? 'Không có bình.');
   const sample = state.spatulaState;
-  if (!sample.chemical || sample.mass_g <= 0) return result('spatula', false, 'Thìa chưa có hóa chất rắn.');
-  // Reserve the sample before awaiting the async chemistry resolver.
-  state.setSpatulaScoop(null);
-  try {
-    await state.mixSubstances(vessel.id, sample.chemical, sample.mass_g);
-    state.touchToolChemical('spatula', sample.chemical);
-    return result('spatula', true, `Đã cho ${sample.mass_g.toFixed(3)} g ${sample.chemical} vào ${vessel.name}.`);
-  } catch {
-    state.setSpatulaScoop(sample.chemical, sample.mass_g, sample.color);
-    return result('spatula', false, 'Không chuyển được mẫu; đã trả lại mẫu lên thìa.');
-  }
+  if (state.moveMode) return result('spatula', false, 'Tắt chế độ di chuyển trước khi chuyển mẫu.');
+  if (state.isSimulationPaused) return result('spatula', false, 'Tiếp tục mô phỏng trước khi chuyển mẫu.');
+  if (state.pouringChemical) return result('spatula', false, 'Chờ lần cấp hóa chất hiện tại kết thúc.');
+  if (!sample.chemical || !Number.isFinite(sample.mass_g) || sample.mass_g <= 0)
+    return result('spatula', false, 'Thìa chưa có lượng hóa chất rắn hợp lệ.');
+  if (!state.beginSpatulaDose(vessel.id)) return result('spatula', false, 'Chưa thể chuyển mẫu; mẫu vẫn được giữ trên thìa.');
+  state.touchToolChemical('spatula', sample.chemical);
+  return result('spatula', true, `Đang chuyển ${sample.mass_g.toFixed(3)} g ${sample.chemical} vào ${vessel.name}.`);
 }
 
 export function rinseInstrument(id: 'pipette' | 'stirring_rod' | 'spatula'): InstrumentResult {

@@ -68,8 +68,16 @@ describe('automatic finite liquid delivery', () => {
       .reduce((sum, row) => sum + row.moles, 0);
     expect(cold.total_g).toBeGreaterThan(0.13);
     expect(cold.solid_g).toBeGreaterThan(0);
+    for (let frame = 0; frame < 60 * 240 && experiment.sample.temperature_c < 60; frame++) experiment.tick(1 / 60);
+    expect(experiment.phase).toBe('condition');
+    expect(experiment.flame).toBe(true);
     for (let frame = 0; frame < 60 * 240 && experiment.phase !== 'cool'; frame++) experiment.tick(1 / 60);
     expect(experiment.phase).toBe('cool');
+    expect(experiment.flame).toBe(false);
+    expect(experiment.electricalHeat_J).toBeGreaterThan(0);
+    const heatingEnergy = experiment.electricalHeat_J;
+    experiment.tick(1 / 60);
+    expect(experiment.electricalHeat_J).toBe(heatingEnergy);
     expect(experiment.sample.temperature_c).toBeGreaterThanOrEqual(GOLDEN_RAIN_PROTOCOL.heatTarget_c - 1);
     expect(goldenRainInventory(experiment.sample).solid_g).toBeLessThan(cold.solid_g * 0.01);
     for (let frame = 0; frame < 60 * 2400 && experiment.phase !== 'settle'; frame++) experiment.tick(1 / 60);

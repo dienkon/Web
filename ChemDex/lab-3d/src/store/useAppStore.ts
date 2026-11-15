@@ -43,7 +43,7 @@ import { advanceReaction } from '../engine/advanceReaction';
 import { createFlameEmission, advanceFlameEmission } from '../engine/flameEmission';
 import { createStudioSample, planStudioProgram } from '../engine/studioProgram';
 import { createStudioMorphologySample, PRECIPITATE_MORPHOLOGIES } from '../engine/studioMorphology';
-import { stageStockContact, resolveStockContact } from '../physical/stockContacts';
+import { stageStockContact, resolveStockContact, acknowledgeStockContacts, pendingStockContacts } from '../physical/stockContacts';
 import { getProgramById } from '../vfx/programs/library';
 import { LESSON_PROGRAM_IDS } from '../lesson/programCompiler';
 import { collectSpillWaste } from '../engine/wasteInventory';
@@ -80,6 +80,7 @@ import { solutionIndicatorColor } from '../science/indicatorAppearance';
 import { useLabEnvironment } from './useLabEnvironment';
 import { restingVesselHeight } from '../handling/vesselRest';
 import { AnimatedDoseQueue, releaseDoseAmount, type AnimatedStockDose } from '../engine/animatedDose';
+import { SpatulaDoseReservations, type SpatulaSample } from '../handling/spatulaDose';
 import { prepareStockAddition } from '../engine/stockAddition';
 import { buretteAliquot } from '../handling/buretteAliquot';
 import { liquidContactFailure } from '../handling/liquidContact';
@@ -520,9 +521,11 @@ export interface AppState {
   isDraggingChemical: string | null;
   setIsDraggingChemical: (chem: string | null) => void;
   pouringChemical: AnimatedStockDose | null;
+  stockDosePending: boolean;
   contactPour: (doseId?: number) => void;
   advancePourContact: (doseId: number, fraction: number, contacts?: import('../physical/stockTypes').StockContactBirth[]) => Promise<void>;
   triggerPour: (chemical: string, targetId: string, amount?: number) => void;
+  beginSpatulaDose: (targetId: string) => boolean;
   clearPour: (doseId?: number) => void;
 
   vesselPourAnimation: { 
@@ -566,7 +569,7 @@ export interface AppState {
   timeScale: number;
   setTimeScale: (scale: number) => void;
 
-  mixSubstances: (targetId: string, newChemical: string, addedVolume_ml?: number) => Promise<void>;
+  mixSubstances: (targetId: string, newChemical: string, addedVolume_ml?: number, onAccepted?: () => void) => Promise<void>;
   pourVessel: (fromId: string, toId: string, customAmount_ml?: number) => Promise<void>;
   resetWorkbench: () => void;
 }
@@ -646,14 +649,57 @@ export const useAppStore = create<AppState>((set, get) => {
     persistLabState(vessels, burners, materials());
   const pushHistorySnapshot: typeof persistHistorySnapshot = (action, vessels, burners, en, vi) =>
     persistHistorySnapshot(action, vessels, burners, en, vi, materials());
+  const spatulaDoses = new SpatulaDoseReservations();
+  const returnSpatulaSample = (sample: SpatulaSample | null) => {
+    if (!sample) return;
+    set(state => ({ spatulaState: { ...sample,
+      mass_g: sample.mass_g + (state.spatulaState.chemical === sample.chemical ? state.spatulaState.mass_g : 0) } }));
+  };
+  const waitForDoseResume = async (targetId: string, doseId: number | undefined, epoch: number) => {
+    const waiting = (state: AppState) => {
+      const target = state.vessels[targetId];
+      return state.pourEpoch === epoch && state.isSimulationPaused && state.pouringChemical?.id === doseId
+        && !!target && !target.isSealed && !target.isShattered;
+    };
+    while (waiting(get())) await new Promise<void>(resolve => {
+      const stop = useAppStore.subscribe(state => { if (!waiting(state)) { stop(); resolve(); } });
+    });
+  };
   const animatedDoses = new AnimatedDoseQueue(
     async job => {
+      const epoch = get().pourEpoch;
+      // Contact callbacks stop with the simulation clock. Jobs queued behind a
+      // slow resolver must also wait, or pause would still add their matter.
+      if (get().isSimulationPaused) await waitForDoseResume(job.targetId, job.id, epoch);
+      const target = get().vessels[job.targetId];
+      if (get().pourEpoch !== epoch || get().isSimulationPaused || get().pouringChemical?.id !== job.id || !target || target.isSealed || target.isShattered) return false;
       const receipt = stageStockContact(job.targetId, job.chemical, job.contacts);
-      try { await get().mixSubstances(job.targetId, job.chemical, job.amount); }
-      finally { resolveStockContact(receipt); }
+      let accepted = false;
+      try {
+        await get().mixSubstances(job.targetId, job.chemical, job.amount, () => { accepted = true; });
+        return accepted;
+      } catch (error) {
+        // A later visual/resolver error cannot refund matter already committed.
+        if (!accepted) throw error;
+        if (get().pourEpoch === epoch) set({ mixError: error instanceof Error ? error.message : String(error) });
+        return true;
+      } finally {
+        if (accepted) resolveStockContact(receipt);
+        else if (receipt !== null) acknowledgeStockContacts([receipt]);
+      }
     },
     error => set({ mixError: error instanceof Error ? error.message : String(error) }),
+    (job, accepted) => {
+      if (!accepted) get().clearPour(job.id);
+      returnSpatulaSample(spatulaDoses.settle(job.id, job.amount, accepted));
+    },
+    busy => set({ stockDosePending: busy }),
   );
+  const invalidateStockDoses = () => {
+    animatedDoses.reset(); spatulaDoses.clear();
+    acknowledgeStockContacts(pendingStockContacts().map(contact => contact.id));
+    set({ pouringChemical: null, isMixing: false, spatulaState: { chemical: null, mass_g: 0, color: '#cbd5e1' } });
+  };
   // Push initial snapshot into history
   setTimeout(() => {
     // A user action may already have established history during startup.
@@ -1569,6 +1615,7 @@ export const useAppStore = create<AppState>((set, get) => {
         if (pending) pendingReactions[id] = { ...pending, vesselId: id };
       }
       shardManager.restoreSnapshot();
+      invalidateStockDoses();
       set({
         activeKinetics: {}, pendingReactions, dissolvingSubstances: {}, lastMixResult: null,
         inFlightPours: [], pourEpoch: get().pourEpoch + 1, isPouring: false,
@@ -2309,14 +2356,19 @@ export const useAppStore = create<AppState>((set, get) => {
       mass_g: 0,
       color: '#cbd5e1',
     },
-    setSpatulaScoop: (chemical, mass_g, color = '#cbd5e1') =>
+    setSpatulaScoop: (chemical, mass_g, color = '#cbd5e1') => {
+      if (spatulaDoses.occupied) {
+        set({ mixError: 'Chờ mẫu trên thìa tiếp xúc hoặc kết thúc lần chuyển trước khi lấy mẫu mới.' });
+        return;
+      }
       set({
         spatulaState: {
           chemical,
           mass_g: chemical ? (mass_g !== undefined ? mass_g : (chemical === 'Na' ? 0.1 : 0.5)) : 0,
           color: chemical ? color : '#cbd5e1',
         },
-      }),
+      });
+    },
 
     // Environmental Spills & Cleanup
     spills: persisted?.materials?.spills ?? {},
@@ -2668,6 +2720,7 @@ export const useAppStore = create<AppState>((set, get) => {
     },
 
     removeVessel: (id) => {
+      if (get().pouringChemical?.targetId === id) get().clearPour(get().pouringChemical!.id);
       set(s => {
         const updated = { ...s.vessels };
         delete updated[id];
@@ -3399,7 +3452,8 @@ export const useAppStore = create<AppState>((set, get) => {
     toggleLeftSidebar: () => set(s => ({ leftSidebarOpen: !s.leftSidebarOpen })),
     toggleRightSidebar: () => set(s => ({ rightSidebarOpen: !s.rightSidebarOpen })),
     setRightSidebarOpen: (open) => set({ rightSidebarOpen: open }),
-    openVesselInfo: (id) => set({ selectedVesselId: id, rightSidebarOpen: true }),
+    openVesselInfo: (id) => set(state => ({ selectedVesselId: id,
+      rightSidebarOpen: state.moveMode ? state.rightSidebarOpen : true })),
 
     soundEnabled: true,
     toggleSound: () => {
@@ -3440,21 +3494,37 @@ export const useAppStore = create<AppState>((set, get) => {
     },
 
     pouringChemical: null,
+    stockDosePending: false,
     triggerPour: (chemical, targetId, amount) => {
       const chemData = findChemical(chemical);
       const amt = amount !== undefined ? amount : chemical === 'Na' ? 0.1 : (chemData.type === 'solid' ? 2 : 20);
       const target = get().vessels[targetId];
-      if (!target || target.isShattered || target.isSealed || !Number.isFinite(amt) || amt <= 0) return;
+      if (get().pouringChemical || !target || target.isShattered || target.isSealed || !Number.isFinite(amt) || amt <= 0) return;
       set({ pouringChemical: { id: ++_stockDoseId, chemical, targetId, type: chemData.type,
         amount: amt, releasedAmount: 0, awaitingContact: true } });
     },
+    beginSpatulaDose: targetId => {
+      const state = get(), target = state.vessels[targetId], sample = state.spatulaState;
+      if (state.pouringChemical || spatulaDoses.occupied || state.moveMode || state.isSimulationPaused
+        || !target || target.isShattered || target.isSealed || target.isLocked || target.capacity_ml <= 0
+        || targetId.startsWith('lesson_vessel_') || !sample.chemical || !Number.isFinite(sample.mass_g) || sample.mass_g <= 0
+        || findChemical(sample.chemical).type !== 'solid') return false;
+      const id = ++_stockDoseId;
+      if (!spatulaDoses.begin(id, { ...sample, chemical: sample.chemical })) return false;
+      set({ spatulaState: { chemical: null, mass_g: 0, color: '#cbd5e1' },
+        pouringChemical: { id, chemical: sample.chemical, targetId, type: 'solid', amount: sample.mass_g,
+          releasedAmount: 0, awaitingContact: true, source: { kind: 'spatula', color: sample.color } } });
+      return true;
+    },
     advancePourContact: (doseId, fraction, contacts) => {
       const dose = get().pouringChemical;
-      if (!dose || dose.id !== doseId || get().isSimulationPaused) return Promise.resolve();
+      if (!dose || dose.id !== doseId) return Promise.resolve();
       const target = get().vessels[dose.targetId];
-      if (!target || target.isShattered || target.isSealed) return Promise.resolve();
+      if (!target || target.isShattered || target.isSealed) { get().clearPour(doseId); return Promise.resolve(); }
+      if (get().isSimulationPaused) return Promise.resolve();
       const released = releaseDoseAmount(dose, fraction);
       if (released.amount <= 0) return Promise.resolve();
+      spatulaDoses.release(dose.id, released.amount);
       set({ pouringChemical: released.dose });
       return animatedDoses.enqueue({ id: dose.id, targetId: dose.targetId, chemical: dose.chemical, amount: released.amount, contacts });
     },
@@ -3464,7 +3534,9 @@ export const useAppStore = create<AppState>((set, get) => {
     },
     clearPour: doseId => {
       if (doseId !== undefined && get().pouringChemical?.id !== doseId) return;
+      const dose = get().pouringChemical;
       set({ pouringChemical: null });
+      if (dose) returnSpatulaSample(spatulaDoses.close(dose.id));
     },
 
     vesselPourAnimation: null,
@@ -3894,6 +3966,9 @@ export const useAppStore = create<AppState>((set, get) => {
     canUndo: false,
     canRedo: false,
     undo: () => {
+      if (get().pouringChemical || get().stockDosePending) {
+        set({ globalWarning: 'Chờ lần cấp hóa chất kết thúc hoặc hủy chuyển mẫu trước khi hoàn tác.' }); return;
+      }
       const prev = stepUndo();
       if (prev) {
         shardManager.restoreLabSnapshot(prev.snapshot.materials?.glassDebris, prev.snapshot.vessels);
@@ -3917,6 +3992,9 @@ export const useAppStore = create<AppState>((set, get) => {
       }
     },
     redo: () => {
+      if (get().pouringChemical || get().stockDosePending) {
+        set({ globalWarning: 'Chờ lần cấp hóa chất kết thúc hoặc hủy chuyển mẫu trước khi làm lại.' }); return;
+      }
       const next = stepRedo();
       if (next) {
         shardManager.restoreLabSnapshot(next.snapshot.materials?.glassDebris, next.snapshot.vessels);
@@ -3949,7 +4027,11 @@ export const useAppStore = create<AppState>((set, get) => {
       if (Number.isFinite(scale) && scale >= 0.1 && scale <= 8) set({ timeScale: scale });
     },
 
-    mixSubstances: async (targetId: string, newChemical: string, addedVolume_ml: number = 20) => {
+    mixSubstances: async (targetId: string, newChemical: string, addedVolume_ml: number = 20, onAccepted?: () => void) => {
+      const mixEpoch = get().pourEpoch;
+      let acknowledged = false;
+      const accept = () => { if (!acknowledged) { acknowledged = true; onAccepted?.(); } };
+      const contactDoseId = onAccepted ? get().pouringChemical?.id : undefined;
       const original = get().vessels[targetId];
       if (!original || targetId.startsWith('lesson_vessel_') || original.isSealed || original.isShattered
         || !Number.isFinite(addedVolume_ml) || addedVolume_ml <= 0) return;
@@ -3971,6 +4053,7 @@ export const useAppStore = create<AppState>((set, get) => {
         get().addSpill(original.position, dose.volume_ml, dose.substances, dose.color,
           original.name, dose.mass_g, dose.contents);
         get().shatterVessel(targetId, stockFailure);
+        accept();
         return;
       }
       if (prepared.spill) {
@@ -3979,6 +4062,8 @@ export const useAppStore = create<AppState>((set, get) => {
         get().addSpill(original.position, spill.volume_ml, spill.substances, spill.color,
           original.name, spill.mass_g, spill.contents, targetId, { temperature_c: spill.temperature_c, optics: spill.optics,
             retainedReceiver: prepared.contactedAmount > 0 ? prepared.vessel : undefined });
+        // addSpill commits the retained receiver together with displaced solvent.
+        accept();
       }
       if (prepared.contactedAmount <= 0) return;
       const vessel = { ...prepared.vessel, outerWallCoating_ml: get().vessels[targetId].outerWallCoating_ml,
@@ -4059,6 +4144,7 @@ export const useAppStore = create<AppState>((set, get) => {
           selectedVesselId: targetId,
           rightSidebarOpen: true
         }));
+        accept();
         return;
       }
 
@@ -4078,6 +4164,7 @@ export const useAppStore = create<AppState>((set, get) => {
             lastMixResult: plan.mixResult, selectedVesselId: targetId, rightSidebarOpen: true,
             canUndo: checkCanUndo(), canRedo: checkCanRedo() };
         });
+        accept();
       };
       if (contactPlan) {
         publishContact(contactPlan);
@@ -4087,6 +4174,7 @@ export const useAppStore = create<AppState>((set, get) => {
         set(s => ({ vessels: { ...s.vessels, [targetId]: contactMixture },
           globalWarning: get().language === 'vi' ? 'Mẫu đồng hồ iốt nằm ngoài miền mô hình nước/iodate/sulfite/sulfate Na/K; giữ nguyên lượng chất đã thêm.'
             : 'This iodine-clock mixture is outside the supported aqueous Na/K iodate/sulfite/sulfate model; added matter is retained.' }));
+        accept();
         return;
       }
 
@@ -4188,6 +4276,7 @@ export const useAppStore = create<AppState>((set, get) => {
             canRedo: checkCanRedo()
           };
         });
+        accept();
         return;
       }
 
@@ -4224,6 +4313,7 @@ export const useAppStore = create<AppState>((set, get) => {
           return { vessels: updated, activeKinetics, dissolvingSubstances, lastMixResult: null,
             selectedVesselId: targetId, rightSidebarOpen: true, canUndo: checkCanUndo(), canRedo: checkCanRedo() };
         });
+        accept();
         return;
       }
 
@@ -4236,7 +4326,14 @@ export const useAppStore = create<AppState>((set, get) => {
           { isHeated, temperature_c: vessel.temperature_c, volume_ml: newTotalVolume_ml, lang: get().language }
         );
 
-        if (get().vessels[targetId]?.effectSampleRevision !== original.effectSampleRevision) return;
+        if (get().pourEpoch !== mixEpoch) return;
+        if (onAccepted) {
+          await waitForDoseResume(targetId, contactDoseId, mixEpoch);
+          if (get().isSimulationPaused) return;
+        }
+        const liveTarget = get().vessels[targetId];
+        if (get().pourEpoch !== mixEpoch || !liveTarget || liveTarget.isShattered || liveTarget.isSealed
+          || liveTarget.effectSampleRevision !== original.effectSampleRevision) return;
         if (provenance === 'fallback') {
           // Unverified contact is still a finite colored mixture. A fallback
           // animation is not evidence for new products, heat, gas or kinetics.
@@ -4251,6 +4348,7 @@ export const useAppStore = create<AppState>((set, get) => {
               lastMixResult: null, selectedVesselId: targetId, rightSidebarOpen: true,
               canUndo: checkCanUndo(), canRedo: checkCanRedo() };
           });
+          accept();
           return;
         }
         const baseVessel: VesselState = {
@@ -4364,10 +4462,11 @@ export const useAppStore = create<AppState>((set, get) => {
             canRedo: checkCanRedo()
           };
         });
+        accept();
       } catch (e: any) {
-        set({ mixError: e.message });
+        if (get().pourEpoch === mixEpoch) set({ mixError: e.message });
       } finally {
-        set({ isMixing: false });
+        if (get().pourEpoch === mixEpoch) set({ isMixing: false });
       }
     },
 
@@ -4388,6 +4487,7 @@ export const useAppStore = create<AppState>((set, get) => {
     },
 
     resetWorkbench: () => {
+      invalidateStockDoses();
       useToolDockStore.setState({ positions: {}, deployed: {}, dragging: null });
       restorePhysicalLab();
       shardManager.restoreSnapshot();
@@ -4408,6 +4508,7 @@ export const useAppStore = create<AppState>((set, get) => {
         hoveredVesselId: null,
         draggingVesselId: null,
         lastMixResult: null,
+        isMixing: false,
         globalWarning: null,
         titrationHistory: []
       });

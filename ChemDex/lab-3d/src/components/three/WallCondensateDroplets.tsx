@@ -2,7 +2,7 @@ import React, { useEffect, useMemo, useRef } from 'react';
 import { useFrame } from '@react-three/fiber';
 import * as THREE from 'three';
 import type { VesselState } from '../../types/chemistry';
-import { useAppStore } from '../../store/useAppStore';
+import { useVesselVisualStore } from '../../simulation/render/VesselVisualContext';
 import { vesselContours } from '../../science/vesselContours';
 import { vesselInterior } from '../../science/vesselDimensions';
 import { vesselBodyTransform } from '../../science/vesselScale';
@@ -11,6 +11,7 @@ import { WALL_CONTACT_ANGLE, wallDropCap, wallSurfaceFrame } from '../../science
 /** Read-only projection of engine-owned finite beads. A spherical cap sits on
  * the local wall tangent plane; there is no modulo animation or drainage here. */
 export const WallCondensateDroplets = React.memo(function WallCondensateDroplets({ vessel }: { vessel: VesselState }) {
+  const visualStore = useVesselVisualStore();
   const mesh = useRef<THREE.InstancedMesh>(null);
   const scratch = useMemo(() => new THREE.Object3D(), []);
   const normal = useMemo(() => new THREE.Vector3(), []);
@@ -24,7 +25,7 @@ export const WallCondensateDroplets = React.memo(function WallCondensateDroplets
   useEffect(() => () => geometry.dispose(), [geometry]);
   useFrame(() => {
     if (!mesh.current) return;
-    const live = useAppStore.getState().vessels[vessel.id];
+    const live = visualStore.getState().vessels[vessel.id];
     if (!live || live.isShattered) { mesh.current.visible = false; return; }
     let count = 0;
     for (const side of ['inner', 'outer'] as const) {

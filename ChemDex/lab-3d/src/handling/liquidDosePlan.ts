@@ -1,9 +1,9 @@
 import { NOMINAL_DROP_ML } from './doseTiming';
 import { METERS_PER_SCENE_UNIT } from '../science/sceneUnits';
 
-/** Capacity policy for the virtual Pasteur transfer pipette, not a laboratory
- * calibration or a claim that all real drops have the same volume. */
-export const DROPPER_CAPACITY_ML = 2;
+/** Use discrete drops only for microdoses; ordinary 1–2 mL transfers pour.
+ * This is an interaction policy, not a laboratory drop calibration. */
+export const DROPPER_CAPACITY_ML = 0.2;
 export const DROPPER_TIP_LOCAL_Y = -1;
 export const DROPPER_TIP_CLEARANCE = 0.18;
 export function liquidDosePlan(amount_ml: number) {

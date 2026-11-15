@@ -43,10 +43,14 @@ export function WorkbenchToolbar() {
     setCameraPreset,
     isScreenLocked,
     toggleScreenLock,
+    selectedVesselId,
+    selectedVessel,
+    toggleLockVessel,
     moveMode,
     setMoveMode,
     canUndo,
     canRedo,
+    doseBusy,
     undo,
     redo,
     timeScale,
@@ -62,8 +66,12 @@ export function WorkbenchToolbar() {
     isSimulationPaused: state.isSimulationPaused, setSimulationPaused: state.setSimulationPaused,
     cameraPreset: state.cameraPreset, setCameraPreset: state.setCameraPreset,
     isScreenLocked: state.isScreenLocked, toggleScreenLock: state.toggleScreenLock,
+    selectedVesselId: state.selectedVesselId,
+    selectedVessel: state.selectedVesselId ? state.vessels[state.selectedVesselId] : null,
+    toggleLockVessel: state.toggleLockVessel,
     moveMode: state.moveMode, setMoveMode: state.setMoveMode,
     canUndo: state.canUndo, canRedo: state.canRedo, undo: state.undo, redo: state.redo,
+    doseBusy: !!state.pouringChemical || state.stockDosePending,
     timeScale: state.timeScale, setTimeScale: state.setTimeScale,
     soundEnabled: state.soundEnabled, toggleSound: state.toggleSound,
     resetWorkbench: state.resetWorkbench,
@@ -79,11 +87,20 @@ export function WorkbenchToolbar() {
     </button>
     {instrumentsOpen && createPortal(<Suspense fallback={null}><InstrumentPanel onClose={closeInstruments} /></Suspense>, document.body)}
     <div className="flex gap-0.5 border-r border-slate-200 pr-1">
-      <button onClick={undo} disabled={!canUndo} className={button} aria-label={t('Undo', 'Hoàn tác')} title={t('Undo (Ctrl+Z)', 'Hoàn tác (Ctrl+Z)')}><Undo2 size={15} /></button>
-      <button onClick={redo} disabled={!canRedo} className={button} aria-label={t('Redo', 'Làm lại')} title={t('Redo (Ctrl+Y)', 'Làm lại (Ctrl+Y)')}><Redo2 size={15} /></button>
+      <button onClick={undo} disabled={!canUndo || doseBusy} className={button} aria-label={t('Undo', 'Hoàn tác')} title={doseBusy ? t('Wait for the reagent transfer to finish', 'Chờ lần cấp hóa chất kết thúc') : t('Undo (Ctrl+Z)', 'Hoàn tác (Ctrl+Z)')}><Undo2 size={15} /></button>
+      <button onClick={redo} disabled={!canRedo || doseBusy} className={button} aria-label={t('Redo', 'Làm lại')} title={doseBusy ? t('Wait for the reagent transfer to finish', 'Chờ lần cấp hóa chất kết thúc') : t('Redo (Ctrl+Y)', 'Làm lại (Ctrl+Y)')}><Redo2 size={15} /></button>
     </div>
     <button onClick={() => setMoveMode(!moveMode)} aria-pressed={moveMode} className={`${button} ${moveMode ? 'lab-control-active' : ''}`}
       aria-label={t('Move equipment', 'Di chuyển dụng cụ')} title={t('Move equipment', 'Di chuyển dụng cụ')}><Move size={15} /><span className="hidden md:inline">{t('Move', 'Di chuyển')}</span></button>
+    <button onClick={() => selectedVesselId && toggleLockVessel(selectedVesselId)} disabled={!selectedVessel}
+      aria-pressed={!!selectedVessel?.isLocked}
+      aria-label={selectedVessel?.isLocked ? t('Unlock selected vessel', 'Mở khóa bình đang chọn') : t('Lock selected vessel', 'Khóa bình đang chọn')}
+      title={!selectedVessel ? t('Select a vessel to lock its position', 'Chọn bình để khóa vị trí')
+        : selectedVessel.isLocked ? t('Unlock selected vessel', 'Mở khóa bình đang chọn') : t('Lock selected vessel', 'Khóa bình đang chọn')}
+      className={`${button} ${selectedVessel?.isLocked ? 'bg-amber-100 text-amber-800' : ''} disabled:cursor-not-allowed disabled:opacity-45`}>
+      {selectedVessel?.isLocked ? <Lock size={15} /> : <Unlock size={15} />}
+      <span className="hidden md:inline">{selectedVessel?.isLocked ? t('Unlock', 'Mở khóa') : t('Lock', 'Khóa')}</span>
+    </button>
     <div className="ml-auto flex shrink-0 items-center gap-1">
       <button onClick={() => setSimulationPaused(!isSimulationPaused)} className={`${button} ${isSimulationPaused ? 'bg-amber-100 text-amber-800' : ''}`}
         aria-label={isSimulationPaused ? t('Resume simulation', 'Tiếp tục phản ứng') : t('Pause simulation', 'Tạm dừng phản ứng')}

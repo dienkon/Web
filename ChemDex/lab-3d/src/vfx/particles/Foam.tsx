@@ -2,7 +2,7 @@ import React, { useRef, useMemo, useEffect } from 'react';
 import { useFrame } from '@react-three/fiber';
 import * as THREE from 'three';
 import { useQualityStore, QUALITY_CONFIGS } from '../quality';
-import { useAppStore } from '../../store/useAppStore';
+import { useVesselVisualState, useVesselVisualStore } from '../../simulation/render/VesselVisualContext';
 import { getBubbleSpriteTexture } from '../textures';
 import { simulationFrameDt } from '../../core/clock';
 import { foamLayer, foamGlyph } from '../geometry/foamLayer';
@@ -27,8 +27,9 @@ export const Foam = React.memo(function Foam({
   liquidColor = '#f8fafc',
   active = true,
 }: FoamProps) {
+  const visualStore = useVesselVisualStore();
   const meshRef = useRef<THREE.InstancedMesh>(null);
-  const specimen = useAppStore(s => s.vessels[vesselId]);
+  const specimen = useVesselVisualState(s => s.vessels[vesselId]);
   const filledLayer = useMemo(() => specimen && active ? foamLayer(specimen) : null, [specimen, active]);
   const foamTint = useMemo(() => `#${new THREE.Color(specimen?.liquidColor || liquidColor)
     .lerp(new THREE.Color('#ffffff'), 0.88).getHexString()}`, [specimen?.liquidColor, liquidColor]);
@@ -76,7 +77,7 @@ export const Foam = React.memo(function Foam({
     if (!meshRef.current) return;
     if (!active) { meshRef.current.visible = false; return; }
 
-    const vessel = useAppStore.getState().vessels[vesselId];
+    const vessel = visualStore.getState().vessels[vesselId];
     if (!vessel || vessel.isShattered || (vessel.volume_ml ?? 0) <= 0.2) {
       if (meshRef.current.visible) {
         meshRef.current.visible = false;
@@ -107,7 +108,7 @@ export const Foam = React.memo(function Foam({
     if (!layer) { meshRef.current.visible = false; return; }
     const revision = vessel.effectSampleRevision ?? 0;
     if (sampleRevision.current !== revision) { sampleRevision.current = revision; simulationTime.current = 0; }
-    simulationTime.current += simulationFrameDt(delta, useAppStore.getState());
+    simulationTime.current += simulationFrameDt(delta, visualStore.getState());
     const time = simulationTime.current;
     const colorKey = vessel.liquidColor || liquidColor;
     const recolor = lastColor.current !== colorKey;

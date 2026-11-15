@@ -1,0 +1,45 @@
+{
+  "before": {
+    "phase": "dose",
+    "mode": "dropper",
+    "volume_ml": 1,
+    "donorFraction": 0,
+    "dropper": true,
+    "streamVisible": false,
+    "tilt": 0,
+    "mass": 27.938914343326385,
+    "elapsed": 11.100000000000131,
+    "schedule": {
+      "count": 20,
+      "flightTime": 0.12351242213750328,
+      "period": 0.6,
+      "releaseStart": 0.75,
+      "lastImpact": 12.273512422137504
+    }
+  },
+  "flight": {
+    "elapsed": 11.766666666666831,
+    "fraction": 0,
+    "mass": 27.938805349345344
+  },
+  "rendered": {
+    "count": 1,
+    "visible": true,
+    "stream": false
+  },
+  "contact": {
+    "fraction": 0.05,
+    "mass": 27.989794451179886,
+    "contact": {
+      "point": [
+        -0.88,
+        -0.742806955058844,
+        0
+      ],
+      "remaining_s": 0.25,
+      "expiresAt_ms": 0,
+      "color": "#ffffff"
+    }
+  },
+  "errors": []
+}

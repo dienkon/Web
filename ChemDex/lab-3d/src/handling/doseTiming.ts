@@ -1,6 +1,6 @@
 /** Nominal educational drop volume; actual laboratory droppers need calibration. */
 export const NOMINAL_DROP_ML = 0.05;
-import { descendingFlightTime } from '../science/sceneUnits';
+import { descendingFlightTime, SCENE_GRAVITY } from '../science/sceneUnits';
 export { SCENE_GRAVITY } from '../science/sceneUnits';
 
 export function fallingContactTime(height: number, initialDownSpeed = 0): number {
@@ -12,9 +12,9 @@ export function continuousDoseFraction(elapsed: number, releaseStart: number, re
   if (![elapsed, releaseStart, releaseEnd, flightTime].every(Number.isFinite) || releaseEnd <= releaseStart) return 0;
   return Math.max(0, Math.min(1, (elapsed - releaseStart - Math.max(0, flightTime)) / (releaseEnd - releaseStart)));
 }
-export function dropSchedule(amount_ml: number, fallHeight: number) {
+export function dropSchedule(amount_ml: number, fallHeight: number, gravity = SCENE_GRAVITY) {
   const count = Math.max(1, Math.ceil(Math.max(0, amount_ml) / NOMINAL_DROP_ML - 1e-9));
-  const flightTime = fallingContactTime(fallHeight);
+  const flightTime = Number.isFinite(gravity) && gravity > 0 ? Math.sqrt(2 * Math.max(0, fallHeight) / gravity) : 0;
   const period = Math.max(0.6, flightTime + 0.2);
   const releaseStart = 0.75;
   const lastImpact = releaseStart + (count - 1) * period + flightTime;
@@ -23,6 +23,10 @@ export function dropSchedule(amount_ml: number, fallHeight: number) {
 export function landedDropFraction(elapsed: number, amount_ml: number, fallHeight: number): number {
   if (!(amount_ml > 0)) return 0;
   const schedule = dropSchedule(amount_ml, fallHeight);
+  return landedScheduledDropFraction(elapsed, amount_ml, schedule);
+}
+export function landedScheduledDropFraction(elapsed: number, amount_ml: number, schedule: ReturnType<typeof dropSchedule>): number {
+  if (!(amount_ml > 0)) return 0;
   const firstImpact = schedule.releaseStart + schedule.flightTime;
   const landed = Math.max(0, Math.min(schedule.count, Math.floor((elapsed - firstImpact + 1e-9) / schedule.period) + 1));
   return Math.min(1, landed * NOMINAL_DROP_ML / amount_ml);

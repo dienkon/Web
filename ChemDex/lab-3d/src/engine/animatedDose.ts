@@ -6,17 +6,29 @@ export interface AnimatedStockDose {
   amount: number;
   releasedAmount: number;
   awaitingContact: boolean;
+  source?: { kind: 'spatula'; color: string };
 }
-interface Delivery { id: number; targetId: string; chemical: string; amount: number; contacts?: import('../physical/stockTypes').StockContactBirth[] }
+export interface DoseDelivery { id: number; targetId: string; chemical: string; amount: number; contacts?: import('../physical/stockTypes').StockContactBirth[] }
 
 /** Serialize contact transactions. A slow resolver may coalesce later contacts,
  * but can never overlap two chemistry writes or replay already delivered matter. */
 export class AnimatedDoseQueue {
-  private jobs: Delivery[] = [];
+  private jobs: DoseDelivery[] = [];
   private running: Promise<void> | null = null;
-  constructor(private deliver: (job: Delivery) => Promise<void>, private onError: (error: unknown) => void) {}
+  private generation = 0;
+  constructor(private deliver: (job: DoseDelivery) => Promise<void | boolean>, private onError: (error: unknown) => void,
+    private onSettled?: (job: DoseDelivery, accepted: boolean) => void, private onBusyChange?: (busy: boolean) => void) {}
 
-  enqueue(job: Delivery): Promise<void> {
+  /** Retire old callbacks before replacing the whole bench. A slow old resolver
+   * must neither block fresh doses nor settle/refund into the new inventory. */
+  reset() {
+    this.generation++;
+    this.jobs = [];
+    this.running = null;
+    this.onBusyChange?.(false);
+  }
+
+  enqueue(job: DoseDelivery): Promise<void> {
     if (!Number.isFinite(job.amount) || job.amount <= 0) return this.running ?? Promise.resolve();
     const pending = this.jobs.find(item => item.id === job.id);
     if (pending) { pending.amount += job.amount; if (job.contacts) pending.contacts = [...(pending.contacts ?? []), ...job.contacts]; }
@@ -25,19 +37,25 @@ export class AnimatedDoseQueue {
     return this.idle();
   }
   private start() {
-    this.running = this.drain().finally(() => {
+    const generation = this.generation;
+    this.onBusyChange?.(true);
+    this.running = this.drain(generation).finally(() => {
+      if (generation !== this.generation) return;
       this.running = null;
       if (this.jobs.length) this.start();
+      else this.onBusyChange?.(false);
     });
   }
   private async idle(): Promise<void> {
     while (this.running) await this.running;
   }
-  private async drain() {
-    while (this.jobs.length) {
+  private async drain(generation: number) {
+    while (generation === this.generation && this.jobs.length) {
       const job = this.jobs.shift()!;
-      try { await this.deliver(job); }
-      catch (error) { this.onError(error); }
+      let accepted = false;
+      try { accepted = (await this.deliver(job)) !== false; }
+      catch (error) { if (generation === this.generation) this.onError(error); }
+      finally { if (generation === this.generation) this.onSettled?.(job, accepted); }
     }
   }
 }

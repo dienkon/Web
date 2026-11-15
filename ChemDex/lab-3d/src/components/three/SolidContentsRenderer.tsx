@@ -1,7 +1,7 @@
 import React, { useRef, useMemo, useEffect } from 'react';
 import { useFrame } from '@react-three/fiber';
 import * as THREE from 'three';
-import { useAppStore, getChemical, getSolidMorphology, SolidMorphology } from '../../store/useAppStore';
+import { getChemical, getSolidMorphology, SolidMorphology } from '../../store/useAppStore';
 import { labSound } from '../../utils/audio';
 import { solidInventoryFraction } from '../../engine/solidInventory';
 import { reactionSimulationEngine } from '../../vfx/reactions/ReactionSimulationEngine';
@@ -27,9 +27,10 @@ import { iceSurfaceFinish, shadeIceInterior } from '../../vfx/materials/iceAppea
 import { useQualityStore } from '../../vfx/quality';
 import { vesselBodyTransform } from '../../science/vesselScale';
 import { stockLocalMatrix } from '../../physical/stockCoordinates';
-import { presentedStockPose } from '../../physical/stockPresentation';
+import { presentedStockLocalMatrix } from '../../physical/stockPresentation';
 import { ContactPowder } from './ContactPowder';
 import { renderedVesselBody } from '../../simulation/render/vesselBodyFrames';
+import { useVesselVisualRuntime, useVesselVisualState, useVesselVisualStore } from '../../simulation/render/VesselVisualContext';
 
 // Shared scratch objects for zero-allocation per-frame transforms
 const _dummyMat4 = new THREE.Matrix4();
@@ -51,10 +52,11 @@ export const SolidContentsRenderer = React.memo(function SolidContentsRenderer({
   radius = 0.75,
   baseY = -0.95,
 }: SolidContentsRendererProps) {
-  const vessel = useAppStore(state => state.vessels[vesselId]);
-  const dissolvingMap = useAppStore(state => state.dissolvingSubstances[vesselId]);
+  const visualRuntime = useVesselVisualRuntime();
+  const vessel = useVesselVisualState(state => state.vessels[vesselId]);
+  const dissolvingMap = useVesselVisualState(state => state.dissolvingSubstances[vesselId]);
   const dissolving = dissolvingMap || EMPTY_DISSOLVING;
-  const stirringVesselId = useAppStore(state => state.stirringVesselId);
+  const stirringVesselId = useVesselVisualState(state => state.stirringVesselId);
   const isStirring = stirringVesselId === vesselId;
 
   if (!vessel || !vessel.substances || vessel.substances.length === 0) {
@@ -63,9 +65,11 @@ export const SolidContentsRenderer = React.memo(function SolidContentsRenderer({
 
   // Filter only solid substances present in the vessel
   const solidSubstances = vessel.substances.filter(sub => {
+    const sedimentOwnsProduct = visualRuntime?.externallyStepped && [...visualRuntime.manager.precipitationSystems.values()]
+      .some(system => sameMolecularFormula(system.profile.id, sub));
     const entries = vessel.contents.filter(item => item.formula === sub);
     if (entries.length) return entries.some(item => item.phase === 's' && item.location !== 'filter' && item.mass_g > 0
-      && (vessel.volume_ml <= 0.05 || !isSuspensionRow(item, vessel.contents, vessel.precipitateSubstance)));
+      && (!(vessel.volume_ml > 0.05 || sedimentOwnsProduct) || !isSuspensionRow(item, vessel.contents, vessel.precipitateSubstance)));
     const chem = getChemical(sub);
     return chem && chem.type === 'solid' && vessel.volume_ml <= 0.05;
   });
@@ -108,7 +112,7 @@ export const SolidContentsRenderer = React.memo(function SolidContentsRenderer({
 });
 
 function WaterIceMesh({ vesselId }: { vesselId: string }) {
-  const vessel = useAppStore(state => state.vessels[vesselId]);
+  const vessel = useVesselVisualState(state => state.vessels[vesselId]);
   const reduced = useQualityStore(s => s.effectiveTier === 'low' || s.effectiveTier === 'potato');
   if (!vessel || vessel.isShattered) return null;
   const { ice_g, liquid_g } = waterPhaseMasses(vessel);
@@ -143,6 +147,8 @@ export const FloatingAlkaliMetalPellet = React.memo(function FloatingAlkaliMetal
   baseY,
   dissolveProgress,
 }: FloatingAlkaliMetalPelletProps) {
+  const visualStore = useVesselVisualStore(), visualRuntime = useVesselVisualRuntime();
+  const visualTime = useRef(0);
   const isPotassium = substance === 'K';
   const groupRef = useRef<THREE.Group>(null);
   const meshRef = useRef<THREE.Mesh>(null);
@@ -164,8 +170,8 @@ export const FloatingAlkaliMetalPellet = React.memo(function FloatingAlkaliMetal
     lastTrailDrop: 0,
   });
 
-  const vessel = useAppStore(state => state.vessels[vesselId]);
-  const kinetics = useAppStore(state => state.activeKinetics[vesselId]);
+  const vessel = useVesselVisualState(state => state.vessels[vesselId]);
+  const kinetics = useVesselVisualState(state => state.activeKinetics[vesselId]);
 
   const hasLiquid = (vessel?.volume_ml || 0) > 0.5 && !!vessel?.contents.some(c => c.formula === 'H2O' && c.phase === 'l' && c.mass_g > 0);
   const hasIndicator = !!vessel?.contents.some(c => c.formula === 'Phenolphthalein' && c.moles > 1e-12);
@@ -185,12 +191,12 @@ export const FloatingAlkaliMetalPellet = React.memo(function FloatingAlkaliMetal
 
   useFrame((state, delta) => {
     if (!groupRef.current || !vessel || isConsumed) return;
-    const dt = simulationFrameDt(delta, useAppStore.getState());
+    const dt = simulationFrameDt(delta, visualStore.getState());
     const m = motion.current;
-    const now = state.clock.elapsedTime;
+    const now = visualRuntime?.elapsed?.() ?? (visualTime.current += dt);
 
     // Check if ReactionSimulationEngine has dedicated controller running for this vessel
-    const simRuntime = reactionSimulationEngine.getRuntime(vesselId);
+    const simRuntime = visualRuntime?.externallyStepped ? undefined : reactionSimulationEngine.getRuntime(vesselId);
     const cd = simRuntime?.customData;
 
     const isReacting = hasLiquid && !!isAlkaliReaction && reactionProgress > 0 && reactionProgress < 1;
@@ -449,14 +455,17 @@ interface SolidSubstanceMeshProps {
 export const SolidSubstanceMesh = React.memo(function SolidSubstanceMesh({
   vesselId, substance, vesselRadius, baseY, isStirring,
 }: SolidSubstanceMeshProps) {
-  const vessel = useAppStore(state => state.vessels[vesselId]);
+  const visualStore = useVesselVisualStore(), visualRuntime = useVesselVisualRuntime();
+  const vessel = useVesselVisualState(state => state.vessels[vesselId]);
   const reduced = useQualityStore(s => s.effectiveTier === 'low' || s.effectiveTier === 'potato');
   const stockChemical = getChemical(substance);
   const chemical = stockChemical?.type === 'solid' ? stockChemical : getChemical(`${substance} (s)`);
+  const sedimentOwnsProduct = visualRuntime?.externallyStepped && [...visualRuntime.manager.precipitationSystems.values()]
+    .some(system => sameMolecularFormula(system.profile.id, substance));
   const rows = vessel?.contents.filter(c => c.formula === substance && c.phase === 's'
     && c.location !== 'filter' && c.location !== 'foam'
     && !(attachedMetalMassForRow(vessel, c) > 0)
-    && (vessel.volume_ml <= 0.05 || !isSuspensionRow(c, vessel.contents, vessel.precipitateSubstance))) ?? [];
+    && (!(vessel.volume_ml > 0.05 || sedimentOwnsProduct) || !isSuspensionRow(c, vessel.contents, vessel.precipitateSubstance))) ?? [];
   const mass = rows.reduce((sum, row) => sum + Math.max(0, row.mass_g), 0);
   const product = rows.some(c => c.solidOrigin === 'precipitate') ? getPrecipitateProfile(substance) : null;
   const density = product && product.modelBasis !== 'generic_fallback'
@@ -506,10 +515,12 @@ export const SolidSubstanceMesh = React.memo(function SolidSubstanceMesh({
     if (!vessel || powder || !layout) return null;
     const poses = motion?.grains.filter(p => p.formula === substance && p.mass_g > 0);
     const factor = poses?.length ? Math.cbrt(Math.min(1, mass / poses.reduce((sum, p) => sum + p.mass_g, 0))) : 1;
-    const body = renderedVesselBody(vesselId)?.matrixWorld;
+    const body = visualRuntime?.externallyStepped ? undefined : renderedVesselBody(vesselId)?.matrixWorld;
+    const app = visualStore.getState(), carried = app.moveMode && app.draggingVesselId === vesselId;
     return { vessel, geometry, carriers: layout.pieces.map((piece, i) => ({ id: poses?.[i]?.id,
-      share: 1 / layout.pieces.length, matrix: poses?.[i] ? stockLocalMatrix(vessel,
-        { ...presentedStockPose(poses[i]), scale_m: poses[i].scale_m * factor }, body) : piece.matrix })) };
+      share: 1 / layout.pieces.length, matrix: poses?.[i] ? visualRuntime?.externallyStepped
+        ? stockLocalMatrix(vessel, { ...poses[i], scale_m: poses[i].scale_m * factor }, body)
+        : presentedStockLocalMatrix(vessel, { ...poses[i], scale_m: poses[i].scale_m * factor }, body, carried) : piece.matrix })) };
   };
 
   useFrame(() => {
@@ -521,12 +532,15 @@ export const SolidSubstanceMesh = React.memo(function SolidSubstanceMesh({
       pieces: layout.pieces.length, poseBasis: motion ? 'rapier-stock-contact' : 'body-fixed-envelope-reference' };
     const poses = motion?.grains.filter(p => p.formula === substance && p.mass_g > 0);
     const motionScale = poses?.length ? Math.cbrt(Math.min(1, mass / poses.reduce((s, p) => s + p.mass_g, 0))) : 1;
-    const bodyMatrix = renderedVesselBody(vesselId)?.matrixWorld;
+    const bodyMatrix = visualRuntime?.externallyStepped ? undefined : renderedVesselBody(vesselId)?.matrixWorld;
+    const app = visualStore.getState(), carried = app.moveMode && app.draggingVesselId === vesselId;
     for (let i = 0; i < layout.pieces.length; i++) {
       _dummyMat4.copy(layout.pieces[i].matrix);
       if (motion && vessel) {
         const p = poses?.[i];
-        if (p) _dummyMat4.copy(stockLocalMatrix(vessel, { ...presentedStockPose(p), scale_m: p.scale_m * motionScale }, bodyMatrix));
+        if (p) _dummyMat4.copy(visualRuntime?.externallyStepped
+          ? stockLocalMatrix(vessel, { ...p, scale_m: p.scale_m * motionScale }, bodyMatrix)
+          : presentedStockLocalMatrix(vessel, { ...p, scale_m: p.scale_m * motionScale }, bodyMatrix, carried));
       }
       _dummyMat4.decompose(_dummyPos, _dummyQuat, _dummyScale);
       chunksRef.current.setMatrixAt(i, _dummyMat4);

@@ -5,6 +5,7 @@ import type { SubstanceContent } from '../../types/chemistry';
 import type { ReactionProgram } from '../../shared/programSchema';
 import { createAutoSolidDose, type AutoSolidDose } from './autoSolid';
 import { dropSchedule } from '../../handling/doseTiming';
+import type { VerticalDropFlight } from '../../handling/dropFlight';
 
 export interface AutoDonor {
   row: SubstanceContent;
@@ -18,6 +19,7 @@ export interface AutoDonor {
   dropStartedAt?: number;
   dropSchedule?: ReturnType<typeof dropSchedule>;
   dropFallHeight?: number;
+  dropFlight?: VerticalDropFlight;
   doseMode: 'pour' | 'dropper';
   solid?: AutoSolidDose;
 }

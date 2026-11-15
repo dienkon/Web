@@ -35,7 +35,7 @@ describe('automatic gas reagents use a finite metered delivery line', () => {
   });
   it('uses a gas syringe whose calibrated barrel volume matches the finite molar stock', () => {
     for (const n of [0.001, 0.003, 0.005]) {
-      const size = gasSyringeSize(n), cm = getVesselProfile('beaker', 100).sceneScale;
+      const size = gasSyringeSize(n), cm = getVesselProfile('beaker', new AutoExperiment('nh3_hcl', false).sample.capacity_ml).sceneScale;
       expect(Math.PI * size.radius ** 2 * size.length * cm ** 3).toBeCloseTo(gasVolumeMl(n), 9);
     }
   });

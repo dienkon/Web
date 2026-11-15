@@ -8,6 +8,7 @@ import { vesselLiquidSurfaceY } from '../../science/vesselGeometry';
 import { GasCloudLayer } from '../particles/GasPlume';
 import { GAS_FUME_TABLE } from '../catalog/gasTable';
 import { createSedimentGeometry } from '../../simulation/effects/sedimentGeometry';
+import { sedimentBedOptics } from '../../science/sedimentOptics';
 import { AutoPrecipitateLayer } from './AutoPrecipitateLayer';
 import { AutoLiquid } from './AutoLiquid';
 import { AutoSolidContents, AutoSolidDonor, AutoSolidFlights } from './AutoSolidContents';
@@ -20,8 +21,9 @@ import { getVesselProfile } from '../../pour/physics/profiles';
 import { solveLevel } from '../../pour/physics/retained';
 import { AutoGasApparatus, AutoGasReceiver } from './AutoGasApparatus';
 import { gasSourceHome, gasVolumeMl } from './gasDelivery';
-import { volumeDropRadius_scene } from '../../handling/liquidDosePlan';
-import { NOMINAL_DROP_ML } from '../../handling/doseTiming';
+import { liquidDropAmount } from '../../handling/liquidDosePlan';
+import { dropFlightPosition, dropRadius, AUTO_DROPPER_TIP_LOCAL_Y, AUTO_DROPPER_SCALE } from '../../handling/dropFlight';
+import { metersPerModelUnit } from '../../science/sceneUnits';
 
 const gasSpecies = [...Object.entries(GAS_FUME_TABLE).filter(([s, v]) => s !== 'H2O' && v.visible).map(([s]) => s), 'MgO'];
 const cameraPoses: Record<string, [[number, number, number], [number, number, number]]> = {
@@ -106,7 +108,7 @@ function DropperDonor({ experiment: e, index }: { experiment: AutoExperiment; in
     <mesh position={[0, 0.16, 0]}><cylinderGeometry args={[0.07, 0.07, 0.55, 16]} /><meshPhysicalMaterial color="#dff5ff" transparent opacity={0.25} roughness={0.08} clearcoat={0.8} depthWrite={false} /></mesh>
     <mesh ref={liquid} position={[0, -0.1, 0]}><cylinderGeometry args={[0.045, 0.045, 0.5, 12]} /><meshBasicMaterial color={color} transparent opacity={0.78} depthWrite={false} /></mesh>
     <mesh position={[0, -0.34, 0]} rotation={[Math.PI, 0, 0]}><coneGeometry args={[0.07, 0.34, 12]} /><meshPhysicalMaterial color="#dff5ff" transparent opacity={0.3} roughness={0.08} clearcoat={0.8} depthWrite={false} /></mesh>
-    <mesh position={[0, -0.55, 0]}><cylinderGeometry args={[0.012, 0.012, 0.12, 8]} /><meshBasicMaterial color={color} transparent opacity={0.8} depthWrite={false} /></mesh>
+    <mesh name={`auto_dropper_outlet_${index}`} position={[0, AUTO_DROPPER_TIP_LOCAL_Y + 0.06, 0]}><cylinderGeometry args={[0.012, 0.012, 0.12, 8]} /><meshBasicMaterial color={color} transparent opacity={0.8} depthWrite={false} /></mesh>
   </group>;
 }
 function Particles({ experiment }: { experiment: AutoExperiment }) {
@@ -136,10 +138,11 @@ function Particles({ experiment }: { experiment: AutoExperiment }) {
       (bed.current.material as THREE.MeshStandardMaterial).color.set(s.color);
       const material = bed.current.material as THREE.MeshStandardMaterial;
       const aerosol = experiment.program.id === 'nh3_hcl' && experiment.sample.volume_ml < 0.01;
-      if (material.transparent !== aerosol) { material.transparent = aerosol; material.depthWrite = !aerosol; material.needsUpdate = true; }
       material.roughness = s.roughness; material.metalness = s.metalness;
       material.opacity = aerosol
-        ? -Math.expm1(-experiment.aerosolDeposited_g / 0.015) : 1;
+        ? -Math.expm1(-experiment.aerosolDeposited_g / 0.015)
+        : sedimentBedOptics(experiment.sample, getVesselProfile('beaker', experiment.sample.capacity_ml).baseY + s.thickness,
+          [...experiment.physics.precipitationSystems.values()].map(system => ({ mass_g: system.sedimentBed.amount_g, profile: system.profile }))).opacity;
     }
   });
   return <>
@@ -186,7 +189,7 @@ function Donor({ experiment: e, index }: { experiment: AutoExperiment; index: nu
   });
   const donor = e.donors[index];
   if (donor.row.phase === 'g') return <AutoGasApparatus experiment={e} index={index}><ChemicalLabel text={`${donor.row.formula} · ${gasVolumeMl(donor.row.moles).toFixed(1)} mL`} position={[0, 0, 0]} /></AutoGasApparatus>;
-  return <group ref={group} scale={0.6} position={donorHome(index)} name={`auto_donor_${index}`}>
+  return <group ref={group} scale={AUTO_DROPPER_SCALE} position={donorHome(index)} name={`auto_donor_${index}`}>
     {donor.row.phase === 's' ? <Glass small><AutoSolidDonor experiment={e} index={index} /></Glass>
       : donor.doseMode === 'dropper' ? <DropperDonor experiment={e} index={index} />
       : <Glass small><DonorLiquid experiment={e} index={index} /></Glass>}
@@ -211,8 +214,10 @@ function Transfer({ experiment: e }: { experiment: AutoExperiment }) {
     const donor = e.donors[e.donorIndex], phase = donor?.row.phase;
     const active = e.streamActive, lip = e.donorLip, surface = 1.04 + vesselLiquidSurfaceY(e.sample);
     const contact = donor?.doseMode === 'dropper'
-      ? e.phase === 'dose' && (e.sample.recentPourContact?.remaining_s ?? 0) > 0
+      ? ['dose', 'return'].includes(e.phase) && (e.sample.recentPourContact?.remaining_s ?? 0) > 0
       : e.phase === 'dose' && e.phaseTime >= AUTO_TIMING.tilt + AUTO_TIMING.flight && donor?.fraction < 1;
+    const contactPoint = donor?.doseMode === 'dropper' && donor.dropFlight
+      ? donor.dropFlight.target : [lip[0] + 0.12, surface, lip[2]];
     const object = scratch.object;
     if (stream.current) {
       let count = 0;
@@ -234,15 +239,15 @@ function Transfer({ experiment: e }: { experiment: AutoExperiment }) {
     if (drops.current) {
       const donor = e.donors[e.donorIndex], schedule = donor?.dropSchedule;
       let count = 0;
-      if (e.dropperActive && donor && schedule && donor.dropStartedAt !== undefined) {
-        const localTime = e.elapsed - donor.dropStartedAt, start = e.donorLip;
-        const flightTime = schedule.flightTime, surfaceY = 1.04 + vesselLiquidSurfaceY(e.sample);
+      if (e.dropperActive && donor?.dropFlight && schedule && donor.dropStartedAt !== undefined) {
+        const localTime = e.elapsed - donor.dropStartedAt, flight = donor.dropFlight;
+        const flightTime = flight.flightTime;
         for (let index = 0; index < schedule.count && count < 50; index++) {
           const releaseAt = schedule.releaseStart + index * schedule.period, age = localTime - releaseAt;
           if (age < 0 || age > flightTime) continue;
-          const volume = Math.min(NOMINAL_DROP_ML, donor.solutionVolume_ml - index * NOMINAL_DROP_ML);
-          const radius = volumeDropRadius_scene(volume), fall = Math.max(0, age);
-          object.position.set(start[0] + 0.12 * fall / flightTime, start[1] - 0.5 * 9.80665 / 0.035 * fall * fall, start[2]);
+          const volume = liquidDropAmount(donor.solutionVolume_ml, index);
+          const radius = dropRadius(volume, metersPerModelUnit(getVesselProfile(e.sample.type, e.sample.capacity_ml)));
+          object.position.set(...dropFlightPosition(flight, age));
           object.rotation.set(0, 0, 0); object.scale.setScalar(radius); object.updateMatrix();
           drops.current.setMatrixAt(count++, object.matrix);
         }
@@ -255,8 +260,8 @@ function Transfer({ experiment: e }: { experiment: AutoExperiment }) {
       let count = 0;
       if (contact && phase !== 'g' && phase !== 's') for (let i = 0; i < 16; i++) {
         const t = (e.elapsed * 2.2 + i / 16) % 1, angle = i * 2.399;
-        object.position.set(lip[0] + 0.12 + Math.cos(angle) * t * 0.18, surface + Math.sin(t * Math.PI) * 0.13,
-          lip[2] + Math.sin(angle) * t * 0.18);
+        object.position.set(contactPoint[0] + Math.cos(angle) * t * 0.18, contactPoint[1] + Math.sin(t * Math.PI) * 0.13,
+          contactPoint[2] + Math.sin(angle) * t * 0.18);
         object.rotation.set(0, 0, 0); object.scale.set(0.009 * (1 - t), 0.016 * (1 - t), 0.009 * (1 - t));
         object.updateMatrix(); splash.current.setMatrixAt(count++, object.matrix);
       }
@@ -268,7 +273,7 @@ function Transfer({ experiment: e }: { experiment: AutoExperiment }) {
       ripples.current.visible = !!contact && e.sample.volume_ml > 0.01;
       if (ripples.current.visible) for (let i = 0; i < 3; i++) {
         const t = (e.elapsed * 1.5 + i / 3) % 1;
-        object.position.set(lip[0] + 0.12, surface + 0.006 + i * 0.001, lip[2]); object.rotation.set(-Math.PI / 2, 0, 0);
+        object.position.set(contactPoint[0], contactPoint[1] + 0.006 + i * 0.001, contactPoint[2]); object.rotation.set(-Math.PI / 2, 0, 0);
         object.scale.setScalar(0.03 + t * 0.28); object.updateMatrix(); ripples.current.setMatrixAt(i, object.matrix);
       }
       ripples.current.instanceMatrix.needsUpdate = !!ripples.current.visible;
@@ -284,8 +289,9 @@ function Transfer({ experiment: e }: { experiment: AutoExperiment }) {
 }
 function ConditionTools({ experiment: e }: { experiment: AutoExperiment }) {
   const flame = useRef<THREE.Mesh>(null), heat = useRef<THREE.Mesh>(null), rod = useRef<THREE.Group>(null);
-  const heating = e.heatingRequested || (e.program.chemistry.conditions?.minTemp_c ?? 25) > 25
+  const heating = e.protocol === 'golden-rain' || e.heatingRequested || (e.program.chemistry.conditions?.minTemp_c ?? 25) > 25
     || !!getLessonDefinition(e.program.id)?.conditions.some(c => c.kind === 'temperature' && (c.minimum ?? 25) > 25);
+  const hotplate = e.protocol === 'golden-rain';
   const ignition = e.program.chemistry.conditions?.activation === 'ignition' || e.program.chemistry.representation === 'emission';
   const stirring = e.program.chemistry.representation !== 'emission' && e.donors.some(d => d.row.phase === 'aq' || d.row.phase === 'l');
   const flameColor = e.program.visual.timeline.find(a => a.atom === 'flameCone')?.params.flameColor;
@@ -308,11 +314,22 @@ function ConditionTools({ experiment: e }: { experiment: AutoExperiment }) {
     }
   });
   return <>
-    {heating && <AlcoholBurner />}
-    {(heating || ignition) && <mesh ref={heat} rotation={[-Math.PI / 2, 0, 0]} position={[0, 0.028, 0]}><ringGeometry args={[0.29, 0.4, 48]} /><meshBasicMaterial color="#ff9b44" transparent opacity={0.05} depthWrite={false} /></mesh>}
-    {(heating || ignition) && <mesh ref={flame} position={[ignition ? 0.5 : 0, ignition ? 0.38 : 0.72, 0]} visible={false}><coneGeometry args={[0.11, 0.42, 16]} /><meshBasicMaterial color={ignition ? '#38bdf8' : '#ff9b42'} transparent opacity={0.75} depthWrite={false} /></mesh>}
+    {heating && (hotplate ? <HeatingPlate experiment={e} /> : <AlcoholBurner />)}
+    {(heating && !hotplate || ignition) && <mesh ref={heat} rotation={[-Math.PI / 2, 0, 0]} position={[0, 0.028, 0]}><ringGeometry args={[0.29, 0.4, 48]} /><meshBasicMaterial color="#ff9b44" transparent opacity={0.05} depthWrite={false} /></mesh>}
+    {(heating && !hotplate || ignition) && <mesh ref={flame} name="auto_condition_flame" position={[ignition ? 0.5 : 0, ignition ? 0.38 : 0.72, 0]} visible={false}><coneGeometry args={[0.11, 0.42, 16]} /><meshBasicMaterial color={ignition ? '#38bdf8' : '#ff9b42'} transparent opacity={0.75} depthWrite={false} /></mesh>}
     {stirring && <group ref={rod}><mesh><cylinderGeometry args={[0.025, 0.025, 1.95, 12]} /><meshPhysicalMaterial color="#d9eff8" transparent opacity={0.55} roughness={0.05} depthWrite={false} /></mesh></group>}
   </>;
+}
+function HeatingPlate({ experiment }: { experiment: AutoExperiment }) {
+  const indicator = useRef<THREE.Mesh>(null);
+  useFrame(() => { if (indicator.current) indicator.current.visible = experiment.flame; });
+  // The outer glass bottom is at y=0.04; the thin electrical heating pad stays below it.
+  return <group name="auto_hotplate">
+    <mesh position={[0, 0.01, 0]}><boxGeometry args={[2.1, 0.02, 2.05]} /><meshStandardMaterial color="#374151" metalness={0.65} roughness={0.35} /></mesh>
+    <mesh position={[0, 0.026, 0]}><cylinderGeometry args={[0.95, 0.95, 0.012, 48]} /><meshStandardMaterial color="#cbd5e1" metalness={0.3} roughness={0.6} /></mesh>
+    <mesh ref={indicator} name="auto_heat_indicator" position={[0.75, 0.012, 1.03]} visible={false}><sphereGeometry args={[0.01, 10, 8]} /><meshBasicMaterial color="#fb923c" /></mesh>
+    <mesh position={[-0.7, 0.012, 1.035]} rotation={[Math.PI / 2, 0, 0]}><cylinderGeometry args={[0.01, 0.01, 0.01, 12]} /><meshStandardMaterial color="#111827" roughness={0.7} /></mesh>
+  </group>;
 }
 function AlcoholBurner() {
   return <group position={[0, 0.08, 0]} name="auto_alcohol_burner">

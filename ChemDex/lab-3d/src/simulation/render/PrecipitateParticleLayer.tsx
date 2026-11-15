@@ -5,7 +5,7 @@ import type { PrecipitationSystem } from '../effects/PrecipitationSystem';
 import { getPrecipitateProfile } from '../core/SimulationConfig';
 import { FRAME_ORDER } from '../core/frameOrder';
 import { createPrecipitateGeometry } from './precipitateGeometry';
-import { useAppStore } from '../../store/useAppStore';
+import { useVesselVisualRuntime, useVesselVisualState, useVesselVisualStore } from './VesselVisualContext';
 import { useQualityStore } from '../../vfx/quality';
 import { immersedPrecipitateOpacity, precipitateFinish, withParticleOpacity } from './particleAppearance';
 import { vesselInterior } from '../../science/vesselDimensions';
@@ -18,13 +18,14 @@ import { precipitateDisplayIndex } from '../../science/precipitateParcels';
 export function PrecipitateParticleLayer({ vesselId, formula, cohortKey = formula, system, formation, capacity }: {
   vesselId: string; formula: string; cohortKey?: string; system: PrecipitationSystem; formation?: string; capacity: number;
 }) {
+  const runtime = useVesselVisualRuntime(), store = useVesselVisualStore();
   const mesh = useRef<THREE.InstancedMesh>(null);
   const uploaded = useRef<{ mesh: THREE.InstancedMesh; geometry: THREE.BufferGeometry; particles: unknown; count: number; time: number; profile: unknown; readable: boolean } | undefined>(undefined);
   const profile = getPrecipitateProfile(system.profile.id, formation);
   const morphology = profile.morphology;
   const reduced = useQualityStore(state => !['high', 'ultra'].includes(state.effectiveTier));
   const readable = useQualityStore(state => state.readablePrecipitates);
-  const vesselType = useAppStore(state => state.vessels[vesselId]?.type ?? 'beaker');
+  const vesselType = useVesselVisualState(state => state.vessels[vesselId]?.type ?? 'beaker');
   const geometry = useMemo(() => {
     const result = createPrecipitateGeometry(profile, reduced ? 'reduced' : 'full');
     result.setAttribute('aParticleOpacity', new THREE.InstancedBufferAttribute(new Float32Array(capacity), 1).setUsage(THREE.DynamicDrawUsage));
@@ -46,11 +47,11 @@ export function PrecipitateParticleLayer({ vesselId, formula, cohortKey = formul
 
   useFrame(() => {
     if (!mesh.current) return;
-    const app = useAppStore.getState(), vessel = app.vessels[vesselId];
+    const app = store.getState(), vessel = app.vessels[vesselId];
     if (!vessel || vessel.isShattered || vessel.volume_ml <= 0.2) { mesh.current.visible = false; return; }
     // A species may dissolve and reappear between React commits. Always read
     // the live population; a retained prop must never animate an orphan system.
-    const liveSystem = SimulationEngine.findManager(vesselId)?.precipitationSystems.get(cohortKey);
+    const liveSystem = (runtime?.manager ?? SimulationEngine.findManager(vesselId))?.precipitationSystems.get(cohortKey);
     if (!liveSystem) { mesh.current.visible = false; mesh.current.count = 0; return; }
     // Upload the retained snapshot while paused too: a moved vessel, a
     // remounted quality tier or an externally prepared specimen still renders.

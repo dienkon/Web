@@ -7,6 +7,7 @@ import { stockContainer } from '../src/physical/stockAdapter';
 import { getSolidMorphology, findChemical } from '../src/data/chemicals';
 import { stockSolidMaterial } from '../src/science/stockAppearance';
 import { solidSceneVolume } from '../src/science/vesselDimensions';
+import { getVesselProfile } from '../src/pour/physics/profiles';
 import { vesselWorldToLocal } from '../src/science/vesselScale';
 import { siPointToScene } from '../src/science/sceneUnits';
 import { vesselLiquidSurfaceY } from '../src/science/vesselGeometry';
@@ -25,7 +26,11 @@ describe('automatic and manual solid parity', () => {
     expect(solid.morphology).toBe(getSolidMorphology(formula));
     expect(solid.material).toEqual(stockSolidMaterial(findChemical(formula), getSolidMorphology(formula)));
     const volume = dose.pieces.reduce((sum, matrix) => sum + matrix.determinant() * AUTO_DONOR_SCALE ** 3, 0);
-    expect(volume).toBeCloseTo(solidSceneVolume(vessel(formula), 0.5 / solid.density), 8);
+    // Donors share the actual automatic receiver's physical coordinate scale.
+    const receiver = new AutoExperiment('cuso4_naoh', false).sample;
+    const cmPerUnit = getVesselProfile(receiver.type, receiver.capacity_ml).sceneScale;
+    // Unit meshes store Float32 vertices; compare physical volume relatively.
+    expect(volume * cmPerUnit ** 3 / (0.5 / solid.density)).toBeCloseTo(1, 6);
   });
   it('uses the solid phase density even when the default stock is a solution', () => {
     expect(findChemical('NaOH').type).toBe('liquid');
@@ -98,13 +103,27 @@ describe('automatic and manual solid parity', () => {
     try {
       const v = vessel('Na', true);
       v.contents.push({ formula: 'Zn', phase: 's', mass_g: 0.1, moles: 0.1 / 65.38 });
-      for (let i = 0; i < 240; i++) motion.advance(v, 1 / 60);
+      let immersedSum = 0, samples = 0;
+      // A nearly neutrally buoyant pellet bobs about its equilibrium. Verify
+      // average displaced mass after the initial rise, not one wave phase.
+      for (let i = 0; i < 720; i++) {
+        motion.advance(v, 1 / 60);
+        if (i < 240) continue;
+        const pellet = motion.grains.find(pose => pose.formula === 'Na')!;
+        const fluid = stockContainer(v, false)!.fluid!;
+        const volume_m3 = pellet.mass_g / 1000 / (autoSolid('Na').density * 1000);
+        const radius = Math.cbrt(3 * volume_m3 / (4 * Math.PI));
+        const height = Math.max(0, Math.min(2 * radius, fluid.offset_m - pellet.position_m[1] + radius));
+        const displaced_m3 = Math.PI * height * height * (radius - height / 3);
+        immersedSum += displaced_m3 / volume_m3; samples++;
+      }
       const height = (formula: string) => {
         const poses = motion.grains.filter(p => p.formula === formula);
         return poses.reduce((sum, p) => sum + vesselWorldToLocal(v, siPointToScene(p.position_m))[1], 0) / poses.length;
       };
-      expect(height('Na')).toBeGreaterThan(vesselLiquidSurfaceY(v) - 0.1);
+      const fluidDensity = stockContainer(v, false)!.fluid!.density_kg_m3;
+      expect(immersedSum / samples).toBeCloseTo(autoSolid('Na').density * 1000 / fluidDensity, 2);
       expect(height('Zn')).toBeLessThan(vesselLiquidSurfaceY(v) - 0.5);
     } finally { motion.dispose(); }
-  });
+  }, 15000);
 });

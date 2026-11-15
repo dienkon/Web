@@ -2,13 +2,14 @@ import React, { useEffect, useMemo, useRef } from 'react';
 import { useFrame } from '@react-three/fiber';
 import * as THREE from 'three';
 import type { VesselState } from '../../types/chemistry';
+import { useVesselVisualRuntime, useVesselVisualStore } from '../../simulation/render/VesselVisualContext';
 import { stockLocalMatrix } from '../../physical/stockCoordinates';
 import { createPowderContactGeometry } from './powderContactGeometry';
 import { solidSceneVolume } from '../../science/vesselDimensions';
 import { getNoiseTexture } from '../../vfx/textures';
 import { PourController } from '../../pour/controller/PourController';
 import { renderedVesselBody } from '../../simulation/render/vesselBodyFrames';
-import { presentedStockPose } from '../../physical/stockPresentation';
+import { presentedStockLocalMatrix } from '../../physical/stockPresentation';
 import { attachedMetalForCarrier, attachedMetalMassForCarrier, DEPOSIT_DENSITY_G_ML } from '../../science/metalSurfaceAppearance';
 
 export function powderCarrierAppearance(vessel: VesselState, id: string, coreMass_g: number, density: number, color: THREE.ColorRepresentation) {
@@ -40,16 +41,20 @@ export function colorPowderContactGeometry(geometry: THREE.BufferGeometry, ancho
 export function ContactPowder({ vessel, formula, mass_g, density, color }: {
   vessel: VesselState; formula: string; mass_g: number; density: number; color: THREE.ColorRepresentation;
 }) {
+  const visualStore = useVesselVisualStore(), visualRuntime = useVesselVisualRuntime();
   const mesh = useRef<THREE.InstancedMesh>(null), texture = useMemo(() => getNoiseTexture(128, 128), []);
   const poses = vessel.stockMotion!.grains.filter(p => p.formula === formula && p.mass_g > 0), represented = poses.reduce((s, p) => s + p.mass_g, 0);
   const factor = represented > 0 ? Math.min(1, mass_g / represented) : 0;
-  const session = PourController.getSession();
-  const renderedUp = renderedVesselBody(vessel.id)?.getWorldQuaternion(new THREE.Quaternion());
+  const app = visualStore.getState(), carried = app.moveMode && app.draggingVesselId === vessel.id;
+  const session = visualRuntime?.externallyStepped ? null : PourController.getSession();
+  const renderedUp = visualRuntime?.externallyStepped ? undefined : renderedVesselBody(vessel.id)?.getWorldQuaternion(new THREE.Quaternion());
   const tilted = renderedUp && new THREE.Vector3(0, 1, 0).applyQuaternion(renderedUp).y < Math.cos(0.16)
     || Math.abs(vessel.rotationZ ?? 0) > 0.16 || session?.sourceId === vessel.id && Math.abs(session.tilt) > 0.16
     || vessel.physicalMotion && Math.abs(vessel.physicalMotion.rotation[0]) + Math.abs(vessel.physicalMotion.rotation[2]) > 0.08;
+  const localMatrix = (pose: typeof poses[number], carried: boolean) => visualRuntime?.externallyStepped
+    ? stockLocalMatrix(vessel, pose) : presentedStockLocalMatrix(vessel, pose, renderedVesselBody(vessel.id)?.matrixWorld, carried);
   const particles = poses.map(p => {
-    const matrix = stockLocalMatrix(vessel, { ...p, scale_m: p.scale_m * Math.cbrt(factor) }), position = new THREE.Vector3().setFromMatrixPosition(matrix);
+    const matrix = localMatrix({ ...p, scale_m: p.scale_m * Math.cbrt(factor) }, carried), position = new THREE.Vector3().setFromMatrixPosition(matrix);
     const appearance = powderCarrierAppearance(vessel, p.id, p.mass_g * factor, density, color);
     const radius = Math.cbrt(solidSceneVolume(vessel, appearance.volume_ml) * 3 / (4 * Math.PI));
     const resting = !tilted && p.contacting === true && (p.sleeping || Math.hypot(...p.velocity_m_s) < 0.012);
@@ -67,9 +72,10 @@ export function ContactPowder({ vessel, formula, mass_g, density, color }: {
   useFrame(() => {
     if (!mesh.current) return;
     const matrix = new THREE.Matrix4(), rotation = new THREE.Quaternion(), scale = new THREE.Vector3();
+    const app = visualStore.getState(), carried = app.moveMode && app.draggingVesselId === vessel.id;
     for (let i = 0; i < particles.length; i++) {
       const p = particles[i]; scale.setScalar(p.resting ? 0 : p.radius);
-      const position = new THREE.Vector3().setFromMatrixPosition(stockLocalMatrix(vessel, presentedStockPose(p.p), renderedVesselBody(vessel.id)?.matrixWorld));
+      const position = new THREE.Vector3().setFromMatrixPosition(localMatrix(p.p, carried));
       matrix.compose(position, rotation, scale); mesh.current.setMatrixAt(i, matrix);
       mesh.current.setColorAt(i, p.appearance.color);
     }

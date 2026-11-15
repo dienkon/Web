@@ -4,8 +4,8 @@ import { liquidDosePlan, liquidDropAmount, volumeDropRadius_scene } from '../src
 describe('finite liquid dose planning', () => {
   it('uses a Pasteur dropper for small liquid transfers and a bottle stream for larger amounts', () => {
     expect(liquidDosePlan(0.05)).toMatchObject({ mode: 'dropper', dropCount: 1 });
-    expect(liquidDosePlan(2)).toMatchObject({ mode: 'dropper', dropCount: 40 });
-    expect(liquidDosePlan(2.001)).toMatchObject({ mode: 'pour', dropCount: 0 });
+    expect(liquidDosePlan(0.2)).toMatchObject({ mode: 'dropper', dropCount: 4 });
+    for (const amount of [0.201, 0.5, 1, 2]) expect(liquidDosePlan(amount)).toMatchObject({ mode: 'pour', dropCount: 0 });
   });
 
   it('divides a fractional last drop without adding unrequested volume', () => {

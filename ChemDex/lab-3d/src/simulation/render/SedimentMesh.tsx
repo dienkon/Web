@@ -2,17 +2,20 @@ import React, { useRef, useEffect, useMemo } from 'react';
 import { useFrame } from '@react-three/fiber';
 import * as THREE from 'three';
 import { SedimentBedState } from '../core/SimulationTypes';
-import { useAppStore } from '../../store/useAppStore';
+import { useVesselVisualStore } from './VesselVisualContext';
 import { vesselInterior } from '../../science/vesselDimensions';
 import { createSedimentGeometry } from '../effects/sedimentGeometry';
 import { createClippedSedimentGeometry } from '../effects/clippedSedimentGeometry';
 import { getNoiseTexture } from '../../vfx/textures';
+import { sedimentBedOptics, type SedimentOpticalCohort } from '../../science/sedimentOptics';
+import { getPrecipitateProfile } from '../core/SimulationConfig';
 
 export interface SedimentMeshProps {
   vesselId: string;
   baseY: number;
   radius: number;
   sedimentBed?: SedimentBedState;
+  readOpticalCohorts?: () => Iterable<SedimentOpticalCohort>;
 }
 
 /**
@@ -22,8 +25,10 @@ export const SedimentMesh = React.memo(function SedimentMesh({
   vesselId,
   baseY,
   radius,
-  sedimentBed
+  sedimentBed,
+  readOpticalCohorts
 }: SedimentMeshProps) {
+  const store = useVesselVisualStore();
   const meshRef = useRef<THREE.Mesh>(null);
   const colorObj = useRef(new THREE.Color('#f8fafc'));
   const geometryRef = useRef<THREE.BufferGeometry | null>(null);
@@ -41,7 +46,7 @@ export const SedimentMesh = React.memo(function SedimentMesh({
       return;
     }
 
-    const vessel = useAppStore.getState().vessels[vesselId];
+    const vessel = store.getState().vessels[vesselId];
     if (!vessel || vessel.isShattered || vessel.volume_ml <= 0.2) { meshRef.current.visible = false; return; }
     const floor = vesselInterior(vessel.type).floorY;
     const plane = sedimentBed?.surfacePlane;
@@ -64,6 +69,8 @@ export const SedimentMesh = React.memo(function SedimentMesh({
         mat.color.copy(colorObj.current);
         mat.roughness = sedimentBed.roughness ?? 0.85;
         mat.metalness = sedimentBed.metalness ?? 0;
+        mat.opacity = sedimentBedOptics(vessel, floor + thickness, readOpticalCohorts?.() ?? [{ mass_g: amount,
+          profile: getPrecipitateProfile(vessel.precipitateSubstance ?? '', vessel.precipitateMorphology) }]).opacity;
       }
     }
   });
@@ -77,7 +84,7 @@ export const SedimentMesh = React.memo(function SedimentMesh({
         bumpMap={texture}
         bumpScale={0.003}
         transparent
-        opacity={0.96}
+        opacity={0}
         depthWrite={false}
       />
     </mesh>

@@ -62,7 +62,13 @@ try {
   await page.locator('#manual-lab [data-sidebar="left"]').waitFor({ state: 'visible' });
   await page.locator('#manual-lab [data-sidebar="right"]').waitFor({ state: 'visible' });
   await page.evaluate(async () => {
-    const { useAppStore } = await import('/src/store/useAppStore.ts');
+    // Vite timestamps edited modules. Import the exact URL already used by
+    // React, otherwise a bare import can create a second, disconnected store.
+    const storeUrl = performance.getEntriesByType('resource').map(entry => entry.name)
+      .findLast(name => /\/src\/store\/useAppStore\.ts(?:\?|$)/.test(name));
+    if (!storeUrl) throw new Error('The mounted application store module was not found.');
+    const { useAppStore } = await import(storeUrl);
+    window.__manualStore = useAppStore;
     const state = useAppStore.getState();
     window.__manualBefore = JSON.stringify({ vessels: state.vessels, burners: state.burners });
     window.__manualPanelsBefore = { left: state.leftSidebarOpen, right: state.rightSidebarOpen };
@@ -146,7 +152,7 @@ try {
   await page.keyboard.press('Escape');
   await page.waitForFunction(() => !document.fullscreenElement);
   const manualPreserved = await page.evaluate(async () => {
-    const { useAppStore } = await import('/src/store/useAppStore.ts');
+    const useAppStore = window.__manualStore;
     return JSON.stringify({ vessels: useAppStore.getState().vessels, burners: useAppStore.getState().burners }) === window.__manualBefore;
   });
   assert.equal(manualPreserved, true, 'Automatic playback must not modify the manual bench');
@@ -156,9 +162,38 @@ try {
   // Wait for its canvas and scope the assertion to the manual workspace.
   await page.locator('#manual-lab canvas').waitFor({ state: 'visible', timeout: 60000 });
   assert.deepEqual(await page.evaluate(async () => {
-    const { useAppStore } = await import('/src/store/useAppStore.ts');
+    const useAppStore = window.__manualStore;
     return { left: useAppStore.getState().leftSidebarOpen, right: useAppStore.getState().rightSidebarOpen };
   }), await page.evaluate(() => window.__manualPanelsBefore), 'Exiting automatic mode restores the prior manual panel state');
+  const lockTarget = await page.evaluate(async () => {
+    const useAppStore = window.__manualStore;
+    const state = useAppStore.getState(), id = state.vesselIds.find(key => state.vessels[key]?.type === 'beaker');
+    if (!id) throw new Error('No beaker is available for the header lock check.');
+    state.setSelectedVesselId(id); return id;
+  });
+  const lockButton = page.getByRole('button', { name: 'Khóa bình đang chọn', exact: true });
+  await lockButton.waitFor();
+  await page.waitForFunction(() => !document.querySelector('button[aria-label="Khóa bình đang chọn"]')?.disabled);
+  const lockPlacement = await lockButton.evaluate(button => ({
+    previousButton: button.previousElementSibling?.getAttribute('aria-label'),
+    pressed: button.getAttribute('aria-pressed'),
+    disabled: button.disabled,
+  }));
+  assert.equal(lockPlacement.previousButton, 'Di chuyển dụng cụ', 'Header lock must be directly beside Move');
+  assert.equal(lockPlacement.pressed, 'false');
+  await lockButton.click();
+  await page.getByRole('button', { name: 'Mở khóa bình đang chọn', exact: true }).waitFor();
+  assert.equal(await page.evaluate(async id => {
+    const useAppStore = window.__manualStore;
+    return useAppStore.getState().vessels[id].isLocked;
+  }, lockTarget), true);
+  await page.screenshot({ path: `${output}/workspace-header-lock.png` });
+  assert.equal(await page.getByRole('button', { name: 'Mở khóa bình đang chọn', exact: true }).getAttribute('aria-pressed'), 'true');
+  await page.getByRole('button', { name: 'Mở khóa bình đang chọn', exact: true }).click();
+  assert.equal(await page.evaluate(async id => {
+    const useAppStore = window.__manualStore;
+    return useAppStore.getState().vessels[id].isLocked;
+  }, lockTarget), false);
   await page.waitForFunction(minimum => {
     const panel = document.querySelector('#manual-lab [data-sidebar="right"]');
     return panel && panel.getBoundingClientRect().width >= minimum;
@@ -186,7 +221,7 @@ try {
     manualPanelStateRestored: true, resizableManualAndAutomaticSidebars: true, keyboardResize: true,
     emptyReceiverBeforePour: true, animatedDonorAndStream: transfer, pauseUsesDemandRendering: true,
     restartReusesCanvas: true, nextReactionClearsPreviousRun: true, smoke: true, playlist: true, fullscreen: true,
-    manualBenchPreserved: true, mobile: true, errors };
+    manualBenchPreserved: true, headerLocksSelectedVessel: { targetId: lockTarget, ...lockPlacement }, mobile: true, errors };
   writeFileSync(`${output}/workspace-browser.json`, JSON.stringify(report, null, 2) + '\n');
   console.log(report);
 } catch (error) {

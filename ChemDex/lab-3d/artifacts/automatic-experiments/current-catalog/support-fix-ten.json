@@ -1,0 +1,182 @@
+[
+  {
+    "id": "zn_hcl",
+    "phase": "complete",
+    "error": null,
+    "progress": 1,
+    "time": 64.49999999999763,
+    "initialMass": 30.06538,
+    "finalMass": 30.06538000000004,
+    "massError": 3.907985046680551e-14,
+    "solid": [
+      {
+        "formula": "Zn",
+        "mass": 0
+      }
+    ]
+  },
+  {
+    "id": "mg_hcl",
+    "phase": "error",
+    "error": "Chưa đạt trạng thái cuối sau 180 giây mô phỏng. Kiểm tra điều kiện của bài.",
+    "progress": 0.6813901032601553,
+    "time": 228.08333333340698,
+    "initialMass": 30.024305,
+    "finalMass": 30.02430500000002,
+    "massError": 2.1316282072803006e-14,
+    "solid": [
+      {
+        "formula": "Mg",
+        "mass": 0.007743813540261928
+      }
+    ]
+  },
+  {
+    "id": "mg_cuso4",
+    "phase": "error",
+    "error": "Chưa đạt trạng thái cuối sau 180 giây mô phỏng. Kiểm tra điều kiện của bài.",
+    "progress": 0.12989368178492577,
+    "time": 228.08333333340698,
+    "initialMass": 30.024305,
+    "finalMass": 30.024305000000023,
+    "massError": 2.4868995751603507e-14,
+    "solid": [
+      {
+        "formula": "Mg",
+        "mass": 0.021147934064217378
+      },
+      {
+        "formula": "Cu",
+        "mass": 0.000050433333333333324
+      },
+      {
+        "formula": "Cu",
+        "mass": 0.001284429581918897
+      },
+      {
+        "formula": "Cu",
+        "mass": 0.00023028301651167743
+      },
+      {
+        "formula": "Cu",
+        "mass": 0.00309312442314585
+      },
+      {
+        "formula": "Cu",
+        "mass": 0.003595953547795152
+      }
+    ]
+  },
+  {
+    "id": "zn_h2so4_dilute",
+    "phase": "complete",
+    "error": null,
+    "progress": 1,
+    "time": 51.99999999999833,
+    "initialMass": 30.06538,
+    "finalMass": 30.065379999999934,
+    "massError": -6.750155989720952e-14,
+    "solid": [
+      {
+        "formula": "Zn",
+        "mass": 5.670811042968182e-17
+      }
+    ]
+  },
+  {
+    "id": "al_naoh_h2",
+    "phase": "error",
+    "error": "Chưa đạt trạng thái cuối sau 180 giây mô phỏng. Kiểm tra điều kiện của bài.",
+    "progress": 0.5218644764312365,
+    "time": 227.86666666674014,
+    "initialMass": 30.053964,
+    "finalMass": 30.053963999999876,
+    "massError": -1.2434497875801753e-13,
+    "solid": [
+      {
+        "formula": "Al",
+        "mass": 0.025802105393864752
+      }
+    ]
+  },
+  {
+    "id": "kcl_conc_h2so4",
+    "phase": "complete",
+    "error": null,
+    "progress": 1,
+    "time": 130.499999999996,
+    "initialMass": 1.7462146938775511,
+    "finalMass": 1.7462146938775536,
+    "massError": 2.4424906541753444e-15,
+    "solid": [
+      {
+        "formula": "KCl",
+        "mass": 0
+      }
+    ]
+  },
+  {
+    "id": "kmno4_hcl",
+    "phase": "error",
+    "error": "Chưa đạt trạng thái cuối sau 180 giây mô phỏng. Kiểm tra điều kiện của bài.",
+    "progress": 0.9999999999649183,
+    "time": 207.36666666672383,
+    "initialMass": 30.316064,
+    "finalMass": 30.316063999999994,
+    "massError": -7.105427357601002e-15,
+    "solid": [
+      {
+        "formula": "KMnO4",
+        "mass": 1.1088592692295172e-11
+      }
+    ]
+  },
+  {
+    "id": "nh4no3_dissolution",
+    "phase": "complete",
+    "error": null,
+    "progress": 1,
+    "time": 33.99999999999935,
+    "initialMass": 30.080043,
+    "finalMass": 30.08004300000005,
+    "massError": 4.973799150320701e-14,
+    "solid": [
+      {
+        "formula": "NH4NO3",
+        "mass": 0
+      }
+    ]
+  },
+  {
+    "id": "naoh_dissolution",
+    "phase": "complete",
+    "error": null,
+    "progress": 1,
+    "time": 33.1999999999994,
+    "initialMass": 30.039997,
+    "finalMass": 30.039997000000003,
+    "massError": 3.552713678800501e-15,
+    "solid": [
+      {
+        "formula": "NaOH",
+        "mass": 0
+      }
+    ]
+  },
+  {
+    "id": "feoh3_hcl",
+    "phase": "error",
+    "error": "Chưa đạt trạng thái cuối sau 180 giây mô phỏng. Kiểm tra điều kiện của bài.",
+    "progress": 0.9999999998971951,
+    "time": 207.3833333333905,
+    "initialMass": 30.106866,
+    "finalMass": 30.106865999999993,
+    "massError": -7.105427357601002e-15,
+    "solid": [
+      {
+        "formula": "Fe(OH)3",
+        "mass": 1.0986453127863295e-11
+      }
+    ]
+  }
+]

@@ -1,4 +1,5 @@
 import { questions } from './questions.mjs';
+import { practiceQuestions } from './practice-questions.mjs';
 import { createSession } from './session.mjs';
 import { questionPanel, answerPanel } from './panels.mjs';
 import { createEffects } from './effects.mjs';
@@ -6,7 +7,11 @@ import { createEffects } from './effects.mjs';
 const app = document.querySelector('#app');
 const file = location.pathname.split('/').pop();
 const mode = file === 'o-chu.html' ? 'crossword' : file === 'luyen-tap.html' ? 'practice' : 'review';
-const session = createSession(questions, { shuffleAnswers: true });
+const isPractice = mode === 'practice';
+const quizTitle = isPractice ? 'Câu hỏi luyện tập' : 'Câu hỏi ôn bài';
+const questionBank = isPractice ? practiceQuestions : questions;
+const session = createSession(questionBank, { shuffleAnswers: true });
+document.title = `${mode === 'crossword' ? 'Trò chơi ô chữ' : quizTitle} · Dấu chân người lính`;
 let busy = false;
 let muted = false;
 let feedbackTimer;
@@ -46,7 +51,7 @@ soundToggle.addEventListener('click', () => {
 function renderQuestion(focus = false) {
   document.querySelector('.question-panel')?.dispose?.();
   const { index, score, total, question } = session.state;
-  main.innerHTML = `<div class="section-heading"><div><span class="eyebrow gold">HỌC TẬP & RÈN LUYỆN</span><h2>Câu hỏi ôn bài</h2></div><div class="mission-info"><span>LLVT ĐỊA PHƯƠNG</span><strong><b>${String(index + 1).padStart(2, '0')}</b> / ${String(total).padStart(2, '0')}</strong></div></div><div class="progress-track" role="progressbar" aria-label="Tiến độ trả lời" aria-valuemin="0" aria-valuemax="${total}" aria-valuenow="${index}"><span style="width:${index / total * 100}%"></span></div><div id="quiz-stage"></div><div class="quiz-bottom"><p class="instruction">Chọn một đáp án để kiểm tra kiến thức.</p><span class="score">${score} câu đúng</span></div><section id="feedback" class="feedback" hidden aria-label="Kết quả trả lời"></section>`;
+  main.innerHTML = `<div class="section-heading"><div><span class="eyebrow gold">HỌC TẬP & RÈN LUYỆN</span><h2>${quizTitle}</h2></div><div class="mission-info"><span>LLVT ĐỊA PHƯƠNG</span><strong><b>${String(index + 1).padStart(2, '0')}</b> / ${String(total).padStart(2, '0')}</strong></div></div><div class="progress-track" role="progressbar" aria-label="Tiến độ trả lời" aria-valuemin="0" aria-valuemax="${total}" aria-valuenow="${index}"><span style="width:${index / total * 100}%"></span></div><div id="quiz-stage"></div><div class="quiz-bottom"><p class="instruction">Chọn một đáp án để kiểm tra kiến thức.</p><span class="score">${score} câu đúng</span></div><section id="feedback" class="feedback" hidden aria-label="Kết quả trả lời"></section>`;
   const stage = document.querySelector('#quiz-stage');
   stage.append(questionPanel(question.text, index + 1));
   const answers = document.createElement('div'); answers.className = 'answers'; answers.setAttribute('role', 'group'); answers.setAttribute('aria-label', 'Các đáp án');
@@ -82,7 +87,7 @@ function choose(index) {
     const feedback = document.querySelector('#feedback');
     feedback.hidden = false;
     feedback.className = `feedback ${result.correct ? 'correct' : 'wrong'}`;
-    feedback.innerHTML = `<div><span class="eyebrow">${result.correct ? 'HOÀN THÀNH MỤC TIÊU' : 'GHI NHỚ KIẾN THỨC'}</span><h2>${result.correct ? 'Chính xác!' : 'Chưa chính xác!'}</h2><p></p></div><button type="button" class="primary" id="next">${session.state.index === questions.length - 1 ? 'Xem kết quả' : 'Câu tiếp theo'} <span>→</span></button>`;
+    feedback.innerHTML = `<div><span class="eyebrow">${result.correct ? 'HOÀN THÀNH MỤC TIÊU' : 'GHI NHỚ KIẾN THỨC'}</span><h2>${result.correct ? 'Chính xác!' : 'Chưa chính xác!'}</h2><p></p></div><button type="button" class="primary" id="next">${session.state.index === session.state.total - 1 ? 'Xem kết quả' : 'Câu tiếp theo'} <span>→</span></button>`;
     feedback.querySelector('p').textContent = `Đáp án ${'ABCD'[index]}: ${session.state.question.answers[index]}`;
     document.querySelector('.instruction').textContent = result.correct ? 'Tiếp tục giữ vững phong độ!' : 'Ghi nhớ đáp án và tiếp tục luyện tập.';
     document.querySelector('.score').textContent = `${session.state.score} câu đúng`;
@@ -101,20 +106,20 @@ function next() {
 function renderSummary() {
   document.querySelector('.question-panel')?.dispose?.();
   const { score, total } = session.state;
-  main.innerHTML = `<section class="summary"><img src="./assets/star.svg" alt=""><span class="eyebrow gold">HOÀN THÀNH ÔN TẬP</span><h1>Vững bước tiến lên!</h1><p>Bạn đã hoàn thành ${total} câu hỏi về lực lượng vũ trang địa phương.</p><strong>${score}<span> / ${total}</span></strong><p>câu trả lời chính xác</p><button type="button" class="primary" id="restart">Ôn tập lại ↻</button></section>`;
+  main.innerHTML = `<section class="summary"><img src="./assets/star.svg" alt=""><span class="eyebrow gold">${isPractice ? 'HOÀN THÀNH LUYỆN TẬP' : 'HOÀN THÀNH ÔN TẬP'}</span><h1>Vững bước tiến lên!</h1><p>Bạn đã hoàn thành ${total} câu hỏi về ${isPractice ? 'nghệ thuật quân sự địa phương và trách nhiệm của học sinh' : 'lực lượng vũ trang địa phương'}.</p><strong>${score}<span> / ${total}</span></strong><p>câu trả lời chính xác</p><button type="button" class="primary" id="restart">${isPractice ? 'Luyện tập lại' : 'Ôn tập lại'} ↻</button></section>`;
   const restart = document.querySelector('#restart');
   restart.addEventListener('click', () => { session.restart(); renderQuestion(true); }); restart.focus();
   announce(`Hoàn thành. Bạn trả lời đúng ${score} trên ${total} câu.`);
 }
-if (mode === 'review') renderQuestion();
+if (mode !== 'crossword') renderQuestion();
 else {
-  const title = mode === 'crossword' ? 'Trò chơi ô chữ' : 'Câu hỏi luyện tập';
+  const title = 'Trò chơi ô chữ';
   document.title = `${title} · Dấu chân người lính`;
   document.querySelector('#keyboard-hint').textContent = 'GIÁO DỤC QUỐC PHÒNG & AN NINH';
   main.innerHTML = `<section class="summary coming-soon"><img src="./assets/star.svg" alt=""><span class="eyebrow gold">KHÔNG GIAN HỌC TẬP</span><h1>${title}</h1><p>Khung trang đã sẵn sàng.<br>Nội dung sẽ được bổ sung ở bước tiếp theo.</p><a class="primary" href="./on-bai.html">Vào câu hỏi ôn bài →</a></section>`;
 }
 document.addEventListener('keydown', event => {
-  if (mode !== 'review' || event.altKey || event.ctrlKey || event.metaKey || event.repeat || /INPUT|TEXTAREA|SELECT/.test(event.target.tagName)) return;
+  if (mode === 'crossword' || event.altKey || event.ctrlKey || event.metaKey || event.repeat || /INPUT|TEXTAREA|SELECT/.test(event.target.tagName)) return;
   const index = 'abcd'.indexOf(event.key.toLowerCase());
   if (index >= 0 && !session.state.complete) { event.preventDefault(); choose(index); }
   // Native Enter on focused buttons already dispatches click. Avoid advancing twice.

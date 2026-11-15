@@ -3,7 +3,7 @@ import { hydrogenExhaustAnchor } from '../../engine/hydrogenExhaustCombustion';
 import React, { useEffect, useMemo, useRef } from 'react';
 import { useFrame } from '@react-three/fiber';
 import * as THREE from 'three';
-import { useAppStore } from '../../store/useAppStore';
+import { useVesselVisualRuntime, useVesselVisualState, useVesselVisualStore } from '../../simulation/render/VesselVisualContext';
 import { reactionSimulationEngine } from '../../vfx/reactions/ReactionSimulationEngine';
 import { isSodiumWaterReaction, sodiumPelletThermal, sodiumMetalMass } from '../../science/sodiumWater';
 import { sodiumSurfaceRadius } from '../../science/vesselGeometry';
@@ -20,7 +20,8 @@ const BUBBLE_COUNT = 24;
 /** All coordinates are vessel-local. The pellet, bubbles, and wake share one
  * liquid contact point; only actual inventory supplies the visible metal. */
 export function SodiumWaterPellet({ vesselId }: { vesselId: string }) {
-  const vessel = useAppStore(state => state.vessels[vesselId]);
+  const visualStore = useVesselVisualStore(), visualRuntime = useVesselVisualRuntime();
+  const vessel = useVesselVisualState(state => state.vessels[vesselId]);
   const pellet = useRef<THREE.Mesh>(null);
   const meniscus = useRef<THREE.Mesh>(null);
   const trail = useRef<THREE.InstancedMesh>(null);
@@ -39,11 +40,11 @@ export function SodiumWaterPellet({ vesselId }: { vesselId: string }) {
   useEffect(() => () => { geometry.dispose(); flameMaterial.dispose(); }, [geometry, flameMaterial]);
 
   useFrame((_, delta) => {
-    const state = useAppStore.getState();
+    const state = visualStore.getState();
     const v = state.vessels[vesselId];
     if (!v || !pellet.current) return;
     const kinetics = state.activeKinetics[vesselId];
-    const runtime = reactionSimulationEngine.getRuntime(vesselId);
+    const runtime = visualRuntime?.externallyStepped ? undefined : reactionSimulationEngine.getRuntime(vesselId);
     const data = isSodiumWaterReaction(runtime?.reactionId) ? runtime?.customData : undefined;
 
     if (v.isShattered) {

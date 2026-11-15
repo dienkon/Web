@@ -398,3 +398,163 @@ Chlorine dưới dạng ion có thể là một tác nhân tổ chức quá trì
  ],sources:[['Stranks và cộng sự · Khuếch tán điện tích trong perovskite, 2013','https://doi.org/10.1126/science.1243982'],['Vai trò quang điện của chlorine, 2015','https://www.nature.com/articles/ncomms8269'],['Thời gian annealing, thành phần và cấu trúc màng, 2017','https://pubs.rsc.org/en/content/articlehtml/2017/cp/c6cp06347k']]
 },
 );
+
+editorialElementsWave6.push(
+{
+ id:'argon-long-giu-dau-vet-hat',category:'nguyento',scope:'element',title:'Một khối argon lỏng giữ đường đi của hạt bằng điện tích',summary:'ProtoDUNE ghi những vệt hạt đầu tiên tháng 9/2018. Khí hiếm được hóa lỏng trở thành môi trường vừa tạo tín hiệu vừa cho electron đi qua đủ xa để được đọc.',tags:['Argon','ProtoDUNE','Detector','Độ tinh khiết'],image:'/assets/library/photos/elements/Ar.jpg',imageAlt:'Ảnh minh họa argon; detector dùng argon lỏng rất tinh khiết trong bình lạnh lớn',
+ sections:[
+ ['Một detector lớn được kiểm tra bằng những vệt đầu tiên',`Ngày 18 tháng 9 năm 2018, CERN thông báo ProtoDUNE đã ghi được những vệt hạt đầu tiên. Thiết bị nguyên mẫu được xây để kiểm tra công nghệ cho chương trình DUNE, với một khối argon lỏng lớn trong bình lạnh.
+
+Những vệt đó không phải đường được vẽ bằng mực trong chất lỏng. Chúng được dựng từ tín hiệu tạo ra khi hạt mang điện đi qua và để lại năng lượng trong argon.
+
+Công trình vận hành giai đoạn 2018–2020 cung cấp dữ liệu về hệ đọc, độ tinh khiết và độ ổn định. Vai trò nguyên mẫu là thử những lựa chọn kỹ thuật trước khi áp dụng ở quy mô lớn hơn, không phải hoàn tất toàn bộ nhiệm vụ khoa học của DUNE.`],
+ ['Electron phải đi qua chất lỏng mà không bị bắt quá sớm',`Hạt mang điện ion hóa argon dọc đường đi, tạo electron tự do. Điện trường đưa các electron trôi tới các mặt đọc, trong khi thời gian trôi và vị trí tín hiệu giúp dựng tọa độ trong thể tích.
+
+Argon cũng phát ánh sáng khi bị kích thích. Tín hiệu ánh sáng có thể hỗ trợ xác định thời điểm sự kiện, bổ sung cho thông tin từ điện tích.
+
+Tạp chất có tính bắt electron làm tín hiệu giảm trước khi tới mặt đọc. Vì vậy, tinh chế không chỉ là yêu cầu để chất lỏng trong bằng mắt; nó quyết định khoảng cách mà thông tin điện tích có thể sống được.
+
+Các nhóm ProtoDUNE theo dõi tuổi thọ electron ở nhiều vị trí và thời điểm. Một mẫu hóa chất được ghi độ tinh khiết tốt ban đầu vẫn cần được giữ sạch trong cả bình, đường ống và vật liệu bên trong.
+
+Nhiệt độ, trường điện và điện tử đọc phải ổn định để biến tín hiệu thành phép đo năng lượng và đường đi có thể so sánh.`],
+ ['Ứng dụng hôm nay: hóa chất làm môi trường đo vật lý cơ bản',`Detector argon lỏng được dùng trong nghiên cứu neutrino và những câu hỏi vật lý khác. Tùy mục tiêu, cấu trúc đọc ánh sáng, điện tích và những yêu cầu phông nền được thiết kế khác nhau.
+
+Dữ liệu của nguyên mẫu giúp xác định hiệu chỉnh và những sai lệch hệ thống. Nếu điện tích bị mất theo vị trí, một đường hạt có năng lượng như nhau có thể cho tín hiệu khác; cần đo để sửa trước khi diễn giải vật lý.
+
+Câu chuyện argon cho thấy khí hiếm không chỉ hữu ích vì ít phản ứng. Khi hóa lỏng và giữ rất sạch, nó cung cấp một khối vật chất có thể biến tương tác hiếm thành tín hiệu đo được.
+
+Một nguyên tố quen thuộc trong bình khí bảo vệ hàn trở thành thành phần của detector khổng lồ, nhờ những điều kiện hoàn toàn khác. Giá trị nằm ở sự phối hợp giữa tính chất nguyên tử, độ tinh khiết và cách thu tín hiệu, chứ không chỉ lượng argon được nạp vào bình.`]
+ ],sources:[['CERN · Vệt hạt đầu tiên của ProtoDUNE, 2018','https://home.cern/first-particle-tracks-seen-in-prototype-for-international-neutrino-experiment/'],['DUNE Collaboration · Thiết kế và vận hành ProtoDUNE-SP','https://arxiv.org/abs/2108.01902'],['Nghiên cứu độ tinh khiết argon theo không gian và thời gian','https://escholarship.org/uc/item/2ks5b3d4']]
+},
+{
+ id:'potassium-hoi-nguyen-tu-nghe-tin-hieu-tu-nao',category:'nguyento',scope:'element',title:'Hơi potassium đọc tín hiệu từ rất yếu của não',summary:'Năm 2006, nhóm Princeton đo trường từ do kích thích thính giác bằng cảm biến nguyên tử potassium. Hệ không cần detector siêu dẫn, nhưng vẫn cần môi trường từ được kiểm soát rất kỹ.',tags:['Potassium','Từ kế nguyên tử','Spin','Đo tín hiệu sinh học'],image:'/assets/library/photos/elements/K.jpg',imageAlt:'Mẫu potassium minh họa nguyên tố; cảm biến dùng hơi potassium trong cell kín được thiết kế riêng',
+ sections:[
+ ['Một phép đo sinh học bằng tín hiệu quang học của nguyên tử',`Công trình năm 2006 của H. Xia và đồng nghiệp tại Princeton báo cáo đo và lập bản đồ trường từ não được gợi lên bởi kích thích thính giác. Cảm biến dựa trên sự tiến động spin của potassium trong một cell hơi nguyên tử.
+
+Thiết bị tránh nhu cầu làm lạnh sâu của đầu dò SQUID thông thường, nhưng không có nghĩa toàn bộ hệ ở điều kiện phòng đơn giản. Cell hơi cần được giữ trong điều kiện nhiệt thích hợp và phép đo cần che chắn trường nền.
+
+Đây là một minh chứng nghiên cứu về phương pháp đo, không phải bằng chứng mọi từ kế potassium có thể dùng như thiết bị chẩn đoán lâm sàng.`],
+ ['Ánh sáng chuẩn bị spin rồi đọc sự thay đổi của nó',`Trong từ kế bơm quang, ánh sáng làm thay đổi phân bố trạng thái spin của các nguyên tử. Từ trường bên ngoài ảnh hưởng tiến động và tín hiệu quang có thể được dùng để suy ra trường.
+
+Ở chế độ SERF, những tương tác trao đổi spin được tổ chức trong vùng điều kiện giúp giảm một nguồn mất kết hợp quan trọng. Điều này đòi hỏi mật độ hơi và trường từ phù hợp, không phải một tính chất tự động của mọi bình potassium.
+
+Tín hiệu sinh học rất nhỏ so với từ trường Trái Đất và nhiều nguồn nhiễu trong phòng. Che chắn, cuộn bù và việc phân biệt nhiễu theo thời gian là phần thiết yếu của hệ.
+
+Một mảng photodiode trong nghiên cứu giúp đọc nhiều vùng, tạo khả năng lập bản đồ thay vì chỉ đo một điểm. Hình học cảm biến và khoảng cách tới nguồn ảnh hưởng độ phân giải không gian.
+
+Potassium không tham gia phản ứng với mô. Nó ở trong cell kín, làm đầu dò từ thông qua trạng thái nguyên tử; đây là vai trò khác hẳn ion potassium trong sinh lý tế bào.`],
+ ['Ứng dụng hôm nay: cảm biến nhỏ hơn vẫn cần phép đo tốt',`Các từ kế bơm quang dùng nhiều nguyên tử kiềm khác nhau tiếp tục được nghiên cứu cho đo sinh học, địa vật lý và những hệ lượng tử. Mỗi nguyên tử và thiết kế có những đánh đổi về nhiệt, độ nhạy và dải trường.
+
+Một cảm biến không cần helium lỏng có thể thuận tiện hơn về cơ sở hạ tầng, nhưng vẫn phải đáp ứng độ ổn định, hiệu chuẩn và cách đặt gần đối tượng. Không nên dùng sự đơn giản hóa một phần thiết bị để suy ra toàn bộ phép đo trở nên dễ dàng.
+
+Công trình năm 2006 đặt một mốc cụ thể cho khả năng dùng hơi nguyên tử trong đo trường não. Các ứng dụng sau cần thêm dữ liệu về chuyển động, môi trường và độ tin cậy của từng cấu hình.
+
+Câu chuyện potassium cho thấy quang học nguyên tử có thể đọc những tín hiệu cơ thể mà mắt không thấy. Một nguyên tố phản ứng mạnh ở dạng kim loại được giữ trong môi trường kiểm soát, rồi dùng ánh sáng để biến chuyển động spin thành dữ liệu về từ trường ở bên ngoài.`]
+ ],sources:[['Xia và cộng sự · Magnetoencephalography bằng từ kế nguyên tử, 2006','https://collaborate.princeton.edu/en/publications/magnetoencephalography-with-an-atomic-magnetometer/'],['Kominis và cộng sự · Từ kế nguyên tử độ nhạy cao, 2003','https://doi.org/10.1038/nature01484']]
+},
+{
+ id:'calcium-monofluoride-lam-lanh-ca-phan-tu',category:'nguyento',scope:'element',title:'Làm lạnh một phân tử phức tạp hơn một nguyên tử',summary:'Những thí nghiệm với calcium monofluoride năm 2017 đẩy làm lạnh laser sang phân tử. Các trạng thái dao động và quay khiến ánh sáng phải được tổ chức khác cách làm với nguyên tử đơn.',tags:['Calcium','CaF','Làm lạnh laser','Phân tử lạnh'],image:'/assets/library/photos/elements/Ca.jpg',imageAlt:'Mẫu calcium minh họa nguyên tố; thí nghiệm dùng phân tử calcium monofluoride CaF, không phải tinh thể CaF2',
+ sections:[
+ ['Một phân tử có nhiều chỗ để năng lượng đi vào',`Các công trình năm 2017 về calcium monofluoride trình diễn bẫy và làm lạnh laser các phân tử tới những vùng nhiệt độ rất thấp. Nhóm tại Imperial College báo cáo làm lạnh dưới giới hạn Doppler, còn những nhóm khác phát triển bẫy từ–quang cho CaF.
+
+Điều đáng chú ý là làm việc với phân tử, không chỉ một nguyên tử đơn. Phân tử có thể quay và dao động, tạo nhiều trạng thái mà sau khi phát photon nó có thể rơi vào.
+
+Nếu một phân tử đi vào trạng thái không còn tương tác với laser chính, chu trình làm lạnh dừng. Các thí nghiệm phải giải quyết khả năng “rơi khỏi chu trình” ấy để lặp lại đủ nhiều lần trao đổi động lượng.`],
+ ['Photon nhỏ nhưng nhiều lần trao đổi làm chậm chuyển động',`Ánh sáng mang động lượng. Khi nguyên tử hoặc phân tử hấp thụ photon có hướng được chọn, vận tốc có thể thay đổi một chút; phát xạ sau đó và cách bố trí các chùm tạo hiệu ứng làm lạnh tổng thể trong điều kiện phù hợp.
+
+CaF được quan tâm vì có những chuyển mức cho phép thiết kế chu trình quang tương đối thuận lợi. Các laser bổ sung đưa những phân tử đi vào một số trạng thái khác trở lại chu trình.
+
+Nhiệt độ được nói tới mô tả phân bố chuyển động của tập phân tử, không phải một nhiệt kế chạm trực tiếp vào một phân tử. Đo tốc độ giãn của đám mây và tín hiệu huỳnh quang giúp suy ra những đại lượng ấy.
+
+CaF cần được phân biệt với calcium fluoride CaF₂ quen trong quang học và khoáng vật. Khác tỷ lệ nguyên tử và trạng thái tồn tại dẫn tới một đối tượng nghiên cứu khác hoàn toàn.
+
+Calcium kim loại trong ảnh chỉ minh họa nguyên tố. Tính chất hữu ích ở đây thuộc phân tử được tạo trong thiết bị và những mức năng lượng của nó.`],
+ ['Ứng dụng hôm nay: chuẩn bị mẫu để hỏi những câu tinh hơn',`Phân tử lạnh được nghiên cứu cho va chạm, phản ứng ở năng lượng thấp, mô phỏng lượng tử và đo lường chính xác. Làm chậm chuyển động giúp tăng thời gian quan sát và kiểm soát trạng thái ban đầu tốt hơn.
+
+Tuy nhiên, một đám mây lạnh không tự là máy tính lượng tử hoặc một phương pháp hóa học công nghiệp. Những ứng dụng ấy cần những bước khác như bẫy lâu, điều khiển tương tác và đọc trạng thái với độ tin cậy cao.
+
+Các thí nghiệm CaF đã cung cấp công cụ để kiểm tra những bước tiếp theo. Chúng cho thấy kỹ thuật từng thành công với nguyên tử có thể được mở rộng, nhưng cần thiết kế theo cấu trúc mức năng lượng của từng phân tử.
+
+Câu chuyện calcium ở đây là câu chuyện về chọn một đối tượng vừa đủ phức tạp để có chức năng mới, vừa đủ thuận lợi để điều khiển bằng ánh sáng. Thành công không đến từ nhiệt độ thấp riêng lẻ, mà từ khả năng biết mẫu đang ở trạng thái nào và lặp lại phép đo trên một tập phân tử được chuẩn bị có chủ đích.`]
+ ],sources:[['Truppe và cộng sự · Phân tử CaF làm lạnh dưới giới hạn Doppler, 2017','https://doi.org/10.1038/nphys4241'],['Anderegg và cộng sự · Bẫy từ–quang phân tử CaF, 2017','https://doi.org/10.1103/PhysRevLett.119.103201']]
+},
+{
+ id:'titanium-oxide-anh-sang-mo-duong-phan-ung',category:'nguyento',scope:'element',title:'Titanium trong điện cực đón ánh sáng: dấu mốc Honda–Fujishima',summary:'Công bố năm 1972 dùng TiO₂ trong một cell quang điện hóa mở hướng nghiên cứu chuyển ánh sáng thành biến đổi hóa học. Oxide không phải nhiên liệu; nó giúp tạo và chuyển các hạt mang điện.',tags:['Titanium','TiO2','Quang điện hóa','Xúc tác quang'],image:'/assets/library/photos/elements/Ti.jpg',imageAlt:'Mẫu titanium minh họa nguyên tố; nghiên cứu dùng điện cực titanium dioxide, không phải kim loại titanium trần',
+ sections:[
+ ['Một điện cực có thể đáp lại ánh sáng',`Ngày 7 tháng 7 năm 1972, Nature công bố công trình của Akira Fujishima và Kenichi Honda về quang phân nước tại điện cực bán dẫn. TiO₂ là thành phần trung tâm của hệ được nghiên cứu.
+
+Kết quả trở thành mốc quan trọng của quang điện hóa và xúc tác quang. Nhưng thiết bị thí nghiệm có cấu hình điện cực và điều kiện riêng; không thể rút thành câu rằng rắc mọi bột titanium dioxide vào nước dưới nắng là có thể tạo hydrogen hữu ích.
+
+Điều mới nằm ở việc dùng tính chất bán dẫn để chuyển năng lượng photon thành các đường trao đổi điện tích tại bề mặt, nơi phản ứng hóa học có thể xảy ra.`],
+ ['Electron và lỗ trống cần được tách trước khi gặp lại',`Khi TiO₂ hấp thụ photon đủ năng lượng, electron có thể được đưa tới trạng thái năng lượng cao hơn, để lại lỗ trống trong vùng đã mất electron. Hai loại hạt mang có thể tham gia các phản ứng khử và oxi hóa ở những vị trí phù hợp.
+
+Nếu chúng tái hợp trước khi tới nơi phản ứng, năng lượng hữu ích bị mất theo những đường khác. Vì vậy, hấp thụ ánh sáng mạnh chưa đủ; cần vận chuyển điện tích và động học bề mặt phù hợp.
+
+Vùng cấm của những dạng TiO₂ thông dụng làm chúng chủ yếu sử dụng phần tử ngoại của phổ. Đây là một giới hạn khi muốn tận dụng ánh sáng mặt trời, thúc đẩy nghiên cứu vật liệu và cấu trúc ghép mới.
+
+Cấu trúc tinh thể, khuyết tật, diện tích bề mặt và các chất gắn lên bề mặt đều ảnh hưởng hoạt tính. Một pigment TiO₂ dùng để tạo màu trắng không tự có cùng chức năng với vật liệu được thiết kế cho quang xúc tác.
+
+Titanium trong oxide thường giữ vai trò trong mạng điện tử và bề mặt, khác với ứng dụng chịu lực của hợp kim titanium.`],
+ ['Ứng dụng hôm nay: từ năng lượng tới bề mặt chức năng',`Sau dấu mốc 1972, nghiên cứu mở rộng sang bề mặt tự làm sạch, xử lý chất hữu cơ và nhiều hệ quang điện hóa. Một công trình năm 2011 kết hợp photocatalysis với plasma để nghiên cứu làm sạch không khí, cho thấy những cơ chế có thể được ghép nhằm đáp ứng nhiệm vụ cụ thể.
+
+Mỗi ứng dụng cần kiểm tra sản phẩm sau phản ứng, điều kiện ánh sáng và độ bền của vật liệu. Chất ban đầu giảm không tự chứng minh toàn bộ đã chuyển thành những sản phẩm vô hại hoặc hệ hoạt động hiệu quả trong mọi môi trường.
+
+Câu chuyện TiO₂ giúp hiểu vì sao cùng một nguyên tố có thể tham gia công việc rất khác. Trong khung xe, titanium được đánh giá bằng cơ tính; trong điện cực, cấu trúc vùng năng lượng và bề mặt phản ứng trở thành điều quan trọng.
+
+Một photon chỉ mở cơ hội. Vật liệu và thiết bị phải giữ cơ hội ấy đủ lâu để tạo biến đổi hóa học hữu ích. Đó là phần công việc nối từ phát hiện nổi tiếng tới những công nghệ có thể được đo và tối ưu.`]
+ ],sources:[['Fujishima và Honda · Công trình quang điện hóa năm 1972','https://www.nature.com/articles/238037a0'],['Ochiai và cộng sự · Hệ quang xúc tác–plasma làm sạch không khí, 2011','https://www.jstage.jst.go.jp/article/electrochemistry/79/10/79_10_838/_article/-char/en'],['Nghiên cứu cơ chế và giới hạn của mô hình quang xúc tác','https://www.jstage.jst.go.jp/article/electrochemistry/advpub/0/advpub_18-6-E2667/_article/-char/en']]
+},
+{
+ id:'vanadium-oxide-lop-mang-doi-mau-bang-ion',category:'nguyento',scope:'element',title:'Một lớp oxide vanadium đổi màu khi nhận ion',summary:'Nghiên cứu năm 2016 tạo màng V₂O₅ có đáp ứng điện sắc trong điện ly lithium và sodium. Đổi màu có liên quan đến chuyển điện tích và ion, khác với màu thay đổi chỉ do nóng lên.',tags:['Vanadium','V2O5','Điện sắc','Màng mỏng'],image:'/assets/library/photos/elements/V.jpg',imageAlt:'Mẫu vanadium minh họa nguyên tố; màng nghiên cứu là oxide V2O5 được cấu trúc hóa',
+ sections:[
+ ['Bột nano được đưa thành một lớp có thể điều khiển quang học',`Năm 2016, I. Mjejri và các đồng nghiệp báo cáo màng vanadium pentoxide làm từ tiền chất bột nano. Các màng thể hiện thay đổi phản xạ và màu khi hoạt động trong những điện ly chứa lithium hoặc sodium.
+
+Nhóm còn khảo sát một thiết bị phối hợp WO₃ và V₂O₅. Điều này cho thấy một vật liệu điện sắc cần được đặt trong cell có các thành phần hỗ trợ, không chỉ đo một mảnh oxide đứng riêng.
+
+Những ứng dụng được nhắm tới gồm hiển thị và điều khiển truyền ánh sáng. Công trình là minh chứng vật liệu và cấu hình nghiên cứu, không phải thông báo mọi cửa kính thông minh trên thị trường đều dùng V₂O₅.`],
+ ['Ion và electron cùng thay trạng thái của oxide',`Khi cell được điều khiển điện, các ion nhỏ có thể đi vào hoặc rời cấu trúc oxide trong những điều kiện phù hợp, cùng với thay đổi điện tích ở hệ. Trạng thái oxi hóa và cấu trúc điện tử của vanadium thay đổi, làm phổ hấp thụ và màu biến đổi.
+
+Quá trình cần có đường cho cả ion và electron. Một màng dẫn electron tốt nhưng ion đi quá chậm vẫn có thể đổi màu chậm hoặc không đồng đều.
+
+Cấu trúc lớp của V₂O₅ và kích thước hạt ảnh hưởng những đường vận chuyển. Tăng diện tích tiếp xúc có thể giúp tốc độ nhưng cũng có thể làm độ bền hoặc phản ứng phụ thay đổi.
+
+Cần phân biệt điện sắc của V₂O₅ với nhiệt sắc thường được nhắc ở VO₂. Hai oxide có thành phần và cơ chế khác, không thể dùng một mốc nhiệt độ hoặc một màu của chất này để giải thích chất kia.
+
+Phép thử nhiều chu kỳ giúp biết màu có trở lại như trước và vật liệu còn giữ được dung lượng trao đổi ion hay không. Một lần chuyển màu đẹp chưa đủ chứng minh tuổi thọ.`],
+ ['Ứng dụng hôm nay: chọn tổ hợp quang học phù hợp với cả cell',`Nghiên cứu năm 2022 về oxide tantalum–vanadium khảo sát một hướng cải thiện những hạn chế quang học của V₂O₅ nguyên chất khi dùng làm điện cực đối trong thiết bị điện sắc. Phối hợp nguyên tố là cách điều chỉnh vai trò của lớp trong toàn cell.
+
+Một cửa sổ cần điều khiển nhiệt và ánh sáng khác một màn hiển thị cần màu rõ. Độ truyền sáng ở trạng thái trong, độ tương phản, tốc độ và điện năng mỗi lần đổi đều phải được cân nhắc theo công việc.
+
+Câu chuyện vanadium cho thấy thay đổi số oxi hóa không chỉ là nội dung của phương trình trên giấy. Khi được tổ chức thuận nghịch trong một lớp mỏng, nó có thể trở thành thay đổi quang học mà người dùng điều khiển được.
+
+Nhưng sự thuận nghịch phải được giữ qua nhiều lần ion đi vào rồi đi ra. Vật liệu, điện ly và các lớp dẫn cùng quyết định liệu một màu có thể được bật tắt lặp lại, hay chỉ là dấu hiệu của một phản ứng làm mẫu biến đổi không phục hồi.`]
+ ],sources:[['Mjejri và cộng sự · Màng nano V2O5 điện sắc, 2016','https://doi.org/10.1016/j.ssi.2016.04.023'],['Nghiên cứu oxide tantalum–vanadium cho thiết bị điện sắc, 2022','https://link.springer.com/article/10.1007/s10853-022-07408-0']]
+},
+);
+
+editorialElementsWave6.push({
+ id:'chromium-lop-thu-dong-tren-mai-chrysler',category:'nguyento',scope:'element',title:'Một lớp vô hình giúp mái Chrysler giữ vẻ sáng qua nhiều thập niên',summary:'Mái thép không gỉ lắp năm 1930 trở thành một trường hợp theo dõi độ bền kiến trúc. Chromium góp khả năng thụ động hóa, nhưng môi trường, cấp thép và bề mặt vẫn quyết định kết quả.',tags:['Chromium','Thép không gỉ','Thụ động hóa','Kiến trúc'],image:'/assets/library/photos/elements/Cr.jpg',imageAlt:'Mẫu chromium minh họa nguyên tố; mái Chrysler dùng hợp kim thép chứa chromium và nickel, không phải chromium nguyên chất',
+ sections:[
+ ['Một công trình cao tầng trở thành phép thử ngoài trời dài hạn',`Worldstainless ghi mái Chrysler Building ở New York được lắp năm 1930 bằng thép không gỉ austenitic Enduro KA 2, tương ứng họ AISI 302. Những lần kiểm tra năm 1995 và 2001 được tài liệu dẫn lại cho thấy rất ít dấu ăn mòn trong điều kiện của công trình.
+
+Đó là bằng chứng thực tế đáng chú ý, nhưng không có nghĩa mọi thép không gỉ đều bền như nhau ở mọi thành phố. Vị trí bề mặt, thiết kế thoát nước và những chất bám có thể tạo môi trường cục bộ khác nhau.
+
+Câu chuyện mái sáng giúp đưa chromium ra khỏi một bảng thành phần: nguyên tố góp phần vào cơ chế bảo vệ diễn ra ngay ở bề mặt mà mắt thường không thấy.`],
+ ['Lớp thụ động rất mỏng khác lớp sơn phủ dày',`Khi hợp kim chứa đủ chromium trong những điều kiện phù hợp, bề mặt có thể hình thành lớp oxide giàu chromium làm giảm tốc độ ăn mòn. Lớp này rất mỏng và có khả năng tái hình thành khi bề mặt bị trầy trong môi trường cho phép.
+
+Điều đó khác với mạ một lớp chromium kim loại lên thép. Chromium trong thép không gỉ nằm trong hợp kim, còn lớp thụ động hình thành từ phản ứng của bề mặt với môi trường.
+
+Nickel và những thành phần khác giúp điều chỉnh cấu trúc, khả năng gia công và độ bền của cấp thép. Không thể lấy riêng tỷ lệ chromium để suy toàn bộ tính năng.
+
+Chloride hoặc các khe giữ dung dịch có thể phá điều kiện bảo vệ cục bộ và gây ăn mòn rỗ hoặc khe. Vì vậy, chữ “không gỉ” là tên họ vật liệu, không phải lời bảo đảm không bao giờ ăn mòn.
+
+Hoàn thiện bề mặt và làm sạch trong chế tạo còn ảnh hưởng điểm bắt đầu của quá trình. Một hợp kim đúng cấp nhưng bề mặt nhiễm bẩn có thể làm việc khác mẫu chuẩn.`],
+ ['Ứng dụng hôm nay: chọn cấp vật liệu theo nơi nó sẽ đứng',`Thép không gỉ được dùng rộng trong kiến trúc, thực phẩm và nhiều thiết bị kỹ thuật. Mỗi môi trường có yêu cầu khác về chloride, nhiệt độ và khả năng làm sạch.
+
+Các trường hợp như Chrysler giúp cung cấp dữ liệu dài hạn, nhưng cần được đặt cạnh khí hậu và lịch sử bảo trì. Chúng là bằng chứng của một tổ hợp vật liệu–thiết kế, không phải thí nghiệm chỉ có một nguyên tố.
+
+Chromium làm phần việc hóa học; hình dạng chi tiết giúp nước và chất bám không tích tụ ở nơi bất lợi. Khi hai phần phối hợp, một lớp bảo vệ cực mỏng có thể hỗ trợ tuổi thọ rất dài.
+
+Bài học từ mái nhà là tính bền thường đến từ một cơ chế tự điều chỉnh ở bề mặt hơn là một khối kim loại hoàn toàn không phản ứng. Hợp kim vẫn tương tác với môi trường, nhưng phản ứng ban đầu tạo ra lớp làm những phản ứng tiếp theo chậm đi.`]
+ ],sources:[['Worldstainless · Hồ sơ kiến trúc và mái Chrysler','https://worldstainless.org/wp-content/uploads/2026/03/ISSF-Stainless-Steel-in-Architectural-Applications.pdf'],['Nickel Institute · Thép không gỉ trong kiến trúc và xây dựng','https://nickelinstitute.org/en/nickel-applications/architecture-building-and-construction']]
+});

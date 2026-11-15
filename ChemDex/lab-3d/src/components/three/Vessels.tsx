@@ -23,6 +23,7 @@ import { WallCondensateDroplets } from './WallCondensateDroplets';
 import { vesselContours } from '../../science/vesselContours';
 import { VesselBodyScale } from './VesselBodyScale';
 import { liquidOpacity } from '../../science/liquidOptics';
+import { useVesselVisualRuntime, useVesselVisualState, useVesselVisualStore } from '../../simulation/render/VesselVisualContext';
 
 // Glassware material reference matching active high-tier physical glass
 export const glassMaterial = getGlassMaterials('high').front as MeshPhysicalMaterial;
@@ -1622,6 +1623,7 @@ export const CondensationFog = React.memo(function CondensationFog({
   yOffset = 0.6,
   intensity = 0.7
 }: CondensationFogProps) {
+  const visualStore = useVesselVisualStore();
   const meshRef = useRef<THREE.Mesh>(null);
 
   // Compute exact headspace bounds and inner contour profile
@@ -1685,7 +1687,7 @@ export const CondensationFog = React.memo(function CondensationFog({
 
   // Update dynamic uniforms on each frame without material re-creation
   useFrame((state, delta) => {
-    const simulation = useAppStore.getState();
+    const simulation = visualStore.getState();
     if (!simulation.isSimulationPaused) uniforms.uTime.value += simulationFrameDt(delta, simulation);
     uniforms.uFogIntensity.value = intensity;
     if (bounds) {
@@ -1829,10 +1831,12 @@ export const AcidBaseFume = React.memo(function AcidBaseFume({
   color?: string;
   intensity?: number;
 }) {
+  const visualStore = useVesselVisualStore(), visualRuntime = useVesselVisualRuntime();
+  const elapsed = useRef(0);
   const plumeRef = useRef<THREE.Group>(null);
-  useFrame((state) => {
+  useFrame((_, delta) => {
     if (plumeRef.current) {
-      const t = state.clock.elapsedTime * 1.5;
+      const t = (visualRuntime?.elapsed?.() ?? (elapsed.current += simulationFrameDt(delta, visualStore.getState()))) * 1.5;
       plumeRef.current.position.y = yOffset + Math.sin(t) * 0.04;
       plumeRef.current.rotation.y = t * 0.2;
     }
@@ -1863,10 +1867,12 @@ export const BoilingBumpingBurst = React.memo(function BoilingBumpingBurst({
   radius?: number;
   yOffset?: number;
 }) {
+  const visualStore = useVesselVisualStore(), visualRuntime = useVesselVisualRuntime();
+  const elapsed = useRef(0);
   const surgeRef = useRef<THREE.Group>(null);
-  useFrame((state) => {
+  useFrame((_, delta) => {
     if (surgeRef.current) {
-      const t = (state.clock.elapsedTime * 6) % 1.5;
+      const t = ((visualRuntime?.elapsed?.() ?? (elapsed.current += simulationFrameDt(delta, visualStore.getState()))) * 6) % 1.5;
       const progress = t / 1.5;
       surgeRef.current.position.y = yOffset + progress * 0.45;
       surgeRef.current.scale.set(1 + progress * 0.8, 1 + progress * 1.5, 1 + progress * 0.8);
@@ -1892,7 +1898,7 @@ export const BoilingBumpingBurst = React.memo(function BoilingBumpingBurst({
 
 // 6. Unified Physical Phenomena Renderer (Mist Fog, Wall Residue Stain Ring, Acid Fume, Bumping Surge, Stopper Seal)
 export const VesselPhysicalEffects = React.memo(function VesselPhysicalEffects({
-  vessel,
+  vessel: suppliedVessel,
   fogRadius = 0.45,
   fogHeight = 1.0,
   fogY = 0.5,
@@ -1914,6 +1920,7 @@ export const VesselPhysicalEffects = React.memo(function VesselPhysicalEffects({
   surgeRadius?: number;
   surgeY?: number;
 }) {
+  const vessel = useVesselVisualState(state => state.vessels[suppliedVessel.id]) ?? suppliedVessel;
   if (vessel.isShattered) return null;
 
   const hasLiquid = vessel.volume_ml > 0.5;

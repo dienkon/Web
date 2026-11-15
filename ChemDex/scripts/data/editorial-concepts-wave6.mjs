@@ -611,4 +611,350 @@ Một chi tiết ít giãn được gắn cứng vào khung giãn nhiều vẫn 
 Câu chuyện Invar cho thấy phát minh vật liệu có thể bắt đầu từ một phép đo bất thường trong công việc thường ngày. Giá trị đến khi sự bất thường được lập bản đồ theo thành phần và điều kiện, rồi chuyển thành dữ liệu thiết kế. Một chiếc thước ổn định không phải vật nằm ngoài quy luật nhiệt; nó là kết quả của những đóng góp vật lý được cân bằng đủ tốt trong miền mà người sử dụng cần đo.`],
  ],sources:[['Guillaume · Bài giảng Nobel về Invar và Elinvar','https://www.nobelprize.org/uploads/2018/06/guillaume-lecture.pdf'],['Berkeley Lab · Vật liệu cho hệ cơ khí chính xác','https://medsi.lbl.gov/engineering-design-guide/materials']]
 },
+
+{
+ id:'auxetic-bot-keo-dai-lai-no-ngang',category:'khainiem',title:'Một miếng bọt được kéo dài lại nở ngang',summary:'Bọt auxetic của Lakes cho thấy hình học ô có thể đảo dấu hệ số Poisson. Tính chất mới đến từ kiến trúc, không nhất thiết từ một hóa chất nền mới.',tags:['Auxetic','Poisson','Bọt','Siêu vật liệu'],image:polymer,imageAlt:'Minh họa vật liệu polymer; không phải hình ô tái nhập của bọt auxetic',sections:[
+ ['Một ngoại lệ được làm thành vật liệu nhìn thấy được',`Năm 1987, Roderic Lakes báo cáo bọt có hệ số Poisson âm: khi kéo theo một hướng, vật liệu nở theo hướng ngang thay vì co như nhiều chất quen thuộc. Công trình đưa một hành vi được lý thuyết đàn hồi cho phép thành một cấu trúc bọt có thể chế tạo và thử.
+
+Hóa học nền không phải toàn bộ lời giải. Cách các thành ô được tổ chức và chuyển động quyết định đáp ứng khối. Thay cấu trúc từ những ô thông thường sang dạng lõm tái nhập tạo thêm cơ chế mở ra khi kéo.
+
+Một hiện tượng được gọi là “nghịch thường” ở đây không vi phạm bảo toàn năng lượng. Nó chỉ khác trực giác xây từ những vật liệu đặc mà người dùng thường gặp.`],
+ ['Hình học biến chuyển động cục bộ thành biến dạng ngang',`Hệ số Poisson được định nghĩa qua tỷ lệ biến dạng ngang và dọc trong điều kiện quy ước. Với cấu trúc phù hợp, các phần tử có thể xoay, uốn hoặc mở làm kích thước ngang tăng khi chiều dọc tăng.
+
+Một giá trị âm trong một hướng hoặc một miền biến dạng không tự có nghĩa vật liệu âm ở mọi hướng và mọi mức tải. Kiến trúc có thể đổi chế độ khi các thành ô chạm nhau hoặc bị kéo thẳng. Tính không đẳng hướng và độ lớn biến dạng cần được mô tả.
+
+Nghiên cứu năm 1995 phân tích môđun của bọt thường và bọt tái nhập, liên hệ độ cứng với hình dạng ô. Đổi hệ số Poisson thường đồng thời đổi những tính chất khác. Không thể giữ mọi ưu điểm của bọt cũ rồi chỉ bật thêm một hiệu ứng mới mà không có đánh đổi.`],
+ ['Ứng dụng hôm nay: thiết kế cấu trúc theo nhiệm vụ',`Vật liệu auxetic được nghiên cứu cho hấp thu năng lượng, khả năng ôm bề mặt và những hệ cơ học khác. Những đề xuất cần được kiểm ở cùng khối lượng, kích thước và điều kiện tải để biết kiến trúc mới mang lợi ích thực tới đâu.
+
+Kỹ thuật chế tạo hiện đại cho phép tạo nhiều hình học có thể lập trình, nhưng khuyết tật và độ lặp lại của các ô vẫn ảnh hưởng tính năng. Một mô hình máy tính lý tưởng không tự phản ánh chi tiết in hoặc bọt đã được xử lý.
+
+Câu chuyện Lakes giúp phân biệt vật liệu với thành phần hóa học đơn thuần. Hai vật làm từ cùng polymer có thể nhận những quy luật biến dạng khác nhau nếu kiến trúc bên trong khác. Khi người nghiên cứu hiểu cách các phần nhỏ phối hợp, khoảng rỗng và thành ô trở thành những biến thiết kế. Tính chất có thể được tạo bằng cách sắp xếp vật chất, không chỉ bằng việc tìm thêm một nguyên tố mới.`],
+ ],sources:[['Lakes · Bọt có hệ số Poisson âm, 1987','https://pubmed.ncbi.nlm.nih.gov/17782252/'],['Nghiên cứu cơ học bọt tái nhập, 1995','https://www.sciencedirect.com/science/article/pii/002074039400047N']]
+},
+{
+ id:'be-tong-tu-bit-khe-nut-bang-khoang',category:'khainiem',title:'Khe nứt nhỏ trong bê tông có thể được lấp bằng khoáng mới',summary:'Nghiên cứu bê tông tự phục hồi khai thác khả năng tạo carbonate trong điều kiện phù hợp. Bịt khe và phục hồi khả năng chịu lực là những tiêu chí cần được đo riêng.',tags:['Tự phục hồi','Bê tông','Khoáng hóa','Độ bền'],image:'/assets/library/earth-minerals.svg',imageAlt:'Minh họa vật liệu khoáng; không phải ảnh khe nứt trước và sau thử nghiệm',sections:[
+ ['Một phần công việc bảo trì được đưa vào vật liệu',`Năm 2010, Jonkers và cộng sự khảo sát khả năng dùng các vi khuẩn tạo khoáng như tác nhân tự phục hồi trong bê tông. Mẫu nghiên cứu tạo nhiều khoáng lấp khe hơn mẫu đối chứng, nhưng điều kiện kiềm và cấu trúc lỗ rỗng của xi măng đặt ra khó khăn về việc giữ tác nhân còn hoạt động theo thời gian.
+
+Công trình năm 2011 tiếp tục định lượng mức đóng khe trong một hệ hai thành phần được thiết kế. Các tác giả báo cáo khả năng xử lý khe rộng hơn đối chứng trong phạm vi thử nghiệm, đồng thời dùng những phép đo liên quan tới sự đi qua của nước.
+
+Đây là nghiên cứu một cơ chế hỗ trợ độ bền, không phải lời tuyên bố mọi vết nứt hoặc hư hỏng kết cấu đều tự biến mất.`],
+ ['Tạo chất rắn ở đúng nơi cần ngăn đường nước',`Khi các điều kiện kích hoạt phù hợp, quá trình sinh học–hóa học có thể làm calcium carbonate kết tủa trong vùng khe. Khoáng mới cản đường xâm nhập và giúp giảm thấm. Vị trí tạo khoáng quan trọng vì vật liệu sinh ra xa khe không làm cùng công việc.
+
+Bê tông cũng có những cơ chế tự khép khe không dùng tác nhân bổ sung, chẳng hạn phản ứng tiếp của phần chưa hydrat hóa hoặc tạo carbonate. Vì vậy, mẫu đối chứng và cách định lượng là cần thiết để biết phần tăng thêm thực sự đến từ hệ được thiết kế.
+
+Một ảnh bề mặt kín lại chưa chứng minh độ bền cơ học đã trở về mức ban đầu. Khoáng có thể lấp đường nước nhưng không tái tạo mạng chịu tải giống vật liệu trước khi nứt. Các tiêu chí này phải được giữ riêng khi đánh giá.`],
+ ['Ứng dụng hôm nay: hiệu quả phụ thuộc thời gian và môi trường',`Vật liệu tự phục hồi được nghiên cứu cho những kết cấu khó tiếp cận hoặc cần giảm bảo trì. Để triển khai, cần xem tác nhân còn khả năng hoạt động sau nhiều năm không, khe có nhận đủ điều kiện cần thiết không và quá trình có lặp lại được sau những lần nứt khác không.
+
+Chi phí, nguồn nguyên liệu và tác động môi trường phải được tính theo vòng đời, không chỉ từ việc có dùng một thành phần sinh học. Bài viết giữ ở mức cơ chế và đánh giá vật liệu, không cung cấp quy trình nuôi hoặc chế tạo tác nhân.
+
+Câu chuyện khe nứt cho thấy một chức năng có thể được thiết kế như khả năng đáp ứng sau khi vật liệu đã đi vào sử dụng. Nhưng sự phục hồi cần được định nghĩa bằng phép đo: giảm thấm bao nhiêu, giữ được bao lâu và có giúp nhiệm vụ của công trình không. Khi các câu hỏi ấy được tách rõ, ý tưởng tự lành trở thành một hướng nghiên cứu có thể kiểm chứng thay vì một tên gọi bao trùm mọi hư hỏng.`],
+ ],sources:[['Jonkers và cộng sự · Tác nhân sinh học cho bê tông, 2010','https://www.sciencedirect.com/science/article/pii/S0925857409000202'],['Nghiên cứu gốc · Định lượng khép khe, 2011','https://www.sciencedirect.com/science/article/pii/S0958946511000618']]
+},
+{
+ id:'geopolymer-mang-vo-co-o-nhiet-do-thap',category:'khainiem',title:'Một mạng vô cơ được xây mà không cần nung như gốm truyền thống',summary:'Geopolymer và vật liệu hoạt hóa kiềm tạo chất kết dính từ các nguồn aluminosilicate phù hợp. Tính chất phụ thuộc mạnh vào nguyên liệu và cấu trúc gel hình thành.',tags:['Geopolymer','Aluminosilicate','Chất kết dính','Hoạt hóa kiềm'],image:'/assets/library/ionic-crystal.svg',imageAlt:'Minh họa mạng vô cơ; geopolymer thực có thể chủ yếu vô định hình',sections:[
+ ['Một cách nói mới về polymer không cần khung carbon',`Trong bài năm 1991, Joseph Davidovits trình bày các vật liệu geopolymer dựa trên mạng silicon–oxygen–aluminum được tạo ở nhiệt độ thấp hơn nhiều kỹ thuật gốm truyền thống. Bài viết đặt chúng trong các ứng dụng chất kết dính, khuôn và composite, mở rộng cách nhìn polymer ra ngoài những chuỗi hữu cơ quen thuộc.
+
+Nguồn rắn chứa aluminosilicate phù hợp phản ứng với môi trường hoạt hóa để tạo các cấu trúc liên kết mới. Nhưng cùng tên “tro bay” hoặc “đất sét nung” không bảo đảm cùng mức phản ứng, vì phần thủy tinh, khoáng và tạp chất có thể khác.
+
+Một hướng dùng phụ phẩm có tiềm năng giá trị, song cần biết phụ phẩm cụ thể đóng góp gì và phần nào không phản ứng trong vật liệu cuối.`],
+ ['Hòa tan và tạo mạng diễn ra trong một hệ nhiều pha',`Quá trình thường bao gồm giải phóng các loài silicon và aluminum từ tiền chất, rồi tái tổ chức thành gel và mạng liên kết. Tỷ lệ các nguyên tố, lượng calcium và môi trường ion ảnh hưởng loại sản phẩm hình thành.
+
+Tổng kết của Provis năm 2018 phân biệt các họ vật liệu hoạt hóa kiềm và nhấn mạnh độ đa dạng về hóa học. Không nên gọi mọi chất kết dính hoạt hóa kiềm là cùng một geopolymer có cơ chế và cấu trúc giống hệt. Những gel giàu calcium có thể cần cách mô tả khác các mạng aluminosilicate ít calcium.
+
+Nước tham gia hòa tan, vận chuyển và tạo cấu trúc lỗ. Quá ít hoặc quá nhiều có thể ảnh hưởng gia công, độ rỗng và co ngót. Công thức tỷ lệ nguyên tố trên giấy không tự mô tả mức phản ứng hoặc cấu trúc sau bảo dưỡng.`],
+ ['Ứng dụng hôm nay: đánh giá theo nguồn nguyên liệu và nhiệm vụ',`Các chất kết dính hoạt hóa kiềm được nghiên cứu và sử dụng trong những cấu hình phù hợp. Muốn so tác động môi trường với vật liệu khác cần tính chất hoạt hóa, vận chuyển, nhiệt bảo dưỡng và tuổi thọ, không chỉ việc giảm một thành phần trong công thức.
+
+Độ bền dưới nước, carbon dioxide, muối hoặc nhiệt phải được đo theo môi trường sử dụng. Một cường độ nén ban đầu cao không thay toàn bộ hồ sơ độ bền lâu. Sự biến thiên của nguyên liệu phụ phẩm cũng đòi hỏi kiểm soát chất lượng thích hợp.
+
+Câu chuyện geopolymer cho thấy khái niệm polymer có thể được dùng để hỏi về một mạng vô cơ, nhưng tên gọi không thay cấu trúc thực. Thành công nằm ở khả năng biến nguồn nguyên liệu cụ thể thành gel liên kết và lỗ rỗng có tính năng cần dùng. Khi mỗi bước được đối chiếu bằng dữ liệu, vật liệu mới có thể được chọn cho một công việc rõ ràng thay vì được quảng bá như chất thay thế chung cho mọi loại xi măng.`],
+ ],sources:[['Davidovits · Geopolymers, 1991','https://www.geopolymer.org/wp-content/uploads/J_THERMAL.pdf'],['Provis · Vật liệu hoạt hóa kiềm, 2018','https://doi.org/10.1016/j.cemconres.2017.02.009']]
+},
+{
+ id:'lipon-lop-dien-ly-ran-va-giao-dien',category:'khainiem',title:'Một chất điện ly rắn thành công nhờ cả lớp giao diện hình thành bên cạnh',summary:'LiPON được phát triển cho pin màng mỏng từ thập niên 1990. Độ dẫn ion không cao nhất vẫn có thể hữu ích khi lớp mỏng và giao diện ổn định.',tags:['LiPON','Điện ly rắn','Giao diện','Pin màng mỏng'],image:'/assets/library/ionic-crystal.svg',imageAlt:'Minh họa đường ion trong chất rắn; LiPON điển hình là vật liệu vô định hình',sections:[
+ ['Một lựa chọn khác sau những màng không bền với lithium',`Công trình Bates và cộng sự năm 1993 khảo sát các màng điện ly oxide và oxynitride chứa lithium. Một số mẫu dẫn ion tốt nhưng không giữ ổn định khi tiếp xúc lithium. LiPON, lithium phosphorus oxynitride dạng màng vô định hình, cho kết quả thuận lợi hơn trong các cell mỏng được thử.
+
+Vật liệu không có độ dẫn ion lớn nhất trong mọi họ điện ly, nhưng chiều dày nhỏ làm đường đi ngắn. Độ ổn định theo thời gian và khả năng tạo màng đồng đều trở thành những ưu điểm có thể bù cho giới hạn khác.
+
+Câu chuyện nhắc rằng bảng xếp hạng theo một thông số riêng có thể bỏ qua điều làm thiết bị thật hoạt động.`],
+ ['Chất điện ly phải dẫn ion và quản lý tiếp xúc hóa học',`Điện ly rắn cần cho ion lithium di chuyển trong khi hạn chế dòng electron trực tiếp gây tự phóng. Nhưng nó còn tiếp xúc với những điện cực có thế hóa học khác nhau. Phản ứng ở giao diện có thể tạo lớp mới, ảnh hưởng cả vận chuyển và độ bền.
+
+Một vật liệu không nhất thiết hoàn toàn trơ mới cho giao diện hoạt động ổn định. Lớp sản phẩm phản ứng có thể ngăn phản ứng tiếp tục nếu có tính chất phù hợp. Ngược lại, lớp dẫn electron hoặc cản ion mạnh có thể làm hệ suy giảm.
+
+Nghiên cứu cryo-EM về LiPON–lithium khảo sát các vùng sản phẩm rất mỏng và phân bố thành phần. Dữ liệu giúp thay mô tả đơn giản “bền với lithium” bằng một bức tranh giao diện có cấu trúc và cơ chế bảo vệ cần được kiểm chứng.`],
+ ['Ứng dụng hôm nay: thiết kế đúng quy mô màng',`LiPON được dùng và nghiên cứu cho pin màng mỏng, đồng thời là hệ tham chiếu để hiểu điện ly rắn. Một vật liệu thuận lợi ở chiều dày micromet không tự phù hợp cho một cell khối dày hơn, nơi điện trở và cơ học khác đáng kể.
+
+Các nghiên cứu màng LiPON tự đứng tiếp tục khảo sát tính cơ học và khả năng lắng lithium đều. Những kết quả hỗ trợ hiểu nền tảng, nhưng cần đặt trong cấu hình thử và điều kiện cụ thể, không coi là lời giải chung cho mọi pin rắn.
+
+Câu chuyện LiPON làm rõ rằng giao diện không chỉ là đường kẻ giữa hai lớp trên sơ đồ. Nó có thể trở thành một vật liệu thứ ba được tạo trong lúc chế tạo hoặc vận hành. Khi lớp ấy có chức năng phù hợp, một sự phản ứng ban đầu không nhất thiết dẫn tới hỏng. Thiết kế pin vì thế cần theo dõi cả thành phần đã đưa vào lẫn những thành phần mới xuất hiện khi các lớp gặp nhau.`],
+ ],sources:[['Bates và cộng sự · Điện ly và pin màng mỏng, 1993','https://doi.org/10.1016/0378-7753(93)80106-Y'],['Nghiên cứu gốc · Giao diện Li/LiPON bằng cryo-EM','https://arxiv.org/abs/2006.12764'],['Nghiên cứu gốc · LiPON tự đứng','https://arxiv.org/abs/2208.04402']]
+},
+
+{
+ id:'agi-ion-bac-di-trong-mang-ran',category:'khainiem',title:'Một chất rắn vẫn có thể cho ion di chuyển rất nhanh',summary:'Pha siêu ion của silver iodide cho thấy chuyển động của cation và mạng anion có thể khác nhau. Những phép đo dao động giúp lần theo điều kiện mở đường cho ion.',tags:['Siêu ion','AgI','Dẫn ion','Chuyển pha'],image:'/assets/library/ionic-crystal.svg',imageAlt:'Minh họa mạng ion; không phải cấu trúc cụ thể của pha alpha-AgI',sections:[
+ ['Nhiệt độ đổi pha làm độ dẫn đổi mạnh',`Silver iodide là một hệ kinh điển của dẫn ion trong chất rắn. Gần 147 °C ở điều kiện thông thường, nó chuyển sang pha alpha có độ linh động ion silver cao. Mẫu vẫn là chất rắn, nhưng một phần cấu trúc có nhiều khả năng di chuyển hơn hình vẽ mạng tinh thể đứng yên thường gợi ra.
+
+Năm 1975, Bührer và Brüesch đo tán xạ neutron không đàn hồi trên tinh thể beta-AgI. Họ nhận diện một nhánh dao động năng lượng thấp có biên độ thuận lợi cho cation đi vào vị trí xen kẽ, rồi liên hệ với chuyển pha trật tự–mất trật tự.
+
+Kết quả nối một hiện tượng dẫn điện khối với những chuyển động ở cấp mạng, thay vì chỉ ghi rằng điện trở giảm khi mẫu nóng lên.`],
+ ['Ion cần những vị trí và rào cản phù hợp để đổi chỗ',`Dẫn ion khác dòng electron trong kim loại. Các hạt mang điện phải chuyển vị trí trong mạng hoặc qua những vùng phù hợp, nên khuyết tật, đường kết nối và rào cản năng lượng quyết định tốc độ.
+
+Ở pha siêu ion, cách tổ chức của một phân mạng cho phép nhiều trạng thái vị trí được tiếp cận. Không nên hình dung toàn bộ tinh thể đã tan chảy chỉ vì cation linh động. Phần mạng còn lại vẫn tạo cấu trúc và những điều kiện biên cho chuyển động ấy.
+
+Các nghiên cứu hiện đại tiếp tục khảo sát đối xứng và động lực trong pha siêu ion. Mô hình cấu trúc trung bình có thể làm nhiều vị trí trông tương đương, trong khi chuyển động tức thời vẫn có những tương quan cục bộ. Đó là lý do cần phối hợp nhiễu xạ với các phép đo động học.`],
+ ['Ứng dụng hôm nay: học nguyên lý cho chất điện ly rắn',`AgI giúp nghiên cứu nền tảng của solid-state ionics và các cấu hình thiết bị ion. Nghiên cứu năm 2025 về các phiến AgI đơn tinh thể khảo sát thay đổi điện trở và khả năng chuyển trạng thái ở kích thước nhỏ. Kết quả thuộc mẫu và cấu hình điện cực được kiểm tra, không phải chứng minh một loại pin thương mại mới đã hoàn thiện.
+
+Để dùng chất dẫn ion, còn cần độ bền hóa học với điện cực, cơ học và miền nhiệt độ thích hợp. Một vật liệu dẫn rất tốt khi nóng có thể không đáp ứng ứng dụng ở nhiệt độ phòng; các hợp chất liên quan được nghiên cứu để điều chỉnh miền hoạt động.
+
+Câu chuyện AgI mở rộng cách nhìn chất rắn. Trật tự không nhất thiết đồng nghĩa mọi hạt đứng cố định, và dẫn điện không nhất thiết do electron. Khi một phân mạng có đủ vị trí để chuyển giữa chúng, vật liệu có thể kết hợp khung rắn với dòng ion nhanh. Hiểu sự kết hợp ấy là nền tảng để thiết kế nhiều hệ điện hóa rắn khác.`],
+ ],sources:[['Bührer và Brüesch · Dao động và chuyển pha AgI, 1975','https://doi.org/10.1016/0038-1098(75)90814-5'],['Nghiên cứu gốc · Đối xứng pha siêu ion AgI','https://arxiv.org/abs/2409.15217'],['Nghiên cứu gốc · AgI đơn tinh thể dạng phiến, 2025','https://arxiv.org/abs/2505.01062']]
+},
+{
+ id:'vanadium-flow-hai-binh-cung-nguyen-to',category:'khainiem',title:'Hai bình dung dịch cùng chứa vanadium nhưng giữ hai phần của một pin',summary:'Pin dòng vanadium dùng những trạng thái oxi hóa khác nhau ở hai phía. Tách nơi chứa năng lượng khỏi nơi chuyển đổi tạo một cách thiết kế lưu trữ điện khác.',tags:['Pin dòng','Vanadium','Oxi hóa–khử','Lưu trữ'],image:'/assets/library/photos/elements/V.jpg',imageAlt:'Vanadium kim loại minh họa nguyên tố; pin dùng các loài ion trong dung dịch',sections:[
+ ['Một nguyên tố ở cả hai nửa của cell',`Năm 1986, Skyllas-Kazacos và cộng sự báo cáo cell dòng oxi hóa–khử toàn vanadium. Các dung dịch ở hai phía dùng những cặp trạng thái oxi hóa khác nhau của cùng nguyên tố. Năng lượng được giữ trong thành phần hóa học của chất điện ly rồi chuyển đổi khi dung dịch được bơm qua chồng cell.
+
+Dùng cùng một nguyên tố giúp giảm một kiểu nhiễm chéo không đảo ngược so với những hệ dùng hai nguyên tố hoàn toàn khác, nhưng không xóa vấn đề trộn hoặc mất cân bằng. Ion và nước đi qua màng vẫn có thể làm hiệu năng đổi.
+
+Ý tưởng quan trọng là tách tương đối dung lượng chứa năng lượng ở bình với công suất chuyển đổi của chồng cell. Điều đó mở những đánh đổi thiết kế khác pin có toàn bộ vật liệu hoạt tính nằm cố định trong điện cực.`],
+ ['Electron đi qua mạch, ion duy trì cân bằng điện tích',`Trong lúc phóng và nạp, các loài vanadium nhận hoặc nhả electron tại điện cực. Màng ngăn hỗ trợ vận chuyển ion cần thiết để duy trì điện tích, đồng thời hạn chế sự trộn của các chất hoạt tính. Khả năng chọn lọc và điện trở của màng phải được cân bằng.
+
+Dung dịch cần giữ được các loài ở nồng độ và nhiệt độ phù hợp. Kết tủa hoặc phản ứng phụ có thể làm giảm phần năng lượng sử dụng được. Bơm, đường ống và phân bố dòng ảnh hưởng tổn thất, nên hiệu suất cell đơn không bằng hiệu suất toàn hệ.
+
+Bình lớn hơn có thể tăng lượng vật liệu hoạt tính, nhưng còn kéo theo chi phí dung dịch, không gian và quản lý nhiệt. Tính linh hoạt về dung lượng không có nghĩa quy mô có thể tăng mà không thay yêu cầu vận hành.`],
+ ['Ứng dụng hôm nay: đo hiệu quả trong một chu trình lưu trữ cụ thể',`Các tổng kết về pin dòng vanadium xem xét từ hóa học điện ly tới màng và cấu trúc điện cực. Hệ được quan tâm cho lưu trữ điện tĩnh tại, nơi tuổi thọ chu kỳ và khả năng tách công suất–dung lượng có giá trị. Khối lượng và thể tích của dung dịch lại là hạn chế cho những nhiệm vụ khác.
+
+Một công bố về số chu kỳ cần đi cùng độ sâu sử dụng, điều kiện nhiệt và cách bảo trì cân bằng điện ly. Tỷ lệ mất dung lượng có thể đến từ nhiều cơ chế, không phải chỉ sự phá hủy vĩnh viễn của vật liệu.
+
+Câu chuyện hai bình dung dịch làm rõ một cách phân chia chức năng trong công nghệ năng lượng. Điện cực là nơi trao đổi electron, bình là nơi giữ phần lớn chất hoạt tính và màng là nơi quản lý sự liên hệ giữa hai phía. Vanadium cung cấp các trạng thái hóa học, còn hiệu năng của pin thuộc cách những trạng thái ấy được duy trì và tuần hoàn trong cả hệ thống.`],
+ ],sources:[['Skyllas-Kazacos và cộng sự · Cell toàn vanadium, 1986','https://doi.org/10.1149/1.2108706'],['Tổng quan chuyên môn · Pin dòng vanadium','https://pubs.rsc.org/en/content/articlelanding/2015/ta/c5ta02613j/unauth']]
+},
+{
+ id:'red-nuoc-ngot-nuoc-man-tao-dien',category:'khainiem',title:'Nơi nước ngọt gặp nước mặn có một chênh lệch năng lượng',summary:'Điện thẩm tách ngược dùng màng chọn ion để khai thác gradient độ mặn. Nhà máy thử ở Afsluitdijk giúp đưa bài toán từ dung dịch sạch tới nước thật.',tags:['RED','Gradient độ mặn','Màng ion','Năng lượng'],image:'/assets/library/ionic-crystal.svg',imageAlt:'Minh họa ion trong hai môi trường; không phải sơ đồ chi tiết chồng màng RED',sections:[
+ ['Một điểm gặp của hai dòng nước được chọn làm nơi thử',`Nhà máy Blue Energy thử nghiệm của REDstack tại Afsluitdijk được mở năm 2014, giữa nguồn nước ngọt và nước mặn. Hệ dùng reverse electrodialysis, hay RED, để biến một phần năng lượng tự do của sự trộn thành điện trước khi hai dòng mất chênh lệch nồng độ.
+
+Các nghiên cứu pilot tại đây khảo sát nước tự nhiên, một bước quan trọng sau những thử nghiệm với dung dịch muối sạch. Chất hữu cơ, hạt và những ion khác làm điều kiện thực khác đáng kể một hệ NaCl lý tưởng.
+
+Nguồn năng lượng không phải do màng tạo ra. Nó đến từ gradient hóa học được duy trì bởi những quá trình của vòng nước và môi trường; màng tổ chức một con đường khai thác phần chênh lệch ấy.`],
+ ['Màng chọn ion tạo nhiều hiệu điện thế nối tiếp',`Các màng trao đổi cation và anion được xếp xen kẽ, với các ngăn nước mặn và ngọt. Sự khác nhau về thế hóa học thúc đẩy ion đi qua những màng phù hợp, tạo hiệu điện thế trên mỗi cặp. Nhiều cặp nối trong chồng giúp xây điện áp hữu ích ở hai đầu cùng hệ điện cực.
+
+Màng không chọn lọc hoàn hảo và có điện trở. Khuếch tán không mong muốn, vận chuyển nước và mất gradient trong dòng làm giảm phần năng lượng có thể thu. Áp lực bơm để đưa nước qua các khe cũng tiêu thụ điện.
+
+Vì vậy, công suất điện thô của chồng màng phải được phân biệt với công suất ròng sau bơm và xử lý. Một số đo trên dung dịch tinh khiết không đủ để dự đoán hệ nước sông–biển có fouling và biến thiên theo mùa.`],
+ ['Ứng dụng hôm nay: hiệu quả nằm trong cả xử lý nguồn nước',`Các phép thử pilot giúp đánh giá vật liệu màng, cấu trúc dòng và tiền xử lý. Lợi ích kỹ thuật cần đi cùng độ bền, chi phí thay màng và tác động của lấy–xả nước. Những địa điểm có gradient phù hợp vẫn khác nhau về nguồn nước và hạ tầng.
+
+RED là một hướng trong nhiều công nghệ khai thác độ mặn, không nên gộp với thẩm thấu chậm áp suất vì cơ chế chuyển năng lượng khác. So sánh cần cùng ranh giới hệ và điều kiện nguồn.
+
+Câu chuyện Afsluitdijk khiến năng lượng tự do trộn bớt trừu tượng. Hai dòng nước có cùng nhiệt độ vẫn có thể chứa một khả năng thực hiện công nhờ thành phần khác nhau. Muốn khai thác, phải cho ion đi qua những con đường chọn lọc trước khi sự trộn tự do làm chênh lệch ấy mất đi. Màng biến một xu hướng tự nhiên thành điện, còn kỹ thuật quyết định phần thu được có vượt những tổn thất cần để vận hành hay không.`],
+ ],sources:[['Nhóm nghiên cứu · Lịch sử Blue Energy tại Afsluitdijk','https://kivi.nl/_Resources/Persistent/7/3/0/8/7308eae65a4db771e325631c95c4e7be87ee0b96/2015_09_24_KIVI_Energy_Nijmeijer.pdf'],['Nghiên cứu gốc · Pilot RED với nước tự nhiên','https://ris.utwente.nl/ws/portalfiles/portal/294433493/1_s2.0_S1385894722038955_main.pdf']]
+},
+{
+ id:'cdi-dien-cuc-carbon-giu-muoi',category:'khainiem',title:'Nạp điện cho carbon xốp để giữ ion khỏi dòng nước',summary:'Khử ion điện dung dùng bề mặt điện cực để hấp phụ ion rồi nhả khi tái sinh. Diện tích riêng lớn chỉ hữu ích khi các lỗ thật sự tiếp cận được và phản ứng phụ được kiểm soát.',tags:['CDI','Carbon xốp','Lớp điện kép','Khử muối'],image:'/assets/library/photos/elements/C.jpg',imageAlt:'Carbon minh họa nguyên tố; không phải điện cực aerogel của hệ CDI',sections:[
+ ['Một chồng điện cực được thử với nhiều loại muối',`Báo cáo năm 1995 của Lawrence Livermore mô tả hệ khử ion dùng điện cực carbon aerogel. Nhóm Farmer và cộng sự bơm nước chứa các ion qua cell, phân cực điện cực rồi theo dõi lượng muối được giữ trong lớp điện kép. Những phép thử với carbonate, sulfate và phosphate giúp khảo sát cách điện thế ảnh hưởng dung lượng hấp phụ.
+
+Tái sinh bằng điện tạo một lựa chọn khác với nhựa trao đổi ion cần thuốc thử tái sinh. Nhưng ion không biến mất: chúng được nhả vào một dòng có nồng độ cao hơn trong giai đoạn khác.
+
+Vì vậy, lời hứa giảm hóa chất cần được đọc cùng cân bằng nước và muối, không được hiểu thành hệ không có dòng thải nào cần quản lý.`],
+ ['Lỗ nhỏ chứa nhiều bề mặt nhưng cũng tạo trở lực',`Khi điện cực nhận điện tích, ion đối dấu có thể tích lũy gần bề mặt và ion cùng dấu có thể bị đẩy ra. Trong những lỗ nhỏ, cấu trúc lớp điện kép và điện tích hóa học sẵn có làm quan hệ giữa điện lượng với lượng muối giữ trở nên phức tạp.
+
+Diện tích BET cao không tự bảo đảm hiệu suất CDI cao. Ion cần đi vào được lỗ trong thời gian chu kỳ, và phần diện tích không tiếp cận được không đóng góp như mong muốn. Lỗ lớn hơn có thể hỗ trợ vận chuyển trong khi lỗ nhỏ đóng góp khả năng chứa.
+
+Điện thế quá cao hoặc môi trường không phù hợp có thể thúc đẩy phản ứng faradaic, làm đổi pH và bề mặt. Một hệ được gọi là điện dung vẫn cần kiểm tra những dòng điện không chỉ dùng để lưu điện tích thuận nghịch.`],
+ ['Ứng dụng hôm nay: chọn công nghệ theo nguồn nước',`CDI và các biến thể có màng hoặc vật liệu chèn ion được nghiên cứu cho những nguồn nước và mục tiêu chọn lọc khác nhau. Năng lượng tiêu thụ cần được so ở cùng mức thu hồi nước và giảm độ mặn. Một kết quả tốt cho nước lợ loãng không tự thay thế công nghệ tối ưu cho nước biển đậm đặc.
+
+Mô hình năm 2015 về điện cực có điện tích cố định giải thích cả những quan sát “ngược”, khi nạp điện có thể nhả ion trong một số trạng thái. Điều ấy cho thấy hóa học bề mặt là phần của cơ chế, không chỉ một tạp chất cần bỏ qua.
+
+Câu chuyện carbon xốp nối hai chức năng quen là tụ điện và hấp phụ. Điện trường điều khiển lúc nào ion ưu tiên ở trong lỗ hoặc trong dòng nước. Để thành quy trình hữu ích, hệ phải giữ khả năng ấy qua chu kỳ, sử dụng điện hiệu quả và đưa dòng muối nhả ra tới nơi xử lý phù hợp. Chọn vật liệu tốt chỉ là một bước trong toàn bộ thiết kế.`],
+ ],sources:[['Livermore · CDI với carbon aerogel, 1995','https://www.osti.gov/servlets/purl/125000'],['Tổng quan điện cực CDI','https://pmc.ncbi.nlm.nih.gov/articles/PMC4740477/'],['Nghiên cứu mô hình · Điện tích cố định trong lỗ','https://arxiv.org/abs/1506.03948']]
+},
+
+{
+ id:'mang-luong-cuc-tu-muoi-den-acid-base',category:'khainiem',title:'Một chồng màng chia dòng muối thành những dòng có chức năng khác',summary:'Điện thẩm tách màng lưỡng cực dùng năng lượng điện để tạo acid và base từ các nguồn muối phù hợp. Chọn lọc của màng quyết định hiệu suất và giới hạn nồng độ.',tags:['Màng lưỡng cực','BMED','Acid–base','Tái sử dụng'],image:'/assets/library/acid-base-world.svg',imageAlt:'Minh họa acid–base; không phải sơ đồ vận hành chồng màng công nghiệp',sections:[
+ ['Dòng muối thải được nhìn như một nguồn nguyên liệu',`Nghiên cứu năm 2024 của Kikuchi và cộng sự so sánh những màng trao đổi anion khi dùng sodium chloride hoặc sodium sulfate trong BMED. Nhóm đo hiệu suất dòng và điện năng để xem loại màng nào phù hợp với từng nguồn ion. Kết quả không cho một lựa chọn tốt nhất giống nhau cho mọi muối.
+
+Ý tưởng là tạo các dòng acid và kiềm có thể phục vụ công đoạn khác, thay vì chỉ trung hòa rồi thải một dung dịch muối. Tuy vậy, chất lượng nguồn đầu vào và yêu cầu sản phẩm phải được đối chiếu: một dòng có thể dùng nội bộ không nhất thiết đạt mọi cấp hóa chất thương mại.
+
+Nghiên cứu đặt quá trình trong những chuỗi thu hồi vật liệu, nhưng hiệu quả toàn chuỗi vẫn cần tính riêng.`],
+ ['Giao diện hai lớp màng hỗ trợ phân ly nước',`Màng lưỡng cực kết hợp lớp trao đổi cation và anion. Trong điều kiện phân cực thích hợp, nước tại vùng tiếp giáp được phân ly, cung cấp H⁺ và OH⁻ đi về các phía khác nhau. Các màng còn lại tổ chức đường đi của ion muối để tạo những ngăn sản phẩm mong muốn.
+
+Năng lượng điện là cần thiết; hệ không tách acid và base miễn phí từ nước muối. Điện trở, rò proton hoặc hydroxide và sự đi qua không mong muốn của ion làm hiệu suất giảm. Nồng độ sản phẩm càng tăng có thể làm những tổn thất khác trở nên đáng kể.
+
+Một nghiên cứu năm 2024 dùng trung hòa trực tuyến để điều chỉnh cân bằng và đạt nồng độ kiềm cao trong hệ được báo cáo. Kết quả minh họa việc nối phản ứng với phân tách, nhưng không phải bằng chứng mọi cấu hình BMED có thể đạt cùng miền nồng độ.`],
+ ['Ứng dụng hôm nay: sản phẩm có ích khi khớp với nơi sử dụng',`BMED được nghiên cứu cho thu hồi acid–base, xử lý các dòng công nghiệp và phối hợp với những quá trình khác. Một phép so công nghệ cần cùng ranh giới: điện năng, tiền xử lý, màng thay thế và giá trị của cả hai dòng sản phẩm.
+
+Tạp chất tạo cặn hoặc chất hữu cơ bám có thể làm dữ liệu dung dịch muối tinh khiết quá lạc quan so với dòng thật. Các thử nghiệm lâu dài và cân bằng vật chất giúp xác định phần lợi ích có thể duy trì.
+
+Câu chuyện màng lưỡng cực cho thấy một hỗn hợp không nhất thiết phải bị pha loãng hoặc trung hòa tới trạng thái ít giá trị. Nếu các ion được đưa qua những đường chọn lọc, chúng có thể được tái tổ chức thành những dòng phục vụ công việc khác. Hóa học quyết định trạng thái và cân bằng, còn thiết kế màng quyết định mức chọn lọc và năng lượng phải trả để thực hiện sự tái tổ chức ấy.`],
+ ],sources:[['Kikuchi và cộng sự · Màng và loại ion trong BMED, 2024','https://www.mdpi.com/2077-0375/14/12/262'],['Nghiên cứu gốc · Trung hòa trực tuyến và BMED, 2024','https://www.sciencedirect.com/science/article/abs/pii/S1385894724030973']]
+},
+{
+ id:'pervaporation-butanol-roi-hon-hop-qua-mang',category:'khainiem',title:'Butanol rời một hỗn hợp nước bằng cách đi qua màng rồi hóa hơi',summary:'Pervaporation kết hợp hấp phụ chọn lọc và khuếch tán qua màng với thu hồi ở pha hơi. Mẫu lên men thật có thể làm màng ứng xử khác dung dịch mô hình.',tags:['Pervaporation','Butanol','Màng','Phân tách'],image:'/assets/library/apparatus-alembic.svg',imageAlt:'Minh họa phân tách pha; không phải thiết kế thiết bị pervaporation',sections:[
+ ['Một sản phẩm được lấy ra ngay khi còn nằm trong dòng lỏng',`Nghiên cứu năm 1999 khảo sát màng silicone chứa silicalite-1 để thu butanol và acetone từ dung dịch mô hình cũng như dịch lên men. Thay lượng hạt silicalite làm tính chọn lọc và dòng thấm thay đổi. Vật liệu composite được dùng để kết hợp môi trường polymer với khả năng hấp phụ của pha vô cơ.
+
+Một công trình sau đó ghép màng PDMS/PAN có silicalite-1 với quá trình tạo hỗn hợp acetone–butanol–ethanol liên tục. Mục tiêu là lấy sản phẩm ra trong lúc hệ đang hoạt động, thay vì chỉ chờ cả mẻ kết thúc rồi phân tách.
+
+Những kết quả này nói về tích hợp quy trình và vật liệu màng; chúng không có nghĩa mọi dịch sinh học có thể đưa trực tiếp qua cùng một lớp màng mà giữ tính năng.`],
+ ['Chất phải hòa vào màng rồi di chuyển qua nó',`Trong pervaporation, phía cấp là chất lỏng, còn phía thu thường duy trì áp suất riêng phần thấp để sản phẩm rời ra dưới dạng hơi. Các thành phần hấp phụ hoặc hòa vào màng theo mức khác nhau, rồi khuếch tán với tốc độ khác. Tính chọn lọc là kết quả của cả hai bước.
+
+Đây không đơn thuần là một tấm rây cơ học cho phân tử nhỏ đi qua. Một chất có ái lực mạnh với màng có thể được ưu tiên dù kích thước không nhỏ nhất. Màng có hạt vô cơ còn cần kiểm giao diện giữa hạt và polymer, vì khe khuyết có thể tạo đường rò không chọn lọc.
+
+Quá trình hóa hơi cần năng lượng và có thể làm dòng cấp lạnh đi. Khi tính hiệu quả, phải xét cấp nhiệt, chân không và ngưng tụ sản phẩm, không chỉ công suất của bơm chất lỏng.`],
+ ['Ứng dụng hôm nay: kiểm màng bằng nền mẫu thực',`Nghiên cứu năm 2020 về silicalite-1 chỉ ra tác động bất lợi của butyric acid tới thu hồi butanol trong hệ được khảo sát. Thành phần phụ có thể cạnh tranh hấp phụ hoặc làm tính năng đổi, nên một hỗn hợp vài chất chuẩn chưa bao trùm toàn bộ dòng quá trình.
+
+Pervaporation được nghiên cứu cho tách chất hữu cơ và khử nước trong những cấu hình khác nhau. Chọn màng phải theo mục tiêu: ưu tiên hữu cơ hay ưu tiên nước là hai nhiệm vụ khác, không thể gán chung cho mọi màng polymer.
+
+Câu chuyện butanol giúp phân tách trở thành một phần của thiết kế phản ứng. Lấy sản phẩm ra có thể thay điều kiện của công đoạn trước, nhưng cũng tạo thêm yêu cầu nhiệt và quản lý màng. Khi cả chuỗi được đo, một lớp vật liệu mỏng có thể mở đường đi khác cho hỗn hợp mà chưng cất đơn thuần gặp khó, với lợi ích và giới hạn được nêu rõ.`],
+ ],sources:[['Nghiên cứu gốc · Màng silicalite/silicone, 1999','https://www.sciencedirect.com/science/article/pii/S0376738899000101'],['Nghiên cứu gốc · Ghép lên men và pervaporation','https://backend.orbit.dtu.dk/ws/portalfiles/portal/105634105/Continuous_Acetone.pdf'],['Nghiên cứu gốc · Ảnh hưởng của butyric acid, 2020','https://www.sciencedirect.com/science/article/abs/pii/S1383586620313575']]
+},
+{
+ id:'hysteresis-hap-phu-lo-hep-giu-chat-long',category:'khainiem',title:'Lỗ rộng phía trong, cổ hẹp phía ngoài: vì sao hấp phụ và nhả không cùng đường?',summary:'Vòng trễ trong phép đo khí có thể chứa thông tin về cổ lỗ, trạng thái siêu bền và cavitation. Không nên biến một hình vòng thành một cấu trúc duy nhất.',tags:['Trễ hấp phụ','Lỗ xốp','Cavitation','Silica'],image:'/assets/library/ionic-crystal.svg',imageAlt:'Minh họa vật liệu có lỗ; không phải hình học đầy đủ của FDU-1 hoặc SBA-16',sections:[
+ ['Cùng áp suất nhưng lượng khí giữ lại có thể khác',`Nghiên cứu năm 2002 trên các silica có khoang kiểu lồng FDU-1 và SBA-16 khảo sát hấp phụ và giải hấp nitrogen, argon hoặc krypton. Đường tăng áp và giảm áp không trùng nhau. Nhóm dùng các vòng quét phụ và thay nhiệt độ để phân biệt những cơ chế làm chất lỏng trong lỗ rời đi.
+
+Những khoang rộng nối với cổ hẹp tạo một tình huống đặc biệt: phần trong có thể vẫn đầy dù điều kiện của một lỗ mở cùng kích thước đã cho phép nhả. Nhưng “kẹt cổ chai” không phải lời giải thích duy nhất cho mọi vòng trễ.
+
+Công trình phân biệt nhả bị chặn bởi cổ, cavitation của chất lỏng siêu bền và nhả gần cân bằng ở những khoang có đường tới pha hơi.`],
+ ['Đường đi qua trạng thái cũng là một phần của dữ liệu',`Ngưng tụ mao dẫn trong lỗ liên quan đến bề mặt cong và năng lượng giao diện. Khi nạp hoặc nhả, hệ có thể ở những trạng thái siêu bền trước khi vượt rào cản tạo mầm hoặc mất ổn định. Vì vậy, lịch sử áp suất ảnh hưởng lượng giữ tại cùng một điểm.
+
+Với mạng lỗ liên thông, một khoang không hoạt động độc lập. Cổ lỗ và những đường kết nối quyết định pha hơi có tiếp cận được bên trong hay không. Sự nhả đột ngột có thể phản ánh cơ chế mạng, không đơn giản là kích thước của tất cả khoang.
+
+Mô phỏng năm 2014 thay nhiệt độ, kích thước cổ và khoang để khảo sát chuyển giữa pore blocking và cavitation. Hình dạng vòng có thể đổi trong khi cùng một kiểu hình học cơ bản được giữ, cho thấy cần thận trọng khi đọc cấu trúc chỉ từ hình vòng.`],
+ ['Ứng dụng hôm nay: dùng mô hình phù hợp để suy phân bố lỗ',`Đẳng nhiệt hấp phụ là công cụ phổ biến cho vật liệu xốp, nhưng cách chọn nhánh và mô hình ảnh hưởng phân bố kích thước suy ra. Các nghiên cứu năm 2021 tiếp tục kiểm tính phụ thuộc nhiệt độ của vòng trễ để hiểu đâu là phần gần cân bằng và đâu là phần động học hoặc siêu bền.
+
+Một vật liệu hấp phụ dùng trong quy trình cũng phải được đánh giá theo chu kỳ nạp–nhả thực. Dung lượng cao nhưng khó tái sinh có thể làm chi phí năng lượng hoặc thời gian tăng. Hình học lỗ ảnh hưởng cả phép đo lẫn nhiệm vụ sử dụng.
+
+Câu chuyện cổ lỗ cho thấy khoảng rỗng không chỉ có kích thước mà còn có kết nối. Những phân tử bên trong một khoang phụ thuộc đường đi tới bên ngoài. Khi hiểu đường đi đó, vòng trễ không còn là lỗi máy cần bỏ qua; nó trở thành bằng chứng về cấu trúc và các trạng thái mà vật liệu đã trải qua.`],
+ ],sources:[['Nghiên cứu gốc · Ba cơ chế nhả khỏi lỗ cổ hẹp, 2002','https://doi.org/10.1021/la026140z'],['Mô phỏng · Chuyển từ pore blocking sang cavitation, 2014','https://doi.org/10.1016/j.cej.2013.11.019'],['Nghiên cứu gốc · Nhiệt độ và vòng trễ trong silica, 2021','https://pmc.ncbi.nlm.nih.gov/articles/PMC8223431/']]
+},
+{
+ id:'knudsen-khi-gap-thanh-lo-nhieu-hon-gap-nhau',category:'khainiem',title:'Khi phân tử khí va vào thành lỗ nhiều hơn va vào nhau',summary:'Khuếch tán Knudsen xuất hiện trong những kênh nhỏ hoặc khí loãng phù hợp. Các phép đo nanochannel giúp kiểm cách hình học quyết định dòng khí.',tags:['Knudsen','Khuếch tán khí','Nanochannel','Màng'],image:'/assets/library/ionic-crystal.svg',imageAlt:'Minh họa đường đi trong vật liệu có lỗ; không phải cấu trúc của màng silicon đo trong nghiên cứu',sections:[
+ ['Một dãy kênh silicon làm đường thử cho helium và argon',`Năm 2008, các nhà nghiên cứu đo dòng helium và argon qua những kênh song song rất hẹp trong màng silicon đơn tinh thể. Dữ liệu ở miền số Knudsen lớn thể hiện vận chuyển kiểu Knudsen, nơi va chạm với thành giữ vai trò nổi bật so với va chạm giữa các phân tử khí.
+
+Cách chế tạo những kênh có hình học biết trước giúp kiểm mô hình trên một hệ ít mơ hồ hơn vật liệu xốp tự nhiên. Độ nhám thành và cách phân tử phản xạ vẫn ảnh hưởng, nên “đường kính danh nghĩa” chưa kể hết mọi đặc tính vận chuyển.
+
+Một khái niệm bắt đầu từ khí loãng cũng có thể trở nên quan trọng khi kênh đủ nhỏ, dù áp suất không cực thấp như trong các hệ chân không lớn.`],
+ ['So quãng đường tự do với kích thước kênh',`Số Knudsen so quãng đường tự do trung bình của phân tử với kích thước đặc trưng của hệ. Khi tỷ số lớn, mô hình liên tục quen thuộc cho dòng chất lỏng hoặc khí đậm đặc có thể không còn phù hợp đơn giản. Tương tác với thành quyết định hướng chuyển động sau nhiều lần va chạm.
+
+Trong mô hình lý tưởng, tốc độ nhiệt liên quan đến khối lượng phân tử, tạo một dạng chọn lọc theo căn bậc hai khối lượng. Nhưng hấp phụ lên thành hoặc rào cản kích thước phân tử có thể thêm cơ chế khác. Không nên gọi mọi màng cho hydrogen đi nhanh là chỉ có Knudsen.
+
+Ở kênh gần kích thước phân tử, chuyển động có thể chịu ảnh hưởng mạnh của thế tương tác và hình học cụ thể. Phải đối chiếu dữ liệu nhiệt độ, áp suất và từng khí để xác định miền cơ chế.`],
+ ['Ứng dụng hôm nay: chọn mô hình đúng cho màng khí',`Nghiên cứu năm 2007 so các khí nhỏ qua màng zeolite DDR và silicalite cho thấy một số miền trong silicalite có đặc điểm giống khuếch tán Knudsen, trong khi cấu trúc lỗ nhỏ khác tạo hành vi khác. Cùng được gọi là màng zeolite không có nghĩa mọi khí đi qua theo cùng quy luật.
+
+Những nghiên cứu vật liệu sợi ngẫu nhiên còn đặt bài toán ngược: từ cấu trúc rỗng suy khả năng khuếch tán trong miền Knudsen. Độ quanh co và phân bố lỗ thay vai trò của một kênh thẳng lý tưởng.
+
+Câu chuyện phân tử gặp thành làm rõ vì sao thu nhỏ không chỉ là giảm kích thước thiết bị. Khi một độ dài trong hình học tiến gần quãng đường chuyển động tự nhiên của phân tử, quy luật vận chuyển cần được xem lại. Hiểu sự chuyển miền ấy giúp người thiết kế phân biệt lợi ích do kích thước lỗ, do bề mặt hay do chế độ khí, thay vì gán tất cả cho một nhãn “nano”.`],
+ ],sources:[['Nghiên cứu gốc · Knudsen trong nanochannel silicon','https://arxiv.org/abs/0802.1852'],['Nghiên cứu gốc · Vận chuyển khí trong màng zeolite','https://experts.azregents.edu/en/publications/gas-permeation-and-diffusion-in-small-and-intermediate-pore-zeoli-2/'],['Nghiên cứu mô hình · Knudsen trong vật liệu sợi','https://arxiv.org/abs/2006.04883']]
+},
+
+{
+ id:'clumped-isotope-nhiet-ke-trong-carbonate',category:'khainiem',title:'Không chỉ có bao nhiêu đồng vị nặng, mà chúng có đứng cạnh nhau không?',summary:'Đồng vị kết cụm trong carbonate tạo một nhiệt kế địa chất khác với tỷ số oxygen tổng. Phép đo cần kiểm tra dấu nhiệt ban đầu còn được giữ hay đã bị sắp xếp lại.',tags:['Đồng vị kết cụm','Carbonate','Cổ nhiệt độ'],image:'/assets/library/earth-minerals.svg',imageAlt:'Minh họa khoáng vật; không phải mẫu carbonate dùng trong phép hiệu chuẩn',sections:[
+ ['Một câu hỏi mới dành cho cùng các nguyên tử hiếm',`Năm 2006, Ghosh và cộng sự công bố phép nhiệt kế dựa trên mức carbon-13 và oxygen-18 cùng nằm trong một nhóm carbonate. Thay vì chỉ đo tỷ số từng đồng vị trong toàn mẫu, họ hỏi mức kết hợp của chúng có khác phân bố ngẫu nhiên hay không.
+
+Quan hệ được hiệu chuẩn bằng các mẫu carbonate hình thành ở nhiệt độ biết trước. Ở điều kiện cân bằng phù hợp, mức ưu tiên của các tổ hợp đồng vị thay đổi theo nhiệt độ, tạo khả năng suy thông tin từ khoáng cổ.
+
+Ưu điểm quan trọng là không phải biết trước thành phần đồng vị oxygen của nước tạo khoáng theo cùng cách một số nhiệt kế carbonate–nước truyền thống yêu cầu. Nhưng điều đó không loại bỏ mọi giả định về lịch sử mẫu.`],
+ ['Các tổ hợp đồng vị có năng lượng dao động khác nhau',`Đồng vị nặng làm thay đổi năng lượng dao động mà không đổi số proton hay danh tính nguyên tố. Những tổ hợp có hai đồng vị nặng có thể được ưu tiên nhẹ ở nhiệt độ thấp hơn; khi nóng hơn, phân bố tiến gần tính ngẫu nhiên hơn trong mô hình cân bằng.
+
+Phép đo thường phân tích các isotopologue của CO₂ được tạo từ carbonate, rồi chuẩn hóa so với mức dự kiến từ thành phần đồng vị tổng. Các bước chuyển mẫu và hiệu chuẩn cần được kiểm vì đại lượng cần thấy rất nhỏ.
+
+Kết cụm không phải những hạt đồng vị tụ thành một mảng nhìn thấy bằng kính hiển vi. Nó là xác suất các đồng vị cùng hiện diện trong một đơn vị phân tử hoặc ion. Cách gọi hình ảnh cần được giữ đúng để không nhầm với sự tách pha hóa học.`],
+ ['Ứng dụng hôm nay: nhiệt kế phải được kiểm xem có bị đặt lại',`Các nghiên cứu dùng đồng vị kết cụm để khảo sát điều kiện hình thành khoáng và môi trường cổ. Tuy nhiên, nếu mẫu bị nung trong lịch sử chôn vùi, các đồng vị có thể sắp xếp lại mà không cần toàn bộ khoáng hòa tan rồi kết tinh mới.
+
+Nghiên cứu gia nhiệt aragonite năm 2019 khảo sát cơ chế tái sắp xếp trong trạng thái rắn. Dữ liệu như vậy giúp đánh giá một giá trị phản ánh lúc tạo khoáng hay một giai đoạn nhiệt về sau. Những bộ chuẩn mới cũng hỗ trợ so kết quả giữa phòng thí nghiệm.
+
+Câu chuyện này cho thấy thành phần trung bình chưa nắm hết thông tin hóa học. Hai mẫu có cùng tỷ số đồng vị tổng vẫn có thể khác cách những đồng vị được kết hợp, và phần khác biệt ấy lưu dấu nhiệt. Muốn đọc quá khứ, người nghiên cứu phải hiểu cả cách dấu được viết vào lẫn những quá trình có thể sửa nó sau đó. Nhiệt kế nằm trong cấu trúc, nhưng nó không đứng ngoài lịch sử của vật liệu.`],
+ ],sources:[['Ghosh và cộng sự · Nhiệt kế carbonate kết cụm, 2006','https://doi.org/10.1016/j.gca.2005.11.014'],['Nghiên cứu gốc · Tái sắp xếp đồng vị khi gia nhiệt, 2019','https://www.sciencedirect.com/science/article/pii/S0016703719302856'],['Nghiên cứu chuẩn đồng vị kết cụm','https://doi.org/10.1029/2022GC010458']]
+},
+{
+ id:'carbon14-duong-cong-khi-quyen-doc-tuoi-te-bao',category:'khainiem',title:'Một biến động carbon trong khí quyển giúp đọc thời điểm tế bào được tạo',summary:'Dấu carbon-14 do thử hạt nhân khí quyển đi qua thực phẩm vào vật chất sinh học. Định tuổi hồi cứu dùng đường chuẩn ấy với những giả định khác phép định tuổi cổ vật thông thường.',tags:['Carbon-14','Định tuổi','Đường bom','Tế bào'],image:'/assets/library/organic-polymer.svg',imageAlt:'Minh họa đại phân tử; không phải dữ liệu định tuổi của một cá nhân',sections:[
+ ['Một dấu thời gian toàn cầu được đọc trong ADN',`Năm 2005, Spalding và cộng sự dùng mức carbon-14 trong ADN để khảo sát thời điểm tạo tế bào ở người. Các thử nghiệm vũ khí hạt nhân trên khí quyển giữa thế kỷ XX đã làm carbon-14 tăng mạnh, rồi mức này giảm sau đầu thập niên 1960 khi các nguồn và kho carbon tiếp tục trao đổi.
+
+Carbon đi từ khí quyển vào thực vật, thực phẩm và các thành phần cơ thể. Nếu biết một vật liệu sinh học được tổng hợp và thay mới theo cơ chế nào, tỷ lệ carbon-14 có thể được đối chiếu với lịch sử khí quyển để ràng buộc thời điểm hình thành.
+
+Công trình đầu khảo sát các quần thể tế bào cụ thể trong vỏ não. Kết quả không nên được mở rộng thành tuyên bố mọi vùng não hoặc mọi loại tế bào có cùng mức thay mới.`],
+ ['Đường chuẩn thời gian quan trọng hơn sự phân rã trong vài thập niên',`Ở định tuổi cổ vật thông thường, sự giảm carbon-14 do phân rã trong thời gian dài là phần trung tâm. Với dấu “bomb pulse” gần hiện tại, biến thiên nhanh của tỷ lệ khí quyển cung cấp một đường chuẩn đặc biệt; sự phân rã trong vài chục năm không phải yếu tố duy nhất quyết định tín hiệu.
+
+Một tỷ lệ có thể tương ứng với nhiều thời điểm trên đoạn tăng và đoạn giảm, nên thông tin độc lập giúp chọn miền phù hợp. Chế độ ăn, nguồn carbon và thời gian chuyển qua các kho sinh học cũng có thể tạo độ trễ hoặc làm tín hiệu trung bình hóa.
+
+Trong ADN, việc liên hệ tuổi phân tử với tuổi tế bào dựa trên quá trình tổng hợp và tính ổn định của vật liệu được đo. Phân lập đúng quần thể và độ tinh khiết là điều kiện thiết yếu; một hỗn hợp tế bào không tự cho một ngày sinh duy nhất.`],
+ ['Ứng dụng hôm nay: ghép đồng vị với mô hình thay mới',`Phương pháp được dùng trong nghiên cứu thay mới mô và một số ứng dụng pháp y. Nghiên cứu năm 2013 trên huyết thanh kết hợp carbon-14 với carbon-13 và nitrogen-15 để xem các yếu tố nguồn dinh dưỡng và thời gian lưu ảnh hưởng kết quả thế nào.
+
+Một kết quả phân tích không tự chẩn đoán sức khỏe hoặc xác định toàn bộ tuổi của một người. Nó trả lời câu hỏi về vật liệu đã lấy và mô hình trao đổi được áp dụng. Độ không đảm bảo cần phản ánh cả đo đồng vị lẫn lịch sử sinh học chưa biết hoàn toàn.
+
+Câu chuyện này là cách một biến động lịch sử không được tạo cho mục đích sinh học trở thành dấu vết có thể nghiên cứu. Giá trị khoa học nằm ở việc theo dõi đường carbon và kiểm những giả định nối mẫu với khí quyển. Một nguyên tử không mang nhãn ngày tháng, nhưng phân bố đồng vị của cả quần thể có thể lưu một mốc thời gian khi được đọc cùng cơ chế tạo và thay mới của vật chất.`],
+ ],sources:[['Spalding và cộng sự · Định tuổi hồi cứu tế bào, 2005','https://pubmed.ncbi.nlm.nih.gov/16009139/'],['Nghiên cứu gốc · Bomb-pulse trong huyết thanh, 2013','https://pmc.ncbi.nlm.nih.gov/articles/PMC3677238/'],['FBI · Ứng dụng và giới hạn định tuổi bomb-pulse','https://archives.fbi.gov/archives/about-us/lab/forensic-science-communications/fsc/jan2006/research/2006_01_research01.htm']]
+},
+{
+ id:'ddx4-giot-protein-khong-can-mang-bao',category:'khainiem',title:'Protein tự tạo một giọt đậm đặc mà không cần màng lipid',summary:'Vùng mất trật tự của Ddx4 được dùng để nghiên cứu tách pha sinh học. Giọt tạo thành có thể phân bố các phân tử khác một cách chọn lọc, nhưng không phải mọi chấm trong tế bào đều là chất lỏng.',tags:['Tách pha','Condensate','Protein mất trật tự'],image:polymer,imageAlt:'Minh họa chuỗi protein; không phải mô hình nguyên tử hoặc ảnh giọt Ddx4',sections:[
+ ['Một vùng không gấp thành khối cứng vẫn có tổ chức',`Năm 2015, Nott và cộng sự báo cáo sự tách pha của vùng mất trật tự trong protein Ddx4, tạo những giọt có tính chất giống lỏng trong hệ nghiên cứu. Các giọt đáp ứng với thay đổi môi trường, cung cấp một mô hình cho các tổ chức không có màng bao trong tế bào.
+
+“Mất trật tự” không có nghĩa chuỗi không tương tác hoặc không có chức năng. Những tiếp xúc tạm thời giữa nhiều đoạn có thể tạo một mạng động, đủ để một pha giàu protein cùng tồn tại với pha loãng.
+
+Câu hỏi mới không chỉ là cấu trúc ba chiều duy nhất của một phân tử, mà là các phân tử cùng phân bố và trao đổi như thế nào trong môi trường.`],
+ ['Một cân bằng pha tạo sự tập trung cục bộ',`Tách pha lỏng–lỏng xảy ra khi hệ giảm năng lượng tự do bằng cách phân chia thành các pha có thành phần khác. Nồng độ, nhiệt độ, muối và những tương tác nhiều điểm ảnh hưởng ranh giới pha. Không phải cứ tăng protein là mọi hệ tạo giọt theo cùng cơ chế.
+
+Nghiên cứu Ddx4 xem xét các tương tác điện và đặc điểm trình tự liên quan tới khả năng tập hợp. Ở mức khái niệm, nhiều tương tác yếu cộng lại có thể tạo sự phân bố mạnh mà vẫn cho phân tử trao đổi.
+
+Một giọt hình tròn và hiện tượng nhập giọt là dấu hữu ích nhưng chưa đủ xác nhận toàn bộ tính lỏng. Vật liệu có thể già hóa, tạo gel hoặc kết tụ khác. Đo động học, hồi phục tín hiệu và đáp ứng cơ học giúp phân biệt các trạng thái.`],
+ ['Ứng dụng hôm nay: môi trường bên trong giọt có thể làm đổi hành vi',`Công trình năm 2016 cho thấy các khoang Ddx4 mô hình phân bố acid nucleic theo đặc tính cấu trúc và có thể làm thay đổi độ bền của một số duplex. Kết quả nhấn mạnh rằng giọt không chỉ gom chất theo kích thước; môi trường hóa học bên trong tạo lựa chọn.
+
+Những nghiên cứu condensate hỗ trợ hiểu tổ chức tế bào và phát triển vật liệu mềm. Tuy nhiên, mô hình với vùng protein tách riêng không tự mô tả đầy đủ cơ quan tử trong tế bào, nơi có nhiều đối tác, điều khiển và dòng năng lượng.
+
+Câu chuyện Ddx4 giúp mở rộng hình ảnh về ngăn tế bào. Một ranh giới thành phần có thể xuất hiện mà không cần một màng lipid bọc kín. Nhưng gọi mọi chấm hiển vi là “tách pha” sẽ bỏ qua phần kiểm chứng cần thiết. Giá trị của khái niệm nằm ở các dự đoán có thể thử: thành phần nào đi vào, tốc độ trao đổi ra sao và thay môi trường có làm hệ trở lại trạng thái ban đầu không.`],
+ ],sources:[['Nott và cộng sự · Tách pha vùng Ddx4, 2015','https://pmc.ncbi.nlm.nih.gov/articles/PMC4352761/'],['Nott và cộng sự · Khoang Ddx4 và acid nucleic, 2016','https://www.nature.com/articles/nchem.2519']]
+},
+{
+ id:'hyperuniform-vo-trat-tu-van-chan-anh-sang',category:'khainiem',title:'Không lặp như tinh thể, một cấu trúc vẫn có thể chặn dải ánh sáng',summary:'Vật liệu quang tử hyperuniform kiểm soát dao động mật độ ở thang lớn. Những cấu trúc mất trật tự có thiết kế mở cách tạo dải cấm và đường dẫn linh hoạt.',tags:['Hyperuniform','Quang tử','Mất trật tự','Dải cấm'],image:'/assets/library/ionic-crystal.svg',imageAlt:'Minh họa cấu trúc vật liệu; mẫu hyperuniform không có trật tự lặp như sơ đồ',sections:[
+ ['Dải cấm quang không nhất thiết cần một mạng lặp tuần hoàn',`Năm 2009, Florescu, Torquato và Steinhardt dùng mô hình để thiết kế những cấu trúc điện môi mất trật tự có dải cấm quang đầy đủ trong điều kiện nghiên cứu. Hệ kết hợp tính hyperuniform với trật tự hình học gần và kết nối cục bộ phù hợp.
+
+Hyperuniform mô tả sự bị kìm hãm của dao động mật độ ở các thang dài, không đơn giản là mọi điểm cách nhau đều. Một cấu trúc có thể không lặp tuần hoàn nhưng vẫn có những ràng buộc thống kê mạnh.
+
+Điều này mở lựa chọn ngoài tinh thể quang tử truyền thống, nơi các hướng đặc biệt của mạng có thể ảnh hưởng cách tạo đường dẫn hoặc khuyết tật.`],
+ ['Hình học điều khiển những trạng thái sóng có thể tồn tại',`Trong vật liệu quang tử, phân bố điện môi tạo điều kiện giao thoa và những miền tần số mà sóng khó truyền qua cấu trúc. Dải cấm đầy đủ đòi hỏi hạn chế truyền theo các hướng và phân cực phù hợp của bài toán, không chỉ một đỉnh phản xạ ở một góc.
+
+Sự mất trật tự ngẫu nhiên hoàn toàn không tự tạo tính năng đó. Thiết kế phải giữ các tương quan không gian và cấu trúc lân cận giúp mở dải cấm. Vì vậy, từ “vô trật tự” ở đây không có nghĩa không có quy luật hoặc chế tạo tùy ý.
+
+Những khuyết tật có chủ đích có thể tạo đường dẫn hoặc hốc trong nền có dải cấm. Hệ không tuần hoàn có tiềm năng cho hình dạng đường đi ít bị ràng buộc bởi các trục mạng, nhưng hiệu quả vẫn cần được đo bằng phổ truyền và tổn hao.`],
+ ['Ứng dụng hôm nay: minh chứng ở một thang cần được chuyển cẩn thận sang thang khác',`Năm 2013, nhóm Weining Man và cộng sự chế tạo cấu trúc dùng các trụ và tường alumina để đo dải cấm và đường dẫn ở miền vi sóng. Đây là kiểm chứng thực nghiệm quan trọng cho ý tưởng, nhưng không phải một chip quang nhìn thấy đã được sản xuất hàng loạt.
+
+Chuyển sang bước sóng ngắn hơn đòi hỏi kích thước nhỏ, độ chính xác và vật liệu có tổn hao phù hợp. Những sai lệch chế tạo có thể làm các ràng buộc hình học mong muốn không còn được giữ.
+
+Câu chuyện hyperuniform làm rõ một vùng giữa tinh thể và hỗn độn hoàn toàn. Vật liệu có thể mang trật tự thống kê đủ mạnh để điều khiển sóng mà không cần lặp từng ô. Khi những ràng buộc ấy được thiết kế và kiểm chứng, sự không tuần hoàn trở thành một nguồn linh hoạt thay vì chỉ là khuyết tật. Đó là cách cấu trúc, hơn là chỉ thành phần, mở thêm chức năng cho vật liệu quang.`],
+ ],sources:[['Florescu và cộng sự · Thiết kế dải cấm mất trật tự, 2009','https://pmc.ncbi.nlm.nih.gov/articles/PMC2777962/'],['Man và cộng sự · Kiểm chứng dải cấm và đường dẫn, 2013','https://pmc.ncbi.nlm.nih.gov/articles/PMC3791749/']]
+},
+{
+ id:'opalescence-gan-diem-toi-han-tren-iss',category:'khainiem',title:'Chất lỏng đục lên gần điểm tới hạn vì mật độ dao động mạnh',summary:'DECLIC trên ISS khảo sát SF₆ gần chuyển tiếp lỏng–hơi. Vi trọng lực giúp giảm những hiệu ứng che khuất các dao động mà lý thuyết tới hạn muốn đo.',tags:['Điểm tới hạn','Tán xạ','Vi trọng lực','SF₆'],image:spectro,imageAlt:'Minh họa đo ánh sáng; không phải ảnh cell DECLIC trên trạm vũ trụ',sections:[
+ ['Một lượng mẫu nhỏ được đưa lên trạm để đọc một miền rất nhạy',`Thiết bị DECLIC do CNES phát triển cùng NASA có các module cho nghiên cứu chất lỏng và kết tinh. Module ALI dùng sulfur hexafluoride gần điểm tới hạn lỏng–hơi, với điều khiển nhiệt và các phép quang để theo dõi truyền sáng, tán xạ và mật độ.
+
+Gần điểm tới hạn, hệ rất nhạy với thay đổi nhỏ của nhiệt độ và áp suất. Trên mặt đất, trọng lực có thể tạo phân tầng và dòng đối lưu làm khó việc quan sát những tính chất nội tại. Vi trọng lực giảm một số ảnh hưởng ấy, dù không biến thí nghiệm thành môi trường hoàn toàn không nhiễu.
+
+Các báo cáo DECLIC phân biệt những phép đo đã thực hiện với các mục tiêu của module tái bay. Lịch trình hoặc khả năng thiết bị không tự là kết quả khoa học.`],
+ ['Dao động mật độ trở thành nguồn tán xạ ánh sáng',`Khi tiến gần điểm tới hạn, chiều dài tương quan của dao động mật độ tăng. Những vùng có chiết suất hơi khác nhau tán xạ ánh sáng mạnh, tạo độ đục gọi là critical opalescence. Đây không nhất thiết do bụi hoặc hạt mới kết tủa trong mẫu.
+
+Sự khác biệt giữa pha lỏng và hơi giảm khi tới điểm tới hạn. Các tính chất như độ nén và nhiệt dung có thể đổi rất mạnh, nên cần biết hệ đang cách điểm ấy bao xa và ở mật độ trung bình nào.
+
+Độ đục cung cấp dữ liệu để kiểm mô hình dao động, nhưng tín hiệu nhiều lần tán xạ hoặc gradient còn lại có thể làm phân tích khó. Những phép đo truyền sáng, giao thoa và nhiệt độ bổ sung nhau thay vì mỗi phép tự trả lời toàn bộ câu hỏi.`],
+ ['Ứng dụng hôm nay: một hệ chuẩn để kiểm lý thuyết và truyền nhiệt',`Nghiên cứu năm 2017 về chuyển pha kép lỏng–hơi trong không trọng lượng dùng dữ liệu SF₆ từ DECLIC để khảo sát sự tiến triển hình thái. Những báo cáo khác nghiên cứu hiệu ứng piston và quá trình truyền nhiệt gần điểm tới hạn, nơi trực giác từ chất lỏng thông thường có thể không đủ.
+
+Hiểu các tính chất này hỗ trợ mô hình hóa chất lỏng siêu tới hạn và những quy trình dùng chúng, nhưng một thí nghiệm SF₆ nhỏ trên ISS không tự xác định thiết kế mọi hệ công nghiệp. Cần chuyển kiến thức qua các tính chất và điều kiện tương ứng.
+
+Câu chuyện đục tới hạn cho thấy ánh sáng có thể nhìn thấy những dao động mà mắt thường không tách thành từng vùng. Mẫu đổi vẻ ngoài không phải vì đã nhiễm bẩn, mà vì một thang tổ chức bên trong trở nên lớn hơn. Bằng cách kiểm nhiệt và giảm tác động trọng lực, người nghiên cứu dùng sự thay đổi thị giác ấy như một phép thử định lượng về cách vật chất tiến tới ranh giới giữa các pha.`],
+ ],sources:[['NASA · Thiết bị DECLIC và module ALI','https://science.nasa.gov/biological-physical/investigations/device-for-the-study-of-critical-liquids-and-crystallization/'],['Nghiên cứu gốc · Chuyển pha lỏng–hơi trong vi trọng lực','https://pmc.ncbi.nlm.nih.gov/articles/PMC6152690/'],['NASA · Mục tiêu và phép đo độ đục gần tới hạn','https://taskbook.nasaprs.com/tbp/tbpdf.cfm?id=9824']]
+},
+{
+ id:'ferrofluid-tu-binh-khong-trong-luc-den-phot-tu',category:'khainiem',title:'Chất lỏng đi theo nam châm nhờ những hạt rất nhỏ bên trong',summary:'Ferrofluid được NASA phát triển từ bài toán quản lý chất lỏng trong vi trọng lực. Những ứng dụng về sau khai thác khả năng giữ và điều khiển một hệ keo bằng từ trường.',tags:['Ferrofluid','Hệ keo','Từ trường','Bất ổn bề mặt'],image:'/assets/library/photos/elements/Fe.jpg',imageAlt:'Iron minh họa nguyên tố; ferrofluid dùng hạt từ phân tán, không phải kim loại nóng chảy',sections:[
+ ['Một đề xuất cho chất lỏng trong bồn không còn đáy theo nghĩa quen',`Đầu thập niên 1960, Stephen Papell tại NASA Lewis tìm cách điều khiển chất lỏng trong điều kiện vi trọng lực. Bằng sáng chế nộp năm 1963, cấp năm 1965, mô tả hệ keo chứa hạt từ có thể được tác động bằng trường ngoài. Ý tưởng ban đầu gắn với quản lý chất lỏng cho hệ đẩy, nhưng công nghệ về sau đi vào những nhiệm vụ khác.
+
+NASA kể rằng các lựa chọn đơn giản hơn được dùng cho bài toán ban đầu, trong khi nghiên cứu ferrofluid tiếp tục qua hợp tác và chuyển giao. Vòng đời phát minh vì vậy không phải một đường thẳng từ mục tiêu đầu tiên tới ứng dụng cuối.
+
+Những hệ dùng cho phớt từ và truyền nhiệt trong một số linh kiện khai thác chính khả năng giữ chất lỏng ở vị trí có trường phù hợp.`],
+ ['Hạt từ truyền tác động cho cả môi trường lỏng',`Ferrofluid là một hệ phân tán gồm những hạt từ rất nhỏ trong chất mang, được ổn định để hạn chế kết tụ. Khi đặt trường, đáp ứng từ của các hạt làm hệ chịu lực hoặc thay trạng thái bề mặt. Nó không phải một khối iron được làm chảy ở nhiệt độ phòng.
+
+Kích thước hạt, lớp bề mặt và chất mang ảnh hưởng độ bền keo, độ nhớt và từ hóa. Một hỗn hợp bột sắt thô trong dầu có thể lắng và kết tụ, nên không được coi là tương đương một ferrofluid được thiết kế.
+
+Các gai trên bề mặt xuất hiện khi lực từ cạnh tranh với sức căng và trọng lực vượt một ngưỡng. Đây là bất ổn trường pháp thường gắn với tên Rosensweig. Hình gai không đơn giản là ảnh của từng đường sức từ; nó là hình dạng mà hệ đạt dưới tổng các đóng góp năng lượng và điều kiện biên.`],
+ ['Ứng dụng hôm nay: giữ độ ổn định trong trường và qua thời gian',`Các công nghệ phớt ferrofluid dùng từ trường để giữ một vòng chất lỏng quanh phần chuyển động trong cấu hình phù hợp. Những ứng dụng khác dùng khả năng điều khiển hoặc truyền nhiệt, nhưng từng sản phẩm cần chất mang và độ ổn định tương thích môi trường.
+
+Nghiên cứu năm 2023 về giọt ferrofluid va chạm trong trường không đều cho thấy lịch sử chuyển động và trường tạo nhiều kiểu hình bề mặt. Những kết quả giúp kiểm mô hình chứ không chỉ tạo các hình ảnh ngoạn mục.
+
+Câu chuyện Papell nhắc rằng một phát minh vật liệu có thể tìm giá trị ở nơi khác với mục tiêu xuất phát. Điều được giữ lại là một nguyên lý có thể kiểm chứng: lực tác động lên các hạt được truyền cho chất mang nhờ hệ keo ổn định. Khi bề mặt hạt, chất lỏng và trường được phối hợp, một vật liệu tưởng mềm và chảy tự do có thể được đặt vào vị trí làm việc chính xác mà không cần một vách rắn bao quanh mọi phía.`],
+ ],sources:[['NASA · Lịch sử ferrofluid và các ứng dụng','https://www.nasa.gov/history/novel-rocket-fuel-spawned-ferrofluid-industry/'],['Papell · Bằng sáng chế ferrofluid, 1965','https://patents.google.com/patent/US3215572A/en'],['Nghiên cứu gốc · Giọt ferrofluid trong trường không đều','https://pubmed.ncbi.nlm.nih.gov/37313681/']]
+},
 ];

@@ -29,6 +29,12 @@
   "playlist": true,
   "fullscreen": true,
   "manualBenchPreserved": true,
+  "headerLocksSelectedVessel": {
+    "targetId": "beaker_1",
+    "previousButton": "Di chuyển dụng cụ",
+    "pressed": "false",
+    "disabled": false
+  },
   "mobile": true,
   "errors": []
 }

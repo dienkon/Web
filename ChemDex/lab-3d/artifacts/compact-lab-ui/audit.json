@@ -91,6 +91,13 @@
           "bottom": 85.5
         },
         {
+          "label": "Khóa bình đang chọn",
+          "x": 261.625,
+          "y": 53.5,
+          "right": 323.9375,
+          "bottom": 85.5
+        },
+        {
           "label": "Tiếp tục phản ứng",
           "x": 1302.5625,
           "y": 53.5,
@@ -120,35 +127,35 @@
         }
       ],
       "launched": {
-        "id": "studio_sample_1794718027671_xpyvi9",
+        "id": "studio_sample_1794735119767_n9vsoe",
         "contents": [
           {
             "formula": "CuSO4",
             "phase": "aq",
-            "moles": 0.00011570364860384087,
+            "moles": 0.000032870110906127003,
             "initialMoles": 0.001,
-            "mass_g": 0.01846653372447021,
-            "concentration_M": 0.0038567937081128855
+            "mass_g": 0.005246135440839682,
+            "concentration_M": 0.001095672822005741
           },
           {
             "formula": "NaOH",
             "phase": "aq",
-            "moles": 0.00023140729720768174,
+            "moles": 0.00006574022181225401,
             "initialMoles": 0.002,
-            "mass_g": 0.009255597666415646,
-            "concentration_M": 0.007713587416225771
+            "mass_g": 0.0026294116518247234,
+            "concentration_M": 0.002191345644011482
           },
           {
             "formula": "H2O",
             "phase": "l",
-            "mass_g": 29.760361830374663,
-            "moles": 1.6519767876977332,
+            "mass_g": 29.760336686068555,
+            "moles": 1.6519753919549571,
             "concentration_M": 55.06597095013415
           },
           {
             "formula": "Cu(OH)2",
-            "moles": 0.0008842963513961592,
-            "mass_g": 0.08627195204220929,
+            "moles": 0.000967129889093873,
+            "mass_g": 0.09435319197999825,
             "state": "s",
             "phase": "s",
             "solidOrigin": "precipitate",
@@ -156,9 +163,9 @@
           },
           {
             "formula": "Na2SO4",
-            "moles": 0.0008842963513961592,
-            "mass_g": 0.12560191656690486,
-            "concentration_M": 0.02947658648042558,
+            "moles": 0.000967129889093873,
+            "mass_g": 0.13736726092733734,
+            "concentration_M": 0.03223773530475258,
             "state": "aq",
             "phase": "aq"
           }
@@ -166,7 +173,7 @@
         "active": true,
         "paused": false
       },
-      "pointerVolume": 2.5834681627852034,
+      "pointerVolume": 5.804816604118168,
       "settled": {
         "pouring": false,
         "rotationZ": 0
@@ -263,6 +270,13 @@
           "bottom": 85.5
         },
         {
+          "label": "Khóa bình đang chọn",
+          "x": 149,
+          "y": 53.5,
+          "right": 181,
+          "bottom": 85.5
+        },
+        {
           "label": "Tiếp tục phản ứng",
           "x": 265,
           "y": 53.5,
@@ -285,42 +299,42 @@
         },
         {
           "label": "Hiệu năng và chất lượng đồ họa",
-          "x": 310.5,
+          "x": 299.5,
           "y": 104,
           "right": 378,
           "bottom": 137
         }
       ],
       "launched": {
-        "id": "studio_sample_1794718049173_e2drzj",
+        "id": "studio_sample_1794735181556_pko6hu",
         "contents": [
           {
             "formula": "CuSO4",
             "phase": "aq",
-            "moles": 0.0001789015655104235,
+            "moles": 0.00008296181489413676,
             "initialMoles": 0.001,
-            "mass_g": 0.028553047658594614,
-            "concentration_M": 0.005963392179646352
+            "mass_g": 0.013240871580734014,
+            "concentration_M": 0.0027653983263789678
           },
           {
             "formula": "NaOH",
             "phase": "aq",
-            "moles": 0.000357803131020847,
+            "moles": 0.0001659236297882735,
             "initialMoles": 0.002,
-            "mass_g": 0.014311051831440819,
-            "concentration_M": 0.011926784359292704
+            "mass_g": 0.006636447420641576,
+            "concentration_M": 0.0055307966527579355
           },
           {
             "formula": "H2O",
             "phase": "l",
-            "mass_g": 29.7603704823374,
-            "moles": 1.6519772679621092,
+            "mass_g": 29.760355219601536,
+            "moles": 1.6519764207383587,
             "concentration_M": 55.06597095013415
           },
           {
             "formula": "Cu(OH)2",
-            "moles": 0.0008210984344895765,
-            "mass_g": 0.08010636326880309,
+            "moles": 0.0009170381851058633,
+            "mass_g": 0.08946624533892802,
             "state": "s",
             "phase": "s",
             "solidOrigin": "precipitate",
@@ -328,9 +342,9 @@
           },
           {
             "formula": "Na2SO4",
-            "moles": 0.0008210984344895765,
-            "mass_g": 0.1166255372411615,
-            "concentration_M": 0.02736997839557593,
+            "moles": 0.0009170381851058633,
+            "mass_g": 0.1302524356596964,
+            "concentration_M": 0.030567989207485238,
             "state": "aq",
             "phase": "aq"
           }
@@ -338,7 +352,7 @@
         "active": true,
         "paused": false
       },
-      "pointerVolume": 2.483599873089404,
+      "pointerVolume": 4.345526398300221,
       "settled": {
         "pouring": false,
         "rotationZ": 0

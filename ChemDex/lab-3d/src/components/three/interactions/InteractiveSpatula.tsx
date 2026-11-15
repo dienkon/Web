@@ -1,8 +1,8 @@
-import React, { useRef, useState, useMemo } from 'react';
+import React, { useRef, useMemo } from 'react';
 import { useFrame } from '@react-three/fiber';
 import * as THREE from 'three';
 import { useAppStore, getSolidMorphology } from '../../../store/useAppStore';
-import { labSound } from '../../../utils/audio';
+import { depositSpatula } from '../../../handling/instrumentOperations';
 import { useToolDock } from '../../../handling/toolDock';
 import { instrumentHome } from '../../../handling/instrumentCatalog';
 
@@ -18,8 +18,6 @@ const gripMaterial = new THREE.MeshStandardMaterial({
   metalness: 0.7,
 });
 
-let grainCounter = 0;
-
 interface InteractiveSpatulaProps {
   position?: [number, number, number];
 }
@@ -31,17 +29,12 @@ export const InteractiveSpatula = React.memo(function InteractiveSpatula({
   const position = dock.position;
   const activeTool = useAppStore(state => state.activeTool);
   const setActiveTool = useAppStore(state => state.setActiveTool);
-  const selectedVesselId = useAppStore(state => state.selectedVesselId);
   const targetVessel = useAppStore(state => state.selectedVesselId ? state.vessels[state.selectedVesselId] : undefined);
-  const mixSubstances = useAppStore(state => state.mixSubstances);
   const spatulaState = useAppStore(state => state.spatulaState);
-  const setSpatulaScoop = useAppStore(state => state.setSpatulaScoop);
+  const transferring = useAppStore(state => state.pouringChemical?.source?.kind === 'spatula');
 
   const groupRef = useRef<THREE.Group>(null);
   const isActive = activeTool === 'spatula' && !dock.moveMode;
-
-  const [isDumping, setIsDumping] = useState(false);
-  const [fallingGrains, setFallingGrains] = useState<Array<{ x: number; y: number; z: number; vy: number; key: number }>>([]);
 
   // Target world position: hovering slightly above selected vessel or resting in rack
   const targetPos = useMemo(() => {
@@ -55,88 +48,31 @@ export const InteractiveSpatula = React.memo(function InteractiveSpatula({
     return new THREE.Vector3(...position);
   }, [isActive, targetVessel, position]);
 
-  // Frame animation: smooth position lerp, tilt animation, and falling grains
+  // The loaded dock tool gives way to the finite contact animation during transfer.
   useFrame((_, delta) => {
-    if (!groupRef.current) return;
+    if (!groupRef.current || transferring || useAppStore.getState().isSimulationPaused) return;
 
     groupRef.current.position.lerp(targetPos, 1 - Math.exp(-delta * 8));
 
-    const currentRotationZ = isActive ? (isDumping ? -0.85 : -0.2) : 0;
-    const currentRotationX = isActive ? (isDumping ? 0.35 : 0.0) : -Math.PI / 2;
+    const currentRotationZ = isActive ? -0.2 : 0;
+    const currentRotationX = isActive ? 0 : -Math.PI / 2;
     groupRef.current.rotation.z = THREE.MathUtils.lerp(groupRef.current.rotation.z, currentRotationZ, 1 - Math.exp(-delta * 10));
     groupRef.current.rotation.x = THREE.MathUtils.lerp(groupRef.current.rotation.x, currentRotationX, delta * 10.0);
 
-    // Animate falling grains during dump
-    if (fallingGrains.length > 0) {
-      setFallingGrains(prev =>
-        prev
-          .map(g => ({
-            ...g,
-            y: g.y - g.vy * delta,
-            vy: g.vy + 9.8 * delta,
-          }))
-          .filter(g => g.y > -0.8)
-      );
-    }
   });
 
-  // Handle action: either dump into target vessel or scoop default reagent if empty
-  const handleSpatulaAction = (e: any) => {
+  const handleSpatulaAction = (e: { stopPropagation: () => void }) => {
     e.stopPropagation();
-    if (dock.moveMode || isDumping) return;
+    if (dock.moveMode || transferring) return;
     if (!isActive) { setActiveTool('spatula'); return; }
-
-    if (spatulaState.chemical && targetVessel && !targetVessel.id.startsWith('lesson_vessel_')) {
-      // Dump solid into vessel
-      setIsDumping(true);
-      const scoopedChem = spatulaState.chemical;
-      const morph = getSolidMorphology(scoopedChem);
-      const hasWater = targetVessel.volume_ml > 0.05;
-
-      if (morph === 'GRANULES' || morph === 'CHIPS') {
-        if (hasWater) {
-          labSound.playDroplet();
-        } else {
-          labSound.playTap();
-        }
-      } else if (morph === 'RIBBON' || morph === 'TURNINGS' || morph === 'FILINGS') {
-        labSound.playTap();
-      } else if (morph === 'PELLET') {
-        if (hasWater && (scoopedChem === 'Na' || scoopedChem === 'K')) {
-          labSound.playDroplet();
-          labSound.playSodiumSizzlePop(0.35);
-        } else {
-          labSound.playTap();
-        }
-      } else {
-        labSound.playPowder();
-      }
-
-      // Spawn falling particle shower
-      const newGrains = Array.from({ length: 12 }, (_, i) => ({
-        x: (Math.random() - 0.5) * 0.12,
-        y: 0,
-        z: (Math.random() - 0.5) * 0.12,
-        vy: 1.2 + Math.random() * 1.5,
-        key: ++grainCounter,
-      }));
-      setFallingGrains(newGrains);
-
-      const scoopedMass = spatulaState.mass_g || 0.5;
-
-      setTimeout(() => {
-        mixSubstances(targetVessel.id, scoopedChem, scoopedMass);
-        setSpatulaScoop(null);
-        setIsDumping(false);
-      }, 350);
-    }
+    void depositSpatula();
   };
 
   const hasSolid = Boolean(spatulaState.chemical && spatulaState.mass_g > 0);
   const solidColor = spatulaState.color || '#cbd5e1';
   const morphology = getSolidMorphology(spatulaState.chemical || '');
 
-  if (!dock.visible) return null;
+  if (!dock.visible || transferring) return null;
 
   return (
     <group
@@ -268,40 +204,6 @@ export const InteractiveSpatula = React.memo(function InteractiveSpatula({
         )}
       </group>
 
-      {/* Falling Particle Cascade during Dumping (Matches authentic morphology) */}
-      {fallingGrains.map(grain => (
-        <mesh key={grain.key} position={[grain.x, -0.68 + grain.y, grain.z]}>
-          {morphology === 'RIBBON' ? (
-            <torusGeometry args={[0.035, 0.008, 6, 12, Math.PI * 1.4]} />
-          ) : morphology === 'TURNINGS' ? (
-            <torusGeometry args={[0.032, 0.007, 6, 12, Math.PI * 1.8]} />
-          ) : morphology === 'FILINGS' ? (
-            <cylinderGeometry args={[0.005, 0.005, 0.04, 6]} />
-          ) : morphology === 'CUBIC_CRYSTAL' ? (
-            <boxGeometry args={[0.024, 0.024, 0.024]} />
-          ) : morphology === 'PRISMATIC_CRYSTAL' ? (
-            <cylinderGeometry args={[0.006, 0.006, 0.045, 6]} />
-          ) : morphology === 'HYDRATE_CRYSTAL' ? (
-            <octahedronGeometry args={[0.028, 0]} />
-          ) : morphology === 'POWDER' ? (
-            <dodecahedronGeometry args={[0.014, 0]} />
-          ) : (
-            <dodecahedronGeometry args={[0.028, 0]} />
-          )}
-          <meshStandardMaterial
-            color={
-              morphology === 'TURNINGS' ? '#ea580c' : 
-              (morphology === 'FILINGS' ? '#475569' : 
-              (morphology === 'LUSTROUS_PLATES' ? '#3b0764' : 
-              (morphology === 'PRISMATIC_CRYSTAL' ? '#581c87' : 
-              (morphology === 'TABULAR_CRYSTAL' ? '#ea580c' : 
-              (morphology === 'CHIPS' ? '#f1f5f9' : solidColor)))))
-            }
-            roughness={morphology === 'POWDER' ? 0.96 : (morphology === 'RIBBON' || morphology === 'TURNINGS' ? 0.2 : 0.65)}
-            metalness={morphology === 'RIBBON' || morphology === 'TURNINGS' || morphology === 'FILINGS' || morphology === 'PELLET' ? 0.92 : 0.05}
-          />
-        </mesh>
-      ))}
     </group>
   );
 });

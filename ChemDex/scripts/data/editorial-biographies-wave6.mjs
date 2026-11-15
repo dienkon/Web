@@ -208,7 +208,7 @@ Hiệu quả phụ thuộc vật liệu, tương tác giữa các moment và m�
 Giauque cũng đối chiếu entropy suy từ nhiệt dung với dữ liệu phổ và thống kê lượng tử. Những phép đo độc lập có thể làm lộ một giả định còn thiếu. Công việc với oxygen góp vào việc nhận ra các đồng vị và những khác biệt thang khối lượng được sử dụng lúc đó. Chính sự không khớp giữa các dữ liệu tốt đã mở thêm thông tin về thành phần vật chất.`],
 ['Ứng dụng hôm nay: nhiệt độ thấp là một môi trường nghiên cứu được tạo có chủ đích',`Các kỹ thuật làm lạnh từ tiếp tục phục vụ nghiên cứu ở nhiệt độ rất thấp và những hệ thiết bị chuyên biệt. Người thiết kế phải tính cả chu kỳ chuẩn bị, khả năng trao đổi nhiệt và công việc giữ mẫu khỏi môi trường nóng hơn.
 
-Một trạng thái lạnh không tồn tại tách khỏi hạ tầng. Dây đo, bức xạ và những phần tiếp xúc đều có thể mang nhiệt vào, làm giới hạn thời gian hoặc độ ổn định phép đo.
+Một trạng thái lạnh không tồn tại tách khỏi hạ tầng. Thời gian giữ nhiệt cũng là thông số cần đo. Dây đo, bức xạ và những phần tiếp xúc đều có thể mang nhiệt vào, làm giới hạn thời gian hoặc độ ổn định phép đo.
 
 Giauque cho thấy thay đổi trật tự ở cấp vi mô có thể trở thành công cụ điều khiển nhiệt. Điều tưởng thuộc riêng từ học đã giúp hóa học đo entropy và kiểm tra những quan hệ cơ bản. Từ một vật liệu có moment từ, người nghiên cứu tạo được một môi trường mới để những tính chất trước đó bị che bởi nhiệt có thể được khảo sát rõ hơn.`]
 ],nobel(1949,'giauque'),'apparatus-calorimeter')
@@ -369,7 +369,7 @@ Xúc tác hữu cơ cũng tạm tương tác hoặc tạo liên kết với cơ 
 Vì vậy, thiết kế cần xét năng lượng chuyển electron, tốc độ các bước và khả năng cạnh tranh. Một sơ đồ có hai vòng đẹp không đủ chứng minh chúng thực sự ghép theo đường mong muốn. Các phép đối chứng khi bỏ ánh sáng hoặc từng xúc tác, cùng phân tích sản phẩm, giúp kiểm tra phần đóng góp của mỗi hệ.`],
 ['Ứng dụng hôm nay: chia nhiệm vụ để mở kiểu biến đổi mới',`Các phương pháp xúc tác kết hợp được nghiên cứu để tạo liên kết và chức năng hóa những cấu trúc khó xử lý bằng một cơ chế riêng. Phạm vi mỗi hệ cần được xác định qua cơ chất và những nhóm có thể dung nạp.
 
-Nguồn sáng, cách truyền photon và quy mô thiết bị ảnh hưởng hiệu quả. Một phản ứng tốt trong lọ nhỏ cần được thiết kế lại khi đường đi ánh sáng và sự trộn thay đổi.
+Nguồn sáng, cách truyền photon và quy mô thiết bị ảnh hưởng hiệu quả. Phổ phát của đèn cũng phải được xác định. Một phản ứng tốt trong lọ nhỏ cần được thiết kế lại khi đường đi ánh sáng và sự trộn thay đổi.
 
 Câu chuyện MacMillan cho thấy chức năng có thể xuất hiện ở cách các chu trình được nối với nhau. Từng thành phần không cần làm điều phi thường một mình; chúng cần trao đúng chất trung gian hoặc electron vào đúng thời điểm. Khi sự phối hợp được kiểm tra bằng dữ liệu, một ý tưởng về chia việc trở thành công cụ tạo phân tử có thể sử dụng trong những bài toán tổng hợp cụ thể.`]
 ],[['Nicewicz và MacMillan · Xúc tác quang và hữu cơ kết hợp, 2008','https://doi.org/10.1126/science.1161976'],['David MacMillan · Bài giảng Nobel','https://www.nobelprize.org/prizes/chemistry/2021/macmillan/lecture/']],'lab-synthesis'),
@@ -439,7 +439,7 @@ Khi miền bán dẫn nhỏ đủ, các trạng thái điện tử bị ảnh h�
 Bề mặt giữa hạt và nền cũng có thể ảnh hưởng. Vì vậy, kết quả trong thủy tinh và kết quả của hạt tự do trong dung dịch cần được so theo đúng môi trường. Chúng cùng cho bằng chứng về kích thước nhưng không phải hai phép đo hoàn toàn giống nhau. Những đóng góp độc lập ấy giúp hiệu ứng được xác lập trên nhiều loại hệ.`],
 ['Ứng dụng hôm nay: lịch sử chế tạo để lại tính chất quang học',`Vật liệu chứa nanocrystal được nghiên cứu cho nhiều ứng dụng quang và điện tử. Khả năng tạo những miền có kích thước phù hợp là một phần của thiết kế, cùng với độ trong, độ bền và cách năng lượng đi qua các giao diện.
 
-Một quá trình gia nhiệt có thể thay cả kích thước lẫn phân bố hạt. Do đó, thông số chế tạo và phép đặc trưng cần đi cùng khi báo cáo một màu hoặc một phổ đặc biệt.
+Một quá trình gia nhiệt có thể thay cả kích thước lẫn phân bố hạt. Thời gian giữ mẫu vì thế có ý nghĩa. Do đó, thông số chế tạo và phép đặc trưng cần đi cùng khi báo cáo một màu hoặc một phổ đặc biệt.
 
 Ekimov cho thấy một vật liệu có lịch sử lâu đời như thủy tinh vẫn có thể mở câu hỏi mới khi được nhìn ở thang nhỏ hơn. Màu không chỉ kể thành phần hóa học; nó còn lưu dấu cách các tinh thể đã lớn lên trong nền. Nhận ra mối nối ấy giúp người nghiên cứu đi từ quan sát màu sang điều khiển cấu trúc, rồi dùng cấu trúc để đặt những tính chất quang học cụ thể vào vật liệu.`]
 ],[['Ekimov và Onushchenko · Hiệu ứng kích thước lượng tử, 1981','https://doi.org/10.1016/0038-1098(81)90818-2'],['Alexei Ekimov · Hồ sơ khoa học Nobel','https://www.nobelprize.org/prizes/chemistry/2023/yekimov/facts/']],'crystal-fcc'),
@@ -456,7 +456,7 @@ Một trạng thái có năng lượng thuận lợi trong mô hình chưa chắ
 Thiết kế Top7 chủ yếu kiểm tra năng lực tạo cấu trúc, không phải chứng minh mọi chức năng enzyme có thể được gắn vào ngay. Cấu trúc ổn định là một bước; chức năng cụ thể còn cần cơ chế, vị trí tương tác và những phép thử riêng. Sự phân biệt này giúp đọc đúng quy mô của một thành tựu thiết kế.`],
 ['Ứng dụng hôm nay: tạo vật liệu sinh học rồi để thí nghiệm chấm điểm',`Thiết kế protein được nghiên cứu cho vật liệu, cảm biến và nhiều nhiệm vụ phân tử. Các công cụ tính toán hỗ trợ tìm ứng viên, còn đặc tính thực phải được kiểm tra trong môi trường sử dụng dự kiến.
 
-Một thiết kế thành công ở một mẫu không tự bảo đảm toàn bộ các mô hình tương tự đều hoạt động. Những trường hợp thất bại cũng cung cấp dữ liệu để sửa cách đánh giá năng lượng và cấu trúc.
+Một thiết kế thành công ở một mẫu không tự bảo đảm toàn bộ các mô hình tương tự đều hoạt động. Những trường hợp thất bại cũng cung cấp dữ liệu để sửa cách đánh giá năng lượng và cấu trúc. Mẫu thực là đối chứng cần thiết.
 
 Câu chuyện Baker làm rõ vai trò của vòng dự đoán–chế tạo–đo. Máy tính đề xuất một cách sắp xếp, nhưng phân tử thật quyết định nó có giữ được hình và làm được việc hay không. Khi vòng ấy được thực hiện nghiêm túc, thiết kế trở thành một cách khám phá các nguyên tắc gấp cuộn, đồng thời mở những cấu trúc mà thiên nhiên chưa cung cấp sẵn cho người nghiên cứu.`]
 ],[['Kuhlman và cộng sự · Top7, 2003','https://doi.org/10.1126/science.1089427'],['David Baker · Hồ sơ khoa học Nobel','https://www.nobelprize.org/prizes/chemistry/2024/baker/facts/']],'organic-polymer')
@@ -509,7 +509,7 @@ Câu chuyện khác với sắc ký khí–lỏng của Martin và James: ở đ
 Mỗi thành phần được đưa ra dưới dạng tín hiệu theo thời gian. Độ lưu giữ giúp phân biệt, còn mức tín hiệu cần được hiệu chuẩn để định lượng. Nếu nhiệt độ hoặc dòng khí thay đổi, quan hệ giữa tín hiệu và mẫu cũng có thể đổi.
 
 Thiết bị đầu tiên cần phối hợp cột, dòng mang, điều khiển nhiệt và bộ đọc. Những phần ấy làm một ý tưởng vật lý hóa học trở thành phép phân tích có thể lặp. Một cơ chế hấp phụ tốt chưa tự tạo máy tốt nếu các biến vận hành không được giữ rõ.`],
-['Ứng dụng hôm nay: lịch sử phương pháp có nhiều nhánh',`Sắc ký khí–rắn tiếp tục hữu ích với những nhóm khí và vật liệu hấp phụ phù hợp. Các cột và detector hiện đại cho khả năng khác xa thiết bị đầu, nhưng vẫn cần hiểu cơ chế lưu giữ để chọn điều kiện.
+['Ứng dụng hôm nay: lịch sử phương pháp có nhiều nhánh',`Sắc ký khí–rắn tiếp tục hữu ích với những nhóm khí và vật liệu hấp phụ phù hợp. Một phép đo nền giúp nhận ra ảnh hưởng của hệ thống. Các cột và detector hiện đại cho khả năng khác xa thiết bị đầu, nhưng vẫn cần hiểu cơ chế lưu giữ để chọn điều kiện.
 
 Ghi nhận Cremer giúp lịch sử sắc ký đầy đủ hơn. Một phương pháp có thể được phát triển ở nhiều nơi, với những mục tiêu ban đầu khác nhau và mức khả năng công bố không giống nhau.
 
@@ -549,4 +549,339 @@ Tư liệu lịch sử có thể làm rõ vì sao một điều kiện được 
 
 Câu chuyện Freund cho thấy đóng góp khoa học còn nằm ở cách truyền phương pháp suy nghĩ. Một cuốn sách không cần phát hiện nguyên tố mới để thay đổi chất lượng công việc của nhiều người. Khi người đọc được dẫn qua phép đo, giả thuyết và đối chiếu, hóa học trở thành một hoạt động giải thích thế giới bằng bằng chứng. Công thức cuối vẫn cần nhớ, nhưng đường tới nó cho biết nên tin ở đâu và nên đặt câu hỏi tiếp theo như thế nào.`]
 ],[['Freund · The Study of Chemical Composition, 1904','https://archive.org/details/studyofchemicalc00freu'],['Nature · Đánh giá ảnh hưởng sách của Ida Freund','https://www.nature.com/articles/128958b0']],'history-evidence')
+);
+editorialBiographiesWave6.push(
+bio('clara-immerwahr-dien-the-doc-do-tan','Clara Immerwahr: dùng điện thế để hỏi muối ít tan còn ở trong nước bao nhiêu','Nghiên cứu năm 1900–1901 nối độ tan với phép đo điện hóa. Công trình giúp nhìn một muối có kết tủa như hệ cân bằng vẫn chứa ion trong dung dịch.',['Clara Immerwahr','Độ tan','Điện hóa'],[
+['Kết tủa xuất hiện nhưng ion chưa biến mất hết',`Trong luận án bảo vệ năm 1900 tại Breslau, Clara Immerwahr khảo sát độ tan của những muối kim loại ít tan bằng phương pháp điện hóa. Công trình được công bố năm 1901, cùng những nghiên cứu liên quan đến điện cực copper.
+
+Một chất rắn lắng xuống không có nghĩa dung dịch không còn ion của nó. Lượng còn hòa tan có thể rất nhỏ, khiến những phép cân trực tiếp khó dùng. Điện thế của điện cực cung cấp một đường đọc gián tiếp khi quan hệ cân bằng được xác định.
+
+Nghiên cứu đặt những đại lượng như độ tan, phân li và thế điện vào cùng một câu hỏi. Nó thuộc lĩnh vực hóa lý đang phát triển nhanh, nơi các phép đo mới giúp kiểm tra những quan hệ mà hóa học phân tích cần.`],
+['Một điện thế chỉ có nghĩa khi môi trường được mô tả',`Điện cực đáp ứng với hoạt độ của những loài liên quan trong dung dịch. Khi có pha rắn ít tan, cân bằng giữa chất rắn và ion tạo thêm ràng buộc có thể dùng để suy thông tin.
+
+Tuy nhiên, muối, phức và các trạng thái oxi hóa khác có thể làm hệ phức tạp hơn một phương trình đơn. Nhiệt độ, thành phần nền và điện cực tham chiếu đều cần được kiểm soát để so kết quả.
+
+Immerwahr công bố những bảng nồng độ cân bằng và thế tương đối, đồng thời xem xét các quan hệ lý thuyết được dùng lúc đó. Một số ngôn ngữ lịch sử đã thay đổi, nhưng phép hỏi vẫn quen: tín hiệu đo có hỗ trợ cách phân chia đóng góp của các thành phần hay không? Dữ liệu tốt có thể giữ giá trị ngay khi mô hình giải thích được phát triển thêm.`],
+['Ứng dụng hôm nay: công trình cần được đọc ngoài câu chuyện đời tư',`Các phép đo điện hóa tiếp tục được dùng trong phân tích và nghiên cứu cân bằng dung dịch. Mẫu có pha rắn vẫn là hệ động, nơi trao đổi vật chất và electron cần được xét theo đúng điều kiện.
+
+Tiểu sử Immerwahr thường được kể qua cuộc hôn nhân và bi kịch, nhưng điều đó dễ làm công trình riêng của bà bị mờ. Các bài báo và luận án cho phép nhận diện một đóng góp cụ thể về dữ liệu và phương pháp.
+
+Câu chuyện độ tan cho thấy một tín hiệu điện nhỏ có thể mở thông tin về vật chất khó cân trực tiếp. Để dùng nó, người nghiên cứu phải giữ cả hệ cân bằng trong mô tả, thay vì chỉ nhìn phần kết tủa thấy bằng mắt. Ghi nhận đúng công việc ấy giúp lịch sử hóa học có chỗ cho những nhà nghiên cứu đã tạo ra các phép đo cẩn thận, dù sự nghiệp không được tiếp tục trong những điều kiện thuận lợi.`]
+],[['Immerwahr · Độ tan bằng điện hóa, 1901','https://doi.org/10.1002/bbpc.19010073502'],['Nghiên cứu sử học dựa trên hồ sơ khoa học Immerwahr','https://pmc.ncbi.nlm.nih.gov/articles/PMC4825402/']],'apparatus-voltaic-pile'),
+bio('julia-lermontova-hai-hydrogen-lam-doi-cong-thuc','Julia Lermontova: hai hydrogen làm thay đổi cách gọi một cấu trúc','Bài nghiên cứu năm 1872 sửa thành phần của diphenin. Lermontova dùng phân tích để kiểm tra một công thức đã được những nhà hóa học nổi tiếng chấp nhận.',['Julia Lermontova','Phân tích hữu cơ','Diphenin'],[
+['Một công thức đã in vẫn cần được kiểm tra',`Năm 1872, Julia Lermontova công bố nghiên cứu về thành phần của diphenin, một hợp chất hữu cơ chứa nitrogen. Kết quả cho thấy công thức trước đó thiếu hai hydrogen, làm thay đổi cách hiểu cấu trúc từ dạng azo sang dạng hydrazo phù hợp hơn.
+
+Khác biệt hai nguyên tử có vẻ nhỏ, nhưng nó ảnh hưởng loại liên kết và những phản ứng có thể chờ đợi. Phân tích thành phần vì vậy không chỉ là kiểm tra một dòng số; nó có thể làm đổi toàn bộ mô hình phân tử.
+
+Lermontova thực hiện công việc trước khi nhận tiến sĩ tại Göttingen năm 1874. Hồ sơ đại học và các bài báo giúp tách đóng góp khoa học cụ thể khỏi cách kể chỉ nhấn mạnh việc bà là một trong những phụ nữ đầu tiên được cấp bằng hóa học.`],
+['Tỷ lệ nguyên tố phải được nối với phản ứng của mẫu',`Một công thức phân tử có thể giới hạn cấu trúc nhưng chưa luôn xác định duy nhất cách các nguyên tử nối nhau. Các phản ứng và sản phẩm bổ sung thông tin để chọn mô hình phù hợp.
+
+Với những hợp chất azo và hydrazo, trạng thái của liên kết nitrogen cùng số hydrogen liên quan đến tính oxi hóa–khử và các biến đổi có thể xảy ra. Gọi nhầm dạng có thể làm chuỗi suy luận về cơ chế đi sai từ đầu.
+
+Luận án của Lermontova tiếp tục khảo sát những hợp chất methylene và dẫn xuất halogen. Những nghiên cứu sau ở Nga chuyển sang hydrocarbon và dầu mỏ. Điểm chung là dùng các phép tạo và phân tích chất để kiểm tra cấu trúc, trong thời kỳ chưa có các thiết bị phổ hiện đại hỗ trợ nhanh như hôm nay.`],
+['Ứng dụng hôm nay: danh tiếng không thay cho kiểm chứng vật liệu',`Hóa học phân tích hiện có độ chính xác và số loại dữ liệu cao hơn, nhưng sai danh tính mẫu vẫn có thể xảy ra. Một chất được gọi bằng tên quen cần được xác nhận bằng những phép đo phù hợp với nhiệm vụ.
+
+Khi kết quả mới khác tài liệu cũ, cần kiểm tra mẫu và phương pháp trước khi kết luận. Nếu khác biệt vẫn tồn tại qua các đối chứng, nó có thể là thông tin cần để sửa mô hình chứ không phải điều phải bỏ đi.
+
+Câu chuyện Lermontova nhấn mạnh quyền của dữ liệu trong khoa học. Công thức của những người đi trước có thể được thay đổi bởi một phép phân tích tốt hơn, dù người thực hiện còn ở ngoài nhiều con đường nghề nghiệp chính thức. Hai hydrogen trong bài năm 1872 không phải chi tiết nhỏ về mặt ý nghĩa: chúng cho thấy việc nhận diện vật chất phải luôn để ngỏ khả năng kiểm tra lại bằng chính vật liệu.`]
+],[['Hồ sơ luận án Lermontova tại Göttingen','https://webdoc.sub.gwdg.de/ebook/a/2003/petersburg/html/goe_chemie.htm'],['Nghiên cứu lịch sử dựa trên công trình của các nhà hóa học nữ Nga','https://www.ideals.illinois.edu/items/133191/bitstreams/440988/data.pdf']],'organic-amine'),
+bio('michiyo-tsujimura-vi-chat-cua-tra-thanh-tinh-the','Michiyo Tsujimura: vị chát của trà được đưa thành một chất có thể đo','Tsujimura phân lập catechin và nghiên cứu tannin của trà xanh. Từ một thức uống quen, các phép phân tích làm rõ nhiều thành phần riêng.',['Michiyo Tsujimura','Trà xanh','Catechin'],[
+['Một cảm giác trong miệng chưa phải tên phân tử',`Năm 1929, Michiyo Tsujimura báo cáo catechin được phân lập từ trà xanh trong ấn phẩm của viện nghiên cứu tại Nhật Bản; công trình cũng xuất hiện ở tạp chí hóa học nông nghiệp năm 1930. Một phần vị chát được nối với vật liệu có thể tinh sạch và khảo sát.
+
+Bà tiếp tục nghiên cứu tea tannin và mối liên hệ cấu trúc với catechin, rồi phân lập những dạng khác. Trà xanh vì thế không được mô tả như một chất mang tên chung, mà là nguồn của nhiều phân tử có quan hệ.
+
+Hồ sơ RIKEN ghi nhận công việc bền bỉ của Tsujimura trong thời kỳ phụ nữ có ít cơ hội nghiên cứu. Những báo cáo liên tiếp cho thấy đóng góp nằm ở một chương trình hóa học, không chỉ một mốc danh hiệu.`],
+['Phân tách giúp phân biệt các cấu trúc gần nhau',`Catechin là tên của một nhóm hợp chất có những khác biệt về nhóm hydroxyl và cấu hình. Các dạng gần nhau có thể cho những tính chất tương tự, nên cần nhiều phép đối chiếu để xác định.
+
+Trong các nghiên cứu lịch sử, phản ứng tạo dẫn xuất và phân tích thành phần giúp xây cấu trúc khi những máy phổ hiện đại chưa có. Những kết quả tổng hợp hoặc phân hủy có thể kiểm tra mối nối giữa các phần của phân tử.
+
+Một dịch trà còn chứa nhiều chất khác như caffeine, amino acid và sắc tố. Tính chất của cả thức uống không được quy nguyên vẹn cho một catechin riêng. Cách chiết, nguồn lá và quá trình chế biến làm tỷ lệ các thành phần đổi, nên mẫu cần được mô tả rõ nếu muốn so dữ liệu.`],
+['Ứng dụng hôm nay: chất lượng thực phẩm cần danh tính và lượng',`Sắc ký và quang phổ hiện giúp định lượng các thành phần trà, theo dõi biến đổi trong chế biến và nghiên cứu những tương tác của chúng. Những phép đo ấy cung cấp dữ liệu hóa học, không tự chứng minh mọi tuyên bố lợi ích sức khỏe của sản phẩm.
+
+Việc phân lập chất chuẩn và xây phương pháp nhận diện vẫn là nền tảng để nghiên cứu thực phẩm đáng tin. Nếu các dạng bị gộp trong một tín hiệu chung, những khác biệt quan trọng có thể bị che.
+
+Câu chuyện Tsujimura cho thấy một đối tượng hằng ngày có thể chứa cả chương trình khám phá. Vị chát dẫn người nghiên cứu tới câu hỏi, nhưng câu trả lời cần chất được tách, tên được xác định và cấu trúc được kiểm tra. Khi những thành phần riêng có hồ sơ rõ, người ta mới có thể hỏi chính xác chúng thay đổi ra sao trong một lá trà, một quá trình chế biến hoặc một mẫu đồ uống cụ thể.`]
+],[['Tsujimura · Tea catechin, 1930','https://doi.org/10.1271/bbb1924.6.62'],['RIKEN · Lịch sử các nhà nghiên cứu nữ và Tsujimura','https://www.riken.jp/pr/historia/female_researchers/index.html']],'organic-carbohydrate')
+);
+editorialBiographiesWave6.push(
+bio('asima-chatterjee-cay-thuoc-can-mot-ho-so-phan-tu','Asima Chatterjee: cây thuốc cần một hồ sơ phân tử riêng','Chatterjee nghiên cứu alkaloid và các sản phẩm tự nhiên từ thực vật Ấn Độ. Phân lập, xác định cấu trúc và khảo sát chức năng là những bước phải đi cùng nhau.',['Asima Chatterjee','Sản phẩm tự nhiên','Alkaloid'],[
+['Một nguồn thực vật mở nhiều câu hỏi hóa học',`Asima Chatterjee xây dựng chương trình nghiên cứu các hợp chất từ thực vật tại Kolkata, đặc biệt những alkaloid và các nhóm sản phẩm tự nhiên khác. Một loài cây có lịch sử sử dụng có thể gợi mục tiêu, nhưng chưa cho biết phân tử nào đứng sau tác dụng được quan sát.
+
+Nhóm của bà phân lập chất, nghiên cứu cấu trúc và phối hợp những phép thử chức năng. Những lĩnh vực như thuốc chống co giật và chống sốt rét xuất hiện trong chương trình ứng dụng, nhưng cần được phân biệt theo từng chất và chế phẩm cụ thể.
+
+Công việc đưa một kho tri thức về nguồn thực vật vào phương pháp kiểm tra hóa học. Điều quan trọng là biến tên cây thành những mẫu có thành phần xác định, để các nhóm khác có thể đối chiếu thay vì chỉ dựa vào mô tả truyền lại.`],
+['Một hoạt tính có thể thuộc về nhiều thành phần',`Dịch chiết chứa những chất với nồng độ khác nhau và có thể thay đổi theo mùa, vùng trồng hoặc cách xử lý. Khi tách phân đoạn, hoạt tính có thể được giữ, giảm hoặc phân bố giữa nhiều phần.
+
+Những kết quả ấy cần được giải thích bằng cả hóa học lẫn phương pháp thử. Một phân tử được phân lập không tự mang toàn bộ tính chất của cây, còn một hỗn hợp có tín hiệu chưa chắc đã đủ rõ để trở thành sản phẩm ổn định.
+
+Các nghiên cứu cấu trúc của Chatterjee góp vào việc phân loại và tổng hợp những sản phẩm tự nhiên phức tạp. Tính lập thể và các nhóm chức là phần của danh tính, không phải chi tiết trang trí. Hai chất gần giống có thể cho tương tác khác, nên xác định đúng cấu trúc giúp mọi kết luận tiếp theo có một đối tượng rõ ràng.`],
+['Ứng dụng hôm nay: từ nguồn thiên nhiên tới bằng chứng có thể lặp',`Nghiên cứu sản phẩm tự nhiên tiếp tục cung cấp những khung phân tử cho hóa học và sinh học. Các công cụ hiện đại giúp phân tích nhanh hơn, nhưng nguồn mẫu và khả năng tạo lại vật liệu vẫn ảnh hưởng mạnh tới tiến độ.
+
+Một ứng viên có hoạt tính cần đi qua những đánh giá riêng về cơ chế, chất lượng và mục đích sử dụng. Câu chuyện lịch sử không thay thế những yêu cầu ấy bằng uy tín của cây hoặc người phát hiện.
+
+Chatterjee cho thấy vai trò của một chương trình nghiên cứu dài hạn: xây đội ngũ, giữ mẫu và tích lũy phương pháp để nhiều hợp chất được đọc đúng. Thành tựu không chỉ là một chất nổi tiếng, mà là cách nối đa dạng thực vật với những câu hỏi phân tử có thể kiểm tra. Khi danh tính và nguồn gốc được giữ rõ, thiên nhiên trở thành điểm xuất phát của khoa học thay vì một lời giải có sẵn cho mọi vấn đề.`]
+],[['Indian Academy of Sciences · Asima Chatterjee và nghiên cứu sản phẩm tự nhiên','https://www.ias.ac.in/public/Resources/Initiatives/Women_in_Science/Contributors/asima.pdf'],['Indian National Science Academy · Hồ sơ Asima Chatterjee','https://insaindia.res.in/old_website/detail.php?id=N59-0105']],'organic-amine'),
+bio('kamala-sohonie-chat-mau-ho-hap-trong-khoai-tay','Kamala Sohonie: một thành phần hô hấp được tìm thấy trong mô thực vật','Nghiên cứu tại Cambridge đưa Sohonie tới cytochrome trong khoai tây. Một chất mang electron giúp nối hô hấp thực vật với những nguyên tắc hóa sinh rộng hơn.',['Kamala Sohonie','Cytochrome','Hô hấp thực vật'],[
+['Mô thực vật cũng có một mạng chuyển electron',`Kamala Sohonie làm việc tại Cambridge với Robin Hill trong những năm 1930, nghiên cứu các thành phần của hô hấp thực vật. Công việc về mô khoai tây góp vào việc nhận diện cytochrome và vai trò của những protein mang nhóm heme.
+
+Một củ khoai không chỉ là kho carbohydrate. Tế bào của nó có những quá trình trao đổi năng lượng, trong đó electron được chuyển qua những thành phần phân tử xác định.
+
+Tìm được một chất màu có phổ phù hợp mới là bước đầu. Cần liên hệ nó với trạng thái oxi hóa–khử và quá trình của mô, thay vì chỉ xem màu là dấu nhận diện đủ cho mọi chức năng. Công việc đưa hóa học phổ vào câu hỏi sinh lý của thực vật.`],
+['Một nhóm heme có nhiều vai trò tùy môi trường protein',`Sắt trong heme có thể tham gia những trạng thái khác nhau, và protein bao quanh điều chỉnh tính chất của hệ. Vì vậy, cytochrome không được hiểu như một lượng sắt đơn giản hòa trong mô.
+
+Phổ thay đổi khi trạng thái oxi hóa–khử đổi giúp nghiên cứu theo dõi thành phần. Tuy nhiên, mẫu mô chứa nhiều chất hấp thụ ánh sáng, nên phân tách và đối chiếu là phần quan trọng của bằng chứng.
+
+Sohonie về sau làm việc trong các vấn đề dinh dưỡng và thực phẩm tại Ấn Độ. Những hướng nghiên cứu có bối cảnh khác nhau nhưng cùng yêu cầu nối thành phần đo được với chức năng. Một thực phẩm có một chất dinh dưỡng không có nghĩa mọi cách chế biến đều giữ nó, và một phép phân tích phải đi cùng mẫu đại diện nếu muốn hỗ trợ quyết định thực tế.`],
+['Ứng dụng hôm nay: hóa sinh cần những mẫu gần đời sống',`Nghiên cứu hô hấp và dinh dưỡng sử dụng nhiều kỹ thuật tinh vi hơn, nhưng vẫn cần biết thành phần nào tạo tín hiệu và vật liệu đã được xử lý ra sao. Những mẫu thực phẩm hoặc mô thực vật có độ phức tạp không thể thay bằng một công thức riêng.
+
+Các nhà hóa học có thể đóng góp bằng việc làm rõ những biến đổi trong chế biến, lưu giữ và sử dụng nguyên liệu. Dữ liệu phải được đặt trong mục tiêu cụ thể thay vì biến một thành phần nổi bật thành lời giải cho toàn bộ chất lượng.
+
+Câu chuyện Sohonie mở từ mô khoai tây tới một mạng electron vô hình, rồi nối với những vấn đề dinh dưỡng gần đời sống. Nó cho thấy nghiên cứu cơ bản và ứng dụng không cần đứng tách biệt. Khả năng nhận diện đúng một thành phần và đo nó trong bối cảnh phù hợp là điểm chung giúp những câu hỏi khác nhau trở nên có thể kiểm chứng.`]
+],[['University of Cambridge · Kamala Sohonie và công trình tiến sĩ','https://www.bioc.cam.ac.uk/about-us/history/women-in-biochemistry/kamala-sohonie'],['Indian Academy of Sciences · Kamala Sohonie','https://www.ias.ac.in/public/Resources/Initiatives/Women_in_Science/Contributors/kamala.pdf']],'lab-synthesis'),
+bio('darshan-ranganathan-peptide-tu-sap-thanh-kien-truc','Darshan Ranganathan: những peptide được thiết kế để tự tạo kiến trúc','Các phân tử nhỏ có thể tổ chức thành mạng nhờ nhiều tương tác. Ranganathan dùng tổng hợp để khảo sát cách cấu trúc quyết định sự lắp ráp và chức năng.',['Darshan Ranganathan','Peptide','Tự lắp ráp'],[
+['Tổng hợp không dừng ở một phân tử riêng lẻ',`Darshan Ranganathan phát triển nhiều nghiên cứu mô phỏng hóa sinh và thiết kế peptide. Trong những công trình về tự lắp ráp, câu hỏi không chỉ là tạo được một trình tự, mà là các phân tử ấy tổ chức với nhau thành cấu trúc gì.
+
+Các nhóm chức và hình học được lựa chọn để tạo những quan hệ hydrogen, tương tác kỵ nước hoặc những cách kết nối khác. Mỗi thay đổi nhỏ có thể làm tập hợp lớn có hình dạng và tính chất khác.
+
+Những nghiên cứu này đặt hóa học tổng hợp trước một nhiệm vụ rộng hơn: xây các thành phần mang thông tin tương tác, rồi để điều kiện của hệ quyết định cấu trúc tập thể. Phân tử là đơn vị thiết kế, nhưng vật liệu cuối cần được đo ở cấp lớn hơn.`],
+['Một mạng được tạo bởi những quan hệ có thể đảo',`Các tương tác không cộng hóa trị có thể đủ yếu để từng phần trao đổi, nhưng nhiều tương tác phối hợp có thể giữ một kiến trúc đáng kể. Sự cân bằng này tạo khả năng đáp ứng và cũng làm hệ nhạy với môi trường.
+
+Dung môi, nồng độ và nhiệt độ có thể thay đổi mức ưu tiên giữa các cấu trúc. Một hình quan sát được ở một điều kiện không nên được coi là thuộc tính duy nhất của trình tự peptide.
+
+Ranganathan còn nghiên cứu những hệ mô phỏng chức năng sinh học, trong đó nhóm phản ứng được đặt trong môi trường có thiết kế. Cần phân biệt việc giống hình một cấu trúc tự nhiên với việc thực hiện được chức năng tương ứng. Hoạt tính phải được đo, và những cơ chế thay thế cần được xem xét để mô hình không chỉ là phép ví von đẹp.`],
+['Ứng dụng hôm nay: thiết kế vật liệu bằng quy tắc tương tác',`Peptide và những phân tử tự lắp ráp được nghiên cứu cho vật liệu chức năng, nhận diện và xúc tác. Các hệ ứng dụng cần kiểm tra khả năng giữ cấu trúc trong môi trường thực, độ đồng đều và tính lặp lại giữa các mẫu.
+
+Một tập hợp có thể hình thành dễ nhưng khó kiểm soát hình thái, hoặc có chức năng trong dung môi sạch nhưng mất khi gặp muối và các thành phần khác. Những giới hạn ấy cần được đưa vào thiết kế từ đầu.
+
+Câu chuyện Ranganathan làm nổi bật cách hóa học có thể học từ sinh học mà không sao chép nguyên vẹn. Người nghiên cứu chọn một nguyên tắc tổ chức, tạo những phân tử đủ đơn giản để kiểm tra và đo điều chúng thực hiện. Khi quan hệ giữa cấu trúc nhỏ với hành vi tập thể được làm rõ, tổng hợp trở thành một cách xây vật liệu có khả năng tự tổ chức theo những điều kiện đã được xác định.`]
+],[['Indian Academy of Sciences · Darshan Ranganathan','https://www.ias.ac.in/public/Resources/Initiatives/Women_in_Science/Contributors/darshan.pdf'],['Indian National Science Academy · Hồi ký khoa học Darshan Ranganathan','https://insa.nic.in/writereaddata/UpLoadedFiles/BMVol/BM28_0401.pdf']],'organic-polymer')
+);
+editorialBiographiesWave6.push(
+bio('marie-anne-paulze-ve-dung-cu-de-nguoi-khac-hieu','Marie-Anne Paulze: vẽ dụng cụ để thí nghiệm có thể được đọc lại','Mười ba bản khắc trong sách hóa học năm 1789 mang tên Paulze-Lavoisier. Hình kỹ thuật là một phần của cách truyền bằng chứng, không chỉ phần trang trí.',['Marie-Anne Paulze','Minh họa khoa học','Lịch sử'],[
+['Một chữ ký nằm dưới những thiết bị hóa học',`Các bản in Traité élémentaire de chimie năm 1789 lưu tại Smithsonian và Science History Institute ghi tên Paulze-Lavoisier trên những bản khắc dụng cụ. Marie-Anne Paulze thực hiện mười ba bản minh họa đồng cho công trình này.
+
+Những hình cho thấy bình, đường nối, bộ phận thu khí và các bố trí đo. Người đọc không chỉ biết thí nghiệm đã dùng chất nào mà còn có thể hiểu vật chất đi qua thiết bị như thế nào.
+
+Đó là công việc cần hiểu cấu tạo và mục đích của dụng cụ. Một nét nối sai có thể làm người đọc tưởng hai phần thông nhau hoặc tách biệt theo cách không đúng. Minh họa kỹ thuật vì vậy tham gia trực tiếp vào độ rõ ràng của lập luận thực nghiệm.`],
+['Hình ảnh chọn giữ những thông tin nào?',`Một bản vẽ khoa học không giống ảnh chụp ngẫu nhiên căn phòng. Tỷ lệ và chú giải giúp người đọc phân biệt các bộ phận. Nó chọn góc nhìn, nhãn và mức giản lược để làm rõ cấu trúc cần truyền đạt.
+
+Những chi tiết quá nhiều có thể che đường vật chất; giản lược quá mạnh lại làm mất điều kiện quan trọng. Người vẽ phải biết bộ phận nào ảnh hưởng phép đo và cần được phân biệt.
+
+Paulze còn tham gia ghi chép và dịch các tài liệu khoa học, góp phần vào trao đổi giữa những nhóm có ngôn ngữ khác nhau. Những đóng góp này giúp công việc được đọc và tranh luận, nhưng cần được ghi nhận theo bằng chứng tư liệu cụ thể. Không cần gán cho bà mọi phát hiện trong phòng để thấy vai trò của việc tổ chức thông tin và làm rõ thiết bị.`],
+['Ứng dụng hôm nay: khả năng tái lập cần cách trình bày chính xác',`Bài báo và hướng dẫn hiện đại vẫn cần sơ đồ thiết bị, đường dòng và những chi tiết đủ để người khác hiểu phép đo. Ảnh đẹp không thay thế một hình có nhãn đúng mục đích.
+
+Các mô hình ba chiều và video mở thêm cách trình bày, nhưng nguyên tắc vẫn là phân biệt vật quan sát được với phần được giản lược để giải thích. Người xem cần biết hình mô tả điều kiện thật hay chỉ một ý tưởng.
+
+Câu chuyện Paulze đưa một công việc thường bị đặt ngoài danh sách phát hiện trở lại trung tâm khoa học. Dữ liệu cần được ghi, thiết bị cần được giải thích và tư liệu cần có thể đi tới người khác. Những bản khắc năm 1789 vẫn được đọc hôm nay vì chúng giữ được một kiến trúc thực nghiệm. Chữ ký dưới hình nhắc rằng khả năng truyền chính xác kiến trúc ấy cũng là một đóng góp có tác giả.`]
+],[['Smithsonian · Bản sách có các bản khắc Paulze-Lavoisier','https://www.si.edu/object/siris_sil_432200'],['Science Museum · Vai trò khoa học của Marie-Anne Paulze','https://blog.sciencemuseum.org.uk/celebrating-madame-lavoisier/']],'history-evidence'),
+bio('leo-baekeland-giay-anh-duoi-den-gas','Leo Baekeland: giấy ảnh có thể làm việc dưới ánh đèn','Trước Bakelite, Baekeland phát triển giấy Velox. Thay đổi vật liệu nhạy sáng và cách xử lý giúp việc in ảnh bớt phụ thuộc vào ánh nắng.',['Leo Baekeland','Velox','Nhiếp ảnh hóa học'],[
+['Một người làm ảnh cần quy trình ít phụ thuộc thời tiết',`Năm 1893, Leo Baekeland thành lập công ty để sản xuất giấy ảnh Velox. Vật liệu được phát triển cho cách in bằng ánh sáng nhân tạo phù hợp, giúp người làm ảnh có thêm khả năng kiểm soát so với các phương pháp phụ thuộc mạnh vào ánh sáng trời.
+
+Hồ sơ Smithsonian lưu những sổ tay, công thức và ghi chép thương mại về giai đoạn này. Chúng cho thấy phát triển giấy ảnh là một chương trình vật liệu và sản xuất, trước khi tên Baekeland gắn rộng với Bakelite.
+
+Một sản phẩm nhạy sáng cần hoạt động ổn định qua nhiều lô. Người dùng phải có thể dự đoán thời gian phơi, cách hiện và độ tương phản để chuyển một âm bản thành bản in có chất lượng.`],
+['Nhũ tương là một hệ vật liệu có nhiều thông số',`Các hạt muối bạc trong nền gelatin có tính nhạy sáng phụ thuộc thành phần, kích thước và cách chuẩn bị. Sau phơi, quá trình hiện làm các vùng đã nhận ánh sáng trở thành ảnh nhìn thấy được.
+
+Giấy, lớp phủ và các hóa chất xử lý cùng ảnh hưởng kết quả. Độ đồng đều của lớp phủ còn quyết định ảnh có xuất hiện các vùng loang ngoài ý muốn hay không. Một thay đổi giúp tăng độ nhạy có thể làm nền sương hoặc độ tương phản đổi, nên phải cân bằng theo mục tiêu.
+
+Baekeland cung cấp những cấp giấy khác nhau để phù hợp với các âm bản khác nhau. Điều đó cho thấy sản phẩm không chỉ cần một công thức có hiệu ứng. Nó cần những đặc tính được phân loại và hướng sử dụng đủ rõ để người làm ảnh lựa chọn. Hóa học của hạt nhỏ được nối với trải nghiệm thao tác trong phòng tối.`],
+['Ứng dụng hôm nay: vật liệu ghi ảnh cần cả độ nhạy và độ bền',`Nhiếp ảnh bạc hiện là một lĩnh vực chuyên biệt bên cạnh cảm biến số. Các nguyên tắc về tín hiệu, nền và kiểm soát quy trình vẫn có ý nghĩa trong nhiều vật liệu cảm quang khác.
+
+Trong bảo tồn, bản in còn cần được hiểu theo thành phần và cách xử lý lịch sử. Hai bức ảnh nhìn gần giống có thể dùng những vật liệu khác nhau và biến đổi khác nhau theo thời gian.
+
+Câu chuyện Velox cho thấy một nhà hóa học có thể làm công nghệ hữu ích hơn bằng việc giảm một nguồn biến động của quy trình. Người dùng không cần biết mọi chi tiết của muối bạc, nhưng cần giấy phản hồi nhất quán. Từ sổ tay thí nghiệm tới sản phẩm có nhiều cấp, Baekeland đã đi qua phần công việc biến hiện tượng quang hóa thành vật liệu mà người khác có thể chọn và dùng đáng tin.`]
+],[['Smithsonian · Hồ sơ Leo Baekeland và Velox','https://sirismm.si.edu/EADpdfs/NMAH.AC.0005.pdf'],['National Academy of Sciences · Baekeland và giấy ảnh','https://www.nasonline.org/wp-content/uploads/2024/06/baekeland-leo-h.pdf']],'apparatus-spectroscope'),
+bio('wallace-carothers-cao-su-khong-can-giong-thien-nhien','Wallace Carothers: cao su tổng hợp tìm giá trị ở những việc khác cao su tự nhiên','Nhóm Carothers phát triển polychloroprene thành vật liệu thương mại. Khả năng chịu dầu và môi trường giúp nó có chỗ đứng dù không thắng ở mọi tiêu chí.',['Wallace Carothers','Neoprene','Polymer'],[
+['Một khối vật liệu nảy lên mở câu hỏi mới',`Trong nhóm Wallace Carothers tại DuPont, Arnold Collins thu được một khối polymer đàn hồi từ những nghiên cứu liên quan đến chloroprene. Nhóm tiếp tục phân tích và phát triển vật liệu, dẫn tới sản xuất polychloroprene thương mại năm 1932.
+
+Sản phẩm ban đầu mang tên Duprene, về sau đổi thành neoprene. Nó không lập tức thay cao su tự nhiên trong mọi nhiệm vụ, nhất là khi chi phí và khả năng chế tạo còn là ràng buộc.
+
+Điểm quan trọng là nhóm xác định được những tính chất khác có giá trị, như khả năng chịu dầu, thời tiết và một số môi trường hóa học. Vật liệu mới tìm chỗ đứng bằng tổ hợp chức năng phù hợp, không chỉ bằng nhãn tổng hợp.`],
+['Chuỗi polymer giống nhau ở nguyên tắc nhưng khác ở chi tiết',`Một elastomer cần những chuỗi có khả năng biến dạng và mạng giữ chúng không trượt đi vĩnh viễn. Thành phần monomer, cấu trúc chuỗi và cách tạo mạng ảnh hưởng cơ tính cùng độ bền môi trường.
+
+Có chlorine trong polychloroprene không có nghĩa vật liệu giữ nguyên tính chất của khí chlorine. Nguyên tố nằm trong cấu trúc hợp chất và tham gia vào một hệ liên kết mới.
+
+Carothers đặt chương trình trong nền nghiên cứu đại phân tử, cùng nhiều cộng sự giải các vấn đề tổng hợp và vật liệu. Quan sát ban đầu cần được nối với cách tạo mẫu lặp lại, gia công và thử nghiệm. Một khối nảy trên bàn chưa đủ là sản phẩm công nghiệp; hình thái, tạp chất và chất lượng các lô đều cần kiểm soát. Những phép thử kéo, biến dạng và lão hóa giúp biết vật liệu còn giữ tính năng sau khi chịu tác động kéo dài.`],
+['Ứng dụng hôm nay: chọn polymer theo môi trường làm việc',`Polychloroprene được dùng trong những ứng dụng như lớp phủ, keo và chi tiết đàn hồi với yêu cầu cụ thể. Cấp vật liệu, chất độn và cách gia công tạo khác biệt lớn giữa các sản phẩm cùng tên polymer.
+
+Khi so vật liệu, cần hỏi điều kiện nhiệt, dầu, tải và thời gian sử dụng thay vì chỉ một con số độ bền. Một vật liệu tốt cho môi trường này có thể không phù hợp nơi khác.
+
+Câu chuyện neoprene mở một góc khác của Carothers ngoài sợi nylon. Nó cho thấy phát triển polymer không luôn hướng tới một chất thay thế giống hệt thiên nhiên nhưng rẻ hơn. Một cấu trúc mới có thể tạo ra một tập ưu điểm riêng. Công việc của nhà hóa học và kỹ sư là đo đủ để biết những ưu điểm ấy có giá trị ở đâu, rồi tạo sản phẩm giữ được chúng trong sử dụng thực tế.`]
+],[['ACS · Chương trình polymer của Carothers và neoprene','https://www.acs.org/education/whatischemistry/landmarks/carotherspolymers.html'],['Smithsonian · Bộ tư liệu Carothers và vật liệu tổng hợp','https://www.si.edu/object/siris_arc_217413']],'organic-polymer')
+);
+editorialBiographiesWave6.push(
+bio('gustav-tammann-mam-va-tinh-the-khong-cung-nhip','Gustav Tammann: tạo mầm và lớn lên không chạy cùng một nhịp','Nghiên cứu kết tinh giúp Tammann phân biệt hai bước có sự phụ thuộc nhiệt độ khác nhau. Khoảng cách giữa chúng giải thích vì sao một chất có thể tạo thủy tinh.',['Gustav Tammann','Tạo mầm','Thủy tinh'],[
+['Chất lỏng có thể chậm tạo tinh thể dù đã đủ lạnh',`Gustav Tammann khảo sát kết tinh và những trạng thái của chất rắn, làm rõ việc tạo mầm cần được phân biệt với tốc độ tinh thể đã có lớn lên. Hai quá trình có thể đạt mức thuận lợi ở những khoảng nhiệt độ khác nhau.
+
+Một mẫu được làm lạnh qua vùng tạo mầm nhanh nhưng phát triển chậm có thể chứa những mầm khó nhìn. Khi được đưa sang điều kiện tăng trưởng thuận lợi, các mầm lớn lên và trở thành những tinh thể có thể quan sát.
+
+Cách tách các giai đoạn ấy tạo một phương pháp nghiên cứu động học. Thay vì chỉ hỏi cuối cùng có kết tinh không, người nghiên cứu có thể hỏi bước nào đã xảy ra và bước nào đang giữ hệ ở trạng thái chưa kết tinh.`],
+['Thuận lợi về năng lượng không đồng nghĩa xảy ra ngay',`Tinh thể có thể là trạng thái thuận lợi ở một nhiệt độ, nhưng hình thành một mầm đủ lớn cần vượt một rào năng lượng. Sau đó, các phân tử vẫn phải di chuyển và sắp xếp để tinh thể phát triển.
+
+Khi nhiệt độ hạ, lực thúc đẩy kết tinh và khả năng chuyển động không thay đổi theo cùng một hướng. Sự cạnh tranh này tạo những vùng tốc độ khác nhau, giúp giải thích hành vi của chất lỏng quá lạnh và thủy tinh.
+
+Mô hình của Tammann là nền tảng để đặt câu hỏi, không phải một đường cong chung cho mọi vật liệu. Bề mặt, tạp chất và cấu trúc cục bộ có thể làm tạo mầm không đồng nhất xuất hiện. Những nghiên cứu hiện đại cần đo đúng loại mẫu và lịch sử nhiệt để biết cơ chế nào đang chi phối.`],
+['Ứng dụng hôm nay: điều khiển lịch sử nhiệt để tạo vi cấu trúc',`Thủy tinh gốm và nhiều vật liệu khác khai thác việc tách giai đoạn tạo mầm với phát triển tinh thể. Mục tiêu có thể là tạo nhiều hạt nhỏ đồng đều hoặc giữ một phần nền vô định hình, tùy tính chất cần đạt.
+
+Một nhiệt độ cuối không mô tả đầy đủ mẫu. Cần giữ cả hồ sơ thời gian của quá trình. Tốc độ làm nguội, thời gian giữ và những lần gia nhiệt trước đó có thể tạo cấu trúc khác nhau dù thành phần hóa học giống nhau.
+
+Câu chuyện Tammann cho thấy vật liệu có ký ức về đường đi của nó. Những mầm nhỏ hình thành ở một giai đoạn có thể quyết định hình thái ở giai đoạn sau. Hiểu hai nhịp tạo mầm và tăng trưởng giúp người thiết kế đi từ việc chờ chất rắn xuất hiện tới việc tổ chức quá trình kết tinh có chủ đích, với dữ liệu để kiểm tra từng bước.`]
+],[['Nghiên cứu gốc · Tạo thủy tinh và sự tách biệt tạo mầm–tăng trưởng','https://www.nature.com/articles/s41467-018-07930-3'],['Nghiên cứu gốc · Phương pháp Tammann và tạo mầm trên bề mặt','https://www.sciencedirect.com/science/article/abs/pii/0040603195026436']],'crystal-fcc'),
+bio('edith-flanigen-khung-lo-rong-khong-chi-zeolite','Edith Flanigen: khung lỗ rỗng không chỉ có một họ zeolite','Aluminophosphate mở thêm những vật liệu sàng phân tử ngoài khung aluminosilicate quen thuộc. Flanigen cùng cộng sự tìm cách thiết kế cả thành phần lẫn kiến trúc lỗ.',['Edith Flanigen','Aluminophosphate','Sàng phân tử'],[
+['Đổi thành phần khung để mở một gia đình vật liệu',`Năm 1982, các nhà nghiên cứu gồm Stephen Wilson, Brent Lok, Celeste Messina, Thomas Cannan và Edith Flanigen công bố một họ sàng phân tử aluminophosphate. Những khung tinh thể có lỗ rỗng không còn giới hạn ở aluminosilicate thường gắn với zeolite.
+
+Vật liệu mới mở nhiều cấu trúc và cách thay thế thành phần. Mục tiêu không chỉ là tạo một tinh thể đẹp, mà là có hệ lỗ đủ xác định để phân tử đi vào, bị giữ hoặc phản ứng theo cách có thể kiểm tra.
+
+Flanigen đã có kinh nghiệm lâu năm trong vật liệu sàng phân tử. Chương trình aluminophosphate cho thấy lĩnh vực vẫn có thể mở rộng bằng cách thay những đơn vị làm khung, thay vì chỉ tối ưu một zeolite đã quen.`],
+['Lỗ rỗng có hình học và hóa học riêng',`Kích thước cửa lỗ ảnh hưởng phân tử nào có thể tiếp cận, nhưng hóa học bề mặt bên trong cũng quyết định tương tác. Hai khung có đường kính gần nhau có thể hấp phụ hoặc xúc tác khác nhau.
+
+Thay nguyên tố trong mạng có thể tạo những tâm và điện tích khác, đồng thời ảnh hưởng độ bền. Vì vậy, mô tả vật liệu cần cả thành phần, cấu trúc và lịch sử xử lý.
+
+Các báo cáo tiếp theo của nhóm đặt họ aluminophosphate trong quan hệ với bảng tuần hoàn, khảo sát việc đưa thêm các nguyên tố vào khung. Mỗi biến thể cần được xác nhận bằng phân tích và phép đo chức năng. Một công thức dự kiến trong hỗn hợp tổng hợp không tự chứng minh tất cả nguyên tố đã vào đúng vị trí của mạng tinh thể.`],
+['Ứng dụng hôm nay: sàng phân tử là vật liệu được thiết kế nhiều cấp',`Các họ vật liệu lỗ nhỏ có vai trò trong hấp phụ, phân tách và xúc tác. Đánh giá cần xét phân tử mục tiêu, độ bền với nước hoặc nhiệt và khả năng tái sinh sau sử dụng.
+
+Một diện tích bề mặt lớn chưa đủ nếu cửa lỗ không cho cơ chất đi vào hoặc tâm hoạt động không phù hợp. Khả năng khuếch tán qua hệ lỗ cũng ảnh hưởng tốc độ sử dụng những tâm bên trong. Ngược lại, một lượng tâm nhỏ đúng vị trí có thể tạo tính chọn lọc quan trọng.
+
+Câu chuyện Flanigen mở rộng hình dung về khoáng vật nhân tạo. Người nghiên cứu không chỉ tìm một chất rắn có lỗ, mà thiết kế những con đường và môi trường tương tác bên trong nó. Khi thành phần và cấu trúc được kiểm soát, lỗ rỗng trở thành bộ phận chức năng của vật liệu, có thể làm việc theo những tiêu chí cụ thể thay vì chỉ là khoảng trống giữa các nguyên tử.`]
+],[['Wilson và cộng sự · Aluminophosphate molecular sieves, 1982','https://doi.org/10.1021/ja00362a001'],['Flanigen và cộng sự · Aluminophosphate và bảng tuần hoàn, 1986','https://publications.iupac.org/pac/58/10/1351/index.html']],'ionic-crystal'),
+bio('arthur-lapworth-theo-ion-de-hieu-phan-ung','Arthur Lapworth: theo một ion nhỏ để giải thích tốc độ phản ứng','Lapworth dùng động học và vai trò của base để xây cách hiểu cơ chế hữu cơ. Chất phản ứng theo phương trình tổng thể chưa chắc là loài thực hiện bước đầu.',['Arthur Lapworth','Cơ chế','Động học hữu cơ'],[
+['Một lượng base nhỏ làm kết quả đổi rõ',`Đầu thế kỷ XX, Arthur Lapworth khảo sát những phản ứng hữu cơ mà tốc độ thay đổi mạnh khi có base. Trong nghiên cứu tạo cyanohydrin năm 1903, ông phân biệt vai trò của phân tử acid với ion có tính phản ứng khác.
+
+Mục tiêu của câu chuyện là cơ chế, không phải hướng dẫn điều chế. Phương trình tổng thể có thể viết gọn, nhưng những loài tồn tại trong dung dịch và bước nào quyết định tốc độ cần được xác định bằng dữ liệu.
+
+Lapworth đặt câu hỏi về các giai đoạn trung gian và ảnh hưởng của nồng độ. Cách làm góp phần đưa hóa hữu cơ từ mô tả sản phẩm sang giải thích những đường phản ứng có thể kiểm tra.`],
+['Loài có lượng nhỏ vẫn có thể làm bước quan trọng',`Trong cân bằng acid–base, một phần nhỏ của chất có thể tồn tại ở dạng ion. Nếu dạng ấy phản ứng nhanh hơn nhiều, nó có thể chi phối tốc độ dù không phải thành phần chiếm phần lớn.
+
+Vì vậy, lượng tổng của một hóa chất và lượng loài hoạt động không luôn giống nhau. Thay pH hoặc dung môi có thể làm tỷ lệ các dạng đổi, dẫn tới thay đổi động học.
+
+Một cơ chế tốt cần giải thích đồng thời sản phẩm và sự phụ thuộc tốc độ vào điều kiện. Nếu chỉ khớp một phương trình cuối, nhiều đường khác nhau có thể cùng có vẻ hợp lý. Các phép so sánh của Lapworth giúp làm rõ vai trò của từng loại bằng chứng, tạo nền cho cách sử dụng những khái niệm về tác nhân giàu và nghèo electron sau này.`],
+['Ứng dụng hôm nay: cơ chế là mô hình có thể bị thử sai',`Hóa học tổng hợp hiện thường dùng cơ chế để chọn điều kiện và dự đoán chọn lọc. Nhưng một mũi tên cong trên giấy chỉ có giá trị khi phù hợp với những quan sát cần giải thích.
+
+Các thí nghiệm động học, dấu đồng vị và quang phổ có thể kiểm tra những bước được đề xuất. Thay riêng từng biến giúp tránh quy nhiều tác động khác nhau cho cùng một nguyên nhân. Khi dữ liệu không khớp, cần sửa mô hình thay vì chỉ thêm lời giải thích sau sự kiện.
+
+Câu chuyện Lapworth cho thấy một lượng chất nhỏ có thể làm lộ bản chất của phản ứng nếu được xem như biến có ý nghĩa. Base không chỉ là phụ gia làm dung dịch đổi tính chất chung; nó có thể thay đổi loài nào thực sự tham gia bước quyết định. Theo dấu những loài ấy giúp nhà hóa học hiểu vì sao cùng một nguyên liệu có thể đi nhanh, chậm hoặc theo đường khác khi môi trường thay đổi.`]
+],[['Lapworth · Cyanohydrins regarded as complex acids, 1903','https://doi.org/10.1039/CT9038300995'],['Nghiên cứu tổng hợp về lịch sử cơ chế và công trình Lapworth','https://pmc.ncbi.nlm.nih.gov/articles/PMC4279456/']],'organic-ketone')
+);
+editorialBiographiesWave6.push(
+bio('nikolai-semenov-mot-buoc-tao-them-nhanh','Nikolai Semenov: một bước phản ứng có thể tạo thêm những nhánh mới','Lý thuyết phản ứng dây chuyền giúp Semenov giải thích các giới hạn của một số quá trình khí pha. Tốc độ tổng thuộc cả sự sinh và mất các loài hoạt động.',['Nikolai Semenov','Phản ứng dây chuyền','Động học'],[
+['Một thay đổi điều kiện làm hệ chuyển chế độ',`Nikolai Semenov nghiên cứu những phản ứng khí pha có hành vi không thể giải thích chỉ bằng một bước va chạm đơn giản. Tốc độ có thể thay đổi mạnh khi áp suất, nhiệt độ hoặc bề mặt vật chứa đổi.
+
+Ông phát triển lý thuyết phản ứng dây chuyền, trong đó một loài hoạt động được tạo, tham gia các bước tiếp tục và có thể làm xuất hiện thêm những loài hoạt động. Những bước kết thúc lại loại chúng khỏi hệ.
+
+Câu hỏi trung tâm là cân bằng giữa sinh, nhân và mất các tác nhân trung gian. Nó giúp giải thích vì sao cùng thành phần khí có thể ở những chế độ rất khác khi điều kiện vận hành thay đổi. Bài viết chỉ giới thiệu cơ chế khái niệm, không mô tả điều kiện thao tác với hỗn hợp nguy hiểm.`],
+['Phương trình tổng thể che mất số lượng trung gian',`Hai phản ứng có cùng đầu vào và sản phẩm cuối có thể đi qua những mạng bước khác nhau. Trong một mạng phân nhánh, số tác nhân hoạt động có thể tăng nhanh nếu bước sinh vượt bước kết thúc.
+
+Thành bình có thể tham gia loại các trung gian, khiến hình học và vật liệu chứa ảnh hưởng động học. Điều này cho thấy thiết bị không luôn là nền trung tính đứng ngoài phương trình.
+
+Semenov dùng mô hình và những phép đo động học để phân biệt các vai trò. Một đường cong tốc độ cần được giải thích cùng những biến đã thay đổi, thay vì chỉ gán mọi tăng tốc cho nhiệt độ cao hơn. Các quan hệ phi tuyến trong mạng có thể tạo những ngưỡng mà mô hình một bước không dự đoán được.`],
+['Ứng dụng hôm nay: quản lý phản ứng bằng cách hiểu mạng trung gian',`Tư duy dây chuyền có vai trò trong nghiên cứu oxi hóa, polymer hóa và nhiều quá trình có gốc tự do. Mỗi hệ cần xác định các bước thật, vì không phải mọi phản ứng nhanh đều cùng cơ chế.
+
+Trong công nghệ, hiểu đường tạo và mất trung gian giúp lựa chọn cách kiểm soát quá trình. Dữ liệu từ mẫu nhỏ phải được đối chiếu khi truyền nhiệt, bề mặt và thời gian lưu thay đổi ở quy mô lớn.
+
+Câu chuyện Semenov làm rõ một kiểu nhân lên trong hóa học: một bước có thể thay số thành phần sẽ thực hiện các bước tiếp theo. Sản phẩm cuối không lưu trực tiếp số lần phân nhánh đã xảy ra, nên cần động học để đọc phần lịch sử ấy. Khi mạng được hiểu, những biến như áp suất hoặc bề mặt không còn là điều kiện phụ; chúng là những yếu tố quyết định hệ sẽ đi theo chế độ nào.`]
+],nobel(1956,'semenov'),'industrial-reactor'),
+bio('paul-walden-doi-nhom-lam-doi-hinh-guong','Paul Walden: thay một nhóm có thể đảo cách phân tử đứng trong gương','Các biến đổi của acid malic và chlorosuccinic giúp Walden nhận ra sự đảo cấu hình. Một phép đo quang học trở thành dấu của đường phản ứng thế.',['Paul Walden','Đảo cấu hình','Lập thể'],[
+['Một vòng biến đổi không đưa phân tử về cùng hình',`Năm 1896, Paul Walden nghiên cứu những phản ứng chuyển giữa các dẫn xuất của acid malic. Sau các bước thay nhóm, ông thu được những dạng có tính quang học khác với điều một cách nghĩ chỉ dựa vào công thức có thể dự đoán.
+
+Các biến đổi cho thấy một tâm bất đối xứng có thể đổi cấu hình trong phản ứng thế. Điều này về sau được gọi là đảo Walden và trở thành một dấu quan trọng khi nghiên cứu cơ chế.
+
+Công thức nguyên tố có thể trở về giống ban đầu, nhưng cách các nhóm bố trí trong không gian đã đổi. Một chuỗi phản ứng vì thế cần được theo dõi bằng cả danh tính hóa học và thông tin lập thể, không chỉ bằng cân bằng nguyên tử.`],
+['Độ quay cực không tự là hình cấu trúc tuyệt đối',`Một mẫu làm quay ánh sáng phân cực theo một hướng cung cấp tín hiệu quang học, nhưng dấu quay không trực tiếp cho biết nhãn cấu hình R hay S. Quan hệ phải được xác định cho chất cụ thể.
+
+Khi theo phản ứng, cần phân biệt thay đổi độ quay vì nồng độ, độ tinh khiết hoặc thành phần đồng phân với việc cấu hình của một chất đã đảo. Các phép nhận diện và đối chiếu giúp giữ kết luận đúng phạm vi.
+
+Nghiên cứu cơ chế thế về sau giải thích nhiều trường hợp đảo cấu hình bằng cách tiếp cận của tác nhân và sự rời đi của nhóm cũ. Tuy nhiên, các chuỗi nhiều bước có thể gồm cả những cơ chế khác, nên kết quả cuối cần được đọc theo từng giai đoạn. Một tên hiệu ứng không thay thế việc xác định đường phản ứng.`],
+['Ứng dụng hôm nay: theo hình học để phân biệt cơ chế',`Lập thể là một nguồn bằng chứng trong tổng hợp hữu cơ và nghiên cứu phản ứng. Nếu một cơ chế dự đoán giữ hoặc đảo cấu hình, sản phẩm có thể giúp kiểm tra giả thuyết ấy.
+
+Trong thiết kế phân tử có tính đối quang, một bước thế được lựa chọn còn phải giữ được những tâm khác và tránh tạo hỗn hợp ngoài ý muốn. Chất lượng sản phẩm cần được đo bằng phương pháp phù hợp, không chỉ qua hiệu suất khối lượng.
+
+Câu chuyện Walden cho thấy phản ứng không chỉ đổi danh sách nhóm chức. Nó có thể đổi cách toàn bộ phân tử tương tác với một môi trường bất đối xứng. Theo dõi một dấu quang học qua những biến đổi được kiểm soát đã mở cách đọc đường đi trong không gian, giúp các nét nối trên giấy mang thêm thông tin về điều các nguyên tử thực sự làm khi đổi đối tác.`]
+],[['Walden · Công trình về đảo quang học, 1896','https://doi.org/10.1002/cber.18960290117'],['OpenStax · Lập thể của phản ứng SN2','https://openstax.org/books/organic-chemistry/pages/11-2-the-sn2-reaction']],'covalent-bonds'),
+bio('victor-goldschmidt-nguyen-to-chon-pha-nao','Victor Goldschmidt: nguyên tố thường đi cùng pha nào trong Trái Đất?','Phân loại địa hóa nối bảng tuần hoàn với khoáng, sulfide và kim loại. Goldschmidt dùng thành phần thiên thạch và đá để tìm quy luật phân bố.',['Victor Goldschmidt','Địa hóa','Phân bố nguyên tố'],[
+['Độ phổ biến không chỉ do có bao nhiêu nguyên tử ban đầu',`Trong những năm 1920, Victor Goldschmidt phát triển cách phân loại nguyên tố theo xu hướng xuất hiện trong các pha địa hóa. Ông phân biệt những nhóm thường gắn với silicate, sulfide, kim loại hoặc các dạng dễ đi vào pha khí.
+
+Phân tích thiên thạch và vật liệu Trái Đất giúp kiểm tra các quan hệ. Một nguyên tố hiếm trong vỏ có thể đã ưu tiên một pha khác trong quá trình phân dị, nên mức đo ở bề mặt không tự đại diện cho toàn hành tinh.
+
+Các tập công trình của Goldschmidt nối hóa học tinh thể với địa chất. Câu hỏi là những tính chất của nguyên tử và ion có thể giải thích nơi chúng được tìm thấy như thế nào, thay vì chỉ ghi một bản đồ hiện trạng.`],
+['Kích thước, điện tích và liên kết cùng ảnh hưởng phân bố',`Một ion có thể thay thế ion khác trong khoáng khi kích thước và điện tích tương thích trong những điều kiện nhất định. Những giới hạn của cấu trúc tinh thể góp phần làm một số nguyên tố đi cùng nhau.
+
+Nhưng các nhóm địa hóa không phải nhãn tuyệt đối cho mọi nhiệt độ, áp suất và trạng thái oxi hóa. Thay môi trường có thể làm nguyên tố ưu tiên pha khác. Vì vậy, hệ phân loại cần được dùng như xu hướng có điều kiện.
+
+Goldschmidt còn khảo sát phong hóa và các chu trình phân bố lại giữa đá, nước và sinh quyển. Vật chất không chỉ được sắp một lần khi hành tinh hình thành; các quá trình sau tiếp tục chuyển nó giữa những kho. Một mẫu khoáng lưu dấu của cả điều kiện tạo và những biến đổi đã đi qua.`],
+['Ứng dụng hôm nay: dùng dấu nguyên tố để đọc quá trình địa chất',`Địa hóa hiện sử dụng phân bố nguyên tố và đồng vị để nghiên cứu nguồn gốc đá, quặng và môi trường. Mẫu cần có bối cảnh địa chất rõ. Các phép đo cần được đặt trong mô hình về pha và điều kiện, vì cùng một tỷ lệ có thể hình thành qua những đường khác nhau.
+
+Khi tìm tài nguyên, biết một nguyên tố thường đi cùng pha nào giúp chọn mẫu và câu hỏi phân tích. Nó không thay cho khảo sát địa chất hoặc đánh giá trữ lượng cụ thể.
+
+Câu chuyện Goldschmidt biến bảng tuần hoàn thành một công cụ đọc Trái Đất. Nguyên tố không phân bố đều như màu được trộn trong một bình lớn; chúng tham gia những liên kết và khoáng có mức thuận lợi khác nhau. Hiểu những ưu tiên ấy giúp giải thích vì sao một nguyên tố xuất hiện ở nơi này, vắng ở nơi khác và có thể được chuyển đi khi môi trường thay đổi.`]
+],[['University of Oslo · Goldschmidt và địa hóa','https://www.mn.uio.no/geo/english/research/goldschmidt/about_goldschmidt/'],['Goldschmidt · Các nguyên tắc phân bố nguyên tố, 1937','https://doi.org/10.1039/JR9370000655']],'earth-minerals')
+);
+editorialBiographiesWave6.push(
+bio('cyril-hinshelwood-toc-do-khong-chi-dem-va-cham','Cyril Hinshelwood: tốc độ phản ứng không chỉ là số lần phân tử gặp nhau','Nghiên cứu khí pha giúp Hinshelwood kiểm tra cách năng lượng được trao và giữ trước phản ứng. Những đường tốc độ là dấu của nhiều bước vi mô.',['Cyril Hinshelwood','Động học khí','Phân hủy'],[
+['Một phương trình tốc độ cần lời giải ở cấp phân tử',`Cyril Hinshelwood nghiên cứu động học các phản ứng khí, trong đó có những quá trình phân hủy và những hệ dây chuyền. Ông đặt các kết quả tốc độ cạnh những mô hình về va chạm và phân bố năng lượng.
+
+Một phân tử có thể cần nhận đủ năng lượng trước khi biến đổi, nhưng năng lượng ấy cũng có thể bị trao lại qua va chạm khác. Vì vậy, áp suất có thể ảnh hưởng tới tốc độ theo cách không phù hợp với hình dung mỗi va chạm đều tạo sản phẩm.
+
+Các mô hình được kiểm tra bằng việc thay điều kiện và xem quy luật tốc độ đổi ra sao. Mục tiêu là hiểu những bước ẩn sau một đường cong đo được, không chỉ tìm công thức toán khớp dữ liệu trong một khoảng hẹp.`],
+['Kích thích và phản ứng là hai sự kiện có thể tách nhau',`Trong các cơ chế hoạt hóa do va chạm, phân tử đi tới trạng thái có năng lượng cao hơn, rồi cạnh tranh giữa biến đổi hóa học và mất năng lượng. Cách cạnh tranh ấy phụ thuộc thời gian và môi trường khí.
+
+Hinshelwood phát triển những mô tả thống kê về sự phân bố năng lượng trong phân tử. Các mô hình đơn giản có thể giải thích xu hướng nhưng cần được điều chỉnh khi cấu trúc và số bậc tự do làm hành vi phức tạp hơn.
+
+Ở các hệ dây chuyền, những loài trung gian còn tạo các bước nhân và kết thúc. Vì thế, một mức tăng tốc có thể đến từ nhiều nguyên nhân. Các phép thử về áp suất, nhiệt độ và ảnh hưởng thành bình giúp phân biệt, miễn là những điều kiện được thay có kiểm soát và tín hiệu được đo theo đúng phạm vi.`],
+['Ứng dụng hôm nay: một hằng số tốc độ có cơ chế và điều kiện đi kèm',`Động học được dùng để thiết kế quy trình và hiểu độ bền hóa chất. Những tham số lấy từ một hệ không nên được dùng ngoài miền nhiệt độ, áp suất hoặc thành phần đã kiểm tra mà không có đánh giá thêm.
+
+Các mô phỏng hiện đại có thể mô tả chi tiết hơn, nhưng vẫn cần dữ liệu tốc độ để xác nhận. Một bề mặt năng lượng hợp lý chưa tự bảo đảm mô hình đã lấy mẫu đủ những đường quan trọng.
+
+Câu chuyện Hinshelwood giúp người học nhìn phương trình tốc độ như một dấu vết của nhiều sự kiện. Phân tử va chạm, trao năng lượng, giữ hoặc mất kích thích rồi mới biến đổi. Chia được những bước ấy làm cho một con số phản ứng nhanh hay chậm có lời giải vật chất. Từ đó, thay điều kiện không còn chỉ là thử may rủi mà có thể dựa trên giả thuyết được đo và sửa.`]
+],nobel(1956,'hinshelwood'),'apparatus-calorimeter'),
+bio('james-dewar-khoang-trong-giu-lanh','James Dewar: khoảng trống giữa hai vách giúp giữ chất lỏng rất lạnh','Bình chân không năm 1892 giảm trao đổi nhiệt và mở rộng khả năng nghiên cứu khí hóa lỏng. Một thiết kế chứa mẫu trở thành công cụ khoa học.',['James Dewar','Bình chân không','Nhiệt độ thấp'],[
+['Mẫu lạnh cần được bảo vệ khỏi cả căn phòng',`Năm 1892, James Dewar giới thiệu thiết kế bình hai vách có khoảng chân không để giảm truyền nhiệt. Trong nghiên cứu khí hóa lỏng, việc tạo mẫu lạnh chưa đủ; phải giữ nó đủ lâu để đo và thực hiện thí nghiệm.
+
+Khoảng giữa hai vách làm giảm dẫn nhiệt và đối lưu qua phần khí. Những biện pháp xử lý bề mặt tiếp tục hạn chế trao đổi bằng bức xạ. Thiết kế trở thành một phần quan trọng của hạ tầng nhiệt độ thấp.
+
+Dewar dùng công cụ này trong chương trình nghiên cứu những chất ở điều kiện rất lạnh, gồm các công việc hóa lỏng khí. Bình chứa không còn chỉ là vật phụ; khả năng giữ điều kiện quyết định câu hỏi nào có thể được khảo sát.`],
+['Chân không không loại bỏ mọi đường truyền nhiệt',`Nhiệt vẫn có thể đi qua cổ bình, các phần tiếp xúc và bức xạ. Một hệ thực cần quản lý từng đường thay vì chỉ ghi rằng nó đã hút chân không.
+
+Chất lỏng bay hơi còn nhận nhiệt và làm lượng mẫu giảm. Tốc độ mất mẫu cung cấp một dấu thực nghiệm để đánh giá khả năng cách nhiệt của toàn bình. Vì vậy, thời gian giữ, tốc độ mất mẫu và cách lấy tín hiệu đều cần được tính khi thiết kế phép đo.
+
+Những bình dùng cho chất rất lạnh có yêu cầu khác một vật dụng giữ đồ uống. Vật liệu, áp suất và khả năng thoát khí phải phù hợp với mục đích. Cùng nguyên lý hai vách không có nghĩa mọi sản phẩm có thể thay thế nhau. Công cụ khoa học được lựa chọn theo điều kiện mà nó phải giữ và những kiểu hỏng có thể xảy ra.`],
+['Ứng dụng hôm nay: giữ điều kiện là một phần của chất lượng phép đo',`Các bình cách nhiệt và hệ cryogenic tiếp tục dùng những nguyên tắc giảm truyền nhiệt để lưu chất lạnh, bảo quản mẫu hoặc vận hành thiết bị. Hiệu quả được đánh giá bằng dữ liệu giữ nhiệt và những yêu cầu kỹ thuật cụ thể.
+
+Trong phòng nghiên cứu, một mẫu có thể đổi tính chất nếu nhiệt độ trôi hoặc nếu quá trình chuyển môi trường làm nó biến đổi. Vì vậy, hạ tầng giữ mẫu cần được mô tả cùng phương pháp đo.
+
+Câu chuyện Dewar cho thấy một khoảng trống có thể là phần chức năng của vật liệu. Không thêm một hóa chất mới, thiết kế vẫn làm thay đổi khả năng nghiên cứu những trạng thái khó tiếp cận. Khi trao đổi nhiệt bị hạn chế đúng cách, nhà khoa học có thêm thời gian để hỏi chất lỏng và chất rắn làm gì ở nơi mà môi trường phòng thường kéo chúng trở lại rất nhanh.`]
+],[['Royal Institution · Bình chân không của Dewar','https://www.rigb.org/explore-science/explore/collection/james-dewars-vacuum-flask'],['Science Museum · James Dewar và nghiên cứu nhiệt độ thấp','https://www.sciencemuseum.org.uk/objects-and-stories/chemistry/james-dewar-and-vacuum-flask']],'apparatus-calorimeter'),
+bio('johann-dobereiner-platinum-lam-khi-phan-ung','Johann Döbereiner: platinum làm khí phản ứng ngay trên bề mặt','Đèn Döbereiner năm 1823 dùng tác dụng xúc tác của platinum. Thiết bị khiến hóa học bề mặt trở thành một công cụ nhìn thấy được trong đời sống.',['Johann Döbereiner','Platinum','Xúc tác'],[
+['Một bề mặt làm thay đổi lúc phản ứng bắt đầu',`Năm 1823, Johann Wolfgang Döbereiner nghiên cứu khả năng platinum thúc đẩy phản ứng giữa hydrogen và oxygen. Vật liệu xốp có bề mặt lớn trở thành phần quan trọng của một thiết bị đánh lửa mang tên ông.
+
+Câu chuyện không phải platinum cung cấp nhiên liệu. Nó tạo đường phản ứng trên bề mặt, giúp những chất đã có thể biến đổi với tốc độ đủ lớn để tạo hiện tượng rõ.
+
+Thiết bị lịch sử cho thấy một hiệu ứng hóa học có thể đi vào sản phẩm khi được ghép với cách cấp nguyên liệu và tổ chức tiếp xúc. Bài viết không mô tả thao tác chế tạo hoặc sử dụng thiết bị ấy; giá trị học tập nằm ở việc phân biệt chất xúc tác với nguồn vật chất và năng lượng của phản ứng.`],
+['Diện tích và trạng thái bề mặt ảnh hưởng hoạt tính',`Các phân tử khí tương tác với bề mặt trước khi biến đổi. Những vị trí hoạt động, chất bám và độ sạch có thể làm kết quả khác nhau dù mẫu đều được gọi là platinum.
+
+Một khối kim loại có cùng khối lượng với vật liệu xốp không nhất thiết cho cùng tốc độ, vì phần bề mặt tiếp cận được khác. Đó là một trong những lý do hóa học xúc tác cần mô tả vật liệu ở nhiều cấp.
+
+Döbereiner còn được biết qua những nhóm ba nguyên tố có tính chất liên quan, góp vào lịch sử tổ chức dữ liệu nguyên tố. Hai mạch công việc cho thấy hóa học thời ấy vừa tìm quy luật giữa các chất vừa khai thác những hiện tượng cụ thể. Những quy luật và thiết bị đều cần được sửa khi kiến thức về nguyên tử và bề mặt phát triển.`],
+['Ứng dụng hôm nay: xúc tác là chức năng của một trạng thái vật liệu',`Platinum và những kim loại liên quan tiếp tục có vai trò trong nhiều hệ xúc tác và điện hóa. Tính năng phụ thuộc cấu trúc hạt, chất mang, môi trường và những thành phần có thể làm bề mặt mất hoạt tính.
+
+Một chất xúc tác tốt cần được đánh giá qua nhiều chu kỳ, không chỉ một lần phản ứng mạnh. Quá trình làm việc có thể làm hạt lớn lên hoặc bề mặt bị phủ, khiến trạng thái ban đầu không còn đại diện.
+
+Đèn Döbereiner là hình ảnh lịch sử giúp người học thấy một nguyên tắc còn nguyên giá trị: có mặt đúng loại nguyên tố chưa đủ, phải tổ chức bề mặt để nó làm việc. Khi những phân tử gặp vật liệu ở những vị trí phù hợp, phản ứng có thể đi theo một con đường khác về tốc độ. Chính mối nối giữa nguyên liệu, bề mặt và điều kiện tạo nên chức năng xúc tác.`]
+],[['Đại học Jena · Döbereiner và đèn platinum','https://www.uni-jena.de/en/190203-doebereiner'],['Science Museum · Đèn Döbereiner trong bộ sưu tập','https://collection.sciencemuseumgroup.org.uk/search?q=Dobereiner']],'element-transition'),
+bio('august-kekule-carbon-co-the-noi-thanh-chuoi','August Kekulé: carbon có thể nối với carbon thành những bộ khung','Các lập luận năm 1858 về hóa trị và sự nối carbon mở cách xây công thức cấu tạo. Một chất hữu cơ được mô tả bằng quan hệ liên kết thay vì chỉ tỷ lệ nguyên tố.',['August Kekulé','Hóa trị','Cấu tạo'],[
+['Thành phần giống nhau vẫn có thể cho những chất khác',`Giữa thế kỷ XIX, hóa học hữu cơ cần giải thích vì sao những chất có cùng tỷ lệ nguyên tố lại có tính chất khác. August Kekulé phát triển những lập luận về carbon hóa trị bốn và khả năng các nguyên tử carbon nối với nhau.
+
+Năm 1858, những công bố của ông và công việc độc lập của Archibald Scott Couper góp vào sự hình thành lý thuyết cấu tạo. Công thức bắt đầu diễn tả các quan hệ giữa nguyên tử, thay vì chỉ ghi chúng có bao nhiêu.
+
+Bước tiến này không đến từ một bức ảnh trực tiếp của liên kết. Nó được xây bằng cách làm cho nhiều dữ liệu phản ứng và đồng phân trở nên nhất quán. Một mô hình có giá trị khi giúp dự đoán những cấu trúc khác có thể tồn tại và cách chúng liên hệ qua biến đổi.`],
+['Hóa trị là ràng buộc để tổ chức những khả năng',`Nếu carbon có số liên hệ đặc trưng trong một lớp hợp chất, người nghiên cứu có thể dùng nó để loại những cách ghép không phù hợp. Khả năng nối carbon với carbon tạo những mạch và vòng rất đa dạng.
+
+Tuy nhiên, các nét nối ban đầu chưa chứa toàn bộ hiểu biết hiện đại về electron, bậc liên kết và hình học. Lý thuyết cấu tạo là một cấp mô tả được phát triển dần, không phải lời giải lượng tử xuất hiện ngay từ đầu.
+
+Kekulé nổi tiếng về sau với cấu trúc benzen, nhưng câu chuyện chuỗi carbon có phạm vi rộng hơn. Nó cung cấp một ngôn ngữ để so alcohol, acid và những dẫn xuất khác, giúp nhận ra thay nhóm ở đâu sẽ tạo chất nào. Hóa học tổng hợp có thêm cách lập kế hoạch dựa trên khung nguyên tử thay vì chỉ thử phản ứng theo kinh nghiệm.`],
+['Ứng dụng hôm nay: công thức là một mô hình có lịch sử',`Công thức cấu tạo hiện là nền tảng của tìm kiếm hóa chất, mô phỏng và thiết kế phản ứng. Nó giúp phân biệt đồng phân và mô tả những phần được giữ hoặc thay đổi qua một bước tổng hợp.
+
+Người dùng vẫn cần nhớ các giới hạn: hình phẳng không tự cho mọi cấu dạng, trạng thái điện tử hoặc tương tác trong dung dịch. Những cấp thông tin khác được bổ sung khi câu hỏi đòi hỏi.
+
+Câu chuyện Kekulé cho thấy một ngôn ngữ khoa học có thể thay đổi tốc độ phát triển của cả lĩnh vực. Khi các nguyên tử được tổ chức thành bộ khung có quy tắc, nhiều dữ kiện rời rạc trở thành những quan hệ có thể suy luận. Giá trị của những nét nối trên giấy không nằm ở việc chúng giống hình nguyên tử thật, mà ở khả năng tạo dự đoán để vật liệu và phản ứng kiểm tra.`]
+],[['Kekulé · Lý thuyết cấu tạo hợp chất hữu cơ, 1858','https://doi.org/10.1002/jlac.18581060202'],['Royal Society of Chemistry · Kekulé và lý thuyết cấu tạo','https://www.rsc.org/periodic-table/history/about']],'organic-alkane')
 );

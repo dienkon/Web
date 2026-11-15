@@ -3,7 +3,8 @@ import { stepDampedOscillator, frameSmoothing } from '../../science/dampedOscill
 import React, { useRef, useMemo, useEffect } from 'react';
 import { useFrame } from '@react-three/fiber';
 import * as THREE from 'three';
-import { useAppStore, getChemical } from '../../store/useAppStore';
+import { getChemical } from '../../store/useAppStore';
+import { useVesselVisualRuntime, useVesselVisualStore } from '../../simulation/render/VesselVisualContext';
 import { useQualityStore } from '../quality';
 import { NOISE_GLSL } from '../glsl/noise.glsl';
 import { getVesselInnerRadius } from './glass';
@@ -63,10 +64,11 @@ export const RealisticLiquid = React.memo(function RealisticLiquid({
   colorOverride,
   appearance = 'solution',
 }: LiquidProps) {
+  const visualRuntime = useVesselVisualRuntime(), visualStore = useVesselVisualStore();
   const baseY = liquidGeometry(vesselType).floorY;
   const colorSampleRevision = useRef(-1);
   const initialColor = useMemo(() => {
-    const vessel = useAppStore.getState().vessels[vesselId];
+    const vessel = visualStore.getState().vessels[vesselId];
     return colorOverride || (vessel && supernatantColor(vessel.contents, vessel.volume_ml))
       || vessel?.liquidColor || '#ffffff';
   }, [vesselId, colorOverride]);
@@ -74,7 +76,7 @@ export const RealisticLiquid = React.memo(function RealisticLiquid({
   const liquidMeshRef = useRef<THREE.Mesh<THREE.LatheGeometry>>(null);
   const meniscusMeshRef = useRef<THREE.Mesh>(null);
   const causticMeshRef = useRef<THREE.Mesh>(null);
-  const appearanceField = useMemo(() => new LiquidAppearanceField(), [vesselId]);
+  const appearanceField = useMemo(() => visualRuntime?.appearance ?? new LiquidAppearanceField(), [vesselId, visualRuntime]);
   const spatialAppearance = useMemo(() => createSpatialLiquidAppearance(appearanceField), [appearanceField]);
   useEffect(() => () => spatialAppearance.dispose(), [spatialAppearance]);
 
@@ -93,13 +95,14 @@ export const RealisticLiquid = React.memo(function RealisticLiquid({
   const dynamicRippleRef = useRef(0);
 
   useEffect(() => {
+    if (visualRuntime?.externallyStepped) return;
     const unsub = vfxBus.on('surface:ripple', (e) => {
       if (!e.vesselId || e.vesselId === vesselId) {
         dynamicRippleRef.current = Math.min(1.0, dynamicRippleRef.current + (e.intensity || 0.2) * 0.35);
       }
     });
     const reset = vfxBus.on('vessel:sample-reset', e => {
-      if (e.vesselId === vesselId) { dynamicRippleRef.current = 0; appearanceField.reset(); }
+      if (e.vesselId === vesselId) { dynamicRippleRef.current = 0; if (!visualRuntime?.appearance) appearanceField.reset(); }
     });
     return () => { unsub(); reset(); };
   }, [vesselId]);
@@ -374,11 +377,11 @@ export const RealisticLiquid = React.memo(function RealisticLiquid({
 
   // Underdamped spring-damper slosh physics in useFrame
   useFrame((state, delta) => {
-    const vessel = useAppStore.getState().vessels[vesselId];
+    const vessel = visualStore.getState().vessels[vesselId];
     if (!vessel || !meshGroupRef.current) return;
 
-    const timeScale = useAppStore.getState().timeScale;
-    const isPaused = useAppStore.getState().isSimulationPaused;
+    const timeScale = visualStore.getState().timeScale;
+    const isPaused = visualStore.getState().isSimulationPaused;
     const dt = simulationFrameDt(delta, { timeScale, isSimulationPaused: isPaused });
 
     simulationTime.current += dt;
@@ -413,7 +416,7 @@ export const RealisticLiquid = React.memo(function RealisticLiquid({
 
     // Hide fluid when empty, shattered, or if vessel only contains dry solids without solvent
     if (vessel.isShattered || !(volume > 0) || (!hasLiquidSubstance && !vessel.liquidColor)) {
-      appearanceField.reset();
+      if (!visualRuntime?.appearance) appearanceField.reset();
       if (liquidMeshRef.current) liquidMeshRef.current.visible = false;
       if (meniscusMeshRef.current) meniscusMeshRef.current.visible = false;
       if (causticMeshRef.current) causticMeshRef.current.visible = false;
@@ -428,7 +431,7 @@ export const RealisticLiquid = React.memo(function RealisticLiquid({
     const fillY = liquidLevelForVolume(vesselType, volume, capacity);
     uniforms.uFillY.value = fillY;
     const vortex = vessel.liquidMotion ? vesselVortexSurface(vessel) : supportsVesselVortex(vessel)
-      ? SimulationEngine.findManager(vesselId)?.vortex.surface : undefined;
+      ? (visualRuntime?.manager ?? SimulationEngine.findManager(vesselId))?.vortex.surface : undefined;
     uniforms.uVortex.value.set((vortex?.coreRadius ?? 1) ** 2, vortex?.amplitude ?? 0,
       vortex?.offset ?? fillY, vortex?.angularSpeed_rad_s ?? 0);
 
@@ -441,7 +444,7 @@ export const RealisticLiquid = React.memo(function RealisticLiquid({
     _scratchTargetColor.set(liquidColorHex);
     const replacedSample = colorSampleRevision.current !== (vessel.effectSampleRevision ?? 0);
     if (replacedSample) {
-      appearanceField.reset();
+      if (!visualRuntime?.appearance) appearanceField.reset();
       colorSampleRevision.current = vessel.effectSampleRevision ?? 0;
       uniforms.uLiquidColor.value.copy(_scratchTargetColor);
       uniforms.uMixingStrength.value = 0;
@@ -453,8 +456,8 @@ export const RealisticLiquid = React.memo(function RealisticLiquid({
     meniscusMaterial.color.copy(uniforms.uLiquidColor.value);
 
     // Dynamic Turbidity & Cloudiness from physical simulation and dedicated reaction controller
-    const simMgr = SimulationEngine.findManager(vesselId);
-    const simRuntime = reactionSimulationEngine.getRuntime(vesselId);
+    const simMgr = (visualRuntime?.manager ?? SimulationEngine.findManager(vesselId));
+    const simRuntime = visualRuntime?.externallyStepped ? undefined : reactionSimulationEngine.getRuntime(vesselId);
     let targetTurbidity = (vessel.turbidity !== undefined && vessel.turbidity > 0)
       ? vessel.turbidity
       : (vessel.hasPrecipitate ? 0.85 : 0.0);
@@ -479,12 +482,12 @@ export const RealisticLiquid = React.memo(function RealisticLiquid({
       appearanceContact = _scratchPos.toArray();
     }
     if (appearance !== 'foam') {
-      const kinetics = useAppStore.getState().activeKinetics[vesselId];
+      const kinetics = visualStore.getState().activeKinetics[vesselId];
       const suspensionBounds = suspensionTurbidity !== null
         ? simMgr!.precipitationSystems.values().next().value?.renderBounds : undefined;
       const fieldInterior = vesselInterior(vesselType);
       const fieldTop = suspensionBounds?.surfacePlane ? fieldInterior.topY : fillY;
-      appearanceField.advance(dt, { color: liquidColorHex, turbidity: targetTurbidity,
+      if (!visualRuntime?.appearance) appearanceField.advance(dt, { color: liquidColorHex, turbidity: targetTurbidity,
         radius: suspensionBounds ? fieldInterior.maximumRadius : surfaceR,
         suspensions: suspensionTurbidity !== null ? simMgr!.precipitationSystems : undefined,
         baseY, fillY: fieldTop, contact: appearanceContact, contactColor: colorOverride ? undefined : vessel.recentPourContact?.color,

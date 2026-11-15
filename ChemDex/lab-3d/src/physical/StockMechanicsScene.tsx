@@ -25,6 +25,7 @@ import { renderedVesselBody } from '../simulation/render/vesselBodyFrames';
 import { Euler, Quaternion, Vector3 } from 'three';
 import type { Quat, Vec3 } from './types';
 import { publishStockPresentation, clearStockPresentation } from './stockPresentation';
+import { queueStockBoundaryFrame } from './stockBoundaryQueue';
 
 /** A lazy Worker owns stock contacts. This bridge uploads commands/snapshots;
  * it does not integrate grain motion in a render callback. */
@@ -35,6 +36,7 @@ export function StockMechanicsScene() {
   const last = useRef(new Map<string, VesselState['stockMotion']>()), revisions = useRef(new Map<string, number>());
   const request = useRef(new Map<string, StockReplyRequest & { revision: number }>());
   const lastSpills = useRef(new Map<string, StockSpillPose>()), requestedSpills = useRef(new Map<string, StockSpillPose>());
+  const lastCarriedVessel = useRef<string | null>(null);
   const sameTrajectory = (a: StockSpillPose | undefined, b: StockSpillPose | undefined) => a === b
     || !!a && !!b && a.position_m === b.position_m && a.rotation === b.rotation
     && a.velocity_m_s === b.velocity_m_s && a.angularVelocity_rad_s === b.angularVelocity_rad_s;
@@ -137,7 +139,7 @@ export function StockMechanicsScene() {
         if (changed) {
           const interval = live.isSimulationPaused ? 0 : Math.max(0, snapshot.tick - previousTick.current) / 120 / live.timeScale;
           publishStockPresentation([...Object.values(vessels).flatMap(v => v.stockMotion?.grains ?? []),
-            ...Object.values(spills).flatMap(s => s.stockMotion ? [s.stockMotion] : [])], interval);
+            ...Object.values(spills).flatMap(s => s.stockMotion ? [s.stockMotion] : [])], interval, performance.now(), snapshot.containers);
           useAppStore.setState({ vessels, spills, activeKinetics }); dirty.current = true;
         }
         for (const id of lastSpills.current.keys()) if (!spills[`stock_spill_${id}`]) lastSpills.current.delete(id);
@@ -150,10 +152,9 @@ export function StockMechanicsScene() {
       console.error('Stock mechanics: worker request timed out'); state.worker.terminate(); runtime.current = null;
       failure.current = { count: failure.current.count + 1, retryAt: performance.now() + 10000 }; return;
     }
-    // Legacy gesture poses include the held lift and PourController transform.
-    // Read them only at the command boundary, never integrate from the mesh.
+    // Both physics and legacy gestures display an interpolated/lifted pose.
+    // Sample that boundary so the glass and its stock use the same frame.
     const posedVessels = Object.values(app.vessels).map(v => {
-      if (usePhysicsStore.getState().enabled) return v;
       const parent = renderedVesselBody(v.id)?.parent;
       if (!parent) return v;
       const rotation = parent.getWorldQuaternion(new Quaternion()).toArray() as Quat;
@@ -161,21 +162,24 @@ export function StockMechanicsScene() {
         physicalMotion: { tick: v.physicalMotion?.tick ?? 0, velocity_m_s: v.physicalMotion?.velocity_m_s ?? [0, 0, 0] as Vec3,
           angularVelocity_rad_s: v.physicalMotion?.angularVelocity_rad_s ?? [0, 0, 0] as Vec3, rotation } };
     });
-    if (app.isSimulationPaused) { state.pending = 0; state.path.length = 0; }
-    else {
-      const seconds = acceptedFrameSeconds(delta) * app.timeScale;
-      state.pending += seconds;
-      if (seconds > 0) state.path.push({ seconds, containers: posedVessels.map(v => ({ id: v.id,
-        position_m: scenePointToSI(v.position), rotation: v.physicalMotion?.rotation
-          ?? new Quaternion().setFromEuler(new Euler(0, v.rotationY ?? 0, v.rotationZ ?? 0, 'YXZ')).toArray() as Quat })) });
-    }
+    const activelyCarried = app.moveMode ? app.draggingVesselId : null;
+    const previouslyCarried = lastCarriedVessel.current;
+    const carryId = activelyCarried ?? previouslyCarried;
+    const boundaryPoses = posedVessels.map(v => ({ id: v.id,
+      position_m: scenePointToSI(v.position), rotation: v.physicalMotion?.rotation
+        ?? new Quaternion().setFromEuler(new Euler(0, v.rotationY ?? 0, v.rotationZ ?? 0, 'YXZ')).toArray() as Quat,
+      carryStock: activelyCarried === v.id || previouslyCarried === v.id,
+      releaseStock: previouslyCarried === v.id && activelyCarried !== v.id }));
+    queueStockBoundaryFrame(state, { seconds: acceptedFrameSeconds(delta) * app.timeScale,
+      containers: boundaryPoses }, app.isSimulationPaused);
+    lastCarriedVessel.current = activelyCarried;
     if (state.busy || !app.isSimulationPaused && state.pending < 1 / 30) return;
     const signature = JSON.stringify([posedVessels.map(v => [v.id, v.type, v.capacity_ml, v.position, v.rotationY, v.rotationZ,
       v.physicalMotion?.rotation, v.effectSampleRevision, v.contents, v.stockMotion && v.stockMotion !== last.current.get(v.id) ? v.stockMotion.tick : null]),
-      Object.values(app.spills).map(s => [s.id, s.stockMotion?.mass_g,
+      carryId, Object.values(app.spills).map(s => [s.id, s.stockMotion?.mass_g,
         s.stockMotion && !sameTrajectory(s.stockMotion, lastSpills.current.get(s.stockMotion.id)) ? s.stockMotion : null]), pendingStockContacts(), PourController.getSession()?.sourcePos,
       PourController.getSession()?.sourceRotationZ, PourController.getSession()?.tilt]);
-    if (app.isSimulationPaused && signature === state.signature) return;
+    if (app.isSimulationPaused && signature === state.signature && state.path.length === 0) return;
     state.signature = signature;
     const containers = posedVessels.map(v => {
       const restore = v.stockMotion !== undefined && !sameStockKinematics(v.stockMotion, last.current.get(v.id))

@@ -12,7 +12,7 @@ python -m http.server 4173 --bind 127.0.0.1
 - Ô chữ: http://127.0.0.1:4173/o-chu.html
 - Luyện tập: http://127.0.0.1:4173/luyen-tap.html
 
-Ba URL độc lập, không có thanh tab. Hai trang ô chữ và luyện tập chỉ có sườn chờ nội dung. URL không phải cơ chế bảo mật.
+Ba URL độc lập, không có thanh tab. Ôn bài và luyện tập có bộ 5 câu hỏi riêng; trang ô chữ có sườn chờ nội dung. URL không phải cơ chế bảo mật.
 
 Giữ thứ tự 5 câu hỏi theo đề gốc. Chỉ xáo trộn nội dung các lựa chọn A–D khi mở trang và khi bấm Ôn tập lại; vị trí đáp án đúng tự cập nhật theo lựa chọn sau khi đảo.
 
@@ -21,6 +21,7 @@ Trang thử yêu cầu fullscreen khi mở và thử lại ở tương tác đ�
 ## Cấu trúc
 
 - `src/questions.mjs`: toàn bộ đề, lựa chọn và đáp án đúng (chỉ số 0–3).
+- `src/practice-questions.mjs`: 5 câu luyện tập về nghệ thuật quân sự địa phương và trách nhiệm học sinh, tách biệt với bộ câu hỏi ôn bài.
 - `src/panels.mjs`: khung câu hỏi và khung đáp án, text là DOM riêng, không dính vào ảnh.
 - `src/styles.css`: màu sắc, viền góc, nền và kích thước chữ. Câu hỏi 48–56px, đáp án 54–64px; tự xuống dòng và giãn khung theo nội dung. Màn hình hẹp dùng một cột và được cuộn để giữ đủ nội dung.
 - `src/session.mjs`: trạng thái, điểm, thử lại khi sai, chỉ chuyển câu khi đúng.

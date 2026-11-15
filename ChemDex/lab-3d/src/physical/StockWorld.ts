@@ -45,7 +45,7 @@ const capsuleChange = (before: RAPIER.ColliderDesc, after: RAPIER.ColliderDesc) 
   return (Math.max(a[0].distanceTo(b[0]), a[1].distanceTo(b[1])) + Math.abs(before.shape.radius - after.shape.radius)) / S;
 };
 type Grain = { body: RAPIER.RigidBody; colliders: RAPIER.Collider[]; owner: string; pose: StockGrainPose; group: StockGroupInput; escaped: boolean;
-  coating: { mass_g: number; volume_ml: number }; volume_m3: number; collisionShapes: GrainShape[] };
+  carried: boolean; coating: { mass_g: number; volume_ml: number }; volume_m3: number; collisionShapes: GrainShape[] };
 let initialized: Promise<void> | undefined;
 
 /** Actual SI rigid contacts for finite, mass-bearing stock pieces. Powder
@@ -110,12 +110,13 @@ export class StockWorld {
     if (top.some(p => Math.abs(p.radius - ro) > ro * 1e-6) || bottom.some(p => Math.abs(p.radius - rb) > rb * 1e-6)) return null;
     const angles = top.map(p => p.angle).sort((a, b) => a - b);
     if (angles.some((a, i) => (angles[(i + 1) % n] + (i + 1 === n ? Math.PI * 2 : 0) - a) > Math.PI * 2 / n + 1e-5)) return null;
-    const halfHeight = Math.min((high - low) / 4, 0.00005);
-    const lowerRadius = rb + (ro - rb) * (high - 2 * halfHeight - low) / (high - low);
-    // Wholly INSIDE the existing solid frustum, including its polygonal edge.
-    // An analytic cap yields a stable plane manifold for sub-millimetre glass;
-    // the generic hull remains for the chamfer and every external contact.
-    const radius = Math.min(ro, lowerRadius) * Math.cos(Math.PI / n) - 1e-7;
+    const halfHeight = (high - low) / 2;
+    // The analytic support stays wholly inside the existing solid frustum.
+    // Span its full depth: a thin cap creates an internal underside that can
+    // push a shrinking grain down while the enclosing hull pushes it up,
+    // trapping the grain inside the glass and falsely removing wet contact.
+    // The original hull retains the chamfer and every external contact.
+    const radius = Math.min(ro, rb) * Math.cos(Math.PI / n) - 1e-7;
     return radius > 0 ? RAPIER.ColliderDesc.cylinder(halfHeight * S, radius * S)
       .setTranslation(0, (high - halfHeight) * S, 0) : null;
   }
@@ -181,7 +182,7 @@ export class StockWorld {
       .setFriction(group.powder ? 0.55 : 0.42).setRestitution(group.powder ? 0.06 : 0.22), body));
     const pose: StockGrainPose = { id, formula: group.formula, mass_g, scale_m: scale, position_m, rotation,
       velocity_m_s, angularVelocity_rad_s, sleeping: false, powder: group.powder };
-    this.grains.set(id, { body, colliders, owner, group, pose, escaped: false, coating, volume_m3, collisionShapes: descriptors });
+    this.grains.set(id, { body, colliders, owner, group, pose, escaped: false, carried: false, coating, volume_m3, collisionShapes: descriptors });
     const suffix = Number(id.split(':').at(-1)); if (Number.isSafeInteger(suffix)) this.sequence = Math.max(this.sequence, suffix);
   }
   private resize(g: Grain, group: StockGroupInput, mass_g: number) {
@@ -247,7 +248,7 @@ export class StockWorld {
         && (Math.abs(beforeFluid.offset_m - afterFluid.offset_m) > 1e-6
           || beforeFluid.density_kg_m3 !== afterFluid.density_kg_m3
           || beforeFluid.normal.some((x, i) => Math.abs(x - afterFluid.normal[i]) > 1e-6));
-      if (fluidChanged) for (const g of this.grains.values()) if (g.owner === v.id && !g.escaped) g.body.wakeUp();
+      if (fluidChanged) for (const g of this.grains.values()) if (g.owner === v.id && !g.escaped && !g.carried) g.body.wakeUp();
       old.input = v;
       if (v.restore) {
         old.body.setTranslation(vec(solver(v.position_m)), true); old.body.setRotation(quat(v.rotation), true);
@@ -357,17 +358,17 @@ export class StockWorld {
         sweep = Math.max(sweep, fromPosition.distanceTo(p) + fromRotation.angleTo(q) * Math.hypot(c.radius, Math.max(Math.abs(c.min), Math.abs(c.max))));
         if (fromPosition.distanceToSquared(p) > 1e-16 || fromRotation.angleTo(q) > 1e-7) {
           c.body.wakeUp();
-          for (const g of this.grains.values()) if (g.owner === id && !g.escaped) g.body.wakeUp();
+          for (const g of this.grains.values()) if (g.owner === id && !g.escaped && !g.carried) g.body.wakeUp();
         }
         targets.set(id, { position: p, rotation: q, fromPosition, fromRotation });
       }
       const momentum = new Map<string, { before: Vec3; mass: number }>();
-      for (const g of this.grains.values()) if (!g.escaped) {
+      for (const g of this.grains.values()) if (!g.escaped && !g.carried) {
         const row = momentum.get(g.owner) ?? { before: [0, 0, 0] as Vec3, mass: 0 }, v = si(g.body.linvel()), mass = g.body.mass();
         row.mass += mass; for (let i = 0; i < 3; i++) row.before[i] += mass * v[i]; momentum.set(g.owner, row);
       }
       for (const g of this.grains.values()) {
-        if (g.escaped) continue;
+        if (g.escaped || g.carried) continue;
         const fluid = this.containers.get(g.owner)?.input.fluid; g.body.resetForces(false);
         if (fluid) {
           const position = si(g.body.translation()), p = vec(position), radius = g.colliders[0].shape instanceof RAPIER.Ball ? g.colliders[0].shape.radius / S
@@ -411,7 +412,7 @@ export class StockWorld {
       // Momentum balance includes friction, pressure/drag and all internal
       // grain contacts. Unlike a last solver-substep manifold impulse, this
       // is the complete reaction impulse over the fixed physical step.
-      for (const g of this.grains.values()) if (!g.escaped) {
+      for (const g of this.grains.values()) if (!g.escaped && !g.carried) {
         const row = momentum.get(g.owner)!, v = si(g.body.linvel()), mass = g.body.mass();
         for (let i = 0; i < 3; i++) row.before[i] -= mass * v[i];
       }
@@ -464,8 +465,55 @@ export class StockWorld {
       }
       grains.push({ vesselId: g.owner, pose });
     }
-    return { tick: this.tick, grains, escapes, captures, appliedContacts: [...new Set(this.appliedContacts)],
+    const containers = [...this.containers].map(([id, container]) => {
+      const q = container.body.rotation();
+      return { id, position_m: si(container.body.translation()), rotation: [q.x, q.y, q.z, q.w] as Quat,
+        carryStock: [...this.grains.values()].some(grain => grain.owner === id && grain.carried) };
+    });
+    return { containers, tick: this.tick, grains, escapes, captures, appliedContacts: [...new Set(this.appliedContacts)],
       reactions: [...this.reactions].map(([vesselId, impulse_Ns]) => ({ vesselId, impulse_Ns })) };
+  }
+  private carryContainerStock(id: string, position_m: Vec3, rotation: Quat, carrying: boolean) {
+    const container = this.containers.get(id);
+    if (!container) return;
+    const fromPosition = si(container.body.translation());
+    const fromRotation = container.body.rotation(), fromQuaternion = new Quaternion(fromRotation.x, fromRotation.y, fromRotation.z, fromRotation.w);
+    const toQuaternion = new Quaternion(...rotation);
+    if (carrying) {
+      const inverse = fromQuaternion.clone().invert();
+      for (const grain of this.grains.values()) {
+        if (grain.owner !== id || grain.escaped) continue;
+        const localPosition = new Vector3(...si(grain.body.translation())).sub(new Vector3(...fromPosition)).applyQuaternion(inverse);
+        const nextPosition = localPosition.applyQuaternion(toQuaternion).add(new Vector3(...position_m)).toArray() as Vec3;
+        const bodyRotation = grain.body.rotation();
+        const relativeRotation = inverse.clone().multiply(new Quaternion(bodyRotation.x, bodyRotation.y, bodyRotation.z, bodyRotation.w));
+        const nextRotation = toQuaternion.clone().multiply(relativeRotation);
+        // Relocating the apparatus holds its contents with it. Kinematic grains
+        // cannot retain buoyancy forces or be knocked out by another collider.
+        if (!grain.carried) grain.body.setBodyType(RAPIER.RigidBodyType.KinematicPositionBased, true);
+        grain.body.resetForces(false); grain.body.resetTorques(false);
+        grain.body.setTranslation(vec(solver(nextPosition)), true);
+        grain.body.setRotation(quat(nextRotation.toArray() as Quat), true);
+        grain.body.setNextKinematicTranslation(vec(solver(nextPosition)));
+        grain.body.setNextKinematicRotation(quat(nextRotation.toArray() as Quat));
+        grain.body.setLinvel({ x: 0, y: 0, z: 0 }, true);
+        grain.body.setAngvel({ x: 0, y: 0, z: 0 }, true);
+        grain.carried = true;
+      }
+      container.body.setTranslation(vec(solver(position_m)), true);
+      container.body.setRotation(quat(rotation), true);
+      container.body.setNextKinematicTranslation(vec(solver(position_m)));
+      container.body.setNextKinematicRotation(quat(rotation));
+    } else {
+      for (const grain of this.grains.values()) {
+        if (grain.owner !== id || grain.escaped || !grain.carried) continue;
+        grain.body.setBodyType(RAPIER.RigidBodyType.Dynamic, true);
+        grain.body.resetForces(false); grain.body.resetTorques(false);
+        grain.body.setLinvel({ x: 0, y: 0, z: 0 }, true);
+        grain.body.setAngvel({ x: 0, y: 0, z: 0 }, true);
+        grain.carried = false;
+      }
+    }
   }
   /** Preserve gesture samples collected while the Worker was busy. Collapsing
    * lift-then-tilt to one diagonal pose path can pull the bottom through stock. */
@@ -475,10 +523,14 @@ export class StockWorld {
       for (const pose of frame.containers) {
         const container = this.containers.get(pose.id); if (!container) continue;
         const old = container.input;
+        if (pose.carryStock) this.carryContainerStock(pose.id, pose.position_m, pose.rotation, true);
+        else this.carryContainerStock(pose.id, pose.position_m, pose.rotation, false);
         container.input = { ...old, position_m: pose.position_m, rotation: pose.rotation,
           fluid: old.fluid ? { ...old.fluid, offset_m: old.fluid.offset_m + pose.position_m[1] - old.position_m[1] } : undefined };
       }
       const result = this.advance(frame.seconds, paused);
+      for (const pose of frame.containers) if (pose.releaseStock)
+        this.carryContainerStock(pose.id, pose.position_m, pose.rotation, false);
       for (const force of result.reactions) {
         const sum = reactions.get(force.vesselId) ?? [0, 0, 0];
         for (let i = 0; i < 3; i++) sum[i] += force.impulse_Ns[i];

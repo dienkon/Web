@@ -1,0 +1,2940 @@
+[
+  {
+    "id": "nh4no3_dissolution",
+    "samples": [
+      {
+        "elapsed": 0.09999999999999999,
+        "phase": "prepare",
+        "progress": 0,
+        "replay": 0,
+        "contactProgress": 0,
+        "contact": 0,
+        "limit": null,
+        "temperature": 25,
+        "volume": 0,
+        "contents": [],
+        "grains": [],
+        "error": null
+      },
+      {
+        "elapsed": 30.09999999999957,
+        "phase": "react",
+        "progress": 0.9995805644195834,
+        "replay": 0.9985484459222063,
+        "contactProgress": 0.7110437793305794,
+        "contact": 0,
+        "rate": 0,
+        "unmet": [
+          "Chất rắn chưa tiếp xúc pha lỏng tham gia phản ứng."
+        ],
+        "limit": 0.9985484459222063,
+        "temperature": 24.812657243616382,
+        "volume": 30.012628986750222,
+        "contents": [
+          {
+            "formula": "H2O",
+            "phase": "l",
+            "mass": 29.998818918291164,
+            "moles": 1.6652133732051717
+          },
+          {
+            "formula": "NH4NO3",
+            "phase": "s",
+            "mass": 0.00003357288216328226,
+            "moles": 4.1943558041655435e-7
+          },
+          {
+            "formula": "NH4NO3",
+            "phase": "aq",
+            "mass": 0.08000942711783689,
+            "moles": 0.0009995805644195854
+          }
+        ],
+        "grains": [
+          {
+            "formula": "NH4NO3",
+            "mass": 0.000007260438684588995,
+            "y": 0.002661067545413971,
+            "sleeping": false
+          },
+          {
+            "formula": "NH4NO3",
+            "mass": 0.000007990348615064936,
+            "y": 0.002613137364387512,
+            "sleeping": false
+          },
+          {
+            "formula": "NH4NO3",
+            "mass": 0.000005782555647374188,
+            "y": 0.0026278865337371828,
+            "sleeping": false
+          },
+          {
+            "formula": "NH4NO3",
+            "mass": 0.000007507043389669022,
+            "y": 0.002645149827003479,
+            "sleeping": false
+          },
+          {
+            "formula": "NH4NO3",
+            "mass": 0.000005032495826585118,
+            "y": 0.0026564213633537294,
+            "sleeping": false
+          }
+        ],
+        "error": null
+      },
+      {
+        "elapsed": 60.09999999999787,
+        "phase": "react",
+        "progress": 0.9999559060837155,
+        "replay": 0.9998474027789321,
+        "contactProgress": 0.7110437793305794,
+        "contact": 0,
+        "rate": 0,
+        "unmet": [
+          "Chất rắn chưa tiếp xúc pha lỏng tham gia phản ứng."
+        ],
+        "limit": 0.9998474027789322,
+        "temperature": 24.82456239233549,
+        "volume": 30.012628986750222,
+        "contents": [
+          {
+            "formula": "H2O",
+            "phase": "l",
+            "mass": 29.998818918291164,
+            "moles": 1.6652133732051717
+          },
+          {
+            "formula": "NH4NO3",
+            "phase": "s",
+            "mass": 0.00000352940934115266,
+            "moles": 4.409391628440538e-8
+          },
+          {
+            "formula": "NH4NO3",
+            "phase": "aq",
+            "mass": 0.08003947059065901,
+            "moles": 0.0009999559060837175
+          }
+        ],
+        "grains": [
+          {
+            "formula": "NH4NO3",
+            "mass": 6.438654880205722e-7,
+            "y": 0.002664923667907715,
+            "sleeping": false
+          },
+          {
+            "formula": "NH4NO3",
+            "mass": 0.000001361408113449826,
+            "y": 0.0026536163687705993,
+            "sleeping": false
+          },
+          {
+            "formula": "NH4NO3",
+            "mass": 0.000001524135739682635,
+            "y": 0.0026551732420921326,
+            "sleeping": false
+          }
+        ],
+        "error": null
+      },
+      {
+        "elapsed": 90.09999999999617,
+        "phase": "react",
+        "progress": 0.9999559060837155,
+        "replay": 0.9998474027789321,
+        "contactProgress": 0.7110437793305794,
+        "contact": 0,
+        "rate": 0,
+        "unmet": [
+          "Chất rắn chưa tiếp xúc pha lỏng tham gia phản ứng."
+        ],
+        "limit": 0.9998474027789322,
+        "temperature": 24.835770232513738,
+        "volume": 30.012628986750222,
+        "contents": [
+          {
+            "formula": "H2O",
+            "phase": "l",
+            "mass": 29.998818918291164,
+            "moles": 1.6652133732051717
+          },
+          {
+            "formula": "NH4NO3",
+            "phase": "s",
+            "mass": 0.00000352940934115266,
+            "moles": 4.409391628440538e-8
+          },
+          {
+            "formula": "NH4NO3",
+            "phase": "aq",
+            "mass": 0.08003947059065901,
+            "moles": 0.0009999559060837175
+          }
+        ],
+        "grains": [
+          {
+            "formula": "NH4NO3",
+            "mass": 6.438654880205722e-7,
+            "y": 0.0026692163944244383,
+            "sleeping": false
+          },
+          {
+            "formula": "NH4NO3",
+            "mass": 0.000001361408113449826,
+            "y": 0.002666946053504944,
+            "sleeping": false
+          },
+          {
+            "formula": "NH4NO3",
+            "mass": 0.000001524135739682635,
+            "y": 0.002684287130832672,
+            "sleeping": false
+          }
+        ],
+        "error": null
+      },
+      {
+        "elapsed": 120.09999999999447,
+        "phase": "react",
+        "progress": 0.9999559060837155,
+        "replay": 0.9998474027789321,
+        "contactProgress": 0.7110437793305794,
+        "contact": 0,
+        "rate": 0,
+        "unmet": [
+          "Chất rắn chưa tiếp xúc pha lỏng tham gia phản ứng."
+        ],
+        "limit": 0.9998474027789322,
+        "temperature": 24.846262059271908,
+        "volume": 30.012628986750222,
+        "contents": [
+          {
+            "formula": "H2O",
+            "phase": "l",
+            "mass": 29.998818918291164,
+            "moles": 1.6652133732051717
+          },
+          {
+            "formula": "NH4NO3",
+            "phase": "s",
+            "mass": 0.00000352940934115266,
+            "moles": 4.409391628440538e-8
+          },
+          {
+            "formula": "NH4NO3",
+            "phase": "aq",
+            "mass": 0.08003947059065901,
+            "moles": 0.0009999559060837175
+          }
+        ],
+        "grains": [
+          {
+            "formula": "NH4NO3",
+            "mass": 6.438654880205722e-7,
+            "y": 0.0026884746551513673,
+            "sleeping": false
+          },
+          {
+            "formula": "NH4NO3",
+            "mass": 0.000001361408113449826,
+            "y": 0.0026718190312385558,
+            "sleeping": false
+          },
+          {
+            "formula": "NH4NO3",
+            "mass": 0.000001524135739682635,
+            "y": 0.002645910084247589,
+            "sleeping": false
+          }
+        ],
+        "error": null
+      },
+      {
+        "elapsed": 150.0000000000115,
+        "phase": "react",
+        "progress": 0.9999559060837155,
+        "replay": 0.9998474027789321,
+        "contactProgress": 0.7110437793305794,
+        "contact": 0,
+        "rate": 0,
+        "unmet": [
+          "Chất rắn chưa tiếp xúc pha lỏng tham gia phản ứng."
+        ],
+        "limit": 0.9998474027789322,
+        "temperature": 24.856051941918142,
+        "volume": 30.012628986750222,
+        "contents": [
+          {
+            "formula": "H2O",
+            "phase": "l",
+            "mass": 29.998818918291164,
+            "moles": 1.6652133732051717
+          },
+          {
+            "formula": "NH4NO3",
+            "phase": "s",
+            "mass": 0.00000352940934115266,
+            "moles": 4.409391628440538e-8
+          },
+          {
+            "formula": "NH4NO3",
+            "phase": "aq",
+            "mass": 0.08003947059065901,
+            "moles": 0.0009999559060837175
+          }
+        ],
+        "grains": [
+          {
+            "formula": "NH4NO3",
+            "mass": 6.438654880205722e-7,
+            "y": 0.0026861682534217836,
+            "sleeping": false
+          },
+          {
+            "formula": "NH4NO3",
+            "mass": 0.000001361408113449826,
+            "y": 0.0026957035064697266,
+            "sleeping": false
+          },
+          {
+            "formula": "NH4NO3",
+            "mass": 0.000001524135739682635,
+            "y": 0.0026552218198776247,
+            "sleeping": false
+          }
+        ],
+        "error": null
+      },
+      {
+        "elapsed": 180.00000000003539,
+        "phase": "react",
+        "progress": 0.9999559060837155,
+        "replay": 0.9998474027789321,
+        "contactProgress": 0.7110437793305794,
+        "contact": 0,
+        "rate": 0,
+        "unmet": [
+          "Chất rắn chưa tiếp xúc pha lỏng tham gia phản ứng."
+        ],
+        "limit": 0.9998474027789322,
+        "temperature": 24.865248070675406,
+        "volume": 30.012628986750222,
+        "contents": [
+          {
+            "formula": "H2O",
+            "phase": "l",
+            "mass": 29.998818918291164,
+            "moles": 1.6652133732051717
+          },
+          {
+            "formula": "NH4NO3",
+            "phase": "s",
+            "mass": 0.00000352940934115266,
+            "moles": 4.409391628440538e-8
+          },
+          {
+            "formula": "NH4NO3",
+            "phase": "aq",
+            "mass": 0.08003947059065901,
+            "moles": 0.0009999559060837175
+          }
+        ],
+        "grains": [
+          {
+            "formula": "NH4NO3",
+            "mass": 6.438654880205722e-7,
+            "y": 0.0027016717195510864,
+            "sleeping": false
+          },
+          {
+            "formula": "NH4NO3",
+            "mass": 0.000001361408113449826,
+            "y": 0.002666155695915222,
+            "sleeping": false
+          },
+          {
+            "formula": "NH4NO3",
+            "mass": 0.000001524135739682635,
+            "y": 0.002677837908267975,
+            "sleeping": false
+          }
+        ],
+        "error": null
+      }
+    ],
+    "end": {
+      "elapsed": 200.05000000005134,
+      "phase": "error",
+      "progress": 0.9999559060837155,
+      "replay": 0.9998474027789321,
+      "contactProgress": 0.7110437793305794,
+      "contact": 0,
+      "rate": 0,
+      "unmet": [
+        "Chất rắn chưa tiếp xúc pha lỏng tham gia phản ứng."
+      ],
+      "limit": 0.9998474027789322,
+      "temperature": 24.871064256696947,
+      "volume": 30.012628986750222,
+      "contents": [
+        {
+          "formula": "H2O",
+          "phase": "l",
+          "mass": 29.998818918291164,
+          "moles": 1.6652133732051717
+        },
+        {
+          "formula": "NH4NO3",
+          "phase": "s",
+          "mass": 0.00000352940934115266,
+          "moles": 4.409391628440538e-8
+        },
+        {
+          "formula": "NH4NO3",
+          "phase": "aq",
+          "mass": 0.08003947059065901,
+          "moles": 0.0009999559060837175
+        }
+      ],
+      "grains": [
+        {
+          "formula": "NH4NO3",
+          "mass": 6.438654880205722e-7,
+          "y": 0.0027081552147865296,
+          "sleeping": false
+        },
+        {
+          "formula": "NH4NO3",
+          "mass": 0.000001361408113449826,
+          "y": 0.0026559612154960634,
+          "sleeping": false
+        },
+        {
+          "formula": "NH4NO3",
+          "mass": 0.000001524135739682635,
+          "y": 0.002704935073852539,
+          "sleeping": false
+        }
+      ],
+      "error": "Chưa đạt trạng thái cuối sau 180 giây mô phỏng. Kiểm tra điều kiện của bài."
+    }
+  },
+  {
+    "id": "zn_hcl",
+    "samples": [
+      {
+        "elapsed": 0.09999999999999999,
+        "phase": "prepare",
+        "progress": 0,
+        "replay": 0,
+        "contactProgress": 0,
+        "contact": 0,
+        "limit": null,
+        "temperature": 25,
+        "volume": 0,
+        "contents": [],
+        "grains": [],
+        "error": null
+      },
+      {
+        "elapsed": 30.09999999999957,
+        "phase": "dose",
+        "progress": 0,
+        "replay": 0,
+        "contactProgress": 0,
+        "contact": 0,
+        "limit": null,
+        "temperature": 24.984169669732616,
+        "volume": 29.539794450600585,
+        "contents": [
+          {
+            "formula": "H2O",
+            "phase": "l",
+            "mass": 29.483284550600583,
+            "moles": 1.6365964224590956
+          },
+          {
+            "formula": "HCl",
+            "phase": "aq",
+            "mass": 0.056509900000000016,
+            "moles": 0.0015500000000000008
+          }
+        ],
+        "grains": [],
+        "error": null
+      },
+      {
+        "elapsed": 60.09999999999787,
+        "phase": "react",
+        "progress": 0.9273175728233701,
+        "replay": 0.9201929060954899,
+        "contactProgress": 0.0892736018730983,
+        "contact": 0.003288326144726247,
+        "rate": 0,
+        "unmet": [
+          "Chất rắn chưa tiếp xúc pha lỏng tham gia phản ứng."
+        ],
+        "limit": 0.9295461313287804,
+        "temperature": 25.8668630197492,
+        "volume": 29.999628467678026,
+        "contents": [
+          {
+            "formula": "H2O",
+            "phase": "l",
+            "mass": 29.925878450600596,
+            "moles": 1.6611644990619272
+          },
+          {
+            "formula": "HCl",
+            "phase": "aq",
+            "mass": 0.005299711860011227,
+            "moles": 0.000145364854353262
+          },
+          {
+            "formula": "Zn",
+            "phase": "s",
+            "mass": 0.0047519770888080634,
+            "moles": 0.00007268242717662992
+          },
+          {
+            "formula": "ZnCl2",
+            "phase": "aq",
+            "mass": 0.12637483882436898,
+            "moles": 0.0009273175728233709
+          }
+        ],
+        "grains": [
+          {
+            "formula": "Zn",
+            "mass": 0.00005725465346802476,
+            "y": 0.0026165112853050233,
+            "sleeping": false
+          },
+          {
+            "formula": "Zn",
+            "mass": 0.00029987507393028595,
+            "y": 0.002597331404685974,
+            "sleeping": false
+          },
+          {
+            "formula": "Zn",
+            "mass": 0.00032360927218630744,
+            "y": 0.0025002235174179078,
+            "sleeping": false
+          },
+          {
+            "formula": "Zn",
+            "mass": 0.00029204557252502966,
+            "y": 0.0025410911440849303,
+            "sleeping": false
+          },
+          {
+            "formula": "Zn",
+            "mass": 0.00021992699626217663,
+            "y": 0.0025953957438468933,
+            "sleeping": false
+          },
+          {
+            "formula": "Zn",
+            "mass": 0.00005591621625753456,
+            "y": 0.002588026225566864,
+            "sleeping": false
+          },
+          {
+            "formula": "Zn",
+            "mass": 0.0002108100081821151,
+            "y": 0.0025386476516723634,
+            "sleeping": false
+          },
+          {
+            "formula": "Zn",
+            "mass": 0.00017783345091295963,
+            "y": 0.0025890550017356874,
+            "sleeping": false
+          },
+          {
+            "formula": "Zn",
+            "mass": 0.000206988913269012,
+            "y": 0.0025200384855270388,
+            "sleeping": false
+          },
+          {
+            "formula": "Zn",
+            "mass": 0.0002498214008816141,
+            "y": 0.002526313662528992,
+            "sleeping": false
+          },
+          {
+            "formula": "Zn",
+            "mass": 0.0002526449311291884,
+            "y": 0.002530258595943451,
+            "sleeping": false
+          },
+          {
+            "formula": "Zn",
+            "mass": 0.00026323336956141015,
+            "y": 0.0025526705384254457,
+            "sleeping": false
+          },
+          {
+            "formula": "Zn",
+            "mass": 0.000199408491979854,
+            "y": 0.002533251941204071,
+            "sleeping": false
+          },
+          {
+            "formula": "Zn",
+            "mass": 0.0002803514645928582,
+            "y": 0.0024994082748889925,
+            "sleeping": false
+          },
+          {
+            "formula": "Zn",
+            "mass": 0.0003491716564001381,
+            "y": 0.0024961468577384947,
+            "sleeping": false
+          },
+          {
+            "formula": "Zn",
+            "mass": 0.00015873914065397225,
+            "y": 0.002577274441719055,
+            "sleeping": false
+          },
+          {
+            "formula": "Zn",
+            "mass": 0.00023354069019515853,
+            "y": 0.002555164694786072,
+            "sleeping": false
+          },
+          {
+            "formula": "Zn",
+            "mass": 0.00011043974351636918,
+            "y": 0.002591775357723236,
+            "sleeping": false
+          },
+          {
+            "formula": "Zn",
+            "mass": 0.00014419971091306243,
+            "y": 0.0025731372833251954,
+            "sleeping": false
+          },
+          {
+            "formula": "Zn",
+            "mass": 0.0002077861506043273,
+            "y": 0.002529001533985138,
+            "sleeping": false
+          },
+          {
+            "formula": "Zn",
+            "mass": 0.00025704674643117705,
+            "y": 0.002645448446273804,
+            "sleeping": false
+          },
+          {
+            "formula": "Zn",
+            "mass": 0.0002013334349554887,
+            "y": 0.0026089602708816526,
+            "sleeping": false
+          }
+        ],
+        "error": null
+      },
+      {
+        "elapsed": 90.09999999999617,
+        "phase": "react",
+        "progress": 0.9482837202619763,
+        "replay": 0.9432142520032482,
+        "contactProgress": 0.0892736018730983,
+        "contact": 0,
+        "rate": 0,
+        "unmet": [
+          "Chất rắn chưa tiếp xúc pha lỏng tham gia phản ứng."
+        ],
+        "limit": 0.9432142520032482,
+        "temperature": 25.831179835515165,
+        "volume": 29.999628467678026,
+        "contents": [
+          {
+            "formula": "H2O",
+            "phase": "l",
+            "mass": 29.925878450600596,
+            "moles": 1.6611644990619272
+          },
+          {
+            "formula": "HCl",
+            "phase": "aq",
+            "mass": 0.0037709442533778157,
+            "moles": 0.00010343255947604956
+          },
+          {
+            "formula": "Zn",
+            "phase": "s",
+            "mass": 0.0033812103692719892,
+            "moles": 0.0000517162797380237
+          },
+          {
+            "formula": "ZnCl2",
+            "phase": "aq",
+            "mass": 0.12923210539730223,
+            "moles": 0.0009482837202619771
+          }
+        ],
+        "grains": [
+          {
+            "formula": "Zn",
+            "mass": 0.00005591621625753456,
+            "y": 0.002624213099479675,
+            "sleeping": false
+          },
+          {
+            "formula": "Zn",
+            "mass": 0.00013159375352667012,
+            "y": 0.002582743167877197,
+            "sleeping": false
+          },
+          {
+            "formula": "Zn",
+            "mass": 0.000018661913703401913,
+            "y": 0.0026870328187942505,
+            "sleeping": false
+          },
+          {
+            "formula": "Zn",
+            "mass": 0.00022934371823737053,
+            "y": 0.002527322769165039,
+            "sleeping": false
+          },
+          {
+            "formula": "Zn",
+            "mass": 0.00015192849488022283,
+            "y": 0.0025475016236305237,
+            "sleeping": false
+          },
+          {
+            "formula": "Zn",
+            "mass": 0.00009738830698875074,
+            "y": 0.0026223051548004152,
+            "sleeping": false
+          },
+          {
+            "formula": "Zn",
+            "mass": 0.00016961449444369004,
+            "y": 0.002604029178619385,
+            "sleeping": false
+          },
+          {
+            "formula": "Zn",
+            "mass": 0.00005571880150303088,
+            "y": 0.0025930827856063842,
+            "sleeping": false
+          },
+          {
+            "formula": "Zn",
+            "mass": 0.0001332538610493956,
+            "y": 0.002569085359573364,
+            "sleeping": false
+          },
+          {
+            "formula": "Zn",
+            "mass": 0.0001361527700729257,
+            "y": 0.002578584253787994,
+            "sleeping": false
+          },
+          {
+            "formula": "Zn",
+            "mass": 0.00018158351522428787,
+            "y": 0.002541694641113281,
+            "sleeping": false
+          },
+          {
+            "formula": "Zn",
+            "mass": 0.00011299408161681947,
+            "y": 0.0026037365198135374,
+            "sleeping": false
+          },
+          {
+            "formula": "Zn",
+            "mass": 0.00007147552992811103,
+            "y": 0.00263065904378891,
+            "sleeping": false
+          },
+          {
+            "formula": "Zn",
+            "mass": 0.00019640854909448128,
+            "y": 0.0025940755009651183,
+            "sleeping": false
+          },
+          {
+            "formula": "Zn",
+            "mass": 0.00023679592499652391,
+            "y": 0.002508955895900726,
+            "sleeping": false
+          },
+          {
+            "formula": "Zn",
+            "mass": 0.0002378402132976674,
+            "y": 0.0025313812494277953,
+            "sleeping": false
+          },
+          {
+            "formula": "Zn",
+            "mass": 0.0002172171315792579,
+            "y": 0.0025894466042518617,
+            "sleeping": false
+          },
+          {
+            "formula": "Zn",
+            "mass": 0.00024938269325404546,
+            "y": 0.0025406798720359804,
+            "sleeping": false
+          },
+          {
+            "formula": "Zn",
+            "mass": 0.0002539362696958309,
+            "y": 0.0025234141945838927,
+            "sleeping": false
+          },
+          {
+            "formula": "Zn",
+            "mass": 0.00016812260657871723,
+            "y": 0.0025383225083351136,
+            "sleeping": false
+          },
+          {
+            "formula": "Zn",
+            "mass": 0.00013442499516060365,
+            "y": 0.002544843554496765,
+            "sleeping": false
+          },
+          {
+            "formula": "Zn",
+            "mass": 0.00014145652818265032,
+            "y": 0.00258382111787796,
+            "sleeping": false
+          }
+        ],
+        "error": null
+      },
+      {
+        "elapsed": 120.09999999999447,
+        "phase": "react",
+        "progress": 0.9558625649715516,
+        "replay": 0.9515360100253751,
+        "contactProgress": 0.0892736018730983,
+        "contact": 0,
+        "rate": 0.00004865405593079686,
+        "unmet": [],
+        "limit": 0.9515360100253751,
+        "temperature": 25.785141489016947,
+        "volume": 29.999628467678026,
+        "contents": [
+          {
+            "formula": "H2O",
+            "phase": "l",
+            "mass": 29.925878450600596,
+            "moles": 1.6611644990619272
+          },
+          {
+            "formula": "HCl",
+            "phase": "aq",
+            "mass": 0.0032183252125344195,
+            "moles": 0.00008827487005689887
+          },
+          {
+            "formula": "Zn",
+            "phase": "s",
+            "mass": 0.002885705502159953,
+            "moles": 0.00004413743502844835
+          },
+          {
+            "formula": "ZnCl2",
+            "phase": "aq",
+            "mass": 0.13026495035432317,
+            "moles": 0.0009558625649715524
+          }
+        ],
+        "grains": [
+          {
+            "formula": "Zn",
+            "mass": 0.000052118094112349266,
+            "y": 0.0026354873180389404,
+            "sleeping": false
+          },
+          {
+            "formula": "Zn",
+            "mass": 0.000018437437676928466,
+            "y": 0.002650130093097687,
+            "sleeping": false
+          },
+          {
+            "formula": "Zn",
+            "mass": 0.00005052337980581947,
+            "y": 0.002641947269439697,
+            "sleeping": false
+          },
+          {
+            "formula": "Zn",
+            "mass": 0.00013910002787919623,
+            "y": 0.0025621318817138673,
+            "sleeping": false
+          },
+          {
+            "formula": "Zn",
+            "mass": 0.00009637736207769036,
+            "y": 0.002593950927257538,
+            "sleeping": false
+          },
+          {
+            "formula": "Zn",
+            "mass": 0.00008643291178955171,
+            "y": 0.002603987157344818,
+            "sleeping": false
+          },
+          {
+            "formula": "Zn",
+            "mass": 0.00012141309039158138,
+            "y": 0.0025982433557510376,
+            "sleeping": false
+          },
+          {
+            "formula": "Zn",
+            "mass": 0.00014213363867103632,
+            "y": 0.002632618546485901,
+            "sleeping": false
+          },
+          {
+            "formula": "Zn",
+            "mass": 0.00012142986642537026,
+            "y": 0.002578139305114746,
+            "sleeping": false
+          },
+          {
+            "formula": "Zn",
+            "mass": 0.00020600222121647675,
+            "y": 0.0025886696577072143,
+            "sleeping": false
+          },
+          {
+            "formula": "Zn",
+            "mass": 0.00021072256789802553,
+            "y": 0.002507316768169403,
+            "sleeping": false
+          },
+          {
+            "formula": "Zn",
+            "mass": 0.00011606517037364165,
+            "y": 0.002602505683898926,
+            "sleeping": false
+          },
+          {
+            "formula": "Zn",
+            "mass": 0.00012063919876877915,
+            "y": 0.00256545752286911,
+            "sleeping": false
+          },
+          {
+            "formula": "Zn",
+            "mass": 0.00006448373333990292,
+            "y": 0.0026097807288169863,
+            "sleeping": false
+          },
+          {
+            "formula": "Zn",
+            "mass": 0.00014641817778738748,
+            "y": 0.0025982576608657836,
+            "sleeping": false
+          },
+          {
+            "formula": "Zn",
+            "mass": 0.0001743608709412303,
+            "y": 0.0025794193148612975,
+            "sleeping": false
+          },
+          {
+            "formula": "Zn",
+            "mass": 0.00019766221602134098,
+            "y": 0.0025763875246047974,
+            "sleeping": false
+          },
+          {
+            "formula": "Zn",
+            "mass": 0.0001583531140902591,
+            "y": 0.002595987319946289,
+            "sleeping": false
+          },
+          {
+            "formula": "Zn",
+            "mass": 0.0001981113045959382,
+            "y": 0.0025975543260574343,
+            "sleeping": false
+          },
+          {
+            "formula": "Zn",
+            "mass": 0.00020410171066155555,
+            "y": 0.002581831216812134,
+            "sleeping": false
+          },
+          {
+            "formula": "Zn",
+            "mass": 0.00012882849292023343,
+            "y": 0.002565889060497284,
+            "sleeping": false
+          },
+          {
+            "formula": "Zn",
+            "mass": 0.000131990914715659,
+            "y": 0.0025788336992263795,
+            "sleeping": false
+          }
+        ],
+        "error": null
+      },
+      {
+        "elapsed": 150.0000000000115,
+        "phase": "react",
+        "progress": 0.9614366159451453,
+        "replay": 0.9576564551832819,
+        "contactProgress": 0.0892736018730983,
+        "contact": 0.005296299991700324,
+        "rate": 0.0002109747370737658,
+        "unmet": [],
+        "limit": 0.9624597929041395,
+        "temperature": 25.740338877850306,
+        "volume": 29.999628467678026,
+        "contents": [
+          {
+            "formula": "H2O",
+            "phase": "l",
+            "mass": 29.925878450600596,
+            "moles": 1.6611644990619272
+          },
+          {
+            "formula": "HCl",
+            "phase": "aq",
+            "mass": 0.0028118877117438634,
+            "moles": 0.00007712676810971153
+          },
+          {
+            "formula": "Zn",
+            "phase": "s",
+            "mass": 0.002521274049506399,
+            "moles": 0.00003856338405485468
+          },
+          {
+            "formula": "ZnCl2",
+            "phase": "aq",
+            "mass": 0.1310245820210045,
+            "moles": 0.0009614366159451461
+          }
+        ],
+        "grains": [
+          {
+            "formula": "Zn",
+            "mass": 0.000018437437676928466,
+            "y": 0.0026513177156448366,
+            "sleeping": false
+          },
+          {
+            "formula": "Zn",
+            "mass": 0.000046452304218159055,
+            "y": 0.002587829530239105,
+            "sleeping": false
+          },
+          {
+            "formula": "Zn",
+            "mass": 0.00004803434446037206,
+            "y": 0.0026108959317207338,
+            "sleeping": false
+          },
+          {
+            "formula": "Zn",
+            "mass": 0.00011587685810599464,
+            "y": 0.0026037845015525816,
+            "sleeping": false
+          },
+          {
+            "formula": "Zn",
+            "mass": 0.00011446514787924762,
+            "y": 0.002597687840461731,
+            "sleeping": false
+          },
+          {
+            "formula": "Zn",
+            "mass": 0.00010579396683298686,
+            "y": 0.002603614926338196,
+            "sleeping": false
+          },
+          {
+            "formula": "Zn",
+            "mass": 0.00016371631318177262,
+            "y": 0.0025995713472366333,
+            "sleeping": false
+          },
+          {
+            "formula": "Zn",
+            "mass": 0.0000615793431853829,
+            "y": 0.002610565721988678,
+            "sleeping": false
+          },
+          {
+            "formula": "Zn",
+            "mass": 0.00012313477761002634,
+            "y": 0.0025400978326797483,
+            "sleeping": false
+          },
+          {
+            "formula": "Zn",
+            "mass": 0.00011378901647524537,
+            "y": 0.0025820520520210264,
+            "sleeping": false
+          },
+          {
+            "formula": "Zn",
+            "mass": 0.00015470605464955472,
+            "y": 0.0025904235243797303,
+            "sleeping": false
+          },
+          {
+            "formula": "Zn",
+            "mass": 0.00010427733488233488,
+            "y": 0.0025878950953483583,
+            "sleeping": false
+          },
+          {
+            "formula": "Zn",
+            "mass": 0.0000860641985423374,
+            "y": 0.002580210268497467,
+            "sleeping": false
+          },
+          {
+            "formula": "Zn",
+            "mass": 0.00013975546095756607,
+            "y": 0.002602989971637726,
+            "sleeping": false
+          },
+          {
+            "formula": "Zn",
+            "mass": 0.00016872703319391742,
+            "y": 0.0025631004571914674,
+            "sleeping": false
+          },
+          {
+            "formula": "Zn",
+            "mass": 0.00008158427364021865,
+            "y": 0.00259132444858551,
+            "sleeping": false
+          },
+          {
+            "formula": "Zn",
+            "mass": 0.0001195582394183689,
+            "y": 0.0025881463289260864,
+            "sleeping": false
+          },
+          {
+            "formula": "Zn",
+            "mass": 0.0001582578158231576,
+            "y": 0.002552403807640076,
+            "sleeping": false
+          },
+          {
+            "formula": "Zn",
+            "mass": 0.0001258379413789574,
+            "y": 0.002651105523109436,
+            "sleeping": false
+          },
+          {
+            "formula": "Zn",
+            "mass": 0.00016016859867415872,
+            "y": 0.002668416798114777,
+            "sleeping": false
+          },
+          {
+            "formula": "Zn",
+            "mass": 0.00018036650203165233,
+            "y": 0.002575942873954773,
+            "sleeping": false
+          },
+          {
+            "formula": "Zn",
+            "mass": 0.00013069108668805905,
+            "y": 0.0026260343194007872,
+            "sleeping": false
+          }
+        ],
+        "error": null
+      },
+      {
+        "elapsed": 180.00000000003539,
+        "phase": "react",
+        "progress": 0.9666740822058667,
+        "replay": 0.9634073220424103,
+        "contactProgress": 0.0892736018730983,
+        "contact": 0,
+        "rate": 0.000507560066782542,
+        "unmet": [],
+        "limit": 0.9634073220424103,
+        "temperature": 25.6979212223946,
+        "volume": 29.999628467678026,
+        "contents": [
+          {
+            "formula": "H2O",
+            "phase": "l",
+            "mass": 29.925878450600596,
+            "moles": 1.6611644990619272
+          },
+          {
+            "formula": "HCl",
+            "phase": "aq",
+            "mass": 0.0024299926218771025,
+            "moles": 0.00006665183558826875
+          },
+          {
+            "formula": "Zn",
+            "phase": "s",
+            "mass": 0.0021788485053804347,
+            "moles": 0.00003332591779413329
+          },
+          {
+            "formula": "ZnCl2",
+            "phase": "aq",
+            "mass": 0.13173834392301562,
+            "moles": 0.0009666740822058675
+          }
+        ],
+        "grains": [
+          {
+            "formula": "Zn",
+            "mass": 0.000018437437676928466,
+            "y": 0.002657756805419922,
+            "sleeping": false
+          },
+          {
+            "formula": "Zn",
+            "mass": 0.00004711821344249896,
+            "y": 0.0026407900452613832,
+            "sleeping": false
+          },
+          {
+            "formula": "Zn",
+            "mass": 0.00010799530480203451,
+            "y": 0.0026435011625289915,
+            "sleeping": false
+          },
+          {
+            "formula": "Zn",
+            "mass": 0.00014420258462755723,
+            "y": 0.002584395408630371,
+            "sleeping": false
+          },
+          {
+            "formula": "Zn",
+            "mass": 0.0001056339954703036,
+            "y": 0.002608408331871033,
+            "sleeping": false
+          },
+          {
+            "formula": "Zn",
+            "mass": 0.00007636129024602015,
+            "y": 0.0026232704520225527,
+            "sleeping": false
+          },
+          {
+            "formula": "Zn",
+            "mass": 0.00005437076608789345,
+            "y": 0.0025962600111961364,
+            "sleeping": false
+          },
+          {
+            "formula": "Zn",
+            "mass": 0.00011105797874499743,
+            "y": 0.0026114490628242493,
+            "sleeping": false
+          },
+          {
+            "formula": "Zn",
+            "mass": 0.0001369194690044486,
+            "y": 0.002550019919872284,
+            "sleeping": false
+          },
+          {
+            "formula": "Zn",
+            "mass": 0.0001083693420206833,
+            "y": 0.002562764585018158,
+            "sleeping": false
+          },
+          {
+            "formula": "Zn",
+            "mass": 0.0001340907971342026,
+            "y": 0.0025895631313323977,
+            "sleeping": false
+          },
+          {
+            "formula": "Zn",
+            "mass": 0.00011657552720639252,
+            "y": 0.0025715693831443787,
+            "sleeping": false
+          },
+          {
+            "formula": "Zn",
+            "mass": 0.00008482750387621031,
+            "y": 0.0026280486583709715,
+            "sleeping": false
+          },
+          {
+            "formula": "Zn",
+            "mass": 0.0001347113608516928,
+            "y": 0.0025339579582214357,
+            "sleeping": false
+          },
+          {
+            "formula": "Zn",
+            "mass": 0.00006333130921920976,
+            "y": 0.002625093460083008,
+            "sleeping": false
+          },
+          {
+            "formula": "Zn",
+            "mass": 0.00004502438948743318,
+            "y": 0.0026420474052429197,
+            "sleeping": false
+          },
+          {
+            "formula": "Zn",
+            "mass": 0.00012809912345558284,
+            "y": 0.002587379217147827,
+            "sleeping": false
+          },
+          {
+            "formula": "Zn",
+            "mass": 0.00011871742436265206,
+            "y": 0.002618476152420044,
+            "sleeping": false
+          },
+          {
+            "formula": "Zn",
+            "mass": 0.0000999579630883646,
+            "y": 0.002557666599750519,
+            "sleeping": false
+          },
+          {
+            "formula": "Zn",
+            "mass": 0.00009242466488158484,
+            "y": 0.0025855442881584168,
+            "sleeping": false
+          },
+          {
+            "formula": "Zn",
+            "mass": 0.0001439486570445013,
+            "y": 0.0025491350889205932,
+            "sleeping": false
+          },
+          {
+            "formula": "Zn",
+            "mass": 0.00010667340264924266,
+            "y": 0.002584706246852875,
+            "sleeping": false
+          }
+        ],
+        "error": null
+      },
+      {
+        "elapsed": 210.00000000005926,
+        "phase": "react",
+        "progress": 0.970462453111365,
+        "replay": 0.9675670465362758,
+        "contactProgress": 0.0892736018730983,
+        "contact": 0,
+        "rate": 0,
+        "unmet": [
+          "Chất rắn chưa tiếp xúc pha lỏng tham gia phản ứng."
+        ],
+        "limit": 0.9675670465362758,
+        "temperature": 25.656882981855453,
+        "volume": 29.999628467678026,
+        "contents": [
+          {
+            "formula": "H2O",
+            "phase": "l",
+            "mass": 29.925878450600596,
+            "moles": 1.6611644990619272
+          },
+          {
+            "formula": "HCl",
+            "phase": "aq",
+            "mass": 0.00215375976893179,
+            "moles": 0.0000590750937772722
+          },
+          {
+            "formula": "Zn",
+            "phase": "s",
+            "mass": 0.0019311648155789572,
+            "moles": 0.000029537546888635017
+          },
+          {
+            "formula": "ZnCl2",
+            "phase": "aq",
+            "mass": 0.13225462311001693,
+            "moles": 0.0009704624531113658
+          }
+        ],
+        "grains": [
+          {
+            "formula": "Zn",
+            "mass": 0.00009460196208936102,
+            "y": 0.002585074007511139,
+            "sleeping": false
+          },
+          {
+            "formula": "Zn",
+            "mass": 0.00005117773092119817,
+            "y": 0.0026151156425476075,
+            "sleeping": false
+          },
+          {
+            "formula": "Zn",
+            "mass": 0.00007228550439559184,
+            "y": 0.002570576071739197,
+            "sleeping": false
+          },
+          {
+            "formula": "Zn",
+            "mass": 0.0001217937713184129,
+            "y": 0.0026073610782623292,
+            "sleeping": false
+          },
+          {
+            "formula": "Zn",
+            "mass": 0.00009683020313657038,
+            "y": 0.0025659316778182985,
+            "sleeping": false
+          },
+          {
+            "formula": "Zn",
+            "mass": 0.000017755694934086335,
+            "y": 0.0026125776767730712,
+            "sleeping": false
+          },
+          {
+            "formula": "Zn",
+            "mass": 0.00007315918035074921,
+            "y": 0.002618105411529541,
+            "sleeping": false
+          },
+          {
+            "formula": "Zn",
+            "mass": 0.0001011852419618046,
+            "y": 0.002600317597389221,
+            "sleeping": false
+          },
+          {
+            "formula": "Zn",
+            "mass": 0.00011239592649183854,
+            "y": 0.0025689107179641723,
+            "sleeping": false
+          },
+          {
+            "formula": "Zn",
+            "mass": 0.00009934805027139657,
+            "y": 0.0025781652331352232,
+            "sleeping": false
+          },
+          {
+            "formula": "Zn",
+            "mass": 0.00010197863045948456,
+            "y": 0.002568023502826691,
+            "sleeping": false
+          },
+          {
+            "formula": "Zn",
+            "mass": 0.00012027050415102559,
+            "y": 0.0025600391626358033,
+            "sleeping": false
+          },
+          {
+            "formula": "Zn",
+            "mass": 0.00005847077969683653,
+            "y": 0.0026257377862930298,
+            "sleeping": false
+          },
+          {
+            "formula": "Zn",
+            "mass": 0.00009715697851474718,
+            "y": 0.002569451928138733,
+            "sleeping": false
+          },
+          {
+            "formula": "Zn",
+            "mass": 0.00008791290351908576,
+            "y": 0.002604401707649231,
+            "sleeping": false
+          },
+          {
+            "formula": "Zn",
+            "mass": 0.0000032941326710443015,
+            "y": 0.0027416324615478515,
+            "sleeping": false
+          },
+          {
+            "formula": "Zn",
+            "mass": 0.00004320163830416612,
+            "y": 0.0026427555084228517,
+            "sleeping": false
+          },
+          {
+            "formula": "Zn",
+            "mass": 0.00012634289413758872,
+            "y": 0.0025598177313804625,
+            "sleeping": false
+          },
+          {
+            "formula": "Zn",
+            "mass": 0.00013823070909813965,
+            "y": 0.0026087078452110292,
+            "sleeping": false
+          },
+          {
+            "formula": "Zn",
+            "mass": 0.0000937751575606465,
+            "y": 0.002576770782470703,
+            "sleeping": false
+          },
+          {
+            "formula": "Zn",
+            "mass": 0.00012221365771674633,
+            "y": 0.002546479105949402,
+            "sleeping": false
+          },
+          {
+            "formula": "Zn",
+            "mass": 0.00009778356387843638,
+            "y": 0.002620684802532196,
+            "sleeping": false
+          }
+        ],
+        "error": null
+      }
+    ],
+    "end": {
+      "elapsed": 228.41666666674058,
+      "phase": "error",
+      "progress": 0.9724319467578976,
+      "replay": 0.9697295990334728,
+      "contactProgress": 0.0892736018730983,
+      "contact": 0,
+      "rate": 0,
+      "unmet": [
+        "Chất rắn chưa tiếp xúc pha lỏng tham gia phản ứng."
+      ],
+      "limit": 0.9697295990334728,
+      "temperature": 25.632646709131418,
+      "volume": 29.999628467678026,
+      "contents": [
+        {
+          "formula": "H2O",
+          "phase": "l",
+          "mass": 29.925878450600596,
+          "moles": 1.6611644990619272
+        },
+        {
+          "formula": "HCl",
+          "phase": "aq",
+          "mass": 0.0020101521702012184,
+          "moles": 0.000055136106484206986
+        },
+        {
+          "formula": "Zn",
+          "phase": "s",
+          "mass": 0.0018023993209686554,
+          "moles": 0.00002756805324210241
+        },
+        {
+          "formula": "ZnCl2",
+          "phase": "aq",
+          "mass": 0.13252302570416638,
+          "moles": 0.0009724319467578984
+        }
+      ],
+      "grains": [
+        {
+          "formula": "Zn",
+          "mass": 0.000017755694934086335,
+          "y": 0.0026378294825553893,
+          "sleeping": false
+        },
+        {
+          "formula": "Zn",
+          "mass": 0.00005847077969683653,
+          "y": 0.00259854793548584,
+          "sleeping": false
+        },
+        {
+          "formula": "Zn",
+          "mass": 0.00005026157503673006,
+          "y": 0.002590937614440918,
+          "sleeping": false
+        },
+        {
+          "formula": "Zn",
+          "mass": 6.848258034833378e-8,
+          "y": 0.002699628472328186,
+          "sleeping": false
+        },
+        {
+          "formula": "Zn",
+          "mass": 0.00008632897670934688,
+          "y": 0.002623770534992218,
+          "sleeping": false
+        },
+        {
+          "formula": "Zn",
+          "mass": 0.00009677519608288338,
+          "y": 0.002562609016895294,
+          "sleeping": false
+        },
+        {
+          "formula": "Zn",
+          "mass": 0.00011306773700897806,
+          "y": 0.0026258879899978636,
+          "sleeping": false
+        },
+        {
+          "formula": "Zn",
+          "mass": 0.00009519127398984536,
+          "y": 0.002591855525970459,
+          "sleeping": false
+        },
+        {
+          "formula": "Zn",
+          "mass": 0.00008716610380766792,
+          "y": 0.0025703009963035585,
+          "sleeping": false
+        },
+        {
+          "formula": "Zn",
+          "mass": 0.0000704792431399621,
+          "y": 0.0026040002703666687,
+          "sleeping": false
+        },
+        {
+          "formula": "Zn",
+          "mass": 0.00010898047869612121,
+          "y": 0.0025905290246009825,
+          "sleeping": false
+        },
+        {
+          "formula": "Zn",
+          "mass": 0.00009403865259959011,
+          "y": 0.002563249468803406,
+          "sleeping": false
+        },
+        {
+          "formula": "Zn",
+          "mass": 0.00012044765950721225,
+          "y": 0.0025812196731567383,
+          "sleeping": false
+        },
+        {
+          "formula": "Zn",
+          "mass": 0.00009156043184783009,
+          "y": 0.0025978875160217285,
+          "sleeping": false
+        },
+        {
+          "formula": "Zn",
+          "mass": 0.00009970722485529018,
+          "y": 0.002586861550807953,
+          "sleeping": false
+        },
+        {
+          "formula": "Zn",
+          "mass": 0.00011405993279728376,
+          "y": 0.0025611293315887453,
+          "sleeping": false
+        },
+        {
+          "formula": "Zn",
+          "mass": 0.00009535351289679172,
+          "y": 0.0026070660352706908,
+          "sleeping": false
+        },
+        {
+          "formula": "Zn",
+          "mass": 0.00011188019535539963,
+          "y": 0.0026042810082435607,
+          "sleeping": false
+        },
+        {
+          "formula": "Zn",
+          "mass": 0.000042607341410736766,
+          "y": 0.002637447714805603,
+          "sleeping": false
+        },
+        {
+          "formula": "Zn",
+          "mass": 0.00009361667186835185,
+          "y": 0.002612738013267517,
+          "sleeping": false
+        },
+        {
+          "formula": "Zn",
+          "mass": 0.000087898118459371,
+          "y": 0.0026137149333953858,
+          "sleeping": false
+        },
+        {
+          "formula": "Zn",
+          "mass": 0.00006668403768799209,
+          "y": 0.002633196711540222,
+          "sleeping": false
+        }
+      ],
+      "error": "Chưa đạt trạng thái cuối sau 180 giây mô phỏng. Kiểm tra điều kiện của bài."
+    }
+  },
+  {
+    "id": "kcl_conc_h2so4",
+    "samples": [
+      {
+        "elapsed": 0.09999999999999999,
+        "phase": "prepare",
+        "progress": 0,
+        "replay": 0,
+        "contactProgress": 0,
+        "contact": 0,
+        "limit": null,
+        "temperature": 25,
+        "volume": 0,
+        "contents": [],
+        "grains": [],
+        "error": null
+      },
+      {
+        "elapsed": 30.09999999999957,
+        "phase": "react",
+        "progress": 0.10448693671230305,
+        "replay": 0.051389142620139404,
+        "contactProgress": 0.055974263502342816,
+        "contact": 0.05785488201290608,
+        "rate": 0.008265044652468745,
+        "unmet": [],
+        "limit": 1,
+        "temperature": 25.37765908448768,
+        "volume": 0.5461635359693506,
+        "contents": [
+          {
+            "formula": "H2SO4 (conc)",
+            "phase": "aq",
+            "mass": 0.8782475714275095,
+            "moles": 0.008955130632876963
+          },
+          {
+            "formula": "H2O",
+            "phase": "l",
+            "mass": 0.020014693877551042,
+            "moles": 0.0011110016029725806
+          },
+          {
+            "formula": "KCl",
+            "phase": "s",
+            "mass": 0.6675870784197123,
+            "moles": 0.00895513063287697
+          },
+          {
+            "formula": "KHSO4",
+            "phase": "aq",
+            "mass": 0.14227150276620754,
+            "moles": 0.001044869367123041
+          }
+        ],
+        "grains": [
+          {
+            "formula": "KCl",
+            "mass": 0.031129079580108975,
+            "y": 0.0037621432542800904,
+            "sleeping": false
+          },
+          {
+            "formula": "KCl",
+            "mass": 0.03130508502959157,
+            "y": 0.003763827383518219,
+            "sleeping": false
+          },
+          {
+            "formula": "KCl",
+            "mass": 0.03127857280397478,
+            "y": 0.003763563334941864,
+            "sleeping": false
+          },
+          {
+            "formula": "KCl",
+            "mass": 0.029163490956034453,
+            "y": 0.0037415575981140136,
+            "sleeping": false
+          },
+          {
+            "formula": "KCl",
+            "mass": 0.030562649735030832,
+            "y": 0.0037563326954841614,
+            "sleeping": false
+          },
+          {
+            "formula": "KCl",
+            "mass": 0.031691398468571226,
+            "y": 0.0037677335739135743,
+            "sleeping": false
+          },
+          {
+            "formula": "KCl",
+            "mass": 0.03119759054736325,
+            "y": 0.0037627339363098143,
+            "sleeping": false
+          },
+          {
+            "formula": "KCl",
+            "mass": 0.02906280207241011,
+            "y": 0.0037405920028686524,
+            "sleeping": false
+          },
+          {
+            "formula": "KCl",
+            "mass": 0.031158544386095638,
+            "y": 0.0037624436616897584,
+            "sleeping": false
+          },
+          {
+            "formula": "KCl",
+            "mass": 0.0285206429607112,
+            "y": 0.0037346598505973816,
+            "sleeping": false
+          },
+          {
+            "formula": "KCl",
+            "mass": 0.031151653661297095,
+            "y": 0.0037622660398483275,
+            "sleeping": false
+          },
+          {
+            "formula": "KCl",
+            "mass": 0.031097064461089508,
+            "y": 0.003761708438396454,
+            "sleeping": false
+          },
+          {
+            "formula": "KCl",
+            "mass": 0.031636950677470334,
+            "y": 0.003767293393611908,
+            "sleeping": false
+          },
+          {
+            "formula": "KCl",
+            "mass": 0.03104366295359439,
+            "y": 0.003761163651943207,
+            "sleeping": false
+          },
+          {
+            "formula": "KCl",
+            "mass": 0.03101067792478603,
+            "y": 0.0037608259916305543,
+            "sleeping": false
+          },
+          {
+            "formula": "KCl",
+            "mass": 0.03043080828102245,
+            "y": 0.0037548604607582094,
+            "sleeping": false
+          },
+          {
+            "formula": "KCl",
+            "mass": 0.028748477949983236,
+            "y": 0.003737223744392395,
+            "sleeping": false
+          },
+          {
+            "formula": "KCl",
+            "mass": 0.02878630696919086,
+            "y": 0.003737521171569824,
+            "sleeping": false
+          },
+          {
+            "formula": "KCl",
+            "mass": 0.028862062372274105,
+            "y": 0.003738335371017456,
+            "sleeping": false
+          },
+          {
+            "formula": "KCl",
+            "mass": 0.028385056318594077,
+            "y": 0.0037331914901733397,
+            "sleeping": false
+          },
+          {
+            "formula": "KCl",
+            "mass": 0.03062083226078585,
+            "y": 0.0037568241357803346,
+            "sleeping": false
+          },
+          {
+            "formula": "KCl",
+            "mass": 0.03074366804973249,
+            "y": 0.003758088946342468,
+            "sleeping": false
+          }
+        ],
+        "error": null
+      },
+      {
+        "elapsed": 60.09999999999787,
+        "phase": "react",
+        "progress": 0.34538710510973425,
+        "replay": 0.3065730418337061,
+        "contactProgress": 0.055974263502342816,
+        "contact": 0.06254832396345122,
+        "rate": 0.008935563502547872,
+        "unmet": [],
+        "limit": 1,
+        "temperature": 26.160620517074516,
+        "volume": 0.5461635359693506,
+        "contents": [
+          {
+            "formula": "H2SO4 (conc)",
+            "phase": "aq",
+            "mass": 0.641991958276781,
+            "moles": 0.006546128948902653
+          },
+          {
+            "formula": "H2O",
+            "phase": "l",
+            "mass": 0.020014693877551042,
+            "moles": 0.0011110016029725806
+          },
+          {
+            "formula": "KCl",
+            "phase": "s",
+            "mass": 0.4880008208827955,
+            "moles": 0.00654612894890266
+          },
+          {
+            "formula": "KHSO4",
+            "phase": "aq",
+            "mass": 0.4702859900595176,
+            "moles": 0.0034538710510973515
+          }
+        ],
+        "grains": [
+          {
+            "formula": "KCl",
+            "mass": 0.024446773143507364,
+            "y": 0.003688434064388275,
+            "sleeping": false
+          },
+          {
+            "formula": "KCl",
+            "mass": 0.024596614993825726,
+            "y": 0.003690117597579956,
+            "sleeping": false
+          },
+          {
+            "formula": "KCl",
+            "mass": 0.024574040812814238,
+            "y": 0.003689858019351959,
+            "sleeping": false
+          },
+          {
+            "formula": "KCl",
+            "mass": 0.017933592502017388,
+            "y": 0.003602113723754883,
+            "sleeping": false
+          },
+          {
+            "formula": "KCl",
+            "mass": 0.022967195007339427,
+            "y": 0.003670336604118347,
+            "sleeping": false
+          },
+          {
+            "formula": "KCl",
+            "mass": 0.02597885588056672,
+            "y": 0.0037063109874725343,
+            "sleeping": false
+          },
+          {
+            "formula": "KCl",
+            "mass": 0.02450509423795582,
+            "y": 0.0036890241503715515,
+            "sleeping": false
+          },
+          {
+            "formula": "KCl",
+            "mass": 0.01784307325357858,
+            "y": 0.003600890338420868,
+            "sleeping": false
+          },
+          {
+            "formula": "KCl",
+            "mass": 0.024471854720180115,
+            "y": 0.003688734769821167,
+            "sleeping": false
+          },
+          {
+            "formula": "KCl",
+            "mass": 0.01775826512857562,
+            "y": 0.003599516451358795,
+            "sleeping": false
+          },
+          {
+            "formula": "KCl",
+            "mass": 0.024465988862746337,
+            "y": 0.003688556253910065,
+            "sleeping": false
+          },
+          {
+            "formula": "KCl",
+            "mass": 0.02441952225097367,
+            "y": 0.0036879992485046387,
+            "sleeping": false
+          },
+          {
+            "formula": "KCl",
+            "mass": 0.025931167660904433,
+            "y": 0.003705870509147644,
+            "sleeping": false
+          },
+          {
+            "formula": "KCl",
+            "mass": 0.02437407084896543,
+            "y": 0.0036874541640281675,
+            "sleeping": false
+          },
+          {
+            "formula": "KCl",
+            "mass": 0.024345998663366668,
+            "y": 0.0036871165037155153,
+            "sleeping": false
+          },
+          {
+            "formula": "KCl",
+            "mass": 0.022858235273376073,
+            "y": 0.003668864667415619,
+            "sleeping": false
+          },
+          {
+            "formula": "KCl",
+            "mass": 0.017536923021703055,
+            "y": 0.003596339523792267,
+            "sleeping": false
+          },
+          {
+            "formula": "KCl",
+            "mass": 0.017567994313264546,
+            "y": 0.0035966938734054567,
+            "sleeping": false
+          },
+          {
+            "formula": "KCl",
+            "mass": 0.01763399679918458,
+            "y": 0.00359767884016037,
+            "sleeping": false
+          },
+          {
+            "formula": "KCl",
+            "mass": 0.017659423556925083,
+            "y": 0.0035980477929115295,
+            "sleeping": false
+          },
+          {
+            "formula": "KCl",
+            "mass": 0.023015290954025863,
+            "y": 0.003670828938484192,
+            "sleeping": false
+          },
+          {
+            "formula": "KCl",
+            "mass": 0.023116848996998802,
+            "y": 0.0036720934510231017,
+            "sleeping": false
+          }
+        ],
+        "error": null
+      },
+      {
+        "elapsed": 90.09999999999617,
+        "phase": "react",
+        "progress": 0.6046730641683851,
+        "replay": 0.5812328832280771,
+        "contactProgress": 0.055974263502342816,
+        "contact": 0.06376732255611715,
+        "rate": 0.009110229466293696,
+        "unmet": [],
+        "limit": 1,
+        "temperature": 26.89502937181426,
+        "volume": 0.5461635359693506,
+        "contents": [
+          {
+            "formula": "H2SO4 (conc)",
+            "phase": "aq",
+            "mass": 0.38770503250878113,
+            "moles": 0.003953269358316146
+          },
+          {
+            "formula": "H2O",
+            "phase": "l",
+            "mass": 0.020014693877551042,
+            "moles": 0.0011110016029725806
+          },
+          {
+            "formula": "KCl",
+            "phase": "s",
+            "mass": 0.2947083241237526,
+            "moles": 0.003953269358316153
+          },
+          {
+            "formula": "KHSO4",
+            "phase": "aq",
+            "mass": 0.8233349376329574,
+            "moles": 0.006046730641683857
+          }
+        ],
+        "grains": [
+          {
+            "formula": "KCl",
+            "mass": 0.017206899317359553,
+            "y": 0.003591364920139313,
+            "sleeping": false
+          },
+          {
+            "formula": "KCl",
+            "mass": 0.017325494533925626,
+            "y": 0.0035930487513542177,
+            "sleeping": false
+          },
+          {
+            "formula": "KCl",
+            "mass": 0.017307623911328576,
+            "y": 0.003592776358127594,
+            "sleeping": false
+          },
+          {
+            "formula": "KCl",
+            "mass": 0.006045101466182875,
+            "y": 0.0033611792325973513,
+            "sleeping": false
+          },
+          {
+            "formula": "KCl",
+            "mass": 0.014701469020944961,
+            "y": 0.0035514310002326965,
+            "sleeping": false
+          },
+          {
+            "formula": "KCl",
+            "mass": 0.019563289710839673,
+            "y": 0.0036254224181175233,
+            "sleeping": false
+          },
+          {
+            "formula": "KCl",
+            "mass": 0.017253051570834715,
+            "y": 0.003591955006122589,
+            "sleeping": false
+          },
+          {
+            "formula": "KCl",
+            "mass": 0.005997184129876627,
+            "y": 0.003359828293323517,
+            "sleeping": false
+          },
+          {
+            "formula": "KCl",
+            "mass": 0.017226746450190854,
+            "y": 0.0035916662216186526,
+            "sleeping": false
+          },
+          {
+            "formula": "KCl",
+            "mass": 0.0074124770744399115,
+            "y": 0.003399966359138489,
+            "sleeping": false
+          },
+          {
+            "formula": "KCl",
+            "mass": 0.017222104580835312,
+            "y": 0.0035914871096611022,
+            "sleeping": false
+          },
+          {
+            "formula": "KCl",
+            "mass": 0.017185337555293455,
+            "y": 0.0035909309983253477,
+            "sleeping": false
+          },
+          {
+            "formula": "KCl",
+            "mass": 0.01952382010576874,
+            "y": 0.003624981641769409,
+            "sleeping": false
+          },
+          {
+            "formula": "KCl",
+            "mass": 0.017149379206083698,
+            "y": 0.0035903847217559817,
+            "sleeping": false
+          },
+          {
+            "formula": "KCl",
+            "mass": 0.017127173082018304,
+            "y": 0.0035900482535362243,
+            "sleeping": false
+          },
+          {
+            "formula": "KCl",
+            "mass": 0.013726650166834685,
+            "y": 0.0035345497727394103,
+            "sleeping": false
+          },
+          {
+            "formula": "KCl",
+            "mass": 0.00583253756824751,
+            "y": 0.0033547475934028624,
+            "sleeping": false
+          },
+          {
+            "formula": "KCl",
+            "mass": 0.005851217901036554,
+            "y": 0.003355219066143036,
+            "sleeping": false
+          },
+          {
+            "formula": "KCl",
+            "mass": 0.0058852246401869136,
+            "y": 0.0033562734723091127,
+            "sleeping": false
+          },
+          {
+            "formula": "KCl",
+            "mass": 0.007335794316773921,
+            "y": 0.00339792400598526,
+            "sleeping": false
+          },
+          {
+            "formula": "KCl",
+            "mass": 0.013876150823034467,
+            "y": 0.0035371726751327517,
+            "sleeping": false
+          },
+          {
+            "formula": "KCl",
+            "mass": 0.013953596991715653,
+            "y": 0.0035385236144065855,
+            "sleeping": false
+          }
+        ],
+        "error": null
+      },
+      {
+        "elapsed": 120.09999999999447,
+        "phase": "react",
+        "progress": 0.8649678217453254,
+        "replay": 0.8569613379867745,
+        "contactProgress": 0.055974263502342816,
+        "contact": 0.07024302356441736,
+        "rate": 0.009990205880503478,
+        "unmet": [],
+        "limit": 0.9997809953444272,
+        "temperature": 27.52909127649491,
+        "volume": 0.5461635359693506,
+        "contents": [
+          {
+            "formula": "H2SO4 (conc)",
+            "phase": "aq",
+            "mass": 0.13242875785792446,
+            "moles": 0.001350321782546746
+          },
+          {
+            "formula": "H2O",
+            "phase": "l",
+            "mass": 0.020014693877551042,
+            "moles": 0.0011110016029725806
+          },
+          {
+            "formula": "KCl",
+            "phase": "s",
+            "mass": 0.10066378824529534,
+            "moles": 0.001350321782546753
+          },
+          {
+            "formula": "KHSO4",
+            "phase": "aq",
+            "mass": 1.1777574854448705,
+            "moles": 0.008649678217453258
+          }
+        ],
+        "grains": [
+          {
+            "formula": "KCl",
+            "mass": 0.000024398113912499936,
+            "y": 0.0026252010464668275,
+            "sleeping": false
+          },
+          {
+            "formula": "KCl",
+            "mass": 0.00002307443712544942,
+            "y": 0.002628988325595856,
+            "sleeping": false
+          },
+          {
+            "formula": "KCl",
+            "mass": 0.000020718328718225102,
+            "y": 0.0026278990507125856,
+            "sleeping": false
+          },
+          {
+            "formula": "KCl",
+            "mass": 0.000022618199127584108,
+            "y": 0.0026295724511146545,
+            "sleeping": false
+          },
+          {
+            "formula": "KCl",
+            "mass": 0.00002476943468924096,
+            "y": 0.0026233682036399843,
+            "sleeping": false
+          },
+          {
+            "formula": "KCl",
+            "mass": 0.000021453900102737454,
+            "y": 0.0026293420791625977,
+            "sleeping": false
+          },
+          {
+            "formula": "KCl",
+            "mass": 0.000017092617718633275,
+            "y": 0.002632795572280884,
+            "sleeping": false
+          },
+          {
+            "formula": "KCl",
+            "mass": 0.007648011232389592,
+            "y": 0.0034063076972961426,
+            "sleeping": false
+          },
+          {
+            "formula": "KCl",
+            "mass": 0.007751192394295782,
+            "y": 0.0034088662266731264,
+            "sleeping": false
+          },
+          {
+            "formula": "KCl",
+            "mass": 0.007736310975231157,
+            "y": 0.0034084832668304444,
+            "sleeping": false
+          },
+          {
+            "formula": "KCl",
+            "mass": 0.0031248645567347718,
+            "y": 0.003252488076686859,
+            "sleeping": false
+          },
+          {
+            "formula": "KCl",
+            "mass": 0.009205984280612292,
+            "y": 0.0034442052245140077,
+            "sleeping": false
+          },
+          {
+            "formula": "KCl",
+            "mass": 0.007683981179790646,
+            "y": 0.0034071296453475953,
+            "sleeping": false
+          },
+          {
+            "formula": "KCl",
+            "mass": 0.007666615195208527,
+            "y": 0.003406791090965271,
+            "sleeping": false
+          },
+          {
+            "formula": "KCl",
+            "mass": 0.007659172894550274,
+            "y": 0.003406486213207245,
+            "sleeping": false
+          },
+          {
+            "formula": "KCl",
+            "mass": 0.00762408604994199,
+            "y": 0.00340557336807251,
+            "sleeping": false
+          },
+          {
+            "formula": "KCl",
+            "mass": 0.009157906939163782,
+            "y": 0.0034432095289230347,
+            "sleeping": false
+          },
+          {
+            "formula": "KCl",
+            "mass": 0.0075919366979654195,
+            "y": 0.00340473473072052,
+            "sleeping": false
+          },
+          {
+            "formula": "KCl",
+            "mass": 0.007580204522318281,
+            "y": 0.0034044277667999267,
+            "sleeping": false
+          },
+          {
+            "formula": "KCl",
+            "mass": 0.0033015277136814185,
+            "y": 0.0032605496048927307,
+            "sleeping": false
+          },
+          {
+            "formula": "KCl",
+            "mass": 0.0033697592386351363,
+            "y": 0.003263632953166962,
+            "sleeping": false
+          },
+          {
+            "formula": "KCl",
+            "mass": 0.0034081093433819213,
+            "y": 0.0032653477787971496,
+            "sleeping": false
+          }
+        ],
+        "error": null
+      },
+      {
+        "elapsed": 150.0000000000115,
+        "phase": "react",
+        "progress": 0.9928834343210833,
+        "replay": 0.9924614706953655,
+        "contactProgress": 0.055974263502342816,
+        "contact": 0,
+        "rate": 0,
+        "unmet": [
+          "Chất rắn chưa tiếp xúc pha lỏng tham gia phản ứng."
+        ],
+        "limit": 0.9924614706953655,
+        "temperature": 27.61517455312022,
+        "volume": 0.5461635359693506,
+        "contents": [
+          {
+            "formula": "H2SO4 (conc)",
+            "phase": "aq",
+            "mass": 0.006979358292627281,
+            "moles": 0.00007116565678916796
+          },
+          {
+            "formula": "H2O",
+            "phase": "l",
+            "mass": 0.020014693877551042,
+            "moles": 0.0011110016029725806
+          },
+          {
+            "formula": "KCl",
+            "phase": "s",
+            "mass": 0.00530525738231941,
+            "moles": 0.0000711656567891749
+          },
+          {
+            "formula": "KHSO4",
+            "phase": "aq",
+            "mass": 1.351929941840274,
+            "moles": 0.009928834343210836
+          }
+        ],
+        "grains": [
+          {
+            "formula": "KCl",
+            "mass": 0.000024398113912499936,
+            "y": 0.00262340247631073,
+            "sleeping": false
+          },
+          {
+            "formula": "KCl",
+            "mass": 0.00002307443712544942,
+            "y": 0.0026293662190437317,
+            "sleeping": false
+          },
+          {
+            "formula": "KCl",
+            "mass": 0.000020718328718225102,
+            "y": 0.0026283693313598634,
+            "sleeping": false
+          },
+          {
+            "formula": "KCl",
+            "mass": 0.000022618199127584108,
+            "y": 0.0026299208402633667,
+            "sleeping": false
+          },
+          {
+            "formula": "KCl",
+            "mass": 0.00002476943468924096,
+            "y": 0.0026248207688331603,
+            "sleeping": false
+          },
+          {
+            "formula": "KCl",
+            "mass": 0.000021453900102737454,
+            "y": 0.002629237174987793,
+            "sleeping": false
+          },
+          {
+            "formula": "KCl",
+            "mass": 0.000017092617718633275,
+            "y": 0.002633325159549713,
+            "sleeping": false
+          },
+          {
+            "formula": "KCl",
+            "mass": 0.00010594442075057521,
+            "y": 0.002579156160354614,
+            "sleeping": false
+          },
+          {
+            "formula": "KCl",
+            "mass": 0.00013447620755149633,
+            "y": 0.002570719122886658,
+            "sleeping": false
+          },
+          {
+            "formula": "KCl",
+            "mass": 0.00013723152662994617,
+            "y": 0.002568739652633667,
+            "sleeping": false
+          },
+          {
+            "formula": "KCl",
+            "mass": 0.00012841553295327152,
+            "y": 0.0025722143054008485,
+            "sleeping": false
+          },
+          {
+            "formula": "KCl",
+            "mass": 0.0006992102631736446,
+            "y": 0.002460198253393173,
+            "sleeping": false
+          },
+          {
+            "formula": "KCl",
+            "mass": 0.0005876292938034128,
+            "y": 0.002464604377746582,
+            "sleeping": false
+          },
+          {
+            "formula": "KCl",
+            "mass": 0.0005647364397467722,
+            "y": 0.0024684824049472807,
+            "sleeping": false
+          },
+          {
+            "formula": "KCl",
+            "mass": 0.0004449874668369392,
+            "y": 0.0024780985713005067,
+            "sleeping": false
+          },
+          {
+            "formula": "KCl",
+            "mass": 0.0003928755551978333,
+            "y": 0.0025198963284492493,
+            "sleeping": false
+          },
+          {
+            "formula": "KCl",
+            "mass": 0.00035049252162804956,
+            "y": 0.002499363571405411,
+            "sleeping": false
+          },
+          {
+            "formula": "KCl",
+            "mass": 0.00033016628281867653,
+            "y": 0.0025037854909896852,
+            "sleeping": false
+          },
+          {
+            "formula": "KCl",
+            "mass": 0.000383200342161319,
+            "y": 0.0024988119304180144,
+            "sleeping": false
+          },
+          {
+            "formula": "KCl",
+            "mass": 0.0002181882423204158,
+            "y": 0.0025333136320114134,
+            "sleeping": false
+          },
+          {
+            "formula": "KCl",
+            "mass": 0.00033524132697739396,
+            "y": 0.0025097039341926575,
+            "sleeping": false
+          },
+          {
+            "formula": "KCl",
+            "mass": 0.00033833692837529467,
+            "y": 0.002501823306083679,
+            "sleeping": false
+          }
+        ],
+        "error": null
+      },
+      {
+        "elapsed": 180.00000000003539,
+        "phase": "react",
+        "progress": 0.9928867562510215,
+        "replay": 0.9924649895930077,
+        "contactProgress": 0.055974263502342816,
+        "contact": 0,
+        "rate": 0,
+        "unmet": [
+          "Chất rắn chưa tiếp xúc pha lỏng tham gia phản ứng."
+        ],
+        "limit": 0.9924649895930078,
+        "temperature": 27.276787505595962,
+        "volume": 0.5461635359693506,
+        "contents": [
+          {
+            "formula": "H2SO4 (conc)",
+            "phase": "aq",
+            "mass": 0.006976100409498075,
+            "moles": 0.00007113243748978378
+          },
+          {
+            "formula": "H2O",
+            "phase": "l",
+            "mass": 0.020014693877551042,
+            "moles": 0.0011110016029725806
+          },
+          {
+            "formula": "KCl",
+            "phase": "s",
+            "mass": 0.005302780949988918,
+            "moles": 0.00007113243748979071
+          },
+          {
+            "formula": "KHSO4",
+            "phase": "aq",
+            "mass": 1.3519344650465166,
+            "moles": 0.00992886756251022
+          }
+        ],
+        "grains": [
+          {
+            "formula": "KCl",
+            "mass": 0.000024398113912499936,
+            "y": 0.0026254919171333313,
+            "sleeping": false
+          },
+          {
+            "formula": "KCl",
+            "mass": 0.00002307443712544942,
+            "y": 0.0026293665170669554,
+            "sleeping": false
+          },
+          {
+            "formula": "KCl",
+            "mass": 0.000020718328718225102,
+            "y": 0.0026288488507270813,
+            "sleeping": false
+          },
+          {
+            "formula": "KCl",
+            "mass": 0.000022618199127584108,
+            "y": 0.0026299208402633667,
+            "sleeping": false
+          },
+          {
+            "formula": "KCl",
+            "mass": 0.00002476943468924096,
+            "y": 0.002624179720878601,
+            "sleeping": false
+          },
+          {
+            "formula": "KCl",
+            "mass": 0.000021453900102737454,
+            "y": 0.0026292359828948976,
+            "sleeping": false
+          },
+          {
+            "formula": "KCl",
+            "mass": 0.000017092617718633275,
+            "y": 0.002634112238883972,
+            "sleeping": false
+          },
+          {
+            "formula": "KCl",
+            "mass": 0.00010594442075057521,
+            "y": 0.002579156756401062,
+            "sleeping": false
+          },
+          {
+            "formula": "KCl",
+            "mass": 0.00013447620755149633,
+            "y": 0.0025696781277656554,
+            "sleeping": false
+          },
+          {
+            "formula": "KCl",
+            "mass": 0.00013723152662994617,
+            "y": 0.0025687426328659057,
+            "sleeping": false
+          },
+          {
+            "formula": "KCl",
+            "mass": 0.00012841553295327152,
+            "y": 0.002572215795516968,
+            "sleeping": false
+          },
+          {
+            "formula": "KCl",
+            "mass": 0.0006992102631736446,
+            "y": 0.002460196316242218,
+            "sleeping": false
+          },
+          {
+            "formula": "KCl",
+            "mass": 0.0005876292938034128,
+            "y": 0.0024861955642700197,
+            "sleeping": false
+          },
+          {
+            "formula": "KCl",
+            "mass": 0.0005647364397467722,
+            "y": 0.0024574325978755952,
+            "sleeping": false
+          },
+          {
+            "formula": "KCl",
+            "mass": 0.0004449874668369392,
+            "y": 0.002478111833333969,
+            "sleeping": false
+          },
+          {
+            "formula": "KCl",
+            "mass": 0.0003928755551978333,
+            "y": 0.0025199005007743836,
+            "sleeping": false
+          },
+          {
+            "formula": "KCl",
+            "mass": 0.00035049252162804956,
+            "y": 0.002498691827058792,
+            "sleeping": false
+          },
+          {
+            "formula": "KCl",
+            "mass": 0.00033016628281867653,
+            "y": 0.002503783106803894,
+            "sleeping": false
+          },
+          {
+            "formula": "KCl",
+            "mass": 0.000383200342161319,
+            "y": 0.0024988126754760744,
+            "sleeping": false
+          },
+          {
+            "formula": "KCl",
+            "mass": 0.0002181882423204158,
+            "y": 0.0025337153673172,
+            "sleeping": false
+          },
+          {
+            "formula": "KCl",
+            "mass": 0.00033441885480639094,
+            "y": 0.002502761483192444,
+            "sleeping": false
+          },
+          {
+            "formula": "KCl",
+            "mass": 0.0003366829682158054,
+            "y": 0.0025022041797637938,
+            "sleeping": false
+          }
+        ],
+        "error": null
+      }
+    ],
+    "end": {
+      "elapsed": 203.71666666672093,
+      "phase": "error",
+      "progress": 0.9928867562510215,
+      "replay": 0.9924649895930077,
+      "contactProgress": 0.055974263502342816,
+      "contact": 0,
+      "rate": 0,
+      "unmet": [
+        "Chất rắn chưa tiếp xúc pha lỏng tham gia phản ứng."
+      ],
+      "limit": 0.9924649895930078,
+      "temperature": 27.040547256730292,
+      "volume": 0.5461635359693506,
+      "contents": [
+        {
+          "formula": "H2SO4 (conc)",
+          "phase": "aq",
+          "mass": 0.006976100409498075,
+          "moles": 0.00007113243748978378
+        },
+        {
+          "formula": "H2O",
+          "phase": "l",
+          "mass": 0.020014693877551042,
+          "moles": 0.0011110016029725806
+        },
+        {
+          "formula": "KCl",
+          "phase": "s",
+          "mass": 0.005302780949988918,
+          "moles": 0.00007113243748979071
+        },
+        {
+          "formula": "KHSO4",
+          "phase": "aq",
+          "mass": 1.3519344650465166,
+          "moles": 0.00992886756251022
+        }
+      ],
+      "grains": [
+        {
+          "formula": "KCl",
+          "mass": 0.000024398113912499936,
+          "y": 0.0026231518387794493,
+          "sleeping": false
+        },
+        {
+          "formula": "KCl",
+          "mass": 0.00002307443712544942,
+          "y": 0.0026293668150901795,
+          "sleeping": false
+        },
+        {
+          "formula": "KCl",
+          "mass": 0.000020718328718225102,
+          "y": 0.0026279589533805847,
+          "sleeping": false
+        },
+        {
+          "formula": "KCl",
+          "mass": 0.000022618199127584108,
+          "y": 0.002629919946193695,
+          "sleeping": false
+        },
+        {
+          "formula": "KCl",
+          "mass": 0.00002476943468924096,
+          "y": 0.0026251354813575743,
+          "sleeping": false
+        },
+        {
+          "formula": "KCl",
+          "mass": 0.000021453900102737454,
+          "y": 0.0026292383670806887,
+          "sleeping": false
+        },
+        {
+          "formula": "KCl",
+          "mass": 0.000017092617718633275,
+          "y": 0.002634948790073395,
+          "sleeping": false
+        },
+        {
+          "formula": "KCl",
+          "mass": 0.00010594442075057521,
+          "y": 0.0025795313715934755,
+          "sleeping": false
+        },
+        {
+          "formula": "KCl",
+          "mass": 0.00013447620755149633,
+          "y": 0.0025696748495101927,
+          "sleeping": false
+        },
+        {
+          "formula": "KCl",
+          "mass": 0.00013723152662994617,
+          "y": 0.0025687426328659057,
+          "sleeping": false
+        },
+        {
+          "formula": "KCl",
+          "mass": 0.00012841553295327152,
+          "y": 0.00257221519947052,
+          "sleeping": false
+        },
+        {
+          "formula": "KCl",
+          "mass": 0.0006992102631736446,
+          "y": 0.0024601976573467256,
+          "sleeping": false
+        },
+        {
+          "formula": "KCl",
+          "mass": 0.0005876292938034128,
+          "y": 0.0024533796310424803,
+          "sleeping": false
+        },
+        {
+          "formula": "KCl",
+          "mass": 0.0005647364397467722,
+          "y": 0.00249173566699028,
+          "sleeping": false
+        },
+        {
+          "formula": "KCl",
+          "mass": 0.0004449874668369392,
+          "y": 0.002478121966123581,
+          "sleeping": false
+        },
+        {
+          "formula": "KCl",
+          "mass": 0.0003928755551978333,
+          "y": 0.0025198957324028015,
+          "sleeping": false
+        },
+        {
+          "formula": "KCl",
+          "mass": 0.00035049252162804956,
+          "y": 0.0024986857175827025,
+          "sleeping": false
+        },
+        {
+          "formula": "KCl",
+          "mass": 0.00033016628281867653,
+          "y": 0.002503710687160492,
+          "sleeping": false
+        },
+        {
+          "formula": "KCl",
+          "mass": 0.000383200342161319,
+          "y": 0.0024988126754760744,
+          "sleeping": false
+        },
+        {
+          "formula": "KCl",
+          "mass": 0.0002181882423204158,
+          "y": 0.0025337156653404236,
+          "sleeping": false
+        },
+        {
+          "formula": "KCl",
+          "mass": 0.00033441885480639094,
+          "y": 0.002503541111946106,
+          "sleeping": false
+        },
+        {
+          "formula": "KCl",
+          "mass": 0.0003366829682158054,
+          "y": 0.002502203285694122,
+          "sleeping": false
+        }
+      ],
+      "error": "Chưa đạt trạng thái cuối sau 180 giây mô phỏng. Kiểm tra điều kiện của bài."
+    }
+  }
+]
