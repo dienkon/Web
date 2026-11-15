@@ -5,6 +5,8 @@ import { useAppStore, getSolidMorphology } from '../../../store/useAppStore';
 import { depositSpatula } from '../../../handling/instrumentOperations';
 import { useToolDock } from '../../../handling/toolDock';
 import { instrumentHome } from '../../../handling/instrumentCatalog';
+import { simulationFrameDt } from '../../../core/clock';
+import { RinsePoseMotion, rinseToolPose } from '../../../handling/instrumentRinseVisual';
 
 const stainlessSteelMaterial = new THREE.MeshStandardMaterial({
   color: '#e2e8f0',
@@ -32,9 +34,11 @@ export const InteractiveSpatula = React.memo(function InteractiveSpatula({
   const targetVessel = useAppStore(state => state.selectedVesselId ? state.vessels[state.selectedVesselId] : undefined);
   const spatulaState = useAppStore(state => state.spatulaState);
   const transferring = useAppStore(state => state.pouringChemical?.source?.kind === 'spatula');
+  const rinsing = useAppStore(state => state.instrumentRinse?.tool === 'spatula');
 
   const groupRef = useRef<THREE.Group>(null);
-  const isActive = activeTool === 'spatula' && !dock.moveMode;
+  const rinseMotion = useRef(new RinsePoseMotion());
+  const isActive = activeTool === 'spatula' && !dock.moveMode && !rinsing;
 
   // Target world position: hovering slightly above selected vessel or resting in rack
   const targetPos = useMemo(() => {
@@ -50,7 +54,14 @@ export const InteractiveSpatula = React.memo(function InteractiveSpatula({
 
   // The loaded dock tool gives way to the finite contact animation during transfer.
   useFrame((_, delta) => {
-    if (!groupRef.current || transferring || useAppStore.getState().isSimulationPaused) return;
+    if (!groupRef.current || transferring) return;
+    const app = useAppStore.getState();
+    const rinse = app.instrumentRinse?.tool === 'spatula' ? app.instrumentRinse : null;
+    if (rinseMotion.current.apply(groupRef.current, rinse, rinse && rinseToolPose(rinse), {
+      position: [targetPos.x, targetPos.y, targetPos.z], rotation: [isActive ? 0 : -Math.PI / 2, 0, isActive ? -0.2 : 0],
+    }, simulationFrameDt(delta, app), app.pourEpoch)) { groupRef.current.visible = true; return; }
+    groupRef.current.visible = dock.visible;
+    if (app.isSimulationPaused) return;
 
     groupRef.current.position.lerp(targetPos, 1 - Math.exp(-delta * 8));
 
@@ -63,7 +74,7 @@ export const InteractiveSpatula = React.memo(function InteractiveSpatula({
 
   const handleSpatulaAction = (e: { stopPropagation: () => void }) => {
     e.stopPropagation();
-    if (dock.moveMode || transferring) return;
+    if (dock.moveMode || transferring || rinsing || rinseMotion.current.hasPose) return;
     if (!isActive) { setActiveTool('spatula'); return; }
     void depositSpatula();
   };
@@ -72,16 +83,16 @@ export const InteractiveSpatula = React.memo(function InteractiveSpatula({
   const solidColor = spatulaState.color || '#cbd5e1';
   const morphology = getSolidMorphology(spatulaState.chemical || '');
 
-  if (!dock.visible || transferring) return null;
+  if ((!dock.visible && !rinsing && !rinseMotion.current.hasPose) || transferring) return null;
 
   return (
     <group
       ref={groupRef}
-      name="tool-spatula" visible={dock.visible}
+      name="tool-spatula" visible={dock.visible || rinsing || rinseMotion.current.hasPose}
       position={position} rotation={isActive ? [0, 0, 0] : [-Math.PI / 2, 0, 0]}
-      onPointerDown={dock.onPointerDown}
+      onPointerDown={event => { if (rinsing || rinseMotion.current.hasPose) event.stopPropagation(); else dock.onPointerDown(event); }}
       onClick={handleSpatulaAction}
-      onPointerOver={() => { document.body.style.cursor = dock.moveMode ? 'grab' : 'pointer'; }}
+      onPointerOver={() => { document.body.style.cursor = rinsing || rinseMotion.current.hasPose ? 'wait' : dock.moveMode ? 'grab' : 'pointer'; }}
       onPointerOut={() => { document.body.style.cursor = 'auto'; }}
     >
 {/* Main Hexagonal/Cylindrical Stainless Steel Handle */}

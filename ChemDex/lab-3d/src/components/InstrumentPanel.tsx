@@ -5,6 +5,7 @@ import { INSTRUMENTS, getInstrument, type InstrumentId } from '../handling/instr
 import { useInstrumentStore } from '../handling/instrumentState';
 import { useToolDockStore } from '../handling/toolDock';
 import { readInstrument } from '../handling/instrumentReadings';
+import { InstrumentRinseStatus } from './InstrumentRinseStatus';
 import {
   activateInstrument,
   alignSelectedVessel,
@@ -158,6 +159,7 @@ function InstrumentDetails({ id }: { id: InstrumentId }) {
   useAppStore(state => state.spatulaState);
   useAppStore(state => state.spills);
   useAppStore(state => state.toolContamination);
+  const rinsing = useAppStore(state => state.instrumentRinse !== null);
   useInstrumentStore();
   useToolDockStore(state => state.positions);
   const definition = getInstrument(id);
@@ -182,7 +184,9 @@ function InstrumentDetails({ id }: { id: InstrumentId }) {
       </div>)}
     </dl>
     {definition.targetRequired && problem && <p className="rounded-lg bg-amber-50 p-2 text-xs text-amber-900">{problem}</p>}
-    <InstrumentActions id={id} disabled={Boolean(problem)} />
+    <fieldset disabled={rinsing} className="min-w-0 border-0 p-0">
+      <InstrumentActions id={id} disabled={Boolean(problem)} />
+    </fieldset>
     {latest && <p role="status" className={`rounded-lg p-2 text-xs ${latest.success ? 'bg-emerald-50 text-emerald-900' : 'bg-amber-50 text-amber-900'}`}>
       {latest.message}
     </p>}
@@ -192,7 +196,9 @@ function InstrumentDetails({ id }: { id: InstrumentId }) {
         {definition.instructions.map(instruction => <li key={instruction}>{instruction}</li>)}
       </ol>
     </details>
-    <InstrumentPlacement id={id} />
+    <fieldset disabled={rinsing} className="min-w-0 border-0 p-0">
+      <InstrumentPlacement id={id} />
+    </fieldset>
   </div>;
 }
 
@@ -224,6 +230,7 @@ export default function InstrumentPanel({ onClose }: { onClose: () => void }) {
       <button aria-label="Đóng bảng dụng cụ" className="rounded p-1 hover:bg-slate-100" onClick={onClose}><X size={18} /></button>
     </div>
     <div className="overflow-y-auto space-y-4 p-4">
+      <InstrumentRinseStatus />
       <label className="block space-y-1 text-xs">
         <span>Dụng cụ</span>
         <select aria-label="Chọn dụng cụ" className="w-full rounded border p-2" value={id} onChange={event => setId(event.target.value as InstrumentId)}>

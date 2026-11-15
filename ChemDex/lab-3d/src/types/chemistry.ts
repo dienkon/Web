@@ -374,6 +374,7 @@ export interface ReactionRecord {
 }
 
 export interface LabMaterialSnapshot {
+  toolContamination?: Record<string, string | null>;
   physics?: import('../physical/types').PhysicalLabSave;
   workbenchEscapedGas_g?: Record<string, number>;
   pipetteSample?: import('../handling/aliquot').LiquidAliquot | null;
@@ -387,7 +388,7 @@ export interface LabMaterialSnapshot {
 export interface LabActionHistory {
   id: string;
   timestamp: number;
-  action: 'ADD_VESSEL' | 'REMOVE_VESSEL' | 'POUR' | 'HEAT' | 'MEASURE' | 'RESET' | 'TITRATE';
+  action: 'ADD_VESSEL' | 'REMOVE_VESSEL' | 'POUR' | 'HEAT' | 'MEASURE' | 'RESET' | 'TITRATE' | 'RINSE';
   description_en: string;
   description_vi: string;
   snapshot: {

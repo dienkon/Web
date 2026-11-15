@@ -11,11 +11,13 @@ import { Quaternion, Vector3 } from 'three';
 
 /** One shared transform for the glass and EVERYTHING expressed in its local
  * model coordinates: liquid, graduations, solids and physical effects. */
-export function VesselBodyScale({ vessel, children }: { vessel: Pick<VesselState, 'id' | 'type' | 'capacity_ml'>; children: React.ReactNode }) {
+export function VesselBodyScale({ vessel, children, presentationDriven }: { vessel: Pick<VesselState, 'id' | 'type' | 'capacity_ml'>; children: React.ReactNode;
+  presentationDriven?: () => boolean }) {
   const { scale, offsetY } = vesselBodyTransform(vessel);
   const body = useRef<THREE.Group>(null);
   const scratch = useRef({ position: new Vector3(), a: new Quaternion(), b: new Quaternion() });
   useFrame(() => {
+    if (presentationDriven?.()) return;
     const state = usePhysicsStore.getState(), parent = body.current?.parent;
     if (!state.enabled || state.status !== 'running' || !parent) return;
     const current = state.snapshot?.objects.find(o => o.id === vessel.id);

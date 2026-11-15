@@ -24,6 +24,7 @@ import { vesselContours } from '../../science/vesselContours';
 import { VesselBodyScale } from './VesselBodyScale';
 import { liquidOpacity } from '../../science/liquidOptics';
 import { useVesselVisualRuntime, useVesselVisualState, useVesselVisualStore } from '../../simulation/render/VesselVisualContext';
+import { RinsePoseMotion, rinseBottlePose } from '../../handling/instrumentRinseVisual';
 
 // Glassware material reference matching active high-tier physical glass
 export const glassMaterial = getGlassMaterials('high').front as MeshPhysicalMaterial;
@@ -2902,6 +2903,7 @@ export const WashBottle = React.memo(function WashBottle({ position, id }: { pos
   const isHovered = useAppStore(state => state.hoveredVesselId === id);
   const moveMode = useAppStore(state => state.moveMode);
   const vessel = useAppStore(state => state.vessels[id]);
+  const rinsing = useAppStore(state => state.instrumentRinse?.bottleId === id);
 
   const setDraggingVesselId = useAppStore(state => state.setDraggingVesselId);
   const setHoveredVesselId = useAppStore(state => state.setHoveredVesselId);
@@ -2910,9 +2912,17 @@ export const WashBottle = React.memo(function WashBottle({ position, id }: { pos
 
   const [tiltAngle, setTiltAngle] = useState(0);
   const groupRef = useRef<THREE.Group>(null);
+  const rinseMotion = useRef(new RinsePoseMotion());
   const latheGeom = useMemo(() => createVesselLatheGeometry('wash_bottle', 36), []);
 
   useFrame((_, delta) => {
+    if (groupRef.current && vessel) {
+      const state = useAppStore.getState();
+      const rinse = state.instrumentRinse?.bottleId === id ? state.instrumentRinse : null;
+      if (rinseMotion.current.apply(groupRef.current, rinse, rinse && rinseBottlePose(rinse, vessel), {
+        position: [...position], rotation: [tiltAngle, vessel.rotationY || 0, 0],
+      }, simulationFrameDt(delta, state), state.pourEpoch)) return;
+    }
     if (tiltAngle > 0 && !isSelected && !isHovered) {
       setTiltAngle(prev => Math.max(0, prev - delta * 2.5));
     }
@@ -2929,13 +2939,14 @@ export const WashBottle = React.memo(function WashBottle({ position, id }: { pos
   return (
     <group 
       ref={groupRef}
+      name={`wash-bottle-${id}`}
       position={position}
-      onClick={(e) => { e.stopPropagation(); openVesselInfo(id); }}
-      onPointerDown={(e) => { e.stopPropagation(); openVesselInfo(id); if (moveMode && !vessel.isLocked) setDraggingVesselId(id); }}
-      onPointerOver={(e) => { e.stopPropagation(); setHoveredVesselId(id); document.body.style.cursor = vessel.isLocked ? 'not-allowed' : (moveMode ? 'grab' : 'pointer'); }}
+      onClick={(e) => { e.stopPropagation(); if (!rinsing && !rinseMotion.current.hasPose) openVesselInfo(id); }}
+      onPointerDown={(e) => { e.stopPropagation(); if (rinsing || rinseMotion.current.hasPose) return; openVesselInfo(id); if (moveMode && !vessel.isLocked) setDraggingVesselId(id); }}
+      onPointerOver={(e) => { e.stopPropagation(); if (!rinsing && !rinseMotion.current.hasPose) setHoveredVesselId(id); document.body.style.cursor = rinsing || rinseMotion.current.hasPose ? 'wait' : vessel.isLocked ? 'not-allowed' : (moveMode ? 'grab' : 'pointer'); }}
       onPointerOut={() => { setHoveredVesselId(null); document.body.style.cursor = 'auto'; }}
     >
-      <VesselBodyScale vessel={vessel}>
+      <VesselBodyScale vessel={vessel} presentationDriven={() => useAppStore.getState().instrumentRinse?.bottleId === id || rinseMotion.current.hasPose}>
       <VesselFloorRing isSelected={isSelected} isDropTarget={isDropTarget} isChemicalDrop={false} isNearestPourTarget={isNearestPourTarget} />
 
       {/* Translucent LDPE Plastic Body */}
@@ -2960,8 +2971,8 @@ export const WashBottle = React.memo(function WashBottle({ position, id }: { pos
       {/* Red Threaded Cap & Squeeze Trigger */}
       <group 
         position={[0, 1.38, 0]}
-        onClick={(e) => { e.stopPropagation(); squirtWashBottle(id); }}
-        onPointerOver={(e) => { e.stopPropagation(); document.body.style.cursor = 'pointer'; }}
+        onClick={(e) => { e.stopPropagation(); if (!rinsing && !rinseMotion.current.hasPose) squirtWashBottle(id); }}
+        onPointerOver={(e) => { e.stopPropagation(); document.body.style.cursor = rinsing || rinseMotion.current.hasPose ? 'wait' : 'pointer'; }}
         onPointerOut={() => { document.body.style.cursor = 'auto'; }}
       >
         <mesh castShadow>
@@ -2983,8 +2994,8 @@ export const WashBottle = React.memo(function WashBottle({ position, id }: { pos
       {/* Angled Curved Swan-Neck Dispensing Tube */}
       <group 
         position={[0.06, 1.48, 0]}
-        onClick={(e) => { e.stopPropagation(); squirtWashBottle(id); }}
-        onPointerOver={(e) => { e.stopPropagation(); document.body.style.cursor = 'pointer'; }}
+        onClick={(e) => { e.stopPropagation(); if (!rinsing && !rinseMotion.current.hasPose) squirtWashBottle(id); }}
+        onPointerOver={(e) => { e.stopPropagation(); document.body.style.cursor = rinsing || rinseMotion.current.hasPose ? 'wait' : 'pointer'; }}
         onPointerOut={() => { document.body.style.cursor = 'auto'; }}
       >
         <mesh position={[0, 0.22, 0]}>

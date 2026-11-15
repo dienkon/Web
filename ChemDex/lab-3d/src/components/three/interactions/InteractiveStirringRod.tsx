@@ -12,6 +12,7 @@ import { vesselBodyTransform } from '../../../science/vesselScale';
 import { FRAME_ORDER } from '../../../simulation/core/frameOrder';
 import { simulationFrameDt } from '../../../core/clock';
 import { PourController } from '../../../pour/controller/PourController';
+import { RinsePoseMotion, rinseToolPose } from '../../../handling/instrumentRinseVisual';
 
 const rodGlassMaterial = new THREE.MeshPhysicalMaterial({
   color: '#d9edf1', roughness: 0.1, transmission: 0, thickness: 0.25,
@@ -29,8 +30,10 @@ export const InteractiveStirringRod = React.memo(function InteractiveStirringRod
   const setActiveTool = useAppStore(state => state.setActiveTool);
   const targetId = useAppStore(stirringTarget);
   const pulse = useAppStore(state => !!state.stirringVesselId);
+  const rinsing = useAppStore(state => state.instrumentRinse?.tool === 'stirring_rod');
   const groupRef = useRef<THREE.Group>(null);
-  const isActive = (activeTool === 'stirring_rod' || pulse) && !dock.moveMode;
+  const rinseMotion = useRef(new RinsePoseMotion());
+  const isActive = (activeTool === 'stirring_rod' || pulse) && !dock.moveMode && !rinsing;
   const stirSpeedRef = useRef(0);
   const phase = useRef(0);
   const motion = useRef({ id: null as string | null, stage: 'lift' as 'lift' | 'travel' | 'lower' | 'stir',
@@ -74,6 +77,11 @@ export const InteractiveStirringRod = React.memo(function InteractiveStirringRod
     const group = groupRef.current;
     if (!group) return;
     const app = useAppStore.getState();
+    const rinse = app.instrumentRinse?.tool === 'stirring_rod' ? app.instrumentRinse : null;
+    if (rinseMotion.current.apply(group, rinse, rinse && rinseToolPose(rinse), {
+      position: [position[0], position[1], position[2] + STIRRING_ROD_LENGTH / 2], rotation: [-Math.PI / 2, 0, 0],
+    }, simulationFrameDt(rawDelta, app), app.pourEpoch)) { group.visible = true; return; }
+    group.visible = dock.visible || pulse;
     if (app.isSimulationPaused) return;
     const dt = Math.min(rawDelta, 0.05), nextId = stirringTarget(app);
     const vessel = isActive && nextId ? app.vessels[nextId] : undefined;
@@ -131,18 +139,18 @@ export const InteractiveStirringRod = React.memo(function InteractiveStirringRod
     stirSpeedRef.current = Math.max(0, stirSpeedRef.current - dt * 0.6);
   }, FRAME_ORDER.effectsFrame + 0.1);
 
-  if (!dock.visible && !pulse) return null;
+  if (!dock.visible && !pulse && !rinsing && !rinseMotion.current.hasPose) return null;
   return (
-    <group ref={groupRef} name="tool-stirring_rod" visible={dock.visible || pulse}
+    <group ref={groupRef} name="tool-stirring_rod" visible={dock.visible || pulse || rinsing || rinseMotion.current.hasPose}
       position={[position[0], position[1], position[2] + STIRRING_ROD_LENGTH / 2]} rotation={[-Math.PI / 2, 0, 0]}
-      onPointerDown={dock.onPointerDown}
+      onPointerDown={event => { if (rinsing || rinseMotion.current.hasPose) event.stopPropagation(); else dock.onPointerDown(event); }}
       onClick={event => {
         event.stopPropagation();
-        if (dock.moveMode) return;
+        if (dock.moveMode || rinsing || rinseMotion.current.hasPose) return;
         if (isActive) useAppStore.getState().setStirringVesselId(null);
         setActiveTool(isActive ? 'none' : 'stirring_rod');
       }}
-      onPointerOver={() => { document.body.style.cursor = dock.moveMode ? 'grab' : 'pointer'; }}
+      onPointerOver={() => { document.body.style.cursor = rinsing || rinseMotion.current.hasPose ? 'wait' : dock.moveMode ? 'grab' : 'pointer'; }}
       onPointerOut={() => { document.body.style.cursor = 'auto'; }}>
       <mesh material={rodGlassMaterial} position={[0, STIRRING_ROD_LENGTH / 2, 0]} castShadow>
         <cylinderGeometry args={[STIRRING_ROD_RADIUS, STIRRING_ROD_RADIUS, STIRRING_ROD_LENGTH, 12]} />

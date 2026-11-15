@@ -83,10 +83,9 @@ export const ContinuousLiquidStream = React.memo(function ContinuousLiquidStream
     const distance = _streamStart.distanceTo(_streamEnd);
 
     if (streamMeshRef.current && distance > 0.1) {
-      // Parabolic curvature interpolation: gravity sag increases with horizontal distance
+      // A straight jet must retain both physical endpoints. Moving its midpoint
+      // to suggest sag translated the nozzle and impact ends off their tools.
       _streamMid.addVectors(_streamStart, _streamEnd).multiplyScalar(0.5);
-      const horizDist = Math.hypot(_streamEnd.x - _streamStart.x, _streamEnd.z - _streamStart.z);
-      _streamMid.y -= Math.min(0.25, horizDist * 0.09);
 
       streamMeshRef.current.position.copy(_streamMid);
       streamMeshRef.current.lookAt(_streamEnd);
@@ -143,8 +142,9 @@ export const ContinuousLiquidStream = React.memo(function ContinuousLiquidStream
 
         // Rayleigh-Plateau droplet spray width increases near bottom of stream
         const breakupSpread = d.offsetAlong > 0.5 ? (d.offsetAlong - 0.5) * 2.0 : 0.0;
-        _streamLerp.x += (Math.sin(time * 16 + idx) * d.lateralSpread) * (1.0 + breakupSpread * 1.5);
-        _streamLerp.z += (Math.cos(time * 16 + idx) * d.lateralSpread) * (1.0 + breakupSpread * 1.5);
+        const spread = Math.sin(Math.PI * d.offsetAlong) * (1 + breakupSpread * 1.5);
+        _streamLerp.x += Math.sin(time * 16 + idx) * d.lateralSpread * spread;
+        _streamLerp.z += Math.cos(time * 16 + idx) * d.lateralSpread * spread;
 
         dummy.position.copy(_streamLerp);
         dummy.scale.setScalar(d.size * (1.0 + breakupSpread * 0.4));

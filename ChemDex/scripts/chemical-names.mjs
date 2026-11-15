@@ -160,6 +160,10 @@ export function chemicalSource(source, filename = 'file.js') {
   const edits = [];
   const templateEscape = text => text.replace(/\\/g, '\\\\').replace(/`/g, '\\`').replace(/\$\{/g, '\\${');
   const visit = node => {
+    // Explicitly localized interface prose is not a chemical display label.
+    // Preserve the whole call subtree, including templates and interpolated
+    // expressions; qualified methods and similarly named calls still transform.
+    if (ts.isCallExpression(node) && ts.isIdentifier(node.expression) && node.expression.text === 'uiText') return;
     if (ts.isPropertyAssignment(node)) {
       const field=node.name.getText(tree).replace(/^['"]|['"]$/g,'');
       if ((identityKeys.has(field) && !['name_en','nameEn'].includes(field)) || /aliases|searchNames|keywords/i.test(field)) return;

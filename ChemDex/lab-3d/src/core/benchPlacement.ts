@@ -32,8 +32,8 @@ export function benchObstacles(vessels: Record<string, VesselState>, burners: Re
  * position or to a point outside the tabletop. Deletion/moving is reflected
  * immediately because occupancy is read for each insertion. */
 export function findBenchPosition(type: string, capacity_ml: number, obstacles: BenchFootprint[],
-  preferred: readonly number[] = [0, 0, 0]): [number, number, number] | null {
-  const radius = benchRadius(type, capacity_ml);
+  preferred: readonly number[] = [0, 0, 0], minimumRadius = 0): [number, number, number] | null {
+  const radius = Math.max(benchRadius(type, capacity_ml), minimumRadius);
   const maxX = LAB_GEOMETRY.tableHalfWidth_scene - radius - BENCH_CLEARANCE;
   const maxZ = LAB_GEOMETRY.tableHalfDepth_scene - radius - BENCH_CLEARANCE;
   if (![radius, ...preferred].every(Number.isFinite) || maxX < 0 || maxZ < 0) return null;

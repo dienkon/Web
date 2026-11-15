@@ -2,7 +2,7 @@ import { stepHydrogenExhaustCombustion, sodiumExternalIgnition } from '../engine
 import { isLandoltCandidate } from '../science/landoltClock';
 import { canStirVessel, vesselAgitation, FLASK_INVERSION_DURATION_S } from '../science/stirring';
 import { advanceVesselLiquidMotion, hasVesselLiquidMotion } from '../science/vesselLiquidMotion';
-import { acceptedFrameSeconds } from '../core/clock';
+import { acceptedFrameSeconds, simulationFrameDt } from '../core/clock';
 import { create } from 'zustand';
 import { Vector3 } from 'three';
 import { MixResult } from '../shared/schemas';
@@ -116,8 +116,12 @@ import { programPlayer } from '../vfx/programs/player/ProgramPlayer';
 import { benchObstacles, findBenchPosition } from '../core/benchPlacement';
 import { useToolDockStore } from '../handling/toolDockState';
 import { instrumentHome } from '../handling/instrumentCatalog';
+import { advanceInstrumentRinse, collectRinseWaste, isRinseWater, pipetteHasRinseSample, RINSE_VOLUME_ML,
+  type RinseSession, type RinseTool } from '../handling/instrumentRinse';
+import { rinseStationRadius } from '../handling/instrumentRinseVisual';
+import { uiText } from '../utils/uiText';
 
-function currentBenchObstacles(state: Pick<AppState, 'vessels' | 'burners' | 'burette'>) {
+function currentBenchObstacles(state: Pick<AppState, 'vessels' | 'burners' | 'burette' | 'instrumentRinse'>) {
   const dock = useToolDockStore.getState();
   const balance = dock.positions.balance ?? LAB_PHYSICS.BALANCE_POSITION;
   const burette = dock.positions.burette ?? state.burette.position ?? LAB_PHYSICS.BURETTE_STAND_POSITION;
@@ -126,6 +130,8 @@ function currentBenchObstacles(state: Pick<AppState, 'vessels' | 'burners' | 'bu
       return { x: p[0], z: p[2], radius: 1 }; });
   return benchObstacles(state.vessels, state.burners, [
     { x: balance[0], z: balance[2], radius: 1.4 }, { x: burette[0], z: burette[2], radius: 1.15 }, ...tools,
+    ...(state.instrumentRinse ? [{ x: state.instrumentRinse.anchor[0], z: state.instrumentRinse.anchor[2],
+      radius: state.vessels[state.instrumentRinse.bottleId] ? rinseStationRadius(state.vessels[state.instrumentRinse.bottleId]) : 1 }] : []),
   ]);
 }
 
@@ -170,7 +176,7 @@ function prepareStudioSpecimen(get: () => AppState, set: (patch: Partial<AppStat
     delete activeKinetics[id]; delete pendingReactions[id]; delete dissolvingSubstances[id];
     const vessels = { ...live.vessels, [id]: vessel };
     const materials = { inFlightPours: live.inFlightPours, spills: live.spills, wasteMass_g: live.wasteMass_g, wasteContents: live.wasteContents, workbenchEscapedGas_g: live.workbenchEscapedGas_g,
-      pipetteSample: live.pipetteSample, physics: capturePhysicalLab() };
+      pipetteSample: live.pipetteSample, toolContamination: live.toolContamination, physics: capturePhysicalLab() };
     persistHistorySnapshot('ADD_VESSEL', vessels, live.burners, 'Prepared virtual specimen', 'Chuẩn bị mẫu Studio', materials);
     persistLabState(vessels, live.burners, materials);
     set({ vessels, vesselIds: Object.keys(vessels), selectedVesselId: id, activeKinetics,
@@ -379,7 +385,10 @@ export interface AppState {
   setExperimentDifficulty: (mode: ExperimentDifficultyMode) => void;
   toolContamination: Record<string, string | null>;
   touchToolChemical: (tool: 'pipette' | 'stirring_rod' | 'spatula', chemical: string) => { isCrossContaminated: boolean };
-  cleanTool: (tool: 'pipette' | 'stirring_rod' | 'spatula') => void;
+  cleanTool: (tool: RinseTool) => { ok: boolean; message: string };
+  instrumentRinse: RinseSession | null;
+  tickInstrumentRinse: (frameDt: number) => void;
+  cancelInstrumentRinse: () => void;
   examReport: ExamReportCard | null;
   setExamReport: (report: ExamReportCard | null) => void;
 
@@ -577,6 +586,7 @@ export interface AppState {
 // Initialize cache and try loading local saved state
 initReactionCache();
 const persisted = loadPersistedLabState();
+experimentEngine.restoreContamination(persisted?.materials?.toolContamination);
 if (persisted?.materials?.physics) restorePhysicalLab(persisted.materials.physics);
 
 // Preserve saved assembly heights so funnels remain aligned with their receivers.
@@ -642,7 +652,7 @@ export const useAppStore = create<AppState>((set, get) => {
   const materials = (): LabMaterialSnapshot => {
     const s = get();
     return { inFlightPours: s.inFlightPours, spills: s.spills, wasteMass_g: s.wasteMass_g, wasteContents: s.wasteContents, workbenchEscapedGas_g: s.workbenchEscapedGas_g,
-      pipetteSample: s.pipetteSample,
+      pipetteSample: s.pipetteSample, toolContamination: s.toolContamination,
       glassDebris: shardManager.snapshot(), physics: capturePhysicalLab() };
   };
   const debounceSaveLocalState = (vessels: Record<string, VesselState>, burners: Record<string, BurnerState>) =>
@@ -700,6 +710,20 @@ export const useAppStore = create<AppState>((set, get) => {
     acknowledgeStockContacts(pendingStockContacts().map(contact => contact.id));
     set({ pouringChemical: null, isMixing: false, spatulaState: { chemical: null, mass_g: 0, color: '#cbd5e1' } });
   };
+  let rinseSequence = 0;
+  const finishInstrumentRinse = (clean: boolean, message: string) => {
+    const session = get().instrumentRinse;
+    if (!session) return;
+    if (clean) experimentEngine.cleanTool(session.tool);
+    set({ instrumentRinse: null, toolContamination: experimentEngine.getContaminatedTools() });
+    const state = get();
+    pushHistorySnapshot('RINSE', state.vessels, state.burners,
+      clean ? 'Rinsed instrument with 5 mL water' : 'Stopped instrument rinse',
+      clean ? uiText('Đã rửa dụng cụ bằng 5 mL nước') : 'Dừng rửa dụng cụ');
+    set({ canUndo: checkCanUndo(), canRedo: checkCanRedo() });
+    debounceSaveLocalState(state.vessels, state.burners);
+    useInstrumentStore.getState().notify(session.tool, message, clean);
+  };
   // Push initial snapshot into history
   setTimeout(() => {
     // A user action may already have established history during startup.
@@ -750,15 +774,69 @@ export const useAppStore = create<AppState>((set, get) => {
     setActiveStepIndex: (idx) => set({ activeStepIndex: idx }),
     experimentDifficulty: 'guided',
     setExperimentDifficulty: (mode) => set({ experimentDifficulty: mode }),
-    toolContamination: { pipette: null, stirring_rod: null, spatula: null },
+    toolContamination: experimentEngine.getContaminatedTools(),
     touchToolChemical: (tool, chemical) => {
+      if (get().instrumentRinse?.tool === tool)
+        finishInstrumentRinse(false, 'Dừng rửa vì dụng cụ vừa tiếp xúc mẫu; cần rửa lại.');
       const res = experimentEngine.touchChemical(tool, chemical);
       set({ toolContamination: experimentEngine.getContaminatedTools() });
+      debounceSaveLocalState(get().vessels, get().burners);
       return { isCrossContaminated: res.isCrossContaminated };
     },
+    instrumentRinse: null,
     cleanTool: (tool) => {
-      experimentEngine.cleanTool(tool);
-      set({ toolContamination: experimentEngine.getContaminatedTools() });
+      const state = get();
+      const reject = (message: string) => ({ ok: false, message });
+      if (state.instrumentRinse) return reject('Đang rửa dụng cụ; chờ hoàn tất hoặc nhấn Dừng rửa.');
+      if (state.isSimulationPaused) return reject('Tiếp tục mô phỏng trước khi rửa dụng cụ.');
+      if (state.moveMode || state.draggingVesselId || useToolDockStore.getState().dragging) return reject('Tắt chế độ di chuyển trước khi rửa.');
+      if (state.pouringChemical || state.stockDosePending || spatulaDoses.occupied || state.isMixing || state.isPouring)
+        return reject('Chờ mẫu đang chuyển tiếp xúc hoặc kết thúc trước khi rửa.');
+      if (tool === 'pipette' && pipetteHasRinseSample(state.pipetteSample))
+        return reject('Nhả hết mẫu vào bình nhận trước khi rửa pipet.');
+      if (tool === 'spatula' && state.spatulaState.mass_g > 0)
+        return reject('Chuyển hết mẫu rắn trước khi rửa thìa.');
+      const bottles = Object.values(state.vessels).filter(bottle => !bottle.id.startsWith('lesson_vessel_')
+        && isRinseWater(bottle) && bottle.volume_ml >= RINSE_VOLUME_ML
+        && !state.inFlightPours.some(parcel => parcel.sourceId === bottle.id || parcel.targetId === bottle.id));
+      const bottle = bottles.find(entry => entry.id === state.selectedVesselId) ?? bottles[0];
+      if (!bottle) return reject(uiText('Cần bình rửa mở, không khóa, có ít nhất 5 mL nước cất nguyên chất trên bàn.'));
+      const anchor = findBenchPosition('tool', 100, currentBenchObstacles(state), [0, LAB_PHYSICS.TABLE_SURFACE_Y, 3], rinseStationRadius(bottle));
+      if (!anchor) return reject('Dọn một khoảng trống trên bàn để đặt khay rửa.');
+      pushHistorySnapshot('RINSE', state.vessels, state.burners, 'Before instrument rinse', 'Trước khi rửa dụng cụ');
+      set({ activeTool: 'none', ...(tool === 'stirring_rod' ? { stirringVesselId: null } : {}),
+        instrumentRinse: { id: ++rinseSequence, tool, bottleId: bottle.id, epoch: state.pourEpoch,
+          elapsed_s: 0, target_ml: RINSE_VOLUME_ML, dispensed_ml: 0, phase: 'positioning',
+          anchor: [anchor[0], LAB_PHYSICS.TABLE_SURFACE_Y + 0.02, anchor[2]] },
+        canUndo: checkCanUndo(), canRedo: checkCanRedo() });
+      return { ok: true, message: uiText('Đang tráng dụng cụ bằng 5 mL nước cất; nước đã dùng được thu vào chất thải.') };
+    },
+    tickInstrumentRinse: frameDt => {
+      const state = get(), session = state.instrumentRinse;
+      if (!session) return;
+      if (session.epoch !== state.pourEpoch) { set({ instrumentRinse: null }); return; }
+      if ((session.tool === 'pipette' && pipetteHasRinseSample(state.pipetteSample))
+        || (session.tool === 'spatula' && state.spatulaState.mass_g > 0)) {
+        finishInstrumentRinse(false, 'Dừng rửa vì dụng cụ đang giữ mẫu; nhả hết mẫu trước khi rửa lại.'); return;
+      }
+      const dt = simulationFrameDt(frameDt, state);
+      if (dt <= 0) return;
+      const step = advanceInstrumentRinse(session, state.vessels[session.bottleId], dt);
+      set({ instrumentRinse: step.session,
+        ...(step.bottle && step.sample ? {
+          vessels: { ...state.vessels, [session.bottleId]: step.bottle },
+          wasteMass_g: state.wasteMass_g + step.sample.mass_g,
+          wasteContents: collectRinseWaste(state.wasteContents, step.sample),
+        } : {}) });
+      if (step.complete) finishInstrumentRinse(true, uiText('Đã rửa xong bằng 5 mL nước cất.'));
+      else if (step.failed) finishInstrumentRinse(false, uiText('Đã dừng rửa: nguồn nước không còn hợp lệ. Dụng cụ vẫn cần rửa lại.'));
+      else if (step.sample && Math.floor(step.session.elapsed_s * 4) > Math.floor(session.elapsed_s * 4))
+        debounceSaveLocalState(get().vessels, get().burners);
+    },
+    cancelInstrumentRinse: () => {
+      const session = get().instrumentRinse;
+      if (session) finishInstrumentRinse(false,
+        `Đã dừng rửa sau ${session.dispensed_ml.toFixed(2)} mL; dụng cụ vẫn cần rửa lại.`);
     },
     examReport: null,
     setExamReport: (report) => set({ examReport: report }),
@@ -2332,6 +2410,7 @@ export const useAppStore = create<AppState>((set, get) => {
       }
     },
     tick: (dt: number) => {
+      get().tickInstrumentRinse(dt);
       get().tickSimulation(dt);
     },
 
@@ -2339,6 +2418,9 @@ export const useAppStore = create<AppState>((set, get) => {
     toggleSnapToGrid: () => set(s => ({ snapToGrid: !s.snapToGrid })),
     activeTool: 'none',
     setActiveTool: (tool) => {
+      if (get().instrumentRinse?.tool === tool) {
+        set({ globalWarning: 'Chờ rửa xong hoặc nhấn Dừng rửa trước khi sử dụng dụng cụ.' }); return;
+      }
       if (!['none', 'sponge', 'balance'].includes(tool)) {
         const dock = useToolDockStore.getState();
         if (!dock.deployed[tool]) {
@@ -2357,8 +2439,10 @@ export const useAppStore = create<AppState>((set, get) => {
       color: '#cbd5e1',
     },
     setSpatulaScoop: (chemical, mass_g, color = '#cbd5e1') => {
-      if (spatulaDoses.occupied) {
-        set({ mixError: 'Chờ mẫu trên thìa tiếp xúc hoặc kết thúc lần chuyển trước khi lấy mẫu mới.' });
+      if (spatulaDoses.occupied || get().instrumentRinse?.tool === 'spatula') {
+        set({ mixError: get().instrumentRinse?.tool === 'spatula'
+          ? 'Chờ rửa xong hoặc nhấn Dừng rửa trước khi lấy mẫu mới.'
+          : 'Chờ mẫu trên thìa tiếp xúc hoặc kết thúc lần chuyển trước khi lấy mẫu mới.' });
         return;
       }
       set({
@@ -2377,10 +2461,12 @@ export const useAppStore = create<AppState>((set, get) => {
     workbenchEscapedGas_g: persisted?.materials?.workbenchEscapedGas_g ?? {},
     pipetteSample: persisted?.materials?.pipetteSample ?? null,
     setPipetteSample: sample => {
+      if (get().instrumentRinse?.tool === 'pipette' && pipetteHasRinseSample(sample)) get().cancelInstrumentRinse();
       set({ pipetteSample: sample ? prepareAliquotContact(sample) : null });
       debounceSaveLocalState(get().vessels, get().burners);
     },
     commitPipetteTransfer: ({ vessel, sample, withdrawal, kinetics, mixResult, failureReason }) => {
+      if (get().instrumentRinse?.tool === 'pipette') get().cancelInstrumentRinse();
       set(s => {
         const activeKinetics = { ...s.activeKinetics }, pendingReactions = { ...s.pendingReactions }, dissolvingSubstances = { ...s.dissolvingSubstances };
         const continued = withdrawal ? continueReactionAfterOutflow(s.activeKinetics[vessel.id], vessel, s.language) : kinetics;
@@ -2500,6 +2586,9 @@ export const useAppStore = create<AppState>((set, get) => {
     vessels: sanitizedVessels,
     vesselIds: Object.keys(sanitizedVessels),
     setVesselState: (id, state, inventoryChange) => {
+      if (get().instrumentRinse?.bottleId === id && Object.keys(state).some(key =>
+        ['position', 'rotationY', 'rotationZ', 'type', 'isSealed', 'isShattered', 'isLocked',
+          'contents', 'substances', 'mass_g', 'volume_ml'].includes(key))) get().cancelInstrumentRinse();
       set(s => {
         if (!s.vessels[id]) return s;
         const currentVessel = s.vessels[id];
@@ -2720,6 +2809,7 @@ export const useAppStore = create<AppState>((set, get) => {
     },
 
     removeVessel: (id) => {
+      if (get().instrumentRinse?.bottleId === id) get().cancelInstrumentRinse();
       if (get().pouringChemical?.targetId === id) get().clearPour(get().pouringChemical!.id);
       set(s => {
         const updated = { ...s.vessels };
@@ -2968,6 +3058,9 @@ export const useAppStore = create<AppState>((set, get) => {
     },
 
     squirtWashBottle: (washBottleId, targetVesselId) => {
+      if (get().instrumentRinse?.bottleId === washBottleId) {
+        set({ globalWarning: uiText('Bình đang cấp nước rửa dụng cụ; dừng rửa trước khi dùng tia nước.') }); return;
+      }
       const state = get(), bottle = state.vessels[washBottleId];
       if (!bottle || bottle.type !== 'wash_bottle' || bottle.isShattered || bottle.isSealed || bottle.volume_ml <= 0) return;
       const selected = state.selectedVesselId !== washBottleId ? state.selectedVesselId : null;
@@ -3496,6 +3589,9 @@ export const useAppStore = create<AppState>((set, get) => {
     pouringChemical: null,
     stockDosePending: false,
     triggerPour: (chemical, targetId, amount) => {
+      if (get().instrumentRinse?.bottleId === targetId) {
+        set({ mixError: uiText('Dừng rửa dụng cụ trước khi thêm hóa chất vào bình cấp nước.') }); return;
+      }
       const chemData = findChemical(chemical);
       const amt = amount !== undefined ? amount : chemical === 'Na' ? 0.1 : (chemData.type === 'solid' ? 2 : 20);
       const target = get().vessels[targetId];
@@ -3505,7 +3601,7 @@ export const useAppStore = create<AppState>((set, get) => {
     },
     beginSpatulaDose: targetId => {
       const state = get(), target = state.vessels[targetId], sample = state.spatulaState;
-      if (state.pouringChemical || spatulaDoses.occupied || state.moveMode || state.isSimulationPaused
+      if (state.pouringChemical || spatulaDoses.occupied || state.instrumentRinse?.tool === 'spatula' || state.moveMode || state.isSimulationPaused
         || !target || target.isShattered || target.isSealed || target.isLocked || target.capacity_ml <= 0
         || targetId.startsWith('lesson_vessel_') || !sample.chemical || !Number.isFinite(sample.mass_g) || sample.mass_g <= 0
         || findChemical(sample.chemical).type !== 'solid') return false;
@@ -3779,6 +3875,7 @@ export const useAppStore = create<AppState>((set, get) => {
 
     transferLiquidContinuous: (fromId, toId, delta_ml, dropPos) => {
       const state = get();
+      if (state.instrumentRinse && [fromId, toId].includes(state.instrumentRinse.bottleId)) return EMPTY_LIQUID_TRANSFER;
       if (fromId.startsWith('lesson_vessel_') || toId?.startsWith('lesson_vessel_')) return EMPTY_LIQUID_TRANSFER;
       const from = state.vessels[fromId], to = toId ? state.vessels[toId] : null;
       if (!from || (toId && !to)) return EMPTY_LIQUID_TRANSFER;
@@ -3864,7 +3961,11 @@ export const useAppStore = create<AppState>((set, get) => {
       if (get().draggingVesselId === id) return;
       set({ draggingVesselId: id });
     },
-    updateVesselPosition: (id, pos) => set(s => {
+    updateVesselPosition: (id, pos) => {
+      const previous = get().vessels[id];
+      if (get().instrumentRinse?.bottleId === id && previous && pos.every(Number.isFinite)
+        && pos.some((coordinate, axis) => Math.abs(coordinate - previous.position[axis]) >= 0.0001)) get().cancelInstrumentRinse();
+      set(s => {
       if (!s.vessels[id] || s.vessels[id].isLocked) return s;
       if (!pos.every(Number.isFinite)) return s;
       const currentVessel = s.vessels[id];
@@ -3958,7 +4059,8 @@ export const useAppStore = create<AppState>((set, get) => {
 
       debounceSaveLocalState(updated, s.burners);
       return { vessels: updated };
-    }),
+      });
+    },
 
     moveMode: false,
     setMoveMode: (active) => set({ moveMode: active }),
@@ -3966,11 +4068,15 @@ export const useAppStore = create<AppState>((set, get) => {
     canUndo: false,
     canRedo: false,
     undo: () => {
+      if (get().instrumentRinse) {
+        set({ globalWarning: 'Dừng rửa hoặc chờ rửa xong trước khi hoàn tác.' }); return;
+      }
       if (get().pouringChemical || get().stockDosePending) {
         set({ globalWarning: 'Chờ lần cấp hóa chất kết thúc hoặc hủy chuyển mẫu trước khi hoàn tác.' }); return;
       }
       const prev = stepUndo();
       if (prev) {
+        experimentEngine.restoreContamination(prev.snapshot.materials?.toolContamination);
         shardManager.restoreLabSnapshot(prev.snapshot.materials?.glassDebris, prev.snapshot.vessels);
         restorePhysicalLab(prev.snapshot.materials?.physics);
         set({
@@ -3980,6 +4086,7 @@ export const useAppStore = create<AppState>((set, get) => {
           burnerIds: Object.keys(prev.snapshot.burners),
           inFlightPours: prev.snapshot.materials?.inFlightPours ?? [],
           pipetteSample: prev.snapshot.materials?.pipetteSample ?? null,
+          toolContamination: experimentEngine.getContaminatedTools(),
           spills: normalizeSpillFootprints(prev.snapshot.materials?.spills ?? {}), wasteMass_g: prev.snapshot.materials?.wasteMass_g ?? 0,
           wasteContents: prev.snapshot.materials?.wasteContents ?? [],
           workbenchEscapedGas_g: prev.snapshot.materials?.workbenchEscapedGas_g ?? {},
@@ -3992,11 +4099,15 @@ export const useAppStore = create<AppState>((set, get) => {
       }
     },
     redo: () => {
+      if (get().instrumentRinse) {
+        set({ globalWarning: 'Dừng rửa hoặc chờ rửa xong trước khi làm lại.' }); return;
+      }
       if (get().pouringChemical || get().stockDosePending) {
         set({ globalWarning: 'Chờ lần cấp hóa chất kết thúc hoặc hủy chuyển mẫu trước khi làm lại.' }); return;
       }
       const next = stepRedo();
       if (next) {
+        experimentEngine.restoreContamination(next.snapshot.materials?.toolContamination);
         shardManager.restoreLabSnapshot(next.snapshot.materials?.glassDebris, next.snapshot.vessels);
         restorePhysicalLab(next.snapshot.materials?.physics);
         set({
@@ -4006,6 +4117,7 @@ export const useAppStore = create<AppState>((set, get) => {
           burnerIds: Object.keys(next.snapshot.burners),
           inFlightPours: next.snapshot.materials?.inFlightPours ?? [],
           pipetteSample: next.snapshot.materials?.pipetteSample ?? null,
+          toolContamination: experimentEngine.getContaminatedTools(),
           spills: normalizeSpillFootprints(next.snapshot.materials?.spills ?? {}), wasteMass_g: next.snapshot.materials?.wasteMass_g ?? 0,
           wasteContents: next.snapshot.materials?.wasteContents ?? [],
           workbenchEscapedGas_g: next.snapshot.materials?.workbenchEscapedGas_g ?? {},
@@ -4028,6 +4140,9 @@ export const useAppStore = create<AppState>((set, get) => {
     },
 
     mixSubstances: async (targetId: string, newChemical: string, addedVolume_ml: number = 20, onAccepted?: () => void) => {
+      if (get().instrumentRinse?.bottleId === targetId) {
+        set({ mixError: uiText('Dừng rửa dụng cụ trước khi thêm hóa chất vào bình cấp nước.') }); return;
+      }
       const mixEpoch = get().pourEpoch;
       let acknowledged = false;
       const accept = () => { if (!acknowledged) { acknowledged = true; onAccepted?.(); } };
@@ -4488,12 +4603,15 @@ export const useAppStore = create<AppState>((set, get) => {
 
     resetWorkbench: () => {
       invalidateStockDoses();
+      experimentEngine.resetContamination();
       useToolDockStore.setState({ positions: {}, deployed: {}, dragging: null });
       restorePhysicalLab();
       shardManager.restoreSnapshot();
       set({
         inFlightPours: [], pourEpoch: get().pourEpoch + 1, isPouring: false,
         pipetteSample: null,
+        instrumentRinse: null,
+        toolContamination: experimentEngine.getContaminatedTools(),
         activeTool: 'none',
         activeKinetics: {}, pendingReactions: {}, dissolvingSubstances: {},
         vessels: defaultVessels,

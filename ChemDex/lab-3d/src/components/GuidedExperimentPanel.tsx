@@ -9,6 +9,10 @@ import {
 import { experimentEngine, ExperimentDifficultyMode, ExamReportCard } from '../engine/experimentEngine';
 import { labSound } from '../utils/audio';
 import { ObservationPanel } from './ObservationPanel';
+import { InstrumentRinseStatus } from './InstrumentRinseStatus';
+import { rinseInstrument } from '../handling/instrumentOperations';
+import { useInstrumentStore } from '../handling/instrumentState';
+import { uiText } from '../utils/uiText';
 const ReactionLibraryPanel = React.lazy(() => import('./ReactionLibraryPanel'));
 
 export function GuidedExperimentPanel() {
@@ -26,7 +30,7 @@ export function GuidedExperimentPanel() {
     activeTool,
     spatulaState,
     toolContamination,
-    cleanTool,
+    instrumentRinse,
     examReport,
     setExamReport
   } = useAppStore();
@@ -40,6 +44,9 @@ export function GuidedExperimentPanel() {
   const [showAlgorithmDetails, setShowAlgorithmDetails] = useState<boolean>(false);
   const [activeCaseId, setActiveCaseId] = useState<string | null>(null);
   const [observationId, setObservationId] = useState<string | null>(null);
+  const [rinseRequestedTool, setRinseRequestedTool] = useState<string | null>(null);
+  const instrumentNotices = useInstrumentStore(state => state.notices);
+  const rinseNotice = instrumentNotices.filter(notice => notice.tool === rinseRequestedTool).at(-1);
 
   const t = (en: string, vi: string) => language === 'en' ? en : vi;
 
@@ -240,7 +247,7 @@ export function GuidedExperimentPanel() {
       <ObservationPanel key={currentExperiment.id} experimentId={currentExperiment.id} onModeChange={active => setObservationId(active ? currentExperiment.id : null)} />
 
       {/* Tool Hygiene & Contamination Alert */}
-      {dirtyTools.length > 0 && (
+      {(dirtyTools.length > 0 || instrumentRinse) && (
         <div className="bg-orange-50 border border-orange-200 rounded-xl p-3 shadow-xs space-y-2">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-1.5 text-orange-800 text-xs font-bold">
@@ -258,17 +265,20 @@ export function GuidedExperimentPanel() {
                 <span>{tool}: <strong className="font-mono">{chem}</strong></span>
                 <button
                   onClick={() => {
-                    cleanTool(tool);
-                    labSound.playTap();
+                    setRinseRequestedTool(tool);
+                    if (rinseInstrument(tool).ok) labSound.playTap();
                   }}
-                  className="px-2 py-0.5 bg-orange-600 hover:bg-orange-700 text-white rounded text-[10px] font-semibold flex items-center gap-1"
+                  disabled={Boolean(instrumentRinse)}
+                  className="px-2 py-0.5 bg-orange-600 hover:bg-orange-700 text-white rounded text-[10px] font-semibold flex items-center gap-1 disabled:cursor-wait disabled:opacity-40"
                 >
                   <Droplets size={10} />
-                  <span>{t('Rinse in H2O', 'Tráng nước cất')}</span>
+                  <span>{t('Rinse in H2O', uiText('Tráng nước cất'))}</span>
                 </button>
               </div>
             ))}
           </div>
+          <InstrumentRinseStatus />
+          {!instrumentRinse && rinseNotice && <p role="status" className="text-[11px] text-orange-900">{rinseNotice.message}</p>}
         </div>
       )}
 

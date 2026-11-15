@@ -24,6 +24,7 @@ import { InteractiveStirringRod } from './interactions/InteractiveStirringRod';
 import { InteractiveThermometer } from './interactions/InteractiveThermometer';
 import { InteractivePhMeter } from './interactions/InteractivePhMeter';
 import { InteractiveSpatula } from './interactions/InteractiveSpatula';
+import { InstrumentRinseAnimation } from './interactions/InstrumentRinseAnimation';
 import { InteractiveSponge } from './interactions/InteractiveSponge';
 import { WorkbenchSpills } from './WorkbenchSpills';
 import { useAppStore } from '../../store/useAppStore';
@@ -383,7 +384,9 @@ function SceneEnvironmentSetup({ tier }: { tier: QualityTier }) {
 
 function SimulationTicker() {
   const tickSimulation = useAppStore(state => state.tickSimulation);
+  const tickInstrumentRinse = useAppStore(state => state.tickInstrumentRinse);
   useFrame((_, delta) => {
+    tickInstrumentRinse(delta);
     tickSimulation(delta);
     const state = useAppStore.getState();
     PourController.tick(delta, state.vessels as any, state.isSimulationPaused, state.timeScale);
@@ -983,6 +986,7 @@ export function LabScene() {
         <InteractiveThermometer />
         <InteractivePhMeter />
         <InteractiveSpatula />
+        <InstrumentRinseAnimation />
 
         {activeTool === 'sponge' && (
           <InteractiveSponge />

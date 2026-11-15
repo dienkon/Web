@@ -124,6 +124,13 @@ export class ExperimentEngine {
     return { ...this.toolContamination };
   }
 
+  /** Restore the same hygiene state as the material inventory during load/undo. */
+  public restoreContamination(snapshot?: Record<string, string | null>) {
+    for (const tool of ['pipette', 'stirring_rod', 'spatula']) {
+      this.toolContamination[tool] = typeof snapshot?.[tool] === 'string' ? snapshot[tool] : null;
+    }
+  }
+
   public resetContamination() {
     this.toolContamination = {
       pipette: null,

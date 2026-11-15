@@ -12,6 +12,7 @@ import { mobileSolidInventory } from '../science/suspensionTransport';
 import { SimulationEngine } from '../simulation/core/SimulationEngine';
 import { prepareAliquotContact } from '../engine/aliquotContactChemistry';
 import { vesselHasBurnerHeat } from '../engine/burnerEnergy';
+import { uiText } from '../utils/uiText';
 
 export interface InstrumentResult {
   ok: boolean;
@@ -30,6 +31,11 @@ export function resolveInstrumentTarget(): VesselState | null {
 }
 
 export function instrumentTargetProblem(tool: InstrumentId, vessel: VesselState | null): string | null {
+  if (useAppStore.getState().instrumentRinse?.tool === tool)
+    return 'Dụng cụ đang rửa; chờ hoàn tất hoặc nhấn Dừng rửa.';
+  if (vessel && useAppStore.getState().instrumentRinse?.bottleId === vessel.id
+    && ['pipette', 'burette', 'stirring_rod', 'spatula'].includes(tool))
+    return uiText('Bình đang cấp nước rửa dụng cụ; dừng rửa trước khi lấy hoặc thêm mẫu.');
   if (!vessel) return 'Chọn một bình trên bàn trước.';
   if (vessel.isShattered) return 'Bình đã vỡ; hãy chọn bình nguyên vẹn.';
   if (vessel.isSealed && ['pipette', 'burette', 'ph_meter', 'thermometer', 'stirring_rod', 'spatula'].includes(tool))
@@ -88,6 +94,7 @@ export function dispensePipette(requested_ml = 2.5, targetId?: string): Instrume
 }
 
 export function positionInstrument(id: InstrumentId, position: ToolPosition): InstrumentResult {
+  if (useAppStore.getState().instrumentRinse?.tool === id) return result(id, false, 'Dừng rửa trước khi đổi vị trí dụng cụ.');
   if (!position.every(Number.isFinite)) return result(id, false, 'Tọa độ phải là số hữu hạn.');
   if (id === 'sponge') return result(id, false, 'Miếng lau đi theo con trỏ khi kích hoạt.');
   const constrained = constrainToolPosition(...position);
@@ -104,6 +111,7 @@ export function returnInstrumentHome(id: InstrumentId): InstrumentResult {
 }
 
 export function stowInstrument(id: InstrumentId): InstrumentResult {
+  if (useAppStore.getState().instrumentRinse?.tool === id) return result(id, false, 'Dừng rửa trước khi cất dụng cụ.');
   if (id === 'balance' || id === 'burette') return result(id, false, 'Thiết bị này có vị trí cố định trên bàn.');
   if (useAppStore.getState().activeTool === id) useAppStore.getState().setActiveTool('none');
   useToolDockStore.setState(s => ({ deployed: { ...s.deployed, [id]: false }, dragging: s.dragging === id ? null : s.dragging }));
@@ -235,13 +243,8 @@ export async function depositSpatula(): Promise<InstrumentResult> {
 }
 
 export function rinseInstrument(id: 'pipette' | 'stirring_rod' | 'spatula'): InstrumentResult {
-  const state = useAppStore.getState();
-  if (id === 'pipette' && (state.pipetteSample?.volume_ml ?? 0) > 1e-6) {
-    return result(id, false, 'Nhả hết mẫu vào bình nhận trước khi rửa pipet.');
-  }
-  if (id === 'spatula' && state.spatulaState.mass_g > 0) return result(id, false, 'Chuyển hết mẫu rắn trước khi rửa thìa.');
-  state.cleanTool(id);
-  return result(id, true, 'Đã rửa dụng cụ trong mô hình.');
+  const started = useAppStore.getState().cleanTool(id);
+  return result(id, started.ok, started.message);
 }
 
 export function cleanAllSpills(): InstrumentResult {

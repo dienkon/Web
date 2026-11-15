@@ -94,3 +94,34 @@ test('Golden Rain and crystal colour prose do not become the element Gold',()=>{
   assert.equal(context.caption,prose);
   assert.equal(chemicalText('Vàng',{exact:true}),'Gold');
 });
+
+
+test('uiText preserves localized interface prose and the complete interpolation subtree',()=>{
+  const source = [
+    'const uiText = value => value; const amount = 5;',
+    'globalThis.label = uiText("Lượng nước đã rửa");',
+    'globalThis.status = uiText(`Đã rửa ${amount} mL nước cất bằng ${"Nước"}.`);',
+    'globalThis.choice = uiText(amount > 0 ? "Rửa bằng nước cất" : "Chưa có nước");',
+    'globalThis.catalog = {name_vi:"Nước",name_en:"Water",formula:"H2O"};',
+    'globalThis.outside = "Nước";',
+  ].join('\n');
+  const output = chemicalSource(source, 'rinse.tsx'), context = {};
+  vm.runInNewContext(output,context);
+  assert.equal(context.label,'Lượng nước đã rửa');
+  assert.equal(context.status,'Đã rửa 5 mL nước cất bằng Nước.');
+  assert.equal(context.choice,'Rửa bằng nước cất');
+  assert.equal(context.catalog.name_vi,'water');
+  assert.equal(context.catalog.name_search,'Nước');
+  assert.equal(context.outside,'water');
+  assert.ok(output.includes('uiText(`Đã rửa ${amount} mL nước cất bằng ${"Nước"}.`)'));
+  const jsx = 'const label = <progress aria-label={uiText("Lượng nước đã rửa")} title="Nước" />;';
+  const transformedJsx = chemicalSource(jsx,'rinse.tsx');
+  assert.ok(transformedJsx.includes('uiText("Lượng nước đã rửa")'));
+  assert.match(transformedJsx,/title="water"/);
+});
+
+test('only the exact bare uiText call escapes chemical source conversion',()=>{
+  const source = 'const uiTextOther = value => value; const helpers={uiText:value=>value}; globalThis.a=uiTextOther("Nước"); globalThis.b=helpers.uiText("Nước");';
+  const context={};vm.runInNewContext(chemicalSource(source),context);
+  assert.equal(context.a,'water');assert.equal(context.b,'water');
+});

@@ -11,6 +11,7 @@ import { aspiratePipette, dispensePipette } from '../../../handling/instrumentOp
 import { getWorldVesselProfile } from '../../../pour/physics/profiles';
 import { vesselWorldLiquidSurfaceY } from '../../../science/vesselGeometry';
 import { HANDHELD_PIPETTE_TIP_LOCAL_Y } from '../../../handling/dropFlight';
+import { RinsePoseMotion, rinseToolPose } from '../../../handling/instrumentRinseVisual';
 
 const glassMaterial = new THREE.MeshPhysicalMaterial({
   roughness: 0.05,
@@ -33,6 +34,7 @@ export const InteractivePipette = React.memo(function InteractivePipette({
   const activeTool = useAppStore(state => state.activeTool);
   const setActiveTool = useAppStore(state => state.setActiveTool);
   const selectedVesselId = useAppStore(state => state.selectedVesselId);
+  const rinsing = useAppStore(state => state.instrumentRinse?.tool === 'pipette');
 
   const sample = useAppStore(state => state.pipetteSample);
   const pulse = useInstrumentStore(state => state.pipettePulse);
@@ -45,6 +47,7 @@ export const InteractivePipette = React.memo(function InteractivePipette({
   const [isDispensing, setIsDispensing] = useState(false);
 
   const pipetteGroupRef = useRef<THREE.Group>(null);
+  const rinseMotion = useRef(new RinsePoseMotion());
   const streamFrom = useMemo<[number, number, number]>(() => [...initialPosition], []);
   const streamTo = useMemo<[number, number, number]>(() => [...initialPosition], []);
   const outletWorld = useMemo(() => new THREE.Vector3(), []);
@@ -52,7 +55,7 @@ export const InteractivePipette = React.memo(function InteractivePipette({
   const targetVessel = useAppStore(state => targetId ? state.vessels[targetId] : undefined);
 
   // Active if selected in toolbar or clicked
-  const isActive = activeTool === 'pipette' && !dock.moveMode;
+  const isActive = activeTool === 'pipette' && !dock.moveMode && !rinsing;
 
   // Position: either hovering above the active vessel or at resting rack position
   const targetWorldPos = useMemo(() => {
@@ -78,6 +81,13 @@ export const InteractivePipette = React.memo(function InteractivePipette({
       }
     }
     if (!pipetteGroupRef.current) return;
+    const app = useAppStore.getState();
+    const rinse = app.instrumentRinse?.tool === 'pipette' ? app.instrumentRinse : null;
+    if (rinseMotion.current.apply(pipetteGroupRef.current, rinse, rinse && rinseToolPose(rinse), {
+      position: [targetWorldPos.x, targetWorldPos.y, targetWorldPos.z],
+      rotation: [isActive && targetVessel ? 0 : -Math.PI / 2, 0, 0],
+    }, simulationFrameDt(delta, app), app.pourEpoch)) { pipetteGroupRef.current.visible = true; return; }
+    pipetteGroupRef.current.visible = dock.visible;
     pipetteGroupRef.current.position.lerp(targetWorldPos, 1 - Math.exp(-delta * 8));
     pipetteGroupRef.current.rotation.set(isActive && targetVessel ? 0 : -Math.PI / 2, 0, 0);
     pipetteGroupRef.current.updateWorldMatrix(true, false);
@@ -91,7 +101,7 @@ export const InteractivePipette = React.memo(function InteractivePipette({
 
   const handleBulbClick = (e: any) => {
     e.stopPropagation();
-    if (dock.moveMode) return;
+    if (dock.moveMode || rinsing || rinseMotion.current.hasPose) return;
     if (!isActive) { setActiveTool('pipette'); return; }
     if (targetVesselId) useAppStore.getState().setSelectedVesselId(targetVesselId);
     if (pipetteVolume <= 0.000001) {
@@ -103,20 +113,20 @@ export const InteractivePipette = React.memo(function InteractivePipette({
 
   const fillRatio = pipetteVolume / 10;
 
-  if (!dock.visible) return null;
+  if (!dock.visible && !rinsing && !rinseMotion.current.hasPose) return null;
 
   return (
     <group
       ref={pipetteGroupRef}
-      name="tool-pipette" visible={dock.visible}
+      name="tool-pipette" visible={dock.visible || rinsing || rinseMotion.current.hasPose}
       position={position} rotation={isActive ? [0, 0, 0] : [-Math.PI / 2, 0, 0]}
-      onPointerDown={dock.onPointerDown}
+      onPointerDown={event => { if (rinsing || rinseMotion.current.hasPose) event.stopPropagation(); else dock.onPointerDown(event); }}
       onClick={(e) => {
         e.stopPropagation();
-        if (dock.moveMode) return;
+        if (dock.moveMode || rinsing || rinseMotion.current.hasPose) return;
         setActiveTool(isActive ? 'none' : 'pipette');
       }}
-      onPointerOver={() => { document.body.style.cursor = dock.moveMode ? 'grab' : 'pointer'; }}
+      onPointerOver={() => { document.body.style.cursor = rinsing || rinseMotion.current.hasPose ? 'wait' : dock.moveMode ? 'grab' : 'pointer'; }}
       onPointerOut={() => { document.body.style.cursor = 'auto'; }}
     >
 {/* Glass Barrel Stem */}
@@ -149,6 +159,7 @@ export const InteractivePipette = React.memo(function InteractivePipette({
       <group
         position={[0, 0.85, 0]}
         onPointerDown={(event) => {
+          if (rinsing || rinseMotion.current.hasPose) { event.stopPropagation(); return; }
           if (dock.moveMode) dock.onPointerDown(event);
           else handleBulbClick(event);
         }}
@@ -173,7 +184,7 @@ export const InteractivePipette = React.memo(function InteractivePipette({
         color={pipetteColor}
         flowRate={isDispensing ? 12 : 0}
         thickness={0.02}
-        active={isDispensing}
+        active={isDispensing && !rinsing}
       />
     </group>
   );
