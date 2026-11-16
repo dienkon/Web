@@ -2,15 +2,15 @@
   "origin": "http://127.0.0.1:6767",
   "errors": [],
   "assertions": {
-    "outletMatchesFirstDropPath": false,
+    "outletMatchesFirstDropPath": true,
     "translatedReceiverControlsLanding": true,
-    "sourceLeavesAtReleaseDestinationReceivesAtImpact": false,
+    "sourceLeavesAtReleaseDestinationReceivesAtImpact": true,
     "renderedDropMatchesReceipt": true,
     "sharedLabEffectsMounted": true,
     "pauseFreezesModel": true,
     "pauseFreezesFlightAndLedger": true,
-    "firstDoseOccursAtImpact": false,
-    "exactPartialDropAndMassConservation": false,
+    "firstDoseOccursAtImpact": true,
+    "exactPartialDropAndMassConservation": true,
     "lastImpactPersistsThroughReturn": true,
     "sharedRendererRetainsEffects": true,
     "onlyTinyAmountsUseDrops": true,
@@ -20,7 +20,7 @@
   "sourceBefore": {
     "src/handling/dropFlight.ts": "7dff5c20f018d35724d69ddb105d9e397c6beae702b58627a9702923bb071dc5",
     "src/handling/liquidDosePlan.ts": "386dd6685277d59983d7c2dfd8c749290679d96e70fbbd74de93920ebac5a0f3",
-    "src/vfx/autoplay/AutoExperiment.ts": "d542f44b66277c4d6f904f47ed1d2fede9c0980015fa5cd988d4350f456f546f",
+    "src/vfx/autoplay/AutoExperiment.ts": "18a40cd5fc56ce2f1b18f65ac9aa544e6b945700c72611b828e8b4fce856d1dc",
     "src/vfx/autoplay/AutoExperimentScene.tsx": "54d4c6706d3b82b41799288dfd454f5376dbd583d5f3c4ee27ac10f0cc7c3f30",
     "src/vfx/autoplay/autoDonors.ts": "417a59c64a038a9a56ffd251a06fb221feb3fd5c5807740ab3f1a9f78ee9139e",
     "src/vfx/autoplay/receiverFrame.ts": "0e883ac9c4121c7fc1a6f18a1799cc33913c2d78b46594e23a3251127f62a97f"
@@ -30,7 +30,7 @@
     "phaseTime": 0.8333333333333343,
     "elapsed": 0.8333333333333343,
     "paused": true,
-    "donorIndex": 0,
+    "donorIndex": 1,
     "donor": {
       "remaining": 0.06999999999999999,
       "totalMass_g": 0.12,
@@ -46,12 +46,12 @@
           "arrivalAt": 0.8802775297389125,
           "flight": {
             "start": [
-              1.35,
+              1.3500000000000005,
               2.4580869673305776,
               -0.6500000000000001
             ],
             "target": [
-              1.35,
+              1.3500000000000005,
               0.08036173934661162,
               -0.6500000000000001
             ],
@@ -59,7 +59,7 @@
             "flightTime": 0.13027752973891255
           },
           "targetLocal": [
-            0,
+            4.4010909047936734e-16,
             -0.96,
             -1.1002727261984183e-16
           ],
@@ -87,7 +87,12 @@
       ],
       "contents": []
     },
-    "accountedMass_g": 1.264,
+    "accountedMass_g": 0.12,
+    "outletTip": [
+      1.3500000000000005,
+      2.4580869673305776,
+      -0.6500000000000001
+    ],
     "drawn": [
       {
         "position": [
@@ -99,7 +104,7 @@
       }
     ],
     "expectedFirstDrop": [
-      1.35,
+      1.3500000000000005,
       1.4852050228861118,
       -0.6500000000000001
     ],
@@ -123,7 +128,7 @@
     "phaseTime": 0.8333333333333343,
     "elapsed": 0.8333333333333343,
     "paused": true,
-    "donorIndex": 0,
+    "donorIndex": 1,
     "donor": {
       "remaining": 0.06999999999999999,
       "totalMass_g": 0.12,
@@ -139,12 +144,12 @@
           "arrivalAt": 0.8802775297389125,
           "flight": {
             "start": [
-              1.35,
+              1.3500000000000005,
               2.4580869673305776,
               -0.6500000000000001
             ],
             "target": [
-              1.35,
+              1.3500000000000005,
               0.08036173934661162,
               -0.6500000000000001
             ],
@@ -152,7 +157,7 @@
             "flightTime": 0.13027752973891255
           },
           "targetLocal": [
-            0,
+            4.4010909047936734e-16,
             -0.96,
             -1.1002727261984183e-16
           ],
@@ -180,7 +185,12 @@
       ],
       "contents": []
     },
-    "accountedMass_g": 1.264,
+    "accountedMass_g": 0.12,
+    "outletTip": [
+      1.3500000000000005,
+      2.4580869673305776,
+      -0.6500000000000001
+    ],
     "drawn": [
       {
         "position": [
@@ -192,7 +202,7 @@
       }
     ],
     "expectedFirstDrop": [
-      1.35,
+      1.3500000000000005,
       1.4852050228861118,
       -0.6500000000000001
     ],
@@ -216,7 +226,7 @@
     "phaseTime": 0.8833333333333344,
     "elapsed": 0.8833333333333344,
     "paused": true,
-    "donorIndex": 0,
+    "donorIndex": 1,
     "donor": {
       "remaining": 0.06999999999999999,
       "totalMass_g": 0.12,
@@ -232,12 +242,12 @@
           "arrivalAt": 0.8802775297389125,
           "flight": {
             "start": [
-              1.35,
+              1.3500000000000005,
               2.4580869673305776,
               -0.6500000000000001
             ],
             "target": [
-              1.35,
+              1.3500000000000005,
               0.08036173934661162,
               -0.6500000000000001
             ],
@@ -245,7 +255,7 @@
             "flightTime": 0.13027752973891255
           },
           "targetLocal": [
-            0,
+            4.4010909047936734e-16,
             -0.96,
             -1.1002727261984183e-16
           ],
@@ -282,7 +292,7 @@
       ],
       "contact": {
         "point": [
-          0,
+          4.4010909047936734e-16,
           -0.96,
           -1.1002727261984183e-16
         ],
@@ -291,10 +301,15 @@
         "color": "#b91c1c"
       }
     },
-    "accountedMass_g": 1.264,
+    "accountedMass_g": 0.12,
+    "outletTip": [
+      1.3500000000000005,
+      2.4580869673305776,
+      -0.6500000000000001
+    ],
     "drawn": [],
     "expectedFirstDrop": [
-      1.35,
+      1.3500000000000005,
       0.08036173934661162,
       -0.6500000000000001
     ],
@@ -318,7 +333,7 @@
     "phaseTime": 0,
     "elapsed": 2.083333333333331,
     "paused": true,
-    "donorIndex": 0,
+    "donorIndex": 1,
     "donor": {
       "remaining": 0,
       "totalMass_g": 0.12,
@@ -334,12 +349,12 @@
           "arrivalAt": 0.8802775297389125,
           "flight": {
             "start": [
-              1.35,
+              1.3500000000000005,
               2.4580869673305776,
               -0.6500000000000001
             ],
             "target": [
-              1.35,
+              1.3500000000000005,
               0.08036173934661162,
               -0.6500000000000001
             ],
@@ -347,7 +362,7 @@
             "flightTime": 0.13027752973891255
           },
           "targetLocal": [
-            0,
+            4.4010909047936734e-16,
             -0.96,
             -1.1002727261984183e-16
           ],
@@ -369,12 +384,12 @@
           "arrivalAt": 1.480266820144092,
           "flight": {
             "start": [
-              1.35,
+              1.3500000000000005,
               2.4580869673305776,
               -0.6500000000000001
             ],
             "target": [
-              1.35,
+              1.3500000000000005,
               0.08075264984623587,
               -0.6500000000000001
             ],
@@ -382,7 +397,7 @@
             "flightTime": 0.13026682014409197
           },
           "targetLocal": [
-            0,
+            4.4010909047936734e-16,
             -0.9596125930091691,
             -1.1002727261984183e-16
           ],
@@ -404,12 +419,12 @@
           "arrivalAt": 2.080256114344284,
           "flight": {
             "start": [
-              1.35,
+              1.3500000000000005,
               2.4580869673305776,
               -0.6500000000000001
             ],
             "target": [
-              1.35,
+              1.3500000000000005,
               0.08114338970482582,
               -0.6500000000000001
             ],
@@ -417,7 +432,7 @@
             "flightTime": 0.130256114344284
           },
           "targetLocal": [
-            0,
+            4.4010909047936734e-16,
             -0.9592253551300138,
             -1.1002727261984183e-16
           ],
@@ -454,7 +469,7 @@
       ],
       "contact": {
         "point": [
-          0,
+          4.4010909047936734e-16,
           -0.9592253551300138,
           -1.1002727261984183e-16
         ],
@@ -463,10 +478,15 @@
         "color": "#b91c1c"
       }
     },
-    "accountedMass_g": 1.264,
+    "accountedMass_g": 0.11999999999999995,
+    "outletTip": [
+      1.3500000000000005,
+      2.4580869673305776,
+      -0.6500000000000001
+    ],
     "drawn": [],
     "expectedFirstDrop": [
-      1.35,
+      1.3500000000000005,
       0.08036173934661162,
       -0.6500000000000001
     ],
@@ -493,10 +513,10 @@
   "sourceAfter": {
     "src/handling/dropFlight.ts": "7dff5c20f018d35724d69ddb105d9e397c6beae702b58627a9702923bb071dc5",
     "src/handling/liquidDosePlan.ts": "386dd6685277d59983d7c2dfd8c749290679d96e70fbbd74de93920ebac5a0f3",
-    "src/vfx/autoplay/AutoExperiment.ts": "d542f44b66277c4d6f904f47ed1d2fede9c0980015fa5cd988d4350f456f546f",
+    "src/vfx/autoplay/AutoExperiment.ts": "18a40cd5fc56ce2f1b18f65ac9aa544e6b945700c72611b828e8b4fce856d1dc",
     "src/vfx/autoplay/AutoExperimentScene.tsx": "54d4c6706d3b82b41799288dfd454f5376dbd583d5f3c4ee27ac10f0cc7c3f30",
     "src/vfx/autoplay/autoDonors.ts": "417a59c64a038a9a56ffd251a06fb221feb3fd5c5807740ab3f1a9f78ee9139e",
     "src/vfx/autoplay/receiverFrame.ts": "0e883ac9c4121c7fc1a6f18a1799cc33913c2d78b46594e23a3251127f62a97f"
   },
-  "generatedAt": "2026-11-15T17:01:08.107Z"
+  "generatedAt": "2026-11-16T09:44:53.468Z"
 }

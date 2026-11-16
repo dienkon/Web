@@ -143,7 +143,14 @@ try {
     const { AutoExperiment } = await import(resource(/\/AutoExperiment\.ts(?:\?|$)/));
     const three = await import(resource(/\/three\.js(?:\?|$)/));
     const original = AutoExperiment.prototype.tick;
-    AutoExperiment.prototype.tick = function (delta) { window.__autoAudit = this; return original.call(this, delta); };
+    AutoExperiment.prototype.tick = function (delta) {
+      // Hold the newly mounted director before its first physical step. A
+      // recipe already running while WebGL initializes can leave old flights,
+      // exhaust or deposits behind when this fixture replaces its inventory.
+      if (window.__autoAudit !== this) this.paused = true;
+      window.__autoAudit = this;
+      return original.call(this, delta);
+    };
     const { _roots } = await import(resource(/@react-three_fiber\.js(?:\?|$)/));
     window.__autoThree = three;
     window.__autoGetRoot = () => _roots.get(document.querySelector('#automatic-lab canvas'));
@@ -175,7 +182,7 @@ try {
     && JSON.stringify(report.paused.donor.drops) === JSON.stringify(flight.donor.drops)
     && near(report.paused.donor.remaining, flight.donor.remaining) && near(report.paused.sample.mass_g, flight.sample.mass_g);
 
-  await advanceManual('e.donors[0].liquidDrops?.[0]?.arrived === true', 'First drop never arrived');
+  await advanceManual('e.donors[window.__autoDropIndex].liquidDrops?.[0]?.arrived === true', 'First drop never arrived');
   report.firstImpact = await capture();
   report.assertions.firstDoseOccursAtImpact = near(report.firstImpact.sample.mass_g + report.firstImpact.sample.evaporated_ml, 0.05, 1e-7)
     && near(report.firstImpact.donor.remaining, 0.07, 1e-7)
@@ -184,7 +191,7 @@ try {
     && near(report.firstImpact.donor.fraction, 0.05 / 0.12, 1e-7);
   await page.screenshot({ path: resolve(output, '02-first-drop-arrives.png') });
 
-  await advanceManual('e.phase === "return" && e.donors[0].liquidDrops?.length === 3 && e.donors[0].liquidDrops.every(drop => drop.arrived)',
+  await advanceManual('e.phase === "return" && e.donors[window.__autoDropIndex].liquidDrops?.length === 3 && e.donors[window.__autoDropIndex].liquidDrops.every(drop => drop.arrived)',
     'Automatic microdose did not finish with three accepted drops');
   report.finished = await capture();
   const finished = report.finished;
