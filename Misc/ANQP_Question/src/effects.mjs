@@ -11,6 +11,7 @@ export function createEffects(root) {
   let shakeTimer = 0;
   let drone;
   let wrongCount = 0;
+  let modalShakeTarget;
   const shakeTargets = [...document.querySelectorAll('.site-shell, .landscape')];
   const fallingArtwork = {
     bomb: `<svg viewBox="0 0 180 260" fill="none"><defs><linearGradient id="bomb-metal" x1="30" y1="90" x2="150" y2="170" gradientUnits="userSpaceOnUse"><stop stop-color="#71845a"/><stop offset=".45" stop-color="#3f5339"/><stop offset="1" stop-color="#172c25"/></linearGradient></defs><path d="M72 70 48 15l42 20 42-20-24 55" fill="#344b35" stroke="#d6c49a" stroke-width="4"/><path d="M90 48v37" stroke="#d6c49a" stroke-width="5"/><path d="M61 70C34 106 27 155 43 198c10 27 32 47 47 53 15-6 37-26 47-53 16-43 9-92-18-128Z" fill="url(#bomb-metal)" stroke="#e0cca1" stroke-width="4"/><path d="M42 126h96M39 144h102" stroke="#efc45d" stroke-width="9"/><path d="M58 162c0 24 11 49 23 62" stroke="#a7b08a" stroke-width="5" stroke-linecap="round" opacity=".55"/><path d="m90 196 6 12 13 2-10 9 2 13-11-6-11 6 2-13-10-9 13-2Z" fill="#e9c66e"/></svg>`,
@@ -24,6 +25,7 @@ export function createEffects(root) {
     canvas.classList.remove('active');
     root.classList.remove('impact');
     shakeTargets.forEach(target => target.classList.remove('screen-shake'));
+    modalShakeTarget?.classList.remove('screen-shake');
     ctx?.clearRect(0, 0, canvas.width, canvas.height);
   }
   function particles(success) {
@@ -84,7 +86,12 @@ export function createEffects(root) {
         drone?.remove();
         root.classList.add('impact');
         shakeTargets.forEach(target => target.classList.add('screen-shake'));
-        shakeTimer = setTimeout(() => shakeTargets.forEach(target => target.classList.remove('screen-shake')), 600);
+        modalShakeTarget = document.querySelector('#cw-dialog[open]');
+        modalShakeTarget?.classList.add('screen-shake');
+        shakeTimer = setTimeout(() => {
+          shakeTargets.forEach(target => target.classList.remove('screen-shake'));
+          modalShakeTarget?.classList.remove('screen-shake');
+        }, 600);
         particles(false);
       }, 700);
     },

@@ -7,6 +7,20 @@ import { createAutoSolidDose, type AutoSolidDose } from './autoSolid';
 import { dropSchedule } from '../../handling/doseTiming';
 import type { VerticalDropFlight } from '../../handling/dropFlight';
 
+/** One finite packet keeps the source loss, airborne view and receiving event
+ * on the same immutable path. Times use the experiment's absolute clock. */
+export interface AutoLiquidDrop {
+  volume_ml: number;
+  mass_g: number;
+  color: string;
+  releaseAt: number;
+  arrivalAt: number;
+  flight: VerticalDropFlight;
+  targetLocal: [number, number, number];
+  contents: SubstanceContent[];
+  arrived: boolean;
+}
+
 export interface AutoDonor {
   row: SubstanceContent;
   components: SubstanceContent[];
@@ -20,6 +34,7 @@ export interface AutoDonor {
   dropSchedule?: ReturnType<typeof dropSchedule>;
   dropFallHeight?: number;
   dropFlight?: VerticalDropFlight;
+  liquidDrops?: AutoLiquidDrop[];
   doseMode: 'pour' | 'dropper';
   solid?: AutoSolidDose;
 }

@@ -2,7 +2,7 @@ import { beforeEach, describe, expect, it } from 'vitest';
 import { useAppStore } from '../src/store/useAppStore';
 import { useInstrumentStore } from '../src/handling/instrumentState';
 import { useToolDockStore } from '../src/handling/toolDock';
-import { aspiratePipette, dispensePipette, tareBalance, balanceReading, alignSelectedVessel, dispenseOneBuretteDrop, positionInstrument, rinseInstrument } from '../src/handling/instrumentOperations';
+import { aspiratePipette, dispensePipette, tareBalance, balanceReading, alignSelectedVessel, dispenseOneBuretteDrop, positionInstrument, rinseInstrument, setBuretteValve } from '../src/handling/instrumentOperations';
 import { readInstrument } from '../src/handling/instrumentReadings';
 import { restingToolHeight } from '../src/handling/handheldRest';
 import type { VesselState } from '../src/types/chemistry';
@@ -20,7 +20,7 @@ function vessel(id: string, x: number, volume = 20): VesselState {
 
 describe('Shared keyboard and 3D instrument operations', () => {
   beforeEach(() => {
-    useAppStore.setState({ vessels: { source: vessel('source', -2), receiver: vessel('receiver', 2, 0) }, vesselIds: ['source', 'receiver'], selectedVesselId: 'source', moveMode: false, activeKinetics: {}, burners: {} });
+    useAppStore.setState({ vessels: { source: vessel('source', -2), receiver: vessel('receiver', 2, 0) }, vesselIds: ['source', 'receiver'], selectedVesselId: 'source', moveMode: false, isSimulationPaused: false, draggingVesselId: null, activeKinetics: {}, burners: {} });
     useInstrumentStore.setState({ balanceTare_g: 0, notices: [], sequence: 0 });
     useInstrumentStore.getState().clearPipettePresentations();
     useAppStore.getState().setPipetteSample(null);
@@ -95,6 +95,25 @@ describe('Shared keyboard and 3D instrument operations', () => {
     expect(alignSelectedVessel('burette').ok).toBe(true);
     expect(dispenseOneBuretteDrop().transferred_ml).toBeCloseTo(0.05, 8);
     expect(useAppStore.getState().vessels.receiver.contents.find(item => item.formula === 'NaCl')?.moles).toBeCloseTo(0.00001, 10);
+  });
+
+  it('blocks every direct burette dispensing path while paused or moving a receiver', () => {
+    useAppStore.getState().setSelectedVesselId('receiver');
+    positionInstrument('burette', [4, 0, 2]);
+    useAppStore.getState().updateBurette({ reagentFormula: 'NaCl', concentration_M: 0.2, currentVolume_ml: 1 });
+    expect(alignSelectedVessel('burette').ok).toBe(true);
+    const before = useAppStore.getState().burette.currentVolume_ml;
+    useAppStore.setState({ isSimulationPaused: true });
+    expect(dispenseOneBuretteDrop().ok).toBe(false);
+    expect(setBuretteValve(true).ok).toBe(false);
+    useAppStore.getState().toggleBuretteStopcock();
+    expect(useAppStore.getState().burette.currentVolume_ml).toBe(before);
+    expect(useAppStore.getState().burette.isDispensing).toBe(false);
+    useAppStore.setState({ isSimulationPaused: false, draggingVesselId: 'receiver' });
+    expect(dispenseOneBuretteDrop().ok).toBe(false);
+    expect(setBuretteValve(true).ok).toBe(false);
+    useAppStore.getState().dispenseBuretteDrop('receiver');
+    expect(useAppStore.getState().burette.currentVolume_ml).toBe(before);
   });
 
   it('rejects nonfinite placement and preserves each fixed resting height', () => {

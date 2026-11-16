@@ -3,6 +3,8 @@ import { practiceQuestions } from './practice-questions.mjs';
 import { createSession } from './session.mjs';
 import { questionPanel, answerPanel } from './panels.mjs';
 import { createEffects } from './effects.mjs';
+import { mountCrossword } from './crossword.mjs';
+import { mountPracticeFinale } from './practice-finale.mjs';
 
 const app = document.querySelector('#app');
 const file = location.pathname.split('/').pop();
@@ -20,11 +22,29 @@ Object.values(sounds).forEach(audio => { audio.preload = 'auto'; audio.volume = 
 
 app.innerHTML = `<div class="landscape" aria-hidden="true"></div><div class="site-shell"><header class="masthead"><div class="identity"><span class="identity-seal"><img src="./assets/star.svg" alt=""></span><div><span class="eyebrow">GIÁO DỤC QUỐC PHÒNG & AN NINH</span><p>DẤU CHÂN NGƯỜI LÍNH</p></div></div><div class="utilities"><button type="button" id="sound-toggle" class="utility" aria-pressed="false">♪ <span>Âm thanh bật</span></button><button type="button" id="fullscreen" class="utility">⛶ <span>Toàn màn hình</span></button></div></header><main id="main"></main><footer class="site-footer"><span>VỮNG KIẾN THỨC · BỀN Ý CHÍ</span><span id="keyboard-hint">A–D chọn đáp án <i>·</i> Enter tiếp tục</span></footer></div><div id="effect-root" aria-hidden="true"></div><div id="announcement" class="sr-only" role="status" aria-live="polite"></div>`;
 const main = document.querySelector('#main');
-const effects = createEffects(document.querySelector('#effect-root'));
+const effectRoot = document.querySelector('#effect-root');
+const effects = createEffects(effectRoot);
 const fullscreen = document.querySelector('#fullscreen');
 const soundToggle = document.querySelector('#sound-toggle');
+let crossword;
+let finale;
 
 function announce(text) { document.querySelector('#announcement').textContent = text; }
+function stopFeedback() {
+  effects.stop();
+  if (effectRoot.parentElement !== document.body) document.body.append(effectRoot);
+  Object.values(sounds).forEach(audio => audio.pause());
+}
+function playFeedback(correct) {
+  // Native modal dialogs live above normal z-index layers. Host effects inside them.
+  const modal = document.querySelector('#cw-dialog[open]');
+  if (modal) modal.append(effectRoot);
+  if (!muted) {
+    Object.values(sounds).forEach(audio => { audio.pause(); audio.currentTime = 0; });
+    sounds[correct ? 'correct' : 'wrong'].play().catch(() => announce('Trình duyệt chưa cho phép phát âm thanh.'));
+  }
+  effects.play(correct);
+}
 async function enterFullscreen() {
   if (document.fullscreenElement || !document.documentElement.requestFullscreen) return;
   try { await document.documentElement.requestFullscreen(); }
@@ -69,11 +89,7 @@ function choose(index) {
   buttons.forEach(button => { button.disabled = true; });
   buttons[index].classList.add(result.correct ? 'is-correct' : 'is-wrong');
   buttons[index].querySelector('.answer-result').textContent = result.correct ? '✓' : '×';
-  if (!muted) {
-    Object.values(sounds).forEach(audio => { audio.pause(); audio.currentTime = 0; });
-    sounds[result.correct ? 'correct' : 'wrong'].play().catch(() => announce('Trình duyệt chưa cho phép phát âm thanh.'));
-  }
-  effects.play(result.correct);
+  playFeedback(result.correct);
   announce(result.correct ? 'Chính xác!' : 'Chưa chính xác. Hãy chọn lại.');
   feedbackTimer = setTimeout(() => {
     busy = false;
@@ -82,6 +98,11 @@ function choose(index) {
       document.querySelector('.instruction').textContent = 'Chưa chính xác. Hãy chọn lại đến khi trả lời đúng.';
       announce('Hãy thử lại. Bạn có thể tiếp tục chọn đáp án.');
       buttons[index].focus({ preventScroll: true });
+      return;
+    }
+    if (isPractice && session.state.index === session.state.total - 1) {
+      session.next();
+      startPracticeFinale();
       return;
     }
     const feedback = document.querySelector('#feedback');
@@ -99,9 +120,27 @@ function next() {
   if (busy || !session.next()) return;
   effects.stop();
   Object.values(sounds).forEach(audio => audio.pause());
-  if (session.state.complete) renderSummary();
+  if (session.state.complete) {
+    if (isPractice) startPracticeFinale();
+    else renderSummary();
+  }
   else renderQuestion(true);
   window.scrollTo({ top: 0, behavior: 'instant' });
+}
+function startPracticeFinale() {
+  if (finale) return;
+  stopFeedback();
+  finale = mountPracticeFinale(main, {
+    isMuted: () => muted,
+    announce,
+    onRestart() {
+      finale?.destroy();
+      finale = null;
+      session.restart();
+      renderQuestion(true);
+      window.scrollTo({ top: 0, behavior: 'instant' });
+    },
+  });
 }
 function renderSummary() {
   document.querySelector('.question-panel')?.dispose?.();
@@ -113,16 +152,14 @@ function renderSummary() {
 }
 if (mode !== 'crossword') renderQuestion();
 else {
-  const title = 'Trò chơi ô chữ';
-  document.title = `${title} · Dấu chân người lính`;
-  document.querySelector('#keyboard-hint').textContent = 'GIÁO DỤC QUỐC PHÒNG & AN NINH';
-  main.innerHTML = `<section class="summary coming-soon"><img src="./assets/star.svg" alt=""><span class="eyebrow gold">KHÔNG GIAN HỌC TẬP</span><h1>${title}</h1><p>Khung trang đã sẵn sàng.<br>Nội dung sẽ được bổ sung ở bước tiếp theo.</p><a class="primary" href="./on-bai.html">Vào câu hỏi ôn bài →</a></section>`;
+  document.querySelector('#keyboard-hint').textContent = 'CHỌN HÀNG NGANG · MỞ MẬT MÃ';
+  crossword = mountCrossword(main, { playFeedback, stopFeedback, announce });
 }
 document.addEventListener('keydown', event => {
-  if (mode === 'crossword' || event.altKey || event.ctrlKey || event.metaKey || event.repeat || /INPUT|TEXTAREA|SELECT/.test(event.target.tagName)) return;
+  if (mode === 'crossword' || finale || event.altKey || event.ctrlKey || event.metaKey || event.repeat || /INPUT|TEXTAREA|SELECT/.test(event.target.tagName)) return;
   const index = 'abcd'.indexOf(event.key.toLowerCase());
   if (index >= 0 && !session.state.complete) { event.preventDefault(); choose(index); }
   // Native Enter on focused buttons already dispatches click. Avoid advancing twice.
   if (event.key === 'Enter' && !event.target.closest('button, a') && session.state.selected !== null && !session.state.complete) { event.preventDefault(); next(); }
 });
-window.addEventListener('pagehide', () => { clearTimeout(feedbackTimer); effects.stop(); Object.values(sounds).forEach(audio => audio.pause()); });
+window.addEventListener('pagehide', () => { clearTimeout(feedbackTimer); crossword?.destroy(); finale?.destroy(); stopFeedback(); });

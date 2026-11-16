@@ -77,6 +77,7 @@ export function pushHistorySnapshot(
   description_en: string,
   description_vi: string,
   materials?: LabMaterialSnapshot,
+  coalesceKey?: string,
 ) {
   // If we undid and then did a new action, slice off future
   if (historyPointer < historyStack.length - 1) {
@@ -84,6 +85,7 @@ export function pushHistorySnapshot(
   }
 
   const snapshot: LabActionHistory = {
+    ...(coalesceKey ? { coalesceKey } : {}),
     id: `hist_${Date.now()}_${Math.random().toString(36).substring(2, 6)}`,
     timestamp: Date.now(),
     action,
@@ -96,6 +98,11 @@ export function pushHistorySnapshot(
     }
   };
 
+  if (coalesceKey && historyPointer === historyStack.length - 1
+    && historyStack[historyPointer]?.coalesceKey === coalesceKey) {
+    historyStack[historyPointer] = snapshot;
+    return;
+  }
   historyStack.push(snapshot);
   if (historyStack.length > MAX_HISTORY) {
     historyStack.shift();
@@ -110,6 +117,11 @@ export function canUndo(): boolean {
 
 export function canRedo(): boolean {
   return historyPointer < historyStack.length - 1;
+}
+
+/** Check the pointer, not the final stack item, so redo branches never coalesce. */
+export function hasCurrentHistoryCoalesceKey(key: string): boolean {
+  return historyStack[historyPointer]?.coalesceKey === key;
 }
 
 export function stepUndo(): LabActionHistory | null {

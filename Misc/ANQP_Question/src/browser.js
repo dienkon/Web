@@ -178,6 +178,7 @@ function createEffects(root) {
   let shakeTimer = 0;
   let drone;
   let wrongCount = 0;
+  let modalShakeTarget;
   const shakeTargets = [...document.querySelectorAll('.site-shell, .landscape')];
   const fallingArtwork = {
     bomb: `<svg viewBox="0 0 180 260" fill="none"><defs><linearGradient id="bomb-metal" x1="30" y1="90" x2="150" y2="170" gradientUnits="userSpaceOnUse"><stop stop-color="#71845a"/><stop offset=".45" stop-color="#3f5339"/><stop offset="1" stop-color="#172c25"/></linearGradient></defs><path d="M72 70 48 15l42 20 42-20-24 55" fill="#344b35" stroke="#d6c49a" stroke-width="4"/><path d="M90 48v37" stroke="#d6c49a" stroke-width="5"/><path d="M61 70C34 106 27 155 43 198c10 27 32 47 47 53 15-6 37-26 47-53 16-43 9-92-18-128Z" fill="url(#bomb-metal)" stroke="#e0cca1" stroke-width="4"/><path d="M42 126h96M39 144h102" stroke="#efc45d" stroke-width="9"/><path d="M58 162c0 24 11 49 23 62" stroke="#a7b08a" stroke-width="5" stroke-linecap="round" opacity=".55"/><path d="m90 196 6 12 13 2-10 9 2 13-11-6-11 6 2-13-10-9 13-2Z" fill="#e9c66e"/></svg>`,
@@ -191,6 +192,7 @@ function createEffects(root) {
     canvas.classList.remove('active');
     root.classList.remove('impact');
     shakeTargets.forEach(target => target.classList.remove('screen-shake'));
+    modalShakeTarget?.classList.remove('screen-shake');
     ctx?.clearRect(0, 0, canvas.width, canvas.height);
   }
   function particles(success) {
@@ -251,9 +253,447 @@ function createEffects(root) {
         drone?.remove();
         root.classList.add('impact');
         shakeTargets.forEach(target => target.classList.add('screen-shake'));
-        shakeTimer = setTimeout(() => shakeTargets.forEach(target => target.classList.remove('screen-shake')), 600);
+        modalShakeTarget = document.querySelector('#cw-dialog[open]');
+        modalShakeTarget?.classList.add('screen-shake');
+        shakeTimer = setTimeout(() => {
+          shakeTargets.forEach(target => target.classList.remove('screen-shake'));
+          modalShakeTarget?.classList.remove('screen-shake');
+        }, 600);
         particles(false);
       }, 700);
+    },
+  };
+}
+
+// Source: src/crossword-data.mjs
+// Mỗi hàng giữ một chữ ở keywordIndex để ghép cột dọc DUKICH.
+// Khi đếm ô chữ, bỏ dấu tiếng Việt và khoảng trắng.
+const crosswordKeyword = 'DUKICH';
+
+const crosswordRows = [
+  {
+    id: 1,
+    answer: 'ĐỊA ĐẠO',
+    keywordIndex: 3,
+    type: 'image',
+    image: './assets/crossword-dia-dao.png',
+    alt: 'Minh họa một công trình dưới lòng đất, có lối đi và các khoang nối nhau.',
+    prompt: 'Công trình trong hình được gọi là gì?',
+    hint: 'Gồm hai tiếng. Củ Chi và Vịnh Mốc nổi tiếng với loại công trình này.',
+  },
+  {
+    id: 2,
+    answer: 'HẬU CẦN',
+    keywordIndex: 2,
+    type: 'choice',
+    prompt: 'Bảo đảm lương thực, quân trang và thuốc men là công tác gì?',
+    hint: 'Gồm hai tiếng, chỉ việc bảo đảm các điều kiện vật chất cho nhiệm vụ.',
+    options: ['Hậu cần', 'Trinh sát', 'Thông tin', 'Huấn luyện'],
+  },
+  {
+    id: 3,
+    answer: 'ĐOÀN KẾT',
+    keywordIndex: 4,
+    type: 'choice',
+    prompt: 'Chung sức, đồng lòng, giúp đỡ nhau thể hiện truyền thống nào?',
+    hint: 'Gồm hai tiếng. Một người vì mọi người, mọi người vì một người.',
+    options: ['Dũng cảm', 'Đoàn kết', 'Tự lực', 'Sáng tạo'],
+  },
+  {
+    id: 4,
+    answer: 'TRINH SÁT',
+    keywordIndex: 2,
+    type: 'action',
+    prompt: 'Bạn diễn đang thực hiện nhiệm vụ gì?',
+    hint: 'Gồm hai tiếng, liên quan đến quan sát và nắm tình hình.',
+    performerInstructions: 'Không nói thành tiếng. Dùng hai bàn tay làm ống nhòm, đưa lên mắt nhìn lần lượt sang hai bên, rồi mô phỏng ghi chép vào một cuốn sổ. Kết thúc bằng động tác ra hiệu báo tin cho đồng đội.',
+  },
+  {
+    id: 5,
+    answer: 'CỨU HỘ',
+    keywordIndex: 0,
+    type: 'action',
+    prompt: 'Bạn diễn đang mô phỏng hoạt động gì?',
+    hint: 'Gồm hai tiếng, là hoạt động đưa người gặp nạn đến nơi an toàn.',
+    performerInstructions: 'Không nói thành tiếng. Đứng tại chỗ, mô phỏng nhìn thấy người gặp nạn, cầm một chiếc phao tưởng tượng và ném về phía họ. Sau đó làm động tác kéo dây đưa người ấy lại gần rồi đưa tay đỡ họ lên.',
+  },
+  {
+    id: 6,
+    answer: 'HÀNH QUÂN',
+    keywordIndex: 3,
+    type: 'rebus',
+    images: [
+      { src: './assets/rebus-hanh.png', alt: 'Một loại rau gia vị có lá dài màu xanh và gốc trắng.' },
+      { src: './assets/rebus-quan-co.png', alt: 'Những vật nhỏ dùng trong một trò chơi trên bàn.' },
+    ],
+    prompt: 'Ghép hai hình thành cụm từ gì?',
+    hint: 'Đọc từ trái sang phải. Mỗi hình gợi một tiếng, ghép lại thành cụm từ gồm hai tiếng.',
+  },
+];
+
+// Source: src/crossword-session.mjs
+function normalizeCrosswordAnswer(value) {
+  return String(value ?? '')
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .toUpperCase()
+    .replace(/Đ/g, 'D')
+    .replace(/[^A-Z]/g, '');
+}
+
+function createCrosswordSession(rows = crosswordRows, keyword = crosswordKeyword) {
+  const normalizedAnswers = rows.map(row => normalizeCrosswordAnswer(row.answer));
+  const normalizedKeyword = normalizeCrosswordAnswer(keyword);
+  let solved = rows.map(() => false);
+  let keywordSolved = false;
+  return {
+    get state() {
+      return {
+        solved: [...solved],
+        solvedCount: solved.filter(Boolean).length,
+        complete: keywordSolved,
+        keywordSolved,
+        revealedKeyword: solved.map((done, index) => done ? normalizedAnswers[index][rows[index].keywordIndex] : null),
+      };
+    },
+    submitRow(index, value) {
+      if (keywordSolved || !Number.isInteger(index) || index < 0 || index >= rows.length) return null;
+      if (solved[index]) return { correct: true, alreadySolved: true };
+      const correct = normalizeCrosswordAnswer(value) === normalizedAnswers[index];
+      if (correct) solved[index] = true;
+      return { correct };
+    },
+    submitKeyword(value) {
+      const correct = normalizeCrosswordAnswer(value) === normalizedKeyword;
+      if (correct) keywordSolved = true;
+      return { correct };
+    },
+    restart() {
+      solved = rows.map(() => false);
+      keywordSolved = false;
+    },
+  };
+}
+
+// Source: src/crossword.mjs
+function mountCrossword(main, { playFeedback, stopFeedback, announce }) {
+  const game = createCrosswordSession();
+  const typeNames = { image: 'Nhìn hình', choice: 'Trắc nghiệm', action: 'Diễn động tác', rebus: 'Nhìn hình bắt chữ' };
+  const keyColumn = Math.max(...crosswordRows.map(row => row.keywordIndex));
+  const columns = Math.max(...crosswordRows.map(row => keyColumn - row.keywordIndex + normalizeCrosswordAnswer(row.answer).length));
+  let retryTimer = 0;
+  let clock = 0;
+  let activeRow = null;
+  let returnFocus;
+  let busy = false;
+  let closeHandled = true;
+  const usedHints = new Set();
+
+  main.classList.add('crossword-main');
+  main.innerHTML = `<header class="cw-heading"><h1>Mật mã rừng xanh</h1><div class="cw-counter"><strong id="cw-count">0 / 6</strong><span>HÀNG ĐÃ MỞ</span></div></header>
+    <div class="cw-layout"><section class="cw-board-panel" aria-label="Bảng ô chữ"><div class="cw-panel-heading"><span id="cw-board-status">Chọn một hàng để bắt đầu</span></div><div class="cw-board-scroll"><div class="cw-grid" style="--cw-columns:${columns}"><div class="cw-key-heading" style="grid-template-columns:44px repeat(${columns},var(--cw-cell))"><span style="grid-column:${keyColumn + 2}">CỘT DỌC</span></div><div id="cw-rows"></div></div></div><p class="cw-scroll-note">Vuốt ngang để xem đủ các ô chữ.</p></section>
+    <aside class="cw-sidebar"><section class="cw-key-card"><h2>Từ khóa</h2><div id="cw-key-preview" class="cw-key-preview" aria-label="Các chữ cái từ khóa đã mở"></div><button type="button" class="primary" id="cw-guess-keyword">Đoán từ khóa →</button></section><button type="button" class="utility cw-reset" id="cw-reset">↻ Chơi lại</button></aside></div>
+    <dialog class="cw-dialog" id="cw-dialog" aria-labelledby="cw-dialog-title"></dialog>`;
+  const dialog = main.querySelector('#cw-dialog');
+  const rowsRoot = main.querySelector('#cw-rows');
+  const keywordButton = main.querySelector('#cw-guess-keyword');
+
+  function renderBoard() {
+    const { solved, solvedCount, complete, revealedKeyword } = game.state;
+    rowsRoot.replaceChildren();
+    crosswordRows.forEach((row, index) => {
+      const word = normalizeCrosswordAnswer(row.answer);
+      const open = solved[index] || complete;
+      const button = document.createElement('button');
+      button.type = 'button';
+      button.className = `cw-row${open ? ' is-solved' : ''}`;
+      button.dataset.row = index;
+      button.style.gridTemplateColumns = `44px repeat(${columns},var(--cw-cell))`;
+      button.setAttribute('aria-label', `Hàng ngang ${index + 1}, ${word.length} chữ cái, ${typeNames[row.type]}${open ? `, đã mở: ${row.answer}` : ''}`);
+      const number = document.createElement('span');
+      number.className = 'cw-row-number'; number.textContent = index + 1;
+      number.style.gridColumn = 1; button.append(number);
+      [...word].forEach((letter, position) => {
+        const cell = document.createElement('span');
+        cell.className = `cw-cell${position === row.keywordIndex ? ' cw-key-cell' : ''}`;
+        cell.style.gridColumn = keyColumn - row.keywordIndex + position + 2;
+        cell.textContent = open ? letter : '·';
+        cell.setAttribute('aria-hidden', 'true'); button.append(cell);
+      });
+      button.addEventListener('click', () => openRow(index, button));
+      rowsRoot.append(button);
+    });
+    main.querySelector('#cw-count').textContent = `${complete ? crosswordRows.length : solvedCount} / ${crosswordRows.length}`;
+    main.querySelector('#cw-board-status').textContent = complete ? 'Giải mã thành công!' : solvedCount === crosswordRows.length ? 'Đã mở đủ chữ. Hãy đoán từ khóa!' : 'Chọn một số để mở câu hỏi';
+    const preview = main.querySelector('#cw-key-preview'); preview.replaceChildren();
+    [...crosswordKeyword].forEach((letter, index) => {
+      const cell = document.createElement('span');
+      cell.textContent = complete ? letter : revealedKeyword[index] || '?';
+      if (complete || revealedKeyword[index]) cell.classList.add('is-revealed');
+      preview.append(cell);
+    });
+    keywordButton.textContent = complete ? 'Xem từ khóa đã giải ✓' : 'Đoán từ khóa →';
+  }
+
+  function clearClueTimers() {
+    clearTimeout(retryTimer); clearInterval(clock); busy = false; stopFeedback();
+  }
+  function openDialog(title, source) {
+    clearClueTimers(); returnFocus = source;
+    closeHandled = false;
+    dialog.innerHTML = `<header class="cw-dialog-header"><span class="eyebrow" id="cw-dialog-title"></span><button type="button" class="cw-close" aria-label="Đóng câu hỏi">×</button></header><div class="cw-clue-body"></div>`;
+    dialog.querySelector('#cw-dialog-title').textContent = title;
+    dialog.querySelector('.cw-close').addEventListener('click', closeClue);
+    dialog.showModal();
+    return dialog.querySelector('.cw-clue-body');
+  }
+  function shuffleOptions(options) {
+    const result = [...options];
+    for (let i = result.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [result[i], result[j]] = [result[j], result[i]]; }
+    return result;
+  }
+  function openRow(index, source) {
+    activeRow = index;
+    const row = crosswordRows[index];
+    const body = openDialog(`Hàng ${String(index + 1).padStart(2, '0')} · ${typeNames[row.type]} · ${normalizeCrosswordAnswer(row.answer).length} ô`, source);
+    body.dataset.type = row.type;
+    const prompt = document.createElement('h2'); prompt.className = 'cw-prompt'; prompt.textContent = row.prompt; body.append(prompt);
+    const content = document.createElement('div'); content.className = 'cw-clue-content';
+    const response = document.createElement('div'); response.className = 'cw-response';
+    body.append(content, response);
+    if (row.type === 'image') {
+      const figure = document.createElement('figure'); figure.className = 'cw-image-clue';
+      const picture = document.createElement('img'); picture.src = row.image; picture.alt = row.alt;
+      figure.append(picture); content.append(figure);
+    }
+    if (row.type === 'rebus') {
+      const images = document.createElement('div'); images.className = 'cw-rebus'; images.setAttribute('aria-label', 'Ghép ý của các hình từ trái sang phải');
+      row.images.forEach((item, imageIndex) => {
+        if (imageIndex) { const plus = document.createElement('span'); plus.className = 'cw-rebus-sign'; plus.textContent = '+'; plus.setAttribute('aria-hidden', 'true'); images.append(plus); }
+        const figure = document.createElement('figure'); figure.className = 'cw-rebus-picture';
+        const picture = document.createElement('img'); picture.src = item.src; picture.alt = item.alt; figure.append(picture); images.append(figure);
+      });
+      content.append(images);
+    }
+    if (row.type === 'action') {
+      const stage = document.createElement('section'); stage.className = 'cw-action-stage';
+      stage.innerHTML = `<div class="cw-action-clock"><output id="cw-clock" aria-live="off">45</output><span>GIÂY</span><button type="button" class="cw-secondary" id="cw-start-clock">Bắt đầu diễn</button></div><details class="cw-performer-card"><summary>Thẻ người diễn</summary><p class="cw-private-note">Xem riêng, rồi đóng thẻ trước khi chiếu.</p><p id="cw-performer-instructions"></p></details>`;
+      stage.querySelector('#cw-performer-instructions').textContent = row.performerInstructions;
+      stage.querySelector('#cw-start-clock').addEventListener('click', () => {
+        clearInterval(clock);
+        stage.querySelector('details').open = false;
+        const deadline = Date.now() + 45000;
+        const output = stage.querySelector('#cw-clock'); output.textContent = '45';
+        stage.querySelector('#cw-start-clock').textContent = 'Diễn lại 45 giây';
+        announce('Bắt đầu 45 giây diễn động tác.');
+        clock = setInterval(() => {
+          const seconds = Math.max(0, Math.ceil((deadline - Date.now()) / 1000)); output.textContent = seconds;
+          if (!seconds) { clearInterval(clock); announce('Hết giờ diễn. Cả lớp hãy đưa ra đáp án.'); }
+        }, 200);
+      });
+      content.append(stage);
+    }
+    if (row.type === 'choice') {
+      const choices = document.createElement('div'); choices.className = 'cw-choices';
+      shuffleOptions(row.options).forEach((option, position) => {
+        const button = document.createElement('button'); button.type = 'button'; button.className = 'cw-choice';
+        const badge = document.createElement('b'); badge.textContent = 'ABCD'[position];
+        const text = document.createElement('span'); text.textContent = option;
+        button.append(badge, text); button.addEventListener('click', () => submitRow(option, button)); choices.append(button);
+      }); content.append(choices);
+    } else {
+      const form = document.createElement('form'); form.className = 'cw-answer-form';
+      form.innerHTML = `<label class="sr-only" for="cw-answer">Đáp án của bạn</label><div><input id="cw-answer" name="answer" autocomplete="off" autocapitalize="characters" spellcheck="false" maxlength="80" placeholder="Nhập đáp án" required><button class="primary" type="submit">Trả lời →</button></div>`;
+      form.addEventListener('submit', event => { event.preventDefault(); submitRow(form.elements.answer.value); }); response.append(form);
+    }
+    const hint = document.createElement('div'); hint.className = 'cw-hint';
+    hint.innerHTML = `<button type="button" class="cw-secondary" id="cw-show-hint">Gợi ý</button><p id="cw-hint-text" hidden></p>`;
+    hint.querySelector('p').textContent = row.hint;
+    const revealHint = () => { usedHints.add(index); hint.querySelector('p').hidden = false; hint.querySelector('button').disabled = true; hint.querySelector('button').textContent = 'Đã mở gợi ý'; };
+    hint.querySelector('button').addEventListener('click', revealHint);
+    if (usedHints.has(index)) revealHint(); response.append(hint);
+    const status = document.createElement('p'); status.id = 'cw-answer-status'; status.className = 'cw-answer-status'; status.setAttribute('role', 'status'); response.append(status);
+    const back = document.createElement('button'); back.type = 'button'; back.className = 'primary cw-back'; back.textContent = 'Về ô chữ →'; back.hidden = true;
+    back.addEventListener('click', closeClue); response.append(back);
+    if (game.state.solved[index] || game.state.complete) {
+      status.textContent = `Hàng ngang đã mở: ${row.answer}.`;
+      body.querySelectorAll('.cw-choice, .cw-answer-form button, .cw-answer-form input').forEach(control => { control.disabled = true; }); back.hidden = false;
+    }
+  }
+
+  function lockAnswers(lock) {
+    dialog.querySelectorAll('.cw-choice, .cw-answer-form button, .cw-answer-form input').forEach(control => { control.disabled = lock; });
+  }
+  function submitRow(value, selectedButton) {
+    if (busy || !normalizeCrosswordAnswer(value)) return;
+    const result = game.submitRow(activeRow, value); if (!result) return;
+    if (result.alreadySolved) return;
+    busy = true; lockAnswers(true); clearInterval(clock);
+    const status = dialog.querySelector('#cw-answer-status');
+    status.className = `cw-answer-status ${result.correct ? 'is-correct' : 'is-wrong'}`;
+    status.textContent = result.correct ? `Chính xác! Hàng ngang là ${crosswordRows[activeRow].answer}.` : 'Chưa chính xác. Hãy thử lại nhé!';
+    selectedButton?.classList.add(result.correct ? 'cw-choice-correct' : 'cw-choice-wrong');
+    if (!result.correct) dialog.querySelector('input')?.setAttribute('aria-invalid', 'true');
+    else dialog.querySelector('input')?.removeAttribute('aria-invalid');
+    playFeedback(result.correct); announce(status.textContent);
+    if (result.correct) {
+      renderBoard();
+      dialog.querySelector('.cw-back').hidden = false;
+      dialog.querySelector('.cw-back').focus({ preventScroll: true });
+    } else {
+      retryTimer = setTimeout(() => { busy = false; lockAnswers(false); dialog.querySelector('input')?.focus({ preventScroll: true }); }, matchMedia('(prefers-reduced-motion: reduce)').matches ? 250 : 2800);
+    }
+  }
+
+  function showVictory(body) {
+    body.dataset.type = 'victory';
+    body.innerHTML = `<section class="cw-victory"><img src="./assets/star.svg" alt=""><h2>DU KÍCH</h2><div class="cw-victory-letters" aria-label="DUKICH"></div><button type="button" class="primary" id="cw-play-again">Chơi lại ↻</button></section>`;
+    [...crosswordKeyword].forEach(letter => { const cell = document.createElement('span'); cell.textContent = letter; body.querySelector('.cw-victory-letters').append(cell); });
+    body.querySelector('#cw-play-again').addEventListener('click', () => { closeClue(); restart(); });
+  }
+  function openKeyword(source) {
+    activeRow = null;
+    const body = openDialog('Từ khóa · 6 ô chữ', source);
+    if (game.state.complete) { showVictory(body); return; }
+    body.dataset.type = 'keyword';
+    body.innerHTML = `<h2 class="cw-prompt">Từ khóa là gì?</h2><form class="cw-answer-form"><label class="sr-only" for="cw-keyword">Nhập từ khóa gồm 6 chữ cái</label><div><input id="cw-keyword" name="keyword" autocomplete="off" autocapitalize="characters" spellcheck="false" maxlength="40" placeholder="Nhập từ khóa" required><button type="submit" class="primary">Giải mã →</button></div></form><p class="cw-answer-status" role="status"></p>`;
+    body.querySelector('form').addEventListener('submit', event => {
+      event.preventDefault(); if (busy) return;
+      const input = body.querySelector('input'); if (!normalizeCrosswordAnswer(input.value)) return;
+      const result = game.submitKeyword(input.value);
+      busy = true; lockAnswers(true); playFeedback(result.correct);
+      if (result.correct) { renderBoard(); showVictory(body); announce('Chính xác! Từ khóa là du kích. Giải mã thành công!'); }
+      else {
+        const status = body.querySelector('.cw-answer-status'); status.classList.add('is-wrong'); status.textContent = 'Chưa đúng từ khóa. Bạn có thể thử lại hoặc mở thêm hàng ngang.';
+        input.setAttribute('aria-invalid', 'true'); announce(status.textContent);
+        retryTimer = setTimeout(() => { busy = false; lockAnswers(false); input.focus({ preventScroll: true }); }, matchMedia('(prefers-reduced-motion: reduce)').matches ? 250 : 2800);
+      }
+    });
+  }
+  function restart() {
+    clearClueTimers(); usedHints.clear(); game.restart(); renderBoard(); keywordButton.focus({ preventScroll: true }); announce('Đã bắt đầu lượt ô chữ mới.');
+  }
+  function finishClose() {
+    if (closeHandled) return;
+    closeHandled = true;
+    clearClueTimers();
+    const target = activeRow === null ? returnFocus : rowsRoot.querySelector(`[data-row="${activeRow}"]`);
+    target?.focus({ preventScroll: true });
+  }
+  function closeClue() { dialog.close(); finishClose(); }
+  dialog.addEventListener('close', () => { if (!dialog.open) finishClose(); });
+  dialog.addEventListener('cancel', event => { event.preventDefault(); closeClue(); });
+  keywordButton.addEventListener('click', () => openKeyword(keywordButton));
+  main.querySelector('#cw-reset').addEventListener('click', restart);
+  renderBoard();
+  return { destroy() { if (dialog.open) closeClue(); else clearClueTimers(); } };
+}
+
+// Source: src/practice-finale.mjs
+const practiceEssayQuestion = 'Nghệ thuật quân sự của lực lượng vũ trang địa phương được thể hiện ở những nội dung cơ bản nào?';
+
+function mountPracticeFinale(host, { onRestart, announce, isMuted = () => false }) {
+  const reduced = matchMedia('(prefers-reduced-motion: reduce)');
+  const previousFocus = document.activeElement;
+  const timers = new Set();
+  const sources = new Set();
+  let audio;
+  let stage = 'intro';
+  const root = document.createElement('section');
+  root.id = 'practice-finale';
+  root.dataset.stage = stage;
+  root.setAttribute('role', 'dialog');
+  root.setAttribute('aria-modal', 'true');
+  root.setAttribute('aria-label', 'Phần tự luận và giao lưu');
+  root.tabIndex = -1;
+  let destroyed = false;
+  root.innerHTML = `<div class="pf-landscape" aria-hidden="true"></div><div class="pf-horizon" aria-hidden="true"></div><div class="pf-distant-shells" aria-hidden="true"><i></i><i></i><i></i></div><div class="pf-smoke pf-smoke-one" aria-hidden="true"></div><div class="pf-smoke pf-smoke-two" aria-hidden="true"></div><div class="pf-smoke pf-smoke-three" aria-hidden="true"></div><div class="pf-embers" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div><div class="pf-ground" aria-hidden="true"></div><div class="pf-tank" aria-hidden="true"><svg viewBox="0 0 860 380" fill="none"><defs><linearGradient id="pf-hull" x1="200" y1="100" x2="540" y2="330" gradientUnits="userSpaceOnUse"><stop stop-color="#859265"/><stop offset=".42" stop-color="#4e6340"/><stop offset="1" stop-color="#1d3022"/></linearGradient><linearGradient id="pf-edge" x2="0" y2="1"><stop stop-color="#c0bd8c"/><stop offset=".35" stop-color="#69704a"/><stop offset="1" stop-color="#2c402a"/></linearGradient><linearGradient id="pf-track" x2="0" y2="1"><stop stop-color="#273126"/><stop offset="1" stop-color="#0d1813"/></linearGradient></defs><ellipse cx="390" cy="345" rx="340" ry="25" fill="#020906" opacity=".55"/><path d="M106 235h545l54 41-20 57H110l-36-53Z" fill="url(#pf-track)" stroke="#8b9271" stroke-width="10"/><g fill="#3b4935" stroke="#9a9e7c" stroke-width="7"><circle cx="144" cy="285" r="35"/><circle cx="232" cy="285" r="35"/><circle cx="320" cy="285" r="35"/><circle cx="408" cy="285" r="35"/><circle cx="496" cy="285" r="35"/><circle cx="584" cy="285" r="35"/><circle cx="657" cy="285" r="26"/></g><g class="pf-track-links" stroke="#9da183" stroke-width="5"><path d="M102 249h22m8 0h22m8 0h22m8 0h22m8 0h22m8 0h22m8 0h22m8 0h22m8 0h22m8 0h22m8 0h22m8 0h22m8 0h22m8 0h22m8 0h22m8 0h22m8 0h22m8 0h22M110 323h22m8 0h22m8 0h22m8 0h22m8 0h22m8 0h22m8 0h22m8 0h22m8 0h22m8 0h22m8 0h22m8 0h22m8 0h22m8 0h22m8 0h22m8 0h22m8 0h22m8 0h22m8 0h22"/></g><path d="m119 180 424-13 132 61 24 28H86Z" fill="url(#pf-hull)" stroke="#a6ad7c" stroke-width="5"/><path d="m122 180 34-34h398l-11 21Z" fill="#8e9670"/><path d="M100 233h580" stroke="#c0bf8d" stroke-width="5"/><path d="m172 190 63 2-11 36-73-1Zm113-2 73-2-2 42h-82Zm112-5 82-2 18 47h-92Z" fill="#293d29" opacity=".6"/><g class="pf-turret"><path d="m275 107 62-35h152l63 53-17 52H253Z" fill="url(#pf-hull)" stroke="#a6ad7c" stroke-width="5"/><path d="m337 72 30-20h86l36 20" fill="#71825b" stroke="#a6ad7c" stroke-width="4"/><path d="M470 113h295v27H475" fill="#526743" stroke="#bec397" stroke-width="5"/><path d="M756 107h55v38h-55Z" fill="#405638" stroke="#b2b58b" stroke-width="4"/><path d="m357 100 9 20h23l-18 15 6 23-20-13-20 13 6-23-18-15h23Z" fill="#e6c375"/><path d="M288 82V22" stroke="#acb28a" stroke-width="3"/><path d="M289 23c22-14 36 15 64 1v36c-28 14-42-16-64-2Z" fill="#9d392b"/><path d="m310 31 3 7h8l-6 5 2 8-7-4-7 4 2-8-6-5h8Z" fill="#e6c375"/></g><g class="pf-muzzle"><path d="m810 126 41-21-13 22 21 16-48-4Z" fill="#ffe6a2"/><circle cx="815" cy="126" r="27" fill="#e8a84a" opacity=".5"/></g></svg></div><div class="pf-bombs" aria-hidden="true"><svg class="pf-bomb pf-bomb-one" viewBox="0 0 70 160"><path d="m25 41-9-31 19 11L54 9 44 42" fill="#728261" stroke="#a9aa7b" stroke-width="2"/><path d="M25 37C9 64 8 99 19 123l16 22 16-22c11-24 10-59-6-86Z" fill="#3a5035" stroke="#b1b78d" stroke-width="3"/><path d="M14 73h43v13H14Z" fill="#ccb66b"/></svg><svg class="pf-bomb pf-bomb-two" viewBox="0 0 70 160"><path d="m25 41-9-31 19 11L54 9 44 42" fill="#728261" stroke="#a9aa7b" stroke-width="2"/><path d="M25 37C9 64 8 99 19 123l16 22 16-22c11-24 10-59-6-86Z" fill="#3a5035" stroke="#b1b78d" stroke-width="3"/><path d="M14 73h43v13H14Z" fill="#ccb66b"/></svg></div><div class="pf-blast pf-blast-one" aria-hidden="true"><i></i><b></b></div><div class="pf-blast pf-blast-two" aria-hidden="true"><i></i><b></b></div><div class="pf-content"></div>`;
+  host.replaceChildren(root);
+  root.querySelector('.pf-ground').classList.add('pf-terrain');
+  root.querySelectorAll('.pf-embers i').forEach((ember, index) => {
+    ember.style.setProperty('--pf-x', `${8 + index * 12}%`);
+    ember.style.setProperty('--pf-time', `${8 + index % 4}s`);
+    ember.style.setProperty('--pf-delay', `${-index * 1.8}s`);
+  });
+  const content = root.querySelector('.pf-content');
+
+  function schedule(callback, delay) {
+    const timer = setTimeout(() => { timers.delete(timer); if (!destroyed) callback(); }, delay);
+    timers.add(timer);
+  }
+  function boom() {
+    if (destroyed || reduced.matches || isMuted()) return;
+    try {
+      const AudioContext = window.AudioContext || window.webkitAudioContext;
+      if (!AudioContext) return;
+      audio ||= new AudioContext();
+      audio.resume().catch(() => {});
+      const duration = .65;
+      const buffer = audio.createBuffer(1, Math.floor(audio.sampleRate * duration), audio.sampleRate);
+      const samples = buffer.getChannelData(0);
+      for (let i = 0; i < samples.length; i++) samples[i] = (Math.random() * 2 - 1) * (1 - i / samples.length);
+      const source = audio.createBufferSource(); source.buffer = buffer;
+      const filter = audio.createBiquadFilter(); filter.type = 'lowpass'; filter.frequency.setValueAtTime(650, audio.currentTime); filter.frequency.exponentialRampToValueAtTime(55, audio.currentTime + duration);
+      const gain = audio.createGain(); gain.gain.setValueAtTime(.0001, audio.currentTime); gain.gain.exponentialRampToValueAtTime(.14, audio.currentTime + .025); gain.gain.exponentialRampToValueAtTime(.0001, audio.currentTime + duration);
+      source.connect(filter); filter.connect(gain); gain.connect(audio.destination);
+      source.onended = () => { sources.delete(source); source.disconnect(); filter.disconnect(); gain.disconnect(); };
+      sources.add(source); source.start();
+    } catch { /* Optional audio stays silent when unavailable. */ }
+  }
+  function showEssay() {
+    if (destroyed || stage !== 'intro') return;
+    stage = 'essay'; root.dataset.stage = stage;
+    content.innerHTML = `<div class="pf-essay"><span class="pf-kicker">CÂU HỎI TỰ LUẬN</span><h1 id="practice-essay-question" class="pf-essay-question" tabindex="-1"></h1></div><button type="button" id="pf-continue" class="pf-continue" aria-label="Tiếp tục đến phần mời đặt câu hỏi">Nhấn <kbd>ENTER ↵</kbd> để tiếp tục</button>`;
+    content.querySelector('h1').textContent = practiceEssayQuestion;
+    content.querySelector('.pf-continue').addEventListener('click', showQuestions);
+    content.querySelector('h1').focus({ preventScroll: true });
+    announce?.(practiceEssayQuestion);
+  }
+  function showQuestions() {
+    if (destroyed || stage !== 'essay') return;
+    stage = 'questions'; root.dataset.stage = stage;
+    content.innerHTML = `<div class="pf-invitation"><span class="pf-kicker">GIAO LƯU & THẢO LUẬN</span><h1 id="practice-final-questions" tabindex="-1">MỜI CÁC BẠN<br><strong>ĐẶT CÂU HỎI</strong></h1><p>CHO NHÓM CHÚNG MÌNH</p><span class="pf-gold-line" aria-hidden="true"></span></div><button type="button" id="pf-restart" class="pf-restart">↻ Luyện tập lại</button>`;
+    content.querySelector('.pf-restart').addEventListener('click', () => { if (!destroyed) onRestart?.(); });
+    content.querySelector('h1').focus({ preventScroll: true });
+    announce?.('Mời các bạn đặt câu hỏi cho nhóm chúng mình.');
+  }
+  function onKeyDown(event) {
+    if (event.key === 'Tab') {
+      const button = root.querySelector('button');
+      event.preventDefault();
+      (button || root).focus({ preventScroll: true });
+      return;
+    }
+    if (event.key !== 'Enter' || event.repeat || event.altKey || event.ctrlKey || event.metaKey || event.shiftKey) return;
+    // Consume Enter during the short intro without skipping its reveal.
+    if (event.target.closest?.('.pf-restart')) return;
+    event.preventDefault(); event.stopPropagation();
+    if (stage === 'essay') showQuestions();
+  }
+  function onMotionChange() { if (reduced.matches && stage === 'intro') showEssay(); }
+  document.addEventListener('keydown', onKeyDown, true);
+  reduced.addEventListener?.('change', onMotionChange);
+  if (reduced.matches) showEssay();
+  else {
+    content.innerHTML = `<div class="pf-intro-title"><span>HOÀN THÀNH LUYỆN TẬP</span><h1>TIẾN VÀO<br>THỬ THÁCH MỚI</h1></div>`;
+    announce?.('Hoàn thành phần luyện tập. Chuẩn bị câu hỏi tự luận.');
+    schedule(boom, 1050); schedule(boom, 1700); schedule(boom, 2150);
+    schedule(showEssay, 2600);
+    root.focus({ preventScroll: true });
+  }
+  return {
+    get stage() { return stage; },
+    destroy() {
+      if (destroyed) return;
+      destroyed = true;
+      timers.forEach(clearTimeout); timers.clear();
+      document.removeEventListener('keydown', onKeyDown, true);
+      reduced.removeEventListener?.('change', onMotionChange);
+      for (const source of sources) { try { source.stop(); } catch {} }
+      sources.clear();
+      audio?.close().catch(() => {});
+      root.remove();
+      if (previousFocus?.isConnected) previousFocus.focus({ preventScroll: true });
     },
   };
 }
@@ -275,11 +715,29 @@ Object.values(sounds).forEach(audio => { audio.preload = 'auto'; audio.volume = 
 
 app.innerHTML = `<div class="landscape" aria-hidden="true"></div><div class="site-shell"><header class="masthead"><div class="identity"><span class="identity-seal"><img src="./assets/star.svg" alt=""></span><div><span class="eyebrow">GIÁO DỤC QUỐC PHÒNG & AN NINH</span><p>DẤU CHÂN NGƯỜI LÍNH</p></div></div><div class="utilities"><button type="button" id="sound-toggle" class="utility" aria-pressed="false">♪ <span>Âm thanh bật</span></button><button type="button" id="fullscreen" class="utility">⛶ <span>Toàn màn hình</span></button></div></header><main id="main"></main><footer class="site-footer"><span>VỮNG KIẾN THỨC · BỀN Ý CHÍ</span><span id="keyboard-hint">A–D chọn đáp án <i>·</i> Enter tiếp tục</span></footer></div><div id="effect-root" aria-hidden="true"></div><div id="announcement" class="sr-only" role="status" aria-live="polite"></div>`;
 const main = document.querySelector('#main');
-const effects = createEffects(document.querySelector('#effect-root'));
+const effectRoot = document.querySelector('#effect-root');
+const effects = createEffects(effectRoot);
 const fullscreen = document.querySelector('#fullscreen');
 const soundToggle = document.querySelector('#sound-toggle');
+let crossword;
+let finale;
 
 function announce(text) { document.querySelector('#announcement').textContent = text; }
+function stopFeedback() {
+  effects.stop();
+  if (effectRoot.parentElement !== document.body) document.body.append(effectRoot);
+  Object.values(sounds).forEach(audio => audio.pause());
+}
+function playFeedback(correct) {
+  // Native modal dialogs live above normal z-index layers. Host effects inside them.
+  const modal = document.querySelector('#cw-dialog[open]');
+  if (modal) modal.append(effectRoot);
+  if (!muted) {
+    Object.values(sounds).forEach(audio => { audio.pause(); audio.currentTime = 0; });
+    sounds[correct ? 'correct' : 'wrong'].play().catch(() => announce('Trình duyệt chưa cho phép phát âm thanh.'));
+  }
+  effects.play(correct);
+}
 async function enterFullscreen() {
   if (document.fullscreenElement || !document.documentElement.requestFullscreen) return;
   try { await document.documentElement.requestFullscreen(); }
@@ -324,11 +782,7 @@ function choose(index) {
   buttons.forEach(button => { button.disabled = true; });
   buttons[index].classList.add(result.correct ? 'is-correct' : 'is-wrong');
   buttons[index].querySelector('.answer-result').textContent = result.correct ? '✓' : '×';
-  if (!muted) {
-    Object.values(sounds).forEach(audio => { audio.pause(); audio.currentTime = 0; });
-    sounds[result.correct ? 'correct' : 'wrong'].play().catch(() => announce('Trình duyệt chưa cho phép phát âm thanh.'));
-  }
-  effects.play(result.correct);
+  playFeedback(result.correct);
   announce(result.correct ? 'Chính xác!' : 'Chưa chính xác. Hãy chọn lại.');
   feedbackTimer = setTimeout(() => {
     busy = false;
@@ -337,6 +791,11 @@ function choose(index) {
       document.querySelector('.instruction').textContent = 'Chưa chính xác. Hãy chọn lại đến khi trả lời đúng.';
       announce('Hãy thử lại. Bạn có thể tiếp tục chọn đáp án.');
       buttons[index].focus({ preventScroll: true });
+      return;
+    }
+    if (isPractice && session.state.index === session.state.total - 1) {
+      session.next();
+      startPracticeFinale();
       return;
     }
     const feedback = document.querySelector('#feedback');
@@ -354,9 +813,27 @@ function next() {
   if (busy || !session.next()) return;
   effects.stop();
   Object.values(sounds).forEach(audio => audio.pause());
-  if (session.state.complete) renderSummary();
+  if (session.state.complete) {
+    if (isPractice) startPracticeFinale();
+    else renderSummary();
+  }
   else renderQuestion(true);
   window.scrollTo({ top: 0, behavior: 'instant' });
+}
+function startPracticeFinale() {
+  if (finale) return;
+  stopFeedback();
+  finale = mountPracticeFinale(main, {
+    isMuted: () => muted,
+    announce,
+    onRestart() {
+      finale?.destroy();
+      finale = null;
+      session.restart();
+      renderQuestion(true);
+      window.scrollTo({ top: 0, behavior: 'instant' });
+    },
+  });
 }
 function renderSummary() {
   document.querySelector('.question-panel')?.dispose?.();
@@ -368,17 +845,15 @@ function renderSummary() {
 }
 if (mode !== 'crossword') renderQuestion();
 else {
-  const title = 'Trò chơi ô chữ';
-  document.title = `${title} · Dấu chân người lính`;
-  document.querySelector('#keyboard-hint').textContent = 'GIÁO DỤC QUỐC PHÒNG & AN NINH';
-  main.innerHTML = `<section class="summary coming-soon"><img src="./assets/star.svg" alt=""><span class="eyebrow gold">KHÔNG GIAN HỌC TẬP</span><h1>${title}</h1><p>Khung trang đã sẵn sàng.<br>Nội dung sẽ được bổ sung ở bước tiếp theo.</p><a class="primary" href="./on-bai.html">Vào câu hỏi ôn bài →</a></section>`;
+  document.querySelector('#keyboard-hint').textContent = 'CHỌN HÀNG NGANG · MỞ MẬT MÃ';
+  crossword = mountCrossword(main, { playFeedback, stopFeedback, announce });
 }
 document.addEventListener('keydown', event => {
-  if (mode === 'crossword' || event.altKey || event.ctrlKey || event.metaKey || event.repeat || /INPUT|TEXTAREA|SELECT/.test(event.target.tagName)) return;
+  if (mode === 'crossword' || finale || event.altKey || event.ctrlKey || event.metaKey || event.repeat || /INPUT|TEXTAREA|SELECT/.test(event.target.tagName)) return;
   const index = 'abcd'.indexOf(event.key.toLowerCase());
   if (index >= 0 && !session.state.complete) { event.preventDefault(); choose(index); }
   // Native Enter on focused buttons already dispatches click. Avoid advancing twice.
   if (event.key === 'Enter' && !event.target.closest('button, a') && session.state.selected !== null && !session.state.complete) { event.preventDefault(); next(); }
 });
-window.addEventListener('pagehide', () => { clearTimeout(feedbackTimer); effects.stop(); Object.values(sounds).forEach(audio => audio.pause()); });
+window.addEventListener('pagehide', () => { clearTimeout(feedbackTimer); crossword?.destroy(); finale?.destroy(); stopFeedback(); });
 })();

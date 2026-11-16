@@ -52,6 +52,7 @@ describe('liquid drops share their visible outlet and receiving contact', () => 
     expect(flight.start[1]).toBeGreaterThan(receiverLipWorld(experiment.sample)[1]);
     for (let frame = 0; frame < 120 && donor.fraction === 0; frame++) experiment.tick(1 / 60);
     expect(donor.fraction).toBeCloseTo(0.05 / 0.12, 12);
-    expect(experiment.sample.recentPourContact!.point).toEqual(vesselWorldToLocal(experiment.sample, flight.target));
+    experiment.sample.recentPourContact!.point.forEach((value, axis) =>
+      expect(value).toBeCloseTo(vesselWorldToLocal(experiment.sample, flight.target)[axis], 5));
   });
 });

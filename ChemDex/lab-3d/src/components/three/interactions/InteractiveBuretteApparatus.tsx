@@ -1,17 +1,17 @@
 import {useQualityStore,getQualitySettings} from '../../../vfx/quality';
-import React, { useRef, useState } from 'react';
-import { useShallow } from 'zustand/react/shallow';
-import { useFrame } from '@react-three/fiber';
+import React, { useMemo, useRef, useState } from 'react';
+import { createPortal, useFrame, useThree } from '@react-three/fiber';
 import * as THREE from 'three';
 import { useAppStore } from '../../../store/useAppStore';
 import { LAB_PHYSICS } from '../../../engine/interactionEngine';
-import { ContinuousLiquidStream } from './ContinuousLiquidStream';
 import { labSound } from '../../../utils/audio';
 import { useToolDock } from '../../../handling/toolDock';
 import { simulationFrameDt } from '../../../core/clock';
 import { BuretteFlowClock } from '../../../handling/buretteFlow';
-import { vesselWorldLiquidSurfaceY } from '../../../science/vesselGeometry';
 import { findChemical } from '../../../data/chemicals';
+import { findBuretteReceiver } from '../../../handling/buretteTarget';
+import { BURETTE_TIP_LOCAL_Y, MAX_BURETTE_PRESENTATIONS, burettePresentationView, buretteTargetUnchanged } from '../../../handling/burettePresentation';
+import { useInstrumentStore } from '../../../handling/instrumentState';
 
 const glassMaterial = new THREE.MeshPhysicalMaterial({
   roughness: 0.05,
@@ -32,56 +32,65 @@ export const InteractiveBuretteApparatus = React.memo(function InteractiveBurett
   const transmission=useQualityStore(state=>getQualitySettings(state.effectiveTier).glassTransmission);
   const activeGlassMaterial=transmission?glassMaterial:lightweightGlass;
   const burette = useAppStore(state => state.burette);
+  const scene = useThree(state => state.scene);
   const toggleStopcock = useAppStore(state => state.toggleBuretteStopcock);
   const dispenseDrop = useAppStore(state => state.dispenseBuretteDrop);
   const dock = useToolDock('burette', burette.position || position, next => useAppStore.getState().updateBurette({ position: next }));
   const standPos = dock.position;
 
-  const [valveAngle, setValveAngle] = useState(burette.isDispensing ? Math.PI / 2 : 0);
   const [isValveHovered, setIsValveHovered] = useState(false);
   const dropClock = useRef(new BuretteFlowClock());
-
-  // Synchronize valveAngle if burette.isDispensing changes from external button
-  const targetValveAngle = burette.isDispensing ? Math.PI / 2 : 0;
-  if (Math.abs(valveAngle - targetValveAngle) > 0.01 && !isValveHovered) {
-    // Smooth transition
-  }
-
-  // Find vessel directly beneath burette tip (around [0, 0, 0] relative to stand or world position)
-  const targetVessel = useAppStore(useShallow(state => {
-    const tipWorldX = standPos[0];
-    const tipWorldZ = standPos[2];
-    for (const v of Object.values(state.vessels)) {
-      if (v.id.startsWith('lesson_vessel_') || v.isLocked || v.isSealed || v.isShattered || v.volume_ml >= v.capacity_ml || v.capacity_ml <= 0 || ['retort_stand', 'retort_clamp', 'stopper', 'test_tube_rack', 'tongs'].includes(v.type)) continue;
-      const dx = v.position[0] - tipWorldX;
-      const dz = v.position[2] - tipWorldZ;
-      if (Math.hypot(dx, dz) < 0.6) {
-        return { id: v.id, position: v.position, surfaceY: vesselWorldLiquidSurfaceY(v) };
-      }
-    }
-    return null;
-  }));
+  const epoch = useRef(-1);
+  const dropsRef = useRef<THREE.InstancedMesh>(null);
+  const ripplesRef = useRef<THREE.InstancedMesh>(null);
+  const dummy = useMemo(() => new THREE.Object3D(), []);
+  const color = useMemo(() => new THREE.Color(), []);
 
   const fillRatio = Math.max(0, Math.min(1.0, burette.currentVolume_ml / burette.maxVolume_ml));
-  const isDispensing = burette.isDispensing && burette.currentVolume_ml > 0;
-
-  // Stream positions
-  const streamFromPos: [number, number, number] = [standPos[0], standPos[1] + 0.1, standPos[2]];
-  const streamToPos: [number, number, number] = targetVessel
-    ? [targetVessel.position[0], targetVessel.position[1] + targetVessel.surfaceY, targetVessel.position[2]]
-    : [standPos[0], standPos[1] - 0.9, standPos[2]];
 
   useFrame((_, delta) => {
     const state = useAppStore.getState(), dt = simulationFrameDt(delta, state);
-    dropClock.current.step(dt, isDispensing && !!targetVessel, burette.flowRate_ml_s, state.burette.currentVolume_ml, () => {
-      if (!targetVessel) return 0;
+    const instrument = useInstrumentStore.getState();
+    if (epoch.current !== state.pourEpoch) { dropClock.current = new BuretteFlowClock(); epoch.current = state.pourEpoch; }
+    instrument.advanceBurettePresentation(dt, state.pourEpoch,
+      receipt => buretteTargetUnchanged(receipt, state.vessels[receipt.targetId]));
+    const targetVessel = findBuretteReceiver(state.vessels, standPos);
+    const enabled = state.burette.isDispensing && !state.moveMode && !state.draggingVesselId && !!targetVessel;
+    dropClock.current.step(dt, enabled, state.burette.flowRate_ml_s, state.burette.currentVolume_ml, age_s => {
+      const live = useAppStore.getState(), receiver = findBuretteReceiver(live.vessels, standPos);
+      if (!receiver) return 0;
       const before = useAppStore.getState().burette.currentVolume_ml;
-      dispenseDrop(targetVessel.id);
+      dispenseDrop(receiver.id, age_s);
       const moved = before - useAppStore.getState().burette.currentVolume_ml;
       if (moved > 0) labSound.playDrop();
       return moved;
     });
-  });
+    const receipts = useInstrumentStore.getState().burettePresentations;
+    const drops = dropsRef.current, ripples = ripplesRef.current;
+    if (!drops || !ripples) return;
+    let dropCount = 0, rippleCount = 0;
+    for (const receipt of receipts) {
+      const view = burettePresentationView(receipt);
+      color.set(receipt.color);
+      if (view.visible) {
+        dummy.position.fromArray(view.position); dummy.rotation.set(0, 0, 0); dummy.scale.setScalar(view.radius); dummy.updateMatrix();
+        drops.setMatrixAt(dropCount, dummy.matrix); drops.setColorAt(dropCount++, color);
+      } else if (view.impactProgress < 1) {
+        dummy.position.fromArray(receipt.surface); dummy.position.y += 0.002;
+        dummy.rotation.set(-Math.PI / 2, 0, 0);
+        const scale = view.radius * (1 + view.impactProgress * 2);
+        dummy.scale.setScalar(scale); dummy.updateMatrix();
+        ripples.setMatrixAt(rippleCount, dummy.matrix); ripples.setColorAt(rippleCount++, color);
+      }
+    }
+    drops.count = dropCount; drops.visible = dropCount > 0; drops.instanceMatrix.needsUpdate = true;
+    ripples.count = rippleCount; ripples.visible = rippleCount > 0; ripples.instanceMatrix.needsUpdate = true;
+    if (drops.instanceColor) drops.instanceColor.needsUpdate = true;
+    if (ripples.instanceColor) ripples.instanceColor.needsUpdate = true;
+    drops.userData.receipts = receipts.filter(receipt => burettePresentationView(receipt).visible)
+      .map(receipt => ({ id: receipt.id, targetId: receipt.targetId, volume_ml: receipt.volume_ml,
+        color: receipt.color, outlet: receipt.outlet, surface: receipt.surface, elapsed_s: receipt.elapsed_s }));
+  }, -1);
 
   const handleStopcockClick = (e: any) => {
     e.stopPropagation();
@@ -150,10 +159,10 @@ export const InteractiveBuretteApparatus = React.memo(function InteractiveBurett
 
       {/* Titrant Liquid Inside Burette */}
       {fillRatio > 0.005 && (
-        <mesh position={[0, 0.4 + (fillRatio * 3.0) / 2, 0]}>
+        <mesh name="burette-liquid-column" position={[0, 0.4 + (fillRatio * 3.0) / 2, 0]}>
           <cylinderGeometry args={[0.076, 0.076, fillRatio * 3.0, 16]} />
           <meshStandardMaterial 
-            color="#f8fafc" 
+            color={findChemical(burette.reagentFormula).color}
             transparent 
             opacity={0.8} 
             roughness={0.12} 
@@ -212,20 +221,20 @@ export const InteractiveBuretteApparatus = React.memo(function InteractiveBurett
       </group>
 
       {/* Burette Glass Capillary Delivery Tip */}
-      <mesh material={activeGlassMaterial} position={[0, 0.1, 0]}>
+      <mesh name="burette-delivery-tip" material={activeGlassMaterial} position={[0, BURETTE_TIP_LOCAL_Y + 0.2, 0]}>
         <cylinderGeometry args={[0.05, 0.015, 0.4, 16]} />
       </mesh>
 
-      {/* Falling Continuous Droplet Stream onto Vessel Below */}
-      <ContinuousLiquidStream
-        name="burette-stream"
-        fromPos={streamFromPos}
-        toPos={streamToPos}
-        color={findChemical(burette.reagentFormula).color}
-        flowRate={isDispensing ? burette.flowRate_ml_s : 0}
-        thickness={0.02}
-        active={isDispensing && !!targetVessel}
-      />
+      {createPortal(<group name="burette-delivery-effects">
+        <instancedMesh ref={dropsRef} name="burette-delivery-drops" args={[undefined, undefined, MAX_BURETTE_PRESENTATIONS]} frustumCulled={false} visible={false}>
+          <sphereGeometry args={[1, 12, 10]} />
+          <meshPhysicalMaterial transparent opacity={0.85} transmission={0.4} roughness={0.08} ior={1.38} depthWrite={false} />
+        </instancedMesh>
+        <instancedMesh ref={ripplesRef} name="burette-delivery-ripples" args={[undefined, undefined, MAX_BURETTE_PRESENTATIONS]} frustumCulled={false} visible={false}>
+          <ringGeometry args={[0.75, 1, 20]} />
+          <meshBasicMaterial transparent opacity={0.4} depthWrite={false} side={THREE.DoubleSide} />
+        </instancedMesh>
+      </group>, scene)}
     </group>
   );
 });

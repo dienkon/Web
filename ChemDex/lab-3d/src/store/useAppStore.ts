@@ -18,7 +18,8 @@ import {
   stepUndo, 
   stepRedo,
   canUndo as checkCanUndo,
-  canRedo as checkCanRedo
+  canRedo as checkCanRedo,
+  hasCurrentHistoryCoalesceKey
 } from './persistence';
 import { vfxBus, type VfxEventMap } from '../vfx/bus';
 import { getReactionVfxRecipe } from '../vfx/recipes/reactionVfx';
@@ -91,6 +92,8 @@ import { advancePourParcel, scalePourSample, pourContactLocal, type PourParcel, 
 import { createWallFilm, advanceWallFilm, detachWallFilm } from '../engine/wallFilm';
 import { createOverflowParcel, advanceOverflowParcel, reconcileOverflowSupport, overflowLocationFractions, overflowImpactSites, type OverflowRelease } from '../engine/overflowTransport';
 import { availableLiquidVolume } from '../handling/solidOccupancy';
+import { buretteTargetProblem, findBuretteReceiver } from '../handling/buretteTarget';
+import { makeBurettePresentation } from '../handling/burettePresentation';
 import { canReceivePour } from '../engine/decantTransfer';
 import { mobileSolidInventory } from '../science/suspensionTransport';
 import { SimulationEngine } from '../simulation/core/SimulationEngine';
@@ -177,7 +180,8 @@ function prepareStudioSpecimen(get: () => AppState, set: (patch: Partial<AppStat
     delete activeKinetics[id]; delete pendingReactions[id]; delete dissolvingSubstances[id];
     const vessels = { ...live.vessels, [id]: vessel };
     const materials = { inFlightPours: live.inFlightPours, spills: live.spills, wasteMass_g: live.wasteMass_g, wasteContents: live.wasteContents, workbenchEscapedGas_g: live.workbenchEscapedGas_g,
-      pipetteSample: live.pipetteSample, toolContamination: live.toolContamination, physics: capturePhysicalLab() };
+      pipetteSample: live.pipetteSample, toolContamination: live.toolContamination,
+      burette: live.burette, titrationHistory: live.titrationHistory, physics: capturePhysicalLab() };
     persistHistorySnapshot('ADD_VESSEL', vessels, live.burners, 'Prepared virtual specimen', 'Chuẩn bị mẫu Studio', materials);
     persistLabState(vessels, live.burners, materials);
     set({ vessels, vesselIds: Object.keys(vessels), selectedVesselId: id, activeKinetics,
@@ -288,6 +292,11 @@ const defaultVessels: Record<string, VesselState> = {
     hasGas: false,
     foam_ml: 0
   },
+};
+
+const DEFAULT_BURETTE: BuretteState = {
+  id: 'burette_1', position: [0, 1.0, 0], reagentFormula: 'NaOH', currentVolume_ml: 50,
+  maxVolume_ml: 50, concentration_M: 0.1, isDispensing: false, flowRate_ml_s: 0.5,
 };
 
 export interface ActiveKineticsState {
@@ -503,7 +512,7 @@ export interface AppState {
   burette: BuretteState;
   updateBurette: (updates: Partial<BuretteState>) => void;
   toggleBuretteStopcock: () => void;
-  dispenseBuretteDrop: (targetVesselId: string) => void;
+  dispenseBuretteDrop: (targetVesselId: string, initialAge_s?: number) => void;
   titrationHistory: TitrationPoint[];
   clearTitrationHistory: () => void;
 
@@ -590,6 +599,18 @@ initReactionCache();
 const persisted = loadPersistedLabState();
 experimentEngine.restoreContamination(persisted?.materials?.toolContamination);
 if (persisted?.materials?.physics) restorePhysicalLab(persisted.materials.physics);
+const savedBurette = persisted?.materials?.burette;
+const initialBurette: BuretteState = savedBurette && typeof savedBurette.id === 'string'
+  && typeof savedBurette.reagentFormula === 'string'
+  && Array.isArray(savedBurette.position) && savedBurette.position.length === 3 && savedBurette.position.every(Number.isFinite)
+  && [savedBurette.currentVolume_ml, savedBurette.maxVolume_ml, savedBurette.concentration_M, savedBurette.flowRate_ml_s].every(Number.isFinite)
+  && savedBurette.currentVolume_ml >= 0 && savedBurette.maxVolume_ml > 0 && savedBurette.currentVolume_ml <= savedBurette.maxVolume_ml
+  && savedBurette.concentration_M >= 0 && savedBurette.flowRate_ml_s >= 0.1 && savedBurette.flowRate_ml_s <= 2
+  ? { ...savedBurette, position: [...savedBurette.position], isDispensing: false } : { ...DEFAULT_BURETTE };
+const initialTitrationHistory = (persisted?.materials?.titrationHistory ?? []).filter(point =>
+  (!point.vesselId || typeof point.vesselId === 'string') && Number.isFinite(point.volumeAdded_ml) && point.volumeAdded_ml >= 0
+    && (point.ph === null || Number.isFinite(point.ph)) && typeof point.color === 'string'
+    && Number.isFinite(point.temperature_c) && Number.isFinite(point.timestamp));
 
 // Preserve saved assembly heights so funnels remain aligned with their receivers.
 const sanitizedVessels: Record<string, VesselState> = {};
@@ -655,12 +676,14 @@ export const useAppStore = create<AppState>((set, get) => {
     const s = get();
     return { inFlightPours: s.inFlightPours, spills: s.spills, wasteMass_g: s.wasteMass_g, wasteContents: s.wasteContents, workbenchEscapedGas_g: s.workbenchEscapedGas_g,
       pipetteSample: s.pipetteSample, toolContamination: s.toolContamination,
+      burette: s.burette, titrationHistory: s.titrationHistory,
       glassDebris: shardManager.snapshot(), physics: capturePhysicalLab() };
   };
   const debounceSaveLocalState = (vessels: Record<string, VesselState>, burners: Record<string, BurnerState>) =>
     persistLabState(vessels, burners, materials());
-  const pushHistorySnapshot: typeof persistHistorySnapshot = (action, vessels, burners, en, vi) =>
-    persistHistorySnapshot(action, vessels, burners, en, vi, materials());
+  const pushHistorySnapshot = (action: Parameters<typeof persistHistorySnapshot>[0], vessels: Record<string, VesselState>,
+    burners: Record<string, BurnerState>, en: string, vi: string, coalesceKey?: string) =>
+    persistHistorySnapshot(action, vessels, burners, en, vi, materials(), coalesceKey);
   const spatulaDoses = new SpatulaDoseReservations();
   const returnSpatulaSample = (sample: SpatulaSample | null) => {
     if (!sample) return;
@@ -3515,22 +3538,33 @@ export const useAppStore = create<AppState>((set, get) => {
       return { burners: updated };
     }),
 
-    burette: {
-      id: 'burette_1',
-      position: [0, 1.0, 0],
-      reagentFormula: 'NaOH',
-      currentVolume_ml: 50,
-      maxVolume_ml: 50,
-      concentration_M: 0.1,
-      isDispensing: false,
-      flowRate_ml_s: 0.5
+    burette: initialBurette,
+    updateBurette: (updates) => {
+      set(s => {
+      if (updates.isDispensing === true && (s.isSimulationPaused || s.moveMode || s.draggingVesselId)) return s;
+      const stand = useToolDockStore.getState().positions.burette ?? s.burette.position;
+      const opening = updates.isDispensing === true ? findBuretteReceiver(s.vessels, stand) : null;
+      if (updates.isDispensing === true && (!opening || !Number.isFinite(s.burette.currentVolume_ml) || s.burette.currentVolume_ml <= 0)) return s;
+      const moved = updates.position && updates.position.some((value, axis) => Math.abs(value - s.burette.position[axis]) > 1e-5);
+      return { burette: { ...s.burette, ...updates, ...(moved ? { isDispensing: false } : {}) } };
+      });
+      debounceSaveLocalState(get().vessels, get().burners);
     },
-    updateBurette: (updates) => set(s => ({ burette: { ...s.burette, ...updates } })),
-    toggleBuretteStopcock: () => set(s => ({ burette: { ...s.burette, isDispensing: !s.burette.isDispensing } })),
-    dispenseBuretteDrop: (targetVesselId: string) => {
+    toggleBuretteStopcock: () => set(s => {
+      if (s.isSimulationPaused || s.moveMode || s.draggingVesselId) return s;
+      const isDispensing = !s.burette.isDispensing;
+      const stand = useToolDockStore.getState().positions.burette ?? s.burette.position;
+      if (isDispensing && (!findBuretteReceiver(s.vessels, stand) || s.burette.currentVolume_ml <= 0)) return s;
+      return { burette: { ...s.burette, isDispensing } };
+    }),
+    dispenseBuretteDrop: (targetVesselId: string, initialAge_s = 0) => {
       const state = get();
       const burette = state.burette;
       const receiver = state.vessels[targetVesselId];
+      if (state.isSimulationPaused || state.moveMode || state.draggingVesselId) return;
+      const standPosition = useToolDockStore.getState().positions.burette ?? burette.position;
+      if (buretteTargetProblem(receiver, standPosition)
+        || !useInstrumentStore.getState().canQueueBurettePresentation(state.pourEpoch)) return;
       if (!receiver || receiver.id.startsWith('lesson_vessel_') || receiver.isLocked || receiver.isSealed || receiver.isShattered
         || !Number.isFinite(burette.currentVolume_ml) || burette.currentVolume_ml <= 0) return;
       const chemical = getChemical(burette.reagentFormula);
@@ -3541,10 +3575,22 @@ export const useAppStore = create<AppState>((set, get) => {
       if (!sample) return;
       const transfer = dispenseAliquot(receiver, sample, dropVol);
       if (transfer.dispensed_ml <= 0) return;
+      const presentation = { target: receiver, epoch: state.pourEpoch, standPosition,
+        volume_ml: transfer.dispensed_ml, color: sample.color, initialAge_s };
+      if (!transfer.failureReason && !makeBurettePresentation(presentation, 1)) return;
       const newVol = Math.max(0, burette.currentVolume_ml - transfer.dispensed_ml);
       const isHeated = vesselHasBurnerHeat(receiver, state.burners);
       const reacted = transfer.failureReason ? { vessel: transfer.vessel, kinetics: null, mixResult: null }
         : reactAliquotMixture(transfer.vessel, state.language, isHeated);
+      const historyKey = `burette:${state.pourEpoch}:${targetVesselId}`;
+      if (!hasCurrentHistoryCoalesceKey(historyKey))
+        pushHistorySnapshot('TITRATE', state.vessels, state.burners, 'Before burette delivery', 'Trước khi cấp mẫu từ buret');
+      const previous = state.titrationHistory.filter(point => point.vesselId === targetVesselId).at(-1);
+      const measurement = sampleMeasurement(reacted.vessel);
+      const point: TitrationPoint = { vesselId: targetVesselId,
+        volumeAdded_ml: (previous?.volumeAdded_ml ?? 0) + transfer.dispensed_ml,
+        ph: transfer.failureReason ? null : measurement.ph, color: reacted.vessel.liquidColor || '#ffffff',
+        temperature_c: reacted.vessel.temperature_c, timestamp: Date.now() };
       set(current => {
         const activeKinetics = { ...current.activeKinetics }, pendingReactions = { ...current.pendingReactions },
           dissolvingSubstances = { ...current.dissolvingSubstances };
@@ -3554,37 +3600,24 @@ export const useAppStore = create<AppState>((set, get) => {
         if (pending) pendingReactions[targetVesselId] = { ...pending, vesselId: targetVesselId };
         return { burette: { ...current.burette, currentVolume_ml: newVol,
         isDispensing: newVol > 1e-8 && current.burette.isDispensing },
+        titrationHistory: [...current.titrationHistory, point],
         vessels: { ...current.vessels, [targetVesselId]: reacted.vessel },
         activeKinetics, pendingReactions, dissolvingSubstances, lastMixResult: reacted.mixResult };
       });
       if (transfer.failureReason) {
         get().shatterVessel(targetVesselId, transfer.failureReason);
-        return;
-      }
-
-      // Record titration history
-      const target = get().vessels[targetVesselId];
-      if (target) {
-        const previous = get().titrationHistory.filter(point => point.vesselId === targetVesselId).at(-1);
-        const volAdded = Number(((previous?.volumeAdded_ml ?? 0) + transfer.dispensed_ml).toFixed(3));
-        const measurement = sampleMeasurement(target);
-        set(s => ({
-          titrationHistory: [
-            ...s.titrationHistory,
-            {
-              vesselId: targetVesselId,
-              volumeAdded_ml: volAdded,
-              ph: measurement.ph,
-              color: target.liquidColor || '#ffffff',
-              temperature_c: target.temperature_c,
-              timestamp: Date.now()
-            }
-          ]
-        }));
-      }
+      } else useInstrumentStore.getState().enqueueBurettePresentation(presentation);
+      const committed = get();
+      pushHistorySnapshot('TITRATE', committed.vessels, committed.burners,
+        'Burette delivery', 'Cấp mẫu định lượng từ buret', historyKey);
+      set({ canUndo: checkCanUndo(), canRedo: checkCanRedo() });
+      debounceSaveLocalState(committed.vessels, committed.burners);
     },
-    titrationHistory: [],
-    clearTitrationHistory: () => set({ titrationHistory: [] }),
+    titrationHistory: initialTitrationHistory,
+    clearTitrationHistory: () => {
+      set({ titrationHistory: [] });
+      debounceSaveLocalState(get().vessels, get().burners);
+    },
 
     leftSidebarOpen: false,
     rightSidebarOpen: false,
@@ -4121,6 +4154,9 @@ export const useAppStore = create<AppState>((set, get) => {
       const prev = stepUndo();
       if (prev) {
         useInstrumentStore.getState().clearPipettePresentations();
+        useInstrumentStore.getState().clearBurettePresentations();
+        useToolDockStore.setState(dock => ({ positions: { ...dock.positions,
+          burette: [...(prev.snapshot.materials?.burette ?? DEFAULT_BURETTE).position] } }));
         experimentEngine.restoreContamination(prev.snapshot.materials?.toolContamination);
         shardManager.restoreLabSnapshot(prev.snapshot.materials?.glassDebris, prev.snapshot.vessels);
         restorePhysicalLab(prev.snapshot.materials?.physics);
@@ -4131,6 +4167,8 @@ export const useAppStore = create<AppState>((set, get) => {
           burnerIds: Object.keys(prev.snapshot.burners),
           inFlightPours: prev.snapshot.materials?.inFlightPours ?? [],
           pipetteSample: prev.snapshot.materials?.pipetteSample ?? null,
+          burette: { ...(prev.snapshot.materials?.burette ?? DEFAULT_BURETTE), isDispensing: false },
+          titrationHistory: prev.snapshot.materials?.titrationHistory ?? [],
           toolContamination: experimentEngine.getContaminatedTools(),
           spills: normalizeSpillFootprints(prev.snapshot.materials?.spills ?? {}), wasteMass_g: prev.snapshot.materials?.wasteMass_g ?? 0,
           wasteContents: prev.snapshot.materials?.wasteContents ?? [],
@@ -4151,6 +4189,9 @@ export const useAppStore = create<AppState>((set, get) => {
       const next = stepRedo();
       if (next) {
         useInstrumentStore.getState().clearPipettePresentations();
+        useInstrumentStore.getState().clearBurettePresentations();
+        useToolDockStore.setState(dock => ({ positions: { ...dock.positions,
+          burette: [...(next.snapshot.materials?.burette ?? DEFAULT_BURETTE).position] } }));
         experimentEngine.restoreContamination(next.snapshot.materials?.toolContamination);
         shardManager.restoreLabSnapshot(next.snapshot.materials?.glassDebris, next.snapshot.vessels);
         restorePhysicalLab(next.snapshot.materials?.physics);
@@ -4161,6 +4202,8 @@ export const useAppStore = create<AppState>((set, get) => {
           burnerIds: Object.keys(next.snapshot.burners),
           inFlightPours: next.snapshot.materials?.inFlightPours ?? [],
           pipetteSample: next.snapshot.materials?.pipetteSample ?? null,
+          burette: { ...(next.snapshot.materials?.burette ?? DEFAULT_BURETTE), isDispensing: false },
+          titrationHistory: next.snapshot.materials?.titrationHistory ?? [],
           toolContamination: experimentEngine.getContaminatedTools(),
           spills: normalizeSpillFootprints(next.snapshot.materials?.spills ?? {}), wasteMass_g: next.snapshot.materials?.wasteMass_g ?? 0,
           wasteContents: next.snapshot.materials?.wasteContents ?? [],
@@ -4648,6 +4691,7 @@ export const useAppStore = create<AppState>((set, get) => {
     resetWorkbench: () => {
       invalidateStockDoses();
       useInstrumentStore.getState().clearPipettePresentations();
+      useInstrumentStore.getState().clearBurettePresentations();
       experimentEngine.resetContamination();
       useToolDockStore.setState({ positions: {}, deployed: {}, dragging: null });
       restorePhysicalLab();
@@ -4655,6 +4699,7 @@ export const useAppStore = create<AppState>((set, get) => {
       set({
         inFlightPours: [], pourEpoch: get().pourEpoch + 1, isPouring: false,
         pipetteSample: null,
+        burette: { ...DEFAULT_BURETTE, position: [...DEFAULT_BURETTE.position] },
         instrumentRinse: null,
         toolContamination: experimentEngine.getContaminatedTools(),
         activeTool: 'none',

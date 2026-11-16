@@ -1,0 +1,83 @@
+{
+  "errors": [],
+  "dispenseResult": {
+    "ok": true,
+    "message": "Đã nhả 1.000 mL vào receiverA.",
+    "transferred_ml": 1
+  },
+  "beforeRetarget": {
+    "selected": "receiverA",
+    "activeTool": "pipette",
+    "paused": true,
+    "A": {
+      "mass_g": 0.999998221452429,
+      "volume_ml": 0.999998221452429
+    },
+    "B": {
+      "mass_g": 0,
+      "volume_ml": 0
+    },
+    "sample": null,
+    "pulse": 1,
+    "streamVisible": true,
+    "streamColor": "38bdf8",
+    "tip": [
+      -1.0000000000005436,
+      0.4519391909280515,
+      1.976155695674013e-13
+    ],
+    "jetEnds": [
+      [
+        -1.0000000000005436,
+        0.4519391909280518,
+        1.9765282430588938e-13
+      ],
+      [
+        -1,
+        -1.090837931681973,
+        -3.7254738488067117e-17
+      ]
+    ]
+  },
+  "afterRetarget": {
+    "selected": "receiverB",
+    "activeTool": "thermometer",
+    "paused": true,
+    "A": {
+      "mass_g": 0.999998221452429,
+      "volume_ml": 0.999998221452429
+    },
+    "B": {
+      "mass_g": 0,
+      "volume_ml": 0
+    },
+    "sample": null,
+    "pulse": 1,
+    "streamVisible": true,
+    "streamColor": "38bdf8",
+    "tip": [
+      -6.499972199370887,
+      -1.0399872777285555,
+      3.024989890680322
+    ],
+    "jetEnds": [
+      [
+        -6.4999721993708865,
+        -1.039987277728557,
+        3.024989890680322
+      ],
+      [
+        1.9999999999999991,
+        -1.1052612161814328,
+        6.661338147750939e-16
+      ]
+    ]
+  },
+  "reproduction": {
+    "materialOnlyReceiverA": true,
+    "visibleEffectRetargetsReceiverB": true,
+    "sampleEmptied": true,
+    "wrongFallbackColor": true,
+    "pausedToolMoved": true
+  }
+}

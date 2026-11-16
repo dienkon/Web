@@ -14,6 +14,7 @@ import { prepareAliquotContact } from '../engine/aliquotContactChemistry';
 import { vesselHasBurnerHeat } from '../engine/burnerEnergy';
 import { uiText } from '../utils/uiText';
 import { pipetteHasRinseSample } from './instrumentRinse';
+import { buretteTargetProblem, findBuretteReceiver } from './buretteTarget';
 
 export interface InstrumentResult {
   ok: boolean;
@@ -197,18 +198,20 @@ export function alignSelectedVessel(tool: 'balance' | 'burette'): InstrumentResu
 
 export function buretteReceiver(): VesselState | null {
   const position = currentInstrumentPosition('burette');
-  return Object.values(useAppStore.getState().vessels)
-    .filter(vessel => vessel.capacity_ml > 0 && !vessel.isShattered && !vessel.isSealed && !isLessonVessel(vessel.id))
-    .find(vessel => Math.hypot(vessel.position[0] - position[0], vessel.position[2] - position[2]) < 0.6) ?? null;
+  return findBuretteReceiver(useAppStore.getState().vessels, position);
 }
 
 export function dispenseOneBuretteDrop(): InstrumentResult {
   const state = useAppStore.getState();
+  if (state.isSimulationPaused) return result('burette', false, 'Tiếp tục mô phỏng trước khi nhả giọt.');
+  if (state.draggingVesselId) return result('burette', false, 'Đặt bình nhận yên trên bàn trước khi nhả giọt.');
   if (state.moveMode) return result('burette', false, 'Tắt chế độ di chuyển trước khi nhả.');
   const receiver = buretteReceiver();
   if (!receiver) return result('burette', false, 'Chưa có bình nhận dưới đầu buret.');
   const problem = instrumentTargetProblem('burette', receiver);
   if (problem) return result('burette', false, problem);
+  const alignment = buretteTargetProblem(receiver, currentInstrumentPosition('burette'));
+  if (alignment) return result('burette', false, alignment);
   const before = state.burette.currentVolume_ml;
   if (before <= 0) return result('burette', false, 'Buret đã hết dung dịch.');
   state.dispenseBuretteDrop(receiver.id);
@@ -226,11 +229,15 @@ export function setBuretteFlow(flow: number): InstrumentResult {
 
 export function setBuretteValve(open: boolean): InstrumentResult {
   const state = useAppStore.getState();
+  if (open && state.isSimulationPaused) return result('burette', false, 'Tiếp tục mô phỏng trước khi mở khóa buret.');
+  if (open && state.draggingVesselId) return result('burette', false, 'Đặt bình nhận yên trên bàn trước khi mở khóa buret.');
+  if (open && state.moveMode) return result('burette', false, 'Tắt chế độ di chuyển trước khi mở khóa buret.');
   if (open && (!buretteReceiver() || state.burette.currentVolume_ml <= 0)) {
     return result('burette', false, 'Cần dung dịch trong buret và bình nhận bên dưới.');
   }
   state.updateBurette({ isDispensing: open });
-  return result('burette', true, open ? 'Đã mở khóa buret.' : 'Đã đóng khóa buret.');
+  const applied = useAppStore.getState().burette.isDispensing === open;
+  return result('burette', applied, applied ? open ? 'Đã mở khóa buret.' : 'Đã đóng khóa buret.' : 'Chưa thể mở khóa buret.');
 }
 
 export function stirSelectedVessel(): InstrumentResult {

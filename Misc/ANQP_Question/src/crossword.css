@@ -1,0 +1,186 @@
+.crossword-main { padding-bottom:28px; }
+.cw-heading { display:flex; align-items:center; justify-content:space-between; gap:24px; padding:10px 0 28px; }
+.cw-heading h1 { font-size:clamp(42px,3.6vw,64px); line-height:1.1; letter-spacing:-1.5px; margin:12px 0; }
+.cw-heading p { font-size:22px; line-height:1.5; margin:0; color:#d9dfcb; }
+.cw-counter { text-align:right; flex:none; border-left:1px solid #cfba7c66; padding-left:34px; }
+.cw-counter strong { display:block; font-size:50px; color:#f5d99a; font-weight:700; }
+.cw-counter span { display:block; font-size:12px; letter-spacing:2px; margin-top:8px; color:#d7d8bf; }
+.cw-layout { display:grid; grid-template-columns:minmax(0,1fr) 380px; gap:28px; align-items:start; }
+.cw-board-panel,.cw-key-card,.cw-howto { background:linear-gradient(135deg,#20382aee,#11251eee); border:1px solid #a8935b88; border-radius:6px; box-shadow:0 18px 40px #06150d40; }
+.cw-board-panel { padding:26px; min-width:0; }
+.cw-panel-heading { display:flex; justify-content:space-between; align-items:center; gap:14px; padding-bottom:24px; border-bottom:1px solid #c0af732f; }
+.cw-panel-heading>span:last-child { font-size:17px; color:#d2dcc8; }
+.cw-board-scroll { overflow-x:auto; overscroll-behavior-x:contain; scrollbar-color:#bea362 #152c21; padding-bottom:8px; }
+.cw-grid { --cw-cell:64px; width:max-content; margin:22px auto 12px; }
+.cw-key-heading { display:grid; gap:8px; margin-bottom:9px; padding:4px; border:1px solid transparent; }
+.cw-key-heading span { font-size:11px; letter-spacing:.8px; color:#f7d98d; white-space:nowrap; text-align:center; }
+#cw-rows { display:grid; gap:12px; }
+.cw-row { display:grid; column-gap:8px; align-items:center; padding:4px; border:1px solid transparent; border-radius:4px; background:none; color:#e5e5cf; text-align:center; transition:background .15s,border-color .15s; }
+.cw-row:hover { background:#9fb38513; border-color:#a4bd8055; }
+.cw-row:focus-visible { outline:3px solid #ffe3a1; outline-offset:1px; }
+.cw-row-number { grid-row:1; width:40px; height:40px; border:1px solid #a3b29488; background:#2d4935; border-radius:50%; display:grid; place-items:center; font-size:22px; font-weight:700; }
+.cw-cell { grid-row:1; width:var(--cw-cell); height:var(--cw-cell); display:grid; place-items:center; border:1px solid #82916d; border-bottom:4px solid #0f2117; border-radius:4px; background:linear-gradient(145deg,#3c5135,#263c29); font-size:48px; line-height:1; font-weight:800; box-shadow:inset 0 1px 0 #ffffff16; }
+.cw-key-cell { border-color:#efca70; border-bottom-color:#886329; background:linear-gradient(145deg,#c2a65d,#887033); color:#fff3c7; }
+.cw-row.is-solved .cw-cell { color:#213720; background:linear-gradient(145deg,#f7efda,#d9dfbf); border-color:#e1d8ae; border-bottom-color:#83945e; }
+.cw-row.is-solved .cw-key-cell { background:linear-gradient(145deg,#ffe2a1,#e6b95f); border-color:#ffe6ac; border-bottom-color:#a17a2f; color:#493219; }
+.cw-row.is-solved .cw-row-number { background:#506c3c; border-color:#b8ce92; }
+.cw-board-note { font-size:19px; line-height:1.7; margin:16px 0 24px; color:#dfe1c9; }
+.cw-scroll-note { display:none; font-size:14px; color:#d8c797; margin:0 0 20px; }
+.cw-formats { display:flex; flex-wrap:wrap; gap:12px 24px; border-top:1px solid #c0af732f; padding-top:22px; color:#d9e2cb; font-size:18px; }
+.cw-formats b { color:#e9cb88; margin-right:6px; }
+.cw-sidebar { display:grid; gap:18px; min-width:0; }
+.cw-key-card { padding:25px 23px; }
+.cw-key-card h2 { font-size:30px; line-height:1.25; margin:12px 0 23px; }
+.cw-key-preview { display:grid; grid-template-columns:repeat(6,minmax(0,1fr)); gap:6px; margin:0 0 24px; }
+.cw-key-preview span { display:grid; place-items:center; min-height:58px; border:1px solid #b59a5866; background:#17291e; font-size:32px; color:#9da986; font-weight:700; border-radius:3px; }
+.cw-key-preview span.is-revealed { color:#f5d48b; border-color:#dbc17e; background:#455435; }
+.cw-key-card .primary { width:100%; font-size:24px; padding:18px 16px; }
+.cw-key-card p { color:#c8d3bb; font-size:17px; line-height:1.6; margin:17px 0 0; }
+.cw-howto { padding:24px; }
+.cw-howto h2 { font-size:25px; margin:0 0 16px; }
+.cw-howto ol { margin:0; padding-left:24px; color:#dae1cd; font-size:19px; line-height:1.65; }
+.cw-howto li { padding-left:5px; margin-bottom:10px; }
+.cw-actor-note { font-size:16px; color:#dfc788; line-height:1.6; margin:20px 0 0; padding-top:16px; border-top:1px solid #b79c5855; }
+.cw-reset { justify-content:center; font-size:18px; padding:14px; }
+
+/* Full viewport question stage; media and answers have room to grow. */
+html:has(.cw-dialog[open]) { overflow:hidden; }
+.cw-dialog {
+  width:100vw; height:100dvh; max-width:none; max-height:none;
+  inset:0; margin:0; padding:0; border:0; border-radius:0;
+  overflow:hidden; background:#f5efdc; color:#233423;
+  --cw-question-size:clamp(48px,5.2vw,112px);
+}
+.cw-dialog[open] { display:flex; flex-direction:column; }
+.cw-dialog::backdrop { background:#0c1c13; }
+.cw-dialog-header {
+  flex:none; display:flex; align-items:center; justify-content:space-between; gap:20px;
+  padding:12px clamp(20px,2.5vw,48px); background:#263e2b; color:#f7e5b4;
+  border-bottom:2px solid #baa05b;
+}
+.cw-dialog-header .eyebrow { font-size:clamp(17px,1.4vw,26px); letter-spacing:0; font-weight:600; }
+.cw-close {
+  width:60px; height:60px; padding:0; display:grid; place-items:center; flex:none;
+  border:1px solid #e4cc8b88; border-radius:50%; background:#34513a; color:#ffedc0;
+  font-size:44px; line-height:1;
+}
+.cw-close:hover { background:#4b6745; }
+.cw-clue-body {
+  flex:1; min-height:0; overflow-y:auto; overscroll-behavior:contain;
+  display:grid; grid-template-columns:minmax(0,1.4fr) minmax(360px,.8fr);
+  grid-template-rows:auto minmax(0,1fr); gap:clamp(22px,2.5vw,48px);
+  padding:clamp(24px,2.4vw,46px);
+}
+.cw-prompt {
+  grid-column:1/-1; margin:0; font-size:var(--cw-question-size); line-height:1.12;
+  font-weight:800; letter-spacing:-.025em; text-wrap:pretty; overflow-wrap:anywhere;
+}
+.cw-clue-content { min-width:0; min-height:0; }
+.cw-response { min-width:0; display:flex; flex-direction:column; justify-content:center; gap:24px; }
+.cw-image-clue { height:100%; min-height:260px; margin:0; background:#182c21; border:1px solid #baa372; border-radius:6px; overflow:hidden; }
+.cw-image-clue img { display:block; width:100%; height:100%; object-fit:contain; }
+.cw-rebus { display:grid; grid-template-columns:minmax(0,1fr) auto minmax(0,1fr); gap:clamp(10px,1.5vw,28px); height:100%; min-height:250px; align-items:center; }
+.cw-rebus-picture { min-width:0; height:100%; max-height:640px; margin:0; border:2px solid #c9b47e; border-radius:8px; background:#fffaf0; overflow:hidden; }
+.cw-rebus-picture img { display:block; width:100%; height:100%; object-fit:contain; }
+.cw-rebus-sign { font-size:clamp(56px,5.5vw,112px); font-weight:800; color:#6e7944; line-height:1; }
+.cw-answer-form { margin:0; width:100%; }
+.cw-answer-form>div { display:flex; flex-direction:column; gap:20px; }
+.cw-answer-form input {
+  min-width:0; width:100%; padding:20px; border:3px solid #6a7a52; border-radius:5px;
+  background:#fffdf2; color:#253b26; font:800 clamp(48px,4vw,80px)/1.15 Arial,sans-serif;
+  text-transform:uppercase;
+}
+.cw-answer-form input::placeholder { text-transform:none; font-size:clamp(30px,2.3vw,44px); font-weight:400; color:#7a806d; }
+.cw-answer-form input:focus { outline:3px solid #b59139; outline-offset:3px; }
+.cw-answer-form input[aria-invalid="true"] { border-color:#a52c24; }
+.cw-answer-form input:disabled { opacity:.85; }
+.cw-dialog .primary { font-size:clamp(32px,2.4vw,48px); padding:23px 30px; }
+.cw-secondary { font:700 clamp(24px,1.6vw,32px)/1.3 Arial,sans-serif; background:#e6e7d1; border:1px solid #768359; border-radius:4px; padding:12px 20px; color:#30472e; }
+.cw-secondary:hover { background:#d7dfbf; }
+.cw-secondary:disabled { opacity:.65; }
+.cw-hint { display:flex; flex-wrap:wrap; align-items:center; gap:14px; margin:0; }
+.cw-hint p { font-size:clamp(26px,2vw,40px); line-height:1.4; margin:0; color:#5a652e; flex:1 1 300px; }
+.cw-answer-status { font-size:clamp(30px,2.5vw,50px); font-weight:700; line-height:1.3; margin:0; overflow-wrap:anywhere; }
+.cw-answer-status:empty { display:none; }
+.cw-answer-status.is-correct { color:#296732; }
+.cw-answer-status.is-wrong { color:#a02e24; }
+.cw-back { margin:0; }
+.cw-clue-body[data-type="choice"] { display:flex; flex-direction:column; gap:28px; }
+.cw-clue-body[data-type="choice"] .cw-clue-content { flex:1; min-height:260px; }
+.cw-clue-body[data-type="choice"] .cw-response { flex-direction:row; align-items:center; justify-content:space-between; flex-wrap:wrap; }
+.cw-clue-body[data-type="choice"] .cw-answer-status { flex:1 1 400px; }
+.cw-choices { display:grid; grid-template-columns:1fr 1fr; grid-auto-rows:minmax(120px,1fr); gap:24px; height:100%; }
+.cw-choice {
+  min-width:0; display:flex; align-items:center; gap:24px; text-align:left; padding:24px;
+  color:#2f432b; background:#fffdf0; border:3px solid #9b9e6d; border-radius:6px;
+  font-size:clamp(54px,6.5vw,128px); font-weight:800; line-height:1.12; overflow-wrap:anywhere;
+}
+.cw-choice b { display:grid; place-items:center; flex:none; width:68px; height:76px; background:#29432b; color:#f4d69a; border-radius:4px; font-size:44px; }
+.cw-choice:not(:disabled):hover { background:#e9edcf; border-color:#50683a; }
+.cw-choice.cw-choice-wrong { background:#a62e26; border-color:#85251e; color:#fff1df; }
+.cw-choice.cw-choice-wrong b { background:#78221b; }
+.cw-choice.cw-choice-correct { background:#d4e7b9; border-color:#477534; color:#214e23; }
+.cw-action-stage { display:flex; flex-direction:column; justify-content:center; height:100%; padding:24px; background:#e2e7cf; border:1px solid #99a875; border-radius:6px; }
+.cw-action-clock { display:grid; grid-template-columns:auto auto; justify-content:center; align-items:center; gap:16px 24px; }
+.cw-action-clock output { font-size:clamp(130px,12vw,240px); line-height:1; font-weight:800; color:#344c29; font-variant-numeric:tabular-nums; }
+.cw-action-clock>span { font-size:36px; font-weight:700; letter-spacing:2px; }
+.cw-action-clock>button { grid-column:1/-1; font-size:clamp(28px,2vw,40px); }
+.cw-performer-card { margin:28px 0 0; border-top:1px solid #94a16b; padding-top:18px; text-align:left; }
+.cw-performer-card summary { cursor:pointer; font-size:24px; font-weight:700; color:#3b552e; }
+.cw-performer-card p { font-size:30px; line-height:1.5; }
+.cw-performer-card .cw-private-note { font-size:22px; color:#77602e; }
+.cw-clue-body[data-type="keyword"] { width:min(1500px,100%); margin:auto; display:flex; flex-direction:column; justify-content:center; }
+.cw-clue-body[data-type="keyword"] .cw-prompt { text-align:center; }
+.cw-clue-body[data-type="victory"] { grid-template-columns:1fr; grid-template-rows:1fr; place-items:center; }
+.cw-victory { text-align:center; width:100%; max-width:1200px; }
+.cw-victory>img { width:100px; filter:drop-shadow(0 6px 12px #b89b4c66); }
+.cw-victory h2 { font-size:clamp(96px,12vw,220px); margin:18px 0 30px; color:#2e4c2a; letter-spacing:4px; }
+.cw-victory-letters { display:flex; justify-content:center; gap:16px; }
+.cw-victory-letters span { display:grid; place-items:center; width:110px; height:120px; background:linear-gradient(135deg,#f4d58b,#d0a34c); border:1px solid #ab8035; border-bottom:6px solid #9a7435; border-radius:4px; color:#49341a; font-size:80px; font-weight:800; }
+.cw-victory .primary { margin-top:42px; }
+@media(max-width:1350px) {
+  .cw-layout { grid-template-columns:1fr; }
+  .cw-sidebar { grid-template-columns:1fr; }
+  .cw-key-preview span { font-size:40px; }
+}
+@media(max-width:1100px) {
+  .cw-clue-body { display:flex; flex-direction:column; }
+  .cw-clue-body .cw-clue-content { flex:none; }
+  .cw-clue-body[data-type="image"] .cw-clue-content { height:48dvh; min-height:260px; }
+  .cw-clue-body[data-type="rebus"] .cw-clue-content { height:40dvh; min-height:220px; }
+  .cw-clue-body[data-type="victory"] { display:flex; justify-content:center; }
+  .cw-response { flex:none; }
+  .cw-dialog .primary { padding:20px; }
+}
+@media(max-width:900px) {
+  .cw-scroll-note { display:block; }
+  .cw-board-panel { padding:20px 14px; }
+  .cw-heading { align-items:flex-start; }
+  .cw-heading h1 { font-size:42px; }
+  .cw-counter { padding-left:15px; }
+  .cw-counter strong { font-size:36px; }
+  .cw-counter span { font-size:10px; max-width:110px; line-height:1.6; }
+  .cw-choice { gap:16px; padding:18px; }
+  .cw-choice b { width:50px; height:58px; font-size:36px; }
+}
+@media(max-width:600px) {
+  .cw-heading h1 { font-size:36px; }
+  .cw-counter { padding-left:12px; }
+  .cw-counter strong { font-size:30px; }
+  .cw-counter span { font-size:10px; max-width:75px; }
+  .cw-dialog-header { padding:10px 16px; gap:10px; }
+  .cw-dialog-header .eyebrow { font-size:16px; }
+  .cw-close { width:50px; height:50px; font-size:36px; }
+  .cw-clue-body { padding:22px 16px; gap:24px; }
+  .cw-choices { grid-template-columns:1fr; gap:16px; }
+  .cw-clue-body[data-type="choice"] .cw-response { flex-direction:column; align-items:stretch; }
+  .cw-clue-body[data-type="choice"] .cw-answer-status { flex:auto; }
+  .cw-choice { font-size:54px; padding:18px 14px; }
+  .cw-action-stage { padding:20px 14px; }
+  .cw-action-clock>span { font-size:28px; }
+  .cw-clue-body[data-type="rebus"] .cw-clue-content { height:32dvh; min-height:200px; }
+  .cw-rebus { min-height:0; }
+  .cw-victory h2 { font-size:90px; letter-spacing:0; }
+  .cw-victory-letters { gap:6px; }
+  .cw-victory-letters span { flex:1; min-width:0; max-width:60px; height:72px; font-size:48px; }
+}

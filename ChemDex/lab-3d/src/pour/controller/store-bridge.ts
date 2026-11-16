@@ -32,6 +32,7 @@ export const storeBridge = {
     const materials = { inFlightPours: store.inFlightPours, spills: store.spills,
       wasteMass_g: store.wasteMass_g, wasteContents: store.wasteContents,
       pipetteSample: store.pipetteSample, toolContamination: store.toolContamination, workbenchEscapedGas_g: store.workbenchEscapedGas_g,
+      burette: store.burette, titrationHistory: store.titrationHistory,
       glassDebris: shardManager.snapshot() };
     pushHistorySnapshot('POUR', store.vessels, store.burners, 'Poured sample', 'Rót mẫu định lượng', materials);
     debounceSaveLocalState(store.vessels, store.burners, materials);

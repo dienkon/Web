@@ -48,7 +48,9 @@ export function StockMechanicsScene() {
       const s = useAppStore.getState();
       debounceSaveLocalState(s.vessels, s.burners, { inFlightPours: s.inFlightPours, spills: s.spills,
         wasteMass_g: s.wasteMass_g, wasteContents: s.wasteContents, workbenchEscapedGas_g: s.workbenchEscapedGas_g,
-        pipetteSample: s.pipetteSample, glassDebris: shardManager.snapshot(), physics: capturePhysicalLab() });
+        pipetteSample: s.pipetteSample, toolContamination: s.toolContamination,
+        burette: s.burette, titrationHistory: s.titrationHistory,
+        glassDebris: shardManager.snapshot(), physics: capturePhysicalLab() });
     }, 2000);
     return () => clearInterval(timer);
   }, []);

@@ -17,7 +17,6 @@ import { getVesselProfile } from '../../pour/physics/profiles';
 import { solveLevel } from '../../pour/physics/retained';
 import { AutoGasApparatus, AutoGasReceiver } from './AutoGasApparatus';
 import { gasSourceHome, gasVolumeMl } from './gasDelivery';
-import { liquidDropAmount } from '../../handling/liquidDosePlan';
 import { dropFlightPosition, dropRadius, AUTO_DROPPER_TIP_LOCAL_Y, AUTO_DROPPER_SCALE } from '../../handling/dropFlight';
 import { vesselBodyTransform } from '../../science/vesselScale';
 import { receiverSurfaceWorld } from './receiverFrame';
@@ -145,9 +144,12 @@ function Donor({ experiment: e, index }: { experiment: AutoExperiment; index: nu
 function Transfer({ experiment: e }: { experiment: AutoExperiment }) {
   const stream = useRef<THREE.InstancedMesh>(null);
   const drops = useRef<THREE.InstancedMesh>(null);
+  const dropSplashes = useRef<THREE.InstancedMesh>(null), dropRipples = useRef<THREE.InstancedMesh>(null);
   const splash = useRef<THREE.InstancedMesh>(null), ripples = useRef<THREE.InstancedMesh>(null);
+  const maxDropCount = useMemo(() => Math.max(50, e.donors.length * 4), [e]);
+  const maxSplashCount = maxDropCount * 8;
   const scratch = useMemo(() => ({ a: new THREE.Vector3(), b: new THREE.Vector3(), direction: new THREE.Vector3(),
-    up: new THREE.Vector3(0, 1, 0), object: new THREE.Object3D() }), []);
+    up: new THREE.Vector3(0, 1, 0), object: new THREE.Object3D(), color: new THREE.Color() }), []);
   const samplePath = (t: number, out: THREE.Vector3, lip: [number, number, number], surface: number) => {
     // The jet leaves tangentially, then accelerates down to the liquid surface.
     out.set(lip[0] + 0.12 * t, lip[1] + (surface - lip[1]) * t * t, lip[2]);
@@ -155,11 +157,9 @@ function Transfer({ experiment: e }: { experiment: AutoExperiment }) {
   useFrame(() => {
     const donor = e.donors[e.donorIndex], phase = donor?.row.phase;
     const active = e.streamActive, lip = e.donorLip, surface = receiverSurfaceWorld(e.sample)[1];
-    const contact = donor?.doseMode === 'dropper'
-      ? ['dose', 'return'].includes(e.phase) && (e.sample.recentPourContact?.remaining_s ?? 0) > 0
+    const contact = donor?.doseMode === 'dropper' ? false
       : e.phase === 'dose' && e.phaseTime >= AUTO_TIMING.tilt + AUTO_TIMING.flight && donor?.fraction < 1;
-    const contactPoint = donor?.doseMode === 'dropper' && donor.dropFlight
-      ? donor.dropFlight.target : [lip[0] + 0.12, surface, lip[2]];
+    const contactPoint: [number, number, number] = [lip[0] + 0.12, surface, lip[2]];
     const object = scratch.object;
     if (stream.current) {
       let count = 0;
@@ -179,24 +179,53 @@ function Transfer({ experiment: e }: { experiment: AutoExperiment }) {
       material.color.set(donor?.color ?? '#dbeafe'); material.opacity = phase === 'g' ? 0.18 : 0.78;
     }
     if (drops.current) {
-      const donor = e.donors[e.donorIndex], schedule = donor?.dropSchedule;
       let count = 0;
-      if (e.dropperActive && donor?.dropFlight && schedule && donor.dropStartedAt !== undefined) {
-        const localTime = e.elapsed - donor.dropStartedAt, flight = donor.dropFlight;
-        const flightTime = flight.flightTime;
-        for (let index = 0; index < schedule.count && count < 50; index++) {
-          const releaseAt = schedule.releaseStart + index * schedule.period, age = localTime - releaseAt;
-          if (age < 0 || age > flightTime) continue;
-          const volume = liquidDropAmount(donor.solutionVolume_ml, index);
-          const radius = dropRadius(volume);
-          object.position.set(...dropFlightPosition(flight, age));
-          object.rotation.set(0, 0, 0); object.scale.setScalar(radius); object.updateMatrix();
-          drops.current.setMatrixAt(count++, object.matrix);
-        }
+      for (const donor of e.donors) for (const drop of donor.liquidDrops ?? []) {
+        const age = e.elapsed - drop.releaseAt;
+        if (age < 0 || e.elapsed >= drop.arrivalAt || count >= maxDropCount) continue;
+        const radius = dropRadius(drop.volume_ml);
+        object.position.fromArray(dropFlightPosition(drop.flight, age));
+        object.rotation.set(0, 0, 0); object.scale.setScalar(radius); object.updateMatrix();
+        drops.current.setMatrixAt(count, object.matrix);
+        scratch.color.set(drop.color); drops.current.setColorAt(count++, scratch.color);
       }
       drops.current.count = count; drops.current.visible = count > 0;
       if (count) drops.current.instanceMatrix.needsUpdate = true;
-      (drops.current.material as THREE.MeshStandardMaterial).color.set(donor?.color ?? '#dbeafe');
+      if (drops.current.instanceColor) drops.current.instanceColor.needsUpdate = true;
+    }
+    if (dropSplashes.current) {
+      let count = 0;
+      for (const donor of e.donors) for (const drop of donor.liquidDrops ?? []) {
+        const age = e.elapsed - drop.arrivalAt;
+        if (age < 0 || age >= 0.28 || count + 8 > maxSplashCount) continue;
+        const progress = age / 0.28, extent = 0.035 + progress * 0.12;
+        for (let i = 0; i < 8; i++) {
+          const angle = i * 2.399963;
+          object.position.set(drop.flight.target[0] + Math.cos(angle) * extent,
+            drop.flight.target[1] + Math.sin(progress * Math.PI) * 0.055 - progress * 0.025,
+            drop.flight.target[2] + Math.sin(angle) * extent);
+          object.scale.setScalar(0.012 * (1 - progress)); object.rotation.set(0, 0, 0); object.updateMatrix();
+          dropSplashes.current.setMatrixAt(count, object.matrix);
+          scratch.color.set(drop.color).multiplyScalar(1 - progress); dropSplashes.current.setColorAt(count++, scratch.color);
+        }
+      }
+      dropSplashes.current.count = count; dropSplashes.current.visible = count > 0;
+      if (count) dropSplashes.current.instanceMatrix.needsUpdate = true;
+      if (dropSplashes.current.instanceColor) dropSplashes.current.instanceColor.needsUpdate = true;
+    }
+    if (dropRipples.current) {
+      let count = 0;
+      for (const donor of e.donors) for (const drop of donor.liquidDrops ?? []) {
+        const age = e.elapsed - drop.arrivalAt;
+        if (age < 0 || age >= 0.45 || count >= maxDropCount) continue;
+        object.position.set(drop.flight.target[0], drop.flight.target[1] + 0.004, drop.flight.target[2]);
+        object.rotation.set(-Math.PI / 2, 0, 0); object.scale.setScalar(0.025 + age * 0.24); object.updateMatrix();
+        dropRipples.current.setMatrixAt(count, object.matrix);
+        scratch.color.set(drop.color).multiplyScalar(1 - age / 0.45); dropRipples.current.setColorAt(count++, scratch.color);
+      }
+      dropRipples.current.count = count; dropRipples.current.visible = count > 0;
+      if (count) dropRipples.current.instanceMatrix.needsUpdate = true;
+      if (dropRipples.current.instanceColor) dropRipples.current.instanceColor.needsUpdate = true;
     }
     if (splash.current) {
       let count = 0;
@@ -223,7 +252,9 @@ function Transfer({ experiment: e }: { experiment: AutoExperiment }) {
   });
   return <>
     <instancedMesh ref={stream} args={[undefined, undefined, 16]} frustumCulled={false} visible={false} name="auto_transfer_stream"><cylinderGeometry args={[1, 1, 1, 8]} /><meshStandardMaterial transparent opacity={0.78} roughness={0.1} metalness={0.1} depthWrite={false} /></instancedMesh>
-    <instancedMesh ref={drops} name="auto_transfer_drops" args={[undefined, undefined, 50]} count={0} frustumCulled={false} visible={false} renderOrder={7}><sphereGeometry args={[1, 12, 10]} /><meshPhysicalMaterial transparent opacity={0.78} roughness={0.08} clearcoat={0.8} depthWrite={false} /></instancedMesh>
+    <instancedMesh ref={drops} name="auto_transfer_drops" args={[undefined, undefined, maxDropCount]} count={0} frustumCulled={false} visible={false} renderOrder={7}><sphereGeometry args={[1, 12, 10]} /><meshPhysicalMaterial transparent opacity={0.78} roughness={0.08} clearcoat={0.8} depthWrite={false} /></instancedMesh>
+    <instancedMesh ref={dropSplashes} name="auto_drop_impact_splashes" args={[undefined, undefined, maxSplashCount]} count={0} frustumCulled={false} visible={false} renderOrder={8}><sphereGeometry args={[1, 6, 4]} /><meshStandardMaterial transparent opacity={0.55} depthWrite={false} vertexColors /></instancedMesh>
+    <instancedMesh ref={dropRipples} name="auto_drop_impact_ripples" args={[undefined, undefined, maxDropCount]} count={0} frustumCulled={false} visible={false} renderOrder={8}><ringGeometry args={[0.92, 1, 32]} /><meshBasicMaterial transparent opacity={0.32} depthWrite={false} side={THREE.DoubleSide} vertexColors /></instancedMesh>
     {e.donors.map((donor, index) => donor.solid && <AutoSolidFlights key={index} experiment={e} index={index} />)}
     <instancedMesh ref={splash} args={[undefined, undefined, 16]} frustumCulled={false} visible={false}><sphereGeometry args={[1, 6, 4]} /><meshStandardMaterial transparent opacity={0.55} depthWrite={false} /></instancedMesh>
     <instancedMesh ref={ripples} args={[undefined, undefined, 3]} count={3} frustumCulled={false} visible={false}><ringGeometry args={[0.92, 1, 32]} /><meshBasicMaterial color="#c4e9ef" transparent opacity={0.23} depthWrite={false} side={THREE.DoubleSide} /></instancedMesh>

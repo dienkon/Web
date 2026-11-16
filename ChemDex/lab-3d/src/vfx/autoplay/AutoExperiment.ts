@@ -44,9 +44,10 @@ import { vesselLocalToWorld, vesselWorldToLocal, vesselBodyTransform } from '../
 import { scenePointToSI, METERS_PER_SCENE_UNIT } from '../../science/sceneUnits';
 import { receiverBodyMatrix, receiverLipWorld, receiverSurfaceWorld } from './receiverFrame';
 import type { StockContactBirth } from '../../physical/stockTypes';
-import { dropSchedule, landedScheduledDropFraction } from '../../handling/doseTiming';
+import { dropSchedule } from '../../handling/doseTiming';
 import { verticalDropFlight, AUTO_DROPPER_TIP_LOCAL_Y, AUTO_DROPPER_SCALE } from '../../handling/dropFlight';
-import { automaticDonors, type AutoDonor } from './autoDonors';
+import { liquidDropAmount } from '../../handling/liquidDosePlan';
+import { automaticDonors, type AutoDonor, type AutoLiquidDrop } from './autoDonors';
 import { partitionLeadIodide } from '../../engine/leadIodidePhase';
 import { createGoldenRainSample, goldenRainInventory, GOLDEN_RAIN_PROTOCOL } from '../../science/goldenRainProtocol';
 import { routeWaterVaporToWall, finalizeWaterVaporOutflow } from '../../engine/waterVaporRouting';
@@ -313,6 +314,7 @@ export class AutoExperiment {
       const donor = this.donors[this.donorIndex];
       donor.doseStartedAt = this.elapsed;
       if (donor.doseMode === 'dropper') {
+        donor.liquidDrops = [];
         donor.dropStartedAt = this.elapsed;
         donor.dropFlight = verticalDropFlight(this.donorLip, receiverSurfaceWorld(this.sample)[1]);
         donor.dropFallHeight = donor.dropFlight.start[1] - donor.dropFlight.target[1];
@@ -355,6 +357,7 @@ export class AutoExperiment {
     else if (this.phase === 'dose') {
       const donor = this.donors[this.donorIndex];
       const solidContact = donor.solid ? this.advanceSolidDose(donor) : undefined;
+      const liquidArrivals = donor.doseMode === 'dropper' ? this.advanceLiquidDrops(donor) : undefined;
       const fraction = this.transferFraction;
       const portion = fraction - donor.fraction;
       const receiverBeforeDose = this.sample;
@@ -366,31 +369,49 @@ export class AutoExperiment {
         row.moles += donor.row.moles * portion; row.mass_g += donor.row.mass_g * portion;
       }
       donor.fraction = fraction;
-      donor.remaining = donor.totalMass_g * (1 - (donor.solid ? donor.solid.released / donor.solid.pieces.length : fraction));
+      const releasedMass = donor.liquidDrops?.reduce((sum, drop) => sum + drop.mass_g, 0);
+      donor.remaining = Math.max(0, donor.totalMass_g - (donor.solid
+        ? donor.totalMass_g * donor.solid.released / donor.solid.pieces.length
+        : releasedMass ?? donor.totalMass_g * fraction));
       const fluid = contents.filter(c => c.phase === 'aq' || c.phase === 'l').reduce((sum, c) => sum + c.mass_g, 0);
       const volume_ml = fluid / (this.baseline.density_g_ml ?? 1);
       this.sample = { ...this.sample, contents, substances: contents.map(c => c.formula),
         mass_g: contents.reduce((sum, c) => sum + c.mass_g, 0), volume_ml, volume: volume_ml / this.sample.capacity_ml,
         liquidColor: this.sample.liquidColor };
       if (portion > 0 && ['aq', 'l'].includes(donor.row.phase ?? '')) {
-        const aliquotContents = donor.components.map(component => ({ ...component,
-          mass_g: component.mass_g * portion, moles: component.moles * portion })).filter(component => component.mass_g > 1e-14);
-        const mass_g = aliquotContents.reduce((sum, component) => sum + component.mass_g, 0);
-        const volume_ml = donor.solutionVolume_ml * portion;
-        const arrival = receivePourAliquot(receiverBeforeDose, { volume_ml, mass_g,
-          temperature_c: 25, color: donor.color, substances: [...new Set(aliquotContents.map(component => component.formula))],
-          contents: aliquotContents });
-        this.sample = arrival.vessel;
-        if (arrival.spill.mass_g > 1e-10) this.transferWaste.push(arrival.spill);
-        if (arrival.failureReason || arrival.spill.mass_g > 1e-10)
-          throw new Error(arrival.failureReason ?? 'Bình nhận tràn hoặc không nhận được mẫu; đã giữ lượng tràn trong kiểm kê tự động.');
+        if (liquidArrivals) {
+          for (const drop of liquidArrivals) {
+            const arrival = receivePourAliquot(this.sample, { volume_ml: drop.volume_ml, mass_g: drop.mass_g,
+              temperature_c: 25, color: drop.color, substances: [...new Set(drop.contents.map(component => component.formula))],
+              contents: drop.contents });
+            this.sample = arrival.vessel;
+            if (arrival.spill.mass_g > 1e-10) this.transferWaste.push(arrival.spill);
+            if (arrival.failureReason || arrival.spill.mass_g > 1e-10)
+              throw new Error(arrival.failureReason ?? 'Bình nhận tràn hoặc không nhận được giọt; phần tràn đã được giữ trong kiểm kê tự động.');
+            this.sample.recentPourContact = { point: [...drop.targetLocal], remaining_s: 0.25,
+              expiresAt_ms: 0, color: drop.color };
+          }
+        } else {
+          const aliquotContents = donor.components.map(component => ({ ...component,
+            mass_g: component.mass_g * portion, moles: component.moles * portion })).filter(component => component.mass_g > 1e-14);
+          const mass_g = aliquotContents.reduce((sum, component) => sum + component.mass_g, 0);
+          const volume_ml = donor.solutionVolume_ml * portion;
+          const arrival = receivePourAliquot(receiverBeforeDose, { volume_ml, mass_g,
+            temperature_c: 25, color: donor.color, substances: [...new Set(aliquotContents.map(component => component.formula))],
+            contents: aliquotContents });
+          this.sample = arrival.vessel;
+          if (arrival.spill.mass_g > 1e-10) this.transferWaste.push(arrival.spill);
+          if (arrival.failureReason || arrival.spill.mass_g > 1e-10)
+            throw new Error(arrival.failureReason ?? 'Bình nhận tràn hoặc không nhận được mẫu; đã giữ lượng tràn trong kiểm kê tự động.');
+        }
       }
       if (portion > 0) {
         const lip = this.donorLip, inlet = donor.row.phase === 'g' ? gasInlet(this, this.gasOrdinal(this.donorIndex)) : undefined;
-        const dropContact = donor.doseMode === 'dropper' ? donor.dropFlight?.target : undefined;
-        const worldContact = inlet ?? dropContact ?? [lip[0] + 0.12, receiverSurfaceWorld(this.sample)[1], lip[2]];
-        this.sample.recentPourContact = { point: solidContact ?? vesselWorldToLocal(this.sample, worldContact),
-          remaining_s: 0.25, expiresAt_ms: 0, color: donor.color };
+        if (!liquidArrivals?.length) {
+          const worldContact = inlet ?? [lip[0] + 0.12, receiverSurfaceWorld(this.sample)[1], lip[2]];
+          this.sample.recentPourContact = { point: solidContact ?? vesselWorldToLocal(this.sample, worldContact),
+            remaining_s: 0.25, expiresAt_ms: 0, color: donor.color };
+        }
       }
       this.advanceContact(dt);
       if (fraction >= 1) this.enter('return');
@@ -588,7 +609,8 @@ export class AutoExperiment {
   }
   /** Mass in free flight belongs to neither the donor nor the receiving liquid. */
   get inFlightMass_g() {
-    return this.donors.reduce((sum, d) => sum + (d.solid?.flights.reduce((mass, f) => mass + (f.arrived ? 0 : f.mass_g), 0) ?? 0), 0);
+    return this.donors.reduce((sum, d) => sum + (d.solid?.flights.reduce((mass, f) => mass + (f.arrived ? 0 : f.mass_g), 0) ?? 0)
+      + (d.liquidDrops?.reduce((mass, drop) => mass + (drop.arrived ? 0 : drop.mass_g), 0) ?? 0), 0);
   }
   get settledFraction() {
     const state = goldenRainInventory(this.sample), total = state.solid_g;
@@ -596,6 +618,36 @@ export class AutoExperiment {
     return Math.max(0, Math.min(1, this.physics.sedimentBed.amount_g / total));
   }
   get heatingRequested() { return this.heatTarget > this.sample.temperature_c + 0.5; }
+  private advanceLiquidDrops(donor: AutoDonor) {
+    const schedule = donor.dropSchedule, startedAt = donor.dropStartedAt;
+    if (!schedule || startedAt === undefined || !(donor.solutionVolume_ml > 0)) return [];
+    const drops = donor.liquidDrops ?? (donor.liquidDrops = []);
+    for (let index = drops.length; index < schedule.count; index++) {
+      const releaseAt = startedAt + schedule.releaseStart + index * schedule.period;
+      if (this.elapsed + 1e-12 < releaseAt) break;
+      const volume_ml = liquidDropAmount(donor.solutionVolume_ml, index);
+      if (!(volume_ml > 0)) break;
+      const outlet = this.donorLipAt(releaseAt - startedAt);
+      const flight = verticalDropFlight(outlet, receiverSurfaceWorld(this.sample)[1]);
+      const lastPacket = index === schedule.count - 1;
+      const contents = donor.components.map((component, componentIndex) => {
+        const prior = drops.reduce((totals, drop) => ({ mass_g: totals.mass_g + (drop.contents[componentIndex]?.mass_g ?? 0),
+          moles: totals.moles + (drop.contents[componentIndex]?.moles ?? 0) }), { mass_g: 0, moles: 0 });
+        const scale = volume_ml / donor.solutionVolume_ml;
+        return { ...component, mass_g: lastPacket ? Math.max(0, component.mass_g - prior.mass_g) : component.mass_g * scale,
+          moles: lastPacket ? Math.max(0, component.moles - prior.moles) : component.moles * scale };
+      });
+      const mass_g = contents.reduce((sum, component) => sum + component.mass_g, 0);
+      drops.push({ volume_ml, mass_g, color: donor.color, releaseAt, arrivalAt: releaseAt + flight.flightTime, flight,
+        targetLocal: vesselWorldToLocal(this.sample, flight.target), contents, arrived: false });
+    }
+    const arrivals: AutoLiquidDrop[] = [];
+    for (const drop of drops) {
+      if (drop.arrived || this.elapsed + 1e-12 < drop.arrivalAt) continue;
+      drop.arrived = true; arrivals.push(drop);
+    }
+    return arrivals;
+  }
   private advanceSolidDose(donor: AutoDonor) {
     const dose = donor.solid!, count = dose.pieces.length, solid = autoSolid(donor.row.formula);
     const births: StockContactBirth[] = [], position = new Vector3(), q = new Quaternion(), scale = new Vector3();
@@ -702,7 +754,7 @@ export class AutoExperiment {
     const dose = donor?.solid;
     if (dose) return dose.arrived / dose.pieces.length;
     if (donor?.doseMode === 'dropper' && donor.dropSchedule && donor.dropStartedAt !== undefined)
-      return landedScheduledDropFraction(this.elapsed - donor.dropStartedAt, donor.solutionVolume_ml, donor.dropSchedule);
+      return Math.min(1, (donor.liquidDrops?.reduce((sum, drop) => sum + (drop.arrived ? drop.volume_ml : 0), 0) ?? 0) / donor.solutionVolume_ml);
     return smooth((this.phaseTime - AUTO_TIMING.tilt - AUTO_TIMING.flight) / AUTO_TIMING.flow);
   }
   get streamActive() {

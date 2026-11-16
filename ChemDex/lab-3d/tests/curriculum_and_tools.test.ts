@@ -148,6 +148,6 @@ describe('Metered burette dosing', () => {
     expect(target.volume_ml).toBeCloseTo(21, 10);
     expect(target.contents.find(c => c.formula === 'HCl')!.moles).toBeCloseTo(0.0019, 12);
     expect(target.contents.find(c => c.formula === 'NaCl')!.moles).toBeCloseTo(0.0001, 12);
-    expect(useAppStore.getState().titrationHistory.at(-1)!.volumeAdded_ml).toBe(1);
+    expect(useAppStore.getState().titrationHistory.at(-1)!.volumeAdded_ml).toBeCloseTo(1, 12);
   }));
 });

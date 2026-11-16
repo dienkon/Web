@@ -374,6 +374,8 @@ export interface ReactionRecord {
 }
 
 export interface LabMaterialSnapshot {
+  burette?: BuretteState;
+  titrationHistory?: TitrationPoint[];
   toolContamination?: Record<string, string | null>;
   physics?: import('../physical/types').PhysicalLabSave;
   workbenchEscapedGas_g?: Record<string, number>;
@@ -386,6 +388,7 @@ export interface LabMaterialSnapshot {
 }
 
 export interface LabActionHistory {
+  coalesceKey?: string;
   id: string;
   timestamp: number;
   action: 'ADD_VESSEL' | 'REMOVE_VESSEL' | 'POUR' | 'HEAT' | 'MEASURE' | 'RESET' | 'TITRATE' | 'RINSE' | 'DISCARD';

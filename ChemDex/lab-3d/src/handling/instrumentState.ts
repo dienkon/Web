@@ -1,6 +1,8 @@
 import { create } from 'zustand';
 import { MAX_PIPETTE_PRESENTATIONS, advancePipettePresentations, makePipettePresentation,
   type PipettePresentation, type PipettePresentationInput } from './pipettePresentation';
+import { MAX_BURETTE_PRESENTATIONS, advanceBurettePresentations, makeBurettePresentation,
+  type BurettePresentation, type BurettePresentationInput } from './burettePresentation';
 
 export interface InstrumentNotice {
   sequence: number;
@@ -10,6 +12,13 @@ export interface InstrumentNotice {
 }
 
 interface InstrumentState {
+  burettePresentations: BurettePresentation[];
+  burettePresentationSequence: number;
+  canQueueBurettePresentation: (epoch: number) => boolean;
+  hasBurettePresentation: (epoch: number) => boolean;
+  enqueueBurettePresentation: (input: BurettePresentationInput) => boolean;
+  advanceBurettePresentation: (dt: number, epoch: number, isTargetValid?: (receipt: BurettePresentation) => boolean) => void;
+  clearBurettePresentations: () => void;
   pipettePresentations: PipettePresentation[];
   pipettePresentationSequence: number;
   canQueuePipettePresentation: (epoch: number) => boolean;
@@ -28,6 +37,24 @@ interface InstrumentState {
 }
 
 export const useInstrumentStore = create<InstrumentState>((set, get) => ({
+  burettePresentations: [],
+  burettePresentationSequence: 0,
+  canQueueBurettePresentation: epoch => get().burettePresentations.filter(r => r.epoch === epoch).length < MAX_BURETTE_PRESENTATIONS,
+  hasBurettePresentation: epoch => get().burettePresentations.some(r => r.epoch === epoch),
+  enqueueBurettePresentation: input => {
+    const state = get();
+    if (!state.canQueueBurettePresentation(input.epoch)) return false;
+    const receipt = makeBurettePresentation(input, state.burettePresentationSequence + 1);
+    if (!receipt) return false;
+    set({ burettePresentations: [...state.burettePresentations.filter(r => r.epoch === input.epoch), receipt], burettePresentationSequence: receipt.id });
+    return true;
+  },
+  advanceBurettePresentation: (dt, epoch, isTargetValid) => {
+    const state = get();
+    const queue = advanceBurettePresentations(state.burettePresentations, dt, epoch, isTargetValid);
+    if (queue.length !== state.burettePresentations.length || queue.some((r, i) => r !== state.burettePresentations[i])) set({ burettePresentations: queue });
+  },
+  clearBurettePresentations: () => set({ burettePresentations: [] }),
   pipettePresentations: [],
   pipettePresentationSequence: 0,
   canQueuePipettePresentation: epoch => get().pipettePresentations.filter(receipt => receipt.epoch === epoch).length < MAX_PIPETTE_PRESENTATIONS,

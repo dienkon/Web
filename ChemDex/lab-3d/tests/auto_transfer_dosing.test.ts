@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { AutoExperiment } from '../src/vfx/autoplay/AutoExperiment';
+import { AutoExperiment, AUTO_TIMING } from '../src/vfx/autoplay/AutoExperiment';
 import { CHEMICAL_DATABASE } from '../src/data/chemicals';
 import { sameMolecularFormula } from '../src/science/speciesIdentity';
 import { goldenRainInventory, GOLDEN_RAIN_PROTOCOL } from '../src/science/goldenRainProtocol';
@@ -38,6 +38,74 @@ describe('automatic finite liquid delivery', () => {
     const held = { fraction: donor.fraction, sample: structuredClone(experiment.sample), time: experiment.elapsed };
     experiment.tick(1);
     expect(donor.fraction).toBe(held.fraction); expect(experiment.sample).toEqual(held.sample); expect(experiment.elapsed).toBe(held.time);
+  });
+
+  it('depletes only released drop mass, accepts each packet at its captured contact, and retargets later drops', () => {
+    const experiment = new AutoExperiment('hno3_koh', false);
+    const donor = experiment.donors.find(item => item.doseMode === 'dropper')!;
+    expect(donor).toBeDefined(); expect(donor.dropSchedule).toBeUndefined();
+    experiment.donorIndex = experiment.donors.indexOf(donor);
+    experiment.phase = 'carry'; experiment.phaseTime = AUTO_TIMING.carry - 1 / 60;
+    const initialMass = experiment.accountedMass_g;
+    experiment.tick(1 / 60);
+    expect(experiment.phase).toBe('dose');
+    const schedule = donor.dropSchedule!, firstRelease = donor.dropStartedAt! + schedule.releaseStart;
+    for (let i = 0; i < 180 && experiment.elapsed + 1e-12 < firstRelease; i++) experiment.tick(1 / 60);
+    const first = donor.liquidDrops?.[0];
+    expect(first).toBeDefined(); expect(first!.volume_ml).toBeCloseTo(Math.min(.05, donor.solutionVolume_ml), 12);
+    expect(first!.flight.start).toEqual(experiment.donorLipAt(firstRelease - donor.dropStartedAt!));
+    expect(first!.flight.target[0]).toBe(experiment.sample.position[0]);
+    expect(first!.flight.target[2]).toBe(experiment.sample.position[2]);
+    expect(donor.remaining).toBeCloseTo(donor.totalMass_g - first!.mass_g, 10);
+    expect(experiment.inFlightMass_g).toBeCloseTo(first!.mass_g, 10);
+    expect(first!.contents.reduce((sum, component) => sum + component.mass_g, 0)).toBe(first!.mass_g);
+    expect(experiment.accountedMass_g).toBeCloseTo(initialMass, 7);
+    expect(experiment.sample.mass_g).toBeCloseTo(0, 7);
+
+    for (let i = 0; i < 180 && experiment.elapsed + 1e-12 < first!.arrivalAt; i++) experiment.tick(1 / 60);
+    expect(first!.arrived).toBe(true);
+    expect(experiment.sample.mass_g).toBeGreaterThan(0);
+    expect(experiment.accountedMass_g).toBeCloseTo(initialMass, 6);
+
+    experiment.sample = { ...experiment.sample, position: [experiment.sample.position[0] + 2, experiment.sample.position[1], experiment.sample.position[2]] };
+    const secondRelease = donor.dropStartedAt! + schedule.releaseStart + schedule.period;
+    for (let i = 0; i < 180 && experiment.elapsed + 1e-12 < secondRelease; i++) experiment.tick(1 / 60);
+    const second = donor.liquidDrops?.[1];
+    expect(second).toBeDefined();
+    expect(second!.flight.start[0]).toBeCloseTo(experiment.sample.position[0], 10);
+    expect(second!.flight.target[0]).toBeCloseTo(experiment.sample.position[0], 10);
+    expect(second!.flight).not.toBe(first!.flight);
+    expect(experiment.accountedMass_g).toBeCloseTo(initialMass, 6);
+
+    for (let i = 0; i < 900 && !donor.liquidDrops!.every(drop => drop.arrived); i++) experiment.tick(1 / 60);
+    const drops = donor.liquidDrops!;
+    expect(drops).toHaveLength(schedule.count); expect(drops.every(drop => drop.arrived)).toBe(true);
+    expect(drops.reduce((sum, drop) => sum + drop.volume_ml, 0)).toBeCloseTo(donor.solutionVolume_ml, 12);
+    expect(drops.reduce((sum, drop) => sum + drop.mass_g, 0)).toBeCloseTo(donor.totalMass_g, 12);
+    donor.components.forEach((component, index) => {
+      expect(drops.reduce((sum, drop) => sum + drop.contents[index].mass_g, 0)).toBeCloseTo(component.mass_g, 12);
+      expect(drops.reduce((sum, drop) => sum + drop.contents[index].moles, 0)).toBeCloseTo(component.moles, 12);
+    });
+    expect(donor.remaining).toBeCloseTo(0, 12);
+    expect(experiment.accountedMass_g).toBeCloseTo(initialMass, 6);
+  });
+
+  it('uses receiver capacity at impact and records an overflowing drop as waste', () => {
+    const experiment = new AutoExperiment('hno3_koh', false);
+    const donor = experiment.donors.find(item => item.doseMode === 'dropper')!;
+    experiment.donorIndex = experiment.donors.indexOf(donor);
+    experiment.phase = 'carry'; experiment.phaseTime = AUTO_TIMING.carry - 1 / 60;
+    const initialMass = experiment.accountedMass_g;
+    experiment.tick(1 / 60);
+    const firstArrival = donor.dropStartedAt! + donor.dropSchedule!.releaseStart + donor.dropFlight!.flightTime;
+    for (let i = 0; i < 180 && experiment.elapsed + 1 / 60 < firstArrival; i++) experiment.tick(1 / 60);
+    expect(donor.liquidDrops).toHaveLength(1);
+    experiment.sample = { ...experiment.sample, capacity_ml: donor.liquidDrops![0].volume_ml / 2 };
+    for (let i = 0; i < 3 && experiment.elapsed + 1e-12 < firstArrival; i++) experiment.tick(1 / 60);
+    expect(experiment.phase).toBe('error');
+    expect(experiment.transferWaste.length).toBe(1);
+    expect(experiment.transferWaste[0].mass_g).toBeGreaterThan(0);
+    expect(experiment.accountedMass_g).toBeCloseTo(initialMass, 7);
   });
 
   it('retains stock carrier water in lesson-ledger reactions and fits large automatic recipes', () => {
