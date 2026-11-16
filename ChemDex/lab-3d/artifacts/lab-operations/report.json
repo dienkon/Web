@@ -1,0 +1,137 @@
+{
+  "assertions": {
+    "onePrimaryClickOneWipe": true,
+    "cleanupPreservesMass": true,
+    "secondaryClickDoesNotWipe": true,
+    "filterRecoveryPreservesBothForms": true,
+    "filterRecoveryConservesMass": true,
+    "coldSpecimenExplainsConditions": true,
+    "warmedSpecimenStartsWithoutDuplicate": true,
+    "noRuntimeErrors": true
+  },
+  "errors": [],
+  "pointer": {
+    "x": 720,
+    "y": 582.9748971623744
+  },
+  "sponge": {
+    "calls": [
+      {
+        "position": [
+          0,
+          -1.175,
+          2.972047869847584
+        ],
+        "radius": 0.75
+      }
+    ],
+    "pointerEvents": [
+      {
+        "x": 720,
+        "y": 582.9749145507812,
+        "button": 0,
+        "hit": [
+          0,
+          -1.1749999999999998,
+          2.972047869847584
+        ],
+        "tool": "sponge"
+      }
+    ],
+    "wasteMass_g": 5.940366400537127,
+    "remainingMass_g": 94.05963359946287
+  },
+  "filter": {
+    "source": {
+      "id": "filter",
+      "name": "filter",
+      "type": "filter_funnel",
+      "capacity_ml": 100,
+      "position": [
+        -2,
+        -0.135,
+        0
+      ],
+      "rotationY": 0,
+      "isLocked": false,
+      "volume_ml": 0,
+      "volume": 0,
+      "temperature_c": 25,
+      "ph": 7,
+      "contents": [],
+      "substances": [],
+      "mass_g": 0,
+      "hasGas": false,
+      "hasPrecipitate": false,
+      "isBoiling": false,
+      "filterPaperResidue_g": 0,
+      "residueReceiverId": "receiver"
+    },
+    "receiver": {
+      "id": "receiver",
+      "name": "receiver",
+      "type": "watch_glass",
+      "capacity_ml": 100,
+      "position": [
+        1,
+        -0.135,
+        0
+      ],
+      "rotationY": 0,
+      "isLocked": false,
+      "volume_ml": 0,
+      "volume": 0,
+      "temperature_c": 25,
+      "ph": 7,
+      "contents": [
+        {
+          "formula": "PbI2",
+          "phase": "s",
+          "mass_g": 0.02,
+          "moles": 0.00004338300687620659,
+          "solidOrigin": "precipitate",
+          "precipitateFormation": "FINE_POWDER"
+        },
+        {
+          "formula": "PbI2",
+          "phase": "s",
+          "mass_g": 0.03,
+          "moles": 0.00006507451031430989,
+          "solidOrigin": "precipitate",
+          "precipitateFormation": "CRYSTAL_PLATE",
+          "location": "bulk"
+        }
+      ],
+      "substances": [
+        "PbI2"
+      ],
+      "mass_g": 0.05,
+      "hasGas": false,
+      "hasPrecipitate": false,
+      "isBoiling": false,
+      "precipitateSubstance": "PbI2",
+      "precipitateColor": "#f8fafc",
+      "precipitateAmount_g": 0
+    }
+  },
+  "preparedBefore": {
+    "id": "studio_sample_1794836785064_g6v3n6",
+    "ids": [
+      "filter",
+      "receiver",
+      "studio_sample_1794836785064_g6v3n6"
+    ],
+    "mass_g": 0.09756000000000001
+  },
+  "preparedAfter": {
+    "ids": [
+      "filter",
+      "receiver",
+      "studio_sample_1794836785064_g6v3n6"
+    ],
+    "program": "cuoh2_decomp",
+    "paused": false,
+    "baselineMass_g": 0.09756000000000001,
+    "mass_g": 0.09756000000000001
+  }
+}

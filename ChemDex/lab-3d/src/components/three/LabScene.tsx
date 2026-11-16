@@ -805,18 +805,12 @@ export function LabScene() {
             onPointerDown={(e) => {
               const state = useAppStore.getState();
               if (state.activeTool === 'sponge') {
-                state.wipeSpillAt([e.point.x, -1.155, e.point.z], 0.75);
+                // InteractiveSponge owns this gesture once at the canvas boundary.
                 return;
               }
               // Click on empty workbench clears vessel selection
               if (!state.draggingVesselId && !state.moveMode) {
                 state.setSelectedVesselId(null);
-              }
-            }}
-            onPointerMove={(e) => {
-              const state = useAppStore.getState();
-              if (state.activeTool === 'sponge' && e.buttons === 1) {
-                state.wipeSpillAt([e.point.x, -1.155, e.point.z], 0.75);
               }
             }}
           >

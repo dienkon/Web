@@ -31,6 +31,22 @@ describe('Precipitate stress and stock form regressions', () => {
     expect(activePrecipitateVessels(vessels)).toBe(1);
     expect(activePrecipitateVessels({ ...vessels, second: { ...wet, id: 'second' } })).toBe(2);
   });
+  it('shares the scene budget across microdose renderers instead of granting each a whole-scene allowance', () => {
+    const solid = { formula: 'BaSO4', phase: 's', mass_g: 0.00001, moles: 0.00001 / 233.39, solidOrigin: 'precipitate' as const };
+    const microdoses = Object.fromEntries(Array.from({ length: 20 }, (_, index) => {
+      const id = `micro-${index}`;
+      return [id, { ...shell, id, volume_ml: 0.12, contents: [solid] }];
+    }));
+    const snapshot = { ...microdoses, residue: { ...shell, volume_ml: 0.05, contents: [solid] } };
+    expect(activePrecipitateVessels(snapshot)).toBe(20);
+    // Repeated subscriptions reuse the same immutable inventory count.
+    expect(activePrecipitateVessels(snapshot)).toBe(20);
+    for (const tier of ['potato', 'low', 'medium', 'high', 'ultra'] as QualityTier[]) {
+      const budget = precipitateSceneBudget(tier, activePrecipitateVessels(snapshot));
+      expect(budget.visible * 20).toBeLessThanOrEqual(budget.total);
+    }
+    expect(activePrecipitateVessels({ ...snapshot, residue: { ...snapshot.residue, volume_ml: 0.050001 } })).toBe(21);
+  });
   it('reduces display budget without changing transport, mass, radius or instantaneous turbidity', () => {
     const system = new PrecipitationSystem(900, 'BaSO4');
     const params = { temp_c: 25, viscosity_mPa_s: 1, density_g_ml: 1, radius: 1, liquidBottomY: -1,

@@ -2,23 +2,22 @@ import React, { useRef, useState, useMemo } from 'react';
 import { useFrame, useThree } from '@react-three/fiber';
 import * as THREE from 'three';
 import { useAppStore } from '../../../store/useAppStore';
-import { labSound } from '../../../utils/audio';
+import { LAB_GEOMETRY } from '../../../core/labGeometry';
 
 export const InteractiveSponge = React.memo(function InteractiveSponge({ preview = false }: { preview?: boolean } = {}) {
   const activeTool = useAppStore(state => state.activeTool);
   const setActiveTool = useAppStore(state => state.setActiveTool);
   const wipeSpillAt = useAppStore(state => state.wipeSpillAt);
-  const spills = useAppStore(state => state.spills);
   const { camera, raycaster, gl } = useThree();
 
   const groupRef = useRef<THREE.Group>(null);
   const [isWiping, setIsWiping] = useState(false);
   const targetWorldPos = useRef(new THREE.Vector3(0, -1.08, 1.2));
   const wipeAngle = useRef(0);
-  const lastWipeTime = useRef(0);
+  const lastWipeTime = useRef(-Infinity);
+  const wipingPointer = useRef<number | null>(null);
 
-  // Table plane at Y = -1.155 for accurate mouse raycasting
-  const tablePlane = useMemo(() => new THREE.Plane(new THREE.Vector3(0, 1, 0), 1.155), []);
+  const tablePlane = useMemo(() => new THREE.Plane(new THREE.Vector3(0, 1, 0), -LAB_GEOMETRY.tableTop_scene), []);
   const intersectPoint = useMemo(() => new THREE.Vector3(), []);
 
   // Track pointer across workbench
@@ -27,44 +26,47 @@ export const InteractiveSponge = React.memo(function InteractiveSponge({ preview
     const canvas = gl.domElement;
     if (!canvas) return;
 
-    const handlePointerMove = (e: PointerEvent) => {
-      if (activeTool !== 'sponge') return;
+    const targetPoint = (e: PointerEvent) => {
       const rect = canvas.getBoundingClientRect();
+      if (!(rect.width > 0 && rect.height > 0) || e.clientX < rect.left || e.clientX > rect.right
+        || e.clientY < rect.top || e.clientY > rect.bottom) return false;
       const ndcX = ((e.clientX - rect.left) / rect.width) * 2 - 1;
       const ndcY = -((e.clientY - rect.top) / rect.height) * 2 + 1;
-
       raycaster.setFromCamera(new THREE.Vector2(ndcX, ndcY), camera);
-      if (raycaster.ray.intersectPlane(tablePlane, intersectPoint)) {
-        targetWorldPos.current.set(
-          Math.max(-14, Math.min(14, intersectPoint.x)),
-          -1.08,
-          Math.max(-5, Math.min(5, intersectPoint.z))
-        );
-
-        if (e.buttons === 1) {
-          setIsWiping(true);
-          const now = Date.now();
-          if (now - lastWipeTime.current > 120) {
-            lastWipeTime.current = now;
-            wipeSpillAt([intersectPoint.x, -1.155, intersectPoint.z], 0.7);
-          }
-        }
+      if (!raycaster.ray.intersectPlane(tablePlane, intersectPoint)
+        || Math.abs(intersectPoint.x) > LAB_GEOMETRY.tableHalfWidth_scene
+        || Math.abs(intersectPoint.z) > LAB_GEOMETRY.tableHalfDepth_scene) return false;
+      // The same bounded center drives the visible sponge and its collector.
+      targetWorldPos.current.set(
+        THREE.MathUtils.clamp(intersectPoint.x, -LAB_GEOMETRY.tableHalfWidth_scene + 0.265, LAB_GEOMETRY.tableHalfWidth_scene - 0.265),
+        -1.08,
+        THREE.MathUtils.clamp(intersectPoint.z, -LAB_GEOMETRY.tableHalfDepth_scene + 0.165, LAB_GEOMETRY.tableHalfDepth_scene - 0.165)
+      );
+      return true;
+    };
+    const collect = (e: PointerEvent) => {
+      lastWipeTime.current = e.timeStamp;
+      wipeSpillAt([targetWorldPos.current.x, LAB_GEOMETRY.tableTop_scene, targetWorldPos.current.z], 0.75);
+    };
+    const handlePointerMove = (e: PointerEvent) => {
+      if (activeTool !== 'sponge' || e.isPrimary === false) return;
+      const overTable = targetPoint(e);
+      if (!overTable || e.buttons !== 1 || wipingPointer.current !== e.pointerId) {
+        setIsWiping(false); return;
       }
+      setIsWiping(true);
+      if (e.timeStamp - lastWipeTime.current >= 120) collect(e);
     };
 
     const handlePointerDown = (e: PointerEvent) => {
-      if (activeTool !== 'sponge') return;
+      if (activeTool !== 'sponge' || e.button !== 0 || e.isPrimary === false || !targetPoint(e)) return;
+      wipingPointer.current = e.pointerId;
       setIsWiping(true);
-      const rect = canvas.getBoundingClientRect();
-      const ndcX = ((e.clientX - rect.left) / rect.width) * 2 - 1;
-      const ndcY = -((e.clientY - rect.top) / rect.height) * 2 + 1;
-      raycaster.setFromCamera(new THREE.Vector2(ndcX, ndcY), camera);
-      if (raycaster.ray.intersectPlane(tablePlane, intersectPoint)) {
-        wipeSpillAt([intersectPoint.x, -1.155, intersectPoint.z], 0.75);
-      }
+      collect(e);
     };
 
     const handlePointerUp = () => {
+      wipingPointer.current = null;
       setIsWiping(false);
     };
 
@@ -75,6 +77,7 @@ export const InteractiveSponge = React.memo(function InteractiveSponge({ preview
     window.addEventListener('blur', handlePointerUp);
 
     return () => {
+      wipingPointer.current = null;
       canvas.removeEventListener('pointermove', handlePointerMove);
       canvas.removeEventListener('pointerdown', handlePointerDown);
       window.removeEventListener('pointerup', handlePointerUp);

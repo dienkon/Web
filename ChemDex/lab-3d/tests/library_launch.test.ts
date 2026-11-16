@@ -1,11 +1,13 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { useAppStore } from '../src/store/useAppStore';
-import { launchLibraryProgram, libraryProgram } from '../src/engine/libraryLaunch';
+import { continueLibraryProgram, launchLibraryProgram, libraryProgram } from '../src/engine/libraryLaunch';
 import { REACTION_QUICK_STARTS } from '../src/data/reactionQuickStarts';
 import { createStudioSample } from '../src/engine/studioProgram';
 import { getProgramById } from '../src/vfx/programs/library';
 import { findHandcraftedProgram, resolveReactionProgram } from '../src/vfx/programs/resolver';
 import type { VesselState } from '../src/types/chemistry';
+import { vesselLocalToWorld } from '../src/science/vesselScale';
+import { vesselInterior } from '../src/science/vesselDimensions';
 
 const initial = useAppStore.getState();
 const shell: VesselState = { id: 'existing', name: 'Keep this sample', type: 'beaker', capacity_ml: 100,
@@ -15,7 +17,62 @@ const shell: VesselState = { id: 'existing', name: 'Keep this sample', type: 'be
 beforeEach(() => {
   useAppStore.setState({ vessels: {}, vesselIds: [], burners: {}, activeKinetics: {}, pendingReactions: {},
     dissolvingSubstances: {}, inFlightPours: [], spills: {}, pouringChemical: null,
-    selectedVesselId: null, isSimulationPaused: true, mixError: null, globalWarning: null });
+    selectedVesselId: null, isSimulationPaused: true, mixError: null, globalWarning: null,
+    isMixing: false, isPouring: false, draggingVesselId: null, instrumentRinse: null });
+});
+
+describe('Prepared library specimens can continue from the ordinary vessel inspector', () => {
+  it('keeps a warming-dependent specimen until ready, then starts that same vessel and resumes', () => {
+    const prepared = launchLibraryProgram('cuoh2_decomp');
+    expect(prepared.status).toBe('conditions');
+    const id = prepared.vesselId!, cold = useAppStore.getState().vessels[id];
+    const waiting = continueLibraryProgram(id);
+    expect(waiting.status).toBe('conditions'); expect(waiting.message).toContain('60');
+    expect(useAppStore.getState().isSimulationPaused).toBe(true);
+    expect(useAppStore.getState().vessels[id]).toBe(cold);
+    useAppStore.getState().setVesselState(id, { temperature_c: 65 });
+    const warmed = useAppStore.getState().vessels[id];
+    expect(continueLibraryProgram(id).status).toBe('running');
+    const state = useAppStore.getState();
+    expect(state.vesselIds).toEqual([id]);
+    expect(state.activeKinetics[id].program?.id).toBe('cuoh2_decomp');
+    expect(state.vessels[id].contents).toEqual(warmed.contents);
+    expect(state.vessels[id].mass_g).toBe(cold.mass_g);
+    expect(state.isSimulationPaused).toBe(false);
+    const run = state.activeKinetics[id];
+    expect(continueLibraryProgram(id).status).toBe('conditions');
+    expect(useAppStore.getState().activeKinetics[id]).toBe(run);
+  });
+
+  it('uses the physical ignition action and retains inventory/pause when no source reaches the mouth', () => {
+    const prepared = launchLibraryProgram('mg_o2_burn'), id = prepared.vesselId!;
+    const sample = useAppStore.getState().vessels[id];
+    expect(continueLibraryProgram(id).message).toContain('nguồn nhiệt');
+    expect(useAppStore.getState().isSimulationPaused).toBe(true);
+    expect(useAppStore.getState().activeKinetics[id]).toBeUndefined();
+    const mouth = vesselLocalToWorld(sample, [0, vesselInterior(sample.type).topY, 0]);
+    useAppStore.setState({ burners: { source: { id: 'source', isOn: true, intensity: 3, fuelLevel_ml: 1,
+      position: [mouth[0], mouth[1] - 1.1, mouth[2]] } } });
+    expect(continueLibraryProgram(id).status).toBe('running');
+    const state = useAppStore.getState();
+    expect(state.vesselIds).toEqual([id]);
+    expect(state.activeKinetics[id].initialVesselBaseline?.ignitedProgramId).toBe('mg_o2_burn');
+    expect(state.vessels[id].temperature_c).toBe(25);
+    expect(state.vessels[id].contents).toEqual(sample.contents);
+    expect(state.isSimulationPaused).toBe(false);
+  });
+
+  it('blocks activation during a pending transfer and reports invalid specimens without creating a replacement', () => {
+    const id = useAppStore.getState().prepareStudioProgram('cuso4_naoh')!;
+    const sample = useAppStore.getState().vessels[id];
+    useAppStore.setState({ pouringChemical: { id: 123, targetId: id } as never });
+    expect(continueLibraryProgram(id).message).toContain('chuyển mẫu');
+    expect(useAppStore.getState().activeKinetics[id]).toBeUndefined();
+    expect(useAppStore.getState().isSimulationPaused).toBe(true);
+    expect(useAppStore.getState().vessels[id]).toBe(sample);
+    expect(continueLibraryProgram('missing').status).toBe('error');
+    expect(useAppStore.getState().vesselIds).toEqual([id]);
+  });
 });
 afterEach(() => { useAppStore.setState(initial); vi.unstubAllGlobals(); });
 

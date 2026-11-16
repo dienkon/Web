@@ -17,6 +17,7 @@ import { HotPlateControls } from './HotPlateControls';
 import { CondenserCoolingControls } from './CondenserCoolingControls';
 import { CopperAmmoniaReadout } from './CopperAmmoniaReadout';
 import { LandoltClockReadout } from './LandoltClockReadout';
+import { LibrarySpecimenControls } from './LibrarySpecimenControls';
 
 export function VesselInspector() {
   const { 
@@ -213,6 +214,8 @@ export function VesselInspector() {
           </div>
         </div>
       </div>
+
+      <LibrarySpecimenControls key={vessel.id} vesselId={vessel.id} />
 
       {/* Shattered Glassware Critical Alert */}
       <button

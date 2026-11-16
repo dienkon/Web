@@ -6,7 +6,7 @@ const counts = new WeakMap<Record<string, VesselState>, number>();
 /** All subscribers share one inventory scan for each immutable store snapshot. */
 export function activePrecipitateVessels(vessels: Record<string, VesselState>) {
   const cached = counts.get(vessels); if (cached !== undefined) return cached;
-  const count = Object.values(vessels).filter(v => !v.isShattered && v.volume_ml > 0.2
+  const count = Object.values(vessels).filter(v => !v.isShattered && v.volume_ml > 0.05
     && precipitateComponents(v.contents, v.precipitateSubstance).length > 0).length;
   counts.set(vessels, count); return count;
 }

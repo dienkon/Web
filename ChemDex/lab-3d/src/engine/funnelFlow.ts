@@ -1,9 +1,10 @@
 import type { SubstanceContent, VesselState } from '../types/chemistry';
 import type { LiquidAliquot } from '../handling/aliquot';
-import { dispenseAliquot } from '../handling/aliquot';
+import { dispenseAliquot, refreshPrecipitateSummary } from '../handling/aliquot';
 import { solidContent, gasContent, organicContent, phaseVolumes, separatedLayers } from '../science/liquidLayers';
 import { calculateFunnelDischarge, type FunnelDischarge } from '../science/funnelDischarge';
 import type { Point3 } from '../science/clippedSolidVolume';
+import { withLegacyPrecipitateOrigins } from '../science/precipitateInventory';
 export { solidContent, phaseVolumes, separatedLayers } from '../science/liquidLayers';
 const positive = (item: SubstanceContent) => item.moles > 0 || item.mass_g > 0;
 
@@ -33,7 +34,9 @@ export function selectFunnelReceiver(source: VesselState, vessels: Record<string
 }
 
 function captureFilterSolids(source: VesselState): VesselState {
-  const contents = source.contents.map(item => solidContent(item) && positive(item)
+  // Resolve the old vessel-level origin/formation before moving rows out of
+  // bulk and clearing its summary; the filter and later recovery keep it.
+  const contents = withLegacyPrecipitateOrigins(source).map(item => solidContent(item) && positive(item)
     ? { ...item, location: 'filter' as const } : { ...item });
   const cake = contents.filter(item => item.location === 'filter' && solidContent(item));
   return { ...source, contents, filterPaperResidue_g: cake.reduce((sum, item) => sum + item.mass_g, 0),
@@ -168,15 +171,15 @@ export function recoverFilterCake(source: VesselState, receiver: VesselState): {
   const cake = source.contents.filter(item => solidContent(item) && item.location === 'filter' && positive(item));
   if (!cake.length) return null;
   const mass = cake.reduce((sum, item) => sum + item.mass_g, 0);
-  const contents = receiver.contents.map(item => ({ ...item }));
-  for (const item of cake) {
-    const existing = contents.find(target => target.formula === item.formula && solidContent(target) && target.location !== 'filter');
-    if (existing) { existing.moles += item.moles; existing.mass_g += item.mass_g; }
-    else contents.push({ ...item, location: 'bulk' });
-  }
+  // Chemical formula alone cannot merge physical stocks: a recovered plate,
+  // powder or released coating retains its own origin and carrier history.
+  // Materialize resident legacy rows before explicit incoming origins arrive.
+  const contents = [...withLegacyPrecipitateOrigins(receiver), ...cake.map(item => ({ ...item, location: 'bulk' as const }))];
+  const received = refreshPrecipitateSummary({ ...receiver, contents, mass_g: receiver.mass_g + mass,
+    precipitateSubstance: receiver.precipitateSubstance ?? cake[0].formula,
+    precipitateColor: source.precipitateColor ?? receiver.precipitateColor ?? '#f8fafc' });
   return { source: refreshFlowInventory({ ...source, contents: source.contents.filter(item => !cake.includes(item)),
     mass_g: Math.max(0, source.mass_g - mass), filterPaperResidue_g: 0, filterPaperResidueSubstance: undefined }),
-    receiver: refreshFlowInventory({ ...receiver, contents, mass_g: receiver.mass_g + mass,
-      hasPrecipitate: receiver.volume_ml > 0, precipitateAmount_g: receiver.volume_ml > 0 ? (receiver.precipitateAmount_g ?? 0) + mass : 0,
-      precipitateSubstance: cake[0].formula, precipitateColor: source.precipitateColor ?? '#f8fafc' }) };
+    receiver: refreshFlowInventory({ ...received, hasPrecipitate: receiver.volume_ml > 0 && received.hasPrecipitate,
+      precipitateAmount_g: receiver.volume_ml > 0 ? received.precipitateAmount_g : 0 }) };
 }
