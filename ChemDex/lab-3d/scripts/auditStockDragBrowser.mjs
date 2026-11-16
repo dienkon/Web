@@ -18,9 +18,21 @@ page.on('pageerror', e => report.errors.push(e.stack ?? e.message));
 page.on('console', m => { if (m.type() === 'error') console.log(m.text()); });
 await page.addInitScript(() => {
   performance.setResourceTimingBufferSize(10000);
+  window.__stockMessages = [];
   localStorage.setItem('chemlab_vfx_quality_preference', 'low');
   const send = Worker.prototype.postMessage;
   Worker.prototype.postMessage = function(message, ...rest) {
+    if (message?.input?.containers) {
+      window.__stockMessages.push({ direction: 'send', id: message.id, paused: message.paused,
+        seconds: message.path.reduce((sum, frame) => sum + frame.seconds, 0),
+        ids: message.input.containers.map(container => container.id) });
+      if (!this.__auditHook) {
+        this.__auditHook = true;
+        this.addEventListener('message', event => window.__stockMessages.push({ direction: 'receive', id: event.data.id,
+          error: event.data.error, tick: event.data.snapshot?.tick,
+          grains: event.data.snapshot?.grains.map(grain => grain.vesselId) }));
+      }
+    }
     if (window.__delayStock && message?.input?.containers) {
       const worker = this;
       setTimeout(() => send.call(worker, message, ...rest), 180);
@@ -53,13 +65,19 @@ try {
         substances: i ? [formula, 'H2O'] : [formula], position: [-2 + i * 4, -0.135, 2] } } }));
     }
     app.setState({ selectedVesselId: null, leftSidebarOpen: false, rightSidebarOpen: false });
-    const root = mounted.store.getState();
+    // CameraRig may replace the mounted camera after the first root snapshot.
+    // Hit projection and scene capture must read the live canvas state.
+    const root = new Proxy({}, { get: (_, property) => mounted.store.getState()[property] });
     root.internal.subscribe({ current: ({ camera }) => { camera.position.set(0, 3.2, 10); camera.lookAt(0, -0.1, 1.5); camera.updateMatrixWorld(); } }, 0,
       root.internal.subscribers.find(s => s.store)?.store);
     window.dragAudit = { app, ids, root, Matrix4 };
     window.dragAudit.capture = id => {
       const v = app.getState().vessels[id], formula = v.contents.find(c => c.phase === 's').formula;
-      const mesh = root.scene.getObjectByName(`stock_solid_${id}_${formula}`), body = root.scene.getObjectByName(`vessel_si_body_${id}`);
+      let mesh = root.scene.getObjectByName(`stock_solid_${id}_${formula}`);
+      if (!mesh) root.scene.traverse(node => {
+        if (!mesh && node.isInstancedMesh && node.parent?.name === `contact_powder_${id}_${formula}`) mesh = node;
+      });
+      const body = root.scene.getObjectByName(`vessel_si_body_${id}`);
       const local = [];
       if (mesh) for (let i = 0; i < mesh.count; i++) { const m = new Matrix4(); mesh.getMatrixAt(i, m); local.push(m.elements.slice(12, 15)); }
       return { id, position: v.position, body: body?.parent.position.toArray(), local,
@@ -73,9 +91,10 @@ try {
     }
     app.getState().setSimulationPaused(false);
   }, report.physics);
-  await page.waitForFunction(() => window.dragAudit.ids.every(id => window.dragAudit.app.getState().vessels[id].stockMotion?.tick >= 150), undefined, { timeout: 60000 });
+  if (process.env.LAB_DRAG_ASSEMBLY_ONLY !== '1')
+    await page.waitForFunction(() => window.dragAudit.ids.every(id => window.dragAudit.app.getState().vessels[id].stockMotion?.tick >= 150), undefined, { timeout: 60000 });
   await page.getByRole('button', { name: 'Di chuyển dụng cụ', exact: true }).click();
-  for (const index of [0, 1]) {
+  for (const index of process.env.LAB_DRAG_ASSEMBLY_ONLY === '1' ? [] : [0, 1]) {
     await page.evaluate(() => { const a = window.dragAudit; a.app.setState({ leftSidebarOpen: false, rightSidebarOpen: false }); window.__delayStock = true; });
     const before = await page.evaluate(index => window.dragAudit.capture(window.dragAudit.ids[index]), index);
     const screen = await page.evaluate(index => {
@@ -111,6 +130,65 @@ try {
     await page.screenshot({ path: `${output}/${index ? 'wet-paused' : 'dry'}-placed.png` });
     await page.evaluate(() => { window.__delayStock = false; window.dragAudit.app.getState().setSimulationPaused(false); });
   }
+  if (!report.physics) {
+    const linked = await page.evaluate(() => {
+      const a = window.dragAudit, app = a.app;
+      app.setState({ vessels: {}, vesselIds: [], spills: {}, activeKinetics: {}, isSimulationPaused: true, draggingVesselId: null });
+      app.getState().addVessel('test_tube_rack', 'Rack'); const rackId = app.getState().vesselIds.at(-1);
+      app.getState().addVessel('test_tube', 'Tube'); const tubeId = app.getState().vesselIds.at(-1);
+      app.setState(s => ({ vessels: { [rackId]: { ...s.vessels[rackId], position: [0, -.945, 2], slottedTestTubeIds: [tubeId] },
+        [tubeId]: { ...s.vessels[tubeId], position: [-.65, -.495, 2], capacity_ml: 50, mass_g: 5, volume_ml: 0, volume: 0,
+          contents: [{ formula: 'CuSO4·5H2O', phase: 's', mass_g: 5, moles: 5 / 249.677 }], substances: ['CuSO4·5H2O'] } },
+        vesselIds: [rackId, tubeId], selectedVesselId: null, leftSidebarOpen: false, rightSidebarOpen: false }));
+      a.ids = [tubeId]; a.linked = { rackId, tubeId };
+      return a.linked;
+    });
+    await page.waitForFunction(id => window.dragAudit.app.getState().vessels[id]?.stockMotion?.grains.length > 0, linked.tubeId, { timeout: 60000 });
+    // Freeze settling before comparing carried local coordinates. Otherwise
+    // free gravity between the baseline and pointer pickup measures normal
+    // rearrangement rather than a failure to carry the tube with its rack.
+    await page.evaluate(() => window.dragAudit.app.getState().setSimulationPaused(true));
+    await page.waitForTimeout(700);
+    const before = await page.evaluate(id => window.dragAudit.capture(id), linked.tubeId);
+    assert.ok(before.local.length > 0, 'The linked tube must render actual solid instances');
+    assert.equal(before.local.length, before.grains, 'Every physical tube grain must have a rendered instance');
+    const screen = await page.evaluate(id => {
+      const a = window.dragAudit, v = a.app.getState().vessels[id], rect = a.root.gl.domElement.getBoundingClientRect();
+      const p = a.root.scene.position.clone().fromArray(v.position); p.x += 1; p.y -= .15; p.z += .42; p.project(a.root.camera);
+      const result = { x: rect.left + (p.x + 1) * rect.width / 2, y: rect.top + (1 - p.y) * rect.height / 2,
+        rect: { x: rect.left, y: rect.top, width: rect.width, height: rect.height }, camera: a.root.camera.position.toArray(), world: v.position };
+      window.__rackScreen = result; return result;
+    }, linked.rackId);
+    await page.evaluate(() => { window.__delayStock = true; });
+    let rackHit = false;
+    for (const dy of [-80, -60, -40, -20, 0, 20, 40, 60, 80]) for (const dx of [-80, -60, -40, -20, 0, 20, 40, 60, 80]) {
+      if (rackHit) break;
+      await page.mouse.move(screen.x + dx, screen.y + dy); await page.mouse.down();
+      await page.waitForTimeout(35);
+      rackHit = await page.evaluate(id => window.dragAudit.app.getState().draggingVesselId === id, linked.rackId);
+      if (!rackHit) await page.mouse.up();
+    }
+    assert.equal(rackHit, true, 'The pointer must hit the rack apparatus, not the carried tube');
+    const samples = [];
+    for (let i = 1; i <= 6; i++) {
+      await page.mouse.move(screen.x + i * 23, screen.y - i * 7);
+      await page.waitForTimeout(40);
+      samples.push(await page.evaluate(id => window.dragAudit.capture(id), linked.tubeId));
+    }
+    await page.screenshot({ path: `${output}/linked-rack-held.png` });
+    await page.mouse.up(); await page.waitForTimeout(700);
+    const after = await page.evaluate(id => window.dragAudit.capture(id), linked.tubeId);
+    assert.ok(Math.hypot(...after.position.map((x, i) => x - before.position[i])) > .2, 'Dragging the rack must relocate its tube');
+    for (const sample of [...samples, after]) {
+      assert.equal(sample.stockMass, 5); assert.equal(sample.spills, 0); assert.equal(sample.grains, before.grains);
+      assert.equal(sample.local.length, before.local.length);
+      sample.local.forEach((p, i) => p.forEach((x, axis) => assert.ok(Math.abs(x - before.local[i][axis]) < .06,
+        `Rack-carried tube stock changed its local frame: ${axis} ${before.local[i][axis]} -> ${x}`)));
+    }
+    report.checks.push({ case: 'rack-carries-tube-with-busy-worker', before, after, samples });
+    await page.screenshot({ path: `${output}/linked-rack-placed.png` });
+    await page.evaluate(() => { window.__delayStock = false; });
+  }
   assert.deepEqual(report.errors, []);
   report.passed = true;
   writeFileSync(`${output}/report.json`, JSON.stringify(report, null, 2));
@@ -118,6 +196,9 @@ try {
 } catch (error) {
   report.failure = String(error);
   report.state = await page.evaluate(() => window.dragAudit?.ids.map(id => window.dragAudit.capture(id))).catch(() => null);
+  report.diagnostics = await page.evaluate(() => ({ paused: window.dragAudit?.app.getState().isSimulationPaused,
+    timeScale: window.dragAudit?.app.getState().timeScale, hidden: document.hidden,
+    frameloop: window.dragAudit?.root.frameloop, messages: window.__stockMessages?.slice(-12), screen: window.__rackScreen })).catch(() => null);
   console.log(JSON.stringify(report.state));
   await page.screenshot({ path: `${output}/failure.png` }).catch(() => {});
   writeFileSync(`${output}/report.json`, JSON.stringify(report, null, 2));
