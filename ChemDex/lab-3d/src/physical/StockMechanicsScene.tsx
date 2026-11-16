@@ -26,6 +26,7 @@ import { Euler, Quaternion, Vector3 } from 'three';
 import type { Quat, Vec3 } from './types';
 import { publishStockPresentation, clearStockPresentation } from './stockPresentation';
 import { queueStockBoundaryFrame } from './stockBoundaryQueue';
+import { moveCarriedVesselIds } from './carriedVessels';
 
 /** A lazy Worker owns stock contacts. This bridge uploads commands/snapshots;
  * it does not integrate grain motion in a render callback. */
@@ -36,7 +37,7 @@ export function StockMechanicsScene() {
   const last = useRef(new Map<string, VesselState['stockMotion']>()), revisions = useRef(new Map<string, number>());
   const request = useRef(new Map<string, StockReplyRequest & { revision: number }>());
   const lastSpills = useRef(new Map<string, StockSpillPose>()), requestedSpills = useRef(new Map<string, StockSpillPose>());
-  const lastCarriedVessel = useRef<string | null>(null);
+  const lastCarriedVessels = useRef(new Set<string>());
   const sameTrajectory = (a: StockSpillPose | undefined, b: StockSpillPose | undefined) => a === b
     || !!a && !!b && a.position_m === b.position_m && a.rotation === b.rotation
     && a.velocity_m_s === b.velocity_m_s && a.angularVelocity_rad_s === b.angularVelocity_rad_s;
@@ -164,21 +165,21 @@ export function StockMechanicsScene() {
         physicalMotion: { tick: v.physicalMotion?.tick ?? 0, velocity_m_s: v.physicalMotion?.velocity_m_s ?? [0, 0, 0] as Vec3,
           angularVelocity_rad_s: v.physicalMotion?.angularVelocity_rad_s ?? [0, 0, 0] as Vec3, rotation } };
     });
-    const activelyCarried = app.moveMode ? app.draggingVesselId : null;
-    const previouslyCarried = lastCarriedVessel.current;
-    const carryId = activelyCarried ?? previouslyCarried;
+    const activelyCarried = moveCarriedVesselIds(app);
+    const previouslyCarried = lastCarriedVessels.current;
+    const carryIds = [...new Set([...activelyCarried, ...previouslyCarried])];
     const boundaryPoses = posedVessels.map(v => ({ id: v.id,
       position_m: scenePointToSI(v.position), rotation: v.physicalMotion?.rotation
         ?? new Quaternion().setFromEuler(new Euler(0, v.rotationY ?? 0, v.rotationZ ?? 0, 'YXZ')).toArray() as Quat,
-      carryStock: activelyCarried === v.id || previouslyCarried === v.id,
-      releaseStock: previouslyCarried === v.id && activelyCarried !== v.id }));
+      carryStock: activelyCarried.has(v.id) || previouslyCarried.has(v.id),
+      releaseStock: previouslyCarried.has(v.id) && !activelyCarried.has(v.id) }));
     queueStockBoundaryFrame(state, { seconds: acceptedFrameSeconds(delta) * app.timeScale,
       containers: boundaryPoses }, app.isSimulationPaused);
-    lastCarriedVessel.current = activelyCarried;
+    lastCarriedVessels.current = activelyCarried;
     if (state.busy || !app.isSimulationPaused && state.pending < 1 / 30) return;
     const signature = JSON.stringify([posedVessels.map(v => [v.id, v.type, v.capacity_ml, v.position, v.rotationY, v.rotationZ,
       v.physicalMotion?.rotation, v.effectSampleRevision, v.contents, v.stockMotion && v.stockMotion !== last.current.get(v.id) ? v.stockMotion.tick : null]),
-      carryId, Object.values(app.spills).map(s => [s.id, s.stockMotion?.mass_g,
+      carryIds, Object.values(app.spills).map(s => [s.id, s.stockMotion?.mass_g,
         s.stockMotion && !sameTrajectory(s.stockMotion, lastSpills.current.get(s.stockMotion.id)) ? s.stockMotion : null]), pendingStockContacts(), PourController.getSession()?.sourcePos,
       PourController.getSession()?.sourceRotationZ, PourController.getSession()?.tilt]);
     if (app.isSimulationPaused && signature === state.signature && state.path.length === 0) return;

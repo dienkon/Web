@@ -413,6 +413,7 @@ export class AutoExperiment {
             remaining_s: 0.25, expiresAt_ms: 0, color: donor.color };
         }
       }
+      if (donor.solid && this.simulateEffects) this.stocks.acceptContacts(this.sample);
       this.advanceContact(dt);
       if (fraction >= 1) this.enter('return');
     } else if (this.phase === 'return' && this.phaseTime >= AUTO_TIMING.upright + AUTO_TIMING.return) {

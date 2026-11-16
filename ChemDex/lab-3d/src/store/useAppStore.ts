@@ -2898,12 +2898,14 @@ export const useAppStore = create<AppState>((set, get) => {
     toggleLockVessel: (id) => {
       set(s => {
         if (!s.vessels[id]) return s;
+        const locking = !s.vessels[id].isLocked;
         const updated = {
           ...s.vessels,
-          [id]: { ...s.vessels[id], isLocked: !s.vessels[id].isLocked }
+          [id]: { ...s.vessels[id], isLocked: locking }
         };
         debounceSaveLocalState(updated, s.burners);
-        return { vessels: updated };
+        return { vessels: updated,
+          ...(locking && s.draggingVesselId === id ? { draggingVesselId: null, nearestPourTargetId: null } : {}) };
       });
     },
 
@@ -4142,7 +4144,8 @@ export const useAppStore = create<AppState>((set, get) => {
     },
 
     moveMode: false,
-    setMoveMode: (active) => set({ moveMode: active }),
+    setMoveMode: (active) => set(s => ({ moveMode: active,
+      ...(active && s.burette.isDispensing ? { burette: { ...s.burette, isDispensing: false } } : {}) })),
 
     canUndo: false,
     canRedo: false,

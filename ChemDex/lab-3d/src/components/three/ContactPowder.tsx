@@ -10,6 +10,7 @@ import { getNoiseTexture } from '../../vfx/textures';
 import { PourController } from '../../pour/controller/PourController';
 import { renderedVesselBody } from '../../simulation/render/vesselBodyFrames';
 import { presentedStockLocalMatrix } from '../../physical/stockPresentation';
+import { moveCarriedVesselIds } from '../../physical/carriedVessels';
 import { attachedMetalForCarrier, attachedMetalMassForCarrier, DEPOSIT_DENSITY_G_ML } from '../../science/metalSurfaceAppearance';
 
 export function powderCarrierAppearance(vessel: VesselState, id: string, coreMass_g: number, density: number, color: THREE.ColorRepresentation) {
@@ -45,7 +46,7 @@ export function ContactPowder({ vessel, formula, mass_g, density, color }: {
   const mesh = useRef<THREE.InstancedMesh>(null), texture = useMemo(() => getNoiseTexture(128, 128), []);
   const poses = vessel.stockMotion!.grains.filter(p => p.formula === formula && p.mass_g > 0), represented = poses.reduce((s, p) => s + p.mass_g, 0);
   const factor = represented > 0 ? Math.min(1, mass_g / represented) : 0;
-  const app = visualStore.getState(), carried = app.moveMode && app.draggingVesselId === vessel.id;
+  const app = visualStore.getState(), carried = moveCarriedVesselIds(app).has(vessel.id);
   const session = visualRuntime?.externallyStepped ? null : PourController.getSession();
   const renderedUp = visualRuntime?.externallyStepped ? undefined : renderedVesselBody(vessel.id)?.getWorldQuaternion(new THREE.Quaternion());
   const tilted = renderedUp && new THREE.Vector3(0, 1, 0).applyQuaternion(renderedUp).y < Math.cos(0.16)
@@ -72,7 +73,7 @@ export function ContactPowder({ vessel, formula, mass_g, density, color }: {
   useFrame(() => {
     if (!mesh.current) return;
     const matrix = new THREE.Matrix4(), rotation = new THREE.Quaternion(), scale = new THREE.Vector3();
-    const app = visualStore.getState(), carried = app.moveMode && app.draggingVesselId === vessel.id;
+    const app = visualStore.getState(), carried = moveCarriedVesselIds(app).has(vessel.id);
     for (let i = 0; i < particles.length; i++) {
       const p = particles[i]; scale.setScalar(p.resting ? 0 : p.radius);
       const position = new THREE.Vector3().setFromMatrixPosition(localMatrix(p.p, carried));

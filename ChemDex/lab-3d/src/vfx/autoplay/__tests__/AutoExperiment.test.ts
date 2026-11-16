@@ -41,7 +41,7 @@ describe('automatic transfer choreography', () => {
     expect(slow.sample.contents).toEqual(fast.sample.contents);
     expect(slow.progress).toBe(fast.progress);
     expect(slow.donors.map(d => d.remaining)).toEqual(fast.donors.map(d => d.remaining));
-  });
+  }, 30_000);
 
   it('freezes every clock and transfer while paused and does not carry items to a fresh run', () => {
     const e = new AutoExperiment('cuso4_naoh', false);

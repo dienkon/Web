@@ -25,6 +25,14 @@ vi.mock('../src/store/useAppStore', async () => {
   const store = actual.useAppStore;
   return { ...actual, useAppStore: Object.assign((selector: (state: ReturnType<typeof store.getState>) => unknown) => selector(store.getState()), store) };
 });
+// This harness calls the manual renderer directly rather than mounting React.
+// Select its default bench runtime without invoking the real context or the
+// external Zustand React hook introduced by shared automatic rendering.
+vi.mock('../src/simulation/render/VesselVisualContext', () => ({
+  useVesselVisualRuntime: () => null,
+  useVesselVisualStore: () => useAppStore,
+  useVesselVisualState: (selector: (state: ReturnType<typeof useAppStore.getState>) => unknown) => selector(useAppStore.getState()),
+}));
 vi.mock('../src/vfx/quality', async () => {
   const actual = await vi.importActual<typeof import('../src/vfx/quality')>('../src/vfx/quality');
   const store = actual.useQualityStore;

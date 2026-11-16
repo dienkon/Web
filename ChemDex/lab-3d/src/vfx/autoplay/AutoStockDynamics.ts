@@ -35,8 +35,14 @@ export class AutoStockDynamics {
   addContact(vesselId: string, formula: string, pieces: StockContactBirth[]) {
     if (pieces.length) this.contacts.push({ id: ++this.sequence, vesselId, formula, pieces, resolved: true });
   }
+  /** Births at an accepted solid arrival need carrier IDs before contact
+   * chemistry allocates consumption/coatings. Sync them without consuming a
+   * second physics interval; the regular step still advances the world once. */
+  acceptContacts(vessel: VesselState) {
+    if (this.contacts.length) this.advance(vessel, 0);
+  }
   advance(vessel: VesselState, dt: number, vortex?: VortexSurface) {
-    if (!this.world || !(dt > 0) || !Number.isFinite(dt)) return;
+    if (!this.world || dt < 0 || !Number.isFinite(dt)) return;
     const masses = new Map<string, number>();
     for (const row of vessel.contents) if (row.phase === 's' && row.mass_g > 1e-10
       && (!row.location || row.location === 'bulk') && !isContactSuspensionRow(vessel, row)) {
@@ -64,7 +70,7 @@ export class AutoStockDynamics {
     }
     this.world.sync({ containers: [container], contacts: this.contacts, spills: [] });
     this.contacts = [];
-    const snapshot = this.world.advance(dt, false);
+    const snapshot = dt > 0 ? this.world.advance(dt, false) : this.world.snapshot();
     this.grains = snapshot.grains.filter(g => g.vesselId === vessel.id).map(g => g.pose);
     vessel.stockMotion = { tick: snapshot.tick, grains: this.grains };
   }

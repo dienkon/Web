@@ -28,6 +28,7 @@ import { useQualityStore } from '../../vfx/quality';
 import { vesselBodyTransform } from '../../science/vesselScale';
 import { stockLocalMatrix } from '../../physical/stockCoordinates';
 import { presentedStockLocalMatrix } from '../../physical/stockPresentation';
+import { moveCarriedVesselIds } from '../../physical/carriedVessels';
 import { ContactPowder } from './ContactPowder';
 import { renderedVesselBody } from '../../simulation/render/vesselBodyFrames';
 import { useVesselVisualRuntime, useVesselVisualState, useVesselVisualStore } from '../../simulation/render/VesselVisualContext';
@@ -511,7 +512,7 @@ export const SolidSubstanceMesh = React.memo(function SolidSubstanceMesh({
     const poses = motion?.grains.filter(p => p.formula === substance && p.mass_g > 0);
     const factor = poses?.length ? Math.cbrt(Math.min(1, mass / poses.reduce((sum, p) => sum + p.mass_g, 0))) : 1;
     const body = visualRuntime?.externallyStepped ? undefined : renderedVesselBody(vesselId)?.matrixWorld;
-    const app = visualStore.getState(), carried = app.moveMode && app.draggingVesselId === vesselId;
+    const app = visualStore.getState(), carried = moveCarriedVesselIds(app).has(vesselId);
     return { vessel, geometry, carriers: layout.pieces.map((piece, i) => ({ id: poses?.[i]?.id,
       share: 1 / layout.pieces.length, matrix: poses?.[i] ? visualRuntime?.externallyStepped
         ? stockLocalMatrix(vessel, { ...poses[i], scale_m: poses[i].scale_m * factor }, body)
@@ -528,7 +529,7 @@ export const SolidSubstanceMesh = React.memo(function SolidSubstanceMesh({
     const poses = motion?.grains.filter(p => p.formula === substance && p.mass_g > 0);
     const motionScale = poses?.length ? Math.cbrt(Math.min(1, mass / poses.reduce((s, p) => s + p.mass_g, 0))) : 1;
     const bodyMatrix = visualRuntime?.externallyStepped ? undefined : renderedVesselBody(vesselId)?.matrixWorld;
-    const app = visualStore.getState(), carried = app.moveMode && app.draggingVesselId === vesselId;
+    const app = visualStore.getState(), carried = moveCarriedVesselIds(app).has(vesselId);
     for (let i = 0; i < layout.pieces.length; i++) {
       _dummyMat4.copy(layout.pieces[i].matrix);
       if (motion && vessel) {
