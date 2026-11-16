@@ -59,11 +59,11 @@ function Playback({ experiment: e, restart, next, playlist, setPlaylist }: {
   playlist: boolean; setPlaylist: (value: boolean) => void;
 }) {
   useReadout();
-  return <div className="pointer-events-none absolute inset-x-0 bottom-0 z-10 bg-gradient-to-t from-[#091321] via-[#091321]/85 to-transparent px-3 pb-3 pt-10 sm:px-5 sm:pb-5"
+  return <div className="lab-auto-playback pointer-events-none relative z-10 shrink-0 bg-[#091321] px-3 pb-3 pt-2 sm:px-5 sm:pb-5"
     data-auto-phase={e.phase} data-auto-program={e.id} data-auto-elapsed={e.elapsed.toFixed(3)} data-auto-donor={e.donorIndex}
     data-auto-clouds={[...e.clouds.clouds.values()].reduce((n, c) => n + c.system.particles.length, 0)}>
     <div className="mx-auto max-w-3xl space-y-2">
-      <div className="pointer-events-auto rounded-xl border border-white/10 bg-slate-950/85 p-3 text-white">
+      <div tabIndex={0} aria-label="Thông báo thí nghiệm" className="lab-auto-caption pointer-events-auto max-h-[min(6rem,20dvh)] overflow-y-auto overscroll-contain break-words rounded-xl border border-white/10 bg-slate-950/85 p-3 text-white">
         <p className="text-[10px] uppercase tracking-widest text-cyan-300">{e.paused ? 'Đã tạm dừng' : e.phase === 'complete' ? 'Hoàn tất' : `Bước ${e.stepIndex + 1} / ${e.steps.length}`} <span className="float-right font-mono text-slate-400">{e.elapsed.toFixed(1)} s</span></p>
         <p role={e.error ? 'alert' : undefined} aria-live="polite" className={`mt-1 text-xs leading-relaxed ${e.error ? 'text-red-300' : 'text-slate-100'}`} data-testid="auto-caption">{e.caption}</p>
       </div>
@@ -146,15 +146,15 @@ export default function AutoLabWorkspace({ onExit }: { onExit: () => void }) {
         <AutoExperimentCatalog onStart={start} activeId={e?.id} />
       </div>
     </ResizableSidebar>}
-    <main tabIndex={0} className="relative min-w-0 flex-1 bg-[#091321] outline-none" aria-label="Sân khấu phản ứng tự động">
+    <main tabIndex={0} className="relative flex min-h-0 min-w-0 flex-1 flex-col bg-[#091321] outline-none" aria-label="Sân khấu phản ứng tự động">
       {error && <p role="alert" className="absolute inset-x-12 top-20 z-20 rounded bg-red-950 p-3 text-xs text-red-200">{error}</p>}
       {e && run ? <>
-        <div className="absolute inset-x-0 top-0 bottom-44 sm:bottom-36" data-testid="auto-experiment-scene"><ErrorBoundary fallbackTitle="Không thể vẽ bàn tự động" onReset={() => start(e.id)}><AutoExperimentScene experiment={e} runKey={run.key} /></ErrorBoundary></div>
-        <header className="pointer-events-none absolute inset-x-0 top-0 bg-gradient-to-b from-slate-950/95 to-transparent pl-4 pr-36 pb-14 pt-5 text-white">
+        <header className="lab-auto-header pointer-events-none shrink-0 pl-4 pr-36 pb-3 pt-3 text-white">
           <p className="text-[9px] font-semibold uppercase tracking-[0.2em] text-cyan-300">ChemDex · Auto Lab</p>
           <h2 className="mt-1 truncate text-sm font-semibold">{AUTO_EXPERIMENTS.find(item => item.id === e.id)?.title}</h2>
           <p className="mt-1 text-[10px] text-slate-400">Bàn đã dọn · Chỉ dụng cụ cần dùng</p>
         </header>
+        <div className="relative min-h-0 flex-1" data-testid="auto-experiment-scene"><ErrorBoundary fallbackTitle="Không thể vẽ bàn tự động" onReset={() => start(e.id)}><AutoExperimentScene experiment={e} runKey={run.key} /></ErrorBoundary></div>
         <Playback key={run.key} experiment={e} restart={() => start(e.id)} next={next} playlist={playlist} setPlaylist={setPlaylist} />
       </> : <div className="absolute inset-0 flex items-center justify-center p-12 text-center text-white">
         <div className="max-w-sm"><span className="mx-auto mb-5 flex h-20 w-20 items-center justify-center rounded-3xl border border-cyan-300/20 bg-cyan-300/5 text-cyan-200"><FlaskConical size={38} strokeWidth={1} /></span>

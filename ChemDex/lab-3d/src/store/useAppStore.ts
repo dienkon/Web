@@ -126,6 +126,7 @@ import { advanceInstrumentRinse, collectRinseWaste, isRinseWater, pipetteHasRins
 import { makePipettePresentation } from '../handling/pipettePresentation';
 import { rinseStationRadius } from '../handling/instrumentRinseVisual';
 import { washBottleReceiverId, washBottleSqueezeProblem } from '../handling/washBottleSqueeze';
+import { collectVesselContents } from '../handling/emptyVessel';
 import { uiText } from '../utils/uiText';
 
 function currentBenchObstacles(state: Pick<AppState, 'vessels' | 'burners' | 'burette' | 'instrumentRinse'>) {
@@ -481,6 +482,7 @@ export interface AppState {
   replaceShatteredVessel: (id: string) => void;
   grindMortar: (id: string) => void;
   toggleStopcock: (id: string) => void;
+  emptyVessel: (id: string) => boolean;
   cleanVesselStain: (id: string) => void;
   squirtWashBottle: (washBottleId: string, targetVesselId?: string) => void;
   invertVolumetricFlask: (id: string) => void;
@@ -3136,6 +3138,46 @@ export const useAppStore = create<AppState>((set, get) => {
         debounceSaveLocalState(updated, s.burners);
         return { vessels: updated };
       });
+    },
+
+    emptyVessel: id => {
+      const state = get(), vessel = state.vessels[id];
+      const reject = (message: string) => { set({ mixError: uiText(message) }); return false; };
+      if (!vessel || vessel.isShattered || vessel.isSealed || id.startsWith('lesson_vessel_'))
+        return reject('Chọn bình mở và nguyên vẹn để thu gom mẫu.');
+      const instruments = useInstrumentStore.getState();
+      if (state.isPouring || state.isMixing || movingStockReceiver(state, id) || state.pouringChemical?.targetId === id
+        || [...resolvingStockReceivers.values()].includes(id)
+        || state.instrumentRinse?.bottleId === id
+        || state.inFlightPours.some(parcel => parcel.sourceId === id || parcel.targetId === id)
+        || (state.burette.isDispensing && findBuretteReceiver(state.vessels,
+          useToolDockStore.getState().positions.burette ?? state.burette.position)?.id === id)
+        || instruments.pipettePresentations.some(receipt => receipt.epoch === state.pourEpoch && receipt.targetId === id)
+        || instruments.burettePresentations.some(receipt => receipt.epoch === state.pourEpoch && receipt.targetId === id))
+        return reject('Chờ dụng cụ chuyển mẫu xong rồi làm rỗng bình.');
+      const collected = collectVesselContents(vessel);
+      if (!collected) return reject('Không thể thu gom mẫu có kiểm kê không hợp lệ.');
+      pushHistorySnapshot('DISCARD', state.vessels, state.burners, 'Before collecting vessel contents', 'Trước khi thu gom mẫu trong bình');
+      reactionSimulationEngine.stopReaction(id);
+      programPlayer.stopProgram(id);
+      kineticsEngine.reset(id);
+      SimulationEngine.findManager(id)?.reset();
+      const live = get(), activeKinetics = { ...live.activeKinetics }, pendingReactions = { ...live.pendingReactions },
+        dissolvingSubstances = { ...live.dissolvingSubstances };
+      delete activeKinetics[id]; delete pendingReactions[id]; delete dissolvingSubstances[id];
+      acknowledgeStockContacts(pendingStockContacts().filter(receipt => receipt.vesselId === id).map(receipt => receipt.id));
+      set({ vessels: { ...live.vessels, [id]: collected.vessel }, activeKinetics, pendingReactions, dissolvingSubstances,
+        wasteMass_g: live.wasteMass_g + collected.mass_g,
+        wasteContents: [...live.wasteContents, ...collected.contents],
+        stirringVesselId: live.stirringVesselId === id ? null : live.stirringVesselId,
+        activeLitmusVesselId: live.activeLitmusVesselId === id ? null : live.activeLitmusVesselId,
+        mixError: null });
+      vfxBus.emit('vessel:sample-reset', { vesselId: id });
+      const updated = get();
+      pushHistorySnapshot('DISCARD', updated.vessels, updated.burners, 'Collected vessel contents into waste', 'Thu gom mẫu trong bình vào chất thải');
+      set({ canUndo: checkCanUndo(), canRedo: checkCanRedo() });
+      debounceSaveLocalState(updated.vessels, updated.burners);
+      return true;
     },
 
     cleanVesselStain: (id) => {

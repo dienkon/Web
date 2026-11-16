@@ -1,0 +1,101 @@
+{
+  "assertions": {
+    "microPrecipitateVisible": true,
+    "cleanResetsQuantityAndEffects": true,
+    "collectsFiniteContentsAndWallWater": true,
+    "retainsGlassTemperature": true,
+    "repeatDoesNotDuplicateWaste": true,
+    "emptyVesselAcceptsNewLiquid": true,
+    "noRuntimeErrors": true
+  },
+  "errors": [],
+  "micro": {
+    "volume_ml": 0.12,
+    "visible": true,
+    "count": 128,
+    "representedMass_g": 0.00001
+  },
+  "empty": {
+    "vessel": {
+      "id": "beaker_1794833407670_v8q8t",
+      "name": "Mẫu kiểm tra vòng đời",
+      "type": "beaker",
+      "capacity_ml": 100,
+      "position": [
+        0,
+        -0.135,
+        0
+      ],
+      "rotationY": 0,
+      "isLocked": false,
+      "substances": [],
+      "contents": [],
+      "volume": 0,
+      "volume_ml": 0,
+      "mass_g": 0,
+      "foam_ml": 0,
+      "temperature_c": 60,
+      "ph": 7,
+      "hasPrecipitate": false,
+      "isBoiling": false,
+      "hasGas": false,
+      "wallCondensation": {
+        "inner_g": 0,
+        "outer_g": 0,
+        "innerBeads": [],
+        "outerBeads": [],
+        "returned_g": 0
+      },
+      "effectSampleRevision": 1,
+      "stockMotion": {
+        "tick": 0,
+        "grains": []
+      },
+      "dynamicSolids": [],
+      "dynamicLoad_g": 0,
+      "turbidity": 0,
+      "reactionProgress": 0,
+      "programHeatApplied_J": 0,
+      "gasReplayBlocked": false,
+      "effectHeatInput_W": 0,
+      "thermalHeatingPower_W": 0,
+      "precipitateAmount_g": 0,
+      "gasRate": 0,
+      "boilingIntensity": 0,
+      "iceVolume_ml": 0,
+      "inversionRemaining_s": 0,
+      "isExplosion": false,
+      "overflow_ml": 0,
+      "wallCoating_ml": 0,
+      "wallCoatingMass_g": 0,
+      "outerWallCoating_ml": 0,
+      "outerWallCoatingMass_g": 0,
+      "filterPaperResidue_g": 0,
+      "immiscibleOrganicVolume_ml": 0,
+      "stainIntensity": 0,
+      "residues": [],
+      "condensationMist": 0,
+      "isSuperheated": false,
+      "bumpingSurge": false,
+      "isPulverized": false,
+      "fumingIntensity": 0,
+      "isFiltrating": false,
+      "stopcockOpen": false,
+      "internalPressureModel": "ambient",
+      "internalPressure_atm": 1,
+      "evaporationRate_g_s": 0,
+      "waterVaporOutflow_g_s": 0,
+      "waterVaporPartialPressure_Pa": 0,
+      "waterVaporCarrier_mol_s": 0
+    },
+    "wasteMass_g": 20.020000000000003,
+    "wasteContentsMass_g": 20.020000000000003,
+    "particles": 0
+  },
+  "refill": {
+    "receiverMass_g": 1,
+    "receiverVolume_ml": 1,
+    "sourceMass_g": 4,
+    "wasteMass_g": 20.020000000000003
+  }
+}

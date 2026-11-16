@@ -285,7 +285,9 @@ export const VfxDirector = React.memo(function VfxDirector() {
         const kinetics = activeKinetics[vesselId];
         const emission = resolveReactionEmission(vessel, kinetics, useAppStore.getState().isSimulationPaused);
         const hasLiquid = (vessel.volume_ml ?? 0) > 0.5;
-        const hasSolidInventory = vessel.volume_ml > 0.2
+        // Match the wet-particle/bed handoff to the dry solid fallback.
+        // Inactive microdose products still need their physical renderer.
+        const hasSolidInventory = vessel.volume_ml > 0.05
           && precipitateComponents(vessel.contents, vessel.precipitateSubstance).length > 0;
         const measuredGas = gasVisualState(vessel);
         const isHotOrActive = (hasLiquid && vessel.isBoiling) || (hasLiquid && vessel.hasGas)

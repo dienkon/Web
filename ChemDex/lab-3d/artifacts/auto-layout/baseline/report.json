@@ -1,0 +1,1141 @@
+{
+  "errors": [],
+  "viewports": [
+    {
+      "viewport": {
+        "width": 1440,
+        "height": 960
+      },
+      "longCaption": false,
+      "layout": {
+        "scene": {
+          "x": 0,
+          "y": 48,
+          "right": 1440,
+          "bottom": 816,
+          "width": 1440,
+          "height": 768
+        },
+        "caption": {
+          "x": 336,
+          "y": 812.5,
+          "right": 1104,
+          "bottom": 877,
+          "width": 768,
+          "height": 64.5
+        },
+        "controls": [
+          {
+            "label": "Tiếp tục tự động",
+            "x": 345,
+            "y": 894,
+            "right": 382,
+            "bottom": 931,
+            "width": 37,
+            "height": 37
+          },
+          {
+            "label": "Làm lại thí nghiệm",
+            "x": 386,
+            "y": 896.5,
+            "right": 418,
+            "bottom": 928.5,
+            "width": 32,
+            "height": 32
+          },
+          {
+            "label": "Thí nghiệm tiếp theo",
+            "x": 422,
+            "y": 896,
+            "right": 455,
+            "bottom": 929,
+            "width": 33,
+            "height": 33
+          },
+          {
+            "label": "Tốc độ tự động",
+            "x": 459,
+            "y": 896.5,
+            "right": 517,
+            "bottom": 928.5,
+            "width": 58,
+            "height": 32
+          },
+          {
+            "label": null,
+            "x": 574.984375,
+            "y": 906,
+            "right": 587.984375,
+            "bottom": 919,
+            "width": 13,
+            "height": 13
+          },
+          {
+            "label": "Mức khuấy tự động",
+            "x": 717.4375,
+            "y": 899.5,
+            "right": 773.4375,
+            "bottom": 925.5,
+            "width": 56,
+            "height": 26
+          },
+          {
+            "label": "Góc toàn cảnh",
+            "x": 827.421875,
+            "y": 899,
+            "right": 888.0625,
+            "bottom": 926,
+            "width": 60.640625,
+            "height": 27
+          },
+          {
+            "label": "Góc rót chất",
+            "x": 892.0625,
+            "y": 899,
+            "right": 944.5,
+            "bottom": 926,
+            "width": 52.4375,
+            "height": 27
+          },
+          {
+            "label": "Góc cận cảnh",
+            "x": 948.5,
+            "y": 899,
+            "right": 1005.203125,
+            "bottom": 926,
+            "width": 56.703125,
+            "height": 27
+          },
+          {
+            "label": "Góc mặt dịch",
+            "x": 1009.203125,
+            "y": 899,
+            "right": 1064,
+            "bottom": 926,
+            "width": 54.796875,
+            "height": 27
+          },
+          {
+            "label": "Tự xoay camera",
+            "x": 1068,
+            "y": 899,
+            "right": 1095,
+            "bottom": 926,
+            "width": 27,
+            "height": 27
+          }
+        ],
+        "overflow": false,
+        "overlap": 3.5,
+        "canvas": {
+          "x": 0,
+          "y": 48,
+          "right": 1440,
+          "bottom": 816,
+          "width": 1440,
+          "height": 768
+        }
+      },
+      "checks": {
+        "captionDoesNotCoverScene": false,
+        "controlsRemainOnscreen": true,
+        "usableScene": true,
+        "noHorizontalOverflow": true
+      }
+    },
+    {
+      "viewport": {
+        "width": 1440,
+        "height": 960
+      },
+      "longCaption": true,
+      "layout": {
+        "scene": {
+          "x": 0,
+          "y": 48,
+          "right": 1440,
+          "bottom": 816,
+          "width": 1440,
+          "height": 768
+        },
+        "caption": {
+          "x": 336,
+          "y": 754,
+          "right": 1104,
+          "bottom": 877,
+          "width": 768,
+          "height": 123
+        },
+        "controls": [
+          {
+            "label": "Tiếp tục tự động",
+            "x": 345,
+            "y": 894,
+            "right": 382,
+            "bottom": 931,
+            "width": 37,
+            "height": 37
+          },
+          {
+            "label": "Làm lại thí nghiệm",
+            "x": 386,
+            "y": 896.5,
+            "right": 418,
+            "bottom": 928.5,
+            "width": 32,
+            "height": 32
+          },
+          {
+            "label": "Thí nghiệm tiếp theo",
+            "x": 422,
+            "y": 896,
+            "right": 455,
+            "bottom": 929,
+            "width": 33,
+            "height": 33
+          },
+          {
+            "label": "Tốc độ tự động",
+            "x": 459,
+            "y": 896.5,
+            "right": 517,
+            "bottom": 928.5,
+            "width": 58,
+            "height": 32
+          },
+          {
+            "label": null,
+            "x": 574.984375,
+            "y": 906,
+            "right": 587.984375,
+            "bottom": 919,
+            "width": 13,
+            "height": 13
+          },
+          {
+            "label": "Mức khuấy tự động",
+            "x": 717.4375,
+            "y": 899.5,
+            "right": 773.4375,
+            "bottom": 925.5,
+            "width": 56,
+            "height": 26
+          },
+          {
+            "label": "Góc toàn cảnh",
+            "x": 827.421875,
+            "y": 899,
+            "right": 888.0625,
+            "bottom": 926,
+            "width": 60.640625,
+            "height": 27
+          },
+          {
+            "label": "Góc rót chất",
+            "x": 892.0625,
+            "y": 899,
+            "right": 944.5,
+            "bottom": 926,
+            "width": 52.4375,
+            "height": 27
+          },
+          {
+            "label": "Góc cận cảnh",
+            "x": 948.5,
+            "y": 899,
+            "right": 1005.203125,
+            "bottom": 926,
+            "width": 56.703125,
+            "height": 27
+          },
+          {
+            "label": "Góc mặt dịch",
+            "x": 1009.203125,
+            "y": 899,
+            "right": 1064,
+            "bottom": 926,
+            "width": 54.796875,
+            "height": 27
+          },
+          {
+            "label": "Tự xoay camera",
+            "x": 1068,
+            "y": 899,
+            "right": 1095,
+            "bottom": 926,
+            "width": 27,
+            "height": 27
+          }
+        ],
+        "overflow": false,
+        "overlap": 62,
+        "canvas": {
+          "x": 0,
+          "y": 48,
+          "right": 1440,
+          "bottom": 816,
+          "width": 1440,
+          "height": 768
+        }
+      },
+      "checks": {
+        "captionDoesNotCoverScene": false,
+        "controlsRemainOnscreen": true,
+        "usableScene": true,
+        "noHorizontalOverflow": true
+      }
+    },
+    {
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "longCaption": false,
+      "layout": {
+        "scene": {
+          "x": 0,
+          "y": 48,
+          "right": 390,
+          "bottom": 668,
+          "width": 390,
+          "height": 620
+        },
+        "caption": {
+          "x": 12,
+          "y": 650,
+          "right": 378,
+          "bottom": 734,
+          "width": 366,
+          "height": 84
+        },
+        "controls": [
+          {
+            "label": "Tiếp tục tự động",
+            "x": 21,
+            "y": 751,
+            "right": 58,
+            "bottom": 788,
+            "width": 37,
+            "height": 37
+          },
+          {
+            "label": "Làm lại thí nghiệm",
+            "x": 62,
+            "y": 753.5,
+            "right": 94,
+            "bottom": 785.5,
+            "width": 32,
+            "height": 32
+          },
+          {
+            "label": "Thí nghiệm tiếp theo",
+            "x": 98,
+            "y": 753,
+            "right": 131,
+            "bottom": 786,
+            "width": 33,
+            "height": 33
+          },
+          {
+            "label": "Tốc độ tự động",
+            "x": 135,
+            "y": 753.5,
+            "right": 193,
+            "bottom": 785.5,
+            "width": 58,
+            "height": 32
+          },
+          {
+            "label": null,
+            "x": 210.765625,
+            "y": 763,
+            "right": 223.765625,
+            "bottom": 776,
+            "width": 13,
+            "height": 13
+          },
+          {
+            "label": "Mức khuấy tự động",
+            "x": 313,
+            "y": 756.5,
+            "right": 369,
+            "bottom": 782.5,
+            "width": 56,
+            "height": 26
+          },
+          {
+            "label": "Góc toàn cảnh",
+            "x": 21,
+            "y": 796,
+            "right": 81.640625,
+            "bottom": 823,
+            "width": 60.640625,
+            "height": 27
+          },
+          {
+            "label": "Góc rót chất",
+            "x": 85.640625,
+            "y": 796,
+            "right": 138.078125,
+            "bottom": 823,
+            "width": 52.4375,
+            "height": 27
+          },
+          {
+            "label": "Góc cận cảnh",
+            "x": 142.078125,
+            "y": 796,
+            "right": 198.78125,
+            "bottom": 823,
+            "width": 56.703125,
+            "height": 27
+          },
+          {
+            "label": "Góc mặt dịch",
+            "x": 202.78125,
+            "y": 796,
+            "right": 257.578125,
+            "bottom": 823,
+            "width": 54.796875,
+            "height": 27
+          },
+          {
+            "label": "Tự xoay camera",
+            "x": 261.578125,
+            "y": 796,
+            "right": 288.578125,
+            "bottom": 823,
+            "width": 27,
+            "height": 27
+          }
+        ],
+        "overflow": false,
+        "overlap": 18,
+        "canvas": {
+          "x": 0,
+          "y": 48,
+          "right": 390,
+          "bottom": 668,
+          "width": 390,
+          "height": 620
+        }
+      },
+      "checks": {
+        "captionDoesNotCoverScene": false,
+        "controlsRemainOnscreen": true,
+        "usableScene": true,
+        "noHorizontalOverflow": true
+      }
+    },
+    {
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "longCaption": true,
+      "layout": {
+        "scene": {
+          "x": 0,
+          "y": 48,
+          "right": 390,
+          "bottom": 668,
+          "width": 390,
+          "height": 620
+        },
+        "caption": {
+          "x": 12,
+          "y": 533,
+          "right": 378,
+          "bottom": 734,
+          "width": 366,
+          "height": 201
+        },
+        "controls": [
+          {
+            "label": "Tiếp tục tự động",
+            "x": 21,
+            "y": 751,
+            "right": 58,
+            "bottom": 788,
+            "width": 37,
+            "height": 37
+          },
+          {
+            "label": "Làm lại thí nghiệm",
+            "x": 62,
+            "y": 753.5,
+            "right": 94,
+            "bottom": 785.5,
+            "width": 32,
+            "height": 32
+          },
+          {
+            "label": "Thí nghiệm tiếp theo",
+            "x": 98,
+            "y": 753,
+            "right": 131,
+            "bottom": 786,
+            "width": 33,
+            "height": 33
+          },
+          {
+            "label": "Tốc độ tự động",
+            "x": 135,
+            "y": 753.5,
+            "right": 193,
+            "bottom": 785.5,
+            "width": 58,
+            "height": 32
+          },
+          {
+            "label": null,
+            "x": 210.765625,
+            "y": 763,
+            "right": 223.765625,
+            "bottom": 776,
+            "width": 13,
+            "height": 13
+          },
+          {
+            "label": "Mức khuấy tự động",
+            "x": 313,
+            "y": 756.5,
+            "right": 369,
+            "bottom": 782.5,
+            "width": 56,
+            "height": 26
+          },
+          {
+            "label": "Góc toàn cảnh",
+            "x": 21,
+            "y": 796,
+            "right": 81.640625,
+            "bottom": 823,
+            "width": 60.640625,
+            "height": 27
+          },
+          {
+            "label": "Góc rót chất",
+            "x": 85.640625,
+            "y": 796,
+            "right": 138.078125,
+            "bottom": 823,
+            "width": 52.4375,
+            "height": 27
+          },
+          {
+            "label": "Góc cận cảnh",
+            "x": 142.078125,
+            "y": 796,
+            "right": 198.78125,
+            "bottom": 823,
+            "width": 56.703125,
+            "height": 27
+          },
+          {
+            "label": "Góc mặt dịch",
+            "x": 202.78125,
+            "y": 796,
+            "right": 257.578125,
+            "bottom": 823,
+            "width": 54.796875,
+            "height": 27
+          },
+          {
+            "label": "Tự xoay camera",
+            "x": 261.578125,
+            "y": 796,
+            "right": 288.578125,
+            "bottom": 823,
+            "width": 27,
+            "height": 27
+          }
+        ],
+        "overflow": false,
+        "overlap": 135,
+        "canvas": {
+          "x": 0,
+          "y": 48,
+          "right": 390,
+          "bottom": 668,
+          "width": 390,
+          "height": 620
+        }
+      },
+      "checks": {
+        "captionDoesNotCoverScene": false,
+        "controlsRemainOnscreen": true,
+        "usableScene": true,
+        "noHorizontalOverflow": true
+      }
+    },
+    {
+      "viewport": {
+        "width": 320,
+        "height": 568
+      },
+      "longCaption": false,
+      "layout": {
+        "scene": {
+          "x": 0,
+          "y": 48,
+          "right": 320,
+          "bottom": 392,
+          "width": 320,
+          "height": 344
+        },
+        "caption": {
+          "x": 12,
+          "y": 340,
+          "right": 308,
+          "bottom": 424,
+          "width": 296,
+          "height": 84
+        },
+        "controls": [
+          {
+            "label": "Tiếp tục tự động",
+            "x": 21,
+            "y": 441,
+            "right": 58,
+            "bottom": 478,
+            "width": 37,
+            "height": 37
+          },
+          {
+            "label": "Làm lại thí nghiệm",
+            "x": 62,
+            "y": 443.5,
+            "right": 94,
+            "bottom": 475.5,
+            "width": 32,
+            "height": 32
+          },
+          {
+            "label": "Thí nghiệm tiếp theo",
+            "x": 98,
+            "y": 443,
+            "right": 131,
+            "bottom": 476,
+            "width": 33,
+            "height": 33
+          },
+          {
+            "label": "Tốc độ tự động",
+            "x": 135,
+            "y": 443.5,
+            "right": 193,
+            "bottom": 475.5,
+            "width": 58,
+            "height": 32
+          },
+          {
+            "label": null,
+            "x": 241.5625,
+            "y": 453,
+            "right": 254.5625,
+            "bottom": 466,
+            "width": 13,
+            "height": 13
+          },
+          {
+            "label": "Mức khuấy tự động",
+            "x": 52.046875,
+            "y": 486,
+            "right": 108.046875,
+            "bottom": 512,
+            "width": 56,
+            "height": 26
+          },
+          {
+            "label": "Góc toàn cảnh",
+            "x": 21,
+            "y": 520,
+            "right": 81.640625,
+            "bottom": 547,
+            "width": 60.640625,
+            "height": 27
+          },
+          {
+            "label": "Góc rót chất",
+            "x": 85.640625,
+            "y": 520,
+            "right": 138.078125,
+            "bottom": 547,
+            "width": 52.4375,
+            "height": 27
+          },
+          {
+            "label": "Góc cận cảnh",
+            "x": 142.078125,
+            "y": 520,
+            "right": 198.78125,
+            "bottom": 547,
+            "width": 56.703125,
+            "height": 27
+          },
+          {
+            "label": "Góc mặt dịch",
+            "x": 202.78125,
+            "y": 520,
+            "right": 257.578125,
+            "bottom": 547,
+            "width": 54.796875,
+            "height": 27
+          },
+          {
+            "label": "Tự xoay camera",
+            "x": 261.578125,
+            "y": 520,
+            "right": 288.578125,
+            "bottom": 547,
+            "width": 27,
+            "height": 27
+          }
+        ],
+        "overflow": false,
+        "overlap": 52,
+        "canvas": {
+          "x": 0,
+          "y": 48,
+          "right": 320,
+          "bottom": 392,
+          "width": 320,
+          "height": 344
+        }
+      },
+      "checks": {
+        "captionDoesNotCoverScene": false,
+        "controlsRemainOnscreen": true,
+        "usableScene": true,
+        "noHorizontalOverflow": true
+      }
+    },
+    {
+      "viewport": {
+        "width": 320,
+        "height": 568
+      },
+      "longCaption": true,
+      "layout": {
+        "scene": {
+          "x": 0,
+          "y": 48,
+          "right": 320,
+          "bottom": 392,
+          "width": 320,
+          "height": 344
+        },
+        "caption": {
+          "x": 12,
+          "y": 184,
+          "right": 308,
+          "bottom": 424,
+          "width": 296,
+          "height": 240
+        },
+        "controls": [
+          {
+            "label": "Tiếp tục tự động",
+            "x": 21,
+            "y": 441,
+            "right": 58,
+            "bottom": 478,
+            "width": 37,
+            "height": 37
+          },
+          {
+            "label": "Làm lại thí nghiệm",
+            "x": 62,
+            "y": 443.5,
+            "right": 94,
+            "bottom": 475.5,
+            "width": 32,
+            "height": 32
+          },
+          {
+            "label": "Thí nghiệm tiếp theo",
+            "x": 98,
+            "y": 443,
+            "right": 131,
+            "bottom": 476,
+            "width": 33,
+            "height": 33
+          },
+          {
+            "label": "Tốc độ tự động",
+            "x": 135,
+            "y": 443.5,
+            "right": 193,
+            "bottom": 475.5,
+            "width": 58,
+            "height": 32
+          },
+          {
+            "label": null,
+            "x": 241.5625,
+            "y": 453,
+            "right": 254.5625,
+            "bottom": 466,
+            "width": 13,
+            "height": 13
+          },
+          {
+            "label": "Mức khuấy tự động",
+            "x": 52.046875,
+            "y": 486,
+            "right": 108.046875,
+            "bottom": 512,
+            "width": 56,
+            "height": 26
+          },
+          {
+            "label": "Góc toàn cảnh",
+            "x": 21,
+            "y": 520,
+            "right": 81.640625,
+            "bottom": 547,
+            "width": 60.640625,
+            "height": 27
+          },
+          {
+            "label": "Góc rót chất",
+            "x": 85.640625,
+            "y": 520,
+            "right": 138.078125,
+            "bottom": 547,
+            "width": 52.4375,
+            "height": 27
+          },
+          {
+            "label": "Góc cận cảnh",
+            "x": 142.078125,
+            "y": 520,
+            "right": 198.78125,
+            "bottom": 547,
+            "width": 56.703125,
+            "height": 27
+          },
+          {
+            "label": "Góc mặt dịch",
+            "x": 202.78125,
+            "y": 520,
+            "right": 257.578125,
+            "bottom": 547,
+            "width": 54.796875,
+            "height": 27
+          },
+          {
+            "label": "Tự xoay camera",
+            "x": 261.578125,
+            "y": 520,
+            "right": 288.578125,
+            "bottom": 547,
+            "width": 27,
+            "height": 27
+          }
+        ],
+        "overflow": false,
+        "overlap": 208,
+        "canvas": {
+          "x": 0,
+          "y": 48,
+          "right": 320,
+          "bottom": 392,
+          "width": 320,
+          "height": 344
+        }
+      },
+      "checks": {
+        "captionDoesNotCoverScene": false,
+        "controlsRemainOnscreen": true,
+        "usableScene": true,
+        "noHorizontalOverflow": true
+      }
+    },
+    {
+      "viewport": {
+        "width": 844,
+        "height": 390
+      },
+      "longCaption": false,
+      "layout": {
+        "scene": {
+          "x": 0,
+          "y": 48,
+          "right": 844,
+          "bottom": 246,
+          "width": 844,
+          "height": 198
+        },
+        "caption": {
+          "x": 38,
+          "y": 242.5,
+          "right": 806,
+          "bottom": 307,
+          "width": 768,
+          "height": 64.5
+        },
+        "controls": [
+          {
+            "label": "Tiếp tục tự động",
+            "x": 47,
+            "y": 324,
+            "right": 84,
+            "bottom": 361,
+            "width": 37,
+            "height": 37
+          },
+          {
+            "label": "Làm lại thí nghiệm",
+            "x": 88,
+            "y": 326.5,
+            "right": 120,
+            "bottom": 358.5,
+            "width": 32,
+            "height": 32
+          },
+          {
+            "label": "Thí nghiệm tiếp theo",
+            "x": 124,
+            "y": 326,
+            "right": 157,
+            "bottom": 359,
+            "width": 33,
+            "height": 33
+          },
+          {
+            "label": "Tốc độ tự động",
+            "x": 161,
+            "y": 326.5,
+            "right": 219,
+            "bottom": 358.5,
+            "width": 58,
+            "height": 32
+          },
+          {
+            "label": null,
+            "x": 276.984375,
+            "y": 336,
+            "right": 289.984375,
+            "bottom": 349,
+            "width": 13,
+            "height": 13
+          },
+          {
+            "label": "Mức khuấy tự động",
+            "x": 419.4375,
+            "y": 329.5,
+            "right": 475.4375,
+            "bottom": 355.5,
+            "width": 56,
+            "height": 26
+          },
+          {
+            "label": "Góc toàn cảnh",
+            "x": 529.421875,
+            "y": 329,
+            "right": 590.0625,
+            "bottom": 356,
+            "width": 60.640625,
+            "height": 27
+          },
+          {
+            "label": "Góc rót chất",
+            "x": 594.0625,
+            "y": 329,
+            "right": 646.5,
+            "bottom": 356,
+            "width": 52.4375,
+            "height": 27
+          },
+          {
+            "label": "Góc cận cảnh",
+            "x": 650.5,
+            "y": 329,
+            "right": 707.203125,
+            "bottom": 356,
+            "width": 56.703125,
+            "height": 27
+          },
+          {
+            "label": "Góc mặt dịch",
+            "x": 711.203125,
+            "y": 329,
+            "right": 766,
+            "bottom": 356,
+            "width": 54.796875,
+            "height": 27
+          },
+          {
+            "label": "Tự xoay camera",
+            "x": 770,
+            "y": 329,
+            "right": 797,
+            "bottom": 356,
+            "width": 27,
+            "height": 27
+          }
+        ],
+        "overflow": false,
+        "overlap": 3.5,
+        "canvas": {
+          "x": 0,
+          "y": 48,
+          "right": 844,
+          "bottom": 246,
+          "width": 844,
+          "height": 198
+        }
+      },
+      "checks": {
+        "captionDoesNotCoverScene": false,
+        "controlsRemainOnscreen": true,
+        "usableScene": true,
+        "noHorizontalOverflow": true
+      }
+    },
+    {
+      "viewport": {
+        "width": 844,
+        "height": 390
+      },
+      "longCaption": true,
+      "layout": {
+        "scene": {
+          "x": 0,
+          "y": 48,
+          "right": 844,
+          "bottom": 246,
+          "width": 844,
+          "height": 198
+        },
+        "caption": {
+          "x": 38,
+          "y": 184,
+          "right": 806,
+          "bottom": 307,
+          "width": 768,
+          "height": 123
+        },
+        "controls": [
+          {
+            "label": "Tiếp tục tự động",
+            "x": 47,
+            "y": 324,
+            "right": 84,
+            "bottom": 361,
+            "width": 37,
+            "height": 37
+          },
+          {
+            "label": "Làm lại thí nghiệm",
+            "x": 88,
+            "y": 326.5,
+            "right": 120,
+            "bottom": 358.5,
+            "width": 32,
+            "height": 32
+          },
+          {
+            "label": "Thí nghiệm tiếp theo",
+            "x": 124,
+            "y": 326,
+            "right": 157,
+            "bottom": 359,
+            "width": 33,
+            "height": 33
+          },
+          {
+            "label": "Tốc độ tự động",
+            "x": 161,
+            "y": 326.5,
+            "right": 219,
+            "bottom": 358.5,
+            "width": 58,
+            "height": 32
+          },
+          {
+            "label": null,
+            "x": 276.984375,
+            "y": 336,
+            "right": 289.984375,
+            "bottom": 349,
+            "width": 13,
+            "height": 13
+          },
+          {
+            "label": "Mức khuấy tự động",
+            "x": 419.4375,
+            "y": 329.5,
+            "right": 475.4375,
+            "bottom": 355.5,
+            "width": 56,
+            "height": 26
+          },
+          {
+            "label": "Góc toàn cảnh",
+            "x": 529.421875,
+            "y": 329,
+            "right": 590.0625,
+            "bottom": 356,
+            "width": 60.640625,
+            "height": 27
+          },
+          {
+            "label": "Góc rót chất",
+            "x": 594.0625,
+            "y": 329,
+            "right": 646.5,
+            "bottom": 356,
+            "width": 52.4375,
+            "height": 27
+          },
+          {
+            "label": "Góc cận cảnh",
+            "x": 650.5,
+            "y": 329,
+            "right": 707.203125,
+            "bottom": 356,
+            "width": 56.703125,
+            "height": 27
+          },
+          {
+            "label": "Góc mặt dịch",
+            "x": 711.203125,
+            "y": 329,
+            "right": 766,
+            "bottom": 356,
+            "width": 54.796875,
+            "height": 27
+          },
+          {
+            "label": "Tự xoay camera",
+            "x": 770,
+            "y": 329,
+            "right": 797,
+            "bottom": 356,
+            "width": 27,
+            "height": 27
+          }
+        ],
+        "overflow": false,
+        "overlap": 62,
+        "canvas": {
+          "x": 0,
+          "y": 48,
+          "right": 844,
+          "bottom": 246,
+          "width": 844,
+          "height": 198
+        }
+      },
+      "checks": {
+        "captionDoesNotCoverScene": false,
+        "controlsRemainOnscreen": true,
+        "usableScene": true,
+        "noHorizontalOverflow": true
+      }
+    }
+  ]
+}

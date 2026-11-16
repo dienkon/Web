@@ -10,7 +10,7 @@ import { liquidGeometry } from '../../science/vesselDimensions';
 import { vesselLiquidSurfaceY } from '../../science/vesselGeometry';
 import { ICE_DENSITY_G_ML } from '../../engine/waterProperties';
 import { SodiumWaterPellet } from './SodiumWaterPellet';
-import { attachedMetalMassForRow, DEPOSIT_DENSITY_G_ML, metalSurfaceAppearances } from '../../science/metalSurfaceAppearance';
+import { attachedMetalMassForRow, DEPOSIT_DENSITY_G_ML, metalSurfaceAppearances, unresolvedMetalMassForSubstrate } from '../../science/metalSurfaceAppearance';
 import { MetalDepositLayers } from './MetalDepositLayer';
 import { isSuspensionRow } from '../../science/precipitateInventory';
 import { stockSolidMaterial } from '../../science/stockAppearance';
@@ -471,10 +471,14 @@ export const SolidSubstanceMesh = React.memo(function SolidSubstanceMesh({
   const material = stockSolidMaterial(chemical, morphology);
   if (product) { material.color = product.color; material.roughness = product.roughness; material.metalness = product.metalness ?? 0; }
   const attachments = vessel ? metalSurfaceAppearances(vessel).filter(coating => sameMolecularFormula(coating.substrate, substance)) : [];
+  const staticAttachments = attachments.map(coating => {
+    const assigned = unresolvedMetalMassForSubstrate(vessel!, substance, coating.product) * mass / coating.substrateMass_g;
+    return { ...coating, attachedMass_g: assigned, colorFraction: assigned > 0 ? assigned / (assigned + mass) : 0 };
+  });
   const powder = morphology === 'POWDER';
   const grainTexture = useMemo(() => getNoiseTexture(128, 128), []);
   const color = new THREE.Color(material.color);
-  if (powder) for (const attachment of attachments) color.lerp(new THREE.Color(attachment.color), attachment.colorFraction);
+  if (powder) for (const attachment of staticAttachments) color.lerp(new THREE.Color(attachment.color), attachment.colorFraction);
   const geometry = useMemo(() => createStockSolidGeometry(morphology, substance), [morphology, substance]);
   useEffect(() => () => geometry.dispose(), [geometry]);
   const sceneVolume = vessel && density && density > 0 ? solidSceneVolume(vessel, mass / density) : 0;
@@ -499,8 +503,8 @@ export const SolidSubstanceMesh = React.memo(function SolidSubstanceMesh({
   const count = Math.max(1, layout?.pieces.length ?? stockSolidChunkCount(morphology));
   // A vessel may contain both filings and a nail of the same metal. Partition
   // the shared deposit by surviving substrate mass instead of drawing it twice.
-  const attachedSceneVolume = vessel ? solidSceneVolume(vessel, attachments.reduce((sum, attachment) => sum
-    + attachment.attachedMass_g * mass / attachment.substrateMass_g / DEPOSIT_DENSITY_G_ML[attachment.product], 0)) : 0;
+  const attachedSceneVolume = vessel ? solidSceneVolume(vessel, staticAttachments.reduce((sum, attachment) => sum
+    + attachment.attachedMass_g / DEPOSIT_DENSITY_G_ML[attachment.product], 0)) : 0;
   const powderGeometry = useMemo(() => powder && sceneVolume > 0 && vessel
     ? createPowderPileGeometry(vessel.type, (sceneVolume + attachedSceneVolume) / 0.55, vesselRadius * 0.85) : null,
     [powder, sceneVolume, attachedSceneVolume, vessel?.type, vesselRadius]);
@@ -514,7 +518,7 @@ export const SolidSubstanceMesh = React.memo(function SolidSubstanceMesh({
     const body = visualRuntime?.externallyStepped ? undefined : renderedVesselBody(vesselId)?.matrixWorld;
     const app = visualStore.getState(), carried = moveCarriedVesselIds(app).has(vesselId);
     return { vessel, geometry, carriers: layout.pieces.map((piece, i) => ({ id: poses?.[i]?.id,
-      share: 1 / layout.pieces.length, matrix: poses?.[i] ? visualRuntime?.externallyStepped
+      share: mass / (attachments[0]?.substrateMass_g || mass) / layout.pieces.length, matrix: poses?.[i] ? visualRuntime?.externallyStepped
         ? stockLocalMatrix(vessel, { ...poses[i], scale_m: poses[i].scale_m * factor }, body)
         : presentedStockLocalMatrix(vessel, { ...poses[i], scale_m: poses[i].scale_m * factor }, body, carried) : piece.matrix })) };
   };

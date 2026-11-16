@@ -70,6 +70,17 @@ export function attachedMetalMassForCarrier(vessel: VesselState, carrierId: stri
   }, 0);
 }
 
+/** Static stock can share only deposits without a resolved carrier ID. A new
+ * unposed nail/filing cannot borrow a coating already owned by another grain. */
+export function unresolvedMetalMassForSubstrate(vessel: VesselState, substrate: string, product?: string): number {
+  const legacy = metalDepositionRoute(vessel.lastReactionId ?? vessel.studioProgramId);
+  return vessel.contents.reduce((sum, row) => {
+    if (row.depositCarrierId || product && !sameMolecularFormula(row.formula, product)) return sum;
+    const host = metalDepositCarrierFormula(row) ?? legacy?.substrate;
+    return sum + (host && sameMolecularFormula(host, substrate) ? attachedMetalMassForRow(vessel, row) : 0);
+  }, 0);
+}
+
 /** Reference bulk metal densities in g/mL; the deposited porosity and its
  * hydrodynamic envelope are not resolved by this material-volume budget. */
 export const DEPOSIT_DENSITY_G_ML: Readonly<Record<string, number>> = { Cu: 8.96, Ag: 10.5, Pb: 11.34 };

@@ -48,7 +48,9 @@ export function PrecipitateParticleLayer({ vesselId, formula, cohortKey = formul
   useFrame(() => {
     if (!mesh.current) return;
     const app = store.getState(), vessel = app.vessels[vesselId];
-    if (!vessel || vessel.isShattered || vessel.volume_ml <= 0.2) { mesh.current.visible = false; return; }
+    // The solid-content fallback owns only the final <=0.05 mL residue.
+    // Microdoses above that boundary still contain a real wet population.
+    if (!vessel || vessel.isShattered || vessel.volume_ml <= 0.05) { mesh.current.visible = false; return; }
     // A species may dissolve and reappear between React commits. Always read
     // the live population; a retained prop must never animate an orphan system.
     const liveSystem = (runtime?.manager ?? SimulationEngine.findManager(vesselId))?.precipitationSystems.get(cohortKey);

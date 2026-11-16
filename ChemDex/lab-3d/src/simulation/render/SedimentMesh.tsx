@@ -47,7 +47,9 @@ export const SedimentMesh = React.memo(function SedimentMesh({
     }
 
     const vessel = store.getState().vessels[vesselId];
-    if (!vessel || vessel.isShattered || vessel.volume_ml <= 0.2) { meshRef.current.visible = false; return; }
+    // Match the dry-residue handoff in SolidContentsRenderer; otherwise a
+    // 0.05–0.2 mL specimen has neither a physical bed nor a fallback solid.
+    if (!vessel || vessel.isShattered || vessel.volume_ml <= 0.05) { meshRef.current.visible = false; return; }
     const floor = vesselInterior(vessel.type).floorY;
     const plane = sedimentBed?.surfacePlane;
     const key = plane ? `${vessel.type}:${plane.normal.join(':')}:${plane.offset}` : `${vessel.type}:${thickness}`;

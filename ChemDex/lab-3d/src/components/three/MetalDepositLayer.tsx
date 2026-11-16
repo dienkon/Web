@@ -2,7 +2,7 @@ import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { useFrame } from '@react-three/fiber';
 import * as THREE from 'three';
 import type { VesselState } from '../../types/chemistry';
-import { attachedMetalMassForCarrier, DEPOSIT_DENSITY_G_ML, metalSurfaceAppearances } from '../../science/metalSurfaceAppearance';
+import { attachedMetalMassForCarrier, DEPOSIT_DENSITY_G_ML, metalSurfaceAppearances, unresolvedMetalMassForSubstrate } from '../../science/metalSurfaceAppearance';
 import { DEPOSIT_AGGREGATES_PER_CARRIER, metalDepositAnchors, metalDepositPlacement, type MetalDepositAnchor } from '../../science/metalDepositGeometry';
 import { sameMolecularFormula } from '../../science/speciesIdentity';
 import { solidSceneVolume } from '../../science/vesselDimensions';
@@ -11,7 +11,9 @@ import { getPrecipitateProfile } from '../../simulation/core/SimulationConfig';
 import { stockPointInAqueousLiquid } from '../../physical/stockLiquidContact';
 import { METERS_PER_SCENE_UNIT } from '../../science/sceneUnits';
 
-export interface DepositCarrier { id?: string; matrix: THREE.Matrix4; share: number }
+export interface DepositCarrier { id?: string; matrix: THREE.Matrix4;
+  /** Fraction of all surviving substrate mass, including other stock forms. */
+  share: number }
 export interface MetalDepositFrame { vessel: VesselState; geometry: THREE.BufferGeometry; carriers: DepositCarrier[];
   /** Bench spill matrices already use global scene units, outside a vessel. */
   worldSpace?: boolean; supportFloorY?: number }
@@ -51,8 +53,9 @@ function MetalDepositLayer({ substrate, product, readFrame, capacity }: {
     const { vessel, carriers } = frame;
     const coating = metalSurfaceAppearances(vessel).find(group => group.product === product && sameMolecularFormula(group.substrate, substrate));
     if (!coating) { target.count = 0; cache.current.clear(); return; }
+    const unresolvedMass = unresolvedMetalMassForSubstrate(vessel, substrate, product);
     const masses = carriers.map(carrier => carrier.id ? attachedMetalMassForCarrier(vessel, carrier.id, product)
-      : coating.attachedMass_g * carrier.share);
+      : unresolvedMass * carrier.share);
     const alive = new Set<string>();
     let inLiquid: ReturnType<typeof stockPointInAqueousLiquid> | undefined;
     const matrices = carriers.flatMap((carrier, index) => {

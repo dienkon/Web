@@ -33,6 +33,7 @@ export function VesselInspector() {
     cleanGlassDebris,
     grindMortar,
     toggleStopcock,
+    emptyVessel,
     cleanVesselStain,
     squirtWashBottle,
     invertVolumetricFlask,
@@ -156,34 +157,6 @@ export function VesselInspector() {
       temperature_c: newTemp, 
       isBoiling: newTemp >= 95 
     });
-  };
-
-  const handleRemoveSubstance = (formulaToRemove: string) => {
-    const remaining = vessel.substances.filter(s => s !== formulaToRemove);
-    if (remaining.length === 0) {
-      setVesselState(vessel.id, {
-        substances: [],
-        contents: [],
-        volume: 0,
-        volume_ml: 0,
-        liquidColor: undefined,
-        hasPrecipitate: false,
-        precipitateColor: undefined,
-        isBoiling: false,
-        hasGas: false,
-        gasColor: undefined,
-        temperature_c: 25,
-        ph: 7.0
-      });
-    } else {
-      const volPerItem = vessel.volume_ml / vessel.substances.length;
-      const newVol = Math.max(0, vessel.volume_ml - volPerItem);
-      setVesselState(vessel.id, {
-        substances: remaining,
-        volume_ml: newVol,
-        volume: Math.min(1.0, newVol / vessel.capacity_ml)
-      });
-    }
   };
 
   return (
@@ -719,13 +692,7 @@ export function VesselInspector() {
                       </span>
                     </div>
                   </div>
-                  <button 
-                    onClick={() => handleRemoveSubstance(formula)}
-                    className="p-1 text-slate-400 hover:text-red-600 rounded hover:bg-red-50 transition-colors shrink-0"
-                    title={t('Remove chemical', 'Loại bỏ hóa chất')}
-                  >
-                    <Trash2 size={12} />
-                  </button>
+
                 </div>
               );
             })}
@@ -785,35 +752,12 @@ export function VesselInspector() {
         {/* Secondary Vessel Controls */}
         <div className="grid grid-cols-4 gap-1.5 pt-1">
           <button 
-            onClick={() => setVesselState(vessel.id, { 
-              substances: [], 
-              contents: [],
-              volume: 0, 
-              volume_ml: 0, 
-              liquidColor: undefined, 
-              hasPrecipitate: false, 
-              precipitateColor: undefined, 
-              isBoiling: false, 
-              hasGas: false, 
-              gasColor: undefined, 
-              isExplosion: false,
-              temperature_c: 25,
-              ph: 7.0,
-              stainIntensity: 0,
-              stainColor: undefined,
-              stainHeight: undefined,
-              condensationMist: 0,
-              isSuperheated: false,
-              bumpingSurge: false,
-              fumingIntensity: 0,
-              immiscibleOrganicVolume_ml: 0,
-              isPulverized: false
-            })}
+            onClick={() => emptyVessel(vessel.id)}
             className="col-span-1 flex items-center justify-center gap-1 bg-slate-100 hover:bg-slate-200 text-slate-700 py-2 px-1.5 rounded-lg font-semibold text-[11px] transition-colors"
-            title={t('Clean/Empty Vessel', 'Rửa sạch bình')}
+            title={t('Collect contents into waste and empty vessel', 'Thu gom mẫu vào chất thải và làm rỗng bình')}
           >
             <Trash2 size={13} />
-            <span>{t('Clean', 'Rửa')}</span>
+            <span>{t('Empty', 'Làm rỗng')}</span>
           </button>
 
           <button 
