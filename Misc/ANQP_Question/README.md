@@ -38,7 +38,9 @@ Sau khi trả lời đúng câu luyện tập thứ 5, trang tự chạy hiệu 
 
 ## Trò chơi ô chữ
 
-Mở `o-chu.html`. Chọn số hàng ngang để mở câu hỏi. Cột vàng ghép thành **DUKICH**, đọc từ trên xuống. Có thể đoán từ khóa bất cứ lúc nào; đoán sai không lộ đáp án. Trả lời đúng hàng ngang mới mở chữ; chấp nhận tiếng Việt có dấu, không dấu và khoảng trắng. Sau khi giải từ khóa, toàn bộ bảng được mở; nút Chơi lại đặt lại lượt chơi.
+Mở `o-chu.html`. Mỗi lần mở trang hoặc bấm Chơi lại, sáu hàng ngang được xáo trộn và đánh lại số hiển thị từ 1 đến 6. Trong cùng lượt chơi, thứ tự hàng giữ nguyên dù chọn sai hoặc mở thêm chữ. Cột vàng và khung chữ gợi ý đều hiện các chữ theo thứ tự lộn xộn; người chơi phải xếp lại thành **DUKICH**. Có thể đoán từ khóa bất cứ lúc nào; đoán sai không lộ đáp án. Trả lời đúng hàng ngang mới mở chữ; chấp nhận tiếng Việt có dấu, không dấu và khoảng trắng. Sau khi giải từ khóa, toàn bộ bảng được mở.
+
+Bảng dưới và file Word dùng số câu gốc để người dẫn tra nội dung; số hàng trên web thay đổi theo vị trí mới mỗi lượt.
 
 | Hàng | Đáp án | Kiểu câu hỏi | Chữ cột dọc |
 | --- | --- | --- | --- |

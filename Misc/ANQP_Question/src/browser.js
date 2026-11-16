@@ -341,14 +341,33 @@ function normalizeCrosswordAnswer(value) {
     .replace(/[^A-Z]/g, '');
 }
 
-function createCrosswordSession(rows = crosswordRows, keyword = crosswordKeyword) {
+function createCrosswordSession(rows = crosswordRows, keyword = crosswordKeyword, { shuffleRows = false, random = Math.random } = {}) {
   const normalizedAnswers = rows.map(row => normalizeCrosswordAnswer(row.answer));
   const normalizedKeyword = normalizeCrosswordAnswer(keyword);
+  function makeRowOrder(previous) {
+    const canonical = rows.map((_, index) => index);
+    const order = [...canonical];
+    if (!shuffleRows || order.length < 2) return order;
+    for (let i = order.length - 1; i > 0; i--) {
+      const j = Math.floor(random() * (i + 1));
+      [order[i], order[j]] = [order[j], order[i]];
+    }
+    const same = other => other && order.every((value, index) => value === other[index]);
+    // At most two rotations are forbidden for six distinct rows. A bounded
+    // fallback also handles a deterministic random source without retry loops.
+    // Two rows have only one noncanonical order, so consecutive repeats are unavoidable.
+    for (let rotations = 0; rotations < order.length && (same(canonical) || (order.length > 2 && same(previous))); rotations++) {
+      order.push(order.shift());
+    }
+    return order;
+  }
+  let rowOrder = makeRowOrder();
   let solved = rows.map(() => false);
   let keywordSolved = false;
   return {
     get state() {
       return {
+        rowOrder: [...rowOrder],
         solved: [...solved],
         solvedCount: solved.filter(Boolean).length,
         complete: keywordSolved,
@@ -369,6 +388,7 @@ function createCrosswordSession(rows = crosswordRows, keyword = crosswordKeyword
       return { correct };
     },
     restart() {
+      rowOrder = makeRowOrder(rowOrder);
       solved = rows.map(() => false);
       keywordSolved = false;
     },
@@ -377,7 +397,7 @@ function createCrosswordSession(rows = crosswordRows, keyword = crosswordKeyword
 
 // Source: src/crossword.mjs
 function mountCrossword(main, { playFeedback, stopFeedback, announce }) {
-  const game = createCrosswordSession();
+  const game = createCrosswordSession(crosswordRows, crosswordKeyword, { shuffleRows: true });
   const typeNames = { image: 'Nhìn hình', choice: 'Trắc nghiệm', action: 'Diễn động tác', rebus: 'Nhìn hình bắt chữ' };
   const keyColumn = Math.max(...crosswordRows.map(row => row.keywordIndex));
   const columns = Math.max(...crosswordRows.map(row => keyColumn - row.keywordIndex + normalizeCrosswordAnswer(row.answer).length));
@@ -392,26 +412,28 @@ function mountCrossword(main, { playFeedback, stopFeedback, announce }) {
   main.classList.add('crossword-main');
   main.innerHTML = `<header class="cw-heading"><h1>Mật mã rừng xanh</h1><div class="cw-counter"><strong id="cw-count">0 / 6</strong><span>HÀNG ĐÃ MỞ</span></div></header>
     <div class="cw-layout"><section class="cw-board-panel" aria-label="Bảng ô chữ"><div class="cw-panel-heading"><span id="cw-board-status">Chọn một hàng để bắt đầu</span></div><div class="cw-board-scroll"><div class="cw-grid" style="--cw-columns:${columns}"><div class="cw-key-heading" style="grid-template-columns:44px repeat(${columns},var(--cw-cell))"><span style="grid-column:${keyColumn + 2}">CỘT DỌC</span></div><div id="cw-rows"></div></div></div><p class="cw-scroll-note">Vuốt ngang để xem đủ các ô chữ.</p></section>
-    <aside class="cw-sidebar"><section class="cw-key-card"><h2>Từ khóa</h2><div id="cw-key-preview" class="cw-key-preview" aria-label="Các chữ cái từ khóa đã mở"></div><button type="button" class="primary" id="cw-guess-keyword">Đoán từ khóa →</button></section><button type="button" class="utility cw-reset" id="cw-reset">↻ Chơi lại</button></aside></div>
+    <aside class="cw-sidebar"><section class="cw-key-card"><h2>Chữ gợi ý</h2><div id="cw-key-preview" class="cw-key-preview" aria-label="Các chữ vàng theo thứ tự xáo trộn"></div><button type="button" class="primary" id="cw-guess-keyword">Đoán từ khóa →</button><p>Xếp lại các chữ vàng để tìm từ khóa.</p></section><button type="button" class="utility cw-reset" id="cw-reset">↻ Chơi lại</button></aside></div>
     <dialog class="cw-dialog" id="cw-dialog" aria-labelledby="cw-dialog-title"></dialog>`;
   const dialog = main.querySelector('#cw-dialog');
   const rowsRoot = main.querySelector('#cw-rows');
   const keywordButton = main.querySelector('#cw-guess-keyword');
 
   function renderBoard() {
-    const { solved, solvedCount, complete, revealedKeyword } = game.state;
+    const { solved, solvedCount, complete, revealedKeyword, rowOrder } = game.state;
     rowsRoot.replaceChildren();
-    crosswordRows.forEach((row, index) => {
+    rowOrder.forEach((index, position) => {
+      const row = crosswordRows[index];
       const word = normalizeCrosswordAnswer(row.answer);
       const open = solved[index] || complete;
       const button = document.createElement('button');
       button.type = 'button';
       button.className = `cw-row${open ? ' is-solved' : ''}`;
       button.dataset.row = index;
+      button.dataset.position = position;
       button.style.gridTemplateColumns = `44px repeat(${columns},var(--cw-cell))`;
-      button.setAttribute('aria-label', `Hàng ngang ${index + 1}, ${word.length} chữ cái, ${typeNames[row.type]}${open ? `, đã mở: ${row.answer}` : ''}`);
+      button.setAttribute('aria-label', `Hàng ngang ${position + 1}, ${word.length} chữ cái, ${typeNames[row.type]}${open ? `, đã mở: ${row.answer}` : ''}`);
       const number = document.createElement('span');
-      number.className = 'cw-row-number'; number.textContent = index + 1;
+      number.className = 'cw-row-number'; number.textContent = position + 1;
       number.style.gridColumn = 1; button.append(number);
       [...word].forEach((letter, position) => {
         const cell = document.createElement('span');
@@ -424,9 +446,10 @@ function mountCrossword(main, { playFeedback, stopFeedback, announce }) {
       rowsRoot.append(button);
     });
     main.querySelector('#cw-count').textContent = `${complete ? crosswordRows.length : solvedCount} / ${crosswordRows.length}`;
-    main.querySelector('#cw-board-status').textContent = complete ? 'Giải mã thành công!' : solvedCount === crosswordRows.length ? 'Đã mở đủ chữ. Hãy đoán từ khóa!' : 'Chọn một số để mở câu hỏi';
+    main.querySelector('#cw-board-status').textContent = complete ? 'Giải mã thành công!' : solvedCount === crosswordRows.length ? 'Xếp lại các chữ vàng để đoán từ khóa!' : 'Chọn một số để mở câu hỏi';
     const preview = main.querySelector('#cw-key-preview'); preview.replaceChildren();
-    [...crosswordKeyword].forEach((letter, index) => {
+    rowOrder.forEach(index => {
+      const letter = normalizeCrosswordAnswer(crosswordRows[index].answer)[crosswordRows[index].keywordIndex];
       const cell = document.createElement('span');
       cell.textContent = complete ? letter : revealedKeyword[index] || '?';
       if (complete || revealedKeyword[index]) cell.classList.add('is-revealed');
@@ -455,7 +478,8 @@ function mountCrossword(main, { playFeedback, stopFeedback, announce }) {
   function openRow(index, source) {
     activeRow = index;
     const row = crosswordRows[index];
-    const body = openDialog(`Hàng ${String(index + 1).padStart(2, '0')} · ${typeNames[row.type]} · ${normalizeCrosswordAnswer(row.answer).length} ô`, source);
+    const displayNumber = game.state.rowOrder.indexOf(index) + 1;
+    const body = openDialog(`Hàng ${String(displayNumber).padStart(2, '0')} · ${typeNames[row.type]} · ${normalizeCrosswordAnswer(row.answer).length} ô`, source);
     body.dataset.type = row.type;
     const prompt = document.createElement('h2'); prompt.className = 'cw-prompt'; prompt.textContent = row.prompt; body.append(prompt);
     const content = document.createElement('div'); content.className = 'cw-clue-content';
@@ -556,7 +580,7 @@ function mountCrossword(main, { playFeedback, stopFeedback, announce }) {
     const body = openDialog('Từ khóa · 6 ô chữ', source);
     if (game.state.complete) { showVictory(body); return; }
     body.dataset.type = 'keyword';
-    body.innerHTML = `<h2 class="cw-prompt">Từ khóa là gì?</h2><form class="cw-answer-form"><label class="sr-only" for="cw-keyword">Nhập từ khóa gồm 6 chữ cái</label><div><input id="cw-keyword" name="keyword" autocomplete="off" autocapitalize="characters" spellcheck="false" maxlength="40" placeholder="Nhập từ khóa" required><button type="submit" class="primary">Giải mã →</button></div></form><p class="cw-answer-status" role="status"></p>`;
+    body.innerHTML = `<h2 class="cw-prompt">Xếp lại chữ vàng thành từ khóa gì?</h2><form class="cw-answer-form"><label class="sr-only" for="cw-keyword">Nhập từ khóa gồm 6 chữ cái</label><div><input id="cw-keyword" name="keyword" autocomplete="off" autocapitalize="characters" spellcheck="false" maxlength="40" placeholder="Nhập từ khóa" required><button type="submit" class="primary">Giải mã →</button></div></form><p class="cw-answer-status" role="status"></p>`;
     body.querySelector('form').addEventListener('submit', event => {
       event.preventDefault(); if (busy) return;
       const input = body.querySelector('input'); if (!normalizeCrosswordAnswer(input.value)) return;

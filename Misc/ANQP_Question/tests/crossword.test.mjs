@@ -87,3 +87,59 @@ test('Giải hết hàng ngang vẫn cần chốt từ khóa; chơi lại đặt
   assert.deepEqual(session.state.revealedKeyword, [null, null, null, null, null, null]);
   assert.deepEqual(session.submitRow(0, 'Địa đạo'), { correct: true });
 });
+
+test('Thứ tự hàng mặc định theo đề gốc và trả về bản sao an toàn', () => {
+  const session = createCrosswordSession();
+  assert.deepEqual(session.state.rowOrder, [0, 1, 2, 3, 4, 5]);
+  const snapshot = session.state.rowOrder;
+  snapshot.reverse();
+  assert.deepEqual(session.state.rowOrder, [0, 1, 2, 3, 4, 5]);
+  session.restart();
+  assert.deepEqual(session.state.rowOrder, [0, 1, 2, 3, 4, 5]);
+});
+
+test('Đảo sáu hàng mỗi lượt nhưng chấm đáp án và mở chữ theo chỉ số câu gốc', () => {
+  const original = structuredClone(crosswordRows);
+  // This random source always gives the canonical Fisher–Yates result,
+  // exercising the finite rotation fallback on both creation and restart.
+  const session = createCrosswordSession(crosswordRows, crosswordKeyword, { shuffleRows: true, random: () => .999 });
+  const canonical = [0, 1, 2, 3, 4, 5];
+  const order = session.state.rowOrder;
+  assert.deepEqual([...order].sort((a, b) => a - b), canonical);
+  assert.notDeepEqual(order, canonical);
+  const keyLetters = crosswordRows.map(row => normalizeCrosswordAnswer(row.answer)[row.keywordIndex]);
+  assert.notEqual(order.map(index => keyLetters[index]).join(''), crosswordKeyword);
+
+  const index = order[0];
+  assert.deepEqual(session.submitRow(index, 'không đúng'), { correct: false });
+  assert.equal(session.state.solvedCount, 0);
+  assert.deepEqual(session.state.rowOrder, order);
+  assert.deepEqual(session.submitRow(index, crosswordRows[index].answer), { correct: true });
+  assert.deepEqual(session.state.rowOrder, order);
+  assert.equal(session.state.solved[index], true);
+  assert.equal(session.state.revealedKeyword[index], keyLetters[index]);
+  assert.equal(session.state.revealedKeyword.filter(Boolean).length, 1);
+
+  for (const canonicalIndex of order.slice(1)) session.submitRow(canonicalIndex, crosswordRows[canonicalIndex].answer);
+  assert.equal(session.state.solvedCount, 6);
+  assert.equal(session.state.revealedKeyword.join(''), 'DUKICH');
+  assert.deepEqual(session.state.rowOrder, order);
+  assert.deepEqual(session.submitKeyword(order.map(i => keyLetters[i]).join('')), { correct: false });
+  assert.equal(session.state.complete, false);
+  assert.deepEqual(session.submitKeyword('du kích'), { correct: true });
+  assert.equal(session.state.complete, true);
+
+  let previous = order;
+  for (let round = 0; round < 4; round++) {
+    session.restart();
+    const next = session.state.rowOrder;
+    assert.deepEqual([...next].sort((a, b) => a - b), canonical);
+    assert.notDeepEqual(next, canonical);
+    assert.notDeepEqual(next, previous);
+    assert.equal(session.state.solvedCount, 0);
+    assert.equal(session.state.complete, false);
+    assert.deepEqual(session.state.revealedKeyword, [null, null, null, null, null, null]);
+    previous = next;
+  }
+  assert.deepEqual(crosswordRows, original);
+});
