@@ -190,9 +190,11 @@ export function alignSelectedVessel(tool: 'balance' | 'burette'): InstrumentResu
   const occupied = Object.values(useAppStore.getState().vessels).some(other => other.id !== vessel.id
     && Math.hypot(other.position[0] - position[0], other.position[2] - position[2]) < 0.7);
   if (occupied) return result(tool, false, 'Vị trí đã có bình khác; di chuyển bình đó trước.');
-  useAppStore.getState().setVesselState(vessel.id, {
-    position: [position[0], tool === 'balance' ? position[1] + 1.35 : vessel.position[1], position[2]],
-  });
+  const destination: ToolPosition = [position[0], tool === 'balance' ? position[1] + 1.35 : vessel.position[1], position[2]];
+  useAppStore.getState().setVesselState(vessel.id, { position: destination });
+  const placed = useAppStore.getState().vessels[vessel.id];
+  if (!placed || placed.position.some((coordinate, axis) => Math.abs(coordinate - destination[axis]) > 1e-8))
+    return result(tool, false, 'Chưa thể đặt bình; mở khóa các bình gắn cùng dụng cụ trước.');
   return result(tool, true, tool === 'balance' ? 'Đã đặt bình lên đĩa cân.' : 'Đã căn bình dưới đầu buret.');
 }
 

@@ -2,43 +2,51 @@ import React from 'react';
 import { useAppStore } from '../store/useAppStore';
 import { ResponsiveContainer, LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip } from 'recharts';
 import { Droplet, Play, Square, RotateCcw } from 'lucide-react';
+import { dispenseOneBuretteDrop, setBuretteValve } from '../handling/instrumentOperations';
+import { useInstrumentStore } from '../handling/instrumentState';
+import { useToolDockStore } from '../handling/toolDockState';
+import { findBuretteReceiver } from '../handling/buretteTarget';
 
 export function TitrationPanel() {
   const burette = useAppStore(state => state.burette);
-  const toggleStopcock = useAppStore(state => state.toggleBuretteStopcock);
-  const dispenseDrop = useAppStore(state => state.dispenseBuretteDrop);
   const titrationHistory = useAppStore(state => state.titrationHistory);
   const clearTitrationHistory = useAppStore(state => state.clearTitrationHistory);
   const selectedVesselId = useAppStore(state => state.selectedVesselId);
   const vessels = useAppStore(state => state.vessels);
   const language = useAppStore(state => state.language);
+  const stand = useToolDockStore(state => state.positions.burette);
+  const notice = useInstrumentStore(state => state.notices.filter(item => item.tool === 'burette').at(-1));
 
   const t = (en: string, vi: string) => language === 'en' ? en : vi;
-  const targetId = selectedVesselId || Object.keys(vessels)[0];
+  const receiver = findBuretteReceiver(vessels, stand ?? burette.position);
+  const targetId = receiver?.id ?? selectedVesselId;
   const targetHistory = titrationHistory.filter(point => point.vesselId === targetId);
+  const nextDrop_ml = Math.min(0.05, Math.max(0, burette.currentVolume_ml));
 
   return (
-    <div className="bg-white rounded-xl border border-slate-200 shadow-sm p-4 space-y-4">
-      <div className="flex items-center justify-between border-b border-slate-100 pb-3">
-        <div>
+    <section aria-label={t('Titration station', 'Trạm chuẩn độ')} className="min-w-0 bg-white rounded-xl border border-slate-200 shadow-sm p-3 space-y-3">
+      <div className="flex flex-wrap items-center justify-between gap-3 border-b border-slate-100 pb-3">
+        <div className="min-w-0">
           <h3 className="text-xs font-bold uppercase tracking-wider text-blue-600">
             {t('Titration Station (Burette)', 'Trạm Chuẩn Độ (Buret)')}
           </h3>
-          <p className="text-[11px] text-slate-500">
+          <p className="break-words text-[11px] text-slate-500">
             {t('Reagent:', 'Thuốc thử:')} <span className="font-semibold text-slate-700">{burette.reagentFormula} ({burette.concentration_M} M)</span>
           </p>
         </div>
-        <div className="flex items-center gap-1.5">
+        <div className="flex flex-wrap items-center gap-1.5">
           <button 
-            onClick={() => targetId && dispenseDrop(targetId)}
-            className="flex items-center gap-1 px-2.5 py-1 bg-blue-50 text-blue-600 hover:bg-blue-100 rounded text-xs font-semibold transition-colors"
-            title={t('Dispense 1 virtual drop (0.05 mL)', 'Nhỏ 1 giọt mô phỏng (0.05 mL)')}
+            onClick={dispenseOneBuretteDrop}
+            disabled={nextDrop_ml <= 0}
+            aria-label={t('Dispense one burette drop', 'Nhả một giọt từ buret')}
+            className="flex items-center gap-1 px-2.5 py-1 bg-blue-50 text-blue-600 hover:bg-blue-100 rounded text-xs font-semibold transition-colors disabled:opacity-40"
+            title={t('Dispense into the vessel under the nozzle', 'Nhả vào bình ngay dưới đầu buret')}
           >
             <Droplet size={14} />
-            <span>+0.05 mL</span>
+            <span>+{nextDrop_ml.toFixed(2)} mL</span>
           </button>
           <button 
-            onClick={toggleStopcock}
+            onClick={() => setBuretteValve(!burette.isDispensing)}
             className={`flex items-center gap-1 px-3 py-1 rounded text-xs font-semibold transition-colors ${
               burette.isDispensing 
                 ? 'bg-red-500 text-white hover:bg-red-600 shadow-sm' 
@@ -57,6 +65,10 @@ export function TitrationPanel() {
           </button>
         </div>
       </div>
+      <p className="break-words text-[11px] text-slate-600" data-burette-receiver={receiver?.id ?? ''}>
+        {t('Receiving vessel:', 'Bình nhận:')} <strong>{receiver?.name ?? t('Place an open vessel under the nozzle.', 'Căn bình mở ngay dưới đầu buret.')}</strong>
+      </p>
+      {notice && <p role="status" aria-live="polite" className={`break-words text-[11px] ${notice.success ? 'text-emerald-700' : 'text-amber-700'}`}>{notice.message}</p>}
 
       {/* Burette Volume Indicator */}
       <div className="space-y-1">
@@ -76,8 +88,9 @@ export function TitrationPanel() {
       <div>
         <div className="flex justify-between items-center mb-1">
           <span className="text-[10px] uppercase font-bold text-slate-400">{t('pH Titration Curve', 'Đường cong chuẩn độ pH')}</span>
-          <span className="text-[10px] text-slate-500 font-mono">{targetHistory.length} {t('points recorded for selected vessel', 'điểm cho bình đang chọn')}</span>
+          <span className="text-[10px] text-slate-500 font-mono">{targetHistory.length} {t('points', 'điểm')}</span>
         </div>
+        <p className="mb-1 break-words text-[10px] text-slate-500">{t('Graph:', 'Đồ thị:')} {targetId ? vessels[targetId]?.name : t('No vessel', 'Chưa có bình')}</p>
         <div className="h-44 w-full bg-slate-50/60 rounded-lg border border-slate-100 p-1">
           {targetHistory.length === 0 ? (
             <div className="h-full flex flex-col items-center justify-center text-xs text-slate-400">
@@ -107,6 +120,6 @@ export function TitrationPanel() {
         </div>
         <p className="text-[10px] text-slate-500 mt-1">{t('Model pH at sample temperature; gaps mean no supported immersed reading.', 'pH mô hình theo nhiệt độ mẫu; chỗ trống là chưa có số đo ngập đầu dò được hỗ trợ.')}</p>
       </div>
-    </div>
+    </section>
   );
 }

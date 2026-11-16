@@ -2,12 +2,14 @@ import React from 'react';
 import { useAppStore } from '../store/useAppStore';
 import { canReceivePour } from '../engine/decantTransfer';
 import type { VesselState } from '../types/chemistry';
+import { washBottleSqueezeProblem } from '../handling/washBottleSqueeze';
 
 export function WashBottleControls({ vessel }: { vessel: VesselState }) {
   const vessels = useAppStore(state => state.vessels);
   const language = useAppStore(state => state.language);
   const setVesselState = useAppStore(state => state.setVesselState);
   const squirt = useAppStore(state => state.squirtWashBottle);
+  const dispenseProblem = useAppStore(state => washBottleSqueezeProblem(state, vessel.id));
   const t = (en: string, vi: string) => language === 'vi' ? vi : en;
   const receivers = Object.values(vessels).filter(item => item.id !== vessel.id
     && !item.id.startsWith('lesson_vessel_') && canReceivePour(item));
@@ -35,8 +37,8 @@ export function WashBottleControls({ vessel }: { vessel: VesselState }) {
           if (Number.isFinite(next) && next >= 0.1 && next <= 25) setVesselState(vessel.id, { washDose_ml: next });
         }} />
     </label>
-    <button onClick={() => squirt(vessel.id)}
-      disabled={vessel.volume_ml <= 0 || vessel.isShattered || vessel.isSealed || unavailableTarget}
+    <button onClick={() => squirt(vessel.id)} title={dispenseProblem ?? undefined}
+      disabled={!!dispenseProblem}
       className="w-full rounded bg-sky-700 p-2 font-bold text-white disabled:opacity-40">
       {t('Dispense', 'Tia')} {Math.min(dose, vessel.volume_ml).toFixed(1)} mL
     </button>

@@ -25,6 +25,7 @@ import { VesselBodyScale } from './VesselBodyScale';
 import { liquidOpacity } from '../../science/liquidOptics';
 import { useVesselVisualRuntime, useVesselVisualState, useVesselVisualStore } from '../../simulation/render/VesselVisualContext';
 import { RinsePoseMotion, rinseBottlePose } from '../../handling/instrumentRinseVisual';
+import { washBottleSqueezeProblem } from '../../handling/washBottleSqueeze';
 
 // Glassware material reference matching active high-tier physical glass
 export const glassMaterial = getGlassMaterials('high').front as MeshPhysicalMaterial;
@@ -2904,6 +2905,7 @@ export const WashBottle = React.memo(function WashBottle({ position, id }: { pos
   const moveMode = useAppStore(state => state.moveMode);
   const vessel = useAppStore(state => state.vessels[id]);
   const rinsing = useAppStore(state => state.instrumentRinse?.bottleId === id);
+  const dispenseProblem = useAppStore(state => washBottleSqueezeProblem(state, id));
 
   const setDraggingVesselId = useAppStore(state => state.setDraggingVesselId);
   const setHoveredVesselId = useAppStore(state => state.setHoveredVesselId);
@@ -2972,7 +2974,7 @@ export const WashBottle = React.memo(function WashBottle({ position, id }: { pos
       <group 
         position={[0, 1.38, 0]}
         onClick={(e) => { e.stopPropagation(); if (!rinsing && !rinseMotion.current.hasPose) squirtWashBottle(id); }}
-        onPointerOver={(e) => { e.stopPropagation(); document.body.style.cursor = rinsing || rinseMotion.current.hasPose ? 'wait' : 'pointer'; }}
+        onPointerOver={(e) => { e.stopPropagation(); document.body.style.cursor = rinsing || rinseMotion.current.hasPose ? 'wait' : dispenseProblem ? 'not-allowed' : 'pointer'; }}
         onPointerOut={() => { document.body.style.cursor = 'auto'; }}
       >
         <mesh castShadow>
@@ -2995,7 +2997,7 @@ export const WashBottle = React.memo(function WashBottle({ position, id }: { pos
       <group 
         position={[0.06, 1.48, 0]}
         onClick={(e) => { e.stopPropagation(); if (!rinsing && !rinseMotion.current.hasPose) squirtWashBottle(id); }}
-        onPointerOver={(e) => { e.stopPropagation(); document.body.style.cursor = rinsing || rinseMotion.current.hasPose ? 'wait' : 'pointer'; }}
+        onPointerOver={(e) => { e.stopPropagation(); document.body.style.cursor = rinsing || rinseMotion.current.hasPose ? 'wait' : dispenseProblem ? 'not-allowed' : 'pointer'; }}
         onPointerOut={() => { document.body.style.cursor = 'auto'; }}
       >
         <mesh position={[0, 0.22, 0]}>

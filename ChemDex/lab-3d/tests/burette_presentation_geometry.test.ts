@@ -3,8 +3,7 @@ import type { VesselState } from '../src/types/chemistry';
 import { BURETTE_TIP_LOCAL_Y, advanceBurettePresentations, burettePresentationView, buretteTargetUnchanged,
   makeBurettePresentation, MAX_BURETTE_PRESENTATIONS } from '../src/handling/burettePresentation';
 import { dropRadius } from '../src/handling/dropFlight';
-import { vesselLocalToWorld } from '../src/science/vesselScale';
-import { vesselLiquidSurfaceY } from '../src/science/vesselGeometry';
+import { buretteDeliveryPath } from '../src/handling/buretteTarget';
 
 const stand: [number, number, number] = [1.25, 1.4, -0.8];
 const vessel = (overrides: Partial<VesselState> = {}): VesselState => ({ id: 'target', name: 'Target', type: 'beaker', capacity_ml: 100,
@@ -31,10 +30,10 @@ describe('burette drop presentation', () => {
   it('anchors liquid surface and retires target changes without retargeting', () => {
     const tilted = vessel({ rotationY: .2, rotationZ: .18 });
     const receipt = makeBurettePresentation({ ...input(), target: tilted }, 1)!;
-    const center = vesselLocalToWorld(tilted, [0, vesselLiquidSurfaceY(tilted), 0]);
+    const expected = buretteDeliveryPath(tilted, stand)!;
     expect(receipt.surface[0]).toBeCloseTo(stand[0], 12);
     expect(receipt.surface[2]).toBeCloseTo(stand[2], 12);
-    expect(receipt.surface[1]).toBeLessThan(center[1]);
+    expect(receipt.surface).toEqual(expected.contact);
     expect(buretteTargetUnchanged(receipt, { ...tilted, position: [stand[0] + 1e-7, -.135, stand[2]] })).toBe(true);
     expect(buretteTargetUnchanged(receipt, { ...tilted, position: [stand[0] + .01, -.135, stand[2]] })).toBe(false);
     expect(buretteTargetUnchanged(receipt, undefined)).toBe(false);

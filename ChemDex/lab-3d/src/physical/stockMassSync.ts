@@ -14,6 +14,10 @@ export interface StockReplyRequest {
 export function sameStockKinematics(a: StockMotion, b: StockMotion): boolean {
   if (a === b) return true;
   if (!a || !b || a.grains.length !== b.grains.length) return false;
+  // An explicit empty restore marks a new uninitialized placement. Two such
+  // branches have no carrier coordinates to compare, so identity is the only
+  // evidence that a reply still belongs to the current placement.
+  if (!a.grains.length) return false;
   const previous = new Map(a.grains.map(pose => [pose.id, pose]));
   return b.grains.every(pose => {
     const old = previous.get(pose.id);

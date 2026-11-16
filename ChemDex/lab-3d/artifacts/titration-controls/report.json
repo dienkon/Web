@@ -1,0 +1,12 @@
+{
+  "assertions": {
+    "actualReceiverShown": true,
+    "exactFinalDoseShown": true,
+    "pauseExplainedWithoutTransfer": true,
+    "doseAndGraphUseActualReceiver": true,
+    "missingReceiverExplained": true,
+    "compactPanelDoesNotOverflow": true,
+    "noRuntimeErrors": true
+  },
+  "errors": []
+}

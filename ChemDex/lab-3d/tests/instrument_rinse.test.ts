@@ -260,4 +260,21 @@ describe('finite instrument rinsing through the live store', () => {
     for (let frame = 0; frame < 100; frame++) oldTick(0.1);
     expect(JSON.stringify({ vessels: state().vessels, waste: state().wasteContents })).toBe(reset);
   });
+
+  it('removes the old rinse immediately when a paused workbench loads a new preset', () => {
+    expect(state().cleanTool('pipette').ok).toBe(true); advance(1);
+    const usedWater = state().wasteMass_g, usedContents = structuredClone(state().wasteContents), epoch = state().pourEpoch;
+    expect(usedWater).toBeGreaterThan(0);
+    state().setSimulationPaused(true);
+    state().setupExperimentPreset('acid_base_titration');
+    expect(state().pourEpoch).toBe(epoch + 1);
+    expect(state().instrumentRinse).toBeNull();
+    expect(state().isSimulationPaused).toBe(true);
+    expect(state().vessels.rinse_water).toBeUndefined();
+    expect(state().wasteMass_g).toBe(usedWater); expect(state().wasteContents).toEqual(usedContents);
+    expect(engineDirty().pipette).toBe('NaCl');
+    state().tickInstrumentRinse(.1);
+    expect(state().wasteMass_g).toBe(usedWater);
+    expect(state().instrumentRinse).toBeNull();
+  });
 });

@@ -1,9 +1,7 @@
 import { Quaternion, Vector3 } from 'three';
 import type { VesselState } from '../types/chemistry';
-import { vesselLiquidSurfaceY } from '../science/vesselGeometry';
-import { vesselLocalToWorld } from '../science/vesselScale';
 import { dropFlightPosition, dropRadius, verticalDropFlight, type DropPoint, type VerticalDropFlight } from './dropFlight';
-import { BURETTE_NOZZLE_LOCAL_Y } from './buretteTarget';
+import { BURETTE_NOZZLE_LOCAL_Y, buretteDeliveryPath } from './buretteTarget';
 
 export const BURETTE_TIP_LOCAL_Y = BURETTE_NOZZLE_LOCAL_Y;
 export const MAX_BURETTE_PRESENTATIONS = 128;
@@ -53,12 +51,9 @@ export function makeBurettePresentation(input: BurettePresentationInput, id: num
     || !Number.isFinite(initialAge_s) || initialAge_s < 0
     || ![...target.position, target.capacity_ml, ...standPosition].every(Number.isFinite)) return null;
   const orientation = targetOrientation(target);
-  const center = vesselLocalToWorld(target, [0, vesselLiquidSurfaceY(target), 0]);
-  const outlet: DropPoint = [standPosition[0], standPosition[1] + BURETTE_TIP_LOCAL_Y, standPosition[2]];
-  const normal = new Vector3(0, 1, 0).applyQuaternion(orientation);
-  const surfaceY = normal.y > 1e-4 ? center[1] - (normal.x * (outlet[0] - center[0])
-    + normal.z * (outlet[2] - center[2])) / normal.y : center[1];
-  const surface: DropPoint = [outlet[0], Math.min(outlet[1], surfaceY), outlet[2]];
+  const path = buretteDeliveryPath(target, standPosition);
+  if (!path) return null;
+  const { outlet, contact: surface } = path;
   const flight = verticalDropFlight(outlet, surface[1]);
   return { id, targetId: target.id, targetType: target.type, targetCapacity_ml: target.capacity_ml,
     targetSignature: buretteTargetSignature(target), targetPose: { position: [...target.position], rotation: orientation.toArray() as [number,number,number,number] },

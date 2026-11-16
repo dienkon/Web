@@ -118,11 +118,14 @@ import { kineticsEngine } from '../simulation/chemistry/KineticsEngine';
 import { programPlayer } from '../vfx/programs/player/ProgramPlayer';
 import { benchObstacles, findBenchPosition } from '../core/benchPlacement';
 import { useToolDockStore } from '../handling/toolDockState';
+import { moveCarriedVesselIds } from '../physical/carriedVessels';
+import { relocateVesselStocks, relocationMovesLockedVessel } from '../physical/stockRelocation';
 import { instrumentHome } from '../handling/instrumentCatalog';
 import { advanceInstrumentRinse, collectRinseWaste, isRinseWater, pipetteHasRinseSample, RINSE_VOLUME_ML,
   type RinseSession, type RinseTool } from '../handling/instrumentRinse';
 import { makePipettePresentation } from '../handling/pipettePresentation';
 import { rinseStationRadius } from '../handling/instrumentRinseVisual';
+import { washBottleReceiverId, washBottleSqueezeProblem } from '../handling/washBottleSqueeze';
 import { uiText } from '../utils/uiText';
 
 function currentBenchObstacles(state: Pick<AppState, 'vessels' | 'burners' | 'burette' | 'instrumentRinse'>) {
@@ -1721,10 +1724,13 @@ export const useAppStore = create<AppState>((set, get) => {
       }
       shardManager.restoreSnapshot();
       invalidateStockDoses();
+      useInstrumentStore.getState().clearPipettePresentations();
+      useInstrumentStore.getState().clearBurettePresentations();
       set({
         activeKinetics: {}, pendingReactions, dissolvingSubstances: {}, lastMixResult: null,
         inFlightPours: [], pourEpoch: get().pourEpoch + 1, isPouring: false,
         pipetteSample: null,
+        instrumentRinse: null,
         vessels,
         vesselIds: Object.keys(vessels),
         selectedVesselId: Object.keys(vessels)[0] || null,
@@ -2660,6 +2666,7 @@ export const useAppStore = create<AppState>((set, get) => {
           'contents', 'substances', 'mass_g', 'volume_ml'].includes(key))) get().cancelInstrumentRinse();
       set(s => {
         if (!s.vessels[id]) return s;
+        if (state.position && !state.position.every(Number.isFinite)) return s;
         const currentVessel = s.vessels[id];
         let next = { ...currentVessel, ...state };
         if (state.isSealed === true && !currentVessel.isSealed) next.sealedHeadspace = captureHeadspace(next);
@@ -2755,6 +2762,8 @@ export const useAppStore = create<AppState>((set, get) => {
           }
         }
 
+        if (relocationMovesLockedVessel(s.vessels, updated)) return s;
+        if (state.position) updated = relocateVesselStocks(s.vessels, updated, moveCarriedVesselIds(s));
         debounceSaveLocalState(updated, s.burners);
         if (state.contents && state.contents !== currentVessel.contents) {
           // Explicit replacements retire old baselines. A metered withdrawal
@@ -3129,16 +3138,11 @@ export const useAppStore = create<AppState>((set, get) => {
     },
 
     squirtWashBottle: (washBottleId, targetVesselId) => {
-      if (get().instrumentRinse?.bottleId === washBottleId) {
-        set({ globalWarning: uiText('Bình đang cấp nước rửa dụng cụ; dừng rửa trước khi dùng tia nước.') }); return;
-      }
       const state = get(), bottle = state.vessels[washBottleId];
-      if (!bottle || bottle.type !== 'wash_bottle' || bottle.isShattered || bottle.isSealed || bottle.volume_ml <= 0) return;
-      const selected = state.selectedVesselId !== washBottleId ? state.selectedVesselId : null;
-      const targetId = targetVesselId ?? (bottle.washTargetId !== undefined ? bottle.washTargetId : selected);
-      if (targetId === washBottleId || (targetId && !state.vessels[targetId])) return;
+      const problem = washBottleSqueezeProblem(state, washBottleId, targetVesselId);
+      if (problem) { set({ globalWarning: problem }); return; }
+      const targetId = washBottleReceiverId(state, bottle, targetVesselId);
       const dose = bottle.washDose_ml ?? 5;
-      if (!Number.isFinite(dose) || dose <= 0 || dose > 25) return;
       get().transferLiquidContinuous(washBottleId, targetId, dose);
       if (get().vessels[washBottleId] === bottle) return;
       labSound.playLiquidPour(0.5);
@@ -3163,7 +3167,7 @@ export const useAppStore = create<AppState>((set, get) => {
     placeTestTubeInRack: (rackId, tubeId) => {
       const rack = get().vessels[rackId];
       const tube = get().vessels[tubeId];
-      if (!rack || !tube) return;
+      if (!rack || !tube || rack.isLocked || tube.isLocked) return;
       labSound.playGlassClink();
       const currentSlotted = rack.slottedTestTubeIds || [];
       if (currentSlotted.includes(tubeId) || currentSlotted.length >= 4) return;
@@ -3195,11 +3199,12 @@ export const useAppStore = create<AppState>((set, get) => {
 
       const newSlotted = [...currentSlotted, tubeId];
       set(s => {
-        const updated = {
+        let updated = {
           ...s.vessels,
           [rackId]: { ...rack, slottedTestTubeIds: newSlotted },
-          [tubeId]: { ...tube, position: [slotX, slotY, slotZ] as [number, number, number], isLocked: false }
+          [tubeId]: { ...tube, position: [slotX, slotY, slotZ] as [number, number, number] }
         };
+        updated = relocateVesselStocks(s.vessels, updated, moveCarriedVesselIds(s));
         debounceSaveLocalState(updated, s.burners);
         return { vessels: updated };
       });
@@ -3208,11 +3213,11 @@ export const useAppStore = create<AppState>((set, get) => {
     removeTestTubeFromRack: (rackId, tubeId) => {
       const rack = get().vessels[rackId];
       const tube = get().vessels[tubeId];
-      if (!rack || !tube) return;
+      if (!rack || !tube || rack.isLocked || tube.isLocked) return;
       labSound.playGlassClink();
       const newSlotted = (rack.slottedTestTubeIds || []).filter(id => id !== tubeId);
       set(s => {
-        const updated = {
+        let updated = {
           ...s.vessels,
           [rackId]: { ...rack, slottedTestTubeIds: newSlotted },
           [tubeId]: {
@@ -3220,6 +3225,7 @@ export const useAppStore = create<AppState>((set, get) => {
             position: [rack.position[0] + 0.6, -0.135, rack.position[2] + 0.5] as [number, number, number]
           }
         };
+        updated = relocateVesselStocks(s.vessels, updated, moveCarriedVesselIds(s));
         debounceSaveLocalState(updated, s.burners);
         return { vessels: updated };
       });
@@ -3243,8 +3249,9 @@ export const useAppStore = create<AppState>((set, get) => {
         });
       } else if (targetVesselId && get().vessels[targetVesselId]) {
         const target = get().vessels[targetVesselId];
+        if (target.isLocked || tongs.isLocked) return;
         set(s => {
-          const updated = {
+          let updated = {
             ...s.vessels,
             [tongsId]: {
               ...tongs,
@@ -3253,6 +3260,7 @@ export const useAppStore = create<AppState>((set, get) => {
             },
             [targetVesselId]: { ...target, heldByTongsId: tongsId }
           };
+          updated = relocateVesselStocks(s.vessels, updated, moveCarriedVesselIds(s));
           debounceSaveLocalState(updated, s.burners);
           return { vessels: updated };
         });
@@ -3394,8 +3402,10 @@ export const useAppStore = create<AppState>((set, get) => {
         && Math.hypot(other.position[0] - plate.position[0], other.position[2] - plate.position[2]) < 0.55
         && Math.abs(other.position[1] - plate.position[1] - PLATE_TOP_Y) < 0.1);
       if (occupied) { set({ globalWarning: 'Mặt bếp đã có dụng cụ; di chuyển dụng cụ đó trước.' }); return false; }
-      const vessels = { ...state.vessels, [vesselId]: { ...vessel,
-        position: [plate.position[0], plate.position[1] + PLATE_TOP_Y, plate.position[2]] as [number, number, number], rotationZ: 0 } };
+      let vessels = { ...state.vessels, [vesselId]: { ...vessel,
+        position: [plate.position[0], plate.position[1] + PLATE_TOP_Y, plate.position[2]] as [number, number, number],
+        rotationZ: 0, physicalMotion: undefined } };
+      vessels = relocateVesselStocks(state.vessels, vessels, moveCarriedVesselIds(state));
       set({ vessels, globalWarning: null });
       debounceSaveLocalState(vessels, state.burners);
       return true;
@@ -4138,6 +4148,8 @@ export const useAppStore = create<AppState>((set, get) => {
         }
       }
 
+      if (relocationMovesLockedVessel(s.vessels, updated)) return s;
+      updated = relocateVesselStocks(s.vessels, updated, moveCarriedVesselIds(s));
       debounceSaveLocalState(updated, s.burners);
       return { vessels: updated };
       });
