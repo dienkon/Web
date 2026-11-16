@@ -1,0 +1,640 @@
+{
+  "origin": "http://127.0.0.1:6767",
+  "fluid": {
+    "formula": "H2O",
+    "density_g_ml": 1,
+    "molarMass": 18.015
+  },
+  "errors": [],
+  "assertions": {
+    "outletMatchesFirstDropPath": true,
+    "translatedReceiverControlsLanding": true,
+    "sourceLeavesAtReleaseDestinationReceivesAtImpact": true,
+    "renderedDropMatchesReceipt": true,
+    "sharedLabEffectsMounted": true,
+    "pauseFreezesModel": true,
+    "pauseFreezesFlightAndLedger": true,
+    "firstDoseOccursAtImpact": true,
+    "noNewDropPreservesDeliveredInventory": true,
+    "exactPartialDropAndMassConservation": true,
+    "lastImpactPersistsThroughReturn": true,
+    "sharedRendererRetainsEffects": true,
+    "onlyTinyAmountsUseDrops": true,
+    "noRuntimeErrors": true,
+    "sourceStable": true
+  },
+  "sourceBefore": {
+    "src/handling/dropFlight.ts": "7dff5c20f018d35724d69ddb105d9e397c6beae702b58627a9702923bb071dc5",
+    "src/handling/liquidDosePlan.ts": "386dd6685277d59983d7c2dfd8c749290679d96e70fbbd74de93920ebac5a0f3",
+    "src/vfx/autoplay/AutoExperiment.ts": "63875adc974909d1bf91d4867047558796b380061a31e40ee847f578437d126b",
+    "src/vfx/autoplay/AutoExperimentScene.tsx": "54d4c6706d3b82b41799288dfd454f5376dbd583d5f3c4ee27ac10f0cc7c3f30",
+    "src/vfx/autoplay/autoDonors.ts": "417a59c64a038a9a56ffd251a06fb221feb3fd5c5807740ab3f1a9f78ee9139e",
+    "src/vfx/autoplay/receiverFrame.ts": "0e883ac9c4121c7fc1a6f18a1799cc33913c2d78b46594e23a3251127f62a97f"
+  },
+  "inFlight": {
+    "phase": "dose",
+    "phaseTime": 0.8333333333333343,
+    "elapsed": 0.8333333333333343,
+    "paused": true,
+    "donorIndex": 1,
+    "donor": {
+      "remaining": 0.06999999999999999,
+      "totalMass_g": 0.12,
+      "solutionVolume_ml": 0.12,
+      "fraction": 0,
+      "doseMode": "dropper",
+      "drops": [
+        {
+          "volume_ml": 0.05,
+          "mass_g": 0.05,
+          "color": "#b91c1c",
+          "releaseAt": 0.75,
+          "arrivalAt": 0.8802775297389125,
+          "flight": {
+            "start": [
+              1.3500000000000005,
+              2.4580869673305776,
+              -0.6500000000000001
+            ],
+            "target": [
+              1.3500000000000005,
+              0.08036173934661162,
+              -0.6500000000000001
+            ],
+            "gravity": 280.18999999999994,
+            "flightTime": 0.13027752973891255
+          },
+          "targetLocal": [
+            4.4010909047936734e-16,
+            -0.96,
+            -1.1002727261984183e-16
+          ],
+          "contents": [
+            {
+              "formula": "H2O",
+              "phase": "l",
+              "mass_g": 0.05,
+              "moles": 0.0027754648903691365
+            }
+          ],
+          "arrived": false
+        }
+      ],
+      "inFlightMass_g": 0.05
+    },
+    "sample": {
+      "mass_g": 0,
+      "volume_ml": 0,
+      "evaporated_ml": 0,
+      "condensateReturned_g": 0,
+      "position": [
+        1.35,
+        1.04,
+        -0.65
+      ],
+      "contents": []
+    },
+    "accountedMass_g": 0.12,
+    "outletTip": [
+      1.3500000000000005,
+      2.4580869673305776,
+      -0.6500000000000001
+    ],
+    "drawn": [
+      {
+        "position": [
+          1.350000023841858,
+          1.485205054283142,
+          -0.6499999761581421
+        ],
+        "radius": 0.06529688090085983
+      }
+    ],
+    "expectedFirstDrop": [
+      1.3500000000000005,
+      1.4852050228861118,
+      -0.6500000000000001
+    ],
+    "rippleVisible": false,
+    "rippleCount": 0,
+    "splashVisible": false,
+    "splashCount": 0,
+    "sharedTransientEffectsMounted": true,
+    "effectNodeNames": [
+      "vessel-transient-effects-auto_receiver",
+      "auto_dropper_1",
+      "auto_dropper_outlet_1",
+      "auto_transfer_stream",
+      "auto_transfer_drops",
+      "auto_drop_impact_splashes",
+      "auto_drop_impact_ripples"
+    ]
+  },
+  "paused": {
+    "phase": "dose",
+    "phaseTime": 0.8333333333333343,
+    "elapsed": 0.8333333333333343,
+    "paused": true,
+    "donorIndex": 1,
+    "donor": {
+      "remaining": 0.06999999999999999,
+      "totalMass_g": 0.12,
+      "solutionVolume_ml": 0.12,
+      "fraction": 0,
+      "doseMode": "dropper",
+      "drops": [
+        {
+          "volume_ml": 0.05,
+          "mass_g": 0.05,
+          "color": "#b91c1c",
+          "releaseAt": 0.75,
+          "arrivalAt": 0.8802775297389125,
+          "flight": {
+            "start": [
+              1.3500000000000005,
+              2.4580869673305776,
+              -0.6500000000000001
+            ],
+            "target": [
+              1.3500000000000005,
+              0.08036173934661162,
+              -0.6500000000000001
+            ],
+            "gravity": 280.18999999999994,
+            "flightTime": 0.13027752973891255
+          },
+          "targetLocal": [
+            4.4010909047936734e-16,
+            -0.96,
+            -1.1002727261984183e-16
+          ],
+          "contents": [
+            {
+              "formula": "H2O",
+              "phase": "l",
+              "mass_g": 0.05,
+              "moles": 0.0027754648903691365
+            }
+          ],
+          "arrived": false
+        }
+      ],
+      "inFlightMass_g": 0.05
+    },
+    "sample": {
+      "mass_g": 0,
+      "volume_ml": 0,
+      "evaporated_ml": 0,
+      "condensateReturned_g": 0,
+      "position": [
+        1.35,
+        1.04,
+        -0.65
+      ],
+      "contents": []
+    },
+    "accountedMass_g": 0.12,
+    "outletTip": [
+      1.3500000000000005,
+      2.4580869673305776,
+      -0.6500000000000001
+    ],
+    "drawn": [
+      {
+        "position": [
+          1.350000023841858,
+          1.485205054283142,
+          -0.6499999761581421
+        ],
+        "radius": 0.06529688090085983
+      }
+    ],
+    "expectedFirstDrop": [
+      1.3500000000000005,
+      1.4852050228861118,
+      -0.6500000000000001
+    ],
+    "rippleVisible": false,
+    "rippleCount": 0,
+    "splashVisible": false,
+    "splashCount": 0,
+    "sharedTransientEffectsMounted": true,
+    "effectNodeNames": [
+      "vessel-transient-effects-auto_receiver",
+      "auto_dropper_1",
+      "auto_dropper_outlet_1",
+      "auto_transfer_stream",
+      "auto_transfer_drops",
+      "auto_drop_impact_splashes",
+      "auto_drop_impact_ripples"
+    ]
+  },
+  "firstImpact": {
+    "phase": "dose",
+    "phaseTime": 0.8833333333333344,
+    "elapsed": 0.8833333333333344,
+    "paused": true,
+    "donorIndex": 1,
+    "donor": {
+      "remaining": 0.06999999999999999,
+      "totalMass_g": 0.12,
+      "solutionVolume_ml": 0.12,
+      "fraction": 0.4166666666666667,
+      "doseMode": "dropper",
+      "drops": [
+        {
+          "volume_ml": 0.05,
+          "mass_g": 0.05,
+          "color": "#b91c1c",
+          "releaseAt": 0.75,
+          "arrivalAt": 0.8802775297389125,
+          "flight": {
+            "start": [
+              1.3500000000000005,
+              2.4580869673305776,
+              -0.6500000000000001
+            ],
+            "target": [
+              1.3500000000000005,
+              0.08036173934661162,
+              -0.6500000000000001
+            ],
+            "gravity": 280.18999999999994,
+            "flightTime": 0.13027752973891255
+          },
+          "targetLocal": [
+            4.4010909047936734e-16,
+            -0.96,
+            -1.1002727261984183e-16
+          ],
+          "contents": [
+            {
+              "formula": "H2O",
+              "phase": "l",
+              "mass_g": 0.05,
+              "moles": 0.0027754648903691365
+            }
+          ],
+          "arrived": true
+        }
+      ],
+      "inFlightMass_g": 0
+    },
+    "sample": {
+      "mass_g": 0.05,
+      "volume_ml": 0.05,
+      "evaporated_ml": 0,
+      "condensateReturned_g": 0,
+      "position": [
+        1.35,
+        1.04,
+        -0.65
+      ],
+      "contents": [
+        {
+          "formula": "H2O",
+          "phase": "l",
+          "mass_g": 0.05,
+          "moles": 0.0027754648903691365,
+          "concentration_M": 55.50929780738273
+        }
+      ],
+      "contact": {
+        "point": [
+          4.4010909047936734e-16,
+          -0.96,
+          -1.1002727261984183e-16
+        ],
+        "remaining_s": 0.25,
+        "expiresAt_ms": 0,
+        "color": "#b91c1c"
+      }
+    },
+    "accountedMass_g": 0.12,
+    "outletTip": [
+      1.3500000000000005,
+      2.4580869673305776,
+      -0.6500000000000001
+    ],
+    "drawn": [],
+    "expectedFirstDrop": [
+      1.3500000000000005,
+      0.08036173934661162,
+      -0.6500000000000001
+    ],
+    "rippleVisible": true,
+    "rippleCount": 1,
+    "splashVisible": true,
+    "splashCount": 8,
+    "sharedTransientEffectsMounted": true,
+    "effectNodeNames": [
+      "vessel-transient-effects-auto_receiver",
+      "auto_dropper_1",
+      "auto_dropper_outlet_1",
+      "auto_transfer_stream",
+      "auto_transfer_drops",
+      "auto_drop_impact_splashes",
+      "auto_drop_impact_ripples"
+    ]
+  },
+  "betweenDrops": {
+    "phase": "dose",
+    "phaseTime": 0.9000000000000011,
+    "elapsed": 0.9000000000000011,
+    "paused": true,
+    "donorIndex": 1,
+    "donor": {
+      "remaining": 0.06999999999999999,
+      "totalMass_g": 0.12,
+      "solutionVolume_ml": 0.12,
+      "fraction": 0.4166666666666667,
+      "doseMode": "dropper",
+      "drops": [
+        {
+          "volume_ml": 0.05,
+          "mass_g": 0.05,
+          "color": "#b91c1c",
+          "releaseAt": 0.75,
+          "arrivalAt": 0.8802775297389125,
+          "flight": {
+            "start": [
+              1.3500000000000005,
+              2.4580869673305776,
+              -0.6500000000000001
+            ],
+            "target": [
+              1.3500000000000005,
+              0.08036173934661162,
+              -0.6500000000000001
+            ],
+            "gravity": 280.18999999999994,
+            "flightTime": 0.13027752973891255
+          },
+          "targetLocal": [
+            4.4010909047936734e-16,
+            -0.96,
+            -1.1002727261984183e-16
+          ],
+          "contents": [
+            {
+              "formula": "H2O",
+              "phase": "l",
+              "mass_g": 0.05,
+              "moles": 0.0027754648903691365
+            }
+          ],
+          "arrived": true
+        }
+      ],
+      "inFlightMass_g": 0
+    },
+    "sample": {
+      "mass_g": 0.049997269896814744,
+      "volume_ml": 0.049997269896814744,
+      "evaporated_ml": 0.0000027301031852565175,
+      "condensateReturned_g": 0,
+      "position": [
+        1.35,
+        1.04,
+        -0.65
+      ],
+      "contents": [
+        {
+          "formula": "H2O",
+          "phase": "l",
+          "mass_g": 0.049997269896814744,
+          "moles": 0.0027753133442583815,
+          "concentration_M": 55.50929780738273
+        }
+      ],
+      "contact": {
+        "point": [
+          4.4010909047936734e-16,
+          -0.96,
+          -1.1002727261984183e-16
+        ],
+        "remaining_s": 0.23333333333333334,
+        "expiresAt_ms": 0,
+        "color": "#b91c1c"
+      }
+    },
+    "accountedMass_g": 0.12,
+    "outletTip": [
+      1.3500000000000005,
+      2.4580869673305776,
+      -0.6500000000000001
+    ],
+    "drawn": [],
+    "expectedFirstDrop": [
+      1.3500000000000005,
+      0.08036173934661162,
+      -0.6500000000000001
+    ],
+    "rippleVisible": true,
+    "rippleCount": 1,
+    "splashVisible": true,
+    "splashCount": 8,
+    "sharedTransientEffectsMounted": true,
+    "effectNodeNames": [
+      "vessel-transient-effects-auto_receiver",
+      "auto_dropper_1",
+      "auto_dropper_outlet_1",
+      "auto_transfer_stream",
+      "auto_transfer_drops",
+      "auto_drop_impact_splashes",
+      "auto_drop_impact_ripples"
+    ]
+  },
+  "finished": {
+    "phase": "return",
+    "phaseTime": 0,
+    "elapsed": 2.083333333333331,
+    "paused": true,
+    "donorIndex": 1,
+    "donor": {
+      "remaining": 0,
+      "totalMass_g": 0.12,
+      "solutionVolume_ml": 0.12,
+      "fraction": 1,
+      "doseMode": "dropper",
+      "drops": [
+        {
+          "volume_ml": 0.05,
+          "mass_g": 0.05,
+          "color": "#b91c1c",
+          "releaseAt": 0.75,
+          "arrivalAt": 0.8802775297389125,
+          "flight": {
+            "start": [
+              1.3500000000000005,
+              2.4580869673305776,
+              -0.6500000000000001
+            ],
+            "target": [
+              1.3500000000000005,
+              0.08036173934661162,
+              -0.6500000000000001
+            ],
+            "gravity": 280.18999999999994,
+            "flightTime": 0.13027752973891255
+          },
+          "targetLocal": [
+            4.4010909047936734e-16,
+            -0.96,
+            -1.1002727261984183e-16
+          ],
+          "contents": [
+            {
+              "formula": "H2O",
+              "phase": "l",
+              "mass_g": 0.05,
+              "moles": 0.0027754648903691365
+            }
+          ],
+          "arrived": true
+        },
+        {
+          "volume_ml": 0.05,
+          "mass_g": 0.05,
+          "color": "#b91c1c",
+          "releaseAt": 1.35,
+          "arrivalAt": 1.480266820144092,
+          "flight": {
+            "start": [
+              1.3500000000000005,
+              2.4580869673305776,
+              -0.6500000000000001
+            ],
+            "target": [
+              1.3500000000000005,
+              0.08075264984623587,
+              -0.6500000000000001
+            ],
+            "gravity": 280.18999999999994,
+            "flightTime": 0.13026682014409197
+          },
+          "targetLocal": [
+            4.4010909047936734e-16,
+            -0.9596125930091691,
+            -1.1002727261984183e-16
+          ],
+          "contents": [
+            {
+              "formula": "H2O",
+              "phase": "l",
+              "mass_g": 0.05,
+              "moles": 0.0027754648903691365
+            }
+          ],
+          "arrived": true
+        },
+        {
+          "volume_ml": 0.01999999999999999,
+          "mass_g": 0.01999999999999999,
+          "color": "#b91c1c",
+          "releaseAt": 1.95,
+          "arrivalAt": 2.080256114344284,
+          "flight": {
+            "start": [
+              1.3500000000000005,
+              2.4580869673305776,
+              -0.6500000000000001
+            ],
+            "target": [
+              1.3500000000000005,
+              0.08114338970482582,
+              -0.6500000000000001
+            ],
+            "gravity": 280.18999999999994,
+            "flightTime": 0.130256114344284
+          },
+          "targetLocal": [
+            4.4010909047936734e-16,
+            -0.9592253551300138,
+            -1.1002727261984183e-16
+          ],
+          "contents": [
+            {
+              "formula": "H2O",
+              "phase": "l",
+              "mass_g": 0.01999999999999999,
+              "moles": 0.0011101859561476546
+            }
+          ],
+          "arrived": true
+        }
+      ],
+      "inFlightMass_g": 0
+    },
+    "sample": {
+      "mass_g": 0.11980355418491531,
+      "volume_ml": 0.11980355418491533,
+      "evaporated_ml": 0.00019644581508464665,
+      "condensateReturned_g": 0,
+      "position": [
+        1.35,
+        1.04,
+        -0.65
+      ],
+      "contents": [
+        {
+          "formula": "H2O",
+          "phase": "l",
+          "mass_g": 0.11980355418491531,
+          "moles": 0.00665021116763338,
+          "concentration_M": 55.509297807382744
+        }
+      ],
+      "contact": {
+        "point": [
+          4.4010909047936734e-16,
+          -0.9592253551300138,
+          -1.1002727261984183e-16
+        ],
+        "remaining_s": 0.25,
+        "expiresAt_ms": 0,
+        "color": "#b91c1c"
+      }
+    },
+    "accountedMass_g": 0.11999999999999995,
+    "outletTip": [
+      1.3500000000000005,
+      2.4580869673305776,
+      -0.6500000000000001
+    ],
+    "drawn": [],
+    "expectedFirstDrop": [
+      1.3500000000000005,
+      0.08036173934661162,
+      -0.6500000000000001
+    ],
+    "rippleVisible": true,
+    "rippleCount": 1,
+    "splashVisible": true,
+    "splashCount": 8,
+    "sharedTransientEffectsMounted": true,
+    "effectNodeNames": [
+      "vessel-transient-effects-auto_receiver",
+      "auto_dropper_1",
+      "auto_dropper_outlet_1",
+      "auto_transfer_stream",
+      "auto_transfer_drops",
+      "auto_drop_impact_splashes",
+      "auto_drop_impact_ripples"
+    ]
+  },
+  "dosePolicy": {
+    "micro": "dropper",
+    "oneMl": "pour",
+    "twoMl": "pour"
+  },
+  "sourceAfter": {
+    "src/handling/dropFlight.ts": "7dff5c20f018d35724d69ddb105d9e397c6beae702b58627a9702923bb071dc5",
+    "src/handling/liquidDosePlan.ts": "386dd6685277d59983d7c2dfd8c749290679d96e70fbbd74de93920ebac5a0f3",
+    "src/vfx/autoplay/AutoExperiment.ts": "63875adc974909d1bf91d4867047558796b380061a31e40ee847f578437d126b",
+    "src/vfx/autoplay/AutoExperimentScene.tsx": "54d4c6706d3b82b41799288dfd454f5376dbd583d5f3c4ee27ac10f0cc7c3f30",
+    "src/vfx/autoplay/autoDonors.ts": "417a59c64a038a9a56ffd251a06fb221feb3fd5c5807740ab3f1a9f78ee9139e",
+    "src/vfx/autoplay/receiverFrame.ts": "0e883ac9c4121c7fc1a6f18a1799cc33913c2d78b46594e23a3251127f62a97f"
+  },
+  "generatedAt": "2026-11-16T11:57:24.653Z"
+}

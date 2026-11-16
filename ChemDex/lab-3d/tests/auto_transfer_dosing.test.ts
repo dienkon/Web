@@ -155,5 +155,6 @@ describe('automatic finite liquid delivery', () => {
     expect(final.plates_g).toBeGreaterThan(0);
     expect(experiment.sample.contents.filter(row => sameMolecularFormula(row.formula, 'PbI2'))
       .reduce((sum, row) => sum + row.moles, 0)).toBeCloseTo(totalMoles, 7);
-  }, 90000);
+    // Natural cooling integrates up to 2,400 simulated seconds on a single worker.
+  }, 180000);
 });

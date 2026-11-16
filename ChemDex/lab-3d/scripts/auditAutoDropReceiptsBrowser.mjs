@@ -6,15 +6,19 @@ import { resolve } from 'node:path';
 
 const output = resolve(process.env.LAB_AUTO_DROP_OUTPUT ?? 'artifacts/auto-drop-receipts');
 const origin = process.env.LAB_AUDIT_ORIGIN ?? 'http://127.0.0.1:6767';
+const fluid = process.env.LAB_AUTO_DROP_FLUID === 'acid'
+  ? { formula: 'HNO3', density_g_ml: 1.41, molarMass: 63.012 }
+  : { formula: 'H2O', density_g_ml: 1, molarMass: 18.015 };
 mkdirSync(output, { recursive: true });
 const sourceFiles = ['src/handling/dropFlight.ts', 'src/handling/liquidDosePlan.ts',
   'src/vfx/autoplay/AutoExperiment.ts', 'src/vfx/autoplay/AutoExperimentScene.tsx',
   'src/vfx/autoplay/autoDonors.ts', 'src/vfx/autoplay/receiverFrame.ts'];
 const fingerprints = () => Object.fromEntries(sourceFiles.map(file => [file,
   createHash('sha256').update(readFileSync(resolve(file))).digest('hex')]));
-const report = { origin, errors: [], assertions: {}, sourceBefore: fingerprints() };
+const report = { origin, fluid, errors: [], assertions: {}, sourceBefore: fingerprints() };
 const browser = await chromium.launch({ headless: true, args: ['--use-angle=swiftshader', '--enable-webgl', '--enable-unsafe-swiftshader'] });
 const page = await browser.newPage({ viewport: { width: 1440, height: 960 } });
+page.setDefaultTimeout(60000);
 await page.routeWebSocket('**', route => {
   const server = route.connectToServer();
   server.onMessage(message => {
@@ -32,6 +36,11 @@ page.on('console', message => {
 });
 const near = (a, b, epsilon = 1e-7) => Math.abs(a - b) <= epsilon;
 const distance = (a, b) => Math.hypot(...a.map((value, axis) => value - b[axis]));
+// These fixtures contain either water or water-free acid. Credit the actual
+// ambient water loss/return before comparing accepted packet inventories.
+const waterLoss = sample => sample.evaporated_ml - sample.condensateReturned_g;
+const deliveredVolume = sample => sample.volume_ml + waterLoss(sample);
+const deliveredMass = sample => sample.mass_g + waterLoss(sample);
 
 async function freeze() {
   await page.evaluate(() => {
@@ -94,6 +103,7 @@ async function capture() {
         solutionVolume_ml: donor.solutionVolume_ml, fraction: donor.fraction, doseMode: donor.doseMode,
         drops: structuredClone(receipts), inFlightMass_g: e.inFlightMass_g },
       sample: { mass_g: e.sample.mass_g, volume_ml: e.sample.volume_ml, evaporated_ml: e.sample.evaporated_ml ?? 0,
+        condensateReturned_g: e.sample.wallCondensation?.returned_g ?? 0,
         position: [...e.sample.position],
         contents: structuredClone(e.sample.contents), contact: structuredClone(e.sample.recentPourContact) },
       accountedMass_g: e.accountedMass_g,
@@ -108,15 +118,15 @@ async function capture() {
 }
 
 async function startMicrodose() {
-  await page.evaluate(() => {
+  await page.evaluate(fluid => {
     const e = window.__autoAudit, index = e.donors.findIndex(item => item.doseMode === 'dropper'), donor = e.donors[index];
     if (index < 0 || !donor) throw new Error('The selected automatic recipe has no initially mounted microdrop donor.');
     window.__autoDropIndex = index;
-    const amount = 0.12;
-    donor.row = { formula: 'H2O', phase: 'l', mass_g: amount, moles: amount / 18.015 };
+    const volume = 0.12, amount = volume * fluid.density_g_ml;
+    donor.row = { formula: fluid.formula, phase: 'l', mass_g: amount, moles: amount / fluid.molarMass };
     donor.components = [{ ...donor.row }];
     donor.color = '#b91c1c'; donor.remaining = amount; donor.totalMass_g = amount;
-    donor.solutionVolume_ml = amount; donor.fraction = 0; donor.doseMode = 'dropper';
+    donor.solutionVolume_ml = volume; donor.fraction = 0; donor.doseMode = 'dropper';
     donor.liquidDrops = []; donor.dropSchedule = undefined; donor.dropFlight = undefined; donor.dropStartedAt = undefined;
     e.donors.forEach((other, otherIndex) => {
       if (otherIndex === index) return;
@@ -127,11 +137,11 @@ async function startMicrodose() {
     e.donorIndex = index; e.phase = 'carry'; e.phaseTime = 2; e.elapsed = 0; e.accumulator = 0;
     e.paused = false; e.speed = 1; e.enter('dose'); e.paused = true;
     window.__autoStore.getState().invalidate();
-  });
+  }, fluid);
 }
 
 try {
-  await page.goto(origin, { waitUntil: 'domcontentloaded' });
+  await page.goto(origin, { waitUntil: 'domcontentloaded', timeout: 90000 });
   await page.getByRole('button', { name: 'Kho hóa chất và dụng cụ', exact: true }).click();
   await page.getByRole('button', { name: 'Thông tin bình và phản ứng', exact: true }).click();
   await page.getByRole('tab', { name: 'Tự động', exact: true }).click();
@@ -167,9 +177,9 @@ try {
   report.assertions.outletMatchesFirstDropPath = !!flight.outletTip && distance(flight.outletTip, first.flight.start) < 1e-5;
   report.assertions.translatedReceiverControlsLanding = near(first.flight.target[0], 1.35, 1e-5)
     && near(first.flight.target[2], -0.65, 1e-5) && near(flight.sample.position[0], 1.35) && near(flight.sample.position[2], -0.65);
-  report.assertions.sourceLeavesAtReleaseDestinationReceivesAtImpact = near(flight.donor.remaining, 0.07, 1e-7)
-    && near(flight.sample.mass_g, 0, 1e-9) && near(flight.donor.inFlightMass_g, 0.05, 1e-7)
-    && near(flight.accountedMass_g, 0.12, 1e-7) && !first.arrived;
+  report.assertions.sourceLeavesAtReleaseDestinationReceivesAtImpact = near(flight.donor.remaining, 0.07 * fluid.density_g_ml, 1e-7)
+    && near(flight.sample.mass_g, 0, 1e-9) && near(flight.donor.inFlightMass_g, 0.05 * fluid.density_g_ml, 1e-7)
+    && near(flight.accountedMass_g, 0.12 * fluid.density_g_ml, 1e-7) && !first.arrived;
   report.assertions.renderedDropMatchesReceipt = flight.drawn.length === 1
     && distance(flight.drawn[0].position, flight.expectedFirstDrop) < 1e-4;
   report.assertions.sharedLabEffectsMounted = flight.sharedTransientEffectsMounted;
@@ -184,12 +194,20 @@ try {
 
   await advanceManual('e.donors[window.__autoDropIndex].liquidDrops?.[0]?.arrived === true', 'First drop never arrived');
   report.firstImpact = await capture();
-  report.assertions.firstDoseOccursAtImpact = near(report.firstImpact.sample.mass_g + report.firstImpact.sample.evaporated_ml, 0.05, 1e-7)
-    && near(report.firstImpact.donor.remaining, 0.07, 1e-7)
+  report.assertions.firstDoseOccursAtImpact = near(report.firstImpact.sample.mass_g + report.firstImpact.sample.evaporated_ml, 0.05 * fluid.density_g_ml, 1e-7)
+    && near(report.firstImpact.sample.volume_ml, 0.05, 1e-7)
+    && near(report.firstImpact.donor.remaining, 0.07 * fluid.density_g_ml, 1e-7)
     && near(report.firstImpact.donor.inFlightMass_g, 0, 1e-7)
-    && near(report.firstImpact.accountedMass_g, 0.12, 1e-7)
+    && near(report.firstImpact.accountedMass_g, 0.12 * fluid.density_g_ml, 1e-7)
     && near(report.firstImpact.donor.fraction, 0.05 / 0.12, 1e-7);
   await page.screenshot({ path: resolve(output, '02-first-drop-arrives.png') });
+
+  await stepFrames(1);
+  report.betweenDrops = await capture();
+  report.assertions.noNewDropPreservesDeliveredInventory = report.betweenDrops.donor.drops.filter(drop => drop.arrived).length === 1
+    && near(deliveredVolume(report.betweenDrops.sample), deliveredVolume(report.firstImpact.sample), 1e-8)
+    && near(deliveredMass(report.betweenDrops.sample), deliveredMass(report.firstImpact.sample), 1e-8)
+    && near(report.betweenDrops.accountedMass_g, report.firstImpact.accountedMass_g, 1e-8);
 
   await advanceManual('e.phase === "return" && e.donors[window.__autoDropIndex].liquidDrops?.length === 3 && e.donors[window.__autoDropIndex].liquidDrops.every(drop => drop.arrived)',
     'Automatic microdose did not finish with three accepted drops');
@@ -198,8 +216,9 @@ try {
   report.assertions.exactPartialDropAndMassConservation = finished.donor.drops.length === 3
     && near(finished.donor.drops[0].volume_ml, 0.05) && near(finished.donor.drops[1].volume_ml, 0.05)
     && near(finished.donor.drops[2].volume_ml, 0.02) && finished.donor.drops.every(drop => drop.arrived)
-    && near(finished.donor.remaining, 0) && near(finished.sample.mass_g + finished.sample.evaporated_ml, 0.12, 1e-7)
-    && near(finished.donor.inFlightMass_g, 0, 1e-7) && near(finished.accountedMass_g, 0.12, 1e-7);
+    && near(finished.donor.remaining, 0) && near(deliveredMass(finished.sample), 0.12 * fluid.density_g_ml, 1e-7)
+    && near(deliveredVolume(finished.sample), 0.12, 1e-7)
+    && near(finished.donor.inFlightMass_g, 0, 1e-7) && near(finished.accountedMass_g, 0.12 * fluid.density_g_ml, 1e-7);
   report.assertions.lastImpactPersistsThroughReturn = finished.phase === 'return' && finished.rippleVisible && finished.rippleCount > 0;
   report.assertions.sharedRendererRetainsEffects = finished.sharedTransientEffectsMounted;
   await page.screenshot({ path: resolve(output, '03-final-impact-persists-in-return.png') });

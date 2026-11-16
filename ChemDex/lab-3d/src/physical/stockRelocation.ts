@@ -16,6 +16,17 @@ export function relocationMovesLockedVessel(before: Record<string, VesselState>,
   return Object.entries(after).some(([id, vessel]) => before[id]?.isLocked && positionChanged(before[id], vessel));
 }
 
+/** A receiving vessel must stay under an already released stock dose until
+ * its contact transactions finish. Chemistry-only updates remain allowed. */
+export function relocationMovesVessel(before: Record<string, VesselState>, after: Record<string, VesselState>, id: string): boolean {
+  const previous = before[id], next = after[id];
+  if (!previous || !next) return false;
+  return positionChanged(previous, next) || (previous.rotationY ?? 0) !== (next.rotationY ?? 0)
+    || (previous.rotationZ ?? 0) !== (next.rotationZ ?? 0)
+    || (previous.physicalMotion?.rotation ?? [0, 0, 0, 1])
+      .some((coordinate, axis) => coordinate !== (next.physicalMotion?.rotation ?? [0, 0, 0, 1])[axis]);
+}
+
 /** Button placement changes the glass immediately. Move the same finite
  * macrostock poses with it, without inventing a flight or changing inventory.
  * Active pointer carries stay with the existing recorded worker boundary path.

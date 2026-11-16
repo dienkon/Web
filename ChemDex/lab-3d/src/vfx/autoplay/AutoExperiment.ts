@@ -373,10 +373,11 @@ export class AutoExperiment {
       donor.remaining = Math.max(0, donor.totalMass_g - (donor.solid
         ? donor.totalMass_g * donor.solid.released / donor.solid.pieces.length
         : releasedMass ?? donor.totalMass_g * fraction));
-      const fluid = contents.filter(c => c.phase === 'aq' || c.phase === 'l').reduce((sum, c) => sum + c.mass_g, 0);
-      const volume_ml = fluid / (this.baseline.density_g_ml ?? 1);
+      // Thermal/chemical steps and accepted liquid packets own liquid volume.
+      // Recasting resident grams as millilitres here changes dense/light stocks
+      // even between arrivals, and solid/gas additions cannot repair that loss.
       this.sample = { ...this.sample, contents, substances: contents.map(c => c.formula),
-        mass_g: contents.reduce((sum, c) => sum + c.mass_g, 0), volume_ml, volume: volume_ml / this.sample.capacity_ml,
+        mass_g: contents.reduce((sum, c) => sum + c.mass_g, 0),
         liquidColor: this.sample.liquidColor };
       if (portion > 0 && ['aq', 'l'].includes(donor.row.phase ?? '')) {
         if (liquidArrivals) {

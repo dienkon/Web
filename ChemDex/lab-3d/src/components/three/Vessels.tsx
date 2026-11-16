@@ -2497,7 +2497,8 @@ export const MortarPestle = React.memo(function MortarPestle({ position, id }: {
   const grindMortar = useAppStore(state => state.grindMortar);
 
   const [tiltAngle, setTiltAngle] = useState(0);
-  const [grindTimer, setGrindTimer] = useState(0);
+  const grindTimer = useRef(0);
+  const pestleTime = useRef(0);
   const groupRef = useRef<THREE.Group>(null);
   const pestleRef = useRef<THREE.Group>(null);
 
@@ -2505,13 +2506,13 @@ export const MortarPestle = React.memo(function MortarPestle({ position, id }: {
   const ceramicMats = useMemo(() => getCeramicMaterials(effectiveTier), [effectiveTier]);
   const latheGeom = useMemo(() => createVesselLatheGeometry('mortar_pestle', 36), []);
 
-  useFrame((state, delta) => {
+  useFrame((_, delta) => {
+    const dt = simulationFrameDt(delta, useAppStore.getState());
+    pestleTime.current += dt;
     if (tiltAngle > 0 && !isSelected && !isHovered) {
       setTiltAngle(prev => Math.max(0, prev - delta * 2.5));
     }
-    if (grindTimer > 0) {
-      setGrindTimer(prev => Math.max(0, prev - delta));
-    }
+    grindTimer.current = Math.max(0, grindTimer.current - dt);
 
     if (groupRef.current) {
       const session = PourController.getSession();
@@ -2526,9 +2527,9 @@ export const MortarPestle = React.memo(function MortarPestle({ position, id }: {
     }
 
     if (pestleRef.current) {
-      if (grindTimer > 0) {
+      if (grindTimer.current > 0) {
         // High-speed energetic circular grinding animation against bowl basin
-        const t = state.clock.elapsedTime * 18;
+        const t = pestleTime.current * 18;
         const radius = 0.22 + Math.sin(t * 0.5) * 0.08;
         pestleRef.current.position.x = Math.cos(t) * radius;
         pestleRef.current.position.z = Math.sin(t) * radius;
@@ -2537,7 +2538,7 @@ export const MortarPestle = React.memo(function MortarPestle({ position, id }: {
         pestleRef.current.rotation.z = -0.38 + Math.cos(t) * 0.12;
         pestleRef.current.rotation.x = Math.sin(t) * 0.12;
       } else if (isSelected || isHovered) {
-        const t = state.clock.elapsedTime * 5;
+        const t = pestleTime.current * 5;
         pestleRef.current.position.x = 0.15 + Math.cos(t) * 0.10;
         pestleRef.current.position.y = 0.22;
         pestleRef.current.position.z = Math.sin(t) * 0.10;
@@ -2590,12 +2591,13 @@ export const MortarPestle = React.memo(function MortarPestle({ position, id }: {
           {/* Porcelain Pestle Rod */}
           <group 
             ref={pestleRef} 
+            name={`mortar-pestle-${id}`}
             position={[0.18, 0.22, 0]} 
             rotation={[0.12, 0, -0.38]}
             onClick={(e) => { 
               e.stopPropagation(); 
               grindMortar(id); 
-              setGrindTimer(1.8);
+              grindTimer.current = 1.8;
             }}
             onPointerOver={(e) => { 
               e.stopPropagation(); 

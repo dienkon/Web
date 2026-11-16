@@ -119,7 +119,7 @@ import { programPlayer } from '../vfx/programs/player/ProgramPlayer';
 import { benchObstacles, findBenchPosition } from '../core/benchPlacement';
 import { useToolDockStore } from '../handling/toolDockState';
 import { moveCarriedVesselIds } from '../physical/carriedVessels';
-import { relocateVesselStocks, relocationMovesLockedVessel } from '../physical/stockRelocation';
+import { relocateVesselStocks, relocationMovesLockedVessel, relocationMovesVessel } from '../physical/stockRelocation';
 import { instrumentHome } from '../handling/instrumentCatalog';
 import { advanceInstrumentRinse, collectRinseWaste, isRinseWater, pipetteHasRinseSample, RINSE_VOLUME_ML,
   type RinseSession, type RinseTool } from '../handling/instrumentRinse';
@@ -703,8 +703,24 @@ export const useAppStore = create<AppState>((set, get) => {
       const stop = useAppStore.subscribe(state => { if (!waiting(state)) { stop(); resolve(); } });
     });
   };
+  // A cancelled animation may still have a contacted resolver in flight.
+  // Keep only its receiver stationary; do not cancel or replay its finite dose.
+  const resolvingStockReceivers = new Map<number, string>();
+  const stockDoseBlocksRelocation = (state: AppState, updated: Record<string, VesselState>) => {
+    const active = state.pouringChemical?.targetId;
+    return (!!active && relocationMovesVessel(state.vessels, updated, active))
+      || [...resolvingStockReceivers.values()].some(id => relocationMovesVessel(state.vessels, updated, id));
+  };
+  const stockDoseBlocksDrag = (state: AppState, id: string) => {
+    const carried = moveCarriedVesselIds({ ...state, moveMode: true, draggingVesselId: id });
+    return (!!state.pouringChemical && carried.has(state.pouringChemical.targetId))
+      || [...resolvingStockReceivers.values()].some(targetId => carried.has(targetId));
+  };
+  const movingStockReceiver = (state: AppState, targetId: string) => !!state.draggingVesselId
+    && moveCarriedVesselIds({ ...state, moveMode: true }).has(targetId);
   const animatedDoses = new AnimatedDoseQueue(
     async job => {
+      resolvingStockReceivers.set(job.id, job.targetId);
       const epoch = get().pourEpoch;
       // Contact callbacks stop with the simulation clock. Jobs queued behind a
       // slow resolver must also wait, or pause would still add their matter.
@@ -728,10 +744,14 @@ export const useAppStore = create<AppState>((set, get) => {
     },
     error => set({ mixError: error instanceof Error ? error.message : String(error) }),
     (job, accepted) => {
+      resolvingStockReceivers.delete(job.id);
       if (!accepted) get().clearPour(job.id);
       returnSpatulaSample(spatulaDoses.settle(job.id, job.amount, accepted));
     },
-    busy => set({ stockDosePending: busy }),
+    busy => {
+      if (!busy) resolvingStockReceivers.clear();
+      set({ stockDosePending: busy });
+    },
   );
   const invalidateStockDoses = () => {
     animatedDoses.reset(); spatulaDoses.clear();
@@ -2762,7 +2782,7 @@ export const useAppStore = create<AppState>((set, get) => {
           }
         }
 
-        if (relocationMovesLockedVessel(s.vessels, updated)) return s;
+        if (relocationMovesLockedVessel(s.vessels, updated) || stockDoseBlocksRelocation(s, updated)) return s;
         if (state.position) updated = relocateVesselStocks(s.vessels, updated, moveCarriedVesselIds(s));
         debounceSaveLocalState(updated, s.burners);
         if (state.contents && state.contents !== currentVessel.contents) {
@@ -2925,6 +2945,7 @@ export const useAppStore = create<AppState>((set, get) => {
           ...s.vessels,
           [id]: { ...s.vessels[id], rotationY: (s.vessels[id].rotationY + angleDeltaRad) % (Math.PI * 2) }
         };
+        if (stockDoseBlocksRelocation(s, updated)) return s;
         debounceSaveLocalState(updated, s.burners);
         return { vessels: updated };
       });
@@ -3204,6 +3225,7 @@ export const useAppStore = create<AppState>((set, get) => {
           [rackId]: { ...rack, slottedTestTubeIds: newSlotted },
           [tubeId]: { ...tube, position: [slotX, slotY, slotZ] as [number, number, number] }
         };
+        if (stockDoseBlocksRelocation(s, updated)) return s;
         updated = relocateVesselStocks(s.vessels, updated, moveCarriedVesselIds(s));
         debounceSaveLocalState(updated, s.burners);
         return { vessels: updated };
@@ -3225,6 +3247,7 @@ export const useAppStore = create<AppState>((set, get) => {
             position: [rack.position[0] + 0.6, -0.135, rack.position[2] + 0.5] as [number, number, number]
           }
         };
+        if (stockDoseBlocksRelocation(s, updated)) return s;
         updated = relocateVesselStocks(s.vessels, updated, moveCarriedVesselIds(s));
         debounceSaveLocalState(updated, s.burners);
         return { vessels: updated };
@@ -3260,6 +3283,7 @@ export const useAppStore = create<AppState>((set, get) => {
             },
             [targetVesselId]: { ...target, heldByTongsId: tongsId }
           };
+          if (stockDoseBlocksRelocation(s, updated)) return s;
           updated = relocateVesselStocks(s.vessels, updated, moveCarriedVesselIds(s));
           debounceSaveLocalState(updated, s.burners);
           return { vessels: updated };
@@ -3405,6 +3429,7 @@ export const useAppStore = create<AppState>((set, get) => {
       let vessels = { ...state.vessels, [vesselId]: { ...vessel,
         position: [plate.position[0], plate.position[1] + PLATE_TOP_Y, plate.position[2]] as [number, number, number],
         rotationZ: 0, physicalMotion: undefined } };
+      if (stockDoseBlocksRelocation(state, vessels)) return false;
       vessels = relocateVesselStocks(state.vessels, vessels, moveCarriedVesselIds(state));
       set({ vessels, globalWarning: null });
       debounceSaveLocalState(vessels, state.burners);
@@ -3680,6 +3705,9 @@ export const useAppStore = create<AppState>((set, get) => {
     pouringChemical: null,
     stockDosePending: false,
     triggerPour: (chemical, targetId, amount) => {
+      if (movingStockReceiver(get(), targetId)) {
+        set({ mixError: uiText('Đặt bình nhận xuống trước khi cấp hóa chất.') }); return;
+      }
       if (get().instrumentRinse?.bottleId === targetId) {
         set({ mixError: uiText('Dừng rửa dụng cụ trước khi thêm hóa chất vào bình cấp nước.') }); return;
       }
@@ -3692,6 +3720,9 @@ export const useAppStore = create<AppState>((set, get) => {
     },
     beginSpatulaDose: targetId => {
       const state = get(), target = state.vessels[targetId], sample = state.spatulaState;
+      if (movingStockReceiver(state, targetId)) {
+        set({ mixError: uiText('Đặt bình nhận xuống trước khi cấp hóa chất.') }); return false;
+      }
       if (state.pouringChemical || spatulaDoses.occupied || state.instrumentRinse?.tool === 'spatula' || state.moveMode || state.isSimulationPaused
         || !target || target.isShattered || target.isSealed || target.isLocked || target.capacity_ml <= 0
         || targetId.startsWith('lesson_vessel_') || !sample.chemical || !Number.isFinite(sample.mass_g) || sample.mass_g <= 0
@@ -4050,6 +4081,10 @@ export const useAppStore = create<AppState>((set, get) => {
     draggingVesselId: null,
     setDraggingVesselId: (id) => {
       if (get().draggingVesselId === id) return;
+      if (id && stockDoseBlocksDrag(get(), id)) {
+        set({ mixError: uiText('Chờ cấp hóa chất xong rồi di chuyển bình nhận.') });
+        return;
+      }
       set({ draggingVesselId: id });
     },
     updateVesselPosition: (id, pos) => {
@@ -4148,7 +4183,7 @@ export const useAppStore = create<AppState>((set, get) => {
         }
       }
 
-      if (relocationMovesLockedVessel(s.vessels, updated)) return s;
+      if (relocationMovesLockedVessel(s.vessels, updated) || stockDoseBlocksRelocation(s, updated)) return s;
       updated = relocateVesselStocks(s.vessels, updated, moveCarriedVesselIds(s));
       debounceSaveLocalState(updated, s.burners);
       return { vessels: updated };
