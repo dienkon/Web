@@ -286,6 +286,114 @@ export async function probeVideoDurationApi(
  * Pure helper: Parses a video URL (YouTube, Google Drive, MP4/Cloudinary, Archive Iframe) into protected embed config.
  * NOTE: YouTube embed URLs require referrerPolicy="strict-origin-when-cross-origin" (never no-referrer) to avoid Error 153.
  */
+export const VIDEO_SPEED_OPTIONS = [0.5, 0.75, 1, 1.25, 1.5, 1.75, 2] as const;
+
+export type VideoQualityValue =
+  | "auto"
+  | "hd2160"
+  | "hd1440"
+  | "hd1080"
+  | "hd720"
+  | "large"
+  | "medium"
+  | "small"
+  | "tiny";
+
+export interface VideoQualityOption {
+  value: VideoQualityValue;
+  label: string;
+  shortLabel: string;
+  badge?: string;
+  maxWidth?: number;
+}
+
+export const CLOUDINARY_QUALITY_OPTIONS: VideoQualityOption[] = [
+  { value: "auto", label: "Tự động (Gốc)", shortLabel: "Auto" },
+  { value: "hd1080", label: "1080p", shortLabel: "1080p", badge: "HD", maxWidth: 1920 },
+  { value: "hd720", label: "720p", shortLabel: "720p", badge: "HD", maxWidth: 1280 },
+  { value: "large", label: "480p", shortLabel: "480p", maxWidth: 854 },
+  { value: "medium", label: "360p", shortLabel: "360p", maxWidth: 640 },
+];
+
+export const DEFAULT_YOUTUBE_QUALITY_OPTIONS: VideoQualityOption[] = [
+  { value: "auto", label: "Tự động", shortLabel: "Auto" },
+  { value: "hd1080", label: "1080p", shortLabel: "1080p", badge: "HD" },
+  { value: "hd720", label: "720p", shortLabel: "720p", badge: "HD" },
+  { value: "large", label: "480p", shortLabel: "480p" },
+  { value: "medium", label: "360p", shortLabel: "360p" },
+  { value: "small", label: "240p", shortLabel: "240p" },
+];
+
+export function formatQualityLabel(quality: string): {
+  value: VideoQualityValue;
+  label: string;
+  shortLabel: string;
+  badge?: string;
+} {
+  switch (String(quality || "").toLowerCase()) {
+    case "hd2160":
+      return { value: "hd2160", label: "2160p", shortLabel: "4K", badge: "4K" };
+    case "hd1440":
+      return { value: "hd1440", label: "1440p", shortLabel: "2K", badge: "2K" };
+    case "hd1080":
+      return { value: "hd1080", label: "1080p", shortLabel: "1080p", badge: "HD" };
+    case "hd720":
+      return { value: "hd720", label: "720p", shortLabel: "720p", badge: "HD" };
+    case "large":
+      return { value: "large", label: "480p", shortLabel: "480p" };
+    case "medium":
+      return { value: "medium", label: "360p", shortLabel: "360p" };
+    case "small":
+      return { value: "small", label: "240p", shortLabel: "240p" };
+    case "tiny":
+      return { value: "tiny", label: "144p", shortLabel: "144p" };
+    case "auto":
+    case "default":
+    default:
+      return { value: "auto", label: "Tự động", shortLabel: "Auto" };
+  }
+}
+
+export function isCloudinaryVideoUrl(rawUrl: string): boolean {
+  return /^https?:\/\/res\.cloudinary\.com\/[^/]+\/video\/upload\//i.test(String(rawUrl || "").trim());
+}
+
+/**
+ * Pure helper: Builds a Cloudinary responsive video URL for the requested quality preset while preserving original URL when quality === "auto".
+ */
+export function buildCloudinaryQualityUrl(rawUrl: string, quality: VideoQualityValue): string {
+  const clean = String(rawUrl || "").trim();
+  if (!clean || quality === "auto" || !isCloudinaryVideoUrl(clean)) return clean;
+
+  const opt = CLOUDINARY_QUALITY_OPTIONS.find((o) => o.value === quality);
+  if (!opt?.maxWidth) return clean;
+
+  const match = clean.match(/^(https?:\/\/res\.cloudinary\.com\/[^/]+\/video\/upload\/)(.+)$/i);
+  if (!match) return clean;
+  const [, prefix, rest] = match;
+
+  // Separate versioned tail (/v12345/folder/video.mp4) if present so width transform is injected cleanly before version/asset
+  const parts = rest.split("/");
+  const vIdx = parts.findIndex((p) => /^v\d+$/i.test(p));
+  const newTx = `w_${opt.maxWidth},c_limit,q_auto`;
+  const stripQualityTokens = (seg: string) =>
+    seg
+      .split(",")
+      .filter((t) => !/^(?:w_|c_|q_)/i.test(t.trim()))
+      .join(",");
+
+  if (vIdx >= 0) {
+    const preserved = parts.slice(0, vIdx).map(stripQualityTokens).filter(Boolean);
+    return `${prefix}${[...preserved, newTx, ...parts.slice(vIdx)].join("/")}`;
+  }
+  if (parts.length > 1 && !/\./.test(parts[0])) {
+    const assetTail = parts[parts.length - 1];
+    const preserved = parts.slice(0, -1).map(stripQualityTokens).filter(Boolean);
+    return `${prefix}${[...preserved, newTx, assetTail].join("/")}`;
+  }
+  return `${prefix}${newTx}/${rest}`;
+}
+
 export function parseVideoSource(
   rawUrl: string,
   preferredType?: CourseVideoType

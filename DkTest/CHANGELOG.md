@@ -1,5 +1,12 @@
 # DkTEST changelog
 
+## 1.9.3 — 2026-11-17 (Android versionCode 9)
+
+- Nâng cấp trình phát nhúng **`DkCourseVideoPlayer`** (`src/components/course/DkCourseVideoPlayer.tsx`, `src/services/courseService.ts`): thay nút bấm xoay vòng tốc độ đơn điệu thành **2 menu danh sách thả nổi (popover list)** ngay trên thanh điều khiển:
+  - **Độ phân giải (Resolution)**: hỗ trợ chọn trực tiếp từ danh sách (`Tự động`, `1080p HD`, `720p HD`, `480p`, `360p`, `240p`), tự đồng bộ `getAvailableQualityLevels()` / `setPlaybackQuality()` + giữ nguyên mốc giây với YouTube `YT.Player`, chuyển luồng transcode động Cloudinary (`buildCloudinaryQualityUrl` giữ đúng vị trí `currentTime` & tốc độ đang phát, tự fallback nếu lỗi), và hiển thị đúng độ phân giải gốc (`videoHeight`) cho file MP4 trực tiếp.
+  - **Tốc độ phát (Playback Speed)**: mở danh sách chọn nhanh **`0.5x` → `0.75x` → `1x (Chuẩn)` → `1.25x` → `1.5x` → `1.75x` → `2x`**, đồng bộ trạng thái xuyên suốt khi chuyển chất lượng hoặc sang video kế tiếp, cuộn mượt trên màn hình mobile chiều cao hẹp và đóng gọn khi nhấn ra ngoài / phím `Escape`.
+- Audit: [1.9.3](docs/audits/1.9.3.md).
+
 ## 1.9.2 — 2026-11-17 (Android versionCode 8)
 
 - Fix lỗi `403 Bạn không có quyền quản trị` khi đăng nhập Admin bằng "Mã quản trị nhanh" (`AdminLogin.tsx`, `AuthContext.tsx`, `RequireAuth.tsx`, `POST /api/auth/admin-password-login`): yêu cầu và cấp phiên Firebase Auth thật (`customToken` / email-password admin) cho mọi route `/admin/*`, xóa cơ chế giả lập `admin_local` chỉ nằm ở `localStorage`.

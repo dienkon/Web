@@ -1,14 +1,18 @@
 import { describe, it, expect } from "vitest";
 import {
+  buildCloudinaryQualityUrl,
   buildCourseHierarchy,
   buildCourseOutlineAndStats,
   buildCourseShareUrl,
   computeLessonAccessState,
   formatDurationClock,
+  formatQualityLabel,
+  isCloudinaryVideoUrl,
   isLessonEffectivelyFree,
   maskVideoUrlDisplay,
   parseVideoSource,
   resolveCourseAccessMode,
+  VIDEO_SPEED_OPTIONS,
 } from "./courseService";
 import type { Course, CourseLesson } from "../types";
 
@@ -167,6 +171,45 @@ describe("courseService pure access, hierarchy, masking & outline helpers", () =
       expect(courseUrl).toMatch(/\/student\/courses\/course_123$/);
       const lessonUrl = buildCourseShareUrl("course_123", "les_9");
       expect(lessonUrl).toMatch(/\/student\/courses\/course_123\?lesson=les_9$/);
+    });
+  });
+
+  describe("video resolution & playback speed list helpers", () => {
+    it("exposes standard ordered speed options and human-readable quality labels", () => {
+      expect(VIDEO_SPEED_OPTIONS).toEqual([0.5, 0.75, 1, 1.25, 1.5, 1.75, 2]);
+      expect(formatQualityLabel("auto")).toEqual({
+        value: "auto",
+        label: "Tự động",
+        shortLabel: "Auto",
+      });
+      expect(formatQualityLabel("hd1080")).toEqual({
+        value: "hd1080",
+        label: "1080p",
+        shortLabel: "1080p",
+        badge: "HD",
+      });
+      expect(formatQualityLabel("large")).toEqual({
+        value: "large",
+        label: "480p",
+        shortLabel: "480p",
+      });
+    });
+
+    it("detects Cloudinary video URLs and rewrites clean width/quality transforms safely", () => {
+      const raw = "https://res.cloudinary.com/demo/video/upload/v170000/lectures/math.mp4";
+      expect(isCloudinaryVideoUrl(raw)).toBe(true);
+      expect(isCloudinaryVideoUrl("https://cdn.example.com/math.mp4")).toBe(false);
+
+      expect(buildCloudinaryQualityUrl(raw, "auto")).toBe(raw);
+      expect(buildCloudinaryQualityUrl(raw, "hd720")).toBe(
+        "https://res.cloudinary.com/demo/video/upload/w_1280,c_limit,q_auto/v170000/lectures/math.mp4"
+      );
+
+      const preTransformed =
+        "https://res.cloudinary.com/demo/video/upload/f_mp4,w_1920,q_90/v170000/lectures/math.mp4";
+      expect(buildCloudinaryQualityUrl(preTransformed, "medium")).toBe(
+        "https://res.cloudinary.com/demo/video/upload/f_mp4/w_640,c_limit,q_auto/v170000/lectures/math.mp4"
+      );
     });
   });
 

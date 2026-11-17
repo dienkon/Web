@@ -1,5 +1,8 @@
 import React, { useEffect, useMemo, useRef, useState } from "react";
 import {
+  Check,
+  ChevronUp,
+  Gauge,
   Maximize2,
   Minimize2,
   Pause,
@@ -7,10 +10,22 @@ import {
   RotateCcw,
   RotateCw,
   ShieldCheck,
+  SlidersHorizontal,
   Volume2,
   VolumeX,
 } from "lucide-react";
-import { formatDurationClock, parseVideoSource } from "../../services/courseService";
+import {
+  buildCloudinaryQualityUrl,
+  CLOUDINARY_QUALITY_OPTIONS,
+  DEFAULT_YOUTUBE_QUALITY_OPTIONS,
+  formatDurationClock,
+  formatQualityLabel,
+  isCloudinaryVideoUrl,
+  parseVideoSource,
+  VIDEO_SPEED_OPTIONS,
+  type VideoQualityOption,
+  type VideoQualityValue,
+} from "../../services/courseService";
 import type { CourseVideoType } from "../../types";
 import { safeExitFullscreen, safeRequestFullscreen } from "../../utils/mobileCompat";
 
@@ -67,8 +82,6 @@ function loadYouTubeIframeApi(): Promise<any> {
   return ytApiPromise;
 }
 
-const SPEED_OPTIONS = [0.75, 1, 1.25, 1.5, 2];
-
 export default function DkCourseVideoPlayer({
   lessonId,
   title,
@@ -80,32 +93,53 @@ export default function DkCourseVideoPlayer({
   onWatchProgress,
 }: DkCourseVideoPlayerProps) {
   const containerRef = useRef<HTMLDivElement | null>(null);
+  const controlsMenuAreaRef = useRef<HTMLDivElement | null>(null);
   const htmlVideoRef = useRef<HTMLVideoElement | null>(null);
   const ytHostRef = useRef<HTMLDivElement | null>(null);
   const ytPlayerRef = useRef<any>(null);
 
   const parsed = useMemo(() => parseVideoSource(videoUrl, videoType), [videoUrl, videoType]);
+  const isCloudinary = useMemo(
+    () => parsed.kind === "video" && isCloudinaryVideoUrl(parsed.embedUrl),
+    [parsed.kind, parsed.embedUrl]
+  );
 
   const [isPlaying, setIsPlaying] = useState(false);
   const [currentSec, setCurrentSec] = useState(0);
   const [durationSec, setDurationSec] = useState(knownDurationSeconds || 0);
-  const [playbackRate, setPlaybackRate] = useState(1);
+  const [playbackRate, setPlaybackRate] = useState<number>(1);
+  const [selectedQuality, setSelectedQuality] = useState<VideoQualityValue>("auto");
+  const [availableYtQualities, setAvailableYtQualities] = useState<VideoQualityOption[]>(
+    DEFAULT_YOUTUBE_QUALITY_OPTIONS
+  );
+  const [actualYtQuality, setActualYtQuality] = useState<string>("");
+  const [nativeVideoHeight, setNativeVideoHeight] = useState<number>(0);
+  const [openMenu, setOpenMenu] = useState<"none" | "quality" | "speed">("none");
   const [muted, setMuted] = useState(false);
-  const [volume, setVolume] = useState(100);
+  const [volume] = useState(100);
   const [isFullscreen, setIsFullscreen] = useState(false);
   const [ytApiFallback, setYtApiFallback] = useState(false);
   const [showCenterIcon, setShowCenterIcon] = useState(true);
 
   const durationNotifiedRef = useRef(false);
   const driveTimerRef = useRef(0);
+  const pendingHtmlResumeRef = useRef<{ time: number; playing: boolean; rate: number } | null>(null);
+  const playbackRateRef = useRef(playbackRate);
+  playbackRateRef.current = playbackRate;
 
   useEffect(() => {
     durationNotifiedRef.current = false;
+    pendingHtmlResumeRef.current = null;
     setCurrentSec(initialSeconds > 0 ? initialSeconds : 0);
     setDurationSec(knownDurationSeconds || 0);
     setIsPlaying(false);
     setYtApiFallback(false);
     setShowCenterIcon(true);
+    setSelectedQuality("auto");
+    setAvailableYtQualities(DEFAULT_YOUTUBE_QUALITY_OPTIONS);
+    setActualYtQuality("");
+    setNativeVideoHeight(0);
+    setOpenMenu("none");
     driveTimerRef.current = initialSeconds > 0 ? initialSeconds : 0;
   }, [lessonId, videoUrl, knownDurationSeconds, initialSeconds]);
 
@@ -116,16 +150,56 @@ export default function DkCourseVideoPlayer({
     return () => document.removeEventListener("fullscreenchange", onFs);
   }, []);
 
+  // Close open speed/quality dropdown when clicking outside menu controls
+  useEffect(() => {
+    if (openMenu === "none") return;
+    const handlePointerDown = (e: MouseEvent | TouchEvent) => {
+      const target = e.target as Node | null;
+      if (controlsMenuAreaRef.current && target && controlsMenuAreaRef.current.contains(target)) {
+        return;
+      }
+      setOpenMenu("none");
+    };
+    document.addEventListener("mousedown", handlePointerDown);
+    document.addEventListener("touchstart", handlePointerDown);
+    return () => {
+      document.removeEventListener("mousedown", handlePointerDown);
+      document.removeEventListener("touchstart", handlePointerDown);
+    };
+  }, [openMenu]);
+
   // YouTube IFrame API custom DkTEST controller (controls=0 + strict-origin-when-cross-origin avoids Error 153)
   useEffect(() => {
     if (parsed.kind !== "youtube" || !parsed.youtubeId) return;
     let active = true;
     let pollTimer: any = null;
 
+    const syncYtMetadata = (player: any) => {
+      if (!active || !player) return;
+      try {
+        const levels: string[] = player.getAvailableQualityLevels?.() || [];
+        if (Array.isArray(levels) && levels.length > 0) {
+          const mapped: VideoQualityOption[] = [{ value: "auto", label: "Tự động", shortLabel: "Auto" }];
+          const seen = new Set<string>(["auto"]);
+          for (const rawLevel of levels) {
+            const info = formatQualityLabel(rawLevel);
+            if (!seen.has(info.value)) {
+              seen.add(info.value);
+              mapped.push(info);
+            }
+          }
+          setAvailableYtQualities(mapped);
+        }
+        const currentQ = player.getPlaybackQuality?.();
+        if (currentQ && currentQ !== "unknown") {
+          setActualYtQuality(currentQ);
+        }
+      } catch {}
+    };
+
     loadYouTubeIframeApi()
       .then((YT) => {
         if (!active || !ytHostRef.current || !YT?.Player) return;
-        // Clear host node before mounting player
         ytHostRef.current.innerHTML = "";
         const mountNode = document.createElement("div");
         ytHostRef.current.appendChild(mountNode);
@@ -163,10 +237,21 @@ export default function DkCourseVideoPlayer({
                     onDetectedDuration?.(d);
                   }
                 }
+                if (playbackRateRef.current !== 1) {
+                  e.target.setPlaybackRate?.(playbackRateRef.current);
+                }
                 if (initialSeconds > 5 && d > 0 && initialSeconds < d - 5) {
                   e.target.seekTo(initialSeconds, true);
                 }
+                syncYtMetadata(e.target);
               } catch {}
+            },
+            onPlaybackQualityChange: (e: any) => {
+              if (!active) return;
+              if (e?.data && e.data !== "unknown") {
+                setActualYtQuality(String(e.data));
+              }
+              syncYtMetadata(e.target);
             },
             onStateChange: (e: any) => {
               if (!active) return;
@@ -174,6 +259,7 @@ export default function DkCourseVideoPlayer({
               if (state === 1) {
                 setIsPlaying(true);
                 setShowCenterIcon(false);
+                syncYtMetadata(e.target);
               } else if (state === 2) {
                 setIsPlaying(false);
               } else if (state === 0) {
@@ -222,7 +308,7 @@ export default function DkCourseVideoPlayer({
     };
   }, [parsed.kind, parsed.youtubeId]);
 
-  // Active viewing tracker for Drive / External Iframe embeds (cannot inspect cross-origin currentTime directly)
+  // Active viewing tracker for Drive / External Iframe embeds
   useEffect(() => {
     if (parsed.kind !== "iframe" && !(parsed.kind === "youtube" && ytApiFallback)) return;
     const total = knownDurationSeconds > 0 ? knownDurationSeconds : 0;
@@ -237,7 +323,46 @@ export default function DkCourseVideoPlayer({
     return () => clearInterval(iv);
   }, [parsed.kind, ytApiFallback, knownDurationSeconds, onWatchProgress]);
 
+  const activeHtmlVideoSrc = useMemo(() => {
+    if (parsed.kind !== "video") return "";
+    if (isCloudinary) {
+      return buildCloudinaryQualityUrl(parsed.embedUrl, selectedQuality);
+    }
+    return parsed.embedUrl;
+  }, [parsed.kind, parsed.embedUrl, isCloudinary, selectedQuality]);
+
+  const qualityOptions: VideoQualityOption[] = useMemo(() => {
+    if (parsed.kind === "youtube") return availableYtQualities;
+    if (isCloudinary) return CLOUDINARY_QUALITY_OPTIONS;
+    const nativeBadge = nativeVideoHeight >= 720 ? "HD" : undefined;
+    return [
+      {
+        value: "auto",
+        label: nativeVideoHeight > 0 ? `Bản gốc (${nativeVideoHeight}p)` : "Tự động (Gốc)",
+        shortLabel: nativeVideoHeight > 0 ? `${nativeVideoHeight}p` : "Gốc",
+        badge: nativeBadge,
+      },
+    ];
+  }, [parsed.kind, availableYtQualities, isCloudinary, nativeVideoHeight]);
+
+  const activeQualityLabel = useMemo(() => {
+    if (selectedQuality === "auto") {
+      if (parsed.kind === "youtube" && actualYtQuality) {
+        return formatQualityLabel(actualYtQuality).shortLabel;
+      }
+      if (!isCloudinary && parsed.kind === "video" && nativeVideoHeight > 0) {
+        return `${nativeVideoHeight}p`;
+      }
+      return "Auto";
+    }
+    return formatQualityLabel(selectedQuality).shortLabel;
+  }, [selectedQuality, parsed.kind, actualYtQuality, isCloudinary, nativeVideoHeight]);
+
   const handleTogglePlay = () => {
+    if (openMenu !== "none") {
+      setOpenMenu("none");
+      return;
+    }
     if (parsed.kind === "video" && htmlVideoRef.current) {
       if (htmlVideoRef.current.paused) {
         void htmlVideoRef.current.play();
@@ -265,12 +390,57 @@ export default function DkCourseVideoPlayer({
     }
   };
 
-  const handleSpeedChange = (nextRate: number) => {
+  const handleSpeedSelect = (nextRate: number) => {
     setPlaybackRate(nextRate);
+    setOpenMenu("none");
     if (parsed.kind === "video" && htmlVideoRef.current) {
       htmlVideoRef.current.playbackRate = nextRate;
     } else if (parsed.kind === "youtube" && ytPlayerRef.current) {
       ytPlayerRef.current.setPlaybackRate?.(nextRate);
+    }
+  };
+
+  const handleQualitySelect = (nextQuality: VideoQualityValue) => {
+    setOpenMenu("none");
+    if (nextQuality === selectedQuality) return;
+
+    if (parsed.kind === "video" && isCloudinary && htmlVideoRef.current) {
+      pendingHtmlResumeRef.current = {
+        time: htmlVideoRef.current.currentTime || currentSec,
+        playing: !htmlVideoRef.current.paused,
+        rate: playbackRate,
+      };
+      setSelectedQuality(nextQuality);
+      return;
+    }
+
+    setSelectedQuality(nextQuality);
+    if (parsed.kind === "youtube" && ytPlayerRef.current) {
+      const targetQ = nextQuality === "auto" ? "default" : nextQuality;
+      try {
+        ytPlayerRef.current.setPlaybackQuality?.(targetQ);
+        ytPlayerRef.current.setPlaybackQualityRange?.(targetQ, targetQ);
+        // Hint buffer with seamless current second when explicit quality is chosen
+        if (nextQuality !== "auto" && typeof ytPlayerRef.current.loadVideoById === "function" && parsed.youtubeId) {
+          const cur = Number(ytPlayerRef.current.getCurrentTime?.() || currentSec || 0);
+          const wasPlaying = isPlaying;
+          ytPlayerRef.current.loadVideoById({
+            videoId: parsed.youtubeId,
+            startSeconds: cur,
+            suggestedQuality: targetQ,
+          });
+          if (!wasPlaying) {
+            setTimeout(() => {
+              ytPlayerRef.current?.pauseVideo?.();
+            }, 350);
+          }
+          if (playbackRate !== 1) {
+            setTimeout(() => {
+              ytPlayerRef.current?.setPlaybackRate?.(playbackRate);
+            }, 250);
+          }
+        }
+      } catch {}
     }
   };
 
@@ -294,7 +464,7 @@ export default function DkCourseVideoPlayer({
     }
   };
 
-  // Drive or fallback external iframe
+  // Drive or fallback external iframe (uses Drive/YouTube built-in bar including gear settings)
   if (parsed.kind === "iframe" || (parsed.kind === "youtube" && ytApiFallback)) {
     return (
       <div
@@ -334,6 +504,11 @@ export default function DkCourseVideoPlayer({
       ref={containerRef}
       tabIndex={0}
       onKeyDown={(e) => {
+        if (e.code === "Escape" && openMenu !== "none") {
+          e.preventDefault();
+          setOpenMenu("none");
+          return;
+        }
         if (e.code === "Space") {
           e.preventDefault();
           handleTogglePlay();
@@ -351,8 +526,8 @@ export default function DkCourseVideoPlayer({
       {parsed.kind === "video" ? (
         <video
           ref={htmlVideoRef}
-          key={parsed.embedUrl}
-          src={parsed.embedUrl}
+          key={activeHtmlVideoSrc}
+          src={activeHtmlVideoSrc}
           playsInline
           preload="metadata"
           controls={false}
@@ -361,6 +536,9 @@ export default function DkCourseVideoPlayer({
           onClick={handleTogglePlay}
           onLoadedMetadata={(e) => {
             const v = e.currentTarget;
+            if (v.videoHeight > 0 && selectedQuality === "auto") {
+              setNativeVideoHeight(v.videoHeight);
+            }
             const d = Math.round(Number(v.duration) || 0);
             if (d > 0) {
               setDurationSec(d);
@@ -368,9 +546,28 @@ export default function DkCourseVideoPlayer({
                 durationNotifiedRef.current = true;
                 onDetectedDuration?.(d);
               }
-              if (initialSeconds > 5 && initialSeconds < d - 5) {
+            }
+            const resume = pendingHtmlResumeRef.current;
+            if (resume) {
+              pendingHtmlResumeRef.current = null;
+              v.playbackRate = resume.rate;
+              if (resume.time > 0 && d > 0) {
+                v.currentTime = Math.min(resume.time, Math.max(0, d - 0.5));
+              }
+              if (resume.playing) {
+                void v.play().catch(() => {});
+              }
+            } else {
+              v.playbackRate = playbackRateRef.current;
+              if (initialSeconds > 5 && d > 0 && initialSeconds < d - 5) {
                 v.currentTime = initialSeconds;
               }
+            }
+          }}
+          onError={() => {
+            // Gracefully fall back to original URL if dynamic quality transform fails
+            if (selectedQuality !== "auto") {
+              setSelectedQuality("auto");
             }
           }}
           onTimeUpdate={(e) => {
@@ -396,17 +593,19 @@ export default function DkCourseVideoPlayer({
       ) : (
         <>
           <div ref={ytHostRef} className="w-full h-full pointer-events-none" />
-          {/* Transparent tap layer so clicking anywhere toggles DkTEST play/pause cleanly instead of opening YouTube */}
+          {/* Transparent tap layer so clicking anywhere toggles DkTEST play/pause or closes open popover */}
           <div
             onClick={handleTogglePlay}
-            onDoubleClick={() => void handleToggleFullscreen()}
+            onDoubleClick={() => {
+              if (openMenu === "none") void handleToggleFullscreen();
+            }}
             className="absolute inset-0 bottom-14 z-10 cursor-pointer"
           />
         </>
       )}
 
       {/* Center Play Overlay when idle/paused */}
-      {(!isPlaying || showCenterIcon) && (
+      {(!isPlaying || showCenterIcon) && openMenu === "none" && (
         <button
           type="button"
           onClick={handleTogglePlay}
@@ -420,7 +619,7 @@ export default function DkCourseVideoPlayer({
       )}
 
       {/* Custom DkTEST Blue Control Bar */}
-      <div className="absolute inset-x-0 bottom-0 z-20 bg-gradient-to-t from-slate-950/95 via-slate-950/80 to-transparent pt-6 pb-2.5 px-3 sm:px-4 space-y-2 transition-opacity">
+      <div className="absolute inset-x-0 bottom-0 z-20 bg-gradient-to-t from-slate-950/95 via-slate-950/85 to-transparent pt-6 pb-2.5 px-3 sm:px-4 space-y-2 transition-opacity">
         {/* Progress / Seek Slider */}
         <div className="relative flex items-center group/seek">
           <div className="w-full h-1.5 group-hover/seek:h-2 rounded-full bg-white/25 overflow-hidden transition-all">
@@ -441,12 +640,12 @@ export default function DkCourseVideoPlayer({
         </div>
 
         {/* Transport Controls Row */}
-        <div className="flex items-center justify-between gap-2 text-white text-xs">
-          <div className="flex items-center gap-1.5 sm:gap-2.5">
+        <div className="flex items-center justify-between gap-1 sm:gap-2 text-white text-xs">
+          <div className="flex items-center gap-0.5 sm:gap-2 min-w-0">
             <button
               type="button"
               onClick={handleTogglePlay}
-              className="p-1.5 rounded-lg hover:bg-white/15 transition-colors cursor-pointer"
+              className="p-1 sm:p-1.5 rounded-lg hover:bg-white/15 transition-colors cursor-pointer shrink-0"
               title={isPlaying ? "Tạm dừng" : "Phát"}
             >
               {isPlaying ? <Pause className="w-4 h-4 fill-current" /> : <Play className="w-4 h-4 fill-current" />}
@@ -455,7 +654,7 @@ export default function DkCourseVideoPlayer({
             <button
               type="button"
               onClick={() => handleSeek(currentSec - 10)}
-              className="p-1.5 rounded-lg hover:bg-white/15 transition-colors cursor-pointer flex items-center gap-0.5"
+              className="p-1 sm:p-1.5 rounded-lg hover:bg-white/15 transition-colors cursor-pointer flex items-center gap-0.5 shrink-0"
               title="Lùi 10 giây"
             >
               <RotateCcw className="w-3.5 h-3.5" />
@@ -465,7 +664,7 @@ export default function DkCourseVideoPlayer({
             <button
               type="button"
               onClick={() => handleSeek(currentSec + 10)}
-              className="p-1.5 rounded-lg hover:bg-white/15 transition-colors cursor-pointer flex items-center gap-0.5"
+              className="p-1 sm:p-1.5 rounded-lg hover:bg-white/15 transition-colors cursor-pointer flex items-center gap-0.5 shrink-0"
               title="Tua tới 10 giây"
             >
               <RotateCw className="w-3.5 h-3.5" />
@@ -475,37 +674,153 @@ export default function DkCourseVideoPlayer({
             <button
               type="button"
               onClick={handleToggleMute}
-              className="p-1.5 rounded-lg hover:bg-white/15 transition-colors cursor-pointer"
+              className="p-1 sm:p-1.5 rounded-lg hover:bg-white/15 transition-colors cursor-pointer shrink-0"
               title={muted ? "Bật tiếng" : "Tắt tiếng"}
             >
               {muted || volume === 0 ? <VolumeX className="w-4 h-4" /> : <Volume2 className="w-4 h-4" />}
             </button>
 
-            <span className="font-mono text-[11px] font-bold text-slate-200 tabular-nums">
+            <span className="font-mono text-[10px] sm:text-[11px] font-bold text-slate-200 tabular-nums truncate">
               {formatDurationClock(currentSec)} / {formatDurationClock(durationSec)}
             </span>
           </div>
 
-          <div className="flex items-center gap-1.5 sm:gap-2">
-            {/* Speed Cycle Button */}
-            <button
-              type="button"
-              onClick={() => {
-                const idx = SPEED_OPTIONS.indexOf(playbackRate);
-                handleSpeedChange(SPEED_OPTIONS[(idx + 1) % SPEED_OPTIONS.length]);
-              }}
-              className="px-2 py-1 rounded-lg bg-white/15 hover:bg-blue-600 text-[11px] font-black transition-colors cursor-pointer"
-              title="Đổi tốc độ phát"
-            >
-              {playbackRate}x
-            </button>
+          <div ref={controlsMenuAreaRef} className="relative flex items-center gap-1 sm:gap-1.5 shrink-0">
+            {/* Resolution / Quality List Dropdown */}
+            <div className="relative">
+              <button
+                type="button"
+                onClick={() => setOpenMenu((m) => (m === "quality" ? "none" : "quality"))}
+                className={`px-1.5 sm:px-2 py-1 rounded-lg text-[10px] sm:text-[11px] font-bold flex items-center gap-1 transition-colors cursor-pointer ${
+                  openMenu === "quality"
+                    ? "bg-blue-600 text-white"
+                    : "bg-white/15 hover:bg-blue-600/80 text-white"
+                }`}
+                title="Chọn độ phân giải video"
+                aria-expanded={openMenu === "quality"}
+              >
+                <SlidersHorizontal className="w-3 h-3 shrink-0 hidden sm:inline" />
+                <span>{activeQualityLabel}</span>
+                <ChevronUp
+                  className={`w-3 h-3 transition-transform ${openMenu === "quality" ? "rotate-180" : ""}`}
+                />
+              </button>
+
+              {openMenu === "quality" && (
+                <div
+                  role="menu"
+                  aria-label="Danh sách độ phân giải"
+                  className="absolute bottom-full right-0 mb-2 w-48 sm:w-52 max-h-36 sm:max-h-64 overflow-y-auto rounded-2xl bg-slate-900/95 backdrop-blur-md border border-white/15 shadow-2xl p-1.5 space-y-0.5 z-30"
+                >
+                  <div className="px-2.5 py-1 text-[10px] font-black uppercase tracking-wider text-slate-400 border-b border-white/10">
+                    Độ phân giải
+                  </div>
+                  {qualityOptions.map((opt) => {
+                    const isActive = selectedQuality === opt.value;
+                    const actualNote =
+                      opt.value === "auto" && parsed.kind === "youtube" && actualYtQuality
+                        ? ` (${formatQualityLabel(actualYtQuality).shortLabel})`
+                        : "";
+                    return (
+                      <button
+                        key={opt.value}
+                        type="button"
+                        role="menuitemradio"
+                        aria-checked={isActive}
+                        onClick={() => handleQualitySelect(opt.value)}
+                        className={`w-full px-2.5 py-1.5 rounded-xl text-left text-xs font-bold flex items-center justify-between gap-2 transition-colors cursor-pointer ${
+                          isActive
+                            ? "bg-blue-600 text-white"
+                            : "text-slate-200 hover:bg-white/10"
+                        }`}
+                      >
+                        <span className="truncate">
+                          {opt.label}
+                          {actualNote}
+                        </span>
+                        <span className="flex items-center gap-1 shrink-0">
+                          {opt.badge && (
+                            <span
+                              className={`px-1.5 py-0.2 rounded text-[9px] font-black ${
+                                isActive ? "bg-white/25 text-white" : "bg-blue-500/30 text-blue-200"
+                              }`}
+                            >
+                              {opt.badge}
+                            </span>
+                          )}
+                          {isActive && <Check className="w-3.5 h-3.5" />}
+                        </span>
+                      </button>
+                    );
+                  })}
+                  {parsed.kind === "video" && !isCloudinary && (
+                    <div className="px-2.5 pt-1 pb-0.5 text-[10px] text-slate-400 leading-snug">
+                      Video MP4 phát trực tiếp đúng độ phân giải gốc.
+                    </div>
+                  )}
+                </div>
+              )}
+            </div>
+
+            {/* Playback Speed List Dropdown */}
+            <div className="relative">
+              <button
+                type="button"
+                onClick={() => setOpenMenu((m) => (m === "speed" ? "none" : "speed"))}
+                className={`px-1.5 sm:px-2 py-1 rounded-lg text-[10px] sm:text-[11px] font-black flex items-center gap-1 transition-colors cursor-pointer ${
+                  openMenu === "speed"
+                    ? "bg-blue-600 text-white"
+                    : "bg-white/15 hover:bg-blue-600/80 text-white"
+                }`}
+                title="Chọn tốc độ phát"
+                aria-expanded={openMenu === "speed"}
+              >
+                <Gauge className="w-3 h-3 shrink-0 hidden sm:inline" />
+                <span>{playbackRate}x</span>
+                <ChevronUp
+                  className={`w-3 h-3 transition-transform ${openMenu === "speed" ? "rotate-180" : ""}`}
+                />
+              </button>
+
+              {openMenu === "speed" && (
+                <div
+                  role="menu"
+                  aria-label="Danh sách tốc độ phát"
+                  className="absolute bottom-full right-0 mb-2 w-40 sm:w-44 max-h-36 sm:max-h-64 overflow-y-auto rounded-2xl bg-slate-900/95 backdrop-blur-md border border-white/15 shadow-2xl p-1.5 space-y-0.5 z-30"
+                >
+                  <div className="px-2.5 py-1 text-[10px] font-black uppercase tracking-wider text-slate-400 border-b border-white/10">
+                    Tốc độ phát
+                  </div>
+                  {VIDEO_SPEED_OPTIONS.map((rate) => {
+                    const isActive = playbackRate === rate;
+                    return (
+                      <button
+                        key={rate}
+                        type="button"
+                        role="menuitemradio"
+                        aria-checked={isActive}
+                        onClick={() => handleSpeedSelect(rate)}
+                        className={`w-full px-2.5 py-1.5 rounded-xl text-left text-xs font-bold flex items-center justify-between gap-2 transition-colors cursor-pointer ${
+                          isActive
+                            ? "bg-blue-600 text-white"
+                            : "text-slate-200 hover:bg-white/10"
+                        }`}
+                      >
+                        <span>{rate === 1 ? "1x (Chuẩn)" : `${rate}x`}</span>
+                        {isActive && <Check className="w-3.5 h-3.5 shrink-0" />}
+                      </button>
+                    );
+                  })}
+                </div>
+              )}
+            </div>
 
             <span
-              className="hidden sm:inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-blue-600/30 border border-blue-400/30 text-[10px] font-bold text-blue-200"
+              className="hidden md:inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-blue-600/30 border border-blue-400/30 text-[10px] font-bold text-blue-200"
               title="DkTEST Video Player"
             >
               <ShieldCheck className="w-3 h-3" />
-              <span>DkTEST Player</span>
+              <span>DkTEST</span>
             </span>
 
             <button
