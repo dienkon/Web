@@ -10,8 +10,9 @@ import {
   writeBatch,
 } from "firebase/firestore";
 import { db } from "./firebase/config";
-import { api } from "./apiClient";
+import { api, getApiBaseUrl } from "./apiClient";
 import { FirestoreCache } from "./firebase/firestoreCache";
+import { isNativeAndroid } from "./offline/sync";
 import type {
   Course,
   CourseAccessInfo,
@@ -174,24 +175,144 @@ export function maskVideoUrlDisplay(rawUrl: string, preferredType?: CourseVideoT
   return `Đã liên kết (${label}) • ••••••${suffix}`;
 }
 
+export function formatDurationClock(totalSeconds?: number, fallbackMinutes?: number): string {
+  const sec = Math.max(0, Math.floor(Number(totalSeconds) || (Number(fallbackMinutes) || 0) * 60));
+  if (sec <= 0) return "0:00";
+  const h = Math.floor(sec / 3600);
+  const m = Math.floor((sec % 3600) / 60);
+  const s = sec % 60;
+  if (h > 0) {
+    return `${h}:${String(m).padStart(2, "0")}:${String(s).padStart(2, "0")}`;
+  }
+  return `${m}:${String(s).padStart(2, "0")}`;
+}
+
+export function buildCourseShareUrl(courseId: string, lessonId?: string): string {
+  const origin =
+    typeof window !== "undefined" && !isNativeAndroid() && !/localhost|127\.0\.0\.1/.test(window.location.origin)
+      ? window.location.origin
+      : getApiBaseUrl() || "https://dk-test-v3.vercel.app";
+  const base = `${origin.replace(/\/+$/, "")}/student/courses/${encodeURIComponent(courseId)}`;
+  return lessonId ? `${base}?lesson=${encodeURIComponent(lessonId)}` : base;
+}
+
+/**
+ * Probes exact video duration (seconds & minutes) directly in browser via native HTML5 <video preload="metadata"> for File or MP4/Cloudinary URLs.
+ */
+export async function probeClientVideoDuration(
+  source: string | File
+): Promise<{ durationSeconds: number; durationMinutes: number } | null> {
+  if (typeof document === "undefined") return null;
+  const isFile = typeof File !== "undefined" && source instanceof File;
+  const rawUrl = isFile ? URL.createObjectURL(source) : String(source || "").trim();
+  if (!rawUrl) return null;
+
+  return new Promise((resolve) => {
+    const video = document.createElement("video");
+    let settled = false;
+    const cleanup = () => {
+      if (isFile) {
+        try {
+          URL.revokeObjectURL(rawUrl);
+        } catch {}
+      }
+      video.removeAttribute("src");
+      try {
+        video.load();
+      } catch {}
+    };
+    const timer = setTimeout(() => {
+      if (!settled) {
+        settled = true;
+        cleanup();
+        resolve(null);
+      }
+    }, 9000);
+
+    video.preload = "metadata";
+    video.muted = true;
+    video.onloadedmetadata = () => {
+      if (settled) return;
+      settled = true;
+      clearTimeout(timer);
+      const sec = Math.round(Number(video.duration) || 0);
+      cleanup();
+      if (sec > 0 && isFinite(sec)) {
+        resolve({ durationSeconds: sec, durationMinutes: Math.max(1, Math.round(sec / 60)) });
+      } else {
+        resolve(null);
+      }
+    };
+    video.onerror = () => {
+      if (settled) return;
+      settled = true;
+      clearTimeout(timer);
+      cleanup();
+      resolve(null);
+    };
+    video.src = rawUrl;
+  });
+}
+
+export async function probeVideoDurationApi(
+  url: string
+): Promise<{ durationSeconds: number; durationMinutes: number; title?: string; source?: string } | null> {
+  const clean = String(url || "").trim();
+  if (!clean) return null;
+  try {
+    const res = await api.post<{
+      success: boolean;
+      found: boolean;
+      durationSeconds: number;
+      durationMinutes: number;
+      title?: string;
+      source?: string;
+    }>("/api/admin/courses/probe-video", { url: clean });
+    if (res?.found && res.durationSeconds > 0) {
+      return {
+        durationSeconds: res.durationSeconds,
+        durationMinutes: Math.max(1, Math.round(res.durationSeconds / 60)),
+        title: res.title,
+        source: res.source,
+      };
+    }
+  } catch (err) {
+    console.warn("[courseService] probeVideoDurationApi failed:", err);
+  }
+  return null;
+}
+
 /**
  * Pure helper: Parses a video URL (YouTube, Google Drive, MP4/Cloudinary, Archive Iframe) into protected embed config.
+ * NOTE: YouTube embed URLs require referrerPolicy="strict-origin-when-cross-origin" (never no-referrer) to avoid Error 153.
  */
 export function parseVideoSource(
   rawUrl: string,
   preferredType?: CourseVideoType
-): { kind: "youtube" | "iframe" | "video"; embedUrl: string; isDrive?: boolean } {
+): {
+  kind: "youtube" | "iframe" | "video";
+  embedUrl: string;
+  youtubeId?: string;
+  driveId?: string;
+  isDrive?: boolean;
+} {
   const url = String(rawUrl || "").trim();
   if (!url) return { kind: "video", embedUrl: "" };
 
-  // YouTube watch / share / shorts / embed URLs -> privacy-enhanced youtube-nocookie domain
+  // YouTube watch / share / shorts / embed URLs -> embed with enablejsapi=1 + origin for Error 153 safety & custom player controls
   const ytMatch = url.match(
     /(?:youtube(?:-nocookie)?\.com\/(?:watch\?(?:.*&)?v=|embed\/|shorts\/)|youtu\.be\/)([A-Za-z0-9_-]{6,20})/i
   );
   if (ytMatch && ytMatch[1]) {
+    const ytId = ytMatch[1];
+    const origin =
+      typeof window !== "undefined" && window.location?.origin && /^https?:\/\//i.test(window.location.origin)
+        ? `&origin=${encodeURIComponent(window.location.origin)}`
+        : "";
     return {
       kind: "youtube",
-      embedUrl: `https://www.youtube-nocookie.com/embed/${ytMatch[1]}?rel=0&modestbranding=1&iv_load_policy=3`,
+      youtubeId: ytId,
+      embedUrl: `https://www.youtube.com/embed/${ytId}?enablejsapi=1&rel=0&modestbranding=1&iv_load_policy=3&playsinline=1${origin}`,
     };
   }
 
@@ -202,6 +323,7 @@ export function parseVideoSource(
   if (driveId) {
     return {
       kind: "iframe",
+      driveId,
       isDrive: true,
       embedUrl: `https://drive.google.com/file/d/${driveId}/preview?rm=minimal`,
     };
@@ -236,20 +358,31 @@ export function buildCourseOutlineAndStats(
   paidLessonCount: number;
   minPaidLessonPriceVnd: number;
   totalDurationMinutes: number;
+  totalDurationSeconds: number;
 } {
   const orderedLessons = [...lessons]
     .sort((a, b) => (a.order ?? 0) - (b.order ?? 0))
-    .map((l, idx) => ({
-      ...l,
-      order: idx,
-      priceVnd: Math.max(0, Math.floor(Number(l.priceVnd) || 0)),
-      includedInCourseUnlock: l.includedInCourseUnlock !== false,
-      accessType: l.accessType || "inherit_first_n",
-    }));
+    .map((l, idx) => {
+      const durationSeconds = Math.max(0, Math.floor(Number(l.durationSeconds) || 0));
+      const computedMinutes =
+        durationSeconds > 0
+          ? Math.max(1, Math.round(durationSeconds / 60))
+          : Math.max(0, Math.floor(Number(l.durationMinutes) || 0));
+      return {
+        ...l,
+        order: idx,
+        ...(durationSeconds > 0 ? { durationSeconds } : {}),
+        durationMinutes: computedMinutes,
+        priceVnd: Math.max(0, Math.floor(Number(l.priceVnd) || 0)),
+        includedInCourseUnlock: l.includedInCourseUnlock !== false,
+        accessType: l.accessType || "inherit_first_n",
+      };
+    });
 
   let freeLessonCount = 0;
   let paidLessonCount = 0;
   let totalDurationMinutes = 0;
+  let totalDurationSeconds = 0;
   let minPaidPrice = Infinity;
 
   const lessonOutline: CourseLessonOutlineItem[] = orderedLessons.map((l) => {
@@ -262,6 +395,8 @@ export function buildCourseOutlineAndStats(
         minPaidPrice = l.priceVnd;
       }
     }
+    const sec = Math.max(0, Math.floor(Number(l.durationSeconds) || (Number(l.durationMinutes) || 0) * 60));
+    totalDurationSeconds += sec;
     totalDurationMinutes += Math.max(0, Math.floor(Number(l.durationMinutes) || 0));
 
     const materialItems: CourseOutlineMaterialItem[] = (l.materials || []).map((m) => ({
@@ -278,6 +413,7 @@ export function buildCourseOutlineAndStats(
       description: l.description || "",
       order: l.order,
       durationMinutes: Math.max(0, Math.floor(Number(l.durationMinutes) || 0)),
+      ...(l.durationSeconds && l.durationSeconds > 0 ? { durationSeconds: l.durationSeconds } : {}),
       videoType: l.videoType || "youtube",
       videoHostLabel: getVideoHostLabel(l.videoUrl, l.videoType),
       accessType: l.accessType,
@@ -291,6 +427,10 @@ export function buildCourseOutlineAndStats(
     };
   });
 
+  if (totalDurationSeconds > 0) {
+    totalDurationMinutes = Math.max(1, Math.round(totalDurationSeconds / 60));
+  }
+
   return {
     orderedLessons,
     lessonOutline,
@@ -299,6 +439,7 @@ export function buildCourseOutlineAndStats(
     paidLessonCount,
     minPaidLessonPriceVnd: Number.isFinite(minPaidPrice) ? minPaidPrice : 0,
     totalDurationMinutes,
+    totalDurationSeconds,
   };
 }
 
@@ -345,7 +486,8 @@ export interface CourseHierarchyGroup {
 export function buildCourseHierarchy(
   course: Course,
   access: CourseAccessInfo | null,
-  watchedIds: string[]
+  watchedIds: string[],
+  watchedSecondsMap?: Record<string, number>
 ): CourseHierarchyGroup[] {
   const watchedSet = new Set(watchedIds);
   const outline = [...(course.lessonOutline || [])].sort((a, b) => (a.order ?? 0) - (b.order ?? 0));
@@ -393,8 +535,17 @@ export function buildCourseHierarchy(
       const materials: CourseHierarchyTopicMaterial[] = [];
       let completedCount = 0;
 
+      let totalSec = 0;
+      let watchedSec = 0;
       for (const lesson of items) {
-        if (watchedSet.has(lesson.id)) completedCount++;
+        const lessonSec = Math.max(60, Number(lesson.durationSeconds) || (Number(lesson.durationMinutes) || 0) * 60);
+        totalSec += lessonSec;
+        if (watchedSet.has(lesson.id)) {
+          completedCount++;
+          watchedSec += lessonSec;
+        } else if (watchedSecondsMap?.[lesson.id]) {
+          watchedSec += Math.min(lessonSec, Math.max(0, Number(watchedSecondsMap[lesson.id]) || 0));
+        }
         const st = computeLessonAccessState(course, lesson, access);
         if (lesson.linkedExamId) {
           materials.push({
@@ -433,7 +584,12 @@ export function buildCourseHierarchy(
         }
       }
 
-      const progressPct = items.length > 0 ? Math.round((completedCount / items.length) * 100) : 0;
+      const progressPct =
+        watchedSecondsMap && totalSec > 0
+          ? Math.min(100, Math.round((watchedSec / totalSec) * 100))
+          : items.length > 0
+          ? Math.round((completedCount / items.length) * 100)
+          : 0;
       topics.push({
         id: `${ch.id}__${key}`,
         title,
@@ -650,6 +806,7 @@ export async function saveCourseWithLessons(params: {
     paidLessonCount,
     minPaidLessonPriceVnd,
     totalDurationMinutes,
+    totalDurationSeconds,
   } = buildCourseOutlineAndStats(normalizedBase, params.lessons);
 
   const courseDoc: Record<string, any> = {
@@ -661,6 +818,7 @@ export async function saveCourseWithLessons(params: {
     paidLessonCount,
     minPaidLessonPriceVnd,
     totalDurationMinutes,
+    totalDurationSeconds,
     updatedAt: now,
     ...(isNew ? { createdAt: now } : {}),
   };

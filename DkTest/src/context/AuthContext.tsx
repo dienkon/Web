@@ -30,7 +30,7 @@ function savedStudentProfile(uid: string): UserProfile | null {
 import {
   claimUsernameApi,
   loginWithUsernameApi,
-  isAdminAuthenticated,
+  loginAdminWithPasswordApi,
   setAdminSession,
   isAdminEmail,
   ADMIN_EMAILS,
@@ -53,6 +53,7 @@ interface AuthContextValue {
   loginWithGoogle: (intendedRole?: "student" | "parent") => Promise<UserProfile>;
   loginWithEmail: (email: string, password: string) => Promise<UserProfile>;
   loginWithUsername: (username: string, password: string) => Promise<UserProfile>;
+  loginWithAdminPassword: (password: string, email?: string) => Promise<UserProfile>;
   registerWithUsername: (params: {
     username: string;
     password: string;
@@ -91,9 +92,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       localStorage.setItem(`dktest_offline_profile_${profile.uid}`, JSON.stringify(profile));
     }
     if (!profile) {
-      if (isAdminAuthenticated()) {
-        return;
-      }
+      clearAdminSession();
       localStorage.removeItem("auth_role");
       localStorage.removeItem("admin_token");
       localStorage.removeItem("parent_info");
@@ -118,6 +117,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       return;
     }
 
+    // Clear stale local admin flags whenever a non-admin account signs in
+    clearAdminSession();
     const role = profile.role || "student";
     localStorage.setItem("auth_role", role);
     setStoredItem(STORAGE_KEYS.AUTH_ROLE, role);
@@ -303,25 +304,9 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   useEffect(() => {
     if (!auth) {
       console.warn("[AuthContext] Firebase Auth instance not available. Operating in offline/guest mode.");
-      if (isAdminAuthenticated()) {
-        let savedInfo: any = {};
-        try {
-          const raw = localStorage.getItem("admin_info");
-          if (raw) savedInfo = JSON.parse(raw);
-        } catch {}
-        setUserProfile({
-          uid: "admin_local",
-          displayName: savedInfo.displayName || "Dương Thanh Điền (Admin)",
-          fullName: savedInfo.displayName || "Dương Thanh Điền (Admin)",
-          email: savedInfo.email || "duongthanhdien3456@gmail.com",
-          role: "admin",
-          accountStatus: "active",
-          provider: "password",
-          emailVerified: true,
-          createdAt: new Date().toISOString(),
-          updatedAt: new Date().toISOString(),
-        });
-      }
+      clearAdminSession();
+      setUser(null);
+      setUserProfile(null);
       setLoading(false);
       setAuthInitialized(true);
       return;
@@ -377,30 +362,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
           console.error("[AuthContext] Error loading user profile:", err);
         }
       } else {
-        if (isAdminAuthenticated()) {
-          let savedInfo: any = {};
-          try {
-            const raw = localStorage.getItem("admin_info");
-            if (raw) savedInfo = JSON.parse(raw);
-          } catch {}
-
-          const adminProfile: UserProfile = {
-            uid: "admin_local",
-            displayName: savedInfo.displayName || "Dương Thanh Điền (Admin)",
-            fullName: savedInfo.displayName || "Dương Thanh Điền (Admin)",
-            email: savedInfo.email || "duongthanhdien3456@gmail.com",
-            role: "admin",
-            accountStatus: "active",
-            provider: "password",
-            emailVerified: true,
-            createdAt: new Date().toISOString(),
-            updatedAt: new Date().toISOString(),
-          };
-          setUserProfile(adminProfile);
-        } else {
-          setUserProfile(null);
-          syncLegacyStorage(null);
-        }
+        setUserProfile(null);
+        syncLegacyStorage(null);
       }
       clearTimeout(watchdogTimer);
       setLoading(false);
@@ -478,6 +441,37 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         throw apiErr;
       }
     }
+  };
+
+  const loginWithAdminPassword = async (pass: string, targetEmail?: string): Promise<UserProfile> => {
+    clearAdminSession();
+    if (auth.currentUser) {
+      await signOut(auth).catch(() => {});
+    }
+
+    const res = await loginAdminWithPasswordApi(pass, targetEmail);
+    let currentUser: User;
+
+    if (res.customToken) {
+      const cred = await signInWithCustomToken(auth, res.customToken);
+      currentUser = cred.user;
+    } else if (res.email) {
+      const cred = await signInWithEmailAndPassword(auth, res.email, pass);
+      currentUser = cred.user;
+    } else {
+      throw new Error("Không khởi tạo được phiên Firebase Quản trị viên.");
+    }
+
+    const profile = await fetchOrCreateProfile(currentUser);
+    if (profile.role !== "admin" && profile.role !== "super_admin") {
+      await signOut(auth).catch(() => {});
+      clearAdminSession();
+      throw new Error("Tài khoản này chưa được cấp quyền Quản trị viên trong hệ thống.");
+    }
+
+    setUser(currentUser);
+    setUserProfile(profile);
+    return profile;
   };
 
   const registerWithUsername = async ({
@@ -651,9 +645,11 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   };
 
   const isAdmin =
-    isAdminEmail(user?.email) ||
-    isAdminEmail(userProfile?.email) ||
-    isAdminAuthenticated();
+    Boolean(user) &&
+    (userProfile?.role === "admin" ||
+      userProfile?.role === "super_admin" ||
+      isAdminEmail(user?.email) ||
+      isAdminEmail(userProfile?.email));
   const currentRole: UserRole | "guest" = isAdmin
     ? "admin"
     : (userProfile?.role || (user ? "student" : "guest"));
@@ -684,6 +680,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         loginWithGoogle,
         loginWithEmail,
         loginWithUsername,
+        loginWithAdminPassword,
         registerWithUsername,
         registerWithEmail,
         logout,

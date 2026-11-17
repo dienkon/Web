@@ -23,6 +23,7 @@ import {
   sanitizeVnd,
   updateWalletOverviewAggregates,
 } from "./walletService.js";
+import { validateUrlForSsrf } from "./webImporter/ssrfGuard.js";
 
 const COURSE_DOC_CACHE_TTL_MS = 60 * 1000;
 const COURSE_ACCESS_CACHE_TTL_MS = 30 * 1000;
@@ -1000,4 +1001,178 @@ export async function grantOrRevokeCourseEntitlement(
   invalidateCourseServerCache(courseId, studentUid);
   invalidateStudentDetailsCache(studentUid);
   return { success: true, entitlement };
+}
+
+/**
+ * Pure binary walker for ISO BMFF MP4 `mvhd` atom inside a partial buffer chunk.
+ */
+export function extractMp4DurationSeconds(buf: Buffer): number | null {
+  if (!buf || buf.length < 32) return null;
+  const idx = buf.indexOf("mvhd");
+  if (idx < 4 || idx + 28 > buf.length) return null;
+  const version = buf.readUInt8(idx + 4);
+  if (version === 0) {
+    // bytes +4(ver+flags), +4(creation), +4(mod), +4(timescale), +4(duration)
+    if (idx + 24 > buf.length) return null;
+    const timescale = buf.readUInt32BE(idx + 16);
+    const duration = buf.readUInt32BE(idx + 20);
+    if (!timescale || !isFinite(duration)) return null;
+    const sec = Math.round(duration / timescale);
+    return sec > 0 ? sec : null;
+  }
+  if (version === 1) {
+    if (idx + 36 > buf.length) return null;
+    const timescale = buf.readUInt32BE(idx + 24);
+    const hi = buf.readUInt32BE(idx + 28);
+    const lo = buf.readUInt32BE(idx + 32);
+    const duration = hi * 4294967296 + lo;
+    if (!timescale || !isFinite(duration)) return null;
+    const sec = Math.round(duration / timescale);
+    return sec > 0 ? sec : null;
+  }
+  return null;
+}
+
+/**
+ * SSRF-guarded video duration prober supporting YouTube, Google Drive, and direct MP4/Cloudinary URLs.
+ */
+export async function probeVideoDuration(
+  rawUrl: string
+): Promise<{ durationSeconds: number; durationMinutes: number; title?: string; source: string } | null> {
+  const cleanUrl = String(rawUrl || "").trim();
+  if (!cleanUrl) return null;
+  await validateUrlForSsrf(cleanUrl);
+
+  const ytMatch = cleanUrl.match(
+    /(?:youtube(?:-nocookie)?\.com\/(?:watch\?(?:.*&)?v=|embed\/|shorts\/)|youtu\.be\/)([A-Za-z0-9_-]{6,20})/i
+  );
+  if (ytMatch?.[1]) {
+    const ytId = ytMatch[1];
+    try {
+      const watchRes = await fetch(`https://www.youtube.com/watch?v=${encodeURIComponent(ytId)}&hl=en`, {
+        headers: {
+          "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36",
+          "Accept-Language": "en-US,en;q=0.9",
+        },
+        signal: AbortSignal.timeout(10000),
+      });
+      if (watchRes.ok) {
+        const html = await watchRes.text();
+        const msMatch = html.match(/"approxDurationMs"\s*:\s*"(\d+)"/);
+        const secMatch = html.match(/"lengthSeconds"\s*:\s*"(\d+)"/);
+        const titleMatch = html.match(/<meta\s+name="title"\s+content="([^"]*)"/i);
+        let sec = 0;
+        if (msMatch?.[1]) sec = Math.round(Number(msMatch[1]) / 1000);
+        else if (secMatch?.[1]) sec = Math.round(Number(secMatch[1]));
+        if (sec > 0) {
+          return {
+            durationSeconds: sec,
+            durationMinutes: Math.max(1, Math.round(sec / 60)),
+            title: titleMatch?.[1],
+            source: "youtube",
+          };
+        }
+      }
+    } catch {}
+    return null;
+  }
+
+  const drivePathMatch = cleanUrl.match(/drive\.google\.com\/file\/d\/([A-Za-z0-9_-]+)/i);
+  const driveQueryMatch = cleanUrl.match(/drive\.google\.com\/(?:open|uc)\?(?:.*&)?id=([A-Za-z0-9_-]+)/i);
+  const driveId = drivePathMatch?.[1] || driveQueryMatch?.[1];
+  if (driveId) {
+    try {
+      const infoRes = await fetch(
+        `https://drive.google.com/get_video_info?docid=${encodeURIComponent(driveId)}`,
+        {
+          headers: { "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36" },
+          signal: AbortSignal.timeout(10000),
+        }
+      );
+      if (infoRes.ok) {
+        const body = await infoRes.text();
+        const params = new URLSearchParams(body);
+        const lenSec = Number(params.get("length_seconds") || 0);
+        const title = params.get("title") || undefined;
+        if (lenSec > 0) {
+          return {
+            durationSeconds: Math.round(lenSec),
+            durationMinutes: Math.max(1, Math.round(lenSec / 60)),
+            title,
+            source: "drive_info",
+          };
+        }
+      }
+    } catch {}
+
+    try {
+      const prevRes = await fetch(
+        `https://drive.google.com/file/d/${encodeURIComponent(driveId)}/preview`,
+        {
+          headers: { "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36" },
+          signal: AbortSignal.timeout(10000),
+        }
+      );
+      if (prevRes.ok) {
+        const html = await prevRes.text();
+        const msMatch = html.match(/["']?(?:durationMs|duration_ms)["']?\s*[:=]\s*["']?(\d{4,9})/i);
+        const secMatch = html.match(/["']?length_seconds["']?\s*[:=]\s*["']?(\d{1,6})/i);
+        const sec = msMatch?.[1]
+          ? Math.round(Number(msMatch[1]) / 1000)
+          : secMatch?.[1]
+          ? Math.round(Number(secMatch[1]))
+          : 0;
+        if (sec > 0) {
+          return {
+            durationSeconds: sec,
+            durationMinutes: Math.max(1, Math.round(sec / 60)),
+            source: "drive_preview",
+          };
+        }
+      }
+    } catch {}
+    return null;
+  }
+
+  // Direct MP4 / Cloudinary HTTP Range header probe (reads <= 256KB max)
+  try {
+    const headChunk = await fetch(cleanUrl, {
+      headers: { Range: "bytes=0-131071" },
+      signal: AbortSignal.timeout(10000),
+    });
+    if (headChunk.ok) {
+      const arr = Buffer.from(await headChunk.arrayBuffer());
+      const sec = extractMp4DurationSeconds(arr);
+      if (sec) {
+        return {
+          durationSeconds: sec,
+          durationMinutes: Math.max(1, Math.round(sec / 60)),
+          source: "mp4_head",
+        };
+      }
+      const cr = headChunk.headers.get("content-range");
+      const totalMatch = cr?.match(/\/(\d+)$/);
+      const totalBytes = totalMatch ? Number(totalMatch[1]) : 0;
+      if (totalBytes > 262144) {
+        const start = Math.max(0, totalBytes - 131072);
+        const tailChunk = await fetch(cleanUrl, {
+          headers: { Range: `bytes=${start}-${totalBytes - 1}` },
+          signal: AbortSignal.timeout(10000),
+        });
+        if (tailChunk.ok) {
+          const tailArr = Buffer.from(await tailChunk.arrayBuffer());
+          const tailSec = extractMp4DurationSeconds(tailArr);
+          if (tailSec) {
+            return {
+              durationSeconds: tailSec,
+              durationMinutes: Math.max(1, Math.round(tailSec / 60)),
+              source: "mp4_tail",
+            };
+          }
+        }
+      }
+    }
+  } catch {}
+
+  return null;
 }

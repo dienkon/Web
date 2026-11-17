@@ -1,5 +1,14 @@
 # DkTEST changelog
 
+## 1.9.2 — 2026-11-17 (Android versionCode 8)
+
+- Fix lỗi `403 Bạn không có quyền quản trị` khi đăng nhập Admin bằng "Mã quản trị nhanh" (`AdminLogin.tsx`, `AuthContext.tsx`, `RequireAuth.tsx`, `POST /api/auth/admin-password-login`): yêu cầu và cấp phiên Firebase Auth thật (`customToken` / email-password admin) cho mọi route `/admin/*`, xóa cơ chế giả lập `admin_local` chỉ nằm ở `localStorage`.
+- Fix lỗi YouTube `Error 153 (Video player configuration error)` bằng việc bỏ `referrerPolicy="no-referrer"`, dùng `strict-origin-when-cross-origin` kèm `enablejsapi=1` + `origin`, đồng thời xây dựng trình phát video tùy biến **`DkCourseVideoPlayer`** của DkTEST (thanh tua, `-10s/+10s`, tốc độ `0.75x..2x`, âm lượng, toàn màn hình) cho MP4/Cloudinary & YouTube (`YT.Player` `controls: 0`) và thay hộp đen che góc trên Drive bằng lớp khiên trong suốt chỉ hiện khi hover (không che khuất slide bài giảng).
+- Tự động đo và cập nhật thời lượng video chuẩn từng giây (`durationSeconds` & `durationMinutes`) ngay khi dán/tải lên URL video (MP4/Cloudinary qua `<video>` / HTTP Range `mvhd` atom, YouTube watch HTML, Google Drive via `/api/admin/courses/probe-video` có SSRF guard) + nút `"Đo thời lượng"` hàng loạt và lưu tiến độ xem thực tế theo giây (`watchedSecondsMap`).
+- Đồng bộ giao diện Khóa học (`CoursesList`, `CourseDetail`, `CourseManager`, `CourseEditor`) về màu **Xanh dương chủ đạo DkTEST** (`blue-600` / `indigo-600`), thay cây phân cấp 3 tầng trực quan (`Tầng 1 Nhóm -> Tầng 2 Chương -> Tầng 3 Chuyên đề -> Video`) ngay trong `CourseEditor` Admin để thêm/chỉnh sửa bài giảng nhanh chóng.
+- Thêm tính năng chia sẻ Khóa học và Video bài giảng cụ thể (`?lesson=<lessonId>`) kèm thẻ xem trước Open Graph / Zalo `1200x630` chuẩn trên `socialMetadata.ts` & `api/social-meta.ts` (không làm lộ `videoUrl` nguồn).
+- Audit: [1.9.2](docs/audits/1.9.2.md).
+
 ## 1.9.1 — 2026-11-17 (Android versionCode 7)
 
 - Fix lỗi không thể cuộn dọc trên trang chỉnh sửa khóa học Admin (`/admin/courses/:courseId/edit`) trong `AdminLayout` khi thu hẹp điều kiện khung cố định chỉ dành cho trình soạn đề thi.

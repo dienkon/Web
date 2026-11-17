@@ -1,11 +1,15 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import {
   ArrowDown,
   ArrowLeft,
   ArrowUp,
   BookOpen,
+  Check,
   CheckCircle2,
+  ChevronDown,
+  ChevronUp,
+  Clock,
   Coins,
   Eye,
   EyeOff,
@@ -14,10 +18,13 @@ import {
   Image as ImageIcon,
   Layers,
   Link2,
+  Loader2,
   Lock,
   PlayCircle,
   Plus,
+  RotateCw,
   Save,
+  Share2,
   ShieldCheck,
   Sparkles,
   Trash2,
@@ -28,14 +35,19 @@ import {
 } from "lucide-react";
 import {
   buildCourseOutlineAndStats,
+  buildCourseShareUrl,
+  formatDurationClock,
   getCourse,
   getCourseLessonsForAdmin,
   isLessonEffectivelyFree,
   maskVideoUrlDisplay,
-  parseVideoSource,
+  probeClientVideoDuration,
+  probeVideoDurationApi,
   resolveCourseAccessMode,
   saveCourseWithLessons,
 } from "../../services/courseService";
+import { safeCopyText } from "../../utils/mobileCompat";
+import DkCourseVideoPlayer from "../../components/course/DkCourseVideoPlayer";
 import { uploadFileToCloudinary } from "../../services/cloudinary";
 import { grantOrRevokeCourseEntitlementApi } from "../../services/walletClientService";
 import type {
@@ -127,6 +139,15 @@ export default function CourseEditor() {
   const [newChapterGroup, setNewChapterGroup] = useState("");
   const [newChapterTitle, setNewChapterTitle] = useState("");
 
+  // Hierarchy expand/collapse & inline duration probing states
+  const [collapsedAdminGroups, setCollapsedAdminGroups] = useState<Record<string, boolean>>({});
+  const [collapsedAdminChapters, setCollapsedAdminChapters] = useState<Record<string, boolean>>({});
+  const [collapsedAdminTopics, setCollapsedAdminTopics] = useState<Record<string, boolean>>({});
+  const [probingLessonMap, setProbingLessonMap] = useState<Record<string, boolean>>({});
+  const [bulkProbing, setBulkProbing] = useState(false);
+  const [copiedKey, setCopiedKey] = useState<string | null>(null);
+  const autoProbeTimerRef = useRef<number | null>(null);
+
   // Admin quick entitlement grant/revoke form
   const [grantStudentUid, setGrantStudentUid] = useState("");
   const [grantLessonId, setGrantLessonId] = useState<string>("");
@@ -202,10 +223,186 @@ export default function CourseEditor() {
     return Array.from(s);
   }, [lessons]);
 
-  const parsedPreviewVideo = useMemo(() => {
-    if (!selectedLesson?.videoUrl) return null;
-    return parseVideoSource(selectedLesson.videoUrl, selectedLesson.videoType);
-  }, [selectedLesson?.videoUrl, selectedLesson?.videoType]);
+  const applyDetectedLessonDuration = useCallback(
+    (targetLessonId: string, durationSeconds: number, silent = false) => {
+      if (!targetLessonId || !Number.isFinite(durationSeconds) || durationSeconds <= 0) return;
+      const cleanSec = Math.round(durationSeconds);
+      const cleanMin = Math.max(1, Math.round(cleanSec / 60));
+      setLessons((prev) =>
+        prev.map((l) =>
+          l.id === targetLessonId
+            ? { ...l, durationSeconds: cleanSec, durationMinutes: cleanMin }
+            : l
+        )
+      );
+      if (!silent) {
+        showSuccessToast(`Đã tự động đo thời lượng: ${formatDurationClock(cleanSec, cleanMin)}`);
+      }
+    },
+    [showSuccessToast]
+  );
+
+  const probeDurationForLesson = useCallback(
+    async (
+      targetLessonId: string,
+      rawUrl: string,
+      videoType?: CourseVideoType,
+      showFeedback = true
+    ): Promise<boolean> => {
+      const url = rawUrl.trim();
+      if (!url || (!url.startsWith("http://") && !url.startsWith("https://"))) {
+        if (showFeedback) {
+          showErrorToast("Vui lòng nhập URL video hợp lệ (http/https) trước khi đo thời lượng.");
+        }
+        return false;
+      }
+
+      setProbingLessonMap((prev) => ({ ...prev, [targetLessonId]: true }));
+      try {
+        const lower = url.toLowerCase();
+        const isDirectMedia =
+          videoType === "mp4" ||
+          videoType === "cloudinary" ||
+          /\.(mp4|webm|m4v|mov)(\?|#|$)/.test(lower);
+
+        if (isDirectMedia) {
+          const clientRes = await probeClientVideoDuration(url);
+          if (clientRes && clientRes.durationSeconds > 0) {
+            applyDetectedLessonDuration(targetLessonId, clientRes.durationSeconds, !showFeedback);
+            return true;
+          }
+        }
+
+        const serverRes = await probeVideoDurationApi(url);
+        if (serverRes && serverRes.durationSeconds > 0) {
+          applyDetectedLessonDuration(targetLessonId, serverRes.durationSeconds, !showFeedback);
+          return true;
+        }
+
+        if (showFeedback) {
+          showErrorToast("Không tự đọc được metadata thời lượng từ URL này (hãy nhập tay hoặc bật Xem thử player).");
+        }
+        return false;
+      } catch {
+        if (showFeedback) {
+          showErrorToast("Không thể đo thời lượng tự động từ URL này.");
+        }
+        return false;
+      } finally {
+        setProbingLessonMap((prev) => ({ ...prev, [targetLessonId]: false }));
+      }
+    },
+    [applyDetectedLessonDuration, showErrorToast]
+  );
+
+  const handleBulkProbeAllLessons = async () => {
+    const candidates = outlineStats.orderedLessons.filter(
+      (l) => l.videoUrl?.trim() && (!l.durationSeconds || l.durationSeconds <= 0)
+    );
+    const listToProbe =
+      candidates.length > 0
+        ? candidates
+        : outlineStats.orderedLessons.filter((l) => Boolean(l.videoUrl?.trim()));
+    if (listToProbe.length === 0) {
+      showErrorToast("Chưa có bài giảng nào gắn URL video.");
+      return;
+    }
+
+    setBulkProbing(true);
+    let updatedCount = 0;
+    try {
+      for (const lesson of listToProbe) {
+        const ok = await probeDurationForLesson(lesson.id, lesson.videoUrl, lesson.videoType, false);
+        if (ok) updatedCount += 1;
+      }
+      if (updatedCount > 0) {
+        showSuccessToast(`Đã tự động cập nhật thời lượng chuẩn cho ${updatedCount}/${listToProbe.length} video!`);
+      } else {
+        showErrorToast("Không tìm thấy video nào có metadata thời lượng khả dụng từ URL.");
+      }
+    } finally {
+      setBulkProbing(false);
+    }
+  };
+
+  useEffect(() => {
+    return () => {
+      if (autoProbeTimerRef.current) window.clearTimeout(autoProbeTimerRef.current);
+    };
+  }, []);
+
+  // Build 3-level Admin Hierarchy Tree preserving empty groups/chapters & all lessons
+  const adminHierarchy = useMemo(() => {
+    const fallbackGroupTitle = subject.trim() || "NỘI DUNG KHÓA HỌC";
+    const sortedChapters = [...chapters].sort((a, b) => (a.order ?? 0) - (b.order ?? 0));
+    const orderedLessons = outlineStats.orderedLessons;
+    const chapterIdsSet = new Set(sortedChapters.map((c) => c.id));
+
+    type TopicBucket = {
+      id: string;
+      title: string;
+      lessons: Array<{ lesson: CourseLesson; globalIdx: number }>;
+    };
+    type ChapterNode = {
+      chapter: CourseChapter;
+      chapterIdx: number;
+      groupTitle: string;
+      lessonCount: number;
+      topics: TopicBucket[];
+    };
+
+    const buildTopicsForChapter = (chapId: string | null): TopicBucket[] => {
+      const chapLessons: Array<{ lesson: CourseLesson; globalIdx: number }> = [];
+      orderedLessons.forEach((l, globalIdx) => {
+        const mappedId = l.chapterId && chapterIdsSet.has(l.chapterId) ? l.chapterId : null;
+        if (mappedId === chapId) chapLessons.push({ lesson: l, globalIdx });
+      });
+
+      const topicMap = new Map<string, TopicBucket>();
+      for (const entry of chapLessons) {
+        const rawTopic = entry.lesson.topicTitle?.trim() || "";
+        const key = rawTopic ? `topic:${rawTopic.toLowerCase()}` : "__default_topic__";
+        const label = rawTopic || "Chưa chia chuyên đề (Bài giảng chung)";
+        const bucket = topicMap.get(key) || {
+          id: `${chapId || "none"}__${key}`,
+          title: label,
+          lessons: [],
+        };
+        bucket.lessons.push(entry);
+        topicMap.set(key, bucket);
+      }
+      return Array.from(topicMap.values());
+    };
+
+    const chapterNodes: ChapterNode[] = sortedChapters.map((ch, idx) => {
+      const topics = buildTopicsForChapter(ch.id);
+      return {
+        chapter: ch,
+        chapterIdx: idx,
+        groupTitle: ch.groupTitle?.trim() || fallbackGroupTitle,
+        lessonCount: topics.reduce((sum, t) => sum + t.lessons.length, 0),
+        topics,
+      };
+    });
+
+    const orphanTopics = buildTopicsForChapter(null);
+    const groupMap = new Map<string, ChapterNode[]>();
+    for (const node of chapterNodes) {
+      const arr = groupMap.get(node.groupTitle) || [];
+      arr.push(node);
+      groupMap.set(node.groupTitle, arr);
+    }
+
+    const groups = Array.from(groupMap.entries()).map(([groupTitle, nodes], gIdx) => ({
+      id: `admin_grp_${gIdx}_${groupTitle}`,
+      title: groupTitle,
+      chapters: nodes,
+      totalLessons: nodes.reduce((sum, n) => sum + n.lessonCount, 0),
+    }));
+
+    const orphanLessonCount = orphanTopics.reduce((sum, t) => sum + t.lessons.length, 0);
+    return { groups, orphanTopics, orphanLessonCount };
+  }, [chapters, outlineStats.orderedLessons, subject]);
 
   const handleUploadCover = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -254,18 +451,19 @@ export default function CourseEditor() {
     );
   };
 
-  const handleAddLesson = (targetChapterId?: string | null) => {
+  const handleAddLesson = (targetChapterId?: string | null, targetTopicTitle?: string) => {
     const newId = generateItemId("les");
     const nextOrder = lessons.length;
     const newLesson: CourseLesson = {
       id: newId,
       courseId: courseId || "",
-      chapterId: targetChapterId ?? (chapters[0]?.id || null),
-      topicTitle: "",
+      chapterId: targetChapterId !== undefined ? targetChapterId : (chapters[0]?.id || null),
+      topicTitle: targetTopicTitle || "",
       title: `Bài ${nextOrder + 1}: Video bài giảng mới`,
       description: "",
       order: nextOrder,
-      durationMinutes: 25,
+      durationMinutes: 0,
+      durationSeconds: 0,
       videoType: "youtube",
       videoUrl: "",
       accessType: "inherit_first_n",
@@ -329,15 +527,33 @@ export default function CourseEditor() {
   const handleUploadLessonVideo = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file || !selectedLesson) return;
+    const targetLessonId = selectedLesson.id;
     try {
       setUploadingVideo(true);
-      const url = await uploadFileToCloudinary(file);
-      updateSelectedLesson({
+      const [localMeta, url] = await Promise.all([
+        probeClientVideoDuration(file),
+        uploadFileToCloudinary(file),
+      ]);
+      const patch: Partial<CourseLesson> = {
         videoUrl: url,
         videoType: "cloudinary",
-      });
-      setRevealVideoUrlMap((prev) => ({ ...prev, [selectedLesson.id]: false }));
-      showSuccessToast("Đã upload video lên Cloudinary và tự động ẩn URL gốc.");
+      };
+      if (localMeta && localMeta.durationSeconds > 0) {
+        patch.durationSeconds = localMeta.durationSeconds;
+        patch.durationMinutes = localMeta.durationMinutes;
+      }
+      setLessons((prev) =>
+        prev.map((l) => (l.id === targetLessonId ? { ...l, ...patch } : l))
+      );
+      setRevealVideoUrlMap((prev) => ({ ...prev, [targetLessonId]: false }));
+      if (!localMeta) {
+        void probeDurationForLesson(targetLessonId, url, "cloudinary", false);
+      }
+      showSuccessToast(
+        localMeta
+          ? `Đã upload video (${formatDurationClock(localMeta.durationSeconds, localMeta.durationMinutes)}) và tự động ẩn URL gốc.`
+          : "Đã upload video lên Cloudinary và tự động ẩn URL gốc."
+      );
     } catch (err: any) {
       showErrorToast(err.message || "Upload video thất bại. Hãy dùng link kho lưu/YouTube/Drive nếu vượt giới hạn.");
     } finally {
@@ -490,7 +706,7 @@ export default function CourseEditor() {
   if (loading) {
     return (
       <div className="p-10 text-center space-y-3">
-        <div className="w-8 h-8 border-4 border-rose-500 border-t-transparent rounded-full animate-spin mx-auto" />
+        <div className="w-8 h-8 border-4 border-blue-600 border-t-transparent rounded-full animate-spin mx-auto" />
         <p className="text-sm font-bold text-slate-500">Đang tải dữ liệu khóa học...</p>
       </div>
     );
@@ -498,6 +714,7 @@ export default function CourseEditor() {
 
   const isSelectedUrlRevealed = selectedLesson ? Boolean(revealVideoUrlMap[selectedLesson.id]) : false;
   const hasSelectedVideoUrl = Boolean(selectedLesson?.videoUrl?.trim());
+  const isProbingSelected = selectedLesson ? Boolean(probingLessonMap[selectedLesson.id]) : false;
 
   return (
     <div className="max-w-7xl mx-auto space-y-5 pb-24">
@@ -520,7 +737,7 @@ export default function CourseEditor() {
                 className={`px-2.5 py-0.5 rounded-full text-[10px] font-black uppercase ${
                   status === "published"
                     ? "bg-emerald-100 text-emerald-700 dark:bg-emerald-950/60 dark:text-emerald-300"
-                    : "bg-amber-100 text-amber-700 dark:bg-amber-950/60 dark:text-amber-300"
+                    : "bg-blue-50 text-blue-700 dark:bg-blue-950/60 dark:text-blue-300"
                 }`}
               >
                 {status === "published" ? "Đang mở" : status === "archived" ? "Lưu trữ" : "Bản nháp"}
@@ -528,7 +745,8 @@ export default function CourseEditor() {
             </div>
             <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
               {outlineStats.lessonCount} video ({outlineStats.freeLessonCount} miễn phí /{" "}
-              {outlineStats.paidLessonCount} trả phí) • {outlineStats.totalDurationMinutes} phút •{" "}
+              {outlineStats.paidLessonCount} trả phí) •{" "}
+              {formatDurationClock(outlineStats.totalDurationSeconds, outlineStats.totalDurationMinutes)} •{" "}
               {accessMode === "paid"
                 ? `Trọn khóa ${(Number(priceVnd) || 0).toLocaleString("vi-VN")}đ`
                 : accessMode === "per_video"
@@ -539,22 +757,43 @@ export default function CourseEditor() {
         </div>
 
         <div className="flex flex-wrap items-center gap-2">
-          {isEditMode && (
-            <Link
-              to={`/student/courses/${courseId}`}
-              target="_blank"
-              className="px-3.5 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-slate-700 dark:text-slate-200 text-xs font-bold flex items-center gap-1.5 hover:bg-slate-100"
-            >
-              <Eye className="w-4 h-4" />
-              <span>Xem trang học sinh</span>
-            </Link>
+          {isEditMode && courseId && (
+            <>
+              <button
+                type="button"
+                onClick={async () => {
+                  const ok = await safeCopyText(buildCourseShareUrl(courseId));
+                  if (ok) {
+                    setCopiedKey("course");
+                    setTimeout(() => setCopiedKey(null), 2000);
+                    showSuccessToast("Đã sao chép link chia sẻ khóa học (kèm ảnh preview)!");
+                  }
+                }}
+                className="px-3.5 py-2.5 rounded-xl border border-blue-200 dark:border-blue-800 bg-blue-50/70 dark:bg-blue-950/40 text-blue-700 dark:text-blue-300 text-xs font-bold flex items-center gap-1.5 hover:bg-blue-100 cursor-pointer"
+              >
+                {copiedKey === "course" ? (
+                  <Check className="w-4 h-4 text-emerald-600" />
+                ) : (
+                  <Share2 className="w-4 h-4" />
+                )}
+                <span>Chia sẻ khóa</span>
+              </button>
+              <Link
+                to={`/student/courses/${courseId}`}
+                target="_blank"
+                className="px-3.5 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-slate-700 dark:text-slate-200 text-xs font-bold flex items-center gap-1.5 hover:bg-slate-100"
+              >
+                <Eye className="w-4 h-4" />
+                <span>Xem trang học sinh</span>
+              </Link>
+            </>
           )}
           {status !== "published" && (
             <button
               type="button"
               disabled={saving}
               onClick={() => void handleSave("published")}
-              className="px-4 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 disabled:opacity-50 text-white text-xs font-bold flex items-center gap-1.5 transition-all"
+              className="px-4 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 disabled:opacity-50 text-white text-xs font-bold flex items-center gap-1.5 transition-all cursor-pointer"
             >
               <CheckCircle2 className="w-4 h-4" />
               <span>Lưu &amp; Xuất bản</span>
@@ -564,7 +803,7 @@ export default function CourseEditor() {
             type="button"
             disabled={saving}
             onClick={() => void handleSave()}
-            className="px-5 py-2.5 rounded-xl bg-rose-600 hover:bg-rose-700 disabled:opacity-50 text-white text-xs font-bold flex items-center gap-1.5 shadow-lg shadow-rose-500/20 transition-all"
+            className="px-5 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 disabled:opacity-50 text-white text-xs font-bold flex items-center gap-1.5 shadow-lg shadow-blue-500/20 transition-all cursor-pointer"
           >
             <Save className="w-4 h-4" />
             <span>{saving ? "Đang lưu..." : "Lưu khóa học"}</span>
@@ -577,9 +816,9 @@ export default function CourseEditor() {
         <button
           type="button"
           onClick={() => setActiveTab("info")}
-          className={`px-4 py-2.5 rounded-2xl text-xs font-black flex items-center gap-2 whitespace-nowrap transition-all ${
+          className={`px-4 py-2.5 rounded-2xl text-xs font-black flex items-center gap-2 whitespace-nowrap transition-all cursor-pointer ${
             activeTab === "info"
-              ? "bg-slate-900 dark:bg-white text-white dark:text-slate-900 shadow-sm"
+              ? "bg-blue-600 text-white shadow-sm"
               : "bg-white dark:bg-slate-900 text-slate-600 dark:text-slate-400 border border-slate-200 dark:border-slate-800"
           }`}
         >
@@ -590,9 +829,9 @@ export default function CourseEditor() {
         <button
           type="button"
           onClick={() => setActiveTab("curriculum")}
-          className={`px-4 py-2.5 rounded-2xl text-xs font-black flex items-center gap-2 whitespace-nowrap transition-all ${
+          className={`px-4 py-2.5 rounded-2xl text-xs font-black flex items-center gap-2 whitespace-nowrap transition-all cursor-pointer ${
             activeTab === "curriculum"
-              ? "bg-slate-900 dark:bg-white text-white dark:text-slate-900 shadow-sm"
+              ? "bg-blue-600 text-white shadow-sm"
               : "bg-white dark:bg-slate-900 text-slate-600 dark:text-slate-400 border border-slate-200 dark:border-slate-800"
           }`}
         >
@@ -604,9 +843,9 @@ export default function CourseEditor() {
           <button
             type="button"
             onClick={() => setActiveTab("entitlements")}
-            className={`px-4 py-2.5 rounded-2xl text-xs font-black flex items-center gap-2 whitespace-nowrap transition-all ${
+            className={`px-4 py-2.5 rounded-2xl text-xs font-black flex items-center gap-2 whitespace-nowrap transition-all cursor-pointer ${
               activeTab === "entitlements"
-                ? "bg-slate-900 dark:bg-white text-white dark:text-slate-900 shadow-sm"
+                ? "bg-blue-600 text-white shadow-sm"
                 : "bg-white dark:bg-slate-900 text-slate-600 dark:text-slate-400 border border-slate-200 dark:border-slate-800"
             }`}
           >
@@ -622,7 +861,7 @@ export default function CourseEditor() {
           {/* Left: Basic Info */}
           <div className="lg:col-span-6 bg-white dark:bg-slate-900 rounded-3xl border border-slate-200 dark:border-slate-800 p-5 sm:p-6 space-y-4 shadow-sm">
             <div className="flex items-center gap-2 pb-3 border-b border-slate-100 dark:border-slate-800">
-              <BookOpen className="w-5 h-5 text-rose-500" />
+              <BookOpen className="w-5 h-5 text-blue-600" />
               <h2 className="font-black text-slate-900 dark:text-white">Thông tin cơ bản khóa học</h2>
             </div>
 
@@ -636,7 +875,7 @@ export default function CourseEditor() {
                   value={title}
                   onChange={(e) => setTitle(e.target.value)}
                   placeholder="VD: Bổ trợ Kiến thức Toán 12 &amp; Casio Giải Nhanh"
-                  className="w-full px-4 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-sm font-semibold focus:outline-none focus:ring-2 focus:ring-rose-500"
+                  className="w-full px-4 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-sm font-semibold focus:outline-none focus:ring-2 focus:ring-blue-500"
                 />
               </div>
 
@@ -766,7 +1005,7 @@ export default function CourseEditor() {
                   type="checkbox"
                   checked={isFeatured}
                   onChange={(e) => setIsFeatured(e.target.checked)}
-                  className="w-4 h-4 rounded accent-rose-600"
+                  className="w-4 h-4 rounded accent-blue-600"
                 />
                 <span className="text-xs font-bold text-slate-700 dark:text-slate-300">
                   Đánh dấu Khóa học Nổi bật (hiển thị đầu danh sách)
@@ -826,11 +1065,11 @@ export default function CourseEditor() {
                 onClick={() => setAccessMode("paid")}
                 className={`p-3 rounded-2xl border text-left transition-all ${
                   accessMode === "paid"
-                    ? "border-amber-500 bg-amber-50/70 dark:bg-amber-950/30 shadow-xs"
+                    ? "border-blue-600 bg-blue-50/70 dark:bg-blue-950/30 shadow-xs"
                     : "border-slate-200 dark:border-slate-800 hover:border-slate-300"
                 }`}
               >
-                <div className="flex items-center gap-1.5 text-xs font-black text-amber-700 dark:text-amber-300">
+                <div className="flex items-center gap-1.5 text-xs font-black text-blue-700 dark:text-blue-300">
                   <Lock className="w-3.5 h-3.5" />
                   <span>Thu phí trọn khóa</span>
                 </div>
@@ -861,7 +1100,7 @@ export default function CourseEditor() {
                         step={1000}
                         value={priceVnd}
                         onChange={(e) => setPriceVnd(Math.max(0, Number(e.target.value) || 0))}
-                        className="w-full px-3.5 py-2 rounded-xl border border-amber-300 dark:border-amber-700 bg-amber-50/50 dark:bg-amber-950/30 text-sm font-black text-amber-700 dark:text-amber-300"
+                        className="w-full px-3.5 py-2 rounded-xl border border-blue-300 dark:border-blue-700 bg-blue-50/50 dark:bg-blue-950/30 text-sm font-black text-blue-700 dark:text-blue-300"
                       />
                     </div>
                     <div>
@@ -1020,31 +1259,57 @@ export default function CourseEditor() {
       {/* TAB 2: HIERARCHICAL CURRICULUM, CHAPTERS & LESSONS */}
       {activeTab === "curriculum" && (
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
-          {/* Left Panel */}
+          {/* Left Panel: Visual 3-Level Hierarchy Tree matching Student Syllabus */}
           <div className="lg:col-span-5 bg-white dark:bg-slate-900 rounded-3xl border border-slate-200 dark:border-slate-800 p-4 sm:p-5 space-y-4 shadow-sm">
-            <div className="flex items-center justify-between gap-2">
+            <div className="flex items-center justify-between gap-2 flex-wrap">
               <div>
                 <h2 className="font-black text-slate-900 dark:text-white flex items-center gap-2 text-sm">
-                  <Layers className="w-4 h-4 text-rose-500" />
-                  <span>Cây phân cấp &amp; Video</span>
+                  <Layers className="w-4 h-4 text-blue-600" />
+                  <span>Cây phân cấp &amp; Video ({outlineStats.orderedLessons.length})</span>
                 </h2>
                 <p className="text-[11px] text-slate-500 mt-0.5">
-                  Tầng 1 (Nhóm) → Tầng 2 (Chương) → Tầng 3 (Chuyên đề)
+                  Tầng 1 (Nhóm) → Tầng 2 (Chương) → Tầng 3 (Chuyên đề) • Tổng{" "}
+                  <strong className="text-blue-600 dark:text-blue-400">
+                    {formatDurationClock(
+                      outlineStats.totalDurationSeconds,
+                      outlineStats.totalDurationMinutes
+                    )}
+                  </strong>
                 </p>
               </div>
-              <button
-                type="button"
-                onClick={() => handleAddLesson()}
-                className="px-3.5 py-2 rounded-xl bg-rose-600 hover:bg-rose-700 text-white text-xs font-bold flex items-center gap-1.5 shadow-sm shrink-0"
-              >
-                <Plus className="w-3.5 h-3.5" />
-                <span>Thêm video</span>
-              </button>
+              <div className="flex items-center gap-1.5">
+                {outlineStats.orderedLessons.length > 0 && (
+                  <button
+                    type="button"
+                    disabled={bulkProbing}
+                    onClick={() => void handleBulkProbeAllLessons()}
+                    title="Tự động đo chuẩn thời lượng từ URL video cho các bài chưa đo"
+                    className="px-2.5 py-2 rounded-xl border border-blue-200 dark:border-blue-800 bg-blue-50/70 hover:bg-blue-100 dark:bg-blue-950/40 text-blue-700 dark:text-blue-300 text-[11px] font-bold flex items-center gap-1 cursor-pointer disabled:opacity-50"
+                  >
+                    {bulkProbing ? (
+                      <Loader2 className="w-3.5 h-3.5 animate-spin" />
+                    ) : (
+                      <Clock className="w-3.5 h-3.5" />
+                    )}
+                    <span>Đo thời lượng</span>
+                  </button>
+                )}
+                <button
+                  type="button"
+                  onClick={() => handleAddLesson()}
+                  className="px-3.5 py-2 rounded-xl bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold flex items-center gap-1.5 shadow-sm shrink-0 cursor-pointer"
+                >
+                  <Plus className="w-3.5 h-3.5" />
+                  <span>Thêm video</span>
+                </button>
+              </div>
             </div>
 
             {/* Chapter Quick Creator */}
-            <div className="space-y-2 p-3 rounded-2xl bg-slate-50 dark:bg-slate-800/50 border border-slate-200/70 dark:border-slate-800">
-              <div className="text-[10px] font-black uppercase text-slate-400">Tạo Chương mới</div>
+            <div className="space-y-2 p-3 rounded-2xl bg-blue-50/50 dark:bg-slate-800/50 border border-blue-200/70 dark:border-slate-700">
+              <div className="text-[10px] font-black uppercase text-blue-700 dark:text-blue-300">
+                Tạo Chương (Tầng 2)
+              </div>
               <div className="grid grid-cols-1 sm:grid-cols-12 gap-2">
                 <input
                   type="text"
@@ -1065,190 +1330,409 @@ export default function CourseEditor() {
               <button
                 type="button"
                 onClick={handleAddChapter}
-                className="w-full py-2 rounded-xl bg-slate-900 dark:bg-slate-700 hover:bg-slate-800 text-white text-xs font-bold flex items-center justify-center gap-1.5"
+                className="w-full py-2 rounded-xl bg-slate-900 dark:bg-slate-700 hover:bg-slate-800 text-white text-xs font-bold flex items-center justify-center gap-1.5 cursor-pointer"
               >
                 <FolderPlus className="w-3.5 h-3.5" />
                 <span>Thêm chương vào khóa</span>
               </button>
             </div>
 
-            {/* Chapters Management List */}
-            {chapters.length > 0 && (
-              <div className="space-y-1.5">
-                <div className="text-[11px] font-black uppercase text-slate-400">
-                  Danh sách Chương ({chapters.length})
-                </div>
-                {chapters.map((ch, cIdx) => (
-                  <div
-                    key={ch.id}
-                    className="p-2.5 rounded-xl bg-amber-50/70 dark:bg-amber-950/20 border border-amber-200/70 dark:border-amber-800/50 space-y-1.5"
-                  >
-                    <div className="flex items-center gap-2">
-                      <input
-                        type="text"
-                        value={ch.groupTitle || ""}
-                        onChange={(e) =>
-                          setChapters((prev) =>
-                            prev.map((item) => (item.id === ch.id ? { ...item, groupTitle: e.target.value } : item))
-                          )
-                        }
-                        placeholder={`Nhóm tầng 1 (mặc định: ${subject || "Nội dung khóa học"})`}
-                        className="flex-1 bg-white/80 dark:bg-slate-900 px-2 py-1 rounded-lg border border-amber-200/70 dark:border-slate-700 text-[10px] font-bold uppercase text-amber-800 dark:text-amber-300"
-                      />
-                    </div>
-                    <div className="flex items-center justify-between gap-2">
-                      <input
-                        type="text"
-                        value={ch.title}
-                        onChange={(e) =>
-                          setChapters((prev) =>
-                            prev.map((item) => (item.id === ch.id ? { ...item, title: e.target.value } : item))
-                          )
-                        }
-                        className="flex-1 bg-transparent text-xs font-black text-slate-900 dark:text-white focus:outline-none"
-                      />
-                      <div className="flex items-center gap-0.5 shrink-0">
-                        <button
-                          type="button"
-                          onClick={() => handleAddLesson(ch.id)}
-                          title="Thêm video vào chương này"
-                          className="p-1 text-rose-600 hover:bg-rose-50 dark:hover:bg-rose-950/50 rounded-lg"
-                        >
-                          <Plus className="w-3.5 h-3.5" />
-                        </button>
-                        <button
-                          type="button"
-                          onClick={() => handleMoveChapter(cIdx, -1)}
-                          disabled={cIdx === 0}
-                          className="p-1 text-slate-500 disabled:opacity-30"
-                        >
-                          <ArrowUp className="w-3.5 h-3.5" />
-                        </button>
-                        <button
-                          type="button"
-                          onClick={() => handleMoveChapter(cIdx, 1)}
-                          disabled={cIdx === chapters.length - 1}
-                          className="p-1 text-slate-500 disabled:opacity-30"
-                        >
-                          <ArrowDown className="w-3.5 h-3.5" />
-                        </button>
-                        <button
-                          type="button"
-                          onClick={() => handleDeleteChapter(ch.id)}
-                          className="p-1 text-rose-500 hover:bg-rose-50 rounded-lg"
-                          title="Xóa chương (giữ lại bài giảng)"
-                        >
-                          <Trash2 className="w-3.5 h-3.5" />
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            )}
-
-            {/* Ordered Lessons List */}
-            <div className="space-y-2">
-              <div className="text-[11px] font-black uppercase text-slate-400">
-                Thứ tự video ({outlineStats.orderedLessons.length})
-              </div>
-
-              {outlineStats.orderedLessons.length === 0 ? (
+            {/* 3-Level Visual Tree */}
+            <div className="space-y-3 max-h-[640px] overflow-y-auto pr-1">
+              {adminHierarchy.groups.length === 0 && adminHierarchy.orphanLessonCount === 0 ? (
                 <div className="p-8 text-center rounded-2xl border-2 border-dashed border-slate-200 dark:border-slate-700 space-y-2">
                   <PlayCircle className="w-9 h-9 text-slate-300 mx-auto" />
-                  <p className="text-xs font-bold text-slate-500">Chưa có video nào trong khóa học.</p>
+                  <p className="text-xs font-bold text-slate-500">
+                    Chưa có Chương hoặc Video nào. Hãy tạo Chương hoặc bấm &ldquo;Thêm video&rdquo;.
+                  </p>
                   <button
                     type="button"
                     onClick={() => handleAddLesson()}
-                    className="px-4 py-2 rounded-xl bg-rose-600 text-white text-xs font-bold"
+                    className="px-4 py-2 rounded-xl bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold cursor-pointer"
                   >
                     + Tạo video đầu tiên
                   </button>
                 </div>
               ) : (
-                <div className="space-y-2 max-h-[480px] overflow-y-auto pr-1">
-                  {outlineStats.orderedLessons.map((lesson, idx) => {
-                    const isFreeEff = isLessonEffectivelyFree(
-                      { accessMode, priceVnd: accessMode === "paid" ? priceVnd : 0, freePreviewCount },
-                      lesson
-                    );
-                    const chTitle = chapters.find((c) => c.id === lesson.chapterId)?.title;
-                    const isSelected = lesson.id === selectedLessonId;
-
+                <>
+                  {adminHierarchy.groups.map((grp) => {
+                    const isGrpCollapsed = Boolean(collapsedAdminGroups[grp.id]);
                     return (
-                      <div
-                        key={lesson.id}
-                        onClick={() => {
-                          setSelectedLessonId(lesson.id);
-                          setShowVideoPreview(false);
-                        }}
-                        className={`p-3 rounded-2xl border cursor-pointer transition-all ${
-                          isSelected
-                            ? "border-rose-500 bg-rose-50/70 dark:bg-rose-950/30 shadow-sm"
-                            : "border-slate-200 dark:border-slate-800 hover:border-slate-300 dark:hover:border-slate-700"
-                        }`}
-                      >
-                        <div className="flex items-start justify-between gap-2">
-                          <div className="min-w-0 flex-1 space-y-1">
-                            <div className="flex items-center gap-1.5 flex-wrap">
-                              <span className="px-1.5 py-0.5 rounded bg-slate-900 dark:bg-slate-700 text-white text-[10px] font-black">
-                                #{idx + 1}
-                              </span>
-                              <span
-                                className={`px-2 py-0.5 rounded-full text-[10px] font-black uppercase ${
-                                  isFreeEff
-                                    ? "bg-emerald-100 text-emerald-700 dark:bg-emerald-950/60 dark:text-emerald-300"
-                                    : "bg-amber-100 text-amber-800 dark:bg-amber-950/60 dark:text-amber-300"
-                                }`}
-                              >
-                                {isFreeEff
-                                  ? "Miễn phí"
-                                  : `Trả phí ${(lesson.priceVnd || 0).toLocaleString("vi-VN")}đ`}
-                              </span>
-                              {lesson.topicTitle && (
-                                <span className="px-1.5 py-0.5 rounded bg-indigo-50 dark:bg-indigo-950/50 text-indigo-700 dark:text-indigo-300 text-[9px] font-bold">
-                                  {lesson.topicTitle}
-                                </span>
-                              )}
-                            </div>
-
-                            <div className="font-bold text-xs text-slate-900 dark:text-white line-clamp-2">
-                              {lesson.title || "(Chưa đặt tiêu đề)"}
-                            </div>
-
-                            <div className="text-[10px] text-slate-500 flex items-center gap-2 flex-wrap">
-                              {chTitle && <span className="truncate max-w-[130px]">📁 {chTitle}</span>}
-                              <span>⏱ {lesson.durationMinutes || 0}p</span>
-                              {!lesson.videoUrl && <span className="text-rose-500 font-bold">⚠ Chưa gắn video</span>}
-                            </div>
-                          </div>
-
-                          <div
-                            className="flex flex-col gap-1 shrink-0"
-                            onClick={(e) => e.stopPropagation()}
+                      <div key={grp.id} className="space-y-2">
+                        {/* Level 1 Group Header */}
+                        <div className="rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 text-white px-3 py-2 flex items-center justify-between gap-2 shadow-xs">
+                          <button
+                            type="button"
+                            onClick={() =>
+                              setCollapsedAdminGroups((prev) => ({ ...prev, [grp.id]: !isGrpCollapsed }))
+                            }
+                            className="flex items-center gap-2 min-w-0 flex-1 text-left cursor-pointer"
                           >
-                            <button
-                              type="button"
-                              onClick={() => handleMoveLesson(lesson.id, -1)}
-                              disabled={idx === 0}
-                              className="p-1 rounded bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 disabled:opacity-30"
-                            >
-                              <ArrowUp className="w-3 h-3" />
-                            </button>
-                            <button
-                              type="button"
-                              onClick={() => handleMoveLesson(lesson.id, 1)}
-                              disabled={idx === outlineStats.orderedLessons.length - 1}
-                              className="p-1 rounded bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 disabled:opacity-30"
-                            >
-                              <ArrowDown className="w-3 h-3" />
-                            </button>
-                          </div>
+                            {isGrpCollapsed ? (
+                              <ChevronDown className="w-3.5 h-3.5 shrink-0" />
+                            ) : (
+                              <ChevronUp className="w-3.5 h-3.5 shrink-0" />
+                            )}
+                            <span className="text-[11px] font-black uppercase tracking-wide truncate">
+                              Tầng 1: {grp.title}
+                            </span>
+                          </button>
+                          <span className="text-[10px] font-bold bg-white/20 px-2 py-0.5 rounded-full shrink-0">
+                            {grp.chapters.length} chương • {grp.totalLessons} bài
+                          </span>
                         </div>
+
+                        {!isGrpCollapsed && (
+                          <div className="space-y-2.5 pl-2">
+                            {grp.chapters.map((chNode) => {
+                              const { chapter, chapterIdx, topics, lessonCount } = chNode;
+                              const isChapCollapsed = Boolean(collapsedAdminChapters[chapter.id]);
+                              return (
+                                <div
+                                  key={chapter.id}
+                                  className="rounded-2xl border border-blue-200 dark:border-blue-800/60 bg-blue-50/40 dark:bg-slate-900 overflow-hidden"
+                                >
+                                  {/* Level 2 Chapter Bar (Inline Editable Title + Group) */}
+                                  <div className="px-3 py-2 bg-blue-50 dark:bg-blue-950/50 border-b border-blue-100 dark:border-blue-900/50 space-y-1.5">
+                                    <div className="flex items-center justify-between gap-1.5">
+                                      <button
+                                        type="button"
+                                        onClick={() =>
+                                          setCollapsedAdminChapters((prev) => ({
+                                            ...prev,
+                                            [chapter.id]: !isChapCollapsed,
+                                          }))
+                                        }
+                                        className="p-1 text-blue-700 dark:text-blue-300 hover:bg-blue-100 dark:hover:bg-blue-900/50 rounded-lg cursor-pointer"
+                                        title={isChapCollapsed ? "Mở rộng chương" : "Thu gọn chương"}
+                                      >
+                                        {isChapCollapsed ? (
+                                          <ChevronDown className="w-3.5 h-3.5" />
+                                        ) : (
+                                          <ChevronUp className="w-3.5 h-3.5" />
+                                        )}
+                                      </button>
+                                      <input
+                                        type="text"
+                                        value={chapter.title}
+                                        onChange={(e) =>
+                                          setChapters((prev) =>
+                                            prev.map((item) =>
+                                              item.id === chapter.id ? { ...item, title: e.target.value } : item
+                                            )
+                                          )
+                                        }
+                                        className="flex-1 min-w-0 bg-transparent text-xs font-black uppercase text-blue-950 dark:text-blue-100 focus:outline-none focus:bg-white/80 dark:focus:bg-slate-800 px-1.5 py-0.5 rounded"
+                                      />
+                                      <div className="flex items-center gap-0.5 shrink-0">
+                                        <button
+                                          type="button"
+                                          onClick={() => handleAddLesson(chapter.id)}
+                                          title="Thêm video vào chương này"
+                                          className="px-2 py-1 rounded-lg bg-blue-600 hover:bg-blue-700 text-white text-[10px] font-bold flex items-center gap-0.5 cursor-pointer"
+                                        >
+                                          <Plus className="w-3 h-3" />
+                                          <span>Video</span>
+                                        </button>
+                                        <button
+                                          type="button"
+                                          onClick={() => handleMoveChapter(chapterIdx, -1)}
+                                          disabled={chapterIdx === 0}
+                                          className="p-1 text-slate-500 disabled:opacity-30 cursor-pointer"
+                                        >
+                                          <ArrowUp className="w-3.5 h-3.5" />
+                                        </button>
+                                        <button
+                                          type="button"
+                                          onClick={() => handleMoveChapter(chapterIdx, 1)}
+                                          disabled={chapterIdx === chapters.length - 1}
+                                          className="p-1 text-slate-500 disabled:opacity-30 cursor-pointer"
+                                        >
+                                          <ArrowDown className="w-3.5 h-3.5" />
+                                        </button>
+                                        <button
+                                          type="button"
+                                          onClick={() => handleDeleteChapter(chapter.id)}
+                                          className="p-1 text-rose-500 hover:bg-rose-50 rounded-lg cursor-pointer"
+                                          title="Xóa chương (giữ lại bài giảng)"
+                                        >
+                                          <Trash2 className="w-3.5 h-3.5" />
+                                        </button>
+                                      </div>
+                                    </div>
+                                    <div className="flex items-center gap-2 pl-7">
+                                      <input
+                                        type="text"
+                                        value={chapter.groupTitle || ""}
+                                        onChange={(e) =>
+                                          setChapters((prev) =>
+                                            prev.map((item) =>
+                                              item.id === chapter.id
+                                                ? { ...item, groupTitle: e.target.value }
+                                                : item
+                                            )
+                                          )
+                                        }
+                                        placeholder={`Nhóm tầng 1 (mặc định: ${subject || "Nội dung khóa học"})`}
+                                        className="flex-1 bg-white/80 dark:bg-slate-900 px-2 py-0.5 rounded border border-blue-200/70 dark:border-slate-700 text-[10px] font-bold text-blue-700 dark:text-blue-300"
+                                      />
+                                      <span className="text-[10px] font-bold text-slate-500 shrink-0">
+                                        {lessonCount} video
+                                      </span>
+                                    </div>
+                                  </div>
+
+                                  {/* Level 3 Topics inside Chapter */}
+                                  {!isChapCollapsed && (
+                                    <div className="p-2 space-y-2 bg-white/90 dark:bg-slate-900/90">
+                                      {topics.length === 0 ? (
+                                        <button
+                                          type="button"
+                                          onClick={() => handleAddLesson(chapter.id)}
+                                          className="w-full py-2.5 rounded-xl border border-dashed border-blue-300 dark:border-blue-800 text-blue-600 dark:text-blue-400 hover:bg-blue-50/70 dark:hover:bg-blue-950/30 text-[11px] font-bold flex items-center justify-center gap-1 cursor-pointer"
+                                        >
+                                          <Plus className="w-3.5 h-3.5" />
+                                          <span>Chưa có video — Thêm vào chương này</span>
+                                        </button>
+                                      ) : (
+                                        topics.map((topic) => {
+                                          const isTopicCollapsed = Boolean(collapsedAdminTopics[topic.id]);
+                                          const defaultTopicName =
+                                            topic.lessons[0]?.lesson.topicTitle?.trim() || "";
+                                          return (
+                                            <div
+                                              key={topic.id}
+                                              className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 overflow-hidden"
+                                            >
+                                              <div className="px-2.5 py-2 bg-slate-50/80 dark:bg-slate-800/50 flex items-center justify-between gap-2">
+                                                <button
+                                                  type="button"
+                                                  onClick={() =>
+                                                    setCollapsedAdminTopics((prev) => ({
+                                                      ...prev,
+                                                      [topic.id]: !isTopicCollapsed,
+                                                    }))
+                                                  }
+                                                  className="flex items-center gap-1.5 min-w-0 flex-1 text-left cursor-pointer"
+                                                >
+                                                  <BookOpen className="w-3.5 h-3.5 text-blue-600 shrink-0" />
+                                                  <span className="text-[11px] font-bold text-slate-800 dark:text-slate-100 truncate">
+                                                    {topic.title}
+                                                  </span>
+                                                  <span className="text-[10px] font-bold text-slate-400 shrink-0">
+                                                    ({topic.lessons.length})
+                                                  </span>
+                                                </button>
+                                                <button
+                                                  type="button"
+                                                  onClick={() =>
+                                                    handleAddLesson(chapter.id, defaultTopicName)
+                                                  }
+                                                  title="Thêm video cùng chuyên đề"
+                                                  className="px-2 py-0.5 rounded-lg bg-blue-50 hover:bg-blue-100 dark:bg-blue-950/50 text-blue-700 dark:text-blue-300 text-[10px] font-bold shrink-0 cursor-pointer"
+                                                >
+                                                  + Video
+                                                </button>
+                                              </div>
+
+                                              {!isTopicCollapsed && (
+                                                <div className="divide-y divide-slate-100 dark:divide-slate-800">
+                                                  {topic.lessons.map(({ lesson, globalIdx }) => {
+                                                    const isFreeEff = isLessonEffectivelyFree(
+                                                      {
+                                                        accessMode,
+                                                        priceVnd: accessMode === "paid" ? priceVnd : 0,
+                                                        freePreviewCount,
+                                                      },
+                                                      lesson
+                                                    );
+                                                    const isSelected = lesson.id === selectedLessonId;
+                                                    return (
+                                                      <div
+                                                        key={lesson.id}
+                                                        onClick={() => {
+                                                          setSelectedLessonId(lesson.id);
+                                                          setShowVideoPreview(false);
+                                                        }}
+                                                        className={`p-2.5 flex items-start justify-between gap-2 cursor-pointer transition-colors ${
+                                                          isSelected
+                                                            ? "bg-blue-50/90 dark:bg-blue-950/40 ring-1 ring-inset ring-blue-400"
+                                                            : "hover:bg-slate-50 dark:hover:bg-slate-800/30"
+                                                        }`}
+                                                      >
+                                                        <div className="min-w-0 flex-1 space-y-1">
+                                                          <div className="flex items-center gap-1.5 flex-wrap">
+                                                            <span className="px-1.5 py-0.5 rounded bg-slate-900 dark:bg-slate-700 text-white text-[10px] font-black">
+                                                              #{globalIdx + 1}
+                                                            </span>
+                                                            <span
+                                                              className={`px-2 py-0.5 rounded-full text-[9px] font-black uppercase ${
+                                                                isFreeEff
+                                                                  ? "bg-emerald-100 text-emerald-700 dark:bg-emerald-950/60 dark:text-emerald-300"
+                                                                  : "bg-indigo-100 text-indigo-800 dark:bg-indigo-950/60 dark:text-indigo-300"
+                                                              }`}
+                                                            >
+                                                              {isFreeEff
+                                                                ? "Miễn phí"
+                                                                : `Trả phí ${(lesson.priceVnd || 0).toLocaleString("vi-VN")}đ`}
+                                                            </span>
+                                                            {probingLessonMap[lesson.id] ? (
+                                                              <span className="text-[10px] text-blue-600 font-bold flex items-center gap-0.5">
+                                                                <Loader2 className="w-3 h-3 animate-spin" />
+                                                                Đang đo...
+                                                              </span>
+                                                            ) : (
+                                                              <span className="text-[10px] text-slate-500 font-semibold">
+                                                                ⏱{" "}
+                                                                {formatDurationClock(
+                                                                  lesson.durationSeconds,
+                                                                  lesson.durationMinutes || 0
+                                                                )}
+                                                              </span>
+                                                            )}
+                                                          </div>
+                                                          <div className="text-xs font-bold text-slate-900 dark:text-white line-clamp-2">
+                                                            {lesson.title || "(Chưa đặt tiêu đề)"}
+                                                          </div>
+                                                          {!lesson.videoUrl && (
+                                                            <div className="text-[10px] text-rose-500 font-bold">
+                                                              ⚠ Chưa gắn video
+                                                            </div>
+                                                          )}
+                                                        </div>
+
+                                                        <div
+                                                          className="flex flex-col gap-1 shrink-0"
+                                                          onClick={(e) => e.stopPropagation()}
+                                                        >
+                                                          <button
+                                                            type="button"
+                                                            onClick={() => handleMoveLesson(lesson.id, -1)}
+                                                            disabled={globalIdx === 0}
+                                                            className="p-1 rounded bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 disabled:opacity-30 cursor-pointer"
+                                                          >
+                                                            <ArrowUp className="w-3 h-3" />
+                                                          </button>
+                                                          <button
+                                                            type="button"
+                                                            onClick={() => handleMoveLesson(lesson.id, 1)}
+                                                            disabled={
+                                                              globalIdx === outlineStats.orderedLessons.length - 1
+                                                            }
+                                                            className="p-1 rounded bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 disabled:opacity-30 cursor-pointer"
+                                                          >
+                                                            <ArrowDown className="w-3 h-3" />
+                                                          </button>
+                                                        </div>
+                                                      </div>
+                                                    );
+                                                  })}
+                                                </div>
+                                              )}
+                                            </div>
+                                          );
+                                        })
+                                      )}
+                                    </div>
+                                  )}
+                                </div>
+                              );
+                            })}
+                          </div>
+                        )}
                       </div>
                     );
                   })}
-                </div>
+
+                  {/* Orphan / Unassigned Chapter Lessons */}
+                  {adminHierarchy.orphanLessonCount > 0 && (
+                    <div className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-slate-50/70 dark:bg-slate-900 overflow-hidden">
+                      <div className="px-3 py-2 bg-slate-200/70 dark:bg-slate-800 flex items-center justify-between text-xs font-black text-slate-700 dark:text-slate-200">
+                        <span>Bài giảng chưa gắn Chương ({adminHierarchy.orphanLessonCount})</span>
+                        <button
+                          type="button"
+                          onClick={() => handleAddLesson(null)}
+                          className="px-2 py-0.5 rounded bg-blue-600 text-white text-[10px] font-bold cursor-pointer"
+                        >
+                          + Video
+                        </button>
+                      </div>
+                      <div className="p-2 space-y-2">
+                        {adminHierarchy.orphanTopics.map((topic) => (
+                          <div
+                            key={topic.id}
+                            className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 divide-y divide-slate-100 dark:divide-slate-800"
+                          >
+                            {topic.lessons.map(({ lesson, globalIdx }) => {
+                              const isSelected = lesson.id === selectedLessonId;
+                              const isFreeEff = isLessonEffectivelyFree(
+                                {
+                                  accessMode,
+                                  priceVnd: accessMode === "paid" ? priceVnd : 0,
+                                  freePreviewCount,
+                                },
+                                lesson
+                              );
+                              return (
+                                <div
+                                  key={lesson.id}
+                                  onClick={() => {
+                                    setSelectedLessonId(lesson.id);
+                                    setShowVideoPreview(false);
+                                  }}
+                                  className={`p-2.5 flex items-start justify-between gap-2 cursor-pointer ${
+                                    isSelected ? "bg-blue-50/80 dark:bg-blue-950/30" : ""
+                                  }`}
+                                >
+                                  <div className="min-w-0 flex-1 space-y-1">
+                                    <div className="flex items-center gap-1.5 flex-wrap">
+                                      <span className="px-1.5 py-0.5 rounded bg-slate-900 text-white text-[10px] font-black">
+                                        #{globalIdx + 1}
+                                      </span>
+                                      <span
+                                        className={`px-2 py-0.5 rounded-full text-[9px] font-black uppercase ${
+                                          isFreeEff
+                                            ? "bg-emerald-100 text-emerald-700"
+                                            : "bg-indigo-100 text-indigo-800"
+                                        }`}
+                                      >
+                                        {isFreeEff ? "Miễn phí" : `Trả phí ${(lesson.priceVnd || 0).toLocaleString("vi-VN")}đ`}
+                                      </span>
+                                      <span className="text-[10px] text-slate-500">
+                                        ⏱ {formatDurationClock(lesson.durationSeconds, lesson.durationMinutes || 0)}
+                                      </span>
+                                    </div>
+                                    <div className="text-xs font-bold text-slate-900 dark:text-white line-clamp-2">
+                                      {lesson.title}
+                                    </div>
+                                  </div>
+                                  <div className="flex flex-col gap-1 shrink-0" onClick={(e) => e.stopPropagation()}>
+                                    <button
+                                      type="button"
+                                      onClick={() => handleMoveLesson(lesson.id, -1)}
+                                      disabled={globalIdx === 0}
+                                      className="p-1 rounded bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 disabled:opacity-30"
+                                    >
+                                      <ArrowUp className="w-3 h-3" />
+                                    </button>
+                                    <button
+                                      type="button"
+                                      onClick={() => handleMoveLesson(lesson.id, 1)}
+                                      disabled={globalIdx === outlineStats.orderedLessons.length - 1}
+                                      className="p-1 rounded bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 disabled:opacity-30"
+                                    >
+                                      <ArrowDown className="w-3 h-3" />
+                                    </button>
+                                  </div>
+                                </div>
+                              );
+                            })}
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+                </>
               )}
             </div>
           </div>
@@ -1262,23 +1746,46 @@ export default function CourseEditor() {
               </div>
             ) : (
               <div className="space-y-5">
-                <div className="flex items-center justify-between gap-2 pb-3 border-b border-slate-100 dark:border-slate-800">
+                <div className="flex items-center justify-between gap-2 pb-3 border-b border-slate-100 dark:border-slate-800 flex-wrap">
                   <div>
-                    <span className="text-[11px] font-black uppercase text-rose-500">
+                    <span className="text-[11px] font-black uppercase text-blue-600">
                       Đang sửa Bài #{selectedLesson.order + 1}
                     </span>
                     <h3 className="font-black text-base text-slate-900 dark:text-white">
                       {selectedLesson.title || "Bài giảng chưa đặt tên"}
                     </h3>
                   </div>
-                  <button
-                    type="button"
-                    onClick={() => handleDeleteLesson(selectedLesson.id)}
-                    className="px-3 py-1.5 rounded-xl bg-rose-50 dark:bg-rose-950/40 text-rose-600 dark:text-rose-400 text-xs font-bold flex items-center gap-1 hover:bg-rose-100"
-                  >
-                    <Trash2 className="w-3.5 h-3.5" />
-                    <span>Xóa bài</span>
-                  </button>
+                  <div className="flex items-center gap-2">
+                    {isEditMode && courseId && (
+                      <button
+                        type="button"
+                        onClick={async () => {
+                          const ok = await safeCopyText(buildCourseShareUrl(courseId, selectedLesson.id));
+                          if (ok) {
+                            setCopiedKey(`lesson_${selectedLesson.id}`);
+                            setTimeout(() => setCopiedKey(null), 2000);
+                            showSuccessToast("Đã sao chép link chia sẻ video này (kèm ảnh preview)!");
+                          }
+                        }}
+                        className="px-3 py-1.5 rounded-xl bg-blue-50 dark:bg-blue-950/50 text-blue-700 dark:text-blue-300 text-xs font-bold flex items-center gap-1 hover:bg-blue-100 cursor-pointer"
+                      >
+                        {copiedKey === `lesson_${selectedLesson.id}` ? (
+                          <Check className="w-3.5 h-3.5 text-emerald-600" />
+                        ) : (
+                          <Share2 className="w-3.5 h-3.5" />
+                        )}
+                        <span>Chia sẻ video</span>
+                      </button>
+                    )}
+                    <button
+                      type="button"
+                      onClick={() => handleDeleteLesson(selectedLesson.id)}
+                      className="px-3 py-1.5 rounded-xl bg-rose-50 dark:bg-rose-950/40 text-rose-600 dark:text-rose-400 text-xs font-bold flex items-center gap-1 hover:bg-rose-100 cursor-pointer"
+                    >
+                      <Trash2 className="w-3.5 h-3.5" />
+                      <span>Xóa bài</span>
+                    </button>
+                  </div>
                 </div>
 
                 {/* Title, Chapter, Topic, Duration */}
@@ -1332,27 +1839,41 @@ export default function CourseEditor() {
                   </div>
 
                   <div className="sm:col-span-3">
-                    <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">
-                      Thời lượng (phút)
-                    </label>
+                    <div className="flex items-center justify-between gap-1 mb-1">
+                      <label className="block text-xs font-bold text-slate-700 dark:text-slate-300">
+                        Thời lượng (phút)
+                      </label>
+                      {selectedLesson.durationSeconds && selectedLesson.durationSeconds > 0 && (
+                        <span className="text-[10px] font-mono font-bold text-blue-600 dark:text-blue-400">
+                          {formatDurationClock(
+                            selectedLesson.durationSeconds,
+                            selectedLesson.durationMinutes
+                          )}
+                        </span>
+                      )}
+                    </div>
                     <input
                       type="number"
                       min={0}
                       value={selectedLesson.durationMinutes || 0}
-                      onChange={(e) =>
-                        updateSelectedLesson({ durationMinutes: Math.max(0, Number(e.target.value) || 0) })
-                      }
+                      onChange={(e) => {
+                        const mins = Math.max(0, Number(e.target.value) || 0);
+                        updateSelectedLesson({
+                          durationMinutes: mins,
+                          durationSeconds: mins * 60,
+                        });
+                      }}
                       className="w-full px-3 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-xs font-bold"
                     />
                   </div>
                 </div>
 
-                {/* Video Source with Auto-Hide Archive URL */}
+                {/* Video Source with Auto-Duration Detection & Auto-Hide Archive URL */}
                 <div className="p-4 rounded-2xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700 space-y-3">
                   <div className="flex items-center justify-between gap-2 flex-wrap">
                     <label className="text-xs font-black text-slate-800 dark:text-white flex items-center gap-1.5">
-                      <PlayCircle className="w-4 h-4 text-rose-500" />
-                      <span>Nguồn Video (tự ẩn link gốc kho lưu)</span>
+                      <PlayCircle className="w-4 h-4 text-blue-600" />
+                      <span>Nguồn Video (tự đo thời lượng &amp; ẩn link kho lưu)</span>
                     </label>
                     <div className="flex items-center gap-2 flex-wrap">
                       <select
@@ -1366,14 +1887,37 @@ export default function CourseEditor() {
                         <option value="mp4">Link MP4 / Stream</option>
                       </select>
                       {hasSelectedVideoUrl && (
-                        <button
-                          type="button"
-                          onClick={() => setShowVideoPreview((v) => !v)}
-                          className="px-2.5 py-1.5 rounded-lg bg-indigo-50 dark:bg-indigo-950/60 text-indigo-700 dark:text-indigo-300 text-xs font-bold flex items-center gap-1"
-                        >
-                          <Eye className="w-3.5 h-3.5" />
-                          <span>{showVideoPreview ? "Ẩn preview" : "Xem thử"}</span>
-                        </button>
+                        <>
+                          <button
+                            type="button"
+                            disabled={isProbingSelected}
+                            onClick={() =>
+                              void probeDurationForLesson(
+                                selectedLesson.id,
+                                selectedLesson.videoUrl,
+                                selectedLesson.videoType,
+                                true
+                              )
+                            }
+                            className="px-2.5 py-1.5 rounded-lg bg-blue-50 dark:bg-blue-950/60 text-blue-700 dark:text-blue-300 text-xs font-bold flex items-center gap-1 cursor-pointer disabled:opacity-50"
+                            title="Tự động đo lại thời lượng chuẩn từ URL video"
+                          >
+                            {isProbingSelected ? (
+                              <Loader2 className="w-3.5 h-3.5 animate-spin" />
+                            ) : (
+                              <RotateCw className="w-3.5 h-3.5" />
+                            )}
+                            <span>{isProbingSelected ? "Đang đo..." : "Đo phút"}</span>
+                          </button>
+                          <button
+                            type="button"
+                            onClick={() => setShowVideoPreview((v) => !v)}
+                            className="px-2.5 py-1.5 rounded-lg bg-indigo-50 dark:bg-indigo-950/60 text-indigo-700 dark:text-indigo-300 text-xs font-bold flex items-center gap-1 cursor-pointer"
+                          >
+                            <Eye className="w-3.5 h-3.5" />
+                            <span>{showVideoPreview ? "Ẩn preview" : "Xem thử"}</span>
+                          </button>
+                        </>
                       )}
                     </div>
                   </div>
@@ -1393,7 +1937,7 @@ export default function CourseEditor() {
                           onClick={() =>
                             setRevealVideoUrlMap((prev) => ({ ...prev, [selectedLesson.id]: true }))
                           }
-                          className="px-2.5 py-1.5 rounded-lg bg-white dark:bg-slate-900 border border-emerald-200 dark:border-slate-700 text-[11px] font-bold flex items-center gap-1"
+                          className="px-2.5 py-1.5 rounded-lg bg-white dark:bg-slate-900 border border-emerald-200 dark:border-slate-700 text-[11px] font-bold flex items-center gap-1 cursor-pointer"
                         >
                           <Eye className="w-3.5 h-3.5" />
                           <span>Sửa link gốc</span>
@@ -1419,13 +1963,23 @@ export default function CourseEditor() {
                           value={selectedLesson.videoUrl}
                           onChange={(e) => {
                             const val = e.target.value;
-                            const patch: Partial<CourseLesson> = { videoUrl: val };
-                            if (val.includes("drive.google.com") || val.includes("onedrive") || val.includes("dropbox")) {
-                              patch.videoType = "iframe";
-                            } else if (val.includes("youtu")) {
-                              patch.videoType = "youtube";
+                            const nextType: CourseVideoType =
+                              val.includes("drive.google.com") || val.includes("onedrive") || val.includes("dropbox")
+                                ? "iframe"
+                                : val.includes("youtu")
+                                ? "youtube"
+                                : /\.(mp4|webm|m4v)(\?|#|$)/i.test(val)
+                                ? "mp4"
+                                : selectedLesson.videoType;
+                            updateSelectedLesson({ videoUrl: val, videoType: nextType });
+
+                            if (autoProbeTimerRef.current) window.clearTimeout(autoProbeTimerRef.current);
+                            const targetId = selectedLesson.id;
+                            if (/^https?:\/\/.{6,}/i.test(val.trim())) {
+                              autoProbeTimerRef.current = window.setTimeout(() => {
+                                void probeDurationForLesson(targetId, val, nextType, true);
+                              }, 750);
                             }
-                            updateSelectedLesson(patch);
                           }}
                           placeholder="Dán link Google Drive, kho lưu, YouTube hoặc MP4..."
                           className="w-full px-3.5 py-2.5 pr-9 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-xs font-mono"
@@ -1437,13 +1991,13 @@ export default function CourseEditor() {
                               setRevealVideoUrlMap((prev) => ({ ...prev, [selectedLesson.id]: false }))
                             }
                             title="Ẩn URL gốc"
-                            className="p-1.5 text-slate-400 hover:text-slate-700 absolute right-1.5 top-1/2 -translate-y-1/2"
+                            className="p-1.5 text-slate-400 hover:text-slate-700 absolute right-1.5 top-1/2 -translate-y-1/2 cursor-pointer"
                           >
                             <EyeOff className="w-4 h-4" />
                           </button>
                         )}
                       </div>
-                      <label className="px-3.5 py-2.5 rounded-xl bg-slate-900 dark:bg-slate-700 text-white text-xs font-bold cursor-pointer flex items-center justify-center gap-1.5 shrink-0">
+                      <label className="px-3.5 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold cursor-pointer flex items-center justify-center gap-1.5 shrink-0">
                         <Upload className="w-3.5 h-3.5" />
                         <span>{uploadingVideo ? "Đang upload..." : "Upload Video"}</span>
                         <input
@@ -1457,46 +2011,34 @@ export default function CourseEditor() {
                     </div>
                   )}
 
-                  {showVideoPreview && parsedPreviewVideo && parsedPreviewVideo.embedUrl && (
+                  {showVideoPreview && selectedLesson.videoUrl?.trim() && (
                     <div
-                      className="relative aspect-video w-full rounded-xl overflow-hidden bg-black border border-slate-700"
+                      className="relative rounded-xl overflow-hidden bg-slate-950 border border-slate-700"
                       onContextMenu={(e) => e.preventDefault()}
                     >
-                      {parsedPreviewVideo.kind === "video" ? (
-                        <video
-                          src={parsedPreviewVideo.embedUrl}
-                          controls
-                          controlsList="nodownload noplaybackrate"
-                          disablePictureInPicture
-                          className="w-full h-full"
-                        />
-                      ) : (
-                        <>
-                          <iframe
-                            src={parsedPreviewVideo.embedUrl}
-                            title={selectedLesson.title}
-                            referrerPolicy="no-referrer"
-                            className="w-full h-full"
-                            allow="autoplay; fullscreen; picture-in-picture"
-                            allowFullScreen
-                          />
-                          <div
-                            className="absolute top-0 right-0 w-16 h-14 z-20 bg-slate-950/95 flex items-center justify-center text-emerald-400 select-none pointer-events-auto"
-                            title="Đã chặn nút mở link kho lưu gốc"
-                          >
-                            <ShieldCheck className="w-4 h-4" />
-                          </div>
-                        </>
-                      )}
+                      <DkCourseVideoPlayer
+                        key={selectedLesson.id}
+                        lessonId={selectedLesson.id}
+                        title={selectedLesson.title}
+                        videoUrl={selectedLesson.videoUrl}
+                        videoType={selectedLesson.videoType}
+                        knownDurationSeconds={
+                          selectedLesson.durationSeconds ||
+                          (selectedLesson.durationMinutes ? selectedLesson.durationMinutes * 60 : undefined)
+                        }
+                        onDetectedDuration={(sec) =>
+                          applyDetectedLessonDuration(selectedLesson.id, sec, true)
+                        }
+                      />
                     </div>
                   )}
                 </div>
 
                 {/* Per-lesson Access & Pricing Override */}
-                <div className="p-4 rounded-2xl bg-amber-50/60 dark:bg-amber-950/20 border border-amber-200 dark:border-amber-800/60 space-y-3">
+                <div className="p-4 rounded-2xl bg-blue-50/60 dark:bg-blue-950/20 border border-blue-200 dark:border-blue-800/60 space-y-3">
                   <div className="flex items-center justify-between gap-2 flex-wrap">
-                    <span className="text-xs font-black text-amber-900 dark:text-amber-200 flex items-center gap-1.5">
-                      <Lock className="w-4 h-4 text-amber-600" />
+                    <span className="text-xs font-black text-blue-950 dark:text-blue-200 flex items-center gap-1.5">
+                      <Lock className="w-4 h-4 text-blue-600" />
                       <span>Phân quyền bài giảng này (Free / Trả phí)</span>
                     </span>
                     <span
@@ -1506,7 +2048,7 @@ export default function CourseEditor() {
                           selectedLesson
                         )
                           ? "bg-emerald-500 text-white"
-                          : "bg-amber-500 text-slate-950"
+                          : "bg-indigo-600 text-white"
                       }`}
                     >
                       Kết quả hiện tại:{" "}
@@ -1546,9 +2088,9 @@ export default function CourseEditor() {
                         key={opt.value}
                         type="button"
                         onClick={() => updateSelectedLesson({ accessType: opt.value })}
-                        className={`p-2.5 rounded-xl border text-left transition-all ${
+                        className={`p-2.5 rounded-xl border text-left transition-all cursor-pointer ${
                           selectedLesson.accessType === opt.value
-                            ? "border-amber-500 bg-white dark:bg-slate-900 shadow-sm"
+                            ? "border-blue-600 bg-white dark:bg-slate-900 shadow-sm"
                             : "border-transparent bg-white/50 dark:bg-slate-900/40 opacity-75"
                         }`}
                       >

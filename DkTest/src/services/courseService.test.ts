@@ -2,7 +2,9 @@ import { describe, it, expect } from "vitest";
 import {
   buildCourseHierarchy,
   buildCourseOutlineAndStats,
+  buildCourseShareUrl,
   computeLessonAccessState,
+  formatDurationClock,
   isLessonEffectivelyFree,
   maskVideoUrlDisplay,
   parseVideoSource,
@@ -125,27 +127,46 @@ describe("courseService pure access, hierarchy, masking & outline helpers", () =
   });
 
   describe("parseVideoSource & maskVideoUrlDisplay", () => {
-    it("uses youtube-nocookie embeds for privacy", () => {
-      expect(parseVideoSource("https://www.youtube.com/watch?v=dQw4w9WgXcQ", "youtube")).toEqual({
-        kind: "youtube",
-        embedUrl: "https://www.youtube-nocookie.com/embed/dQw4w9WgXcQ?rel=0&modestbranding=1&iv_load_policy=3",
-      });
-      expect(parseVideoSource("https://youtu.be/abc123XYZ", "youtube")).toEqual({
-        kind: "youtube",
-        embedUrl: "https://www.youtube-nocookie.com/embed/abc123XYZ?rel=0&modestbranding=1&iv_load_policy=3",
-      });
+    it("parses YouTube URLs with enablejsapi=1 and youtubeId to avoid Error 153", () => {
+      const yt1 = parseVideoSource("https://www.youtube.com/watch?v=dQw4w9WgXcQ", "youtube");
+      expect(yt1.kind).toBe("youtube");
+      expect(yt1.youtubeId).toBe("dQw4w9WgXcQ");
+      expect(yt1.embedUrl).toContain("https://www.youtube.com/embed/dQw4w9WgXcQ?enablejsapi=1");
+      expect(yt1.embedUrl).toContain("playsinline=1");
+
+      const yt2 = parseVideoSource("https://youtu.be/abc123XYZ", "youtube");
+      expect(yt2.kind).toBe("youtube");
+      expect(yt2.youtubeId).toBe("abc123XYZ");
+      expect(yt2.embedUrl).toContain("https://www.youtube.com/embed/abc123XYZ?enablejsapi=1");
     });
 
-    it("normalizes Google Drive URLs to rm=minimal preview and masks original URL strings", () => {
+    it("normalizes Google Drive URLs to rm=minimal preview with driveId and masks original URL strings", () => {
       const rawDrive = "https://drive.google.com/file/d/1XyZ987AbC/view?usp=sharing";
       expect(parseVideoSource(rawDrive)).toEqual({
         kind: "iframe",
+        driveId: "1XyZ987AbC",
         isDrive: true,
         embedUrl: "https://drive.google.com/file/d/1XyZ987AbC/preview?rm=minimal",
       });
       const masked = maskVideoUrlDisplay(rawDrive, "iframe");
       expect(masked).toContain("Kho lưu Drive");
       expect(masked).not.toContain("1XyZ987AbC");
+    });
+  });
+
+  describe("formatDurationClock & buildCourseShareUrl", () => {
+    it("formats seconds cleanly into M:SS and H:MM:SS clocks", () => {
+      expect(formatDurationClock(0)).toBe("0:00");
+      expect(formatDurationClock(95)).toBe("1:35");
+      expect(formatDurationClock(3804)).toBe("1:03:24");
+      expect(formatDurationClock(undefined, 25)).toBe("25:00");
+    });
+
+    it("builds canonical share links for courses and deep-linked video lessons", () => {
+      const courseUrl = buildCourseShareUrl("course_123");
+      expect(courseUrl).toMatch(/\/student\/courses\/course_123$/);
+      const lessonUrl = buildCourseShareUrl("course_123", "les_9");
+      expect(lessonUrl).toMatch(/\/student\/courses\/course_123\?lesson=les_9$/);
     });
   });
 
@@ -226,6 +247,22 @@ describe("courseService pure access, hierarchy, masking & outline helpers", () =
       expect(tree[0].chapters[0].topics[0].videoCount).toBe(2);
       expect(tree[0].chapters[0].topics[0].materialsCount).toBe(2);
       expect(tree[0].chapters[0].topics[0].progressPct).toBe(50);
+
+      // Verify accurate watchedSecondsMap calculation overrides binary-only percentage
+      const secTree = buildCourseHierarchy(
+        {
+          ...courseObj,
+          lessonOutline: res.lessonOutline.map((item, i) => ({
+            ...item,
+            durationSeconds: i === 0 ? 600 : 1800,
+          })),
+        },
+        null,
+        [],
+        { l1: 600, l2: 600 }
+      );
+      // 1200 / 2400 = 50%
+      expect(secTree[0].chapters[0].topics[0].progressPct).toBe(50);
     });
   });
 });

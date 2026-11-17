@@ -2,7 +2,8 @@ import React from "react";
 import { Navigate, useLocation, Link } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
 import {
-  isAdminAuthenticated,
+  clearAdminSession,
+  isAdminEmail,
   isParentAuthenticated,
   isStudentAuthenticated,
 } from "../../services/authService";
@@ -82,19 +83,22 @@ export default function RequireAuth({ role, children }: RequireAuthProps) {
     }
   }
 
-  // Check role permissions
-  const hasAdminRole = currentRole === "admin" || currentRole === "super_admin" || isAdminAuthenticated();
-  const hasParentRole = currentRole === "parent" || hasAdminRole || isParentAuthenticated();
-  const hasStudentRole = currentRole === "student" || hasAdminRole || isStudentAuthenticated();
+  // Check role permissions cleanly — Admin routes MUST hold a verified Firebase Admin session
+  const hasRealAdminRole =
+    Boolean(user) &&
+    (currentRole === "admin" || currentRole === "super_admin" || isAdminEmail(user?.email));
+  const hasParentRole = currentRole === "parent" || hasRealAdminRole || isParentAuthenticated();
+  const hasStudentRole = currentRole === "student" || hasRealAdminRole || isStudentAuthenticated();
 
   if (role === "admin") {
-    if (!hasAdminRole) {
+    if (!hasRealAdminRole) {
+      clearAdminSession();
       if (location.pathname.startsWith("/admin/login")) {
         return <>{children}</>;
       }
       return (
         <Navigate
-          to={`/admin/login?redirect=${encodeURIComponent(location.pathname + location.search)}`}
+          to={`/admin/login?reason=firebase_required&redirect=${encodeURIComponent(location.pathname + location.search)}`}
           replace
         />
       );

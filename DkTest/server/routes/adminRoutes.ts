@@ -25,7 +25,7 @@ import {
   adminDirectEditWallet,
   getGlobalSpendingHistory,
 } from "../services/walletService.js";
-import { grantOrRevokeCourseEntitlement } from "../services/courseService.js";
+import { grantOrRevokeCourseEntitlement, probeVideoDuration } from "../services/courseService.js";
 import {
   getVouchersList,
   createVoucher,
@@ -2186,6 +2186,24 @@ adminRouter.delete("/vouchers/:id", async (req: AuthenticatedRequest, res: Respo
     return res.json({ success: true, message: "Đã xóa voucher thành công!" });
   } catch (err: any) {
     return res.status(400).json({ error: "delete_voucher_error", message: err.message || String(err) });
+  }
+});
+
+// POST /api/admin/courses/probe-video
+adminRouter.post("/courses/probe-video", async (req: AuthenticatedRequest, res: Response) => {
+  try {
+    const { url } = req.body || {};
+    if (!url || typeof url !== "string") {
+      return res.status(400).json({ error: "missing_url", message: "Thiếu URL video cần đo thời lượng." });
+    }
+    const probe = await probeVideoDuration(url);
+    return res.json({
+      success: true,
+      found: Boolean(probe),
+      ...(probe || { durationSeconds: 0, durationMinutes: 0 }),
+    });
+  } catch (err: any) {
+    return res.status(400).json({ error: "probe_video_error", message: err.message || String(err) });
   }
 });
 

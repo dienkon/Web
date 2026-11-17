@@ -237,3 +237,14 @@ export async function loginWithUsernameApi(username: string, password: string): 
   return await api.post("/api/auth/login-with-username", { username, password }, { requiresAuth: false });
 }
 
+export async function loginAdminWithPasswordApi(password: string, email?: string): Promise<{
+  success: boolean;
+  uid: string;
+  email: string;
+  customToken?: string;
+  idToken?: string;
+  refreshToken?: string;
+}> {
+  return await api.post("/api/auth/admin-password-login", { password, email }, { requiresAuth: false });
+}
+

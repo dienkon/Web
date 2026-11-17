@@ -1,8 +1,9 @@
 import React, { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams, useSearchParams } from "react-router-dom";
 import {
   ArrowLeft,
   BookOpen,
+  Check,
   CheckCircle2,
   ChevronDown,
   ChevronUp,
@@ -13,8 +14,8 @@ import {
   Layers,
   Lock,
   Play,
+  Share2,
   ShieldCheck,
-  Sparkles,
   Tag,
   Unlock,
   Video,
@@ -23,12 +24,15 @@ import {
 } from "lucide-react";
 import {
   buildCourseHierarchy,
+  buildCourseShareUrl,
   computeLessonAccessState,
+  formatDurationClock,
   getAuthorizedCourseLesson,
   getCourse,
-  parseVideoSource,
   resolveCourseAccessMode,
 } from "../../services/courseService";
+import { safeCopyText, safeShare } from "../../utils/mobileCompat";
+import DkCourseVideoPlayer from "../../components/course/DkCourseVideoPlayer";
 import {
   checkCourseAccessApi,
   getMyWallet,
@@ -52,9 +56,12 @@ type UnlockTarget =
 
 export default function CourseDetail() {
   const { courseId = "" } = useParams<{ courseId: string }>();
+  const [searchParams, setSearchParams] = useSearchParams();
   const navigate = useNavigate();
   const { success: showSuccessToast, error: showErrorToast } = useToast();
   const playerStageRef = useRef<HTMLDivElement | null>(null);
+  const lastSavedSecondsRef = useRef<Record<string, number>>({});
+  const deepLinkAppliedRef = useRef(false);
 
   const [course, setCourse] = useState<Course | null>(null);
   const [access, setAccess] = useState<CourseAccessInfo | null>(null);
@@ -67,8 +74,11 @@ export default function CourseDetail() {
   const [loadingLesson, setLoadingLesson] = useState(false);
   const [lessonError, setLessonError] = useState<string | null>(null);
 
-  // Watched progress in localStorage
+  // Watched progress & exact seconds in localStorage
   const [watchedIds, setWatchedIds] = useState<string[]>([]);
+  const [watchedSecondsMap, setWatchedSecondsMap] = useState<Record<string, number>>({});
+  const [detectedDurationMap, setDetectedDurationMap] = useState<Record<string, number>>({});
+  const [copiedKey, setCopiedKey] = useState<string | null>(null);
 
   // Hierarchical accordion expanded states
   const [collapsedGroups, setCollapsedGroups] = useState<Record<string, boolean>>({});
@@ -92,6 +102,9 @@ export default function CourseDetail() {
   const uid = auth.currentUser?.uid || getResolvedStudentUid();
 
   useEffect(() => {
+    deepLinkAppliedRef.current = false;
+    setSelectedOutlineItem(null);
+    setActiveLesson(null);
     if (!courseId) return;
     try {
       const raw = localStorage.getItem(`dktest_course_watched_${courseId}`);
@@ -101,8 +114,20 @@ export default function CourseDetail() {
       } else {
         setWatchedIds([]);
       }
+      const rawSec = localStorage.getItem(`dktest_course_watch_seconds_${courseId}`);
+      if (rawSec) {
+        const parsedSec = JSON.parse(rawSec);
+        if (parsedSec && typeof parsedSec === "object" && !Array.isArray(parsedSec)) {
+          setWatchedSecondsMap(parsedSec);
+        } else {
+          setWatchedSecondsMap({});
+        }
+      } else {
+        setWatchedSecondsMap({});
+      }
     } catch {
       setWatchedIds([]);
+      setWatchedSecondsMap({});
     }
   }, [courseId]);
 
@@ -117,6 +142,84 @@ export default function CourseDetail() {
       return next;
     });
   };
+
+  const handleDetectedDuration = useCallback(
+    (durationSeconds: number) => {
+      const targetId = activeLesson?.id || selectedOutlineItem?.id;
+      if (!targetId || durationSeconds <= 0) return;
+      setDetectedDurationMap((prev) =>
+        prev[targetId] === durationSeconds ? prev : { ...prev, [targetId]: durationSeconds }
+      );
+    },
+    [activeLesson?.id, selectedOutlineItem?.id]
+  );
+
+  const handleWatchProgress = useCallback(
+    (currentSeconds: number, _totalSeconds: number, completed: boolean) => {
+      const targetId = activeLesson?.id || selectedOutlineItem?.id;
+      if (!targetId || !courseId) return;
+      const floored = Math.max(0, Math.floor(currentSeconds));
+      const prevSaved = lastSavedSecondsRef.current[targetId] ?? -99;
+
+      if (Math.abs(floored - prevSaved) >= 3 || completed) {
+        lastSavedSecondsRef.current[targetId] = floored;
+        setWatchedSecondsMap((prev) => {
+          const updated = { ...prev, [targetId]: Math.max(prev[targetId] || 0, floored) };
+          try {
+            localStorage.setItem(
+              `dktest_course_watch_seconds_${courseId}`,
+              JSON.stringify(updated)
+            );
+          } catch {}
+          return updated;
+        });
+      }
+
+      if (completed) {
+        setWatchedIds((prev) => {
+          if (prev.includes(targetId)) return prev;
+          const next = [...prev, targetId];
+          try {
+            localStorage.setItem(`dktest_course_watched_${courseId}`, JSON.stringify(next));
+          } catch {}
+          return next;
+        });
+      }
+    },
+    [activeLesson?.id, selectedOutlineItem?.id, courseId]
+  );
+
+  const handleShareLink = useCallback(
+    async (lesson?: CourseLessonOutlineItem | null) => {
+      if (!course) return;
+      const shareUrl = buildCourseShareUrl(course.id, lesson?.id);
+      const shareTitle = lesson ? `${lesson.title} — ${course.title}` : course.title;
+      const shareText = lesson
+        ? `Học ngay video "${lesson.title}" trong khóa "${course.title}" trên DkTEST`
+        : `Tham gia khóa học "${course.title}" trên DkTEST`;
+
+      const shared = await safeShare({ title: shareTitle, text: shareText, url: shareUrl });
+      const key = lesson ? `lesson_${lesson.id}` : "course";
+      if (shared) {
+        setCopiedKey(key);
+        setTimeout(() => setCopiedKey((c) => (c === key ? null : c)), 2200);
+        return;
+      }
+      const copied = await safeCopyText(shareUrl);
+      if (copied) {
+        setCopiedKey(key);
+        setTimeout(() => setCopiedKey((c) => (c === key ? null : c)), 2200);
+        showSuccessToast(
+          lesson
+            ? "Đã sao chép link chia sẻ video bài giảng (kèm ảnh preview)!"
+            : "Đã sao chép link chia sẻ khóa học (kèm ảnh preview)!"
+        );
+      } else {
+        showErrorToast("Không thể sao chép tự động. Vui lòng copy URL trên thanh địa chỉ.");
+      }
+    },
+    [course, showErrorToast, showSuccessToast]
+  );
 
   const refreshCourseAndAccess = useCallback(
     async (forceCourse = false) => {
@@ -176,31 +279,77 @@ export default function CourseDetail() {
     void refreshCourseAndAccess(false);
   }, [refreshCourseAndAccess]);
 
-  // Build 3-level hierarchy
-  const hierarchyGroups = useMemo(() => {
-    if (!course) return [];
-    return buildCourseHierarchy(course, access, watchedIds);
-  }, [course, access, watchedIds]);
+  // Build 3-level hierarchy with exact watched-seconds calculation
+  const effectiveCourseForHierarchy = useMemo(() => {
+    if (!course) return null;
+    if (Object.keys(detectedDurationMap).length === 0) return course;
+    return {
+      ...course,
+      lessonOutline: (course.lessonOutline || []).map((item) =>
+        detectedDurationMap[item.id]
+          ? {
+              ...item,
+              durationSeconds: detectedDurationMap[item.id],
+              durationMinutes: Math.max(1, Math.round(detectedDurationMap[item.id] / 60)),
+            }
+          : item
+      ),
+    };
+  }, [course, detectedDurationMap]);
 
-  // Auto-expand first topic smoothly on initial load
+  const hierarchyGroups = useMemo(() => {
+    if (!effectiveCourseForHierarchy) return [];
+    return buildCourseHierarchy(effectiveCourseForHierarchy, access, watchedIds, watchedSecondsMap);
+  }, [effectiveCourseForHierarchy, access, watchedIds, watchedSecondsMap]);
+
+  // Expand branch containing target lesson, or auto-expand first topic smoothly on initial load
   useEffect(() => {
     if (hierarchyGroups.length === 0) return;
+    const requestedLessonId = searchParams.get("lesson") || searchParams.get("video");
+    const targetLessonId = requestedLessonId || selectedOutlineItem?.id;
+
+    if (targetLessonId && !deepLinkAppliedRef.current) {
+      for (const g of hierarchyGroups) {
+        for (const ch of g.chapters) {
+          for (const tp of ch.topics) {
+            if (tp.lessons.some((l) => l.id === targetLessonId)) {
+              setCollapsedGroups((prev) => ({ ...prev, [g.id]: false }));
+              setCollapsedChapters((prev) => ({ ...prev, [ch.id]: false }));
+              setExpandedTopics((prev) => ({ ...prev, [tp.id]: true }));
+              deepLinkAppliedRef.current = true;
+              return;
+            }
+          }
+        }
+      }
+    }
+
     const firstTopicId = hierarchyGroups[0]?.chapters?.[0]?.topics?.[0]?.id;
     if (firstTopicId && Object.keys(expandedTopics).length === 0) {
       setExpandedTopics({ [firstTopicId]: true });
     }
-  }, [hierarchyGroups, expandedTopics]);
+  }, [hierarchyGroups, expandedTopics, searchParams, selectedOutlineItem?.id]);
 
-  // Auto-select first accessible lesson once course & access are loaded
+  // Auto-select deep-linked lesson or first accessible lesson once course & access are loaded
   useEffect(() => {
-    if (!course || selectedOutlineItem) return;
+    if (!course) return;
     const outline = course.lessonOutline || [];
     if (outline.length === 0) return;
 
+    const requestedLessonId = searchParams.get("lesson") || searchParams.get("video");
+    if (requestedLessonId) {
+      const requested = outline.find((item) => item.id === requestedLessonId);
+      if (requested && selectedOutlineItem?.id !== requested.id) {
+        setSelectedOutlineItem(requested);
+        return;
+      }
+    }
+
+    if (selectedOutlineItem) return;
     const firstPlayable =
       outline.find((item) => computeLessonAccessState(course, item, access).canWatch) || outline[0];
     setSelectedOutlineItem(firstPlayable);
-  }, [course, access, selectedOutlineItem]);
+  }, [course, access, selectedOutlineItem, searchParams]);
 
   // Load authorized video content whenever selectedOutlineItem or access updates
   useEffect(() => {
@@ -246,11 +395,6 @@ export default function CourseDetail() {
     };
   }, [course, selectedOutlineItem, access, uid]);
 
-  const parsedVideo = useMemo(() => {
-    if (!activeLesson?.videoUrl) return null;
-    return parseVideoSource(activeLesson.videoUrl, activeLesson.videoType);
-  }, [activeLesson?.videoUrl, activeLesson?.videoType]);
-
   const openUnlockModal = async (target: UnlockTarget) => {
     if (!uid) {
       showErrorToast("Vui lòng đăng nhập để mở khóa bài giảng bằng Ví DkTEST.");
@@ -260,7 +404,6 @@ export default function CourseDetail() {
     setUnlockTarget(target);
     setVoucherInput("");
     setVoucherResult(null);
-    // Refresh exact wallet balance on modal open
     try {
       const w = await getMyWallet();
       if (w && typeof w.balanceVnd === "number") {
@@ -271,6 +414,7 @@ export default function CourseDetail() {
 
   const handleSelectLessonAndPlay = (lesson: CourseLessonOutlineItem, tabContext?: string) => {
     setSelectedOutlineItem(lesson);
+    setSearchParams({ lesson: lesson.id }, { replace: true });
     if (tabContext) {
       setExpandedTopics((prev) => ({ ...prev, [tabContext]: true }));
     }
@@ -354,7 +498,7 @@ export default function CourseDetail() {
   if (loading) {
     return (
       <div className="max-w-6xl mx-auto p-10 text-center space-y-3">
-        <div className="w-8 h-8 border-4 border-rose-500 border-t-transparent rounded-full animate-spin mx-auto" />
+        <div className="w-8 h-8 border-4 border-blue-600 border-t-transparent rounded-full animate-spin mx-auto" />
         <p className="text-sm font-bold text-slate-500">Đang tải thông tin khóa học...</p>
       </div>
     );
@@ -363,12 +507,12 @@ export default function CourseDetail() {
   if (error || !course) {
     return (
       <div className="max-w-xl mx-auto p-8 my-8 bg-white dark:bg-slate-900 rounded-3xl border border-slate-200 dark:border-slate-800 text-center space-y-4">
-        <BookOpen className="w-12 h-12 text-rose-500 mx-auto" />
+        <BookOpen className="w-12 h-12 text-blue-600 mx-auto" />
         <h2 className="text-lg font-black text-slate-900 dark:text-white">Không thể tải khóa học</h2>
         <p className="text-xs text-slate-500">{error || "Khóa học không tồn tại."}</p>
         <Link
           to="/student/courses"
-          className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-rose-600 text-white text-xs font-bold"
+          className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold"
         >
           <ArrowLeft className="w-4 h-4" />
           <span>Quay lại Danh sách Khóa học</span>
@@ -388,15 +532,24 @@ export default function CourseDetail() {
       ? voucherResult.finalPriceVnd
       : unlockTarget.priceVnd
     : 0;
+  const activeDurationSec =
+    (selectedOutlineItem ? detectedDurationMap[selectedOutlineItem.id] : 0) ||
+    activeLesson?.durationSeconds ||
+    selectedOutlineItem?.durationSeconds ||
+    ((activeLesson?.durationMinutes || selectedOutlineItem?.durationMinutes || 0) * 60);
+  const totalDetectedCourseSec = (course.lessonOutline || []).reduce((acc, item) => {
+    const s = detectedDurationMap[item.id] || item.durationSeconds || (item.durationMinutes || 0) * 60;
+    return acc + s;
+  }, 0);
 
   return (
     <div className="max-w-6xl mx-auto px-3 py-3 sm:p-6 lg:p-8 space-y-4 sm:space-y-6 pb-24">
-      {/* Compact Header (Mobile-optimized, never clips under sticky bar) */}
+      {/* Compact Header */}
       <div className="bg-white dark:bg-slate-900 rounded-2xl sm:rounded-3xl border border-slate-200 dark:border-slate-800 p-3.5 sm:p-5 shadow-xs space-y-3">
         <div className="flex items-center justify-between gap-2 flex-wrap">
           <Link
             to="/student/courses"
-            className="inline-flex items-center gap-1.5 text-xs font-bold text-slate-500 hover:text-rose-600"
+            className="inline-flex items-center gap-1.5 text-xs font-bold text-slate-500 hover:text-blue-600 transition-colors"
           >
             <ArrowLeft className="w-3.5 h-3.5" />
             <span>Tất cả khóa học</span>
@@ -434,7 +587,14 @@ export default function CourseDetail() {
             </h1>
             <p className="text-[11px] sm:text-xs text-slate-500 dark:text-slate-400">
               GV: <strong>{course.instructorName || "DkTEST Studio"}</strong> •{" "}
-              {course.lessonCount || 0} video ({course.freeLessonCount || 0} Free) • Hoàn thành{" "}
+              {course.lessonCount || 0} video ({course.freeLessonCount || 0} Free) • Tổng{" "}
+              <strong>
+                {formatDurationClock(
+                  totalDetectedCourseSec || course.totalDurationSeconds,
+                  course.totalDurationMinutes
+                )}
+              </strong>{" "}
+              • Hoàn thành{" "}
               <strong>
                 {watchedIds.length}/{course.lessonCount || 0}
               </strong>{" "}
@@ -442,37 +602,52 @@ export default function CourseDetail() {
             </p>
           </div>
 
-          {/* ONLY render full-course Unlock button when mode === "paid" and coursePrice > 0 */}
-          {mode === "paid" && coursePrice > 0 && (
-            <div className="shrink-0">
-              {access?.unlockedCourse ? (
-                <div className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-emerald-50 dark:bg-emerald-950/40 border border-emerald-200 dark:border-emerald-800 text-emerald-700 dark:text-emerald-300 text-xs font-black">
-                  <CheckCircle2 className="w-4 h-4" />
-                  <span>Đã mở khóa trọn khóa</span>
-                </div>
+          <div className="flex flex-wrap items-center gap-2 shrink-0">
+            <button
+              type="button"
+              onClick={() => void handleShareLink(null)}
+              className="px-3.5 py-2.5 rounded-xl border border-blue-200 dark:border-blue-800 bg-blue-50/70 hover:bg-blue-100 dark:bg-blue-950/40 dark:hover:bg-blue-950/70 text-blue-700 dark:text-blue-300 text-xs font-bold flex items-center gap-1.5 transition-all cursor-pointer"
+            >
+              {copiedKey === "course" ? (
+                <Check className="w-3.5 h-3.5 text-emerald-600" />
               ) : (
-                <button
-                  type="button"
-                  disabled={!course.salesEnabled}
-                  onClick={() =>
-                    void openUnlockModal({
-                      kind: "course",
-                      priceVnd: coursePrice,
-                      title: course.title,
-                    })
-                  }
-                  className="w-full sm:w-auto px-4 py-2.5 rounded-xl bg-gradient-to-r from-rose-600 to-amber-500 hover:from-rose-700 hover:to-amber-600 disabled:opacity-50 text-white text-xs font-black shadow-md shadow-rose-500/20 flex items-center justify-center gap-2 transition-all"
-                >
-                  <Unlock className="w-4 h-4" />
-                  <span>
-                    {course.salesEnabled
-                      ? `Mở khóa ${course.unlockFullPolicy === "unlock_all_videos" ? "FULL khóa" : "khóa học"} • ${coursePrice.toLocaleString("vi-VN")}đ`
-                      : "Liên hệ Admin mở khóa"}
-                  </span>
-                </button>
+                <Share2 className="w-3.5 h-3.5" />
               )}
-            </div>
-          )}
+              <span>{copiedKey === "course" ? "Đã sao chép" : "Chia sẻ khóa học"}</span>
+            </button>
+
+            {/* ONLY render full-course Unlock button when mode === "paid" and coursePrice > 0 */}
+            {mode === "paid" && coursePrice > 0 && (
+              <div>
+                {access?.unlockedCourse ? (
+                  <div className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-emerald-50 dark:bg-emerald-950/40 border border-emerald-200 dark:border-emerald-800 text-emerald-700 dark:text-emerald-300 text-xs font-black">
+                    <CheckCircle2 className="w-4 h-4" />
+                    <span>Đã mở khóa trọn khóa</span>
+                  </div>
+                ) : (
+                  <button
+                    type="button"
+                    disabled={!course.salesEnabled}
+                    onClick={() =>
+                      void openUnlockModal({
+                        kind: "course",
+                        priceVnd: coursePrice,
+                        title: course.title,
+                      })
+                    }
+                    className="w-full sm:w-auto px-4 py-2.5 rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 disabled:opacity-50 text-white text-xs font-black shadow-md shadow-blue-500/20 flex items-center justify-center gap-2 transition-all cursor-pointer"
+                  >
+                    <Unlock className="w-4 h-4" />
+                    <span>
+                      {course.salesEnabled
+                        ? `Mở khóa ${course.unlockFullPolicy === "unlock_all_videos" ? "FULL khóa" : "khóa học"} • ${coursePrice.toLocaleString("vi-VN")}đ`
+                        : "Liên hệ Admin mở khóa"}
+                    </span>
+                  </button>
+                )}
+              </div>
+            )}
+          </div>
         </div>
       </div>
 
@@ -489,16 +664,16 @@ export default function CourseDetail() {
           >
             {loadingLesson ? (
               <div className="aspect-video flex flex-col items-center justify-center text-white/70 gap-3">
-                <div className="w-8 h-8 border-4 border-rose-500 border-t-transparent rounded-full animate-spin" />
+                <div className="w-8 h-8 border-4 border-blue-500 border-t-transparent rounded-full animate-spin" />
                 <p className="text-xs font-bold">Đang xác thực quyền &amp; tải bài giảng...</p>
               </div>
             ) : selectedOutlineItem && selectedAccessState && !selectedAccessState.canWatch ? (
-              <div className="aspect-video flex flex-col items-center justify-center p-4 sm:p-8 text-center bg-gradient-to-br from-slate-900 via-slate-950 to-rose-950/60 space-y-3 sm:space-y-4">
-                <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-2xl bg-amber-500/15 border border-amber-400/30 flex items-center justify-center text-amber-400">
+              <div className="aspect-video flex flex-col items-center justify-center p-4 sm:p-8 text-center bg-gradient-to-br from-slate-900 via-slate-950 to-blue-950/70 space-y-3 sm:space-y-4">
+                <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-2xl bg-blue-500/15 border border-blue-400/30 flex items-center justify-center text-blue-300">
                   <Lock className="w-6 h-6 sm:w-7 sm:h-7" />
                 </div>
                 <div className="max-w-md space-y-1">
-                  <span className="text-[10px] sm:text-[11px] font-black uppercase text-amber-400 tracking-wider">
+                  <span className="text-[10px] sm:text-[11px] font-black uppercase text-blue-400 tracking-wider">
                     Video bài giảng trả phí
                   </span>
                   <h2 className="text-sm sm:text-lg font-black text-white line-clamp-2">
@@ -526,7 +701,7 @@ export default function CourseDetail() {
                           title: selectedOutlineItem.title,
                         })
                       }
-                      className="px-4 py-2.5 rounded-xl bg-gradient-to-r from-indigo-600 to-rose-600 hover:from-indigo-700 hover:to-rose-700 text-white text-xs font-black shadow-lg flex items-center gap-1.5"
+                      className="px-4 py-2.5 rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white text-xs font-black shadow-lg flex items-center gap-1.5"
                     >
                       <Unlock className="w-3.5 h-3.5" />
                       <span>
@@ -548,7 +723,7 @@ export default function CourseDetail() {
                             title: course.title,
                           })
                         }
-                        className="px-4 py-2.5 rounded-xl bg-amber-400 hover:bg-amber-300 text-slate-950 text-xs font-black flex items-center gap-1.5"
+                        className="px-4 py-2.5 rounded-xl bg-white hover:bg-blue-50 text-blue-950 text-xs font-black flex items-center gap-1.5"
                       >
                         <Unlock className="w-3.5 h-3.5" />
                         <span>Mở trọn khóa ({coursePrice.toLocaleString("vi-VN")}đ)</span>
@@ -558,54 +733,28 @@ export default function CourseDetail() {
               </div>
             ) : lessonError ? (
               <div className="aspect-video flex flex-col items-center justify-center p-5 text-center text-white space-y-3">
-                <Lock className="w-9 h-9 text-rose-400" />
+                <Lock className="w-9 h-9 text-blue-400" />
                 <p className="text-xs sm:text-sm font-bold max-w-md">{lessonError}</p>
                 {!uid && (
                   <Link
                     to="/login"
-                    className="px-4 py-2 rounded-xl bg-rose-600 text-white text-xs font-bold"
+                    className="px-4 py-2 rounded-xl bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold"
                   >
                     Đăng nhập ngay
                   </Link>
                 )}
               </div>
-            ) : parsedVideo && parsedVideo.embedUrl ? (
-              <div className="relative aspect-video w-full bg-black">
-                {parsedVideo.kind === "video" ? (
-                  <video
-                    key={parsedVideo.embedUrl}
-                    src={parsedVideo.embedUrl}
-                    controls
-                    controlsList="nodownload noplaybackrate"
-                    disablePictureInPicture
-                    onContextMenu={(e) => e.preventDefault()}
-                    className="w-full h-full"
-                  />
-                ) : (
-                  <>
-                    <iframe
-                      key={parsedVideo.embedUrl}
-                      src={parsedVideo.embedUrl}
-                      title={activeLesson?.title || "Video bài giảng"}
-                      referrerPolicy="no-referrer"
-                      className="w-full h-full"
-                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; fullscreen"
-                      allowFullScreen
-                    />
-                    {/* Corner shield hiding Drive [↗] pop-out / YouTube external header button so archive URL cannot be opened/copied */}
-                    <div
-                      onClick={(e) => {
-                        e.preventDefault();
-                        e.stopPropagation();
-                      }}
-                      title="Video được bảo vệ trên DkTEST — Đã ẩn URL nguồn gốc"
-                      className="absolute top-0 right-0 w-16 h-14 z-20 bg-slate-950/95 rounded-bl-2xl flex items-center justify-center text-emerald-400 cursor-default select-none pointer-events-auto"
-                    >
-                      <ShieldCheck className="w-4 h-4" />
-                    </div>
-                  </>
-                )}
-              </div>
+            ) : activeLesson?.videoUrl ? (
+              <DkCourseVideoPlayer
+                lessonId={activeLesson.id}
+                title={activeLesson.title}
+                videoUrl={activeLesson.videoUrl}
+                videoType={activeLesson.videoType}
+                initialSeconds={watchedSecondsMap[activeLesson.id] || 0}
+                knownDurationSeconds={activeDurationSec > 0 ? activeDurationSec : undefined}
+                onDetectedDuration={handleDetectedDuration}
+                onWatchProgress={handleWatchProgress}
+              />
             ) : (
               <div className="aspect-video flex flex-col items-center justify-center text-slate-400 gap-2">
                 <Video className="w-10 h-10 opacity-40" />
@@ -624,12 +773,15 @@ export default function CourseDetail() {
               <div className="flex items-start justify-between gap-2">
                 <div className="min-w-0 space-y-1">
                   <div className="flex items-center gap-2 text-[11px] font-bold text-slate-500 flex-wrap">
-                    <span className="px-2 py-0.5 rounded bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300">
+                    <span className="px-2 py-0.5 rounded bg-blue-50 dark:bg-blue-950/60 text-blue-700 dark:text-blue-300">
                       Bài #{selectedOutlineItem.order + 1}
                     </span>
                     <span className="flex items-center gap-1">
-                      <Clock className="w-3 h-3" />
-                      {selectedOutlineItem.durationMinutes || 0}p
+                      <Clock className="w-3 h-3 text-blue-600" />
+                      {formatDurationClock(
+                        activeDurationSec,
+                        selectedOutlineItem.durationMinutes || 0
+                      )}
                     </span>
                     {selectedOutlineItem.videoHostLabel && (
                       <span className="px-2 py-0.5 rounded bg-emerald-50 dark:bg-emerald-950/50 text-emerald-700 dark:text-emerald-300 flex items-center gap-1">
@@ -654,7 +806,7 @@ export default function CourseDetail() {
                 <button
                   type="button"
                   onClick={() => toggleWatched(selectedOutlineItem.id)}
-                  className={`px-3.5 py-2 rounded-xl text-xs font-bold flex items-center gap-1.5 transition-all ${
+                  className={`px-3.5 py-2 rounded-xl text-xs font-bold flex items-center gap-1.5 transition-all cursor-pointer ${
                     watchedIds.includes(selectedOutlineItem.id)
                       ? "bg-emerald-600 text-white"
                       : "bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-slate-200"
@@ -663,6 +815,21 @@ export default function CourseDetail() {
                   <CheckCircle2 className="w-4 h-4" />
                   <span>
                     {watchedIds.includes(selectedOutlineItem.id) ? "Đã hoàn thành" : "Đánh dấu đã học"}
+                  </span>
+                </button>
+
+                <button
+                  type="button"
+                  onClick={() => void handleShareLink(selectedOutlineItem)}
+                  className="px-3 py-2 rounded-xl bg-blue-50 hover:bg-blue-100 dark:bg-blue-950/50 dark:hover:bg-blue-950 text-blue-700 dark:text-blue-300 text-xs font-bold flex items-center gap-1.5 cursor-pointer"
+                >
+                  {copiedKey === `lesson_${selectedOutlineItem.id}` ? (
+                    <Check className="w-3.5 h-3.5 text-emerald-600" />
+                  ) : (
+                    <Share2 className="w-3.5 h-3.5" />
+                  )}
+                  <span>
+                    {copiedKey === `lesson_${selectedOutlineItem.id}` ? "Đã chép link" : "Chia sẻ video"}
                   </span>
                 </button>
 
@@ -693,7 +860,7 @@ export default function CourseDetail() {
                         className="px-3 py-2 rounded-xl bg-slate-50 dark:bg-slate-800 hover:bg-slate-100 dark:hover:bg-slate-700 border border-slate-200/70 dark:border-slate-700 text-slate-800 dark:text-slate-100 text-xs font-bold flex items-center justify-between gap-2"
                       >
                         <span className="flex items-center gap-1.5 min-w-0">
-                          <FileText className="w-3.5 h-3.5 text-rose-500 shrink-0" />
+                          <FileText className="w-3.5 h-3.5 text-blue-600 shrink-0" />
                           <span className="truncate">{m.label || m.fileName || "Tài liệu đính kèm"}</span>
                         </span>
                         <ExternalLink className="w-3.5 h-3.5 opacity-60 shrink-0" />
@@ -706,16 +873,16 @@ export default function CourseDetail() {
           )}
 
           {mode !== "free" && uid && (
-            <div className="bg-emerald-50/70 dark:bg-emerald-950/20 rounded-2xl border border-emerald-200 dark:border-emerald-800/60 p-3.5 flex items-center justify-between gap-2 text-xs">
-              <div className="flex items-center gap-2 text-emerald-900 dark:text-emerald-200">
-                <Wallet className="w-4 h-4 text-emerald-600" />
+            <div className="bg-blue-50/70 dark:bg-blue-950/20 rounded-2xl border border-blue-200 dark:border-blue-800/60 p-3.5 flex items-center justify-between gap-2 text-xs">
+              <div className="flex items-center gap-2 text-blue-900 dark:text-blue-200">
+                <Wallet className="w-4 h-4 text-blue-600" />
                 <span>
                   Số dư Ví: <strong>{userBalance.toLocaleString("vi-VN")}đ</strong>
                 </span>
               </div>
               <Link
                 to="/student/wallet"
-                className="font-black text-emerald-700 dark:text-emerald-400 hover:underline"
+                className="font-black text-blue-700 dark:text-blue-400 hover:underline"
               >
                 Nạp Ví →
               </Link>
@@ -724,15 +891,19 @@ export default function CourseDetail() {
         </div>
       </div>
 
-      {/* Hierarchical Syllabus Section ("Danh sách bài học" matching Screenshot 2) */}
+      {/* Hierarchical Syllabus Section ("Danh sách bài học") */}
       <div className="space-y-3 sm:space-y-4">
         <div className="flex items-center justify-between gap-2">
           <h2 className="text-base sm:text-xl font-black text-slate-900 dark:text-white flex items-center gap-2">
-            <Layers className="w-5 h-5 text-amber-500" />
+            <Layers className="w-5 h-5 text-blue-600" />
             <span>Danh sách bài học</span>
           </h2>
           <span className="text-xs font-bold text-slate-500">
-            {course.lessonCount || 0} video bài giảng
+            {course.lessonCount || 0} video •{" "}
+            {formatDurationClock(
+              totalDetectedCourseSec || course.totalDurationSeconds,
+              course.totalDurationMinutes
+            )}
           </span>
         </div>
 
@@ -741,13 +912,13 @@ export default function CourseDetail() {
             const isGroupCollapsed = Boolean(collapsedGroups[group.id]);
             return (
               <div key={group.id} className="space-y-2.5">
-                {/* Level 1: Orange Group / Subject Bar */}
+                {/* Level 1: DkTEST Primary Blue Group Bar */}
                 <button
                   type="button"
                   onClick={() =>
                     setCollapsedGroups((prev) => ({ ...prev, [group.id]: !isGroupCollapsed }))
                   }
-                  className="w-full px-4 py-2.5 sm:py-3 rounded-xl sm:rounded-2xl bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-white font-black text-xs sm:text-sm uppercase tracking-wide flex items-center justify-between shadow-xs transition-all cursor-pointer"
+                  className="w-full px-4 py-2.5 sm:py-3 rounded-xl sm:rounded-2xl bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-black text-xs sm:text-sm uppercase tracking-wide flex items-center justify-between shadow-xs transition-all cursor-pointer"
                 >
                   <span>{group.title}</span>
                   <div className="flex items-center gap-2">
@@ -769,20 +940,20 @@ export default function CourseDetail() {
                       return (
                         <div
                           key={chapter.id}
-                          className="rounded-xl sm:rounded-2xl border border-amber-200 dark:border-amber-800/60 bg-amber-50/40 dark:bg-slate-900 overflow-hidden shadow-2xs"
+                          className="rounded-xl sm:rounded-2xl border border-blue-200 dark:border-blue-800/60 bg-blue-50/40 dark:bg-slate-900 overflow-hidden shadow-2xs"
                         >
-                          {/* Level 2: Warm Peach Chapter Bar */}
+                          {/* Level 2: Ice Blue Chapter Bar */}
                           <button
                             type="button"
                             onClick={() =>
                               setCollapsedChapters((prev) => ({ ...prev, [chapter.id]: !isChapCollapsed }))
                             }
-                            className="w-full px-3.5 sm:px-5 py-2.5 sm:py-3 bg-amber-100/90 dark:bg-amber-950/50 hover:bg-amber-100 dark:hover:bg-amber-950/70 flex items-center justify-between gap-2 text-left transition-colors cursor-pointer"
+                            className="w-full px-3.5 sm:px-5 py-2.5 sm:py-3 bg-blue-50 dark:bg-blue-950/50 hover:bg-blue-100/80 dark:hover:bg-blue-950/70 flex items-center justify-between gap-2 text-left transition-colors cursor-pointer"
                           >
-                            <span className="font-black text-xs sm:text-sm uppercase text-slate-900 dark:text-amber-100">
+                            <span className="font-black text-xs sm:text-sm uppercase text-blue-950 dark:text-blue-100">
                               {chapter.title}
                             </span>
-                            <div className="flex items-center gap-2 shrink-0 text-xs font-bold text-slate-600 dark:text-amber-300">
+                            <div className="flex items-center gap-2 shrink-0 text-xs font-bold text-blue-700 dark:text-blue-300">
                               <span>({chapter.lessonCount} bài học)</span>
                               {isChapCollapsed ? (
                                 <ChevronDown className="w-4 h-4" />
@@ -794,7 +965,7 @@ export default function CourseDetail() {
 
                           {/* Level 3: Topic / Lesson Cards inside Chapter */}
                           {!isChapCollapsed && (
-                            <div className="p-2 sm:p-3.5 space-y-2 bg-white/80 dark:bg-slate-900/90">
+                            <div className="p-2 sm:p-3.5 space-y-2 bg-white/85 dark:bg-slate-900/90">
                               {chapter.topics.map((topic) => {
                                 const isTopicExpanded = Boolean(expandedTopics[topic.id]);
                                 const activeTopicTab = topicTabs[topic.id] || "videos";
@@ -816,7 +987,7 @@ export default function CourseDetail() {
                                       className="w-full px-3 sm:px-4 py-2.5 sm:py-3 flex items-center justify-between gap-2 hover:bg-slate-50 dark:hover:bg-slate-800/40 transition-colors text-left cursor-pointer"
                                     >
                                       <div className="flex items-center gap-2 min-w-0 flex-1">
-                                        <BookOpen className="w-4 h-4 text-amber-500 shrink-0" />
+                                        <BookOpen className="w-4 h-4 text-blue-600 shrink-0" />
                                         <span className="font-bold text-xs sm:text-sm text-slate-900 dark:text-white line-clamp-2 sm:truncate">
                                           {topic.title}
                                         </span>
@@ -824,7 +995,7 @@ export default function CourseDetail() {
 
                                       <div className="flex items-center gap-2.5 sm:gap-4 shrink-0">
                                         {/* Video & Material Counters */}
-                                        <div className="flex items-center gap-2 text-[11px] font-bold text-amber-600 dark:text-amber-400">
+                                        <div className="flex items-center gap-2 text-[11px] font-bold text-blue-600 dark:text-blue-400">
                                           <span className="flex items-center gap-0.5" title="Số video">
                                             <span>{topic.videoCount}</span>
                                             <Video className="w-3.5 h-3.5" />
@@ -841,7 +1012,7 @@ export default function CourseDetail() {
                                         <div className="hidden sm:flex items-center gap-1.5 w-24">
                                           <div className="flex-1 h-1.5 rounded-full bg-slate-100 dark:bg-slate-800 overflow-hidden">
                                             <div
-                                              className="h-full rounded-full bg-amber-500 transition-all"
+                                              className="h-full rounded-full bg-blue-600 transition-all"
                                               style={{ width: `${topic.progressPct}%` }}
                                             />
                                           </div>
@@ -869,11 +1040,11 @@ export default function CourseDetail() {
                                             }
                                             className={`px-3 py-1.5 rounded-lg text-xs font-bold flex items-center gap-1.5 transition-all cursor-pointer ${
                                               activeTopicTab === "videos"
-                                                ? "bg-white dark:bg-slate-800 text-slate-900 dark:text-white shadow-xs border border-slate-200 dark:border-slate-700"
+                                                ? "bg-white dark:bg-slate-800 text-blue-700 dark:text-blue-300 shadow-xs border border-blue-200 dark:border-blue-800"
                                                 : "text-slate-500 hover:text-slate-800"
                                             }`}
                                           >
-                                            <Video className="w-3.5 h-3.5 text-amber-500" />
+                                            <Video className="w-3.5 h-3.5 text-blue-600" />
                                             <span>Videos ({topic.videoCount})</span>
                                           </button>
 
@@ -884,11 +1055,11 @@ export default function CourseDetail() {
                                             }
                                             className={`px-3 py-1.5 rounded-lg text-xs font-bold flex items-center gap-1.5 transition-all cursor-pointer ${
                                               activeTopicTab === "materials"
-                                                ? "bg-white dark:bg-slate-800 text-slate-900 dark:text-white shadow-xs border border-slate-200 dark:border-slate-700"
+                                                ? "bg-white dark:bg-slate-800 text-blue-700 dark:text-blue-300 shadow-xs border border-blue-200 dark:border-blue-800"
                                                 : "text-slate-500 hover:text-slate-800"
                                             }`}
                                           >
-                                            <FileText className="w-3.5 h-3.5 text-amber-500" />
+                                            <FileText className="w-3.5 h-3.5 text-blue-600" />
                                             <span>Tài liệu ({topic.materialsCount})</span>
                                           </button>
                                         </div>
@@ -900,12 +1071,13 @@ export default function CourseDetail() {
                                               const st = computeLessonAccessState(course, lesson, access);
                                               const isPlaying = selectedOutlineItem?.id === lesson.id;
                                               const isDone = watchedIds.includes(lesson.id);
+                                              const lessonDur = detectedDurationMap[lesson.id] || lesson.durationSeconds;
 
                                               return (
                                                 <div
                                                   key={lesson.id}
                                                   className={`p-2.5 sm:px-3.5 sm:py-2.5 flex flex-col sm:flex-row sm:items-center justify-between gap-2 transition-colors ${
-                                                    isPlaying ? "bg-rose-50/50 dark:bg-rose-950/20" : ""
+                                                    isPlaying ? "bg-blue-50/70 dark:bg-blue-950/30" : ""
                                                   }`}
                                                 >
                                                   <div className="flex items-start sm:items-center gap-2 min-w-0 flex-1">
@@ -914,7 +1086,7 @@ export default function CourseDetail() {
                                                         st.canWatch
                                                           ? isDone
                                                             ? "bg-emerald-500 text-white"
-                                                            : "bg-amber-100 dark:bg-amber-950/50 text-amber-600"
+                                                            : "bg-blue-100 dark:bg-blue-950/60 text-blue-600 dark:text-blue-400"
                                                           : "bg-slate-100 dark:bg-slate-800 text-slate-400"
                                                       }`}
                                                     >
@@ -934,7 +1106,9 @@ export default function CourseDetail() {
                                                         {lesson.title}
                                                       </div>
                                                       <div className="flex items-center gap-2 flex-wrap text-[10px] text-slate-500 mt-0.5">
-                                                        <span>{lesson.durationMinutes || 0} phút</span>
+                                                        <span>
+                                                          {formatDurationClock(lessonDur, lesson.durationMinutes || 0)}
+                                                        </span>
                                                         {st.isFree && (
                                                           <span className="text-emerald-600 dark:text-emerald-400 font-black">
                                                             • Học thử miễn phí
@@ -946,7 +1120,7 @@ export default function CourseDetail() {
                                                           </span>
                                                         )}
                                                         {!st.canWatch && (
-                                                          <span className="text-amber-600 dark:text-amber-400 font-black">
+                                                          <span className="text-indigo-600 dark:text-indigo-400 font-black">
                                                             • Video trả phí
                                                             {st.canBuySingle && st.effectiveSinglePriceVnd > 0
                                                               ? `: ${st.effectiveSinglePriceVnd.toLocaleString("vi-VN")}đ`
@@ -957,14 +1131,27 @@ export default function CourseDetail() {
                                                     </div>
                                                   </div>
 
-                                                  <div className="flex items-center gap-2 self-end sm:self-center shrink-0">
+                                                  <div className="flex items-center gap-1.5 self-end sm:self-center shrink-0">
+                                                    <button
+                                                      type="button"
+                                                      onClick={() => void handleShareLink(lesson)}
+                                                      title="Chia sẻ link video này"
+                                                      className="p-1.5 rounded-full text-slate-400 hover:text-blue-600 hover:bg-blue-50 dark:hover:bg-blue-950/50 transition-colors cursor-pointer"
+                                                    >
+                                                      {copiedKey === `lesson_${lesson.id}` ? (
+                                                        <Check className="w-3.5 h-3.5 text-emerald-600" />
+                                                      ) : (
+                                                        <Share2 className="w-3.5 h-3.5" />
+                                                      )}
+                                                    </button>
+
                                                     {st.canWatch ? (
                                                       <button
                                                         type="button"
                                                         onClick={() => handleSelectLessonAndPlay(lesson, topic.id)}
                                                         className={`px-3 py-1.5 rounded-full text-xs font-bold flex items-center gap-1.5 transition-all cursor-pointer ${
                                                           isPlaying
-                                                            ? "bg-emerald-600 text-white shadow-xs"
+                                                            ? "bg-blue-600 text-white shadow-xs"
                                                             : "bg-emerald-50 hover:bg-emerald-100 dark:bg-emerald-950/60 text-emerald-700 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800"
                                                         }`}
                                                       >
@@ -996,7 +1183,7 @@ export default function CourseDetail() {
                                                       <button
                                                         type="button"
                                                         onClick={() => handleSelectLessonAndPlay(lesson, topic.id)}
-                                                        className="px-3 py-1.5 rounded-full bg-amber-100 dark:bg-amber-950/50 text-amber-800 dark:text-amber-300 text-xs font-bold flex items-center gap-1.5 cursor-pointer"
+                                                        className="px-3 py-1.5 rounded-full bg-blue-50 dark:bg-blue-950/50 text-blue-700 dark:text-blue-300 border border-blue-200 dark:border-blue-800 text-xs font-bold flex items-center gap-1.5 cursor-pointer"
                                                       >
                                                         <Lock className="w-3 h-3" />
                                                         <span>Chưa mở</span>
@@ -1027,7 +1214,7 @@ export default function CourseDetail() {
                                                     className="p-2.5 sm:px-3.5 flex items-center justify-between gap-2"
                                                   >
                                                     <div className="flex items-center gap-2 min-w-0">
-                                                      <FileText className="w-4 h-4 text-rose-500 shrink-0" />
+                                                      <FileText className="w-4 h-4 text-blue-600 shrink-0" />
                                                       <div className="min-w-0">
                                                         <div className="text-xs font-semibold text-slate-900 dark:text-white truncate">
                                                           {mat.label}
@@ -1105,7 +1292,7 @@ export default function CourseDetail() {
           <div className="bg-white dark:bg-slate-900 rounded-3xl border border-slate-200 dark:border-slate-800 max-w-md w-full p-5 sm:p-6 space-y-4 shadow-2xl">
             <div className="flex items-start justify-between gap-2">
               <div>
-                <span className="text-[11px] font-black uppercase text-rose-500">
+                <span className="text-[11px] font-black uppercase text-blue-600">
                   {unlockTarget.kind === "course"
                     ? "Mở khóa trọn Khóa học"
                     : "Mở khóa Video bài giảng"}
@@ -1140,14 +1327,14 @@ export default function CourseDetail() {
                 </strong>
               </div>
               {voucherResult?.valid && (voucherResult.discountVnd || 0) > 0 && (
-                <div className="flex items-center justify-between text-rose-600 dark:text-rose-400">
+                <div className="flex items-center justify-between text-emerald-600 dark:text-emerald-400">
                   <span>Giảm Voucher ({voucherResult.code}):</span>
                   <strong>-{(voucherResult.discountVnd || 0).toLocaleString("vi-VN")}đ</strong>
                 </div>
               )}
               <div className="pt-2 border-t border-slate-200 dark:border-slate-700 flex items-center justify-between text-sm">
                 <span className="font-black text-slate-900 dark:text-white">Thanh toán:</span>
-                <strong className="font-black text-amber-600 dark:text-amber-400">
+                <strong className="font-black text-blue-600 dark:text-blue-400">
                   {finalModalPrice.toLocaleString("vi-VN")}đ
                 </strong>
               </div>
@@ -1156,7 +1343,7 @@ export default function CourseDetail() {
             {/* Voucher Input */}
             <div className="space-y-1.5">
               <label className="text-xs font-bold text-slate-700 dark:text-slate-300 flex items-center gap-1.5">
-                <Tag className="w-3.5 h-3.5 text-rose-500" />
+                <Tag className="w-3.5 h-3.5 text-blue-600" />
                 <span>Mã giảm giá / Voucher (tùy chọn)</span>
               </label>
               <div className="flex gap-2">
@@ -1213,7 +1400,7 @@ export default function CourseDetail() {
                   type="button"
                   disabled={unlockBusy}
                   onClick={() => void handleConfirmUnlock()}
-                  className="flex-[2] py-3 rounded-2xl bg-gradient-to-r from-rose-600 to-amber-500 hover:from-rose-700 hover:to-amber-600 disabled:opacity-50 text-white text-xs font-black shadow-lg flex items-center justify-center gap-2"
+                  className="flex-[2] py-3 rounded-2xl bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 disabled:opacity-50 text-white text-xs font-black shadow-lg flex items-center justify-center gap-2"
                 >
                   <Unlock className="w-4 h-4" />
                   <span>

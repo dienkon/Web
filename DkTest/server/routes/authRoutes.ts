@@ -1,5 +1,6 @@
 import { Router, type Request, type Response } from "express";
-import { adminAuth, adminDb, getFirestoreRestDoc, setFirestoreRestDoc, getFirestoreRestDocs } from "../firebaseAdmin.js";
+import crypto from "node:crypto";
+import { adminAuth, adminDb, decodeFirestoreDocument, getFirebaseApiKey, getFirestoreRestDoc, setFirestoreRestDoc, getFirestoreRestDocs } from "../firebaseAdmin.js";
 
 export const authRouter = Router();
 
@@ -350,6 +351,132 @@ authRouter.post("/login-with-username", async (req: Request, res: Response) => {
     return res.status(500).json({
       error: "internal_error",
       message: "Lỗi xử lý xác thực tên đăng nhập từ máy chủ.",
+    });
+  }
+});
+
+/**
+ * Admin Quick Password Login (verifies server env secret OR real Firebase Admin password -> issues genuine Firebase Admin auth session)
+ * POST /api/auth/admin-password-login
+ */
+authRouter.post("/admin-password-login", async (req: Request, res: Response) => {
+  try {
+    const { password, email } = req.body || {};
+    const passStr = String(password || "");
+    if (!passStr) {
+      return res.status(400).json({ error: "missing_password", message: "Vui lòng nhập mật khẩu quản trị." });
+    }
+
+    const ADMIN_CANDIDATE_EMAILS = Array.from(
+      new Set(
+        [
+          typeof email === "string" && email.includes("@") ? email.trim().toLowerCase() : "",
+          (process.env.ADMIN_AUTH_EMAIL || "").trim().toLowerCase(),
+          "duongthanhdien3456@gmail.com",
+          "admin@dktest.edu.vn",
+          "admin@dktest.local",
+        ].filter(Boolean)
+      )
+    );
+
+    // 1. Try verifying via Firebase Identity Toolkit against verified admin emails
+    const apiKey = getFirebaseApiKey();
+    for (const candidateEmail of ADMIN_CANDIDATE_EMAILS) {
+      try {
+        const verifyRes = await fetch(
+          `https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${encodeURIComponent(apiKey)}`,
+          {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              email: candidateEmail,
+              password: passStr,
+              returnSecureToken: true,
+            }),
+            signal: AbortSignal.timeout(8000),
+          }
+        );
+        const verifyData = await verifyRes.json();
+        if (verifyRes.ok && verifyData?.idToken && verifyData?.localId) {
+          let role = "";
+          if (adminDb) {
+            const snap = await adminDb.collection("users").doc(verifyData.localId).get();
+            role = snap.exists ? String(snap.data()?.role || "") : "";
+          } else {
+            const project = process.env.FIREBASE_PROJECT_ID || process.env.VITE_FIREBASE_PROJECT_ID || "exam-fd7a1";
+            const uRes = await fetch(
+              `https://firestore.googleapis.com/v1/projects/${project}/databases/(default)/documents/users/${encodeURIComponent(verifyData.localId)}`,
+              { headers: { Authorization: `Bearer ${verifyData.idToken}` }, signal: AbortSignal.timeout(6000) }
+            );
+            if (uRes.ok) {
+              const decoded = decodeFirestoreDocument(await uRes.json());
+              role = String(decoded?.role || "");
+            }
+          }
+
+          if (role !== "admin" && role !== "super_admin") {
+            continue;
+          }
+
+          let customToken = "";
+          if (adminAuth) {
+            try {
+              customToken = await adminAuth.createCustomToken(verifyData.localId);
+            } catch {}
+          }
+
+          return res.status(200).json({
+            success: true,
+            uid: verifyData.localId,
+            email: verifyData.email || candidateEmail,
+            customToken,
+            idToken: verifyData.idToken,
+            refreshToken: verifyData.refreshToken,
+          });
+        }
+      } catch {}
+    }
+
+    // 2. Check explicit server environment secret (NEVER hardcoded in repo/client)
+    const serverSecret = process.env.ADMIN_QUICK_PASSWORD || "";
+    if (serverSecret && adminAuth) {
+      const bufA = Buffer.from(passStr);
+      const bufB = Buffer.from(serverSecret);
+      if (bufA.length === bufB.length && crypto.timingSafeEqual(bufA, bufB)) {
+        const primaryEmail = (process.env.ADMIN_AUTH_EMAIL || "duongthanhdien3456@gmail.com").trim();
+        const userRecord = await adminAuth.getUserByEmail(primaryEmail);
+        if (adminDb) {
+          await adminDb.collection("users").doc(userRecord.uid).set(
+            {
+              uid: userRecord.uid,
+              email: userRecord.email || primaryEmail,
+              role: "admin",
+              accountStatus: "active",
+              updatedAt: new Date().toISOString(),
+            },
+            { merge: true }
+          );
+        }
+        const customToken = await adminAuth.createCustomToken(userRecord.uid);
+        return res.status(200).json({
+          success: true,
+          uid: userRecord.uid,
+          email: userRecord.email || primaryEmail,
+          customToken,
+        });
+      }
+    }
+
+    return res.status(401).json({
+      error: "admin_firebase_auth_required",
+      message:
+        "Mật khẩu quản trị không khớp tài khoản Firebase Admin trên máy chủ. Hãy dùng 'Đăng nhập Admin bằng Google' hoặc tab 'Email + Mật khẩu' bằng tài khoản Admin Firebase để có đầy đủ quyền Thống kê, Học sinh và Ví!",
+    });
+  } catch (err: any) {
+    console.error("[admin-password-login] Unexpected error:", err);
+    return res.status(500).json({
+      error: "internal_error",
+      message: "Lỗi xác thực Quản trị viên trên máy chủ.",
     });
   }
 });

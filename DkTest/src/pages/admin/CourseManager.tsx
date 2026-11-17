@@ -12,12 +12,19 @@ import {
   Plus,
   RotateCw,
   Search,
+  Share2,
   Sparkles,
   Trash2,
   Unlock,
   Video,
 } from "lucide-react";
-import { deleteCourse, getAdminCoursesList } from "../../services/courseService";
+import {
+  buildCourseShareUrl,
+  deleteCourse,
+  formatDurationClock,
+  getAdminCoursesList,
+} from "../../services/courseService";
+import { safeCopyText } from "../../utils/mobileCompat";
 import { doc, updateDoc } from "firebase/firestore";
 import { db } from "../../services/firebase/config";
 import { FirestoreCache } from "../../services/firebase/firestoreCache";
@@ -122,7 +129,7 @@ export default function CourseManager() {
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
           <h1 className="text-2xl font-black tracking-tight text-slate-900 dark:text-white flex items-center gap-2.5">
-            <PlayCircle className="w-7 h-7 text-rose-600" />
+            <PlayCircle className="w-7 h-7 text-blue-600" />
             <span>Quản Lý Khóa Học & Video Bài Giảng</span>
           </h1>
           <p className="text-sm text-slate-500 dark:text-slate-400 mt-1">
@@ -137,12 +144,12 @@ export default function CourseManager() {
             disabled={loading}
             className="px-3.5 py-2.5 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 hover:bg-slate-50 text-slate-700 dark:text-slate-200 rounded-xl text-xs font-bold flex items-center gap-1.5 shadow-2xs cursor-pointer disabled:opacity-50"
           >
-            <RotateCw className={`w-3.5 h-3.5 ${loading ? "animate-spin text-rose-600" : ""}`} />
+            <RotateCw className={`w-3.5 h-3.5 ${loading ? "animate-spin text-blue-600" : ""}`} />
             <span>Làm mới</span>
           </button>
           <Link
             to="/admin/courses/new"
-            className="px-4 py-2.5 bg-rose-600 hover:bg-rose-700 text-white rounded-xl text-xs font-bold flex items-center gap-1.5 shadow-sm transition-colors"
+            className="px-4 py-2.5 bg-blue-600 hover:bg-blue-700 text-white rounded-xl text-xs font-bold flex items-center gap-1.5 shadow-sm transition-colors"
           >
             <Plus className="w-4 h-4" />
             <span>Tạo khóa học mới</span>
@@ -162,7 +169,7 @@ export default function CourseManager() {
         </div>
         <div className="bg-white dark:bg-slate-900 p-4 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-2xs">
           <div className="text-xs font-bold text-slate-500">Khóa học trả phí</div>
-          <div className="text-2xl font-black text-amber-600 mt-1">{stats.paid}</div>
+          <div className="text-2xl font-black text-blue-600 mt-1">{stats.paid}</div>
         </div>
         <div className="bg-white dark:bg-slate-900 p-4 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-2xs">
           <div className="text-xs font-bold text-slate-500">Tổng bài giảng video</div>
@@ -179,7 +186,7 @@ export default function CourseManager() {
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             placeholder="Tìm tên khóa học, mã khóa, môn học, giảng viên..."
-            className="w-full pl-9 pr-4 py-2 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl text-xs font-semibold text-slate-800 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-rose-500"
+            className="w-full pl-9 pr-4 py-2 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl text-xs font-semibold text-slate-800 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
         </div>
 
@@ -223,7 +230,7 @@ export default function CourseManager() {
           </p>
           <Link
             to="/admin/courses/new"
-            className="inline-flex items-center gap-1.5 px-4 py-2.5 bg-rose-600 hover:bg-rose-700 text-white rounded-xl text-xs font-bold"
+            className="inline-flex items-center gap-1.5 px-4 py-2.5 bg-blue-600 hover:bg-blue-700 text-white rounded-xl text-xs font-bold"
           >
             <Plus className="w-4 h-4" /> Tạo khóa học đầu tiên
           </Link>
@@ -240,7 +247,7 @@ export default function CourseManager() {
               >
                 <div>
                   {/* Cover */}
-                  <div className="relative h-36 bg-gradient-to-br from-rose-600 via-indigo-700 to-slate-900 overflow-hidden">
+                  <div className="relative h-36 bg-gradient-to-br from-blue-600 via-indigo-700 to-slate-900 overflow-hidden">
                     {course.thumbnailUrl ? (
                       <img src={course.thumbnailUrl} alt={course.title} className="w-full h-full object-cover" />
                     ) : (
@@ -253,7 +260,7 @@ export default function CourseManager() {
                         className={`px-2.5 py-0.5 rounded-full text-[10px] font-black uppercase ${
                           course.status === "published"
                             ? "bg-emerald-500 text-white"
-                            : "bg-slate-900/80 text-amber-300"
+                            : "bg-slate-900/80 text-blue-200"
                         }`}
                       >
                         {course.status === "published" ? "Đang mở" : course.status === "archived" ? "Lưu trữ" : "Bản nháp"}
@@ -268,7 +275,7 @@ export default function CourseManager() {
                       <span
                         className={`px-3 py-1 rounded-full text-xs font-black shadow-sm ${
                           isPaid
-                            ? "bg-amber-400 text-slate-950"
+                            ? "bg-blue-600 text-white"
                             : isPerVideo
                             ? "bg-indigo-500 text-white"
                             : "bg-emerald-400 text-slate-950"
@@ -310,11 +317,12 @@ export default function CourseManager() {
                     <div className="p-3 rounded-2xl bg-slate-50 dark:bg-slate-800/60 border border-slate-100 dark:border-slate-800 space-y-1.5 text-[11px]">
                       <div className="flex items-center justify-between text-slate-700 dark:text-slate-300">
                         <span className="flex items-center gap-1">
-                          <Video className="w-3.5 h-3.5 text-rose-500" />
+                          <Video className="w-3.5 h-3.5 text-blue-600" />
                           <span>Tổng bài giảng:</span>
                         </span>
                         <strong>
-                          {course.lessonCount || 0} video ({course.freeLessonCount || 0} free / {course.paidLessonCount || 0} trả phí)
+                          {course.lessonCount || 0} video •{" "}
+                          {formatDurationClock(course.totalDurationSeconds, course.totalDurationMinutes)}
                         </strong>
                       </div>
                       <div className="flex items-center justify-between text-slate-600 dark:text-slate-400">
@@ -359,7 +367,7 @@ export default function CourseManager() {
                       onClick={() => void handleToggleStatus(course)}
                       className={`px-2.5 py-1.5 rounded-xl text-xs font-bold border cursor-pointer ${
                         course.status === "published"
-                          ? "bg-amber-50 text-amber-700 border-amber-200 hover:bg-amber-100"
+                          ? "bg-slate-100 text-slate-700 border-slate-200 hover:bg-slate-200 dark:bg-slate-800 dark:text-slate-200 dark:border-slate-700"
                           : "bg-emerald-50 text-emerald-700 border-emerald-200 hover:bg-emerald-100"
                       }`}
                       title={course.status === "published" ? "Chuyển về nháp" : "Xuất bản khóa học"}
@@ -369,6 +377,17 @@ export default function CourseManager() {
                   </div>
 
                   <div className="flex items-center gap-1">
+                    <button
+                      type="button"
+                      onClick={async () => {
+                        const ok = await safeCopyText(buildCourseShareUrl(course.id));
+                        if (ok) showSuccessToast("Đã sao chép link chia sẻ khóa học!");
+                      }}
+                      className="p-2 text-slate-500 hover:text-blue-600 hover:bg-blue-50 rounded-xl transition-colors cursor-pointer"
+                      title="Sao chép link chia sẻ khóa học"
+                    >
+                      <Share2 className="w-4 h-4" />
+                    </button>
                     <Link
                       to={`/student/courses/${course.id}`}
                       className="p-2 text-slate-500 hover:text-indigo-600 hover:bg-indigo-50 rounded-xl transition-colors"

@@ -1181,6 +1181,95 @@ describe("socialMetadata - Social Preview & Crawler Engine", () => {
       const { metaTagsHtml } = buildSocialMetaTags(meta);
       expect(metaTagsHtml).toContain('<meta property="og:image:type" content="image/jpeg">');
     });
+
+    it("resolves /student/courses/:id and ?lesson=:lessonId into rich Course OG cards without exposing private video URLs", async () => {
+      const originalFetch = globalThis.fetch;
+      try {
+        globalThis.fetch = vi.fn().mockImplementation(async (input: any) => {
+          const urlStr = String(input || "");
+          if (urlStr.includes("/courses/course_casio_2027")) {
+            return {
+              ok: true,
+              status: 200,
+              json: async () => ({
+                fields: {
+                  title: { stringValue: "Chinh Phục Casio Toán 12" },
+                  description: { stringValue: "Lộ trình bấm máy siêu tốc giải đề V-ACT 2027." },
+                  subject: { stringValue: "TOÁN HỌC" },
+                  instructorName: { stringValue: "Thầy Dương" },
+                  thumbnailUrl: { stringValue: "https://cdn.example.com/casio-thumb.jpg" },
+                  accessMode: { stringValue: "per_video" },
+                  lessonCount: { integerValue: "2" },
+                  totalDurationSeconds: { integerValue: "5400" },
+                  chapters: {
+                    arrayValue: {
+                      values: [
+                        {
+                          mapValue: {
+                            fields: {
+                              id: { stringValue: "ch_1" },
+                              title: { stringValue: "BỔ TRỢ NỀN TẢNG" },
+                            },
+                          },
+                        },
+                      ],
+                    },
+                  },
+                  lessonOutline: {
+                    arrayValue: {
+                      values: [
+                        {
+                          mapValue: {
+                            fields: {
+                              id: { stringValue: "les_1" },
+                              chapterId: { stringValue: "ch_1" },
+                              title: { stringValue: "Bài 1: Kỹ thuật SOLVE" },
+                              durationSeconds: { integerValue: "1530" },
+                              isFreeEffective: { booleanValue: true },
+                              priceVnd: { integerValue: "0" },
+                            },
+                          },
+                        },
+                      ],
+                    },
+                  },
+                },
+              }),
+            };
+          }
+          return { ok: false, status: 404, json: async () => ({}) };
+        });
+
+        const courseMeta = await resolveSocialMetadataForUrl({
+          url: "/student/courses/course_casio_2027",
+          baseUrl,
+        });
+        expect(courseMeta.contentType).toBe("course");
+        expect(courseMeta.title).toContain("Chinh Phục Casio Toán 12");
+        expect(courseMeta.imageUrl).toBe("https://cdn.example.com/casio-thumb.jpg");
+        expect(courseMeta.imageWidth).toBe(1200);
+        expect(courseMeta.imageHeight).toBe(630);
+        expect(courseMeta.description).toContain("2 bài giảng");
+        expect(courseMeta.description).toContain("90 phút");
+
+        const lessonMeta = await resolveSocialMetadataForUrl({
+          url: "/student/courses/course_casio_2027?lesson=les_1",
+          baseUrl,
+        });
+        expect(lessonMeta.contentType).toBe("course");
+        expect(lessonMeta.title).toContain("Bài 1: Kỹ thuật SOLVE");
+        expect(lessonMeta.title).toContain("Chinh Phục Casio Toán 12");
+        expect(lessonMeta.canonicalUrl).toBe(
+          `${baseUrl}/student/courses/course_casio_2027?lesson=les_1`
+        );
+        expect(lessonMeta.description).toContain("BỔ TRỢ NỀN TẢNG");
+        expect(lessonMeta.description).toContain("25 phút 30s");
+        expect(lessonMeta.description).toContain("Học thử miễn phí");
+        expect(lessonMeta.imageUrl).toBe("https://cdn.example.com/casio-thumb.jpg");
+      } finally {
+        globalThis.fetch = originalFetch;
+      }
+    });
   });
 });
 

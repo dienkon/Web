@@ -47,6 +47,7 @@ export default async function handler(req: any, res: any) {
       cleanParam(req.query?.redeem);
     let examId = cleanParam(req.query?.examId) || cleanParam(req.query?.id);
     let submissionId = cleanParam(req.query?.submissionId);
+    let courseId = cleanParam(req.query?.courseId);
 
     // Check matchedHeader or targetPath if parameters weren't cleanly extracted
     const pathToCheck = matchedHeader && !matchedHeader.startsWith("/api/") ? matchedHeader : targetPath;
@@ -61,6 +62,10 @@ export default async function handler(req: any, res: any) {
     if (!submissionId && pathToCheck) {
       const sMatch = pathToCheck.match(/\/(?:result|submissions)\/([^/?#]+)/i);
       if (sMatch) submissionId = cleanParam(decodeURIComponent(sMatch[1]));
+    }
+    if (!courseId && pathToCheck) {
+      const cMatch = pathToCheck.match(/^\/(?:(?:student|admin)\/)?courses?\/([^/?#]+)/i);
+      if (cMatch) courseId = cleanParam(decodeURIComponent(cMatch[1]));
     }
 
     // Replace literal template placeholders in targetPath if present
@@ -78,20 +83,25 @@ export default async function handler(req: any, res: any) {
     if (submissionId && /[:$](?:submissionId|2)/i.test(targetPath)) {
       targetPath = targetPath.replace(/[:$](?:submissionId|2)/gi, encodeURIComponent(submissionId));
     }
+    if (courseId && /[:$](?:courseId|id|1)/i.test(targetPath)) {
+      targetPath = targetPath.replace(/[:$](?:courseId|id|1)/gi, encodeURIComponent(courseId));
+    }
 
     if (submissionId && examId && !targetPath.includes("/result") && !targetPath.includes("/submissions")) {
       targetPath = `/student/exam/${encodeURIComponent(examId)}/result/${encodeURIComponent(submissionId)}`;
     } else if (examId && !targetPath.includes("/exam")) {
       targetPath = `/student/exam/${encodeURIComponent(examId)}`;
+    } else if (courseId && !targetPath.includes("/course")) {
+      targetPath = `/student/courses/${encodeURIComponent(courseId)}`;
     }
 
-    // Preserve any extra query parameters like ?v=1 or ?t=... (crucial for Zalo cache-busting)
+    // Preserve any extra query parameters like ?v=1 or ?lesson=... (crucial for Zalo cache-busting & video deep links)
     const extraQuery = new URLSearchParams();
     if (req.query && typeof req.query === "object") {
       for (const [k, v] of Object.entries(req.query)) {
         const kLower = k.toLowerCase();
         if (
-          !["path", "voucher", "code", "redeem", "examid", "id", "submissionid", "codeexamid", "format"].includes(
+          !["path", "voucher", "code", "redeem", "examid", "id", "submissionid", "codeexamid", "courseid", "format"].includes(
             kLower
           )
         ) {

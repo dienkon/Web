@@ -13,7 +13,43 @@ import {
   SUBJECT_BANNER_MAP,
 } from "./subjectBannerHelper.js";
 
-export type SocialContentType = "voucher" | "exam" | "submission" | "code_exam" | "page";
+export type SocialContentType = "voucher" | "exam" | "submission" | "code_exam" | "course" | "page";
+
+export interface CourseLessonOutlineMeta {
+  id: string;
+  title: string;
+  chapterTitle?: string;
+  topicTitle?: string;
+  durationMinutes?: number;
+  durationSeconds?: number;
+  isFree?: boolean;
+  priceVnd?: number;
+}
+
+interface CourseOutlineResolvedMeta extends CourseLessonOutlineMeta {
+  isFreeEffective?: boolean;
+  chapterId?: string | null;
+}
+
+export interface CourseMeta {
+  id: string;
+  title: string;
+  description: string;
+  subject?: string;
+  instructorName?: string;
+  thumbnailUrl?: string | null;
+  pricingMode?: string;
+  accessMode?: string;
+  priceVnd?: number | null;
+  lessonCount?: number;
+  totalLessons?: number;
+  totalDurationMinutes?: number;
+  totalDurationSeconds?: number;
+  freeLessonCount?: number;
+  freeLessonsCount?: number;
+  chapters?: Record<string, string>;
+  lessonOutline?: CourseOutlineResolvedMeta[];
+}
 
 export interface VoucherMeta {
   id: string;
@@ -526,6 +562,224 @@ export async function fetchExamMetadata(
   }
 
   return { found: false, exam: null };
+}
+
+function getValidHttpImageUrl(candidate: unknown): string | null {
+  if (
+    typeof candidate === "string" &&
+    (candidate.startsWith("http://") ||
+      candidate.startsWith("https://") ||
+      candidate.startsWith("data:image/"))
+  ) {
+    return candidate.trim();
+  }
+  return null;
+}
+
+function parseFirestoreChaptersMap(field: any): Record<string, string> {
+  const values = field?.arrayValue?.values;
+  const map: Record<string, string> = {};
+  if (!Array.isArray(values)) return map;
+  for (const item of values) {
+    const f = item?.mapValue?.fields;
+    if (!f) continue;
+    const id = getFirestoreString(f.id);
+    const title = getFirestoreString(f.title);
+    if (id && title) map[id] = title;
+  }
+  return map;
+}
+
+function parseFirestoreOutlineItems(
+  field: any,
+  chaptersMap: Record<string, string> = {}
+): CourseOutlineResolvedMeta[] {
+  const values = field?.arrayValue?.values;
+  if (!Array.isArray(values)) return [];
+  const items: CourseOutlineResolvedMeta[] = [];
+  for (const item of values) {
+    const f = item?.mapValue?.fields;
+    if (!f) continue;
+    const id = getFirestoreString(f.id) || "";
+    const title = getFirestoreString(f.title) || "";
+    if (!id || !title) continue;
+    const chapterId = getFirestoreString(f.chapterId);
+    const chapterTitle =
+      getFirestoreString(f.chapterTitle) ||
+      (chapterId ? chaptersMap[chapterId] : undefined) ||
+      undefined;
+    items.push({
+      id,
+      title,
+      chapterId,
+      chapterTitle,
+      topicTitle: getFirestoreString(f.topicTitle) || undefined,
+      durationMinutes: getFirestoreNumber(f.durationMinutes) ?? undefined,
+      durationSeconds: getFirestoreNumber(f.durationSeconds) ?? undefined,
+      isFree: getFirestoreBoolean(f.isFree) ?? undefined,
+      isFreeEffective: getFirestoreBoolean(f.isFreeEffective) ?? undefined,
+      priceVnd: getFirestoreNumber(f.priceVnd) ?? undefined,
+    });
+  }
+  return items;
+}
+
+function parseFirestoreCourseFields(docId: string, fields: any): CourseMeta {
+  const rawThumb =
+    getFirestoreString(fields.thumbnailUrl) ||
+    getFirestoreString(fields.coverImage) ||
+    getFirestoreString(fields.imageUrl);
+  const chapters = parseFirestoreChaptersMap(fields.chapters);
+  const lessonCount =
+    getFirestoreNumber(fields.lessonCount) ??
+    getFirestoreNumber(fields.totalLessons) ??
+    undefined;
+  const freeLessonCount =
+    getFirestoreNumber(fields.freeLessonCount) ??
+    getFirestoreNumber(fields.freeLessonsCount) ??
+    undefined;
+  return {
+    id: docId,
+    title: (getFirestoreString(fields.title) || "Khóa học trực tuyến DkTEST").trim(),
+    description: (
+      getFirestoreString(fields.description) ||
+      "Khóa học video bài giảng chất lượng cao trên hệ thống DkTEST."
+    ).trim(),
+    subject: getFirestoreString(fields.subject) || undefined,
+    instructorName: getFirestoreString(fields.instructorName) || undefined,
+    thumbnailUrl: getValidHttpImageUrl(rawThumb),
+    pricingMode: getFirestoreString(fields.pricingMode) || undefined,
+    accessMode: getFirestoreString(fields.accessMode) || undefined,
+    priceVnd: getFirestoreNumber(fields.priceVnd),
+    lessonCount,
+    totalLessons: lessonCount,
+    totalDurationMinutes: getFirestoreNumber(fields.totalDurationMinutes) ?? undefined,
+    totalDurationSeconds: getFirestoreNumber(fields.totalDurationSeconds) ?? undefined,
+    freeLessonCount,
+    freeLessonsCount: freeLessonCount,
+    chapters,
+    lessonOutline: parseFirestoreOutlineItems(fields.lessonOutline, chapters),
+  };
+}
+
+export async function fetchCourseMetadata(
+  courseId: string
+): Promise<{ found: boolean; course: CourseMeta | null }> {
+  if (!courseId || typeof courseId !== "string") {
+    return { found: false, course: null };
+  }
+  const cleanId = safeDecodeURIComponent(courseId).trim();
+  if (!cleanId) return { found: false, course: null };
+
+  const buildAdminChaptersMap = (chaps: unknown): Record<string, string> => {
+    const map: Record<string, string> = {};
+    if (Array.isArray(chaps)) {
+      for (const c of chaps as any[]) {
+        if (c && c.id && c.title) map[String(c.id)] = String(c.title);
+      }
+    }
+    return map;
+  };
+
+  const sanitizeOutline = (
+    list: unknown,
+    chaptersMap: Record<string, string>
+  ): CourseOutlineResolvedMeta[] => {
+    if (!Array.isArray(list)) return [];
+    return list
+      .filter((x: any) => x && x.id && x.title)
+      .map((x: any) => ({
+        id: String(x.id),
+        title: String(x.title),
+        chapterId: x.chapterId ? String(x.chapterId) : undefined,
+        chapterTitle:
+          x.chapterTitle
+            ? String(x.chapterTitle)
+            : x.chapterId && chaptersMap[String(x.chapterId)]
+            ? chaptersMap[String(x.chapterId)]
+            : undefined,
+        topicTitle: x.topicTitle ? String(x.topicTitle) : undefined,
+        durationMinutes: typeof x.durationMinutes === "number" ? x.durationMinutes : undefined,
+        durationSeconds: typeof x.durationSeconds === "number" ? x.durationSeconds : undefined,
+        isFree: typeof x.isFree === "boolean" ? x.isFree : undefined,
+        isFreeEffective: typeof x.isFreeEffective === "boolean" ? x.isFreeEffective : undefined,
+        priceVnd: typeof x.priceVnd === "number" ? x.priceVnd : undefined,
+      }));
+  };
+
+  if (adminDb) {
+    try {
+      const snap = await adminDb.collection("courses").doc(cleanId).get();
+      if (snap.exists) {
+        const data = snap.data() || {};
+        const chaptersMap = buildAdminChaptersMap(data.chapters);
+        const lessonCount =
+          typeof data.lessonCount === "number"
+            ? data.lessonCount
+            : typeof data.totalLessons === "number"
+            ? data.totalLessons
+            : undefined;
+        const freeLessonCount =
+          typeof data.freeLessonCount === "number"
+            ? data.freeLessonCount
+            : typeof data.freeLessonsCount === "number"
+            ? data.freeLessonsCount
+            : undefined;
+        return {
+          found: true,
+          course: {
+            id: snap.id,
+            title: String(data.title || "Khóa học trực tuyến DkTEST").trim(),
+            description: String(
+              data.description || "Khóa học video bài giảng chất lượng cao trên DkTEST."
+            ).trim(),
+            subject: data.subject ? String(data.subject) : undefined,
+            instructorName: data.instructorName ? String(data.instructorName) : undefined,
+            thumbnailUrl: getValidHttpImageUrl(
+              data.thumbnailUrl || data.coverImage || data.imageUrl
+            ),
+            pricingMode: data.pricingMode ? String(data.pricingMode) : undefined,
+            accessMode: data.accessMode ? String(data.accessMode) : undefined,
+            priceVnd: typeof data.priceVnd === "number" ? data.priceVnd : null,
+            lessonCount,
+            totalLessons: lessonCount,
+            totalDurationMinutes:
+              typeof data.totalDurationMinutes === "number" ? data.totalDurationMinutes : undefined,
+            totalDurationSeconds:
+              typeof data.totalDurationSeconds === "number" ? data.totalDurationSeconds : undefined,
+            freeLessonCount,
+            freeLessonsCount: freeLessonCount,
+            chapters: chaptersMap,
+            lessonOutline: sanitizeOutline(data.lessonOutline, chaptersMap),
+          },
+        };
+      }
+    } catch (err) {
+      console.warn("[SocialMetadata] AdminDb error querying course:", err);
+    }
+  }
+
+  const projectId = getProjectId();
+  const apiKey = getFirebaseApiKey();
+  try {
+    const docUrl = `https://firestore.googleapis.com/v1/projects/${projectId}/databases/(default)/documents/courses/${encodeURIComponent(
+      cleanId
+    )}?key=${apiKey}`;
+    const res = await fetch(docUrl, { headers: { Accept: "application/json" } });
+    if (res.ok) {
+      const doc = await res.json();
+      if (doc && doc.fields) {
+        return {
+          found: true,
+          course: parseFirestoreCourseFields(cleanId, doc.fields),
+        };
+      }
+    }
+  } catch (err) {
+    console.error(`[SocialMetadata] Error fetching course ${cleanId}:`, err);
+  }
+
+  return { found: false, course: null };
 }
 
 // ---------------------------------------------------------------------------
@@ -1082,6 +1336,147 @@ export async function resolveSocialMetadataForUrl({
         };
       }
     }
+  }
+
+  // Case 4.5: Course & Video Lesson Links (/student/courses/:courseId or /courses/:courseId?lesson=...)
+  const coursePathMatch = pathname.match(
+    /^\/(?:(?:student|admin)\/)?courses?(?:\/([^/?#]+))?/i
+  );
+  const queryCourseId = searchParams.get("courseId");
+  const queryLessonId =
+    searchParams.get("lesson") || searchParams.get("video") || searchParams.get("bai");
+
+  if (coursePathMatch || queryCourseId) {
+    let rawCourseId = coursePathMatch?.[1]
+      ? safeDecodeURIComponent(coursePathMatch[1]).trim()
+      : "";
+    if (rawCourseId && /^(?:new|create|edit|index)$/i.test(rawCourseId)) {
+      rawCourseId = "";
+    }
+    if (!rawCourseId && queryCourseId) {
+      rawCourseId = safeDecodeURIComponent(queryCourseId).trim();
+    }
+
+    if (rawCourseId && !/^[:$](?:courseId|id|1)$/i.test(rawCourseId)) {
+      const { found, course } = await fetchCourseMetadata(rawCourseId);
+      const cleanCourseId = course?.id || rawCourseId;
+      const targetLesson =
+        queryLessonId && course?.lessonOutline?.length
+          ? course.lessonOutline.find((l) => l.id === queryLessonId.trim())
+          : undefined;
+      const canonicalUrl = targetLesson
+        ? `${cleanBaseUrl}/student/courses/${encodeURIComponent(cleanCourseId)}?lesson=${encodeURIComponent(
+            targetLesson.id
+          )}`
+        : `${cleanBaseUrl}/student/courses/${encodeURIComponent(cleanCourseId)}`;
+
+      if (found && course) {
+        const subjectBanner = resolveExamSubjectBanner({
+          exam: {
+            id: cleanCourseId,
+            title: course.title,
+            subject: course.subject,
+          },
+          examId: cleanCourseId,
+          baseUrl: cleanBaseUrl,
+        });
+        const imageUrl = course.thumbnailUrl || subjectBanner.imageUrl;
+        const imageAlt = course.thumbnailUrl ? course.title : subjectBanner.imageAlt;
+
+        const parts: string[] = [];
+        if (course.subject) parts.push(`📚 Môn: ${course.subject}`);
+        if (course.instructorName) parts.push(`👨‍🏫 ${course.instructorName}`);
+
+        if (targetLesson) {
+          if (targetLesson.chapterTitle) parts.push(`📂 ${targetLesson.chapterTitle}`);
+          if (targetLesson.durationSeconds && targetLesson.durationSeconds > 0) {
+            parts.push(`⏱️ ${formatMinutes(Math.round(targetLesson.durationSeconds))}`);
+          } else if (targetLesson.durationMinutes) {
+            parts.push(`⏱️ ${targetLesson.durationMinutes} phút`);
+          }
+          if (targetLesson.isFree || targetLesson.isFreeEffective) {
+            parts.push("🎁 Học thử miễn phí");
+          } else if (targetLesson.priceVnd && targetLesson.priceVnd > 0) {
+            parts.push(`💰 ${targetLesson.priceVnd.toLocaleString("vi-VN")}đ`);
+          }
+          const desc = [parts.join(" • "), course.description]
+            .filter(Boolean)
+            .join(" — ");
+          return {
+            contentType: "course",
+            title: `🎬 ${targetLesson.title} — ${course.title} | DkTEST`,
+            description: desc || "Xem video bài giảng trực tuyến trên hệ thống DkTEST.",
+            canonicalUrl,
+            imageUrl,
+            imageAlt: `${targetLesson.title} - ${course.title}`,
+            imageWidth: 1200,
+            imageHeight: 630,
+            siteName: "DkTEST",
+          };
+        }
+
+        const totalLessonsCount = course.lessonCount ?? course.totalLessons ?? course.lessonOutline?.length;
+        if (totalLessonsCount) parts.push(`🎬 ${totalLessonsCount} bài giảng`);
+        if (course.totalDurationSeconds && course.totalDurationSeconds > 0) {
+          parts.push(`⏱️ ${formatMinutes(Math.round(course.totalDurationSeconds))}`);
+        } else if (course.totalDurationMinutes) {
+          parts.push(`⏱️ ${course.totalDurationMinutes} phút`);
+        }
+        if (course.pricingMode === "per_video" || course.accessMode === "per_video") {
+          parts.push("🎥 Trả phí linh hoạt từng video");
+        } else if (course.accessMode === "free" || !course.priceVnd || course.priceVnd <= 0) {
+          parts.push("🎁 Miễn phí");
+        } else {
+          parts.push(`💰 Học phí: ${course.priceVnd.toLocaleString("vi-VN")}đ`);
+        }
+
+        const desc = [parts.join(" • "), course.description]
+          .filter(Boolean)
+          .join(" — ");
+
+        return {
+          contentType: "course",
+          title: `🎓 ${course.title} | DkTEST`,
+          description: desc || "Tham gia khóa học video bài giảng chất lượng cao trên DkTEST.",
+          canonicalUrl,
+          imageUrl,
+          imageAlt,
+          imageWidth: 1200,
+          imageHeight: 630,
+          siteName: "DkTEST",
+        };
+      }
+
+      const fallbackBanner = resolveExamSubjectBanner({
+        exam: { id: rawCourseId, title: "Khóa học DkTEST" },
+        examId: rawCourseId,
+        baseUrl: cleanBaseUrl,
+      });
+      return {
+        contentType: "course",
+        title: "🎓 Khóa Học Video Bài Giảng - DkTEST",
+        description: "Hệ thống học tập & khóa học video bài giảng phân cấp chuyên đề trên DkTEST.",
+        canonicalUrl,
+        imageUrl: fallbackBanner.imageUrl,
+        imageAlt: fallbackBanner.imageAlt,
+        imageWidth: 1200,
+        imageHeight: 630,
+        siteName: "DkTEST",
+      };
+    }
+
+    return {
+      contentType: "course",
+      title: "🎓 Thư Viện Khóa Học Video Bài Giảng - DkTEST",
+      description:
+        "Khám phá các khóa học ôn luyện theo chuyên đề, học thử miễn phí và theo dõi tiến độ chi tiết từng giây trên DkTEST.",
+      canonicalUrl: `${cleanBaseUrl}/student/courses`,
+      imageUrl: `${cleanBaseUrl}/images/exam-banner.jpg`,
+      imageAlt: "Thư viện khóa học DkTEST",
+      imageWidth: 1200,
+      imageHeight: 630,
+      siteName: "DkTEST",
+    };
   }
 
   // Case 5: Dedicated Sub-pages

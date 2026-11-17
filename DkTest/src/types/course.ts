@@ -35,6 +35,7 @@ export interface CourseLesson {
   description?: string;
   order: number; // 0-based global index across the course
   durationMinutes?: number;
+  durationSeconds?: number;
   videoType: CourseVideoType;
   videoUrl: string;
   thumbnailUrl?: string;
@@ -59,6 +60,7 @@ export interface CourseLessonOutlineItem {
   description?: string;
   order: number;
   durationMinutes?: number;
+  durationSeconds?: number;
   videoType: CourseVideoType;
   videoHostLabel?: string;
   accessType: CourseLessonAccessType;
@@ -102,6 +104,7 @@ export interface Course {
   paidLessonCount: number;
   minPaidLessonPriceVnd?: number;
   totalDurationMinutes?: number;
+  totalDurationSeconds?: number;
   enrolledCount?: number;
 
   createdAt?: any;

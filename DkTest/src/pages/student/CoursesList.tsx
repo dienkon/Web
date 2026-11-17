@@ -2,6 +2,7 @@ import React, { useEffect, useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 import {
   BookOpen,
+  Check,
   Clock,
   Coins,
   Filter,
@@ -9,20 +10,54 @@ import {
   PlayCircle,
   RotateCw,
   Search,
+  Share2,
   Sparkles,
   Unlock,
   Video,
 } from "lucide-react";
-import { getPublishedCourses, resolveCourseAccessMode } from "../../services/courseService";
+import {
+  buildCourseShareUrl,
+  formatDurationClock,
+  getPublishedCourses,
+  resolveCourseAccessMode,
+} from "../../services/courseService";
+import { safeCopyText, safeShare } from "../../utils/mobileCompat";
+import { useToast } from "../../components/ui/ToastNotification";
 import type { Course } from "../../types";
 
 export default function CoursesList() {
+  const { success: showSuccessToast, error: showErrorToast } = useToast();
   const [courses, setCourses] = useState<Course[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [search, setSearch] = useState("");
   const [subjectFilter, setSubjectFilter] = useState<string>("all");
   const [priceFilter, setPriceFilter] = useState<"all" | "free" | "per_video" | "paid">("all");
+  const [copiedId, setCopiedId] = useState<string | null>(null);
+
+  const handleShareCourse = async (e: React.MouseEvent, course: Course) => {
+    e.preventDefault();
+    e.stopPropagation();
+    const url = buildCourseShareUrl(course.id);
+    const shared = await safeShare({
+      title: course.title,
+      text: `Tham gia khóa học "${course.title}" trên DkTEST`,
+      url,
+    });
+    if (shared) {
+      setCopiedId(course.id);
+      setTimeout(() => setCopiedId((prev) => (prev === course.id ? null : prev)), 2200);
+      return;
+    }
+    const ok = await safeCopyText(url);
+    if (ok) {
+      setCopiedId(course.id);
+      setTimeout(() => setCopiedId((prev) => (prev === course.id ? null : prev)), 2200);
+      showSuccessToast("Đã sao chép link chia sẻ khóa học (kèm ảnh preview)!");
+    } else {
+      showErrorToast("Không thể sao chép liên kết.");
+    }
+  };
 
   const load = async (force = false) => {
     try {
@@ -72,11 +107,11 @@ export default function CoursesList() {
   return (
     <div className="max-w-7xl mx-auto p-3.5 sm:p-6 lg:p-8 space-y-4 sm:space-y-6 pb-24">
       {/* Compact Header Banner (mobile-optimized) */}
-      <div className="relative overflow-hidden rounded-2xl sm:rounded-3xl bg-gradient-to-br from-slate-900 via-indigo-950 to-rose-950 text-white p-4 sm:p-7 shadow-lg">
+      <div className="relative overflow-hidden rounded-2xl sm:rounded-3xl bg-gradient-to-br from-slate-900 via-blue-950 to-indigo-950 text-white p-4 sm:p-7 shadow-lg">
         <div className="relative z-10 flex items-center justify-between gap-3">
           <div className="space-y-1 sm:space-y-2 min-w-0">
-            <div className="hidden sm:inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 border border-white/15 text-xs font-bold text-rose-200">
-              <PlayCircle className="w-4 h-4 text-rose-400" />
+            <div className="hidden sm:inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 border border-white/15 text-xs font-bold text-blue-200">
+              <PlayCircle className="w-4 h-4 text-blue-400" />
               <span>Hệ thống Video Bài Giảng DkTEST</span>
             </div>
             <h1 className="text-lg sm:text-3xl font-black tracking-tight truncate">
@@ -108,7 +143,7 @@ export default function CoursesList() {
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             placeholder="Tìm khóa học, môn học, mã khóa..."
-            className="w-full pl-9 pr-3.5 py-2 sm:py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-rose-500"
+            className="w-full pl-9 pr-3.5 py-2 sm:py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
         </div>
 
@@ -183,7 +218,7 @@ export default function CoursesList() {
               >
                 <div>
                   {/* Cover */}
-                  <div className="relative h-36 sm:h-44 bg-gradient-to-br from-rose-600 via-indigo-700 to-slate-900 overflow-hidden">
+                  <div className="relative h-36 sm:h-44 bg-gradient-to-br from-blue-600 via-indigo-700 to-slate-900 overflow-hidden">
                     {course.thumbnailUrl ? (
                       <img
                         src={course.thumbnailUrl}
@@ -198,7 +233,7 @@ export default function CoursesList() {
 
                     <div className="absolute top-2.5 left-2.5 flex items-center gap-1.5 flex-wrap">
                       {course.isFeatured && (
-                        <span className="px-2 py-0.5 rounded-full bg-rose-500 text-white text-[10px] font-black uppercase shadow-sm">
+                        <span className="px-2 py-0.5 rounded-full bg-blue-600 text-white text-[10px] font-black uppercase shadow-sm">
                           Nổi bật
                         </span>
                       )}
@@ -209,6 +244,19 @@ export default function CoursesList() {
                       )}
                     </div>
 
+                    <button
+                      type="button"
+                      onClick={(e) => void handleShareCourse(e, course)}
+                      title="Chia sẻ khóa học"
+                      className="absolute top-2.5 right-2.5 p-1.5 rounded-full bg-black/45 hover:bg-blue-600 text-white backdrop-blur-xs transition-colors cursor-pointer"
+                    >
+                      {copiedId === course.id ? (
+                        <Check className="w-3.5 h-3.5 text-emerald-300" />
+                      ) : (
+                        <Share2 className="w-3.5 h-3.5" />
+                      )}
+                    </button>
+
                     <div className="absolute bottom-2.5 right-2.5 flex items-center gap-1.5">
                       {mode === "paid" && course.originalPriceVnd && course.originalPriceVnd > (course.priceVnd || 0) && (
                         <span className="px-2 py-0.5 rounded-full bg-black/60 text-slate-300 line-through text-[10px] font-bold">
@@ -216,7 +264,7 @@ export default function CoursesList() {
                         </span>
                       )}
                       {mode === "paid" ? (
-                        <span className="px-2.5 py-1 rounded-full text-[11px] font-black shadow-md flex items-center gap-1 bg-amber-400 text-slate-950">
+                        <span className="px-2.5 py-1 rounded-full text-[11px] font-black shadow-md flex items-center gap-1 bg-blue-600 text-white">
                           <Lock className="w-3 h-3" />
                           <span>{(course.priceVnd || 0).toLocaleString("vi-VN")}đ</span>
                         </span>
@@ -259,7 +307,7 @@ export default function CoursesList() {
                       )}
                     </div>
 
-                    <h2 className="font-extrabold text-sm sm:text-base text-slate-900 dark:text-white line-clamp-2 group-hover:text-rose-600 dark:group-hover:text-rose-400 transition-colors">
+                    <h2 className="font-extrabold text-sm sm:text-base text-slate-900 dark:text-white line-clamp-2 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
                       {course.title}
                     </h2>
 
@@ -275,15 +323,15 @@ export default function CoursesList() {
                 <div className="px-4 sm:px-5 py-3 border-t border-slate-100 dark:border-slate-800 bg-slate-50/60 dark:bg-slate-900 flex items-center justify-between text-xs">
                   <div className="flex items-center gap-3 text-slate-500 dark:text-slate-400 font-semibold">
                     <span className="flex items-center gap-1">
-                      <Video className="w-3.5 h-3.5 text-rose-500" />
+                      <Video className="w-3.5 h-3.5 text-blue-600" />
                       <span>{course.lessonCount || 0} video</span>
                     </span>
                     <span className="flex items-center gap-1">
                       <Clock className="w-3.5 h-3.5 text-indigo-500" />
-                      <span>{course.totalDurationMinutes || 0}p</span>
+                      <span>{formatDurationClock(course.totalDurationSeconds, course.totalDurationMinutes)}</span>
                     </span>
                   </div>
-                  <span className="font-black text-rose-600 dark:text-rose-400 group-hover:translate-x-0.5 transition-transform">
+                  <span className="font-black text-blue-600 dark:text-blue-400 group-hover:translate-x-0.5 transition-transform">
                     Xem bài học →
                   </span>
                 </div>

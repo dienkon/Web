@@ -4,9 +4,8 @@ import { Lock, Mail, User, Loader2, ArrowLeft, ShieldCheck, KeyRound } from "luc
 import { useAuth } from "../../context/AuthContext";
 import GoogleLoginButton from "../../components/auth/GoogleLoginButton";
 import {
-  verifyAdminCredentials,
+  clearAdminSession,
   setAdminSession,
-  isAdminAuthenticated,
 } from "../../services/authService";
 import { getFriendlyAuthErrorMessage } from "../../utils/authErrors";
 import { useToast } from "../../components/ui/ToastNotification";
@@ -16,8 +15,9 @@ export default function AdminLogin() {
   const [searchParams] = useSearchParams();
   const rawRedirect = searchParams.get("redirect") || "/admin/exams";
   const redirectPath = rawRedirect && !rawRedirect.startsWith("/admin/login") ? rawRedirect : "/admin/exams";
+  const reason = searchParams.get("reason");
 
-  const { loginWithEmail, loginWithUsername, userProfile, role, logout } = useAuth();
+  const { user, loginWithEmail, loginWithUsername, loginWithAdminPassword, role } = useAuth();
   const { showToast } = useToast();
 
   const [authMode, setAuthMode] = useState<"firebase" | "legacy_pass">("firebase");
@@ -28,10 +28,12 @@ export default function AdminLogin() {
   const [error, setError] = useState("");
 
   useEffect(() => {
-    if (isAdminAuthenticated() || role === "admin" || role === "super_admin") {
+    if (user && (role === "admin" || role === "super_admin")) {
       navigate(redirectPath, { replace: true });
+    } else if (!user || (role !== "admin" && role !== "super_admin")) {
+      clearAdminSession();
     }
-  }, [navigate, redirectPath, role]);
+  }, [navigate, redirectPath, role, user]);
 
   const handleFirebaseLogin = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -66,7 +68,7 @@ export default function AdminLogin() {
     }
   };
 
-  const handleLegacyLogin = (e: React.FormEvent) => {
+  const handleLegacyLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!legacyPassword) {
       setError("Vui lòng nhập mật khẩu quản trị.");
@@ -76,16 +78,22 @@ export default function AdminLogin() {
     setLoading(true);
     setError("");
 
-    setTimeout(() => {
-      if (verifyAdminCredentials(legacyPassword)) {
-        setAdminSession({ displayName: "Dương Thanh Điền (Admin)", email: "duongthanhdien3456@gmail.com" });
-        showToast("Đăng nhập thành công!", "success");
-        navigate(redirectPath, { replace: true });
-      } else {
-        setError("Mật khẩu quản trị không đúng.");
-      }
+    try {
+      const profile = await loginWithAdminPassword(legacyPassword, email);
+      setAdminSession({
+        displayName: profile.displayName || "Dương Thanh Điền (Admin)",
+        email: profile.email || "duongthanhdien3456@gmail.com",
+      });
+      showToast("Đăng nhập Quản trị viên (Firebase) thành công!", "success");
+      navigate(redirectPath, { replace: true });
+    } catch (err: any) {
+      setError(
+        err?.message ||
+          "Mật khẩu quản trị không khớp tài khoản Firebase Admin. Hãy dùng Google hoặc Email + Mật khẩu để truy cập đầy đủ Thống kê, Học sinh và Ví."
+      );
+    } finally {
       setLoading(false);
-    }, 400);
+    }
   };
 
   const handleGoogleSuccess = (profile: any) => {
@@ -134,6 +142,11 @@ export default function AdminLogin() {
             <h1 className="text-2xl font-black text-slate-900 tracking-tight">Cổng Giáo Viên</h1>
             <p className="text-xs text-slate-500 font-medium mt-1">Đăng nhập tài khoản Quản trị để quản lý hệ thống</p>
           </div>
+          {reason === "firebase_required" && (
+            <div className="p-3 rounded-2xl bg-blue-50 border border-blue-200 text-left text-[11px] font-semibold text-blue-800 leading-relaxed">
+              Vui lòng đăng nhập lại bằng tài khoản <strong>Firebase Quản trị (Google hoặc Email + Mật khẩu)</strong> để đồng bộ token hợp lệ cho Dashboard, Học sinh và Ví.
+            </div>
+          )}
         </div>
 
         {/* Google Login for Admin */}
