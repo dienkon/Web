@@ -16,6 +16,8 @@ export interface BrandLogoProps {
   subText?: string;
   /** Color theme for text ('blue' | 'indigo' | 'white' | 'slate') */
   theme?: "blue" | "indigo" | "white" | "slate";
+  /** Optionally hide the extra badge pill on narrow mobile screens to avoid header clipping */
+  hideBadgeOnMobile?: boolean;
 }
 
 const SIZE_MAP = {
@@ -42,6 +44,7 @@ export default function BrandLogo({
   badgeText,
   subText,
   theme = "blue",
+  hideBadgeOnMobile = false,
 }: BrandLogoProps) {
   const textColor = {
     blue: "text-blue-600",
@@ -78,6 +81,7 @@ export default function BrandLogo({
               <span
                 className={clsx(
                   "text-[10px] sm:text-[11px] font-bold px-2 py-0.5 rounded-lg border shrink-0",
+                  hideBadgeOnMobile && "hidden sm:inline-block",
                   theme === "indigo"
                     ? "bg-indigo-50 text-indigo-700 border-indigo-100"
                     : theme === "white"

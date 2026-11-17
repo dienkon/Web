@@ -18,6 +18,10 @@ import { walletRouter } from "./server/routes/walletRoutes.js";
 import { webImporterRouter } from "./server/routes/webImporterRoutes.js";
 import { initFirebaseAdmin } from "./server/firebaseAdmin.js";
 import { codeStudioRouter, handleStudioSharePage } from './server/routes/codeStudioRoutes.js';
+import {
+  renderFallbackDownloadHtml,
+  resolveAndroidApkDownload,
+} from "./src/services/server/appDownload.js";
 
 async function startServer() {
   const app = express();
@@ -52,6 +56,22 @@ async function startServer() {
   // API routes FIRST
   app.get("/api/health", (req, res) => {
     res.json({ status: "ok", timestamp: new Date().toISOString() });
+  });
+
+  app.get("/api/app-download", async (req, res) => {
+    try {
+      const meta = await resolveAndroidApkDownload();
+      if (req.query?.format === "json") {
+        return res.json(meta);
+      }
+      if (meta.downloadUrl) {
+        return res.redirect(302, meta.downloadUrl);
+      }
+      res.setHeader("Content-Type", "text/html; charset=utf-8");
+      return res.status(200).send(renderFallbackDownloadHtml(meta));
+    } catch {
+      return res.redirect(302, "https://github.com/dienkon/Web/releases");
+    }
   });
 
   app.get("/api/health/firebase", (req, res) => {

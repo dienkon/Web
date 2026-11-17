@@ -3,7 +3,32 @@ import { parseExamEntry } from '../utils/examInvite';
 export const ANDROID_APP_ID = 'vn.dktest.student';
 export const APP_LINK_ORIGIN = 'https://dk-test-v3.vercel.app';
 export const APP_LINK_HOST = 'dk-test-v3.vercel.app';
+export const GITHUB_RELEASES_URL = 'https://github.com/dienkon/Web/releases';
+export const APP_DOWNLOAD_API_PATH = '/api/app-download';
 const identifier = /^[\p{L}\p{N}_.-]{1,128}$/u;
+
+export function getAppVersionMetadata() {
+  const version = typeof __DK_APP_VERSION__ === 'string' && __DK_APP_VERSION__ ? __DK_APP_VERSION__ : '1.9.4';
+  const androidVersionCode =
+    typeof __DK_ANDROID_VERSION_CODE__ === 'number' && Number.isFinite(__DK_ANDROID_VERSION_CODE__)
+      ? __DK_ANDROID_VERSION_CODE__
+      : 10;
+  const releaseDate = typeof __DK_RELEASE_DATE__ === 'string' ? __DK_RELEASE_DATE__ : '';
+  const apkFileName = `DkTEST-${version}-debug.apk`;
+  const configuredUrl =
+    typeof import.meta !== 'undefined' && (import.meta as any).env?.VITE_ANDROID_APK_URL
+      ? String((import.meta as any).env.VITE_ANDROID_APK_URL).trim()
+      : '';
+  const downloadUrl = configuredUrl || APP_DOWNLOAD_API_PATH;
+  return {
+    version,
+    androidVersionCode,
+    releaseDate,
+    apkFileName,
+    downloadUrl,
+    releasesPageUrl: GITHUB_RELEASES_URL,
+  };
+}
 
 /** Accept only our HTTPS domain and student routes. Never trust URL identity/role fields. */
 export function appRouteFromUrl(input: string): string | null {

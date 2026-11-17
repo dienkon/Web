@@ -21,6 +21,8 @@ export default defineConfig(({ mode }) => {
     define: {
       'process.env': {},
       '__DK_APP_VERSION__': JSON.stringify(release.version),
+      '__DK_ANDROID_VERSION_CODE__': JSON.stringify(release.androidVersionCode),
+      '__DK_RELEASE_DATE__': JSON.stringify(release.date || ''),
       '__DK_BUILD_TIME__': JSON.stringify(new Date().toISOString()),
       ...(mobile ? {
         'process.env.NODE_ENV': JSON.stringify('production'),

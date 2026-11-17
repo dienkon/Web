@@ -1,5 +1,12 @@
 # DkTEST changelog
 
+## 1.9.4 — 2026-11-18 (Android versionCode 10)
+
+- Fix lỗi hiển thị frame video bị lệch/cắt cạnh trên mobile (`DkCourseVideoPlayer.tsx`, `CourseDetail.tsx`, `BrandLogo.tsx`, `StudentLayout.tsx`): cấp chiều cao tối thiểu hợp lý trên màn hình hẹp cho nhúng Google Drive / iframe (`h-[268px] sm:h-auto sm:aspect-video`), ép wrapper YouTube `YT.Player` canh khít `100% × 100%`, bổ sung `min-w-0 w-full` tránh tràn cột Grid trên mobile và ẩn bớt badge `"Thi Trực Tuyến"` ở `< 640px` giúp header mobile không bị cắt biểu tượng bên phải.
+- Tự động chuyển sang bài giảng vừa mở khóa và phát video ngay lập tức (`autoPlay` trên `DkCourseVideoPlayer.tsx` + `handleConfirmUnlock` trên `CourseDetail.tsx`): cập nhật lạc quan quyền truy cập, bung đúng nhánh chuyên đề, tự động đặt làm bài đang phát (`?lesson=`) và cuộn mượt lên trình phát.
+- Tích hợp tính năng **tải phần mềm Android (APK) trực tiếp & hiển thị phiên bản** ngay tại banner hỏi mở app (`OpenInAppBanner.tsx`) và trong menu `StudentLayout` (`Tải Ứng Dụng DkTEST Android v1.9.4`): thêm endpoint `/api/app-download` (`api/app-download.ts`, `src/services/server/appDownload.ts`, `server.ts`) tự động chuyển hướng tới APK của phiên bản mới nhất trên `ANDROID_APK_URL` hoặc GitHub Releases (kèm `.github/workflows/dktest-android-release.yml` tự build APK lên GitHub Release mỗi lần push `main`).
+- Audit: [1.9.4](docs/audits/1.9.4.md).
+
 ## 1.9.3 — 2026-11-17 (Android versionCode 9)
 
 - Nâng cấp trình phát nhúng **`DkCourseVideoPlayer`** (`src/components/course/DkCourseVideoPlayer.tsx`, `src/services/courseService.ts`): thay nút bấm xoay vòng tốc độ đơn điệu thành **2 menu danh sách thả nổi (popover list)** ngay trên thanh điều khiển:

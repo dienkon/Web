@@ -235,7 +235,10 @@ test('Android browser offers package intent with web fallback and respects stayi
   });
   await page.goto('/student/offline');
   const open = page.getByRole('link', { name: 'Mở trong app', exact: true });
+  const downloadApk = page.getByRole('link', { name: /Tải App v[\d.]+ \(APK\)/ });
   await expect(open).toBeVisible();
+  await expect(downloadApk).toBeVisible();
+  await expect(downloadApk).toHaveAttribute('href', /\/api\/app-download|^https?:\/\//);
   await expect(open).toHaveAttribute('href', /intent:\/\/dk-test-v3\.vercel\.app\/student\/offline#Intent;scheme=https;package=vn\.dktest\.student;S\.browser_fallback_url=/);
   await page.getByRole('button', { name: 'Dùng bản web' }).click();
   await expect(open).toHaveCount(0);

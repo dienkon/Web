@@ -36,6 +36,7 @@ interface DkCourseVideoPlayerProps {
   videoType?: CourseVideoType;
   initialSeconds?: number;
   knownDurationSeconds?: number;
+  autoPlay?: boolean;
   onDetectedDuration?: (durationSeconds: number) => void;
   onWatchProgress?: (currentSeconds: number, totalSeconds: number, completed: boolean) => void;
 }
@@ -89,6 +90,7 @@ export default function DkCourseVideoPlayer({
   videoType,
   initialSeconds = 0,
   knownDurationSeconds = 0,
+  autoPlay = false,
   onDetectedDuration,
   onWatchProgress,
 }: DkCourseVideoPlayerProps) {
@@ -126,6 +128,8 @@ export default function DkCourseVideoPlayer({
   const pendingHtmlResumeRef = useRef<{ time: number; playing: boolean; rate: number } | null>(null);
   const playbackRateRef = useRef(playbackRate);
   playbackRateRef.current = playbackRate;
+  const autoPlayRef = useRef(autoPlay);
+  autoPlayRef.current = autoPlay;
 
   useEffect(() => {
     durationNotifiedRef.current = false;
@@ -213,7 +217,7 @@ export default function DkCourseVideoPlayer({
           width: "100%",
           height: "100%",
           playerVars: {
-            autoplay: 0,
+            autoplay: autoPlayRef.current ? 1 : 0,
             controls: 0,
             rel: 0,
             modestbranding: 1,
@@ -242,6 +246,9 @@ export default function DkCourseVideoPlayer({
                 }
                 if (initialSeconds > 5 && d > 0 && initialSeconds < d - 5) {
                   e.target.seekTo(initialSeconds, true);
+                }
+                if (autoPlayRef.current) {
+                  e.target.playVideo?.();
                 }
                 syncYtMetadata(e.target);
               } catch {}
@@ -464,20 +471,40 @@ export default function DkCourseVideoPlayer({
     }
   };
 
+  // Trigger playback when parent enables autoPlay on an already-mounted video (e.g. post-unlock)
+  useEffect(() => {
+    if (!autoPlay) return;
+    if (parsed.kind === "video" && htmlVideoRef.current && htmlVideoRef.current.paused) {
+      setShowCenterIcon(false);
+      void htmlVideoRef.current.play().catch(() => {});
+    } else if (parsed.kind === "youtube" && ytPlayerRef.current && !isPlaying) {
+      setShowCenterIcon(false);
+      try {
+        ytPlayerRef.current.playVideo?.();
+      } catch {}
+    }
+  }, [autoPlay, lessonId, parsed.kind, isPlaying]);
+
   // Drive or fallback external iframe (uses Drive/YouTube built-in bar including gear settings)
   if (parsed.kind === "iframe" || (parsed.kind === "youtube" && ytApiFallback)) {
+    const driveSrc =
+      autoPlay && parsed.embedUrl && !/[?&]autoplay=/i.test(parsed.embedUrl)
+        ? `${parsed.embedUrl}${parsed.embedUrl.includes("?") ? "&" : "?"}autoplay=1`
+        : parsed.embedUrl;
     return (
       <div
         ref={containerRef}
-        className="relative aspect-video w-full bg-slate-950 overflow-hidden select-none"
+        className={`relative w-full max-w-full bg-black overflow-hidden select-none flex items-center justify-center ${
+          isFullscreen ? "h-full" : "h-[268px] sm:h-auto sm:aspect-video"
+        }`}
         onContextMenu={(e) => e.preventDefault()}
       >
         <iframe
-          key={parsed.embedUrl}
-          src={parsed.embedUrl}
+          key={driveSrc}
+          src={driveSrc}
           title={title}
           referrerPolicy="strict-origin-when-cross-origin"
-          className="w-full h-full border-0"
+          className="block w-full h-full border-0"
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; fullscreen"
           allowFullScreen
         />
@@ -488,7 +515,7 @@ export default function DkCourseVideoPlayer({
             e.stopPropagation();
           }}
           title="Link kho lưu gốc được DkTEST ẩn và bảo vệ"
-          className="absolute top-1 right-1 w-12 h-11 z-20 rounded-xl bg-transparent hover:bg-blue-950/80 hover:backdrop-blur-xs text-transparent hover:text-blue-200 flex items-center justify-center transition-all cursor-default pointer-events-auto"
+          className="absolute top-1.5 right-1.5 w-11 h-10 z-20 rounded-xl bg-transparent hover:bg-blue-950/80 hover:backdrop-blur-xs text-transparent hover:text-blue-200 flex items-center justify-center transition-all cursor-default pointer-events-auto"
         >
           <ShieldCheck className="w-4 h-4" />
         </div>
@@ -521,7 +548,9 @@ export default function DkCourseVideoPlayer({
         }
       }}
       onContextMenu={(e) => e.preventDefault()}
-      className="group relative aspect-video w-full bg-black overflow-hidden select-none focus:outline-none"
+      className={`group relative w-full max-w-full bg-black overflow-hidden select-none focus:outline-none ${
+        isFullscreen ? "h-full" : "aspect-video"
+      }`}
     >
       {parsed.kind === "video" ? (
         <video
@@ -562,6 +591,10 @@ export default function DkCourseVideoPlayer({
               if (initialSeconds > 5 && d > 0 && initialSeconds < d - 5) {
                 v.currentTime = initialSeconds;
               }
+              if (autoPlayRef.current) {
+                setShowCenterIcon(false);
+                void v.play().catch(() => {});
+              }
             }
           }}
           onError={() => {
@@ -592,7 +625,10 @@ export default function DkCourseVideoPlayer({
         />
       ) : (
         <>
-          <div ref={ytHostRef} className="w-full h-full pointer-events-none" />
+          <div
+            ref={ytHostRef}
+            className="w-full h-full pointer-events-none flex items-center justify-center [&>div]:!w-full [&>div]:!h-full [&>iframe]:!w-full [&>iframe]:!h-full [&>iframe]:!max-w-full [&>iframe]:block"
+          />
           {/* Transparent tap layer so clicking anywhere toggles DkTEST play/pause or closes open popover */}
           <div
             onClick={handleTogglePlay}

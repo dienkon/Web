@@ -1,0 +1,69 @@
+name: DkTEST Android APK Release
+
+on:
+  push:
+    branches: [main]
+    paths: ['DkTest/release.json', 'DkTest/src/**', 'DkTest/android/**', '.github/workflows/dktest-android-release.yml']
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build-apk:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: DkTest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+          cache-dependency-path: DkTest/package-lock.json
+
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '21'
+
+      - name: Accept Android SDK licenses
+        run: |
+          yes | "${ANDROID_HOME}/cmdline-tools/latest/bin/sdkmanager" --licenses || true
+
+      - name: Install dependencies & verify release metadata
+        run: |
+          npm ci
+          npm run check:release
+
+      - name: Build mobile web bundle & sync Android
+        run: |
+          npm run build:mobile
+          npx cap sync android
+
+      - name: Assemble Android Debug APK & prepare release assets
+        id: apk
+        run: |
+          chmod +x android/gradlew
+          (cd android && ./gradlew assembleDebug --console=plain)
+          VERSION=$(node -p "require('./release.json').version")
+          mkdir -p releases
+          APK_NAME="DkTEST-${VERSION}-debug.apk"
+          cp android/app/build/outputs/apk/debug/app-debug.apk "releases/${APK_NAME}"
+          sha256sum "releases/${APK_NAME}" > "releases/${APK_NAME}.sha256"
+          echo "version=${VERSION}" >> "$GITHUB_OUTPUT"
+          echo "apk_name=${APK_NAME}" >> "$GITHUB_OUTPUT"
+
+      - name: Publish GitHub Release with APK
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: "dktest-v${{ steps.apk.outputs.version }}"
+          name: "DkTEST v${{ steps.apk.outputs.version }} (Android APK)"
+          body: |
+            DkTEST Android v${{ steps.apk.outputs.version }} built automatically from DkTest/release.json.
+            Xem changelog chi tiết tại DkTest/CHANGELOG.md.
+          files: |
+            DkTest/releases/${{ steps.apk.outputs.apk_name }}
+            DkTest/releases/${{ steps.apk.outputs.apk_name }}.sha256

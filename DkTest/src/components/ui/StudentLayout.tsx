@@ -24,7 +24,10 @@ import {
   Swords,
   MessageSquare,
   PlayCircle,
+  Download,
+  Smartphone,
 } from "lucide-react";
+import { getAppVersionMetadata } from "../../services/appLinks";
 import ConfirmModal from "./ConfirmModal";
 import BrandLogo from "./BrandLogo";
 import AnnouncementPopupModal from "./AnnouncementPopupModal";
@@ -80,6 +83,32 @@ function StudentLayoutContent() {
         : null);
 
   const [streakTick, setStreakTick] = useState(0);
+
+  const appDownloadMeta = useMemo(() => getAppVersionMetadata(), []);
+  const renderAppDownloadTile = (onDismiss: () => void) =>
+    !isNativeAndroid() ? (
+      <a
+        href={appDownloadMeta.downloadUrl}
+        download={appDownloadMeta.apkFileName}
+        target="_blank"
+        rel="noopener noreferrer"
+        onClick={onDismiss}
+        className="flex items-center justify-between gap-3 p-3.5 rounded-2xl text-xs font-bold text-blue-700 dark:text-blue-300 bg-blue-50 dark:bg-blue-950/50 border border-blue-200 dark:border-blue-800 mb-3"
+      >
+        <div className="flex items-center gap-3 min-w-0">
+          <Smartphone className="w-5 h-5 shrink-0 text-blue-600" />
+          <div className="min-w-0">
+            <div className="font-black truncate">
+              Tải Ứng Dụng DkTEST Android v{appDownloadMeta.version}
+            </div>
+            <div className="text-[11px] font-normal text-blue-600/80 dark:text-blue-400 truncate">
+              Cài đặt APK (Build {appDownloadMeta.androidVersionCode}) để thi Offline
+            </div>
+          </div>
+        </div>
+        <Download className="w-4 h-4 shrink-0" />
+      </a>
+    ) : null;
 
   const gameStats = useMemo(
     () => getGamificationStats(currentAccount?.username || ""),
@@ -230,7 +259,7 @@ function StudentLayoutContent() {
               onClick={() => triggerAction("click_logo_home")}
               className="flex items-center group"
             >
-              <BrandLogo size="sm" badgeText="Thi Trực Tuyến" theme="blue" />
+              <BrandLogo size="sm" badgeText="Thi Trực Tuyến" theme="blue" hideBadgeOnMobile />
             </Link>
           </div>
 
@@ -384,9 +413,32 @@ function StudentLayoutContent() {
               })}
             </div>
 
-            {/* Bottom Profile card */}
-            {currentAccount && (
-              <div className="mt-auto pt-4 border-t border-slate-100">
+            {/* Bottom Profile & Download App card */}
+            <div className="mt-auto pt-3 border-t border-slate-100 dark:border-slate-800 space-y-2">
+              {!isNativeAndroid() && (
+                <a
+                  href={getAppVersionMetadata().downloadUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  title={`Tải DkTEST Android v${getAppVersionMetadata().version}`}
+                  className={`flex items-center gap-2.5 p-2 rounded-2xl bg-blue-50/80 hover:bg-blue-100 dark:bg-blue-950/40 dark:hover:bg-blue-950/70 border border-blue-200/80 dark:border-blue-800/60 text-blue-700 dark:text-blue-300 transition-colors ${
+                    isSidebarCollapsed ? "justify-center" : ""
+                  }`}
+                >
+                  <Smartphone className="w-4 h-4 shrink-0" />
+                  {!isSidebarCollapsed && (
+                    <div className="min-w-0 flex-1">
+                      <div className="text-[11px] font-black truncate">
+                        Tải App v{getAppVersionMetadata().version}
+                      </div>
+                      <div className="text-[9px] font-semibold text-blue-600/80 dark:text-blue-400 truncate">
+                        Android APK thi Offline
+                      </div>
+                    </div>
+                  )}
+                </a>
+              )}
+              {currentAccount && (
                 <Link
                   to="/student/profile"
                   className={`p-2 bg-slate-50 hover:bg-slate-100 dark:bg-slate-800/60 dark:hover:bg-slate-800 rounded-2xl flex items-center gap-2.5 transition-colors cursor-pointer border border-slate-200/50 dark:border-slate-700/60 ${
@@ -407,8 +459,8 @@ function StudentLayoutContent() {
                     </div>
                   )}
                 </Link>
-              </div>
-            )}
+              )}
+            </div>
           </aside>
         )}
 
@@ -502,6 +554,8 @@ function StudentLayoutContent() {
                     </Link>
                   );
                 })}
+
+                {renderAppDownloadTile(() => setIsMobileDrawerOpen(false))}
 
                 {isAdmin && (
                   <Link
@@ -794,6 +848,8 @@ function StudentLayoutContent() {
                     </div>
                   </Link>
                 </div>
+
+                {renderAppDownloadTile(() => setIsBottomMenuOpen(false))}
 
                 {isAdmin && (
                   <Link

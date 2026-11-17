@@ -1,6 +1,18 @@
-import { expect, it } from 'vitest';
+import { expect, it, vi } from 'vitest';
 import { readFileSync } from 'node:fs';
-import { ANDROID_APP_ID, APP_LINK_HOST, APP_LINK_ORIGIN, appRouteFromUrl, androidIntentForUrl } from './appLinks';
+import {
+  ANDROID_APP_ID,
+  APP_DOWNLOAD_API_PATH,
+  APP_LINK_HOST,
+  APP_LINK_ORIGIN,
+  appRouteFromUrl,
+  androidIntentForUrl,
+  getAppVersionMetadata,
+} from './appLinks';
+import {
+  renderFallbackDownloadHtml,
+  resolveAndroidApkDownload,
+} from './server/appDownload';
 
 it.each([
   ['/', '/'], ['/student/exam/AbC', '/student/exam/AbC'],
@@ -41,4 +53,41 @@ it('publishes a valid certificate association and routes verification before SPA
   expect(manifest).toContain('android.intent.category.BROWSABLE'); expect(manifest).toContain('android:launchMode="singleTask"');
   const config = JSON.parse(readFileSync('vercel.json', 'utf8'));
   expect(config.rewrites[0]).toEqual({ source: '/.well-known/assetlinks.json', destination: '/android-assetlinks.json' });
+});
+
+it('exposes app version metadata and resolves APK download URL from env or GitHub releases', async () => {
+  const meta = getAppVersionMetadata();
+  const rel = JSON.parse(readFileSync('release.json', 'utf8'));
+  expect(meta.version).toBe(rel.version);
+  expect(meta.androidVersionCode).toBe(rel.androidVersionCode);
+  expect(meta.apkFileName).toBe(`DkTEST-${rel.version}-debug.apk`);
+  expect(meta.downloadUrl).toBe(APP_DOWNLOAD_API_PATH);
+
+  const originalFetch = globalThis.fetch;
+  try {
+    globalThis.fetch = vi.fn().mockResolvedValue({
+      ok: true,
+      json: async () => [
+        {
+          tag_name: `dktest-v${rel.version}`,
+          assets: [
+            {
+              name: `DkTEST-${rel.version}-debug.apk`,
+              browser_download_url: `https://github.com/dienkon/Web/releases/download/dktest-v${rel.version}/DkTEST-${rel.version}-debug.apk`,
+            },
+          ],
+        },
+      ],
+    }) as any;
+
+    const resolved = await resolveAndroidApkDownload();
+    expect(resolved.source).toBe('github_release');
+    expect(resolved.downloadUrl).toContain(`DkTEST-${rel.version}-debug.apk`);
+
+    const html = renderFallbackDownloadHtml({ ...resolved, downloadUrl: null, source: 'fallback' });
+    expect(html).toContain(`v${rel.version}`);
+    expect(html).toContain(resolved.releasesPageUrl);
+  } finally {
+    globalThis.fetch = originalFetch;
+  }
 });

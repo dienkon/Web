@@ -73,6 +73,7 @@ export default function CourseDetail() {
   const [activeLesson, setActiveLesson] = useState<CourseLesson | null>(null);
   const [loadingLesson, setLoadingLesson] = useState(false);
   const [lessonError, setLessonError] = useState<string | null>(null);
+  const [autoPlayLessonId, setAutoPlayLessonId] = useState<string | null>(null);
 
   // Watched progress & exact seconds in localStorage
   const [watchedIds, setWatchedIds] = useState<string[]>([]);
@@ -222,10 +223,10 @@ export default function CourseDetail() {
   );
 
   const refreshCourseAndAccess = useCallback(
-    async (forceCourse = false) => {
+    async (forceCourse = false, silent = false) => {
       if (!courseId) return;
       try {
-        setLoading(true);
+        if (!silent) setLoading(true);
         setError(null);
         const c = await getCourse(courseId, forceCourse);
         if (!c) {
@@ -267,9 +268,9 @@ export default function CourseDetail() {
           }
         }
       } catch (err: any) {
-        setError(err?.message || "Không thể tải chi tiết khóa học.");
+        if (!silent) setError(err?.message || "Không thể tải chi tiết khóa học.");
       } finally {
-        setLoading(false);
+        if (!silent) setLoading(false);
       }
     },
     [courseId, uid]
@@ -412,11 +413,32 @@ export default function CourseDetail() {
     } catch {}
   };
 
+  const expandHierarchyForLesson = useCallback(
+    (targetLessonId: string) => {
+      for (const g of hierarchyGroups) {
+        for (const ch of g.chapters) {
+          for (const tp of ch.topics) {
+            if (tp.lessons.some((l) => l.id === targetLessonId)) {
+              setCollapsedGroups((prev) => ({ ...prev, [g.id]: false }));
+              setCollapsedChapters((prev) => ({ ...prev, [ch.id]: false }));
+              setExpandedTopics((prev) => ({ ...prev, [tp.id]: true }));
+              return;
+            }
+          }
+        }
+      }
+    },
+    [hierarchyGroups]
+  );
+
   const handleSelectLessonAndPlay = (lesson: CourseLessonOutlineItem, tabContext?: string) => {
     setSelectedOutlineItem(lesson);
+    setAutoPlayLessonId(lesson.id);
     setSearchParams({ lesson: lesson.id }, { replace: true });
     if (tabContext) {
       setExpandedTopics((prev) => ({ ...prev, [tabContext]: true }));
+    } else {
+      expandHierarchyForLesson(lesson.id);
     }
     setTimeout(() => {
       playerStageRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
@@ -472,10 +494,38 @@ export default function CourseDetail() {
 
     try {
       setUnlockBusy(true);
+      let unlockedTargetLesson: CourseLessonOutlineItem | null = null;
       if (unlockTarget.kind === "course") {
         const res = await unlockCourseApi(course.id, idempotencyKey, appliedCode);
         setLiveBalanceVnd(res.newBalanceVnd);
-        showSuccessToast(res.message || "Mở khóa trọn khóa học thành công!");
+        unlockedTargetLesson =
+          selectedOutlineItem || course.lessonOutline?.[0] || null;
+        setAccess((prev) =>
+          prev
+            ? {
+                ...prev,
+                hasCourseAccess: true,
+                unlockedCourse: true,
+                userBalance: res.newBalanceVnd,
+              }
+            : {
+                hasCourseAccess: true,
+                isFreeCourse: false,
+                unlockedCourse: true,
+                unlockedLessonIds: [],
+                priceVnd: course.priceVnd || 0,
+                accessMode: resolveCourseAccessMode(course),
+                salesEnabled: course.salesEnabled !== false,
+                unlockFullPolicy: course.unlockFullPolicy || "unlock_all_videos",
+                freePreviewCount: course.freePreviewCount || 0,
+                allowSingleLessonPurchase: Boolean(course.allowSingleLessonPurchase),
+                userBalance: res.newBalanceVnd,
+                missingVnd: 0,
+                canUnlockCourse: false,
+                courseTitle: course.title,
+              }
+        );
+        showSuccessToast(res.message || "Mở khóa trọn khóa học thành công! Đang phát bài giảng...");
       } else {
         const res = await unlockCourseLessonApi(
           course.id,
@@ -484,10 +534,49 @@ export default function CourseDetail() {
           appliedCode
         );
         setLiveBalanceVnd(res.newBalanceVnd);
-        showSuccessToast(res.message || "Mở khóa video bài giảng thành công!");
+        unlockedTargetLesson = unlockTarget.lesson;
+        setAccess((prev) =>
+          prev
+            ? {
+                ...prev,
+                unlockedLessonIds: Array.from(
+                  new Set([...(prev.unlockedLessonIds || []), unlockTarget.lesson.id])
+                ),
+                userBalance: res.newBalanceVnd,
+              }
+            : {
+                hasCourseAccess: false,
+                isFreeCourse: false,
+                unlockedCourse: false,
+                unlockedLessonIds: [unlockTarget.lesson.id],
+                priceVnd: course.priceVnd || 0,
+                accessMode: resolveCourseAccessMode(course),
+                salesEnabled: course.salesEnabled !== false,
+                unlockFullPolicy: course.unlockFullPolicy || "unlock_all_videos",
+                freePreviewCount: course.freePreviewCount || 0,
+                allowSingleLessonPurchase: true,
+                userBalance: res.newBalanceVnd,
+                missingVnd: 0,
+                canUnlockCourse: false,
+                courseTitle: course.title,
+              }
+        );
+        showSuccessToast(res.message || "Mở khóa video thành công! Đang phát ngay...");
       }
+
       setUnlockTarget(null);
-      await refreshCourseAndAccess(false);
+      setLessonError(null);
+      if (unlockedTargetLesson) {
+        setSelectedOutlineItem(unlockedTargetLesson);
+        setAutoPlayLessonId(unlockedTargetLesson.id);
+        setSearchParams({ lesson: unlockedTargetLesson.id }, { replace: true });
+        expandHierarchyForLesson(unlockedTargetLesson.id);
+      }
+      setTimeout(() => {
+        playerStageRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+      }, 90);
+
+      void refreshCourseAndAccess(false, true);
     } catch (err: any) {
       showErrorToast(err?.message || "Thanh toán mở khóa thất bại.");
     } finally {
@@ -657,9 +746,9 @@ export default function CourseDetail() {
         ref={playerStageRef}
         className="scroll-mt-16 grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-6 items-start"
       >
-        <div className="lg:col-span-8 space-y-3 sm:space-y-4">
+        <div className="lg:col-span-8 min-w-0 w-full space-y-3 sm:space-y-4">
           <div
-            className="relative rounded-2xl sm:rounded-3xl overflow-hidden bg-slate-950 border border-slate-800 shadow-lg select-none"
+            className="relative w-full max-w-full rounded-2xl sm:rounded-3xl overflow-hidden bg-black border border-slate-800 shadow-lg select-none"
             onContextMenu={(e) => e.preventDefault()}
           >
             {loadingLesson ? (
@@ -752,6 +841,7 @@ export default function CourseDetail() {
                 videoType={activeLesson.videoType}
                 initialSeconds={watchedSecondsMap[activeLesson.id] || 0}
                 knownDurationSeconds={activeDurationSec > 0 ? activeDurationSec : undefined}
+                autoPlay={activeLesson.id === autoPlayLessonId}
                 onDetectedDuration={handleDetectedDuration}
                 onWatchProgress={handleWatchProgress}
               />
@@ -767,7 +857,7 @@ export default function CourseDetail() {
         </div>
 
         {/* Right 4 cols: Active Lesson Bar, Materials & Quick Wallet Card */}
-        <div className="lg:col-span-4 space-y-3 sm:space-y-4">
+        <div className="lg:col-span-4 min-w-0 w-full space-y-3 sm:space-y-4">
           {selectedOutlineItem && (
             <div className="bg-white dark:bg-slate-900 rounded-2xl sm:rounded-3xl border border-slate-200 dark:border-slate-800 p-4 sm:p-5 space-y-3 shadow-xs">
               <div className="flex items-start justify-between gap-2">

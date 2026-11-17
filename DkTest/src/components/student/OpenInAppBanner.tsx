@@ -1,18 +1,119 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
-import { Smartphone } from 'lucide-react';
+import { Download, Smartphone } from 'lucide-react';
 import { isNativeAndroid } from '../../services/offline/sync';
-import { APP_LINK_ORIGIN, androidIntentForUrl } from '../../services/appLinks';
+import {
+  APP_LINK_ORIGIN,
+  androidIntentForUrl,
+  getAppVersionMetadata,
+} from '../../services/appLinks';
+
+interface BeforeInstallPromptEvent extends Event {
+  prompt: () => Promise<void>;
+  userChoice: Promise<{ outcome: 'accepted' | 'dismissed' }>;
+}
 
 export default function OpenInAppBanner() {
   const location = useLocation();
   const [dismissed, setDismissed] = useState(false);
-  if (dismissed || isNativeAndroid() || !/Android/i.test(navigator.userAgent) || new URLSearchParams(location.search).get('dktest_web') === '1') return null;
+  const [downloadStarted, setDownloadStarted] = useState(false);
+  const [pwaPromptEvent, setPwaPromptEvent] = useState<BeforeInstallPromptEvent | null>(null);
+
+  useEffect(() => {
+    const handleBeforeInstall = (e: Event) => {
+      e.preventDefault();
+      setPwaPromptEvent(e as BeforeInstallPromptEvent);
+    };
+    window.addEventListener('beforeinstallprompt', handleBeforeInstall);
+    return () => window.removeEventListener('beforeinstallprompt', handleBeforeInstall);
+  }, []);
+
+  if (
+    dismissed ||
+    isNativeAndroid() ||
+    !/Android/i.test(navigator.userAgent) ||
+    new URLSearchParams(location.search).get('dktest_web') === '1'
+  ) {
+    return null;
+  }
+
   const intent = androidIntentForUrl(`${APP_LINK_ORIGIN}${location.pathname}${location.search}${location.hash}`);
   if (!intent) return null;
-  return <aside aria-label="Mở DkTEST trên Android" className="mx-4 mt-3 p-3 rounded-xl border border-blue-200 bg-blue-50 text-blue-950 flex flex-wrap items-center gap-3 text-sm">
-    <Smartphone size={20} /><span className="flex-1 min-w-32">Đã cài DkTEST? Mở trang này trong ứng dụng.</span>
-    <a href={intent} className="bg-blue-600 text-white font-semibold px-3 py-2 rounded-lg">Mở trong app</a>
-    <button type="button" className="text-blue-800 underline text-xs" onClick={() => setDismissed(true)}>Dùng bản web</button>
-  </aside>;
+
+  const { version, androidVersionCode, apkFileName, downloadUrl } = getAppVersionMetadata();
+
+  return (
+    <aside
+      aria-label="Mở DkTEST trên Android"
+      className="mx-3 sm:mx-4 mt-3 p-3.5 rounded-2xl border border-blue-200 dark:border-blue-800/70 bg-gradient-to-r from-blue-50 to-indigo-50/80 dark:from-blue-950/60 dark:to-indigo-950/50 text-blue-950 dark:text-blue-100 shadow-2xs space-y-2 text-sm"
+    >
+      <div className="flex flex-wrap items-center gap-2.5">
+        <div className="w-9 h-9 rounded-xl bg-blue-600 text-white flex items-center justify-center shrink-0 shadow-xs">
+          <Smartphone size={18} />
+        </div>
+        <div className="flex-1 min-w-44">
+          <div className="flex items-center gap-1.5 flex-wrap">
+            <span className="font-extrabold text-xs sm:text-sm">Ứng dụng DkTEST Android</span>
+            <span className="px-2 py-0.5 rounded-full bg-blue-600/10 dark:bg-blue-400/20 text-blue-700 dark:text-blue-300 border border-blue-200 dark:border-blue-700 text-[10px] font-black">
+              v{version} (Code {androidVersionCode})
+            </span>
+          </div>
+          <p className="text-[11px] sm:text-xs text-blue-800/80 dark:text-blue-200/80 mt-0.5">
+            Tải file cài đặt APK thi offline hoặc mở trực tiếp bằng app nếu máy đã cài.
+          </p>
+        </div>
+
+        <div className="flex flex-wrap items-center gap-2 w-full sm:w-auto">
+          <a
+            href={downloadUrl}
+            download={apkFileName}
+            target="_blank"
+            rel="noopener noreferrer"
+            onClick={() => setDownloadStarted(true)}
+            className="flex-1 sm:flex-initial bg-emerald-600 hover:bg-emerald-700 text-white font-bold px-3 py-2 rounded-xl text-xs flex items-center justify-center gap-1.5 shadow-xs transition-colors"
+          >
+            <Download className="w-3.5 h-3.5 shrink-0" />
+            <span>Tải App v{version} (APK)</span>
+          </a>
+
+          <a
+            href={intent}
+            className="bg-blue-600 hover:bg-blue-700 text-white font-semibold px-3 py-2 rounded-xl text-xs text-center transition-colors"
+          >
+            Mở trong app
+          </a>
+
+          {pwaPromptEvent && (
+            <button
+              type="button"
+              onClick={async () => {
+                try {
+                  await pwaPromptEvent.prompt();
+                  await pwaPromptEvent.userChoice;
+                } catch {}
+                setPwaPromptEvent(null);
+              }}
+              className="px-2.5 py-2 rounded-xl border border-blue-300 dark:border-blue-700 bg-white/80 dark:bg-slate-900 text-blue-800 dark:text-blue-200 text-xs font-bold"
+            >
+              Cài nhanh Web App
+            </button>
+          )}
+
+          <button
+            type="button"
+            className="text-blue-800 dark:text-blue-300 underline text-xs px-1 cursor-pointer"
+            onClick={() => setDismissed(true)}
+          >
+            Dùng bản web
+          </button>
+        </div>
+      </div>
+
+      {downloadStarted && (
+        <div className="px-3 py-1.5 rounded-xl bg-emerald-50 dark:bg-emerald-950/50 border border-emerald-200 dark:border-emerald-800 text-[11px] font-semibold text-emerald-800 dark:text-emerald-200">
+          Đang tải <strong>{apkFileName}</strong> — mở tệp vừa tải về trên thanh thông báo Android và chọn Cài đặt.
+        </div>
+      )}
+    </aside>
+  );
 }
