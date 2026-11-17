@@ -12,6 +12,7 @@ import {
   where,
   orderBy,
   limit,
+  startAfter,
   type Unsubscribe,
 } from "firebase/firestore";
 import { auth, db } from "./firebase/config";
@@ -27,6 +28,8 @@ import type {
   Voucher,
   VoucherUsage,
   AdminWalletEditPayload,
+  CourseAccessInfo,
+  CourseEntitlement,
 } from "../types";
 
 export interface ExamAccessInfo {
@@ -1123,8 +1126,8 @@ export async function mergeExamsApi(payload: {
 // -------------------------------------------------------------
 
 export async function validateVoucherApi(
-  codeOrParams: string | { code: string; context: "exam_unlock" | "deposit" | "gift_money"; amountVnd?: number; examId?: string },
-  contextArg?: "exam_unlock" | "deposit" | "gift_money",
+  codeOrParams: string | { code: string; context: "exam_unlock" | "course_unlock" | "deposit" | "gift_money"; amountVnd?: number; examId?: string; courseId?: string },
+  contextArg?: "exam_unlock" | "course_unlock" | "deposit" | "gift_money",
   amountVndArg?: number
 ): Promise<{
   success: boolean;
@@ -1141,14 +1144,15 @@ export async function validateVoucherApi(
   const context = typeof codeOrParams === "string" ? (contextArg || "exam_unlock") : codeOrParams.context;
   const amountVnd = typeof codeOrParams === "string" ? (amountVndArg || 0) : (codeOrParams.amountVnd || 0);
   const examId = typeof codeOrParams === "string" ? undefined : codeOrParams.examId;
+  const courseId = typeof codeOrParams === "string" ? undefined : codeOrParams.courseId;
 
   try {
-    const res = await api.post<any>("/api/vouchers/validate", { code, context, amountVnd, examId });
+    const res = await api.post<any>("/api/vouchers/validate", { code, context, amountVnd, examId, courseId });
     if (res) return res;
   } catch (err: any) {
     console.warn("[walletClientService] API validateVoucherApi failed, trying alias endpoint:", err);
     try {
-      const res2 = await api.post<any>("/api/wallet/vouchers/validate", { code, context, amountVnd, examId });
+      const res2 = await api.post<any>("/api/wallet/vouchers/validate", { code, context, amountVnd, examId, courseId });
       if (res2) return res2;
     } catch (_) {}
   }
@@ -1189,12 +1193,13 @@ export async function validateVoucherApi(
       };
     }
 
-    if (context === "exam_unlock") {
+    if (context === "exam_unlock" || context === "course_unlock") {
+      const label = context === "course_unlock" ? "khóa học / bài giảng" : "bài thi";
       if (voucher.type !== "discount_percent" && voucher.type !== "discount_fixed") {
-        return { success: false, valid: false, message: "Mã này không áp dụng để giảm giá bài thi." };
+        return { success: false, valid: false, message: `Mã này không áp dụng để giảm giá ${label}.` };
       }
       if (voucher.minOrderVnd && baseAmount < voucher.minOrderVnd) {
-        return { success: false, valid: false, message: `Mã này chỉ áp dụng cho bài thi từ ${voucher.minOrderVnd.toLocaleString("vi-VN")}đ.` };
+        return { success: false, valid: false, message: `Mã này chỉ áp dụng cho ${label} từ ${voucher.minOrderVnd.toLocaleString("vi-VN")}đ.` };
       }
       let discountVnd = 0;
       if (voucher.type === "discount_percent") {
@@ -1862,5 +1867,125 @@ export async function awardJourneyRewardCoins(
     console.warn("[walletClientService] Could not persist reward to Firestore:", err);
     return { success: true, coinsAwarded: rewardAmount, newBalance: localBal };
   }
+}
+
+export interface GlobalSpendingHistoryItem extends WalletTransaction {
+  studentName?: string;
+  studentClass?: string;
+  studentUsername?: string;
+}
+
+const SPENDING_TX_TYPES = [
+  "exam_unlock_debit",
+  "course_unlock_debit",
+  "course_lesson_unlock_debit",
+  "admin_adjustment_debit",
+] as const;
+
+export async function getAdminGlobalSpendingHistory(options?: {
+  limit?: number;
+  cursor?: string | null;
+  filterType?: string;
+  force?: boolean;
+}): Promise<{ items: GlobalSpendingHistoryItem[]; nextCursor: string | null; hasMore: boolean }> {
+  const pageSize = Math.min(20, Math.max(1, Math.floor(Number(options?.limit) || 5)));
+  const searchParams = new URLSearchParams();
+  searchParams.set("limit", String(pageSize));
+  if (options?.cursor) searchParams.set("cursor", options.cursor);
+  if (options?.filterType && options.filterType !== "all_spending") searchParams.set("type", options.filterType);
+  if (options?.force) searchParams.set("force", "true");
+
+  try {
+    const res = await api.get<{
+      success: boolean;
+      items: GlobalSpendingHistoryItem[];
+      nextCursor: string | null;
+      hasMore: boolean;
+    }>(`/api/admin/wallet/spending-history?${searchParams.toString()}`);
+    if (Array.isArray(res?.items)) {
+      return {
+        items: res.items,
+        nextCursor: res.nextCursor || null,
+        hasMore: Boolean(res.hasMore),
+      };
+    }
+  } catch (err) {
+    console.warn("[walletClientService] API spending-history failed, trying direct Firestore query:", err);
+  }
+
+  // Direct Firestore fallback (Admin rules allow reading wallet_transactions)
+  const targetTypes =
+    options?.filterType && options.filterType !== "all_spending" && (SPENDING_TX_TYPES as readonly string[]).includes(options.filterType)
+      ? [options.filterType]
+      : [...SPENDING_TX_TYPES];
+
+  try {
+    const col = collection(db, "wallet_transactions");
+    const constraints: any[] = [
+      targetTypes.length === 1 ? where("type", "==", targetTypes[0]) : where("type", "in", targetTypes),
+      orderBy("createdAt", "desc"),
+    ];
+    if (options?.cursor) constraints.push(startAfter(options.cursor));
+    constraints.push(limit(pageSize));
+    const snap = await getDocs(query(col, ...constraints));
+    const items = snap.docs.map((d) => ({ id: d.id, ...(d.data() as any) } as GlobalSpendingHistoryItem));
+    const lastCreatedAt = snap.docs.length > 0 ? String(snap.docs[snap.docs.length - 1].data().createdAt || "") : null;
+    const hasMore = snap.size === pageSize && Boolean(lastCreatedAt);
+    return {
+      items: items.map((tx) => ({
+        ...tx,
+        studentName: tx.studentNameSnapshot || tx.actorName || "Học sinh",
+        studentClass: tx.studentClassSnapshot || "",
+      })),
+      nextCursor: hasMore ? lastCreatedAt : null,
+      hasMore,
+    };
+  } catch (err) {
+    console.warn("[walletClientService] Direct spending-history fallback failed:", err);
+    return { items: [], nextCursor: null, hasMore: false };
+  }
+}
+
+export async function checkCourseAccessApi(courseId: string): Promise<CourseAccessInfo> {
+  return api.get<{ success: boolean } & CourseAccessInfo>(`/api/courses/${encodeURIComponent(courseId)}/access`);
+}
+
+export async function unlockCourseApi(
+  courseId: string,
+  idempotencyKey?: string,
+  voucherCode?: string
+): Promise<{ success: boolean; newBalanceVnd: number; entitlement: CourseEntitlement; alreadyUnlocked?: boolean; message?: string }> {
+  return api.post(`/api/courses/${encodeURIComponent(courseId)}/unlock`, {
+    idempotencyKey,
+    voucherCode,
+  });
+}
+
+export async function unlockCourseLessonApi(
+  courseId: string,
+  lessonId: string,
+  idempotencyKey?: string,
+  voucherCode?: string
+): Promise<{ success: boolean; newBalanceVnd: number; entitlement: CourseEntitlement; alreadyUnlocked?: boolean; message?: string }> {
+  return api.post(`/api/courses/${encodeURIComponent(courseId)}/lessons/${encodeURIComponent(lessonId)}/unlock`, {
+    idempotencyKey,
+    voucherCode,
+  });
+}
+
+export async function grantOrRevokeCourseEntitlementApi(
+  studentUid: string,
+  courseId: string,
+  lessonId: string | null | undefined,
+  action: "grant" | "revoke",
+  reason: string
+): Promise<{ success: boolean; entitlement: CourseEntitlement; message?: string }> {
+  return api.post("/api/admin/course-entitlements/grant", {
+    studentUid,
+    courseId,
+    lessonId: lessonId || null,
+    action,
+    reason,
+  });
 }
 

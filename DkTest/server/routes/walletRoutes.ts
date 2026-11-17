@@ -16,6 +16,12 @@ import {
   getStudentUnpaidDebt,
 } from "../services/walletService.js";
 import { validateVoucher, redeemGiftVoucher } from "../services/voucherService.js";
+import {
+  checkCourseAccess,
+  unlockCourse,
+  unlockCourseLesson,
+  getAuthorizedLessonContent,
+} from "../services/courseService.js";
 
 export const walletRouter = Router();
 
@@ -184,5 +190,86 @@ walletRouter.post(["/vouchers/redeem-gift", "/wallet/vouchers/redeem-gift", "/wa
     });
   } catch (err: any) {
     return res.status(400).json({ error: "redeem_error", message: err.message || String(err) });
+  }
+});
+
+// -------------------------------------------------------------
+// COURSES ACCESS, UNLOCK & AUTHORIZED LESSON CONTENT
+// -------------------------------------------------------------
+
+// GET /api/courses/:courseId/access
+walletRouter.get("/courses/:courseId/access", requireAuth, async (req: AuthenticatedRequest, res: Response) => {
+  try {
+    const result = await checkCourseAccess(req.user!.uid, req.params.courseId, req.user!.role);
+    return res.json({ success: true, ...result });
+  } catch (err: any) {
+    return res.status(400).json({ error: "course_access_error", message: err.message || "Không kiểm tra được quyền truy cập khóa học." });
+  }
+});
+
+// POST /api/courses/:courseId/unlock
+walletRouter.post("/courses/:courseId/unlock", requireAuth, async (req: AuthenticatedRequest, res: Response) => {
+  try {
+    const uid = req.user!.uid;
+    const courseId = req.params.courseId;
+    const { idempotencyKey, voucherCode } = req.body || {};
+    const result = await unlockCourse(uid, courseId, idempotencyKey, voucherCode);
+    return res.json({
+      success: true,
+      newBalanceVnd: result.newBalanceVnd,
+      entitlement: result.entitlement,
+      alreadyUnlocked: result.alreadyUnlocked,
+      message: result.alreadyUnlocked
+        ? "Khóa học đã được mở khóa trước đó."
+        : "Mở khóa trọn khóa học thành công!",
+    });
+  } catch (err: any) {
+    const msg = err.message || String(err);
+    if (msg.includes("Số dư không đủ")) {
+      return res.status(402).json({ error: "insufficient_balance", message: msg });
+    }
+    return res.status(400).json({ error: "course_unlock_error", message: msg });
+  }
+});
+
+// POST /api/courses/:courseId/lessons/:lessonId/unlock
+walletRouter.post("/courses/:courseId/lessons/:lessonId/unlock", requireAuth, async (req: AuthenticatedRequest, res: Response) => {
+  try {
+    const uid = req.user!.uid;
+    const { courseId, lessonId } = req.params;
+    const { idempotencyKey, voucherCode } = req.body || {};
+    const result = await unlockCourseLesson(uid, courseId, lessonId, idempotencyKey, voucherCode);
+    return res.json({
+      success: true,
+      newBalanceVnd: result.newBalanceVnd,
+      entitlement: result.entitlement,
+      alreadyUnlocked: result.alreadyUnlocked,
+      message: result.alreadyUnlocked
+        ? "Bài giảng đã được mở khóa trước đó."
+        : "Mở khóa bài giảng thành công!",
+    });
+  } catch (err: any) {
+    const msg = err.message || String(err);
+    if (msg.includes("Số dư không đủ")) {
+      return res.status(402).json({ error: "insufficient_balance", message: msg });
+    }
+    return res.status(400).json({ error: "lesson_unlock_error", message: msg });
+  }
+});
+
+// GET /api/courses/:courseId/lessons/:lessonId/content
+walletRouter.get("/courses/:courseId/lessons/:lessonId/content", requireAuth, async (req: AuthenticatedRequest, res: Response) => {
+  try {
+    const lesson = await getAuthorizedLessonContent(
+      req.user!.uid,
+      req.params.courseId,
+      req.params.lessonId,
+      req.user!.role
+    );
+    return res.json({ success: true, lesson });
+  } catch (err: any) {
+    const msg = err.message || String(err);
+    const status = msg.includes("trả phí") ? 403 : 400;
+    return res.status(status).json({ error: "lesson_access_error", message: msg });
   }
 });

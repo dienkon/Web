@@ -1,5 +1,15 @@
 # DkTEST changelog
 
+## 1.9.0 — 2026-11-17 (Android versionCode 6)
+
+- Gộp tab điều hướng **Đề thi** và **Đề thi Online** thành một tab **Đề thi** duy nhất trong `StudentLayout`, giữ điều hướng Online/Offline riêng cho ứng dụng Android bản địa và redirect `/student/online` trên web về `/`.
+- Cập nhật mốc đếm ngược kỳ thi **ĐGNL V-ACT** sang **28/03/2027** trên bảng đếm ngược trang chủ và Bản đồ Hành trình học tập.
+- Bổ sung bảng **Lịch sử chi tiêu toàn server** trong trang Admin **Ví & Công nợ** với phân trang cursor mặc định `limit = 5` (Base = 5 giao dịch gần nhất mỗi lần bấm **Tải thêm**).
+- Tối ưu giao diện Mobile trang chủ (`< 768px`): ẩn banner quảng bá Hero, `StudentTutorialBanner`, banner Hành trình học tập và cụm 4 thẻ Không gian Học tập & Đổi mới sáng tạo, giữ form nhập mã đề / link mời gọn nhẹ.
+- Hoàn thiện giao diện thiết lập thi Offline (`OfflineExamSetup`) tương đương bản Online: hiển thị thông số đề, lịch thi, nội quy, tệp đính kèm trước giờ thi (`resolveOfflineUrl`), nút xem trước đề gốc & lời giải chi tiết khi giáo viên bật `allowPreviewSolutionBeforeExam` (giữ nguyên chặn xem lời giải trong lúc đang thi tại `TakingExam`), và bổ sung modal tệp đính kèm trong `TakingExam`.
+- Ra mắt tính năng **Khóa học** (Courses) kèm tài liệu kế hoạch chi tiết (`docs/courses-feature-plan.md`): Admin quản lý tạo khóa học, học phí, cấu hình số video đầu học thử miễn phí (`freePreviewCount`), chính sách Unlock full khóa (`unlock_all_videos`) vs phân tách thành phần (`unlock_course_only`), tùy chỉnh miễn phí / trả phí / giá mua lẻ cho từng video bài giảng, hỗ trợ YouTube/MP4/Cloudinary/Drive, quy tắc bảo mật Firestore `courses` & `course_entitlements`, API Ví DkTEST + Voucher atomic transactions và giao diện học video cho học sinh.
+- Audit: [1.9.0](docs/audits/1.9.0.md).
+
 ## 1.8.30 — 2026-11-08 (Android versionCode 5)
 
 - Thêm Android App Links cho domain `dk-test-v3.vercel.app`, liên kết package và SHA-256 chứng chỉ ký APK qua `/.well-known/assetlinks.json`. Máy cài bản app hỗ trợ có thể mở link bằng app sau khi Android xác minh domain.

@@ -28,6 +28,12 @@ try {
       'exams/legacy-embedded': { status: 'published', accessMode: 'paid', priceVnd: 10000, updatedAt: 1, questions: [{ id: 'q', text: 'legacy inline question' }] },
       'exams/legacy-conflict': { accessMode: 'paid', questions: [{ id: 'q', text: 'old root' }] },
       'exams/legacy-conflict/questions/q': { id: 'q', examId: 'legacy-conflict', text: 'newer subcollection' },
+      'courses/free-course': { status: 'published', accessMode: 'free', priceVnd: 0, freePreviewCount: 0, unlockFullPolicy: 'unlock_all_videos' },
+      'courses/free-course/lessons/l1': { id: 'l1', courseId: 'free-course', order: 0, accessType: 'inherit_first_n', includedInCourseUnlock: true, videoUrl: 'https://youtu.be/free' },
+      'courses/paid-course': { status: 'published', accessMode: 'paid', priceVnd: 250000, freePreviewCount: 1, unlockFullPolicy: 'unlock_course_only' },
+      'courses/paid-course/lessons/l0': { id: 'l0', courseId: 'paid-course', order: 0, accessType: 'inherit_first_n', includedInCourseUnlock: true, videoUrl: 'https://youtu.be/preview0' },
+      'courses/paid-course/lessons/l1': { id: 'l1', courseId: 'paid-course', order: 1, accessType: 'inherit_first_n', includedInCourseUnlock: true, videoUrl: 'https://youtu.be/paid1' },
+      'courses/paid-course/lessons/l_vip': { id: 'l_vip', courseId: 'paid-course', order: 2, accessType: 'paid', includedInCourseUnlock: false, videoUrl: 'https://youtu.be/vip_only' },
     })) await setDoc(doc(db, path), value);
   });
   const a = env.authenticatedContext('student-a').firestore();
@@ -69,5 +75,21 @@ try {
   await assert.rejects(migratePaidInlineExam(privileged, privileged.doc('exams/legacy-conflict')), /conflict/); assertions++;
   assert.equal((await privileged.doc('exams/legacy-conflict').get()).data().questions[0].text, 'old root'); assertions++;
   assert.equal((await privileged.doc('exam_content_migration_backups/legacy-conflict').get()).exists, false); assertions++;
+
+  // Courses & fine-grained video lesson entitlements
+  await pass(getDoc(doc(a, 'courses/paid-course')));
+  await pass(getDoc(doc(a, 'courses/free-course/lessons/l1')));
+  await deny(getDoc(doc(anonymous, 'courses/free-course/lessons/l1')));
+  await pass(getDoc(doc(a, 'courses/paid-course/lessons/l0'))); // First video free preview
+  await deny(getDoc(doc(a, 'courses/paid-course/lessons/l1'))); // Paid lesson locked
+  await deny(setDoc(doc(a, 'course_entitlements/student-a_paid-course'), { uid: 'student-a', courseId: 'paid-course', scope: 'course', status: 'active' }));
+  await deny(setDoc(doc(admin, 'courses/bad-inline'), { status: 'published', accessMode: 'paid', lessons: [{ videoUrl: 'leak' }] }));
+  await pass(setDoc(doc(admin, 'course_entitlements/student-a_paid-course'), { uid: 'student-a', courseId: 'paid-course', scope: 'course', status: 'active' }));
+  await pass(getDoc(doc(a, 'courses/paid-course/lessons/l1'))); // Unlocked by course entitlement
+  await deny(getDoc(doc(a, 'courses/paid-course/lessons/l_vip'))); // VIP excluded under unlock_course_only
+  await pass(setDoc(doc(admin, 'course_entitlements/student-a_paid-course__l_vip'), { uid: 'student-a', courseId: 'paid-course', lessonId: 'l_vip', scope: 'lesson', status: 'active' }));
+  await pass(getDoc(doc(a, 'courses/paid-course/lessons/l_vip'))); // Unlocked by single lesson entitlement
+  await deny(getDoc(doc(b, 'course_entitlements/student-a_paid-course')));
+
   console.log(`Firestore emulator: ${assertions} authorization assertions passed (production not modified).`);
 } finally { await env.cleanup(); await deleteApp(adminApp); }

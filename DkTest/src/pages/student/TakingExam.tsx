@@ -3437,6 +3437,76 @@ export default function TakingExam() {
         </div>
       )}
 
+      {/* Pre-Submit Reference Attachments Modal */}
+      {showAttachmentsModal && preSubmitAttachments.length > 0 && (
+        <div
+          className="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-xs flex items-center justify-center p-4 animate-in fade-in duration-150"
+          onClick={() => setShowAttachmentsModal(false)}
+        >
+          <div
+            className="bg-white rounded-3xl shadow-2xl border border-slate-200 max-w-lg w-full p-6 space-y-4 max-h-[85vh] flex flex-col"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="flex items-center justify-between pb-3 border-b border-slate-100">
+              <div className="flex items-center gap-2">
+                <div className="p-2 bg-indigo-50 text-indigo-600 rounded-xl">
+                  <Paperclip className="w-5 h-5" />
+                </div>
+                <div>
+                  <h3 className="text-base font-bold text-slate-900">Tài liệu tham khảo bài thi</h3>
+                  <p className="text-xs text-slate-500">Tài liệu được giáo viên cho phép xem trong lúc làm bài</p>
+                </div>
+              </div>
+              <button
+                type="button"
+                onClick={() => setShowAttachmentsModal(false)}
+                className="p-1.5 text-slate-400 hover:text-slate-700 hover:bg-slate-100 rounded-lg transition-colors cursor-pointer"
+              >
+                <X className="w-5 h-5" />
+              </button>
+            </div>
+
+            <div className="flex-1 overflow-y-auto space-y-2.5">
+              {preSubmitAttachments.map((att, idx) => (
+                <div
+                  key={att.id || idx}
+                  className="p-3 bg-slate-50 border border-slate-200 rounded-xl flex items-center justify-between gap-3"
+                >
+                  <div className="min-w-0 flex-1">
+                    <div className="text-xs font-bold text-slate-800 truncate">
+                      {att.label || `Tài liệu ${idx + 1}`}
+                    </div>
+                    <div className="text-[11px] text-slate-500 truncate">
+                      {att.type === "link" ? att.url : att.fileName}
+                    </div>
+                  </div>
+                  {att.type === "link" ? (
+                    <a
+                      href={att.url}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="px-3 py-1.5 bg-blue-600 hover:bg-blue-700 text-white rounded-lg text-xs font-bold shrink-0"
+                    >
+                      Mở link
+                    </a>
+                  ) : (
+                    <a
+                      href={resolveOfflineUrl(att.url || att.fileData)}
+                      target="_blank"
+                      rel="noreferrer"
+                      download={att.fileName || `tailieu_${idx + 1}`}
+                      className="px-3 py-1.5 bg-emerald-600 hover:bg-emerald-700 text-white rounded-lg text-xs font-bold shrink-0"
+                    >
+                      Xem / Tải
+                    </a>
+                  )}
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      )}
+
       {/* Keyboard Shortcuts Cheat-Sheet Modal */}
       {showShortcutsModal && (
         <div

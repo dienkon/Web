@@ -602,9 +602,13 @@ export interface StudentWallet {
   updatedAt: any;
 }
 
+export * from "./course";
+
 export type WalletTransactionType =
   | "deposit_credit"
   | "exam_unlock_debit"
+  | "course_unlock_debit"
+  | "course_lesson_unlock_debit"
   | "admin_adjustment_credit"
   | "admin_adjustment_debit"
   | "admin_adjustment"
@@ -622,6 +626,12 @@ export interface WalletTransaction {
   balanceAfterVnd: number;
   examId?: string;
   examTitleSnapshot?: string;
+  courseId?: string;
+  courseTitleSnapshot?: string;
+  lessonId?: string;
+  lessonTitleSnapshot?: string;
+  studentNameSnapshot?: string;
+  studentClassSnapshot?: string;
   depositRequestId?: string;
   debtRecordId?: string;
   idempotencyKey?: string;
@@ -767,7 +777,7 @@ export interface VoucherUsage {
   benefitVnd?: number;
   usedAt?: string;
   createdAt?: string;
-  context: "exam_unlock" | "deposit" | "gift_money";
+  context: "exam_unlock" | "course_unlock" | "deposit" | "gift_money";
   referenceId?: string;
   examTitle?: string;
   note?: string;

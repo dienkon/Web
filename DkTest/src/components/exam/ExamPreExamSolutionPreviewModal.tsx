@@ -13,6 +13,7 @@ import {
 } from "lucide-react";
 import type { Exam, Section, Question } from "../../types";
 import LatexPreview from "../../features/exam-builder/editor/LatexPreview";
+import { resolveOfflineUrl } from "../../services/offline/media";
 
 interface Props {
   exam: Exam;
@@ -282,7 +283,7 @@ export default function ExamPreExamSolutionPreviewModal({
                         {q.imageUrl && (
                           <div className="my-2 max-w-md mx-auto rounded-xl overflow-hidden border border-slate-200">
                             <img
-                              src={q.imageUrl}
+                              src={resolveOfflineUrl(q.imageUrl)}
                               alt={`Minh họa câu ${globalIdx}`}
                               className="w-full object-contain max-h-72"
                             />

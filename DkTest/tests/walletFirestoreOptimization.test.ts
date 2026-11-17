@@ -5,6 +5,8 @@ import {
   invalidateStudentDetailsCache,
   getDepositRequests,
   invalidateDepositRequestsCache,
+  getGlobalSpendingHistory,
+  invalidateGlobalSpendingCache,
   recordManualCashCollection,
   adjustStudentDebt,
   grantOrRevokeExamEntitlement,
@@ -17,6 +19,7 @@ describe("Wallet & Voucher Firestore Read Optimization", () => {
     clearServerRestCache();
     invalidateStudentDetailsCache();
     invalidateDepositRequestsCache();
+    invalidateGlobalSpendingCache();
     invalidateVouchersCache();
     vi.restoreAllMocks();
   });
@@ -76,6 +79,27 @@ describe("Wallet & Voucher Firestore Read Optimization", () => {
       const result = await validateVoucher({ code: "", uid: "student_1", context: "gift_money" });
       expect(result.valid).toBe(false);
       expect(result.message).toContain("Vui lòng nhập mã");
+    });
+
+    it("supports course_unlock context check cleanly without hitting DB when code is empty", async () => {
+      const result = await validateVoucher({
+        code: "   ",
+        uid: "student_1",
+        context: "course_unlock",
+        amountVnd: 200000,
+        courseId: "course_1",
+      });
+      expect(result.valid).toBe(false);
+    });
+  });
+
+  describe("Global spending history pagination (base = 5)", () => {
+    it("defaults to limit 5 and returns clean shape when backend store is unreachable/empty", async () => {
+      const res = await getGlobalSpendingHistory({ filterType: "all_spending", force: true });
+      expect(Array.isArray(res.items)).toBe(true);
+      expect(res.items.length).toBeLessThanOrEqual(5);
+      expect(typeof res.hasMore).toBe("boolean");
+      expect(res.nextCursor === null || typeof res.nextCursor === "string").toBe(true);
     });
   });
 });

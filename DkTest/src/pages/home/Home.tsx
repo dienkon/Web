@@ -480,27 +480,27 @@ Chủ đề cần tạo: [NHẬP MÔN HỌC, CHỦ ĐỀ, YÊU CẦU HOẶC DÁN
   };
 
   return (
-    <div className="p-4 sm:p-6 lg:p-8 space-y-10 max-w-6xl mx-auto">
+    <div className="p-3.5 sm:p-6 lg:p-8 space-y-5 md:space-y-10 max-w-6xl mx-auto">
       {mobileOnline && <div><MobileExamTabs /><button type="button" disabled={loadingTop || !user} className="text-blue-600 text-sm font-semibold disabled:opacity-40" onClick={() => void loadTopExams(true)}>Làm mới đề mới nhất</button></div>}
-      {/* Hero Section */}
-      <div className="bg-gradient-to-br from-blue-700 via-indigo-700 to-slate-900 rounded-3xl p-6 sm:p-12 text-white shadow-2xl relative overflow-hidden">
-        <div className="absolute top-0 right-0 -mt-12 -mr-12 w-96 h-96 bg-blue-500/20 rounded-full blur-3xl pointer-events-none" />
-        <div className="relative z-10 max-w-2xl space-y-5">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-white/15 backdrop-blur-md text-blue-100 text-xs font-bold uppercase tracking-wider border border-white/15">
+      {/* Hero Section (Compact code-entry card on mobile; full promotional hero on desktop) */}
+      <div className="bg-gradient-to-br from-blue-700 via-indigo-700 to-slate-900 rounded-2xl md:rounded-3xl p-3.5 sm:p-6 md:p-12 text-white shadow-xl md:shadow-2xl relative overflow-hidden">
+        <div className="hidden md:block absolute top-0 right-0 -mt-12 -mr-12 w-96 h-96 bg-blue-500/20 rounded-full blur-3xl pointer-events-none" />
+        <div className="relative z-10 max-w-2xl space-y-0 md:space-y-5">
+          <div className="hidden md:inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-white/15 backdrop-blur-md text-blue-100 text-xs font-bold uppercase tracking-wider border border-white/15">
             <img src="/logo.png" alt="DKTEST" className="w-4 h-4 rounded-full object-contain" />
             Nền Tảng Khảo Thí & Thi Trực Tuyến DkTEST
           </div>
 
-          <h1 className="text-3xl sm:text-5xl font-black tracking-tight leading-tight">
+          <h1 className="hidden md:block text-3xl sm:text-5xl font-black tracking-tight leading-tight">
             Cổng Thi Thông Minh & Chống Gian Lận
           </h1>
 
-          <p className="text-blue-100/90 text-sm sm:text-base leading-relaxed font-medium">
+          <p className="hidden md:block text-blue-100/90 text-sm sm:text-base leading-relaxed font-medium">
             Giải pháp thi trắc nghiệm hiện đại cho học sinh và giáo viên. Đề thi chuẩn hóa, tự động chấm điểm, hỗ trợ công thức Toán/Lý/Hóa LaTeX và giám sát thời gian thực.
           </p>
 
           {/* Quick Search Exam Code Form */}
-          <form onSubmit={handleTakeExamCode} className="pt-2 max-w-lg">
+          <form onSubmit={handleTakeExamCode} className="md:pt-2 max-w-lg">
             <div className="flex flex-col sm:flex-row items-stretch gap-2.5 bg-white p-2 rounded-2xl shadow-xl">
               <div className="relative flex-1 flex items-center pl-3">
                 <Search className="w-5 h-5 text-slate-400 shrink-0 mr-2" />
@@ -544,8 +544,10 @@ Chủ đề cần tạo: [NHẬP MÔN HỌC, CHỦ ĐỀ, YÊU CẦU HOẶC DÁN
       {/* 3 Quick-access Recent Exams Slots */}
       <RecentExamsQuickSlots localOnly={mobileOnline} />
 
-      {/* Student Onboarding Tutorial Banner */}
-      <StudentTutorialBanner />
+      {/* Student Onboarding Tutorial Banner (hidden on mobile to keep homepage clean) */}
+      <div className="hidden md:block">
+        <StudentTutorialBanner />
+      </div>
 
       {/* Student Assigned Homework Notice */}
       <StudentAssignmentNotice />
@@ -553,8 +555,8 @@ Chủ đề cần tạo: [NHẬP MÔN HỌC, CHỦ ĐỀ, YÊU CẦU HOẶC DÁN
       {/* Target Exams Countdown Mainboard */}
       <ExamCountdownMainboard />
 
-      {/* Learning Journey Callout Banner */}
-      <div className="bg-gradient-to-r from-amber-500/10 via-emerald-500/10 to-teal-500/10 border border-emerald-200/80 rounded-3xl p-5 sm:p-6 shadow-2xs flex flex-col sm:flex-row items-center justify-between gap-4">
+      {/* Learning Journey Callout Banner (hidden on mobile; accessible via menu) */}
+      <div className="hidden md:flex bg-gradient-to-r from-amber-500/10 via-emerald-500/10 to-teal-500/10 border border-emerald-200/80 rounded-3xl p-5 sm:p-6 shadow-2xs flex-col sm:flex-row items-center justify-between gap-4">
         <div className="flex items-center gap-4">
           <div className="w-12 h-12 rounded-2xl bg-[#6d4c41] text-white flex items-center justify-center font-serif font-black text-xl shadow-xs shrink-0">
             √x
@@ -581,8 +583,8 @@ Chủ đề cần tạo: [NHẬP MÔN HỌC, CHỦ ĐỀ, YÊU CẦU HOẶC DÁN
         </Link>
       </div>
 
-      {/* Discover & Practice Innovation Hub (Góc Luyện Tập, Phòng Thí Nghiệm Toán & Đấu Trường) */}
-      <div className="space-y-4">
+      {/* Discover & Practice Innovation Hub (hidden on mobile; accessible via menu) */}
+      <div className="hidden md:block space-y-4">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
           <div>
             <h2 className="text-xl font-black text-slate-900 flex items-center gap-2">

@@ -1503,6 +1503,8 @@ export async function unlockExam(
         balanceAfterVnd: newBalance,
         examId,
         examTitleSnapshot: examData.title || "Bài thi",
+        studentNameSnapshot: fullName || "Thí sinh",
+        studentClassSnapshot: currentClass || "",
         idempotencyKey: idempotencyKey || txId,
         actorUid: uid,
         actorName: fullName || "Thí sinh",
@@ -1555,6 +1557,7 @@ export async function unlockExam(
       invalidateVoucherUsagesCache();
     }
     invalidateWalletOverviewCache();
+    invalidateGlobalSpendingCache();
     invalidateStudentDetailsCache(uid);
     invalidateExamAccessCache(uid, examId);
     if (txResult.effectivePrice) {
@@ -2801,6 +2804,186 @@ export async function getStudentTransactions(uid: string, limitCount = 30): Prom
     (a, b) => parseTimestampMs(b.createdAt) - parseTimestampMs(a.createdAt)
   );
   return filtered.slice(0, limitCount);
+}
+
+export const GLOBAL_SPENDING_TYPES = [
+  "exam_unlock_debit",
+  "course_unlock_debit",
+  "course_lesson_unlock_debit",
+  "admin_adjustment_debit",
+] as const;
+
+export interface GlobalSpendingHistoryItem extends WalletTransaction {
+  studentName?: string;
+  studentClass?: string;
+  studentUsername?: string;
+}
+
+export interface GlobalSpendingHistoryResult {
+  items: GlobalSpendingHistoryItem[];
+  nextCursor: string | null;
+  hasMore: boolean;
+}
+
+const spendingFirstPageCache = new Map<string, { data: GlobalSpendingHistoryResult; timestamp: number }>();
+const SPENDING_CACHE_TTL_MS = 45 * 1000;
+
+export function invalidateGlobalSpendingCache(): void {
+  spendingFirstPageCache.clear();
+}
+
+export async function getGlobalSpendingHistory(options?: {
+  limit?: number;
+  cursor?: string;
+  filterType?: string;
+  force?: boolean;
+}): Promise<GlobalSpendingHistoryResult> {
+  const pageSize = Math.min(20, Math.max(1, Math.floor(Number(options?.limit) || 5)));
+  const cursor = options?.cursor ? String(options.cursor).trim() : "";
+  const filterType = options?.filterType ? String(options.filterType).trim() : "all_spending";
+
+  const cacheKey = `${filterType}_${pageSize}`;
+  if (!cursor && !options?.force) {
+    const cached = spendingFirstPageCache.get(cacheKey);
+    if (cached && Date.now() - cached.timestamp < SPENDING_CACHE_TTL_MS) {
+      return cached.data;
+    }
+  }
+
+  const targetTypes: string[] =
+    filterType && filterType !== "all_spending" && (GLOBAL_SPENDING_TYPES as readonly string[]).includes(filterType)
+      ? [filterType]
+      : [...GLOBAL_SPENDING_TYPES];
+
+  let rawItems: WalletTransaction[] = [];
+  let nextCursor: string | null = null;
+  let hasMore = false;
+
+  if (adminDb) {
+    const baseRef = adminDb.collection("wallet_transactions");
+    try {
+      let q: FirebaseFirestore.Query =
+        targetTypes.length === 1
+          ? baseRef.where("type", "==", targetTypes[0])
+          : baseRef.where("type", "in", targetTypes);
+      q = q.orderBy("createdAt", "desc");
+      if (cursor) {
+        q = q.startAfter(cursor);
+      }
+      q = q.limit(pageSize);
+
+      const snap = await q.get();
+      console.log(`[Server Firestore READ: ${snap.size} docs] wallet_transactions global spending (limit ${pageSize})`);
+      rawItems = snap.docs.map((d) => ({ id: d.id, ...(d.data() as any) } as WalletTransaction));
+      hasMore = snap.size === pageSize;
+      nextCursor = snap.docs.length > 0 ? String(snap.docs[snap.docs.length - 1].data().createdAt || "") : null;
+    } catch (err: any) {
+      // Fallback if composite index (type ASC, createdAt DESC) is not deployed yet
+      console.warn("[walletService] Composite index fallback for global spending history:", err?.message || err);
+      const collected: WalletTransaction[] = [];
+      let scanCursor = cursor;
+      let exhausted = false;
+      const chunkSize = 15;
+      for (let step = 0; step < 3 && collected.length < pageSize && !exhausted; step++) {
+        let q: FirebaseFirestore.Query = baseRef.orderBy("createdAt", "desc");
+        if (scanCursor) {
+          q = q.startAfter(scanCursor);
+        }
+        const snap = await q.limit(chunkSize).get();
+        if (snap.empty) {
+          exhausted = true;
+          break;
+        }
+        for (const d of snap.docs) {
+          const data = { id: d.id, ...(d.data() as any) } as WalletTransaction;
+          scanCursor = String(data.createdAt || "");
+          const isMatch =
+            targetTypes.includes(data.type) ||
+            (filterType === "all_spending" &&
+              data.type === "admin_adjustment" &&
+              Number(data.balanceAfterVnd) < Number(data.balanceBeforeVnd));
+          if (isMatch) {
+            collected.push(data);
+            if (collected.length >= pageSize) break;
+          }
+        }
+        if (snap.size < chunkSize) {
+          exhausted = true;
+        }
+      }
+      rawItems = collected;
+      nextCursor = scanCursor || null;
+      hasMore = !exhausted && rawItems.length > 0;
+    }
+  } else {
+    // REST fallback
+    const docs = await getFirestoreRestDocs("wallet_transactions", 100);
+    let filtered = (docs as WalletTransaction[]).filter((data) => {
+      const isMatch =
+        targetTypes.includes(data.type) ||
+        (filterType === "all_spending" &&
+          data.type === "admin_adjustment" &&
+          Number(data.balanceAfterVnd) < Number(data.balanceBeforeVnd));
+      if (!isMatch) return false;
+      if (cursor && String(data.createdAt || "") >= cursor) return false;
+      return true;
+    });
+    filtered.sort((a, b) => parseTimestampMs(b.createdAt) - parseTimestampMs(a.createdAt));
+    rawItems = filtered.slice(0, pageSize);
+    hasMore = filtered.length > pageSize;
+    nextCursor = rawItems.length > 0 ? String(rawItems[rawItems.length - 1].createdAt || "") : null;
+  }
+
+  // Enrich student metadata cleanly without burning reads when cached
+  const enriched: GlobalSpendingHistoryItem[] = rawItems.map((tx) => ({
+    ...tx,
+    studentName: tx.studentNameSnapshot || (tx.actorName && tx.actorName !== "Thí sinh" ? tx.actorName : undefined),
+    studentClass: tx.studentClassSnapshot || undefined,
+    studentUsername: userMapCache?.map.get(tx.uid)?.username || undefined,
+  }));
+
+  const missingUids = Array.from(
+    new Set(
+      enriched
+        .filter((item) => !item.studentName && item.uid)
+        .map((item) => item.uid)
+    )
+  );
+
+  if (missingUids.length > 0 && adminDb) {
+    try {
+      const refs = missingUids.map((u) => adminDb!.collection("wallets").doc(u));
+      const walletSnaps = await adminDb.getAll(...refs);
+      const wMap = new Map<string, { fullName?: string; currentClass?: string }>();
+      walletSnaps.forEach((snap) => {
+        if (snap.exists) {
+          const d = snap.data() as StudentWallet;
+          wMap.set(snap.id, { fullName: d.fullName, currentClass: d.currentClass });
+        }
+      });
+      enriched.forEach((item) => {
+        if (!item.studentName) {
+          const wInfo = wMap.get(item.uid);
+          const uInfo = userMapCache?.map.get(item.uid);
+          item.studentName = wInfo?.fullName || uInfo?.displayName || item.actorName || "Học sinh";
+          item.studentClass = item.studentClass || wInfo?.currentClass || "";
+          item.studentUsername = item.studentUsername || uInfo?.username || "";
+        }
+      });
+    } catch (_) {}
+  }
+
+  const result: GlobalSpendingHistoryResult = {
+    items: enriched,
+    nextCursor: hasMore ? nextCursor : null,
+    hasMore,
+  };
+
+  if (!cursor) {
+    spendingFirstPageCache.set(cacheKey, { data: result, timestamp: Date.now() });
+  }
+
+  return result;
 }
 
 export async function getStudentDepositRequests(uid: string, limitCount = 30): Promise<DepositRequest[]> {

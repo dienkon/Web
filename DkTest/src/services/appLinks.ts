@@ -22,8 +22,8 @@ export function appRouteFromUrl(input: string): string | null {
       const entry = parseExamEntry(url.href);
       if (entry) return `/${entry.kind === 'code-exam' ? 'code-exam' : 'student/exam'}/${encodeURIComponent(entry.value)}`;
     }
-    const exact = ['/', '/exams', '/journey', '/arena', '/practice', '/escape-room', '/legal-policy'];
-    const allowed = exact.includes(pathname) || /^\/student\//.test(pathname) || /^\/(?:practice|arena|voucher|vouchers)\//.test(pathname);
+    const exact = ['/', '/exams', '/courses', '/journey', '/arena', '/practice', '/escape-room', '/legal-policy'];
+    const allowed = exact.includes(pathname) || /^\/student\//.test(pathname) || /^\/(?:practice|arena|voucher|vouchers|courses)\//.test(pathname);
     if (!allowed || /\/(?:take|result)(?:\/|$)/.test(pathname)) return null;
     if (pathname === '/student/wallet') {
       const voucher = url.searchParams.get('voucher') || url.searchParams.get('code');

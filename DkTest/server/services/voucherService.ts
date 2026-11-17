@@ -246,9 +246,10 @@ export interface ValidateVoucherResult {
 export async function validateVoucher(params: {
   code: string;
   uid: string;
-  context: "exam_unlock" | "deposit" | "gift_money";
+  context: "exam_unlock" | "course_unlock" | "deposit" | "gift_money";
   amountVnd?: number;
   examId?: string;
+  courseId?: string;
 }): Promise<ValidateVoucherResult> {
   const code = normalizeCode(params.code);
   if (!code) {
@@ -315,14 +316,15 @@ export async function validateVoucher(params: {
     };
   }
 
-  if (params.context === "exam_unlock") {
+  if (params.context === "exam_unlock" || params.context === "course_unlock") {
+    const itemLabel = params.context === "course_unlock" ? "khóa học / bài giảng" : "bài thi";
     if (voucher.type !== "discount_percent" && voucher.type !== "discount_fixed") {
-      return { valid: false, message: "Mã này không áp dụng để giảm giá mở khóa bài thi." };
+      return { valid: false, message: `Mã này không áp dụng để giảm giá mở khóa ${itemLabel}.` };
     }
     if (voucher.minOrderVnd && baseAmount < voucher.minOrderVnd) {
       return {
         valid: false,
-        message: `Mã này chỉ áp dụng cho bài thi có giá từ ${voucher.minOrderVnd.toLocaleString("vi-VN")}đ trở lên.`,
+        message: `Mã này chỉ áp dụng cho ${itemLabel} có giá từ ${voucher.minOrderVnd.toLocaleString("vi-VN")}đ trở lên.`,
       };
     }
 

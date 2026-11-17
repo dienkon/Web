@@ -419,6 +419,12 @@ export default function StudentWalletPage() {
       return acc;
     }, [] as WalletTransaction[]);
 
+  const unlockedCoursesAndLessons = transactions.filter(
+    (tx) =>
+      (tx.type === "course_unlock_debit" || tx.type === "course_lesson_unlock_debit") &&
+      tx.courseId
+  );
+
   return (
     <div className="max-w-5xl mx-auto px-3 sm:px-6 py-6 sm:py-8 space-y-6">
       {/* Header */}
@@ -631,7 +637,7 @@ export default function StudentWalletPage() {
           }`}
         >
           <BookOpen className="w-4 h-4" />
-          Đề thi đã mở khóa ({unlockedExams.length})
+          Đã mở khóa ({unlockedExams.length + unlockedCoursesAndLessons.length})
         </button>
       </div>
 
@@ -959,6 +965,47 @@ export default function StudentWalletPage() {
                   </div>
                 </div>
               ))}
+            </div>
+          )}
+
+          {unlockedCoursesAndLessons.length > 0 && (
+            <div className="pt-4 border-t border-slate-200 dark:border-slate-700 space-y-3">
+              <div className="flex items-center justify-between">
+                <h3 className="text-sm font-bold text-slate-900 dark:text-white">
+                  Khóa học & Bài giảng đã mở khóa
+                </h3>
+                <span className="text-xs text-slate-500">{unlockedCoursesAndLessons.length} mục</span>
+              </div>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                {unlockedCoursesAndLessons.map((tx) => (
+                  <div
+                    key={tx.id}
+                    className="p-4 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50/50 dark:bg-slate-900/50 flex flex-col justify-between space-y-3"
+                  >
+                    <div>
+                      <span className="text-[10px] font-black uppercase text-indigo-600 bg-indigo-100 dark:bg-indigo-950/60 px-2 py-0.5 rounded-full inline-block mb-1.5">
+                        {tx.type === "course_unlock_debit" ? "✓ Trọn khóa học" : "✓ Bài giảng lẻ"}
+                      </span>
+                      <h4 className="text-sm font-bold text-slate-900 dark:text-white line-clamp-1">
+                        {tx.lessonTitleSnapshot ? `${tx.lessonTitleSnapshot} — ` : ""}
+                        {tx.courseTitleSnapshot || "Khóa học"}
+                      </h4>
+                      <p className="text-[11px] text-slate-400 mt-0.5">
+                        Giá: {tx.amountVnd.toLocaleString("vi-VN")}đ • {formatDate(tx.createdAt)}
+                      </p>
+                    </div>
+                    <div className="pt-2 border-t border-slate-200/60 dark:border-slate-700/60 flex items-center justify-end gap-2">
+                      <Link
+                        to={`/student/courses/${tx.courseId}`}
+                        className="px-3 py-1.5 bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg text-xs font-bold transition-colors flex items-center gap-1 shadow-2xs"
+                      >
+                        Vào học ngay
+                        <ArrowRight className="w-3.5 h-3.5" />
+                      </Link>
+                    </div>
+                  </div>
+                ))}
+              </div>
             </div>
           )}
         </div>

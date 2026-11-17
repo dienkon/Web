@@ -55,12 +55,16 @@ const LiveMonitor = lazyWithRetry(() => import("../../pages/admin/LiveMonitor"),
 const QuestionBank = lazyWithRetry(() => import("../../pages/admin/QuestionBank"), "QuestionBank");
 const JourneyCreatorStudio = lazyWithRetry(() => import("../../pages/admin/JourneyCreatorStudio"), "JourneyCreatorStudio");
 const WalletManagement = lazyWithRetry(() => import("../../pages/admin/WalletManagement"), "WalletManagement");
+const CourseManager = lazyWithRetry(() => import("../../pages/admin/CourseManager"), "CourseManager");
+const CourseEditor = lazyWithRetry(() => import("../../pages/admin/CourseEditor"), "CourseEditor");
 const WebImporter = lazyWithRetry(() => import("../../pages/admin/WebImporter"), "WebImporter");
 const LegalPolicy = lazyWithRetry(() => import("../../pages/LegalPolicy"), "LegalPolicy");
 
 // Lazy-loaded Student Pages
 const Home = lazyWithRetry(() => import("../../pages/home/Home"), "Home");
 const StudentWallet = lazyWithRetry(() => import("../../pages/student/StudentWallet"), "StudentWallet");
+const CoursesList = lazyWithRetry(() => import("../../pages/student/CoursesList"), "CoursesList");
+const CourseDetail = lazyWithRetry(() => import("../../pages/student/CourseDetail"), "CourseDetail");
 const ExamIntro = lazyWithRetry(() => import("../../pages/student/ExamIntro"), "ExamIntro");
 const TakingExam = lazyWithRetry(() => import("../../pages/student/TakingExam"), "TakingExam");
 const ExamResult = lazyWithRetry(() => import("../../pages/student/ExamResult"), "ExamResult");
@@ -302,6 +306,9 @@ const router = createBrowserRouter([
       { path: "stats", element: withSuspense(Statistics, "Đang tổng hợp số liệu...") },
       { path: "settings", element: withSuspense(Settings, "Đang tải cài đặt...") },
       { path: "wallet", element: withSuspense(WalletManagement, "Đang tải quản lý ví & công nợ...") },
+      { path: "courses", element: withSuspense(CourseManager, "Đang tải quản lý khóa học...") },
+      { path: "courses/new", element: withSuspense(CourseEditor, "Đang khởi tạo khóa học mới...") },
+      { path: "courses/:courseId/edit", element: withSuspense(CourseEditor, "Đang mở trình chỉnh sửa khóa học...") },
       { path: "legal-policy", element: withSuspense(LegalPolicy, "Đang tải điều khoản...") },
       { path: "*", element: withSuspense(NotFoundPage) },
     ],
@@ -342,6 +349,10 @@ const router = createBrowserRouter([
       { path: "student/ai-tutor", element: <OnlineOnly>{withSuspense(AiTutorPage, "Đang kết nối Gia sư AI...")}</OnlineOnly> },
       { path: "student/wallet", element: withSuspense(StudentWallet, "Đang tải Ví DkTEST...") },
       { path: "wallet", element: withSuspense(StudentWallet, "Đang tải Ví DkTEST...") },
+      { path: "courses", element: <OnlineOnly>{withSuspense(CoursesList, "Đang tải danh sách khóa học...")}</OnlineOnly> },
+      { path: "student/courses", element: <OnlineOnly>{withSuspense(CoursesList, "Đang tải danh sách khóa học...")}</OnlineOnly> },
+      { path: "courses/:courseId", element: <OnlineOnly>{withSuspense(CourseDetail, "Đang tải chi tiết khóa học...")}</OnlineOnly> },
+      { path: "student/courses/:courseId", element: <OnlineOnly>{withSuspense(CourseDetail, "Đang tải chi tiết khóa học...")}</OnlineOnly> },
       { path: "voucher/:code", element: withSuspense(StudentWallet, "Đang nạp Voucher DkTEST...") },
       { path: "vouchers/:code", element: withSuspense(StudentWallet, "Đang nạp Voucher DkTEST...") },
       { path: "student/voucher/:code", element: withSuspense(StudentWallet, "Đang nạp Voucher DkTEST...") },

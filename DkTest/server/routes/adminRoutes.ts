@@ -23,7 +23,9 @@ import {
   syncStudentsToWallets,
   updateStudentWalletProfile,
   adminDirectEditWallet,
+  getGlobalSpendingHistory,
 } from "../services/walletService.js";
+import { grantOrRevokeCourseEntitlement } from "../services/courseService.js";
 import {
   getVouchersList,
   createVoucher,
@@ -1725,6 +1727,59 @@ adminRouter.get("/wallet/overview", async (req: AuthenticatedRequest, res: Respo
     return res.json({ success: true, overview });
   } catch (err: any) {
     return res.status(500).json({ error: "server_error", message: err.message || String(err) });
+  }
+});
+
+// GET /api/admin/wallet/spending-history (Base = 5, load more 5 per click)
+adminRouter.get("/wallet/spending-history", async (req: AuthenticatedRequest, res: Response) => {
+  try {
+    const limitParam = req.query.limit ? Number(req.query.limit) : 5;
+    const cursor = req.query.cursor ? String(req.query.cursor) : undefined;
+    const filterType = req.query.type ? String(req.query.type) : undefined;
+    const force = req.query.force === "true";
+
+    const result = await getGlobalSpendingHistory({
+      limit: limitParam,
+      cursor,
+      filterType,
+      force,
+    });
+    return res.json({ success: true, ...result });
+  } catch (err: any) {
+    return res.status(500).json({ error: "server_error", message: err.message || String(err) });
+  }
+});
+
+// POST /api/admin/course-entitlements/grant
+adminRouter.post("/course-entitlements/grant", async (req: AuthenticatedRequest, res: Response) => {
+  try {
+    const { studentUid, courseId, lessonId, action, reason } = req.body || {};
+    const adminUid = req.user?.uid || "admin";
+    const adminName = req.user?.displayName || "Quản trị viên";
+    const result = await grantOrRevokeCourseEntitlement(
+      adminUid,
+      adminName,
+      studentUid,
+      courseId,
+      lessonId,
+      action || "grant",
+      reason
+    );
+    await recordAuditLog(
+      req.user,
+      action === "revoke" ? "REVOKE_COURSE_ENTITLEMENT" : "GRANT_COURSE_ENTITLEMENT",
+      studentUid,
+      "course_entitlement",
+      { courseId, lessonId, action, reason },
+      req
+    );
+    return res.json({
+      success: true,
+      message: action === "revoke" ? "Đã thu hồi quyền truy cập khóa học." : "Đã cấp quyền truy cập khóa học thành công!",
+      ...result,
+    });
+  } catch (err: any) {
+    return res.status(400).json({ error: "course_entitlement_error", message: err.message || String(err) });
   }
 });
 

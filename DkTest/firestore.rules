@@ -45,6 +45,34 @@ service cloud.firestore {
       ));
     }
 
+    function mayReadCourseLesson(courseId, lessonId) {
+      let course = get(/databases/$(database)/documents/courses/$(courseId)).data;
+      let lesson = resource.data;
+      let courseEntPath = /databases/$(database)/documents/course_entitlements/$(request.auth.uid + '_' + courseId);
+      let lessonEntPath = /databases/$(database)/documents/course_entitlements/$(request.auth.uid + '_' + courseId + '__' + lessonId);
+      let isFreeLesson = lesson.get('accessType', 'inherit_first_n') == 'free'
+        || (lesson.get('accessType', 'inherit_first_n') == 'inherit_first_n'
+            && lesson.get('order', 999999) < course.get('freePreviewCount', 0));
+      let hasCourseUnlock = exists(courseEntPath)
+        && get(courseEntPath).data.uid == request.auth.uid
+        && get(courseEntPath).data.courseId == courseId
+        && get(courseEntPath).data.status == 'active'
+        && (course.get('unlockFullPolicy', 'unlock_all_videos') == 'unlock_all_videos'
+            || lesson.get('includedInCourseUnlock', true) == true);
+      let hasLessonUnlock = exists(lessonEntPath)
+        && get(lessonEntPath).data.uid == request.auth.uid
+        && get(lessonEntPath).data.courseId == courseId
+        && get(lessonEntPath).data.lessonId == lessonId
+        && get(lessonEntPath).data.status == 'active';
+      return isAuthenticated() && (isAdmin() || (
+        getUserData().get('accountStatus', 'active') == 'active'
+        && ((course.get('accessMode', 'free') != 'paid' && course.get('priceVnd', 0) <= 0)
+            || isFreeLesson
+            || hasCourseUnlock
+            || hasLessonUnlock)
+      ));
+    }
+
     // 1. User Profiles
     match /users/{userId} {
       allow read: if isAuthenticated();
@@ -278,6 +306,21 @@ service cloud.firestore {
     }
 
     match /exam_entitlements/{entId} {
+      allow read: if isAdmin() || (isAuthenticated() && resource.data.uid == request.auth.uid);
+      allow write: if isAdmin();
+    }
+
+    match /courses/{courseId} {
+      allow read: if isAuthenticated() || resource.data.status == 'published';
+      allow write: if isAdmin() && (request.method == 'delete' || request.resource.data.get('lessons', []).size() == 0);
+
+      match /lessons/{lessonId} {
+        allow read: if isAuthenticated() && mayReadCourseLesson(courseId, lessonId);
+        allow write: if isAdmin();
+      }
+    }
+
+    match /course_entitlements/{entId} {
       allow read: if isAdmin() || (isAuthenticated() && resource.data.uid == request.auth.uid);
       allow write: if isAdmin();
     }

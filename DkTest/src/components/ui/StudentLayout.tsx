@@ -23,6 +23,7 @@ import {
   Wallet,
   Swords,
   MessageSquare,
+  PlayCircle,
 } from "lucide-react";
 import ConfirmModal from "./ConfirmModal";
 import BrandLogo from "./BrandLogo";
@@ -180,9 +181,9 @@ function StudentLayoutContent() {
   const hideStudentNav = isTakingExam || isExamResult;
 
   const navItems = [
-    { to: "/student/online", label: "Đề thi Online", icon: BookOpen },
-    { to: "/student/offline", label: "Đề thi offline", icon: BookOpen },
     { to: "/", label: "Đề thi", icon: BookOpen, tourId: TOUR_DATA_IDS.NAV_EXAMS, actionKey: "click_exams" },
+    ...(isNativeAndroid() ? [{ to: "/student/offline", label: "Kho đề offline", icon: BookOpen }] : []),
+    { to: "/student/courses", label: "Khóa học", icon: PlayCircle, iconColor: "text-rose-500", actionKey: "click_courses" },
     { to: "/journey", label: "Hành trình", icon: MapPin, iconColor: "text-emerald-500", actionKey: "click_journey" },
     { to: "/student/arena", label: "Đấu Trường", icon: Swords, iconColor: "text-amber-500", actionKey: "click_arena" },
     { to: "/student/chat", label: "Kênh Thế Giới", icon: MessageSquare, iconColor: "text-sky-500", actionKey: "click_chat" },
@@ -355,7 +356,12 @@ function StudentLayoutContent() {
 
               {navItems.map((item) => {
                 const Icon = item.icon;
-                const isActive = location.pathname === item.to;
+                const isActive =
+                  item.to === "/"
+                    ? location.pathname === "/" || location.pathname === "/exams" || location.pathname === "/student/online"
+                    : item.to === "/student/courses"
+                    ? location.pathname.startsWith("/student/courses") || location.pathname.startsWith("/courses")
+                    : location.pathname === item.to;
                 return (
                   <Link
                     key={item.to}
@@ -470,7 +476,12 @@ function StudentLayoutContent() {
               <div className="space-y-1 flex-1">
                 {navItems.map((item) => {
                   const Icon = item.icon;
-                  const isActive = location.pathname === item.to;
+                  const isActive =
+                    item.to === "/"
+                      ? location.pathname === "/" || location.pathname === "/exams" || location.pathname === "/student/online"
+                      : item.to === "/student/courses"
+                      ? location.pathname.startsWith("/student/courses") || location.pathname.startsWith("/courses")
+                      : location.pathname === item.to;
                   return (
                     <Link
                       key={item.to}
@@ -600,6 +611,33 @@ function StudentLayoutContent() {
 
                 {/* Grid of Requested Categories */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 mb-4">
+                  {/* 0. Khóa học Video */}
+                  <Link
+                    to="/student/courses"
+                    onClick={() => {
+                      setIsBottomMenuOpen(false);
+                      triggerAction("click_courses");
+                    }}
+                    className={`flex items-center gap-3.5 p-3 rounded-2xl border transition-all ${
+                      location.pathname.startsWith("/student/courses") || location.pathname.startsWith("/courses")
+                        ? "bg-rose-50/80 border-rose-300 dark:bg-rose-950/40 dark:border-rose-800 shadow-2xs"
+                        : "bg-slate-50/70 dark:bg-slate-800/40 border-slate-200/80 dark:border-slate-800 hover:bg-rose-50/50"
+                    }`}
+                  >
+                    <div className="w-10 h-10 rounded-xl bg-rose-100 dark:bg-rose-900/50 text-rose-600 dark:text-rose-300 flex items-center justify-center shrink-0 shadow-2xs">
+                      <PlayCircle className="w-5 h-5" />
+                    </div>
+                    <div className="min-w-0 flex-1">
+                      <div className="text-xs font-bold text-slate-900 dark:text-white flex items-center gap-1.5">
+                        <span>Khóa học</span>
+                        <span className="text-[9px] px-1.5 py-0.5 rounded-full bg-rose-100 dark:bg-rose-900 text-rose-700 dark:text-rose-300 font-bold">Mới</span>
+                      </div>
+                      <div className="text-[11px] text-slate-500 dark:text-slate-400 truncate">
+                        Video bài giảng &amp; học thử miễn phí
+                      </div>
+                    </div>
+                  </Link>
+
                   {/* 1. Hành trình */}
                   <Link
                     to="/journey"
@@ -793,7 +831,7 @@ function StudentLayoutContent() {
               data-tour-id={TOUR_DATA_IDS.NAV_EXAMS}
               onClick={() => triggerAction("click_exams")}
               className={`flex flex-col items-center gap-0.5 px-2.5 py-1 rounded-2xl transition-all cursor-pointer ${
-                location.pathname === "/" || location.pathname === "/exams"
+                location.pathname === "/" || location.pathname === "/exams" || location.pathname === "/student/online"
                   ? "text-blue-600 dark:text-blue-400 font-bold scale-105"
                   : "text-slate-400 hover:text-slate-700 dark:hover:text-slate-200"
               }`}

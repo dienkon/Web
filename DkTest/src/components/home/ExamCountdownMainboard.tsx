@@ -43,8 +43,8 @@ const EXAM_TARGETS = {
     id: "vact",
     name: "Kỳ thi Đánh Giá Năng Lực (ĐHQG TP.HCM)",
     shortName: "ĐGNL V-ACT 2027",
-    dateStr: "05/04/2027",
-    targetDate: new Date("2027-04-05T07:30:00+07:00"),
+    dateStr: "28/03/2027",
+    targetDate: new Date("2027-03-28T07:30:00+07:00"),
     badge: "ĐHQG-HCM Aptitude Test",
     badgeColor: "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border-emerald-200 dark:border-emerald-800",
     gradient: "from-emerald-600 via-teal-600 to-cyan-600",
@@ -137,7 +137,7 @@ export default function ExamCountdownMainboard() {
             }`}
           >
             <Target className="w-4 h-4 text-emerald-600 dark:text-white" />
-            <span>ĐGNL V-ACT (05/04/2027)</span>
+            <span>ĐGNL V-ACT (28/03/2027)</span>
           </button>
         </div>
       </div>

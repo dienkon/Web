@@ -23,6 +23,7 @@ import {
   Compass,
   Wallet,
   Globe,
+  PlayCircle,
 } from "lucide-react";
 import clsx from "clsx";
 import ConfirmModal from "./ConfirmModal";
@@ -37,6 +38,7 @@ const navItems = [
   { name: "Tổng quan", path: "/admin/dashboard", icon: LayoutDashboard },
   { name: "Học sinh", path: "/admin/students", icon: Users },
   { name: "Ví & Công nợ", path: "/admin/wallet", icon: Wallet },
+  { name: "Khóa học", path: "/admin/courses", icon: PlayCircle },
   { name: "Phụ huynh", path: "/admin/parents", icon: HeartHandshake },
   { name: "Lớp học", path: "/admin/classes", icon: Layers },
   { name: "Ngân hàng câu hỏi", path: "/admin/question-bank", icon: Sparkles },

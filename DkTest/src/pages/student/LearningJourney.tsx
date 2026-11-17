@@ -871,7 +871,7 @@ export default function LearningJourney() {
   }, []);
 
   const daysUntilDgnl = useMemo(() => {
-    const target = new Date("2027-04-05T00:00:00").getTime();
+    const target = new Date("2027-03-28T00:00:00").getTime();
     return Math.max(0, Math.ceil((target - Date.now()) / (1000 * 60 * 60 * 24)));
   }, []);
 
@@ -1336,7 +1336,7 @@ export default function LearningJourney() {
                     <p className="text-xs sm:text-sm text-indigo-200 mt-1">
                       {countdownTarget === "thpt"
                         ? "Thời gian dự kiến: 11/06/2027 • Lên kế hoạch ôn tập khoa học ngay từ hôm nay"
-                        : "Thời gian dự kiến: 05/04/2027 • Chú trọng tư duy logic, xử lý số liệu & đọc hiểu"}
+                        : "Thời gian dự kiến: 28/03/2027 • Chú trọng tư duy logic, xử lý số liệu & đọc hiểu"}
                     </p>
                   </div>
 

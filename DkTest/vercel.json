@@ -226,6 +226,10 @@
       "destination": "/api/wallet"
     },
     {
+      "source": "/api/courses/:match*",
+      "destination": "/api/wallet"
+    },
+    {
       "source": "/((?!api/).*)",
       "destination": "/index.html"
     }

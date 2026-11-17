@@ -64,7 +64,9 @@ import {
   createAdminVoucherApi,
   updateAdminVoucherApi,
   deleteAdminVoucherApi,
+  getAdminGlobalSpendingHistory,
   type AdminWalletOverview,
+  type GlobalSpendingHistoryItem,
 } from "../../services/walletClientService";
 import type {
   StudentDebtSummary,
@@ -86,9 +88,17 @@ import { safeShare } from "../../utils/mobileCompat";
 export default function WalletManagement() {
   const { error: showErrorToast, success: showSuccessToast, info: showInfoToast } = useToast();
 
-  const [activeTab, setActiveTab] = useState<"overview" | "requests" | "debts" | "vouchers">("overview");
+  const [activeTab, setActiveTab] = useState<"overview" | "requests" | "debts" | "vouchers" | "spending">("overview");
   const [overview, setOverview] = useState<AdminWalletOverview | null>(null);
   const [overviewLoading, setOverviewLoading] = useState(true);
+
+  // Server-wide Spending History State (Base = 5, load +5 per click)
+  const [spendingItems, setSpendingItems] = useState<GlobalSpendingHistoryItem[]>([]);
+  const [spendingCursor, setSpendingCursor] = useState<string | null>(null);
+  const [spendingHasMore, setSpendingHasMore] = useState(false);
+  const [spendingLoading, setSpendingLoading] = useState(false);
+  const [spendingLoadingMore, setSpendingLoadingMore] = useState(false);
+  const [spendingTypeFilter, setSpendingTypeFilter] = useState<string>("all_spending");
 
   // Deposit Requests Tab State
   const [requests, setRequests] = useState<DepositRequest[]>([]);
@@ -241,6 +251,39 @@ export default function WalletManagement() {
       showErrorToast(err.message || "Không thể tải số liệu tổng quan ví");
     } finally {
       setOverviewLoading(false);
+    }
+  };
+
+  // Load Server-Wide Spending History (Base = 5, +5 per load more)
+  const loadSpendingHistory = async (append = false, force = false, typeOverride?: string) => {
+    const activeFilter = typeOverride ?? spendingTypeFilter;
+    try {
+      if (append) setSpendingLoadingMore(true);
+      else setSpendingLoading(true);
+
+      const res = await getAdminGlobalSpendingHistory({
+        limit: 5,
+        cursor: append ? spendingCursor : null,
+        filterType: activeFilter,
+        force,
+      });
+
+      if (append) {
+        setSpendingItems((prev) => {
+          const seen = new Set(prev.map((p) => p.id));
+          return [...prev, ...res.items.filter((i) => !seen.has(i.id))];
+        });
+      } else {
+        setSpendingItems(res.items);
+      }
+      setSpendingCursor(res.nextCursor);
+      setSpendingHasMore(res.hasMore);
+    } catch (err: any) {
+      console.error("Load spending history error:", err);
+      showErrorToast(err.message || "Không thể tải lịch sử chi tiêu toàn hệ thống");
+    } finally {
+      setSpendingLoading(false);
+      setSpendingLoadingMore(false);
     }
   };
 
@@ -655,7 +698,7 @@ export default function WalletManagement() {
         debts: now,
         vouchers: now,
       };
-      const promises: Promise<any>[] = [loadOverview(force)];
+      const promises: Promise<any>[] = [loadOverview(force), loadSpendingHistory(false, force)];
       if (activeTab === "requests") promises.push(loadRequests(force));
       if (activeTab === "debts") promises.push(loadDebts(debtPage, force));
       if (activeTab === "vouchers") {
@@ -676,6 +719,7 @@ export default function WalletManagement() {
 
   useEffect(() => {
     loadOverview();
+    loadSpendingHistory(false, false);
     tabLoadedAtRef.current["overview"] = Date.now();
   }, []);
 
@@ -1022,6 +1066,18 @@ export default function WalletManagement() {
           <Ticket className="w-4 h-4" />
           <span>Mã Voucher & Ưu Đãi</span>
         </button>
+
+        <button
+          onClick={() => setActiveTab("spending")}
+          className={`px-4 py-2.5 text-xs font-bold rounded-t-xl transition-all cursor-pointer flex items-center gap-2 border-b-2 -mb-px shrink-0 ${
+            activeTab === "spending"
+              ? "border-emerald-600 text-emerald-700 bg-white shadow-2xs"
+              : "border-transparent text-slate-500 hover:text-slate-800"
+          }`}
+        >
+          <History className="w-4 h-4" />
+          <span>Lịch Sử Chi Tiêu Toàn SV</span>
+        </button>
       </div>
 
       {/* TAB 1: OVERVIEW */}
@@ -1238,6 +1294,211 @@ export default function WalletManagement() {
               </div>
             )}
           </div>
+
+          {/* Server-Wide Spending History Preview (Base = 5, Load more +5) */}
+          <div className="bg-white rounded-2xl border border-slate-200 shadow-2xs overflow-hidden">
+            <div className="p-4 border-b border-slate-100 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+              <div>
+                <h3 className="font-extrabold text-slate-900 text-sm flex items-center gap-2">
+                  <History className="w-4 h-4 text-purple-600" />
+                  <span>Lịch Sử Chi Tiêu Toàn Hệ Thống (Toàn SV)</span>
+                </h3>
+                <p className="text-xs text-slate-500">
+                  Mặc định tải 5 giao dịch chi tiêu gần nhất, nhấn tải thêm để xem tiếp 5 mục/lần
+                </p>
+              </div>
+              <div className="flex items-center gap-2">
+                <select
+                  aria-label="Lọc loại chi tiêu"
+                  value={spendingTypeFilter}
+                  onChange={(e) => {
+                    const nextType = e.target.value;
+                    setSpendingTypeFilter(nextType);
+                    void loadSpendingHistory(false, true, nextType);
+                  }}
+                  className="px-2.5 py-1.5 bg-slate-50 border border-slate-200 rounded-xl text-xs font-bold text-slate-700 cursor-pointer"
+                >
+                  <option value="all_spending">Tất cả chi tiêu</option>
+                  <option value="exam_unlock_debit">Mở khóa đề thi</option>
+                  <option value="course_unlock_debit">Mở khóa khóa học</option>
+                  <option value="course_lesson_unlock_debit">Mở khóa video bài giảng</option>
+                  <option value="admin_adjustment_debit">Điều chỉnh trừ ví</option>
+                </select>
+                <button
+                  type="button"
+                  onClick={() => void loadSpendingHistory(false, true)}
+                  disabled={spendingLoading}
+                  className="px-2.5 py-1.5 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-xl text-xs font-bold cursor-pointer disabled:opacity-50"
+                >
+                  Làm mới
+                </button>
+              </div>
+            </div>
+
+            {spendingLoading ? (
+              <div className="p-8 text-center text-xs text-slate-400">Đang tải 5 giao dịch chi tiêu gần nhất...</div>
+            ) : spendingItems.length === 0 ? (
+              <div className="p-8 text-center text-xs text-slate-400 italic">
+                Chưa có giao dịch chi tiêu nào trên toàn hệ thống.
+              </div>
+            ) : (
+              <div>
+                <div className="divide-y divide-slate-100">
+                  {spendingItems.map((tx) => {
+                    const typeBadge =
+                      tx.type === "course_unlock_debit"
+                        ? { label: "Mở khóa khóa học", cls: "bg-indigo-50 text-indigo-700 border-indigo-200" }
+                        : tx.type === "course_lesson_unlock_debit"
+                        ? { label: "Mở khóa bài giảng", cls: "bg-sky-50 text-sky-700 border-sky-200" }
+                        : tx.type === "admin_adjustment_debit"
+                        ? { label: "Điều chỉnh trừ", cls: "bg-rose-50 text-rose-700 border-rose-200" }
+                        : { label: "Mở khóa đề thi", cls: "bg-purple-50 text-purple-700 border-purple-200" };
+
+                    return (
+                      <div key={tx.id} className="p-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3 hover:bg-slate-50/60 transition-colors">
+                        <div className="flex items-start gap-3 min-w-0">
+                          <div className="w-9 h-9 rounded-xl bg-purple-50 text-purple-700 flex items-center justify-center font-black text-xs shrink-0">
+                            <ArrowUpRight className="w-4 h-4" />
+                          </div>
+                          <div className="min-w-0">
+                            <div className="flex items-center gap-2 flex-wrap">
+                              <span className="font-bold text-xs text-slate-900">
+                                {tx.studentName || tx.studentNameSnapshot || tx.actorName || "Học sinh"}
+                              </span>
+                              {(tx.studentClass || tx.studentClassSnapshot) && (
+                                <span className="px-1.5 py-0.5 bg-slate-100 text-slate-600 rounded text-[10px] font-bold">
+                                  Lớp {tx.studentClass || tx.studentClassSnapshot}
+                                </span>
+                              )}
+                              <span className={`px-2 py-0.5 rounded-full text-[10px] font-bold border ${typeBadge.cls}`}>
+                                {typeBadge.label}
+                              </span>
+                            </div>
+                            <div className="text-xs text-slate-700 font-medium mt-0.5 truncate" title={tx.note || tx.description}>
+                              {tx.courseTitleSnapshot || tx.lessonTitleSnapshot || tx.examTitleSnapshot || tx.note || tx.description || "Chi tiêu ví"}
+                            </div>
+                            <div className="text-[11px] text-slate-400 mt-0.5">
+                              {formatDate(tx.createdAt)} • Số dư: {Number(tx.balanceBeforeVnd || 0).toLocaleString("vi-VN")}đ → {Number(tx.balanceAfterVnd || 0).toLocaleString("vi-VN")}đ
+                            </div>
+                          </div>
+                        </div>
+
+                        <div className="text-left sm:text-right shrink-0">
+                          <span className="font-black text-sm text-rose-600">
+                            -{Math.abs(Number(tx.amountVnd || 0)).toLocaleString("vi-VN")}đ
+                          </span>
+                          <div className="text-[10px] font-mono text-slate-400">UID: {(tx.uid || "").slice(0, 8)}</div>
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
+
+                {spendingHasMore && (
+                  <div className="p-3 bg-slate-50 border-t border-slate-100 text-center">
+                    <button
+                      type="button"
+                      disabled={spendingLoadingMore}
+                      onClick={() => void loadSpendingHistory(true, false)}
+                      className="px-4 py-2 bg-white hover:bg-slate-100 border border-slate-200 text-slate-800 rounded-xl text-xs font-bold shadow-2xs transition-colors cursor-pointer disabled:opacity-50"
+                    >
+                      {spendingLoadingMore ? "Đang tải thêm 5 giao dịch..." : "Tải thêm 5 giao dịch gần nhất"}
+                    </button>
+                  </div>
+                )}
+              </div>
+            )}
+          </div>
+        </div>
+      )}
+
+      {/* TAB: DEDICATED SPENDING HISTORY VIEW */}
+      {activeTab === "spending" && (
+        <div className="bg-white rounded-2xl border border-slate-200 shadow-2xs overflow-hidden">
+          <div className="p-4 border-b border-slate-100 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+            <div>
+              <h3 className="font-extrabold text-slate-900 text-sm flex items-center gap-2">
+                <History className="w-4 h-4 text-purple-600" />
+                <span>Lịch Sử Chi Tiêu Toàn Server ({spendingItems.length} đang hiển thị)</span>
+              </h3>
+              <p className="text-xs text-slate-500">
+                Truy vấn giới hạn 5 giao dịch mỗi lần (Base = 5) để tối ưu lượt đọc Firestore
+              </p>
+            </div>
+            <div className="flex items-center gap-2">
+              <select
+                value={spendingTypeFilter}
+                onChange={(e) => {
+                  const nextType = e.target.value;
+                  setSpendingTypeFilter(nextType);
+                  void loadSpendingHistory(false, true, nextType);
+                }}
+                className="px-2.5 py-1.5 bg-slate-50 border border-slate-200 rounded-xl text-xs font-bold text-slate-700 cursor-pointer"
+              >
+                <option value="all_spending">Tất cả chi tiêu</option>
+                <option value="exam_unlock_debit">Mở khóa đề thi</option>
+                <option value="course_unlock_debit">Mở khóa khóa học</option>
+                <option value="course_lesson_unlock_debit">Mở khóa video bài giảng</option>
+                <option value="admin_adjustment_debit">Điều chỉnh trừ ví</option>
+              </select>
+              <button
+                type="button"
+                onClick={() => void loadSpendingHistory(false, true)}
+                disabled={spendingLoading}
+                className="px-3 py-1.5 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl text-xs font-bold cursor-pointer disabled:opacity-50"
+              >
+                Làm mới
+              </button>
+            </div>
+          </div>
+          {spendingLoading ? (
+            <div className="p-10 text-center text-xs text-slate-400">Đang tải 5 giao dịch chi tiêu gần nhất...</div>
+          ) : spendingItems.length === 0 ? (
+            <div className="p-10 text-center text-xs text-slate-400 italic">Chưa có giao dịch chi tiêu nào.</div>
+          ) : (
+            <div>
+              <div className="divide-y divide-slate-100">
+                {spendingItems.map((tx) => (
+                  <div key={tx.id} className="p-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3 hover:bg-slate-50/60 transition-colors">
+                    <div className="min-w-0 space-y-0.5">
+                      <div className="flex items-center gap-2 flex-wrap">
+                        <span className="font-bold text-xs text-slate-900">
+                          {tx.studentName || tx.studentNameSnapshot || tx.actorName || "Học sinh"}
+                        </span>
+                        {(tx.studentClass || tx.studentClassSnapshot) && (
+                          <span className="px-1.5 py-0.5 bg-slate-100 text-slate-600 rounded text-[10px] font-bold">
+                            Lớp {tx.studentClass || tx.studentClassSnapshot}
+                          </span>
+                        )}
+                        <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-purple-50 text-purple-700 border border-purple-200">
+                          {tx.type}
+                        </span>
+                      </div>
+                      <p className="text-xs text-slate-700">{tx.note || tx.description || tx.examTitleSnapshot || tx.courseTitleSnapshot}</p>
+                      <p className="text-[11px] text-slate-400">
+                        {formatDate(tx.createdAt)} • Số dư: {Number(tx.balanceBeforeVnd || 0).toLocaleString("vi-VN")}đ → {Number(tx.balanceAfterVnd || 0).toLocaleString("vi-VN")}đ
+                      </p>
+                    </div>
+                    <div className="font-black text-sm text-rose-600 shrink-0">
+                      -{Math.abs(Number(tx.amountVnd || 0)).toLocaleString("vi-VN")}đ
+                    </div>
+                  </div>
+                ))}
+              </div>
+              {spendingHasMore && (
+                <div className="p-3 bg-slate-50 border-t border-slate-100 text-center">
+                  <button
+                    type="button"
+                    disabled={spendingLoadingMore}
+                    onClick={() => void loadSpendingHistory(true, false)}
+                    className="px-4 py-2 bg-white hover:bg-slate-100 border border-slate-200 text-slate-800 rounded-xl text-xs font-bold shadow-2xs transition-colors cursor-pointer disabled:opacity-50"
+                  >
+                    {spendingLoadingMore ? "Đang tải thêm 5 giao dịch..." : "Tải thêm 5 giao dịch gần nhất"}
+                  </button>
+                </div>
+              )}
+            </div>
+          )}
         </div>
       )}
 
