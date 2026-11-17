@@ -3,11 +3,10 @@ import React, { useRef, useMemo, useEffect } from 'react';
 import { useFrame } from '@react-three/fiber';
 import * as THREE from 'three';
 import { useAppStore } from '../../store/useAppStore';
-import { getWorldVesselProfile } from '../../pour/physics/profiles';
-import { liquidGeometry, vesselWorldLiquidSurfaceY } from '../../science/vesselGeometry';
-import { applySodiumPelletShape, sodiumPelletShape, sodiumPelletRadius } from '../../vfx/geometry/sodiumPellet';
-import { SCENE_GRAVITY } from '../../science/sceneUnits';
-import { vesselBodyTransform } from '../../science/vesselScale';
+import { applySodiumPelletShape, sodiumPelletShape } from '../../vfx/geometry/sodiumPellet';
+import { SCENE_GRAVITY, scenePointToSI } from '../../science/sceneUnits';
+import { planSodiumStockDose } from '../../handling/sodiumStockDose';
+import { solidStockFlightPosition, type SolidStockDose } from '../../handling/solidStockDose';
 
 /** A single piece is released from forceps. Inventory transfer happens once,
  * when its falling surface first touches water (or the dry vessel floor). */
@@ -19,6 +18,8 @@ export function SodiumDoseAnimation({ doseId, targetId, amount, onComplete }: {
   const elapsed = useRef(0);
   const contacted = useRef(false);
   const completed = useRef(false);
+  const delivery = useRef<Promise<void>>(Promise.resolve());
+  const planned = useRef<SolidStockDose | null>(null);
   const geometry = useMemo(() => {
     const result = new THREE.BufferGeometry();
     applySodiumPelletShape(result, sodiumPelletShape(0));
@@ -28,39 +29,41 @@ export function SodiumDoseAnimation({ doseId, targetId, amount, onComplete }: {
   useFrame((_, delta) => {
     if (completed.current) return;
     const state = useAppStore.getState(), vessel = state.vessels[targetId];
-    if (!vessel || vessel.isShattered) { completed.current = true; onComplete(); return; }
+    if (!vessel || vessel.isShattered || vessel.isSealed) { completed.current = true; onComplete(); return; }
+    if (!planned.current) planned.current = planSodiumStockDose(vessel, amount);
+    if (!planned.current) { completed.current = true; onComplete(); return; }
     if (state.isSimulationPaused) return;
     elapsed.current += simulationFrameDt(delta, state);
     const t = elapsed.current;
-    const body = vesselBodyTransform(vessel);
-    const radius = sodiumPelletRadius(vessel, amount) * body.scale, shape = sodiumPelletShape(0);
-    const mouth = vessel.position[1] + getWorldVesselProfile(vessel.type, vessel.capacity_ml).lipLocal[1];
-    const releaseY = mouth + 0.35;
+    const plan = planned.current, flight = plan.flights[0], radius = plan.scale;
+    const releaseY = flight.start[1];
     const approach = THREE.MathUtils.smoothstep(t, 0, 0.35);
-    const x = vessel.position[0] + (1 - approach) * 1.4;
+    const x = flight.start[0] + (1 - approach) * 1.4;
     const y = releaseY + (1 - approach) * 0.7;
     if (forceps.current) {
       const retract = Math.max(0, t - 0.6);
-      forceps.current.position.set(x + 0.6 + retract, y + retract * 0.7, vessel.position[2]);
+      forceps.current.position.set(x + 0.6 + retract, y + retract * 0.7, flight.start[2]);
       forceps.current.visible = t < 1.5;
     }
     if (metal.current) {
-      const fallTime = Math.max(0, t - 0.35);
-      const floor = vessel.position[1] + body.offsetY + body.scale * liquidGeometry(vessel.type).floorY;
-      const surface = vessel.position[1] + vesselWorldLiquidSurfaceY(vessel);
-      const hasWater = vessel.contents.some(item => item.formula === 'H2O' && item.phase !== 's' && item.phase !== 'g' && item.moles > 1e-12);
-      const fallingY = t <= 0.35 ? y : releaseY - 0.5 * SCENE_GRAVITY * fallTime * fallTime;
+      const fallTime = Math.max(0, t - flight.releaseAt);
       // First contact occurs at the bottom of the falling piece, before equilibrium immersion.
-      if (!contacted.current && t > 0.35 && fallingY + shape.bottom * radius <= (hasWater ? surface : floor)) {
+      if (!contacted.current && t >= flight.releaseAt + flight.flightTime) {
         contacted.current = true;
-        state.contactPour(doseId);
+        delivery.current = state.advancePourContact(doseId, 1, [{ mass_g: amount,
+          position_m: scenePointToSI(flight.contact), rotation: [...flight.rotation],
+          velocity_m_s: scenePointToSI([0, -SCENE_GRAVITY * flight.flightTime, 0]), angularVelocity_rad_s: [0, 0, 0] }]);
       }
       metal.current.visible = !contacted.current;
-      metal.current.position.set(x, Math.max(floor - shape.bottom * radius, fallingY), vessel.position[2]);
+      if (t <= flight.releaseAt) metal.current.position.set(x, y, flight.start[2]);
+      else metal.current.position.set(...solidStockFlightPosition(flight, fallTime));
       metal.current.scale.setScalar(radius);
-      metal.current.rotation.set(0, 0.3 + fallTime, 0);
+      metal.current.quaternion.fromArray(flight.rotation);
     }
-    if (contacted.current && t > 1.5) { completed.current = true; onComplete(); }
+    if (contacted.current && t > Math.max(1.5, flight.releaseAt + flight.flightTime + .1)) {
+      completed.current = true;
+      void delivery.current.then(onComplete);
+    }
   });
   return <group name="sodium-forceps-addition">
     <group ref={forceps}>

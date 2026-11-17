@@ -127,6 +127,9 @@ import { makePipettePresentation } from '../handling/pipettePresentation';
 import { rinseStationRadius } from '../handling/instrumentRinseVisual';
 import { washBottleReceiverId, washBottleSqueezeProblem } from '../handling/washBottleSqueeze';
 import { collectVesselContents } from '../handling/emptyVessel';
+import { stockReceiverProblem, stockLiquidTarget } from '../handling/stockDoseTarget';
+import { solidStockDoseProblem } from '../handling/solidStockDose';
+import { sodiumStockDoseProblem } from '../handling/sodiumStockDose';
 import { uiText } from '../utils/uiText';
 
 function currentBenchObstacles(state: Pick<AppState, 'vessels' | 'burners' | 'burette' | 'instrumentRinse'>) {
@@ -2936,7 +2939,8 @@ export const useAppStore = create<AppState>((set, get) => {
         };
         debounceSaveLocalState(updated, s.burners);
         return { vessels: updated,
-          ...(locking && s.draggingVesselId === id ? { draggingVesselId: null, nearestPourTargetId: null } : {}) };
+          ...(locking && moveCarriedVesselIds({ ...s, moveMode: true }).has(id)
+            ? { draggingVesselId: null, nearestPourTargetId: null } : {}) };
       });
     },
 
@@ -3757,6 +3761,12 @@ export const useAppStore = create<AppState>((set, get) => {
       const amt = amount !== undefined ? amount : chemical === 'Na' ? 0.1 : (chemData.type === 'solid' ? 2 : 20);
       const target = get().vessels[targetId];
       if (get().pouringChemical || !target || target.isShattered || target.isSealed || !Number.isFinite(amt) || amt <= 0) return;
+      const problem = stockReceiverProblem(target, chemData.type) ?? (chemData.type === 'solid'
+        ? chemical === 'Na' ? sodiumStockDoseProblem(target, amt) : solidStockDoseProblem(target, chemical, amt) : null);
+      if (problem) { set({ mixError: uiText(problem) }); return; }
+      if (chemData.type === 'liquid' && !stockLiquidTarget(target)) {
+        set({ mixError: uiText('Không có đường cấp hóa chất qua miệng bình ở tư thế hiện tại.') }); return;
+      }
       set({ pouringChemical: { id: ++_stockDoseId, chemical, targetId, type: chemData.type,
         amount: amt, releasedAmount: 0, awaitingContact: true } });
     },
@@ -3769,6 +3779,8 @@ export const useAppStore = create<AppState>((set, get) => {
         || !target || target.isShattered || target.isSealed || target.isLocked || target.capacity_ml <= 0
         || targetId.startsWith('lesson_vessel_') || !sample.chemical || !Number.isFinite(sample.mass_g) || sample.mass_g <= 0
         || findChemical(sample.chemical).type !== 'solid') return false;
+      const problem = stockReceiverProblem(target, 'solid') ?? solidStockDoseProblem(target, sample.chemical, sample.mass_g);
+      if (problem) { set({ mixError: uiText(problem) }); return false; }
       const id = ++_stockDoseId;
       if (!spatulaDoses.begin(id, { ...sample, chemical: sample.chemical })) return false;
       set({ spatulaState: { chemical: null, mass_g: 0, color: '#cbd5e1' },
@@ -4122,12 +4134,18 @@ export const useAppStore = create<AppState>((set, get) => {
 
     draggingVesselId: null,
     setDraggingVesselId: (id) => {
-      if (get().draggingVesselId === id) return;
-      if (id && stockDoseBlocksDrag(get(), id)) {
+      if (get().draggingVesselId === id && (id !== null || get().nearestPourTargetId === null)) return;
+      const state = get();
+      if (id && [...moveCarriedVesselIds({ ...state, moveMode: true, draggingVesselId: id })]
+        .some(carriedId => state.vessels[carriedId]?.isLocked)) {
+        set({ mixError: uiText('Mở khóa bình hoặc vật trong cụm trước khi di chuyển.') });
+        return;
+      }
+      if (id && stockDoseBlocksDrag(state, id)) {
         set({ mixError: uiText('Chờ cấp hóa chất xong rồi di chuyển bình nhận.') });
         return;
       }
-      set({ draggingVesselId: id });
+      set({ draggingVesselId: id, ...(id === null ? { nearestPourTargetId: null } : {}) });
     },
     updateVesselPosition: (id, pos) => {
       const previous = get().vessels[id];
@@ -4234,6 +4252,7 @@ export const useAppStore = create<AppState>((set, get) => {
 
     moveMode: false,
     setMoveMode: (active) => set(s => ({ moveMode: active,
+      ...(!active ? { draggingVesselId: null, nearestPourTargetId: null } : {}),
       ...(active && s.burette.isDispensing ? { burette: { ...s.burette, isDispensing: false } } : {}) })),
 
     canUndo: false,
@@ -4330,6 +4349,8 @@ export const useAppStore = create<AppState>((set, get) => {
       if (!original || targetId.startsWith('lesson_vessel_') || original.isSealed || original.isShattered
         || !Number.isFinite(addedVolume_ml) || addedVolume_ml <= 0) return;
       const chemData = findChemical(newChemical);
+      const receiverProblem = stockReceiverProblem(original, chemData.type);
+      if (receiverProblem) { set({ mixError: uiText(receiverProblem) }); return; }
       let prepared: ReturnType<typeof prepareStockAddition>;
       try {
         prepared = prepareStockAddition(original, chemData, newChemical, addedVolume_ml,
