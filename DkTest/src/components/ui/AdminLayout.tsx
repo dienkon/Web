@@ -285,7 +285,9 @@ export default function AdminLayout() {
         </header>
 
         {/* Scrollable View Container */}
-        {location.pathname.includes("/admin/exams/new") || location.pathname.includes("/edit") ? (
+        {location.pathname.includes("/admin/exams/new") ||
+        /\/admin\/exams\/[^/]+\/edit(?:\/|$)/.test(location.pathname) ||
+        location.pathname.includes("/admin/code-exam/edit/") ? (
           <div className="flex-1 flex flex-col min-h-0 overflow-hidden bg-slate-50/50 dark:bg-slate-950/60">
             <Outlet />
           </div>

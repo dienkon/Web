@@ -34,6 +34,9 @@ try {
       'courses/paid-course/lessons/l0': { id: 'l0', courseId: 'paid-course', order: 0, accessType: 'inherit_first_n', includedInCourseUnlock: true, videoUrl: 'https://youtu.be/preview0' },
       'courses/paid-course/lessons/l1': { id: 'l1', courseId: 'paid-course', order: 1, accessType: 'inherit_first_n', includedInCourseUnlock: true, videoUrl: 'https://youtu.be/paid1' },
       'courses/paid-course/lessons/l_vip': { id: 'l_vip', courseId: 'paid-course', order: 2, accessType: 'paid', includedInCourseUnlock: false, videoUrl: 'https://youtu.be/vip_only' },
+      'courses/per-video-course': { status: 'published', accessMode: 'per_video', priceVnd: 0, freePreviewCount: 1, unlockFullPolicy: 'unlock_all_videos' },
+      'courses/per-video-course/lessons/pv0': { id: 'pv0', courseId: 'per-video-course', order: 0, accessType: 'inherit_first_n', priceVnd: 0, includedInCourseUnlock: true, videoUrl: 'https://youtu.be/pv0' },
+      'courses/per-video-course/lessons/pv1': { id: 'pv1', courseId: 'per-video-course', order: 1, accessType: 'inherit_first_n', priceVnd: 25000, includedInCourseUnlock: true, videoUrl: 'https://youtu.be/pv1' },
     })) await setDoc(doc(db, path), value);
   });
   const a = env.authenticatedContext('student-a').firestore();
@@ -90,6 +93,12 @@ try {
   await pass(setDoc(doc(admin, 'course_entitlements/student-a_paid-course__l_vip'), { uid: 'student-a', courseId: 'paid-course', lessonId: 'l_vip', scope: 'lesson', status: 'active' }));
   await pass(getDoc(doc(a, 'courses/paid-course/lessons/l_vip'))); // Unlocked by single lesson entitlement
   await deny(getDoc(doc(b, 'course_entitlements/student-a_paid-course')));
+
+  // Per-video billing mode: course priceVnd is 0, yet paid lessons remain strictly locked!
+  await pass(getDoc(doc(a, 'courses/per-video-course/lessons/pv0'))); // First video free preview
+  await deny(getDoc(doc(a, 'courses/per-video-course/lessons/pv1'))); // Per-video paid lesson must NOT leak!
+  await pass(setDoc(doc(admin, 'course_entitlements/student-a_per-video-course__pv1'), { uid: 'student-a', courseId: 'per-video-course', lessonId: 'pv1', scope: 'lesson', status: 'active' }));
+  await pass(getDoc(doc(a, 'courses/per-video-course/lessons/pv1'))); // Unlocked after single video payment
 
   console.log(`Firestore emulator: ${assertions} authorization assertions passed (production not modified).`);
 } finally { await env.cleanup(); await deleteApp(adminApp); }

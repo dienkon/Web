@@ -1,11 +1,12 @@
 export type CourseStatus = "draft" | "published" | "archived";
-export type CourseAccessMode = "free" | "paid";
+export type CourseAccessMode = "free" | "per_video" | "paid";
 export type CourseUnlockFullPolicy = "unlock_all_videos" | "unlock_course_only";
 export type CourseLessonAccessType = "inherit_first_n" | "free" | "paid";
 export type CourseVideoType = "youtube" | "mp4" | "cloudinary" | "iframe";
 
 export interface CourseChapter {
   id: string;
+  groupTitle?: string; // Level 1 category header (e.g. "TOÁN HỌC", optional - defaults to course.subject)
   title: string;
   description?: string;
   order: number;
@@ -19,10 +20,17 @@ export interface CourseLessonMaterial {
   fileName?: string;
 }
 
+export interface CourseOutlineMaterialItem {
+  id: string;
+  label: string;
+  type: "link" | "file";
+}
+
 export interface CourseLesson {
   id: string;
   courseId: string;
   chapterId?: string | null;
+  topicTitle?: string; // Level 3 topic grouping inside a chapter (e.g. "Bổ trợ tam thức bậc hai")
   title: string;
   description?: string;
   order: number; // 0-based global index across the course
@@ -33,7 +41,7 @@ export interface CourseLesson {
   materials?: CourseLessonMaterial[];
   linkedExamId?: string;
   accessType: CourseLessonAccessType;
-  priceVnd?: number; // Individual price if allowSingleLessonPurchase is true
+  priceVnd?: number; // Individual price if accessMode === 'per_video' or allowSingleLessonPurchase is true
   includedInCourseUnlock: boolean; // Default true: full course unlock grants access
   createdAt?: any;
   updatedAt?: any;
@@ -41,22 +49,26 @@ export interface CourseLesson {
 
 /**
  * Sanitized public syllabus entry stored on courses/{courseId}
- * NEVER stores videoUrl or private materials so paid videos cannot leak from public catalogue reads.
+ * NEVER stores videoUrl or private material URLs so paid videos/archive links cannot leak from public reads.
  */
 export interface CourseLessonOutlineItem {
   id: string;
   chapterId?: string | null;
+  topicTitle?: string;
   title: string;
   description?: string;
   order: number;
   durationMinutes?: number;
   videoType: CourseVideoType;
+  videoHostLabel?: string;
   accessType: CourseLessonAccessType;
   isFreeEffective: boolean;
   priceVnd: number;
   includedInCourseUnlock: boolean;
   linkedExamId?: string;
   hasMaterials?: boolean;
+  materialsCount?: number;
+  materialItems?: CourseOutlineMaterialItem[];
 }
 
 export interface Course {
@@ -75,6 +87,7 @@ export interface Course {
   accessMode: CourseAccessMode;
   priceVnd: number;
   originalPriceVnd?: number;
+  defaultLessonPriceVnd?: number; // Suggested price for paid lessons (especially in per_video mode)
   salesEnabled: boolean;
   unlockFullPolicy: CourseUnlockFullPolicy;
   freePreviewCount: number; // Number of initial videos free for preview (0+)
@@ -87,6 +100,7 @@ export interface Course {
   lessonCount: number;
   freeLessonCount: number;
   paidLessonCount: number;
+  minPaidLessonPriceVnd?: number;
   totalDurationMinutes?: number;
   enrolledCount?: number;
 

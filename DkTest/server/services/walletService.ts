@@ -3,6 +3,7 @@ import {
   getFirestoreRestDoc,
   getFirestoreRestDocs,
   queryFirestoreRestDocs,
+  queryOrderedFirestoreRestDocs,
   setFirestoreRestDoc,
   clearServerRestCache,
 } from "../firebaseAdmin.js";
@@ -2826,7 +2827,9 @@ export interface GlobalSpendingHistoryResult {
 }
 
 const spendingFirstPageCache = new Map<string, { data: GlobalSpendingHistoryResult; timestamp: number }>();
+const spendingStudentMetaCache = new Map<string, { fullName?: string; currentClass?: string; ts: number }>();
 const SPENDING_CACHE_TTL_MS = 45 * 1000;
+const SPENDING_STUDENT_META_TTL_MS = 10 * 60 * 1000;
 
 export function invalidateGlobalSpendingCache(): void {
   spendingFirstPageCache.clear();
@@ -2916,9 +2919,17 @@ export async function getGlobalSpendingHistory(options?: {
       hasMore = !exhausted && rawItems.length > 0;
     }
   } else {
-    // REST fallback
-    const docs = await getFirestoreRestDocs("wallet_transactions", 100);
-    let filtered = (docs as WalletTransaction[]).filter((data) => {
+    // REST ordered query (reads strictly limit = pageSize = 5 when composite index exists, bounded <= 25 otherwise)
+    const { docs, usedFallbackScan } = await queryOrderedFirestoreRestDocs("wallet_transactions", {
+      whereField: "type",
+      inValues: targetTypes,
+      orderByField: "createdAt",
+      direction: "DESCENDING",
+      startAfterValue: cursor || undefined,
+      limitCount: pageSize,
+    });
+
+    const filtered = (docs as WalletTransaction[]).filter((data) => {
       const isMatch =
         targetTypes.includes(data.type) ||
         (filterType === "all_spending" &&
@@ -2928,19 +2939,27 @@ export async function getGlobalSpendingHistory(options?: {
       if (cursor && String(data.createdAt || "") >= cursor) return false;
       return true;
     });
-    filtered.sort((a, b) => parseTimestampMs(b.createdAt) - parseTimestampMs(a.createdAt));
+
     rawItems = filtered.slice(0, pageSize);
-    hasMore = filtered.length > pageSize;
+    hasMore = usedFallbackScan ? filtered.length >= pageSize : docs.length === pageSize;
     nextCursor = rawItems.length > 0 ? String(rawItems[rawItems.length - 1].createdAt || "") : null;
   }
 
   // Enrich student metadata cleanly without burning reads when cached
-  const enriched: GlobalSpendingHistoryItem[] = rawItems.map((tx) => ({
-    ...tx,
-    studentName: tx.studentNameSnapshot || (tx.actorName && tx.actorName !== "Thí sinh" ? tx.actorName : undefined),
-    studentClass: tx.studentClassSnapshot || undefined,
-    studentUsername: userMapCache?.map.get(tx.uid)?.username || undefined,
-  }));
+  const nowMs = Date.now();
+  const enriched: GlobalSpendingHistoryItem[] = rawItems.map((tx) => {
+    const cachedMeta = spendingStudentMetaCache.get(tx.uid);
+    const freshMeta = cachedMeta && nowMs - cachedMeta.ts < SPENDING_STUDENT_META_TTL_MS ? cachedMeta : undefined;
+    return {
+      ...tx,
+      studentName:
+        tx.studentNameSnapshot ||
+        freshMeta?.fullName ||
+        (tx.actorName && tx.actorName !== "Thí sinh" ? tx.actorName : undefined),
+      studentClass: tx.studentClassSnapshot || freshMeta?.currentClass || undefined,
+      studentUsername: userMapCache?.map.get(tx.uid)?.username || undefined,
+    };
+  });
 
   const missingUids = Array.from(
     new Set(
@@ -2958,7 +2977,9 @@ export async function getGlobalSpendingHistory(options?: {
       walletSnaps.forEach((snap) => {
         if (snap.exists) {
           const d = snap.data() as StudentWallet;
-          wMap.set(snap.id, { fullName: d.fullName, currentClass: d.currentClass });
+          const meta = { fullName: d.fullName, currentClass: d.currentClass };
+          wMap.set(snap.id, meta);
+          spendingStudentMetaCache.set(snap.id, { ...meta, ts: nowMs });
         }
       });
       enriched.forEach((item) => {

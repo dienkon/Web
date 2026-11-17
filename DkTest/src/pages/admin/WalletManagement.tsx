@@ -1314,7 +1314,7 @@ export default function WalletManagement() {
                   onChange={(e) => {
                     const nextType = e.target.value;
                     setSpendingTypeFilter(nextType);
-                    void loadSpendingHistory(false, true, nextType);
+                    void loadSpendingHistory(false, false, nextType);
                   }}
                   className="px-2.5 py-1.5 bg-slate-50 border border-slate-200 rounded-xl text-xs font-bold text-slate-700 cursor-pointer"
                 >
@@ -1431,7 +1431,7 @@ export default function WalletManagement() {
                 onChange={(e) => {
                   const nextType = e.target.value;
                   setSpendingTypeFilter(nextType);
-                  void loadSpendingHistory(false, true, nextType);
+                  void loadSpendingHistory(false, false, nextType);
                 }}
                 className="px-2.5 py-1.5 bg-slate-50 border border-slate-200 rounded-xl text-xs font-bold text-slate-700 cursor-pointer"
               >

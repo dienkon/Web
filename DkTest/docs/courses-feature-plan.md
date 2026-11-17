@@ -27,3 +27,19 @@
 ## 3. Bảo mật & API
 - `firestore.rules` chặn đọc subcollection `lessons` nếu không thuộc khóa miễn phí, bài học thử, hoặc không có `course_entitlements` hợp lệ đang `active`.
 - Backend (`server/services/courseService.ts`, `server/routes/walletRoutes.ts`, `server/routes/adminRoutes.ts`) thực thi giao dịch nguyên tử (`runTransaction`) khi trừ ví, kiểm tra voucher, cấp entitlement và ghi `wallet_transactions` (`course_unlock_debit`, `course_lesson_unlock_debit`).
+
+
+## Bổ sung Nâng cấp Kiến trúc 1.9.1
+
+1. **Ba chế độ thu phí tách bạch (`CourseAccessMode = "free" | "per_video" | "paid"`)**:
+   - `free`: Vào khóa và xem mọi video miễn phí 100%.
+   - `per_video`: **Vào khóa học miễn phí (`priceVnd = 0`) — Tính phí theo từng video**. Không hiển thị nút mua khóa `0đ`; vẫn hỗ trợ cấu hình `freePreviewCount` (`0` = thu phí từ video đầu) + giá mặc định/giá riêng từng video. Cả Firestore Rules và API `POST /api/courses/:courseId/unlock` đều khóa chặt để không thể bypass qua mua khóa 0đ.
+   - `paid`: Thu phí trọn khóa (`priceVnd > 0`) kèm chính sách `unlock_all_videos` / `unlock_course_only`, `freePreviewCount` và tùy chọn mua lẻ từng bài.
+2. **Cây phân cấp 3 tầng (`buildCourseHierarchy`) & Tối ưu Mobile**:
+   - Nhóm/Môn tầng 1 (`groupTitle`) -> Chương tầng 2 (`chapters`) -> Chuyên đề tầng 3 (`topicTitle` gom nhóm) kèm 2 tab `Videos (N)` & `Tài liệu (M)` và thanh tiến độ `%`.
+3. **Ẩn URL gốc kho lưu & Bảo vệ Player**:
+   - `lessonOutline` chỉ lưu nhãn máy chủ an toàn (`videoHostLabel`) và metadata tài liệu không chứa `url`.
+   - Admin UI dùng `maskVideoUrlDisplay` tự ẩn đường dẫn ngay khi dán/lưu; Student UI dùng `youtube-nocookie.com`, chuẩn hóa Google Drive `/preview?rm=minimal`, che nút `[↗]` góc trên phải bằng security shield (`z-20`), chặn chuột phải và tắt nút download `<video>`.
+4. **Tối ưu Firestore Read Budget**:
+   - Client cache `sessionStorage` + RAM (`FirestoreCache`) 5 phút + pre-hydrate `doc:courses:${id}` khi tải danh sách + cache bài giảng unlocked 3 phút trong RAM.
+   - Bỏ listener `onSnapshot` ví dư thừa ở `CourseDetail`, short-circuit 0 entitlement/wallet reads với khóa miễn phí, server cache 60s cho doc khóa học và 30s cho entitlement.

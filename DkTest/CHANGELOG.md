@@ -1,5 +1,14 @@
 # DkTEST changelog
 
+## 1.9.1 — 2026-11-17 (Android versionCode 7)
+
+- Fix lỗi không thể cuộn dọc trên trang chỉnh sửa khóa học Admin (`/admin/courses/:courseId/edit`) trong `AdminLayout` khi thu hẹp điều kiện khung cố định chỉ dành cho trình soạn đề thi.
+- Viết lại cơ chế thu phí Khóa học hỗ trợ 3 chế độ rõ ràng (`free`, `per_video`, `paid`): cho phép tạo khóa vào cửa miễn phí hoàn toàn (`priceVnd = 0`) nhưng thu phí theo từng video bài giảng (`per_video`) với số video đầu học thử tùy chỉnh (`freePreviewCount`); xóa lỗi hiển thị nút `"Mở khóa khóa học • 0đ"` và siết `firestore.rules` + API backend ngăn bypass mua khóa 0đ.
+- Nâng cấp giao diện Khóa học Học sinh (`CourseDetail`) với cây phân cấp 3 tầng có thu gọn/mở rộng (`Nhóm/Môn -> Chương -> Chuyên đề` kèm bộ đếm video/tài liệu, thanh tiến độ `%` và chuyển tab `Videos` / `Tài liệu`), đồng thời tối ưu bố cục mobile (`CourseDetail`, `CoursesList`) ưu tiên trình phát video lên đầu và không bị cắt chữ dưới header.
+- Tự động ẩn URL gốc khi nhúng link kho lưu (Google Drive, YouTube, Cloudinary, OneDrive...) trên cả UI Admin (`maskVideoUrlDisplay`) và trang Học sinh; dùng `youtube-nocookie.com`, chuẩn hóa Drive `?rm=minimal`, che nút `[↗]` bật tab ngoài góc trên phải iframe, chặn chuột phải và tắt tải xuống trên HTML5 `<video>`.
+- Tối ưu Firestore Read Budget: thêm `queryOrderedFirestoreRestDocs` giới hạn đọc tối đa `pageSize = 5` (tối đa `25` khi thiếu composite index thay vì `100`) và cache metadata học sinh cho Lịch sử chi tiêu toàn server; cache `sessionStorage` + pre-hydrate cache danh mục khóa học, loại bỏ `onSnapshot` ví dư thừa ở `CourseDetail`, bỏ qua đọc quyền cho khóa miễn phí và nâng cấp cache 120s cho thư mục gốc + Top 5 trên `Home`.
+- Audit: [1.9.1](docs/audits/1.9.1.md).
+
 ## 1.9.0 — 2026-11-17 (Android versionCode 6)
 
 - Gộp tab điều hướng **Đề thi** và **Đề thi Online** thành một tab **Đề thi** duy nhất trong `StudentLayout`, giữ điều hướng Online/Offline riêng cho ứng dụng Android bản địa và redirect `/student/online` trên web về `/`.

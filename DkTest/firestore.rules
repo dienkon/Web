@@ -66,7 +66,7 @@ service cloud.firestore {
         && get(lessonEntPath).data.status == 'active';
       return isAuthenticated() && (isAdmin() || (
         getUserData().get('accountStatus', 'active') == 'active'
-        && ((course.get('accessMode', 'free') != 'paid' && course.get('priceVnd', 0) <= 0)
+        && ((course.get('accessMode', 'free') == 'free' && course.get('priceVnd', 0) <= 0)
             || isFreeLesson
             || hasCourseUnlock
             || hasLessonUnlock)

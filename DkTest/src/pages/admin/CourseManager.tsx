@@ -65,8 +65,9 @@ export default function CourseManager() {
         (c.instructorName && c.instructorName.toLowerCase().includes(q));
       if (!matchSearch) return false;
       if (statusFilter !== "all" && c.status !== statusFilter) return false;
-      if (priceFilter === "free" && c.accessMode === "paid") return false;
-      if (priceFilter === "paid" && c.accessMode !== "paid") return false;
+      const isHasFee = c.accessMode === "paid" || c.accessMode === "per_video" || (c.priceVnd || 0) > 0;
+      if (priceFilter === "free" && isHasFee) return false;
+      if (priceFilter === "paid" && !isHasFee) return false;
       return true;
     });
   }, [courses, search, statusFilter, priceFilter]);
@@ -75,7 +76,7 @@ export default function CourseManager() {
     return {
       total: courses.length,
       published: courses.filter((c) => c.status === "published").length,
-      paid: courses.filter((c) => c.accessMode === "paid").length,
+      paid: courses.filter((c) => c.accessMode === "paid" || c.accessMode === "per_video").length,
       lessons: courses.reduce((acc, c) => acc + (c.lessonCount || 0), 0),
     };
   }, [courses]);
@@ -230,7 +231,8 @@ export default function CourseManager() {
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
           {filtered.map((course) => {
-            const isPaid = course.accessMode === "paid" || (course.priceVnd || 0) > 0;
+            const isPerVideo = course.accessMode === "per_video";
+            const isPaid = !isPerVideo && (course.accessMode === "paid" || (course.priceVnd || 0) > 0);
             return (
               <div
                 key={course.id}
@@ -265,10 +267,18 @@ export default function CourseManager() {
                     <div className="absolute bottom-3 right-3">
                       <span
                         className={`px-3 py-1 rounded-full text-xs font-black shadow-sm ${
-                          isPaid ? "bg-amber-400 text-slate-950" : "bg-emerald-400 text-slate-950"
+                          isPaid
+                            ? "bg-amber-400 text-slate-950"
+                            : isPerVideo
+                            ? "bg-indigo-500 text-white"
+                            : "bg-emerald-400 text-slate-950"
                         }`}
                       >
-                        {isPaid ? `${(course.priceVnd || 0).toLocaleString("vi-VN")}đ` : "Miễn phí"}
+                        {isPaid
+                          ? `${(course.priceVnd || 0).toLocaleString("vi-VN")}đ`
+                          : isPerVideo
+                          ? "Vào Free • Theo video"
+                          : "Miễn phí"}
                       </span>
                     </div>
                   </div>

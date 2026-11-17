@@ -143,11 +143,24 @@ export default function Home({ mobileOnline = false }: { mobileOnline?: boolean 
 
   const loadPublicFolderData = async (folderId: string | null, forceReload = false) => {
     const cacheKey = folderId || "root";
+    const globalCacheKey = `home:folder:${cacheKey}`;
     if (forceReload) {
       folderBrowseCacheRef.current.delete(cacheKey);
+      FirestoreCache.invalidate(globalCacheKey);
     }
+    const globalCached = !forceReload
+      ? FirestoreCache.get<{ folders: Folder[]; exams: Exam[] }>(globalCacheKey)
+      : null;
+    if (globalCached) {
+      setPublicFolders(globalCached.folders);
+      if (!folderId) setRootPublicFolders(globalCached.folders);
+      setFolderExams(globalCached.exams);
+      setLoadingFolderContent(false);
+      return;
+    }
+
     const cached = folderBrowseCacheRef.current.get(cacheKey);
-    if (!forceReload && cached && Date.now() - cached.timestamp < 30000) {
+    if (!forceReload && cached && Date.now() - cached.timestamp < 120000) {
       setPublicFolders(cached.folders);
       if (!folderId) {
         setRootPublicFolders(cached.folders);
@@ -159,15 +172,22 @@ export default function Home({ mobileOnline = false }: { mobileOnline?: boolean 
 
     setLoadingFolderContent(true);
     try {
-      const [foldersRes, examsRes] = await Promise.all([
-        getPublicFolders(folderId),
-        getPublicExamsInFolder(folderId),
-      ]);
+      const { foldersRes, examsRes } = await FirestoreCache.dedupe(
+        forceReload ? `${globalCacheKey}:force` : globalCacheKey,
+        async () => {
+          const [fRes, eRes] = await Promise.all([
+            getPublicFolders(folderId),
+            getPublicExamsInFolder(folderId),
+          ]);
+          return { foldersRes: fRes, examsRes: eRes };
+        }
+      );
       folderBrowseCacheRef.current.set(cacheKey, {
         folders: foldersRes,
         exams: examsRes,
         timestamp: Date.now(),
       });
+      FirestoreCache.set(globalCacheKey, { folders: foldersRes, exams: examsRes }, 120000);
       setPublicFolders(foldersRes);
       if (!folderId) {
         setRootPublicFolders(foldersRes);
@@ -305,8 +325,8 @@ Chủ đề cần tạo: [NHẬP MÔN HỌC, CHỦ ĐỀ, YÊU CẦU HOẶC DÁN
         .sort((a, b) => ((b.attemptCount || b.submissionsCount || 0) - (a.attemptCount || a.submissionsCount || 0)))
         .slice(0, 5) as unknown as Exam[];
 
-      FirestoreCache.set("home:top:attempted", attemptedList, 30000);
-      FirestoreCache.set("home:top:newest", newestList, 30000);
+      FirestoreCache.set("home:top:attempted", attemptedList, 120000);
+      FirestoreCache.set("home:top:newest", newestList, 120000);
 
       setTopAttemptedExams(attemptedList);
       setTopNewestExams(newestList);

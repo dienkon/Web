@@ -433,6 +433,106 @@ export async function deleteFirestoreRestDoc(collectionName: string, docId: stri
   }
 }
 
+export async function queryOrderedFirestoreRestDocs(
+  collectionName: string,
+  options: {
+    whereField?: string;
+    equalValue?: any;
+    inValues?: any[];
+    orderByField: string;
+    direction?: "ASCENDING" | "DESCENDING";
+    startAfterValue?: any;
+    limitCount?: number;
+  }
+): Promise<{ docs: any[]; usedFallbackScan: boolean }> {
+  const safeLimit = Math.min(Math.max(options.limitCount || 5, 1), 100);
+  const apiKey = getFirebaseApiKey();
+  const projectId = process.env.FIREBASE_PROJECT_ID || process.env.VITE_FIREBASE_PROJECT_ID || "exam-fd7a1";
+  const url = `https://firestore.googleapis.com/v1/projects/${projectId}/databases/(default)/documents:runQuery?key=${apiKey}`;
+
+  const structuredQuery: any = {
+    from: [{ collectionId: collectionName }],
+    orderBy: [
+      {
+        field: { fieldPath: options.orderByField },
+        direction: options.direction || "DESCENDING",
+      },
+    ],
+    limit: safeLimit,
+  };
+
+  if (options.whereField && Array.isArray(options.inValues) && options.inValues.length > 0) {
+    structuredQuery.where = {
+      fieldFilter: {
+        field: { fieldPath: options.whereField },
+        op: options.inValues.length === 1 ? "EQUAL" : "IN",
+        value:
+          options.inValues.length === 1
+            ? encodeFirestoreValue(options.inValues[0])
+            : { arrayValue: { values: options.inValues.map(encodeFirestoreValue) } },
+      },
+    };
+  } else if (options.whereField && options.equalValue !== undefined) {
+    structuredQuery.where = {
+      fieldFilter: {
+        field: { fieldPath: options.whereField },
+        op: "EQUAL",
+        value: encodeFirestoreValue(options.equalValue),
+      },
+    };
+  }
+
+  if (options.startAfterValue !== undefined && options.startAfterValue !== null && options.startAfterValue !== "") {
+    structuredQuery.startAt = {
+      values: [encodeFirestoreValue(options.startAfterValue)],
+      before: false,
+    };
+  }
+
+  try {
+    const res = await fetch(url, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ structuredQuery }),
+    });
+
+    if (res.ok) {
+      const raw = await res.json();
+      const docs = (Array.isArray(raw) ? raw : [])
+        .filter((row: any) => row && row.document)
+        .map((row: any) => decodeFirestoreDocument(row.document))
+        .filter(Boolean);
+      return { docs, usedFallbackScan: false };
+    }
+
+    // Composite index missing -> bounded ordered scan without filter (max 25 docs, not 100)
+    if (res.status === 400 && structuredQuery.where) {
+      const fallbackQuery: any = {
+        from: [{ collectionId: collectionName }],
+        orderBy: structuredQuery.orderBy,
+        limit: Math.min(safeLimit * 5, 25),
+      };
+      if (structuredQuery.startAt) fallbackQuery.startAt = structuredQuery.startAt;
+      const res2 = await fetch(url, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ structuredQuery: fallbackQuery }),
+      });
+      if (res2.ok) {
+        const raw2 = await res2.json();
+        const docs2 = (Array.isArray(raw2) ? raw2 : [])
+          .filter((row: any) => row && row.document)
+          .map((row: any) => decodeFirestoreDocument(row.document))
+          .filter(Boolean);
+        return { docs: docs2, usedFallbackScan: true };
+      }
+    }
+    return { docs: [], usedFallbackScan: true };
+  } catch {
+    return { docs: [], usedFallbackScan: true };
+  }
+}
+
 export default {
   initFirebaseAdmin,
   adminApp,
@@ -442,6 +542,7 @@ export default {
   FieldValue,
   getFirestoreRestDocs,
   queryFirestoreRestDocs,
+  queryOrderedFirestoreRestDocs,
   getFirestoreRestDoc,
   setFirestoreRestDoc,
   deleteFirestoreRestDoc,
