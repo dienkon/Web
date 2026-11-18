@@ -138,6 +138,7 @@ export default function DkCourseVideoPlayer({
   const [isFallbackFullscreen, setIsFallbackFullscreen] = useState(false);
   const [ytApiFallback, setYtApiFallback] = useState(false);
   const [showCenterIcon, setShowCenterIcon] = useState(true);
+  const [isVideoBuffering, setIsVideoBuffering] = useState(false);
 
   const isFullscreen = isNativeFullscreen || isFallbackFullscreen;
 
@@ -145,17 +146,28 @@ export default function DkCourseVideoPlayer({
   const driveTimerRef = useRef(0);
   const pendingHtmlResumeRef = useRef<{ time: number; playing: boolean; rate: number } | null>(null);
   const driveVideoLoadedRef = useRef(false);
+  const autoPlayAppliedRef = useRef(false);
   const playbackRateRef = useRef(playbackRate);
   playbackRateRef.current = playbackRate;
   const autoPlayRef = useRef(autoPlay);
   autoPlayRef.current = autoPlay;
+  const initialSecondsRef = useRef(initialSeconds);
+  initialSecondsRef.current = initialSeconds;
+  const knownDurationSecondsRef = useRef(knownDurationSeconds);
+  knownDurationSecondsRef.current = knownDurationSeconds;
+  const onDetectedDurationRef = useRef(onDetectedDuration);
+  onDetectedDurationRef.current = onDetectedDuration;
+  const onWatchProgressRef = useRef(onWatchProgress);
+  onWatchProgressRef.current = onWatchProgress;
 
   useEffect(() => {
     durationNotifiedRef.current = false;
     pendingHtmlResumeRef.current = null;
     driveVideoLoadedRef.current = false;
-    setCurrentSec(initialSeconds > 0 ? initialSeconds : 0);
-    setDurationSec(knownDurationSeconds || 0);
+    autoPlayAppliedRef.current = false;
+    const startSec = initialSecondsRef.current > 0 ? initialSecondsRef.current : 0;
+    setCurrentSec(startSec);
+    setDurationSec(knownDurationSecondsRef.current || 0);
     setIsPlaying(false);
     setYtApiFallback(false);
     setShowCenterIcon(true);
@@ -164,14 +176,21 @@ export default function DkCourseVideoPlayer({
     setActualYtQuality("");
     setNativeVideoHeight(0);
     setOpenMenu("none");
+    setIsVideoBuffering(false);
+    driveTimerRef.current = startSec;
+  }, [lessonId, videoUrl]);
+
+  useEffect(() => {
+    if (knownDurationSeconds > 0) {
+      setDurationSec((prev) => (prev > 0 ? prev : knownDurationSeconds));
+    }
+  }, [knownDurationSeconds]);
+
+  // Unified Drive direct-stream resolution (resets & resolves cleanly on lesson source change only;
+  // NEVER tied to initialSeconds/knownDurationSeconds so watch progress updates cannot re-spin it).
+  useEffect(() => {
     setDriveStreamUrl(null);
     setDriveStreamFailed(false);
-    setDriveStreamResolving(Boolean(parsed.isDrive && courseId && lessonId));
-    driveTimerRef.current = initialSeconds > 0 ? initialSeconds : 0;
-  }, [lessonId, videoUrl, knownDurationSeconds, initialSeconds, parsed.isDrive, courseId]);
-
-  // Resolve direct streamable Google Drive URL when authorized courseId + lessonId are available
-  useEffect(() => {
     if (!parsed.isDrive || !courseId || !lessonId) {
       setDriveStreamResolving(false);
       return;
@@ -183,7 +202,7 @@ export default function DkCourseVideoPlayer({
       cancelled = true;
       setDriveStreamFailed(true);
       setDriveStreamResolving(false);
-    }, 3500);
+    }, 2400);
     void getAuthorizedLessonStreamUrl(courseId, lessonId)
       .then((url) => {
         if (cancelled) return;
@@ -206,19 +225,27 @@ export default function DkCourseVideoPlayer({
       cancelled = true;
       window.clearTimeout(guardTimer);
     };
-  }, [parsed.isDrive, courseId, lessonId]);
+  }, [parsed.isDrive, courseId, lessonId, videoUrl]);
 
   // Safety timeout: if Drive direct <video> stream stalls before loading metadata, fall back to scaled Drive iframe
   useEffect(() => {
     if (!usingDriveNativeVideo) return;
     driveVideoLoadedRef.current = false;
-    const timer = setTimeout(() => {
+    const timer = window.setTimeout(() => {
       if (!driveVideoLoadedRef.current) {
+        setIsVideoBuffering(false);
         setDriveStreamFailed(true);
       }
-    }, 5500);
-    return () => clearTimeout(timer);
+    }, 3500);
+    return () => window.clearTimeout(timer);
   }, [usingDriveNativeVideo, driveStreamUrl]);
+
+  // Safety guard so video buffering indicator never sticks indefinitely
+  useEffect(() => {
+    if (!isVideoBuffering) return;
+    const timer = window.setTimeout(() => setIsVideoBuffering(false), 10000);
+    return () => window.clearTimeout(timer);
+  }, [isVideoBuffering]);
 
   // Track container width so narrow mobile screens scale Drive/external iframes cleanly without clipping controls
   useEffect(() => {
@@ -329,16 +356,18 @@ export default function DkCourseVideoPlayer({
                   setDurationSec(d);
                   if (!durationNotifiedRef.current) {
                     durationNotifiedRef.current = true;
-                    onDetectedDuration?.(d);
+                    onDetectedDurationRef.current?.(d);
                   }
                 }
                 if (playbackRateRef.current !== 1) {
                   e.target.setPlaybackRate?.(playbackRateRef.current);
                 }
-                if (initialSeconds > 5 && d > 0 && initialSeconds < d - 5) {
-                  e.target.seekTo(initialSeconds, true);
+                const initSec = initialSecondsRef.current;
+                if (initSec > 5 && d > 0 && initSec < d - 5) {
+                  e.target.seekTo(initSec, true);
                 }
                 if (autoPlayRef.current) {
+                  autoPlayAppliedRef.current = true;
                   e.target.playVideo?.();
                 }
                 syncYtMetadata(e.target);
@@ -363,7 +392,7 @@ export default function DkCourseVideoPlayer({
               } else if (state === 0) {
                 setIsPlaying(false);
                 const d = Math.round(Number(e.target?.getDuration?.() || durationSec));
-                onWatchProgress?.(d, d, true);
+                onWatchProgressRef.current?.(d, d, true);
               }
             },
             onError: () => {
@@ -382,12 +411,12 @@ export default function DkCourseVideoPlayer({
               setDurationSec(dur);
               if (!durationNotifiedRef.current) {
                 durationNotifiedRef.current = true;
-                onDetectedDuration?.(dur);
+                onDetectedDurationRef.current?.(dur);
               }
             }
             setCurrentSec(cur);
             if (cur > 0 && dur > 0) {
-              onWatchProgress?.(cur, dur, cur >= dur * 0.9);
+              onWatchProgressRef.current?.(cur, dur, cur >= dur * 0.9);
             }
           } catch {}
         }, 1000);
@@ -409,17 +438,21 @@ export default function DkCourseVideoPlayer({
   // Active viewing tracker for Drive / External Iframe embeds
   useEffect(() => {
     if (effectiveKind !== "iframe" && !(effectiveKind === "youtube" && ytApiFallback)) return;
-    const total = knownDurationSeconds > 0 ? knownDurationSeconds : 0;
     const iv = setInterval(() => {
       if (typeof document !== "undefined" && document.visibilityState !== "visible") return;
       driveTimerRef.current += 1;
       setCurrentSec(driveTimerRef.current);
+      const total = knownDurationSecondsRef.current > 0 ? knownDurationSecondsRef.current : 0;
       if (total > 0) {
-        onWatchProgress?.(driveTimerRef.current, total, driveTimerRef.current >= total * 0.9);
+        onWatchProgressRef.current?.(
+          driveTimerRef.current,
+          total,
+          driveTimerRef.current >= total * 0.9
+        );
       }
     }, 1000);
     return () => clearInterval(iv);
-  }, [effectiveKind, ytApiFallback, knownDurationSeconds, onWatchProgress]);
+  }, [effectiveKind, ytApiFallback, lessonId, videoUrl]);
 
   const activeHtmlVideoSrc = useMemo(() => {
     if (effectiveKind !== "video") return "";
@@ -569,19 +602,28 @@ export default function DkCourseVideoPlayer({
     }
   };
 
-  // Trigger playback when parent enables autoPlay on an already-mounted video (e.g. post-unlock)
+  // Trigger playback when parent enables autoPlay on an already-mounted video (e.g. post-unlock),
+  // applying once per autoPlay/lesson transition so manual pause is respected.
   useEffect(() => {
-    if (!autoPlay) return;
-    if (effectiveKind === "video" && htmlVideoRef.current && htmlVideoRef.current.paused) {
+    if (!autoPlay) {
+      autoPlayAppliedRef.current = false;
+      return;
+    }
+    if (autoPlayAppliedRef.current) return;
+    if (effectiveKind === "video" && htmlVideoRef.current) {
+      autoPlayAppliedRef.current = true;
       setShowCenterIcon(false);
-      void htmlVideoRef.current.play().catch(() => {});
-    } else if (effectiveKind === "youtube" && ytPlayerRef.current && !isPlaying) {
+      if (htmlVideoRef.current.paused) {
+        void htmlVideoRef.current.play().catch(() => {});
+      }
+    } else if (effectiveKind === "youtube" && ytPlayerRef.current) {
+      autoPlayAppliedRef.current = true;
       setShowCenterIcon(false);
       try {
         ytPlayerRef.current.playVideo?.();
       } catch {}
     }
-  }, [autoPlay, lessonId, effectiveKind, isPlaying]);
+  }, [autoPlay, lessonId, effectiveKind]);
 
   // Waiting briefly for Drive direct stream probe before falling back or upgrading to native player
   if (parsed.isDrive && driveStreamResolving && !driveStreamUrl && !driveStreamFailed) {
@@ -749,6 +791,7 @@ export default function DkCourseVideoPlayer({
           onClick={handleTogglePlay}
           onLoadedMetadata={(e) => {
             driveVideoLoadedRef.current = true;
+            setIsVideoBuffering(false);
             const v = e.currentTarget;
             if (v.videoHeight > 0 && selectedQuality === "auto") {
               setNativeVideoHeight(v.videoHeight);
@@ -758,7 +801,7 @@ export default function DkCourseVideoPlayer({
               setDurationSec(d);
               if (!durationNotifiedRef.current) {
                 durationNotifiedRef.current = true;
-                onDetectedDuration?.(d);
+                onDetectedDurationRef.current?.(d);
               }
             }
             const resume = pendingHtmlResumeRef.current;
@@ -773,16 +816,35 @@ export default function DkCourseVideoPlayer({
               }
             } else {
               v.playbackRate = playbackRateRef.current;
-              if (initialSeconds > 5 && d > 0 && initialSeconds < d - 5) {
-                v.currentTime = initialSeconds;
+              const initSec = initialSecondsRef.current;
+              if (initSec > 5 && d > 0 && initSec < d - 5) {
+                v.currentTime = initSec;
               }
               if (autoPlayRef.current) {
+                autoPlayAppliedRef.current = true;
                 setShowCenterIcon(false);
                 void v.play().catch(() => {});
               }
             }
           }}
+          onLoadedData={() => {
+            driveVideoLoadedRef.current = true;
+            setIsVideoBuffering(false);
+          }}
+          onCanPlay={() => {
+            driveVideoLoadedRef.current = true;
+            setIsVideoBuffering(false);
+          }}
+          onWaiting={() => {
+            if (!htmlVideoRef.current?.paused) {
+              setIsVideoBuffering(true);
+            }
+          }}
+          onPlaying={() => {
+            setIsVideoBuffering(false);
+          }}
           onError={() => {
+            setIsVideoBuffering(false);
             if (usingDriveNativeVideo) {
               setDriveStreamFailed(true);
               return;
@@ -798,17 +860,21 @@ export default function DkCourseVideoPlayer({
             const dur = Math.round(v.duration || durationSec || 0);
             setCurrentSec(cur);
             if (dur > 0) {
-              onWatchProgress?.(cur, dur, cur >= dur * 0.9);
+              onWatchProgressRef.current?.(cur, dur, cur >= dur * 0.9);
             }
           }}
           onPlay={() => {
             setIsPlaying(true);
             setShowCenterIcon(false);
           }}
-          onPause={() => setIsPlaying(false)}
+          onPause={() => {
+            setIsPlaying(false);
+            setIsVideoBuffering(false);
+          }}
           onEnded={() => {
             setIsPlaying(false);
-            onWatchProgress?.(durationSec, durationSec, true);
+            setIsVideoBuffering(false);
+            onWatchProgressRef.current?.(durationSec, durationSec, true);
           }}
           className="w-full h-full object-contain cursor-pointer"
         />
@@ -827,6 +893,15 @@ export default function DkCourseVideoPlayer({
             className="absolute inset-0 bottom-12 sm:bottom-14 z-10 cursor-pointer"
           />
         </>
+      )}
+
+      {/* Non-blocking buffering indicator when actively streaming */}
+      {effectiveKind === "video" && isVideoBuffering && isPlaying && (
+        <div className="pointer-events-none absolute inset-0 bottom-12 sm:bottom-14 z-10 flex items-center justify-center">
+          <div className="w-9 h-9 rounded-full bg-slate-950/70 flex items-center justify-center">
+            <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin" />
+          </div>
+        </div>
       )}
 
       {/* Center Quick-Seek (-10s / Play / +10s) Overlay when idle/paused */}

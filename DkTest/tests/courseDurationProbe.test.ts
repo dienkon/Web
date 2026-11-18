@@ -355,4 +355,22 @@ describe("course duration probing & MP4 parser", () => {
       globalThis.fetch = originalFetch;
     }
   });
+
+  it("rejects non-range 200 OK Google Drive streams so player falls back to adaptive Drive preview", async () => {
+    const originalFetch = globalThis.fetch;
+    try {
+      const ftypHead = Buffer.from([0x00, 0x00, 0x00, 0x18, 0x66, 0x74, 0x79, 0x70, 0x6d, 0x70, 0x34, 0x32]);
+      globalThis.fetch = vi.fn(async () => ({
+        ok: true,
+        status: 200,
+        headers: new Headers({ "content-type": "video/mp4" }),
+        arrayBuffer: async () => ftypHead,
+      })) as any;
+
+      const resolved = await resolveDriveDirectStreamUrl("1DriveNoRangeStatus200Test");
+      expect(resolved).toBeNull();
+    } finally {
+      globalThis.fetch = originalFetch;
+    }
+  });
 });

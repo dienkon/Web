@@ -906,12 +906,14 @@ export async function getAuthorizedLessonStreamUrl(
 
   try {
     const res = await api.get<{ success: boolean; streamUrl?: string | null }>(
-      `/api/courses/${encodeURIComponent(courseId)}/lessons/${encodeURIComponent(lessonId)}/stream`
+      `/api/courses/${encodeURIComponent(courseId)}/lessons/${encodeURIComponent(lessonId)}/stream`,
+      { timeoutMs: 2500 }
     );
     const url = typeof res?.streamUrl === "string" && /^https?:\/\//i.test(res.streamUrl) ? res.streamUrl : "";
-    FirestoreCache.set(memKey, url, 15 * 60 * 1000);
+    FirestoreCache.set(memKey, url, url ? 15 * 60 * 1000 : 2 * 60 * 1000);
     return url || null;
   } catch {
+    FirestoreCache.set(memKey, "", 2 * 60 * 1000);
     return null;
   }
 }

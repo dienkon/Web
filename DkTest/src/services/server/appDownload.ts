@@ -34,13 +34,13 @@ export function readCurrentReleaseJson(): {
     if (fs.existsSync(filePath)) {
       const parsed = JSON.parse(fs.readFileSync(filePath, "utf8"));
       return {
-        version: String(parsed?.version || "1.9.8"),
-        androidVersionCode: Number(parsed?.androidVersionCode) || 14,
+        version: String(parsed?.version || "1.9.9"),
+        androidVersionCode: Number(parsed?.androidVersionCode) || 15,
         date: String(parsed?.date || ""),
       };
     }
   } catch {}
-  return { version: "1.9.8", androidVersionCode: 14, date: "" };
+  return { version: "1.9.9", androidVersionCode: 15, date: "" };
 }
 
 export async function resolveAndroidApkDownload(): Promise<AppDownloadMetadata> {

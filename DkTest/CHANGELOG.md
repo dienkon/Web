@@ -1,5 +1,14 @@
 # DkTEST changelog
 
+## 1.9.9 — 2026-11-18 (Android versionCode 15)
+
+- **Fix triệt để lỗi quay vòng tải video mãi không phát (`DkCourseVideoPlayer.tsx`, `CourseDetail.tsx`, `src/services/courseService.ts`, `server/services/courseService.ts`)**:
+  - **Fix lỗi mất trạng thái Drive Stream khi cập nhật tiến độ xem (`DkCourseVideoPlayer.tsx`)**: Effect reset trước đây phụ thuộc vào `initialSeconds` và `knownDurationSeconds`, khiến mỗi khi tiến độ xem `watchedSecondsMap` hoặc thời lượng tự đo cập nhật sau 1–3 giây phát, `driveStreamResolving` bị đặt lại `true` nhưng Effect lấy stream không chạy lại → màn hình bị khóa vĩnh viễn ở vòng xoay `"Đang chuẩn bị trình phát DkTEST..."`. Nay đã gom quản lý trạng thái stream Drive vào một Effect thống nhất chỉ phụ thuộc nguồn bài học (`[parsed.isDrive, courseId, lessonId, videoUrl]`), lưu callback/giá trị khởi tạo qua `useRef`, tách đồng bộ `knownDurationSeconds` không phá trạng thái phát, bỏ `isPlaying` khỏi Effect `autoPlay` (tránh tự phát lại khi học sinh bấm Tạm dừng), rút ngắn timeout dự phòng về iframe `2400ms` (API `/stream`) / `3500ms` (metadata `<video>`) và hiển thị vòng đệm nhẹ không chặn nút điều khiển khi buffering.
+  - **Fix kẹt `loadingLesson` vô hạn trong `CourseDetail.tsx`**: Gỡ `authorizedLessonsCache` khỏi mảng dependencies của `useEffect` nạp bài giảng (đọc qua `authorizedLessonsCacheRef`), đảm bảo `setLoadingLesson(false)` luôn chạy ở mọi nhánh cache/lỗi/thoát sớm và bổ sung timer bảo vệ `12s` cho `getAuthorizedCourseLesson`.
+  - **Tối ưu fallback luồng phát Drive**: `getAuthorizedLessonStreamUrl` thêm `{ timeoutMs: 2500 }` và cache lỗi/miss ngắn 2 phút; `resolveDriveDirectStreamUrl` (`server/services/courseService.ts`) yêu cầu máy chủ hỗ trợ HTTP Byte-Range (`206` hoặc `Accept-Ranges: bytes`), timeout `2500ms`/hop và đóng body stream ngay sau khi kiểm tra magic bytes (ngăn treo socket & fallback nhanh sang Google Drive `/preview` co giãn `640×360`).
+- Bổ sung unit test từ chối luồng `200 OK` không hỗ trợ Range trong `tests/courseDurationProbe.test.ts`.
+- Audit: [1.9.9](docs/audits/1.9.9.md).
+
 ## 1.9.8 — 2026-11-18 (Android versionCode 14)
 
 - **Khôi phục màn hình Tổng quan Khóa học chuẩn `1.9.5` khi mới vào khóa & chỉ chuyển vào Tab chi tiết (Theater 2 cột) khi bấm chọn video cụ thể (`CourseDetail.tsx`, `StudentLayout.tsx`, `src/services/courseService.ts`)**:

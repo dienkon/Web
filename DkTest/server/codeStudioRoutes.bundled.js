@@ -788,7 +788,7 @@ var PRODUCTION_HTML_TEMPLATE = `<!doctype html>
         100% { left: 100%; }
       }
     </style>
-    <script type="module" crossorigin src="/assets/index-CyXBf-lG.js"></script>
+    <script type="module" crossorigin src="/assets/index-DzvgOBVV.js"></script>
     <link rel="modulepreload" crossorigin href="/assets/vendor-react-DhSnpD3y.js">
     <link rel="modulepreload" crossorigin href="/assets/vendor-charts-DRXukK4H.js">
     <link rel="modulepreload" crossorigin href="/assets/vendor-icons-CDFjL8AM.js">

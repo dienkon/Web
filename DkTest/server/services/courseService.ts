@@ -1873,7 +1873,7 @@ export async function resolveDriveDirectStreamUrl(driveId: string): Promise<stri
     try {
       let { res, finalUrl } = await fetchWithSsrfCheckedRedirects(
         candidate,
-        { headers: baseHeaders, signal: AbortSignal.timeout(4000) },
+        { headers: baseHeaders, signal: AbortSignal.timeout(2500) },
         { restrictToDriveHosts: true }
       );
       if (!res.ok) continue;
@@ -1881,21 +1881,39 @@ export async function resolveDriveDirectStreamUrl(driveId: string): Promise<stri
       let ct = String(res.headers?.get?.("content-type") || "").toLowerCase();
       if (ct.includes("text/html")) {
         const html = (await readResponseChunkBounded(res, 131072)).toString("utf8");
+        try {
+          void res.body?.cancel?.();
+        } catch {}
         const confirmUrl = extractDriveConfirmationDownloadUrl(html, finalUrl);
         if (!confirmUrl) continue;
         const confirmed = await fetchWithSsrfCheckedRedirects(
           confirmUrl,
-          { headers: baseHeaders, signal: AbortSignal.timeout(4000) },
+          { headers: baseHeaders, signal: AbortSignal.timeout(2500) },
           { restrictToDriveHosts: true }
         );
         res = confirmed.res;
         finalUrl = confirmed.finalUrl;
         if (!res.ok) continue;
         ct = String(res.headers?.get?.("content-type") || "").toLowerCase();
-        if (ct.includes("text/html")) continue;
+        if (ct.includes("text/html")) {
+          try {
+            void res.body?.cancel?.();
+          } catch {}
+          continue;
+        }
       }
 
+      const acceptRanges = String(res.headers?.get?.("accept-ranges") || "").toLowerCase();
+      const supportsByteRange = res.status === 206 || acceptRanges.includes("bytes");
       const headBuf = await readResponseChunkBounded(res, 1024);
+      try {
+        void res.body?.cancel?.();
+      } catch {}
+
+      if (!supportsByteRange) {
+        continue;
+      }
+
       const isDirectVideoMime = ct.startsWith("video/");
       const isStreamableBinary =
         (ct.includes("application/octet-stream") || ct.includes("binary/octet-stream")) &&

@@ -76,6 +76,7 @@ export default function CourseDetail() {
   const playerStageRef = useRef<HTMLDivElement | null>(null);
   const lastSavedSecondsRef = useRef<Record<string, number>>({});
   const deepLinkAppliedRef = useRef(false);
+  const authorizedLessonsCacheRef = useRef<Record<string, CourseLesson>>({});
 
   const [course, setCourse] = useState<Course | null>(null);
   const [access, setAccess] = useState<CourseAccessInfo | null>(null);
@@ -87,6 +88,7 @@ export default function CourseDetail() {
   const [selectedOutlineItem, setSelectedOutlineItem] = useState<CourseLessonOutlineItem | null>(null);
   const [activeLesson, setActiveLesson] = useState<CourseLesson | null>(null);
   const [authorizedLessonsCache, setAuthorizedLessonsCache] = useState<Record<string, CourseLesson>>({});
+  authorizedLessonsCacheRef.current = authorizedLessonsCache;
   const [loadingLesson, setLoadingLesson] = useState(false);
   const [openingMaterialId, setOpeningMaterialId] = useState<string | null>(null);
   const [lessonError, setLessonError] = useState<string | null>(null);
@@ -425,50 +427,66 @@ export default function CourseDetail() {
     return allTopics[0];
   }, [allTopics, selectedTopicId, selectedOutlineItem]);
 
-  // Load authorized video content whenever selectedOutlineItem or access updates
+  // Load authorized video content whenever selectedOutlineItem or watch permission changes
+  const canWatchSelected = Boolean(
+    course && selectedOutlineItem && computeLessonAccessState(course, selectedOutlineItem, access).canWatch
+  );
+
   useEffect(() => {
     if (!course || !selectedOutlineItem) {
       setActiveLesson(null);
+      setLoadingLesson(false);
       return;
     }
 
-    const state = computeLessonAccessState(course, selectedOutlineItem, access);
-    if (!state.canWatch) {
+    if (!canWatchSelected) {
       setActiveLesson(null);
       setLessonError(null);
+      setLoadingLesson(false);
       return;
     }
 
     if (!uid) {
       setActiveLesson(null);
       setLessonError("Vui lòng đăng nhập tài khoản học sinh để phát video bài giảng.");
+      setLoadingLesson(false);
       return;
     }
 
-    const cached = authorizedLessonsCache[selectedOutlineItem.id];
+    const lessonId = selectedOutlineItem.id;
+    const cached = authorizedLessonsCacheRef.current[lessonId];
     if (cached) {
       setActiveLesson(cached);
       setLessonError(null);
+      setLoadingLesson(false);
       return;
     }
 
     let cancelled = false;
+    setLoadingLesson(true);
+    setLessonError(null);
+    const guardTimer = window.setTimeout(() => {
+      if (cancelled) return;
+      cancelled = true;
+      setLoadingLesson(false);
+      setLessonError("Tải bài giảng quá thời gian chờ. Vui lòng thử lại.");
+    }, 12000);
+
     (async () => {
       try {
-        setLoadingLesson(true);
-        setLessonError(null);
-        const content = await getAuthorizedCourseLesson(course.id, selectedOutlineItem.id);
-        if (!cancelled) {
-          setActiveLesson(content);
-          if (content) {
-            setAuthorizedLessonsCache((prev) => ({ ...prev, [selectedOutlineItem.id]: content }));
-          }
+        const content = await getAuthorizedCourseLesson(course.id, lessonId);
+        if (cancelled) return;
+        window.clearTimeout(guardTimer);
+        setActiveLesson(content);
+        if (content) {
+          authorizedLessonsCacheRef.current[lessonId] = content;
+          setAuthorizedLessonsCache((prev) => ({ ...prev, [lessonId]: content }));
         }
       } catch (err: any) {
-        if (!cancelled) {
-          setActiveLesson(null);
-          setLessonError(err?.message || "Bạn chưa có quyền xem nội dung video này.");
-        }
+        if (cancelled) return;
+        window.clearTimeout(guardTimer);
+        setActiveLesson(null);
+        setLessonError(err?.message || "Bạn chưa có quyền xem nội dung video này.");
       } finally {
         if (!cancelled) setLoadingLesson(false);
       }
@@ -476,8 +494,9 @@ export default function CourseDetail() {
 
     return () => {
       cancelled = true;
+      window.clearTimeout(guardTimer);
     };
-  }, [course, selectedOutlineItem, access, uid, authorizedLessonsCache]);
+  }, [course?.id, selectedOutlineItem?.id, canWatchSelected, uid]);
 
   // Prefetch authorized material links for unlocked lessons in activeTopic when opening the "Tài liệu" tab
   // so mobile WebViews render direct <a> links without async popup-blocker issues.
@@ -488,7 +507,7 @@ export default function CourseDetail() {
         activeTopic.materials
           .filter((m) => m.canAccess)
           .map((m) => m.lessonId)
-          .filter((id) => !authorizedLessonsCache[id] && activeLesson?.id !== id)
+          .filter((id) => !authorizedLessonsCacheRef.current[id] && activeLesson?.id !== id)
       )
     );
     if (neededLessonIds.length === 0) return;
@@ -521,7 +540,7 @@ export default function CourseDetail() {
     return () => {
       cancelled = true;
     };
-  }, [activeContentTab, course, uid, activeTopic, authorizedLessonsCache, activeLesson?.id]);
+  }, [activeContentTab, course?.id, uid, activeTopic?.id, activeLesson?.id]);
 
   const openUnlockModal = async (target: UnlockTarget) => {
     if (!uid) {
