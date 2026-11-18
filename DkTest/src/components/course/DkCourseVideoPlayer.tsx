@@ -697,10 +697,9 @@ export default function DkCourseVideoPlayer({
   }
 
   // Drive or fallback external iframe:
-  // On screens narrower than VIRTUAL_IFRAME_THRESHOLD_WIDTH (mobile/tablet/portrait),
-  // scale a 1024x576 (16:9) desktop virtual stage to fit cleanly inside the container or fitted fullscreen box
-  // so Google Drive uses compact-free controls without vertical/horizontal overflow, hides [↗], and routes
-  // fullscreen exclusively through DkTEST's wrapper (with portrait-rotate & orientation lock support).
+  // Always uses a 1024x576 (16:9) desktop virtual stage when narrower than 1024px so Google Drive
+  // keeps its clean single-row bottom scrub bar instead of breaking into 2-row compact controls.
+  // Corner [↗] blocker stays transparent until hovered, and Fullscreen icon sits cleanly at bottom-right.
   if (effectiveKind === "iframe" || (effectiveKind === "youtube" && ytApiFallback)) {
     const driveSrc =
       autoPlay && parsed.embedUrl && !/[?&]autoplay=/i.test(parsed.embedUrl)
@@ -725,6 +724,9 @@ export default function DkCourseVideoPlayer({
     const useVirtualDesktopStage =
       targetBoxWidth > 0 && targetBoxWidth < VIRTUAL_IFRAME_THRESHOLD_WIDTH;
     const iframeScale = useVirtualDesktopStage ? targetBoxWidth / VIRTUAL_IFRAME_STAGE_WIDTH : 1;
+    const hasWideSideMargins = Boolean(
+      isFullscreen && fittedFsBox && !activeRotate && fsAvailW - fittedFsBox.width >= 88
+    );
 
     return (
       <div
@@ -783,32 +785,7 @@ export default function DkCourseVideoPlayer({
               className="block w-full h-full border-0"
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
             />
-          </div>
-
-          {/* Compact unified top-right YouTube-style icon pill + opaque [↗] pop-out blocker */}
-          <div className="absolute top-0 right-0 z-20 flex items-center rounded-bl-xl bg-slate-950/85 backdrop-blur-xs border-b border-l border-white/10">
-            {isFullscreen && isPortraitViewport && (
-              <button
-                type="button"
-                onClick={() => setIsRotatedLandscape((r) => !r)}
-                aria-label={activeRotate ? "Quay về màn hình dọc" : "Xoay ngang toàn màn hình"}
-                title={activeRotate ? "Quay về màn hình dọc" : "Xoay ngang toàn màn hình"}
-                className="w-8 h-8 sm:w-10 sm:h-12 flex items-center justify-center text-white/90 hover:text-blue-400 transition-colors cursor-pointer"
-              >
-                <RotateCw className="w-4 h-4" />
-              </button>
-            )}
-
-            <button
-              type="button"
-              onClick={() => void handleToggleFullscreen()}
-              aria-label={isFullscreen ? "Thu nhỏ trình phát" : "Mở toàn màn hình"}
-              title={isFullscreen ? "Thu nhỏ trình phát" : "Mở toàn màn hình"}
-              className="w-8 h-8 sm:w-10 sm:h-12 flex items-center justify-center text-white/95 hover:text-blue-400 transition-colors cursor-pointer"
-            >
-              {isFullscreen ? <Minimize2 className="w-4 h-4" /> : <Maximize2 className="w-4 h-4" />}
-            </button>
-
+            {/* Hover-only corner shield covering Drive [↗] without leaving a permanent box on screen */}
             <div
               role="presentation"
               aria-label="Vùng được DkTEST bảo vệ"
@@ -818,11 +795,50 @@ export default function DkCourseVideoPlayer({
               onTouchStart={blockPointerEvent}
               onDoubleClick={blockPointerEvent}
               onContextMenu={blockPointerEvent}
-              className="w-9 h-8 sm:w-12 sm:h-12 flex items-center justify-center text-blue-300/80 cursor-default select-none pointer-events-auto"
+              className={`absolute top-0 right-0 z-20 rounded-bl-2xl bg-transparent hover:bg-slate-950/90 text-transparent hover:text-blue-200 flex items-center justify-center transition-colors duration-150 cursor-default select-none pointer-events-auto ${
+                useVirtualDesktopStage ? "w-[86px] h-[72px]" : "w-[78px] h-[60px]"
+              }`}
             >
-              <ShieldCheck className="w-3.5 h-3.5 sm:w-4 sm:h-4 pointer-events-none" />
+              <ShieldCheck
+                className={
+                  useVirtualDesktopStage
+                    ? "w-5 h-5 pointer-events-none"
+                    : "w-4 h-4 pointer-events-none"
+                }
+              />
             </div>
           </div>
+        </div>
+
+        {/* Bottom-right compact Fullscreen (+ portrait Rotate) icons matching YouTube placement */}
+        <div
+          className={`absolute z-30 flex items-center gap-1.5 ${
+            hasWideSideMargins
+              ? "bottom-3 right-3"
+              : "bottom-8 right-2 sm:bottom-[68px] sm:right-3"
+          }`}
+        >
+          {isFullscreen && isPortraitViewport && (
+            <button
+              type="button"
+              onClick={() => setIsRotatedLandscape((r) => !r)}
+              aria-label={activeRotate ? "Quay về màn hình dọc" : "Xoay ngang toàn màn hình"}
+              title={activeRotate ? "Quay về màn hình dọc" : "Xoay ngang toàn màn hình"}
+              className="w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-slate-950/70 hover:bg-blue-600 text-white/95 border border-white/15 backdrop-blur-xs flex items-center justify-center shadow-lg transition-colors cursor-pointer"
+            >
+              <RotateCw className="w-4 h-4" />
+            </button>
+          )}
+
+          <button
+            type="button"
+            onClick={() => void handleToggleFullscreen()}
+            aria-label={isFullscreen ? "Thu nhỏ trình phát" : "Mở toàn màn hình"}
+            title={isFullscreen ? "Thu nhỏ trình phát" : "Mở toàn màn hình"}
+            className="w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-slate-950/70 hover:bg-blue-600 text-white/95 border border-white/15 backdrop-blur-xs flex items-center justify-center shadow-lg transition-colors cursor-pointer"
+          >
+            {isFullscreen ? <Minimize2 className="w-4 h-4" /> : <Maximize2 className="w-4 h-4" />}
+          </button>
         </div>
       </div>
     );

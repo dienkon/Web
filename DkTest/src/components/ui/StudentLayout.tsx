@@ -236,7 +236,7 @@ function StudentLayoutContent() {
     <div className="min-h-dvh h-dvh w-full max-w-[100vw] overflow-hidden bg-slate-50 dark:bg-slate-950 font-sans text-slate-900 dark:text-slate-100 flex flex-col transition-colors duration-200">
       {!hideStudentNav && (
         <header className="h-14 sm:h-16 bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800 flex items-center justify-between gap-2 px-2.5 sm:px-6 shadow-2xs shrink-0 z-30 transition-colors duration-200 overflow-hidden">
-          <div className="flex items-center gap-1 sm:gap-3 min-w-0 shrink">
+          <div className="flex items-center gap-0.5 sm:gap-3 min-w-0 shrink-0">
             {/* Mobile Hamburger Drawer Button */}
             <button
               type="button"
@@ -259,7 +259,7 @@ function StudentLayoutContent() {
               to="/"
               data-tour-id={TOUR_DATA_IDS.BRAND_LOGO}
               onClick={() => triggerAction("click_logo_home")}
-              className="flex items-center group min-w-0 shrink"
+              className="flex items-center group shrink-0"
             >
               <BrandLogo size="sm" badgeText="Thi Trực Tuyến" theme="blue" hideBadgeOnMobile />
             </Link>
@@ -327,7 +327,7 @@ function StudentLayoutContent() {
                     size="xs"
                     shape="circle"
                   />
-                  <span className="text-xs font-bold text-slate-800 dark:text-slate-200 max-w-[54px] sm:max-w-[120px] truncate">
+                  <span className="hidden min-[420px]:inline text-xs font-bold text-slate-800 dark:text-slate-200 max-w-[72px] sm:max-w-[120px] truncate">
                     {currentAccount.displayName || "Học sinh"}
                   </span>
                 </Link>

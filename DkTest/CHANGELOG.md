@@ -1,5 +1,14 @@
 # DkTEST changelog
 
+## 1.9.12 — 2026-11-18 (Android versionCode 18)
+
+- **Hoàn thiện giao diện khung phát Drive chuẩn 1 hàng đáy, ẩn khiên bảo vệ khi không trỏ chuột & chuyển nút phóng to xuống góc dưới phải (`DkCourseVideoPlayer.tsx`, `src/utils/videoSourceHelper.ts`, `StudentLayout.tsx`)**:
+  - **Khôi phục khung ảo desktop `1024×576` (`VIRTUAL_IFRAME_THRESHOLD_WIDTH = 1024`)**: chấm dứt tình trạng khung `800×450` ở `1.9.11` kích hoạt lại thanh tua `-|` trên đỉnh & 2 hàng pill tách rời của Drive. Khung `1024×576` đảm bảo Drive hiển thị **1 hàng điều khiển gọn gàng kèm thanh tua nằm dưới đáy** ở cả chế độ xem thường lẫn toàn màn hình ngang (`732×412`, không còn footer `40px`).
+  - **Khiên bảo vệ góc trên phải chỉ hiện khi di chuột vào (`bg-transparent hover:bg-slate-950/90`)**: loại bỏ khối hộp đen vướng mắt trên màn hình cảm ứng/khi đang xem video mà vẫn chặn toàn bộ `click / touchstart / pointerdown / mousedown / contextmenu` lên biểu tượng mở tab ngoài `[↗]`.
+  - **Đưa nút icon Phóng to / Thu nhỏ (và nút Xoay ngang khi dọc) xuống góc dưới phải** (`bottom-3 right-3` khi có viền đen ngang rộng; `bottom-8 right-2 sm:bottom-[68px] sm:right-3` không đè lên `[⚙]`/`[🔊]` khi xem inline) chuẩn thói quen YouTube.
+  - **Chống cắt chữ `T` ở logo `DkTEST` trên mobile hẹp (`StudentLayout.tsx`)**: giữ `shrink-0` cho cụm logo và ẩn chữ tên hiển thị cạnh avatar khi chiều rộng màn hình `< 420px`.
+- Audit: [1.9.12](docs/audits/1.9.12.md).
+
 ## 1.9.11 — 2026-11-18 (Android versionCode 17)
 
 - **Tối ưu gọn nhẹ khung phát Google Drive chuẩn phong cách YouTube & tăng kích thước UI ngang (`DkCourseVideoPlayer.tsx`, `src/utils/videoSourceHelper.ts`, `src/services/courseService.test.ts`)**:
