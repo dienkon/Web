@@ -1,4 +1,5 @@
 import { chromium } from '@playwright/test';
+import { prepareLabAuditSession } from './fixtures/labAuditSession.mjs';
 import assert from 'node:assert/strict';
 import { mkdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { resolve } from 'node:path';
@@ -8,6 +9,7 @@ const output = resolve(process.env.LAB_RINSE_OUTPUT ?? 'artifacts/instrument-rin
 mkdirSync(output, { recursive: true });
 const browser = await chromium.launch({ headless: true, args: ['--use-angle=swiftshader', '--enable-webgl', '--enable-unsafe-swiftshader'] });
 const page = await browser.newPage({ viewport: { width: 1440, height: 960 } });
+await prepareLabAuditSession(page);
 await page.routeWebSocket('**', route => {
   const server = route.connectToServer();
   server.onMessage(message => {

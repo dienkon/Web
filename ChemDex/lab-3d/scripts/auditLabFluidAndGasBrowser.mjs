@@ -1,22 +1,26 @@
 import { chromium } from '@playwright/test';
+import { prepareLabAuditSession } from './fixtures/labAuditSession.mjs';
 import assert from 'node:assert/strict';
 import { mkdirSync, writeFileSync } from 'node:fs';
 const origin = process.env.LAB_AUDIT_ORIGIN ?? 'http://127.0.0.1:6777';
-const output = 'artifacts/lab-fluid-gas'; mkdirSync(output, { recursive: true });
+const output = process.env.LAB_FLUID_OUTPUT ?? 'artifacts/lab-fluid-gas'; mkdirSync(output, { recursive: true });
 const browser = await chromium.launch({ headless: true, args: ['--use-angle=swiftshader', '--enable-unsafe-swiftshader'] });
 const page = await browser.newPage({ viewport: { width: 1440, height: 960 } });
+await prepareLabAuditSession(page);
 await page.addInitScript(() => performance.setResourceTimingBufferSize(5000));
 const errors = [];
 page.on('pageerror', error => errors.push(error.stack ?? error.message));
 page.on('console', message => { if (message.type() === 'error' && /shader|webgl|THREE/i.test(message.text())) errors.push(message.text()); });
 async function start(name, id, intensity = '0.65') {
+  if (!(await page.locator('#automatic-lab [data-sidebar="left"]').count()))
+    await page.getByRole('button', { name: 'Hiện danh mục tự động', exact: true }).click();
   await page.evaluate(() => { window.__fluidAudit = null; });
   await page.getByRole('button', { name, exact: true }).first().click();
   await page.waitForFunction(id => window.__fluidAudit?.program.id === id, id);
   await page.getByRole('combobox', { name: 'Mức khuấy tự động' }).selectOption(intensity);
   await page.evaluate(async () => {
     const url = performance.getEntriesByType('resource').map(p => p.name).find(s => /@react-three_fiber\.js/.test(s));
-    const { _roots } = await import(url); window.__fluidRoot = _roots.get(document.querySelector('canvas')).store;
+    const { _roots } = await import(url); window.__fluidRoot = _roots.get(document.querySelector('#automatic-lab canvas')).store;
   });
 }
 async function advance(predicate) {
@@ -46,6 +50,7 @@ async function snapshot() {
 }
 try {
   await page.goto(`${origin}/?mode=auto`, { waitUntil: 'domcontentloaded', timeout: 60000 });
+  await page.getByRole('button', { name: 'Hiện danh mục tự động', exact: true }).click();
   await page.getByRole('textbox', { name: 'Tìm thí nghiệm tự động' }).waitFor({ timeout: 60000 });
   await page.evaluate(async () => {
     const url = performance.getEntriesByType('resource').map(p => p.name).find(s => /\/AutoExperiment\.ts(\?|$)/.test(s));
@@ -88,6 +93,7 @@ try {
   await advance("e.phase === 'return'");
   assert.equal(await page.evaluate(() => window.__fluidAudit.gasValveOpen), false);
 
+  await page.getByRole('button', { name: 'Hiện danh mục tự động', exact: true }).click();
   await page.getByRole('textbox', { name: 'Tìm thí nghiệm tự động' }).fill('Ca(OH)2');
   const lime = page.getByRole('button').filter({ hasText: /Ca\(OH\)2.*CO2|CO2.*Ca\(OH\)2/ }).first();
   assert.ok(await lime.count(), 'The catalog must expose a gas-to-liquid experiment');

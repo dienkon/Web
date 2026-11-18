@@ -41,7 +41,7 @@ export function relocateVesselStocks(before: Record<string, VesselState>, after:
     const rotation = orientation(vessel).multiply(orientation(previous).invert());
     if (!positionChanged(previous, vessel) && Math.abs(rotation.w) >= 1 - 1e-12) continue;
     const motion = previous.stockMotion;
-    const hasStock = motion || previous.contents.some(row => row.phase === 's' && row.mass_g > 1e-10
+    const hasStock = motion || previous.contents?.some(row => row.phase === 's' && row.mass_g > 1e-10
       && row.location !== 'filter' && row.location !== 'foam' && !isContactSuspensionRow(previous, row));
     if (!hasStock) continue;
     const from = new Vector3(...previous.position).multiplyScalar(METERS_PER_SCENE_UNIT);

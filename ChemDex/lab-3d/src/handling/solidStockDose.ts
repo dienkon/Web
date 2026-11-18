@@ -4,9 +4,6 @@ import { findChemical, getSolidMorphology } from '../data/chemicals';
 import { createStockSolidGeometry, stockSolidChunkCount } from '../science/stockSolidGeometry';
 import { getWorldVesselProfile, type VesselProfile } from '../pour/physics/profiles';
 import { vesselWorldLiquidSurfaceY } from '../science/vesselGeometry';
-import { vesselLocalToWorld, vesselWorldToLocal } from '../science/vesselScale';
-import { liquidSurfaceVolume } from '../engine/waterPhase';
-import { solveLevel } from '../pour/physics/retained';
 import { liquidInventoryMass } from './solidOccupancy';
 import { CENTIMETERS_PER_SCENE_UNIT, SCENE_GRAVITY } from '../science/sceneUnits';
 
@@ -68,7 +65,7 @@ export function planSolidGeometryDose(vessel: VesselState, geometry: BufferGeome
     ? new Quaternion(...vessel.physicalMotion.rotation) : new Quaternion().setFromAxisAngle(new Vector3(0, 0, 1), vessel.rotationZ ?? 0));
   if (!(amount_g > 0) || !(scale > 0) || !Number.isInteger(count) || count < 1
     || ![amount_g, scale, vessel.capacity_ml, ...vessel.position, up.y].every(Number.isFinite)
-    || !(vessel.capacity_ml > 0)) return null;
+    || !(vessel.capacity_ml > 0) || up.y < 1 - 1e-6) return null;
   // Stock meshes enclose one material unit; this world scale preserves grams
   // and density independently of the receiving vessel's display scale.
   const shape = insertionShape(geometry, scale);
@@ -76,53 +73,26 @@ export function planSolidGeometryDose(vessel: VesselState, geometry: BufferGeome
   const margin = profile.mouthR - shape.radius - 1e-5;
   if (!(margin >= 0) || !profile.contour?.length) return null;
   const minimumY = Math.min(...shape.vertices.map(p => p[1]));
-  const mouthLocalY = vesselWorldToLocal(vessel, vesselLocalToWorld(vessel, [0, vesselLocalToWorld(vessel, [0, profile.H, 0])[1], 0]));
-  const mouthWorld = vesselLocalToWorld(vessel, [0, vesselLocalToWorld(vessel, [0, profile.H, 0])[1], 0]);
-  const localInteriorY = vesselWorldToLocal(vessel, mouthWorld)[1];
-  const localTopY = vesselWorldToLocal(vessel, vesselLocalToWorld(vessel, [0, vesselWorldToLocal(vessel, mouthWorld)[1], 0]))[1];
-  const topLocal = vesselWorldToLocal(vessel, vesselLocalToWorld(vessel, [0, vesselWorldToLocal(vessel, mouthWorld)[1], 0]))[1];
-  const topY = vesselWorldToLocal(vessel, vesselLocalToWorld(vessel, [0, profile.H, 0]))[1];
-  const upWorld = new Vector3(...vesselLocalToWorld(vessel, [0, profile.H + 1, 0])).sub(new Vector3(...mouthWorld)).normalize();
-  const tilted = Math.hypot(upWorld.x, upWorld.z) > 1e-5;
-  const startOffset = upWorld.clone().multiplyScalar(.55);
-  const startY = mouthWorld[1] + startOffset.y - minimumY;
+  // Both the profile and material vertices already use world scene units.
+  // Applying the glass body's display scale again moves the support below
+  // the real floor, especially for small-capacity vessels.
+  const topY = profile.baseY + profile.H;
+  const startY = vessel.position[1] + topY + .55 - minimumY;
   const hasLiquid = vessel.volume_ml > .05 && liquidInventoryMass(vessel) > 0;
-  const liquidY = !tilted ? vessel.position[1] + vesselWorldLiquidSurfaceY(vessel) : undefined;
-  const localSurface = !tilted ? undefined : solveLevel(profile, Math.atan2(Math.hypot(upWorld.x, upWorld.z), upWorld.y), liquidSurfaceVolume(vessel)).c;
-  const localShape = shape.vertices.map(point => new Vector3(...vesselLocalToWorld(vessel, [point[0], topY + point[1], point[2]])).sub(new Vector3(...mouthWorld)));
-  const trace = (center: Vector3) => {
-    const inside = (distance: number) => {
-      const c = center.clone().addScaledVector(new Vector3(0, -1, 0), distance);
-      return localShape.every(offset => {
-        const point = vesselWorldToLocal(vessel, c.clone().add(offset).toArray() as Point3);
-        return point[1] >= profile.baseY - 1e-7 && point[1] <= topY + 1e-7
-          && Math.hypot(point[0], point[2]) <= profile.r(point[1]) + 1e-7;
-      });
-    };
-    let entry = -1, exit = -1;
-    for (let i = 0; i <= 400; i++) {
-      const distance = i * .01;
-      if (entry < 0 && inside(distance)) entry = distance;
-      else if (entry >= 0 && !inside(distance)) { exit = distance; break; }
-    }
-    if (entry < 0) return null;
-    if (exit < 0) exit = 4;
-    let low = Math.max(entry, exit - .01), high = exit;
-    for (let i = 0; i < 32; i++) { const middle = (low + high) / 2; if (inside(middle)) low = middle; else high = middle; }
-    const contact = center.clone().addScaledVector(new Vector3(0, -1, 0), low);
-    return { contact, wallY: contact.y, entry };
-  };
+  const liquidY = vessel.position[1] + vesselWorldLiquidSurfaceY(vessel);
   const flights = Array.from({ length: count }, (_, index): SolidStockFlight => {
     const angle = index * 2.39996, spread = Math.sqrt((index + 1) / count) * margin * .42;
-    const localCenter = new Vector3(Math.cos(angle) * spread, 0, Math.sin(angle) * spread);
-    const center = new Vector3(...mouthWorld).add(startOffset).add(new Vector3(...vesselLocalToWorld(vessel,
-      [localCenter.x, topY, localCenter.z])).sub(new Vector3(...mouthWorld)));
-    const traced = trace(center);
-    if (!traced) return { releaseAt: 0, flightTime: Infinity, start: center.toArray() as Point3,
-      contact: center.toArray() as Point3, rotation: shape.rotation.toArray() as Quat, mass_g: amount_g / count, contactKind: 'wall' };
-    const wet = hasLiquid && !tilted && liquidY !== undefined && traced.contact.y >= liquidY - minimumY;
-    return { releaseAt: .26 + index * .038, flightTime: Math.sqrt(2 * Math.max(0, startY - traced.contact.y) / SCENE_GRAVITY),
-      start: center.toArray() as Point3, contact: traced.contact.toArray() as Point3,
+    const x = Math.cos(angle) * spread, z = Math.sin(angle) * spread;
+    let wallY = -Infinity;
+    for (const point of shape.vertices) {
+      wallY = Math.max(wallY, supportY(profile, Math.hypot(x + point[0], z + point[2])) - point[1]);
+    }
+    wallY += vessel.position[1];
+    const wet = hasLiquid && liquidY - minimumY >= wallY;
+    const contactY = wet ? liquidY - minimumY : wallY;
+    return { releaseAt: .26 + index * .038, flightTime: Math.sqrt(2 * Math.max(0, startY - contactY) / SCENE_GRAVITY),
+      start: [vessel.position[0] + x, startY, vessel.position[2] + z],
+      contact: [vessel.position[0] + x, contactY, vessel.position[2] + z],
       rotation: shape.rotation.toArray() as Quat, mass_g: amount_g / count, contactKind: wet ? 'liquid' : 'wall',
       ...(wet ? { liquidSurfaceY: liquidY } : {}) };
   });

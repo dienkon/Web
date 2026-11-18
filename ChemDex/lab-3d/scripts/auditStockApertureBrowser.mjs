@@ -1,4 +1,5 @@
 import { chromium } from '@playwright/test';
+import { prepareLabAuditSession } from './fixtures/labAuditSession.mjs';
 import assert from 'node:assert/strict';
 import { mkdirSync, writeFileSync } from 'node:fs';
 import { resolve } from 'node:path';
@@ -8,6 +9,7 @@ mkdirSync(output, { recursive: true });
 const report = { assertions: {}, errors: [] };
 const browser = await chromium.launch({ headless: true, args: ['--use-angle=swiftshader', '--enable-webgl', '--enable-unsafe-swiftshader'] });
 const page = await browser.newPage({ viewport: { width: 1440, height: 960 } });
+await prepareLabAuditSession(page);
 page.setDefaultTimeout(60000);
 page.on('pageerror', error => report.errors.push(error.stack ?? error.message));
 await page.routeWebSocket('**', route => {

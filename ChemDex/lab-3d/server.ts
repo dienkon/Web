@@ -166,7 +166,11 @@ async function startServer() {
     });
   } else {
     const distPath = path.join(process.cwd(), 'dist');
+    // Vite emits relative asset URLs so the same build can also be packaged
+    // under /lab/ by the parent ChemDex site.
+    app.use('/lab', express.static(distPath));
     app.use(express.static(distPath));
+    app.use(['/lab/assets', '/assets'], (_req, res) => res.sendStatus(404));
     app.get('*', (req, res) => {
       res.sendFile(path.join(distPath, 'index.html'));
     });

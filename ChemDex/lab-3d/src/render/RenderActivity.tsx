@@ -3,6 +3,7 @@ import { useThree } from '@react-three/fiber';
 import { useQualityStore } from '../vfx/quality';
 import { Vector2 } from 'three';
 import { isTheaterActive, subscribeTheaterActivity } from './theaterActivity';
+import { pourAudio } from '../pour/audio/PourAudio';
 
 /** Suspend both rendering and frame-driven simulation while the canvas cannot
  * be seen. R3F resets its clock when the loop resumes, avoiding a catch-up tick. */
@@ -11,7 +12,11 @@ export function RenderActivity() {
   useEffect(() => {
     let intersects = true;
     let contextLost = gl.getContext().isContextLost();
-    const update = () => setFrameloop(intersects && !document.hidden && !contextLost && !isTheaterActive() ? 'always' : 'never');
+    const update = () => {
+      const active = intersects && !document.hidden && !contextLost && !isTheaterActive();
+      if (!active) pourAudio.stopPourStream();
+      setFrameloop(active ? 'always' : 'never');
+    };
     const unsubscribeTheater = subscribeTheaterActivity(update);
     const onContextLost = (event: Event) => {
       event.preventDefault();

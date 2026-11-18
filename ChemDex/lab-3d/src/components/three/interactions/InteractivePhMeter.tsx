@@ -34,8 +34,8 @@ export const InteractivePhMeter = React.memo(function InteractivePhMeter() {
       target.current.set(...dock.position);
       reading.current = null;
     }
-    group.current.position.lerp(target.current, 1 - Math.exp(-delta * 8));
-    group.current.rotation.set(immersed ? 0 : -Math.PI / 2, 0, 0);
+    group.current.position.lerp(target.current, 1 - Math.exp(-dt * 8));
+    if (dt > 0) group.current.rotation.set(immersed ? 0 : -Math.PI / 2, 0, 0);
     if (label.current) {
       const text = reading.current === null ? 'pH ---' : `pH ${reading.current.toFixed(2)}`;
       if (label.current.text !== text) label.current.text = text;

@@ -80,6 +80,31 @@ describe('Finite stock follows the actual vessel opening', () => {
     expect(solidStockDoseProblem({ ...v, rotationZ: .3 }, 'Fe', .1)).toContain('thẳng đứng');
   });
 
+  it.each([['test_tube', 10], ['flask', 100], ['beaker', 250], ['volumetric_flask', 1000]] as const)(
+    'supports grains on the real %s %s mL interior independently of translation and yaw', (type, capacity) => {
+      const v = { ...vessel(type, capacity), position: [-4, 2.5, 7] as [number, number, number], rotationY: 1.2 };
+      const profile = getWorldVesselProfile(type, capacity), plan = planSolidStockDose(v, 'Fe', .1)!;
+      expect(plan).not.toBeNull();
+      for (const flight of plan.flights) {
+        const offsets = plan.vertices.map(vertex => [flight.contact[0] - v.position[0] + vertex[0],
+          flight.contact[1] - v.position[1] + vertex[1], flight.contact[2] - v.position[2] + vertex[2]]);
+        const clearances = offsets.map(([x, y, z]) => Math.min(y - profile.baseY,
+          profile.r(Math.max(profile.baseY, y)) - Math.hypot(x, z)));
+        expect(Math.min(...clearances)).toBeGreaterThanOrEqual(-1e-8);
+        expect(Math.min(...clearances)).toBeLessThan(1e-8);
+        expect(solidStockFlightPosition(flight, flight.flightTime)).toEqual(flight.contact);
+        const justBefore = solidStockFlightPosition(flight, flight.flightTime - 1e-5);
+        expect(justBefore[1]).toBeGreaterThan(flight.contact[1]);
+      }
+    });
+
+  it('rejects tilted solid insertion at the shared planner boundary, including a worker pose', () => {
+    const v = vessel();
+    expect(planSolidStockDose({ ...v, rotationZ: .3 }, 'Fe', .1)).toBeNull();
+    expect(planSolidStockDose({ ...v, physicalMotion: { rotation: new THREE.Quaternion()
+      .setFromAxisAngle(new THREE.Vector3(0, 0, 1), .3).toArray() } } as VesselState, 'Fe', .1)).toBeNull();
+  });
+
   it('stops each grain when its first material point meets liquid without crediting center-depth penetration', () => {
     const empty = vessel('beaker'), v = { ...empty, volume_ml: 50, volume: .5, mass_g: 50,
       contents: [{ formula: 'H2O', phase: 'l', mass_g: 50, moles: 50 / 18.015 }], substances: ['H2O'] };

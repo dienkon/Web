@@ -16,8 +16,9 @@ vi.mock('@react-three/fiber', () => ({ useThree: () => ({
 import { RenderActivity } from '../src/render/RenderActivity';
 import { useQualityStore } from '../src/vfx/quality';
 import { setTheaterActive } from '../src/render/theaterActivity';
+import { pourAudio } from '../src/pour/audio/PourAudio';
 const original = useQualityStore.getState();
-afterEach(() => { harness.cleanup?.(); setTheaterActive(false); harness.loop.mockClear(); vi.unstubAllGlobals(); useQualityStore.setState(original); });
+afterEach(() => { harness.cleanup?.(); setTheaterActive(false); harness.loop.mockClear(); vi.restoreAllMocks(); vi.unstubAllGlobals(); useQualityStore.setState(original); });
 
 it('suspends a lost context, restores only a visible canvas, and cleans its listeners', () => {
   const document = Object.assign(new EventTarget(), { hidden: false });
@@ -50,6 +51,7 @@ it('suspends a lost context, restores only a visible canvas, and cleans its list
 });
 
 it('stops the hidden workbench canvas during automatic experiments and resumes without overriding visibility', () => {
+  const stopAudio = vi.spyOn(pourAudio, 'stopPourStream');
   const document = Object.assign(new EventTarget(), { hidden: false });
   vi.stubGlobal('document', document);
   vi.stubGlobal('IntersectionObserver', class {
@@ -58,6 +60,7 @@ it('stops the hidden workbench canvas during automatic experiments and resumes w
   });
   RenderActivity();
   setTheaterActive(true); expect(harness.loop).toHaveBeenLastCalledWith('never');
+  expect(stopAudio).toHaveBeenCalledOnce();
   setTheaterActive(false); expect(harness.loop).toHaveBeenLastCalledWith('always');
   setTheaterActive(true); document.hidden = true; setTheaterActive(false);
   expect(harness.loop).toHaveBeenLastCalledWith('never');

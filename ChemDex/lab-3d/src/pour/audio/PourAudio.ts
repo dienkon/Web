@@ -5,7 +5,7 @@ class PourAudioManager {
   private noiseNode: AudioBufferSourceNode | null = null;
   private filterNode: BiquadFilterNode | null = null;
   private gainNode: GainNode | null = null;
-  private isStreaming: boolean = false;
+  private noiseBuffer: AudioBuffer | null = null;
 
   private initContext(): AudioContext {
     if (!this.ctx) {
@@ -13,7 +13,7 @@ class PourAudioManager {
       this.ctx = new AudioCtx();
     }
     if (this.ctx.state === 'suspended') {
-      this.ctx.resume();
+      void this.ctx.resume().catch(() => {});
     }
     return this.ctx;
   }
@@ -22,45 +22,53 @@ class PourAudioManager {
    * Starts procedural laminar pouring sound with pitch governed by air column height.
    */
   public startPourStream(initialPitchHz: number = 320): void {
-    if (!useAppStore.getState().soundEnabled) return;
+    const { soundEnabled, isSimulationPaused } = useAppStore.getState();
+    if (!soundEnabled || isSimulationPaused || this.noiseNode) return;
     try {
       const ctx = this.initContext();
-      if (this.isStreaming) return;
-
-      // 1. Generate 2 seconds of pink/white noise buffer
-      const bufferSize = ctx.sampleRate * 2;
-      const noiseBuffer = ctx.createBuffer(1, bufferSize, ctx.sampleRate);
-      const output = noiseBuffer.getChannelData(0);
-      let b0 = 0, b1 = 0, b2 = 0;
-      for (let i = 0; i < bufferSize; i++) {
-        const white = Math.random() * 2 - 1;
-        b0 = 0.99886 * b0 + white * 0.0555179;
-        b1 = 0.99332 * b1 + white * 0.0750759;
-        b2 = 0.96900 * b2 + white * 0.1538520;
-        output[i] = (b0 + b1 + b2 + white * 0.5362) * 0.11;
+      if (!this.noiseBuffer) {
+        const bufferSize = ctx.sampleRate * 2;
+        const buffer = ctx.createBuffer(1, bufferSize, ctx.sampleRate);
+        const output = buffer.getChannelData(0);
+        let b0 = 0, b1 = 0, b2 = 0;
+        for (let i = 0; i < bufferSize; i++) {
+          const white = Math.random() * 2 - 1;
+          b0 = 0.99886 * b0 + white * 0.0555179;
+          b1 = 0.99332 * b1 + white * 0.0750759;
+          b2 = 0.96900 * b2 + white * 0.1538520;
+          output[i] = (b0 + b1 + b2 + white * 0.5362) * 0.11;
+        }
+        this.noiseBuffer = buffer;
       }
 
-      this.noiseNode = ctx.createBufferSource();
-      this.noiseNode.buffer = noiseBuffer;
-      this.noiseNode.loop = true;
+      const noise = ctx.createBufferSource();
+      noise.buffer = this.noiseBuffer;
+      noise.loop = true;
 
       // 2. Resonant bandpass filter representing liquid vessel cavity
-      this.filterNode = ctx.createBiquadFilter();
-      this.filterNode.type = 'bandpass';
-      this.filterNode.frequency.setValueAtTime(initialPitchHz, ctx.currentTime);
-      this.filterNode.Q.setValueAtTime(4.5, ctx.currentTime);
+      const filter = ctx.createBiquadFilter();
+      filter.type = 'bandpass';
+      filter.frequency.setValueAtTime(initialPitchHz, ctx.currentTime);
+      filter.Q.setValueAtTime(4.5, ctx.currentTime);
 
       // 3. Gain envelope
-      this.gainNode = ctx.createGain();
-      this.gainNode.gain.setValueAtTime(0.001, ctx.currentTime);
-      this.gainNode.gain.exponentialRampToValueAtTime(0.18, ctx.currentTime + 0.15);
+      const gain = ctx.createGain();
+      gain.gain.setValueAtTime(0.001, ctx.currentTime);
+      gain.gain.setTargetAtTime(0.18, ctx.currentTime, 0.05);
 
-      this.noiseNode.connect(this.filterNode);
-      this.filterNode.connect(this.gainNode);
-      this.gainNode.connect(ctx.destination);
+      noise.connect(filter);
+      filter.connect(gain);
+      gain.connect(ctx.destination);
 
-      this.noiseNode.start();
-      this.isStreaming = true;
+      noise.onended = () => {
+        noise.disconnect();
+        filter.disconnect();
+        gain.disconnect();
+      };
+      noise.start();
+      this.noiseNode = noise;
+      this.filterNode = filter;
+      this.gainNode = gain;
     } catch {
       // Audio context might be blocked prior to user interaction
     }
@@ -71,7 +79,7 @@ class PourAudioManager {
    * As fill ratio increases from 0 to 1, cavity frequency shifts from ~300 Hz up to ~1100 Hz.
    */
   public updateFillRatio(fillRatio: number, flowRate_ml_s: number): void {
-    if (!this.ctx || !this.isStreaming) return;
+    if (!this.ctx || !this.noiseNode) return;
     try {
       const now = this.ctx.currentTime;
       // Pitch rises as air column shortens: f ~ 1 / L
@@ -88,24 +96,21 @@ class PourAudioManager {
    * Stops pouring stream smoothly.
    */
   public stopPourStream(): void {
-    if (!this.ctx || !this.isStreaming) return;
+    const noise = this.noiseNode, filter = this.filterNode, gain = this.gainNode;
+    if (!this.ctx || !noise || !gain) return;
+    // A quick restart owns new nodes while this one finishes its fade.
+    this.noiseNode = null;
+    this.filterNode = null;
+    this.gainNode = null;
     try {
       const now = this.ctx.currentTime;
-      this.gainNode?.gain.exponentialRampToValueAtTime(0.0001, now + 0.15);
-      setTimeout(() => {
-        try {
-          this.noiseNode?.stop();
-          this.noiseNode?.disconnect();
-          this.filterNode?.disconnect();
-          this.gainNode?.disconnect();
-        } catch {}
-        this.isStreaming = false;
-        this.noiseNode = null;
-        this.filterNode = null;
-        this.gainNode = null;
-      }, 160);
+      gain.gain.cancelScheduledValues(now);
+      gain.gain.setTargetAtTime(0, now, 0.015);
+      noise.stop(now + 0.08);
     } catch {
-      this.isStreaming = false;
+      noise.disconnect();
+      filter?.disconnect();
+      gain.disconnect();
     }
   }
 

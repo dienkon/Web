@@ -7,6 +7,7 @@ import { LAB_PHYSICS, calculateVesselMass, getBalanceDisplayValue } from '../../
 import { labSound } from '../../../utils/audio';
 import { useToolDock } from '../../../handling/toolDock';
 import { useInstrumentStore } from '../../../handling/instrumentState';
+import { simulationFrameDt } from '../../../core/clock';
 
 export const InteractiveDigitalBalance = React.memo(function InteractiveDigitalBalance({
   position: initialPosition = LAB_PHYSICS.BALANCE_POSITION,
@@ -40,6 +41,7 @@ export const InteractiveDigitalBalance = React.memo(function InteractiveDigitalB
   const displayRef = useRef<any>(null);
   const settledMassRef = useRef(netMass);
   const settleProgressRef = useRef(1.0);
+  const displayTimeRef = useRef(0);
 
   // When weight changes, initiate brief 0.6s stabilization jitter
   const lastTargetMass = useRef(netMass);
@@ -48,13 +50,15 @@ export const InteractiveDigitalBalance = React.memo(function InteractiveDigitalB
     settleProgressRef.current = 0;
   }
 
-  useFrame((state, delta) => {
-    settleProgressRef.current = Math.min(1.0, settleProgressRef.current + delta * 2.2);
+  useFrame((_, delta) => {
+    const dt = simulationFrameDt(delta, useAppStore.getState());
+    displayTimeRef.current += dt;
+    settleProgressRef.current = Math.min(1.0, settleProgressRef.current + dt * 2.2);
     const isSettled = settleProgressRef.current >= 0.95;
-    settledMassRef.current = THREE.MathUtils.lerp(settledMassRef.current, netMass, delta * 8.0);
+    settledMassRef.current = THREE.MathUtils.lerp(settledMassRef.current, netMass, 1 - Math.exp(-dt * 8));
 
     if (displayRef.current) {
-      const text = getBalanceDisplayValue(settledMassRef.current, state.clock.elapsedTime, isSettled);
+      const text = getBalanceDisplayValue(settledMassRef.current, displayTimeRef.current, isSettled);
       if (displayRef.current.text !== text) displayRef.current.text = text;
     }
   });

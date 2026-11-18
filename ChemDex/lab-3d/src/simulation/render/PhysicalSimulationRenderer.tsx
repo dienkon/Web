@@ -66,14 +66,14 @@ export const PhysicalSimulationRenderer = React.memo(function PhysicalSimulation
   const vaporTexture = useMemo(() => getSoftParticleTexture(128), []);
   const vaporGeometry = useMemo(() => {
     const geometry = new THREE.PlaneGeometry(1, 1);
-    geometry.setAttribute('aMistOpacity', new THREE.InstancedBufferAttribute(new Float32Array(mgr.evaporationSystem.maxParticles), 1));
-    geometry.setAttribute('aMistStructure', new THREE.InstancedBufferAttribute(new Float32Array(mgr.evaporationSystem.maxParticles * 2), 2));
+    geometry.setAttribute('aMistOpacity', new THREE.InstancedBufferAttribute(new Float32Array(mgr.evaporationSystem.maxParticles), 1).setUsage(THREE.DynamicDrawUsage));
+    geometry.setAttribute('aMistStructure', new THREE.InstancedBufferAttribute(new Float32Array(mgr.evaporationSystem.maxParticles * 2), 2).setUsage(THREE.DynamicDrawUsage));
     return geometry;
   }, [mgr]);
   const vaporMaterial = useMemo(() => createInstancedMistMaterial(vaporTexture), [vaporTexture]);
   const bubbleGeometry = useMemo(() => {
     const geometry = new THREE.PlaneGeometry(1, 1);
-    geometry.setAttribute('aParticleOpacity', new THREE.InstancedBufferAttribute(new Float32Array(mgr.boilingSystem.maxBubbles), 1));
+    geometry.setAttribute('aParticleOpacity', new THREE.InstancedBufferAttribute(new Float32Array(mgr.boilingSystem.maxBubbles), 1).setUsage(THREE.DynamicDrawUsage));
     return geometry;
   }, [mgr]);
   const bubbleMaterial = useMemo(() => withParticleOpacity(new THREE.MeshBasicMaterial({
@@ -118,6 +118,8 @@ export const PhysicalSimulationRenderer = React.memo(function PhysicalSimulation
   // Initialize all instanced matrices to scale 0 at (0, -9999, 0)
   const zeroInstances = (mesh: THREE.InstancedMesh | null, maxCount: number) => {
     if (!mesh) return;
+    mesh.instanceMatrix.setUsage(THREE.DynamicDrawUsage);
+    mesh.count = 0;
     scratchPos.set(0, -9999, 0);
     scratchScale.set(0, 0, 0);
     scratchQuat.identity();
@@ -165,9 +167,8 @@ export const PhysicalSimulationRenderer = React.memo(function PhysicalSimulation
     // 1. UPDATE PHYSICAL BUBBLES
     if (bubbleMeshRef.current) {
       const bList = mgr.boilingSystem.bubbles;
-      const maxB = mgr.boilingSystem.maxBubbles;
-
       if (bList.length === 0) {
+        bubbleMeshRef.current.count = 0;
         if (bubbleMeshRef.current.visible) {
           bubbleMeshRef.current.visible = false;
         }
@@ -197,6 +198,10 @@ export const PhysicalSimulationRenderer = React.memo(function PhysicalSimulation
           }
         }
         bubbleMeshRef.current.instanceMatrix.needsUpdate = true;
+        bubbleMeshRef.current.instanceMatrix.clearUpdateRanges();
+        bubbleMeshRef.current.instanceMatrix.addUpdateRange(0, bList.length * 16);
+        (bubbleGeometry.getAttribute('aParticleOpacity') as THREE.InstancedBufferAttribute).clearUpdateRanges();
+        (bubbleGeometry.getAttribute('aParticleOpacity') as THREE.InstancedBufferAttribute).addUpdateRange(0, bList.length);
         bubbleGeometry.getAttribute('aParticleOpacity').needsUpdate = true;
       }
     }
@@ -208,9 +213,8 @@ export const PhysicalSimulationRenderer = React.memo(function PhysicalSimulation
       if (bodyMatrix) evaporationMeshRef.current.matrix.copy(bodyMatrix).invert();
       evaporationMeshRef.current.updateWorldMatrix(false, false);
       const eList = mgr.evaporationSystem.particles;
-      const maxE = mgr.evaporationSystem.maxParticles;
-
       if (eList.length === 0) {
+        evaporationMeshRef.current.count = 0;
         if (evaporationMeshRef.current.visible) {
           evaporationMeshRef.current.visible = false;
         }
@@ -237,6 +241,12 @@ export const PhysicalSimulationRenderer = React.memo(function PhysicalSimulation
           }
         }
         evaporationMeshRef.current.instanceMatrix.needsUpdate = true;
+        evaporationMeshRef.current.instanceMatrix.clearUpdateRanges();
+        evaporationMeshRef.current.instanceMatrix.addUpdateRange(0, eList.length * 16);
+        (vaporGeometry.getAttribute('aMistOpacity') as THREE.InstancedBufferAttribute).clearUpdateRanges();
+        (vaporGeometry.getAttribute('aMistOpacity') as THREE.InstancedBufferAttribute).addUpdateRange(0, eList.length);
+        (vaporGeometry.getAttribute('aMistStructure') as THREE.InstancedBufferAttribute).clearUpdateRanges();
+        (vaporGeometry.getAttribute('aMistStructure') as THREE.InstancedBufferAttribute).addUpdateRange(0, eList.length * 2);
         vaporGeometry.getAttribute('aMistOpacity').needsUpdate = true;
         vaporGeometry.getAttribute('aMistStructure').needsUpdate = true;
       }

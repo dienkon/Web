@@ -1,4 +1,5 @@
 import { chromium } from '@playwright/test';
+import { prepareLabAuditSession } from './fixtures/labAuditSession.mjs';
 import assert from 'node:assert/strict';
 import { mkdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { resolve } from 'node:path';
@@ -16,6 +17,7 @@ const fingerprint = () => Object.fromEntries(sourceFiles.map(file => [file,
 report.sourceBefore = fingerprint();
 const browser = await chromium.launch({ headless: true, args: ['--use-angle=swiftshader', '--enable-webgl', '--enable-unsafe-swiftshader'] });
 const page = await browser.newPage({ viewport: { width: 1440, height: 1000 } });
+await prepareLabAuditSession(page);
 await page.routeWebSocket('**', route => {
   const server = route.connectToServer();
   server.onMessage(message => {

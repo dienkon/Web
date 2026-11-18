@@ -51,8 +51,8 @@ export const InteractiveThermometer = React.memo(function InteractiveThermometer
       const targetPos = animationTarget.current.set(
         point[0], point[1] + 0.75, point[2]
       );
-      groupRef.current.position.lerp(targetPos, 1 - Math.exp(-delta * 8));
-      groupRef.current.rotation.set(0, 0, 0);
+      groupRef.current.position.lerp(targetPos, 1 - Math.exp(-dt * 8));
+      if (dt > 0) groupRef.current.rotation.set(0, 0, 0);
 
       // Newton cooling / heating curve
       currentTempRef.current = updateThermalResponse(
@@ -64,8 +64,8 @@ export const InteractiveThermometer = React.memo(function InteractiveThermometer
     } else {
       // Resting on rack
       const restPos = animationTarget.current.set(...position);
-      groupRef.current.position.lerp(restPos, 1 - Math.exp(-delta * 8));
-      groupRef.current.rotation.set(-Math.PI / 2, 0, 0);
+      groupRef.current.position.lerp(restPos, 1 - Math.exp(-dt * 8));
+      if (dt > 0) groupRef.current.rotation.set(-Math.PI / 2, 0, 0);
 
       // The room control, not a fixed 25 C fallback, sets the dry probe's environment.
       currentTempRef.current = updateThermalResponse(

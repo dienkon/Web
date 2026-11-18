@@ -43,6 +43,7 @@ export const PhysicalStreamRenderer = React.memo(function PhysicalStreamRenderer
   const rippleMeshRef = useRef<THREE.Mesh>(null);
   const secondaryRippleRef = useRef<THREE.Mesh>(null);
   const wasStreamingRef = useRef(false);
+  useEffect(() => () => { if (wasStreamingRef.current) pourAudio.stopPourStream(); }, []);
 
   // Pre-allocated droplet pool
   const droplets = useRef<StreamDroplet[]>(
@@ -91,6 +92,10 @@ export const PhysicalStreamRenderer = React.memo(function PhysicalStreamRenderer
 
   useFrame((state, delta) => {
     const live = useAppStore.getState();
+    if (wasStreamingRef.current && (live.isSimulationPaused || !live.soundEnabled)) {
+      pourAudio.stopPourStream();
+      wasStreamingRef.current = false;
+    }
     if (live.isSimulationPaused) return;
     const session = PourController.getSession();
     if (session && !['STOCK_BOTTLE', 'DROPPER', 'SOLID'].includes(session.mode)) {
@@ -169,10 +174,11 @@ export const PhysicalStreamRenderer = React.memo(function PhysicalStreamRenderer
     const flightTime = trajectory.timeOfFlight;
     const targetMouthR = targetVessel ? getWorldVesselProfile(targetVessel.type, targetVessel.capacity_ml).mouthR : 0.4;
     const landsInLiquid = !!targetVessel && trajectory.targetVesselId === targetVessel.id && targetVessel.volume_ml > 0 && trajectory.detailKind === 'liquid';
-    if (!wasStreamingRef.current) {
-      pourAudio.startPourStream(320); wasStreamingRef.current = true;
+    if (live.soundEnabled) {
+      pourAudio.startPourStream(320);
+      wasStreamingRef.current = true;
+      if (targetVessel) pourAudio.updateFillRatio(occupiedLiquidVolume(targetVessel) / targetVessel.capacity_ml, flowRate);
     }
-    if (targetVessel) pourAudio.updateFillRatio(occupiedLiquidVolume(targetVessel) / targetVessel.capacity_ml, flowRate);
 
     // Continuous vs Dripping Regime
     const isDrippingRegime = flowRate < 1.2 || session.phase === 'dripping';

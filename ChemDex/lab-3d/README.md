@@ -33,6 +33,8 @@ Trong **Hóa chất → Bài học**, chọn thẻ hiện tượng rồi **Tạo
 
 [Nâng cấp và kiểm chứng ngày 15/11/2026](docs/research/compact-lab-upgrade-2026-11-15.vi.md) gồm UI desktop/mobile, sửa rót/rửa, lớp kim loại nhiều tầng, mặt xoáy chung và tinh thể muối.
 
+[Nâng cấp hiệu ứng và dụng cụ ngày 18/11/2026](docs/research/effect-function-upgrade-2026-11-18.vi.md) sửa đường rơi chất rắn, đồng bộ cân/nhiệt kế/pH khi tạm dừng hoặc đổi tốc độ, và giới hạn upload bọt/sương theo số hạt hiện hữu; kèm kiểm tra trình duyệt và lệnh tái chạy.
+
 ## Vật lí có kiểm chứng — bản thử nghiệm
 
 Mở **Thiết lập → Vật lí** trên thanh công cụ để bật runtime Rapier trong Worker, xem 184 hồ sơ vật thể/chất và dùng bàn kiểm chứng lực, áp suất, hút pipet, bể nhiệt, thu khí, độ nhớt và nóng chảy băng. Nhánh mới tắt mặc định: tải lớn, hình học phụ kiện và hiệu chuẩn thực nghiệm còn chưa đạt đủ tiêu chí nghiệm thu.
