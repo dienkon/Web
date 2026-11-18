@@ -408,14 +408,14 @@ export const PRODUCTION_HTML_TEMPLATE = `<!doctype html>
         100% { left: 100%; }
       }
     </style>
-    <script type="module" crossorigin src="/assets/index-T0gQLz14.js"></script>
-    <link rel="modulepreload" crossorigin href="/assets/vendor-react-Cg2vLLvP.js">
-    <link rel="modulepreload" crossorigin href="/assets/vendor-charts-Dtra7FLy.js">
-    <link rel="modulepreload" crossorigin href="/assets/vendor-icons-5s-Fi11X.js">
-    <link rel="modulepreload" crossorigin href="/assets/vendor-firebase-hK-Q5Boi.js">
+    <script type="module" crossorigin src="/assets/index-C408CVal.js"></script>
+    <link rel="modulepreload" crossorigin href="/assets/vendor-react-DhSnpD3y.js">
+    <link rel="modulepreload" crossorigin href="/assets/vendor-charts-DRXukK4H.js">
+    <link rel="modulepreload" crossorigin href="/assets/vendor-icons-Dgh5PMKr.js">
+    <link rel="modulepreload" crossorigin href="/assets/vendor-firebase-CZIX0Jcb.js">
     <link rel="modulepreload" crossorigin href="/assets/vendor-katex-T051Jbj4.js">
     <link rel="stylesheet" crossorigin href="/assets/vendor-katex-Ddr6Z9Sf.css">
-    <link rel="stylesheet" crossorigin href="/assets/index-BMNU-BSV.css">
+    <link rel="stylesheet" crossorigin href="/assets/index-3D027PVh.css">
   </head>
 
   <body>

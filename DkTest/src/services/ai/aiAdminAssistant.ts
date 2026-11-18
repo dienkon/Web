@@ -46,7 +46,21 @@ export type AdminActionType =
   | "MOVE_EXAM"
   | "MOVE_EXAMS_TO_FOLDER"
   | "ORGANIZE_EXAMS_INTO_FOLDERS"
-  | "organize_exams_into_folders";
+  | "organize_exams_into_folders"
+  // Course & Video Lesson Management:
+  | "LIST_COURSES"
+  | "GET_COURSE_DETAILS"
+  | "CREATE_COURSE"
+  | "UPDATE_COURSE"
+  | "ADD_COURSE_LESSONS"
+  | "ADD_COURSE_LESSON"
+  | "CREATE_COURSE_VIDEO"
+  | "UPDATE_COURSE_LESSON"
+  | "UPDATE_COURSE_VIDEO"
+  | "DELETE_COURSE_LESSON"
+  | "DELETE_COURSE_VIDEO"
+  | "MANAGE_COURSE_CHAPTER"
+  | "PROBE_COURSE_DURATIONS";
 
 export interface AdminAssistantAction {
   id?: string;
@@ -107,6 +121,9 @@ BẢN ĐỒ CÁC TRANG QUẢN TRỊ TRONG HỆ THỐNG DKTEST:
 - /admin/wallet: Quản lý ví học sinh, phê duyệt yêu cầu nạp tiền, quản lý mã voucher giảm giá, tra cứu công nợ.
 - /admin/parents: Quản lý tài khoản phụ huynh và liên kết phụ huynh - học sinh.
 - /admin/classes: Quản lý các lớp học, sĩ số, phân công giáo viên.
+- /admin/courses: Quản lý Khóa học & Video bài giảng (tạo khóa, sửa khóa, xem chi tiết học viên đã mua khóa / mua từng video cụ thể theo phân trang tối đa 2 lượt/lần).
+- /admin/courses/new: Trình tạo khóa học mới (thông tin, học phí, phân cấp 3 tầng & video bài giảng).
+- /admin/courses/:id/edit: Trình chỉnh sửa chi tiết Khóa học (Tab 1: Thông tin & Học phí; Tab 2: Phân cấp Nhóm → Chương → Chuyên đề → Video & Tự đo thời lượng Drive/YouTube/MP4; Tab 3: Cấp/Thu hồi quyền & Xem chi tiết người mua khóa/video).
 - /admin/question-bank: Ngân hàng câu hỏi tập trung, tìm kiếm câu hỏi theo khối lớp, môn học, dạng thức.
 - /admin/journey-studio: Xưởng sáng tạo chiến dịch học tập, bản đồ nhiệm vụ, linh thú học tập.
 - /admin/live-proctoring: Trung tâm giám sát thi trực tiếp (Realtime Proctoring), phát hiện cảnh báo gian lận và tab-switching.
@@ -319,14 +336,16 @@ BẠN LÀ MỘT AUTONOMOUS WORKFLOW AGENT (như Agent của Make.com / Zapier Ce
 24. "ASSIGN_HOMEWORK": Giao bài thi cho một lớp học làm bài tập về nhà.
     Thuộc tính: "params": { "examId": "...", "examTitle": "...", "targetClass": "12A1", "dueDate": "YYYY-MM-DD", "passingScore": 5.0 }
 
-25. "MANAGE_STUDENT": Quản lý học sinh (phê duyệt, khóa tài khoản, mở khóa, xóa, duyệt nạp tiền, cấp quyền làm bài, hoặc cộng tiền ví).
+25. "MANAGE_STUDENT": Quản lý học sinh (phê duyệt, khóa tài khoản, mở khóa, xóa, duyệt nạp tiền, cấp/thu hồi quyền làm bài hoặc khóa học/video, hoặc cộng tiền ví).
     Thuộc tính: "params": {
-      "action": "approve" | "suspend" | "reactivate" | "delete" | "adjust_balance" | "approve_recharge" | "reject_recharge" | "grant_access",
+      "action": "approve" | "suspend" | "reactivate" | "delete" | "adjust_balance" | "approve_recharge" | "reject_recharge" | "grant_access" | "revoke_access",
       "uid"?: "mã_uid_học_sinh",
       "reason"?: "lý do khóa / ghi chú",
       "amountVnd"?: số tiền nạp/thưởng,
       "requestId"?: "mã_yêu_cầu_nạp_tiền" (khi duyệt/từ chối nạp tiền),
-      "examId"?: "mã_đề_thi" (khi cấp quyền làm bài)
+      "examId"?: "mã_đề_thi" (khi cấp quyền làm bài),
+      "courseId"?: "mã_khóa_học" (khi cấp/thu hồi quyền khóa học),
+      "lessonId"?: "mã_video" (tùy chọn nếu chỉ cấp/thu hồi riêng 1 video trong khóa)
     }
 
 26. "SYSTEM_OPERATION": Tác vụ hệ thống (quét sức khỏe dữ liệu, sửa lỗi dữ liệu, tính toán lại thống kê, tự động tổ chức đề thi vào thư mục chuyên môn, cập nhật cấu hình, đổi theme, toggle sidebar).
@@ -392,7 +411,108 @@ BẠN LÀ MỘT AUTONOMOUS WORKFLOW AGENT (như Agent của Make.com / Zapier Ce
     }
     \`\`\`
 
-30. "WORKFLOW": KỊCH BẢN MAKE.COM ĐA BƯỚC (Multi-step Automation Workflow).
+30. "LIST_COURSES" / "GET_COURSE_DETAILS": Liệt kê khóa học trong hệ thống hoặc xem chi tiết cấu trúc chương & danh sách video bài giảng của một khóa học cụ thể.
+    Thuộc tính: "params": { "courseId"?: "id_khóa", "courseTitle"?: "tên_khóa", "query"?: "từ khóa tìm kiếm", "includeLessons"?: true }
+
+31. "CREATE_COURSE": Tạo khóa học mới (hỗ trợ tạo sẵn các Chương và danh sách Video bài giảng kèm tự động đo thời lượng từ link Google Drive/YouTube/MP4).
+    Kiến thức chuẩn về Khóa học DkTEST:
+    - 3 chế độ thu phí ("accessMode"):
+      * "free": Miễn phí toàn bộ (0đ).
+      * "per_video": Vào khóa miễn phí (priceVnd=0), thu tiền lẻ từng video (trừ freePreviewCount video đầu hoặc bài đặt accessType="free").
+      * "paid": Thu phí trọn khóa (priceVnd > 0, kèm tùy chọn freePreviewCount video đầu miễn phí, allowSingleLessonPurchase, unlockFullPolicy: "unlock_all_videos" | "unlock_course_only").
+    - Phân cấp 3 tầng: Tầng 1 Nhóm (groupTitle trên chapter hoặc mặc định course.subject) → Tầng 2 Chương (chapters) → Tầng 3 Chuyên đề (topicTitle trên lesson) → Video bài giảng.
+    Thuộc tính: "params": {
+      "title": "Tên khóa học",
+      "code"?: "MÃ_KHÓA",
+      "subject"?: "TOÁN HỌC" | "VẬT LÝ" | "HÓA HỌC" | "TIẾNG ANH" | ...,
+      "gradeCategory"?: "Lớp 12" | "ĐGNL 2027" | ...,
+      "instructorName"?: "Tên giảng viên",
+      "description"?: "Mô tả khóa học",
+      "status"?: "draft" | "published" | "archived",
+      "accessMode"?: "free" | "per_video" | "paid",
+      "priceVnd"?: 299000,
+      "defaultLessonPriceVnd"?: 25000,
+      "freePreviewCount"?: 1,
+      "allowSingleLessonPurchase"?: true,
+      "chapters"?: [{ "title": "Tên chương", "groupTitle"?: "Nhóm tầng 1" }],
+      "lessons"?: [{ "title": "Tên bài", "videoUrl": "https://...", "chapterTitle"?: "Tên chương", "topicTitle"?: "Chuyên đề", "accessType"?: "inherit_first_n" | "free" | "paid", "priceVnd"?: 25000, "durationMinutes"?: 30, "description"?: "...", "linkedExamId"?: "..." }]
+    }
+
+32. "UPDATE_COURSE": Cập nhật thông tin, học phí, trạng thái xuất bản, số bài miễn phí đầu khóa của một khóa học (nếu Admin đang mở khóa đó trong trình chỉnh sửa thì có thể bỏ qua courseId).
+    Thuộc tính: "params": {
+      "courseId"?: "id_khóa",
+      "courseTitle"?: "tên_khóa",
+      "updates": { "title"?: "...", "status"?: "published" | "draft" | "archived", "accessMode"?: "...", "priceVnd"?: 0, "defaultLessonPriceVnd"?: 25000, "freePreviewCount"?: 2, "subject"?: "...", "gradeCategory"?: "...", "description"?: "...", "salesEnabled"?: true }
+    }
+
+33. "ADD_COURSE_LESSONS" (cũng hỗ trợ "ADD_COURSE_LESSON" / "CREATE_COURSE_VIDEO"): Thêm 1 hoặc nhiều video bài giảng mới vào khóa học (tự động nhận diện link Google Drive / YouTube / Cloudinary / MP4, tự tạo Chương nếu chapterTitle chưa tồn tại, và tự động đo thời lượng phút chuẩn nếu không truyền durationMinutes/durationSeconds).
+    Thuộc tính: "params": {
+      "courseId"?: "id_khóa (bỏ trống nếu đang đứng trong trang sửa khóa học đó)",
+      "courseTitle"?: "tên_khóa",
+      "chapterId"?: "id_chương",
+      "chapterTitle"?: "Tên chương (tự tìm hoặc tạo mới nếu chưa có)",
+      "groupTitle"?: "Nhóm tầng 1 nếu tạo chương mới",
+      "topicTitle"?: "Tên chuyên đề (Tầng 3)",
+      "title"?: "Tiêu đề video (khi thêm 1 bài)",
+      "videoUrl"?: "https://drive.google.com/... hoặc https://youtube.com/... hoặc link MP4",
+      "videoType"?: "youtube" | "iframe" | "cloudinary" | "mp4",
+      "durationMinutes"?: số_phút,
+      "durationSeconds"?: số_giây,
+      "accessType"?: "inherit_first_n" | "free" | "paid",
+      "priceVnd"?: giá_tiền_vnđ,
+      "description"?: "Tóm tắt bài học",
+      "linkedExamId"?: "ID đề thi đính kèm",
+      "materials"?: [{ "label": "Tên tài liệu", "type": "link", "url": "https://..." }],
+      "lessons"?: [ ... mảng nhiều bài giảng nếu muốn thêm hàng loạt ... ],
+      "autoProbeDuration"?: true
+    }
+    Ví dụ:
+    \`\`\`json:action
+    {
+      "type": "ADD_COURSE_LESSONS",
+      "label": "Thêm video bài giảng mới từ Google Drive vào Chương 1",
+      "params": {
+        "chapterTitle": "Chương 1: Hàm số",
+        "topicTitle": "Cực trị hàm số",
+        "title": "Bài 2: Tìm cực trị hàm chứa dấu giá trị tuyệt đối",
+        "videoUrl": "https://drive.google.com/file/d/1AbC.../view",
+        "accessType": "paid",
+        "priceVnd": 30000,
+        "autoProbeDuration": true
+      }
+    }
+    \`\`\`
+
+34. "UPDATE_COURSE_LESSON" (cũng hỗ trợ "UPDATE_COURSE_VIDEO"): Chỉnh sửa một video bài giảng đã có trong khóa học (đổi tiêu đề, đổi link video, chuyển chương/chuyên đề, đổi giá tiền, chuyển sang miễn phí/trả phí, chỉnh thời lượng, gắn đề thi, thêm tài liệu, đổi vị trí thứ tự).
+    - Có thể định vị bài bằng "lessonId", "lessonNumber" (số thứ tự từ 1: #1, #2, ...), "lessonTitle" (tên bài), hoặc bỏ trống để sửa video ĐANG CHỌN trên màn hình trình biên tập!
+    Thuộc tính: "params": {
+      "courseId"?: "id_khóa",
+      "courseTitle"?: "tên_khóa",
+      "lessonId"?: "id_bài_giảng",
+      "lessonNumber"?: 2,
+      "lessonTitle"?: "tên bài hiện tại",
+      "updates": { "title"?: "...", "videoUrl"?: "...", "chapterTitle"?: "...", "topicTitle"?: "...", "durationMinutes"?: 45, "durationSeconds"?: 2700, "accessType"?: "free" | "paid" | "inherit_first_n", "priceVnd"?: 20000, "includedInCourseUnlock"?: true, "description"?: "...", "linkedExamId"?: "...", "order"?: 0, "addMaterials"?: [{ "label": "...", "type": "link", "url": "https://..." }] }
+    }
+
+35. "DELETE_COURSE_LESSON" (cũng hỗ trợ "DELETE_COURSE_VIDEO"): Xóa một video bài giảng khỏi khóa học.
+    Thuộc tính: "params": { "courseId"?: "...", "courseTitle"?: "...", "lessonId"?: "...", "lessonNumber"?: 3, "lessonTitle"?: "..." }
+
+36. "MANAGE_COURSE_CHAPTER": Thêm, đổi tên, cập nhật Nhóm tầng 1, sắp xếp hoặc xóa Chương trong khóa học.
+    Thuộc tính: "params": {
+      "courseId"?: "...",
+      "courseTitle"?: "...",
+      "action": "add" | "rename" | "update" | "delete" | "reorder",
+      "chapterId"?: "...",
+      "title"?: "Tên chương",
+      "newTitle"?: "Tên chương mới",
+      "groupTitle"?: "Nhóm tầng 1",
+      "order"?: 0
+    }
+
+37. "PROBE_COURSE_DURATIONS": Tự động quét và đo lại thời lượng phút/giây chuẩn cho các video (hỗ trợ Google Drive, YouTube, MP4/Cloudinary) trong khóa học.
+    Thuộc tính: "params": { "courseId"?: "...", "courseTitle"?: "...", "lessonId"?: "...", "onlyMissing"?: false }
+
+38. "WORKFLOW": KỊCH BẢN MAKE.COM ĐA BƯỚC (Multi-step Automation Workflow).
     Khi Admin đưa ra yêu cầu phức tạp gồm nhiều bước (ví dụ: "Tạo voucher giảm 20K rồi tạo đề thi Toán 15 phút sau đó giao bài cho lớp 12A1 và chuyển sang danh sách đề"): BẠN PHẢI GOM THÀNH MỘT WORKFLOW DUY NHẤT chứa danh sách các bước "steps".
     Quy tắc truyền biến kiểu Make.com (Variable Chaining):
     - Các bước sau có thể tham chiếu kết quả bước trước bằng cú pháp {{step_id.thuộc_tính}} hoặc {{examId}}, {{voucherCode}}, {{prev.examId}}.
@@ -510,6 +630,10 @@ export interface WorkflowExecutionContext {
   prev?: any;
   lastExamId?: string;
   lastExamTitle?: string;
+  lastCourseId?: string;
+  lastCourseTitle?: string;
+  lastLessonId?: string;
+  lastLessonTitle?: string;
   lastVoucherCode?: string;
   lastVoucherId?: string;
   lastStudentUid?: string;
@@ -557,7 +681,19 @@ export function interpolateWorkflowParams(
         return context.lastExamId || context.prev?.examId || context.prev?.id || match;
       }
       if (trimmed === "title" || trimmed === "examTitle") {
-        return context.lastExamTitle || context.prev?.title || match;
+        return context.lastExamTitle || context.lastCourseTitle || context.prev?.title || match;
+      }
+      if (trimmed === "courseId" || trimmed === "newCourseId") {
+        return context.lastCourseId || context.prev?.courseId || match;
+      }
+      if (trimmed === "courseTitle") {
+        return context.lastCourseTitle || context.prev?.title || match;
+      }
+      if (trimmed === "lessonId") {
+        return context.lastLessonId || context.prev?.lessonId || match;
+      }
+      if (trimmed === "lessonTitle") {
+        return context.lastLessonTitle || context.prev?.lessonTitle || match;
       }
       if (trimmed === "code" || trimmed === "voucherCode") {
         return context.lastVoucherCode || context.prev?.code || match;
@@ -631,6 +767,35 @@ export function interpolateWorkflowParams(
     if (!cloned.params.uid || cloned.params.uid.startsWith("{{")) {
       if (context.lastStudentUid) cloned.params.uid = context.lastStudentUid;
       else if (context.prev?.uid) cloned.params.uid = context.prev.uid;
+    }
+  } else if (
+    cloned.type === "UPDATE_COURSE" ||
+    cloned.type === "ADD_COURSE_LESSONS" ||
+    cloned.type === "ADD_COURSE_LESSON" ||
+    cloned.type === "CREATE_COURSE_VIDEO" ||
+    cloned.type === "UPDATE_COURSE_LESSON" ||
+    cloned.type === "UPDATE_COURSE_VIDEO" ||
+    cloned.type === "DELETE_COURSE_LESSON" ||
+    cloned.type === "DELETE_COURSE_VIDEO" ||
+    cloned.type === "MANAGE_COURSE_CHAPTER" ||
+    cloned.type === "PROBE_COURSE_DURATIONS"
+  ) {
+    if (!cloned.params.courseId || String(cloned.params.courseId).startsWith("{{")) {
+      if (context.lastCourseId) cloned.params.courseId = context.lastCourseId;
+      else if (context.prev?.courseId) cloned.params.courseId = context.prev.courseId;
+    }
+    if (
+      (cloned.type === "UPDATE_COURSE_LESSON" ||
+        cloned.type === "UPDATE_COURSE_VIDEO" ||
+        cloned.type === "DELETE_COURSE_LESSON" ||
+        cloned.type === "DELETE_COURSE_VIDEO") &&
+      (!cloned.params.lessonId || String(cloned.params.lessonId).startsWith("{{"))
+    ) {
+      if (context.lastLessonId && !cloned.params.lessonTitle && cloned.params.lessonNumber === undefined) {
+        cloned.params.lessonId = context.lastLessonId;
+      } else if (context.prev?.lessonId && !cloned.params.lessonTitle && cloned.params.lessonNumber === undefined) {
+        cloned.params.lessonId = context.prev.lessonId;
+      }
     }
   }
 

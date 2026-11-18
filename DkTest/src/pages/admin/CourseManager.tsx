@@ -10,13 +10,16 @@ import {
   Lock,
   PlayCircle,
   Plus,
+  Receipt,
   RotateCw,
   Search,
   Share2,
   Sparkles,
   Trash2,
   Unlock,
+  Users,
   Video,
+  X,
 } from "lucide-react";
 import {
   buildCourseShareUrl,
@@ -25,11 +28,13 @@ import {
   getAdminCoursesList,
 } from "../../services/courseService";
 import { safeCopyText } from "../../utils/mobileCompat";
+import { setCourseManagerSummarySnapshot } from "../../utils/courseAiBridge";
 import { doc, updateDoc } from "firebase/firestore";
 import { db } from "../../services/firebase/config";
 import { FirestoreCache } from "../../services/firebase/firestoreCache";
 import type { Course } from "../../types";
 import ConfirmModal from "../../components/ui/ConfirmModal";
+import CoursePurchasesPanel from "../../components/admin/CoursePurchasesPanel";
 import { useToast } from "../../components/ui/ToastNotification";
 
 export default function CourseManager() {
@@ -43,6 +48,7 @@ export default function CourseManager() {
   const [priceFilter, setPriceFilter] = useState<"all" | "free" | "paid">("all");
   const [deletingCourse, setDeletingCourse] = useState<Course | null>(null);
   const [processingDelete, setProcessingDelete] = useState(false);
+  const [purchasesModalCourse, setPurchasesModalCourse] = useState<Course | "all" | null>(null);
 
   const loadCourses = async (force = false) => {
     try {
@@ -59,7 +65,31 @@ export default function CourseManager() {
 
   useEffect(() => {
     void loadCourses();
+    const onCoursesUpdated = () => {
+      void loadCourses(true);
+    };
+    window.addEventListener("dktest-courses-updated", onCoursesUpdated);
+    return () => {
+      window.removeEventListener("dktest-courses-updated", onCoursesUpdated);
+      setCourseManagerSummarySnapshot(null);
+    };
   }, []);
+
+  useEffect(() => {
+    setCourseManagerSummarySnapshot(
+      courses.map((c) => ({
+        id: c.id,
+        title: c.title,
+        code: c.code,
+        subject: c.subject,
+        status: c.status,
+        accessMode: c.accessMode,
+        priceVnd: c.priceVnd || 0,
+        lessonCount: c.lessonCount || 0,
+        totalDurationMinutes: c.totalDurationMinutes,
+      }))
+    );
+  }, [courses]);
 
   const filtered = useMemo(() => {
     return courses.filter((c) => {
@@ -137,7 +167,15 @@ export default function CourseManager() {
           </p>
         </div>
 
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-2 flex-wrap">
+          <button
+            type="button"
+            onClick={() => setPurchasesModalCourse("all")}
+            className="px-3.5 py-2.5 bg-indigo-50 dark:bg-indigo-950/50 border border-indigo-200 dark:border-indigo-800 hover:bg-indigo-100 text-indigo-700 dark:text-indigo-300 rounded-xl text-xs font-bold flex items-center gap-1.5 shadow-2xs cursor-pointer"
+          >
+            <Receipt className="w-3.5 h-3.5" />
+            <span>Người đã mua</span>
+          </button>
           <button
             type="button"
             onClick={() => void loadCourses(true)}
@@ -379,6 +417,15 @@ export default function CourseManager() {
                   <div className="flex items-center gap-1">
                     <button
                       type="button"
+                      onClick={() => setPurchasesModalCourse(course)}
+                      className="px-2.5 py-1.5 text-indigo-700 dark:text-indigo-300 bg-indigo-50 dark:bg-indigo-950/50 hover:bg-indigo-100 rounded-xl text-[11px] font-bold flex items-center gap-1 transition-colors cursor-pointer"
+                      title="Xem chi tiết ai đã mua khóa và từng video (tối đa 2 mỗi lần)"
+                    >
+                      <Users className="w-3.5 h-3.5" />
+                      <span className="hidden sm:inline">Người mua</span>
+                    </button>
+                    <button
+                      type="button"
                       onClick={async () => {
                         const ok = await safeCopyText(buildCourseShareUrl(course.id));
                         if (ok) showSuccessToast("Đã sao chép link chia sẻ khóa học!");
@@ -422,6 +469,41 @@ export default function CourseManager() {
           cancelText="Hủy"
           variant="danger"
         />
+      )}
+
+      {purchasesModalCourse && (
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 bg-slate-950/60 backdrop-blur-xs"
+          onClick={() => setPurchasesModalCourse(null)}
+        >
+          <div
+            role="dialog"
+            aria-modal="true"
+            aria-label="Chi tiết người mua khóa học"
+            className="w-full max-w-3xl max-h-[88vh] overflow-y-auto rounded-3xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-2xl p-5 sm:p-6 space-y-4"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="flex items-center justify-between gap-2">
+              <span className="px-2.5 py-1 rounded-full bg-blue-50 dark:bg-blue-950/60 text-blue-700 dark:text-blue-300 text-[11px] font-black">
+                {purchasesModalCourse === "all" ? "Tất cả khóa học" : purchasesModalCourse.code || "Khóa học"}
+              </span>
+              <button
+                type="button"
+                onClick={() => setPurchasesModalCourse(null)}
+                className="p-2 rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 text-slate-600 dark:text-slate-300 cursor-pointer"
+                aria-label="Đóng"
+              >
+                <X className="w-4 h-4" />
+              </button>
+            </div>
+
+            <CoursePurchasesPanel
+              courseId={purchasesModalCourse === "all" ? "all" : purchasesModalCourse.id}
+              courseTitle={purchasesModalCourse === "all" ? undefined : purchasesModalCourse.title}
+              lessonsOutline={purchasesModalCourse === "all" ? undefined : purchasesModalCourse.lessonOutline}
+            />
+          </div>
+        </div>
       )}
     </div>
   );

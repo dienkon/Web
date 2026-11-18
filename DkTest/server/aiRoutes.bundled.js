@@ -2331,6 +2331,9 @@ B\u1EA2N \u0110\u1ED2 C\xC1C TRANG QU\u1EA2N TR\u1ECA TRONG H\u1EC6 TH\u1ED0NG D
 - /admin/wallet: Qu\u1EA3n l\xFD v\xED h\u1ECDc sinh, ph\xEA duy\u1EC7t y\xEAu c\u1EA7u n\u1EA1p ti\u1EC1n, qu\u1EA3n l\xFD m\xE3 voucher gi\u1EA3m gi\xE1, tra c\u1EE9u c\xF4ng n\u1EE3.
 - /admin/parents: Qu\u1EA3n l\xFD t\xE0i kho\u1EA3n ph\u1EE5 huynh v\xE0 li\xEAn k\u1EBFt ph\u1EE5 huynh - h\u1ECDc sinh.
 - /admin/classes: Qu\u1EA3n l\xFD c\xE1c l\u1EDBp h\u1ECDc, s\u0129 s\u1ED1, ph\xE2n c\xF4ng gi\xE1o vi\xEAn.
+- /admin/courses: Qu\u1EA3n l\xFD Kh\xF3a h\u1ECDc & Video b\xE0i gi\u1EA3ng (t\u1EA1o kh\xF3a, s\u1EEDa kh\xF3a, xem chi ti\u1EBFt h\u1ECDc vi\xEAn \u0111\xE3 mua kh\xF3a / mua t\u1EEBng video c\u1EE5 th\u1EC3 theo ph\xE2n trang t\u1ED1i \u0111a 2 l\u01B0\u1EE3t/l\u1EA7n).
+- /admin/courses/new: Tr\xECnh t\u1EA1o kh\xF3a h\u1ECDc m\u1EDBi (th\xF4ng tin, h\u1ECDc ph\xED, ph\xE2n c\u1EA5p 3 t\u1EA7ng & video b\xE0i gi\u1EA3ng).
+- /admin/courses/:id/edit: Tr\xECnh ch\u1EC9nh s\u1EEDa chi ti\u1EBFt Kh\xF3a h\u1ECDc (Tab 1: Th\xF4ng tin & H\u1ECDc ph\xED; Tab 2: Ph\xE2n c\u1EA5p Nh\xF3m \u2192 Ch\u01B0\u01A1ng \u2192 Chuy\xEAn \u0111\u1EC1 \u2192 Video & T\u1EF1 \u0111o th\u1EDDi l\u01B0\u1EE3ng Drive/YouTube/MP4; Tab 3: C\u1EA5p/Thu h\u1ED3i quy\u1EC1n & Xem chi ti\u1EBFt ng\u01B0\u1EDDi mua kh\xF3a/video).
 - /admin/question-bank: Ng\xE2n h\xE0ng c\xE2u h\u1ECFi t\u1EADp trung, t\xECm ki\u1EBFm c\xE2u h\u1ECFi theo kh\u1ED1i l\u1EDBp, m\xF4n h\u1ECDc, d\u1EA1ng th\u1EE9c.
 - /admin/journey-studio: X\u01B0\u1EDFng s\xE1ng t\u1EA1o chi\u1EBFn d\u1ECBch h\u1ECDc t\u1EADp, b\u1EA3n \u0111\u1ED3 nhi\u1EC7m v\u1EE5, linh th\xFA h\u1ECDc t\u1EADp.
 - /admin/live-proctoring: Trung t\xE2m gi\xE1m s\xE1t thi tr\u1EF1c ti\u1EBFp (Realtime Proctoring), ph\xE1t hi\u1EC7n c\u1EA3nh b\xE1o gian l\u1EADn v\xE0 tab-switching.
@@ -2543,14 +2546,16 @@ B\u1EA0N L\xC0 M\u1ED8T AUTONOMOUS WORKFLOW AGENT (nh\u01B0 Agent c\u1EE7a Make.
 24. "ASSIGN_HOMEWORK": Giao b\xE0i thi cho m\u1ED9t l\u1EDBp h\u1ECDc l\xE0m b\xE0i t\u1EADp v\u1EC1 nh\xE0.
     Thu\u1ED9c t\xEDnh: "params": { "examId": "...", "examTitle": "...", "targetClass": "12A1", "dueDate": "YYYY-MM-DD", "passingScore": 5.0 }
 
-25. "MANAGE_STUDENT": Qu\u1EA3n l\xFD h\u1ECDc sinh (ph\xEA duy\u1EC7t, kh\xF3a t\xE0i kho\u1EA3n, m\u1EDF kh\xF3a, x\xF3a, duy\u1EC7t n\u1EA1p ti\u1EC1n, c\u1EA5p quy\u1EC1n l\xE0m b\xE0i, ho\u1EB7c c\u1ED9ng ti\u1EC1n v\xED).
+25. "MANAGE_STUDENT": Qu\u1EA3n l\xFD h\u1ECDc sinh (ph\xEA duy\u1EC7t, kh\xF3a t\xE0i kho\u1EA3n, m\u1EDF kh\xF3a, x\xF3a, duy\u1EC7t n\u1EA1p ti\u1EC1n, c\u1EA5p/thu h\u1ED3i quy\u1EC1n l\xE0m b\xE0i ho\u1EB7c kh\xF3a h\u1ECDc/video, ho\u1EB7c c\u1ED9ng ti\u1EC1n v\xED).
     Thu\u1ED9c t\xEDnh: "params": {
-      "action": "approve" | "suspend" | "reactivate" | "delete" | "adjust_balance" | "approve_recharge" | "reject_recharge" | "grant_access",
+      "action": "approve" | "suspend" | "reactivate" | "delete" | "adjust_balance" | "approve_recharge" | "reject_recharge" | "grant_access" | "revoke_access",
       "uid"?: "m\xE3_uid_h\u1ECDc_sinh",
       "reason"?: "l\xFD do kh\xF3a / ghi ch\xFA",
       "amountVnd"?: s\u1ED1 ti\u1EC1n n\u1EA1p/th\u01B0\u1EDFng,
       "requestId"?: "m\xE3_y\xEAu_c\u1EA7u_n\u1EA1p_ti\u1EC1n" (khi duy\u1EC7t/t\u1EEB ch\u1ED1i n\u1EA1p ti\u1EC1n),
-      "examId"?: "m\xE3_\u0111\u1EC1_thi" (khi c\u1EA5p quy\u1EC1n l\xE0m b\xE0i)
+      "examId"?: "m\xE3_\u0111\u1EC1_thi" (khi c\u1EA5p quy\u1EC1n l\xE0m b\xE0i),
+      "courseId"?: "m\xE3_kh\xF3a_h\u1ECDc" (khi c\u1EA5p/thu h\u1ED3i quy\u1EC1n kh\xF3a h\u1ECDc),
+      "lessonId"?: "m\xE3_video" (t\xF9y ch\u1ECDn n\u1EBFu ch\u1EC9 c\u1EA5p/thu h\u1ED3i ri\xEAng 1 video trong kh\xF3a)
     }
 
 26. "SYSTEM_OPERATION": T\xE1c v\u1EE5 h\u1EC7 th\u1ED1ng (qu\xE9t s\u1EE9c kh\u1ECFe d\u1EEF li\u1EC7u, s\u1EEDa l\u1ED7i d\u1EEF li\u1EC7u, t\xEDnh to\xE1n l\u1EA1i th\u1ED1ng k\xEA, t\u1EF1 \u0111\u1ED9ng t\u1ED5 ch\u1EE9c \u0111\u1EC1 thi v\xE0o th\u01B0 m\u1EE5c chuy\xEAn m\xF4n, c\u1EADp nh\u1EADt c\u1EA5u h\xECnh, \u0111\u1ED5i theme, toggle sidebar).
@@ -2616,7 +2621,108 @@ B\u1EA0N L\xC0 M\u1ED8T AUTONOMOUS WORKFLOW AGENT (nh\u01B0 Agent c\u1EE7a Make.
     }
     \`\`\`
 
-30. "WORKFLOW": K\u1ECACH B\u1EA2N MAKE.COM \u0110A B\u01AF\u1EDAC (Multi-step Automation Workflow).
+30. "LIST_COURSES" / "GET_COURSE_DETAILS": Li\u1EC7t k\xEA kh\xF3a h\u1ECDc trong h\u1EC7 th\u1ED1ng ho\u1EB7c xem chi ti\u1EBFt c\u1EA5u tr\xFAc ch\u01B0\u01A1ng & danh s\xE1ch video b\xE0i gi\u1EA3ng c\u1EE7a m\u1ED9t kh\xF3a h\u1ECDc c\u1EE5 th\u1EC3.
+    Thu\u1ED9c t\xEDnh: "params": { "courseId"?: "id_kh\xF3a", "courseTitle"?: "t\xEAn_kh\xF3a", "query"?: "t\u1EEB kh\xF3a t\xECm ki\u1EBFm", "includeLessons"?: true }
+
+31. "CREATE_COURSE": T\u1EA1o kh\xF3a h\u1ECDc m\u1EDBi (h\u1ED7 tr\u1EE3 t\u1EA1o s\u1EB5n c\xE1c Ch\u01B0\u01A1ng v\xE0 danh s\xE1ch Video b\xE0i gi\u1EA3ng k\xE8m t\u1EF1 \u0111\u1ED9ng \u0111o th\u1EDDi l\u01B0\u1EE3ng t\u1EEB link Google Drive/YouTube/MP4).
+    Ki\u1EBFn th\u1EE9c chu\u1EA9n v\u1EC1 Kh\xF3a h\u1ECDc DkTEST:
+    - 3 ch\u1EBF \u0111\u1ED9 thu ph\xED ("accessMode"):
+      * "free": Mi\u1EC5n ph\xED to\xE0n b\u1ED9 (0\u0111).
+      * "per_video": V\xE0o kh\xF3a mi\u1EC5n ph\xED (priceVnd=0), thu ti\u1EC1n l\u1EBB t\u1EEBng video (tr\u1EEB freePreviewCount video \u0111\u1EA7u ho\u1EB7c b\xE0i \u0111\u1EB7t accessType="free").
+      * "paid": Thu ph\xED tr\u1ECDn kh\xF3a (priceVnd > 0, k\xE8m t\xF9y ch\u1ECDn freePreviewCount video \u0111\u1EA7u mi\u1EC5n ph\xED, allowSingleLessonPurchase, unlockFullPolicy: "unlock_all_videos" | "unlock_course_only").
+    - Ph\xE2n c\u1EA5p 3 t\u1EA7ng: T\u1EA7ng 1 Nh\xF3m (groupTitle tr\xEAn chapter ho\u1EB7c m\u1EB7c \u0111\u1ECBnh course.subject) \u2192 T\u1EA7ng 2 Ch\u01B0\u01A1ng (chapters) \u2192 T\u1EA7ng 3 Chuy\xEAn \u0111\u1EC1 (topicTitle tr\xEAn lesson) \u2192 Video b\xE0i gi\u1EA3ng.
+    Thu\u1ED9c t\xEDnh: "params": {
+      "title": "T\xEAn kh\xF3a h\u1ECDc",
+      "code"?: "M\xC3_KH\xD3A",
+      "subject"?: "TO\xC1N H\u1ECCC" | "V\u1EACT L\xDD" | "H\xD3A H\u1ECCC" | "TI\u1EBENG ANH" | ...,
+      "gradeCategory"?: "L\u1EDBp 12" | "\u0110GNL 2027" | ...,
+      "instructorName"?: "T\xEAn gi\u1EA3ng vi\xEAn",
+      "description"?: "M\xF4 t\u1EA3 kh\xF3a h\u1ECDc",
+      "status"?: "draft" | "published" | "archived",
+      "accessMode"?: "free" | "per_video" | "paid",
+      "priceVnd"?: 299000,
+      "defaultLessonPriceVnd"?: 25000,
+      "freePreviewCount"?: 1,
+      "allowSingleLessonPurchase"?: true,
+      "chapters"?: [{ "title": "T\xEAn ch\u01B0\u01A1ng", "groupTitle"?: "Nh\xF3m t\u1EA7ng 1" }],
+      "lessons"?: [{ "title": "T\xEAn b\xE0i", "videoUrl": "https://...", "chapterTitle"?: "T\xEAn ch\u01B0\u01A1ng", "topicTitle"?: "Chuy\xEAn \u0111\u1EC1", "accessType"?: "inherit_first_n" | "free" | "paid", "priceVnd"?: 25000, "durationMinutes"?: 30, "description"?: "...", "linkedExamId"?: "..." }]
+    }
+
+32. "UPDATE_COURSE": C\u1EADp nh\u1EADt th\xF4ng tin, h\u1ECDc ph\xED, tr\u1EA1ng th\xE1i xu\u1EA5t b\u1EA3n, s\u1ED1 b\xE0i mi\u1EC5n ph\xED \u0111\u1EA7u kh\xF3a c\u1EE7a m\u1ED9t kh\xF3a h\u1ECDc (n\u1EBFu Admin \u0111ang m\u1EDF kh\xF3a \u0111\xF3 trong tr\xECnh ch\u1EC9nh s\u1EEDa th\xEC c\xF3 th\u1EC3 b\u1ECF qua courseId).
+    Thu\u1ED9c t\xEDnh: "params": {
+      "courseId"?: "id_kh\xF3a",
+      "courseTitle"?: "t\xEAn_kh\xF3a",
+      "updates": { "title"?: "...", "status"?: "published" | "draft" | "archived", "accessMode"?: "...", "priceVnd"?: 0, "defaultLessonPriceVnd"?: 25000, "freePreviewCount"?: 2, "subject"?: "...", "gradeCategory"?: "...", "description"?: "...", "salesEnabled"?: true }
+    }
+
+33. "ADD_COURSE_LESSONS" (c\u0169ng h\u1ED7 tr\u1EE3 "ADD_COURSE_LESSON" / "CREATE_COURSE_VIDEO"): Th\xEAm 1 ho\u1EB7c nhi\u1EC1u video b\xE0i gi\u1EA3ng m\u1EDBi v\xE0o kh\xF3a h\u1ECDc (t\u1EF1 \u0111\u1ED9ng nh\u1EADn di\u1EC7n link Google Drive / YouTube / Cloudinary / MP4, t\u1EF1 t\u1EA1o Ch\u01B0\u01A1ng n\u1EBFu chapterTitle ch\u01B0a t\u1ED3n t\u1EA1i, v\xE0 t\u1EF1 \u0111\u1ED9ng \u0111o th\u1EDDi l\u01B0\u1EE3ng ph\xFAt chu\u1EA9n n\u1EBFu kh\xF4ng truy\u1EC1n durationMinutes/durationSeconds).
+    Thu\u1ED9c t\xEDnh: "params": {
+      "courseId"?: "id_kh\xF3a (b\u1ECF tr\u1ED1ng n\u1EBFu \u0111ang \u0111\u1EE9ng trong trang s\u1EEDa kh\xF3a h\u1ECDc \u0111\xF3)",
+      "courseTitle"?: "t\xEAn_kh\xF3a",
+      "chapterId"?: "id_ch\u01B0\u01A1ng",
+      "chapterTitle"?: "T\xEAn ch\u01B0\u01A1ng (t\u1EF1 t\xECm ho\u1EB7c t\u1EA1o m\u1EDBi n\u1EBFu ch\u01B0a c\xF3)",
+      "groupTitle"?: "Nh\xF3m t\u1EA7ng 1 n\u1EBFu t\u1EA1o ch\u01B0\u01A1ng m\u1EDBi",
+      "topicTitle"?: "T\xEAn chuy\xEAn \u0111\u1EC1 (T\u1EA7ng 3)",
+      "title"?: "Ti\xEAu \u0111\u1EC1 video (khi th\xEAm 1 b\xE0i)",
+      "videoUrl"?: "https://drive.google.com/... ho\u1EB7c https://youtube.com/... ho\u1EB7c link MP4",
+      "videoType"?: "youtube" | "iframe" | "cloudinary" | "mp4",
+      "durationMinutes"?: s\u1ED1_ph\xFAt,
+      "durationSeconds"?: s\u1ED1_gi\xE2y,
+      "accessType"?: "inherit_first_n" | "free" | "paid",
+      "priceVnd"?: gi\xE1_ti\u1EC1n_vn\u0111,
+      "description"?: "T\xF3m t\u1EAFt b\xE0i h\u1ECDc",
+      "linkedExamId"?: "ID \u0111\u1EC1 thi \u0111\xEDnh k\xE8m",
+      "materials"?: [{ "label": "T\xEAn t\xE0i li\u1EC7u", "type": "link", "url": "https://..." }],
+      "lessons"?: [ ... m\u1EA3ng nhi\u1EC1u b\xE0i gi\u1EA3ng n\u1EBFu mu\u1ED1n th\xEAm h\xE0ng lo\u1EA1t ... ],
+      "autoProbeDuration"?: true
+    }
+    V\xED d\u1EE5:
+    \`\`\`json:action
+    {
+      "type": "ADD_COURSE_LESSONS",
+      "label": "Th\xEAm video b\xE0i gi\u1EA3ng m\u1EDBi t\u1EEB Google Drive v\xE0o Ch\u01B0\u01A1ng 1",
+      "params": {
+        "chapterTitle": "Ch\u01B0\u01A1ng 1: H\xE0m s\u1ED1",
+        "topicTitle": "C\u1EF1c tr\u1ECB h\xE0m s\u1ED1",
+        "title": "B\xE0i 2: T\xECm c\u1EF1c tr\u1ECB h\xE0m ch\u1EE9a d\u1EA5u gi\xE1 tr\u1ECB tuy\u1EC7t \u0111\u1ED1i",
+        "videoUrl": "https://drive.google.com/file/d/1AbC.../view",
+        "accessType": "paid",
+        "priceVnd": 30000,
+        "autoProbeDuration": true
+      }
+    }
+    \`\`\`
+
+34. "UPDATE_COURSE_LESSON" (c\u0169ng h\u1ED7 tr\u1EE3 "UPDATE_COURSE_VIDEO"): Ch\u1EC9nh s\u1EEDa m\u1ED9t video b\xE0i gi\u1EA3ng \u0111\xE3 c\xF3 trong kh\xF3a h\u1ECDc (\u0111\u1ED5i ti\xEAu \u0111\u1EC1, \u0111\u1ED5i link video, chuy\u1EC3n ch\u01B0\u01A1ng/chuy\xEAn \u0111\u1EC1, \u0111\u1ED5i gi\xE1 ti\u1EC1n, chuy\u1EC3n sang mi\u1EC5n ph\xED/tr\u1EA3 ph\xED, ch\u1EC9nh th\u1EDDi l\u01B0\u1EE3ng, g\u1EAFn \u0111\u1EC1 thi, th\xEAm t\xE0i li\u1EC7u, \u0111\u1ED5i v\u1ECB tr\xED th\u1EE9 t\u1EF1).
+    - C\xF3 th\u1EC3 \u0111\u1ECBnh v\u1ECB b\xE0i b\u1EB1ng "lessonId", "lessonNumber" (s\u1ED1 th\u1EE9 t\u1EF1 t\u1EEB 1: #1, #2, ...), "lessonTitle" (t\xEAn b\xE0i), ho\u1EB7c b\u1ECF tr\u1ED1ng \u0111\u1EC3 s\u1EEDa video \u0110ANG CH\u1ECCN tr\xEAn m\xE0n h\xECnh tr\xECnh bi\xEAn t\u1EADp!
+    Thu\u1ED9c t\xEDnh: "params": {
+      "courseId"?: "id_kh\xF3a",
+      "courseTitle"?: "t\xEAn_kh\xF3a",
+      "lessonId"?: "id_b\xE0i_gi\u1EA3ng",
+      "lessonNumber"?: 2,
+      "lessonTitle"?: "t\xEAn b\xE0i hi\u1EC7n t\u1EA1i",
+      "updates": { "title"?: "...", "videoUrl"?: "...", "chapterTitle"?: "...", "topicTitle"?: "...", "durationMinutes"?: 45, "durationSeconds"?: 2700, "accessType"?: "free" | "paid" | "inherit_first_n", "priceVnd"?: 20000, "includedInCourseUnlock"?: true, "description"?: "...", "linkedExamId"?: "...", "order"?: 0, "addMaterials"?: [{ "label": "...", "type": "link", "url": "https://..." }] }
+    }
+
+35. "DELETE_COURSE_LESSON" (c\u0169ng h\u1ED7 tr\u1EE3 "DELETE_COURSE_VIDEO"): X\xF3a m\u1ED9t video b\xE0i gi\u1EA3ng kh\u1ECFi kh\xF3a h\u1ECDc.
+    Thu\u1ED9c t\xEDnh: "params": { "courseId"?: "...", "courseTitle"?: "...", "lessonId"?: "...", "lessonNumber"?: 3, "lessonTitle"?: "..." }
+
+36. "MANAGE_COURSE_CHAPTER": Th\xEAm, \u0111\u1ED5i t\xEAn, c\u1EADp nh\u1EADt Nh\xF3m t\u1EA7ng 1, s\u1EAFp x\u1EBFp ho\u1EB7c x\xF3a Ch\u01B0\u01A1ng trong kh\xF3a h\u1ECDc.
+    Thu\u1ED9c t\xEDnh: "params": {
+      "courseId"?: "...",
+      "courseTitle"?: "...",
+      "action": "add" | "rename" | "update" | "delete" | "reorder",
+      "chapterId"?: "...",
+      "title"?: "T\xEAn ch\u01B0\u01A1ng",
+      "newTitle"?: "T\xEAn ch\u01B0\u01A1ng m\u1EDBi",
+      "groupTitle"?: "Nh\xF3m t\u1EA7ng 1",
+      "order"?: 0
+    }
+
+37. "PROBE_COURSE_DURATIONS": T\u1EF1 \u0111\u1ED9ng qu\xE9t v\xE0 \u0111o l\u1EA1i th\u1EDDi l\u01B0\u1EE3ng ph\xFAt/gi\xE2y chu\u1EA9n cho c\xE1c video (h\u1ED7 tr\u1EE3 Google Drive, YouTube, MP4/Cloudinary) trong kh\xF3a h\u1ECDc.
+    Thu\u1ED9c t\xEDnh: "params": { "courseId"?: "...", "courseTitle"?: "...", "lessonId"?: "...", "onlyMissing"?: false }
+
+38. "WORKFLOW": K\u1ECACH B\u1EA2N MAKE.COM \u0110A B\u01AF\u1EDAC (Multi-step Automation Workflow).
     Khi Admin \u0111\u01B0a ra y\xEAu c\u1EA7u ph\u1EE9c t\u1EA1p g\u1ED3m nhi\u1EC1u b\u01B0\u1EDBc (v\xED d\u1EE5: "T\u1EA1o voucher gi\u1EA3m 20K r\u1ED3i t\u1EA1o \u0111\u1EC1 thi To\xE1n 15 ph\xFAt sau \u0111\xF3 giao b\xE0i cho l\u1EDBp 12A1 v\xE0 chuy\u1EC3n sang danh s\xE1ch \u0111\u1EC1"): B\u1EA0N PH\u1EA2I GOM TH\xC0NH M\u1ED8T WORKFLOW DUY NH\u1EA4T ch\u1EE9a danh s\xE1ch c\xE1c b\u01B0\u1EDBc "steps".
     Quy t\u1EAFc truy\u1EC1n bi\u1EBFn ki\u1EC3u Make.com (Variable Chaining):
     - C\xE1c b\u01B0\u1EDBc sau c\xF3 th\u1EC3 tham chi\u1EBFu k\u1EBFt qu\u1EA3 b\u01B0\u1EDBc tr\u01B0\u1EDBc b\u1EB1ng c\xFA ph\xE1p {{step_id.thu\u1ED9c_t\xEDnh}} ho\u1EB7c {{examId}}, {{voucherCode}}, {{prev.examId}}.

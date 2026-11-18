@@ -7,6 +7,7 @@ import {
   computeLessonAccessState,
   formatDurationClock,
   formatQualityLabel,
+  inferCourseVideoType,
   isCloudinaryVideoUrl,
   isLessonEffectivelyFree,
   maskVideoUrlDisplay,
@@ -145,16 +146,25 @@ describe("courseService pure access, hierarchy, masking & outline helpers", () =
     });
 
     it("normalizes Google Drive URLs to rm=minimal preview with driveId and masks original URL strings", () => {
-      const rawDrive = "https://drive.google.com/file/d/1XyZ987AbC/view?usp=sharing";
+      const rawDrive = "https://drive.google.com/file/d/1XyZ987AbC12/view?usp=sharing";
       expect(parseVideoSource(rawDrive)).toEqual({
         kind: "iframe",
-        driveId: "1XyZ987AbC",
+        driveId: "1XyZ987AbC12",
         isDrive: true,
-        embedUrl: "https://drive.google.com/file/d/1XyZ987AbC/preview?rm=minimal",
+        embedUrl: "https://drive.google.com/file/d/1XyZ987AbC12/preview?rm=minimal",
       });
+      expect(parseVideoSource("https://drive.google.com/file/u/0/d/1XyZ987AbC12/preview")).toEqual({
+        kind: "iframe",
+        driveId: "1XyZ987AbC12",
+        isDrive: true,
+        embedUrl: "https://drive.google.com/file/d/1XyZ987AbC12/preview?rm=minimal",
+      });
+      expect(inferCourseVideoType("https://docs.google.com/file/d/1XyZ987AbC12/edit")).toBe("iframe");
+      expect(inferCourseVideoType("https://youtu.be/dQw4w9WgXcQ")).toBe("youtube");
+      expect(inferCourseVideoType("https://res.cloudinary.com/demo/video/upload/v1/a.mp4")).toBe("cloudinary");
       const masked = maskVideoUrlDisplay(rawDrive, "iframe");
       expect(masked).toContain("Kho lưu Drive");
-      expect(masked).not.toContain("1XyZ987AbC");
+      expect(masked).not.toContain("1XyZ987AbC12");
     });
   });
 

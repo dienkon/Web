@@ -6,6 +6,7 @@ import {
   limit,
   orderBy,
   query,
+  startAfter,
   where,
   writeBatch,
 } from "firebase/firestore";
@@ -13,16 +14,26 @@ import { db } from "./firebase/config";
 import { api, getApiBaseUrl } from "./apiClient";
 import { FirestoreCache } from "./firebase/firestoreCache";
 import { isNativeAndroid } from "./offline/sync";
+import {
+  extractGoogleDriveFileId,
+  extractYouTubeVideoId,
+  inferCourseVideoType,
+} from "../utils/videoSourceHelper";
 import type {
   Course,
   CourseAccessInfo,
   CourseAccessMode,
   CourseChapter,
+  CourseEntitlement,
   CourseLesson,
   CourseLessonOutlineItem,
   CourseOutlineMaterialItem,
+  CoursePurchaseDetailItem,
+  CoursePurchasesPageResult,
   CourseVideoType,
 } from "../types";
+
+export { extractGoogleDriveFileId, extractYouTubeVideoId, inferCourseVideoType };
 
 const COURSES_COLLECTION = "courses";
 const COURSES_SESSION_KEY = "dktest_published_courses_v2";
@@ -408,11 +419,8 @@ export function parseVideoSource(
   if (!url) return { kind: "video", embedUrl: "" };
 
   // YouTube watch / share / shorts / embed URLs -> embed with enablejsapi=1 + origin for Error 153 safety & custom player controls
-  const ytMatch = url.match(
-    /(?:youtube(?:-nocookie)?\.com\/(?:watch\?(?:.*&)?v=|embed\/|shorts\/)|youtu\.be\/)([A-Za-z0-9_-]{6,20})/i
-  );
-  if (ytMatch && ytMatch[1]) {
-    const ytId = ytMatch[1];
+  const ytId = extractYouTubeVideoId(url);
+  if (ytId) {
     const origin =
       typeof window !== "undefined" && window.location?.origin && /^https?:\/\//i.test(window.location.origin)
         ? `&origin=${encodeURIComponent(window.location.origin)}`
@@ -424,10 +432,8 @@ export function parseVideoSource(
     };
   }
 
-  // Google Drive links (/file/d/ID/..., open?id=ID, uc?id=ID) -> /preview?rm=minimal
-  const drivePathMatch = url.match(/drive\.google\.com\/file\/d\/([A-Za-z0-9_-]+)/i);
-  const driveQueryMatch = url.match(/drive\.google\.com\/(?:open|uc)\?(?:.*&)?id=([A-Za-z0-9_-]+)/i);
-  const driveId = drivePathMatch?.[1] || driveQueryMatch?.[1];
+  // Google Drive links (/file/d/ID/..., /file/u/0/d/ID/..., open?id=ID, uc?id=ID) -> /preview?rm=minimal
+  const driveId = extractGoogleDriveFileId(url);
   if (driveId) {
     return {
       kind: "iframe",
@@ -966,6 +972,106 @@ export async function saveCourseWithLessons(params: {
   FirestoreCache.invalidatePrefix(`doc:course_lesson:${courseId}:`);
   clearCoursesSessionCache(courseId);
   return courseId;
+}
+
+export const MAX_COURSE_PURCHASES_PAGE_SIZE = 2;
+
+export async function getAdminCoursePurchasesApi(options?: {
+  courseId?: string;
+  limit?: number;
+  cursor?: string | null;
+  scope?: "all" | "course" | "lesson";
+  status?: "all" | "active" | "revoked";
+  force?: boolean;
+}): Promise<CoursePurchasesPageResult> {
+  const pageSize = Math.min(
+    MAX_COURSE_PURCHASES_PAGE_SIZE,
+    Math.max(1, Math.floor(Number(options?.limit) || MAX_COURSE_PURCHASES_PAGE_SIZE))
+  );
+  const cleanCourseId = options?.courseId && options.courseId !== "all" ? options.courseId.trim() : "";
+  const searchParams = new URLSearchParams();
+  searchParams.set("limit", String(pageSize));
+  if (options?.cursor) searchParams.set("cursor", options.cursor);
+  if (options?.scope && options.scope !== "all") searchParams.set("scope", options.scope);
+  if (options?.status && options.status !== "all") searchParams.set("status", options.status);
+  if (options?.force) searchParams.set("force", "true");
+
+  const endpoint = cleanCourseId
+    ? `/api/admin/courses/${encodeURIComponent(cleanCourseId)}/purchases?${searchParams.toString()}`
+    : `/api/admin/courses/purchases?${searchParams.toString()}`;
+
+  try {
+    const res = await api.get<{
+      success: boolean;
+      items: CoursePurchaseDetailItem[];
+      nextCursor: string | null;
+      hasMore: boolean;
+      pageLimit?: number;
+    }>(endpoint);
+    if (Array.isArray(res?.items)) {
+      return {
+        items: res.items.slice(0, MAX_COURSE_PURCHASES_PAGE_SIZE),
+        nextCursor: res.nextCursor || null,
+        hasMore: Boolean(res.hasMore),
+        pageLimit: Math.min(MAX_COURSE_PURCHASES_PAGE_SIZE, res.pageLimit || pageSize),
+      };
+    }
+  } catch (err) {
+    console.warn("[courseService] API course purchases failed, falling back to direct Firestore query:", err);
+  }
+
+  // Direct Firestore fallback (strictly bounded to max 2 docs per request)
+  try {
+    const col = collection(db, "course_entitlements");
+    const constraints: any[] = [];
+    if (cleanCourseId) constraints.push(where("courseId", "==", cleanCourseId));
+    constraints.push(orderBy("grantedAt", "desc"));
+    if (options?.cursor) constraints.push(startAfter(options.cursor));
+    constraints.push(limit(pageSize));
+
+    const snap = await getDocs(query(col, ...constraints));
+    const rawItems = snap.docs.map((d) => ({ id: d.id, ...(d.data() as any) } as CourseEntitlement));
+    const filtered = rawItems.filter((ent) => {
+      if (options?.scope && options.scope !== "all") {
+        const entScope = ent.scope || (ent.lessonId ? "lesson" : "course");
+        if (entScope !== options.scope) return false;
+      }
+      if (options?.status && options.status !== "all" && ent.status !== options.status) {
+        return false;
+      }
+      return true;
+    });
+
+    const lastGrantedAt =
+      snap.docs.length > 0 ? String(snap.docs[snap.docs.length - 1].data().grantedAt || "") : null;
+
+    return {
+      items: filtered.map((ent) => ({
+        id: ent.id,
+        uid: ent.uid,
+        studentName: ent.studentNameSnapshot || ent.uid,
+        studentClass: ent.studentClassSnapshot || "",
+        studentEmail: ent.studentEmailSnapshot || "",
+        courseId: ent.courseId,
+        courseTitle: ent.courseTitleSnapshot || ent.courseId,
+        scope: ent.scope || (ent.lessonId ? "lesson" : "course"),
+        lessonId: ent.lessonId || null,
+        lessonTitle: ent.lessonTitleSnapshot || undefined,
+        status: ent.status || "active",
+        source: ent.source || "purchase",
+        pricePaidVnd: Math.max(0, Number(ent.pricePaidVnd) || 0),
+        transactionId: ent.transactionId,
+        grantedAt: String(ent.grantedAt || ""),
+        grantedBy: ent.grantedBy,
+      })),
+      nextCursor: snap.size === pageSize && lastGrantedAt ? lastGrantedAt : null,
+      hasMore: snap.size === pageSize && Boolean(lastGrantedAt),
+      pageLimit: pageSize,
+    };
+  } catch (err) {
+    console.warn("[courseService] Direct course purchases fallback failed:", err);
+    return { items: [], nextCursor: null, hasMore: false, pageLimit: pageSize };
+  }
 }
 
 export async function deleteCourse(courseId: string): Promise<void> {

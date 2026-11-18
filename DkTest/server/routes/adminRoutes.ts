@@ -25,7 +25,12 @@ import {
   adminDirectEditWallet,
   getGlobalSpendingHistory,
 } from "../services/walletService.js";
-import { grantOrRevokeCourseEntitlement, probeVideoDuration } from "../services/courseService.js";
+import {
+  getAdminCoursePurchases,
+  grantOrRevokeCourseEntitlement,
+  MAX_COURSE_PURCHASES_PAGE_SIZE,
+  probeVideoDuration,
+} from "../services/courseService.js";
 import {
   getVouchersList,
   createVoucher,
@@ -2186,6 +2191,56 @@ adminRouter.delete("/vouchers/:id", async (req: AuthenticatedRequest, res: Respo
     return res.json({ success: true, message: "Đã xóa voucher thành công!" });
   } catch (err: any) {
     return res.status(400).json({ error: "delete_voucher_error", message: err.message || String(err) });
+  }
+});
+
+// GET /api/admin/courses/purchases (strictly max 2 records per load)
+adminRouter.get("/courses/purchases", async (req: AuthenticatedRequest, res: Response) => {
+  try {
+    const rawLimit = req.query.limit ? Number(req.query.limit) : MAX_COURSE_PURCHASES_PAGE_SIZE;
+    const limitParam = Math.min(MAX_COURSE_PURCHASES_PAGE_SIZE, Math.max(1, Math.floor(rawLimit || MAX_COURSE_PURCHASES_PAGE_SIZE)));
+    const courseId = req.query.courseId ? String(req.query.courseId) : undefined;
+    const cursor = req.query.cursor ? String(req.query.cursor) : undefined;
+    const scope = req.query.scope === "course" || req.query.scope === "lesson" ? req.query.scope : "all";
+    const status = req.query.status === "active" || req.query.status === "revoked" ? req.query.status : "all";
+    const force = req.query.force === "true";
+
+    const result = await getAdminCoursePurchases({
+      courseId,
+      limit: limitParam,
+      cursor,
+      scope,
+      status,
+      force,
+    });
+    return res.json({ success: true, ...result });
+  } catch (err: any) {
+    return res.status(500).json({ error: "course_purchases_error", message: err.message || String(err) });
+  }
+});
+
+// GET /api/admin/courses/:courseId/purchases (strictly max 2 records per load)
+adminRouter.get("/courses/:courseId/purchases", async (req: AuthenticatedRequest, res: Response) => {
+  try {
+    const rawLimit = req.query.limit ? Number(req.query.limit) : MAX_COURSE_PURCHASES_PAGE_SIZE;
+    const limitParam = Math.min(MAX_COURSE_PURCHASES_PAGE_SIZE, Math.max(1, Math.floor(rawLimit || MAX_COURSE_PURCHASES_PAGE_SIZE)));
+    const courseId = req.params.courseId;
+    const cursor = req.query.cursor ? String(req.query.cursor) : undefined;
+    const scope = req.query.scope === "course" || req.query.scope === "lesson" ? req.query.scope : "all";
+    const status = req.query.status === "active" || req.query.status === "revoked" ? req.query.status : "all";
+    const force = req.query.force === "true";
+
+    const result = await getAdminCoursePurchases({
+      courseId,
+      limit: limitParam,
+      cursor,
+      scope,
+      status,
+      force,
+    });
+    return res.json({ success: true, ...result });
+  } catch (err: any) {
+    return res.status(500).json({ error: "course_purchases_error", message: err.message || String(err) });
   }
 });
 

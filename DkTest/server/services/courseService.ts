@@ -2,6 +2,7 @@ import {
   adminDb,
   getFirestoreRestDoc,
   queryFirestoreRestDocs,
+  queryOrderedFirestoreRestDocs,
   setFirestoreRestDoc,
 } from "../firebaseAdmin.js";
 import type {
@@ -10,6 +11,8 @@ import type {
   CourseAccessMode,
   CourseEntitlement,
   CourseLesson,
+  CoursePurchaseDetailItem,
+  CoursePurchasesPageResult,
   StudentWallet,
   Voucher,
   WalletTransaction,
@@ -24,15 +27,43 @@ import {
   updateWalletOverviewAggregates,
 } from "./walletService.js";
 import { validateUrlForSsrf } from "./webImporter/ssrfGuard.js";
+import {
+  extractGoogleDriveFileId,
+  extractYouTubeVideoId,
+} from "../../src/utils/videoSourceHelper.js";
 
 const COURSE_DOC_CACHE_TTL_MS = 60 * 1000;
 const COURSE_ACCESS_CACHE_TTL_MS = 30 * 1000;
+const COURSE_PURCHASES_CACHE_TTL_MS = 30 * 1000;
+const COURSE_BUYER_META_TTL_MS = 10 * 60 * 1000;
+export const MAX_COURSE_PURCHASES_PAGE_SIZE = 2;
 
 const courseDocCache = new Map<string, { course: Course; ts: number }>();
 const courseLessonCache = new Map<string, { lesson: CourseLesson; ts: number }>();
 const courseAccessCache = new Map<string, { access: CourseAccessInfo; ts: number }>();
+const coursePurchasesFirstPageCache = new Map<
+  string,
+  { result: CoursePurchasesPageResult; ts: number }
+>();
+const courseBuyerMetaCache = new Map<
+  string,
+  { fullName?: string; currentClass?: string; email?: string; username?: string; ts: number }
+>();
+
+export function invalidateCoursePurchasesCache(courseId?: string): void {
+  if (!courseId) {
+    coursePurchasesFirstPageCache.clear();
+    return;
+  }
+  for (const key of coursePurchasesFirstPageCache.keys()) {
+    if (key.startsWith(`${courseId}::`) || key.startsWith("all::")) {
+      coursePurchasesFirstPageCache.delete(key);
+    }
+  }
+}
 
 export function invalidateCourseServerCache(courseId?: string, uid?: string): void {
+  invalidateCoursePurchasesCache(courseId);
   if (!courseId) {
     courseDocCache.clear();
     courseLessonCache.clear();
@@ -382,6 +413,8 @@ export async function unlockCourse(
         grantedAt: now,
         grantedBy: uid,
         courseTitleSnapshot: course.title || "Khóa học",
+        ...(fullName ? { studentNameSnapshot: fullName } : {}),
+        ...(currentClass ? { studentClassSnapshot: currentClass } : {}),
       };
       transaction.set(entRef, entitlement);
 
@@ -531,6 +564,8 @@ export async function unlockCourse(
     grantedAt: now,
     grantedBy: uid,
     courseTitleSnapshot: course.title || "Khóa học",
+    ...(wallet.fullName ? { studentNameSnapshot: wallet.fullName } : {}),
+    ...(wallet.currentClass ? { studentClassSnapshot: wallet.currentClass } : {}),
   };
   await setFirestoreRestDoc("course_entitlements", entitlementId, entitlement);
 
@@ -652,6 +687,8 @@ export async function unlockCourseLesson(
       grantedBy: uid,
       courseTitleSnapshot: course.title,
       lessonTitleSnapshot: lesson.title,
+      ...(wallet.fullName ? { studentNameSnapshot: wallet.fullName } : {}),
+      ...(wallet.currentClass ? { studentClassSnapshot: wallet.currentClass } : {}),
     };
     await setFirestoreRestDoc("course_entitlements", entitlementId, entitlement);
 
@@ -817,6 +854,8 @@ export async function unlockCourseLesson(
       grantedBy: uid,
       courseTitleSnapshot: course.title || "Khóa học",
       lessonTitleSnapshot: lesson.title || "Bài giảng",
+      ...(fullName ? { studentNameSnapshot: fullName } : {}),
+      ...(currentClass ? { studentClassSnapshot: currentClass } : {}),
     };
     transaction.set(lessonEntRef, entitlement);
 
@@ -952,6 +991,10 @@ export async function grantOrRevokeCourseEntitlement(
   const course = await fetchCourseDoc(courseId, true);
   if (!course) throw new Error("Không tìm thấy khóa học.");
   const lesson = lessonId ? await fetchLessonDoc(courseId, lessonId, true) : null;
+  let wallet: StudentWallet | null = null;
+  try {
+    wallet = await getOrCreateWallet(studentUid);
+  } catch {}
 
   const isLessonScope = Boolean(lessonId);
   const entitlementId = isLessonScope ? `${studentUid}_${courseId}__${lessonId}` : `${studentUid}_${courseId}`;
@@ -970,24 +1013,26 @@ export async function grantOrRevokeCourseEntitlement(
     grantedBy: adminUid,
     courseTitleSnapshot: course.title || "Khóa học",
     ...(lesson ? { lessonTitleSnapshot: lesson.title } : {}),
+    ...(wallet?.fullName ? { studentNameSnapshot: wallet.fullName } : {}),
+    ...(wallet?.currentClass ? { studentClassSnapshot: wallet.currentClass } : {}),
   };
 
   if (adminDb) {
     await adminDb.collection("course_entitlements").doc(entitlementId).set(entitlement, { merge: true });
     const txId = `tx_${Date.now()}_${Math.random().toString(36).substring(2, 7)}`;
-    const wallet = await getOrCreateWallet(studentUid);
+    const bal = wallet ? sanitizeVnd(wallet.balanceVnd) : 0;
     const txDoc: WalletTransaction = {
       id: txId,
       uid: studentUid,
       type: "admin_adjustment_credit",
       amountVnd: 0,
-      balanceBeforeVnd: wallet.balanceVnd,
-      balanceAfterVnd: wallet.balanceVnd,
+      balanceBeforeVnd: bal,
+      balanceAfterVnd: bal,
       courseId,
       courseTitleSnapshot: course.title || "Khóa học",
       ...(lesson ? { lessonId: lesson.id, lessonTitleSnapshot: lesson.title } : {}),
-      studentNameSnapshot: wallet.fullName || "",
-      studentClassSnapshot: wallet.currentClass || "",
+      studentNameSnapshot: wallet?.fullName || "",
+      studentClassSnapshot: wallet?.currentClass || "",
       actorUid: adminUid,
       actorName: adminName,
       note: `${action === "grant" ? "Cấp quyền" : "Thu hồi quyền"} ${isLessonScope ? `bài giảng "${lesson?.title || lessonId}"` : `khóa học "${course.title}"`}: ${cleanReason}`,
@@ -1001,6 +1046,276 @@ export async function grantOrRevokeCourseEntitlement(
   invalidateCourseServerCache(courseId, studentUid);
   invalidateStudentDetailsCache(studentUid);
   return { success: true, entitlement };
+}
+
+async function resolveBuyerMeta(
+  uid: string,
+  fallbackName?: string,
+  fallbackClass?: string,
+  fallbackEmail?: string
+): Promise<{ fullName: string; currentClass?: string; email?: string; username?: string }> {
+  const now = Date.now();
+  const cached = courseBuyerMetaCache.get(uid);
+  if (cached && now - cached.ts < COURSE_BUYER_META_TTL_MS) {
+    return {
+      fullName: cached.fullName || fallbackName || uid,
+      currentClass: cached.currentClass || fallbackClass,
+      email: cached.email || fallbackEmail,
+      username: cached.username,
+    };
+  }
+
+  let fullName = fallbackName || "";
+  let currentClass = fallbackClass || "";
+  let email = fallbackEmail || "";
+  let username = "";
+
+  try {
+    if (adminDb) {
+      if (!fullName) {
+        const wSnap = await adminDb.collection("wallets").doc(uid).get();
+        if (wSnap.exists) {
+          const w = wSnap.data() as StudentWallet;
+          fullName = w.fullName || w.verifiedName || "";
+          currentClass = currentClass || w.currentClass || "";
+        }
+      }
+      const uSnap = await adminDb.collection("users").doc(uid).get();
+      if (uSnap.exists) {
+        const u = uSnap.data() as any;
+        fullName = fullName || u.displayName || u.fullName || u.name || "";
+        currentClass = currentClass || u.currentClass || u.className || "";
+        email = email || u.email || "";
+        username = u.username || "";
+      }
+    } else {
+      if (!fullName) {
+        const w = await getFirestoreRestDoc("wallets", uid, true, 60000);
+        if (w) {
+          fullName = w.fullName || w.verifiedName || "";
+          currentClass = currentClass || w.currentClass || "";
+        }
+      }
+      const u = await getFirestoreRestDoc("users", uid, true, 60000);
+      if (u) {
+        fullName = fullName || u.displayName || u.fullName || u.name || "";
+        currentClass = currentClass || u.currentClass || u.className || "";
+        email = email || u.email || "";
+        username = u.username || "";
+      }
+    }
+  } catch {}
+
+  const meta = {
+    fullName: fullName || uid,
+    currentClass: currentClass || undefined,
+    email: email || undefined,
+    username: username || undefined,
+    ts: now,
+  };
+  courseBuyerMetaCache.set(uid, meta);
+  return meta;
+}
+
+/**
+ * Paginated course/lesson buyer details strictly capped at max 2 records per load to preserve Firestore read budget.
+ */
+export async function getAdminCoursePurchases(options?: {
+  courseId?: string;
+  limit?: number;
+  cursor?: string;
+  scope?: "all" | "course" | "lesson";
+  status?: "all" | "active" | "revoked";
+  force?: boolean;
+}): Promise<CoursePurchasesPageResult> {
+  const pageSize = Math.min(
+    MAX_COURSE_PURCHASES_PAGE_SIZE,
+    Math.max(1, Math.floor(Number(options?.limit) || MAX_COURSE_PURCHASES_PAGE_SIZE))
+  );
+  const cleanCourseId = options?.courseId && options.courseId !== "all" ? String(options.courseId).trim() : "";
+  const cursor = options?.cursor ? String(options.cursor).trim() : "";
+  const scopeFilter = options?.scope || "all";
+  const statusFilter = options?.status || "all";
+
+  const cacheKey = `${cleanCourseId || "all"}::${scopeFilter}::${statusFilter}::${pageSize}`;
+  if (!cursor && !options?.force) {
+    const cached = coursePurchasesFirstPageCache.get(cacheKey);
+    if (cached && Date.now() - cached.ts < COURSE_PURCHASES_CACHE_TTL_MS) {
+      return cached.result;
+    }
+  }
+
+  const matchesFilter = (ent: CourseEntitlement): boolean => {
+    if (cleanCourseId && ent.courseId !== cleanCourseId) return false;
+    const entScope = ent.scope || (ent.lessonId ? "lesson" : "course");
+    if (scopeFilter !== "all" && entScope !== scopeFilter) return false;
+    if (statusFilter !== "all" && ent.status !== statusFilter) return false;
+    return true;
+  };
+
+  let rawEntitlements: CourseEntitlement[] = [];
+  let nextCursor: string | null = null;
+  let hasMore = false;
+
+  if (adminDb) {
+    const col = adminDb.collection("course_entitlements");
+    const needsPostFilter = scopeFilter !== "all" || statusFilter !== "all";
+    try {
+      if (!needsPostFilter) {
+        let q: FirebaseFirestore.Query = cleanCourseId
+          ? col.where("courseId", "==", cleanCourseId)
+          : col;
+        q = q.orderBy("grantedAt", "desc");
+        if (cursor) q = q.startAfter(cursor);
+        const snap = await q.limit(pageSize).get();
+        console.log(
+          `[Server Firestore READ: ${snap.size} docs] course_entitlements purchases (${cleanCourseId || "all"}, limit ${pageSize})`
+        );
+        rawEntitlements = snap.docs.map((d) => ({ id: d.id, ...(d.data() as any) } as CourseEntitlement));
+        hasMore = snap.size === pageSize;
+        nextCursor =
+          snap.docs.length > 0 ? String(snap.docs[snap.docs.length - 1].data().grantedAt || "") : null;
+      } else {
+        const collected: CourseEntitlement[] = [];
+        let scanCursor = cursor;
+        let exhausted = false;
+        const chunkLimit = 6;
+        for (let step = 0; step < 2 && collected.length < pageSize && !exhausted; step++) {
+          let q: FirebaseFirestore.Query = cleanCourseId
+            ? col.where("courseId", "==", cleanCourseId)
+            : col;
+          q = q.orderBy("grantedAt", "desc");
+          if (scanCursor) q = q.startAfter(scanCursor);
+          const snap = await q.limit(chunkLimit).get();
+          if (snap.empty) {
+            exhausted = true;
+            break;
+          }
+          for (const d of snap.docs) {
+            const ent = { id: d.id, ...(d.data() as any) } as CourseEntitlement;
+            scanCursor = String(ent.grantedAt || "");
+            if (matchesFilter(ent)) {
+              collected.push(ent);
+              if (collected.length >= pageSize) break;
+            }
+          }
+          if (snap.size < chunkLimit) {
+            exhausted = true;
+          }
+        }
+        rawEntitlements = collected;
+        nextCursor = scanCursor || null;
+        hasMore = !exhausted && rawEntitlements.length > 0;
+      }
+    } catch (err: any) {
+      // Composite index (courseId ASC, grantedAt DESC) fallback: bounded read <= 25 docs
+      console.warn("[courseService] Course purchases index fallback:", err?.message || err);
+      const collected: CourseEntitlement[] = [];
+      let scanCursor = cursor;
+      let exhausted = false;
+      const chunkLimit = 10;
+      for (let step = 0; step < 2 && collected.length < pageSize && !exhausted; step++) {
+        let q: FirebaseFirestore.Query = col.orderBy("grantedAt", "desc");
+        if (scanCursor) q = q.startAfter(scanCursor);
+        const snap = await q.limit(chunkLimit).get();
+        if (snap.empty) {
+          exhausted = true;
+          break;
+        }
+        for (const d of snap.docs) {
+          const ent = { id: d.id, ...(d.data() as any) } as CourseEntitlement;
+          scanCursor = String(ent.grantedAt || "");
+          if (matchesFilter(ent)) {
+            collected.push(ent);
+            if (collected.length >= pageSize) break;
+          }
+        }
+        if (snap.size < chunkLimit) exhausted = true;
+      }
+      rawEntitlements = collected;
+      nextCursor = scanCursor || null;
+      hasMore = !exhausted && rawEntitlements.length > 0;
+    }
+  } else {
+    const { docs, usedFallbackScan } = await queryOrderedFirestoreRestDocs("course_entitlements", {
+      whereField: cleanCourseId ? "courseId" : undefined,
+      equalValue: cleanCourseId || undefined,
+      orderByField: "grantedAt",
+      direction: "DESCENDING",
+      startAfterValue: cursor || undefined,
+      limitCount: scopeFilter === "all" && statusFilter === "all" ? pageSize : pageSize * 3,
+    });
+    const matched = (docs as CourseEntitlement[]).filter((ent) => {
+      if (!matchesFilter(ent)) return false;
+      if (cursor && String(ent.grantedAt || "") >= cursor) return false;
+      return true;
+    });
+    rawEntitlements = matched.slice(0, pageSize);
+    nextCursor =
+      rawEntitlements.length > 0 ? String(rawEntitlements[rawEntitlements.length - 1].grantedAt || "") : null;
+    hasMore = usedFallbackScan ? matched.length >= pageSize : docs.length >= pageSize;
+  }
+
+  // Enrich course titles, lesson metadata (cached) and buyer details (<= 2 unique UIDs)
+  const courseMap = new Map<string, Course | null>();
+  const uniqueCourseIds = Array.from(new Set(rawEntitlements.map((e) => e.courseId).filter(Boolean)));
+  await Promise.all(
+    uniqueCourseIds.map(async (cid) => {
+      try {
+        courseMap.set(cid, await fetchCourseDoc(cid));
+      } catch {
+        courseMap.set(cid, null);
+      }
+    })
+  );
+
+  const items: CoursePurchaseDetailItem[] = await Promise.all(
+    rawEntitlements.map(async (ent) => {
+      const course = courseMap.get(ent.courseId) || null;
+      const outlineItem = ent.lessonId
+        ? course?.lessonOutline?.find((item) => item.id === ent.lessonId)
+        : undefined;
+      const meta = await resolveBuyerMeta(
+        ent.uid,
+        ent.studentNameSnapshot,
+        ent.studentClassSnapshot,
+        ent.studentEmailSnapshot
+      );
+      const entScope = ent.scope || (ent.lessonId ? "lesson" : "course");
+      return {
+        id: ent.id,
+        uid: ent.uid,
+        studentName: meta.fullName || ent.uid,
+        studentClass: meta.currentClass || ent.studentClassSnapshot,
+        studentEmail: meta.email || ent.studentEmailSnapshot,
+        studentUsername: meta.username,
+        courseId: ent.courseId,
+        courseTitle: ent.courseTitleSnapshot || course?.title || ent.courseId,
+        scope: entScope,
+        lessonId: ent.lessonId || null,
+        lessonTitle: entScope === "lesson" ? outlineItem?.title || ent.lessonTitleSnapshot || ent.lessonId || "Bài giảng" : undefined,
+        lessonOrder: outlineItem ? outlineItem.order : undefined,
+        status: ent.status || "active",
+        source: ent.source || "purchase",
+        pricePaidVnd: Math.max(0, Number(ent.pricePaidVnd) || 0),
+        transactionId: ent.transactionId,
+        grantedAt: String(ent.grantedAt || ""),
+        grantedBy: ent.grantedBy,
+      };
+    })
+  );
+
+  const result: CoursePurchasesPageResult = {
+    items,
+    nextCursor: hasMore ? nextCursor : null,
+    hasMore: Boolean(hasMore && nextCursor),
+    pageLimit: pageSize,
+  };
+
+  if (!cursor) {
+    coursePurchasesFirstPageCache.set(cacheKey, { result, ts: Date.now() });
+  }
+  return result;
 }
 
 /**
@@ -1034,7 +1349,311 @@ export function extractMp4DurationSeconds(buf: Buffer): number | null {
 }
 
 /**
- * SSRF-guarded video duration prober supporting YouTube, Google Drive, and direct MP4/Cloudinary URLs.
+ * Walks top-level ISO BMFF MP4 boxes from offset 0 to locate `moov` byte offset when stored inside or right after `mdat`.
+ */
+export function findMp4MoovOffset(buf: Buffer): number | null {
+  if (!buf || buf.length < 16) return null;
+  const firstType = buf.toString("ascii", 4, 8);
+  if (firstType !== "ftyp") return null;
+
+  let offset = 0;
+  let sawMdat = false;
+  for (let steps = 0; steps < 32 && offset + 8 <= buf.length; steps++) {
+    const size32 = buf.readUInt32BE(offset);
+    const boxType = buf.toString("ascii", offset + 4, offset + 8);
+    if (boxType === "moov") return offset;
+    if (boxType === "mdat") sawMdat = true;
+    let boxSize = size32;
+    if (size32 === 1) {
+      if (offset + 16 > buf.length) return null;
+      const hi = buf.readUInt32BE(offset + 8);
+      const lo = buf.readUInt32BE(offset + 12);
+      boxSize = hi * 4294967296 + lo;
+    }
+    if (!boxSize || boxSize < 8 || !Number.isFinite(boxSize)) return null;
+    offset += boxSize;
+  }
+  if (sawMdat && offset >= buf.length) {
+    return offset;
+  }
+  return null;
+}
+
+/**
+ * Pure binary parser for Matroska / WebM EBML Segment Info `TimecodeScale` (0x2AD7B1) + `Duration` (0x4489).
+ */
+export function extractMatroskaDurationSeconds(buf: Buffer): number | null {
+  if (!buf || buf.length < 32) return null;
+  // EBML header magic 0x1A 0x45 0xDF 0xA3
+  if (buf[0] !== 0x1a || buf[1] !== 0x45 || buf[2] !== 0xdf || buf[3] !== 0xa3) {
+    return null;
+  }
+
+  let timecodeScaleNs = 1_000_000; // Matroska default 1ms per tick
+  const scaleIdx = buf.indexOf(Buffer.from([0x2a, 0xd7, 0xb1]));
+  if (scaleIdx >= 0 && scaleIdx + 4 < buf.length) {
+    const vint = buf[scaleIdx + 3];
+    const len = vint & 0x7f;
+    if ((vint & 0x80) !== 0 && len >= 1 && len <= 8 && scaleIdx + 4 + len <= buf.length) {
+      let val = 0;
+      for (let i = 0; i < len; i++) {
+        val = val * 256 + buf[scaleIdx + 4 + i];
+      }
+      if (val > 0) timecodeScaleNs = val;
+    }
+  }
+
+  let searchFrom = 0;
+  while (searchFrom < buf.length - 8) {
+    const durIdx = buf.indexOf(Buffer.from([0x44, 0x89]), searchFrom);
+    if (durIdx < 0 || durIdx + 3 >= buf.length) break;
+    const sizeByte = buf[durIdx + 2];
+    const len = sizeByte & 0x7f;
+    if ((sizeByte & 0x80) !== 0 && (len === 4 || len === 8) && durIdx + 3 + len <= buf.length) {
+      const rawDur =
+        len === 4 ? buf.readFloatBE(durIdx + 3) : buf.readDoubleBE(durIdx + 3);
+      if (Number.isFinite(rawDur) && rawDur > 0) {
+        const seconds = Math.round((rawDur * timecodeScaleNs) / 1_000_000_000);
+        if (seconds > 0 && seconds < 86400 * 7) return seconds;
+      }
+    }
+    searchFrom = durIdx + 2;
+  }
+  return null;
+}
+
+const DEFAULT_BROWSER_UA =
+  "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36";
+
+function isAllowedDriveHost(hostname: string): boolean {
+  const lower = hostname.toLowerCase();
+  return (
+    lower === "drive.google.com" ||
+    lower === "docs.google.com" ||
+    lower === "drive.usercontent.google.com" ||
+    lower.endsWith(".googleusercontent.com")
+  );
+}
+
+async function readResponseChunkBounded(res: Response, maxBytes = 262144): Promise<Buffer> {
+  if (res.body && typeof res.body.getReader === "function") {
+    const reader = res.body.getReader();
+    const chunks: Uint8Array[] = [];
+    let total = 0;
+    try {
+      while (total < maxBytes) {
+        const { done, value } = await reader.read();
+        if (done || !value) break;
+        const remaining = maxBytes - total;
+        const slice = value.byteLength > remaining ? value.subarray(0, remaining) : value;
+        chunks.push(slice);
+        total += slice.byteLength;
+        if (total >= maxBytes) {
+          await reader.cancel().catch(() => {});
+          break;
+        }
+      }
+    } catch {}
+    return Buffer.concat(chunks.map((c) => Buffer.from(c)));
+  }
+  const arr = Buffer.from(await res.arrayBuffer());
+  return arr.length > maxBytes ? arr.subarray(0, maxBytes) : arr;
+}
+
+async function fetchWithSsrfCheckedRedirects(
+  targetUrl: string,
+  init: RequestInit,
+  options?: { restrictToDriveHosts?: boolean }
+): Promise<{ res: Response; finalUrl: string }> {
+  let currentUrl = targetUrl;
+  for (let hop = 0; hop < 4; hop++) {
+    const validated = await validateUrlForSsrf(currentUrl);
+    if (options?.restrictToDriveHosts && !isAllowedDriveHost(validated.url.hostname)) {
+      throw new Error("Redirect outside allowed Google Drive domains.");
+    }
+    const res = await fetch(currentUrl, {
+      ...init,
+      redirect: "manual",
+    });
+    const status = res.status;
+    const location = res.headers?.get?.("location");
+    if (status >= 300 && status < 400 && location) {
+      currentUrl = new URL(location, currentUrl).toString();
+      continue;
+    }
+    return { res, finalUrl: currentUrl };
+  }
+  throw new Error("Too many redirects while probing video duration.");
+}
+
+function unescapeGoogleHtmlPayload(raw: string): string {
+  return String(raw || "")
+    .replace(/\\u0026/gi, "&")
+    .replace(/\\u003d/gi, "=")
+    .replace(/\\u0022/gi, '"')
+    .replace(/\\x26/gi, "&")
+    .replace(/\\x3d/gi, "=")
+    .replace(/\\\//g, "/")
+    .replace(/\\"/g, '"');
+}
+
+function extractDriveTitleFromHtml(rawHtml: string): string | undefined {
+  const html = unescapeGoogleHtmlPayload(rawHtml);
+  const ogTitle = html.match(/<meta\s+(?:property="og:title"|name="title")\s+content="([^"]*)"/i)?.[1];
+  const tagTitle = html.match(/<title>([^<]+)<\/title>/i)?.[1]?.replace(/\s*-\s*Google Drive\s*$/i, "").trim();
+  return (ogTitle || tagTitle || "").trim() || undefined;
+}
+
+function extractDriveDurationFromHtml(
+  rawHtml: string
+): { durationSeconds: number; title?: string } | null {
+  const html = unescapeGoogleHtmlPayload(rawHtml);
+  const title = extractDriveTitleFromHtml(rawHtml);
+
+  const msPatterns = [
+    /["']?(?:durationMs|duration_ms|durationMillis|approxDurationMs)["']?\s*[:=]\s*["']?(\d{4,10})["']?/i,
+    /\["(?:durationMs|duration_ms|durationMillis|approxDurationMs)"\s*,\s*["']?(\d{4,10})["']?\]/i,
+  ];
+  for (const re of msPatterns) {
+    const m = html.match(re);
+    if (m?.[1]) {
+      const sec = Math.round(Number(m[1]) / 1000);
+      if (sec > 0) return { durationSeconds: sec, title };
+    }
+  }
+
+  const secPatterns = [
+    /["']?length_seconds["']?\s*[:=]\s*["']?(\d+(?:\.\d+)?)["']?/i,
+    /\["length_seconds"\s*,\s*["']?(\d+(?:\.\d+)?)["']?\]/i,
+    /(?:[?&]|%26|%3F)length_seconds(?:=|%3D)(\d+(?:\.\d+)?)/i,
+    /[?&]dur=(\d+(?:\.\d+)?)/i,
+    /%3F[^"'\s]*dur%3D(\d+(?:\.\d+)?)/i,
+    /%26dur%3D(\d+(?:\.\d+)?)/i,
+  ];
+  for (const re of secPatterns) {
+    const m = html.match(re);
+    if (m?.[1]) {
+      const sec = Math.round(Number(m[1]));
+      if (sec > 0 && sec < 86400 * 7) return { durationSeconds: sec, title };
+    }
+  }
+
+  return null;
+}
+
+function extractDriveConfirmationDownloadUrl(html: string, baseUrl: string): string | null {
+  const formMatch = html.match(/<form[^>]*id=["']download-form["'][^>]*action=["']([^"']+)["'][^>]*>([\s\S]*?)<\/form>/i)
+    || html.match(/<form[^>]*action=["'](https:\/\/drive\.usercontent\.google\.com\/download[^"']*)["'][^>]*>([\s\S]*?)<\/form>/i);
+  if (!formMatch) return null;
+
+  try {
+    const actionUrl = new URL(formMatch[1].replace(/&amp;/g, "&"), baseUrl);
+    if (!isAllowedDriveHost(actionUrl.hostname)) return null;
+    const formBody = formMatch[2] || "";
+    const inputTags = formBody.match(/<input\b[^>]*>/gi) || [];
+    for (const tag of inputTags) {
+      const nameMatch = tag.match(/\bname=["']([^"']+)["']/i);
+      const valMatch = tag.match(/\bvalue=["']([^"']*)["']/i);
+      if (nameMatch?.[1] && valMatch) {
+        actionUrl.searchParams.set(nameMatch[1], valMatch[1]);
+      }
+    }
+    return actionUrl.toString();
+  } catch {
+    return null;
+  }
+}
+
+async function probeRemoteMediaRange(
+  mediaUrl: string,
+  options?: { restrictToDriveHosts?: boolean; headers?: Record<string, string> }
+): Promise<{ durationSeconds: number; source: string } | null> {
+  const baseHeaders: Record<string, string> = {
+    "User-Agent": DEFAULT_BROWSER_UA,
+    Range: "bytes=0-131071",
+    ...(options?.headers || {}),
+  };
+
+  let { res: headRes, finalUrl } = await fetchWithSsrfCheckedRedirects(
+    mediaUrl,
+    { headers: baseHeaders, signal: AbortSignal.timeout(12000) },
+    { restrictToDriveHosts: options?.restrictToDriveHosts }
+  );
+  if (!headRes.ok) return null;
+
+  const contentType = String(headRes.headers?.get?.("content-type") || "").toLowerCase();
+  if (contentType.includes("text/html")) {
+    const html = (await readResponseChunkBounded(headRes, 131072)).toString("utf8");
+    const confirmUrl = extractDriveConfirmationDownloadUrl(html, finalUrl);
+    if (!confirmUrl) return null;
+    const confirmed = await fetchWithSsrfCheckedRedirects(
+      confirmUrl,
+      { headers: baseHeaders, signal: AbortSignal.timeout(12000) },
+      { restrictToDriveHosts: true }
+    );
+    headRes = confirmed.res;
+    finalUrl = confirmed.finalUrl;
+    if (!headRes.ok) return null;
+    const confirmedType = String(headRes.headers?.get?.("content-type") || "").toLowerCase();
+    if (confirmedType.includes("text/html")) return null;
+  }
+
+  const headBuf = await readResponseChunkBounded(headRes, 262144);
+  const headSec = extractMp4DurationSeconds(headBuf) ?? extractMatroskaDurationSeconds(headBuf);
+  if (headSec) {
+    return { durationSeconds: headSec, source: "mp4_head" };
+  }
+
+  const cr = headRes.headers?.get?.("content-range");
+  const totalMatch = cr?.match(/\/(\d+)$/);
+  const totalBytes = totalMatch ? Number(totalMatch[1]) : 0;
+
+  // Check if MP4 has a top-level `moov` box after `mdat` and jump directly to it
+  const moovOffset = findMp4MoovOffset(headBuf);
+  if (moovOffset && moovOffset >= headBuf.length && (!totalBytes || moovOffset < totalBytes)) {
+    const endByte = totalBytes ? Math.min(totalBytes - 1, moovOffset + 131071) : moovOffset + 131071;
+    const { res: moovRes } = await fetchWithSsrfCheckedRedirects(
+      finalUrl,
+      {
+        headers: { "User-Agent": DEFAULT_BROWSER_UA, Range: `bytes=${moovOffset}-${endByte}` },
+        signal: AbortSignal.timeout(10000),
+      },
+      { restrictToDriveHosts: options?.restrictToDriveHosts }
+    );
+    if (moovRes.ok) {
+      const moovBuf = await readResponseChunkBounded(moovRes, 262144);
+      const moovSec = extractMp4DurationSeconds(moovBuf);
+      if (moovSec) {
+        return { durationSeconds: moovSec, source: "mp4_moov" };
+      }
+    }
+  }
+
+  // Tail fallback for non-faststart MP4 when totalBytes is known
+  if (totalBytes > 262144) {
+    const start = Math.max(0, totalBytes - 262144);
+    const { res: tailRes } = await fetchWithSsrfCheckedRedirects(
+      finalUrl,
+      {
+        headers: { "User-Agent": DEFAULT_BROWSER_UA, Range: `bytes=${start}-${totalBytes - 1}` },
+        signal: AbortSignal.timeout(10000),
+      },
+      { restrictToDriveHosts: options?.restrictToDriveHosts }
+    );
+    if (tailRes.ok) {
+      const tailArr = await readResponseChunkBounded(tailRes, 262144);
+      const tailSec = extractMp4DurationSeconds(tailArr);
+      if (tailSec) {
+        return { durationSeconds: tailSec, source: "mp4_tail" };
+      }
+    }
+  }
+
+  return null;
+}
+
+/**
+ * SSRF-guarded video duration prober supporting YouTube, Google Drive (metadata + direct Range MP4/MKV), and direct MP4/Cloudinary URLs.
  */
 export async function probeVideoDuration(
   rawUrl: string
@@ -1043,15 +1662,12 @@ export async function probeVideoDuration(
   if (!cleanUrl) return null;
   await validateUrlForSsrf(cleanUrl);
 
-  const ytMatch = cleanUrl.match(
-    /(?:youtube(?:-nocookie)?\.com\/(?:watch\?(?:.*&)?v=|embed\/|shorts\/)|youtu\.be\/)([A-Za-z0-9_-]{6,20})/i
-  );
-  if (ytMatch?.[1]) {
-    const ytId = ytMatch[1];
+  const ytId = extractYouTubeVideoId(cleanUrl);
+  if (ytId) {
     try {
       const watchRes = await fetch(`https://www.youtube.com/watch?v=${encodeURIComponent(ytId)}&hl=en`, {
         headers: {
-          "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36",
+          "User-Agent": DEFAULT_BROWSER_UA,
           "Accept-Language": "en-US,en;q=0.9",
         },
         signal: AbortSignal.timeout(10000),
@@ -1077,100 +1693,138 @@ export async function probeVideoDuration(
     return null;
   }
 
-  const drivePathMatch = cleanUrl.match(/drive\.google\.com\/file\/d\/([A-Za-z0-9_-]+)/i);
-  const driveQueryMatch = cleanUrl.match(/drive\.google\.com\/(?:open|uc)\?(?:.*&)?id=([A-Za-z0-9_-]+)/i);
-  const driveId = drivePathMatch?.[1] || driveQueryMatch?.[1];
+  const driveId = extractGoogleDriveFileId(cleanUrl);
   if (driveId) {
+    let discoveredTitle: string | undefined;
+
+    // 1. Optional Google Drive v3 API if GOOGLE_DRIVE_API_KEY is configured
+    const driveApiKey = process.env.GOOGLE_DRIVE_API_KEY;
+    if (driveApiKey) {
+      try {
+        const apiRes = await fetch(
+          `https://www.googleapis.com/drive/v3/files/${encodeURIComponent(driveId)}?fields=name,videoMediaMetadata(durationMillis)&key=${encodeURIComponent(driveApiKey)}`,
+          { signal: AbortSignal.timeout(8000) }
+        );
+        if (apiRes.ok) {
+          const json: any = await apiRes.json();
+          if (json?.name) discoveredTitle = String(json.name);
+          const ms = Number(json?.videoMediaMetadata?.durationMillis || 0);
+          if (ms > 0) {
+            const sec = Math.round(ms / 1000);
+            return {
+              durationSeconds: sec,
+              durationMinutes: Math.max(1, Math.round(sec / 60)),
+              title: discoveredTitle,
+              source: "drive_api",
+            };
+          }
+        }
+      } catch {}
+    }
+
+    // 2. Drive get_video_info endpoint (length_seconds or embedded fmt_stream_map dur=)
     try {
       const infoRes = await fetch(
         `https://drive.google.com/get_video_info?docid=${encodeURIComponent(driveId)}`,
         {
-          headers: { "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36" },
+          headers: { "User-Agent": DEFAULT_BROWSER_UA },
           signal: AbortSignal.timeout(10000),
         }
       );
       if (infoRes.ok) {
         const body = await infoRes.text();
         const params = new URLSearchParams(body);
-        const lenSec = Number(params.get("length_seconds") || 0);
         const title = params.get("title") || undefined;
+        if (title) discoveredTitle = discoveredTitle || title;
+        const lenSec = Number(params.get("length_seconds") || 0);
         if (lenSec > 0) {
-          return {
-            durationSeconds: Math.round(lenSec),
-            durationMinutes: Math.max(1, Math.round(lenSec / 60)),
-            title,
-            source: "drive_info",
-          };
-        }
-      }
-    } catch {}
-
-    try {
-      const prevRes = await fetch(
-        `https://drive.google.com/file/d/${encodeURIComponent(driveId)}/preview`,
-        {
-          headers: { "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36" },
-          signal: AbortSignal.timeout(10000),
-        }
-      );
-      if (prevRes.ok) {
-        const html = await prevRes.text();
-        const msMatch = html.match(/["']?(?:durationMs|duration_ms)["']?\s*[:=]\s*["']?(\d{4,9})/i);
-        const secMatch = html.match(/["']?length_seconds["']?\s*[:=]\s*["']?(\d{1,6})/i);
-        const sec = msMatch?.[1]
-          ? Math.round(Number(msMatch[1]) / 1000)
-          : secMatch?.[1]
-          ? Math.round(Number(secMatch[1]))
-          : 0;
-        if (sec > 0) {
+          const sec = Math.round(lenSec);
           return {
             durationSeconds: sec,
             durationMinutes: Math.max(1, Math.round(sec / 60)),
-            source: "drive_preview",
+            title: discoveredTitle,
+            source: "drive_info",
           };
         }
-      }
-    } catch {}
-    return null;
-  }
-
-  // Direct MP4 / Cloudinary HTTP Range header probe (reads <= 256KB max)
-  try {
-    const headChunk = await fetch(cleanUrl, {
-      headers: { Range: "bytes=0-131071" },
-      signal: AbortSignal.timeout(10000),
-    });
-    if (headChunk.ok) {
-      const arr = Buffer.from(await headChunk.arrayBuffer());
-      const sec = extractMp4DurationSeconds(arr);
-      if (sec) {
-        return {
-          durationSeconds: sec,
-          durationMinutes: Math.max(1, Math.round(sec / 60)),
-          source: "mp4_head",
-        };
-      }
-      const cr = headChunk.headers.get("content-range");
-      const totalMatch = cr?.match(/\/(\d+)$/);
-      const totalBytes = totalMatch ? Number(totalMatch[1]) : 0;
-      if (totalBytes > 262144) {
-        const start = Math.max(0, totalBytes - 131072);
-        const tailChunk = await fetch(cleanUrl, {
-          headers: { Range: `bytes=${start}-${totalBytes - 1}` },
-          signal: AbortSignal.timeout(10000),
-        });
-        if (tailChunk.ok) {
-          const tailArr = Buffer.from(await tailChunk.arrayBuffer());
-          const tailSec = extractMp4DurationSeconds(tailArr);
-          if (tailSec) {
+        const streamMap = `${params.get("fmt_stream_map") || ""} ${params.get("url_encoded_fmt_stream_map") || ""}`;
+        const durMatch = streamMap.match(/[?&]dur=(\d+(?:\.\d+)?)/i) || decodeURIComponent(streamMap).match(/[?&]dur=(\d+(?:\.\d+)?)/i);
+        if (durMatch?.[1]) {
+          const sec = Math.round(Number(durMatch[1]));
+          if (sec > 0) {
             return {
-              durationSeconds: tailSec,
-              durationMinutes: Math.max(1, Math.round(tailSec / 60)),
-              source: "mp4_tail",
+              durationSeconds: sec,
+              durationMinutes: Math.max(1, Math.round(sec / 60)),
+              title: discoveredTitle,
+              source: "drive_info_stream",
             };
           }
         }
       }
+    } catch {}
+
+    // 3. Drive /preview and /view HTML metadata parser (handles escaped JSON & URL-encoded duration tokens)
+    for (const suffix of ["preview", "view"]) {
+      try {
+        const prevRes = await fetch(
+          `https://drive.google.com/file/d/${encodeURIComponent(driveId)}/${suffix}`,
+          {
+            headers: {
+              "User-Agent": DEFAULT_BROWSER_UA,
+              "Accept-Language": "en-US,en;q=0.9",
+            },
+            signal: AbortSignal.timeout(10000),
+          }
+        );
+        if (prevRes.ok) {
+          const html = await prevRes.text();
+          const parsed = extractDriveDurationFromHtml(html);
+          if (parsed?.title) discoveredTitle = discoveredTitle || parsed.title;
+          if (parsed && parsed.durationSeconds > 0) {
+            return {
+              durationSeconds: parsed.durationSeconds,
+              durationMinutes: Math.max(1, Math.round(parsed.durationSeconds / 60)),
+              title: discoveredTitle,
+              source: `drive_${suffix}`,
+            };
+          }
+          if (!discoveredTitle) {
+            discoveredTitle = extractDriveTitleFromHtml(html);
+          }
+        }
+      } catch {}
+    }
+
+    // 4. Direct Range MP4 / WebM probe on public Drive download endpoints (reads <= 256KB/chunk)
+    const driveDownloadCandidates = [
+      `https://drive.usercontent.google.com/download?id=${encodeURIComponent(driveId)}&export=download&confirm=t`,
+      `https://drive.google.com/uc?export=download&confirm=t&id=${encodeURIComponent(driveId)}`,
+    ];
+    for (const downloadUrl of driveDownloadCandidates) {
+      try {
+        const mediaProbe = await probeRemoteMediaRange(downloadUrl, { restrictToDriveHosts: true });
+        if (mediaProbe && mediaProbe.durationSeconds > 0) {
+          return {
+            durationSeconds: mediaProbe.durationSeconds,
+            durationMinutes: Math.max(1, Math.round(mediaProbe.durationSeconds / 60)),
+            ...(discoveredTitle ? { title: discoveredTitle } : {}),
+            source: `drive_${mediaProbe.source}`,
+          };
+        }
+      } catch {}
+    }
+
+    return null;
+  }
+
+  // Direct MP4 / WebM / Cloudinary HTTP Range header probe (reads <= 256KB max)
+  try {
+    const mediaProbe = await probeRemoteMediaRange(cleanUrl);
+    if (mediaProbe && mediaProbe.durationSeconds > 0) {
+      return {
+        durationSeconds: mediaProbe.durationSeconds,
+        durationMinutes: Math.max(1, Math.round(mediaProbe.durationSeconds / 60)),
+        source: mediaProbe.source,
+      };
     }
   } catch {}
 

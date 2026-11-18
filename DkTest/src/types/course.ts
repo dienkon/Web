@@ -127,6 +127,37 @@ export interface CourseEntitlement {
   grantedBy?: string;
   courseTitleSnapshot?: string;
   lessonTitleSnapshot?: string;
+  studentNameSnapshot?: string;
+  studentClassSnapshot?: string;
+  studentEmailSnapshot?: string;
+}
+
+export interface CoursePurchaseDetailItem {
+  id: string;
+  uid: string;
+  studentName: string;
+  studentClass?: string;
+  studentEmail?: string;
+  studentUsername?: string;
+  courseId: string;
+  courseTitle: string;
+  scope: "course" | "lesson";
+  lessonId?: string | null;
+  lessonTitle?: string;
+  lessonOrder?: number;
+  status: "active" | "revoked";
+  source: "purchase" | "admin_grant";
+  pricePaidVnd: number;
+  transactionId?: string;
+  grantedAt: string;
+  grantedBy?: string;
+}
+
+export interface CoursePurchasesPageResult {
+  items: CoursePurchaseDetailItem[];
+  nextCursor: string | null;
+  hasMore: boolean;
+  pageLimit: number;
 }
 
 export interface CourseAccessInfo {

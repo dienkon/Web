@@ -350,220 +350,129 @@ async function deleteFirestoreRestDoc(collectionName, docId) {
     return false;
   }
 }
+async function queryOrderedFirestoreRestDocs(collectionName, options) {
+  const safeLimit = Math.min(Math.max(options.limitCount || 5, 1), 100);
+  const apiKey = getFirebaseApiKey();
+  const projectId = process.env.FIREBASE_PROJECT_ID || process.env.VITE_FIREBASE_PROJECT_ID || "exam-fd7a1";
+  const url = `https://firestore.googleapis.com/v1/projects/${projectId}/databases/(default)/documents:runQuery?key=${apiKey}`;
+  const structuredQuery = {
+    from: [{ collectionId: collectionName }],
+    orderBy: [
+      {
+        field: { fieldPath: options.orderByField },
+        direction: options.direction || "DESCENDING"
+      }
+    ],
+    limit: safeLimit
+  };
+  if (options.whereField && Array.isArray(options.inValues) && options.inValues.length > 0) {
+    structuredQuery.where = {
+      fieldFilter: {
+        field: { fieldPath: options.whereField },
+        op: options.inValues.length === 1 ? "EQUAL" : "IN",
+        value: options.inValues.length === 1 ? encodeFirestoreValue(options.inValues[0]) : { arrayValue: { values: options.inValues.map(encodeFirestoreValue) } }
+      }
+    };
+  } else if (options.whereField && options.equalValue !== void 0) {
+    structuredQuery.where = {
+      fieldFilter: {
+        field: { fieldPath: options.whereField },
+        op: "EQUAL",
+        value: encodeFirestoreValue(options.equalValue)
+      }
+    };
+  }
+  if (options.startAfterValue !== void 0 && options.startAfterValue !== null && options.startAfterValue !== "") {
+    structuredQuery.startAt = {
+      values: [encodeFirestoreValue(options.startAfterValue)],
+      before: false
+    };
+  }
+  try {
+    const res = await fetch(url, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ structuredQuery })
+    });
+    if (res.ok) {
+      const raw = await res.json();
+      const docs = (Array.isArray(raw) ? raw : []).filter((row) => row && row.document).map((row) => decodeFirestoreDocument(row.document)).filter(Boolean);
+      return { docs, usedFallbackScan: false };
+    }
+    if (res.status === 400 && structuredQuery.where) {
+      const fallbackQuery = {
+        from: [{ collectionId: collectionName }],
+        orderBy: structuredQuery.orderBy,
+        limit: Math.min(safeLimit * 5, 25)
+      };
+      if (structuredQuery.startAt) fallbackQuery.startAt = structuredQuery.startAt;
+      const res2 = await fetch(url, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ structuredQuery: fallbackQuery })
+      });
+      if (res2.ok) {
+        const raw2 = await res2.json();
+        const docs2 = (Array.isArray(raw2) ? raw2 : []).filter((row) => row && row.document).map((row) => decodeFirestoreDocument(row.document)).filter(Boolean);
+        return { docs: docs2, usedFallbackScan: true };
+      }
+    }
+    return { docs: [], usedFallbackScan: true };
+  } catch {
+    return { docs: [], usedFallbackScan: true };
+  }
+}
 
 // server/middleware/auth.ts
 async function requireAuth(req, res, next) {
-  if (req.method === "OPTIONS") {
-    return next();
-  }
-  const isAdminRoute = Boolean(
-    req.baseUrl?.startsWith("/api/admin") || req.originalUrl?.startsWith("/api/admin") || req.path?.startsWith("/api/admin")
-  );
-  const configuredAdminKey = process.env.ADMIN_SECRET_KEY || process.env.DK_ADMIN_MASTER_KEY || "dk_admin_master_secret_2026";
-  const adminHeaderToken = req.headers["x-admin-token"] || "";
-  const clientAuthRole = req.headers["x-auth-role"] || "";
-  const isValidAdminHeader = Boolean(
-    configuredAdminKey && adminHeaderToken && adminHeaderToken === configuredAdminKey || adminHeaderToken && adminHeaderToken.startsWith("dk_admin_")
-  );
-  if (isAdminRoute && isValidAdminHeader) {
-    req.user = {
-      uid: "admin_master",
-      email: process.env.SUPER_ADMIN_DEFAULT_EMAIL || "duongthanhdien3456@gmail.com",
-      role: "super_admin",
-      displayName: "Qu\u1EA3n tr\u1ECB vi\xEAn H\u1EC7 th\u1ED1ng",
-      accountStatus: "active"
-    };
-    return next();
-  }
-  const authHeader = req.headers.authorization;
-  if (!authHeader || !authHeader.startsWith("Bearer ")) {
-    const studentUid = req.headers["x-student-uid"]?.trim() || req.query.studentUid?.trim();
-    const studentUsername = req.headers["x-student-username"]?.trim() || req.query.studentUsername?.trim();
-    if (studentUid || studentUsername) {
-      req.user = {
-        uid: studentUid || studentUsername,
-        displayName: studentUsername || "H\u1ECDc sinh",
-        role: "student",
-        accountStatus: "active"
-      };
-      return next();
-    }
-    return res.status(401).json({
-      error: "unauthorized",
-      message: "Y\xEAu c\u1EA7u \u0111\u0103ng nh\u1EADp \u0111\u1EC3 ti\u1EBFp t\u1EE5c (thi\u1EBFu Bearer token)."
-    });
-  }
-  const idToken = authHeader.split("Bearer ")[1].trim();
-  if (!idToken) {
-    return res.status(401).json({
-      error: "unauthorized",
-      message: "Token \u0111\u0103ng nh\u1EADp kh\xF4ng h\u1EE3p l\u1EC7."
-    });
-  }
-  if (idToken.startsWith("student_")) {
-    const sUid = decodeURIComponent(idToken.slice(8));
-    const sUsername = req.headers["x-student-username"]?.trim() || "";
-    req.user = {
-      uid: sUid,
-      displayName: sUsername || "H\u1ECDc sinh",
-      role: "student",
-      accountStatus: "active"
-    };
-    return next();
-  }
-  const isValidBearerAdmin = Boolean(
-    configuredAdminKey && idToken === configuredAdminKey || idToken && idToken.startsWith("dk_admin_")
-  );
-  if (isAdminRoute && isValidBearerAdmin) {
-    req.user = {
-      uid: "admin_master",
-      email: process.env.SUPER_ADMIN_DEFAULT_EMAIL || "duongthanhdien3456@gmail.com",
-      role: "super_admin",
-      displayName: "Qu\u1EA3n tr\u1ECB vi\xEAn H\u1EC7 th\u1ED1ng",
-      accountStatus: "active"
-    };
-    return next();
-  }
+  if (req.method === "OPTIONS") return next();
+  const token = /^Bearer\s+(\S+)$/i.exec(req.headers.authorization || "")?.[1];
+  if (!token || /^(student_|dk_admin_)/.test(token)) return res.status(401).json({ error: "unauthorized", message: "C\u1EA7n \u0111\u0103ng nh\u1EADp b\u1EB1ng t\xE0i kho\u1EA3n Firebase h\u1EE3p l\u1EC7." });
   try {
-    let uid = "";
-    let email = "";
-    let displayName = "";
-    let role = "";
-    let accountStatus = "active";
+    let identity;
     if (adminAuth) {
-      const decodedToken = await adminAuth.verifyIdToken(idToken);
-      uid = decodedToken.uid;
-      email = decodedToken.email || "";
-      displayName = decodedToken.name || "";
-      role = decodedToken.role || "";
-      accountStatus = decodedToken.accountStatus || "active";
+      const decoded = await adminAuth.verifyIdToken(token);
+      identity = { uid: decoded.uid, email: decoded.email, name: decoded.name, role: decoded.role, accountStatus: decoded.accountStatus };
     } else {
-      const parts = idToken.split(".");
-      if (parts.length === 3) {
-        const payload = JSON.parse(Buffer.from(parts[1], "base64").toString("utf-8"));
-        uid = payload.user_id || payload.sub || "dev_user";
-        email = payload.email || "";
-        displayName = payload.name || "";
-        role = payload.role || "";
-      } else {
-        return res.status(401).json({
-          error: "unauthorized",
-          message: "Kh\xF4ng th\u1EC3 x\xE1c th\u1EF1c danh t\xEDnh."
-        });
-      }
-    }
-    if (!role && uid) {
-      if (adminDb) {
-        try {
-          const userDoc = await adminDb.collection("users").doc(uid).get();
-          if (userDoc.exists) {
-            const data = userDoc.data();
-            role = data?.role || "";
-            accountStatus = data?.accountStatus || "active";
-            if (!displayName && data?.displayName) displayName = data.displayName;
-          }
-        } catch (dbErr) {
-          console.warn("[requireAuth] Could not fetch user doc from Firestore:", dbErr);
-        }
-      } else {
-        try {
-          const userData = await getFirestoreRestDoc("users", uid);
-          if (userData) {
-            role = userData.role || "";
-            accountStatus = userData.accountStatus || "active";
-            if (!displayName && userData.displayName) displayName = userData.displayName;
-          }
-        } catch (restErr) {
-          console.warn("[requireAuth] Could not fetch user doc via Firestore REST fallback:", restErr);
-        }
-      }
-    }
-    const envSuperAdmins = (process.env.SUPER_ADMIN_EMAILS || "").split(",").map((e) => e.trim().toLowerCase()).filter(Boolean);
-    const VERIFIED_SUPER_ADMIN_EMAILS = /* @__PURE__ */ new Set([
-      ...envSuperAdmins,
-      "admin@dktest.edu.vn",
-      "admin@dktest.local",
-      "duongthanhdien3456@gmail.com",
-      "dienkon@gmail.com"
-    ]);
-    const lowerEmail = (email || "").toLowerCase().trim();
-    if (VERIFIED_SUPER_ADMIN_EMAILS.has(lowerEmail)) {
-      role = "super_admin";
-    } else if (isAdminRoute && (adminHeaderToken.startsWith("dk_admin_") || clientAuthRole === "admin")) {
-      role = role === "super_admin" ? "super_admin" : "admin";
-    } else if (!role) {
-      role = "student";
-    }
-    req.user = {
-      uid,
-      email,
-      role: role || "student",
-      displayName,
-      accountStatus
-    };
-    if (accountStatus === "suspended" || accountStatus === "disabled" || accountStatus === "deleted") {
-      return res.status(403).json({
-        error: "account_suspended",
-        message: "T\xE0i kho\u1EA3n c\u1EE7a b\u1EA1n \u0111\xE3 b\u1ECB t\u1EA1m kho\xE1 ho\u1EB7c v\xF4 hi\u1EC7u ho\xE1. Vui l\xF2ng li\xEAn h\u1EC7 qu\u1EA3n tr\u1ECB vi\xEAn."
+      const response = await fetch(`https://identitytoolkit.googleapis.com/v1/accounts:lookup?key=${encodeURIComponent(getFirebaseApiKey())}`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ idToken: token }),
+        signal: AbortSignal.timeout(1e4)
       });
+      if (!response.ok) throw new Error("invalid_token");
+      const account = (await response.json()).users?.[0];
+      if (!account?.localId || account.disabled) throw new Error("invalid_token");
+      identity = { uid: account.localId, email: account.email, name: account.displayName };
     }
+    let profile = null;
+    if (adminDb) {
+      const snapshot = await adminDb.collection("users").doc(identity.uid).get();
+      profile = snapshot.exists ? snapshot.data() : null;
+    } else {
+      const project = process.env.FIREBASE_PROJECT_ID || process.env.VITE_FIREBASE_PROJECT_ID || "exam-fd7a1";
+      const response = await fetch(`https://firestore.googleapis.com/v1/projects/${project}/databases/(default)/documents/users/${encodeURIComponent(identity.uid)}`, {
+        headers: { Authorization: `Bearer ${token}` },
+        signal: AbortSignal.timeout(1e4)
+      });
+      if (response.ok) profile = decodeFirestoreDocument(await response.json());
+      else if (response.status !== 404) throw new Error("profile_unavailable");
+    }
+    const status = profile?.accountStatus || identity.accountStatus || "active";
+    if (["suspended", "disabled", "deleted"].includes(status)) return res.status(403).json({ error: "account_suspended", message: "T\xE0i kho\u1EA3n \u0111\xE3 b\u1ECB v\xF4 hi\u1EC7u h\xF3a." });
+    req.user = { uid: identity.uid, email: identity.email, role: profile?.role || identity.role || "student", displayName: profile?.displayName || identity.name, accountStatus: status };
     return next();
-  } catch (err) {
-    const studentUid = req.headers["x-student-uid"]?.trim() || req.query.studentUid?.trim();
-    const studentUsername = req.headers["x-student-username"]?.trim() || req.query.studentUsername?.trim();
-    if (studentUid || studentUsername) {
-      req.user = {
-        uid: studentUid || studentUsername,
-        displayName: studentUsername || "H\u1ECDc sinh",
-        role: "student",
-        accountStatus: "active"
-      };
-      return next();
-    }
-    console.error("[requireAuth] Token verification failed:", err?.message || err);
-    return res.status(401).json({
-      error: "invalid_token",
-      message: "Phi\xEAn \u0111\u0103ng nh\u1EADp \u0111\xE3 h\u1EBFt h\u1EA1n ho\u1EB7c kh\xF4ng h\u1EE3p l\u1EC7. Vui l\xF2ng \u0111\u0103ng nh\u1EADp l\u1EA1i."
-    });
+  } catch {
+    return res.status(401).json({ error: "invalid_token", message: "Kh\xF4ng x\xE1c minh \u0111\u01B0\u1EE3c phi\xEAn \u0111\u0103ng nh\u1EADp. Vui l\xF2ng \u0111\u0103ng nh\u1EADp l\u1EA1i." });
   }
 }
 async function requireAdmin(req, res, next) {
-  if (!req.user) {
-    return requireAuth(req, res, () => {
-      checkAdminPermission(req, res, next);
-    });
-  }
-  return checkAdminPermission(req, res, next);
-}
-function checkAdminPermission(req, res, next) {
-  const role = req.user?.role;
-  if (role === "admin" || role === "super_admin") {
-    return next();
-  }
-  return res.status(403).json({
-    error: "permission_denied",
-    message: "B\u1EA1n kh\xF4ng c\xF3 quy\u1EC1n qu\u1EA3n tr\u1ECB \u0111\u1EC3 th\u1EF1c hi\u1EC7n thao t\xE1c n\xE0y."
-  });
+  const check = () => ["admin", "super_admin"].includes(req.user?.role || "") ? next() : res.status(403).json({ error: "permission_denied", message: "B\u1EA1n kh\xF4ng c\xF3 quy\u1EC1n qu\u1EA3n tr\u1ECB." });
+  return req.user ? check() : requireAuth(req, res, check);
 }
 async function requireSuperAdmin(req, res, next) {
-  if (!req.user) {
-    return requireAuth(req, res, () => {
-      if (req.user?.role === "super_admin" || req.user?.role === "admin") {
-        return next();
-      }
-      return res.status(403).json({
-        error: "permission_denied",
-        message: "Ch\u1EC9 Super Admin m\u1EDBi c\xF3 quy\u1EC1n th\u1EF1c hi\u1EC7n thao t\xE1c n\xE0y."
-      });
-    });
-  }
-  if (req.user.role === "super_admin" || req.user.role === "admin") {
-    return next();
-  }
-  return res.status(403).json({
-    error: "permission_denied",
-    message: "Ch\u1EC9 Super Admin m\u1EDBi c\xF3 quy\u1EC1n th\u1EF1c hi\u1EC7n thao t\xE1c n\xE0y."
-  });
+  const check = () => req.user?.role === "super_admin" ? next() : res.status(403).json({ error: "permission_denied", message: "Ch\u1EC9 Super Admin c\xF3 quy\u1EC1n th\u1EF1c hi\u1EC7n thao t\xE1c n\xE0y." });
+  return req.user ? check() : requireAuth(req, res, check);
 }
 
 // server/services/voucherService.ts
@@ -2096,6 +2005,148 @@ async function getDepositRequests(options) {
   depositRequestsCache.set(cacheKey, { data: list, timestamp: Date.now() });
   return list;
 }
+var GLOBAL_SPENDING_TYPES = [
+  "exam_unlock_debit",
+  "course_unlock_debit",
+  "course_lesson_unlock_debit",
+  "admin_adjustment_debit"
+];
+var spendingFirstPageCache = /* @__PURE__ */ new Map();
+var spendingStudentMetaCache = /* @__PURE__ */ new Map();
+var SPENDING_CACHE_TTL_MS = 45 * 1e3;
+var SPENDING_STUDENT_META_TTL_MS = 10 * 60 * 1e3;
+async function getGlobalSpendingHistory(options) {
+  const pageSize = Math.min(20, Math.max(1, Math.floor(Number(options?.limit) || 5)));
+  const cursor = options?.cursor ? String(options.cursor).trim() : "";
+  const filterType = options?.filterType ? String(options.filterType).trim() : "all_spending";
+  const cacheKey = `${filterType}_${pageSize}`;
+  if (!cursor && !options?.force) {
+    const cached = spendingFirstPageCache.get(cacheKey);
+    if (cached && Date.now() - cached.timestamp < SPENDING_CACHE_TTL_MS) {
+      return cached.data;
+    }
+  }
+  const targetTypes = filterType && filterType !== "all_spending" && GLOBAL_SPENDING_TYPES.includes(filterType) ? [filterType] : [...GLOBAL_SPENDING_TYPES];
+  let rawItems = [];
+  let nextCursor = null;
+  let hasMore = false;
+  if (adminDb) {
+    const baseRef = adminDb.collection("wallet_transactions");
+    try {
+      let q = targetTypes.length === 1 ? baseRef.where("type", "==", targetTypes[0]) : baseRef.where("type", "in", targetTypes);
+      q = q.orderBy("createdAt", "desc");
+      if (cursor) {
+        q = q.startAfter(cursor);
+      }
+      q = q.limit(pageSize);
+      const snap = await q.get();
+      console.log(`[Server Firestore READ: ${snap.size} docs] wallet_transactions global spending (limit ${pageSize})`);
+      rawItems = snap.docs.map((d) => ({ id: d.id, ...d.data() }));
+      hasMore = snap.size === pageSize;
+      nextCursor = snap.docs.length > 0 ? String(snap.docs[snap.docs.length - 1].data().createdAt || "") : null;
+    } catch (err) {
+      console.warn("[walletService] Composite index fallback for global spending history:", err?.message || err);
+      const collected = [];
+      let scanCursor = cursor;
+      let exhausted = false;
+      const chunkSize = 15;
+      for (let step = 0; step < 3 && collected.length < pageSize && !exhausted; step++) {
+        let q = baseRef.orderBy("createdAt", "desc");
+        if (scanCursor) {
+          q = q.startAfter(scanCursor);
+        }
+        const snap = await q.limit(chunkSize).get();
+        if (snap.empty) {
+          exhausted = true;
+          break;
+        }
+        for (const d of snap.docs) {
+          const data = { id: d.id, ...d.data() };
+          scanCursor = String(data.createdAt || "");
+          const isMatch = targetTypes.includes(data.type) || filterType === "all_spending" && data.type === "admin_adjustment" && Number(data.balanceAfterVnd) < Number(data.balanceBeforeVnd);
+          if (isMatch) {
+            collected.push(data);
+            if (collected.length >= pageSize) break;
+          }
+        }
+        if (snap.size < chunkSize) {
+          exhausted = true;
+        }
+      }
+      rawItems = collected;
+      nextCursor = scanCursor || null;
+      hasMore = !exhausted && rawItems.length > 0;
+    }
+  } else {
+    const { docs, usedFallbackScan } = await queryOrderedFirestoreRestDocs("wallet_transactions", {
+      whereField: "type",
+      inValues: targetTypes,
+      orderByField: "createdAt",
+      direction: "DESCENDING",
+      startAfterValue: cursor || void 0,
+      limitCount: pageSize
+    });
+    const filtered = docs.filter((data) => {
+      const isMatch = targetTypes.includes(data.type) || filterType === "all_spending" && data.type === "admin_adjustment" && Number(data.balanceAfterVnd) < Number(data.balanceBeforeVnd);
+      if (!isMatch) return false;
+      if (cursor && String(data.createdAt || "") >= cursor) return false;
+      return true;
+    });
+    rawItems = filtered.slice(0, pageSize);
+    hasMore = usedFallbackScan ? filtered.length >= pageSize : docs.length === pageSize;
+    nextCursor = rawItems.length > 0 ? String(rawItems[rawItems.length - 1].createdAt || "") : null;
+  }
+  const nowMs = Date.now();
+  const enriched = rawItems.map((tx) => {
+    const cachedMeta = spendingStudentMetaCache.get(tx.uid);
+    const freshMeta = cachedMeta && nowMs - cachedMeta.ts < SPENDING_STUDENT_META_TTL_MS ? cachedMeta : void 0;
+    return {
+      ...tx,
+      studentName: tx.studentNameSnapshot || freshMeta?.fullName || (tx.actorName && tx.actorName !== "Th\xED sinh" ? tx.actorName : void 0),
+      studentClass: tx.studentClassSnapshot || freshMeta?.currentClass || void 0,
+      studentUsername: userMapCache?.map.get(tx.uid)?.username || void 0
+    };
+  });
+  const missingUids = Array.from(
+    new Set(
+      enriched.filter((item) => !item.studentName && item.uid).map((item) => item.uid)
+    )
+  );
+  if (missingUids.length > 0 && adminDb) {
+    try {
+      const refs = missingUids.map((u) => adminDb.collection("wallets").doc(u));
+      const walletSnaps = await adminDb.getAll(...refs);
+      const wMap = /* @__PURE__ */ new Map();
+      walletSnaps.forEach((snap) => {
+        if (snap.exists) {
+          const d = snap.data();
+          const meta = { fullName: d.fullName, currentClass: d.currentClass };
+          wMap.set(snap.id, meta);
+          spendingStudentMetaCache.set(snap.id, { ...meta, ts: nowMs });
+        }
+      });
+      enriched.forEach((item) => {
+        if (!item.studentName) {
+          const wInfo = wMap.get(item.uid);
+          const uInfo = userMapCache?.map.get(item.uid);
+          item.studentName = wInfo?.fullName || uInfo?.displayName || item.actorName || "H\u1ECDc sinh";
+          item.studentClass = item.studentClass || wInfo?.currentClass || "";
+          item.studentUsername = item.studentUsername || uInfo?.username || "";
+        }
+      });
+    } catch (_) {
+    }
+  }
+  const result = {
+    items: enriched,
+    nextCursor: hasMore ? nextCursor : null,
+    hasMore
+  };
+  if (!cursor) {
+    spendingFirstPageCache.set(cacheKey, { data: result, timestamp: Date.now() });
+  }
+  return result;
+}
 async function getStudentDepositRequests(uid, limitCount = 30) {
   if (adminDb) {
     const snap = await adminDb.collection("deposit_requests").where("uid", "==", uid).orderBy("createdAt", "desc").limit(limitCount).get();
@@ -2627,6 +2678,943 @@ async function adminDirectEditWallet(adminUid, adminName, studentUid, payload) {
     wallet: updatedWallet,
     message: "\u0110\xE3 c\u1EADp nh\u1EADt th\xF4ng tin v\xED v\xE0 s\u1ED1 d\u01B0 th\xE0nh c\xF4ng!"
   };
+}
+
+// server/services/webImporter/ssrfGuard.ts
+import dns from "dns";
+import net from "net";
+var PRIVATE_IPV4_RANGES = [
+  // 0.0.0.0/8 (Current network)
+  { start: ipToLong("0.0.0.0"), end: ipToLong("0.255.255.255") },
+  // 10.0.0.0/8 (Private network)
+  { start: ipToLong("10.0.0.0"), end: ipToLong("10.255.255.255") },
+  // 127.0.0.0/8 (Loopback)
+  { start: ipToLong("127.0.0.0"), end: ipToLong("127.255.255.255") },
+  // 169.254.0.0/16 (Link-local, AWS/GCP Metadata 169.254.169.254)
+  { start: ipToLong("169.254.0.0"), end: ipToLong("169.254.255.255") },
+  // 172.16.0.0/12 (Private network)
+  { start: ipToLong("172.16.0.0"), end: ipToLong("172.31.255.255") },
+  // 192.168.0.0/16 (Private network)
+  { start: ipToLong("192.168.0.0"), end: ipToLong("192.168.255.255") },
+  // 100.64.0.0/10 (Carrier-grade NAT)
+  { start: ipToLong("100.64.0.0"), end: ipToLong("100.127.255.255") },
+  // 224.0.0.0/4 (Multicast)
+  { start: ipToLong("224.0.0.0"), end: ipToLong("239.255.255.255") },
+  // 240.0.0.0/4 (Reserved)
+  { start: ipToLong("240.0.0.0"), end: ipToLong("255.255.255.255") }
+];
+function ipToLong(ip) {
+  return ip.split(".").reduce((acc, octet) => (acc << 8) + parseInt(octet, 10), 0) >>> 0;
+}
+function isPrivateIp(ip) {
+  if (!ip) return true;
+  if (net.isIPv4(ip)) {
+    const long = ipToLong(ip);
+    for (const range of PRIVATE_IPV4_RANGES) {
+      if (long >= range.start && long <= range.end) {
+        return true;
+      }
+    }
+    return false;
+  }
+  if (net.isIPv6(ip)) {
+    const lower = ip.toLowerCase();
+    if (lower === "::1" || lower === "0:0:0:0:0:0:0:1") return true;
+    if (lower === "::" || lower === "0:0:0:0:0:0:0:0") return true;
+    if (lower.startsWith("fc") || lower.startsWith("fd")) return true;
+    if (lower.startsWith("fe80")) return true;
+    if (lower.startsWith("::ffff:")) {
+      const v4Part = lower.replace("::ffff:", "");
+      if (net.isIPv4(v4Part)) return isPrivateIp(v4Part);
+    }
+    return false;
+  }
+  return true;
+}
+async function validateUrlForSsrf(rawUrl) {
+  let parsedUrl;
+  try {
+    parsedUrl = new URL(rawUrl);
+  } catch {
+    throw new Error(`\u0110\u1ECBnh d\u1EA1ng URL kh\xF4ng h\u1EE3p l\u1EC7: "${rawUrl}"`);
+  }
+  if (parsedUrl.protocol !== "http:" && parsedUrl.protocol !== "https:") {
+    throw new Error(
+      `Giao th\u1EE9c kh\xF4ng \u0111\u01B0\u1EE3c h\u1ED7 tr\u1EE3: "${parsedUrl.protocol}". Ch\u1EC9 ch\u1EA5p nh\u1EADn http: ho\u1EB7c https:`
+    );
+  }
+  const hostname = parsedUrl.hostname.toLowerCase();
+  if (hostname === "localhost" || hostname.endsWith(".localhost") || hostname.endsWith(".local") || hostname.endsWith(".internal") || hostname === "metadata.google.internal" || hostname === "169.254.169.254") {
+    throw new Error(
+      `Truy c\u1EADp b\u1ECB t\u1EEB ch\u1ED1i (SSRF Protection): Hostname n\u1ED9i b\u1ED9 "${hostname}" b\u1ECB c\u1EA5m.`
+    );
+  }
+  if (net.isIP(hostname)) {
+    if (isPrivateIp(hostname)) {
+      throw new Error(
+        `Truy c\u1EADp b\u1ECB t\u1EEB ch\u1ED1i (SSRF Protection): \u0110\u1ECBa ch\u1EC9 IP n\u1ED9i b\u1ED9 "${hostname}" b\u1ECB c\u1EA5m.`
+      );
+    }
+    return { url: parsedUrl, resolvedIp: hostname };
+  }
+  try {
+    const lookup = await dns.promises.lookup(hostname, { all: true });
+    if (!lookup || lookup.length === 0) {
+      throw new Error(`Kh\xF4ng th\u1EC3 ph\xE2n gi\u1EA3i t\xEAn mi\u1EC1n: "${hostname}"`);
+    }
+    for (const entry of lookup) {
+      if (isPrivateIp(entry.address)) {
+        throw new Error(
+          `Truy c\u1EADp b\u1ECB t\u1EEB ch\u1ED1i (SSRF Protection): T\xEAn mi\u1EC1n "${hostname}" ph\xE2n gi\u1EA3i ra IP n\u1ED9i b\u1ED9 ${entry.address}.`
+        );
+      }
+    }
+    return { url: parsedUrl, resolvedIp: lookup[0].address };
+  } catch (err) {
+    if (err.message.includes("SSRF Protection")) throw err;
+    throw new Error(`L\u1ED7i ki\u1EC3m tra DNS cho t\xEAn mi\u1EC1n "${hostname}": ${err.message}`);
+  }
+}
+
+// src/utils/videoSourceHelper.ts
+function extractGoogleDriveFileId(rawUrl) {
+  const url = String(rawUrl || "").trim();
+  if (!url) return null;
+  const pathMatch = url.match(
+    /(?:drive|docs)\.google\.com\/file\/(?:u\/\d+\/)?d\/([A-Za-z0-9_-]{10,})/i
+  );
+  if (pathMatch?.[1]) return pathMatch[1];
+  const queryMatch = url.match(
+    /(?:drive\.google\.com\/(?:open|uc)|drive\.usercontent\.google\.com\/download)\?(?:[^#]*&)?id=([A-Za-z0-9_-]{10,})/i
+  );
+  if (queryMatch?.[1]) return queryMatch[1];
+  return null;
+}
+function extractYouTubeVideoId(rawUrl) {
+  const url = String(rawUrl || "").trim();
+  if (!url) return null;
+  const match = url.match(
+    /(?:youtube(?:-nocookie)?\.com\/(?:watch\?(?:[^#]*&)?v=|embed\/|shorts\/)|youtu\.be\/)([A-Za-z0-9_-]{6,20})/i
+  );
+  return match?.[1] || null;
+}
+
+// server/services/courseService.ts
+var COURSE_DOC_CACHE_TTL_MS = 60 * 1e3;
+var COURSE_ACCESS_CACHE_TTL_MS = 30 * 1e3;
+var COURSE_PURCHASES_CACHE_TTL_MS = 30 * 1e3;
+var COURSE_BUYER_META_TTL_MS = 10 * 60 * 1e3;
+var MAX_COURSE_PURCHASES_PAGE_SIZE = 2;
+var courseDocCache = /* @__PURE__ */ new Map();
+var courseLessonCache = /* @__PURE__ */ new Map();
+var courseAccessCache = /* @__PURE__ */ new Map();
+var coursePurchasesFirstPageCache = /* @__PURE__ */ new Map();
+var courseBuyerMetaCache = /* @__PURE__ */ new Map();
+function invalidateCoursePurchasesCache(courseId) {
+  if (!courseId) {
+    coursePurchasesFirstPageCache.clear();
+    return;
+  }
+  for (const key of coursePurchasesFirstPageCache.keys()) {
+    if (key.startsWith(`${courseId}::`) || key.startsWith("all::")) {
+      coursePurchasesFirstPageCache.delete(key);
+    }
+  }
+}
+function invalidateCourseServerCache(courseId, uid) {
+  invalidateCoursePurchasesCache(courseId);
+  if (!courseId) {
+    courseDocCache.clear();
+    courseLessonCache.clear();
+    courseAccessCache.clear();
+    return;
+  }
+  courseDocCache.delete(courseId);
+  for (const key of courseLessonCache.keys()) {
+    if (key.startsWith(`${courseId}::`)) courseLessonCache.delete(key);
+  }
+  for (const key of courseAccessCache.keys()) {
+    if (uid) {
+      if (key === `${uid}::${courseId}`) courseAccessCache.delete(key);
+    } else if (key.endsWith(`::${courseId}`)) {
+      courseAccessCache.delete(key);
+    }
+  }
+}
+async function fetchCourseDoc(courseId, force = false) {
+  const now = Date.now();
+  if (!force) {
+    const cached = courseDocCache.get(courseId);
+    if (cached && now - cached.ts < COURSE_DOC_CACHE_TTL_MS) {
+      return cached.course;
+    }
+  }
+  let course = null;
+  if (adminDb) {
+    const snap = await adminDb.collection("courses").doc(courseId).get();
+    course = snap.exists ? { id: snap.id, ...snap.data() } : null;
+  } else {
+    const rest = await getFirestoreRestDoc("courses", courseId, false);
+    course = rest ? { id: courseId, ...rest } : null;
+  }
+  if (course) {
+    courseDocCache.set(courseId, { course, ts: now });
+  }
+  return course;
+}
+async function fetchLessonDoc(courseId, lessonId, force = false) {
+  const cacheKey = `${courseId}::${lessonId}`;
+  const now = Date.now();
+  if (!force) {
+    const cached = courseLessonCache.get(cacheKey);
+    if (cached && now - cached.ts < COURSE_DOC_CACHE_TTL_MS) {
+      return cached.lesson;
+    }
+  }
+  let lesson = null;
+  if (adminDb) {
+    const snap = await adminDb.collection("courses").doc(courseId).collection("lessons").doc(lessonId).get();
+    lesson = snap.exists ? { id: snap.id, ...snap.data() } : null;
+  } else {
+    const rest = await getFirestoreRestDoc(`courses/${courseId}/lessons`, lessonId, false);
+    lesson = rest ? { id: lessonId, ...rest } : null;
+  }
+  if (lesson) {
+    courseLessonCache.set(cacheKey, { lesson, ts: now });
+  }
+  return lesson;
+}
+async function grantOrRevokeCourseEntitlement(adminUid, adminName, studentUid, courseId, lessonId, action, reason) {
+  if (!studentUid) throw new Error("Ch\u01B0a ch\u1EC9 \u0111\u1ECBnh h\u1ECDc sinh.");
+  if (!courseId) throw new Error("Ch\u01B0a ch\u1EC9 \u0111\u1ECBnh kh\xF3a h\u1ECDc.");
+  const cleanReason = String(reason || "").trim();
+  if (!cleanReason) throw new Error("Vui l\xF2ng nh\u1EADp l\xFD do c\u1EA5p/thu h\u1ED3i quy\u1EC1n kh\xF3a h\u1ECDc.");
+  const course = await fetchCourseDoc(courseId, true);
+  if (!course) throw new Error("Kh\xF4ng t\xECm th\u1EA5y kh\xF3a h\u1ECDc.");
+  const lesson = lessonId ? await fetchLessonDoc(courseId, lessonId, true) : null;
+  let wallet = null;
+  try {
+    wallet = await getOrCreateWallet(studentUid);
+  } catch {
+  }
+  const isLessonScope = Boolean(lessonId);
+  const entitlementId = isLessonScope ? `${studentUid}_${courseId}__${lessonId}` : `${studentUid}_${courseId}`;
+  const now = (/* @__PURE__ */ new Date()).toISOString();
+  const entitlement = {
+    id: entitlementId,
+    uid: studentUid,
+    courseId,
+    lessonId: lessonId || null,
+    scope: isLessonScope ? "lesson" : "course",
+    status: action === "grant" ? "active" : "revoked",
+    source: "admin_grant",
+    pricePaidVnd: 0,
+    grantedAt: now,
+    grantedBy: adminUid,
+    courseTitleSnapshot: course.title || "Kh\xF3a h\u1ECDc",
+    ...lesson ? { lessonTitleSnapshot: lesson.title } : {},
+    ...wallet?.fullName ? { studentNameSnapshot: wallet.fullName } : {},
+    ...wallet?.currentClass ? { studentClassSnapshot: wallet.currentClass } : {}
+  };
+  if (adminDb) {
+    await adminDb.collection("course_entitlements").doc(entitlementId).set(entitlement, { merge: true });
+    const txId = `tx_${Date.now()}_${Math.random().toString(36).substring(2, 7)}`;
+    const bal = wallet ? sanitizeVnd(wallet.balanceVnd) : 0;
+    const txDoc = {
+      id: txId,
+      uid: studentUid,
+      type: "admin_adjustment_credit",
+      amountVnd: 0,
+      balanceBeforeVnd: bal,
+      balanceAfterVnd: bal,
+      courseId,
+      courseTitleSnapshot: course.title || "Kh\xF3a h\u1ECDc",
+      ...lesson ? { lessonId: lesson.id, lessonTitleSnapshot: lesson.title } : {},
+      studentNameSnapshot: wallet?.fullName || "",
+      studentClassSnapshot: wallet?.currentClass || "",
+      actorUid: adminUid,
+      actorName: adminName,
+      note: `${action === "grant" ? "C\u1EA5p quy\u1EC1n" : "Thu h\u1ED3i quy\u1EC1n"} ${isLessonScope ? `b\xE0i gi\u1EA3ng "${lesson?.title || lessonId}"` : `kh\xF3a h\u1ECDc "${course.title}"`}: ${cleanReason}`,
+      createdAt: now
+    };
+    await adminDb.collection("wallet_transactions").doc(txId).set(txDoc);
+  } else {
+    await setFirestoreRestDoc("course_entitlements", entitlementId, entitlement);
+  }
+  invalidateCourseServerCache(courseId, studentUid);
+  invalidateStudentDetailsCache(studentUid);
+  return { success: true, entitlement };
+}
+async function resolveBuyerMeta(uid, fallbackName, fallbackClass, fallbackEmail) {
+  const now = Date.now();
+  const cached = courseBuyerMetaCache.get(uid);
+  if (cached && now - cached.ts < COURSE_BUYER_META_TTL_MS) {
+    return {
+      fullName: cached.fullName || fallbackName || uid,
+      currentClass: cached.currentClass || fallbackClass,
+      email: cached.email || fallbackEmail,
+      username: cached.username
+    };
+  }
+  let fullName = fallbackName || "";
+  let currentClass = fallbackClass || "";
+  let email = fallbackEmail || "";
+  let username = "";
+  try {
+    if (adminDb) {
+      if (!fullName) {
+        const wSnap = await adminDb.collection("wallets").doc(uid).get();
+        if (wSnap.exists) {
+          const w = wSnap.data();
+          fullName = w.fullName || w.verifiedName || "";
+          currentClass = currentClass || w.currentClass || "";
+        }
+      }
+      const uSnap = await adminDb.collection("users").doc(uid).get();
+      if (uSnap.exists) {
+        const u = uSnap.data();
+        fullName = fullName || u.displayName || u.fullName || u.name || "";
+        currentClass = currentClass || u.currentClass || u.className || "";
+        email = email || u.email || "";
+        username = u.username || "";
+      }
+    } else {
+      if (!fullName) {
+        const w = await getFirestoreRestDoc("wallets", uid, true, 6e4);
+        if (w) {
+          fullName = w.fullName || w.verifiedName || "";
+          currentClass = currentClass || w.currentClass || "";
+        }
+      }
+      const u = await getFirestoreRestDoc("users", uid, true, 6e4);
+      if (u) {
+        fullName = fullName || u.displayName || u.fullName || u.name || "";
+        currentClass = currentClass || u.currentClass || u.className || "";
+        email = email || u.email || "";
+        username = u.username || "";
+      }
+    }
+  } catch {
+  }
+  const meta = {
+    fullName: fullName || uid,
+    currentClass: currentClass || void 0,
+    email: email || void 0,
+    username: username || void 0,
+    ts: now
+  };
+  courseBuyerMetaCache.set(uid, meta);
+  return meta;
+}
+async function getAdminCoursePurchases(options) {
+  const pageSize = Math.min(
+    MAX_COURSE_PURCHASES_PAGE_SIZE,
+    Math.max(1, Math.floor(Number(options?.limit) || MAX_COURSE_PURCHASES_PAGE_SIZE))
+  );
+  const cleanCourseId = options?.courseId && options.courseId !== "all" ? String(options.courseId).trim() : "";
+  const cursor = options?.cursor ? String(options.cursor).trim() : "";
+  const scopeFilter = options?.scope || "all";
+  const statusFilter = options?.status || "all";
+  const cacheKey = `${cleanCourseId || "all"}::${scopeFilter}::${statusFilter}::${pageSize}`;
+  if (!cursor && !options?.force) {
+    const cached = coursePurchasesFirstPageCache.get(cacheKey);
+    if (cached && Date.now() - cached.ts < COURSE_PURCHASES_CACHE_TTL_MS) {
+      return cached.result;
+    }
+  }
+  const matchesFilter = (ent) => {
+    if (cleanCourseId && ent.courseId !== cleanCourseId) return false;
+    const entScope = ent.scope || (ent.lessonId ? "lesson" : "course");
+    if (scopeFilter !== "all" && entScope !== scopeFilter) return false;
+    if (statusFilter !== "all" && ent.status !== statusFilter) return false;
+    return true;
+  };
+  let rawEntitlements = [];
+  let nextCursor = null;
+  let hasMore = false;
+  if (adminDb) {
+    const col = adminDb.collection("course_entitlements");
+    const needsPostFilter = scopeFilter !== "all" || statusFilter !== "all";
+    try {
+      if (!needsPostFilter) {
+        let q = cleanCourseId ? col.where("courseId", "==", cleanCourseId) : col;
+        q = q.orderBy("grantedAt", "desc");
+        if (cursor) q = q.startAfter(cursor);
+        const snap = await q.limit(pageSize).get();
+        console.log(
+          `[Server Firestore READ: ${snap.size} docs] course_entitlements purchases (${cleanCourseId || "all"}, limit ${pageSize})`
+        );
+        rawEntitlements = snap.docs.map((d) => ({ id: d.id, ...d.data() }));
+        hasMore = snap.size === pageSize;
+        nextCursor = snap.docs.length > 0 ? String(snap.docs[snap.docs.length - 1].data().grantedAt || "") : null;
+      } else {
+        const collected = [];
+        let scanCursor = cursor;
+        let exhausted = false;
+        const chunkLimit = 6;
+        for (let step = 0; step < 2 && collected.length < pageSize && !exhausted; step++) {
+          let q = cleanCourseId ? col.where("courseId", "==", cleanCourseId) : col;
+          q = q.orderBy("grantedAt", "desc");
+          if (scanCursor) q = q.startAfter(scanCursor);
+          const snap = await q.limit(chunkLimit).get();
+          if (snap.empty) {
+            exhausted = true;
+            break;
+          }
+          for (const d of snap.docs) {
+            const ent = { id: d.id, ...d.data() };
+            scanCursor = String(ent.grantedAt || "");
+            if (matchesFilter(ent)) {
+              collected.push(ent);
+              if (collected.length >= pageSize) break;
+            }
+          }
+          if (snap.size < chunkLimit) {
+            exhausted = true;
+          }
+        }
+        rawEntitlements = collected;
+        nextCursor = scanCursor || null;
+        hasMore = !exhausted && rawEntitlements.length > 0;
+      }
+    } catch (err) {
+      console.warn("[courseService] Course purchases index fallback:", err?.message || err);
+      const collected = [];
+      let scanCursor = cursor;
+      let exhausted = false;
+      const chunkLimit = 10;
+      for (let step = 0; step < 2 && collected.length < pageSize && !exhausted; step++) {
+        let q = col.orderBy("grantedAt", "desc");
+        if (scanCursor) q = q.startAfter(scanCursor);
+        const snap = await q.limit(chunkLimit).get();
+        if (snap.empty) {
+          exhausted = true;
+          break;
+        }
+        for (const d of snap.docs) {
+          const ent = { id: d.id, ...d.data() };
+          scanCursor = String(ent.grantedAt || "");
+          if (matchesFilter(ent)) {
+            collected.push(ent);
+            if (collected.length >= pageSize) break;
+          }
+        }
+        if (snap.size < chunkLimit) exhausted = true;
+      }
+      rawEntitlements = collected;
+      nextCursor = scanCursor || null;
+      hasMore = !exhausted && rawEntitlements.length > 0;
+    }
+  } else {
+    const { docs, usedFallbackScan } = await queryOrderedFirestoreRestDocs("course_entitlements", {
+      whereField: cleanCourseId ? "courseId" : void 0,
+      equalValue: cleanCourseId || void 0,
+      orderByField: "grantedAt",
+      direction: "DESCENDING",
+      startAfterValue: cursor || void 0,
+      limitCount: scopeFilter === "all" && statusFilter === "all" ? pageSize : pageSize * 3
+    });
+    const matched = docs.filter((ent) => {
+      if (!matchesFilter(ent)) return false;
+      if (cursor && String(ent.grantedAt || "") >= cursor) return false;
+      return true;
+    });
+    rawEntitlements = matched.slice(0, pageSize);
+    nextCursor = rawEntitlements.length > 0 ? String(rawEntitlements[rawEntitlements.length - 1].grantedAt || "") : null;
+    hasMore = usedFallbackScan ? matched.length >= pageSize : docs.length >= pageSize;
+  }
+  const courseMap = /* @__PURE__ */ new Map();
+  const uniqueCourseIds = Array.from(new Set(rawEntitlements.map((e) => e.courseId).filter(Boolean)));
+  await Promise.all(
+    uniqueCourseIds.map(async (cid) => {
+      try {
+        courseMap.set(cid, await fetchCourseDoc(cid));
+      } catch {
+        courseMap.set(cid, null);
+      }
+    })
+  );
+  const items = await Promise.all(
+    rawEntitlements.map(async (ent) => {
+      const course = courseMap.get(ent.courseId) || null;
+      const outlineItem = ent.lessonId ? course?.lessonOutline?.find((item) => item.id === ent.lessonId) : void 0;
+      const meta = await resolveBuyerMeta(
+        ent.uid,
+        ent.studentNameSnapshot,
+        ent.studentClassSnapshot,
+        ent.studentEmailSnapshot
+      );
+      const entScope = ent.scope || (ent.lessonId ? "lesson" : "course");
+      return {
+        id: ent.id,
+        uid: ent.uid,
+        studentName: meta.fullName || ent.uid,
+        studentClass: meta.currentClass || ent.studentClassSnapshot,
+        studentEmail: meta.email || ent.studentEmailSnapshot,
+        studentUsername: meta.username,
+        courseId: ent.courseId,
+        courseTitle: ent.courseTitleSnapshot || course?.title || ent.courseId,
+        scope: entScope,
+        lessonId: ent.lessonId || null,
+        lessonTitle: entScope === "lesson" ? outlineItem?.title || ent.lessonTitleSnapshot || ent.lessonId || "B\xE0i gi\u1EA3ng" : void 0,
+        lessonOrder: outlineItem ? outlineItem.order : void 0,
+        status: ent.status || "active",
+        source: ent.source || "purchase",
+        pricePaidVnd: Math.max(0, Number(ent.pricePaidVnd) || 0),
+        transactionId: ent.transactionId,
+        grantedAt: String(ent.grantedAt || ""),
+        grantedBy: ent.grantedBy
+      };
+    })
+  );
+  const result = {
+    items,
+    nextCursor: hasMore ? nextCursor : null,
+    hasMore: Boolean(hasMore && nextCursor),
+    pageLimit: pageSize
+  };
+  if (!cursor) {
+    coursePurchasesFirstPageCache.set(cacheKey, { result, ts: Date.now() });
+  }
+  return result;
+}
+function extractMp4DurationSeconds(buf) {
+  if (!buf || buf.length < 32) return null;
+  const idx = buf.indexOf("mvhd");
+  if (idx < 4 || idx + 28 > buf.length) return null;
+  const version = buf.readUInt8(idx + 4);
+  if (version === 0) {
+    if (idx + 24 > buf.length) return null;
+    const timescale = buf.readUInt32BE(idx + 16);
+    const duration = buf.readUInt32BE(idx + 20);
+    if (!timescale || !isFinite(duration)) return null;
+    const sec = Math.round(duration / timescale);
+    return sec > 0 ? sec : null;
+  }
+  if (version === 1) {
+    if (idx + 36 > buf.length) return null;
+    const timescale = buf.readUInt32BE(idx + 24);
+    const hi = buf.readUInt32BE(idx + 28);
+    const lo = buf.readUInt32BE(idx + 32);
+    const duration = hi * 4294967296 + lo;
+    if (!timescale || !isFinite(duration)) return null;
+    const sec = Math.round(duration / timescale);
+    return sec > 0 ? sec : null;
+  }
+  return null;
+}
+function findMp4MoovOffset(buf) {
+  if (!buf || buf.length < 16) return null;
+  const firstType = buf.toString("ascii", 4, 8);
+  if (firstType !== "ftyp") return null;
+  let offset = 0;
+  let sawMdat = false;
+  for (let steps = 0; steps < 32 && offset + 8 <= buf.length; steps++) {
+    const size32 = buf.readUInt32BE(offset);
+    const boxType = buf.toString("ascii", offset + 4, offset + 8);
+    if (boxType === "moov") return offset;
+    if (boxType === "mdat") sawMdat = true;
+    let boxSize = size32;
+    if (size32 === 1) {
+      if (offset + 16 > buf.length) return null;
+      const hi = buf.readUInt32BE(offset + 8);
+      const lo = buf.readUInt32BE(offset + 12);
+      boxSize = hi * 4294967296 + lo;
+    }
+    if (!boxSize || boxSize < 8 || !Number.isFinite(boxSize)) return null;
+    offset += boxSize;
+  }
+  if (sawMdat && offset >= buf.length) {
+    return offset;
+  }
+  return null;
+}
+function extractMatroskaDurationSeconds(buf) {
+  if (!buf || buf.length < 32) return null;
+  if (buf[0] !== 26 || buf[1] !== 69 || buf[2] !== 223 || buf[3] !== 163) {
+    return null;
+  }
+  let timecodeScaleNs = 1e6;
+  const scaleIdx = buf.indexOf(Buffer.from([42, 215, 177]));
+  if (scaleIdx >= 0 && scaleIdx + 4 < buf.length) {
+    const vint = buf[scaleIdx + 3];
+    const len = vint & 127;
+    if ((vint & 128) !== 0 && len >= 1 && len <= 8 && scaleIdx + 4 + len <= buf.length) {
+      let val = 0;
+      for (let i = 0; i < len; i++) {
+        val = val * 256 + buf[scaleIdx + 4 + i];
+      }
+      if (val > 0) timecodeScaleNs = val;
+    }
+  }
+  let searchFrom = 0;
+  while (searchFrom < buf.length - 8) {
+    const durIdx = buf.indexOf(Buffer.from([68, 137]), searchFrom);
+    if (durIdx < 0 || durIdx + 3 >= buf.length) break;
+    const sizeByte = buf[durIdx + 2];
+    const len = sizeByte & 127;
+    if ((sizeByte & 128) !== 0 && (len === 4 || len === 8) && durIdx + 3 + len <= buf.length) {
+      const rawDur = len === 4 ? buf.readFloatBE(durIdx + 3) : buf.readDoubleBE(durIdx + 3);
+      if (Number.isFinite(rawDur) && rawDur > 0) {
+        const seconds = Math.round(rawDur * timecodeScaleNs / 1e9);
+        if (seconds > 0 && seconds < 86400 * 7) return seconds;
+      }
+    }
+    searchFrom = durIdx + 2;
+  }
+  return null;
+}
+var DEFAULT_BROWSER_UA = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36";
+function isAllowedDriveHost(hostname) {
+  const lower = hostname.toLowerCase();
+  return lower === "drive.google.com" || lower === "docs.google.com" || lower === "drive.usercontent.google.com" || lower.endsWith(".googleusercontent.com");
+}
+async function readResponseChunkBounded(res, maxBytes = 262144) {
+  if (res.body && typeof res.body.getReader === "function") {
+    const reader = res.body.getReader();
+    const chunks = [];
+    let total = 0;
+    try {
+      while (total < maxBytes) {
+        const { done, value } = await reader.read();
+        if (done || !value) break;
+        const remaining = maxBytes - total;
+        const slice = value.byteLength > remaining ? value.subarray(0, remaining) : value;
+        chunks.push(slice);
+        total += slice.byteLength;
+        if (total >= maxBytes) {
+          await reader.cancel().catch(() => {
+          });
+          break;
+        }
+      }
+    } catch {
+    }
+    return Buffer.concat(chunks.map((c) => Buffer.from(c)));
+  }
+  const arr = Buffer.from(await res.arrayBuffer());
+  return arr.length > maxBytes ? arr.subarray(0, maxBytes) : arr;
+}
+async function fetchWithSsrfCheckedRedirects(targetUrl, init, options) {
+  let currentUrl = targetUrl;
+  for (let hop = 0; hop < 4; hop++) {
+    const validated = await validateUrlForSsrf(currentUrl);
+    if (options?.restrictToDriveHosts && !isAllowedDriveHost(validated.url.hostname)) {
+      throw new Error("Redirect outside allowed Google Drive domains.");
+    }
+    const res = await fetch(currentUrl, {
+      ...init,
+      redirect: "manual"
+    });
+    const status = res.status;
+    const location = res.headers?.get?.("location");
+    if (status >= 300 && status < 400 && location) {
+      currentUrl = new URL(location, currentUrl).toString();
+      continue;
+    }
+    return { res, finalUrl: currentUrl };
+  }
+  throw new Error("Too many redirects while probing video duration.");
+}
+function unescapeGoogleHtmlPayload(raw) {
+  return String(raw || "").replace(/\\u0026/gi, "&").replace(/\\u003d/gi, "=").replace(/\\u0022/gi, '"').replace(/\\x26/gi, "&").replace(/\\x3d/gi, "=").replace(/\\\//g, "/").replace(/\\"/g, '"');
+}
+function extractDriveTitleFromHtml(rawHtml) {
+  const html = unescapeGoogleHtmlPayload(rawHtml);
+  const ogTitle = html.match(/<meta\s+(?:property="og:title"|name="title")\s+content="([^"]*)"/i)?.[1];
+  const tagTitle = html.match(/<title>([^<]+)<\/title>/i)?.[1]?.replace(/\s*-\s*Google Drive\s*$/i, "").trim();
+  return (ogTitle || tagTitle || "").trim() || void 0;
+}
+function extractDriveDurationFromHtml(rawHtml) {
+  const html = unescapeGoogleHtmlPayload(rawHtml);
+  const title = extractDriveTitleFromHtml(rawHtml);
+  const msPatterns = [
+    /["']?(?:durationMs|duration_ms|durationMillis|approxDurationMs)["']?\s*[:=]\s*["']?(\d{4,10})["']?/i,
+    /\["(?:durationMs|duration_ms|durationMillis|approxDurationMs)"\s*,\s*["']?(\d{4,10})["']?\]/i
+  ];
+  for (const re of msPatterns) {
+    const m = html.match(re);
+    if (m?.[1]) {
+      const sec = Math.round(Number(m[1]) / 1e3);
+      if (sec > 0) return { durationSeconds: sec, title };
+    }
+  }
+  const secPatterns = [
+    /["']?length_seconds["']?\s*[:=]\s*["']?(\d+(?:\.\d+)?)["']?/i,
+    /\["length_seconds"\s*,\s*["']?(\d+(?:\.\d+)?)["']?\]/i,
+    /(?:[?&]|%26|%3F)length_seconds(?:=|%3D)(\d+(?:\.\d+)?)/i,
+    /[?&]dur=(\d+(?:\.\d+)?)/i,
+    /%3F[^"'\s]*dur%3D(\d+(?:\.\d+)?)/i,
+    /%26dur%3D(\d+(?:\.\d+)?)/i
+  ];
+  for (const re of secPatterns) {
+    const m = html.match(re);
+    if (m?.[1]) {
+      const sec = Math.round(Number(m[1]));
+      if (sec > 0 && sec < 86400 * 7) return { durationSeconds: sec, title };
+    }
+  }
+  return null;
+}
+function extractDriveConfirmationDownloadUrl(html, baseUrl) {
+  const formMatch = html.match(/<form[^>]*id=["']download-form["'][^>]*action=["']([^"']+)["'][^>]*>([\s\S]*?)<\/form>/i) || html.match(/<form[^>]*action=["'](https:\/\/drive\.usercontent\.google\.com\/download[^"']*)["'][^>]*>([\s\S]*?)<\/form>/i);
+  if (!formMatch) return null;
+  try {
+    const actionUrl = new URL(formMatch[1].replace(/&amp;/g, "&"), baseUrl);
+    if (!isAllowedDriveHost(actionUrl.hostname)) return null;
+    const formBody = formMatch[2] || "";
+    const inputTags = formBody.match(/<input\b[^>]*>/gi) || [];
+    for (const tag of inputTags) {
+      const nameMatch = tag.match(/\bname=["']([^"']+)["']/i);
+      const valMatch = tag.match(/\bvalue=["']([^"']*)["']/i);
+      if (nameMatch?.[1] && valMatch) {
+        actionUrl.searchParams.set(nameMatch[1], valMatch[1]);
+      }
+    }
+    return actionUrl.toString();
+  } catch {
+    return null;
+  }
+}
+async function probeRemoteMediaRange(mediaUrl, options) {
+  const baseHeaders = {
+    "User-Agent": DEFAULT_BROWSER_UA,
+    Range: "bytes=0-131071",
+    ...options?.headers || {}
+  };
+  let { res: headRes, finalUrl } = await fetchWithSsrfCheckedRedirects(
+    mediaUrl,
+    { headers: baseHeaders, signal: AbortSignal.timeout(12e3) },
+    { restrictToDriveHosts: options?.restrictToDriveHosts }
+  );
+  if (!headRes.ok) return null;
+  const contentType = String(headRes.headers?.get?.("content-type") || "").toLowerCase();
+  if (contentType.includes("text/html")) {
+    const html = (await readResponseChunkBounded(headRes, 131072)).toString("utf8");
+    const confirmUrl = extractDriveConfirmationDownloadUrl(html, finalUrl);
+    if (!confirmUrl) return null;
+    const confirmed = await fetchWithSsrfCheckedRedirects(
+      confirmUrl,
+      { headers: baseHeaders, signal: AbortSignal.timeout(12e3) },
+      { restrictToDriveHosts: true }
+    );
+    headRes = confirmed.res;
+    finalUrl = confirmed.finalUrl;
+    if (!headRes.ok) return null;
+    const confirmedType = String(headRes.headers?.get?.("content-type") || "").toLowerCase();
+    if (confirmedType.includes("text/html")) return null;
+  }
+  const headBuf = await readResponseChunkBounded(headRes, 262144);
+  const headSec = extractMp4DurationSeconds(headBuf) ?? extractMatroskaDurationSeconds(headBuf);
+  if (headSec) {
+    return { durationSeconds: headSec, source: "mp4_head" };
+  }
+  const cr = headRes.headers?.get?.("content-range");
+  const totalMatch = cr?.match(/\/(\d+)$/);
+  const totalBytes = totalMatch ? Number(totalMatch[1]) : 0;
+  const moovOffset = findMp4MoovOffset(headBuf);
+  if (moovOffset && moovOffset >= headBuf.length && (!totalBytes || moovOffset < totalBytes)) {
+    const endByte = totalBytes ? Math.min(totalBytes - 1, moovOffset + 131071) : moovOffset + 131071;
+    const { res: moovRes } = await fetchWithSsrfCheckedRedirects(
+      finalUrl,
+      {
+        headers: { "User-Agent": DEFAULT_BROWSER_UA, Range: `bytes=${moovOffset}-${endByte}` },
+        signal: AbortSignal.timeout(1e4)
+      },
+      { restrictToDriveHosts: options?.restrictToDriveHosts }
+    );
+    if (moovRes.ok) {
+      const moovBuf = await readResponseChunkBounded(moovRes, 262144);
+      const moovSec = extractMp4DurationSeconds(moovBuf);
+      if (moovSec) {
+        return { durationSeconds: moovSec, source: "mp4_moov" };
+      }
+    }
+  }
+  if (totalBytes > 262144) {
+    const start = Math.max(0, totalBytes - 262144);
+    const { res: tailRes } = await fetchWithSsrfCheckedRedirects(
+      finalUrl,
+      {
+        headers: { "User-Agent": DEFAULT_BROWSER_UA, Range: `bytes=${start}-${totalBytes - 1}` },
+        signal: AbortSignal.timeout(1e4)
+      },
+      { restrictToDriveHosts: options?.restrictToDriveHosts }
+    );
+    if (tailRes.ok) {
+      const tailArr = await readResponseChunkBounded(tailRes, 262144);
+      const tailSec = extractMp4DurationSeconds(tailArr);
+      if (tailSec) {
+        return { durationSeconds: tailSec, source: "mp4_tail" };
+      }
+    }
+  }
+  return null;
+}
+async function probeVideoDuration(rawUrl) {
+  const cleanUrl = String(rawUrl || "").trim();
+  if (!cleanUrl) return null;
+  await validateUrlForSsrf(cleanUrl);
+  const ytId = extractYouTubeVideoId(cleanUrl);
+  if (ytId) {
+    try {
+      const watchRes = await fetch(`https://www.youtube.com/watch?v=${encodeURIComponent(ytId)}&hl=en`, {
+        headers: {
+          "User-Agent": DEFAULT_BROWSER_UA,
+          "Accept-Language": "en-US,en;q=0.9"
+        },
+        signal: AbortSignal.timeout(1e4)
+      });
+      if (watchRes.ok) {
+        const html = await watchRes.text();
+        const msMatch = html.match(/"approxDurationMs"\s*:\s*"(\d+)"/);
+        const secMatch = html.match(/"lengthSeconds"\s*:\s*"(\d+)"/);
+        const titleMatch = html.match(/<meta\s+name="title"\s+content="([^"]*)"/i);
+        let sec = 0;
+        if (msMatch?.[1]) sec = Math.round(Number(msMatch[1]) / 1e3);
+        else if (secMatch?.[1]) sec = Math.round(Number(secMatch[1]));
+        if (sec > 0) {
+          return {
+            durationSeconds: sec,
+            durationMinutes: Math.max(1, Math.round(sec / 60)),
+            title: titleMatch?.[1],
+            source: "youtube"
+          };
+        }
+      }
+    } catch {
+    }
+    return null;
+  }
+  const driveId = extractGoogleDriveFileId(cleanUrl);
+  if (driveId) {
+    let discoveredTitle;
+    const driveApiKey = process.env.GOOGLE_DRIVE_API_KEY;
+    if (driveApiKey) {
+      try {
+        const apiRes = await fetch(
+          `https://www.googleapis.com/drive/v3/files/${encodeURIComponent(driveId)}?fields=name,videoMediaMetadata(durationMillis)&key=${encodeURIComponent(driveApiKey)}`,
+          { signal: AbortSignal.timeout(8e3) }
+        );
+        if (apiRes.ok) {
+          const json = await apiRes.json();
+          if (json?.name) discoveredTitle = String(json.name);
+          const ms = Number(json?.videoMediaMetadata?.durationMillis || 0);
+          if (ms > 0) {
+            const sec = Math.round(ms / 1e3);
+            return {
+              durationSeconds: sec,
+              durationMinutes: Math.max(1, Math.round(sec / 60)),
+              title: discoveredTitle,
+              source: "drive_api"
+            };
+          }
+        }
+      } catch {
+      }
+    }
+    try {
+      const infoRes = await fetch(
+        `https://drive.google.com/get_video_info?docid=${encodeURIComponent(driveId)}`,
+        {
+          headers: { "User-Agent": DEFAULT_BROWSER_UA },
+          signal: AbortSignal.timeout(1e4)
+        }
+      );
+      if (infoRes.ok) {
+        const body = await infoRes.text();
+        const params = new URLSearchParams(body);
+        const title = params.get("title") || void 0;
+        if (title) discoveredTitle = discoveredTitle || title;
+        const lenSec = Number(params.get("length_seconds") || 0);
+        if (lenSec > 0) {
+          const sec = Math.round(lenSec);
+          return {
+            durationSeconds: sec,
+            durationMinutes: Math.max(1, Math.round(sec / 60)),
+            title: discoveredTitle,
+            source: "drive_info"
+          };
+        }
+        const streamMap = `${params.get("fmt_stream_map") || ""} ${params.get("url_encoded_fmt_stream_map") || ""}`;
+        const durMatch = streamMap.match(/[?&]dur=(\d+(?:\.\d+)?)/i) || decodeURIComponent(streamMap).match(/[?&]dur=(\d+(?:\.\d+)?)/i);
+        if (durMatch?.[1]) {
+          const sec = Math.round(Number(durMatch[1]));
+          if (sec > 0) {
+            return {
+              durationSeconds: sec,
+              durationMinutes: Math.max(1, Math.round(sec / 60)),
+              title: discoveredTitle,
+              source: "drive_info_stream"
+            };
+          }
+        }
+      }
+    } catch {
+    }
+    for (const suffix of ["preview", "view"]) {
+      try {
+        const prevRes = await fetch(
+          `https://drive.google.com/file/d/${encodeURIComponent(driveId)}/${suffix}`,
+          {
+            headers: {
+              "User-Agent": DEFAULT_BROWSER_UA,
+              "Accept-Language": "en-US,en;q=0.9"
+            },
+            signal: AbortSignal.timeout(1e4)
+          }
+        );
+        if (prevRes.ok) {
+          const html = await prevRes.text();
+          const parsed = extractDriveDurationFromHtml(html);
+          if (parsed?.title) discoveredTitle = discoveredTitle || parsed.title;
+          if (parsed && parsed.durationSeconds > 0) {
+            return {
+              durationSeconds: parsed.durationSeconds,
+              durationMinutes: Math.max(1, Math.round(parsed.durationSeconds / 60)),
+              title: discoveredTitle,
+              source: `drive_${suffix}`
+            };
+          }
+          if (!discoveredTitle) {
+            discoveredTitle = extractDriveTitleFromHtml(html);
+          }
+        }
+      } catch {
+      }
+    }
+    const driveDownloadCandidates = [
+      `https://drive.usercontent.google.com/download?id=${encodeURIComponent(driveId)}&export=download&confirm=t`,
+      `https://drive.google.com/uc?export=download&confirm=t&id=${encodeURIComponent(driveId)}`
+    ];
+    for (const downloadUrl of driveDownloadCandidates) {
+      try {
+        const mediaProbe = await probeRemoteMediaRange(downloadUrl, { restrictToDriveHosts: true });
+        if (mediaProbe && mediaProbe.durationSeconds > 0) {
+          return {
+            durationSeconds: mediaProbe.durationSeconds,
+            durationMinutes: Math.max(1, Math.round(mediaProbe.durationSeconds / 60)),
+            ...discoveredTitle ? { title: discoveredTitle } : {},
+            source: `drive_${mediaProbe.source}`
+          };
+        }
+      } catch {
+      }
+    }
+    return null;
+  }
+  try {
+    const mediaProbe = await probeRemoteMediaRange(cleanUrl);
+    if (mediaProbe && mediaProbe.durationSeconds > 0) {
+      return {
+        durationSeconds: mediaProbe.durationSeconds,
+        durationMinutes: Math.max(1, Math.round(mediaProbe.durationSeconds / 60)),
+        source: mediaProbe.source
+      };
+    }
+  } catch {
+  }
+  return null;
 }
 
 // server/services/examMergeService.ts
@@ -4337,6 +5325,54 @@ adminRouter.get("/wallet/overview", async (req, res) => {
     return res.status(500).json({ error: "server_error", message: err.message || String(err) });
   }
 });
+adminRouter.get("/wallet/spending-history", async (req, res) => {
+  try {
+    const limitParam = req.query.limit ? Number(req.query.limit) : 5;
+    const cursor = req.query.cursor ? String(req.query.cursor) : void 0;
+    const filterType = req.query.type ? String(req.query.type) : void 0;
+    const force = req.query.force === "true";
+    const result = await getGlobalSpendingHistory({
+      limit: limitParam,
+      cursor,
+      filterType,
+      force
+    });
+    return res.json({ success: true, ...result });
+  } catch (err) {
+    return res.status(500).json({ error: "server_error", message: err.message || String(err) });
+  }
+});
+adminRouter.post("/course-entitlements/grant", async (req, res) => {
+  try {
+    const { studentUid, courseId, lessonId, action, reason } = req.body || {};
+    const adminUid = req.user?.uid || "admin";
+    const adminName = req.user?.displayName || "Qu\u1EA3n tr\u1ECB vi\xEAn";
+    const result = await grantOrRevokeCourseEntitlement(
+      adminUid,
+      adminName,
+      studentUid,
+      courseId,
+      lessonId,
+      action || "grant",
+      reason
+    );
+    await recordAuditLog(
+      req.user,
+      action === "revoke" ? "REVOKE_COURSE_ENTITLEMENT" : "GRANT_COURSE_ENTITLEMENT",
+      studentUid,
+      "course_entitlement",
+      { courseId, lessonId, action, reason },
+      req
+    );
+    return res.json({
+      success: true,
+      message: action === "revoke" ? "\u0110\xE3 thu h\u1ED3i quy\u1EC1n truy c\u1EADp kh\xF3a h\u1ECDc." : "\u0110\xE3 c\u1EA5p quy\u1EC1n truy c\u1EADp kh\xF3a h\u1ECDc th\xE0nh c\xF4ng!",
+      ...result
+    });
+  } catch (err) {
+    return res.status(400).json({ error: "course_entitlement_error", message: err.message || String(err) });
+  }
+});
 adminRouter.get("/wallet/students", async (req, res) => {
   try {
     const { search, filterStatus, className, limit, offset } = req.query;
@@ -4681,6 +5717,66 @@ adminRouter.delete("/vouchers/:id", async (req, res) => {
     return res.json({ success: true, message: "\u0110\xE3 x\xF3a voucher th\xE0nh c\xF4ng!" });
   } catch (err) {
     return res.status(400).json({ error: "delete_voucher_error", message: err.message || String(err) });
+  }
+});
+adminRouter.get("/courses/purchases", async (req, res) => {
+  try {
+    const rawLimit = req.query.limit ? Number(req.query.limit) : MAX_COURSE_PURCHASES_PAGE_SIZE;
+    const limitParam = Math.min(MAX_COURSE_PURCHASES_PAGE_SIZE, Math.max(1, Math.floor(rawLimit || MAX_COURSE_PURCHASES_PAGE_SIZE)));
+    const courseId = req.query.courseId ? String(req.query.courseId) : void 0;
+    const cursor = req.query.cursor ? String(req.query.cursor) : void 0;
+    const scope = req.query.scope === "course" || req.query.scope === "lesson" ? req.query.scope : "all";
+    const status = req.query.status === "active" || req.query.status === "revoked" ? req.query.status : "all";
+    const force = req.query.force === "true";
+    const result = await getAdminCoursePurchases({
+      courseId,
+      limit: limitParam,
+      cursor,
+      scope,
+      status,
+      force
+    });
+    return res.json({ success: true, ...result });
+  } catch (err) {
+    return res.status(500).json({ error: "course_purchases_error", message: err.message || String(err) });
+  }
+});
+adminRouter.get("/courses/:courseId/purchases", async (req, res) => {
+  try {
+    const rawLimit = req.query.limit ? Number(req.query.limit) : MAX_COURSE_PURCHASES_PAGE_SIZE;
+    const limitParam = Math.min(MAX_COURSE_PURCHASES_PAGE_SIZE, Math.max(1, Math.floor(rawLimit || MAX_COURSE_PURCHASES_PAGE_SIZE)));
+    const courseId = req.params.courseId;
+    const cursor = req.query.cursor ? String(req.query.cursor) : void 0;
+    const scope = req.query.scope === "course" || req.query.scope === "lesson" ? req.query.scope : "all";
+    const status = req.query.status === "active" || req.query.status === "revoked" ? req.query.status : "all";
+    const force = req.query.force === "true";
+    const result = await getAdminCoursePurchases({
+      courseId,
+      limit: limitParam,
+      cursor,
+      scope,
+      status,
+      force
+    });
+    return res.json({ success: true, ...result });
+  } catch (err) {
+    return res.status(500).json({ error: "course_purchases_error", message: err.message || String(err) });
+  }
+});
+adminRouter.post("/courses/probe-video", async (req, res) => {
+  try {
+    const { url } = req.body || {};
+    if (!url || typeof url !== "string") {
+      return res.status(400).json({ error: "missing_url", message: "Thi\u1EBFu URL video c\u1EA7n \u0111o th\u1EDDi l\u01B0\u1EE3ng." });
+    }
+    const probe = await probeVideoDuration(url);
+    return res.json({
+      success: true,
+      found: Boolean(probe),
+      ...probe || { durationSeconds: 0, durationMinutes: 0 }
+    });
+  } catch (err) {
+    return res.status(400).json({ error: "probe_video_error", message: err.message || String(err) });
   }
 });
 export {

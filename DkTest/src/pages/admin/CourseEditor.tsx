@@ -39,6 +39,8 @@ import {
   formatDurationClock,
   getCourse,
   getCourseLessonsForAdmin,
+  getVideoHostLabel,
+  inferCourseVideoType,
   isLessonEffectivelyFree,
   maskVideoUrlDisplay,
   probeClientVideoDuration,
@@ -48,8 +50,18 @@ import {
 } from "../../services/courseService";
 import { safeCopyText } from "../../utils/mobileCompat";
 import DkCourseVideoPlayer from "../../components/course/DkCourseVideoPlayer";
+import CoursePurchasesPanel from "../../components/admin/CoursePurchasesPanel";
 import { uploadFileToCloudinary } from "../../services/cloudinary";
 import { grantOrRevokeCourseEntitlementApi } from "../../services/walletClientService";
+import {
+  registerCourseEditorBridgeHandler,
+  setCourseEditorContextSnapshot,
+} from "../../utils/courseAiBridge";
+import {
+  applyCourseOperationToState,
+  saveMutableCourseStateToFirestore,
+  type MutableCourseState,
+} from "../../services/courseAgentActions";
 import type {
   Course,
   CourseAccessMode,
@@ -153,6 +165,9 @@ export default function CourseEditor() {
   const [grantLessonId, setGrantLessonId] = useState<string>("");
   const [grantReason, setGrantReason] = useState("Admin mở khóa hỗ trợ học viên");
   const [grantBusy, setGrantBusy] = useState(false);
+  const [purchasesRefreshSignal, setPurchasesRefreshSignal] = useState(0);
+
+  const liveMutableStateRef = useRef<MutableCourseState | null>(null);
 
   useEffect(() => {
     if (!courseId) return;
@@ -330,6 +345,162 @@ export default function CourseEditor() {
       if (autoProbeTimerRef.current) window.clearTimeout(autoProbeTimerRef.current);
     };
   }, []);
+
+  // Keep live CourseEditor state & AI mutation bridge synchronized for Admin AI Agent
+  liveMutableStateRef.current = {
+    courseId,
+    title,
+    code,
+    description,
+    thumbnailUrl,
+    subject,
+    gradeCategory,
+    instructorName,
+    status,
+    isFeatured,
+    accessMode,
+    priceVnd,
+    originalPriceVnd,
+    defaultLessonPriceVnd,
+    salesEnabled,
+    unlockFullPolicy,
+    freePreviewCount,
+    allowSingleLessonPurchase,
+    chapters,
+    lessons: outlineStats.orderedLessons,
+    deletedLessonIds,
+    selectedLessonId,
+  };
+
+  useEffect(() => {
+    setCourseEditorContextSnapshot({
+      isNewCourse: !courseId,
+      courseId: courseId || null,
+      title,
+      code,
+      subject,
+      gradeCategory,
+      instructorName,
+      status,
+      accessMode,
+      priceVnd,
+      defaultLessonPriceVnd,
+      freePreviewCount,
+      unlockFullPolicy,
+      allowSingleLessonPurchase,
+      salesEnabled,
+      selectedLessonId,
+      chapters: chapters.map((c, idx) => ({
+        id: c.id,
+        title: c.title,
+        groupTitle: c.groupTitle,
+        order: idx,
+      })),
+      lessons: outlineStats.orderedLessons.map((l, idx) => ({
+        id: l.id,
+        order: idx,
+        lessonNumber: idx + 1,
+        title: l.title,
+        chapterId: l.chapterId || null,
+        topicTitle: l.topicTitle,
+        videoType: l.videoType,
+        hasVideoUrl: Boolean(l.videoUrl?.trim()),
+        videoHostLabel: l.videoUrl?.trim() ? getVideoHostLabel(l.videoUrl, l.videoType) : undefined,
+        durationMinutes: l.durationMinutes || 0,
+        durationSeconds: l.durationSeconds || 0,
+        accessType: l.accessType,
+        priceVnd: l.priceVnd || 0,
+        includedInCourseUnlock: l.includedInCourseUnlock !== false,
+        linkedExamId: l.linkedExamId,
+        materialsCount: l.materials?.length || 0,
+      })),
+    });
+  }, [
+    courseId,
+    title,
+    code,
+    subject,
+    gradeCategory,
+    instructorName,
+    status,
+    accessMode,
+    priceVnd,
+    defaultLessonPriceVnd,
+    freePreviewCount,
+    unlockFullPolicy,
+    allowSingleLessonPurchase,
+    salesEnabled,
+    selectedLessonId,
+    chapters,
+    outlineStats.orderedLessons,
+  ]);
+
+  useEffect(() => {
+    registerCourseEditorBridgeHandler({
+      courseId: courseId || null,
+      isNewCourse: !courseId,
+      apply: async (actionType, params) => {
+        const current = liveMutableStateRef.current;
+        if (!current) {
+          throw new Error("Trình chỉnh sửa khóa học chưa sẵn sàng.");
+        }
+        const { nextState, message, data } = await applyCourseOperationToState(
+          current,
+          actionType,
+          params
+        );
+        const savedId = await saveMutableCourseStateToFirestore(nextState);
+
+        setTitle(nextState.title);
+        setCode(nextState.code);
+        setDescription(nextState.description);
+        setThumbnailUrl(nextState.thumbnailUrl);
+        setSubject(nextState.subject);
+        setGradeCategory(nextState.gradeCategory);
+        setInstructorName(nextState.instructorName);
+        setStatus(nextState.status);
+        setIsFeatured(nextState.isFeatured);
+        setAccessMode(nextState.accessMode);
+        setPriceVnd(nextState.priceVnd);
+        setOriginalPriceVnd(nextState.originalPriceVnd);
+        setDefaultLessonPriceVnd(nextState.defaultLessonPriceVnd);
+        setSalesEnabled(nextState.salesEnabled);
+        setUnlockFullPolicy(nextState.unlockFullPolicy);
+        setFreePreviewCount(nextState.freePreviewCount);
+        setAllowSingleLessonPurchase(nextState.allowSingleLessonPurchase);
+        setChapters(nextState.chapters);
+        setLessons(nextState.lessons);
+        setDeletedLessonIds([]);
+        if (nextState.selectedLessonId !== undefined) {
+          setSelectedLessonId(nextState.selectedLessonId);
+        }
+        if (
+          actionType !== "UPDATE_COURSE" &&
+          (nextState.lessons.length > 0 || nextState.chapters.length > 0)
+        ) {
+          setActiveTab("curriculum");
+        }
+        showSuccessToast(message);
+        if (!courseId && savedId) {
+          navigate(`/admin/courses/${savedId}/edit`, { replace: true });
+        }
+        return {
+          success: true,
+          message,
+          data: {
+            ...data,
+            courseId: savedId,
+            editUrl: `/admin/courses/${savedId}/edit`,
+            viewUrl: `/student/courses/${savedId}`,
+          },
+        };
+      },
+    });
+    return () => {
+      registerCourseEditorBridgeHandler(null);
+      setCourseEditorContextSnapshot(null);
+    };
+  }, [courseId, navigate, showSuccessToast]);
 
   // Build 3-level Admin Hierarchy Tree preserving empty groups/chapters & all lessons
   const adminHierarchy = useMemo(() => {
@@ -696,6 +867,7 @@ export default function CourseEditor() {
         res.message ||
           (action === "grant" ? "Đã cấp quyền truy cập cho học sinh." : "Đã thu hồi quyền truy cập.")
       );
+      setPurchasesRefreshSignal((s) => s + 1);
     } catch (err: any) {
       showErrorToast(err.message || "Thao tác cấp/thu hồi quyền thất bại.");
     } finally {
@@ -1963,14 +2135,7 @@ export default function CourseEditor() {
                           value={selectedLesson.videoUrl}
                           onChange={(e) => {
                             const val = e.target.value;
-                            const nextType: CourseVideoType =
-                              val.includes("drive.google.com") || val.includes("onedrive") || val.includes("dropbox")
-                                ? "iframe"
-                                : val.includes("youtu")
-                                ? "youtube"
-                                : /\.(mp4|webm|m4v)(\?|#|$)/i.test(val)
-                                ? "mp4"
-                                : selectedLesson.videoType;
+                            const nextType = inferCourseVideoType(val, selectedLesson.videoType);
                             updateSelectedLesson({ videoUrl: val, videoType: nextType });
 
                             if (autoProbeTimerRef.current) window.clearTimeout(autoProbeTimerRef.current);
@@ -2241,84 +2406,95 @@ export default function CourseEditor() {
         </div>
       )}
 
-      {/* TAB 3: DIRECT STUDENT ENTITLEMENT GRANT / REVOKE */}
-      {activeTab === "entitlements" && isEditMode && (
-        <div className="bg-white dark:bg-slate-900 rounded-3xl border border-slate-200 dark:border-slate-800 p-6 max-w-2xl space-y-4 shadow-sm">
-          <div className="flex items-center gap-2 pb-3 border-b border-slate-100 dark:border-slate-800">
-            <UserCheck className="w-5 h-5 text-indigo-500" />
-            <h2 className="font-black text-slate-900 dark:text-white">
-              Cấp / Thu hồi quyền khóa học thủ công cho học sinh
-            </h2>
+      {/* TAB 3: DIRECT STUDENT ENTITLEMENT GRANT / REVOKE + PURCHASE DETAILS */}
+      {activeTab === "entitlements" && isEditMode && courseId && (
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+          <div className="lg:col-span-5 bg-white dark:bg-slate-900 rounded-3xl border border-slate-200 dark:border-slate-800 p-6 space-y-4 shadow-sm">
+            <div className="flex items-center gap-2 pb-3 border-b border-slate-100 dark:border-slate-800">
+              <UserCheck className="w-5 h-5 text-indigo-500" />
+              <h2 className="font-black text-slate-900 dark:text-white">
+                Cấp / Thu hồi quyền khóa học thủ công cho học sinh
+              </h2>
+            </div>
+
+            <p className="text-xs text-slate-500 dark:text-slate-400">
+              Dùng khi Admin muốn mở khóa miễn phí cho một học sinh cụ thể mà không trừ Ví DkTEST. Copy UID học sinh từ bảng bên phải hoặc từ trang <strong>Học sinh</strong> / <strong>Ví &amp; Công nợ</strong>.
+            </p>
+
+            <div className="space-y-3">
+              <div>
+                <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">
+                  UID Học sinh <span className="text-rose-500">*</span>
+                </label>
+                <input
+                  type="text"
+                  value={grantStudentUid}
+                  onChange={(e) => setGrantStudentUid(e.target.value)}
+                  placeholder="Nhập Student UID..."
+                  className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-xs font-mono"
+                />
+              </div>
+
+              <div>
+                <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">
+                  Phạm vi cấp quyền
+                </label>
+                <select
+                  value={grantLessonId}
+                  onChange={(e) => setGrantLessonId(e.target.value)}
+                  className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-xs font-bold"
+                >
+                  <option value="">Mở khóa TOÀN BỘ khóa học</option>
+                  {outlineStats.orderedLessons.map((l, idx) => (
+                    <option key={l.id} value={l.id}>
+                      Chỉ mở lẻ Bài #{idx + 1}: {l.title}
+                    </option>
+                  ))}
+                </select>
+              </div>
+
+              <div>
+                <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">
+                  Ghi chú / Lý do
+                </label>
+                <input
+                  type="text"
+                  value={grantReason}
+                  onChange={(e) => setGrantReason(e.target.value)}
+                  className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-xs"
+                />
+              </div>
+
+              <div className="flex items-center gap-3 pt-2">
+                <button
+                  type="button"
+                  disabled={grantBusy}
+                  onClick={() => void handleGrantOrRevoke("grant")}
+                  className="px-5 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 disabled:opacity-50 text-white text-xs font-bold flex items-center gap-1.5 cursor-pointer"
+                >
+                  <Unlock className="w-4 h-4" />
+                  <span>Cấp quyền học</span>
+                </button>
+                <button
+                  type="button"
+                  disabled={grantBusy}
+                  onClick={() => void handleGrantOrRevoke("revoke")}
+                  className="px-5 py-2.5 rounded-xl bg-rose-600 hover:bg-rose-700 disabled:opacity-50 text-white text-xs font-bold flex items-center gap-1.5 cursor-pointer"
+                >
+                  <Lock className="w-4 h-4" />
+                  <span>Thu hồi quyền</span>
+                </button>
+              </div>
+            </div>
           </div>
 
-          <p className="text-xs text-slate-500 dark:text-slate-400">
-            Dùng khi Admin muốn mở khóa miễn phí cho một học sinh cụ thể mà không trừ Ví DkTEST. Copy UID học sinh từ trang <strong>Học sinh</strong> hoặc <strong>Ví &amp; Công nợ</strong>.
-          </p>
-
-          <div className="space-y-3">
-            <div>
-              <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">
-                UID Học sinh <span className="text-rose-500">*</span>
-              </label>
-              <input
-                type="text"
-                value={grantStudentUid}
-                onChange={(e) => setGrantStudentUid(e.target.value)}
-                placeholder="Nhập Student UID..."
-                className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-xs font-mono"
-              />
-            </div>
-
-            <div>
-              <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">
-                Phạm vi cấp quyền
-              </label>
-              <select
-                value={grantLessonId}
-                onChange={(e) => setGrantLessonId(e.target.value)}
-                className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-xs font-bold"
-              >
-                <option value="">Mở khóa TOÀN BỘ khóa học</option>
-                {outlineStats.orderedLessons.map((l, idx) => (
-                  <option key={l.id} value={l.id}>
-                    Chỉ mở lẻ Bài #{idx + 1}: {l.title}
-                  </option>
-                ))}
-              </select>
-            </div>
-
-            <div>
-              <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">
-                Ghi chú / Lý do
-              </label>
-              <input
-                type="text"
-                value={grantReason}
-                onChange={(e) => setGrantReason(e.target.value)}
-                className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-xs"
-              />
-            </div>
-
-            <div className="flex items-center gap-3 pt-2">
-              <button
-                type="button"
-                disabled={grantBusy}
-                onClick={() => void handleGrantOrRevoke("grant")}
-                className="px-5 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 disabled:opacity-50 text-white text-xs font-bold flex items-center gap-1.5"
-              >
-                <Unlock className="w-4 h-4" />
-                <span>Cấp quyền học</span>
-              </button>
-              <button
-                type="button"
-                disabled={grantBusy}
-                onClick={() => void handleGrantOrRevoke("revoke")}
-                className="px-5 py-2.5 rounded-xl bg-rose-600 hover:bg-rose-700 disabled:opacity-50 text-white text-xs font-bold flex items-center gap-1.5"
-              >
-                <Lock className="w-4 h-4" />
-                <span>Thu hồi quyền</span>
-              </button>
-            </div>
+          <div className="lg:col-span-7 bg-white dark:bg-slate-900 rounded-3xl border border-slate-200 dark:border-slate-800 p-5 sm:p-6 shadow-sm">
+            <CoursePurchasesPanel
+              courseId={courseId}
+              courseTitle={title}
+              lessonsOutline={outlineStats.lessonOutline}
+              refreshSignal={purchasesRefreshSignal}
+            />
           </div>
         </div>
       )}

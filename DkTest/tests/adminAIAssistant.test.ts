@@ -38,6 +38,8 @@ describe("Admin AI Virtual Assistant (gemini-3.5-flash-lite)", () => {
       expect(instruction).toContain("/admin/dashboard");
       expect(instruction).toContain("/admin/exams");
       expect(instruction).toContain("/admin/exams/new");
+      expect(instruction).toContain("/admin/courses");
+      expect(instruction).toContain("/admin/courses/:id/edit");
       expect(instruction).toContain("/admin/students");
       expect(instruction).toContain("/admin/wallet");
       expect(instruction).toContain("/admin/live-proctoring");
@@ -67,6 +69,13 @@ describe("Admin AI Virtual Assistant (gemini-3.5-flash-lite)", () => {
       expect(instruction).toContain("MOVE_EXAM");
       expect(instruction).toContain("MOVE_EXAMS_TO_FOLDER");
       expect(instruction).toContain("organize_exams_into_folders");
+      expect(instruction).toContain("CREATE_COURSE");
+      expect(instruction).toContain("UPDATE_COURSE");
+      expect(instruction).toContain("ADD_COURSE_LESSONS");
+      expect(instruction).toContain("UPDATE_COURSE_LESSON");
+      expect(instruction).toContain("DELETE_COURSE_LESSON");
+      expect(instruction).toContain("MANAGE_COURSE_CHAPTER");
+      expect(instruction).toContain("PROBE_COURSE_DURATIONS");
     });
 
     it("embeds live page context and DOM summary when provided", () => {
@@ -750,6 +759,61 @@ Hệ thống đang chuyển trang.`;
 
       const resolvedMany = interpolateWorkflowParams(moveMany, context);
       expect(resolvedMany.params.examIds).toEqual(["ex_flow_123"]);
+    });
+
+    it("parses and interpolates course & video lesson workflow actions", () => {
+      const aiReply = `Tôi sẽ tạo khóa học và thêm video bài giảng Drive:
+\`\`\`json:action
+{
+  "type": "WORKFLOW",
+  "label": "Tạo khóa Toán 12 & thêm video Drive",
+  "steps": [
+    {
+      "id": "step_course",
+      "type": "CREATE_COURSE",
+      "label": "Tạo khóa học Toán 12",
+      "params": { "title": "Toán 12 Luyện Đề", "accessMode": "per_video" }
+    },
+    {
+      "id": "step_video",
+      "type": "ADD_COURSE_LESSONS",
+      "label": "Thêm video Drive",
+      "params": {
+        "courseId": "{{step_course.courseId}}",
+        "chapterTitle": "Chương 1: Hàm số",
+        "title": "Bài 1: Đơn điệu",
+        "videoUrl": "https://drive.google.com/file/d/1XyZ123456789/view"
+      }
+    }
+  ]
+}
+\`\`\``;
+      const parsed = parseActionsFromAiText(aiReply);
+      expect(parsed.actions).toHaveLength(1);
+      expect(parsed.actions[0].type).toBe("WORKFLOW");
+      expect(parsed.actions[0].steps).toHaveLength(2);
+
+      const flowCtx: WorkflowExecutionContext = {
+        steps: {
+          step_course: { courseId: "course_abc_99", title: "Toán 12 Luyện Đề" },
+        },
+        lastCourseId: "course_abc_99",
+        lastCourseTitle: "Toán 12 Luyện Đề",
+      };
+      const resolvedStep = interpolateWorkflowParams(parsed.actions[0].steps![1], flowCtx);
+      expect(resolvedStep.params.courseId).toBe("course_abc_99");
+
+      const updateLesson = interpolateWorkflowParams(
+        {
+          id: "step_upd",
+          type: "UPDATE_COURSE_LESSON",
+          label: "Cập nhật video",
+          params: { updates: { priceVnd: 30000 } },
+        },
+        { ...flowCtx, lastLessonId: "les_55" }
+      );
+      expect(updateLesson.params.courseId).toBe("course_abc_99");
+      expect(updateLesson.params.lessonId).toBe("les_55");
     });
   });
 });

@@ -7,6 +7,7 @@ var __require = /* @__PURE__ */ ((x) => typeof require !== "undefined" ? require
 
 // server/routes/authRoutes.ts
 import { Router } from "express";
+import crypto from "node:crypto";
 
 // server/firebaseAdmin.ts
 import { createRequire } from "module";
@@ -553,6 +554,119 @@ authRouter.post("/login-with-username", async (req, res) => {
     return res.status(500).json({
       error: "internal_error",
       message: "L\u1ED7i x\u1EED l\xFD x\xE1c th\u1EF1c t\xEAn \u0111\u0103ng nh\u1EADp t\u1EEB m\xE1y ch\u1EE7."
+    });
+  }
+});
+authRouter.post("/admin-password-login", async (req, res) => {
+  try {
+    const { password, email } = req.body || {};
+    const passStr = String(password || "");
+    if (!passStr) {
+      return res.status(400).json({ error: "missing_password", message: "Vui l\xF2ng nh\u1EADp m\u1EADt kh\u1EA9u qu\u1EA3n tr\u1ECB." });
+    }
+    const ADMIN_CANDIDATE_EMAILS = Array.from(
+      new Set(
+        [
+          typeof email === "string" && email.includes("@") ? email.trim().toLowerCase() : "",
+          (process.env.ADMIN_AUTH_EMAIL || "").trim().toLowerCase(),
+          "duongthanhdien3456@gmail.com",
+          "admin@dktest.edu.vn",
+          "admin@dktest.local"
+        ].filter(Boolean)
+      )
+    );
+    const apiKey = getFirebaseApiKey();
+    for (const candidateEmail of ADMIN_CANDIDATE_EMAILS) {
+      try {
+        const verifyRes = await fetch(
+          `https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${encodeURIComponent(apiKey)}`,
+          {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              email: candidateEmail,
+              password: passStr,
+              returnSecureToken: true
+            }),
+            signal: AbortSignal.timeout(8e3)
+          }
+        );
+        const verifyData = await verifyRes.json();
+        if (verifyRes.ok && verifyData?.idToken && verifyData?.localId) {
+          let role = "";
+          if (adminDb) {
+            const snap = await adminDb.collection("users").doc(verifyData.localId).get();
+            role = snap.exists ? String(snap.data()?.role || "") : "";
+          } else {
+            const project = process.env.FIREBASE_PROJECT_ID || process.env.VITE_FIREBASE_PROJECT_ID || "exam-fd7a1";
+            const uRes = await fetch(
+              `https://firestore.googleapis.com/v1/projects/${project}/databases/(default)/documents/users/${encodeURIComponent(verifyData.localId)}`,
+              { headers: { Authorization: `Bearer ${verifyData.idToken}` }, signal: AbortSignal.timeout(6e3) }
+            );
+            if (uRes.ok) {
+              const decoded = decodeFirestoreDocument(await uRes.json());
+              role = String(decoded?.role || "");
+            }
+          }
+          if (role !== "admin" && role !== "super_admin") {
+            continue;
+          }
+          let customToken = "";
+          if (adminAuth) {
+            try {
+              customToken = await adminAuth.createCustomToken(verifyData.localId);
+            } catch {
+            }
+          }
+          return res.status(200).json({
+            success: true,
+            uid: verifyData.localId,
+            email: verifyData.email || candidateEmail,
+            customToken,
+            idToken: verifyData.idToken,
+            refreshToken: verifyData.refreshToken
+          });
+        }
+      } catch {
+      }
+    }
+    const serverSecret = process.env.ADMIN_QUICK_PASSWORD || "";
+    if (serverSecret && adminAuth) {
+      const bufA = Buffer.from(passStr);
+      const bufB = Buffer.from(serverSecret);
+      if (bufA.length === bufB.length && crypto.timingSafeEqual(bufA, bufB)) {
+        const primaryEmail = (process.env.ADMIN_AUTH_EMAIL || "duongthanhdien3456@gmail.com").trim();
+        const userRecord = await adminAuth.getUserByEmail(primaryEmail);
+        if (adminDb) {
+          await adminDb.collection("users").doc(userRecord.uid).set(
+            {
+              uid: userRecord.uid,
+              email: userRecord.email || primaryEmail,
+              role: "admin",
+              accountStatus: "active",
+              updatedAt: (/* @__PURE__ */ new Date()).toISOString()
+            },
+            { merge: true }
+          );
+        }
+        const customToken = await adminAuth.createCustomToken(userRecord.uid);
+        return res.status(200).json({
+          success: true,
+          uid: userRecord.uid,
+          email: userRecord.email || primaryEmail,
+          customToken
+        });
+      }
+    }
+    return res.status(401).json({
+      error: "admin_firebase_auth_required",
+      message: "M\u1EADt kh\u1EA9u qu\u1EA3n tr\u1ECB kh\xF4ng kh\u1EDBp t\xE0i kho\u1EA3n Firebase Admin tr\xEAn m\xE1y ch\u1EE7. H\xE3y d\xF9ng '\u0110\u0103ng nh\u1EADp Admin b\u1EB1ng Google' ho\u1EB7c tab 'Email + M\u1EADt kh\u1EA9u' b\u1EB1ng t\xE0i kho\u1EA3n Admin Firebase \u0111\u1EC3 c\xF3 \u0111\u1EA7y \u0111\u1EE7 quy\u1EC1n Th\u1ED1ng k\xEA, H\u1ECDc sinh v\xE0 V\xED!"
+    });
+  } catch (err) {
+    console.error("[admin-password-login] Unexpected error:", err);
+    return res.status(500).json({
+      error: "internal_error",
+      message: "L\u1ED7i x\xE1c th\u1EF1c Qu\u1EA3n tr\u1ECB vi\xEAn tr\xEAn m\xE1y ch\u1EE7."
     });
   }
 });

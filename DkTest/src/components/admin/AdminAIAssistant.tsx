@@ -46,6 +46,9 @@ import {
   FolderKanban,
   FolderInput,
   FolderPlus,
+  PlayCircle,
+  Video,
+  Clock,
 } from "lucide-react";
 import clsx from "clsx";
 import LatexPreview from "../../features/exam-builder/editor/LatexPreview";
@@ -70,9 +73,16 @@ import {
   getAdminStudentWalletDetails,
   approveDepositRequest,
   rejectDepositRequest,
+  grantOrRevokeCourseEntitlementApi,
   grantOrRevokeExamEntitlement,
   mergeExamsApi,
 } from "../../services/walletClientService";
+import { executeStandaloneCourseAction } from "../../services/courseAgentActions";
+import {
+  getCourseEditorBridgeHandler,
+  getCourseEditorContextSnapshot,
+  getCourseManagerSummarySnapshot,
+} from "../../utils/courseAiBridge";
 import { createExam, updateExam, deleteExam, getExam } from "../../services/examService";
 import {
   createFolder,
@@ -127,6 +137,8 @@ const ROUTE_NAMES: Record<string, string> = {
   "/admin/students": "Quản lý Học sinh",
   "/admin/parents": "Quản lý Phụ huynh",
   "/admin/classes": "Quản lý Lớp học",
+  "/admin/courses": "Quản lý Khóa học & Video",
+  "/admin/courses/new": "Tạo Khóa học mới",
   "/admin/wallet": "Quản lý Ví & Công nợ",
   "/admin/question-bank": "Ngân hàng câu hỏi",
   "/admin/journey-studio": "Xưởng Chiến Dịch Học Tập",
@@ -265,6 +277,9 @@ export default function AdminAIAssistant() {
   const currentTabName = useMemo(() => {
     const exact = ROUTE_NAMES[location.pathname];
     if (exact) return exact;
+    if (/^\/admin\/courses\/[^/]+\/edit/i.test(location.pathname)) {
+      return "Chỉnh sửa Khóa học & Video";
+    }
     for (const [route, name] of Object.entries(ROUTE_NAMES)) {
       if (location.pathname.startsWith(route)) return name;
     }
@@ -424,11 +439,24 @@ export default function AdminAIAssistant() {
       ].filter(Boolean);
 
       const domSummary = domSummaryParts.join("\n\n");
+      const courseEditorCtx = getCourseEditorContextSnapshot();
+      const coursesSummary = getCourseManagerSummarySnapshot();
 
       return {
         path: location.pathname,
         pageTitle: currentTabName,
         domSummary,
+        ...(courseEditorCtx
+          ? { selectedItem: courseEditorCtx }
+          : {}),
+        ...(coursesSummary && coursesSummary.length > 0
+          ? {
+              statsSummary: {
+                coursesCount: coursesSummary.length,
+                courses: coursesSummary,
+              },
+            }
+          : {}),
         activeModal: activeModalSummary || undefined,
         userEmail: user?.email || userProfile?.displayName || "Admin",
         userRole: role || "admin",
@@ -882,13 +910,43 @@ export default function AdminAIAssistant() {
               const rejectRes = await rejectDepositRequest(reqId, p.reason || "Từ chối bởi Admin AI");
               toastSuccess(`Đã từ chối yêu cầu nạp tiền`);
               result = { success: true, message: `Đã từ chối yêu cầu nạp tiền`, data: rejectRes };
-            } else if (actType === "grant_access") {
+            } else if (actType === "grant_access" || actType === "revoke_access") {
               if (!uid) throw new Error("Thiếu mã UID học sinh");
-              const targetExamId = p.examId || workflowContext?.lastExamId;
-              if (!targetExamId) throw new Error("Thiếu examId để cấp quyền");
-              const grantRes = await grantOrRevokeExamEntitlement(uid, targetExamId, "grant", p.reason || "Cấp bởi Admin AI");
-              toastSuccess(`Đã cấp quyền làm bài thi cho học sinh!`);
-              result = { success: true, message: `Đã cấp quyền truy cập đề thi ${targetExamId}`, data: grantRes };
+              const courseAction = actType === "revoke_access" ? "revoke" : "grant";
+              const targetCourseId = p.courseId || workflowContext?.lastCourseId;
+              if (targetCourseId && !p.examId) {
+                const courseGrantRes = await grantOrRevokeCourseEntitlementApi(
+                  uid,
+                  targetCourseId,
+                  p.lessonId || null,
+                  courseAction,
+                  p.reason || "Cập nhật quyền khóa học bởi Admin AI"
+                );
+                toastSuccess(
+                  courseAction === "revoke"
+                    ? "Đã thu hồi quyền khóa học cho học sinh!"
+                    : "Đã cấp quyền khóa học cho học sinh!"
+                );
+                result = {
+                  success: true,
+                  message:
+                    courseAction === "revoke"
+                      ? `Đã thu hồi quyền khóa học ${targetCourseId}`
+                      : `Đã cấp quyền khóa học ${targetCourseId}`,
+                  data: courseGrantRes,
+                };
+              } else {
+                const targetExamId = p.examId || workflowContext?.lastExamId;
+                if (!targetExamId) throw new Error("Thiếu examId hoặc courseId để cấp quyền");
+                const grantRes = await grantOrRevokeExamEntitlement(
+                  uid,
+                  targetExamId,
+                  courseAction,
+                  p.reason || "Cấp bởi Admin AI"
+                );
+                toastSuccess(`Đã cập nhật quyền làm bài thi cho học sinh!`);
+                result = { success: true, message: `Đã cập nhật quyền đề thi ${targetExamId}`, data: grantRes };
+              }
             } else if (actType === "adjust_balance") {
               if (!uid) throw new Error("Thiếu mã UID học sinh");
               const amount = Number(p.amountVnd || p.amount || 0);
@@ -1234,6 +1292,14 @@ export default function AdminAIAssistant() {
                   if (stepRes.data.examId) {
                     flowCtx.lastExamId = stepRes.data.examId;
                     flowCtx.lastExamTitle = stepRes.data.title;
+                  }
+                  if (stepRes.data.courseId) {
+                    flowCtx.lastCourseId = stepRes.data.courseId;
+                    if (stepRes.data.title) flowCtx.lastCourseTitle = stepRes.data.title;
+                  }
+                  if (stepRes.data.lessonId) {
+                    flowCtx.lastLessonId = stepRes.data.lessonId;
+                    if (stepRes.data.lessonTitle) flowCtx.lastLessonTitle = stepRes.data.lessonTitle;
                   }
                   if (stepRes.data.code) {
                     flowCtx.lastVoucherCode = stepRes.data.code;
@@ -1612,6 +1678,59 @@ export default function AdminAIAssistant() {
             result = { success: true, message: "Đang tải lại trang..." };
             break;
           }
+
+          // 25. COURSE & VIDEO LESSON AUTONOMOUS ACTIONS
+          case "LIST_COURSES":
+          case "GET_COURSE_DETAILS":
+          case "CREATE_COURSE": {
+            const p = act.params || act.payload || {};
+            result = await executeStandaloneCourseAction(act.type, p);
+            if (result.success) {
+              toastSuccess(result.message);
+              if (workflowContext && result.data) {
+                if (result.data.courseId) workflowContext.lastCourseId = result.data.courseId;
+                if (result.data.title) workflowContext.lastCourseTitle = result.data.title;
+              }
+            }
+            break;
+          }
+
+          case "UPDATE_COURSE":
+          case "ADD_COURSE_LESSONS":
+          case "ADD_COURSE_LESSON":
+          case "CREATE_COURSE_VIDEO":
+          case "UPDATE_COURSE_LESSON":
+          case "UPDATE_COURSE_VIDEO":
+          case "DELETE_COURSE_LESSON":
+          case "DELETE_COURSE_VIDEO":
+          case "MANAGE_COURSE_CHAPTER":
+          case "PROBE_COURSE_DURATIONS": {
+            const p = act.params || act.payload || {};
+            const targetCourseId = p.courseId || workflowContext?.lastCourseId;
+            const bridge = getCourseEditorBridgeHandler();
+            const shouldUseBridge =
+              bridge &&
+              ((targetCourseId && bridge.courseId === targetCourseId) ||
+                (!targetCourseId && !p.courseTitle && (Boolean(bridge.courseId) || bridge.isNewCourse)));
+
+            if (shouldUseBridge && bridge) {
+              result = await bridge.apply(act.type, p);
+            } else {
+              result = await executeStandaloneCourseAction(act.type, {
+                ...p,
+                ...(targetCourseId ? { courseId: targetCourseId } : {}),
+              });
+              if (result.success) toastSuccess(result.message);
+            }
+
+            if (workflowContext && result.data) {
+              if (result.data.courseId) workflowContext.lastCourseId = result.data.courseId;
+              if (result.data.title) workflowContext.lastCourseTitle = result.data.title;
+              if (result.data.lessonId) workflowContext.lastLessonId = result.data.lessonId;
+              if (result.data.lessonTitle) workflowContext.lastLessonTitle = result.data.lessonTitle;
+            }
+            break;
+          }
         }
 
         setActionResults((prev) => ({
@@ -1825,6 +1944,27 @@ export default function AdminAIAssistant() {
   // Quick suggestions based on current route
   const quickSuggestions = useMemo(() => {
     const path = location.pathname;
+    if (path.startsWith("/admin/courses")) {
+      return [
+        {
+          label: "🎬 Thêm video vào khóa",
+          prompt:
+            "Thêm 1 video mới vào khóa học này (nếu tôi gửi link Drive/YouTube hãy tự động đo thời lượng phút và gắn đúng chương/chuyên đề).",
+        },
+        {
+          label: "⏱ Đo phút toàn bộ video",
+          prompt: "Hãy tự động quét và đo lại thời lượng phút/giây chuẩn cho toàn bộ video (kể cả Google Drive) trong khóa học này.",
+        },
+        {
+          label: "✏️ Sửa video đang chọn",
+          prompt: "Chỉnh sửa thông tin, học phí hoặc miễn phí cho video bài giảng đang chọn.",
+        },
+        {
+          label: "📚 Tạo khóa học mới + Chương",
+          prompt: "Tạo một khóa học mới môn Toán 12 theo chế độ vào khóa Free trả tiền theo video, kèm 2 chương mẫu.",
+        },
+      ];
+    }
     if (path.startsWith("/admin/exams")) {
       return [
         { label: "📁 Gom đề vào thư mục môn", prompt: "Hãy di chuyển các bài thi nằm ngoài drive chính (trừ json mẫu và teswallet) vô các folder riêng theo đúng tên môn bài..." },
@@ -1959,6 +2099,22 @@ export default function AdminAIAssistant() {
       case "DUPLICATE_EXAM":
       case "MERGE_EXAMS":
         return <BookOpen className="w-3.5 h-3.5 text-blue-500 shrink-0" />;
+      case "LIST_COURSES":
+      case "GET_COURSE_DETAILS":
+      case "CREATE_COURSE":
+      case "UPDATE_COURSE":
+      case "MANAGE_COURSE_CHAPTER":
+        return <PlayCircle className="w-3.5 h-3.5 text-blue-600 shrink-0" />;
+      case "ADD_COURSE_LESSONS":
+      case "ADD_COURSE_LESSON":
+      case "CREATE_COURSE_VIDEO":
+      case "UPDATE_COURSE_LESSON":
+      case "UPDATE_COURSE_VIDEO":
+      case "DELETE_COURSE_LESSON":
+      case "DELETE_COURSE_VIDEO":
+        return <Video className="w-3.5 h-3.5 text-indigo-600 shrink-0" />;
+      case "PROBE_COURSE_DURATIONS":
+        return <Clock className="w-3.5 h-3.5 text-blue-600 shrink-0" />;
       case "ASSIGN_HOMEWORK":
         return <Layers className="w-3.5 h-3.5 text-purple-500 shrink-0" />;
       case "MANAGE_STUDENT":
@@ -2068,6 +2224,34 @@ export default function AdminAIAssistant() {
       if (p.targetSubject || p.subject) chips.push({ label: "Môn đích", val: String(p.targetSubject || p.subject) });
     } else if (action.type === "SYSTEM_OPERATION") {
       if (p.operation || p.command || action.target) chips.push({ label: "Lệnh", val: String(p.operation || p.command || action.target) });
+    } else if (
+      action.type === "CREATE_COURSE" ||
+      action.type === "UPDATE_COURSE" ||
+      action.type === "LIST_COURSES" ||
+      action.type === "GET_COURSE_DETAILS" ||
+      action.type === "ADD_COURSE_LESSONS" ||
+      action.type === "ADD_COURSE_LESSON" ||
+      action.type === "CREATE_COURSE_VIDEO" ||
+      action.type === "UPDATE_COURSE_LESSON" ||
+      action.type === "UPDATE_COURSE_VIDEO" ||
+      action.type === "DELETE_COURSE_LESSON" ||
+      action.type === "DELETE_COURSE_VIDEO" ||
+      action.type === "MANAGE_COURSE_CHAPTER" ||
+      action.type === "PROBE_COURSE_DURATIONS"
+    ) {
+      if (p.courseTitle) chips.push({ label: "Khóa", val: String(p.courseTitle) });
+      else if (p.courseId) chips.push({ label: "ID khóa", val: String(p.courseId).slice(0, 10) });
+      if (p.chapterTitle) chips.push({ label: "Chương", val: String(p.chapterTitle) });
+      if (p.topicTitle) chips.push({ label: "Chuyên đề", val: String(p.topicTitle) });
+      if (p.title) chips.push({ label: "Tiêu đề", val: String(p.title) });
+      if (p.lessonNumber !== undefined) chips.push({ label: "Bài", val: `#${p.lessonNumber}` });
+      else if (p.lessonTitle) chips.push({ label: "Bài", val: String(p.lessonTitle) });
+      if (Array.isArray(p.lessons)) chips.push({ label: "Số video", val: `${p.lessons.length} video` });
+      if (p.priceVnd !== undefined) chips.push({ label: "Giá", val: `${Number(p.priceVnd).toLocaleString("vi-VN")}đ` });
+      if (p.updates?.title) chips.push({ label: "Tên mới", val: String(p.updates.title) });
+      if (p.updates?.priceVnd !== undefined) {
+        chips.push({ label: "Giá mới", val: `${Number(p.updates.priceVnd).toLocaleString("vi-VN")}đ` });
+      }
     }
 
     if (chips.length === 0) return null;
@@ -2483,6 +2667,54 @@ export default function AdminAIAssistant() {
           >
             <ExternalLink className="w-3 h-3" />
             <span>Mở Drive</span>
+          </button>
+        </div>
+      );
+    }
+
+    // 5b. Course & Video Lesson Action Result Preview
+    if (
+      (action.type === "CREATE_COURSE" ||
+        action.type === "UPDATE_COURSE" ||
+        action.type === "ADD_COURSE_LESSONS" ||
+        action.type === "ADD_COURSE_LESSON" ||
+        action.type === "CREATE_COURSE_VIDEO" ||
+        action.type === "UPDATE_COURSE_LESSON" ||
+        action.type === "UPDATE_COURSE_VIDEO" ||
+        action.type === "DELETE_COURSE_LESSON" ||
+        action.type === "DELETE_COURSE_VIDEO" ||
+        action.type === "MANAGE_COURSE_CHAPTER" ||
+        action.type === "PROBE_COURSE_DURATIONS" ||
+        action.type === "LIST_COURSES" ||
+        action.type === "GET_COURSE_DETAILS") &&
+      (isSuccess || data)
+    ) {
+      const courseId = data?.courseId;
+      const editUrl = data?.editUrl || (courseId ? `/admin/courses/${courseId}/edit` : "/admin/courses");
+      return (
+        <div className="mt-2 p-2.5 rounded-xl bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-blue-950/40 dark:to-indigo-950/30 border border-blue-200 dark:border-blue-800/80 flex items-center justify-between gap-2 shadow-2xs">
+          <div className="flex items-center gap-2 overflow-hidden">
+            <div className="w-8 h-8 rounded-lg bg-blue-600 text-white flex items-center justify-center shrink-0 shadow-xs">
+              <PlayCircle className="w-4 h-4" />
+            </div>
+            <div className="overflow-hidden">
+              <p className="font-bold text-xs text-blue-950 dark:text-blue-100 truncate">
+                {actionRes?.message || data?.title || "Cập nhật khóa học thành công"}
+              </p>
+              {data?.lessonTitle && (
+                <p className="text-[10px] text-blue-700 dark:text-blue-300 truncate">
+                  Video: {data.lessonTitle}
+                </p>
+              )}
+            </div>
+          </div>
+          <button
+            type="button"
+            onClick={() => navigate(editUrl)}
+            className="px-2.5 py-1 rounded-lg bg-blue-600 hover:bg-blue-700 text-white text-[10px] font-bold transition-colors cursor-pointer flex items-center gap-1 shadow-2xs shrink-0"
+          >
+            <ExternalLink className="w-3 h-3" />
+            <span>{courseId ? "Mở khóa học" : "Quản lý khóa"}</span>
           </button>
         </div>
       );

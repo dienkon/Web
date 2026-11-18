@@ -491,6 +491,10 @@ export default function DkCourseVideoPlayer({
       autoPlay && parsed.embedUrl && !/[?&]autoplay=/i.test(parsed.embedUrl)
         ? `${parsed.embedUrl}${parsed.embedUrl.includes("?") ? "&" : "?"}autoplay=1`
         : parsed.embedUrl;
+    const blockPointerEvent = (e: React.SyntheticEvent) => {
+      e.preventDefault();
+      e.stopPropagation();
+    };
     return (
       <div
         ref={containerRef}
@@ -504,20 +508,28 @@ export default function DkCourseVideoPlayer({
           src={driveSrc}
           title={title}
           referrerPolicy="strict-origin-when-cross-origin"
+          sandbox={
+            parsed.isDrive || parsed.kind === "iframe"
+              ? "allow-scripts allow-same-origin allow-forms allow-presentation"
+              : undefined
+          }
           className="block w-full h-full border-0"
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; fullscreen"
           allowFullScreen
         />
-        {/* Invisible-until-hovered guard blocking Drive's [↗] pop-out button with 0 ugly black box obscuring slides */}
+        {/* Flush full-coverage guard covering Drive's [↗] pop-out & toolbar corner (including PDF scrollbar shift) without native tooltip or exposed edges */}
         <div
-          onClick={(e) => {
-            e.preventDefault();
-            e.stopPropagation();
-          }}
-          title="Link kho lưu gốc được DkTEST ẩn và bảo vệ"
-          className="absolute top-1.5 right-1.5 w-11 h-10 z-20 rounded-xl bg-transparent hover:bg-blue-950/80 hover:backdrop-blur-xs text-transparent hover:text-blue-200 flex items-center justify-center transition-all cursor-default pointer-events-auto"
+          role="presentation"
+          aria-label="Vùng được DkTEST bảo vệ"
+          onClick={blockPointerEvent}
+          onMouseDown={blockPointerEvent}
+          onPointerDown={blockPointerEvent}
+          onTouchStart={blockPointerEvent}
+          onDoubleClick={blockPointerEvent}
+          onContextMenu={blockPointerEvent}
+          className="absolute top-0 right-0 w-[84px] h-[58px] sm:w-[92px] sm:h-[64px] z-20 rounded-bl-2xl bg-transparent hover:bg-slate-950/90 hover:backdrop-blur-sm text-transparent hover:text-blue-200 flex items-center justify-center transition-colors duration-150 cursor-default select-none pointer-events-auto"
         >
-          <ShieldCheck className="w-4 h-4" />
+          <ShieldCheck className="w-4 h-4 pointer-events-none" />
         </div>
       </div>
     );

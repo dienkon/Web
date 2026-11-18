@@ -305,178 +305,45 @@ async function setFirestoreRestDoc(collectionName, docId, data) {
 
 // server/middleware/auth.ts
 async function requireAuth(req, res, next) {
-  if (req.method === "OPTIONS") {
-    return next();
-  }
-  const isAdminRoute = Boolean(
-    req.baseUrl?.startsWith("/api/admin") || req.originalUrl?.startsWith("/api/admin") || req.path?.startsWith("/api/admin")
-  );
-  const configuredAdminKey = process.env.ADMIN_SECRET_KEY || process.env.DK_ADMIN_MASTER_KEY || "dk_admin_master_secret_2026";
-  const adminHeaderToken = req.headers["x-admin-token"] || "";
-  const clientAuthRole = req.headers["x-auth-role"] || "";
-  const isValidAdminHeader = Boolean(
-    configuredAdminKey && adminHeaderToken && adminHeaderToken === configuredAdminKey || adminHeaderToken && adminHeaderToken.startsWith("dk_admin_")
-  );
-  if (isAdminRoute && isValidAdminHeader) {
-    req.user = {
-      uid: "admin_master",
-      email: process.env.SUPER_ADMIN_DEFAULT_EMAIL || "duongthanhdien3456@gmail.com",
-      role: "super_admin",
-      displayName: "Qu\u1EA3n tr\u1ECB vi\xEAn H\u1EC7 th\u1ED1ng",
-      accountStatus: "active"
-    };
-    return next();
-  }
-  const authHeader = req.headers.authorization;
-  if (!authHeader || !authHeader.startsWith("Bearer ")) {
-    const studentUid = req.headers["x-student-uid"]?.trim() || req.query.studentUid?.trim();
-    const studentUsername = req.headers["x-student-username"]?.trim() || req.query.studentUsername?.trim();
-    if (studentUid || studentUsername) {
-      req.user = {
-        uid: studentUid || studentUsername,
-        displayName: studentUsername || "H\u1ECDc sinh",
-        role: "student",
-        accountStatus: "active"
-      };
-      return next();
-    }
-    return res.status(401).json({
-      error: "unauthorized",
-      message: "Y\xEAu c\u1EA7u \u0111\u0103ng nh\u1EADp \u0111\u1EC3 ti\u1EBFp t\u1EE5c (thi\u1EBFu Bearer token)."
-    });
-  }
-  const idToken = authHeader.split("Bearer ")[1].trim();
-  if (!idToken) {
-    return res.status(401).json({
-      error: "unauthorized",
-      message: "Token \u0111\u0103ng nh\u1EADp kh\xF4ng h\u1EE3p l\u1EC7."
-    });
-  }
-  if (idToken.startsWith("student_")) {
-    const sUid = decodeURIComponent(idToken.slice(8));
-    const sUsername = req.headers["x-student-username"]?.trim() || "";
-    req.user = {
-      uid: sUid,
-      displayName: sUsername || "H\u1ECDc sinh",
-      role: "student",
-      accountStatus: "active"
-    };
-    return next();
-  }
-  const isValidBearerAdmin = Boolean(
-    configuredAdminKey && idToken === configuredAdminKey || idToken && idToken.startsWith("dk_admin_")
-  );
-  if (isAdminRoute && isValidBearerAdmin) {
-    req.user = {
-      uid: "admin_master",
-      email: process.env.SUPER_ADMIN_DEFAULT_EMAIL || "duongthanhdien3456@gmail.com",
-      role: "super_admin",
-      displayName: "Qu\u1EA3n tr\u1ECB vi\xEAn H\u1EC7 th\u1ED1ng",
-      accountStatus: "active"
-    };
-    return next();
-  }
+  if (req.method === "OPTIONS") return next();
+  const token = /^Bearer\s+(\S+)$/i.exec(req.headers.authorization || "")?.[1];
+  if (!token || /^(student_|dk_admin_)/.test(token)) return res.status(401).json({ error: "unauthorized", message: "C\u1EA7n \u0111\u0103ng nh\u1EADp b\u1EB1ng t\xE0i kho\u1EA3n Firebase h\u1EE3p l\u1EC7." });
   try {
-    let uid = "";
-    let email = "";
-    let displayName = "";
-    let role = "";
-    let accountStatus = "active";
+    let identity;
     if (adminAuth) {
-      const decodedToken = await adminAuth.verifyIdToken(idToken);
-      uid = decodedToken.uid;
-      email = decodedToken.email || "";
-      displayName = decodedToken.name || "";
-      role = decodedToken.role || "";
-      accountStatus = decodedToken.accountStatus || "active";
+      const decoded = await adminAuth.verifyIdToken(token);
+      identity = { uid: decoded.uid, email: decoded.email, name: decoded.name, role: decoded.role, accountStatus: decoded.accountStatus };
     } else {
-      const parts = idToken.split(".");
-      if (parts.length === 3) {
-        const payload = JSON.parse(Buffer.from(parts[1], "base64").toString("utf-8"));
-        uid = payload.user_id || payload.sub || "dev_user";
-        email = payload.email || "";
-        displayName = payload.name || "";
-        role = payload.role || "";
-      } else {
-        return res.status(401).json({
-          error: "unauthorized",
-          message: "Kh\xF4ng th\u1EC3 x\xE1c th\u1EF1c danh t\xEDnh."
-        });
-      }
-    }
-    if (!role && uid) {
-      if (adminDb) {
-        try {
-          const userDoc = await adminDb.collection("users").doc(uid).get();
-          if (userDoc.exists) {
-            const data = userDoc.data();
-            role = data?.role || "";
-            accountStatus = data?.accountStatus || "active";
-            if (!displayName && data?.displayName) displayName = data.displayName;
-          }
-        } catch (dbErr) {
-          console.warn("[requireAuth] Could not fetch user doc from Firestore:", dbErr);
-        }
-      } else {
-        try {
-          const userData = await getFirestoreRestDoc("users", uid);
-          if (userData) {
-            role = userData.role || "";
-            accountStatus = userData.accountStatus || "active";
-            if (!displayName && userData.displayName) displayName = userData.displayName;
-          }
-        } catch (restErr) {
-          console.warn("[requireAuth] Could not fetch user doc via Firestore REST fallback:", restErr);
-        }
-      }
-    }
-    const envSuperAdmins = (process.env.SUPER_ADMIN_EMAILS || "").split(",").map((e) => e.trim().toLowerCase()).filter(Boolean);
-    const VERIFIED_SUPER_ADMIN_EMAILS = /* @__PURE__ */ new Set([
-      ...envSuperAdmins,
-      "admin@dktest.edu.vn",
-      "admin@dktest.local",
-      "duongthanhdien3456@gmail.com",
-      "dienkon@gmail.com"
-    ]);
-    const lowerEmail = (email || "").toLowerCase().trim();
-    if (VERIFIED_SUPER_ADMIN_EMAILS.has(lowerEmail)) {
-      role = "super_admin";
-    } else if (isAdminRoute && (adminHeaderToken.startsWith("dk_admin_") || clientAuthRole === "admin")) {
-      role = role === "super_admin" ? "super_admin" : "admin";
-    } else if (!role) {
-      role = "student";
-    }
-    req.user = {
-      uid,
-      email,
-      role: role || "student",
-      displayName,
-      accountStatus
-    };
-    if (accountStatus === "suspended" || accountStatus === "disabled" || accountStatus === "deleted") {
-      return res.status(403).json({
-        error: "account_suspended",
-        message: "T\xE0i kho\u1EA3n c\u1EE7a b\u1EA1n \u0111\xE3 b\u1ECB t\u1EA1m kho\xE1 ho\u1EB7c v\xF4 hi\u1EC7u ho\xE1. Vui l\xF2ng li\xEAn h\u1EC7 qu\u1EA3n tr\u1ECB vi\xEAn."
+      const response = await fetch(`https://identitytoolkit.googleapis.com/v1/accounts:lookup?key=${encodeURIComponent(getFirebaseApiKey())}`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ idToken: token }),
+        signal: AbortSignal.timeout(1e4)
       });
+      if (!response.ok) throw new Error("invalid_token");
+      const account = (await response.json()).users?.[0];
+      if (!account?.localId || account.disabled) throw new Error("invalid_token");
+      identity = { uid: account.localId, email: account.email, name: account.displayName };
     }
+    let profile = null;
+    if (adminDb) {
+      const snapshot = await adminDb.collection("users").doc(identity.uid).get();
+      profile = snapshot.exists ? snapshot.data() : null;
+    } else {
+      const project = process.env.FIREBASE_PROJECT_ID || process.env.VITE_FIREBASE_PROJECT_ID || "exam-fd7a1";
+      const response = await fetch(`https://firestore.googleapis.com/v1/projects/${project}/databases/(default)/documents/users/${encodeURIComponent(identity.uid)}`, {
+        headers: { Authorization: `Bearer ${token}` },
+        signal: AbortSignal.timeout(1e4)
+      });
+      if (response.ok) profile = decodeFirestoreDocument(await response.json());
+      else if (response.status !== 404) throw new Error("profile_unavailable");
+    }
+    const status = profile?.accountStatus || identity.accountStatus || "active";
+    if (["suspended", "disabled", "deleted"].includes(status)) return res.status(403).json({ error: "account_suspended", message: "T\xE0i kho\u1EA3n \u0111\xE3 b\u1ECB v\xF4 hi\u1EC7u h\xF3a." });
+    req.user = { uid: identity.uid, email: identity.email, role: profile?.role || identity.role || "student", displayName: profile?.displayName || identity.name, accountStatus: status };
     return next();
-  } catch (err) {
-    const studentUid = req.headers["x-student-uid"]?.trim() || req.query.studentUid?.trim();
-    const studentUsername = req.headers["x-student-username"]?.trim() || req.query.studentUsername?.trim();
-    if (studentUid || studentUsername) {
-      req.user = {
-        uid: studentUid || studentUsername,
-        displayName: studentUsername || "H\u1ECDc sinh",
-        role: "student",
-        accountStatus: "active"
-      };
-      return next();
-    }
-    console.error("[requireAuth] Token verification failed:", err?.message || err);
-    return res.status(401).json({
-      error: "invalid_token",
-      message: "Phi\xEAn \u0111\u0103ng nh\u1EADp \u0111\xE3 h\u1EBFt h\u1EA1n ho\u1EB7c kh\xF4ng h\u1EE3p l\u1EC7. Vui l\xF2ng \u0111\u0103ng nh\u1EADp l\u1EA1i."
-    });
+  } catch {
+    return res.status(401).json({ error: "invalid_token", message: "Kh\xF4ng x\xE1c minh \u0111\u01B0\u1EE3c phi\xEAn \u0111\u0103ng nh\u1EADp. Vui l\xF2ng \u0111\u0103ng nh\u1EADp l\u1EA1i." });
   }
 }
 
@@ -560,14 +427,15 @@ async function validateVoucher(params) {
       message: `M\xE3 h\u1EE3p l\u1EC7! Nh\u1EADn ngay +${voucher.value.toLocaleString("vi-VN")}\u0111 v\xE0o v\xED.`
     };
   }
-  if (params.context === "exam_unlock") {
+  if (params.context === "exam_unlock" || params.context === "course_unlock") {
+    const itemLabel = params.context === "course_unlock" ? "kh\xF3a h\u1ECDc / b\xE0i gi\u1EA3ng" : "b\xE0i thi";
     if (voucher.type !== "discount_percent" && voucher.type !== "discount_fixed") {
-      return { valid: false, message: "M\xE3 n\xE0y kh\xF4ng \xE1p d\u1EE5ng \u0111\u1EC3 gi\u1EA3m gi\xE1 m\u1EDF kh\xF3a b\xE0i thi." };
+      return { valid: false, message: `M\xE3 n\xE0y kh\xF4ng \xE1p d\u1EE5ng \u0111\u1EC3 gi\u1EA3m gi\xE1 m\u1EDF kh\xF3a ${itemLabel}.` };
     }
     if (voucher.minOrderVnd && baseAmount < voucher.minOrderVnd) {
       return {
         valid: false,
-        message: `M\xE3 n\xE0y ch\u1EC9 \xE1p d\u1EE5ng cho b\xE0i thi c\xF3 gi\xE1 t\u1EEB ${voucher.minOrderVnd.toLocaleString("vi-VN")}\u0111 tr\u1EDF l\xEAn.`
+        message: `M\xE3 n\xE0y ch\u1EC9 \xE1p d\u1EE5ng cho ${itemLabel} c\xF3 gi\xE1 t\u1EEB ${voucher.minOrderVnd.toLocaleString("vi-VN")}\u0111 tr\u1EDF l\xEAn.`
       };
     }
     let discountVnd = 0;
@@ -1454,7 +1322,7 @@ async function checkExamAccess(uid, examId, userRole, force = false) {
   const accessMode = examData.accessMode || "free";
   const priceVnd = sanitizeVnd(examData.priceVnd);
   const salesEnabled = examData.salesEnabled !== false;
-  const isFree = accessMode === "free" || priceVnd <= 0;
+  const isFree = accessMode !== "paid" && priceVnd <= 0;
   const examTitle = examData.title || "B\xE0i thi";
   if (userRole === "admin" || userRole === "super_admin") {
     return cacheAndReturn({
@@ -1672,7 +1540,7 @@ async function unlockExam(uid, examId, idempotencyKey, voucherCode) {
       const accessMode = examData2.accessMode || "free";
       const priceVnd2 = sanitizeVnd(examData2.priceVnd);
       const salesEnabled = examData2.salesEnabled !== false;
-      if (accessMode === "free" || priceVnd2 <= 0) {
+      if (accessMode !== "paid" && priceVnd2 <= 0) {
         const entRef2 = adminDb.collection("exam_entitlements").doc(entitlementId);
         const freeEnt = {
           id: entitlementId,
@@ -1776,6 +1644,8 @@ async function unlockExam(uid, examId, idempotencyKey, voucherCode) {
         balanceAfterVnd: newBalance2,
         examId,
         examTitleSnapshot: examData2.title || "B\xE0i thi",
+        studentNameSnapshot: fullName || "Th\xED sinh",
+        studentClassSnapshot: currentClass || "",
         idempotencyKey: idempotencyKey || txId,
         actorUid: uid,
         actorName: fullName || "Th\xED sinh",
@@ -1822,6 +1692,7 @@ async function unlockExam(uid, examId, idempotencyKey, voucherCode) {
       invalidateVoucherUsagesCache();
     }
     invalidateWalletOverviewCache();
+    invalidateGlobalSpendingCache();
     invalidateStudentDetailsCache(uid);
     invalidateExamAccessCache(uid, examId);
     if (txResult.effectivePrice) {
@@ -2018,6 +1889,12 @@ async function getStudentTransactions(uid, limitCount = 30) {
   );
   return filtered.slice(0, limitCount);
 }
+var spendingFirstPageCache = /* @__PURE__ */ new Map();
+var SPENDING_CACHE_TTL_MS = 45 * 1e3;
+var SPENDING_STUDENT_META_TTL_MS = 10 * 60 * 1e3;
+function invalidateGlobalSpendingCache() {
+  spendingFirstPageCache.clear();
+}
 async function getStudentDepositRequests(uid, limitCount = 30) {
   if (adminDb) {
     const snap = await adminDb.collection("deposit_requests").where("uid", "==", uid).orderBy("createdAt", "desc").limit(limitCount).get();
@@ -2052,6 +1929,840 @@ async function getStudentUnpaidDebt(uid) {
   };
 }
 
+// server/services/webImporter/ssrfGuard.ts
+var PRIVATE_IPV4_RANGES = [
+  // 0.0.0.0/8 (Current network)
+  { start: ipToLong("0.0.0.0"), end: ipToLong("0.255.255.255") },
+  // 10.0.0.0/8 (Private network)
+  { start: ipToLong("10.0.0.0"), end: ipToLong("10.255.255.255") },
+  // 127.0.0.0/8 (Loopback)
+  { start: ipToLong("127.0.0.0"), end: ipToLong("127.255.255.255") },
+  // 169.254.0.0/16 (Link-local, AWS/GCP Metadata 169.254.169.254)
+  { start: ipToLong("169.254.0.0"), end: ipToLong("169.254.255.255") },
+  // 172.16.0.0/12 (Private network)
+  { start: ipToLong("172.16.0.0"), end: ipToLong("172.31.255.255") },
+  // 192.168.0.0/16 (Private network)
+  { start: ipToLong("192.168.0.0"), end: ipToLong("192.168.255.255") },
+  // 100.64.0.0/10 (Carrier-grade NAT)
+  { start: ipToLong("100.64.0.0"), end: ipToLong("100.127.255.255") },
+  // 224.0.0.0/4 (Multicast)
+  { start: ipToLong("224.0.0.0"), end: ipToLong("239.255.255.255") },
+  // 240.0.0.0/4 (Reserved)
+  { start: ipToLong("240.0.0.0"), end: ipToLong("255.255.255.255") }
+];
+function ipToLong(ip) {
+  return ip.split(".").reduce((acc, octet) => (acc << 8) + parseInt(octet, 10), 0) >>> 0;
+}
+
+// server/services/courseService.ts
+var COURSE_DOC_CACHE_TTL_MS = 60 * 1e3;
+var COURSE_ACCESS_CACHE_TTL_MS = 30 * 1e3;
+var COURSE_PURCHASES_CACHE_TTL_MS = 30 * 1e3;
+var COURSE_BUYER_META_TTL_MS = 10 * 60 * 1e3;
+var courseDocCache = /* @__PURE__ */ new Map();
+var courseLessonCache = /* @__PURE__ */ new Map();
+var courseAccessCache = /* @__PURE__ */ new Map();
+var coursePurchasesFirstPageCache = /* @__PURE__ */ new Map();
+function invalidateCoursePurchasesCache(courseId) {
+  if (!courseId) {
+    coursePurchasesFirstPageCache.clear();
+    return;
+  }
+  for (const key of coursePurchasesFirstPageCache.keys()) {
+    if (key.startsWith(`${courseId}::`) || key.startsWith("all::")) {
+      coursePurchasesFirstPageCache.delete(key);
+    }
+  }
+}
+function invalidateCourseServerCache(courseId, uid) {
+  invalidateCoursePurchasesCache(courseId);
+  if (!courseId) {
+    courseDocCache.clear();
+    courseLessonCache.clear();
+    courseAccessCache.clear();
+    return;
+  }
+  courseDocCache.delete(courseId);
+  for (const key of courseLessonCache.keys()) {
+    if (key.startsWith(`${courseId}::`)) courseLessonCache.delete(key);
+  }
+  for (const key of courseAccessCache.keys()) {
+    if (uid) {
+      if (key === `${uid}::${courseId}`) courseAccessCache.delete(key);
+    } else if (key.endsWith(`::${courseId}`)) {
+      courseAccessCache.delete(key);
+    }
+  }
+}
+function isAdminRole(role) {
+  return role === "admin" || role === "super_admin";
+}
+function resolveCourseAccessModeServer(course) {
+  if (course.accessMode === "per_video") return "per_video";
+  if (course.accessMode === "paid") return "paid";
+  if (course.accessMode === "free") return "free";
+  return sanitizeVnd(course.priceVnd) > 0 ? "paid" : "free";
+}
+function isLessonFreeEffective(course, lesson) {
+  const mode = resolveCourseAccessModeServer(course);
+  if (mode === "free") return true;
+  const accessType = lesson.accessType || "inherit_first_n";
+  if (accessType === "free") return true;
+  if (accessType === "paid") return false;
+  const freeCount = Math.max(0, Math.floor(Number(course.freePreviewCount) || 0));
+  return Number(lesson.order ?? 999999) < freeCount;
+}
+async function fetchCourseDoc(courseId, force = false) {
+  const now = Date.now();
+  if (!force) {
+    const cached = courseDocCache.get(courseId);
+    if (cached && now - cached.ts < COURSE_DOC_CACHE_TTL_MS) {
+      return cached.course;
+    }
+  }
+  let course = null;
+  if (adminDb) {
+    const snap = await adminDb.collection("courses").doc(courseId).get();
+    course = snap.exists ? { id: snap.id, ...snap.data() } : null;
+  } else {
+    const rest = await getFirestoreRestDoc("courses", courseId, false);
+    course = rest ? { id: courseId, ...rest } : null;
+  }
+  if (course) {
+    courseDocCache.set(courseId, { course, ts: now });
+  }
+  return course;
+}
+async function fetchLessonDoc(courseId, lessonId, force = false) {
+  const cacheKey = `${courseId}::${lessonId}`;
+  const now = Date.now();
+  if (!force) {
+    const cached = courseLessonCache.get(cacheKey);
+    if (cached && now - cached.ts < COURSE_DOC_CACHE_TTL_MS) {
+      return cached.lesson;
+    }
+  }
+  let lesson = null;
+  if (adminDb) {
+    const snap = await adminDb.collection("courses").doc(courseId).collection("lessons").doc(lessonId).get();
+    lesson = snap.exists ? { id: snap.id, ...snap.data() } : null;
+  } else {
+    const rest = await getFirestoreRestDoc(`courses/${courseId}/lessons`, lessonId, false);
+    lesson = rest ? { id: lessonId, ...rest } : null;
+  }
+  if (lesson) {
+    courseLessonCache.set(cacheKey, { lesson, ts: now });
+  }
+  return lesson;
+}
+async function checkCourseAccess(uid, courseId, role, force = false) {
+  const now = Date.now();
+  const cacheKey = uid ? `${uid}::${courseId}` : `guest::${courseId}`;
+  if (!force && !isAdminRole(role)) {
+    const cached = courseAccessCache.get(cacheKey);
+    if (cached && now - cached.ts < COURSE_ACCESS_CACHE_TTL_MS) {
+      return cached.access;
+    }
+  }
+  const course = await fetchCourseDoc(courseId, force);
+  if (!course) {
+    throw new Error("Kh\xF4ng t\xECm th\u1EA5y kh\xF3a h\u1ECDc.");
+  }
+  const accessMode = resolveCourseAccessModeServer(course);
+  const priceVnd = accessMode === "paid" ? sanitizeVnd(course.priceVnd) : 0;
+  const isFreeCourse = accessMode === "free";
+  const salesEnabled = course.salesEnabled !== false;
+  const unlockFullPolicy = course.unlockFullPolicy || "unlock_all_videos";
+  const freePreviewCount = Math.max(0, Math.floor(Number(course.freePreviewCount) || 0));
+  const allowSingleLessonPurchase = accessMode === "per_video" ? true : Boolean(course.allowSingleLessonPurchase);
+  if (isAdminRole(role) || isFreeCourse) {
+    const quick = {
+      hasCourseAccess: true,
+      isFreeCourse,
+      unlockedCourse: false,
+      unlockedLessonIds: [],
+      priceVnd: 0,
+      accessMode,
+      salesEnabled,
+      unlockFullPolicy,
+      freePreviewCount,
+      allowSingleLessonPurchase,
+      userBalance: 0,
+      missingVnd: 0,
+      canUnlockCourse: false,
+      courseTitle: course.title || "Kh\xF3a h\u1ECDc"
+    };
+    return quick;
+  }
+  let userBalance = 0;
+  let unlockedCourse = false;
+  let unlockedLessonIds = [];
+  if (uid) {
+    if (adminDb) {
+      const entsSnap = await adminDb.collection("course_entitlements").where("uid", "==", uid).where("courseId", "==", courseId).get();
+      entsSnap.docs.forEach((docSnap) => {
+        const ent = docSnap.data();
+        if (ent.status === "active") {
+          if (ent.scope === "course" || !ent.lessonId) {
+            unlockedCourse = true;
+          } else if (ent.lessonId) {
+            unlockedLessonIds.push(ent.lessonId);
+          }
+        }
+      });
+    } else {
+      const ents = await queryFirestoreRestDocs("course_entitlements", "uid", uid, 50);
+      ents.forEach((ent) => {
+        if (ent.courseId === courseId && ent.status === "active") {
+          if (ent.scope === "course" || !ent.lessonId) {
+            unlockedCourse = true;
+          } else if (ent.lessonId) {
+            unlockedLessonIds.push(ent.lessonId);
+          }
+        }
+      });
+    }
+    if (salesEnabled && (!unlockedCourse || accessMode === "per_video")) {
+      try {
+        const wallet = await getOrCreateWallet(uid);
+        userBalance = sanitizeVnd(wallet.balanceVnd);
+      } catch (_) {
+      }
+    }
+  }
+  const hasCourseAccess = unlockedCourse;
+  const missingVnd = accessMode === "paid" && !hasCourseAccess ? Math.max(0, priceVnd - userBalance) : 0;
+  const canUnlockCourse = accessMode === "paid" && !hasCourseAccess && priceVnd > 0 && salesEnabled && userBalance >= priceVnd;
+  const info = {
+    hasCourseAccess,
+    isFreeCourse: false,
+    unlockedCourse,
+    unlockedLessonIds: Array.from(new Set(unlockedLessonIds)),
+    priceVnd,
+    accessMode,
+    salesEnabled,
+    unlockFullPolicy,
+    freePreviewCount,
+    allowSingleLessonPurchase,
+    userBalance,
+    missingVnd,
+    canUnlockCourse,
+    courseTitle: course.title || "Kh\xF3a h\u1ECDc"
+  };
+  courseAccessCache.set(cacheKey, { access: info, ts: now });
+  return info;
+}
+async function unlockCourse(uid, courseId, idempotencyKey, voucherCode) {
+  if (!uid) throw new Error("Ch\u01B0a \u0111\u0103ng nh\u1EADp.");
+  if (!courseId) throw new Error("M\xE3 kh\xF3a h\u1ECDc kh\xF4ng h\u1EE3p l\u1EC7.");
+  const entitlementId = `${uid}_${courseId}`;
+  const now = (/* @__PURE__ */ new Date()).toISOString();
+  const txId = `tx_${Date.now()}_${Math.random().toString(36).substring(2, 7)}`;
+  if (adminDb) {
+    const result = await adminDb.runTransaction(async (transaction) => {
+      const courseRef = adminDb.collection("courses").doc(courseId);
+      const courseSnap = await transaction.get(courseRef);
+      if (!courseSnap.exists) throw new Error("Kh\xF4ng t\xECm th\u1EA5y kh\xF3a h\u1ECDc.");
+      const course2 = { id: courseSnap.id, ...courseSnap.data() };
+      const mode2 = resolveCourseAccessModeServer(course2);
+      const priceVnd2 = sanitizeVnd(course2.priceVnd);
+      if (mode2 === "per_video") {
+        throw new Error(
+          "Kh\xF3a h\u1ECDc n\xE0y \xE1p d\u1EE5ng thu ph\xED theo t\u1EEBng video. Vui l\xF2ng ch\u1ECDn m\u1EDF kh\xF3a t\u1EEBng video b\xE0i gi\u1EA3ng!"
+        );
+      }
+      const entRef = adminDb.collection("course_entitlements").doc(entitlementId);
+      const entSnap = await transaction.get(entRef);
+      if (entSnap.exists) {
+        const existing = entSnap.data();
+        if (existing.status === "active") {
+          const wDoc = await transaction.get(adminDb.collection("wallets").doc(uid));
+          const bal = wDoc.exists ? sanitizeVnd(wDoc.data()?.balanceVnd) : 0;
+          return {
+            success: true,
+            newBalanceVnd: bal,
+            entitlement: existing,
+            alreadyUnlocked: true,
+            effectivePrice: 0,
+            appliedVoucher: null
+          };
+        }
+      }
+      if (mode2 === "free") {
+        const freeEnt = {
+          id: entitlementId,
+          uid,
+          courseId,
+          lessonId: null,
+          scope: "course",
+          status: "active",
+          source: "purchase",
+          pricePaidVnd: 0,
+          grantedAt: now,
+          grantedBy: uid,
+          courseTitleSnapshot: course2.title || "Kh\xF3a h\u1ECDc"
+        };
+        transaction.set(entRef, freeEnt, { merge: true });
+        return {
+          success: true,
+          newBalanceVnd: 0,
+          entitlement: freeEnt,
+          alreadyUnlocked: false,
+          effectivePrice: 0,
+          appliedVoucher: null
+        };
+      }
+      if (priceVnd2 <= 0) {
+        throw new Error("Kh\xF3a h\u1ECDc ch\u01B0a c\u1EA5u h\xECnh h\u1ECDc ph\xED tr\u1ECDn kh\xF3a h\u1EE3p l\u1EC7.");
+      }
+      if (course2.salesEnabled === false) {
+        throw new Error("Kh\xF3a h\u1ECDc hi\u1EC7n \u0111ang t\u1EA1m ng\u1EEBng m\u1EDF kh\xF3a.");
+      }
+      let discountVnd2 = 0;
+      let appliedVoucher2 = null;
+      if (voucherCode && String(voucherCode).trim()) {
+        const vRes = await validateVoucher({
+          code: String(voucherCode).trim(),
+          uid,
+          context: "course_unlock",
+          amountVnd: priceVnd2,
+          courseId
+        });
+        if (!vRes.valid || !vRes.voucher) {
+          throw new Error(vRes.message || "M\xE3 voucher kh\xF4ng h\u1EE3p l\u1EC7 cho kh\xF3a h\u1ECDc n\xE0y.");
+        }
+        discountVnd2 = vRes.discountVnd || 0;
+        appliedVoucher2 = vRes.voucher;
+      }
+      const effectivePrice2 = Math.max(0, priceVnd2 - discountVnd2);
+      const walletRef = adminDb.collection("wallets").doc(uid);
+      const walletDoc = await transaction.get(walletRef);
+      const walletData = walletDoc.exists ? walletDoc.data() : null;
+      const currentBal = walletData ? sanitizeVnd(walletData.balanceVnd) : 0;
+      const totalSpent = walletData ? sanitizeVnd(walletData.totalSpentVnd) : 0;
+      const totalCredited = walletData ? sanitizeVnd(walletData.totalCreditedVnd) : 0;
+      const fullName = walletData?.fullName || "";
+      const currentClass = walletData?.currentClass || "";
+      if (currentBal < effectivePrice2) {
+        throw new Error(
+          `S\u1ED1 d\u01B0 kh\xF4ng \u0111\u1EE7 \u0111\u1EC3 m\u1EDF kh\xF3a kh\xF3a h\u1ECDc. C\u1EA7n ${effectivePrice2.toLocaleString("vi-VN")}\u0111, hi\u1EC7n c\xF3 ${currentBal.toLocaleString("vi-VN")}\u0111 (thi\u1EBFu ${(effectivePrice2 - currentBal).toLocaleString("vi-VN")}\u0111).`
+        );
+      }
+      const newBalance2 = currentBal - effectivePrice2;
+      transaction.set(
+        walletRef,
+        {
+          uid,
+          balanceVnd: newBalance2,
+          totalSpentVnd: totalSpent + effectivePrice2,
+          totalCreditedVnd: totalCredited,
+          updatedAt: now
+        },
+        { merge: true }
+      );
+      const entitlement2 = {
+        id: entitlementId,
+        uid,
+        courseId,
+        lessonId: null,
+        scope: "course",
+        status: "active",
+        source: "purchase",
+        pricePaidVnd: effectivePrice2,
+        transactionId: txId,
+        grantedAt: now,
+        grantedBy: uid,
+        courseTitleSnapshot: course2.title || "Kh\xF3a h\u1ECDc",
+        ...fullName ? { studentNameSnapshot: fullName } : {},
+        ...currentClass ? { studentClassSnapshot: currentClass } : {}
+      };
+      transaction.set(entRef, entitlement2);
+      const txRef = adminDb.collection("wallet_transactions").doc(txId);
+      const ledgerEntry = {
+        id: txId,
+        uid,
+        type: "course_unlock_debit",
+        amountVnd: effectivePrice2,
+        balanceBeforeVnd: currentBal,
+        balanceAfterVnd: newBalance2,
+        courseId,
+        courseTitleSnapshot: course2.title || "Kh\xF3a h\u1ECDc",
+        studentNameSnapshot: fullName || "H\u1ECDc sinh",
+        studentClassSnapshot: currentClass || "",
+        idempotencyKey: idempotencyKey || txId,
+        actorUid: uid,
+        actorName: fullName || "H\u1ECDc sinh",
+        note: discountVnd2 > 0 ? `M\u1EDF kh\xF3a tr\u1ECDn kh\xF3a h\u1ECDc "${course2.title}": -${effectivePrice2.toLocaleString("vi-VN")}\u0111 (gi\u1EA3m ${discountVnd2.toLocaleString("vi-VN")}\u0111 nh\u1EDD voucher ${appliedVoucher2?.code})` : `M\u1EDF kh\xF3a tr\u1ECDn kh\xF3a h\u1ECDc "${course2.title}": -${effectivePrice2.toLocaleString("vi-VN")}\u0111`,
+        createdAt: now
+      };
+      transaction.set(txRef, ledgerEntry);
+      if (appliedVoucher2) {
+        const vRef = adminDb.collection("vouchers").doc(appliedVoucher2.id);
+        const vSnap = await transaction.get(vRef);
+        if (vSnap.exists) {
+          const vData = vSnap.data();
+          transaction.update(vRef, {
+            usedCount: (vData.usedCount || 0) + 1,
+            updatedAt: now
+          });
+        }
+        const usageId = `vuse_${Date.now()}_${Math.random().toString(36).substring(2, 7)}`;
+        transaction.set(adminDb.collection("voucher_usages").doc(usageId), {
+          id: usageId,
+          voucherId: appliedVoucher2.id,
+          voucherCode: appliedVoucher2.code,
+          uid,
+          studentName: fullName,
+          studentClass: currentClass,
+          type: appliedVoucher2.type,
+          discountVnd: discountVnd2,
+          usedAt: now,
+          context: "course_unlock",
+          referenceId: courseId
+        });
+      }
+      return {
+        success: true,
+        newBalanceVnd: newBalance2,
+        entitlement: entitlement2,
+        alreadyUnlocked: false,
+        effectivePrice: effectivePrice2,
+        appliedVoucher: appliedVoucher2
+      };
+    });
+    if (result.appliedVoucher) {
+      invalidateVouchersCache();
+      invalidateVoucherUsagesCache();
+    }
+    invalidateCourseServerCache(courseId, uid);
+    invalidateWalletOverviewCache();
+    invalidateGlobalSpendingCache();
+    invalidateStudentDetailsCache(uid);
+    if (result.effectivePrice > 0) {
+      updateWalletOverviewAggregates({
+        deltaVirtualBalanceVnd: -result.effectivePrice,
+        deltaUnlockedSpendingVnd: result.effectivePrice
+      }).catch(() => {
+      });
+    }
+    return {
+      success: result.success,
+      newBalanceVnd: result.newBalanceVnd,
+      entitlement: result.entitlement,
+      alreadyUnlocked: result.alreadyUnlocked
+    };
+  }
+  const course = await fetchCourseDoc(courseId, true);
+  if (!course) throw new Error("Kh\xF4ng t\xECm th\u1EA5y kh\xF3a h\u1ECDc.");
+  const mode = resolveCourseAccessModeServer(course);
+  if (mode === "per_video") {
+    throw new Error("Kh\xF3a h\u1ECDc n\xE0y \xE1p d\u1EE5ng thu ph\xED theo t\u1EEBng video. Vui l\xF2ng m\u1EDF kh\xF3a t\u1EEBng video b\xE0i gi\u1EA3ng!");
+  }
+  const existingEnt = await getFirestoreRestDoc("course_entitlements", entitlementId, false);
+  if (existingEnt && existingEnt.status === "active") {
+    const w = await getOrCreateWallet(uid);
+    return { success: true, newBalanceVnd: w.balanceVnd, entitlement: existingEnt, alreadyUnlocked: true };
+  }
+  const priceVnd = sanitizeVnd(course.priceVnd);
+  if (mode === "paid" && priceVnd <= 0) {
+    throw new Error("Kh\xF3a h\u1ECDc ch\u01B0a c\u1EA5u h\xECnh h\u1ECDc ph\xED tr\u1ECDn kh\xF3a h\u1EE3p l\u1EC7.");
+  }
+  let discountVnd = 0;
+  let appliedVoucher = null;
+  if (mode === "paid" && voucherCode && String(voucherCode).trim()) {
+    const vRes = await validateVoucher({
+      code: String(voucherCode).trim(),
+      uid,
+      context: "course_unlock",
+      amountVnd: priceVnd,
+      courseId
+    });
+    if (!vRes.valid || !vRes.voucher) {
+      throw new Error(vRes.message || "M\xE3 voucher kh\xF4ng h\u1EE3p l\u1EC7.");
+    }
+    discountVnd = vRes.discountVnd || 0;
+    appliedVoucher = vRes.voucher;
+  }
+  const effectivePrice = mode === "paid" ? Math.max(0, priceVnd - discountVnd) : 0;
+  const wallet = await getOrCreateWallet(uid);
+  if (wallet.balanceVnd < effectivePrice) {
+    throw new Error("S\u1ED1 d\u01B0 kh\xF4ng \u0111\u1EE7 \u0111\u1EC3 m\u1EDF kh\xF3a kh\xF3a h\u1ECDc.");
+  }
+  const newBalance = wallet.balanceVnd - effectivePrice;
+  if (effectivePrice > 0) {
+    await setFirestoreRestDoc("wallets", uid, {
+      ...wallet,
+      balanceVnd: newBalance,
+      totalSpentVnd: sanitizeVnd(wallet.totalSpentVnd) + effectivePrice,
+      updatedAt: now
+    });
+  }
+  const entitlement = {
+    id: entitlementId,
+    uid,
+    courseId,
+    lessonId: null,
+    scope: "course",
+    status: "active",
+    source: "purchase",
+    pricePaidVnd: effectivePrice,
+    transactionId: txId,
+    grantedAt: now,
+    grantedBy: uid,
+    courseTitleSnapshot: course.title || "Kh\xF3a h\u1ECDc",
+    ...wallet.fullName ? { studentNameSnapshot: wallet.fullName } : {},
+    ...wallet.currentClass ? { studentClassSnapshot: wallet.currentClass } : {}
+  };
+  await setFirestoreRestDoc("course_entitlements", entitlementId, entitlement);
+  if (effectivePrice > 0) {
+    const ledgerEntry = {
+      id: txId,
+      uid,
+      type: "course_unlock_debit",
+      amountVnd: effectivePrice,
+      balanceBeforeVnd: wallet.balanceVnd,
+      balanceAfterVnd: newBalance,
+      courseId,
+      courseTitleSnapshot: course.title || "Kh\xF3a h\u1ECDc",
+      studentNameSnapshot: wallet.fullName || "H\u1ECDc sinh",
+      studentClassSnapshot: wallet.currentClass || "",
+      actorUid: uid,
+      actorName: wallet.fullName || "H\u1ECDc sinh",
+      note: `M\u1EDF kh\xF3a tr\u1ECDn kh\xF3a h\u1ECDc "${course.title}": -${effectivePrice.toLocaleString("vi-VN")}\u0111`,
+      createdAt: now
+    };
+    await setFirestoreRestDoc("wallet_transactions", txId, ledgerEntry);
+  }
+  invalidateCourseServerCache(courseId, uid);
+  invalidateWalletOverviewCache();
+  invalidateGlobalSpendingCache();
+  invalidateStudentDetailsCache(uid);
+  if (effectivePrice > 0) {
+    updateWalletOverviewAggregates({
+      deltaVirtualBalanceVnd: -effectivePrice,
+      deltaUnlockedSpendingVnd: effectivePrice
+    }).catch(() => {
+    });
+  }
+  return { success: true, newBalanceVnd: newBalance, entitlement };
+}
+async function unlockCourseLesson(uid, courseId, lessonId, idempotencyKey, voucherCode) {
+  if (!uid) throw new Error("Ch\u01B0a \u0111\u0103ng nh\u1EADp.");
+  if (!courseId || !lessonId) throw new Error("M\xE3 kh\xF3a h\u1ECDc ho\u1EB7c b\xE0i gi\u1EA3ng kh\xF4ng h\u1EE3p l\u1EC7.");
+  const entitlementId = `${uid}_${courseId}__${lessonId}`;
+  const courseEntId = `${uid}_${courseId}`;
+  const now = (/* @__PURE__ */ new Date()).toISOString();
+  const txId = `tx_${Date.now()}_${Math.random().toString(36).substring(2, 7)}`;
+  if (!adminDb) {
+    const [course, lesson] = await Promise.all([
+      fetchCourseDoc(courseId, true),
+      fetchLessonDoc(courseId, lessonId, true)
+    ]);
+    if (!course || !lesson) throw new Error("Kh\xF4ng t\xECm th\u1EA5y kh\xF3a h\u1ECDc ho\u1EB7c b\xE0i gi\u1EA3ng.");
+    const mode = resolveCourseAccessModeServer(course);
+    if (mode !== "per_video" && !course.allowSingleLessonPurchase) {
+      throw new Error("Kh\xF3a h\u1ECDc n\xE0y kh\xF4ng b\u1EADt mua l\u1EBB t\u1EEBng b\xE0i gi\u1EA3ng.");
+    }
+    if (course.salesEnabled === false) {
+      throw new Error("Kh\xF3a h\u1ECDc hi\u1EC7n \u0111ang t\u1EA1m ng\u1EEBng b\xE1n.");
+    }
+    const existing = await getFirestoreRestDoc("course_entitlements", entitlementId, false);
+    if (existing && existing.status === "active") {
+      const w = await getOrCreateWallet(uid);
+      return { success: true, newBalanceVnd: w.balanceVnd, entitlement: existing, alreadyUnlocked: true };
+    }
+    const priceVnd = sanitizeVnd(lesson.priceVnd);
+    let discountVnd = 0;
+    if (voucherCode && String(voucherCode).trim()) {
+      const vRes = await validateVoucher({
+        code: String(voucherCode).trim(),
+        uid,
+        context: "course_unlock",
+        amountVnd: priceVnd,
+        courseId
+      });
+      if (!vRes.valid || !vRes.voucher) {
+        throw new Error(vRes.message || "M\xE3 voucher kh\xF4ng h\u1EE3p l\u1EC7.");
+      }
+      discountVnd = vRes.discountVnd || 0;
+    }
+    const effectivePrice = isLessonFreeEffective(course, lesson) ? 0 : Math.max(0, priceVnd - discountVnd);
+    const wallet = await getOrCreateWallet(uid);
+    if (wallet.balanceVnd < effectivePrice) {
+      throw new Error("S\u1ED1 d\u01B0 kh\xF4ng \u0111\u1EE7 \u0111\u1EC3 m\u1EDF kh\xF3a video b\xE0i gi\u1EA3ng.");
+    }
+    const newBalance = wallet.balanceVnd - effectivePrice;
+    if (effectivePrice > 0) {
+      await setFirestoreRestDoc("wallets", uid, {
+        ...wallet,
+        balanceVnd: newBalance,
+        totalSpentVnd: sanitizeVnd(wallet.totalSpentVnd) + effectivePrice,
+        updatedAt: now
+      });
+    }
+    const entitlement = {
+      id: entitlementId,
+      uid,
+      courseId,
+      lessonId,
+      scope: "lesson",
+      status: "active",
+      source: "purchase",
+      pricePaidVnd: effectivePrice,
+      transactionId: txId,
+      grantedAt: now,
+      grantedBy: uid,
+      courseTitleSnapshot: course.title,
+      lessonTitleSnapshot: lesson.title,
+      ...wallet.fullName ? { studentNameSnapshot: wallet.fullName } : {},
+      ...wallet.currentClass ? { studentClassSnapshot: wallet.currentClass } : {}
+    };
+    await setFirestoreRestDoc("course_entitlements", entitlementId, entitlement);
+    if (effectivePrice > 0) {
+      await setFirestoreRestDoc("wallet_transactions", txId, {
+        id: txId,
+        uid,
+        type: "course_lesson_unlock_debit",
+        amountVnd: effectivePrice,
+        balanceBeforeVnd: wallet.balanceVnd,
+        balanceAfterVnd: newBalance,
+        courseId,
+        courseTitleSnapshot: course.title,
+        lessonId,
+        lessonTitleSnapshot: lesson.title,
+        studentNameSnapshot: wallet.fullName || "H\u1ECDc sinh",
+        studentClassSnapshot: wallet.currentClass || "",
+        actorUid: uid,
+        actorName: wallet.fullName || "H\u1ECDc sinh",
+        note: `M\u1EDF kh\xF3a video "${lesson.title}" (${course.title}): -${effectivePrice.toLocaleString("vi-VN")}\u0111`,
+        createdAt: now
+      });
+    }
+    invalidateCourseServerCache(courseId, uid);
+    invalidateWalletOverviewCache();
+    invalidateGlobalSpendingCache();
+    invalidateStudentDetailsCache(uid);
+    return { success: true, newBalanceVnd: newBalance, entitlement };
+  }
+  const result = await adminDb.runTransaction(async (transaction) => {
+    const courseRef = adminDb.collection("courses").doc(courseId);
+    const lessonRef = courseRef.collection("lessons").doc(lessonId);
+    const courseEntRef = adminDb.collection("course_entitlements").doc(courseEntId);
+    const lessonEntRef = adminDb.collection("course_entitlements").doc(entitlementId);
+    const [courseSnap, lessonSnap, courseEntSnap, lessonEntSnap] = await Promise.all([
+      transaction.get(courseRef),
+      transaction.get(lessonRef),
+      transaction.get(courseEntRef),
+      transaction.get(lessonEntRef)
+    ]);
+    if (!courseSnap.exists || !lessonSnap.exists) {
+      throw new Error("Kh\xF4ng t\xECm th\u1EA5y kh\xF3a h\u1ECDc ho\u1EB7c b\xE0i gi\u1EA3ng.");
+    }
+    const course = { id: courseSnap.id, ...courseSnap.data() };
+    const lesson = { id: lessonSnap.id, ...lessonSnap.data() };
+    const mode = resolveCourseAccessModeServer(course);
+    if (lessonEntSnap.exists && lessonEntSnap.data().status === "active") {
+      const wDoc = await transaction.get(adminDb.collection("wallets").doc(uid));
+      const bal = wDoc.exists ? sanitizeVnd(wDoc.data()?.balanceVnd) : 0;
+      return {
+        success: true,
+        newBalanceVnd: bal,
+        entitlement: lessonEntSnap.data(),
+        alreadyUnlocked: true,
+        effectivePrice: 0,
+        appliedVoucher: null
+      };
+    }
+    if (isLessonFreeEffective(course, lesson) || courseEntSnap.exists && courseEntSnap.data().status === "active" && (course.unlockFullPolicy !== "unlock_course_only" || lesson.includedInCourseUnlock !== false)) {
+      const wDoc = await transaction.get(adminDb.collection("wallets").doc(uid));
+      const bal = wDoc.exists ? sanitizeVnd(wDoc.data()?.balanceVnd) : 0;
+      const freeEnt = {
+        id: entitlementId,
+        uid,
+        courseId,
+        lessonId,
+        scope: "lesson",
+        status: "active",
+        source: "purchase",
+        pricePaidVnd: 0,
+        grantedAt: now,
+        grantedBy: uid,
+        courseTitleSnapshot: course.title,
+        lessonTitleSnapshot: lesson.title
+      };
+      return {
+        success: true,
+        newBalanceVnd: bal,
+        entitlement: freeEnt,
+        alreadyUnlocked: true,
+        effectivePrice: 0,
+        appliedVoucher: null
+      };
+    }
+    if (mode !== "per_video" && !course.allowSingleLessonPurchase) {
+      throw new Error("Kh\xF3a h\u1ECDc n\xE0y ch\u1EC9 h\u1ED7 tr\u1EE3 m\u1EDF kh\xF3a tr\u1ECDn kh\xF3a.");
+    }
+    if (course.salesEnabled === false) {
+      throw new Error("Kh\xF3a h\u1ECDc hi\u1EC7n \u0111ang t\u1EA1m ng\u1EEBng b\xE1n.");
+    }
+    const priceVnd = sanitizeVnd(lesson.priceVnd);
+    let discountVnd = 0;
+    let appliedVoucher = null;
+    if (voucherCode && String(voucherCode).trim()) {
+      const vRes = await validateVoucher({
+        code: String(voucherCode).trim(),
+        uid,
+        context: "course_unlock",
+        amountVnd: priceVnd,
+        courseId
+      });
+      if (!vRes.valid || !vRes.voucher) {
+        throw new Error(vRes.message || "M\xE3 voucher kh\xF4ng h\u1EE3p l\u1EC7.");
+      }
+      discountVnd = vRes.discountVnd || 0;
+      appliedVoucher = vRes.voucher;
+    }
+    const effectivePrice = Math.max(0, priceVnd - discountVnd);
+    const walletRef = adminDb.collection("wallets").doc(uid);
+    const walletDoc = await transaction.get(walletRef);
+    const walletData = walletDoc.exists ? walletDoc.data() : null;
+    const currentBal = walletData ? sanitizeVnd(walletData.balanceVnd) : 0;
+    const totalSpent = walletData ? sanitizeVnd(walletData.totalSpentVnd) : 0;
+    const totalCredited = walletData ? sanitizeVnd(walletData.totalCreditedVnd) : 0;
+    const fullName = walletData?.fullName || "";
+    const currentClass = walletData?.currentClass || "";
+    if (currentBal < effectivePrice) {
+      throw new Error(
+        `S\u1ED1 d\u01B0 kh\xF4ng \u0111\u1EE7 \u0111\u1EC3 m\u1EDF kh\xF3a b\xE0i gi\u1EA3ng. C\u1EA7n ${effectivePrice.toLocaleString("vi-VN")}\u0111, hi\u1EC7n c\xF3 ${currentBal.toLocaleString("vi-VN")}\u0111.`
+      );
+    }
+    const newBalance = currentBal - effectivePrice;
+    transaction.set(
+      walletRef,
+      {
+        uid,
+        balanceVnd: newBalance,
+        totalSpentVnd: totalSpent + effectivePrice,
+        totalCreditedVnd: totalCredited,
+        updatedAt: now
+      },
+      { merge: true }
+    );
+    const entitlement = {
+      id: entitlementId,
+      uid,
+      courseId,
+      lessonId,
+      scope: "lesson",
+      status: "active",
+      source: "purchase",
+      pricePaidVnd: effectivePrice,
+      transactionId: txId,
+      grantedAt: now,
+      grantedBy: uid,
+      courseTitleSnapshot: course.title || "Kh\xF3a h\u1ECDc",
+      lessonTitleSnapshot: lesson.title || "B\xE0i gi\u1EA3ng",
+      ...fullName ? { studentNameSnapshot: fullName } : {},
+      ...currentClass ? { studentClassSnapshot: currentClass } : {}
+    };
+    transaction.set(lessonEntRef, entitlement);
+    const txRef = adminDb.collection("wallet_transactions").doc(txId);
+    const ledgerEntry = {
+      id: txId,
+      uid,
+      type: "course_lesson_unlock_debit",
+      amountVnd: effectivePrice,
+      balanceBeforeVnd: currentBal,
+      balanceAfterVnd: newBalance,
+      courseId,
+      courseTitleSnapshot: course.title || "Kh\xF3a h\u1ECDc",
+      lessonId,
+      lessonTitleSnapshot: lesson.title || "B\xE0i gi\u1EA3ng",
+      studentNameSnapshot: fullName || "H\u1ECDc sinh",
+      studentClassSnapshot: currentClass || "",
+      idempotencyKey: idempotencyKey || txId,
+      actorUid: uid,
+      actorName: fullName || "H\u1ECDc sinh",
+      note: discountVnd > 0 ? `M\u1EDF kh\xF3a video "${lesson.title}" (${course.title}): -${effectivePrice.toLocaleString("vi-VN")}\u0111 (gi\u1EA3m ${discountVnd.toLocaleString("vi-VN")}\u0111 nh\u1EDD voucher ${appliedVoucher?.code})` : `M\u1EDF kh\xF3a video "${lesson.title}" (${course.title}): -${effectivePrice.toLocaleString("vi-VN")}\u0111`,
+      createdAt: now
+    };
+    transaction.set(txRef, ledgerEntry);
+    if (appliedVoucher) {
+      const vRef = adminDb.collection("vouchers").doc(appliedVoucher.id);
+      const vSnap = await transaction.get(vRef);
+      if (vSnap.exists) {
+        const vData = vSnap.data();
+        transaction.update(vRef, {
+          usedCount: (vData.usedCount || 0) + 1,
+          updatedAt: now
+        });
+      }
+      const usageId = `vuse_${Date.now()}_${Math.random().toString(36).substring(2, 7)}`;
+      transaction.set(adminDb.collection("voucher_usages").doc(usageId), {
+        id: usageId,
+        voucherId: appliedVoucher.id,
+        voucherCode: appliedVoucher.code,
+        uid,
+        studentName: fullName,
+        studentClass: currentClass,
+        type: appliedVoucher.type,
+        discountVnd,
+        usedAt: now,
+        context: "course_unlock",
+        referenceId: `${courseId}__${lessonId}`
+      });
+    }
+    return {
+      success: true,
+      newBalanceVnd: newBalance,
+      entitlement,
+      alreadyUnlocked: false,
+      effectivePrice,
+      appliedVoucher
+    };
+  });
+  if (result.appliedVoucher) {
+    invalidateVouchersCache();
+    invalidateVoucherUsagesCache();
+  }
+  invalidateCourseServerCache(courseId, uid);
+  invalidateWalletOverviewCache();
+  invalidateGlobalSpendingCache();
+  invalidateStudentDetailsCache(uid);
+  if (result.effectivePrice > 0) {
+    updateWalletOverviewAggregates({
+      deltaVirtualBalanceVnd: -result.effectivePrice,
+      deltaUnlockedSpendingVnd: result.effectivePrice
+    }).catch(() => {
+    });
+  }
+  return {
+    success: result.success,
+    newBalanceVnd: result.newBalanceVnd,
+    entitlement: result.entitlement,
+    alreadyUnlocked: result.alreadyUnlocked
+  };
+}
+async function getAuthorizedLessonContent(uid, courseId, lessonId, role) {
+  const [course, lesson] = await Promise.all([
+    fetchCourseDoc(courseId),
+    fetchLessonDoc(courseId, lessonId)
+  ]);
+  if (!course || !lesson) {
+    throw new Error("Kh\xF4ng t\xECm th\u1EA5y b\xE0i gi\u1EA3ng ho\u1EB7c kh\xF3a h\u1ECDc.");
+  }
+  if (isAdminRole(role) || isLessonFreeEffective(course, lesson)) {
+    return lesson;
+  }
+  const access = await checkCourseAccess(uid, courseId, role);
+  const unlockedByCourse = access.unlockedCourse && (access.unlockFullPolicy === "unlock_all_videos" || lesson.includedInCourseUnlock !== false);
+  const unlockedByLesson = access.unlockedLessonIds.includes(lessonId);
+  if (!unlockedByCourse && !unlockedByLesson) {
+    throw new Error("B\xE0i gi\u1EA3ng tr\u1EA3 ph\xED. Vui l\xF2ng m\u1EDF kh\xF3a kh\xF3a h\u1ECDc ho\u1EB7c b\xE0i gi\u1EA3ng \u0111\u1EC3 xem video.");
+  }
+  return lesson;
+}
+
 // server/routes/walletRoutes.ts
 var walletRouter = Router();
 walletRouter.use((_req, res, next) => {
@@ -2061,83 +2772,12 @@ walletRouter.use((_req, res, next) => {
   res.setHeader("Surrogate-Control", "no-store");
   next();
 });
-walletRouter.get("/exams/:examId/access", async (req, res) => {
+walletRouter.get("/exams/:examId/access", requireAuth, async (req, res) => {
   try {
-    const examId = req.params.examId;
-    const authHeader = req.headers.authorization;
-    let uid = null;
-    let role = void 0;
-    if (authHeader && authHeader.startsWith("Bearer ")) {
-      const token = authHeader.split("Bearer ")[1]?.trim();
-      if (token) {
-        const configuredAdminKey = process.env.ADMIN_SECRET_KEY || process.env.DK_ADMIN_MASTER_KEY || "dk_admin_master_secret_2026";
-        if (token === configuredAdminKey || token.startsWith("dk_admin_")) {
-          uid = "admin_master";
-          role = "admin";
-        } else {
-          try {
-            if (adminAuth) {
-              const decoded = await adminAuth.verifyIdToken(token);
-              uid = decoded.uid;
-              role = decoded.role || (decoded.admin ? "admin" : "student");
-            } else {
-              const parts = token.split(".");
-              if (parts.length === 3) {
-                const payload = JSON.parse(Buffer.from(parts[1], "base64").toString("utf-8"));
-                uid = payload.user_id || payload.sub || null;
-                role = payload.role || void 0;
-              }
-            }
-          } catch (e) {
-          }
-        }
-      }
-    }
-    if (!uid) {
-      const headerUid = req.headers["x-student-uid"]?.trim();
-      const queryUid = req.query.studentUid?.trim();
-      const headerUsername = req.headers["x-student-username"]?.trim();
-      const queryUsername = req.query.studentUsername?.trim();
-      if (headerUid || queryUid) {
-        uid = headerUid || queryUid;
-        role = role || "student";
-      } else if (headerUsername || queryUsername) {
-        const uName = (headerUsername || queryUsername).toLowerCase();
-        if (adminDb) {
-          try {
-            const uSnap = await adminDb.collection("usernames").doc(uName).get();
-            if (uSnap.exists && uSnap.data()?.uid) {
-              uid = uSnap.data().uid;
-            } else {
-              const uQuery = await adminDb.collection("users").where("usernameNormalized", "==", uName).limit(1).get();
-              if (!uQuery.empty) {
-                uid = uQuery.docs[0].id;
-              } else {
-                uid = uName;
-              }
-            }
-          } catch (_) {
-            uid = uName;
-          }
-        } else {
-          try {
-            const uDoc = await getFirestoreRestDoc("usernames", uName);
-            if (uDoc?.uid) {
-              uid = uDoc.uid;
-            } else {
-              uid = uName;
-            }
-          } catch (_) {
-            uid = uName;
-          }
-        }
-        role = role || "student";
-      }
-    }
-    const result = await checkExamAccess(uid, examId, role);
+    const result = await checkExamAccess(req.user.uid, req.params.examId, req.user.role);
     return res.json({ success: true, ...result });
   } catch (err) {
-    return res.status(400).json({ error: "access_check_error", message: err.message || String(err) });
+    return res.status(400).json({ error: "access_check_error", message: err.message || "Kh\xF4ng ki\u1EC3m tra \u0111\u01B0\u1EE3c quy\u1EC1n truy c\u1EADp." });
   }
 });
 walletRouter.get("/wallet/me", requireAuth, async (req, res) => {
@@ -2256,6 +2896,71 @@ walletRouter.post(["/vouchers/redeem-gift", "/wallet/vouchers/redeem-gift", "/wa
     });
   } catch (err) {
     return res.status(400).json({ error: "redeem_error", message: err.message || String(err) });
+  }
+});
+walletRouter.get("/courses/:courseId/access", requireAuth, async (req, res) => {
+  try {
+    const result = await checkCourseAccess(req.user.uid, req.params.courseId, req.user.role);
+    return res.json({ success: true, ...result });
+  } catch (err) {
+    return res.status(400).json({ error: "course_access_error", message: err.message || "Kh\xF4ng ki\u1EC3m tra \u0111\u01B0\u1EE3c quy\u1EC1n truy c\u1EADp kh\xF3a h\u1ECDc." });
+  }
+});
+walletRouter.post("/courses/:courseId/unlock", requireAuth, async (req, res) => {
+  try {
+    const uid = req.user.uid;
+    const courseId = req.params.courseId;
+    const { idempotencyKey, voucherCode } = req.body || {};
+    const result = await unlockCourse(uid, courseId, idempotencyKey, voucherCode);
+    return res.json({
+      success: true,
+      newBalanceVnd: result.newBalanceVnd,
+      entitlement: result.entitlement,
+      alreadyUnlocked: result.alreadyUnlocked,
+      message: result.alreadyUnlocked ? "Kh\xF3a h\u1ECDc \u0111\xE3 \u0111\u01B0\u1EE3c m\u1EDF kh\xF3a tr\u01B0\u1EDBc \u0111\xF3." : "M\u1EDF kh\xF3a tr\u1ECDn kh\xF3a h\u1ECDc th\xE0nh c\xF4ng!"
+    });
+  } catch (err) {
+    const msg = err.message || String(err);
+    if (msg.includes("S\u1ED1 d\u01B0 kh\xF4ng \u0111\u1EE7")) {
+      return res.status(402).json({ error: "insufficient_balance", message: msg });
+    }
+    return res.status(400).json({ error: "course_unlock_error", message: msg });
+  }
+});
+walletRouter.post("/courses/:courseId/lessons/:lessonId/unlock", requireAuth, async (req, res) => {
+  try {
+    const uid = req.user.uid;
+    const { courseId, lessonId } = req.params;
+    const { idempotencyKey, voucherCode } = req.body || {};
+    const result = await unlockCourseLesson(uid, courseId, lessonId, idempotencyKey, voucherCode);
+    return res.json({
+      success: true,
+      newBalanceVnd: result.newBalanceVnd,
+      entitlement: result.entitlement,
+      alreadyUnlocked: result.alreadyUnlocked,
+      message: result.alreadyUnlocked ? "B\xE0i gi\u1EA3ng \u0111\xE3 \u0111\u01B0\u1EE3c m\u1EDF kh\xF3a tr\u01B0\u1EDBc \u0111\xF3." : "M\u1EDF kh\xF3a b\xE0i gi\u1EA3ng th\xE0nh c\xF4ng!"
+    });
+  } catch (err) {
+    const msg = err.message || String(err);
+    if (msg.includes("S\u1ED1 d\u01B0 kh\xF4ng \u0111\u1EE7")) {
+      return res.status(402).json({ error: "insufficient_balance", message: msg });
+    }
+    return res.status(400).json({ error: "lesson_unlock_error", message: msg });
+  }
+});
+walletRouter.get("/courses/:courseId/lessons/:lessonId/content", requireAuth, async (req, res) => {
+  try {
+    const lesson = await getAuthorizedLessonContent(
+      req.user.uid,
+      req.params.courseId,
+      req.params.lessonId,
+      req.user.role
+    );
+    return res.json({ success: true, lesson });
+  } catch (err) {
+    const msg = err.message || String(err);
+    const status = msg.includes("tr\u1EA3 ph\xED") ? 403 : 400;
+    return res.status(status).json({ error: "lesson_access_error", message: msg });
   }
 });
 export {
