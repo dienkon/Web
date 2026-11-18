@@ -168,6 +168,12 @@ export const ProceduralFlame = React.memo(function ProceduralFlame({
         <mesh position={[0, 0.85, 0]}>
           <planeGeometry args={[0.35 * scale, 0.45]} />
           <MeshTransmissionMaterial
+            name={`burner-heat-haze:${burnerId}`}
+            onBeforeRender={function (this: THREE.MeshPhysicalMaterial & { time: number }) {
+              // Drei fills time from the canvas clock before drawing. Use the
+              // same accepted simulation time as the flame for the optical pass.
+              this.time = uniforms.uTime.value;
+            }}
             distortion={0.18}
             distortionScale={0.55}
             temporalDistortion={0.35}

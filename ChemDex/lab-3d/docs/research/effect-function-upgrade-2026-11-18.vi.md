@@ -8,6 +8,7 @@
 - **Di chuyển bình:** xử lý mẫu cũ chưa có `contents` khi không có kho hạt, tránh lỗi khi thay đổi vị trí bình và giữ vũng tràn đã rơi ở vị trí cũ.
 - **Bọt và sương:** khai báo buffer động, giới hạn vùng upload GPU theo số hạt hiện hữu và đưa số instance về 0 khi quần thể rỗng. Không thay đổi kho chất, tuổi hạt hay mô hình hóa học để giảm tải hiển thị.
 - **Âm thanh dòng rót:** hạ âm lượng khi tạm dừng, tắt tiếng, chuyển bàn hoặc ẩn canvas. Luồng mới có thể bắt đầu ngay cả khi luồng cũ còn trong đoạn hạ âm lượng. Buffer tiếng nước được tái sử dụng giữa các lần rót.
+- **Hơi nóng trên đèn:** lớp méo ảnh lấy cùng thời gian mô phỏng với ngọn lửa khi vẽ. Cả hai giữ nguyên lúc tạm dừng và chạy tiếp cùng nhau.
 - **Audit trình duyệt:** bổ sung fixture phiên đã tạm dừng hướng dẫn để lớp chào lần đầu không chặn thao tác audit. Cập nhật audit khí/khuấy để mở lại danh mục sau mỗi lần chọn bài. Audit onboarding riêng vẫn giữ luồng người dùng mới.
 - **Bản production độc lập:** máy chủ Express phục vụ tài nguyên của Lab tại `/lab/`. Khi thiếu tệp trong thư mục tài nguyên, máy chủ trả 404 để trình duyệt báo đúng lỗi tải tệp.
 - **Nhãn tiếng Việt:** giữ nguyên tên mẫu nước–đá, phép đo và nhãn đồng hồ iốt khi dựng bản production. Dùng cơ chế bảo vệ văn bản giao diện đã có để phần chuẩn hóa tên hóa chất bỏ qua các nhãn này.
@@ -34,6 +35,7 @@ Phép đo logic ba bình ở mức High đạt trung bình 3,16 ms mỗi bước
 | Production | Bàn thủ công và tự động mở được tại `/lab/`. Thí nghiệm CuSO₄ + NaOH chạy và tạm dừng. JavaScript, CSS và shader tải đúng. Tệp tài nguyên không tồn tại trả 404. |
 | Mẫu nước–đá trên production | Mở Thiết lập → Vật lí, bật mô phỏng và tạo mẫu từ nút tiếng Việt. Phép đo nhiệt nóng chảy xuất hiện. Dữ liệu lưu có 20 mL nước và 5 g đá ở 0 °C, tên mẫu giữ nguyên tiếng Việt. |
 | Đồng hồ Landolt | Mẫu ban đầu trong. Khi kết thúc, mẫu chuyển xanh đen và số đọc là 0,300 mmol iốt quy đổi. Cả hai bàn hiển thị cùng số liệu và nhãn tiếng Việt. |
+| Ngọn lửa và hơi nóng | Ở mức đồ họa High, hai hiệu ứng giữ cùng thời điểm khi tạm dừng dù cảnh tiếp tục được vẽ. Hai đồng hồ tiếp tục tiến cùng nhau sau khi chạy lại. |
 
 ### Tái chạy
 
@@ -61,6 +63,8 @@ $env:LAB_RINSE_OUTPUT='artifacts/upgrade-2026-11-18/instrument-rinse'
 node scripts/auditInstrumentRinseBrowser.mjs
 $env:LAB_LANDOLT_OUTPUT='artifacts/upgrade-2026-11-18/landolt-browser'
 node scripts/auditLandoltClockBrowser.mjs
+$env:LAB_BURNER_OUTPUT='artifacts/upgrade-2026-11-18/burner-heat-haze'
+node scripts/auditBurnerHeatHaze.mjs
 ```
 
 Chạy bộ hồi quy và phép đo CPU riêng với các audit WebGL để giảm nhiễu:
