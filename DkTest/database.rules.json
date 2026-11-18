@@ -34,6 +34,19 @@
           ".validate": "newData.isNumber() || newData.isString()"
         }
       }
+    },
+    "arena_rooms": {
+      "$roomId": {
+        ".read": true,
+        ".write": true,
+        ".validate": "newData.val() === null || newData.hasChildren(['id', 'roomCode', 'examId', 'hostUid', 'status'])"
+      }
+    },
+    "arena_room_codes": {
+      "$roomCode": {
+        ".read": true,
+        ".write": true
+      }
     }
   }
 }

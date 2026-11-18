@@ -100,5 +100,11 @@ try {
   await pass(setDoc(doc(admin, 'course_entitlements/student-a_per-video-course__pv1'), { uid: 'student-a', courseId: 'per-video-course', lessonId: 'pv1', scope: 'lesson', status: 'active' }));
   await pass(getDoc(doc(a, 'courses/per-video-course/lessons/pv1'))); // Unlocked after single video payment
 
+  // Arena rooms must be completely blocked on Firestore (moved strictly to RTDB -> 0 Firestore reads/writes)
+  await deny(getDocs(collection(a, 'arena_rooms')));
+  await deny(getDoc(doc(a, 'arena_rooms/room_test')));
+  await deny(setDoc(doc(a, 'arena_rooms/room_test'), { id: 'room_test', roomCode: 'ABC123', status: 'waiting' }));
+  await deny(getDocs(collection(admin, 'arena_rooms')));
+
   console.log(`Firestore emulator: ${assertions} authorization assertions passed (production not modified).`);
 } finally { await env.cleanup(); await deleteApp(adminApp); }

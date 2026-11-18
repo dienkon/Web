@@ -560,10 +560,18 @@ export function buildCourseOutlineAndStats(
 export interface CourseHierarchyTopicMaterial {
   id: string;
   label: string;
-  type: "link" | "file" | "exam";
+  type: "link" | "file";
   lessonId: string;
   lessonTitle: string;
-  linkedExamId?: string;
+  canAccess: boolean;
+}
+
+export interface CourseHierarchyTopicExam {
+  id: string;
+  title: string;
+  lessonId: string;
+  lessonTitle: string;
+  linkedExamId: string;
   canAccess: boolean;
 }
 
@@ -572,8 +580,10 @@ export interface CourseHierarchyTopic {
   title: string;
   lessons: CourseLessonOutlineItem[];
   materials: CourseHierarchyTopicMaterial[];
+  exams: CourseHierarchyTopicExam[];
   videoCount: number;
   materialsCount: number;
+  examsCount: number;
   completedCount: number;
   progressPct: number;
 }
@@ -593,8 +603,16 @@ export interface CourseHierarchyGroup {
   totalLessons: number;
 }
 
+export function getCourseGuideStorageKey(
+  uid?: string | null,
+  scope: "courses_tab" | "course_player" = "courses_tab"
+): string {
+  const cleanUid = String(uid || "guest").trim() || "guest";
+  return `dktest_course_guide_seen_v1_${scope}_${cleanUid}`;
+}
+
 /**
- * Pure helper: Builds 3-level hierarchical accordion tree (Group -> Chapter -> Topic -> Videos / Tài liệu tabs)
+ * Pure helper: Builds 3-level hierarchical accordion tree (Group -> Chapter -> Topic -> Video / Tài liệu / Bài kiểm tra tabs)
  * matching student syllabus UX with progress tracking & zero URL leaks.
  */
 export function buildCourseHierarchy(
@@ -647,6 +665,7 @@ export function buildCourseHierarchy(
     for (const [key, items] of topicBuckets.entries()) {
       const title = key.startsWith("__single_") ? items[0].title : key;
       const materials: CourseHierarchyTopicMaterial[] = [];
+      const exams: CourseHierarchyTopicExam[] = [];
       let completedCount = 0;
 
       let totalSec = 0;
@@ -662,10 +681,9 @@ export function buildCourseHierarchy(
         }
         const st = computeLessonAccessState(course, lesson, access);
         if (lesson.linkedExamId) {
-          materials.push({
+          exams.push({
             id: `exam_${lesson.id}_${lesson.linkedExamId}`,
-            label: `Đề thi thực hành: ${lesson.title}`,
-            type: "exam",
+            title: `Bài kiểm tra: ${lesson.title}`,
             lessonId: lesson.id,
             lessonTitle: lesson.title,
             linkedExamId: lesson.linkedExamId,
@@ -709,8 +727,10 @@ export function buildCourseHierarchy(
         title,
         lessons: items,
         materials,
+        exams,
         videoCount: items.length,
         materialsCount: materials.length,
+        examsCount: exams.length,
         completedCount,
         progressPct,
       });

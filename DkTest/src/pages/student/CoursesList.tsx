@@ -6,6 +6,7 @@ import {
   Clock,
   Coins,
   Filter,
+  HelpCircle,
   Lock,
   PlayCircle,
   RotateCw,
@@ -18,15 +19,21 @@ import {
 import {
   buildCourseShareUrl,
   formatDurationClock,
+  getCourseGuideStorageKey,
   getPublishedCourses,
   resolveCourseAccessMode,
 } from "../../services/courseService";
 import { safeCopyText, safeShare } from "../../utils/mobileCompat";
 import { useToast } from "../../components/ui/ToastNotification";
+import { useAuth } from "../../context/AuthContext";
+import { getResolvedStudentUid } from "../../services/walletClientService";
+import { auth } from "../../services/firebase/config";
+import CourseOnboardingGuideModal from "../../components/course/CourseOnboardingGuideModal";
 import type { Course } from "../../types";
 
 export default function CoursesList() {
   const { success: showSuccessToast, error: showErrorToast } = useToast();
+  const { user, userProfile } = useAuth();
   const [courses, setCourses] = useState<Course[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -34,6 +41,25 @@ export default function CoursesList() {
   const [subjectFilter, setSubjectFilter] = useState<string>("all");
   const [priceFilter, setPriceFilter] = useState<"all" | "free" | "per_video" | "paid">("all");
   const [copiedId, setCopiedId] = useState<string | null>(null);
+  const [showGuideModal, setShowGuideModal] = useState(false);
+
+  const guideUid = user?.uid || userProfile?.uid || auth.currentUser?.uid || getResolvedStudentUid();
+  const guideStorageKey = useMemo(() => getCourseGuideStorageKey(guideUid, "courses_tab"), [guideUid]);
+
+  useEffect(() => {
+    try {
+      if (!localStorage.getItem(guideStorageKey)) {
+        setShowGuideModal(true);
+      }
+    } catch {}
+  }, [guideStorageKey]);
+
+  const handleCloseGuide = () => {
+    setShowGuideModal(false);
+    try {
+      localStorage.setItem(guideStorageKey, "seen");
+    } catch {}
+  };
 
   const handleShareCourse = async (e: React.MouseEvent, course: Course) => {
     e.preventDefault();
@@ -106,31 +132,42 @@ export default function CoursesList() {
 
   return (
     <div className="max-w-7xl mx-auto p-3.5 sm:p-6 lg:p-8 space-y-4 sm:space-y-6 pb-24">
-      {/* Compact Header Banner (mobile-optimized) */}
-      <div className="relative overflow-hidden rounded-2xl sm:rounded-3xl bg-gradient-to-br from-slate-900 via-blue-950 to-indigo-950 text-white p-4 sm:p-7 shadow-lg">
-        <div className="relative z-10 flex items-center justify-between gap-3">
+      {/* Bright White DKTEST Header Banner */}
+      <div className="relative overflow-hidden rounded-2xl sm:rounded-3xl bg-white border border-slate-200 text-slate-900 p-4 sm:p-7 shadow-xs">
+        <div className="absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r from-blue-600 via-indigo-600 to-cyan-500" />
+        <div className="relative z-10 flex items-center justify-between gap-3 pt-1">
           <div className="space-y-1 sm:space-y-2 min-w-0">
-            <div className="hidden sm:inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 border border-white/15 text-xs font-bold text-blue-200">
-              <PlayCircle className="w-4 h-4 text-blue-400" />
+            <div className="hidden sm:inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-50 border border-blue-200 text-xs font-bold text-blue-700">
+              <PlayCircle className="w-4 h-4 text-blue-600" />
               <span>Hệ thống Video Bài Giảng DkTEST</span>
             </div>
-            <h1 className="text-lg sm:text-3xl font-black tracking-tight truncate">
+            <h1 className="text-lg sm:text-3xl font-black tracking-tight truncate text-slate-900">
               Khóa Học &amp; Video Bài Giảng
             </h1>
-            <p className="hidden sm:block text-xs sm:text-sm text-slate-300 leading-relaxed max-w-2xl">
+            <p className="hidden sm:block text-xs sm:text-sm text-slate-600 leading-relaxed max-w-2xl">
               Vào khóa học thử miễn phí hoặc mở khóa từng video / trọn khóa bằng Ví DkTEST &amp; Voucher, kèm kho tài liệu &amp; đề luyện tập theo từng chuyên đề.
             </p>
           </div>
 
-          <button
-            type="button"
-            onClick={() => void load(true)}
-            disabled={loading}
-            className="shrink-0 px-3 py-2 sm:px-4 sm:py-2.5 rounded-xl sm:rounded-2xl bg-white/10 hover:bg-white/20 border border-white/15 text-xs font-bold flex items-center gap-1.5 transition-all"
-          >
-            <RotateCw className={`w-3.5 h-3.5 sm:w-4 sm:h-4 ${loading ? "animate-spin" : ""}`} />
-            <span className="hidden sm:inline">Làm mới</span>
-          </button>
+          <div className="flex items-center gap-2 shrink-0">
+            <button
+              type="button"
+              onClick={() => setShowGuideModal(true)}
+              className="px-3 py-2 sm:px-4 sm:py-2.5 rounded-xl sm:rounded-2xl bg-blue-50 hover:bg-blue-100 border border-blue-200 text-blue-700 text-xs font-bold flex items-center gap-1.5 transition-all cursor-pointer"
+            >
+              <HelpCircle className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
+              <span>Hướng dẫn</span>
+            </button>
+            <button
+              type="button"
+              onClick={() => void load(true)}
+              disabled={loading}
+              className="px-3 py-2 sm:px-4 sm:py-2.5 rounded-xl sm:rounded-2xl bg-slate-100 hover:bg-slate-200 border border-slate-200 text-slate-700 text-xs font-bold flex items-center gap-1.5 transition-all cursor-pointer"
+            >
+              <RotateCw className={`w-3.5 h-3.5 sm:w-4 sm:h-4 ${loading ? "animate-spin" : ""}`} />
+              <span className="hidden sm:inline">Làm mới</span>
+            </button>
+          </div>
         </div>
       </div>
 
@@ -340,6 +377,13 @@ export default function CoursesList() {
           })}
         </div>
       )}
+
+      <CourseOnboardingGuideModal
+        isOpen={showGuideModal}
+        scope="courses_tab"
+        onClose={handleCloseGuide}
+        onComplete={handleCloseGuide}
+      />
     </div>
   );
 }

@@ -7,6 +7,7 @@ import {
   computeLessonAccessState,
   formatDurationClock,
   formatQualityLabel,
+  getCourseGuideStorageKey,
   inferCourseVideoType,
   isCloudinaryVideoUrl,
   isLessonEffectivelyFree,
@@ -254,6 +255,7 @@ describe("courseService pure access, hierarchy, masking & outline helpers", () =
           accessType: "inherit_first_n",
           priceVnd: 0,
           includedInCourseUnlock: true,
+          linkedExamId: "exam_tam_thuc_1",
           materials: [{ id: "m1", label: "Tài liệu PDF", type: "file", url: "https://secret-mat1.pdf" }],
         },
       ];
@@ -299,7 +301,13 @@ describe("courseService pure access, hierarchy, masking & outline helpers", () =
       expect(tree[0].chapters[0].topics[0].title).toBe("Bổ trợ tam thức bậc hai");
       expect(tree[0].chapters[0].topics[0].videoCount).toBe(2);
       expect(tree[0].chapters[0].topics[0].materialsCount).toBe(2);
+      expect(tree[0].chapters[0].topics[0].examsCount).toBe(1);
+      expect(tree[0].chapters[0].topics[0].exams[0].linkedExamId).toBe("exam_tam_thuc_1");
+      expect(tree[0].chapters[0].topics[0].exams[0].canAccess).toBe(true);
       expect(tree[0].chapters[0].topics[0].progressPct).toBe(50);
+
+      expect(getCourseGuideStorageKey("stu_1", "courses_tab")).toContain("courses_tab_stu_1");
+      expect(getCourseGuideStorageKey(null, "course_player")).toContain("course_player_guest");
 
       // Verify accurate watchedSecondsMap calculation overrides binary-only percentage
       const secTree = buildCourseHierarchy(

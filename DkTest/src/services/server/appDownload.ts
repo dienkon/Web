@@ -6,6 +6,8 @@ export interface AppDownloadMetadata {
   androidVersionCode: number;
   releaseDate: string;
   apkFileName: string;
+  apkVersion: string;
+  exactReleaseFound: boolean;
   downloadUrl: string | null;
   releasesPageUrl: string;
   source: "env" | "github_release" | "fallback";
@@ -13,6 +15,14 @@ export interface AppDownloadMetadata {
 
 const DEFAULT_GITHUB_RELEASES_URL = "https://github.com/dienkon/Web/releases";
 const GITHUB_API_RELEASES_URL = "https://api.github.com/repos/dienkon/Web/releases?per_page=10";
+
+function extractVersionFromTagOrAsset(tagName?: string, assetName?: string): string {
+  const tagMatch = String(tagName || "").match(/dktest-v(\d+\.\d+\.\d+)/i);
+  if (tagMatch?.[1]) return tagMatch[1];
+  const assetMatch = String(assetName || "").match(/DkTEST-(\d+\.\d+\.\d+)/i);
+  if (assetMatch?.[1]) return assetMatch[1];
+  return "";
+}
 
 export function readCurrentReleaseJson(): {
   version: string;
@@ -24,13 +34,13 @@ export function readCurrentReleaseJson(): {
     if (fs.existsSync(filePath)) {
       const parsed = JSON.parse(fs.readFileSync(filePath, "utf8"));
       return {
-        version: String(parsed?.version || "1.9.4"),
-        androidVersionCode: Number(parsed?.androidVersionCode) || 10,
+        version: String(parsed?.version || "1.9.6"),
+        androidVersionCode: Number(parsed?.androidVersionCode) || 12,
         date: String(parsed?.date || ""),
       };
     }
   } catch {}
-  return { version: "1.9.4", androidVersionCode: 10, date: "" };
+  return { version: "1.9.6", androidVersionCode: 12, date: "" };
 }
 
 export async function resolveAndroidApkDownload(): Promise<AppDownloadMetadata> {
@@ -46,6 +56,8 @@ export async function resolveAndroidApkDownload(): Promise<AppDownloadMetadata> 
       androidVersionCode: rel.androidVersionCode,
       releaseDate: rel.date,
       apkFileName,
+      apkVersion: rel.version,
+      exactReleaseFound: true,
       downloadUrl: envApkUrl,
       releasesPageUrl: DEFAULT_GITHUB_RELEASES_URL,
       source: "env",
@@ -84,11 +96,17 @@ export async function resolveAndroidApkDownload(): Promise<AppDownloadMetadata> 
               a.name.toLowerCase().endsWith(".apk")
           );
           if (apkAsset?.browser_download_url) {
+            const matchedExact = r.tag_name === expectedTag;
+            const detectedApkVersion =
+              extractVersionFromTagOrAsset(r.tag_name, apkAsset.name) ||
+              (matchedExact ? rel.version : "");
             return {
               version: rel.version,
               androidVersionCode: rel.androidVersionCode,
               releaseDate: rel.date,
               apkFileName: apkAsset.name || apkFileName,
+              apkVersion: detectedApkVersion || rel.version,
+              exactReleaseFound: matchedExact,
               downloadUrl: apkAsset.browser_download_url,
               releasesPageUrl: DEFAULT_GITHUB_RELEASES_URL,
               source: "github_release",
@@ -104,6 +122,8 @@ export async function resolveAndroidApkDownload(): Promise<AppDownloadMetadata> 
     androidVersionCode: rel.androidVersionCode,
     releaseDate: rel.date,
     apkFileName,
+    apkVersion: "",
+    exactReleaseFound: false,
     downloadUrl: null,
     releasesPageUrl: DEFAULT_GITHUB_RELEASES_URL,
     source: "fallback",

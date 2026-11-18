@@ -23,6 +23,8 @@ import {
 import {
   ArenaRoom,
   ArenaParticipant,
+  DEFAULT_ARENA_PRESET_EXAM_ID,
+  resolveArenaUser,
   subscribeToArenaRoom,
   toggleParticipantReady,
   startArenaMatch,
@@ -30,10 +32,7 @@ import {
   leaveArenaRoom,
 } from "../../services/arenaService";
 import { useAuth } from "../../context/AuthContext";
-import { collection, getDocs, doc, getDoc, query, orderBy } from "firebase/firestore";
-import { db } from "../../services/firebase/config";
 import { getExamQuestionsWithCache } from "../../services/examCacheService";
-import { awardJourneyRewardCoins } from "../../services/walletClientService";
 import { recordDailyStreak } from "../../services/gamificationService";
 import { SIEUGIOI_QUESTIONS } from "../../practice/data/sieugioi/sieugioiQuestions";
 import UserAvatar from "../../components/common/UserAvatar";
@@ -119,7 +118,7 @@ const FALLBACK_ARENA_QUESTIONS: QuestionItem[] = [
 export default function ArenaRoomPage() {
   const { roomId } = useParams<{ roomId: string }>();
   const navigate = useNavigate();
-  const { userProfile } = useAuth();
+  const { user, userProfile } = useAuth();
 
   const [room, setRoom] = useState<ArenaRoom | null>(null);
   const [questions, setQuestions] = useState<QuestionItem[]>([]);
@@ -131,17 +130,10 @@ export default function ArenaRoomPage() {
   const [rewardAmount, setRewardAmount] = useState<number>(0);
   const [showProgressModal, setShowProgressModal] = useState<boolean>(false);
 
-  // Active current user representation
-  const currentUser = useMemo(() => {
-    const raw = localStorage.getItem("userProfile");
-    const parsed = raw ? JSON.parse(raw) : null;
-    const uid = userProfile?.uid || parsed?.uid || `guest_${Math.random().toString(36).substring(2, 7)}`;
-    const name = userProfile?.displayName || userProfile?.fullName || parsed?.displayName || parsed?.name || "Chiến binh DkTest";
-    const avatar = userProfile?.photoURL || parsed?.avatarUrl || "";
-    return { uid, name, avatar };
-  }, [userProfile]);
+  // Active current user representation (stable across lobby & room)
+  const currentUser = useMemo(() => resolveArenaUser(user, userProfile), [user, userProfile]);
 
-  // Subscribe to room updates
+  // Subscribe to room updates via RTDB (0 Firestore reads)
   useEffect(() => {
     if (!roomId) return;
 
@@ -156,7 +148,7 @@ export default function ArenaRoomPage() {
     return () => unsub();
   }, [roomId, navigate]);
 
-  // Fetch Questions for the room's exam
+  // Fetch Questions for the room's exam (avoid unnecessary Firestore reads for built-in presets)
   useEffect(() => {
     if (!room?.examId) return;
 
@@ -165,6 +157,33 @@ export default function ArenaRoomPage() {
 
     const loadQuestions = async () => {
       try {
+        if (room.examId === DEFAULT_ARENA_PRESET_EXAM_ID) {
+          if (isMounted) setQuestions(FALLBACK_ARENA_QUESTIONS);
+          return;
+        }
+
+        // Check built-in SieuGioi questions locally first (0 Firestore reads)
+        const cleanExamId = room.examId.toLowerCase().trim();
+        const sgMatches = SIEUGIOI_QUESTIONS.filter(
+          (q) =>
+            q.examId.toLowerCase() === cleanExamId ||
+            `sg_exam_${q.examId.toLowerCase()}` === cleanExamId ||
+            `sg_${q.examId.toLowerCase()}` === cleanExamId ||
+            q.examTitle?.toLowerCase().includes(cleanExamId)
+        );
+        if (sgMatches.length > 0 && isMounted) {
+          const list: QuestionItem[] = sgMatches.map((q, idx) => ({
+            id: q.id || `sg_${idx}`,
+            order: idx + 1,
+            text: q.prompt,
+            options: q.options.map((o) => ({ id: o.id, text: o.text })),
+            correctAnswer: q.correctOptionId || "opt_a",
+            explanation: q.explanation,
+          }));
+          setQuestions(list);
+          return;
+        }
+
         const rawQs = await getExamQuestionsWithCache(room.examId, null, {
           caller: "ArenaRoom:loadQuestions",
         });
@@ -186,28 +205,6 @@ export default function ArenaRoomPage() {
               explanation: q.explanation,
             };
           });
-          setQuestions(list);
-          return;
-        }
-
-        // Check if examId matches a SieuGioi exam code
-        const cleanExamId = room.examId.toLowerCase().trim();
-        const sgMatches = SIEUGIOI_QUESTIONS.filter(
-          (q) =>
-            q.examId.toLowerCase() === cleanExamId ||
-            `sg_exam_${q.examId.toLowerCase()}` === cleanExamId ||
-            `sg_${q.examId.toLowerCase()}` === cleanExamId ||
-            q.examTitle?.toLowerCase().includes(cleanExamId)
-        );
-        if (sgMatches.length > 0 && isMounted) {
-          const list: QuestionItem[] = sgMatches.map((q, idx) => ({
-            id: q.id || `sg_${idx}`,
-            order: idx + 1,
-            text: q.prompt,
-            options: q.options.map((o) => ({ id: o.id, text: o.text })),
-            correctAnswer: q.correctOptionId || "opt_a",
-            explanation: q.explanation,
-          }));
           setQuestions(list);
           return;
         }
@@ -320,7 +317,7 @@ export default function ArenaRoomPage() {
     }, 500);
   };
 
-  // Award coin rewards on match finish for top 3: Nhiều nhất chỉ 3 xu (1st: 3 xu, 2nd: 2 xu, 3rd: 1 xu)
+  // Record local streak & top-3 podium badge on match finish (0 Firestore reads/writes)
   useEffect(() => {
     if (isMatchFinished && !rewardAwarded && currentUser.uid && participantList.length > 0) {
       const myRank = participantList.findIndex((p) => p.uid === currentUser.uid);
@@ -329,12 +326,11 @@ export default function ArenaRoomPage() {
       else if (myRank === 1) coins = 2; // 2nd: 2 xu
       else if (myRank === 2) coins = 1; // 3rd: 1 xu
 
+      setRewardAwarded(true);
       if (coins > 0) {
         setRewardAmount(coins);
-        setRewardAwarded(true);
-        awardJourneyRewardCoins(currentUser.uid, coins, myRank + 1, "Đấu Trường Trắc Nghiệm");
-        recordDailyStreak(currentUser.uid);
       }
+      recordDailyStreak(currentUser.uid);
     }
   }, [isMatchFinished, rewardAwarded, currentUser.uid, participantList]);
 
@@ -469,7 +465,7 @@ export default function ArenaRoomPage() {
           <div className="pt-2">
             <button
               type="button"
-              onClick={() => navigate("/student/arena")}
+              onClick={() => void handleLeaveRoom()}
               className="px-6 py-3 rounded-2xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs transition-all cursor-pointer active:scale-95 shadow-md inline-flex items-center gap-2"
             >
               <span>Quay lại Sảnh Đấu Trường</span>

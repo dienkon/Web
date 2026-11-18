@@ -9,6 +9,7 @@ import { AuthProvider } from './context/AuthContext';
 import { ThemeProvider } from './context/ThemeContext';
 import { DebugDiagnostics } from './components/common/DebugDiagnostics';
 import OfflineSyncController from './components/student/OfflineSyncController';
+import AppUpdateController from './components/student/AppUpdateController';
 
 export default function App() {
   return (
@@ -16,6 +17,7 @@ export default function App() {
       <ToastProvider>
         <AuthProvider>
           <OfflineSyncController />
+          <AppUpdateController />
           <AppRouter />
           <DebugDiagnostics />
         </AuthProvider>

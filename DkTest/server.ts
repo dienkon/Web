@@ -62,6 +62,7 @@ async function startServer() {
     try {
       const meta = await resolveAndroidApkDownload();
       if (req.query?.format === "json") {
+        res.setHeader("Cache-Control", "no-store, max-age=0");
         return res.json(meta);
       }
       if (meta.downloadUrl) {

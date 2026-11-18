@@ -206,8 +206,9 @@ function StudentLayoutContent() {
 
   const isTakingExam = location.pathname.includes("/take") || location.pathname.includes("/tutorial/exam");
   const isExamResult = location.pathname.includes("/result/") || location.pathname.includes("/tutorial/result");
+  const isCourseTheater = /^\/(?:student\/)?courses\/[^/]+$/.test(location.pathname);
   const isParentViewing = isExamResult && localStorage.getItem("auth_role") === "parent";
-  const hideStudentNav = isTakingExam || isExamResult;
+  const hideStudentNav = isTakingExam || isExamResult || isCourseTheater;
 
   const navItems = [
     { to: "/", label: "Đề thi", icon: BookOpen, tourId: TOUR_DATA_IDS.NAV_EXAMS, actionKey: "click_exams" },
@@ -586,7 +587,7 @@ function StudentLayoutContent() {
           </div>
         )}
 
-        <main className="flex-1 overflow-y-auto pb-24 md:pb-6 bg-slate-50/50 dark:bg-slate-950/60">
+        <main className={`flex-1 overflow-y-auto bg-slate-50/50 dark:bg-slate-950/60 ${isCourseTheater ? "pb-0 flex flex-col overflow-hidden" : "pb-24 md:pb-6"}`}>
           {!hideStudentNav && <OpenInAppBanner />}
           <Outlet />
         </main>

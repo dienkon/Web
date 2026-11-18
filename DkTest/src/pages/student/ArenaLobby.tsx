@@ -17,12 +17,17 @@ import {
 import {
   createArenaRoom,
   joinArenaRoom,
+  DEFAULT_ARENA_PRESET_EXAM_ID,
+  resolveArenaUser,
 } from "../../services/arenaService";
 import { useAuth } from "../../context/AuthContext";
+import { collection, doc, getDoc, getDocs, limit, query, where } from "firebase/firestore";
+import { db } from "../../services/firebase/config";
+import { SIEUGIOI_QUESTIONS } from "../../practice/data/sieugioi/sieugioiQuestions";
 
 // Arena Default Preset Exam
 const DEFAULT_PRESET_EXAM = {
-  id: "toan12_standard_01",
+  id: DEFAULT_ARENA_PRESET_EXAM_ID,
   title: "Đề Thi Khảo Sát Toán 12 Chuẩn Cấu Trúc GDPT 2025",
   code: "TOAN12-2025",
   duration: 45,
@@ -30,7 +35,7 @@ const DEFAULT_PRESET_EXAM = {
 
 export default function ArenaLobby() {
   const navigate = useNavigate();
-  const { userProfile } = useAuth();
+  const { user, userProfile } = useAuth();
 
   const [roomCodeInput, setRoomCodeInput] = useState("");
   const [isJoinLoading, setIsJoinLoading] = useState(false);
@@ -44,15 +49,8 @@ export default function ArenaLobby() {
   const [customExamCode, setCustomExamCode] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  // Active user details
-  const currentUser = useMemo(() => {
-    const raw = localStorage.getItem("userProfile");
-    const parsed = raw ? JSON.parse(raw) : null;
-    const uid = userProfile?.uid || parsed?.uid || `guest_${Math.random().toString(36).substring(2, 7)}`;
-    const name = userProfile?.displayName || userProfile?.fullName || parsed?.displayName || parsed?.name || "Chiến binh DkTest";
-    const avatar = userProfile?.photoURL || parsed?.avatarUrl || "";
-    return { uid, name, avatar };
-  }, [userProfile]);
+  // Active user details (stable across lobby & room)
+  const currentUser = useMemo(() => resolveArenaUser(user, userProfile), [user, userProfile]);
 
   // Handle Join by Code - Only queries the single requested room doc
   const handleJoinByCode = async (e: React.FormEvent) => {
@@ -76,16 +74,49 @@ export default function ArenaLobby() {
   // Handle Create Room
   const handleCreateRoom = async (e: React.FormEvent) => {
     e.preventDefault();
-    const finalExamId = examSourceType === "custom" ? customExamCode.trim() : DEFAULT_PRESET_EXAM.id;
-    if (!finalExamId || isSubmitting) return;
+    const rawInput = examSourceType === "custom" ? customExamCode.trim() : DEFAULT_PRESET_EXAM.id;
+    if (!rawInput || isSubmitting) return;
 
     setIsSubmitting(true);
     setErrorMessage("");
 
     try {
-      const examTitle = examSourceType === "custom"
-        ? `Đề thi mã: ${customExamCode.trim()}`
-        : DEFAULT_PRESET_EXAM.title;
+      let finalExamId = rawInput;
+      let examTitle = DEFAULT_PRESET_EXAM.title;
+
+      if (examSourceType === "custom") {
+        const cleanLower = rawInput.toLowerCase();
+        const sgMatch = SIEUGIOI_QUESTIONS.find(
+          (q) =>
+            q.examId.toLowerCase() === cleanLower ||
+            `sg_exam_${q.examId.toLowerCase()}` === cleanLower ||
+            `sg_${q.examId.toLowerCase()}` === cleanLower
+        );
+        if (sgMatch) {
+          finalExamId = sgMatch.examId;
+          examTitle = sgMatch.examTitle || `Đề luyện mã: ${rawInput.toUpperCase()}`;
+        } else {
+          examTitle = `Đề thi mã: ${rawInput.toUpperCase()}`;
+          try {
+            const byCodeSnap = await getDocs(
+              query(collection(db, "exams"), where("code", "==", rawInput.toUpperCase()), limit(1))
+            );
+            if (!byCodeSnap.empty) {
+              const examDoc = byCodeSnap.docs[0];
+              finalExamId = examDoc.id;
+              examTitle = String(examDoc.data()?.title || examTitle);
+            } else {
+              const byIdSnap = await getDoc(doc(db, "exams", rawInput));
+              if (byIdSnap.exists()) {
+                finalExamId = byIdSnap.id;
+                examTitle = String(byIdSnap.data()?.title || examTitle);
+              }
+            }
+          } catch {
+            // Keep rawInput; ArenaRoom safely falls back to local questions if inaccessible
+          }
+        }
+      }
 
       const newRoom = await createArenaRoom({
         hostUid: currentUser.uid,

@@ -652,18 +652,52 @@ export default function DkCourseVideoPlayer({
         </>
       )}
 
-      {/* Center Play Overlay when idle/paused */}
+      {/* Center Quick-Seek (-10s / Play / +10s) Overlay when idle/paused */}
       {(!isPlaying || showCenterIcon) && openMenu === "none" && (
-        <button
-          type="button"
+        <div
           onClick={handleTogglePlay}
-          className="absolute inset-0 bottom-14 z-10 flex items-center justify-center bg-black/20 hover:bg-black/30 transition-colors cursor-pointer"
-          aria-label="Phát video"
+          className="absolute inset-0 bottom-14 z-10 flex items-center justify-center gap-4 sm:gap-7 bg-black/25 hover:bg-black/30 transition-colors cursor-pointer"
         >
-          <span className="w-14 h-14 sm:w-16 sm:h-16 rounded-full bg-blue-600/95 hover:bg-blue-500 text-white shadow-xl flex items-center justify-center transition-transform active:scale-95">
+          <button
+            type="button"
+            onClick={(e) => {
+              e.stopPropagation();
+              handleSeek(currentSec - 10);
+            }}
+            aria-label="Lùi 10 giây"
+            title="Lùi 10 giây"
+            className="w-11 h-11 sm:w-12 sm:h-12 rounded-full bg-slate-950/65 hover:bg-slate-950/85 border border-white/25 text-white flex flex-col items-center justify-center transition-transform active:scale-95 cursor-pointer"
+          >
+            <RotateCcw className="w-4 h-4 sm:w-4.5 sm:h-4.5" />
+            <span className="text-[9px] font-black leading-none mt-0.5">10</span>
+          </button>
+
+          <button
+            type="button"
+            onClick={(e) => {
+              e.stopPropagation();
+              handleTogglePlay();
+            }}
+            aria-label="Phát video"
+            className="w-14 h-14 sm:w-16 sm:h-16 rounded-full bg-blue-600/95 hover:bg-blue-500 text-white shadow-xl flex items-center justify-center transition-transform active:scale-95 cursor-pointer"
+          >
             <Play className="w-7 h-7 fill-current ml-0.5" />
-          </span>
-        </button>
+          </button>
+
+          <button
+            type="button"
+            onClick={(e) => {
+              e.stopPropagation();
+              handleSeek(currentSec + 10);
+            }}
+            aria-label="Tua tới 10 giây"
+            title="Tua tới 10 giây"
+            className="w-11 h-11 sm:w-12 sm:h-12 rounded-full bg-slate-950/65 hover:bg-slate-950/85 border border-white/25 text-white flex flex-col items-center justify-center transition-transform active:scale-95 cursor-pointer"
+          >
+            <RotateCw className="w-4 h-4 sm:w-4.5 sm:h-4.5" />
+            <span className="text-[9px] font-black leading-none mt-0.5">10</span>
+          </button>
+        </div>
       )}
 
       {/* Custom DkTEST Blue Control Bar */}
