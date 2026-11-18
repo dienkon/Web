@@ -21,6 +21,10 @@ View your app in AI Studio: https://ai.studio/apps/615b7b6b-733d-472b-ae02-99247
 
 ## Giao diện gọn và thao tác trực tiếp
 
+Lần đầu vào lab, **Hướng dẫn người mới** tự mở với 8 bước: chọn chế độ, thêm dụng cụ, đong hóa chất, quan sát, cầm/rót, bài học, thí nghiệm tự động và xử lý vướng mắc. Dùng các nút **Thử…** để mở đúng bảng thực hành; nút **Hướng dẫn** (biểu tượng dấu hỏi ở thanh đầu trang) cho phép tiếp tục hoặc xem lại. Tiến độ và trạng thái hoàn tất được lưu riêng trên trình duyệt, kể cả khi tạm đóng rồi tải lại trang. Hướng dẫn hỗ trợ tiếng Việt, English, bàn phím và màn hình điện thoại.
+
+Khi server đang chạy, dùng `node scripts/auditOnboardingBrowser.mjs` để kiểm tra luồng nhập môn, bài tập 10 mL nước, chuyển chế độ, lưu tiến độ, phím tắt và giao diện 320 px. Kết quả và ảnh nằm trong `artifacts/onboarding`; có thể đổi địa chỉ server bằng `LAB_AUDIT_ORIGIN` và thư mục kết quả bằng `LAB_AUDIT_OUTPUT`.
+
 Menu **ChemDex** ở góc chứa điều hướng website. Mở kho bằng nút **Hóa chất**, thông tin bình bằng **Quan sát**; `Esc` đóng các bảng. **Dụng cụ & số đo** mở đũa khuấy, pipet, khăn lau và số đo. **Thiết lập** chứa góc nhìn, môi trường, âm thanh và công cụ nâng cao.
 
 Trong **Hóa chất → Bài học**, chọn thẻ hiện tượng rồi **Tạo mẫu và chạy trên bàn** để khởi động chương trình cục bộ. Mẫu cần nhiệt/mồi phải đủ điều kiện. Khi bình nguồn gần bình nhận, giữ nút **Giữ để rót** (hoặc Space/Enter khi nút có focus); thả để ngừng và hạ bình. Tia rửa có thể hoàn tác/làm lại cùng lượng vật chất đã chuyển.

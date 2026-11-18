@@ -3,6 +3,8 @@ import { LabScene } from './components/three/LabScene';
 import { useAppStore, CHEMICALS, getChemical } from './store/useAppStore';
 import { WorkbenchToolbar } from './components/WorkbenchToolbar';
 import { LabNavigation } from './components/LabNavigation';
+import { LabOnboarding, useLabOnboarding } from './components/LabOnboarding';
+import type { GuideDestination } from './data/labOnboarding';
 import { MeasurementHUD } from './components/MeasurementHUD';
 import { VesselInspector } from './components/VesselInspector';
 import { TitrationPanel } from './components/TitrationPanel';
@@ -32,12 +34,13 @@ import {
   ChevronLeft, ChevronRight, PanelLeftClose, PanelRightClose
 } from 'lucide-react';
 
-function LeftSidebar() {
+type CatalogTab = 'chemicals' | 'instruments' | 'experiments' | 'safety';
+
+function LeftSidebar({ activeTab, setActiveTab }: { activeTab: CatalogTab; setActiveTab: (tab: CatalogTab) => void }) {
   const leftSidebarOpen = useAppStore(state => state.leftSidebarOpen);
   const language = useAppStore(state => state.language);
   const addVessel = useAppStore(state => state.addVessel);
   const isMixing = useAppStore(state => state.isMixing);
-  const [activeTab, setActiveTab] = useState<'chemicals' | 'instruments' | 'experiments' | 'safety'>(() => new URLSearchParams(window.location.search).has('experiment') ? 'experiments' : 'chemicals');
   const [search, setSearch] = useState('');
   const [equipSearch, setEquipSearch] = useState('');
   const [filterType, setFilterType] = useState<'all' | 'liquid' | 'solid' | 'indicator'>('all');
@@ -598,12 +601,32 @@ const TargetRecognitionHUD = React.memo(function TargetRecognitionHUD() {
 
 export default function App() {
   const [workspace, setWorkspace] = useState<'manual' | 'auto'>(() => new URLSearchParams(window.location.search).get('mode') === 'auto' ? 'auto' : 'manual');
+  const [catalogTab, setCatalogTab] = useState<CatalogTab>(() => new URLSearchParams(window.location.search).has('experiment') ? 'experiments' : 'chemicals');
+  const [guideDestination, setGuideDestination] = useState<GuideDestination | null>(null);
+  const guide = useLabOnboarding(!isDev && !useAppStore.getState().isPresentationMode);
   const changeWorkspace = (mode: 'manual' | 'auto') => {
     setWorkspace(mode);
     const url = new URL(window.location.href);
     if (mode === 'auto') url.searchParams.set('mode', 'auto'); else url.searchParams.delete('mode');
     window.history.replaceState(null, '', url);
   };
+  const practiceGuideStep = (destination: GuideDestination) => {
+    changeWorkspace(destination === 'auto' ? 'auto' : 'manual');
+    setGuideDestination(destination);
+  };
+  useEffect(() => {
+    if (!guideDestination) return;
+    // Apply after the previous workspace has restored its panel state on exit.
+    if (workspace === 'manual') {
+      if (guideDestination === 'equipment') setCatalogTab('instruments');
+      if (guideDestination === 'chemicals') setCatalogTab('chemicals');
+      if (guideDestination === 'lessons') setCatalogTab('experiments');
+      if (guideDestination !== 'manual') useAppStore.setState({
+        leftSidebarOpen: guideDestination !== 'inspect', rightSidebarOpen: guideDestination === 'inspect',
+      });
+    }
+    setGuideDestination(null);
+  }, [guideDestination, workspace]);
   const openedExperiment = React.useRef<string | null>(null);
   useEffect(() => {
     const id = new URLSearchParams(window.location.search).get('experiment');
@@ -662,7 +685,9 @@ export default function App() {
       {/* Chemical Measurement, Litmus Paper & Student Lab Report Dialogs */}
       {workspace === 'manual' && <><DosageModal /><LitmusTestModal /><LabReportModal /></>}
 
-      {!isPresentationMode && <LabNavigation workspace={workspace} onWorkspaceChange={changeWorkspace} />}
+      {!isPresentationMode && <LabNavigation workspace={workspace} onWorkspaceChange={changeWorkspace} onOpenGuide={guide.show} guideStep={guide.completed ? undefined : guide.step + 1} />}
+
+      {guide.open && <LabOnboarding guide={guide} language={language} onLanguageChange={useAppStore.getState().setLanguage} onPractice={practiceGuideStep} />}
 
       {workspace === 'auto' ? <React.Suspense fallback={<div className="grid flex-1 place-items-center bg-[#091321] text-sm text-cyan-100">Đang chuẩn bị bàn tự động…</div>}><AutoLabWorkspace onExit={() => changeWorkspace('manual')} /></React.Suspense> : <React.Suspense fallback={<div className="grid flex-1 place-items-center bg-slate-100 text-sm text-slate-500">Đang chuẩn bị bàn thao tác…</div>}>
       {/* Workbench Secondary Toolbar (Camera, Undo/Redo, Grid, Modes, Speeds) */}
@@ -672,7 +697,7 @@ export default function App() {
       <div id="manual-lab" role="tabpanel" aria-labelledby="manual-lab-tab" className="flex flex-1 min-h-0 overflow-hidden relative">
         {(leftSidebarOpen || rightSidebarOpen) && <button className="lab-sidebar-backdrop" aria-label={t('Close panels', 'Đóng các bảng')}
           onClick={() => useAppStore.setState({ leftSidebarOpen: false, rightSidebarOpen: false })} />}
-        <LeftSidebar />
+        <LeftSidebar activeTab={catalogTab} setActiveTab={setCatalogTab} />
 
         {/* 3D Interactive Workbench Viewport */}
         <main

@@ -1,10 +1,11 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { Beaker, ChevronDown, FlaskConical, Info, Layers, Move, Wand2 } from 'lucide-react';
+import { Beaker, ChevronDown, FlaskConical, HelpCircle, Info, Layers, Move, Wand2 } from 'lucide-react';
 import { useAppStore } from '../store/useAppStore';
 
 /** One corner launcher keeps the surrounding ChemDex navigation off the bench. */
-export function LabNavigation({ workspace, onWorkspaceChange }: {
+export function LabNavigation({ workspace, onWorkspaceChange, onOpenGuide, guideStep }: {
   workspace: 'manual' | 'auto'; onWorkspaceChange: (mode: 'manual' | 'auto') => void;
+  onOpenGuide: () => void; guideStep?: number;
 }) {
   const language = useAppStore(state => state.language);
   const leftOpen = useAppStore(state => state.leftSidebarOpen);
@@ -62,5 +63,10 @@ export function LabNavigation({ workspace, onWorkspaceChange }: {
         title={t('Vessel and reactions', 'Thông tin bình và phản ứng')}
         className={`lab-panel-toggle ${rightOpen ? 'lab-nav-tab-active' : ''}`}><Info size={17} /><span className="hidden md:inline">{t('Inspect', 'Quan sát')}</span></button>
     </div>}
+    <button onClick={onOpenGuide} className={`lab-panel-toggle ${workspace === 'auto' ? 'ml-auto' : ''}`}
+      aria-label={t('Open getting-started guide', 'Mở hướng dẫn người mới')}
+      title={guideStep ? t(`Continue guide · Step ${guideStep}/8`, `Tiếp tục hướng dẫn · Bước ${guideStep}/8`) : t('Review getting-started guide', 'Xem lại hướng dẫn người mới')}>
+      <HelpCircle size={17} /><span className="hidden lg:inline">{t('Guide', 'Hướng dẫn')}</span>
+    </button>
   </nav>;
 }
