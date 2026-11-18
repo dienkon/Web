@@ -33,6 +33,7 @@ Phép đo logic ba bình ở mức High đạt trung bình 3,16 ms mỗi bước
 | Rửa dụng cụ | 10 điều kiện qua, gồm vị trí tia nước, lượng nước thu hồi, tạm dừng và hủy rửa |
 | Production | Bàn thủ công và tự động mở được tại `/lab/`. Thí nghiệm CuSO₄ + NaOH chạy và tạm dừng. JavaScript, CSS và shader tải đúng. Tệp tài nguyên không tồn tại trả 404. |
 | Mẫu nước–đá trên production | Mở Thiết lập → Vật lí, bật mô phỏng và tạo mẫu từ nút tiếng Việt. Phép đo nhiệt nóng chảy xuất hiện. Dữ liệu lưu có 20 mL nước và 5 g đá ở 0 °C, tên mẫu giữ nguyên tiếng Việt. |
+| Đồng hồ Landolt | Mẫu ban đầu trong. Khi kết thúc, mẫu chuyển xanh đen và số đọc là 0,300 mmol iốt quy đổi. Cả hai bàn hiển thị cùng số liệu và nhãn tiếng Việt. |
 
 ### Tái chạy
 
@@ -58,6 +59,8 @@ $env:LAB_OPERATIONS_OUTPUT='artifacts/upgrade-2026-11-18/lab-operations'
 node scripts/auditLabOperationsBrowser.mjs
 $env:LAB_RINSE_OUTPUT='artifacts/upgrade-2026-11-18/instrument-rinse'
 node scripts/auditInstrumentRinseBrowser.mjs
+$env:LAB_LANDOLT_OUTPUT='artifacts/upgrade-2026-11-18/landolt-browser'
+node scripts/auditLandoltClockBrowser.mjs
 ```
 
 Chạy bộ hồi quy và phép đo CPU riêng với các audit WebGL để giảm nhiễu:

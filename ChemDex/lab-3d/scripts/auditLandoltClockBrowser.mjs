@@ -1,14 +1,18 @@
 import { chromium } from '@playwright/test';
 import assert from 'node:assert/strict';
 import { mkdirSync, writeFileSync } from 'node:fs';
+import { prepareLabAuditSession } from './fixtures/labAuditSession.mjs';
 
-const output = 'artifacts/landolt-clock/browser'; mkdirSync(output, { recursive: true });
+const output = process.env.LAB_LANDOLT_OUTPUT ?? 'artifacts/landolt-clock/browser';
+mkdirSync(output, { recursive: true });
 const browser = await chromium.launch({ headless: true, args: ['--use-angle=swiftshader', '--enable-webgl', '--enable-unsafe-swiftshader'] });
 const page = await browser.newPage({ viewport: { width: 1440, height: 960 } });
+await prepareLabAuditSession(page);
 await page.addInitScript(() => performance.setResourceTimingBufferSize(5000));
 const errors = []; page.on('pageerror', e => errors.push(e.stack ?? e.message));
 try {
   await page.goto(`${process.env.LAB_AUDIT_ORIGIN ?? 'http://127.0.0.1:6779'}/?mode=auto`, { waitUntil: 'domcontentloaded' });
+  await page.getByRole('button', { name: 'Hiện danh mục tự động', exact: true }).click();
   await page.getByRole('textbox', { name: 'Tìm thí nghiệm tự động' }).waitFor({ timeout: 60000 });
   await page.evaluate(async () => {
     const url = performance.getEntriesByType('resource').map(r => r.name).find(n => /\/AutoExperiment\.ts(\?|$)/.test(n));
@@ -39,7 +43,9 @@ try {
   });
   assert.equal(final.error, null); assert.equal(final.phase, 'complete'); assert.equal(final.color, '#0f172a');
   assert.equal(final.readout.label, 'I₂ quy đổi');
+  await page.getByRole('button', { name: 'Hiện trình tự tự động', exact: true }).click();
   const auto = page.getByTestId('auto-timeline').locator('[data-landolt-clock]');
+  assert.match(await auto.locator('summary').innerText(), /^Đồng hồ iốt/);
   await auto.locator('summary').click();
   const quantities = el => Object.fromEntries([...el.querySelectorAll('[data-landolt-species]')]
     .map(r => [r.dataset.landoltSpecies, Number(r.dataset.moles)]));
@@ -56,6 +62,7 @@ try {
       activeKinetics: {}, pendingReactions: {}, lastMixResult: null, isSimulationPaused: true, isPresentationMode: false, rightSidebarOpen: true });
   }, final.specimen);
   const manual = page.locator('#manual-lab [data-landolt-clock]'); await manual.locator('summary').click();
+  assert.match(await manual.locator('summary').innerText(), /^Đồng hồ iốt/);
   const manualQuantities = await manual.evaluate(quantities);
   assert.deepEqual(manualQuantities, autoQuantities);
   await page.screenshot({ path: `${output}/manual-quantities.png` });
