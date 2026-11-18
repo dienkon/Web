@@ -1930,6 +1930,8 @@ async function getStudentUnpaidDebt(uid) {
 }
 
 // server/services/webImporter/ssrfGuard.ts
+import dns from "dns";
+import net from "net";
 var PRIVATE_IPV4_RANGES = [
   // 0.0.0.0/8 (Current network)
   { start: ipToLong("0.0.0.0"), end: ipToLong("0.255.255.255") },
@@ -1952,6 +1954,90 @@ var PRIVATE_IPV4_RANGES = [
 ];
 function ipToLong(ip) {
   return ip.split(".").reduce((acc, octet) => (acc << 8) + parseInt(octet, 10), 0) >>> 0;
+}
+function isPrivateIp(ip) {
+  if (!ip) return true;
+  if (net.isIPv4(ip)) {
+    const long = ipToLong(ip);
+    for (const range of PRIVATE_IPV4_RANGES) {
+      if (long >= range.start && long <= range.end) {
+        return true;
+      }
+    }
+    return false;
+  }
+  if (net.isIPv6(ip)) {
+    const lower = ip.toLowerCase();
+    if (lower === "::1" || lower === "0:0:0:0:0:0:0:1") return true;
+    if (lower === "::" || lower === "0:0:0:0:0:0:0:0") return true;
+    if (lower.startsWith("fc") || lower.startsWith("fd")) return true;
+    if (lower.startsWith("fe80")) return true;
+    if (lower.startsWith("::ffff:")) {
+      const v4Part = lower.replace("::ffff:", "");
+      if (net.isIPv4(v4Part)) return isPrivateIp(v4Part);
+    }
+    return false;
+  }
+  return true;
+}
+async function validateUrlForSsrf(rawUrl) {
+  let parsedUrl;
+  try {
+    parsedUrl = new URL(rawUrl);
+  } catch {
+    throw new Error(`\u0110\u1ECBnh d\u1EA1ng URL kh\xF4ng h\u1EE3p l\u1EC7: "${rawUrl}"`);
+  }
+  if (parsedUrl.protocol !== "http:" && parsedUrl.protocol !== "https:") {
+    throw new Error(
+      `Giao th\u1EE9c kh\xF4ng \u0111\u01B0\u1EE3c h\u1ED7 tr\u1EE3: "${parsedUrl.protocol}". Ch\u1EC9 ch\u1EA5p nh\u1EADn http: ho\u1EB7c https:`
+    );
+  }
+  const hostname = parsedUrl.hostname.toLowerCase();
+  if (hostname === "localhost" || hostname.endsWith(".localhost") || hostname.endsWith(".local") || hostname.endsWith(".internal") || hostname === "metadata.google.internal" || hostname === "169.254.169.254") {
+    throw new Error(
+      `Truy c\u1EADp b\u1ECB t\u1EEB ch\u1ED1i (SSRF Protection): Hostname n\u1ED9i b\u1ED9 "${hostname}" b\u1ECB c\u1EA5m.`
+    );
+  }
+  if (net.isIP(hostname)) {
+    if (isPrivateIp(hostname)) {
+      throw new Error(
+        `Truy c\u1EADp b\u1ECB t\u1EEB ch\u1ED1i (SSRF Protection): \u0110\u1ECBa ch\u1EC9 IP n\u1ED9i b\u1ED9 "${hostname}" b\u1ECB c\u1EA5m.`
+      );
+    }
+    return { url: parsedUrl, resolvedIp: hostname };
+  }
+  try {
+    const lookup = await dns.promises.lookup(hostname, { all: true });
+    if (!lookup || lookup.length === 0) {
+      throw new Error(`Kh\xF4ng th\u1EC3 ph\xE2n gi\u1EA3i t\xEAn mi\u1EC1n: "${hostname}"`);
+    }
+    for (const entry of lookup) {
+      if (isPrivateIp(entry.address)) {
+        throw new Error(
+          `Truy c\u1EADp b\u1ECB t\u1EEB ch\u1ED1i (SSRF Protection): T\xEAn mi\u1EC1n "${hostname}" ph\xE2n gi\u1EA3i ra IP n\u1ED9i b\u1ED9 ${entry.address}.`
+        );
+      }
+    }
+    return { url: parsedUrl, resolvedIp: lookup[0].address };
+  } catch (err) {
+    if (err.message.includes("SSRF Protection")) throw err;
+    throw new Error(`L\u1ED7i ki\u1EC3m tra DNS cho t\xEAn mi\u1EC1n "${hostname}": ${err.message}`);
+  }
+}
+
+// src/utils/videoSourceHelper.ts
+function extractGoogleDriveFileId(rawUrl) {
+  const url = String(rawUrl || "").trim();
+  if (!url) return null;
+  const pathMatch = url.match(
+    /(?:drive|docs)\.google\.com\/file\/(?:u\/\d+\/)?d\/([A-Za-z0-9_-]{10,})/i
+  );
+  if (pathMatch?.[1]) return pathMatch[1];
+  const queryMatch = url.match(
+    /(?:drive\.google\.com\/(?:open|uc)|drive\.usercontent\.google\.com\/download)\?(?:[^#]*&)?id=([A-Za-z0-9_-]{10,})/i
+  );
+  if (queryMatch?.[1]) return queryMatch[1];
+  return null;
 }
 
 // server/services/courseService.ts
@@ -2762,6 +2848,140 @@ async function getAuthorizedLessonContent(uid, courseId, lessonId, role) {
   }
   return lesson;
 }
+var DEFAULT_BROWSER_UA = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36";
+function isAllowedDriveHost(hostname) {
+  const lower = hostname.toLowerCase();
+  return lower === "drive.google.com" || lower === "docs.google.com" || lower === "drive.usercontent.google.com" || lower.endsWith(".googleusercontent.com");
+}
+async function readResponseChunkBounded(res, maxBytes = 262144) {
+  if (res.body && typeof res.body.getReader === "function") {
+    const reader = res.body.getReader();
+    const chunks = [];
+    let total = 0;
+    try {
+      while (total < maxBytes) {
+        const { done, value } = await reader.read();
+        if (done || !value) break;
+        const remaining = maxBytes - total;
+        const slice = value.byteLength > remaining ? value.subarray(0, remaining) : value;
+        chunks.push(slice);
+        total += slice.byteLength;
+        if (total >= maxBytes) {
+          await reader.cancel().catch(() => {
+          });
+          break;
+        }
+      }
+    } catch {
+    }
+    return Buffer.concat(chunks.map((c) => Buffer.from(c)));
+  }
+  const arr = Buffer.from(await res.arrayBuffer());
+  return arr.length > maxBytes ? arr.subarray(0, maxBytes) : arr;
+}
+async function fetchWithSsrfCheckedRedirects(targetUrl, init, options) {
+  let currentUrl = targetUrl;
+  for (let hop = 0; hop < 4; hop++) {
+    const validated = await validateUrlForSsrf(currentUrl);
+    if (options?.restrictToDriveHosts && !isAllowedDriveHost(validated.url.hostname)) {
+      throw new Error("Redirect outside allowed Google Drive domains.");
+    }
+    const res = await fetch(currentUrl, {
+      ...init,
+      redirect: "manual"
+    });
+    const status = res.status;
+    const location = res.headers?.get?.("location");
+    if (status >= 300 && status < 400 && location) {
+      currentUrl = new URL(location, currentUrl).toString();
+      continue;
+    }
+    return { res, finalUrl: currentUrl };
+  }
+  throw new Error("Too many redirects while probing video duration.");
+}
+function extractDriveConfirmationDownloadUrl(html, baseUrl) {
+  const formMatch = html.match(/<form[^>]*id=["']download-form["'][^>]*action=["']([^"']+)["'][^>]*>([\s\S]*?)<\/form>/i) || html.match(/<form[^>]*action=["'](https:\/\/drive\.usercontent\.google\.com\/download[^"']*)["'][^>]*>([\s\S]*?)<\/form>/i);
+  if (!formMatch) return null;
+  try {
+    const actionUrl = new URL(formMatch[1].replace(/&amp;/g, "&"), baseUrl);
+    if (!isAllowedDriveHost(actionUrl.hostname)) return null;
+    const formBody = formMatch[2] || "";
+    const inputTags = formBody.match(/<input\b[^>]*>/gi) || [];
+    for (const tag of inputTags) {
+      const nameMatch = tag.match(/\bname=["']([^"']+)["']/i);
+      const valMatch = tag.match(/\bvalue=["']([^"']*)["']/i);
+      if (nameMatch?.[1] && valMatch) {
+        actionUrl.searchParams.set(nameMatch[1], valMatch[1]);
+      }
+    }
+    return actionUrl.toString();
+  } catch {
+    return null;
+  }
+}
+var driveStreamUrlCache = /* @__PURE__ */ new Map();
+var DRIVE_STREAM_CACHE_TTL_MS = 15 * 60 * 1e3;
+function looksLikePlayableVideoMagic(buf) {
+  if (!buf || buf.length < 12) return false;
+  if (buf.toString("ascii", 4, 8) === "ftyp") return true;
+  if (buf[0] === 26 && buf[1] === 69 && buf[2] === 223 && buf[3] === 163) return true;
+  if (buf.toString("ascii", 0, 4) === "OggS") return true;
+  return false;
+}
+async function resolveDriveDirectStreamUrl(driveId) {
+  const cleanId = String(driveId || "").trim();
+  if (!cleanId || !/^[a-zA-Z0-9_-]{10,120}$/.test(cleanId)) return null;
+  const now = Date.now();
+  const cached = driveStreamUrlCache.get(cleanId);
+  if (cached && now - cached.ts < DRIVE_STREAM_CACHE_TTL_MS) {
+    return cached.streamUrl;
+  }
+  const candidates = [
+    `https://drive.usercontent.google.com/download?id=${encodeURIComponent(cleanId)}&export=download&confirm=t`,
+    `https://drive.google.com/uc?export=download&confirm=t&id=${encodeURIComponent(cleanId)}`
+  ];
+  const baseHeaders = {
+    "User-Agent": DEFAULT_BROWSER_UA,
+    Range: "bytes=0-1023"
+  };
+  for (const candidate of candidates) {
+    try {
+      let { res, finalUrl } = await fetchWithSsrfCheckedRedirects(
+        candidate,
+        { headers: baseHeaders, signal: AbortSignal.timeout(4e3) },
+        { restrictToDriveHosts: true }
+      );
+      if (!res.ok) continue;
+      let ct = String(res.headers?.get?.("content-type") || "").toLowerCase();
+      if (ct.includes("text/html")) {
+        const html = (await readResponseChunkBounded(res, 131072)).toString("utf8");
+        const confirmUrl = extractDriveConfirmationDownloadUrl(html, finalUrl);
+        if (!confirmUrl) continue;
+        const confirmed = await fetchWithSsrfCheckedRedirects(
+          confirmUrl,
+          { headers: baseHeaders, signal: AbortSignal.timeout(4e3) },
+          { restrictToDriveHosts: true }
+        );
+        res = confirmed.res;
+        finalUrl = confirmed.finalUrl;
+        if (!res.ok) continue;
+        ct = String(res.headers?.get?.("content-type") || "").toLowerCase();
+        if (ct.includes("text/html")) continue;
+      }
+      const headBuf = await readResponseChunkBounded(res, 1024);
+      const isDirectVideoMime = ct.startsWith("video/");
+      const isStreamableBinary = (ct.includes("application/octet-stream") || ct.includes("binary/octet-stream")) && looksLikePlayableVideoMagic(headBuf);
+      if (isDirectVideoMime || isStreamableBinary) {
+        driveStreamUrlCache.set(cleanId, { streamUrl: finalUrl, ts: now });
+        return finalUrl;
+      }
+    } catch {
+    }
+  }
+  driveStreamUrlCache.set(cleanId, { streamUrl: null, ts: now });
+  return null;
+}
 
 // server/routes/walletRoutes.ts
 var walletRouter = Router();
@@ -2961,6 +3181,26 @@ walletRouter.get("/courses/:courseId/lessons/:lessonId/content", requireAuth, as
     const msg = err.message || String(err);
     const status = msg.includes("tr\u1EA3 ph\xED") ? 403 : 400;
     return res.status(status).json({ error: "lesson_access_error", message: msg });
+  }
+});
+walletRouter.get("/courses/:courseId/lessons/:lessonId/stream", requireAuth, async (req, res) => {
+  try {
+    const lesson = await getAuthorizedLessonContent(
+      req.user.uid,
+      req.params.courseId,
+      req.params.lessonId,
+      req.user.role
+    );
+    const driveId = extractGoogleDriveFileId(lesson.videoUrl || "");
+    if (!driveId) {
+      return res.json({ success: true, streamUrl: null });
+    }
+    const streamUrl = await resolveDriveDirectStreamUrl(driveId);
+    return res.json({ success: true, streamUrl });
+  } catch (err) {
+    const msg = err.message || String(err);
+    const status = msg.includes("tr\u1EA3 ph\xED") ? 403 : 400;
+    return res.status(status).json({ error: "lesson_stream_error", message: msg });
   }
 });
 export {

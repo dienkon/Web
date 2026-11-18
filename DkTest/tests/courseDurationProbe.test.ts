@@ -6,6 +6,7 @@ import {
   getAdminCoursePurchases,
   MAX_COURSE_PURCHASES_PAGE_SIZE,
   probeVideoDuration,
+  resolveDriveDirectStreamUrl,
 } from "../server/services/courseService.js";
 import { extractGoogleDriveFileId } from "../src/utils/videoSourceHelper.js";
 
@@ -272,6 +273,84 @@ describe("course duration probing & MP4 parser", () => {
         scope: "course",
         pricePaidVnd: 299000,
       });
+    } finally {
+      globalThis.fetch = originalFetch;
+    }
+  });
+
+  it("resolves direct video/mp4 stream URL from Google Drive and serves cached hit", async () => {
+    const originalFetch = globalThis.fetch;
+    let callCount = 0;
+    try {
+      const ftypHead = Buffer.from([0x00, 0x00, 0x00, 0x18, 0x66, 0x74, 0x79, 0x70, 0x6d, 0x70, 0x34, 0x32]);
+      globalThis.fetch = vi.fn(async (url: any) => {
+        callCount += 1;
+        return {
+          ok: true,
+          status: 206,
+          url: String(url),
+          headers: new Headers({ "content-type": "video/mp4" }),
+          arrayBuffer: async () => ftypHead,
+        } as any;
+      }) as any;
+
+      const first = await resolveDriveDirectStreamUrl("1DriveDirectStreamMp4Test");
+      const second = await resolveDriveDirectStreamUrl("1DriveDirectStreamMp4Test");
+      expect(first).toBe(
+        "https://drive.usercontent.google.com/download?id=1DriveDirectStreamMp4Test&export=download&confirm=t"
+      );
+      expect(second).toBe(first);
+      expect(callCount).toBe(1);
+    } finally {
+      globalThis.fetch = originalFetch;
+    }
+  });
+
+  it("resolves >100MB Google Drive confirmation form into confirmed binary/mp4 stream URL", async () => {
+    const originalFetch = globalThis.fetch;
+    try {
+      const ftypHead = Buffer.from([0x00, 0x00, 0x00, 0x18, 0x66, 0x74, 0x79, 0x70, 0x69, 0x73, 0x6f, 0x6d]);
+      globalThis.fetch = vi.fn(async (url: any) => {
+        const u = String(url);
+        if (!u.includes("uuid=stream99")) {
+          return {
+            ok: true,
+            status: 200,
+            headers: new Headers({ "content-type": "text/html; charset=utf-8" }),
+            arrayBuffer: async () =>
+              Buffer.from(
+                '<form id="download-form" action="https://drive.usercontent.google.com/download" method="get"><input type="hidden" name="id" value="1DriveLargeStreamTest002"><input type="hidden" name="export" value="download"><input type="hidden" name="confirm" value="t"><input type="hidden" name="uuid" value="stream99"></form>'
+              ),
+          } as any;
+        }
+        return {
+          ok: true,
+          status: 206,
+          headers: new Headers({ "content-type": "application/octet-stream" }),
+          arrayBuffer: async () => ftypHead,
+        } as any;
+      }) as any;
+
+      const resolved = await resolveDriveDirectStreamUrl("1DriveLargeStreamTest002");
+      expect(resolved).toContain("drive.usercontent.google.com/download");
+      expect(resolved).toContain("uuid=stream99");
+    } finally {
+      globalThis.fetch = originalFetch;
+    }
+  });
+
+  it("returns null when Google Drive candidates only serve HTML without streamable confirmation", async () => {
+    const originalFetch = globalThis.fetch;
+    try {
+      globalThis.fetch = vi.fn(async () => ({
+        ok: true,
+        status: 200,
+        headers: new Headers({ "content-type": "text/html; charset=utf-8" }),
+        arrayBuffer: async () => Buffer.from("<html><body>Sign in required</body></html>"),
+      })) as any;
+
+      const resolved = await resolveDriveDirectStreamUrl("1DrivePrivateHtmlTest003");
+      expect(resolved).toBeNull();
     } finally {
       globalThis.fetch = originalFetch;
     }

@@ -884,6 +884,27 @@ export async function getAuthorizedCourseLesson(courseId: string, lessonId: stri
   });
 }
 
+export async function getAuthorizedLessonStreamUrl(
+  courseId: string,
+  lessonId: string
+): Promise<string | null> {
+  if (!courseId || !lessonId) return null;
+  const memKey = `stream:course_lesson:${courseId}:${lessonId}`;
+  const cached = FirestoreCache.get<string | null>(memKey);
+  if (cached !== null && cached !== undefined) return cached || null;
+
+  try {
+    const res = await api.get<{ success: boolean; streamUrl?: string | null }>(
+      `/api/courses/${encodeURIComponent(courseId)}/lessons/${encodeURIComponent(lessonId)}/stream`
+    );
+    const url = typeof res?.streamUrl === "string" && /^https?:\/\//i.test(res.streamUrl) ? res.streamUrl : "";
+    FirestoreCache.set(memKey, url, 15 * 60 * 1000);
+    return url || null;
+  } catch {
+    return null;
+  }
+}
+
 export async function saveCourseWithLessons(params: {
   courseId?: string;
   courseData: Omit<

@@ -1309,6 +1309,7 @@ export default function CourseDetail() {
                 </div>
               ) : activeLesson?.videoUrl ? (
                 <DkCourseVideoPlayer
+                  courseId={course.id}
                   lessonId={activeLesson.id}
                   title={activeLesson.title}
                   videoUrl={activeLesson.videoUrl}

@@ -1830,3 +1830,84 @@ export async function probeVideoDuration(
 
   return null;
 }
+
+const driveStreamUrlCache = new Map<string, { streamUrl: string | null; ts: number }>();
+const DRIVE_STREAM_CACHE_TTL_MS = 15 * 60 * 1000;
+
+function looksLikePlayableVideoMagic(buf: Buffer): boolean {
+  if (!buf || buf.length < 12) return false;
+  // MP4 / ISO BMFF `ftyp`
+  if (buf.toString("ascii", 4, 8) === "ftyp") return true;
+  // WebM / Matroska EBML header
+  if (buf[0] === 0x1a && buf[1] === 0x45 && buf[2] === 0xdf && buf[3] === 0xa3) return true;
+  // Ogg `OggS`
+  if (buf.toString("ascii", 0, 4) === "OggS") return true;
+  return false;
+}
+
+/**
+ * Resolves a direct streamable Google Drive download URL (including >100MB confirmation tokens)
+ * so DkCourseVideoPlayer can play public MP4/WebM Drive files natively with custom controls.
+ */
+export async function resolveDriveDirectStreamUrl(driveId: string): Promise<string | null> {
+  const cleanId = String(driveId || "").trim();
+  if (!cleanId || !/^[a-zA-Z0-9_-]{10,120}$/.test(cleanId)) return null;
+
+  const now = Date.now();
+  const cached = driveStreamUrlCache.get(cleanId);
+  if (cached && now - cached.ts < DRIVE_STREAM_CACHE_TTL_MS) {
+    return cached.streamUrl;
+  }
+
+  const candidates = [
+    `https://drive.usercontent.google.com/download?id=${encodeURIComponent(cleanId)}&export=download&confirm=t`,
+    `https://drive.google.com/uc?export=download&confirm=t&id=${encodeURIComponent(cleanId)}`,
+  ];
+
+  const baseHeaders: Record<string, string> = {
+    "User-Agent": DEFAULT_BROWSER_UA,
+    Range: "bytes=0-1023",
+  };
+
+  for (const candidate of candidates) {
+    try {
+      let { res, finalUrl } = await fetchWithSsrfCheckedRedirects(
+        candidate,
+        { headers: baseHeaders, signal: AbortSignal.timeout(4000) },
+        { restrictToDriveHosts: true }
+      );
+      if (!res.ok) continue;
+
+      let ct = String(res.headers?.get?.("content-type") || "").toLowerCase();
+      if (ct.includes("text/html")) {
+        const html = (await readResponseChunkBounded(res, 131072)).toString("utf8");
+        const confirmUrl = extractDriveConfirmationDownloadUrl(html, finalUrl);
+        if (!confirmUrl) continue;
+        const confirmed = await fetchWithSsrfCheckedRedirects(
+          confirmUrl,
+          { headers: baseHeaders, signal: AbortSignal.timeout(4000) },
+          { restrictToDriveHosts: true }
+        );
+        res = confirmed.res;
+        finalUrl = confirmed.finalUrl;
+        if (!res.ok) continue;
+        ct = String(res.headers?.get?.("content-type") || "").toLowerCase();
+        if (ct.includes("text/html")) continue;
+      }
+
+      const headBuf = await readResponseChunkBounded(res, 1024);
+      const isDirectVideoMime = ct.startsWith("video/");
+      const isStreamableBinary =
+        (ct.includes("application/octet-stream") || ct.includes("binary/octet-stream")) &&
+        looksLikePlayableVideoMagic(headBuf);
+
+      if (isDirectVideoMime || isStreamableBinary) {
+        driveStreamUrlCache.set(cleanId, { streamUrl: finalUrl, ts: now });
+        return finalUrl;
+      }
+    } catch {}
+  }
+
+  driveStreamUrlCache.set(cleanId, { streamUrl: null, ts: now });
+  return null;
+}

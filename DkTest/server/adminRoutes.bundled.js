@@ -3616,6 +3616,7 @@ async function probeVideoDuration(rawUrl) {
   }
   return null;
 }
+var DRIVE_STREAM_CACHE_TTL_MS = 15 * 60 * 1e3;
 
 // server/services/examMergeService.ts
 async function mergeExams(options) {

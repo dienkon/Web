@@ -21,7 +21,9 @@ import {
   unlockCourse,
   unlockCourseLesson,
   getAuthorizedLessonContent,
+  resolveDriveDirectStreamUrl,
 } from "../services/courseService.js";
+import { extractGoogleDriveFileId } from "../../src/utils/videoSourceHelper.js";
 
 export const walletRouter = Router();
 
@@ -271,5 +273,27 @@ walletRouter.get("/courses/:courseId/lessons/:lessonId/content", requireAuth, as
     const msg = err.message || String(err);
     const status = msg.includes("trả phí") ? 403 : 400;
     return res.status(status).json({ error: "lesson_access_error", message: msg });
+  }
+});
+
+// GET /api/courses/:courseId/lessons/:lessonId/stream
+walletRouter.get("/courses/:courseId/lessons/:lessonId/stream", requireAuth, async (req: AuthenticatedRequest, res: Response) => {
+  try {
+    const lesson = await getAuthorizedLessonContent(
+      req.user!.uid,
+      req.params.courseId,
+      req.params.lessonId,
+      req.user!.role
+    );
+    const driveId = extractGoogleDriveFileId(lesson.videoUrl || "");
+    if (!driveId) {
+      return res.json({ success: true, streamUrl: null });
+    }
+    const streamUrl = await resolveDriveDirectStreamUrl(driveId);
+    return res.json({ success: true, streamUrl });
+  } catch (err: any) {
+    const msg = err.message || String(err);
+    const status = msg.includes("trả phí") ? 403 : 400;
+    return res.status(status).json({ error: "lesson_stream_error", message: msg });
   }
 });

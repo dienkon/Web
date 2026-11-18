@@ -1,5 +1,13 @@
 # DkTEST changelog
 
+## 1.9.7 — 2026-11-18 (Android versionCode 13)
+
+- **Fix triệt để lỗi hiển thị nút phát/tua & thanh điều khiển video trên điện thoại (`DkCourseVideoPlayer.tsx`, `server/services/courseService.ts`, `server/routes/walletRoutes.ts`, `src/services/courseService.ts`, `src/pages/student/CourseDetail.tsx`)**:
+  - **Phát luồng gốc (Native Stream) cho video Google Drive công khai**: Bổ sung endpoint xác thực `GET /api/courses/:courseId/lessons/:lessonId/stream` (qua `resolveDriveDirectStreamUrl`, kiểm soát SSRF nghiêm ngặt chỉ cho phép host Google Drive, hỗ trợ cả tệp `>100MB` có form xác nhận `download-form`, cache 15 phút) kết hợp `getAuthorizedLessonStreamUrl`. Khi Drive trả về luồng MP4/WebM hợp lệ, `DkCourseVideoPlayer` tự động phát bằng `<video>` chuẩn của DkTEST có đủ cụm chạm nhanh **`-10s / Play / +10s`**, thanh tua chạm rộng `h-6`, tốc độ phát `0.5x–2x`, toàn màn hình ngang và loại bỏ hoàn toàn khung điều khiển bị cắt của Google Drive (có cơ chế timeout `3.5s` / fallback tự động sang iframe Drive nếu tệp bị giới hạn quyền).
+  - **Khung co giãn `640×360` (Virtual Desktop Stage) cho mọi iframe fallback trên màn hình `< 640px`**: Khi video Drive hoặc nguồn ngoài rơi về chế độ `<iframe>`, không ép khung chiều cao cố định `h-[268px]` khiến trình phát Drive cắt mất cụm Play/Tua/Tốc độ/Toàn màn hình; thay vào đó giữ tỷ lệ `aspect-video`, dựng khung logic `640×360` và thu phóng tỷ lệ theo `ResizeObserver` trên mobile, đồng thời mở rộng khiên chặn nút mở tab ngoài `[↗]` thành `w-[124px] h-[96px]` theo tỷ lệ khung `640×360`.
+  - **Tinh gọn thanh điều khiển & toàn màn hình trên mobile**: Tự co kích thước nút/nhãn giờ (`px-2`, `text-[11px]`), đặt dropdown tốc độ/chất lượng `max-h-[116px] overflow-y-auto` để không tràn khỏi khung `aspect-video` trên màn hình dọc, và bổ sung chế độ **giả lập toàn màn hình (`isFallbackFullscreen`)** bằng CSS cố định khi `requestFullscreen()` không được trình duyệt/Android WebView hỗ trợ.
+- Audit: [1.9.7](docs/audits/1.9.7.md).
+
 ## 1.9.6 — 2026-11-18 (Android versionCode 12)
 
 - Nâng cấp toàn diện **Giao diện xem video Khóa học** (`CourseDetail.tsx`, `DkCourseVideoPlayer.tsx`, `StudentLayout.tsx`, `courseService.ts`) theo bố cục 2 cột trực quan (desktop) và ngăn xếp tối ưu thao tác một tay (mobile) với tông màu **trắng sáng chuẩn DkTEST** (`bg-white` / `bg-slate-50` / `blue-600`):
