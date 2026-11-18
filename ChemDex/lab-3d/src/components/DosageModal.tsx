@@ -6,13 +6,14 @@ import { NOMINAL_DROP_ML } from '../handling/doseTiming';
 import { liquidDosePlan } from '../handling/liquidDosePlan';
 
 interface InnerProps {
+  guidedAmount?: number;
   pendingDispense: {
     chemical: string;
     targetVesselId: string;
   };
 }
 
-function DosageModalDialog({ pendingDispense }: InnerProps) {
+function DosageModalDialog({ pendingDispense, guidedAmount }: InnerProps) {
   const setPendingDispense = useAppStore(state => state.setPendingDispense);
   const targetVessel = useAppStore(state => state.vessels[pendingDispense.targetVesselId]);
   const triggerPour = useAppStore(state => state.triggerPour);
@@ -26,7 +27,7 @@ function DosageModalDialog({ pendingDispense }: InnerProps) {
   const isIndicator = chemDef.category === 'indicator' || chemical === 'Phenolphthalein';
   // Smart default measurement values based on chemical physical state
   const defaultAmount = chemical === 'Na' ? 0.1 : isSolid ? 2.0 : (isIndicator ? 2 : 5);
-  const [amount, setAmount] = useState<number>(defaultAmount);
+  const [amount, setAmount] = useState<number>(guidedAmount ?? defaultAmount);
   const plannedVolume_ml = isIndicator ? amount * NOMINAL_DROP_ML : amount;
   const dosePlan = liquidDosePlan(isSolid ? 0 : plannedVolume_ml);
 
@@ -58,6 +59,7 @@ function DosageModalDialog({ pendingDispense }: InnerProps) {
   // Handle keyboard shortcuts (Enter to confirm, Escape to cancel)
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
+      if (document.querySelector('[data-lab-tour-active]')) return;
       if (e.key === 'Escape') {
         setPendingDispense(null);
       } else if (e.key === 'Enter') {
@@ -74,11 +76,11 @@ function DosageModalDialog({ pendingDispense }: InnerProps) {
   }
 
   return (
-    <div 
+    <div data-tour="dose-backdrop"
       className="fixed inset-0 z-50 flex items-center justify-center bg-slate-950/65 backdrop-blur-xs p-4 animate-in fade-in duration-150"
       onClick={() => setPendingDispense(null)}
     >
-      <div 
+      <div data-tour="dose-dialog" data-dose-amount={amount}
         className="w-full max-w-sm bg-white rounded-2xl shadow-2xl border border-slate-200 overflow-hidden animate-in zoom-in-95 duration-150"
         onClick={e => e.stopPropagation()}
       >
@@ -295,6 +297,8 @@ function DosageModalDialog({ pendingDispense }: InnerProps) {
                 {[0.25, 0.5, 1, 2, 5, 10, 20].map(val => (
                   <button
                     key={val}
+                    data-tour={val === 10 ? 'dose-10ml' : undefined}
+                    aria-pressed={amount === val}
                     type="button"
                     onClick={() => setAmount(val)}
                     className={`flex-1 py-1.5 rounded-lg text-xs font-bold transition-all ${
@@ -322,6 +326,7 @@ function DosageModalDialog({ pendingDispense }: InnerProps) {
             <button
               type="button"
               onClick={handleConfirm}
+              data-tour="dose-confirm"
               className={`flex-2 flex items-center justify-center gap-2 py-2.5 rounded-xl text-white text-xs font-bold shadow-md transition-all ${
                 isSolid 
                   ? 'bg-emerald-600 hover:bg-emerald-700 shadow-emerald-600/20' 
@@ -348,11 +353,11 @@ function DosageModalDialog({ pendingDispense }: InnerProps) {
   );
 }
 
-export function DosageModal() {
+export function DosageModal({ guidedAmount }: { guidedAmount?: number }) {
   const pendingDispense = useAppStore(state => state.pendingDispense);
   
   if (!pendingDispense) return null;
 
-  return <DosageModalDialog pendingDispense={pendingDispense} />;
+  return <DosageModalDialog pendingDispense={pendingDispense} guidedAmount={guidedAmount} />;
 }
 

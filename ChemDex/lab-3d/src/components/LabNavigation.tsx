@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { Beaker, ChevronDown, FlaskConical, HelpCircle, Info, Layers, Move, Wand2 } from 'lucide-react';
 import { useAppStore } from '../store/useAppStore';
+import { LAB_TOUR_STEPS } from '../data/labTour';
 
 /** One corner launcher keeps the surrounding ChemDex navigation off the bench. */
 export function LabNavigation({ workspace, onWorkspaceChange, onOpenGuide, guideStep }: {
@@ -55,17 +56,19 @@ export function LabNavigation({ workspace, onWorkspaceChange, onOpenGuide, guide
     </div>
     {workspace === 'manual' && <div className="ml-auto flex shrink-0 gap-1">
       <button onClick={() => togglePanel('left')} aria-expanded={leftOpen} aria-controls="lab-left-panel"
+        data-tour="catalog-toggle"
         aria-label={t('Chemical and equipment catalog', 'Kho hóa chất và dụng cụ')}
         title={t('Chemical and equipment catalog', 'Kho hóa chất và dụng cụ')}
         className={`lab-panel-toggle ${leftOpen ? 'lab-nav-tab-active' : ''}`}><Beaker size={17} /><span className="hidden md:inline">{t('Catalog', 'Hóa chất')}</span></button>
       <button onClick={() => togglePanel('right')} aria-expanded={rightOpen} aria-controls="lab-right-panel"
+        data-tour="inspect-toggle"
         aria-label={t('Vessel and reactions', 'Thông tin bình và phản ứng')}
         title={t('Vessel and reactions', 'Thông tin bình và phản ứng')}
         className={`lab-panel-toggle ${rightOpen ? 'lab-nav-tab-active' : ''}`}><Info size={17} /><span className="hidden md:inline">{t('Inspect', 'Quan sát')}</span></button>
     </div>}
     <button onClick={onOpenGuide} className={`lab-panel-toggle ${workspace === 'auto' ? 'ml-auto' : ''}`}
       aria-label={t('Open getting-started guide', 'Mở hướng dẫn người mới')}
-      title={guideStep ? t(`Continue guide · Step ${guideStep}/8`, `Tiếp tục hướng dẫn · Bước ${guideStep}/8`) : t('Review getting-started guide', 'Xem lại hướng dẫn người mới')}>
+      title={guideStep ? t(`Continue guide · Step ${guideStep}/${LAB_TOUR_STEPS.length}`, `Tiếp tục hướng dẫn · Bước ${guideStep}/${LAB_TOUR_STEPS.length}`) : t('Review getting-started guide', 'Xem lại hướng dẫn người mới')}>
       <HelpCircle size={17} /><span className="hidden lg:inline">{t('Guide', 'Hướng dẫn')}</span>
     </button>
   </nav>;

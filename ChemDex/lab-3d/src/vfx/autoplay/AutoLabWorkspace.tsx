@@ -60,7 +60,7 @@ function Playback({ experiment: e, restart, next, playlist, setPlaylist }: {
 }) {
   useReadout();
   return <div className="lab-auto-playback pointer-events-none relative z-10 shrink-0 bg-[#091321] px-3 pb-3 pt-2 sm:px-5 sm:pb-5"
-    data-auto-phase={e.phase} data-auto-program={e.id} data-auto-elapsed={e.elapsed.toFixed(3)} data-auto-donor={e.donorIndex}
+    data-auto-phase={e.phase} data-auto-program={e.id} data-auto-paused={String(e.paused)} data-auto-elapsed={e.elapsed.toFixed(3)} data-auto-donor={e.donorIndex}
     data-auto-clouds={[...e.clouds.clouds.values()].reduce((n, c) => n + c.system.particles.length, 0)}>
     <div className="mx-auto max-w-3xl space-y-2">
       <div tabIndex={0} aria-label="Thông báo thí nghiệm" className="lab-auto-caption pointer-events-auto max-h-[min(6rem,20dvh)] overflow-y-auto overscroll-contain break-words rounded-xl border border-white/10 bg-slate-950/85 p-3 text-white">
@@ -69,7 +69,7 @@ function Playback({ experiment: e, restart, next, playlist, setPlaylist }: {
       </div>
       <div className="pointer-events-auto flex flex-wrap items-center justify-between gap-2 rounded-xl border border-white/10 bg-slate-900/95 p-2 text-white">
         <div className="flex items-center gap-1">
-          <button aria-label={e.paused ? 'Tiếp tục tự động' : 'Tạm dừng tự động'} className="rounded-lg bg-cyan-300 p-2.5 text-slate-950 hover:bg-cyan-200" onClick={() => { e.paused = !e.paused; }}>{e.paused ? <Play size={17} /> : <Pause size={17} />}</button>
+          <button data-tour="auto-pause" aria-label={e.paused ? 'Tiếp tục tự động' : 'Tạm dừng tự động'} className="rounded-lg bg-cyan-300 p-2.5 text-slate-950 hover:bg-cyan-200" onClick={() => { e.paused = !e.paused; }}>{e.paused ? <Play size={17} /> : <Pause size={17} />}</button>
           <button aria-label="Làm lại thí nghiệm" title="Dọn bàn và làm lại" className="rounded-lg p-2 hover:bg-white/10" onClick={restart}><RotateCcw size={16} /></button>
           <button aria-label="Thí nghiệm tiếp theo" title="Dọn bàn và chạy bài kế tiếp" className="rounded-lg p-2 hover:bg-white/10" onClick={next}><SkipForward size={17} /></button>
           <select aria-label="Tốc độ tự động" className="rounded-lg border border-white/10 bg-slate-800 p-1.5 text-xs" value={e.speed} onChange={event => { e.speed = Number(event.target.value); }}>
@@ -83,6 +83,7 @@ function Playback({ experiment: e, restart, next, playlist, setPlaylist }: {
           </select>
         </label>
         <div className="flex flex-wrap items-center gap-1">{(['wide', 'transfer', 'close', 'surface'] as const).map((view, i) => <button key={view}
+          data-tour={view === 'close' ? 'auto-closeup' : undefined} aria-pressed={e.camera === view && e.automaticCamera}
           aria-label={['Góc toàn cảnh', 'Góc rót chất', 'Góc cận cảnh', 'Góc mặt dịch'][i]}
           className={`rounded-lg px-2 py-1.5 text-[10px] ${e.camera === view && e.automaticCamera ? 'bg-white/15 text-cyan-200' : 'text-slate-400 hover:bg-white/10'}`}
           onClick={() => { e.camera = view; e.automaticCamera = true; }}>{['Toàn cảnh', 'Rót chất', 'Cận cảnh', 'Mặt dịch'][i]}</button>)}
@@ -165,10 +166,10 @@ export default function AutoLabWorkspace({ onExit }: { onExit: () => void }) {
         </div>
       </div>}
       <div className="absolute right-3 top-3 z-20 flex items-center gap-1 rounded-xl border border-white/10 bg-slate-950/75 p-1 text-slate-200 shadow-lg backdrop-blur-sm">
-        <button aria-expanded={leftOpen} aria-controls="lab-left-panel" aria-label={leftOpen ? 'Ẩn danh mục tự động' : 'Hiện danh mục tự động'} title={leftOpen ? 'Ẩn kho phản ứng' : 'Mở kho phản ứng'} onClick={toggleLeft} className={`rounded-lg p-2 hover:bg-white/10 ${leftOpen ? 'bg-white/15 text-cyan-200' : ''}`}>
+        <button data-tour="auto-catalog-toggle" aria-expanded={leftOpen} aria-controls="lab-left-panel" aria-label={leftOpen ? 'Ẩn danh mục tự động' : 'Hiện danh mục tự động'} title={leftOpen ? 'Ẩn kho phản ứng' : 'Mở kho phản ứng'} onClick={toggleLeft} className={`rounded-lg p-2 hover:bg-white/10 ${leftOpen ? 'bg-white/15 text-cyan-200' : ''}`}>
           {leftOpen ? <ChevronLeft size={16} /> : <Search size={16} />}
         </button>
-        <button aria-expanded={rightOpen} aria-controls="lab-right-panel" aria-label={rightOpen ? 'Ẩn trình tự tự động' : 'Hiện trình tự tự động'} title={rightOpen ? 'Ẩn trình tự & quan sát' : 'Mở trình tự & quan sát'} onClick={toggleRight} className={`rounded-lg p-2 hover:bg-white/10 ${rightOpen ? 'bg-white/15 text-cyan-200' : ''}`}>
+        <button data-tour="auto-timeline-toggle" aria-expanded={rightOpen} aria-controls="lab-right-panel" aria-label={rightOpen ? 'Ẩn trình tự tự động' : 'Hiện trình tự tự động'} title={rightOpen ? 'Ẩn trình tự & quan sát' : 'Mở trình tự & quan sát'} onClick={toggleRight} className={`rounded-lg p-2 hover:bg-white/10 ${rightOpen ? 'bg-white/15 text-cyan-200' : ''}`}>
           {rightOpen ? <ChevronRight size={16} /> : <Film size={16} />}
         </button>
         <button aria-label="Toàn màn hình bàn tự động" title="Toàn màn hình" className="rounded-lg p-2 hover:bg-white/10" onClick={() => {

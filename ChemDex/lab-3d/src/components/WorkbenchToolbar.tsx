@@ -93,6 +93,7 @@ export function WorkbenchToolbar() {
     <button onClick={() => setMoveMode(!moveMode)} aria-pressed={moveMode} className={`${button} ${moveMode ? 'lab-control-active' : ''}`}
       aria-label={t('Move equipment', 'Di chuyển dụng cụ')} title={t('Move equipment', 'Di chuyển dụng cụ')}><Move size={15} /><span className="hidden md:inline">{t('Move', 'Di chuyển')}</span></button>
     <button onClick={() => selectedVesselId && toggleLockVessel(selectedVesselId)} disabled={!selectedVessel}
+      data-tour="vessel-lock"
       aria-pressed={!!selectedVessel?.isLocked}
       aria-label={selectedVessel?.isLocked ? t('Unlock selected vessel', 'Mở khóa bình đang chọn') : t('Lock selected vessel', 'Khóa bình đang chọn')}
       title={!selectedVessel ? t('Select a vessel to lock its position', 'Chọn bình để khóa vị trí')
@@ -103,6 +104,7 @@ export function WorkbenchToolbar() {
     </button>
     <div className="ml-auto flex shrink-0 items-center gap-1">
       <button onClick={() => setSimulationPaused(!isSimulationPaused)} className={`${button} ${isSimulationPaused ? 'bg-amber-100 text-amber-800' : ''}`}
+        data-tour="simulation-pause"
         aria-label={isSimulationPaused ? t('Resume simulation', 'Tiếp tục phản ứng') : t('Pause simulation', 'Tạm dừng phản ứng')}
         title={isSimulationPaused ? t('Resume simulation', 'Tiếp tục phản ứng') : t('Pause simulation', 'Tạm dừng phản ứng')}>
         {isSimulationPaused ? <Play size={15} /> : <Pause size={15} />}

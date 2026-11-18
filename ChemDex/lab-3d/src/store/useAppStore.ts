@@ -475,7 +475,7 @@ export interface AppState {
   vessels: Record<string, VesselState>;
   vesselIds: string[];
   setVesselState: (id: string, state: Partial<VesselState>, inventoryChange?: 'withdrawal') => void;
-  addVessel: (type: VesselType, name?: string) => void;
+  addVessel: (type: VesselType, name?: string, preferredPosition?: readonly number[]) => void;
   duplicateVessel: (id: string) => void;
   removeVessel: (id: string) => void;
   toggleLockVessel: (id: string) => void;
@@ -2805,7 +2805,7 @@ export const useAppStore = create<AppState>((set, get) => {
       });
     },
 
-    addVessel: (type, customName) => {
+    addVessel: (type, customName, preferredPosition) => {
       const id = `${type}_${Date.now()}_${Math.random().toString(36).slice(2, 7)}`;
       const name = customName || `${
         type === 'beaker' ? 'Beaker' : 
@@ -2845,7 +2845,7 @@ export const useAppStore = create<AppState>((set, get) => {
         50;
       
       set(s => {
-        const position = findBenchPosition(type, capacity_ml, currentBenchObstacles(s));
+        const position = findBenchPosition(type, capacity_ml, currentBenchObstacles(s), preferredPosition);
         if (!position) return { globalWarning: BENCH_FULL };
         const isWashBottle = type === 'wash_bottle';
         const newVessel: VesselState = {

@@ -7,10 +7,17 @@ import { useAppStore } from '../../store/useAppStore';
 import { getLessonDefinition } from '../../lesson/catalog';
 import { setTheaterActive } from '../../render/theaterActivity';
 import { ErrorBoundary } from '../../components/ErrorBoundary';
+import { useLabTour } from '../../store/useLabTour';
+import { LAB_TOUR_STEPS } from '../../data/labTour';
 
 const recommended = ['cu_hno3_conc', 'nh3_hcl', 'h2o2_mno2', 'cuso4_naoh', 'pbno32_ki', 'golden_rain', 'fe_cuso4', 'mg_o2_burn', 'thiosulfate_acid_clock'];
 export function AutoExperimentCatalog({ onStart, activeId }: { onStart: (id: string, button?: HTMLButtonElement) => void; activeId?: string }) {
   const [query, setQuery] = useState(''), [category, setCategory] = useState('all');
+  const tourStep = useLabTour(state => state.active ? LAB_TOUR_STEPS[state.index].id : null);
+  useEffect(() => {
+    if (tourStep === 'auto-search') { setQuery(''); setCategory('all'); }
+    if (tourStep === 'auto-reaction') { setQuery('CuSO4'); setCategory('all'); }
+  }, [tourStep]);
   const start = onStart;
   const matches = React.useMemo(() => AUTO_EXPERIMENTS.filter(e => (category === 'all' || e.category === category)
     && `${e.title} ${e.program.chemistry.equation} ${e.program.explain.observation_vi}`.toLocaleLowerCase('vi').includes(query.toLocaleLowerCase('vi'))), [query, category]);
@@ -22,9 +29,9 @@ export function AutoExperimentCatalog({ onStart, activeId }: { onStart: (id: str
     </div>
     <div className="flex flex-wrap gap-1.5">{recommended.map(id => {
       const entry = AUTO_EXPERIMENTS.find(e => e.id === id); if (!entry) return null;
-      return <button key={id} onClick={event => start(id, event.currentTarget)} className="rounded-full border border-cyan-200 bg-cyan-50 px-2 py-1 text-[10px] text-cyan-900 hover:bg-cyan-100">{entry.title}</button>;
+      return <button key={id} data-tour-reaction={id} onClick={event => start(id, event.currentTarget)} className="rounded-full border border-cyan-200 bg-cyan-50 px-2 py-1 text-[10px] text-cyan-900 hover:bg-cyan-100">{entry.title}</button>;
     })}</div>
-    <label className="flex items-center gap-2 rounded-lg border bg-white p-2"><Search size={14} /><input aria-label="Tìm thí nghiệm tự động" className="min-w-0 flex-1 outline-none" placeholder="Tên, công thức, hiện tượng…" value={query} onChange={e => setQuery(e.target.value)} /></label>
+    <label className="flex items-center gap-2 rounded-lg border bg-white p-2"><Search size={14} /><input data-tour="auto-search" aria-label="Tìm thí nghiệm tự động" className="min-w-0 flex-1 outline-none" placeholder="Tên, công thức, hiện tượng…" value={query} onChange={e => setQuery(e.target.value)} /></label>
     <select aria-label="Nhóm thí nghiệm tự động" className="w-full rounded-lg border bg-white p-2" value={category} onChange={e => setCategory(e.target.value)}>
       <option value="all">Tất cả {AUTO_EXPERIMENTS.length} thí nghiệm của hệ thống</option>
       {[...new Set(AUTO_EXPERIMENTS.map(e => e.category))].map(c => <option key={c}>{c}</option>)}

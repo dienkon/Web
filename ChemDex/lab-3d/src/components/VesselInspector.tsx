@@ -246,7 +246,7 @@ export function VesselInspector() {
       )}
 
       {/* Realtime Metrics & Gauge */}
-      <div className="grid grid-cols-2 gap-2">
+      <div data-tour="vessel-measurements" className="grid grid-cols-2 gap-2">
         {/* Volume Fill */}
         <div className="bg-slate-50 p-2.5 rounded-xl border border-slate-200/80 flex flex-col justify-between">
           <div className="flex items-center justify-between text-[11px] text-slate-500 font-medium">

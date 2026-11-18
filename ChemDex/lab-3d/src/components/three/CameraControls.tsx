@@ -4,6 +4,7 @@ import { OrbitControls } from '@react-three/drei';
 import type { OrbitControls as OrbitControlsImpl } from 'three-stdlib';
 import * as THREE from 'three';
 import { useAppStore } from '../../store/useAppStore';
+import { useLabTour } from '../../store/useLabTour';
 import { vfxBus } from '../../vfx/bus';
 import { useToolDockStore } from '../../handling/toolDock';
 import { simulationFrameDt } from '../../core/clock';
@@ -51,6 +52,7 @@ export const CameraControls = React.memo(function CameraControls({
 
   const cameraPreset = useAppStore(state => state.cameraPreset);
   const cameraFocusPosition = useAppStore(state => state.cameraFocusPosition);
+  const tourFocus = useLabTour(state => state.active && !!state.vesselId);
   const isDraggingVessel = useAppStore(state => !!state.draggingVesselId);
   const isDraggingTool = useToolDockStore(state => state.dragging !== null);
   const cameraPanMode = useAppStore(state => state.cameraPanMode);
@@ -97,7 +99,7 @@ export const CameraControls = React.memo(function CameraControls({
     if (cameraFocusPosition) {
       targetLookAt.current.set(cameraFocusPosition[0], cameraFocusPosition[1] + 0.4, cameraFocusPosition[2]);
       targetCamPos.current.set(
-        cameraFocusPosition[0],
+        cameraFocusPosition[0] + (tourFocus ? 2.8 : 0),
         cameraFocusPosition[1] + 3.0,
         cameraFocusPosition[2] + 5.5
       );
@@ -127,7 +129,7 @@ export const CameraControls = React.memo(function CameraControls({
         targetLookAt.current.set(0, 0, 0);
         break;
     }
-  }, [cameraPreset, cameraFocusPosition]);
+  }, [cameraPreset, cameraFocusPosition, tourFocus]);
 
   // Remove only the viewport overlay before OrbitControls updates at priority -1.
   useFrame(() => shakeProjection.current.restore(camera), -2);

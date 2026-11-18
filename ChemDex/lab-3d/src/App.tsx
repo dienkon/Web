@@ -4,6 +4,9 @@ import { useAppStore, CHEMICALS, getChemical } from './store/useAppStore';
 import { WorkbenchToolbar } from './components/WorkbenchToolbar';
 import { LabNavigation } from './components/LabNavigation';
 import { LabOnboarding, useLabOnboarding } from './components/LabOnboarding';
+import { LabTour } from './components/LabTour';
+import { useLabTour } from './store/useLabTour';
+import { LAB_TOUR_STEPS } from './data/labTour';
 import type { GuideDestination } from './data/labOnboarding';
 import { MeasurementHUD } from './components/MeasurementHUD';
 import { VesselInspector } from './components/VesselInspector';
@@ -36,7 +39,7 @@ import {
 
 type CatalogTab = 'chemicals' | 'instruments' | 'experiments' | 'safety';
 
-function LeftSidebar({ activeTab, setActiveTab }: { activeTab: CatalogTab; setActiveTab: (tab: CatalogTab) => void }) {
+function LeftSidebar({ activeTab, setActiveTab, guidedStep }: { activeTab: CatalogTab; setActiveTab: (tab: CatalogTab) => void; guidedStep?: string }) {
   const leftSidebarOpen = useAppStore(state => state.leftSidebarOpen);
   const language = useAppStore(state => state.language);
   const addVessel = useAppStore(state => state.addVessel);
@@ -44,6 +47,11 @@ function LeftSidebar({ activeTab, setActiveTab }: { activeTab: CatalogTab; setAc
   const [search, setSearch] = useState('');
   const [equipSearch, setEquipSearch] = useState('');
   const [filterType, setFilterType] = useState<'all' | 'liquid' | 'solid' | 'indicator'>('all');
+  useEffect(() => {
+    if (guidedStep === 'add-beaker') setEquipSearch('');
+    if (guidedStep === 'search-water') { setSearch(''); setFilterType('all'); }
+    if (guidedStep === 'choose-water') { setSearch('H2O'); setFilterType('all'); }
+  }, [guidedStep]);
 
   const t = (en: string, vi: string) => language === 'en' ? en : vi;
 
@@ -72,6 +80,7 @@ function LeftSidebar({ activeTab, setActiveTab }: { activeTab: CatalogTab; setAc
       {/* Sidebar Tabs */}
       <div className="flex items-center border-b border-slate-200 bg-slate-50/50">
         <button
+          data-tour="chemicals-tab"
           onClick={() => setActiveTab('chemicals')}
           className={`flex-1 py-2.5 text-[11px] font-bold uppercase tracking-wider transition-colors ${
             activeTab === 'chemicals' ? 'bg-white text-blue-600 border-b-2 border-blue-600' : 'text-slate-500 hover:bg-slate-100'
@@ -80,6 +89,7 @@ function LeftSidebar({ activeTab, setActiveTab }: { activeTab: CatalogTab; setAc
           {t('Chemicals', 'Hóa chất')}
         </button>
         <button
+          data-tour="equipment-tab"
           onClick={() => setActiveTab('instruments')}
           className={`flex-1 py-2.5 text-[11px] font-bold uppercase tracking-wider transition-colors ${
             activeTab === 'instruments' ? 'bg-white text-blue-600 border-b-2 border-blue-600' : 'text-slate-500 hover:bg-slate-100'
@@ -88,6 +98,7 @@ function LeftSidebar({ activeTab, setActiveTab }: { activeTab: CatalogTab; setAc
           {t('Equipment', 'Dụng cụ')}
         </button>
         <button
+          data-tour="lessons-tab"
           onClick={() => setActiveTab('experiments')}
           className={`flex-1 py-2.5 text-[11px] font-bold uppercase tracking-wider transition-colors ${
             activeTab === 'experiments' ? 'bg-white text-blue-600 border-b-2 border-blue-600' : 'text-slate-500 hover:bg-slate-100'
@@ -120,6 +131,7 @@ function LeftSidebar({ activeTab, setActiveTab }: { activeTab: CatalogTab; setAc
             <div className="relative">
               <Search size={13} className="absolute left-2.5 top-2.5 text-slate-400" />
               <input
+                data-tour="chemical-search"
                 type="text"
                 placeholder={t('Search chemical...', 'Tìm hóa chất...')}
                 value={search}
@@ -152,6 +164,9 @@ function LeftSidebar({ activeTab, setActiveTab }: { activeTab: CatalogTab; setAc
             {filteredChemicals.map((chem, idx) => (
               <div
                 key={`${chem.formula}_${idx}`}
+                data-tour={`chemical-${chem.formula}`}
+                role="button" tabIndex={0}
+                onKeyDown={event => { if (event.key === 'Enter' || event.key === ' ') { event.preventDefault(); event.currentTarget.click(); } }}
                 draggable={!isMixing}
                 onDragStart={(e) => {
                   if (isMixing) {
@@ -303,7 +318,9 @@ function LeftSidebar({ activeTab, setActiveTab }: { activeTab: CatalogTab; setAc
             useAppStore.getState().setCameraPreset('front');
             useAppStore.getState().setRightSidebarOpen(true);
           } else {
-            addVessel(item.type, language === 'en' ? item.name_en : item.name_vi);
+            const tour = useLabTour.getState();
+            const practising = tour.active && LAB_TOUR_STEPS[tour.index].id === 'add-beaker' && item.type === 'beaker';
+            addVessel(item.type, language === 'en' ? item.name_en : item.name_vi, practising ? [0, 0, 4] : undefined);
           }
         };
 
@@ -347,6 +364,7 @@ function LeftSidebar({ activeTab, setActiveTab }: { activeTab: CatalogTab; setAc
                       {visibleItems.map(item => (
                         <button
                           key={item.type}
+                          data-tour={item.type === 'beaker' ? 'add-beaker' : undefined}
                           onClick={() => handleEquipClick(item)}
                           className="flex flex-col items-center justify-center p-2.5 bg-white border border-slate-200/80 rounded-xl hover:bg-blue-50 hover:border-blue-300 hover:shadow-xs transition-all group relative text-center"
                           title={language === 'en' ? item.name_en : item.name_vi}
@@ -603,7 +621,11 @@ export default function App() {
   const [workspace, setWorkspace] = useState<'manual' | 'auto'>(() => new URLSearchParams(window.location.search).get('mode') === 'auto' ? 'auto' : 'manual');
   const [catalogTab, setCatalogTab] = useState<CatalogTab>(() => new URLSearchParams(window.location.search).has('experiment') ? 'experiments' : 'chemicals');
   const [guideDestination, setGuideDestination] = useState<GuideDestination | null>(null);
-  const guide = useLabOnboarding(!isDev && !useAppStore.getState().isPresentationMode);
+  const guide = useLabOnboarding(false);
+  const tourActive = useLabTour(state => state.active);
+  const tourIndex = useLabTour(state => state.index);
+  const tourStep = LAB_TOUR_STEPS[tourIndex].id;
+  useEffect(() => { useLabTour.getState().initialize(!isDev && !useAppStore.getState().isPresentationMode); }, []);
   const changeWorkspace = (mode: 'manual' | 'auto') => {
     setWorkspace(mode);
     const url = new URL(window.location.href);
@@ -683,9 +705,11 @@ export default function App() {
       <Toast />
 
       {/* Chemical Measurement, Litmus Paper & Student Lab Report Dialogs */}
-      {workspace === 'manual' && <><DosageModal /><LitmusTestModal /><LabReportModal /></>}
+      {workspace === 'manual' && <><DosageModal guidedAmount={tourActive && tourStep === 'confirm-water' ? 10 : undefined} /><LitmusTestModal /><LabReportModal /></>}
 
-      {!isPresentationMode && <LabNavigation workspace={workspace} onWorkspaceChange={changeWorkspace} onOpenGuide={guide.show} guideStep={guide.completed ? undefined : guide.step + 1} />}
+      {!isPresentationMode && <LabNavigation workspace={workspace} onWorkspaceChange={changeWorkspace} onOpenGuide={() => useLabTour.getState().start()} guideStep={useLabTour.getState().completed ? undefined : tourIndex + 1} />}
+
+      <LabTour visible={!guide.open} workspace={workspace} catalogTab={catalogTab} onWorkspaceChange={changeWorkspace} onCatalogTabChange={setCatalogTab} onReference={guide.show} />
 
       {guide.open && <LabOnboarding guide={guide} language={language} onLanguageChange={useAppStore.getState().setLanguage} onPractice={practiceGuideStep} />}
 
@@ -697,7 +721,7 @@ export default function App() {
       <div id="manual-lab" role="tabpanel" aria-labelledby="manual-lab-tab" className="flex flex-1 min-h-0 overflow-hidden relative">
         {(leftSidebarOpen || rightSidebarOpen) && <button className="lab-sidebar-backdrop" aria-label={t('Close panels', 'Đóng các bảng')}
           onClick={() => useAppStore.setState({ leftSidebarOpen: false, rightSidebarOpen: false })} />}
-        <LeftSidebar activeTab={catalogTab} setActiveTab={setCatalogTab} />
+        <LeftSidebar activeTab={catalogTab} setActiveTab={setCatalogTab} guidedStep={tourActive ? tourStep : undefined} />
 
         {/* 3D Interactive Workbench Viewport */}
         <main

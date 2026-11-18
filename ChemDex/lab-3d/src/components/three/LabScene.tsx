@@ -19,6 +19,7 @@ import { AddingAnimation, VesselPourAnimation } from './PouringBottle';
 import { SodiumDoseAnimation } from './SodiumDoseAnimation';
 import { PerformanceHUD } from './PerformanceHUD';
 import { CameraControls } from './CameraControls';
+import { TourVesselFocus } from './TourVesselFocus';
 import { InteractivePipette } from './interactions/InteractivePipette';
 import { InteractiveStirringRod } from './interactions/InteractiveStirringRod';
 import { InteractiveThermometer } from './interactions/InteractiveThermometer';
@@ -1017,6 +1018,7 @@ export function LabScene() {
           enablePan={true} 
         />
         <DragDropRaycaster />
+        <TourVesselFocus />
         <SimulationTicker />
         <LessonScene />
         <FrameTelemetry />

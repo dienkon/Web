@@ -21,9 +21,11 @@ View your app in AI Studio: https://ai.studio/apps/615b7b6b-733d-472b-ae02-99247
 
 ## Giao diện gọn và thao tác trực tiếp
 
-Lần đầu vào lab, **Hướng dẫn người mới** tự mở với 8 bước: chọn chế độ, thêm dụng cụ, đong hóa chất, quan sát, cầm/rót, bài học, thí nghiệm tự động và xử lý vướng mắc. Dùng các nút **Thử…** để mở đúng bảng thực hành; nút **Hướng dẫn** (biểu tượng dấu hỏi ở thanh đầu trang) cho phép tiếp tục hoặc xem lại. Tiến độ và trạng thái hoàn tất được lưu riêng trên trình duyệt, kể cả khi tạm đóng rồi tải lại trang. Hướng dẫn hỗ trợ tiếng Việt, English, bàn phím và màn hình điện thoại.
+Lần đầu vào lab, **Hướng dẫn tương tác** tự mở với 31 bước nhỏ ngay trên giao diện thật. Mỗi bước phóng nổi nút/ô nhập hoặc đưa camera gần cốc 3D, khoanh vùng sáng, có mũi tên chỉ dẫn và làm mờ vùng còn lại. Người dùng tự thêm cốc rỗng, chọn cốc, tìm H2O, đong và xác nhận 10 mL, đọc số liệu, thử khóa/tạm dừng, mở bài học và điều khiển một bài mẫu tự động. Các bước thao tác chỉ tự chuyển sau khi hành động được kiểm tra; nút tiếp tục không cho bỏ qua yêu cầu.
 
-Khi server đang chạy, dùng `node scripts/auditOnboardingBrowser.mjs` để kiểm tra luồng nhập môn, bài tập 10 mL nước, chuyển chế độ, lưu tiến độ, phím tắt và giao diện 320 px. Kết quả và ảnh nằm trong `artifacts/onboarding`; có thể đổi địa chỉ server bằng `LAB_AUDIT_ORIGIN` và thư mục kết quả bằng `LAB_AUDIT_OUTPUT`.
+Nút **Hướng dẫn** ở đầu trang cho phép tiếp tục hoặc bắt đầu lại sau khi hoàn tất. `Esc` hoặc dấu × tạm dừng tour và lưu tiến độ trên trình duyệt. Nếu cốc thực hành đã mất khi mở lại, tour quay về bước thêm cốc; nếu bài tự động chưa được khôi phục, tour quay lại bước chọn phản ứng. Biểu tượng sách trong thẻ hướng dẫn mở tài liệu giải thích 8 chủ đề. Tour hỗ trợ Việt/Anh, bàn phím và điện thoại; thẻ hướng dẫn nằm riêng phía dưới màn hình nhỏ để vùng thao tác vẫn dùng được.
+
+Khi server đang chạy, dùng `node scripts/auditOnboardingBrowser.mjs` để thực hiện toàn bộ tour trên desktop và điện thoại bằng nút/ô nhập thật, kiểm tra 10 mL nước thực nhận, làm mờ, vị trí thẻ hướng dẫn, lưu/tiếp tục và mở lại tài liệu. Kết quả và ảnh nằm trong `artifacts/interactive-onboarding`; có thể đổi địa chỉ server bằng `LAB_AUDIT_ORIGIN` và thư mục kết quả bằng `LAB_AUDIT_OUTPUT`.
 
 Menu **ChemDex** ở góc chứa điều hướng website. Mở kho bằng nút **Hóa chất**, thông tin bình bằng **Quan sát**; `Esc` đóng các bảng. **Dụng cụ & số đo** mở đũa khuấy, pipet, khăn lau và số đo. **Thiết lập** chứa góc nhìn, môi trường, âm thanh và công cụ nâng cao.
 
