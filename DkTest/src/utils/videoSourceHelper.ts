@@ -66,9 +66,9 @@ export function inferCourseVideoType(
   return fallback;
 }
 
-export const VIRTUAL_IFRAME_STAGE_WIDTH = 1024;
-export const VIRTUAL_IFRAME_STAGE_HEIGHT = 576;
-export const VIRTUAL_IFRAME_THRESHOLD_WIDTH = 900;
+export const VIRTUAL_IFRAME_STAGE_WIDTH = 800;
+export const VIRTUAL_IFRAME_STAGE_HEIGHT = 450;
+export const VIRTUAL_IFRAME_THRESHOLD_WIDTH = 800;
 
 /**
  * Computes the largest aspect-ratio-preserving pixel box that fits inside (availableWidth x availableHeight).

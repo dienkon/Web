@@ -325,7 +325,7 @@ describe("courseService pure access, hierarchy, masking & outline helpers", () =
 
       expect(VIRTUAL_IFRAME_STAGE_WIDTH / VIRTUAL_IFRAME_STAGE_HEIGHT).toBeCloseTo(16 / 9, 5);
       expect(computeFittedVideoBox(360, 760)).toEqual({ width: 360, height: 203 });
-      expect(computeFittedVideoBox(760, 360)).toEqual({ width: 640, height: 360 });
+      expect(computeFittedVideoBox(890, 412)).toEqual({ width: 732, height: 412 });
       expect(computeFittedVideoBox(1280, 720)).toEqual({ width: 1280, height: 720 });
 
       // Verify accurate watchedSecondsMap calculation overrides binary-only percentage

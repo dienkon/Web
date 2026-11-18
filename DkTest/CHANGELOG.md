@@ -1,5 +1,13 @@
 # DkTEST changelog
 
+## 1.9.11 — 2026-11-18 (Android versionCode 17)
+
+- **Tối ưu gọn nhẹ khung phát Google Drive chuẩn phong cách YouTube & tăng kích thước UI ngang (`DkCourseVideoPlayer.tsx`, `src/utils/videoSourceHelper.ts`, `src/services/courseService.test.ts`)**:
+  - **Loại bỏ hoàn toàn thanh footer `40px` phía dưới video**: Trả lại 100% chiều cao khung màn hình khi toàn màn hình ngang (`fsAvailH = viewportSize.height`) và giữ nguyên khung `aspect-video` gọn gàng khi xem nhúng inline.
+  - **Thu nhỏ khung ảo về `800×450` (tỷ lệ chuẩn 16:9, `VIRTUAL_IFRAME_THRESHOLD_WIDTH = 800`)**: Tăng độ lớn & độ rõ của thanh nút Drive hơn **~42% khi xoay ngang** (đạt ~`91.5%` kích thước thật trên màn hình điện thoại ngang `890×412` thay vì bị thu nhỏ xuống `0.64x` từ `1024×576`) và **~28% khi xem dọc**, vẫn đảm bảo chiều cao logic `450px` không bị cắt nút điều khiển.
+  - **Gom nút điều khiển Toàn màn hình / Xoay ngang thành cụm icon tối giản ở góc trên phải**: Hợp nhất nút icon **`Toàn màn hình / Thu nhỏ`** (`Maximize2`/`Minimize2`), nút icon **`Xoay ngang`** (`RotateCw`, chỉ hiện khi toàn màn hình đang dọc) và khiên tối che kín biểu tượng `[↗]` thành **một pill icon gọn nhẹ duy nhất** (`rounded-bl-xl bg-slate-950/85`), không chiếm diện tích chiều dọc và không che cụm nút phát/tốc độ của Drive.
+- Audit: [1.9.11](docs/audits/1.9.11.md).
+
 ## 1.9.10 — 2026-11-18 (Android versionCode 16)
 
 - **Fix triệt để lỗi tràn layout trên điện thoại ở đầu trang & khung video Google Drive (`DkCourseVideoPlayer.tsx`, `StudentLayout.tsx`, `CourseDetail.tsx`, `src/utils/videoSourceHelper.ts`)**:

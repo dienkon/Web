@@ -714,7 +714,7 @@ export default function DkCourseVideoPlayer({
     const isPortraitViewport = viewportSize.width < viewportSize.height;
     const activeRotate = isFullscreen && isRotatedLandscape && isPortraitViewport;
     const fsAvailW = Math.max(240, viewportSize.width);
-    const fsAvailH = Math.max(180, viewportSize.height - 40);
+    const fsAvailH = Math.max(180, viewportSize.height);
     const fittedFsBox = isFullscreen
       ? activeRotate
         ? computeFittedVideoBox(fsAvailH, fsAvailW)
@@ -729,130 +729,99 @@ export default function DkCourseVideoPlayer({
     return (
       <div
         ref={containerRef}
-        className={`relative w-full max-w-full bg-black overflow-hidden select-none flex flex-col ${
+        className={`relative w-full max-w-full bg-black overflow-hidden select-none flex items-center justify-center ${
           isFallbackFullscreen
             ? "fixed inset-0 z-[9995]"
             : isNativeFullscreen
             ? "h-full"
-            : ""
+            : "aspect-video"
         }`}
         onContextMenu={(e) => e.preventDefault()}
       >
         <div
-          className={
-            isFullscreen
-              ? "flex-1 min-h-0 w-full flex items-center justify-center overflow-hidden"
-              : "w-full overflow-hidden"
+          className={`relative bg-black overflow-hidden shrink-0 ${
+            isFullscreen ? "" : "w-full h-full"
+          }`}
+          style={
+            fittedFsBox
+              ? {
+                  width: `${fittedFsBox.width}px`,
+                  height: `${fittedFsBox.height}px`,
+                  ...(activeRotate
+                    ? { transform: "rotate(90deg)", transformOrigin: "center center" }
+                    : {}),
+                }
+              : undefined
           }
         >
           <div
-            className={`relative bg-black overflow-hidden shrink-0 ${
-              isFullscreen ? "" : "w-full aspect-video"
-            }`}
+            className={
+              useVirtualDesktopStage
+                ? "absolute top-0 left-0 origin-top-left overflow-hidden"
+                : "relative w-full h-full overflow-hidden"
+            }
             style={
-              fittedFsBox
+              useVirtualDesktopStage
                 ? {
-                    width: `${fittedFsBox.width}px`,
-                    height: `${fittedFsBox.height}px`,
-                    ...(activeRotate
-                      ? { transform: "rotate(90deg)", transformOrigin: "center center" }
-                      : {}),
+                    width: `${VIRTUAL_IFRAME_STAGE_WIDTH}px`,
+                    height: `${VIRTUAL_IFRAME_STAGE_HEIGHT}px`,
+                    transform: `scale(${iframeScale})`,
                   }
                 : undefined
             }
           >
-            <div
-              className={
-                useVirtualDesktopStage
-                  ? "absolute top-0 left-0 origin-top-left overflow-hidden"
-                  : "relative w-full h-full overflow-hidden"
-              }
-              style={
-                useVirtualDesktopStage
-                  ? {
-                      width: `${VIRTUAL_IFRAME_STAGE_WIDTH}px`,
-                      height: `${VIRTUAL_IFRAME_STAGE_HEIGHT}px`,
-                      transform: `scale(${iframeScale})`,
-                    }
+            <iframe
+              key={driveSrc}
+              src={driveSrc}
+              title={title}
+              referrerPolicy="strict-origin-when-cross-origin"
+              sandbox={
+                parsed.isDrive || parsed.kind === "iframe"
+                  ? "allow-scripts allow-same-origin allow-forms allow-presentation"
                   : undefined
               }
-            >
-              <iframe
-                key={driveSrc}
-                src={driveSrc}
-                title={title}
-                referrerPolicy="strict-origin-when-cross-origin"
-                sandbox={
-                  parsed.isDrive || parsed.kind === "iframe"
-                    ? "allow-scripts allow-same-origin allow-forms allow-presentation"
-                    : undefined
-                }
-                className="block w-full h-full border-0"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-              />
-              <div
-                role="presentation"
-                aria-label="Vùng được DkTEST bảo vệ"
-                onClick={blockPointerEvent}
-                onMouseDown={blockPointerEvent}
-                onPointerDown={blockPointerEvent}
-                onTouchStart={blockPointerEvent}
-                onDoubleClick={blockPointerEvent}
-                onContextMenu={blockPointerEvent}
-                className={`absolute top-0 right-0 z-20 rounded-bl-2xl bg-slate-950/95 text-blue-300/85 flex items-center justify-center cursor-default select-none pointer-events-auto border-b border-l border-white/10 ${
-                  useVirtualDesktopStage ? "w-[84px] h-[68px]" : "w-[78px] h-[60px]"
-                }`}
-              >
-                <ShieldCheck className={useVirtualDesktopStage ? "w-5 h-5 pointer-events-none" : "w-4 h-4 pointer-events-none"} />
-              </div>
-            </div>
+              className="block w-full h-full border-0"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            />
           </div>
-        </div>
 
-        {/* Dedicated DkTEST Fullscreen & Orientation Bar (prevents Drive's portrait overflow) */}
-        <div
-          className={`bg-slate-950 border-t border-white/10 px-2.5 sm:px-3 flex items-center justify-between gap-2 text-slate-200 text-[11px] font-bold shrink-0 ${
-            isFullscreen ? "h-10" : "h-9"
-          }`}
-        >
-          <span className="flex items-center gap-1.5 min-w-0 truncate text-slate-300">
-            <ShieldCheck className="w-3.5 h-3.5 text-blue-400 shrink-0" />
-            <span className="truncate">
-              {parsed.isDrive ? "Kho lưu Drive • Chế độ an toàn DkTEST" : "Trình phát an toàn DkTEST"}
-            </span>
-          </span>
-
-          <div className="flex items-center gap-1.5 shrink-0">
+          {/* Compact unified top-right YouTube-style icon pill + opaque [↗] pop-out blocker */}
+          <div className="absolute top-0 right-0 z-20 flex items-center rounded-bl-xl bg-slate-950/85 backdrop-blur-xs border-b border-l border-white/10">
             {isFullscreen && isPortraitViewport && (
               <button
                 type="button"
                 onClick={() => setIsRotatedLandscape((r) => !r)}
-                className="px-2.5 py-1 rounded-lg bg-white/15 hover:bg-white/25 text-white flex items-center gap-1 cursor-pointer transition-colors"
+                aria-label={activeRotate ? "Quay về màn hình dọc" : "Xoay ngang toàn màn hình"}
                 title={activeRotate ? "Quay về màn hình dọc" : "Xoay ngang toàn màn hình"}
+                className="w-8 h-8 sm:w-10 sm:h-12 flex items-center justify-center text-white/90 hover:text-blue-400 transition-colors cursor-pointer"
               >
-                <RotateCw className="w-3.5 h-3.5" />
-                <span>{activeRotate ? "Dọc" : "Xoay ngang"}</span>
+                <RotateCw className="w-4 h-4" />
               </button>
             )}
 
             <button
               type="button"
               onClick={() => void handleToggleFullscreen()}
-              className="px-2.5 py-1 rounded-lg bg-blue-600 hover:bg-blue-500 text-white flex items-center gap-1 cursor-pointer transition-colors"
-              title={isFullscreen ? "Thu nhỏ trình phát" : "Mở toàn màn hình ngang"}
+              aria-label={isFullscreen ? "Thu nhỏ trình phát" : "Mở toàn màn hình"}
+              title={isFullscreen ? "Thu nhỏ trình phát" : "Mở toàn màn hình"}
+              className="w-8 h-8 sm:w-10 sm:h-12 flex items-center justify-center text-white/95 hover:text-blue-400 transition-colors cursor-pointer"
             >
-              {isFullscreen ? (
-                <>
-                  <Minimize2 className="w-3.5 h-3.5" />
-                  <span>Thu nhỏ</span>
-                </>
-              ) : (
-                <>
-                  <Maximize2 className="w-3.5 h-3.5" />
-                  <span>Toàn màn hình</span>
-                </>
-              )}
+              {isFullscreen ? <Minimize2 className="w-4 h-4" /> : <Maximize2 className="w-4 h-4" />}
             </button>
+
+            <div
+              role="presentation"
+              aria-label="Vùng được DkTEST bảo vệ"
+              onClick={blockPointerEvent}
+              onMouseDown={blockPointerEvent}
+              onPointerDown={blockPointerEvent}
+              onTouchStart={blockPointerEvent}
+              onDoubleClick={blockPointerEvent}
+              onContextMenu={blockPointerEvent}
+              className="w-9 h-8 sm:w-12 sm:h-12 flex items-center justify-center text-blue-300/80 cursor-default select-none pointer-events-auto"
+            >
+              <ShieldCheck className="w-3.5 h-3.5 sm:w-4 sm:h-4 pointer-events-none" />
+            </div>
           </div>
         </div>
       </div>
