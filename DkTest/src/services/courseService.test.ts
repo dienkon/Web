@@ -10,6 +10,7 @@ import {
   getCourseGuideStorageKey,
   inferCourseVideoType,
   isCloudinaryVideoUrl,
+  isCoursePlayerTheaterUrl,
   isLessonEffectivelyFree,
   maskVideoUrlDisplay,
   parseVideoSource,
@@ -308,6 +309,14 @@ describe("courseService pure access, hierarchy, masking & outline helpers", () =
 
       expect(getCourseGuideStorageKey("stu_1", "courses_tab")).toContain("courses_tab_stu_1");
       expect(getCourseGuideStorageKey(null, "course_player")).toContain("course_player_guest");
+
+      expect(isCoursePlayerTheaterUrl("/student/courses/math12", "")).toBe(false);
+      expect(isCoursePlayerTheaterUrl("/courses/math12", "")).toBe(false);
+      expect(isCoursePlayerTheaterUrl("/student/courses/math12", "?lesson=l1")).toBe(true);
+      expect(isCoursePlayerTheaterUrl("/student/courses/math12", "?video=l2")).toBe(true);
+      expect(isCoursePlayerTheaterUrl("/courses/math12", "?watch=1")).toBe(true);
+      expect(isCoursePlayerTheaterUrl("/student/courses", "?lesson=l1")).toBe(false);
+      expect(isCoursePlayerTheaterUrl("/admin/courses/math12", "?lesson=l1")).toBe(false);
 
       // Verify accurate watchedSecondsMap calculation overrides binary-only percentage
       const secTree = buildCourseHierarchy(

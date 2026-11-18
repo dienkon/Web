@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import { Link, useNavigate, useParams, useSearchParams } from "react-router-dom";
+import { Link, useLocation, useNavigate, useParams, useSearchParams } from "react-router-dom";
 import {
   ArrowLeft,
   BookOpen,
@@ -9,9 +9,11 @@ import {
   ChevronUp,
   ClipboardCheck,
   Clock,
+  Coins,
   ExternalLink,
   FileText,
   HelpCircle,
+  Layers,
   ListVideo,
   Lock,
   PanelLeftClose,
@@ -33,6 +35,7 @@ import {
   getAuthorizedCourseLesson,
   getCourse,
   getCourseGuideStorageKey,
+  isCoursePlayerTheaterUrl,
   resolveCourseAccessMode,
   type CourseHierarchyTopic,
 } from "../../services/courseService";
@@ -65,7 +68,9 @@ type ContentTabKey = "videos" | "materials" | "exams";
 export default function CourseDetail() {
   const { courseId = "" } = useParams<{ courseId: string }>();
   const [searchParams, setSearchParams] = useSearchParams();
+  const location = useLocation();
   const navigate = useNavigate();
+  const isTheaterMode = isCoursePlayerTheaterUrl(location.pathname, location.search);
   const { success: showSuccessToast, error: showErrorToast } = useToast();
   const mainScrollRef = useRef<HTMLDivElement | null>(null);
   const playerStageRef = useRef<HTMLDivElement | null>(null);
@@ -87,7 +92,7 @@ export default function CourseDetail() {
   const [lessonError, setLessonError] = useState<string | null>(null);
   const [autoPlayLessonId, setAutoPlayLessonId] = useState<string | null>(null);
 
-  // Theater layout states
+  // Theater layout & overview accordion states
   const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
   const [isMobileDrawerOpen, setIsMobileDrawerOpen] = useState(false);
   const [activeContentTab, setActiveContentTab] = useState<ContentTabKey>("videos");
@@ -102,6 +107,8 @@ export default function CourseDetail() {
   // Hierarchical accordion expanded states
   const [collapsedGroups, setCollapsedGroups] = useState<Record<string, boolean>>({});
   const [collapsedChapters, setCollapsedChapters] = useState<Record<string, boolean>>({});
+  const [expandedTopics, setExpandedTopics] = useState<Record<string, boolean>>({});
+  const [topicTabs, setTopicTabs] = useState<Record<string, ContentTabKey>>({});
 
   // Unlock modal state
   const [unlockTarget, setUnlockTarget] = useState<UnlockTarget | null>(null);
@@ -121,17 +128,18 @@ export default function CourseDetail() {
   const tabGuideKey = useMemo(() => getCourseGuideStorageKey(uid, "courses_tab"), [uid]);
 
   useEffect(() => {
+    if (!isTheaterMode) return;
     try {
       if (!localStorage.getItem(playerGuideKey) && !localStorage.getItem(tabGuideKey)) {
         setShowGuideModal(true);
       }
     } catch {}
-  }, [playerGuideKey, tabGuideKey]);
+  }, [isTheaterMode, playerGuideKey, tabGuideKey]);
 
   const handleCloseGuide = () => {
     setShowGuideModal(false);
     try {
-      localStorage.setItem(playerGuideKey, "seen");
+      localStorage.setItem(isTheaterMode ? playerGuideKey : tabGuideKey, "seen");
     } catch {}
   };
 
@@ -141,6 +149,8 @@ export default function CourseDetail() {
     setSelectedOutlineItem(null);
     setActiveLesson(null);
     setAuthorizedLessonsCache({});
+    setExpandedTopics({});
+    setTopicTabs({});
     setActiveContentTab("videos");
     if (!courseId) return;
     try {
@@ -368,9 +378,14 @@ export default function CourseDetail() {
 
   // Sync selected topic & accordion expansion when deep-linked or initial lesson selected
   useEffect(() => {
+    const requestedTab = searchParams.get("tab");
+    if (requestedTab === "materials" || requestedTab === "exams" || requestedTab === "videos") {
+      setActiveContentTab(requestedTab);
+    }
+
     if (hierarchyGroups.length === 0) return;
-    const targetLessonId =
-      searchParams.get("lesson") || searchParams.get("video") || selectedOutlineItem?.id;
+    const requestedLessonId = searchParams.get("lesson") || searchParams.get("video");
+    const targetLessonId = requestedLessonId || selectedOutlineItem?.id;
 
     if (targetLessonId && (!deepLinkAppliedRef.current || !selectedTopicId)) {
       for (const g of hierarchyGroups) {
@@ -380,6 +395,7 @@ export default function CourseDetail() {
               setCollapsedGroups((prev) => ({ ...prev, [g.id]: false }));
               setCollapsedChapters((prev) => ({ ...prev, [ch.id]: false }));
               setSelectedTopicId(tp.id);
+              setExpandedTopics((prev) => ({ ...prev, [tp.id]: true }));
               deepLinkAppliedRef.current = true;
               return;
             }
@@ -391,7 +407,10 @@ export default function CourseDetail() {
     if (!selectedTopicId && allTopics.length > 0) {
       setSelectedTopicId(allTopics[0].id);
     }
-  }, [hierarchyGroups, allTopics, searchParams, selectedOutlineItem?.id, selectedTopicId]);
+    if (allTopics.length > 0 && Object.keys(expandedTopics).length === 0) {
+      setExpandedTopics({ [allTopics[0].id]: true });
+    }
+  }, [hierarchyGroups, allTopics, expandedTopics, searchParams, selectedOutlineItem?.id, selectedTopicId]);
 
   const activeTopic = useMemo(() => {
     if (allTopics.length === 0) return null;
@@ -549,12 +568,22 @@ export default function CourseDetail() {
     }, 50);
   };
 
-  const handleSelectLessonAndPlay = (lesson: CourseLessonOutlineItem, topicId?: string) => {
+  const handleSelectLessonAndPlay = (
+    lesson: CourseLessonOutlineItem,
+    topicId?: string,
+    initialTab: ContentTabKey = "videos"
+  ) => {
     setSelectedOutlineItem(lesson);
     setAutoPlayLessonId(lesson.id);
-    setSearchParams({ lesson: lesson.id }, { replace: true });
+    setActiveContentTab(initialTab);
+    const nextParams: Record<string, string> = { lesson: lesson.id, watch: "1" };
+    if (initialTab !== "videos") {
+      nextParams.tab = initialTab;
+    }
+    setSearchParams(nextParams, { replace: isTheaterMode });
     if (topicId) {
       setSelectedTopicId(topicId);
+      setExpandedTopics((prev) => ({ ...prev, [topicId]: true }));
     } else {
       expandHierarchyForLesson(lesson.id);
     }
@@ -562,8 +591,16 @@ export default function CourseDetail() {
     scrollStageToTop();
   };
 
+  const handleExitTheater = () => {
+    setAutoPlayLessonId(null);
+    setIsMobileDrawerOpen(false);
+    setActiveContentTab("videos");
+    setSearchParams({}, { replace: true });
+  };
+
   const handleSelectTopicFromSidebar = (topic: CourseHierarchyTopic) => {
     setSelectedTopicId(topic.id);
+    setExpandedTopics((prev) => ({ ...prev, [topic.id]: true }));
     setActiveContentTab("videos");
     setIsMobileDrawerOpen(false);
     if (course && topic.lessons.length > 0) {
@@ -576,7 +613,7 @@ export default function CourseDetail() {
           topic.lessons[0];
         setSelectedOutlineItem(nextLesson);
         setAutoPlayLessonId(nextLesson.id);
-        setSearchParams({ lesson: nextLesson.id }, { replace: true });
+        setSearchParams({ lesson: nextLesson.id, watch: "1" }, { replace: true });
       }
     }
     scrollStageToTop();
@@ -748,8 +785,13 @@ export default function CourseDetail() {
       if (unlockedTargetLesson) {
         setSelectedOutlineItem(unlockedTargetLesson);
         setAutoPlayLessonId(unlockedTargetLesson.id);
-        setSearchParams({ lesson: unlockedTargetLesson.id }, { replace: true });
         expandHierarchyForLesson(unlockedTargetLesson.id);
+        if (unlockTarget.kind === "lesson" || isTheaterMode) {
+          setSearchParams(
+            { lesson: unlockedTargetLesson.id, watch: "1" },
+            { replace: isTheaterMode }
+          );
+        }
       }
       scrollStageToTop();
 
@@ -960,10 +1002,886 @@ export default function CourseDetail() {
     </div>
   );
 
+  const renderVideoPlayerStage = (variant: "dark" | "light") => {
+    const isDark = variant === "dark";
+    return (
+      <div
+        id="course-player-stage"
+        ref={playerStageRef}
+        className={
+          isDark
+            ? "relative w-full max-w-full rounded-2xl sm:rounded-3xl overflow-hidden bg-black border border-slate-800 shadow-lg select-none"
+            : "scroll-mt-4 relative w-full rounded-2xl overflow-hidden bg-black border border-slate-200 shadow-md select-none"
+        }
+        onContextMenu={(e) => e.preventDefault()}
+      >
+        {loadingLesson ? (
+          <div
+            className={`aspect-video flex flex-col items-center justify-center gap-3 ${
+              isDark ? "text-white/70" : "bg-slate-900 text-white/80"
+            }`}
+          >
+            <div className="w-8 h-8 border-4 border-blue-500 border-t-transparent rounded-full animate-spin" />
+            <p className="text-xs font-bold">Đang xác thực quyền &amp; tải bài giảng...</p>
+          </div>
+        ) : selectedOutlineItem && selectedAccessState && !selectedAccessState.canWatch ? (
+          <div
+            className={`aspect-video flex flex-col items-center justify-center p-4 sm:p-8 text-center space-y-3 sm:space-y-4 ${
+              isDark
+                ? "bg-gradient-to-br from-slate-900 via-slate-950 to-blue-950/70"
+                : "bg-white"
+            }`}
+          >
+            <div
+              className={`w-12 h-12 sm:w-14 sm:h-14 rounded-2xl border flex items-center justify-center ${
+                isDark
+                  ? "bg-blue-500/15 border-blue-400/30 text-blue-300"
+                  : "bg-blue-50 border-blue-200 text-blue-600"
+              }`}
+            >
+              <Lock className="w-6 h-6 sm:w-7 sm:h-7" />
+            </div>
+            <div className="max-w-md space-y-1">
+              <span
+                className={`text-[10px] sm:text-[11px] font-black uppercase tracking-wider ${
+                  isDark ? "text-blue-400" : "text-blue-600"
+                }`}
+              >
+                Video bài giảng trả phí
+              </span>
+              <h3
+                className={`text-sm sm:text-lg font-black line-clamp-2 ${
+                  isDark ? "text-white" : "text-slate-900"
+                }`}
+              >
+                {selectedOutlineItem.title}
+              </h3>
+              <p
+                className={`text-[11px] sm:text-xs leading-relaxed ${
+                  isDark ? "text-slate-300" : "text-slate-600"
+                }`}
+              >
+                {mode === "per_video"
+                  ? "Mở khóa riêng video này bằng Ví DkTEST để xem ngay bài giảng và tài liệu đính kèm."
+                  : selectedOutlineItem.includedInCourseUnlock === false &&
+                    course.unlockFullPolicy === "unlock_course_only"
+                  ? "Chuyên đề VIP này được mở khóa riêng từng bài."
+                  : `Mở khóa khóa học${selectedAccessState.canBuySingle ? " hoặc mua lẻ video này" : ""} để xem nội dung.`}
+              </p>
+            </div>
+
+            <div className="flex flex-wrap items-center justify-center gap-2.5 pt-1">
+              {selectedAccessState.canBuySingle && course.salesEnabled && (
+                <button
+                  type="button"
+                  onClick={() =>
+                    void openUnlockModal({
+                      kind: "lesson",
+                      lesson: selectedOutlineItem,
+                      priceVnd: selectedAccessState.effectiveSinglePriceVnd,
+                      title: selectedOutlineItem.title,
+                    })
+                  }
+                  className="px-4 py-2.5 rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white text-xs font-black shadow-lg flex items-center gap-1.5 cursor-pointer"
+                >
+                  <Unlock className="w-3.5 h-3.5" />
+                  <span>
+                    Mở khóa video •{" "}
+                    {selectedAccessState.effectiveSinglePriceVnd.toLocaleString("vi-VN")}đ
+                  </span>
+                </button>
+              )}
+
+              {mode === "paid" &&
+                coursePrice > 0 &&
+                selectedOutlineItem.includedInCourseUnlock !== false &&
+                course.salesEnabled && (
+                  <button
+                    type="button"
+                    onClick={() =>
+                      void openUnlockModal({
+                        kind: "course",
+                        priceVnd: coursePrice,
+                        title: course.title,
+                      })
+                    }
+                    className={`px-4 py-2.5 rounded-xl text-xs font-black flex items-center gap-1.5 cursor-pointer ${
+                      isDark
+                        ? "bg-white hover:bg-blue-50 text-blue-950"
+                        : "bg-slate-100 hover:bg-slate-200 text-slate-900 border border-slate-200"
+                    }`}
+                  >
+                    <Unlock className={`w-3.5 h-3.5 ${isDark ? "" : "text-blue-600"}`} />
+                    <span>Mở trọn khóa ({coursePrice.toLocaleString("vi-VN")}đ)</span>
+                  </button>
+                )}
+            </div>
+          </div>
+        ) : lessonError ? (
+          <div
+            className={`aspect-video flex flex-col items-center justify-center p-5 text-center space-y-3 ${
+              isDark ? "text-white" : "bg-white text-slate-800"
+            }`}
+          >
+            <Lock className={`w-9 h-9 ${isDark ? "text-blue-400" : "text-blue-600"}`} />
+            <p className="text-xs sm:text-sm font-bold max-w-md">{lessonError}</p>
+            {!uid && (
+              <Link
+                to="/login"
+                className="px-4 py-2 rounded-xl bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold"
+              >
+                Đăng nhập ngay
+              </Link>
+            )}
+          </div>
+        ) : activeLesson?.videoUrl ? (
+          <DkCourseVideoPlayer
+            courseId={course.id}
+            lessonId={activeLesson.id}
+            title={activeLesson.title}
+            videoUrl={activeLesson.videoUrl}
+            videoType={activeLesson.videoType}
+            initialSeconds={watchedSecondsMap[activeLesson.id] || 0}
+            knownDurationSeconds={activeDurationSec > 0 ? activeDurationSec : undefined}
+            autoPlay={activeLesson.id === autoPlayLessonId}
+            onDetectedDuration={handleDetectedDuration}
+            onWatchProgress={handleWatchProgress}
+          />
+        ) : (
+          <div
+            className={`aspect-video flex flex-col items-center justify-center gap-2 ${
+              isDark ? "text-slate-400" : "bg-white text-slate-500"
+            }`}
+          >
+            <Video className={`w-10 h-10 ${isDark ? "opacity-40" : "text-slate-300"}`} />
+            <p className="text-xs font-bold px-4 text-center">
+              {selectedOutlineItem
+                ? "Video bài giảng chưa được cập nhật."
+                : "Chọn một bài giảng bên dưới để học."}
+            </p>
+          </div>
+        )}
+      </div>
+    );
+  };
+
+  const renderCourseOverview = () => (
+    <div className="max-w-6xl mx-auto px-3 py-3 sm:p-6 lg:p-8 space-y-4 sm:space-y-6 pb-24">
+      {/* Compact Course Header (1.9.5 Classic Overview) */}
+      <div className="bg-white dark:bg-slate-900 rounded-2xl sm:rounded-3xl border border-slate-200 dark:border-slate-800 p-3.5 sm:p-5 shadow-xs space-y-3">
+        <div className="flex items-center justify-between gap-2 flex-wrap">
+          <Link
+            to="/student/courses"
+            className="inline-flex items-center gap-1.5 text-xs font-bold text-slate-500 hover:text-blue-600 transition-colors"
+          >
+            <ArrowLeft className="w-3.5 h-3.5" />
+            <span>Tất cả khóa học</span>
+          </Link>
+
+          <div className="flex items-center gap-1.5 flex-wrap">
+            {course.subject && (
+              <span className="px-2 py-0.5 rounded-md bg-blue-50 dark:bg-blue-950/60 text-blue-700 dark:text-blue-300 text-[10px] sm:text-[11px] font-bold">
+                {course.subject}
+              </span>
+            )}
+            {course.gradeCategory && (
+              <span className="px-2 py-0.5 rounded-md bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 text-[10px] sm:text-[11px] font-bold">
+                {course.gradeCategory}
+              </span>
+            )}
+            {mode === "per_video" && (
+              <span className="px-2.5 py-0.5 rounded-full bg-indigo-50 dark:bg-indigo-950/60 border border-indigo-200 dark:border-indigo-800 text-indigo-700 dark:text-indigo-300 text-[10px] sm:text-[11px] font-black flex items-center gap-1">
+                <Coins className="w-3 h-3" />
+                <span>Khóa miễn phí • Trả phí từng video</span>
+              </span>
+            )}
+            {mode === "free" && (
+              <span className="px-2.5 py-0.5 rounded-full bg-emerald-50 dark:bg-emerald-950/60 text-emerald-700 dark:text-emerald-300 text-[10px] sm:text-[11px] font-black">
+                Miễn phí 100%
+              </span>
+            )}
+          </div>
+        </div>
+
+        <div className="flex flex-col md:flex-row md:items-center justify-between gap-3">
+          <div className="min-w-0 space-y-1">
+            <h1 className="text-base sm:text-2xl font-black text-slate-900 dark:text-white leading-snug break-words">
+              {course.title}
+            </h1>
+            <p className="text-[11px] sm:text-xs text-slate-500 dark:text-slate-400">
+              GV: <strong>{course.instructorName || "DkTEST Studio"}</strong> •{" "}
+              {course.lessonCount || 0} video ({course.freeLessonCount || 0} Free) • Tổng{" "}
+              <strong>
+                {formatDurationClock(
+                  totalDetectedCourseSec || course.totalDurationSeconds,
+                  course.totalDurationMinutes
+                )}
+              </strong>{" "}
+              • Hoàn thành{" "}
+              <strong>
+                {watchedIds.length}/{course.lessonCount || 0}
+              </strong>{" "}
+              bài
+            </p>
+          </div>
+
+          <div className="flex flex-wrap items-center gap-2 shrink-0">
+            <button
+              type="button"
+              onClick={() => setShowGuideModal(true)}
+              className="px-3 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 hover:bg-blue-50 dark:bg-slate-800 text-slate-700 dark:text-slate-200 hover:text-blue-700 text-xs font-bold flex items-center gap-1.5 transition-all cursor-pointer"
+            >
+              <HelpCircle className="w-3.5 h-3.5 text-blue-600" />
+              <span>Hướng dẫn</span>
+            </button>
+
+            <button
+              type="button"
+              onClick={() => void handleShareLink(null)}
+              className="px-3.5 py-2.5 rounded-xl border border-blue-200 dark:border-blue-800 bg-blue-50/70 hover:bg-blue-100 dark:bg-blue-950/40 dark:hover:bg-blue-950/70 text-blue-700 dark:text-blue-300 text-xs font-bold flex items-center gap-1.5 transition-all cursor-pointer"
+            >
+              {copiedKey === "course" ? (
+                <Check className="w-3.5 h-3.5 text-emerald-600" />
+              ) : (
+                <Share2 className="w-3.5 h-3.5" />
+              )}
+              <span>{copiedKey === "course" ? "Đã sao chép" : "Chia sẻ khóa học"}</span>
+            </button>
+
+            {mode === "paid" && coursePrice > 0 && (
+              <div>
+                {access?.unlockedCourse ? (
+                  <div className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-emerald-50 dark:bg-emerald-950/40 border border-emerald-200 dark:border-emerald-800 text-emerald-700 dark:text-emerald-300 text-xs font-black">
+                    <CheckCircle2 className="w-4 h-4" />
+                    <span>Đã mở khóa trọn khóa</span>
+                  </div>
+                ) : (
+                  <button
+                    type="button"
+                    disabled={!course.salesEnabled}
+                    onClick={() =>
+                      void openUnlockModal({
+                        kind: "course",
+                        priceVnd: coursePrice,
+                        title: course.title,
+                      })
+                    }
+                    className="w-full sm:w-auto px-4 py-2.5 rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 disabled:opacity-50 text-white text-xs font-black shadow-md shadow-blue-500/20 flex items-center justify-center gap-2 transition-all cursor-pointer"
+                  >
+                    <Unlock className="w-4 h-4" />
+                    <span>
+                      {course.salesEnabled
+                        ? `Mở khóa ${course.unlockFullPolicy === "unlock_all_videos" ? "FULL khóa" : "khóa học"} • ${coursePrice.toLocaleString("vi-VN")}đ`
+                        : "Liên hệ Admin mở khóa"}
+                    </span>
+                  </button>
+                )}
+              </div>
+            )}
+          </div>
+        </div>
+      </div>
+
+      {/* Video Player Preview Stage & Active Lesson Summary (1.9.5 Classic Overview) */}
+      <div className="scroll-mt-16 grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-6 items-start">
+        <div className="lg:col-span-8 min-w-0 w-full space-y-3 sm:space-y-4">
+          {renderVideoPlayerStage("dark")}
+        </div>
+
+        <div className="lg:col-span-4 min-w-0 w-full space-y-3 sm:space-y-4">
+          {selectedOutlineItem && (
+            <div className="bg-white dark:bg-slate-900 rounded-2xl sm:rounded-3xl border border-slate-200 dark:border-slate-800 p-4 sm:p-5 space-y-3 shadow-xs">
+              <div className="flex items-start justify-between gap-2">
+                <div className="min-w-0 space-y-1">
+                  <div className="flex items-center gap-2 text-[11px] font-bold text-slate-500 flex-wrap">
+                    <span className="px-2 py-0.5 rounded bg-blue-50 dark:bg-blue-950/60 text-blue-700 dark:text-blue-300">
+                      Bài #{selectedOutlineItem.order + 1}
+                    </span>
+                    <span className="flex items-center gap-1">
+                      <Clock className="w-3 h-3 text-blue-600" />
+                      {formatDurationClock(
+                        activeDurationSec,
+                        selectedOutlineItem.durationMinutes || 0
+                      )}
+                    </span>
+                    {selectedOutlineItem.videoHostLabel && (
+                      <span className="px-2 py-0.5 rounded bg-emerald-50 dark:bg-emerald-950/50 text-emerald-700 dark:text-emerald-300 flex items-center gap-1">
+                        <ShieldCheck className="w-3 h-3" />
+                        <span>{selectedOutlineItem.videoHostLabel}</span>
+                      </span>
+                    )}
+                  </div>
+                  <h2 className="text-sm sm:text-base font-black text-slate-900 dark:text-white leading-snug">
+                    {selectedOutlineItem.title}
+                  </h2>
+                </div>
+              </div>
+
+              {(activeLesson?.description || selectedOutlineItem.description) && (
+                <p className="text-xs text-slate-600 dark:text-slate-300 leading-relaxed whitespace-pre-line">
+                  {activeLesson?.description || selectedOutlineItem.description}
+                </p>
+              )}
+
+              <div className="flex flex-wrap items-center gap-2 pt-1">
+                <button
+                  type="button"
+                  onClick={() => handleSelectLessonAndPlay(selectedOutlineItem)}
+                  className="px-3.5 py-2 rounded-xl bg-blue-600 hover:bg-blue-700 text-white text-xs font-extrabold flex items-center gap-1.5 shadow-xs transition-all cursor-pointer"
+                >
+                  <ListVideo className="w-4 h-4" />
+                  <span>Mở tab chi tiết</span>
+                </button>
+
+                <button
+                  type="button"
+                  onClick={() => toggleWatched(selectedOutlineItem.id)}
+                  className={`px-3.5 py-2 rounded-xl text-xs font-bold flex items-center gap-1.5 transition-all cursor-pointer ${
+                    watchedIds.includes(selectedOutlineItem.id)
+                      ? "bg-emerald-600 text-white"
+                      : "bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-slate-200"
+                  }`}
+                >
+                  <CheckCircle2 className="w-4 h-4" />
+                  <span>
+                    {watchedIds.includes(selectedOutlineItem.id) ? "Đã hoàn thành" : "Đánh dấu đã học"}
+                  </span>
+                </button>
+
+                <button
+                  type="button"
+                  onClick={() => void handleShareLink(selectedOutlineItem)}
+                  className="px-3 py-2 rounded-xl bg-blue-50 hover:bg-blue-100 dark:bg-blue-950/50 dark:hover:bg-blue-950 text-blue-700 dark:text-blue-300 text-xs font-bold flex items-center gap-1.5 cursor-pointer"
+                >
+                  {copiedKey === `lesson_${selectedOutlineItem.id}` ? (
+                    <Check className="w-3.5 h-3.5 text-emerald-600" />
+                  ) : (
+                    <Share2 className="w-3.5 h-3.5" />
+                  )}
+                  <span>
+                    {copiedKey === `lesson_${selectedOutlineItem.id}` ? "Đã chép link" : "Chia sẻ video"}
+                  </span>
+                </button>
+
+                {selectedOutlineItem.linkedExamId && (
+                  <button
+                    type="button"
+                    onClick={() => navigate(`/exam/${selectedOutlineItem.linkedExamId}`)}
+                    className="px-3.5 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold flex items-center gap-1.5 cursor-pointer"
+                  >
+                    <BookOpen className="w-3.5 h-3.5" />
+                    <span>Làm đề luyện tập</span>
+                  </button>
+                )}
+              </div>
+
+              {activeLesson?.materials && activeLesson.materials.length > 0 && (
+                <div className="pt-2 border-t border-slate-100 dark:border-slate-800 space-y-1.5">
+                  <div className="text-[11px] font-black uppercase text-slate-400">
+                    Tài liệu bài đang xem
+                  </div>
+                  <div className="flex flex-col gap-1.5">
+                    {activeLesson.materials.map((m) => (
+                      <a
+                        key={m.id}
+                        href={m.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="px-3 py-2 rounded-xl bg-slate-50 dark:bg-slate-800 hover:bg-slate-100 dark:hover:bg-slate-700 border border-slate-200/70 dark:border-slate-700 text-slate-800 dark:text-slate-100 text-xs font-bold flex items-center justify-between gap-2"
+                      >
+                        <span className="flex items-center gap-1.5 min-w-0">
+                          <FileText className="w-3.5 h-3.5 text-blue-600 shrink-0" />
+                          <span className="truncate">{m.label || m.fileName || "Tài liệu đính kèm"}</span>
+                        </span>
+                        <ExternalLink className="w-3.5 h-3.5 opacity-60 shrink-0" />
+                      </a>
+                    ))}
+                  </div>
+                </div>
+              )}
+            </div>
+          )}
+
+          {mode !== "free" && uid && (
+            <div className="bg-blue-50/70 dark:bg-blue-950/20 rounded-2xl border border-blue-200 dark:border-blue-800/60 p-3.5 flex items-center justify-between gap-2 text-xs">
+              <div className="flex items-center gap-2 text-blue-900 dark:text-blue-200">
+                <Wallet className="w-4 h-4 text-blue-600" />
+                <span>
+                  Số dư Ví: <strong>{userBalance.toLocaleString("vi-VN")}đ</strong>
+                </span>
+              </div>
+              <Link
+                to="/student/wallet"
+                className="font-black text-blue-700 dark:text-blue-400 hover:underline"
+              >
+                Nạp Ví →
+              </Link>
+            </div>
+          )}
+        </div>
+      </div>
+
+      {/* Hierarchical Syllabus Section ("Danh sách bài học" 1.9.5) */}
+      <div className="space-y-3 sm:space-y-4">
+        <div className="flex items-center justify-between gap-2">
+          <h2 className="text-base sm:text-xl font-black text-slate-900 dark:text-white flex items-center gap-2">
+            <Layers className="w-5 h-5 text-blue-600" />
+            <span>Danh sách bài học</span>
+          </h2>
+          <span className="text-xs font-bold text-slate-500">
+            {course.lessonCount || 0} video •{" "}
+            {formatDurationClock(
+              totalDetectedCourseSec || course.totalDurationSeconds,
+              course.totalDurationMinutes
+            )}
+          </span>
+        </div>
+
+        <div className="space-y-4">
+          {hierarchyGroups.map((group) => {
+            const isGroupCollapsed = Boolean(collapsedGroups[group.id]);
+            return (
+              <div key={group.id} className="space-y-2.5">
+                <button
+                  type="button"
+                  onClick={() =>
+                    setCollapsedGroups((prev) => ({ ...prev, [group.id]: !isGroupCollapsed }))
+                  }
+                  className="w-full px-4 py-2.5 sm:py-3 rounded-xl sm:rounded-2xl bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-black text-xs sm:text-sm uppercase tracking-wide flex items-center justify-between shadow-xs transition-all cursor-pointer"
+                >
+                  <span>{group.title}</span>
+                  <div className="flex items-center gap-2">
+                    <span className="text-[11px] font-bold bg-white/20 px-2 py-0.5 rounded-full">
+                      {group.totalLessons} bài
+                    </span>
+                    {isGroupCollapsed ? (
+                      <ChevronDown className="w-4 h-4" />
+                    ) : (
+                      <ChevronUp className="w-4 h-4" />
+                    )}
+                  </div>
+                </button>
+
+                {!isGroupCollapsed && (
+                  <div className="space-y-3 pl-0 sm:pl-3">
+                    {group.chapters.map((chapter) => {
+                      const isChapCollapsed = Boolean(collapsedChapters[chapter.id]);
+                      return (
+                        <div
+                          key={chapter.id}
+                          className="rounded-xl sm:rounded-2xl border border-blue-200 dark:border-blue-800/60 bg-blue-50/40 dark:bg-slate-900 overflow-hidden shadow-2xs"
+                        >
+                          <button
+                            type="button"
+                            onClick={() =>
+                              setCollapsedChapters((prev) => ({ ...prev, [chapter.id]: !isChapCollapsed }))
+                            }
+                            className="w-full px-3.5 sm:px-5 py-2.5 sm:py-3 bg-blue-50 dark:bg-blue-950/50 hover:bg-blue-100/80 dark:hover:bg-blue-950/70 flex items-center justify-between gap-2 text-left transition-colors cursor-pointer"
+                          >
+                            <span className="font-black text-xs sm:text-sm uppercase text-blue-950 dark:text-blue-100">
+                              {chapter.title}
+                            </span>
+                            <div className="flex items-center gap-2 shrink-0 text-xs font-bold text-blue-700 dark:text-blue-300">
+                              <span>({chapter.lessonCount} bài học)</span>
+                              {isChapCollapsed ? (
+                                <ChevronDown className="w-4 h-4" />
+                              ) : (
+                                <ChevronUp className="w-4 h-4" />
+                              )}
+                            </div>
+                          </button>
+
+                          {!isChapCollapsed && (
+                            <div className="p-2 sm:p-3.5 space-y-2 bg-white/85 dark:bg-slate-900/90">
+                              {chapter.topics.map((topic) => {
+                                const isTopicExpanded = Boolean(expandedTopics[topic.id]);
+                                const activeTopicTab = topicTabs[topic.id] || "videos";
+
+                                return (
+                                  <div
+                                    key={topic.id}
+                                    className="rounded-xl border border-slate-200/80 dark:border-slate-800 bg-white dark:bg-slate-900 overflow-hidden"
+                                  >
+                                    <button
+                                      type="button"
+                                      onClick={() =>
+                                        setExpandedTopics((prev) => ({
+                                          ...prev,
+                                          [topic.id]: !isTopicExpanded,
+                                        }))
+                                      }
+                                      className="w-full px-3 sm:px-4 py-2.5 sm:py-3 flex items-center justify-between gap-2 hover:bg-slate-50 dark:hover:bg-slate-800/40 transition-colors text-left cursor-pointer"
+                                    >
+                                      <div className="flex items-center gap-2 min-w-0 flex-1">
+                                        <BookOpen className="w-4 h-4 text-blue-600 shrink-0" />
+                                        <span className="font-bold text-xs sm:text-sm text-slate-900 dark:text-white line-clamp-2 sm:truncate">
+                                          {topic.title}
+                                        </span>
+                                      </div>
+
+                                      <div className="flex items-center gap-2.5 sm:gap-4 shrink-0">
+                                        <div className="flex items-center gap-2 text-[11px] font-bold text-blue-600 dark:text-blue-400">
+                                          <span className="flex items-center gap-0.5" title="Số video">
+                                            <span>{topic.videoCount}</span>
+                                            <Video className="w-3.5 h-3.5" />
+                                          </span>
+                                          {topic.materialsCount > 0 && (
+                                            <span className="flex items-center gap-0.5" title="Số tài liệu">
+                                              <span>{topic.materialsCount}</span>
+                                              <FileText className="w-3.5 h-3.5" />
+                                            </span>
+                                          )}
+                                          {topic.examsCount > 0 && (
+                                            <span className="flex items-center gap-0.5" title="Số bài kiểm tra">
+                                              <span>{topic.examsCount}</span>
+                                              <ClipboardCheck className="w-3.5 h-3.5" />
+                                            </span>
+                                          )}
+                                        </div>
+
+                                        <div className="hidden sm:flex items-center gap-1.5 w-24">
+                                          <div className="flex-1 h-1.5 rounded-full bg-slate-100 dark:bg-slate-800 overflow-hidden">
+                                            <div
+                                              className="h-full rounded-full bg-blue-600 transition-all"
+                                              style={{ width: `${topic.progressPct}%` }}
+                                            />
+                                          </div>
+                                          <span className="text-[10px] font-bold text-slate-500 w-7 text-right">
+                                            {topic.progressPct}%
+                                          </span>
+                                        </div>
+
+                                        {isTopicExpanded ? (
+                                          <ChevronUp className="w-4 h-4 text-slate-400" />
+                                        ) : (
+                                          <ChevronDown className="w-4 h-4 text-slate-400" />
+                                        )}
+                                      </div>
+                                    </button>
+
+                                    {isTopicExpanded && (
+                                      <div className="border-t border-slate-100 dark:border-slate-800 p-2.5 sm:p-3.5 bg-slate-50/60 dark:bg-slate-950/30 space-y-2.5">
+                                        <div className="flex flex-wrap items-center gap-2">
+                                          <button
+                                            type="button"
+                                            onClick={() =>
+                                              setTopicTabs((prev) => ({ ...prev, [topic.id]: "videos" }))
+                                            }
+                                            className={`px-3 py-1.5 rounded-lg text-xs font-bold flex items-center gap-1.5 transition-all cursor-pointer ${
+                                              activeTopicTab === "videos"
+                                                ? "bg-white dark:bg-slate-800 text-blue-700 dark:text-blue-300 shadow-xs border border-blue-200 dark:border-blue-800"
+                                                : "text-slate-500 hover:text-slate-800"
+                                            }`}
+                                          >
+                                            <Video className="w-3.5 h-3.5 text-blue-600" />
+                                            <span>Videos ({topic.videoCount})</span>
+                                          </button>
+
+                                          <button
+                                            type="button"
+                                            onClick={() =>
+                                              setTopicTabs((prev) => ({ ...prev, [topic.id]: "materials" }))
+                                            }
+                                            className={`px-3 py-1.5 rounded-lg text-xs font-bold flex items-center gap-1.5 transition-all cursor-pointer ${
+                                              activeTopicTab === "materials"
+                                                ? "bg-white dark:bg-slate-800 text-blue-700 dark:text-blue-300 shadow-xs border border-blue-200 dark:border-blue-800"
+                                                : "text-slate-500 hover:text-slate-800"
+                                            }`}
+                                          >
+                                            <FileText className="w-3.5 h-3.5 text-blue-600" />
+                                            <span>Tài liệu ({topic.materialsCount})</span>
+                                          </button>
+
+                                          {topic.examsCount > 0 && (
+                                            <button
+                                              type="button"
+                                              onClick={() =>
+                                                setTopicTabs((prev) => ({ ...prev, [topic.id]: "exams" }))
+                                              }
+                                              className={`px-3 py-1.5 rounded-lg text-xs font-bold flex items-center gap-1.5 transition-all cursor-pointer ${
+                                                activeTopicTab === "exams"
+                                                  ? "bg-white dark:bg-slate-800 text-blue-700 dark:text-blue-300 shadow-xs border border-blue-200 dark:border-blue-800"
+                                                  : "text-slate-500 hover:text-slate-800"
+                                              }`}
+                                            >
+                                              <ClipboardCheck className="w-3.5 h-3.5 text-blue-600" />
+                                              <span>Bài kiểm tra ({topic.examsCount})</span>
+                                            </button>
+                                          )}
+                                        </div>
+
+                                        {activeTopicTab === "videos" && (
+                                          <div className="rounded-xl bg-white dark:bg-slate-900 border border-slate-200/70 dark:border-slate-800 divide-y divide-slate-100 dark:divide-slate-800">
+                                            {topic.lessons.map((lesson) => {
+                                              const st = computeLessonAccessState(course, lesson, access);
+                                              const isPlaying = selectedOutlineItem?.id === lesson.id;
+                                              const isDone = watchedIds.includes(lesson.id);
+                                              const lessonDur = detectedDurationMap[lesson.id] || lesson.durationSeconds;
+
+                                              return (
+                                                <div
+                                                  key={lesson.id}
+                                                  className={`p-2.5 sm:px-3.5 sm:py-2.5 flex flex-col sm:flex-row sm:items-center justify-between gap-2 transition-colors ${
+                                                    isPlaying ? "bg-blue-50/70 dark:bg-blue-950/30" : ""
+                                                  }`}
+                                                >
+                                                  <div
+                                                    onClick={() => {
+                                                      if (st.canWatch || !(st.canBuySingle && course.salesEnabled)) {
+                                                        handleSelectLessonAndPlay(lesson, topic.id);
+                                                      }
+                                                    }}
+                                                    className={`flex items-start sm:items-center gap-2 min-w-0 flex-1 ${
+                                                      st.canWatch || !(st.canBuySingle && course.salesEnabled)
+                                                        ? "cursor-pointer"
+                                                        : ""
+                                                    }`}
+                                                  >
+                                                    <div
+                                                      className={`w-6 h-6 rounded-lg flex items-center justify-center shrink-0 mt-0.5 sm:mt-0 ${
+                                                        st.canWatch
+                                                          ? isDone
+                                                            ? "bg-emerald-500 text-white"
+                                                            : "bg-blue-100 dark:bg-blue-950/60 text-blue-600 dark:text-blue-400"
+                                                          : "bg-slate-100 dark:bg-slate-800 text-slate-400"
+                                                      }`}
+                                                    >
+                                                      {st.canWatch ? (
+                                                        isDone ? (
+                                                          <CheckCircle2 className="w-3.5 h-3.5" />
+                                                        ) : (
+                                                          <Video className="w-3.5 h-3.5" />
+                                                        )
+                                                      ) : (
+                                                        <Lock className="w-3.5 h-3.5" />
+                                                      )}
+                                                    </div>
+
+                                                    <div className="min-w-0 flex-1">
+                                                      <div className="text-xs sm:text-[13px] font-semibold text-slate-900 dark:text-white break-words">
+                                                        {lesson.title}
+                                                      </div>
+                                                      <div className="flex items-center gap-2 flex-wrap text-[10px] text-slate-500 mt-0.5">
+                                                        <span>
+                                                          {formatDurationClock(lessonDur, lesson.durationMinutes || 0)}
+                                                        </span>
+                                                        {st.isFree && (
+                                                          <span className="text-emerald-600 dark:text-emerald-400 font-black">
+                                                            • Học thử miễn phí
+                                                          </span>
+                                                        )}
+                                                        {!st.isFree && (st.unlockedByCourse || st.unlockedByLesson) && (
+                                                          <span className="text-blue-600 dark:text-blue-400 font-black">
+                                                            • Đã mở khóa
+                                                          </span>
+                                                        )}
+                                                        {!st.canWatch && (
+                                                          <span className="text-indigo-600 dark:text-indigo-400 font-black">
+                                                            • Video trả phí
+                                                            {st.canBuySingle && st.effectiveSinglePriceVnd > 0
+                                                              ? `: ${st.effectiveSinglePriceVnd.toLocaleString("vi-VN")}đ`
+                                                              : ""}
+                                                          </span>
+                                                        )}
+                                                      </div>
+                                                    </div>
+                                                  </div>
+
+                                                  <div className="flex items-center gap-1.5 self-end sm:self-center shrink-0">
+                                                    <button
+                                                      type="button"
+                                                      onClick={() => void handleShareLink(lesson)}
+                                                      title="Chia sẻ link video này"
+                                                      className="p-1.5 rounded-full text-slate-400 hover:text-blue-600 hover:bg-blue-50 dark:hover:bg-blue-950/50 transition-colors cursor-pointer"
+                                                    >
+                                                      {copiedKey === `lesson_${lesson.id}` ? (
+                                                        <Check className="w-3.5 h-3.5 text-emerald-600" />
+                                                      ) : (
+                                                        <Share2 className="w-3.5 h-3.5" />
+                                                      )}
+                                                    </button>
+
+                                                    {st.canWatch ? (
+                                                      <button
+                                                        type="button"
+                                                        onClick={() => handleSelectLessonAndPlay(lesson, topic.id)}
+                                                        className={`px-3 py-1.5 rounded-full text-xs font-bold flex items-center gap-1.5 transition-all cursor-pointer ${
+                                                          isPlaying
+                                                            ? "bg-blue-600 text-white shadow-xs"
+                                                            : "bg-emerald-50 hover:bg-emerald-100 dark:bg-emerald-950/60 text-emerald-700 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800"
+                                                        }`}
+                                                      >
+                                                        <Play className="w-3 h-3 fill-current" />
+                                                        <span>Xem Video</span>
+                                                      </button>
+                                                    ) : st.canBuySingle && course.salesEnabled ? (
+                                                      <button
+                                                        type="button"
+                                                        onClick={() =>
+                                                          void openUnlockModal({
+                                                            kind: "lesson",
+                                                            lesson,
+                                                            priceVnd: st.effectiveSinglePriceVnd,
+                                                            title: lesson.title,
+                                                          })
+                                                        }
+                                                        className="px-3 py-1.5 rounded-full bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold flex items-center gap-1.5 shadow-2xs cursor-pointer"
+                                                      >
+                                                        <Lock className="w-3 h-3" />
+                                                        <span>
+                                                          Mở khóa{" "}
+                                                          {st.effectiveSinglePriceVnd > 0
+                                                            ? `${st.effectiveSinglePriceVnd.toLocaleString("vi-VN")}đ`
+                                                            : ""}
+                                                        </span>
+                                                      </button>
+                                                    ) : (
+                                                      <button
+                                                        type="button"
+                                                        onClick={() => handleSelectLessonAndPlay(lesson, topic.id)}
+                                                        className="px-3 py-1.5 rounded-full bg-blue-50 dark:bg-blue-950/50 text-blue-700 dark:text-blue-300 border border-blue-200 dark:border-blue-800 text-xs font-bold flex items-center gap-1.5 cursor-pointer"
+                                                      >
+                                                        <Lock className="w-3 h-3" />
+                                                        <span>Chưa mở</span>
+                                                      </button>
+                                                    )}
+                                                  </div>
+                                                </div>
+                                              );
+                                            })}
+                                          </div>
+                                        )}
+
+                                        {activeTopicTab === "materials" && (
+                                          <div className="rounded-xl bg-white dark:bg-slate-900 border border-slate-200/70 dark:border-slate-800 divide-y divide-slate-100 dark:divide-slate-800">
+                                            {topic.materials.length === 0 ? (
+                                              <div className="p-4 text-center text-xs text-slate-400">
+                                                Chưa có tài liệu đính kèm trong chuyên đề này.
+                                              </div>
+                                            ) : (
+                                              topic.materials.map((mat) => {
+                                                const parentLesson = topic.lessons.find(
+                                                  (l) => l.id === mat.lessonId
+                                                );
+                                                return (
+                                                  <div
+                                                    key={mat.id}
+                                                    className="p-2.5 sm:px-3.5 flex items-center justify-between gap-2"
+                                                  >
+                                                    <div className="flex items-center gap-2 min-w-0">
+                                                      <FileText className="w-4 h-4 text-blue-600 shrink-0" />
+                                                      <div className="min-w-0">
+                                                        <div className="text-xs font-semibold text-slate-900 dark:text-white truncate">
+                                                          {mat.label}
+                                                        </div>
+                                                        <div className="text-[10px] text-slate-400 truncate">
+                                                          Thuộc: {mat.lessonTitle}
+                                                        </div>
+                                                      </div>
+                                                    </div>
+
+                                                    {mat.canAccess ? (
+                                                      <button
+                                                        type="button"
+                                                        onClick={() =>
+                                                          parentLesson &&
+                                                          handleSelectLessonAndPlay(
+                                                            parentLesson,
+                                                            topic.id,
+                                                            "materials"
+                                                          )
+                                                        }
+                                                        className="px-3 py-1 rounded-full bg-emerald-50 dark:bg-emerald-950/50 text-emerald-700 dark:text-emerald-300 text-xs font-bold shrink-0 cursor-pointer"
+                                                      >
+                                                        Mở tài liệu
+                                                      </button>
+                                                    ) : (
+                                                      <span className="px-2.5 py-1 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-500 text-[10px] font-bold flex items-center gap-1 shrink-0">
+                                                        <Lock className="w-3 h-3" />
+                                                        <span>Mở video để tải</span>
+                                                      </span>
+                                                    )}
+                                                  </div>
+                                                );
+                                              })
+                                            )}
+                                          </div>
+                                        )}
+
+                                        {activeTopicTab === "exams" && (
+                                          <div className="rounded-xl bg-white dark:bg-slate-900 border border-slate-200/70 dark:border-slate-800 divide-y divide-slate-100 dark:divide-slate-800">
+                                            {topic.exams.map((ex) => (
+                                              <div
+                                                key={ex.id}
+                                                className="p-2.5 sm:px-3.5 flex items-center justify-between gap-2"
+                                              >
+                                                <div className="flex items-center gap-2 min-w-0">
+                                                  <ClipboardCheck className="w-4 h-4 text-indigo-600 shrink-0" />
+                                                  <div className="min-w-0">
+                                                    <div className="text-xs font-semibold text-slate-900 dark:text-white truncate">
+                                                      {ex.title}
+                                                    </div>
+                                                    <div className="text-[10px] text-slate-400 truncate">
+                                                      Gắn với: {ex.lessonTitle}
+                                                    </div>
+                                                  </div>
+                                                </div>
+
+                                                {ex.canAccess ? (
+                                                  <button
+                                                    type="button"
+                                                    onClick={() => navigate(`/exam/${ex.linkedExamId}`)}
+                                                    className="px-3 py-1 rounded-full bg-indigo-50 dark:bg-indigo-950/50 text-indigo-700 dark:text-indigo-300 text-xs font-bold shrink-0 cursor-pointer"
+                                                  >
+                                                    Làm đề →
+                                                  </button>
+                                                ) : (
+                                                  <span className="px-2.5 py-1 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-500 text-[10px] font-bold flex items-center gap-1 shrink-0">
+                                                    <Lock className="w-3 h-3" />
+                                                    <span>Mở khóa bài học</span>
+                                                  </span>
+                                                )}
+                                              </div>
+                                            ))}
+                                          </div>
+                                        )}
+                                      </div>
+                                    )}
+                                  </div>
+                                );
+                              })}
+                            </div>
+                          )}
+                        </div>
+                      );
+                    })}
+                  </div>
+                )}
+              </div>
+            );
+          })}
+        </div>
+      </div>
+
+      {course.description && (
+        <div className="bg-white dark:bg-slate-900 rounded-2xl sm:rounded-3xl border border-slate-200 dark:border-slate-800 p-4 sm:p-6 space-y-2 shadow-xs">
+          <h3 className="text-sm font-black text-slate-900 dark:text-white">Giới thiệu khóa học</h3>
+          <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed whitespace-pre-line">
+            {course.description}
+          </p>
+        </div>
+      )}
+    </div>
+  );
+
   return (
-    <div className="flex-1 flex flex-col min-h-0 h-full bg-slate-50 text-slate-900">
-      {/* Top Course Theater Header Bar (Bright White DKTEST Theme) */}
-      <header className="h-14 sm:h-16 bg-white border-b border-slate-200 px-3 sm:px-5 flex items-center justify-between gap-2 shrink-0 z-30 shadow-2xs">
+    <>
+      {!isTheaterMode ? (
+        renderCourseOverview()
+      ) : (
+        <div className="flex-1 flex flex-col min-h-0 h-full bg-slate-50 text-slate-900">
+          {/* Top Course Theater Header Bar (Bright White DKTEST Theme) */}
+          <header className="h-14 sm:h-16 bg-white border-b border-slate-200 px-3 sm:px-5 flex items-center justify-between gap-2 shrink-0 z-30 shadow-2xs">
         <div className="flex items-center gap-2 sm:gap-3 min-w-0 flex-1">
           {/* Mobile Curriculum Button ("Bài học") */}
           <button
@@ -1043,7 +1961,7 @@ export default function CourseDetail() {
 
           <button
             type="button"
-            onClick={() => navigate("/student/courses")}
+            onClick={handleExitTheater}
             className="px-2.5 sm:px-3 py-1.5 rounded-xl bg-white hover:bg-rose-50 text-slate-700 hover:text-rose-700 border border-slate-200 hover:border-rose-200 text-xs font-bold flex items-center gap-1 transition-colors cursor-pointer"
           >
             <X className="w-4 h-4" />
@@ -1218,119 +2136,7 @@ export default function CourseDetail() {
             </div>
 
             {/* Video Player Stage */}
-            <div
-              id="course-player-stage"
-              ref={playerStageRef}
-              className="scroll-mt-4 relative w-full rounded-2xl overflow-hidden bg-black border border-slate-200 shadow-md select-none"
-              onContextMenu={(e) => e.preventDefault()}
-            >
-              {loadingLesson ? (
-                <div className="aspect-video flex flex-col items-center justify-center bg-slate-900 text-white/80 gap-3">
-                  <div className="w-8 h-8 border-4 border-blue-500 border-t-transparent rounded-full animate-spin" />
-                  <p className="text-xs font-bold">Đang xác thực quyền &amp; tải bài giảng...</p>
-                </div>
-              ) : selectedOutlineItem && selectedAccessState && !selectedAccessState.canWatch ? (
-                <div className="aspect-video flex flex-col items-center justify-center p-5 sm:p-8 text-center bg-white space-y-3 sm:space-y-4">
-                  <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-2xl bg-blue-50 border border-blue-200 flex items-center justify-center text-blue-600">
-                    <Lock className="w-6 h-6 sm:w-7 sm:h-7" />
-                  </div>
-                  <div className="max-w-md space-y-1">
-                    <span className="text-[10px] sm:text-[11px] font-black uppercase text-blue-600 tracking-wider">
-                      Video bài giảng trả phí
-                    </span>
-                    <h3 className="text-sm sm:text-lg font-black text-slate-900 line-clamp-2">
-                      {selectedOutlineItem.title}
-                    </h3>
-                    <p className="text-[11px] sm:text-xs text-slate-600 leading-relaxed">
-                      {mode === "per_video"
-                        ? "Mở khóa riêng video này bằng Ví DkTEST để xem ngay bài giảng và tài liệu đính kèm."
-                        : selectedOutlineItem.includedInCourseUnlock === false &&
-                          course.unlockFullPolicy === "unlock_course_only"
-                        ? "Chuyên đề VIP này được mở khóa riêng từng bài."
-                        : `Mở khóa khóa học${selectedAccessState.canBuySingle ? " hoặc mua lẻ video này" : ""} để xem nội dung.`}
-                    </p>
-                  </div>
-
-                  <div className="flex flex-wrap items-center justify-center gap-2.5 pt-1">
-                    {selectedAccessState.canBuySingle && course.salesEnabled && (
-                      <button
-                        type="button"
-                        onClick={() =>
-                          void openUnlockModal({
-                            kind: "lesson",
-                            lesson: selectedOutlineItem,
-                            priceVnd: selectedAccessState.effectiveSinglePriceVnd,
-                            title: selectedOutlineItem.title,
-                          })
-                        }
-                        className="px-4 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white text-xs font-black shadow-md shadow-blue-500/20 flex items-center gap-1.5 cursor-pointer"
-                      >
-                        <Unlock className="w-3.5 h-3.5" />
-                        <span>
-                          Mở khóa video •{" "}
-                          {selectedAccessState.effectiveSinglePriceVnd.toLocaleString("vi-VN")}đ
-                        </span>
-                      </button>
-                    )}
-
-                    {mode === "paid" &&
-                      coursePrice > 0 &&
-                      selectedOutlineItem.includedInCourseUnlock !== false &&
-                      course.salesEnabled && (
-                        <button
-                          type="button"
-                          onClick={() =>
-                            void openUnlockModal({
-                              kind: "course",
-                              priceVnd: coursePrice,
-                              title: course.title,
-                            })
-                          }
-                          className="px-4 py-2.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-900 border border-slate-200 text-xs font-black flex items-center gap-1.5 cursor-pointer"
-                        >
-                          <Unlock className="w-3.5 h-3.5 text-blue-600" />
-                          <span>Mở trọn khóa ({coursePrice.toLocaleString("vi-VN")}đ)</span>
-                        </button>
-                      )}
-                  </div>
-                </div>
-              ) : lessonError ? (
-                <div className="aspect-video flex flex-col items-center justify-center p-5 text-center bg-white text-slate-800 space-y-3">
-                  <Lock className="w-9 h-9 text-blue-600" />
-                  <p className="text-xs sm:text-sm font-bold max-w-md">{lessonError}</p>
-                  {!uid && (
-                    <Link
-                      to="/login"
-                      className="px-4 py-2 rounded-xl bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold"
-                    >
-                      Đăng nhập ngay
-                    </Link>
-                  )}
-                </div>
-              ) : activeLesson?.videoUrl ? (
-                <DkCourseVideoPlayer
-                  courseId={course.id}
-                  lessonId={activeLesson.id}
-                  title={activeLesson.title}
-                  videoUrl={activeLesson.videoUrl}
-                  videoType={activeLesson.videoType}
-                  initialSeconds={watchedSecondsMap[activeLesson.id] || 0}
-                  knownDurationSeconds={activeDurationSec > 0 ? activeDurationSec : undefined}
-                  autoPlay={activeLesson.id === autoPlayLessonId}
-                  onDetectedDuration={handleDetectedDuration}
-                  onWatchProgress={handleWatchProgress}
-                />
-              ) : (
-                <div className="aspect-video flex flex-col items-center justify-center bg-white text-slate-500 gap-2">
-                  <Video className="w-10 h-10 text-slate-300" />
-                  <p className="text-xs font-bold px-4 text-center">
-                    {selectedOutlineItem
-                      ? "Video bài giảng chưa được cập nhật."
-                      : "Chọn một bài giảng trong danh sách để học."}
-                  </p>
-                </div>
-              )}
-            </div>
+            {renderVideoPlayerStage("light")}
 
             {/* 3 Segmented Tabs Below Video Player: Video (N) | Tài liệu (M) | Bài kiểm tra (K) */}
             <div className="bg-white p-1.5 rounded-2xl border border-slate-200 shadow-2xs grid grid-cols-3 gap-1.5">
@@ -1761,11 +2567,13 @@ export default function CourseDetail() {
           </div>
         </div>
       </div>
+        </div>
+      )}
 
-      {/* Course Player Guide Modal ("? Hướng dẫn") */}
+      {/* Course Onboarding Guide Modal ("? Hướng dẫn") */}
       <CourseOnboardingGuideModal
         isOpen={showGuideModal}
-        scope="course_player"
+        scope={isTheaterMode ? "course_player" : "courses_tab"}
         onClose={handleCloseGuide}
         onComplete={handleCloseGuide}
       />
@@ -1898,6 +2706,6 @@ export default function CourseDetail() {
           </div>
         </div>
       )}
-    </div>
+    </>
   );
 }

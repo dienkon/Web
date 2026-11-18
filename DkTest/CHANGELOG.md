@@ -1,5 +1,14 @@
 # DkTEST changelog
 
+## 1.9.8 — 2026-11-18 (Android versionCode 14)
+
+- **Khôi phục màn hình Tổng quan Khóa học chuẩn `1.9.5` khi mới vào khóa & chỉ chuyển vào Tab chi tiết (Theater 2 cột) khi bấm chọn video cụ thể (`CourseDetail.tsx`, `StudentLayout.tsx`, `src/services/courseService.ts`)**:
+  - Bổ sung hàm dùng chung `isCoursePlayerTheaterUrl(pathname, search)` kiểm tra xem URL đang mở tổng quan (`/student/courses/:courseId`) hay đang xem video chi tiết (`?lesson=...` / `?video=...` / `?watch=1`).
+  - **Khi mới bấm vào Khóa học (`/student/courses/:courseId`)**: giữ nguyên thanh điều hướng của `StudentLayout` và hiển thị **đúng giao diện tổng quan `1.9.5`** (Compact Header khóa học + nút `Hướng dẫn` / `Chia sẻ` / `Mở khóa FULL khóa`, khung xem trước tích hợp `DkCourseVideoPlayer` đã sửa lỗi mobile, cây **`Danh sách bài học`** 3 tầng xanh dương với tab `Videos (N)` / `Tài liệu (M)` / `Bài kiểm tra (K)` và phần giới thiệu khóa).
+  - **Khi học sinh bấm vào một video cụ thể** (bấm nút `Xem Video`, bấm dòng/tiêu đề bài giảng, bấm `Mở tab chi tiết`, bấm `Mở tài liệu` gắn video hoặc sau khi mở khóa lẻ video): tự động đẩy query `?lesson=<id>&watch=1` và chuyển sang **Tab chi tiết xem video (bố cục Theater 2 cột trắng sáng DkTEST của `1.9.6` + player mobile `1.9.7`)**; nút **`Đóng`** (hoặc phím Back trên điện thoại) đưa học sinh quay trở lại màn hình tổng quan `1.9.5` của khóa học thay vì thoát ra danh sách khóa học.
+- Bổ sung unit test cho `isCoursePlayerTheaterUrl` trong `src/services/courseService.test.ts`.
+- Audit: [1.9.8](docs/audits/1.9.8.md).
+
 ## 1.9.7 — 2026-11-18 (Android versionCode 13)
 
 - **Fix triệt để lỗi hiển thị nút phát/tua & thanh điều khiển video trên điện thoại (`DkCourseVideoPlayer.tsx`, `server/services/courseService.ts`, `server/routes/walletRoutes.ts`, `src/services/courseService.ts`, `src/pages/student/CourseDetail.tsx`)**:

@@ -612,6 +612,17 @@ export function getCourseGuideStorageKey(
 }
 
 /**
+ * Pure helper: Determines whether a course detail route is in focused Video Detail (Theater) mode.
+ * Opening `/student/courses/:courseId` without a specific lesson/watch param shows the classic `.5`
+ * course overview inside StudentLayout; clicking a specific video switches into Theater mode.
+ */
+export function isCoursePlayerTheaterUrl(pathname: string, search = ""): boolean {
+  if (!/^\/(?:student\/)?courses\/[^/]+$/.test(pathname)) return false;
+  const params = new URLSearchParams(search || "");
+  return Boolean(params.get("lesson") || params.get("video") || params.get("watch") === "1");
+}
+
+/**
  * Pure helper: Builds 3-level hierarchical accordion tree (Group -> Chapter -> Topic -> Video / Tài liệu / Bài kiểm tra tabs)
  * matching student syllabus UX with progress tracking & zero URL leaks.
  */

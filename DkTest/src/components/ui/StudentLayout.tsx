@@ -28,6 +28,7 @@ import {
   Smartphone,
 } from "lucide-react";
 import { getAppVersionMetadata } from "../../services/appLinks";
+import { isCoursePlayerTheaterUrl } from "../../services/courseService";
 import ConfirmModal from "./ConfirmModal";
 import BrandLogo from "./BrandLogo";
 import AnnouncementPopupModal from "./AnnouncementPopupModal";
@@ -206,7 +207,7 @@ function StudentLayoutContent() {
 
   const isTakingExam = location.pathname.includes("/take") || location.pathname.includes("/tutorial/exam");
   const isExamResult = location.pathname.includes("/result/") || location.pathname.includes("/tutorial/result");
-  const isCourseTheater = /^\/(?:student\/)?courses\/[^/]+$/.test(location.pathname);
+  const isCourseTheater = isCoursePlayerTheaterUrl(location.pathname, location.search);
   const isParentViewing = isExamResult && localStorage.getItem("auth_role") === "parent";
   const hideStudentNav = isTakingExam || isExamResult || isCourseTheater;
 
