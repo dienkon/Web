@@ -189,9 +189,12 @@ export class StockWorld {
     // Equivalent-volume collision envelope, not resolved dendrite contacts.
     // The published pose retains CORE scale; the renderer adds its own coating.
     const collisionScale = scale * Math.cbrt(volume_m3 / coreVolume);
+    // A fixed 5 mm prediction envelope dwarfs grains near dissolution,
+    // creating speculative contacts beyond the actual glass floor.
+    const contactPrediction_m = group.wire ? 0 : Math.min(0.005, collisionScale * 0.5);
     const body = this.world.createRigidBody(RAPIER.RigidBodyDesc.dynamic().setTranslation(...solver(position_m)).setRotation(quat(rotation))
       .setLinvel(...solver(velocity_m_s)).setAngvel(vec(angularVelocity_rad_s)).setCcdEnabled(true)
-      .setSoftCcdPrediction(group.wire ? 0 : 0.005 * S).setUserData({ stockId: id }));
+      .setSoftCcdPrediction(contactPrediction_m * S).setUserData({ stockId: id }));
     const wire = !group.powder ? this.wireShapes(group, scale, coating.volume_ml * 1e-6) : null;
     const descriptors = wire ?? (!group.powder ? this.sheetShapes(group, collisionScale) : null) ?? [{ desc: group.powder ? RAPIER.ColliderDesc.ball(Math.cbrt(volume_m3 * 3 / (4 * Math.PI)) * S)
       : RAPIER.ColliderDesc.convexHull(new Float32Array(group.vertices.map(x => x * collisionScale * S))), weight: 1 }];

@@ -4,6 +4,7 @@ import { applyProgramToLedger } from '../src/engine/ledger';
 import { createStudioSample, planStudioProgram } from '../src/engine/studioProgram';
 import { assessProgramConditions } from '../src/science/conditions';
 import { getProgramById } from '../src/vfx/programs/library';
+import { REAGENT_AMOUNT_THRESHOLD_MOL } from '../src/science/reagentAvailability';
 import type { VesselState } from '../src/types/chemistry';
 
 const shell = { id: 'trace', name: 'Trace reaction', type: 'beaker', capacity_ml: 250, volume_ml: 30,
@@ -38,6 +39,14 @@ describe('finite stoichiometric reaction tails below reagent discovery threshold
     const { current, kinetics } = setup('kmno4_hcl', 0.8);
     current.contents = current.contents.filter(row => row.formula !== 'HCl');
     expect(advanceReaction(kinetics, current, 1 / 60)).toBe(0.8);
+  });
+
+  it('finishes a ferric trace with sufficient acid above the discovery threshold', () => {
+    const { current, kinetics } = setup('feoh3_hcl', 1 - 5e-10);
+    const amount = (formula: string) => current.contents.find(item => item.formula === formula)!.moles;
+    expect(amount('Fe(OH)3')).toBeLessThan(REAGENT_AMOUNT_THRESHOLD_MOL);
+    expect(amount('HCl')).toBeGreaterThan(REAGENT_AMOUNT_THRESHOLD_MOL);
+    expect(advanceReaction(kinetics, current, 1 / 60)).toBe(1);
   });
 
   it.each(['phase', 'compartment', 'temperature'] as const)('keeps %s eligibility even for a trace tail', reason => {

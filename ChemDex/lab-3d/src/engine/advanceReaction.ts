@@ -12,8 +12,8 @@ import { programMaximumReactionMoles, programStockProgressLimit } from './ledger
 import { reactionReplayProgress } from './reactionProgress';
 import { availableReagent, REAGENT_AMOUNT_THRESHOLD_MOL } from '../science/reagentAvailability';
 
-/** Finish an already-running finite ledger only when its entire remaining
- * stoichiometric step is below the SAME threshold used for reagent discovery.
+/** Finish an already-running finite ledger when a required reagent's
+ * remaining step is below the same threshold used for reagent discovery.
  * The caller still applies progress=1 through the ordinary conserved ledger;
  * no trace row is deleted, no material is fabricated and no deadline changes. */
 function canFinishTraceRemainder(kinetics: ActiveKineticsState, vessel: VesselState, env: ExperimentalEnvironment) {
@@ -24,15 +24,18 @@ function canFinishTraceRemainder(kinetics: ActiveKineticsState, vessel: VesselSt
   const remaining = extent * (1 - reactionReplayProgress(kinetics, kinetics.progress));
   if (!(remaining > 0) || !assessProgramConditions(program, vessel.contents, { ...env, reactantThreshold_mol: 0 }).ready
     || programStockProgressLimit(program, baseline, vessel) < 1) return false;
-  return program.chemistry.species.filter(species => species.role === 'reactant').every(species => {
+  let traceReagent = false;
+  const canConsume = program.chemistry.species.filter(species => species.role === 'reactant').every(species => {
     const needed = remaining * species.coeff;
     const available = vessel.contents.filter(row => availableReagent(row, species.formula, species.phase, 0))
       .reduce((sum, row) => sum + row.moles, 0);
     const reference = baseline.contents.filter(row => availableReagent(row, species.formula, species.phase, 0))
       .reduce((sum, row) => sum + row.moles, 0);
     const arithmeticError = reference * Number.EPSILON * 32;
-    return needed <= REAGENT_AMOUNT_THRESHOLD_MOL && available + arithmeticError >= needed;
+    if (needed <= REAGENT_AMOUNT_THRESHOLD_MOL && available <= REAGENT_AMOUNT_THRESHOLD_MOL) traceReagent = true;
+    return available + arithmeticError >= needed;
   });
+  return traceReagent && canConsume;
 }
 
 /** Shared eligibility and material clock for manual and automatic operation. */

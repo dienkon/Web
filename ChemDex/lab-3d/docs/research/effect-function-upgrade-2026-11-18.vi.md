@@ -3,6 +3,7 @@
 ## Thay đổi
 
 - **Thả chất rắn:** thống nhất kích thước vật liệu, đường rơi và biên trong bình theo đơn vị thế giới. Loại bỏ phép biến đổi tọa độ lồng nhau và dò va chạm bằng bước cố định; tìm điểm đỡ đầu tiên theo từng đoạn contour. Hạt chạm mặt nước bằng điểm vật liệu thấp nhất, rồi bàn giao đúng vị trí, tư thế, vận tốc và khối lượng cho giao dịch tiếp xúc. Không thu nhỏ hạt để đi qua cổ bình. Planner chung từ chối bình nghiêng, kể cả tư thế do Worker cung cấp; thả natri dùng cùng điều kiện này.
+- **Hạt đang tan:** giới hạn khoảng dự đoán va chạm theo kích thước hạt. Các hạt cực nhỏ vẫn nằm trong bình để tiếp tục phản ứng. Với lượng vết, phản ứng đang chạy được phép hoàn tất khi lượng nhỏ còn lại đủ theo hệ số phương trình và vẫn đáp ứng điều kiện tiếp xúc.
 - **Nhiệt kế và máy đo pH:** chuyển động đưa đầu đo vào mẫu và trả về giá dùng thời gian mô phỏng, cùng với đáp ứng số đo. Tạm dừng giữ nguyên tư thế; tiếp tục không lấy thời gian thực đã trôi qua để nhảy vị trí.
 - **Cân 3D:** thay nội suy tuyến tính theo khung hình bằng đáp ứng mũ có giới hạn; đồng bộ thời gian ổn định và dao động màn hình với tốc độ mô phỏng. Một khung hình dài không đẩy số đo vượt khối lượng đích.
 - **Di chuyển bình:** xử lý mẫu cũ chưa có `contents` khi không có kho hạt, tránh lỗi khi thay đổi vị trí bình và giữ vũng tràn đã rơi ở vị trí cũ.
@@ -36,6 +37,7 @@ Phép đo logic ba bình ở mức High đạt trung bình 3,16 ms mỗi bước
 | Mẫu nước–đá trên production | Mở Thiết lập → Vật lí, bật mô phỏng và tạo mẫu từ nút tiếng Việt. Phép đo nhiệt nóng chảy xuất hiện. Dữ liệu lưu có 20 mL nước và 5 g đá ở 0 °C, tên mẫu giữ nguyên tiếng Việt. |
 | Đồng hồ Landolt | Mẫu ban đầu trong. Khi kết thúc, mẫu chuyển xanh đen và số đọc là 0,300 mmol iốt quy đổi. Cả hai bàn hiển thị cùng số liệu và nhãn tiếng Việt. |
 | Ngọn lửa và hơi nóng | Ở mức đồ họa High, hai hiệu ứng giữ cùng thời điểm khi tạm dừng dù cảnh tiếp tục được vẽ. Hai đồng hồ tiếp tục tiến cùng nhau sau khi chạy lại. |
+| Bốn bài tự động bị kẹt ở cuối phản ứng | Fe + HCl, AgCl + NH₃, CaC₂ + H₂O và Fe(OH)₃ + HCl đều đạt trạng thái hoàn tất sau khi sửa. Chạy với mô phỏng hạt thật và sai số khối lượng dưới 10⁻¹² g. Nhóm hồi quy vật lý, lượng vết và tự động đạt 184/184 bài. |
 
 ### Tái chạy
 
@@ -74,6 +76,8 @@ npm test -- --maxWorkers=1
 npm run lint
 npm run build
 ```
+
+Chạy lại riêng bốn bài từng bị kẹt bằng `npm run autoplay:audit -- fe_hcl agcl_nh3 cac2_h2o feoh3_hcl`. Bỏ các ID để kiểm tra toàn danh mục.
 
 Để kiểm tra bản vừa build, chạy `$env:NODE_ENV='production'; npm start` rồi chạy `node scripts/auditStandaloneProduction.mjs` trong terminal khác.
 

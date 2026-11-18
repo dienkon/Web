@@ -2,11 +2,16 @@ import { mkdirSync, writeFileSync } from 'node:fs';
 import { AUTO_EXPERIMENTS, AutoExperiment } from '../src/vfx/autoplay/AutoExperiment';
 import { useAppStore } from '../src/store/useAppStore';
 
+const requested = process.argv.slice(2);
+const entries = requested.length ? AUTO_EXPERIMENTS.filter(entry => requested.includes(entry.id)) : AUTO_EXPERIMENTS;
+const unknown = requested.filter(id => !entries.some(entry => entry.id === id));
+if (unknown.length) throw new Error(`Unknown automatic experiment: ${unknown.join(', ')}`);
+
 // Let the existing 100 ms startup/history publication settle before checking
 // strict store identity across awaited physics initialization.
 await new Promise(resolve => setTimeout(resolve, 200));
 const before = useAppStore.getState(), results = [];
-for (const entry of AUTO_EXPERIMENTS) {
+for (const entry of entries) {
   const e = new AutoExperiment(entry.id);
   await e.stocks.initialize();
   const initialMass_g = e.sample.mass_g + e.donors.reduce((sum, d) => sum + d.remaining, 0);
@@ -24,7 +29,7 @@ for (const entry of AUTO_EXPERIMENTS) {
     initialMass_g, finalMass_g, peakParticles, peakCloudParticles,
     particleBudget: e.physics.maxPrecipitateParticles, workbenchUnchanged: useAppStore.getState() === before });
   e.stocks.dispose();
-  if (results.length % 10 === 0) console.log(`Checked ${results.length}/${AUTO_EXPERIMENTS.length} native chemistry + physical effects pipelines`);
+  if (results.length % 10 === 0 || requested.length) console.log(`Checked ${results.length}/${entries.length}: ${entry.id}`);
 }
 const output = process.env.LAB_AUDIT_OUTPUT ?? 'artifacts/automatic-experiments';
 mkdirSync(output, { recursive: true });
