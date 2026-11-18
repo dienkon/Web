@@ -235,13 +235,13 @@ function StudentLayoutContent() {
   return (
     <div className="min-h-dvh h-dvh w-full max-w-[100vw] overflow-hidden bg-slate-50 dark:bg-slate-950 font-sans text-slate-900 dark:text-slate-100 flex flex-col transition-colors duration-200">
       {!hideStudentNav && (
-        <header className="h-14 sm:h-16 bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800 flex items-center justify-between px-3 sm:px-6 shadow-2xs shrink-0 z-30 transition-colors duration-200">
-          <div className="flex items-center gap-2 sm:gap-3">
+        <header className="h-14 sm:h-16 bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800 flex items-center justify-between gap-2 px-2.5 sm:px-6 shadow-2xs shrink-0 z-30 transition-colors duration-200 overflow-hidden">
+          <div className="flex items-center gap-1 sm:gap-3 min-w-0 shrink">
             {/* Mobile Hamburger Drawer Button */}
             <button
               type="button"
               onClick={() => setIsMobileDrawerOpen(true)}
-              className="md:hidden p-2 text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-100 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-xl transition-colors cursor-pointer"
+              className="md:hidden p-1.5 sm:p-2 text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-100 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-xl transition-colors cursor-pointer shrink-0"
               title="Mở menu"
             >
               <Menu className="w-5 h-5" />
@@ -249,7 +249,7 @@ function StudentLayoutContent() {
 
             <Link
               to="/"
-              className="flex items-center gap-1.5 sm:gap-2 text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-100 p-1.5 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
+              className="flex items-center gap-1 sm:gap-2 text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-100 p-1 sm:p-1.5 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors shrink-0"
               title="Về trang chủ"
             >
               <ArrowLeft className="w-4 h-4 sm:w-5 sm:h-5 text-slate-500" />
@@ -259,13 +259,13 @@ function StudentLayoutContent() {
               to="/"
               data-tour-id={TOUR_DATA_IDS.BRAND_LOGO}
               onClick={() => triggerAction("click_logo_home")}
-              className="flex items-center group"
+              className="flex items-center group min-w-0 shrink"
             >
               <BrandLogo size="sm" badgeText="Thi Trực Tuyến" theme="blue" hideBadgeOnMobile />
             </Link>
           </div>
 
-          <div className="flex items-center gap-2 sm:gap-3">
+          <div className="flex items-center gap-1 sm:gap-3 min-w-0 shrink-0">
             {/* Quick Portal Switcher */}
             <div className="hidden sm:flex items-center bg-slate-100 dark:bg-slate-800 border border-slate-200/50 dark:border-slate-700/60 p-1 rounded-xl text-xs font-bold text-slate-600 dark:text-slate-400">
               <Link
@@ -302,23 +302,23 @@ function StudentLayoutContent() {
             <ThemeToggle variant="icon" />
 
             {currentAccount ? (
-              <div className="flex items-center gap-1.5 sm:gap-2">
+              <div className="flex items-center gap-1 sm:gap-2 min-w-0">
                 {/* Gamification Streak & XP Badge (Visible on all viewports) */}
                 <Link
                   to="/student/profile"
-                  className="flex items-center gap-1 sm:gap-1.5 px-2 py-1 sm:px-2.5 sm:py-1 bg-amber-50 hover:bg-amber-100 dark:bg-amber-950/40 dark:hover:bg-amber-900/50 border border-amber-200/80 dark:border-amber-800/60 rounded-xl transition-colors text-xs font-bold text-amber-800 dark:text-amber-300 shadow-2xs shrink-0"
+                  className="flex items-center gap-1 sm:gap-1.5 px-1.5 py-1 sm:px-2.5 sm:py-1 bg-amber-50 hover:bg-amber-100 dark:bg-amber-950/40 dark:hover:bg-amber-900/50 border border-amber-200/80 dark:border-amber-800/60 rounded-xl transition-colors text-xs font-bold text-amber-800 dark:text-amber-300 shadow-2xs shrink-0"
                   title={`Chuỗi học tập liên tục: ${gameStats.currentStreak} ngày | Cấp độ: ${gameStats.levelTitle} (${gameStats.totalXP} XP)`}
                 >
                   <Flame className="w-3.5 h-3.5 text-amber-500 fill-amber-500 animate-pulse" />
                   <span>{gameStats.currentStreak}</span>
-                  <span className="text-[10px] text-amber-600 dark:text-amber-400 font-medium ml-0.5">Lv.{gameStats.level}</span>
+                  <span className="hidden sm:inline text-[10px] text-amber-600 dark:text-amber-400 font-medium ml-0.5">Lv.{gameStats.level}</span>
                 </Link>
 
                 <Link
                   to="/student/profile"
                   data-tour-id={TOUR_DATA_IDS.HEADER_AVATAR}
                   onClick={() => triggerAction("click_profile")}
-                  className="flex items-center gap-2 bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 px-2.5 py-1 rounded-xl transition-colors cursor-pointer border border-slate-200/60 dark:border-slate-700"
+                  className="flex items-center gap-1.5 sm:gap-2 bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 px-1.5 sm:px-2.5 py-1 rounded-xl transition-colors cursor-pointer border border-slate-200/60 dark:border-slate-700 min-w-0 shrink"
                   title="Chỉnh sửa hồ sơ cá nhân"
                 >
                   <UserAvatar
@@ -327,14 +327,14 @@ function StudentLayoutContent() {
                     size="xs"
                     shape="circle"
                   />
-                  <span className="text-xs font-bold text-slate-800 dark:text-slate-200 max-w-[90px] sm:max-w-[120px] truncate">
+                  <span className="text-xs font-bold text-slate-800 dark:text-slate-200 max-w-[54px] sm:max-w-[120px] truncate">
                     {currentAccount.displayName || "Học sinh"}
                   </span>
                 </Link>
                 <button
                   type="button"
                   onClick={() => setShowLogoutModal(true)}
-                  className="p-1.5 text-slate-400 dark:text-slate-500 hover:text-red-600 dark:hover:text-red-400 hover:bg-red-50 dark:hover:bg-red-950/40 rounded-xl transition-colors cursor-pointer"
+                  className="p-1.5 text-slate-400 dark:text-slate-500 hover:text-red-600 dark:hover:text-red-400 hover:bg-red-50 dark:hover:bg-red-950/40 rounded-xl transition-colors cursor-pointer shrink-0"
                   title="Đăng xuất"
                 >
                   <LogOut className="w-4 h-4" />
@@ -588,7 +588,7 @@ function StudentLayoutContent() {
           </div>
         )}
 
-        <main className={`flex-1 overflow-y-auto bg-slate-50/50 dark:bg-slate-950/60 ${isCourseTheater ? "pb-0 flex flex-col overflow-hidden" : "pb-24 md:pb-6"}`}>
+        <main className={`flex-1 overflow-y-auto overflow-x-hidden bg-slate-50/50 dark:bg-slate-950/60 ${isCourseTheater ? "pb-0 flex flex-col overflow-hidden" : "pb-24 md:pb-6"}`}>
           {!hideStudentNav && <OpenInAppBanner />}
           <Outlet />
         </main>

@@ -1185,7 +1185,7 @@ export default function CourseDetail() {
   };
 
   const renderCourseOverview = () => (
-    <div className="max-w-6xl mx-auto px-3 py-3 sm:p-6 lg:p-8 space-y-4 sm:space-y-6 pb-24">
+    <div className="w-full max-w-6xl mx-auto overflow-x-hidden px-3 py-3 sm:p-6 lg:p-8 space-y-4 sm:space-y-6 pb-24">
       {/* Compact Course Header (1.9.5 Classic Overview) */}
       <div className="bg-white dark:bg-slate-900 rounded-2xl sm:rounded-3xl border border-slate-200 dark:border-slate-800 p-3.5 sm:p-5 shadow-xs space-y-3">
         <div className="flex items-center justify-between gap-2 flex-wrap">
@@ -2087,7 +2087,7 @@ export default function CourseDetail() {
         )}
 
         {/* Right Main Content Pane */}
-        <div ref={mainScrollRef} className="flex-1 overflow-y-auto bg-slate-50/70">
+        <div ref={mainScrollRef} className="flex-1 overflow-y-auto overflow-x-hidden bg-slate-50/70">
           <div className="max-w-5xl mx-auto p-3 sm:p-5 lg:p-6 space-y-4 pb-12">
             {/* Active Topic Title & Playing Lesson Subtitle */}
             <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-2.5">

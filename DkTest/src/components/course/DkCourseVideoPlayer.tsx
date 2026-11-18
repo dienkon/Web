@@ -29,6 +29,12 @@ import {
 } from "../../services/courseService";
 import type { CourseVideoType } from "../../types";
 import { safeExitFullscreen, safeRequestFullscreen } from "../../utils/mobileCompat";
+import {
+  computeFittedVideoBox,
+  VIRTUAL_IFRAME_STAGE_HEIGHT,
+  VIRTUAL_IFRAME_STAGE_WIDTH,
+  VIRTUAL_IFRAME_THRESHOLD_WIDTH,
+} from "../../utils/videoSourceHelper";
 
 interface DkCourseVideoPlayerProps {
   courseId?: string;
@@ -136,6 +142,12 @@ export default function DkCourseVideoPlayer({
   const [volume] = useState(100);
   const [isNativeFullscreen, setIsNativeFullscreen] = useState(false);
   const [isFallbackFullscreen, setIsFallbackFullscreen] = useState(false);
+  const [isRotatedLandscape, setIsRotatedLandscape] = useState(false);
+  const [viewportSize, setViewportSize] = useState<{ width: number; height: number }>(() =>
+    typeof window !== "undefined"
+      ? { width: window.innerWidth, height: window.innerHeight }
+      : { width: 1024, height: 768 }
+  );
   const [ytApiFallback, setYtApiFallback] = useState(false);
   const [showCenterIcon, setShowCenterIcon] = useState(true);
   const [isVideoBuffering, setIsVideoBuffering] = useState(false);
@@ -247,30 +259,65 @@ export default function DkCourseVideoPlayer({
     return () => window.clearTimeout(timer);
   }, [isVideoBuffering]);
 
-  // Track container width so narrow mobile screens scale Drive/external iframes cleanly without clipping controls
+  // Track container width & viewport size so narrow screens scale Drive/external iframes cleanly
   useEffect(() => {
     const el = containerRef.current;
-    if (!el || typeof window === "undefined") return;
-    const updateWidth = () => {
-      const rect = el.getBoundingClientRect();
-      if (rect.width > 0) setContainerWidth(rect.width);
+    if (typeof window === "undefined") return;
+    const updateSizes = () => {
+      setViewportSize({ width: window.innerWidth, height: window.innerHeight });
+      if (el) {
+        const rect = el.getBoundingClientRect();
+        if (rect.width > 0) setContainerWidth(rect.width);
+      }
     };
-    updateWidth();
-    if (typeof window.ResizeObserver === "function") {
-      const observer = new window.ResizeObserver(() => updateWidth());
+    updateSizes();
+    window.addEventListener("resize", updateSizes);
+    window.addEventListener("orientationchange", updateSizes);
+    if (el && typeof window.ResizeObserver === "function") {
+      const observer = new window.ResizeObserver(() => updateSizes());
       observer.observe(el);
-      return () => observer.disconnect();
+      return () => {
+        observer.disconnect();
+        window.removeEventListener("resize", updateSizes);
+        window.removeEventListener("orientationchange", updateSizes);
+      };
     }
-    window.addEventListener("resize", updateWidth);
-    return () => window.removeEventListener("resize", updateWidth);
+    return () => {
+      window.removeEventListener("resize", updateSizes);
+      window.removeEventListener("orientationchange", updateSizes);
+    };
   }, [effectiveKind, isFullscreen]);
 
-  // Listen to native fullscreen state changes cleanly
+  // Listen to native fullscreen state changes cleanly & clear CSS rotation on exit
   useEffect(() => {
-    const onFs = () => setIsNativeFullscreen(Boolean(document.fullscreenElement));
+    const onFs = () => {
+      const active = Boolean(document.fullscreenElement);
+      setIsNativeFullscreen(active);
+      if (!active) {
+        setIsRotatedLandscape(false);
+        try {
+          (screen.orientation as any)?.unlock?.();
+        } catch {}
+      }
+    };
     document.addEventListener("fullscreenchange", onFs);
     return () => document.removeEventListener("fullscreenchange", onFs);
   }, []);
+
+  useEffect(() => {
+    if (!isFallbackFullscreen) return;
+    const onKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        setIsFallbackFullscreen(false);
+        setIsRotatedLandscape(false);
+        try {
+          (screen.orientation as any)?.unlock?.();
+        } catch {}
+      }
+    };
+    window.addEventListener("keydown", onKeyDown);
+    return () => window.removeEventListener("keydown", onKeyDown);
+  }, [isFallbackFullscreen]);
 
   // Close open speed/quality dropdown when clicking outside menu controls
   useEffect(() => {
@@ -588,10 +635,18 @@ export default function DkCourseVideoPlayer({
   const handleToggleFullscreen = async () => {
     if (isFallbackFullscreen) {
       setIsFallbackFullscreen(false);
+      setIsRotatedLandscape(false);
+      try {
+        (screen.orientation as any)?.unlock?.();
+      } catch {}
       return;
     }
     if (isNativeFullscreen) {
       await safeExitFullscreen();
+      setIsRotatedLandscape(false);
+      try {
+        (screen.orientation as any)?.unlock?.();
+      } catch {}
       return;
     }
     if (containerRef.current) {
@@ -599,6 +654,9 @@ export default function DkCourseVideoPlayer({
       if (!ok) {
         setIsFallbackFullscreen(true);
       }
+      try {
+        await (screen.orientation as any)?.lock?.("landscape");
+      } catch {}
     }
   };
 
@@ -639,8 +697,10 @@ export default function DkCourseVideoPlayer({
   }
 
   // Drive or fallback external iframe:
-  // On narrow mobile screens (< 640px), scale from a 640x360 (16:9) virtual viewport so Drive's
-  // internal player controls never wrap, clip off-screen, or expose the [↗] pop-out button.
+  // On screens narrower than VIRTUAL_IFRAME_THRESHOLD_WIDTH (mobile/tablet/portrait),
+  // scale a 1024x576 (16:9) desktop virtual stage to fit cleanly inside the container or fitted fullscreen box
+  // so Google Drive uses compact-free controls without vertical/horizontal overflow, hides [↗], and routes
+  // fullscreen exclusively through DkTEST's wrapper (with portrait-rotate & orientation lock support).
   if (effectiveKind === "iframe" || (effectiveKind === "youtube" && ytApiFallback)) {
     const driveSrc =
       autoPlay && parsed.embedUrl && !/[?&]autoplay=/i.test(parsed.embedUrl)
@@ -650,90 +710,151 @@ export default function DkCourseVideoPlayer({
       e.preventDefault();
       e.stopPropagation();
     };
-    const shouldScaleMobileIframe =
-      !isFullscreen && containerWidth > 0 && containerWidth < 640;
-    const iframeScale = shouldScaleMobileIframe ? containerWidth / 640 : 1;
+
+    const isPortraitViewport = viewportSize.width < viewportSize.height;
+    const activeRotate = isFullscreen && isRotatedLandscape && isPortraitViewport;
+    const fsAvailW = Math.max(240, viewportSize.width);
+    const fsAvailH = Math.max(180, viewportSize.height - 40);
+    const fittedFsBox = isFullscreen
+      ? activeRotate
+        ? computeFittedVideoBox(fsAvailH, fsAvailW)
+        : computeFittedVideoBox(fsAvailW, fsAvailH)
+      : null;
+
+    const targetBoxWidth = fittedFsBox ? fittedFsBox.width : containerWidth;
+    const useVirtualDesktopStage =
+      targetBoxWidth > 0 && targetBoxWidth < VIRTUAL_IFRAME_THRESHOLD_WIDTH;
+    const iframeScale = useVirtualDesktopStage ? targetBoxWidth / VIRTUAL_IFRAME_STAGE_WIDTH : 1;
 
     return (
       <div
         ref={containerRef}
-        className={`relative w-full max-w-full bg-black overflow-hidden select-none ${
+        className={`relative w-full max-w-full bg-black overflow-hidden select-none flex flex-col ${
           isFallbackFullscreen
-            ? "fixed inset-0 z-[9995] flex items-center justify-center"
+            ? "fixed inset-0 z-[9995]"
             : isNativeFullscreen
-            ? "h-full flex items-center justify-center"
-            : "aspect-video"
+            ? "h-full"
+            : ""
         }`}
         onContextMenu={(e) => e.preventDefault()}
       >
-        {shouldScaleMobileIframe ? (
+        <div
+          className={
+            isFullscreen
+              ? "flex-1 min-h-0 w-full flex items-center justify-center overflow-hidden"
+              : "w-full overflow-hidden"
+          }
+        >
           <div
-            className="absolute top-0 left-0 origin-top-left"
-            style={{
-              width: "640px",
-              height: "360px",
-              transform: `scale(${iframeScale})`,
-            }}
+            className={`relative bg-black overflow-hidden shrink-0 ${
+              isFullscreen ? "" : "w-full aspect-video"
+            }`}
+            style={
+              fittedFsBox
+                ? {
+                    width: `${fittedFsBox.width}px`,
+                    height: `${fittedFsBox.height}px`,
+                    ...(activeRotate
+                      ? { transform: "rotate(90deg)", transformOrigin: "center center" }
+                      : {}),
+                  }
+                : undefined
+            }
           >
-            <iframe
-              key={driveSrc}
-              src={driveSrc}
-              title={title}
-              referrerPolicy="strict-origin-when-cross-origin"
-              sandbox={
-                parsed.isDrive || parsed.kind === "iframe"
-                  ? "allow-scripts allow-same-origin allow-forms allow-presentation"
+            <div
+              className={
+                useVirtualDesktopStage
+                  ? "absolute top-0 left-0 origin-top-left overflow-hidden"
+                  : "relative w-full h-full overflow-hidden"
+              }
+              style={
+                useVirtualDesktopStage
+                  ? {
+                      width: `${VIRTUAL_IFRAME_STAGE_WIDTH}px`,
+                      height: `${VIRTUAL_IFRAME_STAGE_HEIGHT}px`,
+                      transform: `scale(${iframeScale})`,
+                    }
                   : undefined
               }
-              className="block w-full h-full border-0"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; fullscreen"
-              allowFullScreen
-            />
-            <div
-              role="presentation"
-              aria-label="Vùng được DkTEST bảo vệ"
-              onClick={blockPointerEvent}
-              onMouseDown={blockPointerEvent}
-              onPointerDown={blockPointerEvent}
-              onTouchStart={blockPointerEvent}
-              onDoubleClick={blockPointerEvent}
-              onContextMenu={blockPointerEvent}
-              className="absolute top-0 right-0 w-[124px] h-[96px] z-20 rounded-bl-3xl bg-transparent hover:bg-slate-950/90 text-transparent hover:text-blue-200 flex items-center justify-center transition-colors duration-150 cursor-default select-none pointer-events-auto"
             >
-              <ShieldCheck className="w-5 h-5 pointer-events-none" />
+              <iframe
+                key={driveSrc}
+                src={driveSrc}
+                title={title}
+                referrerPolicy="strict-origin-when-cross-origin"
+                sandbox={
+                  parsed.isDrive || parsed.kind === "iframe"
+                    ? "allow-scripts allow-same-origin allow-forms allow-presentation"
+                    : undefined
+                }
+                className="block w-full h-full border-0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              />
+              <div
+                role="presentation"
+                aria-label="Vùng được DkTEST bảo vệ"
+                onClick={blockPointerEvent}
+                onMouseDown={blockPointerEvent}
+                onPointerDown={blockPointerEvent}
+                onTouchStart={blockPointerEvent}
+                onDoubleClick={blockPointerEvent}
+                onContextMenu={blockPointerEvent}
+                className={`absolute top-0 right-0 z-20 rounded-bl-2xl bg-slate-950/95 text-blue-300/85 flex items-center justify-center cursor-default select-none pointer-events-auto border-b border-l border-white/10 ${
+                  useVirtualDesktopStage ? "w-[84px] h-[68px]" : "w-[78px] h-[60px]"
+                }`}
+              >
+                <ShieldCheck className={useVirtualDesktopStage ? "w-5 h-5 pointer-events-none" : "w-4 h-4 pointer-events-none"} />
+              </div>
             </div>
           </div>
-        ) : (
-          <div className="relative w-full h-full">
-            <iframe
-              key={driveSrc}
-              src={driveSrc}
-              title={title}
-              referrerPolicy="strict-origin-when-cross-origin"
-              sandbox={
-                parsed.isDrive || parsed.kind === "iframe"
-                  ? "allow-scripts allow-same-origin allow-forms allow-presentation"
-                  : undefined
-              }
-              className="block w-full h-full border-0"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; fullscreen"
-              allowFullScreen
-            />
-            <div
-              role="presentation"
-              aria-label="Vùng được DkTEST bảo vệ"
-              onClick={blockPointerEvent}
-              onMouseDown={blockPointerEvent}
-              onPointerDown={blockPointerEvent}
-              onTouchStart={blockPointerEvent}
-              onDoubleClick={blockPointerEvent}
-              onContextMenu={blockPointerEvent}
-              className="absolute top-0 right-0 w-[96px] h-[68px] z-20 rounded-bl-2xl bg-transparent hover:bg-slate-950/90 hover:backdrop-blur-sm text-transparent hover:text-blue-200 flex items-center justify-center transition-colors duration-150 cursor-default select-none pointer-events-auto"
+        </div>
+
+        {/* Dedicated DkTEST Fullscreen & Orientation Bar (prevents Drive's portrait overflow) */}
+        <div
+          className={`bg-slate-950 border-t border-white/10 px-2.5 sm:px-3 flex items-center justify-between gap-2 text-slate-200 text-[11px] font-bold shrink-0 ${
+            isFullscreen ? "h-10" : "h-9"
+          }`}
+        >
+          <span className="flex items-center gap-1.5 min-w-0 truncate text-slate-300">
+            <ShieldCheck className="w-3.5 h-3.5 text-blue-400 shrink-0" />
+            <span className="truncate">
+              {parsed.isDrive ? "Kho lưu Drive • Chế độ an toàn DkTEST" : "Trình phát an toàn DkTEST"}
+            </span>
+          </span>
+
+          <div className="flex items-center gap-1.5 shrink-0">
+            {isFullscreen && isPortraitViewport && (
+              <button
+                type="button"
+                onClick={() => setIsRotatedLandscape((r) => !r)}
+                className="px-2.5 py-1 rounded-lg bg-white/15 hover:bg-white/25 text-white flex items-center gap-1 cursor-pointer transition-colors"
+                title={activeRotate ? "Quay về màn hình dọc" : "Xoay ngang toàn màn hình"}
+              >
+                <RotateCw className="w-3.5 h-3.5" />
+                <span>{activeRotate ? "Dọc" : "Xoay ngang"}</span>
+              </button>
+            )}
+
+            <button
+              type="button"
+              onClick={() => void handleToggleFullscreen()}
+              className="px-2.5 py-1 rounded-lg bg-blue-600 hover:bg-blue-500 text-white flex items-center gap-1 cursor-pointer transition-colors"
+              title={isFullscreen ? "Thu nhỏ trình phát" : "Mở toàn màn hình ngang"}
             >
-              <ShieldCheck className="w-4 h-4 pointer-events-none" />
-            </div>
+              {isFullscreen ? (
+                <>
+                  <Minimize2 className="w-3.5 h-3.5" />
+                  <span>Thu nhỏ</span>
+                </>
+              ) : (
+                <>
+                  <Maximize2 className="w-3.5 h-3.5" />
+                  <span>Toàn màn hình</span>
+                </>
+              )}
+            </button>
           </div>
-        )}
+        </div>
       </div>
     );
   }

@@ -18,6 +18,11 @@ import {
   VIDEO_SPEED_OPTIONS,
 } from "./courseService";
 import type { Course, CourseLesson } from "../types";
+import {
+  computeFittedVideoBox,
+  VIRTUAL_IFRAME_STAGE_HEIGHT,
+  VIRTUAL_IFRAME_STAGE_WIDTH,
+} from "../utils/videoSourceHelper";
 
 describe("courseService pure access, hierarchy, masking & outline helpers", () => {
   describe("resolveCourseAccessMode & isLessonEffectivelyFree", () => {
@@ -317,6 +322,11 @@ describe("courseService pure access, hierarchy, masking & outline helpers", () =
       expect(isCoursePlayerTheaterUrl("/courses/math12", "?watch=1")).toBe(true);
       expect(isCoursePlayerTheaterUrl("/student/courses", "?lesson=l1")).toBe(false);
       expect(isCoursePlayerTheaterUrl("/admin/courses/math12", "?lesson=l1")).toBe(false);
+
+      expect(VIRTUAL_IFRAME_STAGE_WIDTH / VIRTUAL_IFRAME_STAGE_HEIGHT).toBeCloseTo(16 / 9, 5);
+      expect(computeFittedVideoBox(360, 760)).toEqual({ width: 360, height: 203 });
+      expect(computeFittedVideoBox(760, 360)).toEqual({ width: 640, height: 360 });
+      expect(computeFittedVideoBox(1280, 720)).toEqual({ width: 1280, height: 720 });
 
       // Verify accurate watchedSecondsMap calculation overrides binary-only percentage
       const secTree = buildCourseHierarchy(

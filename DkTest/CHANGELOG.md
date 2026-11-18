@@ -1,5 +1,16 @@
 # DkTEST changelog
 
+## 1.9.10 — 2026-11-18 (Android versionCode 16)
+
+- **Fix triệt để lỗi tràn layout trên điện thoại ở đầu trang & khung video Google Drive (`DkCourseVideoPlayer.tsx`, `StudentLayout.tsx`, `CourseDetail.tsx`, `src/utils/videoSourceHelper.ts`)**:
+  - **Fix tràn ngang header & trang trên mobile (`StudentLayout.tsx`, `CourseDetail.tsx`)**: Thêm `min-w-0` / `overflow-hidden` cho thanh tiêu đề trên `StudentLayout`, thu gọn badge `Lv.` & tên hiển thị (`max-w-[54px] sm:max-w-[120px] truncate`) trên màn hình hẹp `< 640px` để không bị cắt mất phần avatar/tên ở mép phải, đồng thời bật `overflow-x-hidden` cho vùng cuộn nội dung.
+  - **Nâng khung ảo Google Drive lên `1024×576` (`VIRTUAL_IFRAME_THRESHOLD_WIDTH = 900`) & chặn tràn toàn màn hình dọc (`DkCourseVideoPlayer.tsx`, `videoSourceHelper.ts`)**:
+    - Thay khung `640×360` bằng khung `1024×576` tỷ lệ chuẩn `16:9` (vượt ngưỡng mobile/compact của trình phát Google Drive 2026) giúp các nút `Play / Tạm dừng / -10s / +10s` không bị cắt đôi ở đáy khung phát.
+    - Chuyển khiên chặn góc trên phải `[↗]` sang nền tối đặc `bg-slate-950/95` kèm biểu tượng bảo vệ DkTEST (ẩn hoàn toàn biểu tượng mở tab ngoài `[↗]` trên cảm ứng thay vì `bg-transparent`).
+    - Gỡ `allowFullScreen` / `fullscreen` khỏi chính thẻ `<iframe>` nhúng (ngăn trình phát Drive tự phóng to trần ở chế độ dọc gây tràn cụm nút `[🔊][CC][1x][⚙][⛶]` ra ngoài mép phải như lỗi trước) và thay bằng **thanh điều khiển Toàn màn hình & Xoay ngang của DkTEST** ngay dưới khung phát (`Toàn màn hình` / `Thu nhỏ` + nút **`Xoay ngang`** CSS 90° khi ở màn hình dọc + thử khóa xoay ngang `screen.orientation.lock("landscape")` + tính toán kích thước `computeFittedVideoBox` vừa khít trong mọi khung màn hình).
+- Bổ sung unit test cho `computeFittedVideoBox` & tỷ lệ khung `1024×576` trong `src/services/courseService.test.ts`.
+- Audit: [1.9.10](docs/audits/1.9.10.md).
+
 ## 1.9.9 — 2026-11-18 (Android versionCode 15)
 
 - **Fix triệt để lỗi quay vòng tải video mãi không phát (`DkCourseVideoPlayer.tsx`, `CourseDetail.tsx`, `src/services/courseService.ts`, `server/services/courseService.ts`)**:

@@ -65,3 +65,25 @@ export function inferCourseVideoType(
   }
   return fallback;
 }
+
+export const VIRTUAL_IFRAME_STAGE_WIDTH = 1024;
+export const VIRTUAL_IFRAME_STAGE_HEIGHT = 576;
+export const VIRTUAL_IFRAME_THRESHOLD_WIDTH = 900;
+
+/**
+ * Computes the largest aspect-ratio-preserving pixel box that fits inside (availableWidth x availableHeight).
+ */
+export function computeFittedVideoBox(
+  availableWidth: number,
+  availableHeight: number,
+  aspectRatio = 16 / 9
+): { width: number; height: number } {
+  const w = Math.max(0, Math.floor(availableWidth));
+  const h = Math.max(0, Math.floor(availableHeight));
+  if (w <= 0 || h <= 0) return { width: w, height: h };
+  const heightWhenFullWidth = Math.round(w / aspectRatio);
+  if (heightWhenFullWidth <= h) {
+    return { width: w, height: heightWhenFullWidth };
+  }
+  return { width: Math.round(h * aspectRatio), height: h };
+}
