@@ -3,6 +3,7 @@ import { getProgramById } from '../vfx/programs/library';
 import { useAppStore } from '../store/useAppStore';
 import { vfxBus } from '../vfx/bus';
 import { labSound } from '../utils/audio';
+import { uiText } from '../utils/uiText';
 
 // Explicitly reviewed contexts. An atom name/category/title is never interpreted
 // as a chemical formula. A context uses its program's inventory and conditions;
@@ -69,8 +70,8 @@ export function studioAtomAction(atom: EffectAtom, index: number): StudioAtomAct
       note: 'Chỉ rung khung nhìn; không kích hoạt nổ, chớp, khí hoặc mảnh kính. Theo đồng hồ Pause/Resume và tùy chọn giảm chuyển động.' };
   }
   const programId = PROGRAM_CONTEXTS[atom.name]?.[index];
-  if (atom.name === 'iceMeltShrink' && index === 0) return { kind: 'ice_water', label: 'Thay mẫu nước–đá trong bình đích',
-    note: 'Thay mẫu trong bình đích; mẫu 20 g nước và 5 g đá ở 0 °C. Nhiệt làm tan lượng đá hữu hạn trước khi làm ấm toàn bộ nước; chưa có bể làm lạnh cho bình khác.' };
+  if (atom.name === 'iceMeltShrink' && index === 0) return { kind: 'ice_water', label: uiText('Thay mẫu nước–đá trong bình đích'),
+    note: uiText('Mẫu trong bình đích gồm 20 g nước và 5 g đá ở 0 °C. Nhiệt làm tan đá trước khi làm ấm nước. Lab chưa có bể làm lạnh cho bình khác.') };
   if (['foamClimbRunaway', 'cellularFoamGrowth'].includes(atom.name) && index === 0) return {
     kind: 'program', programId: 'h2o2_mno2', variant: 'oxygen_foam', label: 'Thay mẫu O2 trong bình đích',
     note: 'Mẫu ảo H2O2/MnO2 có SDS trong kho chất. Bọt dùng lượng O2 sinh ra thật; chưa mô phỏng cột bọt tràn mang theo dịch.' };

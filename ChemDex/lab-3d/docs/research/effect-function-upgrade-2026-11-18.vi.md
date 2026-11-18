@@ -10,6 +10,7 @@
 - **Âm thanh dòng rót:** hạ âm lượng khi tạm dừng, tắt tiếng, chuyển bàn hoặc ẩn canvas. Luồng mới có thể bắt đầu ngay cả khi luồng cũ còn trong đoạn hạ âm lượng. Buffer tiếng nước được tái sử dụng giữa các lần rót.
 - **Audit trình duyệt:** bổ sung fixture phiên đã tạm dừng hướng dẫn để lớp chào lần đầu không chặn thao tác audit. Cập nhật audit khí/khuấy để mở lại danh mục sau mỗi lần chọn bài. Audit onboarding riêng vẫn giữ luồng người dùng mới.
 - **Bản production độc lập:** máy chủ Express phục vụ tài nguyên của Lab tại `/lab/`. Khi thiếu tệp trong thư mục tài nguyên, máy chủ trả 404 để trình duyệt báo đúng lỗi tải tệp.
+- **Nhãn tiếng Việt:** giữ nguyên tên mẫu nước–đá, phép đo và nhãn đồng hồ iốt khi dựng bản production. Dùng cơ chế bảo vệ văn bản giao diện đã có để phần chuẩn hóa tên hóa chất bỏ qua các nhãn này.
 
 ## Kiểm chứng
 
@@ -31,6 +32,7 @@ Phép đo logic ba bình ở mức High đạt trung bình 3,16 ms mỗi bước
 | Thao tác | 8 điều kiện qua, gồm lau vũng một lần mỗi lần nhấn, bảo toàn khối lượng, thu hồi cặn lọc theo từng dạng tinh thể, và chạy mẫu đã chuẩn bị sau khi đủ điều kiện |
 | Rửa dụng cụ | 10 điều kiện qua, gồm vị trí tia nước, lượng nước thu hồi, tạm dừng và hủy rửa |
 | Production | Bàn thủ công và tự động mở được tại `/lab/`. Thí nghiệm CuSO₄ + NaOH chạy và tạm dừng. JavaScript, CSS và shader tải đúng. Tệp tài nguyên không tồn tại trả 404. |
+| Mẫu nước–đá trên production | Mở Thiết lập → Vật lí, bật mô phỏng và tạo mẫu từ nút tiếng Việt. Phép đo nhiệt nóng chảy xuất hiện. Dữ liệu lưu có 20 mL nước và 5 g đá ở 0 °C, tên mẫu giữ nguyên tiếng Việt. |
 
 ### Tái chạy
 
@@ -67,6 +69,8 @@ npm run build
 ```
 
 Để kiểm tra bản vừa build, chạy `$env:NODE_ENV='production'; npm start` rồi chạy `node scripts/auditStandaloneProduction.mjs` trong terminal khác.
+
+Để kiểm tra mẫu nước–đá trên cùng máy chủ, đặt `$env:PHASE_PRODUCTION_ORIGIN='http://127.0.0.1:6767/lab/'` rồi chạy `node scripts/auditPhaseProduction.mjs`.
 
 ## Phạm vi độ chính xác
 

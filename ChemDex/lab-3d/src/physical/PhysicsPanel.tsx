@@ -8,6 +8,7 @@ import { materialProperties } from './materials';
 import { ReferenceMeasurements } from './ReferenceMeasurements';
 import { LAB_GEOMETRY } from '../core/labGeometry';
 import { metersToScene } from '../science/sceneUnits';
+import { uiText } from '../utils/uiText';
 
 let nextObject = 0;
 const TOOL_NAMES: Record<string, string> = { force_meter: 'Lực kế', pressure_sensor: 'Cảm biến áp suất',
@@ -51,7 +52,7 @@ export function PhysicsPanel() {
           <p className="text-sm mb-3">Mẫu rắn được thả phía trên bình đang chọn. Có thể tạm dừng để bố trí.</p>
           <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">{SAMPLE_IDS.map(id => <button key={id} disabled={!state.enabled}
             onClick={() => add(id, true)} className="border rounded-lg p-3 text-left text-sm hover:bg-slate-50 disabled:opacity-40">
-            {materialProperties(id).name}<span className="block text-xs text-slate-500">{['glycerol', 'silicone_oil'].includes(id) ? 'Đo vận tốc lắng trong mẫu lỏng' : id === 'ice' ? 'Tạo mẫu nước–đá và đo nhiệt' : 'Mẫu 1 cm³'}</span></button>)}</div>
+            {materialProperties(id).name}<span className="block text-xs text-slate-500">{['glycerol', 'silicone_oil'].includes(id) ? 'Đo vận tốc lắng trong mẫu lỏng' : id === 'ice' ? uiText('Tạo mẫu nước–đá và đo nhiệt') : 'Mẫu 1 cm³'}</span></button>)}</div>
           <h3 className="font-semibold mt-4 mb-2">Dụng cụ bổ sung</h3>
           <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">{EXPANSION_TOOLS.map(id => <button key={id} disabled={!state.enabled} onClick={() => add(id, false)}
             className="border rounded-lg p-3 text-left text-sm hover:bg-slate-50 disabled:opacity-40">{TOOL_NAMES[id]}<span className="block text-xs text-slate-500">Hình bao tham chiếu</span></button>)}</div>

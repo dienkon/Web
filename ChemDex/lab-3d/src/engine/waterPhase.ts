@@ -3,6 +3,7 @@ import { sameMolecularFormula } from '../science/speciesIdentity';
 import { WATER_CP_J_G_K, ICE_CP_J_G_K, WATER_FUSION_J_G, ICE_DENSITY_G_ML, VESSEL_HEAT_CAPACITY_J_K } from './waterProperties';
 import { occupiedLiquidVolume } from '../handling/solidOccupancy';
 import { neutralPhAtTemperature } from '../science/aqueousTemperature';
+import { uiText } from '../utils/uiText';
 
 export function waterPhaseMasses(vessel: Pick<VesselState, 'contents'>) {
   let liquid_g = 0, ice_g = 0;
@@ -60,8 +61,8 @@ export function liquidSurfaceVolume(vessel: Pick<VesselState, 'contents' | 'volu
 }
 
 export function createIceWaterSample(shell: VesselState): VesselState {
-  if (shell.capacity_ml < 20 + 5 / ICE_DENSITY_G_ML) throw new Error('Dụng cụ không đủ sức chứa nước–đá.');
-  return { ...shell, name: 'Mẫu ảo: 20 g nước + 5 g đá', studioProgramId: undefined,
+  if (shell.capacity_ml < 20 + 5 / ICE_DENSITY_G_ML) throw new Error(uiText('Dụng cụ không đủ sức chứa nước–đá.'));
+  return { ...shell, name: uiText('Mẫu ảo: 20 g nước + 5 g đá'), studioProgramId: undefined,
     studioSpecimenVariant: undefined, contents: [
       { formula: 'H2O', phase: 'l', mass_g: 20, moles: 20 / 18.015 },
       { formula: 'H2O', phase: 's', mass_g: 5, moles: 5 / 18.015 },
