@@ -29,6 +29,14 @@ async function run(channel, pdf) {
     };
     await importPdf();
     assert.equal(await page.evaluate(() => Store.book().pages.length), 1);
+    for (const y of [540, 1032]) {
+      await page.click('[data-action="next-question"]');
+      await page.waitForFunction(y => {
+        const v = Store.state.viewport;
+        return Math.abs(v.y + y * v.zoom - Math.min(100, Renderer.area.clientHeight * .2)) < 1e-8;
+      }, y);
+    }
+    assert.equal(await page.evaluate(async () => (await PDFStudio.questionPositions(Store.current())).length), 2);
     await page.evaluate(() => Store.undo());
     assert.equal(await page.evaluate(() => Store.current().objects.length), 0);
     await page.evaluate(() => App.openPanel("settings"));
@@ -180,7 +188,10 @@ async function run(channel, pdf) {
 
 (async () => {
   const source = await PDFDocument.create();
-  source.addPage([500, 810]);
+  const sheet = source.addPage([500, 810]);
+  sheet.drawText("Câu 1. Simplify the expression.", { x: 55, y: 585 });
+  sheet.drawText("Question 2. Solve the equation.", { x: 55, y: 380 });
+  sheet.drawText("Refer to Question 1 for the hint.", { x: 55, y: 310 });
   const pdf = Buffer.from(await source.save());
   for (const channel of ["chrome", "msedge"]) await run(channel, pdf);
 })().catch(error => { console.error(error); process.exitCode = 1; });

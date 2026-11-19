@@ -89,6 +89,50 @@
     }
     return open(bytes(a), key);
   }
+  const questionText = new WeakMap();
+  async function questionPositions(notebookPage) {
+    const positions = [];
+    for (const o of notebookPage.objects) {
+      if (o.type !== "pdf" || o.visible === false || !notebookPage.layers.some(l => l.id === o.layer && l.visible)) continue;
+      const doc = await getDocument(o);
+      const key = `${o.data.pageNumber}|${o.data.pageRotation}`;
+      let pages = questionText.get(doc);
+      if (!pages) questionText.set(doc, pages = new Map());
+      if (!pages.has(key)) {
+        const page = await doc.getPage(o.data.pageNumber);
+        const view = page.getViewport({ scale: 1, rotation: o.data.pageRotation });
+        const { items } = await page.getTextContent();
+        const headings = [];
+        let line = "", first;
+        const finishLine = () => {
+          if (first && /^(?:(?:câu|cau|bài|bai|question)\s*(?:số\s*)?)\d+\b/iu.test(line.trim())) {
+            const [x, y] = view.convertToViewportPoint(first.transform[4], first.transform[5]);
+            headings.push({ x: x / view.width, y: y / view.height });
+          }
+          line = "";
+          first = null;
+        };
+        for (const item of items) {
+          if (!item.transform) continue;
+          if (first && Math.abs(first.transform[5] - item.transform[5]) > Math.max(3, first.height / 2)) finishLine();
+          if (item.str.trim()) first ||= item;
+          if (first && line.length < 100) line += item.str;
+          if (item.hasEOL) finishLine();
+        }
+        finishLine();
+        if (pages.size >= 24) pages.delete(pages.keys().next().value);
+        pages.set(key, headings);
+      }
+      for (const point of pages.get(key)) {
+        const p = Renderer.worldPoint(o, { x: point.x * o.size.w, y: point.y * o.size.h });
+        const clip = o.clip;
+        if (clip && (p.x < o.position.x + clip.x || p.x > o.position.x + clip.x + clip.w ||
+                     p.y < o.position.y + clip.y || p.y > o.position.y + clip.y + clip.h)) continue;
+        if (p.x >= 0 && p.x <= notebookPage.width && p.y >= 0 && p.y <= notebookPage.height) positions.push(p);
+      }
+    }
+    return positions;
+  }
   async function raster(doc, pageNumber, rotation, maxSize = 2200) {
     const p = await doc.getPage(pageNumber),
       view = p.getViewport({ scale: 1, rotation }),
@@ -630,6 +674,7 @@
     bytes,
     asset,
     getDocument,
+    questionPositions,
     raster,
     prepare,
     snapshotImage,

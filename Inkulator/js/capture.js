@@ -110,25 +110,27 @@
     });
   }
   async function pageImage(page) {
-    if (CanvasEngine.interacting) return null;
+    if (CanvasEngine.interacting || active) return null;
     const budget = Store.economyMode() ? 1e6 : 3e6;
     const scale = Math.min(1, Math.sqrt(budget / (page.width * page.height)));
     await Renderer.awaitImages(page, { pdf: false });
-    if (CanvasEngine.interacting) return null;
+    if (CanvasEngine.interacting || active) return null;
     const images = await pdfImages(page, scale);
     try {
-      if (CanvasEngine.interacting) return null;
+      if (CanvasEngine.interacting || active) return null;
       return await png(Renderer.pageCanvas(page, scale, { pdfImages: images }));
     } finally { releaseImages(images); }
   }
   function start(options = {}) {
     if (active) return;
-    CanvasEngine.finishActive(); TeacherGeometry.cancel(); App.closePopover(); PenKeyboard.hide();
+    CanvasEngine.finishActive();
+    if (TeacherGeometry.active) TeacherGeometry.cancel();
+    App.closePopover(); PenKeyboard.hide();
     serial++;
     const r = Renderer.area.getBoundingClientRect(), overlay = document.createElement("div");
     overlay.id = "capture-overlay";
     overlay.setAttribute("aria-label", "Kéo hình chữ nhật để chụp trang viết");
-    overlay.innerHTML = '<div class="capture-shade"></div><div class="capture-guide">Kéo để chụp vùng · Esc để hủy ' +
+    overlay.innerHTML = '<div class="capture-shade" aria-hidden="true"></div><div class="capture-guide">Kéo để chụp vùng · Esc để hủy ' +
       (options.onCapture ? '' : '<select id="capture-mode" aria-label="Chế độ chụp"><option value="image">Ảnh để dán</option><option value="question">Chừa chỗ giải câu hỏi</option></select>') +
       ' <button id="capture-cancel" type="button" aria-label="Hủy chụp">×</button></div><div class="capture-box" hidden></div>';
     document.body.append(overlay);
@@ -142,12 +144,10 @@
     const paint = () => {
       session.frame = 0;
       const b = session.rect, left = b.x + r.left, top = b.y + r.top;
-      const right = left + b.w, bottom = top + b.h;
       box.hidden = false;
       box.style.transform = `translate(${left}px, ${top}px)`;
       box.style.width = b.w + "px";
       box.style.height = b.h + "px";
-      shade.style.clipPath = `polygon(evenodd, 0 0, 100% 0, 100% 100%, 0 100%, 0 0, ${left}px ${top}px, ${left}px ${bottom}px, ${right}px ${bottom}px, ${right}px ${top}px, ${left}px ${top}px, 0 0)`;
     };
     overlay.querySelector("#capture-cancel").onclick = cancel;
     const keyTarget = mode || overlay.querySelector("#capture-cancel");
@@ -159,6 +159,7 @@
       e.preventDefault();
       session.start = point(e);
       session.pointerId = e.pointerId;
+      shade.hidden = true;
       overlay.setPointerCapture(e.pointerId);
     };
     overlay.onpointermove = e => {
@@ -175,7 +176,7 @@
       if (session.rect.w < 6 || session.rect.h < 6) {
         session.start = null;
         box.hidden = true;
-        shade.style.clipPath = "";
+        shade.hidden = false;
         return App.toast("Kéo một vùng lớn hơn để chụp.");
       }
       paint();

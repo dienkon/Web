@@ -351,7 +351,7 @@
   }
   function renderPages() {
     if (document.getElementById("pages-sidebar").hidden) return;
-    if (CanvasEngine.interacting) {
+    if (CanvasEngine.interacting || root.CaptureStudio?.active) {
       refreshTimer = setTimeout(renderPages, 1000);
       return;
     }

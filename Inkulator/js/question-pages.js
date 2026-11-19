@@ -54,12 +54,31 @@
     const index=Store.book().pages.findIndex(p=>p.id===id);if(index<0)return;
     CanvasEngine.finishActive();TeacherGeometry.cancel();Store.switchPage(index);
   }
-  function next() {
+  let readingPdf = false;
+  async function next() {
+    if (readingPdf) return;
     CanvasEngine.finishActive();
     const pages = Store.book().pages, state = Store.state;
     const current = Store.current();
     const readingLine = Math.min(100, Renderer.area.clientHeight * .2);
     const after = (readingLine - state.viewport.y) / state.viewport.zoom + 1;
+    const go = (index, q) => {
+      if (index !== state.pageIndex) PageFlow.go(index);
+      state.viewport.y = readingLine - q.y * state.viewport.zoom;
+      PageFlow.update();
+      Renderer.request();
+    };
+    if (!current.inlineQuestions?.length && current.objects.some(o => o.type === "pdf")) {
+      const book = Store.book(), view = { ...state.viewport };
+      readingPdf = true;
+      let headings;
+      try { headings = await PDFStudio.questionPositions(current); }
+      catch { /* Missing text falls back to the document's existing navigation. */ }
+      finally { readingPdf = false; }
+      if (Store.book() !== book || Store.current() !== current || Object.keys(view).some(key => view[key] !== state.viewport[key])) return;
+      const q = headings?.filter(p => p.y > after).sort((a, b) => a.y - b.y || a.x - b.x)[0];
+      if (q) return go(state.pageIndex, q);
+    }
     for (let i = state.pageIndex; i < pages.length; i++) {
       const page = pages[i];
       if (page.questionSource) {
@@ -69,11 +88,7 @@
       const q = (page.inlineQuestions || []).filter(q => i !== state.pageIndex || q.y > after)
         .sort((a, b) => a.y - b.y || a.x - b.x)[0];
       if (!q) continue;
-      if (i !== state.pageIndex) PageFlow.go(i);
-      state.viewport.y = readingLine - q.y * state.viewport.zoom;
-      PageFlow.update();
-      Renderer.request();
-      return;
+      return go(i, q);
     }
     const index = PageFlow.layout().items.find(item => item.index > state.pageIndex && !item.hidden)?.index;
     if (index !== undefined) PageFlow.go(index);

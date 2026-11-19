@@ -1,12 +1,12 @@
-# Inkulator · 2.4.3
+# Inkulator · 2.4.4
 
 Sổ tay Toán học ngoại tuyến cho Windows, lấy cảm hứng bố cục từ ảnh Scrble Ink được cung cấp. Phần Casio tích hợp source của Tikz-Physics, ghi nguồn riêng bên dưới; không phải sản phẩm chính thức của Scrble, GeoGebra hay Casio.
 
 ## Mở ứng dụng
 
-**Windows 10/11 x64:** chạy `dist/desktop/Inkulator-Setup-2.4.3-x64.exe`, chọn thư mục cài và mở **Inkulator** từ Desktop hoặc Start Menu. Ứng dụng có cửa sổ riêng, chạy ngoại tuyến, không cần cài Node.js hoặc trình duyệt. Tài liệu tự lưu thành tệp trong **Documents / Inkulator**; bộ đệm cũ được sao lưu nén khi chuyển đổi, ứng dụng mở bản mới nhất trên ổ đĩa. Bộ cài cá nhân chưa ký số.
+**Windows 10/11 x64:** chạy `dist/desktop/Inkulator-Setup-2.4.4-x64.exe`, chọn thư mục cài và mở **Inkulator** từ Desktop hoặc Start Menu. Ứng dụng có cửa sổ riêng, chạy ngoại tuyến, không cần cài Node.js hoặc trình duyệt. Tài liệu tự lưu thành tệp trong **Documents / Inkulator**; bộ đệm cũ được sao lưu nén khi chuyển đổi, ứng dụng mở bản mới nhất trên ổ đĩa. Bộ cài cá nhân chưa ký số.
 
-**Bản 2.4.3:** nút zoom bấm nhanh, giữ vị trí vùng chụp, nâng cấp lưu/sao lưu PDF gốc trên web. Xem [hướng dẫn 2.4.3](docs/RELEASE-2.4.3.md) và [chính sách tải, dữ liệu, AI và sử dụng](policies/USAGE.txt). Trang tải có chính sách: `dist/desktop/download.html`. Gói web: `dist/Inkulator-Web-2.4.3.zip`.
+**Bản 2.4.4:** tối ưu bút và chụp vùng, chuyển câu trong PDF, dựng hình và thư viện tài liệu gọn hơn. Xem [hướng dẫn 2.4.4](docs/RELEASE-2.4.4.md) và [chính sách tải, dữ liệu, AI và sử dụng](policies/USAGE.txt). Trang tải có chính sách: `dist/desktop/download.html`. Gói web: `dist/Inkulator-Web-2.4.4.zip`.
 
 **Bản 2.4.2 · Giảng Toán 12:** nút Giảng bài tạo 1–12 bài luyện với tham số ngẫu nhiên và lời giải ẩn, gồm cực trị, tích phân, Oxyz, Bayes, thống kê ghép nhóm và tối ưu. Thanh giảng bài mở/ẩn đáp án, che vùng được chọn và chuyển trang; có đánh dấu trang, đồng hồ đếm ngược và đèn soi theo con trỏ. Tất cả chạy ngoại tuyến. [Hướng dẫn 2.4.2](docs/RELEASE-2.4.2.md).
 
@@ -57,7 +57,7 @@ Tất cả script, CSS, icon và thư viện nằm trong thư mục sản phẩm
 - Danh mục và manifest dùng hai bản có checksum, ghi trực tiếp vào từng bản và phục hồi khi ghi dở; đường lưu mới không dùng rename, xử lý trường hợp EXDEV của hồ sơ Windows chuyển hướng. Ghi xong tài nguyên mới cập nhật manifest. Nét viết vẫn sửa/Undo bình thường; ảnh/PDF gốc không bị chuyển thành JSON base64 trên ổ đĩa.
 - **Chụp vùng:** làm mờ/tối toàn cửa sổ; vùng kéo được hiện sáng, rõ. Ảnh chụp dựng PDF riêng theo yêu cầu, không làm trống cache PDF đang hiển thị. PNG chứa đúng PDF, nét và hình; bỏ bảng điều khiển. Công cụ **Chọn** kéo hình chữ nhật để chọn nhiều đối tượng; công cụ lasso vẫn chọn tự do.
 - Icon ảnh màu đúng chức năng, gồm PDF đỏ, máy tính, ảnh, camera, bút, tẩy và hình học. Các icon tải từ Microsoft Fluent/vscode-icons có ghi nguồn và giấy phép, kết hợp SVG riêng. Bảng màu bút dùng đỏ đậm `#C00000`, xanh `#0070C0`, xanh lá `#008000`, vàng `#FFC000`, tím `#7030A0`.
-- **Gemini** dùng khóa mặc định theo cấu hình bản cài, không cần nhập lại. Khóa riêng có thể thay trong Cài đặt hoặc trở về khóa mặc định. Đã kiểm tra yêu cầu thật từ vùng PDF. Khóa mặc định đi cùng tài nguyên bộ cài theo yêu cầu; đây không phải bí mật không thể trích xuất khỏi chương trình. Khóa đang sử dụng được mã hóa trong hồ sơ Windows. Gemini vẫn cần Internet và hạn mức tài khoản.
+- **Gemini** dùng khóa cấu hình trong Cài đặt. Windows mã hóa khóa trong hồ sơ ứng dụng. Gemini cần Internet và hạn mức tài khoản. Viết, PDF và OCR công thức cục bộ hoạt động ngoại tuyến.
 - **OCR viết tay tách khỏi Gemini:** CoMER/ink-on và ONNX Runtime chạy bằng Web Worker trên CPU, có đầy đủ model/WASM trong bộ cài. Không cần mạng, API key, Python hoặc tải model lần đầu. Mặc định tắt; bật nhận diện cục bộ trong Cài đặt hoặc khoanh vùng và chọn Đẹp công thức. Xem/sửa LaTeX, chọn cách đọc khác và Undo khi thay nét. Model nhận diện thống kê, không phải cơ sở dữ liệu bao phủ tuyệt đối mọi chữ viết; chưa bảo đảm đúng 100%.
 
 [Thay đổi và kiểm tra bản 2.0](docs/RELEASE-2.0.md).

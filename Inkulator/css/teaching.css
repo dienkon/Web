@@ -31,7 +31,8 @@
 .geometry-toolbar.radial-geometry #geo-hub:active { cursor:grabbing; }
 #capture-overlay { position:fixed; inset:0; z-index:2000; cursor:crosshair; }
 .capture-shade { position:absolute; inset:0; background:#122b366b; pointer-events:none; }
-#capture-overlay .capture-box { left:0; top:0; box-shadow:none; background:transparent; border:2px solid #00b8ff; contain:strict; }
+.capture-shade[hidden] { display:none; }
+#capture-overlay .capture-box { left:0; top:0; box-shadow:none; background:#122b361a; border:2px solid #00b8ff; contain:strict; }
 #capture-overlay .capture-guide { position:fixed; z-index:3; }
 img[data-color-icon] { width:24px; height:24px; object-fit:contain; pointer-events:none; flex-shrink:0; }
 #pen-dock img[data-color-icon] { width:25px; height:25px; }
