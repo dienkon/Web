@@ -1,6 +1,6 @@
 {
   "name": "scrble-math-studio",
-  "version": "2.4.4",
+  "version": "2.4.5",
   "private": true,
   "description": "Offline mathematical notebook for Windows and pen tablets",
   "main": "desktop/main.cjs",
@@ -59,7 +59,8 @@
       "!vendor/casio-fx580vnx/runtime/source/**",
       "!vendor/ink-on/upstream/**",
       "policies/**",
-      "docs/RELEASE-2.4.4.md"
+      "docs/RELEASE-2.4.4.md",
+      "docs/RELEASE-2.4.5.md"
     ],
     "asar": true,
     "asarUnpack": [
@@ -85,7 +86,7 @@
       "deleteAppDataOnUninstall": false,
       "runAfterFinish": true,
       "include": "desktop/installer.nsh",
-      "license": "policies/USAGE.txt"
+      "license": ".local/installer-license.rtf"
     },
     "extraResources": [
       {

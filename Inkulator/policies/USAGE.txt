@@ -1,5 +1,5 @@
 INKULATOR — CHÍNH SÁCH TẢI, DỮ LIỆU VÀ SỬ DỤNG
-Phiên bản công bố: 2.4.4 — ngày 19/11/2026
+Phiên bản công bố: 2.4.5 — ngày 19/11/2026
 
 1. PHẠM VI GÓI TẢI
 Bản Windows x64 chạy trên Windows 10/11; bản web chạy trong trình duyệt hiện đại sau khi giải nén toàn bộ gói. Web không cài được tệp EXE trên iPad. Bản này không tự triển khai website, không tạo tài khoản, không bán gói thuê bao và không tự thanh toán.
@@ -16,7 +16,7 @@ Nên xuất tệp sổ hoặc bản sao tất cả trước khi cập nhật, g�
 Gỡ ứng dụng Windows không mặc định xóa thư viện hoặc toàn bộ hồ sơ. Nếu muốn xóa dữ liệu, cần kiểm tra cả thư viện, Thung rac, History, hồ sơ ứng dụng, tệp tải xuống và các bản sao do người dùng tạo. Không có đồng bộ đám mây hoặc dịch vụ khôi phục tài khoản tích hợp.
 
 5. KẾT NỐI MẠNG VÀ AI
-Viết, hình học, bài luyện theo mẫu, xử lý PDF và công cụ giảng bài chạy cục bộ. Các chức năng này không cần API key. Không có phân tích hành vi hoặc quảng cáo được bổ sung trong bản 2.4.4.
+Viết, hình học, bài luyện theo mẫu, xử lý PDF và công cụ giảng bài chạy cục bộ. Các chức năng này không cần API key. Không có phân tích hành vi hoặc quảng cáo được bổ sung trong bản 2.4.5.
 Trợ lý Gemini cần mạng và khóa cấu hình. Khi dùng trợ lý, nhận diện AI hoặc chụp câu hỏi có OCR AI đã cấu hình, vùng ảnh/chữ và yêu cầu liên quan có thể được gửi tới dịch vụ Google Gemini. Không đưa dữ liệu học sinh, đề mật hoặc thông tin cá nhân vào các vùng gửi AI khi chưa có quyền phù hợp. Việc dịch vụ bên ngoài xử lý/lưu dữ liệu theo chính sách riêng của họ.
 Khóa web chỉ giữ trong phiên hiện tại. Bản Windows lưu khóa người dùng cấu hình trong hồ sơ Windows. Bộ cài chuẩn không chứa khóa API. Hạn mức, phí hoặc khả năng truy cập của dịch vụ bên ngoài phụ thuộc bên cung cấp và chủ khóa. Đọc tên bằng giọng nói phụ thuộc chức năng của trình duyệt/hệ điều hành.
 

@@ -1,12 +1,12 @@
-# Inkulator · 2.4.4
+# Inkulator · 2.4.5
 
 Sổ tay Toán học ngoại tuyến cho Windows, lấy cảm hứng bố cục từ ảnh Scrble Ink được cung cấp. Phần Casio tích hợp source của Tikz-Physics, ghi nguồn riêng bên dưới; không phải sản phẩm chính thức của Scrble, GeoGebra hay Casio.
 
 ## Mở ứng dụng
 
-**Windows 10/11 x64:** chạy `dist/desktop/Inkulator-Setup-2.4.4-x64.exe`, chọn thư mục cài và mở **Inkulator** từ Desktop hoặc Start Menu. Ứng dụng có cửa sổ riêng, chạy ngoại tuyến, không cần cài Node.js hoặc trình duyệt. Tài liệu tự lưu thành tệp trong **Documents / Inkulator**; bộ đệm cũ được sao lưu nén khi chuyển đổi, ứng dụng mở bản mới nhất trên ổ đĩa. Bộ cài cá nhân chưa ký số.
+**Windows 10/11 x64:** chạy `dist/desktop/Inkulator-Setup-2.4.5-x64.exe`, chọn thư mục cài và mở **Inkulator** từ Desktop hoặc Start Menu. Ứng dụng có cửa sổ riêng, chạy ngoại tuyến, không cần cài Node.js hoặc trình duyệt. Tài liệu tự lưu thành tệp trong **Documents / Inkulator**; bộ đệm cũ được sao lưu nén khi chuyển đổi, ứng dụng mở bản mới nhất trên ổ đĩa. Bộ cài cá nhân chưa ký số.
 
-**Bản 2.4.4:** tối ưu bút và chụp vùng, chuyển câu trong PDF, dựng hình và thư viện tài liệu gọn hơn. Xem [hướng dẫn 2.4.4](docs/RELEASE-2.4.4.md) và [chính sách tải, dữ liệu, AI và sử dụng](policies/USAGE.txt). Trang tải có chính sách: `dist/desktop/download.html`. Gói web: `dist/Inkulator-Web-2.4.4.zip`.
+**Bản 2.4.5** sửa hiển thị tiếng Việt ở trang điều khoản của bộ cài Windows. Xem [ghi chú 2.4.5](docs/RELEASE-2.4.5.md), [hướng dẫn tính năng 2.4.4](docs/RELEASE-2.4.4.md) và [chính sách tải, dữ liệu, AI và sử dụng](policies/USAGE.txt). Trang tải có chính sách nằm tại `dist/desktop/download.html`. Gói web là `dist/Inkulator-Web-2.4.5.zip`.
 
 **Bản 2.4.2 · Giảng Toán 12:** nút Giảng bài tạo 1–12 bài luyện với tham số ngẫu nhiên và lời giải ẩn, gồm cực trị, tích phân, Oxyz, Bayes, thống kê ghép nhóm và tối ưu. Thanh giảng bài mở/ẩn đáp án, che vùng được chọn và chuyển trang; có đánh dấu trang, đồng hồ đếm ngược và đèn soi theo con trỏ. Tất cả chạy ngoại tuyến. [Hướng dẫn 2.4.2](docs/RELEASE-2.4.2.md).
 
