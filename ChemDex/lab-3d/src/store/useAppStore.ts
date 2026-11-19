@@ -2912,17 +2912,29 @@ export const useAppStore = create<AppState>((set, get) => {
     },
 
     removeVessel: (id) => {
+      if (!get().vessels[id]) return;
       if (get().instrumentRinse?.bottleId === id) get().cancelInstrumentRinse();
       if (get().pouringChemical?.targetId === id) get().clearPour(get().pouringChemical!.id);
+      reactionSimulationEngine.stopReaction(id);
+      programPlayer.stopProgram(id);
+      kineticsEngine.reset(id);
+      SimulationEngine.removeManager(id);
+      acknowledgeStockContacts(pendingStockContacts().filter(receipt => receipt.vesselId === id).map(receipt => receipt.id));
       set(s => {
         const updated = { ...s.vessels };
         delete updated[id];
+        const activeKinetics = { ...s.activeKinetics }, pendingReactions = { ...s.pendingReactions },
+          dissolvingSubstances = { ...s.dissolvingSubstances };
+        delete activeKinetics[id]; delete pendingReactions[id]; delete dissolvingSubstances[id];
         pushHistorySnapshot('REMOVE_VESSEL', updated, s.burners, `Removed vessel`, `Xóa bình nghiệm`);
         debounceSaveLocalState(updated, s.burners);
         return {
           vessels: updated,
           vesselIds: Object.keys(updated),
           selectedVesselId: s.selectedVesselId === id ? null : s.selectedVesselId,
+          stirringVesselId: s.stirringVesselId === id ? null : s.stirringVesselId,
+          activeLitmusVesselId: s.activeLitmusVesselId === id ? null : s.activeLitmusVesselId,
+          activeKinetics, pendingReactions, dissolvingSubstances,
           canUndo: checkCanUndo(),
           canRedo: checkCanRedo()
         };

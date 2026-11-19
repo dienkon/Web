@@ -1,10 +1,50 @@
 import type { VesselState } from '../types/chemistry';
 import { precipitateComponents, precipitateCohorts, precipitateCohortOutflow } from './precipitateInventory';
 import { freePrecipitateCohorts } from './freePrecipitateCohorts';
+import { PRECIPITATE_PROFILES } from '../simulation/core/SimulationConfig';
 
 export interface MobileSolidInventory {
   [formula: string]: { inventoryMass_g: number; suspendedMass_g: number;
     cohorts?: Record<string, { inventoryMass_g: number; suspendedMass_g: number }> };
+}
+
+/**
+ * Estimates uniform shear-resuspended precipitate mass when a vessel is actively
+ * stirred without a live PrecipitationSystem renderer snapshot (e.g., headless or
+ * direct manual decant immediately following stirring).
+ *
+ * Strictly returns an empty inventory when stirringIntensity <= 0 so an unstirred
+ * settled bed is never artificially eroded. Entrainment factors are estimated
+ * qualitative bounds keyed to morphology settling characteristics.
+ */
+export function stirredMobileSolids(vessel: VesselState, stirringIntensity: number): MobileSolidInventory {
+  if (!Number.isFinite(stirringIntensity) || stirringIntensity <= 0 || !(vessel.volume_ml > 0)) return {};
+  const intensity = Math.max(0, Math.min(1, stirringIntensity));
+  const raw = precipitateCohorts(vessel.contents, vessel.precipitateSubstance, vessel.precipitateMorphology);
+  const free = new Map(freePrecipitateCohorts(vessel).map(c => [c.key, c.mass_g]));
+  const result: MobileSolidInventory = {};
+  for (const comp of precipitateComponents(vessel.contents, vessel.precipitateSubstance)) {
+    const cohorts: NonNullable<MobileSolidInventory[string]['cohorts']> = {};
+    let suspendedMass_g = 0;
+    const profile = PRECIPITATE_PROFILES[comp.formula];
+    // Lower settling speed morphologies (gel_like/flocculent/fine_powder) suspend more completely.
+    const morphologyMobility = profile?.morphology === 'gel_like' ? 0.85
+      : profile?.morphology === 'flocculent' ? 0.78
+      : profile?.morphology === 'fine_powder' ? 0.68
+      : profile?.morphology === 'granular' ? 0.55
+      : 0.50;
+    const fraction = Math.min(0.95, intensity * morphologyMobility);
+    for (const cohort of raw.filter(k => k.formula === comp.formula)) {
+      const freeMass = free.get(cohort.key) ?? 0;
+      const suspended = freeMass > 1e-12 ? Math.min(freeMass, freeMass * fraction) : 0;
+      cohorts[cohort.key] = { inventoryMass_g: cohort.mass_g, suspendedMass_g: suspended };
+      suspendedMass_g += suspended;
+    }
+    if (suspendedMass_g > 1e-12) {
+      result[comp.formula] = { inventoryMass_g: comp.mass_g, suspendedMass_g, cohorts };
+    }
+  }
+  return result;
 }
 interface SuspensionTransportSnapshot {
   hasPrecipitationSnapshot: boolean;

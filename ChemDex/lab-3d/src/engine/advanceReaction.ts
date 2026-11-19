@@ -47,6 +47,7 @@ export function advanceReaction(kinetics: ActiveKineticsState, vessel: VesselSta
     temperature_c: vessel.temperature_c, pH: vessel.ph, volume_ml: vessel.volume_ml,
     isSealed: vessel.isSealed ?? false, requireInventory: true, isHeated, light,
     ignitedProgramId: kinetics.initialVesselBaseline?.ignitedProgramId,
+    acidGradeReferenceContents: previous > 0 ? kinetics.initialVesselBaseline?.contents : undefined,
   };
   const assessment = kinetics.program ? assessProgramConditions(kinetics.program, vessel.contents, environment) : { ready: true, unmet: [] };
   kinetics.unmetConditions = assessment.unmet;

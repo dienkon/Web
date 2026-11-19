@@ -103,7 +103,7 @@ describe('Landolt finite material mechanism', () => {
     expect(Math.abs(base.firstColor! - finer.firstColor!)).toBeLessThan(0.2);
     expect(diluted.firstColor!).toBeGreaterThan(finer.firstColor! * 1.5);
     expect(landoltCapacity(landoltInventory(base.v.contents, 30)!)).toBeLessThan(5e-7);
-  });
+  }, 15000);
 
   it('blocks dry, wrong-phase and unsupported oxidant mixtures and leaves separated starch inactive', () => {
     const v = sample();

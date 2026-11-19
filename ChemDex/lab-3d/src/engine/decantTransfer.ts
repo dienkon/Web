@@ -3,7 +3,7 @@ import type { LiquidAliquot } from '../handling/aliquot';
 import { withdrawAliquot } from '../handling/aliquot';
 import { receivePourAliquot } from '../handling/pourReceiver';
 import { refreshFlowInventory, solidContent } from './funnelFlow';
-import type { MobileSolidInventory } from '../science/suspensionTransport';
+import { stirredMobileSolids, type MobileSolidInventory } from '../science/suspensionTransport';
 
 const RECEIVERS = new Set(['beaker', 'flask', 'test_tube', 'cylinder', 'volumetric_flask', 'reagent_bottle',
   'watch_glass', 'evaporating_dish', 'crucible', 'petri_dish', 'filter_funnel', 'separatory_funnel']);
@@ -22,9 +22,16 @@ export function canReceivePour(vessel: VesselState): boolean {
     && Number.isFinite(vessel.capacity_ml) && vessel.capacity_ml > 0;
 }
 
-/** Settled solids/headspace gas stay in the source. A validated snapshot may
- * authorize uniform sampling of the suspended fraction, never bed erosion. */
-export function decantLiquid(source: VesselState, receiver: VesselState | null, requested_ml: number, mobileSolids: MobileSolidInventory = {}) {
+/** Settled solids/headspace gas stay in the source. A validated snapshot (or
+ * explicit active stirring intensity) may authorize uniform sampling of the
+ * suspended fraction, never unstirred bed erosion. */
+export function decantLiquid(
+  source: VesselState,
+  receiver: VesselState | null,
+  requested_ml: number,
+  mobileSolids: MobileSolidInventory = {},
+  options?: { stirringIntensity?: number },
+) {
   if (!Number.isFinite(requested_ml) || requested_ml <= 0 || !Number.isFinite(source.volume_ml)
     || source.volume_ml <= 0 || source.isShattered || source.isSealed
     || source.id === receiver?.id || (receiver && !canReceivePour(receiver))) return null;
@@ -38,7 +45,12 @@ export function decantLiquid(source: VesselState, receiver: VesselState | null, 
   const liquid = source.contents.filter(item => !solidContent(item)
     && (item.phase ?? item.state) !== 'g' && item.state !== 'gas' && item.mass_g > 0);
   if (!liquid.length) return null;
-  const withdrawn = withdrawAliquot(source, requested_ml, mobileSolids);
+  const effectiveMobile = Object.keys(mobileSolids).length > 0
+    ? mobileSolids
+    : (options?.stirringIntensity && options.stirringIntensity > 0
+      ? stirredMobileSolids(source, options.stirringIntensity)
+      : mobileSolids);
+  const withdrawn = withdrawAliquot(source, requested_ml, effectiveMobile);
   let remainder: LiquidAliquot = withdrawn.sample;
   let target: VesselState | undefined;
   let accepted_ml = 0;

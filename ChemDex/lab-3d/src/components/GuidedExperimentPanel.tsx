@@ -97,6 +97,11 @@ export function GuidedExperimentPanel() {
     if (!currentExperiment) return;
     const isQuizCorrect = selectedQuizAnswer !== null && selectedQuizAnswer === currentExperiment.quizzes[0]?.correctAnswer;
     const contaminationCount = dirtyTools.length;
+    const state = useAppStore.getState();
+    const vesselList = Object.values(state.vessels);
+    const maxTemperature_c = vesselList.length ? Math.max(...vesselList.map(v => v.temperature_c)) : undefined;
+    const selectedVessel = state.selectedVesselId ? state.vessels[state.selectedVesselId] : vesselList[0];
+    const uncleanedSpillCount = Object.keys(state.spills ?? {}).length;
     const report = experimentEngine.generateReportCard(
       currentExperiment.id,
       experimentDifficulty,
@@ -106,11 +111,31 @@ export function GuidedExperimentPanel() {
       contaminationCount,
       isQuizCorrect ? 1 : 0,
       currentExperiment.quizzes.length,
-      elapsedSeconds
+      elapsedSeconds,
+      {
+        quantitativeMetrics: {
+          finalPh: selectedVessel?.ph,
+          maxTemperature_c,
+          wasteCollected_g: state.wasteMass_g,
+          uncleanedSpillCount,
+        },
+      }
     );
     setExamReport(report);
     setShowReportCardModal(true);
     labSound.playSuccess();
+  };
+
+  const handleDownloadReportJson = () => {
+    if (!examReport) return;
+    const json = experimentEngine.serializeReportCardJson(examReport);
+    const blob = new Blob([json], { type: 'application/json;charset=utf-8' });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = `chemdex-exam-${examReport.experimentId}.json`;
+    link.click();
+    URL.revokeObjectURL(url);
   };
 
   // If no experiment selected, show curriculum catalog
@@ -594,12 +619,21 @@ export function GuidedExperimentPanel() {
               ))}
             </div>
 
-            <button
-              onClick={() => setShowReportCardModal(false)}
-              className="w-full py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-xl text-xs font-bold shadow-xs transition-colors"
-            >
-              {t('Continue Practical Work', 'Tiếp tục thực hành')}
-            </button>
+            <div className="flex gap-2">
+              <button
+                onClick={handleDownloadReportJson}
+                className="flex-1 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-xl text-xs font-bold transition-colors flex items-center justify-center gap-1.5"
+              >
+                <FileText size={13} />
+                <span>{t('Export JSON', 'Xuất JSON')}</span>
+              </button>
+              <button
+                onClick={() => setShowReportCardModal(false)}
+                className="flex-1 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-xl text-xs font-bold shadow-xs transition-colors"
+              >
+                {t('Continue Practical Work', 'Tiếp tục thực hành')}
+              </button>
+            </div>
           </div>
         </div>
       )}

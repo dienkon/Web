@@ -82,10 +82,12 @@ export class StockWorld {
     // Resolve the thin glass support at tens of micrometres; the default
     // compliant contact frequency permits ~0.3 mm static gravitational sag.
     this.world.integrationParameters.contact_natural_frequency = 240;
-    this.world.integrationParameters.normalizedAllowedLinearError = 0.001;
+    // A ten-micrometre penetration allowance could swallow an entire
+    // shrinking crystal. Keep the independent contact error at one micron.
+    this.world.integrationParameters.normalizedAllowedLinearError = 0.0001;
     // Hard CCD handles arrival speed; predictive contacts only need to span
-    // twice the 10 micrometre penetration allowance near the glass, not an
-    // entire thin wire cross-section.
+    // a small fraction of a millimetre near the glass, not an entire thin
+    // wire cross-section.
     this.world.integrationParameters.normalizedPredictionDistance = 0.002;
     this.world.integrationParameters.maxCcdSubsteps = 4;
     this.world.createCollider(RAPIER.ColliderDesc.cuboid(sceneToMeters(LAB_GEOMETRY.tableHalfWidth_scene) * S,

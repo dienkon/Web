@@ -7,8 +7,12 @@ import { prepareLabAuditSession } from './fixtures/labAuditSession.mjs';
 const origin = process.env.LAB_AUDIT_ORIGIN ?? 'http://127.0.0.1:6767';
 const output = resolve(process.env.LAB_PRODUCTION_OUTPUT ?? 'artifacts/standalone-production');
 mkdirSync(output, { recursive: true });
-const browser = await chromium.launch({ headless: true, args: ['--use-angle=swiftshader', '--enable-unsafe-swiftshader'] });
-const report = { errors: [], assets: [], manual: false, automatic: false, paused: false };
+const browser = await chromium.launch({
+  channel: process.env.PLAYWRIGHT_CHANNEL || 'chrome',
+  headless: true,
+  args: ['--use-angle=swiftshader', '--enable-unsafe-swiftshader'],
+});
+const report = { errors: [], assets: [], initialChunks: [], manual: false, automatic: false, paused: false };
 
 try {
   const page = await browser.newPage({ viewport: { width: 1280, height: 800 } });
@@ -29,6 +33,12 @@ try {
   assert.equal(missing.status(), 404);
   await page.goto(`${origin}/lab/`, { waitUntil: 'domcontentloaded' });
   await page.locator('#manual-lab canvas').waitFor();
+  report.initialChunks = await page.evaluate(() =>
+    performance.getEntriesByType('resource')
+      .map(entry => entry.name)
+      .filter(name => name.includes('/assets/') && name.endsWith('.js'))
+      .map(name => name.split('/').pop()),
+  );
   report.manual = true;
 
   await page.getByRole('tab', { name: 'Tự động', exact: true }).click();

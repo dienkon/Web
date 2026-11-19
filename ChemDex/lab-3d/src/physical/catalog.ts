@@ -17,6 +17,68 @@ export const EXPANSION_TOOLS = ['force_meter', 'pressure_sensor', 'pipette_bulb'
 export const SAMPLE_IDS = ['borosilicate', 'steel', 'aluminum', 'polyethylene', 'glycerol', 'silicone_oil', 'ice'] as const;
 export const SHELL_SECTORS = 32; // Inscribed circular section error < 0.65%.
 
+/** Fixed-precision unit circle table (12 decimal places, exact cardinals) so
+ * collider hull vertices are bit-identical across JS engines/platforms. */
+const SHELL_TRIG: readonly (readonly [cos: number, sin: number])[] = Array.from({ length: SHELL_SECTORS }, (_, sector) => {
+  if (sector === 0) return [1, 0] as const;
+  if (sector * 4 === SHELL_SECTORS) return [0, 1] as const;
+  if (sector * 2 === SHELL_SECTORS) return [-1, 0] as const;
+  if (sector * 4 === SHELL_SECTORS * 3) return [0, -1] as const;
+  const theta = sector * 2 * Math.PI / SHELL_SECTORS;
+  return [Math.round(Math.cos(theta) * 1e12) / 1e12, Math.round(Math.sin(theta) * 1e12) / 1e12] as const;
+});
+
+function simplifySpan(
+  span: number[],
+  roAt: (y: number) => number,
+  riAt: (y: number) => number,
+  outerTol: number,
+  innerTol: number,
+): number[] {
+  if (span.length <= 2) return span;
+  const y0 = span[0], y1 = span[span.length - 1], dy = y1 - y0;
+  if (!(dy > 1e-12)) return [y0, y1];
+  const ro0 = roAt(y0), ro1 = roAt(y1), ri0 = riAt(y0), ri1 = riAt(y1);
+  let maxScore = 0, splitIndex = -1;
+  for (let i = 1; i < span.length - 1; i++) {
+    const y = span[i], t = (y - y0) / dy;
+    const errOut = Math.abs(roAt(y) - (ro0 + (ro1 - ro0) * t)) / outerTol;
+    const errIn = Math.abs(riAt(y) - (ri0 + (ri1 - ri0) * t)) / innerTol;
+    const score = Math.max(errOut, errIn);
+    if (score > maxScore) { maxScore = score; splitIndex = i; }
+  }
+  if (maxScore <= 1 || splitIndex === -1) return [y0, y1];
+  const left = simplifySpan(span.slice(0, splitIndex + 1), roAt, riAt, outerTol, innerTol);
+  const right = simplifySpan(span.slice(splitIndex), roAt, riAt, outerTol, innerTol);
+  return [...left.slice(0, -1), ...right];
+}
+
+function simplifyColliderLevels(
+  levels: number[],
+  roAt: (y: number) => number,
+  riAt: (y: number) => number,
+  outerBottom: number,
+  floorY: number,
+  top: number,
+): number[] {
+  const clipped = [...new Set(levels.map(y => Math.max(outerBottom, Math.min(top, y))))].sort((a, b) => a - b);
+  const baseSpan = clipped.filter(y => y <= floorY + 1e-12);
+  const wallSpan = clipped.filter(y => y >= floorY - 1e-12);
+  // Drop sub-millimetre rim/bevel micro-transitions near floor or lip if inner wall is straight.
+  const filteredWall = wallSpan.filter((y, idx) => {
+    if (idx === 0 || idx === wallSpan.length - 1) return true;
+    const nearEdge = (y - floorY < 0.06) || (top - y < 0.06);
+    if (!nearEdge) return true;
+    const prev = wallSpan[idx - 1], next = wallSpan[idx + 1];
+    const t = (y - prev) / Math.max(1e-12, next - prev);
+    const riErr = Math.abs(riAt(y) - (riAt(prev) + (riAt(next) - riAt(prev)) * t));
+    return riErr > 0.015;
+  });
+  const baseSimplified = baseSpan.length >= 2 ? simplifySpan(baseSpan, roAt, () => 0, 0.04, 0.02) : baseSpan;
+  const wallSimplified = filteredWall.length >= 2 ? simplifySpan(filteredWall, roAt, riAt, 0.045, 0.015) : filteredWall;
+  return [...new Set([...baseSimplified, ...wallSimplified])].sort((a, b) => a - b);
+}
+
 /** Wall wedges follow the SAME contour and affine scale as the rendered glass.
  * Every wedge is convex, but the collection leaves the reservoir hollow. */
 export function vesselDefinition(type: string, capacity_ml = VESSEL_PROFILES[type]?.capacity_ml ?? 100): PhysicalObjectDefinition {
@@ -28,43 +90,49 @@ export function vesselDefinition(type: string, capacity_ml = VESSEL_PROFILES[typ
   const colliders: ColliderShape[] = [];
   const outerBottom = vesselOuterDimensions(type).bottomY;
   const top = contours.outer.at(-1)![1];
-  let shellVolume = 0, firstMoment = 0, inertiaY = 0, inertiaXOrigin = 0;
-  for (let i = 1; i < levels.length; i++) {
-    const low = Math.max(levels[i - 1], outerBottom), high = Math.min(levels[i], top);
+  const inner = (y: number) => y < interior.floorY ? 0 : contourRadius(interior.points, y);
+  const outer = (y: number) => contourRadius(contours.outer, y);
+  const colliderLevels = simplifyColliderLevels(levels, outer, inner, outerBottom, interior.floorY, top);
+  for (let i = 1; i < colliderLevels.length; i++) {
+    const low = Math.max(colliderLevels[i - 1], outerBottom), high = Math.min(colliderLevels[i], top);
     if (!(high > low)) continue;
-    const inner = (y: number) => y < interior.floorY ? 0 : contourRadius(interior.points, y);
-    const ro0 = contourRadius(contours.outer, low), ro1 = contourRadius(contours.outer, high);
+    const ro0 = outer(low), ro1 = outer(high);
     const ri0 = low < interior.floorY ? 0 : inner(low), ri1 = high <= interior.floorY ? 0 : inner(high);
     if (ri0 === 0 && ri1 === 0 && Math.max(ro0, ro1) > 0) {
       if (Math.abs(ro0 - ro1) < 1e-10) {
         colliders.push({ kind: 'cylinder', radius_m: ro0 * length, halfHeight_m: (high - low) * length / 2,
           center_m: [0, (ySI(low) + ySI(high)) / 2, 0] });
       } else {
-      // One convex frustum for a solid bottom avoids coincident support
-      // manifolds. This is the SAME polygonal solid, with no filled reservoir.
-      const vertices_m: number[] = [];
-      for (const [y, r] of [[low, ro0], [high, ro1]]) for (let sector = 0; sector < SHELL_SECTORS; sector++) {
-        const theta = sector * 2 * Math.PI / SHELL_SECTORS;
-        vertices_m.push(r * Math.cos(theta) * length, ySI(y), r * Math.sin(theta) * length);
-      }
-      colliders.push({ kind: 'hull', vertices_m });
+        // One convex frustum for a solid bottom avoids coincident support
+        // manifolds. This is the SAME polygonal solid, with no filled reservoir.
+        const vertices_m: number[] = [];
+        for (const [y, r] of [[low, ro0], [high, ro1]]) for (let sector = 0; sector < SHELL_SECTORS; sector++) {
+          const [c, s] = SHELL_TRIG[sector];
+          vertices_m.push(r * c * length, ySI(y), r * s * length);
+        }
+        colliders.push({ kind: 'hull', vertices_m });
       }
     } else {
-    for (let sector = 0; sector < SHELL_SECTORS; sector++) {
-      const vertices_m: number[] = [];
-      for (const [y, ro, ri] of [[low, ro0, ri0], [high, ro1, ri1]]) {
-        for (const r of [Math.min(ri, ro), ro]) for (const edge of [sector, sector + 1]) {
-          const theta = edge * 2 * Math.PI / SHELL_SECTORS;
-          vertices_m.push(r * Math.cos(theta) * length, ySI(y), r * Math.sin(theta) * length);
+      for (let sector = 0; sector < SHELL_SECTORS; sector++) {
+        const vertices_m: number[] = [];
+        for (const [y, ro, ri] of [[low, ro0, ri0], [high, ro1, ri1]]) {
+          for (const r of [Math.min(ri, ro), ro]) for (const edge of [sector, (sector + 1) % SHELL_SECTORS]) {
+            const [c, s] = SHELL_TRIG[edge];
+            vertices_m.push(r * c * length, ySI(y), r * s * length);
+          }
         }
+        if (Math.max(ro0 - ri0, ro1 - ri1) > 1e-8) colliders.push({ kind: 'hull', vertices_m });
       }
-      if (Math.max(ro0 - ri0, ro1 - ri1) > 1e-8) colliders.push({ kind: 'hull', vertices_m });
     }
-    }
+  }
+  let shellVolume = 0, firstMoment = 0, inertiaY = 0, inertiaXOrigin = 0;
+  for (let i = 1; i < levels.length; i++) {
+    const low = Math.max(levels[i - 1], outerBottom), high = Math.min(levels[i], top);
+    if (!(high > low)) continue;
     // Midpoint integration independent of tessellation for mass properties.
     for (let j = 0; j < 16; j++) {
       const y = low + (j + 0.5) * (high - low) / 16;
-      const ro = contourRadius(contours.outer, y) * length, ri = Math.min(ro, inner(y) * length);
+      const ro = outer(y) * length, ri = Math.min(ro, inner(y) * length);
       const dv = Math.PI * (ro ** 2 - ri ** 2) * (high - low) * length / 16;
       const yy = ySI(y);
       shellVolume += dv; firstMoment += dv * yy;

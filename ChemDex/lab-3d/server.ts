@@ -144,18 +144,23 @@ async function startServer() {
       if (req.originalUrl.startsWith('/api')) return next();
 
       const url = req.originalUrl;
+      const requestPath = url.split('?')[0];
       // If hitting the naked root on port 6767, redirect to base /lab/
       if (url === '/' || url === '') {
         return res.redirect('/lab/');
       }
 
       // If this is a static asset request with an extension (other than .html), pass to next
-      if (req.path.includes('.') && !req.path.endsWith('.html')) {
+      if (requestPath.includes('.') && !requestPath.endsWith('.html')) {
         return next();
       }
 
       try {
-        const templatePath = path.resolve(currentDir, 'index.source.html');
+        // Development browser audits use their own HTML entry points and
+        // still need Vite's React preamble and module transformation.
+        const fixture = /^\/scripts\/fixtures\/[a-z0-9-]+\.html$/i.test(requestPath);
+        const templatePath = path.resolve(currentDir, fixture ? requestPath.slice(1) : 'index.source.html');
+        if (fixture && !fs.existsSync(templatePath)) return res.sendStatus(404);
         let template = fs.readFileSync(templatePath, 'utf-8');
         template = await vite.transformIndexHtml(url, template);
         res.status(200).set({ 'Content-Type': 'text/html' }).end(template);

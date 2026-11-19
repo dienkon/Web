@@ -1,26 +1,41 @@
 import { chromium } from '@playwright/test';
 import { mkdir, writeFile } from 'node:fs/promises';
 import path from 'node:path';
+import { prepareLabAuditSession } from './fixtures/labAuditSession.mjs';
 const output = path.resolve(process.env.GAS_CLOUD_AUDIT_OUTPUT ?? 'docs/research/gas-cloud-lifecycle-2026-10-29');
 await mkdir(output, { recursive: true });
 const report = { errors: [], consoleErrors: [], qualities: [] };
 const browser = await chromium.launch({ channel: 'chrome', headless: true });
+let page;
 try {
   const context = await browser.newContext({ viewport: { width: 1440, height: 1000 } });
-  await context.addInitScript(() => localStorage.setItem('chemlab_vfx_quality_preference', 'low'));
+  await context.addInitScript(() => {
+    performance.setResourceTimingBufferSize(10000);
+    localStorage.setItem('chemlab_vfx_quality_preference', 'low');
+  });
   await context.route('**/api/**', route => route.abort());
-  const page = await context.newPage();
+  page = await context.newPage();
+  await prepareLabAuditSession(page);
+  await page.routeWebSocket('**', route => {
+    const server = route.connectToServer();
+    server.onMessage(message => {
+      let type; try { type = JSON.parse(String(message)).type; } catch { /* Other traffic. */ }
+      if (type !== 'update' && type !== 'full-reload') route.send(message);
+    });
+  });
   page.on('pageerror', e => report.errors.push(e.stack ?? e.message));
   page.on('console', m => { if (m.type() === 'error' && !m.text().includes('net::ERR_FAILED')) report.consoleErrors.push(m.text()); });
   const origin = process.env.LAB_ORIGIN ?? 'http://127.0.0.1:6773';
   await page.goto(origin, { waitUntil: 'domcontentloaded', timeout: 120000 });
   await page.waitForSelector('canvas', { timeout: 60000 });
   await page.evaluate(async () => {
-    const { useAppStore: store } = await import('/src/store/useAppStore.ts');
-    const { roomGasClouds: room } = await import('/src/simulation/effects/GasCloudRepository.ts');
-    const { useQualityStore: quality, QUALITY_CONFIGS } = await import('/src/vfx/quality.ts');
-    const { _roots } = await import('/node_modules/.vite/deps/@react-three_fiber.js');
+    const loaded = pattern => performance.getEntriesByType('resource').map(entry => entry.name).findLast(name => pattern.test(name));
+    const { useAppStore: store } = await import(loaded(/\/useAppStore\.ts(?:\?|$)/));
+    const { roomGasClouds: room } = await import(loaded(/\/GasCloudRepository\.ts(?:\?|$)/));
+    const { useQualityStore: quality, QUALITY_CONFIGS } = await import(loaded(/\/quality\.ts(?:\?|$)/));
+    const { _roots } = await import(loaded(/@react-three_fiber\.js(?:\?|$)/));
     const { computeMolarMass } = await import('/src/engine/ledger.ts');
+    const { reactionStockContactFraction } = await import('/src/physical/stockLiquidContact.ts');
     store.setState(s => ({ vessels: {}, vesselIds: [], burners: {}, burnerIds: [], activeKinetics: {}, pendingReactions: {},
       dissolvingSubstances: {}, inFlightPours: [], spills: {}, pipetteSample: null, isSimulationPaused: true,
       timeScale: 1, pourEpoch: s.pourEpoch + 1, isPouring: false, leftSidebarOpen: false, rightSidebarOpen: false }));
@@ -32,13 +47,17 @@ try {
     const snapshot = () => {
       const root = [..._roots.values()].find(r => r.store.getState().gl?.domElement === document.querySelector('canvas'));
       const mesh = root?.store.getState().scene.getObjectByName('gas_clouds_NO2'), clouds = [...room.clouds.values()];
+      const state = store.getState(), activeId = window.cloudAudit?.id ?? id, vessel = state.vessels[activeId];
+      const kinetics = state.activeKinetics[activeId];
       const count = clouds.reduce((n, c) => n + c.system.particles.length, 0), tier = quality.getState().effectiveTier;
       const maximum = Math.max(16, Math.floor((tier === 'high' || tier === 'ultra' ? 140 : tier === 'medium' ? 70 : 30) * QUALITY_CONFIGS[tier].particleMultiplier));
       return { tier, maximum, modelCount: count, drawCount: mesh?.visible ? mesh.count : 0, population: population(),
         channels: clouds.map(c => ({ key: c.key, revision: c.revision, sourceLive: c.sourceLive, count: c.system.particles.length,
           accepted_mol: c.acceptedExhaust_mol, integrated_mol: c.system.integratedGas_mol, age: c.system.integratedSeconds })),
-        escaped_mol: (store.getState().vessels[id]?.escapedGas_g?.NO2 ?? 0) / computeMolarMass('NO2'),
-        reactionActive: !!store.getState().activeKinetics[id] };
+        escaped_mol: (vessel?.escapedGas_g?.NO2 ?? 0) / computeMolarMass('NO2'),
+        reactionActive: !!kinetics, progress: kinetics?.progress, unmet: kinetics?.unmetConditions,
+        contact: vessel && kinetics ? reactionStockContactFraction(kinetics.program, vessel) : undefined,
+        stockGrains: vessel?.stockMotion?.grains.length, volume_ml: vessel?.volume_ml, paused: state.isSimulationPaused };
     };
     window.cloudAudit = { store, room, quality, id, snapshot, population };
     store.setState({ isSimulationPaused: false });
@@ -72,10 +91,16 @@ try {
   await page.evaluate(() => { const a = window.cloudAudit; a.store.getState().removeVessel(a.id); });
   await page.waitForFunction(() => { const s = window.cloudAudit.snapshot(); return s.drawCount === Math.min(s.modelCount, s.maximum); });
   report.deleted = await page.evaluate(() => window.cloudAudit.snapshot());
+  if (report.deleted.reactionActive) throw new Error('Deleting source left its reaction running');
   if (report.deleted.population !== report.replaced.population) throw new Error('Deleting source destroyed room exhaust');
   report.decay = await page.evaluate(() => {
     const a = window.cloudAudit, before = JSON.stringify(a.store.getState().vessels), samples = [];
-    for (let i = 0; i < 25; i++) { a.room.advance(0.2, []); samples.push({ t_s: (i + 1) * 0.2, ...a.snapshot() }); }
+    // A chamber packet can live 14 s, then travel to the outlet and
+    // dissipate outside. Sample to retirement with a finite safety bound.
+    for (let i = 0; i < 125 && a.room.clouds.size; i++) {
+      a.room.advance(0.2, []);
+      samples.push({ t_s: (i + 1) * 0.2, ...a.snapshot(), population: undefined });
+    }
     if (JSON.stringify(a.store.getState().vessels) !== before) throw new Error('Optical decay changed canonical matter');
     return samples;
   });
@@ -92,8 +117,9 @@ try {
   await page.reload({ waitUntil: 'domcontentloaded', timeout: 120000 });
   await page.waitForSelector('canvas', { timeout: 60000 });
   report.reload = await page.evaluate(async () => {
-    const { useAppStore: store } = await import('/src/store/useAppStore.ts'); store.setState({ isSimulationPaused: true });
-    const { roomGasClouds: room } = await import('/src/simulation/effects/GasCloudRepository.ts');
+    const loaded = pattern => performance.getEntriesByType('resource').map(entry => entry.name).findLast(name => pattern.test(name));
+    const { useAppStore: store } = await import(loaded(/\/useAppStore\.ts(?:\?|$)/)); store.setState({ isSimulationPaused: true });
+    const { roomGasClouds: room } = await import(loaded(/\/GasCloudRepository\.ts(?:\?|$)/));
     return { clouds: room.clouds.size, positiveFlux: Object.values(store.getState().vessels).some(v => Object.values(v.gasFlux?.escaped_mol_s ?? {}).some(n => n > 0)) };
   });
   if (report.reload.clouds || report.reload.positiveFlux) throw new Error('Reload replayed a historic exhaust receipt');
@@ -111,7 +137,11 @@ try {
   report.remount = { preserved: true, controlledOpticalSeed: true };
   for (const s of [report.emitting, report.sourceFinished, report.replaced, report.deleted, ...report.qualities, ...report.decay]) delete s.population;
   await context.close();
-} catch (e) { report.errors.push(e.stack ?? String(e)); process.exitCode = 1; }
+} catch (e) {
+  report.errors.push(e.stack ?? String(e));
+  report.lastSnapshot = await page?.evaluate(() => window.cloudAudit?.snapshot()).catch(() => undefined);
+  process.exitCode = 1;
+}
 finally { await browser.close(); await writeFile(path.join(output, 'browser-audit.json'), JSON.stringify(report, null, 2) + '\n'); }
 if (report.errors.length || report.consoleErrors.length) process.exitCode = 1;
 console.log(JSON.stringify({ qualityChanges: report.qualities.length, remount: report.remount, errors: report.errors, consoleErrors: report.consoleErrors }, null, 2));

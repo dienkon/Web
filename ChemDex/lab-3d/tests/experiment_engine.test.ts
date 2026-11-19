@@ -173,6 +173,93 @@ describe('ExperimentEngine: Procedural Validation, Tolerances & Contamination', 
       expect(['C', 'D', 'F']).toContain(report.letterGrade);
       expect(report.hygieneScore).toBe(5); // 15 - 2*5 = 5
     });
+
+    it('validates MEASURE_PH and DISPENSE_DROP with strict ±0.1 mL practical titration precision', () => {
+      const titrationState: ExperimentValidationState = {
+        vessels: {
+          flask_1: {
+            id: 'flask_1',
+            name: 'Erlenmeyer Flask',
+            type: 'flask',
+            substances: ['HCl', 'NaOH', 'H2O'],
+            volume_ml: 35.05,
+            titrationDelivered_ml: 15.05,
+            mass_g: 35.05,
+            temperature_c: 25.4,
+            ph: 7.08,
+            hasPrecipitate: false,
+            hasGas: false,
+          },
+        },
+        burners: {},
+        activeTool: 'none',
+        spatulaState: { chemical: null, mass_g: 0 },
+        contaminatedTools: { pipette: null, stirring_rod: null, spatula: null },
+        recentActions: [],
+      };
+      const dropStep: ProceduralStep = {
+        stepNumber: 3,
+        action: 'DISPENSE_DROP',
+        title_en: 'Titrate to equivalence',
+        title_vi: 'Chuẩn độ đến điểm tương đương',
+        instruction_en: 'Dispense 15.00 mL NaOH',
+        instruction_vi: 'Nhỏ 15,00 mL NaOH',
+        expectedResult_en: '15.00 ± 0.10 mL',
+        expectedResult_vi: '15,00 ± 0,10 mL',
+        targetAmount: 15.0,
+      };
+      const phStep: ProceduralStep = {
+        stepNumber: 4,
+        action: 'MEASURE_PH',
+        title_en: 'Verify neutral pH',
+        title_vi: 'Kiểm tra pH trung tính',
+        instruction_en: 'Confirm pH near 7.0',
+        instruction_vi: 'Xác nhận pH gần 7,0',
+        expectedResult_en: 'pH 7.0',
+        expectedResult_vi: 'pH 7,0',
+        targetAmount: 7.0,
+        tolerance: 0.2,
+      };
+
+      expect(engine.validateStep(dropStep, titrationState, 'exam').isValid).toBe(true);
+      expect(engine.validateStep(phStep, titrationState, 'exam').isValid).toBe(true);
+      const overshot = { ...titrationState, vessels: { flask_1: { ...titrationState.vessels.flask_1, titrationDelivered_ml: 15.25 } } };
+      expect(engine.validateStep(dropStep, overshot, 'exam').isValid).toBe(false);
+    });
+
+    it('records safety violations, quantitative metrics, and serializes valid JSON report cards', () => {
+      engine.recordSafetyViolation(
+        'water_into_acid',
+        'Water added into concentrated H2SO4.',
+        'Rót nước vào H2SO4 đặc.',
+      );
+      const report = engine.generateReportCard(
+        'h2so4_dilution',
+        'practical',
+        3,
+        3,
+        [0.1],
+        0,
+        1,
+        1,
+        90,
+        {
+          quantitativeMetrics: {
+            finalPh: 0.8,
+            maxTemperature_c: 68.5,
+            wasteCollected_g: 12.4,
+            uncleanedSpillCount: 1,
+          },
+        },
+      );
+      expect(report.hygieneScore).toBe(8); // 15 - 3 (spill) - 4 (safety violation)
+      expect(report.safetyViolations).toHaveLength(1);
+      expect(report.quantitativeMetrics?.maxTemperature_c).toBe(68.5);
+      expect(report.feedback_vi.some(f => f.includes('Rót nước vào H2SO4 đặc'))).toBe(true);
+      const parsed = JSON.parse(engine.serializeReportCardJson(report));
+      expect(parsed.experimentId).toBe('h2so4_dilution');
+      expect(parsed.score).toBe(report.score);
+    });
   });
 
   describe('Precipitate Morphology Registry', () => {

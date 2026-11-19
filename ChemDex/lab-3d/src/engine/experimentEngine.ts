@@ -73,6 +73,23 @@ export interface ToolContaminationRecord {
   isContaminated: boolean;
 }
 
+export interface SafetyViolationRecord {
+  code: 'water_into_acid' | 'uncleaned_tool' | 'uncollected_spill' | 'thermal_hazard' | 'other';
+  message_en: string;
+  message_vi: string;
+  timestamp: number;
+}
+
+export interface QuantitativeRubricMetrics {
+  titrationDelivered_ml?: number;
+  titrationTarget_ml?: number;
+  titrationError_ml?: number;
+  finalPh?: number;
+  maxTemperature_c?: number;
+  wasteCollected_g?: number;
+  uncleanedSpillCount?: number;
+}
+
 export interface ExamReportCard {
   experimentId: string;
   mode: ExperimentDifficultyMode;
@@ -83,6 +100,8 @@ export interface ExamReportCard {
   accuracyScore: number; // / 25
   hygieneScore: number; // / 15
   quizScore: number; // / 20
+  safetyViolations?: SafetyViolationRecord[];
+  quantitativeMetrics?: QuantitativeRubricMetrics;
   feedback_en: string[];
   feedback_vi: string[];
   timestamp: string;
@@ -96,6 +115,30 @@ export class ExperimentEngine {
   };
 
   private contaminationLog: Array<{ tool: string; chemical: string; timestamp: number }> = [];
+  private safetyViolations: SafetyViolationRecord[] = [];
+
+  public recordSafetyViolation(
+    code: SafetyViolationRecord['code'],
+    message_en: string,
+    message_vi: string,
+  ): SafetyViolationRecord {
+    const record: SafetyViolationRecord = {
+      code,
+      message_en,
+      message_vi,
+      timestamp: typeof performance !== 'undefined' ? performance.now() : Date.now(),
+    };
+    this.safetyViolations.push(record);
+    return record;
+  }
+
+  public getSafetyViolations(): SafetyViolationRecord[] {
+    return [...this.safetyViolations];
+  }
+
+  public resetSafetyViolations() {
+    this.safetyViolations = [];
+  }
 
   /**
    * Tracks chemical contact with a tool and checks for cross-contamination.
@@ -339,6 +382,76 @@ export class ExperimentEngine {
         };
       }
 
+      case 'MEASURE_PH': {
+        const targetPh = step.targetAmount ?? 7.0;
+        const phTolerance = (step.tolerance ?? 0.3) * modeMultiplier;
+        for (const v of vessels) {
+          if (step.targetVesselType && v.type !== step.targetVesselType) continue;
+          if (!(v.volume_ml > 0) || !Number.isFinite(v.ph)) continue;
+          const diff = Math.abs(v.ph - targetPh);
+          const isWithin = diff <= phTolerance;
+          return {
+            isValid: isWithin,
+            progress: Math.max(0, Math.min(1, 1 - diff / Math.max(1, targetPh))),
+            currentValue: Math.round(v.ph * 100) / 100,
+            targetValue: targetPh,
+            toleranceError: Math.round(diff * 100) / 100,
+            isWithinTolerance: isWithin,
+            message_en: isWithin
+              ? `pH endpoint reached: ${v.ph.toFixed(2)} (Target: ${targetPh.toFixed(2)} ± ${phTolerance.toFixed(2)}).`
+              : `Current pH: ${v.ph.toFixed(2)}. Target: ${targetPh.toFixed(2)} ± ${phTolerance.toFixed(2)}.`,
+            message_vi: isWithin
+              ? `Đạt mốc pH yêu cầu: ${v.ph.toFixed(2)} (Mục tiêu: ${targetPh.toFixed(2)} ± ${phTolerance.toFixed(2)}).`
+              : `pH hiện tại: ${v.ph.toFixed(2)}. Mục tiêu: ${targetPh.toFixed(2)} ± ${phTolerance.toFixed(2)}.`,
+          };
+        }
+        return {
+          isValid: false,
+          progress: 0,
+          targetValue: targetPh,
+          isWithinTolerance: false,
+          message_en: `Measure solution pH toward target ${targetPh.toFixed(2)}.`,
+          message_vi: `Đo pH dung dịch hướng tới mốc ${targetPh.toFixed(2)}.`,
+        };
+      }
+
+      case 'DISPENSE_DROP': {
+        const targetVol = step.targetAmount ?? 10.0;
+        // Practical/exam titration endpoint precision defaults to ±0.1 mL
+        const dropTolerance = step.tolerance !== undefined
+          ? step.tolerance * modeMultiplier
+          : (mode === 'practical' || mode === 'exam' ? 0.1 : mode === 'guided' ? 0.5 : 0.25);
+        for (const v of vessels) {
+          if (step.targetVesselType && v.type !== step.targetVesselType) continue;
+          const delivered = Number.isFinite(v.titrationDelivered_ml) ? v.titrationDelivered_ml : v.volume_ml;
+          if (!(delivered > 0)) continue;
+          const diff = Math.abs(delivered - targetVol);
+          const isWithin = diff <= dropTolerance;
+          return {
+            isValid: isWithin,
+            progress: Math.max(0, Math.min(1, delivered / Math.max(0.01, targetVol))),
+            currentValue: Math.round(delivered * 100) / 100,
+            targetValue: targetVol,
+            toleranceError: Math.round(diff * 100) / 100,
+            isWithinTolerance: isWithin,
+            message_en: isWithin
+              ? `Titration volume accurate: ${delivered.toFixed(2)} mL (Target: ${targetVol.toFixed(2)} ± ${dropTolerance.toFixed(2)} mL).`
+              : `Dispensed ${delivered.toFixed(2)} mL (Target: ${targetVol.toFixed(2)} ± ${dropTolerance.toFixed(2)} mL).`,
+            message_vi: isWithin
+              ? `Thể tích chuẩn độ đạt chuẩn: ${delivered.toFixed(2)} mL (Yêu cầu: ${targetVol.toFixed(2)} ± ${dropTolerance.toFixed(2)} mL).`
+              : `Đã nhỏ ${delivered.toFixed(2)} mL (Yêu cầu: ${targetVol.toFixed(2)} ± ${dropTolerance.toFixed(2)} mL).`,
+          };
+        }
+        return {
+          isValid: false,
+          progress: 0,
+          targetValue: targetVol,
+          isWithinTolerance: false,
+          message_en: `Dispense drops carefully to reach ${targetVol.toFixed(2)} mL.`,
+          message_vi: `Nhỏ từng giọt cẩn thận để đạt ${targetVol.toFixed(2)} mL.`,
+        };
+      }
+
       default:
         return {
           isValid: true,
@@ -350,7 +463,8 @@ export class ExperimentEngine {
   }
 
   /**
-   * Generates a comprehensive Exam Report Card with letter grade.
+   * Generates a comprehensive Exam Report Card with letter grade and optional
+   * quantitative rubric & safety telemetry.
    */
   public generateReportCard(
     experimentId: string,
@@ -361,19 +475,30 @@ export class ExperimentEngine {
     contaminationCount: number,
     quizCorrect: number,
     quizTotal: number,
-    durationSeconds: number
+    durationSeconds: number,
+    auditContext?: {
+      safetyViolations?: SafetyViolationRecord[];
+      quantitativeMetrics?: QuantitativeRubricMetrics;
+    }
   ): ExamReportCard {
     // 1. Procedure score (40 max)
     const procedureScore = Math.round((stepsCompleted / Math.max(1, stepsTotal)) * 40);
 
-    // 2. Accuracy score (25 max) based on average tolerance error
-    const avgTolerance = toleranceErrors.length > 0
-      ? toleranceErrors.reduce((a, b) => a + b, 0) / toleranceErrors.length
+    // 2. Accuracy score (25 max) based on average tolerance error (plus titration endpoint precision if present)
+    const allErrors = [...toleranceErrors];
+    if (auditContext?.quantitativeMetrics?.titrationError_ml !== undefined && Number.isFinite(auditContext.quantitativeMetrics.titrationError_ml)) {
+      allErrors.push(auditContext.quantitativeMetrics.titrationError_ml);
+    }
+    const avgTolerance = allErrors.length > 0
+      ? allErrors.reduce((a, b) => a + b, 0) / allErrors.length
       : 0;
     const accuracyScore = Math.max(5, Math.round(25 - avgTolerance * 3));
 
-    // 3. Hygiene & Safety score (15 max)
-    const hygieneScore = Math.max(0, 15 - contaminationCount * 5);
+    // 3. Hygiene & Safety score (15 max), accounting for tool contamination, uncleaned spills & safety violations
+    const violations = auditContext?.safetyViolations ?? this.getSafetyViolations();
+    const spillPenalty = (auditContext?.quantitativeMetrics?.uncleanedSpillCount ?? 0) * 3;
+    const violationPenalty = violations.length * 4;
+    const hygieneScore = Math.max(0, 15 - contaminationCount * 5 - spillPenalty - violationPenalty);
 
     // 4. Quiz score (20 max)
     const quizScore = quizTotal > 0 ? Math.round((quizCorrect / quizTotal) * 20) : 20;
@@ -399,11 +524,21 @@ export class ExperimentEngine {
     }
 
     if (hygieneScore === 15) {
-      feedback_en.push('Pristine tool hygiene; zero cross-contamination.');
-      feedback_vi.push('Vệ sinh dụng cụ hoàn hảo, không có nhiễm chéo hóa chất.');
+      feedback_en.push('Pristine tool hygiene and laboratory safety compliance.');
+      feedback_vi.push('Vệ sinh dụng cụ và an toàn phòng thí nghiệm hoàn hảo, không nhiễm chéo.');
     } else {
-      feedback_en.push(`Detected ${contaminationCount} tool contamination events. Remember to rinse with distilled water.`);
-      feedback_vi.push(`Phát hiện ${contaminationCount} lần bẩn dụng cụ. Hãy nhớ tráng nước cất trước khi dùng lại.`);
+      if (contaminationCount > 0) {
+        feedback_en.push(`Detected ${contaminationCount} tool contamination events. Remember to rinse with distilled water.`);
+        feedback_vi.push(`Phát hiện ${contaminationCount} lần bẩn dụng cụ. Hãy nhớ tráng nước cất trước khi dùng lại.`);
+      }
+      if ((auditContext?.quantitativeMetrics?.uncleanedSpillCount ?? 0) > 0) {
+        feedback_en.push('Uncleaned chemical spills remain on the workbench. Always clean spills into waste.');
+        feedback_vi.push('Vẫn còn vũng hóa chất chưa lau dọn trên bàn thí nghiệm. Cần thu gom vào sổ chất thải.');
+      }
+      for (const v of violations) {
+        feedback_en.push(v.message_en);
+        feedback_vi.push(v.message_vi);
+      }
     }
 
     return {
@@ -416,10 +551,17 @@ export class ExperimentEngine {
       accuracyScore,
       hygieneScore,
       quizScore,
+      ...(violations.length ? { safetyViolations: [...violations] } : {}),
+      ...(auditContext?.quantitativeMetrics ? { quantitativeMetrics: { ...auditContext.quantitativeMetrics } } : {}),
       feedback_en,
       feedback_vi,
       timestamp: new Date().toISOString(),
     };
+  }
+
+  /** Serializes an ExamReportCard to deterministic JSON for student/teacher export. */
+  public serializeReportCardJson(report: ExamReportCard): string {
+    return JSON.stringify(report, null, 2);
   }
 }
 

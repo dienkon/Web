@@ -18,6 +18,11 @@ const vector = (v: readonly number[]) => ({ x: v[0], y: v[1], z: v[2] });
 const rotation = (q: Quat) => { const length = Math.hypot(...q); return { x: q[0] / length, y: q[1] / length, z: q[2] / length, w: q[3] / length }; };
 const tuple = (v: { x: number; y: number; z: number }): Vec3 => [v.x, v.y, v.z];
 const finite = (v: readonly number[]) => v.every(Number.isFinite);
+const SCRATCH_INV = new Quaternion();
+const SCRATCH_SAMPLE_Q = new Quaternion();
+const SCRATCH_REL_Q = new Quaternion();
+const SCRATCH_UP = new Vector3();
+const SCRATCH_LOCAL = new Vector3();
 let initialized: Promise<void> | undefined;
 type Body = { input: PhysicalBodyInput; body: RAPIER.RigidBody; target?: { position: Vec3; rotation: Quat }; joint?: RAPIER.ImpulseJoint };
 export interface RuntimeSave {
@@ -55,9 +60,10 @@ export class PhysicsRuntime {
     this.world = new RAPIER.World({ x: 0, y: -CONSTANTS.g, z: 0 });
     this.world.timestep = DT;
     this.world.integrationParameters.normalizedAllowedLinearError = 0.00001;
-    // Keep enough predictive distance for the millimetre-thin bottom. A 50 µm
-    // band missed the high-speed thin-shell regression even with CCD enabled.
-    this.world.integrationParameters.normalizedPredictionDistance = 0.001;
+    // Keep enough predictive distance (0.4 mm, 8× above the 50 µm failure band)
+    // for high-speed thin-shell impacts without pulling upright beaker wall wedges
+    // (~1.0 mm above the bench) into redundant bench contact manifolds.
+    this.world.integrationParameters.normalizedPredictionDistance = 0.0004;
     this.world.integrationParameters.numSolverIterations = 10;
     this.world.integrationParameters.maxCcdSubsteps = 4;
     this.events = new RAPIER.EventQueue(true);
@@ -247,61 +253,84 @@ export class PhysicsRuntime {
   }
   private stepFluids() {
     this.fluidForces = [];
-    const samples = [...this.bodies.values()].filter(e => e.input.definition.category === 'sample');
+    const samples: Body[] = [];
+    for (const entry of this.bodies.values()) {
+      if (entry.input.definition.category === 'sample') samples.push(entry);
+    }
     if (!samples.length) return;
     for (const [ownerId, vessel] of this.bodies) {
       const fluid = vessel.input.fluid;
       if (!fluid || !(fluid.volume_m3 > 0)) continue;
       const profile = getWorldVesselProfile(fluid.vesselType, fluid.capacity_ml);
       const vp = vessel.body.translation(), vq = vessel.body.rotation();
-      const inverse = new Quaternion(vq.x, vq.y, vq.z, vq.w).invert();
-      const up = new Vector3(0, 1, 0).applyQuaternion(inverse);
-      const tilt = Math.atan2(Math.hypot(up.x, up.z), up.y);
+      const maxOuterR_m = Math.max(vessel.input.definition.dimensions_m[0], vessel.input.definition.dimensions_m[2]) * 0.6;
+      const maxHeight_m = vessel.input.definition.dimensions_m[1] * 1.1;
+      SCRATCH_INV.set(vq.x, vq.y, vq.z, vq.w).invert();
+      const inside: Body[] = [];
+      for (const sample of samples) {
+        const p = sample.body.translation();
+        const dx = p.x - vp.x, dy = p.y - vp.y, dz = p.z - vp.z;
+        const sampleMaxDim = Math.max(...sample.input.definition.dimensions_m);
+        const rBound = maxOuterR_m + sampleMaxDim;
+        if (dx * dx + dz * dz > rBound * rBound || Math.abs(dy) > maxHeight_m + sampleMaxDim) continue;
+        SCRATCH_LOCAL.set(dx, dy, dz).applyQuaternion(SCRATCH_INV).multiplyScalar(1 / METERS_PER_SCENE_UNIT);
+        const dimY_scene = sample.input.definition.dimensions_m[1] / METERS_PER_SCENE_UNIT;
+        if (SCRATCH_LOCAL.y >= profile.baseY - dimY_scene
+          && SCRATCH_LOCAL.y <= profile.baseY + profile.H + dimY_scene
+          && Math.hypot(SCRATCH_LOCAL.x, SCRATCH_LOCAL.z) < profile.r(Math.max(profile.baseY, Math.min(profile.baseY + profile.H, SCRATCH_LOCAL.y)))) {
+          inside.push(sample);
+        }
+      }
+      if (!inside.length) continue;
+      SCRATCH_UP.set(0, 1, 0).applyQuaternion(SCRATCH_INV);
+      const tilt = Math.atan2(Math.hypot(SCRATCH_UP.x, SCRATCH_UP.z), SCRATCH_UP.y);
       const transform = vesselBodyTransform({ type: fluid.vesselType, capacity_ml: fluid.capacity_ml });
       const surface = (volume_ml: number) => tilt < 1e-8
         ? (liquidLevelForVolume(fluid.vesselType, volume_ml, fluid.capacity_ml) * transform.scale + transform.offsetY) * METERS_PER_SCENE_UNIT + vp.y
         : solveLevel(profile, tilt, volume_ml).c * METERS_PER_SCENE_UNIT + vp.y;
-      const inside = samples.filter(sample => {
-        const p = sample.body.translation();
-        const local = new Vector3(p.x - vp.x, p.y - vp.y, p.z - vp.z).applyQuaternion(inverse).multiplyScalar(1 / METERS_PER_SCENE_UNIT);
-        return local.y >= profile.baseY - sample.input.definition.dimensions_m[1] / METERS_PER_SCENE_UNIT
-          && local.y <= profile.baseY + profile.H + sample.input.definition.dimensions_m[1] / METERS_PER_SCENE_UNIT
-          && Math.hypot(local.x, local.z) < profile.r(Math.max(profile.baseY, Math.min(profile.baseY + profile.H, local.y)));
-      });
-      if (!inside.length) continue;
       const base_ml = Math.min(fluid.capacity_ml, fluid.volume_m3 * 1e6);
-      let level = this.fluidLevels.get(ownerId) ?? surface(base_ml);
+      const prevLevel = this.fluidLevels.get(ownerId);
+      let level = prevLevel ?? surface(base_ml);
       // Fixed point for displacement; the existing transport engine owns any overflow.
       for (let i = 0; i < 8; i++) {
-        const displaced = inside.reduce((sum, sample) => {
+        let displaced = 0;
+        for (const sample of inside) {
           const p = sample.body.translation(), q = sample.body.rotation();
-          return sum + submergedBoxVolume(sample.input.definition.dimensions_m, tuple(p), [q.x, q.y, q.z, q.w], level);
-        }, 0);
+          displaced += submergedBoxVolume(sample.input.definition.dimensions_m, [p.x, p.y, p.z], [q.x, q.y, q.z, q.w], level);
+        }
         const next = surface(Math.min(fluid.capacity_ml, base_ml + displaced * 1e6));
         if (Math.abs(next - level) < 1e-8) { level = next; break; }
         level = next;
       }
+      const levelChanged = prevLevel === undefined || Math.abs(level - prevLevel) > 5e-5;
       this.fluidLevels.set(ownerId, level);
+      const vesselSleeping = vessel.body.isSleeping();
+      const vesselLinvel = vessel.body.linvel();
       for (const sample of inside) {
         const d = sample.input.definition, p = sample.body.translation(), q = sample.body.rotation();
         const volume = d.dimensions_m[0] * d.dimensions_m[1] * d.dimensions_m[2];
-        const submerged = submergedBoxVolume(d.dimensions_m, tuple(p), [q.x, q.y, q.z, q.w], level);
-        const relativePosition = new Vector3(p.x - vp.x, p.y - vp.y, p.z - vp.z).applyQuaternion(inverse);
-        const relativeRotation = inverse.clone().multiply(new Quaternion(q.x, q.y, q.z, q.w));
+        const submerged = submergedBoxVolume(d.dimensions_m, [p.x, p.y, p.z], [q.x, q.y, q.z, q.w], level);
+        SCRATCH_LOCAL.set(p.x - vp.x, p.y - vp.y, p.z - vp.z).applyQuaternion(SCRATCH_INV);
+        SCRATCH_REL_Q.copy(SCRATCH_INV).multiply(SCRATCH_SAMPLE_Q.set(q.x, q.y, q.z, q.w));
         const solid = { id: sample.input.id, dimensions_m: d.dimensions_m,
-          position_m: relativePosition.toArray() as Vec3, rotation: relativeRotation.toArray() as Quat };
-        this.fluidForces.push({ id: sample.input.id, ownerId, displaced_m3: submerged,
-          buoyancy_N: buoyancyForce_N(fluid.density_kg_m3, submerged), solid });
+          position_m: [SCRATCH_LOCAL.x, SCRATCH_LOCAL.y, SCRATCH_LOCAL.z] as Vec3,
+          rotation: [SCRATCH_REL_Q.x, SCRATCH_REL_Q.y, SCRATCH_REL_Q.z, SCRATCH_REL_Q.w] as Quat };
+        const buoyancy = submerged > 0 ? buoyancyForce_N(fluid.density_kg_m3, submerged) : 0;
+        this.fluidForces.push({ id: sample.input.id, ownerId, displaced_m3: submerged, buoyancy_N: buoyancy, solid });
         if (!(submerged > 0)) continue;
-        const buoyancy = buoyancyForce_N(fluid.density_kg_m3, submerged);
-        sample.body.addForce({ x: 0, y: buoyancy, z: 0 }, true);
-        const relative = tuple(sample.body.linvel()).map((v, i) => v - tuple(vessel.body.linvel())[i]) as Vec3;
+        // Preserve island sleep when both vessel and submerged sample are already at rest and fluid level is unchanged.
+        if (vesselSleeping && sample.body.isSleeping() && !levelChanged) continue;
+        const wakeUp = levelChanged;
+        sample.body.addForce({ x: 0, y: buoyancy, z: 0 }, wakeUp);
+        const sVel = sample.body.linvel();
+        const relative: Vec3 = [sVel.x - vesselLinvel.x, sVel.y - vesselLinvel.y, sVel.z - vesselLinvel.z];
         const impulse = viscousDragImpulse(relative, sample.body.mass(), Math.cbrt(3 * volume / (4 * Math.PI)),
           fluid.density_kg_m3, fluid.viscosity_Pas, DT, submerged / volume);
-        sample.body.applyImpulse(vector(impulse), true);
+        const hasDrag = Math.abs(impulse[0]) + Math.abs(impulse[1]) + Math.abs(impulse[2]) > 1e-12;
+        if (hasDrag) sample.body.applyImpulse({ x: impulse[0], y: impulse[1], z: impulse[2] }, wakeUp);
         if (vessel.body.isDynamic()) {
-          vessel.body.addForceAtPoint({ x: 0, y: -buoyancy, z: 0 }, p, true);
-          vessel.body.applyImpulseAtPoint(vector(impulse.map(v => -v)), p, true);
+          vessel.body.addForceAtPoint({ x: 0, y: -buoyancy, z: 0 }, p, wakeUp);
+          if (hasDrag) vessel.body.applyImpulseAtPoint({ x: -impulse[0], y: -impulse[1], z: -impulse[2] }, p, wakeUp);
         }
       }
     }
@@ -347,7 +376,7 @@ export class PhysicsRuntime {
       const owner = p ? saved.handles.find(([, h]) => h === p.handle)?.[0] : c.translation().y < sceneToMeters(LAB_GEOMETRY.floor_scene) ? 'stone_floor' : 'bench';
       if (owner) this.colliderOwner.set(c.handle, owner);
     });
-    this.pending = []; this.impacts = []; this.contacts.clear(); this.tickCount = saved.tick;
+    this.pending = []; this.impacts = []; this.contacts.clear(); this.fluidLevels.clear(); this.tickCount = saved.tick;
     this.accumulator = saved.accumulator_s; this.sequence = saved.sequence; this.seed = saved.seed;
     this.experiments = new Map((saved.experiments ?? []).map(e => [e.id, structuredClone(e)]));
     this.contacts = new Map((saved.contacts ?? []).map(([id, c]) => [id, new Map(c)]));

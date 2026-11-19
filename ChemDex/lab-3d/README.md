@@ -35,6 +35,8 @@ Trong **Hóa chất → Bài học**, chọn thẻ hiện tượng rồi **Tạo
 
 [Nâng cấp hiệu ứng và dụng cụ ngày 18/11/2026](docs/research/effect-function-upgrade-2026-11-18.vi.md) sửa đường rơi chất rắn, đồng bộ cân/nhiệt kế/pH khi tạm dừng hoặc đổi tốc độ, và giới hạn upload bọt/sương theo số hạt hiện hữu; kèm kiểm tra trình duyệt và lệnh tái chạy.
 
+[Nâng cấp toàn diện 5 giai đoạn ngày 20/11/2026](docs/research/lab-3d-upgrade-2026-11-20.vi.md) tối ưu collider vỏ rỗng & giấc ngủ Rapier Worker (giảm median CPU 20 bình/50 mẫu rắn từ 174,55 ms xuống 19,11 ms), bổ sung cầu nối `MatterLedger`, cuốn huyền phù khi khuấy, phân nhánh nồng độ axit/thụ động hóa, cân bằng hơi–lỏng bình kín, enthalpy pha loãng H₂SO₄, oxy hóa NO ngoài miệng bình, tách chunk tải lười và chấm điểm thực hành xuất JSON.
+
 ## Vật lí có kiểm chứng — bản thử nghiệm
 
 Mở **Thiết lập → Vật lí** trên thanh công cụ để bật runtime Rapier trong Worker, xem 184 hồ sơ vật thể/chất và dùng bàn kiểm chứng lực, áp suất, hút pipet, bể nhiệt, thu khí, độ nhớt và nóng chảy băng. Nhánh mới tắt mặc định: tải lớn, hình học phụ kiện và hiệu chuẩn thực nghiệm còn chưa đạt đủ tiêu chí nghiệm thu.

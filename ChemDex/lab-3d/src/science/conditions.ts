@@ -17,6 +17,8 @@ export interface ExperimentalEnvironment {
   requireInventory?: boolean;
   /** Existing finite reaction tails may inspect positive sub-threshold reactants. */
   reactantThreshold_mol?: number;
+  /** Baseline contents when an ongoing stoichiometric reaction consumes concentrated acid and produces water. */
+  acidGradeReferenceContents?: readonly SubstanceContent[];
 }
 
 export interface ConditionAssessment {
@@ -24,19 +26,87 @@ export interface ConditionAssessment {
   unmet: string[];
 }
 
-const CONCENTRATED_ACID_CASES: Record<string, string> = {
+const CONCENTRATED_ACID_CASES: Record<string, 'HNO3' | 'H2SO4'> = {
   cu_hno3_conc: 'HNO3',
   cu_conc_h2so4: 'H2SO4',
   kcl_conc_h2so4: 'H2SO4',
   water_into_h2so4: 'H2SO4',
   h2so4_dilution: 'H2SO4',
 };
-const DILUTE_ACID_CASES: Record<string, string> = {
+const DILUTE_ACID_CASES: Record<string, 'HNO3' | 'H2SO4'> = {
   cu_hno3_dil: 'HNO3', cu_hno3_dilute: 'HNO3', zn_h2so4_dilute: 'H2SO4',
 };
 
+/** Simplified bulk mass-fraction thresholds distinguishing concentrated vs
+ * dilute HNO3 / H2SO4 when explicit bulk liquid water is present. These are
+ * composition gates, not activity-corrected continuous speciation models. */
+const ACID_MASS_FRACTION_THRESHOLDS = {
+  HNO3: { concentratedMin: 0.45, diluteMax: 0.35 },
+  H2SO4: { concentratedMin: 0.70, diluteMax: 0.50 },
+} as const;
+
+const PASSIVATED_METALS = new Set(['Al', 'Fe', 'Cr']);
+const PASSIVATION_TEMP_THRESHOLD_C = 45;
+
 function present(contents: SubstanceContent[], formula: string, expectedPhase?: string, threshold = REAGENT_AMOUNT_THRESHOLD_MOL): boolean {
   return contents.some(item => availableReagent(item, formula, expectedPhase, threshold));
+}
+
+/**
+ * Computes actual bulk acid mass fraction w = m_acid / (m_acid + m_H2O) when
+ * both bulk acid (aq/l) and bulk liquid water are present. Returns null if no
+ * explicit bulk liquid water row exists (allowing minimal fixtures to fall back
+ * to explicit grade labels).
+ */
+export function bulkAcidMassFraction(
+  contents: readonly SubstanceContent[],
+  acidFormula: 'HNO3' | 'H2SO4',
+): number | null {
+  let acidMass_g = 0;
+  let waterMass_g = 0;
+  let hasWaterRow = false;
+  for (const item of contents) {
+    if (item.location && item.location !== 'bulk') continue;
+    if (!Number.isFinite(item.mass_g) || item.mass_g <= 0 || !Number.isFinite(item.moles) || item.moles <= REAGENT_AMOUNT_THRESHOLD_MOL) continue;
+    const phase = reagentPhase(item);
+    if (sameMolecularFormula(item.formula, acidFormula) && (!phase || phase === 'aq' || phase === 'l')) {
+      acidMass_g += item.mass_g;
+    } else if (sameMolecularFormula(item.formula, 'H2O') && (!phase || phase === 'l')) {
+      waterMass_g += item.mass_g;
+      hasWaterRow = true;
+    }
+  }
+  if (!hasWaterRow || !(acidMass_g > 0)) return null;
+  const total = acidMass_g + waterMass_g;
+  return total > 0 ? acidMass_g / total : null;
+}
+
+/**
+ * Detects passive oxide film inhibition for solid Al, Fe, or Cr in cold
+ * concentrated HNO3 or H2SO4 (< 45 °C).
+ */
+export function isPassivatedMetalInColdConcentratedAcid(
+  contents: readonly SubstanceContent[],
+  temperature_c: number,
+): { passivated: boolean; metal?: string; acid?: 'HNO3' | 'H2SO4' } {
+  if (!Number.isFinite(temperature_c) || temperature_c >= PASSIVATION_TEMP_THRESHOLD_C) {
+    return { passivated: false };
+  }
+  const solidMetal = contents.find(item => {
+    if (item.location && item.location !== 'bulk') return false;
+    if (!Number.isFinite(item.moles) || item.moles <= REAGENT_AMOUNT_THRESHOLD_MOL) return false;
+    const phase = reagentPhase(item);
+    return (!phase || phase === 's') && [...PASSIVATED_METALS].some(m => sameMolecularFormula(item.formula, m));
+  });
+  if (!solidMetal) return { passivated: false };
+  const metal = [...PASSIVATED_METALS].find(m => sameMolecularFormula(solidMetal.formula, m))!;
+  for (const acid of ['HNO3', 'H2SO4'] as const) {
+    const w = bulkAcidMassFraction(contents, acid);
+    const hasConcLabel = contents.some(item => ['aq', 'l'].some(p => availableReagent(item, `${acid}(concentrated)`, p)));
+    const isConcentrated = w !== null ? w >= ACID_MASS_FRACTION_THRESHOLDS[acid].concentratedMin : hasConcLabel;
+    if (isConcentrated) return { passivated: true, metal, acid };
+  }
+  return { passivated: false };
 }
 
 export function hasOxidizingAcid(contents: SubstanceContent[]): boolean {
@@ -103,8 +173,37 @@ export function assessProgramConditions(
     const acid = cases[program.id];
     if (!acid) continue;
     const phases = grade === 'concentrated' ? ['aq', 'l'] : ['aq'];
-    const found = contents.some(item => phases.some(phase => availableReagent(item, `${acid}(${grade})`, phase)));
-    if (!found) unmet.push(`Cần xác định ${acid} ${grade === 'concentrated' ? 'đặc' : 'loãng'}, không suy ra chỉ từ công thức.`);
+    const hasLabel = contents.some(item => phases.some(phase => availableReagent(item, `${acid}(${grade})`, phase)));
+    // Evaluate bulk acid mass fraction against the baseline mixture if this is an ongoing
+    // stoichiometric reaction (e.g., Cu + 4 HNO3 -> Cu(NO3)2 + 2 NO2 + 2 H2O self-dilutes as it runs).
+    const gradeContents = env.acidGradeReferenceContents ?? contents;
+    const w = bulkAcidMassFraction(gradeContents, acid);
+    const thresholds = ACID_MASS_FRACTION_THRESHOLDS[acid];
+    const satisfiedByBulkComposition = w !== null && (
+      grade === 'concentrated'
+        ? w >= thresholds.concentratedMin
+        : w <= thresholds.diluteMax
+    );
+    const contradictedByDilution = w !== null && (
+      grade === 'concentrated'
+        ? w < thresholds.concentratedMin
+        : w > thresholds.diluteMax
+    );
+    if (contradictedByDilution || (!hasLabel && !satisfiedByBulkComposition)) {
+      unmet.push(`Cần xác định ${acid} ${grade === 'concentrated' ? 'đặc' : 'loãng'} theo đúng nồng độ khối lượng thực tế.`);
+    }
+  }
+  const passivation = isPassivatedMetalInColdConcentratedAcid(contents, temperature);
+  if (passivation.passivated) {
+    const consumesPassivatedMetal = program.chemistry.species.some(
+      item => item.role === 'reactant' && sameMolecularFormula(item.formula, passivation.metal!),
+    );
+    const consumesPassivatingAcid = program.chemistry.species.some(
+      item => item.role === 'reactant' && sameMolecularFormula(item.formula, passivation.acid!),
+    );
+    if (consumesPassivatedMetal && consumesPassivatingAcid) {
+      unmet.push(`Kim loại ${passivation.metal} bị thụ động hóa trong ${passivation.acid} đặc nguội (< ${PASSIVATION_TEMP_THRESHOLD_C} °C); cần đun nóng hoặc pha loãng.`);
+    }
   }
   if (program.id === 'nh3_hcl') {
     for (const formula of ['NH3', 'HCl']) {

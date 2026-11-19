@@ -10,11 +10,11 @@ import { LAB_TOUR_STEPS } from './data/labTour';
 import type { GuideDestination } from './data/labOnboarding';
 import { MeasurementHUD } from './components/MeasurementHUD';
 import { VesselInspector } from './components/VesselInspector';
-import { TitrationPanel } from './components/TitrationPanel';
-import { GuidedExperimentPanel } from './components/GuidedExperimentPanel';
+const TitrationPanel = React.lazy(() => import('./components/TitrationPanel').then(m => ({ default: m.TitrationPanel })));
+const GuidedExperimentPanel = React.lazy(() => import('./components/GuidedExperimentPanel').then(m => ({ default: m.GuidedExperimentPanel })));
 import { DosageModal } from './components/DosageModal';
 import { LitmusTestModal } from './components/LitmusTestModal';
-import { LabReportModal } from './components/LabReportModal';
+const LabReportModal = React.lazy(() => import('./components/LabReportModal').then(m => ({ default: m.LabReportModal })));
 import { ErrorBoundary } from './components/ErrorBoundary';
 import { ResizableSidebar } from './components/ResizableSidebar';
 const AutoLabWorkspace = React.lazy(() => import('./vfx/autoplay/AutoLabWorkspace'));
@@ -392,7 +392,9 @@ function LeftSidebar({ activeTab, setActiveTab, guidedStep }: { activeTab: Catal
       {/* CURRICULUM & EXPERIMENTS TAB */}
       {activeTab === 'experiments' && (
         <div className="flex-1 p-3.5 overflow-y-auto">
-          <GuidedExperimentPanel />
+          <React.Suspense fallback={<p className="text-xs text-slate-500 p-2">{t('Loading experiments...', 'Đang tải danh sách bài học...')}</p>}>
+            <GuidedExperimentPanel />
+          </React.Suspense>
         </div>
       )}
 
@@ -498,7 +500,9 @@ const RightSidebar = React.memo(function RightSidebar() {
         {activeTab === 'vessel' ? (
           <VesselInspector />
         ) : activeTab === 'titration' ? (
-          <TitrationPanel />
+          <React.Suspense fallback={<p className="text-xs text-slate-500 p-2">{t('Loading titration panel...', 'Đang tải bảng chuẩn độ...')}</p>}>
+            <TitrationPanel />
+          </React.Suspense>
         ) : (
           <>
             {isMixing && (
@@ -664,6 +668,7 @@ export default function App() {
   const leftSidebarOpen = useAppStore(state => state.leftSidebarOpen);
   const rightSidebarOpen = useAppStore(state => state.rightSidebarOpen);
   const isPresentationMode = useAppStore(state => state.isPresentationMode);
+  const isLabReportOpen = useAppStore(state => state.isLabReportOpen);
   const language = useAppStore(state => state.language);
   const toggleLeftSidebar = useAppStore(state => state.toggleLeftSidebar);
   const toggleRightSidebar = useAppStore(state => state.toggleRightSidebar);
@@ -705,7 +710,13 @@ export default function App() {
       <Toast />
 
       {/* Chemical Measurement, Litmus Paper & Student Lab Report Dialogs */}
-      {workspace === 'manual' && <><DosageModal guidedAmount={tourActive && tourStep === 'confirm-water' ? 10 : undefined} /><LitmusTestModal /><LabReportModal /></>}
+      {workspace === 'manual' && (
+        <>
+          <DosageModal guidedAmount={tourActive && tourStep === 'confirm-water' ? 10 : undefined} />
+          <LitmusTestModal />
+          {isLabReportOpen && <React.Suspense fallback={null}><LabReportModal /></React.Suspense>}
+        </>
+      )}
 
       {!isPresentationMode && <LabNavigation workspace={workspace} onWorkspaceChange={changeWorkspace} onOpenGuide={() => useLabTour.getState().start()} guideStep={useLabTour.getState().completed ? undefined : tourIndex + 1} />}
 

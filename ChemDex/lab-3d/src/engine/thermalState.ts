@@ -9,6 +9,8 @@ import { wallThermalPaths } from './wallThermalPaths';
 import { aqueousWaterBoundary } from '../science/aqueousWaterBoundary';
 import { boilDiluteSolution } from '../science/solutionBoiling';
 import { integrateThermalHeat } from '../science/thermalHeatIntegration';
+import { waterSaturationPressurePa } from '../science/waterSaturation';
+import { headspaceVolumeMl, IDEAL_GAS_R_L_ATM, sealedGasPressure } from './headspacePressure';
 export { WATER_CP_J_G_K, WATER_LATENT_HEAT_J_G } from './waterProperties';
 export { sealedGasPressure } from './headspacePressure';
 const PRESSURE_MODEL_LIMIT = 'Áp suất nằm ngoài miền cân bằng lỏng–hơi nước của mô hình.';
@@ -274,4 +276,132 @@ export function stepVesselThermal(vessel: VesselState, dt: number, absorbedPower
     wallThermalEligible: paths.patches.length > 0,
     wallThermalDryCredit_J: cooling > 0 ? (Math.max(0, absorbedPower_W) * dt - heat)
       * (cooling - paths.dry_W_K) / cooling : 0 };
+}
+
+export interface SealedWaterVleResult {
+  vessel: VesselState;
+  /** Positive = evaporated from liquid to headspace vapor; negative = condensed back to liquid. */
+  vaporTransfer_g: number;
+  latentEnergy_J: number;
+  saturationPressure_atm: number;
+  totalPressure_atm: number;
+  saturated: boolean;
+}
+
+const H2O_MOLAR_MASS_G = 18.01528;
+
+/**
+ * Equilibrates pure liquid water and headspace water vapor inside a sealed
+ * vessel at its current temperature using IAPWS saturation vapor pressure
+ * P_sat(T) and ideal-gas headspace closure (0.01 °C <= T <= 373.946 °C).
+ * Strictly conserves total mass and total H2O moles inside the closed vessel.
+ * Stops net vaporization once partial pressure of H2O(g) reaches P_sat(T).
+ */
+export function equilibrateSealedWaterVapor(vessel: VesselState): SealedWaterVleResult | null {
+  if (!vessel.isSealed || vessel.isShattered) return null;
+  const T_c = vessel.temperature_c;
+  if (!Number.isFinite(T_c) || T_c < 0.01 || T_c >= 373.946) return null;
+  const headspace_ml = headspaceVolumeMl(vessel);
+  if (!Number.isFinite(headspace_ml) || headspace_ml <= 0) return null;
+  const pSat_Pa = waterSaturationPressurePa(T_c);
+  const pSat_atm = pSat_Pa / 101325;
+  const kelvin = T_c + 273.15;
+  const satMolarDensity_mol_L = pSat_atm / (IDEAL_GAS_R_L_ATM * kelvin);
+
+  const liquidRows = vessel.contents.filter(
+    item => sameMolecularFormula(item.formula, 'H2O')
+      && (item.phase ?? item.state ?? identifySpecies(item.formula).phase ?? 'l') === 'l'
+      && item.moles > 0,
+  );
+  const vaporRows = vessel.contents.filter(
+    item => sameMolecularFormula(item.formula, 'H2O')
+      && (item.phase ?? item.state ?? identifySpecies(item.formula).phase) === 'g'
+      && item.location !== 'foam'
+      && item.moles > 0,
+  );
+  const currentLiquid_mol = liquidRows.reduce((s, r) => s + r.moles, 0);
+  const currentLiquid_g = liquidRows.reduce((s, r) => s + r.mass_g, 0);
+  const currentVapor_mol = vaporRows.reduce((s, r) => s + r.moles, 0);
+  const currentVapor_g = vaporRows.reduce((s, r) => s + r.mass_g, 0);
+  if (currentLiquid_mol <= 0 && currentVapor_mol <= 0) return null;
+
+  // Solve exact coupled headspace-expansion fixed point:
+  // n_vap + dn = satMolarDensity * (headspace_L + dn * M_H2O / 1000)
+  const molarMass_g_mol = currentLiquid_mol > 0
+    ? currentLiquid_g / currentLiquid_mol
+    : (currentVapor_mol > 0 ? currentVapor_g / currentVapor_mol : H2O_MOLAR_MASS_G);
+  const denom = 1 - satMolarDensity_mol_L * (molarMass_g_mol / 1000);
+  if (!(denom > 1e-6)) return null;
+  const delta_mol = (satMolarDensity_mol_L * (headspace_ml / 1000) - currentVapor_mol) / denom;
+  const targetVapor_mol = currentVapor_mol + delta_mol;
+  const clampedDelta_mol = delta_mol > 0
+    ? Math.min(delta_mol, currentLiquid_mol)
+    : -Math.min(-delta_mol, currentVapor_mol);
+  const delta_g = delta_mol > 0
+    ? (currentLiquid_mol > 0 ? currentLiquid_g * (clampedDelta_mol / currentLiquid_mol) : 0)
+    : -(currentVapor_mol > 0 ? currentVapor_g * (-clampedDelta_mol / currentVapor_mol) : 0);
+
+  const liquidSet = new Set(liquidRows);
+  const vaporSet = new Set(vaporRows);
+  let nextContents: SubstanceContent[] = vessel.contents.map(item => {
+    if (liquidSet.has(item) && currentLiquid_mol > 0) {
+      const share = item.moles / currentLiquid_mol;
+      return {
+        ...item,
+        moles: Math.max(0, item.moles - clampedDelta_mol * share),
+        mass_g: Math.max(0, item.mass_g - delta_g * share),
+      };
+    }
+    if (vaporSet.has(item) && currentVapor_mol > 0) {
+      const share = item.moles / currentVapor_mol;
+      return {
+        ...item,
+        moles: Math.max(0, item.moles + clampedDelta_mol * share),
+        mass_g: Math.max(0, item.mass_g + delta_g * share),
+      };
+    }
+    return { ...item };
+  }).filter(item => item.moles > 1e-15 && item.mass_g > 1e-15);
+
+  if (clampedDelta_mol > 1e-15 && vaporRows.length === 0) {
+    nextContents.push({
+      formula: 'H2O',
+      phase: 'g',
+      moles: clampedDelta_mol,
+      mass_g: delta_g > 0 ? delta_g : clampedDelta_mol * H2O_MOLAR_MASS_G,
+    });
+  } else if (clampedDelta_mol < -1e-15 && liquidRows.length === 0) {
+    nextContents.push({
+      formula: 'H2O',
+      phase: 'l',
+      moles: -clampedDelta_mol,
+      mass_g: delta_g < 0 ? -delta_g : -clampedDelta_mol * H2O_MOLAR_MASS_G,
+    });
+  }
+
+  // Liquid volume adjusts by the liquid mass transferred; total vessel mass_g is strictly conserved.
+  const nextVolume_ml = Math.max(0, vessel.volume_ml - delta_g);
+  const latent_J_g = waterLatentHeatJ_G(T_c);
+  const latentEnergy_J = Number.isFinite(latent_J_g) ? delta_g * latent_J_g : 0;
+  const updated: VesselState = {
+    ...vessel,
+    contents: nextContents,
+    volume_ml: nextVolume_ml,
+    volume: vessel.capacity_ml > 0 ? nextVolume_ml / vessel.capacity_ml : 0,
+    substances: [...new Set(nextContents.map(c => c.formula))],
+  };
+  const totalPressure_atm = sealedGasPressure(updated);
+  const finalVapor_mol = currentVapor_mol + clampedDelta_mol;
+  return {
+    vessel: {
+      ...updated,
+      internalPressure_atm: Number.isFinite(totalPressure_atm) ? totalPressure_atm : updated.internalPressure_atm,
+      internalPressureModel: Number.isFinite(totalPressure_atm) ? 'ideal-gas' : 'unavailable',
+    },
+    vaporTransfer_g: delta_g,
+    latentEnergy_J,
+    saturationPressure_atm: pSat_atm,
+    totalPressure_atm,
+    saturated: finalVapor_mol >= targetVapor_mol - 1e-12,
+  };
 }
