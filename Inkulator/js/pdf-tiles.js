@@ -2,7 +2,6 @@
 (function (root) {
   "use strict";
   const SIDE = 1024,
-    BUDGET = 24 * 1024 * 1024,
     cache = new Map(),
     infos = new Map(),
     loading = new Map(),
@@ -51,7 +50,8 @@
     return null;
   }
   function trim() {
-    while (pixels > (Store.state.settings.performance === "economy" ? BUDGET/2 : BUDGET) && cache.size) {
+    const budget = (Store.economyMode() ? 6 : 24) * 1024 * 1024;
+    while (pixels > budget && cache.size) {
       // Keep every visible region usable on very large displays; evict regions
       // outside the viewport first instead of repeatedly redrawing visible tiles.
       const key = [...cache.keys()].find((k) => !wanted.has(k));
@@ -83,6 +83,16 @@
         transform: [1, 0, 0, 1, -job.x, -job.y],
         background: "#ffffff",
       });
+      if (Store.economyMode()) {
+        job.task.onContinue = (continueRender) => {
+          if (root.CanvasEngine?.inking) job.continueRender = continueRender;
+          else requestAnimationFrame(() => {
+            if (job.canceled) return;
+            if (root.CanvasEngine?.inking) job.continueRender = continueRender;
+            else continueRender();
+          });
+        };
+      }
       await job.task.promise;
       if (job.canceled) return;
       cache.set(job.key, c);
@@ -101,11 +111,25 @@
     }
   }
   function drain() {
+    if (Store.economyMode() && root.CanvasEngine?.inking) return;
+    const concurrency = Store.economyMode() ? 1 : 2;
     queue.sort((a, b) => a.priority - b.priority);
-    while (active < 2 && queue.length) {
+    while (active < concurrency && queue.length) {
       const job = queue.shift();
       if (!job.canceled) run(job);
     }
+  }
+  function resume() {
+    if (!queue.length && ![...jobs.values()].some((job) => job.continueRender)) return;
+    requestAnimationFrame(() => {
+      if (root.CanvasEngine?.inking) return;
+      for (const job of jobs.values()) {
+        const proceed = job.continueRender;
+        job.continueRender = null;
+        if (!job.canceled) proceed?.();
+      }
+      drain();
+    });
   }
   function enqueue(job) {
     if (jobs.has(job.key)) return;
@@ -189,6 +213,7 @@
         if (queue.includes(job)) jobs.delete(job.key);
       }
     queue = queue.filter((j) => !j.canceled);
+    trim();
     drain();
   }
   function stats() {
@@ -201,5 +226,5 @@
       keys: [...cache.keys()],
     };
   }
-  root.PDFTiles = { draw, beginFrame, endFrame, stats };
+  root.PDFTiles = { draw, beginFrame, endFrame, stats, resume };
 })(window);

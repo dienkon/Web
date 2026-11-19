@@ -59,6 +59,7 @@ const pass = (s) => {
       // Fixed PDF-page counts here; automatic extension is covered by the notebook suite.
       await page.evaluate(() => {
         Store.state.settings.autoPages = false;
+        Store.state.settings.replaceBlankOnPdfImport = false;
       });
       await page.locator("#pdf-file").setInputFiles(file);
       await page.locator("#pdf-range").waitFor();

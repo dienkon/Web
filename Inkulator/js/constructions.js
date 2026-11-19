@@ -122,6 +122,18 @@
       throw Error("Ba điểm thẳng hàng hoặc trùng nhau; chưa xác định được mặt phẳng.");
     return G.scale(n,1/length);
   }
+  function validRefCount(type, count) {
+    return type === "section" ? count >= 3 && count <= 32 : count === operations[type];
+  }
+  function sectionThrough(model, picks) {
+    const [a, b] = picks;
+    const c = picks.slice(2).find(p => G.norm(G.cross(G.sub(b, a), G.sub(p, a))) > EPS);
+    if (!c) throw Error("Chọn ít nhất ba điểm không thẳng hàng để xác định thiết diện.");
+    const n = plane(a, b, c), tolerance = 1e-7 * Math.max(1, ...model.vertices.map(G.norm));
+    if (picks.some(p => Math.abs(G.dot(n, G.sub(p, a))) > tolerance))
+      throw Error("Các đỉnh đã chọn phải cùng nằm trên mặt phẳng thiết diện.");
+    return section(model, a, b, c);
+  }
   function build(o) {
     const solid = o.type === "solid",
       d = o.data,
@@ -164,7 +176,7 @@
         if (
           !Object.hasOwn(operations,c.type) ||
           !Array.isArray(c.refs) ||
-          c.refs.length !== operations[c.type]
+          !validRefCount(c.type, c.refs.length)
         )
           throw Error("Phép dựng không hợp lệ.");
         const source = c.refs.map((key) => {
@@ -407,7 +419,7 @@
             throw Error(
               "Thiết diện hiện hỗ trợ các khối đa diện trong thư viện.",
             );
-          Object.assign(item, section(model, ...p));
+          Object.assign(item, sectionThrough(model, p));
           item.points.forEach((v, i) => {
             const same = [...points.values()].find(
               (p) => G.norm(G.sub(p.coords, v)) < EPS,
@@ -511,7 +523,7 @@
           !["auto", "solid", "dashed"].includes(c.lineMode)) ||
         !Object.hasOwn(operations,c.type) ||
         !Array.isArray(c.refs) ||
-        c.refs.length !== operations[c.type] ||
+        !validRefCount(c.type, c.refs.length) ||
         c.refs.some((r) => typeof r !== "string" || r.length > 100) ||
         (c.type==='freePoint'&&(!Array.isArray(c.point)||c.point.length!==(solid?3:2)||c.point.some(v=>!Number.isFinite(v)||Math.abs(v)>10000))) ||
         (c.rotationAngle!==undefined&&(!Number.isFinite(c.rotationAngle)||Math.abs(c.rotationAngle)>36000)) ||

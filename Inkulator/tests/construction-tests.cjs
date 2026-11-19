@@ -70,6 +70,19 @@ test("Cube diagonal plane produces a 4-vertex rectangular section", () => {
   assert.equal(r.points.length, 4);
   close(r.area, 16 * Math.sqrt(2));
 });
+test("Six coplanar picks define a hexagonal section and reject an off-plane pick", () => {
+  const o = cube();
+  const edges = [[4, 5], [5, 1], [1, 2], [2, 3], [3, 7], [7, 4]];
+  const midpoints = edges.map(([a, b], i) => ({ id: "mid" + i, type: "midpoint", refs: ["v:" + a, "v:" + b] }));
+  const slice = { id: "slice", type: "section", refs: midpoints.map(c => "c:" + c.id) };
+  o.data.constructions = [...midpoints, slice];
+  Constructions.validate(o.data, true);
+  const result = Constructions.build(o);
+  assert.equal(result.items.at(-1).points.length, 6);
+  close(result.items.at(-1).area, 12 * Math.sqrt(3));
+  slice.refs[5] = "v:0";
+  assert.match(Constructions.build(o).warnings[0].message, /cùng nằm trên mặt phẳng/);
+});
 test("Three edge midpoints create a triangular section, updating when a changes", () => {
   const o = cube();
   o.data.constructions = [

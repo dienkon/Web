@@ -37,11 +37,11 @@
     bar.replaceChildren();bar.classList.add("radial-geometry");bar.classList.toggle("wheel-open",open);
     const hub=document.createElement("button");hub.id="geo-hub";
     round(hub,interaction ? icons[interaction.mode] || "△" : o.type==="solid"?"⬡":"△","Mở / thu gọn công cụ hình học");
-    hub.setAttribute("aria-expanded",String(open));hub.onclick=()=>{open=!open;enhanceFromState();};
+    hub.setAttribute("aria-expanded",String(open));
     hub.title="Chạm mở công cụ · kéo để dời khỏi hình";
-    let drag=null,suppressClick=false;
-    hub.onpointerdown=e=>{if(e.button!==0)return;drag={x:e.clientX,y:e.clientY,left:parseFloat(bar.style.left)||0,top:parseFloat(bar.style.top)||0};hub.setPointerCapture(e.pointerId);};
-    hub.onpointermove=e=>{if(!drag)return;const dx=e.clientX-drag.x,dy=e.clientY-drag.y;if(Math.hypot(dx,dy)<8&&!suppressClick)return;suppressClick=true;manualPosition={x:drag.left+dx,y:drag.top+dy};position();};
+    let drag=null,suppressClick=false,dragFrame=0;
+    hub.onpointerdown=e=>{if(e.button!==0)return;suppressClick=false;drag={x:e.clientX,y:e.clientY,cx:bar.offsetLeft+bar.offsetWidth/2,cy:bar.offsetTop+bar.offsetHeight/2};hub.setPointerCapture(e.pointerId);};
+    hub.onpointermove=e=>{if(!drag)return;const dx=e.clientX-drag.x,dy=e.clientY-drag.y;if(Math.hypot(dx,dy)<5&&!suppressClick)return;suppressClick=true;manualPosition={x:drag.cx+dx,y:drag.cy+dy};if(!dragFrame)dragFrame=requestAnimationFrame(()=>{dragFrame=0;if(hub.isConnected)position();});};
     hub.onpointerup=()=>{drag=null;};hub.onpointercancel=()=>{drag=null;suppressClick=false;};
     hub.onclick=()=>{if(suppressClick){suppressClick=false;return;}open=!open;enhanceFromState();};
     const wheel=document.createElement("div");wheel.className="geo-wheel";wheel.hidden=!open;
@@ -78,6 +78,12 @@
         ["label-position","Aa Vị trí tên đỉnh"],
         ...(o.type==="solid"?[["angles","⟳ Chỉnh góc nhìn"],["hidden",o.data.hiddenEdges===false?"┄ Hiện nét khuất":"┄ Ẩn nét khuất"]]:[]),
       ];
+      if (available.includes("rename")) {
+        const names = document.createElement("button");
+        names.textContent = "Aa Tên các đỉnh";
+        names.onclick = e => { e.stopPropagation(); TeacherGeometry.vertexNames(o, names); };
+        grid.append(names);
+      }
       for(const [id,label] of options) {const b=document.createElement("button");b.dataset.geoAction=id;b.textContent=label;b.onclick=e=>{e.stopPropagation();if(id==="label-position"||id==="angles")return adjust(o,id,b);edit(o,id);App.closePopover();};grid.append(b);}
       for(const [id,label] of [["transform-selection","⤢ Kích thước"],["edit-selection","⚙ Thuộc tính"],["copy","⧉ Sao chép"],["lock","▣ Khóa hình"],["delete","⌫ Xóa hình"]]) {
         const b=document.createElement("button");b.dataset.action=id;b.textContent=label;grid.append(b);
@@ -137,21 +143,17 @@
     const corners=[{x:b.x,y:b.y},{x:b.x+b.w,y:b.y},{x:b.x+b.w,y:b.y+b.h},{x:b.x,y:b.y+b.h}].map(p=>Renderer.worldPoint(o,p));
     const xs=corners.map(p=>p.x*v.zoom+v.x),ys=corners.map(p=>p.y*v.zoom+v.y);
     const left=Math.min(...xs),right=Math.max(...xs),top=Math.min(...ys),bottom=Math.max(...ys),size=open?188:52;
-    // Reserve space for vertex names, corner handles and the rotation handle.
-    const gap=62,midX=(left+right-size)/2,midY=(top+bottom-size)/2;
+    const gap=open?28:16,midX=(left+right-size)/2,midY=(top+bottom-size)/2;
     const avoid={x:left-gap,y:top-gap,w:right-left+gap*2,h:bottom-top+gap*2};
-    const clamp=p=>({x:Math.max(68,Math.min(p.x,area.clientWidth-size-18)),y:Math.max(16,Math.min(p.y,area.clientHeight-size-68))});
+    const clamp=p=>({x:Math.max(8,Math.min(p.x,area.clientWidth-size-8)),y:Math.max(8,Math.min(p.y,area.clientHeight-size-8))});
     const overlap=(a,b)=>Math.max(0,Math.min(a.x+a.w,b.x+b.w)-Math.max(a.x,b.x))*Math.max(0,Math.min(a.y+a.h,b.y+b.h)-Math.max(a.y,b.y));
     const candidates=[{x:right+gap,y:midY},{x:left-size-gap,y:midY},{x:midX,y:bottom+gap},{x:midX,y:top-size-gap},{x:area.clientWidth-size-18,y:16},{x:68,y:16}].map(clamp);
     const dock=document.getElementById("pen-dock")?.getBoundingClientRect(),areaRect=area.getBoundingClientRect();
     const panel=document.getElementById('panel'),panelRect=panel&&!panel.hidden?panel.getBoundingClientRect():null;
     const obstructions=[dock,panelRect].filter(Boolean).map(r=>({x:r.left-areaRect.left,y:r.top-areaRect.top,w:r.width,h:r.height}));
     const score=p=>overlap({...p,w:size,h:size},avoid)*10+obstructions.reduce((sum,r)=>sum+overlap({...p,w:size,h:size},r)*100,0);
-    const chosen=manualPosition?clamp(manualPosition):candidates.reduce((best,p)=>score(p)<score(best)?p:best,candidates[0]);
-    let x=chosen.x,y=chosen.y;
+    const {x,y}=manualPosition?clamp({x:manualPosition.x-size/2,y:manualPosition.y-size/2}):candidates.reduce((best,p)=>score(p)<score(best)?p:best,candidates[0]);
     const bubble=bar.querySelector(".geo-step-bubble");
-    const extra=bubble && !bubble.hidden ? bubble.offsetHeight+12 : 0;
-    x=Math.max(68,Math.min(x,area.clientWidth-size-16));y=Math.max(12,Math.min(y,area.clientHeight-size-60));
     bar.style.left=x+"px";bar.style.top=y+"px";bar.style.bottom="auto";
     if(bubble) {
       const width=Math.min(260,area.clientWidth-80);bubble.style.width=width+"px";

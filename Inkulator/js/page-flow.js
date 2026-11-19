@@ -41,7 +41,7 @@
       items[i] = { page, index: i, x: (width - page.width) / 2, y, hidden };
       if (!hidden) y += page.height + GAP;
     }
-    cachedLayout = { items, height: y - GAP, width };
+    cachedLayout = { items, visibleItems: items.filter(item => !item.hidden), height: y - GAP, width };
     cachedLayoutBookId = book.id;
     cachedLayoutVersion = pages.length;
     cachedQuestionId = questionId;
@@ -73,16 +73,20 @@
       active = l.items[Store.state.pageIndex],
       w = Renderer.area.clientWidth / v.zoom,
       h = Renderer.area.clientHeight / v.zoom;
-    return l.items
-      .map((item) => ({ ...item, x: item.x - active.x, y: item.y - active.y }))
-      .filter(
-        (item) =>
-          !item.hidden &&
-          item.y + item.page.height >= -v.y / v.zoom &&
-          item.y <= -v.y / v.zoom + h &&
-          item.x + item.page.width >= -v.x / v.zoom &&
-          item.x <= -v.x / v.zoom + w,
-      );
+    const top = active.y - v.y / v.zoom, left = active.x - v.x / v.zoom;
+    const items = l.visibleItems, visible = [];
+    let lo = 0, hi = items.length;
+    while (lo < hi) {
+      const mid = (lo + hi) >>> 1, item = items[mid];
+      if (item.y + item.page.height < top) lo = mid + 1;
+      else hi = mid;
+    }
+    for (let i = lo; i < items.length && items[i].y <= top + h; i++) {
+      const item = items[i];
+      if (item.x + item.page.width >= left && item.x <= left + w)
+        visible.push({ ...item, x: item.x - active.x, y: item.y - active.y });
+    }
+    return visible;
   }
   function activateAt(clientX, clientY) {
     if (!enabled()) return;
@@ -137,17 +141,10 @@
     }
     return added;
   }
-  function ensureInk(points, index) {
-    if (!points || !points.length) return;
+  function ensureInk(maxY, index) {
     const l = layout();
     const origin = l.items[index];
-    if (!origin) return;
-    const lastPoint = points[points.length - 1];
-    if (lastPoint && lastPoint[1] <= origin.page.height) return;
-    let maxY = 0;
-    for (let i = 0; i < points.length; i++) {
-      if (points[i][1] > maxY) maxY = points[i][1];
-    }
+    if (!origin || maxY <= origin.page.height) return;
     if (origin.y + maxY <= l.height) return;
     appendUntil(origin.y + maxY + 0.001, false);
   }
@@ -315,8 +312,7 @@
     v.y = a.y * v.zoom + PAD - scroll;
     const center = (scroll + height / 2 - PAD) / v.zoom;
     const next =
-      l.items.find((t) => !t.hidden && center < t.y + t.page.height + GAP / 2) ||
-      l.items.filter(t=>!t.hidden).at(-1);
+      l.visibleItems.find((t) => center < t.y + t.page.height + GAP / 2) || l.visibleItems.at(-1);
     reanchor(next.index, l);
     update();
   }
@@ -327,15 +323,16 @@
     const book = Store.book();
     const l = layout(),
       v = Store.state.viewport;
-    const stateKey = `${Store.state.pageIndex}|${book.pages.length}|${v.x}|${v.y}|${v.zoom}|${l.height}`;
+    const stateKey = `${Store.state.pageIndex}|${book.pages.length}|${v.y}|${v.zoom}|${l.height}`;
     if (stateKey === lastUpdateState) return;
     lastUpdateState = stateKey;
     const prevBtn = document.querySelector('[data-action="previous-page"]');
-    if (prevBtn) prevBtn.disabled = !l.items.some(t=>!t.hidden && t.index < Store.state.pageIndex);
+    if (prevBtn) prevBtn.disabled = l.visibleItems[0]?.index >= Store.state.pageIndex;
     const nextBtn = document.querySelector('[data-action="next-page"]');
     if (nextBtn)
-      nextBtn.disabled = !l.items.some(t=>!t.hidden && t.index > Store.state.pageIndex);
-    bar.firstElementChild.style.height = l.height * v.zoom + 2 * PAD + "px";
+      nextBtn.disabled = l.visibleItems.at(-1)?.index <= Store.state.pageIndex;
+    const height = l.height * v.zoom + 2 * PAD + "px";
+    if (bar.firstElementChild.style.height !== height) bar.firstElementChild.style.height = height;
     expected = Math.max(
       0,
       l.items[Store.state.pageIndex].y * v.zoom + PAD - v.y,
@@ -358,18 +355,23 @@
       Store.state.viewport = { x: v.x, y: PAD, zoom: v.zoom };
       Store.state.viewMode = "manual";
       Store.emit();
-    } else fit(mode || "page");
+    } else fit(mode || "page", { preservePosition: false });
   }
   function keepZoom(){const z=Store.state.viewport.zoom||1;Store.state.viewMode="manual";Store.state.viewport={x:(Renderer.area.clientWidth-Store.current().width*z)/2,y:20,zoom:z};invalidateLayout();Renderer.request();root.App?.updateZoom();}
-  function fit(mode = "page") {
+  function fit(mode = "page", { preservePosition = true } = {}) {
     if (!root.Renderer?.area) return;
     const area = Renderer.area, p = Store.current(), w = area.clientWidth, h = area.clientHeight;
     if (!w || !h) return;
     const z = Math.max(.1, Math.min(4, (w - 48) / p.width,
       mode === "width" ? 4 : (h - 88) / p.height));
+    const v = Store.state.viewport;
+    const anchorY = v.y < PAD ? h / 2 : Math.min(v.y, h / 2);
+    const framedY = anchorY - (anchorY - v.y) * z / v.zoom;
+    let y = Math.max(PAD, (h - 48 - p.height * z) / 2);
+    if (mode === "width") y = preservePosition ? framedY : PAD;
+    else if (preservePosition && v.y < PAD) y = Math.max(PAD, Math.min(framedY, h - 48 - p.height * z));
     Store.state.viewMode = "manual";
-    Store.state.viewport = { x: (w - p.width*z) / 2,
-      y: mode === "width" ? PAD : Math.max(PAD, (h - 48 - p.height*z) / 2), zoom: z };
+    Store.state.viewport = { x: (w - p.width*z) / 2, y, zoom: z };
     update();
     root.App?.updateZoom();
     Renderer.request();
@@ -387,7 +389,8 @@
       settle({ extend: downward });
       Renderer.request();
     });
-    document.addEventListener("statechange", () => {
+    document.addEventListener("statechange", (event) => {
+      if (event.detail) return;
       invalidateLayout();
       update();
     });

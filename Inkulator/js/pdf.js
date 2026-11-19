@@ -5,7 +5,12 @@
     pending = new Map(),
     errorsShown = new Set();
   let importing = false;
-  const decode = (s) => Uint8Array.from(atob(s), (c) => c.charCodeAt(0));
+  function decode(s) {
+    if (Uint8Array.fromBase64) return Uint8Array.fromBase64(s);
+    const binary = atob(s), bytes = new Uint8Array(binary.length);
+    for (let i = 0; i < binary.length; i++) bytes[i] = binary.charCodeAt(i);
+    return bytes;
+  }
   function base64(bytes) {
     let result = "";
     for (let i = 0; i < bytes.length; i += 32768)
@@ -33,13 +38,13 @@
   async function open(data, key) {
     if (documents.has(key)) return documents.get(key);
     const task = pdfjsLib.getDocument({
-      data: data.slice(),
+      data,
       isEvalSupported: false,
       useWorkerFetch: false,
       useWasm: true,
       // Large scans must be resized by PDF.js rather than silently omitted.
       maxImageSize: -1,
-      canvasMaxAreaInBytes: 67108864,
+      canvasMaxAreaInBytes: Store.economyMode() ? 16777216 : 67108864,
       useSystemFonts: true,
       enableXfa: false,
       disableFontFace: false,
@@ -53,7 +58,7 @@
     documents.set(key, promise);
     try {
       await promise;
-      if (documents.size > 5) {
+      if (documents.size > (Store.economyMode() ? 2 : 5)) {
         const old = documents.keys().next().value;
         if (old !== key) {
           documents.get(old).loadingTask?.destroy?.().catch(()=>{});
@@ -136,7 +141,7 @@
           [...renders.values()].reduce(
             (n, c) => n + c.width * c.height,
             canvas.width * canvas.height,
-          ) > (Store.state.settings.performance === "economy" ? 4e6 : 8e6))
+          ) > (Store.economyMode() ? 4e6 : 8e6))
       ) {
         const old = renders.keys().next().value;
         renders.get(old).width = renders.get(old).height = 1;
@@ -245,6 +250,12 @@
     if (!result.size) throw Error("Hãy chọn ít nhất 1 trang.");
     return [...result].sort((a, b) => a - b);
   }
+  function replacesBlankPage(book) {
+    const first = book.pages[0];
+    return Store.state.settings.replaceBlankOnPdfImport && !first.title &&
+      !first.objects.length && !first.questionSource && !first.inlineQuestions?.length &&
+      !book.pages.some((p) => p.questionSource?.pageId === first.id || p.questionSource?.rootId === first.id);
+  }
   async function importFile(file) {
     if (importing) return App.toast("Một tệp PDF đang được xử lý.");
     importing = true;
@@ -289,7 +300,12 @@
       );
       if (!selected) return;
       const pages = parseRange(selected.range, doc.numPages);
-      if(selected.placement==="pages" && Store.book().pages.length+pages.length>2000)throw Error("Sổ tay hỗ trợ tối đa 2.000 trang. Chọn một khoảng trang nhỏ hơn hoặc tạo sổ mới.");
+      const importingPages = selected.placement === "pages";
+      const checkPageLimit = () => {
+        if (importingPages && Store.book().pages.length + pages.length - Number(replacesBlankPage(Store.book())) > 2000)
+          throw Error("Sổ tay hỗ trợ tối đa 2.000 trang. Chọn một khoảng trang nhỏ hơn hoặc tạo sổ mới.");
+      };
+      checkPageLimit();
       if (selected.placement === "current" && pages.length !== 1)
         throw Error("Chế độ chèn vào trang hiện tại cần chọn đúng 1 trang.");
       const notebookId = Store.book().id,
@@ -341,10 +357,12 @@
       }
       if (Store.book().id !== notebookId)
         throw Error("Sổ tay đã thay đổi trong khi nhập. Hãy nhập lại PDF.");
+      checkPageLimit();
       Store.transaction(() => {
         Store.book().assets = Store.book().assets || {};
         Store.book().assets[key] = a;
-        if (selected.placement === "pages") {
+        if (importingPages) {
+          if (replacesBlankPage(Store.book())) Store.book().pages.shift();
           Store.book().pages.push(...created);
           Store.state.pageIndex = Store.book().pages.length - created.length;
           Store.state.selection = [];
@@ -554,7 +572,6 @@
           background,
           backgroundOnly: background,
           objects: objects.length ? objects : undefined,
-          omitTitle: true,
         }),
         image = await doc.embedPng(canvas.toDataURL("image/png"));
       page.drawImage(image, {
@@ -607,20 +624,6 @@
       if(o.clip)page.pushOperators(PDFLib.popGraphicsState());
     }
     await rasterLayer(batch);
-    if (p.showTitle && p.title) {
-      const canvas = Renderer.pageCanvas({ ...p, objects: [] }, scale, {
-          background: false,
-          omitTitle: false,
-        }),
-        image = await doc.embedPng(canvas.toDataURL("image/png"));
-      page.drawImage(image, {
-        x: ox,
-        y: oy,
-        width: p.width * s,
-        height: p.height * s,
-      });
-      canvas.width = canvas.height = 1;
-    }
   }
   root.PDFStudio = {
     open,

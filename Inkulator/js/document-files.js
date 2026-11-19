@@ -87,9 +87,13 @@
       const v=JSON.parse(localStorage.getItem('inkulator-device-v2')||'null');if(!v||typeof v.activeId!=='string')return;
       devicePreferences={activeId:v.activeId,pageIndex:Number.isInteger(v.pageIndex)?v.pageIndex:0};
       const settings=Store.state.settings;
+      Store.loadQuickColors(v.settings);
       for(const [key,value]of Object.entries(v.settings||{}))if(Object.hasOwn(settings,key)&&value!==null&&typeof value!=='object'&&typeof value===typeof settings[key])settings[key]=value;
       settings.gridSize=Math.max(10,Math.min(100,Number(settings.gridSize)||25));settings.autosave=Math.max(1000,Math.min(300000,Number(settings.autosave)||30000));settings.historyLimit=Math.max(10,Math.min(2000,Number(settings.historyLimit)||500));
       if(!['auto','economy','quality'].includes(settings.performance))settings.performance='auto';
+      if(!['image','question'].includes(settings.captureMode))settings.captureMode='image';
+      if(!/^#[a-f\d]{6}$/i.test(settings.highlighterColor))settings.highlighterColor='#ffd600';
+      settings.highlighterWidth=Math.max(6,Math.min(60,settings.highlighterWidth||19));
       const presets={};for(const key of (root.InkBrush?.catalog.map(p=>p[0])||['ballpoint','fountain','pencil','marker'])){const p=v.settings?.penPresets?.[key];if(p&&/^#[a-f\d]{6}$/i.test(p.color)&&Number.isFinite(p.width)&&p.width>=.5&&p.width<=25&&Number.isFinite(p.opacity)&&p.opacity>=.1&&p.opacity<=1)presets[key]={color:p.color,width:p.width,opacity:p.opacity};}settings.penPresets=presets;const active=root.InkBrush?.catalog.some(p=>p[0]===settings.activePen)?settings.activePen:"ballpoint";Store.state.pen=active;if(presets[active])Object.assign(Store.state,presets[active]);
     }catch{}
   }

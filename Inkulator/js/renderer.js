@@ -3,7 +3,7 @@
   const imageCache = new Map();
   function rememberImage(src,img) {
     imageCache.delete(src);imageCache.set(src,img);
-    const budget=state().settings.performance === "economy" ? 16e6 : 48e6;
+    const budget=Store.economyMode() ? 16e6 : 48e6;
     let bytes=[...imageCache.values()].reduce((sum,value)=>sum+value.naturalWidth*value.naturalHeight*4,0);
     const pinned=new Set();
     const visit=o=>{if(o.type==="image")pinned.add(o.data.src);if(o.type==="group")o.data.children.forEach(visit);};
@@ -16,7 +16,6 @@
     }
   }
   let layerCache = new WeakMap();
-  const strokePaths = new WeakMap();
   let paper,
     ink,
     overlay,
@@ -28,6 +27,9 @@
     frame = 0,
     overlayFrame = 0,
     lastPaperKey = "";
+  let fullRenderPending = false, fullOverlayPending = false, inkPreview = null;
+  const pendingInk = [], renderedPages = new Map();
+  let renderedCamera = "";
   const state = () => Store.state;
   function init() {
     area = document.getElementById("canvas-area");
@@ -48,20 +50,26 @@
     ic = ink.getContext("2d");
     oc = overlay ? overlay.getContext("2d") : null;
     new ResizeObserver(resize).observe(area);
-    document.addEventListener("statechange", () => { layerCache = new WeakMap(); });
+    document.addEventListener("statechange", (event) => {
+      if (!event.detail) layerCache = new WeakMap();
+    });
     resize();
   }
   function resize() {
     const r = area.getBoundingClientRect();
     const mode = state().settings.performance;
-    const weakDevice = navigator.deviceMemory <= 4 || navigator.hardwareConcurrency <= 4;
-    const cap = mode === "quality" ? 3 : mode === "economy" || weakDevice ? 1.5 : 2;
-    const pixelBudget = mode === "economy" ? 2.5e6 : 5e6;
-    dpr = Math.max(1, Math.min(devicePixelRatio || 1, cap, Math.sqrt(pixelBudget / Math.max(1, r.width * r.height))));
+    const economy = Store.economyMode();
+    const cap = mode === "quality" ? 3 : economy ? 1.25 : 2;
+    const pixelBudget = economy ? 1.6e6 : 5e6;
+    dpr = Math.min(devicePixelRatio || 1, cap, Math.sqrt(pixelBudget / Math.max(1, r.width * r.height)));
     for (const c of [paper, ink, overlay]) {
       if (c) {
-        c.width = Math.round(r.width * dpr);
-        c.height = Math.round(r.height * dpr);
+        const width = Math.max(1, Math.round(r.width * dpr));
+        const height = Math.max(1, Math.round(r.height * dpr));
+        if (c.width !== width || c.height !== height) {
+          c.width = width;
+          c.height = height;
+        }
       }
     }
     lastPaperKey = "";
@@ -70,21 +78,83 @@
     requestOverlay();
   }
   function request() {
+    fullRenderPending = true;
+    scheduleRender();
+  }
+  function appendInk(additions) {
+    pendingInk.push(...additions);
+    scheduleRender();
+  }
+  function scheduleRender() {
     if (!frame)
       frame = requestAnimationFrame(() => {
         frame = 0;
-        render();
+        const full = fullRenderPending;
+        fullRenderPending = false;
+        const additions = pendingInk.splice(0);
+        if (full || !paintAppendedInk(additions)) render();
       });
   }
   function requestOverlay() {
+    fullOverlayPending = true;
+    requestInkOverlay();
+  }
+  function requestInkOverlay() {
     if (!overlayFrame)
       overlayFrame = requestAnimationFrame(() => {
         overlayFrame = 0;
-        renderOverlay();
+        if (fullOverlayPending || !renderInkOverlay()) renderOverlay();
       });
+  }
+  function cameraKey() {
+    const { x, y, zoom } = state().viewport;
+    return `${Store.current().id}|${x}|${y}|${zoom}|${dpr}`;
+  }
+  function renderInkOverlay() {
+    const active = root.CanvasEngine?.activeInk;
+    if (!active) return false;
+    const camera = cameraKey();
+    if (inkPreview && (inkPreview.camera !== camera || active !== inkPreview.active)) return false;
+    const { points } = active;
+    const previousCount = inkPreview?.count || 0;
+    if (previousCount === points.length) return true;
+    const { x, y, zoom } = state().viewport;
+    const scale = zoom * dpr;
+    const pad = active.brush.style.width * 2 * scale + 3;
+    let left = Infinity, top = Infinity, right = -Infinity, bottom = -Infinity;
+    // The newest curves and tapered tail can change as samples arrive.
+    for (let i = Math.max(0, previousCount - 7); i < points.length; i++) {
+      const px = points[i][0] * scale + x * dpr;
+      const py = points[i][1] * scale + y * dpr;
+      left = Math.min(left, px);
+      right = Math.max(right, px);
+      top = Math.min(top, py);
+      bottom = Math.max(bottom, py);
+    }
+    inkPreview = { active, camera, count: points.length };
+    left = Math.max(0, Math.floor(left - pad));
+    top = Math.max(0, Math.floor(top - pad));
+    right = Math.min(overlay.width, Math.ceil(right + pad));
+    bottom = Math.min(overlay.height, Math.ceil(bottom + pad));
+    if (right <= left || bottom <= top) return true;
+    oc.save();
+    oc.setTransform(1, 0, 0, 1, 0, 0);
+    oc.clearRect(left, top, right - left, bottom - top);
+    oc.beginPath();
+    oc.rect(left, top, right - left, bottom - top);
+    oc.clip();
+    viewport(oc);
+    root.CanvasEngine.drawOverlay(oc);
+    oc.restore();
+    return true;
   }
   function renderOverlay() {
     if (!oc || !overlay) return;
+    if (overlayFrame) cancelAnimationFrame(overlayFrame);
+    overlayFrame = 0;
+    fullOverlayPending = false;
+    const active = root.CanvasEngine?.activeInk;
+    inkPreview = active ? { active, camera: cameraKey(), count: active.points.length } : null;
     oc.setTransform(1, 0, 0, 1, 0, 0);
     oc.clearRect(0, 0, overlay.width, overlay.height);
     viewport(oc);
@@ -175,65 +245,18 @@
       y: o.position.y + o.size.h / 2 + dx * Math.sin(a) + dy * Math.cos(a),
     };
   }
+  const lineKinds = new Set(["line", "arrow", "double-arrow", "ray", "dashed", "dotted"]);
+  function lineEnds(o) {
+    if (o.type !== "shape" || !lineKinds.has(o.data.kind)) return null;
+    const x = (o.data.dirX ?? 1) >= 0 ? 0 : o.size.w;
+    const y = (o.data.dirY ?? (o.data.flip ? -1 : 1)) >= 0 ? 0 : o.size.h;
+    return [{ x, y }, { x: o.size.w - x, y: o.size.h - y }];
+  }
   function stroke(ctx, o) {
-    const p = o.data.points;
-    if (!p.length) return;
-    const ow = o.data.baseSize?.w || o.size.w,
-      oh = o.data.baseSize?.h || o.size.h;
+    const ow = o.data.baseSize?.w || o.size.w;
+    const oh = o.data.baseSize?.h || o.size.h;
     ctx.scale(o.size.w / ow, o.size.h / oh);
-    ctx.lineCap = "round";
-    ctx.lineJoin = "round";
-    if(root.InkBrush?.draw(ctx,p,o.data.pen,o.style.width))return;
-    ctx.globalAlpha *=
-      o.data.pen === "highlighter" ? 0.28 : o.data.pen === "pencil" ? 0.7 : 1;
-    const width = o.style.width * (o.data.pen === "marker" ? 2 : 1);
-    if (p.length === 1) {
-      ctx.beginPath();
-      ctx.arc(p[0][0], p[0][1], width / 2, 0, Math.PI * 2);
-      ctx.fill();
-      return;
-    }
-    if (o.data.pen !== "fountain") {
-      ctx.lineWidth = width;
-      const cached = strokePaths.get(o.data);
-      if (cached && cached.points === p && cached.length === p.length) {
-        ctx.stroke(cached.path);
-        return;
-      }
-      const path = new Path2D();
-      path.moveTo(p[0][0], p[0][1]);
-      if (p.length === 2) {
-        path.lineTo(p[1][0], p[1][1]);
-      } else {
-        path.lineTo((p[0][0] + p[1][0]) / 2, (p[0][1] + p[1][1]) / 2);
-        for (let i = 1; i < p.length - 1; i++) {
-          const xc = (p[i][0] + p[i + 1][0]) / 2;
-          const yc = (p[i][1] + p[i + 1][1]) / 2;
-          path.quadraticCurveTo(p[i][0], p[i][1], xc, yc);
-        }
-        path.lineTo(p[p.length - 1][0], p[p.length - 1][1]);
-      }
-      strokePaths.set(o.data, { path, points: p, length: p.length });
-      ctx.stroke(path);
-      return;
-    }
-    for (let i = 1; i < p.length; i++) {
-      const prev = p[i - 1],
-        cur = p[i];
-      ctx.lineWidth =
-        width * (0.25 + 1.5 * (cur[2] || 0.5));
-      ctx.beginPath();
-      if (i === 1) ctx.moveTo(prev[0], prev[1]);
-      else ctx.moveTo((p[i - 2][0] + prev[0]) / 2, (p[i - 2][1] + prev[1]) / 2);
-      ctx.quadraticCurveTo(
-        prev[0],
-        prev[1],
-        (cur[0] + prev[0]) / 2,
-        (cur[1] + prev[1]) / 2,
-      );
-      if (i === p.length - 1) ctx.lineTo(cur[0], cur[1]);
-      ctx.stroke();
-    }
+    InkBrush.draw(ctx, o.data.points, o.data.pen, o.style.width);
   }
   function shape(ctx, o) {
     const { w, h } = o.size,
@@ -353,10 +376,7 @@
         ctx.bezierCurveTo(w * 0.2, -h * 0.5, w * 0.8, h * 1.5, w, 0);
         break;
       default: {
-        const sx = (d.dirX ?? 1) >= 0 ? 0 : w;
-        const sy = (d.dirY ?? (d.flip ? -1 : 1)) >= 0 ? 0 : h;
-        const ex = (d.dirX ?? 1) >= 0 ? w : 0;
-        const ey = (d.dirY ?? (d.flip ? -1 : 1)) >= 0 ? h : 0;
+        const [{x:sx,y:sy}, {x:ex,y:ey}] = lineEnds(o) || [{x:0,y:0}, {x:w,y:h}];
         ctx.moveTo(sx, sy);
         ctx.lineTo(ex, ey);
         if (d.kind === "dashed") ctx.setLineDash([10, 7]);
@@ -393,6 +413,8 @@
         break;
       }
     }
+    if (d.pattern === "dashed") ctx.setLineDash([o.style.width * 4, o.style.width * 2.6]);
+    if (d.pattern === "dotted") ctx.setLineDash([.1, o.style.width * 2.7]);
     if (d.filled) {
       ctx.fillStyle = o.style.color;
       ctx.fill();
@@ -844,19 +866,19 @@
       const b = selectionBounds(o);
       ctx.save();
       transform(ctx, o);
-      ctx.setLineDash([5 / zoom, 4 / zoom]);
-      ctx.strokeRect(
-        b.x - 5 / zoom,
-        b.y - 5 / zoom,
-        b.w + 10 / zoom,
-        b.h + 10 / zoom,
-      );
-      ctx.setLineDash([]);
+      const ends = lineEnds(o);
+      if (!ends) {
+        ctx.setLineDash([5 / zoom, 4 / zoom]);
+        ctx.strokeRect(b.x - 5 / zoom, b.y - 5 / zoom, b.w + 10 / zoom, b.h + 10 / zoom);
+        ctx.setLineDash([]);
+      }
       if (!o.locked) {
-        ctx.beginPath();
-        ctx.moveTo(b.x + b.w / 2, b.y);
-        ctx.lineTo(b.x + b.w / 2, b.y - 22 / zoom);
-        ctx.stroke();
+        if (!ends) {
+          ctx.beginPath();
+          ctx.moveTo(b.x + b.w / 2, b.y);
+          ctx.lineTo(b.x + b.w / 2, b.y - 22 / zoom);
+          ctx.stroke();
+        }
         for (const h of CanvasEngine.selectionHandles(o)) {
           ctx.beginPath();
           ctx.arc(
@@ -906,6 +928,12 @@
   }
   function render() {
     if (!area) return;
+    if (frame) cancelAnimationFrame(frame);
+    frame = 0;
+    fullRenderPending = false;
+    pendingInk.length = 0;
+    renderedPages.clear();
+    renderedCamera = "";
     if (root.PageFlow?.enabled()) return renderFlow();
     root.PageFlow?.update();
     const v = state().viewport,
@@ -948,7 +976,7 @@
     objects(ic, p);
     root.PDFTiles?.endFrame();
     drawSelection(ic);
-    updateTitle();
+    updateWelcome();
     renderOverlay();
   }
   function renderFlow() {
@@ -960,15 +988,20 @@
       pc.clearRect(0, 0, paper.width, paper.height);
       pc.fillStyle = "#e9eeeb";
       pc.fillRect(0, 0, paper.width, paper.height);
+      const left = -v.x / v.zoom, top = -v.y / v.zoom;
+      const right = left + paper.width / (dpr * v.zoom);
+      const bottom = top + paper.height / (dpr * v.zoom);
       for (const item of pages) {
         viewport(pc);
         pc.save();
         pc.translate(item.x, item.y);
+        const x = Math.max(0, left - item.x);
+        const y = Math.max(0, top - item.y);
         drawPaper(pc, item.page, {
-          x: 0,
-          y: 0,
-          w: item.page.width,
-          h: item.page.height,
+          x,
+          y,
+          w: Math.max(0, Math.min(item.page.width, right - item.x) - x),
+          h: Math.max(0, Math.min(item.page.height, bottom - item.y) - y),
         });
         pc.strokeStyle = "#cbd5cf";
         pc.lineWidth = 1 / v.zoom;
@@ -990,30 +1023,50 @@
       ic.clip();
       objects(ic, item.page);
       ic.restore();
+      const layers = item.page.layers.filter((layer) => layer.visible);
+      const inkLayer = layers.findIndex((layer) => layer.id === "ink");
+      const map = getLayerObjects(item.page);
+      // Appending to the existing bitmap is safe only above all painted layers.
+      const canAppend = inkLayer >= 0 && layers.slice(inkLayer + 1)
+        .every((layer) => !map[layer.id]?.some((o) => o.visible !== false));
+      renderedPages.set(item.page.id, { item, canAppend, lastZ: map.ink?.at(-1)?.zIndex ?? -Infinity });
     }
     root.PDFTiles?.endFrame();
 
     viewport(ic);
     drawSelection(ic);
-    updateTitle();
+    if (!state().selection.length) renderedCamera = cameraKey();
+    updateWelcome();
     PageFlow.update();
     renderOverlay();
   }
-  function updateTitle() {
-    const el = document.getElementById("page-title"),
-      p = Store.current(),
-      v = state().viewport;
-    el.hidden = !p.showTitle;
-    el.style.left = v.x + 55 * v.zoom + "px";
-    el.style.top = v.y + 30 * v.zoom + "px";
-    el.style.width =
-      Math.min(p.width - 110, (area.clientWidth - v.x) / v.zoom - 85) * v.zoom +
-      "px";
-    el.style.height = 90 * v.zoom + "px";
-    el.style.fontSize = v.zoom * 13 + "px";
-    const input = document.getElementById("page-title-input");
-    input.style.fontSize = 25 * v.zoom + "px";
-    if (document.activeElement !== input) input.value = p.title;
+  function paintAppendedInk(additions) {
+    if (renderedCamera !== cameraKey() || state().selection.length) return false;
+    for (const { pageId, object } of additions) {
+      const target = renderedPages.get(pageId);
+      if (target && (!target.canAppend || object.layer !== "ink" || object.zIndex < target.lastZ))
+        return false;
+      if (target) target.lastZ = object.zIndex;
+    }
+    for (const { pageId, object } of additions) {
+      const target = renderedPages.get(pageId);
+      if (!target) continue;
+      const { x, y, page } = target.item;
+      viewport(ic);
+      ic.save();
+      ic.translate(x, y);
+      ic.beginPath();
+      ic.rect(0, 0, page.width, page.height);
+      ic.clip();
+      drawObject(ic, object);
+      ic.restore();
+    }
+    document.getElementById("welcome-hint").hidden = true;
+    renderOverlay();
+    return true;
+  }
+  function updateWelcome() {
+    const p = Store.current(), v = state().viewport;
     document.getElementById("welcome-hint").hidden =
       p.objects.length > 0 ||
       !!p.title ||
@@ -1028,11 +1081,6 @@
     c.setTransform(240 / p.width, 0, 0, 300 / p.height, 0, 0);
     drawPaper(c, p, { x: 0, y: 0, w: p.width, h: p.height });
     objects(c, p);
-    if (p.title) {
-      c.fillStyle = "#567461";
-      c.font = "28px Segoe UI";
-      c.fillText(p.title, 50, 80);
-    }
   }
   function pageCanvas(p, scale = 1, options = {}) {
     const c = document.createElement("canvas");
@@ -1044,16 +1092,10 @@
       drawPaper(ctx, p, { x: 0, y: 0, w: p.width, h: p.height });
     if (options.objects) options.objects.forEach((o) => drawObject(ctx, o, options));
     else if (!options.backgroundOnly) objects(ctx, p, options);
-    if (p.showTitle && p.title && !options.omitTitle) {
-      ctx.fillStyle = p.paper === "dark" ? "#d7e3d9" : "#314f41";
-      ctx.font = "25px Segoe UI";
-      ctx.fillText(p.title, 70, 88);
-    }
     return c;
   }
-  function clientPoint(e) {
-    const r = area.getBoundingClientRect(),
-      v = state().viewport;
+  function clientPoint(e, r = area.getBoundingClientRect()) {
+    const v = state().viewport;
     return {
       x: (e.clientX - r.left - v.x) / v.zoom,
       y: (e.clientY - r.top - v.y) / v.zoom,
@@ -1085,10 +1127,11 @@
     init,
     resize,
     request,
+    appendInk,
+    requestInkOverlay,
     requestOverlay,
     render,
     renderOverlay,
-    invalidateCommittedInk: () => { layerCache = new WeakMap(); },
     drawObject,
     objects,
     drawPaper,
@@ -1097,6 +1140,7 @@
     awaitImages,
     localPoint,
     worldPoint,
+    lineEnds,
     flatPoint,
     unflatPoint,
     clientPoint,

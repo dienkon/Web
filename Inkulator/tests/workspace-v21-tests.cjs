@@ -24,6 +24,7 @@ assert.throws(()=>core.cleanResult({diagrams:[{kind:'cube',solid:true,constructi
   assert.equal(await page.evaluate(()=>Store.state.pageIndex),1);assert.equal(await page.evaluate(()=>Store.current().paper),'blank');
   await page.evaluate(()=>Store.switchPage(3));await page.locator('.page-card').first().click({button:'right'});await page.click('[data-action="page-delete"]');await page.click('#dialog-confirm');assert.equal(await page.evaluate(()=>Store.current().id),ids[2]);
   await page.evaluate(()=>{Store.undo();Store.switchPage(0);App.setTool('pen');});
+  await page.click('#file-tools [data-panel="settings"]');await page.check('#setting-canvas-menu');await page.click('[data-action="close-panel"]');
   const area=await page.locator('#canvas-area').boundingBox();await page.mouse.click(area.x+area.width-30,area.y+150,{button:'right'});assert.equal(await page.locator('#canvas-context [data-action="page-delete"]').count(),1);await page.evaluate(()=>document.getElementById('canvas-context').hidden=true);
   await page.click('.workspace-tabs [data-panel="graph"]');assert.equal(await page.isChecked('#graph-grid'),false);
   await page.click('.graph-advanced summary');await page.click('#graph-derivative');assert.equal(await page.locator('#graph-expressions .graph-expression').count(),2);assert.match(await page.textContent('#graph-analysis'),/2 \* x - 3/);

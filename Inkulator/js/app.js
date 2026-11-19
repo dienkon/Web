@@ -48,7 +48,7 @@
     pagesVisible = true,
     refreshTimer = 0,
     thumbObserver,
-    pageListKey = "";
+    pageListKey = "", shownZoom = null, zoomSaveTimer = 0;
   const escape = (s) =>
     String(s).replace(
       /[&<>"']/g,
@@ -65,6 +65,47 @@
     '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="' +
     icons[id] +
     '"/></svg>';
+  const penColors = ["#111111", "#008000", "#0070c0", "#c00000", "#ffc000", "#7030a0"];
+  const highlighterColors = ["#ffd600", "#ff9d35", "#ff66a6", "#81ed4e", "#31d9f6", "#b88cff"];
+  const penPalette = ["#111111", "#ffffff", "#d0d2d3", "#929799", "#55595b", "#273343",
+    "#c00000", "#ef4973", "#f25719", "#ff9300", "#ffc000", "#ffe600",
+    "#a6de23", "#27d518", "#008000", "#007c66", "#00b8cf", "#0070c0",
+    "#164bda", "#243780", "#4d0ed3", "#7030a0", "#a134ca", "#f16ee6",
+    "#f7d5c0", "#e3a878", "#b68b61", "#8e502b", "#5d3a30", "#702241"];
+  function highlighterActive() { return Store.state.tool === "highlighter"; }
+  function quickColors(highlighter) {
+    const custom = Store.state.settings[highlighter ? "highlighterQuickColors" : "penQuickColors"];
+    return custom?.length ? custom : highlighter ? highlighterColors : penColors;
+  }
+  function renderPalette() {
+    const colors = document.getElementById("colors");
+    const highlighter = highlighterActive();
+    const name = highlighter ? "Màu bút đánh dấu" : "Màu bút viết";
+    const palette = quickColors(highlighter), key = name + palette.join();
+    if (colors.dataset.palette === key) return;
+    colors.dataset.palette = key;
+    colors.setAttribute("aria-label", name);
+    colors.replaceChildren(...palette.map(swatch));
+    const custom = document.createElement("button");
+    custom.className = "swatch";
+    custom.classList.add("swatch-custom");
+    custom.style.background =
+      "conic-gradient(#c00000,#ffc000,#008000,#0070c0,#7030a0,#c00000)";
+    custom.title = "Chọn màu khác";
+    custom.setAttribute("aria-label", custom.title);
+    custom.onclick = () => widthPopover(custom);
+    colors.append(custom);
+  }
+  function swatch(color) {
+    const b = document.createElement("button");
+    b.className = "swatch";
+    b.style.backgroundColor = color;
+    b.dataset.color = color;
+    b.title = "Màu " + color;
+    b.setAttribute("aria-label", b.title);
+    b.onclick = () => setColor(color);
+    return b;
+  }
   function button(icon, label, action, extra = "") {
     return (
       '<button class="icon-button" data-action="' +
@@ -112,31 +153,6 @@
       button("text", "Chèn văn bản", "tool", 'data-tool="text"') +
       button("ruler", "Thước (R)", "ruler") +
       button("pan", "Kéo trang", "tool", 'data-tool="pan"');
-    const colors = document.getElementById("colors");
-    for (const color of [
-      "#111111",
-      "#008000",
-      "#0070c0",
-      "#c00000",
-      "#ffc000",
-      "#7030a0",
-    ]) {
-      const b = document.createElement("button");
-      b.className = "swatch";
-      b.style.backgroundColor = color;
-      b.dataset.color = color;
-      b.title = "Màu " + color;
-      b.setAttribute("aria-label", b.title);
-      b.onclick = () => setColor(color);
-      colors.append(b);
-    }
-    const custom = document.createElement("button");
-    custom.className = "swatch";
-    custom.style.background =
-      "conic-gradient(#c00000,#ffc000,#008000,#0070c0,#7030a0,#c00000)";
-    custom.title = "Chọn màu khác";
-    custom.onclick = () => widthPopover(custom);
-    colors.append(custom);
     document.getElementById("width-button").onclick = (e) =>
       widthPopover(e.currentTarget);
     Renderer.init();
@@ -195,10 +211,6 @@
         e.target.value.trim().slice(0, 300) || "Sổ tay chưa đặt tên";
       Store.transaction(() => (Store.book().title = title));
     };
-    document.getElementById("page-title-input").onchange = (e) =>
-      Store.transaction(
-        () => (Store.current().title = e.target.value.slice(0, 300)),
-      );
     document.getElementById("open-file").onchange = (e) => {
       if (e.target.files[0]) Exporter.importFile(e.target.files[0]);
       e.target.value = "";
@@ -219,7 +231,7 @@
         e.returnValue = "";
       }
     });
-    window.addEventListener("pagehide", () => Store.save());
+    window.addEventListener("pagehide", () => { persistZoom(); Store.save(); });
     document.addEventListener("visibilitychange", () => {
       if (document.visibilityState === "hidden") {
         CanvasEngine.finishActive();
@@ -249,7 +261,18 @@
       Formulas,
     };
   }
-  function stateChanged() {
+  function stateChanged(event) {
+    if (event?.detail) {
+      Renderer.appendInk(event.detail);
+      for (const [action, history] of [["undo", Store.state.history], ["redo", Store.state.future]]) {
+        const button = document.querySelector('#file-tools [data-action="' + action + '"]');
+        button.disabled = !history.length;
+      }
+      updateSaveState();
+      clearTimeout(refreshTimer);
+      refreshTimer = setTimeout(renderPages, 1000);
+      return;
+    }
     Renderer.request();
     const s = Store.state;
     const title = document.getElementById("notebook-title");
@@ -258,11 +281,16 @@
     document
       .querySelectorAll("[data-tool]")
       .forEach((b) => b.classList.toggle("active", b.dataset.tool === s.tool));
+    renderPalette();
+    const color = highlighterActive() ? s.settings.highlighterColor : s.color;
+    const width = highlighterActive() ? s.settings.highlighterWidth : s.width;
     document
       .querySelectorAll("[data-color]")
-      .forEach((b) =>
-        b.classList.toggle("active", b.dataset.color === s.color),
-      );
+      .forEach((b) => {
+        const active = b.dataset.color === color;
+        b.classList.toggle("active", active);
+        b.setAttribute("aria-pressed", String(active));
+      });
     document
       .querySelectorAll('[data-action="undo"]')
       .forEach((b) => (b.disabled = !s.history.length));
@@ -280,12 +308,12 @@
           }[s.pen] || root.InkBrush?.catalog.find(p=>p[0]===s.pen)?.[1] || "Bút"
         : tools[s.tool],
     );
-    document.getElementById("width-label").textContent = s.width;
-    document.getElementById("width-dot").style.background = s.color;
+    document.getElementById("width-label").textContent = width;
+    document.getElementById("width-dot").style.background = color;
     document.getElementById("width-dot").style.width =
-      Math.min(12, s.width + 2) + "px";
+      Math.min(12, width + 2) + "px";
     document.getElementById("width-dot").style.height =
-      Math.min(12, s.width + 2) + "px";
+      Math.min(12, width + 2) + "px";
     document.getElementById("page-counter").textContent =
       Store.current().questionSource ? Store.current().title : (Store.book().pages.slice(0,s.pageIndex+1).filter(p=>!p.questionSource).length + " / " + Store.book().pages.filter(p=>!p.questionSource).length);
     updateSaveState();
@@ -308,9 +336,18 @@
     if(root.InkulatorDesktop?.documents&&root.DocumentFiles?.status)document.getElementById("save-state").textContent=s.dirty&&DocumentFiles.status==="Đã lưu tệp trên máy"?"Đang chờ lưu…":DocumentFiles.status;
   }
   function updateZoom() {
-    try{localStorage.setItem("inkulator-zoom",String(Store.state.viewport.zoom));}catch{}
-    document.getElementById("zoom-button").textContent =
-      Math.round(Store.state.viewport.zoom * 100) + "%";
+    const zoom = Store.state.viewport.zoom;
+    if (zoom === shownZoom) return;
+    shownZoom = zoom;
+    clearTimeout(zoomSaveTimer);
+    zoomSaveTimer = setTimeout(persistZoom, 180);
+    document.getElementById("zoom-button").textContent = Math.round(zoom * 100) + "%";
+  }
+  function persistZoom() {
+    if (!zoomSaveTimer) return;
+    clearTimeout(zoomSaveTimer);
+    zoomSaveTimer = 0;
+    try { localStorage.setItem("inkulator-zoom", String(shownZoom)); } catch {}
   }
   function renderPages() {
     if (document.getElementById("pages-sidebar").hidden) return;
@@ -427,7 +464,7 @@
       anchor,
       [
         ["page-insert", "Thêm trang ngay sau"],
-        ["page-rename", "Đổi tiêu đề"],
+        ["page-rename", "Đổi tên trang"],
         ["page-duplicate", "Nhân bản trang"],
         ["page-up", "Đưa lên"],
         ["page-down", "Đưa xuống"],
@@ -452,8 +489,8 @@
     if (action === "page-insert") { addPage(index); closePopover(); return; }
     if (action === "page-rename") {
       const r = await dialog(
-        "Đổi tiêu đề trang",
-        '<label class="field"><span>Tiêu đề</span><input name="title" maxlength="300" value="' +
+        "Đổi tên trang",
+        '<label class="field"><span>Tên trang</span><input name="title" maxlength="300" value="' +
           escape(p.title) +
           '"></label>',
       );
@@ -531,13 +568,15 @@
     el.style.left = "12px";
     el.style.right = "auto";
     el.style.maxWidth = Math.max(200,innerWidth-24)+"px";
+    positionPopover(el, anchor);
+    return el;
+  }
+  function positionPopover(el, anchor) {
     const r = anchor.getBoundingClientRect();
     el.style.left =
       Math.max(10, Math.min(innerWidth - el.offsetWidth - 12, r.left)) + "px";
     el.style.top =
       Math.max(12,Math.min(innerHeight - el.offsetHeight - 24, r.bottom + 10)) + "px";
-    el.style.right = "auto";
-    return el;
   }
   function closePopover() {
     const el = document.getElementById("popover");
@@ -560,6 +599,8 @@
   function setTool(tool) {
     if(tool==="pen" && Store.state.tool==="pen")return penTypes(document.querySelector('#ink-tools [data-tool="pen"]'));
     CanvasEngine.cancelActive();
+    if (tool === "highlighter" && highlighterActive())
+      return widthPopover(document.querySelector('#ink-tools [data-tool="highlighter"]'));
     if (tool !== "select") root.TeacherGeometry?.cancel();
     if (tool !== "select") Store.state.transformMode = "auto";
     if (tool === "eraser" && Store.state.tool === "eraser") {
@@ -571,6 +612,8 @@
             ["partial", "Tẩy một phần nét"],
             ["stroke", "Tẩy toàn bộ nét"],
             ["rectangle", "Tẩy vùng chữ nhật"],
+            ["square", "Tẩy vùng vuông"],
+            ["circle", "Tẩy vùng tròn"],
           ]
             .map(
               ([id, name]) =>
@@ -599,7 +642,14 @@
     Store.emit();
   }
   function setColor(color) {
+    if (highlighterActive()) {
+      Store.state.settings.highlighterColor = color;
+      Store.scheduleSave();
+      Store.emit();
+      return;
+    }
     Store.state.color = color;
+    rememberPen();
     if (Store.selected().length)
       Store.transaction(() =>
         Store.selected()
@@ -608,8 +658,61 @@
       );
     else Store.emit();
   }
+  function rememberPen() {
+    const s = Store.state;
+    s.settings.activePen = s.pen;
+    (s.settings.penPresets ||= {})[s.pen] = { color: s.color, width: s.width, opacity: s.opacity };
+    Store.scheduleSave();
+  }
+  function mountColors(input, highlighter) {
+    const group = document.createElement("div");
+    group.className = "pen-palette-grid";
+    group.setAttribute("role", "group");
+    group.setAttribute("aria-label", "Bảng màu");
+    const sync = () => group.querySelectorAll("[data-color]").forEach(b => {
+      b.classList.toggle("active", b.dataset.color === input.value);
+      b.setAttribute("aria-pressed", String(b.dataset.color === input.value));
+    });
+    for (const color of highlighter ? highlighterColors : penPalette) {
+      const button = swatch(color);
+      button.onclick = () => { input.value = color; setColor(color); sync(); };
+      group.append(button);
+    }
+    sync();
+    input.oninput = () => { setColor(input.value); sync(); };
+    const pin = document.createElement("button");
+    pin.className = "secondary";
+    pin.textContent = "Ghim màu";
+    pin.title = "Đưa màu đang chọn vào đầu thanh màu nhanh";
+    pin.onclick = () => {
+      const settings = Store.state.settings;
+      settings[highlighter ? "highlighterQuickColors" : "penQuickColors"] =
+        [input.value, ...quickColors(highlighter).filter(color => color !== input.value)].slice(0, 6);
+      Store.scheduleSave();
+      Store.emit();
+    };
+    const row = input.closest("label");
+    row.before(group);
+    row.after(pin);
+  }
   function widthPopover(anchor) {
     const s = Store.state;
+    if (highlighterActive()) {
+      const el = popover(anchor, '<h3>Bút đánh dấu</h3><label class="field-row"><span>Màu tùy chọn</span><input id="highlighter-color" type="color"></label><label class="field"><span>Độ dày <output></output> px</span><input id="highlighter-width" type="range" min="6" max="60"></label>');
+      const input = el.querySelector("#highlighter-color");
+      input.value = s.settings.highlighterColor;
+      mountColors(input, true);
+      const width = el.querySelector("#highlighter-width"), output = el.querySelector("output");
+      width.value = output.value = s.settings.highlighterWidth;
+      width.oninput = () => {
+        s.settings.highlighterWidth = Number(width.value);
+        output.value = width.value;
+        Store.scheduleSave();
+        Store.emit();
+      };
+      positionPopover(el, anchor);
+      return;
+    }
     const el = popover(
       anchor,
       '<h3>Thiết lập bút</h3><label class="field"><span>Loại bút</span><select id="pen-type"><option value="ballpoint">Bút bi · nét đều</option><option value="fountain">Bút mực · áp lực</option><option value="pencil">Bút chì</option><option value="marker">Bút lông</option></select></label><label class="field"><span>Độ dày <output id="pen-width-output">' +
@@ -625,7 +728,6 @@
     const penSelect=document.getElementById("pen-type");penSelect.replaceChildren();
     for(const [id,label] of InkBrush.catalog){const option=document.createElement("option");option.value=id;option.textContent=label;penSelect.append(option);}
     const smart=document.createElement("label");smart.className="field-row";smart.innerHTML='<input id="pen-smart-shape" type="checkbox"> Smart Shape · sửa nét thành hình';el.querySelector("h3").after(smart);smart.querySelector("input").checked=!!s.settings.smartShape;smart.querySelector("input").onchange=e=>{s.settings.smartShape=e.target.checked;Store.scheduleSave();};
-    const rememberPen=()=>{s.settings.activePen=s.pen;(s.settings.penPresets||={})[s.pen]={color:s.color,width:s.width,opacity:s.opacity};Store.scheduleSave();};
     document.getElementById("pen-type").value = s.pen;
     document.getElementById("pen-type").onchange = (e) => {
       const presets = s.settings.penPresets || {};
@@ -668,7 +770,10 @@
             .forEach((o) => (o.style.opacity = s.opacity)),
         );
     };
-    document.getElementById("pen-color").oninput = (e) => {setColor(e.target.value);rememberPen();};
+    const colorInput = el.querySelector("#pen-color");
+    penSelect.closest("label").after(colorInput.closest("label"));
+    mountColors(colorInput, false);
+    positionPopover(el, anchor);
     document.getElementById("laser-tool").onclick = () => {
       setTool("laser");
       closePopover();
@@ -808,9 +913,10 @@
     });
   }
   function openPanel(id, obj = null) {
-    CanvasEngine.cancelActive();
-    const panel = document.getElementById("panel");
     if (!names[id]) return;
+    CanvasEngine.cancelActive();
+    closePopover();
+    const panel = document.getElementById("panel");
     Store.state.panel = id;
     WorkspaceUI.rememberPanel(id);
     panel.hidden = false;
@@ -1405,8 +1511,7 @@
             : document.querySelector('[data-action="pen-options"]'),
         );
       case "toggle-dock":
-        document.getElementById("pen-dock").classList.toggle("collapsed");
-        return;
+        return PenTools.toggleDock();
       case "transform-selection":
         return PenTools.transform(b?.getBoundingClientRect ? b : null);
       case "move-selection":
@@ -1483,6 +1588,8 @@
         return fit();
       case "fit-width":
         return PageFlow.fit("width");
+      case "next-question":
+        return QuestionPages.next();
       case "fullscreen":
         (document.fullscreenElement
           ? document.exitFullscreen()

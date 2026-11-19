@@ -8,11 +8,15 @@
     laserTimer = 0,
     pinch = null;
   let lastPenTime = -Infinity;
+  let glide = 0;
   const pointers = new Map();
-  const activePaths = new WeakMap();
+  const areaErasers = new Set(["rectangle", "square", "circle"]);
   const S = () => Store.state,
     dist = (a, b) => Math.hypot(a.x - b.x, a.y - b.y);
+  const inkModes = new Set(["pen", "highlighter", "laser"]);
   function selectionHandles(o) {
+    const ends = Renderer.lineEnds(o);
+    if (ends) return ends.map((p, i) => ({ ...p, key: "end" + i }));
     const z = S().viewport.zoom, b = Renderer.selectionBounds(o);
     return [
       { key: "tl", x: b.x, y: b.y },
@@ -102,7 +106,10 @@
       const q = Renderer.localPoint(o, p),
         pad = 7 / S().viewport.zoom,
         box=o.type==='solid'?Renderer.selectionBounds(o):{x:0,y:0,w:o.size.w,h:o.size.h};
-      if (o.type === "stroke") {
+      const ends = Renderer.lineEnds(o);
+      if (ends) {
+        if (segmentDistance(q, ...ends) <= pad + o.style.width / 2) return o;
+      } else if (o.type === "stroke") {
         const pts = o.data.points,
           sx = o.size.w / (o.data.baseSize?.w || o.size.w),
           sy = o.size.h / (o.data.baseSize?.h || o.size.h);
@@ -131,10 +138,12 @@
     return null;
   }
   function down(e) {
-    if (e.button === 2) return;
+    const penPan = e.pointerType === "pen" && !S().settings.canvasMenu && (e.button === 2 || (e.buttons & 2));
+    if (e.button === 2 && !penPan) return;
+    if (e.pointerType === "touch" && (penActive || performance.now() - lastPenTime < 180)) return;
+    stopGlide();
     document.getElementById("canvas-context").hidden = true;
     App.closePopover();
-    if (e.pointerType === "touch" && (penActive || performance.now() - lastPenTime < 450)) return;
     // A palm or another pointer must never replace an unfinished pen stroke.
     if (gesture && e.pointerType !== "touch" && !(e.pointerType === "pen" && gesture.pointerType === "touch")) return;
     if (e.pointerType === "pen" && (gesture || pinch)) {
@@ -166,12 +175,13 @@
       lastPenTime = performance.now();
     }
     if (!gesture) root.PageFlow?.activateAt(e.clientX, e.clientY);
-    const p = Renderer.clientPoint(e);
+    const bounds = Renderer.area.getBoundingClientRect();
+    const p = Renderer.clientPoint(e, bounds);
     let mode = S().tool;
     if (
-      space ||
+      penPan || space ||
       e.button === 1 ||
-      (e.pointerType === "touch" && !S().settings.touchInk)
+      (e.pointerType === "touch" && !S().settings.touchInk && !["select", "eraser"].includes(mode))
     )
       mode = "pan";
     if (e.button === 5 || e.buttons === 32) mode = "eraser";
@@ -182,15 +192,17 @@
       pointerId: e.pointerId,
       start: p,
       last: p,
-      before: ["pen", "highlighter", "laser", "pan"].includes(mode) ? null : Store.snapshot(),
+      before: ["pen", "highlighter", "laser", "pan", "eraser"].includes(mode) ? null : Store.snapshot(),
       inkToken: ["pen", "highlighter"].includes(mode) ? Store.beginInk() : null,
       pageIndex: S().pageIndex,
       client: { x: e.clientX, y: e.clientY },
       viewport: { ...S().viewport },
+      bounds,
       moved: false,
     };
     if (mode === "pan") {
       S().viewMode = "manual";
+      gesture.pan = { x: e.clientX, y: e.clientY, time: performance.now(), speed: 0 };
       canvas.style.cursor = "grabbing";
       return;
     }
@@ -208,7 +220,10 @@
       gesture.rulerLine = mode !== "laser" ? root.RulerStudio?.snapLine(p) : null;
       const first = gesture.rulerLine ? RulerStudio.project(p,gesture.rulerLine) : p;
       gesture.points = [[first.x, first.y, pressure(e)]];
-      Renderer.requestOverlay();
+      gesture.inkBottom = first.y;
+      gesture.brush = penStyle(mode);
+      gesture.path = {};
+      Renderer.requestInkOverlay();
       return;
     }
     if (mode === "select") {
@@ -219,10 +234,23 @@
         if(construction){gesture.mode='construction-point';gesture.object=o;gesture.construction=construction;return;}
         const q = Renderer.localPoint(o, p),
           tolerance = 12 / S().viewport.zoom;
-        const handle = selectionHandles(o).find(
-          (h) => dist(q, h) < tolerance + 4 / S().viewport.zoom,
-        );
+        let handle = null, distance = tolerance + 4 / S().viewport.zoom;
+        for (const candidate of selectionHandles(o)) {
+          const d = dist(q, candidate);
+          if (d < distance) {
+            handle = candidate;
+            distance = d;
+          }
+        }
         if (handle) {
+          const ends = Renderer.lineEnds(o);
+          if (ends) {
+            gesture.mode = "line-end";
+            gesture.object = o;
+            gesture.end = handle.key === "end0" ? 0 : 1;
+            gesture.endpoints = ends.map((point) => Renderer.worldPoint(o, point));
+            return;
+          }
           gesture.mode = handle.key === "rotate" ? "rotate2d" : "resize";
           gesture.handle = handle.key;
           gesture.object = o;
@@ -256,6 +284,8 @@
       const explicit = S().transformMode !== "auto" && selected.find((o) => {
         if (!layerEditable(o)) return false;
         const q = Renderer.localPoint(o, p);
+        const ends = Renderer.lineEnds(o);
+        if (ends) return segmentDistance(q, ...ends) <= 7 / S().viewport.zoom + o.style.width / 2;
         return q.x >= 0 && q.y >= 0 && q.x <= o.size.w && q.y <= o.size.h;
       });
       const o = explicit || hit(p);
@@ -305,7 +335,8 @@
       return;
     }
     if (mode === "eraser") {
-      if (S().eraser !== "rectangle") erase(p);
+      gesture.eraser = S().eraser;
+      if (!areaErasers.has(gesture.eraser)) erase(p);
       return;
     }
     if (mode === "shape") {
@@ -329,7 +360,6 @@
     );
   }
   function move(e) {
-    if (e.pointerType === "pen") lastPenTime = performance.now();
     if (pointers.has(e.pointerId))
       pointers.set(e.pointerId, { x: e.clientX, y: e.clientY });
     if (pinch && pointers.size === 2) {
@@ -351,32 +381,51 @@
       App.updateZoom();
       return;
     }
-    const p = Renderer.clientPoint(e);
-    if (!gesture) root.TeacherGeometry?.hover(p);
-    if (!gesture || gesture.pointerId !== e.pointerId) return;
+    if (!gesture) {
+      if (root.TeacherGeometry?.active) TeacherGeometry.hover(Renderer.clientPoint(e));
+      return;
+    }
+    if (gesture.pointerId !== e.pointerId) return;
     const g = gesture;
-    g.last = p;
-    g.moved = g.moved || dist(g.start, p) > 2;
     if (g.mode === "pan") {
       S().viewport.x = g.viewport.x + e.clientX - g.client.x;
       S().viewport.y = g.viewport.y + e.clientY - g.client.y;
-    }
-    if (["pen", "highlighter", "laser"].includes(g.mode)) {
-      const coalesced = e.getCoalescedEvents?.(),
-        events = coalesced?.length ? coalesced : [e];
-      for (const item of events) {
-        const raw = Renderer.clientPoint(item),
-          q = g.rulerLine ? RulerStudio.project(raw,g.rulerLine) : raw,
-          prev = g.points.at(-1);
-        if (Math.hypot(q.x - prev[0], q.y - prev[1]) < 0.3) continue;
-        const factor = 1 - S().settings.smoothing * 0.35;
-        g.points.push([
-          prev[0] + (q.x - prev[0]) * factor,
-          prev[1] + (q.y - prev[1]) * factor,
-          pressure(item),
-        ]);
+      const sample = g.pan, now = performance.now(), dy = e.clientY - sample.y;
+      sample.x = e.clientX;
+      if (dy) {
+        const speed = dy / Math.max(8, now - sample.time);
+        sample.speed = Math.max(-3, Math.min(3, (now - sample.time > 100 ? 0 : sample.speed * .35) + speed * .65));
+        sample.y = e.clientY;
+        sample.time = now;
       }
-      if (g.mode !== "laser") root.PageFlow?.ensureInk(g.points, g.pageIndex);
+      Renderer.request();
+      return;
+    }
+    const bounds = inkModes.has(g.mode) ? g.bounds : Renderer.area.getBoundingClientRect();
+    const p = Renderer.clientPoint(e, bounds);
+    g.last = p;
+    g.moved = g.moved || dist(g.start, p) > 2;
+    if (inkModes.has(g.mode)) {
+      const coalesced = e.getCoalescedEvents?.();
+      const smoothing = 1 - S().settings.smoothing * 0.35;
+      const separation = (Store.economyMode() ? 0.65 : 0.4) / S().viewport.zoom;
+      const separationSquared = separation * separation;
+      const startCount = g.points.length;
+      for (const item of coalesced?.length ? coalesced : [e]) {
+        const raw = item === e ? p : Renderer.clientPoint(item, bounds);
+        const q = g.rulerLine ? RulerStudio.project(raw, g.rulerLine) : raw;
+        const prev = g.points[g.points.length - 1];
+        const dx = q.x - prev[0], dy = q.y - prev[1];
+        if (dx * dx + dy * dy < separationSquared) continue;
+        const y = prev[1] + dy * smoothing;
+        g.points.push([prev[0] + dx * smoothing, y, pressure(item)]);
+        g.inkBottom = Math.max(g.inkBottom, y);
+      }
+      if (g.points.length !== startCount) {
+        if (g.mode !== "laser") root.PageFlow?.ensureInk(g.inkBottom, g.pageIndex);
+        Renderer.requestInkOverlay();
+      }
+      return;
     }
     if (g.mode === "move") {
       const dx = p.x - g.start.x,
@@ -385,6 +434,12 @@
         const o = Store.current().objects.find((o) => o.id === a.id);
         if (o && layerEditable(o)) o.position = { x: a.x + dx, y: a.y + dy };
       });
+    }
+    if (g.mode === "line-end") {
+      const point = g.endpoints[g.end];
+      const moved = { x: point.x + p.x - g.start.x, y: point.y + p.y - g.start.y };
+      const [a, b] = g.end === 0 ? [moved, g.endpoints[1]] : [g.endpoints[0], moved];
+      setLine(g.object, a, b, e.shiftKey || S().geometrySnap, g.end);
     }
     if (g.mode === "resize" && g.object.type === "solid") {
       const o = g.object, a = g.original, b = g.bounds;
@@ -469,15 +524,10 @@
       ];
     if(g.mode==='revolution3d')g.object.data.revolution.rotation=[g.rotation[0]+(e.clientY-g.client.y)*.009,g.rotation[1]+(e.clientX-g.client.x)*.009];
     if (g.mode === "lasso") g.points.push(p);
-    if (g.mode === "eraser" && S().eraser !== "rectangle") {
-      const steps = Math.max(1, Math.ceil(dist(g.prevErase || g.start, p) / 6)),
-        a = g.prevErase || g.start;
-      for (let i = 1; i <= steps; i++)
-        erase({
-          x: a.x + ((p.x - a.x) * i) / steps,
-          y: a.y + ((p.y - a.y) * i) / steps,
-        });
+    if (g.mode === "eraser" && !areaErasers.has(g.eraser)) {
+      erase(g.prevErase || g.start, p);
       g.prevErase = p;
+      return;
     }
     if (g.mode === "shape" && Math.hypot(e.clientX-g.client.x,e.clientY-g.client.y)>=6)
       g.draft = shapeFrom(g.start, p, e.shiftKey);
@@ -572,10 +622,19 @@
     p[index] = point;
   }
   function up(e) {
+    if (gesture?.pointerId === e.pointerId && gesture.mode === "pan" &&
+        (e.clientX !== gesture.pan.x || e.clientY !== gesture.pan.y)) move(e);
+    if (gesture?.pointerId === e.pointerId &&
+        ["line-end", "move", "eraser", "shape"].includes(gesture.mode)) {
+      const p = Renderer.clientPoint(e);
+      if (dist(p, gesture.last) > 0.01) move(e);
+    }
     if (gesture?.pointerId === e.pointerId && ["pen", "highlighter", "laser"].includes(gesture.mode)) {
       const raw = Renderer.clientPoint(e), p = gesture.rulerLine ? RulerStudio.project(raw,gesture.rulerLine) : raw, prev = gesture.points.at(-1);
-      if (Math.hypot(p.x - prev[0], p.y - prev[1]) > 0.1)
+      if (Math.hypot(p.x - prev[0], p.y - prev[1]) > 0.1) {
         gesture.points.push([p.x, p.y, prev[2]]);
+        gesture.inkBottom = Math.max(gesture.inkBottom, p.y);
+      }
     }
     pointers.delete(e.pointerId);
     if (e.pointerType === "pen") {
@@ -592,24 +651,24 @@
     if (!gesture || gesture.pointerId !== e.pointerId) return;
     const g = gesture;
     gesture = null;
-    root.Renderer?.renderOverlay?.();
+    if (g.brush) root.PDFTiles?.resume();
     if (g.mode === "move" && !g.moved && g.toggleId)
       S().selection = S().selection.filter((id) => id !== g.toggleId);
     if (["pen", "highlighter"].includes(g.mode)) {
-      PageFlow.ensureInk(g.points, g.pageIndex);
+      PageFlow.ensureInk(g.inkBottom, g.pageIndex);
       const parts = PageFlow.splitInk(g.points, g.pageIndex);
       g.additions = [];
       for (const part of parts) {
-        let o = strokeFrom(part.points, g.mode);
+        let o = strokeFrom(part.points, g.brush.style, g.brush.pen);
         if (parts.length === 1 && S().settings.smartShape && g.mode === "pen" && !e.altKey)
-          o = recognize(o, part.points) || o;
+          o = recognize(o, part.points, g.brush.pen) || o;
         o.zIndex = part.page.objects.length;
         part.page.objects.push(o);
         g.additions.push({ pageId: part.page.id, object: o });
       }
     }
     if (g.mode === "laser") {
-      laser = { points: g.points, time: performance.now() };
+      laser = { points: g.points, brush: g.brush, path: g.path };
       clearTimeout(laserTimer);
       laserTimer = setTimeout(() => {
         laser = null;
@@ -644,32 +703,27 @@
       }
       S().selection = [...new Set(S().selection)];
     }
-    if (g.mode === "eraser" && S().eraser === "rectangle") {
-      const r = rect(g.start, g.last);
-      Store.current().objects = Store.current().objects.filter(
-        (o) =>
-          !(
-            o.type === "stroke" &&
-            layerEditable(o) &&
-            o.position.x < r.x + r.w &&
-            o.position.x + o.size.w > r.x &&
-            o.position.y < r.y + r.h &&
-            o.position.y + o.size.h > r.y
-          ),
-      );
-    }
+    if (g.mode === "eraser" && areaErasers.has(g.eraser) && dist(g.start, g.last) * S().viewport.zoom >= 3)
+      g.before = eraseArea(eraserBounds(g), g.eraser === "circle");
     const movedIds =
         g.mode === "move" && g.moved ? g.originals.map((o) => o.id) : [],
       destination = movedIds.length
         ? PageFlow.moveAcross(movedIds, g.pageIndex)
         : null;
-    if (g.inkToken) Store.commitInk(g.inkToken, g.additions);
+    if (g.inkToken) {
+      Store.commitInk(g.inkToken, g.additions);
+      if (!g.additions.length) Renderer.requestOverlay();
+    }
     else if (g.before) Store.commit(g.before);
+    else if (g.mode === "eraser") Renderer.requestOverlay();
     else Renderer.request();
-    root.Renderer?.invalidateCommittedInk?.();
     if (destination !== null) PageFlow.selectMoved(destination, movedIds);
-    if (g.mode === "pan")
-      root.PageFlow?.settle({ extend: S().viewport.y < g.viewport.y });
+    if (g.mode === "pan") {
+      const speed = g.pan.speed;
+      if ((g.pointerType === "pen" || g.pointerType === "touch") && performance.now() - g.pan.time < 85 && Math.abs(speed) > .23)
+        startGlide(speed);
+      else PageFlow.settle({ extend: S().viewport.y < g.viewport.y });
+    }
     cursor();
     if (
       ["vertex", "construction-point", "rotate3d", "resize", "move"].includes(g.mode) &&
@@ -677,7 +731,30 @@
     )
       App.refreshGeometry();
   }
+  function stopGlide() {
+    if (!glide) return;
+    cancelAnimationFrame(glide);
+    glide = 0;
+    PageFlow.settle();
+  }
+  function startGlide(speed) {
+    const book = Store.book(), viewport = S().viewport, start = performance.now();
+    let last = start;
+    const step = (now) => {
+      glide = 0;
+      if (Store.book() !== book || S().viewport !== viewport || gesture) return;
+      const dt = Math.max(0, Math.min(32, now - last));
+      last = now;
+      viewport.y += speed * dt;
+      speed *= Math.exp(-dt / 105);
+      if (Math.abs(speed) > .12 && now - start < 350) glide = requestAnimationFrame(step);
+      else PageFlow.settle({ extend: speed < 0 });
+      Renderer.request();
+    };
+    glide = requestAnimationFrame(step);
+  }
   function rollback() {
+    const wasInking = !!gesture?.brush;
     if (gesture?.inkToken) Store.cancelInk(gesture.inkToken);
     if (gesture?.before) {
       const saved = Store.restoreSnapshot(gesture.before);
@@ -689,6 +766,7 @@
       root.PageFlow?.invalidateLayout();
     }
     gesture = null;
+    if (wasInking) root.PDFTiles?.resume();
     root.Renderer?.renderOverlay?.();
     Renderer.request();
   }
@@ -697,11 +775,11 @@
     pointers.delete(e.pointerId);
     pinch = null;
     if (gesture?.pointerId === e.pointerId) rollback();
+    else Renderer.requestOverlay();
     penActive = false;
-    root.Renderer?.renderOverlay?.();
     cursor();
   }
-  function strokeFrom(points, mode = "pen", style = null, pen = null) {
+  function strokeFrom(points, style, pen) {
     let minX = Infinity,
       minY = Infinity,
       maxX = -Infinity,
@@ -728,17 +806,13 @@
       "stroke",
       {
         points: pts,
-        pen: pen || (mode === "highlighter" ? "highlighter" : S().pen),
+        pen,
         baseSize: { w, h },
       },
       {
         position: { x: minX, y: minY },
         size: { w, h },
-        style: style || {
-          color: S().color,
-          width: mode === "highlighter" ? Math.max(15, S().width) : S().width,
-          opacity: S().opacity,
-        },
+        style: { ...style },
       },
     );
   }
@@ -749,6 +823,76 @@
       w: Math.max(0.1, Math.abs(a.x - b.x)),
       h: Math.max(0.1, Math.abs(a.y - b.y)),
     };
+  }
+  function eraserBounds(g) {
+    if (g.eraser === "rectangle") return rect(g.start, g.last);
+    const dx = g.last.x - g.start.x, dy = g.last.y - g.start.y;
+    const side = Math.max(Math.abs(dx), Math.abs(dy));
+    return rect(g.start, { x: g.start.x + Math.sign(dx || 1) * side, y: g.start.y + Math.sign(dy || 1) * side });
+  }
+  function boxRange(a, b, r, pad) {
+    let low = 0, high = 1;
+    for (const [start, end, min, max] of [
+      [a.x, b.x, r.x - pad, r.x + r.w + pad],
+      [a.y, b.y, r.y - pad, r.y + r.h + pad],
+    ]) {
+      const d = end - start;
+      if (!d) {
+        if (start < min || start > max) return null;
+        continue;
+      }
+      const t0 = (min - start) / d, t1 = (max - start) / d;
+      low = Math.max(low, Math.min(t0, t1));
+      high = Math.min(high, Math.max(t0, t1));
+      if (low > high) return null;
+    }
+    return [low, high];
+  }
+  function eraseArea(r, circle) {
+    const center = { x: r.x + r.w / 2, y: r.y + r.h / 2 };
+    const page = Store.current();
+    const remaining = page.objects.filter((o) => {
+      if (o.type !== "stroke" || !layerEditable(o)) return true;
+      const sx = o.size.w / (o.data.baseSize?.w || o.size.w);
+      const sy = o.size.h / (o.data.baseSize?.h || o.size.h);
+      const pad = o.style.width * Math.max(sx, sy) * (o.data.pen === "marker" ? 1 : 0.5);
+      const x = o.position.x + o.size.w / 2, y = o.position.y + o.size.h / 2;
+      const reach = Math.hypot(o.size.w, o.size.h) / 2 + pad;
+      if (x + reach < r.x || y + reach < r.y || x - reach > r.x + r.w || y - reach > r.y + r.h) return true;
+      const clip = strokeClip(o);
+      let previous;
+      for (const [px, py] of o.data.points) {
+        const point = Renderer.worldPoint(o, { x: px * sx, y: py * sy });
+        const a = previous || point;
+        const range = circle ? circleRange(a, point, center, r.w / 2 + pad) : boxRange(a, point, r, pad);
+        if (clipRange(range, a, point, clip)) return false;
+        previous = point;
+      }
+      return true;
+    });
+    if (remaining.length === page.objects.length) return null;
+    const before = Store.snapshot();
+    page.objects = remaining;
+    return before;
+  }
+  function setLine(o, a, b, snap, movingEnd = 1) {
+    if (snap) {
+      const fixed = movingEnd ? a : b, point = movingEnd ? b : a;
+      const dx = point.x - fixed.x, dy = point.y - fixed.y;
+      const step = Math.PI / 12;
+      const angle = Math.round(Math.atan2(dy, dx) / step) * step;
+      const length = Math.hypot(dx, dy);
+      const snapped = { x: fixed.x + Math.cos(angle) * length, y: fixed.y + Math.sin(angle) * length };
+      if (movingEnd) b = snapped;
+      else a = snapped;
+    }
+    const box = rect(a, b);
+    o.rotation = 0;
+    o.position = { x: box.x, y: box.y };
+    o.size = { w: box.w, h: box.h };
+    o.data.dirX = b.x < a.x ? -1 : 1;
+    o.data.dirY = b.y < a.y ? -1 : 1;
+    o.data.flip = o.data.dirX !== o.data.dirY;
   }
   function shapeFrom(a, b, shift) {
     let dx = b.x - a.x,
@@ -819,108 +963,128 @@
       );
     return Math.hypot(p.x - a.x - t * dx, p.y - a.y - t * dy);
   }
-  function erase(p) {
-    const radius = Math.max(8, S().width * 3) / S().viewport.zoom,
-      objects = Store.current().objects,
-      result = [],
-      pad = radius + 2;
-    for (const o of objects) {
-      if (o.type !== "stroke" || !layerEditable(o)) {
-        result.push(o);
-        continue;
-      }
-      if (
-        p.x < o.position.x - pad ||
-        p.x > o.position.x + o.size.w + pad ||
-        p.y < o.position.y - pad ||
-        p.y > o.position.y + o.size.h + pad
-      ) {
-        result.push(o);
-        continue;
-      }
-      const pts = o.data.points.map((a) => {
-        const q = Renderer.worldPoint(o, {
-          x: (a[0] * o.size.w) / (o.data.baseSize?.w || o.size.w),
-          y: (a[1] * o.size.h) / (o.data.baseSize?.h || o.size.h),
-        });
-        return [q.x, q.y, a[2]];
-      });
-      let intersects = false;
-      for (let j = 0; j < pts.length; j++) {
-        const a = { x: pts[j][0], y: pts[j][1] },
-          b = j ? { x: pts[j - 1][0], y: pts[j - 1][1] } : a;
-        if (segmentDistance(p, a, b) < radius) {
-          intersects = true;
-          break;
-        }
-      }
-      if (!intersects) {
-        result.push(o);
-        continue;
-      }
-      if (S().eraser === "stroke") continue;
-      const sampled = [];
-      for (let j = 0; j < pts.length; j++) {
-        if (j === 0) {
-          sampled.push(pts[j]);
-          continue;
-        }
-        const a = pts[j - 1],
-          b = pts[j],
-          n = Math.min(
-            4000,
-            Math.max(
-              1,
-              Math.ceil(
-                Math.hypot(b[0] - a[0], b[1] - a[1]) / Math.max(2, radius / 2),
-              ),
-            ),
-          );
-        for (let k = 1; k <= n; k++)
-          sampled.push([
-            a[0] + ((b[0] - a[0]) * k) / n,
-            a[1] + ((b[1] - a[1]) * k) / n,
-            b[2],
-          ]);
-      }
-      let part = [];
-      const flush = () => {
-        if (part.length) {
-          const sx = o.size.w / (o.data.baseSize?.w || o.size.w),
-            sy = o.size.h / (o.data.baseSize?.h || o.size.h);
-          const local = part.map((q) => {
-            const v = Renderer.localPoint(o, { x: q[0], y: q[1] });
-            return [v.x / sx, v.y / sy, q[2]];
-          });
-          const neo = strokeFrom(local, "pen", { ...o.style }, o.data.pen),
-            center = Renderer.worldPoint(o, {
-              x: (neo.position.x + neo.size.w / 2) * sx,
-              y: (neo.position.y + neo.size.h / 2) * sy,
-            });
-          neo.size = { w: neo.size.w * sx, h: neo.size.h * sy };
-          neo.position = {
-            x: center.x - neo.size.w / 2,
-            y: center.y - neo.size.h / 2,
-          };
-          neo.rotation = o.rotation;
-          neo.zIndex = o.zIndex;
-          result.push(neo);
-          part = [];
-        }
-      };
-      for (const q of sampled) {
-        if (Math.hypot(q[0] - p.x, q[1] - p.y) <= radius) flush();
-        else part.push(q);
-      }
-      flush();
-    }
-    Store.current().objects = result;
-    Renderer.request();
+  function circleRange(a, b, center, radius) {
+    const dx = b.x - a.x, dy = b.y - a.y;
+    const x = a.x - center.x, y = a.y - center.y;
+    const lengthSquared = dx * dx + dy * dy;
+    const offset = x * x + y * y - radius * radius;
+    if (!lengthSquared) return offset <= 0 ? [0, 1] : null;
+    const projection = x * dx + y * dy;
+    const discriminant = projection * projection - lengthSquared * offset;
+    if (discriminant < 0) return null;
+    const root = Math.sqrt(discriminant);
+    const low = Math.max(0, (-projection - root) / lengthSquared);
+    const high = Math.min(1, (-projection + root) / lengthSquared);
+    return low <= high ? [low, high] : null;
   }
-  function recognize(o, pts) {
+  function interpolate(a, b, t) {
+    return { x: a.x + (b.x - a.x) * t, y: a.y + (b.y - a.y) * t, pressure: a.pressure + (b.pressure - a.pressure) * t };
+  }
+  function strokeClip(o) {
+    return o.clip && { x: o.position.x + o.clip.x, y: o.position.y + o.clip.y, w: o.clip.w, h: o.clip.h };
+  }
+  function clipRange(range, a, b, clip) {
+    if (!range || !clip) return range;
+    const visible = boxRange(a, b, clip, 0);
+    if (!visible) return null;
+    const low = Math.max(visible[0], range[0]), high = Math.min(visible[1], range[1]);
+    return low <= high ? [low, high] : null;
+  }
+  function erase(start, end = start) {
+    const radius = Math.max(8, S().width * 3) / S().viewport.zoom;
+    const length = dist(start, end), dx = length ? (end.x - start.x) / length : 1;
+    const dy = length ? (end.y - start.y) / length : 0;
+    const aligned = (p) => {
+      const x = p.x - start.x, y = p.y - start.y;
+      return {x: x * dx + y * dy, y: y * dx - x * dy};
+    };
+    const middle = {x: 0, y: -radius, w: length, h: 2 * radius};
+    const sweep = rect(start, end);
+    const page = Store.current(), result = [];
+    let changed = false;
+    for (const o of page.objects) {
+      if (o.type !== "stroke" || !layerEditable(o) || !o.data.points.length) {
+        result.push(o);
+        continue;
+      }
+      const x = o.position.x + o.size.w / 2, y = o.position.y + o.size.h / 2;
+      const reach = Math.hypot(o.size.w, o.size.h) / 2 + radius;
+      if (x + reach < sweep.x || x - reach > sweep.x + sweep.w ||
+          y + reach < sweep.y || y - reach > sweep.y + sweep.h) {
+        result.push(o);
+        continue;
+      }
+      const sx = o.size.w / (o.data.baseSize?.w || o.size.w);
+      const sy = o.size.h / (o.data.baseSize?.h || o.size.h);
+      const clip = strokeClip(o);
+      const world = ([x, y, pressure = 0.5]) => ({ ...Renderer.worldPoint(o, { x: x * sx, y: y * sy }), pressure });
+      const points = o.data.points;
+      const parts = [];
+      let part = [], removed = false, a = world(points[0]);
+      for (let i = points.length === 1 ? 0 : 1; i < points.length; i++) {
+        const b = i ? world(points[i]) : a;
+        const ranges = length ? [
+          boxRange(aligned(a), aligned(b), middle, 0),
+          circleRange(a, b, start, radius),
+          circleRange(a, b, end, radius),
+        ].filter(Boolean) : [circleRange(a, b, start, radius)].filter(Boolean);
+        const range = ranges.length ? clipRange([
+          Math.min(...ranges.map((r) => r[0])),
+          Math.max(...ranges.map((r) => r[1])),
+        ], a, b, clip) : null;
+        if (range) {
+          removed = true;
+          if (gesture.eraser === "stroke") break;
+          if (range[0] > 0) {
+            if (!part.length) part.push(a);
+            part.push(interpolate(a, b, range[0]));
+          }
+          if (part.length) parts.push(part);
+          part = range[1] < 1 ? [interpolate(a, b, range[1]), b] : [];
+        } else if (gesture.eraser !== "stroke") {
+          if (!part.length) part.push(a);
+          if (i) part.push(b);
+        }
+        a = b;
+      }
+      if (!removed) {
+        result.push(o);
+        continue;
+      }
+      changed = true;
+      if (gesture.eraser === "stroke") continue;
+      if (part.length) parts.push(part);
+      for (const segment of parts) {
+        const local = segment.map((p) => {
+          const q = Renderer.localPoint(o, p);
+          return [q.x / sx, q.y / sy, p.pressure];
+        });
+        const fragment = strokeFrom(local, o.style, o.data.pen);
+        const center = Renderer.worldPoint(o, {
+          x: (fragment.position.x + fragment.size.w / 2) * sx,
+          y: (fragment.position.y + fragment.size.h / 2) * sy,
+        });
+        fragment.size = { w: fragment.size.w * sx, h: fragment.size.h * sy };
+        fragment.position = { x: center.x - fragment.size.w / 2, y: center.y - fragment.size.h / 2 };
+        fragment.rotation = o.rotation;
+        fragment.zIndex = o.zIndex;
+        fragment.layer = o.layer;
+        if (clip) fragment.clip = { ...clip, x: clip.x - fragment.position.x, y: clip.y - fragment.position.y };
+        result.push(fragment);
+      }
+    }
+    if (changed) {
+      gesture.before ||= Store.snapshot();
+      page.objects = result;
+      Renderer.request();
+    }
+  }
+  function recognize(o, pts, pen) {
     const result=root.SmartShapes?.detect(pts,S().viewport.zoom);
     if(!result)return null;
-    return Store.object("shape",{kind:result.kind,filled:false,...result.data},{position:result.position,size:result.size,rotation:result.rotation||0,style:{...o.style},layer:o.layer});
+    const pattern = ["dashed", "dotted"].includes(pen) ? pen : undefined;
+    const kind = result.kind === "line" && pattern ? pattern : result.kind;
+    return Store.object("shape",{kind,filled:false,...result.data,...(result.kind !== "line" && pattern ? {pattern} : {})},{position:result.position,size:result.size,rotation:result.rotation||0,style:{...o.style},layer:o.layer});
   }
   function inside(p, poly) {
     let result = false;
@@ -937,6 +1101,7 @@
   }
   function wheel(e) {
     e.preventDefault();
+    stopGlide();
     S().viewMode = "manual";
     const v = S().viewport;
     if (e.ctrlKey) {
@@ -970,7 +1135,7 @@
   function doubleClick(e) {
     // Dots and short pen strokes generate native dblclick events too.
     // Editing is an explicit action in selection mode only.
-    if (S().tool !== "select") { e.preventDefault(); return; }
+    if (!S().settings.canvasMenu || S().tool !== "select") { e.preventDefault(); return; }
     if(root.GeometryLab?.renamePlaneAt(Renderer.clientPoint(e)))return;
     if (root.TeacherGeometry?.active) return;
     const o = hit(Renderer.clientPoint(e));
@@ -980,6 +1145,7 @@
   }
   function context(e) {
     e.preventDefault();
+    if (!S().settings.canvasMenu || gesture || pinch || e.pointerType === "touch") return;
     root.PageFlow?.activateAt(e.clientX, e.clientY);
     const o = hit(Renderer.clientPoint(e));
     if (o) {
@@ -1016,73 +1182,34 @@
     menu.style.top =
       Math.min(e.clientY, innerHeight - menu.offsetHeight - 35) + "px";
   }
-  function drawActiveStroke(ctx, points, mode, isLaserFade = false) {
-    if (!points || !points.length) return;
-    const isLaser = mode === "laser" || isLaserFade;
-    const penType = isLaser ? "pen" : mode === "highlighter" ? "highlighter" : S().pen;
-    const color = isLaser ? "#ef6559" : S().color;
-    const width = (mode === "highlighter" ? Math.max(15, S().width) : S().width) * (penType === "marker" ? 2 : 1);
-    let alpha = (penType === "highlighter" ? 0.28 : penType === "pencil" ? 0.7 : 1) * (S().opacity ?? 1);
-    if (isLaserFade) alpha *= 0.6;
-
+  function penStyle(mode) {
+    const highlighter = mode === "highlighter";
+    const laser = mode === "laser";
+    return {
+      pen: laser ? "ballpoint" : highlighter ? "highlighter" : S().pen,
+      style: {
+        color: laser ? "#ef6559" : highlighter ? S().settings.highlighterColor : S().color,
+        width: highlighter ? S().settings.highlighterWidth : S().width,
+        opacity: highlighter ? 1 : S().opacity ?? 1,
+      },
+    };
+  }
+  function drawActiveStroke(ctx, input, opacity = 1) {
+    const { points, brush, path } = input;
     ctx.save();
-    ctx.strokeStyle = color;
-    ctx.fillStyle = color;
-    ctx.globalAlpha = Math.max(0.05, Math.min(1, alpha));
-    ctx.lineCap = "round";
-    ctx.lineJoin = "round";
-    if(root.InkBrush?.draw(ctx,points,penType,width)){ctx.restore();return;}
-
-    if (points.length === 1) {
-      ctx.beginPath();
-      ctx.arc(points[0][0], points[0][1], width / 2, 0, Math.PI * 2);
-      ctx.fill();
-      ctx.restore();
-      return;
-    }
-
-    if (penType !== "fountain") {
-      ctx.lineWidth = width;
-      let cached = activePaths.get(points);
-      if (!cached) {
-        const path = new Path2D();
-        path.moveTo(points[0][0], points[0][1]);
-        cached = { path, next: 1, started: false };
-        activePaths.set(points, cached);
-      }
-      if (points.length > 2 && !cached.started) {
-        cached.path.lineTo((points[0][0] + points[1][0]) / 2, (points[0][1] + points[1][1]) / 2);
-        cached.started = true;
-      }
-      for (; cached.next < points.length - 1; cached.next++) {
-        const a = points[cached.next], b = points[cached.next + 1];
-        cached.path.quadraticCurveTo(a[0], a[1], (a[0] + b[0]) / 2, (a[1] + b[1]) / 2);
-      }
-      const preview = new Path2D(cached.path), end = points.at(-1);
-      preview.lineTo(end[0], end[1]);
-      ctx.stroke(preview);
-    } else {
-      for (let i = 1; i < points.length; i++) {
-        const prev = points[i - 1], cur = points[i];
-        ctx.lineWidth = width * (0.25 + 1.5 * (cur[2] || 0.5));
-        ctx.beginPath();
-        if (i === 1) ctx.moveTo(prev[0], prev[1]);
-        else ctx.moveTo((points[i - 2][0] + prev[0]) / 2, (points[i - 2][1] + prev[1]) / 2);
-        ctx.quadraticCurveTo(prev[0], prev[1], (cur[0] + prev[0]) / 2, (cur[1] + prev[1]) / 2);
-        if (i === points.length - 1) ctx.lineTo(cur[0], cur[1]);
-        ctx.stroke();
-      }
-    }
+    ctx.strokeStyle = ctx.fillStyle = brush.style.color;
+    ctx.globalAlpha *= brush.style.opacity * opacity;
+    InkBrush.draw(ctx, points, brush.pen, brush.style.width, path);
     ctx.restore();
   }
   function drawOverlay(ctx) {
     const g = gesture;
     ctx.save();
     if (g?.points && ["pen", "highlighter", "laser"].includes(g.mode)) {
-      drawActiveStroke(ctx, g.points, g.mode);
+      drawActiveStroke(ctx, g);
     }
     if (laser) {
-      drawActiveStroke(ctx, laser.points, "laser", true);
+      drawActiveStroke(ctx, laser, 0.6);
     }
     if (g?.mode === "shape" && g.draft) Renderer.drawObject(ctx, g.draft);
     if(g?.mode==='marquee'){const b=rect(g.start,g.last);ctx.fillStyle='#0070c018';ctx.strokeStyle='#0070c0';ctx.lineWidth=1.5/S().viewport.zoom;ctx.setLineDash([6/S().viewport.zoom,4/S().viewport.zoom]);ctx.fillRect(b.x,b.y,b.w,b.h);ctx.strokeRect(b.x,b.y,b.w,b.h);ctx.setLineDash([]);}
@@ -1099,12 +1226,17 @@
       ctx.fill();
       ctx.stroke();
     }
-    if (g?.mode === "eraser" && S().eraser === "rectangle") {
-      const r = rect(g.start, g.last);
-      ctx.fillStyle = "#c8635315";
-      ctx.strokeStyle = "#c86353";
-      ctx.fillRect(r.x, r.y, r.w, r.h);
-      ctx.strokeRect(r.x, r.y, r.w, r.h);
+    if (g?.mode === "eraser" && areaErasers.has(g.eraser)) {
+      const r = eraserBounds(g);
+      ctx.fillStyle = "#68746e24";
+      ctx.strokeStyle = "#68746e";
+      ctx.lineWidth = 1.5 / S().viewport.zoom;
+      ctx.beginPath();
+      if (g.eraser === "circle")
+        ctx.arc(r.x + r.w / 2, r.y + r.h / 2, r.w / 2, 0, 2 * Math.PI);
+      else ctx.rect(r.x, r.y, r.w, r.h);
+      ctx.fill();
+      ctx.stroke();
     }
     ctx.restore();
   }
@@ -1119,10 +1251,15 @@
   function isDrawing() {
     return !!(
       gesture &&
-      ["pen", "highlighter", "laser", "shape", "lasso"].includes(gesture.mode)
+      (["pen", "highlighter", "laser", "shape", "lasso", "marquee"].includes(gesture.mode) ||
+       (gesture.mode === "eraser" && areaErasers.has(gesture.eraser)))
     );
   }
   root.CanvasEngine = {
+    get inking() { return !!gesture?.brush; },
+    get activeInk() {
+      return !laser && gesture?.brush ? gesture : null;
+    },
     get interacting() {
       return !!gesture || !!pinch;
     },
@@ -1138,17 +1275,20 @@
     zoomAt,
     cursor,
     cancelActive() {
+      stopGlide();
       if (gesture) cancel({ pointerId: gesture.pointerId });
     },
     finishActive() {
       if (gesture) {
         const r = Renderer.area.getBoundingClientRect(), v = S().viewport, p = gesture.last;
         up({ pointerId: gesture.pointerId, pointerType: gesture.pointerType,
-          clientX: r.left + v.x + p.x * v.zoom, clientY: r.top + v.y + p.y * v.zoom });
+          clientX: gesture.pan?.x ?? r.left + v.x + p.x * v.zoom,
+          clientY: gesture.pan?.y ?? r.top + v.y + p.y * v.zoom });
       }
       pointers.clear();
       pinch = null;
       penActive = false;
+      stopGlide();
     },
   };
 })(window);

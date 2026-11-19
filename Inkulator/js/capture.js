@@ -1,7 +1,7 @@
 (function (root) {
   "use strict";
   const key = "inkulator-latest-capture";
-  let latest = null, preferred = false, active = null, preparing = false, serial = 0;
+  let latest = null, preferred = false, active = null, serial = 0;
   function init() {
     const button = document.createElement("button");
     button.dataset.action = "capture";
@@ -10,16 +10,15 @@
     button.innerHTML = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 3H3v5M16 3h5v5M21 16v5h-5M8 21H3v-5M7 7h10v10H7z"/></svg>';
     document.querySelector('#pen-dock [data-action="paste-image"]').before(button);
     const modes=document.createElement("button");modes.dataset.action="capture-options";modes.className="capture-mode-trigger";modes.textContent="⌄";modes.title="Chế độ chụp ảnh / chừa chỗ giải câu hỏi";modes.setAttribute("aria-label",modes.title);document.querySelector('.workspace-tabs [data-action="capture"]').after(modes);
-    const width = document.createElement("button");
-    width.dataset.action = "fit-width"; width.textContent = "↔";
-    width.title = "Vừa chiều rộng"; width.setAttribute("aria-label", width.title);
-    document.querySelector('.canvas-navigation [data-action="fit"]').after(width);
     const tray = document.createElement("div");
     tray.id = "capture-tray"; tray.hidden = true;
     tray.innerHTML = '<button data-action="paste-capture" title="Dán ảnh vừa chụp" aria-label="Dán ảnh vừa chụp"><img alt="Ảnh vừa chụp"></button><button data-action="download-capture" title="Tải ảnh chụp PNG" aria-label="Tải ảnh chụp PNG">↓</button>';
     Renderer.area.append(tray);
     document.addEventListener("keydown", e => {
-      if (e.key === "Escape" && (active || preparing)) { e.preventDefault(); e.stopImmediatePropagation(); cancel(); }
+      if (!active) return;
+      e.stopImmediatePropagation();
+      if (e.key === "Escape") { e.preventDefault(); cancel(); }
+      else if (e.key !== "Tab" && !active.overlay.contains(e.target)) e.preventDefault();
     }, true);
     new ResizeObserver(() => { if (active) cancel(); }).observe(Renderer.area);
     window.addEventListener("blur", () => { if (active) cancel(); });
@@ -34,7 +33,10 @@
     }).catch(() => {});
   }
   function options(anchor){
-    App.popover(anchor,'<h3>Chế độ chụp</h3><button class="menu-item" data-action="capture-image">▣ Chụp ảnh để dán · mặc định</button><button class="menu-item" data-action="capture-question">↗ Chụp câu hỏi · chừa chỗ giải ngay tại đây</button>');
+    const entries = [["image", "▣ Ảnh để dán"], ["question", "↗ Chừa chỗ giải câu hỏi"]];
+    App.popover(anchor, '<h3>Chế độ chụp</h3>' + entries.map(([id, label]) =>
+      '<button class="menu-item" data-action="capture-' + id + '">' + label +
+      (Store.state.settings.captureMode === id ? ' · mặc định' : '') + '</button>').join(''));
   }
   function updateTray() {
     const tray = document.getElementById("capture-tray");
@@ -43,107 +45,172 @@
     if (latest) tray.querySelector("img").src = latest.src;
     for (const b of document.querySelectorAll('[data-action="capture"]')) b.classList.toggle("capture-ready", !!latest);
   }
-  async function snapshot() {
-    const pages = PageFlow.visible(), v = { ...Store.state.viewport };
-    const w = Renderer.area.clientWidth, h = Renderer.area.clientHeight;
-    const scale = Math.max(1, Math.min(devicePixelRatio || 1, 2, Math.sqrt(5e6 / (w*h))));
-    await Promise.all(pages.map(item => Renderer.awaitImages(item.page,{pdf:false})));
+  async function snapshot(rect, session) {
+    const v = { ...Store.state.viewport }, pages = PageFlow.visible();
+    const left = (rect.x - v.x) / v.zoom, top = (rect.y - v.y) / v.zoom;
+    const right = left + rect.w / v.zoom, bottom = top + rect.h / v.zoom;
+    const visible = pages.filter(({page, x, y}) => x < right && x + page.width > left && y < bottom && y + page.height > top);
+    const budget = Store.economyMode() ? 2e6 : 5e6;
+    const scale = Math.min(devicePixelRatio || 1, 2, Math.sqrt(budget / (rect.w * rect.h)));
+    await Promise.all(visible.map(item => Renderer.awaitImages(item.page, { pdf: false })));
+    if (active !== session) return null;
     const canvas = document.createElement("canvas");
-    canvas.width = Math.round(w*scale); canvas.height = Math.round(h*scale);
+    canvas.width = Math.round(rect.w * scale);
+    canvas.height = Math.round(rect.h * scale);
     const ctx = canvas.getContext("2d");
-    ctx.fillStyle = "#e9eeeb"; ctx.fillRect(0,0,canvas.width,canvas.height);
-    for (const item of pages) {
-      ctx.setTransform(scale*v.zoom,0,0,scale*v.zoom,scale*v.x,scale*v.y);
-      ctx.save(); ctx.translate(item.x,item.y);
-      ctx.beginPath(); ctx.rect(0,0,item.page.width,item.page.height); ctx.clip();
-      Renderer.drawPaper(ctx,item.page,{x:0,y:0,w:item.page.width,h:item.page.height});
-      const images=await pdfImages(item.page,scale*v.zoom);
-      Renderer.objects(ctx,item.page,{pdfImages:images});
-      for(const c of images.values())c.width=c.height=1;
-      if(item.page.showTitle && item.page.title) {
-        ctx.fillStyle=item.page.paper === "dark" ? "#d7e3d9" : "#314f41";
-        ctx.font="25px Segoe UI"; ctx.fillText(item.page.title,70,88);
-      }
-      ctx.restore();
-    }
-    return { canvas, w, h, viewport:v,bookId:Store.book().id,pageId:Store.current().id,pages:pages.map(item=>({id:item.page.id,x:item.x,y:item.y,width:item.page.width,height:item.page.height})),areaRect:Renderer.area.getBoundingClientRect().toJSON() };
-  }
-  async function pdfImages(page,scale){const images=new Map();async function visit(o){if(o.visible===false)return;if(o.type==='pdf')images.set(o.id,await PDFStudio.snapshotImage(o,Math.max(o.size.w,o.size.h)*scale));if(o.type==='group')for(const child of o.data.children)await visit(child);}for(const o of page.objects)if(page.layers.some(l=>l.id===o.layer&&l.visible))await visit(o);return images;}
-  async function pageImage(page){if(CanvasEngine.interacting)return null;const budget=Store.state.settings.performance==='economy'?1e6:3e6,scale=Math.min(1,Math.sqrt(budget/(page.width*page.height)));await Renderer.awaitImages(page,{pdf:false});const images=await pdfImages(page,scale);if(CanvasEngine.interacting){for(const c of images.values())c.width=c.height=1;return null;}const canvas=Renderer.pageCanvas(page,scale,{pdfImages:images});const blob=await new Promise(resolve=>canvas.toBlob(resolve,'image/png'));if(!blob)throw Error('Không tạo được PNG xem trước.');const src=await new Promise((resolve,reject)=>{const reader=new FileReader();reader.onload=()=>resolve(reader.result);reader.onerror=reject;reader.readAsDataURL(blob);});for(const c of images.values())c.width=c.height=1;canvas.width=canvas.height=1;return src;}
-  async function start(options = {}) {
-    if(active || preparing) return;
-    CanvasEngine.finishActive(); TeacherGeometry.cancel(); App.closePopover(); PenKeyboard.hide();
-    const generation = ++serial, bookId = Store.book().id;
-    preparing = true;
-    App.toast("Đang chuẩn bị ảnh trang viết…");
+    ctx.fillStyle = "#e9eeeb";
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
     try {
-      const shot = await snapshot();
-      if(serial !== generation || Store.book().id !== bookId) return;
-      if(Renderer.area.clientWidth!==shot.w || Renderer.area.clientHeight!==shot.h) throw Error("Vùng viết vừa đổi kích thước. Bấm Chụp lại.");
-      const overlay = document.createElement("div");
-      overlay.id = "capture-overlay";
-      overlay.setAttribute("aria-label", "Kéo hình chữ nhật để chụp trang viết");
-      overlay.innerHTML = '<div class="capture-guide">Kéo để chụp vùng · Esc để hủy '+(options.onCapture?'':'<select id="capture-mode" aria-label="Chế độ capture"><option value="image">Ảnh để dán</option><option value="question">Chừa chỗ giải câu hỏi</option></select>')+' <button id="capture-cancel" type="button">×</button></div><div class="capture-box" hidden></div>';
-      const r=shot.areaRect;
-      shot.canvas.className='capture-frozen';Object.assign(shot.canvas.style,{left:r.left+'px',top:r.top+'px',width:r.width+'px',height:r.height+'px'});
-      const reveal=document.createElement('canvas');reveal.className='capture-reveal';reveal.width=shot.canvas.width;reveal.height=shot.canvas.height;reveal.getContext('2d').drawImage(shot.canvas,0,0);Object.assign(reveal.style,{left:r.left+'px',top:r.top+'px',width:r.width+'px',height:r.height+'px'});reveal.hidden=true;
-      overlay.prepend(shot.canvas,reveal); document.body.append(overlay);
-      active = { overlay, shot, start: null, pointerId: null, callback:typeof options.onCapture==="function"?options.onCapture:options.mode==="question"?QuestionPages.create:null };
-      const mode=overlay.querySelector('#capture-mode');if(mode){mode.value=options.mode||'image';mode.onchange=()=>active.callback=mode.value==='question'?QuestionPages.create:null;}
-      const point = e => ({x:Math.max(0,Math.min(shot.w,e.clientX-r.left)),y:Math.max(0,Math.min(shot.h,e.clientY-r.top))});
-      const box = overlay.querySelector(".capture-box");
-      const rect = p => ({x:Math.min(active.start.x,p.x),y:Math.min(active.start.y,p.y),w:Math.abs(p.x-active.start.x),h:Math.abs(p.y-active.start.y)});
-      overlay.querySelector("#capture-cancel").onclick = cancel;
-      overlay.oncontextmenu = e => { e.preventDefault(); cancel(); };
-      overlay.onpointerdown = e => {
-        if(e.button !== 0 || e.target.closest("button,select,option") || active?.start) return;
-        e.preventDefault(); active.start=point(e); active.pointerId=e.pointerId;
-        overlay.setPointerCapture(e.pointerId); box.hidden=false;
-      };
-      overlay.onpointermove = e => {
-        if(!active?.start || active.pointerId !== e.pointerId) return;
-        const b=rect(point(e)); Object.assign(box.style,{left:(b.x+r.left)+"px",top:(b.y+r.top)+"px",width:b.w+"px",height:b.h+"px"});reveal.hidden=false;reveal.style.clipPath='inset('+b.y+'px '+(shot.w-b.x-b.w)+'px '+(shot.h-b.y-b.h)+'px '+b.x+'px)';
-      };
-      overlay.onpointerup = e => {
-        if(!active?.start || active.pointerId !== e.pointerId) return;
-        const r=rect(point(e));
-        if(r.w<6 || r.h<6) { active.start=null;box.hidden=true;reveal.hidden=true;return App.toast("Kéo một vùng lớn hơn để chụp."); }
-        finish(r).catch(error=>App.toast("Không lưu được ảnh chụp: "+error.message));
-      };
-      overlay.onpointercancel = cancel;
-      App.toast("Khoanh vùng hình và nét cần chụp.");
-    } catch(error) { App.toast("Chụp vùng: "+error.message); }
-    finally { preparing=false; }
-  }
-  async function finish(rect) {
-    const { shot, callback } = active, source=shot.canvas;
-    const sx=source.width/shot.w, sy=source.height/shot.h;
-    const output=document.createElement("canvas");
-    output.width=Math.max(1,Math.round(rect.w*sx)); output.height=Math.max(1,Math.round(rect.h*sy));
-    output.getContext("2d").drawImage(source,rect.x*sx,rect.y*sy,rect.w*sx,rect.h*sy,0,0,output.width,output.height);
-    const src=output.toDataURL("image/png");output.width=output.height=1;
-    if(src.length>7e6) { cancel();throw Error("Vùng chụp quá lớn. Hãy khoanh nhỏ hơn."); }
-    if(callback){
-      const v=shot.viewport,region={src,rect,bookId:shot.bookId,pageId:shot.pageId,viewport:{...v},sourceOffset:null,world:{x:(rect.x-v.x)/v.zoom,y:(rect.y-v.y)/v.zoom,w:rect.w/v.zoom,h:rect.h/v.zoom}};
-      const sourcePage=shot.pages.find(p=>region.world.x+region.world.w/2>=p.x && region.world.x+region.world.w/2<=p.x+p.width && region.world.y+region.world.h/2>=p.y && region.world.y+region.world.h/2<=p.y+p.height);
-      if(sourcePage){region.sourceOffset={x:sourcePage.x,y:sourcePage.y};region.pageId=sourcePage.id;region.world.x-=sourcePage.x;region.world.y-=sourcePage.y;}
-      if(callback===QuestionPages.create){
-        const ctx=source.getContext("2d"),candidates=[];
-        for(const offset of [42,78,114]){const x=Math.max(0,Math.min(shot.w-160,rect.x)),y=rect.y-offset;if(y<0)continue;const data=ctx.getImageData(Math.round(x*sx),Math.round(y*sy),Math.max(1,Math.round(150*sx)),Math.max(1,Math.round(30*sy))).data;let ink=0;for(let i=0;i<data.length;i+=16)if(data[i]+data[i+1]+data[i+2]<570)ink++;candidates.push({x,y,score:ink+offset*.001});}
-        candidates.sort((a,b)=>a.score-b.score);const choice=candidates[0];if(choice)region.anchor={x:(choice.x-v.x)/v.zoom-(sourcePage?.x||0),y:(choice.y-v.y)/v.zoom-(sourcePage?.y||0)};
+      for (const { page, x, y } of visible) {
+        const images = await pdfImages(page, scale * v.zoom);
+        try {
+          if (active !== session) return null;
+          const z = scale * v.zoom;
+          ctx.save();
+          ctx.setTransform(z, 0, 0, z, scale * (v.x - rect.x) + z * x, scale * (v.y - rect.y) + z * y);
+          ctx.beginPath(); ctx.rect(0, 0, page.width, page.height); ctx.clip();
+          const x0 = Math.max(0, left - x), y0 = Math.max(0, top - y);
+          Renderer.drawPaper(ctx, page, { x: x0, y: y0, w: Math.min(page.width, right - x) - x0, h: Math.min(page.height, bottom - y) - y0 });
+          Renderer.objects(ctx, page, { pdfImages: images });
+          ctx.restore();
+        } finally { releaseImages(images); }
       }
-      cancel();await callback(region);return;
+      return { src: await png(canvas, 5.2e6), viewport: v, pages: visible };
+    } finally { canvas.width = canvas.height = 1; }
+  }
+  function releaseImages(images) {
+    for (const canvas of images.values()) canvas.width = canvas.height = 1;
+  }
+  async function pdfImages(page, scale) {
+    const images = new Map(), visible = new Set(page.layers.filter(layer => layer.visible).map(layer => layer.id));
+    const maxSize = Store.economyMode() ? 2200 : 3200;
+    async function visit(o) {
+      if (o.visible === false) return;
+      if (o.type === "pdf") images.set(o.id, await PDFStudio.snapshotImage(o, Math.min(maxSize, Math.max(o.size.w, o.size.h) * scale)));
+      if (o.type === "group") for (const child of o.data.children) await visit(child);
     }
-    latest={src,name:"Inkulator-Capture-"+new Date().toISOString().replace(/[:.]/g,"-")+".png"};
-    preferred=true; updateTray(); cancel();
-    let saved;
-    if(root.InkulatorDesktop?.saveCapture) saved=await InkulatorDesktop.saveCapture(src);
-    else saved=await AssetStorage.put(key,src);
+    try {
+      for (const o of page.objects) if (visible.has(o.layer)) await visit(o);
+      return images;
+    } catch (error) {
+      releaseImages(images);
+      throw error;
+    }
+  }
+  async function png(canvas, maxBytes = Infinity) {
+    const blob = await new Promise(resolve => canvas.toBlob(resolve, "image/png"));
+    canvas.width = canvas.height = 1;
+    if (!blob) throw Error("Không tạo được ảnh PNG.");
+    if (blob.size > maxBytes) throw Error("Vùng chụp quá lớn. Hãy khoanh nhỏ hơn.");
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onload = () => resolve(reader.result);
+      reader.onerror = reject;
+      reader.readAsDataURL(blob);
+    });
+  }
+  async function pageImage(page) {
+    if (CanvasEngine.interacting) return null;
+    const budget = Store.economyMode() ? 1e6 : 3e6;
+    const scale = Math.min(1, Math.sqrt(budget / (page.width * page.height)));
+    await Renderer.awaitImages(page, { pdf: false });
+    if (CanvasEngine.interacting) return null;
+    const images = await pdfImages(page, scale);
+    try {
+      if (CanvasEngine.interacting) return null;
+      return await png(Renderer.pageCanvas(page, scale, { pdfImages: images }));
+    } finally { releaseImages(images); }
+  }
+  function start(options = {}) {
+    if (active) return;
+    CanvasEngine.finishActive(); TeacherGeometry.cancel(); App.closePopover(); PenKeyboard.hide();
+    serial++;
+    const r = Renderer.area.getBoundingClientRect(), overlay = document.createElement("div");
+    overlay.id = "capture-overlay";
+    overlay.setAttribute("aria-label", "Kéo hình chữ nhật để chụp trang viết");
+    overlay.innerHTML = '<div class="capture-shade"></div><div class="capture-guide">Kéo để chụp vùng · Esc để hủy ' +
+      (options.onCapture ? '' : '<select id="capture-mode" aria-label="Chế độ chụp"><option value="image">Ảnh để dán</option><option value="question">Chừa chỗ giải câu hỏi</option></select>') +
+      ' <button id="capture-cancel" type="button" aria-label="Hủy chụp">×</button></div><div class="capture-box" hidden></div>';
+    document.body.append(overlay);
+    const session = { overlay, frame: 0, bookId: Store.book().id, pageId: Store.current().id };
+    active = session;
+    const mode = overlay.querySelector("select");
+    if (mode) mode.value = options.mode || Store.state.settings.captureMode;
+    const box = overlay.querySelector(".capture-box"), shade = overlay.querySelector(".capture-shade");
+    const point = e => ({ x: Math.max(0, Math.min(r.width, e.clientX - r.left)), y: Math.max(0, Math.min(r.height, e.clientY - r.top)) });
+    const rect = p => ({ x: Math.min(session.start.x, p.x), y: Math.min(session.start.y, p.y), w: Math.abs(p.x - session.start.x), h: Math.abs(p.y - session.start.y) });
+    const paint = () => {
+      session.frame = 0;
+      const b = session.rect, left = b.x + r.left, top = b.y + r.top;
+      const right = left + b.w, bottom = top + b.h;
+      box.hidden = false;
+      box.style.transform = `translate(${left}px, ${top}px)`;
+      box.style.width = b.w + "px";
+      box.style.height = b.h + "px";
+      shade.style.clipPath = `polygon(evenodd, 0 0, 100% 0, 100% 100%, 0 100%, 0 0, ${left}px ${top}px, ${left}px ${bottom}px, ${right}px ${bottom}px, ${right}px ${top}px, ${left}px ${top}px, 0 0)`;
+    };
+    overlay.querySelector("#capture-cancel").onclick = cancel;
+    const keyTarget = mode || overlay.querySelector("#capture-cancel");
+    keyTarget.focus({preventScroll:true});
+    overlay.oncontextmenu = e => { e.preventDefault(); cancel(); };
+    overlay.addEventListener("wheel", e => { if (!e.target.closest("select")) e.preventDefault(); }, { passive: false });
+    overlay.onpointerdown = e => {
+      if (e.button !== 0 || e.target.closest("button,select,option") || session.start) return;
+      e.preventDefault();
+      session.start = point(e);
+      session.pointerId = e.pointerId;
+      overlay.setPointerCapture(e.pointerId);
+    };
+    overlay.onpointermove = e => {
+      if (session.pointerId !== e.pointerId) return;
+      session.rect = rect(point(e));
+      if (!session.frame) session.frame = requestAnimationFrame(paint);
+    };
+    overlay.onpointerup = e => {
+      if (session.pointerId !== e.pointerId) return;
+      session.pointerId = null;
+      cancelAnimationFrame(session.frame);
+      session.frame = 0;
+      session.rect = rect(point(e));
+      if (session.rect.w < 6 || session.rect.h < 6) {
+        session.start = null;
+        box.hidden = true;
+        shade.style.clipPath = "";
+        return App.toast("Kéo một vùng lớn hơn để chụp.");
+      }
+      paint();
+      const callback = options.onCapture || (mode?.value === "question" ? QuestionPages.create : null);
+      finish(session, callback).catch(error => {
+        if (active === session) cancel();
+        App.toast("Không lưu được ảnh chụp: " + error.message);
+      });
+    };
+    overlay.onpointercancel = cancel;
+  }
+  async function finish(session, callback) {
+    const rect = session.rect, shot = await snapshot(rect, session);
+    if (active !== session) return;
+    cancel();
+    if (!shot || Store.book().id !== session.bookId || Store.current().id !== session.pageId) return;
+    const { src, viewport, pages } = shot;
+    if (callback) {
+      const world = { x: (rect.x - viewport.x) / viewport.zoom, y: (rect.y - viewport.y) / viewport.zoom, w: rect.w / viewport.zoom, h: rect.h / viewport.zoom };
+      const cx = world.x + world.w / 2, cy = world.y + world.h / 2;
+      const source = pages.find(({ x, y, page }) => cx >= x && cy >= y && cx <= x + page.width && cy <= y + page.height);
+      const sourceOffset = source ? { x: source.x, y: source.y } : null;
+      if (source) { world.x -= source.x; world.y -= source.y; }
+      return callback({ src, rect, viewport, world, sourceOffset, bookId: session.bookId, pageId: source?.page.id || session.pageId });
+    }
+    latest = { src, name: "Inkulator-Capture-" + new Date().toISOString().replace(/[:.]/g, "-") + ".png" };
+    preferred = true;
+    updateTray();
+    const saved = root.InkulatorDesktop?.saveCapture ? await InkulatorDesktop.saveCapture(src) : await AssetStorage.put(key, src);
     App.toast(saved ? "Đã chụp và lưu sẵn. Bấm Dán để chèn ảnh." : "Đã chụp. Ảnh sẵn để Dán trong phiên này.");
   }
   function cancel() {
-    serial++; preparing=false;
-    if(active){for(const canvas of active.overlay.querySelectorAll("canvas"))canvas.width=canvas.height=1;active.overlay.remove();} active=null;
+    serial++;
+    if (active) { cancelAnimationFrame(active.frame); active.overlay.remove(); }
+    active = null;
   }
   async function paste() {
     if(!latest) return App.toast("Chưa có ảnh chụp. Bấm Chụp vùng trước.");
@@ -155,5 +222,5 @@
     if(!latest) return;
     Exporter.download(await (await fetch(latest.src)).blob(),latest.name,"image/png");
   }
-  root.CaptureStudio={init,start,options,cancel,paste,download,pageImage,releasePreference(){preferred=false;},get preferred(){return preferred;},get latest(){return latest;},get active(){return !!active || preparing;}};
+  root.CaptureStudio={init,start,options,cancel,paste,download,pageImage,releasePreference(){preferred=false;},get preferred(){return preferred;},get latest(){return latest;},get active(){return !!active;}};
 })(window);

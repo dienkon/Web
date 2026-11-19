@@ -11,7 +11,7 @@
     paper: "blank",
     width: 1200,
     height: 1700,
-    showTitle: true,
+    showTitle: false,
     objects: [],
     layers: ["image", "geometry", "graph", "ink", "annotation"].map((id) => ({
       id,
@@ -38,6 +38,11 @@
     performance: "auto",
     inkPerformanceV2: true,
     touchInk: false,
+    canvasMenu: false,
+    replaceBlankOnPdfImport: true,
+    captureMode: "image",
+    highlighterColor: "#ffd600",
+    highlighterWidth: 19,
     smartShape: false,
     freeGeometryPoints: true,
     animations: true,
@@ -81,7 +86,19 @@
   function current() {
     return book().pages[state.pageIndex];
   }
-  function emit() {
+  function loadQuickColors(settings) {
+    for (const key of ["penQuickColors", "highlighterQuickColors"]) {
+      const list = settings?.[key];
+      if (Array.isArray(list) && list.length)
+        state.settings[key] = [...new Set(list.filter(color => typeof color === "string" && /^#[0-9a-f]{6}$/i.test(color)))].slice(0, 6);
+    }
+  }
+  function economyMode() {
+    const mode = state.settings.performance;
+    return mode === "economy" || (mode === "auto" &&
+      (root.navigator?.deviceMemory <= 4 || root.navigator?.hardwareConcurrency <= 4));
+  }
+  function emit(inkAppend = null) {
     const p = current();
     state.selection = state.selection.filter((id) =>
       p.objects.some(
@@ -90,7 +107,7 @@
           p.layers.some((l) => l.id === o.layer && l.visible && !l.locked),
       ),
     );
-    if (root.document) root.document.dispatchEvent(new Event("statechange"));
+    if (root.document) root.document.dispatchEvent(new CustomEvent("statechange", { detail: inkAppend }));
   }
   let cachedSnapshot = null;
   // History owns references to media bytes; editing a caption must not duplicate
@@ -206,17 +223,17 @@
     scheduleSave();
   }
   function trimHistory() {
+    const budget = economyMode() ? 8e6 : 24e6;
     for (const list of [state.history, state.future]) {
       const bytes = (entry) => 2 * (typeof entry === "string" ? entry.length : entry.bytes);
       let size = list.reduce((n, entry) => n + bytes(entry), 0);
       while (
         list.length > 1 &&
-        (list.length > state.settings.historyLimit || size > (state.settings.performance === "economy" ? 8e6 : 24e6))
+        (list.length > state.settings.historyLimit || size > budget)
       )
         size -= bytes(list.shift());
     }
     pruneHistoryMedia();
-    const budget=state.settings.performance === "economy" ? 8e6 : 24e6;
     const retainedBytes=()=>{
       const current=snapshotMedia.get(cachedSnapshot)||new Set(),used=new Set();
       let size=0;
@@ -259,7 +276,7 @@
     invalidateSnapshot();
     book().modified = new Date().toISOString();
     state.dirty = true;
-    emit();
+    emit(entry.pages.length ? null : additions);
     scheduleSave();
     if(root.document)root.document.dispatchEvent(new CustomEvent("inkcommitted",{detail:additions}));
   }
@@ -578,6 +595,8 @@
       )
         throw Error("Hình chưa hỗ trợ.");
       if(o.type==="shape" && d.vertices!==undefined && (!Array.isArray(d.vertices)||d.vertices.length<3||d.vertices.length>16||d.vertices.some(p=>!Array.isArray(p)||p.length!==2||p.some(v=>!boundedNum(v,0,1)))))throw Error("Đỉnh hình vẽ không hợp lệ.");
+      if (o.type === "shape" && d.pattern !== undefined && !["dashed", "dotted"].includes(d.pattern))
+        throw Error("Kiểu nét hình vẽ không hợp lệ.");
       if (o.type === "geometry") {
         if (
           !root.Geometry.flatCatalog.some(([k]) => k === d.kind) ||
@@ -1053,10 +1072,14 @@
         ? Math.min(Math.max(0, lib.pageIndex), book().pages.length - 1)
         : 0;
       if (lib.settings) {
+        loadQuickColors(lib.settings);
         for (const k of [
           "theme",
           "touchInk",
+          "canvasMenu",
+          "replaceBlankOnPdfImport",
           "smartShape",
+          "freeGeometryPoints",
           "animations",
           "autoPages",
           "performance",
@@ -1066,6 +1089,12 @@
         ])
           if (typeof lib.settings[k] === typeof defaults[k])
             state.settings[k] = lib.settings[k];
+        if (typeof lib.settings.highlighterColor === "string" && /^#[0-9a-f]{6}$/i.test(lib.settings.highlighterColor))
+          state.settings.highlighterColor = lib.settings.highlighterColor;
+        if (["image", "question"].includes(lib.settings.captureMode))
+          state.settings.captureMode = lib.settings.captureMode;
+        if (Number.isFinite(lib.settings.highlighterWidth) && lib.settings.highlighterWidth >= 6 && lib.settings.highlighterWidth <= 60)
+          state.settings.highlighterWidth = lib.settings.highlighterWidth;
         for (const k of [
           "gridSize",
           "smoothing",
@@ -1133,6 +1162,8 @@
   root.Store = {
     snapshot,
     state,
+    economyMode,
+    loadQuickColors,
     uid,
     clone,
     page,

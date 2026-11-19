@@ -557,9 +557,7 @@
         .join("") +
       '</div><label class="field"><span>Kích thước trang xuất / in</span><select id="paper-size"><option value="a4">A4 · 1200 × 1700</option><option value="a3">A3 · 1700 × 2400</option><option value="wide">Ngang · 1700 × 1200</option><option value="infinite">Không gian rộng · 4000 × 4000</option></select></label><label class="field"><span>Kích thước ô ly</span><input id="paper-grid-size" type="range" min="12" max="60" value="' +
       Store.state.settings.gridSize +
-      '"></label><label class="field-row"><input type="checkbox" id="paper-title" ' +
-      (p.showTitle ? "checked" : "") +
-      '><span>Hiện vùng tiêu đề</span></label><p class="hint">Bạn có thể kéo vùng nhìn tự do. Viền đứt nét là ranh giới trang khi xuất; chỉ nội dung trong viền được xuất.</p>';
+      '"></label><p class="hint">Bạn có thể kéo vùng nhìn tự do. Viền đứt nét là ranh giới trang khi xuất; chỉ nội dung trong viền được xuất.</p>';
     el()
       .querySelectorAll("[data-paper]")
       .forEach(
@@ -592,8 +590,6 @@
       Renderer.request();
       Store.scheduleSave();
     };
-    document.getElementById("paper-title").onchange = (e) =>
-      Store.transaction(() => (p.showTitle = e.target.checked));
   }
   function layers() {
     el().innerHTML =
@@ -643,7 +639,7 @@
     el().innerHTML =
       '<label class="field"><span>Giao diện</span><select id="setting-theme"><option value="light">Sáng</option><option value="dark">Tối</option></select></label><label class="field-row"><input id="setting-touch" type="checkbox" ' +
       (s.touchInk ? "checked" : "") +
-      '><span>Cho phép viết bằng ngón tay</span></label><p class="hint">Khi tắt, chạm dùng để kéo trang; bút cảm ứng vẫn viết được. Khi đang viết bằng bút, bỏ qua ngón tay.</p><label class="field-row"><input id="setting-smart" type="checkbox" ' +
+      '><span>Cho phép viết bằng ngón tay</span></label><p class="hint">Khi tắt, dùng ngón tay để kéo trang khi đang chọn bút viết. Khi đang viết bằng bút cảm ứng, ứng dụng bỏ qua ngón tay.</p><label class="field-row"><input id="setting-smart" type="checkbox" ' +
       (s.smartShape ? "checked" : "") +
       '><span>Smart Shape · nhận dạng nét thẳng / hình kín</span></label><label class="field"><span>Độ mượt</span><input id="setting-smoothing" type="range" min="0" max=".85" step=".05" value="' +
       s.smoothing +
@@ -654,6 +650,17 @@
       '"></label><label class="field"><span>Giới hạn Undo</span><input id="setting-history" type="number" min="10" max="100" value="' +
       s.historyLimit +
       '"></label><div class="panel-divider"></div><p class="hint">Ngôn ngữ: Tiếng Việt. Dữ liệu chỉ lưu trên trình duyệt này, không đồng bộ qua mạng. Nên tải tệp .smath.json định kỳ; lưu tự động phụ thuộc quyền và dung lượng trình duyệt.</p><button class="secondary full" data-action="save">Tải bản sao lưu sổ tay</button><button class="secondary full" data-action="backup-all">Sao lưu tất cả sổ tay</button>';
+    document.getElementById("setting-touch").closest("label").insertAdjacentHTML("beforebegin",
+      '<label class="field-row"><input id="setting-canvas-menu" type="checkbox"><span>Menu ngữ cảnh và nhấp đúp để sửa đối tượng</span></label>' +
+      '<label class="field-row"><input id="setting-pdf-first-page" type="checkbox"><span>Bỏ trang đầu trống khi chèn PDF vào trang mới</span></label>' +
+      '<label class="field"><span>Chế độ chụp mặc định</span><select id="setting-capture-mode"><option value="image">Ảnh để dán</option><option value="question">Chừa chỗ giải câu hỏi</option></select></label>');
+    document.getElementById("setting-canvas-menu").checked = s.canvasMenu;
+    document.getElementById("setting-pdf-first-page").checked = s.replaceBlankOnPdfImport;
+    document.getElementById("setting-capture-mode").value = s.captureMode;
+    document.getElementById("setting-capture-mode").onchange = (e) => {
+      s.captureMode = e.target.value;
+      Store.scheduleSave();
+    };
     document.getElementById("setting-theme").value = s.theme;
     document.getElementById("setting-theme").onchange = (e) => {
       s.theme = e.target.value;
@@ -663,6 +670,8 @@
     for (const [id, key] of [
       ["touch", "touchInk"],
       ["smart", "smartShape"],
+      ["canvas-menu", "canvasMenu"],
+      ["pdf-first-page", "replaceBlankOnPdfImport"],
     ])
       document.getElementById("setting-" + id).onchange = (e) => {
         s[key] = e.target.checked;

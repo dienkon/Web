@@ -3,7 +3,7 @@
   function init() {
     const dock = document.getElementById("pen-dock");
     dock.innerHTML =
-      '<button class="pen-dock-grip" data-action="toggle-dock" title="Thu gọn thanh bút">⋮</button>' +
+      '<button class="pen-dock-grip" data-action="toggle-dock" title="Mở thanh bút" aria-label="Thanh bút" aria-expanded="false">⋮</button>' +
       [
         ["pen", "✎", "Bút viết"],
         ["eraser", "▱", "Tẩy"],
@@ -25,7 +25,7 @@
         )
         .join("") +
       '<span class="pen-dock-separator"></span><button data-action="paste-image" title="Dán ảnh từ bộ nhớ đệm" aria-label="Dán ảnh nhanh">▣</button><button data-action="pen-keyboard" title="Bàn phím trên màn hình" aria-label="Bàn phím bút">⌨</button><button data-action="pen-options" title="Thao tác không cần phím" aria-label="Tùy chọn thao tác bút">⋯</button>';
-    document.addEventListener("statechange", update);
+    document.addEventListener("statechange", (event) => { if (!event.detail) update(); });
     dock.addEventListener("pointerdown", (e) => {
       if (e.target.closest("button")) e.preventDefault();
     });
@@ -50,6 +50,7 @@
         Math.hypot(e.clientX - drag.startX, e.clientY - drag.startY) > 5;
       if (!moved) return;
       const a = Renderer.area.getBoundingClientRect();
+      dock.style.bottom = "auto";
       dock.style.left =
         Math.max(
           4,
@@ -79,7 +80,9 @@
             ) + "px";
       }
     };
-    new ResizeObserver(clampDock).observe(Renderer.area);
+    const observer = new ResizeObserver(clampDock);
+    observer.observe(Renderer.area);
+    observer.observe(dock);
     grip.addEventListener(
       "click",
       (e) => {
@@ -91,6 +94,13 @@
       },
       true,
     );
+  }
+  function toggleDock() {
+    const dock = document.getElementById("pen-dock");
+    const expanded = !dock.classList.toggle("collapsed");
+    const grip = dock.querySelector(".pen-dock-grip");
+    grip.setAttribute("aria-expanded", String(expanded));
+    grip.title = expanded ? "Thu gọn thanh bút" : "Mở thanh bút";
   }
   function update() {
     document
@@ -206,5 +216,5 @@
       box.querySelector("#transform-y").value = Number(o.position.y.toFixed(2));
     };
   }
-  root.PenTools = { init, update, options, transform };
+  root.PenTools = { init, update, options, transform, toggleDock };
 })(window);

@@ -8,7 +8,7 @@
     header.querySelector("button").onclick=close;
     links=document.createElement("div");links.id="question-page-links";
     Renderer.area.append(header,links);
-    document.addEventListener("statechange",refresh);
+    document.addEventListener("statechange",event=>{if(!event.detail)refresh();});
     new ResizeObserver(position).observe(Renderer.area);
     refresh();
   }
@@ -53,6 +53,31 @@
   function open(id){
     const index=Store.book().pages.findIndex(p=>p.id===id);if(index<0)return;
     CanvasEngine.finishActive();TeacherGeometry.cancel();Store.switchPage(index);
+  }
+  function next() {
+    CanvasEngine.finishActive();
+    const pages = Store.book().pages, state = Store.state;
+    const current = Store.current();
+    const readingLine = Math.min(100, Renderer.area.clientHeight * .2);
+    const after = (readingLine - state.viewport.y) / state.viewport.zoom + 1;
+    for (let i = state.pageIndex; i < pages.length; i++) {
+      const page = pages[i];
+      if (page.questionSource) {
+        if (i !== state.pageIndex && !current.questionSource) { open(page.id); return; }
+        continue;
+      }
+      const q = (page.inlineQuestions || []).filter(q => i !== state.pageIndex || q.y > after)
+        .sort((a, b) => a.y - b.y || a.x - b.x)[0];
+      if (!q) continue;
+      if (i !== state.pageIndex) PageFlow.go(i);
+      state.viewport.y = readingLine - q.y * state.viewport.zoom;
+      PageFlow.update();
+      Renderer.request();
+      return;
+    }
+    const index = PageFlow.layout().items.find(item => item.index > state.pageIndex && !item.hidden)?.index;
+    if (index !== undefined) PageFlow.go(index);
+    else App.toast("Đã đến cuối tài liệu.");
   }
   function close(){
     const p=Store.current(),source=sourceOf(p);if(!source)return;
@@ -109,5 +134,5 @@
       }
     });
   }
-  root.QuestionPages={init,create,open,close,position,identify};
+  root.QuestionPages={init,create,open,close,next,position,identify};
 })(window);

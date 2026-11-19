@@ -19,6 +19,7 @@ const log = (name) => {
       acceptDownloads: true,
     });
     await context.setOffline(true);
+    await context.addInitScript(() => { window.showSaveFilePicker = undefined; });
     const page = await context.newPage();
     const errors = [],
       network = [];
@@ -157,6 +158,8 @@ const log = (name) => {
         Store.emit();
       });
       const graphCenter = await page.evaluate(() => {
+        App.setTool("select");
+        Store.state.settings.canvasMenu = true;
         const o = Store.current().objects.find((o) => o.type === "graph");
         const r = Renderer.area.getBoundingClientRect();
         return {
@@ -273,7 +276,6 @@ const log = (name) => {
       );
       await page.locator("#calc-close").click();
       log(channel + ": calculator DEG/RAD, exact fraction and insert result");
-      await page.keyboard.press("Control+s");
       const savedPromise = page.waitForEvent("download");
       await page.keyboard.press("Control+s");
       const saved = await savedPromise;

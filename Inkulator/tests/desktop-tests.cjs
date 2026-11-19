@@ -46,6 +46,7 @@ const options = {
     });
     let captureClipboard;
     try {
+      await page.click('[data-action="toggle-dock"]');
       await page.click('#pen-dock [data-action="capture"]');
       await page.locator("#capture-overlay").waitFor();
       const r=await page.locator("#capture-overlay").boundingBox();

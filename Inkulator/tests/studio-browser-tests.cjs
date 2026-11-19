@@ -208,6 +208,7 @@ const pass = (s) => {
       await point(c1);
       await point(c2);
       await point(c3);
+      await point(c1);
       assert.equal(
         await page.evaluate(
           () =>
@@ -326,6 +327,7 @@ const pass = (s) => {
       );
       pass(channel + ": PDF text is extractable without online OCR");
       await page.locator('[data-action="close-panel"]').click();
+      await page.evaluate(() => Object.defineProperty(window, "showSaveFilePicker", { configurable: true, value: undefined }));
       const jsonPromise = page.waitForEvent("download");
       await page.keyboard.press("Control+s");
       const json = await jsonPromise,

@@ -174,8 +174,10 @@ const pass = (s) => {
         channel +
           ": downward scrolling appends a matching page once, with no gap or render-driven growth",
       );
+      await tap('[data-action="toggle-dock"]');
       await tap('#pen-dock [data-tool="pan"]');
-      for (let i = 0; i < 2; i++)
+      assert.equal(await page.evaluate(() => Store.state.tool), "pan");
+      for (let i = 0; i < 6 && await page.evaluate(() => Store.book().pages.length < 3); i++)
         await drag({ x: 850, y: 800 }, { x: 850, y: 100 });
       await page.waitForFunction(() => Store.book().pages.length >= 3);
       assert.ok(await page.evaluate(() => Store.state.pageIndex >= 1));

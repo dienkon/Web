@@ -200,7 +200,8 @@ const pass = (s) => {
       Store.state.eraser = "partial";
       const q = Renderer.worldPoint(o, { x: 200, y: 60 }),
         r = Renderer.area.getBoundingClientRect();
-      return { id: o.id, x: r.left + q.x, y: r.top + q.y };
+      const v = Store.state.viewport;
+      return { id: o.id, x: r.left + v.x + q.x * v.zoom, y: r.top + v.y + q.y * v.zoom };
     });
     await page.mouse.move(cut.x, cut.y);
     await page.mouse.down();
@@ -274,8 +275,12 @@ const pass = (s) => {
     );
     await page.evaluate(() => App.openPanel("solid"));
     await page
-      .getByRole("button", { name: "Chóp SA ⊥ đáy", exact: true })
+      .locator('.library-item[title^="Chóp SA ⊥ đáy"]')
       .click();
+    await page.locator('#geometry-fields [data-dimension="h"]').evaluate(input => {
+      input.value = "6";
+      input.dispatchEvent(new Event("change"));
+    });
     assert.match(
       await page.locator("#geometry-measurement").textContent(),
       /V ≈ 32/,
@@ -321,8 +326,7 @@ const pass = (s) => {
     assert.ok(fs.statSync(path.join(out, "export.png")).size > 100);
     pass("Local image import and PNG export");
     await action("add-page");
-    await page.locator("#page-title-input").fill("Trang thứ hai");
-    await page.locator("#page-title-input").blur();
+    assert.equal(await page.locator("#page-title-input").count(), 0);
     const pdfPromise = page.waitForEvent("download");
     await page.evaluate(() => {
       Exporter.pdf();

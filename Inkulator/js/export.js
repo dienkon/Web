@@ -461,11 +461,6 @@
       const ctx = new SVGContext();
       Renderer.drawPaper(ctx, p, { x: 0, y: 0, w: p.width, h: p.height });
       Renderer.objects(ctx, p);
-      if (p.showTitle && p.title) {
-        ctx.fillStyle = "#314f41";
-        ctx.font = "25px Segoe UI";
-        ctx.fillText(p.title, 70, 88);
-      }
       const xml =
         '<svg xmlns="http://www.w3.org/2000/svg" width="' +
         p.width +

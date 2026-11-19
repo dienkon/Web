@@ -18,16 +18,17 @@ const root=path.resolve(__dirname,"..");fs.mkdirSync(path.join(root,"test-result
    const fit=async()=>{
     await page.waitForFunction(()=>{const a=Renderer.area,p=Store.current(),v=Store.state.viewport;return Math.abs(v.x-(a.clientWidth-p.width*v.zoom)/2)<1&&v.y>=0&&v.y+p.height*v.zoom<=a.clientHeight-40;});
    };
-   await fit();assert.equal(await page.evaluate(()=>Store.book().pages.length),1);
+   await page.evaluate(()=>PageFlow.fit('page'));await fit();assert.equal(await page.evaluate(()=>Store.book().pages.length),1);
    await page.screenshot({path:path.join(root,`test-results/${engine}-centered-page.png`)});
-   await tap("#pages-toggle");await fit();await tap("#pages-toggle");await fit();
+   const fitted = await page.evaluate(()=>Store.state.viewport.zoom);
+   await tap("#pages-toggle");await tap("#pages-toggle");assert.equal(await page.evaluate(()=>Store.state.viewport.zoom),fitted);
    await tap('[data-action="fit-width"]');
    assert.ok(await page.evaluate(()=>Math.abs(Store.current().width*Store.state.viewport.zoom-(Renderer.area.clientWidth-48))<1));
-   await tap('[data-action="fit"]');await fit();
+   await tap('#zoom-button');await tap('#popover [data-action="fit"]');await fit();
    await page.evaluate(()=>CanvasEngine.zoomAt(.9));await page.setViewportSize({width:1280,height:900});
    await page.waitForTimeout(80);assert.equal(await page.evaluate(()=>Store.state.viewport.zoom),.9);
-   await page.evaluate(()=>Store.switchPage(0));await fit();
-   console.log("PASS",engine,"page starts centered and fully visible, refits with sidebar/page changes and preserves manual zoom on resize");
+   await page.evaluate(()=>Store.switchPage(0));assert.equal(await page.evaluate(()=>Store.state.viewport.zoom),.9);
+   console.log("PASS",engine,"fits the whole page or width on demand and preserves zoom across sidebar, viewport and page changes");
    await page.evaluate(()=>{
     Store.transaction(()=>{
       const p=Store.current();p.paper="blank";p.showTitle=false;p.width=1000;p.height=800;
@@ -37,6 +38,7 @@ const root=path.resolve(__dirname,"..");fs.mkdirSync(path.join(root,"test-result
     Object.defineProperty(navigator,"clipboard",{configurable:true,value:{read:async()=>{throw Error("blocked");}}});
    });
    const initial=await page.evaluate(()=>({history:Store.state.history.length,count:Store.current().objects.length}));
+   await tap('[data-action="toggle-dock"]');
    await tap('#pen-dock [data-action="capture"]');await page.locator("#capture-overlay").waitFor();
    const area=await page.locator("#canvas-area").boundingBox();
    const A={x:area.x+80+200,y:area.y+60+220},B={x:area.x+80+620,y:area.y+60+480};
@@ -58,6 +60,8 @@ const root=path.resolve(__dirname,"..");fs.mkdirSync(path.join(root,"test-result
    console.log("PASS",engine,"reverse pen rectangle captures clean paper/content at Retina scale; paste works with blocked clipboard and has Undo/Redo");
    await tap('#pen-dock [data-action="capture"]');await page.locator("#capture-overlay").waitFor();await page.keyboard.press("Escape");assert.equal(await page.locator("#capture-overlay").count(),0);
    await page.evaluate(()=>Store.save());await page.reload();await page.waitForFunction(()=>CaptureStudio.latest);assert.equal(await page.evaluate(()=>CaptureStudio.latest.src),result.src);
+   const dock = await page.locator("#pen-dock").boundingBox(), tray = await page.locator("#capture-tray").boundingBox();
+   assert.ok(dock.x + dock.width < tray.x, "the saved capture tray leaves the collapsed dock reachable");
    console.log("PASS",engine,"capture cancellation preserves data and last capture survives reload");
    await page.evaluate(()=>{
     Store.transaction(()=>{Store.current().objects=[];Store.current().paper="grid";});

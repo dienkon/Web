@@ -24,6 +24,7 @@ const pass = (s) => {
       });
       // Isolate clipboard fixtures inside the test context; never inspect the user's OS clipboard.
       await context.addInitScript(() => {
+        window.showSaveFilePicker = undefined;
         const state = { items: [], blocked: false };
         window.__clipboardFixture = state;
         Object.defineProperty(navigator, "clipboard", {
@@ -276,6 +277,7 @@ const pass = (s) => {
         channel +
           ": width and position controls are editable through the on-screen numeric keyboard",
       );
+      await tap('[data-action="toggle-dock"]');
       await tap('#pen-dock [data-action="pen-options"]');
       await tap("#pen-multiselect");
       await tap('#popover [data-action="finish-action"]');

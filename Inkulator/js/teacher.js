@@ -165,7 +165,7 @@
         distance < 16 / Store.state.viewport.zoom &&
         (!best || distance < best.distance)
       )
-        best = { ...line, distance };
+        best = { ...line, distance, ratio: t };
     }
     return best;
   }
@@ -183,8 +183,10 @@
       all = o ? Constructions.build(o).points : new Map(),
       picked = interaction.picked.map((k) => all.get(k)?.label || "?");
     const n = interaction.mode === "rename" ? 1 : Constructions.operations[interaction.mode];
+    if (interaction.mode === "section")
+      return (picked.length ? picked.join(" → ") + " · " : "") + "Chọn ít nhất 3 điểm, rồi chạm lại điểm đầu để khép thiết diện.";
     const stage = {
-      freePoint: 'Chạm để đặt điểm tự do; Xong để kéo điểm',
+      freePoint: 'Chạm gần đường để bắt chính xác lên đường. Chạm vùng trống để đặt điểm tự do.',
       vector: 'Chọn điểm đầu → điểm cuối vectơ',
       translate: 'Chọn điểm cần tịnh tiến → gốc vectơ → ngọn vectơ',
       rotate: 'Chọn điểm cần quay → tâm; sửa góc trong thuộc tính',
@@ -267,6 +269,19 @@
     const o = target();
     if (!o || !interaction || interaction.mode === "orbit") return;
     if (interaction.mode === "rename") return renamePoint(o,key);
+    if (interaction.mode === "section") {
+      const picked = interaction.picked;
+      if (picked[0] === key) {
+        if (picked.length < 3) return App.toast("Chọn ít nhất 3 điểm để khép thiết diện.");
+        return completePicked(true);
+      }
+      if (picked.includes(key)) return App.toast("Chạm điểm đầu để khép thiết diện.");
+      if (picked.length === 32) return App.toast("Chạm điểm đầu để khép thiết diện 32 đỉnh.");
+      picked.push(key);
+      renderToolbar();
+      Renderer.requestOverlay();
+      return;
+    }
     if (interaction.picked.includes(key) && !["intersection","linePlane","linePlaneAngle","planePlane","planeAngle","projectPlane","distancePlane","commonPerpendicular","tangent"].includes(interaction.mode))
       return App.toast("Chọn các điểm khác nhau.");
     interaction.picked.push(key);
@@ -285,11 +300,11 @@
     interaction.picked.push(...line.refs);
     completePicked();
   }
-  function completePicked() {
+  function completePicked(closeSection = false) {
     const o = target();
     if (!o || !interaction) return;
     if (
-      interaction.picked.length === Constructions.operations[interaction.mode]
+      closeSection || interaction.picked.length === Constructions.operations[interaction.mode]
     ) {
       const c = {
         id: Store.uid(),
@@ -353,6 +368,7 @@
       if (warning) {
         App.toast(warning.message, 5000);
         renderToolbar();
+        Renderer.requestOverlay();
         return;
       }
       const duplicate = (o.data.constructions || []).find(
@@ -397,7 +413,7 @@
     }
     if(interaction.mode==='freePoint'){
       if(Store.state.settings.freeGeometryPoints===false){App.toast('Bật Điểm bất kỳ trong thuộc tính hình.');return true;}
-      root.GeometryLab?.addPoint(o,p);return true;
+      root.GeometryLab?.addPoint(o,p,nearestLine(o,p));return true;
     }
     if (interaction.mode === "intersection") {
       const line = nearestLine(o, p);
@@ -451,6 +467,55 @@
     pop.querySelector("#geo-custom-name").value=point.label;
     pop.querySelector("#geo-apply-name").onclick=()=>apply(pop.querySelector("#geo-custom-name").value);
   }
+  function vertexNames(o, anchor) {
+    const vertices = points(o).filter(p => !p.derived);
+    const base = o.type === "solid" && o.data.kind !== "axes" ? vertices.filter(p => p.coords[2] === 0) : vertices;
+    const other = vertices.filter(p => !base.includes(p));
+    const apex = other.length === 1 ? other[0] : null;
+    const paired = other.length > 1 && other.length === base.length && other.every(p => p.coords[2] === other[0].coords[2]);
+    const order = apex ? [apex, ...base] : vertices;
+    const example = apex ? "S" + "ABCDEFGHIJKLMNOPQRSTUVWXYZ".slice(0, base.length) :
+      "ABCDEFGHIJKLMNOPQRSTUVWXYZ".slice(0, paired ? base.length : vertices.length);
+    const box = App.popover(anchor, '<h3>Tên các đỉnh</h3><label class="field"><span>Dãy tên đỉnh</span><input id="geo-vertex-sequence" maxlength="650"></label><p class="hint">' +
+      (apex ? 'Ký tự đầu là đỉnh chóp. ' : paired ? 'Nhập tên đáy để tự thêm dấu phẩy cho mặt trên. ' : '') +
+      'Tách tên nhiều ký tự bằng dấu cách.</p><div class="tiny-buttons"><button id="geo-name-example"></button><button id="geo-name-apply" class="primary">Áp dụng</button><button id="geo-name-shift" aria-label="Xoay vòng tên đỉnh" title="Xoay vòng tên đỉnh">↻</button></div>');
+    const input = box.querySelector("input");
+    const labels = new Map(vertices.map(p => [p.key, p.label]));
+    const readLabels = () => { input.value = order.map(p => labels.get(p.key)).join(" "); };
+    const apply = () => {
+      const values = order.map(p => labels.get(p.key));
+      if (values.some(label => !label || label.length > 16) || new Set(values).size !== values.length)
+        return App.toast("Mỗi đỉnh cần một tên riêng, dài tối đa 16 ký tự.");
+      Store.transaction(() => {
+        o.data.vertexLabels = Object.fromEntries(vertices.map(p => [Number(p.key.slice(2)), labels.get(p.key)]));
+      });
+      if (["geometry", "solid"].includes(Store.state.panel)) App.refreshGeometry();
+      return true;
+    };
+    const applyInput = () => {
+      const value = input.value.trim(), names = /[\s,;]+/.test(value) ? value.split(/[\s,;]+/).filter(Boolean) : [...value];
+      if (paired && names.length === base.length) names.push(...names.map(name => name + "′"));
+      if (names.length !== order.length) return App.toast("Nhập đủ " + order.length + " tên đỉnh.");
+      if (names.some(name => name.length > 16) || new Set(names).size !== names.length)
+        return App.toast("Mỗi đỉnh cần một tên riêng, dài tối đa 16 ký tự.");
+      order.forEach((p, i) => labels.set(p.key, names[i]));
+      if (apply()) readLabels();
+    };
+    const preset = box.querySelector("#geo-name-example");
+    preset.textContent = example;
+    preset.hidden = example.length !== (paired ? base.length : vertices.length);
+    preset.onclick = () => { input.value = example; applyInput(); };
+    box.querySelector("#geo-name-apply").onclick = applyInput;
+    box.querySelector("#geo-name-shift").onclick = () => {
+      for (const ring of paired ? [base, other] : [base]) {
+        const names = ring.map(p => labels.get(p.key));
+        ring.forEach((p, i) => labels.set(p.key, names[(i + names.length - 1) % names.length]));
+      }
+      if (apply()) readLabels();
+    };
+    input.onkeydown = e => { if (e.key === "Enter") { e.preventDefault(); e.stopPropagation(); applyInput(); } };
+    readLabels();
+  }
   function positionTools() {
     if(root.GeometryControls) return GeometryControls.position();
     const selected=Store.selected(), one=selected.length===1 && ["solid","geometry"].includes(selected[0].type);
@@ -482,11 +547,10 @@
       }
       return;
     }
-    const next =
-      interaction.mode === "intersection" ? nearestLine(o, p) : nearest(o, p);
-    if (next?.key !== hovered?.key) {
+    const next = ["intersection", "freePoint"].includes(interaction.mode) ? nearestLine(o, p) : nearest(o, p);
+    if (next?.key !== hovered?.key || next?.ratio !== hovered?.ratio) {
       hovered = next;
-      Renderer.request();
+      Renderer.requestOverlay();
     }
   }
   function drawLabel(
@@ -933,6 +997,13 @@
     const pts = points(o),
       zoom = Store.state.viewport.zoom;
     ctx.save();
+    if (interaction.mode === "freePoint" && hovered) {
+      const [a, b] = hovered.world, t = hovered.ratio;
+      ctx.fillStyle = "#187d68";
+      ctx.beginPath();
+      ctx.arc(a.x + (b.x - a.x) * t, a.y + (b.y - a.y) * t, 5 / zoom, 0, 2 * Math.PI);
+      ctx.fill();
+    }
     if (interaction.mode === "intersection") {
       const selected = new Set((interaction.linePicks || []).map((l) => l.key));
       for (const line of lines(o))
@@ -977,14 +1048,15 @@
         );
       }
     }
-    if (interaction.picked.length === 1 && hovered) {
-      const a = pts.find((p) => p.key === interaction.picked[0]);
-      if (a) {
+    if (interaction.mode === "section" || (interaction.picked.length === 1 && hovered?.world && !Array.isArray(hovered.world))) {
+      const path = interaction.picked.map(key => pts.find(p => p.key === key)?.world).filter(Boolean);
+      if (path.length && hovered?.world) path.push(hovered.world);
+      if (path.length > 1) {
         ctx.strokeStyle = "#187d68";
         ctx.setLineDash([5 / zoom, 5 / zoom]);
         ctx.beginPath();
-        ctx.moveTo(a.world.x, a.world.y);
-        ctx.lineTo(hovered.world.x, hovered.world.y);
+        ctx.moveTo(path[0].x, path[0].y);
+        for (const p of path.slice(1)) ctx.lineTo(p.x, p.y);
         ctx.stroke();
       }
     }
@@ -1186,9 +1258,9 @@
             )
             .join("") +
           '</select>' +
-          '<input id="geo-rename-input" placeholder="Tên mới" style="width:75px">' +
+          '<input id="geo-rename-input" placeholder="Tên mới" maxlength="16" style="width:75px">' +
           '<button id="geo-rename-btn" class="secondary" style="padding:2px 8px">Lưu</button>' +
-          "</div></div>"
+          '</div><button id="geo-rename-all" class="secondary full">Đổi tên và xoay vòng các đỉnh</button></div>'
         : "";
     const box = document.createElement("section");
     box.className = "teacher-card";
@@ -1219,6 +1291,10 @@
     root.GeometryLab?.mount(o,box);
     const renameBtn = box.querySelector("#geo-rename-btn");
     if (renameBtn) {
+      box.querySelector("#geo-rename-all").onclick = e => {
+        e.stopPropagation();
+        vertexNames(o, e.currentTarget);
+      };
       renameBtn.onclick = () => {
         const idx = Number(box.querySelector("#geo-rename-select").value);
         const val = box.querySelector("#geo-rename-input").value.trim();
@@ -1228,7 +1304,7 @@
           o.data.vertexLabels[idx] = val;
         });
         App.toast("Đã đổi tên đỉnh thành " + val);
-        mountPanel(o);
+        App.refreshGeometry();
         renderToolbar();
         Renderer.request();
       };
@@ -1338,12 +1414,14 @@
       );
   }
   function init() {
-    document.addEventListener("statechange", renderToolbar);
+    document.addEventListener("statechange", (event) => { if (!event.detail) renderToolbar(); });
   }
   root.TeacherGeometry = {
     init,
     points,
     lines,
+    nearestLine,
+    vertexNames,
     project,
     setMode,
     pick,

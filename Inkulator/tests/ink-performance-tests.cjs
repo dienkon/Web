@@ -11,25 +11,142 @@ const report = [];
       ...(process.env.INKULATOR_WEBKIT_EXECUTABLE ? {executablePath:process.env.INKULATOR_WEBKIT_EXECUTABLE} : {})});
     try {
       const context = await browser.newContext({ ...devices["iPad Pro 11"], offline:true });
+      await context.addInitScript(() => {
+        Object.defineProperty(navigator, "deviceMemory", { value: 4 });
+        window.__inkTestSend = (type, id, kind, x, y, extra = {}) => {
+          const canvas = document.getElementById("ink-canvas");
+          const rect = canvas.getBoundingClientRect();
+          canvas.setPointerCapture = () => {};
+          return canvas.dispatchEvent(new PointerEvent(type, {
+            bubbles: true, pointerId: id, pointerType: kind,
+            clientX: rect.left + x, clientY: rect.top + y, button: 0,
+            buttons: type === "pointerup" ? 0 : 1, pressure: 0.6, ...extra,
+          }));
+        };
+      });
       const page = await context.newPage(), errors = [];
       page.on("pageerror", e => errors.push(e.message));
       await page.goto(url);
       await page.waitForFunction(() => window.Scrble);
-      const baseline = await page.evaluate(() => ({save: Store.state.settings.autosave, undo:Store.state.settings.historyLimit}));
+      const baseline = await page.evaluate(() => ({save: Store.state.settings.autosave, undo:Store.state.settings.historyLimit, economy:Store.economyMode()}));
       assert.equal(baseline.save,30000); assert.equal(baseline.undo,500);
+      assert.equal(baseline.economy,true);
+      const controls = await context.newPage();
+      controls.on("pageerror", e => errors.push(e.message));
+      await controls.goto(url);
+      await controls.waitForFunction(() => window.Scrble);
+      const dock = controls.locator("[data-action='toggle-dock']");
+      assert.equal(await dock.getAttribute("aria-expanded"), "false");
+      assert.equal(await controls.locator("#pen-dock [data-tool='pen']").isHidden(), true);
+      await dock.click();
+      assert.equal(await controls.locator("#pen-dock [data-tool='pen']").isVisible(), true);
+      await dock.click();
+      assert.equal(await controls.locator(".canvas-navigation button").count(), 5);
+      assert.equal(await controls.locator(".canvas-navigation [data-action='next-question']").isVisible(), true);
+      assert.equal(await controls.locator(".canvas-navigation [data-action='previous-page']").count(), 0);
+      await controls.evaluate(() => {
+        Store.state.viewport = {x:0,y:0,zoom:1};
+        Store.current().showTitle = false;
+        Store.state.settings.autoPages = false;
+        const canvas = document.getElementById("ink-canvas");
+        canvas.setPointerCapture = () => {};
+        window.sendCanvas = (type, x, y, pointerType = "mouse") => {
+          const r = canvas.getBoundingClientRect();
+          canvas.dispatchEvent(new PointerEvent(type, {
+            bubbles:true, pointerId:7, pointerType, clientX:r.left+x, clientY:r.top+y,
+            button:0,buttons:type === "pointerup" ? 0 : 1,pressure:.6,
+          }));
+        };
+        Store.add(Store.object("shape", {kind:"arrow", dirX:1, dirY:-1},
+          { position:{x:275,y:270}, size:{w:180,h:90}, rotation:18 }));
+        App.setTool("select");
+      });
+      const line = await controls.evaluate(() => {
+        const o = Store.current().objects[0], ends = Renderer.lineEnds(o).map(p => Renderer.worldPoint(o,p));
+        sendCanvas("pointerdown", (ends[0].x+ends[1].x)/2, (ends[0].y+ends[1].y)/2);
+        sendCanvas("pointerup", (ends[0].x+ends[1].x)/2, (ends[0].y+ends[1].y)/2);
+        const handles = CanvasEngine.selectionHandles(o).map(h => h.key);
+        const moved = {x:ends[0].x-65,y:ends[0].y+70};
+        sendCanvas("pointerdown", ends[1].x, ends[1].y, "touch");
+        sendCanvas("pointermove", moved.x, moved.y, "touch");
+        sendCanvas("pointerup", moved.x, moved.y, "touch");
+        const result = Renderer.lineEnds(o).map(p => Renderer.worldPoint(o,p));
+        return {handles, ends, moved, result};
+      });
+      assert.deepEqual(line.handles, ["end0", "end1"]);
+      for (const axis of ["x", "y"]) {
+        assert.ok(Math.abs(line.result[0][axis] - line.ends[0][axis]) < 1);
+        assert.ok(Math.abs(line.result[1][axis] - line.moved[axis]) < 1);
+      }
+      const clickLine = () => controls.evaluate(() => {
+        const o = Store.current().objects[0], [a,b] = Renderer.lineEnds(o).map(p => Renderer.worldPoint(o,p));
+        const r = Renderer.area.getBoundingClientRect();
+        document.getElementById("ink-canvas").dispatchEvent(new MouseEvent("contextmenu", {
+          bubbles:true, cancelable:true, button:2, clientX:r.left+(a.x+b.x)/2, clientY:r.top+(a.y+b.y)/2,
+        }));
+      });
+      await clickLine();
+      assert.equal(await controls.locator("#canvas-context").isHidden(), true);
+      await controls.click('#file-tools [data-panel="settings"]');
+      await controls.check("#setting-canvas-menu");
+      await controls.click('[data-action="close-panel"]');
+      await clickLine();
+      assert.equal(await controls.locator('#canvas-context [data-action="edit-selection"]').isVisible(), true);
+      await controls.click('#ink-tools [data-tool="highlighter"]');
+      await controls.click('#colors [data-color="#ff66a6"]');
+      await controls.evaluate(() => {
+        sendCanvas("pointerdown", 230, 320);
+        sendCanvas("pointermove", 295, 330);
+        sendCanvas("pointerup", 310, 335);
+      });
+      assert.deepEqual(await controls.evaluate(() => {
+        const o = Store.current().objects.at(-1);
+        return [o.data.pen, o.style.color, Store.state.color];
+      }), ["highlighter", "#ff66a6", "#111111"]);
+      await controls.click('#ink-tools [data-tool="eraser"]');
+      await controls.click('#ink-tools [data-tool="eraser"]');
+      await controls.click('[data-eraser="circle"]');
+      const remaining = await controls.evaluate(() => {
+        const page = Store.current();
+        page.objects = [[313,313],[350,350]].map(([x,y]) => Store.object("stroke",
+          {points:[[0,0,.5]], baseSize:{w:.1,h:.1}, pen:"ballpoint"},
+          {position:{x,y},size:{w:.1,h:.1}}));
+        Store.invalidateSnapshot();
+        Store.emit();
+        const drag = () => {
+          sendCanvas("pointerdown", 310, 310);
+          sendCanvas("pointermove", 390, 390);
+          sendCanvas("pointerup", 390, 390);
+        };
+        drag();
+        return page.objects.map(o => o.position.x);
+      });
+      assert.deepEqual(remaining, [313]);
+      await controls.click('#ink-tools [data-tool="eraser"]');
+      await controls.click('[data-eraser="square"]');
+      await controls.evaluate(() => {
+        sendCanvas("pointerdown", 391, 391);
+        sendCanvas("pointermove", 310, 345);
+        sendCanvas("pointerup", 310, 345);
+      });
+      assert.equal(await controls.evaluate(() => Store.current().objects.length), 0);
+      await controls.evaluate(() => { Store.undo(); Store.save(); });
+      assert.equal(await controls.evaluate(() => Store.current().objects[0].position.x), 313);
+      await controls.reload();
+      await controls.waitForFunction(() => window.Scrble);
+      assert.deepEqual(await controls.evaluate(() => [Store.state.settings.canvasMenu,Store.state.settings.highlighterColor]), [true,"#ff66a6"]);
+      await controls.close();
+      // Keep the rest of the suite on a separate, empty notebook.
+      await page.evaluate(() => localStorage.clear());
+      console.log(`PASS ${engine}: compact zoom and collapsed dock, opt-in menu, touch endpoint, independent highlighter color, circle/square eraser and Undo`);
       // Native capture is exercised in pen-browser-tests. Synthetic events let
       // us deliver palm, cancellation and coalesced samples in a reproducible order.
       const result = await page.evaluate(() => {
         const canvas = document.getElementById("ink-canvas");
-        canvas.setPointerCapture = () => {};
         Store.current().showTitle = false;
         Store.state.viewport = {x:0,y:0,zoom:1};
         const rect = canvas.getBoundingClientRect();
-        const send = (type, id, kind, x, y, extra={}) => canvas.dispatchEvent(new PointerEvent(type, {
-          bubbles:true, pointerId:id, pointerType:kind, clientX:rect.left+x, clientY:rect.top+y,
-          button:0,buttons:type === "pointerup" ? 0 : 1,pressure:.6,...extra,
-        }));
-        window.__inkTestSend = send;
+        const send = __inkTestSend;
         send("pointerdown",1,"pen",200,250);
         send("pointerdown",2,"touch",350,300);
         send("pointercancel",2,"touch",350,300);
@@ -128,6 +245,9 @@ const report = [];
       }
       const metrics = await page.evaluate(async () => {
         const p = Store.current();
+        p.showTitle = false;
+        Store.state.settings.autoPages = false;
+        Store.state.viewport = {x:0,y:0,zoom:1};
         p.objects = [];
         for(let i=0;i<1200;i++) {
           const points = Array.from({length:64},(_,j)=>[j*2,20+Math.sin(j/5)*15,.5]);
@@ -142,10 +262,50 @@ const report = [];
           await new Promise(requestAnimationFrame);
         }
         samples.sort((a,b)=>a-b);
-        return {strokes:1200,points:76800,renderMedianMs:samples[7],renderP95Ms:samples[14],canvasPixels:document.getElementById("ink-canvas").width*document.getElementById("ink-canvas").height};
+        const canvas = document.getElementById("ink-canvas");
+        const overlay = document.getElementById("overlay-canvas");
+        const inkContext = canvas.getContext("2d"), overlayContext = overlay.getContext("2d");
+        const clearInk = inkContext.clearRect, clearOverlay = overlayContext.clearRect;
+        let sceneClears = 0, partialPreviewClears = 0;
+        inkContext.clearRect = function (...args) { sceneClears++; return clearInk.apply(this,args); };
+        overlayContext.clearRect = function (x,y,w,h) {
+          if (w*h < overlay.width*overlay.height) partialPreviewClears++;
+          return clearOverlay.call(this,x,y,w,h);
+        };
+        Store.state.pen = "calligraphy";
+        const waitFrame = () => new Promise(requestAnimationFrame);
+        const frameGaps = [];
+        const commitGaps = [];
+        for (let stroke=0; stroke<18; stroke++) {
+          const y = 180 + 18*stroke;
+          __inkTestSend("pointerdown",80,"pen",100,y);
+          for (let step=1; step<=4; step++) {
+            const start = performance.now();
+            for (let i=0;i<4;i++) __inkTestSend("pointermove",80,"pen",100+13*step+3*i,y+4*Math.sin(step));
+            await waitFrame();
+            frameGaps.push(performance.now()-start);
+          }
+          const start = performance.now();
+          __inkTestSend("pointerup",80,"pen",166,y+5);
+          await waitFrame();
+          commitGaps.push(performance.now()-start);
+        }
+        inkContext.clearRect = clearInk;
+        overlayContext.clearRect = clearOverlay;
+        frameGaps.sort((a,b)=>a-b);
+        commitGaps.sort((a,b)=>a-b);
+        return {
+          strokes:1200,points:76800,renderMedianMs:samples[7],renderP95Ms:samples[14],
+          canvasPixels:canvas.width*canvas.height, sceneClears, partialPreviewClears,
+          inkFrameP50Ms:frameGaps[Math.floor(frameGaps.length*.5)],
+          inkFrameP95Ms:frameGaps[Math.floor(frameGaps.length*.95)],
+          inkCommitP95Ms:commitGaps[Math.floor(commitGaps.length*.95)],
+        };
       });
       report.push({engine,...metrics,cpuThrottle:engine!=="webkit"?4:1,historyCharacters:result.historyBytes});
       assert.deepEqual(errors,[]);
+      assert.equal(metrics.sceneClears,0,"ordinary ink must not repaint the committed page");
+      assert.ok(metrics.partialPreviewClears >= 60,"live strokes must clear only the affected overlay area");
       console.log("BENCHMARK", JSON.stringify(report.at(-1)));
       await context.close();
     } finally { await browser.close(); }

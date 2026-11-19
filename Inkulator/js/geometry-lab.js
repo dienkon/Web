@@ -35,7 +35,21 @@
   }
   function drawVector(ctx,o,item){const [a,b]=TeacherGeometry.project(o,item.endpoints),angle=Math.atan2(b[1]-a[1],b[0]-a[0]);ctx.save();ctx.beginPath();ctx.moveTo(...a);ctx.lineTo(...b);ctx.moveTo(b[0]-11*Math.cos(angle-.4),b[1]-11*Math.sin(angle-.4));ctx.lineTo(...b);ctx.lineTo(b[0]-11*Math.cos(angle+.4),b[1]-11*Math.sin(angle+.4));ctx.stroke();ctx.restore();}
   function modelPoint(o,p,z=0){const q=Renderer.localPoint(o,p);if(o.type==='geometry')return Renderer.unflatPoint(o,q);const v=SolidView.forObject(o),origin=v.screen([0,0,z]),a=v.screen([1,0,z]),b=v.screen([0,1,z]),ax=a[0]-origin[0],ay=a[1]-origin[1],bx=b[0]-origin[0],by=b[1]-origin[1],det=ax*by-ay*bx;if(Math.abs(det)<1e-7)throw Error('Xoay hình một chút để đặt điểm trên mặt phẳng z = '+z+'.');const x=q.x-origin[0],y=q.y-origin[1];return [(x*by-y*bx)/det,(ax*y-ay*x)/det,z];}
-  function addPoint(o,p){try{const point=modelPoint(o,p),labels=new Set([...Constructions.build(o).points.values()].map(p=>p.label)),label=[...'MNOPQRTUVWXYZ'].find(s=>!labels.has(s))||'P'+(o.data.constructions?.length||0);Store.transaction(()=>{(o.data.constructions||=[]).push({id:Store.uid(),type:'freePoint',refs:[],point,label});});}catch(e){App.toast(e.message);}}
+  function addPoint(o, p, edge) {
+    try {
+      const points = Constructions.build(o).points;
+      const labels = new Set([...points.values()].map(point => point.label));
+      const label = [...'MNOPQRTUVWXYZ'].find(name => !labels.has(name)) || 'P' + (o.data.constructions?.length || 0);
+      if (edge && (edge.ratio <= .001 || edge.ratio >= .999)) {
+        const endpoint = points.get(edge.refs[edge.ratio <= .001 ? 0 : 1]);
+        return App.toast('Đã có điểm ' + endpoint.label + ' ở đầu cạnh.');
+      }
+      const placement = edge ? { type: 'dividePoint', refs: edge.refs, ratio: edge.ratio } :
+        { type: 'freePoint', refs: [], point: modelPoint(o, p) };
+      if ((o.data.constructions?.length || 0) >= 150) return App.toast('Hình đã đạt giới hạn 150 phép dựng.');
+      Store.transaction(() => { (o.data.constructions ||= []).push({ id: Store.uid(), label, ...placement }); });
+    } catch (e) { App.toast(e.message); }
+  }
   function draggable(o,p){if(!['geometry','solid'].includes(o.type)||o.data.sectionSplit?.amount||o.data.unfold||TeacherGeometry.active)return null;const candidates=TeacherGeometry.points(o).filter(q=>q.key.startsWith('c:')&&(o.data.constructions||[]).some(c=>'c:'+c.id===q.key&&['freePoint','dividePoint'].includes(c.type)));const found=candidates.sort((a,b)=>Math.hypot(a.world.x-p.x,a.world.y-p.y)-Math.hypot(b.world.x-p.x,b.world.y-p.y))[0];if(!found||Math.hypot(found.world.x-p.x,found.world.y-p.y)*Store.state.viewport.zoom>14)return null;return o.data.constructions.find(c=>'c:'+c.id===found.key);}
   function dragPoint(o,c,p){if(c.type==='freePoint'){try{c.point=modelPoint(o,p,c.point[2]||0).map(v=>Math.max(-10000,Math.min(10000,v)));}catch{}return;}const built=Constructions.build(o),a=built.points.get(c.refs[0]),b=built.points.get(c.refs[1]);if(!a||!b)return;const [A,B]=TeacherGeometry.project(o,[a.coords,b.coords]),q=Renderer.localPoint(o,p),dx=B[0]-A[0],dy=B[1]-A[1];c.ratio=Math.max(.001,Math.min(.999,((q.x-A[0])*dx+(q.y-A[1])*dy)/(dx*dx+dy*dy||1)));}
   function inside(p,poly){let yes=false;for(let i=0,j=poly.length-1;i<poly.length;j=i++){const a=poly[i],b=poly[j];if((a[1]>p.y)!==(b[1]>p.y)&&p.x<(b[0]-a[0])*(p.y-a[1])/(b[1]-a[1])+a[0])yes=!yes;}return yes;}
