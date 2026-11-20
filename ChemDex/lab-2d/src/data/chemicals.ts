@@ -3,7 +3,7 @@
  * Includes rigorous IUPAC molar masses, standard concentrations, colors, GHS hazards, and PPE.
  */
 
-import { ChemicalDefinition, SubstancePhysicalProps } from '../types/chemistry';
+import { ChemicalDefinition, PhysicalState, SubstancePhysicalProps } from '../types/chemistry';
 import { getPhysicalSubstance } from '../chemistry/physical/substanceProps';
 
 export const CHEMICAL_CATALOG: ChemicalDefinition[] = [
@@ -1698,8 +1698,14 @@ export function findChemicalById(id: string): ChemicalDefinition | undefined {
 }
 
 export function findChemicalByFormula(formula: string): ChemicalDefinition | undefined {
-  const norm = formula.toUpperCase().replace(/\s+/g, '');
-  return CHEMICAL_CATALOG.find(c => c.formula.toUpperCase().replace(/\s+/g, '') === norm);
+  const exact = formula.replace(/\s+/g, '');
+  return CHEMICAL_CATALOG.find(c => c.formula.replace(/\s+/g, '') === exact)
+    ?? CHEMICAL_CATALOG.find(c => c.formula.toUpperCase().replace(/\s+/g, '') === exact.toUpperCase());
+}
+
+export function chemicalStockPhase(chemical: ChemicalDefinition): PhysicalState {
+  const phases = { solid: 's', liquid: 'l', gas: 'g', aqueous: 'aq' } as const;
+  return phases[chemical.phase_STP];
 }
 
 export function getChemicalPhysicalProps(formulaOrChem: string | ChemicalDefinition): Partial<SubstancePhysicalProps> | undefined {

@@ -2,6 +2,7 @@ import { EquipmentState, EquipmentType } from '../types/equipment';
 import { ChemicalDefinition, SimulationResult, SubstanceQuantity } from '../types/chemistry';
 import { prepareVesselSimulation } from '../chemistry/reactions/kineticsSolver';
 import { computeMolarMass } from '../chemistry/core/formula';
+import { chemicalStockPhase } from '../data/chemicals';
 import { reactionRuntime2D } from '../vfx/ReactionRuntime2D';
 import type { LabSnapshot, LabStoreState } from './labStoreTypes';
 
@@ -246,7 +247,8 @@ export function applyChemicalDoseDeltaOnVessel(
   const newVolume = Math.min(eq.capacity_ml, eq.volume_ml + volumeAdded);
 
   const newContents: SubstanceQuantity[] = structuredClone(eq.contents);
-  const existing = newContents.find((c) => c.formula.toUpperCase() === chem.formula.toUpperCase());
+  const state = chemicalStockPhase(chem);
+  const existing = newContents.find((c) => c.formula === chem.formula && c.state === state);
 
   if (existing) {
     existing.moles += molesAdded;
@@ -261,19 +263,12 @@ export function applyChemicalDoseDeltaOnVessel(
       mass_g: soluteMass,
       volume_ml: chem.phase_STP === 'liquid' ? volumeAdded : undefined,
       concentration_M: isLiquid && newVolume > 0 ? molesAdded / (newVolume / 1000.0) : undefined,
-      state:
-        chem.phase_STP === 'gas'
-          ? 'g'
-          : chem.phase_STP === 'aqueous'
-            ? 'aq'
-            : chem.phase_STP === 'liquid'
-              ? 'l'
-              : 's',
+      state,
     });
   }
 
   if (solventMass > 0) {
-    const solvent = newContents.find((item) => item.formula === 'H2O');
+    const solvent = newContents.find((item) => item.formula === 'H2O' && item.state === 'l');
     const waterMoles = solventMass / computeMolarMass('H2O');
     if (solvent) {
       solvent.mass_g += solventMass;

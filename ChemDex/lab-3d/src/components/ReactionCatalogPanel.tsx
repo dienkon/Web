@@ -69,7 +69,7 @@ export default function ReactionCatalogPanel() {
       <p className="text-slate-600">Nguồn đối chiếu theo họ phản ứng; chưa hiệu chuẩn riêng tốc độ, nhiệt hoặc cường độ màu cho từng mẫu.</p>
       <ul className="space-y-1">{selected.evidence.sourceIds.map(id => <li key={id}><a className="text-teal-800 underline" href={index.catalog.sources[id].url} target="_blank" rel="noreferrer">{index.catalog.sources[id].title}</a></li>)}</ul>
     </article> : <>
-      <label className="block space-y-1"><span>Tìm chất hoặc hiện tượng</span><input className={field} aria-label="Tìm trong kho phản ứng" value={query} placeholder="CuSO4, kết tủa, nhiệt phân…" onChange={event => { setQuery(event.target.value); setPage(0); }} /></label>
+      <label className="block space-y-1"><span>Tìm chất, cặp chất tham gia hoặc hiện tượng</span><input className={field} aria-label="Tìm trong kho phản ứng" value={query} placeholder="CuSO4, Fe + HCl, kết tủa…" onChange={event => { setQuery(event.target.value); setPage(0); }} /></label>
       <label className="block space-y-1"><span>Nhóm phản ứng</span><select className={field} value={family} aria-label="Nhóm trong kho phản ứng" onChange={event => { setFamily(event.target.value); setPage(0); }}>
         <option value="all">Tất cả nhóm</option>{families.map(([key, title]) => <option key={key} value={key}>{title} ({index.catalog.counts.families[key]})</option>)}
       </select></label>

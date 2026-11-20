@@ -10,7 +10,7 @@
  */
 
 import { useLabStore } from '../store/useLabStore';
-import { findChemicalByFormula } from '../data/chemicals';
+import { chemicalStockPhase, findChemicalByFormula } from '../data/chemicals';
 import { EquipmentType } from '../types/equipment';
 import { soundEngine } from '../services/soundEngine';
 import { getCompiledReactionById } from '../chemistry/reactions/curriculumAndCatalogCompiler';
@@ -165,11 +165,12 @@ export function runReactionOnWorkbench2D(
   const volScale = maxDoseVol > 0 && maxDoseVol < 8 ? (vesselType === 'test_tube' ? 6 : 10) : 1;
 
   for (const dose of doses) {
-    const lookupFormula = normalizeLookupFormula(dose.formula);
+    const fromCatalog = compiled?.source === 'catalog';
+    const lookupFormula = fromCatalog ? dose.formula : normalizeLookupFormula(dose.formula);
     const upperLookup = lookupFormula.toUpperCase();
     const coeff = Math.max(1, Number(dose.coeff ?? dose.coefficient ?? 1));
 
-    if (upperLookup === 'H2O') {
+    if (upperLookup === 'H2O' && (!fromCatalog || dose.phase !== 'g')) {
       const waterMl = Math.min(80, Math.max(20, (dose.volume_ml ?? 25) * volScale));
       useLabStore.getState().addDistilledWater(vesselId, waterMl);
       mappedCount++;
@@ -201,7 +202,7 @@ export function runReactionOnWorkbench2D(
       continue;
     }
 
-    if (chem) {
+    if (chem && (!fromCatalog || (chem.formula === lookupFormula && chemicalStockPhase(chem) === phase))) {
       mappedCount++;
       if (chem.phase_STP === 'solid' || phase === 's') {
         const defaultMass = Math.min(6, Math.max(0.8, 0.9 * coeff));

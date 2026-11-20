@@ -59,6 +59,8 @@ export function validateCatalog(catalog) {
 }
 
 const fold=value=>String(value??'').toLocaleLowerCase('vi').normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/đ/g,'d');
+const compactSearchText=value=>fold(normalizeFormula(value));
+const searchTexts=new WeakMap();
 const cost=entry=>entry.reactants.reduce((n,r)=>n+(/Li|Cd|Pb|Cr|Ba/.test(r.formula)?3:0)+(/KOH|KCl|KBr|KI/.test(r.formula)?1:0),0)+(/đặc|rất cao|công nghiệp/.test(entry.conditions.description_vi)?4:0);
 
 export function createCatalogIndex(catalog){
@@ -78,20 +80,50 @@ export function createCatalogIndex(catalog){
 }
 
 export function searchReactions(index,query='',{family='all',limit=100,offset=0}={}){
-  const q=fold(normalizeFormula(query));
-  const matched=index.catalog.entries.filter(r=>(family==='all'||r.family===family)&&(!q||fold(`${r.equation} ${r.title_vi} ${r.topic_vi} ${r.observation_vi} ${r.conditions.description_vi} ${[...r.reactants,...r.products].map(s=>[index.speciesByFormula.get(s.formula)?.name_vi,...(index.speciesByFormula.get(s.formula)?.aliases??[])].join(' ')).join(' ')}`).replace(/\s+/g,'').includes(q.replace(/\s+/g,''))));
-  return {total:matched.length,entries:matched.slice(offset,offset+Math.max(1,Math.min(limit,200)))};
+  const q=compactSearchText(query);
+  const terms=String(query??'').split('+');
+  const formulas=terms.map(index.resolve);
+  let matchesQuery=()=>true;
+  if(q && formulas.every(Boolean)){
+    matchesQuery=formulas.length===1
+      ? entry=>[...entry.reactants,...entry.products].some(row=>row.formula===formulas[0])
+      : entry=>formulas.every(formula=>entry.reactants.some(row=>row.formula===formula));
+  }else if(q){
+    let texts=searchTexts.get(index);
+    if(!texts){
+      texts=new Map(index.catalog.entries.map(entry=>{
+        const names=[...entry.reactants,...entry.products].flatMap(({formula})=>{
+          const species=index.speciesByFormula.get(formula);
+          return [species?.name_vi,...(species?.aliases??[])];
+        });
+        const searchable=[entry.equation,entry.title_vi,entry.topic_vi,entry.observation_vi,entry.conditions.description_vi,...names];
+        return [entry.id,searchable.map(compactSearchText)];
+      }));
+      searchTexts.set(index,texts);
+    }
+    matchesQuery=entry=>texts.get(entry.id).some(value=>value.includes(q));
+  }
+  const matched=index.catalog.entries.filter(entry=>(family==='all'||entry.family===family)&&matchesQuery(entry));
+  const start=Number.isFinite(offset)?Math.max(0,Math.trunc(offset)):0;
+  const size=Number.isFinite(limit)?Math.max(1,Math.min(Math.trunc(limit),200)):100;
+  return {total:matched.length,entries:matched.slice(start,start+size)};
 }
 
 const latexEscape=text=>String(text).replace(/[\\{}%#$&_]/g,s=>`\\${s}`);
 const latexFormula=formula=>`\\mathrm{${formula.replace(/(\d+)/g,'_{$1}')}}`;
 function arrowCondition(entry){
-  if(entry.conditions.catalyst)return `${latexFormula(entry.conditions.catalyst)},\\;t^{\\circ}`;
+  if(entry.conditions.catalyst){
+    const catalyst=latexFormula(entry.conditions.catalyst);
+    return entry.conditions.activation==='heating'||entry.family==='esterification'||entry.family==='thermal'
+      ? `${catalyst},\\;t^{\\circ}`
+      : catalyst;
+  }
   if(entry.conditions.activation==='light')return '\\text{ánh sáng}';
   if(entry.family==='thermal')return '\\Delta';
   if(entry.family==='precipitation')return entry.products.some(r=>r.formula==='Ag2O')?'\\text{dd kiềm}':'Q>K_{sp}';
   if(entry.family==='metal_acid')return `${latexFormula(entry.reactants.find(r=>['HCl','HBr','H2SO4'].includes(r.formula))?.formula??'HCl')}\\;\\text{loãng}`;
-  if(['carbonate_acid','oxide_acid','neutralization'].includes(entry.family))return '\\text{acid đủ}';
+  if(['carbonate_acid','oxide_acid'].includes(entry.family))return '\\text{acid đủ}';
+  if(entry.family==='neutralization')return '\\text{tỉ lệ thích hợp}';
   if(['ammonium_base','saponification'].includes(entry.family))return '\\text{kiềm, làm ấm}';
   if(entry.family==='esterification')return '\\text{acid, làm ấm}';
   if(entry.family==='combustion')return '\\text{mồi cháy, }O_2\\;\\text{dư}';

@@ -18,6 +18,7 @@ import {
   resolveExtendedCatalogFamilies,
   buildPhysicalSolidAndPrecipitateStates,
   resolveControllerIdForReaction,
+  bariteExtent2D,
 } from './instantRuleSolver';
 
 export function runSimulationCycle(
@@ -82,7 +83,7 @@ function getEffectiveAcidMolarity(item: SubstanceQuantity, currentVolume_ml: num
       let matchedReactionThisPass = false;
 
       const candidateFormulas = workingContents
-        .filter(content => content.moles > 1e-6)
+        .filter(content => content.moles > 1e-12)
         .flatMap(content => {
           const canon = canonicalFormulaKey(content.formula);
           const reverseAliases =
@@ -98,6 +99,7 @@ function getEffectiveAcidMolarity(item: SubstanceQuantity, currentVolume_ml: num
       const candidateReactions = fetchCandidates(candidateFormulas);
 
       for (const rx of candidateReactions) {
+        const fromCatalog = rx.provenance === 'catalog';
         if (reactionsOccurred.some(executed => executed.reactionId === rx.id)) {
           continue;
         }
@@ -117,14 +119,15 @@ function getEffectiveAcidMolarity(item: SubstanceQuantity, currentVolume_ml: num
           continue;
         }
         // Check catalytic prerequisites (without consuming catalyst)
-        const extRx = rx as { requiresCatalyst?: boolean; catalystFormula?: string };
+        const extRx = rx as { requiresCatalyst?: boolean; catalystFormula?: string; requiresLight?: boolean };
+        if (extRx.requiresLight) continue;
         if (extRx.requiresCatalyst && extRx.catalystFormula) {
           const catKey = canonicalFormulaKey(extRx.catalystFormula);
           const hasCat = workingContents.some(c => {
             if (c.moles <= 1e-7) return false;
             const k = canonicalFormulaKey(c.formula);
             if (k === catKey) return true;
-            if (catKey === 'H2SO4' && (k === 'HCL' || k === 'H2SO4')) return true;
+            if (!fromCatalog && catKey === 'H2SO4' && k === 'HCL') return true;
             return false;
           });
           if (!hasCat) {
@@ -175,57 +178,57 @@ function getEffectiveAcidMolarity(item: SubstanceQuantity, currentVolume_ml: num
           supportsCombustion &&
           isOpenVessel &&
           (rx.id.includes('combustion') || rx.id.includes('burn') || rx.archetype === 'combustion_flash' || Boolean(rx.requiresHeating && (isHeated || temp_c >= (rx.minTemp_c || 60))));
-        let canReact = true;
+        const producesBarite = rx.products.some(product => product.formula === 'BaSO4' && product.state === 's');
+        const bariteLimit = producesBarite ? bariteExtent2D(workingContents, volume_ml, temp_c) : null;
+        const minimumExtent = bariteLimit === null ? 1e-6 : 1e-12;
         let minExtent = Infinity;
         let limitingReactantFormula = '';
+        const reactantStocks: Array<{ coefficient: number; rows: SubstanceQuantity[] }> = [];
 
         for (const r of rx.reactants) {
-          const normR = canonicalFormulaKey(r.formula);
-          const available = workingContents.find(
-            c => canonicalFormulaKey(c.formula) === normR && c.moles > 1e-6
-          );
-
-          if (!available) {
-            if (normR === 'O2' && isOpenCombustionOrSynthesis) {
+          const key = canonicalFormulaKey(r.formula);
+          const rows = workingContents.filter(c => c.moles > 1e-12 && (
+            fromCatalog || producesBarite
+              ? c.formula === r.formula && c.state === r.state
+              : canonicalFormulaKey(c.formula) === key
+          ));
+          const availableMoles = rows.reduce((sum, row) => sum + row.moles, 0);
+          if (availableMoles <= minimumExtent) {
+            if (key === 'O2' && r.state === 'g' && isOpenCombustionOrSynthesis) {
               continue; // Atmospheric O2 supplies open-vessel combustion/oxidation
             }
-            canReact = false;
+            minExtent = 0;
             break;
           }
-
-          const maxPossibleExtent = available.moles / r.coefficient;
+          reactantStocks.push({ coefficient: r.coefficient, rows });
+          const maxPossibleExtent = availableMoles / r.coefficient;
           if (maxPossibleExtent < minExtent) {
             minExtent = maxPossibleExtent;
-            limitingReactantFormula = available.formula;
+            limitingReactantFormula = r.formula;
           }
         }
 
-        if (!canReact || minExtent <= 1e-6 || minExtent === Infinity) {
+        if (minExtent <= minimumExtent || minExtent === Infinity) {
           continue;
         }
 
         // Execute stoichiometric conversion by extent xi = minExtent
-        const xi = minExtent;
+        const xi = Math.min(minExtent, bariteLimit ?? Infinity);
+        if (xi <= minimumExtent) continue;
 
         // Deduct reactants from active non-depleted entries matching each formula
         const excessReactants: Record<string, number> = {};
-        for (const r of rx.reactants) {
-          const normR = canonicalFormulaKey(r.formula);
-          let remainingToConsume = xi * r.coefficient;
-          let lastConsumedItem: SubstanceQuantity | undefined;
-          for (const item of workingContents) {
+        for (const { coefficient, rows } of reactantStocks) {
+          let remainingToConsume = xi * coefficient;
+          for (const item of rows) {
             if (remainingToConsume <= 1e-12) break;
-            if (canonicalFormulaKey(item.formula) !== normR || item.moles <= 1e-12) continue;
             const consumed = Math.min(item.moles, remainingToConsume);
             item.moles = Math.max(0, item.moles - consumed);
             const molarMass = computeMolarMass(item.formula);
             item.mass_g = Math.max(0, item.moles * molarMass);
             remainingToConsume -= consumed;
-            lastConsumedItem = item;
           }
-          if (lastConsumedItem) {
-            excessReactants[lastConsumedItem.formula] = lastConsumedItem.moles;
-          }
+          excessReactants[rows[0].formula] = rows.reduce((sum, row) => sum + row.moles, 0);
         }
 
         // Add products (record open-headspace evolved gases without clobbering existing liquid H2O)
@@ -236,7 +239,7 @@ function getEffectiveAcidMolarity(item: SubstanceQuantity, currentVolume_ml: num
 
           if (p.state === 'g') {
             hasGasOccurred = true;
-            const prevMoles = gasInfoFinal ? gasInfoFinal.molesReleased : 0;
+            const prevMoles = gasInfoFinal?.formula === p.formula ? gasInfoFinal.molesReleased : 0;
             gasInfoFinal = {
               formula: p.formula,
               molesReleased: prevMoles + molesAdded,
@@ -253,7 +256,7 @@ function getEffectiveAcidMolarity(item: SubstanceQuantity, currentVolume_ml: num
           }
 
           const existing = workingContents.find(
-            c => canonicalFormulaKey(c.formula) === normP && (p.state !== 'g' || c.state === 'g')
+            c => c.state === p.state && (fromCatalog ? c.formula === p.formula : canonicalFormulaKey(c.formula) === normP)
           );
 
           if (existing) {
@@ -290,13 +293,14 @@ function getEffectiveAcidMolarity(item: SubstanceQuantity, currentVolume_ml: num
           name_vi: rx.name_vi,
           equation: rx.equation,
           ionic_equation: rx.ionic_equation,
-          extent_moles: Math.round(xi * 100000) / 100000,
+          extent_moles: xi,
           heatReleased_J: thermalResult.heatReleased_J,
           limitingReactant: limitingReactantFormula,
           excessReactants,
           observable_en: rx.observable_en,
           observable_vi: rx.observable_vi,
-          tier: 'handcrafted',
+          tier: fromCatalog ? 'rule-derived' : 'handcrafted',
+          provenance: rx.provenance,
           archetype: rx.archetype,
           controllerId,
         });
@@ -401,9 +405,9 @@ function getEffectiveAcidMolarity(item: SubstanceQuantity, currentVolume_ml: num
     }
   }
 
-  // Fallback rules for general oxide+acid & ammonium+base families when no catalog entry ran
+  // Apply the remaining balanced acid/base families if neither database matched.
   const extendedOutput = hasWaitingHeatedReaction
-    ? { temperature_c: temp_c, hasGas: false, gasInfo: undefined, escapedGas_g: {}, activeControllerIds: [] }
+    ? { temperature_c: temp_c, isBoiling: false, hasGas: false, gasInfo: undefined, escapedGas_g: {}, activeControllerIds: [] }
     : resolveExtendedCatalogFamilies(
         workingContents,
         ruleOutput.reactionsOccurred,
@@ -413,6 +417,7 @@ function getEffectiveAcidMolarity(item: SubstanceQuantity, currentVolume_ml: num
         isOpenVessel
       );
   temp_c = extendedOutput.temperature_c;
+  if (extendedOutput.isBoiling) isBoiling = true;
   if (extendedOutput.hasGas && extendedOutput.gasInfo) {
     hasGasOccurred = true;
     gasInfoFinal = extendedOutput.gasInfo;
@@ -423,75 +428,6 @@ function getEffectiveAcidMolarity(item: SubstanceQuantity, currentVolume_ml: num
   for (const cid of extendedOutput.activeControllerIds) {
     if (!ruleOutput.activeControllerIds.includes(cid)) {
       ruleOutput.activeControllerIds.push(cid);
-    }
-  }
-
-  // Also keep general acid-base neutralization fallback if still no reaction matched
-  if (ruleOutput.reactionsOccurred.length === 0 && workingContents.length >= 2) {
-    const acidFormulas: Record<string, { norm: string; protons: number; conjugate: string }> = {
-      'HCL': { norm: 'HCL', protons: 1, conjugate: 'CL' },
-      'HNO3': { norm: 'HNO3', protons: 1, conjugate: 'NO3' },
-      'H2SO4': { norm: 'H2SO4', protons: 2, conjugate: 'SO4' },
-      'CH3COOH': { norm: 'CH3COOH', protons: 1, conjugate: 'CH3COO' },
-    };
-    const baseFormulas: Record<string, { norm: string; hydroxides: number; cation: string }> = {
-      'NAOH': { norm: 'NAOH', hydroxides: 1, cation: 'NA' },
-      'KOH': { norm: 'KOH', hydroxides: 1, cation: 'K' },
-      'BA(OH)2': { norm: 'BA(OH)2', hydroxides: 2, cation: 'BA' },
-      'CA(OH)2': { norm: 'CA(OH)2', hydroxides: 2, cation: 'CA' },
-      'NH3': { norm: 'NH3', hydroxides: 1, cation: 'NH4' },
-    };
-
-    const acidItem = workingContents.find(c => acidFormulas[normalizeFormula(c.formula)] && c.moles > 1e-6);
-    const baseItem = workingContents.find(c => baseFormulas[normalizeFormula(c.formula)] && c.moles > 1e-6);
-
-    if (acidItem && baseItem) {
-      const aInfo = acidFormulas[normalizeFormula(acidItem.formula)];
-      const bInfo = baseFormulas[normalizeFormula(baseItem.formula)];
-
-      const availableH = acidItem.moles * aInfo.protons;
-      const availableOH = baseItem.moles * bInfo.hydroxides;
-      const extentM = Math.min(availableH, availableOH);
-
-      if (extentM > 1e-6) {
-        acidItem.moles = Math.max(0, acidItem.moles - extentM / aInfo.protons);
-        acidItem.mass_g = acidItem.moles * computeMolarMass(acidItem.formula);
-
-        baseItem.moles = Math.max(0, baseItem.moles - extentM / bInfo.hydroxides);
-        baseItem.mass_g = baseItem.moles * computeMolarMass(baseItem.formula);
-
-        const waterItem = workingContents.find(c => normalizeFormula(c.formula) === 'H2O');
-        if (waterItem) {
-          waterItem.moles += extentM;
-          waterItem.mass_g = waterItem.moles * 18.015;
-        }
-
-        const solutionMass = Math.max(10.0, volume_ml);
-        const thermalResult = calculateReactionDeltaT(extentM, -57.1, solutionMass, temp_c);
-        temp_c = thermalResult.finalTemp_c;
-        if (thermalResult.isBoiling) isBoiling = true;
-
-        ruleOutput.activeControllerIds.push('neutralization_thermal_schlieren');
-        ruleOutput.reactionsOccurred.push({
-          reactionId: `rx_heuristic_neutralization_${Date.now()}`,
-          name_en: `Neutralization of ${acidItem.formula} and ${baseItem.formula}`,
-          name_vi: `Phản ứng trung hòa giữa ${acidItem.formula} và ${baseItem.formula}`,
-          equation: `${acidItem.formula} + ${baseItem.formula} → Muối + H₂O`,
-          ionic_equation: 'H⁺(aq) + OH⁻(aq) → H₂O(l)',
-          extent_moles: Math.round(extentM * 10000) / 10000,
-          heatReleased_J: thermalResult.heatReleased_J,
-          limitingReactant: availableH < availableOH ? acidItem.formula : baseItem.formula,
-          excessReactants: {
-            [acidItem.formula]: acidItem.moles,
-            [baseItem.formula]: baseItem.moles,
-          },
-          observable_en: `Exothermic neutralization between ${acidItem.formula} and ${baseItem.formula}.`,
-          observable_vi: `Phản ứng trung hòa tỏa nhiệt giữa ${acidItem.formula} và ${baseItem.formula}.`,
-          tier: 'rule-derived',
-          archetype: 'acid_base_neutralization',
-          controllerId: 'neutralization_thermal_schlieren',
-        });
-      }
     }
   }
 

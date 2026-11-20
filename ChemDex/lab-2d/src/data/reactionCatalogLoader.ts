@@ -94,13 +94,13 @@ let cachedBundlePromise: Promise<LoadedReactionHubBundle> | null = null;
 export function loadReactionHubBundle(): Promise<LoadedReactionHubBundle> {
   if (cachedBundlePromise) return cachedBundlePromise;
 
-  void ensureCatalogCompiled();
   cachedBundlePromise = Promise.all([
     import('./curriculum/reactions.vi.json'),
     import('@shared/reaction-catalog.generated.json'),
     import('@shared/reaction-chains.generated.json'),
     import('@shared/chemistry/reaction-catalog.mjs'),
     import('@shared/chemistry/reaction-guide.mjs'),
+    ensureCatalogCompiled(),
   ]).then(([currMod, catMod, chainsMod, catHelpers, guideHelpers]) => {
     const rawCurr = (currMod.default || currMod) as { reactions?: CurriculumReactionEntry[] } | CurriculumReactionEntry[];
     const curriculum = Array.isArray(rawCurr) ? rawCurr : (rawCurr.reactions ?? []);
@@ -118,6 +118,9 @@ export function loadReactionHubBundle(): Promise<LoadedReactionHubBundle> {
       findChain: catHelpers.findChain,
       reactionGuide: guideHelpers.reactionGuide,
     };
+  }).catch(error => {
+    cachedBundlePromise = null;
+    throw error;
   });
 
   return cachedBundlePromise;

@@ -88,6 +88,9 @@ test('equation rendering distinguishes input gas from evolved gas and keeps full
   assert.ok(r.steps[0].condition.includes('Oxy hóa'));
   assert.ok(r.steps[0].latexWithCondition.length<r.steps[0].condition.length+r.steps[0].latex.length);
   const entry=catalog.entries.find(r=>r.family==='esterification');const step=reactionStep(index,{...entry.transfers[0],reactionId:entry.id});assert.match(step.latexWithCondition,/\\overset\{.*\\rightleftharpoons/);
+  const peroxide=analyzeChain(index,'H2O2 -> O2');
+  assert.equal(peroxide.status,'found');
+  assert.match(peroxide.steps[0].latexWithCondition,/\\xrightarrow\{\\mathrm\{MnO_\{2\}\}\}/);
 });
 test('generation respects minSteps, species order, finite bounds and no repeated filler reactions',()=>{
   for(const [start,end,min] of [['S','H2SO4',3],['Cu','Cu(OH)2',3],['Fe','Fe2O3',3],['CH4','CH3COOC2H5',5]]){
@@ -111,6 +114,15 @@ test('search supports Unicode formulas, accents, filters and bounded pagination'
   assert.ok(thermal.entries.every(r=>r.family==='thermal'));
   assert.ok(!searchReactions(index,'CuSO4',{limit:2,offset:0}).entries.some(r=>searchReactions(index,'CuSO4',{limit:2,offset:2}).entries.includes(r)));
   assert.equal(searchReactions(index,'<img onerror=x>').total,0);
+  for(const formula of ['CO','Co','Ca']){
+    const exact=searchReactions(index,formula);
+    assert.ok(exact.total>0);
+    assert.ok(exact.entries.every(entry=>[...entry.reactants,...entry.products].some(row=>row.formula===formula)));
+  }
+  const pair=searchReactions(index,'HCl + Fe');
+  assert.ok(pair.total>0);
+  assert.ok(pair.entries.every(entry=>['Fe','HCl'].every(formula=>entry.reactants.some(row=>row.formula===formula))));
+  assert.deepEqual(pair,searchReactions(index,'Fe + HCl'));
 });
 test('the exported 1000+ three-step chains are distinct real material paths',()=>{
   const data=JSON.parse(fs.readFileSync(new URL('../shared/reaction-chains.generated.json',import.meta.url),'utf8'));

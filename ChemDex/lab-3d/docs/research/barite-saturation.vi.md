@@ -2,7 +2,7 @@
 
 Đối chiếu 23/10/2026. Trước sửa, BaCl₂ + Na₂SO₄ luôn đi hết chất giới hạn. Nay cả ledger chương trình và bộ phản ứng native giới hạn lượng tạo thành bởi Q = [Ba²⁺][SO₄²⁻], với gần đúng nồng độ lý tưởng và Ksp theo nhiệt độ mẫu. Nếu Q ≤ Ksp, không tạo thêm chất rắn và không khởi chạy hoạt ảnh kết tủa.
 
-Nguồn: [PHREEQC — phreeqc.dat, mục Barite](https://github.com/phreeqc-dev/phreeqc/blob/master/database/phreeqc.dat), phản ứng hòa tan BaSO₄ = Ba²⁺ + SO₄²⁻ có log K = −9,970. [USGS FAQ](https://wwwbrr.cr.usgs.gov/projects/GWC_coupled/phreeqc.v1/faq.html) lưu ý các hằng số nhiệt động ở pha loãng vô hạn. Không đồng nhất tích nồng độ với tích hoạt độ trong mọi dung dịch.
+Phản ứng hòa tan BaSO₄ = Ba²⁺ + SO₄²⁻ dùng log K = −9,970 và hệ số nhiệt độ theo Phụ lục B, trang 301 của tài liệu PHREEQC phiên bản 2. Mô hình dùng gần đúng nồng độ lý tưởng cho dung dịch loãng. [USGS PHREEQC phiên bản 2](https://water.usgs.gov/water-resources/software/PHREEQC/Phreeqc_2_1999_manual.pdf) · [USGS FAQ về hoạt độ](https://wwwbrr.cr.usgs.gov/projects/GWC_coupled/phreeqc.v1/faq.html)
 
 Tìm mức tiến triển x trong [0, min(nBa, nSO4)] sao cho (nBa − x)(nSO4 − x)/V² = Ksp. Chia đôi có giới hạn tránh mất chữ số khi gần bão hòa. Giới hạn stoichiometry vẫn giữ quyền quyết định lượng nguyên liệu có thể tiêu thụ. Ion chung từ Ba(NO₃)₂ hoặc K₂SO₄ được tính trong Q; không dùng khối lượng BaSO₄ rắn để tính Q. Mỗi đường vẫn tiêu thụ và tạo sản phẩm theo phương trình cân bằng gốc.
 
@@ -25,3 +25,9 @@ Phần màu dung dịch đã nhận diện kho BaSO₄(aq) của mô hình này 
 Hiệu chỉnh nhiệt độ dùng F(T) = 136,035 − 7680,41/T − 48,595 log₁₀(T), T theo kelvin, từ hệ số `-analytic` của mục Barite trong nguồn trên. Ksp(T) = Ksp(25°C) × 10^[F(T) − F(298,15)], giữ đúng mốc log K đã làm tròn. Ví dụ: Ksp(0°C) ≈ 3,31546×10⁻¹¹; Ksp(50°C) ≈ 2,10651×10⁻¹⁰; Ksp(80°C) ≈ 2,94449×10⁻¹⁰. Khoảng 0–90°C là giới hạn triển khai của ứng dụng, không phải khẳng định phạm vi hiệu chuẩn mới của nguồn. Ngoài khoảng đó hàm trả về không hỗ trợ; đường phản ứng cũ vẫn chưa được sửa đầy đủ cho những điều kiện này. Không có hiệu chỉnh áp suất.
 
 Kiểm thử kiểm tra dưới bão hòa, dung dịch đẳng mol/lệch mol, pha loãng, ion chung, bảo toàn khối lượng, hai đường cập nhật inventory và chặn hoạt ảnh/rerun ở bão hòa. Bổ sung kiểm tra các mốc nhiệt độ, từ chối ngoại suy và mẫu có Q = 1,69×10⁻¹⁰: quá bão hòa ở 25°C nhưng chưa bão hòa ở 50°C, cả lượng chất và điều kiện phát hoạt ảnh. Không dùng kết quả này để khẳng định toàn bộ phản ứng kết tủa đã được hiệu chuẩn.
+
+## Mô hình kết tủa dùng chung từ 20/11/2026
+
+Lab 2D dùng cùng hàm Ksp(T) và giới hạn mức tiến triển với Lab 3D. Kiểm thử 2D kiểm tra cả Na₂SO₄ và K₂SO₄ với BaCl₂. Mẫu có Q = 1,69×10⁻¹⁰ tạo lượng rắn hữu hạn ở 25°C và giữ nguyên trạng thái hòa tan ở 50°C. Phân chia hòa tan và tái kết tinh sau đó nằm trong bước cập nhật pha của Lab 3D.
+
+Tại thời điểm rà soát, nhánh phát triển PHREEQC 3 dùng log K = −9,88 và một bộ hệ số khác cho barite. ChemDex ghi rõ phiên bản của bộ dữ liệu đang dùng để các kiểm thử và kết quả định lượng tiếp tục đối chiếu được với nguồn. [Cơ sở dữ liệu PHREEQC 3](https://github.com/phreeqc-dev/phreeqc3/blob/master/database/phreeqc.dat)

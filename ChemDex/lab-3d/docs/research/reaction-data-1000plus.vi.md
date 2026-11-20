@@ -1,6 +1,28 @@
 # Nâng cấp kho phản ứng và chuỗi chuyển hóa
 
-Ngày rà soát: **28/10/2026**. Phạm vi: dữ liệu dùng chung, thư viện tra cứu trong Lab 3D, công cụ chuỗi phản ứng và API tương ứng.
+## Rà soát hệ phản ứng ngày 20/11/2026
+
+Kho đang phát hành có **1.300 phương trình phân tử**, **379 biến đổi ion rút gọn**, **18 họ phản ứng** và **5.740 chuỗi mẫu ba bước**. Bộ kiểm tra tái tạo kho và đọc lại từng cạnh chuyển hóa để đối chiếu công thức, hệ số, nguồn và đường đi. Số liệu bên dưới mục này thuộc lần rà soát tháng 10.
+
+Kiểm kê Lab 3D kiểm tra 149 chương trình, 48 quy tắc định lượng và 18 nhánh sinh theo quy tắc. Danh mục 149 chương trình đã bao gồm 34 bài học. Audit ghi nhận 0 lỗi cân bằng, 0 lỗi trong 109 phương trình ion và 0 sai lệch sản phẩm giữa khai báo hóa học và hiệu ứng.
+
+| Luồng | Kết quả rà soát và nâng cấp |
+|---|---|
+| Tra cứu trên Lab 2D và Lab 3D | Truy vấn công thức khớp đúng danh tính, kể cả CO và Co. Hai công thức phân cách bằng dấu + lọc các phương trình có cả hai chất ở vế tham gia. Tra cứu tiếng Việt giữ hỗ trợ không dấu. Lab 2D phân trang toàn bộ kho và hiển thị nguồn cùng điều kiện thực hiện. |
+| Chuỗi phản ứng và API | Kiểm tra lại dữ liệu của 5.740 chuỗi và hợp đồng API. Phương trình trên bước có xúc tác chỉ thêm ký hiệu gia nhiệt khi điều kiện yêu cầu. |
+| Kiểm kê mẫu trên Lab 2D | Nhánh chạy từ kho kiểm tra công thức cùng pha và cộng số mol từ các phần mẫu cùng danh tính. Các nhánh dự phòng tạo muối đối ion đầy đủ, cân bằng hệ số trước khi tiêu thụ nguyên liệu và ghi riêng khí thoát. Phạm vi dự phòng giới hạn ở các cặp đã có quy tắc. |
+| Mô hình nhiệt và điều kiện | Lab 2D áp dụng nhiệt trung hòa xấp xỉ theo mol nước đối với axit mạnh và hydroxide tan trong phạm vi nhánh dự phòng. Phương trình tra cứu chưa có enthalpy riêng đóng góp 0 vào bộ tính nhiệt. Phản ứng yêu cầu ánh sáng có thể đọc trong kho. |
+| Kết tủa bari sunfat | Hai lab dùng chung giới hạn bão hòa phụ thuộc nhiệt độ và cùng nguồn hệ số. Lab 2D kiểm tra giới hạn ở cả đường phản ứng định sẵn, kho mở rộng và quy tắc dự phòng. |
+
+Mức tiến triển được tính từ lượng mol ban đầu và hệ số tỉ lượng. Khối lượng khí trong bình mở được đưa vào tổng kiểm kê bên ngoài bình. Công thức cân bằng kiểm tra được lượng vật chất, còn việc phản ứng có xảy ra và đi đến đâu phụ thuộc vào điều kiện. [IUPAC Gold Book về mức tiến triển](https://goldbook.iupac.org/terms/view/E02283) · [OpenStax về enthalpy trung hòa](https://openstax.org/books/chemistry/pages/5-3-enthalpy) · [OpenStax về Q và Ksp](https://openstax.org/books/chemistry-2e/pages/15-1-precipitation-and-dissolution)
+
+Kho phương trình trên Lab 2D cung cấp minh họa định tính. Động học đo được, áp suất công nghiệp, hoạt độ của hỗn hợp đậm đặc và cân bằng cạnh tranh giữa nhiều pha cần mô hình riêng cho từng bài. Xem phạm vi và nguồn của [mô hình BaSO₄ dùng chung](barite-saturation.vi.md).
+
+Kết quả kiểm chứng gồm 179 kiểm thử Lab 2D, 3.849 kiểm thử Lab 3D trong hai lượt chạy tuần tự và 31 kiểm thử dữ liệu, API, bài học và liên kết phương trình. Cả hai bản production dựng thành công. Chrome headless xác nhận tra cứu trên cả hai bàn, phân trang và mở minh họa Lab 2D ở độ rộng 390 và 1.440 px.
+
+## Rà soát ngày 28/10/2026
+
+Phạm vi gồm dữ liệu dùng chung, thư viện tra cứu trong Lab 3D, công cụ chuỗi phản ứng và API tương ứng.
 
 ## Kết quả dữ liệu
 

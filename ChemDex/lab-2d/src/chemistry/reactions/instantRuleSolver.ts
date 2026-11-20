@@ -12,7 +12,10 @@ import {
   SolidChunkItem,
   SolidMorphology,
   PrecipitateLayerState,
+  StoichiometricSpecies,
 } from '../../types/chemistry';
+import { balanceEquation, formatEquation, gcd } from '@shared/chemistry/formula.mjs';
+import { baritePrecipitationExtent } from '@shared/chemistry/barite.mjs';
 import { normalizeFormula, computeMolarMass } from '../core/formula';
 import { calculateReactionDeltaT } from '../thermodynamics/calorimetry';
 import { computeParticleBuoyancy, getPrecipitateProfile2D } from '../physical/precipitateProfiles';
@@ -54,76 +57,72 @@ export interface InstantRuleResolutionOutput {
 // ─── Ion Dissociation Table for Tier 2 Rule-Derived Engine ─────────────────
 interface DissociatedSalt {
   cation: string;
-  cationCount: number;
   cationCharge: number;
   anion: string;
-  anionCount: number;
   anionCharge: number;
 }
 
 const SALT_ION_TABLE: Record<string, DissociatedSalt> = {
   // Chlorides
-  'NACL': { cation: 'Na', cationCount: 1, cationCharge: 1, anion: 'Cl', anionCount: 1, anionCharge: 1 },
-  'KCL': { cation: 'K', cationCount: 1, cationCharge: 1, anion: 'Cl', anionCount: 1, anionCharge: 1 },
-  'BACL2': { cation: 'Ba', cationCount: 1, cationCharge: 2, anion: 'Cl', anionCount: 2, anionCharge: 1 },
-  'CACL2': { cation: 'Ca', cationCount: 1, cationCharge: 2, anion: 'Cl', anionCount: 2, anionCharge: 1 },
-  'MGCL2': { cation: 'Mg', cationCount: 1, cationCharge: 2, anion: 'Cl', anionCount: 2, anionCharge: 1 },
-  'CUCL2': { cation: 'Cu', cationCount: 1, cationCharge: 2, anion: 'Cl', anionCount: 2, anionCharge: 1 },
-  'FECL3': { cation: 'Fe3', cationCount: 1, cationCharge: 3, anion: 'Cl', anionCount: 3, anionCharge: 1 },
-  'FECL2': { cation: 'Fe2', cationCount: 1, cationCharge: 2, anion: 'Cl', anionCount: 2, anionCharge: 1 },
-  'ALCL3': { cation: 'Al', cationCount: 1, cationCharge: 3, anion: 'Cl', anionCount: 3, anionCharge: 1 },
-  'ZNCL2': { cation: 'Zn', cationCount: 1, cationCharge: 2, anion: 'Cl', anionCount: 2, anionCharge: 1 },
-  'NH4CL': { cation: 'NH4', cationCount: 1, cationCharge: 1, anion: 'Cl', anionCount: 1, anionCharge: 1 },
-  'COCL2': { cation: 'Co', cationCount: 1, cationCharge: 2, anion: 'Cl', anionCount: 2, anionCharge: 1 },
+  'NACL': { cation: 'Na', cationCharge: 1, anion: 'Cl', anionCharge: 1 },
+  'KCL': { cation: 'K', cationCharge: 1, anion: 'Cl', anionCharge: 1 },
+  'BACL2': { cation: 'Ba', cationCharge: 2, anion: 'Cl', anionCharge: 1 },
+  'CACL2': { cation: 'Ca', cationCharge: 2, anion: 'Cl', anionCharge: 1 },
+  'MGCL2': { cation: 'Mg', cationCharge: 2, anion: 'Cl', anionCharge: 1 },
+  'CUCL2': { cation: 'Cu', cationCharge: 2, anion: 'Cl', anionCharge: 1 },
+  'FECL3': { cation: 'Fe3', cationCharge: 3, anion: 'Cl', anionCharge: 1 },
+  'FECL2': { cation: 'Fe2', cationCharge: 2, anion: 'Cl', anionCharge: 1 },
+  'ALCL3': { cation: 'Al', cationCharge: 3, anion: 'Cl', anionCharge: 1 },
+  'ZNCL2': { cation: 'Zn', cationCharge: 2, anion: 'Cl', anionCharge: 1 },
+  'NH4CL': { cation: 'NH4', cationCharge: 1, anion: 'Cl', anionCharge: 1 },
+  'COCL2': { cation: 'Co', cationCharge: 2, anion: 'Cl', anionCharge: 1 },
   // Nitrates
-  'AGNO3': { cation: 'Ag', cationCount: 1, cationCharge: 1, anion: 'NO3', anionCount: 1, anionCharge: 1 },
-  'PB(NO3)2': { cation: 'Pb', cationCount: 1, cationCharge: 2, anion: 'NO3', anionCount: 2, anionCharge: 1 },
-  'CU(NO3)2': { cation: 'Cu', cationCount: 1, cationCharge: 2, anion: 'NO3', anionCount: 2, anionCharge: 1 },
-  'BA(NO3)2': { cation: 'Ba', cationCount: 1, cationCharge: 2, anion: 'NO3', anionCount: 2, anionCharge: 1 },
-  'CA(NO3)2': { cation: 'Ca', cationCount: 1, cationCharge: 2, anion: 'NO3', anionCount: 2, anionCharge: 1 },
-  'FE(NO3)3': { cation: 'Fe3', cationCount: 1, cationCharge: 3, anion: 'NO3', anionCount: 3, anionCharge: 1 },
-  'ZN(NO3)2': { cation: 'Zn', cationCount: 1, cationCharge: 2, anion: 'NO3', anionCount: 2, anionCharge: 1 },
-  'KNO3': { cation: 'K', cationCount: 1, cationCharge: 1, anion: 'NO3', anionCount: 1, anionCharge: 1 },
-  'NANO3': { cation: 'Na', cationCount: 1, cationCharge: 1, anion: 'NO3', anionCount: 1, anionCharge: 1 },
+  'AGNO3': { cation: 'Ag', cationCharge: 1, anion: 'NO3', anionCharge: 1 },
+  'PB(NO3)2': { cation: 'Pb', cationCharge: 2, anion: 'NO3', anionCharge: 1 },
+  'CU(NO3)2': { cation: 'Cu', cationCharge: 2, anion: 'NO3', anionCharge: 1 },
+  'BA(NO3)2': { cation: 'Ba', cationCharge: 2, anion: 'NO3', anionCharge: 1 },
+  'CA(NO3)2': { cation: 'Ca', cationCharge: 2, anion: 'NO3', anionCharge: 1 },
+  'FE(NO3)3': { cation: 'Fe3', cationCharge: 3, anion: 'NO3', anionCharge: 1 },
+  'ZN(NO3)2': { cation: 'Zn', cationCharge: 2, anion: 'NO3', anionCharge: 1 },
+  'KNO3': { cation: 'K', cationCharge: 1, anion: 'NO3', anionCharge: 1 },
+  'NANO3': { cation: 'Na', cationCharge: 1, anion: 'NO3', anionCharge: 1 },
   // Sulfates
-  'NA2SO4': { cation: 'Na', cationCount: 2, cationCharge: 1, anion: 'SO4', anionCount: 1, anionCharge: 2 },
-  'K2SO4': { cation: 'K', cationCount: 2, cationCharge: 1, anion: 'SO4', anionCount: 1, anionCharge: 2 },
-  'CUSO4': { cation: 'Cu', cationCount: 1, cationCharge: 2, anion: 'SO4', anionCount: 1, anionCharge: 2 },
-  'FESO4': { cation: 'Fe2', cationCount: 1, cationCharge: 2, anion: 'SO4', anionCount: 1, anionCharge: 2 },
-  'FE2(SO4)3': { cation: 'Fe3', cationCount: 2, cationCharge: 3, anion: 'SO4', anionCount: 3, anionCharge: 2 },
-  'ZNSO4': { cation: 'Zn', cationCount: 1, cationCharge: 2, anion: 'SO4', anionCount: 1, anionCharge: 2 },
-  'MGSO4': { cation: 'Mg', cationCount: 1, cationCharge: 2, anion: 'SO4', anionCount: 1, anionCharge: 2 },
-  'AL2(SO4)3': { cation: 'Al', cationCount: 2, cationCharge: 3, anion: 'SO4', anionCount: 3, anionCharge: 2 },
-  'NISO4': { cation: 'Ni', cationCount: 1, cationCharge: 2, anion: 'SO4', anionCount: 1, anionCharge: 2 },
-  'H2SO4': { cation: 'H', cationCount: 2, cationCharge: 1, anion: 'SO4', anionCount: 1, anionCharge: 2 },
+  'NA2SO4': { cation: 'Na', cationCharge: 1, anion: 'SO4', anionCharge: 2 },
+  'K2SO4': { cation: 'K', cationCharge: 1, anion: 'SO4', anionCharge: 2 },
+  'CUSO4': { cation: 'Cu', cationCharge: 2, anion: 'SO4', anionCharge: 2 },
+  'FESO4': { cation: 'Fe2', cationCharge: 2, anion: 'SO4', anionCharge: 2 },
+  'FE2(SO4)3': { cation: 'Fe3', cationCharge: 3, anion: 'SO4', anionCharge: 2 },
+  'ZNSO4': { cation: 'Zn', cationCharge: 2, anion: 'SO4', anionCharge: 2 },
+  'MGSO4': { cation: 'Mg', cationCharge: 2, anion: 'SO4', anionCharge: 2 },
+  'AL2(SO4)3': { cation: 'Al', cationCharge: 3, anion: 'SO4', anionCharge: 2 },
+  'NISO4': { cation: 'Ni', cationCharge: 2, anion: 'SO4', anionCharge: 2 },
+  'H2SO4': { cation: 'H', cationCharge: 1, anion: 'SO4', anionCharge: 2 },
   // Halides (Br, I)
-  'KI': { cation: 'K', cationCount: 1, cationCharge: 1, anion: 'I', anionCount: 1, anionCharge: 1 },
-  'NAI': { cation: 'Na', cationCount: 1, cationCharge: 1, anion: 'I', anionCount: 1, anionCharge: 1 },
-  'KBR': { cation: 'K', cationCount: 1, cationCharge: 1, anion: 'Br', anionCount: 1, anionCharge: 1 },
-  'NABR': { cation: 'Na', cationCount: 1, cationCharge: 1, anion: 'Br', anionCount: 1, anionCharge: 1 },
+  'KI': { cation: 'K', cationCharge: 1, anion: 'I', anionCharge: 1 },
+  'NAI': { cation: 'Na', cationCharge: 1, anion: 'I', anionCharge: 1 },
+  'KBR': { cation: 'K', cationCharge: 1, anion: 'Br', anionCharge: 1 },
+  'NABR': { cation: 'Na', cationCharge: 1, anion: 'Br', anionCharge: 1 },
   // Carbonates, Sulfides, Chromates, Hydroxides, Thiocyanates
-  'NA2CO3': { cation: 'Na', cationCount: 2, cationCharge: 1, anion: 'CO3', anionCount: 1, anionCharge: 2 },
-  'K2CO3': { cation: 'K', cationCount: 2, cationCharge: 1, anion: 'CO3', anionCount: 1, anionCharge: 2 },
-  'NA2S': { cation: 'Na', cationCount: 2, cationCharge: 1, anion: 'S', anionCount: 1, anionCharge: 2 },
-  'K2CRO4': { cation: 'K', cationCount: 2, cationCharge: 1, anion: 'CrO4', anionCount: 1, anionCharge: 2 },
-  'NAOH': { cation: 'Na', cationCount: 1, cationCharge: 1, anion: 'OH', anionCount: 1, anionCharge: 1 },
-  'KOH': { cation: 'K', cationCount: 1, cationCharge: 1, anion: 'OH', anionCount: 1, anionCharge: 1 },
-  'BA(OH)2': { cation: 'Ba', cationCount: 1, cationCharge: 2, anion: 'OH', anionCount: 2, anionCharge: 1 },
-  'CA(OH)2': { cation: 'Ca', cationCount: 1, cationCharge: 2, anion: 'OH', anionCount: 2, anionCharge: 1 },
-  'KSCN': { cation: 'K', cationCount: 1, cationCharge: 1, anion: 'SCN', anionCount: 1, anionCharge: 1 },
-  'NASCN': { cation: 'Na', cationCount: 1, cationCharge: 1, anion: 'SCN', anionCount: 1, anionCharge: 1 },
-  'NH4SCN': { cation: 'NH4', cationCount: 1, cationCharge: 1, anion: 'SCN', anionCount: 1, anionCharge: 1 },
-  'HCL': { cation: 'H', cationCount: 1, cationCharge: 1, anion: 'Cl', anionCount: 1, anionCharge: 1 },
-  'C17H35COONA': { cation: 'Na', cationCount: 1, cationCharge: 1, anion: 'Stearate', anionCount: 1, anionCharge: 1 },
-  'NAC17H35COO': { cation: 'Na', cationCount: 1, cationCharge: 1, anion: 'Stearate', anionCount: 1, anionCharge: 1 },
+  'NA2CO3': { cation: 'Na', cationCharge: 1, anion: 'CO3', anionCharge: 2 },
+  'K2CO3': { cation: 'K', cationCharge: 1, anion: 'CO3', anionCharge: 2 },
+  'NA2S': { cation: 'Na', cationCharge: 1, anion: 'S', anionCharge: 2 },
+  'K2CRO4': { cation: 'K', cationCharge: 1, anion: 'CrO4', anionCharge: 2 },
+  'NAOH': { cation: 'Na', cationCharge: 1, anion: 'OH', anionCharge: 1 },
+  'KOH': { cation: 'K', cationCharge: 1, anion: 'OH', anionCharge: 1 },
+  'BA(OH)2': { cation: 'Ba', cationCharge: 2, anion: 'OH', anionCharge: 1 },
+  'CA(OH)2': { cation: 'Ca', cationCharge: 2, anion: 'OH', anionCharge: 1 },
+  'KSCN': { cation: 'K', cationCharge: 1, anion: 'SCN', anionCharge: 1 },
+  'NASCN': { cation: 'Na', cationCharge: 1, anion: 'SCN', anionCharge: 1 },
+  'NH4SCN': { cation: 'NH4', cationCharge: 1, anion: 'SCN', anionCharge: 1 },
+  'HCL': { cation: 'H', cationCharge: 1, anion: 'Cl', anionCharge: 1 },
+  'C17H35COONA': { cation: 'Na', cationCharge: 1, anion: 'Stearate', anionCharge: 1 },
+  'NAC17H35COO': { cation: 'Na', cationCharge: 1, anion: 'Stearate', anionCharge: 1 },
 };
 
 interface InsolublePrecipitateRule {
   cation: string;
   anion: string;
   formula: string;
-  catStoich: number;
-  anStoich: number;
   colorHex: string;
   morphology: PrecipitateMorphology;
   controllerId: string;
@@ -132,30 +131,30 @@ interface InsolublePrecipitateRule {
 }
 
 const INSOLUBLE_PRECIPITATE_RULES: InsolublePrecipitateRule[] = [
-  { cation: 'Ag', anion: 'Cl', formula: 'AgCl', catStoich: 1, anStoich: 1, colorHex: '#f8fafc', morphology: 'curdy', controllerId: 'agcl_curdy', name_vi: 'Kết tủa Bạc clorua trắng vón cục', name_en: 'Curdy white Silver Chloride precipitation' },
-  { cation: 'Ag', anion: 'Br', formula: 'AgBr', catStoich: 1, anStoich: 1, colorHex: '#fef9c3', morphology: 'curdy', controllerId: 'agcl_curdy', name_vi: 'Kết tủa Bạc bromua vàng nhạt', name_en: 'Pale yellow Silver Bromide precipitation' },
-  { cation: 'Ag', anion: 'I', formula: 'AgI', catStoich: 1, anStoich: 1, colorHex: '#fde047', morphology: 'curdy', controllerId: 'agcl_curdy', name_vi: 'Kết tủa Bạc iotua vàng đậm', name_en: 'Yellow Silver Iodide precipitation' },
-  { cation: 'Ag', anion: 'CrO4', formula: 'Ag2CrO4', catStoich: 2, anStoich: 1, colorHex: '#991b1b', morphology: 'powder', controllerId: 'baso4_milky', name_vi: 'Kết tủa Bạc cromat đỏ gạch', name_en: 'Brick-red Silver Chromate precipitation' },
-  { cation: 'Ag', anion: 'S', formula: 'Ag2S', catStoich: 2, anStoich: 1, colorHex: '#18181b', morphology: 'powder', controllerId: 'baso4_milky', name_vi: 'Kết tủa Bạc sunfua đen', name_en: 'Black Silver Sulfide precipitation' },
-  { cation: 'Ba', anion: 'SO4', formula: 'BaSO4', catStoich: 1, anStoich: 1, colorHex: '#ffffff', morphology: 'milky', controllerId: 'baso4_milky', name_vi: 'Kết tủa Bari sunfat trắng đục sữa', name_en: 'Milky white Barium Sulfate precipitation' },
-  { cation: 'Ba', anion: 'CO3', formula: 'BaCO3', catStoich: 1, anStoich: 1, colorHex: '#f8fafc', morphology: 'milky', controllerId: 'baso4_milky', name_vi: 'Kết tủa Bari cacbonat trắng', name_en: 'White Barium Carbonate precipitation' },
-  { cation: 'Ba', anion: 'CrO4', formula: 'BaCrO4', catStoich: 1, anStoich: 1, colorHex: '#facc15', morphology: 'powder', controllerId: 'baso4_milky', name_vi: 'Kết tủa Bari cromat vàng tươi', name_en: 'Bright yellow Barium Chromate precipitation' },
-  { cation: 'Pb', anion: 'I', formula: 'PbI2', catStoich: 1, anStoich: 2, colorHex: '#eab308', morphology: 'plates', controllerId: 'pbi2_golden_rain', name_vi: 'Kết tủa Chì(II) iotua vàng óng ánh (Mưa vàng)', name_en: 'Golden Rain Lead(II) Iodide precipitation' },
-  { cation: 'Pb', anion: 'SO4', formula: 'PbSO4', catStoich: 1, anStoich: 1, colorHex: '#ffffff', morphology: 'milky', controllerId: 'baso4_milky', name_vi: 'Kết tủa Chì(II) sunfat trắng', name_en: 'White Lead(II) Sulfate precipitation' },
-  { cation: 'Pb', anion: 'CrO4', formula: 'PbCrO4', catStoich: 1, anStoich: 1, colorHex: '#eab308', morphology: 'powder', controllerId: 'baso4_milky', name_vi: 'Kết tủa Chì(II) cromat vàng', name_en: 'Chrome yellow Lead(II) Chromate precipitation' },
-  { cation: 'Pb', anion: 'S', formula: 'PbS', catStoich: 1, anStoich: 1, colorHex: '#18181b', morphology: 'powder', controllerId: 'baso4_milky', name_vi: 'Kết tủa Chì(II) sunfua đen', name_en: 'Black Lead(II) Sulfide precipitation' },
-  { cation: 'Ca', anion: 'CO3', formula: 'CaCO3', catStoich: 1, anStoich: 1, colorHex: '#f8fafc', morphology: 'milky', controllerId: 'baso4_milky', name_vi: 'Kết tủa Canxi cacbonat trắng', name_en: 'White Calcium Carbonate precipitation' },
-  { cation: 'Cu', anion: 'OH', formula: 'Cu(OH)2', catStoich: 1, anStoich: 2, colorHex: '#38bdf8', morphology: 'gel', controllerId: 'cuoh2_gel', name_vi: 'Kết tủa keo xanh lam Đồng(II) hiđroxit', name_en: 'Gelatinous blue Copper(II) Hydroxide precipitation' },
-  { cation: 'Cu', anion: 'S', formula: 'CuS', catStoich: 1, anStoich: 1, colorHex: '#09090b', morphology: 'powder', controllerId: 'baso4_milky', name_vi: 'Kết tủa Đồng(II) sunfua đen', name_en: 'Black Copper(II) Sulfide precipitation' },
-  { cation: 'Fe3', anion: 'OH', formula: 'Fe(OH)3', catStoich: 1, anStoich: 3, colorHex: '#9a3412', morphology: 'floc', controllerId: 'feoh3_floc', name_vi: 'Kết tủa bông nâu đỏ Sắt(III) hiđroxit', name_en: 'Reddish-brown flocculent Iron(III) Hydroxide precipitation' },
-  { cation: 'Fe2', anion: 'OH', formula: 'Fe(OH)2', catStoich: 1, anStoich: 2, colorHex: '#d9f99d', morphology: 'floc', controllerId: 'feoh3_floc', name_vi: 'Kết tủa trắng xanh Sắt(II) hiđroxit', name_en: 'Greenish-white Iron(II) Hydroxide precipitation' },
-  { cation: 'Mg', anion: 'OH', formula: 'Mg(OH)2', catStoich: 1, anStoich: 2, colorHex: '#ffffff', morphology: 'gel', controllerId: 'baso4_milky', name_vi: 'Kết tủa trắng Magie hiđroxit', name_en: 'White Magnesium Hydroxide precipitation' },
-  { cation: 'Al', anion: 'OH', formula: 'Al(OH)3', catStoich: 1, anStoich: 3, colorHex: '#f1f5f9', morphology: 'gel', controllerId: 'aloh3_amphoteric', name_vi: 'Kết tủa keo trắng Nhôm hiđroxit', name_en: 'Gelatinous white Aluminium Hydroxide precipitation' },
-  { cation: 'Zn', anion: 'OH', formula: 'Zn(OH)2', catStoich: 1, anStoich: 2, colorHex: '#f1f5f9', morphology: 'gel', controllerId: 'aloh3_amphoteric', name_vi: 'Kết tủa keo trắng Kẽm hiđroxit', name_en: 'Gelatinous white Zinc Hydroxide precipitation' },
-  { cation: 'Ni', anion: 'OH', formula: 'Ni(OH)2', catStoich: 1, anStoich: 2, colorHex: '#4ade80', morphology: 'gel', controllerId: 'cuoh2_gel', name_vi: 'Kết tủa xanh lục Niken(II) hiđroxit', name_en: 'Apple-green Nickel(II) Hydroxide precipitation' },
-  { cation: 'Co', anion: 'OH', formula: 'Co(OH)2', catStoich: 1, anStoich: 2, colorHex: '#f472b6', morphology: 'gel', controllerId: 'cuoh2_gel', name_vi: 'Kết tủa hồng Coban(II) hiđroxit', name_en: 'Pink Cobalt(II) Hydroxide precipitation' },
-  { cation: 'Ca', anion: 'Stearate', formula: 'Ca(C17H35COO)2', catStoich: 1, anStoich: 2, colorHex: '#f8fafc', morphology: 'curdy', controllerId: 'agcl_curdy', name_vi: 'Váng kết tủa xà phòng Canxi stearat nổi trên mặt nước', name_en: 'Floating white Calcium Stearate soap curd precipitation' },
-  { cation: 'Mg', anion: 'Stearate', formula: 'Mg(C17H35COO)2', catStoich: 1, anStoich: 2, colorHex: '#f1f5f9', morphology: 'curdy', controllerId: 'agcl_curdy', name_vi: 'Váng kết tủa xà phòng Magie stearat nổi trên mặt nước', name_en: 'Floating white Magnesium Stearate soap curd precipitation' },
+  { cation: 'Ag', anion: 'Cl', formula: 'AgCl', colorHex: '#f8fafc', morphology: 'curdy', controllerId: 'agcl_curdy', name_vi: 'Kết tủa Bạc clorua trắng vón cục', name_en: 'Curdy white Silver Chloride precipitation' },
+  { cation: 'Ag', anion: 'Br', formula: 'AgBr', colorHex: '#fef9c3', morphology: 'curdy', controllerId: 'agcl_curdy', name_vi: 'Kết tủa Bạc bromua vàng nhạt', name_en: 'Pale yellow Silver Bromide precipitation' },
+  { cation: 'Ag', anion: 'I', formula: 'AgI', colorHex: '#fde047', morphology: 'curdy', controllerId: 'agcl_curdy', name_vi: 'Kết tủa Bạc iotua vàng đậm', name_en: 'Yellow Silver Iodide precipitation' },
+  { cation: 'Ag', anion: 'CrO4', formula: 'Ag2CrO4', colorHex: '#991b1b', morphology: 'powder', controllerId: 'baso4_milky', name_vi: 'Kết tủa Bạc cromat đỏ gạch', name_en: 'Brick-red Silver Chromate precipitation' },
+  { cation: 'Ag', anion: 'S', formula: 'Ag2S', colorHex: '#18181b', morphology: 'powder', controllerId: 'baso4_milky', name_vi: 'Kết tủa Bạc sunfua đen', name_en: 'Black Silver Sulfide precipitation' },
+  { cation: 'Ba', anion: 'SO4', formula: 'BaSO4', colorHex: '#ffffff', morphology: 'milky', controllerId: 'baso4_milky', name_vi: 'Kết tủa Bari sunfat trắng đục sữa', name_en: 'Milky white Barium Sulfate precipitation' },
+  { cation: 'Ba', anion: 'CO3', formula: 'BaCO3', colorHex: '#f8fafc', morphology: 'milky', controllerId: 'baso4_milky', name_vi: 'Kết tủa Bari cacbonat trắng', name_en: 'White Barium Carbonate precipitation' },
+  { cation: 'Ba', anion: 'CrO4', formula: 'BaCrO4', colorHex: '#facc15', morphology: 'powder', controllerId: 'baso4_milky', name_vi: 'Kết tủa Bari cromat vàng tươi', name_en: 'Bright yellow Barium Chromate precipitation' },
+  { cation: 'Pb', anion: 'I', formula: 'PbI2', colorHex: '#eab308', morphology: 'plates', controllerId: 'pbi2_golden_rain', name_vi: 'Kết tủa Chì(II) iotua vàng óng ánh (Mưa vàng)', name_en: 'Golden Rain Lead(II) Iodide precipitation' },
+  { cation: 'Pb', anion: 'SO4', formula: 'PbSO4', colorHex: '#ffffff', morphology: 'milky', controllerId: 'baso4_milky', name_vi: 'Kết tủa Chì(II) sunfat trắng', name_en: 'White Lead(II) Sulfate precipitation' },
+  { cation: 'Pb', anion: 'CrO4', formula: 'PbCrO4', colorHex: '#eab308', morphology: 'powder', controllerId: 'baso4_milky', name_vi: 'Kết tủa Chì(II) cromat vàng', name_en: 'Chrome yellow Lead(II) Chromate precipitation' },
+  { cation: 'Pb', anion: 'S', formula: 'PbS', colorHex: '#18181b', morphology: 'powder', controllerId: 'baso4_milky', name_vi: 'Kết tủa Chì(II) sunfua đen', name_en: 'Black Lead(II) Sulfide precipitation' },
+  { cation: 'Ca', anion: 'CO3', formula: 'CaCO3', colorHex: '#f8fafc', morphology: 'milky', controllerId: 'baso4_milky', name_vi: 'Kết tủa Canxi cacbonat trắng', name_en: 'White Calcium Carbonate precipitation' },
+  { cation: 'Cu', anion: 'OH', formula: 'Cu(OH)2', colorHex: '#38bdf8', morphology: 'gel', controllerId: 'cuoh2_gel', name_vi: 'Kết tủa keo xanh lam Đồng(II) hiđroxit', name_en: 'Gelatinous blue Copper(II) Hydroxide precipitation' },
+  { cation: 'Cu', anion: 'S', formula: 'CuS', colorHex: '#09090b', morphology: 'powder', controllerId: 'baso4_milky', name_vi: 'Kết tủa Đồng(II) sunfua đen', name_en: 'Black Copper(II) Sulfide precipitation' },
+  { cation: 'Fe3', anion: 'OH', formula: 'Fe(OH)3', colorHex: '#9a3412', morphology: 'floc', controllerId: 'feoh3_floc', name_vi: 'Kết tủa bông nâu đỏ Sắt(III) hiđroxit', name_en: 'Reddish-brown flocculent Iron(III) Hydroxide precipitation' },
+  { cation: 'Fe2', anion: 'OH', formula: 'Fe(OH)2', colorHex: '#d9f99d', morphology: 'floc', controllerId: 'feoh3_floc', name_vi: 'Kết tủa trắng xanh Sắt(II) hiđroxit', name_en: 'Greenish-white Iron(II) Hydroxide precipitation' },
+  { cation: 'Mg', anion: 'OH', formula: 'Mg(OH)2', colorHex: '#ffffff', morphology: 'gel', controllerId: 'baso4_milky', name_vi: 'Kết tủa trắng Magie hiđroxit', name_en: 'White Magnesium Hydroxide precipitation' },
+  { cation: 'Al', anion: 'OH', formula: 'Al(OH)3', colorHex: '#f1f5f9', morphology: 'gel', controllerId: 'aloh3_amphoteric', name_vi: 'Kết tủa keo trắng Nhôm hiđroxit', name_en: 'Gelatinous white Aluminium Hydroxide precipitation' },
+  { cation: 'Zn', anion: 'OH', formula: 'Zn(OH)2', colorHex: '#f1f5f9', morphology: 'gel', controllerId: 'aloh3_amphoteric', name_vi: 'Kết tủa keo trắng Kẽm hiđroxit', name_en: 'Gelatinous white Zinc Hydroxide precipitation' },
+  { cation: 'Ni', anion: 'OH', formula: 'Ni(OH)2', colorHex: '#4ade80', morphology: 'gel', controllerId: 'cuoh2_gel', name_vi: 'Kết tủa xanh lục Niken(II) hiđroxit', name_en: 'Apple-green Nickel(II) Hydroxide precipitation' },
+  { cation: 'Co', anion: 'OH', formula: 'Co(OH)2', colorHex: '#f472b6', morphology: 'gel', controllerId: 'cuoh2_gel', name_vi: 'Kết tủa hồng Coban(II) hiđroxit', name_en: 'Pink Cobalt(II) Hydroxide precipitation' },
+  { cation: 'Ca', anion: 'Stearate', formula: 'Ca(C17H35COO)2', colorHex: '#f8fafc', morphology: 'curdy', controllerId: 'agcl_curdy', name_vi: 'Váng kết tủa xà phòng Canxi stearat nổi trên mặt nước', name_en: 'Floating white Calcium Stearate soap curd precipitation' },
+  { cation: 'Mg', anion: 'Stearate', formula: 'Mg(C17H35COO)2', colorHex: '#f1f5f9', morphology: 'curdy', controllerId: 'agcl_curdy', name_vi: 'Váng kết tủa xà phòng Magie stearat nổi trên mặt nước', name_en: 'Floating white Magnesium Stearate soap curd precipitation' },
 ];
 
 // Electrochemical reactivity rank (higher = more reactive reducing metal)
@@ -268,7 +267,7 @@ export function resolveInstantRulesAndEquilibria(
     if (molesToAdd <= 1e-8) return;
     const norm = normalizeFormula(formula);
     const mm = computeMolarMass(formula);
-    const existing = workingContents.find(c => normalizeFormula(c.formula) === norm);
+    const existing = workingContents.find(c => normalizeFormula(c.formula) === norm && c.state === state);
     if (existing) {
       existing.moles += molesToAdd;
       existing.mass_g = existing.moles * mm;
@@ -446,211 +445,118 @@ export function resolveInstantRulesAndEquilibria(
   }
 
   // ─── 6. TIER 2 DETERMINISTIC RULE-DERIVED INSTANT SOLVER ───────────────────
-  // If no catalog reaction fired this pass, check general ionic precipitation & single-displacement
   if ((options?.includeTier2Fallback ?? true) && reactionsOccurred.length === 0 && workingContents.length >= 2) {
-    // 6A. Carbonate / Bicarbonate / Sulfite / Sulfide + Any Acid -> Gas Evolution
-    const acidItem = workingContents.find(c => {
-      const f = normalizeFormula(c.formula);
-      return ['HCL', 'HNO3', 'H2SO4', 'CH3COOH', 'H3PO4'].includes(f) && c.moles > 1e-6;
-    });
-    const gasSaltItem = workingContents.find(c => {
-      const f = normalizeFormula(c.formula);
-      return (f.includes('CO3') || f.includes('SO3') || (f.endsWith('S') && f !== 'CUS' && f !== 'PBS' && f !== 'AG2S')) && c.moles > 1e-6;
-    });
-
-    if (acidItem && gasSaltItem) {
-      const saltNorm = normalizeFormula(gasSaltItem.formula);
-      const gasFormula = saltNorm.includes('CO3') ? 'CO2' : saltNorm.includes('SO3') ? 'SO2' : 'H2S';
-      const xi = Math.min(gasSaltItem.moles, acidItem.moles / 2);
-      if (xi > 1e-6) {
-        gasSaltItem.moles = Math.max(0, gasSaltItem.moles - xi);
-        gasSaltItem.mass_g = gasSaltItem.moles * computeMolarMass(gasSaltItem.formula);
-        acidItem.moles = Math.max(0, acidItem.moles - 2 * xi);
-        acidItem.mass_g = acidItem.moles * computeMolarMass(acidItem.formula);
-        if (gasFormula !== 'H2S') {
-          addOrUpdateSpecies('H2O', xi, 'l');
-        }
-        if (!isOpenVessel) addOrUpdateSpecies(gasFormula, xi, 'g');
-        else recordEscapedGas(gasFormula, xi);
-
-        const thermal = calculateReactionDeltaT(xi, -18.5, Math.max(10, volume_ml), temp_c);
-        temp_c = thermal.finalTemp_c;
+    const acid = workingContents.find(row => row.state === 'aq' && row.moles > 1e-6
+      && Object.hasOwn(AQUEOUS_ACIDS, row.formula));
+    const gasSalt = workingContents.find(row => row.moles > 1e-6 && Object.hasOwn(GAS_SALTS, row.formula)
+      && row.state === GAS_SALTS[row.formula].state);
+    if (acid && gasSalt) {
+      const salt = GAS_SALTS[gasSalt.formula];
+      const { anion, charge } = AQUEOUS_ACIDS[acid.formula];
+      const counterionSalt = saltFormula(salt.cation, salt.charge, anion, charge);
+      const reaction = applyBalancedRule(workingContents, [gasSalt, acid], [
+        { formula: counterionSalt, state: saltPhase(counterionSalt) },
+        { formula: salt.gas, state: 'g' },
+        ...(salt.gas === 'H2S' ? [] : [{ formula: 'H2O', state: 'l' } as const]),
+      ], isOpenVessel, recordEscapedGas);
+      if (reaction) {
         hasGas = true;
-        gasInfo = { formula: gasFormula, molesReleased: xi, effervescenceSpeed: 'vigorous' };
-        activeControllerIds.add('caco3_hcl_effervescence');
-
+        gasInfo = { formula: salt.gas, molesReleased: reaction.gasMoles, effervescenceSpeed: 'vigorous' };
+        const controllerId = 'caco3_hcl_effervescence';
+        activeControllerIds.add(controllerId);
         reactionsOccurred.push({
-          reactionId: `rx_rule_gas_${saltNorm}_${normalizeFormula(acidItem.formula)}`,
-          name_en: `Gas evolution reaction of ${gasSaltItem.formula} with ${acidItem.formula}`,
-          name_vi: `Phản ứng sủi bọt khí giữa ${gasSaltItem.formula} và ${acidItem.formula}`,
-          equation: `${gasSaltItem.formula} + ${acidItem.formula} → Muối + H₂O + ${gasFormula}↑`,
-          ionic_equation: saltNorm.includes('CO3') ? 'CO₃²⁻ + 2H⁺ → CO₂↑ + H₂O' : 'S²⁻ + 2H⁺ → H₂S↑',
-          extent_moles: Math.round(xi * 100000) / 100000,
-          heatReleased_J: thermal.heatReleased_J,
-          limitingReactant: gasSaltItem.moles <= 1e-6 ? gasSaltItem.formula : acidItem.formula,
-          excessReactants: { [gasSaltItem.formula]: gasSaltItem.moles, [acidItem.formula]: acidItem.moles },
-          observable_en: `Vigorous effervescence of ${gasFormula} gas bubbles from the reaction zone.`,
-          observable_vi: `Sủi bọt khí ${gasFormula} mạnh mẽ từ vùng tiếp xúc phản ứng.`,
-          tier: 'rule-derived',
+          ...reaction.record,
+          reactionId: `rx_rule_gas_${normalizeFormula(gasSalt.formula)}_${normalizeFormula(acid.formula)}`,
+          observable_en: 'Gas evolves from the mixture.',
+          observable_vi: 'Khí thoát ra từ hỗn hợp.',
           archetype: 'gas_evolution',
-          controllerId: 'caco3_hcl_effervescence',
+          controllerId,
         });
       }
     }
 
-    // 6B. General Double-Displacement Ion Precipitation (Ksp Rules)
     if (reactionsOccurred.length === 0) {
-      const dissolvedItems = workingContents.filter(c => c.moles > 1e-6 && SALT_ION_TABLE[normalizeFormula(c.formula)]);
-      outerLoop: for (let i = 0; i < dissolvedItems.length; i++) {
-        for (let j = i + 1; j < dissolvedItems.length; j++) {
-          const itemA = dissolvedItems[i];
-          const itemB = dissolvedItems[j];
-          const saltA = SALT_ION_TABLE[normalizeFormula(itemA.formula)];
-          const saltB = SALT_ION_TABLE[normalizeFormula(itemB.formula)];
-          if (!saltA || !saltB) continue;
+      const dissolvedItems = workingContents.filter(row => row.state === 'aq' && row.moles > 1e-12
+        && Object.hasOwn(SALT_ION_TABLE, normalizeFormula(row.formula)));
+      outerLoop: for (const cationSource of dissolvedItems) {
+        const cationSalt = SALT_ION_TABLE[normalizeFormula(cationSource.formula)];
+        for (const anionSource of dissolvedItems) {
+          if (cationSource.formula === anionSource.formula) continue;
+          const anionSalt = SALT_ION_TABLE[normalizeFormula(anionSource.formula)];
+          const rule = INSOLUBLE_PRECIPITATE_RULES.find(r => r.cation === cationSalt.cation && r.anion === anionSalt.anion);
+          if (!rule) continue;
+          const extentLimit = rule.formula === 'BaSO4' ? bariteExtent2D(workingContents, volume_ml, temp_c) : null;
+          const companion = saltFormula(anionSalt.cation, anionSalt.cationCharge, cationSalt.anion, cationSalt.anionCharge);
+          const reaction = applyBalancedRule(workingContents, [cationSource, anionSource], [
+            { formula: rule.formula, state: 's' },
+            { formula: companion, state: saltPhase(companion) },
+          ], isOpenVessel, recordEscapedGas, extentLimit);
+          if (!reaction) continue;
 
-          const pairsToTest = [
-            { catItem: itemA, catSalt: saltA, anItem: itemB, anSalt: saltB },
-            { catItem: itemB, catSalt: saltB, anItem: itemA, anSalt: saltA },
-          ];
-
-          for (const pair of pairsToTest) {
-            const rule = INSOLUBLE_PRECIPITATE_RULES.find(
-              r => r.cation === pair.catSalt.cation && r.anion === pair.anSalt.anion
-            );
-            if (!rule) continue;
-
-            const availCatMoles = pair.catItem.moles * pair.catSalt.cationCount;
-            const availAnMoles = pair.anItem.moles * pair.anSalt.anionCount;
-            const xi = Math.min(availCatMoles / rule.catStoich, availAnMoles / rule.anStoich);
-            if (xi <= 1e-6) continue;
-
-            pair.catItem.moles = Math.max(0, pair.catItem.moles - (xi * rule.catStoich) / pair.catSalt.cationCount);
-            pair.catItem.mass_g = pair.catItem.moles * computeMolarMass(pair.catItem.formula);
-            pair.anItem.moles = Math.max(0, pair.anItem.moles - (xi * rule.anStoich) / pair.anSalt.anionCount);
-            pair.anItem.mass_g = pair.anItem.moles * computeMolarMass(pair.anItem.formula);
-
-            addOrUpdateSpecies(rule.formula, xi, 's');
-            const precipMass = xi * computeMolarMass(rule.formula);
-            precipitateOverride = {
-              formula: rule.formula,
-              colorHex: rule.colorHex,
-              mass_g: precipMass,
-              morphology: rule.morphology,
-            };
-
-            const thermal = calculateReactionDeltaT(xi, -32.0, Math.max(10, volume_ml), temp_c);
-            temp_c = thermal.finalTemp_c;
-            activeControllerIds.add(rule.controllerId);
-
-            reactionsOccurred.push({
-              reactionId: `rx_rule_precip_${rule.formula.toLowerCase()}`,
-              name_en: rule.name_en,
-              name_vi: rule.name_vi,
-              equation: `${pair.catItem.formula} + ${pair.anItem.formula} → ${rule.formula}↓ + Muối`,
-              ionic_equation: `${rule.catStoich > 1 ? rule.catStoich : ''}${rule.cation.replace(/\d/, '')}^${pair.catSalt.cationCharge}+ + ${rule.anStoich > 1 ? rule.anStoich : ''}${rule.anion}^${pair.anSalt.anionCharge}- → ${rule.formula}↓`,
-              extent_moles: Math.round(xi * 100000) / 100000,
-              heatReleased_J: thermal.heatReleased_J,
-              limitingReactant: availCatMoles / rule.catStoich < availAnMoles / rule.anStoich ? pair.catItem.formula : pair.anItem.formula,
-              excessReactants: {
-                [pair.catItem.formula]: pair.catItem.moles,
-                [pair.anItem.formula]: pair.anItem.moles,
-              },
-              observable_en: `${rule.name_en} (${rule.formula}↓) forms immediately upon mixing.`,
-              observable_vi: `${rule.name_vi} (${rule.formula}↓) xuất hiện ngay tức thì khi hai dung dịch tiếp xúc.`,
-              tier: 'rule-derived',
-              archetype: 'precipitation',
-              controllerId: rule.controllerId,
-            });
-            break outerLoop;
-          }
+          precipitateOverride = {
+            formula: rule.formula,
+            colorHex: rule.colorHex,
+            mass_g: workingContents.find(row => row.formula === rule.formula && row.state === 's')!.mass_g,
+            morphology: rule.morphology,
+          };
+          activeControllerIds.add(rule.controllerId);
+          reactionsOccurred.push({
+            ...reaction.record,
+            reactionId: `rx_rule_precip_${rule.formula.toLowerCase()}`,
+            name_en: rule.name_en,
+            name_vi: rule.name_vi,
+            observable_en: rule.name_en,
+            observable_vi: rule.name_vi,
+            archetype: 'precipitation',
+            controllerId: rule.controllerId,
+          });
+          break outerLoop;
         }
       }
     }
 
-    // 6C. Single-Displacement Metal + Metal Salt or Metal + Acid (Electrochemical Series)
     if (reactionsOccurred.length === 0) {
-      const solidMetalItem = workingContents.find(
-        c => c.state === 's' && c.moles > 1e-6 && METAL_REACTIVITY[normalizeFormula(c.formula)]
-      );
-      if (solidMetalItem) {
-        const metalNorm = normalizeFormula(solidMetalItem.formula);
-        const metalInfo = METAL_REACTIVITY[metalNorm];
-
-        // Check displacement of less reactive metal ion in solution
-        for (const solItem of workingContents) {
-          if (solItem === solidMetalItem || solItem.moles <= 1e-6) continue;
-          const salt = SALT_ION_TABLE[normalizeFormula(solItem.formula)];
-          if (!salt) continue;
-          const cationKey = salt.cation === 'Fe3' || salt.cation === 'Fe2' ? 'FE' : salt.cation.toUpperCase();
-          const targetInfo = METAL_REACTIVITY[cationKey];
-          if (!targetInfo || metalInfo.rank <= targetInfo.rank) continue;
-
-          // Active metal displaces less active cation (or H+ from acid)
-          const xi = Math.min(solidMetalItem.moles, solItem.moles);
-          if (xi <= 1e-6) continue;
-
-          solidMetalItem.moles = Math.max(0, solidMetalItem.moles - xi);
-          solidMetalItem.mass_g = solidMetalItem.moles * computeMolarMass(solidMetalItem.formula);
-          solItem.moles = Math.max(0, solItem.moles - xi);
-          solItem.mass_g = solItem.moles * computeMolarMass(solItem.formula);
-
-          if (cationKey === 'H') {
-            if (!isOpenVessel) addOrUpdateSpecies('H2', xi, 'g');
-            else recordEscapedGas('H2', xi);
+      const metal = workingContents.find(row => row.state === 's' && row.moles > 1e-6
+        && DISPLACEMENT_METALS.has(row.formula));
+      if (metal) {
+        const metalKey = normalizeFormula(metal.formula);
+        const metalInfo = METAL_REACTIVITY[metalKey];
+        for (const solution of workingContents) {
+          if (solution.state !== 'aq' || solution.moles <= 1e-6) continue;
+          const dissolved = SALT_ION_TABLE[normalizeFormula(solution.formula)];
+          if (!dissolved) continue;
+          const displaced = dissolved.cation.replace(/^Fe[23]$/, 'Fe');
+          const targetKey = normalizeFormula(displaced);
+          const targetInfo = METAL_REACTIVITY[targetKey];
+          if (!targetInfo || metalInfo.rank <= targetInfo.rank || dissolved.cation === 'Fe3') continue;
+          const hydrogen = targetKey === 'H';
+          const formula = saltFormula(metal.formula, metalInfo.valence, dissolved.anion, dissolved.anionCharge);
+          const reaction = applyBalancedRule(workingContents, [metal, solution], [
+            { formula, state: saltPhase(formula) },
+            hydrogen ? { formula: 'H2', state: 'g' } : { formula: displaced, state: 's' },
+          ], isOpenVessel, recordEscapedGas);
+          if (!reaction) continue;
+          const controllerId = hydrogen ? 'metal_acid_h2_bubbles' : 'fe_cuso4_plating';
+          if (hydrogen) {
             hasGas = true;
-            gasInfo = { formula: 'H2', molesReleased: xi, effervescenceSpeed: 'vigorous' };
-            activeControllerIds.add('metal_acid_h2_bubbles');
-
-            const thermal = calculateReactionDeltaT(xi, -145.0, Math.max(10, volume_ml), temp_c);
-            temp_c = thermal.finalTemp_c;
-
-            reactionsOccurred.push({
-              reactionId: `rx_rule_metal_acid_${metalNorm}_${normalizeFormula(solItem.formula)}`,
-              name_en: `Displacement of Hydrogen by ${solidMetalItem.formula} in ${solItem.formula}`,
-              name_vi: `Kim loại ${solidMetalItem.formula} khử H⁺ trong ${solItem.formula} giải phóng khí H₂`,
-              equation: `${solidMetalItem.formula} + ${solItem.formula} → Muối + H₂↑`,
-              extent_moles: Math.round(xi * 100000) / 100000,
-              heatReleased_J: thermal.heatReleased_J,
-              limitingReactant: solidMetalItem.moles <= 1e-6 ? solidMetalItem.formula : solItem.formula,
-              excessReactants: { [solidMetalItem.formula]: solidMetalItem.moles, [solItem.formula]: solItem.moles },
-              observable_en: `Streams of hydrogen gas bubbles nucleate directly on the ${solidMetalItem.formula} surface as it dissolves.`,
-              observable_vi: `Bọt khí H₂ sủi liên tục trực tiếp từ bề mặt kim loại ${solidMetalItem.formula} đang tan dần.`,
-              tier: 'rule-derived',
-              archetype: 'gas_evolution',
-              controllerId: 'metal_acid_h2_bubbles',
-            });
+            gasInfo = { formula: 'H2', molesReleased: reaction.gasMoles, effervescenceSpeed: 'vigorous' };
           } else {
-            const displacedMetal = cationKey === 'CU' ? 'Cu' : cationKey === 'AG' ? 'Ag' : salt.cation;
-            addOrUpdateSpecies(displacedMetal, xi, 's');
             surfacePlating = {
-              substrateFormula: solidMetalItem.formula,
-              coatingFormula: displacedMetal,
+              substrateFormula: metal.formula,
+              coatingFormula: displaced,
               coatingColorHex: targetInfo.metalColorHex,
-              progress: 1.0,
+              progress: 1,
             };
-            const controllerId = displacedMetal === 'Cu' ? 'fe_cuso4_plating' : 'agcl_curdy';
-            activeControllerIds.add(controllerId);
-
-            const thermal = calculateReactionDeltaT(xi, -152.0, Math.max(10, volume_ml), temp_c);
-            temp_c = thermal.finalTemp_c;
-
-            reactionsOccurred.push({
-              reactionId: `rx_rule_displacement_${metalNorm}_${cationKey}`,
-              name_en: `Single Displacement of ${displacedMetal} by ${solidMetalItem.formula}`,
-              name_vi: `Phản ứng thế kim loại: ${solidMetalItem.formula} đẩy ${displacedMetal} ra khỏi dung dịch muối`,
-              equation: `${solidMetalItem.formula} + ${solItem.formula} → Muối ${solidMetalItem.formula} + ${displacedMetal}↓`,
-              extent_moles: Math.round(xi * 100000) / 100000,
-              heatReleased_J: thermal.heatReleased_J,
-              limitingReactant: solidMetalItem.moles <= 1e-6 ? solidMetalItem.formula : solItem.formula,
-              excessReactants: { [solidMetalItem.formula]: solidMetalItem.moles, [solItem.formula]: solItem.moles },
-              observable_en: `Metallic ${displacedMetal} plates directly onto the submerged ${solidMetalItem.formula} surface while the solution color shifts.`,
-              observable_vi: `Lớp kim loại ${displacedMetal} bám trực tiếp lên bề mặt ${solidMetalItem.formula}, màu dung dịch nhạt dần.`,
-              tier: 'rule-derived',
-              archetype: 'metal_displacement',
-              controllerId,
-            });
           }
+          activeControllerIds.add(controllerId);
+          reactionsOccurred.push({
+            ...reaction.record,
+            reactionId: `rx_rule_${hydrogen ? 'metal_acid' : 'displacement'}_${metalKey}_${targetKey}`,
+            observable_en: hydrogen ? 'Hydrogen evolves at the metal surface.' : 'Metal deposits on the solid surface.',
+            observable_vi: hydrogen ? 'Khí hiđro thoát ra ở bề mặt kim loại.' : 'Kim loại bám lên bề mặt mẫu rắn.',
+            archetype: hydrogen ? 'gas_evolution' : 'metal_displacement',
+            controllerId,
+          });
           break;
         }
       }
@@ -830,10 +736,157 @@ export function buildPhysicalSolidAndPrecipitateStates(
   return { solidChunks, precipitateLayers };
 }
 
-/**
- * Fallback rule solver covering general oxide+acid, ammonium salt+base, and thermal decomposition
- * families when arbitrary reagent combinations are mixed outside fixed catalog pairs.
- */
+// Species supported by the balanced fallback rules.
+const AQUEOUS_ACIDS: Record<string, { anion: string; charge: number }> = {
+  HCl: { anion: 'Cl', charge: 1 },
+  HBr: { anion: 'Br', charge: 1 },
+  HNO3: { anion: 'NO3', charge: 1 },
+  H2SO4: { anion: 'SO4', charge: 2 },
+  CH3COOH: { anion: 'CH3COO', charge: 1 },
+};
+
+const BASIC_OXIDES: Record<string, { cation: string; charge: number }> = {
+  CuO: { cation: 'Cu', charge: 2 },
+  MgO: { cation: 'Mg', charge: 2 },
+  ZnO: { cation: 'Zn', charge: 2 },
+  CaO: { cation: 'Ca', charge: 2 },
+  BaO: { cation: 'Ba', charge: 2 },
+  FeO: { cation: 'Fe', charge: 2 },
+  Fe2O3: { cation: 'Fe', charge: 3 },
+  Al2O3: { cation: 'Al', charge: 3 },
+  Na2O: { cation: 'Na', charge: 1 },
+  K2O: { cation: 'K', charge: 1 },
+};
+
+const HYDROXIDES: typeof BASIC_OXIDES = {
+  NaOH: { cation: 'Na', charge: 1 },
+  KOH: { cation: 'K', charge: 1 },
+  'Ba(OH)2': { cation: 'Ba', charge: 2 },
+  'Ca(OH)2': { cation: 'Ca', charge: 2 },
+};
+
+const AMMONIUM_SALTS: typeof AQUEOUS_ACIDS = {
+  NH4Cl: AQUEOUS_ACIDS.HCl,
+  NH4NO3: AQUEOUS_ACIDS.HNO3,
+  '(NH4)2SO4': AQUEOUS_ACIDS.H2SO4,
+  '(NH4)2CO3': { anion: 'CO3', charge: 2 },
+};
+
+const LOW_SOLUBILITY_SALTS = new Set(['BaSO4', 'CaSO4', 'BaCO3', 'CaCO3', 'PbSO4', 'PbCl2']);
+const DISPLACEMENT_METALS = new Set(['Mg', 'Al', 'Zn', 'Fe', 'Ni', 'Sn', 'Pb', 'Cu', 'Ag']);
+const STRONG_ACIDS = new Set(['HCl', 'HBr', 'HNO3']);
+
+const GAS_SALTS: Record<string, { cation: string; charge: number; state: PhysicalState; gas: string }> = {
+  Na2CO3: { cation: 'Na', charge: 1, state: 'aq', gas: 'CO2' },
+  K2CO3: { cation: 'K', charge: 1, state: 'aq', gas: 'CO2' },
+  NaHCO3: { cation: 'Na', charge: 1, state: 'aq', gas: 'CO2' },
+  KHCO3: { cation: 'K', charge: 1, state: 'aq', gas: 'CO2' },
+  CaCO3: { cation: 'Ca', charge: 2, state: 's', gas: 'CO2' },
+  Na2SO3: { cation: 'Na', charge: 1, state: 'aq', gas: 'SO2' },
+  K2SO3: { cation: 'K', charge: 1, state: 'aq', gas: 'SO2' },
+  Na2S: { cation: 'Na', charge: 1, state: 'aq', gas: 'H2S' },
+  K2S: { cation: 'K', charge: 1, state: 'aq', gas: 'H2S' },
+};
+
+function ionGroup(formula: string, count: number): string {
+  if (count === 1) return formula;
+  return /^[A-Z][a-z]?$/.test(formula) ? `${formula}${count}` : `(${formula})${count}`;
+}
+
+function saltFormula(cation: string, cationCharge: number, anion: string, anionCharge: number): string {
+  const common = gcd(cationCharge, anionCharge);
+  const formulaCation = cation.replace(/^Fe[23]$/, 'Fe');
+  const formulaAnion = anion === 'Stearate' ? 'C17H35COO' : anion;
+  if (formulaAnion === 'CH3COO' && cationCharge === 1 && formulaCation !== 'NH4') return formulaAnion + formulaCation;
+  return ionGroup(formulaCation, anionCharge / common) + ionGroup(formulaAnion, cationCharge / common);
+}
+
+function saltPhase(formula: string): PhysicalState {
+  return LOW_SOLUBILITY_SALTS.has(formula) || INSOLUBLE_PRECIPITATE_RULES.some(rule => rule.formula === formula) ? 's' : 'aq';
+}
+
+export function bariteExtent2D(inventory: readonly SubstanceQuantity[], volume_ml: number, temperature_c: number) {
+  return baritePrecipitationExtent(
+    inventory.map(({ formula, state, moles }) => ({ formula, phase: state, moles })),
+    volume_ml, temperature_c
+  );
+}
+
+function applyBalancedRule(
+  inventory: SubstanceQuantity[],
+  reagents: readonly [SubstanceQuantity, SubstanceQuantity],
+  products: Pick<StoichiometricSpecies, 'formula' | 'state'>[],
+  isOpenVessel: boolean,
+  recordEscapedGas: (formula: string, moles: number) => void,
+  extentLimit: number | null = null
+) {
+  type BalancedSpecies = Pick<StoichiometricSpecies, 'formula' | 'coefficient'>;
+  let equation: { reactants: BalancedSpecies[]; products: BalancedSpecies[] };
+  try {
+    equation = balanceEquation(reagents.map(row => row.formula), products.map(row => row.formula));
+  } catch {
+    return null;
+  }
+
+  const stocks = reagents.map(reagent =>
+    inventory.filter(row => row.formula === reagent.formula && row.state === reagent.state && row.moles > 0)
+  );
+  const maxExtents = stocks.map((rows, i) =>
+    rows.reduce((sum, row) => sum + row.moles, 0) / equation.reactants[i].coefficient
+  );
+  const extent = Math.min(...maxExtents, extentLimit ?? Infinity);
+  if (!(extent > (extentLimit === null ? 1e-6 : 1e-12))) return null;
+
+  const excessReactants: Record<string, number> = {};
+  for (const [i, reactant] of equation.reactants.entries()) {
+    let outstanding = extent * reactant.coefficient;
+    for (const row of stocks[i]) {
+      const consumed = Math.min(row.moles, outstanding);
+      row.moles -= consumed;
+      row.mass_g = row.moles * computeMolarMass(row.formula);
+      outstanding -= consumed;
+    }
+    excessReactants[reactant.formula] = stocks[i].reduce((sum, row) => sum + row.moles, 0);
+  }
+
+  let gasMoles = 0;
+  let waterMoles = 0;
+  const phaseProducts = equation.products.map((product, i) => {
+    const formula = product.formula;
+    const state = products[i].state;
+    const moles = extent * product.coefficient;
+    const mass = moles * computeMolarMass(formula);
+    if (state === 'g') gasMoles += moles;
+    if (state === 'l' && formula === 'H2O') waterMoles = moles;
+    if (state === 'g' && isOpenVessel) {
+      recordEscapedGas(formula, moles);
+    } else {
+      const row = inventory.find(item => item.formula === formula && item.state === state);
+      if (row) {
+        row.moles += moles;
+        row.mass_g += mass;
+      } else {
+        inventory.push({ formula, state, moles, mass_g: mass });
+      }
+    }
+    return { ...product, phase: state };
+  });
+
+  return {
+    gasMoles,
+    waterMoles,
+    record: {
+      equation: formatEquation(equation.reactants.map((row, i) => ({ ...row, phase: reagents[i].state })), phaseProducts),
+      extent_moles: extent,
+      heatReleased_J: 0,
+      limitingReactant: maxExtents[0] <= maxExtents[1] ? reagents[0].formula : reagents[1].formula,
+      excessReactants,
+      tier: 'rule-derived' as const,
+    },
+  };
+}
+
+/** Handles acid–base pairs left over after the catalog and the other rules. */
 export function resolveExtendedCatalogFamilies(
   workingContents: SubstanceQuantity[],
   reactionsOccurred: ReactionExecutionRecord[],
@@ -841,159 +894,72 @@ export function resolveExtendedCatalogFamilies(
   initialTemp_c: number,
   isHeated: boolean,
   isOpenVessel: boolean
-): {
-  temperature_c: number;
-  hasGas: boolean;
-  gasInfo?: { formula: string; molesReleased: number; effervescenceSpeed: 'slow' | 'vigorous' | 'instant'; colorHex?: string };
-  escapedGas_g: Record<string, number>;
-  activeControllerIds: string[];
-} {
-  let temp_c = initialTemp_c;
-  let hasGas = false;
-  let gasInfo: { formula: string; molesReleased: number; effervescenceSpeed: 'slow' | 'vigorous' | 'instant'; colorHex?: string } | undefined;
-  const escapedGas_g: Record<string, number> = {};
-  const activeControllerIds: string[] = [];
+) {
+  const result = {
+    temperature_c: initialTemp_c,
+    isBoiling: false,
+    hasGas: false,
+    gasInfo: undefined as InstantRuleResolutionOutput['gasInfo'],
+    escapedGas_g: {} as Record<string, number>,
+    activeControllerIds: [] as string[],
+  };
+  if (reactionsOccurred.length > 0 || workingContents.length < 2) return result;
 
-  if (reactionsOccurred.length > 0) {
-    return { temperature_c: temp_c, hasGas, gasInfo, escapedGas_g, activeControllerIds };
+  const findAvailable = (formulas: Record<string, unknown>, state: PhysicalState) =>
+    workingContents.find(row => row.state === state && row.moles > 1e-6 && Object.hasOwn(formulas, row.formula));
+
+  const acid = findAvailable(AQUEOUS_ACIDS, 'aq');
+  const hydroxide = findAvailable(HYDROXIDES, 'aq');
+  const oxide = acid && findAvailable(BASIC_OXIDES, 's');
+  const ammonium = hydroxide && (isHeated || initialTemp_c >= 50) && findAvailable(AMMONIUM_SALTS, 'aq');
+  const ammonia = acid && findAvailable({ NH3: true }, 'aq');
+  const left = ammonium || acid;
+  const right = ammonium ? hydroxide : oxide || hydroxide || ammonia;
+  if (!left || !right) return result;
+
+  const { anion, charge: anionCharge } = (ammonium ? AMMONIUM_SALTS : AQUEOUS_ACIDS)[left.formula];
+  const { cation, charge: cationCharge } = right.formula === 'NH3'
+    ? { cation: 'NH4', charge: 1 }
+    : (oxide && !ammonium ? BASIC_OXIDES : HYDROXIDES)[right.formula];
+  const salt = saltFormula(cation, cationCharge, anion, anionCharge);
+  const products: Pick<StoichiometricSpecies, 'formula' | 'state'>[] = [{ formula: salt, state: saltPhase(salt) }];
+  if (ammonium) products.push({ formula: 'NH3', state: 'g' });
+  if (right.formula !== 'NH3') products.push({ formula: 'H2O', state: 'l' });
+  const reaction = applyBalancedRule(workingContents, [left, right], products, isOpenVessel, (formula, moles) => {
+    result.escapedGas_g[formula] = moles * computeMolarMass(formula);
+  });
+  if (!reaction) return result;
+
+  const modelNeutralizationHeat = !ammonium && !oxide && right !== ammonia
+    && STRONG_ACIDS.has(left.formula) && saltPhase(salt) === 'aq';
+  if (modelNeutralizationHeat) {
+    const thermal = calculateReactionDeltaT(reaction.waterMoles, -57.1, Math.max(10, volume_ml), initialTemp_c);
+    result.temperature_c = thermal.finalTemp_c;
+    result.isBoiling = thermal.isBoiling;
+    reaction.record.heatReleased_J = thermal.heatReleased_J;
   }
 
-  const addOrUpdate = (formula: string, moles: number, state: PhysicalState) => {
-    const key = normalizeFormula(formula);
-    const existing = workingContents.find(c => normalizeFormula(c.formula) === key);
-    const mm = computeMolarMass(formula);
-    if (existing) {
-      existing.moles += moles;
-      existing.mass_g = existing.moles * mm;
-      existing.state = state;
-    } else {
-      workingContents.push({
-        formula,
-        moles,
-        mass_g: moles * mm,
-        state,
-        concentration_M: state === 'aq' && volume_ml > 0 ? moles / (volume_ml / 1000) : undefined,
-      });
-    }
-  };
-
-  // 1. Ammonium salt + strong base -> salt + NH3(g) + H2O(l)
-  const AMMONIUM_SALTS: Record<string, { anion: string; nh4Count: number }> = {
-    NH4CL: { anion: 'Cl', nh4Count: 1 },
-    NH4NO3: { anion: 'NO3', nh4Count: 1 },
-    '(NH4)2SO4': { anion: 'SO4', nh4Count: 2 },
-    '(NH4)2CO3': { anion: 'CO3', nh4Count: 2 },
-  };
-  const STRONG_BASES: Record<string, number> = { NAOH: 1, KOH: 1, 'BA(OH)2': 2, 'CA(OH)2': 2 };
-
-  const nh4Item = workingContents.find(c => AMMONIUM_SALTS[normalizeFormula(c.formula)] && c.moles > 1e-6);
-  const baseItem = workingContents.find(c => STRONG_BASES[normalizeFormula(c.formula)] && c.moles > 1e-6);
-  if (nh4Item && baseItem) {
-    const saltSpec = AMMONIUM_SALTS[normalizeFormula(nh4Item.formula)];
-    const ohCount = STRONG_BASES[normalizeFormula(baseItem.formula)];
-    const availableNH4 = nh4Item.moles * saltSpec.nh4Count;
-    const availableOH = baseItem.moles * ohCount;
-    const xi = Math.min(availableNH4, availableOH);
-    if (xi > 1e-6) {
-      nh4Item.moles = Math.max(0, nh4Item.moles - xi / saltSpec.nh4Count);
-      nh4Item.mass_g = nh4Item.moles * computeMolarMass(nh4Item.formula);
-      baseItem.moles = Math.max(0, baseItem.moles - xi / ohCount);
-      baseItem.mass_g = baseItem.moles * computeMolarMass(baseItem.formula);
-      addOrUpdate('H2O', xi, 'l');
-      const nh3Mass = xi * computeMolarMass('NH3');
-      if (isOpenVessel) {
-        escapedGas_g.NH3 = (escapedGas_g.NH3 ?? 0) + nh3Mass;
-      } else {
-        addOrUpdate('NH3', xi, 'g');
-      }
-      hasGas = true;
-      gasInfo = { formula: 'NH3', molesReleased: xi, effervescenceSpeed: 'slow' };
-      const thermal = calculateReactionDeltaT(xi, -18.0, Math.max(10, volume_ml), temp_c);
-      temp_c = thermal.finalTemp_c;
-      activeControllerIds.push('carbonate_acid_effervescence');
-      reactionsOccurred.push({
-        reactionId: `rx_rule_ammonium_base_${normalizeFormula(nh4Item.formula)}`,
-        name_en: `Ammonium Salt and Base Reaction (${nh4Item.formula} + ${baseItem.formula})`,
-        name_vi: `Muối amoni tác dụng với kiềm giải phóng khí NH₃ mùi khai`,
-        equation: `${nh4Item.formula} + ${baseItem.formula} → Muối + NH₃↑ + H₂O`,
-        extent_moles: xi,
-        heatReleased_J: thermal.heatReleased_J,
-        limitingReactant: availableNH4 < availableOH ? nh4Item.formula : baseItem.formula,
-        excessReactants: { [nh4Item.formula]: nh4Item.moles, [baseItem.formula]: baseItem.moles },
-        observable_en: 'Pungent ammonia gas (NH3) evolves cleanly.',
-        observable_vi: 'Có khí không màu mùi khai (NH₃) bay ra làm xanh giấy quỳ ẩm.',
-        tier: 'rule-derived',
-        archetype: 'gas_evolution',
-        controllerId: 'carbonate_acid_effervescence',
-      });
-      return { temperature_c: temp_c, hasGas, gasInfo, escapedGas_g, activeControllerIds };
-    }
+  const name_vi = ammonium ? 'Muối amoni tác dụng với kiềm' : oxide ? 'Oxit bazơ tác dụng với axit' : 'Trung hòa axit–bazơ';
+  const name_en = ammonium ? 'Ammonium salt and base' : oxide ? 'Basic oxide and acid' : 'Acid–base neutralization';
+  const controllerId = ammonium ? 'carbonate_acid_effervescence'
+    : modelNeutralizationHeat ? 'neutralization_thermal_schlieren'
+    : saltPhase(salt) === 's' ? resolveControllerIdForReaction('', undefined, salt) : undefined;
+  if (controllerId) result.activeControllerIds.push(controllerId);
+  if (ammonium) {
+    result.hasGas = true;
+    result.gasInfo = { formula: 'NH3', molesReleased: reaction.gasMoles, effervescenceSpeed: 'slow' };
   }
 
-  // 2. Basic/amphoteric oxide + acid -> salt + H2O
-  const OXIDE_PROTONS: Record<string, { saltPrefix: string; protons: number }> = {
-    CUO: { saltPrefix: 'Cu', protons: 2 },
-    MGO: { saltPrefix: 'Mg', protons: 2 },
-    ZNO: { saltPrefix: 'Zn', protons: 2 },
-    CAO: { saltPrefix: 'Ca', protons: 2 },
-    BAO: { saltPrefix: 'Ba', protons: 2 },
-    FEO: { saltPrefix: 'Fe', protons: 2 },
-    FE2O3: { saltPrefix: 'Fe', protons: 6 },
-    AL2O3: { saltPrefix: 'Al', protons: 6 },
-    NA2O: { saltPrefix: 'Na', protons: 2 },
-    K2O: { saltPrefix: 'K', protons: 2 },
-  };
-  const ACIDS: Record<string, number> = { HCL: 1, HNO3: 1, H2SO4: 2, HBR: 1, CH3COOH: 1 };
-  const oxideItem = workingContents.find(c => OXIDE_PROTONS[normalizeFormula(c.formula)] && c.moles > 1e-6);
-  const acidItem = workingContents.find(c => ACIDS[normalizeFormula(c.formula)] && c.moles > 1e-6);
-  if (oxideItem && acidItem) {
-    const oSpec = OXIDE_PROTONS[normalizeFormula(oxideItem.formula)];
-    const aH = ACIDS[normalizeFormula(acidItem.formula)];
-    const xi = Math.min(oxideItem.moles, (acidItem.moles * aH) / oSpec.protons);
-    if (xi > 1e-6) {
-      oxideItem.moles = Math.max(0, oxideItem.moles - xi);
-      oxideItem.mass_g = oxideItem.moles * computeMolarMass(oxideItem.formula);
-      acidItem.moles = Math.max(0, acidItem.moles - (xi * oSpec.protons) / aH);
-      acidItem.mass_g = acidItem.moles * computeMolarMass(acidItem.formula);
-      addOrUpdate('H2O', xi * (oSpec.protons / 2), 'l');
-      const normAcid = normalizeFormula(acidItem.formula);
-      const anion = normAcid === 'HCL' ? 'Cl' : normAcid === 'HNO3' ? 'NO3' : normAcid === 'H2SO4' ? 'SO4' : normAcid === 'HBR' ? 'Br' : 'CH3COO';
-      const val = oSpec.protons === 6 ? 3 : oSpec.saltPrefix === 'Na' || oSpec.saltPrefix === 'K' ? 1 : 2;
-      const saltFormula =
-        val === 2 && anion === 'SO4'
-          ? `${oSpec.saltPrefix}SO4`
-          : val === 3 && anion === 'SO4'
-            ? `${oSpec.saltPrefix}2(SO4)3`
-            : val === 1 && anion === 'SO4'
-              ? `${oSpec.saltPrefix}2SO4`
-              : anion === 'NO3' || anion === 'CH3COO'
-                ? val > 1
-                  ? `${oSpec.saltPrefix}(${anion})${val}`
-                  : `${oSpec.saltPrefix}${anion}`
-                : val > 1
-                  ? `${oSpec.saltPrefix}${anion}${val}`
-                  : `${oSpec.saltPrefix}${anion}`;
-      const saltCoeff = oSpec.protons === 6 && anion !== 'SO4' ? 2 : oSpec.saltPrefix === 'Na' || oSpec.saltPrefix === 'K' ? (anion === 'SO4' ? 1 : 2) : 1;
-      addOrUpdate(saltFormula, xi * saltCoeff, 'aq');
-      const thermal = calculateReactionDeltaT(xi, -62.0, Math.max(10, volume_ml), temp_c);
-      temp_c = thermal.finalTemp_c;
-      reactionsOccurred.push({
-        reactionId: `rx_rule_oxide_acid_${normalizeFormula(oxideItem.formula)}_${normAcid}`,
-        name_en: `Dissolution of ${oxideItem.formula} in ${acidItem.formula}`,
-        name_vi: `Oxit ${oxideItem.formula} tan trong axit ${acidItem.formula} tạo muối và nước`,
-        equation: `${oxideItem.formula} + ${acidItem.formula} → ${saltFormula} + H₂O`,
-        extent_moles: xi,
-        heatReleased_J: thermal.heatReleased_J,
-        limitingReactant: oxideItem.moles <= 1e-6 ? oxideItem.formula : acidItem.formula,
-        excessReactants: { [oxideItem.formula]: oxideItem.moles, [acidItem.formula]: acidItem.moles },
-        observable_en: `Solid oxide ${oxideItem.formula} dissolves cleanly in acid to form ${saltFormula}(aq).`,
-        observable_vi: `Oxit rắn ${oxideItem.formula} tan dần trong dung dịch axit tạo muối ${saltFormula}.`,
-        tier: 'rule-derived',
-        archetype: 'acid_base_neutralization',
-        controllerId: 'neutralization_thermal_schlieren',
-      });
-    }
-  }
+  reactionsOccurred.push({
+    ...reaction.record,
+    reactionId: `rx_rule_${ammonium ? 'ammonium_base' : oxide ? 'oxide_acid' : 'neutralization'}_${normalizeFormula(left.formula)}_${normalizeFormula(right.formula)}`,
+    name_en,
+    name_vi,
+    observable_en: name_en,
+    observable_vi: name_vi,
+    archetype: ammonium ? 'gas_evolution' : 'acid_base_neutralization',
+    controllerId,
+  });
 
-  return { temperature_c: temp_c, hasGas, gasInfo, escapedGas_g, activeControllerIds };
+  return result;
 }

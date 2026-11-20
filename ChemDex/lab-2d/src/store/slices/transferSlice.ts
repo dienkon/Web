@@ -1,7 +1,7 @@
 import { ActiveExternalPour2D } from '../../types/equipment';
 import { SubstanceQuantity } from '../../types/chemistry';
 import { LabLogEntry } from '../../types/experiment';
-import { findChemicalByFormula, findChemicalById } from '../../data/chemicals';
+import { chemicalStockPhase, findChemicalByFormula, findChemicalById } from '../../data/chemicals';
 import { computeMolarMass } from '../../chemistry/core/formula';
 import { appendBuretteTrace } from '../../chemistry/equilibrium/titrationEngine';
 import { prepareVesselSimulation } from '../../chemistry/reactions/kineticsSolver';
@@ -216,7 +216,7 @@ export const createTransferSlice: LabSliceCreator<TransferSlice> = (set, get) =>
 
   injectCustomSubstance: (equipmentId, formula, phaseState, amount_ml = 20, amount_g = 1.0, colorHex = '#f8fafc') => {
     const existing = findChemicalByFormula(formula);
-    if (existing) {
+    if (existing?.formula === formula && chemicalStockPhase(existing) === phaseState) {
       get().addChemicalToEquipment(equipmentId, existing.id, amount_ml, amount_g);
       return;
     }
@@ -227,12 +227,14 @@ export const createTransferSlice: LabSliceCreator<TransferSlice> = (set, get) =>
     const isLiquid = phaseState === 'aq' || phaseState === 'l';
     const volumeAdded = isLiquid ? Math.min(Math.max(5, amount_ml), Math.max(0, eq.capacity_ml - eq.volume_ml)) : 0;
     const molarMass = computeMolarMass(formula) || 60;
-    const soluteMoles = isLiquid ? 0.2 * (volumeAdded / 1000) : Math.max(0.01, amount_g) / molarMass;
+    const soluteMoles = phaseState === 'aq' ? 0.2 * (volumeAdded / 1000)
+      : isLiquid ? volumeAdded * (existing?.formula === formula ? existing.density_g_ml ?? 1 : 1) / molarMass
+      : Math.max(0.01, amount_g) / molarMass;
     const soluteMass = soluteMoles * molarMass;
     const newVolume = eq.volume_ml + volumeAdded;
     const nextContents = eq.contents.map((c) => ({ ...c }));
 
-    const ex = nextContents.find((c) => c.formula.toUpperCase() === formula.toUpperCase() && c.state === phaseState);
+    const ex = nextContents.find((c) => c.formula === formula && c.state === phaseState);
     if (ex) {
       ex.moles += soluteMoles;
       ex.mass_g += soluteMass;
@@ -249,8 +251,8 @@ export const createTransferSlice: LabSliceCreator<TransferSlice> = (set, get) =>
     if (phaseState === 'aq' && volumeAdded > 0) {
       const solventMass = Math.max(0, volumeAdded - soluteMass);
       if (solventMass > 0) {
-        const wEx = nextContents.find((c) => c.formula.toUpperCase() === 'H2O');
-        const wMoles = solventMass / 18.015;
+        const wEx = nextContents.find((c) => c.formula === 'H2O' && c.state === 'l');
+        const wMoles = solventMass / computeMolarMass('H2O');
         if (wEx) {
           wEx.moles += wMoles;
           wEx.mass_g += solventMass;

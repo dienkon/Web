@@ -1,7 +1,8 @@
 import { beforeAll, beforeEach, describe, expect, it, vi } from 'vitest';
 import { computeMolarMass, parseChemicalFormula } from '../core/formula';
-import { countElementalAtoms, isElementBalancedReaction } from '../core/ledger';
+import { auditConservation, countElementalAtoms, isElementBalancedReaction } from '../core/ledger';
 import { runSimulationCycle } from '../reactions/engine';
+import { resolveExtendedCatalogFamilies, resolveInstantRulesAndEquilibria } from '../reactions/instantRuleSolver';
 import {
   ALL_COMPILED_REACTIONS,
   ensureCatalogCompiled,
@@ -11,6 +12,10 @@ import { REACTION_DATABASE } from '../reactions/reactionDatabase';
 import { validateGeminiReactionPayload } from '../../services/geminiService';
 import { useLabStore } from '../../store/useLabStore';
 import type { SubstanceQuantity } from '../../types/chemistry';
+
+function sample(formula: string, state: SubstanceQuantity['state'], moles: number): SubstanceQuantity {
+  return { formula, state, moles, mass_g: moles * computeMolarMass(formula) };
+}
 
 function isSymbolicPolymerFormula(formula: string): boolean {
   return /\)\s*n$/i.test(formula.trim()) || formula.includes('*');
@@ -249,9 +254,79 @@ describe('Gemini AI Reaction Validation Gate', () => {
   });
 });
 
+describe('Balanced acid and base fallback', () => {
+  it.each([
+    [[sample('H2SO4', 'aq', 0.02), sample('Na2O', 's', 0.01)], 'Na2SO4', 0.01],
+    [[sample('HCl', 'aq', 0.04), sample('Al2O3', 's', 0.01)], 'AlCl3', 0.04 / 3],
+    [[sample('HBr', 'aq', 0.01), sample('NH3', 'aq', 0.02)], 'NH4Br', 0.01],
+    [[sample('NH4Cl', 'aq', 0.02), sample('Ca(OH)2', 'aq', 0.01)], 'CaCl2', 0.01],
+  ] as const)('conserves reagents and retains the salt %s → %s', (input, salt, moles) => {
+    const inventory = input.map(row => ({ ...row }));
+    const reactions: ReturnType<typeof runSimulationCycle>['reactionsOccurred'] = [];
+    const result = resolveExtendedCatalogFamilies(inventory, reactions, 100, 55, false, true);
+    const escaped = Object.entries(result.escapedGas_g).map(([formula, mass]) =>
+      sample(formula, 'g', mass / computeMolarMass(formula))
+    );
+    expect(reactions).toHaveLength(1);
+    expect(reactions[0].equation).toContain(salt);
+    expect(inventory.find(row => row.formula === salt)?.moles).toBeCloseTo(moles, 10);
+    expect(auditConservation([...input], inventory, escaped, 1e-10)).toMatchObject({
+      isConserved: true, massDiscrepancy_g: expect.closeTo(0, 9),
+    });
+  });
+
+  it.each([
+    [[sample('NaHCO3', 'aq', 0.01), sample('HCl', 'aq', 0.01)], 'NaCl', 'CO2'],
+    [[sample('BaCl2', 'aq', 0.01), sample('K2CO3', 'aq', 0.01)], 'KCl', 'BaCO3'],
+    [[sample('Fe', 's', 0.01), sample('AgNO3', 'aq', 0.02)], 'Fe(NO3)2', 'Ag'],
+  ] as const)('conserves the general-rule inventory for %s and forms %s', (input, salt, observedProduct) => {
+    const inventory = input.map(row => ({ ...row }));
+    const result = resolveInstantRulesAndEquilibria(inventory, [], 100, 25, false, true, { tier2Only: true });
+    const escaped = Object.entries(result.escapedGas_g ?? {}).map(([formula, mass]) =>
+      sample(formula, 'g', mass / computeMolarMass(formula))
+    );
+    expect(result.reactionsOccurred).toHaveLength(1);
+    expect(inventory.some(row => row.formula === salt && row.moles > 0)).toBe(true);
+    expect([...inventory, ...escaped].some(row => row.formula === observedProduct && row.moles > 0)).toBe(true);
+    expect(auditConservation([...input], inventory, escaped, 1e-10)).toMatchObject({
+      isConserved: true, massDiscrepancy_g: expect.closeTo(0, 9),
+    });
+  });
+});
+
 describe('Strict Elemental & Mass Conservation Invariant across All Compiled Reactions', () => {
   beforeAll(async () => {
     await ensureCatalogCompiled();
+  });
+
+  it('uses the declared phase and pooled doses with no inferred catalog enthalpy', () => {
+    const contents = [
+      sample('SrBr2', 'aq', 0.001),
+      sample('SrBr2', 'aq', 0.002),
+      sample('SrBr2', 's', 0.005),
+      sample('K2SO4', 'aq', 0.008),
+    ];
+    const result = runSimulationCycle(contents, 50, 25, false, false);
+    const record = result.reactionsOccurred.find(row => row.provenance === 'catalog');
+    expect(record?.extent_moles).toBeCloseTo(0.003, 10);
+    expect(record?.heatReleased_J).toBe(0);
+    expect(result.finalTemperature_c).toBe(25);
+    expect(result.updatedContents.find(row => row.formula === 'SrBr2' && row.state === 's')?.moles).toBe(0.005);
+    expect(result.updatedContents.find(row => row.formula === 'SrSO4' && row.state === 's')?.moles).toBeCloseTo(0.003, 10);
+    expect(auditConservation(contents, result.updatedContents, [], 1e-10).isConserved).toBe(true);
+  });
+
+  it.each(['Na2SO4', 'K2SO4'])('limits BaSO4 to saturation with %s across resolution paths', sulfate => {
+    const contents = [sample('BaCl2', 'aq', 1.3e-6), sample(sulfate, 'aq', 1.3e-6), sample('H2O', 'l', 5.5)];
+    const warm = runSimulationCycle(contents, 100, 50, false, false);
+    expect(warm.updatedContents.some(row => row.formula === 'BaSO4')).toBe(false);
+
+    const cold = runSimulationCycle(contents, 100, 25, false, false);
+    const solid = cold.updatedContents.find(row => row.formula === 'BaSO4' && row.state === 's');
+    const expected = 1.3e-6 - 0.1 * Math.sqrt(10 ** -9.970);
+    expect(solid?.moles).toBeCloseTo(expected, 13);
+    expect(cold.reactionsOccurred[0].extent_moles).toBeCloseTo(expected, 13);
+    expect(auditConservation(contents, cold.updatedContents, [], 1e-10).isConserved).toBe(true);
   });
 
   it('conserves every element (<= 1e-9 mol) and total mass across all simulatable compiled reactions', () => {

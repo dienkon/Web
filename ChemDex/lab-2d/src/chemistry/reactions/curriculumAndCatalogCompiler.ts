@@ -20,6 +20,7 @@ export interface CompiledReactionEntry extends ReactionDefinition {
   family?: string;
   requiresCatalyst?: boolean;
   catalystFormula?: string;
+  requiresLight?: boolean;
   requiresAlkaneExcess?: boolean;
   tags?: string[];
 }
@@ -196,7 +197,7 @@ function inferStateForCurriculum(formula: string, role?: string, contextId?: str
 function mergeDuplicateSpecies(list: StoichiometricSpecies[]): StoichiometricSpecies[] {
   const byFormula = new Map<string, StoichiometricSpecies>();
   for (const sp of list) {
-    const key = normalizeFormula(sp.formula);
+    const key = `${sp.formula}:${sp.state}`;
     const existing = byFormula.get(key);
     if (existing) {
       existing.coefficient += sp.coefficient;
@@ -273,7 +274,7 @@ function parseHeatingAndCatalystConditions(
   if (!catalystFormula && lower.includes('xúc tác axit')) {
     catalystFormula = 'H2SO4';
     requiresCatalyst = true;
-  } else if (!catalystFormula && (lower.includes('xúc tác h2so4') || lower.includes('axit loãng'))) {
+  } else if (!catalystFormula && lower.includes('xúc tác h2so4')) {
     catalystFormula = 'H2SO4';
     requiresCatalyst = true;
   } else if (!catalystFormula && lower.includes('ni, đun nóng')) {
@@ -543,12 +544,9 @@ function compileCatalogReactions(entries: RawCatalogEntry[]): CompiledReactionEn
       reactants,
       products
     );
-    const deltaH = inferDeltaH(
-      raw.id,
-      raw.effects?.deltaH_kJ_per_mol,
-      raw.family,
-      cond.requiresHeating
-    );
+    // Reference rows generally lack measured enthalpy. A zero contribution keeps
+    // the temperature model independent of guesses based on the reaction family.
+    const deltaH = raw.effects?.deltaH_kJ_per_mol ?? 0;
     const { visual, archetype, controllerId } = buildVisualProfile(
       raw.id,
       reactants,
@@ -560,7 +558,9 @@ function compileCatalogReactions(entries: RawCatalogEntry[]): CompiledReactionEn
     const candidate: CompiledReactionEntry = {
       id: raw.id,
       source: 'catalog',
+      provenance: 'catalog',
       family: raw.family,
+      requiresLight: raw.conditions?.activation === 'light',
       name_en: raw.title_vi || raw.equation,
       name_vi: raw.title_vi || raw.equation,
       equation: raw.equation,

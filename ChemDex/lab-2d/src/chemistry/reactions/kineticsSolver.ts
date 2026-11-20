@@ -367,11 +367,13 @@ function interpolateContentsLinear(
     const key = keyFor(item);
     const moles = item.moles * (1 - clamped);
     const mass_g = item.mass_g * (1 - clamped);
-    map.set(key, {
-      ...item,
-      moles,
-      mass_g,
-    });
+    const existing = map.get(key);
+    if (existing) {
+      existing.moles += moles;
+      existing.mass_g += mass_g;
+    } else {
+      map.set(key, { ...item, moles, mass_g });
+    }
   }
 
   for (const item of target) {

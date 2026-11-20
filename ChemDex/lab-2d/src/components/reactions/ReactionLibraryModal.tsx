@@ -77,7 +77,7 @@ export const ReactionLibraryModal: React.FC<ReactionLibraryModalProps> = ({ isOp
   // Tab 2: 1,300 shared catalog
   const [catQuery, setCatQuery] = useState('');
   const [catFamily, setCatFamily] = useState<string>('all');
-  const [catLimit, setCatLimit] = useState<number>(40);
+  const [catPage, setCatPage] = useState(0);
   const [selectedCatId, setSelectedCatId] = useState<string | null>(null);
 
   // Tab 3: Chains
@@ -91,6 +91,7 @@ export const ReactionLibraryModal: React.FC<ReactionLibraryModalProps> = ({ isOp
   useEffect(() => {
     if (!isOpen) return;
     let cancelled = false;
+    setLoadError(null);
     loadReactionHubBundle()
       .then((loaded) => {
         if (cancelled) return;
@@ -135,16 +136,15 @@ export const ReactionLibraryModal: React.FC<ReactionLibraryModalProps> = ({ isOp
     if (!bundle) return { total: 0, entries: [] as ReactionEntry[] };
     return bundle.searchReactions(bundle.index, catQuery, {
       family: catFamily,
-      limit: catLimit,
-      offset: 0,
+      limit: 40,
+      offset: catPage * 40,
     });
-  }, [bundle, catQuery, catFamily, catLimit]);
+  }, [bundle, catQuery, catFamily, catPage]);
 
   const selectedCatalogEntry: ReactionEntry | undefined = useMemo(() => {
     if (!bundle) return undefined;
     return (
       catalogSearchResult.entries.find((e) => e.id === selectedCatId) ||
-      (selectedCatId ? bundle.index.byId.get(selectedCatId) : undefined) ||
       catalogSearchResult.entries[0]
     );
   }, [bundle, catalogSearchResult, selectedCatId]);
@@ -188,6 +188,7 @@ export const ReactionLibraryModal: React.FC<ReactionLibraryModalProps> = ({ isOp
   };
 
   const handleRunCatalogOnBench = (entry: ReactionEntry) => {
+    if (entry.conditions.activation === 'light') return;
     runReactionOnWorkbench2D(
       {
         id: entry.id,
@@ -202,11 +203,6 @@ export const ReactionLibraryModal: React.FC<ReactionLibraryModalProps> = ({ isOp
           description_vi: entry.conditions?.description_vi,
           catalyst: entry.conditions?.catalyst ?? null,
           activation: entry.conditions?.activation ?? null,
-          heating:
-            entry.family === 'thermal' ||
-            entry.family === 'esterification' ||
-            entry.conditions?.activation === 'heat' ||
-            /đun|nhiệt|nóng/i.test(entry.conditions?.description_vi || ''),
         },
         family: entry.family,
       },
@@ -239,7 +235,7 @@ export const ReactionLibraryModal: React.FC<ReactionLibraryModalProps> = ({ isOp
       <section
         role="dialog"
         aria-modal="true"
-        aria-label={vi ? 'Kho Phương Trình & Thí Nghiệm Lab-3D' : 'Reaction Equations & Experiments Hub'}
+        aria-label={vi ? 'Kho phản ứng Lab 2D' : 'Lab 2D reaction library'}
         className={`w-full max-w-6xl h-[92vh] sm:h-[88vh] rounded-2xl border shadow-2xl flex flex-col overflow-hidden ${surfaceCls}`}
         onClick={(e) => e.stopPropagation()}
         onKeyDown={(e) => {
@@ -263,8 +259,8 @@ export const ReactionLibraryModal: React.FC<ReactionLibraryModalProps> = ({ isOp
               <p className={`text-[11px] truncate ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>
                 {bundle
                   ? vi
-                    ? `${bundle.curriculum.length} bài thực hành SGK · ${bundle.catalog.count.toLocaleString()} phương trình chuẩn · Tìm chuỗi tổng hợp`
-                    : `${bundle.curriculum.length} curriculum protocols · ${bundle.catalog.count.toLocaleString()} verified equations · Chain solver`
+                    ? `${bundle.curriculum.length} bài thực hành SGK · ${bundle.catalog.count.toLocaleString('vi-VN')} phương trình có nguồn`
+                    : `${bundle.curriculum.length} curriculum protocols · ${bundle.catalog.count.toLocaleString('en')} sourced equations`
                   : vi
                     ? 'Đang tải kho dữ liệu phản ứng hóa học...'
                     : 'Loading chemistry reaction catalog...'}
@@ -657,9 +653,10 @@ export const ReactionLibraryModal: React.FC<ReactionLibraryModalProps> = ({ isOp
                     value={catQuery}
                     onChange={(e) => {
                       setCatQuery(e.target.value);
-                      setCatLimit(40);
+                      setCatPage(0);
                     }}
-                    placeholder={vi ? 'Tìm 1.300 phương trình (FeCl3, CuSO4, Cr, este...)' : 'Search 1,300 reactions...'}
+                    aria-label={vi ? 'Tìm trong kho phản ứng' : 'Search reaction catalog'}
+                    placeholder={vi ? 'CuSO4, Fe + HCl, kết tủa…' : 'CuSO4, Fe + HCl…'}
                     className={`w-full pl-8 pr-3 py-1.5 rounded-xl border text-xs outline-none focus:ring-2 focus:ring-emerald-500/40 ${inputCls}`}
                   />
                 </div>
@@ -669,7 +666,7 @@ export const ReactionLibraryModal: React.FC<ReactionLibraryModalProps> = ({ isOp
                     value={catFamily}
                     onChange={(e) => {
                       setCatFamily(e.target.value);
-                      setCatLimit(40);
+                      setCatPage(0);
                     }}
                     className={`flex-1 px-2.5 py-1.5 rounded-xl border text-xs font-semibold ${inputCls}`}
                   >
@@ -715,16 +712,21 @@ export const ReactionLibraryModal: React.FC<ReactionLibraryModalProps> = ({ isOp
                     </button>
                   );
                 })}
-                {catalogSearchResult.total > catalogSearchResult.entries.length && (
-                  <button
-                    type="button"
-                    onClick={() => setCatLimit((l) => Math.min(200, l + 40))}
-                    className="w-full py-2 rounded-xl text-xs font-bold text-emerald-600 hover:bg-emerald-500/10 cursor-pointer"
-                  >
-                    + Xem thêm ({catalogSearchResult.total - catalogSearchResult.entries.length} phương trình)
-                  </button>
-                )}
               </div>
+              {catalogSearchResult.total > 40 && (
+                <div className="flex items-center justify-between gap-2 border-t border-current/10 p-2 text-xs">
+                  <button type="button" disabled={catPage === 0} onClick={() => setCatPage(page => page - 1)}
+                    className="rounded-lg px-2 py-2 font-bold hover:bg-emerald-500/10 disabled:opacity-40">
+                    {vi ? 'Trang trước' : 'Previous'}
+                  </button>
+                  <span role="status">{catPage + 1} / {Math.ceil(catalogSearchResult.total / 40)}</span>
+                  <button type="button" disabled={(catPage + 1) * 40 >= catalogSearchResult.total}
+                    onClick={() => setCatPage(page => page + 1)}
+                    className="rounded-lg px-2 py-2 font-bold hover:bg-emerald-500/10 disabled:opacity-40">
+                    {vi ? 'Trang sau' : 'Next'}
+                  </button>
+                </div>
+              )}
             </div>
 
             <div className={`${mobileShowDetail ? 'flex' : 'hidden lg:flex'} flex-1 flex-col min-h-0 overflow-y-auto p-3.5 sm:p-5 space-y-4`}>
@@ -770,12 +772,26 @@ export const ReactionLibraryModal: React.FC<ReactionLibraryModalProps> = ({ isOp
                       <button
                         type="button"
                         onClick={() => handleRunCatalogOnBench(selectedCatalogEntry)}
-                        className="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white text-xs sm:text-sm font-bold shadow-md cursor-pointer"
+                        disabled={selectedCatalogEntry.conditions.activation === 'light'}
+                        className="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white text-xs sm:text-sm font-bold shadow-md cursor-pointer disabled:opacity-50"
                       >
                         <Play className="w-4 h-4 fill-current" />
-                        <span>{vi ? 'Thử trên bàn 2D' : 'Run on 2D Bench'}</span>
+                        <span>{vi ? 'Minh họa trên bàn 2D' : 'Illustrate on 2D bench'}</span>
                       </button>
                     </div>
+                  </div>
+
+                  <div className={`rounded-xl border p-3 text-xs space-y-2 ${mutedCardCls}`}>
+                    <p>{selectedCatalogEntry.conditions.description_vi}</p>
+                    <p>{selectedCatalogEntry.conditions.activation === 'light'
+                      ? (vi ? 'Mục tra cứu. Bàn 2D chưa mô hình hóa kích hoạt bằng ánh sáng.' : 'Reference entry. The 2D bench lacks light activation.')
+                      : (vi ? 'Mô phỏng định tính. Tốc độ, cân bằng và hiệu ứng cần được đối chiếu với dữ liệu thực nghiệm.' : 'Qualitative simulation. Compare rates, equilibria and effects with experimental data.')}</p>
+                    <ul className="space-y-1">
+                      {selectedCatalogEntry.evidence.sourceIds.map(id => {
+                        const source = bundle.catalog.sources[id];
+                        return <li key={id}><a className="underline" href={source.url} target="_blank" rel="noreferrer">{source.title}</a></li>;
+                      })}
+                    </ul>
                   </div>
 
                   {selectedCatalogGuide && (
@@ -970,9 +986,10 @@ export const ReactionLibraryModal: React.FC<ReactionLibraryModalProps> = ({ isOp
                             <button
                               type="button"
                               onClick={() => handleRunChainStep(step.reactionId)}
-                              className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white text-[11px] font-bold cursor-pointer"
+                              disabled={bundle.index.byId.get(step.reactionId)?.conditions.activation === 'light'}
+                              className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white text-[11px] font-bold cursor-pointer disabled:opacity-50"
                             >
-                              <Play className="w-3 h-3 fill-current" /> Thử bước này
+                              <Play className="w-3 h-3 fill-current" /> {vi ? 'Minh họa bước này' : 'Illustrate step'}
                             </button>
                           </div>
                           <div className={`font-mono text-xs font-bold ${isDark ? 'text-sky-300' : 'text-blue-700'}`}>
