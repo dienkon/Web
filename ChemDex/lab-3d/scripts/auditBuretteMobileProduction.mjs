@@ -99,8 +99,43 @@ try {
   const rows = csv.trimEnd().split('\r\n');
   assert.equal(rows.length, 1001);
   assert.ok(rows.some(row => row.startsWith('"flask_1",0.502,,,25')));
+
+  await titration.getByRole('button', { name: /Căn bình dưới buret|Align selected vessel/ }).tap();
+  await expect(titration.locator('[data-burette-receiver="flask_1"]')).toBeVisible();
+  await titration.getByText(/Nạp hoặc xả buret|Fill or drain the burette/).tap();
+  await titration.getByLabel('Dung dịch chuẩn', { exact: true }).selectOption('hcl-005');
+  const load = titration.getByRole('button', { name: 'Nạp dung dịch đã chọn' });
+  await expect(load).toBeDisabled();
+  await titration.getByRole('button', { name: 'Xả vào chất thải' }).tap();
+  await expect(titration.getByText('0.00 / 50 mL')).toBeVisible();
+  await load.tap();
+  await expect(titration.getByText('HCl (dil) (0.05 M)', { exact: true })).toBeVisible();
+  await dose.tap();
+  await expect(titration.getByText('1 điểm', { exact: true })).toBeVisible();
+  const runSelect = titration.getByLabel('Lượt chuẩn độ', { exact: true });
+  await expect(runSelect).toHaveValue('-1');
+  const [newDownload] = await Promise.all([
+    page.waitForEvent('download'),
+    titration.getByRole('button', { name: 'Tải CSV chuẩn độ' }).tap(),
+  ]);
+  const newRows = (await readFile(await newDownload.path(), 'utf8')).trimEnd().split('\r\n');
+  assert.equal(newRows.length, 2);
+  assert.match(newRows[0], /,run_id$/);
+  assert.match(newRows[1], /^"flask_1",0\.05,0\.05,.*"HCl \(dil\)",0\.05,"received".*,"[^"]+"$/);
+  await runSelect.selectOption({ label: '1. Số đo cũ' });
+  await expect(titration.getByText('1000 điểm', { exact: true })).toBeVisible();
+
+  await page.waitForFunction(key => JSON.parse(localStorage.getItem(key)).materials.titrationHistory.length === 1001, storageKey);
+  await page.reload({ waitUntil: 'domcontentloaded' });
+  await openTitration();
+  await expect(titration.getByText('HCl (dil) (0.05 M)', { exact: true })).toBeVisible();
+  await expect(titration.getByText('1 điểm', { exact: true })).toBeVisible();
+  await expect(titration.getByLabel('Lượt chuẩn độ', { exact: true }).locator('option')).toHaveCount(3);
+  await dose.tap();
+  await expect(titration.getByText('2 điểm', { exact: true })).toBeVisible();
+  assert.equal(await titration.getByLabel('Lượt chuẩn độ', { exact: true }).locator('option').count(), 3);
   assert.deepEqual(errors, []);
-  console.log(`PASS production Chrome 390 px: drag-safe legacy position, pagehide save, refill, numeric axis, pH gap and 1,000 CSV rows (${plotted} plotted points).`);
+  console.log(`PASS production Chrome 390 px: pagehide save, refill, numeric axis, pH gap, 1,000 CSV rows (${plotted} plotted points), stock replacement and independent runs across reload.`);
 } finally {
   await browser.close();
 }

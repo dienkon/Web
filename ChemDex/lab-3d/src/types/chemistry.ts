@@ -127,6 +127,7 @@ export interface VesselState {
   waterVaporSpecificEnthalpy_J_g?: number;
   waterVaporTemperatureModel?: 'emission-ledger' | 'source-temperature-estimate';
   effectSampleRevision?: number; // invalidates handles/visuals when a specimen is replaced
+  titrationRunId?: string; // last run that delivered titrant to this vessel
   environment?: import('../science/labEnvironment').LabEnvironment;
   hotPlate?: { isOn: boolean; setPoint_c: number; electricalEnergy_J?: number; deliveredHeat_J?: number; heatLost_J?: number };
   escapedGas_g?: Record<string, number>;
@@ -349,6 +350,8 @@ export interface MeasurementTool {
 
 export interface TitrationPoint {
   readonly vesselId?: string;
+  readonly runId?: string;
+  readonly sampleRevision?: number;
   readonly volumeAdded_ml: number;
   readonly ph: number | null;
   readonly color: string;

@@ -23,6 +23,17 @@ Chrome production ở khung 390 px xác nhận 1.000 dòng dữ liệu trong CSV
 
 Với 10.000 số đo mô phỏng, phép đo Node cho 100 lần chụp riêng trạng thái hoàn tác dao động 598–624 ms ở cách sao chép cũ và 0,21–0,52 ms ở cách tái sử dụng chuỗi. Phép đo chỉ bao gồm tạo snapshot trong fixture nhỏ. Tốc độ phản ứng, VFX và FPS thực tế cần đo riêng.
 
+## Đổi dung dịch chuẩn và xem lại từng lượt
+
+1. Mở **Quan sát → Chuẩn độ → Nạp hoặc xả buret**. Dùng **Nạp đầy từ kho** khi tiếp tục với dung dịch đang có. Để đổi dung dịch, đóng khóa, chờ giọt chạm bình, chọn **Xả vào chất thải** rồi nạp HCl hoặc NaOH 0,05 M hay 0,10 M từ kho mô phỏng.
+2. Căn bình và nhả giọt. Lượt đo bắt đầu từ thể tích thực của giọt đầu tiên. Đổi thuốc thử, đổi nồng độ hoặc thay mẫu trong bình sẽ mở lượt mới ở lần nhả kế tiếp. Nạp lại cùng dung dịch trong lúc giữ nguyên mẫu sẽ tiếp tục cộng dồn lượt hiện tại.
+3. Chọn **Lượt chuẩn độ** để xem lại. Nút CSV tải từng lượt cùng mã `run_id`. Số đo từ bản lưu cũ vẫn giữ thể tích và pH đã lưu, để trống mã lượt. Có thể xóa riêng lượt đang xem và khôi phục bằng **Hoàn tác**.
+4. Muốn lặp lại với cùng dung dịch chuẩn, thu gom mẫu cũ rồi cho mẫu mới vào bình trước khi nhả. Nếu đổi dung dịch chuẩn giữa chừng, lượt mới đo thể tích của thuốc thử mới trên mẫu còn trong bình.
+
+Chrome ở khung nhìn 390 px đã chạy luồng xả, đổi sang HCl 0,05 M, nhả giọt, tải CSV từng lượt và tải lại trang. Giọt nhả sau khi tải lại tiếp tục đúng lượt hiện tại. Các kiểm thử hồi quy cũng bao phủ việc dùng lại mã bình khi mở bài thực hành và nhả lại sau khi xóa lượt gần nhất.
+
+Bài **Chuẩn độ Axit - Bazơ** hiện tạo khoảng 20 mmol HCl trong bình tam giác. Với NaOH 0,10 M mặc định của buret, mốc tương đương tính từ kiểm kê vào khoảng 200 mL, gấp khoảng bốn lần dung tích buret. Đợt tiếp theo sẽ đồng bộ mẫu thực hành với buret và kiểm tra lượng NaOH thực sự vào bình trước khi chấm bước. Bài học cũng cần đối chiếu điểm tương đương theo tỉ lượng với điểm kết thúc quan sát bằng màu. [IUPAC Gold Book về chuẩn độ](https://goldbook.iupac.org/terms/view/T06387)
+
 ## Phạm vi 5 giai đoạn
 
 Bản nâng cấp hoàn thiện năm giai đoạn từ kế hoạch phát triển `lab-3d`:

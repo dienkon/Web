@@ -2,6 +2,24 @@ import type { TitrationPoint } from '../types/chemistry';
 
 const PLOT_LIMIT = 800;
 
+export interface TitrationRun {
+  id: string | null;
+  points: TitrationPoint[];
+}
+
+export function titrationRuns(history: readonly TitrationPoint[], vesselId: string | null): TitrationRun[] {
+  if (!vesselId) return [];
+  const runs = new Map<string | null, TitrationRun>();
+  for (const point of history) {
+    if (point.vesselId !== vesselId) continue;
+    const id = point.runId ?? null;
+    const run = runs.get(id);
+    if (run) run.points.push(point);
+    else runs.set(id, { id, points: [point] });
+  }
+  return [...runs.values()];
+}
+
 /** Keep the start, end and pH extrema of each bucket in recording order.
  * Insert a missing reading anywhere decimation would otherwise bridge a gap. */
 export function titrationPlot(points: readonly TitrationPoint[]): readonly TitrationPoint[] {
@@ -48,12 +66,12 @@ function csvCell(value: string | number | null | undefined): string {
 
 /** Export source rows. Old saves omit metadata that was never recorded. */
 export function titrationCSV(points: readonly TitrationPoint[]): string {
-  const header = 'vessel_id,cumulative_dispensed_ml,drop_dispensed_ml,pH,sample_temperature_c,pH_basis,pH_reference_temperature_c,reagent,concentration_mol_l,outcome,recorded_at_utc';
+  const header = 'vessel_id,cumulative_dispensed_ml,drop_dispensed_ml,pH,sample_temperature_c,pH_basis,pH_reference_temperature_c,reagent,concentration_mol_l,outcome,recorded_at_utc,run_id';
   const rows = points.map(point => {
     const recordedAt = new Date(point.timestamp);
     return [point.vesselId, point.volumeAdded_ml, point.dispensedVolume_ml, point.ph, point.temperature_c,
       point.phBasis, point.phReferenceTemperature_c, point.reagentFormula, point.concentration_M, point.outcome,
-      Number.isFinite(recordedAt.getTime()) ? recordedAt.toISOString() : '',
+      Number.isFinite(recordedAt.getTime()) ? recordedAt.toISOString() : '', point.runId,
     ].map(csvCell).join(',');
   });
   return '\uFEFF' + [header, ...rows].join('\r\n') + '\r\n';

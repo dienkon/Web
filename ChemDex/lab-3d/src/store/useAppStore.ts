@@ -84,6 +84,7 @@ import { AnimatedDoseQueue, releaseDoseAmount, type AnimatedStockDose } from '..
 import { SpatulaDoseReservations, type SpatulaSample } from '../handling/spatulaDose';
 import { prepareStockAddition } from '../engine/stockAddition';
 import { buretteAliquot } from '../handling/buretteAliquot';
+import { BURETTE_STOCKS, type BuretteStockId } from '../handling/buretteStocks';
 import { liquidContactFailure } from '../handling/liquidContact';
 import { sampleMeasurement } from '../science/sampleMeasurement';
 import { planMetalAcid, advanceMetalAcidProgress } from '../engine/metalAcidPlan';
@@ -532,11 +533,11 @@ export interface AppState {
   // Burette & Titration
   burette: BuretteState;
   updateBurette: (updates: Partial<BuretteState>) => void;
-  serviceBurette: (action: 'fill' | 'discard') => { volume_ml: number; problem?: string };
+  serviceBurette: (action: 'fill' | 'discard', stockId?: BuretteStockId) => { volume_ml: number; problem?: string };
   toggleBuretteStopcock: () => void;
   dispenseBuretteDrop: (targetVesselId: string, initialAge_s?: number) => void;
   titrationHistory: readonly TitrationPoint[];
-  clearTitrationHistory: (vesselId: string) => void;
+  clearTitrationHistory: (vesselId: string, runId?: string | null) => void;
 
   // Sidebars
   leftSidebarOpen: boolean;
@@ -625,6 +626,7 @@ const initialBurette = restoreBurette(persisted?.materials?.burette);
 const savedTitrationHistory = persisted?.materials?.titrationHistory;
 const initialTitrationHistory = (Array.isArray(savedTitrationHistory) ? savedTitrationHistory : []).filter(point =>
   point && (!point.vesselId || typeof point.vesselId === 'string') && Number.isFinite(point.volumeAdded_ml) && point.volumeAdded_ml >= 0
+    && (point.runId === undefined || point.runId === null || typeof point.runId === 'string')
     && (point.ph === null || Number.isFinite(point.ph)) && typeof point.color === 'string'
     && Number.isFinite(point.temperature_c) && Number.isFinite(point.timestamp));
 
@@ -3657,7 +3659,7 @@ export const useAppStore = create<AppState>((set, get) => {
       if (!updates.position || useToolDockStore.getState().dragging !== 'burette')
         debounceSaveLocalState(get().vessels, get().burners);
     },
-    serviceBurette: action => {
+    serviceBurette: (action, stockId) => {
       const state = get(), burette = state.burette;
       const problem = (message: string) => ({ volume_ml: 0, problem: message });
       if (state.isSimulationPaused) return problem('Tiếp tục mô phỏng trước khi nạp hoặc xả buret.');
@@ -3667,10 +3669,17 @@ export const useAppStore = create<AppState>((set, get) => {
       if (useInstrumentStore.getState().hasBurettePresentation(state.pourEpoch))
         return problem('Chờ giọt đang rơi chạm bình trước khi nạp hoặc xả.');
       const filling = action === 'fill';
+      const stock = stockId === undefined ? undefined : BURETTE_STOCKS.find(item => item.id === stockId);
+      if (stockId !== undefined && (!stock || !filling)) return problem('Chọn dung dịch chuẩn có trong kho mô phỏng.');
+      if (stock && burette.currentVolume_ml > 0 && (stock.concentration_M !== burette.concentration_M
+        || !sameMolecularFormula(stock.reagentFormula, burette.reagentFormula)))
+        return problem('Xả dung dịch đang có vào chất thải trước khi đổi dung dịch chuẩn.');
+      const reagentFormula = stock?.reagentFormula ?? burette.reagentFormula;
+      const concentration_M = stock?.concentration_M ?? burette.concentration_M;
       const volume_ml = filling ? burette.maxVolume_ml - burette.currentVolume_ml : burette.currentVolume_ml;
-      if (!(volume_ml > 1e-10)) return problem(filling ? 'Buret đã đầy.' : 'Buret đang rỗng.');
-      const chemical = getChemical(burette.reagentFormula);
-      const sample = chemical && buretteAliquot(chemical, burette.reagentFormula, burette.concentration_M, volume_ml,
+      if (!(volume_ml > 0)) return problem(filling ? 'Buret đã đầy.' : 'Buret đang rỗng.');
+      const chemical = getChemical(reagentFormula);
+      const sample = chemical && buretteAliquot(chemical, reagentFormula, concentration_M, volume_ml,
         useLabEnvironment.getState().conditions.temperature_c);
       if (!sample) return problem('Dung dịch trong buret chưa có dữ liệu định lượng hợp lệ.');
 
@@ -3678,7 +3687,7 @@ export const useAppStore = create<AppState>((set, get) => {
       pushHistorySnapshot(historyAction, state.vessels, state.burners,
         'Before servicing the burette', 'Trước khi nạp hoặc xả buret');
       set({
-        burette: { ...burette, currentVolume_ml: filling ? burette.maxVolume_ml : 0 },
+        burette: { ...burette, reagentFormula, concentration_M, currentVolume_ml: filling ? burette.maxVolume_ml : 0 },
         ...(!filling ? {
           wasteMass_g: state.wasteMass_g + sample.mass_g,
           wasteContents: [...state.wasteContents, ...sample.contents.map(row => ({ ...row, location: 'bulk' as const }))],
@@ -3722,24 +3731,33 @@ export const useAppStore = create<AppState>((set, get) => {
       const isHeated = vesselHasBurnerHeat(receiver, state.burners);
       const reacted = transfer.failureReason ? { vessel: transfer.vessel, kinetics: null, mixResult: null }
         : reactAliquotMixture(transfer.vessel, state.language, isHeated);
-      const historyKey = `burette:${state.pourEpoch}:${targetVesselId}`;
-      if (!hasCurrentHistoryCoalesceKey(historyKey))
-        pushHistorySnapshot('TITRATE', state.vessels, state.burners, 'Before burette delivery', 'Trước khi cấp mẫu từ buret');
-      let previous: TitrationPoint | undefined;
+      let lastReading: TitrationPoint | undefined;
       for (let i = state.titrationHistory.length - 1; i >= 0; i--) {
         if (state.titrationHistory[i].vesselId !== targetVesselId) continue;
-        previous = state.titrationHistory[i];
+        lastReading = state.titrationHistory[i];
         break;
       }
+      const sampleRevision = receiver.effectSampleRevision ?? 0;
+      // A preset can replace a vessel under the same id, and removing a curve
+      // must not make an earlier curve eligible to receive new points.
+      const previous = lastReading?.runId && lastReading.runId === receiver.titrationRunId
+        && lastReading.sampleRevision === sampleRevision
+        && lastReading.concentration_M === burette.concentration_M && lastReading.reagentFormula
+        && sameMolecularFormula(lastReading.reagentFormula, burette.reagentFormula) ? lastReading : undefined;
+      const timestamp = Date.now();
+      const runId = previous?.runId ?? (globalThis.crypto?.randomUUID?.() ?? `${timestamp}-${Math.random().toString(36).slice(2)}`);
+      const historyKey = `burette:${state.pourEpoch}:${targetVesselId}:${runId}`;
+      if (!hasCurrentHistoryCoalesceKey(historyKey))
+        pushHistorySnapshot('TITRATE', state.vessels, state.burners, 'Before burette delivery', 'Trước khi cấp mẫu từ buret');
       const measurement = sampleMeasurement(reacted.vessel);
-      const point: TitrationPoint = { vesselId: targetVesselId,
+      const point: TitrationPoint = { vesselId: targetVesselId, runId, sampleRevision,
         volumeAdded_ml: (previous?.volumeAdded_ml ?? 0) + transfer.dispensed_ml,
         dispensedVolume_ml: transfer.dispensed_ml, reagentFormula: burette.reagentFormula, concentration_M: burette.concentration_M,
         outcome: transfer.failureReason ? 'spilled' : 'received',
         ph: transfer.failureReason ? null : measurement.ph, color: reacted.vessel.liquidColor || '#ffffff',
         phBasis: transfer.failureReason ? null : measurement.basis,
         phReferenceTemperature_c: transfer.failureReason ? null : measurement.referenceTemperature_c,
-        temperature_c: reacted.vessel.temperature_c, timestamp: Date.now() };
+        temperature_c: reacted.vessel.temperature_c, timestamp };
       set(current => {
         const activeKinetics = { ...current.activeKinetics }, pendingReactions = { ...current.pendingReactions },
           dissolvingSubstances = { ...current.dissolvingSubstances };
@@ -3750,7 +3768,7 @@ export const useAppStore = create<AppState>((set, get) => {
         return { burette: { ...current.burette, currentVolume_ml: newVol,
         isDispensing: newVol > 1e-8 && current.burette.isDispensing },
         titrationHistory: [...current.titrationHistory, point],
-        vessels: { ...current.vessels, [targetVesselId]: reacted.vessel },
+        vessels: { ...current.vessels, [targetVesselId]: { ...reacted.vessel, titrationRunId: runId } },
         activeKinetics, pendingReactions, dissolvingSubstances, lastMixResult: reacted.mixResult };
       });
       if (transfer.failureReason) {
@@ -3763,9 +3781,10 @@ export const useAppStore = create<AppState>((set, get) => {
       debounceSaveLocalState(committed.vessels, committed.burners);
     },
     titrationHistory: initialTitrationHistory,
-    clearTitrationHistory: vesselId => {
+    clearTitrationHistory: (vesselId, runId) => {
       const state = get();
-      const remaining = state.titrationHistory.filter(point => point.vesselId !== vesselId);
+      const remaining = state.titrationHistory.filter(point => point.vesselId !== vesselId
+        || (runId !== undefined && (point.runId ?? null) !== runId));
       if (remaining.length === state.titrationHistory.length) return;
       pushHistorySnapshot('TITRATE', state.vessels, state.burners, 'Before clearing vessel readings', 'Trước khi xóa số đo của bình');
       set({ titrationHistory: remaining });

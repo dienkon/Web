@@ -15,6 +15,7 @@ import { vesselHasBurnerHeat } from '../engine/burnerEnergy';
 import { uiText } from '../utils/uiText';
 import { pipetteHasRinseSample } from './instrumentRinse';
 import { buretteTargetProblem, findBuretteReceiver } from './buretteTarget';
+import type { BuretteStockId } from './buretteStocks';
 import { BURETTE_MAX_ANCHOR_Y, BURETTE_NOZZLE_LOCAL_Y, BURETTE_RIM_CLEARANCE, constrainBurettePosition } from './burettePlacement';
 import { restingVesselHeight } from './vesselRest';
 import { vesselWorldDimensions } from '../science/vesselScale';
@@ -248,8 +249,8 @@ export function dispenseOneBuretteDrop(): InstrumentResult {
     : result('burette', false, 'Bình nhận đã đầy; không nhả thêm.');
 }
 
-export function serviceBurette(action: 'fill' | 'discard'): InstrumentResult {
-  const { volume_ml, problem } = useAppStore.getState().serviceBurette(action);
+export function serviceBurette(action: 'fill' | 'discard', stockId?: BuretteStockId): InstrumentResult {
+  const { volume_ml, problem } = useAppStore.getState().serviceBurette(action, stockId);
   if (problem) return result('burette', false, problem);
   return result('burette', true, action === 'fill'
     ? `Đã nạp ${volume_ml.toFixed(2)} mL từ kho mô phỏng.`

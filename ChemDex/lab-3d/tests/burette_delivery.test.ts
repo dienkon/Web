@@ -2,7 +2,7 @@ import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { useAppStore } from '../src/store/useAppStore';
 import { useInstrumentStore } from '../src/handling/instrumentState';
 import { useToolDockStore } from '../src/handling/toolDock';
-import { dispenseOneBuretteDrop, serviceBurette, setBuretteValve } from '../src/handling/instrumentOperations';
+import { alignSelectedVessel, dispenseOneBuretteDrop, serviceBurette, setBuretteValve } from '../src/handling/instrumentOperations';
 import { advanceBurettePresentations, burettePresentationView, buretteTargetUnchanged,
   makeBurettePresentation, MAX_BURETTE_PRESENTATIONS, type BurettePresentationInput } from '../src/handling/burettePresentation';
 import { dropRadius } from '../src/handling/dropFlight';
@@ -114,6 +114,95 @@ describe('burette delivery material and interaction guards', () => {
     const before = readLedger();
     expect(serviceBurette('fill').ok).toBe(false);
     expect(readLedger()).toEqual(before);
+  });
+
+  it('loads a different stock only after drainage and restores the exact stock on undo and redo', () => {
+    const before = readLedger();
+    expect(serviceBurette('fill', 'hcl-005').ok).toBe(false);
+    expect(readLedger()).toEqual(before);
+    expect(serviceBurette('discard').transferred_ml).toBeCloseTo(.02, 12);
+    expect(serviceBurette('fill', 'hcl-005').transferred_ml).toBe(50);
+    const state = useAppStore.getState();
+    expect(state.burette).toMatchObject({ reagentFormula: 'HCl (dil)', concentration_M: .05, currentVolume_ml: 50 });
+    expect(state.wasteContents.find(row => row.formula === 'NaCl')?.moles).toBeCloseTo(.2 * .02 / 1000, 14);
+    state.undo();
+    expect(useAppStore.getState().burette).toMatchObject({ reagentFormula: 'NaCl', concentration_M: .2, currentVolume_ml: 0 });
+    state.redo();
+    expect(useAppStore.getState().burette).toMatchObject({ reagentFormula: 'HCl (dil)', concentration_M: .05, currentVolume_ml: 50 });
+    expect(dispenseOneBuretteDrop().transferred_ml).toBeCloseTo(.05, 12);
+    expect(useAppStore.getState().titrationHistory[0]).toMatchObject({ reagentFormula: 'HCl (dil)', concentration_M: .05, outcome: 'received' });
+    expect(useAppStore.getState().vessels.receiverA.ph).toBeLessThan(2);
+  });
+
+  it('splits the volume series on concentration changes and a new sample, and clears only the chosen run', () => {
+    function dose() {
+      expect(dispenseOneBuretteDrop().ok).toBe(true);
+      useInstrumentStore.getState().clearBurettePresentations();
+      return useAppStore.getState().titrationHistory.at(-1)!;
+    }
+    expect(serviceBurette('discard').ok).toBe(true);
+    expect(serviceBurette('fill', 'naoh-005').ok).toBe(true);
+    const first = dose();
+    expect(serviceBurette('fill').ok).toBe(true);
+    const second = dose();
+    expect(second.runId).toBe(first.runId);
+    expect(second.volumeAdded_ml).toBeCloseTo(.1, 12);
+
+    expect(serviceBurette('discard').ok).toBe(true);
+    expect(serviceBurette('fill', 'naoh-010').ok).toBe(true);
+    const differentConcentration = dose();
+    expect(differentConcentration.runId).not.toBe(first.runId);
+    expect(differentConcentration.volumeAdded_ml).toBeCloseTo(.05, 12);
+
+    const state = useAppStore.getState();
+    expect(state.emptyVessel('receiverA')).toBe(true);
+    const freshSample = dose();
+    expect(freshSample.runId).not.toBe(differentConcentration.runId);
+    expect(freshSample.volumeAdded_ml).toBeCloseTo(.05, 12);
+    expect(new Set([first.runId, differentConcentration.runId, freshSample.runId]).size).toBe(3);
+
+    state.clearTitrationHistory('receiverA', differentConcentration.runId);
+    expect(useAppStore.getState().titrationHistory).toEqual([first, second, freshSample]);
+    state.undo();
+    expect(useAppStore.getState().titrationHistory).toEqual([first, second, differentConcentration, freshSample]);
+  });
+
+  it('opens a new run when a preset replaces the flask under the same vessel id', () => {
+    const state = useAppStore.getState();
+    expect(serviceBurette('fill').ok).toBe(true);
+    function deliverToPresetFlask() {
+      state.setupExperimentPreset('acid_base_titration');
+      expect(alignSelectedVessel('burette').ok).toBe(true);
+      expect(dispenseOneBuretteDrop().ok).toBe(true);
+      return useAppStore.getState().titrationHistory.at(-1)!;
+    }
+    const first = deliverToPresetFlask();
+    const next = deliverToPresetFlask();
+    expect(first.vesselId).toBe('flask_1');
+    expect(next.vesselId).toBe(first.vesselId);
+    expect(next.runId).not.toBe(first.runId);
+    expect(next.volumeAdded_ml).toBeCloseTo(.05, 12);
+  });
+
+  it('does not append to an older curve after clearing the last run and reloading its former stock', () => {
+    function dose() {
+      expect(dispenseOneBuretteDrop().ok).toBe(true);
+      useInstrumentStore.getState().clearBurettePresentations();
+      return useAppStore.getState().titrationHistory.at(-1)!;
+    }
+    expect(serviceBurette('discard').ok).toBe(true);
+    expect(serviceBurette('fill', 'naoh-005').ok).toBe(true);
+    const first = dose();
+    expect(serviceBurette('discard').ok).toBe(true);
+    expect(serviceBurette('fill', 'hcl-005').ok).toBe(true);
+    const deleted = dose();
+    useAppStore.getState().clearTitrationHistory('receiverA', deleted.runId);
+    expect(serviceBurette('discard').ok).toBe(true);
+    expect(serviceBurette('fill', 'naoh-005').ok).toBe(true);
+    const next = dose();
+    expect(next.runId).not.toBe(first.runId);
+    expect(next.volumeAdded_ml).toBeCloseTo(.05, 12);
+    expect(useAppStore.getState().titrationHistory).toEqual([first, next]);
   });
 
   it('clears only the requested vessel curve and restores it on undo', () => {

@@ -1,11 +1,13 @@
-import React, { useMemo } from 'react';
+import React, { useId, useMemo, useState } from 'react';
 import { useAppStore } from '../store/useAppStore';
 import { ResponsiveContainer, LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip } from 'recharts';
 import { Download, Droplet, Play, Square, RotateCcw } from 'lucide-react';
 import { alignSelectedVessel, dispenseOneBuretteDrop, serviceBurette, setBuretteValve } from '../handling/instrumentOperations';
 import { useInstrumentStore } from '../handling/instrumentState';
 import { findBuretteReceiver } from '../handling/buretteTarget';
-import { titrationCSV, titrationPlot } from '../handling/titrationSeries';
+import { titrationCSV, titrationPlot, titrationRuns } from '../handling/titrationSeries';
+import { BURETTE_STOCKS, type BuretteStockId } from '../handling/buretteStocks';
+import { availableLiquidVolume } from '../handling/solidOccupancy';
 import { downloadText } from '../utils/downloadText';
 
 export function TitrationPanel() {
@@ -18,14 +20,21 @@ export function TitrationPanel() {
   const moving = useAppStore(state => state.moveMode || !!state.draggingVesselId);
   const paused = useAppStore(state => state.isSimulationPaused);
   const notice = useInstrumentStore(state => state.notices.filter(item => item.tool === 'burette').at(-1));
+  const stockSelectId = useId();
+  const runSelectId = useId();
+  const [stockId, setStockId] = useState<BuretteStockId | ''>('');
+  const [viewedRun, setViewedRun] = useState<{ vesselId: string; id: string | null } | null>(null);
 
   const t = (en: string, vi: string) => language === 'en' ? en : vi;
   const receiver = useMemo(() => findBuretteReceiver(vessels, burette.position), [vessels, burette.position]);
   const targetId = receiver?.id ?? selectedVesselId;
-  const targetHistory = useMemo(() => titrationHistory.filter(point => point.vesselId === targetId), [titrationHistory, targetId]);
+  const runs = useMemo(() => titrationRuns(titrationHistory, targetId), [titrationHistory, targetId]);
+  const chosenRun = viewedRun && viewedRun.vesselId === targetId ? runs.find(run => run.id === viewedRun.id) : undefined;
+  const activeRun = chosenRun ?? runs.at(-1);
+  const targetHistory = activeRun?.points ?? [];
   const plot = useMemo(() => titrationPlot(targetHistory), [targetHistory]);
   const hasPh = plot.some(point => point.ph !== null);
-  const nextDrop_ml = Math.min(0.05, Math.max(0, burette.currentVolume_ml));
+  const nextDrop_ml = Math.min(0.05, Math.max(0, burette.currentVolume_ml), receiver ? availableLiquidVolume(receiver) : Infinity);
   const canDose = !!receiver && nextDrop_ml > 0 && !moving && !paused;
   const canService = !moving && !paused && !burette.isDispensing;
 
@@ -57,7 +66,7 @@ export function TitrationPanel() {
             title={t('Dispense into the vessel under the nozzle', 'Nhả vào bình ngay dưới đầu buret')}
           >
             <Droplet size={14} />
-            <span>+{nextDrop_ml.toFixed(2)} mL</span>
+            <span>{nextDrop_ml > 0 && nextDrop_ml < .001 ? '<0.001' : '+' + nextDrop_ml.toFixed(3).replace(/0$/, '')} mL</span>
           </button>
           <button 
             onClick={() => setBuretteValve(!burette.isDispensing)}
@@ -73,11 +82,11 @@ export function TitrationPanel() {
           </button>
           <button
             type="button"
-            onClick={() => targetId && clearTitrationHistory(targetId)}
-            disabled={!targetId || targetHistory.length === 0}
+            onClick={() => { if (targetId && activeRun) clearTitrationHistory(targetId, activeRun.id); }}
+            disabled={!targetId || !activeRun || burette.isDispensing}
             className="p-1 text-slate-400 hover:text-slate-600 rounded hover:bg-slate-100 transition-colors disabled:opacity-40"
-            aria-label={t('Clear this vessel’s graph', 'Xóa đồ thị của bình này')}
-            title={t('Clear this vessel’s graph', 'Xóa đồ thị của bình này')}
+            aria-label={t('Clear the displayed run', 'Xóa lượt đang xem')}
+            title={t('Clear the displayed run', 'Xóa lượt đang xem')}
           >
             <RotateCcw size={14} />
           </button>
@@ -109,10 +118,6 @@ export function TitrationPanel() {
 
       <details className="rounded-lg border border-slate-200 p-2 text-xs">
         <summary className="cursor-pointer font-semibold text-slate-700">{t('Fill or drain the burette', 'Nạp hoặc xả buret')}</summary>
-        <p className="mt-2 text-slate-500">
-          {t('Refill with the same solution from virtual stock, or collect the remainder as waste.',
-            'Nạp cùng dung dịch từ kho mô phỏng hoặc thu gom phần còn lại vào chất thải.')}
-        </p>
         <div className="mt-2 flex flex-wrap gap-2">
           <button type="button" onClick={() => serviceBurette('fill')}
             disabled={!canService || burette.currentVolume_ml >= burette.maxVolume_ml}
@@ -123,6 +128,25 @@ export function TitrationPanel() {
             className="rounded bg-slate-100 px-2.5 py-1.5 font-semibold text-slate-700 hover:bg-slate-200 disabled:opacity-40"
           >{t('Drain to waste', 'Xả vào chất thải')}</button>
         </div>
+        <label htmlFor={stockSelectId} className="mt-3 block font-semibold text-slate-700">
+          {t('Standard solution', 'Dung dịch chuẩn')}
+        </label>
+        <select id={stockSelectId} value={stockId} onChange={event => setStockId(event.target.value as BuretteStockId | '')}
+          className="mt-1 block w-full rounded border border-slate-300 bg-white p-1.5">
+          <option value="">{t('Choose a solution', 'Chọn dung dịch')}</option>
+          {BURETTE_STOCKS.map(stock => <option key={stock.id} value={stock.id}>
+            {stock.reagentFormula} · {stock.concentration_M.toFixed(2)} M
+          </option>)}
+        </select>
+        {stockId && <div className="mt-2 flex flex-wrap items-center gap-2">
+          <button type="button" disabled={!canService || burette.currentVolume_ml > 0}
+            onClick={() => { if (serviceBurette('fill', stockId).ok) setStockId(''); }}
+            className="rounded bg-blue-50 px-2.5 py-1.5 font-semibold text-blue-700 hover:bg-blue-100 disabled:opacity-40"
+          >{t('Load selected solution', 'Nạp dung dịch đã chọn')}</button>
+          {burette.currentVolume_ml > 0 && <span className="text-slate-500">
+            {t('Drain the current solution first.', 'Xả dung dịch đang có trước khi đổi.')}
+          </span>}
+        </div>}
       </details>
 
       {/* Titration Curve Graph */}
@@ -141,6 +165,22 @@ export function TitrationPanel() {
           </div>
         </div>
         <p className="mb-1 break-words text-[10px] text-slate-500">{t('Graph:', 'Đồ thị:')} {targetId ? vessels[targetId]?.name : t('No vessel', 'Chưa có bình')}</p>
+        {runs.length > 1 && <div className="mb-2 text-[11px] text-slate-700">
+          <label htmlFor={runSelectId} className="block font-semibold">{t('Titration run', 'Lượt chuẩn độ')}</label>
+          <select id={runSelectId} value={chosenRun ? runs.indexOf(chosenRun) : -1}
+            onChange={event => {
+              const run = runs[Number(event.target.value)];
+              setViewedRun(targetId && run ? { vesselId: targetId, id: run.id } : null);
+            }}
+            className="mt-1 block w-full rounded border border-slate-300 bg-white p-1.5">
+            <option value={-1}>{t('Latest run', 'Lượt mới nhất')}</option>
+            {runs.map((run, index) => {
+              const { reagentFormula, concentration_M } = run.points[0];
+              const reagent = run.id === null ? t('Earlier readings', 'Số đo cũ') : `${reagentFormula} · ${concentration_M} M`;
+              return <option key={index} value={index}>{index + 1}. {reagent}</option>;
+            })}
+          </select>
+        </div>}
         <div className="h-44 w-full bg-slate-50/60 rounded-lg border border-slate-100 p-1" data-titration-plot-count={plot.length}>
           {targetHistory.length === 0 ? (
             <div className="h-full flex flex-col items-center justify-center text-xs text-slate-400">
