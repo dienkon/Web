@@ -535,7 +535,7 @@ export interface AppState {
   serviceBurette: (action: 'fill' | 'discard') => { volume_ml: number; problem?: string };
   toggleBuretteStopcock: () => void;
   dispenseBuretteDrop: (targetVesselId: string, initialAge_s?: number) => void;
-  titrationHistory: TitrationPoint[];
+  titrationHistory: readonly TitrationPoint[];
   clearTitrationHistory: (vesselId: string) => void;
 
   // Sidebars
@@ -622,8 +622,9 @@ const persisted = loadPersistedLabState();
 experimentEngine.restoreContamination(persisted?.materials?.toolContamination);
 if (persisted?.materials?.physics) restorePhysicalLab(persisted.materials.physics);
 const initialBurette = restoreBurette(persisted?.materials?.burette);
-const initialTitrationHistory = (persisted?.materials?.titrationHistory ?? []).filter(point =>
-  (!point.vesselId || typeof point.vesselId === 'string') && Number.isFinite(point.volumeAdded_ml) && point.volumeAdded_ml >= 0
+const savedTitrationHistory = persisted?.materials?.titrationHistory;
+const initialTitrationHistory = (Array.isArray(savedTitrationHistory) ? savedTitrationHistory : []).filter(point =>
+  point && (!point.vesselId || typeof point.vesselId === 'string') && Number.isFinite(point.volumeAdded_ml) && point.volumeAdded_ml >= 0
     && (point.ph === null || Number.isFinite(point.ph)) && typeof point.color === 'string'
     && Number.isFinite(point.temperature_c) && Number.isFinite(point.timestamp));
 
@@ -3724,11 +3725,20 @@ export const useAppStore = create<AppState>((set, get) => {
       const historyKey = `burette:${state.pourEpoch}:${targetVesselId}`;
       if (!hasCurrentHistoryCoalesceKey(historyKey))
         pushHistorySnapshot('TITRATE', state.vessels, state.burners, 'Before burette delivery', 'Trước khi cấp mẫu từ buret');
-      const previous = state.titrationHistory.filter(point => point.vesselId === targetVesselId).at(-1);
+      let previous: TitrationPoint | undefined;
+      for (let i = state.titrationHistory.length - 1; i >= 0; i--) {
+        if (state.titrationHistory[i].vesselId !== targetVesselId) continue;
+        previous = state.titrationHistory[i];
+        break;
+      }
       const measurement = sampleMeasurement(reacted.vessel);
       const point: TitrationPoint = { vesselId: targetVesselId,
         volumeAdded_ml: (previous?.volumeAdded_ml ?? 0) + transfer.dispensed_ml,
+        dispensedVolume_ml: transfer.dispensed_ml, reagentFormula: burette.reagentFormula, concentration_M: burette.concentration_M,
+        outcome: transfer.failureReason ? 'spilled' : 'received',
         ph: transfer.failureReason ? null : measurement.ph, color: reacted.vessel.liquidColor || '#ffffff',
+        phBasis: transfer.failureReason ? null : measurement.basis,
+        phReferenceTemperature_c: transfer.failureReason ? null : measurement.referenceTemperature_c,
         temperature_c: reacted.vessel.temperature_c, timestamp: Date.now() };
       set(current => {
         const activeKinetics = { ...current.activeKinetics }, pendingReactions = { ...current.pendingReactions },

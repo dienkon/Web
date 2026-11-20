@@ -13,6 +13,16 @@ Chrome xác nhận 18 điều kiện trong audit buret, gồm kéo trước khi 
 
 Bản production qua thử chạm trên Chrome ở độ rộng 390 px. Bản lưu cũ giữ X/Z và sửa lại cao độ buret. Với 1.000 số đo, giao diện giữ đủ dữ liệu và một đường cong, giảm số dấu điểm SVG hiển thị từ 1.000 xuống 0.
 
+## Ghi và đối chiếu số đo chuẩn độ
+
+1. Vẽ trục ngang theo mL đã cấp để giọt cuối có thể tích nhỏ và khoảng cách giữa hai số đo đều hiện đúng tỉ lệ. Nối các số đo bằng đoạn thẳng. Giữ chỗ ngắt khi mẫu chưa có phép đo pH phù hợp.
+2. Với chuỗi dài, vẽ tối đa 800 điểm để giảm tải giao diện. Bộ chọn giữ đầu mút và cực trị pH trong từng khoảng. Nút **CSV** xuất toàn bộ số đo của bình đang xem, gồm lượng mỗi giọt, thuốc thử, nồng độ, kết quả chuyển mẫu và cơ sở tính pH nếu lần đo có ghi. Các cột chưa được thu thập trong bản lưu cũ để trống.
+3. Trạng thái hoàn tác tái sử dụng chuỗi số đo bất biến. Tự lưu ghi một bản thống nhất cho buret, bình nhận và các số đo. Bản lưu được ghi sau khi dừng thao tác một giây, khi chờ lưu đủ năm giây, hoặc khi trình duyệt phát sự kiện rời trang.
+
+Chrome production ở khung 390 px xác nhận 1.000 dòng dữ liệu trong CSV, 201 điểm được vẽ, khoảng hở ở số đo thiếu pH và bước nhảy đúng tỉ lệ trên trục thể tích. Bài thử phát sự kiện rời trang ngay sau khi nhả xác nhận buret, bình nhận và số đo của giọt được ghi cùng nhau.
+
+Với 10.000 số đo mô phỏng, phép đo Node cho 100 lần chụp riêng trạng thái hoàn tác dao động 598–624 ms ở cách sao chép cũ và 0,21–0,52 ms ở cách tái sử dụng chuỗi. Phép đo chỉ bao gồm tạo snapshot trong fixture nhỏ. Tốc độ phản ứng, VFX và FPS thực tế cần đo riêng.
+
 ## Phạm vi 5 giai đoạn
 
 Bản nâng cấp hoàn thiện năm giai đoạn từ kế hoạch phát triển `lab-3d`:

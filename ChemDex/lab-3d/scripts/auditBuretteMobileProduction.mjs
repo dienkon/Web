@@ -1,4 +1,5 @@
 import assert from 'node:assert/strict';
+import { readFile } from 'node:fs/promises';
 import { chromium, expect } from '@playwright/test';
 import { prepareLabAuditSession } from './fixtures/labAuditSession.mjs';
 
@@ -33,7 +34,19 @@ try {
   await expect(dose).toBeDisabled();
   await titration.getByRole('button', { name: /Căn bình dưới buret|Align selected vessel/ }).tap();
   await expect(titration.locator('[data-burette-receiver="flask_1"]')).toBeVisible();
-  await dose.tap();
+  // Fire the page lifecycle event in the same browser task as delivery,
+  // before the idle timer could save the pending drop.
+  const savedOnExit = await dose.evaluate((button, key) => {
+    button.click();
+    window.dispatchEvent(new Event('pagehide'));
+    const state = JSON.parse(localStorage.getItem(key));
+    return {
+      remaining: state.materials.burette.currentVolume_ml,
+      recorded: state.materials.titrationHistory.at(-1).dispensedVolume_ml,
+      receiver: state.vessels.flask_1.volume_ml,
+    };
+  }, storageKey);
+  assert.deepEqual(savedOnExit, { remaining: 49.95, recorded: .05, receiver: .05 });
   await expect(titration.getByText('49.95 / 50 mL')).toBeVisible();
   await titration.getByText(/Nạp hoặc xả buret|Fill or drain the burette/).tap();
   const fill = titration.getByRole('button', { name: /Nạp đầy từ kho|Refill from stock/ });
@@ -50,7 +63,8 @@ try {
     const record = JSON.parse(localStorage.getItem(key));
     record.materials.burette.position = [1.25, 0, .75];
     record.materials.titrationHistory = Array.from({ length: 1000 }, (_, i) => ({
-      vesselId: 'flask_1', volumeAdded_ml: (i + 1) * .05, ph: 3 + 8 / (1 + Math.exp((500 - i) / 20)),
+      vesselId: 'flask_1', volumeAdded_ml: i === 999 ? 50 : (i + 1) * .001,
+      ph: i === 501 ? null : 3 + 8 / (1 + Math.exp((500 - i) / 20)),
       temperature_c: 25, color: '#fff', timestamp: i + 1,
     }));
     localStorage.setItem(key, JSON.stringify(record));
@@ -71,8 +85,22 @@ try {
   await expect(titration.getByText(/1000 (điểm|points)/)).toBeVisible();
   await expect(titration.locator('path.recharts-line-curve')).toHaveCount(1);
   await expect(titration.locator('.recharts-line-dot')).toHaveCount(0);
+  const plotted = Number(await titration.locator('[data-titration-plot-count]').getAttribute('data-titration-plot-count'));
+  assert.ok(plotted > 0 && plotted <= 800);
+  const path = await titration.locator('path.recharts-line-curve').getAttribute('d');
+  assert.ok((path.match(/M/g) ?? []).length >= 2, 'missing measurement splits the curve');
+  const x = [...path.matchAll(/[ML](-?[\d.]+),/g)].map(match => Number(match[1]));
+  assert.ok((x.at(-1) - x.at(-2)) / (x.at(-1) - x[0]) > .8, 'axis distances reflect actual volume');
+  const [download] = await Promise.all([
+    page.waitForEvent('download'),
+    titration.getByRole('button', { name: /Tải CSV chuẩn độ|Download titration CSV/ }).tap(),
+  ]);
+  const csv = await readFile(await download.path(), 'utf8');
+  const rows = csv.trimEnd().split('\r\n');
+  assert.equal(rows.length, 1001);
+  assert.ok(rows.some(row => row.startsWith('"flask_1",0.502,,,25')));
   assert.deepEqual(errors, []);
-  console.log('PASS production Chrome 390 px: tap controls, align and dose, refill, legacy position and full 1,000-point curve.');
+  console.log(`PASS production Chrome 390 px: drag-safe legacy position, pagehide save, refill, numeric axis, pH gap and 1,000 CSV rows (${plotted} plotted points).`);
 } finally {
   await browser.close();
 }

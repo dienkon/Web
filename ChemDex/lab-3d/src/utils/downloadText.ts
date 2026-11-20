@@ -1,0 +1,11 @@
+export function downloadText(filename: string, text: string, type: string): void {
+  const url = URL.createObjectURL(new Blob([text], { type }));
+  const anchor = document.createElement('a');
+  anchor.href = url;
+  anchor.download = filename;
+  anchor.style.display = 'none';
+  document.body.appendChild(anchor);
+  anchor.click();
+  anchor.remove();
+  setTimeout(() => URL.revokeObjectURL(url), 1000);
+}

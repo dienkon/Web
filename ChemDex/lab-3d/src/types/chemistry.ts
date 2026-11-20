@@ -348,12 +348,18 @@ export interface MeasurementTool {
 }
 
 export interface TitrationPoint {
-  vesselId?: string;
-  volumeAdded_ml: number;
-  ph: number | null;
-  color: string;
-  temperature_c: number;
-  timestamp: number;
+  readonly vesselId?: string;
+  readonly volumeAdded_ml: number;
+  readonly ph: number | null;
+  readonly color: string;
+  readonly temperature_c: number;
+  readonly timestamp: number;
+  readonly dispensedVolume_ml?: number;
+  readonly reagentFormula?: string;
+  readonly concentration_M?: number;
+  readonly outcome?: 'received' | 'spilled';
+  readonly phBasis?: 'scenario' | 'ideal_aqueous_25c' | 'ideal_aqueous_temperature' | null;
+  readonly phReferenceTemperature_c?: number | null;
 }
 
 export interface ReactionRecord {
@@ -375,7 +381,7 @@ export interface ReactionRecord {
 
 export interface LabMaterialSnapshot {
   burette?: BuretteState;
-  titrationHistory?: TitrationPoint[];
+  titrationHistory?: readonly TitrationPoint[];
   toolContamination?: Record<string, string | null>;
   physics?: import('../physical/types').PhysicalLabSave;
   workbenchEscapedGas_g?: Record<string, number>;

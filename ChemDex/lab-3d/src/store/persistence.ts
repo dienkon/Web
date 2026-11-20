@@ -44,8 +44,28 @@ export function loadPersistedLabState(): PersistedLabState | null {
   return null;
 }
 
-// Debounced local persistence
-let saveTimer: any = null;
+const SAVE_IDLE_MS = 1000;
+const SAVE_MAX_WAIT_MS = 5000;
+let idleSave: ReturnType<typeof setTimeout> | undefined;
+let deadlineSave: ReturnType<typeof setTimeout> | undefined;
+let pendingSave: Omit<PersistedLabState, 'savedAt'> | undefined;
+
+function flushPendingSave() {
+  clearTimeout(idleSave);
+  clearTimeout(deadlineSave);
+  idleSave = deadlineSave = undefined;
+  const state = pendingSave;
+  pendingSave = undefined;
+  if (!state || typeof window === 'undefined' || typeof localStorage === 'undefined' || !localStorage) return;
+  try {
+    // Source, target and readings share one record, even when the page leaves mid-flow.
+    localStorage.setItem(STORAGE_KEY_PHYSICAL, JSON.stringify({ ...state, savedAt: Date.now() }));
+  } catch (e) {
+    console.warn('LocalStorage save error:', e);
+  }
+}
+
+if (typeof window !== 'undefined') window.addEventListener?.('pagehide', flushPendingSave);
 
 export function debounceSaveLocalState(
   vessels: Record<string, VesselState>, 
@@ -53,16 +73,11 @@ export function debounceSaveLocalState(
   materials?: LabMaterialSnapshot,
 ) {
   const completeMaterials = materials ? { ...materials, physics: materials.physics ?? capturePhysicalLab() } : materials;
-  if (saveTimer) clearTimeout(saveTimer);
-  saveTimer = setTimeout(() => {
-    try {
-      if (typeof window === 'undefined' || typeof localStorage === 'undefined' || !localStorage) return;
-      // One atomic record keeps airborne matter and the already depleted source together.
-      localStorage.setItem(STORAGE_KEY_PHYSICAL, JSON.stringify({ vessels, burners, materials: completeMaterials, savedAt: Date.now() }));
-    } catch (e) {
-      console.warn('LocalStorage save error:', e);
-    }
-  }, 1000);
+  pendingSave = { vessels, burners, materials: completeMaterials };
+  clearTimeout(idleSave);
+  idleSave = setTimeout(flushPendingSave, SAVE_IDLE_MS);
+  // Continuous transfers may never reach the idle timeout.
+  deadlineSave ??= setTimeout(flushPendingSave, SAVE_MAX_WAIT_MS);
 }
 
 // History stack management for Undo/Redo
@@ -84,6 +99,16 @@ export function pushHistorySnapshot(
     historyStack = historyStack.slice(0, historyPointer + 1);
   }
 
+  let materialSnapshot: LabMaterialSnapshot | undefined;
+  if (materials) {
+    const { titrationHistory, ...mutableMaterials } = materials;
+    materialSnapshot = {
+      ...JSON.parse(JSON.stringify({ ...mutableMaterials, physics: materials.physics ?? capturePhysicalLab() })),
+      // Points and their lists are immutable. Cloning them on each drop repeats the full curve.
+      ...(titrationHistory ? { titrationHistory } : {}),
+    };
+  }
+
   const snapshot: LabActionHistory = {
     ...(coalesceKey ? { coalesceKey } : {}),
     id: `hist_${Date.now()}_${Math.random().toString(36).substring(2, 6)}`,
@@ -94,7 +119,7 @@ export function pushHistorySnapshot(
     snapshot: {
       vessels: JSON.parse(JSON.stringify(vessels)),
       burners: JSON.parse(JSON.stringify(burners)),
-      ...(materials ? { materials: JSON.parse(JSON.stringify({ ...materials, physics: materials.physics ?? capturePhysicalLab() })) } : {})
+      ...(materialSnapshot ? { materials: materialSnapshot } : {}),
     }
   };
 

@@ -4,6 +4,7 @@ import { getLessonSpecies } from './catalog/species';
 import { auditLessonMass, cloneLessonInventory } from './chemistry/inventory';
 import { getLessonHistory } from './history';
 import { diagnoseLesson } from './diagnostics';
+import { downloadText } from '../utils/downloadText';
 
 export function createLessonReport(session: LessonSession): LessonReport {
   const definition = requireLessonDefinition(session.definitionId);
@@ -35,25 +36,12 @@ export function serializeLessonReport(session: LessonSession): string {
   }, null, 2) + '\n';
 }
 
-function downloadLessonText(filename: string, text: string, type: string): void {
-  const blob = new Blob([text], { type });
-  const url = URL.createObjectURL(blob);
-  const anchor = document.createElement('a');
-  anchor.href = url;
-  anchor.download = filename;
-  anchor.style.display = 'none';
-  document.body.appendChild(anchor);
-  anchor.click();
-  anchor.remove();
-  setTimeout(() => URL.revokeObjectURL(url), 1000);
-}
-
 export function downloadLessonReport(session: LessonSession): void {
-  downloadLessonText(`${session.definitionId}-bao-cao.json`, serializeLessonReport(session), 'application/json;charset=utf-8');
+  downloadText(`${session.definitionId}-bao-cao.json`, serializeLessonReport(session), 'application/json;charset=utf-8');
 }
 
 export function downloadLessonCSV(session: LessonSession): void {
-  downloadLessonText(`${session.definitionId}-du-lieu.csv`, getLessonHistory(session.id).csv(), 'text/csv;charset=utf-8');
+  downloadText(`${session.definitionId}-du-lieu.csv`, getLessonHistory(session.id).csv(), 'text/csv;charset=utf-8');
 }
 
 export function summarizeLessonReport(report: LessonReport): string[] {

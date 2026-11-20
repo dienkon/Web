@@ -158,6 +158,8 @@ describe('burette delivery material and interaction guards', () => {
     expect(target.contents.reduce((sum, row) => sum + row.mass_g, 0)).toBeCloseTo(.02, 12);
     expect(target.contents.find(row => row.formula === 'NaCl')?.moles).toBeCloseTo(.2 * .02 / 1000, 14);
     expect(state.titrationHistory).toHaveLength(1); expect(state.titrationHistory[0].volumeAdded_ml).toBe(.02);
+    expect(state.titrationHistory[0]).toMatchObject({ dispensedVolume_ml: .02, reagentFormula: 'NaCl',
+      concentration_M: .2, outcome: 'received', ph: null, phBasis: null, phReferenceTemperature_c: null });
     const receipt = useInstrumentStore.getState().burettePresentations[0];
     expect(receipt.volume_ml).toBeCloseTo(.02, 12); expect(receipt.targetId).toBe('receiverA');
     state.setSelectedVesselId('receiverB'); state.setActiveTool('thermometer');

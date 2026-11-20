@@ -1,10 +1,12 @@
 import React, { useMemo } from 'react';
 import { useAppStore } from '../store/useAppStore';
 import { ResponsiveContainer, LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip } from 'recharts';
-import { Droplet, Play, Square, RotateCcw } from 'lucide-react';
+import { Download, Droplet, Play, Square, RotateCcw } from 'lucide-react';
 import { alignSelectedVessel, dispenseOneBuretteDrop, serviceBurette, setBuretteValve } from '../handling/instrumentOperations';
 import { useInstrumentStore } from '../handling/instrumentState';
 import { findBuretteReceiver } from '../handling/buretteTarget';
+import { titrationCSV, titrationPlot } from '../handling/titrationSeries';
+import { downloadText } from '../utils/downloadText';
 
 export function TitrationPanel() {
   const burette = useAppStore(state => state.burette);
@@ -21,6 +23,8 @@ export function TitrationPanel() {
   const receiver = useMemo(() => findBuretteReceiver(vessels, burette.position), [vessels, burette.position]);
   const targetId = receiver?.id ?? selectedVesselId;
   const targetHistory = useMemo(() => titrationHistory.filter(point => point.vesselId === targetId), [titrationHistory, targetId]);
+  const plot = useMemo(() => titrationPlot(targetHistory), [targetHistory]);
+  const hasPh = plot.some(point => point.ph !== null);
   const nextDrop_ml = Math.min(0.05, Math.max(0, burette.currentVolume_ml));
   const canDose = !!receiver && nextDrop_ml > 0 && !moving && !paused;
   const canService = !moving && !paused && !burette.isDispensing;
@@ -123,38 +127,55 @@ export function TitrationPanel() {
 
       {/* Titration Curve Graph */}
       <div>
-        <div className="flex justify-between items-center mb-1">
+        <div className="mb-1 flex flex-wrap items-center justify-between gap-2">
           <span className="text-[10px] uppercase font-bold text-slate-400">{t('pH Titration Curve', 'Đường cong chuẩn độ pH')}</span>
-          <span className="text-[10px] text-slate-500 font-mono">{targetHistory.length} {t('points', 'điểm')}</span>
+          <div className="flex items-center gap-2">
+            <span className="text-[10px] text-slate-500 font-mono">{targetHistory.length} {t('points', 'điểm')}</span>
+            <button
+              type="button"
+              disabled={targetHistory.length === 0}
+              onClick={() => downloadText('chemdex-chuan-do.csv', titrationCSV(targetHistory), 'text/csv;charset=utf-8')}
+              className="flex items-center gap-1 rounded bg-slate-100 px-2 py-1 text-[11px] font-semibold text-slate-700 hover:bg-slate-200 disabled:opacity-40"
+              aria-label={t('Download titration CSV', 'Tải CSV chuẩn độ')}
+            ><Download size={12} /> CSV</button>
+          </div>
         </div>
         <p className="mb-1 break-words text-[10px] text-slate-500">{t('Graph:', 'Đồ thị:')} {targetId ? vessels[targetId]?.name : t('No vessel', 'Chưa có bình')}</p>
-        <div className="h-44 w-full bg-slate-50/60 rounded-lg border border-slate-100 p-1">
+        <div className="h-44 w-full bg-slate-50/60 rounded-lg border border-slate-100 p-1" data-titration-plot-count={plot.length}>
           {targetHistory.length === 0 ? (
             <div className="h-full flex flex-col items-center justify-center text-xs text-slate-400">
               <p>{t('Add drops from burette to start plotting curve.', 'Nhỏ từng giọt từ buret để vẽ đường cong chuẩn độ.')}</p>
             </div>
+          ) : !hasPh ? (
+            <div className="h-full flex items-center justify-center p-2 text-center text-xs text-slate-500">
+              {t('Volume is recorded. A supported pH reading needs an immersed probe.', 'Đã ghi thể tích. Cần ngập đầu đo và mẫu được hỗ trợ để hiện pH.')}
+            </div>
           ) : (
             <ResponsiveContainer width="100%" height="100%">
-              <LineChart data={targetHistory} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
+              <LineChart data={plot} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
                 <CartesianGrid strokeDasharray="3 3" stroke="#e2e8f0" />
-                <XAxis dataKey="volumeAdded_ml" tick={{ fontSize: 10 }} unit="mL" />
+                <XAxis type="number" domain={[0, 'dataMax']} dataKey="volumeAdded_ml" tick={{ fontSize: 10 }} unit="mL" />
                 <YAxis domain={['auto', 'auto']} tick={{ fontSize: 10 }} />
                 <Tooltip 
                   formatter={(val: any) => [val == null ? '---' : `pH ${Number(val).toFixed(2)}`, 'pH']}
-                  labelFormatter={(lbl) => `V = ${lbl} mL`} 
+                  labelFormatter={label => `V = ${Number(label).toFixed(3)} mL`}
                 />
                 <Line 
-                  type="monotone" 
+                  type="linear"
                   dataKey="ph" 
                   stroke="#2563eb" 
                   strokeWidth={2} 
                   dot={targetHistory.length <= 80 ? { r: 2, fill: '#2563eb' } : false}
+                  connectNulls={false}
                   isAnimationActive={false} 
                 />
               </LineChart>
             </ResponsiveContainer>
           )}
         </div>
+        {plot.length < targetHistory.length && <p className="mt-1 text-[10px] text-slate-500">
+          {t('The overview samples the curve. CSV contains every recorded point.', 'Đồ thị rút gọn số điểm hiển thị. CSV giữ đầy đủ từng số đo.')}
+        </p>}
         <p className="text-[10px] text-slate-500 mt-1">{t('Model pH at sample temperature; gaps mean no supported immersed reading.', 'pH mô hình theo nhiệt độ mẫu; chỗ trống là chưa có số đo ngập đầu dò được hỗ trợ.')}</p>
       </div>
     </section>
