@@ -9,7 +9,9 @@
 
 Đo khoảng hở của lỗi ban đầu từ đáy chân giá đến mặt bàn được khoảng 1,045 đơn vị cảnh ở vị trí mặc định. Sau sửa, đáy giá dùng cao độ của chính mặt bàn. Kẹp nâng theo miệng bình, còn chân giá nằm sau bình nhận.
 
-Chrome xác nhận 15 điều kiện trong audit buret, bao gồm cập nhật mô hình khi chưa thả chuột, lưu vị trí sau khi kéo, điểm rời đầu giọt khớp hình học, hoàn tác, nạp và xả. Bộ kiểm thử dụng cụ, lắp ráp và chuyển mẫu đạt 92 ca.
+Chrome xác nhận 18 điều kiện trong audit buret, gồm kéo trước khi thả, giữ trạng thái sau tải lại, tránh khôi phục vị trí cũ nếu đặt lại bàn khi đang kéo, giữ bảng chuẩn độ khi chọn bình hoặc khi xảy ra phản ứng, và kiểm kê dung dịch khi nạp, nhả và xả. Bộ kiểm thử dụng cụ, lắp ráp và chuyển mẫu đạt 93 ca, gồm hoàn tác khi xóa số đo của một bình.
+
+Bản production qua thử chạm trên Chrome ở độ rộng 390 px. Bản lưu cũ giữ X/Z và sửa lại cao độ buret. Với 1.000 số đo, giao diện giữ đủ dữ liệu và một đường cong, giảm số dấu điểm SVG hiển thị từ 1.000 xuống 0.
 
 ## Phạm vi 5 giai đoạn
 

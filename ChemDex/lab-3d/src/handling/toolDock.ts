@@ -65,12 +65,16 @@ export function useToolDock(id: string, initial: ToolPosition, onMove?: (positio
       schedule: callback => window.requestAnimationFrame(callback),
       cancelFrame: handle => window.cancelAnimationFrame(handle),
       onMove: native => {
+        // A workbench reset can clear the dock before the captured pointer is released.
+        if (useToolDockStore.getState().dragging !== id) return;
         if (!project(native.clientX, native.clientY)) return;
         publish(constrainToolPosition(intersection.x + offset.x, origin[1], intersection.z + offset.z));
       },
       onEnd: committed => {
-        if (useToolDockStore.getState().dragging === id) useToolDockStore.setState({ dragging: null });
-        if (!committed || controlled) publish(committed ? latest : origin);
+        if (useToolDockStore.getState().dragging === id) {
+          useToolDockStore.setState({ dragging: null });
+          if (!committed || controlled) publish(committed ? latest : origin);
+        }
         cleanup.current = null;
       },
     });

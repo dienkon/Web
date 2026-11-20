@@ -441,17 +441,17 @@ const RightSidebar = React.memo(function RightSidebar() {
   const selectedVesselId = useAppStore(state => state.selectedVesselId);
   const [activeTab, setActiveTab] = useState<'vessel' | 'reaction' | 'titration'>('vessel');
 
-  // When a vessel is clicked/selected, automatically switch to vessel tab
+  // While titrating, vessel changes should leave the alignment controls visible.
   useEffect(() => {
     if (selectedVesselId) {
-      setActiveTab('vessel');
+      setActiveTab(current => current === 'titration' ? current : 'vessel');
     }
   }, [selectedVesselId]);
 
-  // When a reaction occurs, automatically switch to reaction tab
+  // A measured drop can trigger a reaction without ending the titration.
   useEffect(() => {
     if (lastMixResult) {
-      setActiveTab('reaction');
+      setActiveTab(current => current === 'titration' ? current : 'reaction');
     }
   }, [lastMixResult]);
 

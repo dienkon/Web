@@ -116,6 +116,18 @@ describe('burette delivery material and interaction guards', () => {
     expect(readLedger()).toEqual(before);
   });
 
+  it('clears only the requested vessel curve and restores it on undo', () => {
+    const point = { volumeAdded_ml: .05, ph: 7, color: '#fff', temperature_c: 25, timestamp: 10 };
+    const curveA = { ...point, vesselId: 'receiverA' }, curveB = { ...point, vesselId: 'receiverB' };
+    useAppStore.setState({ titrationHistory: [curveA, curveB] });
+    const state = useAppStore.getState();
+    state.clearTitrationHistory('receiverA');
+    expect(useAppStore.getState().titrationHistory).toEqual([curveB]);
+    expect(useAppStore.getState().burette).toBe(state.burette);
+    useAppStore.getState().undo();
+    expect(useAppStore.getState().titrationHistory).toEqual([curveA, curveB]);
+  });
+
   it.each([{ isSimulationPaused: true }, { moveMode: true }, { draggingVesselId: 'receiverA' }])(
     'rejects direct and instrument dosing/opening while %j', guard => {
       useAppStore.setState(guard);

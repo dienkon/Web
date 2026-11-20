@@ -536,7 +536,7 @@ export interface AppState {
   toggleBuretteStopcock: () => void;
   dispenseBuretteDrop: (targetVesselId: string, initialAge_s?: number) => void;
   titrationHistory: TitrationPoint[];
-  clearTitrationHistory: () => void;
+  clearTitrationHistory: (vesselId: string) => void;
 
   // Sidebars
   leftSidebarOpen: boolean;
@@ -3663,7 +3663,7 @@ export const useAppStore = create<AppState>((set, get) => {
       if (state.moveMode || state.draggingVesselId || useToolDockStore.getState().dragging)
         return problem('Đặt dụng cụ yên trên bàn và tắt chế độ di chuyển.');
       if (burette.isDispensing) return problem('Đóng khóa buret trước khi nạp hoặc xả.');
-      if (useInstrumentStore.getState().burettePresentations.some(receipt => receipt.epoch === state.pourEpoch))
+      if (useInstrumentStore.getState().hasBurettePresentation(state.pourEpoch))
         return problem('Chờ giọt đang rơi chạm bình trước khi nạp hoặc xả.');
       const filling = action === 'fill';
       const volume_ml = filling ? burette.maxVolume_ml - burette.currentVolume_ml : burette.currentVolume_ml;
@@ -3753,9 +3753,15 @@ export const useAppStore = create<AppState>((set, get) => {
       debounceSaveLocalState(committed.vessels, committed.burners);
     },
     titrationHistory: initialTitrationHistory,
-    clearTitrationHistory: () => {
-      set({ titrationHistory: [] });
-      debounceSaveLocalState(get().vessels, get().burners);
+    clearTitrationHistory: vesselId => {
+      const state = get();
+      const remaining = state.titrationHistory.filter(point => point.vesselId !== vesselId);
+      if (remaining.length === state.titrationHistory.length) return;
+      pushHistorySnapshot('TITRATE', state.vessels, state.burners, 'Before clearing vessel readings', 'Trước khi xóa số đo của bình');
+      set({ titrationHistory: remaining });
+      pushHistorySnapshot('TITRATE', state.vessels, state.burners, 'Cleared vessel readings', 'Đã xóa số đo chuẩn độ của bình');
+      set({ canUndo: checkCanUndo(), canRedo: checkCanRedo() });
+      debounceSaveLocalState(state.vessels, state.burners);
     },
 
     leftSidebarOpen: false,

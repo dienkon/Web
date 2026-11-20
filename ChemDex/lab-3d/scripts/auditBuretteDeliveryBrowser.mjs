@@ -9,7 +9,7 @@ const output = resolve(process.env.LAB_BURETTE_OUTPUT ?? 'artifacts/burette-deli
 mkdirSync(output, { recursive: true });
 const files = ['src/handling/burettePresentation.ts', 'src/handling/buretteTarget.ts', 'src/handling/burettePlacement.ts', 'src/handling/instrumentState.ts',
   'src/handling/instrumentOperations.ts', 'src/handling/toolDock.ts', 'src/store/persistence.ts', 'src/store/useAppStore.ts',
-  'src/components/TitrationPanel.tsx', 'src/components/three/LabScene.tsx',
+  'src/App.tsx', 'src/components/TitrationPanel.tsx', 'src/components/three/LabScene.tsx',
   'src/components/three/interactions/InteractiveBuretteApparatus.tsx'];
 const hashes = () => Object.fromEntries(files.map(file => [file, createHash('sha256').update(readFileSync(resolve(file))).digest('hex')]));
 const report = { errors: [], assertions: {}, sourceBefore: hashes() };
@@ -78,6 +78,15 @@ async function attach() {
   });
 }
 
+function postPointer() {
+  return page.evaluate(() => {
+    const a = window.buretteAudit, post = a.root.scene.getObjectByName('burette-stand-post');
+    const point = post.localToWorld(new a.three.Vector3(0, .6, 0)).project(a.root.camera);
+    const rect = a.root.gl.domElement.getBoundingClientRect();
+    return [rect.left + (1 + point.x) * rect.width / 2, rect.top + (1 - point.y) * rect.height / 2];
+  });
+}
+
 try {
   await page.goto(process.env.LAB_AUDIT_ORIGIN ?? 'http://127.0.0.1:6767', { waitUntil: 'domcontentloaded' });
   await attach();
@@ -90,6 +99,11 @@ try {
   report.assertions.defaultStandTouchesRenderedBench = onBench(report.support);
   await page.evaluate(() => {
     const a = window.buretteAudit;
+    a.app.getState().setVesselState('flask_1', {
+      volume: .04, volume_ml: 10, mass_g: 10, ph: 1.7, substances: ['HCl', 'H2O'],
+      contents: [{ formula: 'HCl', phase: 'aq', mass_g: .007292, moles: .0002 },
+        { formula: 'H2O', phase: 'l', mass_g: 9.992708, moles: 9.992708 / 18.015 }],
+    });
     a.app.getState().setSelectedVesselId('flask_1');
     a.app.setState({ rightSidebarOpen: true });
   });
@@ -101,21 +115,22 @@ try {
   report.assertions.tallFlaskRaisesNozzleButNotFoot = report.raisedSupport.tip[1] > report.support.tip[1] + .2
     && onBench(report.raisedSupport);
   await station.getByRole('button', { name: /Nhả một giọt từ buret|Dispense one burette drop/ }).click();
-  await page.waitForFunction(() => window.buretteAudit.app.getState().titrationHistory.length === 1);
+  await page.waitForFunction(() => {
+    const state = window.buretteAudit.app.getState();
+    return state.titrationHistory.length === 1 && state.lastMixResult !== null;
+  });
+  report.assertions.reactionKeepsTitrationControlsVisible = await station.isVisible();
+  await page.evaluate(() => window.buretteAudit.app.getState().setSelectedVesselId('beaker_1'));
+  report.assertions.selectionKeepsTitrationControlsVisible = await station.isVisible();
   await page.screenshot({ path: resolve(output, '00-grounded-burette-with-flask.png') });
   await page.evaluate(() => window.buretteAudit.app.setState({ rightSidebarOpen: false }));
   const move = page.getByRole('button', { name: /Di chuyển dụng cụ|Move equipment/ });
   await move.click();
-  const postPointer = await page.evaluate(() => {
-    const a = window.buretteAudit, post = a.root.scene.getObjectByName('burette-stand-post');
-    const point = post.localToWorld(new a.three.Vector3(0, .6, 0)).project(a.root.camera);
-    const rect = a.root.gl.domElement.getBoundingClientRect();
-    return [rect.left + (1 + point.x) * rect.width / 2, rect.top + (1 - point.y) * rect.height / 2];
-  });
-  await page.mouse.move(...postPointer);
+  const dragFrom = await postPointer();
+  await page.mouse.move(...dragFrom);
   await page.mouse.down();
   await page.waitForFunction(() => window.buretteAudit.dock.getState().dragging === 'burette');
-  await page.mouse.move(postPointer[0] + 155, postPointer[1] + 35, { steps: 12 });
+  await page.mouse.move(dragFrom[0] + 155, dragFrom[1] + 35, { steps: 12 });
   await page.waitForFunction(start => {
     const a = window.buretteAudit, { burette, tip } = a.capture(), position = burette.position;
     return a.dock.getState().dragging === 'burette' && Math.hypot(position[0] - start[0], position[2] - start[2]) > .4
@@ -138,6 +153,18 @@ try {
   report.reloadedSupport = await capture();
   report.assertions.reloadRetainsDraggedSupport = distance(report.draggedSupport.burette.position, report.reloadedSupport.burette.position) < 1e-7
     && onBench(report.reloadedSupport);
+  await move.click();
+  const resetFrom = await postPointer();
+  await page.mouse.move(...resetFrom);
+  await page.mouse.down();
+  await page.waitForFunction(() => window.buretteAudit.dock.getState().dragging === 'burette');
+  await page.evaluate(() => window.buretteAudit.app.getState().resetWorkbench());
+  await page.mouse.move(resetFrom[0] - 120, resetFrom[1] + 25, { steps: 4 });
+  await page.mouse.up();
+  report.assertions.resetIgnoresHeldPointer = await page.evaluate(() => {
+    const a = window.buretteAudit, position = a.app.getState().burette.position;
+    return a.dock.getState().dragging === null && position[0] === 0 && position[1] === 1 && position[2] === 0;
+  });
 
   await page.evaluate(() => {
     const a = window.buretteAudit, state = a.app.getState(); state.resetWorkbench();

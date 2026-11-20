@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { useAppStore } from '../store/useAppStore';
 import { ResponsiveContainer, LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip } from 'recharts';
 import { Droplet, Play, Square, RotateCcw } from 'lucide-react';
@@ -18,9 +18,9 @@ export function TitrationPanel() {
   const notice = useInstrumentStore(state => state.notices.filter(item => item.tool === 'burette').at(-1));
 
   const t = (en: string, vi: string) => language === 'en' ? en : vi;
-  const receiver = findBuretteReceiver(vessels, burette.position);
+  const receiver = useMemo(() => findBuretteReceiver(vessels, burette.position), [vessels, burette.position]);
   const targetId = receiver?.id ?? selectedVesselId;
-  const targetHistory = titrationHistory.filter(point => point.vesselId === targetId);
+  const targetHistory = useMemo(() => titrationHistory.filter(point => point.vesselId === targetId), [titrationHistory, targetId]);
   const nextDrop_ml = Math.min(0.05, Math.max(0, burette.currentVolume_ml));
   const canDose = !!receiver && nextDrop_ml > 0 && !moving && !paused;
   const canService = !moving && !paused && !burette.isDispensing;
@@ -67,10 +67,13 @@ export function TitrationPanel() {
             {burette.isDispensing ? <Square size={12} /> : <Play size={12} />}
             <span>{burette.isDispensing ? t('Stop', 'Dừng rót') : t('Continuous', 'Rót liên tục')}</span>
           </button>
-          <button 
-            onClick={clearTitrationHistory}
-            className="p-1 text-slate-400 hover:text-slate-600 rounded hover:bg-slate-100 transition-colors"
-            title={t('Clear Graph', 'Xóa đồ thị')}
+          <button
+            type="button"
+            onClick={() => targetId && clearTitrationHistory(targetId)}
+            disabled={!targetId || targetHistory.length === 0}
+            className="p-1 text-slate-400 hover:text-slate-600 rounded hover:bg-slate-100 transition-colors disabled:opacity-40"
+            aria-label={t('Clear this vessel’s graph', 'Xóa đồ thị của bình này')}
+            title={t('Clear this vessel’s graph', 'Xóa đồ thị của bình này')}
           >
             <RotateCcw size={14} />
           </button>
@@ -145,7 +148,7 @@ export function TitrationPanel() {
                   dataKey="ph" 
                   stroke="#2563eb" 
                   strokeWidth={2} 
-                  dot={{ r: 2, fill: '#2563eb' }} 
+                  dot={targetHistory.length <= 80 ? { r: 2, fill: '#2563eb' } : false}
                   isAnimationActive={false} 
                 />
               </LineChart>
