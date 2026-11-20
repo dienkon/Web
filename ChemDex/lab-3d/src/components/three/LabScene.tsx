@@ -797,9 +797,10 @@ export function LabScene() {
         )}
 
         {/* High-Contrast Realistic Matte Slate Laboratory Workbench (Bàn thí nghiệm màu đen xám chống hóa chất chuẩn) */}
-        <group position={[0, -1.35, 0]}>
+        <group position={[0, LAB_GEOMETRY.tableTop_scene - LAB_GEOMETRY.tableThickness_scene / 2, 0]}>
           {/* Main Worktop Slab: Solid Chemical-Resistant Dark Slate Epoxy Resin */}
           <mesh
+            name="workbench-top"
             receiveShadow
             castShadow
             position={[0, 0, 0]}
@@ -815,7 +816,7 @@ export function LabScene() {
               }
             }}
           >
-            <boxGeometry args={[32, 0.35, 13.5]} />
+            <boxGeometry args={[LAB_GEOMETRY.tableHalfWidth_scene * 2, LAB_GEOMETRY.tableThickness_scene, LAB_GEOMETRY.tableHalfDepth_scene * 2]} />
             {/* Authentic Non-glare Monochromatic Chemical-Resistant Solid Phenolic Resin Workbench Top */}
             <meshStandardMaterial 
               color="#1e293b" 
@@ -944,7 +945,7 @@ export function LabScene() {
         <DigitalBalance position={[7.5, -1.175, -2.5]} />
 
         {/* Burette Apparatus */}
-        <BuretteApparatus position={[5.0, 0.0, 1.5]} />
+        <BuretteApparatus />
 
         {qualitySettings.shadowBudget >= 512 && (
           <ContactShadows resolution={qualitySettings.shadowBudget} />

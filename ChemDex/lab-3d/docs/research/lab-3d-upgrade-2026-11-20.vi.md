@@ -1,5 +1,16 @@
 # Kế hoạch và nâng cấp toàn diện ChemDex Lab 3D — 20/11/2026
 
+## Đợt cải tiến thao tác buret
+
+1. Đối chiếu vị trí chân giá, cột đỡ và miệng bình với hình học mặt bàn. Dùng cùng một vị trí buret cho mô hình, căn bình, điểm xuất phát của giọt, hoàn tác và tải lại. Giữ tọa độ ngang hợp lệ của bản lưu cũ và nâng các vị trí quá thấp lên mức mặc định.
+2. Kiểm tra luồng chuẩn độ từ bảng **Quan sát → Chuẩn độ**. Chọn bình mở, căn bình dưới buret và nhả một giọt. Bàn đặt bình lên mặt bàn và nâng cột buret khi miệng bình cao hơn đầu nhỏ giọt.
+3. Kiểm tra kéo bằng con trỏ khi chưa thả. Giữ chân giá trong giới hạn mặt bàn và cập nhật hình ảnh ngay khi kéo. Lưu vị trí sau khi thả để tránh chụp lại trạng thái vật chất mỗi khung hình.
+4. Thử hết dung dịch, nạp cùng dung dịch từ kho mô phỏng và xả vào sổ chất thải. Xác nhận các thao tác giữ nguyên bình nhận và đường cong chuẩn độ. Đóng khóa và chờ giọt đã nhả chạm bình trước khi nạp hoặc xả.
+
+Đo khoảng hở của lỗi ban đầu từ đáy chân giá đến mặt bàn được khoảng 1,045 đơn vị cảnh ở vị trí mặc định. Sau sửa, đáy giá dùng cao độ của chính mặt bàn. Kẹp nâng theo miệng bình, còn chân giá nằm sau bình nhận.
+
+Chrome xác nhận 15 điều kiện trong audit buret, bao gồm cập nhật mô hình khi chưa thả chuột, lưu vị trí sau khi kéo, điểm rời đầu giọt khớp hình học, hoàn tác, nạp và xả. Bộ kiểm thử dụng cụ, lắp ráp và chuyển mẫu đạt 92 ca.
+
 ## Phạm vi 5 giai đoạn
 
 Bản nâng cấp hoàn thiện năm giai đoạn từ kế hoạch phát triển `lab-3d`:

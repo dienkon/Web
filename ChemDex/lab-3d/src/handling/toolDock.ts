@@ -4,21 +4,16 @@ import * as THREE from 'three';
 import { useAppStore } from '../store/useAppStore';
 import { restingToolHeight, toolVisible } from './handheldRest';
 import { beginPointerDrag } from './pointerDrag';
-import { useToolDockStore, type ToolPosition } from './toolDockState';
+import { constrainToolPosition, useToolDockStore, type ToolPosition } from './toolDockState';
 import { useInstrumentStore } from './instrumentState';
-export { useToolDockStore, type ToolPosition } from './toolDockState';
-
-
-export function constrainToolPosition(x: number, y: number, z: number): ToolPosition {
-  return [Math.max(-10, Math.min(10, x)), y, Math.max(-4.5, Math.min(4.5, z))];
-}
+export { constrainToolPosition, useToolDockStore, type ToolPosition } from './toolDockState';
 
 /** Move the resting position without coupling independent tools to vessel IDs.
  * Native pointer capture keeps movement/release working outside the canvas.
  */
-export function useToolDock(id: string, initial: ToolPosition, onMove?: (position: ToolPosition) => void) {
+export function useToolDock(id: string, initial: ToolPosition, onMove?: (position: ToolPosition) => void, controlled = false) {
   const { camera, gl } = useThree();
-  const savedPosition = useToolDockStore(state => state.positions[id]);
+  const savedPosition = useToolDockStore(state => controlled ? undefined : state.positions[id]);
   const moveMode = useAppStore(state => state.moveMode);
   const active = useAppStore(state => state.activeTool === id);
   const deployed = useToolDockStore(state => state.deployed[id] === true);
@@ -59,20 +54,23 @@ export function useToolDock(id: string, initial: ToolPosition, onMove?: (positio
     };
     if (!project(event.clientX, event.clientY)) return;
     offset.set(origin[0] - intersection.x, 0, origin[2] - intersection.z);
+    let latest = origin;
     const publish = (next: ToolPosition) => {
-      useToolDockStore.setState(state => ({ positions: { ...state.positions, [id]: next } }));
+      latest = next;
+      if (!controlled) useToolDockStore.setState(state => ({ positions: { ...state.positions, [id]: next } }));
       options.current.onMove?.(next);
     };
     useToolDockStore.setState({ dragging: id });
     cleanup.current = beginPointerDrag({ canvas, events: window, pointerId,
-      schedule: requestAnimationFrame, cancelFrame: cancelAnimationFrame,
+      schedule: callback => window.requestAnimationFrame(callback),
+      cancelFrame: handle => window.cancelAnimationFrame(handle),
       onMove: native => {
         if (!project(native.clientX, native.clientY)) return;
         publish(constrainToolPosition(intersection.x + offset.x, origin[1], intersection.z + offset.z));
       },
       onEnd: committed => {
-        if (!committed) publish(origin);
         if (useToolDockStore.getState().dragging === id) useToolDockStore.setState({ dragging: null });
+        if (!committed || controlled) publish(committed ? latest : origin);
         cleanup.current = null;
       },
     });

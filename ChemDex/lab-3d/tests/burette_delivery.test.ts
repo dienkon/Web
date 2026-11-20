@@ -2,7 +2,7 @@ import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { useAppStore } from '../src/store/useAppStore';
 import { useInstrumentStore } from '../src/handling/instrumentState';
 import { useToolDockStore } from '../src/handling/toolDock';
-import { dispenseOneBuretteDrop, setBuretteValve } from '../src/handling/instrumentOperations';
+import { dispenseOneBuretteDrop, serviceBurette, setBuretteValve } from '../src/handling/instrumentOperations';
 import { advanceBurettePresentations, burettePresentationView, buretteTargetUnchanged,
   makeBurettePresentation, MAX_BURETTE_PRESENTATIONS, type BurettePresentationInput } from '../src/handling/burettePresentation';
 import { dropRadius } from '../src/handling/dropFlight';
@@ -86,6 +86,36 @@ describe('finite burette accepted drop presentation', () => {
 });
 
 describe('burette delivery material and interaction guards', () => {
+  it('drains the remainder into the waste ledger, supports undo, and refills with matching solution', () => {
+    const before = useAppStore.getState();
+    expect(serviceBurette('discard').transferred_ml).toBeCloseTo(.02, 12);
+    const drained = useAppStore.getState();
+    expect(drained.burette.currentVolume_ml).toBe(0);
+    expect(drained.wasteMass_g - before.wasteMass_g).toBeCloseTo(.02, 12);
+    expect(drained.wasteContents.find(row => row.formula === 'NaCl')?.moles).toBeCloseTo(.2 * .02 / 1000, 14);
+    expect(drained.vessels).toBe(before.vessels);
+    drained.undo();
+    expect(useAppStore.getState().burette.currentVolume_ml).toBeCloseTo(.02, 12);
+    expect(useAppStore.getState().wasteContents).toEqual(before.wasteContents);
+    expect(serviceBurette('fill').transferred_ml).toBeCloseTo(49.98, 12);
+    const refilled = useAppStore.getState();
+    expect(refilled.burette).toMatchObject({ currentVolume_ml: 50, reagentFormula: 'NaCl', concentration_M: .2 });
+    expect(refilled.wasteMass_g).toBe(before.wasteMass_g);
+    expect(serviceBurette('fill').ok).toBe(false);
+    expect(refilled.vessels).toEqual(before.vessels);
+  });
+
+  it('leaves the vessel, waste and source inventories alone when servicing during motion or flight', () => {
+    useAppStore.getState().setMoveMode(true);
+    expect(serviceBurette('discard').ok).toBe(false);
+    expect(serviceBurette('fill').ok).toBe(false);
+    useAppStore.getState().setMoveMode(false);
+    expect(dispenseOneBuretteDrop().ok).toBe(true);
+    const before = readLedger();
+    expect(serviceBurette('fill').ok).toBe(false);
+    expect(readLedger()).toEqual(before);
+  });
+
   it.each([{ isSimulationPaused: true }, { moveMode: true }, { draggingVesselId: 'receiverA' }])(
     'rejects direct and instrument dosing/opening while %j', guard => {
       useAppStore.setState(guard);

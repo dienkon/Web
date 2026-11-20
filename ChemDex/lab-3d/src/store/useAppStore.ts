@@ -93,6 +93,7 @@ import { createWallFilm, advanceWallFilm, detachWallFilm } from '../engine/wallF
 import { createOverflowParcel, advanceOverflowParcel, reconcileOverflowSupport, overflowLocationFractions, overflowImpactSites, type OverflowRelease } from '../engine/overflowTransport';
 import { availableLiquidVolume } from '../handling/solidOccupancy';
 import { buretteTargetProblem, findBuretteReceiver } from '../handling/buretteTarget';
+import { BURETTE_BASE_SIZE, BURETTE_HOME, BURETTE_POST_Z, constrainBurettePosition } from '../handling/burettePlacement';
 import { makeBurettePresentation } from '../handling/burettePresentation';
 import { canReceivePour } from '../engine/decantTransfer';
 import { mobileSolidInventory } from '../science/suspensionTransport';
@@ -135,12 +136,14 @@ import { uiText } from '../utils/uiText';
 function currentBenchObstacles(state: Pick<AppState, 'vessels' | 'burners' | 'burette' | 'instrumentRinse'>) {
   const dock = useToolDockStore.getState();
   const balance = dock.positions.balance ?? LAB_PHYSICS.BALANCE_POSITION;
-  const burette = dock.positions.burette ?? state.burette.position ?? LAB_PHYSICS.BURETTE_STAND_POSITION;
+  const burette = state.burette.position;
   const tools = Object.entries(dock.deployed).filter(([id, visible]) => visible && !['balance', 'burette'].includes(id))
     .map(([id]) => { const p = dock.positions[id] ?? instrumentHome(id as Parameters<typeof instrumentHome>[0]);
       return { x: p[0], z: p[2], radius: 1 }; });
   return benchObstacles(state.vessels, state.burners, [
-    { x: balance[0], z: balance[2], radius: 1.4 }, { x: burette[0], z: burette[2], radius: 1.15 }, ...tools,
+    { x: balance[0], z: balance[2], radius: 1.4 },
+    { x: burette[0], z: burette[2], radius: 1.15 },
+    { x: burette[0], z: burette[2] + BURETTE_POST_Z, radius: Math.hypot(BURETTE_BASE_SIZE[0], BURETTE_BASE_SIZE[2]) / 2 }, ...tools,
     ...(state.instrumentRinse ? [{ x: state.instrumentRinse.anchor[0], z: state.instrumentRinse.anchor[2],
       radius: state.vessels[state.instrumentRinse.bottleId] ? rinseStationRadius(state.vessels[state.instrumentRinse.bottleId]) : 1 }] : []),
   ]);
@@ -302,9 +305,19 @@ const defaultVessels: Record<string, VesselState> = {
 };
 
 const DEFAULT_BURETTE: BuretteState = {
-  id: 'burette_1', position: [0, 1.0, 0], reagentFormula: 'NaOH', currentVolume_ml: 50,
+  id: 'burette_1', position: BURETTE_HOME, reagentFormula: 'NaOH', currentVolume_ml: 50,
   maxVolume_ml: 50, concentration_M: 0.1, isDispensing: false, flowRate_ml_s: 0.5,
 };
+
+function restoreBurette(saved?: BuretteState): BuretteState {
+  const source = saved && typeof saved.id === 'string' && typeof saved.reagentFormula === 'string'
+    && Array.isArray(saved.position) && saved.position.length === 3 && saved.position.every(Number.isFinite)
+    && [saved.currentVolume_ml, saved.maxVolume_ml, saved.concentration_M, saved.flowRate_ml_s].every(Number.isFinite)
+    && saved.currentVolume_ml >= 0 && saved.maxVolume_ml > 0 && saved.currentVolume_ml <= saved.maxVolume_ml
+    && saved.concentration_M >= 0 && saved.flowRate_ml_s >= 0.1 && saved.flowRate_ml_s <= 2
+    ? saved : DEFAULT_BURETTE;
+  return { ...source, position: constrainBurettePosition(source.position), isDispensing: false };
+}
 
 export interface ActiveKineticsState {
   inductionElapsed_s?: number;
@@ -519,6 +532,7 @@ export interface AppState {
   // Burette & Titration
   burette: BuretteState;
   updateBurette: (updates: Partial<BuretteState>) => void;
+  serviceBurette: (action: 'fill' | 'discard') => { volume_ml: number; problem?: string };
   toggleBuretteStopcock: () => void;
   dispenseBuretteDrop: (targetVesselId: string, initialAge_s?: number) => void;
   titrationHistory: TitrationPoint[];
@@ -607,14 +621,7 @@ initReactionCache();
 const persisted = loadPersistedLabState();
 experimentEngine.restoreContamination(persisted?.materials?.toolContamination);
 if (persisted?.materials?.physics) restorePhysicalLab(persisted.materials.physics);
-const savedBurette = persisted?.materials?.burette;
-const initialBurette: BuretteState = savedBurette && typeof savedBurette.id === 'string'
-  && typeof savedBurette.reagentFormula === 'string'
-  && Array.isArray(savedBurette.position) && savedBurette.position.length === 3 && savedBurette.position.every(Number.isFinite)
-  && [savedBurette.currentVolume_ml, savedBurette.maxVolume_ml, savedBurette.concentration_M, savedBurette.flowRate_ml_s].every(Number.isFinite)
-  && savedBurette.currentVolume_ml >= 0 && savedBurette.maxVolume_ml > 0 && savedBurette.currentVolume_ml <= savedBurette.maxVolume_ml
-  && savedBurette.concentration_M >= 0 && savedBurette.flowRate_ml_s >= 0.1 && savedBurette.flowRate_ml_s <= 2
-  ? { ...savedBurette, position: [...savedBurette.position], isDispensing: false } : { ...DEFAULT_BURETTE };
+const initialBurette = restoreBurette(persisted?.materials?.burette);
 const initialTitrationHistory = (persisted?.materials?.titrationHistory ?? []).filter(point =>
   (!point.vesselId || typeof point.vesselId === 'string') && Number.isFinite(point.volumeAdded_ml) && point.volumeAdded_ml >= 0
     && (point.ph === null || Number.isFinite(point.ph)) && typeof point.color === 'string'
@@ -3167,7 +3174,7 @@ export const useAppStore = create<AppState>((set, get) => {
         || state.instrumentRinse?.bottleId === id
         || state.inFlightPours.some(parcel => parcel.sourceId === id || parcel.targetId === id)
         || (state.burette.isDispensing && findBuretteReceiver(state.vessels,
-          useToolDockStore.getState().positions.burette ?? state.burette.position)?.id === id)
+          state.burette.position)?.id === id)
         || instruments.pipettePresentations.some(receipt => receipt.epoch === state.pourEpoch && receipt.targetId === id)
         || instruments.burettePresentations.some(receipt => receipt.epoch === state.pourEpoch && receipt.targetId === id))
         return reject('Chờ dụng cụ chuyển mẫu xong rồi làm rỗng bình.');
@@ -3636,20 +3643,57 @@ export const useAppStore = create<AppState>((set, get) => {
     burette: initialBurette,
     updateBurette: (updates) => {
       set(s => {
-      if (updates.isDispensing === true && (s.isSimulationPaused || s.moveMode || s.draggingVesselId)) return s;
-      const stand = useToolDockStore.getState().positions.burette ?? s.burette.position;
-      const opening = updates.isDispensing === true ? findBuretteReceiver(s.vessels, stand) : null;
-      if (updates.isDispensing === true && (!opening || !Number.isFinite(s.burette.currentVolume_ml) || s.burette.currentVolume_ml <= 0)) return s;
-      const moved = updates.position && updates.position.some((value, axis) => Math.abs(value - s.burette.position[axis]) > 1e-5);
-      return { burette: { ...s.burette, ...updates, ...(moved ? { isDispensing: false } : {}) } };
+        if (updates.position && (updates.position.length !== 3 || !updates.position.every(Number.isFinite))) return s;
+        const position = updates.position ? constrainBurettePosition(updates.position) : s.burette.position;
+        const moved = position.some((value, axis) => Math.abs(value - s.burette.position[axis]) > 1e-5);
+        if (updates.position && !moved && Object.keys(updates).length === 1) return s;
+        if (!moved && updates.isDispensing === true && (s.isSimulationPaused || s.moveMode || s.draggingVesselId
+          || !findBuretteReceiver(s.vessels, position) || !Number.isFinite(s.burette.currentVolume_ml) || s.burette.currentVolume_ml <= 0)) return s;
+        return { burette: { ...s.burette, ...updates, position, ...(moved ? { isDispensing: false } : {}) } };
       });
-      debounceSaveLocalState(get().vessels, get().burners);
+      // Pointer moves update the visual anchor. The dock publishes the final
+      // anchor once more on release so material snapshots can wait until then.
+      if (!updates.position || useToolDockStore.getState().dragging !== 'burette')
+        debounceSaveLocalState(get().vessels, get().burners);
+    },
+    serviceBurette: action => {
+      const state = get(), burette = state.burette;
+      const problem = (message: string) => ({ volume_ml: 0, problem: message });
+      if (state.isSimulationPaused) return problem('Tiếp tục mô phỏng trước khi nạp hoặc xả buret.');
+      if (state.moveMode || state.draggingVesselId || useToolDockStore.getState().dragging)
+        return problem('Đặt dụng cụ yên trên bàn và tắt chế độ di chuyển.');
+      if (burette.isDispensing) return problem('Đóng khóa buret trước khi nạp hoặc xả.');
+      if (useInstrumentStore.getState().burettePresentations.some(receipt => receipt.epoch === state.pourEpoch))
+        return problem('Chờ giọt đang rơi chạm bình trước khi nạp hoặc xả.');
+      const filling = action === 'fill';
+      const volume_ml = filling ? burette.maxVolume_ml - burette.currentVolume_ml : burette.currentVolume_ml;
+      if (!(volume_ml > 1e-10)) return problem(filling ? 'Buret đã đầy.' : 'Buret đang rỗng.');
+      const chemical = getChemical(burette.reagentFormula);
+      const sample = chemical && buretteAliquot(chemical, burette.reagentFormula, burette.concentration_M, volume_ml,
+        useLabEnvironment.getState().conditions.temperature_c);
+      if (!sample) return problem('Dung dịch trong buret chưa có dữ liệu định lượng hợp lệ.');
+
+      const historyAction = filling ? 'TITRATE' : 'DISCARD';
+      pushHistorySnapshot(historyAction, state.vessels, state.burners,
+        'Before servicing the burette', 'Trước khi nạp hoặc xả buret');
+      set({
+        burette: { ...burette, currentVolume_ml: filling ? burette.maxVolume_ml : 0 },
+        ...(!filling ? {
+          wasteMass_g: state.wasteMass_g + sample.mass_g,
+          wasteContents: [...state.wasteContents, ...sample.contents.map(row => ({ ...row, location: 'bulk' as const }))],
+        } : {}),
+      });
+      pushHistorySnapshot(historyAction, state.vessels, state.burners,
+        filling ? 'Filled the burette from stock' : 'Collected burette solution as waste',
+        filling ? 'Nạp dung dịch buret từ kho mô phỏng' : 'Thu gom dung dịch buret vào chất thải');
+      set({ canUndo: checkCanUndo(), canRedo: checkCanRedo() });
+      debounceSaveLocalState(state.vessels, state.burners);
+      return { volume_ml };
     },
     toggleBuretteStopcock: () => set(s => {
       if (s.isSimulationPaused || s.moveMode || s.draggingVesselId) return s;
       const isDispensing = !s.burette.isDispensing;
-      const stand = useToolDockStore.getState().positions.burette ?? s.burette.position;
-      if (isDispensing && (!findBuretteReceiver(s.vessels, stand) || s.burette.currentVolume_ml <= 0)) return s;
+      if (isDispensing && (!findBuretteReceiver(s.vessels, s.burette.position) || s.burette.currentVolume_ml <= 0)) return s;
       return { burette: { ...s.burette, isDispensing } };
     }),
     dispenseBuretteDrop: (targetVesselId: string, initialAge_s = 0) => {
@@ -3657,7 +3701,7 @@ export const useAppStore = create<AppState>((set, get) => {
       const burette = state.burette;
       const receiver = state.vessels[targetVesselId];
       if (state.isSimulationPaused || state.moveMode || state.draggingVesselId) return;
-      const standPosition = useToolDockStore.getState().positions.burette ?? burette.position;
+      const standPosition = burette.position;
       if (buretteTargetProblem(receiver, standPosition)
         || !useInstrumentStore.getState().canQueueBurettePresentation(state.pourEpoch)) return;
       if (!receiver || receiver.id.startsWith('lesson_vessel_') || receiver.isLocked || receiver.isSealed || receiver.isShattered
@@ -4278,8 +4322,6 @@ export const useAppStore = create<AppState>((set, get) => {
       if (prev) {
         useInstrumentStore.getState().clearPipettePresentations();
         useInstrumentStore.getState().clearBurettePresentations();
-        useToolDockStore.setState(dock => ({ positions: { ...dock.positions,
-          burette: [...(prev.snapshot.materials?.burette ?? DEFAULT_BURETTE).position] } }));
         experimentEngine.restoreContamination(prev.snapshot.materials?.toolContamination);
         shardManager.restoreLabSnapshot(prev.snapshot.materials?.glassDebris, prev.snapshot.vessels);
         restorePhysicalLab(prev.snapshot.materials?.physics);
@@ -4290,7 +4332,7 @@ export const useAppStore = create<AppState>((set, get) => {
           burnerIds: Object.keys(prev.snapshot.burners),
           inFlightPours: prev.snapshot.materials?.inFlightPours ?? [],
           pipetteSample: prev.snapshot.materials?.pipetteSample ?? null,
-          burette: { ...(prev.snapshot.materials?.burette ?? DEFAULT_BURETTE), isDispensing: false },
+          burette: restoreBurette(prev.snapshot.materials?.burette),
           titrationHistory: prev.snapshot.materials?.titrationHistory ?? [],
           toolContamination: experimentEngine.getContaminatedTools(),
           spills: normalizeSpillFootprints(prev.snapshot.materials?.spills ?? {}), wasteMass_g: prev.snapshot.materials?.wasteMass_g ?? 0,
@@ -4313,8 +4355,6 @@ export const useAppStore = create<AppState>((set, get) => {
       if (next) {
         useInstrumentStore.getState().clearPipettePresentations();
         useInstrumentStore.getState().clearBurettePresentations();
-        useToolDockStore.setState(dock => ({ positions: { ...dock.positions,
-          burette: [...(next.snapshot.materials?.burette ?? DEFAULT_BURETTE).position] } }));
         experimentEngine.restoreContamination(next.snapshot.materials?.toolContamination);
         shardManager.restoreLabSnapshot(next.snapshot.materials?.glassDebris, next.snapshot.vessels);
         restorePhysicalLab(next.snapshot.materials?.physics);
@@ -4325,7 +4365,7 @@ export const useAppStore = create<AppState>((set, get) => {
           burnerIds: Object.keys(next.snapshot.burners),
           inFlightPours: next.snapshot.materials?.inFlightPours ?? [],
           pipetteSample: next.snapshot.materials?.pipetteSample ?? null,
-          burette: { ...(next.snapshot.materials?.burette ?? DEFAULT_BURETTE), isDispensing: false },
+          burette: restoreBurette(next.snapshot.materials?.burette),
           titrationHistory: next.snapshot.materials?.titrationHistory ?? [],
           toolContamination: experimentEngine.getContaminatedTools(),
           spills: normalizeSpillFootprints(next.snapshot.materials?.spills ?? {}), wasteMass_g: next.snapshot.materials?.wasteMass_g ?? 0,
@@ -4824,7 +4864,7 @@ export const useAppStore = create<AppState>((set, get) => {
       set({
         inFlightPours: [], pourEpoch: get().pourEpoch + 1, isPouring: false,
         pipetteSample: null,
-        burette: { ...DEFAULT_BURETTE, position: [...DEFAULT_BURETTE.position] },
+        burette: restoreBurette(),
         instrumentRinse: null,
         toolContamination: experimentEngine.getContaminatedTools(),
         activeTool: 'none',

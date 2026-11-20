@@ -1,7 +1,8 @@
 import { Quaternion, Vector3 } from 'three';
 import type { VesselState } from '../types/chemistry';
 import { dropFlightPosition, dropRadius, verticalDropFlight, type DropPoint, type VerticalDropFlight } from './dropFlight';
-import { BURETTE_NOZZLE_LOCAL_Y, buretteDeliveryPath } from './buretteTarget';
+import { BURETTE_NOZZLE_LOCAL_Y } from './burettePlacement';
+import { buretteDeliveryPath } from './buretteTarget';
 
 export const BURETTE_TIP_LOCAL_Y = BURETTE_NOZZLE_LOCAL_Y;
 export const MAX_BURETTE_PRESENTATIONS = 128;

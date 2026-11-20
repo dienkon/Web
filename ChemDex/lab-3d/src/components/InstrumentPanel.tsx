@@ -28,6 +28,7 @@ import {
   stirSelectedVessel,
   tareBalance,
 } from '../handling/instrumentOperations';
+import { BURETTE_MIN_Z } from '../handling/burettePlacement';
 
 const BUTTON = 'rounded-lg border border-slate-300 px-3 py-2 text-xs font-medium hover:bg-slate-100 disabled:opacity-40 disabled:cursor-not-allowed';
 
@@ -135,21 +136,22 @@ function InstrumentActions({ id, disabled }: { id: InstrumentId; disabled: boole
 }
 
 function InstrumentPlacement({ id }: { id: InstrumentId }) {
-  const saved = useToolDockStore(state => state.positions[id]);
+  const dockPosition = useToolDockStore(state => id === 'burette' ? undefined : state.positions[id]);
+  const burettePosition = useAppStore(state => id === 'burette' ? state.burette.position : undefined);
   const [x, setX] = useState(() => currentInstrumentPosition(id)[0]);
   const [z, setZ] = useState(() => currentInstrumentPosition(id)[2]);
   useEffect(() => {
     const position = currentInstrumentPosition(id);
     setX(position[0]);
     setZ(position[2]);
-  }, [id, saved]);
+  }, [id, dockPosition, burettePosition]);
   if (id === 'sponge') return null;
   return <fieldset className="space-y-2 rounded-lg border p-3">
     <legend className="px-1 text-xs font-semibold">Vị trí nghỉ trên bàn</legend>
     <NumberControl label="Tọa độ X" value={x} minimum={-10} maximum={10} step={0.1} onChange={setX} />
-    <NumberControl label="Tọa độ Z" value={z} minimum={-4.5} maximum={4.5} step={0.1} onChange={setZ} />
+    <NumberControl label="Tọa độ Z" value={z} minimum={id === 'burette' ? BURETTE_MIN_Z : -4.5} maximum={4.5} step={0.1} onChange={setZ} />
     <div className="flex gap-2">
-      <button className={BUTTON} onClick={() => positionInstrument(id, [x, getInstrument(id).home[1], z])}>Đặt vị trí</button>
+      <button className={BUTTON} onClick={() => positionInstrument(id, [x, currentInstrumentPosition(id)[1], z])}>Đặt vị trí</button>
       <button className={BUTTON} onClick={() => returnInstrumentHome(id)}>Về giá ban đầu</button>
       {!['balance', 'burette'].includes(id) && <button className={BUTTON} onClick={() => stowInstrument(id)}>Cất dụng cụ</button>}
     </div>
@@ -165,8 +167,11 @@ function InstrumentDetails({ id }: { id: InstrumentId }) {
   useAppStore(state => state.spatulaState);
   useAppStore(state => state.spills);
   useAppStore(state => state.toolContamination);
+  useAppStore(state => id === 'pipette' ? state.pipetteSample : undefined);
+  useAppStore(state => id === 'stirring_rod' ? state.stirringVesselId : undefined);
+  useAppStore(state => id === 'sponge' ? state.wasteMass_g : undefined);
   const rinsing = useAppStore(state => state.instrumentRinse !== null);
-  useInstrumentStore();
+  useInstrumentStore(state => id === 'balance' ? state.balanceTare_g : undefined);
   useToolDockStore(state => state.positions);
   const definition = getInstrument(id);
   const reading = readInstrument(id);

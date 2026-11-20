@@ -19,6 +19,7 @@ import { InteractiveSponge } from '../components/three/interactions/InteractiveS
 import { SolidContentsRenderer } from '../components/three/SolidContentsRenderer';
 import { useAppStore } from '../store/useAppStore';
 import { useToolDockStore } from '../handling/toolDock';
+import { BURETTE_HOME } from '../handling/burettePlacement';
 import type { VesselState } from '../types/chemistry';
 import type { Asset } from './catalog';
 
@@ -45,9 +46,9 @@ function PreviewState({ asset, children }: { asset: Asset; children: React.React
       selectedVesselId: null, hoveredVesselId: null, draggingVesselId: null, nearestPourTargetId: null,
       stirringVesselId: null, isDraggingChemical: null, activeTool: 'none', moveMode: true,
       isSimulationPaused: true, spills: {},
-      burette: { ...previous.burette, position: origin, isDispensing: false },
+      burette: { ...previous.burette, position: [...BURETTE_HOME], isDispensing: false },
     });
-    useToolDockStore.setState({ positions: { pipette: origin, thermometer: origin, ph_meter: origin, spatula: origin, stirring_rod: origin, balance: origin, burette: origin }, dragging: null });
+    useToolDockStore.setState({ positions: { pipette: origin, thermometer: origin, ph_meter: origin, spatula: origin, stirring_rod: origin, balance: origin }, dragging: null });
     setReady(true);
     return () => {
       useAppStore.setState(previous, true);
@@ -67,7 +68,7 @@ function NativeModel({ asset }: { asset: Asset }) {
         hazard={c.hazards.includes('toxic') ? 'toxic' : c.hazards.includes('corrosive') ? 'corrosive' : c.hazards.includes('flammable') ? 'flammable' : c.hazards.includes('oxidizer') ? 'oxidizer' : 'safe'} />;
   }
   switch (asset.id) {
-    case 'burette': return <Models.BuretteApparatus position={origin} />;
+    case 'burette': return <Models.BuretteApparatus />;
     case 'balance': return <Models.DigitalBalance position={origin} />;
     case 'alcohol_burner': return <AlcoholBurner id={previewId} position={origin} isOn={false} intensity={1} />;
     case 'bunsen_burner': return <Models.BunsenBurner id={previewId} position={origin} isOn={false} />;

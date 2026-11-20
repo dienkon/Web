@@ -1,6 +1,7 @@
 import type { ToolPosition } from './toolDock';
 import { LAB_PHYSICS } from '../engine/interactionEngine';
 import { restingToolHeight } from './handheldRest';
+import { BURETTE_HOME } from './burettePlacement';
 
 export type InstrumentId =
   | 'pipette'
@@ -42,7 +43,7 @@ export const INSTRUMENTS: InstrumentDefinition[] = [
   {
     id: 'burette',
     name: 'Buret',
-    home: [...LAB_PHYSICS.BURETTE_STAND_POSITION],
+    home: [...BURETTE_HOME],
     description: 'Nhả từng giọt theo nồng độ và thể tích thực tế trong mô hình.',
     instructions: [
       'Đặt bình nhận ngay dưới đầu buret bằng nút Căn bình.',

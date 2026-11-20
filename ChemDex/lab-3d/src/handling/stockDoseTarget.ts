@@ -2,7 +2,8 @@ import type { VesselState } from '../types/chemistry';
 import { vesselInterior } from '../science/vesselDimensions';
 import { vesselBodyTransform, vesselLocalToWorld } from '../science/vesselScale';
 import { getVesselProfile } from '../pour/physics/profiles';
-import { buretteDeliveryPath, BURETTE_NOZZLE_LOCAL_Y } from './buretteTarget';
+import { buretteDeliveryPath } from './buretteTarget';
+import { BURETTE_NOZZLE_LOCAL_Y } from './burettePlacement';
 import { fallingContactTime, STOCK_RELEASE_START_S, STOCK_RELEASE_END_S } from './doseTiming';
 import { SCENE_GRAVITY } from '../science/sceneUnits';
 

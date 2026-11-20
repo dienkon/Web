@@ -4,7 +4,7 @@ import { calculateVesselMass, LAB_PHYSICS } from '../engine/interactionEngine';
 import { reactAliquotMixture } from '../engine/aliquotReaction';
 import { withdrawAliquot, dispenseAliquot } from './aliquot';
 import { useInstrumentStore } from './instrumentState';
-import { constrainToolPosition, useToolDockStore, type ToolPosition } from './toolDock';
+import { constrainToolPosition, useToolDockStore, type ToolPosition } from './toolDockState';
 import { getInstrument, instrumentHome, isLessonVessel, type InstrumentId } from './instrumentCatalog';
 import { lessonRuntime } from '../lesson/runtime';
 import { useLessonLabStore } from '../lesson/labBridge';
@@ -15,6 +15,9 @@ import { vesselHasBurnerHeat } from '../engine/burnerEnergy';
 import { uiText } from '../utils/uiText';
 import { pipetteHasRinseSample } from './instrumentRinse';
 import { buretteTargetProblem, findBuretteReceiver } from './buretteTarget';
+import { BURETTE_MAX_ANCHOR_Y, BURETTE_NOZZLE_LOCAL_Y, BURETTE_RIM_CLEARANCE, constrainBurettePosition } from './burettePlacement';
+import { restingVesselHeight } from './vesselRest';
+import { vesselWorldDimensions } from '../science/vesselScale';
 
 export interface InstrumentResult {
   ok: boolean;
@@ -121,11 +124,15 @@ export function positionInstrument(id: InstrumentId, position: ToolPosition): In
   if (!position.every(Number.isFinite)) return result(id, false, 'Tọa độ phải là số hữu hạn.');
   if (id === 'sponge') return result(id, false, 'Miếng lau đi theo con trỏ khi kích hoạt.');
   const constrained = constrainToolPosition(...position);
-  const next = [constrained[0], instrumentHome(id)[1], constrained[2]] as ToolPosition;
+  const next: ToolPosition = id === 'burette' ? constrainBurettePosition(position)
+    : [constrained[0], instrumentHome(id)[1], constrained[2]];
   useAppStore.getState().setActiveTool('none');
-  useToolDockStore.setState(state => ({ positions: { ...state.positions, [id]: next }, deployed: { ...state.deployed, [id]: true } }));
-  if (id === 'balance') LAB_PHYSICS.BALANCE_POSITION = next;
-  if (id === 'burette') useAppStore.getState().updateBurette({ position: next, isDispensing: false });
+  if (id === 'burette') {
+    useAppStore.getState().updateBurette({ position: next, isDispensing: false });
+  } else {
+    useToolDockStore.setState(state => ({ positions: { ...state.positions, [id]: next }, deployed: { ...state.deployed, [id]: true } }));
+    if (id === 'balance') LAB_PHYSICS.BALANCE_POSITION = next;
+  }
   return result(id, true, `Đã đặt ${getInstrument(id).name} tại x=${next[0].toFixed(2)}, z=${next[2].toFixed(2)}.`);
 }
 
@@ -156,9 +163,9 @@ export function activateInstrument(id: InstrumentId): InstrumentResult {
 }
 
 export function currentInstrumentPosition(id: InstrumentId): ToolPosition {
+  if (id === 'burette') return [...useAppStore.getState().burette.position];
   const saved = useToolDockStore.getState().positions[id];
   if (saved) return [...saved];
-  if (id === 'burette') return [...useAppStore.getState().burette.position];
   return instrumentHome(id);
 }
 
@@ -183,18 +190,36 @@ export function tareBalance(): InstrumentResult {
 }
 
 export function alignSelectedVessel(tool: 'balance' | 'burette'): InstrumentResult {
+  const state = useAppStore.getState();
   const vessel = resolveInstrumentTarget();
   const problem = instrumentTargetProblem(tool, vessel);
   if (problem || !vessel) return result(tool, false, problem ?? 'Không có bình.');
   const position = currentInstrumentPosition(tool);
-  const occupied = Object.values(useAppStore.getState().vessels).some(other => other.id !== vessel.id
+  const occupied = Object.values(state.vessels).some(other => other.id !== vessel.id
     && Math.hypot(other.position[0] - position[0], other.position[2] - position[2]) < 0.7);
   if (occupied) return result(tool, false, 'Vị trí đã có bình khác; di chuyển bình đó trước.');
-  const destination: ToolPosition = [position[0], tool === 'balance' ? position[1] + 1.35 : vessel.position[1], position[2]];
-  useAppStore.getState().setVesselState(vessel.id, { position: destination });
+  const destination: ToolPosition = [
+    position[0], tool === 'balance' ? position[1] + 1.35 : restingVesselHeight(vessel.type, vessel.capacity_ml), position[2],
+  ];
+  const patch: Partial<VesselState> = { position: destination };
+  let raisedStand: ToolPosition | undefined;
+  if (tool === 'burette') {
+    if (state.draggingVesselId || useToolDockStore.getState().dragging)
+      return result(tool, false, 'Thả dụng cụ hoặc bình đang kéo trước khi căn.');
+    const rimY = destination[1] + vesselWorldDimensions(vessel).topY;
+    const anchorY = rimY - BURETTE_NOZZLE_LOCAL_Y + BURETTE_RIM_CLEARANCE;
+    if (anchorY > BURETTE_MAX_ANCHOR_Y) return result(tool, false, 'Bình quá cao so với hành trình nâng buret.');
+    raisedStand = constrainBurettePosition([position[0], anchorY, position[2]]);
+    patch.rotationZ = 0;
+    patch.physicalMotion = undefined;
+    const alignment = buretteTargetProblem({ ...vessel, ...patch }, raisedStand);
+    if (alignment) return result(tool, false, alignment);
+  }
+  state.setVesselState(vessel.id, patch);
   const placed = useAppStore.getState().vessels[vessel.id];
   if (!placed || placed.position.some((coordinate, axis) => Math.abs(coordinate - destination[axis]) > 1e-8))
     return result(tool, false, 'Chưa thể đặt bình; mở khóa các bình gắn cùng dụng cụ trước.');
+  if (raisedStand) state.updateBurette({ position: raisedStand, isDispensing: false });
   return result(tool, true, tool === 'balance' ? 'Đã đặt bình lên đĩa cân.' : 'Đã căn bình dưới đầu buret.');
 }
 
@@ -221,6 +246,14 @@ export function dispenseOneBuretteDrop(): InstrumentResult {
   return transferred > 0
     ? result('burette', true, `Đã nhả ${transferred.toFixed(3)} mL.`, transferred)
     : result('burette', false, 'Bình nhận đã đầy; không nhả thêm.');
+}
+
+export function serviceBurette(action: 'fill' | 'discard'): InstrumentResult {
+  const { volume_ml, problem } = useAppStore.getState().serviceBurette(action);
+  if (problem) return result('burette', false, problem);
+  return result('burette', true, action === 'fill'
+    ? `Đã nạp ${volume_ml.toFixed(2)} mL từ kho mô phỏng.`
+    : `Đã thu gom ${volume_ml.toFixed(2)} mL vào chất thải.`, volume_ml);
 }
 
 export function setBuretteFlow(flow: number): InstrumentResult {

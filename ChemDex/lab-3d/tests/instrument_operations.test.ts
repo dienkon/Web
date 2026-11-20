@@ -2,10 +2,14 @@ import { beforeEach, describe, expect, it } from 'vitest';
 import { useAppStore } from '../src/store/useAppStore';
 import { useInstrumentStore } from '../src/handling/instrumentState';
 import { useToolDockStore } from '../src/handling/toolDock';
-import { aspiratePipette, dispensePipette, tareBalance, balanceReading, alignSelectedVessel, dispenseOneBuretteDrop, positionInstrument, rinseInstrument, setBuretteValve } from '../src/handling/instrumentOperations';
+import { aspiratePipette, dispensePipette, tareBalance, balanceReading, alignSelectedVessel, dispenseOneBuretteDrop,
+  currentInstrumentPosition, positionInstrument, returnInstrumentHome, rinseInstrument, setBuretteValve } from '../src/handling/instrumentOperations';
 import { readInstrument } from '../src/handling/instrumentReadings';
 import { restingToolHeight } from '../src/handling/handheldRest';
 import type { VesselState } from '../src/types/chemistry';
+import { LAB_GEOMETRY } from '../src/core/labGeometry';
+import { BURETTE_BASE_SIZE, BURETTE_HOME, BURETTE_MIN_Z, BURETTE_POST_Z, buretteStandSupport } from '../src/handling/burettePlacement';
+import { vesselWorldDimensions } from '../src/science/vesselScale';
 
 function vessel(id: string, x: number, volume = 20): VesselState {
   return {
@@ -95,6 +99,31 @@ describe('Shared keyboard and 3D instrument operations', () => {
     expect(alignSelectedVessel('burette').ok).toBe(true);
     expect(dispenseOneBuretteDrop().transferred_ml).toBeCloseTo(0.05, 8);
     expect(useAppStore.getState().vessels.receiver.contents.find(item => item.formula === 'NaCl')?.moles).toBeCloseTo(0.00001, 10);
+  });
+
+  it('raises the tip over a tall flask without lifting or disconnecting the stand', () => {
+    const flask = { ...vessel('receiver', 2, 0), type: 'flask' as const, capacity_ml: 250 };
+    useAppStore.setState(state => ({ vessels: { ...state.vessels, receiver: flask }, selectedVesselId: flask.id }));
+    expect(positionInstrument('burette', [4, 0, 2]).ok).toBe(true);
+    expect(alignSelectedVessel('burette').ok).toBe(true);
+    const state = useAppStore.getState(), stand = currentInstrumentPosition('burette');
+    const support = buretteStandSupport(stand[1]), glass = state.vessels.receiver;
+    const { topY, bottomY } = vesselWorldDimensions(glass);
+    expect(glass.position[1] + bottomY).toBeCloseTo(LAB_GEOMETRY.tableTop_scene, 12);
+    expect(stand[1] - 0.1).toBeGreaterThan(glass.position[1] + topY);
+    expect(stand[1] + support.baseCenterY - BURETTE_BASE_SIZE[1] / 2).toBeCloseTo(LAB_GEOMETRY.tableTop_scene, 12);
+    expect(support.postCenterY - support.postHeight / 2).toBeLessThan(support.baseCenterY + BURETTE_BASE_SIZE[1] / 2);
+    expect(dispenseOneBuretteDrop().ok).toBe(true);
+  });
+
+  it('uses the same stand position for drag updates, placement and return home within the tabletop', () => {
+    useToolDockStore.setState({ positions: { burette: [9, 0, 0] } });
+    useAppStore.getState().updateBurette({ position: [3, 2, -20] });
+    const position = currentInstrumentPosition('burette');
+    expect(position).toEqual([3, 2, BURETTE_MIN_Z]);
+    expect(position[2] + BURETTE_POST_Z - BURETTE_BASE_SIZE[2] / 2).toBeGreaterThan(-LAB_GEOMETRY.tableHalfDepth_scene);
+    expect(returnInstrumentHome('burette').ok).toBe(true);
+    expect(currentInstrumentPosition('burette')).toEqual(BURETTE_HOME);
   });
 
   it('blocks every direct burette dispensing path while paused or moving a receiver', () => {

@@ -12,8 +12,6 @@ export const LAB_PHYSICS = {
   BALANCE_PAN_Y: 0.15,
   BALANCE_POSITION: [7.5, -1.175, -2.5] as [number, number, number],
   BALANCE_PAN_RADIUS: 0.85,
-  BURETTE_STAND_POSITION: [5.0, 0.0, 1.5] as [number, number, number],
-  BURETTE_NOZZLE_Y: 0.1,
   TRIPOD_GAUZE_Y: 0.22,
   TABLE_BOUNDS: {
     minX: -14.5,

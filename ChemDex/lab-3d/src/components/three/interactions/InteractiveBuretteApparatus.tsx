@@ -3,7 +3,6 @@ import React, { useMemo, useRef, useState } from 'react';
 import { createPortal, useFrame, useThree } from '@react-three/fiber';
 import * as THREE from 'three';
 import { useAppStore } from '../../../store/useAppStore';
-import { LAB_PHYSICS } from '../../../engine/interactionEngine';
 import { labSound } from '../../../utils/audio';
 import { useToolDock } from '../../../handling/toolDock';
 import { simulationFrameDt } from '../../../core/clock';
@@ -12,6 +11,7 @@ import { findChemical } from '../../../data/chemicals';
 import { findBuretteReceiver } from '../../../handling/buretteTarget';
 import { BURETTE_TIP_LOCAL_Y, MAX_BURETTE_PRESENTATIONS, burettePresentationView, buretteTargetUnchanged } from '../../../handling/burettePresentation';
 import { useInstrumentStore } from '../../../handling/instrumentState';
+import { BURETTE_BASE_SIZE, BURETTE_POST_Z, buretteStandSupport } from '../../../handling/burettePlacement';
 
 const glassMaterial = new THREE.MeshPhysicalMaterial({
   roughness: 0.05,
@@ -24,19 +24,16 @@ const glassMaterial = new THREE.MeshPhysicalMaterial({
 
 const lightweightGlass=new THREE.MeshStandardMaterial({color:'#e6f4ef',transparent:true,opacity:.18,roughness:.12,depthWrite:false});
 
-export const InteractiveBuretteApparatus = React.memo(function InteractiveBuretteApparatus({
-  position = LAB_PHYSICS.BURETTE_STAND_POSITION,
-}: {
-  position?: [number, number, number];
-}) {
+export const InteractiveBuretteApparatus = React.memo(function InteractiveBuretteApparatus() {
   const transmission=useQualityStore(state=>getQualitySettings(state.effectiveTier).glassTransmission);
   const activeGlassMaterial=transmission?glassMaterial:lightweightGlass;
   const burette = useAppStore(state => state.burette);
   const scene = useThree(state => state.scene);
   const toggleStopcock = useAppStore(state => state.toggleBuretteStopcock);
   const dispenseDrop = useAppStore(state => state.dispenseBuretteDrop);
-  const dock = useToolDock('burette', burette.position || position, next => useAppStore.getState().updateBurette({ position: next }));
+  const dock = useToolDock('burette', burette.position, next => useAppStore.getState().updateBurette({ position: next }), true);
   const standPos = dock.position;
+  const support = buretteStandSupport(standPos[1]);
 
   const [isValveHovered, setIsValveHovered] = useState(false);
   const dropClock = useRef(new BuretteFlowClock());
@@ -54,12 +51,12 @@ export const InteractiveBuretteApparatus = React.memo(function InteractiveBurett
     if (epoch.current !== state.pourEpoch) { dropClock.current = new BuretteFlowClock(); epoch.current = state.pourEpoch; }
     instrument.advanceBurettePresentation(dt, state.pourEpoch,
       receipt => buretteTargetUnchanged(receipt, state.vessels[receipt.targetId]));
-    const targetVessel = findBuretteReceiver(state.vessels, standPos);
-    const enabled = state.burette.isDispensing && !state.moveMode && !state.draggingVesselId && !!targetVessel;
+    const open = state.burette.isDispensing && !state.moveMode && !state.draggingVesselId;
+    const enabled = open && (dt === 0 || !!findBuretteReceiver(state.vessels, state.burette.position));
     dropClock.current.step(dt, enabled, state.burette.flowRate_ml_s, state.burette.currentVolume_ml, age_s => {
-      const live = useAppStore.getState(), receiver = findBuretteReceiver(live.vessels, standPos);
+      const live = useAppStore.getState(), receiver = findBuretteReceiver(live.vessels, live.burette.position);
       if (!receiver) return 0;
-      const before = useAppStore.getState().burette.currentVolume_ml;
+      const before = live.burette.currentVolume_ml;
       dispenseDrop(receiver.id, age_s);
       const moved = before - useAppStore.getState().burette.currentVolume_ml;
       if (moved > 0) labSound.playDrop();
@@ -68,6 +65,7 @@ export const InteractiveBuretteApparatus = React.memo(function InteractiveBurett
     const receipts = useInstrumentStore.getState().burettePresentations;
     const drops = dropsRef.current, ripples = ripplesRef.current;
     if (!drops || !ripples) return;
+    if (!receipts.length && !drops.visible && !ripples.visible) return;
     let dropCount = 0, rippleCount = 0;
     for (const receipt of receipts) {
       const view = burettePresentationView(receipt);
@@ -102,44 +100,44 @@ export const InteractiveBuretteApparatus = React.memo(function InteractiveBurett
   return (
     <group name="tool-burette" position={standPos} onPointerDown={dock.onPointerDown}>
       {/* Heavy Cast Iron Retort Base */}
-      <mesh position={[-0.7, -1.05, 0]} receiveShadow castShadow>
-        <boxGeometry args={[1.5, 0.16, 1.1]} />
+      <mesh name="burette-stand-base" position={[0, support.baseCenterY, BURETTE_POST_Z]} receiveShadow castShadow>
+        <boxGeometry args={BURETTE_BASE_SIZE} />
         <meshStandardMaterial color="#1e293b" roughness={0.7} metalness={0.8} />
       </mesh>
 
       {/* Heavy Steel Vertical Retort Rod */}
-      <mesh position={[-1.15, 1.25, 0]} castShadow>
-        <cylinderGeometry args={[0.045, 0.045, 4.6, 16]} />
+      <mesh name="burette-stand-post" position={[0, support.postCenterY, BURETTE_POST_Z]} castShadow>
+        <cylinderGeometry args={[0.045, 0.045, support.postHeight, 16]} />
         <meshStandardMaterial color="#cbd5e1" roughness={0.25} metalness={0.9} />
       </mesh>
 
       {/* Retort Rod Top Cap */}
-      <mesh position={[-1.15, 3.56, 0]}>
+      <mesh position={[0, support.capCenterY, BURETTE_POST_Z]}>
         <sphereGeometry args={[0.06, 12, 12]} />
         <meshStandardMaterial color="#94a3b8" metalness={0.8} roughness={0.3} />
       </mesh>
 
       {/* Cast Double Burette Clamp */}
-      <group position={[-0.58, 2.2, 0]}>
+      <group position={[0, 2.2, BURETTE_POST_Z / 2]}>
         <mesh position={[0, 0, 0]} castShadow>
-          <boxGeometry args={[1.15, 0.09, 0.18]} />
+          <boxGeometry args={[0.18, 0.09, -BURETTE_POST_Z]} />
           <meshStandardMaterial color="#334155" roughness={0.6} metalness={0.6} />
         </mesh>
         {/* Clamp Adjusting Screws */}
-        <mesh position={[-0.45, 0.12, 0]} rotation={[0, 0, 0]}>
+        <mesh position={[0, 0.12, -0.85]}>
           <cylinderGeometry args={[0.03, 0.03, 0.15, 12]} />
           <meshStandardMaterial color="#cbd5e1" metalness={0.8} />
         </mesh>
-        <mesh position={[0.45, 0.12, 0]} rotation={[0, 0, 0]}>
+        <mesh position={[0, 0.12, 0.85]}>
           <cylinderGeometry args={[0.03, 0.03, 0.15, 12]} />
           <meshStandardMaterial color="#cbd5e1" metalness={0.8} />
         </mesh>
       </group>
 
       {/* Lower Stabilizing Clamp */}
-      <group position={[-0.58, 1.1, 0]}>
+      <group position={[0, 1.1, BURETTE_POST_Z / 2]}>
         <mesh position={[0, 0, 0]} castShadow>
-          <boxGeometry args={[1.15, 0.07, 0.14]} />
+          <boxGeometry args={[0.14, 0.07, -BURETTE_POST_Z]} />
           <meshStandardMaterial color="#334155" roughness={0.6} metalness={0.6} />
         </mesh>
       </group>

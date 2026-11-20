@@ -2,6 +2,7 @@ import { afterEach, describe, expect, it } from 'vitest';
 import { Quaternion, Vector3 } from 'three';
 import { useAppStore } from '../src/store/useAppStore';
 import { useToolDockStore } from '../src/handling/toolDock';
+import { restingVesselHeight } from '../src/handling/vesselRest';
 import { alignSelectedVessel } from '../src/handling/instrumentOperations';
 import { relocateVesselStocks } from '../src/physical/stockRelocation';
 import { sameStockKinematics } from '../src/physical/stockMassSync';
@@ -37,7 +38,7 @@ describe('explicit specimen relocation carries its existing finite stock', () =>
     const before = sample(); mount({ sample: before });
     expect(alignSelectedVessel('burette').ok).toBe(true);
     const after = useAppStore.getState().vessels.sample;
-    expect(after.position).toEqual([0, -.135, 0]); expectSameLocal(before, after);
+    expect(after.position).toEqual([0, restingVesselHeight(after.type, after.capacity_ml), 0]); expectSameLocal(before, after);
     expect(after.contents).toBe(before.contents); expect(after.mass_g).toBe(before.mass_g);
     expect(after.stockMotion!.grains[0].id).toBe('stock:1');
     // This is the worker bridge's actual stale-reply gate. A pre-relocation
@@ -105,7 +106,7 @@ describe('explicit specimen relocation carries its existing finite stock', () =>
     useAppStore.getState().setVesselState('rack', { position: [2, -.945, 1] });
     expect(useAppStore.getState().vessels.rack).toBe(rack);
     useAppStore.setState({ selectedVesselId: 'rack' });
-    useToolDockStore.setState({ positions: { burette: [-3, 1, 0] } });
+    useAppStore.getState().updateBurette({ position: [-3, 1, 0] });
     expect(alignSelectedVessel('burette').ok).toBe(false);
     expect(useAppStore.getState().vessels.rack).toBe(rack);
     useAppStore.getState().removeTestTubeFromRack('rack', 'tube');

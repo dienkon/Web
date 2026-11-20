@@ -10,8 +10,7 @@ import { liquidSurfaceVolume } from '../engine/waterPhase';
 import { solveStockLiquidSurface } from '../science/stockLiquidSurface';
 import { vesselVortexSurface } from '../science/vesselLiquidMotion';
 import { vortexHeight } from '../science/liquidVortex';
-
-export const BURETTE_NOZZLE_LOCAL_Y = -0.1;
+import { BURETTE_NOZZLE_LOCAL_Y } from './burettePlacement';
 
 type Point3 = [number, number, number];
 export interface BuretteDeliveryPath {
@@ -85,7 +84,14 @@ export function buretteTargetProblem(vessel: VesselState | undefined | null, pos
 }
 
 export function findBuretteReceiver(vessels: Record<string, VesselState>, position: readonly number[]): VesselState | null {
-  return Object.values(vessels).filter(vessel => !buretteTargetProblem(vessel, position))
-    .sort((a, b) => Math.hypot(a.position[0] - position[0], a.position[2] - position[2])
-      - Math.hypot(b.position[0] - position[0], b.position[2] - position[2]))[0] ?? null;
+  let receiver: VesselState | null = null;
+  let distance = Infinity;
+  for (const vessel of Object.values(vessels)) {
+    const next = Math.hypot(vessel.position[0] - position[0], vessel.position[2] - position[2]);
+    if (next < distance && !buretteTargetProblem(vessel, position)) {
+      receiver = vessel;
+      distance = next;
+    }
+  }
+  return receiver;
 }
