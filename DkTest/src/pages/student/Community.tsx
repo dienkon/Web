@@ -46,6 +46,7 @@ import { uploadFileToCloudinary } from "../../services/cloudinary";
 import UserAvatar from "../../components/common/UserAvatar";
 import { subscribeToAvatarUpdates } from "../../utils/avatarSync";
 import { useToast } from "../../components/ui/ToastNotification";
+import { useAuth } from "../../context/AuthContext";
 
 export interface ReplyItem {
   id: string;
@@ -92,6 +93,7 @@ function sanitizeForFirestore<T>(data: T): T {
 export default function Community() {
   const navigate = useNavigate();
   const [searchParams, setSearchParams] = useSearchParams();
+  const { user, role: authRole, loading: authLoading } = useAuth();
   const { showToast, error: showErrorToast, success: showSuccessToast } = useToast();
 
   // File input refs
@@ -252,8 +254,10 @@ export default function Community() {
 
   // Realtime Firestore feed listener
   useEffect(() => {
-    const role = localStorage.getItem("auth_role");
-    if (!role) {
+    if (authLoading) return;
+    const legacyRole = localStorage.getItem("auth_role");
+    const effectiveRole = user ? authRole : legacyRole;
+    if (!effectiveRole || effectiveRole === "guest") {
       navigate("/login", { replace: true });
       return;
     }
@@ -309,7 +313,7 @@ export default function Community() {
     );
 
     return () => unsubscribe();
-  }, [navigate, postsLimit]);
+  }, [authLoading, authRole, navigate, postsLimit, user]);
 
   // Upload multiple files helper
   const uploadMultipleFiles = async (files: FileList | null): Promise<string[]> => {

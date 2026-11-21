@@ -83,6 +83,7 @@ import { isNativeAndroid } from '../../services/offline/sync';
 import { prefersOfflineExam } from '../../services/offline/exams';
 import { resolveOfflineUrl } from '../../services/offline/media';
 import { offlineStore, type OfflineDraft } from '../../services/offline/store';
+import { useAuth } from "../../context/AuthContext";
 
 function shuffleArray<T>(array: T[]): T[] {
   const arr = [...array];
@@ -96,6 +97,7 @@ function shuffleArray<T>(array: T[]): T[] {
 export default function TakingExam() {
   const { examId } = useParams<{ examId: string }>();
   const navigate = useNavigate();
+  const { user: authUser, role: contextRole, loading: authLoading } = useAuth();
   const { showToast, error: showErrorToast, info: showInfoToast } = useToast();
 
   const [exam, setExam] = useState<Exam | null>(null);
@@ -573,15 +575,20 @@ export default function TakingExam() {
   }, [loading, exam, isPaused, isSuspended, isScreenSharing]);
 
   useEffect(() => {
+    if (authLoading) return;
     let active = true;
     const loadExamAndPrepare = async () => {
       if (!examId) return;
       isSessionActiveRef.current = true;
 
-      // 1. Enforce Student Login Authentication
-      const authRole = localStorage.getItem("auth_role");
+      // 1. Enforce Student/Admin Login Authentication (wait for AuthContext hydration first)
+      const legacyRole = localStorage.getItem("auth_role");
       const studentInfoStr = localStorage.getItem("student_info");
-      if ((authRole !== "student" && authRole !== "admin") || !studentInfoStr) {
+      const hasAuthenticatedContext =
+        Boolean(authUser) && (contextRole === "student" || contextRole === "admin" || contextRole === "super_admin");
+      const hasLegacyStudentSession =
+        (legacyRole === "student" || legacyRole === "admin") && Boolean(studentInfoStr);
+      if (!hasAuthenticatedContext && !hasLegacyStudentSession) {
         showErrorToast("Vui lòng đăng nhập tài khoản học sinh để làm bài thi!");
         navigate(`/login?redirect=${encodeURIComponent(`/student/exam/${examId}`)}`, { replace: true });
         return;
@@ -1217,7 +1224,7 @@ export default function TakingExam() {
 
     loadExamAndPrepare();
     return () => { active = false; };
-  }, [examId, navigate]);
+  }, [authLoading, authUser, contextRole, examId, navigate]);
 
   // Authoritative timer countdown & auto-submit when remaining time expires (Directive 9 & 10)
   useEffect(() => {

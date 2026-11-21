@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState, useEffect, type ReactNode } from "react";
+import React, { createContext, useContext, useState, useEffect, useRef, type ReactNode } from "react";
 import {
   type User,
   onAuthStateChanged,
@@ -21,11 +21,32 @@ import { STORAGE_KEYS, setStoredItem, removeStoredItem } from "../utils/storage"
 import { clearNativeSyncSession, enableNativeSyncSession } from '../services/offline/sync';
 import { clearOfflineMedia } from '../services/offline/media';
 
-function savedStudentProfile(uid: string): UserProfile | null {
+function savedCachedProfile(uid: string): UserProfile | null {
   try {
-    const profile = JSON.parse(localStorage.getItem(`dktest_offline_profile_${uid}`) || 'null');
-    return profile?.uid === uid && profile?.role === 'student' ? profile : null;
-  } catch { return null; }
+    const raw =
+      localStorage.getItem(`dktest_cached_profile_${uid}`) ||
+      localStorage.getItem(`dktest_offline_profile_${uid}`);
+    const profile = JSON.parse(raw || "null");
+    return profile?.uid === uid && profile?.role ? profile : null;
+  } catch {
+    return null;
+  }
+}
+
+function persistCachedProfile(profile: UserProfile): void {
+  try {
+    localStorage.setItem(`dktest_cached_profile_${profile.uid}`, JSON.stringify(profile));
+    if (profile.role === "student") {
+      localStorage.setItem(`dktest_offline_profile_${profile.uid}`, JSON.stringify(profile));
+    }
+  } catch {}
+}
+
+function removeCachedProfile(uid?: string | null): void {
+  if (!uid) return;
+  try {
+    localStorage.removeItem(`dktest_cached_profile_${uid}`);
+  } catch {}
 }
 import {
   claimUsernameApi,
@@ -85,11 +106,14 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const [userProfile, setUserProfile] = useState<UserProfile | null>(null);
   const [loading, setLoading] = useState(true);
   const [authInitialized, setAuthInitialized] = useState(false);
+  const [, setVerificationTick] = useState(0);
+  const authEventSeqRef = useRef(0);
+  const lastActiveUidRef = useRef<string | null>(null);
 
   // Sync legacy localStorage keys to ensure complete backward compatibility with older components
   const syncLegacyStorage = (profile: UserProfile | null) => {
-    if (profile?.role === 'student') {
-      localStorage.setItem(`dktest_offline_profile_${profile.uid}`, JSON.stringify(profile));
+    if (profile) {
+      persistCachedProfile(profile);
     }
     if (!profile) {
       clearAdminSession();
@@ -153,7 +177,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     intendedRole?: "student" | "parent",
     extraFields?: Record<string, any>
   ): Promise<UserProfile> => {
-    const saved = savedStudentProfile(firebaseUser.uid);
+    const saved = savedCachedProfile(firebaseUser.uid);
     if (!navigator.onLine && saved) {
       syncLegacyStorage(saved);
       return saved;
@@ -312,8 +336,23 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       return;
     }
 
-    // Safety watchdog: Guarantee loading finishes within 4.5s even if Firebase hangs
+    let isMounted = true;
+    let authReadySettled = false;
+    const authReadyPromise: Promise<void> =
+      typeof auth.authStateReady === "function"
+        ? auth.authStateReady().then(() => {
+            authReadySettled = true;
+          }).catch(() => {
+            authReadySettled = true;
+          })
+        : Promise.resolve().then(() => {
+            authReadySettled = true;
+          });
+
+    // Safety watchdog: Guarantee loading finishes within 12s even if Firebase persistence hangs,
+    // without wiping localStorage or kicking out active sessions prematurely.
     const watchdogTimer = setTimeout(() => {
+      if (!isMounted) return;
       setLoading((currLoading) => {
         if (currLoading) {
           console.warn("[AuthContext] Auth initialization timed out (watchdog). Forcing ready state.");
@@ -322,56 +361,146 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         }
         return false;
       });
-    }, 4500);
+    }, 12000);
+
+    const buildBasicProfile = (firebaseUser: User): UserProfile => ({
+      uid: firebaseUser.uid,
+      displayName: firebaseUser.displayName || (isAdminEmail(firebaseUser.email) ? "Dương Thanh Điền (Admin)" : "Thí sinh"),
+      fullName: firebaseUser.displayName || (isAdminEmail(firebaseUser.email) ? "Dương Thanh Điền (Admin)" : "Thí sinh"),
+      email: firebaseUser.email || "",
+      role: isAdminEmail(firebaseUser.email) ? "admin" : "student",
+      accountStatus: "active",
+      provider: firebaseUser.email?.endsWith("@dktest.local") ? "username" : "password",
+      authProvider: firebaseUser.email?.endsWith("@dktest.local") ? "username" : "password",
+      emailVerified: Boolean(firebaseUser.emailVerified || isAdminEmail(firebaseUser.email) || firebaseUser.email?.endsWith("@dktest.local")),
+      createdAt: new Date().toISOString(),
+      updatedAt: new Date().toISOString(),
+    });
 
     const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
-      setUser(currentUser);
+      const eventSeq = ++authEventSeqRef.current;
+      if (!isMounted) return;
+
       if (currentUser) {
+        lastActiveUidRef.current = currentUser.uid;
+        setUser(currentUser);
         enableNativeSyncSession(currentUser.uid);
-        const saved = savedStudentProfile(currentUser.uid);
+
+        // Immediately hydrate from cached profile (works for admin, parent, and student)
+        // so RequireAuth never misclassifies role or flashes redirects during Firestore latency.
+        const saved = savedCachedProfile(currentUser.uid);
         if (saved) {
           setUserProfile(saved);
           syncLegacyStorage(saved);
+          clearTimeout(watchdogTimer);
           setLoading(false);
           setAuthInitialized(true);
         }
-        try {
-          // Race profile fetch against a 3.5s timeout to prevent hanging on slow 3G/4G
-          const profilePromise = fetchOrCreateProfile(currentUser);
-          const timeoutPromise = new Promise<UserProfile>((resolve) => {
-            setTimeout(() => {
-              const basicProfile: UserProfile = {
-                uid: currentUser.uid,
-                displayName: currentUser.displayName || "Thí sinh",
-                fullName: currentUser.displayName || "Thí sinh",
-                email: currentUser.email || "",
-                role: isAdminEmail(currentUser.email) ? "admin" : "student",
-                accountStatus: "active",
-                provider: "password",
-                emailVerified: Boolean(currentUser.emailVerified),
-                createdAt: new Date().toISOString(),
-                updatedAt: new Date().toISOString(),
-              };
-              resolve(saved || basicProfile);
-            }, 3500);
+
+        const fallbackProfile = saved || buildBasicProfile(currentUser);
+
+        // Start Firestore profile fetch and ALWAYS apply its fresh result when it arrives
+        // (never discard a slower-than-3.5s Firestore response!).
+        const profilePromise = fetchOrCreateProfile(currentUser)
+          .then((freshProfile) => {
+            if (isMounted && authEventSeqRef.current === eventSeq) {
+              setUserProfile(freshProfile);
+              syncLegacyStorage(freshProfile);
+            }
+            return freshProfile;
+          })
+          .catch((err) => {
+            console.error("[AuthContext] Error loading user profile (using cached/fallback profile):", err);
+            if (isMounted && authEventSeqRef.current === eventSeq) {
+              setUserProfile((prev) => prev || fallbackProfile);
+              syncLegacyStorage(fallbackProfile);
+            }
+            return fallbackProfile;
           });
 
-          const profile = await Promise.race([profilePromise, timeoutPromise]);
-          setUserProfile(profile);
-        } catch (err) {
-          console.error("[AuthContext] Error loading user profile:", err);
+        if (!saved) {
+          let timeoutId: ReturnType<typeof setTimeout> | null = null;
+          const timeoutPromise = new Promise<UserProfile>((resolve) => {
+            timeoutId = setTimeout(() => resolve(fallbackProfile), 4500);
+          });
+          const initialProfile = await Promise.race([profilePromise, timeoutPromise]);
+          if (timeoutId) clearTimeout(timeoutId);
+          if (isMounted && authEventSeqRef.current === eventSeq) {
+            setUserProfile((prev) => prev || initialProfile);
+            syncLegacyStorage(initialProfile);
+            clearTimeout(watchdogTimer);
+            setLoading(false);
+            setAuthInitialized(true);
+          }
         }
       } else {
+        // Wait for Firebase Auth persistence hydration to complete before treating null as signed-out.
+        if (!authReadySettled) {
+          await Promise.race([
+            authReadyPromise,
+            new Promise<void>((resolve) => setTimeout(resolve, 4000)),
+          ]);
+        }
+        if (!isMounted || authEventSeqRef.current !== eventSeq) return;
+        // Re-check auth.currentUser after authStateReady in case session hydrated during await
+        if (auth.currentUser) return;
+
+        lastActiveUidRef.current = null;
+        setUser(null);
         setUserProfile(null);
         syncLegacyStorage(null);
+        clearTimeout(watchdogTimer);
+        setLoading(false);
+        setAuthInitialized(true);
       }
-      clearTimeout(watchdogTimer);
-      setLoading(false);
-      setAuthInitialized(true);
     });
 
+    // Proactive token keep-alive when tab wakes up, regains focus, reconnects, or runs long sessions (>45m)
+    let lastRefreshCheckMs = Date.now();
+    const keepSessionAlive = () => {
+      if (!auth?.currentUser || (typeof navigator !== "undefined" && !navigator.onLine)) return;
+      const now = Date.now();
+      // Only refresh if >= 10 minutes elapsed since last check to avoid unnecessary token traffic
+      if (now - lastRefreshCheckMs < 10 * 60 * 1000) return;
+      lastRefreshCheckMs = now;
+      auth.currentUser.getIdToken(false).catch(() => {
+        auth.currentUser?.getIdToken(true).catch(() => {});
+      });
+    };
+
+    const handleVisibilityChange = () => {
+      if (typeof document !== "undefined" && document.visibilityState === "visible") {
+        keepSessionAlive();
+      }
+    };
+    const keepAliveInterval = setInterval(() => {
+      if (typeof document === "undefined" || document.visibilityState === "visible") {
+        if (auth?.currentUser && (typeof navigator === "undefined" || navigator.onLine)) {
+          lastRefreshCheckMs = Date.now();
+          auth.currentUser.getIdToken(true).catch(() => {});
+        }
+      }
+    }, 45 * 60 * 1000);
+
+    if (typeof window !== "undefined") {
+      window.addEventListener("focus", keepSessionAlive);
+      window.addEventListener("online", keepSessionAlive);
+    }
+    if (typeof document !== "undefined") {
+      document.addEventListener("visibilitychange", handleVisibilityChange);
+    }
+
     return () => {
+      isMounted = false;
       clearTimeout(watchdogTimer);
+      clearInterval(keepAliveInterval);
+      if (typeof window !== "undefined") {
+        window.removeEventListener("focus", keepSessionAlive);
+        window.removeEventListener("online", keepSessionAlive);
+      }
+      if (typeof document !== "undefined") {
+        document.removeEventListener("visibilitychange", handleVisibilityChange);
+      }
       unsubscribe();
     };
   }, []);
@@ -588,6 +717,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   };
 
   const logout = async (): Promise<void> => {
+    const prevUid = auth?.currentUser?.uid || user?.uid || lastActiveUidRef.current;
+    removeCachedProfile(prevUid);
     await clearNativeSyncSession();
     clearOfflineMedia();
     try {
@@ -632,8 +763,9 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         console.warn("[checkEmailVerification] Could not update Firestore emailVerified:", e);
       }
     }
-    // Force state update to re-evaluate gate
-    setUser({ ...auth.currentUser });
+    // Keep real Firebase User instance intact (never shallow-spread User prototype!) and trigger re-render
+    setUser(auth.currentUser);
+    setVerificationTick((t) => t + 1);
     return isVerified;
   };
 

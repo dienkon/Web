@@ -26,13 +26,24 @@ export function getApiBaseUrl(): string {
 /**
  * Retrieves valid Bearer ID Token from currently signed-in Firebase user
  */
-export async function getAuthToken(): Promise<string> {
+export async function getAuthToken(forceRefresh = false): Promise<string> {
   try {
+    if (!auth) return "";
     if (!auth.currentUser && typeof auth.authStateReady === "function") {
-      await auth.authStateReady();
+      await Promise.race([
+        auth.authStateReady(),
+        new Promise<void>((resolve) => setTimeout(resolve, 6000)),
+      ]);
     }
     if (auth.currentUser) {
-      return await auth.currentUser.getIdToken();
+      try {
+        return await auth.currentUser.getIdToken(forceRefresh);
+      } catch (innerErr) {
+        if (!forceRefresh) {
+          return await auth.currentUser.getIdToken(true);
+        }
+        throw innerErr;
+      }
     }
   } catch (err) {
     console.warn("[apiClient] Could not fetch Firebase ID token:", err);
@@ -47,18 +58,23 @@ export interface RequestOptions extends RequestInit {
 
 /**
  * Central API Client for all backend requests.
- * Catches network failures, handles timeouts, and normalizes Vietnamese error messages.
+ * Catches network failures, handles timeouts, auto-retries expired tokens on 401, and normalizes Vietnamese error messages.
  */
 export async function apiClient<T = any>(
   endpoint: string,
   options: RequestOptions = {}
 ): Promise<T> {
-  if (typeof navigator !== 'undefined' && navigator.onLine === false) throw new ApiError('Chức năng này cần kết nối mạng. Bạn vẫn có thể làm các đề đã tải trong kho offline.', 0);
+  if (typeof navigator !== "undefined" && navigator.onLine === false) {
+    throw new ApiError(
+      "Chức năng này cần kết nối mạng. Bạn vẫn có thể làm các đề đã tải trong kho offline.",
+      0
+    );
+  }
   const { requiresAuth = true, timeoutMs = 20000, headers = {}, ...customConfig } = options;
 
   const baseUrl = getApiBaseUrl();
   const cleanEndpoint = endpoint.startsWith("/") ? endpoint : `/${endpoint}`;
-  
+
   // Cache busting for GET requests to guarantee fresh server data on reload/F5
   const isGet = !customConfig.method || customConfig.method.toUpperCase() === "GET";
   const separator = cleanEndpoint.includes("?") ? "&" : "?";
@@ -75,22 +91,42 @@ export async function apiClient<T = any>(
   };
 
   if (requiresAuth) {
-    const token = await getAuthToken();
-    if (!token) throw new ApiError("Cần đăng nhập lại bằng tài khoản Firebase để thực hiện thao tác này.", 401);
+    const token = await getAuthToken(false);
+    if (!token) {
+      throw new ApiError("Cần đăng nhập lại bằng tài khoản Firebase để thực hiện thao tác này.", 401);
+    }
     requestHeaders["Authorization"] = "Bearer " + token;
   }
 
-  const controller = new AbortController();
-  const timeoutId = setTimeout(() => controller.abort(), timeoutMs);
+  const executeFetch = async (headersToSend: Record<string, string>) => {
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), timeoutMs);
+    try {
+      const response = await fetch(fullUrl, {
+        ...customConfig,
+        headers: headersToSend,
+        signal: controller.signal,
+      });
+      clearTimeout(timeoutId);
+      return response;
+    } catch (error) {
+      clearTimeout(timeoutId);
+      throw error;
+    }
+  };
 
   try {
-    const response = await fetch(fullUrl, {
-      ...customConfig,
-      headers: requestHeaders,
-      signal: controller.signal,
-    });
+    let response = await executeFetch(requestHeaders);
 
-    clearTimeout(timeoutId);
+    // If token crossed the 60-minute expiry boundary (e.g. after tab sleep / long video session),
+    // automatically force-refresh the Firebase ID token and retry the request ONCE.
+    if (response.status === 401 && requiresAuth && auth?.currentUser) {
+      const refreshedToken = await getAuthToken(true);
+      if (refreshedToken && `Bearer ${refreshedToken}` !== requestHeaders["Authorization"]) {
+        requestHeaders["Authorization"] = `Bearer ${refreshedToken}`;
+        response = await executeFetch(requestHeaders);
+      }
+    }
 
     // Parse JSON or fallback to text
     let data: any = null;
@@ -151,8 +187,6 @@ export async function apiClient<T = any>(
 
     return data as T;
   } catch (error: any) {
-    clearTimeout(timeoutId);
-
     if (error instanceof ApiError) {
       throw error;
     }

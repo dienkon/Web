@@ -69,6 +69,7 @@ import { STORAGE_KEYS, setStoredItem } from "../../utils/storage";
 import type { Question, Exam, Submission } from "../../types";
 import LatexPreview from "../../features/exam-builder/editor/LatexPreview";
 import { useToast } from "../../components/ui/ToastNotification";
+import { useAuth } from "../../context/AuthContext";
 import ChatGPTMasterPromptModal from "../../components/ui/ChatGPTMasterPromptModal";
 import ConfirmModal from "../../components/ui/ConfirmModal";
 import {
@@ -78,6 +79,7 @@ import {
 
 export default function ParentDashboard() {
   const navigate = useNavigate();
+  const { user: authUser, role: authRole, loading: authLoading } = useAuth();
   const { showToast } = useToast();
 
   const [parentInfo, setParentInfo] = useState<{ username: string; displayName: string } | null>(null);
@@ -256,10 +258,11 @@ export default function ParentDashboard() {
   const [isAdmin, setIsAdmin] = useState(false);
 
   useEffect(() => {
-    const adminActive = isAdminAuthenticated();
+    if (authLoading) return;
+    const adminActive = isAdminAuthenticated() || (Boolean(authUser) && (authRole === "admin" || authRole === "super_admin"));
     setIsAdmin(adminActive);
 
-    if (!isParentAuthenticated() && !adminActive) {
+    if (!isParentAuthenticated() && !adminActive && !(Boolean(authUser) && authRole === "parent")) {
       navigate("/parent/login", { replace: true });
       return;
     }
@@ -295,7 +298,7 @@ export default function ParentDashboard() {
       setParentInfo(adminParent);
       loadMonitoringData("admin");
     }
-  }, [navigate]);
+  }, [authLoading, authRole, authUser, navigate]);
 
   // Realtime Live Proctoring Listener for Linked Children
   useEffect(() => {

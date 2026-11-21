@@ -2829,6 +2829,449 @@ async function unlockCourseLesson(uid, courseId, lessonId, idempotencyKey, vouch
     alreadyUnlocked: result.alreadyUnlocked
   };
 }
+function distributeChargedAmounts(prices, totalEffectiveVnd) {
+  if (prices.length === 0) return [];
+  const totalRaw = prices.reduce((acc, p) => acc + Math.max(0, p), 0);
+  if (totalEffectiveVnd <= 0 || totalRaw <= 0) {
+    return prices.map(() => 0);
+  }
+  if (totalEffectiveVnd === totalRaw) {
+    return prices.map((p) => Math.max(0, Math.floor(p)));
+  }
+  const distributed = [];
+  let allocated = 0;
+  for (let i = 0; i < prices.length; i++) {
+    if (i === prices.length - 1) {
+      distributed.push(Math.max(0, totalEffectiveVnd - allocated));
+    } else {
+      const share = Math.floor(Math.max(0, prices[i]) / totalRaw * totalEffectiveVnd);
+      distributed.push(share);
+      allocated += share;
+    }
+  }
+  return distributed;
+}
+function resolveBundleCandidateLessonIds(course, options) {
+  const outline = [...course.lessonOutline || []].sort((a, b) => (a.order ?? 0) - (b.order ?? 0));
+  const chapterIdsSet = new Set((course.chapters || []).map((c) => c.id));
+  const chapterMap = new Map((course.chapters || []).map((c) => [c.id, c.title]));
+  if (options.bundleType === "all_remaining") {
+    return {
+      candidateIds: outline.map((l) => l.id),
+      bundleLabel: `to\xE0n b\u1ED9 video c\xF2n l\u1EA1i trong kh\xF3a "${course.title || "Kh\xF3a h\u1ECDc"}"`
+    };
+  }
+  if (options.bundleType === "chapter") {
+    const rawChapterId = options.chapterId ? String(options.chapterId).trim() : "__other__";
+    if (rawChapterId === "__other__" || rawChapterId === "") {
+      const ids2 = outline.filter((l) => !l.chapterId || !chapterIdsSet.has(l.chapterId)).map((l) => l.id);
+      return {
+        candidateIds: ids2,
+        bundleLabel: `tr\u1ECDn ch\u01B0\u01A1ng "Chuy\xEAn \u0111\u1EC1 b\u1ED5 sung" (${course.title || "Kh\xF3a h\u1ECDc"})`
+      };
+    }
+    const ids = outline.filter((l) => l.chapterId === rawChapterId).map((l) => l.id);
+    const chTitle = chapterMap.get(rawChapterId) || "Ch\u01B0\u01A1ng h\u1ECDc";
+    return {
+      candidateIds: ids,
+      bundleLabel: `tr\u1ECDn ch\u01B0\u01A1ng "${chTitle}" (${course.title || "Kh\xF3a h\u1ECDc"})`
+    };
+  }
+  if (options.bundleType === "topic") {
+    const requestedSet2 = new Set((options.lessonIds || []).map((id) => String(id).trim()).filter(Boolean));
+    const cleanTopic = String(options.topicTitle || "").trim();
+    const rawChapterId = options.chapterId ? String(options.chapterId).trim() : "";
+    let matched2 = outline.filter((l) => {
+      if (requestedSet2.size > 0) return requestedSet2.has(l.id);
+      const topicMatches = cleanTopic && (l.topicTitle || "").trim().toLowerCase() === cleanTopic.toLowerCase();
+      if (!topicMatches) return false;
+      if (rawChapterId && rawChapterId !== "__other__") return l.chapterId === rawChapterId;
+      return true;
+    });
+    return {
+      candidateIds: matched2.map((l) => l.id),
+      bundleLabel: `chuy\xEAn \u0111\u1EC1 "${cleanTopic || "B\xE0i gi\u1EA3ng"}" (${course.title || "Kh\xF3a h\u1ECDc"})`
+    };
+  }
+  const requestedSet = new Set((options.lessonIds || []).map((id) => String(id).trim()).filter(Boolean));
+  const matched = outline.filter((l) => requestedSet.has(l.id));
+  return {
+    candidateIds: matched.map((l) => l.id),
+    bundleLabel: `g\xF3i video \u0111\xE3 ch\u1ECDn trong kh\xF3a "${course.title || "Kh\xF3a h\u1ECDc"}"`
+  };
+}
+async function unlockCourseBundle(uid, courseId, options) {
+  if (!uid) throw new Error("Ch\u01B0a \u0111\u0103ng nh\u1EADp.");
+  if (!courseId) throw new Error("M\xE3 kh\xF3a h\u1ECDc kh\xF4ng h\u1EE3p l\u1EC7.");
+  const validTypes = ["all_remaining", "chapter", "topic", "selected"];
+  const bundleType = validTypes.includes(options.bundleType) ? options.bundleType : "selected";
+  const now = (/* @__PURE__ */ new Date()).toISOString();
+  const txId = `tx_${Date.now()}_${Math.random().toString(36).substring(2, 7)}`;
+  const courseEntId = `${uid}_${courseId}`;
+  const preloadedCourse = await fetchCourseDoc(courseId, true);
+  if (!preloadedCourse) {
+    throw new Error("Kh\xF4ng t\xECm th\u1EA5y kh\xF3a h\u1ECDc.");
+  }
+  const { candidateIds, bundleLabel } = resolveBundleCandidateLessonIds(preloadedCourse, {
+    ...options,
+    bundleType
+  });
+  const uniqueCandidateIds = Array.from(new Set(candidateIds)).slice(0, 150);
+  if (uniqueCandidateIds.length === 0) {
+    throw new Error("Kh\xF4ng t\xECm th\u1EA5y video b\xE0i gi\u1EA3ng h\u1EE3p l\u1EC7 trong l\u1EF1a ch\u1ECDn n\xE0y.");
+  }
+  if (!adminDb) {
+    const course = preloadedCourse;
+    const mode = resolveCourseAccessModeServer(course);
+    if (mode !== "per_video" && !course.allowSingleLessonPurchase && course.unlockFullPolicy !== "unlock_course_only") {
+      throw new Error("Kh\xF3a h\u1ECDc n\xE0y ch\u1EC9 h\u1ED7 tr\u1EE3 m\u1EDF kh\xF3a tr\u1ECDn kh\xF3a.");
+    }
+    if (course.salesEnabled === false) {
+      throw new Error("Kh\xF3a h\u1ECDc hi\u1EC7n \u0111ang t\u1EA1m ng\u1EEBng b\xE1n.");
+    }
+    const [courseEnt, wallet, lessonDocs, existingEnts] = await Promise.all([
+      getFirestoreRestDoc("course_entitlements", courseEntId, false),
+      getOrCreateWallet(uid),
+      Promise.all(uniqueCandidateIds.map((lid) => fetchLessonDoc(courseId, lid, true))),
+      Promise.all(
+        uniqueCandidateIds.map(
+          (lid) => getFirestoreRestDoc("course_entitlements", `${uid}_${courseId}__${lid}`, false)
+        )
+      )
+    ]);
+    const hasCourseEnt = Boolean(courseEnt && courseEnt.status === "active");
+    const lockedLessons = [];
+    lessonDocs.forEach((lesson, idx) => {
+      if (!lesson) return;
+      const existing = existingEnts[idx];
+      if (existing && existing.status === "active") return;
+      if (isLessonFreeEffective(course, lesson)) return;
+      if (hasCourseEnt && (course.unlockFullPolicy !== "unlock_course_only" || lesson.includedInCourseUnlock !== false)) {
+        return;
+      }
+      if (mode === "paid" && !course.allowSingleLessonPurchase && !(course.unlockFullPolicy === "unlock_course_only" && lesson.includedInCourseUnlock === false)) {
+        return;
+      }
+      lockedLessons.push(lesson);
+    });
+    if (lockedLessons.length === 0) {
+      return {
+        success: true,
+        newBalanceVnd: sanitizeVnd(wallet.balanceVnd),
+        unlockedLessonIds: [],
+        unlockedCount: 0,
+        totalChargedVnd: 0,
+        entitlements: [],
+        alreadyUnlocked: true
+      };
+    }
+    const prices = lockedLessons.map((l) => sanitizeVnd(l.priceVnd));
+    const subtotalVnd = prices.reduce((acc, p) => acc + p, 0);
+    let discountVnd = 0;
+    let appliedVoucher = null;
+    if (options.voucherCode && String(options.voucherCode).trim()) {
+      const vRes = await validateVoucher({
+        code: String(options.voucherCode).trim(),
+        uid,
+        context: "course_unlock",
+        amountVnd: subtotalVnd,
+        courseId
+      });
+      if (!vRes.valid || !vRes.voucher) {
+        throw new Error(vRes.message || "M\xE3 voucher kh\xF4ng h\u1EE3p l\u1EC7.");
+      }
+      discountVnd = vRes.discountVnd || 0;
+      appliedVoucher = vRes.voucher;
+    }
+    const effectivePrice = Math.max(0, subtotalVnd - discountVnd);
+    if (sanitizeVnd(wallet.balanceVnd) < effectivePrice) {
+      throw new Error(
+        `S\u1ED1 d\u01B0 kh\xF4ng \u0111\u1EE7 \u0111\u1EC3 m\u1EDF kh\xF3a ${lockedLessons.length} video. C\u1EA7n ${effectivePrice.toLocaleString("vi-VN")}\u0111, hi\u1EC7n c\xF3 ${sanitizeVnd(wallet.balanceVnd).toLocaleString("vi-VN")}\u0111.`
+      );
+    }
+    const newBalance = sanitizeVnd(wallet.balanceVnd) - effectivePrice;
+    if (effectivePrice > 0) {
+      await setFirestoreRestDoc("wallets", uid, {
+        ...wallet,
+        balanceVnd: newBalance,
+        totalSpentVnd: sanitizeVnd(wallet.totalSpentVnd) + effectivePrice,
+        updatedAt: now
+      });
+    }
+    const perLessonPaid = distributeChargedAmounts(prices, effectivePrice);
+    const createdEntitlements = [];
+    for (let i = 0; i < lockedLessons.length; i++) {
+      const lesson = lockedLessons[i];
+      const entId = `${uid}_${courseId}__${lesson.id}`;
+      const ent = {
+        id: entId,
+        uid,
+        courseId,
+        lessonId: lesson.id,
+        scope: "lesson",
+        status: "active",
+        source: "purchase",
+        pricePaidVnd: perLessonPaid[i],
+        transactionId: txId,
+        grantedAt: now,
+        grantedBy: uid,
+        courseTitleSnapshot: course.title || "Kh\xF3a h\u1ECDc",
+        lessonTitleSnapshot: lesson.title || "B\xE0i gi\u1EA3ng",
+        ...wallet.fullName ? { studentNameSnapshot: wallet.fullName } : {},
+        ...wallet.currentClass ? { studentClassSnapshot: wallet.currentClass } : {}
+      };
+      await setFirestoreRestDoc("course_entitlements", entId, ent);
+      createdEntitlements.push(ent);
+    }
+    if (effectivePrice > 0) {
+      await setFirestoreRestDoc("wallet_transactions", txId, {
+        id: txId,
+        uid,
+        type: "course_lesson_unlock_debit",
+        amountVnd: effectivePrice,
+        balanceBeforeVnd: sanitizeVnd(wallet.balanceVnd),
+        balanceAfterVnd: newBalance,
+        courseId,
+        courseTitleSnapshot: course.title || "Kh\xF3a h\u1ECDc",
+        studentNameSnapshot: wallet.fullName || "H\u1ECDc sinh",
+        studentClassSnapshot: wallet.currentClass || "",
+        idempotencyKey: options.idempotencyKey || txId,
+        actorUid: uid,
+        actorName: wallet.fullName || "H\u1ECDc sinh",
+        note: discountVnd > 0 ? `M\u1EDF kh\xF3a ${lockedLessons.length} video (${bundleLabel}): -${effectivePrice.toLocaleString("vi-VN")}\u0111 (gi\u1EA3m ${discountVnd.toLocaleString("vi-VN")}\u0111 nh\u1EDD voucher ${appliedVoucher?.code})` : `M\u1EDF kh\xF3a ${lockedLessons.length} video (${bundleLabel}): -${effectivePrice.toLocaleString("vi-VN")}\u0111`,
+        createdAt: now
+      });
+    }
+    if (appliedVoucher) {
+      invalidateVouchersCache();
+      invalidateVoucherUsagesCache();
+    }
+    invalidateCourseServerCache(courseId, uid);
+    invalidateWalletOverviewCache();
+    invalidateGlobalSpendingCache();
+    invalidateStudentDetailsCache(uid);
+    if (effectivePrice > 0) {
+      updateWalletOverviewAggregates({
+        deltaVirtualBalanceVnd: -effectivePrice,
+        deltaUnlockedSpendingVnd: effectivePrice
+      }).catch(() => {
+      });
+    }
+    return {
+      success: true,
+      newBalanceVnd: newBalance,
+      unlockedLessonIds: lockedLessons.map((l) => l.id),
+      unlockedCount: lockedLessons.length,
+      totalChargedVnd: effectivePrice,
+      entitlements: createdEntitlements,
+      alreadyUnlocked: false
+    };
+  }
+  const result = await adminDb.runTransaction(async (transaction) => {
+    const courseRef = adminDb.collection("courses").doc(courseId);
+    const courseEntRef = adminDb.collection("course_entitlements").doc(courseEntId);
+    const walletRef = adminDb.collection("wallets").doc(uid);
+    const lessonRefs = uniqueCandidateIds.map((lid) => courseRef.collection("lessons").doc(lid));
+    const lessonEntRefs = uniqueCandidateIds.map(
+      (lid) => adminDb.collection("course_entitlements").doc(`${uid}_${courseId}__${lid}`)
+    );
+    const [courseSnap, courseEntSnap, walletSnap, lessonSnaps, lessonEntSnaps] = await Promise.all([
+      transaction.get(courseRef),
+      transaction.get(courseEntRef),
+      transaction.get(walletRef),
+      Promise.all(lessonRefs.map((r) => transaction.get(r))),
+      Promise.all(lessonEntRefs.map((r) => transaction.get(r)))
+    ]);
+    if (!courseSnap.exists) {
+      throw new Error("Kh\xF4ng t\xECm th\u1EA5y kh\xF3a h\u1ECDc.");
+    }
+    const course = { id: courseSnap.id, ...courseSnap.data() };
+    const mode = resolveCourseAccessModeServer(course);
+    if (mode !== "per_video" && !course.allowSingleLessonPurchase && course.unlockFullPolicy !== "unlock_course_only") {
+      throw new Error("Kh\xF3a h\u1ECDc n\xE0y ch\u1EC9 h\u1ED7 tr\u1EE3 m\u1EDF kh\xF3a tr\u1ECDn kh\xF3a.");
+    }
+    if (course.salesEnabled === false) {
+      throw new Error("Kh\xF3a h\u1ECDc hi\u1EC7n \u0111ang t\u1EA1m ng\u1EEBng b\xE1n.");
+    }
+    const hasCourseEnt = courseEntSnap.exists && courseEntSnap.data().status === "active";
+    const lockedLessons = [];
+    lessonSnaps.forEach((lSnap, idx) => {
+      if (!lSnap.exists) return;
+      const lesson = { id: lSnap.id, ...lSnap.data() };
+      const entSnap = lessonEntSnaps[idx];
+      if (entSnap.exists && entSnap.data().status === "active") return;
+      if (isLessonFreeEffective(course, lesson)) return;
+      if (hasCourseEnt && (course.unlockFullPolicy !== "unlock_course_only" || lesson.includedInCourseUnlock !== false)) {
+        return;
+      }
+      if (mode === "paid" && !course.allowSingleLessonPurchase && !(course.unlockFullPolicy === "unlock_course_only" && lesson.includedInCourseUnlock === false)) {
+        return;
+      }
+      lockedLessons.push({ lesson, entRef: lessonEntRefs[idx] });
+    });
+    const walletData = walletSnap.exists ? walletSnap.data() : null;
+    const currentBal = walletData ? sanitizeVnd(walletData.balanceVnd) : 0;
+    const totalSpent = walletData ? sanitizeVnd(walletData.totalSpentVnd) : 0;
+    const totalCredited = walletData ? sanitizeVnd(walletData.totalCreditedVnd) : 0;
+    const fullName = walletData?.fullName || "";
+    const currentClass = walletData?.currentClass || "";
+    if (lockedLessons.length === 0) {
+      return {
+        success: true,
+        newBalanceVnd: currentBal,
+        unlockedLessonIds: [],
+        unlockedCount: 0,
+        totalChargedVnd: 0,
+        entitlements: [],
+        alreadyUnlocked: true,
+        effectivePrice: 0,
+        appliedVoucher: null
+      };
+    }
+    const prices = lockedLessons.map((item) => sanitizeVnd(item.lesson.priceVnd));
+    const subtotalVnd = prices.reduce((acc, p) => acc + p, 0);
+    let discountVnd = 0;
+    let appliedVoucher = null;
+    if (options.voucherCode && String(options.voucherCode).trim()) {
+      const vRes = await validateVoucher({
+        code: String(options.voucherCode).trim(),
+        uid,
+        context: "course_unlock",
+        amountVnd: subtotalVnd,
+        courseId
+      });
+      if (!vRes.valid || !vRes.voucher) {
+        throw new Error(vRes.message || "M\xE3 voucher kh\xF4ng h\u1EE3p l\u1EC7.");
+      }
+      discountVnd = vRes.discountVnd || 0;
+      appliedVoucher = vRes.voucher;
+    }
+    const effectivePrice = Math.max(0, subtotalVnd - discountVnd);
+    if (currentBal < effectivePrice) {
+      throw new Error(
+        `S\u1ED1 d\u01B0 kh\xF4ng \u0111\u1EE7 \u0111\u1EC3 m\u1EDF kh\xF3a ${lockedLessons.length} video. C\u1EA7n ${effectivePrice.toLocaleString("vi-VN")}\u0111, hi\u1EC7n c\xF3 ${currentBal.toLocaleString("vi-VN")}\u0111 (thi\u1EBFu ${(effectivePrice - currentBal).toLocaleString("vi-VN")}\u0111).`
+      );
+    }
+    let voucherSnap = null;
+    const voucherRef = appliedVoucher ? adminDb.collection("vouchers").doc(appliedVoucher.id) : null;
+    if (voucherRef) {
+      voucherSnap = await transaction.get(voucherRef);
+    }
+    const newBalance = currentBal - effectivePrice;
+    transaction.set(
+      walletRef,
+      {
+        uid,
+        balanceVnd: newBalance,
+        totalSpentVnd: totalSpent + effectivePrice,
+        totalCreditedVnd: totalCredited,
+        updatedAt: now
+      },
+      { merge: true }
+    );
+    const perLessonPaid = distributeChargedAmounts(prices, effectivePrice);
+    const createdEntitlements = [];
+    for (let i = 0; i < lockedLessons.length; i++) {
+      const { lesson, entRef } = lockedLessons[i];
+      const ent = {
+        id: `${uid}_${courseId}__${lesson.id}`,
+        uid,
+        courseId,
+        lessonId: lesson.id,
+        scope: "lesson",
+        status: "active",
+        source: "purchase",
+        pricePaidVnd: perLessonPaid[i],
+        transactionId: txId,
+        grantedAt: now,
+        grantedBy: uid,
+        courseTitleSnapshot: course.title || "Kh\xF3a h\u1ECDc",
+        lessonTitleSnapshot: lesson.title || "B\xE0i gi\u1EA3ng",
+        ...fullName ? { studentNameSnapshot: fullName } : {},
+        ...currentClass ? { studentClassSnapshot: currentClass } : {}
+      };
+      transaction.set(entRef, ent);
+      createdEntitlements.push(ent);
+    }
+    const txRef = adminDb.collection("wallet_transactions").doc(txId);
+    const ledgerEntry = {
+      id: txId,
+      uid,
+      type: "course_lesson_unlock_debit",
+      amountVnd: effectivePrice,
+      balanceBeforeVnd: currentBal,
+      balanceAfterVnd: newBalance,
+      courseId,
+      courseTitleSnapshot: course.title || "Kh\xF3a h\u1ECDc",
+      studentNameSnapshot: fullName || "H\u1ECDc sinh",
+      studentClassSnapshot: currentClass || "",
+      idempotencyKey: options.idempotencyKey || txId,
+      actorUid: uid,
+      actorName: fullName || "H\u1ECDc sinh",
+      note: discountVnd > 0 ? `M\u1EDF kh\xF3a ${lockedLessons.length} video (${bundleLabel}): -${effectivePrice.toLocaleString("vi-VN")}\u0111 (gi\u1EA3m ${discountVnd.toLocaleString("vi-VN")}\u0111 nh\u1EDD voucher ${appliedVoucher?.code})` : `M\u1EDF kh\xF3a ${lockedLessons.length} video (${bundleLabel}): -${effectivePrice.toLocaleString("vi-VN")}\u0111`,
+      createdAt: now
+    };
+    transaction.set(txRef, ledgerEntry);
+    if (appliedVoucher && voucherRef) {
+      if (voucherSnap?.exists) {
+        const vData = voucherSnap.data();
+        transaction.update(voucherRef, {
+          usedCount: (vData.usedCount || 0) + 1,
+          updatedAt: now
+        });
+      }
+      const usageId = `vuse_${Date.now()}_${Math.random().toString(36).substring(2, 7)}`;
+      transaction.set(adminDb.collection("voucher_usages").doc(usageId), {
+        id: usageId,
+        voucherId: appliedVoucher.id,
+        voucherCode: appliedVoucher.code,
+        uid,
+        studentName: fullName,
+        studentClass: currentClass,
+        type: appliedVoucher.type,
+        discountVnd,
+        usedAt: now,
+        context: "course_unlock",
+        referenceId: `${courseId}__bundle_${bundleType}`
+      });
+    }
+    return {
+      success: true,
+      newBalanceVnd: newBalance,
+      unlockedLessonIds: lockedLessons.map((item) => item.lesson.id),
+      unlockedCount: lockedLessons.length,
+      totalChargedVnd: effectivePrice,
+      entitlements: createdEntitlements,
+      alreadyUnlocked: false,
+      effectivePrice,
+      appliedVoucher
+    };
+  });
+  if (result.appliedVoucher) {
+    invalidateVouchersCache();
+    invalidateVoucherUsagesCache();
+  }
+  invalidateCourseServerCache(courseId, uid);
+  invalidateWalletOverviewCache();
+  invalidateGlobalSpendingCache();
+  invalidateStudentDetailsCache(uid);
+  if (result.effectivePrice > 0) {
+    updateWalletOverviewAggregates({
+      deltaVirtualBalanceVnd: -result.effectivePrice,
+      deltaUnlockedSpendingVnd: result.effectivePrice
+    }).catch(() => {
+    });
+  }
+  return {
+    success: result.success,
+    newBalanceVnd: result.newBalanceVnd,
+    unlockedLessonIds: result.unlockedLessonIds,
+    unlockedCount: result.unlockedCount,
+    totalChargedVnd: result.totalChargedVnd,
+    entitlements: result.entitlements,
+    alreadyUnlocked: result.alreadyUnlocked
+  };
+}
 async function getAuthorizedLessonContent(uid, courseId, lessonId, role) {
   const [course, lesson] = await Promise.all([
     fetchCourseDoc(courseId),
@@ -3107,13 +3550,14 @@ walletRouter.post("/exams/:examId/unlock", requireAuth, async (req, res) => {
 walletRouter.post(["/vouchers/validate", "/wallet/vouchers/validate", "/wallet/validate-voucher"], requireAuth, async (req, res) => {
   try {
     const uid = req.user.uid;
-    const { code, context, amountVnd, examId } = req.body || {};
+    const { code, context, amountVnd, examId, courseId } = req.body || {};
     const result = await validateVoucher({
       code: String(code || "").trim(),
       uid,
       context: context || "exam_unlock",
       amountVnd: Number(amountVnd || 0),
-      examId
+      examId,
+      courseId
     });
     return res.json({ success: true, ...result });
   } catch (err) {
@@ -3164,6 +3608,32 @@ walletRouter.post("/courses/:courseId/unlock", requireAuth, async (req, res) => 
       return res.status(402).json({ error: "insufficient_balance", message: msg });
     }
     return res.status(400).json({ error: "course_unlock_error", message: msg });
+  }
+});
+walletRouter.post("/courses/:courseId/unlock-bundle", requireAuth, async (req, res) => {
+  try {
+    const uid = req.user.uid;
+    const courseId = req.params.courseId;
+    const { bundleType, chapterId, topicTitle, lessonIds, idempotencyKey, voucherCode } = req.body || {};
+    const result = await unlockCourseBundle(uid, courseId, {
+      bundleType,
+      chapterId,
+      topicTitle,
+      lessonIds: Array.isArray(lessonIds) ? lessonIds : void 0,
+      idempotencyKey,
+      voucherCode
+    });
+    return res.json({
+      success: true,
+      ...result,
+      message: result.alreadyUnlocked ? "To\xE0n b\u1ED9 video trong g\xF3i n\xE0y \u0111\xE3 \u0111\u01B0\u1EE3c m\u1EDF kh\xF3a tr\u01B0\u1EDBc \u0111\xF3." : `M\u1EDF kh\xF3a th\xE0nh c\xF4ng ${result.unlockedCount} video b\xE0i gi\u1EA3ng!`
+    });
+  } catch (err) {
+    const msg = err.message || String(err);
+    if (msg.includes("S\u1ED1 d\u01B0 kh\xF4ng \u0111\u1EE7")) {
+      return res.status(402).json({ error: "insufficient_balance", message: msg });
+    }
+    return res.status(400).json({ error: "course_bundle_unlock_error", message: msg });
   }
 });
 walletRouter.post("/courses/:courseId/lessons/:lessonId/unlock", requireAuth, async (req, res) => {

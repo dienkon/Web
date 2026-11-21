@@ -4,6 +4,8 @@ import {
   buildCourseHierarchy,
   buildCourseOutlineAndStats,
   buildCourseShareUrl,
+  cleanDetectedVideoTitle,
+  computeCourseTotalCostSummary,
   computeLessonAccessState,
   formatDurationClock,
   formatQualityLabel,
@@ -12,6 +14,7 @@ import {
   isCloudinaryVideoUrl,
   isCoursePlayerTheaterUrl,
   isLessonEffectivelyFree,
+  isPlaceholderLessonTitle,
   maskVideoUrlDisplay,
   parseVideoSource,
   resolveCourseAccessMode,
@@ -343,6 +346,106 @@ describe("courseService pure access, hierarchy, masking & outline helpers", () =
       );
       // 1200 / 2400 = 50%
       expect(secTree[0].chapters[0].topics[0].progressPct).toBe(50);
+    });
+  });
+
+  describe("computeCourseTotalCostSummary", () => {
+    const sampleLessons: CourseLesson[] = [
+      {
+        id: "l1",
+        courseId: "c1",
+        title: "Bài 1 (Free preview)",
+        order: 0,
+        videoType: "youtube",
+        videoUrl: "https://youtu.be/abc12345",
+        accessType: "inherit_first_n",
+        priceVnd: 20000,
+        includedInCourseUnlock: true,
+      },
+      {
+        id: "l2",
+        courseId: "c1",
+        title: "Bài 2",
+        order: 1,
+        videoType: "youtube",
+        videoUrl: "https://youtu.be/def12345",
+        accessType: "inherit_first_n",
+        priceVnd: 30000,
+        includedInCourseUnlock: true,
+      },
+      {
+        id: "l3",
+        courseId: "c1",
+        title: "Bài 3 VIP",
+        order: 2,
+        videoType: "iframe",
+        videoUrl: "https://drive.google.com/file/d/1234567890abcdef/view",
+        accessType: "paid",
+        priceVnd: 50000,
+        includedInCourseUnlock: false,
+      },
+    ];
+
+    it("computes 0đ for free courses", () => {
+      const summary = computeCourseTotalCostSummary(
+        { accessMode: "free", priceVnd: 0, freePreviewCount: 0, unlockFullPolicy: "unlock_all_videos", lessonOutline: [] },
+        sampleLessons
+      );
+      expect(summary.totalFullCourseCostVnd).toBe(0);
+      expect(summary.paidLessonsCount).toBe(0);
+      expect(summary.freeLessonsCount).toBe(3);
+    });
+
+    it("sums only effectively paid videos in per_video mode", () => {
+      const summary = computeCourseTotalCostSummary(
+        { accessMode: "per_video", priceVnd: 0, freePreviewCount: 1, unlockFullPolicy: "unlock_all_videos", lessonOutline: [] },
+        sampleLessons
+      );
+      expect(summary.freeLessonsCount).toBe(1);
+      expect(summary.paidLessonsCount).toBe(2);
+      expect(summary.paidLessonsSumVnd).toBe(80000);
+      expect(summary.totalFullCourseCostVnd).toBe(80000);
+    });
+
+    it("computes package cost & combo savings for paid unlock_all_videos", () => {
+      const summary = computeCourseTotalCostSummary(
+        { accessMode: "paid", priceVnd: 60000, freePreviewCount: 1, unlockFullPolicy: "unlock_all_videos", lessonOutline: [] },
+        sampleLessons
+      );
+      expect(summary.totalFullCourseCostVnd).toBe(60000);
+      expect(summary.paidLessonsSumVnd).toBe(80000);
+      expect(summary.comboSavingsVnd).toBe(20000);
+      expect(summary.excludedVipLessonsCount).toBe(0);
+    });
+
+    it("adds excluded VIP lessons to total full cost under unlock_course_only policy", () => {
+      const summary = computeCourseTotalCostSummary(
+        { accessMode: "paid", priceVnd: 60000, freePreviewCount: 1, unlockFullPolicy: "unlock_course_only", lessonOutline: [] },
+        sampleLessons
+      );
+      expect(summary.excludedVipLessonsCount).toBe(1);
+      expect(summary.excludedVipLessonsSumVnd).toBe(50000);
+      expect(summary.totalFullCourseCostVnd).toBe(110000);
+    });
+  });
+
+  describe("cleanDetectedVideoTitle & isPlaceholderLessonTitle", () => {
+    it("cleans YouTube & Google Drive titles, decodes entities, strips extensions, and rejects error titles", () => {
+      expect(cleanDetectedVideoTitle("Toán 12: Cực trị &amp; Tiệm cận - YouTube")).toBe("Toán 12: Cực trị & Tiệm cận");
+      expect(cleanDetectedVideoTitle("Bai_giang_01_Dao_ham.mp4 - Google Drive")).toBe("Bai_giang_01_Dao_ham");
+      expect(cleanDetectedVideoTitle("Chuyên đề &#39;Tích phân&#39;.MKV")).toBe("Chuyên đề 'Tích phân'");
+      expect(cleanDetectedVideoTitle("Google Drive - Virus scan warning")).toBe("");
+      expect(cleanDetectedVideoTitle("Sign in - Google Accounts")).toBe("");
+      expect(cleanDetectedVideoTitle("YouTube")).toBe("");
+    });
+
+    it("identifies default placeholder lesson titles accurately", () => {
+      expect(isPlaceholderLessonTitle("")).toBe(true);
+      expect(isPlaceholderLessonTitle("Bài 1: Video bài giảng mới")).toBe(true);
+      expect(isPlaceholderLessonTitle("Bài 12: Video bài giảng mới")).toBe(true);
+      expect(isPlaceholderLessonTitle("Video bài giảng mới")).toBe(true);
+      expect(isPlaceholderLessonTitle("Bài 3")).toBe(true);
+      expect(isPlaceholderLessonTitle("Cực trị hàm số bậc ba")).toBe(false);
     });
   });
 });

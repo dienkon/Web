@@ -2254,7 +2254,7 @@ adminRouter.post("/courses/probe-video", async (req: AuthenticatedRequest, res: 
     const probe = await probeVideoDuration(url);
     return res.json({
       success: true,
-      found: Boolean(probe),
+      found: Boolean(probe && (probe.durationSeconds > 0 || probe.title)),
       ...(probe || { durationSeconds: 0, durationMinutes: 0 }),
     });
   } catch (err: any) {

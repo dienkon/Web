@@ -103,6 +103,8 @@ export interface Course {
   freeLessonCount: number;
   paidLessonCount: number;
   minPaidLessonPriceVnd?: number;
+  totalPaidLessonsPriceVnd?: number;
+  totalFullCourseCostVnd?: number;
   totalDurationMinutes?: number;
   totalDurationSeconds?: number;
   enrolledCount?: number;
@@ -175,4 +177,17 @@ export interface CourseAccessInfo {
   missingVnd: number;
   canUnlockCourse: boolean;
   courseTitle: string;
+}
+
+export type CourseBundleType = "all_remaining" | "chapter" | "topic" | "selected";
+
+export interface CourseBundleUnlockResponse {
+  success: boolean;
+  newBalanceVnd: number;
+  unlockedLessonIds: string[];
+  unlockedCount: number;
+  totalChargedVnd: number;
+  entitlements: CourseEntitlement[];
+  alreadyUnlocked?: boolean;
+  message?: string;
 }

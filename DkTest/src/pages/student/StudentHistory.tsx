@@ -41,9 +41,11 @@ import { logDocRead, logQueryRead } from "../../utils/firestoreLogger";
 import { FirestoreRepository } from "../../services/firebase/firestoreRepository";
 import { FirestoreCache } from "../../services/firebase/firestoreCache";
 import { StudentAssignmentNotice } from "../../features/assignments/StudentAssignmentNotice";
+import { useAuth } from "../../context/AuthContext";
 
 export default function StudentHistory() {
   const navigate = useNavigate();
+  const { user, userProfile, role: authRole, loading: authLoading } = useAuth();
   const [submissions, setSubmissions] = useState<Submission[]>([]);
   const [loading, setLoading] = useState(true);
   const [loadingMore, setLoadingMore] = useState(false);
@@ -55,9 +57,12 @@ export default function StudentHistory() {
   const [selectedRetakeSub, setSelectedRetakeSub] = useState<Submission | null>(null);
 
   useEffect(() => {
-    // Check student profile
-    const role = localStorage.getItem("auth_role");
-    if (!role) {
+    if (authLoading) return;
+
+    // Check student profile (prefer AuthContext, fallback to localStorage)
+    const legacyRole = localStorage.getItem("auth_role");
+    const effectiveRole = user ? authRole : legacyRole;
+    if (!effectiveRole || effectiveRole === "guest") {
       navigate("/login", { replace: true });
       return;
     }
@@ -72,10 +77,17 @@ export default function StudentHistory() {
       } catch (e) {
         // ignore
       }
+    } else if (userProfile) {
+      const derived = {
+        username: userProfile.username || userProfile.email?.split("@")[0] || userProfile.uid,
+        displayName: userProfile.displayName || userProfile.fullName || "Học sinh",
+      };
+      setStudentInfo(derived);
+      studentUsername = derived.username;
     }
 
     loadInitialHistory(studentUsername);
-  }, [navigate]);
+  }, [authLoading, authRole, navigate, user, userProfile]);
 
   const loadInitialHistory = async (explicitUsername?: string) => {
     setLoading(true);

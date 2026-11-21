@@ -87,3 +87,72 @@ export function computeFittedVideoBox(
   }
   return { width: Math.round(h * aspectRatio), height: h };
 }
+
+const GENERIC_VIDEO_TITLES = new Set([
+  "youtube",
+  "google drive",
+  "google docs",
+  "google drive - virus scan warning",
+  "virus scan warning",
+  "google drive: sign-in",
+  "sign in - google accounts",
+  "meet google drive – one place for all your files",
+  "meet google drive - one place for all your files",
+  "access denied",
+  "404 not found",
+  "error",
+  "untitled",
+]);
+
+function decodeBasicHtmlEntities(text: string): string {
+  return text
+    .replace(/&#x([0-9a-f]+);/gi, (_m, hex) => {
+      const code = parseInt(hex, 16);
+      return Number.isFinite(code) && code > 0 ? String.fromCodePoint(code) : "";
+    })
+    .replace(/&#(\d+);/g, (_m, dec) => {
+      const code = parseInt(dec, 10);
+      return Number.isFinite(code) && code > 0 ? String.fromCodePoint(code) : "";
+    })
+    .replace(/&quot;/gi, '"')
+    .replace(/&#39;|&apos;/gi, "'")
+    .replace(/&lt;/gi, "<")
+    .replace(/&gt;/gi, ">")
+    .replace(/&nbsp;/gi, " ")
+    .replace(/&amp;/gi, "&");
+}
+
+/**
+ * Cleans a raw title detected from YouTube or Google Drive metadata into a crisp lecture title.
+ * Decodes HTML entities, removes platform suffixes & video file extensions, and rejects generic error titles.
+ */
+export function cleanDetectedVideoTitle(rawTitle?: string | null): string {
+  let title = String(rawTitle || "").trim();
+  if (!title) return "";
+
+  title = decodeBasicHtmlEntities(title)
+    .replace(/\s*[-–—|]\s*(YouTube|Google Drive|Google Docs)\s*$/i, "")
+    .replace(/\.(mp4|mov|mkv|webm|avi|m4v|flv|wmv|mpeg|mpg|3gp)$/i, "")
+    .replace(/\s+/g, " ")
+    .trim();
+
+  if (!title || title.length < 2) return "";
+  if (GENERIC_VIDEO_TITLES.has(title.toLowerCase())) return "";
+  if (/^(google drive|sign in|đăng nhập|error \d{3})/i.test(title) && title.length < 40) {
+    return "";
+  }
+  return title.slice(0, 180);
+}
+
+/**
+ * Returns true if a lesson title is empty or still an auto-generated placeholder title.
+ */
+export function isPlaceholderLessonTitle(title?: string | null): boolean {
+  const clean = String(title || "").trim();
+  if (!clean) return true;
+  return (
+    /^Bài\s+\d+\s*:\s*Video bài giảng mới$/i.test(clean) ||
+    /^(Video bài giảng mới|Bài giảng mới|Bài mới|Untitled(?: video)?)$/i.test(clean) ||
+    /^Bài\s+\d+$/i.test(clean)
+  );
+}

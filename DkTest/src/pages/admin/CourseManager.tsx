@@ -23,6 +23,7 @@ import {
 } from "lucide-react";
 import {
   buildCourseShareUrl,
+  computeCourseTotalCostSummary,
   deleteCourse,
   formatDurationClock,
   getAdminCoursesList,
@@ -110,11 +111,16 @@ export default function CourseManager() {
   }, [courses, search, statusFilter, priceFilter]);
 
   const stats = useMemo(() => {
+    const totalCoursesCostVnd = courses.reduce(
+      (acc, c) => acc + computeCourseTotalCostSummary(c).totalFullCourseCostVnd,
+      0
+    );
     return {
       total: courses.length,
       published: courses.filter((c) => c.status === "published").length,
       paid: courses.filter((c) => c.accessMode === "paid" || c.accessMode === "per_video").length,
       lessons: courses.reduce((acc, c) => acc + (c.lessonCount || 0), 0),
+      totalCoursesCostVnd,
     };
   }, [courses]);
 
@@ -196,7 +202,7 @@ export default function CourseManager() {
       </div>
 
       {/* Summary Cards */}
-      <div className="grid grid-cols-2 lg:grid-cols-4 gap-3.5">
+      <div className="grid grid-cols-2 lg:grid-cols-5 gap-3.5">
         <div className="bg-white dark:bg-slate-900 p-4 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-2xs">
           <div className="text-xs font-bold text-slate-500">Tổng khóa học</div>
           <div className="text-2xl font-black text-slate-900 dark:text-white mt-1">{stats.total}</div>
@@ -212,6 +218,15 @@ export default function CourseManager() {
         <div className="bg-white dark:bg-slate-900 p-4 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-2xs">
           <div className="text-xs font-bold text-slate-500">Tổng bài giảng video</div>
           <div className="text-2xl font-black text-indigo-600 mt-1">{stats.lessons}</div>
+        </div>
+        <div className="col-span-2 lg:col-span-1 bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-blue-950/40 dark:to-indigo-950/30 p-4 rounded-2xl border border-blue-200 dark:border-blue-800/70 shadow-2xs">
+          <div className="text-xs font-bold text-blue-700 dark:text-blue-300 flex items-center gap-1">
+            <Coins className="w-3.5 h-3.5" />
+            <span>Tổng học phí các khóa</span>
+          </div>
+          <div className="text-xl font-black text-blue-700 dark:text-blue-200 mt-1 truncate">
+            {stats.totalCoursesCostVnd.toLocaleString("vi-VN")}đ
+          </div>
         </div>
       </div>
 
@@ -278,6 +293,7 @@ export default function CourseManager() {
           {filtered.map((course) => {
             const isPerVideo = course.accessMode === "per_video";
             const isPaid = !isPerVideo && (course.accessMode === "paid" || (course.priceVnd || 0) > 0);
+            const costSummary = computeCourseTotalCostSummary(course);
             return (
               <div
                 key={course.id}
@@ -322,7 +338,9 @@ export default function CourseManager() {
                         {isPaid
                           ? `${(course.priceVnd || 0).toLocaleString("vi-VN")}đ`
                           : isPerVideo
-                          ? "Vào Free • Theo video"
+                          ? costSummary.totalFullCourseCostVnd > 0
+                            ? `Theo video • ${costSummary.totalFullCourseCostVnd.toLocaleString("vi-VN")}đ`
+                            : "Vào Free • Theo video"
                           : "Miễn phí"}
                       </span>
                     </div>
@@ -353,6 +371,43 @@ export default function CourseManager() {
 
                     {/* Detailed Unlock Config Summary */}
                     <div className="p-3 rounded-2xl bg-slate-50 dark:bg-slate-800/60 border border-slate-100 dark:border-slate-800 space-y-1.5 text-[11px]">
+                      <div className="flex items-center justify-between gap-2 pb-1.5 mb-1 border-b border-slate-200/70 dark:border-slate-700/70">
+                        <span className="flex items-center gap-1 font-bold text-slate-800 dark:text-slate-200">
+                          <Coins className="w-3.5 h-3.5 text-amber-500" />
+                          <span>Tổng chi toàn bộ khóa:</span>
+                        </span>
+                        <span className="text-right">
+                          <strong
+                            className={`text-xs font-black ${
+                              costSummary.totalFullCourseCostVnd > 0
+                                ? "text-blue-700 dark:text-blue-300"
+                                : "text-emerald-600 dark:text-emerald-400"
+                            }`}
+                          >
+                            {costSummary.totalFullCourseCostVnd > 0
+                              ? `${costSummary.totalFullCourseCostVnd.toLocaleString("vi-VN")}đ`
+                              : "0đ (Miễn phí)"}
+                          </strong>
+                          {isPerVideo && costSummary.paidLessonsCount > 0 && (
+                            <span className="block text-[10px] font-semibold text-slate-500">
+                              ({costSummary.paidLessonsCount} video trả phí)
+                            </span>
+                          )}
+                          {isPaid && costSummary.excludedVipLessonsCount > 0 && (
+                            <span className="block text-[10px] font-semibold text-indigo-600 dark:text-indigo-400">
+                              (Khóa + {costSummary.excludedVipLessonsCount} bài VIP)
+                            </span>
+                          )}
+                          {isPaid &&
+                            costSummary.excludedVipLessonsCount === 0 &&
+                            course.allowSingleLessonPurchase &&
+                            costSummary.paidLessonsSumVnd > 0 && (
+                              <span className="block text-[10px] font-semibold text-slate-500">
+                                (Mua lẻ hết: {costSummary.paidLessonsSumVnd.toLocaleString("vi-VN")}đ)
+                              </span>
+                            )}
+                        </span>
+                      </div>
                       <div className="flex items-center justify-between text-slate-700 dark:text-slate-300">
                         <span className="flex items-center gap-1">
                           <Video className="w-3.5 h-3.5 text-blue-600" />

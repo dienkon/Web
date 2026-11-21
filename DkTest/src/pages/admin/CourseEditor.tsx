@@ -36,12 +36,15 @@ import {
 import {
   buildCourseOutlineAndStats,
   buildCourseShareUrl,
+  cleanDetectedVideoTitle,
+  computeCourseTotalCostSummary,
   formatDurationClock,
   getCourse,
   getCourseLessonsForAdmin,
   getVideoHostLabel,
   inferCourseVideoType,
   isLessonEffectivelyFree,
+  isPlaceholderLessonTitle,
   maskVideoUrlDisplay,
   probeClientVideoDuration,
   probeVideoDurationApi,
@@ -156,6 +159,10 @@ export default function CourseEditor() {
   const [collapsedAdminChapters, setCollapsedAdminChapters] = useState<Record<string, boolean>>({});
   const [collapsedAdminTopics, setCollapsedAdminTopics] = useState<Record<string, boolean>>({});
   const [probingLessonMap, setProbingLessonMap] = useState<Record<string, boolean>>({});
+  const [suggestedTitleMap, setSuggestedTitleMap] = useState<Record<string, string>>({});
+  const autoDetectedTitleMapRef = useRef<Record<string, string>>({});
+  const lessonsRef = useRef<CourseLesson[]>([]);
+  lessonsRef.current = lessons;
   const [bulkProbing, setBulkProbing] = useState(false);
   const [copiedKey, setCopiedKey] = useState<string | null>(null);
   const autoProbeTimerRef = useRef<number | null>(null);
@@ -221,10 +228,23 @@ export default function CourseEditor() {
 
   const outlineStats = useMemo(() => {
     return buildCourseOutlineAndStats(
-      { accessMode, priceVnd: accessMode === "paid" ? priceVnd : 0, freePreviewCount },
+      { accessMode, priceVnd: accessMode === "paid" ? priceVnd : 0, freePreviewCount, unlockFullPolicy },
       lessons
     );
-  }, [accessMode, priceVnd, freePreviewCount, lessons]);
+  }, [accessMode, priceVnd, freePreviewCount, unlockFullPolicy, lessons]);
+
+  const costSummary = useMemo(() => {
+    return computeCourseTotalCostSummary(
+      {
+        accessMode,
+        priceVnd: accessMode === "paid" ? priceVnd : 0,
+        freePreviewCount,
+        unlockFullPolicy,
+        lessonOutline: outlineStats.lessonOutline,
+      },
+      outlineStats.orderedLessons
+    );
+  }, [accessMode, priceVnd, freePreviewCount, unlockFullPolicy, outlineStats]);
 
   const selectedLesson = useMemo(() => {
     return outlineStats.orderedLessons.find((l) => l.id === selectedLessonId) || null;
@@ -257,6 +277,41 @@ export default function CourseEditor() {
     [showSuccessToast]
   );
 
+  const applyDetectedLessonTitle = useCallback(
+    (targetLessonId: string, rawDetectedTitle?: string | null): { applied: boolean; title: string } => {
+      const cleaned = cleanDetectedVideoTitle(rawDetectedTitle);
+      if (!targetLessonId || !cleaned) return { applied: false, title: "" };
+
+      const currentLesson = lessonsRef.current.find((l) => l.id === targetLessonId);
+      const currentTitle = String(currentLesson?.title || "").trim();
+      const prevAutoTitle = autoDetectedTitleMapRef.current[targetLessonId];
+      const shouldAutoFill =
+        !currentTitle ||
+        isPlaceholderLessonTitle(currentTitle) ||
+        (Boolean(prevAutoTitle) && currentTitle === prevAutoTitle);
+
+      if (shouldAutoFill) {
+        autoDetectedTitleMapRef.current[targetLessonId] = cleaned;
+        setSuggestedTitleMap((prev) => {
+          if (!prev[targetLessonId]) return prev;
+          const next = { ...prev };
+          delete next[targetLessonId];
+          return next;
+        });
+        setLessons((prev) =>
+          prev.map((l) => (l.id === targetLessonId ? { ...l, title: cleaned } : l))
+        );
+        return { applied: true, title: cleaned };
+      }
+
+      if (currentTitle !== cleaned) {
+        setSuggestedTitleMap((prev) => ({ ...prev, [targetLessonId]: cleaned }));
+      }
+      return { applied: false, title: cleaned };
+    },
+    []
+  );
+
   const probeDurationForLesson = useCallback(
     async (
       targetLessonId: string,
@@ -267,7 +322,7 @@ export default function CourseEditor() {
       const url = rawUrl.trim();
       if (!url || (!url.startsWith("http://") && !url.startsWith("https://"))) {
         if (showFeedback) {
-          showErrorToast("Vui lòng nhập URL video hợp lệ (http/https) trước khi đo thời lượng.");
+          showErrorToast("Vui lòng nhập URL video hợp lệ (http/https) trước khi nhận diện.");
         }
         return false;
       }
@@ -280,34 +335,68 @@ export default function CourseEditor() {
           videoType === "cloudinary" ||
           /\.(mp4|webm|m4v|mov)(\?|#|$)/.test(lower);
 
+        let detectedSec = 0;
         if (isDirectMedia) {
           const clientRes = await probeClientVideoDuration(url);
           if (clientRes && clientRes.durationSeconds > 0) {
-            applyDetectedLessonDuration(targetLessonId, clientRes.durationSeconds, !showFeedback);
-            return true;
+            detectedSec = clientRes.durationSeconds;
+            applyDetectedLessonDuration(targetLessonId, clientRes.durationSeconds, true);
           }
         }
 
         const serverRes = await probeVideoDurationApi(url);
-        if (serverRes && serverRes.durationSeconds > 0) {
-          applyDetectedLessonDuration(targetLessonId, serverRes.durationSeconds, !showFeedback);
+        if (serverRes) {
+          if (serverRes.durationSeconds > 0 && detectedSec <= 0) {
+            detectedSec = serverRes.durationSeconds;
+            applyDetectedLessonDuration(targetLessonId, serverRes.durationSeconds, true);
+          }
+          const titleOutcome = applyDetectedLessonTitle(targetLessonId, serverRes.title);
+
+          if (detectedSec > 0 || titleOutcome.title) {
+            if (showFeedback) {
+              const durLabel =
+                detectedSec > 0
+                  ? formatDurationClock(detectedSec, Math.max(1, Math.round(detectedSec / 60)))
+                  : "";
+              if (titleOutcome.applied && durLabel) {
+                showSuccessToast(`Đã tự nhận diện tiêu đề "${titleOutcome.title}" (${durLabel})`);
+              } else if (titleOutcome.applied) {
+                showSuccessToast(`Đã tự nhận diện tiêu đề bài giảng: "${titleOutcome.title}"`);
+              } else if (durLabel && titleOutcome.title) {
+                showSuccessToast(`Đã đo thời lượng ${durLabel} và tìm thấy gợi ý tiêu đề từ link!`);
+              } else if (durLabel) {
+                showSuccessToast(`Đã tự động đo thời lượng: ${durLabel}`);
+              } else if (titleOutcome.title) {
+                showSuccessToast(`Đã tìm thấy gợi ý tiêu đề từ link: "${titleOutcome.title}"`);
+              }
+            }
+            return true;
+          }
+        }
+
+        if (detectedSec > 0) {
+          if (showFeedback) {
+            showSuccessToast(
+              `Đã tự động đo thời lượng: ${formatDurationClock(detectedSec, Math.max(1, Math.round(detectedSec / 60)))}`
+            );
+          }
           return true;
         }
 
         if (showFeedback) {
-          showErrorToast("Không tự đọc được metadata thời lượng từ URL này (hãy nhập tay hoặc bật Xem thử player).");
+          showErrorToast("Không tự đọc được tiêu đề/thời lượng từ URL này (hãy nhập tay hoặc bật Xem thử player).");
         }
         return false;
       } catch {
         if (showFeedback) {
-          showErrorToast("Không thể đo thời lượng tự động từ URL này.");
+          showErrorToast("Không thể nhận diện thông tin tự động từ URL này.");
         }
         return false;
       } finally {
         setProbingLessonMap((prev) => ({ ...prev, [targetLessonId]: false }));
       }
     },
-    [applyDetectedLessonDuration, showErrorToast]
+    [applyDetectedLessonDuration, applyDetectedLessonTitle, showErrorToast, showSuccessToast]
   );
 
   const handleBulkProbeAllLessons = async () => {
@@ -519,6 +608,8 @@ export default function CourseEditor() {
       chapterIdx: number;
       groupTitle: string;
       lessonCount: number;
+      chapterCostVnd: number;
+      paidCount: number;
       topics: TopicBucket[];
     };
 
@@ -547,11 +638,27 @@ export default function CourseEditor() {
 
     const chapterNodes: ChapterNode[] = sortedChapters.map((ch, idx) => {
       const topics = buildTopicsForChapter(ch.id);
+      let chapterCostVnd = 0;
+      let paidCount = 0;
+      topics.forEach((t) =>
+        t.lessons.forEach(({ lesson }) => {
+          const isFree = isLessonEffectivelyFree(
+            { accessMode, priceVnd: accessMode === "paid" ? priceVnd : 0, freePreviewCount },
+            lesson
+          );
+          if (!isFree) {
+            paidCount++;
+            chapterCostVnd += Math.max(0, Math.floor(Number(lesson.priceVnd) || 0));
+          }
+        })
+      );
       return {
         chapter: ch,
         chapterIdx: idx,
         groupTitle: ch.groupTitle?.trim() || fallbackGroupTitle,
         lessonCount: topics.reduce((sum, t) => sum + t.lessons.length, 0),
+        chapterCostVnd,
+        paidCount,
         topics,
       };
     });
@@ -573,7 +680,7 @@ export default function CourseEditor() {
 
     const orphanLessonCount = orphanTopics.reduce((sum, t) => sum + t.lessons.length, 0);
     return { groups, orphanTopics, orphanLessonCount };
-  }, [chapters, outlineStats.orderedLessons, subject]);
+  }, [chapters, outlineStats.orderedLessons, subject, accessMode, priceVnd, freePreviewCount]);
 
   const handleUploadCover = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -716,6 +823,7 @@ export default function CourseEditor() {
       setLessons((prev) =>
         prev.map((l) => (l.id === targetLessonId ? { ...l, ...patch } : l))
       );
+      applyDetectedLessonTitle(targetLessonId, file.name);
       setRevealVideoUrlMap((prev) => ({ ...prev, [targetLessonId]: false }));
       if (!localMeta) {
         void probeDurationForLesson(targetLessonId, url, "cloudinary", false);
@@ -915,15 +1023,23 @@ export default function CourseEditor() {
                 {status === "published" ? "Đang mở" : status === "archived" ? "Lưu trữ" : "Bản nháp"}
               </span>
             </div>
-            <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
-              {outlineStats.lessonCount} video ({outlineStats.freeLessonCount} miễn phí /{" "}
-              {outlineStats.paidLessonCount} trả phí) •{" "}
-              {formatDurationClock(outlineStats.totalDurationSeconds, outlineStats.totalDurationMinutes)} •{" "}
-              {accessMode === "paid"
-                ? `Trọn khóa ${(Number(priceVnd) || 0).toLocaleString("vi-VN")}đ`
-                : accessMode === "per_video"
-                ? `Vào khóa Free • Thu phí theo video`
-                : "Miễn phí toàn bộ"}
+            <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5 flex items-center flex-wrap gap-x-1.5 gap-y-0.5">
+              <span>
+                {outlineStats.lessonCount} video ({outlineStats.freeLessonCount} miễn phí /{" "}
+                {outlineStats.paidLessonCount} trả phí) •{" "}
+                {formatDurationClock(outlineStats.totalDurationSeconds, outlineStats.totalDurationMinutes)} •{" "}
+                {accessMode === "paid"
+                  ? `Trọn khóa ${(Number(priceVnd) || 0).toLocaleString("vi-VN")}đ`
+                  : accessMode === "per_video"
+                  ? `Vào khóa Free • Thu phí theo video`
+                  : "Miễn phí toàn bộ"}
+              </span>
+              <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-amber-50 dark:bg-amber-950/50 border border-amber-200 dark:border-amber-800 text-amber-800 dark:text-amber-200 font-black text-[11px]">
+                <Coins className="w-3 h-3 text-amber-600" />
+                <span>
+                  Tổng chi cả khóa: {costSummary.totalFullCourseCostVnd.toLocaleString("vi-VN")}đ
+                </span>
+              </span>
             </p>
           </div>
         </div>
@@ -1424,6 +1540,53 @@ export default function CourseEditor() {
                 </div>
               </div>
             )}
+
+            {/* Total Course Cost Breakdown Box */}
+            <div className="p-4 rounded-2xl bg-gradient-to-br from-amber-50 via-blue-50/60 to-indigo-50/70 dark:from-slate-800/80 dark:to-blue-950/30 border border-blue-200/80 dark:border-blue-800/70 space-y-2.5">
+              <div className="flex items-center justify-between gap-2 flex-wrap">
+                <div className="flex items-center gap-1.5 text-xs font-black text-slate-900 dark:text-white">
+                  <Coins className="w-4 h-4 text-amber-500" />
+                  <span>Tổng tiền học sinh phải chi cho toàn bộ khóa</span>
+                </div>
+                <span className="text-lg font-black text-blue-700 dark:text-blue-300">
+                  {costSummary.totalFullCourseCostVnd.toLocaleString("vi-VN")}đ
+                </span>
+              </div>
+              <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 text-[11px]">
+                <div className="px-3 py-2 rounded-xl bg-white/80 dark:bg-slate-900/70 border border-slate-200/70 dark:border-slate-700">
+                  <div className="text-slate-500 font-semibold">Số video trả phí</div>
+                  <div className="font-black text-slate-900 dark:text-white mt-0.5">
+                    {costSummary.paidLessonsCount} trả phí / {costSummary.freeLessonsCount} free
+                  </div>
+                </div>
+                <div className="px-3 py-2 rounded-xl bg-white/80 dark:bg-slate-900/70 border border-slate-200/70 dark:border-slate-700">
+                  <div className="text-slate-500 font-semibold">Tổng nếu mua lẻ từng bài</div>
+                  <div className="font-black text-indigo-700 dark:text-indigo-300 mt-0.5">
+                    {costSummary.paidLessonsSumVnd.toLocaleString("vi-VN")}đ
+                  </div>
+                </div>
+                <div className="col-span-2 sm:col-span-1 px-3 py-2 rounded-xl bg-white/80 dark:bg-slate-900/70 border border-slate-200/70 dark:border-slate-700">
+                  <div className="text-slate-500 font-semibold">
+                    {accessMode === "paid"
+                      ? costSummary.excludedVipLessonsCount > 0
+                        ? "Gồm bài VIP ngoài gói"
+                        : "Tiết kiệm mua trọn khóa"
+                      : "Hình thức tính tổng"}
+                  </div>
+                  <div className="font-black text-emerald-700 dark:text-emerald-300 mt-0.5">
+                    {accessMode === "free"
+                      ? "Miễn phí 0đ"
+                      : accessMode === "per_video"
+                      ? "Cộng dồn các bài trả phí"
+                      : costSummary.excludedVipLessonsCount > 0
+                      ? `+${costSummary.excludedVipLessonsSumVnd.toLocaleString("vi-VN")}đ (${costSummary.excludedVipLessonsCount} bài)`
+                      : costSummary.comboSavingsVnd > 0
+                      ? `Giảm ${costSummary.comboSavingsVnd.toLocaleString("vi-VN")}đ`
+                      : "Trọn gói 1 lần"}
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       )}
@@ -1446,6 +1609,10 @@ export default function CourseEditor() {
                       outlineStats.totalDurationSeconds,
                       outlineStats.totalDurationMinutes
                     )}
+                  </strong>{" "}
+                  •{" "}
+                  <strong className="text-amber-700 dark:text-amber-300">
+                    Tổng chi: {costSummary.totalFullCourseCostVnd.toLocaleString("vi-VN")}đ
                   </strong>
                 </p>
               </div>
@@ -1650,6 +1817,9 @@ export default function CourseEditor() {
                                       />
                                       <span className="text-[10px] font-bold text-slate-500 shrink-0">
                                         {lessonCount} video
+                                        {chNode.chapterCostVnd > 0
+                                          ? ` • ${chNode.chapterCostVnd.toLocaleString("vi-VN")}đ`
+                                          : ""}
                                       </span>
                                     </div>
                                   </div>
@@ -1972,6 +2142,51 @@ export default function CourseEditor() {
                       onChange={(e) => updateSelectedLesson({ title: e.target.value })}
                       className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-sm font-bold"
                     />
+                    {suggestedTitleMap[selectedLesson.id] &&
+                      suggestedTitleMap[selectedLesson.id] !== selectedLesson.title.trim() && (
+                        <div className="mt-1.5 flex items-center justify-between gap-2 px-3 py-1.5 rounded-xl bg-blue-50/90 dark:bg-blue-950/40 border border-blue-200 dark:border-blue-800 text-[11px]">
+                          <span className="text-blue-800 dark:text-blue-200 font-semibold truncate flex items-center gap-1.5 min-w-0">
+                            <Sparkles className="w-3.5 h-3.5 text-blue-600 shrink-0" />
+                            <span className="truncate">
+                              Gợi ý từ link: <strong>{suggestedTitleMap[selectedLesson.id]}</strong>
+                            </span>
+                          </span>
+                          <div className="flex items-center gap-1 shrink-0">
+                            <button
+                              type="button"
+                              onClick={() => {
+                                const picked = suggestedTitleMap[selectedLesson.id];
+                                if (!picked) return;
+                                autoDetectedTitleMapRef.current[selectedLesson.id] = picked;
+                                updateSelectedLesson({ title: picked });
+                                setSuggestedTitleMap((prev) => {
+                                  const next = { ...prev };
+                                  delete next[selectedLesson.id];
+                                  return next;
+                                });
+                                showSuccessToast(`Đã áp dụng tiêu đề: "${picked}"`);
+                              }}
+                              className="px-2.5 py-1 rounded-lg bg-blue-600 hover:bg-blue-700 text-white font-bold cursor-pointer"
+                            >
+                              Áp dụng
+                            </button>
+                            <button
+                              type="button"
+                              onClick={() =>
+                                setSuggestedTitleMap((prev) => {
+                                  const next = { ...prev };
+                                  delete next[selectedLesson.id];
+                                  return next;
+                                })
+                              }
+                              className="px-1.5 py-1 rounded-lg text-slate-400 hover:text-slate-700 font-bold cursor-pointer"
+                              title="Bỏ qua gợi ý"
+                            >
+                              ✕
+                            </button>
+                          </div>
+                        </div>
+                      )}
                   </div>
 
                   <div className="sm:col-span-5">
@@ -2045,7 +2260,7 @@ export default function CourseEditor() {
                   <div className="flex items-center justify-between gap-2 flex-wrap">
                     <label className="text-xs font-black text-slate-800 dark:text-white flex items-center gap-1.5">
                       <PlayCircle className="w-4 h-4 text-blue-600" />
-                      <span>Nguồn Video (tự đo thời lượng &amp; ẩn link kho lưu)</span>
+                      <span>Nguồn Video (tự nhận diện tiêu đề YT/Drive, đo phút &amp; ẩn link)</span>
                     </label>
                     <div className="flex items-center gap-2 flex-wrap">
                       <select
@@ -2072,14 +2287,14 @@ export default function CourseEditor() {
                               )
                             }
                             className="px-2.5 py-1.5 rounded-lg bg-blue-50 dark:bg-blue-950/60 text-blue-700 dark:text-blue-300 text-xs font-bold flex items-center gap-1 cursor-pointer disabled:opacity-50"
-                            title="Tự động đo lại thời lượng chuẩn từ URL video"
+                            title="Tự động nhận diện tiêu đề bài giảng & thời lượng từ link YouTube / Google Drive"
                           >
                             {isProbingSelected ? (
                               <Loader2 className="w-3.5 h-3.5 animate-spin" />
                             ) : (
                               <RotateCw className="w-3.5 h-3.5" />
                             )}
-                            <span>{isProbingSelected ? "Đang đo..." : "Đo phút"}</span>
+                            <span>{isProbingSelected ? "Đang nhận diện..." : "Nhận diện"}</span>
                           </button>
                           <button
                             type="button"
@@ -2133,6 +2348,17 @@ export default function CourseEditor() {
                         <input
                           type="url"
                           value={selectedLesson.videoUrl}
+                          onPaste={(e) => {
+                            const pasted = e.clipboardData?.getData("text")?.trim() || "";
+                            if (/^https?:\/\/.{6,}/i.test(pasted)) {
+                              const nextType = inferCourseVideoType(pasted, selectedLesson.videoType);
+                              const targetId = selectedLesson.id;
+                              if (autoProbeTimerRef.current) window.clearTimeout(autoProbeTimerRef.current);
+                              autoProbeTimerRef.current = window.setTimeout(() => {
+                                void probeDurationForLesson(targetId, pasted, nextType, true);
+                              }, 150);
+                            }
+                          }}
                           onChange={(e) => {
                             const val = e.target.value;
                             const nextType = inferCourseVideoType(val, selectedLesson.videoType);
@@ -2143,10 +2369,10 @@ export default function CourseEditor() {
                             if (/^https?:\/\/.{6,}/i.test(val.trim())) {
                               autoProbeTimerRef.current = window.setTimeout(() => {
                                 void probeDurationForLesson(targetId, val, nextType, true);
-                              }, 750);
+                              }, 650);
                             }
                           }}
-                          placeholder="Dán link Google Drive, kho lưu, YouTube hoặc MP4..."
+                          placeholder="Dán link YouTube, Google Drive hoặc MP4 (tự nhận diện tiêu đề & thời lượng)..."
                           className="w-full px-3.5 py-2.5 pr-9 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-xs font-mono"
                         />
                         {hasSelectedVideoUrl && (

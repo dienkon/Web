@@ -8,11 +8,11 @@ export const APP_DOWNLOAD_API_PATH = '/api/app-download';
 const identifier = /^[\p{L}\p{N}_.-]{1,128}$/u;
 
 export function getAppVersionMetadata() {
-  const version = typeof __DK_APP_VERSION__ === 'string' && __DK_APP_VERSION__ ? __DK_APP_VERSION__ : '1.9.12';
+  const version = typeof __DK_APP_VERSION__ === 'string' && __DK_APP_VERSION__ ? __DK_APP_VERSION__ : '1.9.13';
   const androidVersionCode =
     typeof __DK_ANDROID_VERSION_CODE__ === 'number' && Number.isFinite(__DK_ANDROID_VERSION_CODE__)
       ? __DK_ANDROID_VERSION_CODE__
-      : 18;
+      : 19;
   const releaseDate = typeof __DK_RELEASE_DATE__ === 'string' ? __DK_RELEASE_DATE__ : '';
   const apkFileName = `DkTEST-${version}-debug.apk`;
   const configuredUrl =

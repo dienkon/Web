@@ -2798,6 +2798,41 @@ function extractYouTubeVideoId(rawUrl) {
   );
   return match?.[1] || null;
 }
+var GENERIC_VIDEO_TITLES = /* @__PURE__ */ new Set([
+  "youtube",
+  "google drive",
+  "google docs",
+  "google drive - virus scan warning",
+  "virus scan warning",
+  "google drive: sign-in",
+  "sign in - google accounts",
+  "meet google drive \u2013 one place for all your files",
+  "meet google drive - one place for all your files",
+  "access denied",
+  "404 not found",
+  "error",
+  "untitled"
+]);
+function decodeBasicHtmlEntities(text) {
+  return text.replace(/&#x([0-9a-f]+);/gi, (_m, hex) => {
+    const code = parseInt(hex, 16);
+    return Number.isFinite(code) && code > 0 ? String.fromCodePoint(code) : "";
+  }).replace(/&#(\d+);/g, (_m, dec) => {
+    const code = parseInt(dec, 10);
+    return Number.isFinite(code) && code > 0 ? String.fromCodePoint(code) : "";
+  }).replace(/&quot;/gi, '"').replace(/&#39;|&apos;/gi, "'").replace(/&lt;/gi, "<").replace(/&gt;/gi, ">").replace(/&nbsp;/gi, " ").replace(/&amp;/gi, "&");
+}
+function cleanDetectedVideoTitle(rawTitle) {
+  let title = String(rawTitle || "").trim();
+  if (!title) return "";
+  title = decodeBasicHtmlEntities(title).replace(/\s*[-–—|]\s*(YouTube|Google Drive|Google Docs)\s*$/i, "").replace(/\.(mp4|mov|mkv|webm|avi|m4v|flv|wmv|mpeg|mpg|3gp)$/i, "").replace(/\s+/g, " ").trim();
+  if (!title || title.length < 2) return "";
+  if (GENERIC_VIDEO_TITLES.has(title.toLowerCase())) return "";
+  if (/^(google drive|sign in|đăng nhập|error \d{3})/i.test(title) && title.length < 40) {
+    return "";
+  }
+  return title.slice(0, 180);
+}
 
 // server/services/courseService.ts
 var COURSE_DOC_CACHE_TTL_MS = 60 * 1e3;
@@ -3319,11 +3354,31 @@ async function fetchWithSsrfCheckedRedirects(targetUrl, init, options) {
 function unescapeGoogleHtmlPayload(raw) {
   return String(raw || "").replace(/\\u0026/gi, "&").replace(/\\u003d/gi, "=").replace(/\\u0022/gi, '"').replace(/\\x26/gi, "&").replace(/\\x3d/gi, "=").replace(/\\\//g, "/").replace(/\\"/g, '"');
 }
+function extractFilenameFromContentDisposition(header) {
+  const raw = String(header || "").trim();
+  if (!raw) return void 0;
+  const starMatch = raw.match(/filename\*\s*=\s*(?:UTF-8''|utf-8'')([^;\r\n]+)/i);
+  if (starMatch?.[1]) {
+    try {
+      const decoded = decodeURIComponent(starMatch[1].trim().replace(/^["']|["']$/g, ""));
+      if (decoded.trim()) return decoded.trim();
+    } catch {
+    }
+  }
+  const quotedMatch = raw.match(/filename\s*=\s*"([^"]+)"/i);
+  if (quotedMatch?.[1]?.trim()) return quotedMatch[1].trim();
+  const bareMatch = raw.match(/filename\s*=\s*([^;\r\n]+)/i);
+  if (bareMatch?.[1]?.trim()) return bareMatch[1].trim().replace(/^["']|["']$/g, "");
+  return void 0;
+}
 function extractDriveTitleFromHtml(rawHtml) {
   const html = unescapeGoogleHtmlPayload(rawHtml);
   const ogTitle = html.match(/<meta\s+(?:property="og:title"|name="title")\s+content="([^"]*)"/i)?.[1];
-  const tagTitle = html.match(/<title>([^<]+)<\/title>/i)?.[1]?.replace(/\s*-\s*Google Drive\s*$/i, "").trim();
-  return (ogTitle || tagTitle || "").trim() || void 0;
+  const tagTitle = html.match(/<title>([^<]+)<\/title>/i)?.[1]?.replace(/\s*[-–—]\s*Google Drive\s*$/i, "").trim();
+  const candidate = (ogTitle || tagTitle || "").trim();
+  if (!candidate) return void 0;
+  if (!cleanDetectedVideoTitle(candidate)) return void 0;
+  return candidate;
 }
 function extractDriveDurationFromHtml(rawHtml) {
   const html = unescapeGoogleHtmlPayload(rawHtml);
@@ -3388,6 +3443,7 @@ async function probeRemoteMediaRange(mediaUrl, options) {
     { restrictToDriveHosts: options?.restrictToDriveHosts }
   );
   if (!headRes.ok) return null;
+  let detectedFileName = extractFilenameFromContentDisposition(headRes.headers?.get?.("content-disposition"));
   const contentType = String(headRes.headers?.get?.("content-type") || "").toLowerCase();
   if (contentType.includes("text/html")) {
     const html = (await readResponseChunkBounded(headRes, 131072)).toString("utf8");
@@ -3401,13 +3457,14 @@ async function probeRemoteMediaRange(mediaUrl, options) {
     headRes = confirmed.res;
     finalUrl = confirmed.finalUrl;
     if (!headRes.ok) return null;
+    detectedFileName = detectedFileName || extractFilenameFromContentDisposition(headRes.headers?.get?.("content-disposition"));
     const confirmedType = String(headRes.headers?.get?.("content-type") || "").toLowerCase();
     if (confirmedType.includes("text/html")) return null;
   }
   const headBuf = await readResponseChunkBounded(headRes, 262144);
   const headSec = extractMp4DurationSeconds(headBuf) ?? extractMatroskaDurationSeconds(headBuf);
   if (headSec) {
-    return { durationSeconds: headSec, source: "mp4_head" };
+    return { durationSeconds: headSec, source: "mp4_head", ...detectedFileName ? { fileName: detectedFileName } : {} };
   }
   const cr = headRes.headers?.get?.("content-range");
   const totalMatch = cr?.match(/\/(\d+)$/);
@@ -3427,7 +3484,7 @@ async function probeRemoteMediaRange(mediaUrl, options) {
       const moovBuf = await readResponseChunkBounded(moovRes, 262144);
       const moovSec = extractMp4DurationSeconds(moovBuf);
       if (moovSec) {
-        return { durationSeconds: moovSec, source: "mp4_moov" };
+        return { durationSeconds: moovSec, source: "mp4_moov", ...detectedFileName ? { fileName: detectedFileName } : {} };
       }
     }
   }
@@ -3445,9 +3502,12 @@ async function probeRemoteMediaRange(mediaUrl, options) {
       const tailArr = await readResponseChunkBounded(tailRes, 262144);
       const tailSec = extractMp4DurationSeconds(tailArr);
       if (tailSec) {
-        return { durationSeconds: tailSec, source: "mp4_tail" };
+        return { durationSeconds: tailSec, source: "mp4_tail", ...detectedFileName ? { fileName: detectedFileName } : {} };
       }
     }
+  }
+  if (detectedFileName) {
+    return { durationSeconds: 0, source: "content_disposition", fileName: detectedFileName };
   }
   return null;
 }
@@ -3457,6 +3517,8 @@ async function probeVideoDuration(rawUrl) {
   await validateUrlForSsrf(cleanUrl);
   const ytId = extractYouTubeVideoId(cleanUrl);
   if (ytId) {
+    let detectedSec = 0;
+    let detectedTitle;
     try {
       const watchRes = await fetch(`https://www.youtube.com/watch?v=${encodeURIComponent(ytId)}&hl=en`, {
         headers: {
@@ -3469,20 +3531,46 @@ async function probeVideoDuration(rawUrl) {
         const html = await watchRes.text();
         const msMatch = html.match(/"approxDurationMs"\s*:\s*"(\d+)"/);
         const secMatch = html.match(/"lengthSeconds"\s*:\s*"(\d+)"/);
-        const titleMatch = html.match(/<meta\s+name="title"\s+content="([^"]*)"/i);
-        let sec = 0;
-        if (msMatch?.[1]) sec = Math.round(Number(msMatch[1]) / 1e3);
-        else if (secMatch?.[1]) sec = Math.round(Number(secMatch[1]));
-        if (sec > 0) {
-          return {
-            durationSeconds: sec,
-            durationMinutes: Math.max(1, Math.round(sec / 60)),
-            title: titleMatch?.[1],
-            source: "youtube"
-          };
-        }
+        const metaTitle = html.match(/<meta\s+name="title"\s+content="([^"]*)"/i)?.[1] || html.match(/<meta\s+property="og:title"\s+content="([^"]*)"/i)?.[1] || html.match(/<title>([^<]+)<\/title>/i)?.[1];
+        const cleanedMetaTitle = cleanDetectedVideoTitle(metaTitle);
+        if (cleanedMetaTitle) detectedTitle = cleanedMetaTitle;
+        if (msMatch?.[1]) detectedSec = Math.round(Number(msMatch[1]) / 1e3);
+        else if (secMatch?.[1]) detectedSec = Math.round(Number(secMatch[1]));
       }
     } catch {
+    }
+    if (!detectedTitle || detectedSec <= 0) {
+      try {
+        const oembedRes = await fetch(
+          `https://www.youtube.com/oembed?url=${encodeURIComponent(`https://www.youtube.com/watch?v=${ytId}`)}&format=json`,
+          {
+            headers: { "User-Agent": DEFAULT_BROWSER_UA, Accept: "application/json" },
+            signal: AbortSignal.timeout(6e3)
+          }
+        );
+        if (oembedRes.ok) {
+          const oembedJson = await oembedRes.json().catch(() => null);
+          const cleanedOembedTitle = cleanDetectedVideoTitle(oembedJson?.title);
+          if (cleanedOembedTitle) detectedTitle = detectedTitle || cleanedOembedTitle;
+        }
+      } catch {
+      }
+    }
+    if (detectedSec > 0) {
+      return {
+        durationSeconds: detectedSec,
+        durationMinutes: Math.max(1, Math.round(detectedSec / 60)),
+        ...detectedTitle ? { title: detectedTitle } : {},
+        source: "youtube"
+      };
+    }
+    if (detectedTitle) {
+      return {
+        durationSeconds: 0,
+        durationMinutes: 0,
+        title: detectedTitle,
+        source: "youtube_oembed"
+      };
     }
     return null;
   }
@@ -3525,7 +3613,7 @@ async function probeVideoDuration(rawUrl) {
         const body = await infoRes.text();
         const params = new URLSearchParams(body);
         const title = params.get("title") || void 0;
-        if (title) discoveredTitle = discoveredTitle || title;
+        if (title && cleanDetectedVideoTitle(title)) discoveredTitle = discoveredTitle || title;
         const lenSec = Number(params.get("length_seconds") || 0);
         if (lenSec > 0) {
           const sec = Math.round(lenSec);
@@ -3590,6 +3678,9 @@ async function probeVideoDuration(rawUrl) {
     for (const downloadUrl of driveDownloadCandidates) {
       try {
         const mediaProbe = await probeRemoteMediaRange(downloadUrl, { restrictToDriveHosts: true });
+        if (mediaProbe?.fileName && cleanDetectedVideoTitle(mediaProbe.fileName)) {
+          discoveredTitle = discoveredTitle || mediaProbe.fileName;
+        }
         if (mediaProbe && mediaProbe.durationSeconds > 0) {
           return {
             durationSeconds: mediaProbe.durationSeconds,
@@ -3601,6 +3692,14 @@ async function probeVideoDuration(rawUrl) {
       } catch {
       }
     }
+    if (discoveredTitle) {
+      return {
+        durationSeconds: 0,
+        durationMinutes: 0,
+        title: discoveredTitle,
+        source: "drive_title"
+      };
+    }
     return null;
   }
   try {
@@ -3609,7 +3708,16 @@ async function probeVideoDuration(rawUrl) {
       return {
         durationSeconds: mediaProbe.durationSeconds,
         durationMinutes: Math.max(1, Math.round(mediaProbe.durationSeconds / 60)),
+        ...mediaProbe.fileName && cleanDetectedVideoTitle(mediaProbe.fileName) ? { title: mediaProbe.fileName } : {},
         source: mediaProbe.source
+      };
+    }
+    if (mediaProbe?.fileName && cleanDetectedVideoTitle(mediaProbe.fileName)) {
+      return {
+        durationSeconds: 0,
+        durationMinutes: 0,
+        title: mediaProbe.fileName,
+        source: "direct_title"
       };
     }
   } catch {
@@ -5773,7 +5881,7 @@ adminRouter.post("/courses/probe-video", async (req, res) => {
     const probe = await probeVideoDuration(url);
     return res.json({
       success: true,
-      found: Boolean(probe),
+      found: Boolean(probe && (probe.durationSeconds > 0 || probe.title)),
       ...probe || { durationSeconds: 0, durationMinutes: 0 }
     });
   } catch (err) {

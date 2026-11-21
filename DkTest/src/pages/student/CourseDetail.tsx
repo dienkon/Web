@@ -5,6 +5,7 @@ import {
   BookOpen,
   Check,
   CheckCircle2,
+  CheckSquare,
   ChevronDown,
   ChevronUp,
   ClipboardCheck,
@@ -21,6 +22,9 @@ import {
   Play,
   Share2,
   ShieldCheck,
+  ShoppingBag,
+  Sparkles,
+  Square,
   Tag,
   Unlock,
   Video,
@@ -47,13 +51,16 @@ import {
   getMyWallet,
   getResolvedStudentUid,
   unlockCourseApi,
+  unlockCourseBundleApi,
   unlockCourseLessonApi,
   validateVoucherApi,
 } from "../../services/walletClientService";
 import { auth } from "../../services/firebase/config";
+import { useAuth } from "../../context/AuthContext";
 import type {
   Course,
   CourseAccessInfo,
+  CourseBundleType,
   CourseLesson,
   CourseLessonOutlineItem,
 } from "../../types";
@@ -61,7 +68,17 @@ import { useToast } from "../../components/ui/ToastNotification";
 
 type UnlockTarget =
   | { kind: "course"; priceVnd: number; title: string }
-  | { kind: "lesson"; lesson: CourseLessonOutlineItem; priceVnd: number; title: string };
+  | { kind: "lesson"; lesson: CourseLessonOutlineItem; priceVnd: number; title: string }
+  | {
+      kind: "bundle";
+      bundleType: CourseBundleType;
+      chapterId?: string | null;
+      topicTitle?: string;
+      lessons: CourseLessonOutlineItem[];
+      priceVnd: number;
+      title: string;
+      subtitle?: string;
+    };
 
 type ContentTabKey = "videos" | "materials" | "exams";
 
@@ -125,7 +142,12 @@ export default function CourseDetail() {
   const [checkingVoucher, setCheckingVoucher] = useState(false);
   const [unlockBusy, setUnlockBusy] = useState(false);
 
-  const uid = auth.currentUser?.uid || getResolvedStudentUid();
+  // Multi-select purchase mode for picking custom combination of locked videos
+  const [isSelectPurchaseMode, setIsSelectPurchaseMode] = useState(false);
+  const [selectedBundleLessonIds, setSelectedBundleLessonIds] = useState<string[]>([]);
+
+  const { user: authUser } = useAuth();
+  const uid = authUser?.uid || auth.currentUser?.uid || getResolvedStudentUid();
   const playerGuideKey = useMemo(() => getCourseGuideStorageKey(uid, "course_player"), [uid]);
   const tabGuideKey = useMemo(() => getCourseGuideStorageKey(uid, "courses_tab"), [uid]);
 
@@ -154,6 +176,8 @@ export default function CourseDetail() {
     setExpandedTopics({});
     setTopicTabs({});
     setActiveContentTab("videos");
+    setIsSelectPurchaseMode(false);
+    setSelectedBundleLessonIds([]);
     if (!courseId) return;
     try {
       const raw = localStorage.getItem(`dktest_course_watched_${courseId}`);
@@ -724,7 +748,11 @@ export default function CourseDetail() {
   const handleConfirmUnlock = async () => {
     if (!unlockTarget || !course) return;
     const idempotencyKey = `${unlockTarget.kind}_${course.id}_${
-      unlockTarget.kind === "lesson" ? unlockTarget.lesson.id : "full"
+      unlockTarget.kind === "lesson"
+        ? unlockTarget.lesson.id
+        : unlockTarget.kind === "bundle"
+        ? `${unlockTarget.bundleType}_${unlockTarget.chapterId || unlockTarget.lessons.length}`
+        : "full"
     }_${Date.now()}`;
     const appliedCode = voucherResult?.valid ? voucherResult.code : undefined;
 
@@ -761,6 +789,56 @@ export default function CourseDetail() {
               }
         );
         showSuccessToast(res.message || "Mở khóa trọn khóa học thành công! Đang phát bài giảng...");
+      } else if (unlockTarget.kind === "bundle") {
+        const res = await unlockCourseBundleApi(course.id, {
+          bundleType: unlockTarget.bundleType,
+          chapterId: unlockTarget.chapterId,
+          topicTitle: unlockTarget.topicTitle,
+          lessonIds: unlockTarget.lessons.map((l) => l.id),
+          idempotencyKey,
+          voucherCode: appliedCode,
+        });
+        setLiveBalanceVnd(res.newBalanceVnd);
+        const newlyUnlockedIds =
+          res.unlockedLessonIds && res.unlockedLessonIds.length > 0
+            ? res.unlockedLessonIds
+            : unlockTarget.lessons.map((l) => l.id);
+        unlockedTargetLesson =
+          unlockTarget.lessons.find((l) => l.id === selectedOutlineItem?.id) ||
+          unlockTarget.lessons[0] ||
+          null;
+        setAccess((prev) =>
+          prev
+            ? {
+                ...prev,
+                unlockedLessonIds: Array.from(
+                  new Set([...(prev.unlockedLessonIds || []), ...newlyUnlockedIds])
+                ),
+                userBalance: res.newBalanceVnd,
+              }
+            : {
+                hasCourseAccess: false,
+                isFreeCourse: false,
+                unlockedCourse: false,
+                unlockedLessonIds: newlyUnlockedIds,
+                priceVnd: course.priceVnd || 0,
+                accessMode: resolveCourseAccessMode(course),
+                salesEnabled: course.salesEnabled !== false,
+                unlockFullPolicy: course.unlockFullPolicy || "unlock_all_videos",
+                freePreviewCount: course.freePreviewCount || 0,
+                allowSingleLessonPurchase: true,
+                userBalance: res.newBalanceVnd,
+                missingVnd: 0,
+                canUnlockCourse: false,
+                courseTitle: course.title,
+              }
+        );
+        setSelectedBundleLessonIds([]);
+        setIsSelectPurchaseMode(false);
+        showSuccessToast(
+          res.message ||
+            `Mở khóa thành công ${res.unlockedCount || unlockTarget.lessons.length} video bài giảng!`
+        );
       } else {
         const res = await unlockCourseLessonApi(
           course.id,
@@ -881,6 +959,125 @@ export default function CourseDetail() {
   const activeTopicMaterials = activeTopic?.materials || [];
   const activeTopicExams = activeTopic?.exams || [];
 
+  // Multi-option bundle purchase helpers (Chapter / Topic / Selected / All Remaining)
+  const lockedBuyableLessons = (course.lessonOutline || []).filter((item) => {
+    const st = computeLessonAccessState(course, item, access);
+    return !st.canWatch && st.canBuySingle;
+  });
+  const lockedBuyableTotalVnd = lockedBuyableLessons.reduce(
+    (sum, item) => sum + computeLessonAccessState(course, item, access).effectiveSinglePriceVnd,
+    0
+  );
+  const canUseBundlePurchase = Boolean(
+    course.salesEnabled &&
+      lockedBuyableLessons.length > 0 &&
+      (mode === "per_video" ||
+        course.allowSingleLessonPurchase ||
+        course.unlockFullPolicy === "unlock_course_only")
+  );
+
+  const getChapterLockedStats = (chapter: { id: string; title: string; topics: CourseHierarchyTopic[] }) => {
+    const lessonsInChapter = chapter.topics.flatMap((t) => t.lessons);
+    const locked = lessonsInChapter.filter((l) => {
+      const st = computeLessonAccessState(course, l, access);
+      return !st.canWatch && st.canBuySingle;
+    });
+    const totalVnd = locked.reduce(
+      (sum, l) => sum + computeLessonAccessState(course, l, access).effectiveSinglePriceVnd,
+      0
+    );
+    return { locked, totalVnd };
+  };
+
+  const getTopicLockedStats = (topic: CourseHierarchyTopic) => {
+    const locked = topic.lessons.filter((l) => {
+      const st = computeLessonAccessState(course, l, access);
+      return !st.canWatch && st.canBuySingle;
+    });
+    const totalVnd = locked.reduce(
+      (sum, l) => sum + computeLessonAccessState(course, l, access).effectiveSinglePriceVnd,
+      0
+    );
+    return { locked, totalVnd };
+  };
+
+  const chapterLockedBundles = hierarchyGroups
+    .flatMap((g) => g.chapters)
+    .map((ch) => ({
+      chapter: ch,
+      ...getChapterLockedStats(ch),
+    }))
+    .filter((entry) => entry.locked.length > 0);
+
+  const selectedLessonChapterBundle = selectedOutlineItem
+    ? chapterLockedBundles.find((entry) =>
+        entry.locked.some((l) => l.id === selectedOutlineItem.id)
+      ) || null
+    : null;
+
+  const lockedBuyableIdSet = new Set(lockedBuyableLessons.map((l) => l.id));
+  const selectedCustomLessons = lockedBuyableLessons.filter((l) =>
+    selectedBundleLessonIds.includes(l.id) && lockedBuyableIdSet.has(l.id)
+  );
+  const selectedCustomTotalVnd = selectedCustomLessons.reduce(
+    (sum, l) => sum + computeLessonAccessState(course, l, access).effectiveSinglePriceVnd,
+    0
+  );
+
+  const toggleSelectLessonForBundle = (lessonId: string) => {
+    setSelectedBundleLessonIds((prev) =>
+      prev.includes(lessonId) ? prev.filter((id) => id !== lessonId) : [...prev, lessonId]
+    );
+  };
+
+  const openChapterBundleModal = (
+    chapter: { id: string; title: string },
+    locked: CourseLessonOutlineItem[],
+    totalVnd: number
+  ) => {
+    if (locked.length === 0) return;
+    void openUnlockModal({
+      kind: "bundle",
+      bundleType: "chapter",
+      chapterId: chapter.id,
+      lessons: locked,
+      priceVnd: totalVnd,
+      title: `Trọn chương: ${chapter.title}`,
+      subtitle: `Mở khóa ${locked.length} video chưa sở hữu trong chương này`,
+    });
+  };
+
+  const openTopicBundleModal = (
+    chapterId: string,
+    topic: CourseHierarchyTopic,
+    locked: CourseLessonOutlineItem[],
+    totalVnd: number
+  ) => {
+    if (locked.length === 0) return;
+    void openUnlockModal({
+      kind: "bundle",
+      bundleType: "topic",
+      chapterId,
+      topicTitle: topic.title,
+      lessons: locked,
+      priceVnd: totalVnd,
+      title: `Chuyên đề: ${topic.title}`,
+      subtitle: `Mở khóa ${locked.length} video chưa sở hữu trong chuyên đề này`,
+    });
+  };
+
+  const openAllRemainingBundleModal = () => {
+    if (lockedBuyableLessons.length === 0) return;
+    void openUnlockModal({
+      kind: "bundle",
+      bundleType: "all_remaining",
+      lessons: lockedBuyableLessons,
+      priceVnd: lockedBuyableTotalVnd,
+      title: `Toàn bộ ${lockedBuyableLessons.length} video còn lại`,
+      subtitle: `Khóa học: ${course.title} (chỉ tính tiền các video chưa mở)`,
+    });
+  };
+
   const renderCurriculumTree = () => (
     <div className="space-y-3">
       {hierarchyGroups.map((group) => {
@@ -918,30 +1115,55 @@ export default function CourseDetail() {
                       className="rounded-xl border border-slate-200 bg-white overflow-hidden shadow-2xs"
                     >
                       {/* Level 2: Chapter Header */}
-                      <button
-                        type="button"
-                        onClick={() =>
-                          setCollapsedChapters((prev) => ({
-                            ...prev,
-                            [chapter.id]: !isChapCollapsed,
-                          }))
-                        }
-                        className="w-full px-3 py-2.5 bg-blue-50/70 hover:bg-blue-100/70 border-b border-blue-100 flex items-center justify-between gap-2 text-left transition-colors cursor-pointer"
-                      >
-                        <div className="min-w-0">
-                          <div className="font-extrabold text-[11px] uppercase text-blue-950 truncate">
-                            {chapter.title}
+                      {(() => {
+                        const chLocked = canUseBundlePurchase ? getChapterLockedStats(chapter) : { locked: [], totalVnd: 0 };
+                        return (
+                          <div className="bg-blue-50/70 border-b border-blue-100">
+                            <button
+                              type="button"
+                              onClick={() =>
+                                setCollapsedChapters((prev) => ({
+                                  ...prev,
+                                  [chapter.id]: !isChapCollapsed,
+                                }))
+                              }
+                              className="w-full px-3 py-2.5 hover:bg-blue-100/70 flex items-center justify-between gap-2 text-left transition-colors cursor-pointer"
+                            >
+                              <div className="min-w-0">
+                                <div className="font-extrabold text-[11px] uppercase text-blue-950 truncate">
+                                  {chapter.title}
+                                </div>
+                                <div className="text-[10px] font-semibold text-blue-700">
+                                  ({chapter.lessonCount} bài học)
+                                </div>
+                              </div>
+                              {isChapCollapsed ? (
+                                <ChevronDown className="w-4 h-4 text-blue-700 shrink-0" />
+                              ) : (
+                                <ChevronUp className="w-4 h-4 text-blue-700 shrink-0" />
+                              )}
+                            </button>
+                            {chLocked.locked.length > 0 && (
+                              <div className="px-2.5 pb-2">
+                                <button
+                                  type="button"
+                                  onClick={() => {
+                                    setIsMobileDrawerOpen(false);
+                                    openChapterBundleModal(chapter, chLocked.locked, chLocked.totalVnd);
+                                  }}
+                                  className="w-full py-1.5 px-2.5 rounded-lg bg-indigo-600 hover:bg-indigo-700 text-white text-[10px] font-extrabold flex items-center justify-center gap-1 shadow-2xs cursor-pointer transition-colors"
+                                >
+                                  <ShoppingBag className="w-3 h-3" />
+                                  <span>
+                                    Mua chương ({chLocked.locked.length} bài •{" "}
+                                    {chLocked.totalVnd.toLocaleString("vi-VN")}đ)
+                                  </span>
+                                </button>
+                              </div>
+                            )}
                           </div>
-                          <div className="text-[10px] font-semibold text-blue-700">
-                            ({chapter.lessonCount} bài học)
-                          </div>
-                        </div>
-                        {isChapCollapsed ? (
-                          <ChevronDown className="w-4 h-4 text-blue-700 shrink-0" />
-                        ) : (
-                          <ChevronUp className="w-4 h-4 text-blue-700 shrink-0" />
-                        )}
-                      </button>
+                        );
+                      })()}
 
                       {/* Level 3: Topic Selection Rows */}
                       {!isChapCollapsed && (
@@ -1110,6 +1332,52 @@ export default function CourseDetail() {
                   </span>
                 </button>
               )}
+
+              {canUseBundlePurchase &&
+                selectedLessonChapterBundle &&
+                selectedLessonChapterBundle.locked.length >= 2 && (
+                  <button
+                    type="button"
+                    onClick={() =>
+                      openChapterBundleModal(
+                        selectedLessonChapterBundle.chapter,
+                        selectedLessonChapterBundle.locked,
+                        selectedLessonChapterBundle.totalVnd
+                      )
+                    }
+                    className={`px-3.5 py-2.5 rounded-xl text-xs font-black flex items-center gap-1.5 cursor-pointer ${
+                      isDark
+                        ? "bg-indigo-500/20 hover:bg-indigo-500/35 text-indigo-100 border border-indigo-400/40"
+                        : "bg-indigo-50 hover:bg-indigo-100 text-indigo-700 border border-indigo-200"
+                    }`}
+                  >
+                    <ShoppingBag className="w-3.5 h-3.5" />
+                    <span>
+                      Mua cả chương ({selectedLessonChapterBundle.locked.length} bài •{" "}
+                      {selectedLessonChapterBundle.totalVnd.toLocaleString("vi-VN")}đ)
+                    </span>
+                  </button>
+                )}
+
+              {canUseBundlePurchase &&
+                lockedBuyableLessons.length >= 2 &&
+                !(mode === "paid" && coursePrice > 0 && course.unlockFullPolicy === "unlock_all_videos") && (
+                  <button
+                    type="button"
+                    onClick={openAllRemainingBundleModal}
+                    className={`px-3.5 py-2.5 rounded-xl text-xs font-black flex items-center gap-1.5 cursor-pointer ${
+                      isDark
+                        ? "bg-white hover:bg-blue-50 text-blue-950"
+                        : "bg-blue-50 hover:bg-blue-100 text-blue-700 border border-blue-200"
+                    }`}
+                  >
+                    <Sparkles className="w-3.5 h-3.5" />
+                    <span>
+                      Mua hết {lockedBuyableLessons.length} video •{" "}
+                      {lockedBuyableTotalVnd.toLocaleString("vi-VN")}đ
+                    </span>
+                  </button>
+                )}
 
               {mode === "paid" &&
                 coursePrice > 0 &&
@@ -1440,6 +1708,121 @@ export default function CourseDetail() {
         </div>
       </div>
 
+      {/* Multi-Option Fast Purchase Optimization Bar (Full / All Videos / By Chapter / Custom Multi-Select) */}
+      {course.salesEnabled &&
+        (canUseBundlePurchase || (mode === "paid" && coursePrice > 0 && !access?.unlockedCourse)) && (
+          <div className="bg-white dark:bg-slate-900 rounded-2xl sm:rounded-3xl border border-blue-200/80 dark:border-blue-800/70 p-3.5 sm:p-5 shadow-xs space-y-3">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2.5">
+              <div className="space-y-0.5">
+                <div className="flex items-center gap-1.5 text-xs sm:text-sm font-black text-slate-900 dark:text-white">
+                  <ShoppingBag className="w-4 h-4 text-blue-600" />
+                  <span>Tùy chọn mở khóa nhanh cho học sinh</span>
+                </div>
+                <p className="text-[11px] text-slate-500 dark:text-slate-400">
+                  {lockedBuyableLessons.length > 0 ? (
+                    <>
+                      Còn <strong>{lockedBuyableLessons.length} video trả phí</strong> chưa mở • Tổng mua hết:{" "}
+                      <strong className="text-blue-700 dark:text-blue-300">
+                        {lockedBuyableTotalVnd.toLocaleString("vi-VN")}đ
+                      </strong>{" "}
+                      (tự động trừ các bài bạn đã mở hoặc miễn phí).
+                    </>
+                  ) : (
+                    "Chọn gói mở khóa trọn khóa học để xem đầy đủ toàn bộ bài giảng và tài liệu."
+                  )}
+                </p>
+              </div>
+
+              <div className="flex flex-wrap items-center gap-2 shrink-0">
+                {mode === "paid" && coursePrice > 0 && !access?.unlockedCourse && (
+                  <button
+                    type="button"
+                    onClick={() =>
+                      void openUnlockModal({
+                        kind: "course",
+                        priceVnd: coursePrice,
+                        title: course.title,
+                      })
+                    }
+                    className="px-3.5 py-2 rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white text-xs font-black flex items-center gap-1.5 shadow-sm cursor-pointer"
+                  >
+                    <Unlock className="w-3.5 h-3.5" />
+                    <span>
+                      Mua trọn khóa • {coursePrice.toLocaleString("vi-VN")}đ
+                    </span>
+                    {lockedBuyableTotalVnd > coursePrice && (
+                      <span className="px-1.5 py-0.5 rounded-md bg-white/20 text-[10px]">
+                        Tiết kiệm {(lockedBuyableTotalVnd - coursePrice).toLocaleString("vi-VN")}đ
+                      </span>
+                    )}
+                  </button>
+                )}
+
+                {canUseBundlePurchase && lockedBuyableLessons.length >= 1 && (
+                  <button
+                    type="button"
+                    onClick={openAllRemainingBundleModal}
+                    className="px-3.5 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-black flex items-center gap-1.5 shadow-sm cursor-pointer"
+                  >
+                    <Sparkles className="w-3.5 h-3.5" />
+                    <span>
+                      Mua hết {lockedBuyableLessons.length} video •{" "}
+                      {lockedBuyableTotalVnd.toLocaleString("vi-VN")}đ
+                    </span>
+                  </button>
+                )}
+
+                {canUseBundlePurchase && lockedBuyableLessons.length >= 2 && (
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setIsSelectPurchaseMode((prev) => {
+                        if (prev) setSelectedBundleLessonIds([]);
+                        return !prev;
+                      });
+                    }}
+                    className={`px-3 py-2 rounded-xl text-xs font-bold flex items-center gap-1.5 border transition-colors cursor-pointer ${
+                      isSelectPurchaseMode
+                        ? "bg-amber-50 border-amber-400 text-amber-800 dark:bg-amber-950/40 dark:text-amber-200"
+                        : "bg-slate-50 hover:bg-slate-100 dark:bg-slate-800 border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-200"
+                    }`}
+                  >
+                    <CheckSquare className="w-3.5 h-3.5" />
+                    <span>
+                      {isSelectPurchaseMode ? "Đang chọn nhiều video" : "Chọn nhiều video"}
+                    </span>
+                  </button>
+                )}
+              </div>
+            </div>
+
+            {/* Quick Buy by Chapter Pills */}
+            {canUseBundlePurchase && chapterLockedBundles.length > 0 && (
+              <div className="pt-2.5 border-t border-slate-100 dark:border-slate-800 space-y-1.5">
+                <div className="text-[11px] font-black uppercase tracking-wide text-slate-400">
+                  Hoặc mua nhanh theo từng chương:
+                </div>
+                <div className="flex flex-wrap gap-2">
+                  {chapterLockedBundles.map(({ chapter, locked, totalVnd }) => (
+                    <button
+                      key={chapter.id}
+                      type="button"
+                      onClick={() => openChapterBundleModal(chapter, locked, totalVnd)}
+                      className="px-3 py-1.5 rounded-xl bg-blue-50 hover:bg-blue-100 dark:bg-blue-950/50 dark:hover:bg-blue-950 border border-blue-200 dark:border-blue-800 text-blue-800 dark:text-blue-200 text-[11px] font-bold flex items-center gap-1.5 transition-colors cursor-pointer"
+                    >
+                      <Layers className="w-3.5 h-3.5 text-blue-600 shrink-0" />
+                      <span className="max-w-[200px] truncate">{chapter.title}</span>
+                      <span className="px-1.5 py-0.5 rounded-md bg-white dark:bg-slate-900 text-blue-700 dark:text-blue-300 font-black">
+                        {locked.length} bài • {totalVnd.toLocaleString("vi-VN")}đ
+                      </span>
+                    </button>
+                  ))}
+                </div>
+              </div>
+            )}
+          </div>
+        )}
+
       {/* Hierarchical Syllabus Section ("Danh sách bài học" 1.9.5) */}
       <div className="space-y-3 sm:space-y-4">
         <div className="flex items-center justify-between gap-2">
@@ -1485,98 +1868,149 @@ export default function CourseDetail() {
                   <div className="space-y-3 pl-0 sm:pl-3">
                     {group.chapters.map((chapter) => {
                       const isChapCollapsed = Boolean(collapsedChapters[chapter.id]);
+                      const chapterLocked = canUseBundlePurchase
+                        ? getChapterLockedStats(chapter)
+                        : { locked: [], totalVnd: 0 };
                       return (
                         <div
                           key={chapter.id}
                           className="rounded-xl sm:rounded-2xl border border-blue-200 dark:border-blue-800/60 bg-blue-50/40 dark:bg-slate-900 overflow-hidden shadow-2xs"
                         >
-                          <button
-                            type="button"
-                            onClick={() =>
-                              setCollapsedChapters((prev) => ({ ...prev, [chapter.id]: !isChapCollapsed }))
-                            }
-                            className="w-full px-3.5 sm:px-5 py-2.5 sm:py-3 bg-blue-50 dark:bg-blue-950/50 hover:bg-blue-100/80 dark:hover:bg-blue-950/70 flex items-center justify-between gap-2 text-left transition-colors cursor-pointer"
-                          >
-                            <span className="font-black text-xs sm:text-sm uppercase text-blue-950 dark:text-blue-100">
-                              {chapter.title}
-                            </span>
-                            <div className="flex items-center gap-2 shrink-0 text-xs font-bold text-blue-700 dark:text-blue-300">
-                              <span>({chapter.lessonCount} bài học)</span>
-                              {isChapCollapsed ? (
-                                <ChevronDown className="w-4 h-4" />
-                              ) : (
-                                <ChevronUp className="w-4 h-4" />
-                              )}
-                            </div>
-                          </button>
+                          <div className="px-3.5 sm:px-5 py-2.5 sm:py-3 bg-blue-50 dark:bg-blue-950/50 hover:bg-blue-100/80 dark:hover:bg-blue-950/70 flex flex-wrap items-center justify-between gap-2 transition-colors">
+                            <button
+                              type="button"
+                              onClick={() =>
+                                setCollapsedChapters((prev) => ({ ...prev, [chapter.id]: !isChapCollapsed }))
+                              }
+                              className="flex-1 min-w-0 flex items-center justify-between gap-2 text-left cursor-pointer"
+                            >
+                              <span className="font-black text-xs sm:text-sm uppercase text-blue-950 dark:text-blue-100">
+                                {chapter.title}
+                              </span>
+                              <div className="flex items-center gap-2 shrink-0 text-xs font-bold text-blue-700 dark:text-blue-300">
+                                <span>({chapter.lessonCount} bài học)</span>
+                                {isChapCollapsed ? (
+                                  <ChevronDown className="w-4 h-4" />
+                                ) : (
+                                  <ChevronUp className="w-4 h-4" />
+                                )}
+                              </div>
+                            </button>
+                            {chapterLocked.locked.length > 0 && (
+                              <button
+                                type="button"
+                                onClick={(e) => {
+                                  e.stopPropagation();
+                                  openChapterBundleModal(
+                                    chapter,
+                                    chapterLocked.locked,
+                                    chapterLocked.totalVnd
+                                  );
+                                }}
+                                className="px-3 py-1.5 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white text-[11px] font-black flex items-center gap-1.5 shadow-2xs shrink-0 cursor-pointer transition-colors"
+                              >
+                                <ShoppingBag className="w-3.5 h-3.5" />
+                                <span>
+                                  Mua chương ({chapterLocked.locked.length} bài •{" "}
+                                  {chapterLocked.totalVnd.toLocaleString("vi-VN")}đ)
+                                </span>
+                              </button>
+                            )}
+                          </div>
 
                           {!isChapCollapsed && (
                             <div className="p-2 sm:p-3.5 space-y-2 bg-white/85 dark:bg-slate-900/90">
                               {chapter.topics.map((topic) => {
                                 const isTopicExpanded = Boolean(expandedTopics[topic.id]);
                                 const activeTopicTab = topicTabs[topic.id] || "videos";
+                                const topicLocked = canUseBundlePurchase
+                                  ? getTopicLockedStats(topic)
+                                  : { locked: [], totalVnd: 0 };
 
                                 return (
                                   <div
                                     key={topic.id}
                                     className="rounded-xl border border-slate-200/80 dark:border-slate-800 bg-white dark:bg-slate-900 overflow-hidden"
                                   >
-                                    <button
-                                      type="button"
-                                      onClick={() =>
-                                        setExpandedTopics((prev) => ({
-                                          ...prev,
-                                          [topic.id]: !isTopicExpanded,
-                                        }))
-                                      }
-                                      className="w-full px-3 sm:px-4 py-2.5 sm:py-3 flex items-center justify-between gap-2 hover:bg-slate-50 dark:hover:bg-slate-800/40 transition-colors text-left cursor-pointer"
-                                    >
-                                      <div className="flex items-center gap-2 min-w-0 flex-1">
-                                        <BookOpen className="w-4 h-4 text-blue-600 shrink-0" />
-                                        <span className="font-bold text-xs sm:text-sm text-slate-900 dark:text-white line-clamp-2 sm:truncate">
-                                          {topic.title}
-                                        </span>
-                                      </div>
-
-                                      <div className="flex items-center gap-2.5 sm:gap-4 shrink-0">
-                                        <div className="flex items-center gap-2 text-[11px] font-bold text-blue-600 dark:text-blue-400">
-                                          <span className="flex items-center gap-0.5" title="Số video">
-                                            <span>{topic.videoCount}</span>
-                                            <Video className="w-3.5 h-3.5" />
+                                    <div className="px-3 sm:px-4 py-2.5 sm:py-3 flex flex-wrap items-center justify-between gap-2 hover:bg-slate-50 dark:hover:bg-slate-800/40 transition-colors">
+                                      <button
+                                        type="button"
+                                        onClick={() =>
+                                          setExpandedTopics((prev) => ({
+                                            ...prev,
+                                            [topic.id]: !isTopicExpanded,
+                                          }))
+                                        }
+                                        className="flex-1 min-w-0 flex items-center justify-between gap-2 text-left cursor-pointer"
+                                      >
+                                        <div className="flex items-center gap-2 min-w-0 flex-1">
+                                          <BookOpen className="w-4 h-4 text-blue-600 shrink-0" />
+                                          <span className="font-bold text-xs sm:text-sm text-slate-900 dark:text-white line-clamp-2 sm:truncate">
+                                            {topic.title}
                                           </span>
-                                          {topic.materialsCount > 0 && (
-                                            <span className="flex items-center gap-0.5" title="Số tài liệu">
-                                              <span>{topic.materialsCount}</span>
-                                              <FileText className="w-3.5 h-3.5" />
-                                            </span>
-                                          )}
-                                          {topic.examsCount > 0 && (
-                                            <span className="flex items-center gap-0.5" title="Số bài kiểm tra">
-                                              <span>{topic.examsCount}</span>
-                                              <ClipboardCheck className="w-3.5 h-3.5" />
-                                            </span>
-                                          )}
                                         </div>
 
-                                        <div className="hidden sm:flex items-center gap-1.5 w-24">
-                                          <div className="flex-1 h-1.5 rounded-full bg-slate-100 dark:bg-slate-800 overflow-hidden">
-                                            <div
-                                              className="h-full rounded-full bg-blue-600 transition-all"
-                                              style={{ width: `${topic.progressPct}%` }}
-                                            />
+                                        <div className="flex items-center gap-2.5 sm:gap-4 shrink-0">
+                                          <div className="flex items-center gap-2 text-[11px] font-bold text-blue-600 dark:text-blue-400">
+                                            <span className="flex items-center gap-0.5" title="Số video">
+                                              <span>{topic.videoCount}</span>
+                                              <Video className="w-3.5 h-3.5" />
+                                            </span>
+                                            {topic.materialsCount > 0 && (
+                                              <span className="flex items-center gap-0.5" title="Số tài liệu">
+                                                <span>{topic.materialsCount}</span>
+                                                <FileText className="w-3.5 h-3.5" />
+                                              </span>
+                                            )}
+                                            {topic.examsCount > 0 && (
+                                              <span className="flex items-center gap-0.5" title="Số bài kiểm tra">
+                                                <span>{topic.examsCount}</span>
+                                                <ClipboardCheck className="w-3.5 h-3.5" />
+                                              </span>
+                                            )}
                                           </div>
-                                          <span className="text-[10px] font-bold text-slate-500 w-7 text-right">
-                                            {topic.progressPct}%
-                                          </span>
-                                        </div>
 
-                                        {isTopicExpanded ? (
-                                          <ChevronUp className="w-4 h-4 text-slate-400" />
-                                        ) : (
-                                          <ChevronDown className="w-4 h-4 text-slate-400" />
-                                        )}
-                                      </div>
-                                    </button>
+                                          <div className="hidden sm:flex items-center gap-1.5 w-24">
+                                            <div className="flex-1 h-1.5 rounded-full bg-slate-100 dark:bg-slate-800 overflow-hidden">
+                                              <div
+                                                className="h-full rounded-full bg-blue-600 transition-all"
+                                                style={{ width: `${topic.progressPct}%` }}
+                                              />
+                                            </div>
+                                            <span className="text-[10px] font-bold text-slate-500 w-7 text-right">
+                                              {topic.progressPct}%
+                                            </span>
+                                          </div>
+
+                                          {isTopicExpanded ? (
+                                            <ChevronUp className="w-4 h-4 text-slate-400" />
+                                          ) : (
+                                            <ChevronDown className="w-4 h-4 text-slate-400" />
+                                          )}
+                                        </div>
+                                      </button>
+                                      {topicLocked.locked.length >= 2 && (
+                                        <button
+                                          type="button"
+                                          onClick={(e) => {
+                                            e.stopPropagation();
+                                            openTopicBundleModal(
+                                              chapter.id,
+                                              topic,
+                                              topicLocked.locked,
+                                              topicLocked.totalVnd
+                                            );
+                                          }}
+                                          className="px-2.5 py-1 rounded-lg bg-blue-50 hover:bg-blue-100 dark:bg-blue-950/60 text-blue-700 dark:text-blue-300 border border-blue-200 dark:border-blue-800 text-[10px] font-black flex items-center gap-1 shrink-0 cursor-pointer"
+                                        >
+                                          <ShoppingBag className="w-3 h-3" />
+                                          <span>
+                                            Mua chuyên đề ({topicLocked.locked.length} bài •{" "}
+                                            {topicLocked.totalVnd.toLocaleString("vi-VN")}đ)
+                                          </span>
+                                        </button>
+                                      )}
+                                    </div>
 
                                     {isTopicExpanded && (
                                       <div className="border-t border-slate-100 dark:border-slate-800 p-2.5 sm:p-3.5 bg-slate-50/60 dark:bg-slate-950/30 space-y-2.5">
@@ -1646,35 +2080,51 @@ export default function CourseDetail() {
                                                 >
                                                   <div
                                                     onClick={() => {
+                                                      if (isSelectPurchaseMode && !st.canWatch && st.canBuySingle && course.salesEnabled) {
+                                                        toggleSelectLessonForBundle(lesson.id);
+                                                        return;
+                                                      }
                                                       if (st.canWatch || !(st.canBuySingle && course.salesEnabled)) {
                                                         handleSelectLessonAndPlay(lesson, topic.id);
                                                       }
                                                     }}
                                                     className={`flex items-start sm:items-center gap-2 min-w-0 flex-1 ${
-                                                      st.canWatch || !(st.canBuySingle && course.salesEnabled)
+                                                      (isSelectPurchaseMode && !st.canWatch && st.canBuySingle && course.salesEnabled) ||
+                                                      st.canWatch ||
+                                                      !(st.canBuySingle && course.salesEnabled)
                                                         ? "cursor-pointer"
                                                         : ""
                                                     }`}
                                                   >
-                                                    <div
-                                                      className={`w-6 h-6 rounded-lg flex items-center justify-center shrink-0 mt-0.5 sm:mt-0 ${
-                                                        st.canWatch
-                                                          ? isDone
-                                                            ? "bg-emerald-500 text-white"
-                                                            : "bg-blue-100 dark:bg-blue-950/60 text-blue-600 dark:text-blue-400"
-                                                          : "bg-slate-100 dark:bg-slate-800 text-slate-400"
-                                                      }`}
-                                                    >
-                                                      {st.canWatch ? (
-                                                        isDone ? (
-                                                          <CheckCircle2 className="w-3.5 h-3.5" />
+                                                    {isSelectPurchaseMode && !st.canWatch && st.canBuySingle && course.salesEnabled ? (
+                                                      <div className="shrink-0 mt-0.5 sm:mt-0 text-blue-600">
+                                                        {selectedBundleLessonIds.includes(lesson.id) ? (
+                                                          <CheckSquare className="w-5 h-5 text-blue-600" />
                                                         ) : (
-                                                          <Video className="w-3.5 h-3.5" />
-                                                        )
-                                                      ) : (
-                                                        <Lock className="w-3.5 h-3.5" />
-                                                      )}
-                                                    </div>
+                                                          <Square className="w-5 h-5 text-slate-400" />
+                                                        )}
+                                                      </div>
+                                                    ) : (
+                                                      <div
+                                                        className={`w-6 h-6 rounded-lg flex items-center justify-center shrink-0 mt-0.5 sm:mt-0 ${
+                                                          st.canWatch
+                                                            ? isDone
+                                                              ? "bg-emerald-500 text-white"
+                                                              : "bg-blue-100 dark:bg-blue-950/60 text-blue-600 dark:text-blue-400"
+                                                            : "bg-slate-100 dark:bg-slate-800 text-slate-400"
+                                                        }`}
+                                                      >
+                                                        {st.canWatch ? (
+                                                          isDone ? (
+                                                            <CheckCircle2 className="w-3.5 h-3.5" />
+                                                          ) : (
+                                                            <Video className="w-3.5 h-3.5" />
+                                                          )
+                                                        ) : (
+                                                          <Lock className="w-3.5 h-3.5" />
+                                                        )}
+                                                      </div>
+                                                    )}
 
                                                     <div className="min-w-0 flex-1">
                                                       <div className="text-xs sm:text-[13px] font-semibold text-slate-900 dark:text-white break-words">
@@ -1967,6 +2417,22 @@ export default function CourseDetail() {
             </button>
           )}
 
+          {canUseBundlePurchase &&
+            lockedBuyableLessons.length >= 1 &&
+            !(mode === "paid" && coursePrice > 0 && !access?.unlockedCourse) && (
+              <button
+                type="button"
+                onClick={openAllRemainingBundleModal}
+                className="hidden sm:inline-flex px-3 py-1.5 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-black items-center gap-1.5 shadow-xs cursor-pointer"
+              >
+                <Sparkles className="w-3.5 h-3.5" />
+                <span>
+                  Mua hết {lockedBuyableLessons.length} video •{" "}
+                  {lockedBuyableTotalVnd.toLocaleString("vi-VN")}đ
+                </span>
+              </button>
+            )}
+
           <button
             type="button"
             onClick={() => setShowGuideModal(true)}
@@ -2080,6 +2546,27 @@ export default function CourseDetail() {
                   </button>
                 </div>
               )}
+
+              {canUseBundlePurchase &&
+                lockedBuyableLessons.length >= 1 &&
+                !(mode === "paid" && coursePrice > 0 && !access?.unlockedCourse) && (
+                  <div className="p-3 border-b border-slate-100 bg-indigo-50/60">
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setIsMobileDrawerOpen(false);
+                        openAllRemainingBundleModal();
+                      }}
+                      className="w-full py-2 px-3 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-black flex items-center justify-center gap-1.5 shadow-xs cursor-pointer"
+                    >
+                      <Sparkles className="w-3.5 h-3.5" />
+                      <span>
+                        Mua hết {lockedBuyableLessons.length} video •{" "}
+                        {lockedBuyableTotalVnd.toLocaleString("vi-VN")}đ
+                      </span>
+                    </button>
+                  </div>
+                )}
 
               <div className="flex-1 overflow-y-auto p-3">{renderCurriculumTree()}</div>
             </aside>
@@ -2597,20 +3084,96 @@ export default function CourseDetail() {
         onComplete={handleCloseGuide}
       />
 
+      {/* Floating Multi-Select Purchase Checkout Bar */}
+      {isSelectPurchaseMode && canUseBundlePurchase && (
+        <div className="fixed bottom-4 left-1/2 -translate-x-1/2 z-40 w-[calc(100%-1.5rem)] max-w-2xl bg-slate-900 text-white rounded-2xl shadow-2xl border border-slate-700 px-4 py-3 flex flex-wrap items-center justify-between gap-2.5 animate-in fade-in slide-in-from-bottom-3">
+          <div className="min-w-0">
+            <div className="text-xs font-black flex items-center gap-1.5">
+              <CheckSquare className="w-4 h-4 text-blue-400" />
+              <span>
+                Đã chọn {selectedCustomLessons.length}/{lockedBuyableLessons.length} video
+              </span>
+            </div>
+            <div className="text-[11px] text-slate-300 font-semibold">
+              Tổng thanh toán:{" "}
+              <strong className="text-amber-300">
+                {selectedCustomTotalVnd.toLocaleString("vi-VN")}đ
+              </strong>
+            </div>
+          </div>
+          <div className="flex items-center gap-1.5 flex-wrap">
+            <button
+              type="button"
+              onClick={() =>
+                setSelectedBundleLessonIds(
+                  selectedCustomLessons.length === lockedBuyableLessons.length
+                    ? []
+                    : lockedBuyableLessons.map((l) => l.id)
+                )
+              }
+              className="px-2.5 py-1.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-[11px] font-bold text-slate-200 cursor-pointer"
+            >
+              {selectedCustomLessons.length === lockedBuyableLessons.length
+                ? "Bỏ chọn hết"
+                : "Chọn tất cả"}
+            </button>
+            <button
+              type="button"
+              onClick={() => {
+                setIsSelectPurchaseMode(false);
+                setSelectedBundleLessonIds([]);
+              }}
+              className="px-2.5 py-1.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-[11px] font-bold text-slate-300 cursor-pointer"
+            >
+              Hủy
+            </button>
+            <button
+              type="button"
+              disabled={selectedCustomLessons.length === 0}
+              onClick={() =>
+                void openUnlockModal({
+                  kind: "bundle",
+                  bundleType: "selected",
+                  lessons: selectedCustomLessons,
+                  priceVnd: selectedCustomTotalVnd,
+                  title: `Mở khóa ${selectedCustomLessons.length} video đã chọn`,
+                  subtitle: `Khóa học: ${course.title}`,
+                })
+              }
+              className="px-3.5 py-1.5 rounded-xl bg-blue-600 hover:bg-blue-500 disabled:opacity-40 text-white text-xs font-black flex items-center gap-1.5 cursor-pointer"
+            >
+              <Unlock className="w-3.5 h-3.5" />
+              <span>Mua ngay</span>
+            </button>
+          </div>
+        </div>
+      )}
+
       {/* Unlock / Purchase Confirmation Modal */}
       {unlockTarget && (
         <div className="fixed inset-0 z-50 bg-slate-900/55 backdrop-blur-sm flex items-center justify-center p-4">
-          <div className="bg-white rounded-3xl border border-slate-200 max-w-md w-full p-5 sm:p-6 space-y-4 shadow-2xl">
+          <div className="bg-white rounded-3xl border border-slate-200 max-w-md w-full max-h-[90vh] overflow-y-auto p-5 sm:p-6 space-y-4 shadow-2xl">
             <div className="flex items-start justify-between gap-2">
               <div>
                 <span className="text-[11px] font-black uppercase text-blue-600">
                   {unlockTarget.kind === "course"
                     ? "Mở khóa trọn Khóa học"
+                    : unlockTarget.kind === "bundle"
+                    ? unlockTarget.bundleType === "chapter"
+                      ? "Mở khóa theo Chương"
+                      : unlockTarget.bundleType === "topic"
+                      ? "Mở khóa theo Chuyên đề"
+                      : unlockTarget.bundleType === "all_remaining"
+                      ? "Mở khóa tất cả video còn lại"
+                      : "Mở khóa gói video đã chọn"
                     : "Mở khóa Video bài giảng"}
                 </span>
                 <h3 className="text-base font-black text-slate-900 mt-0.5">
                   {unlockTarget.title}
                 </h3>
+                {unlockTarget.kind === "bundle" && unlockTarget.subtitle && (
+                  <p className="text-[11px] text-slate-500 mt-0.5">{unlockTarget.subtitle}</p>
+                )}
               </div>
               <button
                 type="button"
@@ -2620,6 +3183,30 @@ export default function CourseDetail() {
                 <X className="w-4 h-4" />
               </button>
             </div>
+
+            {unlockTarget.kind === "bundle" && unlockTarget.lessons.length > 0 && (
+              <div className="rounded-2xl border border-blue-100 bg-blue-50/40 p-3 space-y-1.5">
+                <div className="text-[11px] font-black text-blue-900 flex items-center justify-between">
+                  <span>Danh sách video mở khóa ({unlockTarget.lessons.length} bài)</span>
+                  <span className="text-[10px] font-bold text-blue-600">Không tính trùng bài đã có</span>
+                </div>
+                <div className="max-h-36 overflow-y-auto space-y-1 pr-1">
+                  {unlockTarget.lessons.map((item, idx) => (
+                    <div
+                      key={item.id}
+                      className="flex items-center justify-between gap-2 text-[11px] bg-white px-2.5 py-1.5 rounded-lg border border-slate-100"
+                    >
+                      <span className="truncate font-semibold text-slate-700">
+                        {idx + 1}. {item.title}
+                      </span>
+                      <span className="font-black text-indigo-700 shrink-0">
+                        {Math.max(0, Number(item.priceVnd) || 0).toLocaleString("vi-VN")}đ
+                      </span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
 
             <div className="p-4 rounded-2xl bg-slate-50 border border-slate-200 space-y-2 text-xs">
               <div className="flex items-center justify-between">

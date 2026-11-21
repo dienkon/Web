@@ -15,9 +15,11 @@ import { api, getApiBaseUrl } from "./apiClient";
 import { FirestoreCache } from "./firebase/firestoreCache";
 import { isNativeAndroid } from "./offline/sync";
 import {
+  cleanDetectedVideoTitle,
   extractGoogleDriveFileId,
   extractYouTubeVideoId,
   inferCourseVideoType,
+  isPlaceholderLessonTitle,
 } from "../utils/videoSourceHelper";
 import type {
   Course,
@@ -33,7 +35,13 @@ import type {
   CourseVideoType,
 } from "../types";
 
-export { extractGoogleDriveFileId, extractYouTubeVideoId, inferCourseVideoType };
+export {
+  cleanDetectedVideoTitle,
+  extractGoogleDriveFileId,
+  extractYouTubeVideoId,
+  inferCourseVideoType,
+  isPlaceholderLessonTitle,
+};
 
 const COURSES_COLLECTION = "courses";
 const COURSES_SESSION_KEY = "dktest_published_courses_v2";
@@ -279,11 +287,13 @@ export async function probeVideoDurationApi(
       title?: string;
       source?: string;
     }>("/api/admin/courses/probe-video", { url: clean });
-    if (res?.found && res.durationSeconds > 0) {
+    const sec = Math.max(0, Math.round(Number(res?.durationSeconds) || 0));
+    const cleanedTitle = cleanDetectedVideoTitle(res?.title);
+    if (res?.found && (sec > 0 || Boolean(cleanedTitle))) {
       return {
-        durationSeconds: res.durationSeconds,
-        durationMinutes: Math.max(1, Math.round(res.durationSeconds / 60)),
-        title: res.title,
+        durationSeconds: sec,
+        durationMinutes: sec > 0 ? Math.max(1, Math.round(sec / 60)) : 0,
+        ...(cleanedTitle ? { title: cleanedTitle } : {}),
         source: res.source,
       };
     }
@@ -458,11 +468,99 @@ export function parseVideoSource(
   return { kind: "video", embedUrl: url };
 }
 
+export interface CourseTotalCostSummary {
+  mode: CourseAccessMode;
+  totalFullCourseCostVnd: number;
+  paidLessonsSumVnd: number;
+  coursePackagePriceVnd: number;
+  excludedVipLessonsSumVnd: number;
+  excludedVipLessonsCount: number;
+  paidLessonsCount: number;
+  freeLessonsCount: number;
+  comboSavingsVnd: number;
+}
+
+/**
+ * Pure helper: Computes the total amount a student must spend to unlock the entire course
+ * across all 3 monetization modes (free, per_video, paid with unlock_all_videos or unlock_course_only).
+ */
+export function computeCourseTotalCostSummary(
+  course: Pick<
+    Course,
+    "accessMode" | "priceVnd" | "freePreviewCount" | "unlockFullPolicy" | "lessonOutline" | "totalPaidLessonsPriceVnd" | "totalFullCourseCostVnd"
+  >,
+  lessonsOverride?: Array<
+    Pick<CourseLesson | CourseLessonOutlineItem, "accessType" | "order" | "priceVnd" | "includedInCourseUnlock">
+  >
+): CourseTotalCostSummary {
+  const mode = resolveCourseAccessMode(course);
+  const coursePackagePriceVnd = mode === "paid" ? Math.max(0, Math.floor(Number(course.priceVnd) || 0)) : 0;
+  const sourceLessons = lessonsOverride ?? course.lessonOutline ?? [];
+
+  let freeLessonsCount = 0;
+  let paidLessonsCount = 0;
+  let paidLessonsSumVnd = 0;
+  let excludedVipLessonsSumVnd = 0;
+  let excludedVipLessonsCount = 0;
+
+  sourceLessons.forEach((l, idx) => {
+    const effectiveOrder = typeof l.order === "number" ? l.order : idx;
+    const isFree = isLessonEffectivelyFree(
+      { accessMode: mode, priceVnd: coursePackagePriceVnd, freePreviewCount: course.freePreviewCount || 0 },
+      { accessType: l.accessType || "inherit_first_n", order: effectiveOrder }
+    );
+    if (isFree) {
+      freeLessonsCount++;
+      return;
+    }
+    paidLessonsCount++;
+    const p = Math.max(0, Math.floor(Number(l.priceVnd) || 0));
+    paidLessonsSumVnd += p;
+    if (mode === "paid" && course.unlockFullPolicy === "unlock_course_only" && l.includedInCourseUnlock === false) {
+      excludedVipLessonsCount++;
+      excludedVipLessonsSumVnd += p;
+    }
+  });
+
+  // Fallback to persisted totals when outline is not provided
+  if (sourceLessons.length === 0) {
+    paidLessonsSumVnd = Math.max(0, Math.floor(Number(course.totalPaidLessonsPriceVnd) || 0));
+  }
+
+  let totalFullCourseCostVnd = 0;
+  if (mode === "free") {
+    totalFullCourseCostVnd = 0;
+  } else if (mode === "per_video") {
+    totalFullCourseCostVnd = paidLessonsSumVnd;
+  } else {
+    totalFullCourseCostVnd = coursePackagePriceVnd + excludedVipLessonsSumVnd;
+  }
+
+  const comboSavingsVnd =
+    mode === "paid" && paidLessonsSumVnd > totalFullCourseCostVnd
+      ? paidLessonsSumVnd - totalFullCourseCostVnd
+      : 0;
+
+  return {
+    mode,
+    totalFullCourseCostVnd,
+    paidLessonsSumVnd,
+    coursePackagePriceVnd,
+    excludedVipLessonsSumVnd,
+    excludedVipLessonsCount,
+    paidLessonsCount,
+    freeLessonsCount,
+    comboSavingsVnd,
+  };
+}
+
 /**
  * Builds sanitized public lessonOutline (ZERO videoUrl or material URLs) and summary stats for courses/{courseId}.
  */
 export function buildCourseOutlineAndStats(
-  course: Pick<Course, "accessMode" | "priceVnd" | "freePreviewCount">,
+  course: Pick<Course, "accessMode" | "priceVnd" | "freePreviewCount"> & {
+    unlockFullPolicy?: Course["unlockFullPolicy"];
+  },
   lessons: CourseLesson[]
 ): {
   orderedLessons: CourseLesson[];
@@ -471,6 +569,8 @@ export function buildCourseOutlineAndStats(
   freeLessonCount: number;
   paidLessonCount: number;
   minPaidLessonPriceVnd: number;
+  totalPaidLessonsPriceVnd: number;
+  totalFullCourseCostVnd: number;
   totalDurationMinutes: number;
   totalDurationSeconds: number;
 } {
@@ -545,6 +645,17 @@ export function buildCourseOutlineAndStats(
     totalDurationMinutes = Math.max(1, Math.round(totalDurationSeconds / 60));
   }
 
+  const costSummary = computeCourseTotalCostSummary(
+    {
+      accessMode: course.accessMode,
+      priceVnd: course.priceVnd,
+      freePreviewCount: course.freePreviewCount,
+      unlockFullPolicy: course.unlockFullPolicy || "unlock_all_videos",
+      lessonOutline,
+    },
+    orderedLessons
+  );
+
   return {
     orderedLessons,
     lessonOutline,
@@ -552,6 +663,8 @@ export function buildCourseOutlineAndStats(
     freeLessonCount,
     paidLessonCount,
     minPaidLessonPriceVnd: Number.isFinite(minPaidPrice) ? minPaidPrice : 0,
+    totalPaidLessonsPriceVnd: costSummary.paidLessonsSumVnd,
+    totalFullCourseCostVnd: costSummary.totalFullCourseCostVnd,
     totalDurationMinutes,
     totalDurationSeconds,
   };
@@ -973,6 +1086,8 @@ export async function saveCourseWithLessons(params: {
     freeLessonCount,
     paidLessonCount,
     minPaidLessonPriceVnd,
+    totalPaidLessonsPriceVnd,
+    totalFullCourseCostVnd,
     totalDurationMinutes,
     totalDurationSeconds,
   } = buildCourseOutlineAndStats(normalizedBase, params.lessons);
@@ -985,6 +1100,8 @@ export async function saveCourseWithLessons(params: {
     freeLessonCount,
     paidLessonCount,
     minPaidLessonPriceVnd,
+    totalPaidLessonsPriceVnd,
+    totalFullCourseCostVnd,
     totalDurationMinutes,
     totalDurationSeconds,
     updatedAt: now,

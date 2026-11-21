@@ -1,5 +1,26 @@
 # DkTEST changelog
 
+## 1.9.13 — 2026-11-21 (Android versionCode 19)
+
+- **Nâng cấp Quản lý Khóa học — Hiển thị Tổng tiền phải chi toàn bộ khóa (`CourseManager.tsx`, `CourseEditor.tsx`, `src/services/courseService.ts`, `src/types/course.ts`)**:
+  - Bổ sung hàm thuần `computeCourseTotalCostSummary` và lưu trường `totalPaidLessonsPriceVnd`, `totalFullCourseCostVnd` khi lưu khóa học (tương thích ngược với khóa học cũ qua `lessonOutline`).
+  - **Màn hình danh sách ngoài (`CourseManager.tsx`)**: thêm thẻ thống kê **Tổng học phí các khóa** và dòng nổi bật **`Tổng chi toàn bộ khóa`** ngay trên từng thẻ khóa học (tính đúng cả 3 chế độ: Miễn phí `0đ`, Theo video cộng dồn toàn bộ video trả phí, Trọn khóa kèm cộng thêm bài VIP ngoài gói nếu chọn `unlock_course_only` và so sánh giá mua lẻ).
+  - **Bên trong trình chỉnh sửa (`CourseEditor.tsx`)**: hiển thị badge `Tổng chi cả khóa` trực tiếp ở thanh trên cùng, bổ sung bảng **Tổng chi phí toàn bộ khóa học** chi tiết ở Tab 1 (số bài trả phí/free, tổng mua lẻ, mức tiết kiệm combo) và tổng chi phí từng chương ngay trên cây phân cấp ở Tab 2.
+- **Đa dạng tùy chọn mua khóa học tối ưu cho học sinh (`CourseDetail.tsx`, `server/services/courseService.ts`, `server/routes/walletRoutes.ts`, `src/services/walletClientService.ts`)**:
+  - Bổ sung endpoint giao dịch nguyên tử **`POST /api/courses/:courseId/unlock-bundle`** (`unlockCourseBundle`) hỗ trợ 4 loại gói: **`chapter`** (mua theo chương), **`topic`** (mua theo chuyên đề), **`all_remaining`** (mua hết toàn bộ video còn lại), và **`selected`** (mua nhóm video học sinh tự tick chọn). Máy chủ tự động loại trừ các bài miễn phí / đã sở hữu để không bao giờ trừ tiền trùng, hỗ trợ áp mã voucher và ghi quyền chuẩn `course_entitlements/${uid}_${courseId}__${lessonId}` tương thích hoàn toàn với `firestore.rules`. Đồng thời truyền bổ sung `courseId` trong `/api/vouchers/validate`.
+  - **Giao diện học sinh (`CourseDetail.tsx`)**: thêm thanh **Tùy chọn mở khóa nhanh** (Mua trọn khóa kèm mức tiết kiệm, **Mua hết N video còn lại**, chế độ **Chọn nhiều video** với thanh thanh toán nổi, hàng nút **Mua nhanh theo từng chương**), nút **`Mua chương`** trực tiếp trên tiêu đề mỗi chương (cả Tổng quan & Sidebar Theater), nút **`Mua chuyên đề`** khi chuyên đề có từ 2 video trả phí trở lên, và nút mua chương / mua hết ngay trên màn hình khóa video. Hộp thoại xác nhận hiển thị danh sách chi tiết từng video trong gói mua kèm giá.
+- **Tự động nhận diện thông minh tiêu đề bài giảng khi Admin dán link YouTube / Google Drive (`CourseEditor.tsx`, `server/services/courseService.ts`, `server/routes/adminRoutes.ts`, `src/services/courseService.ts`, `src/utils/videoSourceHelper.ts`)**:
+  - Nâng cấp `probeVideoDuration` trên backend: bổ sung **YouTube oEmbed** chính thức (vượt tường consent, giữ nguyên tiếng Việt UTF-8), giải mã tiêu đề Google Drive qua Drive API v3 / `get_video_info` / HTML `/preview` & `/view` / header `Content-Disposition`, và **luôn trả về tiêu đề ngay cả khi không đo được thời lượng**.
+  - Bổ sung `cleanDetectedVideoTitle` (giải mã HTML entities, lọc hậu tố `- YouTube` / `- Google Drive`, bỏ đuôi `.mp4`/`.mkv`/`.mov` và chặn tiêu đề lỗi) và `isPlaceholderLessonTitle`.
+  - Trong `CourseEditor.tsx`: khi Admin dán (`onPaste`) link YouTube/Drive (hoặc upload file video), hệ thống tự động điền ngay tiêu đề nếu ô tiêu đề đang để trống/mặc định; nếu Admin đã tự đặt tên riêng, hiển thị chip **Gợi ý từ link** với nút **Áp dụng** 1 chạm để không ghi đè ngoài ý muốn.
+- **Fix triệt để lỗi hệ thống tự logout liên tục (`src/services/firebase/config.ts`, `src/context/AuthContext.tsx`, `src/services/apiClient.ts`, `src/services/authService.ts`, `AdminLogin.tsx`, `CourseDetail.tsx`, `StudentHistory.tsx`, `Community.tsx`, `TakingExam.tsx`, `ParentDashboard.tsx`)**:
+  - Khởi tạo Firebase Auth bằng `initializeAuth` với chuỗi lưu trữ dự phòng `[indexedDBLocalPersistence, browserLocalPersistence]` thay vì rơi âm thầm về `inMemoryPersistence` khi IndexedDB bị khóa/lỗi trên WebView hoặc đa tab.
+  - Sửa `AuthContext.tsx`: đợi `auth.authStateReady()` trước khi coi trạng thái `null` là đã đăng xuất; tăng watchdog từ `4.5s` lên `12s` không xóa session; cache hồ sơ `dktest_cached_profile_${uid}` cho mọi vai trò (Admin, Phụ huynh, Học sinh) để không mất vai trò khi Firestore chậm/rớt mạng thoáng qua; giữ nguyên kết quả Firestore khi hoàn tất sau timeout thay vì vứt bỏ; sửa lỗi `setUser({ ...auth.currentUser })` làm mất prototype `getIdToken()`; thêm cơ chế tự gia hạn phiên (`focus` / `visibilitychange` / `online` và chu kỳ 45 phút).
+  - Sửa `apiClient.ts`: khi gặp HTTP `401` do token quá hạn 60 phút, tự động `getIdToken(true)` và thử lại request 1 lần.
+  - Sửa `clearAdminSession` / `clearParentSession` / `clearStudentSession` chỉ xóa `auth_role` khớp vai trò tương ứng (không xóa nhầm phiên học sinh/phụ huynh).
+  - Cập nhật `AdminLogin`, `CourseDetail`, `StudentHistory`, `Community`, `TakingExam`, `ParentDashboard` đợi `useAuth()` khởi tạo xong trước khi kiểm tra quyền/chuyển hướng.
+- Audit: [1.9.13](docs/audits/1.9.13.md).
+
 ## 1.9.12 — 2026-11-18 (Android versionCode 18)
 
 - **Hoàn thiện giao diện khung phát Drive chuẩn 1 hàng đáy, ẩn khiên bảo vệ khi không trỏ chuột & chuyển nút phóng to xuống góc dưới phải (`DkCourseVideoPlayer.tsx`, `src/utils/videoSourceHelper.ts`, `StudentLayout.tsx`)**:

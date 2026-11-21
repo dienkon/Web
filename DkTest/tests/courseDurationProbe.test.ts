@@ -7,6 +7,7 @@ import {
   MAX_COURSE_PURCHASES_PAGE_SIZE,
   probeVideoDuration,
   resolveDriveDirectStreamUrl,
+  unlockCourseBundle,
 } from "../server/services/courseService.js";
 import { extractGoogleDriveFileId } from "../src/utils/videoSourceHelper.js";
 
@@ -369,6 +370,233 @@ describe("course duration probing & MP4 parser", () => {
 
       const resolved = await resolveDriveDirectStreamUrl("1DriveNoRangeStatus200Test");
       expect(resolved).toBeNull();
+    } finally {
+      globalThis.fetch = originalFetch;
+    }
+  });
+
+  it("falls back to YouTube oEmbed to detect lecture title even when watch HTML has no duration", async () => {
+    const originalFetch = globalThis.fetch;
+    try {
+      globalThis.fetch = vi.fn(async (url: any) => {
+        const u = String(url);
+        if (u.includes("youtube.com/watch")) {
+          return { ok: true, status: 200, text: async () => "<html><body>Consent required</body></html>" } as any;
+        }
+        if (u.includes("youtube.com/oembed")) {
+          return {
+            ok: true,
+            status: 200,
+            json: async () => ({ title: "Ôn thi Toán 12 - Khảo sát hàm số (Buổi 1)" }),
+          } as any;
+        }
+        return { ok: false, status: 404 } as any;
+      }) as any;
+
+      const res = await probeVideoDuration("https://youtu.be/abc123XYZ99");
+      expect(res).toEqual({
+        durationSeconds: 0,
+        durationMinutes: 0,
+        title: "Ôn thi Toán 12 - Khảo sát hàm số (Buổi 1)",
+        source: "youtube_oembed",
+      });
+    } finally {
+      globalThis.fetch = originalFetch;
+    }
+  });
+
+  it("returns Google Drive lecture title even when duration cannot be probed", async () => {
+    const originalFetch = globalThis.fetch;
+    try {
+      globalThis.fetch = vi.fn(async (url: any) => {
+        const u = String(url);
+        if (u.includes("/preview") || u.includes("/view")) {
+          return {
+            ok: true,
+            status: 200,
+            text: async () => '<html><meta property="og:title" content="Chuyên đề Hình học không gian.mp4"></html>',
+          } as any;
+        }
+        return { ok: false, status: 403, text: async () => "" } as any;
+      }) as any;
+
+      const res = await probeVideoDuration("https://drive.google.com/file/d/1DriveTitleOnlyTest123/view");
+      expect(res).toEqual({
+        durationSeconds: 0,
+        durationMinutes: 0,
+        title: "Chuyên đề Hình học không gian.mp4",
+        source: "drive_title",
+      });
+    } finally {
+      globalThis.fetch = originalFetch;
+    }
+  });
+
+  it("unlockCourseBundle charges only locked paid lessons in a chapter and skips free/owned videos", async () => {
+    const originalFetch = globalThis.fetch;
+    const writtenDocs: Array<{ url: string; body: any }> = [];
+    try {
+      globalThis.fetch = vi.fn(async (url: any, init?: any) => {
+        const u = String(url);
+        const pathOnly = u.split("?")[0];
+        const method = String(init?.method || "GET").toUpperCase();
+        if (method === "PATCH" || method === "POST") {
+          writtenDocs.push({ url: u, body: JSON.parse(String(init?.body || "{}")) });
+          return { ok: true, status: 200, json: async () => ({}) } as any;
+        }
+        if (pathOnly.endsWith("/documents/courses/course_bundle_1")) {
+          return {
+            ok: true,
+            status: 200,
+            json: async () => ({
+              fields: {
+                title: { stringValue: "Khóa Toán 12" },
+                accessMode: { stringValue: "per_video" },
+                priceVnd: { integerValue: "0" },
+                freePreviewCount: { integerValue: "1" },
+                salesEnabled: { booleanValue: true },
+                chapters: {
+                  arrayValue: {
+                    values: [
+                      {
+                        mapValue: {
+                          fields: {
+                            id: { stringValue: "ch1" },
+                            title: { stringValue: "Chương 1: Hàm số" },
+                            order: { integerValue: "0" },
+                          },
+                        },
+                      },
+                    ],
+                  },
+                },
+                lessonOutline: {
+                  arrayValue: {
+                    values: [
+                      {
+                        mapValue: {
+                          fields: {
+                            id: { stringValue: "les1" },
+                            chapterId: { stringValue: "ch1" },
+                            order: { integerValue: "0" },
+                            title: { stringValue: "Bài 1 (Free)" },
+                            priceVnd: { integerValue: "20000" },
+                          },
+                        },
+                      },
+                      {
+                        mapValue: {
+                          fields: {
+                            id: { stringValue: "les2" },
+                            chapterId: { stringValue: "ch1" },
+                            order: { integerValue: "1" },
+                            title: { stringValue: "Bài 2 (Đã mua)" },
+                            priceVnd: { integerValue: "25000" },
+                          },
+                        },
+                      },
+                      {
+                        mapValue: {
+                          fields: {
+                            id: { stringValue: "les3" },
+                            chapterId: { stringValue: "ch1" },
+                            order: { integerValue: "2" },
+                            title: { stringValue: "Bài 3 (Chưa mở)" },
+                            priceVnd: { integerValue: "30000" },
+                          },
+                        },
+                      },
+                      {
+                        mapValue: {
+                          fields: {
+                            id: { stringValue: "les4" },
+                            chapterId: { stringValue: "ch1" },
+                            order: { integerValue: "3" },
+                            title: { stringValue: "Bài 4 (Chưa mở)" },
+                            priceVnd: { integerValue: "40000" },
+                          },
+                        },
+                      },
+                    ],
+                  },
+                },
+              },
+            }),
+          } as any;
+        }
+        if (pathOnly.endsWith("/documents/wallets/stu_bundle_1")) {
+          return {
+            ok: true,
+            status: 200,
+            json: async () => ({
+              fields: {
+                uid: { stringValue: "stu_bundle_1" },
+                balanceVnd: { integerValue: "100000" },
+                totalSpentVnd: { integerValue: "25000" },
+                fullName: { stringValue: "Nguyễn Văn B" },
+                currentClass: { stringValue: "12A2" },
+              },
+            }),
+          } as any;
+        }
+        if (pathOnly.endsWith("/documents/course_entitlements/stu_bundle_1_course_bundle_1__les2")) {
+          return {
+            ok: true,
+            status: 200,
+            json: async () => ({
+              fields: {
+                id: { stringValue: "stu_bundle_1_course_bundle_1__les2" },
+                uid: { stringValue: "stu_bundle_1" },
+                courseId: { stringValue: "course_bundle_1" },
+                lessonId: { stringValue: "les2" },
+                status: { stringValue: "active" },
+              },
+            }),
+          } as any;
+        }
+        if (pathOnly.includes("/courses/course_bundle_1/lessons/les")) {
+          const id = pathOnly.split("/").pop() || "";
+          const map: Record<string, { order: number; price: number; title: string }> = {
+            les1: { order: 0, price: 20000, title: "Bài 1 (Free)" },
+            les2: { order: 1, price: 25000, title: "Bài 2 (Đã mua)" },
+            les3: { order: 2, price: 30000, title: "Bài 3 (Chưa mở)" },
+            les4: { order: 3, price: 40000, title: "Bài 4 (Chưa mở)" },
+          };
+          const item = map[id];
+          return {
+            ok: true,
+            status: 200,
+            json: async () => ({
+              fields: {
+                id: { stringValue: id },
+                courseId: { stringValue: "course_bundle_1" },
+                chapterId: { stringValue: "ch1" },
+                order: { integerValue: String(item.order) },
+                title: { stringValue: item.title },
+                accessType: { stringValue: "inherit_first_n" },
+                priceVnd: { integerValue: String(item.price) },
+                includedInCourseUnlock: { booleanValue: true },
+              },
+            }),
+          } as any;
+        }
+        return { ok: false, status: 404, json: async () => ({}) } as any;
+      }) as any;
+
+      const res = await unlockCourseBundle("stu_bundle_1", "course_bundle_1", {
+        bundleType: "chapter",
+        chapterId: "ch1",
+      });
+
+      // Only les3 (30,000) + les4 (40,000) = 70,000 should be charged; balance 100,000 -> 30,000
+      expect(res.success).toBe(true);
+      expect(res.alreadyUnlocked).toBe(false);
+      expect(res.unlockedLessonIds).toEqual(["les3", "les4"]);
+      expect(res.unlockedCount).toBe(2);
+      expect(res.totalChargedVnd).toBe(70000);
+      expect(res.newBalanceVnd).toBe(30000);
+      expect(writtenDocs.some((w) => w.url.includes("course_entitlements/stu_bundle_1_course_bundle_1__les3"))).toBe(true);
+      expect(writtenDocs.some((w) => w.url.includes("course_entitlements/stu_bundle_1_course_bundle_1__les4"))).toBe(true);
     } finally {
       globalThis.fetch = originalFetch;
     }

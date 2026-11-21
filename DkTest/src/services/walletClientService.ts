@@ -1973,6 +1973,29 @@ export async function unlockCourseLessonApi(
   });
 }
 
+export async function unlockCourseBundleApi(
+  courseId: string,
+  params: {
+    bundleType: "all_remaining" | "chapter" | "topic" | "selected";
+    chapterId?: string | null;
+    topicTitle?: string;
+    lessonIds?: string[];
+    idempotencyKey?: string;
+    voucherCode?: string;
+  }
+): Promise<{
+  success: boolean;
+  newBalanceVnd: number;
+  unlockedLessonIds: string[];
+  unlockedCount: number;
+  totalChargedVnd: number;
+  entitlements: CourseEntitlement[];
+  alreadyUnlocked?: boolean;
+  message?: string;
+}> {
+  return api.post(`/api/courses/${encodeURIComponent(courseId)}/unlock-bundle`, params);
+}
+
 export async function grantOrRevokeCourseEntitlementApi(
   studentUid: string,
   courseId: string,

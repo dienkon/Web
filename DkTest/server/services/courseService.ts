@@ -9,6 +9,7 @@ import type {
   Course,
   CourseAccessInfo,
   CourseAccessMode,
+  CourseBundleType,
   CourseEntitlement,
   CourseLesson,
   CoursePurchaseDetailItem,
@@ -28,6 +29,7 @@ import {
 } from "./walletService.js";
 import { validateUrlForSsrf } from "./webImporter/ssrfGuard.js";
 import {
+  cleanDetectedVideoTitle,
   extractGoogleDriveFileId,
   extractYouTubeVideoId,
 } from "../../src/utils/videoSourceHelper.js";
@@ -943,6 +945,551 @@ export async function unlockCourseLesson(
   };
 }
 
+function distributeChargedAmounts(prices: number[], totalEffectiveVnd: number): number[] {
+  if (prices.length === 0) return [];
+  const totalRaw = prices.reduce((acc, p) => acc + Math.max(0, p), 0);
+  if (totalEffectiveVnd <= 0 || totalRaw <= 0) {
+    return prices.map(() => 0);
+  }
+  if (totalEffectiveVnd === totalRaw) {
+    return prices.map((p) => Math.max(0, Math.floor(p)));
+  }
+  const distributed: number[] = [];
+  let allocated = 0;
+  for (let i = 0; i < prices.length; i++) {
+    if (i === prices.length - 1) {
+      distributed.push(Math.max(0, totalEffectiveVnd - allocated));
+    } else {
+      const share = Math.floor((Math.max(0, prices[i]) / totalRaw) * totalEffectiveVnd);
+      distributed.push(share);
+      allocated += share;
+    }
+  }
+  return distributed;
+}
+
+function resolveBundleCandidateLessonIds(
+  course: Course,
+  options: {
+    bundleType: CourseBundleType;
+    chapterId?: string | null;
+    topicTitle?: string;
+    lessonIds?: string[];
+  }
+): { candidateIds: string[]; bundleLabel: string } {
+  const outline = [...(course.lessonOutline || [])].sort((a, b) => (a.order ?? 0) - (b.order ?? 0));
+  const chapterIdsSet = new Set((course.chapters || []).map((c) => c.id));
+  const chapterMap = new Map((course.chapters || []).map((c) => [c.id, c.title]));
+
+  if (options.bundleType === "all_remaining") {
+    return {
+      candidateIds: outline.map((l) => l.id),
+      bundleLabel: `toàn bộ video còn lại trong khóa "${course.title || "Khóa học"}"`,
+    };
+  }
+
+  if (options.bundleType === "chapter") {
+    const rawChapterId = options.chapterId ? String(options.chapterId).trim() : "__other__";
+    if (rawChapterId === "__other__" || rawChapterId === "") {
+      const ids = outline
+        .filter((l) => !l.chapterId || !chapterIdsSet.has(l.chapterId))
+        .map((l) => l.id);
+      return {
+        candidateIds: ids,
+        bundleLabel: `trọn chương "Chuyên đề bổ sung" (${course.title || "Khóa học"})`,
+      };
+    }
+    const ids = outline.filter((l) => l.chapterId === rawChapterId).map((l) => l.id);
+    const chTitle = chapterMap.get(rawChapterId) || "Chương học";
+    return {
+      candidateIds: ids,
+      bundleLabel: `trọn chương "${chTitle}" (${course.title || "Khóa học"})`,
+    };
+  }
+
+  if (options.bundleType === "topic") {
+    const requestedSet = new Set((options.lessonIds || []).map((id) => String(id).trim()).filter(Boolean));
+    const cleanTopic = String(options.topicTitle || "").trim();
+    const rawChapterId = options.chapterId ? String(options.chapterId).trim() : "";
+
+    let matched = outline.filter((l) => {
+      if (requestedSet.size > 0) return requestedSet.has(l.id);
+      const topicMatches = cleanTopic && (l.topicTitle || "").trim().toLowerCase() === cleanTopic.toLowerCase();
+      if (!topicMatches) return false;
+      if (rawChapterId && rawChapterId !== "__other__") return l.chapterId === rawChapterId;
+      return true;
+    });
+    return {
+      candidateIds: matched.map((l) => l.id),
+      bundleLabel: `chuyên đề "${cleanTopic || "Bài giảng"}" (${course.title || "Khóa học"})`,
+    };
+  }
+
+  // bundleType === "selected"
+  const requestedSet = new Set((options.lessonIds || []).map((id) => String(id).trim()).filter(Boolean));
+  const matched = outline.filter((l) => requestedSet.has(l.id));
+  return {
+    candidateIds: matched.map((l) => l.id),
+    bundleLabel: `gói video đã chọn trong khóa "${course.title || "Khóa học"}"`,
+  };
+}
+
+/**
+ * Unlocks multiple paid lessons atomically (by chapter, by topic, custom selection, or all remaining videos).
+ * Automatically skips already-free or already-owned videos so students are NEVER double-charged.
+ */
+export async function unlockCourseBundle(
+  uid: string,
+  courseId: string,
+  options: {
+    bundleType: CourseBundleType;
+    chapterId?: string | null;
+    topicTitle?: string;
+    lessonIds?: string[];
+    idempotencyKey?: string;
+    voucherCode?: string;
+  }
+): Promise<{
+  success: boolean;
+  newBalanceVnd: number;
+  unlockedLessonIds: string[];
+  unlockedCount: number;
+  totalChargedVnd: number;
+  entitlements: CourseEntitlement[];
+  alreadyUnlocked?: boolean;
+}> {
+  if (!uid) throw new Error("Chưa đăng nhập.");
+  if (!courseId) throw new Error("Mã khóa học không hợp lệ.");
+
+  const validTypes: CourseBundleType[] = ["all_remaining", "chapter", "topic", "selected"];
+  const bundleType = validTypes.includes(options.bundleType) ? options.bundleType : "selected";
+  const now = new Date().toISOString();
+  const txId = `tx_${Date.now()}_${Math.random().toString(36).substring(2, 7)}`;
+  const courseEntId = `${uid}_${courseId}`;
+
+  const preloadedCourse = await fetchCourseDoc(courseId, true);
+  if (!preloadedCourse) {
+    throw new Error("Không tìm thấy khóa học.");
+  }
+
+  const { candidateIds, bundleLabel } = resolveBundleCandidateLessonIds(preloadedCourse, {
+    ...options,
+    bundleType,
+  });
+  const uniqueCandidateIds = Array.from(new Set(candidateIds)).slice(0, 150);
+  if (uniqueCandidateIds.length === 0) {
+    throw new Error("Không tìm thấy video bài giảng hợp lệ trong lựa chọn này.");
+  }
+
+  if (!adminDb) {
+    const course = preloadedCourse;
+    const mode = resolveCourseAccessModeServer(course);
+    if (mode !== "per_video" && !course.allowSingleLessonPurchase && course.unlockFullPolicy !== "unlock_course_only") {
+      throw new Error("Khóa học này chỉ hỗ trợ mở khóa trọn khóa.");
+    }
+    if (course.salesEnabled === false) {
+      throw new Error("Khóa học hiện đang tạm ngừng bán.");
+    }
+
+    const [courseEnt, wallet, lessonDocs, existingEnts] = await Promise.all([
+      getFirestoreRestDoc("course_entitlements", courseEntId, false),
+      getOrCreateWallet(uid),
+      Promise.all(uniqueCandidateIds.map((lid) => fetchLessonDoc(courseId, lid, true))),
+      Promise.all(
+        uniqueCandidateIds.map((lid) =>
+          getFirestoreRestDoc("course_entitlements", `${uid}_${courseId}__${lid}`, false)
+        )
+      ),
+    ]);
+
+    const hasCourseEnt = Boolean(courseEnt && courseEnt.status === "active");
+    const lockedLessons: CourseLesson[] = [];
+    lessonDocs.forEach((lesson, idx) => {
+      if (!lesson) return;
+      const existing = existingEnts[idx];
+      if (existing && existing.status === "active") return;
+      if (isLessonFreeEffective(course, lesson)) return;
+      if (
+        hasCourseEnt &&
+        (course.unlockFullPolicy !== "unlock_course_only" || lesson.includedInCourseUnlock !== false)
+      ) {
+        return;
+      }
+      if (
+        mode === "paid" &&
+        !course.allowSingleLessonPurchase &&
+        !(course.unlockFullPolicy === "unlock_course_only" && lesson.includedInCourseUnlock === false)
+      ) {
+        return;
+      }
+      lockedLessons.push(lesson);
+    });
+
+    if (lockedLessons.length === 0) {
+      return {
+        success: true,
+        newBalanceVnd: sanitizeVnd(wallet.balanceVnd),
+        unlockedLessonIds: [],
+        unlockedCount: 0,
+        totalChargedVnd: 0,
+        entitlements: [],
+        alreadyUnlocked: true,
+      };
+    }
+
+    const prices = lockedLessons.map((l) => sanitizeVnd(l.priceVnd));
+    const subtotalVnd = prices.reduce((acc, p) => acc + p, 0);
+    let discountVnd = 0;
+    let appliedVoucher: Voucher | null = null;
+    if (options.voucherCode && String(options.voucherCode).trim()) {
+      const vRes = await validateVoucher({
+        code: String(options.voucherCode).trim(),
+        uid,
+        context: "course_unlock",
+        amountVnd: subtotalVnd,
+        courseId,
+      });
+      if (!vRes.valid || !vRes.voucher) {
+        throw new Error(vRes.message || "Mã voucher không hợp lệ.");
+      }
+      discountVnd = vRes.discountVnd || 0;
+      appliedVoucher = vRes.voucher;
+    }
+
+    const effectivePrice = Math.max(0, subtotalVnd - discountVnd);
+    if (sanitizeVnd(wallet.balanceVnd) < effectivePrice) {
+      throw new Error(
+        `Số dư không đủ để mở khóa ${lockedLessons.length} video. Cần ${effectivePrice.toLocaleString("vi-VN")}đ, hiện có ${sanitizeVnd(wallet.balanceVnd).toLocaleString("vi-VN")}đ.`
+      );
+    }
+
+    const newBalance = sanitizeVnd(wallet.balanceVnd) - effectivePrice;
+    if (effectivePrice > 0) {
+      await setFirestoreRestDoc("wallets", uid, {
+        ...wallet,
+        balanceVnd: newBalance,
+        totalSpentVnd: sanitizeVnd(wallet.totalSpentVnd) + effectivePrice,
+        updatedAt: now,
+      });
+    }
+
+    const perLessonPaid = distributeChargedAmounts(prices, effectivePrice);
+    const createdEntitlements: CourseEntitlement[] = [];
+    for (let i = 0; i < lockedLessons.length; i++) {
+      const lesson = lockedLessons[i];
+      const entId = `${uid}_${courseId}__${lesson.id}`;
+      const ent: CourseEntitlement = {
+        id: entId,
+        uid,
+        courseId,
+        lessonId: lesson.id,
+        scope: "lesson",
+        status: "active",
+        source: "purchase",
+        pricePaidVnd: perLessonPaid[i],
+        transactionId: txId,
+        grantedAt: now,
+        grantedBy: uid,
+        courseTitleSnapshot: course.title || "Khóa học",
+        lessonTitleSnapshot: lesson.title || "Bài giảng",
+        ...(wallet.fullName ? { studentNameSnapshot: wallet.fullName } : {}),
+        ...(wallet.currentClass ? { studentClassSnapshot: wallet.currentClass } : {}),
+      };
+      await setFirestoreRestDoc("course_entitlements", entId, ent);
+      createdEntitlements.push(ent);
+    }
+
+    if (effectivePrice > 0) {
+      await setFirestoreRestDoc("wallet_transactions", txId, {
+        id: txId,
+        uid,
+        type: "course_lesson_unlock_debit",
+        amountVnd: effectivePrice,
+        balanceBeforeVnd: sanitizeVnd(wallet.balanceVnd),
+        balanceAfterVnd: newBalance,
+        courseId,
+        courseTitleSnapshot: course.title || "Khóa học",
+        studentNameSnapshot: wallet.fullName || "Học sinh",
+        studentClassSnapshot: wallet.currentClass || "",
+        idempotencyKey: options.idempotencyKey || txId,
+        actorUid: uid,
+        actorName: wallet.fullName || "Học sinh",
+        note:
+          discountVnd > 0
+            ? `Mở khóa ${lockedLessons.length} video (${bundleLabel}): -${effectivePrice.toLocaleString("vi-VN")}đ (giảm ${discountVnd.toLocaleString("vi-VN")}đ nhờ voucher ${appliedVoucher?.code})`
+            : `Mở khóa ${lockedLessons.length} video (${bundleLabel}): -${effectivePrice.toLocaleString("vi-VN")}đ`,
+        createdAt: now,
+      });
+    }
+
+    if (appliedVoucher) {
+      invalidateVouchersCache();
+      invalidateVoucherUsagesCache();
+    }
+    invalidateCourseServerCache(courseId, uid);
+    invalidateWalletOverviewCache();
+    invalidateGlobalSpendingCache();
+    invalidateStudentDetailsCache(uid);
+    if (effectivePrice > 0) {
+      updateWalletOverviewAggregates({
+        deltaVirtualBalanceVnd: -effectivePrice,
+        deltaUnlockedSpendingVnd: effectivePrice,
+      }).catch(() => {});
+    }
+
+    return {
+      success: true,
+      newBalanceVnd: newBalance,
+      unlockedLessonIds: lockedLessons.map((l) => l.id),
+      unlockedCount: lockedLessons.length,
+      totalChargedVnd: effectivePrice,
+      entitlements: createdEntitlements,
+      alreadyUnlocked: false,
+    };
+  }
+
+  const result = await adminDb.runTransaction(async (transaction) => {
+    const courseRef = adminDb!.collection("courses").doc(courseId);
+    const courseEntRef = adminDb!.collection("course_entitlements").doc(courseEntId);
+    const walletRef = adminDb!.collection("wallets").doc(uid);
+
+    const lessonRefs = uniqueCandidateIds.map((lid) => courseRef.collection("lessons").doc(lid));
+    const lessonEntRefs = uniqueCandidateIds.map((lid) =>
+      adminDb!.collection("course_entitlements").doc(`${uid}_${courseId}__${lid}`)
+    );
+
+    const [courseSnap, courseEntSnap, walletSnap, lessonSnaps, lessonEntSnaps] = await Promise.all([
+      transaction.get(courseRef),
+      transaction.get(courseEntRef),
+      transaction.get(walletRef),
+      Promise.all(lessonRefs.map((r) => transaction.get(r))),
+      Promise.all(lessonEntRefs.map((r) => transaction.get(r))),
+    ]);
+
+    if (!courseSnap.exists) {
+      throw new Error("Không tìm thấy khóa học.");
+    }
+
+    const course = { id: courseSnap.id, ...courseSnap.data() } as Course;
+    const mode = resolveCourseAccessModeServer(course);
+    if (
+      mode !== "per_video" &&
+      !course.allowSingleLessonPurchase &&
+      course.unlockFullPolicy !== "unlock_course_only"
+    ) {
+      throw new Error("Khóa học này chỉ hỗ trợ mở khóa trọn khóa.");
+    }
+    if (course.salesEnabled === false) {
+      throw new Error("Khóa học hiện đang tạm ngừng bán.");
+    }
+
+    const hasCourseEnt =
+      courseEntSnap.exists && (courseEntSnap.data() as CourseEntitlement).status === "active";
+
+    const lockedLessons: Array<{ lesson: CourseLesson; entRef: FirebaseFirestore.DocumentReference }> = [];
+    lessonSnaps.forEach((lSnap, idx) => {
+      if (!lSnap.exists) return;
+      const lesson = { id: lSnap.id, ...lSnap.data() } as CourseLesson;
+      const entSnap = lessonEntSnaps[idx];
+      if (entSnap.exists && (entSnap.data() as CourseEntitlement).status === "active") return;
+      if (isLessonFreeEffective(course, lesson)) return;
+      if (
+        hasCourseEnt &&
+        (course.unlockFullPolicy !== "unlock_course_only" || lesson.includedInCourseUnlock !== false)
+      ) {
+        return;
+      }
+      if (
+        mode === "paid" &&
+        !course.allowSingleLessonPurchase &&
+        !(course.unlockFullPolicy === "unlock_course_only" && lesson.includedInCourseUnlock === false)
+      ) {
+        return;
+      }
+      lockedLessons.push({ lesson, entRef: lessonEntRefs[idx] });
+    });
+
+    const walletData = walletSnap.exists ? (walletSnap.data() as StudentWallet) : null;
+    const currentBal = walletData ? sanitizeVnd(walletData.balanceVnd) : 0;
+    const totalSpent = walletData ? sanitizeVnd(walletData.totalSpentVnd) : 0;
+    const totalCredited = walletData ? sanitizeVnd(walletData.totalCreditedVnd) : 0;
+    const fullName = walletData?.fullName || "";
+    const currentClass = walletData?.currentClass || "";
+
+    if (lockedLessons.length === 0) {
+      return {
+        success: true,
+        newBalanceVnd: currentBal,
+        unlockedLessonIds: [] as string[],
+        unlockedCount: 0,
+        totalChargedVnd: 0,
+        entitlements: [] as CourseEntitlement[],
+        alreadyUnlocked: true,
+        effectivePrice: 0,
+        appliedVoucher: null as Voucher | null,
+      };
+    }
+
+    const prices = lockedLessons.map((item) => sanitizeVnd(item.lesson.priceVnd));
+    const subtotalVnd = prices.reduce((acc, p) => acc + p, 0);
+
+    let discountVnd = 0;
+    let appliedVoucher: Voucher | null = null;
+    if (options.voucherCode && String(options.voucherCode).trim()) {
+      const vRes = await validateVoucher({
+        code: String(options.voucherCode).trim(),
+        uid,
+        context: "course_unlock",
+        amountVnd: subtotalVnd,
+        courseId,
+      });
+      if (!vRes.valid || !vRes.voucher) {
+        throw new Error(vRes.message || "Mã voucher không hợp lệ.");
+      }
+      discountVnd = vRes.discountVnd || 0;
+      appliedVoucher = vRes.voucher;
+    }
+
+    const effectivePrice = Math.max(0, subtotalVnd - discountVnd);
+    if (currentBal < effectivePrice) {
+      throw new Error(
+        `Số dư không đủ để mở khóa ${lockedLessons.length} video. Cần ${effectivePrice.toLocaleString("vi-VN")}đ, hiện có ${currentBal.toLocaleString("vi-VN")}đ (thiếu ${(effectivePrice - currentBal).toLocaleString("vi-VN")}đ).`
+      );
+    }
+
+    // Read voucher doc before writes if applied
+    let voucherSnap: FirebaseFirestore.DocumentSnapshot | null = null;
+    const voucherRef = appliedVoucher
+      ? adminDb!.collection("vouchers").doc(appliedVoucher.id)
+      : null;
+    if (voucherRef) {
+      voucherSnap = await transaction.get(voucherRef);
+    }
+
+    const newBalance = currentBal - effectivePrice;
+    transaction.set(
+      walletRef,
+      {
+        uid,
+        balanceVnd: newBalance,
+        totalSpentVnd: totalSpent + effectivePrice,
+        totalCreditedVnd: totalCredited,
+        updatedAt: now,
+      },
+      { merge: true }
+    );
+
+    const perLessonPaid = distributeChargedAmounts(prices, effectivePrice);
+    const createdEntitlements: CourseEntitlement[] = [];
+    for (let i = 0; i < lockedLessons.length; i++) {
+      const { lesson, entRef } = lockedLessons[i];
+      const ent: CourseEntitlement = {
+        id: `${uid}_${courseId}__${lesson.id}`,
+        uid,
+        courseId,
+        lessonId: lesson.id,
+        scope: "lesson",
+        status: "active",
+        source: "purchase",
+        pricePaidVnd: perLessonPaid[i],
+        transactionId: txId,
+        grantedAt: now,
+        grantedBy: uid,
+        courseTitleSnapshot: course.title || "Khóa học",
+        lessonTitleSnapshot: lesson.title || "Bài giảng",
+        ...(fullName ? { studentNameSnapshot: fullName } : {}),
+        ...(currentClass ? { studentClassSnapshot: currentClass } : {}),
+      };
+      transaction.set(entRef, ent);
+      createdEntitlements.push(ent);
+    }
+
+    const txRef = adminDb!.collection("wallet_transactions").doc(txId);
+    const ledgerEntry: WalletTransaction = {
+      id: txId,
+      uid,
+      type: "course_lesson_unlock_debit",
+      amountVnd: effectivePrice,
+      balanceBeforeVnd: currentBal,
+      balanceAfterVnd: newBalance,
+      courseId,
+      courseTitleSnapshot: course.title || "Khóa học",
+      studentNameSnapshot: fullName || "Học sinh",
+      studentClassSnapshot: currentClass || "",
+      idempotencyKey: options.idempotencyKey || txId,
+      actorUid: uid,
+      actorName: fullName || "Học sinh",
+      note:
+        discountVnd > 0
+          ? `Mở khóa ${lockedLessons.length} video (${bundleLabel}): -${effectivePrice.toLocaleString("vi-VN")}đ (giảm ${discountVnd.toLocaleString("vi-VN")}đ nhờ voucher ${appliedVoucher?.code})`
+          : `Mở khóa ${lockedLessons.length} video (${bundleLabel}): -${effectivePrice.toLocaleString("vi-VN")}đ`,
+      createdAt: now,
+    };
+    transaction.set(txRef, ledgerEntry);
+
+    if (appliedVoucher && voucherRef) {
+      if (voucherSnap?.exists) {
+        const vData = voucherSnap.data() as Voucher;
+        transaction.update(voucherRef, {
+          usedCount: (vData.usedCount || 0) + 1,
+          updatedAt: now,
+        });
+      }
+      const usageId = `vuse_${Date.now()}_${Math.random().toString(36).substring(2, 7)}`;
+      transaction.set(adminDb!.collection("voucher_usages").doc(usageId), {
+        id: usageId,
+        voucherId: appliedVoucher.id,
+        voucherCode: appliedVoucher.code,
+        uid,
+        studentName: fullName,
+        studentClass: currentClass,
+        type: appliedVoucher.type,
+        discountVnd,
+        usedAt: now,
+        context: "course_unlock",
+        referenceId: `${courseId}__bundle_${bundleType}`,
+      });
+    }
+
+    return {
+      success: true,
+      newBalanceVnd: newBalance,
+      unlockedLessonIds: lockedLessons.map((item) => item.lesson.id),
+      unlockedCount: lockedLessons.length,
+      totalChargedVnd: effectivePrice,
+      entitlements: createdEntitlements,
+      alreadyUnlocked: false,
+      effectivePrice,
+      appliedVoucher,
+    };
+  });
+
+  if (result.appliedVoucher) {
+    invalidateVouchersCache();
+    invalidateVoucherUsagesCache();
+  }
+  invalidateCourseServerCache(courseId, uid);
+  invalidateWalletOverviewCache();
+  invalidateGlobalSpendingCache();
+  invalidateStudentDetailsCache(uid);
+  if (result.effectivePrice > 0) {
+    updateWalletOverviewAggregates({
+      deltaVirtualBalanceVnd: -result.effectivePrice,
+      deltaUnlockedSpendingVnd: result.effectivePrice,
+    }).catch(() => {});
+  }
+
+  return {
+    success: result.success,
+    newBalanceVnd: result.newBalanceVnd,
+    unlockedLessonIds: result.unlockedLessonIds,
+    unlockedCount: result.unlockedCount,
+    totalChargedVnd: result.totalChargedVnd,
+    entitlements: result.entitlements,
+    alreadyUnlocked: result.alreadyUnlocked,
+  };
+}
+
 export async function getAuthorizedLessonContent(
   uid: string,
   courseId: string,
@@ -1497,11 +2044,32 @@ function unescapeGoogleHtmlPayload(raw: string): string {
     .replace(/\\"/g, '"');
 }
 
+function extractFilenameFromContentDisposition(header?: string | null): string | undefined {
+  const raw = String(header || "").trim();
+  if (!raw) return undefined;
+  const starMatch = raw.match(/filename\*\s*=\s*(?:UTF-8''|utf-8'')([^;\r\n]+)/i);
+  if (starMatch?.[1]) {
+    try {
+      const decoded = decodeURIComponent(starMatch[1].trim().replace(/^["']|["']$/g, ""));
+      if (decoded.trim()) return decoded.trim();
+    } catch {}
+  }
+  const quotedMatch = raw.match(/filename\s*=\s*"([^"]+)"/i);
+  if (quotedMatch?.[1]?.trim()) return quotedMatch[1].trim();
+  const bareMatch = raw.match(/filename\s*=\s*([^;\r\n]+)/i);
+  if (bareMatch?.[1]?.trim()) return bareMatch[1].trim().replace(/^["']|["']$/g, "");
+  return undefined;
+}
+
 function extractDriveTitleFromHtml(rawHtml: string): string | undefined {
   const html = unescapeGoogleHtmlPayload(rawHtml);
   const ogTitle = html.match(/<meta\s+(?:property="og:title"|name="title")\s+content="([^"]*)"/i)?.[1];
-  const tagTitle = html.match(/<title>([^<]+)<\/title>/i)?.[1]?.replace(/\s*-\s*Google Drive\s*$/i, "").trim();
-  return (ogTitle || tagTitle || "").trim() || undefined;
+  const tagTitle = html.match(/<title>([^<]+)<\/title>/i)?.[1]?.replace(/\s*[-–—]\s*Google Drive\s*$/i, "").trim();
+  const candidate = (ogTitle || tagTitle || "").trim();
+  if (!candidate) return undefined;
+  // Reject generic login/error/warning titles
+  if (!cleanDetectedVideoTitle(candidate)) return undefined;
+  return candidate;
 }
 
 function extractDriveDurationFromHtml(
@@ -1567,7 +2135,7 @@ function extractDriveConfirmationDownloadUrl(html: string, baseUrl: string): str
 async function probeRemoteMediaRange(
   mediaUrl: string,
   options?: { restrictToDriveHosts?: boolean; headers?: Record<string, string> }
-): Promise<{ durationSeconds: number; source: string } | null> {
+): Promise<{ durationSeconds: number; source: string; fileName?: string } | null> {
   const baseHeaders: Record<string, string> = {
     "User-Agent": DEFAULT_BROWSER_UA,
     Range: "bytes=0-131071",
@@ -1580,6 +2148,8 @@ async function probeRemoteMediaRange(
     { restrictToDriveHosts: options?.restrictToDriveHosts }
   );
   if (!headRes.ok) return null;
+
+  let detectedFileName = extractFilenameFromContentDisposition(headRes.headers?.get?.("content-disposition"));
 
   const contentType = String(headRes.headers?.get?.("content-type") || "").toLowerCase();
   if (contentType.includes("text/html")) {
@@ -1594,6 +2164,9 @@ async function probeRemoteMediaRange(
     headRes = confirmed.res;
     finalUrl = confirmed.finalUrl;
     if (!headRes.ok) return null;
+    detectedFileName =
+      detectedFileName ||
+      extractFilenameFromContentDisposition(headRes.headers?.get?.("content-disposition"));
     const confirmedType = String(headRes.headers?.get?.("content-type") || "").toLowerCase();
     if (confirmedType.includes("text/html")) return null;
   }
@@ -1601,7 +2174,7 @@ async function probeRemoteMediaRange(
   const headBuf = await readResponseChunkBounded(headRes, 262144);
   const headSec = extractMp4DurationSeconds(headBuf) ?? extractMatroskaDurationSeconds(headBuf);
   if (headSec) {
-    return { durationSeconds: headSec, source: "mp4_head" };
+    return { durationSeconds: headSec, source: "mp4_head", ...(detectedFileName ? { fileName: detectedFileName } : {}) };
   }
 
   const cr = headRes.headers?.get?.("content-range");
@@ -1624,7 +2197,7 @@ async function probeRemoteMediaRange(
       const moovBuf = await readResponseChunkBounded(moovRes, 262144);
       const moovSec = extractMp4DurationSeconds(moovBuf);
       if (moovSec) {
-        return { durationSeconds: moovSec, source: "mp4_moov" };
+        return { durationSeconds: moovSec, source: "mp4_moov", ...(detectedFileName ? { fileName: detectedFileName } : {}) };
       }
     }
   }
@@ -1644,16 +2217,21 @@ async function probeRemoteMediaRange(
       const tailArr = await readResponseChunkBounded(tailRes, 262144);
       const tailSec = extractMp4DurationSeconds(tailArr);
       if (tailSec) {
-        return { durationSeconds: tailSec, source: "mp4_tail" };
+        return { durationSeconds: tailSec, source: "mp4_tail", ...(detectedFileName ? { fileName: detectedFileName } : {}) };
       }
     }
+  }
+
+  if (detectedFileName) {
+    return { durationSeconds: 0, source: "content_disposition", fileName: detectedFileName };
   }
 
   return null;
 }
 
 /**
- * SSRF-guarded video duration prober supporting YouTube, Google Drive (metadata + direct Range MP4/MKV), and direct MP4/Cloudinary URLs.
+ * SSRF-guarded video metadata prober (duration + title) supporting YouTube (watch HTML + oEmbed),
+ * Google Drive (Drive API, get_video_info, /preview & /view HTML, Content-Disposition, Range MP4/MKV), and direct MP4/Cloudinary URLs.
  */
 export async function probeVideoDuration(
   rawUrl: string
@@ -1664,6 +2242,9 @@ export async function probeVideoDuration(
 
   const ytId = extractYouTubeVideoId(cleanUrl);
   if (ytId) {
+    let detectedSec = 0;
+    let detectedTitle: string | undefined;
+
     try {
       const watchRes = await fetch(`https://www.youtube.com/watch?v=${encodeURIComponent(ytId)}&hl=en`, {
         headers: {
@@ -1676,20 +2257,51 @@ export async function probeVideoDuration(
         const html = await watchRes.text();
         const msMatch = html.match(/"approxDurationMs"\s*:\s*"(\d+)"/);
         const secMatch = html.match(/"lengthSeconds"\s*:\s*"(\d+)"/);
-        const titleMatch = html.match(/<meta\s+name="title"\s+content="([^"]*)"/i);
-        let sec = 0;
-        if (msMatch?.[1]) sec = Math.round(Number(msMatch[1]) / 1000);
-        else if (secMatch?.[1]) sec = Math.round(Number(secMatch[1]));
-        if (sec > 0) {
-          return {
-            durationSeconds: sec,
-            durationMinutes: Math.max(1, Math.round(sec / 60)),
-            title: titleMatch?.[1],
-            source: "youtube",
-          };
-        }
+        const metaTitle =
+          html.match(/<meta\s+name="title"\s+content="([^"]*)"/i)?.[1] ||
+          html.match(/<meta\s+property="og:title"\s+content="([^"]*)"/i)?.[1] ||
+          html.match(/<title>([^<]+)<\/title>/i)?.[1];
+        const cleanedMetaTitle = cleanDetectedVideoTitle(metaTitle);
+        if (cleanedMetaTitle) detectedTitle = cleanedMetaTitle;
+        if (msMatch?.[1]) detectedSec = Math.round(Number(msMatch[1]) / 1000);
+        else if (secMatch?.[1]) detectedSec = Math.round(Number(secMatch[1]));
       }
     } catch {}
+
+    // Reliable official YouTube oEmbed fallback whenever title is missing or watch HTML was consent-gated
+    if (!detectedTitle || detectedSec <= 0) {
+      try {
+        const oembedRes = await fetch(
+          `https://www.youtube.com/oembed?url=${encodeURIComponent(`https://www.youtube.com/watch?v=${ytId}`)}&format=json`,
+          {
+            headers: { "User-Agent": DEFAULT_BROWSER_UA, Accept: "application/json" },
+            signal: AbortSignal.timeout(6000),
+          }
+        );
+        if (oembedRes.ok) {
+          const oembedJson: any = await oembedRes.json().catch(() => null);
+          const cleanedOembedTitle = cleanDetectedVideoTitle(oembedJson?.title);
+          if (cleanedOembedTitle) detectedTitle = detectedTitle || cleanedOembedTitle;
+        }
+      } catch {}
+    }
+
+    if (detectedSec > 0) {
+      return {
+        durationSeconds: detectedSec,
+        durationMinutes: Math.max(1, Math.round(detectedSec / 60)),
+        ...(detectedTitle ? { title: detectedTitle } : {}),
+        source: "youtube",
+      };
+    }
+    if (detectedTitle) {
+      return {
+        durationSeconds: 0,
+        durationMinutes: 0,
+        title: detectedTitle,
+        source: "youtube_oembed",
+      };
+    }
     return null;
   }
 
@@ -1735,7 +2347,7 @@ export async function probeVideoDuration(
         const body = await infoRes.text();
         const params = new URLSearchParams(body);
         const title = params.get("title") || undefined;
-        if (title) discoveredTitle = discoveredTitle || title;
+        if (title && cleanDetectedVideoTitle(title)) discoveredTitle = discoveredTitle || title;
         const lenSec = Number(params.get("length_seconds") || 0);
         if (lenSec > 0) {
           const sec = Math.round(lenSec);
@@ -1802,6 +2414,9 @@ export async function probeVideoDuration(
     for (const downloadUrl of driveDownloadCandidates) {
       try {
         const mediaProbe = await probeRemoteMediaRange(downloadUrl, { restrictToDriveHosts: true });
+        if (mediaProbe?.fileName && cleanDetectedVideoTitle(mediaProbe.fileName)) {
+          discoveredTitle = discoveredTitle || mediaProbe.fileName;
+        }
         if (mediaProbe && mediaProbe.durationSeconds > 0) {
           return {
             durationSeconds: mediaProbe.durationSeconds,
@@ -1811,6 +2426,15 @@ export async function probeVideoDuration(
           };
         }
       } catch {}
+    }
+
+    if (discoveredTitle) {
+      return {
+        durationSeconds: 0,
+        durationMinutes: 0,
+        title: discoveredTitle,
+        source: "drive_title",
+      };
     }
 
     return null;
@@ -1823,7 +2447,18 @@ export async function probeVideoDuration(
       return {
         durationSeconds: mediaProbe.durationSeconds,
         durationMinutes: Math.max(1, Math.round(mediaProbe.durationSeconds / 60)),
+        ...(mediaProbe.fileName && cleanDetectedVideoTitle(mediaProbe.fileName)
+          ? { title: mediaProbe.fileName }
+          : {}),
         source: mediaProbe.source,
+      };
+    }
+    if (mediaProbe?.fileName && cleanDetectedVideoTitle(mediaProbe.fileName)) {
+      return {
+        durationSeconds: 0,
+        durationMinutes: 0,
+        title: mediaProbe.fileName,
+        source: "direct_title",
       };
     }
   } catch {}

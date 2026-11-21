@@ -19,6 +19,7 @@ import { validateVoucher, redeemGiftVoucher } from "../services/voucherService.j
 import {
   checkCourseAccess,
   unlockCourse,
+  unlockCourseBundle,
   unlockCourseLesson,
   getAuthorizedLessonContent,
   resolveDriveDirectStreamUrl,
@@ -162,13 +163,14 @@ walletRouter.post("/exams/:examId/unlock", requireAuth, async (req: Authenticate
 walletRouter.post(["/vouchers/validate", "/wallet/vouchers/validate", "/wallet/validate-voucher"], requireAuth, async (req: AuthenticatedRequest, res: Response) => {
   try {
     const uid = req.user!.uid;
-    const { code, context, amountVnd, examId } = req.body || {};
+    const { code, context, amountVnd, examId, courseId } = req.body || {};
     const result = await validateVoucher({
       code: String(code || "").trim(),
       uid,
       context: context || "exam_unlock",
       amountVnd: Number(amountVnd || 0),
       examId,
+      courseId,
     });
     return res.json({ success: true, ...result });
   } catch (err: any) {
@@ -231,6 +233,36 @@ walletRouter.post("/courses/:courseId/unlock", requireAuth, async (req: Authenti
       return res.status(402).json({ error: "insufficient_balance", message: msg });
     }
     return res.status(400).json({ error: "course_unlock_error", message: msg });
+  }
+});
+
+// POST /api/courses/:courseId/unlock-bundle (chapter / topic / selected / all_remaining)
+walletRouter.post("/courses/:courseId/unlock-bundle", requireAuth, async (req: AuthenticatedRequest, res: Response) => {
+  try {
+    const uid = req.user!.uid;
+    const courseId = req.params.courseId;
+    const { bundleType, chapterId, topicTitle, lessonIds, idempotencyKey, voucherCode } = req.body || {};
+    const result = await unlockCourseBundle(uid, courseId, {
+      bundleType,
+      chapterId,
+      topicTitle,
+      lessonIds: Array.isArray(lessonIds) ? lessonIds : undefined,
+      idempotencyKey,
+      voucherCode,
+    });
+    return res.json({
+      success: true,
+      ...result,
+      message: result.alreadyUnlocked
+        ? "Toàn bộ video trong gói này đã được mở khóa trước đó."
+        : `Mở khóa thành công ${result.unlockedCount} video bài giảng!`,
+    });
+  } catch (err: any) {
+    const msg = err.message || String(err);
+    if (msg.includes("Số dư không đủ")) {
+      return res.status(402).json({ error: "insufficient_balance", message: msg });
+    }
+    return res.status(400).json({ error: "course_bundle_unlock_error", message: msg });
   }
 });
 

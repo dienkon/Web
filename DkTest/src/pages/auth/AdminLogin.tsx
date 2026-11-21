@@ -17,7 +17,7 @@ export default function AdminLogin() {
   const redirectPath = rawRedirect && !rawRedirect.startsWith("/admin/login") ? rawRedirect : "/admin/exams";
   const reason = searchParams.get("reason");
 
-  const { user, loginWithEmail, loginWithUsername, loginWithAdminPassword, role } = useAuth();
+  const { user, loginWithEmail, loginWithUsername, loginWithAdminPassword, role, loading: authLoading } = useAuth();
   const { showToast } = useToast();
 
   const [authMode, setAuthMode] = useState<"firebase" | "legacy_pass">("firebase");
@@ -28,12 +28,13 @@ export default function AdminLogin() {
   const [error, setError] = useState("");
 
   useEffect(() => {
+    if (authLoading) return;
     if (user && (role === "admin" || role === "super_admin")) {
       navigate(redirectPath, { replace: true });
     } else if (!user || (role !== "admin" && role !== "super_admin")) {
       clearAdminSession();
     }
-  }, [navigate, redirectPath, role, user]);
+  }, [authLoading, navigate, redirectPath, role, user]);
 
   const handleFirebaseLogin = async (e: React.FormEvent) => {
     e.preventDefault();

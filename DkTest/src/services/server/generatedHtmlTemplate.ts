@@ -408,14 +408,14 @@ export const PRODUCTION_HTML_TEMPLATE = `<!doctype html>
         100% { left: 100%; }
       }
     </style>
-    <script type="module" crossorigin src="/assets/index-z2Rsp96z.js"></script>
+    <script type="module" crossorigin src="/assets/index-_C-lpnJB.js"></script>
     <link rel="modulepreload" crossorigin href="/assets/vendor-react-DhSnpD3y.js">
     <link rel="modulepreload" crossorigin href="/assets/vendor-charts-DRXukK4H.js">
-    <link rel="modulepreload" crossorigin href="/assets/vendor-icons-CDFjL8AM.js">
-    <link rel="modulepreload" crossorigin href="/assets/vendor-firebase-BxGFcFiF.js">
+    <link rel="modulepreload" crossorigin href="/assets/vendor-icons-DXEV1DSR.js">
+    <link rel="modulepreload" crossorigin href="/assets/vendor-firebase-tA_6DTDc.js">
     <link rel="modulepreload" crossorigin href="/assets/vendor-katex-T051Jbj4.js">
     <link rel="stylesheet" crossorigin href="/assets/vendor-katex-Ddr6Z9Sf.css">
-    <link rel="stylesheet" crossorigin href="/assets/index-CcRP8XCH.css">
+    <link rel="stylesheet" crossorigin href="/assets/index-ih24UltF.css">
   </head>
 
   <body>

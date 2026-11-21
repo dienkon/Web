@@ -1,6 +1,13 @@
 import { initializeApp, type FirebaseApp } from "firebase/app";
 import { getFirestore, type Firestore } from "firebase/firestore";
-import { getAuth, type Auth } from "firebase/auth";
+import {
+  browserLocalPersistence,
+  browserPopupRedirectResolver,
+  getAuth,
+  indexedDBLocalPersistence,
+  initializeAuth,
+  type Auth,
+} from "firebase/auth";
 import { getDatabase, type Database } from "firebase/database";
 import { reportError } from "../errorReporter";
 
@@ -38,7 +45,21 @@ if (appInstance) {
   }
 
   try {
-    authInstance = getAuth(appInstance);
+    // Prefer IndexedDB persistence with automatic fallback to localStorage (browserLocalPersistence)
+    // so WebViews, privacy modes, or locked IndexedDB tabs never silently degrade to in-memory sessions.
+    if (typeof window !== "undefined") {
+      try {
+        authInstance = initializeAuth(appInstance, {
+          persistence: [indexedDBLocalPersistence, browserLocalPersistence],
+          popupRedirectResolver: browserPopupRedirectResolver,
+        });
+      } catch {
+        // Already initialized (e.g. Vite HMR) or non-standard runtime -> reuse existing instance
+        authInstance = getAuth(appInstance);
+      }
+    } else {
+      authInstance = getAuth(appInstance);
+    }
   } catch (err: any) {
     console.error("[FirebaseConfig] getAuth failed:", err);
     reportError(err, { source: "firebase", action: "getAuth" });

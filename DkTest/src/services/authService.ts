@@ -50,15 +50,25 @@ export function setAdminSession(info?: { displayName?: string; email?: string })
   localStorage.setItem("admin_persisted", "true");
 }
 
+function removeAuthRoleIfMatches(allowedRoles: string[]): void {
+  const legacyRole = localStorage.getItem("auth_role");
+  const namespacedRole = getStoredItem<string>(STORAGE_KEYS.AUTH_ROLE);
+  if (!legacyRole || allowedRoles.includes(legacyRole)) {
+    localStorage.removeItem("auth_role");
+  }
+  if (!namespacedRole || allowedRoles.includes(namespacedRole)) {
+    removeStoredItem(STORAGE_KEYS.AUTH_ROLE);
+    localStorage.removeItem(STORAGE_KEYS.AUTH_ROLE);
+  }
+}
+
 /**
- * Logout admin
+ * Logout admin (preserves active student/parent auth_role if another role is signed in)
  */
 export function clearAdminSession(): void {
-  removeStoredItem(STORAGE_KEYS.AUTH_ROLE, "auth_role");
+  removeAuthRoleIfMatches(["admin", "super_admin"]);
   removeStoredItem(STORAGE_KEYS.ADMIN_TOKEN, "admin_token");
-  localStorage.removeItem("auth_role");
   localStorage.removeItem("admin_token");
-  localStorage.removeItem(STORAGE_KEYS.AUTH_ROLE);
   localStorage.removeItem(STORAGE_KEYS.ADMIN_TOKEN);
   localStorage.removeItem("admin_info");
   localStorage.removeItem("admin_persisted");
@@ -68,11 +78,9 @@ export function clearAdminSession(): void {
  * Logout parent
  */
 export function clearParentSession(): void {
-  removeStoredItem(STORAGE_KEYS.AUTH_ROLE, "auth_role");
+  removeAuthRoleIfMatches(["parent"]);
   removeStoredItem(STORAGE_KEYS.PARENT_INFO, "parent_info");
-  localStorage.removeItem("auth_role");
   localStorage.removeItem("parent_info");
-  localStorage.removeItem(STORAGE_KEYS.AUTH_ROLE);
   localStorage.removeItem(STORAGE_KEYS.PARENT_INFO);
 }
 
@@ -80,11 +88,9 @@ export function clearParentSession(): void {
  * Logout student
  */
 export function clearStudentSession(): void {
-  removeStoredItem(STORAGE_KEYS.AUTH_ROLE, "auth_role");
+  removeAuthRoleIfMatches(["student"]);
   removeStoredItem(STORAGE_KEYS.STUDENT_INFO, "student_info");
-  localStorage.removeItem("auth_role");
   localStorage.removeItem("student_info");
-  localStorage.removeItem(STORAGE_KEYS.AUTH_ROLE);
   localStorage.removeItem(STORAGE_KEYS.STUDENT_INFO);
   localStorage.removeItem("current_student_session");
   localStorage.removeItem("student_submission_history");
