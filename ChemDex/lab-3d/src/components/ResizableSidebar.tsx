@@ -20,8 +20,8 @@ function setWidth(side: Side, width: number) {
 }
 
 /** Shared by the manual and automatic benches; resizing never remounts a canvas. */
-export function ResizableSidebar({ side, children, className = '' }: {
-  side: Side; children: React.ReactNode; className?: string;
+export function ResizableSidebar({ side, children, className = '', hidden = false }: {
+  side: Side; children: React.ReactNode; className?: string; hidden?: boolean;
 }) {
   const widths = useWidths();
   const oppositeOpen = useAppStore(s => side === 'left' ? s.rightSidebarOpen : s.leftSidebarOpen);
@@ -42,8 +42,8 @@ export function ResizableSidebar({ side, children, className = '' }: {
   useEffect(() => () => { cancelAnimationFrame(frame.current); document.documentElement.classList.remove('sidebar-resizing'); }, []);
   const limit = (next: number) => clamp(Math.min(next, window.innerWidth < 1024
     ? window.innerWidth * 0.85 : Math.max(220, window.innerWidth - otherWidth - 300)));
-  return <aside ref={root} id={`lab-${side}-panel`} aria-label={language === 'en' ? (side === 'left' ? 'Catalog' : 'Vessel and reactions') : (side === 'left' ? 'Kho hóa chất và dụng cụ' : 'Thông tin bình và phản ứng')} data-sidebar={side} className={`resizable-sidebar resizable-sidebar-${side} ${className}`}
-    style={{ '--sidebar-width': `${width}px`, '--opposite-width': `${otherWidth}px` } as React.CSSProperties}>
+  return <aside ref={root} id={`lab-${side}-panel`} aria-label={language === 'en' ? (side === 'left' ? 'Catalog' : 'Vessel and reactions') : (side === 'left' ? 'Kho hóa chất và dụng cụ' : 'Thông tin bình và phản ứng')} hidden={hidden} data-sidebar={side} className={`resizable-sidebar resizable-sidebar-${side} ${className}`}
+    style={{ display: hidden ? 'none' : undefined, '--sidebar-width': `${width}px`, '--opposite-width': `${otherWidth}px` } as React.CSSProperties}>
     {children}
     <div role="separator" aria-orientation="vertical" aria-label={label} aria-valuemin={220} aria-valuemax={560}
       aria-valuenow={width} tabIndex={0} title={`${label} · ← → · ${language === 'en' ? 'Double-click to reset' : 'Nhấn đúp để đặt lại'}`}

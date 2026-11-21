@@ -1,4 +1,5 @@
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useState, useEffect, useMemo, useRef } from 'react';
+import { useShallow } from 'zustand/react/shallow';
 import { useAppStore } from '../store/useAppStore';
 import { EXPERIMENT_CURRICULUM, ExperimentGuide } from '../data/experiments';
 import { 
@@ -7,15 +8,18 @@ import {
   ChevronDown, Cpu, Code2, Layers
 } from 'lucide-react';
 import { experimentEngine, ExperimentDifficultyMode, ExamReportCard } from '../engine/experimentEngine';
+import { ACID_BASE_TITRATION, acidBaseReportedPh, assessAcidBaseTitration } from '../engine/acidBaseTitration';
 import { labSound } from '../utils/audio';
 import { ObservationPanel } from './ObservationPanel';
 import { InstrumentRinseStatus } from './InstrumentRinseStatus';
-import { rinseInstrument } from '../handling/instrumentOperations';
+import { alignSelectedVessel, rinseInstrument } from '../handling/instrumentOperations';
 import { useInstrumentStore } from '../handling/instrumentState';
 import { uiText } from '../utils/uiText';
+import { downloadText } from '../utils/downloadText';
 const ReactionLibraryPanel = React.lazy(() => import('./ReactionLibraryPanel'));
+const EMPTY_APPARATUS = {};
 
-export function GuidedExperimentPanel() {
+export function GuidedExperimentPanel({ onOpenTitration, visible }: { onOpenTitration: () => void; visible: boolean }) {
   const { 
     language, 
     activeExperimentId, 
@@ -28,16 +32,43 @@ export function GuidedExperimentPanel() {
     vessels,
     burners,
     activeTool,
+    buretteOpen,
+    isMixing,
+    stockDosePending,
+    isSimulationPaused,
+    moveMode,
     spatulaState,
     toolContamination,
     instrumentRinse,
     examReport,
     setExamReport
-  } = useAppStore();
+  } = useAppStore(useShallow(state => ({
+    language: state.language,
+    activeExperimentId: state.activeExperimentId,
+    setActiveExperimentId: state.setActiveExperimentId,
+    activeStepIndex: state.activeStepIndex,
+    setActiveStepIndex: state.setActiveStepIndex,
+    setupExperimentPreset: state.setupExperimentPreset,
+    experimentDifficulty: state.experimentDifficulty,
+    setExperimentDifficulty: state.setExperimentDifficulty,
+    vessels: visible ? state.vessels : EMPTY_APPARATUS,
+    burners: visible ? state.burners : EMPTY_APPARATUS,
+    activeTool: state.activeTool,
+    buretteOpen: state.burette.isDispensing,
+    isMixing: state.isMixing,
+    stockDosePending: state.stockDosePending,
+    isSimulationPaused: state.isSimulationPaused,
+    moveMode: state.moveMode,
+    spatulaState: state.spatulaState,
+    toolContamination: state.toolContamination,
+    instrumentRinse: state.instrumentRinse,
+    examReport: state.examReport,
+    setExamReport: state.setExamReport,
+  })));
 
   const [selectedQuizAnswer, setSelectedQuizAnswer] = useState<number | null>(null);
   const [showExplanation, setShowExplanation] = useState(false);
-  const [examStartTime, setExamStartTime] = useState<number>(Date.now());
+  const examStartTime = useRef(0);
   const [elapsedSeconds, setElapsedSeconds] = useState<number>(0);
   const [toleranceErrors, setToleranceErrors] = useState<number[]>([]);
   const [showReportCardModal, setShowReportCardModal] = useState<boolean>(false);
@@ -52,15 +83,19 @@ export function GuidedExperimentPanel() {
 
   const currentExperiment = EXPERIMENT_CURRICULUM.find(e => e.id === activeExperimentId);
   const isObserving = !!currentExperiment && observationId === currentExperiment.id;
+  const isAcidBaseTitration = currentExperiment?.id === ACID_BASE_TITRATION.id;
+  const titrationVessel = vessels[ACID_BASE_TITRATION.vesselId];
+  const acidBaseAssessment = useMemo(() => isAcidBaseTitration
+    ? assessAcidBaseTitration(titrationVessel, experimentDifficulty) : null,
+  [isAcidBaseTitration, titrationVessel, experimentDifficulty]);
 
   // Timer for Exam mode
   useEffect(() => {
     if (experimentDifficulty !== 'exam' || !activeExperimentId) return;
-    const startedAt = Date.now();
-    setExamStartTime(startedAt);
+    examStartTime.current = Date.now();
     setElapsedSeconds(0);
     const interval = setInterval(() => {
-      setElapsedSeconds(Math.floor((Date.now() - startedAt) / 1000));
+      setElapsedSeconds(Math.floor((Date.now() - examStartTime.current) / 1000));
     }, 1000);
     return () => clearInterval(interval);
   }, [experimentDifficulty, activeExperimentId]);
@@ -79,15 +114,16 @@ export function GuidedExperimentPanel() {
   const currentStep = currentExperiment ? currentExperiment.steps[activeStepIndex] : null;
   const validationResult = useMemo(() => {
     if (!currentStep) return null;
+    if (acidBaseAssessment) return acidBaseAssessment.steps[activeStepIndex];
     return experimentEngine.validateStep(currentStep as any, validationState, experimentDifficulty);
-  }, [currentStep, validationState, experimentDifficulty]);
+  }, [currentStep, validationState, experimentDifficulty, acidBaseAssessment, activeStepIndex]);
 
   // Record tolerance errors if valid
   useEffect(() => {
-    if (validationResult?.isWithinTolerance && validationResult.toleranceError !== undefined) {
+    if (!isAcidBaseTitration && validationResult?.isWithinTolerance && validationResult.toleranceError !== undefined) {
       setToleranceErrors(prev => [...prev, validationResult.toleranceError!]);
     }
-  }, [validationResult?.isWithinTolerance, validationResult?.toleranceError]);
+  }, [isAcidBaseTitration, validationResult?.isWithinTolerance, validationResult?.toleranceError]);
 
   // Contaminated tools check
   const dirtyTools = Object.entries(toolContamination).filter(([_, chem]) => chem !== null) as Array<['pipette' | 'stirring_rod' | 'spatula', string]>;
@@ -102,19 +138,24 @@ export function GuidedExperimentPanel() {
     const maxTemperature_c = vesselList.length ? Math.max(...vesselList.map(v => v.temperature_c)) : undefined;
     const selectedVessel = state.selectedVesselId ? state.vessels[state.selectedVesselId] : vesselList[0];
     const uncleanedSpillCount = Object.keys(state.spills ?? {}).length;
+    const sample = state.vessels[ACID_BASE_TITRATION.vesselId];
+    const liveAssessment = isAcidBaseTitration ? assessAcidBaseTitration(sample, experimentDifficulty) : null;
+    const stepsCompleted = liveAssessment?.steps.filter(step => step.isValid).length
+      ?? (activeStepIndex + (validationResult?.isValid ? 1 : 0));
     const report = experimentEngine.generateReportCard(
       currentExperiment.id,
       experimentDifficulty,
       currentExperiment.steps.length,
-      activeStepIndex + (validationResult?.isValid ? 1 : 0),
-      toleranceErrors,
+      stepsCompleted,
+      liveAssessment ? [] : toleranceErrors,
       contaminationCount,
       isQuizCorrect ? 1 : 0,
       currentExperiment.quizzes.length,
       elapsedSeconds,
       {
         quantitativeMetrics: {
-          finalPh: selectedVessel?.ph,
+          ...liveAssessment?.metrics,
+          finalPh: liveAssessment ? acidBaseReportedPh(sample) : selectedVessel?.ph,
           maxTemperature_c,
           wasteCollected_g: state.wasteMass_g,
           uncleanedSpillCount,
@@ -126,16 +167,17 @@ export function GuidedExperimentPanel() {
     labSound.playSuccess();
   };
 
+  const openTitrationStation = () => {
+    const state = useAppStore.getState();
+    state.openVesselInfo(ACID_BASE_TITRATION.vesselId);
+    alignSelectedVessel('burette');
+    onOpenTitration();
+  };
+
   const handleDownloadReportJson = () => {
     if (!examReport) return;
-    const json = experimentEngine.serializeReportCardJson(examReport);
-    const blob = new Blob([json], { type: 'application/json;charset=utf-8' });
-    const url = URL.createObjectURL(blob);
-    const link = document.createElement('a');
-    link.href = url;
-    link.download = `chemdex-exam-${examReport.experimentId}.json`;
-    link.click();
-    URL.revokeObjectURL(url);
+    downloadText(`chemdex-exam-${examReport.experimentId}.json`,
+      experimentEngine.serializeReportCardJson(examReport), 'application/json;charset=utf-8');
   };
 
   // If no experiment selected, show curriculum catalog
@@ -261,7 +303,15 @@ export function GuidedExperimentPanel() {
 
         {/* Auto-setup Workbench Button */}
         {!isObserving && <button
-          onClick={() => setupExperimentPreset(currentExperiment.id)}
+          onClick={() => {
+            setupExperimentPreset(currentExperiment.id);
+            examStartTime.current = Date.now();
+            setElapsedSeconds(0);
+            setToleranceErrors([]);
+            setSelectedQuizAnswer(null);
+            setShowExplanation(false);
+            setExamReport(null);
+          }}
           className="w-full py-2 px-3 bg-blue-600 hover:bg-blue-700 text-white rounded-lg text-xs font-semibold flex items-center justify-center gap-1.5 transition-colors shadow-xs"
         >
           <Sparkles size={14} className="text-amber-300" />
@@ -446,11 +496,29 @@ export function GuidedExperimentPanel() {
             {language === 'en' ? currentStep.instruction_en : currentStep.instruction_vi}
           </div>
 
+          {acidBaseAssessment && validationResult && <p className="text-[11px] text-slate-600">
+            {language === 'en' ? validationResult.message_en : validationResult.message_vi}
+          </p>}
+          {acidBaseAssessment && activeStepIndex === 1 && <button type="button"
+            disabled={!acidBaseAssessment.steps[0].isValid || !!validationResult?.isValid || isMixing || stockDosePending || isSimulationPaused || moveMode}
+            onClick={() => {
+              const { vesselId, indicator, indicatorDose_ml } = ACID_BASE_TITRATION;
+              void useAppStore.getState().mixSubstances(vesselId, indicator, indicatorDose_ml, undefined, { revealInspector: false });
+            }}
+            className="rounded bg-blue-50 px-2.5 py-1.5 text-xs font-semibold text-blue-700 hover:bg-blue-100 disabled:opacity-40"
+          >{t('Add phenolphthalein', 'Thêm phenolphthalein')}</button>}
+          {acidBaseAssessment && activeStepIndex === 2 && <button type="button" onClick={openTitrationStation}
+            disabled={!acidBaseAssessment.steps[0].isValid || moveMode}
+            className="rounded bg-blue-50 px-2.5 py-1.5 text-xs font-semibold text-blue-700 hover:bg-blue-100 disabled:opacity-40"
+          >{t('Align flask and open titration', 'Căn bình và mở bảng chuẩn độ')}</button>}
+
           {/* Tolerance & Real-time Sensor Feedback */}
           {validationResult && validationResult.targetValue !== undefined && (
             <div className="bg-slate-50 border border-slate-200 rounded-lg p-2.5 text-[11px] space-y-1">
               <div className="flex items-center justify-between">
-                <span className="text-slate-500 font-semibold">{t('Live Sensor Measurement:', 'Đo đạc cảm biến thực tế:')}</span>
+                <span className="text-slate-500 font-semibold">{acidBaseAssessment
+                  ? t('NaOH received', 'NaOH đã vào bình')
+                  : t('Live Sensor Measurement:', 'Đo đạc cảm biến thực tế:')}</span>
                 <span className={`font-mono font-bold ${validationResult.isWithinTolerance ? 'text-emerald-600' : 'text-amber-600'}`}>
                   {validationResult.currentValue ?? 0} / {validationResult.targetValue} {currentStep.unit || ''}
                 </span>
@@ -458,7 +526,7 @@ export function GuidedExperimentPanel() {
               {validationResult.toleranceError !== undefined && (
                 <div className="text-[10px] text-slate-500 flex justify-between">
                   <span>{t('Tolerance Error:', 'Sai số dung sai:')}</span>
-                  <span className="font-mono">±{validationResult.toleranceError} (Tol: ±{currentStep.tolerance || 1.0})</span>
+                  <span className="font-mono">{validationResult.toleranceError} (±{acidBaseAssessment?.tolerance ?? currentStep.tolerance ?? 1})</span>
                 </div>
               )}
             </div>
@@ -485,7 +553,8 @@ export function GuidedExperimentPanel() {
             {isLastStep ? (
               <button
                 onClick={handleCompleteExam}
-                className="flex items-center gap-1.5 px-3.5 py-1.5 bg-emerald-600 hover:bg-emerald-700 text-white rounded text-xs font-bold shadow-xs"
+                disabled={isAcidBaseTitration && buretteOpen}
+                className="flex items-center gap-1.5 px-3.5 py-1.5 bg-emerald-600 hover:bg-emerald-700 text-white rounded text-xs font-bold shadow-xs disabled:opacity-40"
               >
                 <Award size={14} />
                 <span>{t('Finish & Grade Exam', 'Hoàn tất & Chấm điểm')}</span>
@@ -493,7 +562,8 @@ export function GuidedExperimentPanel() {
             ) : (
               <button 
                 onClick={() => setActiveStepIndex(Math.min(totalSteps - 1, activeStepIndex + 1))}
-                className={`flex items-center gap-1 px-3 py-1.5 text-white rounded text-xs font-semibold shadow-xs transition-colors ${
+                disabled={isAcidBaseTitration && !validationResult?.isValid}
+                className={`flex items-center gap-1 px-3 py-1.5 text-white rounded text-xs font-semibold shadow-xs transition-colors disabled:opacity-40 ${
                   validationResult?.isValid ? 'bg-emerald-600 hover:bg-emerald-700' : 'bg-blue-600 hover:bg-blue-700'
                 }`}
               >
@@ -565,15 +635,21 @@ export function GuidedExperimentPanel() {
 
       {/* Exam Report Card Modal */}
       {showReportCardModal && examReport && (
-        <div className="fixed inset-0 z-50 bg-black/50 backdrop-blur-xs flex items-center justify-center p-4">
-          <div className="bg-white rounded-2xl max-w-md w-full p-5 shadow-2xl space-y-4 border border-slate-200 animate-in fade-in zoom-in-95 duration-200">
+        <dialog ref={element => { if (element && !element.open) element.showModal(); }}
+          aria-labelledby="lab-exam-report-heading"
+          onKeyDown={event => { if (event.key === 'Escape') event.stopPropagation(); }}
+          onCancel={event => { event.preventDefault(); setShowReportCardModal(false); }}
+          className="m-auto max-h-[calc(100dvh-2rem)] overflow-y-auto rounded-2xl border border-slate-200 bg-white p-5 shadow-2xl backdrop:bg-black/50"
+          style={{ width: 'min(calc(100vw - 2rem), 28rem)' }}>
+          <div className="space-y-4">
             <div className="flex items-center justify-between border-b border-slate-100 pb-3">
               <div className="flex items-center gap-2">
                 <Award size={20} className="text-amber-500" />
-                <h3 className="font-bold text-slate-900 text-sm">{t('Laboratory Practical Exam Report', 'Báo Cáo Điểm Thi Thực Hành')}</h3>
+                <h3 id="lab-exam-report-heading" className="font-bold text-slate-900 text-sm">{t('Laboratory Practical Exam Report', 'Báo Cáo Điểm Thi Thực Hành')}</h3>
               </div>
               <button 
                 onClick={() => setShowReportCardModal(false)}
+                aria-label={t('Close assessment report', 'Đóng báo cáo điểm')}
                 className="text-slate-400 hover:text-slate-600 p-1"
               >
                 <X size={16} />
@@ -611,6 +687,17 @@ export function GuidedExperimentPanel() {
               </div>
             </div>
 
+            {examReport.quantitativeMetrics?.titrationDelivered_ml !== undefined && <div className="rounded-lg bg-slate-50 p-2.5 text-xs text-slate-700">
+              <p>{t('NaOH received', 'NaOH đã vào bình')} <strong>{examReport.quantitativeMetrics.titrationDelivered_ml.toFixed(2)} / {examReport.quantitativeMetrics.titrationTarget_ml?.toFixed(2)} mL</strong></p>
+              <p>{t('Absolute volume error', 'Sai lệch thể tích')} <strong>{examReport.quantitativeMetrics.titrationError_ml?.toFixed(2)} mL</strong></p>
+              {(examReport.quantitativeMetrics.titrationOtherTitrant_ml ?? 0) > 0 && <p>
+                {t('Other titrant received', 'Dung dịch chuẩn khác đã vào bình')} <strong>{examReport.quantitativeMetrics.titrationOtherTitrant_ml?.toFixed(3)} mL</strong>
+              </p>}
+              {examReport.quantitativeMetrics.finalPh !== undefined && <p>
+                {t('Final sample pH', 'pH cuối của mẫu')} <strong>{examReport.quantitativeMetrics.finalPh.toFixed(2)}</strong>
+              </p>}
+            </div>}
+
             {/* Instructor Feedback */}
             <div className="bg-slate-50 border border-slate-200 rounded-xl p-3 text-xs space-y-1">
               <span className="font-bold text-slate-700">{t('Pedagogical Critique:', 'Nhận xét của giảng viên:')}</span>
@@ -635,7 +722,7 @@ export function GuidedExperimentPanel() {
               </button>
             </div>
           </div>
-        </div>
+        </dialog>
       )}
     </div>
   );

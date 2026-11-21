@@ -32,7 +32,15 @@ Với 10.000 số đo mô phỏng, phép đo Node cho 100 lần chụp riêng tr
 
 Chrome ở khung nhìn 390 px đã chạy luồng xả, đổi sang HCl 0,05 M, nhả giọt, tải CSV từng lượt và tải lại trang. Giọt nhả sau khi tải lại tiếp tục đúng lượt hiện tại. Các kiểm thử hồi quy cũng bao phủ việc dùng lại mã bình khi mở bài thực hành và nhả lại sau khi xóa lượt gần nhất.
 
-Bài **Chuẩn độ Axit - Bazơ** hiện tạo khoảng 20 mmol HCl trong bình tam giác. Với NaOH 0,10 M mặc định của buret, mốc tương đương tính từ kiểm kê vào khoảng 200 mL, gấp khoảng bốn lần dung tích buret. Đợt tiếp theo sẽ đồng bộ mẫu thực hành với buret và kiểm tra lượng NaOH thực sự vào bình trước khi chấm bước. Bài học cũng cần đối chiếu điểm tương đương theo tỉ lượng với điểm kết thúc quan sát bằng màu. [IUPAC Gold Book về chuẩn độ](https://goldbook.iupac.org/terms/view/T06387)
+## Bài thực hành chuẩn độ HCl–NaOH
+
+1. Từ **Bài học → Chuẩn độ Axit - Bazơ**, chọn **Tự động bày bàn thí nghiệm**. Bình tam giác 100 mL chứa 20,00 mL HCl 0,10 M. Buret được đóng khóa và nạp NaOH 0,10 M. Thể tích tương đương lý thuyết là 20,00 mL, trong một lần nạp 50 mL. Mẫu cũ cần khoảng 200,23 mL và quá nông để ngập đầu đo trong bình 250 mL.
+2. Thêm 0,10 mL dung dịch phenolphthalein bằng nút trong bài. Chọn **Căn bình và mở bảng chuẩn độ**. Rót liên tục tới gần mốc rồi dùng từng giọt 0,05 mL để căn thể tích. Màu hồng của chỉ thị xuất hiện ở phía bazơ của bước nhảy pH. Điểm tương đương của hệ HCl–NaOH ở gần pH 7 tại 25 °C. [IUPAC Gold Book](https://goldbook.iupac.org/terms/view/T06387/plain) · [OpenStax Chemistry 2e](https://openstax.org/books/chemistry-2e/pages/14-7-acid-base-titrations)
+3. Đóng khóa rồi chấm. Bài thực hành và thi thử dùng dung sai ±0,10 mL. Điểm và báo cáo JSON dùng thể tích NaOH 0,10 M đã vào mẫu đã chuẩn bị. Hóa chất khác hoặc NaOH khác nồng độ đi từ buret vào mẫu được ghi riêng. Có thể xóa đồ thị và chấm từ kiểm kê của mẫu. Sau khi làm rỗng bình, dùng **Tự động bày bàn thí nghiệm** để bắt đầu lần thực hành mới.
+
+Kiểm thử đi qua 400 lần nhả 0,05 mL, xác nhận pH gần 7 ở 20,00 mL và pH tăng sau giọt tiếp theo. Lượt Chrome production ở khung nhìn 390 px bày bàn, thêm chỉ thị, rót liên tục rồi nhả từng giọt tới mốc, xóa đồ thị và xuất báo cáo JSON. Báo cáo ghi 20,00 mL đã vào bình, sai lệch 0,00 mL, quy trình 40/40 và điểm trắc nghiệm được giữ qua lần chuyển bảng.
+
+Kiểm kê chương trình hiện có 19 bài, 43 bước. Trong đó 6 bước khai báo thao tác, 3 bước của bài chuẩn độ đọc trạng thái mẫu và 34 bước còn lại chỉ có mô tả. Đợt kế tiếp cần nối các bước kết tủa với đúng bình, lượng thuốc thử đã vào bình và lượng sản phẩm trong kiểm kê. Bảng thành phần cũng cần ghi riêng tên danh mục và nồng độ của mẫu hiện tại để tránh nhầm thông số chai kho với dung dịch đã pha.
 
 ## Phạm vi 5 giai đoạn
 

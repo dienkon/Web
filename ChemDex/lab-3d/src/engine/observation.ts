@@ -45,7 +45,7 @@ export class ObservationSession {
     this.plan = plan;
     const state = useAppStore.getState();
     this.previousScale = state.timeScale; this.previousPaused = state.isSimulationPaused;
-    state.setupExperimentPreset(id);
+    state.setupExperimentPreset(id, 'observation');
     this.epoch = useAppStore.getState().pourEpoch;
     useAppStore.setState({ isSimulationPaused: false, timeScale: 1, activeTool: 'none', selectedVesselId: plan.to });
     useAppStore.getState().focusVessel(plan.to);

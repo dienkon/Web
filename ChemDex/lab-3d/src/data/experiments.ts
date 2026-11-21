@@ -1,4 +1,5 @@
 import { ProceduralActionType } from '../engine/experimentEngine';
+import { ACID_BASE_EQUIVALENCE_ML, ACID_BASE_TITRATION } from '../engine/acidBaseTitration';
 
 export interface LabStep {
   stepNumber: number;
@@ -62,62 +63,58 @@ export interface ExperimentGuide {
 
 export const EXPERIMENT_CURRICULUM: ExperimentGuide[] = [
   {
-    id: 'acid_base_titration',
+    id: ACID_BASE_TITRATION.id,
     title_en: 'Acid-Base Titration (HCl + NaOH)',
     title_vi: 'Chuẩn độ Axit - Bazơ (HCl + NaOH)',
     category: 'acid_base',
     difficulty: 'basic',
-    objective_en: 'Determine the exact neutralization point of Hydrochloric Acid using Sodium Hydroxide with Phenolphthalein indicator.',
-    objective_vi: 'Xác định điểm tương đương của phản ứng trung hòa axit clohiđric bằng dung dịch natri hiđroxit với chỉ thị phenolphtalein.',
-    theory_en: 'In acid-base titration, H⁺ from strong acid reacts with OH⁻ from strong base in 1:1 mole ratio: H⁺ + OH⁻ → H₂O. At equivalence point (pH = 7), adding a single drop of excess NaOH raises pH above 8.2, turning phenolphthalein vivid pink.',
-    theory_vi: 'Trong phép chuẩn độ axit - bazơ, ion H⁺ phản ứng vừa đủ với ion OH⁻ theo tỉ lệ mol 1:1: H⁺ + OH⁻ → H₂O. Tại điểm tương đương (pH = 7), chỉ cần thêm 1 giọt NaOH dư sẽ làm pH tăng trên 8.2, làm phenolphtalein chuyển sang màu hồng đậm.',
+    objective_en: 'Measure the NaOH volume needed to neutralize HCl and relate the pH transition to the indicator color.',
+    objective_vi: 'Đo thể tích NaOH để trung hòa HCl và liên hệ bước nhảy pH với màu của chất chỉ thị.',
+    theory_en: 'H⁺ and OH⁻ react in a 1:1 ratio to form water. For HCl and NaOH, equivalence occurs near pH 7 at 25 °C. Phenolphthalein turns pink on the basic side of the pH jump, which signals the visual endpoint.',
+    theory_vi: 'H⁺ và OH⁻ phản ứng theo tỉ lệ 1:1 tạo nước. Với HCl và NaOH, pH tại điểm tương đương gần 7 ở 25 °C. Phenolphthalein chuyển hồng ở phía bazơ của bước nhảy pH và báo hiệu điểm kết thúc quan sát được.',
     safetyAdvisory_en: 'NaOH is caustic and HCl is corrosive. Wear eye goggles and disposable gloves.',
     safetyAdvisory_vi: 'NaOH gây ăn mòn da và HCl có tính axit mạnh. Luôn đeo kính bảo hộ và găng tay cao su.',
-    requiredEquipment: ['Erlenmeyer Flask', 'Burette', 'Graduated Cylinder'],
+    requiredEquipment: ['Erlenmeyer Flask', 'Burette', 'pH Meter'],
     allowedChemicals: ['HCl (dil)', 'NaOH', 'Phenolphthalein', 'H2O'],
-    simulationAlgorithm_en: `Charge-Balance & Indicator Equilibrium Solver:
-1. Exact Charge Neutrality: [H+] - Kw/[H+] + (C_b*V_b - C_a*V_a) / (V_a + V_b) = 0.
-2. Henderson-Hasselbalch Indicator Deprotonation:
-   fraction_pink = 1 / (1 + 10^(pK_in - pH)) with pK_in = 9.3.
-3. Optical Chromophore Absorbance:
-   A(550nm) = epsilon * [In2-] * l; smooth transition from clear (A < 0.01) to permanent pink (A > 0.08).`,
-    simulationAlgorithm_vi: `Thuật toán Giải Cân Bằng Điện Tích & Chỉ Thị Màu:
-1. Phương trình bảo toàn điện tích giải chính xác [H+] và pH tại mọi thể tích chuẩn độ.
-2. Phương trình Henderson-Hasselbalch tính tỉ lệ phân ly dạng hồng In2- của phenolphtalein (pK_in = 9.3).
-3. Độ hấp thụ quang A(550nm) chuyển đổi từ không màu sang hồng nhạt bền vững tại điểm tương đương.`,
+    simulationAlgorithm_en: `1. Equivalence follows C(HCl) × V(HCl) = C(NaOH) × V(NaOH).
+2. The ideal aqueous model solves charge balance with water ionization at the sample temperature.
+3. Indicator color blends from clear to pink using 1 / (1 + 10^(9.4 − pH)).`,
+    simulationAlgorithm_vi: `1. Tại điểm tương đương, C(HCl) × V(HCl) = C(NaOH) × V(NaOH).
+2. Mô hình dung dịch lý tưởng giải cân bằng điện tích và sự điện li của nước ở nhiệt độ mẫu.
+3. Màu chỉ thị chuyển từ trong sang hồng theo hệ số 1 / (1 + 10^(9,4 − pH)).`,
     phenomenologyCases: [
       {
         id: 'titration_sub_equivalence',
         name_en: 'Case 1: Acidic Excess (Sub-Equivalence)',
         name_vi: 'Trường hợp 1: Axit dư trước điểm tương đương',
-        description_en: 'Bulk solution has pH < 7. Local pink droplets from the burette instantly decolorize upon stirring as OH- is consumed by excess H+.',
-        description_vi: 'Dung dịch có pH < 7. Từng giọt kiềm rơi xuống chỉ làm hồng cục bộ rồi tan biến ngay khi khuấy do ion H+ còn dư nhiều.',
-        algorithm: '[H+] = (n_acid - n_base)/V_total; fraction_pink < 0.01; transparent clear liquid.'
+        description_en: 'Excess HCl keeps the mixed solution acidic and the indicator nearly colorless.',
+        description_vi: 'HCl còn dư giữ dung dịch sau khi trộn ở môi trường axit. Chỉ thị gần như không màu.',
+        algorithm: 'n(HCl) > n(NaOH)'
       },
       {
         id: 'titration_equivalence_jump',
-        name_en: 'Case 2: Equivalence pH Jump & Permanent Pale Pink',
-        name_vi: 'Trường hợp 2: Bước nhảy pH & chuyển màu hồng nhạt bền vững',
-        description_en: 'At the stoichiometric equivalence point, a single micro-drop drives pH across 7.0 to ~8.5, stably opening the indicator lactone ring into a persistent faint pink.',
-        description_vi: 'Tại điểm tương đương, chỉ 1 giọt nhỏ làm pH nhảy vọt qua 7.0 lên ~8.5, phenolphtalein mở vòng lacton chuyển sang màu hồng nhạt bền vững khắp dung dịch.',
-        algorithm: 'Steep inflection dpH/dV -> max; fraction_pink ≈ 0.05-0.15; A(550nm) ≈ 0.08.'
+        name_en: 'Case 2: Stoichiometric Equivalence',
+        name_vi: 'Trường hợp 2 — Điểm tương đương theo tỉ lượng',
+        description_en: 'The strong acid and base have reacted in equivalent amounts. At 25 °C the solution is nearly neutral and the indicator remains nearly colorless.',
+        description_vi: 'Axit mạnh và bazơ mạnh đã phản ứng vừa đủ. Ở 25 °C, dung dịch gần trung tính và chỉ thị gần như không màu.',
+        algorithm: 'n(HCl) = n(NaOH)'
       },
       {
         id: 'titration_hyper_alkaline',
-        name_en: 'Case 3: Excess Base (Hyper-Alkaline)',
+        name_en: 'Case 3: Base in Excess',
         name_vi: 'Trường hợp 3: Kiềm dư sau điểm tương đương',
-        description_en: 'Further addition of NaOH pushes pH > 11, saturating indicator deprotonation into an intense deep fuchsia/magenta hue.',
-        description_vi: 'Rót quá nhiều NaOH làm pH tăng trên 11, toàn bộ chỉ thị chuyển thành dạng In2- tạo màu hồng cánh sen / đỏ tươi đậm đặc.',
-        algorithm: '[OH-] = (n_base - n_acid)/V_total; fraction_pink > 0.95; A(550nm) > 1.2.'
+        description_en: 'Once the base is in excess, pH rises and phenolphthalein becomes pink. The visual endpoint is on this side of the curve.',
+        description_vi: 'Khi NaOH dư, pH tăng và phenolphthalein chuyển hồng. Điểm kết thúc bằng màu nằm ở phía này của đường cong.',
+        algorithm: 'n(NaOH) > n(HCl)'
       }
     ],
     steps: [
       {
         stepNumber: 1,
-        title_en: 'Add Acid to Flask',
-        title_vi: 'Cho axit vào bình tam giác',
-        instruction_en: 'Add 20 mL of dilute HCl into Flask 1.',
-        instruction_vi: 'Cho 20 mL dung dịch HCl loãng vào Bình tam giác 1.',
+        title_en: 'Prepare the HCl sample',
+        title_vi: 'Chuẩn bị mẫu HCl',
+        instruction_en: 'Set up the workbench to prepare 20 mL of 0.10 M HCl in Flask 1 and fill the burette with 0.10 M NaOH.',
+        instruction_vi: 'Dùng nút bày bàn để chuẩn bị 20 mL HCl 0,10 M trong bình tam giác và nạp NaOH 0,10 M vào buret.',
         expectedResult_en: 'Clear colorless solution at pH ~ 1.',
         expectedResult_vi: 'Dung dịch trong suốt không màu, pH khoảng 1.'
       },
@@ -125,8 +122,8 @@ export const EXPERIMENT_CURRICULUM: ExperimentGuide[] = [
         stepNumber: 2,
         title_en: 'Add Indicator',
         title_vi: 'Thêm chất chỉ thị màu',
-        instruction_en: 'Add 2-3 drops of Phenolphthalein into the flask.',
-        instruction_vi: 'Nhỏ 2-3 giọt dung dịch Phenolphtalein vào bình tam giác.',
+        instruction_en: 'Use the button below to add 0.10 mL of phenolphthalein to the sample.',
+        instruction_vi: 'Dùng nút bên dưới để thêm 0,10 mL dung dịch phenolphthalein vào mẫu.',
         expectedResult_en: 'Solution remains colorless because pH < 8.2.',
         expectedResult_vi: 'Dung dịch vẫn không màu do môi trường axit (pH < 8.2).'
       },
@@ -134,21 +131,22 @@ export const EXPERIMENT_CURRICULUM: ExperimentGuide[] = [
         stepNumber: 3,
         title_en: 'Titrate with NaOH',
         title_vi: 'Chuẩn độ với dung dịch NaOH',
-        instruction_en: 'Slowly pour NaOH solution drop by drop into the flask while observing the color.',
-        instruction_vi: 'Rót từ từ từng giọt dung dịch NaOH vào bình tam giác và quan sát sự chuyển màu.',
-        expectedResult_en: 'A fleeting pink color appears where drops hit, and finally the entire solution turns permanent pale pink at equivalence point!',
-        expectedResult_vi: 'Vệt màu hồng xuất hiện tại điểm tiếp xúc rồi tan biến; khi đến điểm tương đương, toàn bộ dung dịch chuyển sang màu hồng nhạt bền vững!'
+        unit: 'mL',
+        instruction_en: `Align the flask under the burette. Run continuously to approach ${ACID_BASE_EQUIVALENCE_ML} mL delivered, then close the valve and finish one drop at a time.`,
+        instruction_vi: `Căn bình dưới buret. Rót liên tục đến gần ${ACID_BASE_EQUIVALENCE_ML} mL đã nhả, sau đó đóng khóa và nhả từng giọt.`,
+        expectedResult_en: 'pH changes steeply around 20.00 mL. A slight excess of base turns the indicator pink.',
+        expectedResult_vi: 'pH thay đổi mạnh quanh 20,00 mL. Khi kiềm dư nhẹ, chỉ thị chuyển hồng.'
       }
     ],
     quizzes: [
       {
         question_en: 'What is the color of phenolphthalein in a neutral solution at pH 7.0?',
-        question_vi: 'Chỉ thị phenolphtalein có màu gì trong dung dịch trung tính ở pH = 7.0?',
+        question_vi: 'Chỉ thị phenolphthalein có màu gì trong dung dịch trung tính ở pH = 7.0?',
         options_en: ['Colorless', 'Pink', 'Blue', 'Yellow'],
         options_vi: ['Không màu', 'Màu hồng', 'Màu xanh lam', 'Màu vàng'],
         correctAnswer: 0,
         explanation_en: 'Phenolphthalein remains colorless in acidic and neutral solutions (pH < 8.2) and turns pink/fuchsia only in alkaline conditions (pH > 8.2).',
-        explanation_vi: 'Phenolphtalein không màu trong môi trường axit và trung tính (pH < 8.2) và chỉ đổi sang màu hồng trong môi trường kiềm (pH > 8.2).'
+        explanation_vi: 'Phenolphthalein không màu trong môi trường axit và trung tính (pH < 8.2) và chỉ đổi sang màu hồng trong môi trường kiềm (pH > 8.2).'
       }
     ]
   },

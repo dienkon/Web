@@ -10,6 +10,7 @@ import { LAB_TOUR_STEPS } from './data/labTour';
 import type { GuideDestination } from './data/labOnboarding';
 import { MeasurementHUD } from './components/MeasurementHUD';
 import { VesselInspector } from './components/VesselInspector';
+import { ACID_BASE_TITRATION } from './engine/acidBaseTitration';
 const TitrationPanel = React.lazy(() => import('./components/TitrationPanel').then(m => ({ default: m.TitrationPanel })));
 const GuidedExperimentPanel = React.lazy(() => import('./components/GuidedExperimentPanel').then(m => ({ default: m.GuidedExperimentPanel })));
 import { DosageModal } from './components/DosageModal';
@@ -38,9 +39,14 @@ import {
 } from 'lucide-react';
 
 type CatalogTab = 'chemicals' | 'instruments' | 'experiments' | 'safety';
+type InspectorTab = 'vessel' | 'reaction' | 'titration';
 
-function LeftSidebar({ activeTab, setActiveTab, guidedStep }: { activeTab: CatalogTab; setActiveTab: (tab: CatalogTab) => void; guidedStep?: string }) {
+function LeftSidebar({ activeTab, setActiveTab, guidedStep, onOpenTitration }: {
+  activeTab: CatalogTab; setActiveTab: (tab: CatalogTab) => void; guidedStep?: string; onOpenTitration: () => void;
+}) {
   const leftSidebarOpen = useAppStore(state => state.leftSidebarOpen);
+  const keepTitrationPractice = useAppStore(state => state.activeExperimentId === ACID_BASE_TITRATION.id
+    && !!state.vessels[ACID_BASE_TITRATION.vesselId]?.acidBaseTitration);
   const language = useAppStore(state => state.language);
   const addVessel = useAppStore(state => state.addVessel);
   const isMixing = useAppStore(state => state.isMixing);
@@ -67,7 +73,7 @@ function LeftSidebar({ activeTab, setActiveTab, guidedStep }: { activeTab: Catal
     });
   }, [search, filterType, language]);
 
-  if (!leftSidebarOpen) return null;
+  if (!leftSidebarOpen && !keepTitrationPractice) return null;
 
   // Current active chemicals on workbench for safety tab
   const allWorkbenchSubstances = Array.from(new Set(
@@ -76,7 +82,7 @@ function LeftSidebar({ activeTab, setActiveTab, guidedStep }: { activeTab: Catal
   const safetyInfo = getChemicalHazardsAndPpe(allWorkbenchSubstances);
 
   return (
-    <ResizableSidebar side="left" className="bg-white border-r border-slate-200 shadow-sm">
+    <ResizableSidebar side="left" hidden={!leftSidebarOpen} className="bg-white border-r border-slate-200 shadow-sm">
       {/* Sidebar Tabs */}
       <div className="flex items-center border-b border-slate-200 bg-slate-50/50">
         <button
@@ -390,10 +396,10 @@ function LeftSidebar({ activeTab, setActiveTab, guidedStep }: { activeTab: Catal
       })()}
 
       {/* CURRICULUM & EXPERIMENTS TAB */}
-      {activeTab === 'experiments' && (
-        <div className="flex-1 p-3.5 overflow-y-auto">
+      {(activeTab === 'experiments' || keepTitrationPractice) && (
+        <div className={activeTab === 'experiments' ? 'flex-1 p-3.5 overflow-y-auto' : 'hidden'}>
           <React.Suspense fallback={<p className="text-xs text-slate-500 p-2">{t('Loading experiments...', 'Đang tải danh sách bài học...')}</p>}>
-            <GuidedExperimentPanel />
+            <GuidedExperimentPanel onOpenTitration={onOpenTitration} visible={leftSidebarOpen && activeTab === 'experiments'} />
           </React.Suspense>
         </div>
       )}
@@ -432,28 +438,29 @@ function LeftSidebar({ activeTab, setActiveTab, guidedStep }: { activeTab: Catal
   );
 }
 
-const RightSidebar = React.memo(function RightSidebar() {
+const RightSidebar = React.memo(function RightSidebar({ activeTab, setActiveTab }: {
+  activeTab: InspectorTab; setActiveTab: React.Dispatch<React.SetStateAction<InspectorTab>>;
+}) {
   const rightSidebarOpen = useAppStore(state => state.rightSidebarOpen);
   const lastMixResult = useAppStore(state => state.lastMixResult);
   const isMixing = useAppStore(state => state.isMixing);
   const mixError = useAppStore(state => state.mixError);
   const language = useAppStore(state => state.language);
   const selectedVesselId = useAppStore(state => state.selectedVesselId);
-  const [activeTab, setActiveTab] = useState<'vessel' | 'reaction' | 'titration'>('vessel');
 
   // While titrating, vessel changes should leave the alignment controls visible.
   useEffect(() => {
     if (selectedVesselId) {
       setActiveTab(current => current === 'titration' ? current : 'vessel');
     }
-  }, [selectedVesselId]);
+  }, [selectedVesselId, setActiveTab]);
 
   // A measured drop can trigger a reaction without ending the titration.
   useEffect(() => {
     if (lastMixResult) {
       setActiveTab(current => current === 'titration' ? current : 'reaction');
     }
-  }, [lastMixResult]);
+  }, [lastMixResult, setActiveTab]);
 
   if (!rightSidebarOpen) return null;
 
@@ -624,6 +631,11 @@ const TargetRecognitionHUD = React.memo(function TargetRecognitionHUD() {
 export default function App() {
   const [workspace, setWorkspace] = useState<'manual' | 'auto'>(() => new URLSearchParams(window.location.search).get('mode') === 'auto' ? 'auto' : 'manual');
   const [catalogTab, setCatalogTab] = useState<CatalogTab>(() => new URLSearchParams(window.location.search).has('experiment') ? 'experiments' : 'chemicals');
+  const [inspectorTab, setInspectorTab] = useState<InspectorTab>('vessel');
+  const openTitration = React.useCallback(() => {
+    setInspectorTab('titration');
+    useAppStore.getState().setRightSidebarOpen(true);
+  }, []);
   const [guideDestination, setGuideDestination] = useState<GuideDestination | null>(null);
   const guide = useLabOnboarding(false);
   const tourActive = useLabTour(state => state.active);
@@ -732,7 +744,8 @@ export default function App() {
       <div id="manual-lab" role="tabpanel" aria-labelledby="manual-lab-tab" className="flex flex-1 min-h-0 overflow-hidden relative">
         {(leftSidebarOpen || rightSidebarOpen) && <button className="lab-sidebar-backdrop" aria-label={t('Close panels', 'Đóng các bảng')}
           onClick={() => useAppStore.setState({ leftSidebarOpen: false, rightSidebarOpen: false })} />}
-        <LeftSidebar activeTab={catalogTab} setActiveTab={setCatalogTab} guidedStep={tourActive ? tourStep : undefined} />
+        <LeftSidebar activeTab={catalogTab} setActiveTab={setCatalogTab} guidedStep={tourActive ? tourStep : undefined}
+          onOpenTitration={openTitration} />
 
         {/* 3D Interactive Workbench Viewport */}
         <main
@@ -763,7 +776,7 @@ export default function App() {
           </div>
         </main>
 
-        <RightSidebar />
+        <RightSidebar activeTab={inspectorTab} setActiveTab={setInspectorTab} />
         {isDev && (
           <React.Suspense fallback={null}>
             <VfxGallery />

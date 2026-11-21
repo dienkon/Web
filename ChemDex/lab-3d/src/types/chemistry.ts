@@ -128,6 +128,7 @@ export interface VesselState {
   waterVaporTemperatureModel?: 'emission-ledger' | 'source-temperature-estimate';
   effectSampleRevision?: number; // invalidates handles/visuals when a specimen is replaced
   titrationRunId?: string; // last run that delivered titrant to this vessel
+  acidBaseTitration?: import('../engine/acidBaseTitration').AcidBaseTitrationReceipt;
   environment?: import('../science/labEnvironment').LabEnvironment;
   hotPlate?: { isOn: boolean; setPoint_c: number; electricalEnergy_J?: number; deliveredHeat_J?: number; heatLost_J?: number };
   escapedGas_g?: Record<string, number>;

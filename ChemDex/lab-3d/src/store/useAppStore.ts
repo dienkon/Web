@@ -29,7 +29,8 @@ import { ppeService } from '../safety/Ppe';
 import { shardManager } from '../damage/Shards';
 import { condenserCoolingSettings, validCondenserCooling, type CondenserCoolingSettings } from '../science/condenserHeatExchange';
 import { isSodiumWaterReaction, sodiumMetalMass, sodiumContactRegime } from '../science/sodiumWater';
-import { applyProgramToLedger, programStockProgressLimit } from '../engine/ledger';
+import { applyProgramToLedger, computeMolarMass, programStockProgressLimit } from '../engine/ledger';
+import { ACID_BASE_TITRATION, recordAcidBaseDelivery } from '../engine/acidBaseTitration';
 import { reactionStockContactFraction } from '../physical/stockLiquidContact';
 import { resolveReactionProgram } from '../vfx/programs/resolver';
 import { ReactionProgram } from '../shared/programSchema';
@@ -412,7 +413,7 @@ export interface AppState {
   setActiveExperimentId: (id: string | null) => void;
   activeStepIndex: number;
   setActiveStepIndex: (idx: number) => void;
-  setupExperimentPreset: (experimentId: string) => void;
+  setupExperimentPreset: (experimentId: string, context?: 'practice' | 'observation') => void;
   experimentDifficulty: ExperimentDifficultyMode;
   setExperimentDifficulty: (mode: ExperimentDifficultyMode) => void;
   toolContamination: Record<string, string | null>;
@@ -612,7 +613,8 @@ export interface AppState {
   timeScale: number;
   setTimeScale: (scale: number) => void;
 
-  mixSubstances: (targetId: string, newChemical: string, addedVolume_ml?: number, onAccepted?: () => void) => Promise<void>;
+  mixSubstances: (targetId: string, newChemical: string, addedVolume_ml?: number, onAccepted?: () => void,
+    options?: { revealInspector?: boolean }) => Promise<void>;
   pourVessel: (fromId: string, toId: string, customAmount_ml?: number) => Promise<void>;
   resetWorkbench: () => void;
 }
@@ -905,22 +907,29 @@ export const useAppStore = create<AppState>((set, get) => {
     },
     examReport: null,
     setExamReport: (report) => set({ examReport: report }),
-    setupExperimentPreset: (experimentId: string) => {
+    setupExperimentPreset: (experimentId: string, context = 'practice') => {
       const vessels: Record<string, VesselState> = {};
-      if (experimentId === 'acid_base_titration') {
-        vessels['flask_1'] = {
-          id: 'flask_1',
+      const titration = ACID_BASE_TITRATION;
+      const isAcidBaseTitration = experimentId === titration.id;
+      const isTitrationPractice = isAcidBaseTitration && context === 'practice';
+      if (isAcidBaseTitration) {
+        const acidMoles = titration.acidVolume_ml * titration.acidConcentration_M / 1000;
+        const observationStockVolume_ml = 50;
+        const baseMoles = observationStockVolume_ml * titration.concentration_M / 1000;
+        vessels[titration.vesselId] = {
+          id: titration.vesselId,
           name: 'Flask 1 (HCl)',
           type: 'flask',
-          capacity_ml: 250,
-          position: [-1.4, -0.135, 0],
+          capacity_ml: titration.flaskCapacity_ml,
+          position: [-1.4, restingVesselHeight('flask', titration.flaskCapacity_ml), 0],
           rotationY: 0,
           isLocked: false,
-          substances: ['HCl (dil)'],
-          contents: [{ formula: 'HCl', moles: 0.02, mass_g: 0.73 }],
-          volume_ml: 20,
-          volume: 20 / 250,
-          mass_g: 20,
+          substances: [titration.acidFormula],
+          contents: [{ formula: titration.acidFormula, moles: acidMoles, mass_g: acidMoles * computeMolarMass(titration.acidFormula) }],
+          ...(isTitrationPractice ? { acidBaseTitration: { sampleRevision: 0, delivered_ml: 0, otherTitrant_ml: 0 } } : {}),
+          volume_ml: titration.acidVolume_ml,
+          volume: titration.acidVolume_ml / titration.flaskCapacity_ml,
+          mass_g: titration.acidVolume_ml,
           density_g_ml: 1.0,
           foam_ml: 0,
           liquidColor: '#f8fafc',
@@ -938,11 +947,11 @@ export const useAppStore = create<AppState>((set, get) => {
           position: [1.4, -0.135, 0],
           rotationY: 0,
           isLocked: false,
-          substances: ['NaOH'],
-          contents: [{ formula: 'NaOH', moles: 0.05, mass_g: 2.0 }],
-          volume_ml: 50,
-          volume: 50 / 250,
-          mass_g: 50,
+          substances: [titration.reagentFormula],
+          contents: [{ formula: titration.reagentFormula, moles: baseMoles, mass_g: baseMoles * computeMolarMass(titration.reagentFormula) }],
+          volume_ml: observationStockVolume_ml,
+          volume: observationStockVolume_ml / 250,
+          mass_g: observationStockVolume_ml,
           density_g_ml: 1.0,
           foam_ml: 0,
           liquidColor: '#f8fafc',
@@ -1761,11 +1770,20 @@ export const useAppStore = create<AppState>((set, get) => {
       invalidateStockDoses();
       useInstrumentStore.getState().clearPipettePresentations();
       useInstrumentStore.getState().clearBurettePresentations();
+      const burette = get().burette;
       set({
         activeKinetics: {}, pendingReactions, dissolvingSubstances: {}, lastMixResult: null,
         inFlightPours: [], pourEpoch: get().pourEpoch + 1, isPouring: false,
         pipetteSample: null,
         instrumentRinse: null,
+        burette: {
+          ...burette, isDispensing: false,
+          ...(isTitrationPractice ? {
+            reagentFormula: titration.reagentFormula,
+            concentration_M: titration.concentration_M,
+            currentVolume_ml: burette.maxVolume_ml,
+          } : {}),
+        },
         vessels,
         vesselIds: Object.keys(vessels),
         selectedVesselId: Object.keys(vessels)[0] || null,
@@ -3768,7 +3786,11 @@ export const useAppStore = create<AppState>((set, get) => {
         return { burette: { ...current.burette, currentVolume_ml: newVol,
         isDispensing: newVol > 1e-8 && current.burette.isDispensing },
         titrationHistory: [...current.titrationHistory, point],
-        vessels: { ...current.vessels, [targetVesselId]: { ...reacted.vessel, titrationRunId: runId } },
+        vessels: { ...current.vessels, [targetVesselId]: {
+          ...reacted.vessel, titrationRunId: runId,
+          acidBaseTitration: transfer.failureReason ? receiver.acidBaseTitration
+            : recordAcidBaseDelivery(receiver, burette, transfer.dispensed_ml),
+        } },
         activeKinetics, pendingReactions, dissolvingSubstances, lastMixResult: reacted.mixResult };
       });
       if (transfer.failureReason) {
@@ -4424,11 +4446,12 @@ export const useAppStore = create<AppState>((set, get) => {
       if (Number.isFinite(scale) && scale >= 0.1 && scale <= 8) set({ timeScale: scale });
     },
 
-    mixSubstances: async (targetId: string, newChemical: string, addedVolume_ml: number = 20, onAccepted?: () => void) => {
+    mixSubstances: async (targetId, newChemical, addedVolume_ml = 20, onAccepted, { revealInspector = true } = {}) => {
       if (get().instrumentRinse?.bottleId === targetId) {
         set({ mixError: uiText('Dừng rửa dụng cụ trước khi thêm hóa chất vào bình cấp nước.') }); return;
       }
       const mixEpoch = get().pourEpoch;
+      const inspectorPatch = revealInspector ? { rightSidebarOpen: true } : {};
       let acknowledged = false;
       const accept = () => { if (!acknowledged) { acknowledged = true; onAccepted?.(); } };
       const contactDoseId = onAccepted ? get().pouringChemical?.id : undefined;
@@ -4544,7 +4567,7 @@ export const useAppStore = create<AppState>((set, get) => {
           pendingReactions: { ...s.pendingReactions, [targetId]: { ...pendingCondition, vesselId: targetId } },
           globalWarning: pendingCondition.requiredCondition,
           selectedVesselId: targetId,
-          rightSidebarOpen: true
+          ...inspectorPatch,
         }));
         accept();
         return;
@@ -4563,7 +4586,7 @@ export const useAppStore = create<AppState>((set, get) => {
           pushHistorySnapshot('POUR', updated, s.burners, 'Reagents contact; reaction begins', 'Thuốc thử tiếp xúc; bắt đầu phản ứng');
           debounceSaveLocalState(updated, s.burners);
           return { vessels: updated, activeKinetics: { ...s.activeKinetics, [targetId]: plan.kinetics },
-            lastMixResult: plan.mixResult, selectedVesselId: targetId, rightSidebarOpen: true,
+            lastMixResult: plan.mixResult, selectedVesselId: targetId, ...inspectorPatch,
             canUndo: checkCanUndo(), canRedo: checkCanRedo() };
         });
         accept();
@@ -4672,7 +4695,7 @@ export const useAppStore = create<AppState>((set, get) => {
             lastMixResult: localResult,
             vessels: updated,
             activeKinetics,
-            rightSidebarOpen: true,
+            ...inspectorPatch,
             selectedVesselId: targetId,
             canUndo: checkCanUndo(),
             canRedo: checkCanRedo()
@@ -4713,7 +4736,7 @@ export const useAppStore = create<AppState>((set, get) => {
           pushHistorySnapshot('POUR', updated, s.burners, 'Mixed aqueous solution', 'Trộn dung dịch và cập nhật cân bằng');
           debounceSaveLocalState(updated, s.burners);
           return { vessels: updated, activeKinetics, dissolvingSubstances, lastMixResult: null,
-            selectedVesselId: targetId, rightSidebarOpen: true, canUndo: checkCanUndo(), canRedo: checkCanRedo() };
+            selectedVesselId: targetId, ...inspectorPatch, canUndo: checkCanUndo(), canRedo: checkCanRedo() };
         });
         accept();
         return;
@@ -4747,7 +4770,7 @@ export const useAppStore = create<AppState>((set, get) => {
             pushHistorySnapshot('POUR', updated, s.burners, 'Mixed solution', 'Pha trộn dung dịch');
             debounceSaveLocalState(updated, s.burners);
             return { vessels: updated, activeKinetics, pendingReactions, dissolvingSubstances,
-              lastMixResult: null, selectedVesselId: targetId, rightSidebarOpen: true,
+              lastMixResult: null, selectedVesselId: targetId, ...inspectorPatch,
               canUndo: checkCanUndo(), canRedo: checkCanRedo() };
           });
           accept();
@@ -4858,7 +4881,7 @@ export const useAppStore = create<AppState>((set, get) => {
             } as unknown as MixResult,
             vessels: updated,
             activeKinetics,
-            rightSidebarOpen: true,
+            ...inspectorPatch,
             selectedVesselId: targetId,
             canUndo: checkCanUndo(),
             canRedo: checkCanRedo()

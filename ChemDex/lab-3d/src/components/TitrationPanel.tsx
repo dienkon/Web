@@ -8,6 +8,7 @@ import { findBuretteReceiver } from '../handling/buretteTarget';
 import { titrationCSV, titrationPlot, titrationRuns } from '../handling/titrationSeries';
 import { BURETTE_STOCKS, type BuretteStockId } from '../handling/buretteStocks';
 import { availableLiquidVolume } from '../handling/solidOccupancy';
+import { ACID_BASE_EQUIVALENCE_ML, preparedAcidBaseSample } from '../engine/acidBaseTitration';
 import { downloadText } from '../utils/downloadText';
 
 export function TitrationPanel() {
@@ -28,6 +29,7 @@ export function TitrationPanel() {
   const t = (en: string, vi: string) => language === 'en' ? en : vi;
   const receiver = useMemo(() => findBuretteReceiver(vessels, burette.position), [vessels, burette.position]);
   const targetId = receiver?.id ?? selectedVesselId;
+  const exerciseReceipt = receiver ? preparedAcidBaseSample(receiver) : undefined;
   const runs = useMemo(() => titrationRuns(titrationHistory, targetId), [titrationHistory, targetId]);
   const chosenRun = viewedRun && viewedRun.vesselId === targetId ? runs.find(run => run.id === viewedRun.id) : undefined;
   const activeRun = chosenRun ?? runs.at(-1);
@@ -95,6 +97,14 @@ export function TitrationPanel() {
       <p className="break-words text-[11px] text-slate-600" data-burette-receiver={receiver?.id ?? ''}>
         {t('Receiving vessel:', 'Bình nhận:')} <strong>{receiver?.name ?? t('Select an open vessel, then align it.', 'Chọn một bình mở rồi nhấn Căn bình.')}</strong>
       </p>
+      {exerciseReceipt && <div className="rounded bg-blue-50 p-2 text-[11px] text-blue-900">
+        <p>{t('NaOH received in this exercise', 'NaOH đã vào bình trong bài này')} <strong className="font-mono">
+          {exerciseReceipt.delivered_ml.toFixed(2)} / {ACID_BASE_EQUIVALENCE_ML.toFixed(2)} mL
+        </strong></p>
+        {exerciseReceipt.otherTitrant_ml > 0 && <p className="mt-1 text-amber-800">
+          {t('A different titrant entered this sample.', 'Mẫu đã nhận dung dịch chuẩn khác.')}
+        </p>}
+      </div>}
       {receiver && !canDose && <p className="text-[11px] text-slate-600">
         {nextDrop_ml <= 0 ? t('The burette is empty.', 'Buret đã hết dung dịch.')
           : moving ? t('Exit move mode to dispense.', 'Tắt chế độ di chuyển để nhả giọt.')

@@ -84,6 +84,7 @@ export interface QuantitativeRubricMetrics {
   titrationDelivered_ml?: number;
   titrationTarget_ml?: number;
   titrationError_ml?: number;
+  titrationOtherTitrant_ml?: number;
   finalPh?: number;
   maxTemperature_c?: number;
   wasteCollected_g?: number;
