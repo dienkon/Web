@@ -5,12 +5,17 @@ import type { VesselState } from '../src/types/chemistry';
 
 const harness = vi.hoisted(() => ({
   frame: null as null | ((state: unknown, delta: number) => void),
+  cleanups: [] as Array<() => void>,
   refs: [] as { current: any }[], cursor: 0,
 }));
 vi.mock('react', async () => {
   const actual = await vi.importActual<typeof import('react')>('react');
   const hooks = { memo: (fn: unknown) => fn,
     useRef: (value: unknown) => harness.refs[harness.cursor++] ?? (harness.refs[harness.cursor - 1] = { current: value }),
+    useEffect: (effect: () => void | (() => void)) => {
+      const cleanup = effect();
+      if (cleanup) harness.cleanups.push(cleanup);
+    },
     useMemo: (factory: () => unknown) => factory(), useState: (value: unknown) => [value, vi.fn()] };
   return { ...actual, ...hooks, default: { ...actual, ...hooks } };
 });
@@ -45,8 +50,15 @@ import { LAB_PHYSICS } from '../src/engine/interactionEngine';
 
 type Element = ReactElement<{ children?: unknown; ref?: { current: any }; name?: string }>;
 const before = useAppStore.getState(), instruments = useInstrumentStore.getState();
-afterEach(() => { useAppStore.setState(before, true); useInstrumentStore.setState(instruments, true); harness.refs = []; harness.cursor = 0; vi.restoreAllMocks(); });
+function unmount() {
+  for (const cleanup of harness.cleanups.splice(0)) cleanup();
+}
+afterEach(() => {
+  unmount(); useAppStore.setState(before, true); useInstrumentStore.setState(instruments, true);
+  harness.refs = []; harness.cursor = 0; vi.restoreAllMocks();
+});
 function setup() {
+  unmount();
   harness.refs = []; harness.cursor = 0;
   const water = { id: 'water', name: 'water', type: 'beaker', capacity_ml: 250, volume_ml: 150, volume: 0.6,
     mass_g: 150, temperature_c: 80, ph: 7, position: [...LAB_PHYSICS.BALANCE_POSITION], rotationY: 0,
@@ -93,6 +105,23 @@ describe('Instrument renderers share the simulation clock', () => {
     for (const [fps, speed] of [[10, 1], [30, 1], [120, 1], [30, 4], [60, 8]]) {
       run(fps, speed).forEach((value, i) => expect(value).toBeCloseTo(reference[i], 10));
     }
+  });
+
+  it.each([InteractiveThermometer, InteractivePhMeter])('publishes a settled practice reading only at the sample and clears it on unmount', component => {
+    setup();
+    const tool = component === InteractiveThermometer ? 'thermometer' : 'ph_meter';
+    const vessel: VesselState = { ...useAppStore.getState().vessels.water, id: 'beaker_1', temperature_c: 25,
+      neutralizationPractice: { attemptId: 'practice', sampleRevision: 0, received_ml: 0 } };
+    useAppStore.setState({ vessels: { beaker_1: vessel }, selectedVesselId: vessel.id, activeTool: tool });
+    const tree = render(component), group = new Group(); tree.props.ref!.current = group;
+    frame();
+    expect(useInstrumentStore.getState().practiceProbe).toBeNull();
+    for (let i = 0; i < 150; i++) frame();
+    expect(useInstrumentStore.getState().practiceProbe).toMatchObject({
+      tool, attemptId: 'practice', value: tool === 'thermometer' ? 25 : 7, settled: true,
+    });
+    unmount();
+    expect(useInstrumentStore.getState().practiceProbe).toBeNull();
   });
 
   function changedBalance() {
