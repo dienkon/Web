@@ -29,7 +29,7 @@ export type ExperimentDifficultyMode = 'guided' | 'standard' | 'practical' | 'ex
 
 export interface ProceduralStep {
   stepNumber: number;
-  action: ProceduralActionType;
+  action?: ProceduralActionType;
   title_en: string;
   title_vi: string;
   instruction_en: string;
@@ -48,6 +48,7 @@ export interface ProceduralStep {
 }
 
 export interface StepValidationResult {
+  requiresSelfConfirmation?: true;
   isValid: boolean;
   progress: number; // 0.0 to 1.0
   message_en: string;
@@ -119,6 +120,40 @@ export interface ExamReportCard {
   feedback_en: string[];
   feedback_vi: string[];
   timestamp: string;
+}
+
+interface ProcedureSummary {
+  verified: number;
+  automaticTotal: number;
+  acknowledged: number;
+  manualTotal: number;
+  steps: { stepNumber: number; status: 'verified' | 'pending' | 'acknowledged' | 'unacknowledged' }[];
+}
+
+export type GuidedExperimentReport =
+  | (ExamReportCard & { kind: 'assessment'; procedure: ProcedureSummary })
+  | {
+    kind: 'practice';
+    experimentId: string;
+    mode: ExperimentDifficultyMode;
+    durationSeconds: number;
+    timestamp: string;
+    procedure: ProcedureSummary;
+    quiz: { correct: number; total: number };
+  };
+
+interface GuidedReportInput {
+  experimentId: string;
+  mode: ExperimentDifficultyMode;
+  steps: readonly ProceduralStep[];
+  state: ExperimentValidationState;
+  selfConfirmedSteps: readonly number[];
+  contaminationCount: number;
+  quizCorrect: number;
+  quizTotal: number;
+  durationSeconds: number;
+  toleranceErrors?: number[];
+  quantitativeMetrics?: QuantitativeRubricMetrics;
 }
 
 export class ExperimentEngine {
@@ -468,12 +503,48 @@ export class ExperimentEngine {
 
       default:
         return {
-          isValid: true,
-          progress: 1.0,
-          message_en: 'Step accomplished.',
-          message_vi: 'Đã hoàn thành bước.',
+          requiresSelfConfirmation: true,
+          isValid: false,
+          progress: 0,
+          message_en: 'Confirm this step yourself after completing it.',
+          message_vi: 'Tự xác nhận sau khi thực hiện bước này.',
         };
     }
+  }
+
+  public generateGuidedReport(input: GuidedReportInput): GuidedExperimentReport {
+    const { experimentId, mode, steps, state, selfConfirmedSteps, contaminationCount,
+      quizCorrect, quizTotal, durationSeconds, quantitativeMetrics } = input;
+    const procedure: ProcedureSummary = { verified: 0, automaticTotal: 0, acknowledged: 0, manualTotal: 0, steps: [] };
+    const confirmed = new Set(selfConfirmedSteps);
+    const measuredErrors: number[] = [];
+
+    for (const step of steps) {
+      const { stepNumber } = step;
+      const validation = this.validateStep(step, state, mode);
+      if (validation.requiresSelfConfirmation) {
+        const acknowledged = confirmed.has(stepNumber);
+        procedure.manualTotal += 1;
+        if (acknowledged) procedure.acknowledged += 1;
+        procedure.steps.push({ stepNumber, status: acknowledged ? 'acknowledged' : 'unacknowledged' });
+        continue;
+      }
+      procedure.automaticTotal += 1;
+      if (validation.isValid) procedure.verified += 1;
+      procedure.steps.push({ stepNumber, status: validation.isValid ? 'verified' : 'pending' });
+      if (validation.toleranceError !== undefined && Number.isFinite(validation.toleranceError)) {
+        measuredErrors.push(validation.toleranceError);
+      }
+    }
+
+    if (procedure.manualTotal > 0 || procedure.automaticTotal === 0) {
+      return { kind: 'practice', experimentId, mode, procedure, durationSeconds,
+        quiz: { correct: quizCorrect, total: quizTotal }, timestamp: new Date().toISOString() };
+    }
+
+    return { kind: 'assessment', procedure, ...this.generateReportCard(experimentId, mode,
+      procedure.automaticTotal, procedure.verified, input.toleranceErrors ?? measuredErrors,
+      contaminationCount, quizCorrect, quizTotal, durationSeconds, { quantitativeMetrics }) };
   }
 
   /**
@@ -573,8 +644,8 @@ export class ExperimentEngine {
     };
   }
 
-  /** Serializes an ExamReportCard to deterministic JSON for student/teacher export. */
-  public serializeReportCardJson(report: ExamReportCard): string {
+  /** Serializes the report for student/teacher export. */
+  public serializeReportCardJson(report: ExamReportCard | GuidedExperimentReport): string {
     return JSON.stringify(report, null, 2);
   }
 }

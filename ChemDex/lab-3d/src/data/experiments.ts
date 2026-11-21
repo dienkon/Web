@@ -1,27 +1,12 @@
-import type { ProceduralActionType, ProceduralStep } from '../engine/experimentEngine';
-import { ACID_BASE_EQUIVALENCE_ML, ACID_BASE_TITRATION } from '../engine/acidBaseTitration';
+import type { ProceduralStep } from '../engine/experimentEngine';
+import { ACID_BASE_EQUIVALENCE_ML, ACID_BASE_TITRATION, assessAcidBaseTitration } from '../engine/acidBaseTitration';
 import { AGCL_PRACTICE, assessAgClPractice } from '../engine/agclPractice';
 import { NEUTRALIZATION_PRACTICE, assessNeutralizationPractice } from '../engine/neutralizationPractice';
 
-export interface LabStep {
-  stepNumber: number;
-  action?: ProceduralActionType;
-  title_en: string;
-  title_vi: string;
-  instruction_en: string;
-  instruction_vi: string;
-  expectedResult_en: string;
-  expectedResult_vi: string;
-  targetVesselType?: 'beaker' | 'flask' | 'test_tube' | 'cylinder';
-  targetChemical?: string;
-  targetAmount?: number;
-  tolerance?: number;
-  unit?: string;
-  requiredTool?: 'none' | 'thermometer' | 'ph_meter' | 'balance' | 'pipette' | 'stirring_rod' | 'spatula';
+export interface LabStep extends ProceduralStep {
   chemicalRequired?: string[];
   equipmentRequired?: string[];
   validationCheck?: (vessels: Record<string, any>) => boolean;
-  validate?: ProceduralStep['validate'];
 }
 
 export interface ExperimentQuiz {
@@ -119,7 +104,8 @@ export const EXPERIMENT_CURRICULUM: ExperimentGuide[] = [
         instruction_en: 'Set up the workbench to prepare 20 mL of 0.10 M HCl in Flask 1 and fill the burette with 0.10 M NaOH.',
         instruction_vi: 'Dùng nút bày bàn để chuẩn bị 20 mL HCl 0,10 M trong bình tam giác và nạp NaOH 0,10 M vào buret.',
         expectedResult_en: 'Clear colorless solution at pH ~ 1.',
-        expectedResult_vi: 'Dung dịch trong suốt không màu, pH khoảng 1.'
+        expectedResult_vi: 'Dung dịch trong suốt không màu, pH khoảng 1.',
+        validate: (state, mode) => assessAcidBaseTitration(state.vessels[ACID_BASE_TITRATION.vesselId], mode).steps[0],
       },
       {
         stepNumber: 2,
@@ -128,7 +114,8 @@ export const EXPERIMENT_CURRICULUM: ExperimentGuide[] = [
         instruction_en: 'Use the button below to add 0.10 mL of phenolphthalein to the sample.',
         instruction_vi: 'Dùng nút bên dưới để thêm 0,10 mL dung dịch phenolphthalein vào mẫu.',
         expectedResult_en: 'Solution remains colorless because pH < 8.2.',
-        expectedResult_vi: 'Dung dịch vẫn không màu do môi trường axit (pH < 8.2).'
+        expectedResult_vi: 'Dung dịch vẫn không màu do môi trường axit (pH < 8.2).',
+        validate: (state, mode) => assessAcidBaseTitration(state.vessels[ACID_BASE_TITRATION.vesselId], mode).steps[1],
       },
       {
         stepNumber: 3,
@@ -138,7 +125,8 @@ export const EXPERIMENT_CURRICULUM: ExperimentGuide[] = [
         instruction_en: `Align the flask under the burette. Run continuously to approach ${ACID_BASE_EQUIVALENCE_ML} mL delivered, then close the valve and finish one drop at a time.`,
         instruction_vi: `Căn bình dưới buret. Rót liên tục đến gần ${ACID_BASE_EQUIVALENCE_ML} mL đã nhả, sau đó đóng khóa và nhả từng giọt.`,
         expectedResult_en: 'pH changes steeply around 20.00 mL. A slight excess of base turns the indicator pink.',
-        expectedResult_vi: 'pH thay đổi mạnh quanh 20,00 mL. Khi kiềm dư nhẹ, chỉ thị chuyển hồng.'
+        expectedResult_vi: 'pH thay đổi mạnh quanh 20,00 mL. Khi kiềm dư nhẹ, chỉ thị chuyển hồng.',
+        validate: (state, mode) => assessAcidBaseTitration(state.vessels[ACID_BASE_TITRATION.vesselId], mode).steps[2],
       }
     ],
     quizzes: [

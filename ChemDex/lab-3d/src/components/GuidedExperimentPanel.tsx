@@ -1,13 +1,13 @@
 import React, { useState, useEffect, useMemo, useRef } from 'react';
 import { useShallow } from 'zustand/react/shallow';
 import { useAppStore } from '../store/useAppStore';
-import { EXPERIMENT_CURRICULUM, ExperimentGuide } from '../data/experiments';
+import { EXPERIMENT_CURRICULUM } from '../data/experiments';
 import { 
   BookOpen, CheckCircle2, ChevronRight, HelpCircle, ShieldAlert, Sparkles, 
   Award, AlertTriangle, RefreshCw, Clock, Check, Droplets, Target, FileText, X,
   ChevronDown, Cpu, Code2, Layers
 } from 'lucide-react';
-import { experimentEngine, ExperimentDifficultyMode, ExamReportCard } from '../engine/experimentEngine';
+import { experimentEngine, type ExperimentDifficultyMode } from '../engine/experimentEngine';
 import { ACID_BASE_TITRATION, acidBaseReportedPh, assessAcidBaseTitration } from '../engine/acidBaseTitration';
 import { AGCL_PRACTICE, assessAgClPractice } from '../engine/agclPractice';
 import { NEUTRALIZATION_PRACTICE, assessNeutralizationPractice, neutralizationProbeAttempt,
@@ -29,6 +29,8 @@ export function GuidedExperimentPanel({ onOpenTitration, visible }: { onOpenTitr
     setActiveExperimentId, 
     activeStepIndex, 
     setActiveStepIndex,
+    selfConfirmedSteps,
+    toggleStepConfirmation,
     setupExperimentPreset,
     experimentDifficulty,
     setExperimentDifficulty,
@@ -54,6 +56,8 @@ export function GuidedExperimentPanel({ onOpenTitration, visible }: { onOpenTitr
     setActiveExperimentId: state.setActiveExperimentId,
     activeStepIndex: state.activeStepIndex,
     setActiveStepIndex: state.setActiveStepIndex,
+    selfConfirmedSteps: state.selfConfirmedSteps,
+    toggleStepConfirmation: state.toggleStepConfirmation,
     setupExperimentPreset: state.setupExperimentPreset,
     experimentDifficulty: state.experimentDifficulty,
     setExperimentDifficulty: state.setExperimentDifficulty,
@@ -75,12 +79,9 @@ export function GuidedExperimentPanel({ onOpenTitration, visible }: { onOpenTitr
     setExamReport: state.setExamReport,
   })));
 
-  const [selectedQuizAnswer, setSelectedQuizAnswer] = useState<number | null>(null);
-  const [showExplanation, setShowExplanation] = useState(false);
+  const [quizAnswers, setQuizAnswers] = useState<Partial<Record<number, number>>>({});
   const examStartTime = useRef(0);
   const [elapsedSeconds, setElapsedSeconds] = useState<number>(0);
-  const [toleranceErrors, setToleranceErrors] = useState<number[]>([]);
-  const [showReportCardModal, setShowReportCardModal] = useState<boolean>(false);
   const [showAlgorithmDetails, setShowAlgorithmDetails] = useState<boolean>(false);
   const [activeCaseId, setActiveCaseId] = useState<string | null>(null);
   const [observationId, setObservationId] = useState<string | null>(null);
@@ -137,18 +138,9 @@ export function GuidedExperimentPanel({ onOpenTitration, visible }: { onOpenTitr
 
   // Validate current step
   const currentStep = currentExperiment ? currentExperiment.steps[activeStepIndex] : null;
-  const validationResult = useMemo(() => {
-    if (!currentStep) return null;
-    if (practiceAssessment) return practiceAssessment.steps[activeStepIndex];
-    return experimentEngine.validateStep(currentStep as any, validationState, experimentDifficulty);
-  }, [currentStep, validationState, experimentDifficulty, practiceAssessment, activeStepIndex]);
-
-  // Record tolerance errors if valid
-  useEffect(() => {
-    if (!practiceAssessment && validationResult?.isWithinTolerance && validationResult.toleranceError !== undefined) {
-      setToleranceErrors(prev => [...prev, validationResult.toleranceError!]);
-    }
-  }, [isAcidBaseTitration, isAgClPractice, isNeutralizationPractice, validationResult?.isWithinTolerance, validationResult?.toleranceError]);
+  const validationResult = useMemo(() => visible && currentStep
+    ? experimentEngine.validateStep(currentStep, validationState, experimentDifficulty) : null,
+  [visible, currentStep, validationState, experimentDifficulty]);
 
   // Contaminated tools check
   const dirtyTools = Object.entries(toolContamination).filter(([_, chem]) => chem !== null) as Array<['pipette' | 'stirring_rod' | 'spatula', string]>;
@@ -156,44 +148,41 @@ export function GuidedExperimentPanel({ onOpenTitration, visible }: { onOpenTitr
   // Handle Exam Completion
   const handleCompleteExam = () => {
     if (!currentExperiment) return;
-    const isQuizCorrect = selectedQuizAnswer !== null && selectedQuizAnswer === currentExperiment.quizzes[0]?.correctAnswer;
-    const contaminationCount = dirtyTools.length;
+    const quizCorrect = currentExperiment.quizzes.filter((quiz, index) => quizAnswers[index] === quiz.correctAnswer).length;
     const state = useAppStore.getState();
     const vesselList = Object.values(state.vessels);
     const maxTemperature_c = vesselList.length ? Math.max(...vesselList.map(v => v.temperature_c)) : undefined;
-    const selectedVessel = state.selectedVesselId ? state.vessels[state.selectedVesselId] : vesselList[0];
     const uncleanedSpillCount = Object.keys(state.spills ?? {}).length;
     const sample = state.vessels[ACID_BASE_TITRATION.vesselId];
     const liveAgCl = isAgClPractice ? assessAgClPractice(state.vessels, experimentDifficulty) : null;
     const liveNeutralization = isNeutralizationPractice ? assessNeutralizationPractice(state.vessels, experimentDifficulty) : null;
     const liveAssessment = isAcidBaseTitration ? assessAcidBaseTitration(sample, experimentDifficulty) : liveAgCl ?? liveNeutralization;
-    const stepsCompleted = liveAssessment?.steps.filter(step => step.isValid).length
-      ?? (activeStepIndex + (validationResult?.isValid ? 1 : 0));
-    const report = experimentEngine.generateReportCard(
-      currentExperiment.id,
-      experimentDifficulty,
-      currentExperiment.steps.length,
-      stepsCompleted,
-      liveAgCl ? [liveAgCl.metrics.agclError_ml] : liveNeutralization ? [liveNeutralization.metrics.neutralizationError_ml]
-        : liveAssessment ? [] : toleranceErrors,
-      contaminationCount,
-      isQuizCorrect ? 1 : 0,
-      currentExperiment.quizzes.length,
-      elapsedSeconds,
-      {
-        quantitativeMetrics: {
-          ...liveAssessment?.metrics,
-          finalPh: isAcidBaseTitration ? acidBaseReportedPh(sample)
-            : liveNeutralization ? liveNeutralization.metrics.finalPh
-              : (isAgClPractice ? state.vessels[AGCL_PRACTICE.receiverId] : selectedVessel)?.ph,
-          maxTemperature_c,
-          wasteCollected_g: state.wasteMass_g,
-          uncleanedSpillCount,
-        },
-      }
-    );
+    const report = experimentEngine.generateGuidedReport({
+      experimentId: currentExperiment.id,
+      mode: experimentDifficulty,
+      steps: currentExperiment.steps,
+      state: {
+        vessels: state.vessels, burners: state.burners, activeTool: state.activeTool,
+        spatulaState: state.spatulaState, contaminatedTools: state.toolContamination, recentActions: [],
+      },
+      selfConfirmedSteps: state.selfConfirmedSteps,
+      contaminationCount: Object.values(state.toolContamination).filter(chemical => chemical !== null).length,
+      quizCorrect,
+      quizTotal: currentExperiment.quizzes.length,
+      durationSeconds: experimentDifficulty === 'exam' ? Math.floor((Date.now() - examStartTime.current) / 1000) : 0,
+      toleranceErrors: liveAgCl ? [liveAgCl.metrics.agclError_ml]
+        : liveNeutralization ? [liveNeutralization.metrics.neutralizationError_ml] : liveAssessment ? [] : undefined,
+      quantitativeMetrics: {
+        ...liveAssessment?.metrics,
+        finalPh: isAcidBaseTitration ? acidBaseReportedPh(sample)
+          : liveNeutralization ? liveNeutralization.metrics.finalPh
+            : liveAgCl ? state.vessels[AGCL_PRACTICE.receiverId]?.ph : undefined,
+        maxTemperature_c,
+        wasteCollected_g: state.wasteMass_g,
+        uncleanedSpillCount,
+      },
+    });
     setExamReport(report);
-    setShowReportCardModal(true);
     labSound.playSuccess();
   };
 
@@ -224,7 +213,8 @@ export function GuidedExperimentPanel({ onOpenTitration, visible }: { onOpenTitr
 
   const handleDownloadReportJson = () => {
     if (!examReport) return;
-    downloadText(`chemdex-exam-${examReport.experimentId}.json`,
+    const reportType = examReport.kind === 'practice' ? 'practice' : 'exam';
+    downloadText(`chemdex-${reportType}-${examReport.experimentId}.json`,
       experimentEngine.serializeReportCardJson(examReport), 'application/json;charset=utf-8');
   };
 
@@ -276,10 +266,7 @@ export function GuidedExperimentPanel({ onOpenTitration, visible }: { onOpenTitr
               key={exp.id}
               onClick={() => {
                 setActiveExperimentId(exp.id);
-                setSelectedQuizAnswer(null);
-                setShowExplanation(false);
-                setToleranceErrors([]);
-                setExamReport(null);
+                setQuizAnswers({});
               }}
               className="bg-white border border-slate-200 hover:border-blue-400 hover:shadow-md p-3.5 rounded-xl cursor-pointer transition-all space-y-1.5 group"
             >
@@ -306,6 +293,12 @@ export function GuidedExperimentPanel({ onOpenTitration, visible }: { onOpenTitr
 
   const totalSteps = currentExperiment.steps.length;
   const isLastStep = activeStepIndex >= totalSteps - 1;
+  const needsConfirmation = validationResult?.requiresSelfConfirmation === true;
+  const selfConfirmed = !!currentStep && needsConfirmation && selfConfirmedSteps.includes(currentStep.stepNumber);
+  const hasManualSteps = visible && currentExperiment.steps.some(step => !step.validate
+    && experimentEngine.validateStep(step, validationState, experimentDifficulty).requiresSelfConfirmation);
+  const practiceReport = examReport?.kind === 'practice' ? examReport : null;
+  const gradeReport = examReport?.kind === 'assessment' ? examReport : null;
 
   return (
     <div className="space-y-4">
@@ -313,10 +306,7 @@ export function GuidedExperimentPanel({ onOpenTitration, visible }: { onOpenTitr
       <div className="bg-white border border-slate-200 rounded-xl p-4 shadow-sm space-y-2.5">
         <div className="flex items-center justify-between">
           <button 
-            onClick={() => {
-              setActiveExperimentId(null);
-              setExamReport(null);
-            }}
+            onClick={() => setActiveExperimentId(null)}
             className="text-[11px] font-semibold text-blue-600 hover:text-blue-800 flex items-center gap-1"
           >
             ← {t('All Experiments', 'Tất cả thí nghiệm')}
@@ -342,6 +332,9 @@ export function GuidedExperimentPanel({ onOpenTitration, visible }: { onOpenTitr
         <p className="text-xs text-slate-600 leading-relaxed">
           {language === 'en' ? currentExperiment.objective_en : currentExperiment.objective_vi}
         </p>
+        {hasManualSteps && <p className="text-[11px] text-slate-600">
+          {t('This lesson records self-confirmed steps in a practice summary.', 'Bài này ghi các bước bạn tự xác nhận vào phiếu thực hành.')}
+        </p>}
 
         {/* Safety Advisory Banner */}
         <div className="flex items-start gap-2 bg-amber-50 border border-amber-200/80 rounded-lg p-2.5 text-amber-800 text-[11px] leading-relaxed">
@@ -355,10 +348,7 @@ export function GuidedExperimentPanel({ onOpenTitration, visible }: { onOpenTitr
             setupExperimentPreset(currentExperiment.id);
             examStartTime.current = Date.now();
             setElapsedSeconds(0);
-            setToleranceErrors([]);
-            setSelectedQuizAnswer(null);
-            setShowExplanation(false);
-            setExamReport(null);
+            setQuizAnswers({});
           }}
           className="w-full py-2 px-3 bg-blue-600 hover:bg-blue-700 text-white rounded-lg text-xs font-semibold flex items-center justify-center gap-1.5 transition-colors shadow-xs"
         >
@@ -529,7 +519,9 @@ export function GuidedExperimentPanel({ onOpenTitration, visible }: { onOpenTitr
                 ? 'bg-emerald-100 text-emerald-800 flex items-center gap-1'
                 : 'bg-blue-50 text-blue-700'
             }`}>
-              {validationResult?.isValid ? (
+              {needsConfirmation ? (
+                <span>{selfConfirmed ? t('Self-confirmed', 'Đã tự xác nhận') : t('Self-guided', 'Tự thực hành')}</span>
+              ) : validationResult?.isValid ? (
                 <>
                   <CheckCircle2 size={11} />
                   <span>{t('Validated', 'Hợp lệ')}</span>
@@ -544,9 +536,14 @@ export function GuidedExperimentPanel({ onOpenTitration, visible }: { onOpenTitr
             {language === 'en' ? currentStep.instruction_en : currentStep.instruction_vi}
           </div>
 
-          {practiceAssessment && validationResult && <p className="text-[11px] text-slate-600">
+          {validationResult && !needsConfirmation && <p className="text-[11px] text-slate-600">
             {language === 'en' ? validationResult.message_en : validationResult.message_vi}
           </p>}
+          {needsConfirmation && <label className="flex min-h-10 cursor-pointer items-center gap-2 rounded-lg border border-blue-100 bg-blue-50 px-3 text-xs font-medium text-blue-800">
+            <input type="checkbox" checked={selfConfirmed} onChange={() => toggleStepConfirmation(currentStep.stepNumber)}
+              className="h-4 w-4 accent-blue-700" />
+            {t('Confirm I completed this step', 'Tự xác nhận đã thực hiện bước này')}
+          </label>}
           {acidBaseAssessment && activeStepIndex === 1 && <button type="button"
             disabled={!acidBaseAssessment.steps[0].isValid || !!validationResult?.isValid || isMixing || stockDosePending || isSimulationPaused || moveMode}
             onClick={() => {
@@ -650,12 +647,12 @@ export function GuidedExperimentPanel({ onOpenTitration, visible }: { onOpenTitr
                 className="flex items-center gap-1.5 px-3.5 py-1.5 bg-emerald-600 hover:bg-emerald-700 text-white rounded text-xs font-bold shadow-xs disabled:opacity-40"
               >
                 <Award size={14} />
-                <span>{t('Finish & Grade Exam', 'Hoàn tất & Chấm điểm')}</span>
+                <span>{hasManualSteps ? t('View practice summary', 'Xem phiếu tự thực hành') : t('Finish & Grade Exam', 'Hoàn tất & Chấm điểm')}</span>
               </button>
             ) : (
               <button 
                 onClick={() => setActiveStepIndex(Math.min(totalSteps - 1, activeStepIndex + 1))}
-                disabled={!!practiceAssessment && !validationResult?.isValid}
+                disabled={!needsConfirmation && !validationResult?.isValid}
                 className={`flex items-center gap-1 px-3 py-1.5 text-white rounded text-xs font-semibold shadow-xs transition-colors disabled:opacity-40 ${
                   validationResult?.isValid ? 'bg-emerald-600 hover:bg-emerald-700' : 'bg-blue-600 hover:bg-blue-700'
                 }`}
@@ -676,145 +673,163 @@ export function GuidedExperimentPanel({ onOpenTitration, visible }: { onOpenTitr
             <span>{t('Conceptual Knowledge Quiz', 'Câu hỏi củng cố kiến thức')}</span>
           </div>
 
-          {currentExperiment.quizzes.map((quiz, qIdx) => (
-            <div key={qIdx} className="space-y-2.5">
-              <p className="text-xs font-semibold text-slate-800 leading-relaxed">
-                {language === 'en' ? quiz.question_en : quiz.question_vi}
-              </p>
+          {currentExperiment.quizzes.map((quiz, qIdx) => {
+            const selectedQuizAnswer = quizAnswers[qIdx];
+            const showExplanation = selectedQuizAnswer !== undefined;
+            return (
+              <div key={qIdx} className="space-y-2.5">
+                <p className="text-xs font-semibold text-slate-800 leading-relaxed">
+                  {language === 'en' ? quiz.question_en : quiz.question_vi}
+                </p>
 
-              <div className="space-y-1.5">
-                {(language === 'en' ? quiz.options_en : quiz.options_vi).map((opt, oIdx) => {
-                  const isSelected = selectedQuizAnswer === oIdx;
-                  const isCorrect = oIdx === quiz.correctAnswer;
-                  let btnStyle = 'bg-slate-50 hover:bg-slate-100 text-slate-700 border-slate-200';
-                  if (showExplanation) {
-                    if (isCorrect) btnStyle = 'bg-emerald-50 text-emerald-800 border-emerald-300 font-semibold';
-                    else if (isSelected) btnStyle = 'bg-red-50 text-red-800 border-red-300';
-                  } else if (isSelected) {
-                    btnStyle = 'bg-blue-50 text-blue-700 border-blue-300 font-semibold';
-                  }
+                <div className="space-y-1.5">
+                  {(language === 'en' ? quiz.options_en : quiz.options_vi).map((opt, oIdx) => {
+                    const isSelected = selectedQuizAnswer === oIdx;
+                    const isCorrect = oIdx === quiz.correctAnswer;
+                    let btnStyle = 'bg-slate-50 hover:bg-slate-100 text-slate-700 border-slate-200';
+                    if (showExplanation) {
+                      if (isCorrect) btnStyle = 'bg-emerald-50 text-emerald-800 border-emerald-300 font-semibold';
+                      else if (isSelected) btnStyle = 'bg-red-50 text-red-800 border-red-300';
+                    }
 
-                  return (
-                    <button
-                      key={oIdx}
-                      onClick={() => {
-                        setSelectedQuizAnswer(oIdx);
-                        setShowExplanation(true);
-                      }}
-                      className={`w-full text-left p-2.5 rounded-lg border text-xs transition-colors ${btnStyle}`}
-                    >
-                      <span className="font-mono mr-2 font-bold">{String.fromCharCode(65 + oIdx)}.</span>
-                      {opt}
-                    </button>
-                  );
-                })}
-              </div>
-
-              {showExplanation && (
-                <div className={`p-3 rounded-lg text-xs leading-relaxed border ${
-                  selectedQuizAnswer === quiz.correctAnswer ? 'bg-emerald-50 text-emerald-800 border-emerald-200' : 'bg-amber-50 text-amber-800 border-amber-200'
-                }`}>
-                  <div className="font-bold mb-1 flex items-center gap-1">
-                    <CheckCircle2 size={13} />
-                    <span>{selectedQuizAnswer === quiz.correctAnswer ? t('Correct Answer!', 'Chính xác!') : t('Review Explanation:', 'Giải thích chi tiết:')}</span>
-                  </div>
-                  {language === 'en' ? quiz.explanation_en : quiz.explanation_vi}
+                    return (
+                      <button
+                        key={oIdx}
+                        onClick={() => setQuizAnswers(answers => ({ ...answers, [qIdx]: oIdx }))}
+                        className={`w-full text-left p-2.5 rounded-lg border text-xs transition-colors ${btnStyle}`}
+                      >
+                        <span className="font-mono mr-2 font-bold">{String.fromCharCode(65 + oIdx)}.</span>
+                        {opt}
+                      </button>
+                    );
+                  })}
                 </div>
-              )}
-            </div>
-          ))}
+
+                {showExplanation && (
+                  <div className={`p-3 rounded-lg text-xs leading-relaxed border ${
+                    selectedQuizAnswer === quiz.correctAnswer ? 'bg-emerald-50 text-emerald-800 border-emerald-200' : 'bg-amber-50 text-amber-800 border-amber-200'
+                  }`}>
+                    <div className="font-bold mb-1 flex items-center gap-1">
+                      <CheckCircle2 size={13} />
+                      <span>{selectedQuizAnswer === quiz.correctAnswer ? t('Correct Answer!', 'Chính xác!') : t('Review Explanation:', 'Giải thích chi tiết:')}</span>
+                    </div>
+                    {language === 'en' ? quiz.explanation_en : quiz.explanation_vi}
+                  </div>
+                )}
+              </div>
+            );
+          })}
         </div>
       )}
 
       {/* Exam Report Card Modal */}
-      {showReportCardModal && examReport && (
+      {visible && examReport && (
         <dialog ref={element => { if (element && !element.open) element.showModal(); }}
           aria-labelledby="lab-exam-report-heading"
           onKeyDown={event => { if (event.key === 'Escape') event.stopPropagation(); }}
-          onCancel={event => { event.preventDefault(); setShowReportCardModal(false); }}
+          onCancel={event => { event.preventDefault(); setExamReport(null); }}
           className="m-auto max-h-[calc(100dvh-2rem)] overflow-y-auto rounded-2xl border border-slate-200 bg-white p-5 shadow-2xl backdrop:bg-black/50"
           style={{ width: 'min(calc(100vw - 2rem), 28rem)' }}>
           <div className="space-y-4">
             <div className="flex items-center justify-between border-b border-slate-100 pb-3">
               <div className="flex items-center gap-2">
                 <Award size={20} className="text-amber-500" />
-                <h3 id="lab-exam-report-heading" className="font-bold text-slate-900 text-sm">{t('Laboratory Practical Exam Report', 'Báo Cáo Điểm Thi Thực Hành')}</h3>
+                <h3 id="lab-exam-report-heading" className="font-bold text-slate-900 text-sm">
+                  {practiceReport ? t('Practice Summary', 'Phiếu tự thực hành') : t('Laboratory Practical Exam Report', 'Báo Cáo Điểm Thi Thực Hành')}
+                </h3>
               </div>
               <button 
-                onClick={() => setShowReportCardModal(false)}
-                aria-label={t('Close assessment report', 'Đóng báo cáo điểm')}
+                onClick={() => setExamReport(null)}
+                aria-label={practiceReport ? t('Close practice summary', 'Đóng phiếu tự thực hành') : t('Close assessment report', 'Đóng báo cáo điểm')}
                 className="text-slate-400 hover:text-slate-600 p-1"
               >
                 <X size={16} />
               </button>
             </div>
 
-            {/* Score & Letter Grade Banner */}
-            <div className="bg-gradient-to-r from-blue-600 to-indigo-600 text-white rounded-xl p-4 flex items-center justify-between">
-              <div>
-                <div className="text-xs font-semibold text-blue-100 uppercase tracking-wider">{t('Final Assessment Score', 'Điểm Tổng Kết')}</div>
-                <div className="text-3xl font-extrabold tracking-tight">{examReport.score} <span className="text-sm font-medium text-blue-200">/ 100</span></div>
-              </div>
-              <div className="w-14 h-14 bg-white/20 backdrop-blur-xs rounded-xl flex items-center justify-center text-3xl font-black text-amber-300 shadow-inner">
-                {examReport.letterGrade}
-              </div>
-            </div>
+            {practiceReport && <dl className="space-y-2 text-xs">
+              {practiceReport.procedure.manualTotal > 0 && <div className="flex justify-between items-center py-1 border-b border-slate-100">
+                <dt>{t('Steps you confirmed', 'Bước đã tự xác nhận')}</dt>
+                <dd className="font-bold">{practiceReport.procedure.acknowledged} / {practiceReport.procedure.manualTotal}</dd>
+              </div>}
+              {practiceReport.procedure.automaticTotal > 0 && <div className="flex justify-between items-center py-1 border-b border-slate-100">
+                <dt>{t('Steps verified by the lab', 'Bước phòng lab đã kiểm tra')}</dt>
+                <dd className="font-bold">{practiceReport.procedure.verified} / {practiceReport.procedure.automaticTotal}</dd>
+              </div>}
+              {practiceReport.quiz.total > 0 && <div className="flex justify-between items-center py-1 border-b border-slate-100">
+                <dt>{t('Correct quiz answers', 'Câu trắc nghiệm đúng')}</dt>
+                <dd className="font-bold">{practiceReport.quiz.correct} / {practiceReport.quiz.total}</dd>
+              </div>}
+            </dl>}
 
-            {/* Rubric Breakdown */}
-            <div className="space-y-2 text-xs">
-              <div className="flex justify-between items-center py-1 border-b border-slate-100">
-                <span className="text-slate-600">{t('Procedure Adherence', 'Quy trình thực hiện')}:</span>
-                <span className="font-bold text-slate-800">{examReport.procedureScore} / 40</span>
+            {gradeReport && <>
+              {/* Score & Letter Grade Banner */}
+              <div className="bg-gradient-to-r from-blue-600 to-indigo-600 text-white rounded-xl p-4 flex items-center justify-between">
+                <div>
+                  <div className="text-xs font-semibold text-blue-100 uppercase tracking-wider">{t('Final Assessment Score', 'Điểm Tổng Kết')}</div>
+                  <div className="text-3xl font-extrabold tracking-tight">{gradeReport.score} <span className="text-sm font-medium text-blue-200">/ 100</span></div>
+                </div>
+                <div className="w-14 h-14 bg-white/20 backdrop-blur-xs rounded-xl flex items-center justify-center text-3xl font-black text-amber-300 shadow-inner">
+                  {gradeReport.letterGrade}
+                </div>
               </div>
-              <div className="flex justify-between items-center py-1 border-b border-slate-100">
-                <span className="text-slate-600">{t('Measurement Precision', 'Độ chuẩn xác số đo')}:</span>
-                <span className="font-bold text-slate-800">{examReport.accuracyScore} / 25</span>
-              </div>
-              <div className="flex justify-between items-center py-1 border-b border-slate-100">
-                <span className="text-slate-600">{t('Tool Hygiene & Safety', 'Vệ sinh dụng cụ & An toàn')}:</span>
-                <span className="font-bold text-slate-800">{examReport.hygieneScore} / 15</span>
-              </div>
-              <div className="flex justify-between items-center py-1 border-b border-slate-100">
-                <span className="text-slate-600">{t('Theory Understanding', 'Lý thuyết & Trắc nghiệm')}:</span>
-                <span className="font-bold text-slate-800">{examReport.quizScore} / 20</span>
-              </div>
-            </div>
 
-            {examReport.quantitativeMetrics?.titrationDelivered_ml !== undefined && <div className="rounded-lg bg-slate-50 p-2.5 text-xs text-slate-700">
-              <p>{t('NaOH received', 'NaOH đã vào bình')} <strong>{examReport.quantitativeMetrics.titrationDelivered_ml.toFixed(2)} / {examReport.quantitativeMetrics.titrationTarget_ml?.toFixed(2)} mL</strong></p>
-              <p>{t('Absolute volume error', 'Sai lệch thể tích')} <strong>{examReport.quantitativeMetrics.titrationError_ml?.toFixed(2)} mL</strong></p>
-              {(examReport.quantitativeMetrics.titrationOtherTitrant_ml ?? 0) > 0 && <p>
-                {t('Other titrant received', 'Dung dịch chuẩn khác đã vào bình')} <strong>{examReport.quantitativeMetrics.titrationOtherTitrant_ml?.toFixed(3)} mL</strong>
-              </p>}
-              {examReport.quantitativeMetrics.finalPh !== undefined && <p>
-                {t('Final sample pH', 'pH cuối của mẫu')} <strong>{examReport.quantitativeMetrics.finalPh.toFixed(2)}</strong>
-              </p>}
-            </div>}
-            {examReport.quantitativeMetrics?.agclReceived_ml !== undefined && <div className="rounded-lg bg-slate-50 p-2.5 text-xs text-slate-700">
-              <p>{t('AgNO₃ received', 'AgNO₃ đã vào cốc')} <strong>{examReport.quantitativeMetrics.agclReceived_ml.toFixed(2)} / {examReport.quantitativeMetrics.agclTarget_ml} mL</strong></p>
-              <p>{t('Solid AgCl', 'AgCl rắn')} <strong>{examReport.quantitativeMetrics.agclPrecipitate_g?.toFixed(3)} g</strong></p>
-              <p>{t('Immersed stirring', 'Khuấy trong mẫu')} <strong>{examReport.quantitativeMetrics.agclStirred_s?.toFixed(2)} s</strong></p>
-            </div>}
-            {examReport.quantitativeMetrics?.neutralizationReceived_ml !== undefined && <div className="rounded-lg bg-slate-50 p-2.5 text-xs text-slate-700">
-              <p>{t('NaOH received', 'NaOH đã vào bình')} <strong>{examReport.quantitativeMetrics.neutralizationReceived_ml.toFixed(2)} / {examReport.quantitativeMetrics.neutralizationTarget_ml} mL</strong></p>
-              {examReport.quantitativeMetrics.neutralizationInitial_c !== undefined && <p>
-                {t('Initial probe reading', 'Số đo nhiệt kế ban đầu')} <strong>{examReport.quantitativeMetrics.neutralizationInitial_c.toFixed(2)} °C</strong>
-              </p>}
-              {examReport.quantitativeMetrics.neutralizationRise_c !== undefined && <p>
-                {t('Sample peak and temperature rise', 'Nhiệt độ đỉnh và độ tăng nhiệt của mẫu')} <strong>{examReport.quantitativeMetrics.neutralizationPeak_c?.toFixed(2)} °C · ΔT {examReport.quantitativeMetrics.neutralizationRise_c.toFixed(2)} °C</strong>
-              </p>}
-              {examReport.quantitativeMetrics.finalPh !== undefined && <p>
-                {t('pH reading and neutral reference', 'pH đo được và mốc trung tính')} <strong>{examReport.quantitativeMetrics.finalPh.toFixed(2)} / {examReport.quantitativeMetrics.neutralizationNeutralPh?.toFixed(2)} · {examReport.quantitativeMetrics.neutralizationMeasurement_c?.toFixed(1)} °C</strong>
-              </p>}
-            </div>}
+              {/* Rubric Breakdown */}
+              <div className="space-y-2 text-xs">
+                <div className="flex justify-between items-center py-1 border-b border-slate-100">
+                  <span className="text-slate-600">{t('Procedure Adherence', 'Quy trình thực hiện')}:</span>
+                  <span className="font-bold text-slate-800">{gradeReport.procedureScore} / 40</span>
+                </div>
+                <div className="flex justify-between items-center py-1 border-b border-slate-100">
+                  <span className="text-slate-600">{t('Measurement Precision', 'Độ chuẩn xác số đo')}:</span>
+                  <span className="font-bold text-slate-800">{gradeReport.accuracyScore} / 25</span>
+                </div>
+                <div className="flex justify-between items-center py-1 border-b border-slate-100">
+                  <span className="text-slate-600">{t('Tool Hygiene & Safety', 'Vệ sinh dụng cụ & An toàn')}:</span>
+                  <span className="font-bold text-slate-800">{gradeReport.hygieneScore} / 15</span>
+                </div>
+                <div className="flex justify-between items-center py-1 border-b border-slate-100">
+                  <span className="text-slate-600">{t('Theory Understanding', 'Lý thuyết & Trắc nghiệm')}:</span>
+                  <span className="font-bold text-slate-800">{gradeReport.quizScore} / 20</span>
+                </div>
+              </div>
 
-            {/* Instructor Feedback */}
-            <div className="bg-slate-50 border border-slate-200 rounded-xl p-3 text-xs space-y-1">
-              <span className="font-bold text-slate-700">{t('Pedagogical Critique:', 'Nhận xét của giảng viên:')}</span>
-              {(language === 'en' ? examReport.feedback_en : examReport.feedback_vi).map((fb, idx) => (
-                <p key={idx} className="text-slate-600 leading-relaxed">• {fb}</p>
-              ))}
-            </div>
+              {gradeReport.quantitativeMetrics?.titrationDelivered_ml !== undefined && <div className="rounded-lg bg-slate-50 p-2.5 text-xs text-slate-700">
+                <p>{t('NaOH received', 'NaOH đã vào bình')} <strong>{gradeReport.quantitativeMetrics.titrationDelivered_ml.toFixed(2)} / {gradeReport.quantitativeMetrics.titrationTarget_ml?.toFixed(2)} mL</strong></p>
+                <p>{t('Absolute volume error', 'Sai lệch thể tích')} <strong>{gradeReport.quantitativeMetrics.titrationError_ml?.toFixed(2)} mL</strong></p>
+                {(gradeReport.quantitativeMetrics.titrationOtherTitrant_ml ?? 0) > 0 && <p>
+                  {t('Other titrant received', 'Dung dịch chuẩn khác đã vào bình')} <strong>{gradeReport.quantitativeMetrics.titrationOtherTitrant_ml?.toFixed(3)} mL</strong>
+                </p>}
+                {gradeReport.quantitativeMetrics.finalPh !== undefined && <p>
+                  {t('Final sample pH', 'pH cuối của mẫu')} <strong>{gradeReport.quantitativeMetrics.finalPh.toFixed(2)}</strong>
+                </p>}
+              </div>}
+              {gradeReport.quantitativeMetrics?.agclReceived_ml !== undefined && <div className="rounded-lg bg-slate-50 p-2.5 text-xs text-slate-700">
+                <p>{t('AgNO₃ received', 'AgNO₃ đã vào cốc')} <strong>{gradeReport.quantitativeMetrics.agclReceived_ml.toFixed(2)} / {gradeReport.quantitativeMetrics.agclTarget_ml} mL</strong></p>
+                <p>{t('Solid AgCl', 'AgCl rắn')} <strong>{gradeReport.quantitativeMetrics.agclPrecipitate_g?.toFixed(3)} g</strong></p>
+                <p>{t('Immersed stirring', 'Khuấy trong mẫu')} <strong>{gradeReport.quantitativeMetrics.agclStirred_s?.toFixed(2)} s</strong></p>
+              </div>}
+              {gradeReport.quantitativeMetrics?.neutralizationReceived_ml !== undefined && <div className="rounded-lg bg-slate-50 p-2.5 text-xs text-slate-700">
+                <p>{t('NaOH received', 'NaOH đã vào bình')} <strong>{gradeReport.quantitativeMetrics.neutralizationReceived_ml.toFixed(2)} / {gradeReport.quantitativeMetrics.neutralizationTarget_ml} mL</strong></p>
+                {gradeReport.quantitativeMetrics.neutralizationInitial_c !== undefined && <p>
+                  {t('Initial probe reading', 'Số đo nhiệt kế ban đầu')} <strong>{gradeReport.quantitativeMetrics.neutralizationInitial_c.toFixed(2)} °C</strong>
+                </p>}
+                {gradeReport.quantitativeMetrics.neutralizationRise_c !== undefined && <p>
+                  {t('Sample peak and temperature rise', 'Nhiệt độ đỉnh và độ tăng nhiệt của mẫu')} <strong>{gradeReport.quantitativeMetrics.neutralizationPeak_c?.toFixed(2)} °C · ΔT {gradeReport.quantitativeMetrics.neutralizationRise_c.toFixed(2)} °C</strong>
+                </p>}
+                {gradeReport.quantitativeMetrics.finalPh !== undefined && <p>
+                  {t('pH reading and neutral reference', 'pH đo được và mốc trung tính')} <strong>{gradeReport.quantitativeMetrics.finalPh.toFixed(2)} / {gradeReport.quantitativeMetrics.neutralizationNeutralPh?.toFixed(2)} · {gradeReport.quantitativeMetrics.neutralizationMeasurement_c?.toFixed(1)} °C</strong>
+                </p>}
+              </div>}
+
+              {/* Instructor Feedback */}
+              <div className="bg-slate-50 border border-slate-200 rounded-xl p-3 text-xs space-y-1">
+                <span className="font-bold text-slate-700">{t('Pedagogical Critique:', 'Nhận xét của giảng viên:')}</span>
+                {(language === 'en' ? gradeReport.feedback_en : gradeReport.feedback_vi).map((fb, idx) => (
+                  <p key={idx} className="text-slate-600 leading-relaxed">• {fb}</p>
+                ))}
+              </div>
+            </>}
 
             <div className="flex gap-2">
               <button
@@ -825,7 +840,7 @@ export function GuidedExperimentPanel({ onOpenTitration, visible }: { onOpenTitr
                 <span>{t('Export JSON', 'Xuất JSON')}</span>
               </button>
               <button
-                onClick={() => setShowReportCardModal(false)}
+                onClick={() => setExamReport(null)}
                 className="flex-1 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-xl text-xs font-bold shadow-xs transition-colors"
               >
                 {t('Continue Practical Work', 'Tiếp tục thực hành')}

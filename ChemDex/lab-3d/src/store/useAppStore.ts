@@ -23,7 +23,7 @@ import {
 } from './persistence';
 import { vfxBus, type VfxEventMap } from '../vfx/bus';
 import { getReactionVfxRecipe } from '../vfx/recipes/reactionVfx';
-import { ExperimentDifficultyMode, ExamReportCard, experimentEngine } from '../engine/experimentEngine';
+import { ExperimentDifficultyMode, GuidedExperimentReport, experimentEngine } from '../engine/experimentEngine';
 import { labSound } from '../utils/audio';
 import { ppeService } from '../safety/Ppe';
 import { shardManager } from '../damage/Shards';
@@ -415,6 +415,8 @@ export interface AppState {
   activeExperimentId: string | null;
   setActiveExperimentId: (id: string | null) => void;
   activeStepIndex: number;
+  selfConfirmedSteps: readonly number[];
+  toggleStepConfirmation: (stepNumber: number) => void;
   setActiveStepIndex: (idx: number) => void;
   setupExperimentPreset: (experimentId: string, context?: 'practice' | 'observation') => void;
   experimentDifficulty: ExperimentDifficultyMode;
@@ -425,8 +427,8 @@ export interface AppState {
   instrumentRinse: RinseSession | null;
   tickInstrumentRinse: (frameDt: number) => void;
   cancelInstrumentRinse: () => void;
-  examReport: ExamReportCard | null;
-  setExamReport: (report: ExamReportCard | null) => void;
+  examReport: GuidedExperimentReport | null;
+  setExamReport: (report: GuidedExperimentReport | null) => void;
 
   // Presentation & Camera & Educational Lab Report
   isLabReportOpen: boolean;
@@ -838,8 +840,16 @@ export const useAppStore = create<AppState>((set, get) => {
     labMode: 'free',
     setLabMode: (mode) => set({ labMode: mode }),
     activeExperimentId: null,
-    setActiveExperimentId: (id) => set({ activeExperimentId: id, activeStepIndex: 0 }),
+    setActiveExperimentId: (id) => set({ activeExperimentId: id, activeStepIndex: 0, selfConfirmedSteps: [], examReport: null }),
     activeStepIndex: 0,
+    selfConfirmedSteps: [],
+    toggleStepConfirmation: (stepNumber) => set(state => {
+      if (!state.activeExperimentId || !Number.isInteger(stepNumber) || stepNumber < 1) return state;
+      const confirmed = state.selfConfirmedSteps;
+      return { selfConfirmedSteps: confirmed.includes(stepNumber)
+        ? confirmed.filter(number => number !== stepNumber)
+        : [...confirmed, stepNumber] };
+    }),
     setActiveStepIndex: (idx) => set({ activeStepIndex: idx }),
     experimentDifficulty: 'guided',
     setExperimentDifficulty: (mode) => set({ experimentDifficulty: mode }),
@@ -1815,6 +1825,8 @@ export const useAppStore = create<AppState>((set, get) => {
         selectedVesselId: Object.keys(vessels)[0] || null,
         activeExperimentId: experimentId,
         activeStepIndex: 0,
+        selfConfirmedSteps: [],
+        examReport: null,
         spills: {}
       });
       if (isPrecipitationPractice || isNeutralizationPractice) {
@@ -4983,6 +4995,9 @@ export const useAppStore = create<AppState>((set, get) => {
       restorePhysicalLab();
       shardManager.restoreSnapshot();
       set({
+        activeStepIndex: 0,
+        selfConfirmedSteps: [],
+        examReport: null,
         inFlightPours: [], pourEpoch: get().pourEpoch + 1, isPouring: false,
         pipetteSample: null,
         burette: restoreBurette(),

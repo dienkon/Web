@@ -56,7 +56,15 @@ Chrome production ở khung nhìn 390 px ghi 27/40 điểm quy trình sau khi r�
 
 Thực hành và thi thử dùng dung sai ±0,25 mL cho thể tích và ±0,20 pH so với mốc trung tính. Kiểm thử engine bao phủ đầu dò sai vị trí, đầu dò còn dao động, lượt đang bay, hoàn tác, làm lại và sự thay đổi thành phần sau khi ghi pH. Chrome production ở khung nhìn 390 px đo được 40,00 mL, ΔT 12,14 °C và pH 6,81. Báo cáo ghi 27/40 điểm quy trình trước khi ghi pH và 40/40 sau khi ghi.
 
-Chương trình có 19 bài và 43 bước. Chín bước thuộc ba bài chuẩn độ, AgCl và nhiệt trung hòa đã có tiêu chí từ mẫu, giao dịch vật chất hoặc đầu dò. Cần tiếp tục phân biệt bước mô tả với bước đã có bằng chứng tự động cho 34 bước còn lại.
+## Chấm theo bằng chứng và phiếu tự thực hành
+
+Chương trình có 19 bài và 43 bước. Chín bước thuộc ba bài chuẩn độ, AgCl và nhiệt trung hòa được kiểm tra từ mẫu, giao dịch vật chất hoặc đầu dò. Khi mở báo cáo, bộ chấm kiểm tra lại từng bước trên trạng thái hiện tại của bàn. Bài chuẩn độ dùng cùng tiêu chí cho giao diện và bộ chấm gọi trực tiếp.
+
+Ở 16 bài còn lại, người học có thể xem qua các bước và đánh dấu **Tự xác nhận đã thực hiện bước này** cho 34 bước còn dựa vào quan sát. **Xem phiếu tự thực hành** hiển thị số bước tự xác nhận và số câu trắc nghiệm đúng. JSON lưu trạng thái từng bước, phân biệt bước tự xác nhận với bước phòng lab kiểm tra và có thể dùng cho bài kết hợp cả hai loại. Phiếu lưu tiến độ trong phiên khi đóng bảng bài học hoặc chuyển sang thẻ dụng cụ. Nút **Tự động bày bàn thí nghiệm** bắt đầu lượt mới và xóa các xác nhận cùng câu trả lời của lượt trước.
+
+Kiểm tra bàn trống xác nhận cả 43 bước đều chưa đạt. Ở Chrome production khung nhìn 390 px, phiếu của bài bảo toàn khối lượng ghi 0/2 khi chỉ chuyển bước và 1/2 khi người học đã xác nhận một bước. Kiểm tra cũng bao phủ đóng mở bảng, hủy xác nhận, làm lại, xuất JSON và ba luồng chấm tự động.
+
+Hạng mục tiếp theo là bài bảo toàn khối lượng. Quy trình hiện có yêu cầu cân cốc nhận trước khi trộn nhưng công thức đối chiếu cần cả khối lượng mẫu nguồn. Cân ảo hiện tìm bình theo khoảng cách ngang tới đĩa. Trước khi bật chấm tự động, cần xác nhận bình có tựa lên cân, lưu đủ số đo ban đầu và cuối của hai mẫu trong cùng lượt, rồi đối chiếu phần dung dịch còn lại hoặc vương ra bàn với lượng mẫu đã chuyển.
 
 ## Phạm vi 5 giai đoạn
 
