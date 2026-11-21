@@ -44,7 +44,7 @@ export interface ProceduralStep {
   requiredTool?: 'none' | 'thermometer' | 'ph_meter' | 'balance' | 'pipette' | 'stirring_rod' | 'spatula';
   hints_en?: string[];
   hints_vi?: string[];
-  validate?: (state: ExperimentValidationState) => StepValidationResult;
+  validate?: (state: ExperimentValidationState, mode: ExperimentDifficultyMode) => StepValidationResult;
 }
 
 export interface StepValidationResult {
@@ -85,6 +85,11 @@ export interface QuantitativeRubricMetrics {
   titrationTarget_ml?: number;
   titrationError_ml?: number;
   titrationOtherTitrant_ml?: number;
+  agclReceived_ml?: number;
+  agclTarget_ml?: number;
+  agclError_ml?: number;
+  agclPrecipitate_g?: number;
+  agclStirred_s?: number;
   finalPh?: number;
   maxTemperature_c?: number;
   wasteCollected_g?: number;
@@ -194,7 +199,7 @@ export class ExperimentEngine {
   ): StepValidationResult {
     // If step has custom validation function, execute it first
     if (step.validate) {
-      return step.validate(state);
+      return step.validate(state, mode);
     }
 
     const vessels = Object.values(state.vessels);

@@ -65,7 +65,7 @@ export function decantLiquid(
   let remaining = { ...refreshFlowInventory(withdrawn.vessel), hasGas: false, gasRate: 0, isExplosion: false };
   if (remaining.volume_ml <= 1e-12) remaining = { ...remaining, liquidColor: undefined,
     isBoiling: false, boilingIntensity: 0, foam_ml: 0 };
-  return { source: remaining, receiver: target, accepted_ml, failureReason,
+  return { source: remaining, receiver: target, sample: withdrawn.sample, accepted_ml, failureReason,
     moved_ml: withdrawn.sample.volume_ml,
     spill: remainder.volume_ml > 0 ? remainder : undefined };
 }

@@ -1,5 +1,6 @@
-import { ProceduralActionType } from '../engine/experimentEngine';
+import type { ProceduralActionType, ProceduralStep } from '../engine/experimentEngine';
 import { ACID_BASE_EQUIVALENCE_ML, ACID_BASE_TITRATION } from '../engine/acidBaseTitration';
+import { AGCL_PRACTICE, assessAgClPractice } from '../engine/agclPractice';
 
 export interface LabStep {
   stepNumber: number;
@@ -19,6 +20,7 @@ export interface LabStep {
   chemicalRequired?: string[];
   equipmentRequired?: string[];
   validationCheck?: (vessels: Record<string, any>) => boolean;
+  validate?: ProceduralStep['validate'];
 }
 
 export interface ExperimentQuiz {
@@ -924,30 +926,25 @@ export const EXPERIMENT_CURRICULUM: ExperimentGuide[] = [
     ]
   },
   {
-    id: 'agcl_curdy_precipitation',
+    id: AGCL_PRACTICE.id,
     title_en: 'Curdy Precipitation of Silver Chloride (AgNO3 + NaCl)',
     title_vi: 'Kết tủa Dạng Vón Bã Đậu của Bạc Clorua (AgNO3 + NaCl)',
     category: 'precipitation',
     difficulty: 'intermediate',
-    objective_en: 'Observe the formation of authentic curd-like (flocculated cheese curds) precipitate of AgCl and test its coordination dissolution in aqueous ammonia.',
-    objective_vi: 'Quan sát hiện tượng tạo kết tủa dạng bã đậu đặc trưng của AgCl và khảo sát sự hòa tan tạo phức chất tan với dung dịch amoniac.',
+    objective_en: 'Measure the silver nitrate entering the beaker and observe the white AgCl precipitate during stirring.',
+    objective_vi: 'Đo lượng dung dịch AgNO₃ vào cốc và quan sát kết tủa trắng AgCl khi khuấy.',
     theory_en: 'Silver ions react with chloride: Ag⁺ + Cl⁻ → AgCl↓. AgCl forms dense, clumping curd-like masses (Ksp = 1.8 × 10⁻¹⁰). Upon adding ammonia (NH3), AgCl dissolves by forming the soluble diamminesilver(I) complex: AgCl + 2NH₃ → [Ag(NH₃)₂]⁺ + Cl⁻.',
     theory_vi: 'Ion bạc kết hợp với ion clorua: Ag⁺ + Cl⁻ → AgCl↓. AgCl tạo kết tủa dạng vón cục bã đậu màu trắng đục. Khi thêm amoniac dư, kết tủa tan hoàn toàn tạo phức chất tan [Ag(NH₃)₂]⁺.',
     safetyAdvisory_en: 'AgNO3 causes black silver stains on skin upon light exposure. Wear nitrile gloves.',
     safetyAdvisory_vi: 'Dung dịch bạc nitrat làm đen da tay khi tiếp xúc với ánh sáng. Luôn đeo găng tay.',
     requiredEquipment: ['Graduated Cylinder', 'Beaker', 'Glass Stirring Rod'],
     allowedChemicals: ['AgNO3', 'NaCl', 'NH3', 'H2O'],
-    simulationAlgorithm_en: `Flocculation Coagulation & Photolytic Disproportionation Model:
-1. Fast Diffusion-Controlled Precipitation: Ag+ + Cl- -> AgCl(s) (Ksp = 1.77e-10).
-2. Curdy DLVO Flocculation:
-   Van der Waals attractive forces dominate electrostatic double-layer repulsion, forming chunky cheese-curd flocs.
-3. Photolytic Darkening & Ammonia Redissolution:
-   Photolysis under light 2AgCl + h*nu -> 2Ag(colloid) + Cl2 (purplish graying).
-   Diammine complexation AgCl + 2NH3 -> [Ag(NH3)2]+ + Cl- (beta_2 = 1.7e7) clears turbidity to zero.`,
-    simulationAlgorithm_vi: `Thuật toán Vón Cục DLVO & Phân Hủy Quang Hóa:
-1. Kết tủa khuếch tán cực nhanh khi tích số ion Ag+ và Cl- vượt Ksp = 1.77e-10.
-2. Lực hút Van der Waals thắng lực đẩy tĩnh điện kép tạo các khối kết tủa vón bã đậu (chunky curds).
-3. Quang hóa dưới ánh sáng tạo hạt nano bạc Ag xám tím; hòa tan hoàn toàn tạo phức [Ag(NH3)2]+ khi thêm NH3.`,
+    simulationAlgorithm_en: `1. The material ledger consumes one unit of AgNO₃ per unit of NaCl and records NaNO₃ and solid AgCl.
+2. The ideal solution model adjusts the dissolved and solid AgCl pools using Ksp.
+3. The white curds and their motion illustrate precipitate morphology during stirring.`,
+    simulationAlgorithm_vi: `1. Kiểm kê phản ứng tiêu thụ AgNO₃ và NaCl theo tỉ lệ 1:1, đồng thời ghi NaNO₃ và AgCl rắn.
+2. Mô hình dung dịch lý tưởng phân bố AgCl hòa tan và AgCl rắn theo Ksp.
+3. Các cụm trắng và chuyển động khi khuấy minh họa hình thái kết tủa.`,
     phenomenologyCases: [
       {
         id: 'agcl_curd_flocculation',
@@ -982,34 +979,39 @@ export const EXPERIMENT_CURRICULUM: ExperimentGuide[] = [
         targetChemical: 'AgNO3',
         targetAmount: 25,
         tolerance: 1.0,
-        title_en: 'Measure Silver Nitrate in Cylinder',
-        title_vi: 'Đong dung dịch Bạc Nitrat vào ống đong',
-        instruction_en: 'Measure accurately 25.0 mL of AgNO3 solution into the graduated cylinder.',
-        instruction_vi: 'Dùng ống đong đo chính xác 25.0 mL dung dịch AgNO3.',
-        expectedResult_en: 'Clear colorless solution exactly at 25 mL mark.',
-        expectedResult_vi: 'Dung dịch trong suốt không màu chạm vạch 25 mL.'
+        title_en: 'Prepare the two samples',
+        validate: (state, mode) => assessAgClPractice(state.vessels, mode).steps[0],
+        title_vi: 'Chuẩn bị hai mẫu',
+        instruction_en: 'Set up the workbench. Use 25.00 mL of 0.10 M AgNO₃ in the cylinder and 25.00 mL of 0.10 M NaCl in the beaker.',
+        instruction_vi: 'Bày bàn thí nghiệm với 25,00 mL AgNO₃ 0,10 M trong ống đong và 25,00 mL NaCl 0,10 M trong cốc.',
+        expectedResult_en: 'The cylinder and beaker each hold a clear solution.',
+        expectedResult_vi: 'Ống đong và cốc đều chứa dung dịch trong.'
       },
       {
         stepNumber: 2,
         action: 'POUR',
-        targetChemical: 'NaCl',
+        targetVesselType: 'beaker',
+        targetChemical: 'AgNO3',
         targetAmount: 25,
-        tolerance: 2.0,
-        title_en: 'Add Sodium Chloride Reagent',
-        title_vi: 'Thêm dung dịch Natri Clorua',
-        instruction_en: 'Pour 25 mL of NaCl solution into the beaker containing AgNO3.',
-        instruction_vi: 'Rót 25 mL dung dịch NaCl vào cốc chứa AgNO3.',
-        expectedResult_en: 'Immediate spontaneous formation of thick, chunky white curds of AgCl precipitate!',
-        expectedResult_vi: 'Xuất hiện tức thì các khối kết tủa trắng vón cục dạng bã đậu đặc trưng của AgCl!'
+        unit: 'mL',
+        title_en: 'Pour silver nitrate into the beaker',
+        validate: (state, mode) => assessAgClPractice(state.vessels, mode).steps[1],
+        title_vi: 'Rót AgNO₃ vào cốc',
+        instruction_en: 'Pour the prepared 25 mL from the cylinder into the NaCl beaker.',
+        instruction_vi: 'Rót 25 mL mẫu AgNO₃ từ ống đong vào cốc NaCl.',
+        expectedResult_en: 'White AgCl solid forms in the beaker.',
+        expectedResult_vi: 'AgCl rắn màu trắng xuất hiện trong cốc.'
       },
       {
         stepNumber: 3,
         action: 'STIR',
         requiredTool: 'stirring_rod',
+        unit: 's',
         title_en: 'Stir and Observe Curd Flocculation',
+        validate: (state, mode) => assessAgClPractice(state.vessels, mode).steps[2],
         title_vi: 'Khuấy và quan sát vón cục kết tủa',
-        instruction_en: 'Use the glass stirring rod to agitate the curdy precipitate.',
-        instruction_vi: 'Dùng đũa thủy tinh khuấy đều hỗn hợp kết tủa vón bã đậu.',
+        instruction_en: 'Stir the beaker for at least one simulated second after the glass stirring rod reaches the liquid.',
+        instruction_vi: 'Khuấy cốc ít nhất một giây mô phỏng kể từ khi đũa thủy tinh ngập vào mẫu.',
         expectedResult_en: 'The curd clusters swirl together into larger aggregates and slowly settle toward the beaker base.',
         expectedResult_vi: 'Các mảng kết tủa bã đậu tụ lại thành các cục lớn hơn và từ từ lắng xuống đáy cốc.'
       }

@@ -14,6 +14,21 @@ export function phaseVolumes(vessel: Pick<LayerVessel, 'volume_ml' | 'immiscible
   return { organic, aqueous: total - organic };
 }
 
+/** Concentration of the recorded aqueous constituent in the current bulk phase.
+ * Old records without a phase and non-bulk inventory have no such reading. */
+export function bulkAqueousConcentrations(vessel: LayerVessel): ReadonlyMap<string, number> {
+  const concentrations = new Map<string, number>();
+  const liters = phaseVolumes(vessel).aqueous / 1000;
+  if (!(liters > 0) || !Number.isFinite(liters)) return concentrations;
+  for (const row of vessel.contents) {
+    if ((row.phase ?? row.state) !== 'aq' || (row.location && row.location !== 'bulk')
+      || organicContent(row) || !Number.isFinite(row.moles) || row.moles <= 0) continue;
+    const next = (concentrations.get(row.formula) ?? 0) + row.moles / liters;
+    if (Number.isFinite(next)) concentrations.set(row.formula, next);
+  }
+  return concentrations;
+}
+
 /** Inventory densities include solute mass assigned to each phase; solids and
  * gases never increase a liquid's hydrostatic density. No partition guessed. */
 export function phaseDensities(vessel: LayerVessel) {

@@ -9,10 +9,11 @@ import {
 } from 'lucide-react';
 import { experimentEngine, ExperimentDifficultyMode, ExamReportCard } from '../engine/experimentEngine';
 import { ACID_BASE_TITRATION, acidBaseReportedPh, assessAcidBaseTitration } from '../engine/acidBaseTitration';
+import { AGCL_PRACTICE, assessAgClPractice } from '../engine/agclPractice';
 import { labSound } from '../utils/audio';
 import { ObservationPanel } from './ObservationPanel';
 import { InstrumentRinseStatus } from './InstrumentRinseStatus';
-import { alignSelectedVessel, rinseInstrument } from '../handling/instrumentOperations';
+import { alignSelectedVessel, rinseInstrument, stirSelectedVessel } from '../handling/instrumentOperations';
 import { useInstrumentStore } from '../handling/instrumentState';
 import { uiText } from '../utils/uiText';
 import { downloadText } from '../utils/downloadText';
@@ -32,6 +33,8 @@ export function GuidedExperimentPanel({ onOpenTitration, visible }: { onOpenTitr
     vessels,
     burners,
     activeTool,
+    selectedVesselId,
+    stirringVesselId,
     buretteOpen,
     isMixing,
     stockDosePending,
@@ -54,6 +57,8 @@ export function GuidedExperimentPanel({ onOpenTitration, visible }: { onOpenTitr
     vessels: visible ? state.vessels : EMPTY_APPARATUS,
     burners: visible ? state.burners : EMPTY_APPARATUS,
     activeTool: state.activeTool,
+    selectedVesselId: state.selectedVesselId,
+    stirringVesselId: state.stirringVesselId,
     buretteOpen: state.burette.isDispensing,
     isMixing: state.isMixing,
     stockDosePending: state.stockDosePending,
@@ -84,10 +89,16 @@ export function GuidedExperimentPanel({ onOpenTitration, visible }: { onOpenTitr
   const currentExperiment = EXPERIMENT_CURRICULUM.find(e => e.id === activeExperimentId);
   const isObserving = !!currentExperiment && observationId === currentExperiment.id;
   const isAcidBaseTitration = currentExperiment?.id === ACID_BASE_TITRATION.id;
+  const isAgClPractice = currentExperiment?.id === AGCL_PRACTICE.id;
   const titrationVessel = vessels[ACID_BASE_TITRATION.vesselId];
   const acidBaseAssessment = useMemo(() => isAcidBaseTitration
     ? assessAcidBaseTitration(titrationVessel, experimentDifficulty) : null,
   [isAcidBaseTitration, titrationVessel, experimentDifficulty]);
+  const agclAssessment = useMemo(() => isAgClPractice ? assessAgClPractice(vessels, experimentDifficulty) : null,
+    [isAgClPractice, vessels, experimentDifficulty]);
+  const practiceAssessment = acidBaseAssessment ?? agclAssessment;
+  const stirringAgCl = (activeTool === 'stirring_rod' && selectedVesselId === AGCL_PRACTICE.receiverId)
+    || stirringVesselId === AGCL_PRACTICE.receiverId;
 
   // Timer for Exam mode
   useEffect(() => {
@@ -114,16 +125,16 @@ export function GuidedExperimentPanel({ onOpenTitration, visible }: { onOpenTitr
   const currentStep = currentExperiment ? currentExperiment.steps[activeStepIndex] : null;
   const validationResult = useMemo(() => {
     if (!currentStep) return null;
-    if (acidBaseAssessment) return acidBaseAssessment.steps[activeStepIndex];
+    if (practiceAssessment) return practiceAssessment.steps[activeStepIndex];
     return experimentEngine.validateStep(currentStep as any, validationState, experimentDifficulty);
-  }, [currentStep, validationState, experimentDifficulty, acidBaseAssessment, activeStepIndex]);
+  }, [currentStep, validationState, experimentDifficulty, practiceAssessment, activeStepIndex]);
 
   // Record tolerance errors if valid
   useEffect(() => {
-    if (!isAcidBaseTitration && validationResult?.isWithinTolerance && validationResult.toleranceError !== undefined) {
+    if (!isAcidBaseTitration && !isAgClPractice && validationResult?.isWithinTolerance && validationResult.toleranceError !== undefined) {
       setToleranceErrors(prev => [...prev, validationResult.toleranceError!]);
     }
-  }, [isAcidBaseTitration, validationResult?.isWithinTolerance, validationResult?.toleranceError]);
+  }, [isAcidBaseTitration, isAgClPractice, validationResult?.isWithinTolerance, validationResult?.toleranceError]);
 
   // Contaminated tools check
   const dirtyTools = Object.entries(toolContamination).filter(([_, chem]) => chem !== null) as Array<['pipette' | 'stirring_rod' | 'spatula', string]>;
@@ -139,7 +150,8 @@ export function GuidedExperimentPanel({ onOpenTitration, visible }: { onOpenTitr
     const selectedVessel = state.selectedVesselId ? state.vessels[state.selectedVesselId] : vesselList[0];
     const uncleanedSpillCount = Object.keys(state.spills ?? {}).length;
     const sample = state.vessels[ACID_BASE_TITRATION.vesselId];
-    const liveAssessment = isAcidBaseTitration ? assessAcidBaseTitration(sample, experimentDifficulty) : null;
+    const liveAgCl = isAgClPractice ? assessAgClPractice(state.vessels, experimentDifficulty) : null;
+    const liveAssessment = isAcidBaseTitration ? assessAcidBaseTitration(sample, experimentDifficulty) : liveAgCl;
     const stepsCompleted = liveAssessment?.steps.filter(step => step.isValid).length
       ?? (activeStepIndex + (validationResult?.isValid ? 1 : 0));
     const report = experimentEngine.generateReportCard(
@@ -147,7 +159,7 @@ export function GuidedExperimentPanel({ onOpenTitration, visible }: { onOpenTitr
       experimentDifficulty,
       currentExperiment.steps.length,
       stepsCompleted,
-      liveAssessment ? [] : toleranceErrors,
+      liveAgCl ? [liveAgCl.metrics.agclError_ml] : liveAssessment ? [] : toleranceErrors,
       contaminationCount,
       isQuizCorrect ? 1 : 0,
       currentExperiment.quizzes.length,
@@ -155,7 +167,8 @@ export function GuidedExperimentPanel({ onOpenTitration, visible }: { onOpenTitr
       {
         quantitativeMetrics: {
           ...liveAssessment?.metrics,
-          finalPh: liveAssessment ? acidBaseReportedPh(sample) : selectedVessel?.ph,
+          finalPh: isAcidBaseTitration ? acidBaseReportedPh(sample)
+            : (isAgClPractice ? state.vessels[AGCL_PRACTICE.receiverId] : selectedVessel)?.ph,
           maxTemperature_c,
           wasteCollected_g: state.wasteMass_g,
           uncleanedSpillCount,
@@ -172,6 +185,18 @@ export function GuidedExperimentPanel({ onOpenTitration, visible }: { onOpenTitr
     state.openVesselInfo(ACID_BASE_TITRATION.vesselId);
     alignSelectedVessel('burette');
     onOpenTitration();
+  };
+
+  const toggleAgClStirring = () => {
+    const state = useAppStore.getState();
+    if (stirringAgCl) {
+      state.setStirringVesselId(null);
+      state.setActiveTool('none');
+      return;
+    }
+    useAppStore.setState({ selectedVesselId: AGCL_PRACTICE.receiverId });
+    const outcome = stirSelectedVessel();
+    if (!outcome.ok) state.showToast(outcome.message, 'warning');
   };
 
   const handleDownloadReportJson = () => {
@@ -496,7 +521,7 @@ export function GuidedExperimentPanel({ onOpenTitration, visible }: { onOpenTitr
             {language === 'en' ? currentStep.instruction_en : currentStep.instruction_vi}
           </div>
 
-          {acidBaseAssessment && validationResult && <p className="text-[11px] text-slate-600">
+          {practiceAssessment && validationResult && <p className="text-[11px] text-slate-600">
             {language === 'en' ? validationResult.message_en : validationResult.message_vi}
           </p>}
           {acidBaseAssessment && activeStepIndex === 1 && <button type="button"
@@ -511,6 +536,19 @@ export function GuidedExperimentPanel({ onOpenTitration, visible }: { onOpenTitr
             disabled={!acidBaseAssessment.steps[0].isValid || moveMode}
             className="rounded bg-blue-50 px-2.5 py-1.5 text-xs font-semibold text-blue-700 hover:bg-blue-100 disabled:opacity-40"
           >{t('Align flask and open titration', 'Căn bình và mở bảng chuẩn độ')}</button>}
+          {agclAssessment && activeStepIndex === 1 && <button type="button"
+            disabled={!!validationResult?.isValid || !agclAssessment.steps[0].isValid || isMixing || isSimulationPaused || moveMode}
+            onClick={() => {
+              const { sourceId, receiverId } = AGCL_PRACTICE;
+              void useAppStore.getState().pourVessel(sourceId, receiverId, undefined, { revealInspector: false });
+            }}
+            className="rounded bg-blue-50 px-2.5 py-1.5 text-xs font-semibold text-blue-700 hover:bg-blue-100 disabled:opacity-40"
+          >{t('Pour from the cylinder into the beaker', 'Rót từ ống đong vào cốc')}</button>}
+          {agclAssessment && activeStepIndex === 2 && <button type="button"
+            disabled={!stirringAgCl && (!agclAssessment.steps[1].isValid || isSimulationPaused || moveMode)}
+            onClick={toggleAgClStirring}
+            className="rounded bg-blue-50 px-2.5 py-1.5 text-xs font-semibold text-blue-700 hover:bg-blue-100 disabled:opacity-40"
+          >{stirringAgCl ? t('Stop stirring', 'Dừng khuấy') : t('Stir the AgCl sample', 'Khuấy mẫu AgCl')}</button>}
 
           {/* Tolerance & Real-time Sensor Feedback */}
           {validationResult && validationResult.targetValue !== undefined && (
@@ -518,15 +556,17 @@ export function GuidedExperimentPanel({ onOpenTitration, visible }: { onOpenTitr
               <div className="flex items-center justify-between">
                 <span className="text-slate-500 font-semibold">{acidBaseAssessment
                   ? t('NaOH received', 'NaOH đã vào bình')
+                  : agclAssessment ? activeStepIndex === 1 ? t('AgNO₃ received', 'AgNO₃ đã vào cốc')
+                    : t('Immersed stirring time', 'Thời gian khuấy trong mẫu')
                   : t('Live Sensor Measurement:', 'Đo đạc cảm biến thực tế:')}</span>
-                <span className={`font-mono font-bold ${validationResult.isWithinTolerance ? 'text-emerald-600' : 'text-amber-600'}`}>
+                <span className={`font-mono font-bold ${validationResult.isValid ? 'text-emerald-600' : 'text-amber-600'}`}>
                   {validationResult.currentValue ?? 0} / {validationResult.targetValue} {currentStep.unit || ''}
                 </span>
               </div>
               {validationResult.toleranceError !== undefined && (
                 <div className="text-[10px] text-slate-500 flex justify-between">
                   <span>{t('Tolerance Error:', 'Sai số dung sai:')}</span>
-                  <span className="font-mono">{validationResult.toleranceError} (±{acidBaseAssessment?.tolerance ?? currentStep.tolerance ?? 1})</span>
+                  <span className="font-mono">{validationResult.toleranceError} (±{practiceAssessment?.tolerance ?? currentStep.tolerance ?? 1})</span>
                 </div>
               )}
             </div>
@@ -562,7 +602,7 @@ export function GuidedExperimentPanel({ onOpenTitration, visible }: { onOpenTitr
             ) : (
               <button 
                 onClick={() => setActiveStepIndex(Math.min(totalSteps - 1, activeStepIndex + 1))}
-                disabled={isAcidBaseTitration && !validationResult?.isValid}
+                disabled={!!practiceAssessment && !validationResult?.isValid}
                 className={`flex items-center gap-1 px-3 py-1.5 text-white rounded text-xs font-semibold shadow-xs transition-colors disabled:opacity-40 ${
                   validationResult?.isValid ? 'bg-emerald-600 hover:bg-emerald-700' : 'bg-blue-600 hover:bg-blue-700'
                 }`}
@@ -696,6 +736,11 @@ export function GuidedExperimentPanel({ onOpenTitration, visible }: { onOpenTitr
               {examReport.quantitativeMetrics.finalPh !== undefined && <p>
                 {t('Final sample pH', 'pH cuối của mẫu')} <strong>{examReport.quantitativeMetrics.finalPh.toFixed(2)}</strong>
               </p>}
+            </div>}
+            {examReport.quantitativeMetrics?.agclReceived_ml !== undefined && <div className="rounded-lg bg-slate-50 p-2.5 text-xs text-slate-700">
+              <p>{t('AgNO₃ received', 'AgNO₃ đã vào cốc')} <strong>{examReport.quantitativeMetrics.agclReceived_ml.toFixed(2)} / {examReport.quantitativeMetrics.agclTarget_ml} mL</strong></p>
+              <p>{t('Solid AgCl', 'AgCl rắn')} <strong>{examReport.quantitativeMetrics.agclPrecipitate_g?.toFixed(3)} g</strong></p>
+              <p>{t('Immersed stirring', 'Khuấy trong mẫu')} <strong>{examReport.quantitativeMetrics.agclStirred_s?.toFixed(2)} s</strong></p>
             </div>}
 
             {/* Instructor Feedback */}

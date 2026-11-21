@@ -11,6 +11,7 @@ import type { GuideDestination } from './data/labOnboarding';
 import { MeasurementHUD } from './components/MeasurementHUD';
 import { VesselInspector } from './components/VesselInspector';
 import { ACID_BASE_TITRATION } from './engine/acidBaseTitration';
+import { AGCL_PRACTICE } from './engine/agclPractice';
 const TitrationPanel = React.lazy(() => import('./components/TitrationPanel').then(m => ({ default: m.TitrationPanel })));
 const GuidedExperimentPanel = React.lazy(() => import('./components/GuidedExperimentPanel').then(m => ({ default: m.GuidedExperimentPanel })));
 import { DosageModal } from './components/DosageModal';
@@ -45,8 +46,9 @@ function LeftSidebar({ activeTab, setActiveTab, guidedStep, onOpenTitration }: {
   activeTab: CatalogTab; setActiveTab: (tab: CatalogTab) => void; guidedStep?: string; onOpenTitration: () => void;
 }) {
   const leftSidebarOpen = useAppStore(state => state.leftSidebarOpen);
-  const keepTitrationPractice = useAppStore(state => state.activeExperimentId === ACID_BASE_TITRATION.id
-    && !!state.vessels[ACID_BASE_TITRATION.vesselId]?.acidBaseTitration);
+  const keepPractice = useAppStore(state => (state.activeExperimentId === ACID_BASE_TITRATION.id
+    && !!state.vessels[ACID_BASE_TITRATION.vesselId]?.acidBaseTitration)
+    || (state.activeExperimentId === AGCL_PRACTICE.id && !!state.vessels[AGCL_PRACTICE.receiverId]?.agclPractice));
   const language = useAppStore(state => state.language);
   const addVessel = useAppStore(state => state.addVessel);
   const isMixing = useAppStore(state => state.isMixing);
@@ -73,7 +75,7 @@ function LeftSidebar({ activeTab, setActiveTab, guidedStep, onOpenTitration }: {
     });
   }, [search, filterType, language]);
 
-  if (!leftSidebarOpen && !keepTitrationPractice) return null;
+  if (!leftSidebarOpen && !keepPractice) return null;
 
   // Current active chemicals on workbench for safety tab
   const allWorkbenchSubstances = Array.from(new Set(
@@ -396,7 +398,7 @@ function LeftSidebar({ activeTab, setActiveTab, guidedStep, onOpenTitration }: {
       })()}
 
       {/* CURRICULUM & EXPERIMENTS TAB */}
-      {(activeTab === 'experiments' || keepTitrationPractice) && (
+      {(activeTab === 'experiments' || keepPractice) && (
         <div className={activeTab === 'experiments' ? 'flex-1 p-3.5 overflow-y-auto' : 'hidden'}>
           <React.Suspense fallback={<p className="text-xs text-slate-500 p-2">{t('Loading experiments...', 'Đang tải danh sách bài học...')}</p>}>
             <GuidedExperimentPanel onOpenTitration={onOpenTitration} visible={leftSidebarOpen && activeTab === 'experiments'} />

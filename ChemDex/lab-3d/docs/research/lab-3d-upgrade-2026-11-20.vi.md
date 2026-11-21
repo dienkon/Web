@@ -40,7 +40,17 @@ Chrome ở khung nhìn 390 px đã chạy luồng xả, đổi sang HCl 0,05 M, 
 
 Kiểm thử đi qua 400 lần nhả 0,05 mL, xác nhận pH gần 7 ở 20,00 mL và pH tăng sau giọt tiếp theo. Lượt Chrome production ở khung nhìn 390 px bày bàn, thêm chỉ thị, rót liên tục rồi nhả từng giọt tới mốc, xóa đồ thị và xuất báo cáo JSON. Báo cáo ghi 20,00 mL đã vào bình, sai lệch 0,00 mL, quy trình 40/40 và điểm trắc nghiệm được giữ qua lần chuyển bảng.
 
-Kiểm kê chương trình hiện có 19 bài, 43 bước. Trong đó 6 bước khai báo thao tác, 3 bước của bài chuẩn độ đọc trạng thái mẫu và 34 bước còn lại chỉ có mô tả. Đợt kế tiếp cần nối các bước kết tủa với đúng bình, lượng thuốc thử đã vào bình và lượng sản phẩm trong kiểm kê. Bảng thành phần cũng cần ghi riêng tên danh mục và nồng độ của mẫu hiện tại để tránh nhầm thông số chai kho với dung dịch đã pha.
+## Bài thực hành kết tủa AgCl và nồng độ mẫu
+
+1. Bày bàn trong bài **Kết tủa Dạng Vón Bã Đậu** để nhận 25,00 mL AgNO₃ 0,10 M trong ống đong và 25,00 mL NaCl 0,10 M trong cốc. Rót từ ống đong sang cốc. Mẫu có thể đi qua nút của bài hoặc qua đường rót trên bàn 3D. Hệ thống ghi thể tích từ ống đong của lần thực hành được giữ lại trong cốc, rồi kiểm tra AgCl rắn trong kiểm kê. [OpenStax về kết tủa và độ tan](https://openstax.org/books/chemistry-2e/pages/15-1-precipitation-and-dissolution)
+2. Khuấy mẫu kết tủa trong ít nhất 1 giây mô phỏng kể từ khi đầu đũa ngập và làm chất lỏng chuyển động. Báo cáo và JSON ghi thể tích thực nhận, khối lượng AgCl rắn và thời gian khuấy. Thi thử và thực hành có dung sai thể tích ±0,25 mL. Bài yêu cầu khối lượng rắn đạt ít nhất 95% giá trị theo tỉ lượng của liều đã nhận. Kiểm kê tổng bạc và chloride có dung sai 2% lượng chloride chuẩn bị ban đầu để phát hiện liều thêm hoặc mẫu đã thất thoát.
+3. Trong **Thông tin bình**, dòng **Nồng độ mẫu** lấy số mol của cấu tử đã ghi trong pha nước khối mẫu chia cho thể tích pha nước hiện tại. Dòng **Kho** nhận diện tên dung dịch gốc, ví dụ HCl 1 M trong danh mục và mẫu HCl 0,10 M trên bàn chuẩn độ. Kết tủa, khí, pha hữu cơ và phần giữ trên lọc hoặc bọt được loại khỏi số đo pha nước. [IUPAC về nồng độ lượng chất](https://goldbook.iupac.org/terms/view/A00295/plain)
+
+Chrome production ở khung nhìn 390 px ghi 27/40 điểm quy trình sau khi rót, 40/40 sau khi đũa khuấy đủ thời gian, và tải được JSON. Bảng thành phần hiển thị mẫu HCl 0,1 mol/L cùng tên chai kho 1 M. Kiểm thử engine bao phủ lượng AgNO₃ đang bay, liều rót từ ống khác, hoàn tác và tạm dừng khi khuấy.
+
+Kiểm kê chương trình có 19 bài và 43 bước. Ba bước của bài chuẩn độ và ba bước AgCl dùng trực tiếp trạng thái mẫu hoặc giao dịch vật chất. Bài nhiệt hóa học có ba bước khai báo thao tác và 34 bước còn lại chỉ có mô tả.
+
+Đợt tiếp theo sẽ sửa bài **Hiệu Ứng Nhiệt Phản Ứng Trung Hòa**. Kiểm tra hiện trạng cho thấy bước đo nhiệt độ và rót đều báo hợp lệ với bàn rỗng. Với mẫu hiện tại, rót 40 mL vào cốc cho đỉnh 37,14 °C và pH khoảng 2,97 sau 10 giây mô phỏng. Cần cân đúng số mol ban đầu và nối bước đo với đầu dò đang dùng, nhiệt độ mẫu và pH trung tính theo nhiệt độ.
 
 ## Phạm vi 5 giai đoạn
 

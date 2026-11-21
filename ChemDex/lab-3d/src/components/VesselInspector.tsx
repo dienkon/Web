@@ -1,6 +1,7 @@
 import { solutionAcidity } from '../science/aqueousTemperature';
 import { canStirVessel } from '../science/stirring';
 import { readSample } from '../handling/instrumentReadings';
+import { bulkAqueousConcentrations } from '../science/liquidLayers';
 import React, { useState } from 'react';
 import { useAppStore, getChemical } from '../store/useAppStore';
 import { 
@@ -113,6 +114,7 @@ export function VesselInspector() {
     );
   }
 
+  const concentrations = bulkAqueousConcentrations(vessel);
   const handleStartEditName = () => {
     setEditedName(vessel.name);
     setIsEditingName(true);
@@ -676,11 +678,17 @@ export function VesselInspector() {
           </div>
         ) : (
           <div className="space-y-1 max-h-36 overflow-y-auto pr-0.5">
-            {vessel.substances.map((formula, idx) => {
+            {vessel.substances.map(formula => {
               const chem = getChemical(formula);
+              const concentration = concentrations.get(formula);
+              const formatted = concentration === undefined ? null
+                : concentration.toLocaleString(language === 'en' ? 'en-US' : 'vi-VN', {
+                  notation: concentration < 1e-4 ? 'scientific' : 'standard',
+                  maximumSignificantDigits: 4,
+                });
               return (
                 <div 
-                  key={idx}
+                  key={formula}
                   className="flex items-center justify-between p-2 bg-slate-50 hover:bg-slate-100/80 rounded-xl border border-slate-200/80 text-xs transition-colors"
                 >
                   <div className="flex items-center gap-2 min-w-0">
@@ -690,7 +698,11 @@ export function VesselInspector() {
                     />
                     <div className="min-w-0">
                       <span className="font-bold text-slate-800 block truncate">{chem.formula}</span><a className="text-[10px] text-teal-700 underline" href={`/tien-ich/cau-truc-3d/?q=${encodeURIComponent(chem.formula)}`} target="_blank" rel="noreferrer">{t('View structure 3D', 'Xem cấu trúc 3D')}</a>
+                      {formatted && <span className="block font-mono text-[10px] text-slate-700">
+                        {t('Aqueous sample concentration', 'Nồng độ mẫu')} · {formatted} mol/L
+                      </span>}
                       <span className="text-[10px] text-slate-400 block truncate">
+                        {chem.defaultConcentration !== undefined && <>{t('Stock', 'Kho')} · </>}
                         {language === 'en' ? chem.name_en : chem.name_vi}
                       </span>
                     </div>

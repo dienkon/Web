@@ -1,6 +1,6 @@
 import { stepHydrogenExhaustCombustion, sodiumExternalIgnition } from '../engine/hydrogenExhaustCombustion';
 import { isLandoltCandidate } from '../science/landoltClock';
-import { canStirVessel, vesselAgitation, FLASK_INVERSION_DURATION_S } from '../science/stirring';
+import { canStirVessel, rodIsImmersed, vesselAgitation, FLASK_INVERSION_DURATION_S } from '../science/stirring';
 import { advanceVesselLiquidMotion, hasVesselLiquidMotion } from '../science/vesselLiquidMotion';
 import { acceptedFrameSeconds, simulationFrameDt } from '../core/clock';
 import { create } from 'zustand';
@@ -31,6 +31,7 @@ import { condenserCoolingSettings, validCondenserCooling, type CondenserCoolingS
 import { isSodiumWaterReaction, sodiumMetalMass, sodiumContactRegime } from '../science/sodiumWater';
 import { applyProgramToLedger, computeMolarMass, programStockProgressLimit } from '../engine/ledger';
 import { ACID_BASE_TITRATION, recordAcidBaseDelivery } from '../engine/acidBaseTitration';
+import { AGCL_PRACTICE, agclSourceAttempt, recordAgClDelivery, recordAgClStirring } from '../engine/agclPractice';
 import { reactionStockContactFraction } from '../physical/stockLiquidContact';
 import { resolveReactionProgram } from '../vfx/programs/resolver';
 import { ReactionProgram } from '../shared/programSchema';
@@ -472,7 +473,7 @@ export interface AppState {
   transferDrySolid: (fromId: string, toId: string, mass_g: number) => number;
   inFlightPours: PourParcel[];
   pourEpoch: number;
-  releasePourLiquid: (parcel: Omit<PourParcel, 'sample' | 'releasedVolume_ml' | 'elapsed_s' | 'arrivedFraction'>, volume_ml: number) => number;
+  releasePourLiquid: (parcel: Omit<PourParcel, 'sample' | 'releasedVolume_ml' | 'elapsed_s' | 'arrivedFraction' | 'agclSourceAttempt'>, volume_ml: number) => number;
   advancePourTransport: (dt: number) => PourArrival[];
 
   // Environmental Mass Conservation & Workbench Spills
@@ -615,7 +616,7 @@ export interface AppState {
 
   mixSubstances: (targetId: string, newChemical: string, addedVolume_ml?: number, onAccepted?: () => void,
     options?: { revealInspector?: boolean }) => Promise<void>;
-  pourVessel: (fromId: string, toId: string, customAmount_ml?: number) => Promise<void>;
+  pourVessel: (fromId: string, toId: string, customAmount_ml?: number, options?: { revealInspector?: boolean }) => Promise<void>;
   resetWorkbench: () => void;
 }
 
@@ -912,6 +913,7 @@ export const useAppStore = create<AppState>((set, get) => {
       const titration = ACID_BASE_TITRATION;
       const isAcidBaseTitration = experimentId === titration.id;
       const isTitrationPractice = isAcidBaseTitration && context === 'practice';
+      const isPrecipitationPractice = experimentId === AGCL_PRACTICE.id && context === 'practice';
       if (isAcidBaseTitration) {
         const acidMoles = titration.acidVolume_ml * titration.acidConcentration_M / 1000;
         const observationStockVolume_ml = 50;
@@ -1348,20 +1350,27 @@ export const useAppStore = create<AppState>((set, get) => {
           isBoiling: false,
           hasGas: false
         };
-      } else if (experimentId === 'agcl_curdy_precipitation') {
-        vessels['cylinder_1'] = {
-          id: 'cylinder_1',
+      } else if (experimentId === AGCL_PRACTICE.id) {
+        const { sourceId, receiverId, volume_ml, concentration_M } = AGCL_PRACTICE;
+        const moles = volume_ml / 1000 * concentration_M;
+        const practiceReceipt = isPrecipitationPractice ? {
+          attemptId: globalThis.crypto?.randomUUID?.() ?? `${Date.now()}-${Math.random().toString(36).slice(2)}`,
+          sampleRevision: 0, received_ml: 0, stirred_s: 0,
+        } : undefined;
+        vessels[sourceId] = {
+          id: sourceId,
           name: 'Graduated Cylinder (AgNO3)',
           type: 'cylinder',
           capacity_ml: 100,
-          position: [-1.4, -0.135, 0],
+          position: [-1.4, restingVesselHeight('cylinder', 100), 0],
           rotationY: 0,
           isLocked: false,
           substances: ['AgNO3'],
-          contents: [{ formula: 'AgNO3', moles: 0.025, mass_g: 4.25 }],
-          volume_ml: 25,
-          volume: 25 / 100,
-          mass_g: 25,
+          contents: [{ formula: 'AgNO3', moles, mass_g: moles * computeMolarMass('AgNO3') }],
+          agclPractice: practiceReceipt,
+          volume_ml,
+          volume: volume_ml / 100,
+          mass_g: volume_ml,
           density_g_ml: 1.0,
           foam_ml: 0,
           liquidColor: '#f8fafc',
@@ -1371,19 +1380,20 @@ export const useAppStore = create<AppState>((set, get) => {
           isBoiling: false,
           hasGas: false
         };
-        vessels['beaker_1'] = {
-          id: 'beaker_1',
+        vessels[receiverId] = {
+          id: receiverId,
           name: 'Beaker 1 (NaCl)',
           type: 'beaker',
           capacity_ml: 250,
-          position: [1.4, -0.135, 0],
+          position: [1.4, restingVesselHeight('beaker', 250), 0],
           rotationY: 0,
           isLocked: false,
           substances: ['NaCl'],
-          contents: [{ formula: 'NaCl', moles: 0.025, mass_g: 1.46 }],
-          volume_ml: 25,
-          volume: 25 / 250,
-          mass_g: 25,
+          contents: [{ formula: 'NaCl', moles, mass_g: moles * computeMolarMass('NaCl') }],
+          agclPractice: practiceReceipt,
+          volume_ml,
+          volume: volume_ml / 250,
+          mass_g: volume_ml,
           density_g_ml: 1.0,
           foam_ml: 0,
           liquidColor: '#f1f5f9',
@@ -1776,6 +1786,8 @@ export const useAppStore = create<AppState>((set, get) => {
         inFlightPours: [], pourEpoch: get().pourEpoch + 1, isPouring: false,
         pipetteSample: null,
         instrumentRinse: null,
+        ...(isPrecipitationPractice
+          ? { stirringVesselId: null, ...(get().activeTool === 'stirring_rod' ? { activeTool: 'none' as const } : {}) } : {}),
         burette: {
           ...burette, isDispensing: false,
           ...(isTitrationPractice ? {
@@ -1791,6 +1803,12 @@ export const useAppStore = create<AppState>((set, get) => {
         activeStepIndex: 0,
         spills: {}
       });
+      if (isPrecipitationPractice) {
+        const prepared = get();
+        pushHistorySnapshot('RESET', prepared.vessels, prepared.burners, 'Prepared the AgCl practice samples', 'Đã chuẩn bị mẫu thực hành AgCl');
+        set({ canUndo: checkCanUndo(), canRedo: checkCanRedo() });
+        debounceSaveLocalState(prepared.vessels, prepared.burners);
+      }
     },
 
     isLabReportOpen: false,
@@ -1905,13 +1923,18 @@ export const useAppStore = create<AppState>((set, get) => {
       const vaporTemperatureBudgets = new Map<string, number>();
       const wallThermalHandoffs = new Map<string, { includedDryHeat_J: number; enabled: boolean }>();
 
+      let completedPracticeStir = false;
       // Accept liquid motion once before any chemistry/contact projection.
       // Renderers and workers read this state and never advance a second clock.
       for (const [id, vessel] of Object.entries(newVessels)) {
         if (id.startsWith('lesson_vessel_')) continue;
-        const liquidMotion = advanceVesselLiquidMotion(vessel, effectiveDt, vesselAgitation(vessel, state));
-        if (liquidMotion !== vessel.liquidMotion) {
-          newVessels[id] = { ...vessel, liquidMotion }; vesselsUpdated = true;
+        const agitation = vesselAgitation(vessel, state);
+        const liquidMotion = advanceVesselLiquidMotion(vessel, effectiveDt, agitation);
+        const assessed = vessel.agclPractice && agitation > 0 && rodIsImmersed(id)
+          ? recordAgClStirring(vessel, effectiveDt) : vessel;
+        if (assessed !== vessel) completedPracticeStir ||= assessed.agclPractice?.stirred_s === AGCL_PRACTICE.stirring_s;
+        if (liquidMotion !== vessel.liquidMotion || assessed !== vessel) {
+          newVessels[id] = { ...assessed, liquidMotion }; vesselsUpdated = true;
         }
       }
 
@@ -2478,6 +2501,7 @@ export const useAppStore = create<AppState>((set, get) => {
           lastSpillCheckpoint = now;
           debounceSaveLocalState(get().vessels, get().burners);
         }
+        if (completedPracticeStir) debounceSaveLocalState(get().vessels, get().burners);
       }
       // Failure consumes the committed, already-reacted sample. Calling it
       // before the frame commit would restore the broken vessel's old contents.
@@ -3960,7 +3984,8 @@ export const useAppStore = create<AppState>((set, get) => {
         || state.inFlightPours.some(parcel => parcel.id === draft.id)) return 0;
       const release = decantLiquid(source, null, volume_ml, mobileSolidInventory(source, SimulationEngine.findManager(source.id)));
       if (!release?.spill) return 0;
-      const parcel: PourParcel = { ...draft, sample: prepareAliquotContact(release.spill, state.activeKinetics[source.id]?.program?.id), releasedVolume_ml: release.moved_ml,
+      const parcel: PourParcel = { ...draft, agclSourceAttempt: agclSourceAttempt(source),
+        sample: prepareAliquotContact(release.spill, state.activeKinetics[source.id]?.program?.id), releasedVolume_ml: release.moved_ml,
         elapsed_s: 0, arrivedFraction: 0 };
       set(s => {
         const activeKinetics = { ...s.activeKinetics }, pendingReactions = { ...s.pendingReactions },
@@ -4018,7 +4043,9 @@ export const useAppStore = create<AppState>((set, get) => {
             if (reacted.kinetics) activeKinetics[target.id] = reacted.kinetics;
             const pending = findPendingReaction(reacted.vessel.substances, reacted.vessel.temperature_c, heated, state.language);
             if (pending) pendingReactions[target.id] = { ...pending, vesselId: target.id };
-            vessels[target.id] = { ...reacted.vessel, recentPourContact: {
+            const vessel = contactFailures.has(target.id) ? reacted.vessel
+              : recordAgClDelivery(reacted.vessel, parcel.agclSourceAttempt, contact, accepted_ml);
+            vessels[target.id] = { ...vessel, recentPourContact: {
               point: pourContactLocal(parcel, target), expiresAt_ms: Date.now() + 1500, remaining_s: 1.5, color: contact.color,
             } }; lastMixResult = reacted.mixResult; changedVessels = true;
           }
@@ -4195,9 +4222,11 @@ export const useAppStore = create<AppState>((set, get) => {
           const pending = findPendingReaction(vessel.substances, vessel.temperature_c, false, s.language);
           if (pending) pendingReactions[vessel.id] = { ...pending, vesselId: vessel.id };
         }
-        const target = reacted?.vessel && transfer.moved_ml > 0 ? { ...reacted.vessel,
+        const assessed = reacted && !transfer.failureReason
+          ? recordAgClDelivery(reacted.vessel, agclSourceAttempt(from), transfer.sample, transfer.accepted_ml) : reacted?.vessel;
+        const target = assessed && transfer.moved_ml > 0 ? { ...assessed,
           recentPourContact: { point: [0, 0, 0] as [number, number, number], remaining_s: 1.5,
-            expiresAt_ms: Date.now() + 1500, color: from.liquidColor } } : reacted?.vessel;
+            expiresAt_ms: Date.now() + 1500, color: from.liquidColor } } : assessed;
         const retained = target && overflow ? { ...target,
           outerWallCoating_ml: (target.outerWallCoating_ml ?? 0) + (overflow.stage === 'overflow' ? overflow.sample.volume_ml : 0),
           outerWallCoatingMass_g: (target.outerWallCoatingMass_g ?? 0) + (overflow.stage === 'overflow' ? overflow.sample.mass_g : 0) } : target;
@@ -4895,7 +4924,7 @@ export const useAppStore = create<AppState>((set, get) => {
       }
     },
 
-    pourVessel: async (fromId, toId, customAmount_ml) => {
+    pourVessel: async (fromId, toId, customAmount_ml, { revealInspector = true } = {}) => {
       const state = get(), from = state.vessels[fromId], to = state.vessels[toId];
       if (!from || !to || fromId === toId || from.isSealed || to.isSealed || from.isShattered || to.isShattered) return;
       const requested = customAmount_ml ?? from.volume_ml;
@@ -4904,10 +4933,12 @@ export const useAppStore = create<AppState>((set, get) => {
       if (get().vessels[fromId] === from) return;
       labSound.playPour();
       await get().settleVesselMixture(toId);
+      if (get().pourEpoch !== state.pourEpoch) return;
       set(s => {
         pushHistorySnapshot('POUR', s.vessels, s.burners, 'Poured ' + from.name + ' into ' + to.name, 'Đã rót ' + from.name + ' vào ' + to.name);
         debounceSaveLocalState(s.vessels, s.burners);
-        return { rightSidebarOpen: true, selectedVesselId: toId, canUndo: checkCanUndo(), canRedo: checkCanRedo() };
+        return { ...(revealInspector ? { rightSidebarOpen: true } : {}),
+          selectedVesselId: toId, canUndo: checkCanUndo(), canRedo: checkCanRedo() };
       });
     },
 

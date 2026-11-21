@@ -34,6 +34,10 @@ export function setRodContact(id: string, immersed?: boolean) {
   else rodContacts.set(id, immersed);
 }
 
+export function rodIsImmersed(id: string): boolean {
+  return rodContacts.get(id) === true;
+}
+
 export function setRodInput(id: string, intensity?: number) {
   if (intensity === undefined) rodInputs.delete(id);
   else rodInputs.set(id, { intensity: Number.isFinite(intensity) ? Math.max(0, Math.min(1, intensity)) : 0, at: performance.now() });
