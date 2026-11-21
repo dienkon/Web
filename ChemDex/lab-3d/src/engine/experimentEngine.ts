@@ -90,6 +90,14 @@ export interface QuantitativeRubricMetrics {
   agclError_ml?: number;
   agclPrecipitate_g?: number;
   agclStirred_s?: number;
+  neutralizationReceived_ml?: number;
+  neutralizationTarget_ml?: number;
+  neutralizationError_ml?: number;
+  neutralizationInitial_c?: number;
+  neutralizationPeak_c?: number;
+  neutralizationRise_c?: number;
+  neutralizationNeutralPh?: number;
+  neutralizationMeasurement_c?: number;
   finalPh?: number;
   maxTemperature_c?: number;
   wasteCollected_g?: number;

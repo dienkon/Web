@@ -10,10 +10,12 @@ import {
 import { experimentEngine, ExperimentDifficultyMode, ExamReportCard } from '../engine/experimentEngine';
 import { ACID_BASE_TITRATION, acidBaseReportedPh, assessAcidBaseTitration } from '../engine/acidBaseTitration';
 import { AGCL_PRACTICE, assessAgClPractice } from '../engine/agclPractice';
+import { NEUTRALIZATION_PRACTICE, assessNeutralizationPractice, neutralizationProbeAttempt,
+  type PracticeProbe } from '../engine/neutralizationPractice';
 import { labSound } from '../utils/audio';
 import { ObservationPanel } from './ObservationPanel';
 import { InstrumentRinseStatus } from './InstrumentRinseStatus';
-import { alignSelectedVessel, rinseInstrument, stirSelectedVessel } from '../handling/instrumentOperations';
+import { activateInstrument, alignSelectedVessel, rinseInstrument, stirSelectedVessel } from '../handling/instrumentOperations';
 import { useInstrumentStore } from '../handling/instrumentState';
 import { uiText } from '../utils/uiText';
 import { downloadText } from '../utils/downloadText';
@@ -34,6 +36,7 @@ export function GuidedExperimentPanel({ onOpenTitration, visible }: { onOpenTitr
     burners,
     activeTool,
     selectedVesselId,
+    pourEpoch,
     stirringVesselId,
     buretteOpen,
     isMixing,
@@ -58,6 +61,7 @@ export function GuidedExperimentPanel({ onOpenTitration, visible }: { onOpenTitr
     burners: visible ? state.burners : EMPTY_APPARATUS,
     activeTool: state.activeTool,
     selectedVesselId: state.selectedVesselId,
+    pourEpoch: state.pourEpoch,
     stirringVesselId: state.stirringVesselId,
     buretteOpen: state.burette.isDispensing,
     isMixing: state.isMixing,
@@ -90,13 +94,23 @@ export function GuidedExperimentPanel({ onOpenTitration, visible }: { onOpenTitr
   const isObserving = !!currentExperiment && observationId === currentExperiment.id;
   const isAcidBaseTitration = currentExperiment?.id === ACID_BASE_TITRATION.id;
   const isAgClPractice = currentExperiment?.id === AGCL_PRACTICE.id;
+  const isNeutralizationPractice = currentExperiment?.id === NEUTRALIZATION_PRACTICE.id;
   const titrationVessel = vessels[ACID_BASE_TITRATION.vesselId];
   const acidBaseAssessment = useMemo(() => isAcidBaseTitration
     ? assessAcidBaseTitration(titrationVessel, experimentDifficulty) : null,
   [isAcidBaseTitration, titrationVessel, experimentDifficulty]);
   const agclAssessment = useMemo(() => isAgClPractice ? assessAgClPractice(vessels, experimentDifficulty) : null,
     [isAgClPractice, vessels, experimentDifficulty]);
-  const practiceAssessment = acidBaseAssessment ?? agclAssessment;
+  const neutralizationAssessment = useMemo(() => isNeutralizationPractice
+    ? assessNeutralizationPractice(vessels, experimentDifficulty) : null, [isNeutralizationPractice, vessels, experimentDifficulty]);
+  const practiceAssessment = acidBaseAssessment ?? agclAssessment ?? neutralizationAssessment;
+  const probeTool: PracticeProbe | null = isNeutralizationPractice && activeStepIndex !== 1
+    ? activeStepIndex === 0 ? 'thermometer' : 'ph_meter' : null;
+  const practiceProbe = useInstrumentStore(state => visible && isNeutralizationPractice ? state.practiceProbe : null);
+  const neutralizationAttempt = neutralizationProbeAttempt(vessels[NEUTRALIZATION_PRACTICE.receiverId]);
+  const liveProbe = practiceProbe && practiceProbe.attemptId === neutralizationAttempt && practiceProbe.epoch === pourEpoch
+    && activeTool === practiceProbe.tool && selectedVesselId === NEUTRALIZATION_PRACTICE.receiverId ? practiceProbe : null;
+  const probeReady = !!probeTool && liveProbe?.tool === probeTool && liveProbe.settled;
   const stirringAgCl = (activeTool === 'stirring_rod' && selectedVesselId === AGCL_PRACTICE.receiverId)
     || stirringVesselId === AGCL_PRACTICE.receiverId;
 
@@ -131,10 +145,10 @@ export function GuidedExperimentPanel({ onOpenTitration, visible }: { onOpenTitr
 
   // Record tolerance errors if valid
   useEffect(() => {
-    if (!isAcidBaseTitration && !isAgClPractice && validationResult?.isWithinTolerance && validationResult.toleranceError !== undefined) {
+    if (!practiceAssessment && validationResult?.isWithinTolerance && validationResult.toleranceError !== undefined) {
       setToleranceErrors(prev => [...prev, validationResult.toleranceError!]);
     }
-  }, [isAcidBaseTitration, isAgClPractice, validationResult?.isWithinTolerance, validationResult?.toleranceError]);
+  }, [isAcidBaseTitration, isAgClPractice, isNeutralizationPractice, validationResult?.isWithinTolerance, validationResult?.toleranceError]);
 
   // Contaminated tools check
   const dirtyTools = Object.entries(toolContamination).filter(([_, chem]) => chem !== null) as Array<['pipette' | 'stirring_rod' | 'spatula', string]>;
@@ -151,7 +165,8 @@ export function GuidedExperimentPanel({ onOpenTitration, visible }: { onOpenTitr
     const uncleanedSpillCount = Object.keys(state.spills ?? {}).length;
     const sample = state.vessels[ACID_BASE_TITRATION.vesselId];
     const liveAgCl = isAgClPractice ? assessAgClPractice(state.vessels, experimentDifficulty) : null;
-    const liveAssessment = isAcidBaseTitration ? assessAcidBaseTitration(sample, experimentDifficulty) : liveAgCl;
+    const liveNeutralization = isNeutralizationPractice ? assessNeutralizationPractice(state.vessels, experimentDifficulty) : null;
+    const liveAssessment = isAcidBaseTitration ? assessAcidBaseTitration(sample, experimentDifficulty) : liveAgCl ?? liveNeutralization;
     const stepsCompleted = liveAssessment?.steps.filter(step => step.isValid).length
       ?? (activeStepIndex + (validationResult?.isValid ? 1 : 0));
     const report = experimentEngine.generateReportCard(
@@ -159,7 +174,8 @@ export function GuidedExperimentPanel({ onOpenTitration, visible }: { onOpenTitr
       experimentDifficulty,
       currentExperiment.steps.length,
       stepsCompleted,
-      liveAgCl ? [liveAgCl.metrics.agclError_ml] : liveAssessment ? [] : toleranceErrors,
+      liveAgCl ? [liveAgCl.metrics.agclError_ml] : liveNeutralization ? [liveNeutralization.metrics.neutralizationError_ml]
+        : liveAssessment ? [] : toleranceErrors,
       contaminationCount,
       isQuizCorrect ? 1 : 0,
       currentExperiment.quizzes.length,
@@ -168,7 +184,8 @@ export function GuidedExperimentPanel({ onOpenTitration, visible }: { onOpenTitr
         quantitativeMetrics: {
           ...liveAssessment?.metrics,
           finalPh: isAcidBaseTitration ? acidBaseReportedPh(sample)
-            : (isAgClPractice ? state.vessels[AGCL_PRACTICE.receiverId] : selectedVessel)?.ph,
+            : liveNeutralization ? liveNeutralization.metrics.finalPh
+              : (isAgClPractice ? state.vessels[AGCL_PRACTICE.receiverId] : selectedVessel)?.ph,
           maxTemperature_c,
           wasteCollected_g: state.wasteMass_g,
           uncleanedSpillCount,
@@ -197,6 +214,12 @@ export function GuidedExperimentPanel({ onOpenTitration, visible }: { onOpenTitr
     useAppStore.setState({ selectedVesselId: AGCL_PRACTICE.receiverId });
     const outcome = stirSelectedVessel();
     if (!outcome.ok) state.showToast(outcome.message, 'warning');
+  };
+
+  const placeNeutralizationProbe = (tool: PracticeProbe) => {
+    useAppStore.setState({ selectedVesselId: NEUTRALIZATION_PRACTICE.receiverId });
+    const outcome = activateInstrument(tool);
+    if (!outcome.ok) useAppStore.getState().showToast(outcome.message, 'warning');
   };
 
   const handleDownloadReportJson = () => {
@@ -549,12 +572,42 @@ export function GuidedExperimentPanel({ onOpenTitration, visible }: { onOpenTitr
             onClick={toggleAgClStirring}
             className="rounded bg-blue-50 px-2.5 py-1.5 text-xs font-semibold text-blue-700 hover:bg-blue-100 disabled:opacity-40"
           >{stirringAgCl ? t('Stop stirring', 'Dừng khuấy') : t('Stir the AgCl sample', 'Khuấy mẫu AgCl')}</button>}
+          {neutralizationAssessment && probeTool && <div className="flex flex-wrap gap-2">
+            <button type="button" disabled={!neutralizationAttempt || isSimulationPaused || moveMode}
+              onClick={() => placeNeutralizationProbe(probeTool)}
+              className="rounded bg-blue-50 px-2.5 py-1.5 text-xs font-semibold text-blue-700 hover:bg-blue-100 disabled:opacity-40"
+            >{probeTool === 'thermometer' ? t('Place the thermometer', 'Đặt nhiệt kế vào cốc')
+                : t('Place the pH probe', 'Đặt đầu dò pH vào cốc')}</button>
+            <button type="button" disabled={!probeReady || !!validationResult?.isValid || isSimulationPaused || moveMode}
+              onClick={() => {
+                const state = useAppStore.getState();
+                if (!state.recordNeutralizationProbe(probeTool))
+                  state.showToast(t('Wait for an immersed reading in the prepared sample.', 'Chờ đầu dò ổn định trong mẫu đã chuẩn bị.'), 'warning');
+              }}
+              className="rounded bg-blue-50 px-2.5 py-1.5 text-xs font-semibold text-blue-700 hover:bg-blue-100 disabled:opacity-40"
+            >{probeTool === 'thermometer' ? t('Record initial temperature', 'Ghi nhiệt độ ban đầu') : t('Record pH', 'Ghi pH')}</button>
+          </div>}
+          {neutralizationAssessment && activeStepIndex === 1 && <>
+            <button type="button" disabled={!neutralizationAssessment.steps[0].isValid || !!validationResult?.isValid || isMixing || isSimulationPaused || moveMode}
+              onClick={() => {
+                const { sourceId, receiverId } = NEUTRALIZATION_PRACTICE;
+                void useAppStore.getState().pourVessel(sourceId, receiverId, undefined, { revealInspector: false });
+              }}
+              className="rounded bg-blue-50 px-2.5 py-1.5 text-xs font-semibold text-blue-700 hover:bg-blue-100 disabled:opacity-40"
+            >{t('Pour NaOH into the HCl beaker', 'Rót NaOH vào cốc HCl')}</button>
+            {neutralizationAssessment.metrics.neutralizationRise_c !== undefined && <p className="text-xs text-slate-700">
+              {t('Sample temperature rise', 'Độ tăng nhiệt của mẫu')} <strong>{neutralizationAssessment.metrics.neutralizationRise_c.toFixed(2)} °C</strong>
+            </p>}
+            {liveProbe?.tool === 'thermometer' && <p className="text-xs text-slate-700">
+              {t('Thermometer now', 'Nhiệt kế hiện tại')} <strong>{liveProbe.value.toFixed(1)} °C</strong>
+            </p>}
+          </>}
 
           {/* Tolerance & Real-time Sensor Feedback */}
           {validationResult && validationResult.targetValue !== undefined && (
             <div className="bg-slate-50 border border-slate-200 rounded-lg p-2.5 text-[11px] space-y-1">
               <div className="flex items-center justify-between">
-                <span className="text-slate-500 font-semibold">{acidBaseAssessment
+                <span className="text-slate-500 font-semibold">{acidBaseAssessment || neutralizationAssessment
                   ? t('NaOH received', 'NaOH đã vào bình')
                   : agclAssessment ? activeStepIndex === 1 ? t('AgNO₃ received', 'AgNO₃ đã vào cốc')
                     : t('Immersed stirring time', 'Thời gian khuấy trong mẫu')
@@ -741,6 +794,18 @@ export function GuidedExperimentPanel({ onOpenTitration, visible }: { onOpenTitr
               <p>{t('AgNO₃ received', 'AgNO₃ đã vào cốc')} <strong>{examReport.quantitativeMetrics.agclReceived_ml.toFixed(2)} / {examReport.quantitativeMetrics.agclTarget_ml} mL</strong></p>
               <p>{t('Solid AgCl', 'AgCl rắn')} <strong>{examReport.quantitativeMetrics.agclPrecipitate_g?.toFixed(3)} g</strong></p>
               <p>{t('Immersed stirring', 'Khuấy trong mẫu')} <strong>{examReport.quantitativeMetrics.agclStirred_s?.toFixed(2)} s</strong></p>
+            </div>}
+            {examReport.quantitativeMetrics?.neutralizationReceived_ml !== undefined && <div className="rounded-lg bg-slate-50 p-2.5 text-xs text-slate-700">
+              <p>{t('NaOH received', 'NaOH đã vào bình')} <strong>{examReport.quantitativeMetrics.neutralizationReceived_ml.toFixed(2)} / {examReport.quantitativeMetrics.neutralizationTarget_ml} mL</strong></p>
+              {examReport.quantitativeMetrics.neutralizationInitial_c !== undefined && <p>
+                {t('Initial probe reading', 'Số đo nhiệt kế ban đầu')} <strong>{examReport.quantitativeMetrics.neutralizationInitial_c.toFixed(2)} °C</strong>
+              </p>}
+              {examReport.quantitativeMetrics.neutralizationRise_c !== undefined && <p>
+                {t('Sample peak and temperature rise', 'Nhiệt độ đỉnh và độ tăng nhiệt của mẫu')} <strong>{examReport.quantitativeMetrics.neutralizationPeak_c?.toFixed(2)} °C · ΔT {examReport.quantitativeMetrics.neutralizationRise_c.toFixed(2)} °C</strong>
+              </p>}
+              {examReport.quantitativeMetrics.finalPh !== undefined && <p>
+                {t('pH reading and neutral reference', 'pH đo được và mốc trung tính')} <strong>{examReport.quantitativeMetrics.finalPh.toFixed(2)} / {examReport.quantitativeMetrics.neutralizationNeutralPh?.toFixed(2)} · {examReport.quantitativeMetrics.neutralizationMeasurement_c?.toFixed(1)} °C</strong>
+              </p>}
             </div>}
 
             {/* Instructor Feedback */}

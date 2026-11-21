@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { useFrame } from '@react-three/fiber';
 import { Text } from '@react-three/drei';
 import * as THREE from 'three';
@@ -7,6 +7,8 @@ import { useToolDock } from '../../../handling/toolDock';
 import { instrumentHome } from '../../../handling/instrumentCatalog';
 import { readSample } from '../../../handling/instrumentReadings';
 import { simulationFrameDt } from '../../../core/clock';
+import { neutralizationProbeAttempt } from '../../../engine/neutralizationPractice';
+import { useInstrumentStore } from '../../../handling/instrumentState';
 
 /** Aqueous pH probe: the displayed value approaches the solution's chemistry
  * state. A dry probe has no valid pH measurement, rather than reading pH 7. */
@@ -20,10 +22,12 @@ export const InteractivePhMeter = React.memo(function InteractivePhMeter() {
   const reading = useRef<number | null>(null);
   const observation = readSample(vessel);
   const immersed = active && vessel && observation.phPoint !== null;
+  useEffect(() => () => useInstrumentStore.getState().publishPracticeProbe('ph_meter', null), []);
 
   useFrame((_, delta) => {
-    if (!group.current) return;
-    const dt = simulationFrameDt(delta, useAppStore.getState());
+    if (!group.current) { useInstrumentStore.getState().publishPracticeProbe('ph_meter', null); return; }
+    const app = useAppStore.getState();
+    const dt = simulationFrameDt(delta, app);
     if (immersed) {
       const point = observation.phPoint!;
       target.current.set(point[0], point[1] + 0.68, point[2]);
@@ -36,6 +40,12 @@ export const InteractivePhMeter = React.memo(function InteractivePhMeter() {
     }
     group.current.position.lerp(target.current, 1 - Math.exp(-dt * 8));
     if (dt > 0) group.current.rotation.set(immersed ? 0 : -Math.PI / 2, 0, 0);
+    const attemptId = neutralizationProbeAttempt(vessel);
+    const inContact = immersed && attemptId && observation.ph !== null && reading.current !== null
+      && group.current.position.distanceToSquared(target.current) <= 0.0001;
+    useInstrumentStore.getState().publishPracticeProbe('ph_meter', inContact
+      ? { tool: 'ph_meter', attemptId, epoch: app.pourEpoch, value: Number(reading.current!.toFixed(2)), point: observation.phPoint!,
+        settled: Math.abs(reading.current! - observation.ph!) <= 0.04 } : null);
     if (label.current) {
       const text = reading.current === null ? 'pH ---' : `pH ${reading.current.toFixed(2)}`;
       if (label.current.text !== text) label.current.text = text;

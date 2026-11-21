@@ -10,6 +10,8 @@ import { vesselBodyTransform, vesselWorldToLocal } from '../science/vesselScale'
 
 /** A finite release interval, in air or on glass. sample is all undelivered matter. */
 export interface PourParcel {
+  practiceSourceAttempt?: string;
+  /** Older AgCl pours in saved benches used a lesson-specific key. */
   agclSourceAttempt?: string;
   /** Axisymmetric exit sheet. Coordinates remain in world space after detachment. */
   circularSheet?: { center: [number, number]; radius: number; radialVelocity_scene_s?: number };

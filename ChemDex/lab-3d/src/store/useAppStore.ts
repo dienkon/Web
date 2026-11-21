@@ -32,6 +32,8 @@ import { isSodiumWaterReaction, sodiumMetalMass, sodiumContactRegime } from '../
 import { applyProgramToLedger, computeMolarMass, programStockProgressLimit } from '../engine/ledger';
 import { ACID_BASE_TITRATION, recordAcidBaseDelivery } from '../engine/acidBaseTitration';
 import { AGCL_PRACTICE, agclSourceAttempt, recordAgClDelivery, recordAgClStirring } from '../engine/agclPractice';
+import { NEUTRALIZATION_PRACTICE, captureNeutralizationProbe, neutralizationSourceAttempt, recordNeutralizationDelivery,
+  type PracticeProbe } from '../engine/neutralizationPractice';
 import { reactionStockContactFraction } from '../physical/stockLiquidContact';
 import { resolveReactionProgram } from '../vfx/programs/resolver';
 import { ReactionProgram } from '../shared/programSchema';
@@ -473,7 +475,8 @@ export interface AppState {
   transferDrySolid: (fromId: string, toId: string, mass_g: number) => number;
   inFlightPours: PourParcel[];
   pourEpoch: number;
-  releasePourLiquid: (parcel: Omit<PourParcel, 'sample' | 'releasedVolume_ml' | 'elapsed_s' | 'arrivedFraction' | 'agclSourceAttempt'>, volume_ml: number) => number;
+  releasePourLiquid: (parcel: Omit<PourParcel, 'sample' | 'releasedVolume_ml' | 'elapsed_s' | 'arrivedFraction' | 'agclSourceAttempt' | 'practiceSourceAttempt'>, volume_ml: number) => number;
+  recordNeutralizationProbe: (tool: PracticeProbe) => boolean;
   advancePourTransport: (dt: number) => PourArrival[];
 
   // Environmental Mass Conservation & Workbench Spills
@@ -914,6 +917,7 @@ export const useAppStore = create<AppState>((set, get) => {
       const isAcidBaseTitration = experimentId === titration.id;
       const isTitrationPractice = isAcidBaseTitration && context === 'practice';
       const isPrecipitationPractice = experimentId === AGCL_PRACTICE.id && context === 'practice';
+      const isNeutralizationPractice = experimentId === NEUTRALIZATION_PRACTICE.id && context === 'practice';
       if (isAcidBaseTitration) {
         const acidMoles = titration.acidVolume_ml * titration.acidConcentration_M / 1000;
         const observationStockVolume_ml = 50;
@@ -1403,46 +1407,55 @@ export const useAppStore = create<AppState>((set, get) => {
           isBoiling: false,
           hasGas: false
         };
-      } else if (experimentId === 'exothermic_neutralization') {
-        vessels['beaker_1'] = {
-          id: 'beaker_1',
+      } else if (experimentId === NEUTRALIZATION_PRACTICE.id) {
+        const { sourceId, receiverId, volume_ml, concentration_M } = NEUTRALIZATION_PRACTICE;
+        const moles = volume_ml * concentration_M / 1000;
+        const temperature_c = useLabEnvironment.getState().conditions.temperature_c;
+        const practiceReceipt = isNeutralizationPractice ? {
+          attemptId: globalThis.crypto?.randomUUID?.() ?? `${Date.now()}-${Math.random().toString(36).slice(2)}`,
+          sampleRevision: 0, received_ml: 0,
+        } : undefined;
+        vessels[receiverId] = {
+          id: receiverId,
           name: 'Beaker 1 (HCl 2M)',
           type: 'beaker',
           capacity_ml: 250,
-          position: [-1.4, -0.135, 0],
+          position: [-1.4, restingVesselHeight('beaker', 250), 0],
           rotationY: 0,
           isLocked: false,
           substances: ['HCl (dil)'],
-          contents: [{ formula: 'HCl', moles: 0.08, mass_g: 2.92 }],
-          volume_ml: 40,
-          volume: 40 / 250,
-          mass_g: 40,
+          contents: [{ formula: 'HCl', moles, mass_g: moles * computeMolarMass('HCl') }],
+          neutralizationPractice: practiceReceipt,
+          volume_ml,
+          volume: volume_ml / 250,
+          mass_g: volume_ml,
           density_g_ml: 1.0,
           foam_ml: 0,
           liquidColor: '#f8fafc',
-          temperature_c: 25,
+          temperature_c,
           ph: 1.0,
           hasPrecipitate: false,
           isBoiling: false,
           hasGas: false
         };
-        vessels['beaker_2'] = {
-          id: 'beaker_2',
+        vessels[sourceId] = {
+          id: sourceId,
           name: 'Beaker 2 (NaOH 2M)',
           type: 'beaker',
           capacity_ml: 250,
-          position: [1.4, -0.135, 0],
+          position: [1.4, restingVesselHeight('beaker', 250), 0],
           rotationY: 0,
           isLocked: false,
           substances: ['NaOH'],
-          contents: [{ formula: 'NaOH', moles: 0.08, mass_g: 3.2 }],
-          volume_ml: 40,
-          volume: 40 / 250,
-          mass_g: 40,
+          contents: [{ formula: 'NaOH', moles, mass_g: moles * computeMolarMass('NaOH') }],
+          neutralizationPractice: practiceReceipt,
+          volume_ml,
+          volume: volume_ml / 250,
+          mass_g: volume_ml,
           density_g_ml: 1.0,
           foam_ml: 0,
           liquidColor: '#f8fafc',
-          temperature_c: 25,
+          temperature_c,
           ph: 13.0,
           hasPrecipitate: false,
           isBoiling: false,
@@ -1788,6 +1801,7 @@ export const useAppStore = create<AppState>((set, get) => {
         instrumentRinse: null,
         ...(isPrecipitationPractice
           ? { stirringVesselId: null, ...(get().activeTool === 'stirring_rod' ? { activeTool: 'none' as const } : {}) } : {}),
+        ...(isNeutralizationPractice ? { activeTool: 'none' as const, stirringVesselId: null } : {}),
         burette: {
           ...burette, isDispensing: false,
           ...(isTitrationPractice ? {
@@ -1803,12 +1817,27 @@ export const useAppStore = create<AppState>((set, get) => {
         activeStepIndex: 0,
         spills: {}
       });
-      if (isPrecipitationPractice) {
+      if (isPrecipitationPractice || isNeutralizationPractice) {
         const prepared = get();
-        pushHistorySnapshot('RESET', prepared.vessels, prepared.burners, 'Prepared the AgCl practice samples', 'Đã chuẩn bị mẫu thực hành AgCl');
+        pushHistorySnapshot('RESET', prepared.vessels, prepared.burners, 'Prepared the practice samples', 'Đã chuẩn bị mẫu thực hành');
         set({ canUndo: checkCanUndo(), canRedo: checkCanRedo() });
         debounceSaveLocalState(prepared.vessels, prepared.burners);
       }
+    },
+
+    recordNeutralizationProbe: tool => {
+      const state = get(), id = NEUTRALIZATION_PRACTICE.receiverId;
+      const reading = useInstrumentStore.getState().practiceProbe;
+      if (!reading || reading.tool !== tool || reading.epoch !== state.pourEpoch || state.activeTool !== tool
+        || state.selectedVesselId !== id || state.isSimulationPaused || state.moveMode || state.draggingVesselId) return false;
+      const receipt = captureNeutralizationProbe(state.vessels[id], reading, state.experimentDifficulty);
+      if (!receipt) return false;
+      const vessels = { ...state.vessels, [id]: { ...state.vessels[id], neutralizationPractice: receipt } };
+      set({ vessels });
+      pushHistorySnapshot('MEASURE', vessels, state.burners, 'Recorded probe reading', 'Đã ghi số đo của đầu dò');
+      set({ canUndo: checkCanUndo(), canRedo: checkCanRedo() });
+      debounceSaveLocalState(vessels, state.burners);
+      return true;
     },
 
     isLabReportOpen: false,
@@ -3984,7 +4013,7 @@ export const useAppStore = create<AppState>((set, get) => {
         || state.inFlightPours.some(parcel => parcel.id === draft.id)) return 0;
       const release = decantLiquid(source, null, volume_ml, mobileSolidInventory(source, SimulationEngine.findManager(source.id)));
       if (!release?.spill) return 0;
-      const parcel: PourParcel = { ...draft, agclSourceAttempt: agclSourceAttempt(source),
+      const parcel: PourParcel = { ...draft, practiceSourceAttempt: agclSourceAttempt(source) ?? neutralizationSourceAttempt(source),
         sample: prepareAliquotContact(release.spill, state.activeKinetics[source.id]?.program?.id), releasedVolume_ml: release.moved_ml,
         elapsed_s: 0, arrivedFraction: 0 };
       set(s => {
@@ -4043,8 +4072,9 @@ export const useAppStore = create<AppState>((set, get) => {
             if (reacted.kinetics) activeKinetics[target.id] = reacted.kinetics;
             const pending = findPendingReaction(reacted.vessel.substances, reacted.vessel.temperature_c, heated, state.language);
             if (pending) pendingReactions[target.id] = { ...pending, vesselId: target.id };
-            const vessel = contactFailures.has(target.id) ? reacted.vessel
-              : recordAgClDelivery(reacted.vessel, parcel.agclSourceAttempt, contact, accepted_ml);
+            const attempt = parcel.practiceSourceAttempt ?? parcel.agclSourceAttempt;
+            const vessel = contactFailures.has(target.id) || !attempt ? reacted.vessel
+              : recordNeutralizationDelivery(recordAgClDelivery(reacted.vessel, attempt, contact, accepted_ml), attempt, contact, accepted_ml);
             vessels[target.id] = { ...vessel, recentPourContact: {
               point: pourContactLocal(parcel, target), expiresAt_ms: Date.now() + 1500, remaining_s: 1.5, color: contact.color,
             } }; lastMixResult = reacted.mixResult; changedVessels = true;
@@ -4222,8 +4252,10 @@ export const useAppStore = create<AppState>((set, get) => {
           const pending = findPendingReaction(vessel.substances, vessel.temperature_c, false, s.language);
           if (pending) pendingReactions[vessel.id] = { ...pending, vesselId: vessel.id };
         }
-        const assessed = reacted && !transfer.failureReason
-          ? recordAgClDelivery(reacted.vessel, agclSourceAttempt(from), transfer.sample, transfer.accepted_ml) : reacted?.vessel;
+        const attempt = agclSourceAttempt(from) ?? neutralizationSourceAttempt(from);
+        const assessed = reacted && !transfer.failureReason && attempt
+          ? recordNeutralizationDelivery(recordAgClDelivery(reacted.vessel, attempt, transfer.sample, transfer.accepted_ml),
+            attempt, transfer.sample, transfer.accepted_ml) : reacted?.vessel;
         const target = assessed && transfer.moved_ml > 0 ? { ...assessed,
           recentPourContact: { point: [0, 0, 0] as [number, number, number], remaining_s: 1.5,
             expiresAt_ms: Date.now() + 1500, color: from.liquidColor } } : assessed;

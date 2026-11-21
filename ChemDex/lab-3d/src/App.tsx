@@ -12,6 +12,7 @@ import { MeasurementHUD } from './components/MeasurementHUD';
 import { VesselInspector } from './components/VesselInspector';
 import { ACID_BASE_TITRATION } from './engine/acidBaseTitration';
 import { AGCL_PRACTICE } from './engine/agclPractice';
+import { NEUTRALIZATION_PRACTICE } from './engine/neutralizationPractice';
 const TitrationPanel = React.lazy(() => import('./components/TitrationPanel').then(m => ({ default: m.TitrationPanel })));
 const GuidedExperimentPanel = React.lazy(() => import('./components/GuidedExperimentPanel').then(m => ({ default: m.GuidedExperimentPanel })));
 import { DosageModal } from './components/DosageModal';
@@ -48,7 +49,8 @@ function LeftSidebar({ activeTab, setActiveTab, guidedStep, onOpenTitration }: {
   const leftSidebarOpen = useAppStore(state => state.leftSidebarOpen);
   const keepPractice = useAppStore(state => (state.activeExperimentId === ACID_BASE_TITRATION.id
     && !!state.vessels[ACID_BASE_TITRATION.vesselId]?.acidBaseTitration)
-    || (state.activeExperimentId === AGCL_PRACTICE.id && !!state.vessels[AGCL_PRACTICE.receiverId]?.agclPractice));
+    || (state.activeExperimentId === AGCL_PRACTICE.id && !!state.vessels[AGCL_PRACTICE.receiverId]?.agclPractice)
+    || (state.activeExperimentId === NEUTRALIZATION_PRACTICE.id && !!state.vessels[NEUTRALIZATION_PRACTICE.receiverId]?.neutralizationPractice));
   const language = useAppStore(state => state.language);
   const addVessel = useAppStore(state => state.addVessel);
   const isMixing = useAppStore(state => state.isMixing);

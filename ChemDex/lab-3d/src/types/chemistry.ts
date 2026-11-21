@@ -130,6 +130,7 @@ export interface VesselState {
   titrationRunId?: string; // last run that delivered titrant to this vessel
   acidBaseTitration?: import('../engine/acidBaseTitration').AcidBaseTitrationReceipt;
   agclPractice?: import('../engine/agclPractice').AgClPracticeReceipt;
+  neutralizationPractice?: import('../engine/neutralizationPractice').NeutralizationPracticeReceipt;
   environment?: import('../science/labEnvironment').LabEnvironment;
   hotPlate?: { isOn: boolean; setPoint_c: number; electricalEnergy_J?: number; deliveredHeat_J?: number; heatLost_J?: number };
   escapedGas_g?: Record<string, number>;

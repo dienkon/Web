@@ -1,6 +1,7 @@
 import type { ProceduralActionType, ProceduralStep } from '../engine/experimentEngine';
 import { ACID_BASE_EQUIVALENCE_ML, ACID_BASE_TITRATION } from '../engine/acidBaseTitration';
 import { AGCL_PRACTICE, assessAgClPractice } from '../engine/agclPractice';
+import { NEUTRALIZATION_PRACTICE, assessNeutralizationPractice } from '../engine/neutralizationPractice';
 
 export interface LabStep {
   stepNumber: number;
@@ -1029,54 +1030,49 @@ export const EXPERIMENT_CURRICULUM: ExperimentGuide[] = [
     ]
   },
   {
-    id: 'exothermic_neutralization',
+    id: NEUTRALIZATION_PRACTICE.id,
     title_en: 'Thermochemistry: Enthalpy of Neutralization (HCl + NaOH)',
     title_vi: 'Nhiệt Hóa Học: Hiệu Ứng Nhiệt Phản Ứng Trung Hòa (HCl + NaOH)',
     category: 'thermal',
     difficulty: 'intermediate',
     objective_en: 'Measure the temperature rise (ΔT) during acid-base neutralization and study the thermometer thermal lag.',
     objective_vi: 'Đo độ tăng nhiệt độ (ΔT) khi trung hòa axit clohiđric bằng natri hiđroxit và quan sát độ trễ truyền nhiệt của nhiệt kế.',
-    theory_en: 'Neutralization of a strong acid by a strong base is strongly exothermic: H⁺(aq) + OH⁻(aq) → H₂O(l), ΔH = -57.1 kJ/mol. The released heat raises the solution temperature by approximately 10 to 14 °C depending on concentrations.',
-    theory_vi: 'Phản ứng trung hòa giữa axit mạnh và bazơ mạnh tỏa nhiệt lớn: H⁺ + OH⁻ → H₂O, ΔH = -57.1 kJ/mol. Lượng nhiệt giải phóng làm nhiệt độ dung dịch tăng từ 10 đến 14 °C.',
+    theory_en: 'Strong acid–base neutralization releases heat. The reference enthalpy is about −57.1 kJ per mole of water formed. The model compares the measured pH with neutral pH at the sample temperature.',
+    theory_vi: 'Trung hòa axit mạnh bằng bazơ mạnh giải phóng nhiệt. Enthalpy tham chiếu khoảng −57,1 kJ trên mỗi mol H₂O tạo thành. Bài so sánh pH đo được với mốc trung tính ở nhiệt độ mẫu.',
     safetyAdvisory_en: 'Solution warms up rapidly. Avoid skin contact with caustic NaOH.',
     safetyAdvisory_vi: 'Nhiệt độ dung dịch tăng nhanh. Tránh tiếp xúc trực tiếp với dung dịch kiềm nóng.',
-    requiredEquipment: ['Digital Thermometer', 'Beaker (x2)', 'Glass Stirring Rod'],
+    requiredEquipment: ['Digital Thermometer', 'pH Meter', 'Beaker (x2)'],
     allowedChemicals: ['HCl (dil)', 'NaOH', 'H2O'],
-    simulationAlgorithm_en: `Calorimetric Enthalpy & Sensor Thermal Lag ODE:
-1. Instantaneous Neutralization Exotherm: H+ + OH- -> H2O (Delta H° = -57.1 kJ/mol).
-2. Lumped Heat Balance:
-   Delta T_ideal = n_rxn * (-Delta H°) / (m_total * C_p).
-3. First-Order Thermometer Sensor Lag:
-   dT_sensor/dt = (T_fluid - T_sensor) / tau_probe (probe time constant tau_probe ≈ 1.2 s).
-   Solution remains clear colorless liquid with zero effervescence while temperature reading climbs.`,
-    simulationAlgorithm_vi: `Thuật toán Nhiệt Lượng Kế & Độ Trễ Cảm Biến:
-1. Phản ứng trung hòa giải phóng nhiệt lượng tiêu chuẩn Delta H° = -57.1 kJ/mol.
-2. Cân bằng nhiệt dung tính độ tăng nhiệt độ Delta T lý thuyết dựa trên khối lượng dung dịch và nhiệt dung riêng.
-3. Phương trình vi phân bậc một mô phỏng độ trễ truyền nhiệt của đầu đo nhiệt kế (tau ≈ 1.2 s).`,
+    simulationAlgorithm_en: `1. The ledger consumes HCl and NaOH in a 1:1 ratio and deposits the reaction heat in the sample.
+2. Sample heat capacity and heat exchange determine its temperature. The thermometer approaches that temperature with a first-order response (τ = 1.8 s in the sample).
+3. The aqueous model computes neutral pH from pKw(T) / 2.`,
+    simulationAlgorithm_vi: `1. Kiểm kê tiêu thụ HCl và NaOH theo tỉ lệ 1:1, rồi đưa nhiệt phản ứng vào mẫu.
+2. Nhiệt dung và trao đổi nhiệt xác định nhiệt độ mẫu. Nhiệt kế tiến tới nhiệt độ mẫu theo đáp ứng bậc một (τ = 1,8 giây khi đo mẫu).
+3. Mô hình dung dịch tính mốc pH trung tính bằng pKw(T) / 2.`,
     phenomenologyCases: [
       {
         id: 'neutralization_calorific_spike',
         name_en: 'Case 1: Sudden Temperature Climb & Dynamic Thermal Lag',
         name_vi: 'Trường hợp 1: Nhiệt độ tăng vọt & đầu đo cảm ứng nhiệt theo thời gian thực',
-        description_en: 'Thermometer probe reading jumps swiftly from ambient 25.0°C toward ~38.0°C over 2-3 seconds following first-order thermal conduction lag.',
-        description_vi: 'Chỉ số nhiệt kế nhảy vọt từ 25.0°C lên ~38.0°C trong vòng 2-3 giây mô phỏng chính xác độ trễ dẫn nhiệt của cảm biến kim loại.',
-        algorithm: 'First-order thermal lag T_sensor(t) = T_final + (T_0 - T_final)*exp(-t / tau); tau = 1.2s.'
+        description_en: 'The sample warms quickly. The immersed probe responds more gradually while the sample exchanges heat with its surroundings.',
+        description_vi: 'Mẫu ấm lên nhanh. Đầu dò đã ngập đáp ứng chậm hơn trong lúc mẫu trao đổi nhiệt với môi trường.',
+        algorithm: 'dT_probe / dt = (T_sample − T_probe) / 1.8 s'
       },
       {
         id: 'neutralization_optical_clarity',
         name_en: 'Case 2: Pure Colorless Optical Quiescence',
         name_vi: 'Trường hợp 2: Dung dịch tĩnh lặng trong suốt không màu',
-        description_en: 'Unlike effervescent or precipitation reactions, the liquid remains 100% transparent and clear with no bubble formation or turbidity.',
-        description_vi: 'Không có hiện tượng sủi bọt hay kết tủa; dung dịch vẫn giữ độ trong veo tĩnh lặng hoàn toàn, phản ứng diễn ra vô hình ngoài độ tăng nhiệt.',
-        algorithm: 'Transmittance T = 1.0; turbidity tau = 0.0; gas evolution flux = 0.'
+        description_en: 'The modeled products remain in the liquid. The temperature rise identifies the reaction in this sample.',
+        description_vi: 'Sản phẩm mô phỏng nằm trong dung dịch. Độ tăng nhiệt là dấu hiệu của phản ứng trong mẫu này.',
+        algorithm: 'HCl(aq) + NaOH(aq) → NaCl(aq) + H₂O(l)'
       },
       {
         id: 'neutralization_convective_cooling',
         name_en: 'Case 3: Glass Heat Conduction & Newton Ambient Decay',
         name_vi: 'Trường hợp 3: Truyền nhiệt qua thành thủy tinh & nguội dần theo định luật Newton',
-        description_en: 'Thermal energy transfers through thin beaker walls to laboratory air; temperature decays asymptotically back to ambient 25°C.',
-        description_vi: 'Nhiệt lượng tỏa qua thành cốc thủy tinh ra không khí phòng; nhiệt độ từ từ giảm theo đường cong hàm mũ về 25°C.',
-        algorithm: 'Newton cooling: dT/dt = -k_cool * (T - T_ambient); k_cool ≈ 0.005 s^-1.'
+        description_en: 'The sample approaches the configured ambient temperature as heat transfers to its surroundings.',
+        description_vi: 'Mẫu tiến dần về nhiệt độ môi trường đã thiết lập khi trao đổi nhiệt với xung quanh.',
+        algorithm: 'Heat flow follows the sample and environment temperature difference.'
       }
     ],
     steps: [
@@ -1084,36 +1080,39 @@ export const EXPERIMENT_CURRICULUM: ExperimentGuide[] = [
         stepNumber: 1,
         action: 'MEASURE_TEMPERATURE',
         requiredTool: 'thermometer',
+        validate: (state, mode) => assessNeutralizationPractice(state.vessels, mode).steps[0],
         title_en: 'Record Initial Ambient Temperature',
         title_vi: 'Đo nhiệt độ ban đầu của dung dịch',
-        instruction_en: 'Equip the digital thermometer and measure the initial temperature of 40 mL HCl in Beaker 1 (~25.0 °C).',
-        instruction_vi: 'Cầm nhiệt kế điện tử và nhúng vào cốc chứa 40 mL dung dịch HCl để ghi nhận nhiệt độ ban đầu (~25.0 °C).',
-        expectedResult_en: 'Stable ambient room temperature display of ~25.0 °C.',
-        expectedResult_vi: 'Đồng hồ nhiệt kế hiển thị nhiệt độ phòng ổn định ~25.0 °C.'
+        instruction_en: 'Set up the workbench with 40 mL of each 2.00 M solution. Place the thermometer in the HCl beaker and record the reading when it settles.',
+        instruction_vi: 'Bày bàn với 40 mL mỗi dung dịch 2,00 M. Đặt nhiệt kế vào cốc HCl và ghi số đo khi đầu dò ổn định.',
+        expectedResult_en: 'The initial probe reading is close to the workbench temperature.',
+        expectedResult_vi: 'Nhiệt độ đo ban đầu gần với nhiệt độ môi trường của bàn.'
       },
       {
         stepNumber: 2,
         action: 'POUR',
         targetChemical: 'NaOH',
         targetAmount: 40,
-        tolerance: 2.0,
+        unit: 'mL',
+        validate: (state, mode) => assessNeutralizationPractice(state.vessels, mode).steps[1],
         title_en: 'Pour Sodium Hydroxide into Acid',
         title_vi: 'Rót dung dịch Natri Hiđroxit vào cốc Axit',
         instruction_en: 'Pour 40 mL of NaOH into the beaker containing HCl while observing the thermometer reading.',
         instruction_vi: 'Rót 40 mL dung dịch NaOH vào cốc axit và quan sát chỉ số nhiệt độ.',
-        expectedResult_en: 'Rapid temperature climb from 25 °C up to ~38 °C due to ΔH = -57.1 kJ/mol!',
-        expectedResult_vi: 'Nhiệt độ tăng vọt từ 25 °C lên đến ~38 °C do nhiệt lượng tỏa ra từ phản ứng trung hòa!'
+        expectedResult_en: 'The sample starts near 25 °C and peaks around 37 °C at the default room setting.',
+        expectedResult_vi: 'Ở thiết lập phòng mặc định, mẫu bắt đầu gần 25 °C và tăng lên khoảng 37 °C.'
       },
       {
         stepNumber: 3,
         action: 'MEASURE_PH',
         requiredTool: 'ph_meter',
+        validate: (state, mode) => assessNeutralizationPractice(state.vessels, mode).steps[2],
         title_en: 'Verify Neutral pH with pH Meter',
         title_vi: 'Kiểm tra độ pH trung tính bằng máy đo pH',
-        instruction_en: 'Select the digital pH meter and verify the neutralized mixture reaches pH ~ 7.0.',
-        instruction_vi: 'Chọn máy đo pH và xác nhận dung dịch sau trung hòa đạt pH ~ 7.0.',
-        expectedResult_en: 'Digital pH meter reads approximately 7.0 with green neutral indicator light.',
-        expectedResult_vi: 'Máy đo pH hiển thị xấp xỉ 7.0 cùng đèn báo trung tính màu xanh lá.'
+        instruction_en: 'Place the pH probe in the same beaker and record the reading. Compare it with the neutral reference at the recorded temperature.',
+        instruction_vi: 'Đặt đầu dò pH vào cùng cốc và ghi số đo. So sánh với mốc trung tính tại nhiệt độ đo.',
+        expectedResult_en: 'Near 37 °C the ideal aqueous model gives a neutral pH near 6.81.',
+        expectedResult_vi: 'Ở gần 37 °C, mô hình dung dịch lý tưởng cho pH trung tính khoảng 6,81.'
       }
     ],
     quizzes: [
@@ -1123,8 +1122,8 @@ export const EXPERIMENT_CURRICULUM: ExperimentGuide[] = [
         options_en: ['-57.1 kJ/mol', '+57.1 kJ/mol', '0 kJ/mol', '-285.8 kJ/mol'],
         options_vi: ['-57.1 kJ/mol (tỏa nhiệt)', '+57.1 kJ/mol (thu nhiệt)', '0 kJ/mol', '-285.8 kJ/mol'],
         correctAnswer: 0,
-        explanation_en: 'The net reaction H⁺ + OH⁻ → H₂O consistently releases 57.1 kJ of heat per mole of water formed.',
-        explanation_vi: 'Phản ứng ion thu gọn H⁺ + OH⁻ → H₂O luôn tỏa ra 57.1 kJ nhiệt lượng trên mỗi mol nước tạo thành.'
+        explanation_en: 'The reference value used here is approximately 57.1 kJ released per mole of water formed.',
+        explanation_vi: 'Giá trị tham chiếu của bài là khoảng 57,1 kJ tỏa ra trên mỗi mol H₂O tạo thành.'
       }
     ]
   },

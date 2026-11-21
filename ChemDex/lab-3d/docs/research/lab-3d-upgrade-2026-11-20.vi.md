@@ -48,9 +48,15 @@ Kiểm thử đi qua 400 lần nhả 0,05 mL, xác nhận pH gần 7 ở 20,00 m
 
 Chrome production ở khung nhìn 390 px ghi 27/40 điểm quy trình sau khi rót, 40/40 sau khi đũa khuấy đủ thời gian, và tải được JSON. Bảng thành phần hiển thị mẫu HCl 0,1 mol/L cùng tên chai kho 1 M. Kiểm thử engine bao phủ lượng AgNO₃ đang bay, liều rót từ ống khác, hoàn tác và tạm dừng khi khuấy.
 
-Kiểm kê chương trình có 19 bài và 43 bước. Ba bước của bài chuẩn độ và ba bước AgCl dùng trực tiếp trạng thái mẫu hoặc giao dịch vật chất. Bài nhiệt hóa học có ba bước khai báo thao tác và 34 bước còn lại chỉ có mô tả.
+## Bài thực hành nhiệt trung hòa
 
-Đợt tiếp theo sẽ sửa bài **Hiệu Ứng Nhiệt Phản Ứng Trung Hòa**. Kiểm tra hiện trạng cho thấy bước đo nhiệt độ và rót đều báo hợp lệ với bàn rỗng. Với mẫu hiện tại, rót 40 mL vào cốc cho đỉnh 37,14 °C và pH khoảng 2,97 sau 10 giây mô phỏng. Cần cân đúng số mol ban đầu và nối bước đo với đầu dò đang dùng, nhiệt độ mẫu và pH trung tính theo nhiệt độ.
+1. Bày bàn trong **Hiệu Ứng Nhiệt Phản Ứng Trung Hòa**. Mỗi cốc chứa 40,00 mL dung dịch 2,00 M, tương ứng 0,080 mol HCl hoặc NaOH. Khối lượng chất tan tính trực tiếp từ số mol và khối lượng mol. Bản trước dùng khối lượng đã làm tròn, để lại axit dư và cho pH khoảng 2,97 sau khi rót đủ 40 mL.
+2. Đặt nhiệt kế vào cốc HCl, chờ ổn định rồi chọn **Ghi nhiệt độ ban đầu**. Rót từ cốc NaOH đã chuẩn bị. Báo cáo lưu riêng số đo nhiệt kế ban đầu, nhiệt độ đỉnh của mẫu sau các liều đã nhận và độ tăng nhiệt. Trong lúc rót có thể quan sát **Nhiệt kế hiện tại** khi đầu dò đã ngập. Ở thiết lập mặc định, nhiệt độ mẫu tăng từ khoảng 25 °C lên 37,14 °C. Cân bằng nhiệt của mô hình dùng nhiệt dung và trao đổi nhiệt với môi trường. [OpenStax về nhiệt lượng kế](https://openstax.org/books/chemistry-2e/pages/5-2-calorimetry)
+3. Đặt đầu dò pH vào cùng cốc rồi chọn **Ghi pH**. Bài so sánh số đo với pKw(T)/2 từ mô hình dung dịch. Mốc trung tính gần 6,81 ở khoảng 37 °C. Báo cáo JSON lưu số đo, nhiệt độ tham chiếu và mốc trung tính. Thể tích nhận và nhiệt độ đỉnh lấy từ mẫu trong mô phỏng, còn pH dùng mô hình dung dịch lý tưởng. [IAPWS về sự phụ thuộc của Kw vào nhiệt độ](https://iapws.org/technical-guidance/release/Ionization)
+
+Thực hành và thi thử dùng dung sai ±0,25 mL cho thể tích và ±0,20 pH so với mốc trung tính. Kiểm thử engine bao phủ đầu dò sai vị trí, đầu dò còn dao động, lượt đang bay, hoàn tác, làm lại và sự thay đổi thành phần sau khi ghi pH. Chrome production ở khung nhìn 390 px đo được 40,00 mL, ΔT 12,14 °C và pH 6,81. Báo cáo ghi 27/40 điểm quy trình trước khi ghi pH và 40/40 sau khi ghi.
+
+Chương trình có 19 bài và 43 bước. Chín bước thuộc ba bài chuẩn độ, AgCl và nhiệt trung hòa đã có tiêu chí từ mẫu, giao dịch vật chất hoặc đầu dò. Cần tiếp tục phân biệt bước mô tả với bước đã có bằng chứng tự động cho 34 bước còn lại.
 
 ## Phạm vi 5 giai đoạn
 

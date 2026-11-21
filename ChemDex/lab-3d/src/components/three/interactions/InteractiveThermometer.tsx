@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { useFrame } from '@react-three/fiber';
 import { Text } from '@react-three/drei';
 import * as THREE from 'three';
@@ -9,6 +9,8 @@ import { instrumentHome } from '../../../handling/instrumentCatalog';
 import { readSample } from '../../../handling/instrumentReadings';
 import { useLabEnvironment } from '../../../store/useLabEnvironment';
 import { simulationFrameDt } from '../../../core/clock';
+import { neutralizationProbeAttempt } from '../../../engine/neutralizationPractice';
+import { useInstrumentStore } from '../../../handling/instrumentState';
 
 const stemGlassMaterial = new THREE.MeshPhysicalMaterial({
   roughness: 0.08,
@@ -29,7 +31,6 @@ export const InteractiveThermometer = React.memo(function InteractiveThermometer
   const animationTarget = useRef(new THREE.Vector3());
   const activeTool = useAppStore(state => state.activeTool);
   const setActiveTool = useAppStore(state => state.setActiveTool);
-  const selectedVesselId = useAppStore(state => state.selectedVesselId);
   const targetVessel = useAppStore(state => state.selectedVesselId ? state.vessels[state.selectedVesselId] : undefined);
 
   const groupRef = useRef<THREE.Group>(null);
@@ -40,10 +41,13 @@ export const InteractiveThermometer = React.memo(function InteractiveThermometer
 
   const isActive = activeTool === 'thermometer' && !dock.moveMode;
   const observation = readSample(targetVessel);
+  useEffect(() => () => useInstrumentStore.getState().publishPracticeProbe('thermometer', null), []);
 
   useFrame((_, delta) => {
-    if (!groupRef.current) return;
-    const dt = simulationFrameDt(delta, useAppStore.getState());
+    const app = useAppStore.getState(), instrument = useInstrumentStore.getState();
+    const dt = simulationFrameDt(delta, app);
+    const attemptId = neutralizationProbeAttempt(targetVessel);
+    if (!groupRef.current) { instrument.publishPracticeProbe('thermometer', null); return; }
 
     if (isActive && targetVessel && observation.thermometerPoint && observation.temperature_c !== null) {
       // Immerse thermometer bulb into the vessel's liquid
@@ -54,13 +58,10 @@ export const InteractiveThermometer = React.memo(function InteractiveThermometer
       groupRef.current.position.lerp(targetPos, 1 - Math.exp(-dt * 8));
       if (dt > 0) groupRef.current.rotation.set(0, 0, 0);
 
-      // Newton cooling / heating curve
-      currentTempRef.current = updateThermalResponse(
-        currentTempRef.current,
-        observation.temperature_c,
-        dt,
-        1.8
-      );
+      // In the assessed exercise the bulb starts sensing after it reaches the sample.
+      if (!attemptId || groupRef.current.position.distanceToSquared(targetPos) <= 0.0001) {
+        currentTempRef.current = updateThermalResponse(currentTempRef.current, observation.temperature_c, dt, 1.8);
+      }
     } else {
       // Resting on rack
       const restPos = animationTarget.current.set(...position);
@@ -77,6 +78,12 @@ export const InteractiveThermometer = React.memo(function InteractiveThermometer
     }
 
     const t = currentTempRef.current;
+    const point = observation.thermometerPoint;
+    const inContact = isActive && attemptId && point && observation.temperature_c !== null
+      && groupRef.current.position.distanceToSquared(animationTarget.current) <= 0.0001;
+    instrument.publishPracticeProbe('thermometer', inContact
+      ? { tool: 'thermometer', attemptId, epoch: app.pourEpoch, value: Number(t.toFixed(2)), point,
+        settled: Math.abs(t - observation.temperature_c!) <= 0.14 } : null);
     if (textRef.current) {
       const label = `${t.toFixed(1)}°C`;
       if (textRef.current.text !== label) textRef.current.text = label;

@@ -3,6 +3,7 @@ import { MAX_PIPETTE_PRESENTATIONS, advancePipettePresentations, makePipettePres
   type PipettePresentation, type PipettePresentationInput } from './pipettePresentation';
 import { MAX_BURETTE_PRESENTATIONS, advanceBurettePresentations, makeBurettePresentation,
   type BurettePresentation, type BurettePresentationInput } from './burettePresentation';
+import type { PracticeProbe, PracticeProbeReading } from '../engine/neutralizationPractice';
 
 export interface InstrumentNotice {
   sequence: number;
@@ -12,6 +13,8 @@ export interface InstrumentNotice {
 }
 
 interface InstrumentState {
+  practiceProbe: PracticeProbeReading | null;
+  publishPracticeProbe: (tool: PracticeProbe, reading: PracticeProbeReading | null) => void;
   burettePresentations: BurettePresentation[];
   burettePresentationSequence: number;
   canQueueBurettePresentation: (epoch: number) => boolean;
@@ -37,6 +40,18 @@ interface InstrumentState {
 }
 
 export const useInstrumentStore = create<InstrumentState>((set, get) => ({
+  practiceProbe: null,
+  publishPracticeProbe: (tool, reading) => {
+    const current = get().practiceProbe;
+    if (!reading) {
+      if (current?.tool === tool) set({ practiceProbe: null });
+      return;
+    }
+    if (current?.tool === tool && current.attemptId === reading.attemptId && current.epoch === reading.epoch
+      && current.value === reading.value && current.settled === reading.settled
+      && current.point.every((position, axis) => Math.abs(position - reading.point[axis]) < 0.002)) return;
+    set({ practiceProbe: reading });
+  },
   burettePresentations: [],
   burettePresentationSequence: 0,
   canQueueBurettePresentation: epoch => get().burettePresentations.filter(r => r.epoch === epoch).length < MAX_BURETTE_PRESENTATIONS,
