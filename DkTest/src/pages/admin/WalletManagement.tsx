@@ -2239,6 +2239,11 @@ export default function WalletManagement() {
                                 </button>
                                 <div className="text-[10px] text-slate-400 mt-0.5">
                                   (Tối đa {v.perUserLimit || 1} lần/hs)
+                                  {v.type !== "gift_money" && typeof v.savedCount === "number" && (
+                                    <span className="ml-1.5 text-indigo-600 font-semibold">
+                                      • {v.savedCount} lượt lưu
+                                    </span>
+                                  )}
                                 </div>
                               </td>
                               <td className="px-4 py-3 text-[11px]">

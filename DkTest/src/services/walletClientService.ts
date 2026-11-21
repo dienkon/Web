@@ -17,6 +17,7 @@ import {
 } from "firebase/firestore";
 import { auth, db } from "./firebase/config";
 import { getTimestampMillis } from "../utils/date";
+import { buildVoucherContextMismatchMessage } from "./savedVoucherService";
 import type {
   StudentWallet,
   WalletTransaction,
@@ -1180,7 +1181,12 @@ export async function validateVoucherApi(
 
     if (context === "gift_money") {
       if (voucher.type !== "gift_money") {
-        return { success: false, valid: false, message: "Mã này không phải mã quà tặng nạp tiền." };
+        return {
+          success: false,
+          valid: false,
+          voucher,
+          message: buildVoucherContextMismatchMessage(voucher.type, "gift_money"),
+        };
       }
       return {
         success: true,
@@ -1196,10 +1202,15 @@ export async function validateVoucherApi(
     if (context === "exam_unlock" || context === "course_unlock") {
       const label = context === "course_unlock" ? "khóa học / bài giảng" : "bài thi";
       if (voucher.type !== "discount_percent" && voucher.type !== "discount_fixed") {
-        return { success: false, valid: false, message: `Mã này không áp dụng để giảm giá ${label}.` };
+        return {
+          success: false,
+          valid: false,
+          voucher,
+          message: buildVoucherContextMismatchMessage(voucher.type, context),
+        };
       }
       if (voucher.minOrderVnd && baseAmount < voucher.minOrderVnd) {
-        return { success: false, valid: false, message: `Mã này chỉ áp dụng cho ${label} từ ${voucher.minOrderVnd.toLocaleString("vi-VN")}đ.` };
+        return { success: false, valid: false, voucher, message: `Mã này chỉ áp dụng cho ${label} từ ${voucher.minOrderVnd.toLocaleString("vi-VN")}đ.` };
       }
       let discountVnd = 0;
       if (voucher.type === "discount_percent") {
@@ -1226,10 +1237,15 @@ export async function validateVoucherApi(
 
     if (context === "deposit") {
       if (voucher.type !== "deposit_bonus_percent" && voucher.type !== "deposit_bonus_fixed") {
-        return { success: false, valid: false, message: "Mã này không áp dụng khi nạp tiền." };
+        return {
+          success: false,
+          valid: false,
+          voucher,
+          message: buildVoucherContextMismatchMessage(voucher.type, "deposit"),
+        };
       }
       if (voucher.minDepositVnd && baseAmount < voucher.minDepositVnd) {
-        return { success: false, valid: false, message: `Mã này chỉ áp dụng khi nạp từ ${voucher.minDepositVnd.toLocaleString("vi-VN")}đ.` };
+        return { success: false, valid: false, voucher, message: `Mã này chỉ áp dụng khi nạp từ ${voucher.minDepositVnd.toLocaleString("vi-VN")}đ.` };
       }
       let bonusVnd = 0;
       if (voucher.type === "deposit_bonus_percent") {
@@ -1250,6 +1266,85 @@ export async function validateVoucherApi(
   } catch (_) {}
 
   return { success: false, valid: false, message: "Không thể kiểm tra mã voucher." };
+}
+
+export async function inspectVoucherApi(code: string): Promise<{
+  found: boolean;
+  voucher?: Voucher;
+  isExpired?: boolean;
+  isOutOfStock?: boolean;
+  isInactive?: boolean;
+  userUsedCount?: number;
+  message?: string;
+}> {
+  const cleanCode = String(code || "").trim().toUpperCase();
+  if (!cleanCode) {
+    return { found: false, message: "Vui lòng nhập mã voucher." };
+  }
+
+  try {
+    const res = await api.get<{
+      success: boolean;
+      found: boolean;
+      voucher?: Voucher;
+      isExpired?: boolean;
+      isOutOfStock?: boolean;
+      isInactive?: boolean;
+      userUsedCount?: number;
+      message?: string;
+    }>(`/api/vouchers/inspect/${encodeURIComponent(cleanCode)}`, {
+      requiresAuth: false,
+    });
+    if (res && typeof res.found === "boolean") {
+      return res;
+    }
+  } catch (err) {
+    console.warn("[walletClientService] API inspectVoucherApi failed, trying direct Firestore:", err);
+  }
+
+  // Direct Firestore fallback
+  try {
+    const q = query(collection(db, "vouchers"), where("code", "==", cleanCode), limit(1));
+    const snap = await getDocs(q);
+    if (snap.empty) {
+      return { found: false, message: `Mã voucher "${cleanCode}" không tồn tại hoặc đã bị xóa.` };
+    }
+    const voucher = { id: snap.docs[0].id, ...snap.docs[0].data() } as Voucher;
+    const isInactive = !voucher.isActive;
+    const isExpired = Boolean(voucher.expiresAt && new Date(voucher.expiresAt).getTime() < Date.now());
+    const isOutOfStock = Boolean(
+      voucher.usageLimit && voucher.usageLimit > 0 && (voucher.usedCount || 0) >= voucher.usageLimit
+    );
+    return {
+      found: true,
+      voucher,
+      isInactive,
+      isExpired,
+      isOutOfStock,
+      userUsedCount: 0,
+    };
+  } catch (_) {
+    return { found: false, message: "Không thể tải thông tin voucher lúc này." };
+  }
+}
+
+export async function recordVoucherSaveApi(code: string): Promise<{
+  success: boolean;
+  savedCount?: number;
+  voucher?: Voucher;
+}> {
+  const cleanCode = String(code || "").trim().toUpperCase();
+  if (!cleanCode) return { success: false };
+  try {
+    const res = await api.post<{ success: boolean; savedCount?: number; voucher?: Voucher }>(
+      "/api/vouchers/save",
+      { code: cleanCode }
+    );
+    return res || { success: true };
+  } catch (err) {
+    console.warn("[walletClientService] recordVoucherSaveApi skipped/failed:", err);
+    return { success: false };
+  }
 }
 
 export async function redeemGiftVoucherApi(code: string): Promise<{

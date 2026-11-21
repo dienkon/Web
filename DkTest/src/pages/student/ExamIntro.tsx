@@ -48,6 +48,8 @@ import ExamLeaderboard from "../../components/exam/ExamLeaderboard";
 import ExamPreExamSolutionPreviewModal from "../../components/exam/ExamPreExamSolutionPreviewModal";
 import type { SubExamConfig } from "../../features/sub-exam/types/subExam";
 import StudentSubExamConfig from "../../features/sub-exam/components/StudentSubExamConfig";
+import { SavedVoucherPicker } from "../../components/wallet/SavedVoucherPicker";
+import { markSavedVoucherConsumed } from "../../services/savedVoucherService";
 import { getLinkedChildrenForParent, type LinkedChildInfo } from "../../services/parentService";
 import { hasActiveExamInProgress, clearActiveExamSession } from "../../services/examSessionService";
 import {
@@ -266,12 +268,13 @@ export default function ExamIntro() {
     }
   };
 
-  const handleApplyVoucher = async () => {
-    if (!voucherCodeInput.trim() || !exam) return;
+  const handleApplyVoucher = async (codeOverride?: string) => {
+    const codeToCheck = String(codeOverride ?? voucherCodeInput).trim().toUpperCase();
+    if (!codeToCheck || !exam) return;
     try {
       setValidatingVoucher(true);
       setVoucherError("");
-      const res = await validateVoucherApi(voucherCodeInput.trim(), "exam_unlock", exam.priceVnd || 0);
+      const res = await validateVoucherApi(codeToCheck, "exam_unlock", exam.priceVnd || 0);
       if (!res.valid) {
         setVoucherError(res.message || "Mã voucher không hợp lệ hoặc đã hết hạn");
         setAppliedVoucher(null);
@@ -279,7 +282,7 @@ export default function ExamIntro() {
         const discount = Math.min(exam.priceVnd || 0, res.discountVnd || 0);
         const finalPrice = Math.max(0, (exam.priceVnd || 0) - discount);
         setAppliedVoucher({
-          code: res.code || voucherCodeInput.trim().toUpperCase(),
+          code: res.code || codeToCheck,
           discountVnd: discount,
           finalPriceVnd: finalPrice,
           name: res.name,
@@ -304,7 +307,11 @@ export default function ExamIntro() {
     try {
       setUnlocking(true);
       setPasswordError("");
-      const res = await unlockExam(exam.id, undefined, appliedVoucher ? appliedVoucher.code : undefined);
+      const usedCode = appliedVoucher ? appliedVoucher.code : undefined;
+      const res = await unlockExam(exam.id, undefined, usedCode);
+      if (usedCode) {
+        markSavedVoucherConsumed(usedCode, user?.uid || currentUser?.uid);
+      }
       setShowUnlockModal(false);
       setUnlockSuccessMsg("Chúc mừng! Bạn đã mở khóa vĩnh viễn đề thi này thành công.");
       try {
@@ -1077,7 +1084,7 @@ export default function ExamIntro() {
                           <button
                             type="button"
                             disabled={!voucherCodeInput.trim() || validatingVoucher}
-                            onClick={handleApplyVoucher}
+                            onClick={() => void handleApplyVoucher()}
                             className="px-3.5 py-1.5 bg-indigo-600 hover:bg-indigo-700 disabled:opacity-50 text-white text-xs font-bold rounded-xl shadow-xs cursor-pointer"
                           >
                             {validatingVoucher ? "Đang kiểm..." : "Áp dụng"}
@@ -1093,6 +1100,17 @@ export default function ExamIntro() {
                           <span>Đã áp dụng mã <strong>{appliedVoucher.code}</strong> {appliedVoucher.name ? `(${appliedVoucher.name})` : ""}: Giảm {appliedVoucher.discountVnd.toLocaleString("vi-VN")}đ!</span>
                         </p>
                       )}
+                      <SavedVoucherPicker
+                        uid={user?.uid || currentUser?.uid}
+                        context="exam_unlock"
+                        amountVnd={basePriceVnd}
+                        appliedCode={appliedVoucher?.code}
+                        onSelectVoucher={(selectedCode) => {
+                          setVoucherCodeInput(selectedCode);
+                          void handleApplyVoucher(selectedCode);
+                        }}
+                        className="mt-2"
+                      />
                     </div>
 
                     <div className="bg-slate-50 p-3.5 rounded-2xl border border-slate-200 text-xs space-y-2">

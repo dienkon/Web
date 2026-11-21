@@ -1,5 +1,6 @@
-import React, { Suspense } from "react";
-import { createBrowserRouter, RouterProvider, Navigate } from "react-router-dom";
+import React, { Suspense, useEffect } from "react";
+import { createBrowserRouter, RouterProvider, Navigate, useParams } from "react-router-dom";
+import { capturePendingReferralCode } from "../../services/referralClientService";
 import AdminLayout from "../../components/ui/AdminLayout";
 import StudentLayout from "../../components/ui/StudentLayout";
 import RequireAuth from "../../components/auth/RequireAuth";
@@ -21,6 +22,15 @@ function withSuspense(Component: React.ComponentType<any>, label?: string) {
       <Component />
     </Suspense>
   );
+}
+
+function ReferralRedirect() {
+  const { code } = useParams<{ code?: string }>();
+  const clean = capturePendingReferralCode(code) || "";
+  useEffect(() => {
+    if (code) capturePendingReferralCode(code);
+  }, [code]);
+  return <Navigate to={clean ? `/register?ref=${encodeURIComponent(clean)}` : "/register"} replace />;
 }
 
 // Lazy-loaded Auth Pages
@@ -144,6 +154,16 @@ const router = createBrowserRouter([
     path: "/register",
     errorElement: <RouteErrorBoundary />,
     element: withSuspense(Register),
+  },
+  {
+    path: "/ref/:code",
+    errorElement: <RouteErrorBoundary />,
+    element: <ReferralRedirect />,
+  },
+  {
+    path: "/invite/:code",
+    errorElement: <RouteErrorBoundary />,
+    element: <ReferralRedirect />,
   },
   {
     path: "/admin/login",

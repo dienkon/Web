@@ -15,7 +15,18 @@ import {
   unlockExam,
   getStudentUnpaidDebt,
 } from "../services/walletService.js";
-import { validateVoucher, redeemGiftVoucher } from "../services/voucherService.js";
+import {
+  validateVoucher,
+  redeemGiftVoucher,
+  inspectVoucher,
+  recordVoucherSave,
+} from "../services/voucherService.js";
+import {
+  extractClientIp,
+  getOrCreateReferralProfile,
+  claimReferralCode,
+  withdrawReferralBalanceToWallet,
+} from "../services/referralService.js";
 import {
   checkCourseAccess,
   unlockCourse,
@@ -178,6 +189,48 @@ walletRouter.post(["/vouchers/validate", "/wallet/vouchers/validate", "/wallet/v
   }
 });
 
+// GET /api/vouchers/inspect/:code & /api/wallet/vouchers/inspect/:code
+walletRouter.get(
+  ["/vouchers/inspect/:code", "/wallet/vouchers/inspect/:code"],
+  async (req: AuthenticatedRequest, res: Response) => {
+    try {
+      const code = String(req.params.code || "").trim();
+      let verifiedUid: string | undefined;
+      const token = /^Bearer\s+(\S+)$/i.exec(req.headers.authorization || "")?.[1];
+      if (token && !/^(student_|dk_admin_)/.test(token) && adminAuth) {
+        try {
+          const decoded = await adminAuth.verifyIdToken(token);
+          verifiedUid = decoded.uid;
+        } catch {
+          verifiedUid = undefined;
+        }
+      }
+      const result = await inspectVoucher(code, verifiedUid);
+      return res.json({ success: true, ...result });
+    } catch (err: any) {
+      return res.status(400).json({ error: "voucher_inspect_error", message: err.message || String(err) });
+    }
+  }
+);
+
+// POST /api/vouchers/save & /api/wallet/vouchers/save (increments savedCount only, never usedCount)
+walletRouter.post(
+  ["/vouchers/save", "/wallet/vouchers/save"],
+  requireAuth,
+  async (req: AuthenticatedRequest, res: Response) => {
+    try {
+      const { code } = req.body || {};
+      if (!code) {
+        return res.status(400).json({ error: "missing_code", message: "Vui lòng cung cấp mã voucher cần lưu." });
+      }
+      const result = await recordVoucherSave(String(code).trim());
+      return res.json({ success: true, ...result });
+    } catch (err: any) {
+      return res.status(400).json({ error: "voucher_save_error", message: err.message || String(err) });
+    }
+  }
+);
+
 // POST /api/vouchers/redeem-gift & /api/wallet/vouchers/redeem-gift
 walletRouter.post(["/vouchers/redeem-gift", "/wallet/vouchers/redeem-gift", "/wallet/redeem-gift", "/redeem-gift"], requireAuth, async (req: AuthenticatedRequest, res: Response) => {
   try {
@@ -196,6 +249,77 @@ walletRouter.post(["/vouchers/redeem-gift", "/wallet/vouchers/redeem-gift", "/wa
     return res.status(400).json({ error: "redeem_error", message: err.message || String(err) });
   }
 });
+
+// -------------------------------------------------------------
+// REFERRAL PROGRAM (MỜI BẠN DÙNG DKTEST - ANTI-FRAUD PROTECTED)
+// -------------------------------------------------------------
+
+// GET /api/referral/me & /api/wallet/referral/me
+walletRouter.get(
+  ["/referral/me", "/wallet/referral/me"],
+  requireAuth,
+  async (req: AuthenticatedRequest, res: Response) => {
+    try {
+      const uid = req.user!.uid;
+      const clientIp = extractClientIp(req);
+      const deviceFingerprint = String(req.headers["x-device-fingerprint"] || "").trim() || null;
+      const result = await getOrCreateReferralProfile(uid, {
+        ip: clientIp,
+        deviceFingerprint,
+      });
+      return res.json({ success: true, ...result });
+    } catch (err: any) {
+      return res.status(500).json({ error: "referral_profile_error", message: err.message || String(err) });
+    }
+  }
+);
+
+// POST /api/referral/claim & /api/wallet/referral/claim
+walletRouter.post(
+  ["/referral/claim", "/wallet/referral/claim"],
+  requireAuth,
+  async (req: AuthenticatedRequest, res: Response) => {
+    try {
+      const uid = req.user!.uid;
+      const { code, deviceFingerprint: bodyFingerprint } = req.body || {};
+      if (!code || !String(code).trim()) {
+        return res.status(400).json({ error: "missing_code", message: "Vui lòng nhập mã giới thiệu." });
+      }
+      const clientIp = extractClientIp(req);
+      const deviceFingerprint =
+        String(bodyFingerprint || req.headers["x-device-fingerprint"] || "").trim() || null;
+      const result = await claimReferralCode(uid, String(code).trim(), {
+        ip: clientIp,
+        deviceFingerprint,
+        refereeEmail: req.user!.email || null,
+        refereeName: req.user!.displayName || null,
+      });
+      return res.json(result);
+    } catch (err: any) {
+      return res.status(400).json({ error: "referral_claim_error", message: err.message || String(err) });
+    }
+  }
+);
+
+// POST /api/referral/withdraw & /api/wallet/referral/withdraw
+walletRouter.post(
+  ["/referral/withdraw", "/wallet/referral/withdraw"],
+  requireAuth,
+  async (req: AuthenticatedRequest, res: Response) => {
+    try {
+      const uid = req.user!.uid;
+      const { amountVnd } = req.body || {};
+      const parsedAmount =
+        amountVnd !== undefined && amountVnd !== null && amountVnd !== ""
+          ? Number(amountVnd)
+          : undefined;
+      const result = await withdrawReferralBalanceToWallet(uid, parsedAmount);
+      return res.json(result);
+    } catch (err: any) {
+      return res.status(400).json({ error: "referral_withdraw_error", message: err.message || String(err) });
+    }
+  }
+);
 
 // -------------------------------------------------------------
 // COURSES ACCESS, UNLOCK & AUTHORIZED LESSON CONTENT

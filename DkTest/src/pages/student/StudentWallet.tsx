@@ -26,6 +26,15 @@ import {
   PartyPopper,
   X,
   Share2,
+  Ticket,
+  Users,
+  Copy,
+  Check,
+  Bookmark,
+  BookmarkCheck,
+  Trash2,
+  ArrowRightLeft,
+  ShieldAlert,
 } from "lucide-react";
 import {
   getMyWallet,
@@ -36,9 +45,31 @@ import {
   getMyTransactions,
   getMyDebtSummary,
   redeemGiftVoucherApi,
+  validateVoucherApi,
+  inspectVoucherApi,
+  recordVoucherSaveApi,
   getResolvedStudentUid,
 } from "../../services/walletClientService";
-import type { StudentWallet as WalletType, DepositRequest, WalletTransaction, DebtRecord } from "../../types";
+import {
+  getSavedVouchers,
+  isVoucherSavedLocally,
+  saveVoucherLocally,
+  removeSavedVoucherLocally,
+  markSavedVoucherConsumed,
+  formatVoucherBenefitSummary,
+  getVoucherCategoryLabel,
+  isDepositVoucherType,
+  type SavedVoucherItem,
+} from "../../services/savedVoucherService";
+import {
+  getMyReferralProfileApi,
+  claimReferralCodeApi,
+  withdrawReferralBalanceApi,
+  buildReferralShareUrl,
+  type ReferralDashboardResponse,
+} from "../../services/referralClientService";
+import { SavedVoucherPicker } from "../../components/wallet/SavedVoucherPicker";
+import type { StudentWallet as WalletType, DepositRequest, WalletTransaction, DebtRecord, Voucher } from "../../types";
 import { useAuth } from "../../context/AuthContext";
 import { useToast } from "../../components/ui/ToastNotification";
 import { formatDate } from "../../utils/date";
@@ -59,7 +90,7 @@ export default function StudentWalletPage() {
     records: [],
   });
   const [loading, setLoading] = useState(true);
-  const [activeTab, setActiveTab] = useState<"deposit" | "debt" | "requests" | "history">("deposit");
+  const [activeTab, setActiveTab] = useState<"deposit" | "vouchers" | "referral" | "debt" | "requests" | "history">("deposit");
 
   // Profile completion modal state
   const [showProfileModal, setShowProfileModal] = useState(false);
@@ -71,6 +102,34 @@ export default function StudentWalletPage() {
   const [depositAmount, setDepositAmount] = useState<number>(2000);
   const [customInputStr, setCustomInputStr] = useState<string>("2.000");
   const [depositVoucherCode, setDepositVoucherCode] = useState<string>("");
+  const [validatingDepositVoucher, setValidatingDepositVoucher] = useState(false);
+  const [depositVoucherResult, setDepositVoucherResult] = useState<{
+    valid: boolean;
+    code?: string;
+    name?: string;
+    bonusVnd?: number;
+    message?: string;
+  } | null>(null);
+
+  // Saved local vouchers vault (Shopee-style)
+  const currentStudentUid = user?.uid || getResolvedStudentUid() || null;
+  const [savedVouchers, setSavedVouchers] = useState<SavedVoucherItem[]>([]);
+  const [saveVoucherModal, setSaveVoucherModal] = useState<{
+    voucher: Voucher;
+    alreadySaved: boolean;
+    isExpired?: boolean;
+    isOutOfStock?: boolean;
+    isInactive?: boolean;
+    saving?: boolean;
+  } | null>(null);
+
+  // Referral Program state
+  const [referralData, setReferralData] = useState<ReferralDashboardResponse | null>(null);
+  const [loadingReferral, setLoadingReferral] = useState(false);
+  const [claimRefCodeInput, setClaimRefCodeInput] = useState("");
+  const [claimingRef, setClaimingRef] = useState(false);
+  const [withdrawingRef, setWithdrawingRef] = useState(false);
+  const [copiedRefField, setCopiedRefField] = useState<"code" | "link" | null>(null);
 
   // Gift money voucher redemption state
   const [giftVoucherCode, setGiftVoucherCode] = useState("");
@@ -103,8 +162,54 @@ export default function StudentWalletPage() {
   const [confirmStep, setConfirmStep] = useState<1 | 2 | 3>(1);
   const [submittingDeposit, setSubmittingDeposit] = useState(false);
 
+  const refreshSavedVouchers = () => {
+    setSavedVouchers(getSavedVouchers(currentStudentUid));
+  };
+
+  useEffect(() => {
+    refreshSavedVouchers();
+    const handler = () => refreshSavedVouchers();
+    window.addEventListener("dktest:saved_vouchers_updated", handler);
+    window.addEventListener("storage", handler);
+    return () => {
+      window.removeEventListener("dktest:saved_vouchers_updated", handler);
+      window.removeEventListener("storage", handler);
+    };
+  }, [currentStudentUid]);
+
+  // Support deep link ?tab=referral or ?tab=vouchers
+  useEffect(() => {
+    const tabParam = searchParams.get("tab");
+    if (
+      tabParam === "deposit" ||
+      tabParam === "vouchers" ||
+      tabParam === "referral" ||
+      tabParam === "debt" ||
+      tabParam === "requests" ||
+      tabParam === "history"
+    ) {
+      setActiveTab(tabParam);
+    }
+  }, [searchParams]);
+
+  const loadReferralData = async () => {
+    if (!currentStudentUid) return;
+    setLoadingReferral(true);
+    try {
+      const res = await getMyReferralProfileApi();
+      if (res?.profile) {
+        setReferralData(res);
+      }
+    } catch (err) {
+      console.warn("[StudentWallet] Could not load referral profile:", err);
+    } finally {
+      setLoadingReferral(false);
+    }
+  };
+
   useEffect(() => {
     loadWalletData();
+    loadReferralData();
 
     if (user?.uid) {
       const unsub = subscribeMyWallet(user.uid, (liveWallet) => {
@@ -113,6 +218,46 @@ export default function StudentWalletPage() {
       return () => unsub();
     }
   }, [user?.uid]);
+
+  const validateDepositVoucher = async (rawCode: string, amountOverride?: number) => {
+    const clean = rawCode.trim().toUpperCase();
+    const amt = amountOverride ?? depositAmount;
+    if (!clean) {
+      setDepositVoucherResult(null);
+      return null;
+    }
+    setValidatingDepositVoucher(true);
+    try {
+      const res = await validateVoucherApi(clean, "deposit", amt);
+      setDepositVoucherResult({
+        valid: Boolean(res.valid),
+        code: res.code || clean,
+        name: res.name || res.voucher?.name,
+        bonusVnd: res.bonusVnd || 0,
+        message: res.message,
+      });
+      return res;
+    } catch (err: any) {
+      const fallback = { valid: false, message: err?.message || "Không thể kiểm tra mã khuyến mãi nạp tiền." };
+      setDepositVoucherResult(fallback);
+      return fallback;
+    } finally {
+      setValidatingDepositVoucher(false);
+    }
+  };
+
+  // Debounced auto-validation when user types or changes deposit amount
+  useEffect(() => {
+    const clean = depositVoucherCode.trim().toUpperCase();
+    if (!clean) {
+      setDepositVoucherResult(null);
+      return;
+    }
+    const timer = setTimeout(() => {
+      void validateDepositVoucher(clean, depositAmount);
+    }, 450);
+    return () => clearTimeout(timer);
+  }, [depositVoucherCode, depositAmount]);
 
   const loadWalletData = async () => {
     setLoading(true);
@@ -165,7 +310,7 @@ export default function StudentWalletPage() {
     }
   };
 
-  const handleStartDeposit = () => {
+  const handleStartDeposit = async () => {
     if (!wallet?.profileCompleted || !wallet?.fullName || !wallet?.currentClass) {
       setShowProfileModal(true);
       return;
@@ -181,6 +326,18 @@ export default function StudentWalletPage() {
       return;
     }
 
+    // Immediate validation for deposit voucher (blocks mismatched exam/course/gift vouchers!)
+    const trimmedCode = depositVoucherCode.trim().toUpperCase();
+    if (trimmedCode) {
+      const check = await validateDepositVoucher(trimmedCode, amt);
+      if (!check?.valid) {
+        showErrorToast(
+          check?.message || "Mã voucher bạn nhập không áp dụng được cho giao dịch nạp tiền."
+        );
+        return;
+      }
+    }
+
     setDepositAmount(amt);
     setConfirmStep(1);
     setShowConfirmModal(true);
@@ -189,13 +346,19 @@ export default function StudentWalletPage() {
   const handleFinalSubmitDeposit = async () => {
     setSubmittingDeposit(true);
     try {
+      const usedCode = depositVoucherCode.trim().toUpperCase();
       const idempotencyKey = `dep_${Date.now()}_${Math.random().toString(36).substring(2, 7)}`;
-      await createDepositRequest(depositAmount, idempotencyKey, depositVoucherCode.trim() || undefined);
+      await createDepositRequest(depositAmount, idempotencyKey, usedCode || undefined);
       setShowConfirmModal(false);
+      if (usedCode) {
+        markSavedVoucherConsumed(usedCode, currentStudentUid);
+        refreshSavedVouchers();
+      }
       showSuccessToast(
         `Nạp tiền thành công! Đã cộng số dư vào ví của bạn. Vui lòng nộp tiền mặt cho giáo viên để hoàn tất công nợ.`
       );
       setDepositVoucherCode("");
+      setDepositVoucherResult(null);
       // Cập nhật lại số dư và lịch sử ngay lập tức
       await loadWalletData();
       setActiveTab("requests");
@@ -203,6 +366,114 @@ export default function StudentWalletPage() {
       showErrorToast(err.message || "Gửi yêu cầu nạp thất bại.");
     } finally {
       setSubmittingDeposit(false);
+    }
+  };
+
+  const handleConfirmSaveVoucher = async () => {
+    if (!saveVoucherModal || saveVoucherModal.saving) return;
+    const { voucher } = saveVoucherModal;
+    setSaveVoucherModal((prev) => (prev ? { ...prev, saving: true } : null));
+    try {
+      const saveRes = saveVoucherLocally(voucher, currentStudentUid);
+      if (!saveRes.alreadySaved && currentStudentUid) {
+        await recordVoucherSaveApi(voucher.code);
+      }
+      refreshSavedVouchers();
+      setSaveVoucherModal((prev) =>
+        prev
+          ? {
+              ...prev,
+              alreadySaved: true,
+              saving: false,
+              voucher: {
+                ...prev.voucher,
+                savedCount: saveRes.alreadySaved
+                  ? prev.voucher.savedCount
+                  : (prev.voucher.savedCount || 0) + 1,
+              },
+            }
+          : null
+      );
+      showSuccessToast(
+        saveRes.alreadySaved
+          ? `Voucher ${voucher.code} đã có sẵn trong Kho Voucher của bạn!`
+          : `Đã lưu voucher ${voucher.code} vào Kho Voucher! Hệ thống sẽ tự động đề xuất khi bạn thanh toán.`
+      );
+    } catch (err: any) {
+      setSaveVoucherModal((prev) => (prev ? { ...prev, saving: false } : null));
+      showErrorToast(err?.message || "Không thể lưu voucher lúc này.");
+    }
+  };
+
+  const handleClaimReferral = async (e: React.FormEvent) => {
+    e.preventDefault();
+    const code = claimRefCodeInput.trim().toUpperCase();
+    if (!code) {
+      showErrorToast("Vui lòng nhập mã giới thiệu từ bạn bè.");
+      return;
+    }
+    setClaimingRef(true);
+    try {
+      const res = await claimReferralCodeApi(code);
+      showSuccessToast(res.message || "Xác nhận mã giới thiệu thành công!");
+      setClaimRefCodeInput("");
+      await loadReferralData();
+    } catch (err: any) {
+      showErrorToast(err?.message || "Không thể áp dụng mã giới thiệu.");
+    } finally {
+      setClaimingRef(false);
+    }
+  };
+
+  const handleWithdrawReferral = async () => {
+    const available = referralData?.profile?.referralBalanceVnd || 0;
+    const minWithdraw = referralData?.rules?.minWithdrawVnd || 1000;
+    if (available < minWithdraw) {
+      showErrorToast(`Cần tối thiểu ${minWithdraw.toLocaleString("vi-VN")}đ trong Quỹ giới thiệu để rút về Ví DkTEST.`);
+      return;
+    }
+    setWithdrawingRef(true);
+    try {
+      const res = await withdrawReferralBalanceApi(available);
+      fireGrandCelebration();
+      showSuccessToast(
+        res.message || `Đã rút +${res.withdrawnVnd.toLocaleString("vi-VN")}đ vào Ví DkTEST thành công!`
+      );
+      await Promise.all([loadWalletData(), loadReferralData()]);
+    } catch (err: any) {
+      showErrorToast(err?.message || "Không thể rút tiền thưởng giới thiệu.");
+    } finally {
+      setWithdrawingRef(false);
+    }
+  };
+
+  const handleCopyReferral = async (type: "code" | "link") => {
+    const code = referralData?.profile?.code;
+    if (!code) return;
+    const text = type === "code" ? code : buildReferralShareUrl(code);
+    try {
+      await navigator.clipboard.writeText(text);
+      setCopiedRefField(type);
+      showSuccessToast(
+        type === "code" ? `Đã sao chép mã giới thiệu ${code}!` : "Đã sao chép link mời bạn bè!"
+      );
+      setTimeout(() => setCopiedRefField(null), 2000);
+    } catch {
+      prompt(type === "code" ? "Sao chép mã giới thiệu:" : "Sao chép link mời bạn:", text);
+    }
+  };
+
+  const handleShareReferral = async () => {
+    const code = referralData?.profile?.code;
+    if (!code) return;
+    const url = buildReferralShareUrl(code);
+    const shared = await safeShare({
+      title: `Mời bạn dùng DkTEST - Mã ${code}`,
+      text: `Đăng ký DkTEST qua link mời của mình để cùng luyện đề và ôn tập cực đỉnh! Mã giới thiệu: ${code}`,
+      url,
+    });
+    if (!shared) {
+      await handleCopyReferral("link");
     }
   };
 
@@ -286,13 +557,49 @@ export default function StudentWalletPage() {
   const executeRedeemVoucher = async (codeToRedeem: string, isAuto = false) => {
     const code = codeToRedeem.trim().toUpperCase();
     if (!code) {
-      showErrorToast("Vui lòng nhập mã voucher quà tặng.");
+      showErrorToast("Vui lòng nhập mã voucher.");
       return;
     }
     setRedeemingGift(true);
     if (isAuto) setAutoRedeemProcessing(code);
 
     try {
+      // Step 1: Inspect voucher type first (Shopee-style separation)
+      const inspected = await inspectVoucherApi(code);
+      if (!inspected.found || !inspected.voucher) {
+        showErrorToast(inspected.message || `Mã voucher "${code}" không tồn tại hoặc đã bị xóa.`);
+        return;
+      }
+
+      const voucher = inspected.voucher;
+
+      // Non-gift vouchers (giảm giá đề thi/khóa học, thưởng nạp tiền) -> open Save Voucher Modal instead of redeeming gift money
+      if (voucher.type !== "gift_money") {
+        const alreadySaved = isVoucherSavedLocally(voucher.code, currentStudentUid);
+        setSaveVoucherModal({
+          voucher,
+          alreadySaved,
+          isExpired: inspected.isExpired,
+          isOutOfStock: inspected.isOutOfStock,
+          isInactive: inspected.isInactive,
+          saving: false,
+        });
+        setGiftVoucherCode("");
+        if (alreadySaved) {
+          showInfoToast(`Bạn đã lưu voucher ${voucher.code} vào Kho Voucher trước đó rồi!`);
+        }
+        return;
+      }
+
+      // Gift money voucher -> requires login
+      const activeUid = user?.uid || getResolvedStudentUid();
+      if (!activeUid) {
+        sessionStorage.setItem("dktest_pending_voucher", code);
+        setUnauthenticatedVoucherPrompt(code);
+        return;
+      }
+
+      // Direct gift money redemption
       const res = await redeemGiftVoucherApi(code);
       fireGrandCelebration();
       setCelebrationReward({
@@ -306,10 +613,7 @@ export default function StudentWalletPage() {
         message: res.message,
       });
       showSuccessToast(
-        res.message ||
-          (res.addedVnd > 0
-            ? `Đã nhận quà thành công! +${res.addedVnd.toLocaleString("vi-VN")}đ vào ví.`
-            : `Đã kích hoạt mã ưu đãi ${code}!`)
+        res.message || `Đã nhận quà thành công! +${(res.addedVnd || 0).toLocaleString("vi-VN")}đ vào ví.`
       );
       setGiftVoucherCode("");
       await loadWalletData();
@@ -333,7 +637,7 @@ export default function StudentWalletPage() {
           balanceVnd: wallet?.balanceVnd || 0,
         });
       } else {
-        showErrorToast(err.message || "Không thể sử dụng mã quà tặng này.");
+        showErrorToast(err.message || "Không thể xử lý mã voucher này.");
       }
     } finally {
       setRedeemingGift(false);
@@ -367,7 +671,7 @@ export default function StudentWalletPage() {
     }
   };
 
-  // Auto-redeem from URL route (/voucher/:code), query (?voucher=CODE or ?code=CODE or ?redeem=CODE) or sessionStorage
+  // Auto-handle voucher from URL route (/voucher/:code), query (?voucher=CODE or ?code=CODE or ?redeem=CODE) or sessionStorage
   useEffect(() => {
     const paramCode = (
       routeVoucherCode ||
@@ -382,31 +686,26 @@ export default function StudentWalletPage() {
 
     setGiftVoucherCode(paramCode);
 
-    // Resolve student identity (Firebase Auth user OR stored student session)
     const currentUid = user?.uid || getResolvedStudentUid();
+    if (!currentUid && (!authInitialized || authLoading)) return;
 
-    if (currentUid) {
-      if (autoRedeemTriggeredRef.current !== paramCode) {
-        autoRedeemTriggeredRef.current = paramCode;
+    if (autoRedeemTriggeredRef.current !== paramCode) {
+      autoRedeemTriggeredRef.current = paramCode;
+      if (currentUid) {
         sessionStorage.removeItem("dktest_pending_voucher");
         setUnauthenticatedVoucherPrompt(null);
-
-        // Clear query parameters from URL quietly
-        try {
-          const newParams = new URLSearchParams(searchParams);
-          newParams.delete("voucher");
-          newParams.delete("code");
-          newParams.delete("redeem");
-          setSearchParams(newParams, { replace: true });
-        } catch (_) {}
-
-        // Execute immediately without waiting!
-        executeRedeemVoucher(paramCode, true);
       }
-    } else if (authInitialized && !authLoading && !currentUid) {
-      // Prompt unauthenticated user
-      sessionStorage.setItem("dktest_pending_voucher", paramCode);
-      setUnauthenticatedVoucherPrompt(paramCode);
+
+      // Clear query parameters from URL quietly
+      try {
+        const newParams = new URLSearchParams(searchParams);
+        newParams.delete("voucher");
+        newParams.delete("code");
+        newParams.delete("redeem");
+        setSearchParams(newParams, { replace: true });
+      } catch (_) {}
+
+      void executeRedeemVoucher(paramCode, true);
     }
   }, [routeVoucherCode, searchParams, user?.uid, authInitialized, authLoading]);
 
@@ -444,7 +743,11 @@ export default function StudentWalletPage() {
         </div>
 
         <button
-          onClick={loadWalletData}
+          onClick={() => {
+            void loadWalletData();
+            void loadReferralData();
+            refreshSavedVouchers();
+          }}
           disabled={loading}
           className="self-start sm:self-auto px-3 py-2 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 hover:bg-slate-50 rounded-xl text-xs font-bold text-slate-700 dark:text-slate-300 flex items-center gap-1.5 transition-colors cursor-pointer shadow-2xs"
         >
@@ -598,7 +901,39 @@ export default function StudentWalletPage() {
           }`}
         >
           <Plus className="w-4 h-4" />
-          Tạo yêu cầu nạp tiền
+          Nạp tiền & Quà tặng
+        </button>
+
+        <button
+          onClick={() => setActiveTab("vouchers")}
+          className={`pb-3 px-3 text-xs sm:text-sm font-bold transition-colors cursor-pointer border-b-2 flex items-center gap-1.5 shrink-0 ${
+            activeTab === "vouchers"
+              ? "border-indigo-600 text-indigo-600 dark:text-indigo-400"
+              : "border-transparent text-slate-500 hover:text-slate-800 dark:hover:text-slate-200"
+          }`}
+        >
+          <Ticket className="w-4 h-4" />
+          Kho Voucher ({savedVouchers.length})
+        </button>
+
+        <button
+          onClick={() => {
+            setActiveTab("referral");
+            if (!referralData) void loadReferralData();
+          }}
+          className={`pb-3 px-3 text-xs sm:text-sm font-bold transition-colors cursor-pointer border-b-2 flex items-center gap-1.5 shrink-0 ${
+            activeTab === "referral"
+              ? "border-violet-600 text-violet-600 dark:text-violet-400"
+              : "border-transparent text-slate-500 hover:text-slate-800 dark:hover:text-slate-200"
+          }`}
+        >
+          <Users className="w-4 h-4" />
+          Mời bạn nhận thưởng
+          {(referralData?.profile?.referralBalanceVnd || 0) >= 1000 && (
+            <span className="px-1.5 py-0.5 text-[10px] rounded-full bg-violet-600 text-white font-black">
+              Rút ngay
+            </span>
+          )}
         </button>
 
         <button
@@ -644,7 +979,7 @@ export default function StudentWalletPage() {
       {/* TAB 1: FORM TẠO YÊU CẦU NẠP */}
       {activeTab === "deposit" && (
         <div className="space-y-6">
-          {/* GIFT CODE BOX (NHẬN TIỀN TRỰC TIẾP) */}
+          {/* GIFT / SAVE VOUCHER BOX */}
           <div className="p-4 sm:p-5 rounded-2xl bg-gradient-to-br from-amber-500/10 to-orange-500/10 border border-amber-200 dark:border-amber-800/80 shadow-2xs space-y-3">
             <div className="flex items-center gap-2">
               <span className="p-2 bg-amber-500 text-white rounded-xl shadow-xs">
@@ -652,10 +987,10 @@ export default function StudentWalletPage() {
               </span>
               <div>
                 <h3 className="text-xs sm:text-sm font-bold text-slate-900 dark:text-white">
-                  Nhập mã Voucher quà tặng (Cộng tiền ngay vào ví)
+                  Nhập mã Voucher (Nhận tiền thẳng hoặc Lưu mã giảm giá)
                 </h3>
                 <p className="text-[11px] text-slate-500 dark:text-slate-400">
-                  Nhận mã quà tặng từ giáo viên hoặc sự kiện trường? Nhập mã vào đây để nhận tiền lập tức.
+                  Mã quà tặng sẽ cộng tiền ngay vào ví. Mã giảm giá / thưởng nạp sẽ hiện nút <strong>Lưu voucher</strong> vào Kho để tự động đề xuất khi thanh toán.
                 </p>
               </div>
             </div>
@@ -665,7 +1000,7 @@ export default function StudentWalletPage() {
                 type="text"
                 value={giftVoucherCode}
                 onChange={(e) => setGiftVoucherCode(e.target.value.toUpperCase())}
-                placeholder="Ví dụ: TANG2K, CHAOBANMOI"
+                placeholder="Ví dụ: TANG2K, GIAM50, NAPTHUONG20"
                 className="flex-1 px-3.5 py-2.5 bg-white dark:bg-slate-900 border border-amber-200 dark:border-amber-800 rounded-xl text-xs font-bold text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-amber-500 uppercase tracking-wider"
               />
               <button
@@ -674,7 +1009,7 @@ export default function StudentWalletPage() {
                 className="px-5 py-2.5 bg-amber-600 hover:bg-amber-700 disabled:opacity-50 text-white text-xs font-bold rounded-xl transition-all shadow-xs cursor-pointer flex items-center justify-center gap-1.5 shrink-0"
               >
                 <Gift className="w-3.5 h-3.5" />
-                {redeemingGift ? "Đang nhận..." : "Nhận quà"}
+                {redeemingGift ? "Đang kiểm tra..." : "Nhận / Lưu mã"}
               </button>
               {giftVoucherCode.trim() && (
                 <button
@@ -750,21 +1085,71 @@ export default function StudentWalletPage() {
                 </div>
               </div>
 
-              {/* Deposit Promo Voucher Input */}
-              <div>
-                <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1.5">
+              {/* Deposit Promo Voucher Input + Shopee-style Picker + Instant Mismatch Warning */}
+              <div className="space-y-2.5 max-w-lg">
+                <label className="block text-xs font-bold text-slate-700 dark:text-slate-300">
                   Mã khuyến mãi nạp tiền (nếu có):
                 </label>
-                <div className="relative max-w-sm">
-                  <input
-                    type="text"
-                    value={depositVoucherCode}
-                    onChange={(e) => setDepositVoucherCode(e.target.value.toUpperCase())}
-                    placeholder="Ví dụ: NAPTHUONG20"
-                    className="w-full pl-4 pr-10 py-2.5 bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl text-xs font-bold text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-emerald-500 uppercase tracking-wider"
-                  />
-                  <Tag className="w-4 h-4 text-slate-400 absolute right-3.5 top-1/2 -translate-y-1/2" />
+
+                <SavedVoucherPicker
+                  uid={currentStudentUid}
+                  context="deposit"
+                  amountVnd={depositAmount}
+                  appliedCode={depositVoucherResult?.valid ? depositVoucherResult.code : undefined}
+                  onSelectVoucher={(selectedCode) => {
+                    setDepositVoucherCode(selectedCode);
+                    void validateDepositVoucher(selectedCode, depositAmount);
+                  }}
+                />
+
+                <div className="flex items-center gap-2">
+                  <div className="relative flex-1">
+                    <input
+                      type="text"
+                      value={depositVoucherCode}
+                      onChange={(e) => {
+                        setDepositVoucherCode(e.target.value.toUpperCase());
+                        if (!e.target.value.trim()) setDepositVoucherResult(null);
+                      }}
+                      placeholder="Ví dụ: NAPTHUONG20"
+                      className={`w-full pl-4 pr-10 py-2.5 bg-slate-50 dark:bg-slate-900 border rounded-xl text-xs font-bold text-slate-900 dark:text-white focus:outline-none focus:ring-2 uppercase tracking-wider ${
+                        depositVoucherResult
+                          ? depositVoucherResult.valid
+                            ? "border-emerald-400 focus:ring-emerald-500"
+                            : "border-rose-400 focus:ring-rose-500"
+                          : "border-slate-200 dark:border-slate-700 focus:ring-emerald-500"
+                      }`}
+                    />
+                    <Tag className="w-4 h-4 text-slate-400 absolute right-3.5 top-1/2 -translate-y-1/2" />
+                  </div>
+                  <button
+                    type="button"
+                    disabled={validatingDepositVoucher || !depositVoucherCode.trim()}
+                    onClick={() => void validateDepositVoucher(depositVoucherCode, depositAmount)}
+                    className="px-4 py-2.5 rounded-xl bg-slate-900 hover:bg-slate-800 dark:bg-emerald-600 dark:hover:bg-emerald-700 disabled:opacity-50 text-white text-xs font-bold transition-colors cursor-pointer shrink-0"
+                  >
+                    {validatingDepositVoucher ? "Đang kiểm tra..." : "Áp dụng"}
+                  </button>
                 </div>
+
+                {depositVoucherResult && (
+                  <div
+                    className={`p-3 rounded-xl border text-xs font-semibold flex items-start gap-2 ${
+                      depositVoucherResult.valid
+                        ? "bg-emerald-50 dark:bg-emerald-950/40 border-emerald-200 dark:border-emerald-800 text-emerald-800 dark:text-emerald-200"
+                        : "bg-rose-50 dark:bg-rose-950/40 border-rose-200 dark:border-rose-800 text-rose-700 dark:text-rose-300"
+                    }`}
+                  >
+                    {depositVoucherResult.valid ? (
+                      <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />
+                    ) : (
+                      <AlertTriangle className="w-4 h-4 text-rose-600 shrink-0 mt-0.5" />
+                    )}
+                    <div className="leading-relaxed">
+                      {depositVoucherResult.message}
+                    </div>
+                  </div>
+                )}
               </div>
 
               {/* Student Snapshot Info */}
@@ -787,12 +1172,385 @@ export default function StudentWalletPage() {
               <button
                 type="button"
                 onClick={handleStartDeposit}
-                className="w-full sm:w-auto px-6 py-3 bg-emerald-600 hover:bg-emerald-700 text-white text-sm font-bold rounded-xl transition-all shadow-md shadow-emerald-600/20 cursor-pointer flex items-center justify-center gap-2"
+                disabled={validatingDepositVoucher}
+                className="w-full sm:w-auto px-6 py-3 bg-emerald-600 hover:bg-emerald-700 disabled:opacity-60 text-white text-sm font-bold rounded-xl transition-all shadow-md shadow-emerald-600/20 cursor-pointer flex items-center justify-center gap-2"
               >
                 Tiến hành xác nhận nạp tiền
                 <ChevronRight className="w-4 h-4" />
               </button>
             </div>
+          </div>
+        </div>
+      )}
+
+      {/* TAB: KHO VOUCHER ĐÃ LƯU (SHOPEE-STYLE) */}
+      {activeTab === "vouchers" && (
+        <div className="bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 p-5 sm:p-6 shadow-2xs space-y-4">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+            <div>
+              <h2 className="text-base font-bold text-slate-900 dark:text-white flex items-center gap-2">
+                <Ticket className="w-5 h-5 text-indigo-600" />
+                Kho Voucher đã lưu trên thiết bị
+              </h2>
+              <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
+                Hệ thống tự động đề xuất đúng loại voucher hợp lệ khi bạn nạp tiền ví, mở khóa đề thi hoặc mua khóa học.
+              </p>
+            </div>
+            <span className="text-xs font-bold text-indigo-600 bg-indigo-50 dark:bg-indigo-950/50 px-3 py-1 rounded-full self-start sm:self-auto">
+              {savedVouchers.length} voucher đang lưu
+            </span>
+          </div>
+
+          {savedVouchers.length === 0 ? (
+            <div className="py-12 text-center space-y-2.5">
+              <div className="w-12 h-12 rounded-2xl bg-indigo-50 dark:bg-indigo-950/40 text-indigo-500 mx-auto flex items-center justify-center">
+                <Ticket className="w-6 h-6" />
+              </div>
+              <p className="text-sm font-bold text-slate-700 dark:text-slate-200">
+                Kho Voucher của bạn đang trống
+              </p>
+              <p className="text-xs text-slate-400 max-w-sm mx-auto">
+                Khi mở link voucher giảm giá hoặc thưởng nạp từ giáo viên/sự kiện, bấm <strong>Lưu voucher</strong> để lưu vào đây nhé!
+              </p>
+            </div>
+          ) : (
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-3.5">
+              {savedVouchers.map((v) => {
+                const isDep = isDepositVoucherType(v.type);
+                const isExpired = Boolean(v.expiresAt && new Date(v.expiresAt).getTime() < Date.now());
+                return (
+                  <div
+                    key={v.code}
+                    className={`rounded-2xl border p-4 flex flex-col justify-between gap-3 transition-all ${
+                      isExpired
+                        ? "border-slate-200 bg-slate-50/70 dark:border-slate-700 dark:bg-slate-900/40 opacity-70"
+                        : isDep
+                          ? "border-emerald-200 bg-gradient-to-br from-emerald-50/60 to-white dark:from-emerald-950/20 dark:to-slate-900 dark:border-emerald-800/70"
+                          : "border-indigo-200 bg-gradient-to-br from-indigo-50/60 to-white dark:from-indigo-950/20 dark:to-slate-900 dark:border-indigo-800/70"
+                    }`}
+                  >
+                    <div className="space-y-2">
+                      <div className="flex items-center justify-between gap-2">
+                        <span
+                          className={`px-2 py-0.5 rounded-md text-[10px] font-black uppercase tracking-wider ${
+                            isDep
+                              ? "bg-emerald-600 text-white"
+                              : "bg-indigo-600 text-white"
+                          }`}
+                        >
+                          {getVoucherCategoryLabel(v.type)}
+                        </span>
+                        <span className="font-mono text-xs font-black text-slate-700 dark:text-slate-200 bg-white dark:bg-slate-800 px-2 py-0.5 rounded-lg border border-slate-200 dark:border-slate-700">
+                          {v.code}
+                        </span>
+                      </div>
+
+                      <div>
+                        <h3 className="text-sm font-extrabold text-slate-900 dark:text-white">
+                          {v.name}
+                        </h3>
+                        <p className={`text-xs font-bold mt-0.5 ${isDep ? "text-emerald-700 dark:text-emerald-400" : "text-indigo-700 dark:text-indigo-400"}`}>
+                          {formatVoucherBenefitSummary(v)}
+                        </p>
+                      </div>
+
+                      <div className="text-[11px] text-slate-500 dark:text-slate-400 flex flex-wrap gap-x-3 gap-y-1">
+                        {isDep && v.minDepositVnd ? (
+                          <span>Nạp tối thiểu: {v.minDepositVnd.toLocaleString("vi-VN")}đ</span>
+                        ) : null}
+                        {!isDep && v.minOrderVnd ? (
+                          <span>Đơn tối thiểu: {v.minOrderVnd.toLocaleString("vi-VN")}đ</span>
+                        ) : null}
+                        {v.expiresAt ? (
+                          <span className={isExpired ? "text-rose-600 font-bold" : ""}>
+                            {isExpired ? "Đã hết hạn" : `HSD: ${formatDate(v.expiresAt)}`}
+                          </span>
+                        ) : (
+                          <span>Không giới hạn hạn dùng</span>
+                        )}
+                      </div>
+                    </div>
+
+                    <div className="pt-2.5 border-t border-slate-200/70 dark:border-slate-700/70 flex items-center justify-between gap-2">
+                      <button
+                        type="button"
+                        onClick={() => {
+                          removeSavedVoucherLocally(v.code, currentStudentUid);
+                          refreshSavedVouchers();
+                          showInfoToast(`Đã xóa voucher ${v.code} khỏi Kho.`);
+                        }}
+                        className="px-2.5 py-1.5 rounded-lg text-xs font-bold text-slate-500 hover:text-rose-600 hover:bg-rose-50 dark:hover:bg-rose-950/40 transition-colors flex items-center gap-1 cursor-pointer"
+                      >
+                        <Trash2 className="w-3.5 h-3.5" />
+                        Xóa
+                      </button>
+
+                      {!isExpired && isDep ? (
+                        <button
+                          type="button"
+                          onClick={() => {
+                            setDepositVoucherCode(v.code);
+                            setActiveTab("deposit");
+                            void validateDepositVoucher(v.code, depositAmount);
+                          }}
+                          className="px-3.5 py-1.5 rounded-lg bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-extrabold transition-colors flex items-center gap-1 cursor-pointer"
+                        >
+                          Dùng nạp tiền ngay
+                          <ArrowRight className="w-3.5 h-3.5" />
+                        </button>
+                      ) : !isExpired ? (
+                        <div className="flex items-center gap-1.5">
+                          <Link
+                            to="/"
+                            className="px-3 py-1.5 rounded-lg bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-extrabold transition-colors"
+                          >
+                            Mở đề thi
+                          </Link>
+                          <Link
+                            to="/courses"
+                            className="px-3 py-1.5 rounded-lg bg-slate-100 hover:bg-slate-200 dark:bg-slate-700 dark:hover:bg-slate-600 text-slate-800 dark:text-white text-xs font-extrabold transition-colors"
+                          >
+                            Khóa học
+                          </Link>
+                        </div>
+                      ) : null}
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          )}
+        </div>
+      )}
+
+      {/* TAB: MỜI BẠN DÙNG DKTEST (REFERRAL PROGRAM + ANTI-FRAUD) */}
+      {activeTab === "referral" && (
+        <div className="space-y-5">
+          {/* Reward Balance & Withdraw Card */}
+          <div className="rounded-2xl bg-gradient-to-br from-violet-600 via-indigo-600 to-purple-700 text-white p-5 sm:p-6 shadow-lg space-y-4">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+              <div className="space-y-1">
+                <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-white/15 text-[11px] font-bold">
+                  <Sparkles className="w-3.5 h-3.5 text-amber-300" />
+                  Thưởng ngẫu nhiên 100đ – 1.000đ / bạn mới
+                </div>
+                <h2 className="text-lg sm:text-xl font-black">
+                  Quỹ thưởng giới thiệu bạn bè (Ref)
+                </h2>
+                <p className="text-xs text-indigo-100 max-w-xl">
+                  Mời bạn bè đăng ký DkTEST bằng link hoặc mã của bạn. Khi bạn mới hợp lệ xác nhận, bạn nhận thưởng ngẫu nhiên <strong>100đ – 1.000đ</strong>. Đủ từ <strong>1.000đ</strong> có thể rút ngay vào Ví DkTEST!
+                </p>
+              </div>
+
+              <div className="bg-white/15 backdrop-blur-xs rounded-2xl p-4 min-w-[210px] border border-white/20 space-y-2">
+                <span className="text-[11px] uppercase tracking-wider text-indigo-100 font-bold block">
+                  Số dư có thể rút
+                </span>
+                <div className="text-2xl sm:text-3xl font-black">
+                  {(referralData?.profile?.referralBalanceVnd || 0).toLocaleString("vi-VN")}
+                  <span className="text-sm font-bold ml-1 text-indigo-200">đ</span>
+                </div>
+                <button
+                  type="button"
+                  disabled={
+                    withdrawingRef ||
+                    loadingReferral ||
+                    (referralData?.profile?.referralBalanceVnd || 0) < (referralData?.rules?.minWithdrawVnd || 1000)
+                  }
+                  onClick={handleWithdrawReferral}
+                  className="w-full py-2 px-3 rounded-xl bg-amber-400 hover:bg-amber-300 disabled:bg-white/20 disabled:text-white/60 text-slate-950 font-black text-xs transition-all flex items-center justify-center gap-1.5 cursor-pointer disabled:cursor-not-allowed"
+                >
+                  <ArrowRightLeft className="w-3.5 h-3.5" />
+                  {withdrawingRef
+                    ? "Đang chuyển vào ví..."
+                    : (referralData?.profile?.referralBalanceVnd || 0) >= 1000
+                      ? "Rút về Ví DkTEST ngay"
+                      : "Cần đủ 1.000đ để rút"}
+                </button>
+              </div>
+            </div>
+
+            {/* Progress bar towards 1.000đ min withdraw */}
+            {(() => {
+              const bal = referralData?.profile?.referralBalanceVnd || 0;
+              const minW = referralData?.rules?.minWithdrawVnd || 1000;
+              const pct = Math.min(100, Math.round((bal / minW) * 100));
+              return (
+                <div className="space-y-1.5">
+                  <div className="flex items-center justify-between text-[11px] font-bold text-indigo-100">
+                    <span>Tiến độ đạt mốc rút tối thiểu ({minW.toLocaleString("vi-VN")}đ)</span>
+                    <span>{bal >= minW ? "Đã đủ điều kiện rút!" : `${pct}% (còn thiếu ${(minW - bal).toLocaleString("vi-VN")}đ)`}</span>
+                  </div>
+                  <div className="h-2 rounded-full bg-white/20 overflow-hidden">
+                    <div
+                      className="h-full rounded-full bg-gradient-to-r from-amber-300 to-emerald-300 transition-all duration-500"
+                      style={{ width: `${pct}%` }}
+                    />
+                  </div>
+                </div>
+              );
+            })()}
+
+            <div className="grid grid-cols-3 gap-2.5 pt-2 border-t border-white/15 text-center">
+              <div className="bg-white/10 rounded-xl p-2.5">
+                <div className="text-lg font-black">{referralData?.profile?.successfulReferralsCount || 0}</div>
+                <div className="text-[11px] text-indigo-100">Bạn mời thành công</div>
+              </div>
+              <div className="bg-white/10 rounded-xl p-2.5">
+                <div className="text-lg font-black">
+                  {(referralData?.profile?.totalEarnedVnd || 0).toLocaleString("vi-VN")}đ
+                </div>
+                <div className="text-[11px] text-indigo-100">Tổng đã nhận</div>
+              </div>
+              <div className="bg-white/10 rounded-xl p-2.5">
+                <div className="text-lg font-black">
+                  {(referralData?.profile?.totalWithdrawnVnd || 0).toLocaleString("vi-VN")}đ
+                </div>
+                <div className="text-[11px] text-indigo-100">Đã rút về Ví</div>
+              </div>
+            </div>
+          </div>
+
+          {/* Share Code & Link Card */}
+          <div className="bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 p-5 sm:p-6 shadow-2xs space-y-4">
+            <h3 className="text-sm font-bold text-slate-900 dark:text-white flex items-center gap-2">
+              <Share2 className="w-4 h-4 text-violet-600" />
+              Mã & Link giới thiệu của bạn
+            </h3>
+
+            {loadingReferral && !referralData ? (
+              <div className="py-6 text-center text-xs text-slate-400">Đang tải mã giới thiệu của bạn...</div>
+            ) : referralData?.profile?.code ? (
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-3.5">
+                <div className="p-3.5 rounded-xl bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 space-y-2">
+                  <span className="text-[11px] font-bold text-slate-500 uppercase">Mã giới thiệu</span>
+                  <div className="flex items-center justify-between gap-2">
+                    <span className="font-mono text-lg font-black tracking-widest text-violet-700 dark:text-violet-400">
+                      {referralData.profile.code}
+                    </span>
+                    <button
+                      type="button"
+                      onClick={() => void handleCopyReferral("code")}
+                      className="px-3 py-1.5 rounded-lg bg-violet-600 hover:bg-violet-700 text-white text-xs font-bold flex items-center gap-1 cursor-pointer"
+                    >
+                      {copiedRefField === "code" ? <Check className="w-3.5 h-3.5" /> : <Copy className="w-3.5 h-3.5" />}
+                      {copiedRefField === "code" ? "Đã chép" : "Sao chép"}
+                    </button>
+                  </div>
+                </div>
+
+                <div className="p-3.5 rounded-xl bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 space-y-2">
+                  <span className="text-[11px] font-bold text-slate-500 uppercase">Link mời trực tiếp</span>
+                  <div className="flex items-center gap-2">
+                    <input
+                      type="text"
+                      readOnly
+                      value={buildReferralShareUrl(referralData.profile.code)}
+                      className="flex-1 min-w-0 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg px-2.5 py-1.5 text-xs font-mono text-slate-700 dark:text-slate-300"
+                    />
+                    <button
+                      type="button"
+                      onClick={() => void handleCopyReferral("link")}
+                      className="px-3 py-1.5 rounded-lg bg-slate-900 hover:bg-slate-800 text-white text-xs font-bold flex items-center gap-1 cursor-pointer shrink-0"
+                    >
+                      {copiedRefField === "link" ? <Check className="w-3.5 h-3.5" /> : <Copy className="w-3.5 h-3.5" />}
+                      Link
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => void handleShareReferral()}
+                      className="px-3 py-1.5 rounded-lg bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold flex items-center gap-1 cursor-pointer shrink-0"
+                    >
+                      <Share2 className="w-3.5 h-3.5" />
+                      Gửi
+                    </button>
+                  </div>
+                </div>
+              </div>
+            ) : (
+              <div className="text-xs text-slate-500">Vui lòng đăng nhập để nhận mã giới thiệu cá nhân.</div>
+            )}
+
+            {/* Anti-fraud notice */}
+            <div className="p-3.5 rounded-xl bg-amber-50/80 dark:bg-amber-950/30 border border-amber-200 dark:border-amber-800/70 flex items-start gap-2.5 text-xs text-amber-900 dark:text-amber-200">
+              <ShieldAlert className="w-4 h-4 text-amber-600 shrink-0 mt-0.5" />
+              <div className="leading-relaxed">
+                <strong>Cơ chế chống gian lận tự động:</strong> Mỗi tài khoản mới (tạo trong vòng 7 ngày) chỉ được nhập mã 1 lần. Hệ thống tự động kiểm tra <strong>địa chỉ IP, thiết bị, tài khoản trùng lặp và giới thiệu chéo</strong> — các tài khoản clone cùng máy / cùng mạng với người mời sẽ bị từ chối thưởng.
+              </div>
+            </div>
+          </div>
+
+          {/* Claim Friend's Code (for newly created accounts that haven't claimed yet) */}
+          {referralData?.profile && !referralData.profile.referredByUid ? (
+            <div className="bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 p-5 shadow-2xs space-y-3">
+              <div>
+                <h3 className="text-sm font-bold text-slate-900 dark:text-white">
+                  Bạn được bạn bè giới thiệu?
+                </h3>
+                <p className="text-xs text-slate-500 dark:text-slate-400">
+                  Nhập mã giới thiệu của bạn ấy (áp dụng cho tài khoản mới trong 7 ngày đầu) để bạn ấy nhận thưởng ngẫu nhiên 100đ – 1.000đ.
+                </p>
+              </div>
+              <form onSubmit={handleClaimReferral} className="flex flex-col sm:flex-row gap-2 max-w-md">
+                <input
+                  type="text"
+                  value={claimRefCodeInput}
+                  onChange={(e) => setClaimRefCodeInput(e.target.value.toUpperCase())}
+                  placeholder="Nhập mã ví dụ: DK7A9B2C"
+                  className="flex-1 px-3.5 py-2.5 bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl text-xs font-bold uppercase tracking-wider"
+                />
+                <button
+                  type="submit"
+                  disabled={claimingRef || !claimRefCodeInput.trim()}
+                  className="px-4 py-2.5 rounded-xl bg-violet-600 hover:bg-violet-700 disabled:opacity-50 text-white text-xs font-extrabold cursor-pointer shrink-0"
+                >
+                  {claimingRef ? "Đang xác nhận..." : "Xác nhận mã"}
+                </button>
+              </form>
+            </div>
+          ) : referralData?.profile?.referredByCode ? (
+            <div className="p-4 rounded-2xl bg-emerald-50 dark:bg-emerald-950/30 border border-emerald-200 dark:border-emerald-800 text-xs font-semibold text-emerald-800 dark:text-emerald-200 flex items-center gap-2">
+              <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
+              <span>
+                Tài khoản của bạn đã xác nhận mã giới thiệu <strong className="font-mono">{referralData.profile.referredByCode}</strong>.
+              </span>
+            </div>
+          ) : null}
+
+          {/* Recent Successful Referrals List */}
+          <div className="bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 p-5 sm:p-6 shadow-2xs space-y-3">
+            <div className="flex items-center justify-between">
+              <h3 className="text-sm font-bold text-slate-900 dark:text-white">
+                Lịch sử mời bạn thành công
+              </h3>
+              <span className="text-xs text-slate-400">
+                {referralData?.recentClaims?.length || 0} lượt gần nhất
+              </span>
+            </div>
+
+            {!referralData?.recentClaims || referralData.recentClaims.length === 0 ? (
+              <div className="py-8 text-center text-xs text-slate-400">
+                Chưa có lượt mời bạn bè nào. Hãy chia sẻ link giới thiệu ở trên để bắt đầu nhận thưởng!
+              </div>
+            ) : (
+              <div className="divide-y divide-slate-100 dark:divide-slate-700/50">
+                {referralData.recentClaims.map((claim) => (
+                  <div key={claim.id} className="py-3 flex items-center justify-between gap-3">
+                    <div>
+                      <p className="text-xs font-bold text-slate-900 dark:text-white">
+                        {claim.refereeName || "Học sinh mới"}
+                      </p>
+                      <p className="text-[11px] text-slate-400">
+                        {claim.createdAt ? formatDate(claim.createdAt) : ""}
+                      </p>
+                    </div>
+                    <span className="px-2.5 py-1 rounded-full bg-emerald-100 dark:bg-emerald-950/60 text-emerald-700 dark:text-emerald-300 text-xs font-black">
+                      +{claim.rewardVnd.toLocaleString("vi-VN")}đ
+                    </span>
+                  </div>
+                ))}
+              </div>
+            )}
           </div>
         </div>
       )}
@@ -1121,7 +1879,12 @@ export default function StudentWalletPage() {
                   {depositVoucherCode.trim() && (
                     <div className="flex justify-between text-emerald-600 dark:text-emerald-400 font-bold pt-1 border-t border-slate-200/60 dark:border-slate-700/60">
                       <span>Mã ưu đãi nạp:</span>
-                      <span>{depositVoucherCode.trim()}</span>
+                      <span>
+                        {depositVoucherCode.trim()}
+                        {depositVoucherResult?.valid && depositVoucherResult.bonusVnd
+                          ? ` (+${depositVoucherResult.bonusVnd.toLocaleString("vi-VN")}đ thưởng)`
+                          : ""}
+                      </span>
                     </div>
                   )}
                 </div>
@@ -1191,8 +1954,13 @@ export default function StudentWalletPage() {
                     Xác nhận nhận ngay số dư vào ví:
                   </span>
                   <div className="text-2xl font-black text-emerald-700 dark:text-emerald-200">
-                    +{depositAmount.toLocaleString("vi-VN")}đ
+                    +{(depositAmount + (depositVoucherResult?.valid ? depositVoucherResult.bonusVnd || 0 : 0)).toLocaleString("vi-VN")}đ
                   </div>
+                  {depositVoucherResult?.valid && (depositVoucherResult.bonusVnd || 0) > 0 && (
+                    <p className="text-[11px] font-bold text-emerald-700 dark:text-emerald-300">
+                      (Gồm {depositAmount.toLocaleString("vi-VN")}đ nạp + {(depositVoucherResult.bonusVnd || 0).toLocaleString("vi-VN")}đ thưởng voucher {depositVoucherCode.trim()})
+                    </p>
+                  )}
                   <p className="text-[11px] text-emerald-600 dark:text-emerald-400">
                     Thí sinh: {wallet?.fullName} ({wallet?.currentClass})
                   </p>
@@ -1415,6 +2183,180 @@ export default function StudentWalletPage() {
                 className="flex-1 py-2.5 bg-slate-800 hover:bg-slate-700 text-slate-300 font-bold text-xs rounded-xl border border-slate-700 transition-colors cursor-pointer"
               >
                 Đóng thông báo
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* SHOPEE-STYLE SAVE VOUCHER MODAL (FOR DISCOUNT / DEPOSIT BONUS VOUCHERS) */}
+      {saveVoucherModal && (
+        <div className="fixed inset-0 z-[70] bg-slate-950/80 backdrop-blur-md flex items-center justify-center p-4 animate-in fade-in duration-200">
+          <div className="relative bg-white dark:bg-slate-900 border border-indigo-200 dark:border-indigo-700/60 rounded-3xl p-6 sm:p-7 max-w-md w-full shadow-2xl space-y-5 overflow-hidden">
+            <button
+              type="button"
+              onClick={() => setSaveVoucherModal(null)}
+              className="absolute top-4 right-4 text-slate-400 hover:text-slate-700 dark:hover:text-white p-1.5 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors cursor-pointer"
+            >
+              <X className="w-5 h-5" />
+            </button>
+
+            <div className="text-center space-y-2.5">
+              <div
+                className={`inline-flex p-3.5 rounded-2xl shadow-md ${
+                  saveVoucherModal.alreadySaved
+                    ? "bg-emerald-100 text-emerald-700 dark:bg-emerald-950/70 dark:text-emerald-300"
+                    : "bg-indigo-100 text-indigo-700 dark:bg-indigo-950/70 dark:text-indigo-300"
+                }`}
+              >
+                {saveVoucherModal.alreadySaved ? (
+                  <BookmarkCheck className="w-8 h-8" />
+                ) : (
+                  <Bookmark className="w-8 h-8" />
+                )}
+              </div>
+
+              <div>
+                <span className="inline-block px-2.5 py-0.5 rounded-full text-[10px] font-black uppercase tracking-wider bg-indigo-100 dark:bg-indigo-950/60 text-indigo-700 dark:text-indigo-300">
+                  {getVoucherCategoryLabel(saveVoucherModal.voucher.type)}
+                </span>
+                <h3 className="text-lg sm:text-xl font-black text-slate-900 dark:text-white mt-1.5">
+                  {saveVoucherModal.alreadySaved
+                    ? "Bạn đã lưu voucher này rồi!"
+                    : saveVoucherModal.voucher.name}
+                </h3>
+                <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
+                  {saveVoucherModal.alreadySaved
+                    ? "Voucher đã nằm sẵn trong Kho Voucher trên thiết bị của bạn và sẽ tự động đề xuất khi thanh toán."
+                    : "Bấm Lưu voucher để cất vào Kho Voucher trên máy. Chỉ tính lượt lưu, chưa trừ lượt sử dụng."}
+                </p>
+              </div>
+            </div>
+
+            {/* Ticket Details Box */}
+            <div className="rounded-2xl border-2 border-dashed border-indigo-200 dark:border-indigo-800 bg-indigo-50/50 dark:bg-indigo-950/20 p-4 space-y-2 text-xs">
+              <div className="flex items-center justify-between">
+                <span className="text-slate-500 dark:text-slate-400">Mã voucher:</span>
+                <span className="font-mono font-black text-sm text-indigo-700 dark:text-indigo-300 bg-white dark:bg-slate-800 px-2.5 py-0.5 rounded-lg border border-indigo-200 dark:border-indigo-700">
+                  {saveVoucherModal.voucher.code}
+                </span>
+              </div>
+              <div className="flex items-center justify-between">
+                <span className="text-slate-500 dark:text-slate-400">Ưu đãi:</span>
+                <span className="font-extrabold text-emerald-700 dark:text-emerald-400">
+                  {formatVoucherBenefitSummary(saveVoucherModal.voucher)}
+                </span>
+              </div>
+              {isDepositVoucherType(saveVoucherModal.voucher.type) && saveVoucherModal.voucher.minDepositVnd ? (
+                <div className="flex items-center justify-between">
+                  <span className="text-slate-500 dark:text-slate-400">Nạp tối thiểu:</span>
+                  <span className="font-bold text-slate-800 dark:text-slate-200">
+                    {saveVoucherModal.voucher.minDepositVnd.toLocaleString("vi-VN")}đ
+                  </span>
+                </div>
+              ) : null}
+              {!isDepositVoucherType(saveVoucherModal.voucher.type) && saveVoucherModal.voucher.minOrderVnd ? (
+                <div className="flex items-center justify-between">
+                  <span className="text-slate-500 dark:text-slate-400">Đơn tối thiểu:</span>
+                  <span className="font-bold text-slate-800 dark:text-slate-200">
+                    {saveVoucherModal.voucher.minOrderVnd.toLocaleString("vi-VN")}đ
+                  </span>
+                </div>
+              ) : null}
+              {saveVoucherModal.voucher.expiresAt && (
+                <div className="flex items-center justify-between">
+                  <span className="text-slate-500 dark:text-slate-400">Hạn sử dụng:</span>
+                  <span className={`font-bold ${saveVoucherModal.isExpired ? "text-rose-600" : "text-slate-800 dark:text-slate-200"}`}>
+                    {saveVoucherModal.isExpired ? "Đã hết hạn" : formatDate(saveVoucherModal.voucher.expiresAt)}
+                  </span>
+                </div>
+              )}
+              {typeof saveVoucherModal.voucher.savedCount === "number" && (
+                <div className="flex items-center justify-between pt-1 border-t border-indigo-200/60 dark:border-indigo-800/60">
+                  <span className="text-slate-500 dark:text-slate-400">Lượt đã lưu:</span>
+                  <span className="font-bold text-slate-700 dark:text-slate-300">
+                    {saveVoucherModal.voucher.savedCount.toLocaleString("vi-VN")} lượt
+                  </span>
+                </div>
+              )}
+            </div>
+
+            {(saveVoucherModal.isExpired || saveVoucherModal.isInactive || saveVoucherModal.isOutOfStock) && (
+              <div className="p-3 rounded-xl bg-rose-50 dark:bg-rose-950/40 border border-rose-200 dark:border-rose-800 text-xs font-bold text-rose-700 dark:text-rose-300 text-center">
+                {saveVoucherModal.isInactive
+                  ? "Voucher này hiện đang tạm khóa."
+                  : saveVoucherModal.isExpired
+                    ? "Voucher này đã hết hạn sử dụng."
+                    : "Voucher này đã hết lượt sử dụng."}
+              </div>
+            )}
+
+            <div className="flex flex-col gap-2">
+              {saveVoucherModal.alreadySaved ? (
+                <>
+                  <div className="w-full py-2.5 px-4 rounded-xl bg-emerald-100 dark:bg-emerald-950/60 text-emerald-700 dark:text-emerald-300 font-black text-xs flex items-center justify-center gap-1.5 border border-emerald-200 dark:border-emerald-800">
+                    <BookmarkCheck className="w-4 h-4" />
+                    Đã lưu trong Kho Voucher
+                  </div>
+                  <div className="flex items-center gap-2">
+                    {isDepositVoucherType(saveVoucherModal.voucher.type) ? (
+                      <button
+                        type="button"
+                        onClick={() => {
+                          const code = saveVoucherModal.voucher.code;
+                          setSaveVoucherModal(null);
+                          setDepositVoucherCode(code);
+                          setActiveTab("deposit");
+                          void validateDepositVoucher(code, depositAmount);
+                        }}
+                        className="flex-1 py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs rounded-xl transition-colors cursor-pointer"
+                      >
+                        Dùng nạp tiền ngay
+                      </button>
+                    ) : (
+                      <Link
+                        to="/"
+                        onClick={() => setSaveVoucherModal(null)}
+                        className="flex-1 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-xs rounded-xl text-center transition-colors"
+                      >
+                        Đi mở khóa đề / khóa học
+                      </Link>
+                    )}
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setSaveVoucherModal(null);
+                        setActiveTab("vouchers");
+                      }}
+                      className="flex-1 py-2.5 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 font-bold text-xs rounded-xl transition-colors cursor-pointer"
+                    >
+                      Xem Kho Voucher
+                    </button>
+                  </div>
+                </>
+              ) : (
+                <button
+                  type="button"
+                  disabled={
+                    saveVoucherModal.saving ||
+                    saveVoucherModal.isExpired ||
+                    saveVoucherModal.isInactive ||
+                    saveVoucherModal.isOutOfStock
+                  }
+                  onClick={() => void handleConfirmSaveVoucher()}
+                  className="w-full py-3 bg-indigo-600 hover:bg-indigo-700 disabled:opacity-50 text-white font-black text-xs rounded-xl shadow-lg shadow-indigo-600/25 transition-all flex items-center justify-center gap-2 cursor-pointer"
+                >
+                  <Bookmark className="w-4 h-4" />
+                  {saveVoucherModal.saving ? "Đang lưu voucher..." : "Lưu voucher vào máy"}
+                </button>
+              )}
+
+              <button
+                type="button"
+                onClick={() => setSaveVoucherModal(null)}
+                className="w-full py-2 text-xs font-bold text-slate-500 hover:text-slate-700 dark:hover:text-slate-300 cursor-pointer"
+              >
+                Đóng
               </button>
             </div>
           </div>

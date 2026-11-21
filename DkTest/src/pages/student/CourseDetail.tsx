@@ -46,6 +46,8 @@ import {
 import { safeCopyText, safeShare } from "../../utils/mobileCompat";
 import DkCourseVideoPlayer from "../../components/course/DkCourseVideoPlayer";
 import CourseOnboardingGuideModal from "../../components/course/CourseOnboardingGuideModal";
+import { SavedVoucherPicker } from "../../components/wallet/SavedVoucherPicker";
+import { markSavedVoucherConsumed } from "../../services/savedVoucherService";
 import {
   checkCourseAccessApi,
   getMyWallet,
@@ -705,9 +707,9 @@ export default function CourseDetail() {
     }
   };
 
-  const handleCheckVoucher = async () => {
+  const handleCheckVoucher = async (codeOverride?: string) => {
     if (!unlockTarget || !course) return;
-    const cleanCode = voucherInput.trim().toUpperCase();
+    const cleanCode = String(codeOverride ?? voucherInput).trim().toUpperCase();
     if (!cleanCode) return;
 
     try {
@@ -875,6 +877,10 @@ export default function CourseDetail() {
               }
         );
         showSuccessToast(res.message || "Mở khóa video thành công! Đang phát ngay...");
+      }
+
+      if (appliedCode) {
+        markSavedVoucherConsumed(appliedCode, uid);
       }
 
       setUnlockTarget(null);
@@ -3270,6 +3276,17 @@ export default function CourseDetail() {
                   {voucherResult.message}
                 </p>
               )}
+              <SavedVoucherPicker
+                uid={uid}
+                context="course_unlock"
+                amountVnd={unlockTarget.priceVnd}
+                appliedCode={voucherResult?.valid ? voucherResult.code : undefined}
+                onSelectVoucher={(selectedCode) => {
+                  setVoucherInput(selectedCode);
+                  void handleCheckVoucher(selectedCode);
+                }}
+                className="mt-2"
+              />
             </div>
 
             {userBalance < finalModalPrice ? (

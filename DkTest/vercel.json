@@ -230,6 +230,14 @@
       "destination": "/api/wallet"
     },
     {
+      "source": "/api/referral/:match*",
+      "destination": "/api/wallet"
+    },
+    {
+      "source": "/api/referral",
+      "destination": "/api/wallet"
+    },
+    {
       "source": "/((?!api/).*)",
       "destination": "/index.html"
     }

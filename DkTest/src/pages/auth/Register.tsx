@@ -20,6 +20,11 @@ import GoogleLoginButton from "../../components/auth/GoogleLoginButton";
 import { getFriendlyAuthErrorMessage } from "../../utils/authErrors";
 import { checkUsernameAvailability } from "../../services/authService";
 import { useToast } from "../../components/ui/ToastNotification";
+import {
+  capturePendingReferralCode,
+  getPendingReferralCode,
+  tryAutoClaimPendingReferral,
+} from "../../services/referralClientService";
 
 export default function Register() {
   const navigate = useNavigate();
@@ -37,7 +42,22 @@ export default function Register() {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [studentClass, setStudentClass] = useState("");
   const [phone, setPhone] = useState("");
+  const [referralCode, setReferralCode] = useState(() => {
+    const paramRef = searchParams.get("ref") || searchParams.get("referral");
+    if (paramRef) {
+      return capturePendingReferralCode(paramRef) || "";
+    }
+    return getPendingReferralCode() || "";
+  });
   const [agreedTerms, setAgreedTerms] = useState(false);
+
+  useEffect(() => {
+    const paramRef = searchParams.get("ref") || searchParams.get("referral");
+    if (paramRef) {
+      const captured = capturePendingReferralCode(paramRef);
+      if (captured) setReferralCode(captured);
+    }
+  }, [searchParams]);
 
   // Username validation state
   const [usernameChecking, setUsernameChecking] = useState(false);
@@ -170,6 +190,13 @@ export default function Register() {
           phone: phone.trim(),
         });
 
+        if (referralCode.trim()) {
+          const refRes = await tryAutoClaimPendingReferral(referralCode.trim());
+          if (refRes.success && refRes.message) {
+            showToast(refRes.message, "success");
+          }
+        }
+
         showToast(`Đăng ký tài khoản thành công! Chào mừng ${profile.displayName}.`, "success");
         const dest = role === "parent" ? "/parent/dashboard" : (redirectPath && !redirectPath.startsWith("/login") && !redirectPath.startsWith("/register") ? redirectPath : "/");
         navigate(dest, { replace: true });
@@ -183,6 +210,13 @@ export default function Register() {
           phone: phone.trim(),
         });
 
+        if (referralCode.trim()) {
+          const refRes = await tryAutoClaimPendingReferral(referralCode.trim());
+          if (refRes.success && refRes.message) {
+            showToast(refRes.message, "success");
+          }
+        }
+
         showToast("Đăng ký thành công! Vui lòng kiểm tra email để xác minh kích hoạt tài khoản.", "success");
         navigate(`/email-verification?redirect=${encodeURIComponent(redirectPath)}`, { replace: true });
       }
@@ -194,7 +228,13 @@ export default function Register() {
     }
   };
 
-  const handleGoogleSuccess = (profile: any) => {
+  const handleGoogleSuccess = async (profile: any) => {
+    if (referralCode.trim()) {
+      const refRes = await tryAutoClaimPendingReferral(referralCode.trim());
+      if (refRes.success && refRes.message) {
+        showToast(refRes.message, "success");
+      }
+    }
     showToast(`Chào mừng ${profile.displayName || "bạn"} đã tham gia DkTEST!`, "success");
     if (profile.role === "parent") {
       navigate("/parent/dashboard", { replace: true });
@@ -514,6 +554,32 @@ export default function Register() {
               />
               <Lock className="w-4 h-4 text-slate-400 absolute left-3 top-3" />
             </div>
+          </div>
+
+          {/* Optional Referral Code */}
+          <div>
+            <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">
+              Mã giới thiệu từ bạn bè <span className="text-slate-400 font-normal normal-case">(không bắt buộc)</span>
+            </label>
+            <div className="relative">
+              <input
+                type="text"
+                value={referralCode}
+                onChange={(e) => {
+                  const val = e.target.value.toUpperCase().replace(/[^A-Z0-9]/g, "");
+                  setReferralCode(val);
+                  if (val.length >= 4) capturePendingReferralCode(val);
+                }}
+                placeholder="Ví dụ: DK7A9B2C"
+                className="w-full pl-10 pr-4 py-2.5 bg-violet-50/50 border border-violet-200 rounded-xl text-xs font-mono font-bold uppercase tracking-wider focus:outline-none focus:ring-2 focus:ring-violet-500 focus:bg-white transition-all text-slate-800"
+              />
+              <Users className="w-4 h-4 text-violet-500 absolute left-3 top-3" />
+            </div>
+            {referralCode.trim().length >= 4 && (
+              <p className="text-[11px] text-violet-600 font-semibold mt-1">
+                Sẽ tự động xác nhận mã giới thiệu <strong>{referralCode}</strong> ngay khi tạo tài khoản.
+              </p>
+            )}
           </div>
 
           {/* Terms checkbox */}

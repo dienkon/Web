@@ -609,6 +609,7 @@ export type WalletTransactionType =
   | "exam_unlock_debit"
   | "course_unlock_debit"
   | "course_lesson_unlock_debit"
+  | "referral_withdraw_credit"
   | "admin_adjustment_credit"
   | "admin_adjustment_debit"
   | "admin_adjustment"
@@ -754,10 +755,46 @@ export interface Voucher {
   minDepositVnd?: number;     // Số tiền nạp tối thiểu để áp dụng
   usageLimit?: number;        // Giới hạn lượt dùng toàn hệ thống (0 = không giới hạn)
   usedCount: number;          // Số lượt đã sử dụng
+  savedCount?: number;        // Số lượt học sinh đã bấm lưu voucher
   perUserLimit?: number;      // Số lượt mỗi học sinh được dùng (mặc định 1)
   expiresAt?: string | null;  // Thời gian hết hạn (ISO string)
   isActive: boolean;          // Đang hoạt động / tạm khóa
   description?: string;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface ReferralClaimRecord {
+  id: string;
+  referrerUid: string;
+  referrerCode: string;
+  refereeUid: string;
+  refereeName?: string;
+  refereeNameSnapshot?: string;
+  refereeUsernameSnapshot?: string;
+  rewardVnd: number;
+  ipHash?: string;
+  deviceHash?: string;
+  status: "credited" | "rejected";
+  rejectReason?: string;
+  createdAt: string;
+}
+
+export interface ReferralProfile {
+  uid: string;
+  code: string;
+  referralCode?: string;
+  referralBalanceVnd: number;
+  totalEarnedVnd: number;
+  totalWithdrawnVnd: number;
+  successfulReferralsCount: number;
+  referredByUid?: string | null;
+  referredByCode?: string | null;
+  referredAt?: string | null;
+  lastKnownIpHash?: string;
+  lastKnownDeviceHash?: string;
+  dailyClaimsDate?: string;
+  dailyClaimsCount?: number;
   createdAt: string;
   updatedAt: string;
 }

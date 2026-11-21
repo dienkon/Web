@@ -354,6 +354,26 @@ service cloud.firestore {
       allow read, write: if true;
     }
 
+    // 19. Referral Program (Server-authoritative only — anti-fraud protected)
+    match /referral_profiles/{userId} {
+      allow read: if isOwner(userId) || isAdmin();
+      allow write: if isAdmin();
+    }
+    match /referral_claims/{claimId} {
+      allow read: if isAdmin() || (isAuthenticated() && (resource.data.referrerUid == request.auth.uid || resource.data.refereeUid == request.auth.uid));
+      allow write: if isAdmin();
+    }
+    match /referral_codes/{code} {
+      allow read: if isAdmin();
+      allow write: if isAdmin();
+    }
+    match /referral_ip_guards/{ipHash} {
+      allow read, write: if isAdmin();
+    }
+    match /referral_device_guards/{deviceHash} {
+      allow read, write: if isAdmin();
+    }
+
     // One live share per owner/project. Only explicit publish may create/update.
     match /code_studio_shares/{shareId} {
       function validShare() {

@@ -238,9 +238,157 @@ export interface ValidateVoucherResult {
   valid: boolean;
   message?: string;
   voucher?: Voucher;
+  voucherType?: VoucherType;
   discountVnd?: number;
   bonusVnd?: number;
   finalPriceVnd?: number;
+}
+
+function buildContextMismatchMessageServer(
+  voucherType: VoucherType,
+  context: "exam_unlock" | "course_unlock" | "deposit" | "gift_money"
+): string {
+  const isDiscount = voucherType === "discount_percent" || voucherType === "discount_fixed";
+  const isDepositBonus = voucherType === "deposit_bonus_percent" || voucherType === "deposit_bonus_fixed";
+
+  if (context === "deposit") {
+    if (isDiscount) {
+      return "Mã này là Voucher giảm giá mở khóa đề thi / khóa học — không áp dụng khi nạp tiền! Vui lòng dùng mã này ở bước mở khóa đề thi hoặc khóa học.";
+    }
+    if (voucherType === "gift_money") {
+      return "Mã này là Voucher tặng tiền thẳng vào ví — hãy nhập ở mục 'Nhập mã Voucher quà tặng' phía trên để nhận tiền ngay!";
+    }
+    return "Mã này không áp dụng ưu đãi khi nạp tiền.";
+  }
+
+  if (context === "exam_unlock" || context === "course_unlock") {
+    const itemLabel = context === "course_unlock" ? "khóa học / bài giảng" : "đề thi";
+    if (isDepositBonus) {
+      return `Mã này là Voucher thưởng nạp tiền — không áp dụng để giảm giá mở khóa ${itemLabel}! Vui lòng dùng mã này tại trang Ví DkTEST khi nạp tiền.`;
+    }
+    if (voucherType === "gift_money") {
+      return `Mã này là Voucher tặng tiền trực tiếp vào ví — hãy vào trang Ví DkTEST để nhận tiền thẳng vào ví trước rồi mở khóa ${itemLabel}!`;
+    }
+    return `Mã này không áp dụng để giảm giá mở khóa ${itemLabel}.`;
+  }
+
+  if (context === "gift_money") {
+    if (isDiscount) {
+      return "Đây là Voucher giảm giá mở khóa đề thi / khóa học (không phải mã tặng tiền thẳng). Hãy bấm 'Lưu voucher' để dùng khi mở khóa!";
+    }
+    if (isDepositBonus) {
+      return "Đây là Voucher thưởng khi nạp tiền (không phải mã tặng tiền thẳng). Hãy bấm 'Lưu voucher' để áp dụng khi nạp Ví DkTEST!";
+    }
+    return "Mã này không phải mã quà tặng nạp tiền trực tiếp.";
+  }
+
+  return "Loại ưu đãi không phù hợp.";
+}
+
+/**
+ * Inspects a voucher by code WITHOUT redeeming or consuming it (used for voucher links & Save button UX).
+ */
+export async function inspectVoucher(
+  rawCode: string,
+  uid?: string
+): Promise<{
+  found: boolean;
+  voucher?: Voucher;
+  isExpired?: boolean;
+  isOutOfStock?: boolean;
+  userUsedCount?: number;
+  alreadyUsedByUser?: boolean;
+  message?: string;
+}> {
+  const code = normalizeCode(rawCode);
+  if (!code) {
+    return { found: false, message: "Vui lòng nhập mã voucher." };
+  }
+
+  const voucher = await getVoucherByCode(code);
+  if (!voucher) {
+    return { found: false, message: `Mã voucher "${code}" không tồn tại hoặc đã bị xóa.` };
+  }
+
+  const expTime = voucher.expiresAt ? new Date(voucher.expiresAt).getTime() : NaN;
+  const isExpired = !isNaN(expTime) && expTime < Date.now();
+  const isOutOfStock = Boolean(
+    voucher.usageLimit && voucher.usageLimit > 0 && (voucher.usedCount || 0) >= voucher.usageLimit
+  );
+
+  let userUsedCount = 0;
+  if (uid) {
+    if (adminDb) {
+      const usagesSnap = await adminDb
+        .collection("voucher_usages")
+        .where("voucherId", "==", voucher.id)
+        .where("uid", "==", uid)
+        .get();
+      userUsedCount = usagesSnap.size;
+    } else {
+      const usages = await queryFirestoreRestDocs("voucher_usages", "voucherId", voucher.id, 50);
+      userUsedCount = (usages || []).filter((u: any) => u.uid === uid).length;
+    }
+  }
+
+  const perUserLimit = voucher.perUserLimit || 1;
+  return {
+    found: true,
+    voucher,
+    isExpired,
+    isOutOfStock,
+    userUsedCount,
+    alreadyUsedByUser: userUsedCount >= perUserLimit,
+  };
+}
+
+/**
+ * Increments savedCount on a non-gift voucher (tracks saves only — NEVER touches usedCount!).
+ */
+export async function recordVoucherSave(rawCode: string): Promise<{
+  success: boolean;
+  voucher?: Voucher;
+  savedCount: number;
+}> {
+  const voucher = await getVoucherByCode(rawCode);
+  if (!voucher) {
+    throw new Error(`Mã voucher "${normalizeCode(rawCode)}" không tồn tại.`);
+  }
+  if (voucher.type === "gift_money") {
+    throw new Error("Mã này là voucher quà tặng cộng tiền trực tiếp, không cần lưu.");
+  }
+  if (!voucher.isActive) {
+    throw new Error("Mã voucher này hiện đang bị tạm khóa.");
+  }
+  if (voucher.expiresAt) {
+    const expTime = new Date(voucher.expiresAt).getTime();
+    if (!isNaN(expTime) && expTime < Date.now()) {
+      throw new Error("Mã voucher này đã hết hạn sử dụng.");
+    }
+  }
+
+  const nextSavedCount = Math.max(0, Number(voucher.savedCount) || 0) + 1;
+  const now = new Date().toISOString();
+
+  if (adminDb) {
+    await adminDb
+      .collection("vouchers")
+      .doc(voucher.id)
+      .set({ savedCount: nextSavedCount, updatedAt: now }, { merge: true });
+  } else {
+    await setFirestoreRestDoc("vouchers", voucher.id, {
+      ...voucher,
+      savedCount: nextSavedCount,
+      updatedAt: now,
+    });
+  }
+
+  invalidateVouchersCache();
+  return {
+    success: true,
+    voucher: { ...voucher, savedCount: nextSavedCount, updatedAt: now },
+    savedCount: nextSavedCount,
+  };
 }
 
 export async function validateVoucher(params: {
@@ -306,11 +454,17 @@ export async function validateVoucher(params: {
   // 5. Context Specific Validations
   if (params.context === "gift_money") {
     if (voucher.type !== "gift_money") {
-      return { valid: false, message: "Mã này không phải mã quà tặng nạp tiền trực tiếp." };
+      return {
+        valid: false,
+        voucher,
+        voucherType: voucher.type,
+        message: buildContextMismatchMessageServer(voucher.type, "gift_money"),
+      };
     }
     return {
       valid: true,
       voucher,
+      voucherType: voucher.type,
       bonusVnd: voucher.value,
       message: `Mã hợp lệ! Nhận ngay +${voucher.value.toLocaleString("vi-VN")}đ vào ví.`,
     };
@@ -319,11 +473,18 @@ export async function validateVoucher(params: {
   if (params.context === "exam_unlock" || params.context === "course_unlock") {
     const itemLabel = params.context === "course_unlock" ? "khóa học / bài giảng" : "bài thi";
     if (voucher.type !== "discount_percent" && voucher.type !== "discount_fixed") {
-      return { valid: false, message: `Mã này không áp dụng để giảm giá mở khóa ${itemLabel}.` };
+      return {
+        valid: false,
+        voucher,
+        voucherType: voucher.type,
+        message: buildContextMismatchMessageServer(voucher.type, params.context),
+      };
     }
     if (voucher.minOrderVnd && baseAmount < voucher.minOrderVnd) {
       return {
         valid: false,
+        voucher,
+        voucherType: voucher.type,
         message: `Mã này chỉ áp dụng cho ${itemLabel} có giá từ ${voucher.minOrderVnd.toLocaleString("vi-VN")}đ trở lên.`,
       };
     }
@@ -345,6 +506,7 @@ export async function validateVoucher(params: {
     return {
       valid: true,
       voucher,
+      voucherType: voucher.type,
       discountVnd,
       finalPriceVnd,
       message: `Áp dụng thành công! Giảm ${discountVnd.toLocaleString("vi-VN")}đ (còn ${finalPriceVnd.toLocaleString("vi-VN")}đ).`,
@@ -353,11 +515,18 @@ export async function validateVoucher(params: {
 
   if (params.context === "deposit") {
     if (voucher.type !== "deposit_bonus_percent" && voucher.type !== "deposit_bonus_fixed") {
-      return { valid: false, message: "Mã này không áp dụng ưu đãi khi nạp tiền." };
+      return {
+        valid: false,
+        voucher,
+        voucherType: voucher.type,
+        message: buildContextMismatchMessageServer(voucher.type, "deposit"),
+      };
     }
     if (voucher.minDepositVnd && baseAmount < voucher.minDepositVnd) {
       return {
         valid: false,
+        voucher,
+        voucherType: voucher.type,
         message: `Mã này chỉ áp dụng khi nạp từ ${voucher.minDepositVnd.toLocaleString("vi-VN")}đ trở lên.`,
       };
     }
@@ -372,6 +541,7 @@ export async function validateVoucher(params: {
     return {
       valid: true,
       voucher,
+      voucherType: voucher.type,
       bonusVnd,
       message: `Mã nạp hợp lệ! Bạn sẽ được tặng thêm +${bonusVnd.toLocaleString("vi-VN")}đ vào ví.`,
     };

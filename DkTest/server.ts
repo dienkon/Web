@@ -40,7 +40,7 @@ async function startServer() {
     res.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, PATCH, DELETE, OPTIONS");
     res.setHeader(
       "Access-Control-Allow-Headers",
-      "Content-Type, Authorization, X-Requested-With, Accept, X-Admin-Token, X-Auth-Role, Cache-Control, Pragma"
+      "Content-Type, Authorization, X-Requested-With, Accept, X-Admin-Token, X-Auth-Role, X-Device-Fingerprint, Cache-Control, Pragma"
     );
     if (req.method === "OPTIONS") {
       return res.sendStatus(204);
