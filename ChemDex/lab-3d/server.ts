@@ -12,7 +12,8 @@ dotenv.config({ path: path.resolve(process.cwd(), '../.env') });
 import express from 'express';
 import cors from 'cors';
 import { resolveChemistryReaction } from './server/chemistryDb';
-import { queryChemistryAI, generateProgramFromAI, CURRENT_GEMINI_MODEL } from './server/ai';
+import { queryChemistryAI, generateProgramFromAI, reviewLabReport, isGeminiConfigured, CURRENT_GEMINI_MODEL } from './server/ai';
+import { LabReportReviewRequestSchema } from './src/shared/labReportReview';
 import { resolveReactionProgram } from './src/vfx/programs/resolver';
 import { createServer as createViteServer } from 'vite';
 
@@ -127,6 +128,17 @@ async function startServer() {
     } catch (error: any) {
       console.error('[API Error in /api/experiment/ai-query]:', error);
       res.status(500).json({ error: error.message || 'Failed to query chemistry AI' });
+    }
+  });
+
+  app.post('/api/experiment/report-review', async (req, res) => {
+    const request = LabReportReviewRequestSchema.safeParse(req.body);
+    if (!request.success) return res.status(400).json({ error: 'invalid_report' });
+    if (!isGeminiConfigured()) return res.status(503).json({ error: 'review_unavailable' });
+    try {
+      return res.json(await reviewLabReport(request.data));
+    } catch {
+      return res.status(502).json({ error: 'review_unavailable' });
     }
   });
 

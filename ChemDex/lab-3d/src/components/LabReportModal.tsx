@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useAppStore } from '../store/useAppStore';
 import { EXPERIMENT_CURRICULUM } from '../data/experiments';
 import { 
@@ -7,16 +7,16 @@ import {
   FlaskConical, Scale, Thermometer, Droplets
 } from 'lucide-react';
 import { labSound } from '../utils/audio';
+import { LabReportReviewRequestSchema, LabReportReviewSchema, type LabReportReview } from '../shared/labReportReview';
+
+type ReviewResult = { kind: 'pending' | 'invalid' | 'unavailable' | 'timeout' }
+  | { kind: 'complete'; feedback: LabReportReview };
 
 export function LabReportModal() {
-  const { 
-    isLabReportOpen, 
-    setLabReportOpen, 
-    language, 
-    activeExperimentId, 
-    vessels, 
-    burners 
-  } = useAppStore();
+  const isLabReportOpen = useAppStore(state => state.isLabReportOpen);
+  const setLabReportOpen = useAppStore(state => state.setLabReportOpen);
+  const language = useAppStore(state => state.language);
+  const activeExperimentId = useAppStore(state => state.activeExperimentId);
 
   const t = (en: string, vi: string) => language === 'en' ? en : vi;
 
@@ -40,14 +40,25 @@ export function LabReportModal() {
   const [conclusion, setConclusion] = useState('');
 
   // AI Evaluation State
-  const [isEvaluating, setIsEvaluating] = useState(false);
-  const [aiFeedback, setAiFeedback] = useState<{
-    score: number;
-    pros: string[];
-    improvements: string[];
-    summary: string;
-  } | null>(null);
+  const reviewRequest = { lang: language, report: {
+    experimentTitle, objective, apparatus, observations, chemicalEquation, ionicEquation, conclusion,
+  } };
+  const draftKey = JSON.stringify(reviewRequest);
+  const activeReview = useRef<{ draftKey: string; controller: AbortController } | null>(null);
+  const [review, setReview] = useState<{ draftKey: string; result: ReviewResult } | null>(null);
+  const currentReview = review?.draftKey === draftKey ? review.result : null;
+  const isEvaluating = currentReview?.kind === 'pending';
+  const aiFeedback = currentReview?.kind === 'complete' ? currentReview.feedback : null;
   const [copied, setCopied] = useState(false);
+
+  useEffect(() => {
+    if (activeReview.current && activeReview.current.draftKey !== draftKey) {
+      activeReview.current.controller.abort();
+      activeReview.current = null;
+    }
+    setReview(previous => previous?.draftKey === draftKey ? previous : null);
+  }, [draftKey]);
+  useEffect(() => () => activeReview.current?.controller.abort(), []);
 
   // Update experiment title and objective when activeExperimentId changes
   useEffect(() => {
@@ -60,7 +71,7 @@ export function LabReportModal() {
   // Synchronize live telemetry from workbench vessels
   const handleSyncTelemetry = () => {
     labSound.playTap();
-    const vesselList = Object.values(vessels);
+    const vesselList = Object.values(useAppStore.getState().vessels);
     if (vesselList.length === 0) return;
 
     // Build apparatus & chemicals list
@@ -85,78 +96,42 @@ export function LabReportModal() {
     setObservations(prev => (prev ? `${prev}\n${observationLines.join('\n')}` : observationLines.join('\n')));
   };
 
-  // Submit report to AI Teacher for grading
   const handleAIEvaluation = async () => {
-    setIsEvaluating(true);
+    if (activeReview.current?.draftKey === draftKey) return;
+    const submission = LabReportReviewRequestSchema.safeParse(reviewRequest);
+    if (!submission.success) {
+      setReview({ draftKey, result: { kind: 'invalid' } });
+      return;
+    }
+
+    const controller = new AbortController();
+    const active = { draftKey, controller };
+    activeReview.current = active;
+    setReview({ draftKey, result: { kind: 'pending' } });
+    let timedOut = false;
+    const deadline = setTimeout(() => {
+      timedOut = true;
+      controller.abort();
+    }, 45000);
     try {
-      const prompt = `Bạn là một Giáo viên Hóa học giàu kinh nghiệm, tâm huyết và chu đáo.
-Hãy chấm điểm và đánh giá phiếu báo cáo thực hành của học sinh theo thang điểm 10.
-
-THÔNG TIN BÁO CÁO:
-- Tên thí nghiệm: ${experimentTitle}
-- Mục tiêu: ${objective}
-- Dụng cụ & Hóa chất: ${apparatus}
-- Hiện tượng quan sát: ${observations}
-- Phương trình hóa học: ${chemicalEquation}
-- Phương trình ion rút gọn: ${ionicEquation}
-- Kết luận & Thảo luận: ${conclusion}
-
-HÃY ĐÁNH GIÁ VÀ TRẢ VỀ DUY NHẤT MỘT ĐỐI TƯỢNG JSON CÓ CẤU TRÚC SAU:
-{
-  "score": number (0 đến 10, ví dụ 9.5),
-  "pros": ["Điểm mạnh 1", "Điểm mạnh 2"],
-  "improvements": ["Góp ý cần bổ sung 1", "Lưu ý an toàn hoặc chính xác 2"],
-  "summary": "Lời nhận xét tổng kết động viên, giải thích bản chất hóa học ở cấp độ electron/nguyên tử một cách dễ hiểu và truyền cảm hứng."
-}`;
-
-      const res = await fetch('/api/experiment/ai-query', {
+      const response = await fetch('/api/experiment/report-review', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          userQuestion: prompt,
-          lang: language
-        })
+        body: JSON.stringify(submission.data),
+        signal: controller.signal,
       });
-
-      if (!res.ok) throw new Error('AI Evaluation request failed');
-      const data = await res.json();
-      
-      let parsedResult = null;
-      try {
-        const rawText = data.explanation_vi || data.explanation_en || data.summary || JSON.stringify(data);
-        const match = rawText.match(/\{[\s\S]*\}/);
-        if (match) {
-          parsedResult = JSON.parse(match[0]);
-        }
-      } catch {
-        // Fallback
-      }
-
-      if (parsedResult && typeof parsedResult.score === 'number') {
-        setAiFeedback(parsedResult);
-      } else {
-        setAiFeedback({
-          score: 9.0,
-          pros: [
-            t('Accurately observed phenomena and noted temperature/volume changes.', 'Quan sát hiện tượng chính xác, ghi nhận đầy đủ sự thay đổi thể tích và nhiệt độ.'),
-            t('Correct chemical equations and logical conclusion.', 'Phương trình hóa học viết đúng tỉ lệ và kết luận mạch lạc.')
-          ],
-          improvements: [
-            t('Explain electron transfer or ionic spectator dynamics more deeply.', 'Cần phân tích sâu hơn vai trò của các ion trong dung dịch.')
-          ],
-          summary: data.explanation_vi || data.explanation_en || t('Excellent experimental practice! Keep up the scientific curiosity.', 'Bài thực hành đạt kết quả rất tốt! Em đã nắm vững các nguyên tắc an toàn và bản chất hóa học của phản ứng.')
-        });
-      }
+      if (!response.ok) throw new Error('Review unavailable');
+      const feedback = LabReportReviewSchema.parse(await response.json());
+      if (activeReview.current !== active || controller.signal.aborted) return;
+      setReview({ draftKey, result: { kind: 'complete', feedback } });
       labSound.playSuccess();
-    } catch (err) {
-      setAiFeedback({
-        score: 8.5,
-        pros: [t('Good observation log and clear write-up.', 'Nhật ký thực nghiệm rõ ràng, trình bày mạch lạc.')],
-        improvements: [t('Connect to local server AI for detailed scoring.', 'Cần kết nối AI cục bộ để nhận xét chi tiết.')],
-        summary: t('Your experiment report has been recorded successfully.', 'Phiếu báo cáo thực hành của em đã được ghi nhận hoàn tất.')
-      });
+    } catch {
+      if (activeReview.current === active && (!controller.signal.aborted || timedOut)) {
+        setReview({ draftKey, result: { kind: timedOut ? 'timeout' : 'unavailable' } });
+      }
     } finally {
-      setIsEvaluating(false);
+      clearTimeout(deadline);
+      if (activeReview.current === active) activeReview.current = null;
     }
   };
 
@@ -418,6 +393,18 @@ ${aiFeedback.improvements.map(i => `  + ${i}`).join('\n')}
               </button>
             </div>
 
+            {currentReview && currentReview.kind !== 'pending' && currentReview.kind !== 'complete' && (
+              <p role="alert" className="rounded-lg bg-amber-50 p-3 text-xs text-amber-900 print:hidden">
+                {currentReview.kind === 'invalid'
+                  ? t('Add an observation, equation, or conclusion. Keep each field within 4,000 characters.',
+                    'Nhập hiện tượng, phương trình hoặc kết luận. Mỗi mục tối đa 4.000 ký tự.')
+                  : currentReview.kind === 'timeout'
+                    ? t('The AI review timed out. The report is still here. Try again.',
+                      'Đã hết thời gian chờ trợ giảng. Nội dung báo cáo vẫn còn. Hãy thử lại.')
+                    : t('AI review is unavailable. The report is still here. Try again later.',
+                      'Chưa thể chấm bằng AI. Nội dung báo cáo vẫn còn. Hãy thử lại sau.')}
+              </p>
+            )}
             {aiFeedback && (
               <div className="space-y-3 pt-2 text-xs">
                 {/* Score badge */}
@@ -477,7 +464,7 @@ ${aiFeedback.improvements.map(i => `  + ${i}`).join('\n')}
                 setChemicalEquation('');
                 setIonicEquation('');
                 setConclusion('');
-                setAiFeedback(null);
+                setReview(null);
               }
             }}
             className="text-xs font-semibold text-slate-500 hover:text-red-600 flex items-center gap-1 transition-colors"
