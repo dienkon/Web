@@ -1,4 +1,5 @@
 import { parseExamEntry } from '../utils/examInvite';
+import { GENERATED_RELEASE_META } from './server/generatedReleaseMeta';
 
 export const ANDROID_APP_ID = 'vn.dktest.student';
 export const APP_LINK_ORIGIN = 'https://dk-test-v3.vercel.app';
@@ -8,12 +9,18 @@ export const APP_DOWNLOAD_API_PATH = '/api/app-download';
 const identifier = /^[\p{L}\p{N}_.-]{1,128}$/u;
 
 export function getAppVersionMetadata() {
-  const version = typeof __DK_APP_VERSION__ === 'string' && __DK_APP_VERSION__ ? __DK_APP_VERSION__ : '1.9.14';
+  const version =
+    typeof __DK_APP_VERSION__ === 'string' && __DK_APP_VERSION__
+      ? __DK_APP_VERSION__
+      : GENERATED_RELEASE_META.version;
   const androidVersionCode =
     typeof __DK_ANDROID_VERSION_CODE__ === 'number' && Number.isFinite(__DK_ANDROID_VERSION_CODE__)
       ? __DK_ANDROID_VERSION_CODE__
-      : 20;
-  const releaseDate = typeof __DK_RELEASE_DATE__ === 'string' ? __DK_RELEASE_DATE__ : '';
+      : GENERATED_RELEASE_META.androidVersionCode;
+  const releaseDate =
+    typeof __DK_RELEASE_DATE__ === 'string' && __DK_RELEASE_DATE__
+      ? __DK_RELEASE_DATE__
+      : GENERATED_RELEASE_META.date;
   const apkFileName = `DkTEST-${version}-debug.apk`;
   const configuredUrl =
     typeof import.meta !== 'undefined' && (import.meta as any).env?.VITE_ANDROID_APK_URL

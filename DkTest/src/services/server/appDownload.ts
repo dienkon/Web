@@ -1,5 +1,7 @@
 import fs from "node:fs";
 import path from "node:path";
+import { fileURLToPath } from "node:url";
+import { GENERATED_RELEASE_META } from "./generatedReleaseMeta.js";
 
 export interface AppDownloadMetadata {
   version: string;
@@ -14,7 +16,30 @@ export interface AppDownloadMetadata {
 }
 
 const DEFAULT_GITHUB_RELEASES_URL = "https://github.com/dienkon/Web/releases";
-const GITHUB_API_RELEASES_URL = "https://api.github.com/repos/dienkon/Web/releases?per_page=10";
+const GITHUB_API_RELEASES_URL = "https://api.github.com/repos/dienkon/Web/releases?per_page=15";
+
+function compareSemver(a: string, b: string): number {
+  const parse = (raw: string) =>
+    String(raw || "")
+      .trim()
+      .replace(/^v/i, "")
+      .split("-")[0]
+      .split(".")
+      .map((n) => {
+        const parsed = parseInt(n, 10);
+        return Number.isFinite(parsed) && parsed >= 0 ? parsed : 0;
+      });
+  const pa = parse(a);
+  const pb = parse(b);
+  const len = Math.max(pa.length, pb.length, 3);
+  for (let i = 0; i < len; i++) {
+    const va = pa[i] || 0;
+    const vb = pb[i] || 0;
+    if (va > vb) return 1;
+    if (va < vb) return -1;
+  }
+  return 0;
+}
 
 function extractVersionFromTagOrAsset(tagName?: string, assetName?: string): string {
   const tagMatch = String(tagName || "").match(/dktest-v(\d+\.\d+\.\d+)/i);
@@ -29,18 +54,35 @@ export function readCurrentReleaseJson(): {
   androidVersionCode: number;
   date: string;
 } {
+  const candidates: string[] = [
+    path.join(process.cwd(), "release.json"),
+    path.join(process.cwd(), "DkTest", "release.json"),
+  ];
   try {
-    const filePath = path.join(process.cwd(), "release.json");
-    if (fs.existsSync(filePath)) {
-      const parsed = JSON.parse(fs.readFileSync(filePath, "utf8"));
-      return {
-        version: String(parsed?.version || "1.9.14"),
-        androidVersionCode: Number(parsed?.androidVersionCode) || 20,
-        date: String(parsed?.date || ""),
-      };
-    }
+    const here = path.dirname(fileURLToPath(import.meta.url));
+    candidates.unshift(path.resolve(here, "../../../release.json"));
   } catch {}
-  return { version: "1.9.14", androidVersionCode: 20, date: "" };
+
+  for (const filePath of candidates) {
+    try {
+      if (fs.existsSync(filePath)) {
+        const parsed = JSON.parse(fs.readFileSync(filePath, "utf8"));
+        if (parsed?.version) {
+          return {
+            version: String(parsed.version),
+            androidVersionCode: Number(parsed.androidVersionCode) || GENERATED_RELEASE_META.androidVersionCode,
+            date: String(parsed.date || GENERATED_RELEASE_META.date || ""),
+          };
+        }
+      }
+    } catch {}
+  }
+
+  return {
+    version: GENERATED_RELEASE_META.version,
+    androidVersionCode: GENERATED_RELEASE_META.androidVersionCode,
+    date: GENERATED_RELEASE_META.date,
+  };
 }
 
 export async function resolveAndroidApkDownload(): Promise<AppDownloadMetadata> {
@@ -82,12 +124,14 @@ export async function resolveAndroidApkDownload(): Promise<AppDownloadMetadata> 
       }>;
       if (Array.isArray(releases)) {
         const expectedTag = `dktest-v${rel.version}`;
-        const orderedReleases = [
-          ...releases.filter((r) => r?.tag_name === expectedTag),
-          ...releases.filter((r) => r?.tag_name !== expectedTag),
-        ];
+        const candidates: Array<{
+          release: (typeof releases)[number];
+          asset: { name: string; browser_download_url: string };
+          detectedVersion: string;
+          matchedExact: boolean;
+        }> = [];
 
-        for (const r of orderedReleases) {
+        for (const r of releases) {
           if (!r || r.draft) continue;
           const apkAsset = (r.assets || []).find(
             (a) =>
@@ -95,23 +139,42 @@ export async function resolveAndroidApkDownload(): Promise<AppDownloadMetadata> 
               typeof a?.name === "string" &&
               a.name.toLowerCase().endsWith(".apk")
           );
-          if (apkAsset?.browser_download_url) {
-            const matchedExact = r.tag_name === expectedTag;
-            const detectedApkVersion =
-              extractVersionFromTagOrAsset(r.tag_name, apkAsset.name) ||
-              (matchedExact ? rel.version : "");
-            return {
-              version: rel.version,
-              androidVersionCode: rel.androidVersionCode,
-              releaseDate: rel.date,
-              apkFileName: apkAsset.name || apkFileName,
-              apkVersion: detectedApkVersion || rel.version,
-              exactReleaseFound: matchedExact,
-              downloadUrl: apkAsset.browser_download_url,
-              releasesPageUrl: DEFAULT_GITHUB_RELEASES_URL,
-              source: "github_release",
-            };
-          }
+          if (!apkAsset?.browser_download_url || !apkAsset.name) continue;
+          const matchedExact = r.tag_name === expectedTag;
+          const detectedVersion =
+            extractVersionFromTagOrAsset(r.tag_name, apkAsset.name) ||
+            (matchedExact ? rel.version : "");
+          candidates.push({
+            release: r,
+            asset: { name: apkAsset.name, browser_download_url: apkAsset.browser_download_url },
+            detectedVersion,
+            matchedExact,
+          });
+        }
+
+        // Always prefer the highest published semver APK (or exact release tag)
+        candidates.sort((a, b) => {
+          const cmp = compareSemver(b.detectedVersion, a.detectedVersion);
+          if (cmp !== 0) return cmp;
+          if (a.matchedExact !== b.matchedExact) return a.matchedExact ? -1 : 1;
+          return 0;
+        });
+
+        const best = candidates[0];
+        if (best) {
+          const bestVer = best.detectedVersion || rel.version;
+          const isNewerOrEqual = compareSemver(bestVer, rel.version) >= 0;
+          return {
+            version: isNewerOrEqual ? bestVer : rel.version,
+            androidVersionCode: rel.androidVersionCode,
+            releaseDate: rel.date,
+            apkFileName: best.asset.name || apkFileName,
+            apkVersion: bestVer,
+            exactReleaseFound: best.matchedExact || isNewerOrEqual,
+            downloadUrl: best.asset.browser_download_url,
+            releasesPageUrl: DEFAULT_GITHUB_RELEASES_URL,
+            source: "github_release",
+          };
         }
       }
     }

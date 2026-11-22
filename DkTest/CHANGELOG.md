@@ -1,5 +1,13 @@
 # DkTEST changelog
 
+## 2.0.1 — 2026-11-22 (Android versionCode 25)
+
+- **Sửa triệt để lỗi API tải App (`/api/app-download`) và App vẫn hiển thị/tải bản cũ `1.9.14`**:
+  - Nguyên nhân gốc: trên Vercel serverless, `readCurrentReleaseJson()` không tìm thấy `release.json` ở `process.cwd()` nên rơi về giá trị dự phòng gán cứng `"1.9.14"` (`androidVersionCode: 20`), kéo theo việc truy vấn đúng tag cũ `dktest-v1.9.14` trên GitHub Releases dù bản `2.0.0` đã được GitHub Actions phát hành.
+  - Tự động sinh `src/services/server/generatedReleaseMeta.ts` từ `release.json` mỗi lần chạy `scripts/generate-html-template.js` (`npm run build`), để cả Vercel serverless (`appDownload.ts`) lẫn fallback client (`appLinks.ts`) luôn đóng gói chính xác số phiên bản mới nhất, không bao giờ còn chuỗi gán cứng `1.9.14`.
+  - Nâng cấp `resolveAndroidApkDownload()` trong `src/services/server/appDownload.ts` kiểm tra nhiều đường dẫn `release.json` đồng thời luôn so sánh semver chọn bản phát hành có tệp `.apk` cao nhất trên GitHub Releases.
+- Audit: [2.0.1](docs/audits/2.0.1.md).
+
 ## 2.0.0 — 2026-11-22 (Android versionCode 24)
 
 - **Phiên bản lớn DkTEST 2.0.0 — Chuẩn hóa Popup riêng toàn hệ thống (không dùng `window.alert`)**:
