@@ -170,9 +170,11 @@ function InstrumentDetails({ id }: { id: InstrumentId }) {
   useAppStore(state => id === 'pipette' ? state.pipetteSample : undefined);
   useAppStore(state => id === 'stirring_rod' ? state.stirringVesselId : undefined);
   useAppStore(state => id === 'sponge' ? state.wasteMass_g : undefined);
+  useAppStore(state => id === 'balance' ? state.draggingVesselId : null);
   const rinsing = useAppStore(state => state.instrumentRinse !== null);
   useInstrumentStore(state => id === 'balance' ? state.balanceTare_g : undefined);
   useToolDockStore(state => state.positions);
+  useToolDockStore(state => id === 'balance' && state.dragging === 'balance');
   const definition = getInstrument(id);
   const reading = readInstrument(id);
   const target = resolveInstrumentTarget();

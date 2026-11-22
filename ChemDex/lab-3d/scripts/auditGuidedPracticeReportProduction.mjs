@@ -80,8 +80,25 @@ try {
   await summary.tap();
   await expect(dialog.getByText('0 / 2', { exact: true })).toBeVisible();
   await expect(dialog.getByText('0 / 1', { exact: true })).toBeVisible();
+  await close.tap();
+
+  await toggle.tap();
+  await page.getByRole('button', { name: 'Điều khiển dụng cụ', exact: true }).tap();
+  const instruments = page.getByRole('complementary', { name: 'Điều khiển dụng cụ' });
+  await instruments.getByLabel('Chọn dụng cụ').selectOption('balance');
+  const balanceReading = instruments.getByLabel('Số đọc Cân điện tử');
+  await expect(instruments.getByText('Beaker 1 (BaCl2 on Balance)', { exact: true }).last()).toBeVisible();
+  const grossMass = await balanceReading.textContent();
+  assert.ok(Number(grossMass) > 85, `Expected the loaded pan to read above the vessel tare, got ${grossMass}`);
+  await instruments.getByRole('button', { name: 'TARE', exact: true }).tap();
+  await expect(balanceReading).toHaveText('0.000');
+  await instruments.getByLabel('Bình thao tác').selectOption('beaker_2');
+  await instruments.getByRole('button', { name: 'Đặt lên cân', exact: true }).tap();
+  await expect(instruments.getByText('Vị trí đã có bình khác; di chuyển bình đó trước.')).toBeVisible();
+  await instruments.getByRole('button', { name: 'Bỏ trừ bì', exact: true }).tap();
+  await expect(balanceReading).toHaveText(grossMass);
   assert.deepEqual(errors, []);
-  console.log('PASS production Chrome 390 px: navigation, self-confirmation, preserved attempt, JSON and reset.');
+  console.log(`PASS production Chrome 390 px: practice summary, JSON and reset; balance ${grossMass} g, TARE and occupied pan.`);
 } finally {
   await browser.close();
 }

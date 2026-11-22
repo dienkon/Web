@@ -17,7 +17,7 @@ import { pipetteHasRinseSample } from './instrumentRinse';
 import { buretteTargetProblem, findBuretteReceiver } from './buretteTarget';
 import type { BuretteStockId } from './buretteStocks';
 import { BURETTE_MAX_ANCHOR_Y, BURETTE_NOZZLE_LOCAL_Y, BURETTE_RIM_CLEARANCE, constrainBurettePosition } from './burettePlacement';
-import { restingVesselHeight } from './vesselRest';
+import { balancePanVesselPosition, findBalanceOccupant, isVesselSupportedByBalance, restingVesselHeight } from './vesselRest';
 import { vesselWorldDimensions } from '../science/vesselScale';
 
 export interface InstrumentResult {
@@ -171,10 +171,9 @@ export function currentInstrumentPosition(id: InstrumentId): ToolPosition {
 }
 
 export function balanceOccupant(): VesselState | null {
-  const position = currentInstrumentPosition('balance');
-  return Object.values(useAppStore.getState().vessels)
-    .filter(vessel => !vessel.isShattered && vessel.capacity_ml > 0)
-    .find(vessel => Math.hypot(vessel.position[0] - position[0], vessel.position[2] - position[2]) < LAB_PHYSICS.BALANCE_PAN_RADIUS) ?? null;
+  const { vessels, draggingVesselId } = useAppStore.getState();
+  if (useToolDockStore.getState().dragging === 'balance') return null;
+  return findBalanceOccupant(vessels, currentInstrumentPosition('balance'), draggingVesselId);
 }
 
 export function balanceReading(): number {
@@ -195,24 +194,23 @@ export function alignSelectedVessel(tool: 'balance' | 'burette'): InstrumentResu
   const vessel = resolveInstrumentTarget();
   const problem = instrumentTargetProblem(tool, vessel);
   if (problem || !vessel) return result(tool, false, problem ?? 'Không có bình.');
+  if (state.draggingVesselId || useToolDockStore.getState().dragging)
+    return result(tool, false, 'Thả dụng cụ hoặc bình đang kéo trước khi căn.');
   const position = currentInstrumentPosition(tool);
   const occupied = Object.values(state.vessels).some(other => other.id !== vessel.id
-    && Math.hypot(other.position[0] - position[0], other.position[2] - position[2]) < 0.7);
+    && (tool === 'balance' ? isVesselSupportedByBalance(other, position)
+      : Math.hypot(other.position[0] - position[0], other.position[2] - position[2]) < 0.7));
   if (occupied) return result(tool, false, 'Vị trí đã có bình khác; di chuyển bình đó trước.');
-  const destination: ToolPosition = [
-    position[0], tool === 'balance' ? position[1] + 1.35 : restingVesselHeight(vessel.type, vessel.capacity_ml), position[2],
-  ];
-  const patch: Partial<VesselState> = { position: destination };
+  const destination: ToolPosition = tool === 'balance'
+    ? balancePanVesselPosition(position, vessel.type, vessel.capacity_ml)
+    : [position[0], restingVesselHeight(vessel.type, vessel.capacity_ml), position[2]];
+  const patch: Partial<VesselState> = { position: destination, rotationZ: 0, physicalMotion: undefined };
   let raisedStand: ToolPosition | undefined;
   if (tool === 'burette') {
-    if (state.draggingVesselId || useToolDockStore.getState().dragging)
-      return result(tool, false, 'Thả dụng cụ hoặc bình đang kéo trước khi căn.');
     const rimY = destination[1] + vesselWorldDimensions(vessel).topY;
     const anchorY = rimY - BURETTE_NOZZLE_LOCAL_Y + BURETTE_RIM_CLEARANCE;
     if (anchorY > BURETTE_MAX_ANCHOR_Y) return result(tool, false, 'Bình quá cao so với hành trình nâng buret.');
     raisedStand = constrainBurettePosition([position[0], anchorY, position[2]]);
-    patch.rotationZ = 0;
-    patch.physicalMotion = undefined;
     const alignment = buretteTargetProblem({ ...vessel, ...patch }, raisedStand);
     if (alignment) return result(tool, false, alignment);
   }

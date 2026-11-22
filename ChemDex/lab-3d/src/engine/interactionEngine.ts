@@ -11,7 +11,9 @@ export const LAB_PHYSICS = {
   BURNER_SURFACE_Y: LAB_GEOMETRY.tableTop_scene + 0.105,
   BALANCE_PAN_Y: 0.15,
   BALANCE_POSITION: [7.5, -1.175, -2.5] as [number, number, number],
-  BALANCE_PAN_RADIUS: 0.85,
+  BALANCE_PAN_RADIUS: 0.78,
+  BALANCE_PAN_OFFSET_Z: -0.15,
+  BALANCE_PAN_TOP_OFFSET_Y: 0.335,
   TRIPOD_GAUZE_Y: 0.22,
   TABLE_BOUNDS: {
     minX: -14.5,
@@ -34,11 +36,11 @@ export function calculateVesselMass(vessel: VesselState): number {
 }
 
 /**
- * Check if a 3D position is placed on the Analytical Balance Pan
+ * Check the pan footprint. Support and motion are checked separately.
  */
-export function isPositionOnBalancePan(x: number, z: number): boolean {
-  const [bx, , bz] = LAB_PHYSICS.BALANCE_POSITION;
-  const dist = Math.hypot(x - bx, z - bz);
+export function isPositionOnBalancePan(x: number, z: number, balance: readonly [number, number, number] = LAB_PHYSICS.BALANCE_POSITION): boolean {
+  const [bx, , bz] = balance;
+  const dist = Math.hypot(x - bx, z - bz - LAB_PHYSICS.BALANCE_PAN_OFFSET_Z);
   return dist <= LAB_PHYSICS.BALANCE_PAN_RADIUS;
 }
 

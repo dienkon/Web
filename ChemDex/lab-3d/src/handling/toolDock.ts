@@ -79,5 +79,5 @@ export function useToolDock(id: string, initial: ToolPosition, onMove?: (positio
       },
     });
   };
-  return { position, moveMode, onPointerDown, visible: toolVisible(active, dragging, deployed) };
+  return { position, moveMode, dragging, onPointerDown, visible: toolVisible(active, dragging, deployed) };
 }

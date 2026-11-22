@@ -83,7 +83,7 @@ import { renderedVesselBody } from '../simulation/render/vesselBodyFrames';
 import { planSodiumWater } from '../engine/sodiumWaterPlan';
 import { solutionIndicatorColor } from '../science/indicatorAppearance';
 import { useLabEnvironment } from './useLabEnvironment';
-import { restingVesselHeight } from '../handling/vesselRest';
+import { balancePanVesselPosition, restingVesselHeight } from '../handling/vesselRest';
 import { AnimatedDoseQueue, releaseDoseAmount, type AnimatedStockDose } from '../engine/animatedDose';
 import { SpatulaDoseReservations, type SpatulaSample } from '../handling/spatulaDose';
 import { prepareStockAddition } from '../engine/stockAddition';
@@ -1114,12 +1114,13 @@ export const useAppStore = create<AppState>((set, get) => {
         };
       } else if (experimentId === 'mass_conservation_bacl2_na2so4') {
         // Preset: Beaker 1 on the analytical balance pan, Beaker 2 next to it
+        const balance = useToolDockStore.getState().positions.balance ?? instrumentHome('balance');
         vessels['beaker_1'] = {
           id: 'beaker_1',
           name: 'Beaker 1 (BaCl2 on Balance)',
           type: 'beaker',
           capacity_ml: 100,
-          position: [7.5, -0.02, -2.5],
+          position: balancePanVesselPosition(balance, 'beaker', 100),
           rotationY: 0,
           isLocked: false,
           substances: ['BaCl2'],

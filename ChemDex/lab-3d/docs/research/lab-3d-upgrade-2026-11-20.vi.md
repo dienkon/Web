@@ -64,7 +64,13 @@ Chương trình có 19 bài và 43 bước. Chín bước thuộc ba bài chuẩ
 
 Kiểm tra bàn trống xác nhận cả 43 bước đều chưa đạt. Ở Chrome production khung nhìn 390 px, phiếu của bài bảo toàn khối lượng ghi 0/2 khi chỉ chuyển bước và 1/2 khi người học đã xác nhận một bước. Kiểm tra cũng bao phủ đóng mở bảng, hủy xác nhận, làm lại, xuất JSON và ba luồng chấm tự động.
 
-Hạng mục tiếp theo là bài bảo toàn khối lượng. Quy trình hiện có yêu cầu cân cốc nhận trước khi trộn nhưng công thức đối chiếu cần cả khối lượng mẫu nguồn. Cân ảo hiện tìm bình theo khoảng cách ngang tới đĩa. Trước khi bật chấm tự động, cần xác nhận bình có tựa lên cân, lưu đủ số đo ban đầu và cuối của hai mẫu trong cùng lượt, rồi đối chiếu phần dung dịch còn lại hoặc vương ra bàn với lượng mẫu đã chuyển.
+## Điểm tựa của cân điện tử
+
+Cảnh 3D, thao tác **Đặt lên cân** và phép đọc khối lượng dùng cùng tâm, bán kính và độ cao của mặt đĩa. Cân đọc một bình khi đáy ở sát mặt đĩa, bình đứng thẳng và đã dừng chuyển động. Trong bài bảo toàn khối lượng, nút **Tự động bày bàn thí nghiệm** đặt cốc nhận theo vị trí hiện tại của cân. Bảng dụng cụ và mặt số 3D dùng cùng bình để tính số đọc và mốc TARE.
+
+Kiểm tra trên Chrome ở khung nhìn 390 px đọc 110,800 g cho cốc mẫu đã bày, về 0,000 g sau TARE và báo đĩa đã có cốc khi thử đặt cốc thứ hai. Kiểm thử engine kiểm tra riêng cốc quá cao, quá thấp, đang nghiêng, đang kéo và cân đã đổi vị trí.
+
+Để tự động chấm bài bảo toàn khối lượng, bước tiếp theo là ghi số đo cho cả cốc nguồn và cốc nhận trước và sau khi rót. Các số đo cần thuộc cùng lượt thực hành. Bộ chấm sẽ đối chiếu phần còn trong cốc nguồn, phần đã vào cốc nhận và phần tràn từ chính lượt rót.
 
 ## Phạm vi 5 giai đoạn
 

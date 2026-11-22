@@ -47,6 +47,7 @@ import { InteractiveDigitalBalance } from '../src/components/three/interactions/
 import { InteractiveThermometer } from '../src/components/three/interactions/InteractiveThermometer';
 import { InteractivePhMeter } from '../src/components/three/interactions/InteractivePhMeter';
 import { LAB_PHYSICS } from '../src/engine/interactionEngine';
+import { balancePanVesselPosition } from '../src/handling/vesselRest';
 
 type Element = ReactElement<{ children?: unknown; ref?: { current: any }; name?: string }>;
 const before = useAppStore.getState(), instruments = useInstrumentStore.getState();
@@ -61,7 +62,8 @@ function setup() {
   unmount();
   harness.refs = []; harness.cursor = 0;
   const water = { id: 'water', name: 'water', type: 'beaker', capacity_ml: 250, volume_ml: 150, volume: 0.6,
-    mass_g: 150, temperature_c: 80, ph: 7, position: [...LAB_PHYSICS.BALANCE_POSITION], rotationY: 0,
+    mass_g: 150, temperature_c: 80, ph: 7,
+    position: balancePanVesselPosition(LAB_PHYSICS.BALANCE_POSITION, 'beaker', 250), rotationY: 0,
     isLocked: false, isBoiling: false, hasGas: false, hasPrecipitate: false, substances: ['H2O'],
     contents: [{ formula: 'H2O', phase: 'l', mass_g: 150, moles: 150 / 18.015 }] } as VesselState;
   useAppStore.setState({ vessels: { water }, selectedVesselId: 'water', isSimulationPaused: false, timeScale: 1, moveMode: false });

@@ -46,8 +46,10 @@ import { TouchGestureRecognizer } from '../../input/TouchGestures';
 import { getVesselGripSpec } from '../../handling/gripPoints';
 import { clampLift } from '../../handling/limits';
 import { VesselFloorRing } from './Vessels';
-import { LAB_PHYSICS } from '../../engine/interactionEngine';
-import { restingVesselHeight } from '../../handling/vesselRest';
+import { isPositionOnBalancePan, LAB_PHYSICS } from '../../engine/interactionEngine';
+import { balancePanVesselPosition, isVesselSupportedByBalance, restingVesselHeight } from '../../handling/vesselRest';
+import { useToolDockStore } from '../../handling/toolDockState';
+import { instrumentHome } from '../../handling/instrumentCatalog';
 import { FrameTelemetry } from '../../render/FrameTelemetry';
 import { RenderActivity } from '../../render/RenderActivity';
 import { useRenderDpr } from '../../render/renderResolution';
@@ -447,20 +449,19 @@ export function LabScene() {
     // Physical snapping logic
     let targetX = Math.max(-14.5, Math.min(14.5, e.point.x));
     let targetZ = Math.max(-5.5, Math.min(5.5, e.point.z));
-    const dragged = useAppStore.getState().vessels[draggingVesselId];
+    const placementState = useAppStore.getState();
+    const dragged = placementState.vessels[draggingVesselId];
     let targetY = restingVesselHeight(dragged?.type, dragged?.capacity_ml);
 
-    // Check snapping to analytical balance pan
-    const [balanceX, , balanceZ] = LAB_PHYSICS.BALANCE_POSITION;
-    const distToBalance = Math.hypot(e.point.x - balanceX, e.point.z - balanceZ);
-
-    if (distToBalance < 0.85) {
-      targetX = balanceX;
-      targetZ = balanceZ;
-      targetY = -0.02;
+    const balance = useToolDockStore.getState().positions.balance ?? instrumentHome('balance');
+    const overPan = dragged && !dragged.isShattered && dragged.capacity_ml > 0
+      && isPositionOnBalancePan(e.point.x, e.point.z, balance);
+    if (overPan && !Object.values(placementState.vessels).some(vessel => vessel.id !== draggingVesselId
+      && isVesselSupportedByBalance(vessel, balance))) {
+      [targetX, targetY, targetZ] = balancePanVesselPosition(balance, dragged.type, dragged.capacity_ml);
     } else {
       // Check snapping to active alcohol burner wire gauze
-      const state = useAppStore.getState();
+      const state = placementState;
       let snapped = false;
       for (const b of Object.values(state.burners)) {
         const distToBurner = Math.hypot(e.point.x - b.position[0], e.point.z - b.position[2]);

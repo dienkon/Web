@@ -4,7 +4,8 @@
  * test-tube rack, retort clamp, and receiver vessels.
  */
 
-import { LAB_PHYSICS } from '../engine/interactionEngine';
+import { isPositionOnBalancePan, LAB_PHYSICS } from '../engine/interactionEngine';
+import { balancePanVesselPosition } from './vesselRest';
 
 export interface SnapTargetResult {
   isSnapped: boolean;
@@ -26,12 +27,11 @@ export function evaluateSnapTarget(
   const [x, y, z] = currentPos;
 
   // 1. Check Analytical Balance Pan
-  const [balanceX, balanceY, balanceZ] = LAB_PHYSICS.BALANCE_POSITION;
-  const distToBalance = Math.hypot(x - balanceX, z - balanceZ);
-  if (distToBalance < 0.85) {
+  const balance = LAB_PHYSICS.BALANCE_POSITION;
+  if (isPositionOnBalancePan(x, z, balance)) {
     return {
       isSnapped: true,
-      position: [balanceX, balanceY + 1.35, balanceZ],
+      position: balancePanVesselPosition(balance, vesselType),
       targetType: 'balance',
       isValid: true,
       hint_en: 'Placed on Analytical Balance Pan',

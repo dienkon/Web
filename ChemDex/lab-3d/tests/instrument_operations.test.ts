@@ -2,7 +2,7 @@ import { beforeEach, describe, expect, it } from 'vitest';
 import { useAppStore } from '../src/store/useAppStore';
 import { useInstrumentStore } from '../src/handling/instrumentState';
 import { useToolDockStore } from '../src/handling/toolDock';
-import { aspiratePipette, dispensePipette, tareBalance, balanceReading, alignSelectedVessel, dispenseOneBuretteDrop,
+import { aspiratePipette, dispensePipette, tareBalance, balanceOccupant, balanceReading, alignSelectedVessel, dispenseOneBuretteDrop,
   currentInstrumentPosition, positionInstrument, returnInstrumentHome, rinseInstrument, setBuretteValve } from '../src/handling/instrumentOperations';
 import { readInstrument } from '../src/handling/instrumentReadings';
 import { restingToolHeight } from '../src/handling/handheldRest';
@@ -10,6 +10,7 @@ import type { VesselState } from '../src/types/chemistry';
 import { LAB_GEOMETRY } from '../src/core/labGeometry';
 import { BURETTE_BASE_SIZE, BURETTE_HOME, BURETTE_MIN_Z, BURETTE_POST_Z, buretteStandSupport } from '../src/handling/burettePlacement';
 import { vesselWorldDimensions } from '../src/science/vesselScale';
+import { balancePanVesselPosition } from '../src/handling/vesselRest';
 
 function vessel(id: string, x: number, volume = 20): VesselState {
   return {
@@ -84,12 +85,51 @@ describe('Shared keyboard and 3D instrument operations', () => {
 
   it('shares TARE and shows a negative reading after the tared vessel is removed', () => {
     positionInstrument('balance', [-2, -0.3, 0]);
+    expect(balanceReading()).toBe(0);
+    expect(alignSelectedVessel('balance').ok).toBe(true);
     expect(balanceReading()).toBe(105);
     expect(tareBalance().ok).toBe(true);
     expect(balanceReading()).toBe(0);
     useAppStore.getState().setVesselState('source', { position: [-5, -0.135, 0] });
     expect(balanceReading()).toBe(-105);
     expect(readInstrument('balance').value).toBe('-105.000');
+  });
+
+  it('weighs only a single upright, steady vessel in contact with the pan', () => {
+    expect(alignSelectedVessel('balance').ok).toBe(true);
+    const state = useAppStore.getState();
+    const supported = state.vessels.source;
+    const [x, y, z] = supported.position;
+    expect(balanceOccupant()?.id).toBe('source');
+    for (const patch of [
+      { position: [x, y + .03, z] }, { position: [x, y - .03, z] },
+      { rotationZ: .1 }, { isShattered: true }, { position: [x, y, z + .81] },
+      { physicalMotion: { rotation: [0, 0, 0, 1], velocity_m_s: [.1, 0, 0], angularVelocity_rad_s: [0, 0, 0], tick: 1 } },
+      { physicalMotion: { rotation: [Math.sin(.05), 0, 0, Math.cos(.05)], velocity_m_s: [0, 0, 0], angularVelocity_rad_s: [0, 0, 0], tick: 1 } },
+    ] as Partial<VesselState>[]) {
+      useAppStore.setState({ vessels: { ...state.vessels, source: { ...supported, ...patch } } });
+      expect(balanceOccupant(), JSON.stringify(patch)).toBeNull();
+    }
+    useAppStore.setState({ vessels: state.vessels, draggingVesselId: 'source' });
+    expect(balanceOccupant()).toBeNull();
+    expect(alignSelectedVessel('balance').ok).toBe(false);
+    useAppStore.setState({ draggingVesselId: null });
+    useToolDockStore.setState({ dragging: 'balance' });
+    expect(balanceOccupant()).toBeNull();
+    useToolDockStore.setState({ dragging: null });
+    state.setSelectedVesselId('receiver');
+    expect(alignSelectedVessel('balance').ok).toBe(false);
+    useAppStore.setState({ vessels: { ...state.vessels, receiver: { ...state.vessels.receiver, position: [x, y, z] } } });
+    expect(balanceOccupant()).toBeNull();
+  });
+
+  it('prepares the conservation sample on the pan after the balance has moved', () => {
+    expect(positionInstrument('balance', [-4, LAB_GEOMETRY.tableTop_scene, 1.5]).ok).toBe(true);
+    const balance = currentInstrumentPosition('balance');
+    useAppStore.getState().setupExperimentPreset('mass_conservation_bacl2_na2so4');
+    expect(balanceOccupant()?.id).toBe('beaker_1');
+    expect(balanceOccupant()?.position).toEqual(balancePanVesselPosition(balance, 'beaker', 100));
+    expect(Number(readInstrument('balance').value)).toBeGreaterThan(85);
   });
 
   it('aligns the receiver and dispenses a conserved drop at actual concentration', () => {

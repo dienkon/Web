@@ -2,6 +2,7 @@ import { describe, it, expect } from 'vitest';
 import { evaluateGripSafety, getVesselGripSpec } from '../src/handling/gripPoints';
 import { evaluateSnapTarget } from '../src/handling/snapping';
 import { LAB_PHYSICS } from '../src/engine/interactionEngine';
+import { restingVesselHeight } from '../src/handling/vesselRest';
 import { PPEState } from '../src/safety/Ppe';
 
 describe('Handling Core: Grip Anchors, Thermal Rules & Smart Snapping (K1.2 - K1.4)', () => {
@@ -64,8 +65,9 @@ describe('Handling Core: Grip Anchors, Thermal Rules & Smart Snapping (K1.2 - K1
     expect(snap.isSnapped).toBe(true);
     expect(snap.targetType).toBe('balance');
     expect(snap.position[0]).toBeCloseTo(7.5, 2);
-    expect(snap.position[1]).toBeCloseTo(LAB_PHYSICS.BALANCE_POSITION[1] + 1.35, 2);
-    expect(snap.position[2]).toBeCloseTo(-2.5, 2);
+    const bottomY = snap.position[1] + LAB_PHYSICS.TABLE_SURFACE_Y - restingVesselHeight('beaker', 100);
+    expect(bottomY).toBeCloseTo(LAB_PHYSICS.BALANCE_POSITION[1] + LAB_PHYSICS.BALANCE_PAN_TOP_OFFSET_Y, 12);
+    expect(snap.position[2]).toBeCloseTo(LAB_PHYSICS.BALANCE_POSITION[2] + LAB_PHYSICS.BALANCE_PAN_OFFSET_Z, 12);
   });
 
   it('snaps test tube into test-tube rack', () => {

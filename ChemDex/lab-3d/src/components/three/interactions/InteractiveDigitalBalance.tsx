@@ -8,6 +8,9 @@ import { labSound } from '../../../utils/audio';
 import { useToolDock } from '../../../handling/toolDock';
 import { useInstrumentStore } from '../../../handling/instrumentState';
 import { simulationFrameDt } from '../../../core/clock';
+import { findBalanceOccupant } from '../../../handling/vesselRest';
+
+const { BALANCE_PAN_OFFSET_Z, BALANCE_PAN_RADIUS, BALANCE_PAN_TOP_OFFSET_Y } = LAB_PHYSICS;
 
 export const InteractiveDigitalBalance = React.memo(function InteractiveDigitalBalance({
   position: initialPosition = LAB_PHYSICS.BALANCE_POSITION,
@@ -22,18 +25,10 @@ export const InteractiveDigitalBalance = React.memo(function InteractiveDigitalB
   const setTareMass = useInstrumentStore(state => state.setTare);
   const [isHovered, setIsHovered] = useState(false);
 
-  // Measure which vessel is currently resting on the balance pan
-  const placedVessel = useMemo(() => {
-    const [bx, , bz] = position;
-    for (const v of Object.values(vessels)) {
-      const dx = v.position[0] - bx;
-      const dz = v.position[2] - bz;
-      if (!v.isShattered && v.capacity_ml > 0 && Math.hypot(dx, dz) < LAB_PHYSICS.BALANCE_PAN_RADIUS) {
-        return v;
-      }
-    }
-    return null;
-  }, [vessels, position]);
+  const draggingVesselId = useAppStore(state => state.draggingVesselId);
+
+  const placedVessel = useMemo(() => dock.dragging ? null : findBalanceOccupant(vessels, position, draggingVesselId),
+    [dock.dragging, vessels, position, draggingVesselId]);
 
   const rawMass = placedVessel ? calculateVesselMass(placedVessel) : 0.0;
   const netMass = rawMass - tareMass;
@@ -86,8 +81,8 @@ export const InteractiveDigitalBalance = React.memo(function InteractiveDigitalB
       </mesh>
 
       {/* Heavy Stainless Steel Circular Weighing Pan (Draft Shield Pan) */}
-      <mesh position={[0, 0.31, -0.15]} receiveShadow castShadow>
-        <cylinderGeometry args={[0.78, 0.78, 0.05, 48]} />
+      <mesh position={[0, BALANCE_PAN_TOP_OFFSET_Y - 0.025, BALANCE_PAN_OFFSET_Z]} receiveShadow castShadow>
+        <cylinderGeometry args={[BALANCE_PAN_RADIUS, BALANCE_PAN_RADIUS, 0.05, 48]} />
         <meshStandardMaterial 
           color="#cbd5e1" 
           metalness={0.88} 
@@ -96,7 +91,7 @@ export const InteractiveDigitalBalance = React.memo(function InteractiveDigitalB
       </mesh>
 
       {/* Weighing Pan Center Ring Markings */}
-      <mesh position={[0, 0.336, -0.15]} rotation={[-Math.PI / 2, 0, 0]}>
+      <mesh position={[0, BALANCE_PAN_TOP_OFFSET_Y + 0.001, BALANCE_PAN_OFFSET_Z]} rotation={[-Math.PI / 2, 0, 0]}>
         <ringGeometry args={[0.3, 0.32, 32]} />
         <meshBasicMaterial color="#94a3b8" />
       </mesh>
