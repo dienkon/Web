@@ -34,6 +34,9 @@ import { ACID_BASE_TITRATION, recordAcidBaseDelivery } from '../engine/acidBaseT
 import { AGCL_PRACTICE, agclSourceAttempt, recordAgClDelivery, recordAgClStirring } from '../engine/agclPractice';
 import { NEUTRALIZATION_PRACTICE, captureNeutralizationProbe, neutralizationSourceAttempt, recordNeutralizationDelivery,
   type PracticeProbe } from '../engine/neutralizationPractice';
+import { MASS_CONSERVATION, captureConservationWeighing, massConservationCups, massConservationPourPending,
+  massConservationSourceAttempt, newMassConservationReceipt, recordConservationTransfer,
+  type MassConservationCup, type WeighingStage } from '../engine/massConservationPractice';
 import { reactionStockContactFraction } from '../physical/stockLiquidContact';
 import { resolveReactionProgram } from '../vfx/programs/resolver';
 import { ReactionProgram } from '../shared/programSchema';
@@ -83,7 +86,7 @@ import { renderedVesselBody } from '../simulation/render/vesselBodyFrames';
 import { planSodiumWater } from '../engine/sodiumWaterPlan';
 import { solutionIndicatorColor } from '../science/indicatorAppearance';
 import { useLabEnvironment } from './useLabEnvironment';
-import { balancePanVesselPosition, restingVesselHeight } from '../handling/vesselRest';
+import { balancePanVesselPosition, findBalanceOccupant, isVesselSupportedByBalance, restingVesselHeight } from '../handling/vesselRest';
 import { AnimatedDoseQueue, releaseDoseAmount, type AnimatedStockDose } from '../engine/animatedDose';
 import { SpatulaDoseReservations, type SpatulaSample } from '../handling/spatulaDose';
 import { prepareStockAddition } from '../engine/stockAddition';
@@ -479,6 +482,8 @@ export interface AppState {
   pourEpoch: number;
   releasePourLiquid: (parcel: Omit<PourParcel, 'sample' | 'releasedVolume_ml' | 'elapsed_s' | 'arrivedFraction' | 'agclSourceAttempt' | 'practiceSourceAttempt'>, volume_ml: number) => number;
   recordNeutralizationProbe: (tool: PracticeProbe) => boolean;
+  placeConservationCup: (id: MassConservationCup) => boolean;
+  recordConservationWeighing: (stage: WeighingStage) => boolean;
   advancePourTransport: (dt: number) => PourArrival[];
 
   // Environmental Mass Conservation & Workbench Spills
@@ -928,6 +933,7 @@ export const useAppStore = create<AppState>((set, get) => {
       const isTitrationPractice = isAcidBaseTitration && context === 'practice';
       const isPrecipitationPractice = experimentId === AGCL_PRACTICE.id && context === 'practice';
       const isNeutralizationPractice = experimentId === NEUTRALIZATION_PRACTICE.id && context === 'practice';
+      const isConservationPractice = experimentId === MASS_CONSERVATION.id && context === 'practice';
       if (isAcidBaseTitration) {
         const acidMoles = titration.acidVolume_ml * titration.acidConcentration_M / 1000;
         const observationStockVolume_ml = 50;
@@ -1112,7 +1118,7 @@ export const useAppStore = create<AppState>((set, get) => {
           isBoiling: false,
           hasGas: false
         };
-      } else if (experimentId === 'mass_conservation_bacl2_na2so4') {
+      } else if (experimentId === MASS_CONSERVATION.id) {
         // Preset: Beaker 1 on the analytical balance pan, Beaker 2 next to it
         const balance = useToolDockStore.getState().positions.balance ?? instrumentHome('balance');
         vessels['beaker_1'] = {
@@ -1795,8 +1801,11 @@ export const useAppStore = create<AppState>((set, get) => {
         };
       }
       const pendingReactions: Record<string, PendingReactionState> = {};
+      const conservationAttempt = isConservationPractice
+        ? (globalThis.crypto?.randomUUID?.() ?? `${Date.now()}-${Math.random().toString(36).slice(2)}`) : undefined;
       for (const id of Object.keys(vessels)) {
         vessels[id] = materializePresetInventory(vessels[id]);
+        if (conservationAttempt) vessels[id].massConservationPractice = newMassConservationReceipt(vessels[id], conservationAttempt);
         const pending = findPendingReaction(vessels[id].substances, vessels[id].temperature_c, false, get().language);
         if (pending) pendingReactions[id] = { ...pending, vesselId: id };
       }
@@ -1830,7 +1839,7 @@ export const useAppStore = create<AppState>((set, get) => {
         examReport: null,
         spills: {}
       });
-      if (isPrecipitationPractice || isNeutralizationPractice) {
+      if (isPrecipitationPractice || isNeutralizationPractice || isConservationPractice) {
         const prepared = get();
         pushHistorySnapshot('RESET', prepared.vessels, prepared.burners, 'Prepared the practice samples', 'Đã chuẩn bị mẫu thực hành');
         set({ canUndo: checkCanUndo(), canRedo: checkCanRedo() });
@@ -1848,6 +1857,56 @@ export const useAppStore = create<AppState>((set, get) => {
       const vessels = { ...state.vessels, [id]: { ...state.vessels[id], neutralizationPractice: receipt } };
       set({ vessels });
       pushHistorySnapshot('MEASURE', vessels, state.burners, 'Recorded probe reading', 'Đã ghi số đo của đầu dò');
+      set({ canUndo: checkCanUndo(), canRedo: checkCanRedo() });
+      debounceSaveLocalState(vessels, state.burners);
+      return true;
+    },
+
+    placeConservationCup: id => {
+      const state = get(), dock = useToolDockStore.getState();
+      const { receiverId, sourceId } = MASS_CONSERVATION;
+      if ((id !== receiverId && id !== sourceId) || state.activeExperimentId !== MASS_CONSERVATION.id
+        || !massConservationCups(state.vessels) || state.moveMode || state.draggingVesselId || dock.dragging
+        || state.isMixing || massConservationPourPending(state.inFlightPours)) return false;
+      const vessel = state.vessels[id], balance = dock.positions.balance ?? instrumentHome('balance');
+      const eligible = (cup: VesselState) => !cup.isLocked && !cup.heldByTongsId && !cup.isSealed;
+      if (!eligible(vessel)) return false;
+      const supported = Object.values(state.vessels).filter(cup => isVesselSupportedByBalance(cup, balance));
+      if (supported.length > 1) return false;
+      const occupant = supported[0];
+      if (occupant?.id === id) return true;
+      const cups = { ...state.vessels };
+      if (occupant) {
+        if (occupant.id !== receiverId && occupant.id !== sourceId || !eligible(occupant)) return false;
+        const other = { ...state.vessels };
+        delete other[id]; delete other[occupant.id];
+        const parking = findBenchPosition(occupant.type, occupant.capacity_ml,
+          currentBenchObstacles({ ...state, vessels: other }), vessel.position);
+        if (!parking) return false;
+        cups[occupant.id] = { ...occupant, position: parking, rotationZ: 0, physicalMotion: undefined };
+      }
+      cups[id] = { ...vessel, position: balancePanVesselPosition(balance, vessel.type, vessel.capacity_ml),
+        rotationZ: 0, physicalMotion: undefined };
+      const vessels = relocateVesselStocks(state.vessels, cups, moveCarriedVesselIds(state));
+      if (relocationMovesLockedVessel(state.vessels, vessels) || stockDoseBlocksRelocation(state, vessels)) return false;
+      set({ vessels, selectedVesselId: id });
+      debounceSaveLocalState(vessels, state.burners);
+      return true;
+    },
+
+    recordConservationWeighing: stage => {
+      const state = get(), dock = useToolDockStore.getState();
+      if ((stage !== 'before' && stage !== 'after') || state.activeExperimentId !== MASS_CONSERVATION.id
+        || state.moveMode || state.draggingVesselId || dock.dragging || state.isMixing
+        || massConservationPourPending(state.inFlightPours)) return false;
+      const occupant = findBalanceOccupant(state.vessels, dock.positions.balance ?? instrumentHome('balance'));
+      if (!occupant) return false;
+      const receipt = captureConservationWeighing(occupant, stage, useInstrumentStore.getState().balanceTare_g,
+        state.vessels, state.experimentDifficulty);
+      if (!receipt) return false;
+      const vessels = { ...state.vessels, [occupant.id]: { ...occupant, massConservationPractice: receipt } };
+      set({ vessels });
+      pushHistorySnapshot('MEASURE', vessels, state.burners, 'Recorded balance reading', 'Đã ghi số đọc trên cân');
       set({ canUndo: checkCanUndo(), canRedo: checkCanRedo() });
       debounceSaveLocalState(vessels, state.burners);
       return true;
@@ -4026,7 +4085,8 @@ export const useAppStore = create<AppState>((set, get) => {
         || state.inFlightPours.some(parcel => parcel.id === draft.id)) return 0;
       const release = decantLiquid(source, null, volume_ml, mobileSolidInventory(source, SimulationEngine.findManager(source.id)));
       if (!release?.spill) return 0;
-      const parcel: PourParcel = { ...draft, practiceSourceAttempt: agclSourceAttempt(source) ?? neutralizationSourceAttempt(source),
+      const conservationAttempt = massConservationSourceAttempt(source);
+      const parcel: PourParcel = { ...draft, practiceSourceAttempt: agclSourceAttempt(source) ?? neutralizationSourceAttempt(source) ?? conservationAttempt,
         sample: prepareAliquotContact(release.spill, state.activeKinetics[source.id]?.program?.id), releasedVolume_ml: release.moved_ml,
         elapsed_s: 0, arrivedFraction: 0 };
       set(s => {
@@ -4037,7 +4097,10 @@ export const useAppStore = create<AppState>((set, get) => {
         if (continued) activeKinetics[source.id] = continued;
         const pending = continued ? null : findPendingReaction(release.source.substances, release.source.temperature_c, false, s.language);
         if (pending) pendingReactions[source.id] = { ...pending, vesselId: source.id };
-        return { vessels: { ...s.vessels, [source.id]: release.source },
+        const conservationReceiver = recordConservationTransfer(s.vessels[MASS_CONSERVATION.receiverId], conservationAttempt,
+          { released_g: parcel.sample.mass_g });
+        return { vessels: { ...s.vessels, [source.id]: release.source,
+          ...(conservationAttempt && conservationReceiver ? { [conservationReceiver.id]: conservationReceiver } : {}) },
           inFlightPours: [...s.inFlightPours, parcel], activeKinetics, pendingReactions, dissolvingSubstances };
       });
       debounceSaveLocalState(get().vessels, get().burners);
@@ -4053,6 +4116,14 @@ export const useAppStore = create<AppState>((set, get) => {
       const vessels = { ...state.vessels }, activeKinetics = { ...state.activeKinetics },
         pendingReactions = { ...state.pendingReactions }, dissolvingSubstances = { ...state.dissolvingSubstances };
       let spills = state.spills, lastMixResult = state.lastMixResult, changedVessels = false;
+      const recordConservation = (parcel: PourParcel, event: Parameters<typeof recordConservationTransfer>[2]) => {
+        const receiver = vessels[MASS_CONSERVATION.receiverId];
+        const updated = recordConservationTransfer(receiver, parcel.practiceSourceAttempt, event);
+        if (updated && updated !== receiver) {
+          vessels[updated.id] = updated;
+          changedVessels = true;
+        }
+      };
       const coating = new Map<string, { volume: number; mass: number }>();
       const changeCoating = (id: string, volume: number, mass: number) => {
         const previous = coating.get(id) ?? { volume: 0, mass: 0 };
@@ -4091,12 +4162,18 @@ export const useAppStore = create<AppState>((set, get) => {
             vessels[target.id] = { ...vessel, recentPourContact: {
               point: pourContactLocal(parcel, target), expiresAt_ms: Date.now() + 1500, remaining_s: 1.5, color: contact.color,
             } }; lastMixResult = reacted.mixResult; changedVessels = true;
+            if (!contactFailures.has(target.id)) {
+              const retained_g = contact.mass_g - spill.mass_g;
+              recordConservation(parcel, target.id === MASS_CONSERVATION.receiverId
+                ? { received_g: retained_g } : { diverted_g: retained_g });
+            }
           }
         }
         return { accepted_ml, contacted_ml, spill };
       };
       const recordSpill = (parcel: PourParcel, spill: typeof parcel.sample) => {
         if (spill.volume_ml <= 0) return;
+        recordConservation(parcel, { spilled_g: spill.mass_g });
         const point = parcel.trajectory.impactPos;
         if (parcel.targetId && parcel.trajectory.landingKind === 'inside' && vessels[parcel.targetId]) {
           const targetVessel = vessels[parcel.targetId];
@@ -4275,7 +4352,15 @@ export const useAppStore = create<AppState>((set, get) => {
         const retained = target && overflow ? { ...target,
           outerWallCoating_ml: (target.outerWallCoating_ml ?? 0) + (overflow.stage === 'overflow' ? overflow.sample.volume_ml : 0),
           outerWallCoatingMass_g: (target.outerWallCoatingMass_g ?? 0) + (overflow.stage === 'overflow' ? overflow.sample.mass_g : 0) } : target;
-        return { vessels: { ...s.vessels, [fromId]: transfer.source, ...(retained && toId ? { [toId]: retained } : {}) },
+        const vessels = { ...s.vessels, [fromId]: transfer.source, ...(retained && toId ? { [toId]: retained } : {}) };
+        const spilled_g = transfer.failureReason ? transfer.sample.mass_g : (transfer.spill?.mass_g ?? 0);
+        const retained_g = transfer.sample.mass_g - spilled_g;
+        const conservationReceiver = recordConservationTransfer(vessels[MASS_CONSERVATION.receiverId], massConservationSourceAttempt(from), {
+          released_g: transfer.sample.mass_g, spilled_g,
+          ...(toId === MASS_CONSERVATION.receiverId ? { received_g: retained_g } : { diverted_g: retained_g }),
+        });
+        if (conservationReceiver) vessels[conservationReceiver.id] = conservationReceiver;
+        return { vessels,
           inFlightPours: overflow ? [...s.inFlightPours, overflow] : s.inFlightPours, spills: ground,
           activeKinetics, pendingReactions, dissolvingSubstances, lastMixResult: reacted?.mixResult ?? null };
       });

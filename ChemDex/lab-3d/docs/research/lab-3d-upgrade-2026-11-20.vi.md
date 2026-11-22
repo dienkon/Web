@@ -58,11 +58,11 @@ Thực hành và thi thử dùng dung sai ±0,25 mL cho thể tích và ±0,20 p
 
 ## Chấm theo bằng chứng và phiếu tự thực hành
 
-Chương trình có 19 bài và 43 bước. Chín bước thuộc ba bài chuẩn độ, AgCl và nhiệt trung hòa được kiểm tra từ mẫu, giao dịch vật chất hoặc đầu dò. Khi mở báo cáo, bộ chấm kiểm tra lại từng bước trên trạng thái hiện tại của bàn. Bài chuẩn độ dùng cùng tiêu chí cho giao diện và bộ chấm gọi trực tiếp.
+Chương trình có 19 bài và 44 bước. Mười hai bước thuộc bốn bài chuẩn độ, AgCl, nhiệt trung hòa và bảo toàn khối lượng được kiểm tra từ mẫu, lượng vật chất đã chuyển hoặc số đọc dụng cụ. Khi mở báo cáo, bộ chấm kiểm tra lại từng bước trên trạng thái hiện tại của bàn. Giao diện và bộ chấm dùng cùng tiêu chí.
 
-Ở 16 bài còn lại, người học có thể xem qua các bước và đánh dấu **Tự xác nhận đã thực hiện bước này** cho 34 bước còn dựa vào quan sát. **Xem phiếu tự thực hành** hiển thị số bước tự xác nhận và số câu trắc nghiệm đúng. JSON lưu trạng thái từng bước, phân biệt bước tự xác nhận với bước phòng lab kiểm tra và có thể dùng cho bài kết hợp cả hai loại. Phiếu lưu tiến độ trong phiên khi đóng bảng bài học hoặc chuyển sang thẻ dụng cụ. Nút **Tự động bày bàn thí nghiệm** bắt đầu lượt mới và xóa các xác nhận cùng câu trả lời của lượt trước.
+Ở 15 bài còn lại, người học có thể xem qua các bước và đánh dấu **Tự xác nhận đã thực hiện bước này** cho 32 bước còn dựa vào quan sát. **Xem phiếu tự thực hành** hiển thị số bước tự xác nhận và số câu trắc nghiệm đúng. JSON lưu trạng thái từng bước, phân biệt bước tự xác nhận với bước phòng lab kiểm tra và có thể dùng cho bài kết hợp cả hai loại. Phiếu lưu tiến độ trong phiên khi đóng bảng bài học hoặc chuyển sang thẻ dụng cụ. Nút **Tự động bày bàn thí nghiệm** bắt đầu lượt mới và xóa các xác nhận cùng câu trả lời của lượt trước.
 
-Kiểm tra bàn trống xác nhận cả 43 bước đều chưa đạt. Ở Chrome production khung nhìn 390 px, phiếu của bài bảo toàn khối lượng ghi 0/2 khi chỉ chuyển bước và 1/2 khi người học đã xác nhận một bước. Kiểm tra cũng bao phủ đóng mở bảng, hủy xác nhận, làm lại, xuất JSON và ba luồng chấm tự động.
+Kiểm tra bàn trống xác nhận cả 44 bước đều chưa đạt. Kiểm tra phiếu tự thực hành bao phủ chuyển bước, đóng mở bảng, hủy xác nhận, làm lại và xuất JSON.
 
 ## Điểm tựa của cân điện tử
 
@@ -70,7 +70,15 @@ Cảnh 3D, thao tác **Đặt lên cân** và phép đọc khối lượng dùng
 
 Kiểm tra trên Chrome ở khung nhìn 390 px đọc 110,800 g cho cốc mẫu đã bày, về 0,000 g sau TARE và báo đĩa đã có cốc khi thử đặt cốc thứ hai. Kiểm thử engine kiểm tra riêng cốc quá cao, quá thấp, đang nghiêng, đang kéo và cân đã đổi vị trí.
 
-Để tự động chấm bài bảo toàn khối lượng, bước tiếp theo là ghi số đo cho cả cốc nguồn và cốc nhận trước và sau khi rót. Các số đo cần thuộc cùng lượt thực hành. Bộ chấm sẽ đối chiếu phần còn trong cốc nguồn, phần đã vào cốc nhận và phần tràn từ chính lượt rót.
+## Bài thực hành bảo toàn khối lượng
+
+1. Bày bàn trong **Kiểm chứng Định luật Bảo toàn Khối lượng**. Chọn **Cân cốc nhận** và **Cân cốc nguồn**. Có thể đặt cốc bằng tay rồi chọn **Ghi số cân cốc đang trên đĩa**. Mỗi số ghi bao gồm vỏ cốc. Nếu đã nhấn TARE, hệ thống cộng lại mốc trừ bì để so sánh các khối lượng cùng hệ quy chiếu.
+2. Rót từ cốc nguồn vào cốc nhận. Bộ chấm ghi khối lượng rời cốc nguồn, tăng trong cốc nhận và thoát ra bàn. Bước rót cần có BaSO₄ rắn trong cốc nhận và kết thúc vận chuyển dung dịch. Có thể để lại một phần dung dịch trong cốc nguồn.
+3. Cân lại cả hai cốc rồi mở **Hoàn tất & Chấm điểm**. Bộ chấm đối chiếu lượng giảm của cốc nguồn, lượng tăng của cốc nhận và tổng khối lượng trước với tổng sau cộng phần tràn và lượng nước bay hơi. Phần nước thoát ra chỉ tính giữa hai lần cân của từng cốc. Dung sai của sai lệch lớn nhất là ±0,050 g ở Hướng dẫn, ±0,020 g ở Tiêu chuẩn và ±0,010 g ở Thực hành hoặc Thi thử. Báo cáo JSON lưu bốn khối lượng cả cốc cùng khối lượng dung dịch còn lại, lượng tăng, lượng tràn, lượng bay hơi và sai lệch.
+
+Các số đo gắn với đúng hai cốc của một lượt. Khi thêm vật chất sau lần cân cuối, bộ chấm yêu cầu cân lại. Lượt quan sát tự động không cấp số đo thực hành. Kiểm thử engine bao phủ rót qua không khí, phần còn lại trong cốc nguồn, phần tràn kể cả sau khi lau, bay hơi tự nhiên, TARE, hoàn tác sau khi làm rỗng cốc và bắt đầu lượt mới.
+
+Ở Chrome production khung nhìn 390 px, bài ghi 27/40 điểm quy trình và 0/25 điểm số đo khi còn thiếu một lần cân cuối. Sau khi cân đủ, quy trình đạt 40/40. Tổng khối lượng hiển thị sau khi rót đủ là 221,600 g. JSON ghi riêng lượng nước bay hơi và sai lệch đối chiếu trong phạm vi 0,002 g.
 
 ## Phạm vi 5 giai đoạn
 

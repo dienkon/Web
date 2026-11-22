@@ -1,6 +1,7 @@
 import type { ProceduralStep } from '../engine/experimentEngine';
 import { ACID_BASE_EQUIVALENCE_ML, ACID_BASE_TITRATION, assessAcidBaseTitration } from '../engine/acidBaseTitration';
 import { AGCL_PRACTICE, assessAgClPractice } from '../engine/agclPractice';
+import { MASS_CONSERVATION, assessMassConservation, massConservationPourPending } from '../engine/massConservationPractice';
 import { NEUTRALIZATION_PRACTICE, assessNeutralizationPractice } from '../engine/neutralizationPractice';
 
 export interface LabStep extends ProceduralStep {
@@ -482,44 +483,41 @@ export const EXPERIMENT_CURRICULUM: ExperimentGuide[] = [
     ]
   },
   {
-    id: 'mass_conservation_bacl2_na2so4',
+    id: MASS_CONSERVATION.id,
     title_en: 'Verification of Law of Conservation of Mass (BaCl2 + Na2SO4)',
     title_vi: 'Kiểm chứng Định luật Bảo toàn Khối lượng (BaCl2 + Na2SO4)',
     category: 'precipitation',
     difficulty: 'basic',
     objective_en: 'Prove Lavoisier-Lomonosov Law of Conservation of Mass using the digital analytical balance.',
     objective_vi: 'Kiểm chứng thực nghiệm Định luật Bảo toàn Khối lượng Lomonosov - Lavoisier trên cân điện tử phân tích.',
-    theory_en: 'In a chemical reaction, the total mass of the products is strictly equal to the total mass of the reactants: m_reactants = m_products. Barium chloride reacts with sodium sulfate: BaCl₂ + Na₂SO₄ → BaSO₄↓ + 2NaCl. The white insoluble BaSO4 settles, but the balance reading remains unchanged.',
-    theory_vi: 'Trong một phản ứng hóa học, tổng khối lượng các chất sản phẩm bằng tổng khối lượng các chất tham gia phản ứng: m(trước) = m(sau). Bari clorua phản ứng với natri sunfat: BaCl₂ + Na₂SO₄ → BaSO₄↓ + 2NaCl. Dù xuất hiện kết tủa trắng, tổng khối lượng trên đĩa cân hoàn toàn không thay đổi.',
+    theory_en: 'Barium chloride and sodium sulfate react according to BaCl₂ + Na₂SO₄ → BaSO₄↓ + 2NaCl. Each cup changes mass during the transfer. The balance must account for both cups, spilled liquid and water lost to the air.',
+    theory_vi: 'Bari clorua và natri sunfat phản ứng theo phương trình BaCl₂ + Na₂SO₄ → BaSO₄↓ + 2NaCl. Khối lượng từng cốc thay đổi khi rót. Kiểm chứng bảo toàn khối lượng cần tính cả hai cốc, phần tràn và lượng nước bay hơi.',
     safetyAdvisory_en: 'Barium chloride is toxic. Do not ingest and wear protective gloves.',
     safetyAdvisory_vi: 'Bari clorua là muối kim loại độc hại. Không nếm thử và đeo găng tay bảo hộ.',
     requiredEquipment: ['Digital Balance', 'Beaker (x2)'],
     allowedChemicals: ['BaCl2', 'Na2SO4', 'H2O'],
-    simulationAlgorithm_en: `Conservation Law & Precipitate Scattering Model:
-1. Exact Mass Invariance: sum(m_initial) = sum(m_final) to +/- 0.001 g.
-2. Rapid Ionic Precipitation: Ba2+ + SO4(2-) -> BaSO4(s) (Ksp = 1.08e-10).
-3. Turbidity Scattering: tau = (24*pi^3 * N * V_p^2 / lambda^4) * ((m^2 - 1)/(m^2 + 2))^2.
-   Zero mass loss as system is non-volatile; digital analytical balance displays steady invariant reading.`,
-    simulationAlgorithm_vi: `Thuật toán Định Luật Bảo Toàn & Tán Xạ Ánh Sáng:
-1. Bảo toàn khối lượng tuyệt đối: tổng khối lượng trước và sau phản ứng sai số < 0.001 g.
-2. Kết tủa ion tức thì Ba2+ + SO4(2-) -> BaSO4(s) với độ tan cực bé Ksp = 1.08e-10.
-3. Độ đục tán xạ Rayleigh tăng vọt tạo màu trắng đục như sữa mà không làm thất thoát vật chất ra môi trường.`,
+    simulationAlgorithm_en: `1. Weigh each cup on the pan. Add the TARE offset back to the displayed value to obtain its gross mass.
+2. Record removed, retained and spilled mass along the actual transfer. The receiver inventory records solid BaSO₄.
+3. Compare the four weighings with the transfer and recorded evaporation. m_before = m_after + m_spilled + m_vapor within the lesson tolerance.`,
+    simulationAlgorithm_vi: `1. Cân từng cốc trên đĩa. Cộng lại mốc TARE vào số đọc để lấy khối lượng cả cốc.
+2. Ghi khối lượng rời cốc nguồn, vào cốc nhận và tràn trong lượt rót. Kiểm kê của cốc nhận ghi nhận BaSO₄ rắn.
+3. So sánh bốn số cân với lượt rót và lượng bay hơi đã ghi. m_trước = m_sau + m_tràn + m_hơi trong dung sai của bài.`,
     phenomenologyCases: [
       {
         id: 'mass_conservation_pre_tare',
         name_en: 'Case 1: Quiescent Pre-Reaction Tare Equilibrium',
         name_vi: 'Trường hợp 1: Cân bằng trước phản ứng với số đo khối lượng tĩnh',
-        description_en: 'Separate transparent colorless solutions rest on the analytical balance pan; digital reading is perfectly motionless at m_initial.',
-        description_vi: 'Hai dung dịch trong suốt riêng biệt được đặt trên đĩa cân điện tử; chỉ số khối lượng hiển thị ổn định tuyệt đối.',
-        algorithm: 'Balance readout m = m_beaker + m_sol1 + m_sol2; noise filter sigma < 0.002 g.'
+        description_en: 'Weigh the two clear solutions one cup at a time and record both gross masses.',
+        description_vi: 'Cân lần lượt hai cốc dung dịch trong và ghi khối lượng cả cốc của từng mẫu.',
+        algorithm: 'm_initial = m_receiver,before + m_source,before'
       },
       {
         id: 'mass_conservation_curdy_flash',
-        name_en: 'Case 2: Flash Precipitation with Zero Mass Delta',
-        name_vi: 'Trường hợp 2: Kết tủa trắng bùng phát tức thì với biến thiên khối lượng bằng 0',
-        description_en: 'Upon mixing, a dense milky white opaque suspension erupts instantaneously, yet the analytical balance reading remains strictly identical: Delta m = 0.00 g.',
-        description_vi: 'Khi đổ 2 chất vào nhau, kết tủa trắng đục BaSO4 bùng phát ngay tức khắc, chỉ số cân điện tử giữ nguyên 100% không đổi: Delta m = 0.00 g.',
-        algorithm: 'Instantaneous Ksp saturation; mass conservation dm/dt = 0; turbidity tau -> 0.95.'
+        name_en: 'Case 2: White precipitate during transfer',
+        name_vi: 'Trường hợp 2: Kết tủa trắng khi rót',
+        description_en: 'Solid BaSO₄ makes the receiver cloudy. Its gross mass increases by the amount retained in that cup.',
+        description_vi: 'BaSO₄ rắn làm cốc nhận đục. Khối lượng cả cốc nhận tăng theo lượng giữ lại trong cốc.',
+        algorithm: 'Ba²⁺(aq) + SO₄²⁻(aq) → BaSO₄(s)'
       },
       {
         id: 'mass_conservation_dense_sediment',
@@ -527,7 +525,7 @@ export const EXPERIMENT_CURRICULUM: ExperimentGuide[] = [
         name_vi: 'Trường hợp 3: Kết tủa BaSO4 nặng lắng dần xuống đáy cốc',
         description_en: 'Heavy barium sulfate particles (rho = 4.50 g/cm³) gently precipitate toward the beaker floor, leaving a crystal-clear supernatant.',
         description_vi: 'Các hạt BaSO4 nặng (tỉ trọng 4.50 g/cm³) từ từ lắng xuống tạo lớp cặn trắng dày dưới đáy, lớp nước phía trên trở nên trong veo.',
-        algorithm: 'Stokes settling: v = 2*r^2*(rho_BaSO4 - rho_w)*g / (9*mu); balance reading invariant.'
+        algorithm: 'm_initial = m_receiver,after + m_source,after + m_spilled + m_vapor'
       }
     ],
     steps: [
@@ -535,19 +533,31 @@ export const EXPERIMENT_CURRICULUM: ExperimentGuide[] = [
         stepNumber: 1,
         title_en: 'Weigh Initial Reactants on Balance',
         title_vi: 'Cân dung dịch ban đầu trên cân điện tử',
-        instruction_en: 'Place Beaker 1 containing 25 mL BaCl2 on the balance pan. Note the initial mass reading m1.',
-        instruction_vi: 'Đặt Cốc 1 chứa 25 mL dung dịch BaCl2 lên đĩa cân điện tử. Quan sát và ghi lại khối lượng ban đầu m1.',
-        expectedResult_en: 'Digital balance shows tare + liquid mass stably.',
-        expectedResult_vi: 'Đồng hồ cân điện tử hiển thị giá trị khối lượng ổn định.'
+        instruction_en: 'Set up the workbench. Weigh the BaCl₂ receiver and Na₂SO₄ source one at a time and record both readings.',
+        instruction_vi: 'Bày bàn thí nghiệm. Cân lần lượt cốc nhận BaCl₂ và cốc nguồn Na₂SO₄, rồi ghi cả hai số đọc.',
+        expectedResult_en: 'Each reading includes the glass and its solution.',
+        expectedResult_vi: 'Mỗi số cân gồm khối lượng vỏ cốc và dung dịch bên trong.',
+        validate: (state, mode) => assessMassConservation(state.vessels, mode).steps[0],
       },
       {
         stepNumber: 2,
-        title_en: 'Mix Reactants and Confirm Invariant Mass',
-        title_vi: 'Trộn dung dịch và kiểm chứng khối lượng',
-        instruction_en: 'Pour 25 mL Na2SO4 into Beaker 1 on the balance pan.',
-        instruction_vi: 'Rót tiếp 25 mL dung dịch Na2SO4 vào Cốc 1 trên đĩa cân.',
-        expectedResult_en: 'Instant dense milky-white precipitate of BaSO4 forms. Total mass exactly equals the sum of both masses (m1 + m2 = m_final)!',
-        expectedResult_vi: 'Kết tủa trắng đục BaSO4 xuất hiện ngay lập tức. Tổng khối lượng sau phản ứng hoàn toàn bằng tổng khối lượng ban đầu!'
+        title_en: 'Pour and observe the precipitate',
+        title_vi: 'Rót và quan sát kết tủa',
+        instruction_en: 'Pour from the prepared Na₂SO₄ cup into the BaCl₂ cup. Let the transfer settle before weighing again.',
+        instruction_vi: 'Rót dung dịch từ cốc Na₂SO₄ đã chuẩn bị vào cốc BaCl₂. Chờ lượt rót kết thúc rồi cân lại.',
+        expectedResult_en: 'White BaSO₄ forms in the receiving cup.',
+        expectedResult_vi: 'Kết tủa BaSO₄ trắng hình thành trong cốc nhận.',
+        validate: (state, mode) => assessMassConservation(state.vessels, mode, massConservationPourPending(state.inFlightPours ?? [])).steps[1],
+      },
+      {
+        stepNumber: 3,
+        title_en: 'Reweigh and check conservation',
+        title_vi: 'Cân lại và đối chiếu khối lượng',
+        instruction_en: 'Weigh both cups again, including any solution left in the source cup. Compare the total with the initial readings, the spill and evaporation.',
+        instruction_vi: 'Cân lại cả hai cốc, tính cả phần còn trong cốc nguồn. So sánh tổng mới với số cân ban đầu, phần tràn và lượng bay hơi.',
+        expectedResult_en: 'The combined mass of both cups, spilled liquid and released water matches the initial total within the lesson tolerance.',
+        expectedResult_vi: 'Tổng khối lượng hai cốc cộng phần tràn và lượng nước bay hơi khớp với tổng ban đầu trong dung sai của bài.',
+        validate: (state, mode) => assessMassConservation(state.vessels, mode, massConservationPourPending(state.inFlightPours ?? [])).steps[2],
       }
     ],
     quizzes: [

@@ -131,6 +131,7 @@ export interface VesselState {
   acidBaseTitration?: import('../engine/acidBaseTitration').AcidBaseTitrationReceipt;
   agclPractice?: import('../engine/agclPractice').AgClPracticeReceipt;
   neutralizationPractice?: import('../engine/neutralizationPractice').NeutralizationPracticeReceipt;
+  massConservationPractice?: import('../engine/massConservationPractice').MassConservationReceipt;
   environment?: import('../science/labEnvironment').LabEnvironment;
   hotPlate?: { isOn: boolean; setPoint_c: number; electricalEnergy_J?: number; deliveredHeat_J?: number; heatLost_J?: number };
   escapedGas_g?: Record<string, number>;

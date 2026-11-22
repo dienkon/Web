@@ -10,6 +10,7 @@ import {
 import { experimentEngine, type ExperimentDifficultyMode } from '../engine/experimentEngine';
 import { ACID_BASE_TITRATION, acidBaseReportedPh, assessAcidBaseTitration } from '../engine/acidBaseTitration';
 import { AGCL_PRACTICE, assessAgClPractice } from '../engine/agclPractice';
+import { MASS_CONSERVATION, assessMassConservation, massConservationPourPending, type MassConservationCup } from '../engine/massConservationPractice';
 import { NEUTRALIZATION_PRACTICE, assessNeutralizationPractice, neutralizationProbeAttempt,
   type PracticeProbe } from '../engine/neutralizationPractice';
 import { labSound } from '../utils/audio';
@@ -45,6 +46,7 @@ export function GuidedExperimentPanel({ onOpenTitration, visible }: { onOpenTitr
     stockDosePending,
     isSimulationPaused,
     moveMode,
+    inFlightPours,
     spatulaState,
     toolContamination,
     instrumentRinse,
@@ -72,6 +74,7 @@ export function GuidedExperimentPanel({ onOpenTitration, visible }: { onOpenTitr
     stockDosePending: state.stockDosePending,
     isSimulationPaused: state.isSimulationPaused,
     moveMode: state.moveMode,
+    inFlightPours: visible && state.activeExperimentId === MASS_CONSERVATION.id ? state.inFlightPours : undefined,
     spatulaState: state.spatulaState,
     toolContamination: state.toolContamination,
     instrumentRinse: state.instrumentRinse,
@@ -96,6 +99,8 @@ export function GuidedExperimentPanel({ onOpenTitration, visible }: { onOpenTitr
   const isAcidBaseTitration = currentExperiment?.id === ACID_BASE_TITRATION.id;
   const isAgClPractice = currentExperiment?.id === AGCL_PRACTICE.id;
   const isNeutralizationPractice = currentExperiment?.id === NEUTRALIZATION_PRACTICE.id;
+  const isConservationPractice = currentExperiment?.id === MASS_CONSERVATION.id;
+  const conservationPending = massConservationPourPending(inFlightPours ?? []);
   const titrationVessel = vessels[ACID_BASE_TITRATION.vesselId];
   const acidBaseAssessment = useMemo(() => isAcidBaseTitration
     ? assessAcidBaseTitration(titrationVessel, experimentDifficulty) : null,
@@ -104,6 +109,10 @@ export function GuidedExperimentPanel({ onOpenTitration, visible }: { onOpenTitr
     [isAgClPractice, vessels, experimentDifficulty]);
   const neutralizationAssessment = useMemo(() => isNeutralizationPractice
     ? assessNeutralizationPractice(vessels, experimentDifficulty) : null, [isNeutralizationPractice, vessels, experimentDifficulty]);
+  const conservationAssessment = useMemo(() => isConservationPractice
+    ? assessMassConservation(vessels, experimentDifficulty, conservationPending) : null,
+  [isConservationPractice, vessels, experimentDifficulty, conservationPending]);
+  const weighingStage = activeStepIndex === 0 ? 'before' : 'after';
   const practiceAssessment = acidBaseAssessment ?? agclAssessment ?? neutralizationAssessment;
   const probeTool: PracticeProbe | null = isNeutralizationPractice && activeStepIndex !== 1
     ? activeStepIndex === 0 ? 'thermometer' : 'ph_meter' : null;
@@ -133,8 +142,9 @@ export function GuidedExperimentPanel({ onOpenTitration, visible }: { onOpenTitr
     activeTool,
     spatulaState,
     contaminatedTools: toolContamination,
+    inFlightPours,
     recentActions: []
-  }), [vessels, burners, activeTool, spatulaState, toolContamination]);
+  }), [vessels, burners, activeTool, spatulaState, toolContamination, inFlightPours]);
 
   // Validate current step
   const currentStep = currentExperiment ? currentExperiment.steps[activeStepIndex] : null;
@@ -156,14 +166,18 @@ export function GuidedExperimentPanel({ onOpenTitration, visible }: { onOpenTitr
     const sample = state.vessels[ACID_BASE_TITRATION.vesselId];
     const liveAgCl = isAgClPractice ? assessAgClPractice(state.vessels, experimentDifficulty) : null;
     const liveNeutralization = isNeutralizationPractice ? assessNeutralizationPractice(state.vessels, experimentDifficulty) : null;
-    const liveAssessment = isAcidBaseTitration ? assessAcidBaseTitration(sample, experimentDifficulty) : liveAgCl ?? liveNeutralization;
+    const liveConservation = isConservationPractice
+      ? assessMassConservation(state.vessels, experimentDifficulty, massConservationPourPending(state.inFlightPours)) : null;
+    const liveAssessment = isAcidBaseTitration ? assessAcidBaseTitration(sample, experimentDifficulty)
+      : liveAgCl ?? liveNeutralization ?? liveConservation;
+    const massError = liveConservation?.metrics.conservationError_g;
     const report = experimentEngine.generateGuidedReport({
       experimentId: currentExperiment.id,
       mode: experimentDifficulty,
       steps: currentExperiment.steps,
       state: {
         vessels: state.vessels, burners: state.burners, activeTool: state.activeTool,
-        spatulaState: state.spatulaState, contaminatedTools: state.toolContamination, recentActions: [],
+        spatulaState: state.spatulaState, contaminatedTools: state.toolContamination, recentActions: [], inFlightPours: state.inFlightPours,
       },
       selfConfirmedSteps: state.selfConfirmedSteps,
       contaminationCount: Object.values(state.toolContamination).filter(chemical => chemical !== null).length,
@@ -171,7 +185,9 @@ export function GuidedExperimentPanel({ onOpenTitration, visible }: { onOpenTitr
       quizTotal: currentExperiment.quizzes.length,
       durationSeconds: experimentDifficulty === 'exam' ? Math.floor((Date.now() - examStartTime.current) / 1000) : 0,
       toleranceErrors: liveAgCl ? [liveAgCl.metrics.agclError_ml]
-        : liveNeutralization ? [liveNeutralization.metrics.neutralizationError_ml] : liveAssessment ? [] : undefined,
+        : liveNeutralization ? [liveNeutralization.metrics.neutralizationError_ml]
+          : liveConservation && massError !== undefined ? [massError / liveConservation.tolerance] : liveAssessment ? [] : undefined,
+      measurementPending: isConservationPractice && massError === undefined,
       quantitativeMetrics: {
         ...liveAssessment?.metrics,
         finalPh: isAcidBaseTitration ? acidBaseReportedPh(sample)
@@ -191,6 +207,17 @@ export function GuidedExperimentPanel({ onOpenTitration, visible }: { onOpenTitr
     state.openVesselInfo(ACID_BASE_TITRATION.vesselId);
     alignSelectedVessel('burette');
     onOpenTitration();
+  };
+
+  const weighConservationCup = (cup?: MassConservationCup) => {
+    const state = useAppStore.getState();
+    if (cup && !state.placeConservationCup(cup)) {
+      state.showToast(t('Clear the balance and release both cups before weighing.', 'Dọn đĩa cân và thả các cốc trước khi cân.'), 'warning');
+      return;
+    }
+    if (!state.recordConservationWeighing(weighingStage)) {
+      state.showToast(t('Use a prepared cup and follow the weighing order.', 'Dùng cốc đã bày và cân theo đúng thứ tự của bài.'), 'warning');
+    }
   };
 
   const toggleAgClStirring = () => {
@@ -599,6 +626,31 @@ export function GuidedExperimentPanel({ onOpenTitration, visible }: { onOpenTitr
               {t('Thermometer now', 'Nhiệt kế hiện tại')} <strong>{liveProbe.value.toFixed(1)} °C</strong>
             </p>}
           </>}
+          {conservationAssessment && activeStepIndex !== 1 && <div className="space-y-2 text-xs">
+            {([
+              [MASS_CONSERVATION.receiverId, t('Weigh receiver cup', 'Cân cốc nhận'), conservationAssessment.cups?.receiver[weighingStage]],
+              [MASS_CONSERVATION.sourceId, t('Weigh source cup', 'Cân cốc nguồn'), conservationAssessment.cups?.source[weighingStage]],
+            ] as const).map(([id, label, reading]) => <div key={id} className="flex items-center justify-between gap-2">
+              <button type="button" onClick={() => weighConservationCup(id)}
+                disabled={!conservationAssessment.cups || isMixing || moveMode || conservationPending
+                  || (weighingStage === 'after' && !conservationAssessment.steps[1].isValid)}
+                className="rounded bg-blue-50 px-2.5 py-2 font-semibold text-blue-700 hover:bg-blue-100 disabled:opacity-40"
+              >{label}</button>
+              <span className="font-mono" aria-live="polite">{reading ? `${reading.gross_g.toFixed(3)} g` : '—'}</span>
+            </div>)}
+            <button type="button" onClick={() => weighConservationCup()}
+              disabled={!conservationAssessment.cups || isMixing || moveMode || conservationPending
+                || (weighingStage === 'after' && !conservationAssessment.steps[1].isValid)}
+              className="rounded border border-slate-200 px-2.5 py-2 text-slate-700 disabled:opacity-40"
+            >{t('Record cup already on the pan', 'Ghi số cân cốc đang trên đĩa')}</button>
+          </div>}
+          {conservationAssessment && activeStepIndex === 1 && <button type="button"
+            disabled={!conservationAssessment.steps[0].isValid || !vessels[MASS_CONSERVATION.sourceId]?.volume_ml
+              || isMixing || isSimulationPaused || moveMode || conservationPending}
+            onClick={() => void useAppStore.getState().pourVessel(MASS_CONSERVATION.sourceId, MASS_CONSERVATION.receiverId,
+              undefined, { revealInspector: false })}
+            className="rounded bg-blue-50 px-2.5 py-2 text-xs font-semibold text-blue-700 hover:bg-blue-100 disabled:opacity-40"
+          >{t('Pour from source into receiver', 'Rót từ cốc nguồn vào cốc nhận')}</button>}
 
           {/* Tolerance & Real-time Sensor Feedback */}
           {validationResult && validationResult.targetValue !== undefined && (
@@ -821,6 +873,19 @@ export function GuidedExperimentPanel({ onOpenTitration, visible }: { onOpenTitr
                   {t('pH reading and neutral reference', 'pH đo được và mốc trung tính')} <strong>{gradeReport.quantitativeMetrics.finalPh.toFixed(2)} / {gradeReport.quantitativeMetrics.neutralizationNeutralPh?.toFixed(2)} · {gradeReport.quantitativeMetrics.neutralizationMeasurement_c?.toFixed(1)} °C</strong>
                 </p>}
               </div>}
+              {gradeReport.quantitativeMetrics?.conservationReceived_g !== undefined && <dl className="space-y-1 rounded-lg bg-slate-50 p-2.5 text-xs text-slate-700">
+                {([
+                  [t('Initial total of both cups', 'Tổng khối lượng hai cốc trước khi rót'), gradeReport.quantitativeMetrics.conservationBefore_g],
+                  [t('Final total of both cups', 'Tổng khối lượng hai cốc sau khi rót'), gradeReport.quantitativeMetrics.conservationAfter_g],
+                  [t('Mass gained by the receiver', 'Khối lượng tăng trong cốc nhận'), gradeReport.quantitativeMetrics.conservationReceived_g],
+                  [t('Remaining in the source', 'Khối lượng còn trong cốc nguồn'), gradeReport.quantitativeMetrics.conservationSourceLeft_g],
+                  [t('Spilled during transfer', 'Khối lượng tràn trong lượt rót'), gradeReport.quantitativeMetrics.conservationSpilled_g],
+                  [t('Water lost to air', 'Nước bay hơi vào không khí'), gradeReport.quantitativeMetrics.conservationWaterVapor_g],
+                  [t('Largest mass discrepancy', 'Sai lệch khối lượng lớn nhất'), gradeReport.quantitativeMetrics.conservationError_g],
+                ] as const).map(([label, value]) => <div className="flex justify-between gap-4" key={label}>
+                  <dt>{label}</dt><dd className="shrink-0 font-bold">{value === undefined ? '—' : `${value.toFixed(3)} g`}</dd>
+                </div>)}
+              </dl>}
 
               {/* Instructor Feedback */}
               <div className="bg-slate-50 border border-slate-200 rounded-xl p-3 text-xs space-y-1">

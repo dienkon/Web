@@ -6,7 +6,7 @@ const emptyBench: ExperimentValidationState = {
   vessels: {}, burners: {}, activeTool: 'none', spatulaState: { chemical: null, mass_g: 0 },
   contaminatedTools: {}, recentActions: [],
 };
-const manualLesson = EXPERIMENT_CURRICULUM.find(lesson => lesson.id === 'mass_conservation_bacl2_na2so4')!;
+const manualLesson = EXPERIMENT_CURRICULUM.find(lesson => lesson.id === 'single_displacement_copper')!;
 const initialAttempt = {
   experimentId: manualLesson.id,
   mode: 'exam' as const,
@@ -26,8 +26,8 @@ describe('guided practice evidence', () => {
     const steps = EXPERIMENT_CURRICULUM.flatMap(lesson => lesson.steps);
     const validation = steps.map(step => engine.validateStep(step, emptyBench, 'exam'));
     expect(validation.filter(step => step.isValid)).toHaveLength(0);
-    expect(validation.filter(step => step.requiresSelfConfirmation)).toHaveLength(34);
-    expect(validation.filter(step => !step.requiresSelfConfirmation)).toHaveLength(9);
+    expect(validation.filter(step => step.requiresSelfConfirmation)).toHaveLength(32);
+    expect(validation.filter(step => !step.requiresSelfConfirmation)).toHaveLength(12);
   });
 
   it('reports partial self-confirmation and never turns it into a grade', () => {

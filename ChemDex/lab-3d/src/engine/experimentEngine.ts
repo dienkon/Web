@@ -66,6 +66,7 @@ export interface ExperimentValidationState {
   spatulaState: { chemical: string | null; mass_g: number };
   contaminatedTools: Record<string, string | null>;
   recentActions: string[];
+  inFlightPours?: readonly { sourceId: string; targetId: string | null }[];
 }
 
 export interface ToolContaminationRecord {
@@ -99,6 +100,18 @@ export interface QuantitativeRubricMetrics {
   neutralizationRise_c?: number;
   neutralizationNeutralPh?: number;
   neutralizationMeasurement_c?: number;
+  conservationBefore_g?: number;
+  conservationAfter_g?: number;
+  conservationReceiverBefore_g?: number;
+  conservationSourceBefore_g?: number;
+  conservationReceiverAfter_g?: number;
+  conservationSourceAfter_g?: number;
+  conservationSourceLeft_g?: number;
+  conservationReceived_g?: number;
+  conservationSpilled_g?: number;
+  conservationWaterVapor_g?: number;
+  conservationError_g?: number;
+  conservationPrecipitate_g?: number;
   finalPh?: number;
   maxTemperature_c?: number;
   wasteCollected_g?: number;
@@ -153,6 +166,7 @@ interface GuidedReportInput {
   quizTotal: number;
   durationSeconds: number;
   toleranceErrors?: number[];
+  measurementPending?: boolean;
   quantitativeMetrics?: QuantitativeRubricMetrics;
 }
 
@@ -544,7 +558,7 @@ export class ExperimentEngine {
 
     return { kind: 'assessment', procedure, ...this.generateReportCard(experimentId, mode,
       procedure.automaticTotal, procedure.verified, input.toleranceErrors ?? measuredErrors,
-      contaminationCount, quizCorrect, quizTotal, durationSeconds, { quantitativeMetrics }) };
+      contaminationCount, quizCorrect, quizTotal, durationSeconds, { quantitativeMetrics, measurementPending: input.measurementPending }) };
   }
 
   /**
@@ -564,6 +578,7 @@ export class ExperimentEngine {
     auditContext?: {
       safetyViolations?: SafetyViolationRecord[];
       quantitativeMetrics?: QuantitativeRubricMetrics;
+      measurementPending?: boolean;
     }
   ): ExamReportCard {
     // 1. Procedure score (40 max)
@@ -577,7 +592,7 @@ export class ExperimentEngine {
     const avgTolerance = allErrors.length > 0
       ? allErrors.reduce((a, b) => a + b, 0) / allErrors.length
       : 0;
-    const accuracyScore = Math.max(5, Math.round(25 - avgTolerance * 3));
+    const accuracyScore = auditContext?.measurementPending ? 0 : Math.max(5, Math.round(25 - avgTolerance * 3));
 
     // 3. Hygiene & Safety score (15 max), accounting for tool contamination, uncleaned spills & safety violations
     const violations = auditContext?.safetyViolations ?? this.getSafetyViolations();
