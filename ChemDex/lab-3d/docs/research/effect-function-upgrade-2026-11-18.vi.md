@@ -41,6 +41,13 @@ Phép đo logic ba bình ở mức High đạt trung bình 3,16 ms mỗi bước
 | Năm bài tự động bị kẹt ở cuối phản ứng | Fe + HCl, AgCl + NH₃, AgI + Na₂S₂O₃, CaC₂ + H₂O và Fe(OH)₃ + HCl đều đạt trạng thái hoàn tất với mô phỏng hạt thật và sai số khối lượng dưới 10⁻¹² g. |
 | Vòng đời đám khí | Bốn mức đồ họa giữ nguyên trạng thái đám khí. Xóa bình dừng phản ứng nhưng giữ phần khí đã thoát. Đám khí tan hết sau 9,2 giây mô phỏng trong mẫu chạy. Tải lại trang không phát lại khí cũ. Tháo và gắn canvas không làm đổi phần đám khí đang tạm dừng. |
 
+### Kiểm tra bổ sung ngày 22/11/2026
+
+- Đã đọc đủ kết quả lần chạy tự động theo mô phỏng vật lý trong `artifacts/upgrade-2026-11-18/automatic-catalog-final/catalog-audit.json`. Cả 150 bài hoàn tất, không thiếu mã bài. Chênh lệch khối lượng lớn nhất giữa đầu và cuối bài khoảng 1,21 × 10⁻¹³ g. Trạng thái bàn thủ công được giữ nguyên trong cả 150 bài. Lượt này ghi lại kết quả trên phiên bản đã sửa tiếp xúc hạt của đợt 18/11.
+- **Sương giá.** Lớp sương bám theo contour ngoài của bình. Nhiệt độ chỉ cập nhật độ đục trên vật liệu hiện có. Kiểm tra WebGL giữ nguyên vật liệu, contour và chương trình shader ở −1,5 °C, −5 °C và −12 °C. Khi đặt lại 2 °C, sương biến mất và renderer giải phóng hình học cùng vật liệu. Audit chủ động đặt nhiệt độ khi hóa học đang tạm dừng để kiểm tra riêng phía hiển thị.
+- **Rung camera và vỡ bình.** Chrome xác nhận tư thế camera được giữ nguyên khi tạm dừng, ma trận chiếu được khôi phục sau hiệu ứng và tùy chọn giảm chuyển động loại bỏ rung. Ca mô phỏng vỡ bình trong môi trường không có oxy phát mảnh vỡ và ghi lượng tràn, với số tia lửa và độ sáng chớp đều bằng 0.
+- **Buret.** Kiểm tra trên Chrome đã qua cả bảy điều kiện, gồm bình nhận đúng vị trí, liều cuối 0,020 mL, dữ liệu đồ thị thuộc đúng bình, trạng thái nút khi tạm dừng hoặc thiếu bình nhận và bố cục vừa khung nhìn 390 px.
+
 ### Tái chạy
 
 ```powershell
@@ -69,6 +76,12 @@ $env:LAB_LANDOLT_OUTPUT='artifacts/upgrade-2026-11-18/landolt-browser'
 node scripts/auditLandoltClockBrowser.mjs
 $env:LAB_BURNER_OUTPUT='artifacts/upgrade-2026-11-18/burner-heat-haze'
 node scripts/auditBurnerHeatHaze.mjs
+$env:LAB_ORIGIN=$env:LAB_AUDIT_ORIGIN
+$env:LAB_FROST_OUTPUT='artifacts/upgrade-2026-11-18/frost-renderer'
+node scripts/auditFrostRenderer.mjs
+$env:LAB_TITRATION_OUTPUT='artifacts/upgrade-2026-11-18/titration-controls'
+node scripts/auditTitrationControlsBrowser.mjs
+node scripts/auditRuptureCamera.mjs
 ```
 
 Chạy bộ hồi quy và phép đo CPU riêng với các audit WebGL để giảm nhiễu:

@@ -1,15 +1,18 @@
 import { chromium } from '@playwright/test';
 import assert from 'node:assert/strict';
 import { mkdirSync, writeFileSync } from 'node:fs';
+import { prepareLabAuditSession } from './fixtures/labAuditSession.mjs';
 
 const output = process.env.LAB_TITRATION_OUTPUT ?? 'artifacts/titration-controls';
 mkdirSync(output, { recursive: true });
 const report = { assertions: {}, errors: [] };
 const browser = await chromium.launch({ headless: true, args: ['--use-angle=swiftshader', '--enable-unsafe-swiftshader'] });
 const page = await browser.newPage({ viewport: { width: 1440, height: 960 } });
+await prepareLabAuditSession(page);
 page.on('pageerror', error => report.errors.push(error.message));
 await page.addInitScript(() => { performance.setResourceTimingBufferSize(12000); localStorage.setItem('chemlab_vfx_quality_preference', 'low'); });
 const panel = page.getByRole('region', { name: 'Trạm chuẩn độ', exact: true });
+const dispense = panel.getByRole('button', { name: 'Nhả một giọt từ buret', exact: true });
 try {
   await page.goto(process.env.LAB_AUDIT_ORIGIN ?? 'http://127.0.0.1:6767');
   await page.locator('#manual-lab canvas').waitFor({ timeout: 60000 });
@@ -29,14 +32,13 @@ try {
   await page.getByRole('button', { name: 'Chuẩn độ', exact: true }).click();
   await panel.waitFor();
   report.assertions.actualReceiverShown = await panel.locator('[data-burette-receiver="receiverA"]').count() === 1;
-  report.assertions.exactFinalDoseShown = await panel.getByRole('button', { name: 'Nhả một giọt từ buret', exact: true }).textContent() === '+0.02 mL';
-  await panel.getByRole('button', { name: 'Nhả một giọt từ buret', exact: true }).click();
-  await panel.getByRole('status').filter({ hasText: 'Tiếp tục mô phỏng' }).waitFor();
-  report.assertions.pauseExplainedWithoutTransfer = await page.evaluate(() => {
+  report.assertions.exactFinalDoseShown = await dispense.textContent() === '+0.02 mL';
+  await panel.getByText('Tiếp tục mô phỏng để nhả giọt.', { exact: true }).waitFor();
+  report.assertions.pauseExplainedWithoutTransfer = await dispense.isDisabled() && await page.evaluate(() => {
     const s = window.titrationAudit.getState(); return s.burette.currentVolume_ml === .02 && s.vessels.receiverA.mass_g === 0;
   });
   await page.evaluate(() => window.titrationAudit.getState().setSimulationPaused(false));
-  await panel.getByRole('button', { name: 'Nhả một giọt từ buret', exact: true }).click();
+  await dispense.click();
   await panel.getByRole('status').filter({ hasText: 'Đã nhả 0.020 mL' }).waitFor();
   report.assertions.doseAndGraphUseActualReceiver = await page.evaluate(() => {
     const s = window.titrationAudit.getState(); return s.burette.currentVolume_ml === 0 && s.vessels.receiverA.mass_g > .019
@@ -50,9 +52,9 @@ try {
       receiverA: { ...s.vessels.receiverA, position: [-3, -.135, 0] } } }));
     app.getState().setSimulationPaused(false);
   });
-  await panel.getByRole('button', { name: 'Nhả một giọt từ buret', exact: true }).click();
-  await panel.getByRole('status').filter({ hasText: 'Chưa có bình nhận' }).waitFor();
-  report.assertions.missingReceiverExplained = await panel.locator('[data-burette-receiver=""]').count() === 1;
+  await panel.getByText('Chọn một bình mở rồi nhấn Căn bình.', { exact: true }).waitFor();
+  report.assertions.missingReceiverExplained = await dispense.isDisabled()
+    && await panel.locator('[data-burette-receiver=""]').count() === 1;
   await page.setViewportSize({ width: 390, height: 844 });
   await page.waitForTimeout(150);
   await page.evaluate(() => window.titrationAudit.getState().setRightSidebarOpen(true));
