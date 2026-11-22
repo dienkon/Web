@@ -96,13 +96,29 @@ try {
     page.waitForEvent('download'), log.getByRole('button', { name: 'Tải CSV đối chứng', exact: true }).click(),
   ]);
   assert.equal(await readFile(await referenceDownload.path(), 'utf8'), csv);
+  await log.getByRole('button', { name: 'Dừng ghi' }).click();
+  await instrumentPanel.getByRole('button', { name: 'Đóng bảng dụng cụ' }).click();
+  await page.getByRole('button', { name: 'Thiết lập bàn thí nghiệm', exact: true }).click();
+  await page.getByRole('button', { name: 'Báo cáo thực hành', exact: true }).click();
+  const notes = page.getByPlaceholder(/^Mô tả chi tiết/);
+  const insert = page.getByRole('button', { name: 'Chèn nhật ký số đo', exact: true });
+  await notes.fill('Ghi chú quan sát của học sinh.');
+  await insert.click();
+  await expect(notes).toHaveValue(/Ghi chú quan sát của học sinh\.[\s\S]*Nhật ký đối chứng · Beaker 1[\s\S]*Nhật ký số đo · Flask 1[\s\S]*60 ở 0 s/);
+  await expect(notes).toHaveValue(/pH · chưa có số đo hợp lệ/);
+  await expect(insert).toBeDisabled();
+  await page.getByRole('button', { name: 'Đồng bộ từ bàn thí nghiệm', exact: true }).click();
+  assert.ok(!(await notes.inputValue()).includes('pH mô hình ='), 'A dry vessel has no model pH reading');
+  await page.getByRole('button', { name: 'Đóng', exact: true }).click();
+
+  await openLog();
   await log.getByRole('button', { name: 'Bỏ đối chứng', exact: true }).click();
   await expect(lines).toHaveCount(1);
   assert.equal(await readingCount(), comparisonCount);
   assert.deepEqual(errors, []);
   console.log(JSON.stringify({ readings: count, pauseVerified: true, selectedVesselUnchangedInCSV: true,
     mobileWidth: 390, missingPhExportedAsBlank: true, comparisonTraces: 2,
-    pinnedCSVUnchanged: true, runtimeErrors: errors }));
+    pinnedCSVUnchanged: true, reportSummaryPreservesNotes: true, runtimeErrors: errors }));
 } finally {
   await browser.close();
 }

@@ -1,5 +1,5 @@
 import { beforeEach, expect, it } from 'vitest';
-import { sampleRecordingCSV, useSampleRecorder } from '../src/handling/sampleRecorder';
+import { sampleRecordingCSV, sampleRecordingSummary, useSampleRecorder } from '../src/handling/sampleRecorder';
 import type { VesselState } from '../src/types/chemistry';
 
 const get = useSampleRecorder.getState;
@@ -76,4 +76,16 @@ it('keeps the pinned series and its timestamps stable across subsequent runs', (
   get().clearReference();
   expect(get().reference).toBeNull();
   expect(get().recording?.readings).toHaveLength(2);
+});
+
+it('summarizes measured endpoints, extrema, and missing pH from exact source rows', () => {
+  const empty = { ...water, name: 'Cốc khô', mass_g: 0, volume_ml: 0, volume: 0, contents: [], substances: [] };
+  get().start(empty, 1);
+  for (const temperature_c of [33, 29]) {
+    for (let i = 0; i < 5; i++) get().advance(0.1, { ...frame, vessels: { tracked: { ...empty, temperature_c } } });
+  }
+  const summary = sampleRecordingSummary(get().recording!, 'vi', true);
+  expect(summary).toContain('Nhật ký đối chứng · Cốc khô · 3 mốc đo · 2 s mô phỏng');
+  expect(summary).toContain('Nhiệt độ (°C) · 25 ở 0 s → 29 ở 2 s · khoảng 25–33 · 3/3 hợp lệ');
+  expect(summary).toContain('pH · chưa có số đo hợp lệ');
 });

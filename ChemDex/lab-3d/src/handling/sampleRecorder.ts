@@ -17,6 +17,13 @@ export interface SampleReading {
   phReferenceTemperature_c: number | null;
 }
 
+export const SAMPLE_METRICS = {
+  temperature_c: { en: 'Temperature', vi: 'Nhiệt độ', unit: '°C' },
+  ph: { en: 'pH', vi: 'pH', unit: '' },
+  volume_ml: { en: 'Liquid volume', vi: 'Thể tích chất lỏng', unit: 'mL' },
+  mass_g: { en: 'Sample mass', vi: 'Khối lượng mẫu', unit: 'g' },
+};
+
 type RecorderStatus = 'recording' | 'stopped' | 'sample-changed' | 'limit';
 
 interface SampleRecording {
@@ -109,4 +116,32 @@ export function sampleRecordingCSV(recording: SampleRecording): string {
   const rows = recording.readings.map(point => [recording.vesselId, recording.vesselName, point.seconds, point.ph,
     point.temperature_c, point.volume_ml, point.mass_g, point.phBasis, point.phReferenceTemperature_c].map(csvCell).join(','));
   return '\uFEFF' + [header, ...rows].join('\r\n') + '\r\n';
+}
+
+export function sampleRecordingSummary(recording: SampleRecording, language: 'en' | 'vi', reference = false): string {
+  const format = new Intl.NumberFormat(language, { maximumFractionDigits: 3 }).format;
+  const t = (en: string, vi: string) => language === 'en' ? en : vi;
+  const { readings } = recording;
+  const title = reference ? t('Reference log', 'Nhật ký đối chứng') : t('Sample log', 'Nhật ký số đo');
+  const lines = [title + ' · ' + recording.vesselName + ' · ' + readings.length + t(' readings', ' mốc đo')
+    + ' · ' + format(readings.at(-1)?.seconds ?? 0) + t(' simulated s', ' s mô phỏng')];
+  for (const metric of Object.keys(SAMPLE_METRICS) as (keyof typeof SAMPLE_METRICS)[]) {
+    const description = SAMPLE_METRICS[metric];
+    const label = description[language] + (description.unit ? ' (' + description.unit + ')' : '');
+    const points = readings.flatMap(point => {
+      const value = point[metric];
+      return value !== null ? [{ value, seconds: point.seconds }] : [];
+    });
+    const first = points[0], last = points.at(-1);
+    if (!first || !last) {
+      lines.push('- ' + label + ' · ' + t('no valid readings', 'chưa có số đo hợp lệ'));
+      continue;
+    }
+    const values = points.map(point => point.value);
+    const reading = (point: typeof first) => format(point.value) + t(' at ', ' ở ') + format(point.seconds) + ' s';
+    lines.push('- ' + label + ' · ' + reading(first) + ' → ' + reading(last)
+      + ' · ' + t('range ', 'khoảng ') + format(Math.min(...values)) + '–' + format(Math.max(...values))
+      + ' · ' + points.length + '/' + readings.length + t(' valid', ' hợp lệ'));
+  }
+  return lines.join('\n');
 }

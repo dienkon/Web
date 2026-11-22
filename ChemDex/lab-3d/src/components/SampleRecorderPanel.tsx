@@ -2,15 +2,9 @@ import React, { useState } from 'react';
 import { CartesianGrid, Line, LineChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts';
 import { Download, Pin, Play, Square } from 'lucide-react';
 import { useAppStore } from '../store/useAppStore';
-import { canRecordSample, sampleRecordingCSV, useSampleRecorder } from '../handling/sampleRecorder';
+import { canRecordSample, SAMPLE_METRICS, sampleRecordingCSV, useSampleRecorder } from '../handling/sampleRecorder';
 import { downloadText } from '../utils/downloadText';
 
-const METRICS = {
-  temperature_c: { en: 'Temperature', vi: 'Nhiệt độ', unit: '°C' },
-  ph: { en: 'pH', vi: 'pH', unit: '' },
-  volume_ml: { en: 'Liquid volume', vi: 'Thể tích chất lỏng', unit: 'mL' },
-  mass_g: { en: 'Sample mass', vi: 'Khối lượng mẫu', unit: 'g' },
-};
 const BUTTON = 'inline-flex items-center gap-1.5 rounded-lg border border-slate-300 px-3 py-2 text-xs font-semibold hover:bg-slate-100 disabled:opacity-40';
 
 export default function SampleRecorderPanel() {
@@ -22,8 +16,8 @@ export default function SampleRecorderPanel() {
   });
   const recording = useSampleRecorder(state => state.recording);
   const reference = useSampleRecorder(state => state.reference);
-  const [metric, setMetric] = useState<keyof typeof METRICS>('temperature_c');
-  const readout = METRICS[metric];
+  const [metric, setMetric] = useState<keyof typeof SAMPLE_METRICS>('temperature_c');
+  const readout = SAMPLE_METRICS[metric];
   const label = language === 'en' ? readout.en : readout.vi;
   const t = (en: string, vi: string) => language === 'en' ? en : vi;
   const running = recording?.status === 'recording';
@@ -81,8 +75,8 @@ export default function SampleRecorderPanel() {
       <label className="block space-y-1 text-xs">
         <span>{t('Plot quantity', 'Đại lượng trên đồ thị')}</span>
         <select className="w-full rounded border p-2" value={metric}
-          onChange={event => setMetric(event.target.value as keyof typeof METRICS)}>
-          {Object.entries(METRICS).map(([id, item]) => <option key={id} value={id}>
+          onChange={event => setMetric(event.target.value as keyof typeof SAMPLE_METRICS)}>
+          {Object.entries(SAMPLE_METRICS).map(([id, item]) => <option key={id} value={id}>
             {language === 'en' ? item.en : item.vi}
           </option>)}
         </select>

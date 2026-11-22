@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useMemo, useRef } from 'react';
 import { useAppStore } from '../store/useAppStore';
 import { EXPERIMENT_CURRICULUM } from '../data/experiments';
 import { 
@@ -8,6 +8,8 @@ import {
 } from 'lucide-react';
 import { labSound } from '../utils/audio';
 import { LabReportReviewRequestSchema, LabReportReviewSchema, type LabReportReview } from '../shared/labReportReview';
+import { readSample } from '../handling/instrumentReadings';
+import { sampleRecordingSummary, useSampleRecorder } from '../handling/sampleRecorder';
 
 type ReviewResult = { kind: 'pending' | 'invalid' | 'unavailable' | 'timeout' }
   | { kind: 'complete'; feedback: LabReportReview };
@@ -38,6 +40,14 @@ export function LabReportModal() {
   const [chemicalEquation, setChemicalEquation] = useState('');
   const [ionicEquation, setIonicEquation] = useState('');
   const [conclusion, setConclusion] = useState('');
+  const recordedSample = useSampleRecorder(state => state.recording?.status === 'recording' ? null : state.recording);
+  const referenceSample = useSampleRecorder(state => state.reference);
+  const logSummaries = useMemo(() => {
+    const summaries = referenceSample ? [sampleRecordingSummary(referenceSample, language, true)] : [];
+    if (recordedSample && recordedSample !== referenceSample) summaries.push(sampleRecordingSummary(recordedSample, language));
+    return summaries;
+  }, [recordedSample, referenceSample, language]);
+  const hasUnwrittenLog = logSummaries.some(summary => !observations.includes(summary));
 
   // AI Evaluation State
   const reviewRequest = { lang: language, report: {
@@ -83,14 +93,17 @@ export function LabReportModal() {
     const observationLines: string[] = [];
     vesselList.forEach(v => {
       const details: string[] = [];
-      if (v.volume_ml > 0) details.push(`${v.volume_ml.toFixed(1)} mL`);
-      if (v.temperature_c > 26) details.push(`T = ${v.temperature_c.toFixed(1)}°C`);
-      if (v.ph !== undefined && v.volume_ml > 0) details.push(`pH = ${v.ph.toFixed(1)}`);
-      if (v.hasPrecipitate) details.push(t('Precipitate formed', 'Có kết tủa lắng xuống'));
-      if (v.hasGas) details.push(t('Gas bubbles released', 'Sủi bọt khí'));
-      if (v.isBoiling) details.push(t('Boiling vigorously', 'Đang sôi sùng sục'));
-
-      observationLines.push(`- ${v.name}: ${details.join(' | ')}`);
+      if (v.isShattered) details.push(t('Broken vessel', 'Bình đã vỡ'));
+      else {
+        const observation = readSample(v);
+        if (Number.isFinite(v.volume_ml) && v.volume_ml > 0) details.push(`${v.volume_ml.toFixed(1)} mL`);
+        if (observation.temperature_c !== null) details.push(`T = ${observation.temperature_c.toFixed(1)} °C`);
+        if (observation.ph !== null) details.push(`${t('Model pH', 'pH mô hình')} = ${observation.ph.toFixed(2)}`);
+        if (v.hasPrecipitate) details.push(t('Precipitate present', 'Có kết tủa'));
+        if (v.hasGas) details.push(t('Gas present', 'Có khí'));
+        if (v.isBoiling) details.push(t('Boiling', 'Đang sôi'));
+      }
+      if (details.length) observationLines.push(`- ${v.name} · ${details.join(' | ')}`);
     });
 
     setObservations(prev => (prev ? `${prev}\n${observationLines.join('\n')}` : observationLines.join('\n')));
@@ -321,9 +334,17 @@ ${aiFeedback.improvements.map(i => `  + ${i}`).join('\n')}
 
           {/* Observable Changes & Quantitative Log */}
           <div className="space-y-1.5">
-            <label className="text-[10px] font-bold uppercase tracking-wider text-slate-400">
-              {t('3. Experimental Observations & Data Log', '3. Nhật Ký Hiện Tượng & Số Liệu Đo Đạc')}
-            </label>
+            <div className="flex flex-wrap items-center justify-between gap-x-3 gap-y-1">
+              <label className="text-[10px] font-bold uppercase tracking-wider text-slate-400">
+                {t('3. Experimental Observations & Data Log', '3. Nhật Ký Hiện Tượng & Số Liệu Đo Đạc')}
+              </label>
+              {logSummaries.length > 0 && <button type="button" disabled={!hasUnwrittenLog}
+                className="text-[11px] font-semibold text-blue-600 hover:text-blue-800 disabled:opacity-40 print:hidden"
+                onClick={() => setObservations(previous => [previous, ...logSummaries.filter(summary => !previous.includes(summary))]
+                  .filter(Boolean).join('\n\n'))}>
+                {t('Insert sample logs', 'Chèn nhật ký số đo')}
+              </button>}
+            </div>
             <textarea
               rows={4}
               value={observations}
