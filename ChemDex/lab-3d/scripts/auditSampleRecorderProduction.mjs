@@ -96,7 +96,12 @@ try {
     page.waitForEvent('download'), log.getByRole('button', { name: 'Tải CSV đối chứng', exact: true }).click(),
   ]);
   assert.equal(await readFile(await referenceDownload.path(), 'utf8'), csv);
-  await log.getByRole('button', { name: 'Dừng ghi' }).click();
+  await page.reload();
+  await openLog();
+  await expect(logStatus).toHaveText(/Flask 1.*Đã dừng ghi/);
+  await expect(log.getByText(/Đối chứng · Beaker 1/)).toBeVisible();
+  assert.equal(await readingCount(), comparisonCount);
+  await expect(lines).toHaveCount(2);
   await instrumentPanel.getByRole('button', { name: 'Đóng bảng dụng cụ' }).click();
   await page.getByRole('button', { name: 'Thiết lập bàn thí nghiệm', exact: true }).click();
   await page.getByRole('button', { name: 'Báo cáo thực hành', exact: true }).click();
@@ -118,7 +123,7 @@ try {
   assert.deepEqual(errors, []);
   console.log(JSON.stringify({ readings: count, pauseVerified: true, selectedVesselUnchangedInCSV: true,
     mobileWidth: 390, missingPhExportedAsBlank: true, comparisonTraces: 2,
-    pinnedCSVUnchanged: true, reportSummaryPreservesNotes: true, runtimeErrors: errors }));
+    pinnedCSVUnchanged: true, reportSummaryPreservesNotes: true, reloadedRunsStoppedAndIntact: true, runtimeErrors: errors }));
 } finally {
   await browser.close();
 }

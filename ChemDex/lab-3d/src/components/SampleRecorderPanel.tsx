@@ -122,8 +122,8 @@ export default function SampleRecorderPanel() {
       </ul>}
     </>}
     <p className="text-xs text-slate-500">{t(
-      'Reads the sample model about once per simulated second. The log is available in this page session.',
-      'Ghi từ mô hình mẫu khoảng mỗi giây mô phỏng. Nhật ký được giữ trong phiên mở trang này.',
+      'Reads the sample model about once per simulated second. Reloading this tab restores the log as a stopped run.',
+      'Ghi từ mô hình mẫu khoảng mỗi giây mô phỏng. Tải lại thẻ này khôi phục nhật ký ở trạng thái đã dừng.',
     )}</p>
   </section>;
 }

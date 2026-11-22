@@ -1,4 +1,7 @@
+/// <reference types="vite/client" />
+
 import { create } from 'zustand';
+import { z } from 'zod';
 import { simulationFrameDt } from '../core/clock';
 import { sampleMeasurement } from '../science/sampleMeasurement';
 import type { VesselState } from '../types/chemistry';
@@ -6,16 +9,19 @@ import { csvCell } from '../utils/csv';
 import { isLessonVessel } from './instrumentCatalog';
 
 const MAX_READINGS = 601;
+const STORAGE_KEY = 'chemdex_sample_recordings_v1';
 
-export interface SampleReading {
-  seconds: number;
-  ph: number | null;
-  temperature_c: number | null;
-  volume_ml: number | null;
-  mass_g: number | null;
-  phBasis: ReturnType<typeof sampleMeasurement>['basis'];
-  phReferenceTemperature_c: number | null;
-}
+const optionalReading = z.number().nullable();
+const sampleReading = z.object({
+  seconds: z.number().nonnegative(),
+  ph: optionalReading,
+  temperature_c: optionalReading,
+  volume_ml: optionalReading,
+  mass_g: optionalReading,
+  phBasis: z.enum(['scenario', 'ideal_aqueous_25c', 'ideal_aqueous_temperature']).nullable(),
+  phReferenceTemperature_c: optionalReading,
+});
+export type SampleReading = z.infer<typeof sampleReading>;
 
 export const SAMPLE_METRICS = {
   temperature_c: { en: 'Temperature', vi: 'Nhiệt độ', unit: '°C' },
@@ -24,16 +30,21 @@ export const SAMPLE_METRICS = {
   mass_g: { en: 'Sample mass', vi: 'Khối lượng mẫu', unit: 'g' },
 };
 
-type RecorderStatus = 'recording' | 'stopped' | 'sample-changed' | 'limit';
-
-interface SampleRecording {
-  vesselId: string;
-  vesselName: string;
-  sampleRevision: number;
-  benchEpoch: number;
-  status: RecorderStatus;
-  readings: readonly SampleReading[];
-}
+const sampleRecording = z.object({
+  vesselId: z.string().min(1),
+  vesselName: z.string(),
+  sampleRevision: z.number(),
+  benchEpoch: z.number(),
+  status: z.enum(['recording', 'stopped', 'sample-changed', 'limit']),
+  readings: z.array(sampleReading).min(1).max(MAX_READINGS).readonly()
+    .refine(readings => readings[0]?.seconds === 0
+      && readings.every((point, index) => index === 0 || point.seconds > readings[index - 1].seconds)),
+});
+type SampleRecording = z.infer<typeof sampleRecording>;
+const savedRecordings = z.object({
+  recording: sampleRecording.nullable(),
+  reference: z.union([sampleRecording, z.literal('current'), z.null()]),
+});
 
 interface RecorderFrame {
   vessels: Readonly<Record<string, VesselState>>;
@@ -56,6 +67,21 @@ export function canRecordSample(vessel: VesselState | undefined): vessel is Vess
   return !!vessel && vessel.capacity_ml > 0 && !vessel.isShattered && !isLessonVessel(vessel.id);
 }
 
+function restoreSampleRecordings(): Pick<SampleRecorderState, 'recording' | 'reference'> {
+  try {
+    const raw = typeof window !== 'undefined' ? window.sessionStorage.getItem(STORAGE_KEY) : null;
+    const saved = savedRecordings.safeParse(raw ? JSON.parse(raw) : null);
+    if (saved.success) {
+      const previous = saved.data.recording;
+      const recording = previous?.status === 'recording' ? { ...previous, status: 'stopped' as const } : previous;
+      return { recording, reference: saved.data.reference === 'current' ? recording : saved.data.reference };
+    }
+  } catch {
+    // Private or embedded browsers can block storage without disabling recording.
+  }
+  return { recording: null, reference: null };
+}
+
 function readSampleAt(vessel: VesselState, seconds: number): SampleReading {
   const observation = sampleMeasurement(vessel);
   return {
@@ -73,8 +99,7 @@ export const useSampleRecorder = create<SampleRecorderState>((set, get) => {
   let elapsed = 0;
   let nextSampleAt = 1;
   return {
-    recording: null,
-    reference: null,
+    ...restoreSampleRecordings(),
     start: (vessel, benchEpoch) => {
       if (get().recording?.status === 'recording' || !canRecordSample(vessel)) return;
       elapsed = 0;
@@ -110,6 +135,27 @@ export const useSampleRecorder = create<SampleRecorderState>((set, get) => {
     },
   };
 });
+
+if (typeof window !== 'undefined') {
+  const save = () => {
+    try {
+      const { recording, reference } = useSampleRecorder.getState();
+      window.sessionStorage.setItem(STORAGE_KEY, JSON.stringify({ recording,
+        reference: reference && reference === recording ? 'current' : reference }));
+    } catch {
+      // The in-memory run and CSV export are still available.
+    }
+  };
+  const unsubscribe = useSampleRecorder.subscribe((next, previous) => {
+    if (next.reference !== previous.reference || next.recording?.status !== previous.recording?.status
+      || (next.recording && next.recording.readings.length % 20 === 0)) save();
+  });
+  window.addEventListener('pagehide', save);
+  import.meta.hot?.dispose(() => {
+    unsubscribe();
+    window.removeEventListener('pagehide', save);
+  });
+}
 
 export function sampleRecordingCSV(recording: SampleRecording): string {
   const header = 'vessel_id,vessel_name,simulation_time_s,pH,temperature_c,liquid_volume_ml,sample_mass_g,pH_basis,pH_reference_temperature_c';
