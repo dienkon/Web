@@ -1,41 +1,17 @@
 import React from 'react';
-import {
-  EffectComposer,
-  Bloom,
-  N8AO,
-  SMAA,
-  ToneMapping,
-  Vignette,
-} from '@react-three/postprocessing';
-import { ToneMappingMode } from 'postprocessing';
 import { useQualityStore, getQualitySettings } from '../quality';
 
+const PostFXComposer = React.lazy(() => import('./PostFXComposer').catch(error => {
+  console.warn('Could not load optional 3D post-processing', error);
+  return { default: () => null };
+}));
+
 export const PostFX = React.memo(function PostFX() {
-  const effectiveTier = useQualityStore((state) => state.effectiveTier);
+  const effectiveTier = useQualityStore(state => state.effectiveTier);
   const settings = getQualitySettings(effectiveTier);
+  if (!settings.usePostFX) return null;
 
-  // If low tier or postprocessing disabled, skip composer and rely on native renderer tone mapping
-  if (!settings.usePostFX) {
-    return null;
-  }
-
-  return (
-    <EffectComposer multisampling={0} enableNormalPass={false}>
-      {settings.useN8AO && (
-        <N8AO aoRadius={0.6} intensity={1.4} distanceFalloff={1} />
-      )}
-      {settings.useBloom && (
-        <Bloom
-          mipmapBlur
-          luminanceThreshold={1.15}
-          luminanceSmoothing={0.28}
-          intensity={0.42}
-          radius={0.55}
-        />
-      )}
-      {settings.useSMAA && <SMAA />}
-      <ToneMapping mode={ToneMappingMode.AGX} />
-      {settings.useVignette && <Vignette offset={0.25} darkness={0.35} />}
-    </EffectComposer>
-  );
+  return <React.Suspense fallback={null}>
+    <PostFXComposer settings={settings} />
+  </React.Suspense>;
 });

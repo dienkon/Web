@@ -376,12 +376,7 @@ function SceneEnvironmentSetup({ tier }: { tier: QualityTier }) {
     (scene as any).environmentIntensity = 0.9;
     gl.localClippingEnabled = true;
     gl.transmissionResolutionScale = settings.transmissionResolutionScale;
-    if (!settings.usePostFX) {
-      gl.toneMapping = THREE.ACESFilmicToneMapping;
-    } else {
-      gl.toneMapping = THREE.NoToneMapping;
-    }
-  }, [scene, gl, settings.usePostFX, settings.transmissionResolutionScale]);
+  }, [scene, gl, settings.transmissionResolutionScale]);
 
   return null;
 }
@@ -737,7 +732,7 @@ export function LabScene() {
         gl={{
           antialias: false,
           powerPreference: 'high-performance',
-          toneMapping: THREE.NoToneMapping,
+          toneMapping: THREE.ACESFilmicToneMapping,
           stencil: false,
         }}
         onCreated={({ gl }) => {

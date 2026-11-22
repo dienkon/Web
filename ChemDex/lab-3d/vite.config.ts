@@ -43,7 +43,8 @@ export default defineConfig(() => {
             const norm = id.replace(/\\/g, '/');
             if (norm.includes('node_modules')) {
               if (norm.includes('/node_modules/three/')) return 'vendor-three';
-              if (norm.includes('/node_modules/@react-three/') || norm.includes('/node_modules/postprocessing/') || norm.includes('/node_modules/three-stdlib/') || norm.includes('/node_modules/troika-')) return 'vendor-r3f';
+              if (norm.includes('/node_modules/@react-three/postprocessing/') || norm.includes('/node_modules/postprocessing/') || norm.includes('/node_modules/n8ao/')) return 'vendor-postfx';
+              if (norm.includes('/node_modules/@react-three/') || norm.includes('/node_modules/three-stdlib/') || norm.includes('/node_modules/troika-')) return 'vendor-r3f';
               if (norm.includes('/node_modules/recharts/') || norm.includes('/node_modules/d3-') || norm.includes('/node_modules/victory-vendor/')) return 'vendor-charts';
               if (norm.includes('/node_modules/firebase/') || norm.includes('/node_modules/@firebase/')) return 'vendor-firebase';
               if (norm.includes('/node_modules/framer-motion/') || norm.includes('/node_modules/motion/')) return 'vendor-motion';
