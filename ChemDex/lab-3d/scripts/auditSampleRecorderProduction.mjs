@@ -24,7 +24,7 @@ try {
   const workingVessel = instrumentPanel.getByRole('combobox', { name: 'Bình thao tác' });
   const pause = page.getByRole('button', { name: 'Tạm dừng phản ứng', exact: true });
   const resume = page.getByRole('button', { name: 'Tiếp tục phản ứng', exact: true });
-  const readingCount = async () => Number.parseInt(await log.getByText(/\d+ mốc đo/).textContent(), 10);
+  const readingCount = async () => Number.parseInt(await log.getByText(/^\d+ mốc đo ·/).textContent(), 10);
   async function openLog() {
     await instrumentButton.click();
     await instrumentPanel.getByRole('button', { name: 'Nhật ký số đo', exact: true }).click();
@@ -75,9 +75,34 @@ try {
   assert.equal(Number(readings[0][2]), 0);
   assert.ok(readings.every((row, i) => row[0] === '"beaker_1"' && row[3] === ''
     && (i === 0 || Number(row[2]) > Number(readings[i - 1][2]))));
+
+  await log.getByRole('button', { name: 'Ghim làm đối chứng', exact: true }).click();
+  await expect(log.getByText(/Đối chứng · Beaker 1/)).toBeVisible();
+  await page.setViewportSize({ width: 1280, height: 850 });
+  await instrumentPanel.getByRole('button', { name: 'Đóng bảng dụng cụ' }).click();
+  await page.getByTitle('Gia nhiệt (+35°C)', { exact: true }).click();
+  await openLog();
+  await log.getByRole('button', { name: 'Bắt đầu lượt so sánh', exact: true }).click();
+  await expect(logStatus).toHaveText(/Flask 1.*Mô phỏng đang tạm dừng/);
+  await expect(log.getByRole('status', { name: 'Số đo mới nhất' })).toHaveText('60 °C');
+  await resume.click();
+  await expect.poll(readingCount, { timeout: 60000 }).toBeGreaterThanOrEqual(3);
+  const lines = log.locator('.recharts-line-curve');
+  await expect(lines).toHaveCount(2);
+  await expect(log.locator('.recharts-line-curve[stroke-dasharray]')).toHaveAttribute('d', /^M.*L/);
+  await pause.click();
+  const comparisonCount = await readingCount();
+  const [referenceDownload] = await Promise.all([
+    page.waitForEvent('download'), log.getByRole('button', { name: 'Tải CSV đối chứng', exact: true }).click(),
+  ]);
+  assert.equal(await readFile(await referenceDownload.path(), 'utf8'), csv);
+  await log.getByRole('button', { name: 'Bỏ đối chứng', exact: true }).click();
+  await expect(lines).toHaveCount(1);
+  assert.equal(await readingCount(), comparisonCount);
   assert.deepEqual(errors, []);
   console.log(JSON.stringify({ readings: count, pauseVerified: true, selectedVesselUnchangedInCSV: true,
-    mobileWidth: 390, missingPhExportedAsBlank: true, runtimeErrors: errors }));
+    mobileWidth: 390, missingPhExportedAsBlank: true, comparisonTraces: 2,
+    pinnedCSVUnchanged: true, runtimeErrors: errors }));
 } finally {
   await browser.close();
 }

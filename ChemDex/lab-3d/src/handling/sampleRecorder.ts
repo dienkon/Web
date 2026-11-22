@@ -37,8 +37,11 @@ interface RecorderFrame {
 
 interface SampleRecorderState {
   recording: SampleRecording | null;
+  reference: SampleRecording | null;
   start: (vessel: VesselState | undefined, benchEpoch: number) => void;
   stop: () => void;
+  pinReference: () => void;
+  clearReference: () => void;
   advance: (delta: number, frame: RecorderFrame) => void;
 }
 
@@ -64,6 +67,7 @@ export const useSampleRecorder = create<SampleRecorderState>((set, get) => {
   let nextSampleAt = 1;
   return {
     recording: null,
+    reference: null,
     start: (vessel, benchEpoch) => {
       if (get().recording?.status === 'recording' || !canRecordSample(vessel)) return;
       elapsed = 0;
@@ -76,6 +80,11 @@ export const useSampleRecorder = create<SampleRecorderState>((set, get) => {
       const recording = get().recording;
       if (recording?.status === 'recording') set({ recording: { ...recording, status: 'stopped' } });
     },
+    pinReference: () => {
+      const recording = get().recording;
+      if (recording && recording.status !== 'recording' && recording.readings.length >= 2) set({ reference: recording });
+    },
+    clearReference: () => set({ reference: null }),
     advance: (delta, frame) => {
       const recording = get().recording;
       if (recording?.status !== 'recording') return;

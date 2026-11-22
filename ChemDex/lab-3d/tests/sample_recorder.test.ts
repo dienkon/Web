@@ -11,7 +11,7 @@ const water: VesselState = {
 };
 const frame = { pourEpoch: 1, isSimulationPaused: false, timeScale: 2, vessels: { tracked: water } };
 
-beforeEach(() => useSampleRecorder.setState({ recording: null }));
+beforeEach(() => useSampleRecorder.setState({ recording: null, reference: null }));
 
 it('records current readings from the original vessel at simulated, not wall-clock, times', () => {
   get().start(water, 1);
@@ -57,4 +57,23 @@ it('retains a finite run without losing its starting point', () => {
   expect(record.readings).toHaveLength(601);
   expect(record.readings[0].seconds).toBe(0);
   expect(record.readings.at(-1)?.seconds).toBeCloseTo(600, 1);
+});
+
+it('keeps the pinned series and its timestamps stable across subsequent runs', () => {
+  get().start(water, 1);
+  for (let i = 0; i < 5; i++) get().advance(0.1, frame);
+  get().pinReference();
+  expect(get().reference).toBeNull();
+  get().stop();
+  get().pinReference();
+  const baseline = get().reference!;
+  const csv = sampleRecordingCSV(baseline);
+  get().start({ ...water, temperature_c: 40 }, 2);
+  for (let i = 0; i < 5; i++) get().advance(0.1, { ...frame, pourEpoch: 2 });
+  expect(get().recording?.readings[0].temperature_c).toBe(40);
+  expect(get().reference).toBe(baseline);
+  expect(sampleRecordingCSV(get().reference!)).toBe(csv);
+  get().clearReference();
+  expect(get().reference).toBeNull();
+  expect(get().recording?.readings).toHaveLength(2);
 });
