@@ -1,5 +1,16 @@
 # DkTEST changelog
 
+## 2.0.0 — 2026-11-22 (Android versionCode 24)
+
+- **Phiên bản lớn DkTEST 2.0.0 — Chuẩn hóa Popup riêng toàn hệ thống (không dùng `window.alert`)**:
+  - Xây dựng hệ thống hộp thoại popup riêng toàn cục (`src/services/appDialogService.ts` + `src/components/common/AppDialogHost.tsx`, gắn tại `src/App.tsx`), hỗ trợ `showAppAlert`, `showAppConfirm`, `showAppPrompt` với giao diện DkTEST chuẩn (Dark/Light mode, phím tắt `Esc`/`Enter`) và tự động chặn/chuyển hướng mọi lời gọi `window.alert()` trên toàn ứng dụng sang popup riêng.
+- **Sửa triệt để lỗi Admin xóa sự kiện Minigame không được**:
+  - Sửa `cancelOrDeleteMinigameEvent` trong `server/services/minigameService.ts` để khi `hardDelete === true` luôn xóa thẳng document sự kiện khỏi Firestore (kể cả khi đã có bot ảo hoặc thí sinh tham gia) và dọn sạch bộ đệm cổ vũ Live; cập nhật `MinigameManagement.tsx` dùng popup xác nhận riêng `showAppConfirm` và gọi xóa trực tiếp (`hardDelete = true`).
+- **Tối ưu mạnh Firestore READ (chỉ tải 5 mục gần nhất)**:
+  - **Thông báo (`notificationService.ts`, `NotificationPermissionController.tsx`, `notificationPushService.ts`)**: giảm mặc định tải từ `15`–`25` (và fallback `50`–`120`) xuống chỉ còn **5 thông báo gần nhất** (`limit(5)` phía client, `limit(15)` có cache 10s phía server), đồng thời bỏ hẳn truy vấn composite index thừa trên `notifications`.
+  - **Yêu cầu nạp tiền & Lịch sử ví (`server/services/walletService.ts`)**: giảm giới hạn mặc định của `getDepositRequests` (`50` → **`5`**), `getStudentDepositRequests` (`30` → **`5`**), và `getStudentTransactions` (`30` → **`5`**), cắt giảm đáng kể số lượt đọc Firestore khi mở trang Ví & Quản trị Ví.
+- Audit: [2.0.0](docs/audits/2.0.0.md).
+
 ## 1.9.17 — 2026-11-22 (Android versionCode 23)
 
 - **Sửa triệt để 3 lỗi thực tế (Firestore Index, RTDB Permission & Minigame 400 Bad Request)**:

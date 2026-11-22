@@ -2738,7 +2738,8 @@ export async function getDepositRequests(options?: {
   limit?: number;
   force?: boolean;
 }): Promise<DepositRequest[]> {
-  const cacheKey = `${options?.status || "all"}_${options?.search || ""}_${options?.limit || 50}`;
+  const effectiveLimit = options?.limit ? Math.min(Math.max(options.limit, 1), 100) : 5;
+  const cacheKey = `${options?.status || "all"}_${options?.search || ""}_${effectiveLimit}`;
   if (!options?.force && depositRequestsCache.has(cacheKey)) {
     const cached = depositRequestsCache.get(cacheKey)!;
     if (Date.now() - cached.timestamp < 30000) {
@@ -2753,13 +2754,13 @@ export async function getDepositRequests(options?: {
     if (options?.status && options.status !== "all") {
       q = q.where("status", "==", options.status);
     }
-    q = q.orderBy("createdAt", "desc").limit(options?.limit || 50);
+    q = q.orderBy("createdAt", "desc").limit(effectiveLimit);
 
     const snap = await q.get();
     list = snap.docs.map((d) => d.data() as DepositRequest);
   } else {
     // REST fallback mode
-    const safeLimit = options?.limit ? Math.min(Math.max(options.limit, 1), 100) : 50;
+    const safeLimit = effectiveLimit;
     let docs: DepositRequest[];
     if (options?.status && options.status !== "all") {
       docs = (await queryFirestoreRestDocs("deposit_requests", "status", options.status, safeLimit)) as DepositRequest[];
@@ -2768,9 +2769,7 @@ export async function getDepositRequests(options?: {
     }
     list = docs || [];
     list.sort((a, b) => parseTimestampMs(b.createdAt) - parseTimestampMs(a.createdAt));
-    if (options?.limit) {
-      list = list.slice(0, options.limit);
-    }
+    list = list.slice(0, effectiveLimit);
   }
 
   if (options?.search) {
@@ -2788,7 +2787,7 @@ export async function getDepositRequests(options?: {
   return list;
 }
 
-export async function getStudentTransactions(uid: string, limitCount = 30): Promise<WalletTransaction[]> {
+export async function getStudentTransactions(uid: string, limitCount = 5): Promise<WalletTransaction[]> {
   if (adminDb) {
     const snap = await adminDb
       .collection("wallet_transactions")
@@ -3007,7 +3006,7 @@ export async function getGlobalSpendingHistory(options?: {
   return result;
 }
 
-export async function getStudentDepositRequests(uid: string, limitCount = 30): Promise<DepositRequest[]> {
+export async function getStudentDepositRequests(uid: string, limitCount = 5): Promise<DepositRequest[]> {
   if (adminDb) {
     const snap = await adminDb
       .collection("deposit_requests")

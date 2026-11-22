@@ -102,10 +102,10 @@ export async function fetchNotificationFeed(params: {
   } else {
     let raw: any[] = [];
     if (adminDb) {
-      const snap = await adminDb.collection(COL_NOTIFS).orderBy("createdAtMs", "desc").limit(120).get();
+      const snap = await adminDb.collection(COL_NOTIFS).orderBy("createdAtMs", "desc").limit(15).get();
       raw = snap.docs.map((d) => ({ id: d.id, ...d.data() }));
     } else {
-      raw = await getFirestoreRestDocs(COL_NOTIFS, 120, false);
+      raw = await getFirestoreRestDocs(COL_NOTIFS, 15, false);
     }
 
     allItems = raw
@@ -131,7 +131,7 @@ export async function fetchNotificationFeed(params: {
   }
 
   const sinceMs = Number(params.sinceMs) || 0;
-  const maxItems = Math.max(1, Math.min(30, Number(params.limitCount) || 15));
+  const maxItems = Math.max(1, Math.min(10, Number(params.limitCount) || 5));
   const uid = params.uid || null;
 
   return allItems

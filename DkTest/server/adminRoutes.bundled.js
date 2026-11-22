@@ -1966,7 +1966,8 @@ function invalidateDepositRequestsCache() {
   depositRequestsCache.clear();
 }
 async function getDepositRequests(options) {
-  const cacheKey = `${options?.status || "all"}_${options?.search || ""}_${options?.limit || 50}`;
+  const effectiveLimit = options?.limit ? Math.min(Math.max(options.limit, 1), 100) : 5;
+  const cacheKey = `${options?.status || "all"}_${options?.search || ""}_${effectiveLimit}`;
   if (!options?.force && depositRequestsCache.has(cacheKey)) {
     const cached = depositRequestsCache.get(cacheKey);
     if (Date.now() - cached.timestamp < 3e4) {
@@ -1979,11 +1980,11 @@ async function getDepositRequests(options) {
     if (options?.status && options.status !== "all") {
       q = q.where("status", "==", options.status);
     }
-    q = q.orderBy("createdAt", "desc").limit(options?.limit || 50);
+    q = q.orderBy("createdAt", "desc").limit(effectiveLimit);
     const snap = await q.get();
     list = snap.docs.map((d) => d.data());
   } else {
-    const safeLimit = options?.limit ? Math.min(Math.max(options.limit, 1), 100) : 50;
+    const safeLimit = effectiveLimit;
     let docs;
     if (options?.status && options.status !== "all") {
       docs = await queryFirestoreRestDocs("deposit_requests", "status", options.status, safeLimit);
@@ -1992,9 +1993,7 @@ async function getDepositRequests(options) {
     }
     list = docs || [];
     list.sort((a, b) => parseTimestampMs(b.createdAt) - parseTimestampMs(a.createdAt));
-    if (options?.limit) {
-      list = list.slice(0, options.limit);
-    }
+    list = list.slice(0, effectiveLimit);
   }
   if (options?.search) {
     const term = options.search.toLowerCase().trim();
@@ -2147,7 +2146,7 @@ async function getGlobalSpendingHistory(options) {
   }
   return result;
 }
-async function getStudentDepositRequests(uid, limitCount = 30) {
+async function getStudentDepositRequests(uid, limitCount = 5) {
   if (adminDb) {
     const snap = await adminDb.collection("deposit_requests").where("uid", "==", uid).orderBy("createdAt", "desc").limit(limitCount).get();
     return snap.docs.map((d) => d.data());
@@ -5763,6 +5762,7 @@ function evaluateLuckyNumberWinners(luckyNumber, participants, prizes, revealedA
 
 // server/services/minigameService.ts
 var COL_MINIGAMES = "minigame_events";
+var liveCheersByEvent = /* @__PURE__ */ new Map();
 var BOT_NAMES = [
   "Ng\u1EF1a Chi\u1EBFn \u0110\u1ECF",
   "Tia Ch\u1EDBp V\xE0ng",
@@ -6316,8 +6316,10 @@ async function distributeMinigamePrizes(eventId, actor) {
   return { event: updated, creditedCount, totalCreditedVnd };
 }
 async function cancelOrDeleteMinigameEvent(eventId, hardDelete = false) {
-  const event = await getMinigameEvent(eventId);
-  if (hardDelete && Object.keys(event.participants || {}).length === 0) {
+  const event = await getEventRaw(eventId);
+  if (!event) return;
+  if (hardDelete) {
+    liveCheersByEvent.delete(event.id);
     await deleteEventRaw(event.id);
     return;
   }

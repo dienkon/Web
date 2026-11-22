@@ -28,6 +28,7 @@ import type {
 } from "../../types/minigame";
 import { MINIGAME_TYPE_META } from "../../services/minigame/gameLogic";
 import { formatVnd } from "../../services/aiShop/billingEngine";
+import { showAppConfirm } from "../../services/appDialogService";
 import {
   broadcastDeviceNotificationApi,
   cancelMinigameApi,
@@ -259,17 +260,26 @@ export default function MinigameManagement() {
   };
 
   const handleCancelEvent = async (ev: MinigameEvent) => {
-    if (!window.confirm(`Hủy sự kiện "${ev.title}"?`)) return;
+    const ok = await showAppConfirm(
+      `Bạn có chắc chắn muốn xóa vĩnh viễn sự kiện "${ev.title}" không? Hành động này không thể hoàn tác.`,
+      {
+        title: "Xóa sự kiện Minigame",
+        confirmLabel: "Xóa sự kiện",
+        cancelLabel: "Giữ lại",
+        danger: true,
+      }
+    );
+    if (!ok) return;
     try {
-      await cancelMinigameApi(ev.id, Object.keys(ev.participants || {}).length === 0);
-      setToast({ type: "success", message: "Đã hủy sự kiện." });
+      await cancelMinigameApi(ev.id, true);
+      setToast({ type: "success", message: `Đã xóa sự kiện "${ev.title}".` });
       if (selectedEvent?.id === ev.id) {
         setSelectedEvent(null);
         navigate("/admin/minigames", { replace: true });
       }
       await loadList();
     } catch (err: any) {
-      setToast({ type: "error", message: err?.message || "Không thể hủy sự kiện." });
+      setToast({ type: "error", message: err?.message || "Không thể xóa sự kiện." });
     }
   };
 

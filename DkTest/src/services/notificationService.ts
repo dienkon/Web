@@ -26,10 +26,11 @@ export async function fetchUserNotifications(
   uid: string,
   forceRefresh: boolean = false,
   isAdmin: boolean = false,
-  maxLimit: number = isAdmin ? 15 : 20
+  maxLimit: number = 5
 ): Promise<SystemNotification[]> {
+  const safeLimit = Math.max(1, Math.min(maxLimit, 10));
   const targetUid = uid || (isAdmin ? "admin_master" : "");
-  const key = `notifications:${targetUid || "guest"}:${isAdmin ? "admin" : "user"}:${maxLimit}`;
+  const key = `notifications:${targetUid || "guest"}:${isAdmin ? "admin" : "user"}:${safeLimit}`;
 
   return FirestoreCache.getOrFetch<SystemNotification[]>(
     key,
@@ -41,26 +42,13 @@ export async function fetchUserNotifications(
 
         if (recipients.length === 0) return [];
 
-        let snap;
-        try {
-          // Strictly query newest first with orderBy createdAt desc
-          const q = query(
-            collection(db, NOTIF_COLLECTION),
-            where("recipientUid", "in", recipients),
-            orderBy("createdAt", "desc"),
-            limit(maxLimit)
-          );
-          snap = await getDocs(q);
-        } catch (idxErr) {
-          // Fallback if composite index is pending deployment
-          console.warn("[notificationService] Composite query failed, falling back to client sort:", idxErr);
-          const fallbackQ = query(
-            collection(db, NOTIF_COLLECTION),
-            where("recipientUid", "in", recipients),
-            limit(Math.max(maxLimit * 3, 50))
-          );
-          snap = await getDocs(fallbackQ);
-        }
+        // Uses inverted-timestamp IDs (00_<invTs>_...) so newest items return first without composite index
+        const q = query(
+          collection(db, NOTIF_COLLECTION),
+          where("recipientUid", "in", recipients),
+          limit(safeLimit)
+        );
+        const snap = await getDocs(q);
 
         const items = snap.docs.map((d) => ({ id: d.id, ...d.data() } as SystemNotification));
         items.sort((a, b) => {
@@ -68,7 +56,7 @@ export async function fetchUserNotifications(
           const timeB = getTimestampMillis(b.createdAt);
           return timeB - timeA;
         });
-        return items.slice(0, maxLimit);
+        return items.slice(0, safeLimit);
       } catch (err) {
         console.error("[notificationService] fetchUserNotifications error:", err);
         return [];

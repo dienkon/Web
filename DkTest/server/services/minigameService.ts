@@ -871,8 +871,10 @@ export async function cancelOrDeleteMinigameEvent(
   eventId: string,
   hardDelete = false
 ): Promise<void> {
-  const event = await getMinigameEvent(eventId);
-  if (hardDelete && Object.keys(event.participants || {}).length === 0) {
+  const event = await getEventRaw(eventId);
+  if (!event) return;
+  if (hardDelete) {
+    liveCheersByEvent.delete(event.id);
     await deleteEventRaw(event.id);
     return;
   }

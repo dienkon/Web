@@ -2037,7 +2037,7 @@ var depositRequestsCache = /* @__PURE__ */ new Map();
 function invalidateDepositRequestsCache() {
   depositRequestsCache.clear();
 }
-async function getStudentTransactions(uid, limitCount = 30) {
+async function getStudentTransactions(uid, limitCount = 5) {
   if (adminDb) {
     const snap = await adminDb.collection("wallet_transactions").where("uid", "==", uid).orderBy("createdAt", "desc").limit(limitCount).get();
     return snap.docs.map((d) => d.data());
@@ -2054,7 +2054,7 @@ var SPENDING_STUDENT_META_TTL_MS = 10 * 60 * 1e3;
 function invalidateGlobalSpendingCache() {
   spendingFirstPageCache.clear();
 }
-async function getStudentDepositRequests(uid, limitCount = 30) {
+async function getStudentDepositRequests(uid, limitCount = 5) {
   if (adminDb) {
     const snap = await adminDb.collection("deposit_requests").where("uid", "==", uid).orderBy("createdAt", "desc").limit(limitCount).get();
     return snap.docs.map((d) => d.data());
@@ -4865,10 +4865,10 @@ async function fetchNotificationFeed(params) {
   } else {
     let raw = [];
     if (adminDb) {
-      const snap = await adminDb.collection(COL_NOTIFS).orderBy("createdAtMs", "desc").limit(120).get();
+      const snap = await adminDb.collection(COL_NOTIFS).orderBy("createdAtMs", "desc").limit(15).get();
       raw = snap.docs.map((d) => ({ id: d.id, ...d.data() }));
     } else {
-      raw = await getFirestoreRestDocs(COL_NOTIFS, 120, false);
+      raw = await getFirestoreRestDocs(COL_NOTIFS, 15, false);
     }
     allItems = raw.map((d) => {
       const ms = Number(d.createdAtMs) || toMillis(d.createdAt);
@@ -4888,7 +4888,7 @@ async function fetchNotificationFeed(params) {
     feedCache = { items: allItems, ts: now };
   }
   const sinceMs = Number(params.sinceMs) || 0;
-  const maxItems = Math.max(1, Math.min(30, Number(params.limitCount) || 15));
+  const maxItems = Math.max(1, Math.min(10, Number(params.limitCount) || 5));
   const uid = params.uid || null;
   return allItems.filter((item) => {
     const targetOk = item.recipientUid === "all" || uid && item.recipientUid === uid;

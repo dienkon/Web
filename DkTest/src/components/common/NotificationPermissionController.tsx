@@ -157,7 +157,7 @@ export default function NotificationPermissionController() {
         const q = query(
           collection(db, "notifications"),
           where("recipientUid", "in", recipients),
-          limit(25)
+          limit(5)
         );
         unsubFirestore = onSnapshot(
           q,
@@ -197,7 +197,7 @@ export default function NotificationPermissionController() {
             route?: string;
             createdAtMs: number;
           }>;
-        }>(`/api/notifications/feed?since=${sessionStartRef.current}&limit=10`, {
+        }>(`/api/notifications/feed?since=${sessionStartRef.current}&limit=5`, {
           requiresAuth: Boolean(user),
           timeoutMs: 10000,
         });
