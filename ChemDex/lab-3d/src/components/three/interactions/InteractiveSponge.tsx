@@ -4,6 +4,10 @@ import * as THREE from 'three';
 import { useAppStore } from '../../../store/useAppStore';
 import { LAB_GEOMETRY } from '../../../core/labGeometry';
 
+const SPONGE_BASE = { width: 0.52, height: 0.16, depth: 0.32, centerY: 0.04 };
+const SPONGE_BOTTOM = SPONGE_BASE.centerY - SPONGE_BASE.height / 2;
+const SPONGE_REST_Y = LAB_GEOMETRY.tableTop_scene - SPONGE_BOTTOM;
+
 export const InteractiveSponge = React.memo(function InteractiveSponge({ preview = false }: { preview?: boolean } = {}) {
   const activeTool = useAppStore(state => state.activeTool);
   const setActiveTool = useAppStore(state => state.setActiveTool);
@@ -12,7 +16,7 @@ export const InteractiveSponge = React.memo(function InteractiveSponge({ preview
 
   const groupRef = useRef<THREE.Group>(null);
   const [isWiping, setIsWiping] = useState(false);
-  const targetWorldPos = useRef(new THREE.Vector3(0, -1.08, 1.2));
+  const targetWorldPos = useRef(new THREE.Vector3(0, SPONGE_REST_Y, 1.2));
   const wipeAngle = useRef(0);
   const lastWipeTime = useRef(-Infinity);
   const wipingPointer = useRef<number | null>(null);
@@ -39,7 +43,7 @@ export const InteractiveSponge = React.memo(function InteractiveSponge({ preview
       // The same bounded center drives the visible sponge and its collector.
       targetWorldPos.current.set(
         THREE.MathUtils.clamp(intersectPoint.x, -LAB_GEOMETRY.tableHalfWidth_scene + 0.265, LAB_GEOMETRY.tableHalfWidth_scene - 0.265),
-        -1.08,
+        SPONGE_REST_Y,
         THREE.MathUtils.clamp(intersectPoint.z, -LAB_GEOMETRY.tableHalfDepth_scene + 0.165, LAB_GEOMETRY.tableHalfDepth_scene - 0.165)
       );
       return true;
@@ -98,20 +102,23 @@ export const InteractiveSponge = React.memo(function InteractiveSponge({ preview
       wipeAngle.current += delta * 18.0;
       groupRef.current.rotation.y = Math.sin(wipeAngle.current) * 0.28;
       groupRef.current.rotation.z = Math.cos(wipeAngle.current * 0.5) * 0.08;
-      groupRef.current.position.y = -1.10 + Math.abs(Math.sin(wipeAngle.current)) * 0.02;
     } else {
-      groupRef.current.rotation.y = THREE.MathUtils.lerp(groupRef.current.rotation.y, 0.15, delta * 6.0);
-      groupRef.current.rotation.z = THREE.MathUtils.lerp(groupRef.current.rotation.z, 0, delta * 6.0);
+      const settle = 1 - Math.exp(-delta * 6);
+      groupRef.current.rotation.y = THREE.MathUtils.lerp(groupRef.current.rotation.y, 0.15, settle);
+      groupRef.current.rotation.z = THREE.MathUtils.lerp(groupRef.current.rotation.z, 0, settle);
     }
+    const roll = groupRef.current.rotation.z;
+    groupRef.current.position.y = LAB_GEOMETRY.tableTop_scene - SPONGE_BOTTOM * Math.cos(roll)
+      + SPONGE_BASE.width / 2 * Math.abs(Math.sin(roll));
   });
 
   if (!preview && activeTool !== 'sponge') return null;
 
   return (
-    <group ref={groupRef} position={[0, -1.08, 1.2]} renderOrder={10}>
+    <group name="interactive-sponge" ref={groupRef} position={[0, preview ? -1.08 : SPONGE_REST_Y, 1.2]} renderOrder={10}>
       {/* Yellow Cellulose Sponge Base */}
-      <mesh castShadow position={[0, 0.04, 0]}>
-        <boxGeometry args={[0.52, 0.16, 0.32]} />
+      <mesh name="sponge-cellulose-base" castShadow position={[0, SPONGE_BASE.centerY, 0]}>
+        <boxGeometry args={[SPONGE_BASE.width, SPONGE_BASE.height, SPONGE_BASE.depth]} />
         <meshStandardMaterial
           color="#facc15"
           roughness={0.88}
@@ -141,7 +148,7 @@ export const InteractiveSponge = React.memo(function InteractiveSponge({ preview
 
       {/* Gentle Cleaning Bubble Ring while wiping */}
       {isWiping && (
-        <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, -0.05, 0]}>
+        <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, SPONGE_BOTTOM + 0.003, 0]}>
           <ringGeometry args={[0.25, 0.38, 24]} />
           <meshBasicMaterial color="#ffffff" transparent opacity={0.45} side={THREE.DoubleSide} />
         </mesh>

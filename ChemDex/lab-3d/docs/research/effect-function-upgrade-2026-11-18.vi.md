@@ -47,6 +47,8 @@ Phép đo logic ba bình ở mức High đạt trung bình 3,16 ms mỗi bước
 - **Sương giá.** Lớp sương bám theo contour ngoài của bình. Nhiệt độ chỉ cập nhật độ đục trên vật liệu hiện có. Kiểm tra WebGL giữ nguyên vật liệu, contour và chương trình shader ở −1,5 °C, −5 °C và −12 °C. Khi đặt lại 2 °C, sương biến mất và renderer giải phóng hình học cùng vật liệu. Audit chủ động đặt nhiệt độ khi hóa học đang tạm dừng để kiểm tra riêng phía hiển thị.
 - **Rung camera và vỡ bình.** Chrome xác nhận tư thế camera được giữ nguyên khi tạm dừng, ma trận chiếu được khôi phục sau hiệu ứng và tùy chọn giảm chuyển động loại bỏ rung. Ca mô phỏng vỡ bình trong môi trường không có oxy phát mảnh vỡ và ghi lượng tràn, với số tia lửa và độ sáng chớp đều bằng 0.
 - **Buret.** Kiểm tra trên Chrome đã qua cả bảy điều kiện, gồm bình nhận đúng vị trí, liều cuối 0,020 mL, dữ liệu đồ thị thuộc đúng bình, trạng thái nút khi tạm dừng hoặc thiếu bình nhận và bố cục vừa khung nhìn 390 px.
+- **Bọt biển và thu hồi chất.** Mặt dưới bọt biển dùng cùng cao độ với mặt bàn, kể cả khi nghiêng trong động tác lau. Audit kiểm tra trực tiếp hình học đáy, một lần thu nước cho mỗi lần nhấn chuột trái, bảo toàn nước, thu hồi hai dạng tinh thể khi lọc và chạy mẫu đã đạt điều kiện. Cả chín điều kiện đều qua.
+- **Hồi quy toàn Lab 3D.** Lượt chạy ngày 22/11 đạt 3.901/3.901 kiểm thử trên 318 tệp. Sau chỉnh hiển thị bọt biển, hai tệp kiểm thử thao tác và cơ cấu dụng cụ đã chạy lại với 32/32 ca đạt.
 
 ### Tái chạy
 

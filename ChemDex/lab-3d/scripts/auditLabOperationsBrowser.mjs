@@ -31,6 +31,7 @@ try {
     const { useAppStore: app } = await import(loaded(/\/useAppStore\.ts(?:\?|$)/));
     const { _roots } = await import(loaded(/@react-three_fiber\.js(?:\?|$)/));
     const three = await import(loaded(/\/three\.js(?:\?|$)/));
+    const { LAB_GEOMETRY } = await import(loaded(/\/labGeometry\.ts(?:\?|$)/));
     let mounted;
     for (let i = 0; i < 300 && !mounted; i++) {
       mounted = _roots.get(document.querySelector('#manual-lab canvas'));
@@ -41,15 +42,13 @@ try {
     app.setState({ vessels: {}, vesselIds: [], burners: {}, burnerIds: [], activeKinetics: {}, pendingReactions: {},
       isSimulationPaused: true, isPouring: false, isMixing: false, moveMode: false, draggingVesselId: null,
       leftSidebarOpen: false, rightSidebarOpen: false, language: 'vi', wasteMass_g: 0, wasteContents: [] });
-    const point = [0, -1.155, 3];
+    const tableY = LAB_GEOMETRY.tableTop_scene;
+    const point = [0, tableY, 3];
     app.getState().addSpill(point, 100, ['H2O'], '#6ec6ff', 'Kiểm tra bọt biển', 100,
       [{ formula: 'H2O', phase: 'l', mass_g: 100, moles: 100 / 18.015 }]);
     const originalWipe = app.getState().wipeSpillAt, calls = [];
     app.setState({ wipeSpillAt: (position, radius) => { calls.push({ position, radius }); originalWipe(position, radius); } });
     const root = mounted.store;
-    root.getState().internal.subscribe({ current: ({ camera }) => {
-      camera.position.set(0, 6, 13); camera.lookAt(0, -1, 2); camera.updateMatrixWorld();
-    } }, 0, root);
     app.getState().setActiveTool('sponge');
     const pointerEvents = [];
     root.getState().gl.domElement.addEventListener('pointerdown', event => {
@@ -57,16 +56,19 @@ try {
       const ray = new three.Raycaster();
       ray.setFromCamera(new three.Vector2((event.clientX - rect.left) / rect.width * 2 - 1,
         1 - (event.clientY - rect.top) / rect.height * 2), live.camera);
-      const hit = ray.ray.intersectPlane(new three.Plane(new three.Vector3(0, 1, 0), 1.175), new three.Vector3());
+      const hit = ray.ray.intersectPlane(new three.Plane(new three.Vector3(0, 1, 0), -tableY), new three.Vector3());
       pointerEvents.push({ x: event.clientX, y: event.clientY, button: event.button, hit: hit?.toArray(), tool: app.getState().activeTool });
     });
-    window.__operationsAudit = { app, root, three, calls, point, originalWipe, pointerEvents };
+    window.__operationsAudit = { app, root, three, calls, point, originalWipe, pointerEvents, tableY };
   });
   await page.waitForFunction(() => {
-    const a = window.__operationsAudit, scene = a.root.getState().scene;
-    let spongeMounted = false;
-    scene.traverse(node => { if (node.material?.color?.getHexString() === 'facc15') spongeMounted = true; });
-    return spongeMounted && a.root.getState().camera.position.distanceTo(new a.three.Vector3(0, 6, 13)) < 1e-8;
+    const a = window.__operationsAudit;
+    return !!a.root.getState().scene.getObjectByName('sponge-cellulose-base');
+  });
+  report.assertions.spongeRestsOnBench = await page.evaluate(() => {
+    const a = window.__operationsAudit, base = a.root.getState().scene.getObjectByName('sponge-cellulose-base');
+    const bottom = new a.three.Box3().setFromObject(base, true).min.y;
+    return Math.abs(bottom - a.tableY) < 1e-6;
   });
   const point = await page.evaluate(() => {
     const a = window.__operationsAudit, root = a.root.getState(), canvas = root.gl.domElement.getBoundingClientRect();
