@@ -49,6 +49,7 @@ Phép đo logic ba bình ở mức High đạt trung bình 3,16 ms mỗi bước
 - **Buret.** Kiểm tra trên Chrome đã qua cả bảy điều kiện, gồm bình nhận đúng vị trí, liều cuối 0,020 mL, dữ liệu đồ thị thuộc đúng bình, trạng thái nút khi tạm dừng hoặc thiếu bình nhận và bố cục vừa khung nhìn 390 px.
 - **Bọt biển và thu hồi chất.** Mặt dưới bọt biển dùng cùng cao độ với mặt bàn, kể cả khi nghiêng trong động tác lau. Audit kiểm tra trực tiếp hình học đáy, một lần thu nước cho mỗi lần nhấn chuột trái, bảo toàn nước, thu hồi hai dạng tinh thể khi lọc và chạy mẫu đã đạt điều kiện. Cả chín điều kiện đều qua.
 - **Hồi quy toàn Lab 3D.** Lượt chạy ngày 22/11 đạt 3.901/3.901 kiểm thử trên 318 tệp. Sau chỉnh hiển thị bọt biển, hai tệp kiểm thử thao tác và cơ cấu dụng cụ đã chạy lại với 32/32 ca đạt.
+- **Mô phỏng và hiển thị trên mã hiện tại.** Bảy bài chạy bằng Rapier đều đạt, gồm năm bài từng bị kẹt và hai bài Cu + HNO₃. Audit Chrome kiểm tra lại 23 điều kiện hiệu ứng dùng chung trên tám trạng thái của cảnh. Lượt này tắt chụp ảnh để đo trực tiếp dữ liệu cảnh, kho chất và lỗi WebGL sau khi lượt chụp ảnh vượt thời gian chờ.
 
 ### Tái chạy
 
@@ -85,6 +86,8 @@ $env:LAB_TITRATION_OUTPUT='artifacts/upgrade-2026-11-18/titration-controls'
 node scripts/auditTitrationControlsBrowser.mjs
 node scripts/auditRuptureCamera.mjs
 ```
+
+Đặt `$env:LAB_SHARED_SCREENSHOTS='0'` nếu chỉ cần báo cáo dữ liệu cảnh và các điều kiện kiểm tra. Mặc định audit lưu cả ảnh chụp.
 
 Chạy bộ hồi quy và phép đo CPU riêng với các audit WebGL để giảm nhiễu:
 

@@ -7,6 +7,7 @@ import { createHash } from 'node:crypto';
 
 const output = resolve(process.env.LAB_SHARED_OUTPUT ?? 'artifacts/auto-shared-effects');
 const origin = process.env.LAB_AUDIT_ORIGIN ?? 'http://127.0.0.1:6767';
+const saveScreenshots = process.env.LAB_SHARED_SCREENSHOTS !== '0';
 mkdirSync(output, { recursive: true });
 const report = { errors: [], resources: [], stages: [], assertions: {} };
 const sourceFiles = ['src/vfx/autoplay/AutoExperiment.ts', 'src/vfx/autoplay/AutoExperimentScene.tsx',
@@ -135,8 +136,11 @@ async function capture(label, file, camera = 'close') {
       oldRendererMounted: !!scene.getObjectByName('auto_liquid') || !!scene.getObjectByName('auto_sediment_bed'),
       render: { calls: root.gl.info.render.calls, triangles: root.gl.info.render.triangles, frame: root.gl.info.render.frame } };
   }, label);
-  result.screenshot = file; report.stages.push(result);
-  await page.screenshot({ path: resolve(output, file) });
+  report.stages.push(result);
+  if (saveScreenshots) {
+    await page.screenshot({ path: resolve(output, file) });
+    result.screenshot = file;
+  }
   return result;
 }
 
