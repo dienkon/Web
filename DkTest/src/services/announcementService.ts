@@ -34,6 +34,33 @@ export async function createAnnouncement(
   };
   await setDoc(ref, newDoc);
   FirestoreCache.invalidate(/^announcements:/);
+
+  // Also push to real device notifications feed when announcement is active
+  if (newDoc.isActive) {
+    try {
+      const now = new Date();
+      const invTs = String(Math.max(0, 9_999_999_999_999 - now.getTime())).padStart(13, "0");
+      const notifId = `00_${invTs}_${ref.id.slice(0, 6)}`;
+      const notifRef = doc(db, "notifications", notifId);
+      await setDoc(notifRef, {
+        id: notifId,
+        recipientUid:
+          newDoc.targetType === "specific_users" && newDoc.targetUids?.length === 1
+            ? newDoc.targetUids[0]
+            : "all",
+        type: "feature_release",
+        title: `📢 ${newDoc.title || "Thông báo mới từ DkTEST"}`,
+        message: (newDoc.content || "").slice(0, 260),
+        route: "/",
+        read: false,
+        createdAt: now.toISOString(),
+        createdAtMs: now.getTime(),
+        actorName: "DkTEST",
+      });
+    } catch {
+      // Non-blocking
+    }
+  }
   return ref.id;
 }
 

@@ -39,6 +39,12 @@ import {
   getVoucherUsagesList,
 } from "../services/voucherService.js";
 import { mergeExams } from "../services/examMergeService.js";
+import { aiShopAdminRouter } from "./aiShopAdminRoutes.js";
+import { minigameAdminRouter } from "./minigameAdminRoutes.js";
+import {
+  broadcastNotificationSchema,
+  publishDeviceNotification,
+} from "../services/notificationPushService.js";
 
 export const adminRouter = Router();
 
@@ -2259,6 +2265,33 @@ adminRouter.post("/courses/probe-video", async (req: AuthenticatedRequest, res: 
     });
   } catch (err: any) {
     return res.status(400).json({ error: "probe_video_error", message: err.message || String(err) });
+  }
+});
+
+// AI Shop & Customer Billing/Debt Management Admin Routes
+adminRouter.use("/ai-shop", aiShopAdminRouter);
+
+// Free Welfare Minigame Event Admin Routes
+adminRouter.use("/minigames", minigameAdminRouter);
+
+// POST /api/admin/notifications/broadcast — Push real Web & Android notification for new events/features
+adminRouter.post("/notifications/broadcast", async (req: AuthenticatedRequest, res: Response) => {
+  try {
+    const parsed = broadcastNotificationSchema.parse(req.body || {});
+    const item = await publishDeviceNotification({
+      recipientUid: parsed.recipientUid || "all",
+      type: parsed.type,
+      title: parsed.title,
+      message: parsed.message,
+      route: parsed.route,
+      actorName: req.user!.displayName || req.user!.email || "Admin",
+    });
+    return res.status(201).json({ success: true, notification: item });
+  } catch (err: any) {
+    return res.status(400).json({
+      error: "broadcast_error",
+      message: err?.issues?.[0]?.message || err?.message || "Không thể gửi thông báo.",
+    });
   }
 });
 

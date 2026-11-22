@@ -6,7 +6,7 @@ var __require = /* @__PURE__ */ ((x) => typeof require !== "undefined" ? require
 });
 
 // server/routes/adminRoutes.ts
-import { Router } from "express";
+import { Router as Router3 } from "express";
 
 // server/firebaseAdmin.ts
 import { createRequire } from "module";
@@ -4016,8 +4016,2447 @@ async function mergeExams(options) {
   };
 }
 
+// server/routes/aiShopAdminRoutes.ts
+import { Router } from "express";
+import { ZodError } from "zod";
+
+// server/services/aiShopService.ts
+import { z as z2 } from "zod";
+
+// src/services/aiShop/initialCatalog.ts
+var INITIAL_AI_SERVICES = [
+  {
+    id: "svc_chatgpt_plus_30d_private",
+    code: "GPT-30D-RIENG",
+    name: "ChatGPT Plus 30D - ri\xEAng",
+    categoryKey: "chatgpt",
+    categoryLabel: "CHAT GPT",
+    variantLabel: "S\xE0i ri\xEAng (30 ng\xE0y)",
+    requiresUpgradeEmail: false,
+    billingType: "one_time",
+    defaultFirstPriceVnd: 185e3,
+    defaultRecurringPriceVnd: null,
+    durationValue: 30,
+    durationUnit: "days",
+    conditions: "Kh\xF4ng b\u1EA3o h\xE0nh. T\xE0i kho\u1EA3n s\xE0i ri\xEAng 30 ng\xE0y. Gi\xE1 dao \u0111\u1ED9ng ~185.000\u0111 (c\xF3 th\u1EC3 ch\u1EC9nh khi t\u1EA1o \u0111\u01A1n).",
+    studentVisible: true,
+    sortOrder: 1
+  },
+  {
+    id: "svc_chatgpt_plus_30d_shared",
+    code: "GPT-30D-CHUNG",
+    name: "ChatGPT Plus 30D - chung",
+    categoryKey: "chatgpt",
+    categoryLabel: "CHAT GPT",
+    variantLabel: "D\xF9ng chung (30 ng\xE0y)",
+    requiresUpgradeEmail: false,
+    billingType: "one_time",
+    defaultFirstPriceVnd: 5e4,
+    defaultRecurringPriceVnd: null,
+    durationValue: 30,
+    durationUnit: "days",
+    conditions: "Kh\xF4ng b\u1EA3o h\xE0nh. T\xE0i kho\u1EA3n d\xF9ng chung 30 ng\xE0y.",
+    studentVisible: true,
+    sortOrder: 2
+  },
+  {
+    id: "svc_gemini_pro_3m_offer",
+    code: "GEM-PRO-3M-OFFER",
+    name: "Gemini Pro 3M - link offer",
+    categoryKey: "gemini_pro_3m",
+    categoryLabel: "Gemini Pro 3M",
+    variantLabel: "Link Offer (3 th\xE1ng)",
+    requiresUpgradeEmail: false,
+    billingType: "one_time",
+    defaultFirstPriceVnd: 35e3,
+    defaultRecurringPriceVnd: null,
+    durationValue: 3,
+    durationUnit: "months",
+    conditions: "Kh\xF4ng b\u1EA3o h\xE0nh. Ch\xEDnh ch\u1EE7 3 th\xE1ng n\xE2ng b\u1EB1ng link offer.",
+    studentVisible: true,
+    sortOrder: 3
+  },
+  {
+    id: "svc_gemini_pro_3m_payho",
+    code: "GEM-PRO-3M-PAYHO",
+    name: "Gemini Pro 3M - pay h\u1ED9",
+    categoryKey: "gemini_pro_3m",
+    categoryLabel: "Gemini Pro 3M",
+    variantLabel: "Pay h\u1ED9 (3 th\xE1ng)",
+    requiresUpgradeEmail: false,
+    billingType: "one_time",
+    defaultFirstPriceVnd: 4e4,
+    defaultRecurringPriceVnd: null,
+    durationValue: 3,
+    durationUnit: "months",
+    conditions: "Kh\xF4ng b\u1EA3o h\xE0nh. Ch\xEDnh ch\u1EE7 3 th\xE1ng, shop pay h\u1ED9.",
+    studentVisible: true,
+    sortOrder: 4
+  },
+  {
+    id: "svc_gemini_plus_6m_offer",
+    code: "GEM-PLUS-6M-OFFER",
+    name: "Gemini Plus 6M - link offer",
+    categoryKey: "gemini_plus_6m",
+    categoryLabel: "Gemini Plus 6M",
+    variantLabel: "Link Offer (6 th\xE1ng)",
+    requiresUpgradeEmail: false,
+    billingType: "one_time",
+    defaultFirstPriceVnd: 25e3,
+    defaultRecurringPriceVnd: null,
+    durationValue: 6,
+    durationUnit: "months",
+    conditions: "Kh\xF4ng b\u1EA3o h\xE0nh. Ch\xEDnh ch\u1EE7 6 th\xE1ng n\xE2ng b\u1EB1ng link offer.",
+    studentVisible: true,
+    sortOrder: 5
+  },
+  {
+    id: "svc_gemini_plus_6m_payho",
+    code: "GEM-PLUS-6M-PAYHO",
+    name: "Gemini Plus 6M - pay h\u1ED9",
+    categoryKey: "gemini_plus_6m",
+    categoryLabel: "Gemini Plus 6M",
+    variantLabel: "Pay h\u1ED9 (6 th\xE1ng)",
+    requiresUpgradeEmail: false,
+    billingType: "one_time",
+    defaultFirstPriceVnd: 3e4,
+    defaultRecurringPriceVnd: null,
+    durationValue: 6,
+    durationUnit: "months",
+    conditions: "Kh\xF4ng b\u1EA3o h\xE0nh. Ch\xEDnh ch\u1EE7 6 th\xE1ng, shop pay h\u1ED9.",
+    studentVisible: true,
+    sortOrder: 6
+  },
+  {
+    id: "svc_gemini_pro_slot_lom",
+    code: "GEM-PRO-SLOT-LOM",
+    name: "Gemini Pro slot l\u1ECFm",
+    categoryKey: "gemini_pro_fam",
+    categoryLabel: "Gemini Pro (Add Fam)",
+    variantLabel: "Slot L\u1ECFm (H\u1ED7 tr\u1EE3 t\u1ED1t Gemini Web)",
+    requiresUpgradeEmail: true,
+    billingType: "monthly",
+    defaultFirstPriceVnd: 15e3,
+    defaultRecurringPriceVnd: 5e3,
+    durationValue: 1,
+    durationUnit: "months",
+    conditions: "Kh\xF4ng b\u1EA3o h\xE0nh. H\u1ED7 tr\u1EE3 t\u1ED1t Gemini Web. K\u1EF3 \u0111\u1EA7u 15.000\u0111, t\u1EEB k\u1EF3 2 ch\u1EC9 5.000\u0111/th\xE1ng.",
+    studentVisible: true,
+    sortOrder: 7
+  },
+  {
+    id: "svc_gemini_pro_slot_ngon",
+    code: "GEM-PRO-SLOT-NGON",
+    name: "Gemini Pro slot ngon",
+    categoryKey: "gemini_pro_fam",
+    categoryLabel: "Gemini Pro (Add Fam)",
+    variantLabel: "Slot Ngon (Full model Pro Antigravity)",
+    requiresUpgradeEmail: true,
+    billingType: "monthly",
+    defaultFirstPriceVnd: 25e3,
+    defaultRecurringPriceVnd: 25e3,
+    durationValue: 1,
+    durationUnit: "months",
+    conditions: "Kh\xF4ng b\u1EA3o h\xE0nh. C\xF3 full c\xE1c model h\u1ED7 tr\u1EE3 g\xF3i Pro m\u1EDBi nh\u1EA5t trong Antigravity. 25.000\u0111/th\xE1ng.",
+    studentVisible: true,
+    sortOrder: 8
+  },
+  {
+    id: "svc_youtube_premium_slot",
+    code: "YT-PREM-SLOT",
+    name: "YouTube Premium slot",
+    categoryKey: "yt_pre",
+    categoryLabel: "Yt Pre",
+    variantLabel: "YouTube Premium Slot (1 th\xE1ng)",
+    requiresUpgradeEmail: true,
+    billingType: "monthly",
+    defaultFirstPriceVnd: 25e3,
+    defaultRecurringPriceVnd: 25e3,
+    durationValue: 1,
+    durationUnit: "months",
+    conditions: "Slot YouTube Premium gia h\u1EA1n h\xE0ng th\xE1ng (25.000\u0111/th\xE1ng).",
+    studentVisible: true,
+    sortOrder: 9
+  },
+  {
+    id: "svc_verify_student",
+    code: "VERIFY-STUDENT",
+    name: "Verify Student",
+    categoryKey: "verify_student",
+    categoryLabel: "Verify Student",
+    variantLabel: "Verify Student (Theo l\u01B0\u1EE3t)",
+    requiresUpgradeEmail: true,
+    billingType: "one_time",
+    defaultFirstPriceVnd: 2e4,
+    defaultRecurringPriceVnd: null,
+    durationValue: null,
+    durationUnit: null,
+    conditions: "Nh\u1EADn Verify Student theo l\u01B0\u1EE3t.",
+    studentVisible: true,
+    sortOrder: 10
+  },
+  {
+    id: "svc_custom_quote",
+    code: "GOI-KHAC",
+    name: "G\xF3i kh\xE1c (b\xE1o gi\xE1 ri\xEAng)",
+    categoryKey: "other",
+    categoryLabel: "D\u1ECBch v\u1EE5 kh\xE1c",
+    variantLabel: "B\xE1o gi\xE1 ri\xEAng",
+    requiresUpgradeEmail: false,
+    billingType: "one_time",
+    defaultFirstPriceVnd: null,
+    defaultRecurringPriceVnd: null,
+    durationValue: null,
+    durationUnit: null,
+    conditions: "H\u1ED7 tr\u1EE3 c\xE1c g\xF3i kh\xE1c theo y\xEAu c\u1EA7u \u2014 ch\u01B0a c\xF3 gi\xE1 c\u1ED1 \u0111\u1ECBnh, b\u1EAFt bu\u1ED9c nh\u1EADp gi\xE1 khi t\u1EA1o \u0111\u01A1n.",
+    studentVisible: false,
+    sortOrder: 11
+  }
+];
+function buildSeedServiceRecords(nowIso) {
+  return INITIAL_AI_SERVICES.map((item) => ({
+    ...item,
+    status: "active",
+    createdAt: nowIso,
+    updatedAt: nowIso
+  }));
+}
+
+// src/services/aiShop/billingEngine.ts
+var VN_TIMEZONE = "Asia/Ho_Chi_Minh";
+function isValidIsoDate(value) {
+  if (typeof value !== "string" || !/^\d{4}-\d{2}-\d{2}$/.test(value)) return false;
+  const [y, m, d] = value.split("-").map(Number);
+  if (m < 1 || m > 12) return false;
+  const maxDay = getDaysInMonth(y, m);
+  return d >= 1 && d <= maxDay;
+}
+function getDaysInMonth(year, month1To12) {
+  return new Date(Date.UTC(year, month1To12, 0)).getUTCDate();
+}
+function getTodayVnDate(now = /* @__PURE__ */ new Date()) {
+  const formatter = new Intl.DateTimeFormat("en-CA", {
+    timeZone: VN_TIMEZONE,
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit"
+  });
+  const formatted = formatter.format(now);
+  if (/^\d{4}-\d{2}-\d{2}$/.test(formatted)) {
+    return formatted;
+  }
+  const vnMs = now.getTime() + 7 * 60 * 60 * 1e3;
+  const d = new Date(vnMs);
+  return `${d.getUTCFullYear()}-${String(d.getUTCMonth() + 1).padStart(2, "0")}-${String(d.getUTCDate()).padStart(2, "0")}`;
+}
+
+// server/services/notificationPushService.ts
+import crypto from "node:crypto";
+import { z } from "zod";
+var COL_NOTIFS = "notifications";
+var feedCache = null;
+function invalidateNotificationFeedCache() {
+  feedCache = null;
+}
+var broadcastNotificationSchema = z.object({
+  title: z.string().trim().min(2, "Vui l\xF2ng nh\u1EADp ti\xEAu \u0111\u1EC1 th\xF4ng b\xE1o.").max(140),
+  message: z.string().trim().min(2, "Vui l\xF2ng nh\u1EADp n\u1ED9i dung th\xF4ng b\xE1o.").max(600),
+  route: z.string().trim().max(240).optional().default("/"),
+  type: z.enum(["minigame_event", "minigame_reward", "ai_order_delivered", "feature_release", "system"]).optional().default("feature_release"),
+  recipientUid: z.string().trim().max(128).optional().default("all")
+});
+async function publishDeviceNotification(params) {
+  const now = /* @__PURE__ */ new Date();
+  const invTs = String(Math.max(0, 9999999999999 - now.getTime())).padStart(13, "0");
+  const id = `00_${invTs}_${crypto.randomBytes(3).toString("hex")}`;
+  const item = {
+    id,
+    recipientUid: params.recipientUid || "all",
+    type: params.type,
+    title: params.title.slice(0, 140),
+    message: params.message.slice(0, 600),
+    route: params.route && params.route.startsWith("/") ? params.route : "/",
+    read: false,
+    createdAt: now.toISOString(),
+    createdAtMs: now.getTime(),
+    actorName: params.actorName || "DkTEST"
+  };
+  try {
+    if (adminDb) {
+      await adminDb.collection(COL_NOTIFS).doc(id).set(item);
+    } else {
+      await setFirestoreRestDoc(COL_NOTIFS, id, item);
+    }
+    invalidateNotificationFeedCache();
+  } catch (err) {
+    console.warn("[notificationPushService] Failed to persist notification:", err);
+  }
+  return item;
+}
+
+// server/services/aiShopService.ts
+var COL_SERVICES = "ai_services";
+var COL_CUSTOMERS = "ai_customers";
+var COL_ORDERS = "ai_orders";
+var COL_PAYMENTS = "ai_payments";
+var COL_AUDIT_LOGS = "ai_audit_logs";
+var COL_IDEMPOTENCY = "ai_idempotency_keys";
+var BOOTSTRAP_CACHE_TTL_MS = 30 * 1e3;
+var bootstrapCache = null;
+var inFlightIdempotency = /* @__PURE__ */ new Map();
+function invalidateAiShopCache() {
+  bootstrapCache = null;
+}
+var isoDateSchema = z2.string().refine(isValidIsoDate, {
+  message: "Ng\xE0y kh\xF4ng h\u1EE3p l\u1EC7 (\u0111\u1ECBnh d\u1EA1ng YYYY-MM-DD)."
+});
+var nullableIsoDateSchema = z2.union([isoDateSchema, z2.null(), z2.literal("")]).transform((v) => v ? v : null);
+var intVndSchema = z2.number().int().min(0, "S\u1ED1 ti\u1EC1n ph\u1EA3i l\xE0 s\u1ED1 nguy\xEAn VN\u0110 kh\xF4ng \xE2m.");
+var positiveIntVndSchema = z2.number().int().min(1, "S\u1ED1 ti\u1EC1n ph\u1EA3i l\u1EDBn h\u01A1n 0 VN\u0110.");
+var nullableIntVndSchema = z2.union([intVndSchema, z2.null()]);
+var createServiceSchema = z2.object({
+  code: z2.string().trim().min(1).max(60).optional(),
+  name: z2.string().trim().min(2, "T\xEAn d\u1ECBch v\u1EE5 ph\u1EA3i c\xF3 \xEDt nh\u1EA5t 2 k\xFD t\u1EF1.").max(140),
+  billingType: z2.enum(["one_time", "monthly"]),
+  defaultFirstPriceVnd: nullableIntVndSchema,
+  defaultRecurringPriceVnd: nullableIntVndSchema.optional().default(null),
+  durationValue: z2.union([z2.number().int().min(1).max(3650), z2.null()]).optional().default(null),
+  durationUnit: z2.union([z2.enum(["days", "months"]), z2.null()]).optional().default(null),
+  conditions: z2.string().trim().max(1e3).optional().default(""),
+  status: z2.enum(["active", "discontinued"]).optional().default("active"),
+  studentVisible: z2.boolean().optional().default(true),
+  sortOrder: z2.number().int().min(0).max(9999).optional().default(100)
+});
+var updateServiceSchema = createServiceSchema.partial();
+var createCustomerSchema = z2.object({
+  fullName: z2.string().trim().min(1, "Vui l\xF2ng nh\u1EADp t\xEAn kh\xE1ch h\xE0ng.").max(140),
+  phoneZalo: z2.string().trim().max(80).optional().default(""),
+  email: z2.string().trim().max(160).optional().default(""),
+  otherContact: z2.string().trim().max(160).optional().default(""),
+  note: z2.string().trim().max(1e3).optional().default(""),
+  linkedUid: z2.string().trim().max(128).nullable().optional().default(null),
+  idempotencyKey: z2.string().trim().max(120).optional()
+});
+var updateCustomerSchema = z2.object({
+  fullName: z2.string().trim().min(1, "T\xEAn kh\xE1ch h\xE0ng kh\xF4ng \u0111\u01B0\u1EE3c \u0111\u1EC3 tr\u1ED1ng.").max(140).optional(),
+  phoneZalo: z2.string().trim().max(80).optional(),
+  email: z2.string().trim().max(160).optional(),
+  otherContact: z2.string().trim().max(160).optional(),
+  note: z2.string().trim().max(1e3).optional()
+});
+var createOrderSchema = z2.object({
+  customerId: z2.string().trim().min(1, "Vui l\xF2ng ch\u1ECDn kh\xE1ch h\xE0ng."),
+  serviceId: z2.string().trim().min(1, "Vui l\xF2ng ch\u1ECDn d\u1ECBch v\u1EE5."),
+  accountSlot: z2.string().trim().max(240).optional().default(""),
+  quantity: z2.number().int().min(1, "S\u1ED1 l\u01B0\u1EE3ng ph\u1EA3i t\u1ED1i thi\u1EC3u l\xE0 1.").max(999).default(1),
+  startDate: isoDateSchema,
+  stopDate: nullableIsoDateSchema.optional().default(null),
+  billingType: z2.enum(["one_time", "monthly"]),
+  firstCyclePriceVnd: intVndSchema,
+  recurringPriceVnd: nullableIntVndSchema.optional().default(null),
+  durationValue: z2.union([z2.number().int().min(1).max(3650), z2.null()]).optional().default(null),
+  durationUnit: z2.union([z2.enum(["days", "months"]), z2.null()]).optional().default(null),
+  note: z2.string().trim().max(1e3).optional().default(""),
+  fulfillmentStatus: z2.enum(["pending_delivery", "delivered"]).optional(),
+  idempotencyKey: z2.string().trim().max(120).optional()
+});
+var orderAttachmentSchema = z2.object({
+  id: z2.string().trim().min(1).max(120),
+  name: z2.string().trim().min(1).max(200),
+  url: z2.string().trim().url("\u0110\u01B0\u1EDDng d\u1EABn t\u1EC7p \u0111\xEDnh k\xE8m kh\xF4ng h\u1EE3p l\u1EC7.").max(2048),
+  mimeType: z2.string().trim().max(120).default("application/octet-stream"),
+  size: z2.number().int().min(0).optional(),
+  uploadedAt: z2.string().trim().max(60)
+});
+var updateOrderSchema = z2.object({
+  serviceId: z2.string().trim().min(1).optional(),
+  confirmServiceChange: z2.boolean().optional(),
+  accountSlot: z2.string().trim().max(240).optional(),
+  quantity: z2.number().int().min(1).max(999).optional(),
+  startDate: isoDateSchema.optional(),
+  stopDate: nullableIsoDateSchema.optional(),
+  billingType: z2.enum(["one_time", "monthly"]).optional(),
+  firstCyclePriceVnd: intVndSchema.optional(),
+  recurringPriceVnd: nullableIntVndSchema.optional(),
+  durationValue: z2.union([z2.number().int().min(1).max(3650), z2.null()]).optional(),
+  durationUnit: z2.union([z2.enum(["days", "months"]), z2.null()]).optional(),
+  note: z2.string().trim().max(1e3).optional(),
+  contactPhoneZalo: z2.string().trim().max(80).optional(),
+  targetUpgradeEmail: z2.string().trim().max(160).optional(),
+  adminDeliveryNote: z2.string().trim().max(2e3).optional(),
+  adminAttachments: z2.array(orderAttachmentSchema).max(10).optional(),
+  fulfillmentStatus: z2.enum(["pending_delivery", "delivered"]).optional()
+});
+var createPaymentSchema = z2.object({
+  orderId: z2.string().trim().min(1, "Vui l\xF2ng ch\u1ECDn \u0111\u01A1n h\xE0ng."),
+  paidDate: isoDateSchema,
+  amountVnd: positiveIntVndSchema,
+  method: z2.enum(["bank_transfer", "cash", "momo", "zalopay", "dktest_wallet", "other"]),
+  note: z2.string().trim().max(1e3).optional().default(""),
+  idempotencyKey: z2.string().trim().max(120).optional()
+});
+var updatePaymentSchema = z2.object({
+  paidDate: isoDateSchema.optional(),
+  amountVnd: positiveIntVndSchema.optional(),
+  method: z2.enum(["bank_transfer", "cash", "momo", "zalopay", "dktest_wallet", "other"]).optional(),
+  note: z2.string().trim().max(1e3).optional()
+});
+var voidPaymentSchema = z2.object({
+  reason: z2.string().trim().min(2, "Vui l\xF2ng nh\u1EADp l\xFD do h\u1EE7y giao d\u1ECBch.").max(500)
+});
+var studentPurchaseSchema = z2.object({
+  serviceId: z2.string().trim().min(1, "Vui l\xF2ng ch\u1ECDn d\u1ECBch v\u1EE5."),
+  quantity: z2.number().int().min(1).max(10).default(1),
+  contactPhoneZalo: z2.string().trim().min(8, "Vui l\xF2ng nh\u1EADp s\u1ED1 \u0111i\u1EC7n tho\u1EA1i Zalo h\u1EE3p l\u1EC7 (t\u1ED1i thi\u1EC3u 8 k\xFD t\u1EF1).").max(80),
+  targetUpgradeEmail: z2.string().trim().max(160).optional().default(""),
+  contactEmail: z2.string().trim().max(160).optional().default(""),
+  note: z2.string().trim().max(500).optional().default(""),
+  idempotencyKey: z2.string().trim().min(6, "Thi\u1EBFu kh\xF3a ch\u1ED1ng g\u1EEDi tr\xF9ng.").max(120)
+});
+var studentRenewOrderSchema = z2.object({
+  amountVnd: positiveIntVndSchema,
+  note: z2.string().trim().max(400).optional().default(""),
+  idempotencyKey: z2.string().trim().min(6, "Thi\u1EBFu kh\xF3a ch\u1ED1ng g\u1EEDi tr\xF9ng.").max(120)
+});
+var excelImportRowSchema = z2.object({
+  customerCode: z2.string().trim().max(40).optional().default(""),
+  fullName: z2.string().trim().min(1).max(140),
+  phoneZalo: z2.string().trim().max(80).optional().default(""),
+  email: z2.string().trim().max(160).optional().default(""),
+  serviceName: z2.string().trim().min(1).max(140),
+  matchedServiceId: z2.string().trim().nullable().optional().default(null),
+  accountSlot: z2.string().trim().max(240).optional().default(""),
+  quantity: z2.number().int().min(1).max(999).default(1),
+  startDate: isoDateSchema,
+  stopDate: nullableIsoDateSchema.optional().default(null),
+  billingType: z2.enum(["one_time", "monthly"]),
+  firstCyclePriceVnd: intVndSchema,
+  recurringPriceVnd: nullableIntVndSchema.optional().default(null),
+  paidAmountVnd: intVndSchema.optional().default(0),
+  paidDate: isoDateSchema.optional(),
+  note: z2.string().trim().max(1e3).optional().default(""),
+  importRowKey: z2.string().trim().min(4).max(120)
+});
+var excelImportPayloadSchema = z2.object({
+  rows: z2.array(excelImportRowSchema).min(1).max(500),
+  idempotencyKey: z2.string().trim().max(120).optional()
+});
+async function listCollection(col) {
+  if (adminDb) {
+    const snap = await adminDb.collection(col).get();
+    return snap.docs.map((d) => ({ id: d.id, ...d.data() }));
+  }
+  const docs = await getFirestoreRestDocs(col, 1e3, false);
+  return docs;
+}
+async function getDocById(col, id) {
+  if (adminDb) {
+    const snap = await adminDb.collection(col).doc(id).get();
+    return snap.exists ? { id: snap.id, ...snap.data() } : null;
+  }
+  const doc = await getFirestoreRestDoc(col, id, false);
+  return doc ? { id, ...doc } : null;
+}
+async function saveDoc(col, id, data) {
+  if (adminDb) {
+    await adminDb.collection(col).doc(id).set(data, { merge: false });
+  } else {
+    await setFirestoreRestDoc(col, id, data);
+  }
+}
+async function removeDoc(col, id) {
+  if (adminDb) {
+    await adminDb.collection(col).doc(id).delete();
+  } else {
+    await deleteFirestoreRestDoc(col, id);
+  }
+}
+async function queryByField(col, field, value) {
+  if (adminDb) {
+    const snap = await adminDb.collection(col).where(field, "==", value).get();
+    return snap.docs.map((d) => ({ id: d.id, ...d.data() }));
+  }
+  const docs = await queryFirestoreRestDocs(col, field, value, 500, false);
+  return docs;
+}
+function makeShortId(prefix) {
+  return `${prefix}_${Date.now().toString(36)}_${Math.random().toString(36).slice(2, 7)}`;
+}
+function nextCustomerCode(existing) {
+  let maxNum = 0;
+  for (const c of existing) {
+    const m = /^KH(\d+)$/i.exec(c.customerCode || "");
+    if (m) maxNum = Math.max(maxNum, Number(m[1]));
+  }
+  return `KH${String(maxNum + 1).padStart(4, "0")}`;
+}
+function makeOrderCode(todayVn, existingCount) {
+  const compact = todayVn.replace(/-/g, "").slice(2);
+  const seq = String(existingCount + 1).padStart(3, "0");
+  const rand = Math.random().toString(36).slice(2, 4).toUpperCase();
+  return `DH${compact}-${seq}${rand}`;
+}
+function makePaymentCode(todayVn, existingCount) {
+  const compact = todayVn.replace(/-/g, "").slice(2);
+  const seq = String(existingCount + 1).padStart(3, "0");
+  const rand = Math.random().toString(36).slice(2, 4).toUpperCase();
+  return `TT${compact}-${seq}${rand}`;
+}
+function makeServiceCode(name) {
+  const slug = name.normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[^a-zA-Z0-9]+/g, "-").replace(/^-+|-+$/g, "").toUpperCase().slice(0, 20);
+  return slug || `SVC-${Date.now().toString(36).toUpperCase()}`;
+}
+async function writeAuditLog(params) {
+  const id = makeShortId("alog");
+  const record = {
+    id,
+    action: params.action,
+    entityType: params.entityType,
+    entityId: params.entityId,
+    actorUid: params.actorUid,
+    actorName: params.actorName || "Qu\u1EA3n tr\u1ECB vi\xEAn",
+    summary: params.summary,
+    before: params.before ?? null,
+    after: params.after ?? null,
+    createdAt: (/* @__PURE__ */ new Date()).toISOString()
+  };
+  await saveDoc(COL_AUDIT_LOGS, id, record);
+}
+async function withIdempotency(key, scope, fn) {
+  if (!key || !key.trim()) {
+    return fn();
+  }
+  const safeKey = `${scope}_${key.trim().replace(/[^a-zA-Z0-9_-]/g, "_").slice(0, 100)}`;
+  const existingPromise = inFlightIdempotency.get(safeKey);
+  if (existingPromise) {
+    return existingPromise;
+  }
+  const stored = await getDocById(COL_IDEMPOTENCY, safeKey);
+  if (stored && stored.result !== void 0) {
+    return stored.result;
+  }
+  const runPromise = (async () => {
+    try {
+      const result = await fn();
+      try {
+        await saveDoc(COL_IDEMPOTENCY, safeKey, {
+          key: safeKey,
+          scope,
+          result,
+          createdAt: (/* @__PURE__ */ new Date()).toISOString()
+        });
+      } catch (err) {
+        console.warn("[aiShopService] Failed to persist idempotency key:", err);
+      }
+      return result;
+    } finally {
+      inFlightIdempotency.delete(safeKey);
+    }
+  })();
+  inFlightIdempotency.set(safeKey, runPromise);
+  return runPromise;
+}
+async function ensureInitialServicesSeeded(actorUid = "system", actorName = "H\u1EC7 th\u1ED1ng") {
+  const existing = await listCollection(COL_SERVICES);
+  if (existing.length > 0) {
+    return existing.sort((a, b) => (a.sortOrder ?? 99) - (b.sortOrder ?? 99));
+  }
+  const now = (/* @__PURE__ */ new Date()).toISOString();
+  const seeds = buildSeedServiceRecords(now);
+  await Promise.all(seeds.map((svc) => saveDoc(COL_SERVICES, svc.id, svc)));
+  await writeAuditLog({
+    action: "service_seed",
+    entityType: "service",
+    entityId: "seed_initial",
+    actorUid,
+    actorName,
+    summary: `Kh\u1EDFi t\u1EA1o danh m\u1EE5c ban \u0111\u1EA7u (${seeds.length} d\u1ECBch v\u1EE5 AI).`
+  });
+  invalidateAiShopCache();
+  return seeds;
+}
+async function createAiService(rawInput, actor) {
+  const data = createServiceSchema.parse(rawInput);
+  const now = (/* @__PURE__ */ new Date()).toISOString();
+  const id = makeShortId("svc");
+  const service = {
+    id,
+    code: data.code || makeServiceCode(data.name),
+    name: data.name,
+    billingType: data.billingType,
+    defaultFirstPriceVnd: data.defaultFirstPriceVnd,
+    defaultRecurringPriceVnd: data.billingType === "monthly" ? data.defaultRecurringPriceVnd : null,
+    durationValue: data.durationValue,
+    durationUnit: data.durationValue ? data.durationUnit : null,
+    conditions: data.conditions,
+    status: data.status,
+    studentVisible: data.studentVisible,
+    sortOrder: data.sortOrder,
+    createdAt: now,
+    updatedAt: now
+  };
+  await saveDoc(COL_SERVICES, id, service);
+  await writeAuditLog({
+    action: "service_create",
+    entityType: "service",
+    entityId: id,
+    actorUid: actor.uid,
+    actorName: actor.displayName || "Admin",
+    summary: `Th\xEAm d\u1ECBch v\u1EE5 "${service.name}" (${service.billingType === "monthly" ? "H\xE0ng th\xE1ng" : "M\u1ED9t l\u1EA7n"}).`,
+    after: service
+  });
+  invalidateAiShopCache();
+  return service;
+}
+async function updateAiService(serviceId, rawInput, actor) {
+  const existing = await getDocById(COL_SERVICES, serviceId);
+  if (!existing) {
+    throw new Error("Kh\xF4ng t\xECm th\u1EA5y d\u1ECBch v\u1EE5.");
+  }
+  const patch = updateServiceSchema.parse(rawInput);
+  const nextBillingType = patch.billingType ?? existing.billingType;
+  const nextDurationValue = patch.durationValue !== void 0 ? patch.durationValue : existing.durationValue;
+  const updated = {
+    ...existing,
+    ...patch,
+    billingType: nextBillingType,
+    defaultRecurringPriceVnd: nextBillingType === "monthly" ? patch.defaultRecurringPriceVnd !== void 0 ? patch.defaultRecurringPriceVnd : existing.defaultRecurringPriceVnd : null,
+    durationValue: nextDurationValue,
+    durationUnit: nextDurationValue ? patch.durationUnit !== void 0 ? patch.durationUnit : existing.durationUnit : null,
+    updatedAt: (/* @__PURE__ */ new Date()).toISOString()
+  };
+  await saveDoc(COL_SERVICES, serviceId, updated);
+  await writeAuditLog({
+    action: "service_update",
+    entityType: "service",
+    entityId: serviceId,
+    actorUid: actor.uid,
+    actorName: actor.displayName || "Admin",
+    summary: `C\u1EADp nh\u1EADt d\u1ECBch v\u1EE5 "${updated.name}" (kh\xF4ng \u1EA3nh h\u01B0\u1EDFng gi\xE1 c\xE1c \u0111\u01A1n c\u0169).`,
+    before: existing,
+    after: updated
+  });
+  invalidateAiShopCache();
+  return updated;
+}
+async function getAdminAiShopBootstrap(force = false) {
+  const now = Date.now();
+  if (!force && bootstrapCache && now - bootstrapCache.ts < BOOTSTRAP_CACHE_TTL_MS) {
+    return bootstrapCache.data;
+  }
+  let services = await listCollection(COL_SERVICES);
+  if (services.length === 0) {
+    services = await ensureInitialServicesSeeded();
+  }
+  const [customers, orders, payments, auditLogs] = await Promise.all([
+    listCollection(COL_CUSTOMERS),
+    listCollection(COL_ORDERS),
+    listCollection(COL_PAYMENTS),
+    listCollection(COL_AUDIT_LOGS)
+  ]);
+  const data = {
+    services: services.sort((a, b) => (a.sortOrder ?? 99) - (b.sortOrder ?? 99)),
+    customers: customers.sort((a, b) => b.createdAt.localeCompare(a.createdAt)),
+    orders: orders.sort((a, b) => b.startDate.localeCompare(a.startDate) || b.createdAt.localeCompare(a.createdAt)),
+    payments: payments.sort((a, b) => b.paidDate.localeCompare(a.paidDate) || b.createdAt.localeCompare(a.createdAt)),
+    auditLogs: auditLogs.sort((a, b) => b.createdAt.localeCompare(a.createdAt)).slice(0, 200)
+  };
+  bootstrapCache = { data, ts: now };
+  return data;
+}
+async function createAiCustomer(rawInput, actor) {
+  const data = createCustomerSchema.parse(rawInput);
+  return withIdempotency(data.idempotencyKey, "cust_create", async () => {
+    const existing = await listCollection(COL_CUSTOMERS);
+    const now = (/* @__PURE__ */ new Date()).toISOString();
+    const id = makeShortId("cust");
+    const customer = {
+      id,
+      customerCode: nextCustomerCode(existing),
+      fullName: data.fullName,
+      phoneZalo: data.phoneZalo,
+      email: data.email,
+      otherContact: data.otherContact,
+      note: data.note,
+      linkedUid: data.linkedUid ?? null,
+      status: "active",
+      createdAt: now,
+      updatedAt: now,
+      archivedAt: null
+    };
+    await saveDoc(COL_CUSTOMERS, id, customer);
+    await writeAuditLog({
+      action: "customer_create",
+      entityType: "customer",
+      entityId: id,
+      actorUid: actor.uid,
+      actorName: actor.displayName || "Admin",
+      summary: `Th\xEAm kh\xE1ch h\xE0ng ${customer.customerCode} \u2014 ${customer.fullName}.`,
+      after: customer
+    });
+    invalidateAiShopCache();
+    return customer;
+  });
+}
+async function updateAiCustomer(customerId, rawInput, actor) {
+  const existing = await getDocById(COL_CUSTOMERS, customerId);
+  if (!existing) throw new Error("Kh\xF4ng t\xECm th\u1EA5y kh\xE1ch h\xE0ng.");
+  const patch = updateCustomerSchema.parse(rawInput);
+  const updated = {
+    ...existing,
+    ...patch,
+    updatedAt: (/* @__PURE__ */ new Date()).toISOString()
+  };
+  await saveDoc(COL_CUSTOMERS, customerId, updated);
+  await writeAuditLog({
+    action: "customer_update",
+    entityType: "customer",
+    entityId: customerId,
+    actorUid: actor.uid,
+    actorName: actor.displayName || "Admin",
+    summary: `C\u1EADp nh\u1EADt th\xF4ng tin kh\xE1ch ${updated.customerCode} (${updated.fullName}).`,
+    before: existing,
+    after: updated
+  });
+  invalidateAiShopCache();
+  return updated;
+}
+async function archiveOrRestoreAiCustomer(customerId, archive, actor) {
+  const existing = await getDocById(COL_CUSTOMERS, customerId);
+  if (!existing) throw new Error("Kh\xF4ng t\xECm th\u1EA5y kh\xE1ch h\xE0ng.");
+  const now = (/* @__PURE__ */ new Date()).toISOString();
+  const updated = {
+    ...existing,
+    status: archive ? "archived" : "active",
+    archivedAt: archive ? now : null,
+    updatedAt: now
+  };
+  await saveDoc(COL_CUSTOMERS, customerId, updated);
+  await writeAuditLog({
+    action: archive ? "customer_archive" : "customer_restore",
+    entityType: "customer",
+    entityId: customerId,
+    actorUid: actor.uid,
+    actorName: actor.displayName || "Admin",
+    summary: archive ? `L\u01B0u tr\u1EEF kh\xE1ch h\xE0ng ${updated.customerCode} (${updated.fullName}).` : `Kh\xF4i ph\u1EE5c kh\xE1ch h\xE0ng ${updated.customerCode} (${updated.fullName}).`,
+    before: { status: existing.status },
+    after: { status: updated.status }
+  });
+  invalidateAiShopCache();
+  return updated;
+}
+async function deleteAiCustomerSafely(customerId, actor) {
+  const existing = await getDocById(COL_CUSTOMERS, customerId);
+  if (!existing) throw new Error("Kh\xF4ng t\xECm th\u1EA5y kh\xE1ch h\xE0ng.");
+  const [orders, payments] = await Promise.all([
+    queryByField(COL_ORDERS, "customerId", customerId),
+    queryByField(COL_PAYMENTS, "customerId", customerId)
+  ]);
+  if (orders.length > 0 || payments.length > 0) {
+    const err = new Error(
+      "Kh\xF4ng th\u1EC3 x\xF3a v\u0129nh vi\u1EC5n kh\xE1ch \u0111\xE3 c\xF3 \u0111\u01A1n h\xE0ng ho\u1EB7c giao d\u1ECBch. Vui l\xF2ng ch\u1ECDn L\u01B0u tr\u1EEF \u0111\u1EC3 b\u1EA3o to\xE0n l\u1ECBch s\u1EED."
+    );
+    err.statusCode = 409;
+    throw err;
+  }
+  await removeDoc(COL_CUSTOMERS, customerId);
+  await writeAuditLog({
+    action: "customer_delete",
+    entityType: "customer",
+    entityId: customerId,
+    actorUid: actor.uid,
+    actorName: actor.displayName || "Admin",
+    summary: `X\xF3a kh\xE1ch h\xE0ng ch\u01B0a ph\xE1t sinh giao d\u1ECBch ${existing.customerCode} (${existing.fullName}).`,
+    before: existing
+  });
+  invalidateAiShopCache();
+  return { deleted: true };
+}
+async function createAiOrder(rawInput, actor) {
+  const data = createOrderSchema.parse(rawInput);
+  if (data.billingType === "monthly" && data.recurringPriceVnd === null) {
+    throw new Error("\u0110\u01A1n thu h\xE0ng th\xE1ng b\u1EAFt bu\u1ED9c ph\u1EA3i nh\u1EADp gi\xE1 k\u1EF3 sau.");
+  }
+  return withIdempotency(data.idempotencyKey, "order_create", async () => {
+    const [customer, service, existingOrders] = await Promise.all([
+      getDocById(COL_CUSTOMERS, data.customerId),
+      getDocById(COL_SERVICES, data.serviceId),
+      listCollection(COL_ORDERS)
+    ]);
+    if (!customer) throw new Error("Kh\xE1ch h\xE0ng kh\xF4ng t\u1ED3n t\u1EA1i.");
+    if (!service) throw new Error("D\u1ECBch v\u1EE5 kh\xF4ng t\u1ED3n t\u1EA1i.");
+    const now = (/* @__PURE__ */ new Date()).toISOString();
+    const todayVn = getTodayVnDate();
+    const id = makeShortId("ord");
+    const order = {
+      id,
+      orderCode: makeOrderCode(todayVn, existingOrders.length),
+      customerId: customer.id,
+      customerCodeSnapshot: customer.customerCode,
+      linkedUid: customer.linkedUid ?? null,
+      serviceId: service.id,
+      serviceNameSnapshot: service.name,
+      serviceConditionsSnapshot: service.conditions,
+      accountSlot: data.accountSlot,
+      quantity: data.quantity,
+      startDate: data.startDate,
+      stopDate: data.stopDate,
+      billingType: data.billingType,
+      firstCyclePriceVnd: data.firstCyclePriceVnd,
+      recurringPriceVnd: data.billingType === "monthly" ? data.recurringPriceVnd : null,
+      durationValue: data.durationValue,
+      durationUnit: data.durationValue ? data.durationUnit : null,
+      note: data.note,
+      source: "admin_manual",
+      fulfillmentStatus: data.fulfillmentStatus ?? (data.accountSlot ? "delivered" : "pending_delivery"),
+      importRowKey: null,
+      idempotencyKey: data.idempotencyKey ?? null,
+      createdByUid: actor.uid,
+      createdAt: now,
+      updatedAt: now
+    };
+    await saveDoc(COL_ORDERS, id, order);
+    await writeAuditLog({
+      action: "order_create",
+      entityType: "order",
+      entityId: id,
+      actorUid: actor.uid,
+      actorName: actor.displayName || "Admin",
+      summary: `T\u1EA1o \u0111\u01A1n ${order.orderCode} cho ${customer.fullName} \u2014 ${service.name} (${order.firstCyclePriceVnd}\u0111).`,
+      after: order
+    });
+    invalidateAiShopCache();
+    return order;
+  });
+}
+async function updateAiOrder(orderId, rawInput, actor) {
+  const existing = await getDocById(COL_ORDERS, orderId);
+  if (!existing) throw new Error("Kh\xF4ng t\xECm th\u1EA5y \u0111\u01A1n h\xE0ng.");
+  const patch = updateOrderSchema.parse(rawInput);
+  let serviceNameSnapshot = existing.serviceNameSnapshot;
+  let serviceConditionsSnapshot = existing.serviceConditionsSnapshot;
+  let action = "order_update";
+  if (patch.serviceId && patch.serviceId !== existing.serviceId) {
+    if (!patch.confirmServiceChange) {
+      throw new Error(
+        "\u0110\u1ED5i d\u1ECBch v\u1EE5 tr\xEAn \u0111\u01A1n h\xE0ng y\xEAu c\u1EA7u x\xE1c nh\u1EADn c\u1EADp nh\u1EADt gi\xE1 r\xF5 r\xE0ng \u0111\u1EC3 tr\xE1nh sai l\u1EC7ch c\xF4ng n\u1EE3."
+      );
+    }
+    const newService = await getDocById(COL_SERVICES, patch.serviceId);
+    if (!newService) throw new Error("D\u1ECBch v\u1EE5 m\u1EDBi kh\xF4ng t\u1ED3n t\u1EA1i.");
+    serviceNameSnapshot = newService.name;
+    serviceConditionsSnapshot = newService.conditions;
+    action = "order_service_change";
+  }
+  const nextBillingType = patch.billingType ?? existing.billingType;
+  const nextRecurring = nextBillingType === "monthly" ? patch.recurringPriceVnd !== void 0 ? patch.recurringPriceVnd : existing.recurringPriceVnd : null;
+  if (nextBillingType === "monthly" && (nextRecurring === null || nextRecurring === void 0)) {
+    throw new Error("\u0110\u01A1n thu h\xE0ng th\xE1ng b\u1EAFt bu\u1ED9c ph\u1EA3i c\xF3 gi\xE1 k\u1EF3 sau.");
+  }
+  const nextAccountSlot = patch.accountSlot !== void 0 ? patch.accountSlot : existing.accountSlot;
+  const nextAdminDeliveryNote = patch.adminDeliveryNote !== void 0 ? patch.adminDeliveryNote : existing.adminDeliveryNote || "";
+  const nextAdminAttachments = patch.adminAttachments !== void 0 ? patch.adminAttachments : existing.adminAttachments || [];
+  const nextFulfillment = patch.fulfillmentStatus ?? (existing.fulfillmentStatus === "pending_delivery" && (nextAccountSlot.trim().length > 0 || nextAdminDeliveryNote.trim().length > 0 || nextAdminAttachments.length > 0) ? "delivered" : existing.fulfillmentStatus);
+  const justDeliveredOrUpdatedDelivery = nextFulfillment === "delivered" && (existing.fulfillmentStatus !== "delivered" || patch.accountSlot !== void 0 || patch.adminDeliveryNote !== void 0 || patch.adminAttachments !== void 0);
+  if (patch.stopDate !== void 0 && patch.stopDate !== existing.stopDate && action === "order_update") {
+    action = "order_stop";
+  } else if (justDeliveredOrUpdatedDelivery && action === "order_update") {
+    action = "order_deliver";
+  }
+  const nextDurationValue = patch.durationValue !== void 0 ? patch.durationValue : existing.durationValue;
+  const nowIso = (/* @__PURE__ */ new Date()).toISOString();
+  const updated = {
+    ...existing,
+    serviceId: patch.serviceId ?? existing.serviceId,
+    serviceNameSnapshot,
+    serviceConditionsSnapshot,
+    accountSlot: nextAccountSlot,
+    quantity: patch.quantity ?? existing.quantity,
+    startDate: patch.startDate ?? existing.startDate,
+    stopDate: patch.stopDate !== void 0 ? patch.stopDate : existing.stopDate,
+    billingType: nextBillingType,
+    firstCyclePriceVnd: patch.firstCyclePriceVnd ?? existing.firstCyclePriceVnd,
+    recurringPriceVnd: nextRecurring,
+    durationValue: nextDurationValue,
+    durationUnit: nextDurationValue ? patch.durationUnit !== void 0 ? patch.durationUnit : existing.durationUnit : null,
+    note: patch.note !== void 0 ? patch.note : existing.note,
+    contactPhoneZalo: patch.contactPhoneZalo !== void 0 ? patch.contactPhoneZalo : existing.contactPhoneZalo,
+    targetUpgradeEmail: patch.targetUpgradeEmail !== void 0 ? patch.targetUpgradeEmail : existing.targetUpgradeEmail,
+    adminDeliveryNote: nextAdminDeliveryNote,
+    adminAttachments: nextAdminAttachments,
+    fulfillmentStatus: nextFulfillment,
+    deliveredAt: nextFulfillment === "delivered" ? existing.deliveredAt || nowIso : existing.deliveredAt ?? null,
+    studentNotificationUnread: justDeliveredOrUpdatedDelivery ? true : existing.studentNotificationUnread ?? false,
+    updatedAt: nowIso
+  };
+  await saveDoc(COL_ORDERS, orderId, updated);
+  await writeAuditLog({
+    action,
+    entityType: "order",
+    entityId: orderId,
+    actorUid: actor.uid,
+    actorName: actor.displayName || "Admin",
+    summary: action === "order_service_change" ? `\u0110\u1ED5i d\u1ECBch v\u1EE5 \u0111\u01A1n ${updated.orderCode}: "${existing.serviceNameSnapshot}" \u2192 "${updated.serviceNameSnapshot}" (gi\xE1 k\u1EF3 \u0111\u1EA7u ${updated.firstCyclePriceVnd}\u0111).` : action === "order_stop" ? `C\u1EADp nh\u1EADt ng\xE0y d\u1EEBng \u0111\u01A1n ${updated.orderCode}: ${updated.stopDate || "M\u1EDF l\u1EA1i \u0111\u01A1n"}.` : action === "order_deliver" ? `Giao t\xE0i kho\u1EA3n/slot cho \u0111\u01A1n ${updated.orderCode}: ${updated.accountSlot}.` : `C\u1EADp nh\u1EADt \u0111\u01A1n h\xE0ng ${updated.orderCode}.`,
+    before: existing,
+    after: updated
+  });
+  if (justDeliveredOrUpdatedDelivery && updated.linkedUid) {
+    await publishDeviceNotification({
+      recipientUid: updated.linkedUid,
+      type: "ai_order_delivered",
+      title: `\u2705 \u0110\u01A1n ${updated.orderCode} \u0111\xE3 x\u1EED l\xFD xong!`,
+      message: updated.adminDeliveryNote || `Admin \u0111\xE3 ho\xE0n t\u1EA5t b\xE0n giao "${updated.serviceNameSnapshot}". B\u1EA5m \u0111\u1EC3 xem t\xE0i kho\u1EA3n/slot & t\u1EC7p \u0111\xEDnh k\xE8m.`,
+      route: "/student/ai-shop",
+      actorName: actor.displayName || "Admin"
+    });
+  }
+  invalidateAiShopCache();
+  return updated;
+}
+async function createAiPayment(rawInput, actor) {
+  const data = createPaymentSchema.parse(rawInput);
+  return withIdempotency(data.idempotencyKey, "pay_create", async () => {
+    const [order, existingPayments] = await Promise.all([
+      getDocById(COL_ORDERS, data.orderId),
+      listCollection(COL_PAYMENTS)
+    ]);
+    if (!order) throw new Error("Kh\xF4ng t\xECm th\u1EA5y \u0111\u01A1n h\xE0ng li\xEAn quan.");
+    const now = (/* @__PURE__ */ new Date()).toISOString();
+    const id = makeShortId("pay");
+    const payment = {
+      id,
+      paymentCode: makePaymentCode(data.paidDate, existingPayments.length),
+      orderId: order.id,
+      customerId: order.customerId,
+      linkedUid: order.linkedUid ?? null,
+      paidDate: data.paidDate,
+      amountVnd: data.amountVnd,
+      method: data.method,
+      note: data.note,
+      status: "active",
+      voidReason: null,
+      voidedAt: null,
+      voidedByUid: null,
+      walletTransactionId: null,
+      idempotencyKey: data.idempotencyKey ?? null,
+      createdByUid: actor.uid,
+      createdAt: now,
+      updatedAt: now
+    };
+    await saveDoc(COL_PAYMENTS, id, payment);
+    await writeAuditLog({
+      action: "payment_create",
+      entityType: "payment",
+      entityId: id,
+      actorUid: actor.uid,
+      actorName: actor.displayName || "Admin",
+      summary: `Thu ${payment.amountVnd}\u0111 cho \u0111\u01A1n ${order.orderCode} ng\xE0y ${payment.paidDate} (${payment.method}).`,
+      after: payment
+    });
+    invalidateAiShopCache();
+    return payment;
+  });
+}
+async function updateAiPayment(paymentId, rawInput, actor) {
+  const existing = await getDocById(COL_PAYMENTS, paymentId);
+  if (!existing) throw new Error("Kh\xF4ng t\xECm th\u1EA5y giao d\u1ECBch thu ti\u1EC1n.");
+  if (existing.status === "voided") {
+    throw new Error("Kh\xF4ng th\u1EC3 ch\u1EC9nh s\u1EEDa giao d\u1ECBch \u0111\xE3 h\u1EE7y.");
+  }
+  const patch = updatePaymentSchema.parse(rawInput);
+  const updated = {
+    ...existing,
+    ...patch,
+    updatedAt: (/* @__PURE__ */ new Date()).toISOString()
+  };
+  await saveDoc(COL_PAYMENTS, paymentId, updated);
+  await writeAuditLog({
+    action: "payment_update",
+    entityType: "payment",
+    entityId: paymentId,
+    actorUid: actor.uid,
+    actorName: actor.displayName || "Admin",
+    summary: `S\u1EEDa giao d\u1ECBch ${updated.paymentCode}: ${existing.amountVnd}\u0111 \u2192 ${updated.amountVnd}\u0111 (${updated.paidDate}).`,
+    before: existing,
+    after: updated
+  });
+  invalidateAiShopCache();
+  return updated;
+}
+async function voidAiPayment(paymentId, rawInput, actor) {
+  const existing = await getDocById(COL_PAYMENTS, paymentId);
+  if (!existing) throw new Error("Kh\xF4ng t\xECm th\u1EA5y giao d\u1ECBch thu ti\u1EC1n.");
+  if (existing.status === "voided") {
+    return existing;
+  }
+  const { reason } = voidPaymentSchema.parse(rawInput);
+  const now = (/* @__PURE__ */ new Date()).toISOString();
+  const updated = {
+    ...existing,
+    status: "voided",
+    voidReason: reason,
+    voidedAt: now,
+    voidedByUid: actor.uid,
+    updatedAt: now
+  };
+  await saveDoc(COL_PAYMENTS, paymentId, updated);
+  await writeAuditLog({
+    action: "payment_void",
+    entityType: "payment",
+    entityId: paymentId,
+    actorUid: actor.uid,
+    actorName: actor.displayName || "Admin",
+    summary: `H\u1EE7y giao d\u1ECBch ${updated.paymentCode} (${updated.amountVnd}\u0111). L\xFD do: ${reason}`,
+    before: existing,
+    after: updated
+  });
+  invalidateAiShopCache();
+  return updated;
+}
+async function importAiShopExcelRows(rawInput, actor) {
+  const data = excelImportPayloadSchema.parse(rawInput);
+  return withIdempotency(data.idempotencyKey, "excel_import", async () => {
+    const [customers, services, orders, payments] = await Promise.all([
+      listCollection(COL_CUSTOMERS),
+      listCollection(COL_SERVICES),
+      listCollection(COL_ORDERS),
+      listCollection(COL_PAYMENTS)
+    ]);
+    const norm = (s) => s.trim().toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/\s+/g, " ");
+    const customerByCode = /* @__PURE__ */ new Map();
+    const customerByPhone = /* @__PURE__ */ new Map();
+    const customerByEmail = /* @__PURE__ */ new Map();
+    const customerByName = /* @__PURE__ */ new Map();
+    for (const c of customers) {
+      if (c.customerCode) customerByCode.set(c.customerCode.trim().toUpperCase(), c);
+      if (c.phoneZalo) customerByPhone.set(norm(c.phoneZalo), c);
+      if (c.email) customerByEmail.set(norm(c.email), c);
+      customerByName.set(norm(c.fullName), c);
+    }
+    const serviceByNorm = /* @__PURE__ */ new Map();
+    for (const s of services) {
+      serviceByNorm.set(norm(s.name), s);
+      serviceByNorm.set(norm(s.code), s);
+    }
+    const existingRowKeys = new Set(
+      orders.map((o) => o.importRowKey).filter((k) => Boolean(k))
+    );
+    const now = (/* @__PURE__ */ new Date()).toISOString();
+    const todayVn = getTodayVnDate();
+    let createdCustomers = 0;
+    let createdServices = 0;
+    let createdOrders = 0;
+    let createdPayments = 0;
+    let skippedDuplicateOrders = 0;
+    let runningOrdersCount = orders.length;
+    let runningPaymentsCount = payments.length;
+    for (const row of data.rows) {
+      if (existingRowKeys.has(row.importRowKey)) {
+        skippedDuplicateOrders++;
+        continue;
+      }
+      let customer = row.customerCode && customerByCode.get(row.customerCode.toUpperCase()) || row.phoneZalo && customerByPhone.get(norm(row.phoneZalo)) || row.email && customerByEmail.get(norm(row.email)) || (!row.phoneZalo && !row.email ? customerByName.get(norm(row.fullName)) : void 0) || null;
+      if (!customer) {
+        const custId = makeShortId("cust");
+        const code = nextCustomerCode(customers);
+        customer = {
+          id: custId,
+          customerCode: code,
+          fullName: row.fullName,
+          phoneZalo: row.phoneZalo,
+          email: row.email,
+          otherContact: "",
+          note: "Nh\u1EADp t\u1EEB Excel",
+          linkedUid: null,
+          status: "active",
+          createdAt: now,
+          updatedAt: now,
+          archivedAt: null
+        };
+        await saveDoc(COL_CUSTOMERS, custId, customer);
+        customers.push(customer);
+        customerByCode.set(code, customer);
+        if (customer.phoneZalo) customerByPhone.set(norm(customer.phoneZalo), customer);
+        if (customer.email) customerByEmail.set(norm(customer.email), customer);
+        customerByName.set(norm(customer.fullName), customer);
+        createdCustomers++;
+      }
+      let service = row.matchedServiceId && services.find((s) => s.id === row.matchedServiceId) || serviceByNorm.get(norm(row.serviceName)) || null;
+      if (!service) {
+        const svcId = makeShortId("svc");
+        service = {
+          id: svcId,
+          code: makeServiceCode(row.serviceName),
+          name: row.serviceName,
+          billingType: row.billingType,
+          defaultFirstPriceVnd: row.firstCyclePriceVnd,
+          defaultRecurringPriceVnd: row.billingType === "monthly" ? row.recurringPriceVnd : null,
+          durationValue: row.billingType === "monthly" ? 1 : null,
+          durationUnit: row.billingType === "monthly" ? "months" : null,
+          conditions: "T\u1EA1o t\u1EF1 \u0111\u1ED9ng t\u1EEB nh\u1EADp Excel",
+          status: "active",
+          studentVisible: false,
+          sortOrder: services.length + 1,
+          createdAt: now,
+          updatedAt: now
+        };
+        await saveDoc(COL_SERVICES, svcId, service);
+        services.push(service);
+        serviceByNorm.set(norm(service.name), service);
+        createdServices++;
+      }
+      const ordId = makeShortId("ord");
+      const order = {
+        id: ordId,
+        orderCode: makeOrderCode(todayVn, runningOrdersCount++),
+        customerId: customer.id,
+        customerCodeSnapshot: customer.customerCode,
+        linkedUid: customer.linkedUid ?? null,
+        serviceId: service.id,
+        serviceNameSnapshot: service.name,
+        serviceConditionsSnapshot: service.conditions,
+        accountSlot: row.accountSlot,
+        quantity: row.quantity,
+        startDate: row.startDate,
+        stopDate: row.stopDate,
+        billingType: row.billingType,
+        firstCyclePriceVnd: row.firstCyclePriceVnd,
+        recurringPriceVnd: row.billingType === "monthly" ? row.recurringPriceVnd ?? row.firstCyclePriceVnd : null,
+        durationValue: service.durationValue,
+        durationUnit: service.durationUnit,
+        note: row.note,
+        source: "excel_import",
+        fulfillmentStatus: row.accountSlot ? "delivered" : "pending_delivery",
+        importRowKey: row.importRowKey,
+        idempotencyKey: null,
+        createdByUid: actor.uid,
+        createdAt: now,
+        updatedAt: now
+      };
+      await saveDoc(COL_ORDERS, ordId, order);
+      existingRowKeys.add(row.importRowKey);
+      createdOrders++;
+      if (row.paidAmountVnd > 0) {
+        const payId = makeShortId("pay");
+        const paidDate = row.paidDate || row.startDate;
+        const payment = {
+          id: payId,
+          paymentCode: makePaymentCode(paidDate, runningPaymentsCount++),
+          orderId: order.id,
+          customerId: customer.id,
+          linkedUid: customer.linkedUid ?? null,
+          paidDate,
+          amountVnd: row.paidAmountVnd,
+          method: "bank_transfer",
+          note: "Thu ti\u1EC1n nh\u1EADp t\u1EEB Excel",
+          status: "active",
+          voidReason: null,
+          voidedAt: null,
+          voidedByUid: null,
+          walletTransactionId: null,
+          idempotencyKey: null,
+          createdByUid: actor.uid,
+          createdAt: now,
+          updatedAt: now
+        };
+        await saveDoc(COL_PAYMENTS, payId, payment);
+        createdPayments++;
+      }
+    }
+    await writeAuditLog({
+      action: "excel_import",
+      entityType: "import",
+      entityId: makeShortId("imp"),
+      actorUid: actor.uid,
+      actorName: actor.displayName || "Admin",
+      summary: `Nh\u1EADp Excel: +${createdCustomers} kh\xE1ch, +${createdOrders} \u0111\u01A1n, +${createdPayments} giao d\u1ECBch (b\u1ECF qua ${skippedDuplicateOrders} \u0111\u01A1n tr\xF9ng).`,
+      after: {
+        createdCustomers,
+        createdServices,
+        createdOrders,
+        createdPayments,
+        skippedDuplicateOrders
+      }
+    });
+    invalidateAiShopCache();
+    return {
+      createdCustomers,
+      createdServices,
+      createdOrders,
+      createdPayments,
+      skippedDuplicateOrders
+    };
+  });
+}
+
+// server/routes/aiShopAdminRoutes.ts
+var aiShopAdminRouter = Router();
+function formatError(err) {
+  if (err instanceof ZodError) {
+    const first = err.issues[0];
+    return {
+      status: 400,
+      error: "validation_error",
+      message: first?.message || "D\u1EEF li\u1EC7u \u0111\u1EA7u v\xE0o kh\xF4ng h\u1EE3p l\u1EC7."
+    };
+  }
+  return {
+    status: Number(err?.statusCode) || 400,
+    error: err?.code || "ai_shop_error",
+    message: err?.message || "\u0110\xE3 c\xF3 l\u1ED7i x\u1EA3y ra."
+  };
+}
+aiShopAdminRouter.get("/bootstrap", async (req, res) => {
+  try {
+    const force = req.query.force === "true";
+    const data = await getAdminAiShopBootstrap(force);
+    return res.json({ success: true, ...data });
+  } catch (err) {
+    const e = formatError(err);
+    return res.status(e.status >= 400 ? e.status : 500).json({ error: e.error, message: e.message });
+  }
+});
+aiShopAdminRouter.post("/services/seed", async (req, res) => {
+  try {
+    const services = await ensureInitialServicesSeeded(
+      req.user.uid,
+      req.user.displayName || req.user.email || "Admin"
+    );
+    return res.json({ success: true, services });
+  } catch (err) {
+    const e = formatError(err);
+    return res.status(e.status).json({ error: e.error, message: e.message });
+  }
+});
+aiShopAdminRouter.post("/services", async (req, res) => {
+  try {
+    const service = await createAiService(req.body, {
+      uid: req.user.uid,
+      displayName: req.user.displayName || req.user.email
+    });
+    return res.status(201).json({ success: true, service });
+  } catch (err) {
+    const e = formatError(err);
+    return res.status(e.status).json({ error: e.error, message: e.message });
+  }
+});
+aiShopAdminRouter.patch("/services/:id", async (req, res) => {
+  try {
+    const service = await updateAiService(req.params.id, req.body, {
+      uid: req.user.uid,
+      displayName: req.user.displayName || req.user.email
+    });
+    return res.json({ success: true, service });
+  } catch (err) {
+    const e = formatError(err);
+    return res.status(e.status).json({ error: e.error, message: e.message });
+  }
+});
+aiShopAdminRouter.post("/customers", async (req, res) => {
+  try {
+    const customer = await createAiCustomer(req.body, {
+      uid: req.user.uid,
+      displayName: req.user.displayName || req.user.email
+    });
+    return res.status(201).json({ success: true, customer });
+  } catch (err) {
+    const e = formatError(err);
+    return res.status(e.status).json({ error: e.error, message: e.message });
+  }
+});
+aiShopAdminRouter.patch("/customers/:id", async (req, res) => {
+  try {
+    const customer = await updateAiCustomer(req.params.id, req.body, {
+      uid: req.user.uid,
+      displayName: req.user.displayName || req.user.email
+    });
+    return res.json({ success: true, customer });
+  } catch (err) {
+    const e = formatError(err);
+    return res.status(e.status).json({ error: e.error, message: e.message });
+  }
+});
+aiShopAdminRouter.post("/customers/:id/archive", async (req, res) => {
+  try {
+    const archive = req.body?.archive !== false;
+    const customer = await archiveOrRestoreAiCustomer(req.params.id, archive, {
+      uid: req.user.uid,
+      displayName: req.user.displayName || req.user.email
+    });
+    return res.json({ success: true, customer });
+  } catch (err) {
+    const e = formatError(err);
+    return res.status(e.status).json({ error: e.error, message: e.message });
+  }
+});
+aiShopAdminRouter.delete("/customers/:id", async (req, res) => {
+  try {
+    await deleteAiCustomerSafely(req.params.id, {
+      uid: req.user.uid,
+      displayName: req.user.displayName || req.user.email
+    });
+    return res.json({ success: true });
+  } catch (err) {
+    const e = formatError(err);
+    return res.status(e.status).json({ error: e.error, message: e.message });
+  }
+});
+aiShopAdminRouter.post("/orders", async (req, res) => {
+  try {
+    const order = await createAiOrder(req.body, {
+      uid: req.user.uid,
+      displayName: req.user.displayName || req.user.email
+    });
+    return res.status(201).json({ success: true, order });
+  } catch (err) {
+    const e = formatError(err);
+    return res.status(e.status).json({ error: e.error, message: e.message });
+  }
+});
+aiShopAdminRouter.patch("/orders/:id", async (req, res) => {
+  try {
+    const order = await updateAiOrder(req.params.id, req.body, {
+      uid: req.user.uid,
+      displayName: req.user.displayName || req.user.email
+    });
+    return res.json({ success: true, order });
+  } catch (err) {
+    const e = formatError(err);
+    return res.status(e.status).json({ error: e.error, message: e.message });
+  }
+});
+aiShopAdminRouter.post("/payments", async (req, res) => {
+  try {
+    const payment = await createAiPayment(req.body, {
+      uid: req.user.uid,
+      displayName: req.user.displayName || req.user.email
+    });
+    return res.status(201).json({ success: true, payment });
+  } catch (err) {
+    const e = formatError(err);
+    return res.status(e.status).json({ error: e.error, message: e.message });
+  }
+});
+aiShopAdminRouter.patch("/payments/:id", async (req, res) => {
+  try {
+    const payment = await updateAiPayment(req.params.id, req.body, {
+      uid: req.user.uid,
+      displayName: req.user.displayName || req.user.email
+    });
+    return res.json({ success: true, payment });
+  } catch (err) {
+    const e = formatError(err);
+    return res.status(e.status).json({ error: e.error, message: e.message });
+  }
+});
+aiShopAdminRouter.post("/payments/:id/void", async (req, res) => {
+  try {
+    const payment = await voidAiPayment(req.params.id, req.body, {
+      uid: req.user.uid,
+      displayName: req.user.displayName || req.user.email
+    });
+    return res.json({ success: true, payment });
+  } catch (err) {
+    const e = formatError(err);
+    return res.status(e.status).json({ error: e.error, message: e.message });
+  }
+});
+aiShopAdminRouter.post("/import", async (req, res) => {
+  try {
+    const result = await importAiShopExcelRows(req.body, {
+      uid: req.user.uid,
+      displayName: req.user.displayName || req.user.email
+    });
+    return res.json({ success: true, ...result });
+  } catch (err) {
+    const e = formatError(err);
+    return res.status(e.status).json({ error: e.error, message: e.message });
+  }
+});
+
+// server/routes/minigameAdminRoutes.ts
+import { Router as Router2 } from "express";
+import { ZodError as ZodError2 } from "zod";
+
+// server/services/minigameService.ts
+import crypto2 from "node:crypto";
+import { z as z3 } from "zod";
+
+// src/services/minigame/raceEngine.ts
+var RACER_PALETTE = [
+  "#ef4444",
+  // Red
+  "#2563eb",
+  // Blue
+  "#f59e0b",
+  // Amber
+  "#10b981",
+  // Emerald
+  "#8b5cf6",
+  // Violet
+  "#ec4899",
+  // Pink
+  "#06b6d4",
+  // Cyan
+  "#f97316",
+  // Orange
+  "#84cc16",
+  // Lime
+  "#6366f1",
+  // Indigo
+  "#14b8a6",
+  // Teal
+  "#e11d48"
+  // Rose
+];
+var RACE_CHECKPOINTS = 12;
+function createSeededRng(seed) {
+  let a = seed >>> 0;
+  return () => {
+    a = a + 1831565813 >>> 0;
+    let t = Math.imul(a ^ a >>> 15, 1 | a);
+    t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t;
+    return ((t ^ t >>> 14) >>> 0) / 4294967296;
+  };
+}
+function seededShuffle(items, seed) {
+  const arr = [...items];
+  const rng = createSeededRng(seed);
+  for (let i = arr.length - 1; i > 0; i--) {
+    const j = Math.floor(rng() * (i + 1));
+    [arr[i], arr[j]] = [arr[j], arr[i]];
+  }
+  return arr;
+}
+function simulateRaceHeat(laneUids, seed, durationMs = 14e3) {
+  const rng = createSeededRng(seed ^ 2654435769);
+  const n = laneUids.length;
+  if (n === 0) {
+    return { finishOrder: [], finishTimesMs: {}, speedProfiles: {} };
+  }
+  const shuffledOrder = seededShuffle(laneUids, seed + 17);
+  const winnerTime = Math.round(durationMs * (0.86 + rng() * 0.04));
+  const finishTimesMs = {};
+  let prevTime = winnerTime;
+  shuffledOrder.forEach((uid, idx) => {
+    if (idx === 0) {
+      finishTimesMs[uid] = winnerTime;
+    } else {
+      const gap = idx <= 2 ? Math.round(110 + rng() * 230) : Math.round(150 + rng() * 340);
+      prevTime = Math.min(durationMs, prevTime + gap);
+      finishTimesMs[uid] = prevTime;
+    }
+  });
+  const finishOrder = [...laneUids].sort((a, b) => finishTimesMs[a] - finishTimesMs[b]);
+  const speedProfiles = {};
+  for (const uid of laneUids) {
+    const rankIdx = finishOrder.indexOf(uid);
+    const archetype = rng();
+    const weights = [];
+    for (let seg = 0; seg < RACE_CHECKPOINTS; seg++) {
+      const frac = seg / (RACE_CHECKPOINTS - 1);
+      let base = 1;
+      if (archetype < 0.33) {
+        base = 1.22 - frac * 0.34;
+      } else if (archetype < 0.66) {
+        base = 0.88 + Math.sin(frac * Math.PI) * 0.36;
+      } else {
+        base = 0.78 + Math.pow(frac, 1.8) * 0.58;
+      }
+      if (rankIdx <= 2 && seg >= 8) {
+        base += 0.14 + rng() * 0.12;
+      }
+      const noise = 0.76 + rng() * 0.48;
+      weights.push(Math.max(0.35, base * noise));
+    }
+    const sum = weights.reduce((a, b) => a + b, 0);
+    let acc = 0;
+    const cumulative = [];
+    for (let i = 0; i < RACE_CHECKPOINTS; i++) {
+      acc += weights[i] / sum;
+      cumulative.push(i === RACE_CHECKPOINTS - 1 ? 1 : Number(acc.toFixed(4)));
+    }
+    speedProfiles[uid] = cumulative;
+  }
+  return { finishOrder, finishTimesMs, speedProfiles };
+}
+function getRoundLabel(totalRacersInRound, heatCount, heatIndex) {
+  if (heatCount === 1) return "Chung K\u1EBFt";
+  if (heatCount === 2) return `B\xE1n K\u1EBFt \u2014 L\u01B0\u1EE3t ${heatIndex + 1}`;
+  if (heatCount === 4 && totalRacersInRound >= 16) return `V\xF2ng Lo\u1EA1i \u2014 B\u1EA3ng ${heatIndex + 1}`;
+  return `V\xF2ng Lo\u1EA1i \u2014 L\u01B0\u1EE3t ${heatIndex + 1}`;
+}
+function buildInitialRaceHeats(participantUids, racersPerHeat, seed, durationMs = 14e3) {
+  const unique = Array.from(new Set(participantUids));
+  if (unique.length < 2) {
+    throw new Error("C\u1EA7n \xEDt nh\u1EA5t 2 ng\u01B0\u1EDDi tham gia \u0111\u1EC3 b\u1EAFt \u0111\u1EA7u v\xF2ng \u0111ua.");
+  }
+  const perHeat = Math.max(2, Math.min(8, Math.trunc(racersPerHeat) || 4));
+  const shuffled = seededShuffle(unique, seed);
+  if (shuffled.length <= perHeat) {
+    return [
+      {
+        heatId: "r0_h0",
+        roundIndex: 0,
+        roundName: "Chung K\u1EBFt",
+        heatIndex: 0,
+        isFinal: true,
+        status: "pending",
+        laneUids: shuffled,
+        advanceCount: Math.min(3, shuffled.length),
+        seed: seed + 101,
+        startAtMs: null,
+        durationMs,
+        finishOrder: [],
+        finishTimesMs: {},
+        speedProfiles: {}
+      }
+    ];
+  }
+  const heatCount = Math.ceil(shuffled.length / perHeat);
+  const heats = [];
+  const baseSize = Math.floor(shuffled.length / heatCount);
+  const remainder = shuffled.length % heatCount;
+  const advancePerHeat = Math.max(
+    1,
+    Math.min(
+      Math.floor(baseSize / 2),
+      perHeat >= 8 && heatCount === 2 ? 4 : 2
+    )
+  );
+  let cursor = 0;
+  for (let h = 0; h < heatCount; h++) {
+    const size = baseSize + (h < remainder ? 1 : 0);
+    const laneUids = shuffled.slice(cursor, cursor + size);
+    cursor += size;
+    heats.push({
+      heatId: `r0_h${h}`,
+      roundIndex: 0,
+      roundName: getRoundLabel(shuffled.length, heatCount, h),
+      heatIndex: h,
+      isFinal: false,
+      status: "pending",
+      laneUids,
+      advanceCount: Math.min(advancePerHeat, Math.max(1, laneUids.length - 1)),
+      seed: seed + (h + 1) * 131,
+      startAtMs: null,
+      durationMs,
+      finishOrder: [],
+      finishTimesMs: {},
+      speedProfiles: {}
+    });
+  }
+  return heats;
+}
+function advanceRaceTournamentIfReady(heats, racersPerHeat, seed, durationMs = 14e3) {
+  if (heats.length === 0) {
+    return { heats, tournamentFinished: false, podiumUids: [] };
+  }
+  const maxRound = Math.max(...heats.map((h) => h.roundIndex));
+  const currentRoundHeats = heats.filter((h) => h.roundIndex === maxRound).sort((a, b) => a.heatIndex - b.heatIndex);
+  const allCompleted = currentRoundHeats.every((h) => h.status === "completed");
+  if (!allCompleted) {
+    return { heats, tournamentFinished: false, podiumUids: [] };
+  }
+  if (currentRoundHeats.length === 1 && currentRoundHeats[0].isFinal) {
+    const podiumUids = currentRoundHeats[0].finishOrder.slice(0, 3);
+    return { heats, tournamentFinished: true, podiumUids };
+  }
+  const qualifiers = [];
+  for (const h of currentRoundHeats) {
+    qualifiers.push(...h.finishOrder.slice(0, h.advanceCount));
+  }
+  const nextRound = maxRound + 1;
+  const perHeat = Math.max(2, Math.min(8, Math.trunc(racersPerHeat) || 4));
+  const nextHeats = [];
+  if (qualifiers.length <= perHeat) {
+    nextHeats.push({
+      heatId: `r${nextRound}_h0`,
+      roundIndex: nextRound,
+      roundName: "Chung K\u1EBFt",
+      heatIndex: 0,
+      isFinal: true,
+      status: "pending",
+      laneUids: qualifiers,
+      advanceCount: Math.min(3, qualifiers.length),
+      seed: seed + nextRound * 997,
+      startAtMs: null,
+      durationMs,
+      finishOrder: [],
+      finishTimesMs: {},
+      speedProfiles: {}
+    });
+  } else {
+    const heatCount = Math.ceil(qualifiers.length / perHeat);
+    const baseSize = Math.floor(qualifiers.length / heatCount);
+    const remainder = qualifiers.length % heatCount;
+    const advancePerHeat = Math.max(
+      1,
+      Math.min(
+        Math.floor(baseSize / 2),
+        perHeat >= 8 && heatCount === 2 ? 4 : 2
+      )
+    );
+    let cursor = 0;
+    for (let h = 0; h < heatCount; h++) {
+      const size = baseSize + (h < remainder ? 1 : 0);
+      const laneUids = qualifiers.slice(cursor, cursor + size);
+      cursor += size;
+      nextHeats.push({
+        heatId: `r${nextRound}_h${h}`,
+        roundIndex: nextRound,
+        roundName: getRoundLabel(qualifiers.length, heatCount, h),
+        heatIndex: h,
+        isFinal: false,
+        status: "pending",
+        laneUids,
+        advanceCount: Math.min(advancePerHeat, Math.max(1, laneUids.length - 1)),
+        seed: seed + nextRound * 997 + (h + 1) * 53,
+        startAtMs: null,
+        durationMs,
+        finishOrder: [],
+        finishTimesMs: {},
+        speedProfiles: {}
+      });
+    }
+  }
+  return {
+    heats: [...heats, ...nextHeats],
+    tournamentFinished: false,
+    podiumUids: []
+  };
+}
+
+// src/services/minigame/gameLogic.ts
+var BAU_CUA_FACES = [
+  { id: "bau", label: "B\u1EA7u", emoji: "\u{1F350}", color: "from-emerald-500 to-green-600" },
+  { id: "cua", label: "Cua", emoji: "\u{1F980}", color: "from-rose-500 to-red-600" },
+  { id: "tom", label: "T\xF4m", emoji: "\u{1F990}", color: "from-orange-500 to-amber-600" },
+  { id: "ca", label: "C\xE1", emoji: "\u{1F41F}", color: "from-sky-500 to-blue-600" },
+  { id: "ga", label: "G\xE0", emoji: "\u{1F413}", color: "from-yellow-500 to-amber-500" },
+  { id: "nai", label: "Nai", emoji: "\u{1F98C}", color: "from-violet-500 to-purple-600" }
+];
+function findPrizeForRank(prizes, rank) {
+  return prizes.find((p) => p.rank === rank) || prizes.find((p) => p.rank === 0) || null;
+}
+function buildRaceWinners(podiumUids, participants, prizes, finalFinishTimesMs) {
+  const winners = [];
+  podiumUids.slice(0, 3).forEach((uid, idx) => {
+    const rank = idx + 1;
+    const p = participants[uid];
+    if (!p) return;
+    const prize = findPrizeForRank(prizes, rank);
+    if (!prize) return;
+    const timeSec = finalFinishTimesMs[uid] ? `${(finalFinishTimesMs[uid] / 1e3).toFixed(2)}s` : "";
+    winners.push({
+      uid,
+      displayName: p.displayName,
+      isBot: Boolean(p.isBot),
+      rank,
+      prizeLabel: prize.label || `Gi\u1EA3i ${rank === 1 ? "Nh\u1EA5t" : rank === 2 ? "Nh\xEC" : "Ba"}`,
+      prizeType: prize.type,
+      amountVnd: prize.amountVnd,
+      voucherCode: prize.voucherCode,
+      customTitle: prize.customTitle,
+      matchDetail: `V\u1EC1 \u0111\xEDch h\u1EA1ng #${rank}${timeSec ? ` (${timeSec})` : ""}`,
+      distributed: false,
+      distributedAt: null,
+      walletTransactionId: null
+    });
+  });
+  return winners;
+}
+function evaluateTaiXiuWinners(dice, participants, prizes, revealedAtMs) {
+  const sum = dice[0] + dice[1] + dice[2];
+  const outcome = sum >= 11 ? "tai" : "xiu";
+  const result = {
+    revealedAtMs,
+    dice,
+    diceSum: sum,
+    taiXiuOutcome: outcome
+  };
+  const prize = findPrizeForRank(prizes, 0) || findPrizeForRank(prizes, 1);
+  if (!prize) return { result, winners: [] };
+  const matched = Object.values(participants).filter((p) => p.prediction === outcome).sort((a, b) => a.joinedAt - b.joinedAt);
+  const winners = matched.map((p) => ({
+    uid: p.uid,
+    displayName: p.displayName,
+    isBot: Boolean(p.isBot),
+    rank: 0,
+    prizeLabel: prize.label || "Ng\u01B0\u1EDDi d\u1EF1 \u0111o\xE1n \u0111\xFAng",
+    prizeType: prize.type,
+    amountVnd: prize.amountVnd,
+    voucherCode: prize.voucherCode,
+    customTitle: prize.customTitle,
+    matchDetail: `\u0110o\xE1n \u0111\xFAng ${outcome === "tai" ? "T\xC0I" : "X\u1EC8U"} (T\u1ED5ng ${sum})`,
+    distributed: false,
+    distributedAt: null,
+    walletTransactionId: null
+  }));
+  return { result, winners };
+}
+function evaluateBauCuaWinners(faces, participants, prizes, revealedAtMs) {
+  const result = {
+    revealedAtMs,
+    bauCuaFaces: faces
+  };
+  const prize = findPrizeForRank(prizes, 0) || findPrizeForRank(prizes, 1);
+  if (!prize) return { result, winners: [] };
+  const faceLabel = (f) => BAU_CUA_FACES.find((x) => x.id === f)?.label || f;
+  const matched = Object.values(participants).map((p) => {
+    const count = faces.filter((f) => f === p.prediction).length;
+    return { p, count };
+  }).filter((item) => item.count > 0).sort((a, b) => b.count - a.count || a.p.joinedAt - b.p.joinedAt);
+  const winners = matched.map(({ p, count }) => ({
+    uid: p.uid,
+    displayName: p.displayName,
+    isBot: Boolean(p.isBot),
+    rank: 0,
+    prizeLabel: prize.label || "Tr\xFAng B\u1EA7u Cua",
+    prizeType: prize.type,
+    amountVnd: prize.amountVnd,
+    voucherCode: prize.voucherCode,
+    customTitle: prize.customTitle,
+    matchDetail: `Tr\xFAng ${faceLabel(p.prediction || "")} (x${count} vi\xEAn)`,
+    distributed: false,
+    distributedAt: null,
+    walletTransactionId: null
+  }));
+  return { result, winners };
+}
+function evaluateLuckyNumberWinners(luckyNumber, participants, prizes, revealedAtMs) {
+  const cleanTarget = Math.max(0, Math.min(99, Math.trunc(luckyNumber)));
+  const result = {
+    revealedAtMs,
+    luckyNumber: cleanTarget
+  };
+  const exactMatches = Object.values(participants).filter((p) => {
+    if (p.prediction === void 0 || !/^\d{1,2}$/.test(p.prediction)) return false;
+    return Number(p.prediction) === cleanTarget;
+  }).sort((a, b) => a.joinedAt - b.joinedAt);
+  const targetFormatted = String(cleanTarget).padStart(2, "0");
+  const winners = [];
+  const collectivePrize = prizes.find((pr) => pr.rank === 0) || null;
+  const fallbackPrize = collectivePrize || prizes[prizes.length - 1] || null;
+  exactMatches.forEach((p, idx) => {
+    const rank = collectivePrize ? 0 : idx + 1;
+    const prize = findPrizeForRank(prizes, rank) || fallbackPrize;
+    if (!prize) return;
+    winners.push({
+      uid: p.uid,
+      displayName: p.displayName,
+      isBot: Boolean(p.isBot),
+      rank: collectivePrize ? 0 : rank,
+      prizeLabel: prize.label || (collectivePrize ? "Tr\xFAng S\u1ED1 May M\u1EAFn" : `Tr\xFAng S\u1ED1 May M\u1EAFn (#${idx + 1})`),
+      prizeType: prize.type,
+      amountVnd: prize.amountVnd,
+      voucherCode: prize.voucherCode,
+      customTitle: prize.customTitle,
+      matchDetail: `\u0110o\xE1n tr\xFAng ch\xEDnh x\xE1c s\u1ED1 ${targetFormatted}!`,
+      distributed: false,
+      distributedAt: null,
+      walletTransactionId: null
+    });
+  });
+  return { result, winners };
+}
+
+// server/services/minigameService.ts
+var COL_MINIGAMES = "minigame_events";
+var BOT_NAMES = [
+  "Ng\u1EF1a Chi\u1EBFn \u0110\u1ECF",
+  "Tia Ch\u1EDBp V\xE0ng",
+  "B\xE3o T\u1ED1 Xanh",
+  "Sao B\u0103ng",
+  "H\u1ECFa Long",
+  "B\u1EA1ch M\xE3",
+  "H\u1EAFc Long",
+  "Phong Th\u1EA7n",
+  "L\xF4i V\u0169",
+  "Th\u1EA7n T\u1ED1c",
+  "Si\xEAu Ong M\u1EADt",
+  "Ho\xE0ng Kim",
+  "B\u1EA1ch H\u1ED5",
+  "Thanh Long",
+  "Chu T\u01B0\u1EDBc",
+  "Huy\u1EC1n V\u0169",
+  "Minh Kh\xF4i",
+  "Gia Huy",
+  "Kh\xE1nh Linh",
+  "Th\u1EA3o Vy",
+  "Anh Tu\u1EA5n",
+  "B\u1EA3o Ng\u1ECDc",
+  "\u0110\u1EE9c Anh",
+  "H\u1EA3i \u0110\u0103ng",
+  "Lan Anh",
+  "Qu\u1ED1c B\u1EA3o",
+  "Thanh Tr\xFAc",
+  "Nh\u1EADt Minh",
+  "Ph\u01B0\u01A1ng Nhi",
+  "Tu\u1EA5n Ki\u1EC7t",
+  "M\u1EF9 Duy\xEAn",
+  "V\u0103n Ki\xEAn"
+];
+var prizeSchema = z3.object({
+  rank: z3.number().int().min(0).max(10),
+  label: z3.string().trim().min(1).max(120),
+  type: z3.enum(["wallet_vnd", "voucher", "custom_gift"]),
+  amountVnd: z3.number().int().min(0).max(5e7).optional(),
+  voucherCode: z3.string().trim().max(80).optional(),
+  customTitle: z3.string().trim().max(200).optional()
+});
+var createMinigameSchema = z3.object({
+  title: z3.string().trim().min(2, "Vui l\xF2ng nh\u1EADp t\xEAn s\u1EF1 ki\u1EC7n minigame.").max(160),
+  description: z3.string().trim().max(1e3).optional().default(""),
+  gameType: z3.enum(["horse_race", "bee_race", "tai_xiu", "bau_cua", "lucky_number"]),
+  maxParticipants: z3.number().int().min(2).max(200).default(8),
+  racersPerHeat: z3.number().int().min(2).max(8).optional().default(4),
+  prizes: z3.array(prizeSchema).min(1, "Vui l\xF2ng c\u1EA5u h\xECnh \xEDt nh\u1EA5t 1 gi\u1EA3i th\u01B0\u1EDFng ph\xFAc l\u1EE3i.").max(10)
+});
+var joinMinigameSchema = z3.object({
+  prediction: z3.string().trim().max(32).optional(),
+  avatarUrl: z3.string().trim().max(1024).optional()
+});
+async function listEventsRaw() {
+  if (adminDb) {
+    const snap = await adminDb.collection(COL_MINIGAMES).get();
+    return snap.docs.map((d) => ({ id: d.id, ...d.data() }));
+  }
+  const docs = await getFirestoreRestDocs(COL_MINIGAMES, 200, false);
+  return docs;
+}
+async function getEventRaw(id) {
+  if (adminDb) {
+    const snap = await adminDb.collection(COL_MINIGAMES).doc(id).get();
+    return snap.exists ? { id: snap.id, ...snap.data() } : null;
+  }
+  const doc = await getFirestoreRestDoc(COL_MINIGAMES, id, false);
+  return doc ? { id, ...doc } : null;
+}
+async function saveEventRaw(event) {
+  if (adminDb) {
+    await adminDb.collection(COL_MINIGAMES).doc(event.id).set(event, { merge: false });
+  } else {
+    await setFirestoreRestDoc(COL_MINIGAMES, event.id, event);
+  }
+}
+async function deleteEventRaw(id) {
+  if (adminDb) {
+    await adminDb.collection(COL_MINIGAMES).doc(id).delete();
+  } else {
+    await deleteFirestoreRestDoc(COL_MINIGAMES, id);
+  }
+}
+function makeEventCode() {
+  const chars = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
+  let code = "MG";
+  for (let i = 0; i < 6; i++) {
+    code += chars[crypto2.randomInt(0, chars.length)];
+  }
+  return code;
+}
+function makeId(prefix) {
+  return `${prefix}_${Date.now().toString(36)}_${crypto2.randomBytes(3).toString("hex")}`;
+}
+function isRaceGame(type) {
+  return type === "horse_race" || type === "bee_race";
+}
+async function listMinigameEvents() {
+  const all = await listEventsRaw();
+  return all.sort((a, b) => {
+    const priority = (s) => s === "running" ? 0 : s === "lobby" ? 1 : s === "finished" ? 2 : 3;
+    const diff = priority(a.status) - priority(b.status);
+    if (diff !== 0) return diff;
+    return (b.createdAt || "").localeCompare(a.createdAt || "");
+  });
+}
+async function getMinigameEvent(idOrCode) {
+  const clean = idOrCode.trim();
+  const direct = await getEventRaw(clean);
+  if (direct) return direct;
+  const all = await listEventsRaw();
+  const byCode = all.find((e) => e.eventCode.toUpperCase() === clean.toUpperCase());
+  if (!byCode) {
+    const err = new Error("Kh\xF4ng t\xECm th\u1EA5y s\u1EF1 ki\u1EC7n Minigame n\xE0y.");
+    err.statusCode = 404;
+    throw err;
+  }
+  return byCode;
+}
+async function createMinigameEvent(rawInput, actor) {
+  const data = createMinigameSchema.parse(rawInput);
+  let maxParticipants = data.maxParticipants;
+  let racersPerHeat = data.racersPerHeat;
+  if (isRaceGame(data.gameType)) {
+    if (![4, 8, 16, 32].includes(maxParticipants)) {
+      maxParticipants = 8;
+    }
+    racersPerHeat = racersPerHeat >= 8 ? 8 : 4;
+    if (racersPerHeat > maxParticipants) racersPerHeat = maxParticipants;
+  }
+  const now = (/* @__PURE__ */ new Date()).toISOString();
+  const id = makeId("mg");
+  const event = {
+    id,
+    eventCode: makeEventCode(),
+    title: data.title,
+    description: data.description,
+    gameType: data.gameType,
+    status: "lobby",
+    entryFeeVnd: 0,
+    // Strictly free welfare event!
+    maxParticipants,
+    racersPerHeat,
+    prizes: data.prizes,
+    participants: {},
+    heats: [],
+    activeHeatId: null,
+    partyResult: null,
+    winners: [],
+    prizesDistributedAt: null,
+    createdByUid: actor.uid,
+    createdByName: actor.displayName || "Qu\u1EA3n tr\u1ECB vi\xEAn",
+    createdAt: now,
+    updatedAt: now
+  };
+  await saveEventRaw(event);
+  await publishDeviceNotification({
+    recipientUid: "all",
+    type: "minigame_event",
+    title: `\u{1F389} Minigame m\u1EDBi: ${event.title}`,
+    message: `Tham gia MI\u1EC4N PH\xCD 100% \u2014 nh\u1EADn qu\xE0 ph\xFAc l\u1EE3i tr\u1EF1c ti\u1EBFp t\u1EEB Admin! (${event.eventCode})`,
+    route: `/student/minigame/${event.id}`,
+    actorName: event.createdByName
+  });
+  return event;
+}
+async function fillMinigameWithBots(eventId, options) {
+  const event = await getMinigameEvent(eventId);
+  if (event.status !== "lobby") {
+    throw new Error("Ch\u1EC9 c\xF3 th\u1EC3 th\xEAm Bot \u1EA3o khi ph\xF2ng \u0111ang \u1EDF tr\u1EA1ng th\xE1i ch\u1EDD \u0111\u0103ng k\xFD.");
+  }
+  const participants = options?.clearFirst ? Object.fromEntries(
+    Object.entries(event.participants || {}).filter(([, p]) => !p.isBot)
+  ) : { ...event.participants || {} };
+  const currentCount = Object.keys(participants).length;
+  const remaining = Math.max(0, event.maxParticipants - currentCount);
+  const toAdd = typeof options?.count === "number" && options.count > 0 ? Math.min(remaining, Math.trunc(options.count)) : remaining;
+  if (toAdd <= 0) {
+    return event;
+  }
+  const allFaces = BAU_CUA_FACES.map((f) => f.id);
+  const baseNow = Date.now();
+  for (let i = 0; i < toAdd; i++) {
+    const idx = currentCount + i;
+    const botUid = `bot_${event.id.slice(-5)}_${idx + 1}_${crypto2.randomBytes(2).toString("hex")}`;
+    const botName = `\u{1F916} ${BOT_NAMES[idx % BOT_NAMES.length]} #${idx + 1}`;
+    let prediction;
+    if (event.gameType === "tai_xiu") {
+      prediction = crypto2.randomInt(0, 2) === 0 ? "tai" : "xiu";
+    } else if (event.gameType === "bau_cua") {
+      prediction = allFaces[crypto2.randomInt(0, allFaces.length)];
+    } else if (event.gameType === "lucky_number") {
+      prediction = String(crypto2.randomInt(0, 100)).padStart(2, "0");
+    }
+    participants[botUid] = {
+      uid: botUid,
+      displayName: botName,
+      joinedAt: baseNow + i * 25,
+      isBot: true,
+      ...prediction !== void 0 ? { prediction } : {},
+      racerColor: RACER_PALETTE[idx % RACER_PALETTE.length],
+      racerNumber: idx + 1
+    };
+  }
+  const updated = {
+    ...event,
+    participants,
+    updatedAt: (/* @__PURE__ */ new Date()).toISOString()
+  };
+  await saveEventRaw(updated);
+  return updated;
+}
+async function clearMinigameBots(eventId) {
+  const event = await getMinigameEvent(eventId);
+  if (event.status !== "lobby") {
+    throw new Error("Ch\u1EC9 c\xF3 th\u1EC3 x\xF3a Bot \u1EA3o khi ph\xF2ng \u0111ang \u1EDF tr\u1EA1ng th\xE1i ch\u1EDD.");
+  }
+  const realOnly = Object.fromEntries(
+    Object.entries(event.participants || {}).filter(([, p]) => !p.isBot)
+  );
+  const updated = {
+    ...event,
+    participants: realOnly,
+    updatedAt: (/* @__PURE__ */ new Date()).toISOString()
+  };
+  await saveEventRaw(updated);
+  return updated;
+}
+async function resetMinigameForDemo(eventId) {
+  const event = await getMinigameEvent(eventId);
+  const hasRealPaidWinners = (event.winners || []).some(
+    (w) => !w.isBot && w.distributed && w.prizeType === "wallet_vnd"
+  );
+  if (hasRealPaidWinners) {
+    throw new Error("Kh\xF4ng th\u1EC3 \u0111\u1EB7t l\u1EA1i s\u1EF1 ki\u1EC7n \u0111\xE3 c\u1ED9ng th\u01B0\u1EDFng ti\u1EC1n th\u1EADt cho h\u1ECDc sinh.");
+  }
+  const updated = {
+    ...event,
+    status: "lobby",
+    heats: [],
+    activeHeatId: null,
+    partyResult: null,
+    winners: [],
+    prizesDistributedAt: null,
+    updatedAt: (/* @__PURE__ */ new Date()).toISOString()
+  };
+  await saveEventRaw(updated);
+  return updated;
+}
+async function startMinigameEvent(eventId) {
+  const event = await getMinigameEvent(eventId);
+  if (event.status !== "lobby") {
+    throw new Error("S\u1EF1 ki\u1EC7n kh\xF4ng \u1EDF tr\u1EA1ng th\xE1i m\u1EDF \u0111\u0103ng k\xFD.");
+  }
+  const participantUids = Object.keys(event.participants || {});
+  if (isRaceGame(event.gameType)) {
+    if (participantUids.length < 2) {
+      throw new Error("C\u1EA7n \xEDt nh\u1EA5t 2 ng\u01B0\u1EDDi ch\u01A1i \u0111\u0103ng k\xFD \u0111\u1EC3 m\u1EDF \u0111\u01B0\u1EDDng \u0111ua.");
+    }
+    const seed = crypto2.randomInt(1e5, 999999999);
+    const heats = buildInitialRaceHeats(participantUids, event.racersPerHeat, seed, 14e3);
+    const updated2 = {
+      ...event,
+      status: "running",
+      heats,
+      activeHeatId: heats[0]?.heatId || null,
+      updatedAt: (/* @__PURE__ */ new Date()).toISOString()
+    };
+    await saveEventRaw(updated2);
+    return updated2;
+  }
+  if (participantUids.length < 1) {
+    throw new Error("C\u1EA7n \xEDt nh\u1EA5t 1 ng\u01B0\u1EDDi ch\u01A1i tham gia tr\u01B0\u1EDBc khi quay th\u01B0\u1EDFng.");
+  }
+  const revealedAtMs = Date.now() + 3600;
+  let partyResult = event.partyResult;
+  let winners = event.winners;
+  if (event.gameType === "tai_xiu") {
+    const dice = [
+      crypto2.randomInt(1, 7),
+      crypto2.randomInt(1, 7),
+      crypto2.randomInt(1, 7)
+    ];
+    const evalRes = evaluateTaiXiuWinners(dice, event.participants, event.prizes, revealedAtMs);
+    partyResult = evalRes.result;
+    winners = evalRes.winners;
+  } else if (event.gameType === "bau_cua") {
+    const allFaces = BAU_CUA_FACES.map((f) => f.id);
+    const faces = [
+      allFaces[crypto2.randomInt(0, allFaces.length)],
+      allFaces[crypto2.randomInt(0, allFaces.length)],
+      allFaces[crypto2.randomInt(0, allFaces.length)]
+    ];
+    const evalRes = evaluateBauCuaWinners(faces, event.participants, event.prizes, revealedAtMs);
+    partyResult = evalRes.result;
+    winners = evalRes.winners;
+  } else if (event.gameType === "lucky_number") {
+    const winningNum = crypto2.randomInt(0, 100);
+    const evalRes = evaluateLuckyNumberWinners(
+      winningNum,
+      event.participants,
+      event.prizes,
+      revealedAtMs
+    );
+    partyResult = evalRes.result;
+    winners = evalRes.winners;
+  }
+  const updated = {
+    ...event,
+    status: "finished",
+    partyResult,
+    winners,
+    updatedAt: (/* @__PURE__ */ new Date()).toISOString()
+  };
+  await saveEventRaw(updated);
+  return updated;
+}
+async function launchRaceHeat(eventId, heatId) {
+  const event = await getMinigameEvent(eventId);
+  if (!isRaceGame(event.gameType) || event.status !== "running") {
+    throw new Error("S\u1EF1 ki\u1EC7n \u0111ua hi\u1EC7n kh\xF4ng \u1EDF tr\u1EA1ng th\xE1i \u0111ang di\u1EC5n ra.");
+  }
+  const targetId = heatId || event.heats.find((h) => h.status === "pending")?.heatId || event.activeHeatId;
+  const heatIdx = event.heats.findIndex((h) => h.heatId === targetId);
+  if (heatIdx < 0) {
+    throw new Error("Kh\xF4ng t\xECm th\u1EA5y l\u01B0\u1EE3t \u0111ua c\u1EA7n xu\u1EA5t ph\xE1t.");
+  }
+  const targetHeat = event.heats[heatIdx];
+  if (targetHeat.status === "racing" || targetHeat.status === "completed") {
+    return event;
+  }
+  const freshSeed = crypto2.randomInt(1e5, 999999999);
+  const durationMs = targetHeat.durationMs || 14e3;
+  const sim = simulateRaceHeat(targetHeat.laneUids, freshSeed, durationMs);
+  const startAtMs = Date.now() + 3e3;
+  const updatedHeat = {
+    ...targetHeat,
+    status: "racing",
+    seed: freshSeed,
+    startAtMs,
+    durationMs,
+    finishOrder: sim.finishOrder,
+    finishTimesMs: sim.finishTimesMs,
+    speedProfiles: sim.speedProfiles
+  };
+  const nextHeats = [...event.heats];
+  nextHeats[heatIdx] = updatedHeat;
+  const updated = {
+    ...event,
+    heats: nextHeats,
+    activeHeatId: updatedHeat.heatId,
+    updatedAt: (/* @__PURE__ */ new Date()).toISOString()
+  };
+  await saveEventRaw(updated);
+  return updated;
+}
+async function completeRaceHeat(eventId, heatId) {
+  const event = await getMinigameEvent(eventId);
+  if (!isRaceGame(event.gameType) || event.status !== "running") {
+    return event;
+  }
+  const targetId = heatId || event.activeHeatId;
+  const heatIdx = event.heats.findIndex((h) => h.heatId === targetId);
+  if (heatIdx < 0) throw new Error("Kh\xF4ng t\xECm th\u1EA5y l\u01B0\u1EE3t \u0111ua c\u1EA7n ch\u1ED1t.");
+  const currentHeat = event.heats[heatIdx];
+  if (currentHeat.status === "completed") {
+    return event;
+  }
+  if (currentHeat.status === "pending") {
+    return event;
+  }
+  const heatsCopy = [...event.heats];
+  heatsCopy[heatIdx] = {
+    ...currentHeat,
+    status: "completed"
+  };
+  const seed = crypto2.randomInt(1e5, 999999999);
+  const advanced = advanceRaceTournamentIfReady(
+    heatsCopy,
+    event.racersPerHeat,
+    seed,
+    currentHeat.durationMs || 14e3
+  );
+  let status = event.status;
+  let winners = event.winners;
+  let nextActiveHeatId = advanced.heats.find((h) => h.status === "pending")?.heatId || currentHeat.heatId;
+  if (advanced.tournamentFinished) {
+    status = "finished";
+    const finalHeat = advanced.heats.find((h) => h.isFinal);
+    winners = buildRaceWinners(
+      advanced.podiumUids,
+      event.participants,
+      event.prizes,
+      finalHeat?.finishTimesMs || {}
+    );
+    nextActiveHeatId = finalHeat?.heatId || currentHeat.heatId;
+  }
+  const updated = {
+    ...event,
+    status,
+    heats: advanced.heats,
+    activeHeatId: nextActiveHeatId,
+    winners,
+    updatedAt: (/* @__PURE__ */ new Date()).toISOString()
+  };
+  await saveEventRaw(updated);
+  return updated;
+}
+async function distributeMinigamePrizes(eventId, actor) {
+  const event = await getMinigameEvent(eventId);
+  if (event.status !== "finished") {
+    throw new Error("Ch\u1EC9 c\xF3 th\u1EC3 trao th\u01B0\u1EDFng khi s\u1EF1 ki\u1EC7n \u0111\xE3 k\u1EBFt th\xFAc v\xE0 c\xF3 danh s\xE1ch th\u1EAFng gi\u1EA3i.");
+  }
+  const now = (/* @__PURE__ */ new Date()).toISOString();
+  let creditedCount = 0;
+  let totalCreditedVnd = 0;
+  const updatedWinners = [...event.winners || []];
+  for (let i = 0; i < updatedWinners.length; i++) {
+    const w = updatedWinners[i];
+    if (w.distributed) continue;
+    if (w.isBot || w.uid.startsWith("bot_")) {
+      updatedWinners[i] = {
+        ...w,
+        isBot: true,
+        distributed: true,
+        distributedAt: now,
+        matchDetail: `${w.matchDetail || ""} (Bot th\u1EED nghi\u1EC7m \u2014 kh\xF4ng c\u1ED9ng ti\u1EC1n th\u1EADt)`.trim()
+      };
+      continue;
+    }
+    if (w.prizeType === "wallet_vnd" && (w.amountVnd || 0) > 0) {
+      const rewardVnd = sanitizeVnd(w.amountVnd);
+      const walletTxId = `wtx_mg_${event.id}_${w.uid}_${w.rank}`.replace(/[^a-zA-Z0-9_-]/g, "_").slice(0, 100);
+      const initialWallet = await getOrCreateWallet(w.uid, { fullName: w.displayName });
+      if (adminDb) {
+        await adminDb.runTransaction(async (tx) => {
+          const txRef = adminDb.collection("wallet_transactions").doc(walletTxId);
+          const existingTx = await tx.get(txRef);
+          if (existingTx.exists) return;
+          const walletRef = adminDb.collection("wallets").doc(w.uid);
+          const walletSnap = await tx.get(walletRef);
+          const currentWallet = walletSnap.exists ? walletSnap.data() : initialWallet;
+          const before = sanitizeVnd(currentWallet.balanceVnd);
+          const after = before + rewardVnd;
+          tx.set(
+            walletRef,
+            {
+              ...currentWallet,
+              uid: w.uid,
+              balanceVnd: after,
+              totalCreditedVnd: sanitizeVnd(currentWallet.totalCreditedVnd) + rewardVnd,
+              updatedAt: now
+            },
+            { merge: true }
+          );
+          const walletTx = {
+            id: walletTxId,
+            uid: w.uid,
+            type: "minigame_reward_credit",
+            amountVnd: rewardVnd,
+            balanceBeforeVnd: before,
+            balanceAfterVnd: after,
+            studentNameSnapshot: currentWallet.fullName || w.displayName,
+            studentClassSnapshot: currentWallet.currentClass || "",
+            idempotencyKey: walletTxId,
+            actorUid: actor.uid,
+            actorName: actor.displayName || "Admin",
+            note: `Th\u01B0\u1EDFng Minigame "${event.title}" \u2014 ${w.prizeLabel}`,
+            description: `Th\u01B0\u1EDFng Minigame "${event.title}" \u2014 ${w.prizeLabel}`,
+            createdAt: now,
+            metadata: {
+              minigameEventId: event.id,
+              minigameCode: event.eventCode,
+              rank: w.rank
+            }
+          };
+          tx.set(txRef, walletTx);
+        });
+      } else {
+        const existingTx = await getFirestoreRestDoc("wallet_transactions", walletTxId, false);
+        if (!existingTx) {
+          const currentWallet = await getFirestoreRestDoc("wallets", w.uid, false) || initialWallet;
+          const before = sanitizeVnd(currentWallet.balanceVnd);
+          const after = before + rewardVnd;
+          await setFirestoreRestDoc("wallets", w.uid, {
+            ...currentWallet,
+            uid: w.uid,
+            balanceVnd: after,
+            totalCreditedVnd: sanitizeVnd(currentWallet.totalCreditedVnd) + rewardVnd,
+            updatedAt: now
+          });
+          const walletTx = {
+            id: walletTxId,
+            uid: w.uid,
+            type: "minigame_reward_credit",
+            amountVnd: rewardVnd,
+            balanceBeforeVnd: before,
+            balanceAfterVnd: after,
+            studentNameSnapshot: currentWallet.fullName || w.displayName,
+            studentClassSnapshot: currentWallet.currentClass || "",
+            idempotencyKey: walletTxId,
+            actorUid: actor.uid,
+            actorName: actor.displayName || "Admin",
+            note: `Th\u01B0\u1EDFng Minigame "${event.title}" \u2014 ${w.prizeLabel}`,
+            description: `Th\u01B0\u1EDFng Minigame "${event.title}" \u2014 ${w.prizeLabel}`,
+            createdAt: now,
+            metadata: {
+              minigameEventId: event.id,
+              minigameCode: event.eventCode,
+              rank: w.rank
+            }
+          };
+          await setFirestoreRestDoc("wallet_transactions", walletTxId, walletTx);
+        }
+      }
+      updatedWinners[i] = {
+        ...w,
+        distributed: true,
+        distributedAt: now,
+        walletTransactionId: walletTxId
+      };
+      creditedCount++;
+      totalCreditedVnd += rewardVnd;
+      invalidateStudentDetailsCache(w.uid);
+    } else {
+      updatedWinners[i] = {
+        ...w,
+        distributed: true,
+        distributedAt: now
+      };
+      creditedCount++;
+    }
+    await publishDeviceNotification({
+      recipientUid: w.uid,
+      type: "minigame_reward",
+      title: `\u{1F3C6} Ch\xFAc m\u1EEBng tr\xFAng gi\u1EA3i: ${event.title}`,
+      message: w.prizeType === "wallet_vnd" ? `B\u1EA1n v\u1EEBa nh\u1EADn +${(w.amountVnd || 0).toLocaleString("vi-VN")}\u0111 v\xE0o V\xED DkTEST (${w.prizeLabel})!` : w.prizeType === "voucher" ? `B\u1EA1n nh\u1EADn \u0111\u01B0\u1EE3c m\xE3 Voucher ${w.voucherCode || ""} (${w.prizeLabel})!` : `B\u1EA1n nh\u1EADn \u0111\u01B0\u1EE3c ph\u1EA7n qu\xE0: ${w.customTitle || w.prizeLabel}!`,
+      route: `/student/minigame/${event.id}`,
+      actorName: actor.displayName || "DkTEST"
+    });
+  }
+  invalidateWalletOverviewCache();
+  const updated = {
+    ...event,
+    winners: updatedWinners,
+    prizesDistributedAt: now,
+    updatedAt: now
+  };
+  await saveEventRaw(updated);
+  return { event: updated, creditedCount, totalCreditedVnd };
+}
+async function cancelOrDeleteMinigameEvent(eventId, hardDelete = false) {
+  const event = await getMinigameEvent(eventId);
+  if (hardDelete && Object.keys(event.participants || {}).length === 0) {
+    await deleteEventRaw(event.id);
+    return;
+  }
+  await saveEventRaw({
+    ...event,
+    status: "cancelled",
+    updatedAt: (/* @__PURE__ */ new Date()).toISOString()
+  });
+}
+
+// server/routes/minigameAdminRoutes.ts
+var minigameAdminRouter = Router2();
+function formatError2(err) {
+  if (err instanceof ZodError2) {
+    return {
+      status: 400,
+      error: "validation_error",
+      message: err.issues[0]?.message || "D\u1EEF li\u1EC7u s\u1EF1 ki\u1EC7n kh\xF4ng h\u1EE3p l\u1EC7."
+    };
+  }
+  return {
+    status: Number(err?.statusCode) || 400,
+    error: err?.code || "minigame_error",
+    message: err?.message || "\u0110\xE3 c\xF3 l\u1ED7i x\u1EA3y ra."
+  };
+}
+minigameAdminRouter.get("/", async (_req, res) => {
+  try {
+    const events = await listMinigameEvents();
+    return res.json({ success: true, events });
+  } catch (err) {
+    const e = formatError2(err);
+    return res.status(500).json({ error: e.error, message: e.message });
+  }
+});
+minigameAdminRouter.get("/:id", async (req, res) => {
+  try {
+    const event = await getMinigameEvent(req.params.id);
+    return res.json({ success: true, event });
+  } catch (err) {
+    const e = formatError2(err);
+    return res.status(e.status).json({ error: e.error, message: e.message });
+  }
+});
+minigameAdminRouter.post("/", async (req, res) => {
+  try {
+    const event = await createMinigameEvent(req.body, {
+      uid: req.user.uid,
+      displayName: req.user.displayName || req.user.email
+    });
+    return res.status(201).json({ success: true, event });
+  } catch (err) {
+    const e = formatError2(err);
+    return res.status(e.status).json({ error: e.error, message: e.message });
+  }
+});
+minigameAdminRouter.post("/:id/bots/fill", async (req, res) => {
+  try {
+    const count = req.body?.count !== void 0 ? Number(req.body.count) : void 0;
+    const clearFirst = Boolean(req.body?.clearFirst);
+    const event = await fillMinigameWithBots(req.params.id, { count, clearFirst });
+    return res.json({ success: true, event });
+  } catch (err) {
+    const e = formatError2(err);
+    return res.status(e.status).json({ error: e.error, message: e.message });
+  }
+});
+minigameAdminRouter.post("/:id/bots/clear", async (req, res) => {
+  try {
+    const event = await clearMinigameBots(req.params.id);
+    return res.json({ success: true, event });
+  } catch (err) {
+    const e = formatError2(err);
+    return res.status(e.status).json({ error: e.error, message: e.message });
+  }
+});
+minigameAdminRouter.post("/:id/reset-demo", async (req, res) => {
+  try {
+    const event = await resetMinigameForDemo(req.params.id);
+    return res.json({ success: true, event });
+  } catch (err) {
+    const e = formatError2(err);
+    return res.status(e.status).json({ error: e.error, message: e.message });
+  }
+});
+minigameAdminRouter.post("/:id/start", async (req, res) => {
+  try {
+    const event = await startMinigameEvent(req.params.id);
+    return res.json({ success: true, event });
+  } catch (err) {
+    const e = formatError2(err);
+    return res.status(e.status).json({ error: e.error, message: e.message });
+  }
+});
+minigameAdminRouter.post("/:id/heats/launch", async (req, res) => {
+  try {
+    const event = await launchRaceHeat(req.params.id, req.body?.heatId);
+    return res.json({ success: true, event });
+  } catch (err) {
+    const e = formatError2(err);
+    return res.status(e.status).json({ error: e.error, message: e.message });
+  }
+});
+minigameAdminRouter.post("/:id/heats/complete", async (req, res) => {
+  try {
+    const event = await completeRaceHeat(req.params.id, req.body?.heatId);
+    return res.json({ success: true, event });
+  } catch (err) {
+    const e = formatError2(err);
+    return res.status(e.status).json({ error: e.error, message: e.message });
+  }
+});
+minigameAdminRouter.post(
+  "/:id/distribute-prizes",
+  async (req, res) => {
+    try {
+      const result = await distributeMinigamePrizes(req.params.id, {
+        uid: req.user.uid,
+        displayName: req.user.displayName || req.user.email
+      });
+      return res.json({ success: true, ...result });
+    } catch (err) {
+      const e = formatError2(err);
+      return res.status(e.status).json({ error: e.error, message: e.message });
+    }
+  }
+);
+minigameAdminRouter.delete("/:id", async (req, res) => {
+  try {
+    await cancelOrDeleteMinigameEvent(req.params.id, req.query.hard === "true");
+    return res.json({ success: true });
+  } catch (err) {
+    const e = formatError2(err);
+    return res.status(e.status).json({ error: e.error, message: e.message });
+  }
+});
+
 // server/routes/adminRoutes.ts
-var adminRouter = Router();
+var adminRouter = Router3();
 var userListCache = /* @__PURE__ */ new Map();
 function invalidateUserListCache() {
   userListCache.clear();
@@ -5886,6 +8325,27 @@ adminRouter.post("/courses/probe-video", async (req, res) => {
     });
   } catch (err) {
     return res.status(400).json({ error: "probe_video_error", message: err.message || String(err) });
+  }
+});
+adminRouter.use("/ai-shop", aiShopAdminRouter);
+adminRouter.use("/minigames", minigameAdminRouter);
+adminRouter.post("/notifications/broadcast", async (req, res) => {
+  try {
+    const parsed = broadcastNotificationSchema.parse(req.body || {});
+    const item = await publishDeviceNotification({
+      recipientUid: parsed.recipientUid || "all",
+      type: parsed.type,
+      title: parsed.title,
+      message: parsed.message,
+      route: parsed.route,
+      actorName: req.user.displayName || req.user.email || "Admin"
+    });
+    return res.status(201).json({ success: true, notification: item });
+  } catch (err) {
+    return res.status(400).json({
+      error: "broadcast_error",
+      message: err?.issues?.[0]?.message || err?.message || "Kh\xF4ng th\u1EC3 g\u1EEDi th\xF4ng b\xE1o."
+    });
   }
 });
 export {

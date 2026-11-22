@@ -10,6 +10,7 @@ import { ThemeProvider } from './context/ThemeContext';
 import { DebugDiagnostics } from './components/common/DebugDiagnostics';
 import OfflineSyncController from './components/student/OfflineSyncController';
 import AppUpdateController from './components/student/AppUpdateController';
+import NotificationPermissionController from './components/common/NotificationPermissionController';
 
 export default function App() {
   return (
@@ -18,6 +19,7 @@ export default function App() {
         <AuthProvider>
           <OfflineSyncController />
           <AppUpdateController />
+          <NotificationPermissionController />
           <AppRouter />
           <DebugDiagnostics />
         </AuthProvider>

@@ -26,6 +26,8 @@ import {
   PlayCircle,
   Download,
   Smartphone,
+  ShoppingBag,
+  Trophy,
 } from "lucide-react";
 import { getAppVersionMetadata } from "../../services/appLinks";
 import { isCoursePlayerTheaterUrl } from "../../services/courseService";
@@ -221,6 +223,8 @@ function StudentLayoutContent() {
     { to: "/student/escape-room", label: "Phòng Mật Mã", icon: KeyRound, iconColor: "text-purple-500", actionKey: "click_escape_room" },
     { to: "/student/practice", label: "Luyện tập", icon: BrainCircuit, iconColor: "text-blue-500", tourId: TOUR_DATA_IDS.NAV_PRACTICE, actionKey: "click_practice" },
     { to: "/student/ai-tutor", label: "Hỏi Gia sư AI", icon: Sparkles, iconColor: "text-indigo-500", tourId: TOUR_DATA_IDS.NAV_AI, actionKey: "click_ai" },
+    { to: "/student/ai-shop", label: "Mua Acc AI", icon: ShoppingBag, iconColor: "text-blue-600", actionKey: "click_ai_shop" },
+    { to: "/student/minigame", label: "Minigame Phúc Lợi", icon: Trophy, iconColor: "text-amber-500", actionKey: "click_minigame" },
     { to: "/student/community", label: "Cộng đồng", icon: Flame, iconColor: "text-amber-500", tourId: TOUR_DATA_IDS.NAV_COMMUNITY, actionKey: "click_community" },
     { to: "/student/wallet", label: "Ví DkTEST", icon: Wallet, iconColor: "text-emerald-600", actionKey: "click_wallet" },
     { to: "/student/history", label: "Lịch sử bài làm", icon: History, tourId: TOUR_DATA_IDS.NAV_HISTORY, actionKey: "click_history" },
@@ -392,6 +396,10 @@ function StudentLayoutContent() {
                     ? location.pathname === "/" || location.pathname === "/exams" || location.pathname === "/student/online"
                     : item.to === "/student/courses"
                     ? location.pathname.startsWith("/student/courses") || location.pathname.startsWith("/courses")
+                    : item.to === "/student/ai-shop"
+                    ? location.pathname.startsWith("/student/ai-shop") || location.pathname.startsWith("/ai-shop")
+                    : item.to === "/student/minigame"
+                    ? location.pathname.startsWith("/student/minigame") || location.pathname.startsWith("/minigame")
                     : location.pathname === item.to;
                 return (
                   <Link
@@ -690,6 +698,60 @@ function StudentLayoutContent() {
                       </div>
                       <div className="text-[11px] text-slate-500 dark:text-slate-400 truncate">
                         Video bài giảng &amp; học thử miễn phí
+                      </div>
+                    </div>
+                  </Link>
+
+                  {/* 0b. Mua Acc AI tự động */}
+                  <Link
+                    to="/student/ai-shop"
+                    onClick={() => {
+                      setIsBottomMenuOpen(false);
+                      triggerAction("click_ai_shop");
+                    }}
+                    className={`flex items-center gap-3.5 p-3 rounded-2xl border transition-all ${
+                      location.pathname.startsWith("/student/ai-shop") || location.pathname.startsWith("/ai-shop")
+                        ? "bg-blue-50/80 border-blue-300 dark:bg-blue-950/40 dark:border-blue-800 shadow-2xs"
+                        : "bg-slate-50/70 dark:bg-slate-800/40 border-slate-200/80 dark:border-slate-800 hover:bg-blue-50/50"
+                    }`}
+                  >
+                    <div className="w-10 h-10 rounded-xl bg-blue-100 dark:bg-blue-900/50 text-blue-600 dark:text-blue-300 flex items-center justify-center shrink-0 shadow-2xs">
+                      <ShoppingBag className="w-5 h-5" />
+                    </div>
+                    <div className="min-w-0 flex-1">
+                      <div className="text-xs font-bold text-slate-900 dark:text-white flex items-center gap-1.5">
+                        <span>Mua Acc AI</span>
+                        <span className="text-[9px] px-1.5 py-0.5 rounded-full bg-blue-100 dark:bg-blue-900 text-blue-700 dark:text-blue-300 font-bold">Tự động</span>
+                      </div>
+                      <div className="text-[11px] text-slate-500 dark:text-slate-400 truncate">
+                        ChatGPT Plus, Gemini Pro, YouTube Premium...
+                      </div>
+                    </div>
+                  </Link>
+
+                  {/* 0c. Minigame Phúc Lợi */}
+                  <Link
+                    to="/student/minigame"
+                    onClick={() => {
+                      setIsBottomMenuOpen(false);
+                      triggerAction("click_minigame");
+                    }}
+                    className={`flex items-center gap-3.5 p-3 rounded-2xl border transition-all ${
+                      location.pathname.startsWith("/student/minigame") || location.pathname.startsWith("/minigame")
+                        ? "bg-amber-50/80 border-amber-300 dark:bg-amber-950/40 dark:border-amber-800 shadow-2xs"
+                        : "bg-slate-50/70 dark:bg-slate-800/40 border-slate-200/80 dark:border-slate-800 hover:bg-amber-50/50"
+                    }`}
+                  >
+                    <div className="w-10 h-10 rounded-xl bg-amber-100 dark:bg-amber-900/50 text-amber-600 dark:text-amber-300 flex items-center justify-center shrink-0 shadow-2xs">
+                      <Trophy className="w-5 h-5" />
+                    </div>
+                    <div className="min-w-0 flex-1">
+                      <div className="text-xs font-bold text-slate-900 dark:text-white flex items-center gap-1.5">
+                        <span>Minigame Phúc Lợi</span>
+                        <span className="text-[9px] px-1.5 py-0.5 rounded-full bg-emerald-100 dark:bg-emerald-900 text-emerald-700 dark:text-emerald-300 font-bold">0đ</span>
+                      </div>
+                      <div className="text-[11px] text-slate-500 dark:text-slate-400 truncate">
+                        Đua ngựa, đua ong, tài xỉu, bầu cua nhận quà
                       </div>
                     </div>
                   </Link>

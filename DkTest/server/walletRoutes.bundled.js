@@ -6,7 +6,7 @@ var __require = /* @__PURE__ */ ((x) => typeof require !== "undefined" ? require
 });
 
 // server/routes/walletRoutes.ts
-import { Router } from "express";
+import { Router as Router3 } from "express";
 
 // server/firebaseAdmin.ts
 import { createRequire } from "module";
@@ -245,6 +245,41 @@ async function queryFirestoreRestDocs(collectionName, field, value, limitCount =
     return docs;
   } catch (err) {
     console.error(`[Server Firestore QUERY ERROR] Collection: "${collectionName}":`, err);
+    return [];
+  }
+}
+async function getFirestoreRestDocs(collectionName, pageSize = 50, useCache = true, cacheTtlMs = 6e4) {
+  const safePageSize = Math.min(pageSize, 100);
+  const cacheKey = `docs_${collectionName}_${safePageSize}`;
+  const now = Date.now();
+  const shouldCache = useCache && !UNCACHED_COLLECTIONS.has(collectionName);
+  if (shouldCache) {
+    const cached = serverRestCache.get(cacheKey);
+    if (cached && cached.expiresAt > now) {
+      console.log(`[Server Firestore CACHE_HIT: 0 reads] Collection: "${collectionName}" | Cached docs: ${cached.data.length} | TTL: ${Math.round((cached.expiresAt - now) / 1e3)}s`);
+      return cached.data;
+    }
+  }
+  const apiKey = getFirebaseApiKey();
+  const projectId = process.env.FIREBASE_PROJECT_ID || process.env.VITE_FIREBASE_PROJECT_ID || "exam-fd7a1";
+  const t0 = Date.now();
+  try {
+    const url = `https://firestore.googleapis.com/v1/projects/${projectId}/databases/(default)/documents/${collectionName}?key=${apiKey}&pageSize=${safePageSize}`;
+    const res = await fetch(url);
+    const elapsed = Date.now() - t0;
+    if (!res.ok) {
+      console.warn(`[Server Firestore READ_FAIL] Collection: "${collectionName}" | Status: ${res.status} | Elapsed: ${elapsed}ms`);
+      return [];
+    }
+    const data = await res.json();
+    const docs = (data.documents || []).map(decodeFirestoreDocument);
+    console.log(`[Server Firestore READ: ${docs.length} docs] Collection: "${collectionName}" (limit: ${safePageSize}) | Elapsed: ${elapsed}ms`);
+    if (shouldCache) {
+      serverRestCache.set(cacheKey, { data: docs, expiresAt: now + cacheTtlMs });
+    }
+    return docs;
+  } catch (err) {
+    console.error(`[Server Firestore ERROR] Collection: "${collectionName}":`, err);
     return [];
   }
 }
@@ -4283,8 +4318,1932 @@ async function resolveDriveDirectStreamUrl(driveId) {
   return null;
 }
 
+// server/routes/aiShopStudentRoutes.ts
+import { Router } from "express";
+import { ZodError } from "zod";
+
+// server/services/aiShopService.ts
+import { z as z2 } from "zod";
+
+// src/services/aiShop/initialCatalog.ts
+var STOREFRONT_CATEGORIES = [
+  {
+    key: "chatgpt",
+    title: "CHAT GPT",
+    subtitle: "ChatGPT Plus 30 ng\xE0y \u2014 ch\u1ECDn g\xF3i S\xE0i ri\xEAng ho\u1EB7c D\xF9ng chung",
+    badge: "OpenAI",
+    gradient: "from-emerald-500 to-teal-600",
+    requiresUpgradeEmail: false,
+    sortOrder: 1
+  },
+  {
+    key: "gemini_pro_3m",
+    title: "Gemini Pro 3M",
+    subtitle: "Gemini Pro ch\xEDnh ch\u1EE7 3 th\xE1ng \u2014 ch\u1ECDn Link Offer ho\u1EB7c Pay h\u1ED9",
+    badge: "Google AI",
+    gradient: "from-blue-600 to-indigo-600",
+    requiresUpgradeEmail: false,
+    sortOrder: 2
+  },
+  {
+    key: "gemini_plus_6m",
+    title: "Gemini Plus 6M",
+    subtitle: "Gemini Plus ch\xEDnh ch\u1EE7 6 th\xE1ng \u2014 ch\u1ECDn Link Offer ho\u1EB7c Pay h\u1ED9",
+    badge: "Google AI",
+    gradient: "from-sky-500 to-blue-600",
+    requiresUpgradeEmail: false,
+    sortOrder: 3
+  },
+  {
+    key: "gemini_pro_fam",
+    title: "Gemini Pro (Add Fam)",
+    subtitle: "Add Family theo th\xE1ng \u2014 ch\u1ECDn Slot L\u1ECFm (Web) ho\u1EB7c Slot Ngon (Full Antigravity)",
+    badge: "Add Fam",
+    gradient: "from-violet-600 to-purple-600",
+    requiresUpgradeEmail: true,
+    sortOrder: 4
+  },
+  {
+    key: "yt_pre",
+    title: "Yt Pre",
+    subtitle: "YouTube Premium kh\xF4ng qu\u1EA3ng c\xE1o, ph\xE1t n\u1EC1n & YouTube Music \u2014 gia h\u1EA1n th\xE1ng",
+    badge: "YouTube",
+    gradient: "from-rose-500 to-red-600",
+    requiresUpgradeEmail: true,
+    sortOrder: 5
+  },
+  {
+    key: "verify_student",
+    title: "Verify Student",
+    subtitle: "X\xE1c minh t\xE0i kho\u1EA3n sinh vi\xEAn theo l\u01B0\u1EE3t nhanh ch\xF3ng",
+    badge: "Verify",
+    gradient: "from-amber-500 to-orange-600",
+    requiresUpgradeEmail: true,
+    sortOrder: 6
+  },
+  {
+    key: "other",
+    title: "D\u1ECBch v\u1EE5 kh\xE1c",
+    subtitle: "C\xE1c g\xF3i d\u1ECBch v\u1EE5 AI m\u1EDF r\u1ED9ng kh\xE1c t\u1EEB qu\u1EA3n tr\u1ECB vi\xEAn",
+    badge: "Kh\xE1c",
+    gradient: "from-slate-600 to-slate-700",
+    requiresUpgradeEmail: false,
+    sortOrder: 99
+  }
+];
+var INITIAL_AI_SERVICES = [
+  {
+    id: "svc_chatgpt_plus_30d_private",
+    code: "GPT-30D-RIENG",
+    name: "ChatGPT Plus 30D - ri\xEAng",
+    categoryKey: "chatgpt",
+    categoryLabel: "CHAT GPT",
+    variantLabel: "S\xE0i ri\xEAng (30 ng\xE0y)",
+    requiresUpgradeEmail: false,
+    billingType: "one_time",
+    defaultFirstPriceVnd: 185e3,
+    defaultRecurringPriceVnd: null,
+    durationValue: 30,
+    durationUnit: "days",
+    conditions: "Kh\xF4ng b\u1EA3o h\xE0nh. T\xE0i kho\u1EA3n s\xE0i ri\xEAng 30 ng\xE0y. Gi\xE1 dao \u0111\u1ED9ng ~185.000\u0111 (c\xF3 th\u1EC3 ch\u1EC9nh khi t\u1EA1o \u0111\u01A1n).",
+    studentVisible: true,
+    sortOrder: 1
+  },
+  {
+    id: "svc_chatgpt_plus_30d_shared",
+    code: "GPT-30D-CHUNG",
+    name: "ChatGPT Plus 30D - chung",
+    categoryKey: "chatgpt",
+    categoryLabel: "CHAT GPT",
+    variantLabel: "D\xF9ng chung (30 ng\xE0y)",
+    requiresUpgradeEmail: false,
+    billingType: "one_time",
+    defaultFirstPriceVnd: 5e4,
+    defaultRecurringPriceVnd: null,
+    durationValue: 30,
+    durationUnit: "days",
+    conditions: "Kh\xF4ng b\u1EA3o h\xE0nh. T\xE0i kho\u1EA3n d\xF9ng chung 30 ng\xE0y.",
+    studentVisible: true,
+    sortOrder: 2
+  },
+  {
+    id: "svc_gemini_pro_3m_offer",
+    code: "GEM-PRO-3M-OFFER",
+    name: "Gemini Pro 3M - link offer",
+    categoryKey: "gemini_pro_3m",
+    categoryLabel: "Gemini Pro 3M",
+    variantLabel: "Link Offer (3 th\xE1ng)",
+    requiresUpgradeEmail: false,
+    billingType: "one_time",
+    defaultFirstPriceVnd: 35e3,
+    defaultRecurringPriceVnd: null,
+    durationValue: 3,
+    durationUnit: "months",
+    conditions: "Kh\xF4ng b\u1EA3o h\xE0nh. Ch\xEDnh ch\u1EE7 3 th\xE1ng n\xE2ng b\u1EB1ng link offer.",
+    studentVisible: true,
+    sortOrder: 3
+  },
+  {
+    id: "svc_gemini_pro_3m_payho",
+    code: "GEM-PRO-3M-PAYHO",
+    name: "Gemini Pro 3M - pay h\u1ED9",
+    categoryKey: "gemini_pro_3m",
+    categoryLabel: "Gemini Pro 3M",
+    variantLabel: "Pay h\u1ED9 (3 th\xE1ng)",
+    requiresUpgradeEmail: false,
+    billingType: "one_time",
+    defaultFirstPriceVnd: 4e4,
+    defaultRecurringPriceVnd: null,
+    durationValue: 3,
+    durationUnit: "months",
+    conditions: "Kh\xF4ng b\u1EA3o h\xE0nh. Ch\xEDnh ch\u1EE7 3 th\xE1ng, shop pay h\u1ED9.",
+    studentVisible: true,
+    sortOrder: 4
+  },
+  {
+    id: "svc_gemini_plus_6m_offer",
+    code: "GEM-PLUS-6M-OFFER",
+    name: "Gemini Plus 6M - link offer",
+    categoryKey: "gemini_plus_6m",
+    categoryLabel: "Gemini Plus 6M",
+    variantLabel: "Link Offer (6 th\xE1ng)",
+    requiresUpgradeEmail: false,
+    billingType: "one_time",
+    defaultFirstPriceVnd: 25e3,
+    defaultRecurringPriceVnd: null,
+    durationValue: 6,
+    durationUnit: "months",
+    conditions: "Kh\xF4ng b\u1EA3o h\xE0nh. Ch\xEDnh ch\u1EE7 6 th\xE1ng n\xE2ng b\u1EB1ng link offer.",
+    studentVisible: true,
+    sortOrder: 5
+  },
+  {
+    id: "svc_gemini_plus_6m_payho",
+    code: "GEM-PLUS-6M-PAYHO",
+    name: "Gemini Plus 6M - pay h\u1ED9",
+    categoryKey: "gemini_plus_6m",
+    categoryLabel: "Gemini Plus 6M",
+    variantLabel: "Pay h\u1ED9 (6 th\xE1ng)",
+    requiresUpgradeEmail: false,
+    billingType: "one_time",
+    defaultFirstPriceVnd: 3e4,
+    defaultRecurringPriceVnd: null,
+    durationValue: 6,
+    durationUnit: "months",
+    conditions: "Kh\xF4ng b\u1EA3o h\xE0nh. Ch\xEDnh ch\u1EE7 6 th\xE1ng, shop pay h\u1ED9.",
+    studentVisible: true,
+    sortOrder: 6
+  },
+  {
+    id: "svc_gemini_pro_slot_lom",
+    code: "GEM-PRO-SLOT-LOM",
+    name: "Gemini Pro slot l\u1ECFm",
+    categoryKey: "gemini_pro_fam",
+    categoryLabel: "Gemini Pro (Add Fam)",
+    variantLabel: "Slot L\u1ECFm (H\u1ED7 tr\u1EE3 t\u1ED1t Gemini Web)",
+    requiresUpgradeEmail: true,
+    billingType: "monthly",
+    defaultFirstPriceVnd: 15e3,
+    defaultRecurringPriceVnd: 5e3,
+    durationValue: 1,
+    durationUnit: "months",
+    conditions: "Kh\xF4ng b\u1EA3o h\xE0nh. H\u1ED7 tr\u1EE3 t\u1ED1t Gemini Web. K\u1EF3 \u0111\u1EA7u 15.000\u0111, t\u1EEB k\u1EF3 2 ch\u1EC9 5.000\u0111/th\xE1ng.",
+    studentVisible: true,
+    sortOrder: 7
+  },
+  {
+    id: "svc_gemini_pro_slot_ngon",
+    code: "GEM-PRO-SLOT-NGON",
+    name: "Gemini Pro slot ngon",
+    categoryKey: "gemini_pro_fam",
+    categoryLabel: "Gemini Pro (Add Fam)",
+    variantLabel: "Slot Ngon (Full model Pro Antigravity)",
+    requiresUpgradeEmail: true,
+    billingType: "monthly",
+    defaultFirstPriceVnd: 25e3,
+    defaultRecurringPriceVnd: 25e3,
+    durationValue: 1,
+    durationUnit: "months",
+    conditions: "Kh\xF4ng b\u1EA3o h\xE0nh. C\xF3 full c\xE1c model h\u1ED7 tr\u1EE3 g\xF3i Pro m\u1EDBi nh\u1EA5t trong Antigravity. 25.000\u0111/th\xE1ng.",
+    studentVisible: true,
+    sortOrder: 8
+  },
+  {
+    id: "svc_youtube_premium_slot",
+    code: "YT-PREM-SLOT",
+    name: "YouTube Premium slot",
+    categoryKey: "yt_pre",
+    categoryLabel: "Yt Pre",
+    variantLabel: "YouTube Premium Slot (1 th\xE1ng)",
+    requiresUpgradeEmail: true,
+    billingType: "monthly",
+    defaultFirstPriceVnd: 25e3,
+    defaultRecurringPriceVnd: 25e3,
+    durationValue: 1,
+    durationUnit: "months",
+    conditions: "Slot YouTube Premium gia h\u1EA1n h\xE0ng th\xE1ng (25.000\u0111/th\xE1ng).",
+    studentVisible: true,
+    sortOrder: 9
+  },
+  {
+    id: "svc_verify_student",
+    code: "VERIFY-STUDENT",
+    name: "Verify Student",
+    categoryKey: "verify_student",
+    categoryLabel: "Verify Student",
+    variantLabel: "Verify Student (Theo l\u01B0\u1EE3t)",
+    requiresUpgradeEmail: true,
+    billingType: "one_time",
+    defaultFirstPriceVnd: 2e4,
+    defaultRecurringPriceVnd: null,
+    durationValue: null,
+    durationUnit: null,
+    conditions: "Nh\u1EADn Verify Student theo l\u01B0\u1EE3t.",
+    studentVisible: true,
+    sortOrder: 10
+  },
+  {
+    id: "svc_custom_quote",
+    code: "GOI-KHAC",
+    name: "G\xF3i kh\xE1c (b\xE1o gi\xE1 ri\xEAng)",
+    categoryKey: "other",
+    categoryLabel: "D\u1ECBch v\u1EE5 kh\xE1c",
+    variantLabel: "B\xE1o gi\xE1 ri\xEAng",
+    requiresUpgradeEmail: false,
+    billingType: "one_time",
+    defaultFirstPriceVnd: null,
+    defaultRecurringPriceVnd: null,
+    durationValue: null,
+    durationUnit: null,
+    conditions: "H\u1ED7 tr\u1EE3 c\xE1c g\xF3i kh\xE1c theo y\xEAu c\u1EA7u \u2014 ch\u01B0a c\xF3 gi\xE1 c\u1ED1 \u0111\u1ECBnh, b\u1EAFt bu\u1ED9c nh\u1EADp gi\xE1 khi t\u1EA1o \u0111\u01A1n.",
+    studentVisible: false,
+    sortOrder: 11
+  }
+];
+function resolveServiceStorefrontMeta(service) {
+  const seedMatch = INITIAL_AI_SERVICES.find((s) => s.id === service.id);
+  const norm = `${service.name} ${service.code}`.toLowerCase();
+  let categoryKey = service.categoryKey || seedMatch?.categoryKey || "other";
+  if (!service.categoryKey && !seedMatch) {
+    if (norm.includes("chatgpt") || norm.includes("gpt")) categoryKey = "chatgpt";
+    else if (norm.includes("gemini pro") && norm.includes("3m")) categoryKey = "gemini_pro_3m";
+    else if (norm.includes("gemini plus") && norm.includes("6m")) categoryKey = "gemini_plus_6m";
+    else if (norm.includes("gemini pro") && (norm.includes("slot") || norm.includes("fam")))
+      categoryKey = "gemini_pro_fam";
+    else if (norm.includes("youtube") || norm.includes("yt")) categoryKey = "yt_pre";
+    else if (norm.includes("verify") || norm.includes("student")) categoryKey = "verify_student";
+  }
+  const catDef = STOREFRONT_CATEGORIES.find((c) => c.key === categoryKey) || STOREFRONT_CATEGORIES[STOREFRONT_CATEGORIES.length - 1];
+  const requiresUpgradeEmail = typeof service.requiresUpgradeEmail === "boolean" ? service.requiresUpgradeEmail : seedMatch?.requiresUpgradeEmail ?? catDef.requiresUpgradeEmail;
+  const variantLabel = service.variantLabel || seedMatch?.variantLabel || service.name;
+  return {
+    categoryKey,
+    categoryLabel: service.categoryLabel || seedMatch?.categoryLabel || catDef.title,
+    variantLabel,
+    requiresUpgradeEmail
+  };
+}
+function buildSeedServiceRecords(nowIso) {
+  return INITIAL_AI_SERVICES.map((item) => ({
+    ...item,
+    status: "active",
+    createdAt: nowIso,
+    updatedAt: nowIso
+  }));
+}
+
+// src/services/aiShop/billingEngine.ts
+var VN_TIMEZONE = "Asia/Ho_Chi_Minh";
+var MAX_MONTHLY_PERIODS = 240;
+function isValidIsoDate(value) {
+  if (typeof value !== "string" || !/^\d{4}-\d{2}-\d{2}$/.test(value)) return false;
+  const [y, m, d] = value.split("-").map(Number);
+  if (m < 1 || m > 12) return false;
+  const maxDay = getDaysInMonth(y, m);
+  return d >= 1 && d <= maxDay;
+}
+function getDaysInMonth(year, month1To12) {
+  return new Date(Date.UTC(year, month1To12, 0)).getUTCDate();
+}
+function getTodayVnDate(now = /* @__PURE__ */ new Date()) {
+  const formatter = new Intl.DateTimeFormat("en-CA", {
+    timeZone: VN_TIMEZONE,
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit"
+  });
+  const formatted = formatter.format(now);
+  if (/^\d{4}-\d{2}-\d{2}$/.test(formatted)) {
+    return formatted;
+  }
+  const vnMs = now.getTime() + 7 * 60 * 60 * 1e3;
+  const d = new Date(vnMs);
+  return `${d.getUTCFullYear()}-${String(d.getUTCMonth() + 1).padStart(2, "0")}-${String(d.getUTCDate()).padStart(2, "0")}`;
+}
+function toIntVnd(value) {
+  const num = typeof value === "number" ? value : Number(String(value ?? "").replace(/[.,\sđvnd]/gi, ""));
+  if (!Number.isFinite(num) || num < 0) return 0;
+  return Math.trunc(num);
+}
+function addMonthsAnchored(anchorIsoDate, monthsToAdd) {
+  const [y, m, d] = anchorIsoDate.split("-").map(Number);
+  const totalMonths = m - 1 + monthsToAdd;
+  const targetYear = y + Math.floor(totalMonths / 12);
+  const targetMonth = (totalMonths % 12 + 12) % 12 + 1;
+  const clampedDay = Math.min(d, getDaysInMonth(targetYear, targetMonth));
+  return `${String(targetYear).padStart(4, "0")}-${String(targetMonth).padStart(2, "0")}-${String(clampedDay).padStart(2, "0")}`;
+}
+function addDaysIso(isoDate, days) {
+  const [y, m, d] = isoDate.split("-").map(Number);
+  const dt = new Date(Date.UTC(y, m - 1, d + days));
+  return `${String(dt.getUTCFullYear()).padStart(4, "0")}-${String(dt.getUTCMonth() + 1).padStart(2, "0")}-${String(dt.getUTCDate()).padStart(2, "0")}`;
+}
+function computeOneTimeServiceExpiry(startDate, durationValue, durationUnit) {
+  if (!isValidIsoDate(startDate) || !durationValue || durationValue <= 0 || !durationUnit) {
+    return null;
+  }
+  if (durationUnit === "days") {
+    return addDaysIso(startDate, Math.trunc(durationValue));
+  }
+  return addMonthsAnchored(startDate, Math.trunc(durationValue));
+}
+function computeOrderFinancialSummary(order, allPaymentsForOrder, asOfDate = getTodayVnDate(), upcomingHorizonDays = 31) {
+  const qty = Math.max(1, Math.trunc(Number(order.quantity) || 1));
+  const firstUnitPrice = toIntVnd(order.firstCyclePriceVnd);
+  const recurringUnitPrice = order.billingType === "monthly" ? toIntVnd(order.recurringPriceVnd ?? order.firstCyclePriceVnd) : 0;
+  const stopDate = order.stopDate && isValidIsoDate(order.stopDate) ? order.stopDate : null;
+  const activePayments = allPaymentsForOrder.filter((p) => p.orderId === order.id && p.status === "active" && toIntVnd(p.amountVnd) > 0).sort((a, b) => {
+    if (a.paidDate !== b.paidDate) return a.paidDate.localeCompare(b.paidDate);
+    if (a.createdAt !== b.createdAt) return a.createdAt.localeCompare(b.createdAt);
+    return a.id.localeCompare(b.id);
+  });
+  const totalPaidVnd = activePayments.reduce((sum, p) => sum + toIntVnd(p.amountVnd), 0);
+  const rawPeriods = [];
+  if (order.billingType === "one_time") {
+    const dueDate = order.startDate;
+    const blockedByStop = Boolean(stopDate && dueDate >= stopDate);
+    if (!blockedByStop && isValidIsoDate(dueDate)) {
+      const naturalExpiry = computeOneTimeServiceExpiry(
+        order.startDate,
+        order.durationValue,
+        order.durationUnit
+      );
+      const coverageEndDate = stopDate && naturalExpiry && stopDate < naturalExpiry ? stopDate : naturalExpiry ?? stopDate;
+      rawPeriods.push({
+        periodNumber: 1,
+        dueDate,
+        coverageEndDate,
+        amountVnd: firstUnitPrice * qty
+      });
+    }
+  } else {
+    const horizonDate = addDaysIso(asOfDate, Math.max(0, upcomingHorizonDays));
+    let remainingCoverPool = totalPaidVnd;
+    let addedOneFuturePreview = false;
+    for (let k = 0; k < MAX_MONTHLY_PERIODS; k++) {
+      const dueDate = addMonthsAnchored(order.startDate, k);
+      if (stopDate && dueDate >= stopDate) {
+        break;
+      }
+      const amountVnd = (k === 0 ? firstUnitPrice : recurringUnitPrice) * qty;
+      const isDueOrWithinHorizon = dueDate <= horizonDate;
+      const neededForPrepaidAllocation = remainingCoverPool > 0 && amountVnd > 0;
+      if (!isDueOrWithinHorizon && !neededForPrepaidAllocation) {
+        if (!addedOneFuturePreview && rawPeriods.length === 0) {
+          addedOneFuturePreview = true;
+        } else {
+          break;
+        }
+      }
+      const nextCycleDate = addMonthsAnchored(order.startDate, k + 1);
+      const coverageEndDate = stopDate && stopDate < nextCycleDate ? stopDate : nextCycleDate;
+      rawPeriods.push({
+        periodNumber: k + 1,
+        dueDate,
+        coverageEndDate,
+        amountVnd
+      });
+      remainingCoverPool = Math.max(0, remainingCoverPool - amountVnd);
+      if (dueDate > horizonDate && remainingCoverPool === 0) {
+        break;
+      }
+    }
+  }
+  let pool = totalPaidVnd;
+  const periods = rawPeriods.map((raw) => {
+    const allocatedVnd = Math.min(pool, raw.amountVnd);
+    pool -= allocatedVnd;
+    const remainingVnd = raw.amountVnd - allocatedVnd;
+    const isDue = raw.dueDate <= asOfDate;
+    const isOverdue = raw.dueDate < asOfDate && remainingVnd > 0;
+    const isDueToday = raw.dueDate === asOfDate && remainingVnd > 0;
+    let status2;
+    if (raw.amountVnd === 0 || remainingVnd === 0) {
+      status2 = "paid";
+    } else if (allocatedVnd > 0) {
+      status2 = "partial";
+    } else if (isOverdue) {
+      status2 = "overdue";
+    } else {
+      status2 = "upcoming";
+    }
+    return {
+      periodKey: `${order.id}__P${raw.periodNumber}`,
+      orderId: order.id,
+      periodNumber: raw.periodNumber,
+      dueDate: raw.dueDate,
+      coverageEndDate: raw.coverageEndDate,
+      amountVnd: raw.amountVnd,
+      allocatedVnd,
+      remainingVnd,
+      isDue,
+      isOverdue,
+      isDueToday,
+      status: status2
+    };
+  });
+  let dueUpToAsOfDateVnd = 0;
+  let allocatedToDueVnd = 0;
+  let debtUpToAsOfDateVnd = 0;
+  let hasOverdue = false;
+  for (const p of periods) {
+    if (p.isDue) {
+      dueUpToAsOfDateVnd += p.amountVnd;
+      allocatedToDueVnd += p.allocatedVnd;
+      debtUpToAsOfDateVnd += p.remainingVnd;
+    }
+    if (p.isOverdue) {
+      hasOverdue = true;
+    }
+  }
+  const prepaidVnd = Math.max(0, totalPaidVnd - allocatedToDueVnd);
+  const isStopped = Boolean(stopDate && stopDate <= asOfDate);
+  let serviceExpiryDate = null;
+  if (order.billingType === "one_time") {
+    const computedExpiry = computeOneTimeServiceExpiry(
+      order.startDate,
+      order.durationValue,
+      order.durationUnit
+    );
+    if (stopDate && computedExpiry) {
+      serviceExpiryDate = stopDate < computedExpiry ? stopDate : computedExpiry;
+    } else {
+      serviceExpiryDate = computedExpiry ?? stopDate;
+    }
+  } else {
+    if (stopDate) {
+      serviceExpiryDate = stopDate;
+    } else {
+      const coveredOrDuePeriods = periods.filter((p) => p.isDue || p.allocatedVnd > 0);
+      const refPeriod = coveredOrDuePeriods.length > 0 ? coveredOrDuePeriods[coveredOrDuePeriods.length - 1] : periods[0];
+      serviceExpiryDate = refPeriod?.coverageEndDate ?? null;
+    }
+  }
+  const isExpiredOneTime = Boolean(
+    order.billingType === "one_time" && serviceExpiryDate && serviceExpiryDate < asOfDate
+  );
+  const isActive = !isStopped && !isExpiredOneTime;
+  const nextUnpaidPeriod = periods.find((p) => p.remainingVnd > 0) ?? null;
+  let status;
+  if (hasOverdue) {
+    status = "overdue";
+  } else if (isStopped && debtUpToAsOfDateVnd === 0) {
+    status = "stopped";
+  } else if (debtUpToAsOfDateVnd > 0 && allocatedToDueVnd > 0) {
+    status = "partial";
+  } else if (debtUpToAsOfDateVnd > 0) {
+    status = "upcoming";
+  } else if (dueUpToAsOfDateVnd > 0 || periods.length > 0 && periods[0].remainingVnd === 0) {
+    status = "paid";
+  } else {
+    status = "upcoming";
+  }
+  return {
+    order,
+    periods,
+    dueUpToAsOfDateVnd,
+    totalPaidVnd,
+    allocatedToDueVnd,
+    debtUpToAsOfDateVnd,
+    prepaidVnd,
+    hasOverdue,
+    isStopped,
+    isActive,
+    status,
+    nextDueDate: nextUnpaidPeriod?.dueDate ?? null,
+    nextDueAmountVnd: nextUnpaidPeriod?.remainingVnd ?? 0,
+    serviceExpiryDate,
+    activePaymentCount: activePayments.length
+  };
+}
+
+// server/services/notificationPushService.ts
+import { z } from "zod";
+var COL_NOTIFS = "notifications";
+var FEED_CACHE_TTL_MS = 1e4;
+var feedCache = null;
+var broadcastNotificationSchema = z.object({
+  title: z.string().trim().min(2, "Vui l\xF2ng nh\u1EADp ti\xEAu \u0111\u1EC1 th\xF4ng b\xE1o.").max(140),
+  message: z.string().trim().min(2, "Vui l\xF2ng nh\u1EADp n\u1ED9i dung th\xF4ng b\xE1o.").max(600),
+  route: z.string().trim().max(240).optional().default("/"),
+  type: z.enum(["minigame_event", "minigame_reward", "ai_order_delivered", "feature_release", "system"]).optional().default("feature_release"),
+  recipientUid: z.string().trim().max(128).optional().default("all")
+});
+function toMillis(val) {
+  if (!val) return 0;
+  if (typeof val === "number") return val < 1e11 ? val * 1e3 : val;
+  if (typeof val?.toMillis === "function") return val.toMillis();
+  if (typeof val?.seconds === "number") return val.seconds * 1e3;
+  const ms = new Date(val).getTime();
+  return Number.isFinite(ms) ? ms : 0;
+}
+async function fetchNotificationFeed(params) {
+  const now = Date.now();
+  let allItems;
+  if (feedCache && now - feedCache.ts < FEED_CACHE_TTL_MS) {
+    allItems = feedCache.items;
+  } else {
+    let raw = [];
+    if (adminDb) {
+      const snap = await adminDb.collection(COL_NOTIFS).orderBy("createdAtMs", "desc").limit(120).get();
+      raw = snap.docs.map((d) => ({ id: d.id, ...d.data() }));
+    } else {
+      raw = await getFirestoreRestDocs(COL_NOTIFS, 120, false);
+    }
+    allItems = raw.map((d) => {
+      const ms = Number(d.createdAtMs) || toMillis(d.createdAt);
+      return {
+        id: String(d.id || ""),
+        recipientUid: String(d.recipientUid || "all"),
+        type: d.type || "system",
+        title: String(d.title || "Th\xF4ng b\xE1o DkTEST"),
+        message: String(d.message || d.body || ""),
+        route: typeof d.route === "string" && d.route.startsWith("/") ? d.route : "/",
+        read: Boolean(d.read),
+        createdAt: typeof d.createdAt === "string" ? d.createdAt : new Date(ms || now).toISOString(),
+        createdAtMs: ms,
+        actorName: d.actorName ? String(d.actorName) : "DkTEST"
+      };
+    }).filter((n) => n.id && n.title).sort((a, b) => b.createdAtMs - a.createdAtMs);
+    feedCache = { items: allItems, ts: now };
+  }
+  const sinceMs = Number(params.sinceMs) || 0;
+  const maxItems = Math.max(1, Math.min(30, Number(params.limitCount) || 15));
+  const uid = params.uid || null;
+  return allItems.filter((item) => {
+    const targetOk = item.recipientUid === "all" || uid && item.recipientUid === uid;
+    if (!targetOk) return false;
+    if (sinceMs > 0 && item.createdAtMs <= sinceMs) return false;
+    return true;
+  }).slice(0, maxItems);
+}
+
+// server/services/aiShopService.ts
+var COL_SERVICES = "ai_services";
+var COL_CUSTOMERS = "ai_customers";
+var COL_ORDERS = "ai_orders";
+var COL_PAYMENTS = "ai_payments";
+var COL_AUDIT_LOGS = "ai_audit_logs";
+var COL_IDEMPOTENCY = "ai_idempotency_keys";
+var BOOTSTRAP_CACHE_TTL_MS = 30 * 1e3;
+var bootstrapCache = null;
+var inFlightIdempotency = /* @__PURE__ */ new Map();
+function invalidateAiShopCache() {
+  bootstrapCache = null;
+}
+var isoDateSchema = z2.string().refine(isValidIsoDate, {
+  message: "Ng\xE0y kh\xF4ng h\u1EE3p l\u1EC7 (\u0111\u1ECBnh d\u1EA1ng YYYY-MM-DD)."
+});
+var nullableIsoDateSchema = z2.union([isoDateSchema, z2.null(), z2.literal("")]).transform((v) => v ? v : null);
+var intVndSchema = z2.number().int().min(0, "S\u1ED1 ti\u1EC1n ph\u1EA3i l\xE0 s\u1ED1 nguy\xEAn VN\u0110 kh\xF4ng \xE2m.");
+var positiveIntVndSchema = z2.number().int().min(1, "S\u1ED1 ti\u1EC1n ph\u1EA3i l\u1EDBn h\u01A1n 0 VN\u0110.");
+var nullableIntVndSchema = z2.union([intVndSchema, z2.null()]);
+var createServiceSchema = z2.object({
+  code: z2.string().trim().min(1).max(60).optional(),
+  name: z2.string().trim().min(2, "T\xEAn d\u1ECBch v\u1EE5 ph\u1EA3i c\xF3 \xEDt nh\u1EA5t 2 k\xFD t\u1EF1.").max(140),
+  billingType: z2.enum(["one_time", "monthly"]),
+  defaultFirstPriceVnd: nullableIntVndSchema,
+  defaultRecurringPriceVnd: nullableIntVndSchema.optional().default(null),
+  durationValue: z2.union([z2.number().int().min(1).max(3650), z2.null()]).optional().default(null),
+  durationUnit: z2.union([z2.enum(["days", "months"]), z2.null()]).optional().default(null),
+  conditions: z2.string().trim().max(1e3).optional().default(""),
+  status: z2.enum(["active", "discontinued"]).optional().default("active"),
+  studentVisible: z2.boolean().optional().default(true),
+  sortOrder: z2.number().int().min(0).max(9999).optional().default(100)
+});
+var updateServiceSchema = createServiceSchema.partial();
+var createCustomerSchema = z2.object({
+  fullName: z2.string().trim().min(1, "Vui l\xF2ng nh\u1EADp t\xEAn kh\xE1ch h\xE0ng.").max(140),
+  phoneZalo: z2.string().trim().max(80).optional().default(""),
+  email: z2.string().trim().max(160).optional().default(""),
+  otherContact: z2.string().trim().max(160).optional().default(""),
+  note: z2.string().trim().max(1e3).optional().default(""),
+  linkedUid: z2.string().trim().max(128).nullable().optional().default(null),
+  idempotencyKey: z2.string().trim().max(120).optional()
+});
+var updateCustomerSchema = z2.object({
+  fullName: z2.string().trim().min(1, "T\xEAn kh\xE1ch h\xE0ng kh\xF4ng \u0111\u01B0\u1EE3c \u0111\u1EC3 tr\u1ED1ng.").max(140).optional(),
+  phoneZalo: z2.string().trim().max(80).optional(),
+  email: z2.string().trim().max(160).optional(),
+  otherContact: z2.string().trim().max(160).optional(),
+  note: z2.string().trim().max(1e3).optional()
+});
+var createOrderSchema = z2.object({
+  customerId: z2.string().trim().min(1, "Vui l\xF2ng ch\u1ECDn kh\xE1ch h\xE0ng."),
+  serviceId: z2.string().trim().min(1, "Vui l\xF2ng ch\u1ECDn d\u1ECBch v\u1EE5."),
+  accountSlot: z2.string().trim().max(240).optional().default(""),
+  quantity: z2.number().int().min(1, "S\u1ED1 l\u01B0\u1EE3ng ph\u1EA3i t\u1ED1i thi\u1EC3u l\xE0 1.").max(999).default(1),
+  startDate: isoDateSchema,
+  stopDate: nullableIsoDateSchema.optional().default(null),
+  billingType: z2.enum(["one_time", "monthly"]),
+  firstCyclePriceVnd: intVndSchema,
+  recurringPriceVnd: nullableIntVndSchema.optional().default(null),
+  durationValue: z2.union([z2.number().int().min(1).max(3650), z2.null()]).optional().default(null),
+  durationUnit: z2.union([z2.enum(["days", "months"]), z2.null()]).optional().default(null),
+  note: z2.string().trim().max(1e3).optional().default(""),
+  fulfillmentStatus: z2.enum(["pending_delivery", "delivered"]).optional(),
+  idempotencyKey: z2.string().trim().max(120).optional()
+});
+var orderAttachmentSchema = z2.object({
+  id: z2.string().trim().min(1).max(120),
+  name: z2.string().trim().min(1).max(200),
+  url: z2.string().trim().url("\u0110\u01B0\u1EDDng d\u1EABn t\u1EC7p \u0111\xEDnh k\xE8m kh\xF4ng h\u1EE3p l\u1EC7.").max(2048),
+  mimeType: z2.string().trim().max(120).default("application/octet-stream"),
+  size: z2.number().int().min(0).optional(),
+  uploadedAt: z2.string().trim().max(60)
+});
+var updateOrderSchema = z2.object({
+  serviceId: z2.string().trim().min(1).optional(),
+  confirmServiceChange: z2.boolean().optional(),
+  accountSlot: z2.string().trim().max(240).optional(),
+  quantity: z2.number().int().min(1).max(999).optional(),
+  startDate: isoDateSchema.optional(),
+  stopDate: nullableIsoDateSchema.optional(),
+  billingType: z2.enum(["one_time", "monthly"]).optional(),
+  firstCyclePriceVnd: intVndSchema.optional(),
+  recurringPriceVnd: nullableIntVndSchema.optional(),
+  durationValue: z2.union([z2.number().int().min(1).max(3650), z2.null()]).optional(),
+  durationUnit: z2.union([z2.enum(["days", "months"]), z2.null()]).optional(),
+  note: z2.string().trim().max(1e3).optional(),
+  contactPhoneZalo: z2.string().trim().max(80).optional(),
+  targetUpgradeEmail: z2.string().trim().max(160).optional(),
+  adminDeliveryNote: z2.string().trim().max(2e3).optional(),
+  adminAttachments: z2.array(orderAttachmentSchema).max(10).optional(),
+  fulfillmentStatus: z2.enum(["pending_delivery", "delivered"]).optional()
+});
+var createPaymentSchema = z2.object({
+  orderId: z2.string().trim().min(1, "Vui l\xF2ng ch\u1ECDn \u0111\u01A1n h\xE0ng."),
+  paidDate: isoDateSchema,
+  amountVnd: positiveIntVndSchema,
+  method: z2.enum(["bank_transfer", "cash", "momo", "zalopay", "dktest_wallet", "other"]),
+  note: z2.string().trim().max(1e3).optional().default(""),
+  idempotencyKey: z2.string().trim().max(120).optional()
+});
+var updatePaymentSchema = z2.object({
+  paidDate: isoDateSchema.optional(),
+  amountVnd: positiveIntVndSchema.optional(),
+  method: z2.enum(["bank_transfer", "cash", "momo", "zalopay", "dktest_wallet", "other"]).optional(),
+  note: z2.string().trim().max(1e3).optional()
+});
+var voidPaymentSchema = z2.object({
+  reason: z2.string().trim().min(2, "Vui l\xF2ng nh\u1EADp l\xFD do h\u1EE7y giao d\u1ECBch.").max(500)
+});
+var studentPurchaseSchema = z2.object({
+  serviceId: z2.string().trim().min(1, "Vui l\xF2ng ch\u1ECDn d\u1ECBch v\u1EE5."),
+  quantity: z2.number().int().min(1).max(10).default(1),
+  contactPhoneZalo: z2.string().trim().min(8, "Vui l\xF2ng nh\u1EADp s\u1ED1 \u0111i\u1EC7n tho\u1EA1i Zalo h\u1EE3p l\u1EC7 (t\u1ED1i thi\u1EC3u 8 k\xFD t\u1EF1).").max(80),
+  targetUpgradeEmail: z2.string().trim().max(160).optional().default(""),
+  contactEmail: z2.string().trim().max(160).optional().default(""),
+  note: z2.string().trim().max(500).optional().default(""),
+  idempotencyKey: z2.string().trim().min(6, "Thi\u1EBFu kh\xF3a ch\u1ED1ng g\u1EEDi tr\xF9ng.").max(120)
+});
+var studentRenewOrderSchema = z2.object({
+  amountVnd: positiveIntVndSchema,
+  note: z2.string().trim().max(400).optional().default(""),
+  idempotencyKey: z2.string().trim().min(6, "Thi\u1EBFu kh\xF3a ch\u1ED1ng g\u1EEDi tr\xF9ng.").max(120)
+});
+var excelImportRowSchema = z2.object({
+  customerCode: z2.string().trim().max(40).optional().default(""),
+  fullName: z2.string().trim().min(1).max(140),
+  phoneZalo: z2.string().trim().max(80).optional().default(""),
+  email: z2.string().trim().max(160).optional().default(""),
+  serviceName: z2.string().trim().min(1).max(140),
+  matchedServiceId: z2.string().trim().nullable().optional().default(null),
+  accountSlot: z2.string().trim().max(240).optional().default(""),
+  quantity: z2.number().int().min(1).max(999).default(1),
+  startDate: isoDateSchema,
+  stopDate: nullableIsoDateSchema.optional().default(null),
+  billingType: z2.enum(["one_time", "monthly"]),
+  firstCyclePriceVnd: intVndSchema,
+  recurringPriceVnd: nullableIntVndSchema.optional().default(null),
+  paidAmountVnd: intVndSchema.optional().default(0),
+  paidDate: isoDateSchema.optional(),
+  note: z2.string().trim().max(1e3).optional().default(""),
+  importRowKey: z2.string().trim().min(4).max(120)
+});
+var excelImportPayloadSchema = z2.object({
+  rows: z2.array(excelImportRowSchema).min(1).max(500),
+  idempotencyKey: z2.string().trim().max(120).optional()
+});
+async function listCollection(col) {
+  if (adminDb) {
+    const snap = await adminDb.collection(col).get();
+    return snap.docs.map((d) => ({ id: d.id, ...d.data() }));
+  }
+  const docs = await getFirestoreRestDocs(col, 1e3, false);
+  return docs;
+}
+async function getDocById(col, id) {
+  if (adminDb) {
+    const snap = await adminDb.collection(col).doc(id).get();
+    return snap.exists ? { id: snap.id, ...snap.data() } : null;
+  }
+  const doc = await getFirestoreRestDoc(col, id, false);
+  return doc ? { id, ...doc } : null;
+}
+async function saveDoc(col, id, data) {
+  if (adminDb) {
+    await adminDb.collection(col).doc(id).set(data, { merge: false });
+  } else {
+    await setFirestoreRestDoc(col, id, data);
+  }
+}
+async function queryByField(col, field, value) {
+  if (adminDb) {
+    const snap = await adminDb.collection(col).where(field, "==", value).get();
+    return snap.docs.map((d) => ({ id: d.id, ...d.data() }));
+  }
+  const docs = await queryFirestoreRestDocs(col, field, value, 500, false);
+  return docs;
+}
+function makeShortId(prefix) {
+  return `${prefix}_${Date.now().toString(36)}_${Math.random().toString(36).slice(2, 7)}`;
+}
+function nextCustomerCode(existing) {
+  let maxNum = 0;
+  for (const c of existing) {
+    const m = /^KH(\d+)$/i.exec(c.customerCode || "");
+    if (m) maxNum = Math.max(maxNum, Number(m[1]));
+  }
+  return `KH${String(maxNum + 1).padStart(4, "0")}`;
+}
+function makeOrderCode(todayVn, existingCount) {
+  const compact = todayVn.replace(/-/g, "").slice(2);
+  const seq = String(existingCount + 1).padStart(3, "0");
+  const rand = Math.random().toString(36).slice(2, 4).toUpperCase();
+  return `DH${compact}-${seq}${rand}`;
+}
+function makePaymentCode(todayVn, existingCount) {
+  const compact = todayVn.replace(/-/g, "").slice(2);
+  const seq = String(existingCount + 1).padStart(3, "0");
+  const rand = Math.random().toString(36).slice(2, 4).toUpperCase();
+  return `TT${compact}-${seq}${rand}`;
+}
+async function writeAuditLog(params) {
+  const id = makeShortId("alog");
+  const record = {
+    id,
+    action: params.action,
+    entityType: params.entityType,
+    entityId: params.entityId,
+    actorUid: params.actorUid,
+    actorName: params.actorName || "Qu\u1EA3n tr\u1ECB vi\xEAn",
+    summary: params.summary,
+    before: params.before ?? null,
+    after: params.after ?? null,
+    createdAt: (/* @__PURE__ */ new Date()).toISOString()
+  };
+  await saveDoc(COL_AUDIT_LOGS, id, record);
+}
+async function withIdempotency(key, scope, fn) {
+  if (!key || !key.trim()) {
+    return fn();
+  }
+  const safeKey = `${scope}_${key.trim().replace(/[^a-zA-Z0-9_-]/g, "_").slice(0, 100)}`;
+  const existingPromise = inFlightIdempotency.get(safeKey);
+  if (existingPromise) {
+    return existingPromise;
+  }
+  const stored = await getDocById(COL_IDEMPOTENCY, safeKey);
+  if (stored && stored.result !== void 0) {
+    return stored.result;
+  }
+  const runPromise = (async () => {
+    try {
+      const result = await fn();
+      try {
+        await saveDoc(COL_IDEMPOTENCY, safeKey, {
+          key: safeKey,
+          scope,
+          result,
+          createdAt: (/* @__PURE__ */ new Date()).toISOString()
+        });
+      } catch (err) {
+        console.warn("[aiShopService] Failed to persist idempotency key:", err);
+      }
+      return result;
+    } finally {
+      inFlightIdempotency.delete(safeKey);
+    }
+  })();
+  inFlightIdempotency.set(safeKey, runPromise);
+  return runPromise;
+}
+async function ensureInitialServicesSeeded(actorUid = "system", actorName = "H\u1EC7 th\u1ED1ng") {
+  const existing = await listCollection(COL_SERVICES);
+  if (existing.length > 0) {
+    return existing.sort((a, b) => (a.sortOrder ?? 99) - (b.sortOrder ?? 99));
+  }
+  const now = (/* @__PURE__ */ new Date()).toISOString();
+  const seeds = buildSeedServiceRecords(now);
+  await Promise.all(seeds.map((svc) => saveDoc(COL_SERVICES, svc.id, svc)));
+  await writeAuditLog({
+    action: "service_seed",
+    entityType: "service",
+    entityId: "seed_initial",
+    actorUid,
+    actorName,
+    summary: `Kh\u1EDFi t\u1EA1o danh m\u1EE5c ban \u0111\u1EA7u (${seeds.length} d\u1ECBch v\u1EE5 AI).`
+  });
+  invalidateAiShopCache();
+  return seeds;
+}
+async function getStudentAiCatalog() {
+  let services = await listCollection(COL_SERVICES);
+  if (services.length === 0) {
+    services = await ensureInitialServicesSeeded();
+  }
+  return services.filter((s) => s.status === "active" && s.studentVisible).sort((a, b) => (a.sortOrder ?? 99) - (b.sortOrder ?? 99));
+}
+async function getStudentAiOrdersAndWallet(uid, displayName) {
+  const [wallet, linkedCustomers, orders, payments] = await Promise.all([
+    getOrCreateWallet(uid, { fullName: displayName }),
+    queryByField(COL_CUSTOMERS, "linkedUid", uid),
+    queryByField(COL_ORDERS, "linkedUid", uid),
+    queryByField(COL_PAYMENTS, "linkedUid", uid)
+  ]);
+  return {
+    walletBalanceVnd: sanitizeVnd(wallet.balanceVnd),
+    customer: linkedCustomers[0] ?? null,
+    orders: orders.sort((a, b) => b.startDate.localeCompare(a.startDate) || b.createdAt.localeCompare(a.createdAt)),
+    payments: payments.sort((a, b) => b.paidDate.localeCompare(a.paidDate) || b.createdAt.localeCompare(a.createdAt))
+  };
+}
+async function sendDiscordNewAiOrderAlert(params) {
+  const webhookUrl = process.env.DISCORD_AI_SHOP_WEBHOOK_URL || process.env.DISCORD_REPORT_WEBHOOK_URL || "https://discord.com/api/webhooks/1500812404190085120/R1oclYbsjomTS5AUdbVkCD1hw1FqZZhb8LzvrfsyJVozADVmXWDlf4Mk3HlGUKqRI8zn";
+  if (!webhookUrl) return;
+  const baseUrl = (params.originBaseUrl || process.env.PUBLIC_APP_URL || "https://dk-test-v3.vercel.app").replace(/\/+$/, "");
+  const adminOrderUrl = `${baseUrl}/admin/ai-shop?tab=orders&orderId=${encodeURIComponent(
+    params.order.id
+  )}`;
+  const fields = [
+    {
+      name: "\u{1F464} Kh\xE1ch h\xE0ng",
+      value: `**${params.customer.fullName}** (\`${params.customer.customerCode}\`)`,
+      inline: true
+    },
+    {
+      name: "\u{1F4F1} S\u0110T Zalo",
+      value: `\`${params.order.contactPhoneZalo || params.customer.phoneZalo || "Ch\u01B0a cung c\u1EA5p"}\``,
+      inline: true
+    },
+    {
+      name: "\u{1F4E6} D\u1ECBch v\u1EE5 \u0111\u1EB7t mua",
+      value: `**${params.order.serviceNameSnapshot}** \xD7 ${params.order.quantity}`,
+      inline: false
+    },
+    {
+      name: "\u{1F4B0} \u0110\xE3 thanh to\xE1n (V\xED DkTEST)",
+      value: `**${params.totalCostVnd.toLocaleString("vi-VN")} \u0111**`,
+      inline: true
+    },
+    {
+      name: "\u{1F516} M\xE3 \u0111\u01A1n h\xE0ng",
+      value: `\`${params.order.orderCode}\``,
+      inline: true
+    }
+  ];
+  if (params.order.targetUpgradeEmail) {
+    fields.push({
+      name: "\u{1F4E7} Email c\u1EA7n n\xE2ng c\u1EA5p (Mail c\u1EA7n up)",
+      value: `\`${params.order.targetUpgradeEmail}\``,
+      inline: false
+    });
+  }
+  if (params.order.note) {
+    fields.push({
+      name: "\u{1F4DD} Ghi ch\xFA kh\xE1ch h\xE0ng",
+      value: params.order.note.slice(0, 400),
+      inline: false
+    });
+  }
+  fields.push({
+    name: "\u{1F517} X\u1EED l\xFD \u0111\u01A1n ngay",
+    value: `[\u{1F449} B\u1EA5m v\xE0o \u0111\xE2y \u0111\u1EC3 m\u1EDF trang Admin x\u1EED l\xFD & giao \u0111\u01A1n](${adminOrderUrl})`,
+    inline: false
+  });
+  const payload = {
+    embeds: [
+      {
+        title: `\u{1F6D2} \u0110\u01A0N MUA ACC AI M\u1EDAI \u2014 ${params.order.orderCode}`,
+        url: adminOrderUrl,
+        color: 3447003,
+        fields,
+        footer: {
+          text: "DkTEST AI Shop \u2022 Thanh to\xE1n t\u1EF1 \u0111\u1ED9ng qua V\xED DkTEST"
+        },
+        timestamp: (/* @__PURE__ */ new Date()).toISOString()
+      }
+    ]
+  };
+  try {
+    await fetch(webhookUrl, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload),
+      signal: AbortSignal.timeout(8e3)
+    });
+  } catch (err) {
+    console.warn("[aiShopService] Failed to send Discord webhook notification:", err);
+  }
+}
+async function studentPurchaseAiService(user, rawInput, originBaseUrl) {
+  const data = studentPurchaseSchema.parse(rawInput);
+  return withIdempotency(data.idempotencyKey, `stu_buy_${user.uid}`, async () => {
+    const service = await getDocById(COL_SERVICES, data.serviceId);
+    if (!service || service.status !== "active" || !service.studentVisible) {
+      throw new Error("D\u1ECBch v\u1EE5 n\xE0y hi\u1EC7n kh\xF4ng c\xF2n m\u1EDF b\xE1n t\u1EF1 \u0111\u1ED9ng.");
+    }
+    if (service.defaultFirstPriceVnd === null || service.defaultFirstPriceVnd <= 0) {
+      throw new Error("D\u1ECBch v\u1EE5 n\xE0y ch\u01B0a c\xF3 gi\xE1 c\u1ED1 \u0111\u1ECBnh, vui l\xF2ng li\xEAn h\u1EC7 Admin \u0111\u1EC3 \u0111\u1EB7t \u0111\u01A1n.");
+    }
+    if (service.billingType === "monthly" && (service.defaultRecurringPriceVnd === null || service.defaultRecurringPriceVnd < 0)) {
+      throw new Error("D\u1ECBch v\u1EE5 h\xE0ng th\xE1ng ch\u01B0a c\u1EA5u h\xECnh gi\xE1 k\u1EF3 sau.");
+    }
+    const storeMeta = resolveServiceStorefrontMeta(service);
+    const upgradeEmail = (data.targetUpgradeEmail || "").trim();
+    if (storeMeta.requiresUpgradeEmail) {
+      if (!upgradeEmail || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(upgradeEmail)) {
+        throw new Error(
+          `G\xF3i ${storeMeta.categoryLabel} b\u1EAFt bu\u1ED9c nh\u1EADp \u0111\u1ECBa ch\u1EC9 Email c\u1EA7n n\xE2ng c\u1EA5p h\u1EE3p l\u1EC7.`
+        );
+      }
+    }
+    const totalCostVnd = toIntVnd(service.defaultFirstPriceVnd) * data.quantity;
+    if (totalCostVnd <= 0) {
+      throw new Error("Gi\xE1 d\u1ECBch v\u1EE5 kh\xF4ng h\u1EE3p l\u1EC7.");
+    }
+    const initialWallet = await getOrCreateWallet(user.uid, { fullName: user.displayName });
+    const [existingLinkedCustomers, allCustomers, allOrders, allPayments] = await Promise.all([
+      queryByField(COL_CUSTOMERS, "linkedUid", user.uid),
+      listCollection(COL_CUSTOMERS),
+      listCollection(COL_ORDERS),
+      listCollection(COL_PAYMENTS)
+    ]);
+    const now = (/* @__PURE__ */ new Date()).toISOString();
+    const todayVn = getTodayVnDate();
+    let customer;
+    let isNewCustomer = false;
+    if (existingLinkedCustomers.length > 0) {
+      customer = {
+        ...existingLinkedCustomers[0],
+        phoneZalo: data.contactPhoneZalo || existingLinkedCustomers[0].phoneZalo,
+        email: upgradeEmail || data.contactEmail || existingLinkedCustomers[0].email || user.email || "",
+        updatedAt: now
+      };
+    } else {
+      isNewCustomer = true;
+      customer = {
+        id: makeShortId("cust"),
+        customerCode: nextCustomerCode(allCustomers),
+        fullName: initialWallet.fullName || user.displayName || user.email?.split("@")[0] || "H\u1ECDc sinh DkTEST",
+        phoneZalo: data.contactPhoneZalo,
+        email: upgradeEmail || data.contactEmail || user.email || "",
+        otherContact: initialWallet.currentClass ? `L\u1EDBp ${initialWallet.currentClass}` : "",
+        note: "Kh\xE1ch t\u1EF1 \u0111\u0103ng k\xFD qua C\u1EEDa h\xE0ng Acc AI DkTEST",
+        linkedUid: user.uid,
+        status: "active",
+        createdAt: now,
+        updatedAt: now,
+        archivedAt: null
+      };
+    }
+    const orderId = makeShortId("ord");
+    const paymentId = makeShortId("pay");
+    const walletTxId = makeShortId("wtx_ai");
+    const order = {
+      id: orderId,
+      orderCode: makeOrderCode(todayVn, allOrders.length),
+      customerId: customer.id,
+      customerCodeSnapshot: customer.customerCode,
+      linkedUid: user.uid,
+      serviceId: service.id,
+      serviceNameSnapshot: service.name,
+      serviceConditionsSnapshot: service.conditions,
+      accountSlot: upgradeEmail || "",
+      quantity: data.quantity,
+      startDate: todayVn,
+      stopDate: null,
+      billingType: service.billingType,
+      firstCyclePriceVnd: toIntVnd(service.defaultFirstPriceVnd),
+      recurringPriceVnd: service.billingType === "monthly" ? toIntVnd(service.defaultRecurringPriceVnd ?? service.defaultFirstPriceVnd) : null,
+      durationValue: service.durationValue,
+      durationUnit: service.durationUnit,
+      note: data.note || "H\u1ECDc sinh mua t\u1EF1 \u0111\u1ED9ng qua V\xED DkTEST",
+      contactPhoneZalo: data.contactPhoneZalo,
+      targetUpgradeEmail: upgradeEmail || "",
+      adminDeliveryNote: "",
+      adminAttachments: [],
+      deliveredAt: null,
+      studentNotificationUnread: false,
+      studentNotificationReadAt: null,
+      source: "student_auto",
+      fulfillmentStatus: "pending_delivery",
+      importRowKey: null,
+      idempotencyKey: data.idempotencyKey,
+      createdByUid: user.uid,
+      createdAt: now,
+      updatedAt: now
+    };
+    const payment = {
+      id: paymentId,
+      paymentCode: makePaymentCode(todayVn, allPayments.length),
+      orderId: order.id,
+      customerId: customer.id,
+      linkedUid: user.uid,
+      paidDate: todayVn,
+      amountVnd: totalCostVnd,
+      method: "dktest_wallet",
+      note: `Thanh to\xE1n t\u1EF1 \u0111\u1ED9ng \u0111\u01A1n ${order.orderCode} qua V\xED DkTEST`,
+      status: "active",
+      voidReason: null,
+      voidedAt: null,
+      voidedByUid: null,
+      walletTransactionId: walletTxId,
+      idempotencyKey: data.idempotencyKey,
+      createdByUid: user.uid,
+      createdAt: now,
+      updatedAt: now
+    };
+    let newBalanceVnd = 0;
+    if (adminDb) {
+      await adminDb.runTransaction(async (tx) => {
+        const walletRef = adminDb.collection("wallets").doc(user.uid);
+        const walletSnap = await tx.get(walletRef);
+        const currentWallet = walletSnap.exists ? walletSnap.data() : initialWallet;
+        const balanceBefore = sanitizeVnd(currentWallet.balanceVnd);
+        if (balanceBefore < totalCostVnd) {
+          const err = new Error(
+            `S\u1ED1 d\u01B0 V\xED DkTEST kh\xF4ng \u0111\u1EE7. C\u1EA7n ${totalCostVnd.toLocaleString("vi-VN")}\u0111, hi\u1EC7n c\xF3 ${balanceBefore.toLocaleString("vi-VN")}\u0111.`
+          );
+          err.statusCode = 400;
+          err.code = "insufficient_balance";
+          err.missingVnd = totalCostVnd - balanceBefore;
+          throw err;
+        }
+        const balanceAfter = balanceBefore - totalCostVnd;
+        newBalanceVnd = balanceAfter;
+        tx.set(
+          walletRef,
+          {
+            ...currentWallet,
+            uid: user.uid,
+            balanceVnd: balanceAfter,
+            totalSpentVnd: sanitizeVnd(currentWallet.totalSpentVnd) + totalCostVnd,
+            updatedAt: now
+          },
+          { merge: true }
+        );
+        const walletTx = {
+          id: walletTxId,
+          uid: user.uid,
+          type: "ai_service_purchase_debit",
+          amountVnd: totalCostVnd,
+          balanceBeforeVnd: balanceBefore,
+          balanceAfterVnd: balanceAfter,
+          studentNameSnapshot: currentWallet.fullName || customer.fullName,
+          studentClassSnapshot: currentWallet.currentClass || "",
+          idempotencyKey: data.idempotencyKey,
+          actorUid: user.uid,
+          actorName: customer.fullName,
+          note: `Mua d\u1ECBch v\u1EE5 AI: ${service.name} x${data.quantity} (${order.orderCode})`,
+          description: `Mua d\u1ECBch v\u1EE5 AI: ${service.name} x${data.quantity} (${order.orderCode})`,
+          createdAt: now,
+          metadata: {
+            aiOrderId: order.id,
+            aiOrderCode: order.orderCode,
+            aiServiceId: service.id,
+            aiPaymentId: payment.id
+          }
+        };
+        tx.set(adminDb.collection("wallet_transactions").doc(walletTxId), walletTx);
+        tx.set(adminDb.collection(COL_CUSTOMERS).doc(customer.id), customer, { merge: !isNewCustomer });
+        tx.set(adminDb.collection(COL_ORDERS).doc(order.id), order);
+        tx.set(adminDb.collection(COL_PAYMENTS).doc(payment.id), payment);
+      });
+    } else {
+      const currentWallet = await getFirestoreRestDoc("wallets", user.uid, false) || initialWallet;
+      const balanceBefore = sanitizeVnd(currentWallet.balanceVnd);
+      if (balanceBefore < totalCostVnd) {
+        const err = new Error(
+          `S\u1ED1 d\u01B0 V\xED DkTEST kh\xF4ng \u0111\u1EE7. C\u1EA7n ${totalCostVnd.toLocaleString("vi-VN")}\u0111, hi\u1EC7n c\xF3 ${balanceBefore.toLocaleString("vi-VN")}\u0111.`
+        );
+        err.statusCode = 400;
+        err.code = "insufficient_balance";
+        err.missingVnd = totalCostVnd - balanceBefore;
+        throw err;
+      }
+      newBalanceVnd = balanceBefore - totalCostVnd;
+      await setFirestoreRestDoc("wallets", user.uid, {
+        ...currentWallet,
+        uid: user.uid,
+        balanceVnd: newBalanceVnd,
+        totalSpentVnd: sanitizeVnd(currentWallet.totalSpentVnd) + totalCostVnd,
+        updatedAt: now
+      });
+      const walletTx = {
+        id: walletTxId,
+        uid: user.uid,
+        type: "ai_service_purchase_debit",
+        amountVnd: totalCostVnd,
+        balanceBeforeVnd: balanceBefore,
+        balanceAfterVnd: newBalanceVnd,
+        studentNameSnapshot: currentWallet.fullName || customer.fullName,
+        studentClassSnapshot: currentWallet.currentClass || "",
+        idempotencyKey: data.idempotencyKey,
+        actorUid: user.uid,
+        actorName: customer.fullName,
+        note: `Mua d\u1ECBch v\u1EE5 AI: ${service.name} x${data.quantity} (${order.orderCode})`,
+        description: `Mua d\u1ECBch v\u1EE5 AI: ${service.name} x${data.quantity} (${order.orderCode})`,
+        createdAt: now,
+        metadata: {
+          aiOrderId: order.id,
+          aiOrderCode: order.orderCode,
+          aiServiceId: service.id,
+          aiPaymentId: payment.id
+        }
+      };
+      await Promise.all([
+        setFirestoreRestDoc("wallet_transactions", walletTxId, walletTx),
+        saveDoc(COL_CUSTOMERS, customer.id, customer),
+        saveDoc(COL_ORDERS, order.id, order),
+        saveDoc(COL_PAYMENTS, payment.id, payment)
+      ]);
+    }
+    await writeAuditLog({
+      action: "student_auto_purchase",
+      entityType: "order",
+      entityId: order.id,
+      actorUid: user.uid,
+      actorName: customer.fullName,
+      summary: `H\u1ECDc sinh ${customer.fullName} t\u1EF1 mua ${service.name} x${data.quantity} (${totalCostVnd}\u0111 qua V\xED DkTEST, \u0111\u01A1n ${order.orderCode}).`,
+      after: { orderCode: order.orderCode, totalCostVnd, walletTxId }
+    });
+    invalidateAiShopCache();
+    invalidateWalletOverviewCache();
+    invalidateStudentDetailsCache(user.uid);
+    invalidateGlobalSpendingCache();
+    await sendDiscordNewAiOrderAlert({
+      order,
+      customer,
+      totalCostVnd,
+      originBaseUrl
+    });
+    return {
+      order,
+      payment,
+      customer,
+      newBalanceVnd,
+      walletTransactionId: walletTxId
+    };
+  });
+}
+async function acknowledgeStudentOrderNotification(uid, orderId) {
+  const existing = await getDocById(COL_ORDERS, orderId);
+  if (!existing || existing.linkedUid !== uid) {
+    const err = new Error("Kh\xF4ng t\xECm th\u1EA5y \u0111\u01A1n h\xE0ng thu\u1ED9c t\xE0i kho\u1EA3n c\u1EE7a b\u1EA1n.");
+    err.statusCode = 404;
+    throw err;
+  }
+  const now = (/* @__PURE__ */ new Date()).toISOString();
+  const updated = {
+    ...existing,
+    studentNotificationUnread: false,
+    studentNotificationReadAt: now,
+    updatedAt: now
+  };
+  await saveDoc(COL_ORDERS, orderId, updated);
+  invalidateAiShopCache();
+  return updated;
+}
+async function studentCancelSlotRenewal(user, orderId, reason) {
+  const existing = await getDocById(COL_ORDERS, orderId);
+  if (!existing || existing.linkedUid !== user.uid) {
+    const err = new Error("Kh\xF4ng t\xECm th\u1EA5y \u0111\u01A1n h\xE0ng thu\u1ED9c t\xE0i kho\u1EA3n c\u1EE7a b\u1EA1n.");
+    err.statusCode = 404;
+    throw err;
+  }
+  if (existing.billingType !== "monthly") {
+    throw new Error("Ch\u1EC9 c\xE1c g\xF3i slot gia h\u1EA1n h\xE0ng th\xE1ng m\u1EDBi h\u1ED7 tr\u1EE3 h\u1EE7y gia h\u1EA1n.");
+  }
+  const todayVn = getTodayVnDate();
+  const orderPayments = await queryByField(COL_PAYMENTS, "orderId", orderId);
+  const summary = computeOrderFinancialSummary(existing, orderPayments, todayVn);
+  let effectiveStopDate;
+  const coveredPeriods = summary.periods.filter((p) => p.allocatedVnd > 0 || p.isDue);
+  if (coveredPeriods.length > 0) {
+    const lastCovered = coveredPeriods[coveredPeriods.length - 1];
+    effectiveStopDate = lastCovered.coverageEndDate || addMonthsAnchored(existing.startDate, lastCovered.periodNumber);
+  } else {
+    effectiveStopDate = existing.startDate;
+  }
+  const now = (/* @__PURE__ */ new Date()).toISOString();
+  const cleanReason = String(reason || "").trim().slice(0, 400);
+  const updated = {
+    ...existing,
+    stopDate: effectiveStopDate,
+    autoRenewCancelled: true,
+    autoRenewCancelledAt: now,
+    autoRenewCancelReason: cleanReason,
+    updatedAt: now
+  };
+  await saveDoc(COL_ORDERS, orderId, updated);
+  await writeAuditLog({
+    action: "order_stop",
+    entityType: "order",
+    entityId: orderId,
+    actorUid: user.uid,
+    actorName: user.displayName || "H\u1ECDc sinh",
+    summary: `H\u1ECDc sinh h\u1EE7y gia h\u1EA1n g\xF3i slot ${existing.orderCode} (${existing.serviceNameSnapshot}) \u2014 d\u1EEBng t\u1EEB ${effectiveStopDate}.${cleanReason ? ` L\xFD do: ${cleanReason}` : ""}`,
+    before: { stopDate: existing.stopDate, autoRenewCancelled: existing.autoRenewCancelled },
+    after: { stopDate: effectiveStopDate, autoRenewCancelled: true }
+  });
+  invalidateAiShopCache();
+  return updated;
+}
+async function studentResumeSlotRenewal(user, orderId) {
+  const existing = await getDocById(COL_ORDERS, orderId);
+  if (!existing || existing.linkedUid !== user.uid) {
+    const err = new Error("Kh\xF4ng t\xECm th\u1EA5y \u0111\u01A1n h\xE0ng thu\u1ED9c t\xE0i kho\u1EA3n c\u1EE7a b\u1EA1n.");
+    err.statusCode = 404;
+    throw err;
+  }
+  if (existing.billingType !== "monthly") {
+    throw new Error("\u0110\u01A1n h\xE0ng n\xE0y kh\xF4ng ph\u1EA3i g\xF3i gia h\u1EA1n h\xE0ng th\xE1ng.");
+  }
+  const todayVn = getTodayVnDate();
+  if (existing.stopDate && existing.stopDate <= todayVn) {
+    throw new Error("G\xF3i n\xE0y \u0111\xE3 h\u1EBFt h\u1EA1n d\u1EEBng. Vui l\xF2ng \u0111\u1EB7t mua g\xF3i m\u1EDBi ho\u1EB7c li\xEAn h\u1EC7 Admin.");
+  }
+  const now = (/* @__PURE__ */ new Date()).toISOString();
+  const updated = {
+    ...existing,
+    stopDate: null,
+    autoRenewCancelled: false,
+    autoRenewCancelledAt: null,
+    autoRenewCancelReason: "",
+    updatedAt: now
+  };
+  await saveDoc(COL_ORDERS, orderId, updated);
+  await writeAuditLog({
+    action: "order_stop",
+    entityType: "order",
+    entityId: orderId,
+    actorUid: user.uid,
+    actorName: user.displayName || "H\u1ECDc sinh",
+    summary: `H\u1ECDc sinh b\u1EADt l\u1EA1i gia h\u1EA1n g\xF3i slot ${existing.orderCode} (${existing.serviceNameSnapshot}).`,
+    before: { stopDate: existing.stopDate, autoRenewCancelled: existing.autoRenewCancelled },
+    after: { stopDate: null, autoRenewCancelled: false }
+  });
+  invalidateAiShopCache();
+  return updated;
+}
+async function studentPayOrderWithWallet(user, orderId, rawInput) {
+  const data = studentRenewOrderSchema.parse(rawInput);
+  return withIdempotency(data.idempotencyKey, `stu_pay_${user.uid}_${orderId}`, async () => {
+    const order = await getDocById(COL_ORDERS, orderId);
+    if (!order || order.linkedUid !== user.uid) {
+      const err = new Error("Kh\xF4ng t\xECm th\u1EA5y \u0111\u01A1n h\xE0ng thu\u1ED9c t\xE0i kho\u1EA3n c\u1EE7a b\u1EA1n.");
+      err.statusCode = 404;
+      throw err;
+    }
+    const orderPayments = await queryByField(COL_PAYMENTS, "orderId", orderId);
+    const summary = computeOrderFinancialSummary(order, orderPayments, getTodayVnDate());
+    if (summary.isStopped && summary.debtUpToAsOfDateVnd === 0) {
+      throw new Error("\u0110\u01A1n h\xE0ng n\xE0y \u0111\xE3 d\u1EEBng v\xE0 kh\xF4ng c\xF2n c\xF4ng n\u1EE3 c\u1EA7n thanh to\xE1n.");
+    }
+    const allPayments = await listCollection(COL_PAYMENTS);
+    const initialWallet = await getOrCreateWallet(user.uid, { fullName: user.displayName });
+    const now = (/* @__PURE__ */ new Date()).toISOString();
+    const todayVn = getTodayVnDate();
+    const paymentId = makeShortId("pay");
+    const walletTxId = makeShortId("wtx_airen");
+    const payment = {
+      id: paymentId,
+      paymentCode: makePaymentCode(todayVn, allPayments.length),
+      orderId: order.id,
+      customerId: order.customerId,
+      linkedUid: user.uid,
+      paidDate: todayVn,
+      amountVnd: data.amountVnd,
+      method: "dktest_wallet",
+      note: data.note || `H\u1ECDc sinh thanh to\xE1n / gia h\u1EA1n \u0111\u01A1n ${order.orderCode} qua V\xED DkTEST`,
+      status: "active",
+      voidReason: null,
+      voidedAt: null,
+      voidedByUid: null,
+      walletTransactionId: walletTxId,
+      idempotencyKey: data.idempotencyKey,
+      createdByUid: user.uid,
+      createdAt: now,
+      updatedAt: now
+    };
+    let newBalanceVnd = 0;
+    if (adminDb) {
+      await adminDb.runTransaction(async (tx) => {
+        const walletRef = adminDb.collection("wallets").doc(user.uid);
+        const walletSnap = await tx.get(walletRef);
+        const currentWallet = walletSnap.exists ? walletSnap.data() : initialWallet;
+        const balanceBefore = sanitizeVnd(currentWallet.balanceVnd);
+        if (balanceBefore < data.amountVnd) {
+          const err = new Error(
+            `S\u1ED1 d\u01B0 V\xED DkTEST kh\xF4ng \u0111\u1EE7. C\u1EA7n ${data.amountVnd.toLocaleString("vi-VN")}\u0111, hi\u1EC7n c\xF3 ${balanceBefore.toLocaleString("vi-VN")}\u0111.`
+          );
+          err.statusCode = 400;
+          err.code = "insufficient_balance";
+          err.missingVnd = data.amountVnd - balanceBefore;
+          throw err;
+        }
+        const balanceAfter = balanceBefore - data.amountVnd;
+        newBalanceVnd = balanceAfter;
+        tx.set(
+          walletRef,
+          {
+            ...currentWallet,
+            uid: user.uid,
+            balanceVnd: balanceAfter,
+            totalSpentVnd: sanitizeVnd(currentWallet.totalSpentVnd) + data.amountVnd,
+            updatedAt: now
+          },
+          { merge: true }
+        );
+        const walletTx = {
+          id: walletTxId,
+          uid: user.uid,
+          type: "ai_service_purchase_debit",
+          amountVnd: data.amountVnd,
+          balanceBeforeVnd: balanceBefore,
+          balanceAfterVnd: balanceAfter,
+          studentNameSnapshot: currentWallet.fullName || user.displayName || "",
+          studentClassSnapshot: currentWallet.currentClass || "",
+          idempotencyKey: data.idempotencyKey,
+          actorUid: user.uid,
+          actorName: currentWallet.fullName || user.displayName || "",
+          note: `Gia h\u1EA1n / thanh to\xE1n d\u1ECBch v\u1EE5 AI: ${order.serviceNameSnapshot} (${order.orderCode})`,
+          description: `Gia h\u1EA1n / thanh to\xE1n d\u1ECBch v\u1EE5 AI: ${order.serviceNameSnapshot} (${order.orderCode})`,
+          createdAt: now,
+          metadata: {
+            aiOrderId: order.id,
+            aiOrderCode: order.orderCode,
+            aiPaymentId: payment.id
+          }
+        };
+        tx.set(adminDb.collection("wallet_transactions").doc(walletTxId), walletTx);
+        tx.set(adminDb.collection(COL_PAYMENTS).doc(payment.id), payment);
+      });
+    } else {
+      const currentWallet = await getFirestoreRestDoc("wallets", user.uid, false) || initialWallet;
+      const balanceBefore = sanitizeVnd(currentWallet.balanceVnd);
+      if (balanceBefore < data.amountVnd) {
+        const err = new Error(
+          `S\u1ED1 d\u01B0 V\xED DkTEST kh\xF4ng \u0111\u1EE7. C\u1EA7n ${data.amountVnd.toLocaleString("vi-VN")}\u0111, hi\u1EC7n c\xF3 ${balanceBefore.toLocaleString("vi-VN")}\u0111.`
+        );
+        err.statusCode = 400;
+        err.code = "insufficient_balance";
+        err.missingVnd = data.amountVnd - balanceBefore;
+        throw err;
+      }
+      newBalanceVnd = balanceBefore - data.amountVnd;
+      await setFirestoreRestDoc("wallets", user.uid, {
+        ...currentWallet,
+        uid: user.uid,
+        balanceVnd: newBalanceVnd,
+        totalSpentVnd: sanitizeVnd(currentWallet.totalSpentVnd) + data.amountVnd,
+        updatedAt: now
+      });
+      const walletTx = {
+        id: walletTxId,
+        uid: user.uid,
+        type: "ai_service_purchase_debit",
+        amountVnd: data.amountVnd,
+        balanceBeforeVnd: balanceBefore,
+        balanceAfterVnd: newBalanceVnd,
+        studentNameSnapshot: currentWallet.fullName || user.displayName || "",
+        studentClassSnapshot: currentWallet.currentClass || "",
+        idempotencyKey: data.idempotencyKey,
+        actorUid: user.uid,
+        actorName: currentWallet.fullName || user.displayName || "",
+        note: `Gia h\u1EA1n / thanh to\xE1n d\u1ECBch v\u1EE5 AI: ${order.serviceNameSnapshot} (${order.orderCode})`,
+        description: `Gia h\u1EA1n / thanh to\xE1n d\u1ECBch v\u1EE5 AI: ${order.serviceNameSnapshot} (${order.orderCode})`,
+        createdAt: now,
+        metadata: {
+          aiOrderId: order.id,
+          aiOrderCode: order.orderCode,
+          aiPaymentId: payment.id
+        }
+      };
+      await Promise.all([
+        setFirestoreRestDoc("wallet_transactions", walletTxId, walletTx),
+        saveDoc(COL_PAYMENTS, payment.id, payment)
+      ]);
+    }
+    await writeAuditLog({
+      action: "student_auto_renew",
+      entityType: "payment",
+      entityId: payment.id,
+      actorUid: user.uid,
+      actorName: user.displayName || "H\u1ECDc sinh",
+      summary: `H\u1ECDc sinh thanh to\xE1n/gia h\u1EA1n \u0111\u01A1n ${order.orderCode} s\u1ED1 ti\u1EC1n ${data.amountVnd}\u0111 qua V\xED DkTEST.`,
+      after: { orderCode: order.orderCode, amountVnd: data.amountVnd, walletTxId }
+    });
+    invalidateAiShopCache();
+    invalidateWalletOverviewCache();
+    invalidateStudentDetailsCache(user.uid);
+    invalidateGlobalSpendingCache();
+    return { payment, newBalanceVnd, walletTransactionId: walletTxId };
+  });
+}
+
+// server/routes/aiShopStudentRoutes.ts
+var aiShopStudentRouter = Router();
+function formatError(err) {
+  if (err instanceof ZodError) {
+    return {
+      status: 400,
+      error: "validation_error",
+      message: err.issues[0]?.message || "D\u1EEF li\u1EC7u \u0111\u1EA7u v\xE0o kh\xF4ng h\u1EE3p l\u1EC7."
+    };
+  }
+  return {
+    status: Number(err?.statusCode) || 400,
+    error: err?.code || "ai_shop_error",
+    message: err?.message || "\u0110\xE3 c\xF3 l\u1ED7i x\u1EA3y ra.",
+    missingVnd: typeof err?.missingVnd === "number" ? err.missingVnd : void 0
+  };
+}
+function resolveRequestOrigin(req) {
+  const originHeader = req.headers.origin;
+  if (typeof originHeader === "string" && /^https?:\/\//i.test(originHeader)) {
+    return originHeader;
+  }
+  const proto = String(req.headers["x-forwarded-proto"] || req.protocol || "https").split(",")[0].trim();
+  const host = String(req.headers["x-forwarded-host"] || req.headers.host || "").split(",")[0].trim();
+  if (host) return `${proto}://${host}`;
+  return process.env.PUBLIC_APP_URL || "https://dk-test-v3.vercel.app";
+}
+aiShopStudentRouter.get("/catalog", requireAuth, async (_req, res) => {
+  try {
+    const services = await getStudentAiCatalog();
+    return res.json({ success: true, services });
+  } catch (err) {
+    const e = formatError(err);
+    return res.status(500).json({ error: e.error, message: e.message });
+  }
+});
+aiShopStudentRouter.get("/my-orders", requireAuth, async (req, res) => {
+  try {
+    const data = await getStudentAiOrdersAndWallet(req.user.uid, req.user.displayName);
+    return res.json({ success: true, ...data });
+  } catch (err) {
+    const e = formatError(err);
+    return res.status(500).json({ error: e.error, message: e.message });
+  }
+});
+aiShopStudentRouter.post("/purchase", requireAuth, async (req, res) => {
+  try {
+    const result = await studentPurchaseAiService(
+      {
+        uid: req.user.uid,
+        email: req.user.email,
+        displayName: req.user.displayName
+      },
+      req.body,
+      resolveRequestOrigin(req)
+    );
+    return res.status(201).json({ success: true, ...result });
+  } catch (err) {
+    const e = formatError(err);
+    return res.status(e.status).json({
+      error: e.error,
+      message: e.message,
+      ...e.missingVnd !== void 0 ? { missingVnd: e.missingVnd } : {}
+    });
+  }
+});
+aiShopStudentRouter.post(
+  "/orders/:orderId/ack-notification",
+  requireAuth,
+  async (req, res) => {
+    try {
+      const order = await acknowledgeStudentOrderNotification(req.user.uid, req.params.orderId);
+      return res.json({ success: true, order });
+    } catch (err) {
+      const e = formatError(err);
+      return res.status(e.status).json({ error: e.error, message: e.message });
+    }
+  }
+);
+aiShopStudentRouter.post(
+  "/orders/:orderId/cancel-renewal",
+  requireAuth,
+  async (req, res) => {
+    try {
+      const order = await studentCancelSlotRenewal(
+        { uid: req.user.uid, displayName: req.user.displayName },
+        req.params.orderId,
+        req.body?.reason
+      );
+      return res.json({ success: true, order });
+    } catch (err) {
+      const e = formatError(err);
+      return res.status(e.status).json({ error: e.error, message: e.message });
+    }
+  }
+);
+aiShopStudentRouter.post(
+  "/orders/:orderId/resume-renewal",
+  requireAuth,
+  async (req, res) => {
+    try {
+      const order = await studentResumeSlotRenewal(
+        { uid: req.user.uid, displayName: req.user.displayName },
+        req.params.orderId
+      );
+      return res.json({ success: true, order });
+    } catch (err) {
+      const e = formatError(err);
+      return res.status(e.status).json({ error: e.error, message: e.message });
+    }
+  }
+);
+aiShopStudentRouter.post(
+  "/orders/:orderId/pay-wallet",
+  requireAuth,
+  async (req, res) => {
+    try {
+      const result = await studentPayOrderWithWallet(
+        {
+          uid: req.user.uid,
+          displayName: req.user.displayName
+        },
+        req.params.orderId,
+        req.body
+      );
+      return res.status(201).json({ success: true, ...result });
+    } catch (err) {
+      const e = formatError(err);
+      return res.status(e.status).json({
+        error: e.error,
+        message: e.message,
+        ...e.missingVnd !== void 0 ? { missingVnd: e.missingVnd } : {}
+      });
+    }
+  }
+);
+
+// server/routes/minigameStudentRoutes.ts
+import { Router as Router2 } from "express";
+import { ZodError as ZodError2 } from "zod";
+
+// server/services/minigameService.ts
+import crypto2 from "node:crypto";
+import { z as z3 } from "zod";
+
+// src/services/minigame/raceEngine.ts
+var RACER_PALETTE = [
+  "#ef4444",
+  // Red
+  "#2563eb",
+  // Blue
+  "#f59e0b",
+  // Amber
+  "#10b981",
+  // Emerald
+  "#8b5cf6",
+  // Violet
+  "#ec4899",
+  // Pink
+  "#06b6d4",
+  // Cyan
+  "#f97316",
+  // Orange
+  "#84cc16",
+  // Lime
+  "#6366f1",
+  // Indigo
+  "#14b8a6",
+  // Teal
+  "#e11d48"
+  // Rose
+];
+
+// src/services/minigame/gameLogic.ts
+var BAU_CUA_FACES = [
+  { id: "bau", label: "B\u1EA7u", emoji: "\u{1F350}", color: "from-emerald-500 to-green-600" },
+  { id: "cua", label: "Cua", emoji: "\u{1F980}", color: "from-rose-500 to-red-600" },
+  { id: "tom", label: "T\xF4m", emoji: "\u{1F990}", color: "from-orange-500 to-amber-600" },
+  { id: "ca", label: "C\xE1", emoji: "\u{1F41F}", color: "from-sky-500 to-blue-600" },
+  { id: "ga", label: "G\xE0", emoji: "\u{1F413}", color: "from-yellow-500 to-amber-500" },
+  { id: "nai", label: "Nai", emoji: "\u{1F98C}", color: "from-violet-500 to-purple-600" }
+];
+
+// server/services/minigameService.ts
+var COL_MINIGAMES = "minigame_events";
+var liveCheersByEvent = /* @__PURE__ */ new Map();
+function addLiveMinigameCheer(eventId, cheer) {
+  const msg = {
+    id: makeId("ch"),
+    uid: cheer.uid,
+    displayName: (cheer.displayName || "Ng\u01B0\u1EDDi xem").slice(0, 60),
+    emoji: (cheer.emoji || "\u{1F525}").slice(0, 8),
+    text: (cheer.text || "").slice(0, 80),
+    createdAt: Date.now()
+  };
+  const existing = liveCheersByEvent.get(eventId) || [];
+  const next = [msg, ...existing.filter((m) => Date.now() - m.createdAt < 6e4)].slice(0, 24);
+  liveCheersByEvent.set(eventId, next);
+  return msg;
+}
+function listLiveMinigameCheers(eventId) {
+  const existing = liveCheersByEvent.get(eventId) || [];
+  const fresh = existing.filter((m) => Date.now() - m.createdAt < 6e4);
+  liveCheersByEvent.set(eventId, fresh);
+  return fresh.slice(0, 12);
+}
+var prizeSchema = z3.object({
+  rank: z3.number().int().min(0).max(10),
+  label: z3.string().trim().min(1).max(120),
+  type: z3.enum(["wallet_vnd", "voucher", "custom_gift"]),
+  amountVnd: z3.number().int().min(0).max(5e7).optional(),
+  voucherCode: z3.string().trim().max(80).optional(),
+  customTitle: z3.string().trim().max(200).optional()
+});
+var createMinigameSchema = z3.object({
+  title: z3.string().trim().min(2, "Vui l\xF2ng nh\u1EADp t\xEAn s\u1EF1 ki\u1EC7n minigame.").max(160),
+  description: z3.string().trim().max(1e3).optional().default(""),
+  gameType: z3.enum(["horse_race", "bee_race", "tai_xiu", "bau_cua", "lucky_number"]),
+  maxParticipants: z3.number().int().min(2).max(200).default(8),
+  racersPerHeat: z3.number().int().min(2).max(8).optional().default(4),
+  prizes: z3.array(prizeSchema).min(1, "Vui l\xF2ng c\u1EA5u h\xECnh \xEDt nh\u1EA5t 1 gi\u1EA3i th\u01B0\u1EDFng ph\xFAc l\u1EE3i.").max(10)
+});
+var joinMinigameSchema = z3.object({
+  prediction: z3.string().trim().max(32).optional(),
+  avatarUrl: z3.string().trim().max(1024).optional()
+});
+async function listEventsRaw() {
+  if (adminDb) {
+    const snap = await adminDb.collection(COL_MINIGAMES).get();
+    return snap.docs.map((d) => ({ id: d.id, ...d.data() }));
+  }
+  const docs = await getFirestoreRestDocs(COL_MINIGAMES, 200, false);
+  return docs;
+}
+async function getEventRaw(id) {
+  if (adminDb) {
+    const snap = await adminDb.collection(COL_MINIGAMES).doc(id).get();
+    return snap.exists ? { id: snap.id, ...snap.data() } : null;
+  }
+  const doc = await getFirestoreRestDoc(COL_MINIGAMES, id, false);
+  return doc ? { id, ...doc } : null;
+}
+async function saveEventRaw(event) {
+  if (adminDb) {
+    await adminDb.collection(COL_MINIGAMES).doc(event.id).set(event, { merge: false });
+  } else {
+    await setFirestoreRestDoc(COL_MINIGAMES, event.id, event);
+  }
+}
+function makeId(prefix) {
+  return `${prefix}_${Date.now().toString(36)}_${crypto2.randomBytes(3).toString("hex")}`;
+}
+function isRaceGame(type) {
+  return type === "horse_race" || type === "bee_race";
+}
+function validatePredictionForGame(gameType, prediction) {
+  if (isRaceGame(gameType)) return void 0;
+  const clean = (prediction || "").trim().toLowerCase();
+  if (gameType === "tai_xiu") {
+    if (clean !== "tai" && clean !== "xiu") {
+      throw new Error("Vui l\xF2ng ch\u1ECDn d\u1EF1 \u0111o\xE1n mi\u1EC5n ph\xED: T\xE0i ho\u1EB7c X\u1EC9u.");
+    }
+    return clean;
+  }
+  if (gameType === "bau_cua") {
+    const valid = BAU_CUA_FACES.map((f) => f.id);
+    if (!valid.includes(clean)) {
+      throw new Error("Vui l\xF2ng ch\u1ECDn 1 linh v\u1EADt B\u1EA7u Cua h\u1EE3p l\u1EC7.");
+    }
+    return clean;
+  }
+  if (gameType === "lucky_number") {
+    if (!/^\d{1,2}$/.test(clean)) {
+      throw new Error("Vui l\xF2ng ch\u1ECDn s\u1ED1 may m\u1EAFn t\u1EEB 00 \u0111\u1EBFn 99.");
+    }
+    const num = Number(clean);
+    if (num < 0 || num > 99) {
+      throw new Error("S\u1ED1 may m\u1EAFn ph\u1EA3i n\u1EB1m trong kho\u1EA3ng 00 \u0111\u1EBFn 99.");
+    }
+    return String(num).padStart(2, "0");
+  }
+  return void 0;
+}
+async function listMinigameEvents() {
+  const all = await listEventsRaw();
+  return all.sort((a, b) => {
+    const priority = (s) => s === "running" ? 0 : s === "lobby" ? 1 : s === "finished" ? 2 : 3;
+    const diff = priority(a.status) - priority(b.status);
+    if (diff !== 0) return diff;
+    return (b.createdAt || "").localeCompare(a.createdAt || "");
+  });
+}
+async function getMinigameEvent(idOrCode) {
+  const clean = idOrCode.trim();
+  const direct = await getEventRaw(clean);
+  if (direct) return direct;
+  const all = await listEventsRaw();
+  const byCode = all.find((e) => e.eventCode.toUpperCase() === clean.toUpperCase());
+  if (!byCode) {
+    const err = new Error("Kh\xF4ng t\xECm th\u1EA5y s\u1EF1 ki\u1EC7n Minigame n\xE0y.");
+    err.statusCode = 404;
+    throw err;
+  }
+  return byCode;
+}
+async function joinOrUpdateMinigameParticipant(eventId, user, rawInput) {
+  const data = joinMinigameSchema.parse(rawInput || {});
+  const event = await getMinigameEvent(eventId);
+  if (event.status !== "lobby") {
+    throw new Error("S\u1EF1 ki\u1EC7n \u0111\xE3 b\u1EAFt \u0111\u1EA7u ho\u1EB7c k\u1EBFt th\xFAc, kh\xF4ng th\u1EC3 \u0111\u0103ng k\xFD th\xEAm.");
+  }
+  const prediction = validatePredictionForGame(event.gameType, data.prediction);
+  const participants = { ...event.participants || {} };
+  const existing = participants[user.uid];
+  if (!existing) {
+    const currentCount = Object.keys(participants).length;
+    if (currentCount >= event.maxParticipants) {
+      throw new Error(
+        `S\u1EF1 ki\u1EC7n \u0111\xE3 \u0111\u1EE7 t\u1ED1i \u0111a ${event.maxParticipants} ng\u01B0\u1EDDi tham gia. H\u1EB9n b\u1EA1n \u1EDF s\u1EF1 ki\u1EC7n ti\u1EBFp theo nh\xE9!`
+      );
+    }
+    const racerNumber = currentCount + 1;
+    const racerColor = RACER_PALETTE[currentCount % RACER_PALETTE.length];
+    const participant = {
+      uid: user.uid,
+      displayName: user.displayName || user.email?.split("@")[0] || `H\u1ECDc sinh #${racerNumber}`,
+      email: user.email || "",
+      avatarUrl: data.avatarUrl || "",
+      joinedAt: Date.now(),
+      ...prediction !== void 0 ? { prediction } : {},
+      racerColor,
+      racerNumber
+    };
+    participants[user.uid] = participant;
+  } else {
+    participants[user.uid] = {
+      ...existing,
+      displayName: user.displayName || existing.displayName,
+      ...prediction !== void 0 ? { prediction } : {}
+    };
+  }
+  const updated = {
+    ...event,
+    entryFeeVnd: 0,
+    participants,
+    updatedAt: (/* @__PURE__ */ new Date()).toISOString()
+  };
+  await saveEventRaw(updated);
+  return updated;
+}
+async function leaveMinigameEvent(eventId, uid) {
+  const event = await getMinigameEvent(eventId);
+  if (event.status !== "lobby") {
+    throw new Error("Ch\u1EC9 c\xF3 th\u1EC3 r\u1EDDi ph\xF2ng khi s\u1EF1 ki\u1EC7n \u0111ang m\u1EDF \u0111\u0103ng k\xFD.");
+  }
+  const participants = { ...event.participants || {} };
+  delete participants[uid];
+  const updated = {
+    ...event,
+    participants,
+    updatedAt: (/* @__PURE__ */ new Date()).toISOString()
+  };
+  await saveEventRaw(updated);
+  return updated;
+}
+
+// server/routes/minigameStudentRoutes.ts
+var minigameStudentRouter = Router2();
+function formatError2(err) {
+  if (err instanceof ZodError2) {
+    return {
+      status: 400,
+      error: "validation_error",
+      message: err.issues[0]?.message || "D\u1EEF li\u1EC7u kh\xF4ng h\u1EE3p l\u1EC7."
+    };
+  }
+  return {
+    status: Number(err?.statusCode) || 400,
+    error: err?.code || "minigame_error",
+    message: err?.message || "\u0110\xE3 c\xF3 l\u1ED7i x\u1EA3y ra."
+  };
+}
+minigameStudentRouter.get("/", requireAuth, async (_req, res) => {
+  try {
+    const events = await listMinigameEvents();
+    return res.json({ success: true, events });
+  } catch (err) {
+    const e = formatError2(err);
+    return res.status(500).json({ error: e.error, message: e.message });
+  }
+});
+minigameStudentRouter.get("/:id", requireAuth, async (req, res) => {
+  try {
+    const event = await getMinigameEvent(req.params.id);
+    return res.json({ success: true, event });
+  } catch (err) {
+    const e = formatError2(err);
+    return res.status(e.status).json({ error: e.error, message: e.message });
+  }
+});
+minigameStudentRouter.post(
+  "/:id/join",
+  requireAuth,
+  async (req, res) => {
+    try {
+      const event = await joinOrUpdateMinigameParticipant(
+        req.params.id,
+        {
+          uid: req.user.uid,
+          email: req.user.email,
+          displayName: req.user.displayName
+        },
+        req.body
+      );
+      return res.json({ success: true, event });
+    } catch (err) {
+      const e = formatError2(err);
+      return res.status(e.status).json({ error: e.error, message: e.message });
+    }
+  }
+);
+minigameStudentRouter.post(
+  "/:id/leave",
+  requireAuth,
+  async (req, res) => {
+    try {
+      const event = await leaveMinigameEvent(req.params.id, req.user.uid);
+      return res.json({ success: true, event });
+    } catch (err) {
+      const e = formatError2(err);
+      return res.status(e.status).json({ error: e.error, message: e.message });
+    }
+  }
+);
+minigameStudentRouter.get(
+  "/:id/cheers",
+  requireAuth,
+  async (req, res) => {
+    try {
+      const cheers = listLiveMinigameCheers(req.params.id);
+      return res.json({ success: true, cheers });
+    } catch (err) {
+      const e = formatError2(err);
+      return res.status(e.status).json({ error: e.error, message: e.message });
+    }
+  }
+);
+minigameStudentRouter.post(
+  "/:id/cheer",
+  requireAuth,
+  async (req, res) => {
+    try {
+      const emoji = typeof req.body?.emoji === "string" ? req.body.emoji : "\u{1F525}";
+      const text = typeof req.body?.text === "string" ? req.body.text : "";
+      const cheer = addLiveMinigameCheer(req.params.id, {
+        uid: req.user.uid,
+        displayName: req.user.displayName || req.user.email?.split("@")[0] || "Ng\u01B0\u1EDDi xem",
+        emoji,
+        text
+      });
+      return res.json({ success: true, cheer, cheers: listLiveMinigameCheers(req.params.id) });
+    } catch (err) {
+      const e = formatError2(err);
+      return res.status(e.status).json({ error: e.error, message: e.message });
+    }
+  }
+);
+
 // server/routes/walletRoutes.ts
-var walletRouter = Router();
+var walletRouter = Router3();
 walletRouter.use((_req, res, next) => {
   res.setHeader("Cache-Control", "no-store, no-cache, must-revalidate, proxy-revalidate");
   res.setHeader("Pragma", "no-cache");
@@ -4623,6 +6582,30 @@ walletRouter.get("/courses/:courseId/lessons/:lessonId/stream", requireAuth, asy
     const msg = err.message || String(err);
     const status = msg.includes("tr\u1EA3 ph\xED") ? 403 : 400;
     return res.status(status).json({ error: "lesson_stream_error", message: msg });
+  }
+});
+walletRouter.use("/ai-shop", aiShopStudentRouter);
+walletRouter.use("/minigames", minigameStudentRouter);
+walletRouter.get("/notifications/feed", async (req, res) => {
+  try {
+    let uid = null;
+    const authHeader = String(req.headers.authorization || "");
+    const bearer = /^Bearer\s+(\S+)$/i.exec(authHeader)?.[1];
+    if (bearer && !/^(student_|dk_admin_)/.test(bearer)) {
+      try {
+        if (adminAuth) {
+          const decoded = await adminAuth.verifyIdToken(bearer);
+          uid = decoded.uid;
+        }
+      } catch {
+      }
+    }
+    const sinceMs = Number(req.query.since) || 0;
+    const limitCount = Number(req.query.limit) || 15;
+    const notifications = await fetchNotificationFeed({ uid, sinceMs, limitCount });
+    return res.json({ success: true, serverTimeMs: Date.now(), notifications });
+  } catch (err) {
+    return res.status(500).json({ error: "notif_feed_error", message: err?.message || "L\u1ED7i t\u1EA3i th\xF4ng b\xE1o." });
   }
 });
 export {

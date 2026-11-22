@@ -35,6 +35,8 @@
                 <data android:path="/arena" />
                 <data android:path="/practice" />
                 <data android:path="/escape-room" />
+                <data android:path="/ai-shop" />
+                <data android:path="/minigame" />
                 <data android:path="/legal-policy" />
                 <data android:pathPrefix="/student/" />
                 <data android:pathPrefix="/exam/" />
@@ -42,6 +44,7 @@
                 <data android:pathPrefix="/code-exam/" />
                 <data android:pathPrefix="/practice/" />
                 <data android:pathPrefix="/arena/" />
+                <data android:pathPrefix="/minigame/" />
                 <data android:pathPrefix="/voucher/" />
                 <data android:pathPrefix="/vouchers/" />
             </intent-filter>
@@ -63,4 +66,6 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+    <uses-permission android:name="android.permission.VIBRATE" />
 </manifest>

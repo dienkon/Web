@@ -238,6 +238,30 @@
       "destination": "/api/wallet"
     },
     {
+      "source": "/api/ai-shop/:match*",
+      "destination": "/api/wallet"
+    },
+    {
+      "source": "/api/ai-shop",
+      "destination": "/api/wallet"
+    },
+    {
+      "source": "/api/minigames/:match*",
+      "destination": "/api/wallet"
+    },
+    {
+      "source": "/api/minigames",
+      "destination": "/api/wallet"
+    },
+    {
+      "source": "/api/notifications/:match*",
+      "destination": "/api/wallet"
+    },
+    {
+      "source": "/api/notifications",
+      "destination": "/api/wallet"
+    },
+    {
       "source": "/((?!api/).*)",
       "destination": "/index.html"
     }

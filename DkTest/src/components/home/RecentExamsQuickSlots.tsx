@@ -17,7 +17,7 @@ import {
 } from "lucide-react";
 import { useAuth } from "../../context/AuthContext";
 import { getActiveExamSession } from "../../services/examSessionService";
-import { collection, query, where, orderBy, limit, getDocs } from "firebase/firestore";
+import { collection, query, where, limit, getDocs } from "firebase/firestore";
 import { db } from "../../services/firebase/config";
 import { formatDate } from "../../utils/date";
 
@@ -95,11 +95,11 @@ export default function RecentExamsQuickSlots({ localOnly = false }: { localOnly
 
         if (!localOnly && foundList.length < 3 && user?.uid) {
           try {
+            // Single-field query + client-side sort avoids requiring a composite Firestore index on (studentId, submittedAt)
             const q = query(
               collection(db, "submissions"),
               where("studentId", "==", user.uid),
-              orderBy("submittedAt", "desc"),
-              limit(3)
+              limit(15)
             );
             const snap = await getDocs(q);
             const subs: RecentExamItem[] = [];
@@ -118,10 +118,17 @@ export default function RecentExamsQuickSlots({ localOnly = false }: { localOnly
               });
             });
 
-            // Cache in sessionStorage for 5 minutes
-            sessionStorage.setItem(cacheKey, JSON.stringify(subs));
+            subs.sort((a, b) => {
+              const ta = new Date(a.submittedAt || 0).getTime() || 0;
+              const tb = new Date(b.submittedAt || 0).getTime() || 0;
+              return tb - ta;
+            });
+            const topSubs = subs.slice(0, 3);
 
-            for (const s of subs) {
+            // Cache in sessionStorage
+            sessionStorage.setItem(cacheKey, JSON.stringify(topSubs));
+
+            for (const s of topSubs) {
               if (foundList.length >= 3) break;
               if (!foundList.some((existing) => existing.examId === s.examId)) {
                 foundList.push(s);

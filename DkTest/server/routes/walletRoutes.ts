@@ -36,6 +36,9 @@ import {
   resolveDriveDirectStreamUrl,
 } from "../services/courseService.js";
 import { extractGoogleDriveFileId } from "../../src/utils/videoSourceHelper.js";
+import { aiShopStudentRouter } from "./aiShopStudentRoutes.js";
+import { minigameStudentRouter } from "./minigameStudentRoutes.js";
+import { fetchNotificationFeed } from "../services/notificationPushService.js";
 
 export const walletRouter = Router();
 
@@ -451,5 +454,36 @@ walletRouter.get("/courses/:courseId/lessons/:lessonId/stream", requireAuth, asy
     const msg = err.message || String(err);
     const status = msg.includes("trả phí") ? 403 : 400;
     return res.status(status).json({ error: "lesson_stream_error", message: msg });
+  }
+});
+
+// Student AI Account Storefront & Auto-Purchase Routes (/api/ai-shop/*)
+walletRouter.use("/ai-shop", aiShopStudentRouter);
+
+// Free Welfare Minigame Event Student Routes (/api/minigames/*)
+walletRouter.use("/minigames", minigameStudentRouter);
+
+// GET /api/notifications/feed — Public broadcast + optional user-specific feed for Web & Android WorkManager
+walletRouter.get("/notifications/feed", async (req: AuthenticatedRequest, res: Response) => {
+  try {
+    let uid: string | null = null;
+    const authHeader = String(req.headers.authorization || "");
+    const bearer = /^Bearer\s+(\S+)$/i.exec(authHeader)?.[1];
+    if (bearer && !/^(student_|dk_admin_)/.test(bearer)) {
+      try {
+        if (adminAuth) {
+          const decoded = await adminAuth.verifyIdToken(bearer);
+          uid = decoded.uid;
+        }
+      } catch {
+        // Fallback to public "all" broadcast feed if token expired in background worker
+      }
+    }
+    const sinceMs = Number(req.query.since) || 0;
+    const limitCount = Number(req.query.limit) || 15;
+    const notifications = await fetchNotificationFeed({ uid, sinceMs, limitCount });
+    return res.json({ success: true, serverTimeMs: Date.now(), notifications });
+  } catch (err: any) {
+    return res.status(500).json({ error: "notif_feed_error", message: err?.message || "Lỗi tải thông báo." });
   }
 });

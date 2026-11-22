@@ -421,6 +421,36 @@ service cloud.firestore {
         && getAfter(/databases/$(database)/documents/code_studio_shares/$(request.resource.data.shareId)).data.projectId == request.resource.data.projectId
         && getAfter(/databases/$(database)/documents/code_studio_shares/$(request.resource.data.shareId)).data.customSlug == name;
     }
+    // 20. AI Account Shop, Customer CRM, Orders, Billing & Debt (Admin-managed, Student own-read only)
+    match /ai_services/{serviceId} {
+      allow read: if isAdmin() || (isAuthenticated() && resource.data.status == 'active' && resource.data.studentVisible == true);
+      allow write: if isAdmin();
+    }
+    match /ai_customers/{customerId} {
+      allow read: if isAdmin() || (isAuthenticated() && resource.data.linkedUid == request.auth.uid);
+      allow write: if isAdmin();
+    }
+    match /ai_orders/{orderId} {
+      allow read: if isAdmin() || (isAuthenticated() && resource.data.linkedUid == request.auth.uid);
+      allow write: if isAdmin();
+    }
+    match /ai_payments/{paymentId} {
+      allow read: if isAdmin() || (isAuthenticated() && resource.data.linkedUid == request.auth.uid);
+      allow write: if isAdmin();
+    }
+    match /ai_audit_logs/{logId} {
+      allow read, write: if isAdmin();
+    }
+    match /ai_idempotency_keys/{keyId} {
+      allow read, write: if isAdmin();
+    }
+
+    // 21. Free Welfare Minigame Events (Server-authoritative writes; authenticated users can subscribe realtime)
+    match /minigame_events/{eventId} {
+      allow read: if isAuthenticated();
+      allow write: if isAdmin();
+    }
+
     // Default deny for anything else
     match /exam_content_migration_backups/{examId} {
       allow read, write: if isAdmin();

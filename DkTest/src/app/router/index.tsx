@@ -65,6 +65,8 @@ const LiveMonitor = lazyWithRetry(() => import("../../pages/admin/LiveMonitor"),
 const QuestionBank = lazyWithRetry(() => import("../../pages/admin/QuestionBank"), "QuestionBank");
 const JourneyCreatorStudio = lazyWithRetry(() => import("../../pages/admin/JourneyCreatorStudio"), "JourneyCreatorStudio");
 const WalletManagement = lazyWithRetry(() => import("../../pages/admin/WalletManagement"), "WalletManagement");
+const AiShopManagement = lazyWithRetry(() => import("../../pages/admin/AiShopManagement"), "AiShopManagement");
+const MinigameManagement = lazyWithRetry(() => import("../../pages/admin/MinigameManagement"), "MinigameManagement");
 const CourseManager = lazyWithRetry(() => import("../../pages/admin/CourseManager"), "CourseManager");
 const CourseEditor = lazyWithRetry(() => import("../../pages/admin/CourseEditor"), "CourseEditor");
 const WebImporter = lazyWithRetry(() => import("../../pages/admin/WebImporter"), "WebImporter");
@@ -73,6 +75,8 @@ const LegalPolicy = lazyWithRetry(() => import("../../pages/LegalPolicy"), "Lega
 // Lazy-loaded Student Pages
 const Home = lazyWithRetry(() => import("../../pages/home/Home"), "Home");
 const StudentWallet = lazyWithRetry(() => import("../../pages/student/StudentWallet"), "StudentWallet");
+const StudentAiShop = lazyWithRetry(() => import("../../pages/student/StudentAiShop"), "StudentAiShop");
+const StudentMinigame = lazyWithRetry(() => import("../../pages/student/StudentMinigame"), "StudentMinigame");
 const CoursesList = lazyWithRetry(() => import("../../pages/student/CoursesList"), "CoursesList");
 const CourseDetail = lazyWithRetry(() => import("../../pages/student/CourseDetail"), "CourseDetail");
 const ExamIntro = lazyWithRetry(() => import("../../pages/student/ExamIntro"), "ExamIntro");
@@ -326,6 +330,9 @@ const router = createBrowserRouter([
       { path: "stats", element: withSuspense(Statistics, "Đang tổng hợp số liệu...") },
       { path: "settings", element: withSuspense(Settings, "Đang tải cài đặt...") },
       { path: "wallet", element: withSuspense(WalletManagement, "Đang tải quản lý ví & công nợ...") },
+      { path: "ai-shop", element: withSuspense(AiShopManagement, "Đang tải quản lý bán Acc AI & công nợ...") },
+      { path: "minigames", element: withSuspense(MinigameManagement, "Đang tải quản lý Minigame sự kiện...") },
+      { path: "minigames/:eventId", element: withSuspense(MinigameManagement, "Đang mở phòng Minigame...") },
       { path: "courses", element: withSuspense(CourseManager, "Đang tải quản lý khóa học...") },
       { path: "courses/new", element: withSuspense(CourseEditor, "Đang khởi tạo khóa học mới...") },
       { path: "courses/:courseId/edit", element: withSuspense(CourseEditor, "Đang mở trình chỉnh sửa khóa học...") },
@@ -369,6 +376,12 @@ const router = createBrowserRouter([
       { path: "student/ai-tutor", element: <OnlineOnly>{withSuspense(AiTutorPage, "Đang kết nối Gia sư AI...")}</OnlineOnly> },
       { path: "student/wallet", element: withSuspense(StudentWallet, "Đang tải Ví DkTEST...") },
       { path: "wallet", element: withSuspense(StudentWallet, "Đang tải Ví DkTEST...") },
+      { path: "student/ai-shop", element: <OnlineOnly>{withSuspense(StudentAiShop, "Đang tải Cửa hàng Acc AI...")}</OnlineOnly> },
+      { path: "ai-shop", element: <OnlineOnly>{withSuspense(StudentAiShop, "Đang tải Cửa hàng Acc AI...")}</OnlineOnly> },
+      { path: "student/minigame", element: <OnlineOnly>{withSuspense(StudentMinigame, "Đang tải Minigame Phúc Lợi...")}</OnlineOnly> },
+      { path: "student/minigame/:eventId", element: <OnlineOnly>{withSuspense(StudentMinigame, "Đang vào phòng Minigame...")}</OnlineOnly> },
+      { path: "minigame", element: <OnlineOnly>{withSuspense(StudentMinigame, "Đang tải Minigame Phúc Lợi...")}</OnlineOnly> },
+      { path: "minigame/:eventId", element: <OnlineOnly>{withSuspense(StudentMinigame, "Đang vào phòng Minigame...")}</OnlineOnly> },
       { path: "courses", element: <OnlineOnly>{withSuspense(CoursesList, "Đang tải danh sách khóa học...")}</OnlineOnly> },
       { path: "student/courses", element: <OnlineOnly>{withSuspense(CoursesList, "Đang tải danh sách khóa học...")}</OnlineOnly> },
       { path: "courses/:courseId", element: <OnlineOnly>{withSuspense(CourseDetail, "Đang tải chi tiết khóa học...")}</OnlineOnly> },

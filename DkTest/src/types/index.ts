@@ -603,12 +603,16 @@ export interface StudentWallet {
 }
 
 export * from "./course";
+export * from "./aiShop";
+export * from "./minigame";
 
 export type WalletTransactionType =
   | "deposit_credit"
   | "exam_unlock_debit"
   | "course_unlock_debit"
   | "course_lesson_unlock_debit"
+  | "ai_service_purchase_debit"
+  | "minigame_reward_credit"
   | "referral_withdraw_credit"
   | "admin_adjustment_credit"
   | "admin_adjustment_debit"
