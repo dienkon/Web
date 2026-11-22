@@ -50,6 +50,7 @@ import { isPositionOnBalancePan, LAB_PHYSICS } from '../../engine/interactionEng
 import { balancePanVesselPosition, isVesselSupportedByBalance, restingVesselHeight } from '../../handling/vesselRest';
 import { useToolDockStore } from '../../handling/toolDockState';
 import { instrumentHome } from '../../handling/instrumentCatalog';
+import { useSampleRecorder } from '../../handling/sampleRecorder';
 import { FrameTelemetry } from '../../render/FrameTelemetry';
 import { RenderActivity } from '../../render/RenderActivity';
 import { useRenderDpr } from '../../render/renderResolution';
@@ -393,6 +394,7 @@ function SimulationTicker() {
     tickSimulation(delta);
     const state = useAppStore.getState();
     PourController.tick(delta, state.vessels as any, state.isSimulationPaused, state.timeScale);
+    useSampleRecorder.getState().advance(delta, useAppStore.getState());
   }, FRAME_ORDER.chemistry);
   useFrame((_, delta) => {
     const state = useAppStore.getState();

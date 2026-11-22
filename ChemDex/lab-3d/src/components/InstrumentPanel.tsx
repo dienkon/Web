@@ -31,6 +31,7 @@ import {
 import { BURETTE_MIN_Z } from '../handling/burettePlacement';
 
 const BUTTON = 'rounded-lg border border-slate-300 px-3 py-2 text-xs font-medium hover:bg-slate-100 disabled:opacity-40 disabled:cursor-not-allowed';
+const SampleRecorderPanel = React.lazy(() => import('./SampleRecorderPanel'));
 
 function NumberControl({ label, value, minimum, maximum, step, onChange }: {
   label: string;
@@ -217,9 +218,11 @@ function InstrumentDetails({ id }: { id: InstrumentId }) {
 
 export default function InstrumentPanel({ onClose }: { onClose: () => void }) {
   const [id, setId] = useState<InstrumentId>('pipette');
+  const [showRecorder, setShowRecorder] = useState(false);
   const root = useRef<HTMLElement>(null);
   const vessels = useAppStore(state => state.vessels);
   const selected = useAppStore(state => state.selectedVesselId);
+  const language = useAppStore(state => state.language);
   useEffect(() => {
     const previousFocus = document.activeElement instanceof HTMLElement ? document.activeElement : null;
     root.current?.focus();
@@ -243,21 +246,31 @@ export default function InstrumentPanel({ onClose }: { onClose: () => void }) {
       <button aria-label="Đóng bảng dụng cụ" className="rounded p-1 hover:bg-slate-100" onClick={onClose}><X size={18} /></button>
     </div>
     <div className="overflow-y-auto space-y-4 p-4">
-      <InstrumentRinseStatus />
+      <div className="flex flex-wrap gap-2 border-b border-slate-200 pb-3">
+        <button type="button" aria-pressed={!showRecorder} className={BUTTON + (!showRecorder ? ' bg-slate-100' : '')}
+          onClick={() => setShowRecorder(false)}>{language === 'en' ? 'Instruments' : 'Dụng cụ'}</button>
+        <button type="button" aria-pressed={showRecorder} className={BUTTON + (showRecorder ? ' bg-slate-100' : '')}
+          onClick={() => setShowRecorder(true)}>{language === 'en' ? 'Sample log' : 'Nhật ký số đo'}</button>
+      </div>
+      {!showRecorder && <>
+        <InstrumentRinseStatus />
+        <label className="block space-y-1 text-xs">
+          <span>Dụng cụ</span>
+          <select aria-label="Chọn dụng cụ" className="w-full rounded border p-2" value={id} onChange={event => setId(event.target.value as InstrumentId)}>
+            {INSTRUMENTS.map(instrument => <option key={instrument.id} value={instrument.id}>{instrument.name}</option>)}
+          </select>
+        </label>
+      </>}
       <label className="block space-y-1 text-xs">
-        <span>Dụng cụ</span>
-        <select aria-label="Chọn dụng cụ" className="w-full rounded border p-2" value={id} onChange={event => setId(event.target.value as InstrumentId)}>
-          {INSTRUMENTS.map(instrument => <option key={instrument.id} value={instrument.id}>{instrument.name}</option>)}
-        </select>
-      </label>
-      <label className="block space-y-1 text-xs">
-        <span>Bình đang chọn</span>
-        <select aria-label="Bình thao tác" className="w-full rounded border p-2" value={selected ?? ''} onChange={event => useAppStore.getState().setSelectedVesselId(event.target.value || null)}>
-          <option value="">Chưa chọn bình</option>
+        <span>{language === 'en' ? 'Selected vessel' : 'Bình đang chọn'}</span>
+        <select aria-label={language === 'en' ? 'Working vessel' : 'Bình thao tác'} className="w-full rounded border p-2" value={selected ?? ''} onChange={event => useAppStore.getState().setSelectedVesselId(event.target.value || null)}>
+          <option value="">{language === 'en' ? 'Choose a vessel' : 'Chưa chọn bình'}</option>
           {Object.values(vessels).filter(vessel => vessel.capacity_ml > 0 && !vessel.isShattered).map(vessel => <option key={vessel.id} value={vessel.id}>{vessel.name}</option>)}
         </select>
       </label>
-      <InstrumentDetails key={id} id={id} />
+      {showRecorder ? <React.Suspense fallback={<p role="status" className="text-xs text-slate-600">
+        {language === 'en' ? 'Opening sample log…' : 'Đang mở nhật ký…'}
+      </p>}><SampleRecorderPanel /></React.Suspense> : <InstrumentDetails key={id} id={id} />}
     </div>
   </aside>;
 }

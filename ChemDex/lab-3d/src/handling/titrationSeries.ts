@@ -1,4 +1,5 @@
 import type { TitrationPoint } from '../types/chemistry';
+import { csvCell } from '../utils/csv';
 
 const PLOT_LIMIT = 800;
 
@@ -54,14 +55,6 @@ export function titrationPlot(points: readonly TitrationPoint[]): readonly Titra
     plot.push(points[next]);
   }
   return plot;
-}
-
-function csvCell(value: string | number | null | undefined): string {
-  if (typeof value === 'number') return Number.isFinite(value) ? String(value) : '';
-  if (typeof value !== 'string' || !value) return '';
-  // Treat text from old/imported saves as data in spreadsheet readers.
-  const text = /^[\s\uFEFF]*[=+\-@]/.test(value) || /^[\t\r\n]/.test(value) ? "'" + value : value;
-  return `"${text.replaceAll('"', '""')}"`;
 }
 
 /** Export source rows. Old saves omit metadata that was never recorded. */
