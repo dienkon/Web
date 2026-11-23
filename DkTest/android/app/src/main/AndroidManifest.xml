@@ -34,7 +34,6 @@
                 <data android:path="/journey" />
                 <data android:path="/arena" />
                 <data android:path="/practice" />
-                <data android:path="/escape-room" />
                 <data android:path="/ai-shop" />
                 <data android:path="/minigame" />
                 <data android:path="/legal-policy" />

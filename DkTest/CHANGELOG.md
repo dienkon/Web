@@ -1,5 +1,22 @@
 # DkTEST changelog
 
+## 2.0.2 — 2026-11-23 (Android versionCode 26)
+
+- **Chuẩn hóa toàn diện Giao diện Tối (Dark Mode) & Mặc định Giao diện Sáng cho người dùng mới (`index.html`, `ThemeContext.tsx`, `src/index.css`, `ExamIntro.tsx`)**:
+  - Người dùng truy cập lần đầu (`dktest_theme` chưa thiết lập) luôn khởi động ở **chế độ Sáng (Light Mode)** kèm màn hình chờ khởi động sáng đồng bộ (không còn tự chuyển sang giao diện tối theo hệ điều hành khi mới vào lần đầu).
+  - Loại bỏ lỗi ghi đè `--color-slate-50: #ffffff` gây nền xám bệch ở `bg-slate-50/70` (`ExamIntro`) và tiêu đề trắng chói ở `bg-white/95` (`CourseOnboardingGuideModal`); bổ sung hệ thống quy tắc thích ứng tối toàn hệ thống cho mọi bề mặt trung tính, pastel callout (`blue/indigo/purple/emerald/amber/rose-50/100`), gradient sáng, viền, chữ tối màu, hover, input/select và `.latex-preview` với độ tương phản đạt chuẩn WCAG AA+.
+- **Loại bỏ hoàn toàn tính năng Phòng Mật Mã (`escape-room`)**:
+  - Gỡ khỏi thanh điều hướng máy tính, menu di động, danh mục dưới cùng (`StudentLayout.tsx`), danh sách App Links (`appLinks.ts`, `AndroidManifest.xml`), và chuyển hướng `/escape-room` / `/student/escape-room` về trang chủ `/` (`router/index.tsx`).
+- **Sửa lỗi thanh Sidebar di động không cuộn được (`StudentLayout.tsx`, `AdminLayout.tsx`)**:
+  - Thiết lập khung drawer cố định `h-dvh max-h-dvh flex flex-col overflow-hidden` với vùng danh sách điều hướng `flex-1 min-h-0 overflow-y-auto overscroll-contain` và nút đăng xuất ghim gọn ở đáy (có `safe-area-bottom`), đảm bảo cuộn chạm mượt mà tới toàn bộ các mục trên mọi cỡ màn hình điện thoại.
+- **Viết mới văn bản Bản quyền & Pháp lý chi tiết (8 Điều khoản) + Mở Popup trực tiếp tại trang Đăng ký (`LegalPolicyContent.tsx`, `LegalPolicy.tsx`, `Register.tsx`)**:
+  - Soạn chi tiết 8 điều khoản pháp lý chuẩn Việt Nam (Luật SHTT 2022, Nghị định 13/2023/NĐ-CP bảo vệ dữ liệu cá nhân, Quy chế thi chống gian lận, Ví DkTEST / Khóa học / Acc AI, Minigame Phúc lợi 0đ không cờ bạc, Gia sư AI & Cộng đồng, Miễn trừ trách nhiệm & Quy trình gỡ bỏ bản quyền trong 24h) kèm thanh nhảy nhanh từng điều khoản.
+  - Trên trang Đăng ký (`Register.tsx`), bấm vào liên kết điều khoản sẽ mở ngay **Popup Modal (`LegalPolicyModal`)** ngay tại chỗ kèm nút **Tôi đã đọc & Đồng ý toàn bộ Điều khoản** (tự đánh dấu checkbox mà không làm mất dữ liệu người dùng đang nhập).
+- **Sửa lỗi vỡ/phóng đại bản đồ trang Hành trình (`/journey`) & Gỡ bỏ Pet Sparky (`World3DViewport.tsx`, `LearningJourney.tsx`)**:
+  - Loại bỏ nguyên nhân gây vỡ khung & phóng to nhòe 10× ở các màn giữa/cuối (`perspective: 1200px` kết hợp `rotateX(18deg)` trên bản đồ cao ~7000px đẩy các màn từ Màn 25 trở đi vượt mặt phẳng camera); chuyển sân khấu cuộn về mặt phẳng sắc nét theo tỷ lệ phần trăm responsive đồng khớp 100% giữa đường nối SVG và các đảo màn chơi.
+  - Gỡ bỏ hoàn toàn widget thú cưng nổi (`StudyCompanionWidget` / Sparky) vướng tầm nhìn khỏi trang Hành trình.
+- Audit: [2.0.2](docs/audits/2.0.2.md).
+
 ## 2.0.1 — 2026-11-22 (Android versionCode 25)
 
 - **Sửa triệt để lỗi API tải App (`/api/app-download`) và App vẫn hiển thị/tải bản cũ `1.9.14`**:

@@ -428,13 +428,13 @@ var PRODUCTION_HTML_TEMPLATE = `<!doctype html>
     <!-- Pre-Boot Resilience & Anti-Blank Screen Shield -->
     <script>
       (function() {
-        // Theme Pre-boot initialization (avoids FOUC)
+        // Theme Pre-boot initialization (avoids FOUC; new users always default to light mode)
         try {
           var savedTheme = localStorage.getItem('dktest_theme');
           var systemDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
           var savedIntensity = localStorage.getItem('dktest_dark_intensity') || 'chrome';
           document.documentElement.setAttribute('data-dark-intensity', savedIntensity);
-          if (savedTheme === 'dark' || ((!savedTheme || savedTheme === 'system') && systemDark)) {
+          if (savedTheme === 'dark' || (savedTheme === 'system' && systemDark)) {
             document.documentElement.classList.add('dark');
             document.documentElement.style.colorScheme = 'dark';
           } else {
@@ -705,18 +705,22 @@ var PRODUCTION_HTML_TEMPLATE = `<!doctype html>
     </script>
 
     <style>
-      /* Zero-FOUC Initial App Shell */
+      /* Zero-FOUC Initial App Shell (Light by default for new users, dark when explicitly enabled) */
       html, body {
         margin: 0;
         padding: 0;
-        background-color: #0f172a;
-        color: #f8fafc;
+        background-color: #f8fafc;
+        color: #0f172a;
         font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
         -webkit-tap-highlight-color: transparent;
         text-size-adjust: 100%;
         -webkit-text-size-adjust: 100%;
         overflow-x: hidden;
         max-width: 100vw;
+      }
+      html.dark, html.dark body {
+        background-color: #202124;
+        color: #f1f3f4;
       }
       .dk-boot-shell {
         min-height: 100vh;
@@ -726,8 +730,11 @@ var PRODUCTION_HTML_TEMPLATE = `<!doctype html>
         justify-content: center;
         padding: 20px;
         text-align: center;
-        background: #0f172a;
+        background: #f8fafc;
         box-sizing: border-box;
+      }
+      html.dark .dk-boot-shell {
+        background: #202124;
       }
       @supports (min-height: 100dvh) {
         .dk-boot-shell {
@@ -750,22 +757,31 @@ var PRODUCTION_HTML_TEMPLATE = `<!doctype html>
         font-size: 20px;
         font-weight: 800;
         letter-spacing: -0.02em;
-        color: #ffffff;
+        color: #0f172a;
         margin-bottom: 6px;
+      }
+      html.dark .dk-boot-title {
+        color: #ffffff;
       }
       .dk-boot-sub {
         font-size: 13px;
-        color: #94a3b8;
+        color: #64748b;
         font-weight: 500;
         margin-bottom: 20px;
+      }
+      html.dark .dk-boot-sub {
+        color: #9aa0a6;
       }
       .dk-boot-bar {
         width: 140px;
         height: 4px;
         border-radius: 2px;
-        background: #1e293b;
+        background: #e2e8f0;
         overflow: hidden;
         position: relative;
+      }
+      html.dark .dk-boot-bar {
+        background: #3c4043;
       }
       .dk-boot-bar::after {
         content: '';
@@ -788,14 +804,14 @@ var PRODUCTION_HTML_TEMPLATE = `<!doctype html>
         100% { left: 100%; }
       }
     </style>
-    <script type="module" crossorigin src="/assets/index-wHGKk9Pf.js"></script>
+    <script type="module" crossorigin src="/assets/index-D4SF7AN_.js"></script>
     <link rel="modulepreload" crossorigin href="/assets/vendor-react-0-6SLbAf.js">
     <link rel="modulepreload" crossorigin href="/assets/vendor-firebase-uPrOd_TW.js">
     <link rel="modulepreload" crossorigin href="/assets/vendor-charts-CO2o-hSu.js">
-    <link rel="modulepreload" crossorigin href="/assets/vendor-icons-DxLyimVX.js">
+    <link rel="modulepreload" crossorigin href="/assets/vendor-icons-Cn6f80My.js">
     <link rel="modulepreload" crossorigin href="/assets/vendor-katex-T051Jbj4.js">
     <link rel="stylesheet" crossorigin href="/assets/vendor-katex-Ddr6Z9Sf.css">
-    <link rel="stylesheet" crossorigin href="/assets/index-CTdWY3PA.css">
+    <link rel="stylesheet" crossorigin href="/assets/index-BTSVWpnq.css">
   </head>
 
   <body>

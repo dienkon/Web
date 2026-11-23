@@ -707,7 +707,7 @@ export default function ExamIntro() {
   );
 
   return (
-    <div className="min-h-screen bg-slate-50/70 py-10 px-4 flex flex-col items-center justify-center">
+    <div className="min-h-screen bg-slate-50/70 dark:bg-slate-950 py-10 px-4 flex flex-col items-center justify-center">
       <div className="max-w-2xl w-full space-y-6">
         <div className="bg-white border border-slate-200 rounded-3xl shadow-sm overflow-hidden">
           {/* Banner */}

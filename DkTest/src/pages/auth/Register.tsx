@@ -20,6 +20,7 @@ import GoogleLoginButton from "../../components/auth/GoogleLoginButton";
 import { getFriendlyAuthErrorMessage } from "../../utils/authErrors";
 import { checkUsernameAvailability } from "../../services/authService";
 import { useToast } from "../../components/ui/ToastNotification";
+import { LegalPolicyModal } from "../../components/legal/LegalPolicyContent";
 import {
   capturePendingReferralCode,
   getPendingReferralCode,
@@ -50,6 +51,7 @@ export default function Register() {
     return getPendingReferralCode() || "";
   });
   const [agreedTerms, setAgreedTerms] = useState(false);
+  const [showLegalModal, setShowLegalModal] = useState(false);
 
   useEffect(() => {
     const paramRef = searchParams.get("ref") || searchParams.get("referral");
@@ -594,12 +596,19 @@ export default function Register() {
                 <Square className="w-4 h-4 text-slate-300" />
               )}
             </div>
-            <p className="text-[11px] text-slate-600 leading-snug">
-              Tôi đồng ý với{" "}
-              <Link to="/legal-policy" target="_blank" className="text-blue-600 underline font-semibold">
-                Điều khoản dịch vụ
-              </Link>{" "}
-              và cam kết sử dụng hệ thống đúng quy chế học tập.
+            <p className="text-[11px] text-slate-600 dark:text-slate-300 leading-snug">
+              Tôi đã đọc, hiểu và đồng ý với{" "}
+              <button
+                type="button"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setShowLegalModal(true);
+                }}
+                className="text-blue-600 dark:text-blue-400 underline font-bold hover:text-blue-800 dark:hover:text-blue-300 cursor-pointer"
+              >
+                Bản quyền, Điều khoản dịch vụ &amp; Chính sách bảo mật
+              </button>{" "}
+              của DkTEST và cam kết sử dụng hệ thống đúng quy chế học tập.
             </p>
           </div>
 
@@ -630,6 +639,15 @@ export default function Register() {
           </button>
         </form>
       </div>
+
+      <LegalPolicyModal
+        isOpen={showLegalModal}
+        onClose={() => setShowLegalModal(false)}
+        onAccept={() => {
+          setAgreedTerms(true);
+          setError("");
+        }}
+      />
     </div>
   );
 }

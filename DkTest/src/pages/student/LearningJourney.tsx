@@ -128,7 +128,6 @@ import DiscoveryJournalModal from "../../features/journey/components/DiscoveryJo
 import DiscoveryEventsModal from "../../features/journey/components/DiscoveryEventsModal";
 import JourneySettingsModal from "../../features/journey/components/JourneySettingsModal";
 import AccessibleJourneyView from "../../features/journey/components/AccessibleJourneyView";
-import StudyCompanionWidget from "../../features/journey/components/StudyCompanionWidget";
 import { MobileContinueBar } from "../../features/journey/components/MobileContinueBar";
 import { FocusSessionModal } from "../../features/journey/components/FocusSessionModal";
 import { MilestoneRecapModal } from "../../features/journey/components/MilestoneRecapModal";
@@ -1923,25 +1922,6 @@ export default function LearningJourney() {
           onToggleParticles={handleToggleParticles}
           accessibleMode={accessibleMode}
           onToggleAccessibleMode={handleToggleAccessibleMode}
-        />
-
-        {/* 17. Floating Study Companion Widget */}
-        <StudyCompanionWidget
-          studentUid={studentUid}
-          activeSubject={activeSubject}
-          currentLevel={currentLevel}
-          stats={stats}
-          dueTasks={todayTasks}
-          weakTopics={topicMasteries.filter((m) => m.accuracy < 60)}
-          onActionClick={(dest, nodeId) => {
-            if (dest) {
-              if (dest.includes("tab=revision")) {
-                handleSwitchMode("roadmap");
-              }
-            } else {
-              handleOpenLevelModal(currentLevel);
-            }
-          }}
         />
 
         {/* 18. Focus Session Modal */}

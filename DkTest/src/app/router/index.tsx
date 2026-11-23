@@ -95,7 +95,6 @@ const PracticeSessionPage = lazyWithRetry(() => import("../../practice/pages/Pra
 const StudentTutorialExam = lazyWithRetry(() => import("../../features/student-onboarding/StudentTutorialExam"), "StudentTutorialExam");
 const StudentTutorialResult = lazyWithRetry(() => import("../../features/student-onboarding/StudentTutorialResult"), "StudentTutorialResult");
 const LearningJourney = lazyWithRetry(() => import("../../pages/student/LearningJourney"), "LearningJourney");
-const EscapeRoomGame = lazyWithRetry(() => import("../../pages/student/EscapeRoomGame"), "EscapeRoomGame");
 const ArenaLobby = lazyWithRetry(() => import("../../pages/student/ArenaLobby"), "ArenaLobby");
 const ArenaRoom = lazyWithRetry(() => import("../../pages/student/ArenaRoom"), "ArenaRoom");
 const CodeExamBuilder = lazyWithRetry(() => import("../../pages/admin/CodeExamBuilder"), "CodeExamBuilder");
@@ -361,8 +360,8 @@ const router = createBrowserRouter([
       { path: "student/arena", element: withSuspense(ArenaLobby, "Đang vào Sảnh Đấu Trường...") },
       { path: "arena/room/:roomId", element: withSuspense(ArenaRoom, "Đang vào phòng đấu...") },
       { path: "student/arena/room/:roomId", element: withSuspense(ArenaRoom, "Đang vào phòng đấu...") },
-      { path: "escape-room", element: withSuspense(EscapeRoomGame, "Đang vào Phòng Mật Mã...") },
-      { path: "student/escape-room", element: withSuspense(EscapeRoomGame, "Đang vào Phòng Mật Mã...") },
+      { path: "escape-room", element: <Navigate to="/" replace /> },
+      { path: "student/escape-room", element: <Navigate to="/" replace /> },
       { path: "student", element: <Navigate to="/student/history" replace /> },
       { path: "student/practice", element: withSuspense(PracticePage, "Đang tải góc luyện tập...") },
       { path: "student/practice/tools", element: withSuspense(MathToolsPage, "Đang mở Phòng công cụ Toán học...") },

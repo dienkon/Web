@@ -19,7 +19,6 @@ import {
   HeartHandshake,
   BrainCircuit,
   MapPin,
-  KeyRound,
   Wallet,
   Swords,
   MessageSquare,
@@ -220,7 +219,6 @@ function StudentLayoutContent() {
     { to: "/journey", label: "Hành trình", icon: MapPin, iconColor: "text-emerald-500", actionKey: "click_journey" },
     { to: "/student/arena", label: "Đấu Trường", icon: Swords, iconColor: "text-amber-500", actionKey: "click_arena" },
     { to: "/student/chat", label: "Kênh Thế Giới", icon: MessageSquare, iconColor: "text-sky-500", actionKey: "click_chat" },
-    { to: "/student/escape-room", label: "Phòng Mật Mã", icon: KeyRound, iconColor: "text-purple-500", actionKey: "click_escape_room" },
     { to: "/student/practice", label: "Luyện tập", icon: BrainCircuit, iconColor: "text-blue-500", tourId: TOUR_DATA_IDS.NAV_PRACTICE, actionKey: "click_practice" },
     { to: "/student/ai-tutor", label: "Hỏi Gia sư AI", icon: Sparkles, iconColor: "text-indigo-500", tourId: TOUR_DATA_IDS.NAV_AI, actionKey: "click_ai" },
     { to: "/student/ai-shop", label: "Mua Acc AI", icon: ShoppingBag, iconColor: "text-blue-600", actionKey: "click_ai_shop" },
@@ -483,114 +481,125 @@ function StudentLayoutContent() {
               onClick={() => setIsMobileDrawerOpen(false)}
             />
 
-            {/* Drawer */}
-            <div className="fixed inset-y-0 left-0 max-w-xs w-3/4 bg-white dark:bg-slate-900 border-r border-slate-200 dark:border-slate-800 shadow-2xl z-10 p-5 flex flex-col space-y-6">
-              <div className="flex items-center justify-between pb-4 border-b border-slate-100">
+            {/* Drawer (Fixed full height with dedicated scrollable navigation body) */}
+            <div className="fixed inset-y-0 left-0 max-w-xs w-[82vw] sm:w-80 h-dvh max-h-dvh bg-white dark:bg-slate-900 border-r border-slate-200 dark:border-slate-800 shadow-2xl z-10 flex flex-col overflow-hidden">
+              <div className="shrink-0 flex items-center justify-between px-4 py-3.5 border-b border-slate-100 dark:border-slate-800">
                 <BrandLogo size="xs" badgeText="Phòng thi" theme="blue" />
                 <div className="flex items-center gap-1.5">
                   <ThemeToggle variant="icon" />
                   <button
                     type="button"
                     onClick={() => setIsMobileDrawerOpen(false)}
-                    className="p-1.5 text-slate-400 hover:text-slate-700 rounded-lg hover:bg-slate-100 transition-colors"
+                    className="p-1.5 text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors cursor-pointer"
                   >
                     <X className="w-5 h-5" />
                   </button>
                 </div>
               </div>
 
-              {/* Student Profile Preview */}
-              {currentAccount ? (
-                <Link
-                  to="/student/profile"
-                  onClick={() => setIsMobileDrawerOpen(false)}
-                  className="p-3 bg-slate-50 dark:bg-slate-800/60 rounded-2xl flex items-center gap-3 border border-slate-200/70 dark:border-slate-700/60"
-                >
-                  <UserAvatar
-                    src={currentAccount.avatarUrl}
-                    name={currentAccount.displayName || currentAccount.username}
-                    size="md"
-                    shape="rounded"
-                  />
-                  <div className="truncate flex-1">
-                    <div className="text-sm font-bold text-slate-900 dark:text-slate-100 truncate">{currentAccount.displayName || "Thí sinh"}</div>
-                    <div className="text-xs text-slate-500 truncate">@{currentAccount.username || "student"}</div>
-                    <div className="flex items-center gap-1.5 mt-1">
-                      <span className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded-md bg-amber-100 text-amber-800 text-[10px] font-bold">
-                        <Flame className="w-3 h-3 text-amber-500 fill-amber-500" />
-                        <span>Chuỗi {gameStats.currentStreak} ngày</span>
-                      </span>
-                      <span className="text-[10px] font-semibold text-slate-400">Lv.{gameStats.level}</span>
-                    </div>
-                  </div>
-                </Link>
-              ) : (
-                <Link
-                  to="/login"
-                  onClick={() => setIsMobileDrawerOpen(false)}
-                  className="p-3 bg-blue-50 rounded-2xl text-center text-xs font-bold text-blue-700 border border-blue-100"
-                >
-                  Đăng nhập tài khoản
-                </Link>
-              )}
-
-              {/* Navigation Links */}
-              <div className="space-y-1 flex-1">
-                {navItems.map((item) => {
-                  const Icon = item.icon;
-                  const isActive =
-                    item.to === "/"
-                      ? location.pathname === "/" || location.pathname === "/exams" || location.pathname === "/student/online"
-                      : item.to === "/student/courses"
-                      ? location.pathname.startsWith("/student/courses") || location.pathname.startsWith("/courses")
-                      : location.pathname === item.to;
-                  return (
-                    <Link
-                      key={item.to}
-                      to={item.to}
-                      data-tour-id={item.tourId}
-                      onClick={() => {
-                        setIsMobileDrawerOpen(false);
-                        if (item.actionKey) triggerAction(item.actionKey);
-                      }}
-                      className={`flex items-center gap-3 px-4 py-3 rounded-2xl text-xs font-bold transition-all ${
-                        isActive
-                          ? "bg-blue-50 text-blue-700 border border-blue-100 shadow-2xs"
-                          : "text-slate-600 hover:bg-slate-100 hover:text-slate-900"
-                      }`}
-                    >
-                      <Icon className={`w-4 h-4 shrink-0 ${item.iconColor || ""}`} />
-                      <span>{item.label}</span>
-                    </Link>
-                  );
-                })}
-
-                {renderAppDownloadTile(() => setIsMobileDrawerOpen(false))}
-
-                {isAdmin && (
+              {/* Scrollable Drawer Body (Profile + All Navigation Links + App Download) */}
+              <div className="flex-1 min-h-0 overflow-y-auto overscroll-contain px-4 py-3.5 space-y-3">
+                {/* Student Profile Preview */}
+                {currentAccount ? (
                   <Link
-                    to="/admin/exams"
+                    to="/student/profile"
                     onClick={() => setIsMobileDrawerOpen(false)}
-                    className="flex items-center gap-3 px-4 py-3 rounded-2xl text-xs font-bold text-indigo-700 bg-indigo-50 border border-indigo-100 mt-2"
+                    className="p-3 bg-slate-50 dark:bg-slate-800/60 rounded-2xl flex items-center gap-3 border border-slate-200/70 dark:border-slate-700/60"
                   >
-                    <ShieldCheck className="w-4 h-4" />
-                    <span>Trang Quản Trị Viên</span>
+                    <UserAvatar
+                      src={currentAccount.avatarUrl}
+                      name={currentAccount.displayName || currentAccount.username}
+                      size="md"
+                      shape="rounded"
+                    />
+                    <div className="truncate flex-1">
+                      <div className="text-sm font-bold text-slate-900 dark:text-slate-100 truncate">{currentAccount.displayName || "Thí sinh"}</div>
+                      <div className="text-xs text-slate-500 dark:text-slate-400 truncate">@{currentAccount.username || "student"}</div>
+                      <div className="flex items-center gap-1.5 mt-1">
+                        <span className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded-md bg-amber-100 dark:bg-amber-950/60 text-amber-800 dark:text-amber-300 text-[10px] font-bold">
+                          <Flame className="w-3 h-3 text-amber-500 fill-amber-500" />
+                          <span>Chuỗi {gameStats.currentStreak} ngày</span>
+                        </span>
+                        <span className="text-[10px] font-semibold text-slate-400">Lv.{gameStats.level}</span>
+                      </div>
+                    </div>
+                  </Link>
+                ) : (
+                  <Link
+                    to="/login"
+                    onClick={() => setIsMobileDrawerOpen(false)}
+                    className="block p-3 bg-blue-50 dark:bg-blue-950/50 rounded-2xl text-center text-xs font-bold text-blue-700 dark:text-blue-300 border border-blue-100 dark:border-blue-800"
+                  >
+                    Đăng nhập tài khoản
                   </Link>
                 )}
+
+                {/* Navigation Links */}
+                <div className="space-y-1">
+                  {navItems.map((item) => {
+                    const Icon = item.icon;
+                    const isActive =
+                      item.to === "/"
+                        ? location.pathname === "/" || location.pathname === "/exams" || location.pathname === "/student/online"
+                        : item.to === "/student/courses"
+                        ? location.pathname.startsWith("/student/courses") || location.pathname.startsWith("/courses")
+                        : item.to === "/student/ai-shop"
+                        ? location.pathname.startsWith("/student/ai-shop") || location.pathname.startsWith("/ai-shop")
+                        : item.to === "/student/minigame"
+                        ? location.pathname.startsWith("/student/minigame") || location.pathname.startsWith("/minigame")
+                        : location.pathname === item.to;
+                    return (
+                      <Link
+                        key={item.to}
+                        to={item.to}
+                        data-tour-id={item.tourId}
+                        onClick={() => {
+                          setIsMobileDrawerOpen(false);
+                          if (item.actionKey) triggerAction(item.actionKey);
+                        }}
+                        className={`flex items-center gap-3 px-3.5 py-2.5 rounded-2xl text-xs font-bold transition-all ${
+                          isActive
+                            ? "bg-blue-50 dark:bg-blue-900/40 text-blue-700 dark:text-blue-300 border border-blue-100 dark:border-blue-800 shadow-2xs"
+                            : "text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 hover:text-slate-900 dark:hover:text-white"
+                        }`}
+                      >
+                        <Icon className={`w-4 h-4 shrink-0 ${item.iconColor || ""}`} />
+                        <span>{item.label}</span>
+                      </Link>
+                    );
+                  })}
+
+                  <div className="pt-2">
+                    {renderAppDownloadTile(() => setIsMobileDrawerOpen(false))}
+                  </div>
+
+                  {isAdmin && (
+                    <Link
+                      to="/admin/exams"
+                      onClick={() => setIsMobileDrawerOpen(false)}
+                      className="flex items-center gap-3 px-3.5 py-2.5 rounded-2xl text-xs font-bold text-indigo-700 dark:text-indigo-300 bg-indigo-50 dark:bg-indigo-950/50 border border-indigo-100 dark:border-indigo-800 mt-1"
+                    >
+                      <ShieldCheck className="w-4 h-4" />
+                      <span>Trang Quản Trị Viên</span>
+                    </Link>
+                  )}
+                </div>
               </div>
 
-              {studentInfo && (
-                <button
-                  type="button"
-                  onClick={() => {
-                    setIsMobileDrawerOpen(false);
-                    setShowLogoutModal(true);
-                  }}
-                  className="w-full py-2.5 px-4 bg-red-50 hover:bg-red-100 text-red-700 rounded-xl text-xs font-bold flex items-center justify-center gap-2 transition-colors cursor-pointer"
-                >
-                  <LogOut className="w-4 h-4" />
-                  <span>Đăng xuất</span>
-                </button>
+              {currentAccount && (
+                <div className="shrink-0 px-4 py-3 border-t border-slate-100 dark:border-slate-800 safe-area-bottom">
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setIsMobileDrawerOpen(false);
+                      setShowLogoutModal(true);
+                    }}
+                    className="w-full py-2.5 px-4 bg-red-50 hover:bg-red-100 dark:bg-red-950/50 dark:hover:bg-red-900/60 text-red-700 dark:text-red-300 rounded-xl text-xs font-bold flex items-center justify-center gap-2 transition-colors cursor-pointer"
+                  >
+                    <LogOut className="w-4 h-4" />
+                    <span>Đăng xuất</span>
+                  </button>
+                </div>
               )}
             </div>
           </div>
@@ -810,29 +819,28 @@ function StudentLayoutContent() {
                     </div>
                   </Link>
 
-                  {/* 3. Phòng mật mã */}
+                  {/* 3. Ví DkTEST */}
                   <Link
-                    to="/student/escape-room"
+                    to="/student/wallet"
                     onClick={() => {
                       setIsBottomMenuOpen(false);
-                      triggerAction("click_escape_room");
+                      triggerAction("click_wallet");
                     }}
                     className={`flex items-center gap-3.5 p-3 rounded-2xl border transition-all ${
-                      location.pathname === "/student/escape-room"
-                        ? "bg-purple-50/80 border-purple-300 dark:bg-purple-950/40 dark:border-purple-800 shadow-2xs"
-                        : "bg-slate-50/70 dark:bg-slate-800/40 border-slate-200/80 dark:border-slate-800 hover:bg-purple-50/50"
+                      location.pathname === "/student/wallet" || location.pathname === "/wallet"
+                        ? "bg-emerald-50/80 border-emerald-300 dark:bg-emerald-950/40 dark:border-emerald-800 shadow-2xs"
+                        : "bg-slate-50/70 dark:bg-slate-800/40 border-slate-200/80 dark:border-slate-800 hover:bg-emerald-50/50"
                     }`}
                   >
-                    <div className="w-10 h-10 rounded-xl bg-purple-100 dark:bg-purple-900/50 text-purple-600 dark:text-purple-300 flex items-center justify-center shrink-0 shadow-2xs">
-                      <KeyRound className="w-5 h-5" />
+                    <div className="w-10 h-10 rounded-xl bg-emerald-100 dark:bg-emerald-900/50 text-emerald-600 dark:text-emerald-300 flex items-center justify-center shrink-0 shadow-2xs">
+                      <Wallet className="w-5 h-5" />
                     </div>
                     <div className="min-w-0 flex-1">
-                      <div className="text-xs font-bold text-slate-900 dark:text-white flex items-center gap-1.5">
-                        <span>Phòng mật mã</span>
-                        <span className="text-[9px] px-1.5 py-0.5 rounded-full bg-purple-100 dark:bg-purple-900 text-purple-700 dark:text-purple-300 font-bold">Game</span>
+                      <div className="text-xs font-bold text-slate-900 dark:text-white">
+                        Ví DkTEST
                       </div>
                       <div className="text-[11px] text-slate-500 dark:text-slate-400 truncate">
-                        Giải mật thư & thử thách thoát hiểm
+                        Số dư, Voucher & mời bạn nhận thưởng
                       </div>
                     </div>
                   </Link>
@@ -1005,19 +1013,19 @@ function StudentLayoutContent() {
               <span className="text-[10px]">Cộng đồng</span>
             </Link>
 
-            {/* 5. Menu 3 gạch (Danh mục: Hành trình, Kênh Thế Giới, Mật mã, Hồ sơ, Chính sách) */}
+            {/* 5. Menu 3 gạch (Danh mục tiện ích) */}
             <button
               type="button"
               onClick={() => setIsBottomMenuOpen(true)}
               className={`flex flex-col items-center gap-0.5 px-2.5 py-1 rounded-2xl transition-all cursor-pointer relative ${
-                isBottomMenuOpen || ["/journey", "/student/chat", "/chat", "/student/escape-room", "/student/profile", "/legal-policy", "/student/history"].some((p) => location.pathname === p)
+                isBottomMenuOpen || ["/journey", "/student/chat", "/chat", "/student/wallet", "/student/ai-shop", "/student/minigame", "/student/profile", "/legal-policy", "/student/history"].some((p) => location.pathname === p)
                   ? "text-blue-600 dark:text-blue-400 font-bold scale-105"
                   : "text-slate-400 hover:text-slate-700 dark:hover:text-slate-200"
               }`}
             >
               <div className="relative">
                 <Menu className="w-5 h-5" />
-                {["/journey", "/student/chat", "/chat", "/student/escape-room", "/student/profile", "/legal-policy", "/student/history"].some((p) => location.pathname === p) && (
+                {["/journey", "/student/chat", "/chat", "/student/wallet", "/student/ai-shop", "/student/minigame", "/student/profile", "/legal-policy", "/student/history"].some((p) => location.pathname === p) && (
                   <span className="absolute -top-0.5 -right-0.5 w-2 h-2 rounded-full bg-blue-500 animate-pulse" />
                 )}
               </div>

@@ -54,12 +54,12 @@ export default function World3DViewport({
   reducedMotion = false,
   ambientParticles = true,
 }: Props) {
-  // Camera state: zoom scale and pitch angle
+  // Camera state: zoom scale (flat crisp scroll plane — avoids CSS 3D rotateX perspective clipping on tall maps)
   const [camera, setCamera] = useState<CameraState>({
     x: 0,
     y: 0,
     zoom: 1,
-    pitch: quality === "fallback" ? 0 : 18,
+    pitch: 0,
   });
 
   const containerRef = useRef<HTMLDivElement | null>(null);
@@ -114,22 +114,31 @@ export default function World3DViewport({
   };
 
   useEffect(() => {
-    if (containerRef.current) {
-      setContainerHeight(containerRef.current.clientHeight);
+    const el = containerRef.current;
+    if (!el) return;
+    const syncHeight = () => setContainerHeight(el.clientHeight || 680);
+    syncHeight();
+    if (typeof ResizeObserver !== "undefined") {
+      const ro = new ResizeObserver(syncHeight);
+      ro.observe(el);
+      return () => ro.disconnect();
     }
   }, []);
 
-  // Jump / Focus to current level
+  // Jump / Focus to current level (accounts for zoom factor)
   const handleFocusCurrent = useCallback(() => {
-    const currentNode = nodes.find((n) => n.level === currentLevel);
+    const currentNode = nodes.find((n) => n.level === currentLevel) || nodes[0];
     if (currentNode && containerRef.current) {
-      const targetY = Math.max(0, currentNode.y - containerRef.current.clientHeight / 2 + 50);
+      const targetY = Math.max(
+        0,
+        currentNode.y * camera.zoom - containerRef.current.clientHeight / 2 + 40
+      );
       containerRef.current.scrollTo({
         top: targetY,
         behavior: "smooth",
       });
     }
-  }, [nodes, currentLevel]);
+  }, [nodes, currentLevel, camera.zoom]);
 
   // Auto smooth scroll to current level on load or subject change
   useEffect(() => {
@@ -137,13 +146,13 @@ export default function World3DViewport({
       handleFocusCurrent();
     }, 180);
     return () => clearTimeout(timer);
-  }, [activeSubject, currentLevel, handleFocusCurrent]);
+  }, [activeSubject, currentLevel]);
 
   // Zoom controls
   const handleZoom = (delta: number) => {
     setCamera((prev) => ({
       ...prev,
-      zoom: Math.min(1.35, Math.max(0.75, Number((prev.zoom + delta).toFixed(2)))),
+      zoom: Math.min(1.25, Math.max(0.75, Number((prev.zoom + delta).toFixed(2)))),
     }));
   };
 
@@ -152,43 +161,36 @@ export default function World3DViewport({
       x: 0,
       y: 0,
       zoom: 1,
-      pitch: quality === "fallback" ? 0 : 18,
+      pitch: 0,
     });
     if (containerRef.current) {
       containerRef.current.scrollTo({ top: 0, behavior: "smooth" });
     }
   };
 
-  // Dynamic progressive line reveal threshold
-  // As the user scrolls downwards, any element above visibleLead gets progressively drawn and activated
-  const visibleLead = scrollTop + containerHeight * 0.88;
+  // Dynamic progressive line reveal threshold in unscaled world coordinates
+  const visibleLead = (scrollTop + containerHeight * 0.92) / camera.zoom;
 
   return (
     <div className="relative w-full rounded-3xl overflow-hidden shadow-2xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 select-none transition-colors">
-      {/* 3D Juicy Bouncy Pop Spring Physics CSS */}
+      {/* Crisp spring pop animations without breaking 3D scroll projection */}
       <style>{`
         @keyframes pop3dJelly {
           0% {
-            transform: perspective(600px) scale3d(0.65, 0.65, 1) translateY(24px) rotateX(25deg);
-            opacity: 0.3;
+            scale: 0.8;
+            opacity: 0.35;
           }
-          55% {
-            transform: perspective(600px) scale3d(1.22, 1.18, 1) translateY(-14px) rotateX(-12deg);
+          65% {
+            scale: 1.07;
             opacity: 1;
           }
-          75% {
-            transform: perspective(600px) scale3d(0.92, 0.95, 1) translateY(4px) rotateX(6deg);
-          }
-          90% {
-            transform: perspective(600px) scale3d(1.06, 1.04, 1) translateY(-2px) rotateX(-2deg);
-          }
           100% {
-            transform: perspective(600px) scale3d(1, 1, 1) translateY(0) rotateX(0deg);
+            scale: 1;
             opacity: 1;
           }
         }
         .node-pop-active {
-          animation: pop3dJelly 0.65s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+          animation: pop3dJelly 0.45s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
         }
         .road-path-draw {
           transition: stroke-dashoffset 0.35s ease-out;
@@ -262,23 +264,20 @@ export default function World3DViewport({
         ref={containerRef}
         onScroll={handleScroll}
         className="relative w-full h-[68vh] min-h-[460px] max-h-[760px] md:h-[740px] overflow-y-auto overflow-x-hidden scroll-smooth scrollbar-thin scrollbar-thumb-slate-300 dark:scrollbar-thumb-slate-700 bg-gradient-to-b from-slate-100 via-slate-50 to-white dark:from-slate-900 dark:via-slate-950 dark:to-black"
-        style={{
-          perspective: quality === "fallback" ? "none" : "1200px",
-        }}
       >
-        {/* Background Depth Sky & Perspective Grid Floor */}
+        {/* Background Depth Sky & Subtle Grid Floor */}
         <div className="sticky top-0 h-0 pointer-events-none z-0">
           <div className="h-[740px] w-full relative">
-            <div className={`w-full h-full bg-gradient-to-b ${theme.skyLight} dark:hidden opacity-70`} />
-            <div className={`w-full h-full bg-gradient-to-b ${theme.skyDark} hidden dark:block opacity-50`} />
+            <div className={`w-full h-full bg-gradient-to-b ${theme.skyLight} dark:hidden opacity-75`} />
+            <div className={`w-full h-full bg-gradient-to-b ${theme.skyDark} hidden dark:block opacity-55`} />
 
-            {/* Depth perspective grid */}
+            {/* Subtle grid */}
             <div
-              className="absolute inset-0 opacity-20 dark:opacity-15 pointer-events-none"
+              className="absolute inset-0 opacity-15 dark:opacity-10 pointer-events-none"
               style={{
                 backgroundImage:
                   "linear-gradient(to right, currentColor 1px, transparent 1px), linear-gradient(to bottom, currentColor 1px, transparent 1px)",
-                backgroundSize: "60px 60px",
+                backgroundSize: "56px 56px",
               }}
             />
           </div>
@@ -286,7 +285,7 @@ export default function World3DViewport({
 
         {/* Floating Science Formulas in atmosphere */}
         {!reducedMotion && ambientParticles && quality !== "low" && quality !== "fallback" && (
-          <div className="absolute inset-0 pointer-events-none opacity-30 dark:opacity-20 select-none overflow-hidden" style={{ height: `${totalWorldHeight}px` }}>
+          <div className="absolute inset-0 pointer-events-none opacity-30 dark:opacity-20 select-none overflow-hidden" style={{ height: `${Math.round(totalWorldHeight * camera.zoom)}px` }}>
             {theme.formulas.map((f, idx) => (
               <div
                 key={idx}
@@ -303,14 +302,15 @@ export default function World3DViewport({
           </div>
         )}
 
-        {/* 3D World Transform Stage */}
+        {/* Scaled Map Wrapper (ensures scroll height matches zoom cleanly without 3D perspective distortion) */}
         <div
-          className="relative left-1/2 -translate-x-1/2 w-full max-w-xl transition-transform duration-200 ease-out origin-top"
+          className="relative w-full flex justify-center pt-8"
+          style={{ height: `${Math.round(totalWorldHeight * camera.zoom) + 64}px` }}
+        >
+        <div
+          className="relative w-full max-w-[520px] transition-transform duration-200 ease-out origin-top"
           style={{
-            transform: `scale(${camera.zoom}) rotateX(${
-              quality === "fallback" || reducedMotion ? 0 : camera.pitch
-            }deg)`,
-            transformStyle: quality === "fallback" || reducedMotion ? "flat" : "preserve-3d",
+            transform: `scale(${camera.zoom})`,
             height: `${totalWorldHeight}px`,
           }}
         >
@@ -319,6 +319,8 @@ export default function World3DViewport({
 
           {/* SVG Connecting Roads with Progressive Scroll Drawing */}
           <svg
+            viewBox={`0 0 520 ${totalWorldHeight}`}
+            preserveAspectRatio="none"
             className="absolute top-0 left-0 w-full pointer-events-none z-10"
             style={{ height: `${totalWorldHeight}px` }}
           >
@@ -332,9 +334,9 @@ export default function World3DViewport({
 
             {nodes.slice(0, nodes.length - 1).map((nodeA, idx) => {
               const nodeB = nodes[idx + 1];
-              const x1 = (nodeA.x / 100) * 440 + 40;
+              const x1 = 72 + (nodeA.x / 100) * 376;
               const y1 = nodeA.y;
-              const x2 = (nodeB.x / 100) * 440 + 40;
+              const x2 = 72 + (nodeB.x / 100) * 376;
               const y2 = nodeB.y;
 
               const cy1 = y1 + 55;
@@ -410,10 +412,11 @@ export default function World3DViewport({
             const isLocked = node.level > currentLevel;
             const isSelected = selectedNodeId === node.id;
 
-            const posX = (node.x / 100) * 440 + 40;
+            const posX = 72 + (node.x / 100) * 376;
+            const posXPct = (posX / 520) * 100;
             const posY = node.y;
 
-            // Trigger 3D bouncy pop when scrolled near the node
+            // Trigger crisp spring pop when scrolled near the node
             const isPopActivated = visibleLead >= posY - 80;
 
             return (
@@ -423,13 +426,12 @@ export default function World3DViewport({
                   e.stopPropagation();
                   onSelectNode(node);
                 }}
-                className={`absolute -translate-x-1/2 -translate-y-1/2 cursor-pointer transition-transform duration-300 hover:scale-115 active:scale-95 group z-20 ${
-                  isPopActivated ? "node-pop-active" : "opacity-30 scale-75"
+                className={`absolute -translate-x-1/2 -translate-y-1/2 cursor-pointer transition-transform duration-200 hover:scale-110 active:scale-95 group z-20 ${
+                  isPopActivated ? "node-pop-active" : "opacity-40"
                 }`}
                 style={{
-                  left: `${posX}px`,
+                  left: `${posXPct}%`,
                   top: `${posY}px`,
-                  transformStyle: "preserve-3d",
                 }}
               >
                 {/* 1. Ground Shadow with depth blur */}
@@ -524,6 +526,7 @@ export default function World3DViewport({
               </div>
             );
           })}
+        </div>
         </div>
       </div>
     </div>

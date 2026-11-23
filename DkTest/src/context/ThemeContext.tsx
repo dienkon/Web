@@ -81,7 +81,8 @@ function getInitialTheme(): ThemeMode {
   } catch {
     // fallback
   }
-  return "system";
+  // Always default new users to crisp Light mode
+  return "light";
 }
 
 function getInitialDarkIntensity(): DarkIntensity {
