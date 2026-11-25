@@ -7,8 +7,8 @@
     <meta name="description" content="Nhà Có Nhau, đại gia đình 12A1. Gặp lại từng người và giữ lại những kỷ niệm, ảnh, video của cả lớp." />
     <meta name="theme-color" content="#4338ca" />
     <link rel="icon" type="image/svg+xml" href="favicon.svg" />
-    <link rel="stylesheet" href="memories.css" />
-    <link rel="stylesheet" href="assets/site.css" />
+    <link rel="stylesheet" href="memories.css?v=20261125-2" />
+    <link rel="stylesheet" href="assets/site.css?v=20261125-2" />
     <link rel="preconnect" href="https://lh3.googleusercontent.com" />
     <link rel="preconnect" href="https://drive.google.com" />
     <link
@@ -2046,6 +2046,10 @@
         element._driveMarkup = html;
       }
 
+      function handleExplorerCardActivate(event, idx) {
+        openLightboxFromExplorer(idx);
+      }
+
       function escapeHtml(str) {
         return String(str || "")
           .replace(/&/g, "&amp;")
@@ -2055,8 +2059,8 @@
           .replace(/'/g, "&#39;");
       }
     </script>
-    <script src="drive-images.js"></script>
-    <script src="drive-live.js"></script>
-    <script src="member-profiles.js"></script>
+    <script src="drive-images.js?v=20261125-2"></script>
+    <script src="drive-live.js?v=20261125-2"></script>
+    <script src="member-profiles.js?v=20261125-2"></script>
   </body>
 </html>
