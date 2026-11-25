@@ -106,8 +106,13 @@ document.addEventListener('load', event => {
   image.parentElement?.classList.remove('img-skeleton');
 }, true);
 
-/* --- NEF -> Original-Quality JPG Converter & Smart Image Download Engine --- */
+/* --- Cross-Platform JPEG Download Engine (iOS/iPadOS Web Share, In-App Fallback, Android & Desktop Blob Download) --- */
 const TIFF_TYPE_SIZES = { 1: 1, 2: 1, 3: 2, 4: 4, 5: 8, 6: 1, 7: 1, 8: 2, 9: 4, 10: 8, 11: 4, 12: 8, 13: 4 };
+const PREPARED_FILE_TTL_MS = 10 * 60 * 1000;
+const PREPARED_CACHE_MAX_ITEMS = 6;
+const PREPARED_CACHE_MAX_BYTES = 60 * 1024 * 1024;
+const BLOB_REVOKE_DELAY_MS = 120 * 1000;
+
 const driveDownloadState = {
   selectMode: false,
   selectedIds: new Set(),
@@ -116,21 +121,135 @@ const driveDownloadState = {
   batchRunning: false,
   batchAbort: null,
   toastTimer: null,
+  toastActionHandler: null,
+  preparedFiles: new Map(),
+  preparedTotalBytes: 0,
+  preparingPromises: new Map(),
+  lightboxPreloadTimer: null,
+  lightboxPreloadAbort: null,
+  activeSaveModal: null,
 };
+
+function logDownloadDebug(stage, details = {}, isError = false) {
+  const entry = {
+    ts: new Date().toISOString(),
+    stage,
+    ...details,
+  };
+  try {
+    if (typeof window !== 'undefined') {
+      if (!Array.isArray(window.__driveDownloadLogs)) window.__driveDownloadLogs = [];
+      window.__driveDownloadLogs.push(entry);
+      if (window.__driveDownloadLogs.length > 60) window.__driveDownloadLogs.shift();
+    }
+    const logger = isError
+      ? (console.error || console.log)
+      : (console.info || console.log);
+    logger.call(console, `[DriveDownload] ${stage}`, entry);
+  } catch (_) {}
+  return entry;
+}
+
+function getDownloadPlatformInfo() {
+  const nav = typeof navigator !== 'undefined' ? navigator : {};
+  const ua = String(nav.userAgent || '');
+  const platform = String(nav.platform || '');
+  const maxTouchPoints = Number(nav.maxTouchPoints || 0);
+
+  const isIPhoneOrIPod = /iPhone|iPod/i.test(ua);
+  // iPadOS 13+ Safari requests desktop websites with MacIntel platform + multi-touch points.
+  const isIPad = /iPad/i.test(ua) || (!isIPhoneOrIPod && /Macintosh|MacIntel/i.test(platform || ua) && maxTouchPoints > 1);
+  const isIOS = isIPhoneOrIPod || isIPad;
+  const isAndroid = !isIOS && /Android/i.test(ua);
+  const isMac = !isIOS && /Mac/i.test(platform || ua);
+  const isWindows = /Win/i.test(platform || ua);
+
+  let inAppName = '';
+  if (/\bZalo\b|ZaloClient|ZaloTheme/i.test(ua)) inAppName = 'Zalo';
+  else if (/\bMessenger\b|\bOrca-Android\b|FBAN\/Messenger|FB_IAB\/Orca/i.test(ua)) inAppName = 'Messenger';
+  else if (/\bFBAN\b|\bFBAV\b|\bFB_IAB\b|\bFBIOS\b/i.test(ua)) inAppName = 'Facebook';
+  else if (/\bInstagram\b/i.test(ua)) inAppName = 'Instagram';
+  else if (/\bBytedanceWebview\b|\bTikTok\b|\bmusical_ly\b/i.test(ua)) inAppName = 'TikTok';
+  else if (/\bBarcelona\b/i.test(ua)) inAppName = 'Threads';
+  else if (/\bLine\//i.test(ua)) inAppName = 'LINE';
+
+  const isInApp = Boolean(inAppName);
+  const isCriOS = /CriOS/i.test(ua);
+  const isFxiOS = /FxiOS/i.test(ua);
+  const isEdgiOS = /EdgiOS/i.test(ua);
+  const isSafariIOS = isIOS && !isInApp && /Safari/i.test(ua) && !isCriOS && !isFxiOS && !isEdgiOS;
+
+  const os = isIPad ? 'iPadOS' : isIPhoneOrIPod ? 'iOS' : isAndroid ? 'Android' : isWindows ? 'Windows' : isMac ? 'macOS' : 'Desktop';
+  return {
+    os,
+    ua,
+    isIOS,
+    isIPad,
+    isIPhoneOrIPod,
+    isAndroid,
+    isMac,
+    isWindows,
+    isInApp,
+    inAppName,
+    isSafariIOS,
+    hasShareApi: typeof nav.share === 'function',
+    hasCanShareApi: typeof nav.canShare === 'function',
+  };
+}
+
+function canWebShareFiles(files) {
+  try {
+    if (typeof navigator === 'undefined') return false;
+    if (typeof navigator.share !== 'function' || typeof navigator.canShare !== 'function') return false;
+    if (!Array.isArray(files) || !files.length) return false;
+    return Boolean(navigator.canShare({ files }));
+  } catch (err) {
+    logDownloadDebug('canShare-check-failed', { message: err?.message || String(err) });
+    return false;
+  }
+}
+
+function hasActiveUserGesture(gestureStartedAt = 0) {
+  try {
+    if (typeof navigator !== 'undefined' && navigator.userActivation && typeof navigator.userActivation.isActive === 'boolean') {
+      return navigator.userActivation.isActive;
+    }
+  } catch (_) {}
+  return gestureStartedAt > 0 && (Date.now() - gestureStartedAt) < 3500;
+}
 
 function isNefFileName(name) {
   return /\.nef$/i.test(String(name || '').trim());
 }
 
+function isConvertibleSourceBadgeName(name) {
+  return /\.(?:nef|heic|heif)$/i.test(String(name || '').trim());
+}
+
+function isKnownImageFileName(name) {
+  return /\.(?:jpe?g|png|heic|heif|webp|gif|bmp|tiff?|avif|nef|nrw|dng|cr2|cr3|arw|raf|orf|rw2)$/i.test(String(name || '').trim());
+}
+
+// Normalize every downloaded image filename to clean lowercase .jpg and strip old HEIC/HEIF/PNG/RAW/JPEG extensions.
+function normalizeJpegFileName(originalName) {
+  let clean = String(originalName || 'anh-ky-niem')
+    .trim()
+    .replace(/[<>:"/\\|?*\x00-\x1f]+/g, '_')
+    .replace(/\s+/g, ' ');
+  const extPattern = /\.(?:jpe?g|heic|heif|png|webp|gif|bmp|tiff?|avif|nef|nrw|dng|cr2|cr3|arw|raf|orf|rw2)$/i;
+  while (extPattern.test(clean)) {
+    clean = clean.replace(extPattern, '');
+  }
+  clean = clean.replace(/[. _-]+$/g, '').trim();
+  if (!clean) clean = 'anh-ky-niem';
+  return `${clean}.jpg`;
+}
+
 function getDownloadFileName(originalName, mimeType = 'image/jpeg', forceJpeg = false) {
+  if (forceJpeg || mimeType === 'image/jpeg' || isNefFileName(originalName)) {
+    return normalizeJpegFileName(originalName);
+  }
   const clean = String(originalName || 'anh-ky-niem').trim().replace(/[<>:"/\\|?*\x00-\x1f]+/g, '_') || 'anh-ky-niem';
-  if (forceJpeg || isNefFileName(clean)) {
-    return clean.replace(/\.nef$/i, '').replace(/\.(nrw|dng|cr2|cr3|arw|raf|orf|rw2|tiff?|bmp|png|webp|heic|heif|jpe?g)$/i, '') + '.jpg';
-  }
-  if (mimeType === 'image/jpeg') {
-    if (/\.jpe?g$/i.test(clean)) return clean;
-    return clean.replace(/\.[a-z0-9]{2,5}$/i, '') + '.jpg';
-  }
   if (mimeType === 'image/png') return /\.png$/i.test(clean) ? clean : clean.replace(/\.[a-z0-9]{2,5}$/i, '') + '.png';
   if (mimeType === 'image/webp') return /\.webp$/i.test(clean) ? clean : clean.replace(/\.[a-z0-9]{2,5}$/i, '') + '.webp';
   if (mimeType === 'image/gif') return /\.gif$/i.test(clean) ? clean : clean.replace(/\.[a-z0-9]{2,5}$/i, '') + '.gif';
@@ -144,6 +263,15 @@ function toUint8(input) {
   return new Uint8Array(0);
 }
 
+function hexMagicPrefix(bytes, length = 8) {
+  const b = toUint8(bytes);
+  const count = Math.min(b.length, length);
+  const parts = [];
+  for (let i = 0; i < count; i++) parts.push(b[i].toString(16).toUpperCase().padStart(2, '0'));
+  return parts.join(' ');
+}
+
+// Strict binary verification of JPEG SOI + marker magic bytes: FF D8 FF.
 function isJpegBuffer(bytes) {
   const b = toUint8(bytes);
   return b.length >= 4 && b[0] === 0xff && b[1] === 0xd8 && b[2] === 0xff;
@@ -161,6 +289,19 @@ function isGifBuffer(bytes) {
   const b = toUint8(bytes);
   return b.length >= 6 && b[0] === 0x47 && b[1] === 0x49 && b[2] === 0x46 && b[3] === 0x38;
 }
+function isBmpBuffer(bytes) {
+  const b = toUint8(bytes);
+  return b.length >= 14 && b[0] === 0x42 && b[1] === 0x4d;
+}
+function isIsoBmffImageBuffer(bytes) {
+  const b = toUint8(bytes);
+  if (b.length < 12) return '';
+  if (b[4] !== 0x66 || b[5] !== 0x74 || b[6] !== 0x79 || b[7] !== 0x70) return '';
+  const brand = String.fromCharCode(b[8], b[9], b[10], b[11]).toLowerCase();
+  if (brand === 'avif' || brand === 'avis') return 'image/avif';
+  if (/^(heic|heix|hevc|hevx|heim|heis|mif1|msf1)$/.test(brand)) return 'image/heic';
+  return '';
+}
 function isNefBuffer(bytes) {
   const b = toUint8(bytes);
   if (b.length < 8) return false;
@@ -172,7 +313,29 @@ function detectImageMime(bytes) {
   if (isPngBuffer(bytes)) return 'image/png';
   if (isWebpBuffer(bytes)) return 'image/webp';
   if (isGifBuffer(bytes)) return 'image/gif';
-  return '';
+  if (isBmpBuffer(bytes)) return 'image/bmp';
+  return isIsoBmffImageBuffer(bytes);
+}
+
+function createVerifiedJpegFile(jpegBytes, originalName) {
+  const b = toUint8(jpegBytes);
+  if (!isJpegBuffer(b)) {
+    throw new Error(`Dữ liệu ảnh không có chữ ký JPEG hợp lệ (FF D8 FF), nhận được [${hexMagicPrefix(b, 4) || 'rỗng'}].`);
+  }
+  const fileName = normalizeJpegFileName(originalName);
+  const slice = b.byteOffset === 0 && b.byteLength === b.buffer.byteLength
+    ? b
+    : new Uint8Array(b);
+  if (typeof File === 'function') {
+    return new File([slice], fileName, { type: 'image/jpeg', lastModified: Date.now() });
+  }
+  const fallbackBlob = new Blob([slice], { type: 'image/jpeg' });
+  try {
+    Object.defineProperty(fallbackBlob, 'name', { value: fileName, configurable: true });
+  } catch (_) {
+    fallbackBlob.name = fileName;
+  }
+  return fallbackBlob;
 }
 
 function parseJpegMetadata(input) {
@@ -503,10 +666,74 @@ function dataUrlToUint8(dataUrl) {
   return { mimeType: match[1], bytes };
 }
 
-// Convert any NEF input (File, Blob, ArrayBuffer, Uint8Array, or Drive-rendered stream) into an original-quality JPEG Blob.
+function createTimeoutFetchScope(timeoutMs, externalSignal) {
+  if (typeof AbortController !== 'function') {
+    return { signal: externalSignal, cleanup() {} };
+  }
+  const controller = new AbortController();
+  const onExternalAbort = () => controller.abort(externalSignal?.reason || new DOMException('Aborted', 'AbortError'));
+  if (externalSignal) {
+    if (externalSignal.aborted) onExternalAbort();
+    else externalSignal.addEventListener('abort', onExternalAbort, { once: true });
+  }
+  const timer = setTimeout(() => {
+    controller.abort(new Error(`Quá thời gian tải ảnh (${Math.round(timeoutMs / 1000)}s).`));
+  }, timeoutMs);
+  return {
+    signal: controller.signal,
+    cleanup() {
+      clearTimeout(timer);
+      if (externalSignal) {
+        try { externalSignal.removeEventListener('abort', onExternalAbort); } catch (_) {}
+      }
+    },
+  };
+}
+
+function getCachedPreparedImage(fileId) {
+  const entry = driveDownloadState.preparedFiles.get(fileId);
+  if (!entry) return null;
+  if (Date.now() - entry.createdAt > PREPARED_FILE_TTL_MS) {
+    driveDownloadState.preparedFiles.delete(fileId);
+    driveDownloadState.preparedTotalBytes = Math.max(0, driveDownloadState.preparedTotalBytes - (entry.byteLength || 0));
+    return null;
+  }
+  // Refresh LRU order.
+  driveDownloadState.preparedFiles.delete(fileId);
+  driveDownloadState.preparedFiles.set(fileId, entry);
+  return entry;
+}
+
+function storeCachedPreparedImage(fileId, result) {
+  if (!fileId || !result?.file) return result;
+  const existing = driveDownloadState.preparedFiles.get(fileId);
+  if (existing) {
+    driveDownloadState.preparedTotalBytes = Math.max(0, driveDownloadState.preparedTotalBytes - (existing.byteLength || 0));
+    driveDownloadState.preparedFiles.delete(fileId);
+  }
+  const byteLength = result.file.size || result.bytes?.byteLength || 0;
+  if (byteLength > PREPARED_CACHE_MAX_BYTES) return result;
+  const entry = { ...result, byteLength, createdAt: Date.now() };
+  driveDownloadState.preparedFiles.set(fileId, entry);
+  driveDownloadState.preparedTotalBytes += byteLength;
+
+  while (
+    driveDownloadState.preparedFiles.size > PREPARED_CACHE_MAX_ITEMS ||
+    driveDownloadState.preparedTotalBytes > PREPARED_CACHE_MAX_BYTES
+  ) {
+    const oldestKey = driveDownloadState.preparedFiles.keys().next().value;
+    if (!oldestKey) break;
+    const oldest = driveDownloadState.preparedFiles.get(oldestKey);
+    driveDownloadState.preparedFiles.delete(oldestKey);
+    driveDownloadState.preparedTotalBytes = Math.max(0, driveDownloadState.preparedTotalBytes - (oldest?.byteLength || 0));
+  }
+  return entry;
+}
+
+// Convert any NEF or non-JPEG input into a verified JPEG File/Blob (preserving original JPEG bytes losslessly whenever possible).
 async function convertNefToJpeg(input, options = {}) {
   const quality = options.quality ?? 0.95;
-  const fileName = getDownloadFileName(options.fileName || input?.name || 'anh-goc.nef', 'image/jpeg', true);
+  const fileName = normalizeJpegFileName(options.fileName || input?.name || 'anh-goc.nef');
   let bytes;
   if (input && typeof input.arrayBuffer === 'function') bytes = toUint8(await input.arrayBuffer());
   else bytes = toUint8(input);
@@ -514,8 +741,11 @@ async function convertNefToJpeg(input, options = {}) {
 
   if (isNefBuffer(bytes)) {
     const extracted = extractBestJpegFromNef(bytes);
+    const file = createVerifiedJpegFile(extracted.bytes, fileName);
     return {
-      blob: new Blob([extracted.bytes], { type: 'image/jpeg' }),
+      file,
+      blob: file,
+      bytes: extracted.bytes,
       fileName,
       width: extracted.width,
       height: extracted.height,
@@ -526,8 +756,11 @@ async function convertNefToJpeg(input, options = {}) {
   }
   if (isJpegBuffer(bytes)) {
     const meta = parseJpegMetadata(bytes);
+    const file = createVerifiedJpegFile(bytes, fileName);
     return {
-      blob: new Blob([bytes], { type: 'image/jpeg' }),
+      file,
+      blob: file,
+      bytes,
       fileName,
       width: meta.width,
       height: meta.height,
@@ -539,8 +772,12 @@ async function convertNefToJpeg(input, options = {}) {
   const detected = detectImageMime(bytes);
   if (detected) {
     const rendered = await transcodeBlobToJpeg(new Blob([bytes], { type: detected }), quality);
+    const outBytes = toUint8(await rendered.blob.arrayBuffer());
+    const file = createVerifiedJpegFile(outBytes, fileName);
     return {
-      blob: rendered.blob,
+      file,
+      blob: file,
+      bytes: outBytes,
       fileName,
       width: rendered.width,
       height: rendered.height,
@@ -551,8 +788,11 @@ async function convertNefToJpeg(input, options = {}) {
   }
   // Fallback for non-TIFF wrapper containing an embedded JPEG stream.
   const extracted = extractBestJpegFromNef(bytes);
+  const file = createVerifiedJpegFile(extracted.bytes, fileName);
   return {
-    blob: new Blob([extracted.bytes], { type: 'image/jpeg' }),
+    file,
+    blob: file,
+    bytes: extracted.bytes,
     fileName,
     width: extracted.width,
     height: extracted.height,
@@ -564,92 +804,499 @@ async function convertNefToJpeg(input, options = {}) {
 
 async function fetchDriveOriginalImage(fileId, fileName, options = {}) {
   if (!/^[\w-]+$/.test(fileId || '')) throw new Error('ID ảnh không hợp lệ.');
-  const isNef = isNefFileName(fileName);
+  const normalizedName = normalizeJpegFileName(fileName);
   const signal = options.signal;
 
-  const finalizeBytes = async (bytes, sourceName) => {
-    if (isNef || isNefBuffer(bytes)) {
-      const converted = await convertNefToJpeg(bytes, { fileName, quality: 0.95 });
-      return { ...converted, via: sourceName };
+  if (!options.skipCache) {
+    const cached = getCachedPreparedImage(fileId);
+    if (cached && cached.fileName === normalizedName) {
+      logDownloadDebug('cache-hit', { fileId, fileName: normalizedName, size: cached.file.size, via: cached.via });
+      return cached;
     }
-    const mime = detectImageMime(bytes);
-    if (!mime) throw new Error('Dữ liệu tải về không phải định dạng ảnh hợp lệ.');
-    return {
-      blob: new Blob([bytes], { type: mime }),
-      fileName: getDownloadFileName(fileName, mime, false),
-      converted: false,
-      via: sourceName,
+  }
+
+  if (!signal && driveDownloadState.preparingPromises.has(fileId)) {
+    return driveDownloadState.preparingPromises.get(fileId);
+  }
+
+  const runFetch = async () => {
+    const isNonJpegNamedSource = /\.(?:nef|nrw|dng|cr2|cr3|arw|raf|orf|rw2|heic|heif|png|webp|gif|bmp|tiff?|avif)$/i.test(String(fileName || '').trim());
+    const directUrl = getDriveOriginalImageUrl(fileId);
+    const errors = [];
+
+    const finalizeVerifiedJpeg = async (rawBytes, sourceName, contentTypeHeader = '', sourceUrl = '') => {
+      const magic = hexMagicPrefix(rawBytes, 8);
+      logDownloadDebug('inspect-binary', {
+        fileId,
+        originalName: fileName,
+        normalizedName,
+        via: sourceName,
+        contentTypeHeader,
+        byteLength: rawBytes.byteLength,
+        magicHex: magic,
+      });
+
+      // 1. Genuine JPEG magic bytes (FF D8 FF): keep exact binary stream without any re-compression!
+      if (isJpegBuffer(rawBytes)) {
+        const meta = parseJpegMetadata(rawBytes);
+        const file = createVerifiedJpegFile(rawBytes, normalizedName);
+        return storeCachedPreparedImage(fileId, {
+          fileId,
+          originalName: fileName,
+          file,
+          blob: file,
+          bytes: rawBytes,
+          fileName: normalizedName,
+          width: meta.width,
+          height: meta.height,
+          converted: isNonJpegNamedSource,
+          losslessPassthrough: true,
+          via: sourceName,
+          directJpegUrl: sourceName === 'direct-s0' ? sourceUrl : directUrl,
+        });
+      }
+
+      // 2. Nikon NEF / TIFF RAW binary: extract full-res embedded JPEG losslessly.
+      if (isNefBuffer(rawBytes)) {
+        const converted = await convertNefToJpeg(rawBytes, { fileName: normalizedName, quality: 0.95 });
+        return storeCachedPreparedImage(fileId, {
+          fileId,
+          originalName: fileName,
+          ...converted,
+          losslessPassthrough: true,
+          via: sourceName,
+          directJpegUrl: directUrl,
+        });
+      }
+
+      // 3. Other valid raster formats (PNG, WebP, GIF, BMP, HEIC/AVIF if returned un-converted): transcode once to high-quality JPEG & verify FF D8 FF.
+      const detectedMime = detectImageMime(rawBytes);
+      if (detectedMime) {
+        const rendered = await transcodeBlobToJpeg(new Blob([rawBytes], { type: detectedMime }), 0.95);
+        const outBytes = toUint8(await rendered.blob.arrayBuffer());
+        const file = createVerifiedJpegFile(outBytes, normalizedName);
+        logDownloadDebug('transcoded-to-jpeg', {
+          fileId,
+          fromMime: detectedMime,
+          outBytes: outBytes.byteLength,
+          magicHex: hexMagicPrefix(outBytes, 4),
+          width: rendered.width,
+          height: rendered.height,
+        });
+        return storeCachedPreparedImage(fileId, {
+          fileId,
+          originalName: fileName,
+          file,
+          blob: file,
+          bytes: outBytes,
+          fileName: normalizedName,
+          width: rendered.width,
+          height: rendered.height,
+          converted: true,
+          losslessPassthrough: false,
+          via: sourceName,
+          directJpegUrl: directUrl,
+        });
+      }
+
+      throw new Error(`Dữ liệu từ ${sourceName} không phải ảnh hợp lệ (Content-Type: "${contentTypeHeader || 'không rõ'}", magic: [${magic || 'rỗng'}]).`);
     };
+
+    // 1. Direct original-resolution stream (=s0) from Google Drive image servers.
+    for (const [label, url] of [
+      ['direct-s0', directUrl],
+      ['thumb-s0', getDriveOriginalFallbackUrl(fileId)],
+    ]) {
+      const scope = createTimeoutFetchScope(45000, signal);
+      try {
+        const res = await fetch(url, { mode: 'cors', credentials: 'omit', referrerPolicy: 'no-referrer', signal: scope.signal });
+        const contentType = res.headers?.get?.('content-type') || '';
+        if (!res.ok) {
+          errors.push(`${label}: HTTP ${res.status}`);
+          logDownloadDebug('endpoint-http-error', { label, fileId, status: res.status, contentType }, true);
+          continue;
+        }
+        const bytes = toUint8(await res.arrayBuffer());
+        if (bytes.byteLength < 32) {
+          errors.push(`${label}: dữ liệu quá ngắn (${bytes.byteLength}B)`);
+          continue;
+        }
+        return await finalizeVerifiedJpeg(bytes, label, contentType, url);
+      } catch (err) {
+        if (signal?.aborted) throw err;
+        errors.push(`${label}: ${err?.message || String(err)}`);
+        logDownloadDebug('endpoint-failed', { label, fileId, error: err?.message || String(err) }, true);
+      } finally {
+        scope.cleanup();
+      }
+    }
+
+    // 2. CORS-safe Apps Script bridge fallback when direct Google hosts are blocked.
+    if (typeof driveConnectionPromise !== 'undefined' && driveConnectionPromise && !liveState.imageDownloadBridge && !liveState.thumbnailBridge) {
+      try { await driveConnectionPromise; } catch (_) {}
+    }
+    if (liveState.imageDownloadBridge) {
+      try {
+        const res = await driveRequest('downloadImage', { id: fileId }, false, { signal });
+        const { mimeType, bytes } = dataUrlToUint8(res.image);
+        return await finalizeVerifiedJpeg(bytes, 'bridge-s0', mimeType, directUrl);
+      } catch (err) {
+        if (signal?.aborted) throw err;
+        errors.push(`bridge-s0: ${err?.message || String(err)}`);
+        logDownloadDebug('bridge-s0-failed', { fileId, error: err?.message || String(err) }, true);
+      }
+    }
+    if (liveState.thumbnailBridge) {
+      try {
+        const dataUrl = await getDriveThumbnailData(fileId);
+        const { mimeType, bytes } = dataUrlToUint8(dataUrl);
+        return await finalizeVerifiedJpeg(bytes, 'bridge-preview', mimeType, directUrl);
+      } catch (err) {
+        if (signal?.aborted) throw err;
+        errors.push(`bridge-preview: ${err?.message || String(err)}`);
+        logDownloadDebug('bridge-preview-failed', { fileId, error: err?.message || String(err) }, true);
+      }
+    }
+
+    const detail = errors.length ? ` (${errors[0]})` : '';
+    throw new Error(`Không tải được dữ liệu ảnh JPEG gốc từ Google Drive${detail}. Vui lòng kiểm tra kết nối mạng hoặc thử lại.`);
   };
 
-  // 1. Direct original-resolution stream (=s0) from Google Drive image servers.
-  for (const [label, url] of [
-    ['direct-s0', getDriveOriginalImageUrl(fileId)],
-    ['thumb-s0', getDriveOriginalFallbackUrl(fileId)],
-  ]) {
-    try {
-      const timeoutSignal = AbortSignal.timeout(45000);
-      const reqSignal = signal ? AbortSignal.any([timeoutSignal, signal]) : timeoutSignal;
-      const res = await fetch(url, { mode: 'cors', credentials: 'omit', referrerPolicy: 'no-referrer', signal: reqSignal });
-      if (!res.ok) continue;
-      const bytes = toUint8(await res.arrayBuffer());
-      if (bytes.length < 32) continue;
-      if (detectImageMime(bytes) || isNefBuffer(bytes)) return await finalizeBytes(bytes, label);
-    } catch (err) {
-      if (signal?.aborted) throw err;
+  if (signal) return runFetch();
+  const tracked = runFetch().finally(() => {
+    if (driveDownloadState.preparingPromises.get(fileId) === tracked) {
+      driveDownloadState.preparingPromises.delete(fileId);
     }
-  }
-
-  // 2. CORS-safe Apps Script bridge fallback when direct Google hosts are blocked.
-  if (typeof driveConnectionPromise !== 'undefined' && driveConnectionPromise && !liveState.imageDownloadBridge && !liveState.thumbnailBridge) {
-    try { await driveConnectionPromise; } catch (_) {}
-  }
-  if (liveState.imageDownloadBridge) {
-    try {
-      const res = await driveRequest('downloadImage', { id: fileId }, false, { signal });
-      const { bytes } = dataUrlToUint8(res.image);
-      return await finalizeBytes(bytes, 'bridge-s0');
-    } catch (err) {
-      if (signal?.aborted) throw err;
-    }
-  }
-  if (liveState.thumbnailBridge) {
-    const dataUrl = await getDriveThumbnailData(fileId);
-    const { bytes } = dataUrlToUint8(dataUrl);
-    return await finalizeBytes(bytes, 'bridge-preview');
-  }
-
-  throw new Error('Không tải được ảnh gốc từ Google Drive. Kiểm tra kết nối mạng hoặc thử lại.');
+  });
+  driveDownloadState.preparingPromises.set(fileId, tracked);
+  return tracked;
 }
 
+// Android & Desktop download: Blob URL + <a download>, keeping ObjectURL alive well past click.
 function triggerBrowserBlobDownload(blob, fileName) {
-  const objectUrl = URL.createObjectURL(blob);
+  const safeName = normalizeJpegFileName(fileName);
+  const payload = blob?.type === 'image/jpeg' ? blob : new Blob([blob], { type: 'image/jpeg' });
+  const objectUrl = URL.createObjectURL(payload);
   const link = document.createElement('a');
   link.href = objectUrl;
-  link.download = fileName;
+  link.download = safeName;
   link.rel = 'noopener';
   link.style.display = 'none';
   document.body.appendChild(link);
   link.click();
-  link.remove();
-  setTimeout(() => URL.revokeObjectURL(objectUrl), 60000);
+  // Remove anchor asynchronously and delay revokeObjectURL (120s) so Android/Desktop disk writes never race.
+  setTimeout(() => {
+    try { link.remove(); } catch (_) {}
+  }, 1000);
+  setTimeout(() => {
+    try { URL.revokeObjectURL(objectUrl); } catch (_) {}
+  }, BLOB_REVOKE_DELAY_MS);
+  logDownloadDebug('blob-anchor-download', { fileName: safeName, size: payload.size, revokeDelayMs: BLOB_REVOKE_DELAY_MS });
 }
 
 function showDownloadToast(message, options = {}) {
+  if (typeof document === 'undefined' || typeof document.getElementById !== 'function') return;
   const toast = document.getElementById('download-toast');
   if (!toast) return;
   clearTimeout(driveDownloadState.toastTimer);
   const spinner = document.getElementById('download-toast-spinner');
   const text = document.getElementById('download-toast-text');
   const cancelBtn = document.getElementById('download-toast-cancel');
+  const actionBtn = document.getElementById('download-toast-action');
   toast.classList.remove('hidden');
   toast.dataset.tone = options.error ? 'error' : options.busy ? 'busy' : 'done';
   if (spinner) spinner.classList.toggle('hidden', !options.busy);
   if (text) text.textContent = message;
   if (cancelBtn) cancelBtn.classList.toggle('hidden', !options.cancellable);
-  if (!options.busy) {
-    driveDownloadState.toastTimer = setTimeout(() => { toast.classList.add('hidden'); }, options.error ? 5500 : 3800);
+  if (actionBtn) {
+    if (options.actionLabel && typeof options.onAction === 'function') {
+      driveDownloadState.toastActionHandler = options.onAction;
+      actionBtn.textContent = options.actionLabel;
+      actionBtn.classList.remove('hidden');
+    } else {
+      driveDownloadState.toastActionHandler = null;
+      actionBtn.classList.add('hidden');
+    }
   }
+  if (!options.busy) {
+    const duration = options.durationMs || (options.error ? 7000 : options.actionLabel ? 8000 : 4200);
+    driveDownloadState.toastTimer = setTimeout(() => { toast.classList.add('hidden'); }, duration);
+  }
+}
+
+function handleDownloadToastAction() {
+  const fn = driveDownloadState.toastActionHandler;
+  if (typeof fn === 'function') fn();
+}
+
+function formatByteSize(bytes) {
+  const n = Number(bytes) || 0;
+  if (n >= 1024 * 1024) return `${(n / (1024 * 1024)).toFixed(1)} MB`;
+  if (n >= 1024) return `${Math.round(n / 1024)} KB`;
+  return `${n} B`;
+}
+
+function getInAppSafariGuideText(platform) {
+  const app = platform.inAppName || 'ứng dụng này';
+  if (platform.isIOS) {
+    if (app === 'Zalo') {
+      return 'Bạn đang mở trong Zalo. Để lưu nhiều ảnh nhanh nhất: bấm nút ⋯ ở góc trên phải → chọn "Mở bằng trình duyệt" (Safari), hoặc nhấn giữ trực tiếp vào ảnh bên dưới để chọn "Lưu vào Ảnh".';
+    }
+    if (app === 'Messenger' || app === 'Facebook') {
+      return `Bạn đang mở trong ${app}. Bấm biểu tượng ⋯ (hoặc biểu tượng la bàn Safari góc dưới phải) → chọn "Mở trong trình duyệt ngoài / Open in Safari", hoặc nhấn giữ trực tiếp vào ảnh bên dưới để lưu vào Ảnh.`;
+    }
+    return `Bạn đang mở trong trình duyệt nhúng ${app}. Hãy mở trang bằng Safari để dùng tính năng Lưu vào Ảnh một chạm, hoặc nhấn giữ trực tiếp vào ảnh bên dưới để lưu.`;
+  }
+  return `Bạn đang mở trong ${app}. Nếu ảnh chưa tự lưu về máy, bấm nút ⋮ góc trên phải → chọn "Mở bằng trình duyệt / Chrome", hoặc nhấn giữ trực tiếp vào ảnh bên dưới để tải ảnh.`;
+}
+
+function closeImageSaveHelperModal() {
+  if (typeof document === 'undefined' || typeof document.getElementById !== 'function') return;
+  const modal = document.getElementById('ios-save-modal');
+  if (modal) modal.classList.add('hidden');
+  const active = driveDownloadState.activeSaveModal;
+  driveDownloadState.activeSaveModal = null;
+  if (active?.objectUrls?.length) {
+    const urls = active.objectUrls.slice();
+    setTimeout(() => {
+      urls.forEach(u => { try { URL.revokeObjectURL(u); } catch (_) {} });
+    }, BLOB_REVOKE_DELAY_MS);
+  }
+}
+
+function openImageSaveHelperModal(items, options = {}) {
+  if (typeof document === 'undefined' || typeof document.getElementById !== 'function') return;
+  const modal = document.getElementById('ios-save-modal');
+  if (!modal) return;
+  closeImageSaveHelperModal();
+
+  const platform = options.platform || getDownloadPlatformInfo();
+  const list = Array.isArray(items) ? items.filter(Boolean) : [];
+  if (!list.length) return;
+
+  const files = list.map(it => it.file).filter(Boolean);
+  const canShareNow = files.length > 0 && canWebShareFiles(files);
+  const objectUrls = [];
+  const first = list[0];
+  let previewSrc = '';
+  if (first.file) {
+    const blobUrl = URL.createObjectURL(first.file);
+    objectUrls.push(blobUrl);
+    // In embedded iOS WebViews (Zalo/Messenger/FB), https:// =s0 JPEG supports native UIContextMenu "Save to Photos" reliably, with blobUrl fallback.
+    previewSrc = (platform.isInApp && first.directJpegUrl) ? first.directJpegUrl : blobUrl;
+  } else if (first.directJpegUrl) {
+    previewSrc = first.directJpegUrl;
+  }
+
+  driveDownloadState.activeSaveModal = { list, files, platform, objectUrls, previewSrc };
+
+  const titleEl = document.getElementById('ios-save-title');
+  const subtitleEl = document.getElementById('ios-save-subtitle');
+  const shareBtn = document.getElementById('ios-save-share-btn');
+  const directLink = document.getElementById('ios-save-direct-link');
+  const previewWrap = document.getElementById('ios-save-preview-wrap');
+  const previewImg = document.getElementById('ios-save-preview-img');
+  const holdHint = document.getElementById('ios-save-hold-hint');
+  const inAppBox = document.getElementById('ios-save-inapp-box');
+  const inAppText = document.getElementById('ios-save-inapp-text');
+
+  const isMulti = list.length > 1;
+  const totalBytes = files.reduce((sum, f) => sum + (f.size || 0), 0);
+
+  if (titleEl) {
+    titleEl.textContent = isMulti
+      ? `Sẵn sàng lưu ${list.length} ảnh JPG gốc`
+      : `Sẵn sàng lưu: ${first.fileName || normalizeJpegFileName(first.originalName)}`;
+  }
+  if (subtitleEl) {
+    const dim = (!isMulti && first.width && first.height) ? ` • ${first.width}×${first.height}px` : '';
+    const sizeText = totalBytes ? ` (${formatByteSize(totalBytes)}${dim})` : '';
+    subtitleEl.textContent = canShareNow
+      ? `Ảnh JPEG chất lượng chuẩn gốc${sizeText}. Bấm nút màu xanh bên dưới → chọn "${isMulti ? `Lưu ${list.length} hình ảnh` : 'Lưu hình ảnh'}" (Save Image) để lưu thẳng vào ứng dụng Ảnh (Photos).`
+      : `Ảnh JPEG chất lượng chuẩn gốc${sizeText}. Nhấn giữ vào ảnh bên dưới khoảng 1 giây rồi chọn "Lưu vào Ảnh" (Save to Photos).`;
+  }
+
+  if (shareBtn) {
+    if (canShareNow) {
+      shareBtn.classList.remove('hidden');
+      shareBtn.textContent = isMulti
+        ? `📲 Lưu tất cả ${list.length} ảnh vào Ảnh (Photos)`
+        : '📲 Lưu vào Ảnh (Photos)';
+    } else {
+      shareBtn.classList.add('hidden');
+    }
+  }
+
+  const fallbackDirectUrl = first.directJpegUrl || previewSrc;
+  if (directLink) {
+    if (!isMulti && fallbackDirectUrl) {
+      directLink.href = fallbackDirectUrl;
+      directLink.classList.remove('hidden');
+    } else {
+      directLink.classList.add('hidden');
+    }
+  }
+
+  if (previewWrap && previewImg) {
+    if (previewSrc) {
+      previewImg.onerror = () => {
+        if (objectUrls[0] && previewImg.src !== objectUrls[0]) previewImg.src = objectUrls[0];
+      };
+      previewImg.src = previewSrc;
+      previewImg.alt = first.fileName || 'Ảnh JPEG gốc';
+      previewWrap.classList.remove('hidden');
+      if (holdHint) {
+        holdHint.textContent = isMulti
+          ? `Xem trước ảnh 1/${list.length} (${first.fileName}) — hoặc nhấn giữ vào ảnh để lưu nhanh`
+          : '👆 Nhấn giữ vào ảnh (1 giây) → chọn "Lưu vào Ảnh / Thêm vào Ảnh"';
+      }
+    } else {
+      previewWrap.classList.add('hidden');
+    }
+  }
+
+  if (inAppBox && inAppText) {
+    if (platform.isInApp) {
+      inAppText.textContent = getInAppSafariGuideText(platform);
+      inAppBox.classList.remove('hidden');
+    } else {
+      inAppBox.classList.add('hidden');
+    }
+  }
+
+  modal.classList.remove('hidden');
+  logDownloadDebug('open-save-helper-modal', {
+    reason: options.reason || 'manual',
+    count: list.length,
+    canShareNow,
+    platform: platform.os,
+    inAppName: platform.inAppName,
+  });
+}
+
+// Synchronous click handler inside #ios-save-modal: File[] is already prepared in RAM -> 100% transient user activation!
+function triggerPreparedModalShare(event) {
+  if (event) event.preventDefault();
+  const active = driveDownloadState.activeSaveModal;
+  if (!active || !active.files?.length) return;
+  const files = active.files;
+  if (!canWebShareFiles(files)) {
+    showDownloadToast('Trình duyệt này không hỗ trợ bảng Chia sẻ tệp — hãy nhấn giữ vào ảnh bên dưới để lưu.', { error: true });
+    return;
+  }
+  logDownloadDebug('modal-sync-web-share-start', { count: files.length, names: files.map(f => f.name) });
+  // Pass ONLY { files } so iOS Safari always shows "Save Image / Lưu hình ảnh" to Apple Photos!
+  navigator.share({ files }).then(() => {
+    logDownloadDebug('modal-sync-web-share-success', { count: files.length });
+    closeImageSaveHelperModal();
+    showDownloadToast(
+      files.length > 1
+        ? `✓ Đã hoàn tất chia sẻ / lưu ${files.length} ảnh JPG gốc!`
+        : `✓ Đã mở lưu ${files[0].name} vào Ảnh!`,
+      { busy: false }
+    );
+  }).catch(err => {
+    if (err?.name === 'AbortError') {
+      logDownloadDebug('modal-sync-web-share-cancelled', {});
+      return;
+    }
+    logDownloadDebug('modal-sync-web-share-error', { name: err?.name, message: err?.message || String(err) }, true);
+    showDownloadToast('Không mở được bảng Chia sẻ — bạn hãy nhấn giữ trực tiếp vào ảnh bên dưới để chọn "Lưu vào Ảnh".', { error: true });
+  });
+}
+
+async function copyCurrentUrlForSafari() {
+  const url = typeof location !== 'undefined' ? location.href : '';
+  if (!url) return;
+  try {
+    if (navigator.clipboard?.writeText) {
+      await navigator.clipboard.writeText(url);
+    } else {
+      const ta = document.createElement('textarea');
+      ta.value = url;
+      ta.style.position = 'fixed';
+      ta.style.opacity = '0';
+      document.body.appendChild(ta);
+      ta.select();
+      document.execCommand('copy');
+      ta.remove();
+    }
+    showDownloadToast('✓ Đã sao chép liên kết! Hãy mở Safari và dán vào thanh địa chỉ.', { busy: false });
+  } catch (_) {
+    showDownloadToast('Hãy sao chép địa chỉ trang trên thanh tiêu đề rồi mở bằng Safari.', { error: true });
+  }
+}
+
+// Pre-warm current Lightbox photo on iOS/iPadOS so File is already prepared BEFORE user taps the Save button.
+function scheduleIOSLightboxPreload(item) {
+  clearTimeout(driveDownloadState.lightboxPreloadTimer);
+  if (driveDownloadState.lightboxPreloadAbort) {
+    try { driveDownloadState.lightboxPreloadAbort.abort(); } catch (_) {}
+    driveDownloadState.lightboxPreloadAbort = null;
+  }
+  if (!item) return;
+  const [id, name, kind] = item;
+  if (!(kind === 0 || isKnownImageFileName(name))) return;
+  const platform = getDownloadPlatformInfo();
+  if (!platform.isIOS) return;
+  if (getCachedPreparedImage(id)) return;
+
+  driveDownloadState.lightboxPreloadTimer = setTimeout(() => {
+    if (typeof document !== 'undefined' && document.getElementById('drive-lightbox')?.classList.contains('hidden')) return;
+    const controller = typeof AbortController === 'function' ? new AbortController() : null;
+    driveDownloadState.lightboxPreloadAbort = controller;
+    fetchDriveOriginalImage(id, name, { signal: controller?.signal })
+      .then(() => {
+        if (typeof lightboxList !== 'undefined' && lightboxList[lightboxIndex]?.[0] === id) {
+          syncLightboxDownloadButton();
+        }
+      })
+      .catch(() => {});
+  }, 180);
+}
+
+function warmCardDownloadOnIOS(button) {
+  if (!button) return;
+  const platform = getDownloadPlatformInfo();
+  if (!platform.isIOS) return;
+  const id = button.dataset?.fileId;
+  const name = button.dataset?.fileName || 'anh.jpg';
+  if (!id || getCachedPreparedImage(id) || driveDownloadState.preparingPromises.has(id)) return;
+  fetchDriveOriginalImage(id, name).catch(() => {});
+}
+
+// Synchronous iOS Share fast-path when File is already prepared in cache: zero awaits -> 100% transient user activation!
+function tryImmediateCachedIOSShare(item) {
+  if (!item) return false;
+  const [id, name, kind] = item;
+  if (!(kind === 0 || isKnownImageFileName(name))) return false;
+  const platform = getDownloadPlatformInfo();
+  if (!platform.isIOS) return false;
+
+  const cached = getCachedPreparedImage(id);
+  if (!cached?.file) return false;
+
+  if (platform.isInApp || !canWebShareFiles([cached.file])) {
+    openImageSaveHelperModal([cached], {
+      platform,
+      reason: platform.isInApp ? 'cached-in-app' : 'cached-no-web-share',
+    });
+    return true;
+  }
+
+  logDownloadDebug('sync-cached-web-share', { fileId: id, fileName: cached.fileName, size: cached.file.size });
+  navigator.share({ files: [cached.file] }).then(() => {
+    logDownloadDebug('sync-cached-web-share-success', { fileId: id, fileName: cached.fileName });
+    showDownloadToast(`✓ Đã mở menu Lưu ảnh: ${cached.fileName}`, { busy: false });
+  }).catch(err => {
+    if (err?.name === 'AbortError') {
+      logDownloadDebug('sync-cached-web-share-cancelled', { fileId: id });
+      return;
+    }
+    logDownloadDebug('sync-cached-web-share-fallback', { fileId: id, name: err?.name, message: err?.message }, true);
+    openImageSaveHelperModal([cached], { platform, reason: 'share-rejected' });
+  });
+  return true;
 }
 
 function updateCardDownloadButtonState(fileId, busy) {
@@ -664,66 +1311,174 @@ function updateCardDownloadButtonState(fileId, busy) {
 }
 
 function syncLightboxDownloadButton(busy = driveDownloadState.busyIds.has(lightboxList[lightboxIndex]?.[0])) {
+  if (typeof document === 'undefined') return;
   const link = document.getElementById('lb-download-link');
   const textEl = document.getElementById('lb-download-text');
   const item = typeof lightboxList !== 'undefined' ? lightboxList[lightboxIndex] : null;
   if (!link || !item) return;
-  const [, name, kind] = item;
+  const [id, name, kind] = item;
+  const isImage = kind === 0 || isKnownImageFileName(name);
   const isNef = isNefFileName(name);
+  const platform = getDownloadPlatformInfo();
+  const isReadyCached = isImage && Boolean(getCachedPreparedImage(id));
+
   link.dataset.busy = busy ? 'true' : 'false';
   if (textEl) {
     textEl.textContent = busy
-      ? (isNef ? 'Đang chuyển JPG…' : 'Đang tải…')
+      ? (isNef ? 'Đang chuyển JPG…' : 'Đang chuẩn bị…')
       : kind === 1
         ? 'Tải video'
-        : isNef
-          ? 'Tải JPG gốc'
-          : 'Tải ảnh gốc';
+        : platform.isIOS && isImage
+          ? (isReadyCached ? 'Lưu vào Ảnh ✓' : 'Lưu vào Ảnh')
+          : isNef
+            ? 'Tải JPG gốc'
+            : 'Tải ảnh gốc';
   }
   link.title = isNef
     ? 'Tự động chuyển ảnh NEF sang JPG chất lượng chuẩn gốc và lưu về máy (Phím D)'
-    : kind === 0
-      ? 'Tải ảnh độ phân giải gốc về máy (Phím D)'
+    : isImage
+      ? (platform.isIOS ? 'Lưu ảnh JPEG chất lượng gốc vào ứng dụng Ảnh (Photos)' : 'Tải ảnh JPEG độ phân giải gốc về máy (Phím D)')
       : 'Tải tệp gốc về máy';
+
+  const lb = document.getElementById('drive-lightbox');
+  if (isImage && lb && !lb.classList.contains('hidden') && !busy && !isReadyCached) {
+    scheduleIOSLightboxPreload(item);
+  }
 }
 
 async function downloadDriveMediaItem(item, options = {}) {
   if (!item) return false;
   const [id, name, kind] = item;
+  const isImage = kind === 0 || isKnownImageFileName(name);
   const isNef = isNefFileName(name);
+
   // Videos and non-image documents use Google Drive's native file download.
-  if (kind !== 0 && !isNef) {
+  if (!isImage) {
     window.open(getDriveDownloadUrl(id), '_blank', 'noopener');
     return true;
   }
+
+  const gestureStartedAt = options.gestureStartedAt || Date.now();
+  const platform = getDownloadPlatformInfo();
+
   if (driveDownloadState.busyIds.has(id) && !options.batch) return false;
   driveDownloadState.busyIds.add(id);
   updateCardDownloadButtonState(id, true);
+
+  const targetName = normalizeJpegFileName(name);
+  logDownloadDebug('download-start', {
+    fileId: id,
+    originalName: name,
+    targetName,
+    platform: platform.os,
+    inAppName: platform.inAppName,
+    batch: Boolean(options.batch),
+  });
+
   if (!options.silent) {
     showDownloadToast(
-      isNef ? `Đang chuyển NEF sang JPG chuẩn gốc: ${getDownloadFileName(name, 'image/jpeg', true)}…` : `Đang tải ảnh gốc: ${name}…`,
+      isNef
+        ? `Đang chuyển NEF sang JPG chuẩn gốc: ${targetName}…`
+        : platform.isIOS
+          ? `Đang chuẩn bị ảnh JPG gốc: ${targetName}…`
+          : `Đang tải ảnh JPG gốc: ${targetName}…`,
       { busy: true }
     );
   }
+
   try {
     const result = await fetchDriveOriginalImage(id, name, { signal: options.signal });
-    triggerBrowserBlobDownload(result.blob, result.fileName);
+    if (options.prepareOnly) return result;
+
+    // iOS / iPadOS path: prioritize Web Share API ({ files }) -> 1-tap Ready Sheet -> Direct JPEG Long-Press Fallback.
+    if (platform.isIOS) {
+      const canShare = canWebShareFiles([result.file]);
+      const gestureAlive = hasActiveUserGesture(gestureStartedAt);
+      logDownloadDebug('ios-delivery-check', {
+        fileId: id,
+        fileName: result.fileName,
+        size: result.file.size,
+        canShare,
+        gestureAlive,
+        isInApp: platform.isInApp,
+        inAppName: platform.inAppName,
+      });
+
+      if (canShare && !platform.isInApp && gestureAlive) {
+        try {
+          await navigator.share({ files: [result.file] });
+          if (!options.silent) {
+            showDownloadToast(`✓ Đã mở lưu ${result.fileName} — chọn "Lưu hình ảnh" để lưu vào Ảnh!`, { busy: false });
+          }
+          logDownloadDebug('ios-async-web-share-success', { fileId: id, fileName: result.fileName });
+          return true;
+        } catch (shareErr) {
+          if (shareErr?.name === 'AbortError') {
+            if (!options.silent) document.getElementById('download-toast')?.classList.add('hidden');
+            logDownloadDebug('ios-async-web-share-cancelled', { fileId: id });
+            return true;
+          }
+          logDownloadDebug('ios-async-web-share-expired-or-blocked', {
+            fileId: id,
+            errName: shareErr?.name,
+            errMessage: shareErr?.message || String(shareErr),
+          });
+        }
+      }
+
+      // Transient user activation expired during download, or in-app WebView (Zalo/Messenger/FB), or Web Share unavailable:
+      // File is now 100% prepared in RAM -> open Save Sheet so user taps once with fresh activation or long-presses JPEG!
+      if (!options.silent) document.getElementById('download-toast')?.classList.add('hidden');
+      openImageSaveHelperModal([result], {
+        platform,
+        reason: platform.isInApp ? 'ios-in-app' : canShare ? 'ios-ready-for-gesture' : 'ios-direct-jpeg-fallback',
+      });
+      return true;
+    }
+
+    // Android & Desktop (Windows / macOS / Linux): maintain Blob URL + <a download> with delayed revokeObjectURL.
+    triggerBrowserBlobDownload(result.file, result.fileName);
     if (!options.silent) {
-      showDownloadToast(
-        isNef ? `✓ Đã chuyển & lưu ${result.fileName} (JPG chuẩn gốc)` : `✓ Đã tải về ${result.fileName}`,
-        { busy: false }
-      );
+      if (platform.isInApp) {
+        showDownloadToast(`✓ Đã gửi tải ${result.fileName}. Nếu ${platform.inAppName} chặn tải, bấm nút bên cạnh:`, {
+          busy: false,
+          actionLabel: 'Mở lưu ảnh',
+          onAction: () => openImageSaveHelperModal([result], { platform, reason: 'android-in-app-helper' }),
+        });
+      } else {
+        showDownloadToast(
+          isNef ? `✓ Đã chuyển & tải về ${result.fileName} (JPG chuẩn gốc)` : `✓ Đã tải về ${result.fileName}`,
+          { busy: false }
+        );
+      }
     }
     return true;
   } catch (error) {
     if (options.signal?.aborted) throw error;
-    // Non-NEF images can fall back to Drive's download endpoint if both CORS and bridge are offline.
-    if (!isNef && !options.batch) {
-      window.open(getDriveDownloadUrl(id), '_blank', 'noopener');
-      showDownloadToast(`Đang mở tải tệp gốc từ Google Drive: ${name}`, { busy: false });
+    logDownloadDebug('download-error', {
+      fileId: id,
+      originalName: name,
+      platform: platform.os,
+      inAppName: platform.inAppName,
+      error: error?.message || String(error),
+    }, true);
+
+    // Direct JPEG URL fallback when fetch CORS is blocked by an extension/webview (never use uc?export=download for HEIC/NEF on mobile!).
+    if (!isNef && !options.batch && (platform.isIOS || platform.isInApp)) {
+      openImageSaveHelperModal([{
+        fileId: id,
+        originalName: name,
+        fileName: targetName,
+        file: null,
+        directJpegUrl: getDriveOriginalImageUrl(id),
+      }], { platform, reason: 'cors-fallback-direct-jpeg' });
+      showDownloadToast('Mạng chặn tải nền — hãy nhấn giữ vào ảnh trên màn hình để lưu vào Ảnh.', { error: true });
       return true;
     }
-    if (!options.silent) showDownloadToast(error.message || 'Không thể tải ảnh lúc này.', { error: true });
+
+    if (!options.silent) {
+      showDownloadToast(error?.message || `Không thể tải ảnh "${targetName}" lúc này. Vui lòng thử lại.`, { error: true });
+    }
     return false;
   } finally {
     driveDownloadState.busyIds.delete(id);
@@ -736,22 +1491,25 @@ function handleCardDownload(event, button) {
   event.stopPropagation();
   const id = button.dataset.fileId, name = button.dataset.fileName || 'anh.jpg', kind = Number(button.dataset.fileKind || 0);
   if (!id) return;
-  downloadDriveMediaItem([id, name, kind]);
+  const item = [id, name, kind];
+  if (tryImmediateCachedIOSShare(item)) return;
+  downloadDriveMediaItem(item, { gestureStartedAt: Date.now() });
 }
 
 function handleLightboxDownload(event) {
   const item = typeof lightboxList !== 'undefined' ? lightboxList[lightboxIndex] : null;
   if (!item) return;
   const [, name, kind] = item;
-  if (kind === 0 || isNefFileName(name)) {
+  if (kind === 0 || isKnownImageFileName(name)) {
     event.preventDefault();
-    downloadDriveMediaItem(item);
+    if (tryImmediateCachedIOSShare(item)) return;
+    downloadDriveMediaItem(item, { gestureStartedAt: Date.now() });
   }
 }
 
 /* --- Multi-Select Batch Image Download --- */
 function isSelectableImageItem(item) {
-  return Boolean(item && (item[2] === 0 || isNefFileName(item[1])));
+  return Boolean(item && (item[2] === 0 || isKnownImageFileName(item[1])));
 }
 
 function toggleDriveSelectMode(force) {
@@ -810,6 +1568,7 @@ function syncDriveSelectionUI() {
   const grid = document.getElementById('drive-files-grid');
   const active = driveDownloadState.selectMode;
   const count = driveDownloadState.selectedIds.size;
+  const platform = getDownloadPlatformInfo();
 
   if (toggleBtn) {
     toggleBtn.setAttribute('aria-pressed', String(active));
@@ -820,17 +1579,17 @@ function syncDriveSelectionUI() {
   }
   if (bar) bar.classList.toggle('hidden', !active);
   if (countEl) {
-    const nefCount = [...driveDownloadState.selectedItems.values()].filter(it => isNefFileName(it[1])).length;
+    const convertCount = [...driveDownloadState.selectedItems.values()].filter(it => isConvertibleSourceBadgeName(it[1])).length;
     countEl.textContent = count
-      ? `Đã chọn ${count} ảnh${nefCount ? ` (${nefCount} ảnh NEF sẽ tự chuyển sang JPG chuẩn gốc)` : ''}`
-      : 'Chạm vào các ảnh bên dưới để chọn tải về cùng lúc (ảnh NEF tự chuyển sang JPG gốc)';
+      ? `Đã chọn ${count} ảnh${convertCount ? ` (${convertCount} ảnh HEIC/NEF tự chuẩn hóa sang JPG gốc)` : ' (tải chuẩn JPG gốc)'}`
+      : 'Chạm vào các ảnh bên dưới để chọn tải về cùng lúc (tất cả lưu dạng JPG chuẩn gốc)';
   }
   if (downloadBtn) {
     downloadBtn.disabled = count === 0 || driveDownloadState.batchRunning;
     downloadBtn.textContent = driveDownloadState.batchRunning
-      ? 'Đang tải…'
+      ? 'Đang chuẩn bị…'
       : count > 0
-        ? `⬇ Tải ${count} ảnh về máy`
+        ? (platform.isIOS ? `📲 Lưu ${count} ảnh vào Ảnh` : `⬇ Tải ${count} ảnh về máy`)
         : '⬇ Tải ảnh đã chọn';
   }
   if (grid) {
@@ -857,38 +1616,91 @@ function cancelBatchDownload() {
 async function downloadSelectedDriveImages() {
   if (driveDownloadState.batchRunning || !driveDownloadState.selectedItems.size) return;
   const items = [...driveDownloadState.selectedItems.values()];
-  const controller = new AbortController();
+  const platform = getDownloadPlatformInfo();
+  const gestureStartedAt = Date.now();
+  const controller = typeof AbortController === 'function' ? new AbortController() : { signal: null, abort() {} };
   driveDownloadState.batchRunning = true;
   driveDownloadState.batchAbort = controller;
   syncDriveSelectionUI();
 
+  // iOS / iPadOS batch flow: prepare all JPEG File objects first, then present 1-tap Share Sheet ("Save N Images" -> Photos).
+  if (platform.isIOS) {
+    const preparedList = [];
+    let failed = 0;
+    try {
+      for (let i = 0; i < items.length; i++) {
+        if (controller.signal?.aborted) break;
+        const item = items[i];
+        const outName = normalizeJpegFileName(item[1]);
+        showDownloadToast(`Đang chuẩn bị ảnh JPG ${i + 1}/${items.length}: ${outName}…`, { busy: true, cancellable: items.length > 1 });
+        const prepared = await downloadDriveMediaItem(item, { silent: true, batch: true, prepareOnly: true, signal: controller.signal });
+        if (prepared?.file) preparedList.push(prepared);
+        else failed++;
+      }
+      if (controller.signal?.aborted) {
+        showDownloadToast(`Đã dừng chuẩn bị ảnh (${preparedList.length}/${items.length}).`, { busy: false });
+      } else if (!preparedList.length) {
+        showDownloadToast('Không chuẩn bị được ảnh nào. Vui lòng kiểm tra kết nối mạng.', { error: true });
+      } else {
+        const files = preparedList.map(p => p.file);
+        if (canWebShareFiles(files) && !platform.isInApp && hasActiveUserGesture(gestureStartedAt)) {
+          try {
+            await navigator.share({ files });
+            showDownloadToast(`✓ Đã mở lưu ${files.length} ảnh JPG gốc vào Ảnh!`, { busy: false });
+            toggleDriveSelectMode(false);
+            return;
+          } catch (err) {
+            if (err?.name === 'AbortError') {
+              document.getElementById('download-toast')?.classList.add('hidden');
+              return;
+            }
+          }
+        }
+        document.getElementById('download-toast')?.classList.add('hidden');
+        openImageSaveHelperModal(preparedList, { platform, reason: 'ios-batch-ready' });
+        if (failed === 0) toggleDriveSelectMode(false);
+      }
+    } catch (error) {
+      if (controller.signal?.aborted) {
+        showDownloadToast('Đã dừng chuẩn bị ảnh hàng loạt.', { busy: false });
+      } else {
+        showDownloadToast(error?.message || 'Chuẩn bị ảnh hàng loạt bị gián đoạn.', { error: true });
+      }
+    } finally {
+      driveDownloadState.batchRunning = false;
+      driveDownloadState.batchAbort = null;
+      syncDriveSelectionUI();
+    }
+    return;
+  }
+
   let done = 0, failed = 0;
   try {
     for (let i = 0; i < items.length; i++) {
-      if (controller.signal.aborted) break;
+      if (controller.signal?.aborted) break;
       const item = items[i];
-      const outName = isNefFileName(item[1]) ? getDownloadFileName(item[1], 'image/jpeg', true) : item[1];
+      const outName = normalizeJpegFileName(item[1]);
       showDownloadToast(`Đang tải ${i + 1}/${items.length}: ${outName}…`, { busy: true, cancellable: items.length > 1 });
       const ok = await downloadDriveMediaItem(item, { silent: true, batch: true, signal: controller.signal });
       if (ok) done++; else failed++;
-      // Gentle pacing so mobile/desktop browsers never throttle multiple consecutive downloads.
-      if (i + 1 < items.length && !controller.signal.aborted) {
-        await new Promise(resolve => setTimeout(resolve, 260));
+      // Gentle pacing so Android/Desktop browsers never throttle multiple consecutive downloads.
+      if (i + 1 < items.length && !controller.signal?.aborted) {
+        await new Promise(resolve => setTimeout(resolve, 300));
       }
     }
-    if (controller.signal.aborted) {
+    if (controller.signal?.aborted) {
       showDownloadToast(`Đã dừng tải hàng loạt (đã lưu ${done}/${items.length} ảnh).`, { busy: false });
     } else if (failed > 0) {
       showDownloadToast(`Đã tải ${done}/${items.length} ảnh (${failed} ảnh chưa tải được).`, { error: done === 0 });
     } else {
-      showDownloadToast(`✓ Hoàn tất tải ${done} ảnh chất lượng gốc về máy!`, { busy: false });
+      showDownloadToast(`✓ Hoàn tất tải ${done} ảnh JPG chất lượng gốc về máy!`, { busy: false });
       toggleDriveSelectMode(false);
     }
   } catch (error) {
-    if (controller.signal.aborted) {
+    if (controller.signal?.aborted) {
       showDownloadToast(`Đã dừng tải hàng loạt (đã lưu ${done}/${items.length} ảnh).`, { busy: false });
     } else {
-      showDownloadToast(error.message || 'Tải hàng loạt bị gián đoạn.', { error: true });
+      showDownloadToast(error?.message || 'Tải hàng loạt bị gián đoạn.', { error: true });
     }
   } finally {
     driveDownloadState.batchRunning = false;

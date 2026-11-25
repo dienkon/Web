@@ -7,8 +7,8 @@
     <meta name="description" content="Nhà Có Nhau, đại gia đình 12A1. Gặp lại từng người và giữ lại những kỷ niệm, ảnh, video của cả lớp." />
     <meta name="theme-color" content="#4338ca" />
     <link rel="icon" type="image/svg+xml" href="favicon.svg" />
-    <link rel="stylesheet" href="memories.css?v=20261125-2" />
-    <link rel="stylesheet" href="assets/site.css?v=20261125-2" />
+    <link rel="stylesheet" href="memories.css?v=20261125-3" />
+    <link rel="stylesheet" href="assets/site.css?v=20261125-3" />
     <link rel="preconnect" href="https://lh3.googleusercontent.com" />
     <link rel="preconnect" href="https://drive.google.com" />
     <link
@@ -845,7 +845,65 @@
     <div id="download-toast" role="status" aria-live="polite" class="download-toast hidden">
       <span id="download-toast-spinner" class="download-toast-spinner hidden" aria-hidden="true"></span>
       <span id="download-toast-text" class="download-toast-text"></span>
+      <button type="button" id="download-toast-action" onclick="handleDownloadToastAction()" class="download-toast-cancel hidden">Mở lưu ảnh</button>
       <button type="button" id="download-toast-cancel" onclick="cancelBatchDownload()" class="download-toast-cancel hidden">Dừng</button>
+    </div>
+
+    <!-- iOS / iPadOS / In-App Browser (Zalo, Messenger, Facebook) Save & Share Helper Sheet -->
+    <div
+      id="ios-save-modal"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="ios-save-title"
+      onclick="if (event.target === this) closeImageSaveHelperModal()"
+      class="ios-save-backdrop hidden"
+    >
+      <div class="ios-save-sheet">
+        <div class="ios-save-header">
+          <div>
+            <h3 id="ios-save-title" class="ios-save-title">Sẵn sàng lưu ảnh JPG gốc</h3>
+            <p id="ios-save-subtitle" class="ios-save-subtitle"></p>
+          </div>
+          <button type="button" onclick="closeImageSaveHelperModal()" aria-label="Đóng" class="ios-save-close">✕</button>
+        </div>
+
+        <div id="ios-save-inapp-box" class="ios-save-inapp hidden">
+          <p id="ios-save-inapp-text" class="ios-save-inapp-text"></p>
+          <button type="button" onclick="copyCurrentUrlForSafari()" class="ios-save-copy-btn">📋 Sao chép link để mở bằng Safari</button>
+        </div>
+
+        <div class="ios-save-actions">
+          <button
+            type="button"
+            id="ios-save-share-btn"
+            onclick="triggerPreparedModalShare(event)"
+            class="ios-save-primary-btn"
+          >
+            📲 Lưu vào Ảnh (Photos)
+          </button>
+          <a
+            id="ios-save-direct-link"
+            href="#"
+            target="_blank"
+            rel="noopener"
+            referrerpolicy="no-referrer"
+            class="ios-save-secondary-btn hidden"
+          >
+            🖼 Mở ảnh JPEG trực tiếp (nhấn giữ để lưu)
+          </a>
+        </div>
+
+        <div id="ios-save-preview-wrap" class="ios-save-preview-wrap hidden">
+          <p id="ios-save-hold-hint" class="ios-save-hold-hint">👆 Nhấn giữ vào ảnh (1 giây) → chọn "Lưu vào Ảnh / Thêm vào Ảnh"</p>
+          <img
+            id="ios-save-preview-img"
+            src=""
+            alt="Ảnh JPEG gốc"
+            referrerpolicy="no-referrer"
+            class="ios-save-preview-img"
+          />
+        </div>
+      </div>
     </div>
 
     <dialog id="drive-settings-dialog" class="rounded-3xl p-6 w-full max-w-xl shadow-xl backdrop:bg-black/40">
@@ -1526,22 +1584,24 @@
                         </span>`
                       : isNef
                         ? `<span class="nef-card-badge">NEF → JPG</span>`
-                        : name.toLowerCase().endsWith(".heic")
-                          ? `<span class="px-2 py-0.5 rounded-md bg-black/50 backdrop-blur-sm text-white text-[10px] font-bold">HEIC GỐC</span>`
+                        : /\.(?:heic|heif)$/i.test(name)
+                          ? `<span class="px-2 py-0.5 rounded-md bg-black/50 backdrop-blur-sm text-white text-[10px] font-bold">HEIC → JPG</span>`
                           : ""
                   }
                 </div>
 
                 ${
-                  isVideo === 0 || isNef
+                  isVideo === 0 || isNef || /\.(?:jpe?g|png|heic|heif|webp|gif|bmp|tiff?|avif)$/i.test(name)
                     ? `<span class="card-select-badge hidden" aria-hidden="true"></span>
                        <button
                          type="button"
+                         onpointerenter="if (typeof warmCardDownloadOnIOS === 'function') warmCardDownloadOnIOS(this)"
+                         ontouchstart="if (typeof warmCardDownloadOnIOS === 'function') warmCardDownloadOnIOS(this)"
                          onclick="handleCardDownload(event, this)"
                          data-file-id="${escapeHtml(id)}"
                          data-file-name="${escapeHtml(name)}"
                          data-file-kind="${isVideo}"
-                         title="${isNef ? "Tải ảnh về dạng JPG chất lượng chuẩn gốc" : "Tải ảnh gốc về máy"}"
+                         title="${isNef ? "Tải ảnh về dạng JPG chất lượng chuẩn gốc" : "Tải ảnh JPEG chất lượng gốc về máy"}"
                          aria-label="Tải ảnh ${escapeHtml(name)}"
                          class="card-download-btn"
                        >
@@ -1745,7 +1805,10 @@
         document.getElementById("lb-title").innerText = name;
         document.getElementById("lb-counter").innerText =
           `${lightboxIndex + 1} / ${lightboxList.length}${folderName ? ` • Thư mục: ${folderName}` : ""}`;
-        document.getElementById("lb-download-link").href = getDriveDownloadUrl(id);
+        document.getElementById("lb-download-link").href =
+          isVideo === 0 || /\.(?:nef|nrw|dng|cr2|cr3|arw|raf|orf|rw2|jpe?g|png|heic|heif|webp|gif|bmp|tiff?|avif)$/i.test(name)
+            ? getDriveOriginalImageUrl(id)
+            : getDriveDownloadUrl(id);
         document.getElementById("lb-drive-link").href = getDriveViewUrl(id);
         if (typeof syncLightboxDownloadButton === "function") syncLightboxDownloadButton();
 
@@ -1999,6 +2062,11 @@
 
         // Phím tắt bàn phím
         document.addEventListener("keydown", (e) => {
+          const saveModal = document.getElementById("ios-save-modal");
+          if (saveModal && !saveModal.classList.contains("hidden")) {
+            if (e.key === "Escape" && typeof closeImageSaveHelperModal === "function") closeImageSaveHelperModal();
+            return;
+          }
           const lbOpen = !document.getElementById("drive-lightbox").classList.contains("hidden");
           if (lbOpen) {
             if (e.key === "Escape") closeLightbox();
@@ -2059,8 +2127,8 @@
           .replace(/'/g, "&#39;");
       }
     </script>
-    <script src="drive-images.js?v=20261125-2"></script>
-    <script src="drive-live.js?v=20261125-2"></script>
-    <script src="member-profiles.js?v=20261125-2"></script>
+    <script src="drive-images.js?v=20261125-3"></script>
+    <script src="drive-live.js?v=20261125-3"></script>
+    <script src="member-profiles.js?v=20261125-3"></script>
   </body>
 </html>

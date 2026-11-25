@@ -198,7 +198,7 @@ function frontend(storage = new Map()) {
     AbortSignal, URL, fetch() { throw new Error('Unexpected real network request'); } });
   const html = fs.readFileSync(path.join(base, 'index.html'), 'utf8');
   const scripts = [...html.matchAll(/<script(?:\s[^>]*)?>([\s\S]*?)<\/script>/g)].map(x => x[1]);
-  context.Blob = Blob; context.atob = atob; context.btoa = btoa;
+  context.Blob = Blob; context.File = File; context.atob = atob; context.btoa = btoa;
   for (const script of scripts) vm.runInContext(script, context);
   vm.runInContext(fs.readFileSync(path.join(base, 'drive-images.js'), 'utf8'), context);
   vm.runInContext(fs.readFileSync(path.join(base, 'drive-live.js'), 'utf8'), context);
@@ -388,5 +388,74 @@ test('Drive bridge classifies NEF as image and serves full-resolution download f
   const fetched = await c.fetchDriveOriginalImage('nef1', 'DSC_7916.NEF');
   assert.equal(fetched.fileName, 'DSC_7916.jpg');
   assert.equal(fetched.blob.type, 'image/jpeg');
+  assert.equal(fetched.file instanceof File, true);
+  assert.equal(fetched.file.type, 'image/jpeg');
   assert.equal(fetched.converted, true);
+});
+
+test('cross-platform download verifies FF D8 FF magic bytes, normalizes HEIC/HEIF/PNG names to .jpg, preserves JPEG bytes and handles iOS/iPadOS/Zalo', async () => {
+  const c = frontend();
+  assert.equal(c.normalizeJpegFileName('IMG_8812.HEIC'), 'IMG_8812.jpg');
+  assert.equal(c.normalizeJpegFileName('IMG_8812.HEIF'), 'IMG_8812.jpg');
+  assert.equal(c.normalizeJpegFileName('Screenshot_2026.PNG'), 'Screenshot_2026.jpg');
+  assert.equal(c.normalizeJpegFileName('A1_photo.HEIC.PNG'), 'A1_photo.jpg');
+  assert.equal(c.normalizeJpegFileName('ky-niem.JPEG'), 'ky-niem.jpg');
+
+  // Fake Content-Type image/jpeg with HTML body must be rejected; fallback endpoint with real FF D8 FF succeeds without re-encoding.
+  const genuineJpeg = buildMockJpeg(4032, 3024, 256);
+  let calls = 0;
+  c.fetch = async () => {
+    calls++;
+    if (calls === 1) {
+      const htmlBytes = Buffer.from('<!DOCTYPE html><html>Error</html>', 'utf8');
+      return {
+        ok: true,
+        status: 200,
+        headers: { get: k => (k === 'content-type' ? 'image/jpeg' : '') },
+        arrayBuffer: async () => htmlBytes.buffer.slice(htmlBytes.byteOffset, htmlBytes.byteOffset + htmlBytes.byteLength),
+      };
+    }
+    return {
+      ok: true,
+      status: 200,
+      headers: { get: k => (k === 'content-type' ? 'image/jpeg' : '') },
+      arrayBuffer: async () => genuineJpeg.buffer.slice(genuineJpeg.byteOffset, genuineJpeg.byteOffset + genuineJpeg.byteLength),
+    };
+  };
+
+  const heicRes = await c.fetchDriveOriginalImage('heic1', 'IMG_9999.HEIC');
+  assert.equal(calls, 2, 'rejects non-JPEG binary even when HTTP Content-Type claims image/jpeg');
+  assert.equal(heicRes.fileName, 'IMG_9999.jpg');
+  assert.equal(heicRes.file instanceof File, true);
+  assert.equal(heicRes.file.type, 'image/jpeg');
+  assert.equal(heicRes.losslessPassthrough, true, 'does not re-compress valid JPEG stream');
+  const savedBytes = Buffer.from(await heicRes.file.arrayBuffer());
+  assert.equal(Buffer.compare(savedBytes, genuineJpeg), 0, 'preserves 100% exact JPEG bytes');
+
+  // Platform & iOS/iPadOS/In-App detection + synchronous cached Web Share API ({ files }).
+  c.navigator.userAgent = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 Version/17.4 Safari/605.1.15';
+  c.navigator.platform = 'MacIntel';
+  c.navigator.maxTouchPoints = 5;
+  assert.equal(c.getDownloadPlatformInfo().isIOS, true, 'detects iPadOS desktop-mode Safari');
+  assert.equal(c.getDownloadPlatformInfo().os, 'iPadOS');
+
+  c.navigator.userAgent = 'Mozilla/5.0 (iPhone; CPU iPhone OS 17_5 like Mac OS X) AppleWebKit/605.1.15 Mobile/15E148 Zalo/24.09';
+  c.navigator.platform = 'iPhone';
+  c.navigator.maxTouchPoints = 5;
+  assert.equal(c.getDownloadPlatformInfo().isIOS, true);
+  assert.equal(c.getDownloadPlatformInfo().isInApp, true);
+  assert.equal(c.getDownloadPlatformInfo().inAppName, 'Zalo');
+
+  // Pre-prepared File on iPhone Safari triggers navigator.share({ files }) synchronously without awaiting network.
+  c.navigator.userAgent = 'Mozilla/5.0 (iPhone; CPU iPhone OS 17_5 like Mac OS X) AppleWebKit/605.1.15 Version/17.5 Mobile/15E148 Safari/604.1';
+  let sharedPayload = null;
+  c.navigator.canShare = data => Array.isArray(data?.files) && data.files.length > 0 && data.files[0].type === 'image/jpeg';
+  c.navigator.share = async data => { sharedPayload = data; };
+  const handledSync = c.tryImmediateCachedIOSShare(['heic1', 'IMG_9999.HEIC', 0]);
+  await Promise.resolve();
+  assert.equal(handledSync, true);
+  assert.equal(sharedPayload.files.length, 1);
+  assert.equal(sharedPayload.files[0].name, 'IMG_9999.jpg');
+  assert.equal(sharedPayload.files[0].type, 'image/jpeg');
+  assert.equal('title' in sharedPayload, false, 'passes only { files } so iOS Share Sheet displays Save Image to Photos');
 });
