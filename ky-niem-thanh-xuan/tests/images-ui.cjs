@@ -79,6 +79,23 @@ const root = { id: ROOT, n: 'Kho ảnh kiểm thử', f: [], loaded: true, items
         await page.waitForFunction(() => forceDriveIframeForImage && !document.getElementById('lightbox-iframe-wrap').classList.contains('hidden'));
         await page.evaluate(() => closeLightbox());
       }
+      // Verify NEF -> original-quality JPG auto-conversion & download even when direct Google image hosts are blocked (bridge PNG -> transcoded JPEG).
+      const nefDownload = await page.evaluate(async () => {
+        const downloads = [];
+        const origTrigger = triggerBrowserBlobDownload;
+        triggerBrowserBlobDownload = (blob, fileName) => downloads.push({ type: blob.type, size: blob.size, fileName, blob });
+        try {
+          await downloadDriveMediaItem(['image0', 'DSC_7916.NEF', 0, '2026-11-24']);
+          const bytes = new Uint8Array(await downloads[0].blob.arrayBuffer());
+          return { count: downloads.length, fileName: downloads[0].fileName, type: downloads[0].type, magic: [bytes[0], bytes[1], bytes[2]] };
+        } finally {
+          triggerBrowserBlobDownload = origTrigger;
+        }
+      });
+      assert.equal(nefDownload.count, 1);
+      assert.equal(nefDownload.fileName, 'DSC_7916.jpg');
+      assert.equal(nefDownload.type, 'image/jpeg');
+      assert.deepEqual(nefDownload.magic, [0xff, 0xd8, 0xff], 'PNG bridge fallback is transcoded to genuine JPEG for .NEF downloads');
     } else {
       assert.equal(calls.get(LIVE_ID), 1, 'live display uses the deployed bridge successfully');
       assert.ok(await page.locator('#drive-files-grid img').evaluate(img => img.naturalWidth) > 100);

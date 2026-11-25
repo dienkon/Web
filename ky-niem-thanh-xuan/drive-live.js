@@ -7,7 +7,7 @@ const liveState = {
   writable: false, generation: 0, requests: new Map(), scanning: false,
   lastScan: 0, lastRead: 0, lastPoll: 0, tab: 'drive', historyBefore: null, historyBusy: false,
   queue: [], uploading: false, folderTarget: null, historyEvents: [],
-  supportsProfiles: false, thumbnailBridge: false, thumbnailAction: 'faceThumbnail',
+  supportsProfiles: false, thumbnailBridge: false, thumbnailAction: 'faceThumbnail', imageDownloadBridge: false,
 };
 
 function storageGet(key) {
@@ -15,6 +15,31 @@ function storageGet(key) {
 }
 function storageSet(key, value) {
   try { value === null ? localStorage.removeItem(key) : localStorage.setItem(key, value); } catch (_) {}
+}
+function normalizeDriveItemKind(name, kind) {
+  if (kind === 0 || kind === 1) return kind;
+  const n = String(name || '');
+  if (/\.(mp4|mov|avi|mkv|webm|m4v)$/i.test(n)) return 1;
+  if (/\.(nef|nrw|cr2|cr3|arw|dng|raf|orf|rw2|jpe?g|png|gif|webp|heic|heif|avif|bmp|tiff?)$/i.test(n)) return 0;
+  return 2;
+}
+function normalizeDriveItems(items) {
+  return (items || []).map(it => {
+    const nextKind = normalizeDriveItemKind(it[1], it[2]);
+    return nextKind === it[2] ? it : [it[0], it[1], nextKind, ...it.slice(3)];
+  });
+}
+function inferUploadMimeType(file) {
+  if (file?.type) return file.type;
+  const n = String(file?.name || '');
+  if (/\.nef$/i.test(n)) return 'image/x-nikon-nef';
+  if (/\.nrw$/i.test(n)) return 'image/x-nikon-nrw';
+  if (/\.dng$/i.test(n)) return 'image/x-adobe-dng';
+  if (/\.cr2$/i.test(n)) return 'image/x-canon-cr2';
+  if (/\.cr3$/i.test(n)) return 'image/x-canon-cr3';
+  if (/\.arw$/i.test(n)) return 'image/x-sony-arw';
+  if (/\.(heic|heif)$/i.test(n)) return 'image/heic';
+  return 'application/octet-stream';
 }
 function driveCacheKey() {
   return 'kn-drive-cache-v1:' + JSON.stringify([driveRoot.rootId, liveState.url]);
@@ -28,6 +53,8 @@ function restoreDriveCache() {
       Array.isArray(node.items) && node.items.every(item => Array.isArray(item) && /^[\w-]+$/.test(item[0]) && typeof item[1] === 'string' && [0, 1, 2].includes(item[2])) &&
       Array.isArray(node.f) && node.f.every(validNode);
     if (!validNode(cached.root)) return false;
+    const normalizeCachedTree = node => { node.items = normalizeDriveItems(node.items); (node.f || []).forEach(normalizeCachedTree); };
+    normalizeCachedTree(cached.root);
     Object.assign(ROOT_VIRTUAL_NODE, cached.root);
     liveState.lastRead = cached.lastRead || 0;
     liveState.lastScan = cached.lastScan || 0;
@@ -139,7 +166,7 @@ async function performLiveDriveConnection() {
   clearTimeout(driveCacheTimer); driveCacheTimer = null;
   liveState.requests.clear();
   setWritable(false);
-  liveState.supportsProfiles = false; liveState.thumbnailBridge = false;
+  liveState.supportsProfiles = false; liveState.thumbnailBridge = false; liveState.imageDownloadBridge = false;
   setDriveStatus(ROOT_VIRTUAL_NODE.loaded ? 'Đang hiển thị dữ liệu Drive đã lưu. Kiểm tra kết nối trong nền…' : 'Đang kết nối và đọc dữ liệu thực tế từ Drive…');
   try {
     const status = await driveRequest('ping');
@@ -151,6 +178,7 @@ async function performLiveDriveConnection() {
     // Accept the existing thumbnail API so static hosting needs no bridge redeployment.
     liveState.thumbnailBridge = Boolean(status.thumbnails || status.faceThumbnails);
     liveState.thumbnailAction = status.thumbnails ? 'thumbnail' : 'faceThumbnail';
+    liveState.imageDownloadBridge = Boolean(status.imageDownload);
     await ensureLiveFolder(driveRoot.rootId);
     if (generation !== liveState.generation) return;
     liveState.lastPoll = Date.now();
@@ -175,7 +203,7 @@ async function refreshLiveFolder(id, generation = liveState.generation) {
       if (!result.folder || result.folder.id !== id) throw new Error('Drive trả về dữ liệu thư mục không hợp lệ.');
       if (!folder) folder = { ...result.folder, f: [], items: [] };
       folder.f.push(...(result.folder.f || []));
-      folder.items.push(...(result.folder.items || []));
+      folder.items.push(...normalizeDriveItems(result.folder.items));
       pageToken = result.nextPageToken || null;
     } while (pageToken);
     if (generation !== liveState.generation) return null;
@@ -470,7 +498,7 @@ async function runUploadQueue() {
         storageSet(item.resumeKey, item.operationId);
         try {
           let result = await driveRequest('uploadStart', { operationId: item.operationId, folderId: item.folderId,
-            fileName: item.file.name, mimeType: item.file.type || 'application/octet-stream', size: item.file.size }, true);
+            fileName: item.file.name, mimeType: inferUploadMimeType(item.file), size: item.file.size }, true);
           const chunkBytes = Math.max(262144, Math.floor(Math.min(result.chunkBytes || 8 * 1024 * 1024,
             liveConfig.uploadChunkBytes || 2 * 1024 * 1024) / 262144) * 262144);
           if (!result.done && !Number.isSafeInteger(result.offset)) result = await driveRequest('uploadStatus', { operationId: item.operationId }, true);

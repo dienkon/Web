@@ -45,3 +45,26 @@ button:disabled { opacity: .5; cursor: not-allowed; }
 .text-action:hover { text-decoration: underline; }
 .action-row { display: flex; gap: .6rem; flex-wrap: wrap; align-items: center; }
 .profile-note { font-size: 12px; color: var(--muted); line-height: 1.7; margin: .5rem 0 1rem; }
+.nef-card-badge, .memory-card .nef-badge { border-radius: 7px; background: #059669d9; backdrop-filter: blur(4px); color: #fff; padding: .18rem .48rem; font-size: 10px; font-weight: 800; letter-spacing: .02em; box-shadow: 0 2px 8px #00000033; }
+.memory-card .nef-badge { position: absolute; top: .5rem; left: .5rem; }
+.card-download-btn { position: absolute; top: .55rem; right: .55rem; z-index: 5; width: 2.1rem; height: 2.1rem; border-radius: 11px; background: #0f172ab8; backdrop-filter: blur(6px); color: #fff; display: inline-flex; align-items: center; justify-content: center; border: 1px solid #ffffff2e; box-shadow: 0 4px 12px #00000038; opacity: .92; transition: opacity .2s, transform .2s, background .2s; }
+@media (hover: hover) and (pointer: fine) { .card-download-btn { opacity: 0; } .group:hover .card-download-btn, .card-download-btn:focus-visible, .card-download-btn.is-busy { opacity: 1; } }
+.card-download-btn:hover:enabled { background: #4f46e5; transform: scale(1.07); opacity: 1; }
+.card-download-btn.is-busy { background: #059669; animation: pulseDownload 1s infinite alternate; }
+@keyframes pulseDownload { from { opacity: .65; } to { opacity: 1; } }
+.is-select-mode .card-download-btn { display: none; }
+.card-select-badge { position: absolute; top: .55rem; right: .55rem; z-index: 6; width: 1.75rem; height: 1.75rem; border-radius: 999px; background: #0f172a88; border: 2px solid #fff; color: #fff; font-size: 12px; font-weight: 800; display: inline-flex; align-items: center; justify-content: center; box-shadow: 0 2px 8px #00000040; transition: background .15s, transform .15s; }
+.card-select-badge.is-checked { background: #4f46e5; border-color: #e0e7ff; transform: scale(1.08); }
+.is-selected-card { outline: 3px solid #4f46e5; outline-offset: -3px; }
+.drive-selection-bar { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: .75rem; padding: .85rem 1rem; border-radius: 16px; background: #eef2ff; border: 1px solid #c7d2fe; }
+.lb-download-action { background: #059669e6 !important; color: #fff; }
+.lb-download-action:hover { background: #047857 !important; }
+.lb-download-action[data-busy="true"] { opacity: .75; pointer-events: none; }
+.download-toast { position: fixed; right: 1rem; bottom: 1rem; left: auto; max-width: min(26rem, calc(100vw - 2rem)); z-index: 80; display: flex; align-items: center; gap: .65rem; padding: .75rem 1rem; border-radius: 16px; background: #0f172af2; color: #fff; font-size: 12.5px; font-weight: 700; box-shadow: 0 16px 36px #0f172a55; border: 1px solid #ffffff24; backdrop-filter: blur(10px); }
+.download-toast[data-tone="done"] { background: #065f46f2; }
+.download-toast[data-tone="error"] { background: #991b1bf2; }
+.download-toast-spinner { width: 1rem; height: 1rem; border-radius: 999px; border: 2.5px solid #ffffff55; border-top-color: #fff; animation: dlSpin .75s linear infinite; flex-shrink: 0; }
+@keyframes dlSpin { to { transform: rotate(360deg); } }
+.download-toast-text { line-height: 1.4; overflow-wrap: anywhere; }
+.download-toast-cancel { margin-left: .25rem; padding: .28rem .6rem; border-radius: 8px; background: #ffffff24; color: #fff; font-size: 11px; font-weight: 800; flex-shrink: 0; }
+.download-toast-cancel:hover { background: #ffffff3d; }

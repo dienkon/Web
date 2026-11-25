@@ -56,7 +56,7 @@ def fetch_folder_live(folder_id):
             mime = html.unescape(mime_match.group(1)) if mime_match else ''
             extension = Path(name).suffix.lower()
             kind = (1 if mime.startswith('video/') or extension in {'.mp4', '.mov', '.avi', '.mkv', '.webm', '.m4v'}
-                    else 0 if mime.startswith('image/') or extension in {'.jpg', '.jpeg', '.png', '.gif', '.webp', '.heic', '.heif', '.avif', '.tiff', '.bmp'}
+                    else 0 if mime.startswith('image/') or extension in {'.nef', '.nrw', '.cr2', '.cr3', '.arw', '.dng', '.raf', '.orf', '.rw2', '.jpg', '.jpeg', '.png', '.gif', '.webp', '.heic', '.heif', '.avif', '.tiff', '.tif', '.bmp'}
                     else 2)
             files.append([file_id, name, kind, modified])
     title = re.search(r'<title>(.*?)</title>', document, re.S)

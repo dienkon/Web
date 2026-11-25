@@ -458,6 +458,29 @@
                 Nhỏ
               </button>
             </div>
+
+            <button
+              type="button"
+              id="btn-select-download-mode"
+              onclick="toggleDriveSelectMode()"
+              aria-pressed="false"
+              class="px-3 py-1.5 rounded-xl bg-indigo-50 hover:bg-indigo-100 text-indigo-700 text-xs font-bold transition-all"
+            >
+              ⬇ Chọn tải nhiều ảnh
+            </button>
+          </div>
+        </div>
+
+        <!-- Batch Image Download Selection Bar -->
+        <div id="drive-selection-bar" class="drive-selection-bar hidden mb-5" role="region" aria-label="Tải nhiều ảnh">
+          <p id="drive-selection-count" class="text-xs md:text-sm font-bold text-indigo-950">
+            Chạm vào các ảnh bên dưới để chọn tải về cùng lúc (ảnh NEF tự chuyển sang JPG gốc)
+          </p>
+          <div class="flex flex-wrap items-center gap-2">
+            <button type="button" onclick="selectVisibleDriveImages()" class="px-3 py-1.5 rounded-xl bg-white hover:bg-indigo-50 text-indigo-700 border border-indigo-200 text-xs font-bold">Chọn trang này</button>
+            <button type="button" onclick="clearDriveSelection()" class="px-3 py-1.5 rounded-xl bg-white hover:bg-slate-100 text-slate-600 border border-slate-200 text-xs font-bold">Bỏ chọn</button>
+            <button type="button" id="btn-download-selected" onclick="downloadSelectedDriveImages()" disabled class="px-3.5 py-1.5 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold shadow-sm disabled:opacity-50">⬇ Tải ảnh đã chọn</button>
+            <button type="button" onclick="toggleDriveSelectMode(false)" class="px-2.5 py-1.5 rounded-xl text-slate-500 hover:text-slate-800 text-xs font-bold">Đóng</button>
           </div>
         </div>
 
@@ -719,18 +742,20 @@
             <span id="lb-toggle-embed-text">Khung chuẩn Drive</span>
           </button>
 
-          <!-- Download Original -->
+          <!-- Download Original (Auto NEF -> Original-Quality JPG) -->
           <a
             id="lb-download-link"
             href="#"
             target="_blank"
             rel="noopener"
-            title="Tải tệp gốc về máy"
-            class="p-2 rounded-xl bg-white/15 hover:bg-white/25 transition-colors"
+            onclick="handleLightboxDownload(event)"
+            title="Tải ảnh độ phân giải gốc về máy (Phím D)"
+            class="lb-download-action p-2 rounded-xl bg-white/15 hover:bg-white/25 transition-colors flex items-center gap-1.5"
           >
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
             </svg>
+            <span id="lb-download-text" class="hidden sm:inline text-xs font-bold pr-1">Tải ảnh gốc</span>
           </a>
 
           <!-- Open in Google Drive -->
@@ -815,6 +840,12 @@
       <div class="h-20 bg-black/70 border-t border-white/10 px-4 flex items-center gap-2 overflow-x-auto shrink-0 z-20" id="lb-filmstrip">
         <!-- Injected by JS -->
       </div>
+    </div>
+
+    <div id="download-toast" role="status" aria-live="polite" class="download-toast hidden">
+      <span id="download-toast-spinner" class="download-toast-spinner hidden" aria-hidden="true"></span>
+      <span id="download-toast-text" class="download-toast-text"></span>
+      <button type="button" id="download-toast-cancel" onclick="cancelBatchDownload()" class="download-toast-cancel hidden">Dừng</button>
     </div>
 
     <dialog id="drive-settings-dialog" class="rounded-3xl p-6 w-full max-w-xl shadow-xl backdrop:bg-black/40">
@@ -1469,10 +1500,11 @@
             const [id, name, isVideo, modified, folderName] = item;
             const cardAttributes = `data-drive-file-id="${escapeHtml(id)}" data-drive-file-key="${escapeHtml(JSON.stringify(item))}"`;
             if (isVideo === 2) return `<button ${cardAttributes} onclick="openLightboxFromExplorer(${idx})" class="aspect-square rounded-2xl border border-slate-200 bg-slate-50 p-4 text-left hover:bg-indigo-50 flex flex-col justify-between"><span class="text-4xl" aria-hidden="true">📄</span><span class="text-sm font-bold break-all">${escapeHtml(name)}</span><span class="text-xs text-slate-500">Mở xem / tải tệp trên Drive ↗</span></button>`;
+            const isNef = /\.nef$/i.test(name);
             return `
               <div
                 ${cardAttributes}
-                onclick="openLightboxFromExplorer(${idx})"
+                onclick="handleExplorerCardActivate(event, ${idx})"
                 class="group relative aspect-square rounded-2xl overflow-hidden bg-slate-200 border border-slate-200/80 shadow-sm hover:shadow-xl cursor-pointer img-skeleton"
               >
                 <img
@@ -1492,11 +1524,33 @@
                       ? `<span class="px-2.5 py-1 rounded-lg bg-rose-600 text-white text-[11px] font-bold shadow flex items-center gap-1">
                           <span>▶ VIDEO HD</span>
                         </span>`
-                      : name.toLowerCase().endsWith(".heic")
-                        ? `<span class="px-2 py-0.5 rounded-md bg-black/50 backdrop-blur-sm text-white text-[10px] font-bold">HEIC GỐC</span>`
-                        : ""
+                      : isNef
+                        ? `<span class="nef-card-badge">NEF → JPG</span>`
+                        : name.toLowerCase().endsWith(".heic")
+                          ? `<span class="px-2 py-0.5 rounded-md bg-black/50 backdrop-blur-sm text-white text-[10px] font-bold">HEIC GỐC</span>`
+                          : ""
                   }
                 </div>
+
+                ${
+                  isVideo === 0 || isNef
+                    ? `<span class="card-select-badge hidden" aria-hidden="true"></span>
+                       <button
+                         type="button"
+                         onclick="handleCardDownload(event, this)"
+                         data-file-id="${escapeHtml(id)}"
+                         data-file-name="${escapeHtml(name)}"
+                         data-file-kind="${isVideo}"
+                         title="${isNef ? "Tải ảnh về dạng JPG chất lượng chuẩn gốc" : "Tải ảnh gốc về máy"}"
+                         aria-label="Tải ảnh ${escapeHtml(name)}"
+                         class="card-download-btn"
+                       >
+                         <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+                         </svg>
+                       </button>`
+                    : ""
+                }
 
                 <!-- Nút Play chính giữa nếu là Video -->
                 ${
@@ -1532,6 +1586,7 @@
         } else {
           loadMoreWrap.classList.add("hidden");
         }
+        if (typeof syncDriveSelectionUI === "function") syncDriveSelectionUI();
       }
 
       function loadMoreDriveFiles() {
@@ -1692,6 +1747,7 @@
           `${lightboxIndex + 1} / ${lightboxList.length}${folderName ? ` • Thư mục: ${folderName}` : ""}`;
         document.getElementById("lb-download-link").href = getDriveDownloadUrl(id);
         document.getElementById("lb-drive-link").href = getDriveViewUrl(id);
+        if (typeof syncLightboxDownloadButton === "function") syncLightboxDownloadButton();
 
         const badgeEl = document.getElementById("lb-badge-type");
         const imgEl = document.getElementById("lightbox-img");
@@ -1746,7 +1802,7 @@
           };
         } else {
           // CHẾ ĐỘ XEM ẢNH ĐỘ PHÂN GIẢI GỐC 100% (=s0) + ZOOM CHI TIẾT
-          badgeEl.innerText = "✨ ẢNH GỐC ULTRA-HD";
+          badgeEl.innerText = /\.nef$/i.test(name) ? "✨ ẢNH GỐC • NEF → JPG" : "✨ ẢNH GỐC ULTRA-HD";
           badgeEl.className = "px-2.5 py-1 rounded-lg text-xs font-bold bg-emerald-600 uppercase shrink-0";
           iframeWrap.classList.add("hidden");
           zoomControls.classList.remove("hidden");
@@ -1951,6 +2007,9 @@
             else if (e.key === "+" || e.key === "=") zoomLightbox(0.3);
             else if (e.key === "-") zoomLightbox(-0.3);
             else if (e.key === "0") resetLightboxZoom();
+            else if ((e.key === "d" || e.key === "D") && !e.ctrlKey && !e.metaKey && !e.altKey) {
+              if (typeof downloadDriveMediaItem === "function" && lightboxList[lightboxIndex]) downloadDriveMediaItem(lightboxList[lightboxIndex]);
+            }
             return;
           }
           if (e.key === "Escape") closeModal();

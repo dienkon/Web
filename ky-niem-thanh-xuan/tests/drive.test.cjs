@@ -198,7 +198,9 @@ function frontend(storage = new Map()) {
     AbortSignal, URL, fetch() { throw new Error('Unexpected real network request'); } });
   const html = fs.readFileSync(path.join(base, 'index.html'), 'utf8');
   const scripts = [...html.matchAll(/<script(?:\s[^>]*)?>([\s\S]*?)<\/script>/g)].map(x => x[1]);
+  context.Blob = Blob; context.atob = atob; context.btoa = btoa;
   for (const script of scripts) vm.runInContext(script, context);
+  vm.runInContext(fs.readFileSync(path.join(base, 'drive-images.js'), 'utf8'), context);
   vm.runInContext(fs.readFileSync(path.join(base, 'drive-live.js'), 'utf8'), context);
   vm.runInContext('repaintLiveData = () => {}; setDriveStatus = () => {};', context);
   return context;
@@ -274,4 +276,117 @@ test('expired or malformed caches are ignored', () => {
     assert.equal(c.restoreDriveCache(), false);
     assert.equal(vm.runInContext('driveRoot.totalImages', c), 0);
   }
+});
+
+function buildMockJpeg(width, height, payloadSize = 64) {
+  const sof = Buffer.from([
+    0xff, 0xd8,
+    0xff, 0xe0, 0x00, 0x10, 0x4a, 0x46, 0x49, 0x46, 0x00, 0x01, 0x01, 0x00, 0x00, 0x01, 0x00, 0x01, 0x00, 0x00,
+    0xff, 0xc0, 0x00, 0x0b, 0x08, (height >> 8) & 0xff, height & 0xff, (width >> 8) & 0xff, width & 0xff, 0x01, 0x01, 0x11, 0x00,
+    0xff, 0xda, 0x00, 0x08, 0x01, 0x01, 0x00, 0x00, 0x3f, 0x00,
+  ]);
+  const body = Buffer.alloc(payloadSize, 0x55);
+  return Buffer.concat([sof, body, Buffer.from([0xff, 0xd9])]);
+}
+
+function buildMockNef({ thumbJpeg, fullJpeg, orientation = 6 }) {
+  // Layout: [0..7] TIFF LE header -> IFD0 at 8 (4 entries: Orientation, JPEGInterchangeFormat, JPEGInterchangeFormatLength, SubIFDs type=13)
+  // SubIFD0 at 68 (2 entries: JPEGInterchangeFormat, JPEGInterchangeFormatLength) -> thumbJpeg -> fullJpeg + zero padding
+  const ifd0Offset = 8;
+  const subIfdOffset = 8 + 2 + 4 * 12 + 4; // 62 -> align 64
+  const subPos = 64;
+  const thumbPos = subPos + 2 + 2 * 12 + 4; // 94 -> align 96
+  const thumbStart = 96;
+  const fullStart = thumbStart + thumbJpeg.length;
+  const total = fullStart + fullJpeg.length + 12;
+  const buf = Buffer.alloc(total, 0);
+  buf.write('II', 0, 'ascii');
+  buf.writeUInt16LE(42, 2);
+  buf.writeUInt32LE(ifd0Offset, 4);
+
+  const writeEntry = (pos, tag, type, count, value) => {
+    buf.writeUInt16LE(tag, pos);
+    buf.writeUInt16LE(type, pos + 2);
+    buf.writeUInt32LE(count, pos + 4);
+    if (type === 3 && count === 1) buf.writeUInt16LE(value, pos + 8);
+    else buf.writeUInt32LE(value, pos + 8);
+  };
+
+  buf.writeUInt16LE(4, ifd0Offset);
+  writeEntry(ifd0Offset + 2, 0x0112, 3, 1, orientation);
+  writeEntry(ifd0Offset + 14, 0x0201, 4, 1, thumbStart);
+  writeEntry(ifd0Offset + 26, 0x0202, 4, 1, thumbJpeg.length);
+  writeEntry(ifd0Offset + 38, 0x014a, 13, 1, subPos); // TIFF type 13 (IFD)
+  buf.writeUInt32LE(0, ifd0Offset + 50);
+
+  buf.writeUInt16LE(2, subPos);
+  writeEntry(subPos + 2, 0x0201, 4, 1, fullStart);
+  writeEntry(subPos + 14, 0x0202, 4, 1, fullJpeg.length + 8); // padded length
+  buf.writeUInt32LE(0, subPos + 26);
+
+  thumbJpeg.copy(buf, thumbStart);
+  fullJpeg.copy(buf, fullStart);
+  return buf;
+}
+
+test('NEF converter extracts full-resolution SubIFD JPEG, preserves portrait EXIF orientation and renames to .jpg', async () => {
+  const c = frontend();
+  const thumb = buildMockJpeg(160, 120, 32);
+  const full = buildMockJpeg(6048, 4032, 512);
+  const nefBytes = buildMockNef({ thumbJpeg: thumb, fullJpeg: full, orientation: 6 });
+
+  const result = await c.convertNefToJpeg(nefBytes, { fileName: 'DSC_7916.NEF' });
+  assert.equal(result.converted, true);
+  assert.equal(result.fileName, 'DSC_7916.jpg');
+  assert.equal(result.source, 'nef-binary');
+  assert.equal(result.orientation, 6);
+  assert.equal(result.width, 4032);
+  assert.equal(result.height, 6048);
+  assert.equal(result.blob.type, 'image/jpeg');
+
+  const outBytes = new Uint8Array(await result.blob.arrayBuffer());
+  assert.equal(outBytes[0], 0xff); assert.equal(outBytes[1], 0xd8);
+  assert.equal(outBytes[outBytes.length - 2], 0xff); assert.equal(outBytes[outBytes.length - 1], 0xd9);
+  const meta = c.parseJpegMetadata(outBytes);
+  assert.equal(meta.width, 6048);
+  assert.equal(meta.height, 4032);
+  assert.equal(meta.exifOrientation, 6, 'lossless EXIF APP1 orientation is injected for portrait NEF');
+});
+
+test('Drive bridge classifies NEF as image and serves full-resolution download fallback securely', async () => {
+  const g = gas();
+  g.context.Utilities.base64Encode = data => Buffer.from(data).toString('base64');
+  g.context.fetchResponse = () => g.res(200, { files: [{ id: 'nef1', name: 'DSC_7916.NEF', mimeType: 'application/octet-stream', modifiedTime: '2026-11-24' }] });
+  const listing = g.get({ action: 'folder', id: 'child' });
+  assert.equal(listing.folder.items[0][2], 0, 'NEF with generic MIME is still classified as an image');
+
+  for (const bad of [
+    { parents: ['outside'], thumbnailLink: 'https://lh3.googleusercontent.com/d/nef1=s220' },
+    { parents: ['child'], trashed: true, thumbnailLink: 'https://lh3.googleusercontent.com/d/nef1=s220' },
+    { parents: ['child'], thumbnailLink: 'https://evil.example/nef1=s220' },
+  ]) {
+    g.requests.length = 0; g.context.fetchResponse = () => g.res(200, bad);
+    assert.equal(g.get({ action: 'downloadImage', id: 'nef1' }).ok, false);
+    assert.equal(g.requests.length, 1);
+  }
+
+  const fullJpeg = buildMockJpeg(6048, 4032, 128);
+  g.requests.length = 0;
+  g.context.fetchResponse = url => url.startsWith('https://lh3.')
+    ? { getResponseCode: () => 200, getBlob: () => ({ getBytes: () => fullJpeg, getContentType: () => 'image/jpeg' }) }
+    : g.res(200, { id: 'nef1', name: 'DSC_7916.NEF', parents: ['child'], thumbnailLink: 'https://lh3.googleusercontent.com/d/nef1=s220' });
+  const dl = g.get({ action: 'downloadImage', id: 'nef1' });
+  assert.equal(dl.ok, true);
+  assert.match(g.requests[1].url, /=s0$/, 'downloadImage requests full original resolution =s0');
+  assert.match(dl.image, /^data:image\/jpeg;base64,/);
+
+  const c = frontend();
+  c.fetch = async url => {
+    assert.match(String(url), /=s0$/);
+    return { ok: true, arrayBuffer: async () => fullJpeg.buffer.slice(fullJpeg.byteOffset, fullJpeg.byteOffset + fullJpeg.byteLength) };
+  };
+  const fetched = await c.fetchDriveOriginalImage('nef1', 'DSC_7916.NEF');
+  assert.equal(fetched.fileName, 'DSC_7916.jpg');
+  assert.equal(fetched.blob.type, 'image/jpeg');
+  assert.equal(fetched.converted, true);
 });

@@ -38,11 +38,12 @@ function doGet(e) {
     if (p.action === 'ping') {
       allowedFolder(ROOT_FOLDER_ID);
       historySheet();
-      return { ok: true, rootId: ROOT_FOLDER_ID, version: 2, writable: true, profiles: true, faceThumbnails: true, chunkBytes: CHUNK_BYTES };
+      return { ok: true, rootId: ROOT_FOLDER_ID, version: 2, writable: true, profiles: true, faceThumbnails: true, imageDownload: true, chunkBytes: CHUNK_BYTES };
     }
     if (p.action === 'history') return readHistory(p.before);
     if (p.action === 'profile') return readMemberProfile(p.id);
     if (p.action === 'faceThumbnail') return readFaceThumbnail(p.id);
+    if (p.action === 'downloadImage') return readDownloadImage(p.id);
     if (!p.action || p.action === 'folder') return readFolder(p.id || ROOT_FOLDER_ID, p.pageToken);
     throw new Error('Hành động không hợp lệ.');
   });
@@ -114,6 +115,26 @@ function readFaceThumbnail(id) {
   return { ok: true, image: 'data:' + mime + ';base64,' + Utilities.base64Encode(bytes) };
 }
 
+// Full-resolution CORS-safe image download fallback (renders RAW/NEF/HEIC as original-resolution JPEG).
+function readDownloadImage(id) {
+  if (!/^[\w-]+$/.test(id || '')) throw new Error('ID tệp không hợp lệ.');
+  const file = JSON.parse(api(DRIVE_API + '/' + encodeURIComponent(id) + '?supportsAllDrives=true&fields=id,name,mimeType,parents,trashed,thumbnailLink').getContentText());
+  if (file.trashed || !file.thumbnailLink || !(file.parents || []).some(function (parent) {
+    try { allowedFolder(parent); return true; } catch (_) { return false; }
+  })) throw new Error('Không có ảnh gốc hợp lệ trong kho lớp.');
+  if (!/^https:\/\/(?:[\w-]+\.)*googleusercontent\.com\//.test(file.thumbnailLink)) throw new Error('Địa chỉ ảnh gốc không hợp lệ.');
+  let blob = api(file.thumbnailLink.replace(/=s\d+$/, '=s0')).getBlob();
+  let bytes = blob.getBytes();
+  if (bytes.length > 24 * 1024 * 1024) {
+    blob = api(file.thumbnailLink.replace(/=s\d+$/, '=s4096')).getBlob();
+    bytes = blob.getBytes();
+  }
+  if (bytes.length > 25 * 1024 * 1024) throw new Error('Ảnh gốc vượt quá giới hạn truyền qua cầu nối.');
+  const mime = blob.getContentType();
+  if (!/^image\/(jpeg|png|webp)$/.test(mime)) throw new Error('Định dạng ảnh tải về không hỗ trợ.');
+  return { ok: true, name: file.name || '', mimeType: mime, image: 'data:' + mime + ';base64,' + Utilities.base64Encode(bytes) };
+}
+
 function api(url, options) {
   const opts = Object.assign({ muteHttpExceptions: true, followRedirects: false }, options || {});
   opts.headers = Object.assign({ Authorization: 'Bearer ' + ScriptApp.getOAuthToken() }, opts.headers || {});
@@ -152,14 +173,17 @@ function readFolder(id, pageToken) {
   const children = [], files = [];
   (data.files || []).forEach(function (f) {
     if (f.mimeType === 'application/vnd.google-apps.folder') children.push({ id: f.id, n: f.name, m: f.modifiedTime });
-    else files.push([f.id, f.name, fileKind(f.mimeType), f.modifiedTime]);
+    else files.push([f.id, f.name, fileKind(f.mimeType, f.name), f.modifiedTime]);
   });
   return { ok: true, folder: { id: id, n: folder.getName(), m: folder.getLastUpdated().toISOString(), f: children, items: files },
     nextPageToken: data.nextPageToken || null, syncedAt: new Date().toISOString() };
 }
 
-function fileKind(mime) {
-  return mime.indexOf('video/') === 0 ? 1 : mime.indexOf('image/') === 0 ? 0 : 2;
+function fileKind(mime, name) {
+  const m = String(mime || ''), n = String(name || '');
+  if (m.indexOf('video/') === 0 || /\.(mp4|mov|avi|mkv|webm|m4v)$/i.test(n)) return 1;
+  if (m.indexOf('image/') === 0 || /\.(nef|nrw|cr2|cr3|arw|dng|raf|orf|rw2|jpe?g|png|gif|webp|heic|heif|avif|bmp|tiff?)$/i.test(n)) return 0;
+  return 2;
 }
 
 function operationId(value) {
@@ -264,7 +288,7 @@ function getSession(op) {
 }
 
 function completedUpload(s) {
-  return { ok: true, done: true, offset: s.size, file: [s.file.id, s.file.name, fileKind(s.file.mimeType), s.file.modifiedTime], folderId: s.folderId };
+  return { ok: true, done: true, offset: s.size, file: [s.file.id, s.file.name, fileKind(s.file.mimeType, s.file.name), s.file.modifiedTime], folderId: s.folderId };
 }
 
 function uploadResult(s, res) {
