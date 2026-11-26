@@ -26,7 +26,7 @@ import type {
   MinigamePrizeType,
   MinigameType,
 } from "../../types/minigame";
-import { MINIGAME_TYPE_META } from "../../services/minigame/gameLogic";
+import { MINIGAME_TYPE_META, getDefaultRankLabel } from "../../services/minigame/gameLogic";
 import { formatVnd } from "../../services/aiShop/billingEngine";
 import { showAppConfirm } from "../../services/appDialogService";
 import {
@@ -156,6 +156,25 @@ export default function MinigameManagement() {
       setToast({ type: "error", message: "Vui lòng nhập tiêu đề sự kiện." });
       return;
     }
+    const seenRanks = new Set<number>();
+    for (const pr of prizes) {
+      if (seenRanks.has(pr.rank)) {
+        setToast({
+          type: "error",
+          message:
+            pr.rank === 0
+              ? "Chỉ được cấu hình 1 giải đồng hạng (Chung)."
+              : `Hạng #${pr.rank} đang bị trùng lặp. Vui lòng chọn thứ hạng khác nhau cho từng giải.`,
+        });
+        return;
+      }
+      seenRanks.add(pr.rank);
+    }
+    const normalizedPrizes = prizes.map((pr) => ({
+      ...pr,
+      label: pr.label.trim() || getDefaultRankLabel(pr.rank),
+      amountVnd: pr.type === "wallet_vnd" ? Math.max(0, Math.trunc(Number(pr.amountVnd) || 0)) : undefined,
+    }));
     setBusy(true);
     try {
       const created = await createMinigameApi({
@@ -164,7 +183,7 @@ export default function MinigameManagement() {
         gameType,
         maxParticipants,
         racersPerHeat,
-        prizes,
+        prizes: normalizedPrizes,
       });
       setCreateOpen(false);
       setTitle("");
@@ -232,7 +251,7 @@ export default function MinigameManagement() {
       if (updated.status === "finished") {
         setToast({
           type: "success",
-          message: "🏆 Giải đua đã tìm ra Top 1 - 2 - 3! Bấm 'Trao thưởng tự động ngay' để phát quà.",
+          message: `🏆 Giải đua đã hoàn tất với ${updated.winners.length} người thắng giải! Bấm 'Trao thưởng tự động ngay' để phát quà.`,
         });
       }
     } catch (err: any) {
@@ -410,7 +429,7 @@ export default function MinigameManagement() {
               <span>Minigame Sự kiện Phúc lợi (Miễn phí 100%)</span>
             </h1>
             <p className="text-xs text-slate-500 mt-0.5">
-              Tạo event Đua Ngựa, Đua Ong (4/8/16/32 người), Tài Xỉu, Bầu Cua, Đoán Số — phát quà Ví / Voucher hoàn toàn miễn phí cho học sinh
+              Tạo event Đua Ngựa, Đua Ong (từ 2 / 4 / 8 / 16 / 32 người), Tài Xỉu, Bầu Cua, Đoán Số — tùy chỉnh số lượng giải &amp; số tiền thưởng bất kỳ hoàn toàn miễn phí
             </p>
           </div>
         </div>
@@ -949,12 +968,12 @@ export default function MinigameManagement() {
               {/* Participant Capacity & Bracket Settings */}
               {gameType === "horse_race" || gameType === "bee_race" ? (
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                  <div>
-                    <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">
-                      Số lượng người chơi tối đa (4 / 8 / 16 / 32)
+                  <div className="space-y-1.5">
+                    <label className="block text-xs font-bold text-slate-700 dark:text-slate-300">
+                      Số người chơi tối đa (từ 2 đến 64 người)
                     </label>
-                    <div className="grid grid-cols-4 gap-1.5">
-                      {[4, 8, 16, 32].map((num) => (
+                    <div className="grid grid-cols-5 gap-1.5">
+                      {[2, 4, 8, 16, 32].map((num) => (
                         <button
                           key={num}
                           type="button"
@@ -972,14 +991,30 @@ export default function MinigameManagement() {
                         </button>
                       ))}
                     </div>
+                    <div className="flex items-center gap-2">
+                      <span className="text-[11px] text-slate-500">Hoặc nhập tùy ý:</span>
+                      <input
+                        type="number"
+                        min={2}
+                        max={64}
+                        value={maxParticipants}
+                        onChange={(e) => {
+                          const val = Math.max(2, Math.min(64, Math.trunc(Number(e.target.value) || 2)));
+                          setMaxParticipants(val);
+                          if (racersPerHeat > val) setRacersPerHeat(val);
+                        }}
+                        className="w-20 px-2.5 py-1 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-950 text-xs font-bold"
+                      />
+                      <span className="text-[11px] text-slate-400">người</span>
+                    </div>
                   </div>
 
-                  <div>
-                    <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1">
+                  <div className="space-y-1.5">
+                    <label className="block text-xs font-bold text-slate-700 dark:text-slate-300">
                       Số {gameType === "bee_race" ? "ong" : "ngựa"} chạy mỗi lượt đua
                     </label>
-                    <div className="grid grid-cols-2 gap-2">
-                      {[4, 8].map((per) => (
+                    <div className="grid grid-cols-3 gap-1.5">
+                      {[2, 4, 8].map((per) => (
                         <button
                           key={per}
                           type="button"
@@ -995,6 +1030,11 @@ export default function MinigameManagement() {
                         </button>
                       ))}
                     </div>
+                    <p className="text-[11px] text-slate-400">
+                      {maxParticipants === 2
+                        ? "Chế độ đấu đối kháng 1 vs 1 trực tiếp Chung kết!"
+                        : `Tối đa ${Math.min(racersPerHeat, maxParticipants)} làn mỗi lượt, tự chia vòng loại tới Chung kết.`}
+                    </p>
                   </div>
                 </div>
               ) : (
@@ -1013,93 +1053,230 @@ export default function MinigameManagement() {
                 </div>
               )}
 
-              {/* Flexible Prizes Configuration */}
+              {/* Flexible Prizes Configuration (1..32 prizes, arbitrary money amount) */}
               <div className="space-y-2.5">
-                <div className="flex items-center justify-between">
-                  <label className="text-xs font-black text-slate-700 dark:text-slate-300">
-                    Thiết lập giải thưởng (+ Tiền Ví, Voucher, Quà bất kỳ)
-                  </label>
+                <div className="flex flex-wrap items-center justify-between gap-2">
+                  <div>
+                    <label className="text-xs font-black text-slate-700 dark:text-slate-300">
+                      Thiết lập cơ cấu giải thưởng ({prizes.length} giải — tùy chỉnh số lượng &amp; tiền bất kỳ)
+                    </label>
+                    <p className="text-[11px] text-slate-400">
+                      Có thể giữ 1 giải, 2 giải, 3 giải hoặc thêm 4, 5, 10+ giải với số tiền bất kỳ (kể cả số lẻ như 1.234đ).
+                    </p>
+                  </div>
+                  <div className="flex flex-wrap items-center gap-1.5">
+                    <button
+                      type="button"
+                      disabled={prizes.length >= 32}
+                      onClick={() => {
+                        const usedRanks = new Set(prizes.map((p) => p.rank).filter((r) => r >= 1));
+                        let nextRank = 1;
+                        while (usedRanks.has(nextRank)) nextRank++;
+                        setPrizes([
+                          ...prizes,
+                          {
+                            rank: nextRank,
+                            label: getDefaultRankLabel(nextRank),
+                            type: "wallet_vnd",
+                            amountVnd: 5000,
+                          },
+                        ]);
+                      }}
+                      className="inline-flex items-center gap-1 px-2.5 py-1.5 rounded-xl bg-blue-50 hover:bg-blue-100 dark:bg-blue-950/60 text-blue-700 dark:text-blue-300 border border-blue-200 dark:border-blue-800 text-[11px] font-black disabled:opacity-40 cursor-pointer"
+                    >
+                      <PlusCircle className="w-3.5 h-3.5" /> Thêm giải xếp hạng
+                    </button>
+                    {!prizes.some((p) => p.rank === 0) && (
+                      <button
+                        type="button"
+                        disabled={prizes.length >= 32}
+                        onClick={() => {
+                          setPrizes([
+                            ...prizes,
+                            {
+                              rank: 0,
+                              label: "Giải khuyến khích / đồng hạng",
+                              type: "wallet_vnd",
+                              amountVnd: 2000,
+                            },
+                          ]);
+                        }}
+                        className="inline-flex items-center gap-1 px-2.5 py-1.5 rounded-xl bg-amber-50 hover:bg-amber-100 dark:bg-amber-950/50 text-amber-700 dark:text-amber-300 border border-amber-200 dark:border-amber-800 text-[11px] font-bold disabled:opacity-40 cursor-pointer"
+                      >
+                        + Thêm giải chung
+                      </button>
+                    )}
+                  </div>
                 </div>
+
                 {prizes.map((pr, idx) => (
                   <div
                     key={idx}
-                    className="p-3 rounded-2xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700 grid grid-cols-1 sm:grid-cols-12 gap-2 items-center"
+                    className="p-3 rounded-2xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700 space-y-2"
                   >
-                    <input
-                      type="text"
-                      value={pr.label}
-                      onChange={(e) => {
-                        const next = [...prizes];
-                        next[idx] = { ...pr, label: e.target.value };
-                        setPrizes(next);
-                      }}
-                      className="sm:col-span-3 px-2.5 py-1.5 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-950 text-xs font-bold"
-                    />
+                    <div className="grid grid-cols-1 sm:grid-cols-12 gap-2 items-center">
+                      {/* Rank Selector */}
+                      <select
+                        value={pr.rank}
+                        onChange={(e) => {
+                          const newRank = Number(e.target.value);
+                          const next = [...prizes];
+                          const autoOldLabel = getDefaultRankLabel(pr.rank);
+                          next[idx] = {
+                            ...pr,
+                            rank: newRank,
+                            label:
+                              !pr.label || pr.label === autoOldLabel
+                                ? getDefaultRankLabel(newRank)
+                                : pr.label,
+                          };
+                          setPrizes(next);
+                        }}
+                        className="sm:col-span-2 px-2 py-1.5 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-950 text-xs font-black text-amber-700 dark:text-amber-300"
+                        title="Thứ hạng nhận giải"
+                      >
+                        <option value={0}>Chung</option>
+                        {Array.from({ length: 32 }, (_, i) => i + 1).map((r) => (
+                          <option key={r} value={r}>
+                            Hạng #{r}
+                          </option>
+                        ))}
+                      </select>
 
-                    <select
-                      value={pr.type}
-                      onChange={(e) => {
-                        const nextType = e.target.value as MinigamePrizeType;
-                        const next = [...prizes];
-                        next[idx] = {
-                          ...pr,
-                          type: nextType,
-                          amountVnd: nextType === "wallet_vnd" ? pr.amountVnd ?? 10000 : undefined,
-                          voucherCode: nextType === "voucher" ? pr.voucherCode ?? "" : undefined,
-                          customTitle: nextType === "custom_gift" ? pr.customTitle ?? "" : undefined,
-                        };
-                        setPrizes(next);
-                      }}
-                      className="sm:col-span-4 px-2.5 py-1.5 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-950 text-xs"
-                    >
-                      <option value="wallet_vnd">+ Cộng tiền Ví DkTEST</option>
-                      <option value="voucher">Tặng mã Voucher</option>
-                      <option value="custom_gift">Quà hiện vật / Acc AI tùy chỉnh</option>
-                    </select>
+                      {/* Prize Label */}
+                      <input
+                        type="text"
+                        value={pr.label}
+                        onChange={(e) => {
+                          const next = [...prizes];
+                          next[idx] = { ...pr, label: e.target.value };
+                          setPrizes(next);
+                        }}
+                        placeholder="Tên giải thưởng..."
+                        className="sm:col-span-3 px-2.5 py-1.5 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-950 text-xs font-bold"
+                      />
 
+                      {/* Prize Type */}
+                      <select
+                        value={pr.type}
+                        onChange={(e) => {
+                          const nextType = e.target.value as MinigamePrizeType;
+                          const next = [...prizes];
+                          next[idx] = {
+                            ...pr,
+                            type: nextType,
+                            amountVnd: nextType === "wallet_vnd" ? pr.amountVnd ?? 10000 : undefined,
+                            voucherCode: nextType === "voucher" ? pr.voucherCode ?? "" : undefined,
+                            customTitle: nextType === "custom_gift" ? pr.customTitle ?? "" : undefined,
+                          };
+                          setPrizes(next);
+                        }}
+                        className="sm:col-span-3 px-2.5 py-1.5 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-950 text-xs"
+                      >
+                        <option value="wallet_vnd">+ Cộng tiền Ví</option>
+                        <option value="voucher">Tặng Voucher</option>
+                        <option value="custom_gift">Quà tùy chỉnh</option>
+                      </select>
+
+                      {/* Reward Value (arbitrary custom integer VND, voucher code, or custom title) */}
+                      {pr.type === "wallet_vnd" && (
+                        <div className="sm:col-span-3 flex items-center gap-1">
+                          <input
+                            type="text"
+                            inputMode="numeric"
+                            value={pr.amountVnd === undefined ? "" : String(pr.amountVnd)}
+                            onChange={(e) => {
+                              const digitsOnly = e.target.value.replace(/[^\d]/g, "");
+                              const parsed = digitsOnly === "" ? 0 : Math.min(1_000_000_000, parseInt(digitsOnly, 10));
+                              const next = [...prizes];
+                              next[idx] = { ...pr, amountVnd: parsed };
+                              setPrizes(next);
+                            }}
+                            placeholder="Nhập số tiền bất kỳ..."
+                            className="w-full px-2.5 py-1.5 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-950 text-xs font-black text-emerald-600 dark:text-emerald-400"
+                          />
+                        </div>
+                      )}
+                      {pr.type === "voucher" && (
+                        <input
+                          type="text"
+                          value={pr.voucherCode || ""}
+                          onChange={(e) => {
+                            const next = [...prizes];
+                            next[idx] = { ...pr, voucherCode: e.target.value.toUpperCase() };
+                            setPrizes(next);
+                          }}
+                          placeholder="Mã Voucher (VD: PHUCLOI20)"
+                          className="sm:col-span-3 px-2.5 py-1.5 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-950 text-xs font-mono font-bold"
+                        />
+                      )}
+                      {pr.type === "custom_gift" && (
+                        <input
+                          type="text"
+                          value={pr.customTitle || ""}
+                          onChange={(e) => {
+                            const next = [...prizes];
+                            next[idx] = { ...pr, customTitle: e.target.value };
+                            setPrizes(next);
+                          }}
+                          placeholder="VD: 1 slot Gemini Pro 1T"
+                          className="sm:col-span-3 px-2.5 py-1.5 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-950 text-xs"
+                        />
+                      )}
+
+                      {/* Delete Prize Button */}
+                      <div className="sm:col-span-1 flex justify-end">
+                        <button
+                          type="button"
+                          disabled={prizes.length <= 1}
+                          onClick={() => setPrizes(prizes.filter((_, i) => i !== idx))}
+                          title={prizes.length <= 1 ? "Cần ít nhất 1 giải thưởng" : "Xóa giải này"}
+                          className="p-1.5 rounded-lg text-slate-400 hover:text-rose-600 hover:bg-rose-50 dark:hover:bg-rose-950/40 disabled:opacity-30 cursor-pointer"
+                        >
+                          <Trash2 className="w-4 h-4" />
+                        </button>
+                      </div>
+                    </div>
+
+                    {/* Live VND preview & quick chips when wallet_vnd */}
                     {pr.type === "wallet_vnd" && (
-                      <input
-                        type="number"
-                        min={0}
-                        step={1000}
-                        value={pr.amountVnd ?? 0}
-                        onChange={(e) => {
-                          const next = [...prizes];
-                          next[idx] = { ...pr, amountVnd: Math.max(0, Math.trunc(Number(e.target.value) || 0)) };
-                          setPrizes(next);
-                        }}
-                        placeholder="Số tiền VNĐ"
-                        className="sm:col-span-5 px-2.5 py-1.5 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-950 text-xs font-bold text-emerald-600"
-                      />
-                    )}
-                    {pr.type === "voucher" && (
-                      <input
-                        type="text"
-                        value={pr.voucherCode || ""}
-                        onChange={(e) => {
-                          const next = [...prizes];
-                          next[idx] = { ...pr, voucherCode: e.target.value.toUpperCase() };
-                          setPrizes(next);
-                        }}
-                        placeholder="Nhập mã Voucher (VD: PHUCLOI20)"
-                        className="sm:col-span-5 px-2.5 py-1.5 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-950 text-xs font-mono font-bold"
-                      />
-                    )}
-                    {pr.type === "custom_gift" && (
-                      <input
-                        type="text"
-                        value={pr.customTitle || ""}
-                        onChange={(e) => {
-                          const next = [...prizes];
-                          next[idx] = { ...pr, customTitle: e.target.value };
-                          setPrizes(next);
-                        }}
-                        placeholder="VD: 1 slot Gemini Pro Ngon 1 tháng"
-                        className="sm:col-span-5 px-2.5 py-1.5 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-950 text-xs"
-                      />
+                      <div className="flex flex-wrap items-center justify-between gap-2 pt-1 border-t border-slate-200/60 dark:border-slate-700/60">
+                        <span className="text-[11px] font-bold text-emerald-700 dark:text-emerald-400">
+                          Mức thưởng: +{formatVnd(pr.amountVnd || 0)}
+                        </span>
+                        <div className="flex flex-wrap items-center gap-1">
+                          {[1000, 5000, 10000, 20000, 50000].map((preset) => (
+                            <button
+                              key={preset}
+                              type="button"
+                              onClick={() => {
+                                const next = [...prizes];
+                                next[idx] = { ...pr, amountVnd: preset };
+                                setPrizes(next);
+                              }}
+                              className="px-2 py-0.5 rounded-md bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 hover:border-emerald-400 text-[10px] font-bold text-slate-600 dark:text-slate-300 cursor-pointer"
+                            >
+                              {preset / 1000}K
+                            </button>
+                          ))}
+                        </div>
+                      </div>
                     )}
                   </div>
                 ))}
+
+                {/* Prize Pool Summary */}
+                <div className="px-3.5 py-2 rounded-xl bg-emerald-50/70 dark:bg-emerald-950/30 border border-emerald-200/80 dark:border-emerald-800/60 flex flex-wrap items-center justify-between gap-2 text-[11px] font-bold text-emerald-900 dark:text-emerald-200">
+                  <span>Tổng số giải đã thiết lập: {prizes.length} giải</span>
+                  <span>
+                    Tổng tiền Ví (các giải xếp hạng):{" "}
+                    {formatVnd(
+                      prizes
+                        .filter((p) => p.type === "wallet_vnd" && p.rank >= 1)
+                        .reduce((s, p) => s + (p.amountVnd || 0), 0)
+                    )}
+                  </span>
+                </div>
               </div>
 
               <div className="flex justify-end gap-2 pt-3 border-t border-slate-100 dark:border-slate-800">

@@ -5981,10 +5981,10 @@ function listLiveMinigameCheers(eventId) {
   return fresh.slice(0, 12);
 }
 var prizeSchema = z3.object({
-  rank: z3.number().int().min(0).max(10),
+  rank: z3.number().int().min(0).max(50),
   label: z3.string().trim().min(1).max(120),
   type: z3.enum(["wallet_vnd", "voucher", "custom_gift"]),
-  amountVnd: z3.number().int().min(0).max(5e7).optional(),
+  amountVnd: z3.number().int().min(0).max(1e9).optional(),
   voucherCode: z3.string().trim().max(80).optional(),
   customTitle: z3.string().trim().max(200).optional()
 });
@@ -5994,7 +5994,7 @@ var createMinigameSchema = z3.object({
   gameType: z3.enum(["horse_race", "bee_race", "tai_xiu", "bau_cua", "lucky_number"]),
   maxParticipants: z3.number().int().min(2).max(200).default(8),
   racersPerHeat: z3.number().int().min(2).max(8).optional().default(4),
-  prizes: z3.array(prizeSchema).min(1, "Vui l\xF2ng c\u1EA5u h\xECnh \xEDt nh\u1EA5t 1 gi\u1EA3i th\u01B0\u1EDFng ph\xFAc l\u1EE3i.").max(10)
+  prizes: z3.array(prizeSchema).min(1, "Vui l\xF2ng c\u1EA5u h\xECnh \xEDt nh\u1EA5t 1 gi\u1EA3i th\u01B0\u1EDFng ph\xFAc l\u1EE3i.").max(32, "T\u1ED1i \u0111a 32 gi\u1EA3i th\u01B0\u1EDFng trong m\u1ED9t s\u1EF1 ki\u1EC7n.")
 });
 var joinMinigameSchema = z3.object({
   prediction: z3.string().trim().max(32).optional(),

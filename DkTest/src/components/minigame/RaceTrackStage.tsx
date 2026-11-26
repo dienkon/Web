@@ -679,9 +679,15 @@ export const RaceTrackStage: React.FC<RaceTrackStageProps> = ({
               raceFinishedVisually && activeHeat.finishOrder.length > 0
                 ? activeHeat.finishOrder.indexOf(item.uid) + 1
                 : null;
+            const hasCollectivePrize = (event.prizes || []).some((p) => p.rank === 0);
+            const rankedPrizeSet = new Set(
+              (event.prizes || []).filter((p) => p.rank >= 1).map((p) => p.rank)
+            );
             const qualified =
               rankNum !== null &&
-              rankNum <= (activeHeat.isFinal ? 3 : activeHeat.advanceCount);
+              (activeHeat.isFinal
+                ? hasCollectivePrize || rankedPrizeSet.has(rankNum)
+                : rankNum <= activeHeat.advanceCount);
 
             // Map progress 0..1 into 2%..84% horizontal CSS left so sprite crosses finish line cleanly
             const leftPct = 2 + item.state.progress * 82;

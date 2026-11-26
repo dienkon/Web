@@ -106,10 +106,10 @@ const BOT_NAMES = [
 // ---------------------------------------------------------------------------
 
 const prizeSchema = z.object({
-  rank: z.number().int().min(0).max(10),
+  rank: z.number().int().min(0).max(50),
   label: z.string().trim().min(1).max(120),
   type: z.enum(["wallet_vnd", "voucher", "custom_gift"]),
-  amountVnd: z.number().int().min(0).max(50_000_000).optional(),
+  amountVnd: z.number().int().min(0).max(1_000_000_000).optional(),
   voucherCode: z.string().trim().max(80).optional(),
   customTitle: z.string().trim().max(200).optional(),
 });
@@ -120,7 +120,10 @@ export const createMinigameSchema = z.object({
   gameType: z.enum(["horse_race", "bee_race", "tai_xiu", "bau_cua", "lucky_number"]),
   maxParticipants: z.number().int().min(2).max(200).default(8),
   racersPerHeat: z.number().int().min(2).max(8).optional().default(4),
-  prizes: z.array(prizeSchema).min(1, "Vui lòng cấu hình ít nhất 1 giải thưởng phúc lợi.").max(10),
+  prizes: z
+    .array(prizeSchema)
+    .min(1, "Vui lòng cấu hình ít nhất 1 giải thưởng phúc lợi.")
+    .max(32, "Tối đa 32 giải thưởng trong một sự kiện."),
 });
 
 export const joinMinigameSchema = z.object({
@@ -331,14 +334,12 @@ export async function createMinigameEvent(
 ): Promise<MinigameEvent> {
   const data = createMinigameSchema.parse(rawInput);
 
-  // Enforce standard tournament sizes (4, 8, 16, 32) for race games
+  // Support flexible race participant counts from 2 up to 64 (presets 2, 4, 8, 16, 32 or custom)
   let maxParticipants = data.maxParticipants;
   let racersPerHeat = data.racersPerHeat;
   if (isRaceGame(data.gameType)) {
-    if (![4, 8, 16, 32].includes(maxParticipants)) {
-      maxParticipants = 8;
-    }
-    racersPerHeat = racersPerHeat >= 8 ? 8 : 4;
+    maxParticipants = Math.max(2, Math.min(64, Math.trunc(maxParticipants) || 2));
+    racersPerHeat = Math.max(2, Math.min(8, Math.trunc(racersPerHeat) || 4));
     if (racersPerHeat > maxParticipants) racersPerHeat = maxParticipants;
   }
 
@@ -675,11 +676,16 @@ export async function completeRaceHeat(eventId: string, heatId?: string): Promis
   if (advanced.tournamentFinished) {
     status = "finished";
     const finalHeat = advanced.heats.find((h) => h.isFinal);
+    // Merge finish times across heats (latest round / final heat wins) so all ranked winners show timing
+    const mergedFinishTimesMs: Record<string, number> = {};
+    for (const h of [...advanced.heats].sort((a, b) => a.roundIndex - b.roundIndex)) {
+      Object.assign(mergedFinishTimesMs, h.finishTimesMs || {});
+    }
     winners = buildRaceWinners(
-      advanced.podiumUids,
+      advanced.rankedUids,
       event.participants,
       event.prizes,
-      finalHeat?.finishTimesMs || {}
+      mergedFinishTimesMs
     );
     nextActiveHeatId = finalHeat?.heatId || currentHeat.heatId;
   }

@@ -1,5 +1,14 @@
 # DkTEST changelog
 
+## 2.0.3 — 2026-11-26 (Android versionCode 27)
+
+- **Nâng cấp toàn diện Minigame Phúc lợi — Hỗ trợ đua từ 2 người chơi, số lượng giải thưởng tùy ý (1–32 giải) & số tiền thưởng bất kỳ**:
+  - **Hỗ trợ Đua Ngựa & Đua Ong từ 2 người chơi (`1 vs 1`) đến 64 người**: mở rộng `createMinigameEvent` (`server/services/minigameService.ts`) và giao diện tạo phòng (`MinigameManagement.tsx`) hỗ trợ các mức chọn nhanh `2 / 4 / 8 / 16 / 32` người chơi hoặc nhập số tùy ý (`2–64`), cùng lựa chọn `2 / 4 / 8` con/lượt; nâng cấp `raceEngine.ts` bảo đảm không bao giờ sinh lượt đua lẻ 1 con (ví dụ 6 người chạy 2 con/lượt tự gộp 3 người thắng vào Chung kết 3 làn).
+  - **Cơ cấu giải thưởng tùy biến hoàn toàn (ít hơn 3, bằng 3, hoặc nhiều hơn 3 — tối đa 32 giải)**: thêm nút **+ Thêm giải xếp hạng**, **+ Thêm giải chung**, chọn thứ hạng (`#1..#32` hoặc `Chung`) và nút xóa giải (chỉ cần tối thiểu 1 giải); nâng cấp `advanceRaceTournamentIfReady` trả về đầy đủ `rankedUids` toàn giải và `buildRaceWinners` / `evaluateTaiXiuWinners` / `evaluateBauCuaWinners` / `evaluateLuckyNumberWinners` trao thưởng chính xác theo mọi hạng đã cấu hình; cập nhật `WinnersPodiumCard.tsx` và `RaceTrackStage.tsx` hiển thị gọn đẹp với 1, 2, 3 hay 4+ giải.
+  - **Nhập số tiền thưởng bất kỳ từng đồng (không ép bước nhảy 1.000đ)**: thay ô nhập tiền ở `MinigameManagement.tsx` bằng ô số nguyên tự do `inputMode="numeric"` (nhập được mọi con số từ `0` tới `1.000.000.000đ`, kể cả số lẻ như `1đ`, `777đ`, `12.345đ`, `250.000đ`) kèm hiển thị định dạng VNĐ tức thì, các nút điền nhanh (`1K–50K`) và tổng ngân sách dự kiến; nâng trần Zod `amountVnd` lên `1_000_000_000` và `prizes` lên tối đa `32` giải.
+  - **Kiểm thử tự động**: bổ sung các test case mới trong `tests/minigameEngine.test.ts` cho đua 2 người 1v1 (1 giải lẻ `7.777đ` & 2 giải `12.345đ` / `1.111đ`), giải 6 người 2 con/lượt với 5 giải (`>3` giải), Bầu Cua giải xếp hạng tùy chỉnh, và xác thực Zod `createMinigameSchema`.
+- Audit: [2.0.3](docs/audits/2.0.3.md).
+
 ## 2.0.2 — 2026-11-23 (Android versionCode 26)
 
 - **Chuẩn hóa toàn diện Giao diện Tối (Dark Mode) & Mặc định Giao diện Sáng cho người dùng mới (`index.html`, `ThemeContext.tsx`, `src/index.css`, `ExamIntro.tsx`)**:

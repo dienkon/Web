@@ -6,10 +6,13 @@ import {
   simulateRaceHeat,
 } from "../src/services/minigame/raceEngine";
 import {
+  buildRaceWinners,
   evaluateBauCuaWinners,
   evaluateLuckyNumberWinners,
   evaluateTaiXiuWinners,
+  getDefaultRankLabel,
 } from "../src/services/minigame/gameLogic";
+import { createMinigameSchema } from "../server/services/minigameService";
 import {
   buildSeedServiceRecords,
   resolveServiceStorefrontMeta,
@@ -143,6 +146,121 @@ describe("Minigame Race Engine & Tournament Brackets (4 / 8 / 16 / 32)", () => {
     expect(finals[0].isFinal).toBe(true);
     expect(finals[0].laneUids).toHaveLength(8);
   });
+
+  it("supports 2-player head-to-head race directly into Final and awards custom 1-prize or 2-prize setups with arbitrary VND amounts", () => {
+    const participants = makeParticipants(2);
+    const uids = ["u1", "u2"];
+    let heats = buildInitialRaceHeats(uids, 2, 777);
+    expect(heats).toHaveLength(1);
+    expect(heats[0].isFinal).toBe(true);
+    expect(heats[0].laneUids).toHaveLength(2);
+
+    heats = heats.map((h) => ({
+      ...h,
+      status: "completed" as const,
+      ...simulateRaceHeat(h.laneUids, h.seed, h.durationMs),
+    }));
+
+    const afterFinal = advanceRaceTournamentIfReady(heats, 2, 777);
+    expect(afterFinal.tournamentFinished).toBe(true);
+    expect(afterFinal.rankedUids).toHaveLength(2);
+
+    // Case A: Only 1 prize (less than 3) with odd custom VND amount 7.777đ
+    const singlePrize: MinigamePrize[] = [
+      { rank: 1, label: "Vô địch 1v1", type: "wallet_vnd", amountVnd: 7777 },
+    ];
+    const winners1 = buildRaceWinners(
+      afterFinal.rankedUids,
+      participants,
+      singlePrize,
+      heats[0].finishTimesMs
+    );
+    expect(winners1).toHaveLength(1);
+    expect(winners1[0].rank).toBe(1);
+    expect(winners1[0].amountVnd).toBe(7777);
+
+    // Case B: 2 prizes with exact custom amounts 12.345đ and 1.111đ
+    const twoPrizes: MinigamePrize[] = [
+      { rank: 1, label: "Giải Nhất", type: "wallet_vnd", amountVnd: 12345 },
+      { rank: 2, label: "Giải Nhì", type: "wallet_vnd", amountVnd: 1111 },
+    ];
+    const winners2 = buildRaceWinners(
+      afterFinal.rankedUids,
+      participants,
+      twoPrizes,
+      heats[0].finishTimesMs
+    );
+    expect(winners2).toHaveLength(2);
+    expect(winners2.map((w) => ({ rank: w.rank, amountVnd: w.amountVnd }))).toEqual([
+      { rank: 1, amountVnd: 12345 },
+      { rank: 2, amountVnd: 1111 },
+    ]);
+  });
+
+  it("never creates a 1-racer heat (e.g. 6 players with 2/heat) and awards >3 prizes (e.g. 5 prizes) across final + runner-up rankings", () => {
+    const participants = makeParticipants(6);
+    const uids = Object.keys(participants);
+    let heats = buildInitialRaceHeats(uids, 2, 555);
+    expect(heats).toHaveLength(3);
+    expect(heats.every((h) => h.laneUids.length === 2)).toBe(true);
+
+    // Complete Round 0 -> 3 qualifiers -> must merge into a 3-racer Final (never [2, 1])!
+    heats = heats.map((h) => ({
+      ...h,
+      status: "completed" as const,
+      ...simulateRaceHeat(h.laneUids, h.seed, h.durationMs),
+    }));
+    const afterR0 = advanceRaceTournamentIfReady(heats, 2, 555);
+    expect(afterR0.tournamentFinished).toBe(false);
+    const r1 = afterR0.heats.filter((h) => h.roundIndex === 1);
+    expect(r1).toHaveLength(1);
+    expect(r1[0].isFinal).toBe(true);
+    expect(r1[0].laneUids).toHaveLength(3);
+
+    heats = afterR0.heats.map((h) =>
+      h.status === "completed"
+        ? h
+        : {
+            ...h,
+            status: "completed" as const,
+            ...simulateRaceHeat(h.laneUids, h.seed, h.durationMs),
+          }
+    );
+    const afterFinal = advanceRaceTournamentIfReady(heats, 2, 555);
+    expect(afterFinal.tournamentFinished).toBe(true);
+    expect(afterFinal.rankedUids).toHaveLength(6);
+    expect(new Set(afterFinal.rankedUids).size).toBe(6);
+
+    // Award 5 prizes (>3 prizes!) with arbitrary VND amounts
+    const fivePrizes: MinigamePrize[] = [
+      { rank: 1, label: getDefaultRankLabel(1), type: "wallet_vnd", amountVnd: 50000 },
+      { rank: 2, label: getDefaultRankLabel(2), type: "wallet_vnd", amountVnd: 25500 },
+      { rank: 3, label: getDefaultRankLabel(3), type: "wallet_vnd", amountVnd: 12345 },
+      { rank: 4, label: getDefaultRankLabel(4), type: "wallet_vnd", amountVnd: 4321 },
+      { rank: 5, label: getDefaultRankLabel(5), type: "wallet_vnd", amountVnd: 999 },
+    ];
+    const winners5 = buildRaceWinners(afterFinal.rankedUids, participants, fivePrizes, {});
+    expect(winners5).toHaveLength(5);
+    expect(winners5.map((w) => ({ rank: w.rank, amountVnd: w.amountVnd }))).toEqual([
+      { rank: 1, amountVnd: 50000 },
+      { rank: 2, amountVnd: 25500 },
+      { rank: 3, amountVnd: 12345 },
+      { rank: 4, amountVnd: 4321 },
+      { rank: 5, amountVnd: 999 },
+    ]);
+
+    // Verify Zod schema accepts 2-player race, 5+ prizes, and arbitrary integer amounts
+    const parsed = createMinigameSchema.parse({
+      title: "Đua Ngựa 1v1 & 5 Giải Tự Chọn",
+      gameType: "horse_race",
+      maxParticipants: 2,
+      racersPerHeat: 2,
+      prizes: fivePrizes,
+    });
+    expect(parsed.maxParticipants).toBe(2);
+    expect(parsed.prizes).toHaveLength(5);
+    expect(parsed.prizes[4].amountVnd).toBe(999);
+  });
 });
 
 describe("Minigame Free Welfare Party Games (Tài Xỉu, Bầu Cua, Đoán Số)", () => {
@@ -175,6 +293,21 @@ describe("Minigame Free Welfare Party Games (Tài Xỉu, Bầu Cua, Đoán Số)
     expect(res.winners.map((w) => w.uid)).toEqual(["u1", "u2"]);
     expect(res.winners[0].matchDetail).toContain("x2");
     expect(res.winners[1].matchDetail).toContain("x1");
+
+    // Supports tiered ranked prizes (e.g. 1st + 2nd with custom amounts) on Tài Xỉu / Bầu Cua too
+    const tieredRes = evaluateBauCuaWinners(
+      ["cua", "cua", "bau"],
+      participants,
+      [
+        { rank: 1, label: "Giải Nhất Bầu Cua", type: "wallet_vnd", amountVnd: 8888 },
+        { rank: 2, label: "Giải Nhì Bầu Cua", type: "wallet_vnd", amountVnd: 2222 },
+      ],
+      50000
+    );
+    expect(tieredRes.winners.map((w) => ({ uid: w.uid, rank: w.rank, amountVnd: w.amountVnd }))).toEqual([
+      { uid: "u1", rank: 1, amountVnd: 8888 },
+      { uid: "u2", rank: 2, amountVnd: 2222 },
+    ]);
   });
 
   it("selects ONLY exact matches in Đoán Số May Mắn (00-99) and returns empty when nobody matches", () => {

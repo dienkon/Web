@@ -217,7 +217,8 @@ function getRoundLabel(totalRacersInRound: number, heatCount: number, heatIndex:
 }
 
 /**
- * Builds Round 0 tournament heats from registered participants and `racersPerHeat` (4 or 8).
+ * Builds Round 0 tournament heats from registered participants and `racersPerHeat` (2..8).
+ * Supports 2-player duels up to 64-player multi-round brackets without ever creating a 1-racer heat.
  */
 export function buildInitialRaceHeats(
   participantUids: string[],
@@ -233,8 +234,14 @@ export function buildInitialRaceHeats(
   const perHeat = Math.max(2, Math.min(8, Math.trunc(racersPerHeat) || 4));
   const shuffled = seededShuffle(unique, seed);
 
+  // Compute safe heatCount so every heat has >= 2 racers
+  const heatCount =
+    shuffled.length <= perHeat
+      ? 1
+      : Math.max(1, Math.min(Math.ceil(shuffled.length / perHeat), Math.floor(shuffled.length / 2)));
+
   // If everyone fits in 1 single heat -> direct Final!
-  if (shuffled.length <= perHeat) {
+  if (heatCount === 1) {
     return [
       {
         heatId: "r0_h0",
@@ -244,7 +251,7 @@ export function buildInitialRaceHeats(
         isFinal: true,
         status: "pending",
         laneUids: shuffled,
-        advanceCount: Math.min(3, shuffled.length),
+        advanceCount: shuffled.length,
         seed: seed + 101,
         startAtMs: null,
         durationMs,
@@ -255,12 +262,11 @@ export function buildInitialRaceHeats(
     ];
   }
 
-  const heatCount = Math.ceil(shuffled.length / perHeat);
   // Distribute participants evenly across heats (e.g. 6 players -> 3 & 3 instead of 4 & 2)
   const heats: MinigameRaceHeat[] = [];
   const baseSize = Math.floor(shuffled.length / heatCount);
   const remainder = shuffled.length % heatCount;
-  // Shrink the field by ~half each round (top 2 per heat for 4/heat, or fill next round cleanly for 8/heat)
+  // Shrink the field by ~half each round (1 per heat for 1v1 heats, 2 per heat for 4/heat, up to 4 for 8/heat)
   const advancePerHeat = Math.max(
     1,
     Math.min(
@@ -296,8 +302,44 @@ export function buildInitialRaceHeats(
 }
 
 /**
+ * Computes full tournament ranking:
+ * 1. All Final heat finishers in exact finishOrder (#1, #2, ..., #k)
+ * 2. Eliminated racers from earlier rounds (highest round first, then best heat rank & finish time)
+ * Enables awarding ANY number of configured prizes (1, 2, 3, 4, 5, 8, ...).
+ */
+function buildFullTournamentRanking(heats: MinigameRaceHeat[]): string[] {
+  const maxRound = Math.max(...heats.map((h) => h.roundIndex));
+  const ranked: string[] = [];
+  const seen = new Set<string>();
+
+  for (let r = maxRound; r >= 0; r--) {
+    const roundHeats = heats.filter((h) => h.roundIndex === r);
+    const entries: Array<{ uid: string; pos: number; timeMs: number }> = [];
+    for (const h of roundHeats) {
+      h.finishOrder.forEach((uid, pos) => {
+        if (!seen.has(uid)) {
+          entries.push({
+            uid,
+            pos,
+            timeMs: h.finishTimesMs[uid] ?? Number.MAX_SAFE_INTEGER,
+          });
+        }
+      });
+    }
+    entries.sort((a, b) => a.pos - b.pos || a.timeMs - b.timeMs);
+    for (const e of entries) {
+      if (!seen.has(e.uid)) {
+        seen.add(e.uid);
+        ranked.push(e.uid);
+      }
+    }
+  }
+  return ranked;
+}
+
+/**
  * Checks if the current round is completely finished and generates the next tournament round
- * (or returns final podium [1st, 2nd, 3rd] if the Final heat finished!).
+ * (or returns final podium + full `rankedUids` if the Final heat finished!).
  */
 export function advanceRaceTournamentIfReady(
   heats: MinigameRaceHeat[],
@@ -308,9 +350,10 @@ export function advanceRaceTournamentIfReady(
   heats: MinigameRaceHeat[];
   tournamentFinished: boolean;
   podiumUids: string[];
+  rankedUids: string[];
 } {
   if (heats.length === 0) {
-    return { heats, tournamentFinished: false, podiumUids: [] };
+    return { heats, tournamentFinished: false, podiumUids: [], rankedUids: [] };
   }
 
   const maxRound = Math.max(...heats.map((h) => h.roundIndex));
@@ -320,13 +363,14 @@ export function advanceRaceTournamentIfReady(
 
   const allCompleted = currentRoundHeats.every((h) => h.status === "completed");
   if (!allCompleted) {
-    return { heats, tournamentFinished: false, podiumUids: [] };
+    return { heats, tournamentFinished: false, podiumUids: [], rankedUids: [] };
   }
 
   // If the current round was the Final -> tournament complete!
   if (currentRoundHeats.length === 1 && currentRoundHeats[0].isFinal) {
+    const rankedUids = buildFullTournamentRanking(heats);
     const podiumUids = currentRoundHeats[0].finishOrder.slice(0, 3);
-    return { heats, tournamentFinished: true, podiumUids };
+    return { heats, tournamentFinished: true, podiumUids, rankedUids };
   }
 
   // Collect qualified racers from all heats in this round
@@ -339,7 +383,12 @@ export function advanceRaceTournamentIfReady(
   const perHeat = Math.max(2, Math.min(8, Math.trunc(racersPerHeat) || 4));
   const nextHeats: MinigameRaceHeat[] = [];
 
-  if (qualifiers.length <= perHeat) {
+  const heatCount =
+    qualifiers.length <= perHeat
+      ? 1
+      : Math.max(1, Math.min(Math.ceil(qualifiers.length / perHeat), Math.floor(qualifiers.length / 2)));
+
+  if (heatCount === 1) {
     nextHeats.push({
       heatId: `r${nextRound}_h0`,
       roundIndex: nextRound,
@@ -348,7 +397,7 @@ export function advanceRaceTournamentIfReady(
       isFinal: true,
       status: "pending",
       laneUids: qualifiers,
-      advanceCount: Math.min(3, qualifiers.length),
+      advanceCount: qualifiers.length,
       seed: seed + nextRound * 997,
       startAtMs: null,
       durationMs,
@@ -357,7 +406,6 @@ export function advanceRaceTournamentIfReady(
       speedProfiles: {},
     });
   } else {
-    const heatCount = Math.ceil(qualifiers.length / perHeat);
     const baseSize = Math.floor(qualifiers.length / heatCount);
     const remainder = qualifiers.length % heatCount;
     const advancePerHeat = Math.max(
@@ -396,5 +444,6 @@ export function advanceRaceTournamentIfReady(
     heats: [...heats, ...nextHeats],
     tournamentFinished: false,
     podiumUids: [],
+    rankedUids: [],
   };
 }

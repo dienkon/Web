@@ -12,11 +12,11 @@ export type MinigamePrizeType = "wallet_vnd" | "voucher" | "custom_gift";
 export type BauCuaFace = "bau" | "cua" | "tom" | "ca" | "ga" | "nai";
 
 export interface MinigamePrize {
-  /** 1 = Giải Nhất, 2 = Giải Nhì, 3 = Giải Ba; 0 = Giải chung cho tất cả người đoán đúng (Tài Xỉu / Bầu Cua) */
+  /** 1 = Giải Nhất, 2 = Giải Nhì, 3 = Giải Ba, 4 = Giải Tư... (tùy ý số lượng giải); 0 = Giải chung cho tất cả người trúng */
   rank: number;
   label: string;
   type: MinigamePrizeType;
-  /** Positive integer VND added to Ví DkTEST when type === "wallet_vnd" */
+  /** Positive integer VND (arbitrary amount) added to Ví DkTEST when type === "wallet_vnd" */
   amountVnd?: number;
   /** Voucher code granted when type === "voucher" */
   voucherCode?: string;
@@ -93,9 +93,9 @@ export interface MinigameEvent {
   status: MinigameStatus;
   /** Strictly 0 — all minigames are 100% free welfare events, NEVER paid gambling */
   entryFeeVnd: 0;
-  /** For horse_race / bee_race: 4, 8, 16, or 32. For party games: up to 200 */
+  /** For horse_race / bee_race: 2..64 (presets 2, 4, 8, 16, 32). For party games: 2..200 */
   maxParticipants: number;
-  /** Number of racers per heat for horse_race / bee_race (4 or 8) */
+  /** Number of racers per heat for horse_race / bee_race (2..8, presets 2, 4, 8) */
   racersPerHeat: number;
   prizes: MinigamePrize[];
   participants: Record<string, MinigameParticipant>;

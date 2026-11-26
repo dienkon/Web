@@ -60,7 +60,15 @@ export const WinnersPodiumCard: React.FC<WinnersPodiumCardProps> = ({
           Sự kiện lần này chưa có người chơi nào khớp kết quả trúng thưởng. Hẹn gặp lại ở sự kiện kế tiếp!
         </div>
       ) : (
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+        <div
+          className={`grid grid-cols-1 gap-3 ${
+            event.winners.length === 1
+              ? "max-w-md"
+              : event.winners.length === 2
+              ? "md:grid-cols-2"
+              : "md:grid-cols-3"
+          }`}
+        >
           {event.winners.map((w, idx) => {
             const isMe = w.uid === currentUid;
             return (
@@ -83,9 +91,14 @@ export const WinnersPodiumCard: React.FC<WinnersPodiumCardProps> = ({
                         ? "🥈"
                         : w.rank === 3
                         ? "🥉"
+                        : w.rank > 3
+                        ? "🏅"
                         : "🎉"}
                     </span>
-                    <span>{w.prizeLabel}</span>
+                    <span>
+                      {w.rank > 3 ? `#${w.rank} • ` : ""}
+                      {w.prizeLabel}
+                    </span>
                   </span>
                   {w.distributed ? (
                     <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-emerald-100 dark:bg-emerald-950/60 text-emerald-700 dark:text-emerald-300 text-[10px] font-bold">

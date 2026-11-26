@@ -26,14 +26,14 @@ export const MINIGAME_TYPE_META: Record<
 > = {
   horse_race: {
     label: "Đua Ngựa Tranh Cúp",
-    shortDesc: "Chia vòng 4 / 8 / 16 / 32 người chơi, tranh Giải Nhất - Nhì - Ba trực tiếp",
+    shortDesc: "Hỗ trợ từ 2 / 4 / 8 / 16 / 32 người chơi, tùy chỉnh số lượng giải thưởng & mức thưởng bất kỳ",
     badge: "Đua tốc độ",
     gradient: "from-emerald-600 to-teal-600",
     emoji: "🐎",
   },
   bee_race: {
     label: "Đua Ong Về Tổ",
-    shortDesc: "Đàn ong vỗ cánh tăng tốc qua các vòng loại 4 / 8 / 16 / 32 người chơi",
+    shortDesc: "Đàn ong vỗ cánh bứt tốc từ 2 / 4 / 8 / 16 / 32 người chơi với cơ cấu giải thưởng tùy biến",
     badge: "Đua tốc độ",
     gradient: "from-amber-500 to-yellow-600",
     emoji: "🐝",
@@ -61,6 +61,16 @@ export const MINIGAME_TYPE_META: Record<
   },
 };
 
+export function getDefaultRankLabel(rank: number): string {
+  if (rank === 0) return "Giải đồng hạng";
+  if (rank === 1) return "Giải Nhất";
+  if (rank === 2) return "Giải Nhì";
+  if (rank === 3) return "Giải Ba";
+  if (rank === 4) return "Giải Tư";
+  if (rank === 5) return "Giải Năm";
+  return `Giải Hạng #${rank}`;
+}
+
 export function findPrizeForRank(prizes: MinigamePrize[], rank: number): MinigamePrize | null {
   return (
     prizes.find((p) => p.rank === rank) ||
@@ -69,18 +79,24 @@ export function findPrizeForRank(prizes: MinigamePrize[], rank: number): Minigam
   );
 }
 
+/**
+ * Builds race winner records for ALL configured prizes (supports 1, 2, 3, 4, 5, ... N prizes,
+ * as well as optional collective rank=0 consolation prizes).
+ */
 export function buildRaceWinners(
-  podiumUids: string[],
+  rankedUids: string[],
   participants: Record<string, MinigameParticipant>,
   prizes: MinigamePrize[],
   finalFinishTimesMs: Record<string, number>
 ): MinigameWinnerRecord[] {
   const winners: MinigameWinnerRecord[] = [];
-  podiumUids.slice(0, 3).forEach((uid, idx) => {
+  rankedUids.forEach((uid, idx) => {
     const rank = idx + 1;
     const p = participants[uid];
     if (!p) return;
-    const prize = findPrizeForRank(prizes, rank);
+    const exactPrize = prizes.find((pr) => pr.rank === rank) || null;
+    const collectivePrize = prizes.find((pr) => pr.rank === 0) || null;
+    const prize = exactPrize || collectivePrize;
     if (!prize) return;
     const timeSec = finalFinishTimesMs[uid]
       ? `${(finalFinishTimesMs[uid] / 1000).toFixed(2)}s`
@@ -89,8 +105,8 @@ export function buildRaceWinners(
       uid,
       displayName: p.displayName,
       isBot: Boolean(p.isBot),
-      rank,
-      prizeLabel: prize.label || `Giải ${rank === 1 ? "Nhất" : rank === 2 ? "Nhì" : "Ba"}`,
+      rank: exactPrize ? rank : 0,
+      prizeLabel: prize.label || getDefaultRankLabel(exactPrize ? rank : 0),
       prizeType: prize.type,
       amountVnd: prize.amountVnd,
       voucherCode: prize.voucherCode,
@@ -119,28 +135,36 @@ export function evaluateTaiXiuWinners(
     taiXiuOutcome: outcome,
   };
 
-  const prize = findPrizeForRank(prizes, 0) || findPrizeForRank(prizes, 1);
-  if (!prize) return { result, winners: [] };
+  if (!prizes || prizes.length === 0) return { result, winners: [] };
 
   const matched = Object.values(participants)
     .filter((p) => p.prediction === outcome)
     .sort((a, b) => a.joinedAt - b.joinedAt);
 
-  const winners: MinigameWinnerRecord[] = matched.map((p) => ({
-    uid: p.uid,
-    displayName: p.displayName,
-    isBot: Boolean(p.isBot),
-    rank: 0,
-    prizeLabel: prize.label || "Người dự đoán đúng",
-    prizeType: prize.type,
-    amountVnd: prize.amountVnd,
-    voucherCode: prize.voucherCode,
-    customTitle: prize.customTitle,
-    matchDetail: `Đoán đúng ${outcome === "tai" ? "TÀI" : "XỈU"} (Tổng ${sum})`,
-    distributed: false,
-    distributedAt: null,
-    walletTransactionId: null,
-  }));
+  const collectivePrize = prizes.find((pr) => pr.rank === 0) || null;
+  const winners: MinigameWinnerRecord[] = [];
+
+  matched.forEach((p, idx) => {
+    const pos = idx + 1;
+    const exactPrize = prizes.find((pr) => pr.rank === pos) || null;
+    const prize = exactPrize || collectivePrize;
+    if (!prize) return;
+    winners.push({
+      uid: p.uid,
+      displayName: p.displayName,
+      isBot: Boolean(p.isBot),
+      rank: exactPrize ? pos : 0,
+      prizeLabel: prize.label || (exactPrize ? getDefaultRankLabel(pos) : "Người dự đoán đúng"),
+      prizeType: prize.type,
+      amountVnd: prize.amountVnd,
+      voucherCode: prize.voucherCode,
+      customTitle: prize.customTitle,
+      matchDetail: `Đoán đúng ${outcome === "tai" ? "TÀI" : "XỈU"} (Tổng ${sum})`,
+      distributed: false,
+      distributedAt: null,
+      walletTransactionId: null,
+    });
+  });
 
   return { result, winners };
 }
@@ -155,8 +179,7 @@ export function evaluateBauCuaWinners(
     revealedAtMs,
     bauCuaFaces: faces,
   };
-  const prize = findPrizeForRank(prizes, 0) || findPrizeForRank(prizes, 1);
-  if (!prize) return { result, winners: [] };
+  if (!prizes || prizes.length === 0) return { result, winners: [] };
 
   const faceLabel = (f: string) => BAU_CUA_FACES.find((x) => x.id === f)?.label || f;
   const matched = Object.values(participants)
@@ -167,21 +190,30 @@ export function evaluateBauCuaWinners(
     .filter((item) => item.count > 0)
     .sort((a, b) => b.count - a.count || a.p.joinedAt - b.p.joinedAt);
 
-  const winners: MinigameWinnerRecord[] = matched.map(({ p, count }) => ({
-    uid: p.uid,
-    displayName: p.displayName,
-    isBot: Boolean(p.isBot),
-    rank: 0,
-    prizeLabel: prize.label || "Trúng Bầu Cua",
-    prizeType: prize.type,
-    amountVnd: prize.amountVnd,
-    voucherCode: prize.voucherCode,
-    customTitle: prize.customTitle,
-    matchDetail: `Trúng ${faceLabel(p.prediction || "")} (x${count} viên)`,
-    distributed: false,
-    distributedAt: null,
-    walletTransactionId: null,
-  }));
+  const collectivePrize = prizes.find((pr) => pr.rank === 0) || null;
+  const winners: MinigameWinnerRecord[] = [];
+
+  matched.forEach(({ p, count }, idx) => {
+    const pos = idx + 1;
+    const exactPrize = prizes.find((pr) => pr.rank === pos) || null;
+    const prize = exactPrize || collectivePrize;
+    if (!prize) return;
+    winners.push({
+      uid: p.uid,
+      displayName: p.displayName,
+      isBot: Boolean(p.isBot),
+      rank: exactPrize ? pos : 0,
+      prizeLabel: prize.label || (exactPrize ? getDefaultRankLabel(pos) : "Trúng Bầu Cua"),
+      prizeType: prize.type,
+      amountVnd: prize.amountVnd,
+      voucherCode: prize.voucherCode,
+      customTitle: prize.customTitle,
+      matchDetail: `Trúng ${faceLabel(p.prediction || "")} (x${count} viên)`,
+      distributed: false,
+      distributedAt: null,
+      walletTransactionId: null,
+    });
+  });
 
   return { result, winners };
 }
@@ -202,6 +234,8 @@ export function evaluateLuckyNumberWinners(
     luckyNumber: cleanTarget,
   };
 
+  if (!prizes || prizes.length === 0) return { result, winners: [] };
+
   const exactMatches = Object.values(participants)
     .filter((p) => {
       if (p.prediction === undefined || !/^\d{1,2}$/.test(p.prediction)) return false;
@@ -212,20 +246,20 @@ export function evaluateLuckyNumberWinners(
   const targetFormatted = String(cleanTarget).padStart(2, "0");
   const winners: MinigameWinnerRecord[] = [];
   const collectivePrize = prizes.find((pr) => pr.rank === 0) || null;
-  const fallbackPrize = collectivePrize || prizes[prizes.length - 1] || null;
 
   exactMatches.forEach((p, idx) => {
-    const rank = collectivePrize ? 0 : idx + 1;
-    const prize = findPrizeForRank(prizes, rank) || fallbackPrize;
+    const pos = idx + 1;
+    const exactPrize = prizes.find((pr) => pr.rank === pos) || null;
+    const prize = exactPrize || collectivePrize;
     if (!prize) return;
     winners.push({
       uid: p.uid,
       displayName: p.displayName,
       isBot: Boolean(p.isBot),
-      rank: collectivePrize ? 0 : rank,
+      rank: exactPrize ? pos : 0,
       prizeLabel:
         prize.label ||
-        (collectivePrize ? "Trúng Số May Mắn" : `Trúng Số May Mắn (#${idx + 1})`),
+        (exactPrize ? getDefaultRankLabel(pos) : "Trúng Số May Mắn"),
       prizeType: prize.type,
       amountVnd: prize.amountVnd,
       voucherCode: prize.voucherCode,

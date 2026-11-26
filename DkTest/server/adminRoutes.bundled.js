@@ -5492,7 +5492,8 @@ function buildInitialRaceHeats(participantUids, racersPerHeat, seed, durationMs 
   }
   const perHeat = Math.max(2, Math.min(8, Math.trunc(racersPerHeat) || 4));
   const shuffled = seededShuffle(unique, seed);
-  if (shuffled.length <= perHeat) {
+  const heatCount = shuffled.length <= perHeat ? 1 : Math.max(1, Math.min(Math.ceil(shuffled.length / perHeat), Math.floor(shuffled.length / 2)));
+  if (heatCount === 1) {
     return [
       {
         heatId: "r0_h0",
@@ -5502,7 +5503,7 @@ function buildInitialRaceHeats(participantUids, racersPerHeat, seed, durationMs 
         isFinal: true,
         status: "pending",
         laneUids: shuffled,
-        advanceCount: Math.min(3, shuffled.length),
+        advanceCount: shuffled.length,
         seed: seed + 101,
         startAtMs: null,
         durationMs,
@@ -5512,7 +5513,6 @@ function buildInitialRaceHeats(participantUids, racersPerHeat, seed, durationMs 
       }
     ];
   }
-  const heatCount = Math.ceil(shuffled.length / perHeat);
   const heats = [];
   const baseSize = Math.floor(shuffled.length / heatCount);
   const remainder = shuffled.length % heatCount;
@@ -5547,19 +5547,48 @@ function buildInitialRaceHeats(participantUids, racersPerHeat, seed, durationMs 
   }
   return heats;
 }
+function buildFullTournamentRanking(heats) {
+  const maxRound = Math.max(...heats.map((h) => h.roundIndex));
+  const ranked = [];
+  const seen = /* @__PURE__ */ new Set();
+  for (let r = maxRound; r >= 0; r--) {
+    const roundHeats = heats.filter((h) => h.roundIndex === r);
+    const entries = [];
+    for (const h of roundHeats) {
+      h.finishOrder.forEach((uid, pos) => {
+        if (!seen.has(uid)) {
+          entries.push({
+            uid,
+            pos,
+            timeMs: h.finishTimesMs[uid] ?? Number.MAX_SAFE_INTEGER
+          });
+        }
+      });
+    }
+    entries.sort((a, b) => a.pos - b.pos || a.timeMs - b.timeMs);
+    for (const e of entries) {
+      if (!seen.has(e.uid)) {
+        seen.add(e.uid);
+        ranked.push(e.uid);
+      }
+    }
+  }
+  return ranked;
+}
 function advanceRaceTournamentIfReady(heats, racersPerHeat, seed, durationMs = 14e3) {
   if (heats.length === 0) {
-    return { heats, tournamentFinished: false, podiumUids: [] };
+    return { heats, tournamentFinished: false, podiumUids: [], rankedUids: [] };
   }
   const maxRound = Math.max(...heats.map((h) => h.roundIndex));
   const currentRoundHeats = heats.filter((h) => h.roundIndex === maxRound).sort((a, b) => a.heatIndex - b.heatIndex);
   const allCompleted = currentRoundHeats.every((h) => h.status === "completed");
   if (!allCompleted) {
-    return { heats, tournamentFinished: false, podiumUids: [] };
+    return { heats, tournamentFinished: false, podiumUids: [], rankedUids: [] };
   }
   if (currentRoundHeats.length === 1 && currentRoundHeats[0].isFinal) {
+    const rankedUids = buildFullTournamentRanking(heats);
     const podiumUids = currentRoundHeats[0].finishOrder.slice(0, 3);
-    return { heats, tournamentFinished: true, podiumUids };
+    return { heats, tournamentFinished: true, podiumUids, rankedUids };
   }
   const qualifiers = [];
   for (const h of currentRoundHeats) {
@@ -5568,7 +5597,8 @@ function advanceRaceTournamentIfReady(heats, racersPerHeat, seed, durationMs = 1
   const nextRound = maxRound + 1;
   const perHeat = Math.max(2, Math.min(8, Math.trunc(racersPerHeat) || 4));
   const nextHeats = [];
-  if (qualifiers.length <= perHeat) {
+  const heatCount = qualifiers.length <= perHeat ? 1 : Math.max(1, Math.min(Math.ceil(qualifiers.length / perHeat), Math.floor(qualifiers.length / 2)));
+  if (heatCount === 1) {
     nextHeats.push({
       heatId: `r${nextRound}_h0`,
       roundIndex: nextRound,
@@ -5577,7 +5607,7 @@ function advanceRaceTournamentIfReady(heats, racersPerHeat, seed, durationMs = 1
       isFinal: true,
       status: "pending",
       laneUids: qualifiers,
-      advanceCount: Math.min(3, qualifiers.length),
+      advanceCount: qualifiers.length,
       seed: seed + nextRound * 997,
       startAtMs: null,
       durationMs,
@@ -5586,7 +5616,6 @@ function advanceRaceTournamentIfReady(heats, racersPerHeat, seed, durationMs = 1
       speedProfiles: {}
     });
   } else {
-    const heatCount = Math.ceil(qualifiers.length / perHeat);
     const baseSize = Math.floor(qualifiers.length / heatCount);
     const remainder = qualifiers.length % heatCount;
     const advancePerHeat = Math.max(
@@ -5622,7 +5651,8 @@ function advanceRaceTournamentIfReady(heats, racersPerHeat, seed, durationMs = 1
   return {
     heats: [...heats, ...nextHeats],
     tournamentFinished: false,
-    podiumUids: []
+    podiumUids: [],
+    rankedUids: []
   };
 }
 
@@ -5635,24 +5665,32 @@ var BAU_CUA_FACES = [
   { id: "ga", label: "G\xE0", emoji: "\u{1F413}", color: "from-yellow-500 to-amber-500" },
   { id: "nai", label: "Nai", emoji: "\u{1F98C}", color: "from-violet-500 to-purple-600" }
 ];
-function findPrizeForRank(prizes, rank) {
-  return prizes.find((p) => p.rank === rank) || prizes.find((p) => p.rank === 0) || null;
+function getDefaultRankLabel(rank) {
+  if (rank === 0) return "Gi\u1EA3i \u0111\u1ED3ng h\u1EA1ng";
+  if (rank === 1) return "Gi\u1EA3i Nh\u1EA5t";
+  if (rank === 2) return "Gi\u1EA3i Nh\xEC";
+  if (rank === 3) return "Gi\u1EA3i Ba";
+  if (rank === 4) return "Gi\u1EA3i T\u01B0";
+  if (rank === 5) return "Gi\u1EA3i N\u0103m";
+  return `Gi\u1EA3i H\u1EA1ng #${rank}`;
 }
-function buildRaceWinners(podiumUids, participants, prizes, finalFinishTimesMs) {
+function buildRaceWinners(rankedUids, participants, prizes, finalFinishTimesMs) {
   const winners = [];
-  podiumUids.slice(0, 3).forEach((uid, idx) => {
+  rankedUids.forEach((uid, idx) => {
     const rank = idx + 1;
     const p = participants[uid];
     if (!p) return;
-    const prize = findPrizeForRank(prizes, rank);
+    const exactPrize = prizes.find((pr) => pr.rank === rank) || null;
+    const collectivePrize = prizes.find((pr) => pr.rank === 0) || null;
+    const prize = exactPrize || collectivePrize;
     if (!prize) return;
     const timeSec = finalFinishTimesMs[uid] ? `${(finalFinishTimesMs[uid] / 1e3).toFixed(2)}s` : "";
     winners.push({
       uid,
       displayName: p.displayName,
       isBot: Boolean(p.isBot),
-      rank,
-      prizeLabel: prize.label || `Gi\u1EA3i ${rank === 1 ? "Nh\u1EA5t" : rank === 2 ? "Nh\xEC" : "Ba"}`,
+      rank: exactPrize ? rank : 0,
+      prizeLabel: prize.label || getDefaultRankLabel(exactPrize ? rank : 0),
       prizeType: prize.type,
       amountVnd: prize.amountVnd,
       voucherCode: prize.voucherCode,
@@ -5674,24 +5712,31 @@ function evaluateTaiXiuWinners(dice, participants, prizes, revealedAtMs) {
     diceSum: sum,
     taiXiuOutcome: outcome
   };
-  const prize = findPrizeForRank(prizes, 0) || findPrizeForRank(prizes, 1);
-  if (!prize) return { result, winners: [] };
+  if (!prizes || prizes.length === 0) return { result, winners: [] };
   const matched = Object.values(participants).filter((p) => p.prediction === outcome).sort((a, b) => a.joinedAt - b.joinedAt);
-  const winners = matched.map((p) => ({
-    uid: p.uid,
-    displayName: p.displayName,
-    isBot: Boolean(p.isBot),
-    rank: 0,
-    prizeLabel: prize.label || "Ng\u01B0\u1EDDi d\u1EF1 \u0111o\xE1n \u0111\xFAng",
-    prizeType: prize.type,
-    amountVnd: prize.amountVnd,
-    voucherCode: prize.voucherCode,
-    customTitle: prize.customTitle,
-    matchDetail: `\u0110o\xE1n \u0111\xFAng ${outcome === "tai" ? "T\xC0I" : "X\u1EC8U"} (T\u1ED5ng ${sum})`,
-    distributed: false,
-    distributedAt: null,
-    walletTransactionId: null
-  }));
+  const collectivePrize = prizes.find((pr) => pr.rank === 0) || null;
+  const winners = [];
+  matched.forEach((p, idx) => {
+    const pos = idx + 1;
+    const exactPrize = prizes.find((pr) => pr.rank === pos) || null;
+    const prize = exactPrize || collectivePrize;
+    if (!prize) return;
+    winners.push({
+      uid: p.uid,
+      displayName: p.displayName,
+      isBot: Boolean(p.isBot),
+      rank: exactPrize ? pos : 0,
+      prizeLabel: prize.label || (exactPrize ? getDefaultRankLabel(pos) : "Ng\u01B0\u1EDDi d\u1EF1 \u0111o\xE1n \u0111\xFAng"),
+      prizeType: prize.type,
+      amountVnd: prize.amountVnd,
+      voucherCode: prize.voucherCode,
+      customTitle: prize.customTitle,
+      matchDetail: `\u0110o\xE1n \u0111\xFAng ${outcome === "tai" ? "T\xC0I" : "X\u1EC8U"} (T\u1ED5ng ${sum})`,
+      distributed: false,
+      distributedAt: null,
+      walletTransactionId: null
+    });
+  });
   return { result, winners };
 }
 function evaluateBauCuaWinners(faces, participants, prizes, revealedAtMs) {
@@ -5699,28 +5744,35 @@ function evaluateBauCuaWinners(faces, participants, prizes, revealedAtMs) {
     revealedAtMs,
     bauCuaFaces: faces
   };
-  const prize = findPrizeForRank(prizes, 0) || findPrizeForRank(prizes, 1);
-  if (!prize) return { result, winners: [] };
+  if (!prizes || prizes.length === 0) return { result, winners: [] };
   const faceLabel = (f) => BAU_CUA_FACES.find((x) => x.id === f)?.label || f;
   const matched = Object.values(participants).map((p) => {
     const count = faces.filter((f) => f === p.prediction).length;
     return { p, count };
   }).filter((item) => item.count > 0).sort((a, b) => b.count - a.count || a.p.joinedAt - b.p.joinedAt);
-  const winners = matched.map(({ p, count }) => ({
-    uid: p.uid,
-    displayName: p.displayName,
-    isBot: Boolean(p.isBot),
-    rank: 0,
-    prizeLabel: prize.label || "Tr\xFAng B\u1EA7u Cua",
-    prizeType: prize.type,
-    amountVnd: prize.amountVnd,
-    voucherCode: prize.voucherCode,
-    customTitle: prize.customTitle,
-    matchDetail: `Tr\xFAng ${faceLabel(p.prediction || "")} (x${count} vi\xEAn)`,
-    distributed: false,
-    distributedAt: null,
-    walletTransactionId: null
-  }));
+  const collectivePrize = prizes.find((pr) => pr.rank === 0) || null;
+  const winners = [];
+  matched.forEach(({ p, count }, idx) => {
+    const pos = idx + 1;
+    const exactPrize = prizes.find((pr) => pr.rank === pos) || null;
+    const prize = exactPrize || collectivePrize;
+    if (!prize) return;
+    winners.push({
+      uid: p.uid,
+      displayName: p.displayName,
+      isBot: Boolean(p.isBot),
+      rank: exactPrize ? pos : 0,
+      prizeLabel: prize.label || (exactPrize ? getDefaultRankLabel(pos) : "Tr\xFAng B\u1EA7u Cua"),
+      prizeType: prize.type,
+      amountVnd: prize.amountVnd,
+      voucherCode: prize.voucherCode,
+      customTitle: prize.customTitle,
+      matchDetail: `Tr\xFAng ${faceLabel(p.prediction || "")} (x${count} vi\xEAn)`,
+      distributed: false,
+      distributedAt: null,
+      walletTransactionId: null
+    });
+  });
   return { result, winners };
 }
 function evaluateLuckyNumberWinners(luckyNumber, participants, prizes, revealedAtMs) {
@@ -5729,6 +5781,7 @@ function evaluateLuckyNumberWinners(luckyNumber, participants, prizes, revealedA
     revealedAtMs,
     luckyNumber: cleanTarget
   };
+  if (!prizes || prizes.length === 0) return { result, winners: [] };
   const exactMatches = Object.values(participants).filter((p) => {
     if (p.prediction === void 0 || !/^\d{1,2}$/.test(p.prediction)) return false;
     return Number(p.prediction) === cleanTarget;
@@ -5736,17 +5789,17 @@ function evaluateLuckyNumberWinners(luckyNumber, participants, prizes, revealedA
   const targetFormatted = String(cleanTarget).padStart(2, "0");
   const winners = [];
   const collectivePrize = prizes.find((pr) => pr.rank === 0) || null;
-  const fallbackPrize = collectivePrize || prizes[prizes.length - 1] || null;
   exactMatches.forEach((p, idx) => {
-    const rank = collectivePrize ? 0 : idx + 1;
-    const prize = findPrizeForRank(prizes, rank) || fallbackPrize;
+    const pos = idx + 1;
+    const exactPrize = prizes.find((pr) => pr.rank === pos) || null;
+    const prize = exactPrize || collectivePrize;
     if (!prize) return;
     winners.push({
       uid: p.uid,
       displayName: p.displayName,
       isBot: Boolean(p.isBot),
-      rank: collectivePrize ? 0 : rank,
-      prizeLabel: prize.label || (collectivePrize ? "Tr\xFAng S\u1ED1 May M\u1EAFn" : `Tr\xFAng S\u1ED1 May M\u1EAFn (#${idx + 1})`),
+      rank: exactPrize ? pos : 0,
+      prizeLabel: prize.label || (exactPrize ? getDefaultRankLabel(pos) : "Tr\xFAng S\u1ED1 May M\u1EAFn"),
       prizeType: prize.type,
       amountVnd: prize.amountVnd,
       voucherCode: prize.voucherCode,
@@ -5798,10 +5851,10 @@ var BOT_NAMES = [
   "V\u0103n Ki\xEAn"
 ];
 var prizeSchema = z3.object({
-  rank: z3.number().int().min(0).max(10),
+  rank: z3.number().int().min(0).max(50),
   label: z3.string().trim().min(1).max(120),
   type: z3.enum(["wallet_vnd", "voucher", "custom_gift"]),
-  amountVnd: z3.number().int().min(0).max(5e7).optional(),
+  amountVnd: z3.number().int().min(0).max(1e9).optional(),
   voucherCode: z3.string().trim().max(80).optional(),
   customTitle: z3.string().trim().max(200).optional()
 });
@@ -5811,7 +5864,7 @@ var createMinigameSchema = z3.object({
   gameType: z3.enum(["horse_race", "bee_race", "tai_xiu", "bau_cua", "lucky_number"]),
   maxParticipants: z3.number().int().min(2).max(200).default(8),
   racersPerHeat: z3.number().int().min(2).max(8).optional().default(4),
-  prizes: z3.array(prizeSchema).min(1, "Vui l\xF2ng c\u1EA5u h\xECnh \xEDt nh\u1EA5t 1 gi\u1EA3i th\u01B0\u1EDFng ph\xFAc l\u1EE3i.").max(10)
+  prizes: z3.array(prizeSchema).min(1, "Vui l\xF2ng c\u1EA5u h\xECnh \xEDt nh\u1EA5t 1 gi\u1EA3i th\u01B0\u1EDFng ph\xFAc l\u1EE3i.").max(32, "T\u1ED1i \u0111a 32 gi\u1EA3i th\u01B0\u1EDFng trong m\u1ED9t s\u1EF1 ki\u1EC7n.")
 });
 var joinMinigameSchema = z3.object({
   prediction: z3.string().trim().max(32).optional(),
@@ -5888,10 +5941,8 @@ async function createMinigameEvent(rawInput, actor) {
   let maxParticipants = data.maxParticipants;
   let racersPerHeat = data.racersPerHeat;
   if (isRaceGame(data.gameType)) {
-    if (![4, 8, 16, 32].includes(maxParticipants)) {
-      maxParticipants = 8;
-    }
-    racersPerHeat = racersPerHeat >= 8 ? 8 : 4;
+    maxParticipants = Math.max(2, Math.min(64, Math.trunc(maxParticipants) || 2));
+    racersPerHeat = Math.max(2, Math.min(8, Math.trunc(racersPerHeat) || 4));
     if (racersPerHeat > maxParticipants) racersPerHeat = maxParticipants;
   }
   const now = (/* @__PURE__ */ new Date()).toISOString();
@@ -6153,11 +6204,15 @@ async function completeRaceHeat(eventId, heatId) {
   if (advanced.tournamentFinished) {
     status = "finished";
     const finalHeat = advanced.heats.find((h) => h.isFinal);
+    const mergedFinishTimesMs = {};
+    for (const h of [...advanced.heats].sort((a, b) => a.roundIndex - b.roundIndex)) {
+      Object.assign(mergedFinishTimesMs, h.finishTimesMs || {});
+    }
     winners = buildRaceWinners(
-      advanced.podiumUids,
+      advanced.rankedUids,
       event.participants,
       event.prizes,
-      finalHeat?.finishTimesMs || {}
+      mergedFinishTimesMs
     );
     nextActiveHeatId = finalHeat?.heatId || currentHeat.heatId;
   }
