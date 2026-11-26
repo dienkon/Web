@@ -19,6 +19,7 @@ import {
   Filter,
 } from "lucide-react";
 import type { Question } from "../../types";
+import { gradeMatchingQuestion } from "../../utils/matchingUtils";
 
 export type QuestionAnswerStatus = "correct" | "incorrect" | "partial" | "unanswered";
 
@@ -94,24 +95,13 @@ export function evaluateQuestionStatus(q: Question, ans: any): QuestionAnswerSta
   }
 
   if (q.type === "matching") {
-    if (q.correctMatches) {
-      const correctMap = q.correctMatches;
-      const keys = Object.keys(correctMap);
-      if (keys.length === 0) return "unanswered";
-      let correctMatches = 0;
-      keys.forEach((k) => {
-        if (String(ans?.[k] || "").trim().toLowerCase() === String(correctMap[k] || "").trim().toLowerCase()) {
-          correctMatches++;
-        }
-      });
-      if (correctMatches === keys.length) return "correct";
-      if (correctMatches > 0) return "partial";
-      return "incorrect";
+    if (q.correctMatches !== undefined) {
+      return gradeMatchingQuestion(q, ans, 1).status;
     }
     const pairs = (q as any).matchingPairs || [];
     if (pairs.length === 0) return "unanswered";
     let correctMatches = 0;
-    pairs.forEach((p) => {
+    pairs.forEach((p: any) => {
       if (ans?.[p.id] === p.matchTargetId) correctMatches++;
     });
     if (correctMatches === pairs.length) return "correct";

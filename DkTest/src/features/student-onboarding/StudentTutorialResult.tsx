@@ -40,6 +40,7 @@ import {
 import LatexPreview from "../exam-builder/editor/LatexPreview";
 import InteractiveFillBlankText from "../../components/exam/InteractiveFillBlankText";
 import InteractiveMatchingBoard from "../../components/exam/InteractiveMatchingBoard";
+import { formatMatchingPairsSummary, resolveMatchingMode } from "../../utils/matchingUtils";
 import QuestionTimeAnalysisChart from "../../components/exam/QuestionTimeAnalysisChart";
 import ProgressAccumulationChart from "../../components/exam/ProgressAccumulationChart";
 import ExamResultCharts from "../../components/exam/ExamResultCharts";
@@ -614,16 +615,28 @@ export default function StudentTutorialResult() {
                   </div>
 
                   {/* Summary Comparison */}
-                  <div className="p-3 bg-slate-50/80 rounded-2xl border border-slate-200/80 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 text-xs">
-                    <div>
-                      <span className="font-bold text-slate-500">Bài làm của bạn: </span>
-                      <strong className={isCorrect ? "text-emerald-700" : "text-red-600"}>
-                        {typeof studentAns === "object"
-                          ? JSON.stringify(studentAns)
-                          : String(studentAns || "Chưa trả lời")}
-                      </strong>
+                  {q.type === "matching" ? (
+                    <InteractiveMatchingBoard
+                      isReview={true}
+                      readOnly={true}
+                      matchingMode={resolveMatchingMode(q)}
+                      leftItems={q.matchingLeft || []}
+                      rightItems={q.matchingRight || []}
+                      matches={typeof studentAns === "object" && studentAns ? studentAns : {}}
+                      correctMatches={q.correctMatches || {}}
+                    />
+                  ) : (
+                    <div className="p-3 bg-slate-50/80 rounded-2xl border border-slate-200/80 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 text-xs">
+                      <div>
+                        <span className="font-bold text-slate-500">Bài làm của bạn: </span>
+                        <strong className={isCorrect ? "text-emerald-700" : "text-red-600"}>
+                          {typeof studentAns === "object"
+                            ? formatMatchingPairsSummary(studentAns) || JSON.stringify(studentAns)
+                            : String(studentAns || "Chưa trả lời")}
+                        </strong>
+                      </div>
                     </div>
-                  </div>
+                  )}
 
                   {/* Explanation Toggle */}
                   {q.explanation && (

@@ -4,7 +4,14 @@
  */
 
 import { v4 as uuidv4 } from "uuid";
-import type { Question, Section, QuestionType } from "../../../types";
+import type { Question, Section, MatchingItem, MatchingMode } from "../../../types";
+import {
+  getLeftItemLabel,
+  getRightItemLabel,
+  normalizeMatchesToArrayMap,
+  resolveMatchingMode,
+  serializeMatchesMap,
+} from "../../../utils/matchingUtils";
 
 /**
  * Convert structured sections and questions into formatted Vietnamese exam text.
@@ -17,7 +24,6 @@ export function questionsToExamText(sections: Section[], questions: Question[]):
   const lines: string[] = [];
   const renderedQuestions = new Set<string>();
 
-  // Helper to render a question block
   const renderQuestionBlock = (q: Question, idx: number) => {
     renderedQuestions.add(q.id);
     const levelTag = q.level ? `(${q.level.toUpperCase()}) ` : "";
@@ -26,7 +32,6 @@ export function questionsToExamText(sections: Section[], questions: Question[]):
     if (q.type === "single_choice" || q.type === "multiple_choice" || !q.type) {
       const opts = q.options || [];
       if (opts.length === 4) {
-        // Render 2 lines of 2 options if short, or 4 lines
         const oA = opts[0]?.text || "";
         const oB = opts[1]?.text || "";
         const oC = opts[2]?.text || "";
@@ -52,7 +57,47 @@ export function questionsToExamText(sections: Section[], questions: Question[]):
         lines.push(`${letter}) ${st.text || ""} [${st.correctAnswer ? "ĐÚNG" : "SAI"}]`);
       });
     } else if (q.type === "short_answer") {
-      lines.push(`Đáp án ngắn: ${(q.acceptedAnswers || []).join(", ")}`);
+      lines.push(`Đáp án ngắn: ${(q.acceptedAnswers || []).join("; ")}`);
+    } else if (q.type === "fill_blank") {
+      const entries = Object.entries(q.acceptedAnswersPerBlank || {});
+      if (entries.length > 0) {
+        const formatted = entries
+          .map(([bIdx, arr]) => `[${Number(bIdx) + 1}] ${(Array.isArray(arr) ? arr : [String(arr)]).join(", ")}`)
+          .join("; ");
+        lines.push(`Đáp án điền từ: ${formatted}`);
+      }
+    } else if (q.type === "ordering") {
+      lines.push("[Sắp xếp thứ tự]");
+      const orderedItems =
+        q.correctOrder && q.correctOrder.length > 0
+          ? q.correctOrder
+              .map((id) => (q.orderingItems || []).find((it) => it.id === id))
+              .filter(Boolean)
+          : q.orderingItems || [];
+      orderedItems.forEach((it, oIdx) => {
+        if (it) lines.push(`${oIdx + 1}) ${it.text || ""}`);
+      });
+    } else if (q.type === "matching") {
+      const mode = resolveMatchingMode(q);
+      lines.push(mode === "multiple" ? "[Nối bảng: nối nhiều]" : "[Nối bảng: 1-1]");
+      lines.push("Cột 1:");
+      (q.matchingLeft || []).forEach((it, lIdx) => {
+        lines.push(`${getLeftItemLabel(lIdx, it)}. ${it.text || ""}`);
+      });
+      lines.push("Cột 2:");
+      (q.matchingRight || []).forEach((it, rIdx) => {
+        lines.push(`${getRightItemLabel(rIdx, it)}. ${it.text || ""}`);
+      });
+      const normMap = normalizeMatchesToArrayMap(
+        q.correctMatches,
+        q.matchingLeft,
+        q.matchingRight
+      );
+      const pairsStr = Object.entries(normMap)
+        .filter(([_, arr]) => arr.length > 0)
+        .map(([lKey, rTargets]) => `${lKey}-${rTargets.join(", ")}`)
+        .join("; ");
+      lines.push(`Đáp án nối: ${pairsStr || "Không nối"}`);
     } else if (q.type === "essay") {
       if (q.essayRubric) {
         lines.push(`Barem tự luận: ${q.essayRubric}`);
@@ -61,26 +106,31 @@ export function questionsToExamText(sections: Section[], questions: Question[]):
 
     // Explanation / Lời giải
     const hasExplanation = !!q.explanation;
-    const correctLetter =
-      q.type === "single_choice" && q.correctOptionIds && q.correctOptionIds.length > 0
-        ? (() => {
-            const cIdx = q.options?.findIndex((o) => o.id === q.correctOptionIds![0]);
-            return cIdx !== undefined && cIdx >= 0 ? String.fromCharCode(65 + cIdx) : null;
-          })()
+    const correctLetters =
+      (q.type === "single_choice" || q.type === "multiple_choice") &&
+      q.correctOptionIds &&
+      q.correctOptionIds.length > 0
+        ? q.correctOptionIds
+            .map((cid) => {
+              const cIdx = q.options?.findIndex((o) => o.id === cid);
+              return cIdx !== undefined && cIdx >= 0 ? String.fromCharCode(65 + cIdx) : null;
+            })
+            .filter(Boolean)
+            .join(", ")
         : null;
 
-    if (hasExplanation || correctLetter) {
+    if (hasExplanation || correctLetters) {
       lines.push("");
       lines.push("Lời giải");
       if (q.explanation) {
         lines.push(q.explanation);
       }
-      if (correctLetter) {
-        lines.push(`Chọn ${correctLetter}`);
+      if (correctLetters) {
+        lines.push(`Chọn ${correctLetters}`);
       }
     }
 
-    lines.push(""); // Empty line between questions
+    lines.push("");
   };
 
   if (sections.length > 0) {
@@ -94,7 +144,6 @@ export function questionsToExamText(sections: Section[], questions: Question[]):
       });
     });
 
-    // Any orphan questions without section
     const orphanQuestions = questions.filter((q) => !renderedQuestions.has(q.id));
     orphanQuestions.forEach((q) => {
       renderQuestionBlock(q, globalIndex);
@@ -110,6 +159,44 @@ export function questionsToExamText(sections: Section[], questions: Question[]):
 }
 
 /**
+ * Parse matching answer line such as "1-b; 2-a, c" or "1->b, 2->a" or "Không nối"
+ */
+export function parseMatchingAnswerLine(
+  rawSpec: string,
+  mode: MatchingMode,
+  leftItems?: MatchingItem[],
+  rightItems?: MatchingItem[]
+) {
+  const cleaned = rawSpec.trim();
+  if (!cleaned || /^không\s*nối$/i.test(cleaned) || /^trống$/i.test(cleaned)) {
+    return {};
+  }
+
+  const rawMap: Record<string, string[]> = {};
+  const segments = /[;|]/.test(cleaned)
+    ? cleaned.split(/[;|]/)
+    : cleaned.split(/,\s*(?=[^\s,;=-]+\s*(?:->|➔|-|=))/);
+
+  for (const seg of segments) {
+    const trimmedSeg = seg.trim();
+    if (!trimmedSeg) continue;
+    const match = trimmedSeg.match(/^([^\s,;=-]+)\s*(?:->|➔|-|=)\s*(.+)$/);
+    if (!match) continue;
+    const lKey = match[1].trim();
+    const rList = match[2]
+      .split(",")
+      .map((s) => s.trim())
+      .filter(Boolean);
+    if (lKey && rList.length > 0) {
+      rawMap[lKey] = [...(rawMap[lKey] || []), ...rList];
+    }
+  }
+
+  const normalized = normalizeMatchesToArrayMap(rawMap, leftItems, rightItems);
+  return serializeMatchesMap(normalized, mode);
+}
+
+/**
  * Parse standard Vietnamese exam syntax into sections and questions.
  */
 export function examTextToQuestions(text: string): { sections: Section[]; questions: Question[] } {
@@ -119,7 +206,8 @@ export function examTextToQuestions(text: string): { sections: Section[]; questi
 
   let currentSection: Section | null = null;
   let currentQuestion: Partial<Question> | null = null;
-  let currentSectionQuestionsCount = 0;
+  let matchingColumn: "left" | "right" | null = null;
+  let pendingMatchingSpec: string | null = null;
   let isInExplanation = false;
   let explanationLines: string[] = [];
 
@@ -130,29 +218,63 @@ export function examTextToQuestions(text: string): { sections: Section[]; questi
       currentQuestion.explanation = explanationLines.join("\n").trim();
     }
 
-    // Check if correct option wasn't picked yet
+    // Finalize matching pairs once all left & right items are known
+    if (currentQuestion.type === "matching") {
+      const mode: MatchingMode = currentQuestion.matchingMode || "one_to_one";
+      if (pendingMatchingSpec !== null) {
+        currentQuestion.correctMatches = parseMatchingAnswerLine(
+          pendingMatchingSpec,
+          mode,
+          currentQuestion.matchingLeft,
+          currentQuestion.matchingRight
+        );
+      } else if (!currentQuestion.correctMatches) {
+        currentQuestion.correctMatches = {};
+      }
+    }
+
+    // Check if fill_blank placeholders exist in prompt when no choice options were parsed
     if (
       currentQuestion.type === "single_choice" &&
+      (!currentQuestion.options || currentQuestion.options.length === 0) &&
+      /\[_\]|\[blank\]/i.test(currentQuestion.text || "")
+    ) {
+      currentQuestion.type = "fill_blank";
+      if (!currentQuestion.acceptedAnswersPerBlank) {
+        currentQuestion.acceptedAnswersPerBlank = {};
+      }
+    }
+
+    // Check if correct option(s) were specified in explanation
+    if (
+      (currentQuestion.type === "single_choice" || currentQuestion.type === "multiple_choice") &&
       (!currentQuestion.correctOptionIds || currentQuestion.correctOptionIds.length === 0) &&
       currentQuestion.explanation
     ) {
-      const match = currentQuestion.explanation.match(/Chọn\s+([A-D])/i);
-      if (match) {
-        const letter = match[1].toUpperCase();
-        const letterIdx = letter.charCodeAt(0) - 65;
-        if (currentQuestion.options && currentQuestion.options[letterIdx]) {
-          currentQuestion.correctOptionIds = [currentQuestion.options[letterIdx].id];
+      const match = currentQuestion.explanation.match(/Chọn\s+([A-D](?:\s*,\s*[A-D])*)/i);
+      if (match && currentQuestion.options) {
+        const pickedLetters = match[1]
+          .split(",")
+          .map((s) => s.trim().toUpperCase())
+          .filter(Boolean);
+        const ids = pickedLetters
+          .map((letter) => currentQuestion!.options?.[letter.charCodeAt(0) - 65]?.id)
+          .filter(Boolean) as string[];
+        if (ids.length > 0) {
+          currentQuestion.correctOptionIds = ids;
+          if (ids.length > 1) currentQuestion.type = "multiple_choice";
         }
       }
     }
 
-    // Default 1 point or 0.25 point
     if (!currentQuestion.points) {
       currentQuestion.points = 0.25;
     }
 
     questions.push(currentQuestion as Question);
     currentQuestion = null;
+    matchingColumn = null;
+    pendingMatchingSpec = null;
     isInExplanation = false;
     explanationLines = [];
   };
@@ -165,7 +287,7 @@ export function examTextToQuestions(text: string): { sections: Section[]; questi
       continue;
     }
 
-    // 1. Detect Section Header (Phần 1, Phần I, Phần một...)
+    // 1. Detect Section Header (Phần 1, Phần I, ...)
     const sectionMatch = line.match(/^Phần\s+([0-9IVXLCDM]+|[A-Z])[\.:\s]*(.*)$/i);
     if (sectionMatch && !line.toLowerCase().startsWith("phương pháp")) {
       finalizeQuestion();
@@ -182,7 +304,7 @@ export function examTextToQuestions(text: string): { sections: Section[]; questi
       continue;
     }
 
-    // 2. Detect Question (Câu 1., Câu 2:, Bài 1., etc.)
+    // 2. Detect Question (Câu 1., Câu 2:, ...)
     const questionMatch = line.match(/^Câu\s+(\d+)[\.:\s]*(?:\(([A-Za-z0-9]+)\))?\s*(.*)$/i);
     if (questionMatch) {
       finalizeQuestion();
@@ -211,57 +333,155 @@ export function examTextToQuestions(text: string): { sections: Section[]; questi
     // 3. Detect "Lời giải" or "Hướng dẫn giải"
     if (/^(Lời giải|Hướng dẫn giải|Giải chi tiết)/i.test(line)) {
       isInExplanation = true;
+      matchingColumn = null;
       continue;
     }
 
-    // 4. If currently in Explanation block
+    // 4. Inside Explanation block
     if (isInExplanation && currentQuestion) {
-      // Check for "Chọn A / B / C / D"
-      const chonMatch = line.match(/^Chọn\s+([A-D])/i);
-      if (chonMatch && currentQuestion.options) {
-        const letter = chonMatch[1].toUpperCase();
-        const letterIdx = letter.charCodeAt(0) - 65;
-        if (currentQuestion.options[letterIdx]) {
-          currentQuestion.correctOptionIds = [currentQuestion.options[letterIdx].id];
+      const chonMatch = line.match(/^Chọn\s+([A-D](?:\s*,\s*[A-D])*)/i);
+      if (chonMatch && currentQuestion.options && currentQuestion.options.length > 0) {
+        const pickedLetters = chonMatch[1]
+          .split(",")
+          .map((s) => s.trim().toUpperCase())
+          .filter(Boolean);
+        const ids = pickedLetters
+          .map((letter) => currentQuestion!.options?.[letter.charCodeAt(0) - 65]?.id)
+          .filter(Boolean) as string[];
+        if (ids.length > 0) {
+          currentQuestion.correctOptionIds = ids;
+          if (ids.length > 1) currentQuestion.type = "multiple_choice";
+        }
+      } else {
+        explanationLines.push(line);
+      }
+      continue;
+    }
+
+    if (!currentQuestion) continue;
+
+    // 5. Detect Matching Mode Marker & Columns (`[Nối bảng...]`, `Cột 1:`, `Cột 2:`, `Đáp án nối:`)
+    if (/^\[Nối\s*bảng(?:\s*:\s*(.*?))?\]$/i.test(line)) {
+      currentQuestion.type = "matching";
+      currentQuestion.matchingMode = /nhiều|multiple/i.test(line) ? "multiple" : "one_to_one";
+      currentQuestion.matchingLeft = currentQuestion.matchingLeft || [];
+      currentQuestion.matchingRight = currentQuestion.matchingRight || [];
+      currentQuestion.correctMatches = currentQuestion.correctMatches || {};
+      delete currentQuestion.options;
+      delete currentQuestion.correctOptionIds;
+      continue;
+    }
+
+    if (/^Cột\s*1\s*:?$/i.test(line)) {
+      currentQuestion.type = "matching";
+      currentQuestion.matchingMode = currentQuestion.matchingMode || "one_to_one";
+      currentQuestion.matchingLeft = currentQuestion.matchingLeft || [];
+      currentQuestion.matchingRight = currentQuestion.matchingRight || [];
+      delete currentQuestion.options;
+      delete currentQuestion.correctOptionIds;
+      matchingColumn = "left";
+      continue;
+    }
+
+    if (/^Cột\s*2\s*:?$/i.test(line)) {
+      currentQuestion.type = "matching";
+      currentQuestion.matchingMode = currentQuestion.matchingMode || "one_to_one";
+      currentQuestion.matchingLeft = currentQuestion.matchingLeft || [];
+      currentQuestion.matchingRight = currentQuestion.matchingRight || [];
+      matchingColumn = "right";
+      continue;
+    }
+
+    const matchAnsLine = line.match(/^Đáp\s*án\s*nối\s*:\s*(.*)$/i);
+    if (matchAnsLine) {
+      currentQuestion.type = "matching";
+      matchingColumn = null;
+      pendingMatchingSpec = matchAnsLine[1].trim();
+      continue;
+    }
+
+    if (currentQuestion.type === "matching") {
+      if (matchingColumn === "left") {
+        const leftItemMatch = line.match(/^([0-9]+)[\.\)]\s*(.*)$/);
+        if (leftItemMatch) {
+          currentQuestion.matchingLeft!.push({
+            id: `ml_${uuidv4().substring(0, 6)}`,
+            label: leftItemMatch[1],
+            text: leftItemMatch[2].trim(),
+          });
+          continue;
+        }
+      } else if (matchingColumn === "right") {
+        const rightItemMatch = line.match(/^([a-zA-Z0-9]+)[\.\)]\s*(.*)$/);
+        if (rightItemMatch) {
+          currentQuestion.matchingRight!.push({
+            id: `mr_${uuidv4().substring(0, 6)}`,
+            label: rightItemMatch[1].toLowerCase(),
+            text: rightItemMatch[2].trim(),
+          });
+          continue;
         }
       }
-      explanationLines.push(line);
       continue;
     }
 
-    // 5. Options parsing (Single line with A. ... B. ... or single option A. ...)
-    if (currentQuestion && (currentQuestion.type === "single_choice" || currentQuestion.type === "multiple_choice")) {
-      // Check multiple options in same line: e.g. "A. Cat    B. Dog"
-      const multiOptRegex = /([A-D])[\.:]\s*([^A-D\t]+?)(?=(?:\s+[A-D][\.:]|$))/g;
-      const matches = Array.from(rawLine.matchAll(multiOptRegex));
+    // 6. Detect Ordering Marker (`[Sắp xếp thứ tự]`)
+    if (/^\[Sắp\s*xếp(?:\s*thứ\s*tự)?\]$/i.test(line)) {
+      currentQuestion.type = "ordering";
+      currentQuestion.orderingItems = [];
+      currentQuestion.correctOrder = [];
+      delete currentQuestion.options;
+      delete currentQuestion.correctOptionIds;
+      continue;
+    }
 
-      if (matches.length > 0) {
-        if (!currentQuestion.options) currentQuestion.options = [];
-        matches.forEach((m) => {
-          const letter = m[1].toUpperCase();
-          const optText = m[2].trim();
-          const optId = `opt_${uuidv4().substring(0, 6)}`;
-          currentQuestion!.options!.push({
-            id: optId,
-            text: optText,
-          });
-        });
+    if (currentQuestion.type === "ordering") {
+      const ordMatch = line.match(/^(\d+)[\.\)]\s*(.*)$/);
+      if (ordMatch) {
+        const itemId = `ord_${uuidv4().substring(0, 6)}`;
+        currentQuestion.orderingItems!.push({ id: itemId, text: ordMatch[2].trim() });
+        currentQuestion.correctOrder!.push(itemId);
         continue;
       }
+    }
 
-      // Check single option: e.g. "A. Đáp án này"
-      const singleOptMatch = line.match(/^([A-D])[\.:]\s*(.*)$/);
-      if (singleOptMatch) {
-        if (!currentQuestion.options) currentQuestion.options = [];
-        const optId = `opt_${uuidv4().substring(0, 6)}`;
-        currentQuestion.options.push({
-          id: optId,
-          text: singleOptMatch[2].trim(),
-        });
-        continue;
-      }
+    // 7. Short Answer / Fill Blank explicit answer lines
+    const shortAnsMatch = line.match(/^Đáp\s*án\s*ngắn\s*:\s*(.*)$/i);
+    if (shortAnsMatch) {
+      currentQuestion.type = "short_answer";
+      currentQuestion.acceptedAnswers = shortAnsMatch[1]
+        .split(/[;,]/)
+        .map((s) => s.trim())
+        .filter(Boolean);
+      delete currentQuestion.options;
+      delete currentQuestion.correctOptionIds;
+      continue;
+    }
 
-      // Check True/False statements: e.g. "a) Phát biểu 1 [ĐÚNG]"
+    const fillBlankAnsMatch = line.match(/^Đáp\s*án\s*điền\s*từ\s*:\s*(.*)$/i);
+    if (fillBlankAnsMatch) {
+      currentQuestion.type = "fill_blank";
+      const perBlank: Record<number, string[]> = {};
+      const parts = fillBlankAnsMatch[1].split(";").map((s) => s.trim()).filter(Boolean);
+      parts.forEach((part, fallbackIdx) => {
+        const idxMatch = part.match(/^\[(\d+)\]\s*(.*)$/);
+        const bIdx = idxMatch ? Math.max(0, parseInt(idxMatch[1], 10) - 1) : fallbackIdx;
+        const rawVals = idxMatch ? idxMatch[2] : part;
+        perBlank[bIdx] = rawVals.split(",").map((s) => s.trim()).filter(Boolean);
+      });
+      currentQuestion.acceptedAnswersPerBlank = perBlank;
+      delete currentQuestion.options;
+      delete currentQuestion.correctOptionIds;
+      continue;
+    }
+
+    // 8. Choice Options / True-False / Essay parsing
+    if (
+      currentQuestion.type === "single_choice" ||
+      currentQuestion.type === "multiple_choice" ||
+      currentQuestion.type === "true_false"
+    ) {
+      // True/False statements: "a) Phát biểu 1 [ĐÚNG]"
       const tfMatch = line.match(/^([a-d])\)\s*(.*?)(?:\s*\[(ĐÚNG|SAI)\])?$/i);
       if (tfMatch) {
         currentQuestion.type = "true_false";
@@ -275,14 +495,45 @@ export function examTextToQuestions(text: string): { sections: Section[]; questi
         continue;
       }
 
-      // Check Essay Prompt/Rubric
+      if (currentQuestion.type !== "true_false") {
+        // Multiple options in same line: "A. Cat    B. Dog"
+        const multiOptRegex = /([A-D])[\.:]\s*([^A-D\t]+?)(?=(?:\s+[A-D][\.:]|$))/g;
+        const matches = Array.from(rawLine.matchAll(multiOptRegex));
+
+        if (matches.length > 0) {
+          if (!currentQuestion.options) currentQuestion.options = [];
+          matches.forEach((m) => {
+            const optText = m[2].trim();
+            const optId = `opt_${uuidv4().substring(0, 6)}`;
+            currentQuestion!.options!.push({
+              id: optId,
+              text: optText,
+            });
+          });
+          continue;
+        }
+
+        // Single option: "A. Đáp án này"
+        const singleOptMatch = line.match(/^([A-D])[\.:]\s*(.*)$/);
+        if (singleOptMatch) {
+          if (!currentQuestion.options) currentQuestion.options = [];
+          const optId = `opt_${uuidv4().substring(0, 6)}`;
+          currentQuestion.options.push({
+            id: optId,
+            text: singleOptMatch[2].trim(),
+          });
+          continue;
+        }
+      }
+
+      // Essay Rubric
       if (/^Barem tự luận:\s*(.*)$/i.test(line)) {
         currentQuestion.type = "essay";
         currentQuestion.essayRubric = line.replace(/^Barem tự luận:\s*/i, "").trim();
         continue;
       }
 
-      // If text belongs to Question text continuation
+      // Question text continuation
       if (!currentQuestion.options || currentQuestion.options.length === 0) {
         currentQuestion.text = currentQuestion.text ? `${currentQuestion.text}\n${line}` : line;
       }
@@ -291,7 +542,6 @@ export function examTextToQuestions(text: string): { sections: Section[]; questi
 
   finalizeQuestion();
 
-  // If no sections were present, but we have questions, wrap in a default section
   if (sections.length === 0 && questions.length > 0) {
     sections.push({
       id: "sec_default",
@@ -370,6 +620,7 @@ Chọn A`,
   sample3: `Phần 1. ĐIỀN VÀO CHỖ TRỐNG
 Câu 1. (TH) Điền từ hoặc số thích hợp vào chỗ trống:
 Phương trình bậc hai $x^2 - 5x + 6 = 0$ có hai nghiệm là $x_1 = [_]$ và $x_2 = [_]$.
+Đáp án điền từ: [1] 2; [2] 3
 
 Lời giải
 Giải phương trình ta được hai nghiệm phân biệt: $x_1 = 2$ và $x_2 = 3$.`,
@@ -417,4 +668,33 @@ Barem tự luận: Nêu được hiện tượng kết tủa trắng sau đó ta
 Lời giải
 Hiện tượng: Ban đầu xuất hiện kết tủa trắng vẩn đục, sau đó kết tủa tan dần cho dung dịch trong suốt.
 PTHH: $CO_2 + Ca(OH)_2 \\to CaCO_3\\downarrow + H_2O$ và $CO_2 + H_2O + CaCO_3 \\to Ca(HCO_3)_2$.`,
+
+  sample7: `Phần 1. CÂU HỎI NỐI BẢNG 2 CỘT
+Câu 1. (TH) Nối mỗi công thức hóa học ở Cột 1 với tên gọi đúng ở Cột 2 (có ô gây nhiễu không cần nối):
+[Nối bảng: 1-1]
+Cột 1:
+1. $H_2O$
+2. $NaCl$
+3. $CO_2$
+Cột 2:
+a. Muối ăn
+b. Nước tinh khiết
+c. Đá vôi ($CaCO_3$)
+d. Khí cacbonic
+Đáp án nối: 1-b; 2-a; 3-d
+
+Lời giải
+$CaCO_3$ là đá vôi nên mục c là phương án gây nhiễu không cần nối.
+
+Câu 2. (VD) Nối mỗi tập hợp số ở Cột 1 với các tính chất đúng ở Cột 2 (cho phép 1 ô nối nhiều mạch):
+[Nối bảng: nối nhiều]
+Cột 1:
+1. Số 2
+2. Số 9
+3. Số -5 (ô không nối)
+Cột 2:
+a. Là số nguyên tố
+b. Là số chẵn dương
+c. Là số chính phương dương
+Đáp án nối: 1-a, b; 2-c`,
 };

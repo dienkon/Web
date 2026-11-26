@@ -78,6 +78,7 @@ import type { Exam, Question, Section, QuestionTiming } from "../../types";
 import LatexPreview from "../../features/exam-builder/editor/LatexPreview";
 import InteractiveFillBlankText from "../../components/exam/InteractiveFillBlankText";
 import InteractiveMatchingBoard from "../../components/exam/InteractiveMatchingBoard";
+import { resolveMatchingMode } from "../../utils/matchingUtils";
 import { useToast } from "../../components/ui/ToastNotification";
 import { isNativeAndroid } from '../../services/offline/sync';
 import { prefersOfflineExam } from '../../services/offline/exams';
@@ -2456,6 +2457,7 @@ export default function TakingExam() {
                 Nối các mục tương ứng giữa Cột 1 và Cột 2 bên dưới:
               </label>
               <InteractiveMatchingBoard
+                matchingMode={resolveMatchingMode(q)}
                 leftItems={q.matchingLeft || []}
                 rightItems={q.matchingRight || []}
                 matches={typeof answers[q.id] === "object" && answers[q.id] ? answers[q.id] : {}}

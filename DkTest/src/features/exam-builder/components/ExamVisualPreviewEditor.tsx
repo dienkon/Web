@@ -12,9 +12,23 @@ import InteractiveMatchingBoard from "../../../components/exam/InteractiveMatchi
 import ConfirmModal from "../../../components/ui/ConfirmModal";
 import ExamExportModal from "./ExamExportModal";
 import { useToast } from "../../../components/ui/ToastNotification";
-import { Question, QuestionType, Section, MatchingItem, OrderingItem, TrueFalseStatement } from "../../../types";
+import { Question, QuestionType, Section, MatchingItem, MatchingMode, OrderingItem, TrueFalseStatement } from "../../../types";
 import { v4 as uuidv4 } from "uuid";
 import { extractBlanksCount } from "../questions/FillBlankEditor";
+import {
+  countMatchingWires,
+  formatMatchingPairsSummary,
+  getLeftItemLabel,
+  getRightItemLabel,
+  getUnconnectedItems,
+  normalizeMatchesToArrayMap,
+  removeLeftItemAndRemap,
+  removeRightItemAndRemap,
+  resolveMatchingMode,
+  serializeMatchesMap,
+  setLeftTargetsInMode,
+  toggleMatchConnection,
+} from "../../../utils/matchingUtils";
 import {
   Check,
   CheckCircle2,
@@ -61,6 +75,8 @@ import {
   ListOrdered,
   Type,
   AlertCircle,
+  GitCommitHorizontal,
+  GitFork,
 } from "lucide-react";
 
 interface Props {
@@ -423,8 +439,11 @@ export default function ExamVisualPreviewEditor({ onSwitchToQuestionEditor }: Pr
           { id: `r_${Date.now()}_c`, label: "c", text: "Định nghĩa hoặc câu trả lời C" },
         ];
       }
-      if (!q.correctMatches || Object.keys(q.correctMatches).length === 0) {
+      if (q.correctMatches === undefined) {
         updates.correctMatches = { "1": "a", "2": "b", "3": "c" };
+      }
+      if (!q.matchingMode) {
+        updates.matchingMode = "one_to_one";
       }
     } else if (newType === "fill_blank") {
       if (!q.acceptedAnswersPerBlank || Object.keys(q.acceptedAnswersPerBlank).length === 0) {
@@ -536,6 +555,16 @@ export default function ExamVisualPreviewEditor({ onSwitchToQuestionEditor }: Pr
   };
 
   // Matching Helpers
+  const handleSetMatchingMode = (q: Question, newMode: MatchingMode) => {
+    const normalized = normalizeMatchesToArrayMap(
+      q.correctMatches,
+      q.matchingLeft,
+      q.matchingRight
+    );
+    const cleaned = serializeMatchesMap(normalized, newMode);
+    actions.updateQuestion(q.id, { matchingMode: newMode, correctMatches: cleaned });
+  };
+
   const handleAddMatchingLeft = (q: Question) => {
     const current = q.matchingLeft || [];
     const nextIdx = current.length + 1;
@@ -550,12 +579,15 @@ export default function ExamVisualPreviewEditor({ onSwitchToQuestionEditor }: Pr
   const handleRemoveMatchingLeft = (q: Question, idx: number) => {
     const current = q.matchingLeft || [];
     if (current.length <= 1) return;
-    const itemToRemove = current[idx];
-    const filtered = current.filter((_, i) => i !== idx);
-    const relabeled = filtered.map((it, i) => ({ ...it, label: `${i + 1}` }));
-    const newMatches = { ...(q.correctMatches || {}) };
-    delete newMatches[itemToRemove.label || `${idx + 1}`];
-    actions.updateQuestion(q.id, { matchingLeft: relabeled, correctMatches: newMatches });
+    const mode = resolveMatchingMode(q);
+    const remapped = removeLeftItemAndRemap(
+      current,
+      q.matchingRight || [],
+      q.correctMatches,
+      idx,
+      mode
+    );
+    actions.updateQuestion(q.id, remapped);
   };
 
   const handleUpdateMatchingLeftText = (q: Question, idx: number, text: string) => {
@@ -566,7 +598,7 @@ export default function ExamVisualPreviewEditor({ onSwitchToQuestionEditor }: Pr
 
   const handleAddMatchingRight = (q: Question) => {
     const current = q.matchingRight || [];
-    const nextLabel = String.fromCharCode(97 + current.length);
+    const nextLabel = getRightItemLabel(current.length);
     const newItem: MatchingItem = {
       id: uuidv4(),
       label: nextLabel,
@@ -578,15 +610,15 @@ export default function ExamVisualPreviewEditor({ onSwitchToQuestionEditor }: Pr
   const handleRemoveMatchingRight = (q: Question, idx: number) => {
     const current = q.matchingRight || [];
     if (current.length <= 1) return;
-    const itemToRemove = current[idx];
-    const filtered = current.filter((_, i) => i !== idx);
-    const relabeled = filtered.map((it, i) => ({ ...it, label: String.fromCharCode(97 + i) }));
-    const targetLabel = itemToRemove.label || String.fromCharCode(97 + idx);
-    const newMatches: Record<string, string> = {};
-    Object.entries(q.correctMatches || {}).forEach(([k, v]) => {
-      if (v !== targetLabel) newMatches[k] = v;
-    });
-    actions.updateQuestion(q.id, { matchingRight: relabeled, correctMatches: newMatches });
+    const mode = resolveMatchingMode(q);
+    const remapped = removeRightItemAndRemap(
+      q.matchingLeft || [],
+      current,
+      q.correctMatches,
+      idx,
+      mode
+    );
+    actions.updateQuestion(q.id, remapped);
   };
 
   const handleUpdateMatchingRightText = (q: Question, idx: number, text: string) => {
@@ -596,7 +628,27 @@ export default function ExamVisualPreviewEditor({ onSwitchToQuestionEditor }: Pr
   };
 
   const handleSetMatchPair = (q: Question, leftLabel: string, rightLabel: string) => {
-    const updated = { ...(q.correctMatches || {}), [leftLabel]: rightLabel };
+    const mode = resolveMatchingMode(q);
+    const updated = setLeftTargetsInMode(
+      q.correctMatches,
+      leftLabel,
+      rightLabel ? [rightLabel] : [],
+      mode,
+      q.matchingLeft,
+      q.matchingRight
+    );
+    actions.updateQuestion(q.id, { correctMatches: updated });
+  };
+
+  const handleToggleMultipleMatchPair = (q: Question, leftLabel: string, rightLabel: string) => {
+    const updated = toggleMatchConnection(
+      q.correctMatches,
+      leftLabel,
+      rightLabel,
+      "multiple",
+      q.matchingLeft,
+      q.matchingRight
+    );
     actions.updateQuestion(q.id, { correctMatches: updated });
   };
 
@@ -679,8 +731,8 @@ export default function ExamVisualPreviewEditor({ onSwitchToQuestionEditor }: Pr
     }
 
     if (q.type === "matching") {
-      const matchCount = Object.keys(q.correctMatches || {}).length;
-      return matchCount > 0 ? `${matchCount} cặp` : "?";
+      const wireCount = countMatchingWires(q.correctMatches, q.matchingLeft, q.matchingRight);
+      return wireCount > 0 ? `${wireCount} mạch` : "?";
     }
 
     if (q.type === "fill_blank") {
@@ -1424,155 +1476,295 @@ export default function ExamVisualPreviewEditor({ onSwitchToQuestionEditor }: Pr
                   )}
 
                   {/* 4. Matching: Complete 2-column editor + interactive board */}
-                  {activeQuestion.type === "matching" && (
-                    <div className="space-y-4">
-                      <div className="p-3 bg-indigo-50 border border-indigo-200 rounded-2xl flex items-start gap-2.5">
-                        <Table2 className="w-4 h-4 text-indigo-600 shrink-0 mt-0.5" />
-                        <div className="text-xs text-indigo-900 leading-relaxed">
-                          Chỉnh sửa các mục ở <strong>Cột 1</strong> và <strong>Cột 2</strong> bên dưới. Cấu hình cặp ghép nối đúng bằng menu chọn hoặc kéo chấm tròn ở bảng xem trước!
-                        </div>
-                      </div>
+                  {activeQuestion.type === "matching" && (() => {
+                    const activeMode = resolveMatchingMode(activeQuestion);
+                    const normalizedActiveMatches = normalizeMatchesToArrayMap(
+                      activeQuestion.correctMatches,
+                      activeQuestion.matchingLeft,
+                      activeQuestion.matchingRight
+                    );
+                    const unconnectedActive = getUnconnectedItems(
+                      activeQuestion.matchingLeft || [],
+                      activeQuestion.matchingRight || [],
+                      normalizedActiveMatches
+                    );
 
-                      {/* 2 Sub-Columns for item editing */}
-                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        {/* Column 1 Editor (Left items: 1..n) */}
-                        <div className="p-3.5 bg-slate-50 border border-slate-200 rounded-2xl space-y-3">
-                          <div className="flex items-center justify-between pb-1 border-b border-slate-200">
-                            <span className="text-xs font-black text-slate-800 uppercase flex items-center gap-1">
-                              <span>Cột 1 (1 ➔ {(activeQuestion.matchingLeft || []).length})</span>
-                            </span>
+                    return (
+                      <div className="space-y-4">
+                        <div className="p-3 bg-indigo-50 border border-indigo-200 rounded-2xl flex items-start gap-2.5">
+                          <Table2 className="w-4 h-4 text-indigo-600 shrink-0 mt-0.5" />
+                          <div className="text-xs text-indigo-900 leading-relaxed">
+                            Chỉnh sửa các ô ở <strong>Cột 1</strong> và <strong>Cột 2</strong> bên dưới. Có thể bật{" "}
+                            <strong>1 ô – 1 mạch</strong> hoặc <strong>1 ô – Nhiều mạch</strong>, và để trống các{" "}
+                            <strong>ô gây nhiễu (không cần nối)</strong>!
+                          </div>
+                        </div>
+
+                        {/* Matching Rule Mode Switcher */}
+                        <div className="p-3 bg-slate-50 border border-slate-200 rounded-2xl flex flex-wrap items-center justify-between gap-2 text-xs">
+                          <span className="font-extrabold text-slate-800 uppercase tracking-wide">
+                            Quy tắc nối mạch:
+                          </span>
+                          <div className="inline-flex items-center bg-white border border-slate-200 rounded-xl p-1 gap-1">
                             <button
                               type="button"
-                              onClick={() => handleAddMatchingLeft(activeQuestion)}
-                              className="px-2 py-0.5 bg-blue-50 text-blue-700 hover:bg-blue-100 rounded-lg text-xs font-bold transition-all flex items-center gap-1 cursor-pointer"
+                              onClick={() => handleSetMatchingMode(activeQuestion, "one_to_one")}
+                              className={`px-3 py-1.5 rounded-lg text-xs font-bold flex items-center gap-1.5 cursor-pointer transition-all ${
+                                activeMode === "one_to_one"
+                                  ? "bg-blue-600 text-white shadow-2xs"
+                                  : "text-slate-600 hover:bg-slate-100"
+                              }`}
                             >
-                              <Plus className="w-3 h-3" /> Thêm dòng
+                              <GitCommitHorizontal className="w-3.5 h-3.5" />
+                              <span>Chỉ 1 ô – 1 mạch</span>
                             </button>
-                          </div>
-
-                          <div className="space-y-2">
-                            {(activeQuestion.matchingLeft || []).map((item, idx) => (
-                              <div key={item.id} className="flex items-start gap-2 p-2 bg-white border border-slate-200 rounded-xl">
-                                <span className="w-6 h-6 rounded-lg bg-blue-600 text-white font-mono font-black text-xs flex items-center justify-center shrink-0 mt-0.5 shadow-2xs">
-                                  {item.label || idx + 1}
-                                </span>
-                                <input
-                                  type="text"
-                                  value={item.text}
-                                  onChange={(e) => handleUpdateMatchingLeftText(activeQuestion, idx, e.target.value)}
-                                  placeholder={`Dòng ${item.label || idx + 1}...`}
-                                  className="flex-1 px-2.5 py-1 bg-slate-50 border border-slate-200 rounded-lg text-xs text-slate-800"
-                                />
-                                {(activeQuestion.matchingLeft || []).length > 1 && (
-                                  <button
-                                    type="button"
-                                    onClick={() => handleRemoveMatchingLeft(activeQuestion, idx)}
-                                    className="p-1 text-slate-400 hover:text-red-600 rounded"
-                                    title="Xóa dòng này"
-                                  >
-                                    <Trash2 className="w-3.5 h-3.5" />
-                                  </button>
-                                )}
-                              </div>
-                            ))}
-                          </div>
-                        </div>
-
-                        {/* Column 2 Editor (Right items: a..z) */}
-                        <div className="p-3.5 bg-slate-50 border border-slate-200 rounded-2xl space-y-3">
-                          <div className="flex items-center justify-between pb-1 border-b border-slate-200">
-                            <span className="text-xs font-black text-slate-800 uppercase flex items-center gap-1">
-                              <span>Cột 2 (a ➔ z)</span>
-                            </span>
                             <button
                               type="button"
-                              onClick={() => handleAddMatchingRight(activeQuestion)}
-                              className="px-2 py-0.5 bg-indigo-50 text-indigo-700 hover:bg-indigo-100 rounded-lg text-xs font-bold transition-all flex items-center gap-1 cursor-pointer"
+                              onClick={() => handleSetMatchingMode(activeQuestion, "multiple")}
+                              className={`px-3 py-1.5 rounded-lg text-xs font-bold flex items-center gap-1.5 cursor-pointer transition-all ${
+                                activeMode === "multiple"
+                                  ? "bg-purple-600 text-white shadow-2xs"
+                                  : "text-slate-600 hover:bg-slate-100"
+                              }`}
                             >
-                              <Plus className="w-3 h-3" /> Thêm dòng
+                              <GitFork className="w-3.5 h-3.5" />
+                              <span>1 ô nối nhiều mạch</span>
                             </button>
                           </div>
+                        </div>
 
-                          <div className="space-y-2">
-                            {(activeQuestion.matchingRight || []).map((item, idx) => (
-                              <div key={item.id} className="flex items-start gap-2 p-2 bg-white border border-slate-200 rounded-xl">
-                                <span className="w-6 h-6 rounded-lg bg-indigo-600 text-white font-mono font-black text-xs flex items-center justify-center shrink-0 mt-0.5 shadow-2xs">
-                                  {item.label || String.fromCharCode(97 + idx)}
+                        {/* 2 Sub-Columns for item editing */}
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                          {/* Column 1 Editor (Left items: 1..n) */}
+                          <div className="p-3.5 bg-slate-50 border border-slate-200 rounded-2xl space-y-3">
+                            <div className="flex items-center justify-between pb-1 border-b border-slate-200">
+                              <span className="text-xs font-black text-slate-800 uppercase flex items-center gap-1">
+                                <span>Cột 1 (1 ➔ {(activeQuestion.matchingLeft || []).length})</span>
+                              </span>
+                              <button
+                                type="button"
+                                onClick={() => handleAddMatchingLeft(activeQuestion)}
+                                className="px-2 py-0.5 bg-blue-50 text-blue-700 hover:bg-blue-100 rounded-lg text-xs font-bold transition-all flex items-center gap-1 cursor-pointer"
+                              >
+                                <Plus className="w-3 h-3" /> Thêm ô
+                              </button>
+                            </div>
+
+                            <div className="space-y-2">
+                              {(activeQuestion.matchingLeft || []).map((item, idx) => {
+                                const lLabel = getLeftItemLabel(idx, item);
+                                return (
+                                  <div key={item.id} className="flex items-start gap-2 p-2 bg-white border border-slate-200 rounded-xl">
+                                    <span className="w-6 h-6 rounded-lg bg-blue-600 text-white font-mono font-black text-xs flex items-center justify-center shrink-0 mt-0.5 shadow-2xs">
+                                      {lLabel}
+                                    </span>
+                                    <input
+                                      type="text"
+                                      value={item.text}
+                                      onChange={(e) => handleUpdateMatchingLeftText(activeQuestion, idx, e.target.value)}
+                                      placeholder={`Ô ${lLabel}...`}
+                                      className="flex-1 px-2.5 py-1 bg-slate-50 border border-slate-200 rounded-lg text-xs text-slate-800"
+                                    />
+                                    {(activeQuestion.matchingLeft || []).length > 1 && (
+                                      <button
+                                        type="button"
+                                        onClick={() => handleRemoveMatchingLeft(activeQuestion, idx)}
+                                        className="p-1 text-slate-400 hover:text-red-600 rounded cursor-pointer"
+                                        title="Xóa ô này"
+                                      >
+                                        <Trash2 className="w-3.5 h-3.5" />
+                                      </button>
+                                    )}
+                                  </div>
+                                );
+                              })}
+                            </div>
+                          </div>
+
+                          {/* Column 2 Editor (Right items: a..z) */}
+                          <div className="p-3.5 bg-slate-50 border border-slate-200 rounded-2xl space-y-3">
+                            <div className="flex items-center justify-between pb-1 border-b border-slate-200">
+                              <span className="text-xs font-black text-slate-800 uppercase flex items-center gap-1">
+                                <span>
+                                  Cột 2 (a ➔{" "}
+                                  {(activeQuestion.matchingRight || []).length > 0
+                                    ? getRightItemLabel(
+                                        (activeQuestion.matchingRight || []).length - 1,
+                                        (activeQuestion.matchingRight || [])[(activeQuestion.matchingRight || []).length - 1]
+                                      )
+                                    : "z"}
+                                  )
                                 </span>
-                                <input
-                                  type="text"
-                                  value={item.text}
-                                  onChange={(e) => handleUpdateMatchingRightText(activeQuestion, idx, e.target.value)}
-                                  placeholder={`Dòng ${item.label || String.fromCharCode(97 + idx)}...`}
-                                  className="flex-1 px-2.5 py-1 bg-slate-50 border border-slate-200 rounded-lg text-xs text-slate-800"
-                                />
-                                {(activeQuestion.matchingRight || []).length > 1 && (
-                                  <button
-                                    type="button"
-                                    onClick={() => handleRemoveMatchingRight(activeQuestion, idx)}
-                                    className="p-1 text-slate-400 hover:text-red-600 rounded"
-                                    title="Xóa dòng này"
-                                  >
-                                    <Trash2 className="w-3.5 h-3.5" />
-                                  </button>
-                                )}
-                              </div>
-                            ))}
+                              </span>
+                              <button
+                                type="button"
+                                onClick={() => handleAddMatchingRight(activeQuestion)}
+                                className="px-2 py-0.5 bg-indigo-50 text-indigo-700 hover:bg-indigo-100 rounded-lg text-xs font-bold transition-all flex items-center gap-1 cursor-pointer"
+                              >
+                                <Plus className="w-3 h-3" /> Thêm ô
+                              </button>
+                            </div>
+
+                            <div className="space-y-2">
+                              {(activeQuestion.matchingRight || []).map((item, idx) => {
+                                const rLabel = getRightItemLabel(idx, item);
+                                return (
+                                  <div key={item.id} className="flex items-start gap-2 p-2 bg-white border border-slate-200 rounded-xl">
+                                    <span className="w-6 h-6 rounded-lg bg-indigo-600 text-white font-mono font-black text-xs flex items-center justify-center shrink-0 mt-0.5 shadow-2xs">
+                                      {rLabel}
+                                    </span>
+                                    <input
+                                      type="text"
+                                      value={item.text}
+                                      onChange={(e) => handleUpdateMatchingRightText(activeQuestion, idx, e.target.value)}
+                                      placeholder={`Ô ${rLabel}...`}
+                                      className="flex-1 px-2.5 py-1 bg-slate-50 border border-slate-200 rounded-lg text-xs text-slate-800"
+                                    />
+                                    {(activeQuestion.matchingRight || []).length > 1 && (
+                                      <button
+                                        type="button"
+                                        onClick={() => handleRemoveMatchingRight(activeQuestion, idx)}
+                                        className="p-1 text-slate-400 hover:text-red-600 rounded cursor-pointer"
+                                        title="Xóa ô này"
+                                      >
+                                        <Trash2 className="w-3.5 h-3.5" />
+                                      </button>
+                                    )}
+                                  </div>
+                                );
+                              })}
+                            </div>
                           </div>
                         </div>
-                      </div>
 
-                      {/* Pairing Selectors */}
-                      <div className="p-3.5 bg-slate-50 border border-slate-200 rounded-2xl space-y-2 text-xs">
-                        <span className="font-extrabold text-slate-800 uppercase tracking-wide">
-                          Khớp cặp đáp án đúng chuẩn:
-                        </span>
-                        <div className="flex flex-wrap gap-2.5 pt-1">
-                          {(activeQuestion.matchingLeft || []).map((lItem, idx) => {
-                            const lLabel = lItem.label || `${idx + 1}`;
-                            const matchedRight = activeQuestion.correctMatches?.[lLabel] || "";
+                        {/* Pairing Selectors (Supports 1-to-1, Multiple, & Unconnected Distractors) */}
+                        <div className="p-3.5 bg-slate-50 border border-slate-200 rounded-2xl space-y-2.5 text-xs">
+                          <div className="flex items-center justify-between flex-wrap gap-2">
+                            <span className="font-extrabold text-slate-800 uppercase tracking-wide">
+                              Khớp cặp đáp án đúng chuẩn:
+                            </span>
+                            {(unconnectedActive.unconnectedLeftLabels.length > 0 ||
+                              unconnectedActive.unconnectedRightLabels.length > 0) && (
+                              <span className="text-[11px] font-semibold text-amber-800 bg-amber-50 border border-amber-200 px-2 py-0.5 rounded-lg">
+                                Ô không nối:{" "}
+                                {unconnectedActive.unconnectedLeftLabels.length > 0 &&
+                                  `Cột 1 [${unconnectedActive.unconnectedLeftLabels.join(", ")}] `}
+                                {unconnectedActive.unconnectedRightLabels.length > 0 &&
+                                  `Cột 2 [${unconnectedActive.unconnectedRightLabels.join(", ")}]`}
+                              </span>
+                            )}
+                          </div>
 
-                            return (
-                              <div key={lItem.id} className="flex items-center gap-1.5 bg-white border border-slate-200 px-2.5 py-1 rounded-xl shadow-2xs">
-                                <span className="font-bold text-blue-700 font-mono">Cột 1 ({lLabel}):</span>
-                                <span className="text-slate-400">➔</span>
-                                <select
-                                  value={matchedRight}
-                                  onChange={(e) => handleSetMatchPair(activeQuestion, lLabel, e.target.value)}
-                                  className="font-bold text-indigo-700 bg-transparent outline-hidden cursor-pointer"
-                                >
-                                  <option value="">(Chọn)</option>
-                                  {(activeQuestion.matchingRight || []).map((rItem, rIdx) => {
-                                    const rLabel = rItem.label || String.fromCharCode(97 + rIdx);
-                                    return (
-                                      <option key={rItem.id} value={rLabel}>
-                                        {rLabel}. {rItem.text.slice(0, 20)}
-                                      </option>
-                                    );
-                                  })}
-                                </select>
-                              </div>
-                            );
-                          })}
+                          {activeMode === "multiple" ? (
+                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 pt-1">
+                              {(activeQuestion.matchingLeft || []).map((lItem, idx) => {
+                                const lLabel = getLeftItemLabel(idx, lItem);
+                                const targets = normalizedActiveMatches[lLabel] || [];
+                                return (
+                                  <div
+                                    key={lItem.id}
+                                    className="p-2.5 bg-white border border-slate-200 rounded-xl space-y-1.5 shadow-2xs"
+                                  >
+                                    <div className="flex items-center justify-between">
+                                      <span className="font-bold text-blue-700 font-mono">
+                                        Ô {lLabel}:
+                                      </span>
+                                      <span className="text-[11px] font-bold text-purple-700">
+                                        {targets.length > 0 ? `➔ [${targets.join(", ")}]` : "Không nối"}
+                                      </span>
+                                    </div>
+                                    <div className="flex flex-wrap gap-1.5">
+                                      {(activeQuestion.matchingRight || []).map((rItem, rIdx) => {
+                                        const rLabel = getRightItemLabel(rIdx, rItem);
+                                        const isPicked = targets.some(
+                                          (t) => t.toLowerCase() === rLabel.toLowerCase()
+                                        );
+                                        return (
+                                          <button
+                                            key={rItem.id}
+                                            type="button"
+                                            onClick={() =>
+                                              handleToggleMultipleMatchPair(activeQuestion, lLabel, rLabel)
+                                            }
+                                            className={`px-2 py-1 rounded-lg text-xs font-bold border transition-all cursor-pointer ${
+                                              isPicked
+                                                ? "bg-purple-600 text-white border-purple-700"
+                                                : "bg-slate-50 text-slate-700 border-slate-200 hover:bg-slate-100"
+                                            }`}
+                                          >
+                                            {rLabel}
+                                            {isPicked ? " ✓" : ""}
+                                          </button>
+                                        );
+                                      })}
+                                      <button
+                                        type="button"
+                                        onClick={() => handleSetMatchPair(activeQuestion, lLabel, "")}
+                                        className={`px-2 py-1 rounded-lg text-xs font-bold border transition-all cursor-pointer ${
+                                          targets.length === 0
+                                            ? "bg-slate-700 text-white border-slate-800"
+                                            : "bg-white text-slate-500 border-slate-200 hover:text-red-600"
+                                        }`}
+                                      >
+                                        Không nối
+                                      </button>
+                                    </div>
+                                  </div>
+                                );
+                              })}
+                            </div>
+                          ) : (
+                            <div className="flex flex-wrap gap-2.5 pt-1">
+                              {(activeQuestion.matchingLeft || []).map((lItem, idx) => {
+                                const lLabel = getLeftItemLabel(idx, lItem);
+                                const matchedRight = (normalizedActiveMatches[lLabel] || [])[0] || "";
+
+                                return (
+                                  <div
+                                    key={lItem.id}
+                                    className="flex items-center gap-1.5 bg-white border border-slate-200 px-2.5 py-1 rounded-xl shadow-2xs"
+                                  >
+                                    <span className="font-bold text-blue-700 font-mono">Ô {lLabel}:</span>
+                                    <span className="text-slate-400">➔</span>
+                                    <select
+                                      value={matchedRight}
+                                      onChange={(e) => handleSetMatchPair(activeQuestion, lLabel, e.target.value)}
+                                      className="font-bold text-indigo-700 bg-transparent outline-hidden cursor-pointer"
+                                    >
+                                      <option value="">(Không nối)</option>
+                                      {(activeQuestion.matchingRight || []).map((rItem, rIdx) => {
+                                        const rLabel = getRightItemLabel(rIdx, rItem);
+                                        return (
+                                          <option key={rItem.id} value={rLabel}>
+                                            {rLabel}. {rItem.text.slice(0, 20)}
+                                          </option>
+                                        );
+                                      })}
+                                    </select>
+                                  </div>
+                                );
+                              })}
+                            </div>
+                          )}
+                        </div>
+
+                        {/* Interactive Board (Editable directly in Left Editor!) */}
+                        <div className="p-3 bg-white border border-slate-200 rounded-2xl">
+                          <InteractiveMatchingBoard
+                            isReview={false}
+                            readOnly={false}
+                            matchingMode={activeMode}
+                            leftItems={activeQuestion.matchingLeft || []}
+                            rightItems={activeQuestion.matchingRight || []}
+                            matches={activeQuestion.correctMatches || {}}
+                            onChange={(newMatches) => {
+                              actions.updateQuestion(activeQuestion.id, { correctMatches: newMatches });
+                            }}
+                          />
                         </div>
                       </div>
-
-                      {/* Interactive Board */}
-                      <div className="p-3 bg-white border border-slate-200 rounded-2xl">
-                        <InteractiveMatchingBoard
-                          isReview={true}
-                          readOnly={false}
-                          leftItems={activeQuestion.matchingLeft || []}
-                          rightItems={activeQuestion.matchingRight || []}
-                          matches={activeQuestion.correctMatches || {}}
-                          correctMatches={activeQuestion.correctMatches || {}}
-                          onChange={(newMatches) => {
-                            actions.updateQuestion(activeQuestion.id, { correctMatches: newMatches });
-                          }}
-                        />
-                      </div>
-                    </div>
-                  )}
+                    );
+                  })()}
 
                   {/* 5. Fill in the Blank: Detected blanks + Quick Insert */}
                   {activeQuestion.type === "fill_blank" && (
@@ -2240,23 +2432,40 @@ export default function ExamVisualPreviewEditor({ onSwitchToQuestionEditor }: Pr
 
                               {/* 4. Matching Board */}
                               {q.type === "matching" && (
-                                <div className="p-3.5 bg-white border border-slate-200 rounded-2xl space-y-3">
-                                  <div className="flex items-center justify-between">
-                                    <span className="text-xs font-bold text-slate-700 block">Bảng ghép nối 2 cột:</span>
+                                <div
+                                  onClick={(e) => e.stopPropagation()}
+                                  className="p-3.5 bg-white border border-slate-200 rounded-2xl space-y-3"
+                                >
+                                  <div className="flex items-center justify-between flex-wrap gap-2">
+                                    <span className="text-xs font-bold text-slate-700 block">
+                                      Bảng ghép nối 2 cột (
+                                      {resolveMatchingMode(q) === "multiple"
+                                        ? "1 ô nối nhiều mạch"
+                                        : "Chỉ 1 ô – 1 mạch"}
+                                      ):
+                                    </span>
                                     {showCorrectAnswers && (
                                       <div className="flex flex-wrap gap-1 text-[11px] font-mono font-bold text-emerald-800 bg-emerald-50 px-2 py-0.5 rounded-lg border border-emerald-200">
                                         <span>Đáp án: </span>
-                                        {Object.entries(q.correctMatches || {}).map(([l, r]) => `${l}-${r}`).join(", ")}
+                                        <span>
+                                          {formatMatchingPairsSummary(
+                                            q.correctMatches,
+                                            q.matchingLeft,
+                                            q.matchingRight
+                                          ) || "Không nối"}
+                                        </span>
                                       </div>
                                     )}
                                   </div>
                                   <InteractiveMatchingBoard
-                                    isReview={true}
+                                    isAnswerKeyPreview={showCorrectAnswers}
+                                    isReview={false}
                                     readOnly={true}
+                                    matchingMode={resolveMatchingMode(q)}
                                     leftItems={q.matchingLeft || []}
                                     rightItems={q.matchingRight || []}
                                     matches={showCorrectAnswers ? q.correctMatches || {} : {}}
-                                    correctMatches={q.correctMatches || {}}
+                                    correctMatches={showCorrectAnswers ? q.correctMatches || {} : {}}
                                   />
                                 </div>
                               )}

@@ -31,6 +31,7 @@ import InteractiveFillBlankText from "../../../components/exam/InteractiveFillBl
 import InteractiveMatchingBoard from "../../../components/exam/InteractiveMatchingBoard";
 import ExamAudioPlayer from "../../../components/exam/ExamAudioPlayer";
 import ExamExportModal from "./ExamExportModal";
+import { gradeMatchingQuestion, resolveMatchingMode } from "../../../utils/matchingUtils";
 
 interface Props {
   exam: Partial<Exam>;
@@ -194,23 +195,9 @@ export default function ExamPreviewModal({ exam, sections, questions, onClose }:
           if (blankCorrect === totalBlanks) correctCount++;
         }
       } else if (q.type === "matching") {
-        const correctMap = q.correctMatches || {};
-        const pairKeys = Object.keys(correctMap);
-        const ansMap = typeof ans === "object" && ans !== null ? ans : {};
-        if (pairKeys.length > 0) {
-          let correctPairs = 0;
-          pairKeys.forEach((key) => {
-            const userVal = ansMap[key];
-            if (
-              userVal !== undefined &&
-              String(userVal).trim().toLowerCase() === String(correctMap[key]).trim().toLowerCase()
-            ) {
-              correctPairs++;
-            }
-          });
-          earned += (correctPairs / pairKeys.length) * qPoints;
-          if (correctPairs === pairKeys.length) correctCount++;
-        }
+        const res = gradeMatchingQuestion(q, ans, qPoints);
+        earned += res.earnedPoints;
+        if (res.status === "correct") correctCount++;
       }
     });
 
@@ -322,22 +309,7 @@ export default function ExamPreviewModal({ exam, sections, questions, onClose }:
         isQuestionCorrect = blankCorrect === totalBlanks;
       }
     } else if (q.type === "matching") {
-      const correctMap = q.correctMatches || {};
-      const pairKeys = Object.keys(correctMap);
-      const ansMap = typeof studentAns === "object" && studentAns !== null ? studentAns : {};
-      if (pairKeys.length > 0) {
-        let correctPairs = 0;
-        pairKeys.forEach((key) => {
-          const userVal = ansMap[key];
-          if (
-            userVal !== undefined &&
-            String(userVal).trim().toLowerCase() === String(correctMap[key]).trim().toLowerCase()
-          ) {
-            correctPairs++;
-          }
-        });
-        isQuestionCorrect = correctPairs === pairKeys.length;
-      }
+      isQuestionCorrect = gradeMatchingQuestion(q, studentAns, 1).status === "correct";
     }
 
     const showKey = viewMode === "teacher" || submitted;
@@ -830,11 +802,19 @@ export default function ExamPreviewModal({ exam, sections, questions, onClose }:
         {q.type === "matching" && (
           <div className="space-y-3">
             <InteractiveMatchingBoard
-              isReview={submitted || viewMode === "teacher"}
+              isAnswerKeyPreview={viewMode === "teacher" && !submitted}
+              isReview={submitted}
               readOnly={submitted || viewMode === "teacher"}
+              matchingMode={resolveMatchingMode(q)}
               leftItems={q.matchingLeft || []}
               rightItems={q.matchingRight || []}
-              matches={typeof userAnswers[q.id] === "object" && userAnswers[q.id] ? userAnswers[q.id] : {}}
+              matches={
+                viewMode === "teacher" && !submitted
+                  ? q.correctMatches || {}
+                  : typeof userAnswers[q.id] === "object" && userAnswers[q.id]
+                  ? userAnswers[q.id]
+                  : {}
+              }
               correctMatches={q.correctMatches || {}}
               onChange={(newMatches) => {
                 if (submitted || viewMode === "teacher") return;
@@ -1408,10 +1388,7 @@ export default function ExamPreviewModal({ exam, sections, questions, onClose }:
                             }
                             isQCorrect = isAllCorrect;
                           } else if (q.type === "matching") {
-                            const correctMap = q.correctMatches || {};
-                            const userMap = typeof ans === "object" && ans ? ans : {};
-                            const pairKeys = Object.keys(correctMap);
-                            isQCorrect = pairKeys.length > 0 && pairKeys.every(k => String(userMap[k] || "").trim().toLowerCase() === String(correctMap[k] || "").trim().toLowerCase());
+                            isQCorrect = gradeMatchingQuestion(q, ans, 1).status === "correct";
                           }
 
                           if (isQCorrect) btnClass = "bg-emerald-600 text-white font-bold";

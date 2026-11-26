@@ -777,7 +777,8 @@ var QuestionSchemaV3 = z.object({
     label: z.string().optional(),
     text: z.string()
   })).optional(),
-  correctMatches: z.record(z.string(), z.string()).optional(),
+  correctMatches: z.record(z.string(), z.union([z.string(), z.array(z.string())])).optional(),
+  matchingMode: z.enum(["one_to_one", "multiple"]).optional(),
   caseSensitive: z.boolean().optional(),
   trimWhitespace: z.boolean().optional(),
   explanation: z.string().optional(),

@@ -54,6 +54,11 @@ import type { Submission, Exam, Question, Section } from "../../types";
 import LatexPreview from "../../features/exam-builder/editor/LatexPreview";
 import InteractiveFillBlankText from "../../components/exam/InteractiveFillBlankText";
 import InteractiveMatchingBoard from "../../components/exam/InteractiveMatchingBoard";
+import {
+  formatMatchingPairsSummary,
+  gradeMatchingQuestion,
+  resolveMatchingMode,
+} from "../../utils/matchingUtils";
 import StudentReviewSelectionToolbar from "../../components/student/StudentReviewSelectionToolbar";
 import ExamLeaderboard from "../../components/exam/ExamLeaderboard";
 import AiTutorChat from "../../components/exam/AiTutorChat";
@@ -441,18 +446,7 @@ export default function ExamResult() {
         isCorrect = correctBlanks === keys.length;
       }
     } else if (q.type === "matching") {
-      const correctMap = q.correctMatches || {};
-      const ansMap = typeof studentAns === "object" && studentAns ? studentAns : {};
-      const keys = Object.keys(correctMap);
-      if (keys.length > 0) {
-        let correctCount = 0;
-        keys.forEach((k) => {
-          if (String(ansMap[k] || "").trim().toLowerCase() === String(correctMap[k] || "").trim().toLowerCase()) {
-            correctCount++;
-          }
-        });
-        isCorrect = correctCount === keys.length;
-      }
+      isCorrect = gradeMatchingQuestion(q, studentAns, 1).status === "correct";
     }
 
     if (filterStatus === "correct" && !isCorrect) return false;
@@ -1410,8 +1404,12 @@ export default function ExamResult() {
                               officialCorrectAnswer = (q.acceptedAnswers || []).join(" hoặc ") || "(Chưa cấu hình)";
                               studentAnswerFormatted = String(studentAns || "(Chưa trả lời)");
                             } else if (q.type === "matching") {
-                              officialCorrectAnswer = JSON.stringify(q.correctMatches || {});
-                              studentAnswerFormatted = JSON.stringify(studentAns || {});
+                              officialCorrectAnswer =
+                                formatMatchingPairsSummary(q.correctMatches, q.matchingLeft, q.matchingRight) ||
+                                "Không nối";
+                              studentAnswerFormatted =
+                                formatMatchingPairsSummary(studentAns, q.matchingLeft, q.matchingRight) ||
+                                "(Chưa nối)";
                             } else {
                               officialCorrectAnswer = JSON.stringify(q.correctOptionIds || q.acceptedAnswers || {});
                               studentAnswerFormatted = JSON.stringify(studentAns || {});
@@ -1792,6 +1790,7 @@ export default function ExamResult() {
                         <InteractiveMatchingBoard
                           isReview={true}
                           readOnly={true}
+                          matchingMode={resolveMatchingMode(q)}
                           leftItems={q.matchingLeft || []}
                           rightItems={q.matchingRight || []}
                           matches={

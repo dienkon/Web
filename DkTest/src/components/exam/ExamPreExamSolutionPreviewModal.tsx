@@ -13,6 +13,8 @@ import {
 } from "lucide-react";
 import type { Exam, Section, Question } from "../../types";
 import LatexPreview from "../../features/exam-builder/editor/LatexPreview";
+import InteractiveMatchingBoard from "./InteractiveMatchingBoard";
+import { resolveMatchingMode } from "../../utils/matchingUtils";
 import { resolveOfflineUrl } from "../../services/offline/media";
 
 interface Props {
@@ -248,7 +250,9 @@ export default function ExamPreExamSolutionPreviewModal({
                               {q.type === "multiple_choice" && "Nhiều đáp án"}
                               {q.type === "true_false" && "Đúng / Sai"}
                               {q.type === "short_answer" && "Trả lời ngắn"}
-                              {q.type === "matching" && "Nối cặp"}
+                              {q.type === "ordering" && "Sắp xếp"}
+                              {q.type === "fill_blank" && "Điền khuyết"}
+                              {q.type === "matching" && "Nối bảng"}
                               {q.type === "essay" && "Tự luận"}
                             </span>
                           </div>
@@ -388,6 +392,70 @@ export default function ExamPreExamSolutionPreviewModal({
                               ) : (
                                 <span className="text-slate-500 italic text-[11px]">Chưa cài đặt đáp án mẫu</span>
                               )}
+                            </div>
+                          </div>
+                        )}
+
+                        {/* Matching Table (Nối bảng) */}
+                        {q.type === "matching" && (
+                          <div className="pt-1">
+                            <InteractiveMatchingBoard
+                              isAnswerKeyPreview={true}
+                              isReview={false}
+                              readOnly={true}
+                              matchingMode={resolveMatchingMode(q)}
+                              leftItems={q.matchingLeft || []}
+                              rightItems={q.matchingRight || []}
+                              matches={q.correctMatches || {}}
+                              correctMatches={q.correctMatches || {}}
+                            />
+                          </div>
+                        )}
+
+                        {/* Ordering */}
+                        {q.type === "ordering" && (q.orderingItems || []).length > 0 && (
+                          <div className="p-2.5 bg-emerald-50/70 border border-emerald-200 rounded-xl text-xs space-y-1.5">
+                            <span className="font-bold text-emerald-900 text-[11px] block">
+                              Thứ tự sắp xếp chuẩn:
+                            </span>
+                            <div className="space-y-1">
+                              {(q.correctOrder && q.correctOrder.length > 0
+                                ? q.correctOrder
+                                    .map((id) => (q.orderingItems || []).find((it) => it.id === id))
+                                    .filter(Boolean)
+                                : q.orderingItems || []
+                              ).map((it: any, idx: number) => (
+                                <div
+                                  key={it.id || idx}
+                                  className="flex items-center gap-2 p-1.5 bg-white border border-emerald-200 rounded-lg"
+                                >
+                                  <span className="w-5 h-5 rounded-full bg-emerald-600 text-white text-[10px] font-black flex items-center justify-center shrink-0">
+                                    {idx + 1}
+                                  </span>
+                                  <div className="flex-1 min-w-0">
+                                    <LatexPreview content={it.text} />
+                                  </div>
+                                </div>
+                              ))}
+                            </div>
+                          </div>
+                        )}
+
+                        {/* Fill Blank */}
+                        {q.type === "fill_blank" && q.acceptedAnswersPerBlank && (
+                          <div className="p-2.5 bg-emerald-50/70 border border-emerald-200 rounded-xl text-xs space-y-1">
+                            <span className="font-bold text-emerald-900 text-[11px] block">
+                              Đáp án điền khuyết:
+                            </span>
+                            <div className="flex flex-wrap gap-1.5">
+                              {Object.entries(q.acceptedAnswersPerBlank).map(([bIdx, arr]) => (
+                                <span
+                                  key={bIdx}
+                                  className="px-2 py-0.5 bg-white border border-emerald-300 text-emerald-900 font-bold rounded text-xs"
+                                >
+                                  [{Number(bIdx) + 1}]: {(Array.isArray(arr) ? arr : [String(arr)]).join(" | ")}
+                                </span>
+                              ))}
                             </div>
                           </div>
                         )}

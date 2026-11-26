@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { Question } from "../../../types";
 import LatexPreview from "../../exam-builder/editor/LatexPreview";
 import InteractiveMatchingBoard from "../../../components/exam/InteractiveMatchingBoard";
+import { resolveMatchingMode } from "../../../utils/matchingUtils";
 import InteractiveFillBlankText from "../../../components/exam/InteractiveFillBlankText";
 import {
   X,
@@ -1121,10 +1122,10 @@ export default function ScratchpadModal({
                   Nối các mục tương ứng giữa 2 cột:
                 </p>
                 <InteractiveMatchingBoard
+                  matchingMode={resolveMatchingMode(currentQ)}
                   leftItems={currentQ.matchingLeft || []}
                   rightItems={currentQ.matchingRight || []}
                   matches={typeof answers[currentQ.id] === "object" && answers[currentQ.id] ? answers[currentQ.id] : {}}
-                  correctMatches={currentQ.correctMatches || {}}
                   onChange={(newMatches) => {
                     if (onAnswerChange) onAnswerChange(currentQ.id, newMatches);
                   }}

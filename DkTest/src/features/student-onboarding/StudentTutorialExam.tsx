@@ -27,6 +27,7 @@ import CasioCalculator from "../../components/exam/CasioCalculator";
 import LatexPreview from "../exam-builder/editor/LatexPreview";
 import InteractiveFillBlankText from "../../components/exam/InteractiveFillBlankText";
 import InteractiveMatchingBoard from "../../components/exam/InteractiveMatchingBoard";
+import { resolveMatchingMode } from "../../utils/matchingUtils";
 import { DEMO_EXAM, DEMO_QUESTIONS, DEMO_SECTION } from "./StudentOnboardingDemoData";
 import { useStudentOnboarding } from "./StudentOnboardingContext";
 import { TOUR_DATA_IDS } from "./StudentOnboardingTypes";
@@ -414,6 +415,7 @@ export default function StudentTutorialExam() {
                 Nối các mục tương ứng giữa Cột 1 và Cột 2 bên dưới:
               </label>
               <InteractiveMatchingBoard
+                matchingMode={resolveMatchingMode(q)}
                 leftItems={q.matchingLeft || []}
                 rightItems={q.matchingRight || []}
                 matches={typeof answersDraft[q.id] === "object" && answersDraft[q.id] ? answersDraft[q.id] : {}}

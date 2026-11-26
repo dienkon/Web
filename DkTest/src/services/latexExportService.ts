@@ -10,6 +10,7 @@ import {
 import { renderGraphToSvg } from "../features/math-draw/graphRenderer";
 import { renderBBTToHtml } from "../features/math-draw/bbtRenderer";
 import { executeLiveCanvasCode, detectContentBounds } from "../features/math-draw/liveCanvasRunner";
+import { formatMatchingPairsSummary, getLeftItemLabel, getRightItemLabel } from "../utils/matchingUtils";
 
 export interface ExportExamOptions {
   includeAnswers: boolean;
@@ -951,6 +952,29 @@ export function generateExamLatex(
       } else {
         tex += `\\vspace{0.8cm}\n\\noindent\\textit{Đáp số: .....................................................................................}\n\n`;
       }
+    } else if (q.type === "matching") {
+      const leftItems = q.matchingLeft || [];
+      const rightItems = q.matchingRight || [];
+      const maxRows = Math.max(leftItems.length, rightItems.length);
+      tex += `\\begin{center}\n\\begin{tabular}{|p{0.44\\linewidth}|p{0.44\\linewidth}|}\n\\hline\n\\textbf{Cột 1} & \\textbf{Cột 2} \\\\\n\\hline\n`;
+      for (let r = 0; r < maxRows; r++) {
+        const l = leftItems[r];
+        const rt = rightItems[r];
+        const lCell = l
+          ? `\\textbf{${escapeLatexText(getLeftItemLabel(r, l))}.} ${escapeLatexText(l.text)}`
+          : "";
+        const rCell = rt
+          ? `\\textbf{${escapeLatexText(getRightItemLabel(r, rt))}.} ${escapeLatexText(rt.text)}`
+          : "";
+        tex += `${lCell} & ${rCell} \\\\\n\\hline\n`;
+      }
+      tex += `\\end{tabular}\n\\end{center}\n`;
+      if (includeAnswers) {
+        const summary =
+          formatMatchingPairsSummary(q.correctMatches, leftItems, rightItems, " $\\rightarrow$ ") ||
+          "Không nối";
+        tex += `\\noindent\\textbf{Đáp án nối:} ${summary}\n\n`;
+      }
     }
 
     // Explanation
@@ -1615,10 +1639,9 @@ export function generateExamHtmlForPrint(
         html += `</tr>`;
       }
       html += `</table>`;
-      if (includeAnswers && q.correctMatches) {
-        const matchesSummary = Object.entries(q.correctMatches)
-          .map(([lKey, rVal]) => `${lKey} → ${rVal}`)
-          .join(", ");
+      if (includeAnswers && q.correctMatches !== undefined) {
+        const matchesSummary =
+          formatMatchingPairsSummary(q.correctMatches, leftItems, rightItems) || "Không nối";
         html += `<div style="margin-left: 10px; font-weight: bold; color: #1e3a8a;">Đáp án nối: ${matchesSummary}</div>`;
       }
     }

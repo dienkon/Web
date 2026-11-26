@@ -26,15 +26,30 @@ import {
   HelpCircle,
   Eye,
   EyeOff,
+  GitCommitHorizontal,
+  GitFork,
 } from "lucide-react";
+import { v4 as uuidv4 } from "uuid";
 import { useExamEditorContext } from "../context/ExamEditorContext";
 import LatexPreview from "../editor/LatexPreview";
+import InteractiveMatchingBoard from "../../../components/exam/InteractiveMatchingBoard";
 import {
   questionsToExamText,
   examTextToQuestions,
   EXAM_SYNTAX_TEMPLATES,
 } from "../utils/dualPaneTextParser";
-import type { Question, Section, QuestionType } from "../../../types";
+import {
+  getLeftItemLabel,
+  getRightItemLabel,
+  normalizeMatchesToArrayMap,
+  removeLeftItemAndRemap,
+  removeRightItemAndRemap,
+  resolveMatchingMode,
+  serializeMatchesMap,
+  setLeftTargetsInMode,
+  toggleMatchConnection,
+} from "../../../utils/matchingUtils";
+import type { Question, Section, QuestionType, MatchingMode } from "../../../types";
 import { useToast } from "../../../components/ui/ToastNotification";
 
 export default function DualPaneSplitEditor() {
@@ -414,6 +429,14 @@ Chọn A"
           >
             Mẫu 6 (Tổng hợp)
           </button>
+          <span>|</span>
+          <button
+            type="button"
+            onClick={() => handleLoadSample("sample7")}
+            className="text-blue-600 hover:underline font-medium cursor-pointer"
+          >
+            Mẫu 7 (Nối bảng)
+          </button>
         </div>
       </div>
 
@@ -562,7 +585,33 @@ Chọn A"
             {/* Type selector */}
             <select
               value={q.type || "single_choice"}
-              onChange={(e) => actions.updateQuestion(q.id, { type: e.target.value as QuestionType })}
+              onChange={(e) => {
+                const nextType = e.target.value as QuestionType;
+                const updates: Partial<Question> = { type: nextType };
+                if (nextType === "matching") {
+                  if (!q.matchingLeft || q.matchingLeft.length === 0) {
+                    updates.matchingLeft = [
+                      { id: uuidv4(), label: "1", text: "Khái niệm 1" },
+                      { id: uuidv4(), label: "2", text: "Khái niệm 2" },
+                      { id: uuidv4(), label: "3", text: "Khái niệm 3" },
+                    ];
+                  }
+                  if (!q.matchingRight || q.matchingRight.length === 0) {
+                    updates.matchingRight = [
+                      { id: uuidv4(), label: "a", text: "Định nghĩa A" },
+                      { id: uuidv4(), label: "b", text: "Định nghĩa B" },
+                      { id: uuidv4(), label: "c", text: "Định nghĩa C" },
+                    ];
+                  }
+                  if (q.correctMatches === undefined) {
+                    updates.correctMatches = { "1": "a", "2": "b", "3": "c" };
+                  }
+                  if (!q.matchingMode) {
+                    updates.matchingMode = "one_to_one";
+                  }
+                }
+                actions.updateQuestion(q.id, updates);
+              }}
               className="px-2 py-1 rounded-lg border border-slate-200 font-semibold text-slate-700 bg-white outline-hidden cursor-pointer text-xs"
             >
               <option value="single_choice">Trắc nghiệm</option>
@@ -844,14 +893,199 @@ Chọn A"
         )}
 
         {/* Matching */}
-        {q.type === "matching" && (
-          <div className="p-2.5 bg-slate-50 rounded-xl border border-slate-200 text-xs">
-            <span className="font-bold text-slate-700">Nối 2 cột:</span>
-            <div className="text-slate-500 text-[11px] mt-1">
-              {Object.keys(q.correctMatches || {}).length} cặp đã ghép nối
+        {q.type === "matching" && (() => {
+          const leftItems = q.matchingLeft || [];
+          const rightItems = q.matchingRight || [];
+          const mode: MatchingMode = resolveMatchingMode(q);
+          const normMatches = normalizeMatchesToArrayMap(q.correctMatches, leftItems, rightItems);
+
+          return (
+            <div
+              onClick={(e) => e.stopPropagation()}
+              className="p-3 bg-slate-50 rounded-xl border border-slate-200 text-xs space-y-3"
+            >
+              {/* Mode Switcher */}
+              <div className="flex items-center justify-between flex-wrap gap-2">
+                <span className="font-bold text-slate-800">Nối bảng 2 cột:</span>
+                <div className="inline-flex items-center bg-white border border-slate-200 rounded-lg p-0.5 gap-0.5">
+                  <button
+                    type="button"
+                    onClick={() => {
+                      const cleaned = serializeMatchesMap(normMatches, "one_to_one");
+                      actions.updateQuestion(q.id, { matchingMode: "one_to_one", correctMatches: cleaned });
+                    }}
+                    className={`px-2 py-1 rounded-md text-[11px] font-bold flex items-center gap-1 cursor-pointer ${
+                      mode === "one_to_one" ? "bg-blue-600 text-white" : "text-slate-600 hover:bg-slate-100"
+                    }`}
+                  >
+                    <GitCommitHorizontal className="w-3 h-3" />
+                    <span>1 ô – 1 mạch</span>
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      const cleaned = serializeMatchesMap(normMatches, "multiple");
+                      actions.updateQuestion(q.id, { matchingMode: "multiple", correctMatches: cleaned });
+                    }}
+                    className={`px-2 py-1 rounded-md text-[11px] font-bold flex items-center gap-1 cursor-pointer ${
+                      mode === "multiple" ? "bg-purple-600 text-white" : "text-slate-600 hover:bg-slate-100"
+                    }`}
+                  >
+                    <GitFork className="w-3 h-3" />
+                    <span>1 ô – Nhiều mạch</span>
+                  </button>
+                </div>
+              </div>
+
+              {/* 2-Column Item Inputs */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                {/* Cột 1 */}
+                <div className="bg-white border border-slate-200 rounded-xl p-2.5 space-y-2">
+                  <div className="flex items-center justify-between">
+                    <span className="font-bold text-blue-700">Cột 1 (1 ➔ {leftItems.length})</span>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        const nextIdx = leftItems.length + 1;
+                        actions.updateQuestion(q.id, {
+                          matchingLeft: [
+                            ...leftItems,
+                            { id: uuidv4(), label: `${nextIdx}`, text: `Nội dung ${nextIdx}` },
+                          ],
+                        });
+                      }}
+                      className="px-2 py-0.5 bg-blue-50 text-blue-700 rounded-md font-bold text-[11px] cursor-pointer hover:bg-blue-100"
+                    >
+                      + Thêm ô
+                    </button>
+                  </div>
+                  {leftItems.map((it, lIdx) => {
+                    const lLbl = getLeftItemLabel(lIdx, it);
+                    return (
+                      <div key={it.id || lIdx} className="flex items-center gap-1.5">
+                        <span className="w-5 h-5 rounded bg-blue-600 text-white font-bold text-[11px] flex items-center justify-center shrink-0">
+                          {lLbl}
+                        </span>
+                        <input
+                          type="text"
+                          value={it.text}
+                          onChange={(e) => {
+                            const next = leftItems.map((row, i) =>
+                              i === lIdx ? { ...row, text: e.target.value } : row
+                            );
+                            actions.updateQuestion(q.id, { matchingLeft: next });
+                          }}
+                          className="flex-1 px-2 py-1 border border-slate-200 rounded text-xs"
+                          placeholder={`Ô ${lLbl}...`}
+                        />
+                        {leftItems.length > 1 && (
+                          <button
+                            type="button"
+                            onClick={() => {
+                              const remapped = removeLeftItemAndRemap(
+                                leftItems,
+                                rightItems,
+                                q.correctMatches,
+                                lIdx,
+                                mode
+                              );
+                              actions.updateQuestion(q.id, remapped);
+                            }}
+                            className="p-1 text-slate-400 hover:text-red-600 cursor-pointer"
+                            title="Xóa ô"
+                          >
+                            <Trash2 className="w-3 h-3" />
+                          </button>
+                        )}
+                      </div>
+                    );
+                  })}
+                </div>
+
+                {/* Cột 2 */}
+                <div className="bg-white border border-slate-200 rounded-xl p-2.5 space-y-2">
+                  <div className="flex items-center justify-between">
+                    <span className="font-bold text-indigo-700">
+                      Cột 2 (a ➔ {rightItems.length > 0 ? getRightItemLabel(rightItems.length - 1, rightItems[rightItems.length - 1]) : "z"})
+                    </span>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        const nextLbl = getRightItemLabel(rightItems.length);
+                        actions.updateQuestion(q.id, {
+                          matchingRight: [
+                            ...rightItems,
+                            { id: uuidv4(), label: nextLbl, text: `Nội dung ${nextLbl.toUpperCase()}` },
+                          ],
+                        });
+                      }}
+                      className="px-2 py-0.5 bg-indigo-50 text-indigo-700 rounded-md font-bold text-[11px] cursor-pointer hover:bg-indigo-100"
+                    >
+                      + Thêm ô
+                    </button>
+                  </div>
+                  {rightItems.map((it, rIdx) => {
+                    const rLbl = getRightItemLabel(rIdx, it);
+                    return (
+                      <div key={it.id || rIdx} className="flex items-center gap-1.5">
+                        <span className="w-5 h-5 rounded bg-indigo-600 text-white font-bold text-[11px] flex items-center justify-center shrink-0">
+                          {rLbl}
+                        </span>
+                        <input
+                          type="text"
+                          value={it.text}
+                          onChange={(e) => {
+                            const next = rightItems.map((row, i) =>
+                              i === rIdx ? { ...row, text: e.target.value } : row
+                            );
+                            actions.updateQuestion(q.id, { matchingRight: next });
+                          }}
+                          className="flex-1 px-2 py-1 border border-slate-200 rounded text-xs"
+                          placeholder={`Ô ${rLbl}...`}
+                        />
+                        {rightItems.length > 1 && (
+                          <button
+                            type="button"
+                            onClick={() => {
+                              const remapped = removeRightItemAndRemap(
+                                leftItems,
+                                rightItems,
+                                q.correctMatches,
+                                rIdx,
+                                mode
+                              );
+                              actions.updateQuestion(q.id, remapped);
+                            }}
+                            className="p-1 text-slate-400 hover:text-red-600 cursor-pointer"
+                            title="Xóa ô"
+                          >
+                            <Trash2 className="w-3 h-3" />
+                          </button>
+                        )}
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+
+              {/* Interactive Visual Matching Board Preview & Wiring */}
+              <div className="bg-white border border-slate-200 rounded-xl p-2.5">
+                <div className="text-[10px] font-bold text-slate-500 uppercase tracking-wide mb-2">
+                  Xem trước & chạm nối đáp án đúng (ô không cần nối có thể để trống):
+                </div>
+                <InteractiveMatchingBoard
+                  leftItems={leftItems}
+                  rightItems={rightItems}
+                  matchingMode={mode}
+                  matches={q.correctMatches || {}}
+                  onChange={(nextMatches) =>
+                    actions.updateQuestion(q.id, { correctMatches: nextMatches })
+                  }
+                />
+              </div>
             </div>
-          </div>
-        )}
+          );
+        })()}
 
         {/* Essay */}
         {q.type === "essay" && (

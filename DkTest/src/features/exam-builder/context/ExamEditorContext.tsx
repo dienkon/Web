@@ -211,6 +211,15 @@ export const ExamEditorProvider: React.FC<{ children: React.ReactNode, isParentM
       if (q.type === "true_false" && (!q.statements || q.statements.length === 0)) {
         issues.push({ id: q.id, type: "error", message: `Câu ${qNum}: Chưa có mệnh đề Đúng/Sai.` });
       }
+      if (q.type === "matching") {
+        if (!q.matchingLeft || q.matchingLeft.length === 0 || !q.matchingRight || q.matchingRight.length === 0) {
+          issues.push({
+            id: q.id,
+            type: "error",
+            message: `Câu ${qNum}: Bảng nối cần ít nhất 1 ô ở Cột 1 và 1 ô ở Cột 2.`,
+          });
+        }
+      }
     });
     setState(s => ({ ...s, validationIssues: issues }));
     return issues.length === 0;
@@ -510,6 +519,7 @@ function sanitizeForFirestore(obj: any): any {
           "2": "b",
           "3": "c",
         };
+        newQuestion.matchingMode = "one_to_one";
       }
       
       setState(s => ({
@@ -550,6 +560,34 @@ function sanitizeForFirestore(obj: any): any {
         
         if (newQ.statements) {
           newQ.statements = newQ.statements.map(st => ({ ...st, id: uuidv4() }));
+        }
+
+        if (newQ.matchingLeft) {
+          newQ.matchingLeft = newQ.matchingLeft.map((it, i) => ({
+            ...it,
+            id: uuidv4(),
+            label: it.label || `${i + 1}`,
+          }));
+        }
+
+        if (newQ.matchingRight) {
+          newQ.matchingRight = newQ.matchingRight.map((it, i) => ({
+            ...it,
+            id: uuidv4(),
+            label: it.label || String.fromCharCode(97 + i),
+          }));
+        }
+
+        if (newQ.orderingItems) {
+          const ordIdMap = new Map<string, string>();
+          newQ.orderingItems = newQ.orderingItems.map(it => {
+            const nextId = uuidv4();
+            ordIdMap.set(it.id, nextId);
+            return { ...it, id: nextId };
+          });
+          if (newQ.correctOrder) {
+            newQ.correctOrder = newQ.correctOrder.map(oldId => ordIdMap.get(oldId) || oldId);
+          }
         }
 
         const idx = s.questions.findIndex(q => q.id === id);

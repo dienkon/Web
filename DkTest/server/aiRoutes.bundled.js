@@ -203,6 +203,22 @@ var aiQuestionSchema = z.object({
   correctOrder: z.array(z.string()).optional(),
   acceptedAnswersPerBlank: z.record(z.string(), z.array(z.string())).optional(),
   blankAnswers: z.array(z.array(z.string())).optional(),
+  matchingLeft: z.array(
+    z.object({
+      id: z.string().optional(),
+      label: z.string().optional(),
+      text: z.string()
+    })
+  ).optional(),
+  matchingRight: z.array(
+    z.object({
+      id: z.string().optional(),
+      label: z.string().optional(),
+      text: z.string()
+    })
+  ).optional(),
+  correctMatches: z.record(z.string(), z.union([z.string(), z.array(z.string())])).optional(),
+  matchingMode: z.enum(["one_to_one", "multiple"]).optional(),
   audioUrl: z.string().optional(),
   audioConfig: aiAudioConfigSchema,
   attachments: z.array(aiAttachmentSchema).optional(),

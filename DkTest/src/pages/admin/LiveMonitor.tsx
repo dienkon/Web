@@ -31,6 +31,7 @@ import {
 } from "lucide-react";
 import LatexPreview from "../../features/exam-builder/editor/LatexPreview";
 import AdminAIAssistant from "../../components/admin/AdminAIAssistant";
+import { getLeftItemLabel, normalizeMatchesToArrayMap } from "../../utils/matchingUtils";
 
 function formatSeconds(s: number) {
   if (isNaN(s) || s < 0) return "00:00";
@@ -965,15 +966,24 @@ export default function LiveMonitor() {
                       </label>
                       <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
                         {(() => {
-                          const ansMap = typeof studentAns === "object" && studentAns ? studentAns : {};
-                          const correctMap = currentQ.correctMatches || {};
                           const leftList = currentQ.matchingLeft || [];
+                          const rightList = currentQ.matchingRight || [];
+                          const ansMap = normalizeMatchesToArrayMap(studentAns, leftList, rightList);
+                          const correctMap = normalizeMatchesToArrayMap(
+                            currentQ.correctMatches,
+                            leftList,
+                            rightList
+                          );
 
                           return leftList.map((it, idx) => {
-                            const lKey = it.label || `${idx + 1}`;
-                            const val = ansMap[lKey] || ansMap[String(idx)];
-                            const correctVal = correctMap[lKey] || correctMap[String(idx)];
-                            const isCorrect = showAnswerKey && correctVal !== undefined && String(val || "").trim().toLowerCase() === String(correctVal).trim().toLowerCase();
+                            const lKey = getLeftItemLabel(idx, it);
+                            const userTargets = ansMap[lKey] || [];
+                            const corrTargets = correctMap[lKey] || [];
+                            const corrLower = new Set(corrTargets.map((t) => t.toLowerCase()));
+                            const isCorrect =
+                              showAnswerKey &&
+                              userTargets.length === corrTargets.length &&
+                              userTargets.every((t) => corrLower.has(t.toLowerCase()));
 
                             return (
                               <div
@@ -986,13 +996,17 @@ export default function LiveMonitor() {
                                     : "bg-slate-50 border-slate-200"
                                 }`}
                               >
-                                <div className="font-bold text-slate-600 mb-1">Dòng #{lKey}</div>
+                                <div className="font-bold text-slate-600 mb-1">Ô #{lKey}</div>
                                 <div className="font-bold text-slate-900">
-                                  Nối với: <span className="text-blue-700 font-extrabold">{val ? `[${val}]` : "(Chưa nối)"}</span>
+                                  Nối với:{" "}
+                                  <span className="text-blue-700 font-extrabold">
+                                    {userTargets.length > 0 ? `[${userTargets.join(", ")}]` : "(Không nối)"}
+                                  </span>
                                 </div>
-                                {showAnswerKey && correctVal && (
+                                {showAnswerKey && (
                                   <div className="text-[11px] text-emerald-800 font-semibold pt-1 border-t border-emerald-200/50 mt-1">
-                                    Đ/A đúng: [{correctVal}]
+                                    Đ/A đúng:{" "}
+                                    {corrTargets.length > 0 ? `[${corrTargets.join(", ")}]` : "Không nối"}
                                   </div>
                                 )}
                               </div>

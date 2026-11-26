@@ -14,6 +14,13 @@ import {
 import QuestionEditor from "../questions/QuestionEditor";
 import ConfirmModal from "../../../components/ui/ConfirmModal";
 import LatexPreview from "../editor/LatexPreview";
+import {
+  countMatchingWires,
+  formatMatchingPairsSummary,
+  getLeftItemLabel,
+  getRightItemLabel,
+  resolveMatchingMode,
+} from "../../../utils/matchingUtils";
 
 export default function QuestionCard({ question }: { question: Question }) {
   const { state, actions } = useExamEditorContext();
@@ -88,6 +95,7 @@ export default function QuestionCard({ question }: { question: Question }) {
                 {question.type === "ordering" && "Sắp xếp thứ tự"}
                 {question.type === "fill_blank" && "Điền lỗ"}
                 {question.type === "matching" && "Nối bảng"}
+                {question.type === "essay" && "Tự luận"}
               </span>
             </div>
 
@@ -211,12 +219,63 @@ export default function QuestionCard({ question }: { question: Question }) {
               {question.type === "ordering" && "• sắp xếp"}
               {question.type === "fill_blank" && "• điền lỗ"}
               {question.type === "matching" && "• nối bảng"}
+              {question.type === "essay" && "• tự luận"}
             </span>
           </div>
 
           <div className="text-xs text-slate-600 line-clamp-2 leading-relaxed">
             <LatexPreview content={question.text || "Chưa có nội dung câu hỏi..."} />
           </div>
+
+          {/* Compact preview for Matching table when collapsed */}
+          {question.type === "matching" && (
+            <div className="mt-2 p-2.5 rounded-xl bg-slate-50 border border-slate-200/90 text-[11px] space-y-1.5">
+              <div className="flex items-center justify-between gap-2 flex-wrap">
+                <span className="font-bold text-indigo-700">
+                  {resolveMatchingMode(question) === "multiple"
+                    ? "Nối nhiều mạch (1 ➔ nhiều)"
+                    : "Nối 1–1 (1 ô – 1 mạch)"}{" "}
+                  • {(question.matchingLeft || []).length} ô Cột 1 × {(question.matchingRight || []).length} ô Cột 2
+                </span>
+                <span className="font-mono font-bold text-emerald-700 bg-emerald-50 border border-emerald-200 px-1.5 py-0.5 rounded">
+                  {countMatchingWires(
+                    question.correctMatches,
+                    question.matchingLeft,
+                    question.matchingRight
+                  )}{" "}
+                  mạch đáp án
+                </span>
+              </div>
+              <div className="grid grid-cols-2 gap-2 text-slate-600">
+                <div className="truncate">
+                  <strong className="text-slate-700">Cột 1:</strong>{" "}
+                  {(question.matchingLeft || [])
+                    .map((it, i) => `${getLeftItemLabel(i, it)}. ${it.text}`)
+                    .join(" | ") || "(Trống)"}
+                </div>
+                <div className="truncate">
+                  <strong className="text-slate-700">Cột 2:</strong>{" "}
+                  {(question.matchingRight || [])
+                    .map((it, i) => `${getRightItemLabel(i, it)}. ${it.text}`)
+                    .join(" | ") || "(Trống)"}
+                </div>
+              </div>
+              {formatMatchingPairsSummary(
+                question.correctMatches,
+                question.matchingLeft,
+                question.matchingRight
+              ) && (
+                <div className="text-[10px] font-mono font-semibold text-slate-500 truncate">
+                  Đáp án:{" "}
+                  {formatMatchingPairsSummary(
+                    question.correctMatches,
+                    question.matchingLeft,
+                    question.matchingRight
+                  )}
+                </div>
+              )}
+            </div>
+          )}
         </div>
 
         {/* Quick actions on hover */}

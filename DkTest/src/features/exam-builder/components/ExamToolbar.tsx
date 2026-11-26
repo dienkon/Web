@@ -57,6 +57,7 @@ export default function ExamToolbar() {
       }));
 
       const mappedQuestions = (data.questions || []).map((q: any, idx: number) => ({
+        ...q,
         id: q.id || `q_${idx}`,
         examId,
         sectionId: q.sectionId || mappedSections[0]?.id || undefined,
@@ -69,6 +70,19 @@ export default function ExamToolbar() {
         correctOptionIds: q.correctOptionIds || [],
         statements: q.statements || [],
         acceptedAnswers: q.acceptedAnswers || [],
+        matchingLeft: q.matchingLeft,
+        matchingRight: q.matchingRight,
+        correctMatches: q.correctMatches,
+        matchingMode: q.matchingMode,
+        orderingItems: q.orderingItems,
+        correctOrder: q.correctOrder,
+        acceptedAnswersPerBlank: q.acceptedAnswersPerBlank,
+        blankAnswers: q.blankAnswers,
+        essayRubric: q.essayRubric,
+        essayGradingPrompt: q.essayGradingPrompt,
+        essayGradingMode: q.essayGradingMode,
+        essayMinWords: q.essayMinWords,
+        essayMaxWords: q.essayMaxWords,
       }));
 
       actions.importExam({

@@ -169,6 +169,10 @@ export interface MatchingItem {
   text: string; // supports rich text/math
 }
 
+export type MatchingMode = "one_to_one" | "multiple";
+export type MatchingAnswerValue = string | string[];
+export type MatchingConnections = Record<string, MatchingAnswerValue>;
+
 export interface Question {
   id: string;
   ownerId?: string;
@@ -201,7 +205,8 @@ export interface Question {
   // for matching questions (nối bảng 2 cột: Cột 1 (1->n) và Cột 2 (a->z))
   matchingLeft?: MatchingItem[]; // Cột 1 (hàng 1 -> n)
   matchingRight?: MatchingItem[]; // Cột 2 (hàng a -> z)
-  correctMatches?: Record<string, string>; // left key/id -> right key/id (e.g. { "1": "c", "2": "a" })
+  correctMatches?: MatchingConnections; // left key/id -> right key/id or array of right keys (unconnected items omitted)
+  matchingMode?: MatchingMode; // "one_to_one" (chỉ 1 ô 1 mạch - default) | "multiple" (cho phép 1 ô nối nhiều mạch)
 
   // for essay questions (câu hỏi tự luận)
   essayRubric?: string; // Barem đáp án / gợi ý giải

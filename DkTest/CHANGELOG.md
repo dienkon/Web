@@ -1,5 +1,20 @@
 # DkTEST changelog
 
+## 2.0.5 — 2026-11-26 (Android versionCode 29)
+
+- **Sửa triệt để lỗi câu hỏi Nối bảng (`matching`) không hiển thị / bị khóa / bị mất dữ liệu ở phần chỉnh sửa & xem trước**:
+  - **Tab Xem trước & Sửa song song (`ExamVisualPreviewEditor.tsx`)**: mở khóa bảng tương tác ở cột soạn bên trái (`isReview={false}` thay vì `isReview={true}` khiến trước đó không thể bấm hay kéo nối), tách bạch chế độ **Hiện đáp án đúng** (`isAnswerKeyPreview={true}` vẽ đường đáp án xanh rõ nét kèm danh sách ô không nối) và **Ẩn đáp án** (hiển thị bảng đề trắng đúng như đề phát cho thí sinh, không còn lộ đường nét đứt đáp án), đồng thời bù tỷ lệ `zoom` (`80%`–`125%`) & `transform` để tâm dây nối SVG luôn khớp chính xác vào chấm neo.
+  - **Tab Soạn văn bản Chia đôi (`DualPaneSplitEditor.tsx`, `dualPaneTextParser.ts`)**: thay thế khung tóm tắt cụt ngủn bằng thẻ soạn & xem trước bảng nối trực quan ngay tại chỗ; bổ sung bộ chuyển đổi 2 chiều cú pháp `[Nối bảng: 1-1]` / `[Nối bảng: nối nhiều]`, `Cột 1:`, `Cột 2:`, `Đáp án nối:` kèm **Mẫu 7 (Nối bảng)** để đồng bộ văn bản không bao giờ làm mất bảng nối.
+  - **Thẻ thu gọn, các Modal Xem trước & Nhập/Xuất đề (`QuestionCard.tsx`, `ExamPreviewModal.tsx`, `ExamPreExamSolutionPreviewModal.tsx`, `SubmissionDetail.tsx`, `StudentTutorialResult.tsx`, `ExamToolbar.tsx`, `normalizeExamJson.ts`, `wordExportService.ts`, `latexExportService.ts`)**: hiển thị tóm tắt 2 cột ngay trên thẻ câu hỏi thu gọn; bổ sung bảng nối vào `ExamPreExamSolutionPreviewModal` và trang Quản trị xem chi tiết bài nộp (`SubmissionDetail.tsx`); sửa lỗi `normalizeQuestion` (trước đây ép câu `matching` khi nhập file JSON về `single_choice` rỗng) và `ExamToolbar.processImportedJsonData`; bổ sung xuất bảng & đáp án nối đầy đủ ra Word `.doc`, HTML/PDF in ấn và mã nguồn LaTeX `.tex`.
+- **Tối ưu toàn diện thao tác Nối bảng trên điện thoại di động (`InteractiveMatchingBoard.tsx`)**:
+  - Sửa lỗi tự hủy chọn khi chạm trên điện thoại (`onPointerDown` gán chọn trước rồi `onClick` lập tức đảo ngược về `null` khiến người dùng không thể chạm chọn từng ô).
+  - Tách riêng vùng kéo dây vào nút chấm neo 36×36px (`touch-action: none`) để vuốt cuộn trang trên thân thẻ mượt mà, không bao giờ nối nhầm khi cuộn màn hình.
+  - Hỗ trợ **chạm nối 2 chiều** (chạm Cột 1 ➔ Cột 2 hoặc Cột 2 ➔ Cột 1), **thanh nút nối nhanh tại chỗ** ngay dưới ô đang chọn (không cần cuộn lên/xuống xa), và chế độ chuyển đổi 1 chạm **Ghép nhanh ĐT** (hiển thị thẻ rộng toàn chiều ngang cho công thức/đoạn văn dài trên màn hình nhỏ).
+- **Hỗ trợ thiết lập Quy tắc nối `Chỉ 1 ô – 1 mạch` / `1 ô nối nhiều mạch` & Cho phép các ô không cần nối (`matchingUtils.ts`, `gradingService.ts`)**:
+  - Giáo viên tùy chọn cho từng câu nối bảng: **Chỉ 1 ô – 1 mạch (`one_to_one`)** (mỗi ô Cột 1 và Cột 2 tối đa 1 đường nối, nối mới tự thay mạch cũ) hoặc **Cho phép 1 ô nối nhiều mạch (`multiple`)** (1–nhiều / nhiều–nhiều, chạm lại từng mạch để gỡ).
+  - Hỗ trợ hoàn chỉnh **ô gây nhiễu không cần nối** ở cả Cột 1 lẫn Cột 2; sửa lỗi lưu chuỗi rỗng `""` trong `correctMatches` trước đây khiến thí sinh không bao giờ đạt điểm tối đa khi có dòng để trống, sửa lỗi lệch nhãn đáp án khi xóa dòng giữa bảng (`removeLeftItemAndRemap`, `removeRightItemAndRemap`), và nâng cấp bộ chấm điểm `gradeMatchingQuestion` tính điểm từng mạch chính xác đồng thời chống nối tràn lan các ô gây nhiễu.
+- Audit: [2.0.5](docs/audits/2.0.5.md).
+
 ## 2.0.4 — 2026-11-26 (Android versionCode 28)
 
 - **Thiết kế mới hình ảnh minh họa chi tiết & khung xem trước cho từng Minigame cụ thể**:

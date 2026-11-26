@@ -4,6 +4,7 @@
  */
 
 import type { Question } from "../types";
+import { gradeMatchingQuestion } from "../utils/matchingUtils";
 
 export type QuestionGradingStatus =
   | "correct"
@@ -440,65 +441,20 @@ export function gradeQuestion(params: {
     };
   }
 
-  // 7. Matching Table (Nối bảng 2 cột)
+  // 7. Matching Table (Nối bảng 2 cột: hỗ trợ 1-1, nối nhiều mạch & ô gây nhiễu không nối)
   if (qType === "matching") {
-    const correctMap = question.correctMatches || {};
-    const ansMap = typeof answer === "object" && answer ? answer : {};
-    const pairKeys = Object.keys(correctMap);
-
-    if (pairKeys.length === 0) {
-      return {
-        questionId: question.id,
-        status: "unanswered",
-        earnedPoints: 0,
-        maxPoints,
-        scoreRatio: 0,
-        normalizedAnswer: ansMap,
-      };
-    }
-
-    let correctPairs = 0;
-    let answeredPairs = 0;
-
-    pairKeys.forEach((key) => {
-      const userVal = ansMap[key];
-      if (userVal !== undefined && userVal !== null && String(userVal).trim() !== "") {
-        answeredPairs++;
-        if (String(userVal).trim().toLowerCase() === String(correctMap[key]).trim().toLowerCase()) {
-          correctPairs++;
-        }
-      }
-    });
-
-    if (answeredPairs === 0) {
-      return {
-        questionId: question.id,
-        status: "unanswered",
-        earnedPoints: 0,
-        maxPoints,
-        scoreRatio: 0,
-        normalizedAnswer: ansMap,
-      };
-    }
-
-    const ratio = correctPairs / pairKeys.length;
-    const earned = Math.round(ratio * maxPoints * 100) / 100;
-    let status: QuestionGradingStatus = "incorrect";
-
-    if (correctPairs === pairKeys.length) {
-      status = "correct";
-    } else if (correctPairs > 0) {
-      status = "partial";
-    }
-
+    const breakdown = gradeMatchingQuestion(question, answer, maxPoints);
     return {
       questionId: question.id,
-      status,
-      earnedPoints: earned,
-      maxPoints,
-      scoreRatio: ratio,
-      normalizedAnswer: ansMap,
-      feedbackMetadata: { correctCount: correctPairs, totalElements: pairKeys.length },
+      status: breakdown.status,
+      earnedPoints: breakdown.earnedPoints,
+      maxPoints: breakdown.maxPoints,
+      scoreRatio: breakdown.scoreRatio,
+      normalizedAnswer: breakdown.normalizedAnswer,
+      feedbackMetadata: {
+        correctCount: breakdown.correctEdges,
+        totalElements: breakdown.totalRequiredEdges,
+      },
     };
   }
 

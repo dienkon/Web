@@ -1,4 +1,5 @@
 import type { Question, Submission, Section, Exam, QuestionTiming } from "../types";
+import { gradeMatchingQuestion } from "./matchingUtils";
 
 export interface QuestionEvaluation {
   questionId: string;
@@ -144,19 +145,9 @@ export function evaluateQuestionAnswer(
       earned = (correctBlanks / keys.length) * pointPerQuestion;
     }
   } else if (q.type === "matching") {
-    const correctMap = q.correctMatches || {};
-    const ansMap = typeof studentAns === "object" && studentAns ? studentAns : {};
-    const keys = Object.keys(correctMap);
-    if (keys.length > 0) {
-      let correctCount = 0;
-      keys.forEach((k) => {
-        if (String(ansMap[k] || "").trim().toLowerCase() === String(correctMap[k] || "").trim().toLowerCase()) {
-          correctCount++;
-        }
-      });
-      isCorrect = correctCount === keys.length;
-      earned = (correctCount / keys.length) * pointPerQuestion;
-    }
+    const breakdown = gradeMatchingQuestion(q, studentAns, pointPerQuestion);
+    isCorrect = breakdown.status === "correct";
+    earned = breakdown.earnedPoints;
   }
 
   const status: "correct" | "incorrect" | "unanswered" = isCorrect ? "correct" : "incorrect";

@@ -35,6 +35,8 @@ import {
   RegradeResult,
 } from "../../services/regradeService";
 import QuestionMapNavigator from "../../components/exam/QuestionMapNavigator";
+import InteractiveMatchingBoard from "../../components/exam/InteractiveMatchingBoard";
+import { gradeMatchingQuestion, resolveMatchingMode } from "../../utils/matchingUtils";
 
 export default function SubmissionDetail() {
   const location = useLocation();
@@ -425,6 +427,8 @@ export default function SubmissionDetail() {
           } else if (q.type === "short_answer") {
             const accepted = q.acceptedAnswers?.map((a) => a.trim().toLowerCase()) || [];
             isCorrect = !!(studentAns && accepted.includes(String(studentAns).trim().toLowerCase()));
+          } else if (q.type === "matching") {
+            isCorrect = gradeMatchingQuestion(q, studentAns, 1).status === "correct";
           }
 
           if (filterStatus === "correct" && !isCorrect) return false;
@@ -552,6 +556,8 @@ export default function SubmissionDetail() {
                 } else if (q.type === "short_answer") {
                   const accepted = q.acceptedAnswers?.map((a) => a.trim().toLowerCase()) || [];
                   isCorrect = !!(studentAns && accepted.includes(String(studentAns).trim().toLowerCase()));
+                } else if (q.type === "matching") {
+                  isCorrect = gradeMatchingQuestion(q, studentAns, 1).status === "correct";
                 }
 
                 const actualIdx = rawActiveQuestions.findIndex((item) => item.id === q.id);
@@ -582,6 +588,10 @@ export default function SubmissionDetail() {
                       {q.type === "multiple_choice" && "Nhiều đáp án"}
                       {q.type === "true_false" && "Đúng / Sai"}
                       {q.type === "short_answer" && "Trả lời ngắn"}
+                      {q.type === "ordering" && "Sắp xếp thứ tự"}
+                      {q.type === "fill_blank" && "Điền khuyết"}
+                      {q.type === "matching" && "Nối bảng (2 cột)"}
+                      {q.type === "essay" && "Tự luận"}
                     </span>
                   </div>
 
@@ -714,6 +724,21 @@ export default function SubmissionDetail() {
                         Đáp án đúng: {q.acceptedAnswers?.join(" / ")}
                       </span>
                     </div>
+                  </div>
+                )}
+
+                {/* Matching Table Review */}
+                {q.type === "matching" && (
+                  <div className="pt-1">
+                    <InteractiveMatchingBoard
+                      isReview={true}
+                      readOnly={true}
+                      matchingMode={resolveMatchingMode(q)}
+                      leftItems={q.matchingLeft || []}
+                      rightItems={q.matchingRight || []}
+                      matches={typeof studentAns === "object" && studentAns ? studentAns : {}}
+                      correctMatches={q.correctMatches || {}}
+                    />
                   </div>
                 )}
 

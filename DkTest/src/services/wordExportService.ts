@@ -4,6 +4,7 @@ import type { Exam, Question, Section, Submission } from "../types";
 import { normalizeLatexText, decodeHtmlEntities } from "../features/exam-builder/editor/LatexPreview";
 import { renderBBTToHtml } from "../features/math-draw/bbtRenderer";
 import { renderGraphToSvg } from "../features/math-draw/graphRenderer";
+import { formatMatchingPairsSummary } from "../utils/matchingUtils";
 
 export interface WordExportOptions {
   schoolName?: string;
@@ -563,6 +564,10 @@ export function generateExamWordHtml(
           .join("; ");
       } else if (q.type === "ordering" && q.correctOrder) {
         ansText = q.correctOrder.map((id, idx) => `[${idx + 1}]`).join(" -> ");
+      } else if (q.type === "matching") {
+        ansText =
+          formatMatchingPairsSummary(q.correctMatches, q.matchingLeft, q.matchingRight) ||
+          "Không nối";
       }
 
       html += `<tr>

@@ -510,7 +510,7 @@ QUY TẮC BẮT BUỘC ĐẦU RA VÀ ĐỊNH DẠNG (LATEST DkTEST 2026):
    }
    ${
      config.questionTypes?.includes("matching")
-       ? `- matching: Nối bảng 2 cột; có "matchingLeft": [{ "id": "1", "label": "1", "text": "..." }], "matchingRight": [{ "id": "a", "label": "a", "text": "..." }] và "correctMatches": { "1": "b", "2": "a" } (ánh xạ nối từ khóa Cột 1 sang Cột 2).`
+       ? `- matching: Nối bảng 2 cột; có "matchingMode": "one_to_one" (chỉ 1 ô 1 mạch) hoặc "multiple" (1 ô nối nhiều mạch), "matchingLeft": [{ "id": "1", "label": "1", "text": "..." }], "matchingRight": [{ "id": "a", "label": "a", "text": "..." }] và "correctMatches": { "1": "b", "2": ["a", "c"] } (ánh xạ nối từ Cột 1 sang Cột 2; các ô gây nhiễu không cần nối thì không đưa vào correctMatches).`
        : ""
    }
 
