@@ -12,8 +12,41 @@ import {
   getSubjectBannerAlt,
   SUBJECT_BANNER_MAP,
 } from "./subjectBannerHelper.js";
+import {
+  getMinigameArtwork,
+  getMinigameArtworkUrl,
+  MINIGAME_HUB_PREVIEW_IMAGE,
+} from "../minigame/minigameAssets.js";
 
-export type SocialContentType = "voucher" | "exam" | "submission" | "code_exam" | "course" | "page";
+export type SocialContentType =
+  | "voucher"
+  | "exam"
+  | "submission"
+  | "code_exam"
+  | "course"
+  | "minigame"
+  | "page";
+
+export interface MinigameSocialPrizeMeta {
+  rank: number;
+  label: string;
+  type: string;
+  amountVnd?: number;
+  voucherCode?: string;
+  customTitle?: string;
+}
+
+export interface MinigameSocialMeta {
+  id: string;
+  eventCode?: string;
+  title: string;
+  description?: string;
+  gameType: string;
+  status: string;
+  maxParticipants: number;
+  participantCount: number;
+  prizes: MinigameSocialPrizeMeta[];
+}
 
 export interface CourseLessonOutlineMeta {
   id: string;
@@ -932,6 +965,142 @@ export async function fetchCodeExamMetadata(
 }
 
 // ---------------------------------------------------------------------------
+// 4b. Minigame Metadata Fetcher (for Zalo / Facebook / Discord rich previews)
+// ---------------------------------------------------------------------------
+function parseFirestoreMinigamePrizes(raw: any): MinigameSocialPrizeMeta[] {
+  const values = Array.isArray(raw?.arrayValue?.values) ? raw.arrayValue.values : [];
+  return values
+    .map((entry: any) => {
+      const f = entry?.mapValue?.fields || {};
+      return {
+        rank: getFirestoreNumber(f.rank) ?? 0,
+        label: getFirestoreString(f.label) || "Giải thưởng",
+        type: getFirestoreString(f.type) || "wallet_vnd",
+        amountVnd: getFirestoreNumber(f.amountVnd) ?? undefined,
+        voucherCode: getFirestoreString(f.voucherCode) || undefined,
+        customTitle: getFirestoreString(f.customTitle) || undefined,
+      };
+    })
+    .filter((p: MinigameSocialPrizeMeta) => Boolean(p.label));
+}
+
+function summarizeMinigamePrizes(prizes: MinigameSocialPrizeMeta[]): string {
+  if (!Array.isArray(prizes) || prizes.length === 0) return "";
+  const formatted = prizes.slice(0, 3).map((p) => {
+    if (p.type === "wallet_vnd" && typeof p.amountVnd === "number") {
+      return `${p.label}: +${p.amountVnd.toLocaleString("vi-VN")}đ`;
+    }
+    if (p.type === "voucher" && p.voucherCode) {
+      return `${p.label}: Voucher ${p.voucherCode}`;
+    }
+    if (p.customTitle) {
+      return `${p.label}: ${p.customTitle}`;
+    }
+    return p.label;
+  });
+  const suffix = prizes.length > 3 ? ` (+${prizes.length - 3} giải)` : "";
+  return `${formatted.join(", ")}${suffix}`;
+}
+
+export async function fetchMinigameMetadata(
+  eventIdOrCode: string
+): Promise<{ found: boolean; minigame: MinigameSocialMeta | null }> {
+  if (!eventIdOrCode || typeof eventIdOrCode !== "string") {
+    return { found: false, minigame: null };
+  }
+
+  const clean = safeDecodeURIComponent(eventIdOrCode).trim();
+  if (!clean) return { found: false, minigame: null };
+
+  const normalizeAdminDoc = (id: string, data: Record<string, any>): MinigameSocialMeta => {
+    const participantsObj =
+      data.participants && typeof data.participants === "object" ? data.participants : {};
+    const prizesArr: MinigameSocialPrizeMeta[] = Array.isArray(data.prizes)
+      ? data.prizes.map((p: any) => ({
+          rank: Number(p?.rank) || 0,
+          label: String(p?.label || "Giải thưởng"),
+          type: String(p?.type || "wallet_vnd"),
+          amountVnd: typeof p?.amountVnd === "number" ? p.amountVnd : undefined,
+          voucherCode: typeof p?.voucherCode === "string" ? p.voucherCode : undefined,
+          customTitle: typeof p?.customTitle === "string" ? p.customTitle : undefined,
+        }))
+      : [];
+    return {
+      id,
+      eventCode: typeof data.eventCode === "string" ? data.eventCode : undefined,
+      title: String(data.title || "Minigame Phúc Lợi DkTEST"),
+      description: typeof data.description === "string" ? data.description : undefined,
+      gameType: String(data.gameType || "horse_race"),
+      status: String(data.status || "lobby"),
+      maxParticipants: Number(data.maxParticipants) || 16,
+      participantCount: Object.keys(participantsObj).length,
+      prizes: prizesArr,
+    };
+  };
+
+  if (adminDb) {
+    try {
+      const docSnap = await adminDb.collection("minigame_events").doc(clean).get();
+      if (docSnap.exists) {
+        return {
+          found: true,
+          minigame: normalizeAdminDoc(docSnap.id, docSnap.data() || {}),
+        };
+      }
+      const codeSnap = await adminDb
+        .collection("minigame_events")
+        .where("eventCode", "==", clean.toUpperCase())
+        .limit(1)
+        .get();
+      if (!codeSnap.empty) {
+        const d = codeSnap.docs[0];
+        return {
+          found: true,
+          minigame: normalizeAdminDoc(d.id, d.data() || {}),
+        };
+      }
+    } catch (err) {
+      console.warn("[socialMetadata] Admin SDK fetchMinigameMetadata failed:", err);
+    }
+  }
+
+  // Fallback to Firestore REST API
+  const projectId = getProjectId();
+  const apiKey = getFirebaseApiKey();
+  try {
+    const docUrl = `https://firestore.googleapis.com/v1/projects/${projectId}/databases/(default)/documents/minigame_events/${encodeURIComponent(
+      clean
+    )}?key=${apiKey}`;
+    const res = await fetch(docUrl, { method: "GET" });
+    if (res.ok) {
+      const data = await res.json();
+      if (data && data.fields) {
+        const f = data.fields;
+        const participantFields = f.participants?.mapValue?.fields || {};
+        return {
+          found: true,
+          minigame: {
+            id: clean,
+            eventCode: getFirestoreString(f.eventCode) || undefined,
+            title: getFirestoreString(f.title) || "Minigame Phúc Lợi DkTEST",
+            description: getFirestoreString(f.description) || undefined,
+            gameType: getFirestoreString(f.gameType) || "horse_race",
+            status: getFirestoreString(f.status) || "lobby",
+            maxParticipants: getFirestoreNumber(f.maxParticipants) ?? 16,
+            participantCount: Object.keys(participantFields).length,
+            prizes: parseFirestoreMinigamePrizes(f.prizes),
+          },
+        };
+      }
+    }
+  } catch (err) {
+    console.warn("[socialMetadata] REST fetchMinigameMetadata failed:", err);
+  }
+
+  return { found: false, minigame: null };
+}
+
+// ---------------------------------------------------------------------------
 // Text Formatting Utilities for Open Graph
 // ---------------------------------------------------------------------------
 function formatVoucherBenefit(voucher: VoucherMeta): string {
@@ -1473,6 +1642,82 @@ export async function resolveSocialMetadataForUrl({
       canonicalUrl: `${cleanBaseUrl}/student/courses`,
       imageUrl: `${cleanBaseUrl}/images/exam-banner.jpg`,
       imageAlt: "Thư viện khóa học DkTEST",
+      imageWidth: 1200,
+      imageHeight: 630,
+      siteName: "DkTEST",
+    };
+  }
+
+  // Case 4b: Minigame Event & Hub Links
+  // Matches /minigame/:eventId, /student/minigame/:eventId, /minigame, /student/minigame
+  const minigameEventMatch = pathname.match(
+    /^\/(?:student\/)?minigames?\/([^/?#]+)/i
+  );
+  if (minigameEventMatch) {
+    const rawId = safeDecodeURIComponent(minigameEventMatch[1]).trim();
+    if (rawId && !/^[:$](?:id|eventId|1)$/i.test(rawId)) {
+      const { found, minigame } = await fetchMinigameMetadata(rawId);
+      const canonicalUrl = `${cleanBaseUrl}/minigame/${encodeURIComponent(rawId)}`;
+      if (found && minigame) {
+        const art = getMinigameArtwork(minigame.gameType);
+        const imageUrl = getMinigameArtworkUrl(cleanBaseUrl, minigame.gameType);
+        const prizeSummary = summarizeMinigamePrizes(minigame.prizes);
+        const statusText =
+          minigame.status === "running"
+            ? "[ĐANG LIVE] "
+            : minigame.status === "finished"
+            ? "[Đã kết thúc] "
+            : "";
+        const details: string[] = [
+          "Miễn phí 100%",
+          `${minigame.participantCount}/${minigame.maxParticipants} người`,
+        ];
+        if (prizeSummary) details.push(`Giải thưởng: ${prizeSummary}`);
+        const customDesc = minigame.description?.trim() || art.tagline;
+        return {
+          contentType: "minigame",
+          title: `${statusText}🎮 ${minigame.title} (${art.label}) | DkTEST`,
+          description: `${details.join(" • ")} • ${customDesc}`,
+          canonicalUrl,
+          imageUrl,
+          imageAlt: `${art.imageAlt} — ${minigame.title}`,
+          imageWidth: 1200,
+          imageHeight: 630,
+          siteName: "DkTEST",
+        };
+      }
+      return {
+        contentType: "minigame",
+        title: "🎮 Tham Gia Sự Kiện Minigame Phúc Lợi Trực Tiếp | DkTEST",
+        description:
+          "Tham gia hoàn toàn miễn phí các trò chơi Đua Ngựa, Đua Ong, Tài Xỉu, Bầu Cua, Đoán Số May Mắn và nhận quà cộng thẳng vào Ví DkTEST!",
+        canonicalUrl,
+        imageUrl: `${cleanBaseUrl}${MINIGAME_HUB_PREVIEW_IMAGE}`,
+        imageAlt: "Minigame Phúc Lợi DkTEST",
+        imageWidth: 1200,
+        imageHeight: 630,
+        siteName: "DkTEST",
+      };
+    }
+  }
+
+  if (/^\/(?:student\/)?minigames?\/?$/i.test(pathname)) {
+    const requestedType = searchParams.get("game") || searchParams.get("type");
+    const art = getMinigameArtwork(requestedType);
+    const imageUrl = requestedType
+      ? getMinigameArtworkUrl(cleanBaseUrl, requestedType)
+      : `${cleanBaseUrl}${MINIGAME_HUB_PREVIEW_IMAGE}`;
+    return {
+      contentType: "minigame",
+      title: requestedType
+        ? `🎮 ${art.label} — Minigame Phúc Lợi Miễn Phí | DkTEST`
+        : "🎮 Sân Chơi Minigame Phúc Lợi Miễn Phí 100% | DkTEST",
+      description: requestedType
+        ? `${art.tagline} Tham gia hoàn toàn miễn phí trên DkTEST!`
+        : "Tham gia miễn phí Đua Ngựa Tranh Cúp, Đua Ong Về Tổ, Tài Xỉu, Bầu Cua Hội Xuân & Đoán Số May Mắn — nhận thưởng trực tiếp vào Ví DkTEST.",
+      canonicalUrl: `${cleanBaseUrl}/student/minigame`,
+      imageUrl,
+      imageAlt: requestedType ? art.imageAlt : "Sân chơi Minigame Phúc Lợi DkTEST",
       imageWidth: 1200,
       imageHeight: 630,
       siteName: "DkTEST",

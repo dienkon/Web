@@ -8,6 +8,23 @@ export const GITHUB_RELEASES_URL = 'https://github.com/dienkon/Web/releases';
 export const APP_DOWNLOAD_API_PATH = '/api/app-download';
 const identifier = /^[\p{L}\p{N}_.-]{1,128}$/u;
 
+export function isIosDevice(): boolean {
+  if (typeof navigator === 'undefined') return false;
+  const ua = navigator.userAgent || '';
+  if (/iPad|iPhone|iPod/i.test(ua)) return true;
+  // iPadOS 13+ reports Macintosh with multi-touch points
+  return /Macintosh/i.test(ua) && typeof navigator.maxTouchPoints === 'number' && navigator.maxTouchPoints > 1;
+}
+
+export function isStandalonePwa(): boolean {
+  if (typeof window === 'undefined') return false;
+  const iosStandalone = Boolean((window.navigator as any)?.standalone);
+  const displayStandalone =
+    typeof window.matchMedia === 'function' &&
+    window.matchMedia('(display-mode: standalone)').matches;
+  return iosStandalone || displayStandalone;
+}
+
 export function getAppVersionMetadata() {
   const version =
     typeof __DK_APP_VERSION__ === 'string' && __DK_APP_VERSION__
@@ -22,6 +39,8 @@ export function getAppVersionMetadata() {
       ? __DK_RELEASE_DATE__
       : GENERATED_RELEASE_META.date;
   const apkFileName = `DkTEST-${version}-debug.apk`;
+  const iosProfileFileName = `DkTEST-iOS-v${version}.mobileconfig`;
+  const iosIpaFileName = `DkTEST-${version}-ios-unsigned.ipa`;
   const configuredUrl =
     typeof import.meta !== 'undefined' && (import.meta as any).env?.VITE_ANDROID_APK_URL
       ? String((import.meta as any).env.VITE_ANDROID_APK_URL).trim()
@@ -33,6 +52,11 @@ export function getAppVersionMetadata() {
     releaseDate,
     apkFileName,
     downloadUrl,
+    iosProfileFileName,
+    iosProfileUrl: `${APP_DOWNLOAD_API_PATH}?platform=ios`,
+    iosInstallPageUrl: `${APP_DOWNLOAD_API_PATH}?platform=ios&format=html`,
+    iosIpaFileName,
+    iosIpaDownloadUrl: `${APP_DOWNLOAD_API_PATH}?platform=ios&format=ipa`,
     releasesPageUrl: GITHUB_RELEASES_URL,
   };
 }

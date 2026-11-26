@@ -12,7 +12,11 @@ export const PRODUCTION_HTML_TEMPLATE = `<!doctype html>
       name="description"
       content="DK TEST - Hệ thống tạo, quản lý và tham gia các bài kiểm tra trực tuyến."
     />
-    <meta name="theme-color" content="#0f172a" />
+    <meta name="theme-color" content="#2563eb" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+    <meta name="apple-mobile-web-app-title" content="DkTEST" />
 
     <!-- Open Graph -->
     <meta property="og:type" content="website" />
@@ -42,6 +46,7 @@ export const PRODUCTION_HTML_TEMPLATE = `<!doctype html>
     <!-- Favicon -->
     <link rel="icon" type="image/png" href="/favicon.png" />
     <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/ios-app-icon-180.png" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <link rel="manifest" href="/manifest.json" />
 
@@ -424,14 +429,14 @@ export const PRODUCTION_HTML_TEMPLATE = `<!doctype html>
         100% { left: 100%; }
       }
     </style>
-    <script type="module" crossorigin src="/assets/index-5J1aGxP3.js"></script>
+    <script type="module" crossorigin src="/assets/index-nZsmx2gg.js"></script>
     <link rel="modulepreload" crossorigin href="/assets/vendor-react-0-6SLbAf.js">
     <link rel="modulepreload" crossorigin href="/assets/vendor-firebase-uPrOd_TW.js">
     <link rel="modulepreload" crossorigin href="/assets/vendor-charts-CO2o-hSu.js">
-    <link rel="modulepreload" crossorigin href="/assets/vendor-icons-Cn6f80My.js">
+    <link rel="modulepreload" crossorigin href="/assets/vendor-icons-D7zKt3Zx.js">
     <link rel="modulepreload" crossorigin href="/assets/vendor-katex-T051Jbj4.js">
     <link rel="stylesheet" crossorigin href="/assets/vendor-katex-Ddr6Z9Sf.css">
-    <link rel="stylesheet" crossorigin href="/assets/index-BTSVWpnq.css">
+    <link rel="stylesheet" crossorigin href="/assets/index-BgNlDwfs.css">
   </head>
 
   <body>

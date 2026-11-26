@@ -118,6 +118,22 @@
       "destination": "/api/social-meta?path=/voucher"
     },
     {
+      "source": "/minigame/([^/]+)",
+      "destination": "/api/social-meta?path=/minigame/$1&minigameId=$1"
+    },
+    {
+      "source": "/student/minigame/([^/]+)",
+      "destination": "/api/social-meta?path=/minigame/$1&minigameId=$1"
+    },
+    {
+      "source": "/minigame",
+      "destination": "/api/social-meta?path=/student/minigame"
+    },
+    {
+      "source": "/student/minigame",
+      "destination": "/api/social-meta?path=/student/minigame"
+    },
+    {
       "source": "/student/wallet",
       "destination": "/api/social-meta?path=/student/wallet"
     },

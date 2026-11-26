@@ -64,18 +64,40 @@ export const GENERATED_RELEASE_META = {
   console.warn("[generate-html-template] Could not sync generatedReleaseMeta.ts:", err);
 }
 
-// Ensure public/images/subjects banners are present in dist/images/subjects
+// Ensure public/images/subjects, public/images/minigames, voucher-banner.jpg, and iOS icon are present in dist/images
 try {
-  const publicSubjectsDir = path.join(process.cwd(), "public", "images", "subjects");
-  const distSubjectsDir = path.join(process.cwd(), "dist", "images", "subjects");
-  if (fs.existsSync(publicSubjectsDir) && fs.existsSync(path.join(process.cwd(), "dist"))) {
-    fs.mkdirSync(distSubjectsDir, { recursive: true });
-    const files = fs.readdirSync(publicSubjectsDir);
-    for (const f of files) {
-      fs.copyFileSync(path.join(publicSubjectsDir, f), path.join(distSubjectsDir, f));
+  const distDir = path.join(process.cwd(), "dist");
+  if (fs.existsSync(distDir)) {
+    const syncDir = (relDir, label) => {
+      const srcDir = path.join(process.cwd(), "public", relDir);
+      const dstDir = path.join(distDir, relDir);
+      if (fs.existsSync(srcDir)) {
+        fs.mkdirSync(dstDir, { recursive: true });
+        const files = fs.readdirSync(srcDir);
+        for (const f of files) {
+          const srcPath = path.join(srcDir, f);
+          if (fs.statSync(srcPath).isFile()) {
+            fs.copyFileSync(srcPath, path.join(dstDir, f));
+          }
+        }
+        console.log(`[generate-html-template] Verified and synced ${files.length} ${label} to dist/${relDir}`);
+      }
+    };
+    syncDir(path.join("images", "subjects"), "subject banners");
+    syncDir(path.join("images", "minigames"), "minigame previews");
+
+    for (const relFile of [
+      path.join("images", "voucher-banner.jpg"),
+      path.join("images", "ios-app-icon-180.png"),
+    ]) {
+      const srcFile = path.join(process.cwd(), "public", relFile);
+      const dstFile = path.join(distDir, relFile);
+      if (fs.existsSync(srcFile)) {
+        fs.mkdirSync(path.dirname(dstFile), { recursive: true });
+        fs.copyFileSync(srcFile, dstFile);
+      }
     }
-    console.log(`[generate-html-template] Verified and synced ${files.length} subject banners to dist/images/subjects`);
   }
 } catch (e) {
-  console.warn("[generate-html-template] Could not sync subject banners:", e);
+  console.warn("[generate-html-template] Could not sync image assets:", e);
 }

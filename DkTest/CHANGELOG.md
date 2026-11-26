@@ -1,5 +1,19 @@
 # DkTEST changelog
 
+## 2.0.4 — 2026-11-26 (Android versionCode 28)
+
+- **Thiết kế mới hình ảnh minh họa chi tiết & khung xem trước cho từng Minigame cụ thể**:
+  - Tạo mới 5 bộ hình minh họa 1200×630 sắc nét riêng biệt cho từng trò chơi (`public/images/minigames/horse-race.jpg`, `bee-race.jpg`, `tai-xiu.jpg`, `bau-cua.jpg`, `lucky-number.jpg`) cùng bảng cấu hình chi tiết hướng dẫn 3 bước (`src/services/minigame/minigameAssets.ts`, `src/components/minigame/MinigamePreviewCard.tsx`).
+  - Hiển thị ảnh minh họa trên toàn bộ thẻ sự kiện của Học sinh (`StudentMinigame.tsx`) và Quản trị viên (`MinigameManagement.tsx`), bổ sung khu vực **Xem trước & Minh họa 5 Minigame Phúc Lợi** có thể chuyển đổi tương tác ở sảnh chờ, khung xem trước hướng dẫn trong phòng chơi, và **Thẻ xem trước trực tiếp (Zalo / Facebook / Sảnh chờ)** cập nhật tức thì ngay trong hộp thoại Admin tạo sự kiện.
+  - Bổ sung hỗ trợ Open Graph / Social Meta (`src/services/server/socialMetadata.ts`, `api/social-meta.ts`, `vercel.json`) cho các đường dẫn `/minigame`, `/student/minigame`, `/minigame/:eventId`, `/student/minigame/:eventId` để khi gửi link lên Zalo / Facebook / Discord hiển thị đúng ảnh minh họa của trò chơi đó cùng tên sự kiện, số người tham gia và cơ cấu giải thưởng.
+- **Thiết kế lại ảnh preview Voucher tối giản, tinh tế & đáng tin cậy (`public/images/voucher-banner.jpg`)**:
+  - Thay thế hoàn toàn banner neon cũ nhiều chi tiết rối mắt bằng phong cách tối giản hiện đại (nền sáng lưới hình học thanh lịch, thẻ voucher trắng mờ viền xanh DkTEST, chữ tiếng Việt chuẩn dấu `DkTEST — VOUCHER ƯU ĐÃI`, dung lượng tối ưu 41.7 KB chuẩn 1200×630), giữ nguyên đường dẫn `/images/voucher-banner.jpg` tương thích 100% mọi link cũ.
+- **Phiên bản Ứng dụng chuẩn cho iOS (iPhone / iPad)**:
+  - Triển khai luồng cài đặt App iOS 1 chạm chuẩn Apple Web Clip (`.mobileconfig`) tại `/api/app-download?platform=ios` (`Content-Type: application/x-apple-aspen-config`, `FullScreen: true`, `IsRemovable: true`, nhúng sẵn biểu tượng 180×180 `public/images/ios-app-icon-180.png`) kèm trang hướng dẫn 3 bước trực quan và tự động nhận diện iPhone/iPad khi truy cập `/api/app-download`.
+  - Hoàn thiện bộ thẻ PWA iOS Standalone (`index.html`, `public/manifest.json`), tạo hộp thoại cài đặt đa nền tảng `AppInstallModal.tsx` (chuyển tab **iOS (iPhone / iPad)** & **Android (APK)**), cập nhật `OpenInAppBanner.tsx` và `StudentLayout.tsx` để người dùng iPhone/iPad có thể tải & cài ứng dụng DkTEST trực tiếp trên điện thoại.
+  - Bổ sung cấu hình native Capacitor iOS (`capacitor.config.ts`) và GitHub Actions workflow trên macOS (`.github/workflows/dktest-ios-release.yml`) tự động build & đính kèm gói `DkTEST-<version>-ios-unsigned.ipa` lên GitHub Releases (ghi chú rõ bản `.ipa` chưa ký Apple Developer dành cho AltStore / Sideloadly / TrollStore hoặc tự ký Xcode, trong khi `.mobileconfig` và Safari "Thêm vào MH chính" hoạt động ngay trên mọi iPhone/iPad).
+- Audit: [2.0.4](docs/audits/2.0.4.md).
+
 ## 2.0.3 — 2026-11-26 (Android versionCode 27)
 
 - **Nâng cấp toàn diện Minigame Phúc lợi — Hỗ trợ đua từ 2 người chơi, số lượng giải thưởng tùy ý (1–32 giải) & số tiền thưởng bất kỳ**:

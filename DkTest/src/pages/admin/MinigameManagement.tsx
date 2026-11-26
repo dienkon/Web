@@ -27,7 +27,9 @@ import type {
   MinigameType,
 } from "../../types/minigame";
 import { MINIGAME_TYPE_META, getDefaultRankLabel } from "../../services/minigame/gameLogic";
+import { getMinigameArtwork } from "../../services/minigame/minigameAssets";
 import { formatVnd } from "../../services/aiShop/billingEngine";
+import { MinigamePreviewCard } from "../../components/minigame/MinigamePreviewCard";
 import { showAppConfirm } from "../../services/appDialogService";
 import {
   broadcastDeviceNotificationApi,
@@ -719,49 +721,63 @@ export default function MinigameManagement() {
               return (
                 <div
                   key={ev.id}
-                  className="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 p-5 flex flex-col justify-between gap-4 shadow-2xs hover:shadow-md transition-all"
+                  className="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 flex flex-col justify-between shadow-2xs hover:shadow-md transition-all overflow-hidden"
                 >
-                  <div className="space-y-2">
-                    <div className="flex items-center justify-between gap-2">
-                      <span
-                        className={`px-2.5 py-0.5 rounded-full text-[10px] font-black text-white bg-gradient-to-r ${meta?.gradient}`}
-                      >
-                        {meta?.emoji} {meta?.label}
-                      </span>
-                      <span
-                        className={`text-[10px] font-bold px-2 py-0.5 rounded-full ${
-                          ev.status === "lobby"
-                            ? "bg-blue-100 text-blue-700"
+                  <div>
+                    <div className="relative aspect-[1200/630] w-full overflow-hidden bg-slate-100 dark:bg-slate-800">
+                      <img
+                        src={getMinigameArtwork(ev.gameType).imagePath}
+                        alt={getMinigameArtwork(ev.gameType).imageAlt}
+                        loading="lazy"
+                        className="w-full h-full object-cover"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-slate-950/60 via-transparent to-transparent" />
+                      <div className="absolute top-2.5 left-2.5 right-2.5 flex items-center justify-between gap-2">
+                        <span
+                          className={`px-2.5 py-0.5 rounded-full text-[10px] font-black text-white shadow-sm bg-gradient-to-r ${meta?.gradient}`}
+                        >
+                          {meta?.emoji} {meta?.label}
+                        </span>
+                        <span
+                          className={`text-[10px] font-bold px-2 py-0.5 rounded-full shadow-sm ${
+                            ev.status === "lobby"
+                              ? "bg-blue-600 text-white"
+                              : ev.status === "running"
+                              ? "bg-amber-500 text-white"
+                              : ev.status === "finished"
+                              ? "bg-emerald-600 text-white"
+                              : "bg-slate-700 text-white"
+                          }`}
+                        >
+                          {ev.status === "lobby"
+                            ? "Mở đăng ký"
                             : ev.status === "running"
-                            ? "bg-amber-100 text-amber-700"
+                            ? "Đang đua"
                             : ev.status === "finished"
-                            ? "bg-emerald-100 text-emerald-700"
-                            : "bg-slate-200 text-slate-600"
-                        }`}
-                      >
-                        {ev.status === "lobby"
-                          ? "Mở đăng ký"
-                          : ev.status === "running"
-                          ? "Đang đua"
-                          : ev.status === "finished"
-                          ? "Hoàn thành"
-                          : "Đã hủy"}
-                      </span>
+                            ? "Hoàn thành"
+                            : "Đã hủy"}
+                        </span>
+                      </div>
                     </div>
 
-                    <h3 className="text-base font-black text-slate-900 dark:text-white">
-                      {ev.title}
-                    </h3>
-                    <div className="text-xs text-slate-500 flex items-center gap-3">
-                      <span className="font-bold text-slate-700 dark:text-slate-300">
-                        <Users className="w-3.5 h-3.5 inline mr-1 text-blue-500" />
-                        {count}/{ev.maxParticipants} người
-                      </span>
-                      <span className="font-mono text-[11px]">{ev.eventCode}</span>
+                    <div className="p-4 space-y-2">
+                      <h3 className="text-base font-black text-slate-900 dark:text-white line-clamp-2">
+                        {ev.title}
+                      </h3>
+                      <div className="text-xs text-slate-500 flex items-center gap-3">
+                        <span className="font-bold text-slate-700 dark:text-slate-300">
+                          <Users className="w-3.5 h-3.5 inline mr-1 text-blue-500" />
+                          {count}/{ev.maxParticipants} người
+                        </span>
+                        <span className="font-mono text-[11px]">{ev.eventCode}</span>
+                        <span className="text-[11px] font-bold text-amber-600 dark:text-amber-400">
+                          {ev.prizes.length} giải
+                        </span>
+                      </div>
                     </div>
                   </div>
 
-                  <div className="flex items-center justify-between gap-2 pt-3 border-t border-slate-100 dark:border-slate-800">
+                  <div className="flex items-center justify-between gap-2 px-4 py-3 border-t border-slate-100 dark:border-slate-800">
                     <button
                       type="button"
                       onClick={() => {
@@ -908,34 +924,75 @@ export default function MinigameManagement() {
             </div>
 
             <form onSubmit={handleCreateEvent} className="p-5 space-y-4 max-h-[78vh] overflow-y-auto">
-              {/* Game Type Cards */}
+              {/* Game Type Cards with Visual Artwork Thumbnails */}
               <div>
                 <label className="block text-xs font-black text-slate-700 dark:text-slate-300 mb-2">
                   Chọn trò chơi sự kiện
                 </label>
-                <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
+                <div className="grid grid-cols-2 sm:grid-cols-5 gap-2">
                   {(Object.keys(MINIGAME_TYPE_META) as MinigameType[]).map((t) => {
                     const meta = MINIGAME_TYPE_META[t];
+                    const art = getMinigameArtwork(t);
                     const active = gameType === t;
                     return (
                       <button
                         key={t}
                         type="button"
                         onClick={() => handleSelectGameType(t)}
-                        className={`p-3 rounded-2xl border text-left transition-all cursor-pointer ${
+                        className={`rounded-2xl border overflow-hidden text-left transition-all cursor-pointer ${
                           active
                             ? "border-blue-600 bg-blue-50/70 dark:bg-blue-950/40 ring-2 ring-blue-500/30"
                             : "border-slate-200 dark:border-slate-700 hover:border-blue-300"
                         }`}
                       >
-                        <div className="text-xl">{meta.emoji}</div>
-                        <div className="text-xs font-black text-slate-900 dark:text-white mt-1">
-                          {meta.label}
+                        <div className="aspect-[1200/630] w-full overflow-hidden bg-slate-100 dark:bg-slate-800">
+                          <img
+                            src={art.imagePath}
+                            alt={art.imageAlt}
+                            loading="lazy"
+                            className="w-full h-full object-cover"
+                          />
+                        </div>
+                        <div className="p-2">
+                          <div className="text-[11px] font-black text-slate-900 dark:text-white truncate">
+                            {meta.emoji} {art.shortTitle}
+                          </div>
                         </div>
                       </button>
                     );
                   })}
                 </div>
+              </div>
+
+              {/* Live Visual & Social Share Preview */}
+              <div className="space-y-1.5">
+                <div className="flex items-center justify-between">
+                  <span className="text-[11px] font-black text-slate-600 dark:text-slate-300 uppercase tracking-wider">
+                    Xem trước minh họa &amp; Thẻ chia sẻ link (Zalo / Facebook)
+                  </span>
+                  <span className="text-[10px] font-semibold text-slate-400">
+                    Tự cập nhật khi chỉnh sửa
+                  </span>
+                </div>
+                <MinigamePreviewCard
+                  key={gameType}
+                  gameType={gameType}
+                  title={title.trim() || `${MINIGAME_TYPE_META[gameType].label} — Sự kiện Phúc lợi DkTEST`}
+                  description={description.trim() || undefined}
+                  defaultShowGuide={false}
+                  compact
+                  footer={
+                    <div className="pt-2 border-t border-slate-100 dark:border-slate-800 flex flex-wrap items-center justify-between gap-2 text-[11px]">
+                      <span className="font-semibold text-slate-500 dark:text-slate-400">
+                        Tối đa <b className="text-slate-800 dark:text-slate-100">{maxParticipants}</b> người •{" "}
+                        <b className="text-emerald-600 dark:text-emerald-400">{prizes.length} giải thưởng</b>
+                      </span>
+                      <span className="font-mono text-[10px] text-slate-400">
+                        dk-test-v3.vercel.app/minigame/...
+                      </span>
+                    </div>
+                  }
+                />
               </div>
 
               <div>

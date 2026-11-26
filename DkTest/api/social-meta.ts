@@ -48,6 +48,7 @@ export default async function handler(req: any, res: any) {
     let examId = cleanParam(req.query?.examId) || cleanParam(req.query?.id);
     let submissionId = cleanParam(req.query?.submissionId);
     let courseId = cleanParam(req.query?.courseId);
+    let minigameId = cleanParam(req.query?.minigameId) || cleanParam(req.query?.eventId);
 
     // Check matchedHeader or targetPath if parameters weren't cleanly extracted
     const pathToCheck = matchedHeader && !matchedHeader.startsWith("/api/") ? matchedHeader : targetPath;
@@ -66,6 +67,10 @@ export default async function handler(req: any, res: any) {
     if (!courseId && pathToCheck) {
       const cMatch = pathToCheck.match(/^\/(?:(?:student|admin)\/)?courses?\/([^/?#]+)/i);
       if (cMatch) courseId = cleanParam(decodeURIComponent(cMatch[1]));
+    }
+    if (!minigameId && pathToCheck) {
+      const mMatch = pathToCheck.match(/^\/(?:student\/)?minigames?\/([^/?#]+)/i);
+      if (mMatch) minigameId = cleanParam(decodeURIComponent(mMatch[1]));
     }
 
     // Replace literal template placeholders in targetPath if present
@@ -86,6 +91,9 @@ export default async function handler(req: any, res: any) {
     if (courseId && /[:$](?:courseId|id|1)/i.test(targetPath)) {
       targetPath = targetPath.replace(/[:$](?:courseId|id|1)/gi, encodeURIComponent(courseId));
     }
+    if (minigameId && /[:$](?:minigameId|eventId|id|1)/i.test(targetPath)) {
+      targetPath = targetPath.replace(/[:$](?:minigameId|eventId|id|1)/gi, encodeURIComponent(minigameId));
+    }
 
     if (submissionId && examId && !targetPath.includes("/result") && !targetPath.includes("/submissions")) {
       targetPath = `/student/exam/${encodeURIComponent(examId)}/result/${encodeURIComponent(submissionId)}`;
@@ -93,6 +101,8 @@ export default async function handler(req: any, res: any) {
       targetPath = `/student/exam/${encodeURIComponent(examId)}`;
     } else if (courseId && !targetPath.includes("/course")) {
       targetPath = `/student/courses/${encodeURIComponent(courseId)}`;
+    } else if (minigameId && !targetPath.includes("/minigame")) {
+      targetPath = `/minigame/${encodeURIComponent(minigameId)}`;
     }
 
     // Preserve any extra query parameters like ?v=1 or ?lesson=... (crucial for Zalo cache-busting & video deep links)
@@ -101,9 +111,20 @@ export default async function handler(req: any, res: any) {
       for (const [k, v] of Object.entries(req.query)) {
         const kLower = k.toLowerCase();
         if (
-          !["path", "voucher", "code", "redeem", "examid", "id", "submissionid", "codeexamid", "courseid", "format"].includes(
-            kLower
-          )
+          ![
+            "path",
+            "voucher",
+            "code",
+            "redeem",
+            "examid",
+            "id",
+            "submissionid",
+            "codeexamid",
+            "courseid",
+            "minigameid",
+            "eventid",
+            "format",
+          ].includes(kLower)
         ) {
           if (typeof v === "string" && v) {
             extraQuery.append(k, v);

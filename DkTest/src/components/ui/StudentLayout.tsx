@@ -48,6 +48,7 @@ import {
   useStudentOnboarding,
 } from "../../features/student-onboarding/StudentOnboardingContext";
 import { TOUR_DATA_IDS } from "../../features/student-onboarding/StudentOnboardingTypes";
+import { AppInstallModal } from "../student/AppInstallModal";
 
 function StudentLayoutContent() {
   const navigate = useNavigate();
@@ -65,6 +66,7 @@ function StudentLayoutContent() {
   const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
   const [isMobileDrawerOpen, setIsMobileDrawerOpen] = useState(false);
   const [isBottomMenuOpen, setIsBottomMenuOpen] = useState(false);
+  const [showAppInstallModal, setShowAppInstallModal] = useState(false);
 
   // Synchronize active account: Prioritize Firebase Auth userProfile, fallback to localStorage
   const effectiveAvatar = liveAvatar || userProfile?.photoURL || studentInfo?.avatarUrl || "";
@@ -89,27 +91,27 @@ function StudentLayoutContent() {
   const appDownloadMeta = useMemo(() => getAppVersionMetadata(), []);
   const renderAppDownloadTile = (onDismiss: () => void) =>
     !isNativeAndroid() ? (
-      <a
-        href={appDownloadMeta.downloadUrl}
-        download={appDownloadMeta.apkFileName}
-        target="_blank"
-        rel="noopener noreferrer"
-        onClick={onDismiss}
-        className="flex items-center justify-between gap-3 p-3.5 rounded-2xl text-xs font-bold text-blue-700 dark:text-blue-300 bg-blue-50 dark:bg-blue-950/50 border border-blue-200 dark:border-blue-800 mb-3"
+      <button
+        type="button"
+        onClick={() => {
+          onDismiss();
+          setShowAppInstallModal(true);
+        }}
+        className="w-full text-left flex items-center justify-between gap-3 p-3.5 rounded-2xl text-xs font-bold text-blue-700 dark:text-blue-300 bg-blue-50 dark:bg-blue-950/50 border border-blue-200 dark:border-blue-800 mb-3 cursor-pointer"
       >
         <div className="flex items-center gap-3 min-w-0">
           <Smartphone className="w-5 h-5 shrink-0 text-blue-600" />
           <div className="min-w-0">
             <div className="font-black truncate">
-              Tải Ứng Dụng DkTEST Android v{appDownloadMeta.version}
+              Tải Ứng Dụng DkTEST v{appDownloadMeta.version}
             </div>
             <div className="text-[11px] font-normal text-blue-600/80 dark:text-blue-400 truncate">
-              Cài đặt APK (Build {appDownloadMeta.androidVersionCode}) để thi Offline
+              Hỗ trợ iOS (iPhone/iPad) &amp; Android APK
             </div>
           </div>
         </div>
         <Download className="w-4 h-4 shrink-0" />
-      </a>
+      </button>
     ) : null;
 
   const gameStats = useMemo(
@@ -424,12 +426,11 @@ function StudentLayoutContent() {
             {/* Bottom Profile & Download App card */}
             <div className="mt-auto pt-3 border-t border-slate-100 dark:border-slate-800 space-y-2">
               {!isNativeAndroid() && (
-                <a
-                  href={getAppVersionMetadata().downloadUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  title={`Tải DkTEST Android v${getAppVersionMetadata().version}`}
-                  className={`flex items-center gap-2.5 p-2 rounded-2xl bg-blue-50/80 hover:bg-blue-100 dark:bg-blue-950/40 dark:hover:bg-blue-950/70 border border-blue-200/80 dark:border-blue-800/60 text-blue-700 dark:text-blue-300 transition-colors ${
+                <button
+                  type="button"
+                  onClick={() => setShowAppInstallModal(true)}
+                  title={`Tải DkTEST v${appDownloadMeta.version} cho iOS & Android`}
+                  className={`w-full text-left flex items-center gap-2.5 p-2 rounded-2xl bg-blue-50/80 hover:bg-blue-100 dark:bg-blue-950/40 dark:hover:bg-blue-950/70 border border-blue-200/80 dark:border-blue-800/60 text-blue-700 dark:text-blue-300 transition-colors cursor-pointer ${
                     isSidebarCollapsed ? "justify-center" : ""
                   }`}
                 >
@@ -437,14 +438,14 @@ function StudentLayoutContent() {
                   {!isSidebarCollapsed && (
                     <div className="min-w-0 flex-1">
                       <div className="text-[11px] font-black truncate">
-                        Tải App v{getAppVersionMetadata().version}
+                        Tải App v{appDownloadMeta.version}
                       </div>
                       <div className="text-[9px] font-semibold text-blue-600/80 dark:text-blue-400 truncate">
-                        Android APK thi Offline
+                        iOS (iPhone/iPad) &amp; Android
                       </div>
                     </div>
                   )}
-                </a>
+                </button>
               )}
               {currentAccount && (
                 <Link
@@ -1045,6 +1046,11 @@ function StudentLayoutContent() {
         confirmText="Đăng xuất"
         cancelText="Ở lại"
         variant="danger"
+      />
+
+      <AppInstallModal
+        open={showAppInstallModal}
+        onClose={() => setShowAppInstallModal(false)}
       />
 
       {!isNativeAndroid() && <AnnouncementPopupModal />}
