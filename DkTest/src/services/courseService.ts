@@ -32,6 +32,7 @@ import type {
   CourseOutlineMaterialItem,
   CoursePurchaseDetailItem,
   CoursePurchasesPageResult,
+  CourseResourceUnlockScope,
   CourseVideoType,
 } from "../types";
 
@@ -153,6 +154,242 @@ export function computeLessonAccessState(
     canBuySingle,
     effectiveSinglePriceVnd,
   };
+}
+
+export interface CourseResourcePolicyConfig {
+  enabled: boolean;
+  unlockMaterials: boolean;
+  unlockExams: boolean;
+  scope: CourseResourceUnlockScope;
+}
+
+export interface CourseResourceAccessResult {
+  canAccess: boolean;
+  unlockedByPolicy: boolean;
+  lockReason?: string;
+}
+
+const VALID_RESOURCE_UNLOCK_SCOPES: CourseResourceUnlockScope[] = [
+  "any_video_in_topic",
+  "same_lesson",
+  "full_topic",
+  "full_chapter",
+  "full_course",
+];
+
+export const COURSE_RESOURCE_SCOPE_META: Record<
+  CourseResourceUnlockScope,
+  { label: string; shortLabel: string; description: string }
+> = {
+  any_video_in_topic: {
+    label: "Mở ít nhất 1 video trong mục (Mặc định)",
+    shortLabel: "1 video / mục",
+    description:
+      "Học sinh chỉ cần mở khóa 1 video trả phí bất kỳ trong chuyên đề/mục đó là xem được toàn bộ tài liệu và bài thi cùng mục.",
+  },
+  same_lesson: {
+    label: "Đúng bài giảng chứa tài liệu/đề",
+    shortLabel: "Đúng bài giảng",
+    description:
+      "Tài liệu và bài thi gắn ở bài giảng nào thì chỉ mở khi học sinh mở khóa chính video của bài giảng đó.",
+  },
+  full_topic: {
+    label: "Mở khóa toàn bộ chuyên đề",
+    shortLabel: "Toàn bộ chuyên đề",
+    description:
+      "Học sinh phải mở khóa tất cả video trong chuyên đề đó mới mở được tài liệu và bài thi của chuyên đề.",
+  },
+  full_chapter: {
+    label: "Mở khóa toàn bộ chương",
+    shortLabel: "Toàn bộ chương",
+    description:
+      "Học sinh phải mở khóa tất cả video trong chương đó mới mở được tài liệu và bài thi thuộc chương.",
+  },
+  full_course: {
+    label: "Mở khóa toàn bộ khóa học",
+    shortLabel: "Toàn bộ khóa học",
+    description:
+      "Chỉ mở tài liệu và bài thi khi học sinh đã mở khóa trọn bộ khóa học (hoặc tất cả video trong khóa).",
+  },
+};
+
+export function resolveCourseResourcePolicy(
+  course?: Pick<
+    Course,
+    | "unlockResourcesWithVideo"
+    | "unlockMaterialsWithVideo"
+    | "unlockExamsWithVideo"
+    | "resourceUnlockScope"
+  > | null
+): CourseResourcePolicyConfig {
+  const enabled = course?.unlockResourcesWithVideo !== false;
+  const unlockMaterials = enabled && course?.unlockMaterialsWithVideo !== false;
+  const unlockExams = enabled && course?.unlockExamsWithVideo !== false;
+  const rawScope = course?.resourceUnlockScope;
+  const scope: CourseResourceUnlockScope = VALID_RESOURCE_UNLOCK_SCOPES.includes(
+    rawScope as CourseResourceUnlockScope
+  )
+    ? (rawScope as CourseResourceUnlockScope)
+    : "any_video_in_topic";
+
+  return { enabled, unlockMaterials, unlockExams, scope };
+}
+
+function getLessonChapterKey(lesson: Pick<CourseLessonOutlineItem | CourseLesson, "chapterId">): string {
+  return String(lesson.chapterId || "__other__").trim() || "__other__";
+}
+
+function getLessonTopicKey(
+  lesson: Pick<CourseLessonOutlineItem | CourseLesson, "id" | "topicTitle">
+): string {
+  return String(lesson.topicTitle || "").trim() || `__single_${lesson.id}`;
+}
+
+/**
+ * Pure helper: Evaluates whether a student can access a lesson's attached materials or linked exam
+ * according to the course's ON/OFF resource unlock policy and scope.
+ * Never grants videoUrl access — strictly for materials & linked exams.
+ */
+export function computeCourseResourceAccess(
+  course: Course,
+  lesson: Pick<
+    CourseLessonOutlineItem | CourseLesson,
+    "id" | "chapterId" | "topicTitle" | "accessType" | "order" | "priceVnd" | "includedInCourseUnlock"
+  >,
+  access: CourseAccessInfo | null | undefined,
+  resourceKind: "material" | "exam"
+): CourseResourceAccessResult {
+  const mode = resolveCourseAccessMode(course);
+  if (mode === "free" || access?.isFreeCourse) {
+    return { canAccess: true, unlockedByPolicy: false };
+  }
+
+  const toLessonState = (
+    item: Pick<
+      CourseLessonOutlineItem | CourseLesson,
+      "id" | "accessType" | "order" | "priceVnd" | "includedInCourseUnlock"
+    >
+  ) =>
+    computeLessonAccessState(
+      course,
+      { ...item, priceVnd: item.priceVnd ?? 0 },
+      access
+    );
+
+  const lessonState = toLessonState(lesson);
+  if (lessonState.unlockedByCourse) {
+    return { canAccess: true, unlockedByPolicy: false };
+  }
+
+  const policy = resolveCourseResourcePolicy(course);
+  const kindEnabled =
+    policy.enabled && (resourceKind === "material" ? policy.unlockMaterials : policy.unlockExams);
+
+  if (!kindEnabled) {
+    return {
+      canAccess: false,
+      unlockedByPolicy: false,
+      lockReason:
+        resourceKind === "material"
+          ? "Khóa học đã tắt tự động mở tài liệu theo video"
+          : "Khóa học đã tắt tự động mở bài thi theo video",
+    };
+  }
+
+  const outline: Array<
+    Pick<
+      CourseLessonOutlineItem | CourseLesson,
+      "id" | "chapterId" | "topicTitle" | "accessType" | "order" | "priceVnd" | "includedInCourseUnlock"
+    >
+  > =
+    Array.isArray(course.lessonOutline) && course.lessonOutline.length > 0
+      ? course.lessonOutline
+      : [lesson];
+
+  const targetChapterKey = getLessonChapterKey(lesson);
+  const targetTopicKey = getLessonTopicKey(lesson);
+
+  const topicLessons = outline.filter(
+    (item) =>
+      getLessonChapterKey(item) === targetChapterKey && getLessonTopicKey(item) === targetTopicKey
+  );
+  const effectiveTopicLessons = topicLessons.length > 0 ? topicLessons : [lesson];
+
+  const chapterLessons = outline.filter((item) => getLessonChapterKey(item) === targetChapterKey);
+  const effectiveChapterLessons = chapterLessons.length > 0 ? chapterLessons : [lesson];
+
+  switch (policy.scope) {
+    case "same_lesson": {
+      if (lessonState.canWatch) {
+        return { canAccess: true, unlockedByPolicy: false };
+      }
+      return {
+        canAccess: false,
+        unlockedByPolicy: false,
+        lockReason: "Mở khóa video bài giảng này để truy cập",
+      };
+    }
+
+    case "any_video_in_topic": {
+      if (lessonState.canWatch) {
+        return { canAccess: true, unlockedByPolicy: false };
+      }
+      const hasPaidUnlockInTopic = effectiveTopicLessons.some((item) => {
+        const st = toLessonState(item);
+        return st.unlockedByCourse || st.unlockedByLesson;
+      });
+      if (hasPaidUnlockInTopic) {
+        return { canAccess: true, unlockedByPolicy: true };
+      }
+      return {
+        canAccess: false,
+        unlockedByPolicy: false,
+        lockReason: "Mở khóa ít nhất 1 video trong mục này",
+      };
+    }
+
+    case "full_topic": {
+      const allTopicUnlocked = effectiveTopicLessons.every(
+        (item) => toLessonState(item).canWatch
+      );
+      if (allTopicUnlocked) {
+        return { canAccess: true, unlockedByPolicy: !lessonState.canWatch };
+      }
+      return {
+        canAccess: false,
+        unlockedByPolicy: false,
+        lockReason: "Mở khóa toàn bộ video trong chuyên đề này",
+      };
+    }
+
+    case "full_chapter": {
+      const allChapterUnlocked = effectiveChapterLessons.every(
+        (item) => toLessonState(item).canWatch
+      );
+      if (allChapterUnlocked) {
+        return { canAccess: true, unlockedByPolicy: !lessonState.canWatch };
+      }
+      return {
+        canAccess: false,
+        unlockedByPolicy: false,
+        lockReason: "Mở khóa toàn bộ video trong chương này",
+      };
+    }
+
+    case "full_course": {
+      const allCourseUnlocked =
+        Boolean(access?.unlockedCourse) ||
+        outline.every((item) => toLessonState(item).canWatch);
+      if (allCourseUnlocked) {
+        return { canAccess: true, unlockedByPolicy: !lessonState.canWatch };
+      }
+      return {
+        canAccess: false,
+        unlockedByPolicy: false,
+        lockReason: "Mở khóa toàn bộ khóa học để truy cập",
+      };
+    }
+  }
 }
 
 /**
@@ -677,6 +914,8 @@ export interface CourseHierarchyTopicMaterial {
   lessonId: string;
   lessonTitle: string;
   canAccess: boolean;
+  lockReason?: string;
+  unlockedByPolicy?: boolean;
 }
 
 export interface CourseHierarchyTopicExam {
@@ -686,6 +925,8 @@ export interface CourseHierarchyTopicExam {
   lessonTitle: string;
   linkedExamId: string;
   canAccess: boolean;
+  lockReason?: string;
+  unlockedByPolicy?: boolean;
 }
 
 export interface CourseHierarchyTopic {
@@ -803,7 +1044,8 @@ export function buildCourseHierarchy(
         } else if (watchedSecondsMap?.[lesson.id]) {
           watchedSec += Math.min(lessonSec, Math.max(0, Number(watchedSecondsMap[lesson.id]) || 0));
         }
-        const st = computeLessonAccessState(course, lesson, access);
+        const matAccess = computeCourseResourceAccess(course, lesson, access, "material");
+        const examAccess = computeCourseResourceAccess(course, lesson, access, "exam");
         if (lesson.linkedExamId) {
           exams.push({
             id: `exam_${lesson.id}_${lesson.linkedExamId}`,
@@ -811,7 +1053,9 @@ export function buildCourseHierarchy(
             lessonId: lesson.id,
             lessonTitle: lesson.title,
             linkedExamId: lesson.linkedExamId,
-            canAccess: st.canWatch,
+            canAccess: examAccess.canAccess,
+            lockReason: examAccess.lockReason,
+            unlockedByPolicy: examAccess.unlockedByPolicy,
           });
         }
         for (const m of lesson.materialItems || []) {
@@ -821,7 +1065,9 @@ export function buildCourseHierarchy(
             type: m.type,
             lessonId: lesson.id,
             lessonTitle: lesson.title,
-            canAccess: st.canWatch,
+            canAccess: matAccess.canAccess,
+            lockReason: matAccess.lockReason,
+            unlockedByPolicy: matAccess.unlockedByPolicy,
           });
         }
         // Backward compatibility for older outline items without materialItems
@@ -834,7 +1080,9 @@ export function buildCourseHierarchy(
               type: "file",
               lessonId: lesson.id,
               lessonTitle: lesson.title,
-              canAccess: st.canWatch,
+              canAccess: matAccess.canAccess,
+              lockReason: matAccess.lockReason,
+              unlockedByPolicy: matAccess.unlockedByPolicy,
             });
           }
         }

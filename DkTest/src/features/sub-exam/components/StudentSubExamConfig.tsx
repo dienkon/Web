@@ -2,6 +2,12 @@ import React from "react";
 import { Wand2, Layers, AlertCircle, RotateCcw, HelpCircle, Check } from "lucide-react";
 import type { SubExamConfig } from "../types/subExam";
 import type { Question, Section } from "../../../types";
+import {
+  COGNITIVE_LEVEL_META,
+  COGNITIVE_LEVEL_ORDER,
+  computeCognitiveLevelDistribution,
+  type CognitiveLevel,
+} from "../../../utils/cognitiveLevelUtils";
 
 interface Props {
   useSubExam: boolean;
@@ -47,6 +53,28 @@ export default function StudentSubExamConfig({
   const orderingTotal = questions.filter((q) => q.type === "ordering").length;
   const fillBlankTotal = questions.filter((q) => q.type === "fill_blank").length;
   const matchingTotal = questions.filter((q) => q.type === "matching").length;
+  const levelDistribution = computeCognitiveLevelDistribution(questions);
+  const selectedAllowedLevels = currentConfig.allowedLevels || [];
+
+  const toggleAllowedLevel = (lv: CognitiveLevel) => {
+    const exists = selectedAllowedLevels.includes(lv);
+    const next = exists
+      ? selectedAllowedLevels.filter((x) => x !== lv)
+      : [...selectedAllowedLevels, lv];
+    updateConfig({ allowedLevels: next.length > 0 ? next : undefined });
+  };
+
+  const updateLevelCount = (lv: CognitiveLevel, rawVal: string) => {
+    const nextCounts = { ...(currentConfig.levelCounts || {}) };
+    if (rawVal === "") {
+      delete nextCounts[lv];
+    } else {
+      const maxAvail = levelDistribution.find((r) => r.level === lv)?.count || 0;
+      nextCounts[lv] = Math.max(0, Math.min(maxAvail, parseInt(rawVal, 10) || 0));
+    }
+    const hasAny = Object.keys(nextCounts).length > 0;
+    updateConfig({ levelCounts: hasAny ? nextCounts : undefined });
+  };
 
   return (
     <div className="bg-gradient-to-br from-purple-50/80 to-indigo-50/60 rounded-3xl border-2 border-purple-200 p-5 sm:p-6 space-y-5 shadow-xs">
@@ -95,10 +123,83 @@ export default function StudentSubExamConfig({
               onChange={(e) => updateConfig({ selectionMode: e.target.value as any })}
             >
               <option value="by_type">Ngẫu nhiên theo loại câu hỏi (Toàn bộ đề)</option>
+              <option value="by_level">Theo mức độ nhận thức (NB / TH / VD / VDC)</option>
               <option value="random_total">Bốc ngẫu nhiên N câu (Toàn ngân hàng đề)</option>
               {sections.length > 0 && <option value="by_section">Ngẫu nhiên theo từng phần (Section)</option>}
               {sections.length > 0 && <option value="by_section_and_type">Ngẫu nhiên theo Phần & Loại câu hỏi</option>}
             </select>
+          </div>
+
+          {/* Cognitive Level Filter & Per-Level Matrix Picker (NB / TH / VD / VDC) */}
+          <div className="bg-white/95 border border-purple-200/80 rounded-2xl p-4 sm:p-5 space-y-3 shadow-2xs">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+              <div>
+                <h4 className="text-xs font-extrabold text-slate-900">
+                  Luyện tập theo Mức độ nhận thức (NB / TH / VD / VDC)
+                </h4>
+                <p className="text-[11px] text-slate-500 font-medium mt-0.5">
+                  {currentConfig.selectionMode === "by_level"
+                    ? "Nhập chính xác số lượng câu muốn bốc cho từng mức độ nhận thức."
+                    : "Bấm chọn các mức độ muốn lọc (để trống = lấy tất cả mức độ)."}
+                </p>
+              </div>
+              {(selectedAllowedLevels.length > 0 || currentConfig.levelCounts) && (
+                <button
+                  type="button"
+                  onClick={() => updateConfig({ allowedLevels: undefined, levelCounts: undefined })}
+                  className="text-[11px] font-bold text-rose-600 hover:underline self-start sm:self-center cursor-pointer"
+                >
+                  Đặt lại mức độ
+                </button>
+              )}
+            </div>
+
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
+              {COGNITIVE_LEVEL_ORDER.map((lv) => {
+                const meta = COGNITIVE_LEVEL_META[lv];
+                const avail = levelDistribution.find((r) => r.level === lv)?.count || 0;
+                const isSelected = selectedAllowedLevels.includes(lv);
+                const countVal = currentConfig.levelCounts?.[lv];
+
+                return (
+                  <div
+                    key={lv}
+                    className={`rounded-xl border p-2.5 space-y-2 transition-all ${
+                      isSelected || (countVal !== undefined && countVal > 0)
+                        ? `${meta.badgeClass} ring-2 ring-purple-300/60`
+                        : "border-slate-200 bg-slate-50/70"
+                    }`}
+                  >
+                    <button
+                      type="button"
+                      disabled={avail === 0}
+                      onClick={() => toggleAllowedLevel(lv)}
+                      className="w-full text-left flex items-center justify-between gap-1 cursor-pointer disabled:opacity-45"
+                    >
+                      <span className="text-xs font-black">
+                        {meta.shortLabel} • {meta.label}
+                      </span>
+                      {isSelected && <Check className="w-3.5 h-3.5 shrink-0" />}
+                    </button>
+                    <div className="text-[10px] font-semibold opacity-75">
+                      Ngân hàng có: <strong>{avail}</strong> câu
+                    </div>
+                    {currentConfig.selectionMode === "by_level" && (
+                      <input
+                        type="number"
+                        min={0}
+                        max={avail}
+                        disabled={avail === 0}
+                        value={countVal ?? ""}
+                        onChange={(e) => updateLevelCount(lv, e.target.value)}
+                        placeholder={`0–${avail}`}
+                        className="w-full px-2 py-1 rounded-lg bg-white border border-slate-300 text-xs font-bold text-center text-slate-900 disabled:opacity-50"
+                      />
+                    )}
+                  </div>
+                );
+              })}
+            </div>
           </div>
 
           {/* Overall Total Question Count */}

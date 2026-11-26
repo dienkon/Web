@@ -43,6 +43,47 @@ jobs:
           npm run build:mobile
           npx cap sync android
 
+      - name: Restore persistent Android signing keystore cache
+        uses: actions/cache@v4
+        with:
+          path: ~/.dktest-keystore
+          key: dktest-android-signing-keystore-v1
+
+      - name: Prepare deterministic Android signing keystore (prevents APK upgrade package conflicts)
+        env:
+          KEYSTORE_B64: ${{ secrets.DKTEST_ANDROID_KEYSTORE_B64 }}
+          KEYSTORE_PASSWORD: ${{ secrets.DKTEST_ANDROID_KEYSTORE_PASSWORD }}
+          KEY_ALIAS: ${{ secrets.DKTEST_ANDROID_KEY_ALIAS }}
+          KEY_PASSWORD: ${{ secrets.DKTEST_ANDROID_KEY_PASSWORD }}
+        run: |
+          mkdir -p "$HOME/.dktest-keystore"
+          KS_PATH="$HOME/.dktest-keystore/dktest-signing.jks"
+          KS_PASS="${KEYSTORE_PASSWORD:-dktest2026}"
+          KS_ALIAS="${KEY_ALIAS:-dktest}"
+          K_PASS="${KEY_PASSWORD:-$KS_PASS}"
+
+          if [ -n "$KEYSTORE_B64" ]; then
+            echo "$KEYSTORE_B64" | base64 -d > "$KS_PATH"
+            echo "Using signing keystore from GitHub Secret DKTEST_ANDROID_KEYSTORE_B64."
+          elif [ ! -f "$KS_PATH" ]; then
+            echo "Generating persistent signing keystore for seamless in-place APK upgrades..."
+            keytool -genkeypair -v \
+              -keystore "$KS_PATH" \
+              -storepass "$KS_PASS" \
+              -keypass "$K_PASS" \
+              -alias "$KS_ALIAS" \
+              -keyalg RSA -keysize 2048 -validity 9125 \
+              -dname "CN=DkTEST, OU=Education, O=DkTEST, L=HCM, ST=HCM, C=VN"
+          else
+            echo "Reusing cached persistent signing keystore."
+          fi
+
+          echo "DKTEST_KEYSTORE_PATH=${KS_PATH}" >> "$GITHUB_ENV"
+          echo "DKTEST_KEYSTORE_PASSWORD=${KS_PASS}" >> "$GITHUB_ENV"
+          echo "DKTEST_KEY_ALIAS=${KS_ALIAS}" >> "$GITHUB_ENV"
+          echo "DKTEST_KEY_PASSWORD=${K_PASS}" >> "$GITHUB_ENV"
+          keytool -list -v -keystore "$KS_PATH" -storepass "$KS_PASS" -alias "$KS_ALIAS" | grep -E "SHA256:|SHA1:" || true
+
       - name: Assemble Android Debug APK & prepare release assets
         id: apk
         run: |

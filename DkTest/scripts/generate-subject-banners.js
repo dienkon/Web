@@ -1,611 +1,462 @@
-import fs from 'fs';
-import path from 'path';
-import { Resvg } from '@resvg/resvg-js';
-import jpeg from 'jpeg-js';
-import { decode } from 'fast-png';
+import fs from "fs";
+import path from "path";
+import { Resvg } from "@resvg/resvg-js";
+import jpeg from "jpeg-js";
+import { decode } from "fast-png";
 
-const OUT_DIR = path.join(process.cwd(), 'public', 'images', 'subjects');
+const OUT_DIR = path.join(process.cwd(), "public", "images", "subjects");
 if (!fs.existsSync(OUT_DIR)) {
   fs.mkdirSync(OUT_DIR, { recursive: true });
 }
 
-// Subject Banner Configuration
-
+// Redesigned v2.0.6 Subject Banners:
+// Minimalist, vibrant, unmistakably distinct per subject, super legible even at small thumbnail sizes.
 const subjects = [
   {
-    key: 'math',
-    aliases: ['toan', 'toan-hoc'],
-    title: 'TOÁN HỌC',
-    category: 'MÔN HỌC BẮT BUỘC',
-    subtitle: 'Đại số • Giải tích • Hình học không gian • Tọa độ Oxyz',
-    colorGrad1: '#1e1b4b',
-    colorGrad2: '#2563eb',
-    colorAccent: '#38bdf8',
-    glowColor: 'rgba(56, 189, 248, 0.25)',
-    pills: ['⏱️ Tính giờ tự động', '📐 Công thức KaTeX chuẩn', '📊 Phổ điểm tức thì'],
+    key: "math",
+    aliases: ["toan", "toan-hoc"],
+    title: "TOÁN HỌC",
+    tag: "MÔN CHÍNH",
+    tagline: "Đại số  •  Giải tích  •  Hình học",
+    bg1: "#1d4ed8",
+    bg2: "#0284c7",
+    accent: "#bae6fd",
+    pillBg: "#1e3a8a",
+    iconColor: "#1d4ed8",
+    iconSoft: "#dbeafe",
     iconSvg: `
-      <!-- Math Atom/Grid Background -->
-      <g stroke="#38bdf8" stroke-width="3" fill="none" opacity="0.85">
-        <!-- Coordinate Axes -->
-        <line x1="60" y1="200" x2="340" y2="200" stroke-dasharray="6,6" opacity="0.5"/>
-        <line x1="200" y1="60" x2="200" y2="340" stroke-dasharray="6,6" opacity="0.5"/>
-        <!-- Parabola / Sine Curve -->
-        <path d="M 80,300 Q 200,60 320,300" stroke="#60a5fa" stroke-width="5" fill="none"/>
-        <!-- Square Root Symbol -->
-        <path d="M 90,170 L 110,170 L 130,220 L 155,100 L 260,100" stroke="#38bdf8" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+      <rect x="34" y="34" width="332" height="332" rx="64" fill="#ffffff"/>
+      <g stroke="#93c5fd" stroke-width="5" stroke-dasharray="10,10" opacity="0.7">
+        <line x1="76" y1="220" x2="324" y2="220"/>
+        <line x1="200" y1="76" x2="200" y2="324"/>
       </g>
-      <!-- Symbols: Pi & Sigma & Integral -->
-      <text x="190" y="150" fill="#ffffff" font-size="44" font-weight="bold" font-family="system-ui, sans-serif">x²</text>
-      <text x="140" y="270" fill="#93c5fd" font-size="52" font-family="serif" font-style="italic">∑</text>
-      <text x="240" y="270" fill="#38bdf8" font-size="52" font-family="serif" font-style="italic">∫</text>
-      <text x="255" y="180" fill="#a5b4fc" font-size="46" font-family="serif">π</text>
+      <path d="M 86 296 Q 200 72 314 296" fill="none" stroke="#2563eb" stroke-width="14" stroke-linecap="round"/>
+      <circle cx="200" cy="184" r="14" fill="#0284c7" stroke="#ffffff" stroke-width="5"/>
+      <text x="108" y="152" fill="#1e3a8a" font-size="68" font-weight="900" font-family="Segoe UI, Arial, sans-serif">π</text>
+      <text x="250" y="154" fill="#0284c7" font-size="64" font-weight="900" font-family="Segoe UI, Arial, sans-serif">∑</text>
+      <text x="200" y="294" text-anchor="middle" fill="#1d4ed8" font-size="58" font-weight="900" font-family="Segoe UI, Arial, sans-serif">x²</text>
     `,
   },
   {
-    key: 'english',
-    aliases: ['tieng-anh', 'anh'],
-    title: 'TIẾNG ANH',
-    category: 'MÔN NGOẠI NGỮ',
-    subtitle: 'Ngữ pháp • Từ vựng chuyên sâu • Đọc hiểu • Luyện đề THPT',
-    colorGrad1: '#0c2340',
-    colorGrad2: '#0284c7',
-    colorAccent: '#38bdf8',
-    glowColor: 'rgba(56, 189, 248, 0.25)',
-    pills: ['⏱️ Tính giờ tự động', '🎧 Audio & Reading chuẩn', '📊 Giải thích chi tiết'],
+    key: "english",
+    aliases: ["tieng-anh", "anh"],
+    title: "TIẾNG ANH",
+    tag: "NGOẠI NGỮ",
+    tagline: "Grammar  •  Vocabulary  •  Reading",
+    bg1: "#0369a1",
+    bg2: "#06b6d4",
+    accent: "#cffafe",
+    pillBg: "#0c4a6e",
+    iconColor: "#0369a1",
+    iconSoft: "#e0f2fe",
     iconSvg: `
-      <!-- Speech bubbles & Global nodes -->
-      <g stroke="#38bdf8" stroke-width="3" fill="none">
-        <circle cx="200" cy="200" r="110" stroke="#0284c7" stroke-width="4" opacity="0.6"/>
-        <ellipse cx="200" cy="200" rx="110" ry="45" stroke="#38bdf8" stroke-width="2" opacity="0.5"/>
-        <line x1="90" y1="200" x2="310" y2="200" stroke="#38bdf8" stroke-width="2" opacity="0.4"/>
+      <rect x="34" y="34" width="332" height="332" rx="64" fill="#ffffff"/>
+      <rect x="78" y="88" width="244" height="156" rx="36" fill="#0284c7"/>
+      <polygon points="132,240 176,240 132,292" fill="#0284c7"/>
+      <text x="200" y="192" text-anchor="middle" fill="#ffffff" font-size="94" font-weight="900" font-family="Segoe UI, Arial, sans-serif" letter-spacing="4">EN</text>
+      <rect x="118" y="294" width="164" height="44" rx="22" fill="#e0f2fe"/>
+      <text x="200" y="324" text-anchor="middle" fill="#0369a1" font-size="26" font-weight="900" font-family="Segoe UI, Arial, sans-serif">A • B • C</text>
+    `,
+  },
+  {
+    key: "physics",
+    aliases: ["vat-ly", "ly"],
+    title: "VẬT LÝ",
+    tag: "TỰ NHIÊN",
+    tagline: "Cơ học  •  Sóng & Điện  •  Hạt nhân",
+    bg1: "#4f46e5",
+    bg2: "#7c3aed",
+    accent: "#ddd6fe",
+    pillBg: "#312e81",
+    iconColor: "#4f46e5",
+    iconSoft: "#ede9fe",
+    iconSvg: `
+      <rect x="34" y="34" width="332" height="332" rx="64" fill="#ffffff"/>
+      <g fill="none" stroke-width="11" stroke-linecap="round">
+        <ellipse cx="200" cy="200" rx="126" ry="48" stroke="#6366f1"/>
+        <ellipse cx="200" cy="200" rx="126" ry="48" stroke="#8b5cf6" transform="rotate(60 200 200)"/>
+        <ellipse cx="200" cy="200" rx="126" ry="48" stroke="#06b6d4" transform="rotate(120 200 200)"/>
       </g>
-      <!-- Speech Bubble -->
-      <rect x="110" y="115" width="180" height="110" rx="24" fill="#0f172a" stroke="#38bdf8" stroke-width="5"/>
-      <polygon points="150,225 180,225 155,255" fill="#0f172a" stroke="#38bdf8" stroke-width="4"/>
-      <text x="200" y="185" fill="#38bdf8" font-size="48" font-weight="900" font-family="system-ui, sans-serif" text-anchor="middle" letter-spacing="2">EN</text>
-      <!-- ABC badge -->
-      <rect x="140" y="260" width="120" height="36" rx="18" fill="#0284c7" />
-      <text x="200" y="285" fill="#ffffff" font-size="20" font-weight="bold" font-family="system-ui, sans-serif" text-anchor="middle">A • B • C</text>
+      <circle cx="326" cy="200" r="14" fill="#06b6d4"/>
+      <circle cx="137" cy="91" r="14" fill="#8b5cf6"/>
+      <circle cx="137" cy="309" r="14" fill="#6366f1"/>
+      <circle cx="200" cy="200" r="34" fill="#4f46e5"/>
+      <polygon points="204,178 186,204 201,204 195,224 216,196 201,196" fill="#fde047"/>
     `,
   },
   {
-    key: 'physics',
-    aliases: ['vat-ly', 'ly'],
-    title: 'VẬT LÝ',
-    category: 'KHOA HỌC TỰ NHIÊN',
-    subtitle: 'Cơ học • Dao động điều hòa • Sóng cơ & Sóng ánh sáng • Hạt nhân',
-    colorGrad1: '#1e1b4b',
-    colorGrad2: '#6366f1',
-    colorAccent: '#a855f7',
-    glowColor: 'rgba(168, 85, 247, 0.25)',
-    pills: ['⏱️ Tính giờ tự động', '⚡ Đồ thị dao động chuẩn', '📊 Lời giải chi tiết'],
+    key: "chemistry",
+    aliases: ["hoa-hoc", "hoa"],
+    title: "HÓA HỌC",
+    tag: "TỰ NHIÊN",
+    tagline: "Hữu cơ  •  Vô cơ  •  Phản ứng",
+    bg1: "#047857",
+    bg2: "#10b981",
+    accent: "#a7f3d0",
+    pillBg: "#064e3b",
+    iconColor: "#047857",
+    iconSoft: "#d1fae5",
     iconSvg: `
-      <!-- Atom Orbits -->
-      <g fill="none" stroke-width="4" stroke-linecap="round">
-        <ellipse cx="200" cy="200" rx="130" ry="48" stroke="#818cf8" transform="rotate(0 200 200)"/>
-        <ellipse cx="200" cy="200" rx="130" ry="48" stroke="#c084fc" transform="rotate(60 200 200)"/>
-        <ellipse cx="200" cy="200" rx="130" ry="48" stroke="#38bdf8" transform="rotate(120 200 200)"/>
+      <rect x="34" y="34" width="332" height="332" rx="64" fill="#ffffff"/>
+      <rect x="164" y="76" width="72" height="22" rx="11" fill="#047857"/>
+      <path d="M 176 98 L 224 98 L 224 156 L 302 284 A 24 24 0 0 1 282 318 L 118 318 A 24 24 0 0 1 98 284 L 176 156 Z" fill="#ecfdf5" stroke="#047857" stroke-width="12" stroke-linejoin="round"/>
+      <path d="M 134 236 Q 170 218 200 236 T 266 236 L 290 278 A 14 14 0 0 1 278 304 L 122 304 A 14 14 0 0 1 110 278 Z" fill="#10b981"/>
+      <circle cx="176" cy="266" r="11" fill="#ffffff" opacity="0.85"/>
+      <circle cx="222" cy="252" r="8" fill="#ffffff" opacity="0.85"/>
+      <circle cx="200" cy="196" r="10" fill="#34d399"/>
+      <circle cx="218" cy="166" r="7" fill="#6ee7b7"/>
+    `,
+  },
+  {
+    key: "biology",
+    aliases: ["sinh-hoc", "sinh"],
+    title: "SINH HỌC",
+    tag: "TỰ NHIÊN",
+    tagline: "Di truyền  •  Tế bào  •  Sinh thái",
+    bg1: "#15803d",
+    bg2: "#22c55e",
+    accent: "#bbf7d0",
+    pillBg: "#14532d",
+    iconColor: "#15803d",
+    iconSoft: "#dcfce7",
+    iconSvg: `
+      <rect x="34" y="34" width="332" height="332" rx="64" fill="#ffffff"/>
+      <g stroke-linecap="round" fill="none">
+        <line x1="146" y1="126" x2="254" y2="126" stroke="#86efac" stroke-width="10"/>
+        <line x1="138" y1="200" x2="262" y2="200" stroke="#4ade80" stroke-width="10"/>
+        <line x1="146" y1="274" x2="254" y2="274" stroke="#86efac" stroke-width="10"/>
+        <path d="M 124 84 C 124 146 276 146 276 200 C 276 254 124 254 124 316" stroke="#16a34a" stroke-width="16"/>
+        <path d="M 276 84 C 276 146 124 146 124 200 C 124 254 276 254 276 316" stroke="#15803d" stroke-width="16"/>
       </g>
-      <!-- Electrons -->
-      <circle cx="330" cy="200" r="9" fill="#38bdf8"/>
-      <circle cx="135" cy="90" r="9" fill="#c084fc"/>
-      <circle cx="135" cy="310" r="9" fill="#818cf8"/>
-      <!-- Nucleus -->
-      <circle cx="200" cy="200" r="28" fill="#4f46e5" stroke="#ffffff" stroke-width="4"/>
-      <!-- Lightning bolt inside nucleus -->
-      <path d="M 202,182 L 192,200 L 202,200 L 198,218 L 210,198 L 200,198 Z" fill="#fbbf24"/>
+      <circle cx="200" cy="200" r="30" fill="#15803d"/>
+      <path d="M 188 214 Q 186 184 214 184 Q 214 214 188 214 Z" fill="#ffffff"/>
     `,
   },
   {
-    key: 'chemistry',
-    aliases: ['hoa-hoc', 'hoa'],
-    title: 'HÓA HỌC',
-    category: 'KHOA HỌC TỰ NHIÊN',
-    subtitle: 'Hóa hữu cơ • Hóa vô cơ • Phản ứng oxi hóa khử • Cân bằng ion',
-    colorGrad1: '#064e3b',
-    colorGrad2: '#059669',
-    colorAccent: '#34d399',
-    glowColor: 'rgba(52, 211, 153, 0.25)',
-    pills: ['⏱️ Tính giờ tự động', '🧪 Bảng tuần hoàn & PTHH', '📊 Phân tích dạng bài'],
+    key: "literature",
+    aliases: ["ngu-van", "van"],
+    title: "NGỮ VĂN",
+    tag: "XÃ HỘI",
+    tagline: "Đọc hiểu  •  Nghị luận  •  Tác phẩm",
+    bg1: "#be123c",
+    bg2: "#f43f5e",
+    accent: "#fecdd3",
+    pillBg: "#881337",
+    iconColor: "#be123c",
+    iconSoft: "#ffe4e6",
     iconSvg: `
-      <!-- Benzene Ring Background -->
-      <polygon points="200,70 270,110 270,190 200,230 130,190 130,110" fill="none" stroke="#059669" stroke-width="4" stroke-dasharray="8,6" opacity="0.6"/>
-      <!-- Erlenmeyer Flask -->
-      <path d="M 185,110 L 215,110 L 215,150 L 275,260 A 18 18 0 0 1 260,285 L 140,285 A 18 18 0 0 1 125,260 L 185,150 Z" fill="#0f172a" stroke="#34d399" stroke-width="5" stroke-linejoin="round"/>
-      <!-- Liquid in flask -->
-      <path d="M 155,225 Q 180,215 200,225 T 245,225 L 258,265 A 10 10 0 0 1 250,277 L 150,277 A 10 10 0 0 1 142,265 Z" fill="#10b981" opacity="0.8"/>
-      <!-- Bubbles -->
-      <circle cx="180" cy="245" r="7" fill="#ffffff" opacity="0.7"/>
-      <circle cx="215" cy="235" r="5" fill="#ffffff" opacity="0.7"/>
-      <circle cx="195" cy="190" r="8" fill="#34d399" opacity="0.8"/>
-      <circle cx="205" cy="165" r="5" fill="#6ee7b7" opacity="0.9"/>
+      <rect x="34" y="34" width="332" height="332" rx="64" fill="#ffffff"/>
+      <path d="M 200 156 Q 146 132 88 144 L 88 288 Q 146 276 200 300 Q 254 276 312 288 L 312 144 Q 254 132 200 156 Z" fill="#fff1f2" stroke="#be123c" stroke-width="11" stroke-linejoin="round"/>
+      <line x1="200" y1="156" x2="200" y2="300" stroke="#be123c" stroke-width="9"/>
+      <line x1="116" y1="186" x2="174" y2="180" stroke="#fb7185" stroke-width="8" stroke-linecap="round"/>
+      <line x1="116" y1="220" x2="174" y2="214" stroke="#fb7185" stroke-width="8" stroke-linecap="round"/>
+      <line x1="226" y1="180" x2="284" y2="186" stroke="#fb7185" stroke-width="8" stroke-linecap="round"/>
+      <line x1="226" y1="214" x2="284" y2="220" stroke="#fb7185" stroke-width="8" stroke-linecap="round"/>
+      <path d="M 262 72 Q 238 110 212 156 L 230 166 Q 268 122 290 78 Z" fill="#e11d48"/>
     `,
   },
   {
-    key: 'biology',
-    aliases: ['sinh-hoc', 'sinh'],
-    title: 'SINH HỌC',
-    category: 'KHOA HỌC TỰ NHIÊN',
-    subtitle: 'Di truyền học • Sinh học phân tử • Sinh thái học • Tiến hóa',
-    colorGrad1: '#14532d',
-    colorGrad2: '#16a34a',
-    colorAccent: '#4ade80',
-    glowColor: 'rgba(74, 222, 128, 0.25)',
-    pills: ['⏱️ Tính giờ tự động', '🧬 Sơ đồ di truyền chuẩn', '📊 Hướng dẫn giải chi tiết'],
+    key: "history",
+    aliases: ["lich-su", "su"],
+    title: "LỊCH SỬ",
+    tag: "XÃ HỘI",
+    tagline: "Việt Nam  •  Thế giới  •  Mốc sự kiện",
+    bg1: "#b45309",
+    bg2: "#f59e0b",
+    accent: "#fef3c7",
+    pillBg: "#78350f",
+    iconColor: "#b45309",
+    iconSoft: "#fef3c7",
     iconSvg: `
-      <!-- DNA Strands & Leaf -->
-      <g stroke="#4ade80" stroke-width="5" fill="none" stroke-linecap="round">
-        <!-- DNA Wave 1 -->
-        <path d="M 120,80 Q 200,140 280,80 T 120,200 Q 200,260 280,200 T 120,320" stroke="#22c55e" stroke-width="6"/>
-        <!-- DNA Wave 2 -->
-        <path d="M 280,80 Q 200,140 120,80 T 280,200 Q 200,260 120,200 T 280,320" stroke="#86efac" stroke-width="6"/>
-        <!-- Rungs -->
-        <line x1="165" y1="110" x2="235" y2="110" stroke="#ffffff" stroke-width="4"/>
-        <line x1="145" y1="170" x2="255" y2="170" stroke="#ffffff" stroke-width="4"/>
-        <line x1="145" y1="230" x2="255" y2="230" stroke="#ffffff" stroke-width="4"/>
-        <line x1="165" y1="290" x2="235" y2="290" stroke="#ffffff" stroke-width="4"/>
+      <rect x="34" y="34" width="332" height="332" rx="64" fill="#ffffff"/>
+      <polygon points="200,82 88,144 312,144" fill="#d97706"/>
+      <rect x="96" y="144" width="208" height="20" rx="6" fill="#b45309"/>
+      <rect x="112" y="174" width="26" height="96" rx="6" fill="#f59e0b"/>
+      <rect x="162" y="174" width="26" height="96" rx="6" fill="#f59e0b"/>
+      <rect x="212" y="174" width="26" height="96" rx="6" fill="#f59e0b"/>
+      <rect x="262" y="174" width="26" height="96" rx="6" fill="#f59e0b"/>
+      <rect x="94" y="274" width="212" height="18" rx="6" fill="#d97706"/>
+      <rect x="78" y="294" width="244" height="22" rx="8" fill="#b45309"/>
+      <circle cx="200" cy="120" r="12" fill="#fef3c7"/>
+    `,
+  },
+  {
+    key: "geography",
+    aliases: ["dia-ly", "dia"],
+    title: "ĐỊA LÝ",
+    tag: "XÃ HỘI",
+    tagline: "Tự nhiên  •  Kinh tế  •  Atlat",
+    bg1: "#0f766e",
+    bg2: "#14b8a6",
+    accent: "#ccfbf1",
+    pillBg: "#115e59",
+    iconColor: "#0f766e",
+    iconSoft: "#ccfbf1",
+    iconSvg: `
+      <rect x="34" y="34" width="332" height="332" rx="64" fill="#ffffff"/>
+      <circle cx="200" cy="200" r="112" fill="#f0fdfa" stroke="#0f766e" stroke-width="12"/>
+      <ellipse cx="200" cy="200" rx="52" ry="112" fill="none" stroke="#14b8a6" stroke-width="8"/>
+      <line x1="88" y1="200" x2="312" y2="200" stroke="#14b8a6" stroke-width="8"/>
+      <path d="M 110 144 Q 200 172 290 144" fill="none" stroke="#0d9488" stroke-width="7"/>
+      <path d="M 110 256 Q 200 228 290 256" fill="none" stroke="#0d9488" stroke-width="7"/>
+      <polygon points="200,118 220,200 200,184 180,200" fill="#f43f5e"/>
+      <polygon points="200,282 220,200 200,216 180,200" fill="#0f766e"/>
+      <circle cx="200" cy="200" r="11" fill="#ffffff" stroke="#0f766e" stroke-width="4"/>
+    `,
+  },
+  {
+    key: "informatics",
+    aliases: ["tin-hoc", "tin", "lap-trinh"],
+    title: "TIN HỌC",
+    tag: "CÔNG NGHỆ",
+    tagline: "Python • C++ • Thuật toán • CSDL",
+    bg1: "#0e7490",
+    bg2: "#0284c7",
+    accent: "#a5f3fc",
+    pillBg: "#164e63",
+    iconColor: "#0e7490",
+    iconSoft: "#cffafe",
+    iconSvg: `
+      <rect x="34" y="34" width="332" height="332" rx="64" fill="#ffffff"/>
+      <rect x="74" y="96" width="252" height="208" rx="28" fill="#0f172a"/>
+      <circle cx="110" cy="130" r="9" fill="#ef4444"/>
+      <circle cx="138" cy="130" r="9" fill="#facc15"/>
+      <circle cx="166" cy="130" r="9" fill="#22c55e"/>
+      <text x="200" y="238" text-anchor="middle" fill="#22d3ee" font-size="84" font-weight="900" font-family="Consolas, monospace">&lt;/&gt;</text>
+    `,
+  },
+  {
+    key: "civics",
+    aliases: ["gdcd", "kinh-te-phap-luat"],
+    title: "KT & PHÁP LUẬT",
+    tag: "XÃ HỘI",
+    tagline: "Công dân  •  Pháp luật  •  Kinh tế",
+    bg1: "#7e22ce",
+    bg2: "#a855f7",
+    accent: "#f3e8ff",
+    pillBg: "#581c87",
+    iconColor: "#7e22ce",
+    iconSoft: "#f3e8ff",
+    iconSvg: `
+      <rect x="34" y="34" width="332" height="332" rx="64" fill="#ffffff"/>
+      <line x1="200" y1="88" x2="200" y2="294" stroke="#7e22ce" stroke-width="14" stroke-linecap="round"/>
+      <rect x="136" y="286" width="128" height="24" rx="12" fill="#7e22ce"/>
+      <line x1="104" y1="136" x2="296" y2="136" stroke="#a855f7" stroke-width="12" stroke-linecap="round"/>
+      <line x1="116" y1="136" x2="94" y2="208" stroke="#9333ea" stroke-width="7"/>
+      <line x1="116" y1="136" x2="138" y2="208" stroke="#9333ea" stroke-width="7"/>
+      <path d="M 80 208 Q 116 250 152 208 Z" fill="#a855f7"/>
+      <line x1="284" y1="136" x2="262" y2="208" stroke="#9333ea" stroke-width="7"/>
+      <line x1="284" y1="136" x2="306" y2="208" stroke="#9333ea" stroke-width="7"/>
+      <path d="M 248 208 Q 284 250 320 208 Z" fill="#a855f7"/>
+      <circle cx="200" cy="92" r="14" fill="#c084fc"/>
+    `,
+  },
+  {
+    key: "technology",
+    aliases: ["cong-nghe"],
+    title: "CÔNG NGHỆ",
+    tag: "KỸ THUẬT",
+    tagline: "Cơ khí  •  Điện tử  •  Ứng dụng",
+    bg1: "#c2410c",
+    bg2: "#f97316",
+    accent: "#ffedd5",
+    pillBg: "#7c2d12",
+    iconColor: "#c2410c",
+    iconSoft: "#ffedd5",
+    iconSvg: `
+      <rect x="34" y="34" width="332" height="332" rx="64" fill="#ffffff"/>
+      <g fill="#ea580c">
+        <circle cx="168" cy="182" r="62"/>
+        <rect x="152" y="102" width="32" height="160" rx="8"/>
+        <rect x="88" y="166" width="160" height="32" rx="8"/>
+        <rect x="152" y="102" width="32" height="160" rx="8" transform="rotate(45 168 182)"/>
+        <rect x="152" y="102" width="32" height="160" rx="8" transform="rotate(-45 168 182)"/>
       </g>
-      <!-- Central Leaf Motif -->
-      <circle cx="200" cy="200" r="32" fill="#15803d" stroke="#4ade80" stroke-width="4"/>
-      <path d="M 190,215 Q 190,185 210,185 Q 210,215 190,215 Z" fill="#ffffff"/>
-    `,
-  },
-  {
-    key: 'literature',
-    aliases: ['ngu-van', 'van'],
-    title: 'NGỮ VĂN',
-    category: 'KHOA HỌC XÃ HỘI',
-    subtitle: 'Đọc hiểu văn bản • Nghị luận xã hội • Nghị luận văn học',
-    colorGrad1: '#4c0519',
-    colorGrad2: '#be123c',
-    colorAccent: '#fb7185',
-    glowColor: 'rgba(251, 113, 133, 0.25)',
-    pills: ['⏱️ Tính giờ tự động', '📖 Trích dẫn tác phẩm chuẩn', '📊 Dàn ý & Gợi ý làm bài'],
-    iconSvg: `
-      <!-- Open Book -->
-      <g stroke="#fb7185" stroke-width="5" fill="none" stroke-linejoin="round">
-        <path d="M 200,160 Q 140,140 90,150 L 90,270 Q 140,260 200,280 Q 260,260 310,270 L 310,150 Q 260,140 200,160 Z" fill="#1e1b4b"/>
-        <line x1="200" y1="160" x2="200" y2="280" stroke="#ffffff" stroke-width="5"/>
-        <!-- Book lines -->
-        <line x1="115" y1="180" x2="175" y2="175" stroke="#fb7185" stroke-width="3"/>
-        <line x1="115" y1="205" x2="175" y2="200" stroke="#fb7185" stroke-width="3"/>
-        <line x1="115" y1="230" x2="165" y2="225" stroke="#fb7185" stroke-width="3"/>
-        <line x1="225" y1="175" x2="285" y2="180" stroke="#fb7185" stroke-width="3"/>
-        <line x1="225" y1="200" x2="285" y2="205" stroke="#fb7185" stroke-width="3"/>
-        <line x1="235" y1="225" x2="285" y2="230" stroke="#fb7185" stroke-width="3"/>
+      <circle cx="168" cy="182" r="28" fill="#ffffff"/>
+      <g fill="#fb923c">
+        <circle cx="266" cy="252" r="42"/>
+        <rect x="255" y="198" width="22" height="108" rx="6"/>
+        <rect x="212" y="241" width="108" height="22" rx="6"/>
+        <rect x="255" y="198" width="22" height="108" rx="6" transform="rotate(45 266 252)"/>
+        <rect x="255" y="198" width="22" height="108" rx="6" transform="rotate(-45 266 252)"/>
       </g>
-      <!-- Quill Pen -->
-      <path d="M 250,70 Q 240,110 215,150 L 225,160 Q 260,115 275,75 Z" fill="#f43f5e"/>
-      <polygon points="215,150 210,165 225,160" fill="#ffffff"/>
+      <circle cx="266" cy="252" r="18" fill="#ffffff"/>
     `,
   },
   {
-    key: 'history',
-    aliases: ['lich-su', 'su'],
-    title: 'LỊCH SỬ',
-    category: 'KHOA HỌC XÃ HỘI',
-    subtitle: 'Lịch sử Việt Nam • Lịch sử Thế giới • Mốc sự kiện & Ý nghĩa',
-    colorGrad1: '#451a03',
-    colorGrad2: '#b45309',
-    colorAccent: '#fbbf24',
-    glowColor: 'rgba(251, 191, 36, 0.25)',
-    pills: ['⏱️ Tính giờ tự động', '🏛️ Mốc sự kiện chuẩn xác', '📊 Tổng hợp kiến thức'],
+    key: "natural-sciences",
+    aliases: ["khtn", "khoa-hoc-tu-nhien"],
+    title: "KHTN TÍCH HỢP",
+    tag: "TÍCH HỢP",
+    tagline: "Vật lý  •  Hóa học  •  Sinh học",
+    bg1: "#0d9488",
+    bg2: "#0284c7",
+    accent: "#ccfbf1",
+    pillBg: "#115e59",
+    iconColor: "#0d9488",
+    iconSoft: "#ccfbf1",
     iconSvg: `
-      <!-- Classical Greek / Historical Temple -->
-      <g fill="#fbbf24" stroke="#ffffff" stroke-width="2">
-        <!-- Roof Pediment -->
-        <polygon points="200,90 90,145 310,145" fill="#d97706" stroke="#fbbf24" stroke-width="4"/>
-        <rect x="100" y="145" width="200" height="15" fill="#f59e0b"/>
-        <!-- 4 Columns -->
-        <rect x="115" y="165" width="20" height="95" rx="3" fill="#fbbf24"/>
-        <rect x="165" y="165" width="20" height="95" rx="3" fill="#fbbf24"/>
-        <rect x="215" y="165" width="20" height="95" rx="3" fill="#fbbf24"/>
-        <rect x="265" y="165" width="20" height="95" rx="3" fill="#fbbf24"/>
-        <!-- Base Steps -->
-        <rect x="100" y="260" width="200" height="14" fill="#f59e0b"/>
-        <rect x="85" y="274" width="230" height="16" fill="#d97706"/>
-      </g>
-      <!-- Timeline Hourglass Accent -->
-      <circle cx="200" cy="120" r="10" fill="#ffffff"/>
+      <rect x="34" y="34" width="332" height="332" rx="64" fill="#ffffff"/>
+      <ellipse cx="200" cy="196" rx="122" ry="50" fill="none" stroke="#0284c7" stroke-width="10" transform="rotate(30 200 196)"/>
+      <ellipse cx="200" cy="196" rx="122" ry="50" fill="none" stroke="#10b981" stroke-width="10" transform="rotate(-30 200 196)"/>
+      <path d="M 180 126 L 220 126 L 220 174 L 266 266 A 18 18 0 0 1 250 292 L 150 292 A 18 18 0 0 1 134 266 L 180 174 Z" fill="#f0fdfa" stroke="#0f766e" stroke-width="11" stroke-linejoin="round"/>
+      <path d="M 192 272 Q 178 224 214 206 Q 226 244 192 272 Z" fill="#16a34a"/>
     `,
   },
   {
-    key: 'geography',
-    aliases: ['dia-ly', 'dia'],
-    title: 'ĐỊA LÝ',
-    category: 'KHOA HỌC XÃ HỘI',
-    subtitle: 'Địa lý tự nhiên • Dân cư • Kinh tế các vùng • Kỹ năng Atlat',
-    colorGrad1: '#042f2e',
-    colorGrad2: '#0f766e',
-    colorAccent: '#2dd4bf',
-    glowColor: 'rgba(45, 212, 191, 0.25)',
-    pills: ['⏱️ Tính giờ tự động', '🗺️ Kỹ năng Atlat & Biểu đồ', '📊 Nhận xét phân tích'],
+    key: "social-sciences",
+    aliases: ["khxh", "lich-su-dia-ly"],
+    title: "SỬ & ĐỊA",
+    tag: "TÍCH HỢP",
+    tagline: "Lịch sử dân tộc  •  Địa lý kinh tế",
+    bg1: "#9a3412",
+    bg2: "#d97706",
+    accent: "#fef3c7",
+    pillBg: "#7c2d12",
+    iconColor: "#9a3412",
+    iconSoft: "#ffedd5",
     iconSvg: `
-      <!-- Globe with Latitude & Longitude -->
-      <g stroke="#2dd4bf" stroke-width="4" fill="none">
-        <circle cx="200" cy="200" r="105" fill="#0f172a" stroke="#2dd4bf" stroke-width="5"/>
-        <ellipse cx="200" cy="200" rx="45" ry="105" stroke="#14b8a6"/>
-        <line x1="95" y1="200" x2="305" y2="200" stroke="#14b8a6"/>
-        <path d="M 115,150 Q 200,175 285,150" stroke="#0d9488" stroke-dasharray="6,4"/>
-        <path d="M 115,250 Q 200,225 285,250" stroke="#0d9488" stroke-dasharray="6,4"/>
-      </g>
-      <!-- Compass Rose Needle -->
-      <polygon points="200,120 215,200 200,185 185,200" fill="#f43f5e"/>
-      <polygon points="200,280 215,200 200,215 185,200" fill="#e2e8f0"/>
-      <circle cx="200" cy="200" r="8" fill="#ffffff"/>
+      <rect x="34" y="34" width="332" height="332" rx="64" fill="#ffffff"/>
+      <circle cx="200" cy="200" r="112" fill="#fffbeb" stroke="#d97706" stroke-width="12"/>
+      <ellipse cx="200" cy="200" rx="50" ry="112" fill="none" stroke="#f59e0b" stroke-width="7"/>
+      <polygon points="200,116 132,156 268,156" fill="#b45309"/>
+      <rect x="148" y="164" width="18" height="72" rx="4" fill="#d97706"/>
+      <rect x="180" y="164" width="18" height="72" rx="4" fill="#d97706"/>
+      <rect x="212" y="164" width="18" height="72" rx="4" fill="#d97706"/>
+      <rect x="244" y="164" width="18" height="72" rx="4" fill="#d97706"/>
+      <rect x="132" y="238" width="136" height="18" rx="6" fill="#9a3412"/>
     `,
   },
   {
-    key: 'informatics',
-    aliases: ['tin-hoc', 'tin', 'lap-trinh'],
-    title: 'TIN HỌC',
-    category: 'CÔNG NGHỆ & LẬP TRÌNH',
-    subtitle: 'Lập trình Python, C++ • Thuật toán • Cơ sở dữ liệu • Tin học văn phòng',
-    colorGrad1: '#030712',
-    colorGrad2: '#0891b2',
-    colorAccent: '#22d3ee',
-    glowColor: 'rgba(34, 211, 238, 0.25)',
-    pills: ['⏱️ Tính giờ tự động', '💻 Trình chấm code tự động', '📊 Test cases chuẩn xác'],
+    key: "default",
+    aliases: ["exam-default", "tong-hop"],
+    title: "ĐỀ THI DkTEST",
+    tag: "KHẢO THÍ",
+    tagline: "Luyện thi trực tuyến  •  Chấm điểm tức thì",
+    bg1: "#1e40af",
+    bg2: "#4f46e5",
+    accent: "#dbeafe",
+    pillBg: "#1e3a8a",
+    iconColor: "#1e40af",
+    iconSoft: "#dbeafe",
     iconSvg: `
-      <!-- Code Terminal Window -->
-      <rect x="90" y="100" width="220" height="170" rx="16" fill="#0f172a" stroke="#22d3ee" stroke-width="5"/>
-      <rect x="90" y="100" width="220" height="38" rx="16" fill="#1e293b"/>
-      <!-- Window Controls -->
-      <circle cx="115" cy="119" r="6" fill="#ef4444"/>
-      <circle cx="135" cy="119" r="6" fill="#eab308"/>
-      <circle cx="155" cy="119" r="6" fill="#22c55e"/>
-      <!-- Code Prompt & Brackets -->
-      <text x="115" y="175" fill="#22d3ee" font-size="28" font-family="monospace" font-weight="bold">&gt;_</text>
-      <text x="155" y="175" fill="#a5f3fc" font-size="24" font-family="monospace">code()</text>
-      <text x="120" y="220" fill="#38bdf8" font-size="22" font-family="monospace">{ return 1; }</text>
-      <!-- Binary Accent -->
-      <text x="100" y="300" fill="#0891b2" font-size="18" font-family="monospace" letter-spacing="4">01001100 01101111</text>
-    `,
-  },
-  {
-    key: 'civics',
-    aliases: ['gdcd', 'kinh-te-phap-luat'],
-    title: 'KINH TẾ & PHÁP LUẬT',
-    category: 'KHOA HỌC XÃ HỘI',
-    subtitle: 'Giáo dục công dân • Pháp luật & Đời sống • Kinh tế vĩ mô',
-    colorGrad1: '#3b0764',
-    colorGrad2: '#9333ea',
-    colorAccent: '#e879f9',
-    glowColor: 'rgba(232, 121, 249, 0.25)',
-    pills: ['⏱️ Tính giờ tự động', '⚖️ Tình huống thực tiễn', '📊 Giải thích điều luật'],
-    iconSvg: `
-      <!-- Scales of Justice -->
-      <g stroke="#e879f9" stroke-width="5" fill="none" stroke-linecap="round">
-        <!-- Stand Pillar -->
-        <line x1="200" y1="90" x2="200" y2="280" stroke="#ffffff" stroke-width="6"/>
-        <rect x="150" y="275" width="100" height="15" rx="6" fill="#c026d3"/>
-        <!-- Balance Beam -->
-        <line x1="110" y1="130" x2="290" y2="130" stroke="#f0abfc" stroke-width="6"/>
-        <!-- Left Pan Strings & Pan -->
-        <line x1="110" y1="130" x2="90" y2="200" stroke-width="3"/>
-        <line x1="110" y1="130" x2="130" y2="200" stroke-width="3"/>
-        <path d="M 80,200 Q 110,230 140,200 Z" fill="#9333ea" stroke="#e879f9" stroke-width="4"/>
-        <!-- Right Pan Strings & Pan -->
-        <line x1="290" y1="130" x2="270" y2="200" stroke-width="3"/>
-        <line x1="290" y1="130" x2="310" y2="200" stroke-width="3"/>
-        <path d="M 260,200 Q 290,230 320,200 Z" fill="#9333ea" stroke="#e879f9" stroke-width="4"/>
-      </g>
-      <circle cx="200" cy="95" r="10" fill="#fdf4ff"/>
-    `,
-  },
-  {
-    key: 'technology',
-    aliases: ['cong-nghe'],
-    title: 'CÔNG NGHỆ',
-    category: 'KỸ THUẬT & ỨNG DỤNG',
-    subtitle: 'Công nghệ cơ khí • Kỹ thuật điện - điện tử • Nông nghiệp công nghệ cao',
-    colorGrad1: '#1c1917',
-    colorGrad2: '#ea580c',
-    colorAccent: '#fb923c',
-    glowColor: 'rgba(251, 146, 60, 0.25)',
-    pills: ['⏱️ Tính giờ tự động', '⚙️ Bản vẽ kỹ thuật chuẩn', '📊 Ứng dụng thực tiễn'],
-    iconSvg: `
-      <!-- Interlocking Gears -->
-      <g fill="#ea580c" stroke="#fed7aa" stroke-width="3">
-        <!-- Big Gear -->
-        <circle cx="170" cy="180" r="50" fill="#c2410c"/>
-        <circle cx="170" cy="180" r="22" fill="#0f172a" stroke="#fed7aa" stroke-width="4"/>
-        <!-- Big Gear Teeth -->
-        <rect x="160" y="115" width="20" height="20" rx="4"/>
-        <rect x="160" y="225" width="20" height="20" rx="4"/>
-        <rect x="105" y="170" width="20" height="20" rx="4"/>
-        <rect x="215" y="170" width="20" height="20" rx="4"/>
-        <!-- Small Gear -->
-        <circle cx="255" cy="235" r="35" fill="#f97316"/>
-        <circle cx="255" cy="235" r="14" fill="#0f172a" stroke="#fed7aa" stroke-width="3"/>
-        <!-- Small Gear Teeth -->
-        <rect x="247" y="190" width="16" height="16" rx="3"/>
-        <rect x="247" y="264" width="16" height="16" rx="3"/>
-        <rect x="210" y="227" width="16" height="16" rx="3"/>
-        <rect x="284" y="227" width="16" height="16" rx="3"/>
-      </g>
-    `,
-  },
-  {
-    key: 'natural-sciences',
-    aliases: ['khtn', 'khoa-hoc-tu-nhien'],
-    title: 'KHOA HỌC TỰ NHIÊN',
-    category: 'MÔN TÍCH HỢP',
-    subtitle: 'Vật lý • Hóa học • Sinh học • Đề thi THCS & Chuyên đề tích hợp',
-    colorGrad1: '#022c22',
-    colorGrad2: '#0d9488',
-    colorAccent: '#38bdf8',
-    glowColor: 'rgba(56, 189, 248, 0.25)',
-    pills: ['⏱️ Tính giờ tự động', '🔬 Kiến thức tích hợp KHTN', '📊 Lời giải chi tiết'],
-    iconSvg: `
-      <!-- Atom Orbit + Flask + Leaf Hybrid -->
-      <ellipse cx="200" cy="190" rx="110" ry="45" fill="none" stroke="#38bdf8" stroke-width="4" transform="rotate(30 200 190)"/>
-      <ellipse cx="200" cy="190" rx="110" ry="45" fill="none" stroke="#34d399" stroke-width="4" transform="rotate(-30 200 190)"/>
-      <!-- Flask -->
-      <path d="M 188,140 L 212,140 L 212,170 L 245,230 A 12 12 0 0 1 235,245 L 165,245 A 12 12 0 0 1 155,230 L 188,170 Z" fill="#0f172a" stroke="#38bdf8" stroke-width="5"/>
-      <!-- Green Sprout Leaf inside flask -->
-      <path d="M 195,235 Q 185,200 205,190 Q 215,215 195,235 Z" fill="#4ade80"/>
-      <circle cx="280" cy="140" r="7" fill="#38bdf8"/>
-      <circle cx="120" cy="140" r="7" fill="#34d399"/>
-    `,
-  },
-  {
-    key: 'social-sciences',
-    aliases: ['khxh', 'lich-su-dia-ly'],
-    title: 'LỊCH SỬ & ĐỊA LÝ',
-    category: 'MÔN TÍCH HỢP',
-    subtitle: 'Lịch sử dân tộc • Địa lý tự nhiên & Kinh tế xã hội • Đề thi tích hợp',
-    colorGrad1: '#431407',
-    colorGrad2: '#9a3412',
-    colorAccent: '#fbbf24',
-    glowColor: 'rgba(251, 191, 36, 0.25)',
-    pills: ['⏱️ Tính giờ tự động', '🌏 Kiến thức tích hợp KHXH', '📊 Đánh giá năng lực'],
-    iconSvg: `
-      <!-- Historical Columns + Globe Half -->
-      <g stroke="#fbbf24" stroke-width="4" fill="none">
-        <circle cx="200" cy="200" r="100" fill="#0f172a" stroke="#f59e0b" stroke-width="4"/>
-        <ellipse cx="200" cy="200" rx="40" ry="100" stroke="#d97706"/>
-        <line x1="100" y1="200" x2="300" y2="200" stroke="#d97706"/>
-      </g>
-      <!-- Temple Silhouette in Center -->
-      <polygon points="200,125 150,150 250,150" fill="#fbbf24"/>
-      <rect x="160" y="155" width="12" height="50" rx="2" fill="#fef08a"/>
-      <rect x="182" y="155" width="12" height="50" rx="2" fill="#fef08a"/>
-      <rect x="206" y="155" width="12" height="50" rx="2" fill="#fef08a"/>
-      <rect x="228" y="155" width="12" height="50" rx="2" fill="#fef08a"/>
-      <rect x="145" y="205" width="110" height="10" fill="#fbbf24"/>
-    `,
-  },
-  {
-    key: 'default',
-    aliases: ['exam-default', 'tong-hop'],
-    title: 'ĐỀ THI TRẮC NGHIỆM',
-    category: 'KHẢO THÍ CHUẨN HÓA',
-    subtitle: 'Ngân hàng đề thi trắc nghiệm • Đánh giá năng lực • Luyện thi THPT Quốc gia',
-    colorGrad1: '#0f172a',
-    colorGrad2: '#4338ca',
-    colorAccent: '#818cf8',
-    glowColor: 'rgba(129, 140, 248, 0.25)',
-    pills: ['⏱️ Tính giờ tự động', '🎯 Chuẩn cấu trúc Bộ GD&ĐT', '📊 Phổ điểm & Lời giải'],
-    iconSvg: `
-      <!-- Graduation Mortarboard & Award Star -->
-      <g fill="#818cf8" stroke="#ffffff" stroke-width="3">
-        <!-- Mortarboard Diamond -->
-        <polygon points="200,110 310,155 200,200 90,155" fill="#4f46e5" stroke="#a5b4fc" stroke-width="5"/>
-        <!-- Skullcap -->
-        <path d="M 140,180 L 140,225 Q 200,265 260,225 L 260,180" fill="#3730a3" stroke="#a5b4fc" stroke-width="4"/>
-        <!-- Tassel -->
-        <line x1="200" y1="155" x2="300" y2="185" stroke="#fbbf24" stroke-width="4"/>
-        <circle cx="300" cy="205" r="10" fill="#fbbf24"/>
-      </g>
-      <!-- Star Badge in Center Bottom -->
-      <circle cx="200" cy="275" r="28" fill="#fbbf24" stroke="#ffffff" stroke-width="3"/>
-      <polygon points="200,253 206,268 223,269 209,280 214,296 200,286 186,296 191,280 177,269 194,268" fill="#ffffff"/>
+      <rect x="34" y="34" width="332" height="332" rx="64" fill="#ffffff"/>
+      <polygon points="200,98 318,154 200,210 82,154" fill="#2563eb"/>
+      <path d="M 134 182 L 134 236 Q 200 282 266 236 L 266 182" fill="#1e40af"/>
+      <line x1="296" y1="164" x2="296" y2="232" stroke="#f59e0b" stroke-width="10" stroke-linecap="round"/>
+      <circle cx="296" cy="244" r="14" fill="#f59e0b"/>
+      <polygon points="200,264 210,286 234,289 216,305 221,329 200,317 179,329 184,305 166,289 190,286" fill="#f59e0b"/>
     `,
   },
 ];
 
 function escapeXml(str) {
-  if (!str) return '';
-  return String(str)
-    .replace(/&/g, '&amp;')
-    .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;')
-    .replace(/"/g, '&quot;')
-    .replace(/'/g, '&apos;');
+  return String(str || "")
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&apos;");
 }
 
 function generateBannerSvg(cfg) {
   const safeTitle = escapeXml(cfg.title);
-  const safeSubtitle = escapeXml(cfg.subtitle);
-  const safeCategory = escapeXml(cfg.category);
-  const safePill0 = escapeXml(cfg.pills[0]);
-  const safePill1 = escapeXml(cfg.pills[1]);
-  const safePill2 = escapeXml(cfg.pills[2]);
+  const safeTag = escapeXml(cfg.tag);
+  const safeTagline = escapeXml(cfg.tagline);
+  const titleFontSize = cfg.title.length > 13 ? 72 : cfg.title.length > 10 ? 80 : 90;
+
   return `<?xml version="1.0" encoding="UTF-8"?>
 <svg width="1200" height="630" viewBox="0 0 1200 630" xmlns="http://www.w3.org/2000/svg">
   <defs>
-    <!-- Background Gradient -->
-    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#090d16"/>
-      <stop offset="50%" stop-color="${cfg.colorGrad1}"/>
-      <stop offset="100%" stop-color="#090d16"/>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="${cfg.bg1}"/>
+      <stop offset="100%" stop-color="${cfg.bg2}"/>
     </linearGradient>
-
-    <!-- Mesh Accent Gradient -->
-    <linearGradient id="meshGrad" x1="0%" y1="50%" x2="100%" y2="50%">
-      <stop offset="0%" stop-color="${cfg.colorGrad2}" stop-opacity="0.3"/>
-      <stop offset="100%" stop-color="${cfg.colorAccent}" stop-opacity="0.05"/>
-    </linearGradient>
-
-    <!-- Glowing Accent Gradient for Card/Badges -->
-    <linearGradient id="accentGrad" x1="0%" y1="0%" x2="100%" y2="0%">
-      <stop offset="0%" stop-color="${cfg.colorGrad2}"/>
-      <stop offset="100%" stop-color="${cfg.colorAccent}"/>
-    </linearGradient>
-
-    <!-- Radial Glow Behind Subject Icon -->
-    <radialGradient id="iconGlow" cx="50%" cy="50%" r="50%">
-      <stop offset="0%" stop-color="${cfg.colorAccent}" stop-opacity="0.45"/>
-      <stop offset="70%" stop-color="${cfg.colorGrad2}" stop-opacity="0.15"/>
-      <stop offset="100%" stop-color="${cfg.colorGrad2}" stop-opacity="0"/>
+    <radialGradient id="halo" cx="78%" cy="50%" r="42%">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.32"/>
+      <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
     </radialGradient>
   </defs>
 
-  <!-- 1. Background Base -->
-  <rect width="1200" height="630" fill="url(#bgGrad)"/>
-  <rect width="1200" height="630" fill="url(#meshGrad)"/>
+  <!-- Clean Vivid Background -->
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <rect width="1200" height="630" fill="url(#halo)"/>
 
-  <!-- Geometric Subtle Grid Accents -->
-  <g opacity="0.06" stroke="#ffffff" stroke-width="1">
-    <line x1="80" y1="0" x2="80" y2="630"/>
-    <line x1="240" y1="0" x2="240" y2="630"/>
-    <line x1="400" y1="0" x2="400" y2="630"/>
-    <line x1="560" y1="0" x2="560" y2="630"/>
-    <line x1="720" y1="0" x2="720" y2="630"/>
-    <line x1="880" y1="0" x2="880" y2="630"/>
-    <line x1="1040" y1="0" x2="1040" y2="630"/>
-    <line x1="0" y1="100" x2="1200" y2="100"/>
-    <line x1="0" y1="200" x2="1200" y2="200"/>
-    <line x1="0" y1="300" x2="1200" y2="300"/>
-    <line x1="0" y1="400" x2="1200" y2="400"/>
-    <line x1="0" y1="500" x2="1200" y2="500"/>
+  <!-- Subtle Decorative Shapes (Minimalist, Zero Visual Clutter) -->
+  <circle cx="88" cy="570" r="170" fill="#ffffff" opacity="0.06"/>
+  <circle cx="1140" cy="80" r="150" fill="#ffffff" opacity="0.08"/>
+
+  <!-- Top Brand + Category Tag -->
+  <g transform="translate(76, 68)">
+    <rect x="0" y="0" width="144" height="48" rx="14" fill="#ffffff"/>
+    <text x="72" y="33" text-anchor="middle" fill="${cfg.bg1}" font-size="24" font-weight="900" font-family="Segoe UI, Arial, sans-serif" letter-spacing="1">DkTEST</text>
+
+    <rect x="164" y="0" width="166" height="48" rx="24" fill="${cfg.pillBg}" opacity="0.55"/>
+    <text x="247" y="32" text-anchor="middle" fill="#ffffff" font-size="18" font-weight="800" font-family="Segoe UI, Arial, sans-serif" letter-spacing="1.5">${safeTag}</text>
   </g>
 
-  <!-- Top Ambient Glow Line -->
-  <rect x="0" y="0" width="1200" height="6" fill="url(#accentGrad)"/>
+  <!-- Large Crisp Subject Title -->
+  <text x="76" y="292" fill="#ffffff" font-size="${titleFontSize}" font-weight="900" font-family="Segoe UI, Arial, sans-serif" letter-spacing="-1">${safeTitle}</text>
 
-  <!-- 2. Header Area -->
-  <!-- Brand Badge (Top Left) -->
-  <g transform="translate(80, 52)">
-    <rect x="0" y="0" width="140" height="42" rx="10" fill="#1e293b" stroke="#334155" stroke-width="1.5"/>
-    <text x="18" y="28" fill="#38bdf8" font-size="20" font-weight="900" font-family="system-ui, -apple-system, sans-serif" letter-spacing="1">Dk</text>
-    <text x="48" y="28" fill="#ffffff" font-size="20" font-weight="900" font-family="system-ui, -apple-system, sans-serif" letter-spacing="1">TEST</text>
-    <circle cx="120" cy="21" r="5" fill="#38bdf8"/>
-    
-    <text x="156" y="27" fill="#94a3b8" font-size="15" font-weight="600" font-family="system-ui, -apple-system, sans-serif" letter-spacing="0.5">NỀN TẢNG KHẢO THÍ &amp; LUYỆN THI TRỰC TUYẾN THÔNG MINH</text>
+  <!-- Clean Accent Bar -->
+  <rect x="76" y="328" width="128" height="10" rx="5" fill="${cfg.accent}"/>
+
+  <!-- Clear Short Tagline -->
+  <text x="76" y="400" fill="#ffffff" opacity="0.95" font-size="30" font-weight="700" font-family="Segoe UI, Arial, sans-serif">${safeTagline}</text>
+
+  <!-- Clean Bottom Domain Indicator -->
+  <g transform="translate(76, 512)">
+    <rect x="0" y="0" width="276" height="54" rx="27" fill="rgba(255,255,255,0.18)" stroke="rgba(255,255,255,0.45)" stroke-width="2"/>
+    <text x="138" y="35" text-anchor="middle" fill="#ffffff" font-size="22" font-weight="800" font-family="Segoe UI, Arial, sans-serif">Luyện thi trực tuyến</text>
   </g>
 
-  <!-- Top Right Certification Badge -->
-  <g transform="translate(830, 52)">
-    <rect x="0" y="0" width="290" height="42" rx="21" fill="rgba(30, 41, 59, 0.7)" stroke="${cfg.colorAccent}" stroke-width="1.5" stroke-opacity="0.6"/>
-    <circle cx="24" cy="21" r="7" fill="${cfg.colorAccent}"/>
-    <text x="44" y="27" fill="#f1f5f9" font-size="14" font-weight="700" font-family="system-ui, -apple-system, sans-serif">CHUẨN BỘ GIÁO DỤC &amp; ĐÀO TẠO</text>
-  </g>
-
-  <!-- 3. Left Content Area -->
-  <!-- Category Pill -->
-  <g transform="translate(80, 145)">
-    <rect x="0" y="0" width="220" height="34" rx="8" fill="url(#accentGrad)"/>
-    <text x="110" y="23" fill="#ffffff" font-size="13" font-weight="800" font-family="system-ui, -apple-system, sans-serif" text-anchor="middle" letter-spacing="1.5">${safeCategory}</text>
-  </g>
-
-  <!-- Main Subject Title -->
-  <text x="80" y="260" fill="#ffffff" font-size="64" font-weight="900" font-family="system-ui, -apple-system, sans-serif" letter-spacing="-0.5">${safeTitle}</text>
-
-  <!-- Subtitle / Curriculum Outline -->
-  <text x="80" y="315" fill="#cbd5e1" font-size="21" font-weight="500" font-family="system-ui, -apple-system, sans-serif">${safeSubtitle}</text>
-
-  <!-- Decorative Separator Line -->
-  <line x1="80" y1="355" x2="680" y2="355" stroke="${cfg.colorAccent}" stroke-width="2" stroke-opacity="0.3"/>
-
-  <!-- Feature Badges Row -->
-  <g transform="translate(80, 385)">
-    <!-- Pill 1 -->
-    <rect x="0" y="0" width="190" height="42" rx="12" fill="rgba(30, 41, 59, 0.85)" stroke="rgba(255, 255, 255, 0.12)" stroke-width="1.5"/>
-    <text x="95" y="26" fill="#f8fafc" font-size="14" font-weight="600" font-family="system-ui, -apple-system, sans-serif" text-anchor="middle">${safePill0}</text>
-
-    <!-- Pill 2 -->
-    <rect x="205" y="0" width="220" height="42" rx="12" fill="rgba(30, 41, 59, 0.85)" stroke="rgba(255, 255, 255, 0.12)" stroke-width="1.5"/>
-    <text x="315" y="26" fill="#f8fafc" font-size="14" font-weight="600" font-family="system-ui, -apple-system, sans-serif" text-anchor="middle">${safePill1}</text>
-
-    <!-- Pill 3 -->
-    <rect x="440" y="0" width="180" height="42" rx="12" fill="rgba(30, 41, 59, 0.85)" stroke="rgba(255, 255, 255, 0.12)" stroke-width="1.5"/>
-    <text x="530" y="26" fill="#f8fafc" font-size="14" font-weight="600" font-family="system-ui, -apple-system, sans-serif" text-anchor="middle">${safePill2}</text>
-  </g>
-
-  <!-- 4. Right Side Subject Artwork Hub -->
-  <g transform="translate(730, 115)">
-    <!-- Ambient Radial Glow -->
-    <circle cx="200" cy="200" r="190" fill="url(#iconGlow)"/>
-    
-    <!-- Outer Decorative Concentric Rings -->
-    <circle cx="200" cy="200" r="180" fill="none" stroke="${cfg.colorAccent}" stroke-width="1.5" stroke-opacity="0.25" stroke-dasharray="10,8"/>
-    <circle cx="200" cy="200" r="150" fill="none" stroke="${cfg.colorGrad2}" stroke-width="2" stroke-opacity="0.35"/>
-    
-    <!-- Glassmorphism Container Card -->
-    <rect x="25" y="25" width="350" height="350" rx="44" fill="rgba(15, 23, 42, 0.75)" stroke="rgba(255, 255, 255, 0.15)" stroke-width="2"/>
-    <rect x="25" y="25" width="350" height="350" rx="44" fill="url(#meshGrad)" opacity="0.35"/>
-
-    <!-- Subject Specific SVG Illustration -->
+  <!-- Right Emblematic Subject Illustration Card (400x400) -->
+  <g transform="translate(736, 115)">
+    <rect x="16" y="16" width="368" height="368" rx="76" fill="#000000" opacity="0.14"/>
     ${cfg.iconSvg}
   </g>
-
-  <!-- 5. Bottom Interactive Footer Bar -->
-  <g transform="translate(80, 520)">
-    <!-- Footer Capsule -->
-    <rect x="0" y="0" width="1040" height="62" rx="16" fill="rgba(15, 23, 42, 0.9)" stroke="rgba(255, 255, 255, 0.12)" stroke-width="1.5"/>
-    
-    <!-- Call to Action Text -->
-    <text x="32" y="38" fill="#f8fafc" font-size="17" font-weight="700" font-family="system-ui, -apple-system, sans-serif">
-      🚀 <tspan fill="#38bdf8">Vào thi trực tuyến ngay</tspan> — Tự động chấm điểm, phân tích ma trận &amp; lời giải chi tiết
-    </text>
-
-    <!-- Platform Domain Badge -->
-    <g transform="translate(870, 12)">
-      <rect x="0" y="0" width="145" height="38" rx="10" fill="url(#accentGrad)"/>
-      <text x="72" y="24" fill="#ffffff" font-size="16" font-weight="900" font-family="system-ui, -apple-system, sans-serif" text-anchor="middle" letter-spacing="1">dktest.vn</text>
-    </g>
-  </g>
-</svg>
-`;
+</svg>`;
 }
 
-console.log('[BannerGen] Starting generation of 14 subject banners...');
+console.log("[BannerGen] Remaking 14 minimalist vivid subject banners...");
 
 for (const sub of subjects) {
   const svg = generateBannerSvg(sub);
   const resvg = new Resvg(svg, {
-    fitTo: { mode: 'width', value: 1200 },
+    fitTo: { mode: "width", value: 1200 },
+    font: { loadSystemFonts: true },
   });
   const pngBuffer = resvg.render().asPng();
-
-  // Decode PNG to RGBA pixels and encode to high-quality lightweight JPEG
   const decodedPng = decode(pngBuffer);
   const jpegBuffer = jpeg.encode(
     {
-      data: decodedPng.data,
+      data: Buffer.from(decodedPng.data),
       width: decodedPng.width,
       height: decodedPng.height,
     },
-    88
+    90
   );
 
   const primaryJpg = path.join(OUT_DIR, `${sub.key}.jpg`);
   const primaryPng = path.join(OUT_DIR, `${sub.key}.png`);
-
   fs.writeFileSync(primaryJpg, jpegBuffer.data);
   fs.writeFileSync(primaryPng, pngBuffer);
-  console.log(`[BannerGen] Generated ${sub.key}.jpg (${Math.round(jpegBuffer.data.length / 1024)} KB) & ${sub.key}.png`);
+  console.log(
+    `[BannerGen] Generated ${sub.key}.jpg (${Math.round(jpegBuffer.data.length / 1024)} KB)`
+  );
 
-  // Also write aliases for full interoperability
   for (const alias of sub.aliases) {
-    const aliasJpg = path.join(OUT_DIR, `${alias}.jpg`);
-    const aliasPng = path.join(OUT_DIR, `${alias}.png`);
-    fs.copyFileSync(primaryJpg, aliasJpg);
-    fs.copyFileSync(primaryPng, aliasPng);
+    fs.copyFileSync(primaryJpg, path.join(OUT_DIR, `${alias}.jpg`));
+    fs.copyFileSync(primaryPng, path.join(OUT_DIR, `${alias}.png`));
   }
 }
 
-// Copy to dist/images/subjects if dist exists
-const distSubjectsDir = path.join(process.cwd(), 'dist', 'images', 'subjects');
-if (fs.existsSync(path.join(process.cwd(), 'dist'))) {
+const distSubjectsDir = path.join(process.cwd(), "dist", "images", "subjects");
+if (fs.existsSync(path.join(process.cwd(), "dist"))) {
   fs.mkdirSync(distSubjectsDir, { recursive: true });
-  const files = fs.readdirSync(OUT_DIR);
-  for (const file of files) {
+  for (const file of fs.readdirSync(OUT_DIR)) {
     fs.copyFileSync(path.join(OUT_DIR, file), path.join(distSubjectsDir, file));
   }
-  console.log(`[BannerGen] Copied ${files.length} banners to dist/images/subjects`);
 }
 
-console.log('[BannerGen] All banners successfully generated and saved!');
+console.log("[BannerGen] All 14 subject banners (+ aliases) remade cleanly!");

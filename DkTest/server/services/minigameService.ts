@@ -22,10 +22,17 @@ import {
 } from "../../src/services/minigame/raceEngine.js";
 import {
   BAU_CUA_FACES,
+  LUCKY_WHEEL_SECTORS,
+  MYSTERY_BOXES,
+  TREASURE_CHEST_COUNT,
+  TREASURE_WINNING_COUNT,
   buildRaceWinners,
   evaluateBauCuaWinners,
   evaluateLuckyNumberWinners,
+  evaluateLuckyWheelWinners,
+  evaluateMysteryBoxWinners,
   evaluateTaiXiuWinners,
+  evaluateTreasureFlipWinners,
 } from "../../src/services/minigame/gameLogic.js";
 import {
   getOrCreateWallet,
@@ -34,7 +41,7 @@ import {
   sanitizeVnd,
 } from "./walletService.js";
 import { publishDeviceNotification } from "./notificationPushService.js";
-import type { MinigameCheerMessage } from "../../src/types/minigame.js";
+import type { MinigameChatMessage, MinigameCheerMessage } from "../../src/types/minigame.js";
 
 const COL_MINIGAMES = "minigame_events";
 
@@ -64,6 +71,54 @@ export function listLiveMinigameCheers(eventId: string): MinigameCheerMessage[] 
   const fresh = existing.filter((m) => Date.now() - m.createdAt < 60_000);
   liveCheersByEvent.set(eventId, fresh);
   return fresh.slice(0, 12);
+}
+
+// In-memory ring buffer for realtime room chat (0 Firestore reads/writes; paired with RTDB on client)
+const liveChatByEvent = new Map<string, MinigameChatMessage[]>();
+const LIVE_CHAT_TTL_MS = 6 * 60 * 60 * 1000;
+const LIVE_CHAT_MAX_ITEMS = 80;
+
+export function addLiveMinigameChat(
+  eventId: string,
+  payload: {
+    uid: string;
+    displayName: string;
+    avatarUrl?: string;
+    isAdmin?: boolean;
+    message: string;
+  }
+): MinigameChatMessage {
+  const cleanText = String(payload.message || "")
+    .replace(/[\r\n\t]+/g, " ")
+    .trim()
+    .slice(0, 280);
+  if (!cleanText) {
+    throw new Error("Vui lòng nhập nội dung tin nhắn.");
+  }
+  const msg: MinigameChatMessage = {
+    id: makeId("chat"),
+    uid: payload.uid,
+    displayName: (payload.displayName || "Học sinh").slice(0, 60),
+    avatarUrl: payload.avatarUrl ? String(payload.avatarUrl).slice(0, 512) : undefined,
+    isAdmin: Boolean(payload.isAdmin),
+    message: cleanText,
+    createdAt: Date.now(),
+  };
+  const now = Date.now();
+  const existing = liveChatByEvent.get(eventId) || [];
+  const next = [...existing.filter((m) => now - m.createdAt < LIVE_CHAT_TTL_MS), msg].slice(
+    -LIVE_CHAT_MAX_ITEMS
+  );
+  liveChatByEvent.set(eventId, next);
+  return msg;
+}
+
+export function listLiveMinigameChat(eventId: string): MinigameChatMessage[] {
+  const now = Date.now();
+  const existing = liveChatByEvent.get(eventId) || [];
+  const fresh = existing.filter((m) => now - m.createdAt < LIVE_CHAT_TTL_MS);
+  liveChatByEvent.set(eventId, fresh);
+  return fresh.slice(-60);
 }
 
 const BOT_NAMES = [
@@ -117,13 +172,37 @@ const prizeSchema = z.object({
 export const createMinigameSchema = z.object({
   title: z.string().trim().min(2, "Vui lòng nhập tên sự kiện minigame.").max(160),
   description: z.string().trim().max(1000).optional().default(""),
-  gameType: z.enum(["horse_race", "bee_race", "tai_xiu", "bau_cua", "lucky_number"]),
+  gameType: z.enum([
+    "horse_race",
+    "bee_race",
+    "tai_xiu",
+    "bau_cua",
+    "lucky_number",
+    "lucky_wheel",
+    "treasure_flip",
+    "mystery_box",
+  ]),
   maxParticipants: z.number().int().min(2).max(200).default(8),
   racersPerHeat: z.number().int().min(2).max(8).optional().default(4),
+  scheduledStartAt: z.string().trim().nullable().optional(),
+  scheduledEndAt: z.string().trim().nullable().optional(),
+  durationMinutes: z.number().int().min(1).max(10080).nullable().optional(),
+  raceDurationMs: z.number().int().min(6000).max(30000).optional(),
+  revealDurationMs: z.number().int().min(2000).max(10000).optional(),
+  chatEnabled: z.boolean().optional().default(true),
   prizes: z
     .array(prizeSchema)
     .min(1, "Vui lòng cấu hình ít nhất 1 giải thưởng phúc lợi.")
     .max(32, "Tối đa 32 giải thưởng trong một sự kiện."),
+});
+
+export const updateMinigameScheduleSchema = z.object({
+  scheduledStartAt: z.string().trim().nullable().optional(),
+  scheduledEndAt: z.string().trim().nullable().optional(),
+  durationMinutes: z.number().int().min(1).max(10080).nullable().optional(),
+  raceDurationMs: z.number().int().min(6000).max(30000).optional(),
+  revealDurationMs: z.number().int().min(2000).max(10000).optional(),
+  chatEnabled: z.boolean().optional(),
 });
 
 export const joinMinigameSchema = z.object({
@@ -215,7 +294,76 @@ function validatePredictionForGame(
     }
     return String(num).padStart(2, "0");
   }
+  if (gameType === "lucky_wheel") {
+    const validIds = LUCKY_WHEEL_SECTORS.map((s) => s.id);
+    if (!validIds.includes(clean)) {
+      throw new Error("Vui lòng chọn 1 biểu tượng hợp lệ trên Vòng Quay Siêu Tốc.");
+    }
+    return clean;
+  }
+  if (gameType === "treasure_flip") {
+    const idx = Number(clean);
+    if (!Number.isInteger(idx) || idx < 1 || idx > TREASURE_CHEST_COUNT) {
+      throw new Error(`Vui lòng chọn 1 rương kho báu từ #1 đến #${TREASURE_CHEST_COUNT}.`);
+    }
+    return String(idx);
+  }
+  if (gameType === "mystery_box") {
+    const box = Number(clean);
+    if (!Number.isInteger(box) || box < 1 || box > MYSTERY_BOXES.length) {
+      throw new Error(`Vui lòng chọn 1 hộp quà bí ẩn từ #1 đến #${MYSTERY_BOXES.length}.`);
+    }
+    return String(box);
+  }
   return undefined;
+}
+
+function normalizeScheduleFields(input: {
+  scheduledStartAt?: string | null;
+  scheduledEndAt?: string | null;
+  durationMinutes?: number | null;
+}): {
+  scheduledStartAt: string | null;
+  scheduledEndAt: string | null;
+  durationMinutes: number | null;
+} {
+  let startIso: string | null = null;
+  if (input.scheduledStartAt) {
+    const ms = Date.parse(input.scheduledStartAt);
+    if (!Number.isFinite(ms)) {
+      throw new Error("Thời gian bắt đầu sự kiện không hợp lệ.");
+    }
+    startIso = new Date(ms).toISOString();
+  }
+
+  let endIso: string | null = null;
+  if (input.scheduledEndAt) {
+    const ms = Date.parse(input.scheduledEndAt);
+    if (!Number.isFinite(ms)) {
+      throw new Error("Thời gian kết thúc sự kiện không hợp lệ.");
+    }
+    endIso = new Date(ms).toISOString();
+  }
+
+  const durationMinutes =
+    typeof input.durationMinutes === "number" && input.durationMinutes > 0
+      ? Math.trunc(input.durationMinutes)
+      : null;
+
+  if (!endIso && durationMinutes) {
+    const baseMs = startIso ? Date.parse(startIso) : Date.now();
+    endIso = new Date(baseMs + durationMinutes * 60_000).toISOString();
+  }
+
+  if (startIso && endIso && Date.parse(endIso) <= Date.parse(startIso)) {
+    throw new Error("Thời gian kết thúc phải lớn hơn thời gian bắt đầu.");
+  }
+
+  return {
+    scheduledStartAt: startIso,
+    scheduledEndAt: endIso,
+    durationMinutes,
+  };
 }
 
 // ---------------------------------------------------------------------------
@@ -261,9 +409,17 @@ export async function joinOrUpdateMinigameParticipant(
     throw new Error("Sự kiện đã bắt đầu hoặc kết thúc, không thể đăng ký thêm.");
   }
 
-  const prediction = validatePredictionForGame(event.gameType, data.prediction);
   const participants = { ...(event.participants || {}) };
   const existing = participants[user.uid];
+
+  if (!existing && event.scheduledEndAt) {
+    const endMs = Date.parse(event.scheduledEndAt);
+    if (Number.isFinite(endMs) && Date.now() >= endMs) {
+      throw new Error("Đã hết thời gian đăng ký tham gia sự kiện Minigame này.");
+    }
+  }
+
+  const prediction = validatePredictionForGame(event.gameType, data.prediction);
 
   if (!existing) {
     const currentCount = Object.keys(participants).length;
@@ -343,6 +499,12 @@ export async function createMinigameEvent(
     if (racersPerHeat > maxParticipants) racersPerHeat = maxParticipants;
   }
 
+  const schedule = normalizeScheduleFields({
+    scheduledStartAt: data.scheduledStartAt,
+    scheduledEndAt: data.scheduledEndAt,
+    durationMinutes: data.durationMinutes,
+  });
+
   const now = new Date().toISOString();
   const id = makeId("mg");
   const event: MinigameEvent = {
@@ -362,6 +524,12 @@ export async function createMinigameEvent(
     partyResult: null,
     winners: [],
     prizesDistributedAt: null,
+    scheduledStartAt: schedule.scheduledStartAt,
+    scheduledEndAt: schedule.scheduledEndAt,
+    durationMinutes: schedule.durationMinutes,
+    raceDurationMs: data.raceDurationMs || 14000,
+    revealDurationMs: data.revealDurationMs || 3800,
+    chatEnabled: data.chatEnabled !== false,
     createdByUid: actor.uid,
     createdByName: actor.displayName || "Quản trị viên",
     createdAt: now,
@@ -381,6 +549,35 @@ export async function createMinigameEvent(
   });
 
   return event;
+}
+
+export async function updateMinigameSchedule(
+  eventId: string,
+  rawInput: unknown
+): Promise<MinigameEvent> {
+  const data = updateMinigameScheduleSchema.parse(rawInput || {});
+  const event = await getMinigameEvent(eventId);
+  const schedule = normalizeScheduleFields({
+    scheduledStartAt:
+      data.scheduledStartAt !== undefined ? data.scheduledStartAt : event.scheduledStartAt,
+    scheduledEndAt:
+      data.scheduledEndAt !== undefined ? data.scheduledEndAt : event.scheduledEndAt,
+    durationMinutes:
+      data.durationMinutes !== undefined ? data.durationMinutes : event.durationMinutes,
+  });
+
+  const updated: MinigameEvent = {
+    ...event,
+    scheduledStartAt: schedule.scheduledStartAt,
+    scheduledEndAt: schedule.scheduledEndAt,
+    durationMinutes: schedule.durationMinutes,
+    raceDurationMs: data.raceDurationMs ?? event.raceDurationMs ?? 14000,
+    revealDurationMs: data.revealDurationMs ?? event.revealDurationMs ?? 3800,
+    chatEnabled: data.chatEnabled !== undefined ? data.chatEnabled : event.chatEnabled !== false,
+    updatedAt: new Date().toISOString(),
+  };
+  await saveEventRaw(updated);
+  return updated;
 }
 
 /**
@@ -429,6 +626,12 @@ export async function fillMinigameWithBots(
     } else if (event.gameType === "lucky_number") {
       // Spread numbers evenly across 00-99 for testing
       prediction = String(crypto.randomInt(0, 100)).padStart(2, "0");
+    } else if (event.gameType === "lucky_wheel") {
+      prediction = LUCKY_WHEEL_SECTORS[crypto.randomInt(0, LUCKY_WHEEL_SECTORS.length)].id;
+    } else if (event.gameType === "treasure_flip") {
+      prediction = String(crypto.randomInt(1, TREASURE_CHEST_COUNT + 1));
+    } else if (event.gameType === "mystery_box") {
+      prediction = String(crypto.randomInt(1, MYSTERY_BOXES.length + 1));
     }
 
     participants[botUid] = {
@@ -514,7 +717,8 @@ export async function startMinigameEvent(eventId: string): Promise<MinigameEvent
       throw new Error("Cần ít nhất 2 người chơi đăng ký để mở đường đua.");
     }
     const seed = crypto.randomInt(100000, 999999999);
-    const heats = buildInitialRaceHeats(participantUids, event.racersPerHeat, seed, 14000);
+    const raceDurationMs = Math.max(6000, Math.min(30000, Number(event.raceDurationMs) || 14000));
+    const heats = buildInitialRaceHeats(participantUids, event.racersPerHeat, seed, raceDurationMs);
     const updated: MinigameEvent = {
       ...event,
       status: "running",
@@ -526,12 +730,13 @@ export async function startMinigameEvent(eventId: string): Promise<MinigameEvent
     return updated;
   }
 
-  // Party games (Tài Xỉu, Bầu Cua, Đoán số may mắn)
+  // Party games (Tài Xỉu, Bầu Cua, Đoán số, Vòng Quay, Lật Thẻ Kho Báu, Đập Hộp Bí Ẩn)
   if (participantUids.length < 1) {
     throw new Error("Cần ít nhất 1 người chơi tham gia trước khi quay thưởng.");
   }
 
-  const revealedAtMs = Date.now() + 3600; // 3.6s suspenseful roll/spin animation synced across all screens!
+  const revealDurationMs = Math.max(2000, Math.min(10000, Number(event.revealDurationMs) || 3800));
+  const revealedAtMs = Date.now() + revealDurationMs;
   let partyResult = event.partyResult;
   let winners = event.winners;
 
@@ -558,6 +763,41 @@ export async function startMinigameEvent(eventId: string): Promise<MinigameEvent
     const winningNum = crypto.randomInt(0, 100);
     const evalRes = evaluateLuckyNumberWinners(
       winningNum,
+      event.participants,
+      event.prizes,
+      revealedAtMs
+    );
+    partyResult = evalRes.result;
+    winners = evalRes.winners;
+  } else if (event.gameType === "lucky_wheel") {
+    const sectorIndex = crypto.randomInt(0, LUCKY_WHEEL_SECTORS.length);
+    const evalRes = evaluateLuckyWheelWinners(
+      sectorIndex,
+      event.participants,
+      event.prizes,
+      revealedAtMs
+    );
+    partyResult = evalRes.result;
+    winners = evalRes.winners;
+  } else if (event.gameType === "treasure_flip") {
+    const pool = Array.from({ length: TREASURE_CHEST_COUNT }, (_, i) => i + 1);
+    const picked: number[] = [];
+    while (picked.length < TREASURE_WINNING_COUNT && pool.length > 0) {
+      const idx = crypto.randomInt(0, pool.length);
+      picked.push(pool.splice(idx, 1)[0]);
+    }
+    const evalRes = evaluateTreasureFlipWinners(
+      picked,
+      event.participants,
+      event.prizes,
+      revealedAtMs
+    );
+    partyResult = evalRes.result;
+    winners = evalRes.winners;
+  } else if (event.gameType === "mystery_box") {
+    const winningBox = crypto.randomInt(1, MYSTERY_BOXES.length + 1);
+    const evalRes = evaluateMysteryBoxWinners(
+      winningBox,
       event.participants,
       event.prizes,
       revealedAtMs

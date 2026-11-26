@@ -5665,6 +5665,26 @@ var BAU_CUA_FACES = [
   { id: "ga", label: "G\xE0", emoji: "\u{1F413}", color: "from-yellow-500 to-amber-500" },
   { id: "nai", label: "Nai", emoji: "\u{1F98C}", color: "from-violet-500 to-purple-600" }
 ];
+var LUCKY_WHEEL_SECTORS = [
+  { id: "kim_cuong", label: "Kim C\u01B0\u01A1ng", emoji: "\u{1F48E}", color: "from-cyan-500 to-blue-600", hex: "#0ea5e9" },
+  { id: "vuong_mien", label: "V\u01B0\u01A1ng Mi\u1EC7n", emoji: "\u{1F451}", color: "from-amber-400 to-yellow-500", hex: "#f59e0b" },
+  { id: "ngoi_sao", label: "Ng\xF4i Sao", emoji: "\u2B50", color: "from-violet-500 to-purple-600", hex: "#8b5cf6" },
+  { id: "ten_lua", label: "T\xEAn L\u1EEDa", emoji: "\u{1F680}", color: "from-rose-500 to-pink-600", hex: "#f43f5e" },
+  { id: "sam_set", label: "S\u1EA5m S\xE9t", emoji: "\u26A1", color: "from-orange-500 to-amber-600", hex: "#f97316" },
+  { id: "co_bon_la", label: "C\u1ECF 4 L\xE1", emoji: "\u{1F340}", color: "from-emerald-500 to-green-600", hex: "#10b981" },
+  { id: "phuc_loc", label: "Ph\xFAc L\u1ED9c", emoji: "\u{1F9E7}", color: "from-red-500 to-rose-600", hex: "#ef4444" },
+  { id: "sieu_cup", label: "Si\xEAu C\xFAp", emoji: "\u{1F3C6}", color: "from-indigo-500 to-blue-600", hex: "#6366f1" }
+];
+var MYSTERY_BOXES = [
+  { id: "1", boxNumber: 1, label: "H\u1ED9p Ruby", emoji: "\u{1F381}", gradient: "from-rose-500 to-red-600" },
+  { id: "2", boxNumber: 2, label: "H\u1ED9p Ho\xE0ng Kim", emoji: "\u2728", gradient: "from-amber-400 to-orange-500" },
+  { id: "3", boxNumber: 3, label: "H\u1ED9p Ng\u1ECDc L\u1EE5c", emoji: "\u{1F49A}", gradient: "from-emerald-500 to-teal-600" },
+  { id: "4", boxNumber: 4, label: "H\u1ED9p \u0110\u1EA1i D\u01B0\u01A1ng", emoji: "\u{1F30A}", gradient: "from-sky-500 to-blue-600" },
+  { id: "5", boxNumber: 5, label: "H\u1ED9p Pha L\xEA", emoji: "\u{1F52E}", gradient: "from-violet-500 to-purple-600" },
+  { id: "6", boxNumber: 6, label: "H\u1ED9p Kim C\u01B0\u01A1ng", emoji: "\u{1F496}", gradient: "from-fuchsia-500 to-pink-600" }
+];
+var TREASURE_CHEST_COUNT = 9;
+var TREASURE_WINNING_COUNT = 2;
 function getDefaultRankLabel(rank) {
   if (rank === 0) return "Gi\u1EA3i \u0111\u1ED3ng h\u1EA1ng";
   if (rank === 1) return "Gi\u1EA3i Nh\u1EA5t";
@@ -5812,10 +5832,119 @@ function evaluateLuckyNumberWinners(luckyNumber, participants, prizes, revealedA
   });
   return { result, winners };
 }
+function evaluateLuckyWheelWinners(sectorIndex, participants, prizes, revealedAtMs) {
+  const safeIdx = (Math.trunc(sectorIndex) % LUCKY_WHEEL_SECTORS.length + LUCKY_WHEEL_SECTORS.length) % LUCKY_WHEEL_SECTORS.length;
+  const sector = LUCKY_WHEEL_SECTORS[safeIdx];
+  const result = {
+    revealedAtMs,
+    wheelSectorIndex: safeIdx,
+    wheelSectorId: sector.id,
+    wheelSectorLabel: `${sector.emoji} ${sector.label}`
+  };
+  if (!prizes || prizes.length === 0) return { result, winners: [] };
+  const matched = Object.values(participants).filter((p) => p.prediction === sector.id).sort((a, b) => a.joinedAt - b.joinedAt);
+  const collectivePrize = prizes.find((pr) => pr.rank === 0) || null;
+  const winners = [];
+  matched.forEach((p, idx) => {
+    const pos = idx + 1;
+    const exactPrize = prizes.find((pr) => pr.rank === pos) || null;
+    const prize = exactPrize || collectivePrize;
+    if (!prize) return;
+    winners.push({
+      uid: p.uid,
+      displayName: p.displayName,
+      isBot: Boolean(p.isBot),
+      rank: exactPrize ? pos : 0,
+      prizeLabel: prize.label || (exactPrize ? getDefaultRankLabel(pos) : "Tr\xFAng V\xF2ng Quay"),
+      prizeType: prize.type,
+      amountVnd: prize.amountVnd,
+      voucherCode: prize.voucherCode,
+      customTitle: prize.customTitle,
+      matchDetail: `Tr\xFAng \xF4 ${sector.emoji} ${sector.label}!`,
+      distributed: false,
+      distributedAt: null,
+      walletTransactionId: null
+    });
+  });
+  return { result, winners };
+}
+function evaluateTreasureFlipWinners(winningIndices, participants, prizes, revealedAtMs) {
+  const uniqueSorted = Array.from(
+    new Set(
+      winningIndices.map((n) => Math.trunc(Number(n))).filter((n) => n >= 1 && n <= TREASURE_CHEST_COUNT)
+    )
+  ).sort((a, b) => a - b);
+  const result = {
+    revealedAtMs,
+    treasureWinningIndices: uniqueSorted
+  };
+  if (!prizes || prizes.length === 0) return { result, winners: [] };
+  const winSet = new Set(uniqueSorted.map(String));
+  const matched = Object.values(participants).filter((p) => p.prediction && winSet.has(String(p.prediction))).sort((a, b) => a.joinedAt - b.joinedAt);
+  const collectivePrize = prizes.find((pr) => pr.rank === 0) || null;
+  const winners = [];
+  matched.forEach((p, idx) => {
+    const pos = idx + 1;
+    const exactPrize = prizes.find((pr) => pr.rank === pos) || null;
+    const prize = exactPrize || collectivePrize;
+    if (!prize) return;
+    winners.push({
+      uid: p.uid,
+      displayName: p.displayName,
+      isBot: Boolean(p.isBot),
+      rank: exactPrize ? pos : 0,
+      prizeLabel: prize.label || (exactPrize ? getDefaultRankLabel(pos) : "Tr\xFAng Kho B\xE1u V\xE0ng"),
+      prizeType: prize.type,
+      amountVnd: prize.amountVnd,
+      voucherCode: prize.voucherCode,
+      customTitle: prize.customTitle,
+      matchDetail: `M\u1EDF tr\xFAng R\u01B0\u01A1ng Kho B\xE1u #${p.prediction}!`,
+      distributed: false,
+      distributedAt: null,
+      walletTransactionId: null
+    });
+  });
+  return { result, winners };
+}
+function evaluateMysteryBoxWinners(winningBox, participants, prizes, revealedAtMs) {
+  const cleanBox = Math.max(1, Math.min(MYSTERY_BOXES.length, Math.trunc(winningBox)));
+  const boxMeta = MYSTERY_BOXES.find((b) => b.boxNumber === cleanBox) || MYSTERY_BOXES[0];
+  const result = {
+    revealedAtMs,
+    mysteryWinningBox: cleanBox
+  };
+  if (!prizes || prizes.length === 0) return { result, winners: [] };
+  const matched = Object.values(participants).filter((p) => String(p.prediction) === String(cleanBox)).sort((a, b) => a.joinedAt - b.joinedAt);
+  const collectivePrize = prizes.find((pr) => pr.rank === 0) || null;
+  const winners = [];
+  matched.forEach((p, idx) => {
+    const pos = idx + 1;
+    const exactPrize = prizes.find((pr) => pr.rank === pos) || null;
+    const prize = exactPrize || collectivePrize;
+    if (!prize) return;
+    winners.push({
+      uid: p.uid,
+      displayName: p.displayName,
+      isBot: Boolean(p.isBot),
+      rank: exactPrize ? pos : 0,
+      prizeLabel: prize.label || (exactPrize ? getDefaultRankLabel(pos) : "Tr\xFAng H\u1ED9p B\xED \u1EA8n"),
+      prizeType: prize.type,
+      amountVnd: prize.amountVnd,
+      voucherCode: prize.voucherCode,
+      customTitle: prize.customTitle,
+      matchDetail: `\u0110\u1EADp tr\xFAng ${boxMeta.label} (#${cleanBox})!`,
+      distributed: false,
+      distributedAt: null,
+      walletTransactionId: null
+    });
+  });
+  return { result, winners };
+}
 
 // server/services/minigameService.ts
 var COL_MINIGAMES = "minigame_events";
 var liveCheersByEvent = /* @__PURE__ */ new Map();
+var LIVE_CHAT_TTL_MS = 6 * 60 * 60 * 1e3;
 var BOT_NAMES = [
   "Ng\u1EF1a Chi\u1EBFn \u0110\u1ECF",
   "Tia Ch\u1EDBp V\xE0ng",
@@ -5861,10 +5990,33 @@ var prizeSchema = z3.object({
 var createMinigameSchema = z3.object({
   title: z3.string().trim().min(2, "Vui l\xF2ng nh\u1EADp t\xEAn s\u1EF1 ki\u1EC7n minigame.").max(160),
   description: z3.string().trim().max(1e3).optional().default(""),
-  gameType: z3.enum(["horse_race", "bee_race", "tai_xiu", "bau_cua", "lucky_number"]),
+  gameType: z3.enum([
+    "horse_race",
+    "bee_race",
+    "tai_xiu",
+    "bau_cua",
+    "lucky_number",
+    "lucky_wheel",
+    "treasure_flip",
+    "mystery_box"
+  ]),
   maxParticipants: z3.number().int().min(2).max(200).default(8),
   racersPerHeat: z3.number().int().min(2).max(8).optional().default(4),
+  scheduledStartAt: z3.string().trim().nullable().optional(),
+  scheduledEndAt: z3.string().trim().nullable().optional(),
+  durationMinutes: z3.number().int().min(1).max(10080).nullable().optional(),
+  raceDurationMs: z3.number().int().min(6e3).max(3e4).optional(),
+  revealDurationMs: z3.number().int().min(2e3).max(1e4).optional(),
+  chatEnabled: z3.boolean().optional().default(true),
   prizes: z3.array(prizeSchema).min(1, "Vui l\xF2ng c\u1EA5u h\xECnh \xEDt nh\u1EA5t 1 gi\u1EA3i th\u01B0\u1EDFng ph\xFAc l\u1EE3i.").max(32, "T\u1ED1i \u0111a 32 gi\u1EA3i th\u01B0\u1EDFng trong m\u1ED9t s\u1EF1 ki\u1EC7n.")
+});
+var updateMinigameScheduleSchema = z3.object({
+  scheduledStartAt: z3.string().trim().nullable().optional(),
+  scheduledEndAt: z3.string().trim().nullable().optional(),
+  durationMinutes: z3.number().int().min(1).max(10080).nullable().optional(),
+  raceDurationMs: z3.number().int().min(6e3).max(3e4).optional(),
+  revealDurationMs: z3.number().int().min(2e3).max(1e4).optional(),
+  chatEnabled: z3.boolean().optional()
 });
 var joinMinigameSchema = z3.object({
   prediction: z3.string().trim().max(32).optional(),
@@ -5914,6 +6066,37 @@ function makeId(prefix) {
 function isRaceGame(type) {
   return type === "horse_race" || type === "bee_race";
 }
+function normalizeScheduleFields(input) {
+  let startIso = null;
+  if (input.scheduledStartAt) {
+    const ms = Date.parse(input.scheduledStartAt);
+    if (!Number.isFinite(ms)) {
+      throw new Error("Th\u1EDDi gian b\u1EAFt \u0111\u1EA7u s\u1EF1 ki\u1EC7n kh\xF4ng h\u1EE3p l\u1EC7.");
+    }
+    startIso = new Date(ms).toISOString();
+  }
+  let endIso = null;
+  if (input.scheduledEndAt) {
+    const ms = Date.parse(input.scheduledEndAt);
+    if (!Number.isFinite(ms)) {
+      throw new Error("Th\u1EDDi gian k\u1EBFt th\xFAc s\u1EF1 ki\u1EC7n kh\xF4ng h\u1EE3p l\u1EC7.");
+    }
+    endIso = new Date(ms).toISOString();
+  }
+  const durationMinutes = typeof input.durationMinutes === "number" && input.durationMinutes > 0 ? Math.trunc(input.durationMinutes) : null;
+  if (!endIso && durationMinutes) {
+    const baseMs = startIso ? Date.parse(startIso) : Date.now();
+    endIso = new Date(baseMs + durationMinutes * 6e4).toISOString();
+  }
+  if (startIso && endIso && Date.parse(endIso) <= Date.parse(startIso)) {
+    throw new Error("Th\u1EDDi gian k\u1EBFt th\xFAc ph\u1EA3i l\u1EDBn h\u01A1n th\u1EDDi gian b\u1EAFt \u0111\u1EA7u.");
+  }
+  return {
+    scheduledStartAt: startIso,
+    scheduledEndAt: endIso,
+    durationMinutes
+  };
+}
 async function listMinigameEvents() {
   const all = await listEventsRaw();
   return all.sort((a, b) => {
@@ -5945,6 +6128,11 @@ async function createMinigameEvent(rawInput, actor) {
     racersPerHeat = Math.max(2, Math.min(8, Math.trunc(racersPerHeat) || 4));
     if (racersPerHeat > maxParticipants) racersPerHeat = maxParticipants;
   }
+  const schedule = normalizeScheduleFields({
+    scheduledStartAt: data.scheduledStartAt,
+    scheduledEndAt: data.scheduledEndAt,
+    durationMinutes: data.durationMinutes
+  });
   const now = (/* @__PURE__ */ new Date()).toISOString();
   const id = makeId("mg");
   const event = {
@@ -5965,6 +6153,12 @@ async function createMinigameEvent(rawInput, actor) {
     partyResult: null,
     winners: [],
     prizesDistributedAt: null,
+    scheduledStartAt: schedule.scheduledStartAt,
+    scheduledEndAt: schedule.scheduledEndAt,
+    durationMinutes: schedule.durationMinutes,
+    raceDurationMs: data.raceDurationMs || 14e3,
+    revealDurationMs: data.revealDurationMs || 3800,
+    chatEnabled: data.chatEnabled !== false,
     createdByUid: actor.uid,
     createdByName: actor.displayName || "Qu\u1EA3n tr\u1ECB vi\xEAn",
     createdAt: now,
@@ -5980,6 +6174,27 @@ async function createMinigameEvent(rawInput, actor) {
     actorName: event.createdByName
   });
   return event;
+}
+async function updateMinigameSchedule(eventId, rawInput) {
+  const data = updateMinigameScheduleSchema.parse(rawInput || {});
+  const event = await getMinigameEvent(eventId);
+  const schedule = normalizeScheduleFields({
+    scheduledStartAt: data.scheduledStartAt !== void 0 ? data.scheduledStartAt : event.scheduledStartAt,
+    scheduledEndAt: data.scheduledEndAt !== void 0 ? data.scheduledEndAt : event.scheduledEndAt,
+    durationMinutes: data.durationMinutes !== void 0 ? data.durationMinutes : event.durationMinutes
+  });
+  const updated = {
+    ...event,
+    scheduledStartAt: schedule.scheduledStartAt,
+    scheduledEndAt: schedule.scheduledEndAt,
+    durationMinutes: schedule.durationMinutes,
+    raceDurationMs: data.raceDurationMs ?? event.raceDurationMs ?? 14e3,
+    revealDurationMs: data.revealDurationMs ?? event.revealDurationMs ?? 3800,
+    chatEnabled: data.chatEnabled !== void 0 ? data.chatEnabled : event.chatEnabled !== false,
+    updatedAt: (/* @__PURE__ */ new Date()).toISOString()
+  };
+  await saveEventRaw(updated);
+  return updated;
 }
 async function fillMinigameWithBots(eventId, options) {
   const event = await getMinigameEvent(eventId);
@@ -6008,6 +6223,12 @@ async function fillMinigameWithBots(eventId, options) {
       prediction = allFaces[crypto2.randomInt(0, allFaces.length)];
     } else if (event.gameType === "lucky_number") {
       prediction = String(crypto2.randomInt(0, 100)).padStart(2, "0");
+    } else if (event.gameType === "lucky_wheel") {
+      prediction = LUCKY_WHEEL_SECTORS[crypto2.randomInt(0, LUCKY_WHEEL_SECTORS.length)].id;
+    } else if (event.gameType === "treasure_flip") {
+      prediction = String(crypto2.randomInt(1, TREASURE_CHEST_COUNT + 1));
+    } else if (event.gameType === "mystery_box") {
+      prediction = String(crypto2.randomInt(1, MYSTERY_BOXES.length + 1));
     }
     participants[botUid] = {
       uid: botUid,
@@ -6075,7 +6296,8 @@ async function startMinigameEvent(eventId) {
       throw new Error("C\u1EA7n \xEDt nh\u1EA5t 2 ng\u01B0\u1EDDi ch\u01A1i \u0111\u0103ng k\xFD \u0111\u1EC3 m\u1EDF \u0111\u01B0\u1EDDng \u0111ua.");
     }
     const seed = crypto2.randomInt(1e5, 999999999);
-    const heats = buildInitialRaceHeats(participantUids, event.racersPerHeat, seed, 14e3);
+    const raceDurationMs = Math.max(6e3, Math.min(3e4, Number(event.raceDurationMs) || 14e3));
+    const heats = buildInitialRaceHeats(participantUids, event.racersPerHeat, seed, raceDurationMs);
     const updated2 = {
       ...event,
       status: "running",
@@ -6089,7 +6311,8 @@ async function startMinigameEvent(eventId) {
   if (participantUids.length < 1) {
     throw new Error("C\u1EA7n \xEDt nh\u1EA5t 1 ng\u01B0\u1EDDi ch\u01A1i tham gia tr\u01B0\u1EDBc khi quay th\u01B0\u1EDFng.");
   }
-  const revealedAtMs = Date.now() + 3600;
+  const revealDurationMs = Math.max(2e3, Math.min(1e4, Number(event.revealDurationMs) || 3800));
+  const revealedAtMs = Date.now() + revealDurationMs;
   let partyResult = event.partyResult;
   let winners = event.winners;
   if (event.gameType === "tai_xiu") {
@@ -6115,6 +6338,41 @@ async function startMinigameEvent(eventId) {
     const winningNum = crypto2.randomInt(0, 100);
     const evalRes = evaluateLuckyNumberWinners(
       winningNum,
+      event.participants,
+      event.prizes,
+      revealedAtMs
+    );
+    partyResult = evalRes.result;
+    winners = evalRes.winners;
+  } else if (event.gameType === "lucky_wheel") {
+    const sectorIndex = crypto2.randomInt(0, LUCKY_WHEEL_SECTORS.length);
+    const evalRes = evaluateLuckyWheelWinners(
+      sectorIndex,
+      event.participants,
+      event.prizes,
+      revealedAtMs
+    );
+    partyResult = evalRes.result;
+    winners = evalRes.winners;
+  } else if (event.gameType === "treasure_flip") {
+    const pool = Array.from({ length: TREASURE_CHEST_COUNT }, (_, i) => i + 1);
+    const picked = [];
+    while (picked.length < TREASURE_WINNING_COUNT && pool.length > 0) {
+      const idx = crypto2.randomInt(0, pool.length);
+      picked.push(pool.splice(idx, 1)[0]);
+    }
+    const evalRes = evaluateTreasureFlipWinners(
+      picked,
+      event.participants,
+      event.prizes,
+      revealedAtMs
+    );
+    partyResult = evalRes.result;
+    winners = evalRes.winners;
+  } else if (event.gameType === "mystery_box") {
+    const winningBox = crypto2.randomInt(1, MYSTERY_BOXES.length + 1);
+    const evalRes = evaluateMysteryBoxWinners(
+      winningBox,
       event.participants,
       event.prizes,
       revealedAtMs
@@ -6454,6 +6712,15 @@ minigameAdminRouter.post("/:id/bots/clear", async (req, res) => {
 minigameAdminRouter.post("/:id/reset-demo", async (req, res) => {
   try {
     const event = await resetMinigameForDemo(req.params.id);
+    return res.json({ success: true, event });
+  } catch (err) {
+    const e = formatError2(err);
+    return res.status(e.status).json({ error: e.error, message: e.message });
+  }
+});
+minigameAdminRouter.patch("/:id/schedule", async (req, res) => {
+  try {
+    const event = await updateMinigameSchedule(req.params.id, req.body);
     return res.json({ success: true, event });
   } catch (err) {
     const e = formatError2(err);

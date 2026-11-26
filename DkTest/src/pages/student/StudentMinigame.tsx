@@ -30,8 +30,13 @@ import { RaceTrackStage } from "../../components/minigame/RaceTrackStage";
 import { TaiXiuStage } from "../../components/minigame/TaiXiuStage";
 import { BauCuaStage } from "../../components/minigame/BauCuaStage";
 import { LuckyNumberStage } from "../../components/minigame/LuckyNumberStage";
+import { LuckyWheelStage } from "../../components/minigame/LuckyWheelStage";
+import { TreasureFlipStage } from "../../components/minigame/TreasureFlipStage";
+import { MysteryBoxStage } from "../../components/minigame/MysteryBoxStage";
 import { WinnersPodiumCard } from "../../components/minigame/WinnersPodiumCard";
 import { LiveCheerBar } from "../../components/minigame/LiveCheerBar";
+import { MinigameRealtimeChat } from "../../components/minigame/MinigameRealtimeChat";
+import { MinigameScheduleBanner } from "../../components/minigame/MinigameScheduleBanner";
 import { MinigamePreviewCard } from "../../components/minigame/MinigamePreviewCard";
 
 export default function StudentMinigame() {
@@ -246,6 +251,9 @@ export default function StudentMinigame() {
             </div>
           </div>
 
+          {/* Schedule & Countdown Banner */}
+          <MinigameScheduleBanner event={activeEvent} />
+
           {/* Prize Showcase Strip */}
           <div className="bg-amber-50/70 dark:bg-amber-950/20 rounded-2xl border border-amber-200 dark:border-amber-800 p-3.5 flex flex-wrap items-center gap-2.5">
             <span className="text-xs font-black text-amber-800 dark:text-amber-300 flex items-center gap-1">
@@ -353,16 +361,55 @@ export default function StudentMinigame() {
             />
           )}
 
+          {activeEvent.gameType === "lucky_wheel" && (
+            <LuckyWheelStage
+              event={activeEvent}
+              currentUid={user.uid}
+              onSelectPrediction={(sectorId) => handleJoin(sectorId)}
+              busy={busy}
+            />
+          )}
+
+          {activeEvent.gameType === "treasure_flip" && (
+            <TreasureFlipStage
+              event={activeEvent}
+              currentUid={user.uid}
+              onSelectPrediction={(chestIndex) => handleJoin(chestIndex)}
+              busy={busy}
+            />
+          )}
+
+          {activeEvent.gameType === "mystery_box" && (
+            <MysteryBoxStage
+              event={activeEvent}
+              currentUid={user.uid}
+              onSelectPrediction={(boxNumber) => handleJoin(boxNumber)}
+              busy={busy}
+            />
+          )}
+
           {/* Winners Podium */}
           <WinnersPodiumCard event={activeEvent} currentUid={user.uid} />
 
-          {/* Real-time Cheer Bar (RTDB) */}
+          {/* Real-time Cheer Bar */}
           <LiveCheerBar
             eventId={activeEvent.id}
             currentUid={user.uid}
             currentDisplayName={
               userProfile?.displayName || user.displayName || user.email?.split("@")[0] || "Học sinh"
             }
+          />
+
+          {/* Realtime Room Chat */}
+          <MinigameRealtimeChat
+            eventId={activeEvent.id}
+            currentUid={user.uid}
+            currentDisplayName={
+              userProfile?.displayName || user.displayName || user.email?.split("@")[0] || "Học sinh"
+            }
+            currentAvatarUrl={userProfile?.photoURL || user.photoURL || undefined}
+            isAdmin={userProfile?.role === "admin" || userProfile?.role === "super_admin"}
+            chatEnabled={activeEvent.chatEnabled !== false}
           />
 
           {/* Registered Players List */}
@@ -409,7 +456,7 @@ export default function StudentMinigame() {
                 Sân Chơi Minigame Phúc Lợi Trực Tiếp
               </h1>
               <p className="text-xs sm:text-sm text-amber-50 max-w-xl">
-                Đua Ngựa, Đua Ong, Tài Xỉu, Bầu Cua, Đoán Số May Mắn theo thời gian thực cùng bạn bè — nhận thưởng cộng thẳng Ví DkTEST, Voucher và quà tặng từ Admin!
+                Đua Ngựa, Đua Ong, Vòng Quay Siêu Tốc, Lật Thẻ Kho Báu, Đập Hộp Bí Ẩn, Tài Xỉu, Bầu Cua, Đoán Số kèm Chat Live trực tiếp — nhận thưởng cộng thẳng Ví DkTEST!
               </p>
             </div>
             <button
@@ -536,13 +583,13 @@ export default function StudentMinigame() {
             </div>
           )}
 
-          {/* Interactive Showcase & Detailed Visual Guide for all 5 Minigames */}
+          {/* Interactive Showcase & Detailed Visual Guide for all 8 Minigames */}
           <div className="bg-white dark:bg-slate-900 rounded-3xl border border-slate-200 dark:border-slate-800 p-4 sm:p-5 space-y-4 shadow-2xs">
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
               <div>
                 <h2 className="text-sm sm:text-base font-black text-slate-900 dark:text-white flex items-center gap-1.5">
                   <Sparkles className="w-4 h-4 text-amber-500" />
-                  Xem trước &amp; Minh họa 5 Minigame Phúc Lợi
+                  Xem trước &amp; Minh họa 8 Minigame Phúc Lợi
                 </h2>
                 <p className="text-xs text-slate-500 dark:text-slate-400">
                   Chọn từng trò chơi để xem hình ảnh minh họa chi tiết và hướng dẫn cách tham gia nhận quà miễn phí.
@@ -550,7 +597,7 @@ export default function StudentMinigame() {
               </div>
             </div>
 
-            <div className="grid grid-cols-2 sm:grid-cols-5 gap-2">
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
               {(Object.keys(MINIGAME_TYPE_META) as MinigameType[]).map((type) => {
                 const meta = MINIGAME_TYPE_META[type];
                 const art = getMinigameArtwork(type);

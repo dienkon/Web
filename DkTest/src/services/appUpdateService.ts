@@ -17,6 +17,8 @@ export interface RemoteAppReleaseMetadata {
   downloadUrl: string | null;
   releasesPageUrl: string;
   source?: "env" | "github_release" | "fallback";
+  /** Mandatory force-update policy (defaults to true so users always run the latest safe release) */
+  forceUpdate?: boolean;
 }
 
 const SKIPPED_VERSION_KEY = "dktest_app_update_skipped_version";
@@ -46,12 +48,14 @@ export function compareSemver(a: string, b: string): number {
 }
 
 /**
- * Determines whether the remote release is genuinely newer AND installable as an APK.
- * Prevents prompting users to re-download the current APK if CI hasn't finished publishing the new tag yet.
+ * Determines whether the remote release is genuinely newer AND installable as an APK (on Android)
+ * or reloadable (on Web/PWA).
+ * Prevents prompting Android users to re-download the current APK if CI hasn't finished publishing the new tag yet.
  */
 export function isNewerAppRelease(
   installed: { version: string; androidVersionCode: number },
-  remote: Partial<RemoteAppReleaseMetadata> | null | undefined
+  remote: Partial<RemoteAppReleaseMetadata> | null | undefined,
+  options?: { platform?: "android" | "web" }
 ): boolean {
   if (!remote || !remote.version) return false;
   const remoteVersion = String(remote.version).trim();
@@ -62,7 +66,11 @@ export function isNewerAppRelease(
 
   if (!hasNewerMeta) return false;
 
-  // If GitHub Release fell back to an older APK while CI is still building, wait until a newer APK exists
+  if (options?.platform === "web") {
+    return true;
+  }
+
+  // On Android: if GitHub Release fell back to an older APK while CI is still building, wait until a newer APK exists
   if (remote.exactReleaseFound === false) {
     const apkVer = String(remote.apkVersion || "").trim();
     if (!apkVer || compareSemver(apkVer, installed.version) <= 0) {
@@ -71,6 +79,12 @@ export function isNewerAppRelease(
   }
 
   return Boolean(remote.downloadUrl || remote.releasesPageUrl);
+}
+
+export function isMandatoryUpdate(
+  remote: Partial<RemoteAppReleaseMetadata> | null | undefined
+): boolean {
+  return remote?.forceUpdate !== false;
 }
 
 export function getSkippedAppVersion(): string {
@@ -102,11 +116,21 @@ export function clearSkippedAppVersion(): void {
 export function shouldPromptForAppUpdate(
   installed: { version: string; androidVersionCode: number },
   remote: Partial<RemoteAppReleaseMetadata> | null | undefined,
-  sessionDismissedVersion: string | null = null
+  sessionDismissedVersion: string | null = null,
+  options?: { platform?: "android" | "web"; enforceMandatory?: boolean }
 ): boolean {
-  if (!isNewerAppRelease(installed, remote)) return false;
+  if (!isNewerAppRelease(installed, remote, { platform: options?.platform })) return false;
   const remoteVersion = String(remote?.version || "").trim();
   if (!remoteVersion) return false;
+
+  // Mandatory force-update ignores skipped/dismissed flags so every user upgrades promptly
+  const mandatory =
+    options?.enforceMandatory !== undefined
+      ? options.enforceMandatory
+      : isMandatoryUpdate(remote);
+  if (mandatory) {
+    return true;
+  }
 
   const skipped = getSkippedAppVersion();
   if (skipped && compareSemver(remoteVersion, skipped) <= 0) {
@@ -116,6 +140,39 @@ export function shouldPromptForAppUpdate(
     return false;
   }
   return true;
+}
+
+/**
+ * Safely refreshes the Web/PWA bundle to the newest release WITHOUT deleting localStorage or IndexedDB
+ * (preserving Firebase Auth tokens & saved user profile so users never have to log in again).
+ */
+export async function performSafeWebAppUpdate(): Promise<void> {
+  clearSkippedAppVersion();
+  try {
+    if (typeof caches !== "undefined" && typeof caches.keys === "function") {
+      const keys = await caches.keys();
+      await Promise.all(keys.map((k) => caches.delete(k).catch(() => false)));
+    }
+  } catch {}
+
+  try {
+    if (typeof navigator !== "undefined" && "serviceWorker" in navigator) {
+      const regs = await navigator.serviceWorker.getRegistrations();
+      await Promise.all(
+        regs.map((r) =>
+          r.update().catch(() => {
+            return r.unregister().catch(() => false);
+          })
+        )
+      );
+    }
+  } catch {}
+
+  if (typeof window !== "undefined") {
+    const url = new URL(window.location.href);
+    url.searchParams.set("_upd", String(Date.now()));
+    window.location.replace(url.toString());
+  }
 }
 
 export function resolveApkUpdateActionUrl(

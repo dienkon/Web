@@ -2,10 +2,12 @@ import { Router, type Response } from "express";
 import { ZodError } from "zod";
 import { requireAuth, type AuthenticatedRequest } from "../middleware/auth.js";
 import {
+  addLiveMinigameChat,
   addLiveMinigameCheer,
   getMinigameEvent,
   joinOrUpdateMinigameParticipant,
   leaveMinigameEvent,
+  listLiveMinigameChat,
   listLiveMinigameCheers,
   listMinigameEvents,
 } from "../services/minigameService.js";
@@ -117,6 +119,50 @@ minigameStudentRouter.post(
         text,
       });
       return res.json({ success: true, cheer, cheers: listLiveMinigameCheers(req.params.id) });
+    } catch (err: any) {
+      const e = formatError(err);
+      return res.status(e.status).json({ error: e.error, message: e.message });
+    }
+  }
+);
+
+// GET /api/minigames/:id/chat (live room chat messages — 0 Firestore reads!)
+minigameStudentRouter.get(
+  "/:id/chat",
+  requireAuth,
+  async (req: AuthenticatedRequest, res: Response) => {
+    try {
+      const messages = listLiveMinigameChat(req.params.id);
+      return res.json({ success: true, messages });
+    } catch (err: any) {
+      const e = formatError(err);
+      return res.status(e.status).json({ error: e.error, message: e.message });
+    }
+  }
+);
+
+// POST /api/minigames/:id/chat
+minigameStudentRouter.post(
+  "/:id/chat",
+  requireAuth,
+  async (req: AuthenticatedRequest, res: Response) => {
+    try {
+      const messageText = typeof req.body?.message === "string" ? req.body.message : "";
+      const avatarUrl = typeof req.body?.avatarUrl === "string" ? req.body.avatarUrl : undefined;
+      const role = String(req.user?.role || "").toLowerCase();
+      const isAdmin = role === "admin" || role === "super_admin" || role === "teacher";
+      const chatMessage = addLiveMinigameChat(req.params.id, {
+        uid: req.user!.uid,
+        displayName: req.user!.displayName || req.user!.email?.split("@")[0] || "Học sinh",
+        avatarUrl,
+        isAdmin,
+        message: messageText,
+      });
+      return res.json({
+        success: true,
+        chatMessage,
+        messages: listLiveMinigameChat(req.params.id),
+      });
     } catch (err: any) {
       const e = formatError(err);
       return res.status(e.status).json({ error: e.error, message: e.message });

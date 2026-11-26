@@ -38,6 +38,7 @@ import {
   buildCourseShareUrl,
   cleanDetectedVideoTitle,
   computeCourseTotalCostSummary,
+  COURSE_RESOURCE_SCOPE_META,
   formatDurationClock,
   getCourse,
   getCourseLessonsForAdmin,
@@ -49,6 +50,7 @@ import {
   probeClientVideoDuration,
   probeVideoDurationApi,
   resolveCourseAccessMode,
+  resolveCourseResourcePolicy,
   saveCourseWithLessons,
 } from "../../services/courseService";
 import { safeCopyText } from "../../utils/mobileCompat";
@@ -72,6 +74,7 @@ import type {
   CourseLesson,
   CourseLessonAccessType,
   CourseLessonMaterial,
+  CourseResourceUnlockScope,
   CourseStatus,
   CourseUnlockFullPolicy,
   CourseVideoType,
@@ -136,6 +139,11 @@ export default function CourseEditor() {
   const [unlockFullPolicy, setUnlockFullPolicy] = useState<CourseUnlockFullPolicy>("unlock_all_videos");
   const [freePreviewCount, setFreePreviewCount] = useState<number>(1);
   const [allowSingleLessonPurchase, setAllowSingleLessonPurchase] = useState<boolean>(true);
+  const [unlockResourcesWithVideo, setUnlockResourcesWithVideo] = useState<boolean>(true);
+  const [unlockMaterialsWithVideo, setUnlockMaterialsWithVideo] = useState<boolean>(true);
+  const [unlockExamsWithVideo, setUnlockExamsWithVideo] = useState<boolean>(true);
+  const [resourceUnlockScope, setResourceUnlockScope] =
+    useState<CourseResourceUnlockScope>("any_video_in_topic");
 
   // Chapters & Lessons
   const [chapters, setChapters] = useState<CourseChapter[]>([]);
@@ -211,6 +219,11 @@ export default function CourseEditor() {
         setAllowSingleLessonPurchase(
           courseDoc.accessMode === "per_video" ? true : Boolean(courseDoc.allowSingleLessonPurchase)
         );
+        const resPolicy = resolveCourseResourcePolicy(courseDoc);
+        setUnlockResourcesWithVideo(resPolicy.enabled);
+        setUnlockMaterialsWithVideo(courseDoc.unlockMaterialsWithVideo !== false);
+        setUnlockExamsWithVideo(courseDoc.unlockExamsWithVideo !== false);
+        setResourceUnlockScope(resPolicy.scope);
         setChapters([...(courseDoc.chapters || [])].sort((a, b) => (a.order ?? 0) - (b.order ?? 0)));
         setLessons(lessonDocs);
         if (lessonDocs.length > 0) setSelectedLessonId(lessonDocs[0].id);
@@ -929,6 +942,10 @@ export default function CourseEditor() {
           freePreviewCount: Math.max(0, Math.floor(Number(freePreviewCount) || 0)),
           allowSingleLessonPurchase:
             accessMode === "per_video" ? true : allowSingleLessonPurchase,
+          unlockResourcesWithVideo,
+          unlockMaterialsWithVideo,
+          unlockExamsWithVideo,
+          resourceUnlockScope,
           chapters: chapters.map((c, idx) => ({
             ...c,
             ...(c.groupTitle?.trim() ? { groupTitle: c.groupTitle.trim() } : {}),
@@ -1537,6 +1554,109 @@ export default function CourseEditor() {
                       <strong>Mở cổng thanh toán Ví DkTEST &amp; Voucher</strong>
                     </span>
                   </label>
+                </div>
+
+                {/* Resource (Materials / Linked Exams) Unlock Rules when student unlocks video(s) */}
+                <div className="p-3.5 rounded-2xl bg-indigo-50/70 dark:bg-indigo-950/25 border border-indigo-200/80 dark:border-indigo-800/70 space-y-3">
+                  <div className="flex items-start justify-between gap-3">
+                    <div>
+                      <div className="text-xs font-black text-indigo-950 dark:text-indigo-200 flex items-center gap-1.5">
+                        <Unlock className="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400" />
+                        <span>Quy tắc mở khóa Tài liệu &amp; Bài thi theo Video</span>
+                      </div>
+                      <p className="text-[11px] text-indigo-800/80 dark:text-indigo-300/80 mt-0.5">
+                        Bật/tắt việc tự động mở tài liệu PDF và bài thi luyện tập khi học sinh đã mở khóa video.
+                      </p>
+                    </div>
+                    <button
+                      type="button"
+                      role="switch"
+                      aria-checked={unlockResourcesWithVideo}
+                      onClick={() => setUnlockResourcesWithVideo((prev) => !prev)}
+                      className={`shrink-0 px-3 py-1.5 rounded-full text-[11px] font-black transition-all cursor-pointer ${
+                        unlockResourcesWithVideo
+                          ? "bg-indigo-600 text-white shadow-xs"
+                          : "bg-slate-200 dark:bg-slate-800 text-slate-600 dark:text-slate-300"
+                      }`}
+                    >
+                      {unlockResourcesWithVideo ? "ĐANG BẬT (ON)" : "ĐANG TẮT (OFF)"}
+                    </button>
+                  </div>
+
+                  {unlockResourcesWithVideo ? (
+                    <div className="space-y-2.5 pt-2 border-t border-indigo-200/60 dark:border-indigo-800/60">
+                      <div className="flex flex-wrap items-center gap-4">
+                        <label className="flex items-center gap-2 cursor-pointer text-xs font-bold text-slate-800 dark:text-slate-200">
+                          <input
+                            type="checkbox"
+                            checked={unlockMaterialsWithVideo}
+                            onChange={(e) => setUnlockMaterialsWithVideo(e.target.checked)}
+                            className="w-4 h-4 rounded accent-indigo-600"
+                          />
+                          <span>Mở khóa Tài liệu (PDF / Link)</span>
+                        </label>
+                        <label className="flex items-center gap-2 cursor-pointer text-xs font-bold text-slate-800 dark:text-slate-200">
+                          <input
+                            type="checkbox"
+                            checked={unlockExamsWithVideo}
+                            onChange={(e) => setUnlockExamsWithVideo(e.target.checked)}
+                            className="w-4 h-4 rounded accent-indigo-600"
+                          />
+                          <span>Mở khóa Bài thi đính kèm</span>
+                        </label>
+                      </div>
+
+                      <div className="space-y-1.5">
+                        <div className="text-[11px] font-black text-slate-700 dark:text-slate-300">
+                          Điều kiện mở khóa tài liệu / bài thi:
+                        </div>
+                        <div className="grid grid-cols-1 gap-1.5">
+                          {(
+                            [
+                              "any_video_in_topic",
+                              "same_lesson",
+                              "full_topic",
+                              "full_chapter",
+                              "full_course",
+                            ] as CourseResourceUnlockScope[]
+                          ).map((scopeKey) => {
+                            const meta = COURSE_RESOURCE_SCOPE_META[scopeKey];
+                            const selected = resourceUnlockScope === scopeKey;
+                            return (
+                              <label
+                                key={scopeKey}
+                                className={`flex items-start gap-2.5 p-2.5 rounded-xl border cursor-pointer transition-all ${
+                                  selected
+                                    ? "border-indigo-500 bg-white dark:bg-slate-900 shadow-2xs"
+                                    : "border-indigo-200/60 dark:border-indigo-900/60 bg-white/50 dark:bg-slate-900/40 hover:bg-white dark:hover:bg-slate-900"
+                                }`}
+                              >
+                                <input
+                                  type="radio"
+                                  name="resourceUnlockScope"
+                                  checked={selected}
+                                  onChange={() => setResourceUnlockScope(scopeKey)}
+                                  className="mt-0.5 accent-indigo-600"
+                                />
+                                <div className="text-xs leading-snug">
+                                  <div className="font-black text-slate-900 dark:text-white">
+                                    {meta.label}
+                                  </div>
+                                  <p className="text-[10px] text-slate-500 dark:text-slate-400 mt-0.5">
+                                    {meta.description}
+                                  </p>
+                                </div>
+                              </label>
+                            );
+                          })}
+                        </div>
+                      </div>
+                    </div>
+                  ) : (
+                    <div className="text-[11px] text-amber-800 dark:text-amber-300 bg-amber-50/90 dark:bg-amber-950/30 border border-amber-200 dark:border-amber-800 rounded-xl px-3 py-2">
+                      Khi tắt (OFF), học sinh mở khóa video lẻ sẽ <strong>không</strong> tự động mở tài liệu hoặc bài thi đính kèm (chỉ mở khi sở hữu trọn khóa học hoặc khóa học miễn phí).
+                    </div>
+                  )}
                 </div>
               </div>
             )}

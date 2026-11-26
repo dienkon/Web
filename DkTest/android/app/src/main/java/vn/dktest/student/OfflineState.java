@@ -85,4 +85,26 @@ final class OfflineState {
     static synchronized void clearSession(Context context) {
         new AtomicFile(new File(context.getNoBackupFilesDir(), "offline-auth.json")).delete();
     }
+    static synchronized void saveUserSnapshot(Context context, JSONObject snapshot) throws Exception {
+        Cipher cipher = Cipher.getInstance("AES/GCM/NoPadding");
+        cipher.init(Cipher.ENCRYPT_MODE, key());
+        JSONObject encrypted = new JSONObject()
+            .put("iv", Base64.encodeToString(cipher.getIV(), Base64.NO_WRAP))
+            .put("data", Base64.encodeToString(cipher.doFinal(snapshot.toString().getBytes(StandardCharsets.UTF_8)), Base64.NO_WRAP));
+        AtomicFile file = new AtomicFile(new File(context.getFilesDir(), "user-profile-snapshot.json"));
+        FileOutputStream out = null;
+        try { out = file.startWrite(); out.write(encrypted.toString().getBytes(StandardCharsets.UTF_8)); file.finishWrite(out); }
+        catch (Exception error) { if (out != null) file.failWrite(out); throw error; }
+    }
+    static synchronized JSONObject getUserSnapshot(Context context) throws Exception {
+        AtomicFile file = new AtomicFile(new File(context.getFilesDir(), "user-profile-snapshot.json"));
+        if (!file.getBaseFile().exists()) return null;
+        JSONObject encrypted = new JSONObject(new String(file.readFully(), StandardCharsets.UTF_8));
+        Cipher cipher = Cipher.getInstance("AES/GCM/NoPadding");
+        cipher.init(Cipher.DECRYPT_MODE, key(), new GCMParameterSpec(128, Base64.decode(encrypted.getString("iv"), Base64.NO_WRAP)));
+        return new JSONObject(new String(cipher.doFinal(Base64.decode(encrypted.getString("data"), Base64.NO_WRAP)), StandardCharsets.UTF_8));
+    }
+    static synchronized void clearUserSnapshot(Context context) {
+        new AtomicFile(new File(context.getFilesDir(), "user-profile-snapshot.json")).delete();
+    }
 }

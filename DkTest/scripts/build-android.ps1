@@ -1,4 +1,4 @@
-param([switch]$Release)
+﻿param([switch]$Release)
 $ErrorActionPreference = 'Stop'
 $projectRoot = Split-Path -Parent $PSScriptRoot
 Set-Location -LiteralPath $projectRoot
@@ -11,6 +11,20 @@ if (!$env:JAVA_HOME -or !$env:ANDROID_HOME) { throw 'Cần JDK 21 (JAVA_HOME) v�
 # A short path also avoids Windows MSIX/JDK loopback socket failures in desktop build hosts.
 New-Item -ItemType Directory -Path "$projectRoot/android/.tmp" -Force | Out-Null
 $env:JAVA_TOOL_OPTIONS = "$env:JAVA_TOOL_OPTIONS -Djava.io.tmpdir=`"$projectRoot/android/.tmp`" -Djdk.net.unixdomain.tmpdir=`"$projectRoot/android/.tmp`""
+# Use a single persistent local signing keystore outside the Git repository so in-place APK upgrades never conflict.
+if (!$env:DKTEST_KEYSTORE_PATH) {
+    $localKeystore = Join-Path $toolRoot 'dktest-signing.jks'
+    if (!(Test-Path -LiteralPath $localKeystore)) {
+        New-Item -ItemType Directory -Path $toolRoot -Force | Out-Null
+        $keytool = Join-Path $env:JAVA_HOME 'bin/keytool.exe'
+        if (!(Test-Path -LiteralPath $keytool)) { $keytool = 'keytool' }
+        & $keytool -genkeypair -v -keystore $localKeystore -storepass 'dktest2026' -keypass 'dktest2026' -alias 'dktest' -keyalg RSA -keysize 2048 -validity 9125 -dname 'CN=DkTEST, OU=Education, O=DkTEST, L=HCM, ST=HCM, C=VN' | Out-Null
+    }
+    $env:DKTEST_KEYSTORE_PATH = $localKeystore
+    if (!$env:DKTEST_KEYSTORE_PASSWORD) { $env:DKTEST_KEYSTORE_PASSWORD = 'dktest2026' }
+    if (!$env:DKTEST_KEY_ALIAS) { $env:DKTEST_KEY_ALIAS = 'dktest' }
+    if (!$env:DKTEST_KEY_PASSWORD) { $env:DKTEST_KEY_PASSWORD = 'dktest2026' }
+}
 & npm.cmd run build:mobile
 if ($LASTEXITCODE -ne 0) { throw 'Build giao diện thất bại.' }
 & npx.cmd cap sync android
@@ -23,7 +37,10 @@ try {
 } finally { Pop-Location }
 New-Item -ItemType Directory -Path "$projectRoot/releases" -Force | Out-Null
 $variant = if ($Release) { 'release' } else { 'debug' }
-$source = if ($Release) { 'app-release-unsigned.apk' } else { 'app-debug.apk' }
+$signedRelease = "$projectRoot/android/app/build/outputs/apk/release/app-release.apk"
+$source = if ($Release) {
+    if (Test-Path -LiteralPath $signedRelease) { 'app-release.apk' } else { 'app-release-unsigned.apk' }
+} else { 'app-debug.apk' }
 $releaseInfo = Get-Content -LiteralPath "$projectRoot/release.json" -Raw | ConvertFrom-Json
 $destination = "$projectRoot/releases/DkTEST-$($releaseInfo.version)-$variant.apk"
 Copy-Item -LiteralPath "$projectRoot/android/app/build/outputs/apk/$variant/$source" -Destination $destination -Force

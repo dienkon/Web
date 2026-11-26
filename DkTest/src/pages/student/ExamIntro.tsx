@@ -33,6 +33,10 @@ import {
   Eye,
 } from "lucide-react";
 import { useToast } from "../../components/ui/ToastNotification";
+import {
+  COGNITIVE_LEVEL_META,
+  computeCognitiveLevelDistribution,
+} from "../../utils/cognitiveLevelUtils";
 import { safeShare, safeCopyText } from "../../utils/mobileCompat";
 import CopyExamCode from '../../components/exam/CopyExamCode';
 import { getApiBaseUrl } from '../../services/apiClient';
@@ -774,6 +778,36 @@ export default function ExamIntro() {
                 <span className="text-xs font-extrabold text-emerald-700 block mt-1">Đang kích hoạt</span>
               </div>
             </div>
+
+            {/* Cognitive Level Matrix Preview (NB / TH / VD / VDC) — 0 extra reads */}
+            {(() => {
+              const sourceQs = questions.length > 0 ? questions : ((exam as any)?.questions || []);
+              if (!Array.isArray(sourceQs) || sourceQs.length === 0) return null;
+              const dist = computeCognitiveLevelDistribution(sourceQs).filter((r) => r.count > 0);
+              if (dist.length === 0) return null;
+              return (
+                <div className="p-3.5 rounded-2xl bg-slate-50/90 border border-slate-200/80 space-y-2">
+                  <div className="text-[11px] font-black uppercase tracking-wider text-slate-500">
+                    Ma trận mức độ nhận thức của đề thi
+                  </div>
+                  <div className="flex flex-wrap gap-2">
+                    {dist.map((row) => {
+                      const meta = COGNITIVE_LEVEL_META[row.level];
+                      return (
+                        <span
+                          key={row.level}
+                          className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-xl border text-xs font-bold ${meta.badgeClass}`}
+                        >
+                          <span className="font-black">{meta.shortLabel}</span>
+                          <span>{row.label}:</span>
+                          <span className="font-black">{row.count} câu ({row.pct}%)</span>
+                        </span>
+                      );
+                    })}
+                  </div>
+                </div>
+              );
+            })()}
 
             {/* Admin Enabled: Pre-exam Full Solution & Original Exam Preview (Prominently placed at the top) */}
             {exam.allowPreviewSolutionBeforeExam && (

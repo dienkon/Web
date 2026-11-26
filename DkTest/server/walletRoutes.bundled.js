@@ -4145,6 +4145,51 @@ async function unlockCourseBundle(uid, courseId, options) {
     alreadyUnlocked: result.alreadyUnlocked
   };
 }
+function evaluateServerCourseResourceAccess(course, lesson, access, resourceKind) {
+  const mode = resolveCourseAccessModeServer(course);
+  if (mode === "free" || access.isFreeCourse) return true;
+  const unlockedByCourse = access.unlockedCourse && (access.unlockFullPolicy === "unlock_all_videos" || lesson.includedInCourseUnlock !== false);
+  if (unlockedByCourse) return true;
+  const enabled = course.unlockResourcesWithVideo !== false;
+  const kindEnabled = enabled && (resourceKind === "material" ? course.unlockMaterialsWithVideo !== false : course.unlockExamsWithVideo !== false);
+  if (!kindEnabled) return false;
+  const scope = course.resourceUnlockScope || "any_video_in_topic";
+  const outline = Array.isArray(course.lessonOutline) && course.lessonOutline.length > 0 ? course.lessonOutline : [lesson];
+  const isItemWatchedOrUnlocked = (item) => {
+    const free = isLessonFreeEffective(course, item);
+    const byCourse = access.unlockedCourse && (access.unlockFullPolicy === "unlock_all_videos" || item.includedInCourseUnlock !== false);
+    const byLesson = access.unlockedLessonIds.includes(item.id);
+    return {
+      canWatch: free || byCourse || byLesson,
+      paidUnlocked: byCourse || byLesson
+    };
+  };
+  const chapterKey = (chId) => String(chId || "__other__").trim() || "__other__";
+  const topicKey = (id, tp) => String(tp || "").trim() || `__single_${id}`;
+  const targetChapter = chapterKey(lesson.chapterId);
+  const targetTopic = topicKey(lesson.id, lesson.topicTitle);
+  const selfState = isItemWatchedOrUnlocked(lesson);
+  const topicItems = outline.filter(
+    (item) => chapterKey(item.chapterId) === targetChapter && topicKey(item.id, item.topicTitle) === targetTopic
+  );
+  const effectiveTopicItems = topicItems.length > 0 ? topicItems : [lesson];
+  const chapterItems = outline.filter((item) => chapterKey(item.chapterId) === targetChapter);
+  const effectiveChapterItems = chapterItems.length > 0 ? chapterItems : [lesson];
+  switch (scope) {
+    case "same_lesson":
+      return selfState.canWatch;
+    case "any_video_in_topic":
+      return selfState.canWatch || effectiveTopicItems.some((item) => isItemWatchedOrUnlocked(item).paidUnlocked);
+    case "full_topic":
+      return effectiveTopicItems.every((item) => isItemWatchedOrUnlocked(item).canWatch);
+    case "full_chapter":
+      return effectiveChapterItems.every((item) => isItemWatchedOrUnlocked(item).canWatch);
+    case "full_course":
+      return access.unlockedCourse || outline.every((item) => isItemWatchedOrUnlocked(item).canWatch);
+    default:
+      return selfState.canWatch || effectiveTopicItems.some((item) => isItemWatchedOrUnlocked(item).paidUnlocked);
+  }
+}
 async function getAuthorizedLessonContent(uid, courseId, lessonId, role) {
   const [course, lesson] = await Promise.all([
     fetchCourseDoc(courseId),
@@ -4153,16 +4198,32 @@ async function getAuthorizedLessonContent(uid, courseId, lessonId, role) {
   if (!course || !lesson) {
     throw new Error("Kh\xF4ng t\xECm th\u1EA5y b\xE0i gi\u1EA3ng ho\u1EB7c kh\xF3a h\u1ECDc.");
   }
-  if (isAdminRole(role) || isLessonFreeEffective(course, lesson)) {
+  if (isAdminRole(role)) {
     return lesson;
   }
   const access = await checkCourseAccess(uid, courseId, role);
+  const isFree = isLessonFreeEffective(course, lesson);
   const unlockedByCourse = access.unlockedCourse && (access.unlockFullPolicy === "unlock_all_videos" || lesson.includedInCourseUnlock !== false);
   const unlockedByLesson = access.unlockedLessonIds.includes(lessonId);
-  if (!unlockedByCourse && !unlockedByLesson) {
+  const canWatchVideo = isFree || unlockedByCourse || unlockedByLesson;
+  const canAccessMaterials = evaluateServerCourseResourceAccess(course, lesson, access, "material");
+  const canAccessExam = evaluateServerCourseResourceAccess(course, lesson, access, "exam");
+  if (!canWatchVideo) {
+    if (canAccessMaterials || canAccessExam) {
+      return {
+        ...lesson,
+        videoUrl: "",
+        materials: canAccessMaterials ? lesson.materials : [],
+        linkedExamId: canAccessExam ? lesson.linkedExamId : void 0
+      };
+    }
     throw new Error("B\xE0i gi\u1EA3ng tr\u1EA3 ph\xED. Vui l\xF2ng m\u1EDF kh\xF3a kh\xF3a h\u1ECDc ho\u1EB7c b\xE0i gi\u1EA3ng \u0111\u1EC3 xem video.");
   }
-  return lesson;
+  return {
+    ...lesson,
+    materials: canAccessMaterials ? lesson.materials : [],
+    linkedExamId: canAccessExam ? lesson.linkedExamId : void 0
+  };
 }
 var DEFAULT_BROWSER_UA = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36";
 function isAllowedDriveHost(hostname) {
@@ -5956,6 +6017,25 @@ var BAU_CUA_FACES = [
   { id: "ga", label: "G\xE0", emoji: "\u{1F413}", color: "from-yellow-500 to-amber-500" },
   { id: "nai", label: "Nai", emoji: "\u{1F98C}", color: "from-violet-500 to-purple-600" }
 ];
+var LUCKY_WHEEL_SECTORS = [
+  { id: "kim_cuong", label: "Kim C\u01B0\u01A1ng", emoji: "\u{1F48E}", color: "from-cyan-500 to-blue-600", hex: "#0ea5e9" },
+  { id: "vuong_mien", label: "V\u01B0\u01A1ng Mi\u1EC7n", emoji: "\u{1F451}", color: "from-amber-400 to-yellow-500", hex: "#f59e0b" },
+  { id: "ngoi_sao", label: "Ng\xF4i Sao", emoji: "\u2B50", color: "from-violet-500 to-purple-600", hex: "#8b5cf6" },
+  { id: "ten_lua", label: "T\xEAn L\u1EEDa", emoji: "\u{1F680}", color: "from-rose-500 to-pink-600", hex: "#f43f5e" },
+  { id: "sam_set", label: "S\u1EA5m S\xE9t", emoji: "\u26A1", color: "from-orange-500 to-amber-600", hex: "#f97316" },
+  { id: "co_bon_la", label: "C\u1ECF 4 L\xE1", emoji: "\u{1F340}", color: "from-emerald-500 to-green-600", hex: "#10b981" },
+  { id: "phuc_loc", label: "Ph\xFAc L\u1ED9c", emoji: "\u{1F9E7}", color: "from-red-500 to-rose-600", hex: "#ef4444" },
+  { id: "sieu_cup", label: "Si\xEAu C\xFAp", emoji: "\u{1F3C6}", color: "from-indigo-500 to-blue-600", hex: "#6366f1" }
+];
+var MYSTERY_BOXES = [
+  { id: "1", boxNumber: 1, label: "H\u1ED9p Ruby", emoji: "\u{1F381}", gradient: "from-rose-500 to-red-600" },
+  { id: "2", boxNumber: 2, label: "H\u1ED9p Ho\xE0ng Kim", emoji: "\u2728", gradient: "from-amber-400 to-orange-500" },
+  { id: "3", boxNumber: 3, label: "H\u1ED9p Ng\u1ECDc L\u1EE5c", emoji: "\u{1F49A}", gradient: "from-emerald-500 to-teal-600" },
+  { id: "4", boxNumber: 4, label: "H\u1ED9p \u0110\u1EA1i D\u01B0\u01A1ng", emoji: "\u{1F30A}", gradient: "from-sky-500 to-blue-600" },
+  { id: "5", boxNumber: 5, label: "H\u1ED9p Pha L\xEA", emoji: "\u{1F52E}", gradient: "from-violet-500 to-purple-600" },
+  { id: "6", boxNumber: 6, label: "H\u1ED9p Kim C\u01B0\u01A1ng", emoji: "\u{1F496}", gradient: "from-fuchsia-500 to-pink-600" }
+];
+var TREASURE_CHEST_COUNT = 9;
 
 // server/services/minigameService.ts
 var COL_MINIGAMES = "minigame_events";
@@ -5980,6 +6060,38 @@ function listLiveMinigameCheers(eventId) {
   liveCheersByEvent.set(eventId, fresh);
   return fresh.slice(0, 12);
 }
+var liveChatByEvent = /* @__PURE__ */ new Map();
+var LIVE_CHAT_TTL_MS = 6 * 60 * 60 * 1e3;
+var LIVE_CHAT_MAX_ITEMS = 80;
+function addLiveMinigameChat(eventId, payload) {
+  const cleanText = String(payload.message || "").replace(/[\r\n\t]+/g, " ").trim().slice(0, 280);
+  if (!cleanText) {
+    throw new Error("Vui l\xF2ng nh\u1EADp n\u1ED9i dung tin nh\u1EAFn.");
+  }
+  const msg = {
+    id: makeId("chat"),
+    uid: payload.uid,
+    displayName: (payload.displayName || "H\u1ECDc sinh").slice(0, 60),
+    avatarUrl: payload.avatarUrl ? String(payload.avatarUrl).slice(0, 512) : void 0,
+    isAdmin: Boolean(payload.isAdmin),
+    message: cleanText,
+    createdAt: Date.now()
+  };
+  const now = Date.now();
+  const existing = liveChatByEvent.get(eventId) || [];
+  const next = [...existing.filter((m) => now - m.createdAt < LIVE_CHAT_TTL_MS), msg].slice(
+    -LIVE_CHAT_MAX_ITEMS
+  );
+  liveChatByEvent.set(eventId, next);
+  return msg;
+}
+function listLiveMinigameChat(eventId) {
+  const now = Date.now();
+  const existing = liveChatByEvent.get(eventId) || [];
+  const fresh = existing.filter((m) => now - m.createdAt < LIVE_CHAT_TTL_MS);
+  liveChatByEvent.set(eventId, fresh);
+  return fresh.slice(-60);
+}
 var prizeSchema = z3.object({
   rank: z3.number().int().min(0).max(50),
   label: z3.string().trim().min(1).max(120),
@@ -5991,10 +6103,33 @@ var prizeSchema = z3.object({
 var createMinigameSchema = z3.object({
   title: z3.string().trim().min(2, "Vui l\xF2ng nh\u1EADp t\xEAn s\u1EF1 ki\u1EC7n minigame.").max(160),
   description: z3.string().trim().max(1e3).optional().default(""),
-  gameType: z3.enum(["horse_race", "bee_race", "tai_xiu", "bau_cua", "lucky_number"]),
+  gameType: z3.enum([
+    "horse_race",
+    "bee_race",
+    "tai_xiu",
+    "bau_cua",
+    "lucky_number",
+    "lucky_wheel",
+    "treasure_flip",
+    "mystery_box"
+  ]),
   maxParticipants: z3.number().int().min(2).max(200).default(8),
   racersPerHeat: z3.number().int().min(2).max(8).optional().default(4),
+  scheduledStartAt: z3.string().trim().nullable().optional(),
+  scheduledEndAt: z3.string().trim().nullable().optional(),
+  durationMinutes: z3.number().int().min(1).max(10080).nullable().optional(),
+  raceDurationMs: z3.number().int().min(6e3).max(3e4).optional(),
+  revealDurationMs: z3.number().int().min(2e3).max(1e4).optional(),
+  chatEnabled: z3.boolean().optional().default(true),
   prizes: z3.array(prizeSchema).min(1, "Vui l\xF2ng c\u1EA5u h\xECnh \xEDt nh\u1EA5t 1 gi\u1EA3i th\u01B0\u1EDFng ph\xFAc l\u1EE3i.").max(32, "T\u1ED1i \u0111a 32 gi\u1EA3i th\u01B0\u1EDFng trong m\u1ED9t s\u1EF1 ki\u1EC7n.")
+});
+var updateMinigameScheduleSchema = z3.object({
+  scheduledStartAt: z3.string().trim().nullable().optional(),
+  scheduledEndAt: z3.string().trim().nullable().optional(),
+  durationMinutes: z3.number().int().min(1).max(10080).nullable().optional(),
+  raceDurationMs: z3.number().int().min(6e3).max(3e4).optional(),
+  revealDurationMs: z3.number().int().min(2e3).max(1e4).optional(),
+  chatEnabled: z3.boolean().optional()
 });
 var joinMinigameSchema = z3.object({
   prediction: z3.string().trim().max(32).optional(),
@@ -6055,6 +6190,27 @@ function validatePredictionForGame(gameType, prediction) {
     }
     return String(num).padStart(2, "0");
   }
+  if (gameType === "lucky_wheel") {
+    const validIds = LUCKY_WHEEL_SECTORS.map((s) => s.id);
+    if (!validIds.includes(clean)) {
+      throw new Error("Vui l\xF2ng ch\u1ECDn 1 bi\u1EC3u t\u01B0\u1EE3ng h\u1EE3p l\u1EC7 tr\xEAn V\xF2ng Quay Si\xEAu T\u1ED1c.");
+    }
+    return clean;
+  }
+  if (gameType === "treasure_flip") {
+    const idx = Number(clean);
+    if (!Number.isInteger(idx) || idx < 1 || idx > TREASURE_CHEST_COUNT) {
+      throw new Error(`Vui l\xF2ng ch\u1ECDn 1 r\u01B0\u01A1ng kho b\xE1u t\u1EEB #1 \u0111\u1EBFn #${TREASURE_CHEST_COUNT}.`);
+    }
+    return String(idx);
+  }
+  if (gameType === "mystery_box") {
+    const box = Number(clean);
+    if (!Number.isInteger(box) || box < 1 || box > MYSTERY_BOXES.length) {
+      throw new Error(`Vui l\xF2ng ch\u1ECDn 1 h\u1ED9p qu\xE0 b\xED \u1EA9n t\u1EEB #1 \u0111\u1EBFn #${MYSTERY_BOXES.length}.`);
+    }
+    return String(box);
+  }
   return void 0;
 }
 async function listMinigameEvents() {
@@ -6085,9 +6241,15 @@ async function joinOrUpdateMinigameParticipant(eventId, user, rawInput) {
   if (event.status !== "lobby") {
     throw new Error("S\u1EF1 ki\u1EC7n \u0111\xE3 b\u1EAFt \u0111\u1EA7u ho\u1EB7c k\u1EBFt th\xFAc, kh\xF4ng th\u1EC3 \u0111\u0103ng k\xFD th\xEAm.");
   }
-  const prediction = validatePredictionForGame(event.gameType, data.prediction);
   const participants = { ...event.participants || {} };
   const existing = participants[user.uid];
+  if (!existing && event.scheduledEndAt) {
+    const endMs = Date.parse(event.scheduledEndAt);
+    if (Number.isFinite(endMs) && Date.now() >= endMs) {
+      throw new Error("\u0110\xE3 h\u1EBFt th\u1EDDi gian \u0111\u0103ng k\xFD tham gia s\u1EF1 ki\u1EC7n Minigame n\xE0y.");
+    }
+  }
+  const prediction = validatePredictionForGame(event.gameType, data.prediction);
   if (!existing) {
     const currentCount = Object.keys(participants).length;
     if (currentCount >= event.maxParticipants) {
@@ -6235,6 +6397,46 @@ minigameStudentRouter.post(
         text
       });
       return res.json({ success: true, cheer, cheers: listLiveMinigameCheers(req.params.id) });
+    } catch (err) {
+      const e = formatError2(err);
+      return res.status(e.status).json({ error: e.error, message: e.message });
+    }
+  }
+);
+minigameStudentRouter.get(
+  "/:id/chat",
+  requireAuth,
+  async (req, res) => {
+    try {
+      const messages = listLiveMinigameChat(req.params.id);
+      return res.json({ success: true, messages });
+    } catch (err) {
+      const e = formatError2(err);
+      return res.status(e.status).json({ error: e.error, message: e.message });
+    }
+  }
+);
+minigameStudentRouter.post(
+  "/:id/chat",
+  requireAuth,
+  async (req, res) => {
+    try {
+      const messageText = typeof req.body?.message === "string" ? req.body.message : "";
+      const avatarUrl = typeof req.body?.avatarUrl === "string" ? req.body.avatarUrl : void 0;
+      const role = String(req.user?.role || "").toLowerCase();
+      const isAdmin = role === "admin" || role === "super_admin" || role === "teacher";
+      const chatMessage = addLiveMinigameChat(req.params.id, {
+        uid: req.user.uid,
+        displayName: req.user.displayName || req.user.email?.split("@")[0] || "H\u1ECDc sinh",
+        avatarUrl,
+        isAdmin,
+        message: messageText
+      });
+      return res.json({
+        success: true,
+        chatMessage,
+        messages: listLiveMinigameChat(req.params.id)
+      });
     } catch (err) {
       const e = formatError2(err);
       return res.status(e.status).json({ error: e.error, message: e.message });

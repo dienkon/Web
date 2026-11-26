@@ -18,6 +18,8 @@ import {
   Bot,
   RotateCcw,
   Megaphone,
+  CalendarClock,
+  Clock,
 } from "lucide-react";
 import { useAuth } from "../../context/AuthContext";
 import type {
@@ -44,25 +46,44 @@ import {
   resetMinigameDemoApi,
   startMinigameApi,
   subscribeMinigameEventRealtime,
+  updateMinigameScheduleApi,
 } from "../../services/minigameClientService";
 import { RaceTrackStage } from "../../components/minigame/RaceTrackStage";
 import { TaiXiuStage } from "../../components/minigame/TaiXiuStage";
 import { BauCuaStage } from "../../components/minigame/BauCuaStage";
 import { LuckyNumberStage } from "../../components/minigame/LuckyNumberStage";
+import { LuckyWheelStage } from "../../components/minigame/LuckyWheelStage";
+import { TreasureFlipStage } from "../../components/minigame/TreasureFlipStage";
+import { MysteryBoxStage } from "../../components/minigame/MysteryBoxStage";
 import { WinnersPodiumCard } from "../../components/minigame/WinnersPodiumCard";
 import { LiveCheerBar } from "../../components/minigame/LiveCheerBar";
+import { MinigameRealtimeChat } from "../../components/minigame/MinigameRealtimeChat";
+import { MinigameScheduleBanner } from "../../components/minigame/MinigameScheduleBanner";
 
 function defaultPrizesForGame(gameType: MinigameType): MinigamePrize[] {
-  if (gameType === "tai_xiu" || gameType === "bau_cua" || gameType === "lucky_number") {
+  if (
+    gameType === "tai_xiu" ||
+    gameType === "bau_cua" ||
+    gameType === "lucky_number" ||
+    gameType === "lucky_wheel" ||
+    gameType === "treasure_flip" ||
+    gameType === "mystery_box"
+  ) {
     return [
       {
         rank: 0,
         label:
           gameType === "lucky_number"
             ? "Trúng chính xác số may mắn"
+            : gameType === "lucky_wheel"
+            ? "Trúng ô Vòng Quay"
+            : gameType === "treasure_flip"
+            ? "Mở trúng Rương Kho Báu"
+            : gameType === "mystery_box"
+            ? "Đập trúng Hộp Đặc Biệt"
             : "Người dự đoán đúng",
         type: "wallet_vnd",
-        amountVnd: gameType === "lucky_number" ? 20000 : 5000,
+        amountVnd: gameType === "lucky_number" ? 20000 : 10000,
       },
     ];
   }
@@ -92,7 +113,19 @@ export default function MinigameManagement() {
   const [gameType, setGameType] = useState<MinigameType>("horse_race");
   const [maxParticipants, setMaxParticipants] = useState<number>(8);
   const [racersPerHeat, setRacersPerHeat] = useState<number>(4);
+  const [scheduledStartLocal, setScheduledStartLocal] = useState<string>("");
+  const [scheduledEndLocal, setScheduledEndLocal] = useState<string>("");
+  const [durationMinutes, setDurationMinutes] = useState<number | "">("");
+  const [raceDurationSec, setRaceDurationSec] = useState<number>(14);
+  const [revealDurationSec, setRevealDurationSec] = useState<number>(4);
+  const [chatEnabled, setChatEnabled] = useState<boolean>(true);
   const [prizes, setPrizes] = useState<MinigamePrize[]>(() => defaultPrizesForGame("horse_race"));
+
+  // Inline live schedule editor in Admin Room
+  const [scheduleEditorOpen, setScheduleEditorOpen] = useState(false);
+  const [editStartLocal, setEditStartLocal] = useState("");
+  const [editEndLocal, setEditEndLocal] = useState("");
+  const [editChatEnabled, setEditChatEnabled] = useState(true);
 
   // Push Notification Broadcast Modal State
   const [broadcastOpen, setBroadcastOpen] = useState(false);
@@ -185,11 +218,21 @@ export default function MinigameManagement() {
         gameType,
         maxParticipants,
         racersPerHeat,
+        scheduledStartAt: scheduledStartLocal ? new Date(scheduledStartLocal).toISOString() : null,
+        scheduledEndAt: scheduledEndLocal ? new Date(scheduledEndLocal).toISOString() : null,
+        durationMinutes:
+          typeof durationMinutes === "number" && durationMinutes > 0 ? durationMinutes : null,
+        raceDurationMs: Math.max(6, Math.min(30, raceDurationSec)) * 1000,
+        revealDurationMs: Math.max(2, Math.min(10, revealDurationSec)) * 1000,
+        chatEnabled,
         prizes: normalizedPrizes,
       });
       setCreateOpen(false);
       setTitle("");
       setDescription("");
+      setScheduledStartLocal("");
+      setScheduledEndLocal("");
+      setDurationMinutes("");
       setSelectedEvent(created);
       setEvents((prev) => [created, ...prev]);
       navigate(`/admin/minigames/${created.id}`, { replace: true });
@@ -526,6 +569,30 @@ export default function MinigameManagement() {
                 <button
                   type="button"
                   disabled={busy}
+                  onClick={() => {
+                    const toLocalInput = (iso?: string | null) => {
+                      if (!iso) return "";
+                      const d = new Date(iso);
+                      if (Number.isNaN(d.getTime())) return "";
+                      const tzOffset = d.getTimezoneOffset() * 60_000;
+                      return new Date(d.getTime() - tzOffset).toISOString().slice(0, 16);
+                    };
+                    setEditStartLocal(toLocalInput(selectedEvent.scheduledStartAt));
+                    setEditEndLocal(toLocalInput(selectedEvent.scheduledEndAt));
+                    setEditChatEnabled(selectedEvent.chatEnabled !== false);
+                    setScheduleEditorOpen((v) => !v);
+                  }}
+                  className="inline-flex items-center gap-1.5 px-3 py-2 rounded-xl bg-indigo-50 hover:bg-indigo-100 dark:bg-indigo-950/50 text-indigo-700 dark:text-indigo-300 border border-indigo-200 dark:border-indigo-800 text-xs font-bold cursor-pointer"
+                >
+                  <CalendarClock className="w-4 h-4" />
+                  <span>Hẹn giờ &amp; Chat</span>
+                </button>
+              )}
+
+              {selectedEvent.status === "lobby" && (
+                <button
+                  type="button"
+                  disabled={busy}
                   onClick={handleStartEvent}
                   className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-black shadow-sm disabled:opacity-60 cursor-pointer"
                 >
@@ -535,12 +602,99 @@ export default function MinigameManagement() {
                       ? "Khóa phòng & Chia bảng đua!"
                       : selectedEvent.gameType === "lucky_number"
                       ? "Quay số may mắn ngay!"
+                      : selectedEvent.gameType === "lucky_wheel"
+                      ? "Quay Vòng Quay Siêu Tốc!"
+                      : selectedEvent.gameType === "treasure_flip"
+                      ? "Lật 9 Rương Kho Báu!"
+                      : selectedEvent.gameType === "mystery_box"
+                      ? "Đập Hộp Bí Ẩn ngay!"
                       : "Mở bát & Công bố kết quả!"}
                   </span>
                 </button>
               )}
             </div>
           </div>
+
+          {/* Live Schedule Banner */}
+          <MinigameScheduleBanner event={selectedEvent} />
+
+          {/* Inline Schedule & Chat Editor for Admin */}
+          {scheduleEditorOpen && selectedEvent.status === "lobby" && (
+            <div className="bg-indigo-50/70 dark:bg-indigo-950/30 rounded-2xl border border-indigo-200 dark:border-indigo-800 p-4 space-y-3">
+              <div className="flex items-center justify-between gap-2">
+                <div className="text-xs font-black text-indigo-950 dark:text-indigo-200 flex items-center gap-1.5">
+                  <Clock className="w-4 h-4 text-indigo-600" />
+                  <span>Tùy chỉnh thời gian diễn ra &amp; Chat trực tiếp</span>
+                </div>
+                <button
+                  type="button"
+                  onClick={() => setScheduleEditorOpen(false)}
+                  className="text-xs text-slate-500 hover:text-slate-700 cursor-pointer"
+                >
+                  <X className="w-4 h-4" />
+                </button>
+              </div>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                <div>
+                  <label className="block text-[11px] font-bold text-slate-600 dark:text-slate-300 mb-1">
+                    Thời gian bắt đầu (tùy chọn)
+                  </label>
+                  <input
+                    type="datetime-local"
+                    value={editStartLocal}
+                    onChange={(e) => setEditStartLocal(e.target.value)}
+                    className="w-full px-3 py-2 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-xs"
+                  />
+                </div>
+                <div>
+                  <label className="block text-[11px] font-bold text-slate-600 dark:text-slate-300 mb-1">
+                    Thời gian kết thúc đăng ký (tùy chọn)
+                  </label>
+                  <input
+                    type="datetime-local"
+                    value={editEndLocal}
+                    onChange={(e) => setEditEndLocal(e.target.value)}
+                    className="w-full px-3 py-2 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-xs"
+                  />
+                </div>
+              </div>
+              <div className="flex flex-wrap items-center justify-between gap-3">
+                <label className="flex items-center gap-2 text-xs font-bold text-slate-700 dark:text-slate-200 cursor-pointer">
+                  <input
+                    type="checkbox"
+                    checked={editChatEnabled}
+                    onChange={(e) => setEditChatEnabled(e.target.checked)}
+                    className="w-4 h-4 rounded accent-indigo-600"
+                  />
+                  <span>Bật khung Chat realtime trong phòng</span>
+                </label>
+                <button
+                  type="button"
+                  disabled={busy}
+                  onClick={async () => {
+                    setBusy(true);
+                    try {
+                      const updated = await updateMinigameScheduleApi(selectedEvent.id, {
+                        scheduledStartAt: editStartLocal ? new Date(editStartLocal).toISOString() : null,
+                        scheduledEndAt: editEndLocal ? new Date(editEndLocal).toISOString() : null,
+                        chatEnabled: editChatEnabled,
+                      });
+                      setSelectedEvent(updated);
+                      setScheduleEditorOpen(false);
+                      setToast({ type: "success", message: "Đã cập nhật lịch diễn ra sự kiện!" });
+                    } catch (err: any) {
+                      setToast({ type: "error", message: err?.message || "Không lưu được lịch hẹn." });
+                    } finally {
+                      setBusy(false);
+                    }
+                  }}
+                  className="px-4 py-1.5 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-black cursor-pointer disabled:opacity-50"
+                >
+                  Lưu thời gian
+                </button>
+              </div>
+            </div>
+          )}
 
           {/* Admin Virtual Bot Simulation Bar (Test Animations Anytime!) */}
           <div className="bg-violet-50/70 dark:bg-violet-950/30 rounded-2xl border border-violet-200 dark:border-violet-800 p-3.5 flex flex-wrap items-center justify-between gap-3">
@@ -634,6 +788,9 @@ export default function MinigameManagement() {
           {selectedEvent.gameType === "tai_xiu" && <TaiXiuStage event={selectedEvent} />}
           {selectedEvent.gameType === "bau_cua" && <BauCuaStage event={selectedEvent} />}
           {selectedEvent.gameType === "lucky_number" && <LuckyNumberStage event={selectedEvent} />}
+          {selectedEvent.gameType === "lucky_wheel" && <LuckyWheelStage event={selectedEvent} />}
+          {selectedEvent.gameType === "treasure_flip" && <TreasureFlipStage event={selectedEvent} />}
+          {selectedEvent.gameType === "mystery_box" && <MysteryBoxStage event={selectedEvent} />}
 
           {/* Winners Podium + One-click Auto Distribute Prizes */}
           <WinnersPodiumCard
@@ -649,6 +806,18 @@ export default function MinigameManagement() {
               eventId={selectedEvent.id}
               currentUid={user.uid}
               currentDisplayName={userProfile?.displayName || "Admin"}
+            />
+          )}
+
+          {/* Realtime Room Chat */}
+          {user && (
+            <MinigameRealtimeChat
+              eventId={selectedEvent.id}
+              currentUid={user.uid}
+              currentDisplayName={userProfile?.displayName || "Admin"}
+              currentAvatarUrl={userProfile?.photoURL || user.photoURL || undefined}
+              isAdmin
+              chatEnabled={selectedEvent.chatEnabled !== false}
             />
           )}
 
@@ -1109,6 +1278,119 @@ export default function MinigameManagement() {
                   />
                 </div>
               )}
+
+              {/* Custom Schedule, Duration & Chat Controls */}
+              <div className="p-3.5 rounded-2xl bg-indigo-50/60 dark:bg-indigo-950/25 border border-indigo-200/70 dark:border-indigo-800/70 space-y-3">
+                <div className="flex items-center justify-between gap-2">
+                  <span className="text-xs font-black text-indigo-950 dark:text-indigo-200 flex items-center gap-1.5">
+                    <CalendarClock className="w-4 h-4 text-indigo-600" />
+                    <span>Tùy chỉnh thời gian diễn ra &amp; Chat realtime</span>
+                  </span>
+                  <label className="flex items-center gap-1.5 text-[11px] font-bold text-slate-700 dark:text-slate-300 cursor-pointer">
+                    <input
+                      type="checkbox"
+                      checked={chatEnabled}
+                      onChange={(e) => setChatEnabled(e.target.checked)}
+                      className="w-4 h-4 rounded accent-indigo-600"
+                    />
+                    <span>Bật Chat Live</span>
+                  </label>
+                </div>
+
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+                  <div>
+                    <label className="block text-[11px] font-bold text-slate-600 dark:text-slate-300 mb-1">
+                      Bắt đầu lúc (để trống = mở ngay)
+                    </label>
+                    <input
+                      type="datetime-local"
+                      value={scheduledStartLocal}
+                      onChange={(e) => setScheduledStartLocal(e.target.value)}
+                      className="w-full px-3 py-2 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-950 text-xs"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-[11px] font-bold text-slate-600 dark:text-slate-300 mb-1">
+                      Hạn chót đăng ký (tùy chọn)
+                    </label>
+                    <input
+                      type="datetime-local"
+                      value={scheduledEndLocal}
+                      onChange={(e) => {
+                        setScheduledEndLocal(e.target.value);
+                        if (e.target.value) setDurationMinutes("");
+                      }}
+                      className="w-full px-3 py-2 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-950 text-xs"
+                    />
+                  </div>
+                </div>
+
+                <div className="flex flex-wrap items-center gap-2 text-[11px]">
+                  <span className="font-bold text-slate-600 dark:text-slate-300">Thời lượng nhanh:</span>
+                  {[5, 15, 30, 60].map((mins) => (
+                    <button
+                      key={mins}
+                      type="button"
+                      onClick={() => {
+                        setDurationMinutes(mins);
+                        setScheduledEndLocal("");
+                      }}
+                      className={`px-2.5 py-1 rounded-lg font-bold border cursor-pointer ${
+                        durationMinutes === mins
+                          ? "bg-indigo-600 text-white border-indigo-600"
+                          : "bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300"
+                      }`}
+                    >
+                      {mins} phút
+                    </button>
+                  ))}
+                  {durationMinutes !== "" && (
+                    <button
+                      type="button"
+                      onClick={() => setDurationMinutes("")}
+                      className="text-rose-600 font-bold hover:underline cursor-pointer"
+                    >
+                      Không giới hạn
+                    </button>
+                  )}
+                </div>
+
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 pt-1 border-t border-indigo-200/50 dark:border-indigo-800/50">
+                  {gameType === "horse_race" || gameType === "bee_race" ? (
+                    <div className="flex items-center justify-between gap-2 text-xs">
+                      <span className="font-bold text-slate-700 dark:text-slate-300">
+                        Thời gian mỗi lượt đua (giây):
+                      </span>
+                      <input
+                        type="number"
+                        min={6}
+                        max={30}
+                        value={raceDurationSec}
+                        onChange={(e) =>
+                          setRaceDurationSec(Math.max(6, Math.min(30, Number(e.target.value) || 14)))
+                        }
+                        className="w-20 px-2.5 py-1 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-950 text-center font-black"
+                      />
+                    </div>
+                  ) : (
+                    <div className="flex items-center justify-between gap-2 text-xs">
+                      <span className="font-bold text-slate-700 dark:text-slate-300">
+                        Thời gian quay/mở kết quả (giây):
+                      </span>
+                      <input
+                        type="number"
+                        min={2}
+                        max={10}
+                        value={revealDurationSec}
+                        onChange={(e) =>
+                          setRevealDurationSec(Math.max(2, Math.min(10, Number(e.target.value) || 4)))
+                        }
+                        className="w-20 px-2.5 py-1 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-950 text-center font-black"
+                      />
+                    </div>
+                  )}
+                </div>
+              </div>
 
               {/* Flexible Prizes Configuration (1..32 prizes, arbitrary money amount) */}
               <div className="space-y-2.5">

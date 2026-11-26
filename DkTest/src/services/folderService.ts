@@ -18,6 +18,7 @@ import { FirestoreCache } from "./firebase/firestoreCache";
 import { Folder, Exam } from "../types";
 import { deleteExam } from "./examService";
 import { getTimestampMillis } from "../utils/date";
+import { findBestExistingFolder } from "../utils/folderMatchingUtils";
 
 const FOLDERS_COLLECTION = "folders";
 const EXAMS_COLLECTION = "exams";
@@ -1045,16 +1046,12 @@ export const organizeExamsIntoFolders = async (
     const stdSubject = standardizeSubject(subjectName).toLowerCase();
     let targetFolder = existingFolderByName.get(normSubject) || existingFolderByName.get(stdSubject);
 
-    // If not exact match, look for canonical or contains match among root folders
+    // Smart diacritic-insensitive, prefix-stripped & subfolder-aware existing folder match
     if (!targetFolder) {
-      targetFolder = allFolders.find((f) => {
-        if (f.parentId) return false;
-        const normF = f.name.trim().toLowerCase();
-        const stdF = standardizeSubject(f.name).toLowerCase();
-        if (normF === normSubject || stdF === stdSubject) return true;
-        if (normSubject.startsWith(normF) || stdSubject === stdF) return true;
-        return false;
-      });
+      const bestMatch = findBestExistingFolder(allFolders, subjectName, { preferRoot: true });
+      if (bestMatch && bestMatch.score >= 64) {
+        targetFolder = bestMatch.folder;
+      }
     }
 
     let isNew = false;

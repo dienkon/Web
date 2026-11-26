@@ -13,6 +13,7 @@ import {
   listMinigameEvents,
   resetMinigameForDemo,
   startMinigameEvent,
+  updateMinigameSchedule,
 } from "../services/minigameService.js";
 
 export const minigameAdminRouter = Router();
@@ -96,6 +97,17 @@ minigameAdminRouter.post("/:id/bots/clear", async (req: AuthenticatedRequest, re
 minigameAdminRouter.post("/:id/reset-demo", async (req: AuthenticatedRequest, res: Response) => {
   try {
     const event = await resetMinigameForDemo(req.params.id);
+    return res.json({ success: true, event });
+  } catch (err: any) {
+    const e = formatError(err);
+    return res.status(e.status).json({ error: e.error, message: e.message });
+  }
+});
+
+// PATCH /api/admin/minigames/:id/schedule
+minigameAdminRouter.patch("/:id/schedule", async (req: AuthenticatedRequest, res: Response) => {
+  try {
+    const event = await updateMinigameSchedule(req.params.id, req.body);
     return res.json({ success: true, event });
   } catch (err: any) {
     const e = formatError(err);

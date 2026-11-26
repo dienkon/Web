@@ -24,6 +24,29 @@ public class OfflineSyncPlugin extends Plugin {
     @PluginMethod public void clearSession(PluginCall call) {
         OfflineState.clearSession(getContext()); call.resolve();
     }
+    @PluginMethod public void saveUserSnapshot(PluginCall call) {
+        try {
+            JSONObject value = call.getData();
+            if (value == null || value.optString("uid").isEmpty()) {
+                call.reject("Thiếu thông tin người dùng để lưu."); return;
+            }
+            OfflineState.saveUserSnapshot(getContext(), value);
+            call.resolve();
+        } catch (Exception error) { call.reject("Không thể lưu hồ sơ đăng nhập trên thiết bị."); }
+    }
+    @PluginMethod public void getUserSnapshot(PluginCall call) {
+        try {
+            JSONObject snapshot = OfflineState.getUserSnapshot(getContext());
+            JSObject result = new JSObject();
+            if (snapshot != null) {
+                result.put("snapshot", snapshot.toString());
+            }
+            call.resolve(result);
+        } catch (Exception error) { call.resolve(new JSObject()); }
+    }
+    @PluginMethod public void clearUserSnapshot(PluginCall call) {
+        OfflineState.clearUserSnapshot(getContext()); call.resolve();
+    }
     @PluginMethod public void enqueue(PluginCall call) {
         try {
             JSONObject value = call.getData();

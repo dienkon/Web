@@ -2615,27 +2615,53 @@ B\u1EA0N L\xC0 M\u1ED8T AUTONOMOUS WORKFLOW AGENT (nh\u01B0 Agent c\u1EE7a Make.
     }
     \`\`\`
 
-28. "MOVE_EXAM": Di chuy\u1EC3n 1 b\xE0i thi v\xE0o th\u01B0 m\u1EE5c (ho\u1EB7c \u0111\u01B0a ra ngo\xE0i Drive ch\xEDnh n\u1EBFu folderId l\xE0 null).
-    Thu\u1ED9c t\xEDnh: "params": { "examId": "id_b\xE0i_thi", "folderId"?: "id_th\u01B0_m\u1EE5c" | null, "targetFolderName"?: "T\xEAn th\u01B0 m\u1EE5c" }
-    V\xED d\u1EE5:
-    \`\`\`json:action
-    {
-      "type": "MOVE_EXAM",
-      "label": "Chuy\u1EC3n b\xE0i thi v\xE0o th\u01B0 m\u1EE5c To\xE1n h\u1ECDc",
-      "params": { "examId": "exam_123", "targetFolderName": "To\xE1n h\u1ECDc" }
-    }
-    \`\`\`
+28. "MOVE_EXAM": Di chuy\u1EC3n 1 b\xE0i thi v\xE0o TH\u01AF M\u1EE4C HI\u1EC6N C\xD3 (k\u1EC3 c\u1EA3 th\u01B0 m\u1EE5c con) ho\u1EB7c \u0111\u01B0a ra Drive g\u1ED1c n\u1EBFu folderId l\xE0 null.
+    QUY T\u1EAEC QUAN TR\u1ECCNG:
+    - LU\xD4N \u0111\u1ED1i chi\u1EBFu danh s\xE1ch "C\xC2Y TH\u01AF M\u1EE4C HI\u1EC6N C\xD3 TRONG H\u1EC6 TH\u1ED0NG" \u1EDF ph\u1EA7n b\u1ED1i c\u1EA3nh \u0111\u1EC3 l\u1EA5y CH\xCDNH X\xC1C "folderId" ho\u1EB7c "targetFolderName" / \u0111\u01B0\u1EDDng d\u1EABn \u0111\u1EA7y \u0111\u1EE7 (VD: "To\xE1n h\u1ECDc / L\u1EDBp 12") c\u1EE7a th\u01B0 m\u1EE5c \u0110\xC3 T\u1ED2N T\u1EA0I.
+    - M\u1EB7c \u0111\u1ECBnh KH\xD4NG t\u1EF1 \xFD t\u1EA1o th\u01B0 m\u1EE5c m\u1EDBi khi di chuy\u1EC3n \u0111\u1EC1 thi ("createIfMissing": false) \u2014 ch\u1EC9 \u0111\u1EB7t "createIfMissing": true khi Admin y\xEAu c\u1EA7u r\xF5 r\xE0ng t\u1EA1o th\u01B0 m\u1EE5c m\u1EDBi.
+    Thu\u1ED9c t\xEDnh: "params": { "examId"?: "id_b\xE0i_thi", "examTitle"?: "t\xEAn_\u0111\u1EC1_thi (n\u1EBFu ch\u01B0a c\xF3 id)", "folderId"?: "id_th\u01B0_m\u1EE5c" | null, "targetFolderName"?: "T\xEAn ho\u1EB7c \u0111\u01B0\u1EDDng d\u1EABn th\u01B0 m\u1EE5c hi\u1EC7n c\xF3", "createIfMissing"?: false }
 
-29. "MOVE_EXAMS_TO_FOLDER": Di chuy\u1EC3n danh s\xE1ch nhi\u1EC1u b\xE0i thi v\xE0o m\u1ED9t th\u01B0 m\u1EE5c x\xE1c \u0111\u1ECBnh.
-    Thu\u1ED9c t\xEDnh: "params": { "examIds": ["id_1", "id_2"], "folderId"?: "id_th\u01B0_m\u1EE5c" | null, "targetFolderName"?: "T\xEAn th\u01B0 m\u1EE5c" }
-    V\xED d\u1EE5:
-    \`\`\`json:action
-    {
-      "type": "MOVE_EXAMS_TO_FOLDER",
-      "label": "Di chuy\u1EC3n b\xE0i thi v\xE0o th\u01B0 m\u1EE5c Ti\u1EBFng Anh",
-      "params": { "examIds": ["ex_1", "ex_2"], "targetFolderName": "Ti\u1EBFng Anh" }
+29. "MOVE_EXAMS_TO_FOLDER": Di chuy\u1EC3n nhi\u1EC1u b\xE0i thi (theo danh s\xE1ch "examIds" ho\u1EB7c l\u1ECDc theo "query"/"subject") v\xE0o TH\u01AF M\u1EE4C HI\u1EC6N C\xD3 (\u01B0u ti\xEAn kh\u1EDBp th\u01B0 m\u1EE5c \u0111\xE3 c\xF3 k\u1EC3 c\u1EA3 th\u01B0 m\u1EE5c con, KH\xD4NG t\u1EF1 t\u1EA1o tr\xF9ng).
+    Thu\u1ED9c t\xEDnh: "params": { "examIds"?: ["id_1", "id_2"], "query"?: "t\u1EEB kh\xF3a t\xEAn \u0111\u1EC1", "folderId"?: "id_th\u01B0_m\u1EE5c" | null, "targetFolderName"?: "T\xEAn ho\u1EB7c \u0111\u01B0\u1EDDng d\u1EABn th\u01B0 m\u1EE5c hi\u1EC7n c\xF3", "createIfMissing"?: false }
+
+29b. "LIST_FOLDERS" / "RENAME_FOLDER" / "UPDATE_FOLDER" / "DELETE_FOLDER":
+    - "LIST_FOLDERS": Li\u1EC7t k\xEA to\xE0n b\u1ED9 c\xE2y th\u01B0 m\u1EE5c hi\u1EC7n c\xF3 (k\xE8m ID & \u0111\u01B0\u1EDDng d\u1EABn ph\xE2n c\u1EA5p).
+    - "RENAME_FOLDER" / "UPDATE_FOLDER": \u0110\u1ED5i t\xEAn, \u0111\u1ED5i m\xE0u, b\u1EADt/t\u1EAFt c\xF4ng khai ho\u1EB7c di chuy\u1EC3n th\u01B0 m\u1EE5c sang th\u01B0 m\u1EE5c cha kh\xE1c.
+      Thu\u1ED9c t\xEDnh: "params": { "folderId"?: "id", "folderName"?: "t\xEAn hi\u1EC7n t\u1EA1i", "newName"?: "t\xEAn m\u1EDBi", "color"?: "...", "isPublic"?: true | false, "parentId"?: string | null }
+    - "DELETE_FOLDER": X\xF3a th\u01B0 m\u1EE5c theo ID ho\u1EB7c t\xEAn. Thu\u1ED9c t\xEDnh: "params": { "folderId"?: "id", "folderName"?: "t\xEAn th\u01B0 m\u1EE5c" }
+
+29c. "LIST_EXAMS" / "BULK_UPDATE_EXAMS" / "SET_EXAM_COGNITIVE_LEVELS":
+    - "LIST_EXAMS": T\xECm v\xE0 li\u1EC7t k\xEA c\xE1c \u0111\u1EC1 thi trong h\u1EC7 th\u1ED1ng theo t\u1EEB kh\xF3a / m\xF4n / tr\u1EA1ng th\xE1i / th\u01B0 m\u1EE5c.
+      Thu\u1ED9c t\xEDnh: "params": { "query"?: "...", "subject"?: "...", "status"?: "published" | "draft" | "archived", "folderId"?: "...", "limit"?: 30 }
+    - "BULK_UPDATE_EXAMS": C\u1EADp nh\u1EADt h\xE0ng lo\u1EA1t nhi\u1EC1u \u0111\u1EC1 thi (xu\u1EA5t b\u1EA3n, chuy\u1EC3n nh\xE1p, \u0111\u1ED5i m\xF4n, \u0111\u1ED5i gi\xE1, \u0111\u1ED5i th\u1EDDi gian).
+      Thu\u1ED9c t\xEDnh: "params": { "examIds": ["id_1", "id_2"], "updates": { "status"?: "published", "subject"?: "...", "priceVnd"?: 0, "timeLimit"?: 45 } }
+    - "SET_EXAM_COGNITIVE_LEVELS": G\xE1n ho\u1EB7c t\u1EF1 \u0111\u1ED9ng ph\xE2n b\u1ED5 m\u1EE9c \u0111\u1ED9 nh\u1EADn th\u1EE9c (NB \u2014 Nh\u1EADn bi\u1EBFt, TH \u2014 Th\xF4ng hi\u1EC3u, VD \u2014 V\u1EADn d\u1EE5ng, VDC \u2014 V\u1EADn d\u1EE5ng cao) cho c\xE1c c\xE2u h\u1ECFi trong m\u1ED9t \u0111\u1EC1 thi.
+      Thu\u1ED9c t\xEDnh: "params": { "examId": "id_\u0111\u1EC1_thi", "assignments"?: [{ "questionNumber": 1, "level": "NB" | "TH" | "VD" | "VDC" }], "autoDistribute"?: { "NB": 40, "TH": 30, "VD": 20, "VDC": 10 } }
+
+29d. "UPDATE_COURSE_UNLOCK_POLICY": B\u1EADt/t\u1EAFt v\xE0 c\u1EA5u h\xECnh quy t\u1EAFc t\u1EF1 \u0111\u1ED9ng m\u1EDF kh\xF3a T\xE0i li\u1EC7u / B\xE0i thi khi h\u1ECDc sinh m\u1EDF kh\xF3a video trong kh\xF3a h\u1ECDc.
+    Thu\u1ED9c t\xEDnh: "params": {
+      "courseId"?: "id_kh\xF3a",
+      "courseTitle"?: "t\xEAn_kh\xF3a",
+      "unlockResourcesWithVideo": true | false,
+      "unlockMaterialsWithVideo"?: true | false,
+      "unlockExamsWithVideo"?: true | false,
+      "resourceUnlockScope"?: "any_video_in_topic" | "same_lesson" | "full_topic" | "full_chapter" | "full_course"
     }
-    \`\`\`
+
+29e. "CREATE_MINIGAME": T\u1EA1o s\u1EF1 ki\u1EC7n Minigame ph\xFAc l\u1EE3i mi\u1EC5n ph\xED 100% (h\u1ED7 tr\u1EE3 c\u1EA3 8 tr\xF2 ch\u01A1i: horse_race, bee_race, tai_xiu, bau_cua, lucky_number, lucky_wheel, treasure_flip, mystery_box; h\u1EB9n gi\u1EDD b\u1EAFt \u0111\u1EA7u/k\u1EBFt th\xFAc, b\u1EADt chat realtime v\xE0 c\u1EA5u h\xECnh gi\u1EA3i th\u01B0\u1EDFng).
+    Thu\u1ED9c t\xEDnh: "params": {
+      "title": "T\xEAn s\u1EF1 ki\u1EC7n",
+      "gameType": "horse_race" | "bee_race" | "tai_xiu" | "bau_cua" | "lucky_number" | "lucky_wheel" | "treasure_flip" | "mystery_box",
+      "maxParticipants"?: 32,
+      "durationMinutes"?: 30,
+      "scheduledStartAt"?: "ISO datetime",
+      "scheduledEndAt"?: "ISO datetime",
+      "chatEnabled"?: true,
+      "prizes"?: [{ "rank": 1, "label": "Gi\u1EA3i Nh\u1EA5t", "type": "wallet_vnd", "amountVnd": 20000 }]
+    }
+
+29f. "BROADCAST_NOTIFICATION": G\u1EEDi th\xF4ng b\xE1o \u0111\u1EA9y to\xE0n h\u1EC7 th\u1ED1ng t\u1EDBi h\u1ECDc sinh tr\xEAn Web & Android.
+    Thu\u1ED9c t\xEDnh: "params": { "title": "Ti\xEAu \u0111\u1EC1 th\xF4ng b\xE1o", "message": "N\u1ED9i dung th\xF4ng b\xE1o", "route"?: "/student/minigame" }
 
 30. "LIST_COURSES" / "GET_COURSE_DETAILS": Li\u1EC7t k\xEA kh\xF3a h\u1ECDc trong h\u1EC7 th\u1ED1ng ho\u1EB7c xem chi ti\u1EBFt c\u1EA5u tr\xFAc ch\u01B0\u01A1ng & danh s\xE1ch video b\xE0i gi\u1EA3ng c\u1EE7a m\u1ED9t kh\xF3a h\u1ECDc c\u1EE5 th\u1EC3.
     Thu\u1ED9c t\xEDnh: "params": { "courseId"?: "id_kh\xF3a", "courseTitle"?: "t\xEAn_kh\xF3a", "query"?: "t\u1EEB kh\xF3a t\xECm ki\u1EBFm", "includeLessons"?: true }
@@ -2824,6 +2850,12 @@ ${JSON.stringify(context.statsSummary, null, 2)}
       instruction += `
 TH\u1EF0C TH\u1EC2 \u0110ANG \u0110\u01AF\u1EE2C CH\u1ECCN / XEM CHI TI\u1EBET:
 ${JSON.stringify(context.selectedItem, null, 2)}
+`;
+    }
+    if (context.existingFoldersSummary) {
+      instruction += `
+C\xC2Y TH\u01AF M\u1EE4C HI\u1EC6N C\xD3 TRONG H\u1EC6 TH\u1ED0NG (\u01AFU TI\xCAN D\xD9NG \u0110\xDANG folderId / T\xCAN C\xD3 S\u1EB4N KHI DI CHUY\u1EC2N \u0110\u1EC0 THI, KH\xD4NG T\u1EA0O TR\xD9NG):
+${context.existingFoldersSummary}
 `;
     }
     if (context.domSummary) {

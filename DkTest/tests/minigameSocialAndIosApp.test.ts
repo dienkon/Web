@@ -21,7 +21,7 @@ describe("Minigame artworks, voucher banner & social previews (v2.0.4)", () => {
     vi.restoreAllMocks();
   });
 
-  it("ships crisp static artwork files on disk for all 5 minigames, voucher banner, and iOS icon", () => {
+  it("ships crisp static artwork files on disk for all 8 minigames, voucher banner, and iOS icon", () => {
     const publicDir = path.resolve(process.cwd(), "public");
     const requiredFiles = [
       "images/voucher-banner.jpg",
@@ -31,6 +31,9 @@ describe("Minigame artworks, voucher banner & social previews (v2.0.4)", () => {
       "images/minigames/tai-xiu.jpg",
       "images/minigames/bau-cua.jpg",
       "images/minigames/lucky-number.jpg",
+      "images/minigames/lucky-wheel.jpg",
+      "images/minigames/treasure-flip.jpg",
+      "images/minigames/mystery-box.jpg",
     ];
     for (const rel of requiredFiles) {
       const fullPath = path.join(publicDir, rel);
@@ -47,6 +50,9 @@ describe("Minigame artworks, voucher banner & social previews (v2.0.4)", () => {
       "tai_xiu",
       "bau_cua",
       "lucky_number",
+      "lucky_wheel",
+      "treasure_flip",
+      "mystery_box",
     ];
     const seenPaths = new Set<string>();
     for (const t of types) {
@@ -59,7 +65,7 @@ describe("Minigame artworks, voucher banner & social previews (v2.0.4)", () => {
       expect(art.highlights.length).toBeGreaterThanOrEqual(3);
       expect(getMinigameArtworkUrl(BASE_URL, t)).toBe(`${BASE_URL}${art.imagePath}`);
     }
-    expect(Object.keys(MINIGAME_ARTWORK_MAP)).toHaveLength(5);
+    expect(Object.keys(MINIGAME_ARTWORK_MAP)).toHaveLength(8);
   });
 
   it("resolves Minigame hub and game-filtered URLs with per-game 1200x630 artwork", async () => {

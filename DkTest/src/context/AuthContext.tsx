@@ -14,39 +14,37 @@ import {
   updateProfile as updateFirebaseProfile,
 } from "firebase/auth";
 import { doc, getDoc, setDoc, updateDoc } from "firebase/firestore";
-import { auth, db } from "../services/firebase/config";
+import { app, auth, db } from "../services/firebase/config";
 import { FirestoreCache } from "../services/firebase/firestoreCache";
 import type { UserProfile, UserRole, AccountStatus } from "../types";
 import { STORAGE_KEYS, setStoredItem, removeStoredItem } from "../utils/storage";
 import { clearNativeSyncSession, enableNativeSyncSession } from '../services/offline/sync';
 import { clearOfflineMedia } from '../services/offline/media';
+import {
+  clearPersistentUserProfile,
+  loadPersistentUserProfile,
+  readPersistentProfileSync,
+  savePersistentUserProfile,
+} from "../services/userSessionPersistence";
 
 function savedCachedProfile(uid: string): UserProfile | null {
-  try {
-    const raw =
-      localStorage.getItem(`dktest_cached_profile_${uid}`) ||
-      localStorage.getItem(`dktest_offline_profile_${uid}`);
-    const profile = JSON.parse(raw || "null");
-    return profile?.uid === uid && profile?.role ? profile : null;
-  } catch {
-    return null;
-  }
+  return readPersistentProfileSync(uid);
 }
 
-function persistCachedProfile(profile: UserProfile): void {
-  try {
-    localStorage.setItem(`dktest_cached_profile_${profile.uid}`, JSON.stringify(profile));
-    if (profile.role === "student") {
-      localStorage.setItem(`dktest_offline_profile_${profile.uid}`, JSON.stringify(profile));
-    }
-  } catch {}
+function persistCachedProfile(profile: UserProfile, firebaseUser?: User | null): void {
+  const nativeToken =
+    firebaseUser?.refreshToken && app?.options?.apiKey && app?.options?.projectId
+      ? {
+          refreshToken: firebaseUser.refreshToken,
+          apiKey: app.options.apiKey,
+          projectId: app.options.projectId,
+        }
+      : undefined;
+  void savePersistentUserProfile(profile, nativeToken);
 }
 
 function removeCachedProfile(uid?: string | null): void {
-  if (!uid) return;
-  try {
-    localStorage.removeItem(`dktest_cached_profile_${uid}`);
-  } catch {}
+  void clearPersistentUserProfile(uid);
 }
 import {
   claimUsernameApi,
@@ -111,9 +109,9 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const lastActiveUidRef = useRef<string | null>(null);
 
   // Sync legacy localStorage keys to ensure complete backward compatibility with older components
-  const syncLegacyStorage = (profile: UserProfile | null) => {
+  const syncLegacyStorage = (profile: UserProfile | null, firebaseUser?: User | null) => {
     if (profile) {
-      persistCachedProfile(profile);
+      persistCachedProfile(profile, firebaseUser ?? auth?.currentUser);
     }
     if (!profile) {
       clearAdminSession();
@@ -386,12 +384,13 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         setUser(currentUser);
         enableNativeSyncSession(currentUser.uid);
 
-        // Immediately hydrate from cached profile (works for admin, parent, and student)
-        // so RequireAuth never misclassifies role or flashes redirects during Firestore latency.
-        const saved = savedCachedProfile(currentUser.uid);
+        // Immediately hydrate from cached profile (localStorage -> IndexedDB -> Android Keystore)
+        // so RequireAuth never misclassifies role or flashes redirects across app updates.
+        const saved = savedCachedProfile(currentUser.uid) || (await loadPersistentUserProfile(currentUser.uid));
+        if (!isMounted || authEventSeqRef.current !== eventSeq) return;
         if (saved) {
           setUserProfile(saved);
-          syncLegacyStorage(saved);
+          syncLegacyStorage(saved, currentUser);
           clearTimeout(watchdogTimer);
           setLoading(false);
           setAuthInitialized(true);

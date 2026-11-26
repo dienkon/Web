@@ -74,6 +74,12 @@ import {
 } from "../../utils/attemptAnalytics";
 import { useToast } from "../../components/ui/ToastNotification";
 import QuestionMapNavigator from "../../components/exam/QuestionMapNavigator";
+import {
+  COGNITIVE_LEVEL_META,
+  computeCognitiveLevelDistribution,
+  resolveQuestionCognitiveLevel,
+  type CognitiveLevel,
+} from "../../utils/cognitiveLevelUtils";
 
 export default function ExamResult() {
   const online = useOnline();
@@ -87,6 +93,7 @@ export default function ExamResult() {
   const [originalQuestions, setOriginalQuestions] = useState<Question[]>([]);
   const [shuffledQuestions, setShuffledQuestions] = useState<Question[]>([]);
   const [viewMode, setViewMode] = useState<"shuffled" | "original">("shuffled");
+  const [filterLevel, setFilterLevel] = useState<"all" | CognitiveLevel>("all");
   const [loading, setLoading] = useState(true);
   const [isExportingWord, setIsExportingWord] = useState(false);
   const [isPreparingPrint, setIsPreparingPrint] = useState(false);
@@ -452,6 +459,7 @@ export default function ExamResult() {
     if (filterStatus === "correct" && !isCorrect) return false;
     if (filterStatus === "incorrect" && (isCorrect || !isAnswered)) return false;
     if (filterStatus === "unanswered" && isAnswered) return false;
+    if (filterLevel !== "all" && resolveQuestionCognitiveLevel(q) !== filterLevel) return false;
 
     if (searchQuery.trim()) {
       const queryLower = searchQuery.toLowerCase();
@@ -1255,6 +1263,44 @@ export default function ExamResult() {
                   )}
                 </div>
               </div>
+
+              {/* Row 3: Cognitive Level Filter Chips (NB / TH / VD / VDC) */}
+              {rawActiveQuestions.length > 0 && (
+                <div className="flex items-center gap-1.5 overflow-x-auto pt-2 border-t border-slate-100 scrollbar-none">
+                  <span className="text-[11px] font-bold text-slate-500 whitespace-nowrap mr-1">
+                    Mức độ:
+                  </span>
+                  <button
+                    type="button"
+                    onClick={() => setFilterLevel("all")}
+                    className={`px-2.5 py-1 rounded-lg text-[11px] font-bold border whitespace-nowrap cursor-pointer ${
+                      filterLevel === "all"
+                        ? "bg-slate-900 text-white border-slate-900"
+                        : "bg-slate-50 text-slate-600 border-slate-200 hover:bg-slate-100"
+                    }`}
+                  >
+                    Tất cả
+                  </button>
+                  {computeCognitiveLevelDistribution(rawActiveQuestions)
+                    .filter((r) => r.count > 0)
+                    .map((row) => {
+                      const meta = COGNITIVE_LEVEL_META[row.level];
+                      const active = filterLevel === row.level;
+                      return (
+                        <button
+                          key={row.level}
+                          type="button"
+                          onClick={() => setFilterLevel(active ? "all" : row.level)}
+                          className={`px-2.5 py-1 rounded-lg text-[11px] font-bold border whitespace-nowrap cursor-pointer ${
+                            active ? meta.activePillClass : `${meta.badgeClass} hover:opacity-85`
+                          }`}
+                        >
+                          {meta.shortLabel} • {row.label} ({row.count})
+                        </button>
+                      );
+                    })}
+                </div>
+              )}
             </div>
 
             <div className="space-y-6">
@@ -1312,6 +1358,18 @@ export default function ExamResult() {
                         <span className="px-2.5 py-1 bg-slate-100 text-slate-700 font-bold text-xs rounded-lg">
                           Câu {qIdx + 1}
                         </span>
+                        {(() => {
+                          const lv = resolveQuestionCognitiveLevel(q);
+                          const meta = COGNITIVE_LEVEL_META[lv];
+                          return (
+                            <span
+                              className={`px-2 py-0.5 rounded-lg text-[10px] font-black border ${meta.badgeClass}`}
+                              title={`Mức độ nhận thức: ${meta.label}`}
+                            >
+                              {meta.shortLabel} • {meta.label}
+                            </span>
+                          );
+                        })()}
                         {submission.questionTiming?.[q.id]?.timeSpentSeconds !== undefined && (
                           <span className="px-2 py-0.5 bg-blue-50 text-blue-700 font-mono text-[11px] font-bold rounded-lg flex items-center gap-1 border border-blue-100 print:hidden">
                             <Clock className="w-3 h-3 text-blue-500" />

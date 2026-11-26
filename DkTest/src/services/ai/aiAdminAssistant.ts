@@ -42,16 +42,25 @@ export type AdminActionType =
   | "SYSTEM_OPERATION"
   | "WORKFLOW"
   // Folder Management & Exam Organization:
+  | "LIST_FOLDERS"
   | "CREATE_FOLDER"
+  | "RENAME_FOLDER"
+  | "UPDATE_FOLDER"
+  | "DELETE_FOLDER"
   | "MOVE_EXAM"
   | "MOVE_EXAMS_TO_FOLDER"
   | "ORGANIZE_EXAMS_INTO_FOLDERS"
   | "organize_exams_into_folders"
+  // Full Exam Catalog & Cognitive Level Management:
+  | "LIST_EXAMS"
+  | "BULK_UPDATE_EXAMS"
+  | "SET_EXAM_COGNITIVE_LEVELS"
   // Course & Video Lesson Management:
   | "LIST_COURSES"
   | "GET_COURSE_DETAILS"
   | "CREATE_COURSE"
   | "UPDATE_COURSE"
+  | "UPDATE_COURSE_UNLOCK_POLICY"
   | "ADD_COURSE_LESSONS"
   | "ADD_COURSE_LESSON"
   | "CREATE_COURSE_VIDEO"
@@ -60,7 +69,10 @@ export type AdminActionType =
   | "DELETE_COURSE_LESSON"
   | "DELETE_COURSE_VIDEO"
   | "MANAGE_COURSE_CHAPTER"
-  | "PROBE_COURSE_DURATIONS";
+  | "PROBE_COURSE_DURATIONS"
+  // Minigame & Notification Operations:
+  | "CREATE_MINIGAME"
+  | "BROADCAST_NOTIFICATION";
 
 export interface AdminAssistantAction {
   id?: string;
@@ -96,6 +108,7 @@ export interface AdminPageContext {
   userRole?: string;
   searchParams?: Record<string, string>;
   activeModal?: string;
+  existingFoldersSummary?: string;
 }
 
 export function buildAdminSystemInstruction(context?: AdminPageContext): string {
@@ -389,27 +402,53 @@ BẠN LÀ MỘT AUTONOMOUS WORKFLOW AGENT (như Agent của Make.com / Zapier Ce
     }
     \`\`\`
 
-28. "MOVE_EXAM": Di chuyển 1 bài thi vào thư mục (hoặc đưa ra ngoài Drive chính nếu folderId là null).
-    Thuộc tính: "params": { "examId": "id_bài_thi", "folderId"?: "id_thư_mục" | null, "targetFolderName"?: "Tên thư mục" }
-    Ví dụ:
-    \`\`\`json:action
-    {
-      "type": "MOVE_EXAM",
-      "label": "Chuyển bài thi vào thư mục Toán học",
-      "params": { "examId": "exam_123", "targetFolderName": "Toán học" }
-    }
-    \`\`\`
+28. "MOVE_EXAM": Di chuyển 1 bài thi vào THƯ MỤC HIỆN CÓ (kể cả thư mục con) hoặc đưa ra Drive gốc nếu folderId là null.
+    QUY TẮC QUAN TRỌNG:
+    - LUÔN đối chiếu danh sách "CÂY THƯ MỤC HIỆN CÓ TRONG HỆ THỐNG" ở phần bối cảnh để lấy CHÍNH XÁC "folderId" hoặc "targetFolderName" / đường dẫn đầy đủ (VD: "Toán học / Lớp 12") của thư mục ĐÃ TỒN TẠI.
+    - Mặc định KHÔNG tự ý tạo thư mục mới khi di chuyển đề thi ("createIfMissing": false) — chỉ đặt "createIfMissing": true khi Admin yêu cầu rõ ràng tạo thư mục mới.
+    Thuộc tính: "params": { "examId"?: "id_bài_thi", "examTitle"?: "tên_đề_thi (nếu chưa có id)", "folderId"?: "id_thư_mục" | null, "targetFolderName"?: "Tên hoặc đường dẫn thư mục hiện có", "createIfMissing"?: false }
 
-29. "MOVE_EXAMS_TO_FOLDER": Di chuyển danh sách nhiều bài thi vào một thư mục xác định.
-    Thuộc tính: "params": { "examIds": ["id_1", "id_2"], "folderId"?: "id_thư_mục" | null, "targetFolderName"?: "Tên thư mục" }
-    Ví dụ:
-    \`\`\`json:action
-    {
-      "type": "MOVE_EXAMS_TO_FOLDER",
-      "label": "Di chuyển bài thi vào thư mục Tiếng Anh",
-      "params": { "examIds": ["ex_1", "ex_2"], "targetFolderName": "Tiếng Anh" }
+29. "MOVE_EXAMS_TO_FOLDER": Di chuyển nhiều bài thi (theo danh sách "examIds" hoặc lọc theo "query"/"subject") vào THƯ MỤC HIỆN CÓ (ưu tiên khớp thư mục đã có kể cả thư mục con, KHÔNG tự tạo trùng).
+    Thuộc tính: "params": { "examIds"?: ["id_1", "id_2"], "query"?: "từ khóa tên đề", "folderId"?: "id_thư_mục" | null, "targetFolderName"?: "Tên hoặc đường dẫn thư mục hiện có", "createIfMissing"?: false }
+
+29b. "LIST_FOLDERS" / "RENAME_FOLDER" / "UPDATE_FOLDER" / "DELETE_FOLDER":
+    - "LIST_FOLDERS": Liệt kê toàn bộ cây thư mục hiện có (kèm ID & đường dẫn phân cấp).
+    - "RENAME_FOLDER" / "UPDATE_FOLDER": Đổi tên, đổi màu, bật/tắt công khai hoặc di chuyển thư mục sang thư mục cha khác.
+      Thuộc tính: "params": { "folderId"?: "id", "folderName"?: "tên hiện tại", "newName"?: "tên mới", "color"?: "...", "isPublic"?: true | false, "parentId"?: string | null }
+    - "DELETE_FOLDER": Xóa thư mục theo ID hoặc tên. Thuộc tính: "params": { "folderId"?: "id", "folderName"?: "tên thư mục" }
+
+29c. "LIST_EXAMS" / "BULK_UPDATE_EXAMS" / "SET_EXAM_COGNITIVE_LEVELS":
+    - "LIST_EXAMS": Tìm và liệt kê các đề thi trong hệ thống theo từ khóa / môn / trạng thái / thư mục.
+      Thuộc tính: "params": { "query"?: "...", "subject"?: "...", "status"?: "published" | "draft" | "archived", "folderId"?: "...", "limit"?: 30 }
+    - "BULK_UPDATE_EXAMS": Cập nhật hàng loạt nhiều đề thi (xuất bản, chuyển nháp, đổi môn, đổi giá, đổi thời gian).
+      Thuộc tính: "params": { "examIds": ["id_1", "id_2"], "updates": { "status"?: "published", "subject"?: "...", "priceVnd"?: 0, "timeLimit"?: 45 } }
+    - "SET_EXAM_COGNITIVE_LEVELS": Gán hoặc tự động phân bổ mức độ nhận thức (NB — Nhận biết, TH — Thông hiểu, VD — Vận dụng, VDC — Vận dụng cao) cho các câu hỏi trong một đề thi.
+      Thuộc tính: "params": { "examId": "id_đề_thi", "assignments"?: [{ "questionNumber": 1, "level": "NB" | "TH" | "VD" | "VDC" }], "autoDistribute"?: { "NB": 40, "TH": 30, "VD": 20, "VDC": 10 } }
+
+29d. "UPDATE_COURSE_UNLOCK_POLICY": Bật/tắt và cấu hình quy tắc tự động mở khóa Tài liệu / Bài thi khi học sinh mở khóa video trong khóa học.
+    Thuộc tính: "params": {
+      "courseId"?: "id_khóa",
+      "courseTitle"?: "tên_khóa",
+      "unlockResourcesWithVideo": true | false,
+      "unlockMaterialsWithVideo"?: true | false,
+      "unlockExamsWithVideo"?: true | false,
+      "resourceUnlockScope"?: "any_video_in_topic" | "same_lesson" | "full_topic" | "full_chapter" | "full_course"
     }
-    \`\`\`
+
+29e. "CREATE_MINIGAME": Tạo sự kiện Minigame phúc lợi miễn phí 100% (hỗ trợ cả 8 trò chơi: horse_race, bee_race, tai_xiu, bau_cua, lucky_number, lucky_wheel, treasure_flip, mystery_box; hẹn giờ bắt đầu/kết thúc, bật chat realtime và cấu hình giải thưởng).
+    Thuộc tính: "params": {
+      "title": "Tên sự kiện",
+      "gameType": "horse_race" | "bee_race" | "tai_xiu" | "bau_cua" | "lucky_number" | "lucky_wheel" | "treasure_flip" | "mystery_box",
+      "maxParticipants"?: 32,
+      "durationMinutes"?: 30,
+      "scheduledStartAt"?: "ISO datetime",
+      "scheduledEndAt"?: "ISO datetime",
+      "chatEnabled"?: true,
+      "prizes"?: [{ "rank": 1, "label": "Giải Nhất", "type": "wallet_vnd", "amountVnd": 20000 }]
+    }
+
+29f. "BROADCAST_NOTIFICATION": Gửi thông báo đẩy toàn hệ thống tới học sinh trên Web & Android.
+    Thuộc tính: "params": { "title": "Tiêu đề thông báo", "message": "Nội dung thông báo", "route"?: "/student/minigame" }
 
 30. "LIST_COURSES" / "GET_COURSE_DETAILS": Liệt kê khóa học trong hệ thống hoặc xem chi tiết cấu trúc chương & danh sách video bài giảng của một khóa học cụ thể.
     Thuộc tính: "params": { "courseId"?: "id_khóa", "courseTitle"?: "tên_khóa", "query"?: "từ khóa tìm kiếm", "includeLessons"?: true }
@@ -589,6 +628,9 @@ BỐI CẢNH TRANG HIỆN TẠI MÀ ADMIN ĐANG ĐỨNG:
     }
     if (context.selectedItem) {
       instruction += `\nTHỰC THỂ ĐANG ĐƯỢC CHỌN / XEM CHI TIẾT:\n${JSON.stringify(context.selectedItem, null, 2)}\n`;
+    }
+    if (context.existingFoldersSummary) {
+      instruction += `\nCÂY THƯ MỤC HIỆN CÓ TRONG HỆ THỐNG (ƯU TIÊN DÙNG ĐÚNG folderId / TÊN CÓ SẴN KHI DI CHUYỂN ĐỀ THI, KHÔNG TẠO TRÙNG):\n${context.existingFoldersSummary}\n`;
     }
     if (context.domSummary) {
       instruction += `\nDỮ LIỆU & NỘI DUNG HIỂN THỊ TRÊN MÀN HÌNH (SCRAPED REALTIME TỪ TRÌNH DUYỆT):\n${context.domSummary}\n`;

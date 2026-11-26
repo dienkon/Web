@@ -1490,6 +1490,91 @@ export async function unlockCourseBundle(
   };
 }
 
+export function evaluateServerCourseResourceAccess(
+  course: Course,
+  lesson: CourseLesson,
+  access: CourseAccessInfo,
+  resourceKind: "material" | "exam"
+): boolean {
+  const mode = resolveCourseAccessModeServer(course);
+  if (mode === "free" || access.isFreeCourse) return true;
+
+  const unlockedByCourse =
+    access.unlockedCourse &&
+    (access.unlockFullPolicy === "unlock_all_videos" || lesson.includedInCourseUnlock !== false);
+  if (unlockedByCourse) return true;
+
+  const enabled = course.unlockResourcesWithVideo !== false;
+  const kindEnabled =
+    enabled &&
+    (resourceKind === "material"
+      ? course.unlockMaterialsWithVideo !== false
+      : course.unlockExamsWithVideo !== false);
+  if (!kindEnabled) return false;
+
+  const scope = course.resourceUnlockScope || "any_video_in_topic";
+  const outline =
+    Array.isArray(course.lessonOutline) && course.lessonOutline.length > 0
+      ? course.lessonOutline
+      : [lesson];
+
+  const isItemWatchedOrUnlocked = (item: {
+    id: string;
+    accessType?: any;
+    order?: number;
+    includedInCourseUnlock?: boolean;
+  }): { canWatch: boolean; paidUnlocked: boolean } => {
+    const free = isLessonFreeEffective(course, item as CourseLesson);
+    const byCourse =
+      access.unlockedCourse &&
+      (access.unlockFullPolicy === "unlock_all_videos" || item.includedInCourseUnlock !== false);
+    const byLesson = access.unlockedLessonIds.includes(item.id);
+    return {
+      canWatch: free || byCourse || byLesson,
+      paidUnlocked: byCourse || byLesson,
+    };
+  };
+
+  const chapterKey = (chId?: string | null) => String(chId || "__other__").trim() || "__other__";
+  const topicKey = (id: string, tp?: string) => String(tp || "").trim() || `__single_${id}`;
+
+  const targetChapter = chapterKey(lesson.chapterId);
+  const targetTopic = topicKey(lesson.id, lesson.topicTitle);
+  const selfState = isItemWatchedOrUnlocked(lesson);
+
+  const topicItems = outline.filter(
+    (item) => chapterKey(item.chapterId) === targetChapter && topicKey(item.id, item.topicTitle) === targetTopic
+  );
+  const effectiveTopicItems = topicItems.length > 0 ? topicItems : [lesson];
+
+  const chapterItems = outline.filter((item) => chapterKey(item.chapterId) === targetChapter);
+  const effectiveChapterItems = chapterItems.length > 0 ? chapterItems : [lesson];
+
+  switch (scope) {
+    case "same_lesson":
+      return selfState.canWatch;
+    case "any_video_in_topic":
+      return (
+        selfState.canWatch ||
+        effectiveTopicItems.some((item) => isItemWatchedOrUnlocked(item).paidUnlocked)
+      );
+    case "full_topic":
+      return effectiveTopicItems.every((item) => isItemWatchedOrUnlocked(item).canWatch);
+    case "full_chapter":
+      return effectiveChapterItems.every((item) => isItemWatchedOrUnlocked(item).canWatch);
+    case "full_course":
+      return (
+        access.unlockedCourse ||
+        outline.every((item) => isItemWatchedOrUnlocked(item).canWatch)
+      );
+    default:
+      return (
+        selfState.canWatch ||
+        effectiveTopicItems.some((item) => isItemWatchedOrUnlocked(item).paidUnlocked)
+      );
+  }
+}
+
 export async function getAuthorizedLessonContent(
   uid: string,
   courseId: string,
@@ -1504,21 +1589,39 @@ export async function getAuthorizedLessonContent(
     throw new Error("Không tìm thấy bài giảng hoặc khóa học.");
   }
 
-  if (isAdminRole(role) || isLessonFreeEffective(course, lesson)) {
+  if (isAdminRole(role)) {
     return lesson;
   }
 
   const access = await checkCourseAccess(uid, courseId, role);
+  const isFree = isLessonFreeEffective(course, lesson);
   const unlockedByCourse =
     access.unlockedCourse &&
     (access.unlockFullPolicy === "unlock_all_videos" || lesson.includedInCourseUnlock !== false);
   const unlockedByLesson = access.unlockedLessonIds.includes(lessonId);
+  const canWatchVideo = isFree || unlockedByCourse || unlockedByLesson;
 
-  if (!unlockedByCourse && !unlockedByLesson) {
+  const canAccessMaterials = evaluateServerCourseResourceAccess(course, lesson, access, "material");
+  const canAccessExam = evaluateServerCourseResourceAccess(course, lesson, access, "exam");
+
+  if (!canWatchVideo) {
+    if (canAccessMaterials || canAccessExam) {
+      // Strictly strip videoUrl so paid video source NEVER leaks when only topic materials/exam are unlocked.
+      return {
+        ...lesson,
+        videoUrl: "",
+        materials: canAccessMaterials ? lesson.materials : [],
+        linkedExamId: canAccessExam ? lesson.linkedExamId : undefined,
+      };
+    }
     throw new Error("Bài giảng trả phí. Vui lòng mở khóa khóa học hoặc bài giảng để xem video.");
   }
 
-  return lesson;
+  return {
+    ...lesson,
+    materials: canAccessMaterials ? lesson.materials : [],
+    linkedExamId: canAccessExam ? lesson.linkedExamId : undefined,
+  };
 }
 
 export async function grantOrRevokeCourseEntitlement(

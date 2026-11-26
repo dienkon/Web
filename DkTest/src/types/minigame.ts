@@ -3,7 +3,10 @@ export type MinigameType =
   | "bee_race"
   | "tai_xiu"
   | "bau_cua"
-  | "lucky_number";
+  | "lucky_number"
+  | "lucky_wheel"
+  | "treasure_flip"
+  | "mystery_box";
 
 export type MinigameStatus = "lobby" | "running" | "finished" | "cancelled";
 
@@ -66,6 +69,14 @@ export interface MinigamePartyResult {
   bauCuaFaces?: [BauCuaFace, BauCuaFace, BauCuaFace];
   /** Đoán số may mắn (0..99) */
   luckyNumber?: number;
+  /** Vòng quay siêu tốc (sector index 0..7 + sector id) */
+  wheelSectorIndex?: number;
+  wheelSectorId?: string;
+  wheelSectorLabel?: string;
+  /** Lật thẻ kho báu (2 winning indices in 1..9) */
+  treasureWinningIndices?: number[];
+  /** Đập hộp bí ẩn (winning box 1..6) */
+  mysteryWinningBox?: number;
 }
 
 export interface MinigameWinnerRecord {
@@ -106,6 +117,13 @@ export interface MinigameEvent {
   partyResult: MinigamePartyResult | null;
   winners: MinigameWinnerRecord[];
   prizesDistributedAt?: string | null;
+  /** Admin-customizable schedule & timing controls */
+  scheduledStartAt?: string | null;
+  scheduledEndAt?: string | null;
+  durationMinutes?: number | null;
+  raceDurationMs?: number;
+  revealDurationMs?: number;
+  chatEnabled?: boolean;
   createdByUid: string;
   createdByName: string;
   createdAt: string;
@@ -118,5 +136,15 @@ export interface MinigameCheerMessage {
   displayName: string;
   emoji: string;
   text?: string;
+  createdAt: number;
+}
+
+export interface MinigameChatMessage {
+  id: string;
+  uid: string;
+  displayName: string;
+  avatarUrl?: string;
+  isAdmin?: boolean;
+  message: string;
   createdAt: number;
 }

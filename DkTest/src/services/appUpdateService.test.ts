@@ -71,34 +71,47 @@ describe("appUpdateService version check & skippable prompt helpers", () => {
     ).toBe(false);
   });
 
-  it("respects skipped version persistence and session dismissal while re-prompting for even newer versions", () => {
-    const installed = { version: "1.9.5", androidVersionCode: 11 };
-    const release196 = {
-      version: "1.9.6",
-      androidVersionCode: 12,
-      apkVersion: "1.9.6",
+  it("enforces mandatory force-update by default regardless of skipped/dismissed state", () => {
+    const installed = { version: "2.0.5", androidVersionCode: 29 };
+    const release206 = {
+      version: "2.0.6",
+      androidVersionCode: 30,
+      apkVersion: "2.0.6",
       exactReleaseFound: true,
-      downloadUrl: "https://example.com/DkTEST-1.9.6-debug.apk",
+      downloadUrl: "https://example.com/DkTEST-2.0.6-debug.apk",
       releasesPageUrl: "https://github.com/dienkon/Web/releases",
     };
 
-    expect(shouldPromptForAppUpdate(installed, release196, null)).toBe(true);
-    // Dismissed for current session
-    expect(shouldPromptForAppUpdate(installed, release196, "1.9.6")).toBe(false);
+    // Mandatory by default: cannot be dismissed or skipped
+    expect(shouldPromptForAppUpdate(installed, release206, null)).toBe(true);
+    expect(shouldPromptForAppUpdate(installed, release206, "2.0.6")).toBe(true);
 
-    // Permanently skipped 1.9.6
-    setSkippedAppVersion("1.9.6");
-    expect(getSkippedAppVersion()).toBe("1.9.6");
-    expect(shouldPromptForAppUpdate(installed, release196, null)).toBe(false);
+    setSkippedAppVersion("2.0.6");
+    expect(getSkippedAppVersion()).toBe("2.0.6");
+    expect(shouldPromptForAppUpdate(installed, release206, null)).toBe(true);
 
-    // Newer version 1.9.7 must prompt again!
-    const release197 = {
-      ...release196,
-      version: "1.9.7",
-      androidVersionCode: 13,
-      apkVersion: "1.9.7",
+    // Web platform also triggers force update even without APK URL
+    expect(
+      shouldPromptForAppUpdate(
+        installed,
+        { version: "2.0.6", androidVersionCode: 30, downloadUrl: null, releasesPageUrl: "" },
+        "2.0.6",
+        { platform: "web" }
+      )
+    ).toBe(true);
+
+    // Optional release (forceUpdate: false) still honors skip & session dismissal
+    const optionalRelease = { ...release206, forceUpdate: false };
+    expect(shouldPromptForAppUpdate(installed, optionalRelease, "2.0.6")).toBe(false);
+    expect(shouldPromptForAppUpdate(installed, optionalRelease, null)).toBe(false);
+
+    const optionalNewer = {
+      ...optionalRelease,
+      version: "2.0.7",
+      androidVersionCode: 31,
+      apkVersion: "2.0.7",
     };
-    expect(shouldPromptForAppUpdate(installed, release197, null)).toBe(true);
+    expect(shouldPromptForAppUpdate(installed, optionalNewer, null)).toBe(true);
   });
 
   it("resolves download URL directly when provided or falls back safely", () => {

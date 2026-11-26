@@ -4,6 +4,22 @@ def dkRelease = new groovy.json.JsonSlurper().parse(rootProject.file('../release
 android {
     namespace = "vn.dktest.student"
     compileSdk = rootProject.ext.compileSdkVersion
+    def envKeystorePath = System.getenv("DKTEST_KEYSTORE_PATH") ?: findProperty("dktest.keystorePath")
+    def envKeystoreFile = envKeystorePath ? file(envKeystorePath) : null
+    def hasPersistentKeystore = envKeystoreFile != null && envKeystoreFile.exists()
+
+    signingConfigs {
+        if (hasPersistentKeystore) {
+            dktestPersistent {
+                storeFile envKeystoreFile
+                storePassword(System.getenv("DKTEST_KEYSTORE_PASSWORD") ?: findProperty("dktest.keystorePassword") ?: "dktest2026")
+                keyAlias(System.getenv("DKTEST_KEY_ALIAS") ?: findProperty("dktest.keyAlias") ?: "dktest")
+                keyPassword(System.getenv("DKTEST_KEY_PASSWORD") ?: findProperty("dktest.keyPassword") ?: "dktest2026")
+                v1SigningEnabled true
+                v2SigningEnabled true
+            }
+        }
+    }
     defaultConfig {
         applicationId "vn.dktest.student"
         minSdkVersion rootProject.ext.minSdkVersion
@@ -18,7 +34,15 @@ android {
         }
     }
     buildTypes {
+        debug {
+            if (hasPersistentKeystore) {
+                signingConfig signingConfigs.dktestPersistent
+            }
+        }
         release {
+            if (hasPersistentKeystore) {
+                signingConfig signingConfigs.dktestPersistent
+            }
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }

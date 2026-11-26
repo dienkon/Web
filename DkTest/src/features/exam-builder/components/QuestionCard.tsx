@@ -21,6 +21,10 @@ import {
   getRightItemLabel,
   resolveMatchingMode,
 } from "../../../utils/matchingUtils";
+import {
+  COGNITIVE_LEVEL_META,
+  resolveQuestionCognitiveLevel,
+} from "../../../utils/cognitiveLevelUtils";
 
 export default function QuestionCard({ question }: { question: Question }) {
   const { state, actions } = useExamEditorContext();
@@ -97,6 +101,18 @@ export default function QuestionCard({ question }: { question: Question }) {
                 {question.type === "matching" && "Nối bảng"}
                 {question.type === "essay" && "Tự luận"}
               </span>
+              {(() => {
+                const lv = resolveQuestionCognitiveLevel(question);
+                const meta = COGNITIVE_LEVEL_META[lv];
+                return (
+                  <span
+                    className={`px-2 py-0.5 rounded-md text-[10px] font-black border ${meta.badgeClass}`}
+                    title={`Mức độ nhận thức: ${meta.label}`}
+                  >
+                    {meta.shortLabel} • {meta.label}
+                  </span>
+                );
+              })()}
             </div>
 
             <div className="flex items-center gap-1">
@@ -203,6 +219,18 @@ export default function QuestionCard({ question }: { question: Question }) {
             <span className="text-[11px] text-slate-400 font-medium">
               ({question.points || 1} điểm)
             </span>
+            {(() => {
+              const lv = resolveQuestionCognitiveLevel(question);
+              const meta = COGNITIVE_LEVEL_META[lv];
+              return (
+                <span
+                  className={`px-1.5 py-0.5 rounded-md text-[10px] font-black border shrink-0 ${meta.badgeClass}`}
+                  title={`Mức độ nhận thức: ${meta.label}`}
+                >
+                  {meta.shortLabel}
+                </span>
+              );
+            })()}
             {question.audioConfig?.enabled && question.audioConfig?.url && (
               <span
                 className="text-[10px] font-bold text-indigo-700 bg-indigo-50 border border-indigo-200 px-1.5 py-0.5 rounded flex items-center gap-1 shrink-0"

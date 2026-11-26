@@ -14,6 +14,10 @@ import {
 } from "recharts";
 import type { Question, Section, Submission } from "../../types";
 import { evaluateQuestionAnswer } from "../../utils/attemptAnalytics";
+import {
+  COGNITIVE_LEVEL_META,
+  computeCognitiveLevelPerformance,
+} from "../../utils/cognitiveLevelUtils";
 
 interface ExamResultChartsProps {
   submission: Submission;
@@ -85,8 +89,11 @@ export default function ExamResultCharts({ submission, questions, sections }: Ex
 
     const sectionBarData = Object.values(sectionStats).filter((s) => s.correct + s.incorrect + s.unanswered > 0);
     const typeBarData = Object.values(typeStats).filter((s) => s.correct + s.incorrect + s.unanswered > 0);
+    const levelPerformance = computeCognitiveLevelPerformance(questions, submission).filter(
+      (r) => r.total > 0
+    );
 
-    return { pieData, sectionBarData, typeBarData };
+    return { pieData, sectionBarData, typeBarData, levelPerformance };
   }, [submission, questions, sections]);
 
   return (
@@ -144,6 +151,77 @@ export default function ExamResultCharts({ submission, questions, sections }: Ex
           </ResponsiveContainer>
         </div>
       </div>
+
+      {/* Cognitive Level Analysis (NB / TH / VD / VDC) */}
+      {chartData.levelPerformance.length > 0 && (
+        <div className="lg:col-span-2 bg-white p-6 rounded-3xl border border-slate-200 shadow-2xs space-y-5">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+            <div>
+              <h3 className="text-sm font-black text-slate-900">
+                Phân tích năng lực theo Mức độ nhận thức (NB / TH / VD / VDC)
+              </h3>
+              <p className="text-xs text-slate-500 mt-0.5">
+                Đánh giá mức độ nắm vững kiến thức từ nền tảng (Nhận biết) đến phân hóa cao (Vận dụng cao).
+              </p>
+            </div>
+          </div>
+
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+            {chartData.levelPerformance.map((row) => {
+              const meta = COGNITIVE_LEVEL_META[row.level];
+              return (
+                <div
+                  key={row.level}
+                  className={`p-3.5 rounded-2xl border ${meta.badgeClass} space-y-2`}
+                >
+                  <div className="flex items-center justify-between gap-1">
+                    <span className="text-xs font-black">
+                      {meta.shortLabel} • {row.label}
+                    </span>
+                    <span className="text-xs font-black">{row.accuracyPct}%</span>
+                  </div>
+                  <div className="w-full h-2 rounded-full bg-white/80 overflow-hidden">
+                    <div
+                      className="h-full rounded-full transition-all duration-500"
+                      style={{ width: `${row.accuracyPct}%`, backgroundColor: meta.barColor }}
+                    />
+                  </div>
+                  <div className="flex items-center justify-between text-[11px] font-semibold opacity-90">
+                    <span>Đúng: {row.correct}/{row.total}</span>
+                    <span>Sai: {row.incorrect}</span>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+
+          <div className="h-56 w-full">
+            <ResponsiveContainer width="100%" height="100%">
+              <BarChart
+                data={chartData.levelPerformance.map((r) => ({
+                  name: `${r.level} (${r.label})`,
+                  correct: r.correct,
+                  incorrect: r.incorrect,
+                  unanswered: r.unanswered,
+                }))}
+                margin={{ top: 10, right: 20, left: -20, bottom: 5 }}
+              >
+                <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#e2e8f0" />
+                <XAxis dataKey="name" tick={{ fontSize: 11, fill: "#475569", fontWeight: 700 }} tickLine={false} axisLine={false} />
+                <YAxis allowDecimals={false} tick={{ fontSize: 11, fill: "#64748b" }} tickLine={false} axisLine={false} />
+                <Tooltip
+                  contentStyle={{ borderRadius: "12px", border: "1px solid #e2e8f0" }}
+                  cursor={{ fill: "#f1f5f9" }}
+                />
+                <Legend wrapperStyle={{ fontSize: "12px", paddingTop: "8px" }} iconType="circle" />
+                <Bar dataKey="correct" name="Đúng" stackId="lv" fill="#10b981" radius={[0, 0, 4, 4]} />
+                <Bar dataKey="incorrect" name="Sai" stackId="lv" fill="#ef4444" />
+                <Bar dataKey="unanswered" name="Bỏ trống" stackId="lv" fill="#94a3b8" radius={[4, 4, 0, 0]} />
+              </BarChart>
+            </ResponsiveContainer>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

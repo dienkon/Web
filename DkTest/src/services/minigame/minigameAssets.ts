@@ -93,6 +93,54 @@ export const MINIGAME_ARTWORK_MAP: Record<MinigameType, MinigameArtworkMeta> = {
       "Những người chọn trùng chính xác con số may mắn được quay ra sẽ giành giải thưởng.",
     ],
   },
+  lucky_wheel: {
+    gameType: "lucky_wheel",
+    label: "Vòng Quay Siêu Tốc",
+    shortTitle: "Vòng Quay",
+    imagePath: "/images/minigames/lucky-wheel.jpg",
+    imageAlt: "Minh họa Minigame Vòng Quay Siêu Tốc trên DkTEST",
+    tagline:
+      "8 ô biểu tượng rực rỡ phát sáng — chọn 1 biểu tượng may mắn và chờ vòng quay dừng ngay mũi tên vàng!",
+    accentClass: "from-fuchsia-600 to-purple-600",
+    highlights: ["8 ô biểu tượng sống động", "Hiệu ứng quay mượt 60fps", "Miễn phí 100%"],
+    howToPlay: [
+      "Chọn miễn phí 1 trong 8 biểu tượng trên Vòng Quay Siêu Tốc khi phòng đang mở đăng ký.",
+      "Admin kích hoạt vòng quay trực tiếp — mũi tên vàng dừng tại ô nào, ô đó thắng giải.",
+      "Tất cả người chơi chọn trúng biểu tượng chiến thắng sẽ nhận quà phúc lợi.",
+    ],
+  },
+  treasure_flip: {
+    gameType: "treasure_flip",
+    label: "Lật Thẻ Kho Báu",
+    shortTitle: "Kho Báu",
+    imagePath: "/images/minigames/treasure-flip.jpg",
+    imageAlt: "Minh họa Minigame Lật Thẻ Kho Báu trên DkTEST",
+    tagline:
+      "9 rương kho báu bí mật với 2 rương chứa Kim Cương Vàng — chọn rương linh cảm nhất và lật mở đồng loạt!",
+    accentClass: "from-amber-600 to-yellow-500",
+    highlights: ["9 rương — 2 kho báu vàng", "Tỷ lệ trúng cao & kịch tính", "Lật 3D trực tiếp"],
+    howToPlay: [
+      "Chọn 1 trong 9 ô rương kho báu (#1–#9) hoàn toàn miễn phí trong phòng chờ.",
+      "Khi Admin bấm mở rương, cả 9 thẻ lật 3D đồng loạt tiết lộ 2 rương chứa Kho Báu Vàng.",
+      "Người chơi chọn trúng 1 trong 2 rương Kho Báu Vàng sẽ nhận thưởng ngay lập tức.",
+    ],
+  },
+  mystery_box: {
+    gameType: "mystery_box",
+    label: "Đập Hộp Bí Ẩn",
+    shortTitle: "Hộp Bí Ẩn",
+    imagePath: "/images/minigames/mystery-box.jpg",
+    imageAlt: "Minh họa Minigame Đập Hộp Bí Ẩn trên DkTEST",
+    tagline:
+      "6 hộp quà neon rực rỡ sắc màu — chọn 1 hộp bí ẩn và chờ màn đập hộp bung pháo hoa tìm Hộp Đặc Biệt!",
+    accentClass: "from-pink-600 to-rose-500",
+    highlights: ["6 hộp quà sắc màu", "Hiệu ứng đập hộp pháo hoa", "Chat live sôi động"],
+    howToPlay: [
+      "Chọn miễn phí 1 trong 6 hộp quà sắc màu yêu thích trước giờ chốt danh sách.",
+      "Khi Admin kích hoạt, các hộp quà rung lắc hồi hộp rồi đồng loạt bung mở tìm Hộp Đặc Biệt.",
+      "Tất cả thí sinh chọn đúng Hộp Đặc Biệt sẽ được vinh danh trên bục nhận thưởng.",
+    ],
+  },
 };
 
 export const MINIGAME_HUB_PREVIEW_IMAGE = "/images/minigames/horse-race.jpg";
@@ -103,7 +151,10 @@ export function isValidMinigameType(value: unknown): value is MinigameType {
     value === "bee_race" ||
     value === "tai_xiu" ||
     value === "bau_cua" ||
-    value === "lucky_number"
+    value === "lucky_number" ||
+    value === "lucky_wheel" ||
+    value === "treasure_flip" ||
+    value === "mystery_box"
   );
 }
 

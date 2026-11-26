@@ -11,6 +11,13 @@ import EssayEditor from "./EssayEditor";
 import RichTextEditor from "../editor/RichTextEditor";
 import AudioConfigEditor from "../../../components/exam/AudioConfigEditor";
 import { Pin, Shuffle } from "lucide-react";
+import {
+  COGNITIVE_LEVEL_META,
+  COGNITIVE_LEVEL_ORDER,
+  cognitiveLevelToDifficulty,
+  resolveQuestionCognitiveLevel,
+  type CognitiveLevel,
+} from "../../../utils/cognitiveLevelUtils";
 
 export default function QuestionEditor({ question }: { question: Question }) {
   const { actions } = useExamEditorContext();
@@ -54,20 +61,42 @@ export default function QuestionEditor({ question }: { question: Question }) {
         {question.type === "essay" && <EssayEditor question={question} update={update} />}
       </div>
 
-      {/* Points & Difficulty & Specific Shuffling Controls */}
+      {/* Points & Cognitive Level (NB / TH / VD / VDC) & Shuffling Controls */}
       <div className="p-3.5 bg-slate-50 border border-slate-200 rounded-xl space-y-3">
-        <div className="grid grid-cols-1 gap-4">
-          <div>
-            <label className="block text-xs font-semibold text-slate-600 mb-1">Mức độ nhận thức</label>
-            <select
-              value={question.difficulty || "medium"}
-              onChange={(e) => update({ difficulty: e.target.value as any })}
-              className="w-full sm:w-64 px-3 py-1.5 text-sm bg-white border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-slate-800 font-medium"
-            >
-              <option value="easy">Dễ (Nhận biết)</option>
-              <option value="medium">Trung bình (Thông hiểu)</option>
-              <option value="hard">Khó (Vận dụng cao)</option>
-            </select>
+        <div className="space-y-1.5">
+          <div className="flex items-center justify-between gap-2 flex-wrap">
+            <label className="block text-xs font-bold text-slate-700">
+              Mức độ nhận thức (Chuẩn ma trận đề thi)
+            </label>
+            <span className="text-[11px] font-medium text-slate-500">
+              {COGNITIVE_LEVEL_META[resolveQuestionCognitiveLevel(question)].description}
+            </span>
+          </div>
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
+            {COGNITIVE_LEVEL_ORDER.map((lv: CognitiveLevel) => {
+              const meta = COGNITIVE_LEVEL_META[lv];
+              const isSelected = resolveQuestionCognitiveLevel(question) === lv;
+              return (
+                <button
+                  key={lv}
+                  type="button"
+                  onClick={() =>
+                    update({
+                      level: lv,
+                      difficulty: cognitiveLevelToDifficulty(lv),
+                    })
+                  }
+                  className={`px-3 py-2 rounded-xl border text-xs font-bold transition-all cursor-pointer flex items-center justify-center gap-1.5 ${
+                    isSelected
+                      ? meta.activePillClass
+                      : "bg-white border-slate-200 text-slate-700 hover:border-slate-300 hover:bg-slate-100/70"
+                  }`}
+                >
+                  <span className="font-black">{meta.shortLabel}</span>
+                  <span className="opacity-90 font-semibold">• {meta.label}</span>
+                </button>
+              );
+            })}
           </div>
         </div>
 

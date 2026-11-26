@@ -83,18 +83,43 @@ import {
   getCourseEditorContextSnapshot,
   getCourseManagerSummarySnapshot,
 } from "../../utils/courseAiBridge";
-import { createExam, updateExam, deleteExam, getExam } from "../../services/examService";
+import { createExam, updateExam, deleteExam, getExam, getExamList } from "../../services/examService";
+import { getQuestionsByExam, updateQuestion } from "../../services/questionService";
+import {
+  getAdminCoursesList,
+  getCourse,
+  getCourseLessonsForAdmin,
+  saveCourseWithLessons,
+} from "../../services/courseService";
+import {
+  broadcastDeviceNotificationApi,
+  createMinigameApi,
+} from "../../services/minigameClientService";
 import {
   createFolder,
+  updateFolder,
+  deleteFolder,
   moveExamToFolder,
   bulkMoveExamsToFolder,
   getFolders,
   organizeExamsIntoFolders,
   getSubjectFolderColor,
-  standardizeSubject,
   extractExcludePatternsFromText,
   type OrganizeExamsResult,
 } from "../../services/folderService";
+import {
+  buildFolderPathMap,
+  findBestExistingFolder,
+  formatFolderTreeForPrompt,
+  normalizeVietnameseKey,
+} from "../../utils/folderMatchingUtils";
+import {
+  COGNITIVE_LEVEL_ORDER,
+  cognitiveLevelToDifficulty,
+  normalizeCognitiveLevel,
+  type CognitiveLevel,
+} from "../../utils/cognitiveLevelUtils";
+import type { Folder as ExamFolder } from "../../types";
 import { importJsonToFirestore } from "../../services/jsonImportService";
 import { createAssignment } from "../../services/assignmentService";
 import { api } from "../../services/apiClient";
@@ -474,36 +499,71 @@ export default function AdminAIAssistant() {
   }, [location.pathname, location.search, currentTabName, user?.email, userProfile?.displayName, role]);
 
 
-  // Helper to find or create matching target folder by name / subject
-  const resolveOrCreateTargetFolder = useCallback(async (folderName: string): Promise<{ id: string; name: string }> => {
-    const trimmed = folderName.trim();
-    const lower = trimmed.toLowerCase();
-    const std = standardizeSubject(trimmed).toLowerCase();
-    const allFolders = await getFolders(null, "all");
+  const folderSnapshotCacheRef = useRef<{ folders: ExamFolder[]; ts: number } | null>(null);
 
-    const matched = allFolders.find((f) => {
-      if (f.parentId) return false;
-      const fLower = f.name.trim().toLowerCase();
-      const fStd = standardizeSubject(f.name).toLowerCase();
-      if (fLower === lower || fStd === std) return true;
-      if (lower.startsWith(fLower) || fLower.startsWith(lower)) return true;
-      return false;
-    });
-
-    if (matched) {
-      return { id: matched.id, name: matched.name };
+  const loadCachedFolders = useCallback(async (force = false): Promise<ExamFolder[]> => {
+    const cached = folderSnapshotCacheRef.current;
+    if (!force && cached && Date.now() - cached.ts < 30_000) {
+      return cached.folders;
     }
-
-    const created = await createFolder({
-      name: trimmed,
-      parentId: null,
-      color: getSubjectFolderColor(trimmed),
-      description: `Thư mục ${trimmed}`,
-      isPublic: false,
-      ownerId: null,
-    });
-    return { id: created.id, name: created.name };
+    const folders = await getFolders(null, "all");
+    folderSnapshotCacheRef.current = { folders, ts: Date.now() };
+    return folders;
   }, []);
+
+  // Smart existing-folder resolver across ALL root folders & subfolders (diacritic & prefix insensitive).
+  // Defaults to reusing existing folders only (createIfMissing = false) so moving exams NEVER creates duplicate folders!
+  const resolveOrCreateTargetFolder = useCallback(
+    async (
+      folderNameOrId: string,
+      options?: { createIfMissing?: boolean; parentId?: string | null }
+    ): Promise<{ id: string; name: string; fullPath: string; createdNew: boolean }> => {
+      const trimmed = String(folderNameOrId || "").trim();
+      const allFolders = await loadCachedFolders(true);
+
+      const best = findBestExistingFolder(allFolders, trimmed, {
+        parentId: options?.parentId,
+      });
+
+      if (best && best.score >= 64) {
+        return {
+          id: best.folder.id,
+          name: best.folder.name,
+          fullPath: best.fullPath,
+          createdNew: false,
+        };
+      }
+
+      if (!options?.createIfMissing) {
+        const available = allFolders
+          .slice(0, 12)
+          .map((f) => `"${f.name}"`)
+          .join(", ");
+        throw new Error(
+          `Không tìm thấy thư mục hiện có khớp với "${trimmed}". Các thư mục hiện có: ${
+            available || "(chưa có thư mục nào)"
+          }. Nếu muốn tạo thư mục mới, hãy yêu cầu rõ "tạo thư mục mới ${trimmed}".`
+        );
+      }
+
+      const created = await createFolder({
+        name: trimmed,
+        parentId: options?.parentId ?? null,
+        color: getSubjectFolderColor(trimmed),
+        description: `Thư mục ${trimmed}`,
+        isPublic: false,
+        ownerId: null,
+      });
+      folderSnapshotCacheRef.current = null;
+      return {
+        id: created.id,
+        name: created.name,
+        fullPath: created.name,
+        createdNew: true,
+      };
+    },
+    [loadCachedFolders]
+  );
 
   // Execute Autonomous Client Action & Make.com Workflows
   const executeAction = useCallback(
@@ -1164,19 +1224,101 @@ export default function AdminAIAssistant() {
             break;
           }
 
+          // 13c. LIST_FOLDERS
+          case "LIST_FOLDERS": {
+            const folders = await loadCachedFolders(true);
+            const pathMap = buildFolderPathMap(folders);
+            const summary = folders
+              .slice(0, 20)
+              .map((f) => `${pathMap.get(f.id) || f.name} [${f.id}]`)
+              .join(", ");
+            toastSuccess(`Đã tải ${folders.length} thư mục hiện có`);
+            result = {
+              success: true,
+              message: `Hệ thống hiện có ${folders.length} thư mục: ${summary || "(trống)"}`,
+              data: {
+                count: folders.length,
+                folders: folders.map((f) => ({
+                  id: f.id,
+                  name: f.name,
+                  parentId: f.parentId || null,
+                  fullPath: pathMap.get(f.id) || f.name,
+                  isPublic: Boolean(f.isPublic),
+                })),
+              },
+            };
+            break;
+          }
+
+          // 13c2. RENAME_FOLDER / UPDATE_FOLDER
+          case "RENAME_FOLDER":
+          case "UPDATE_FOLDER": {
+            const p = act.params || act.payload || {};
+            const lookup = p.folderId || p.id || p.folderName || p.name || "";
+            if (!lookup) throw new Error("Thiếu folderId hoặc tên thư mục cần cập nhật");
+            const resolved = await resolveOrCreateTargetFolder(String(lookup), {
+              createIfMissing: false,
+            });
+            const updates: Record<string, any> = {};
+            if (p.newName || p.renameTo) updates.name = String(p.newName || p.renameTo).trim();
+            if (p.color) updates.color = String(p.color);
+            if (p.description !== undefined) updates.description = String(p.description);
+            if (p.isPublic !== undefined) updates.isPublic = Boolean(p.isPublic);
+            if (p.parentId !== undefined) updates.parentId = p.parentId || null;
+            await updateFolder(resolved.id, updates);
+            folderSnapshotCacheRef.current = null;
+            window.dispatchEvent(new CustomEvent("dktest-folders-updated"));
+            const nextLabel = updates.name || resolved.name;
+            toastSuccess(`Đã cập nhật thư mục "${nextLabel}"`);
+            result = {
+              success: true,
+              message: `Đã cập nhật thư mục "${resolved.fullPath}" → "${nextLabel}"`,
+              data: { id: resolved.id, ...updates },
+            };
+            break;
+          }
+
+          // 13c3. DELETE_FOLDER
+          case "DELETE_FOLDER": {
+            const p = act.params || act.payload || {};
+            const lookup = p.folderId || p.id || p.folderName || p.name || "";
+            if (!lookup) throw new Error("Thiếu folderId hoặc tên thư mục cần xóa");
+            const resolved = await resolveOrCreateTargetFolder(String(lookup), {
+              createIfMissing: false,
+            });
+            await deleteFolder(resolved.id);
+            folderSnapshotCacheRef.current = null;
+            window.dispatchEvent(new CustomEvent("dktest-folders-updated"));
+            toastSuccess(`Đã xóa thư mục "${resolved.fullPath}"`);
+            result = {
+              success: true,
+              message: `Đã xóa thư mục "${resolved.fullPath}"`,
+              data: { id: resolved.id, name: resolved.name },
+            };
+            break;
+          }
+
           // 13c. CREATE_FOLDER
           case "CREATE_FOLDER": {
             const p = act.params || act.payload || {};
             const name = String(p.name || p.title || "Thư mục mới").trim();
+            let parentId: string | null = p.parentId || null;
+            if (!parentId && p.parentFolderName) {
+              const parent = await resolveOrCreateTargetFolder(String(p.parentFolderName), {
+                createIfMissing: false,
+              });
+              parentId = parent.id;
+            }
             const color = p.color || getSubjectFolderColor(name);
             const created = await createFolder({
               name,
-              parentId: p.parentId || null,
+              parentId,
               color,
               description: p.description || `Thư mục ${name}`,
               isPublic: Boolean(p.isPublic),
               ownerId: null,
             });
+            folderSnapshotCacheRef.current = null;
             window.dispatchEvent(new CustomEvent("dktest-folders-updated"));
             toastSuccess(`Đã tạo thư mục: "${created.name}"`);
             result = {
@@ -1187,61 +1329,335 @@ export default function AdminAIAssistant() {
             break;
           }
 
-          // 13d. MOVE_EXAM
+          // 13d. MOVE_EXAM (smart existing folder + smart exam title lookup!)
           case "MOVE_EXAM": {
             const p = act.params || act.payload || {};
-            const examId = p.examId || act.id || workflowContext?.lastExamId;
-            if (!examId) throw new Error("Thiếu mã bài thi examId để di chuyển");
+            let examId = p.examId || act.id || workflowContext?.lastExamId;
+            if (!examId && (p.examTitle || p.title || p.query)) {
+              const needle = normalizeVietnameseKey(String(p.examTitle || p.title || p.query));
+              const listRes = await getExamList({ pageSize: 200 });
+              const found = (listRes.items || []).find(
+                (ex) =>
+                  normalizeVietnameseKey(ex.title || "").includes(needle) ||
+                  normalizeVietnameseKey(ex.code || "") === needle
+              );
+              if (found) examId = found.id;
+            }
+            if (!examId) throw new Error("Không tìm thấy mã bài thi (examId) để di chuyển");
 
             let targetFolderId: string | null = p.folderId ?? null;
             let targetFolderName = p.targetFolderName || p.folderName || "";
+            const createIfMissing = Boolean(p.createIfMissing);
 
-            if (!targetFolderId && targetFolderName) {
-              const res = await resolveOrCreateTargetFolder(targetFolderName);
+            if (targetFolderId && targetFolderId !== "root") {
+              const allFolders = await loadCachedFolders();
+              const exact = allFolders.find((f) => f.id === targetFolderId);
+              if (exact) {
+                targetFolderName = buildFolderPathMap(allFolders).get(exact.id) || exact.name;
+              } else {
+                // Model passed a folder name inside folderId -> resolve smartly!
+                const res = await resolveOrCreateTargetFolder(String(targetFolderId), {
+                  createIfMissing,
+                });
+                targetFolderId = res.id;
+                targetFolderName = res.fullPath;
+              }
+            } else if (targetFolderId === "root") {
+              targetFolderId = null;
+            } else if (!targetFolderId && targetFolderName) {
+              const res = await resolveOrCreateTargetFolder(targetFolderName, {
+                createIfMissing,
+              });
               targetFolderId = res.id;
-              targetFolderName = res.name;
+              targetFolderName = res.fullPath;
             }
 
             await moveExamToFolder(examId, targetFolderId);
             window.dispatchEvent(new CustomEvent("dktest-exams-updated"));
             window.dispatchEvent(new CustomEvent("dktest-folders-updated"));
 
-            const destLabel = targetFolderName || (targetFolderId ? `thư mục ${targetFolderId}` : "Drive chính (Gốc)");
+            const destLabel =
+              targetFolderName || (targetFolderId ? `thư mục ${targetFolderId}` : "Drive chính (Gốc)");
             toastSuccess(`Đã di chuyển bài thi vào ${destLabel}`);
             result = {
               success: true,
-              message: `Đã chuyển bài thi vào ${destLabel}`,
+              message: `Đã chuyển bài thi vào thư mục hiện có: ${destLabel}`,
               data: { examId, folderId: targetFolderId, folderName: destLabel },
             };
             break;
           }
 
-          // 13e. MOVE_EXAMS_TO_FOLDER
+          // 13e. MOVE_EXAMS_TO_FOLDER (supports examIds OR query/subject filter, reuses existing folders!)
           case "MOVE_EXAMS_TO_FOLDER": {
             const p = act.params || act.payload || {};
-            const rawIds = p.examIds || (p.examId ? [p.examId] : []) || (workflowContext?.lastExamId ? [workflowContext.lastExamId] : []);
-            const examIds = Array.isArray(rawIds) ? rawIds : [rawIds];
-            if (examIds.length === 0) throw new Error("Chưa chỉ định danh sách bài thi (examIds) để di chuyển");
+            const rawIds =
+              p.examIds ||
+              (p.examId ? [p.examId] : []) ||
+              (workflowContext?.lastExamId ? [workflowContext.lastExamId] : []);
+            let examIds: string[] = Array.isArray(rawIds) ? rawIds.filter(Boolean) : [rawIds].filter(Boolean);
+
+            if (examIds.length === 0 && (p.query || p.subject)) {
+              const listRes = await getExamList({ pageSize: 200 });
+              const needle = normalizeVietnameseKey(String(p.query || p.subject || ""));
+              examIds = (listRes.items || [])
+                .filter(
+                  (ex) =>
+                    normalizeVietnameseKey(ex.title || "").includes(needle) ||
+                    normalizeVietnameseKey(ex.subject || "").includes(needle)
+                )
+                .map((ex) => ex.id);
+            }
+            if (examIds.length === 0) {
+              throw new Error("Chưa tìm thấy danh sách bài thi (examIds) để di chuyển");
+            }
 
             let targetFolderId: string | null = p.folderId ?? null;
             let targetFolderName = p.targetFolderName || p.folderName || "";
+            const createIfMissing = Boolean(p.createIfMissing);
 
-            if (!targetFolderId && targetFolderName) {
-              const res = await resolveOrCreateTargetFolder(targetFolderName);
+            if (targetFolderId && targetFolderId !== "root") {
+              const allFolders = await loadCachedFolders();
+              const exact = allFolders.find((f) => f.id === targetFolderId);
+              if (exact) {
+                targetFolderName = buildFolderPathMap(allFolders).get(exact.id) || exact.name;
+              } else {
+                const res = await resolveOrCreateTargetFolder(String(targetFolderId), {
+                  createIfMissing,
+                });
+                targetFolderId = res.id;
+                targetFolderName = res.fullPath;
+              }
+            } else if (targetFolderId === "root") {
+              targetFolderId = null;
+            } else if (!targetFolderId && targetFolderName) {
+              const res = await resolveOrCreateTargetFolder(targetFolderName, {
+                createIfMissing,
+              });
               targetFolderId = res.id;
-              targetFolderName = res.name;
+              targetFolderName = res.fullPath;
             }
 
             await bulkMoveExamsToFolder(examIds, targetFolderId);
             window.dispatchEvent(new CustomEvent("dktest-exams-updated"));
             window.dispatchEvent(new CustomEvent("dktest-folders-updated"));
 
-            const destLabel = targetFolderName || (targetFolderId ? `thư mục ${targetFolderId}` : "Drive chính (Gốc)");
+            const destLabel =
+              targetFolderName || (targetFolderId ? `thư mục ${targetFolderId}` : "Drive chính (Gốc)");
             toastSuccess(`Đã di chuyển ${examIds.length} bài thi vào ${destLabel}`);
             result = {
               success: true,
               message: `Đã di chuyển ${examIds.length} bài thi vào ${destLabel}`,
               data: { examIds, folderId: targetFolderId, folderName: destLabel, count: examIds.length },
+            };
+            break;
+          }
+
+          // 13f. LIST_EXAMS
+          case "LIST_EXAMS": {
+            const p = act.params || act.payload || {};
+            const listRes = await getExamList({ pageSize: Math.min(200, Number(p.limit) || 100) });
+            let exams = listRes.items || [];
+            if (p.query) {
+              const qn = normalizeVietnameseKey(String(p.query));
+              exams = exams.filter(
+                (ex) =>
+                  normalizeVietnameseKey(ex.title || "").includes(qn) ||
+                  normalizeVietnameseKey(ex.code || "").includes(qn)
+              );
+            }
+            if (p.subject) {
+              const sn = normalizeVietnameseKey(String(p.subject));
+              exams = exams.filter((ex) => normalizeVietnameseKey(ex.subject || "").includes(sn));
+            }
+            if (p.status) {
+              exams = exams.filter((ex) => ex.status === p.status);
+            }
+            if (p.folderId !== undefined) {
+              exams = exams.filter((ex) => (ex.folderId || null) === (p.folderId || null));
+            }
+            const top = exams
+              .slice(0, 15)
+              .map((e) => `"${e.title}" [${e.id}] (${e.status || "draft"})`)
+              .join(", ");
+            toastSuccess(`Tìm thấy ${exams.length} đề thi phù hợp`);
+            result = {
+              success: true,
+              message: `Tìm thấy ${exams.length} đề thi: ${top || "(không có)"}`,
+              data: { count: exams.length, examIds: exams.map((e) => e.id), exams: exams.slice(0, 30) },
+            };
+            break;
+          }
+
+          // 13g. BULK_UPDATE_EXAMS
+          case "BULK_UPDATE_EXAMS": {
+            const p = act.params || act.payload || {};
+            const examIds: string[] = Array.isArray(p.examIds) ? p.examIds.filter(Boolean) : [];
+            const updates = p.updates || {};
+            if (examIds.length === 0) throw new Error("Thiếu danh sách examIds để cập nhật hàng loạt");
+            for (const eid of examIds) {
+              await updateExam(eid, updates);
+            }
+            window.dispatchEvent(new CustomEvent("dktest-exams-updated"));
+            toastSuccess(`Đã cập nhật ${examIds.length} đề thi!`);
+            result = {
+              success: true,
+              message: `Đã cập nhật thành công ${examIds.length} đề thi`,
+              data: { count: examIds.length, examIds, updates },
+            };
+            break;
+          }
+
+          // 13h. SET_EXAM_COGNITIVE_LEVELS (NB / TH / VD / VDC)
+          case "SET_EXAM_COGNITIVE_LEVELS": {
+            const p = act.params || act.payload || {};
+            const examId = p.examId || workflowContext?.lastExamId;
+            if (!examId) throw new Error("Thiếu examId để gán mức độ nhận thức");
+            const qsRes = await getQuestionsByExam({ examId, pageSize: 300 });
+            const qs = [...(qsRes.items || [])].sort((a, b) => (a.order ?? 0) - (b.order ?? 0));
+            if (qs.length === 0) throw new Error("Đề thi này chưa có câu hỏi nào");
+
+            const assignments = Array.isArray(p.assignments) ? p.assignments : [];
+            let updatedCount = 0;
+
+            if (assignments.length > 0) {
+              for (const item of assignments) {
+                const lv = normalizeCognitiveLevel(item.level);
+                if (!lv) continue;
+                const q =
+                  qs.find((x) => x.id === item.questionId) ||
+                  (typeof item.questionNumber === "number" ? qs[item.questionNumber - 1] : undefined);
+                if (!q) continue;
+                await updateQuestion(examId, q.id, {
+                  level: lv,
+                  difficulty: cognitiveLevelToDifficulty(lv),
+                });
+                updatedCount++;
+              }
+            } else {
+              // Auto-distribute NB/TH/VD/VDC by percentages (default 40/30/20/10)
+              const dist = p.autoDistribute || { NB: 40, TH: 30, VD: 20, VDC: 10 };
+              const weights = COGNITIVE_LEVEL_ORDER.map((lv) => Math.max(0, Number(dist[lv]) || 0));
+              const totalW = weights.reduce((a, b) => a + b, 0) || 100;
+              let cursor = 0;
+              for (let i = 0; i < COGNITIVE_LEVEL_ORDER.length; i++) {
+                const lv: CognitiveLevel = COGNITIVE_LEVEL_ORDER[i];
+                const share =
+                  i === COGNITIVE_LEVEL_ORDER.length - 1
+                    ? qs.length - cursor
+                    : Math.round((weights[i] / totalW) * qs.length);
+                for (let k = 0; k < share && cursor < qs.length; k++, cursor++) {
+                  await updateQuestion(examId, qs[cursor].id, {
+                    level: lv,
+                    difficulty: cognitiveLevelToDifficulty(lv),
+                  });
+                  updatedCount++;
+                }
+              }
+            }
+
+            window.dispatchEvent(new CustomEvent("dktest-exams-updated"));
+            toastSuccess(`Đã gán mức độ nhận thức NB/TH/VD/VDC cho ${updatedCount} câu hỏi!`);
+            result = {
+              success: true,
+              message: `Đã cập nhật mức độ nhận thức (NB/TH/VD/VDC) cho ${updatedCount}/${qs.length} câu hỏi`,
+              data: { examId, updatedCount, totalQuestions: qs.length },
+            };
+            break;
+          }
+
+          // 13i. UPDATE_COURSE_UNLOCK_POLICY
+          case "UPDATE_COURSE_UNLOCK_POLICY": {
+            const p = act.params || act.payload || {};
+            let courseId = p.courseId || workflowContext?.lastCourseId;
+            if (!courseId && p.courseTitle) {
+              const courses = await getAdminCoursesList(true);
+              const needle = normalizeVietnameseKey(String(p.courseTitle));
+              const found = courses.find((c) => normalizeVietnameseKey(c.title || "").includes(needle));
+              if (found) courseId = found.id;
+            }
+            if (!courseId) throw new Error("Thiếu courseId hoặc tên khóa học cần cập nhật quy tắc mở khóa");
+            const [courseDoc, lessonDocs] = await Promise.all([
+              getCourse(courseId, true),
+              getCourseLessonsForAdmin(courseId),
+            ]);
+            if (!courseDoc) throw new Error("Không tìm thấy khóa học này");
+
+            const nextEnabled =
+              p.unlockResourcesWithVideo !== undefined
+                ? Boolean(p.unlockResourcesWithVideo)
+                : courseDoc.unlockResourcesWithVideo !== false;
+            const nextScope = p.resourceUnlockScope || courseDoc.resourceUnlockScope || "any_video_in_topic";
+
+            await saveCourseWithLessons({
+              courseId,
+              courseData: {
+                ...courseDoc,
+                unlockResourcesWithVideo: nextEnabled,
+                unlockMaterialsWithVideo:
+                  p.unlockMaterialsWithVideo !== undefined
+                    ? Boolean(p.unlockMaterialsWithVideo)
+                    : courseDoc.unlockMaterialsWithVideo !== false,
+                unlockExamsWithVideo:
+                  p.unlockExamsWithVideo !== undefined
+                    ? Boolean(p.unlockExamsWithVideo)
+                    : courseDoc.unlockExamsWithVideo !== false,
+                resourceUnlockScope: nextScope,
+              } as any,
+              lessons: lessonDocs,
+            });
+            toastSuccess(`Đã cập nhật quy tắc mở khóa tài liệu/bài thi cho "${courseDoc.title}"!`);
+            result = {
+              success: true,
+              message: `Đã ${nextEnabled ? "BẬT" : "TẮT"} mở khóa tài liệu/bài thi theo video (phạm vi: ${nextScope}) cho khóa "${courseDoc.title}"`,
+              data: { courseId, unlockResourcesWithVideo: nextEnabled, resourceUnlockScope: nextScope },
+            };
+            break;
+          }
+
+          // 13j. CREATE_MINIGAME
+          case "CREATE_MINIGAME": {
+            const p = act.params || act.payload || {};
+            const createdEvent = await createMinigameApi({
+              title: String(p.title || "Minigame Phúc Lợi DkTEST").trim(),
+              description: String(p.description || "").trim(),
+              gameType: p.gameType || "lucky_wheel",
+              maxParticipants: Math.max(2, Math.min(200, Number(p.maxParticipants) || 32)),
+              racersPerHeat: Math.max(2, Math.min(8, Number(p.racersPerHeat) || 4)),
+              scheduledStartAt: p.scheduledStartAt || null,
+              scheduledEndAt: p.scheduledEndAt || null,
+              durationMinutes: p.durationMinutes ? Number(p.durationMinutes) : null,
+              chatEnabled: p.chatEnabled !== false,
+              prizes:
+                Array.isArray(p.prizes) && p.prizes.length > 0
+                  ? p.prizes
+                  : [{ rank: 0, label: "Người thắng giải", type: "wallet_vnd", amountVnd: 10000 }],
+            });
+            toastSuccess(`Đã tạo Minigame "${createdEvent.title}" (${createdEvent.eventCode})!`);
+            result = {
+              success: true,
+              message: `Đã mở phòng Minigame "${createdEvent.title}" (Mã: ${createdEvent.eventCode})`,
+              data: createdEvent,
+            };
+            break;
+          }
+
+          // 13k. BROADCAST_NOTIFICATION
+          case "BROADCAST_NOTIFICATION": {
+            const p = act.params || act.payload || {};
+            const notifTitle = String(p.title || "Thông báo từ DkTEST").trim();
+            const notifMessage = String(p.message || p.content || "").trim();
+            if (!notifMessage) throw new Error("Thiếu nội dung thông báo cần gửi");
+            await broadcastDeviceNotificationApi({
+              title: notifTitle,
+              message: notifMessage,
+              route: p.route || "/",
+              type: p.type || "system",
+            });
+            toastSuccess(`Đã gửi thông báo toàn hệ thống: "${notifTitle}"`);
+            result = {
+              success: true,
+              message: `Đã phát thông báo "${notifTitle}" tới toàn bộ học sinh`,
+              data: { title: notifTitle, message: notifMessage },
             };
             break;
           }
@@ -1821,6 +2237,14 @@ export default function AdminAIAssistant() {
     setMessages([...nextMessages, initialModelMsg]);
 
     const pageContext = scrapeCurrentPageContext();
+    try {
+      const liveFolders = await loadCachedFolders();
+      if (liveFolders.length > 0) {
+        pageContext.existingFoldersSummary = formatFolderTreeForPrompt(liveFolders);
+      }
+    } catch {
+      // Non-blocking context enrichment
+    }
 
     try {
       const headers: Record<string, string> = { "Content-Type": "application/json" };

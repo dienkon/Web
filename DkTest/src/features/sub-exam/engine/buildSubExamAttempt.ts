@@ -1,6 +1,11 @@
 import { Question, Section } from "../../../types";
 import { SubExamConfig } from "../types/subExam";
 import { shuffleArray, pickRandom } from "../utils/random";
+import {
+  COGNITIVE_LEVEL_ORDER,
+  resolveQuestionCognitiveLevel,
+  type CognitiveLevel,
+} from "../../../utils/cognitiveLevelUtils";
 
 export function buildSubExamAttempt(
   exam: any,
@@ -35,6 +40,39 @@ export function buildSubExamAttempt(
     selectionMode: "by_type",
     ...config,
     enabled: true,
+  };
+
+  // Pre-filter pool by allowed cognitive levels (if user picked specific NB/TH/VD/VDC levels)
+  const allowedLevelsSet =
+    Array.isArray(effectiveConfig.allowedLevels) && effectiveConfig.allowedLevels.length > 0
+      ? new Set<CognitiveLevel>(effectiveConfig.allowedLevels)
+      : null;
+
+  const workingQuestions = allowedLevelsSet
+    ? questions.filter((q) => allowedLevelsSet.has(resolveQuestionCognitiveLevel(q)))
+    : questions;
+
+  const hasExplicitLevelCounts = Boolean(
+    effectiveConfig.levelCounts &&
+      COGNITIVE_LEVEL_ORDER.some(
+        (lv) =>
+          effectiveConfig.levelCounts?.[lv] !== undefined &&
+          Number(effectiveConfig.levelCounts?.[lv]) >= 0
+      )
+  );
+
+  const pickQuestionsByCognitiveLevel = (
+    pool: Question[],
+    levelCounts: Partial<Record<CognitiveLevel, number>>
+  ): Question[] => {
+    const picked: Question[] = [];
+    for (const lv of COGNITIVE_LEVEL_ORDER) {
+      const requested = levelCounts[lv];
+      if (requested === undefined || requested <= 0) continue;
+      const bucket = pool.filter((q) => resolveQuestionCognitiveLevel(q) === lv);
+      picked.push(...pickRandom(bucket, Math.min(Math.trunc(requested), bucket.length)));
+    }
+    return picked;
   };
 
   const targetTotal =
@@ -130,17 +168,61 @@ export function buildSubExamAttempt(
   }
   const chosenSectionIds = new Set(chosenSections.map((s) => s.id));
 
-  const isRandomTotalMode =
-    effectiveConfig.selectionMode === "random_total" ||
-    (targetTotal !== undefined &&
-      !effectiveConfig.sections?.length &&
+  const isByLevelMode =
+    effectiveConfig.selectionMode === "by_level" ||
+    (hasExplicitLevelCounts &&
       effectiveConfig.singleChoiceCount === undefined &&
       effectiveConfig.multipleChoiceCount === undefined &&
       effectiveConfig.trueFalseCount === undefined &&
       effectiveConfig.shortAnswerCount === undefined);
 
-  if (isRandomTotalMode) {
-    const eligiblePool = questions.filter(
+  const isRandomTotalMode =
+    !isByLevelMode &&
+    (effectiveConfig.selectionMode === "random_total" ||
+      (targetTotal !== undefined &&
+        !effectiveConfig.sections?.length &&
+        effectiveConfig.singleChoiceCount === undefined &&
+        effectiveConfig.multipleChoiceCount === undefined &&
+        effectiveConfig.trueFalseCount === undefined &&
+        effectiveConfig.shortAnswerCount === undefined));
+
+  if (isByLevelMode) {
+    const eligiblePool = workingQuestions.filter(
+      (q) => !q.sectionId || chosenSectionIds.has(q.sectionId)
+    );
+    let pickedPool = hasExplicitLevelCounts
+      ? pickQuestionsByCognitiveLevel(eligiblePool, effectiveConfig.levelCounts || {})
+      : eligiblePool;
+    if (targetTotal && targetTotal > 0 && pickedPool.length > targetTotal) {
+      pickedPool = pickRandom(pickedPool, targetTotal);
+    }
+
+    const outsideQs = pickedPool.filter((q) => !q.sectionId);
+    outsideQs.forEach((q) => {
+      candidateBlocks.push({
+        type: "question",
+        id: q.id,
+        order: q.order ?? 0,
+        isPinned: !!q.pinQuestion,
+        question: q,
+      });
+    });
+
+    chosenSections.forEach((sec) => {
+      const secQs = pickedPool.filter((q) => q.sectionId === sec.id);
+      if (secQs.length > 0) {
+        candidateBlocks.push({
+          type: "section",
+          id: sec.id,
+          order: sec.order ?? 0,
+          isPinned: !!sec.pinOrder,
+          section: sec,
+          questions: secQs,
+        });
+      }
+    });
+  } else if (isRandomTotalMode) {
+    const eligiblePool = workingQuestions.filter(
       (q) => !q.sectionId || chosenSectionIds.has(q.sectionId)
     );
     const countToPick = targetTotal ? Math.min(targetTotal, eligiblePool.length) : eligiblePool.length;
@@ -172,7 +254,7 @@ export function buildSubExamAttempt(
     });
   } else if (effectiveConfig.selectionMode === "by_type") {
     // Only pool questions from outside OR from chosen sections
-    const eligiblePool = questions.filter(
+    const eligiblePool = workingQuestions.filter(
       (q) => !q.sectionId || chosenSectionIds.has(q.sectionId)
     );
     let pickedPool = getQuestionsByType(eligiblePool, effectiveConfig);
@@ -209,7 +291,7 @@ export function buildSubExamAttempt(
   } else {
     // selectionMode === "by_section" || "by_section_and_type"
     // 1. Outside / Unsectioned questions
-    const outsideQuestions = questions.filter((q) => !q.sectionId);
+    const outsideQuestions = workingQuestions.filter((q) => !q.sectionId);
     outsideQuestions.forEach((q) => {
       candidateBlocks.push({
         type: "question",
@@ -223,7 +305,7 @@ export function buildSubExamAttempt(
     // 2. Pick questions from each chosen section
     chosenSections.forEach((section) => {
       const sectionConfig = effectiveConfig.sections?.find((s) => s.sectionId === section.id);
-      const sectionQuestions = questions.filter((q) => q.sectionId === section.id);
+      const sectionQuestions = workingQuestions.filter((q) => q.sectionId === section.id);
       let pickedSectionQuestions: Question[] = [];
 
       if (effectiveConfig.selectionMode === "by_section") {

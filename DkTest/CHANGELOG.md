@@ -1,5 +1,32 @@
 # DkTEST changelog
 
+## 2.0.6 — 2026-11-26 (Android versionCode 30)
+
+- **Khóa học — Bật/Tắt (ON/OFF) & Phạm vi mở khóa Tài liệu / Bài thi theo Video (`course.ts`, `courseService.ts`, `server/services/courseService.ts`, `CourseEditor.tsx`, `CourseDetail.tsx`)**:
+  - Thêm công tắc **Bật/Tắt (ON/OFF)** tự động mở khóa tài liệu & bài thi khi học sinh mở khóa video (có thể tách riêng **Tài liệu PDF/Link** và **Bài thi đính kèm**).
+  - Hỗ trợ 5 phạm vi điều kiện: **Mở ít nhất 1 video trong mục (`any_video_in_topic`, mặc định)**, **Đúng bài giảng (`same_lesson`)**, **Toàn bộ chuyên đề (`full_topic`)**, **Toàn bộ chương (`full_chapter`)**, và **Toàn bộ khóa học (`full_course`)**.
+  - Kiểm tra đồng bộ cả client và server (`evaluateServerCourseResourceAccess` trong `getAuthorizedLessonContent`): khi học sinh chỉ có quyền mở tài liệu/bài thi cùng mục mà chưa mở video bài đó, máy chủ **xóa trắng `videoUrl: ""`** để tuyệt đối không rò rỉ đường dẫn video trả phí; đồng thời hiển thị rõ lý do khóa trên trang học viên.
+- **Minigame — Tùy chỉnh thời gian diễn ra, Chat Realtime & 3 trò chơi mới sinh động (`minigame.ts`, `gameLogic.ts`, `minigameAssets.ts`, `minigameService.ts`, `MinigameManagement.tsx`, `StudentMinigame.tsx`)**:
+  - **Tùy chỉnh lịch & thời lượng**: Admin đặt thời gian bắt đầu, hạn chót đăng ký, nút chọn nhanh `5 / 15 / 30 / 60 phút`, thời gian đua/mở kết quả, và có thể chỉnh trực tiếp ngay trong phòng chờ (`PATCH /api/admin/minigames/:id/schedule`) kèm thanh đếm ngược trực tiếp (`MinigameScheduleBanner.tsx`) và kiểm tra hạn đăng ký phía server.
+  - **Chat Realtime trong phòng (`MinigameRealtimeChat.tsx`)**: sử dụng Firebase RTDB (`minigame_chat/$eventId`, 0 Firestore reads) kèm API fallback (`/api/minigames/:id/chat`), hỗ trợ chip gửi nhanh, huy hiệu Admin, và nút bật/tắt chat cho từng phòng.
+  - **Bổ sung 3 trò chơi mới sống động** (nâng tổng số lên 8 Minigame phúc lợi miễn phí 100%): **Vòng Quay Siêu Tốc (`lucky_wheel`, `LuckyWheelStage.tsx`)**, **Lật Thẻ Kho Báu (`treasure_flip`, `TreasureFlipStage.tsx`)**, và **Đập Hộp Bí Ẩn (`mystery_box`, `MysteryBoxStage.tsx`)**, kèm bộ ảnh minh họa 1200×630 mới (`scripts/generate-minigame-banners.js`) và hỗ trợ đầy đủ Bot thử nghiệm & OG Social Metadata.
+- **Thiết kế lại toàn bộ 14 bộ ảnh Preview môn học (`scripts/generate-subject-banners.js`, `public/images/subjects/*`)**:
+  - Chuyển từ nền đen tối nhiều chữ nhỏ sang phong cách tối giản, rực rỡ, độ tương phản cao, màu nhận diện riêng theo từng môn, tiêu đề lớn sắc nét và biểu tượng minh họa trực quan trên nền thẻ trắng để dễ nhận biết ngay cả ở kích thước thumbnail nhỏ trên điện thoại và Zalo.
+- **Kích hoạt trọn vẹn Mức độ nhận thức của đề thi (`NB / TH / VD / VDC`) (`cognitiveLevelUtils.ts`, `QuestionEditor.tsx`, `QuestionCard.tsx`, `QuestionList.tsx`, `buildSubExamAttempt.ts`, `StudentSubExamConfig.tsx`, `ExamIntro.tsx`, `ExamResultCharts.tsx`, `ExamResult.tsx`)**:
+  - Nâng cấp trình soạn câu hỏi sang 4 nút chọn **NB (Nhận biết) / TH (Thông hiểu) / VD (Vận dụng) / VDC (Vận dụng cao)** tự đồng bộ với trường `difficulty` cũ.
+  - Bổ sung thanh **Ma trận mức độ nhận thức** & nút lọc 1 chạm trong trình soạn đề (`QuestionList.tsx`) và trang thông tin đề (`ExamIntro.tsx`).
+  - Nâng cấp bộ tạo Đề thi con (`StudentSubExamConfig.tsx` + `buildSubExamAttempt.ts`) cho phép học sinh/giáo viên lọc theo mức độ nhận thức (`allowedLevels`) hoặc bốc chính xác số lượng câu từng mức `NB / TH / VD / VDC` (`by_level`).
+  - Bổ sung **Biểu đồ & thẻ phân tích năng lực theo NB / TH / VD / VDC** trong `ExamResultCharts.tsx` cùng bộ lọc theo mức độ nhận thức và huy hiệu mức độ trên từng câu ở `ExamResult.tsx`.
+- **Nâng cấp Admin AI Agent thông minh & toàn năng hơn (`folderMatchingUtils.ts`, `folderService.ts`, `aiAdminAssistant.ts`, `AdminAIAssistant.tsx`)**:
+  - Sửa triệt để lỗi tự tạo trùng thư mục khi di chuyển đề thi: thay logic cũ chỉ quét thư mục gốc bằng `findBestExistingFolder` hỗ trợ **tìm cả thư mục con**, khớp không dấu tiếng Việt, lược bỏ từ đệm (`Đề thi`, `Thư mục`, `Kho đề`, `Môn`), khớp môn chuẩn và đường dẫn phân cấp (`"Toán học / Lớp 12"`). Mặc định `MOVE_EXAM` / `MOVE_EXAMS_TO_FOLDER` chỉ chuyển vào thư mục hiện có (không tự tạo mới trừ khi yêu cầu `createIfMissing: true`).
+  - Tự động nạp **Cây thư mục hiện có (kèm ID & đường dẫn)** vào ngữ cảnh trước mỗi câu lệnh AI.
+  - Mở rộng 10 hành động tự trị mới: `LIST_FOLDERS`, `RENAME_FOLDER` / `UPDATE_FOLDER`, `DELETE_FOLDER`, `LIST_EXAMS`, `BULK_UPDATE_EXAMS`, `SET_EXAM_COGNITIVE_LEVELS`, `UPDATE_COURSE_UNLOCK_POLICY`, `CREATE_MINIGAME`, `BROADCAST_NOTIFICATION`, cùng khả năng tìm đề theo tên/từ khóa mà không cần nhập ID thủ công.
+- **Ép buộc cập nhật phiên bản mới, sửa lỗi xung đột gói Android APK & giữ đăng nhập xuyên suốt khi cập nhật (`appUpdateService.ts`, `AppUpdateController.tsx`, `userSessionPersistence.ts`, `AuthContext.tsx`, `OfflineState.java`, `OfflineSyncPlugin.java`, `android/app/build.gradle`, `scripts/build-android.ps1`, `.github/workflows/dktest-android-release.yml`)**:
+  - **Force Update bắt buộc**: loại bỏ nút đóng/bỏ qua trên hộp thoại cập nhật cho cả **Android APK** lẫn **Web/PWA**; trên Web làm mới CacheStorage & Service Worker an toàn mà **tuyệt đối không xóa `localStorage`/`IndexedDB` chứa phiên đăng nhập**.
+  - **Sửa lỗi xung đột gói khi cập nhật APK Android**: cấu hình chữ ký ổn định (`signingConfigs.dktestPersistent`) đọc từ biến môi trường / GitHub Secret `DKTEST_ANDROID_KEYSTORE_B64` (kèm fallback `actions/cache@v4` tự lưu 1 khóa ký duy nhất giữa các lần build CI và khóa cục bộ ngoài repo ở `scripts/build-android.ps1`), chấm dứt tình trạng mỗi lần CI sinh một khóa debug ngẫu nhiên khác nhau.
+  - **Lưu phiên đăng nhập 3 tầng trên thiết bị**: đồng bộ hồ sơ người dùng vào `localStorage` + `IndexedDB` + tệp mã hóa **AES-256-GCM (Android Keystore)** (`user-profile-snapshot.json`) và chủ động lưu phiên native ngay khi đăng nhập; chỉ xóa khi người dùng bấm Đăng xuất.
+- Audit: [2.0.6](docs/audits/2.0.6.md).
+
 ## 2.0.5 — 2026-11-26 (Android versionCode 29)
 
 - **Sửa triệt để lỗi câu hỏi Nối bảng (`matching`) không hiển thị / bị khóa / bị mất dữ liệu ở phần chỉnh sửa & xem trước**:

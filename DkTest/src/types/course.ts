@@ -3,6 +3,12 @@ export type CourseAccessMode = "free" | "per_video" | "paid";
 export type CourseUnlockFullPolicy = "unlock_all_videos" | "unlock_course_only";
 export type CourseLessonAccessType = "inherit_first_n" | "free" | "paid";
 export type CourseVideoType = "youtube" | "mp4" | "cloudinary" | "iframe";
+export type CourseResourceUnlockScope =
+  | "any_video_in_topic"
+  | "same_lesson"
+  | "full_topic"
+  | "full_chapter"
+  | "full_course";
 
 export interface CourseChapter {
   id: string;
@@ -94,6 +100,12 @@ export interface Course {
   unlockFullPolicy: CourseUnlockFullPolicy;
   freePreviewCount: number; // Number of initial videos free for preview (0+)
   allowSingleLessonPurchase: boolean; // Allow buying individual paid video lessons
+
+  // Resource (Materials & Linked Exams) Unlock Policy when student unlocks video(s)
+  unlockResourcesWithVideo?: boolean; // Default true (ON)
+  unlockMaterialsWithVideo?: boolean; // Default true (when unlockResourcesWithVideo is ON)
+  unlockExamsWithVideo?: boolean; // Default true (when unlockResourcesWithVideo is ON)
+  resourceUnlockScope?: CourseResourceUnlockScope; // Default "any_video_in_topic"
 
   // Public Curriculum Metadata (no video URLs)
   chapters: CourseChapter[];

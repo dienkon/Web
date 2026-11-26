@@ -17,6 +17,12 @@ import QuestionTypeSelector from "./QuestionTypeSelector";
 import { useState, useMemo } from "react";
 import { QuestionType } from "../../../types";
 import { buildSectionTree } from "../../../utils/sectionTree";
+import {
+  COGNITIVE_LEVEL_META,
+  computeCognitiveLevelDistribution,
+  resolveQuestionCognitiveLevel,
+  type CognitiveLevel,
+} from "../../../utils/cognitiveLevelUtils";
 
 export default function QuestionList() {
   const { state, actions } = useExamEditorContext();
@@ -24,16 +30,27 @@ export default function QuestionList() {
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedTypeFilter, setSelectedTypeFilter] = useState<string>("all");
   const [selectedSectionFilter, setSelectedSectionFilter] = useState<string>("all");
+  const [selectedLevelFilter, setSelectedLevelFilter] = useState<string>("all");
 
   // Filter questions according to search & filter criteria
   const isFiltering =
     searchQuery.trim() !== "" ||
     selectedTypeFilter !== "all" ||
-    selectedSectionFilter !== "all";
+    selectedSectionFilter !== "all" ||
+    selectedLevelFilter !== "all";
+
+  const levelDistribution = useMemo(
+    () => computeCognitiveLevelDistribution(state.questions),
+    [state.questions]
+  );
 
   const matchesQuestion = (q: any) => {
     // Type filter
     if (selectedTypeFilter !== "all" && q.type !== selectedTypeFilter) {
+      return false;
+    }
+    // Cognitive level filter
+    if (selectedLevelFilter !== "all" && resolveQuestionCognitiveLevel(q) !== selectedLevelFilter) {
       return false;
     }
     // Section filter
@@ -63,7 +80,7 @@ export default function QuestionList() {
 
   const matchingQuestions = useMemo(() => {
     return state.questions.filter(matchesQuestion);
-  }, [state.questions, searchQuery, selectedTypeFilter, selectedSectionFilter]);
+  }, [state.questions, searchQuery, selectedTypeFilter, selectedSectionFilter, selectedLevelFilter]);
 
   const sectionTree = useMemo(() => {
     return buildSectionTree(state.sections, state.questions);
@@ -78,12 +95,49 @@ export default function QuestionList() {
     setSearchQuery("");
     setSelectedTypeFilter("all");
     setSelectedSectionFilter("all");
+    setSelectedLevelFilter("all");
   };
 
   return (
     <div className="space-y-6">
       {/* Search & Filter Bar */}
       <div className="bg-white p-4 rounded-2xl border border-slate-200 shadow-2xs space-y-3">
+        {/* Cognitive Level Matrix & One-Click Filter Pills */}
+        {state.questions.length > 0 && (
+          <div className="flex flex-wrap items-center gap-1.5 pb-2.5 border-b border-slate-100">
+            <span className="text-[11px] font-black text-slate-500 uppercase tracking-wider mr-1">
+              Ma trận nhận thức:
+            </span>
+            <button
+              type="button"
+              onClick={() => setSelectedLevelFilter("all")}
+              className={`px-2.5 py-1 rounded-lg text-[11px] font-bold border transition-all cursor-pointer ${
+                selectedLevelFilter === "all"
+                  ? "bg-slate-900 text-white border-slate-900"
+                  : "bg-slate-50 text-slate-600 border-slate-200 hover:bg-slate-100"
+              }`}
+            >
+              Tất cả ({state.questions.length})
+            </button>
+            {levelDistribution.map((row) => {
+              const meta = COGNITIVE_LEVEL_META[row.level as CognitiveLevel];
+              const active = selectedLevelFilter === row.level;
+              return (
+                <button
+                  key={row.level}
+                  type="button"
+                  onClick={() => setSelectedLevelFilter(active ? "all" : row.level)}
+                  className={`px-2.5 py-1 rounded-lg text-[11px] font-bold border transition-all cursor-pointer ${
+                    active ? meta.activePillClass : `${meta.badgeClass} hover:opacity-85`
+                  }`}
+                >
+                  {meta.shortLabel} ({row.label}): {row.count} ({row.pct}%)
+                </button>
+              );
+            })}
+          </div>
+        )}
+
         <div className="flex flex-col sm:flex-row items-center gap-3">
           {/* Search Input */}
           <div className="relative flex-1 w-full">
