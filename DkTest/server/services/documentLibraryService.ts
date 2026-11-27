@@ -24,7 +24,8 @@ import {
 import { validateUrlForSsrf } from "./webImporter/ssrfGuard.js";
 import {
   expandCompactSeedDocument,
-  type CompactSeedDocument,
+  expandCompactSeedFolder,
+  expandSeedUrl,
   type DocumentAccessCheckResult,
   type DocumentAuthorizedContent,
   type DocumentCategoryKey,
@@ -33,14 +34,20 @@ import {
   type DocumentGradeKey,
   type DocumentLibrarySettings,
   type DocumentSeedBundle,
+  type DocumentSourceKey,
+  type DocumentSpaceKey,
   type DocumentStatus,
+  type DocumentSubFile,
   type DocumentSubjectKey,
+  type FolderAccentColor,
   type LibraryDocument,
+  type LibraryFolder,
 } from "../../src/types/documentLibrary.js";
 import type { StudentWallet, Voucher, VoucherUsage, WalletTransaction } from "../../src/types/index.js";
 
 const SETTINGS_COLLECTION = "system_settings";
 const SETTINGS_DOC_ID = "document_library_config";
+const FOLDERS_COLLECTION = "library_folders";
 const DOCS_COLLECTION = "library_documents";
 const SECRETS_COLLECTION = "library_document_secrets";
 const ENTITLEMENTS_COLLECTION = "library_entitlements";
@@ -48,22 +55,71 @@ const ENTITLEMENTS_COLLECTION = "library_entitlements";
 const LIVE_DOCS_TTL_MS = 45 * 1000;
 const SETTINGS_TTL_MS = 60 * 1000;
 const MAX_PROXY_BYTES = 44 * 1024 * 1024; // 44 MB serverless-safe ceiling
+const MAX_FOLDER_DEPTH = 6;
 
 let cachedLiveDocs: { items: LibraryDocument[]; timestamp: number } | null = null;
+let cachedLiveFolders: { items: LibraryFolder[]; timestamp: number } | null = null;
 let cachedSettings: { data: DocumentLibrarySettings; timestamp: number } | null = null;
-let cachedSeedMap: Map<string, LibraryDocument> | null = null;
+let cachedSeedBundle: {
+  docs: Map<string, LibraryDocument>;
+  folders: Map<string, LibraryFolder>;
+} | null = null;
+let cachedSeedPacks: Record<
+  string,
+  Array<{ n: string; u: string; f: DocumentFileFormat; p?: string }>
+> | null = null;
+
+function loadSeedPacksCache(): Record<
+  string,
+  Array<{ n: string; u: string; f: DocumentFileFormat; p?: string }>
+> {
+  if (cachedSeedPacks) return cachedSeedPacks;
+  const candidates = [
+    path.join(process.cwd(), "public", "data", "document-library-packs.json"),
+    path.join(process.cwd(), "dist", "data", "document-library-packs.json"),
+  ];
+  for (const filePath of candidates) {
+    if (!fs.existsSync(filePath)) continue;
+    try {
+      cachedSeedPacks = JSON.parse(fs.readFileSync(filePath, "utf8")) || {};
+      return cachedSeedPacks!;
+    } catch {}
+  }
+  cachedSeedPacks = {};
+  return cachedSeedPacks;
+}
+
+function hydrateSeedDocPack(doc: LibraryDocument | null): LibraryDocument | null {
+  if (!doc) return null;
+  if (doc.subFiles && doc.subFiles.length > 0) return doc;
+  if (!doc.subFileCount || doc.subFileCount <= 1) return doc;
+  const rawPack = loadSeedPacksCache()[doc.id];
+  if (!Array.isArray(rawPack) || rawPack.length === 0) return doc;
+  const subFiles: DocumentSubFile[] = rawPack.map((sf) => ({
+    name: sf.n,
+    url: expandSeedUrl(sf.u) || sf.u,
+    fileFormat: sf.f,
+    ...(sf.p ? { folderPath: sf.p } : {}),
+  }));
+  return { ...doc, subFiles };
+}
 
 export function invalidateDocumentLibraryCache(): void {
   cachedLiveDocs = null;
+  cachedLiveFolders = null;
 }
 
 export function invalidateDocumentSettingsCache(): void {
   cachedSettings = null;
 }
 
-function loadSeedDocumentsMap(): Map<string, LibraryDocument> {
-  if (cachedSeedMap) return cachedSeedMap;
-  const map = new Map<string, LibraryDocument>();
+function loadSeedBundleCache(): {
+  docs: Map<string, LibraryDocument>;
+  folders: Map<string, LibraryFolder>;
+} {
+  if (cachedSeedBundle) return cachedSeedBundle;
+  const docs = new Map<string, LibraryDocument>();
+  const folders = new Map<string, LibraryFolder>();
   const candidates = [
     path.join(process.cwd(), "public", "data", "document-library-seed.json"),
     path.join(process.cwd(), "dist", "data", "document-library-seed.json"),
@@ -73,10 +129,17 @@ function loadSeedDocumentsMap(): Map<string, LibraryDocument> {
     try {
       const raw = fs.readFileSync(filePath, "utf8");
       const parsed = JSON.parse(raw) as DocumentSeedBundle;
+      if (Array.isArray(parsed?.folders)) {
+        for (const f of parsed.folders) {
+          if (f?.id) {
+            folders.set(f.id, expandCompactSeedFolder(f));
+          }
+        }
+      }
       if (Array.isArray(parsed?.items)) {
         for (const item of parsed.items) {
           if (item?.id) {
-            map.set(item.id, expandCompactSeedDocument(item));
+            docs.set(item.id, expandCompactSeedDocument(item));
           }
         }
         break;
@@ -85,14 +148,20 @@ function loadSeedDocumentsMap(): Map<string, LibraryDocument> {
       console.warn("[documentLibraryService] Failed to parse seed JSON:", err);
     }
   }
-  cachedSeedMap = map;
-  return map;
+  cachedSeedBundle = { docs, folders };
+  return cachedSeedBundle;
 }
 
 export function getSeedDocumentById(docId: string): LibraryDocument | null {
   const clean = String(docId || "").trim();
   if (!clean) return null;
-  return loadSeedDocumentsMap().get(clean) || null;
+  return hydrateSeedDocPack(loadSeedBundleCache().docs.get(clean) || null);
+}
+
+export function getSeedFolderById(folderId: string): LibraryFolder | null {
+  const clean = String(folderId || "").trim();
+  if (!clean) return null;
+  return loadSeedBundleCache().folders.get(clean) || null;
 }
 
 export async function getDocumentLibrarySettings(
@@ -175,6 +244,36 @@ export async function updateDocumentLibrarySettings(
   return next;
 }
 
+// ============================================================================
+// Schemas
+// ============================================================================
+const gradeEnum = z.enum([
+  "thcs",
+  "grade_10",
+  "grade_11",
+  "grade_12",
+  "thpt_qg",
+  "dgnl_dgtd",
+  "general",
+]);
+
+const subjectEnum = z.enum([
+  "math",
+  "literature",
+  "english",
+  "physics",
+  "chemistry",
+  "biology",
+  "history",
+  "geography",
+  "civics",
+  "informatics",
+  "technology",
+  "foreign_other",
+  "aptitude",
+  "multi_subject",
+]);
+
 const subFileSchema = z.object({
   name: z.string().trim().min(1).max(160),
   url: z.string().trim().url().max(2048),
@@ -184,37 +283,38 @@ const subFileSchema = z.object({
   folderPath: z.string().trim().max(160).optional(),
 });
 
+export const upsertFolderSchema = z.object({
+  id: z.string().trim().min(3).max(96).optional(),
+  name: z.string().trim().min(2, "Tên thư mục phải có ít nhất 2 ký tự.").max(140),
+  description: z.string().trim().max(600).optional().default(""),
+  parentId: z.string().trim().max(96).nullable().optional().default(null),
+  space: z.enum(["dktest_exclusive", "community", "sources"]).optional(),
+  grade: gradeEnum.optional(),
+  subject: subjectEnum.optional(),
+  iconColor: z
+    .enum(["teal", "blue", "indigo", "amber", "rose", "emerald", "purple", "slate"])
+    .optional()
+    .default("teal"),
+  coverImageUrl: z.string().trim().url().max(2048).nullable().optional(),
+  isPinned: z.boolean().optional(),
+  sortOrder: z.number().int().min(0).max(9999).optional(),
+  status: z.enum(["published", "hidden"]).optional(),
+});
+
 export const upsertDocumentSchema = z.object({
   id: z.string().trim().min(3).max(96).optional(),
   title: z.string().trim().min(3, "Tiêu đề phải có ít nhất 3 ký tự.").max(220),
   description: z.string().trim().max(2000).optional().default(""),
-  grade: z
-    .enum(["grade_10", "grade_11", "grade_12", "thpt_qg", "dgnl_dgtd", "general"])
-    .default("grade_12"),
-  subject: z
-    .enum([
-      "math",
-      "literature",
-      "english",
-      "physics",
-      "chemistry",
-      "biology",
-      "history",
-      "geography",
-      "civics",
-      "informatics",
-      "technology",
-      "foreign_other",
-      "aptitude",
-      "multi_subject",
-    ])
-    .default("math"),
+  grade: gradeEnum.default("grade_12"),
+  subject: subjectEnum.default("math"),
   category: z
     .enum(["exam_test", "ebook_book", "topic_guide", "formula_handbook", "folder_pack"])
     .default("exam_test"),
   fileFormat: z
     .enum(["pdf", "docx", "doc", "pptx", "xlsx", "zip", "folder", "sheet", "other"])
     .default("pdf"),
+  folderId: z.string().trim().max(96).nullable().optional(),
+  space: z.enum(["dktest_exclusive", "community", "sources"]).optional(),
   pageCount: z.number().int().min(0).max(5000).optional(),
   fileSizeBytes: z.number().int().min(0).max(1024 * 1024 * 500).optional(),
   coverImageUrl: z.string().trim().url().max(2048).nullable().optional(),
@@ -227,7 +327,7 @@ export const upsertDocumentSchema = z.object({
   originalFileName: z.string().trim().max(200).optional(),
   answerUrl: z.string().trim().max(2048).optional(),
   videoUrl: z.string().trim().max(2048).optional(),
-  subFiles: z.array(subFileSchema).max(40).optional(),
+  subFiles: z.array(subFileSchema).max(120).optional(),
   tags: z.array(z.string().trim().max(48)).max(12).optional().default([]),
   isFeatured: z.boolean().optional(),
   status: z.enum(["published", "pending", "rejected", "hidden"]).optional(),
@@ -244,10 +344,298 @@ function sanitizePublicDocument(doc: LibraryDocument): LibraryDocument {
   return copy;
 }
 
-/**
- * Fetches live Firestore documents (Admin uploads, User community uploads, and Admin overrides on seed items).
- * Cached in server RAM for 45s to guarantee near-zero Firestore read consumption.
- */
+// ============================================================================
+// Hierarchical Folder Operations (0 extra reads via 45s RAM cache)
+// ============================================================================
+export async function getLiveLibraryFolders(
+  options: { includeHidden?: boolean; forceRefresh?: boolean } = {}
+): Promise<LibraryFolder[]> {
+  if (
+    !options.forceRefresh &&
+    cachedLiveFolders &&
+    Date.now() - cachedLiveFolders.timestamp < LIVE_DOCS_TTL_MS
+  ) {
+    const all = cachedLiveFolders.items;
+    return options.includeHidden ? all : all.filter((f) => f.status !== "hidden");
+  }
+
+  let list: LibraryFolder[] = [];
+  if (adminDb) {
+    try {
+      const snap = await adminDb
+        .collection(FOLDERS_COLLECTION)
+        .orderBy("updatedAt", "desc")
+        .limit(500)
+        .get();
+      list = snap.docs.map((d) => ({ id: d.id, ...(d.data() as any) }));
+    } catch {
+      const snap = await adminDb.collection(FOLDERS_COLLECTION).limit(500).get();
+      list = snap.docs.map((d) => ({ id: d.id, ...(d.data() as any) }));
+      list.sort((a, b) => String(b.updatedAt || "").localeCompare(String(a.updatedAt || "")));
+    }
+  } else {
+    const docs = await getFirestoreRestDocs(FOLDERS_COLLECTION, 400, true);
+    list = (docs || []).map((d: any) => ({ id: d.id, ...d }));
+    list.sort((a, b) => String(b.updatedAt || "").localeCompare(String(a.updatedAt || "")));
+  }
+
+  cachedLiveFolders = { items: list, timestamp: Date.now() };
+  return options.includeHidden ? list : list.filter((f) => f.status !== "hidden");
+}
+
+export async function getFolderByIdResolved(folderId: string): Promise<LibraryFolder | null> {
+  const cleanId = String(folderId || "").trim();
+  if (!cleanId) return null;
+
+  let liveFolder: LibraryFolder | null = null;
+  if (adminDb) {
+    const snap = await adminDb.collection(FOLDERS_COLLECTION).doc(cleanId).get();
+    if (snap.exists) {
+      liveFolder = { id: snap.id, ...(snap.data() as any) };
+    }
+  } else {
+    const rest = await getFirestoreRestDoc(FOLDERS_COLLECTION, cleanId);
+    if (rest) {
+      liveFolder = { id: cleanId, ...(rest as any) };
+    }
+  }
+  if (liveFolder) return liveFolder;
+
+  return getSeedFolderById(cleanId);
+}
+
+export async function getMyLibraryFolders(uid: string): Promise<LibraryFolder[]> {
+  const cleanUid = String(uid || "").trim();
+  if (!cleanUid) return [];
+  const all = await getLiveLibraryFolders({ includeHidden: true });
+  return all.filter((f) => f.ownerUid === cleanUid);
+}
+
+async function assertValidParentChain(
+  folderId: string,
+  parentId: string | null
+): Promise<{ parentFolder: LibraryFolder | null; depth: number }> {
+  if (!parentId) return { parentFolder: null, depth: 0 };
+  if (parentId === folderId) {
+    throw new Error("Không thể đặt thư mục làm thư mục con của chính nó.");
+  }
+
+  const firstParent = await getFolderByIdResolved(parentId);
+  if (!firstParent || firstParent.status === "hidden") {
+    throw new Error("Thư mục cha không tồn tại hoặc đã bị ẩn.");
+  }
+
+  let cur: LibraryFolder | null = firstParent;
+  let depth = 1;
+  const visited = new Set<string>([folderId]);
+
+  while (cur) {
+    if (visited.has(cur.id)) {
+      throw new Error("Phát hiện vòng lặp phân cấp thư mục không hợp lệ.");
+    }
+    visited.add(cur.id);
+    if (depth >= MAX_FOLDER_DEPTH) {
+      throw new Error(`Cây thư mục hỗ trợ tối đa ${MAX_FOLDER_DEPTH} cấp phân nhánh.`);
+    }
+    if (!cur.parentId) break;
+    cur = await getFolderByIdResolved(cur.parentId);
+    depth++;
+  }
+
+  return { parentFolder: firstParent, depth };
+}
+
+export async function createOrUpdateLibraryFolder(
+  actor: { uid: string; displayName?: string; email?: string; role: string },
+  rawInput: unknown
+): Promise<LibraryFolder> {
+  const parsed = upsertFolderSchema.parse(rawInput);
+  const isAdmin = actor.role === "admin" || actor.role === "super_admin";
+
+  const existingId = parsed.id?.trim();
+  let existingFolder: LibraryFolder | null = null;
+
+  if (existingId) {
+    existingFolder = await getFolderByIdResolved(existingId);
+    if (existingFolder) {
+      if (!isAdmin && existingFolder.ownerUid !== actor.uid) {
+        throw new Error("Bạn chỉ có quyền chỉnh sửa thư mục do chính mình tạo.");
+      }
+      if (!isAdmin && existingFolder.ownerRole === "seed") {
+        throw new Error("Chỉ Quản trị viên mới có thể chỉnh sửa thư mục nguồn gốc.");
+      }
+    }
+  }
+
+  const folderId =
+    existingId || `lfold_${Date.now()}_${crypto.randomBytes(3).toString("hex")}`;
+  const cleanParentId = parsed.parentId?.trim() || null;
+
+  const { parentFolder } = await assertValidParentChain(folderId, cleanParentId);
+
+  // Enforce ownership boundary for non-admin contributors
+  if (!isAdmin && parentFolder) {
+    if (parentFolder.ownerUid !== actor.uid) {
+      throw new Error("Bạn chỉ có thể tạo thư mục con bên trong thư mục của chính mình.");
+    }
+  }
+
+  let resolvedSpace: DocumentSpaceKey = "community";
+  let resolvedSourceKey: DocumentSourceKey = "community";
+
+  if (parentFolder) {
+    resolvedSpace = parentFolder.space;
+    resolvedSourceKey =
+      parentFolder.sourceKey ||
+      (parentFolder.space === "dktest_exclusive" ? "dktest" : "community");
+  } else if (isAdmin) {
+    resolvedSpace = parsed.space || existingFolder?.space || "dktest_exclusive";
+    resolvedSourceKey =
+      resolvedSpace === "dktest_exclusive"
+        ? "dktest"
+        : resolvedSpace === "sources"
+        ? existingFolder?.sourceKey || "nhdt"
+        : "community";
+  }
+
+  const now = new Date().toISOString();
+  const ownerName =
+    existingFolder?.ownerName && existingFolder.ownerRole !== "seed"
+      ? existingFolder.ownerName
+      : actor.displayName ||
+        actor.email?.split("@")[0] ||
+        (isAdmin ? "Ban Quản Trị DkTEST" : "Thành viên DkTEST");
+
+  const folderDoc: LibraryFolder = {
+    id: folderId,
+    name: parsed.name.trim(),
+    description: parsed.description?.trim() || "",
+    parentId: cleanParentId,
+    space: resolvedSpace,
+    sourceKey: resolvedSourceKey,
+    ...(parsed.grade ? { grade: parsed.grade } : existingFolder?.grade ? { grade: existingFolder.grade } : {}),
+    ...(parsed.subject ? { subject: parsed.subject } : existingFolder?.subject ? { subject: existingFolder.subject } : {}),
+    iconColor: (parsed.iconColor || existingFolder?.iconColor || "teal") as FolderAccentColor,
+    coverImageUrl:
+      parsed.coverImageUrl !== undefined
+        ? parsed.coverImageUrl
+        : existingFolder?.coverImageUrl || null,
+    ownerUid: existingFolder?.ownerUid || actor.uid,
+    ownerName,
+    ownerRole:
+      existingFolder?.ownerRole && existingFolder.ownerRole !== "seed"
+        ? existingFolder.ownerRole
+        : isAdmin
+        ? "admin"
+        : "community",
+    status: isAdmin ? parsed.status || existingFolder?.status || "published" : "published",
+    isPinned: isAdmin ? parsed.isPinned ?? existingFolder?.isPinned ?? false : false,
+    sortOrder: parsed.sortOrder ?? existingFolder?.sortOrder ?? 50,
+    createdAt: existingFolder?.createdAt || now,
+    updatedAt: now,
+  };
+
+  if (adminDb) {
+    await adminDb.collection(FOLDERS_COLLECTION).doc(folderId).set(folderDoc);
+  } else {
+    await setFirestoreRestDoc(FOLDERS_COLLECTION, folderId, folderDoc);
+  }
+
+  invalidateDocumentLibraryCache();
+  return folderDoc;
+}
+
+export async function deleteLibraryFolder(
+  actor: { uid: string; role: string },
+  folderId: string
+): Promise<{ deleted: boolean; hiddenSeed?: boolean; reparentedDocs: number; reparentedFolders: number }> {
+  const cleanId = String(folderId || "").trim();
+  if (!cleanId) throw new Error("Mã thư mục không hợp lệ.");
+
+  const isAdmin = actor.role === "admin" || actor.role === "super_admin";
+  const existing = await getFolderByIdResolved(cleanId);
+  if (!existing) throw new Error("Không tìm thấy thư mục.");
+
+  if (!isAdmin && existing.ownerUid !== actor.uid) {
+    throw new Error("Bạn không có quyền xóa thư mục này.");
+  }
+
+  const isSeed = Boolean(getSeedFolderById(cleanId));
+  if (isSeed) {
+    if (!isAdmin) throw new Error("Không thể xóa thư mục gốc của hệ thống.");
+    const hiddenOverride: LibraryFolder = {
+      ...existing,
+      status: "hidden",
+      updatedAt: new Date().toISOString(),
+    };
+    if (adminDb) {
+      await adminDb.collection(FOLDERS_COLLECTION).doc(cleanId).set(hiddenOverride, { merge: true });
+    } else {
+      await setFirestoreRestDoc(FOLDERS_COLLECTION, cleanId, hiddenOverride);
+    }
+    invalidateDocumentLibraryCache();
+    return { deleted: true, hiddenSeed: true, reparentedDocs: 0, reparentedFolders: 0 };
+  }
+
+  const fallbackParentId = existing.parentId ?? null;
+  const now = new Date().toISOString();
+
+  // Safely re-parent direct child folders and live documents so no uploaded files are orphaned
+  const [liveFolders, liveDocs] = await Promise.all([
+    getLiveLibraryFolders({ includeHidden: true, forceRefresh: true }),
+    getLiveLibraryDocuments({ includeNonPublished: true, forceRefresh: true }),
+  ]);
+
+  const childFolders = liveFolders.filter((f) => f.parentId === cleanId);
+  const childDocs = liveDocs.filter((d) => d.folderId === cleanId);
+
+  if (adminDb) {
+    const batch = adminDb.batch();
+    for (const cf of childFolders) {
+      batch.set(
+        adminDb.collection(FOLDERS_COLLECTION).doc(cf.id),
+        { parentId: fallbackParentId, updatedAt: now },
+        { merge: true }
+      );
+    }
+    for (const cd of childDocs) {
+      batch.set(
+        adminDb.collection(DOCS_COLLECTION).doc(cd.id),
+        { folderId: fallbackParentId, updatedAt: now },
+        { merge: true }
+      );
+    }
+    batch.delete(adminDb.collection(FOLDERS_COLLECTION).doc(cleanId));
+    await batch.commit();
+  } else {
+    for (const cf of childFolders) {
+      await setFirestoreRestDoc(FOLDERS_COLLECTION, cf.id, {
+        ...cf,
+        parentId: fallbackParentId,
+        updatedAt: now,
+      });
+    }
+    for (const cd of childDocs) {
+      await setFirestoreRestDoc(DOCS_COLLECTION, cd.id, {
+        ...cd,
+        folderId: fallbackParentId,
+        updatedAt: now,
+      });
+    }
+    await deleteFirestoreRestDoc(FOLDERS_COLLECTION, cleanId);
+  }
+
+  invalidateDocumentLibraryCache();
+  return {
+    deleted: true,
+    reparentedDocs: childDocs.length,
+    reparentedFolders: childFolders.length,
+  };
+}
+
+// ============================================================================
+// Live Documents & Contributor Operations
+// ============================================================================
 export async function getLiveLibraryDocuments(
   options: { includeNonPublished?: boolean; forceRefresh?: boolean } = {}
 ): Promise<LibraryDocument[]> {
@@ -292,7 +680,6 @@ export async function getDocumentByIdResolved(docId: string): Promise<LibraryDoc
   const cleanId = String(docId || "").trim();
   if (!cleanId) return null;
 
-  // Check live Firestore first (covers new uploads + admin overrides on seed items)
   let liveDoc: LibraryDocument | null = null;
   if (adminDb) {
     const snap = await adminDb.collection(DOCS_COLLECTION).doc(cleanId).get();
@@ -307,7 +694,6 @@ export async function getDocumentByIdResolved(docId: string): Promise<LibraryDoc
   }
   if (liveDoc) return liveDoc;
 
-  // Fallback to seed repository (0 Firestore reads)
   return getSeedDocumentById(cleanId);
 }
 
@@ -379,9 +765,22 @@ export async function createOrUpdateLibraryDocument(
     throw new Error("Vui lòng tải tệp tài liệu lên Cloudinary hoặc nhập đường dẫn hợp lệ.");
   }
 
-  // Validate fileUrl against SSRF / malicious protocols
   if (!/^https:\/\/res\.cloudinary\.com\//i.test(resolvedFileUrl)) {
     await validateUrlForSsrf(resolvedFileUrl);
+  }
+
+  // Validate optional folder assignment
+  const requestedFolderId =
+    parsed.folderId !== undefined ? parsed.folderId?.trim() || null : existingDoc?.folderId ?? null;
+  let targetFolder: LibraryFolder | null = null;
+  if (requestedFolderId) {
+    targetFolder = await getFolderByIdResolved(requestedFolderId);
+    if (!targetFolder || targetFolder.status === "hidden") {
+      throw new Error("Thư mục lưu trữ không tồn tại hoặc đã bị ẩn.");
+    }
+    if (!isAdmin && targetFolder.ownerUid !== actor.uid) {
+      throw new Error("Bạn chỉ có thể đăng tài liệu vào thư mục của chính mình.");
+    }
   }
 
   const accessMode = parsed.accessMode === "paid" && parsed.priceVnd > 0 ? "paid" : "free";
@@ -399,8 +798,7 @@ export async function createOrUpdateLibraryDocument(
 
   const now = new Date().toISOString();
   const docId =
-    existingId ||
-    `ldoc_${Date.now()}_${crypto.randomBytes(3).toString("hex")}`;
+    existingId || `ldoc_${Date.now()}_${crypto.randomBytes(3).toString("hex")}`;
 
   let nextStatus: DocumentStatus = "published";
   if (isAdmin) {
@@ -409,22 +807,49 @@ export async function createOrUpdateLibraryDocument(
     nextStatus = settings.autoApproveUserUploads ? "published" : "pending";
   }
 
-  const cleanAnswerUrl = parsed.answerUrl?.trim() || existingSecrets?.answerUrl || existingDoc?.answerUrl || undefined;
-  const cleanVideoUrl = parsed.videoUrl?.trim() || existingSecrets?.videoUrl || existingDoc?.videoUrl || undefined;
-  const cleanSubFiles = parsed.subFiles || existingSecrets?.subFiles || existingDoc?.subFiles || undefined;
+  const cleanAnswerUrl =
+    parsed.answerUrl !== undefined
+      ? parsed.answerUrl.trim() || undefined
+      : existingSecrets?.answerUrl || existingDoc?.answerUrl || undefined;
+  const cleanVideoUrl =
+    parsed.videoUrl !== undefined
+      ? parsed.videoUrl.trim() || undefined
+      : existingSecrets?.videoUrl || existingDoc?.videoUrl || undefined;
+  const cleanSubFiles =
+    parsed.subFiles !== undefined
+      ? parsed.subFiles
+      : existingSecrets?.subFiles || existingDoc?.subFiles || undefined;
   const cleanOriginalFileName =
-    parsed.originalFileName?.trim() || existingSecrets?.originalFileName || existingDoc?.originalFileName || undefined;
+    parsed.originalFileName?.trim() ||
+    existingSecrets?.originalFileName ||
+    existingDoc?.originalFileName ||
+    undefined;
 
-  const authorRole = existingDoc?.authorRole && existingDoc.authorRole !== "seed"
-    ? existingDoc.authorRole
-    : isAdmin
-    ? "admin"
-    : "community";
+  const authorRole =
+    existingDoc?.authorRole && existingDoc.authorRole !== "seed"
+      ? existingDoc.authorRole
+      : isAdmin
+      ? "admin"
+      : "community";
 
   const authorName =
     existingDoc?.authorName && existingDoc.authorRole !== "seed"
       ? existingDoc.authorName
-      : actor.displayName || actor.email?.split("@")[0] || (isAdmin ? "Ban Quản Trị DkTEST" : "Thành viên DkTEST");
+      : actor.displayName ||
+        actor.email?.split("@")[0] ||
+        (isAdmin ? "Ban Quản Trị DkTEST" : "Thành viên DkTEST");
+
+  const resolvedSpace: DocumentSpaceKey = targetFolder
+    ? targetFolder.space
+    : isAdmin
+    ? parsed.space || existingDoc?.space || "dktest_exclusive"
+    : "community";
+
+  const resolvedSourceKey: DocumentSourceKey = targetFolder?.sourceKey
+    ? targetFolder.sourceKey
+    : resolvedSpace === "dktest_exclusive"
+    ? "dktest"
+    : existingDoc?.sourceKey || "community";
 
   const fullDoc: LibraryDocument = {
     id: docId,
@@ -436,8 +861,19 @@ export async function createOrUpdateLibraryDocument(
     subject: parsed.subject as DocumentSubjectKey,
     category: parsed.category as DocumentCategoryKey,
     fileFormat: parsed.fileFormat as DocumentFileFormat,
-    ...(parsed.pageCount ? { pageCount: parsed.pageCount } : existingDoc?.pageCount ? { pageCount: existingDoc.pageCount } : {}),
-    ...(parsed.fileSizeBytes ? { fileSizeBytes: parsed.fileSizeBytes } : existingDoc?.fileSizeBytes ? { fileSizeBytes: existingDoc.fileSizeBytes } : {}),
+    folderId: requestedFolderId,
+    space: resolvedSpace,
+    sourceKey: resolvedSourceKey,
+    ...(parsed.pageCount
+      ? { pageCount: parsed.pageCount }
+      : existingDoc?.pageCount
+      ? { pageCount: existingDoc.pageCount }
+      : {}),
+    ...(parsed.fileSizeBytes
+      ? { fileSizeBytes: parsed.fileSizeBytes }
+      : existingDoc?.fileSizeBytes
+      ? { fileSizeBytes: existingDoc.fileSizeBytes }
+      : {}),
     coverImageUrl:
       parsed.coverImageUrl !== undefined
         ? parsed.coverImageUrl
@@ -464,6 +900,7 @@ export async function createOrUpdateLibraryDocument(
     authorName,
     authorRole,
     ...(existingDoc?.sourceName ? { sourceName: existingDoc.sourceName } : {}),
+    ...(existingDoc?.sourcePostUrl ? { sourcePostUrl: existingDoc.sourcePostUrl } : {}),
     status: nextStatus,
     isFeatured: isAdmin
       ? parsed.isFeatured ?? existingDoc?.isFeatured ?? false
@@ -503,6 +940,72 @@ export async function createOrUpdateLibraryDocument(
   return publicDoc;
 }
 
+export async function moveDocumentsToFolder(
+  actor: { uid: string; role: string },
+  params: { docIds: string[]; folderId: string | null }
+): Promise<{ movedCount: number }> {
+  const isAdmin = actor.role === "admin" || actor.role === "super_admin";
+  const cleanIds = [...new Set((params.docIds || []).map((x) => String(x || "").trim()).filter(Boolean))].slice(
+    0,
+    60
+  );
+  if (cleanIds.length === 0) {
+    throw new Error("Vui lòng chọn ít nhất 1 tài liệu để di chuyển.");
+  }
+
+  const cleanFolderId = params.folderId?.trim() || null;
+  let targetFolder: LibraryFolder | null = null;
+  if (cleanFolderId) {
+    targetFolder = await getFolderByIdResolved(cleanFolderId);
+    if (!targetFolder || targetFolder.status === "hidden") {
+      throw new Error("Thư mục đích không tồn tại.");
+    }
+    if (!isAdmin && targetFolder.ownerUid !== actor.uid) {
+      throw new Error("Bạn chỉ có thể di chuyển tài liệu vào thư mục của chính mình.");
+    }
+  }
+
+  const now = new Date().toISOString();
+  let movedCount = 0;
+
+  for (const docId of cleanIds) {
+    const doc = await getDocumentByIdResolved(docId);
+    if (!doc) continue;
+    if (!isAdmin && doc.authorUid !== actor.uid) {
+      throw new Error(`Bạn không có quyền di chuyển tài liệu "${doc.title}".`);
+    }
+
+    const nextSpace: DocumentSpaceKey = targetFolder
+      ? targetFolder.space
+      : doc.authorRole === "admin"
+      ? "dktest_exclusive"
+      : "community";
+    const nextSourceKey: DocumentSourceKey = targetFolder?.sourceKey
+      ? targetFolder.sourceKey
+      : nextSpace === "dktest_exclusive"
+      ? "dktest"
+      : "community";
+
+    const updated: LibraryDocument = sanitizePublicDocument({
+      ...doc,
+      folderId: cleanFolderId,
+      space: nextSpace,
+      sourceKey: nextSourceKey,
+      updatedAt: now,
+    });
+
+    if (adminDb) {
+      await adminDb.collection(DOCS_COLLECTION).doc(docId).set(updated, { merge: true });
+    } else {
+      await setFirestoreRestDoc(DOCS_COLLECTION, docId, updated);
+    }
+    movedCount++;
+  }
+
+  invalidateDocumentLibraryCache();
+  return { movedCount };
+}
+
 export async function deleteLibraryDocument(
   actor: { uid: string; role: string },
   docId: string
@@ -518,7 +1021,6 @@ export async function deleteLibraryDocument(
     throw new Error("Bạn không có quyền xóa tài liệu này.");
   }
 
-  // If this is a seeded item being deleted by Admin, mark status = 'hidden' override
   const isSeed = Boolean(getSeedDocumentById(cleanId));
   if (isSeed && isAdmin) {
     const hiddenOverride: LibraryDocument = {
@@ -558,6 +1060,7 @@ export async function moderateLibraryDocument(
     isFeatured?: boolean;
     priceVnd?: number;
     accessMode?: "free" | "paid";
+    folderId?: string | null;
   }
 ): Promise<LibraryDocument> {
   const existing = await getDocumentByIdResolved(docId);
@@ -581,6 +1084,7 @@ export async function moderateLibraryDocument(
   const updated: LibraryDocument = sanitizePublicDocument({
     ...existing,
     ...(nextAccessMode === "free" && secrets?.fileUrl ? { fileUrl: secrets.fileUrl } : {}),
+    ...(patch.folderId !== undefined ? { folderId: patch.folderId } : {}),
     accessMode: nextAccessMode,
     priceVnd: nextPrice,
     status: patch.status || existing.status,
@@ -595,7 +1099,6 @@ export async function moderateLibraryDocument(
     await setFirestoreRestDoc(DOCS_COLLECTION, docId, updated);
   }
 
-  // Notify uploader if status changed
   if (patch.status && patch.status !== existing.status && existing.authorUid) {
     const notifId = `notif_${Date.now()}_${Math.random().toString(36).slice(2, 7)}`;
     const isApproved = patch.status === "published";
@@ -746,6 +1249,91 @@ export async function getAuthorizedDocumentContent(
   };
 }
 
+/**
+ * Bulk-resolves authorized download URLs for Batch / Whole-Folder Download ("Tải toàn bộ").
+ * Strictly enforces paid entitlements: locked paid documents are skipped and NEVER leak secret URLs.
+ */
+export async function resolveBatchAuthorizedDocuments(
+  uid: string | null | undefined,
+  role = "student",
+  docIds: string[]
+): Promise<{
+  items: Array<DocumentAuthorizedContent & { title: string; fileFormat: DocumentFileFormat }>;
+  skippedLockedCount: number;
+  skippedLockedTitles: string[];
+}> {
+  const cleanIds = [...new Set((docIds || []).map((x) => String(x || "").trim()).filter(Boolean))].slice(
+    0,
+    80
+  );
+  const isAdmin = role === "admin" || role === "super_admin";
+  const unlockedSet =
+    uid && !isAdmin ? new Set(await getMyUnlockedDocumentIds(uid)) : new Set<string>();
+
+  const items: Array<DocumentAuthorizedContent & { title: string; fileFormat: DocumentFileFormat }> = [];
+  const skippedLockedTitles: string[] = [];
+
+  for (const id of cleanIds) {
+    // Fast-path for free static seed documents (0 Firestore reads!)
+    const seedDoc = getSeedDocumentById(id);
+    if (seedDoc && (!cachedLiveDocs || !cachedLiveDocs.items.some((x) => x.id === id))) {
+      if (seedDoc.fileUrl) {
+        items.push({
+          docId: seedDoc.id,
+          title: seedDoc.title,
+          fileFormat: seedDoc.fileFormat,
+          hasFullAccess: true,
+          isPreviewOnly: false,
+          previewPageCount: 0,
+          fileUrl: seedDoc.fileUrl,
+          originalFileName: seedDoc.originalFileName,
+          answerUrl: seedDoc.answerUrl,
+          videoUrl: seedDoc.videoUrl,
+          subFiles: seedDoc.subFiles,
+        });
+      }
+      continue;
+    }
+
+    const doc = await getDocumentByIdResolved(id);
+    if (!doc || doc.status === "hidden") continue;
+
+    const priceVnd = doc.accessMode === "paid" ? sanitizeVnd(doc.priceVnd) : 0;
+    const isFree = priceVnd <= 0;
+    const isOwner = Boolean(uid && doc.authorUid && doc.authorUid === uid);
+    const hasAccess = isFree || isAdmin || isOwner || unlockedSet.has(doc.id);
+
+    if (!hasAccess) {
+      skippedLockedTitles.push(doc.title);
+      continue;
+    }
+
+    const secrets = isFree && doc.fileUrl ? null : await getDocumentSecrets(doc.id);
+    const fileUrl = secrets?.fileUrl || doc.fileUrl || "";
+    if (!fileUrl) continue;
+
+    items.push({
+      docId: doc.id,
+      title: doc.title,
+      fileFormat: doc.fileFormat,
+      hasFullAccess: true,
+      isPreviewOnly: false,
+      previewPageCount: doc.previewPageCount ?? 2,
+      fileUrl,
+      originalFileName: secrets?.originalFileName || doc.originalFileName,
+      answerUrl: secrets?.answerUrl || doc.answerUrl,
+      videoUrl: secrets?.videoUrl || doc.videoUrl,
+      subFiles: secrets?.subFiles || doc.subFiles,
+    });
+  }
+
+  return {
+    items,
+    skippedLockedCount: skippedLockedTitles.length,
+    skippedLockedTitles,
+  };
+}
+
 export async function unlockLibraryDocument(
   uid: string,
   docId: string,
@@ -795,7 +1383,6 @@ export async function unlockLibraryDocument(
     };
   }
 
-  // Validate optional discount voucher
   let discountVnd = 0;
   let appliedVoucher: Voucher | null = null;
   if (voucherCode && String(voucherCode).trim()) {
@@ -822,7 +1409,6 @@ export async function unlockLibraryDocument(
       : 0;
   const platformFeeVnd = Math.max(0, finalPriceVnd - creatorShareVnd);
 
-  // Ensure buyer wallet & creator wallet exist before transaction
   await getOrCreateWallet(uid);
   if (isCommunityCreator && doc.authorUid) {
     await getOrCreateWallet(doc.authorUid).catch(() => {});
@@ -896,7 +1482,6 @@ export async function unlockLibraryDocument(
       };
       transaction.set(adminDb!.collection("wallet_transactions").doc(txDebitId), debitTx);
 
-      // Credit community author share atomically
       if (creatorWalletRef && doc.authorUid && creatorShareVnd > 0) {
         const cData = (creatorSnap?.exists ? creatorSnap.data() : {}) as StudentWallet;
         const cBefore = sanitizeVnd(cData.balanceVnd);
@@ -1045,7 +1630,7 @@ export async function unlockLibraryDocument(
   await setFirestoreRestDoc("wallet_transactions", txDebitId, {
     id: txDebitId,
     uid,
-    type: "exam_unlock_debit",
+    type: "document_unlock_debit",
     amountVnd: finalPriceVnd,
     balanceBeforeVnd: buyerBalance,
     balanceAfterVnd: newBuyerBalance,
@@ -1152,7 +1737,7 @@ export async function getAdminDocumentPurchases(limitCount = 100): Promise<Docum
 }
 
 // ---------------------------------------------------------------------------
-// Secure SSRF-Guarded PDF Proxy & Cloudinary Page Prober
+// Secure SSRF-Guarded Document Proxy & Cloudinary Page Prober
 // ---------------------------------------------------------------------------
 const ALLOWED_DOC_PROXY_HOST_PATTERNS = [
   /^res\.cloudinary\.com$/i,
@@ -1160,8 +1745,10 @@ const ALLOWED_DOC_PROXY_HOST_PATTERNS = [
   /^drive\.usercontent\.google\.com$/i,
   /^docs\.google\.com$/i,
   /\.googleusercontent\.com$/i,
-  /^www\.nganhangdethi\.org$/i,
-  /^www\.mathvn\.com$/i,
+  /^(?:www\.)?nganhangdethi\.org$/i,
+  /^(?:www\.)?tailieuonthi\.edu\.vn$/i,
+  /^(?:www\.)?tailieuonthi\.org$/i,
+  /^(?:www\.)?mathvn\.com$/i,
   /^thpt\.math\.vn$/i,
   /\.blogspot\.com$/i,
 ];
@@ -1210,7 +1797,9 @@ export async function fetchProxiedPdfBuffer(rawUrl: string): Promise<{
   const clean = String(rawUrl || "").trim();
   const { url: validatedUrl } = await validateUrlForSsrf(clean);
   if (!isAllowedDocProxyHost(validatedUrl.hostname)) {
-    throw new Error(`Tên miền lưu trữ "${validatedUrl.hostname}" không nằm trong danh sách cho phép proxy.`);
+    throw new Error(
+      `Tên miền lưu trữ "${validatedUrl.hostname}" không nằm trong danh sách cho phép proxy.`
+    );
   }
 
   const driveId = extractDriveIdServer(clean);
@@ -1225,7 +1814,8 @@ export async function fetchProxiedPdfBuffer(rawUrl: string): Promise<{
   const upstream = await fetch(targetFetchUrl, {
     redirect: "follow",
     headers: {
-      "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 DkTEST-PDF-Reader/2.0",
+      "User-Agent":
+        "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 DkTEST-PDF-Reader/2.1",
       Accept: "application/pdf,application/octet-stream,*/*",
     },
     signal: AbortSignal.timeout(25000),
@@ -1235,9 +1825,16 @@ export async function fetchProxiedPdfBuffer(rawUrl: string): Promise<{
     throw new Error(`Kho lưu trữ phản hồi HTTP ${upstream.status}.`);
   }
 
+  const contentType = upstream.headers.get("content-type") || "application/pdf";
+  if (/text\/html/i.test(contentType)) {
+    throw new Error("Tệp trên kho lưu trữ bên ngoài yêu cầu xác nhận trình duyệt hoặc là thư mục.");
+  }
+
   const contentLength = Number(upstream.headers.get("content-length") || 0);
   if (contentLength > MAX_PROXY_BYTES) {
-    const err: any = new Error("Tệp vượt quá giới hạn đọc trực tiếp 44MB, chuyển sang chế độ xem nhúng.");
+    const err: any = new Error(
+      "Tệp vượt quá giới hạn đọc trực tiếp 44MB, chuyển sang chế độ xem nhúng."
+    );
     err.statusCode = 413;
     throw err;
   }
@@ -1252,7 +1849,7 @@ export async function fetchProxiedPdfBuffer(rawUrl: string): Promise<{
     }
     return {
       buffer: Buffer.from(ab),
-      contentType: upstream.headers.get("content-type") || "application/pdf",
+      contentType,
     };
   }
 
@@ -1275,6 +1872,6 @@ export async function fetchProxiedPdfBuffer(rawUrl: string): Promise<{
 
   return {
     buffer: Buffer.concat(chunks, total),
-    contentType: upstream.headers.get("content-type") || "application/pdf",
+    contentType,
   };
 }

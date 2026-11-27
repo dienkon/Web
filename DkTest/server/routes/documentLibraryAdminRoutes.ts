@@ -3,28 +3,34 @@ import type { AuthenticatedRequest } from "../middleware/auth.js";
 import { validateUrlForSsrf } from "../services/webImporter/ssrfGuard.js";
 import {
   createOrUpdateLibraryDocument,
+  createOrUpdateLibraryFolder,
   deleteLibraryDocument,
+  deleteLibraryFolder,
   getAdminDocumentPurchases,
   getDocumentLibrarySettings,
   getLiveLibraryDocuments,
+  getLiveLibraryFolders,
   grantOrRevokeDocumentEntitlement,
   moderateLibraryDocument,
+  moveDocumentsToFolder,
   updateDocumentLibrarySettings,
 } from "../services/documentLibraryService.js";
 
 export const documentLibraryAdminRouter = Router();
 
-// GET /api/admin/documents — Overview of all live/pending/override documents, settings, and purchases
+// GET /api/admin/documents — Overview of all live/pending/override documents, folders, settings, and purchases
 documentLibraryAdminRouter.get("/", async (_req: AuthenticatedRequest, res: Response) => {
   try {
-    const [documents, settings, purchases] = await Promise.all([
+    const [documents, folders, settings, purchases] = await Promise.all([
       getLiveLibraryDocuments({ includeNonPublished: true, forceRefresh: true }),
+      getLiveLibraryFolders({ includeHidden: true, forceRefresh: true }),
       getDocumentLibrarySettings(true),
       getAdminDocumentPurchases(120),
     ]);
     return res.json({
       success: true,
       documents,
+      folders,
       settings,
       purchases,
     });
@@ -48,6 +54,64 @@ documentLibraryAdminRouter.post("/", async (req: AuthenticatedRequest, res: Resp
   } catch (err: any) {
     const msg = err?.issues?.[0]?.message || err?.message || "Không thể lưu tài liệu.";
     return res.status(400).json({ error: "admin_doc_save_error", message: msg });
+  }
+});
+
+// POST /api/admin/documents/folders — Create or update folder as Admin
+documentLibraryAdminRouter.post("/folders", async (req: AuthenticatedRequest, res: Response) => {
+  try {
+    const folder = await createOrUpdateLibraryFolder(req.user!, req.body || {});
+    return res.status(201).json({
+      success: true,
+      folder,
+      message: "Đã lưu thư mục thành công!",
+    });
+  } catch (err: any) {
+    const msg = err?.issues?.[0]?.message || err?.message || "Không thể lưu thư mục.";
+    return res.status(400).json({ error: "admin_folder_save_error", message: msg });
+  }
+});
+
+// DELETE /api/admin/documents/folders/:folderId — Delete live folder or hide seed folder
+documentLibraryAdminRouter.delete(
+  "/folders/:folderId",
+  async (req: AuthenticatedRequest, res: Response) => {
+    try {
+      const result = await deleteLibraryFolder(req.user!, req.params.folderId);
+      return res.json({
+        success: true,
+        ...result,
+        message: result.hiddenSeed
+          ? "Đã ẩn thư mục gốc khỏi danh sách hiển thị."
+          : "Đã xóa thư mục và bảo toàn các tệp bên trong.",
+      });
+    } catch (err: any) {
+      return res.status(400).json({
+        error: "admin_folder_delete_error",
+        message: err?.message || "Không thể xóa thư mục.",
+      });
+    }
+  }
+);
+
+// POST /api/admin/documents/bulk-move — Bulk move documents into any folder
+documentLibraryAdminRouter.post("/bulk-move", async (req: AuthenticatedRequest, res: Response) => {
+  try {
+    const { docIds, folderId } = req.body || {};
+    const result = await moveDocumentsToFolder(req.user!, {
+      docIds: Array.isArray(docIds) ? docIds : [],
+      folderId: folderId ? String(folderId) : null,
+    });
+    return res.json({
+      success: true,
+      ...result,
+      message: `Đã di chuyển ${result.movedCount} tài liệu sang thư mục đích.`,
+    });
+  } catch (err: any) {
+    return res.status(400).json({
+      error: "admin_bulk_move_error",
+      message: err?.message || "Không thể di chuyển hàng loạt tài liệu.",
+    });
   }
 });
 
@@ -95,50 +159,99 @@ documentLibraryAdminRouter.post("/entitlements", async (req: AuthenticatedReques
   }
 });
 
-// POST /api/admin/documents/import-blogger — Quick live sync from nganhangdethi.org or Blogger site
+// POST /api/admin/documents/import-blogger — Quick live sync from Blogger OR WordPress sources into a folder!
 documentLibraryAdminRouter.post("/import-blogger", async (req: AuthenticatedRequest, res: Response) => {
   try {
     const rawSiteUrl = String(req.body?.siteUrl || "https://www.nganhangdethi.org")
       .trim()
       .replace(/\/+$/, "");
     const maxItems = Math.max(1, Math.min(30, Number(req.body?.limit) || 12));
+    const targetFolderId = req.body?.folderId ? String(req.body.folderId).trim() : null;
     await validateUrlForSsrf(rawSiteUrl);
 
-    const feedUrl = `${rawSiteUrl}/feeds/posts/default?alt=json&max-results=${maxItems}`;
-    const feedRes = await fetch(feedUrl, { signal: AbortSignal.timeout(15000) });
-    if (!feedRes.ok) {
-      throw new Error(`Không thể kết nối nguồn RSS/JSON (${feedRes.status}).`);
-    }
-    const feedJson = await feedRes.json();
-    const entries = feedJson?.feed?.entry || [];
-
     let importedCount = 0;
-    for (const entry of entries) {
-      const title = String(entry?.title?.["$t"] || "").trim();
-      const content = String(entry?.content?.["$t"] || "");
-      const deMatch =
-        content.match(/\bde=['"](https?:\/\/[^'"]+)['"]/i) ||
-        content.match(/https?:\/\/drive\.google\.com\/(?:file\/d\/[a-zA-Z0-9_-]+(?:\/view)?|open\?id=[a-zA-Z0-9_-]+)/i);
-      const fileUrl = deMatch ? (deMatch[1] || deMatch[0]) : "";
-      if (!title || !fileUrl) continue;
 
-      const daMatch = content.match(/\bda=['"](https?:\/\/[^'"]+)['"]/i);
-      const answerUrl = daMatch && daMatch[1] !== fileUrl ? daMatch[1] : undefined;
+    // Support both WordPress REST (`tailieuonthi.edu.vn` / `tailieuonthi.org`) and Blogger JSON feeds!
+    const wpUrl = `${rawSiteUrl}/wp-json/wp/v2/posts?per_page=${maxItems}`;
+    const wpRes = await fetch(wpUrl, { signal: AbortSignal.timeout(12000) }).catch(() => null);
 
-      await createOrUpdateLibraryDocument(req.user!, {
-        title: title.slice(0, 200),
-        description: `Tài liệu đồng bộ từ ${new URL(rawSiteUrl).hostname}.`,
-        grade: /10/.test(title) ? "grade_10" : /11/.test(title) ? "grade_11" : "grade_12",
-        subject: "multi_subject",
-        category: /ebook|sách/i.test(title) ? "ebook_book" : "exam_test",
-        fileFormat: "pdf",
-        accessMode: "free",
-        priceVnd: 0,
-        fileUrl,
-        answerUrl,
-        status: "published",
-      });
-      importedCount++;
+    if (wpRes && wpRes.ok) {
+      const posts = await wpRes.json();
+      if (Array.isArray(posts)) {
+        for (const post of posts) {
+          const title = String(post?.title?.rendered || "")
+            .replace(/<[^>]+>/g, "")
+            .trim();
+          const content = String(post?.content?.rendered || "");
+          const driveMatch = content.match(
+            /https?:\/\/drive\.google\.com\/(?:file\/d\/[a-zA-Z0-9_-]+(?:\/view)?|open\?id=[a-zA-Z0-9_-]+|drive\/folders\/[a-zA-Z0-9_-]+)/i
+          );
+          const fileUrl = driveMatch ? driveMatch[0] : "";
+          if (!title || !fileUrl) continue;
+
+          await createOrUpdateLibraryDocument(req.user!, {
+            title: title.slice(0, 200),
+            description: `Tài liệu đồng bộ từ ${new URL(rawSiteUrl).hostname}.`,
+            grade: /\b(8|9)\b/.test(title)
+              ? "thcs"
+              : /\b10\b/.test(title)
+              ? "grade_10"
+              : /\b11\b/.test(title)
+              ? "grade_11"
+              : "grade_12",
+            subject: "multi_subject",
+            category: /ebook|sách/i.test(title) ? "ebook_book" : "exam_test",
+            fileFormat: fileUrl.includes("/folders/") ? "folder" : "pdf",
+            folderId: targetFolderId,
+            space: targetFolderId ? undefined : "sources",
+            accessMode: "free",
+            priceVnd: 0,
+            fileUrl,
+            status: "published",
+          });
+          importedCount++;
+        }
+      }
+    } else {
+      const feedUrl = `${rawSiteUrl}/feeds/posts/default?alt=json&max-results=${maxItems}`;
+      const feedRes = await fetch(feedUrl, { signal: AbortSignal.timeout(15000) });
+      if (!feedRes.ok) {
+        throw new Error(`Không thể kết nối nguồn RSS/JSON (${feedRes.status}).`);
+      }
+      const feedJson = await feedRes.json();
+      const entries = feedJson?.feed?.entry || [];
+
+      for (const entry of entries) {
+        const title = String(entry?.title?.["$t"] || "").trim();
+        const content = String(entry?.content?.["$t"] || "");
+        const deMatch =
+          content.match(/\bde=['"](https?:\/\/[^'"]+)['"]/i) ||
+          content.match(
+            /https?:\/\/drive\.google\.com\/(?:file\/d\/[a-zA-Z0-9_-]+(?:\/view)?|open\?id=[a-zA-Z0-9_-]+)/i
+          );
+        const fileUrl = deMatch ? deMatch[1] || deMatch[0] : "";
+        if (!title || !fileUrl) continue;
+
+        const daMatch = content.match(/\bda=['"](https?:\/\/[^'"]+)['"]/i);
+        const answerUrl = daMatch && daMatch[1] !== fileUrl ? daMatch[1] : undefined;
+
+        await createOrUpdateLibraryDocument(req.user!, {
+          title: title.slice(0, 200),
+          description: `Tài liệu đồng bộ từ ${new URL(rawSiteUrl).hostname}.`,
+          grade: /10/.test(title) ? "grade_10" : /11/.test(title) ? "grade_11" : "grade_12",
+          subject: "multi_subject",
+          category: /ebook|sách/i.test(title) ? "ebook_book" : "exam_test",
+          fileFormat: "pdf",
+          folderId: targetFolderId || "sfold_nhdt",
+          space: "sources",
+          accessMode: "free",
+          priceVnd: 0,
+          fileUrl,
+          answerUrl,
+          status: "published",
+        });
+        importedCount++;
+      }
     }
 
     return res.json({
@@ -154,7 +267,7 @@ documentLibraryAdminRouter.post("/import-blogger", async (req: AuthenticatedRequ
   }
 });
 
-// PATCH /api/admin/documents/:docId/moderate — Approve, reject, feature, hide, or reprice
+// PATCH /api/admin/documents/:docId/moderate — Approve, reject, feature, hide, move folder, or reprice
 documentLibraryAdminRouter.patch(
   "/:docId/moderate",
   async (req: AuthenticatedRequest, res: Response) => {

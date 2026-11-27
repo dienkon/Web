@@ -4,15 +4,22 @@ import { requireAuth, type AuthenticatedRequest } from "../middleware/auth.js";
 import {
   checkDocumentAccess,
   createOrUpdateLibraryDocument,
+  createOrUpdateLibraryFolder,
   deleteLibraryDocument,
+  deleteLibraryFolder,
   fetchProxiedPdfBuffer,
   getAuthorizedDocumentContent,
   getDocumentByIdResolved,
   getDocumentLibrarySettings,
+  getFolderByIdResolved,
   getLiveLibraryDocuments,
+  getLiveLibraryFolders,
+  getMyLibraryFolders,
   getMyUnlockedDocumentIds,
   getMyUploadedDocuments,
+  moveDocumentsToFolder,
   probeLegacyCloudinaryPagesServer,
+  resolveBatchAuthorizedDocuments,
   unlockLibraryDocument,
 } from "../services/documentLibraryService.js";
 
@@ -34,16 +41,18 @@ async function extractOptionalAuth(
   return { uid: null, role: "student" };
 }
 
-// GET /api/documents/live — Live Firestore additions & overrides (server-cached 45s)
+// GET /api/documents/live — Live Firestore documents + live folders + settings (server-cached 45s)
 documentLibraryRouter.get("/live", async (_req, res: Response) => {
   try {
-    const [items, settings] = await Promise.all([
+    const [items, folders, settings] = await Promise.all([
       getLiveLibraryDocuments({ includeNonPublished: false }),
+      getLiveLibraryFolders({ includeHidden: true }),
       getDocumentLibrarySettings(),
     ]);
     return res.json({
       success: true,
       items,
+      folders,
       settings: {
         autoApproveUserUploads: settings.autoApproveUserUploads,
         creatorRevenueSharePercent: settings.creatorRevenueSharePercent,
@@ -58,7 +67,7 @@ documentLibraryRouter.get("/live", async (_req, res: Response) => {
   }
 });
 
-// GET /api/documents/pdf-proxy — SSRF-protected PDF streaming & legacy Cloudinary page prober
+// GET /api/documents/pdf-proxy — SSRF-protected document streaming & legacy Cloudinary page prober
 documentLibraryRouter.get("/pdf-proxy", async (req, res: Response) => {
   try {
     const rawUrl = String(req.query?.url || "").trim();
@@ -71,7 +80,7 @@ documentLibraryRouter.get("/pdf-proxy", async (req, res: Response) => {
       return res.json({ success: true, pageCount });
     }
 
-    const { buffer } = await fetchProxiedPdfBuffer(rawUrl);
+    const { buffer, contentType } = await fetchProxiedPdfBuffer(rawUrl);
     const isDownload = req.query?.download === "1" || req.query?.download === "true";
     const rawFileName = String(req.query?.filename || "Tai_lieu_DkTEST.pdf")
       .replace(/["\r\n]/g, "")
@@ -83,7 +92,7 @@ documentLibraryRouter.get("/pdf-proxy", async (req, res: Response) => {
       .replace(/[^a-zA-Z0-9._-]+/g, "_");
 
     res.setHeader("Access-Control-Allow-Origin", "*");
-    res.setHeader("Content-Type", "application/pdf");
+    res.setHeader("Content-Type", contentType || "application/pdf");
     res.setHeader("Content-Length", String(buffer.length));
     res.setHeader(
       "Content-Disposition",
@@ -94,23 +103,25 @@ documentLibraryRouter.get("/pdf-proxy", async (req, res: Response) => {
     const status = err?.statusCode === 413 ? 413 : 400;
     return res.status(status).json({
       error: "pdf_proxy_error",
-      message: err?.message || "Không thể truyền tải tệp PDF này.",
+      message: err?.message || "Không thể truyền tải tệp tài liệu này.",
     });
   }
 });
 
-// GET /api/documents/me — User's own uploaded docs + unlocked paid doc IDs
+// GET /api/documents/me — User's own uploaded docs, own folders, and unlocked paid doc IDs
 documentLibraryRouter.get("/me", requireAuth, async (req: AuthenticatedRequest, res: Response) => {
   try {
     const uid = req.user!.uid;
-    const [uploaded, unlockedIds, settings] = await Promise.all([
+    const [uploaded, folders, unlockedIds, settings] = await Promise.all([
       getMyUploadedDocuments(uid),
+      getMyLibraryFolders(uid),
       getMyUnlockedDocumentIds(uid),
       getDocumentLibrarySettings(),
     ]);
     return res.json({
       success: true,
       uploaded,
+      folders,
       unlockedIds,
       settings,
     });
@@ -122,7 +133,125 @@ documentLibraryRouter.get("/me", requireAuth, async (req: AuthenticatedRequest, 
   }
 });
 
-// POST /api/documents — User or Admin uploads a new document (free or paid)
+// ---------------------------------------------------------------------------
+// Contributor & Admin Folder Routes (/api/documents/folders...)
+// ---------------------------------------------------------------------------
+documentLibraryRouter.get("/folders/:folderId", async (req, res: Response) => {
+  try {
+    const folder = await getFolderByIdResolved(req.params.folderId);
+    if (!folder || folder.status === "hidden") {
+      return res.status(404).json({ error: "not_found", message: "Không tìm thấy thư mục." });
+    }
+    return res.json({ success: true, folder });
+  } catch (err: any) {
+    return res.status(400).json({
+      error: "folder_get_error",
+      message: err?.message || "Không thể tải thông tin thư mục.",
+    });
+  }
+});
+
+documentLibraryRouter.post("/folders", requireAuth, async (req: AuthenticatedRequest, res: Response) => {
+  try {
+    const folder = await createOrUpdateLibraryFolder(req.user!, req.body || {});
+    return res.status(201).json({
+      success: true,
+      folder,
+      message: "Đã tạo thư mục mới thành công!",
+    });
+  } catch (err: any) {
+    const msg = err?.issues?.[0]?.message || err?.message || "Không thể tạo thư mục.";
+    return res.status(400).json({ error: "folder_create_error", message: msg });
+  }
+});
+
+documentLibraryRouter.patch(
+  "/folders/:folderId",
+  requireAuth,
+  async (req: AuthenticatedRequest, res: Response) => {
+    try {
+      const folder = await createOrUpdateLibraryFolder(req.user!, {
+        ...(req.body || {}),
+        id: req.params.folderId,
+      });
+      return res.json({
+        success: true,
+        folder,
+        message: "Đã cập nhật thông tin thư mục.",
+      });
+    } catch (err: any) {
+      const msg = err?.issues?.[0]?.message || err?.message || "Không thể cập nhật thư mục.";
+      return res.status(400).json({ error: "folder_update_error", message: msg });
+    }
+  }
+);
+
+documentLibraryRouter.delete(
+  "/folders/:folderId",
+  requireAuth,
+  async (req: AuthenticatedRequest, res: Response) => {
+    try {
+      const result = await deleteLibraryFolder(req.user!, req.params.folderId);
+      return res.json({
+        success: true,
+        ...result,
+        message: "Đã xóa thư mục thành công.",
+      });
+    } catch (err: any) {
+      return res.status(400).json({
+        error: "folder_delete_error",
+        message: err?.message || "Không thể xóa thư mục.",
+      });
+    }
+  }
+);
+
+// POST /api/documents/bulk-move — Move own/admin documents into a folder
+documentLibraryRouter.post(
+  "/bulk-move",
+  requireAuth,
+  async (req: AuthenticatedRequest, res: Response) => {
+    try {
+      const { docIds, folderId } = req.body || {};
+      const result = await moveDocumentsToFolder(req.user!, {
+        docIds: Array.isArray(docIds) ? docIds : [],
+        folderId: folderId ? String(folderId) : null,
+      });
+      return res.json({
+        success: true,
+        ...result,
+        message: `Đã di chuyển ${result.movedCount} tài liệu sang thư mục đích.`,
+      });
+    } catch (err: any) {
+      return res.status(400).json({
+        error: "bulk_move_error",
+        message: err?.message || "Không thể di chuyển tài liệu.",
+      });
+    }
+  }
+);
+
+// POST /api/documents/batch-resolve — Authorized URLs for Batch / Whole-Folder Download ("Tải toàn bộ")
+documentLibraryRouter.post("/batch-resolve", async (req: AuthenticatedRequest, res: Response) => {
+  try {
+    const { uid, role } = await extractOptionalAuth(req);
+    const docIds = Array.isArray(req.body?.docIds) ? req.body.docIds : [];
+    const resolved = await resolveBatchAuthorizedDocuments(uid, role, docIds);
+    return res.json({
+      success: true,
+      ...resolved,
+    });
+  } catch (err: any) {
+    return res.status(400).json({
+      error: "batch_resolve_error",
+      message: err?.message || "Không thể chuẩn bị danh sách tải hàng loạt.",
+    });
+  }
+});
+
+// ---------------------------------------------------------------------------
+// Document CRUD & Monetization Routes
+// ---------------------------------------------------------------------------
 documentLibraryRouter.post("/", requireAuth, async (req: AuthenticatedRequest, res: Response) => {
   try {
     const created = await createOrUpdateLibraryDocument(req.user!, req.body || {});
@@ -140,42 +269,47 @@ documentLibraryRouter.post("/", requireAuth, async (req: AuthenticatedRequest, r
   }
 });
 
-// PATCH /api/documents/:docId — Update own document (or Admin update)
-documentLibraryRouter.patch("/:docId", requireAuth, async (req: AuthenticatedRequest, res: Response) => {
-  try {
-    const updated = await createOrUpdateLibraryDocument(req.user!, {
-      ...(req.body || {}),
-      id: req.params.docId,
-    });
-    return res.json({
-      success: true,
-      document: updated,
-      message: "Đã cập nhật thông tin tài liệu.",
-    });
-  } catch (err: any) {
-    const msg = err?.issues?.[0]?.message || err?.message || "Không thể cập nhật tài liệu.";
-    return res.status(400).json({ error: "document_update_error", message: msg });
+documentLibraryRouter.patch(
+  "/:docId",
+  requireAuth,
+  async (req: AuthenticatedRequest, res: Response) => {
+    try {
+      const updated = await createOrUpdateLibraryDocument(req.user!, {
+        ...(req.body || {}),
+        id: req.params.docId,
+      });
+      return res.json({
+        success: true,
+        document: updated,
+        message: "Đã cập nhật thông tin tài liệu.",
+      });
+    } catch (err: any) {
+      const msg = err?.issues?.[0]?.message || err?.message || "Không thể cập nhật tài liệu.";
+      return res.status(400).json({ error: "document_update_error", message: msg });
+    }
   }
-});
+);
 
-// DELETE /api/documents/:docId — Delete own document (or Admin delete)
-documentLibraryRouter.delete("/:docId", requireAuth, async (req: AuthenticatedRequest, res: Response) => {
-  try {
-    const result = await deleteLibraryDocument(req.user!, req.params.docId);
-    return res.json({
-      success: true,
-      ...result,
-      message: "Đã xóa tài liệu khỏi hệ thống.",
-    });
-  } catch (err: any) {
-    return res.status(400).json({
-      error: "document_delete_error",
-      message: err?.message || "Không thể xóa tài liệu.",
-    });
+documentLibraryRouter.delete(
+  "/:docId",
+  requireAuth,
+  async (req: AuthenticatedRequest, res: Response) => {
+    try {
+      const result = await deleteLibraryDocument(req.user!, req.params.docId);
+      return res.json({
+        success: true,
+        ...result,
+        message: "Đã xóa tài liệu khỏi hệ thống.",
+      });
+    } catch (err: any) {
+      return res.status(400).json({
+        error: "document_delete_error",
+        message: err?.message || "Không thể xóa tài liệu.",
+      });
+    }
   }
-});
+);
 
-// GET /api/documents/:docId — Public metadata for single document
 documentLibraryRouter.get("/:docId", async (req: AuthenticatedRequest, res: Response) => {
   try {
     const doc = await getDocumentByIdResolved(req.params.docId);
@@ -191,7 +325,6 @@ documentLibraryRouter.get("/:docId", async (req: AuthenticatedRequest, res: Resp
   }
 });
 
-// GET /api/documents/:docId/access — Check access & wallet balance
 documentLibraryRouter.get("/:docId/access", async (req: AuthenticatedRequest, res: Response) => {
   try {
     const { uid, role } = await extractOptionalAuth(req);
@@ -205,7 +338,6 @@ documentLibraryRouter.get("/:docId/access", async (req: AuthenticatedRequest, re
   }
 });
 
-// GET /api/documents/:docId/content — Authorized file URLs (free or unlocked paid)
 documentLibraryRouter.get("/:docId/content", async (req: AuthenticatedRequest, res: Response) => {
   try {
     const { uid, role } = await extractOptionalAuth(req);
@@ -214,7 +346,6 @@ documentLibraryRouter.get("/:docId/content", async (req: AuthenticatedRequest, r
       return res.status(404).json({ error: "not_found", message: "Không tìm thấy tài liệu." });
     }
 
-    // Paid documents strictly require verified Firebase Auth via requireAuth
     if (doc.accessMode === "paid" && doc.priceVnd > 0 && !uid) {
       return requireAuth(req, res, async () => {
         try {
@@ -242,7 +373,6 @@ documentLibraryRouter.get("/:docId/content", async (req: AuthenticatedRequest, r
   }
 });
 
-// POST /api/documents/:docId/unlock — Purchase/unlock paid document via Wallet (+ creator payout)
 documentLibraryRouter.post(
   "/:docId/unlock",
   requireAuth,

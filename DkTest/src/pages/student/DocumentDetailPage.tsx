@@ -4,12 +4,17 @@ import {
   ArrowLeft,
   Bookmark,
   Check,
+  ChevronDown,
+  ChevronRight,
   Coins,
   Download,
+  Edit3,
   ExternalLink,
   Eye,
   FileCheck2,
   FileText,
+  Folder,
+  FolderDown,
   FolderOpen,
   Loader2,
   Lock,
@@ -21,6 +26,8 @@ import {
   User,
   Wallet,
 } from "lucide-react";
+import BatchDownloadModal from "../../components/documents/BatchDownloadModal";
+import DocumentUploadModal from "../../components/documents/DocumentUploadModal";
 import { useToast } from "../../components/ui/ToastNotification";
 import { useAuth } from "../../context/AuthContext";
 import { api } from "../../services/apiClient";
@@ -32,8 +39,10 @@ import {
   getDocumentCoverFallbackUrl,
   getSavedDocumentIds,
   getSingleDocumentClient,
+  hydrateDocumentSubFilesClient,
   toggleSavedDocumentId,
   unlockDocumentClient,
+  type FolderTreeIndex,
 } from "../../services/documentLibraryClientService";
 import {
   downloadDocumentFile,
@@ -48,7 +57,9 @@ import {
   DOCUMENT_SUBJECT_META,
   type DocumentAccessCheckResult,
   type DocumentAuthorizedContent,
+  type DocumentSubFile,
   type LibraryDocument,
+  type LibraryFolder,
 } from "../../types/documentLibrary";
 import { safeCopyText, safeShare } from "../../utils/mobileCompat";
 
@@ -59,6 +70,8 @@ export default function DocumentDetailPage() {
   const { success: showSuccessToast, error: showErrorToast } = useToast();
 
   const [doc, setDoc] = useState<LibraryDocument | null>(null);
+  const [folderBreadcrumbs, setFolderBreadcrumbs] = useState<LibraryFolder[]>([]);
+  const [folderIndex, setFolderIndex] = useState<FolderTreeIndex | undefined>(undefined);
   const [relatedDocs, setRelatedDocs] = useState<LibraryDocument[]>([]);
   const [loading, setLoading] = useState(true);
   const [access, setAccess] = useState<DocumentAccessCheckResult | null>(null);
@@ -72,6 +85,18 @@ export default function DocumentDetailPage() {
   const [downloading, setDownloading] = useState(false);
   const [downloadPercent, setDownloadPercent] = useState(0);
 
+  // Batch download modal (for whole multi-file pack or specific nested subfolder)
+  const [batchDownloadTarget, setBatchDownloadTarget] = useState<{
+    open: boolean;
+    subFolderFilter?: string;
+  }>({ open: false });
+
+  // Edit modal for owner / Admin
+  const [showEditModal, setShowEditModal] = useState(false);
+
+  // Nested sub-folder expand state inside multi-file packs
+  const [collapsedSubGroups, setCollapsedSubGroups] = useState<Set<string>>(() => new Set());
+
   // Paid unlock + voucher state
   const [voucherInput, setVoucherInput] = useState("");
   const [checkingVoucher, setCheckingVoucher] = useState(false);
@@ -84,87 +109,84 @@ export default function DocumentDetailPage() {
 
   const isAdmin = role === "admin" || role === "super_admin";
 
-  useEffect(() => {
+  const reloadDetail = async () => {
     if (!docId) return;
-    let active = true;
-
-    (async () => {
-      try {
-        setLoading(true);
-        setAppliedVoucherInfo(null);
-        setVoucherInput("");
-
-        const target = await getSingleDocumentClient(docId);
-        if (!active) return;
-        if (!target) {
-          setDoc(null);
-          setLoading(false);
-          return;
-        }
-        setDoc(target);
-
-        // Load related docs from cached catalog (0 Firestore reads)
-        getCatalogDocuments()
-          .then(({ documents }) => {
-            if (!active) return;
-            const rel = documents
-              .filter(
-                (d) =>
-                  d.id !== target.id &&
-                  (d.subject === target.subject || d.grade === target.grade)
-              )
-              .slice(0, 6);
-            setRelatedDocs(rel);
-          })
-          .catch(() => {});
-
-        const isFree = target.accessMode !== "paid" || target.priceVnd <= 0;
-        if (isFree) {
-          setAccess({
-            hasAccess: true,
-            isFree: true,
-            isOwner: false,
-            unlocked: true,
-            priceVnd: 0,
-            previewPageCount: 0,
-            userBalanceVnd: 0,
-            missingVnd: 0,
-            canUnlock: true,
-          });
-          setAuthorizedContent({
-            docId: target.id,
-            hasFullAccess: true,
-            isPreviewOnly: false,
-            previewPageCount: 0,
-            fileUrl: target.fileUrl || "",
-            originalFileName: target.originalFileName,
-            answerUrl: target.answerUrl,
-            videoUrl: target.videoUrl,
-            subFiles: target.subFiles,
-          });
-        } else {
-          const acc = await checkDocumentAccessClient(target.id);
-          if (!active) return;
-          setAccess(acc);
-          if (acc.hasAccess) {
-            const content = await getAuthorizedDocumentContentClient(target.id);
-            if (active) setAuthorizedContent(content);
-          } else {
-            setAuthorizedContent(null);
-          }
-        }
-      } catch (err: any) {
-        if (active) {
-          showErrorToast(err?.message || "Không thể tải thông tin tài liệu.");
-        }
-      } finally {
-        if (active) setLoading(false);
+    try {
+      setLoading(true);
+      const target = await getSingleDocumentClient(docId);
+      if (!target) {
+        setDoc(null);
+        setLoading(false);
+        return;
       }
-    })();
+      const hydrated = await hydrateDocumentSubFilesClient(target);
+      setDoc(hydrated);
 
-    return () => {
-      active = false;
-    };
+      getCatalogDocuments()
+        .then(({ documents, folderIndex: fIdx }) => {
+          setFolderIndex(fIdx);
+          if (hydrated.folderId && fIdx.nodesById.has(hydrated.folderId)) {
+            setFolderBreadcrumbs(fIdx.nodesById.get(hydrated.folderId)!.breadcrumbs);
+          } else {
+            setFolderBreadcrumbs([]);
+          }
+          const rel = documents
+            .filter(
+              (d) =>
+                d.id !== hydrated.id &&
+                ((hydrated.folderId && d.folderId === hydrated.folderId) ||
+                  d.subject === hydrated.subject)
+            )
+            .slice(0, 6);
+          setRelatedDocs(rel);
+        })
+        .catch(() => {});
+
+      const isFree = hydrated.accessMode !== "paid" || hydrated.priceVnd <= 0;
+      if (isFree) {
+        setAccess({
+          hasAccess: true,
+          isFree: true,
+          isOwner: false,
+          unlocked: true,
+          priceVnd: 0,
+          previewPageCount: 0,
+          userBalanceVnd: 0,
+          missingVnd: 0,
+          canUnlock: true,
+        });
+        setAuthorizedContent({
+          docId: hydrated.id,
+          hasFullAccess: true,
+          isPreviewOnly: false,
+          previewPageCount: 0,
+          fileUrl: hydrated.fileUrl || "",
+          originalFileName: hydrated.originalFileName,
+          answerUrl: hydrated.answerUrl,
+          videoUrl: hydrated.videoUrl,
+          subFiles: hydrated.subFiles,
+        });
+      } else {
+        const acc = await checkDocumentAccessClient(hydrated.id);
+        setAccess(acc);
+        if (acc.hasAccess) {
+          const content = await getAuthorizedDocumentContentClient(hydrated.id);
+          setAuthorizedContent(content);
+        } else {
+          setAuthorizedContent(null);
+        }
+      }
+    } catch (err: any) {
+      showErrorToast(err?.message || "Không thể tải thông tin tài liệu.");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    setAppliedVoucherInfo(null);
+    setVoucherInput("");
+    void reloadDetail();
   }, [docId, user?.uid]);
 
   const effectiveFileUrl = authorizedContent?.fileUrl || doc?.fileUrl || "";
@@ -172,7 +194,21 @@ export default function DocumentDetailPage() {
   const effectiveVideoUrl = authorizedContent?.videoUrl || doc?.videoUrl;
   const effectiveSubFiles = authorizedContent?.subFiles || doc?.subFiles || [];
 
+  // Group sub-files by hierarchical `folderPath` (authentic nested folder explorer!)
+  const groupedSubFolders = useMemo(() => {
+    const groups = new Map<string, DocumentSubFile[]>();
+    for (const sf of effectiveSubFiles) {
+      const key = sf.folderPath || "";
+      if (!groups.has(key)) groups.set(key, []);
+      groups.get(key)!.push(sf);
+    }
+    return Array.from(groups.entries()).sort((a, b) => a[0].localeCompare(b[0], "vi"));
+  }, [effectiveSubFiles]);
+
   const isSaved = useMemo(() => Boolean(doc && savedIds.includes(doc.id)), [doc, savedIds]);
+  const canEditDoc = Boolean(
+    doc && doc.authorRole !== "seed" && (isAdmin || (user?.uid && doc.authorUid === user.uid))
+  );
 
   const handleOpenReader = (customUrl?: string, customTitle?: string) => {
     const targetUrl = customUrl || effectiveFileUrl;
@@ -212,7 +248,11 @@ export default function DocumentDetailPage() {
       setDownloadPercent(10);
       const res = await downloadDocumentFile({
         url: targetUrl,
-        fileName: customFileName || authorizedContent?.originalFileName || doc.originalFileName || doc.title,
+        fileName:
+          customFileName ||
+          authorizedContent?.originalFileName ||
+          doc.originalFileName ||
+          doc.title,
         title: customFileName || doc.title,
         knownPageCount: doc.pageCount,
         onProgress: (pct) => setDownloadPercent(pct),
@@ -346,17 +386,41 @@ export default function DocumentDetailPage() {
 
   return (
     <div className="max-w-5xl mx-auto px-3 sm:px-6 py-4 sm:py-6 space-y-6">
-      {/* Top Back Navigation */}
-      <div className="flex items-center justify-between gap-3">
-        <Link
-          to="/student/documents"
-          className="inline-flex items-center gap-1.5 text-xs font-bold text-slate-600 dark:text-slate-300 hover:text-teal-600 transition-colors"
-        >
-          <ArrowLeft className="w-4 h-4" />
-          <span>Kho Tài Liệu</span>
-        </Link>
+      {/* Top Back & Folder Breadcrumb Navigation */}
+      <div className="flex flex-wrap items-center justify-between gap-3">
+        <div className="flex flex-wrap items-center gap-1.5 text-xs font-bold text-slate-600 dark:text-slate-300">
+          <Link
+            to="/student/documents"
+            className="inline-flex items-center gap-1.5 hover:text-teal-600 transition-colors"
+          >
+            <ArrowLeft className="w-4 h-4" />
+            <span>Kho Tài Liệu</span>
+          </Link>
+          {folderBreadcrumbs.map((crumb) => (
+            <React.Fragment key={crumb.id}>
+              <ChevronRight className="w-3.5 h-3.5 text-slate-400" />
+              <Link
+                to={`/student/documents?folder=${encodeURIComponent(crumb.id)}`}
+                className="hover:text-teal-600 truncate max-w-[180px]"
+              >
+                {crumb.name}
+              </Link>
+            </React.Fragment>
+          ))}
+        </div>
 
         <div className="flex items-center gap-2">
+          {canEditDoc && (
+            <button
+              type="button"
+              onClick={() => setShowEditModal(true)}
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-indigo-50 dark:bg-indigo-950/60 border border-indigo-200 dark:border-indigo-800 text-xs font-bold text-indigo-700 dark:text-indigo-300 cursor-pointer"
+            >
+              <Edit3 className="w-3.5 h-3.5" />
+              <span>Cập nhật</span>
+            </button>
+          )}
+
           <button
             type="button"
             onClick={() => {
@@ -392,7 +456,6 @@ export default function DocumentDetailPage() {
       {/* Main Document Card */}
       <section className="bg-white dark:bg-slate-900 rounded-3xl border border-slate-200/85 dark:border-slate-800 overflow-hidden shadow-2xs">
         <div className="grid grid-cols-1 md:grid-cols-12 gap-6 p-5 sm:p-7">
-          {/* Left Cover Preview */}
           <div className="md:col-span-4">
             <div className="rounded-2xl overflow-hidden border border-slate-200 dark:border-slate-800 bg-slate-100 dark:bg-slate-800 aspect-[16/10] md:aspect-[4/5] relative">
               <img
@@ -408,12 +471,13 @@ export default function DocumentDetailPage() {
                 className="w-full h-full object-cover"
               />
               <span className="absolute top-3 left-3 px-2.5 py-1 rounded-lg bg-slate-900/80 text-white text-[11px] font-extrabold uppercase">
-                {doc.fileFormat}
+                {effectiveSubFiles.length > 1
+                  ? `${effectiveSubFiles.length} TỆP`
+                  : doc.fileFormat}
               </span>
             </div>
           </div>
 
-          {/* Right Info & Actions */}
           <div className="md:col-span-8 flex flex-col justify-between space-y-5">
             <div className="space-y-3">
               <div className="flex flex-wrap items-center gap-2 text-xs font-bold">
@@ -470,7 +534,6 @@ export default function DocumentDetailPage() {
               </div>
             </div>
 
-            {/* Action Area: Unlocked vs Paid Locked */}
             {hasFullAccess ? (
               <div className="p-4 rounded-2xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200/80 dark:border-slate-700 space-y-3">
                 <div className="flex flex-wrap items-center gap-2.5">
@@ -489,7 +552,17 @@ export default function DocumentDetailPage() {
                     </button>
                   )}
 
-                  {effectiveFileUrl &&
+                  {effectiveSubFiles.length > 1 ? (
+                    <button
+                      type="button"
+                      onClick={() => setBatchDownloadTarget({ open: true })}
+                      className="inline-flex items-center gap-2 px-5 py-3 rounded-2xl bg-blue-600 hover:bg-blue-700 text-white text-xs sm:text-sm font-extrabold shadow-sm transition-colors cursor-pointer"
+                    >
+                      <FolderDown className="w-4 h-4" />
+                      <span>Tải toàn bộ gói ({effectiveSubFiles.length} tệp .ZIP)</span>
+                    </button>
+                  ) : (
+                    effectiveFileUrl &&
                     !isGoogleDriveFolderUrl(effectiveFileUrl) &&
                     !isGoogleDocsOrSheetsUrl(effectiveFileUrl) && (
                       <button
@@ -509,7 +582,8 @@ export default function DocumentDetailPage() {
                             : "Tải PDF về máy"}
                         </span>
                       </button>
-                    )}
+                    )
+                  )}
 
                   {effectiveAnswerUrl && effectiveAnswerUrl !== effectiveFileUrl && (
                     <button
@@ -538,7 +612,6 @@ export default function DocumentDetailPage() {
                 </div>
               </div>
             ) : (
-              /* Paid Unlock Box */
               <div className="p-4 sm:p-5 rounded-2xl bg-amber-50/70 dark:bg-amber-950/20 border border-amber-200 dark:border-amber-800/70 space-y-3.5">
                 <div className="flex flex-wrap items-center justify-between gap-2">
                   <div>
@@ -562,7 +635,6 @@ export default function DocumentDetailPage() {
                   </div>
                 </div>
 
-                {/* Voucher Input */}
                 <div className="flex items-center gap-2">
                   <div className="relative flex-1">
                     <Ticket className="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
@@ -650,62 +722,134 @@ export default function DocumentDetailPage() {
         </section>
       )}
 
-      {/* Sub-files Explorer for Multi-file Packs */}
+      {/* Nested Sub-Folder & Sub-File Explorer for Multi-file Packs */}
       {hasFullAccess && effectiveSubFiles.length > 0 && (
-        <section className="bg-white dark:bg-slate-900 rounded-3xl border border-slate-200 dark:border-slate-800 p-5 space-y-3">
-          <div className="flex items-center gap-2">
-            <FolderOpen className="w-4 h-4 text-teal-600" />
-            <h2 className="text-sm font-bold text-slate-900 dark:text-white">
-              Danh sách tệp trong bộ tài liệu ({effectiveSubFiles.length} tệp)
-            </h2>
+        <section className="bg-white dark:bg-slate-900 rounded-3xl border border-slate-200 dark:border-slate-800 p-5 space-y-4">
+          <div className="flex flex-wrap items-center justify-between gap-2">
+            <div className="flex items-center gap-2">
+              <FolderOpen className="w-5 h-5 text-teal-600" />
+              <div>
+                <h2 className="text-sm sm:text-base font-black text-slate-900 dark:text-white">
+                  Cây thư mục bên trong bộ tài liệu ({effectiveSubFiles.length} tệp)
+                </h2>
+                <p className="text-[11px] text-slate-500">
+                  Phân cấp chuẩn theo thư mục gốc — đọc trực tiếp từng tệp hoặc tải trọn bộ về máy
+                </p>
+              </div>
+            </div>
+
+            {effectiveSubFiles.length > 1 && (
+              <button
+                type="button"
+                onClick={() => setBatchDownloadTarget({ open: true })}
+                className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-teal-600 hover:bg-teal-700 text-white text-xs font-bold cursor-pointer"
+              >
+                <FolderDown className="w-3.5 h-3.5" />
+                <span>Tải toàn bộ ({effectiveSubFiles.length} tệp)</span>
+              </button>
+            )}
           </div>
 
-          <div className="divide-y divide-slate-100 dark:divide-slate-800">
-            {effectiveSubFiles.map((sf, idx) => {
-              const isPdf = isPdfDocumentUrl(sf.url, sf.name, sf.fileFormat);
+          <div className="space-y-3">
+            {groupedSubFolders.map(([folderPath, files]) => {
+              const groupKey = folderPath || "__root__";
+              const isCollapsed = collapsedSubGroups.has(groupKey);
               return (
                 <div
-                  key={`${sf.url}_${idx}`}
-                  className="py-2.5 flex flex-wrap items-center justify-between gap-2"
+                  key={groupKey}
+                  className="rounded-2xl border border-slate-200/80 dark:border-slate-800 overflow-hidden"
                 >
-                  <div className="flex items-center gap-2.5 min-w-0">
-                    <FileText className="w-4 h-4 text-teal-600 shrink-0" />
-                    <span className="text-xs font-semibold text-slate-800 dark:text-slate-200 truncate max-w-md sm:max-w-xl">
-                      {sf.name}
-                    </span>
-                  </div>
-                  <div className="flex items-center gap-1.5 shrink-0">
-                    {isPdf ? (
-                      <>
-                        <button
-                          type="button"
-                          onClick={() => handleOpenReader(sf.url, sf.name)}
-                          className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-teal-50 dark:bg-teal-950/50 text-teal-700 dark:text-teal-300 text-xs font-bold cursor-pointer"
-                        >
-                          <Eye className="w-3.5 h-3.5" />
-                          <span>Đọc PDF</span>
-                        </button>
-                        <button
-                          type="button"
-                          onClick={() => void handleDownload(sf.url, sf.name)}
-                          className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-blue-50 dark:bg-blue-950/50 text-blue-700 dark:text-blue-300 text-xs font-bold cursor-pointer"
-                        >
-                          <Download className="w-3.5 h-3.5" />
-                          <span>Tải</span>
-                        </button>
-                      </>
-                    ) : (
-                      <a
-                        href={sf.url}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-200 text-xs font-bold"
+                  {folderPath && (
+                    <div className="px-4 py-2.5 bg-slate-50 dark:bg-slate-800/60 flex items-center justify-between gap-2">
+                      <button
+                        type="button"
+                        onClick={() =>
+                          setCollapsedSubGroups((prev) => {
+                            const next = new Set(prev);
+                            if (next.has(groupKey)) next.delete(groupKey);
+                            else next.add(groupKey);
+                            return next;
+                          })
+                        }
+                        className="flex items-center gap-2 text-xs font-extrabold text-slate-800 dark:text-slate-100 cursor-pointer"
                       >
-                        <ExternalLink className="w-3.5 h-3.5" />
-                        <span>Mở tệp</span>
-                      </a>
-                    )}
-                  </div>
+                        {isCollapsed ? (
+                          <ChevronRight className="w-4 h-4 text-slate-400" />
+                        ) : (
+                          <ChevronDown className="w-4 h-4 text-slate-400" />
+                        )}
+                        <Folder className="w-4 h-4 text-amber-500" />
+                        <span>{folderPath.replace(/\//g, " › ")}</span>
+                        <span className="text-[11px] font-semibold text-slate-400">
+                          ({files.length} tệp)
+                        </span>
+                      </button>
+
+                      <button
+                        type="button"
+                        onClick={() =>
+                          setBatchDownloadTarget({ open: true, subFolderFilter: folderPath })
+                        }
+                        className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 text-[11px] font-bold text-teal-700 dark:text-teal-300 cursor-pointer"
+                      >
+                        <FolderDown className="w-3 h-3" />
+                        <span>Tải nhánh này</span>
+                      </button>
+                    </div>
+                  )}
+
+                  {!isCollapsed && (
+                    <div className="divide-y divide-slate-100 dark:divide-slate-800 px-4">
+                      {files.map((sf, idx) => {
+                        const isPdf = isPdfDocumentUrl(sf.url, sf.name, sf.fileFormat);
+                        return (
+                          <div
+                            key={`${sf.url}_${idx}`}
+                            className="py-2.5 flex flex-wrap items-center justify-between gap-2"
+                          >
+                            <div className="flex items-center gap-2.5 min-w-0">
+                              <FileText className="w-4 h-4 text-teal-600 shrink-0" />
+                              <span className="text-xs font-semibold text-slate-800 dark:text-slate-200 truncate max-w-md sm:max-w-xl">
+                                {sf.name}
+                              </span>
+                            </div>
+                            <div className="flex items-center gap-1.5 shrink-0">
+                              {isPdf ? (
+                                <>
+                                  <button
+                                    type="button"
+                                    onClick={() => handleOpenReader(sf.url, sf.name)}
+                                    className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-teal-50 dark:bg-teal-950/50 text-teal-700 dark:text-teal-300 text-xs font-bold cursor-pointer"
+                                  >
+                                    <Eye className="w-3.5 h-3.5" />
+                                    <span>Đọc PDF</span>
+                                  </button>
+                                  <button
+                                    type="button"
+                                    onClick={() => void handleDownload(sf.url, sf.name)}
+                                    className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-blue-50 dark:bg-blue-950/50 text-blue-700 dark:text-blue-300 text-xs font-bold cursor-pointer"
+                                  >
+                                    <Download className="w-3.5 h-3.5" />
+                                    <span>Tải</span>
+                                  </button>
+                                </>
+                              ) : (
+                                <a
+                                  href={sf.url}
+                                  target="_blank"
+                                  rel="noopener noreferrer"
+                                  className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-200 text-xs font-bold"
+                                >
+                                  <ExternalLink className="w-3.5 h-3.5" />
+                                  <span>Mở tệp</span>
+                                </a>
+                              )}
+                            </div>
+                          </div>
+                        );
+                      })}
+                    </div>
+                  )}
                 </div>
               );
             })}
@@ -717,7 +861,7 @@ export default function DocumentDetailPage() {
       {relatedDocs.length > 0 && (
         <section className="space-y-3">
           <h2 className="text-sm font-bold text-slate-900 dark:text-white px-1">
-            Tài liệu cùng chuyên mục
+            Tài liệu cùng thư mục &amp; chuyên mục
           </h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
             {relatedDocs.map((rel) => (
@@ -737,6 +881,31 @@ export default function DocumentDetailPage() {
             ))}
           </div>
         </section>
+      )}
+
+      {/* Batch Download Modal */}
+      <BatchDownloadModal
+        open={batchDownloadTarget.open}
+        onClose={() => setBatchDownloadTarget({ open: false })}
+        title={doc.title}
+        documents={[doc]}
+        folderIndex={folderIndex}
+        subFolderFilter={batchDownloadTarget.subFolderFilter}
+      />
+
+      {/* Owner / Admin Edit Document Modal */}
+      {canEditDoc && (
+        <DocumentUploadModal
+          open={showEditModal}
+          onClose={() => setShowEditModal(false)}
+          isAdminMode={isAdmin}
+          currentUserUid={user?.uid}
+          editingDoc={doc}
+          folderIndex={folderIndex}
+          onSaved={() => {
+            void reloadDetail();
+          }}
+        />
       )}
     </div>
   );

@@ -1,5 +1,20 @@
 # DkTEST changelog
 
+## 2.0.8 — 2026-11-27 (Android versionCode 32)
+
+- **Tái cấu trúc Kho Tài Liệu theo Cây Thư Mục Phân Cấp Chuẩn Gốc & Tách riêng Tài liệu Độc quyền DkTEST (`documentLibrary.ts`, `documentLibraryClientService.ts`, `DocumentLibraryPage.tsx`, `DocumentDetailPage.tsx`)**:
+  - **Làm gọn & tách bạch 3 không gian rõ ràng**: (1) **Tài liệu Độc quyền DkTEST (`dktest_exclusive`)** hiển thị trang trọng, tách biệt hoàn toàn với các nguồn thu thập bên ngoài; (2) **Thư mục Nguồn Chuẩn Gốc (`sources`)** gom gọn từng trang nguồn vào thư mục gốc riêng; (3) **Thư mục Cộng đồng & Giáo viên (`community`)**.
+  - **Thư mục riêng Ngân Hàng Đề Thi (`sfold_nhdt`) & Cây thư mục nhiều cấp như trang gốc**: tạo mục thư mục gốc riêng cho **Ngân Hàng Đề Thi (`nganhangdethi.org`)** với cây phân cấp chuẩn (Kỳ thi ĐGNL HSA / V-ACT / TSA / VSAT, Lớp 12 & THPT QG › từng môn › Đề thi / Ebook / Chuyên đề / Sổ tay / Thư mục tổng hợp, Lớp 11, Lớp 10, Ngoại ngữ & TLK), kèm thanh đường dẫn Breadcrumb, thanh bên Cây thư mục thu phóng và bảo toàn cả các nhánh thư mục con lồng nhau (`folderTree_ft`) bên trong từng gói tài liệu nhiều file.
+- **Bổ sung kho tài liệu mới từ `tailieuonthi.edu.vn` & `tailieuonthi.org` — Nâng tổng kho lên 5.402 tài liệu & 280 thư mục (`scripts/scrape-document-library.mjs`, `public/data/document-library-seed.json`, `public/data/document-library-packs.json`)**:
+  - Thu thập thêm **912 tài liệu** từ **Tài Liệu Ôn Thi EDU (`tailieuonthi.edu.vn`)** giữ nguyên cây danh mục gốc gồm cả **THCS (Lớp 8, Lớp 9 & Thi vào 10)**, THPT (10, 11, 12), Khảo sát Sở GD&ĐT, ĐGNL & ĐGTD.
+  - Thu thập thêm **772 tài liệu** từ **Tài Liệu Ôn Thi ORG (`tailieuonthi.org`)** giữ nguyên cây danh mục các kỳ thi THPT, HSA, TSA, V-ACT, **SPT (ĐGNL Sư phạm)**, **QDA (Bộ Quốc phòng)**, Bộ Công An & HSG kèm tách rõ file Đề thi và file Đáp án chi tiết.
+  - **Tối ưu hiệu năng nạp trang (Lazy Pack Split)**: tách riêng 912 gói tài liệu đa tệp (`35.000+` tệp con) sang `document-library-packs.json` chỉ nạp lười khi mở gói hoặc tải trọn bộ, giữ dung lượng chỉ mục chính `document-library-seed.json` ở mức **~457 KB gzipped** (**0 lượt đọc Firestore**).
+- **Cho phép Người đăng tạo Thư mục riêng, Cập nhật tài liệu & Tải toàn bộ thư mục (`.ZIP`) (`FolderFormModal.tsx`, `BatchDownloadModal.tsx`, `DocumentUploadModal.tsx`, `zipBuilder.ts`, `batchDownloadService.ts`, `documentLibraryService.ts`, `DocumentManagement.tsx`)**:
+  - **Người đăng tạo & quản lý thư mục riêng (`library_folders`)**: thành viên và giáo viên có thể tự tạo thư mục gốc & thư mục con nhiều cấp (kiểm tra chống vòng lặp tối đa 6 cấp trên server), đổi tên/mô tả, tải lên nhiều tệp cùng lúc vào thư mục, chuyển hàng loạt tài liệu giữa các thư mục và chỉnh sửa/cập nhật tài liệu bất kỳ lúc nào.
+  - **Tải toàn bộ thư mục / gói tài liệu (`Tải trọn bộ`)**: tích hợp bộ đóng gói **`.ZIP` chuẩn PKZIP UTF-8** giữ nguyên cấu trúc thư mục con tiếng Việt (hoặc chế độ tải rời từng tệp gốc cho Android `DownloadManager` & Ebook lớn), tự động đính kèm file Đáp án và **tuyệt đối bỏ qua / không làm lộ URL của các tài liệu trả phí chưa mở khóa**.
+  - **Chia sẻ liên kết thư mục (`/documents?folder=...`)**: hỗ trợ Open Graph preview `1200×630` tối giản cho từng thư mục khi gửi qua Zalo / Facebook / Messenger.
+- Audit: [2.0.8](docs/audits/2.0.8.md).
+
 ## 2.0.7 — 2026-11-27 (Android versionCode 31)
 
 - **Thanh điều hướng dưới trên điện thoại (Mobile Bottom Bar) & Menu Danh mục (`StudentLayout.tsx`, `AdminLayout.tsx`)**:

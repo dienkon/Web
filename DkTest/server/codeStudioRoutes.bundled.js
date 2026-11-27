@@ -809,14 +809,14 @@ var PRODUCTION_HTML_TEMPLATE = `<!doctype html>
         100% { left: 100%; }
       }
     </style>
-    <script type="module" crossorigin src="/assets/index-BsxVuFJ_.js"></script>
+    <script type="module" crossorigin src="/assets/index-DHZnnFeB.js"></script>
     <link rel="modulepreload" crossorigin href="/assets/vendor-react-DhAO3cQb.js">
     <link rel="modulepreload" crossorigin href="/assets/vendor-firebase-DXWw2oS7.js">
     <link rel="modulepreload" crossorigin href="/assets/vendor-charts-DPZ_nbp_.js">
-    <link rel="modulepreload" crossorigin href="/assets/vendor-icons-nE36yFL6.js">
+    <link rel="modulepreload" crossorigin href="/assets/vendor-icons-BPvt_BJm.js">
     <link rel="modulepreload" crossorigin href="/assets/vendor-katex-T051Jbj4.js">
     <link rel="stylesheet" crossorigin href="/assets/vendor-katex-Ddr6Z9Sf.css">
-    <link rel="stylesheet" crossorigin href="/assets/index-DqKJzIZk.css">
+    <link rel="stylesheet" crossorigin href="/assets/index-6nCvb5nT.css">
   </head>
 
   <body>

@@ -153,5 +153,14 @@ try {
   await pass(getDoc(doc(a, 'library_entitlements/student-a_paid-safe')));
   await deny(getDoc(doc(b, 'library_entitlements/student-a_paid-safe')));
 
+  // Library folders: published readable by anyone, hidden readable only by owner/admin, client direct writes denied
+  await deny(setDoc(doc(a, 'library_folders/spoof-folder'), { id: 'spoof-folder', name: 'Spoof', status: 'published', ownerUid: 'student-a' }));
+  await pass(setDoc(doc(admin, 'library_folders/pub-folder'), { id: 'pub-folder', name: 'Bộ đề Toán 12', status: 'published', ownerUid: 'student-a' }));
+  await pass(setDoc(doc(admin, 'library_folders/hidden-folder'), { id: 'hidden-folder', name: 'Thư mục ẩn', status: 'hidden', ownerUid: 'student-a' }));
+  await pass(getDoc(doc(anonymous, 'library_folders/pub-folder')));
+  await deny(getDoc(doc(anonymous, 'library_folders/hidden-folder')));
+  await deny(getDoc(doc(b, 'library_folders/hidden-folder')));
+  await pass(getDoc(doc(a, 'library_folders/hidden-folder')));
+
   console.log(`Firestore emulator: ${assertions} authorization assertions passed (production not modified).`);
 } finally { await env.cleanup(); await deleteApp(adminApp); }

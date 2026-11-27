@@ -6,20 +6,46 @@ import {
   DOCUMENT_GRADE_META,
   DOCUMENT_SUBJECT_META,
   expandCompactSeedDocument,
+  expandCompactSeedFolder,
+  expandSeedUrl,
   type DocumentAccessCheckResult,
   type DocumentAuthorizedContent,
   type DocumentCategoryKey,
   type DocumentEntitlement,
+  type DocumentFileFormat,
   type DocumentGradeKey,
   type DocumentLibrarySettings,
   type DocumentSeedBundle,
+  type DocumentSourceKey,
+  type DocumentSpaceKey,
   type DocumentStatus,
+  type DocumentSubFile,
   type DocumentSubjectKey,
   type LibraryDocument,
+  type LibraryFolder,
 } from "../types/documentLibrary";
 
 export interface IndexedLibraryDocument extends LibraryDocument {
   _searchKey: string;
+}
+
+export interface FolderTreeNode extends LibraryFolder {
+  children: FolderTreeNode[];
+  directDocCount: number;
+  recursiveDocCount: number;
+  subfolderCount: number;
+  breadcrumbs: LibraryFolder[];
+  descendantIds: Set<string>;
+}
+
+export interface FolderTreeIndex {
+  nodesById: Map<string, FolderTreeNode>;
+  rootsBySpace: {
+    dktest_exclusive: FolderTreeNode[];
+    community: FolderTreeNode[];
+    sources: FolderTreeNode[];
+  };
+  allRoots: FolderTreeNode[];
 }
 
 export interface DocumentFilterQuery {
@@ -29,15 +55,29 @@ export interface DocumentFilterQuery {
   category?: DocumentCategoryKey | "all";
   priceFilter?: "all" | "free" | "paid";
   sourceFilter?: "all" | "seed" | "admin" | "community";
+  spaceFilter?: "all" | DocumentSpaceKey;
+  sourceKeyFilter?: "all" | DocumentSourceKey;
+  folderId?: string | null;
+  includeSubfolders?: boolean;
+  folderIndex?: FolderTreeIndex;
   sortBy?: "newest" | "featured" | "price_asc" | "title_asc";
 }
 
 const SAVED_DOCS_STORAGE_KEY = "dktest:saved_document_ids";
 const LIVE_CACHE_TTL_MS = 30 * 1000;
 
-let seedDocumentsPromise: Promise<LibraryDocument[]> | null = null;
+let seedBundlePromise: Promise<{
+  documents: LibraryDocument[];
+  folders: LibraryFolder[];
+}> | null = null;
+
+let seedPacksPromise: Promise<
+  Record<string, Array<{ n: string; u: string; f: DocumentFileFormat; p?: string }>>
+> | null = null;
+
 let liveOverlayCache: {
   items: LibraryDocument[];
+  folders: LibraryFolder[];
   settings?: Partial<DocumentLibrarySettings>;
   timestamp: number;
 } | null = null;
@@ -78,36 +118,84 @@ export function getDocumentCoverFallbackUrl(subject: DocumentSubjectKey): string
   return `/images/documents/${bannerKey}.jpg`;
 }
 
-export function buildDocumentShareUrl(docId?: string): string {
-  const origin =
-    typeof window !== "undefined" &&
+function getShareOrigin(): string {
+  return typeof window !== "undefined" &&
     !isNativeAndroid() &&
     window.location.origin.startsWith("http") &&
     !window.location.origin.includes("localhost")
-      ? window.location.origin
-      : APP_LINK_ORIGIN;
+    ? window.location.origin
+    : APP_LINK_ORIGIN;
+}
 
+export function buildDocumentShareUrl(docId?: string): string {
+  const origin = getShareOrigin();
   if (!docId) return `${origin}/documents`;
   return `${origin}/documents/${encodeURIComponent(docId)}`;
 }
 
-async function loadStaticSeedDocuments(): Promise<LibraryDocument[]> {
-  if (seedDocumentsPromise) return seedDocumentsPromise;
+export function buildFolderShareUrl(folderId: string): string {
+  const origin = getShareOrigin();
+  return `${origin}/documents?folder=${encodeURIComponent(folderId)}`;
+}
 
-  seedDocumentsPromise = (async () => {
+async function loadStaticSeedBundle(): Promise<{
+  documents: LibraryDocument[];
+  folders: LibraryFolder[];
+}> {
+  if (seedBundlePromise) return seedBundlePromise;
+
+  seedBundlePromise = (async () => {
     try {
       const res = await fetch("/data/document-library-seed.json");
-      if (!res.ok) return [];
+      if (!res.ok) return { documents: [], folders: [] };
       const bundle = (await res.json()) as DocumentSeedBundle;
-      if (!Array.isArray(bundle?.items)) return [];
-      return bundle.items.map(expandCompactSeedDocument);
+      const folders = Array.isArray(bundle?.folders)
+        ? bundle.folders.map(expandCompactSeedFolder)
+        : [];
+      const documents = Array.isArray(bundle?.items)
+        ? bundle.items.map(expandCompactSeedDocument)
+        : [];
+      return { documents, folders };
     } catch (err) {
       console.warn("[documentLibraryClient] Không thể nạp gói seed tĩnh:", err);
-      return [];
+      return { documents: [], folders: [] };
     }
   })();
 
-  return seedDocumentsPromise;
+  return seedBundlePromise;
+}
+
+async function loadStaticSeedPacks(): Promise<
+  Record<string, Array<{ n: string; u: string; f: DocumentFileFormat; p?: string }>>
+> {
+  if (seedPacksPromise) return seedPacksPromise;
+  seedPacksPromise = (async () => {
+    try {
+      const res = await fetch("/data/document-library-packs.json");
+      if (!res.ok) return {};
+      return (await res.json()) || {};
+    } catch {
+      return {};
+    }
+  })();
+  return seedPacksPromise;
+}
+
+export async function hydrateDocumentSubFilesClient(
+  doc: LibraryDocument
+): Promise<LibraryDocument> {
+  if (doc.subFiles && doc.subFiles.length > 0) return doc;
+  if (!doc.subFileCount || doc.subFileCount <= 1) return doc;
+  const packs = await loadStaticSeedPacks();
+  const rawPack = packs[doc.id];
+  if (!Array.isArray(rawPack) || rawPack.length === 0) return doc;
+  const subFiles: DocumentSubFile[] = rawPack.map((sf) => ({
+    name: sf.n,
+    url: expandSeedUrl(sf.u) || sf.u,
+    fileFormat: sf.f,
+    ...(sf.p ? { folderPath: sf.p } : {}),
+  }));
+  return { ...doc, subFiles };
 }
 
 export function invalidateClientDocumentCache(): void {
@@ -115,12 +203,14 @@ export function invalidateClientDocumentCache(): void {
 }
 
 /**
- * Loads the complete merged Document Repository:
- * - 4,180+ pre-populated documents from static CDN (`0` Firestore reads)
- * - Live Admin & Community uploads + overrides from server-cached `/api/documents/live`
+ * Loads the complete merged Document Repository & Hierarchical Folder Tree:
+ * - 5,400+ pre-populated documents & 280 folders from static CDN (`0` Firestore reads)
+ * - Live Admin & Community uploads + custom folders from server-cached `/api/documents/live`
  */
 export async function getCatalogDocuments(options: { forceRefresh?: boolean } = {}): Promise<{
   documents: IndexedLibraryDocument[];
+  folders: LibraryFolder[];
+  folderIndex: FolderTreeIndex;
   settings: {
     autoApproveUserUploads: boolean;
     creatorRevenueSharePercent: number;
@@ -137,59 +227,213 @@ export async function getCatalogDocuments(options: { forceRefresh?: boolean } = 
         .get<{
           success: boolean;
           items: LibraryDocument[];
+          folders?: LibraryFolder[];
           settings?: Partial<DocumentLibrarySettings>;
         }>("/api/documents/live")
         .then((res) => {
           const next = {
             items: Array.isArray(res?.items) ? res.items : [],
+            folders: Array.isArray(res?.folders) ? res.folders : [],
             settings: res?.settings,
             timestamp: Date.now(),
           };
           liveOverlayCache = next;
           return next;
         })
-        .catch(() => liveOverlayCache || { items: [], settings: undefined, timestamp: Date.now() })
+        .catch(
+          () =>
+            liveOverlayCache || {
+              items: [],
+              folders: [],
+              settings: undefined,
+              timestamp: Date.now(),
+            }
+        )
     : Promise.resolve(liveOverlayCache!);
 
-  const [seedDocs, liveData] = await Promise.all([loadStaticSeedDocuments(), livePromise]);
+  const [seedData, liveData] = await Promise.all([loadStaticSeedBundle(), livePromise]);
 
+  // 1. Merge Folders (live folders + overrides on seed folders)
+  const folderOverrideMap = new Map<string, LibraryFolder>();
+  for (const lf of liveData.folders) {
+    if (lf?.id) folderOverrideMap.set(lf.id, lf);
+  }
+
+  const mergedFolders: LibraryFolder[] = [];
+  const seenFolderIds = new Set<string>();
+
+  for (const lf of liveData.folders) {
+    if (!lf?.id) continue;
+    seenFolderIds.add(lf.id);
+    if (lf.status === "hidden") continue;
+    mergedFolders.push(lf);
+  }
+  for (const sf of seedData.folders) {
+    if (seenFolderIds.has(sf.id)) continue;
+    const override = folderOverrideMap.get(sf.id);
+    if (override && override.status === "hidden") continue;
+    mergedFolders.push(sf);
+  }
+
+  const hiddenFolderIds = new Set(
+    liveData.folders.filter((f) => f?.status === "hidden").map((f) => f.id)
+  );
+
+  // 2. Merge Documents
   const overrideMap = new Map<string, LibraryDocument>();
   for (const item of liveData.items) {
     if (item?.id) overrideMap.set(item.id, item);
   }
 
-  const merged: IndexedLibraryDocument[] = [];
-  const seenIds = new Set<string>();
+  const mergedDocs: IndexedLibraryDocument[] = [];
+  const seenDocIds = new Set<string>();
 
-  // 1. Add published live uploads & overrides first so new uploads appear prominently
   for (const liveDoc of liveData.items) {
     if (!liveDoc?.id) continue;
-    seenIds.add(liveDoc.id);
+    seenDocIds.add(liveDoc.id);
     if (liveDoc.status !== "published") continue;
-    merged.push({
+    if (liveDoc.folderId && hiddenFolderIds.has(liveDoc.folderId)) continue;
+    const normalizedSpace: DocumentSpaceKey =
+      liveDoc.space ||
+      (liveDoc.authorRole === "admin"
+        ? "dktest_exclusive"
+        : liveDoc.authorRole === "community"
+        ? "community"
+        : "sources");
+    const enriched: LibraryDocument = {
       ...liveDoc,
-      _searchKey: buildSearchKey(liveDoc),
+      space: normalizedSpace,
+      sourceKey:
+        liveDoc.sourceKey ||
+        (normalizedSpace === "dktest_exclusive" ? "dktest" : "community"),
+    };
+    mergedDocs.push({
+      ...enriched,
+      _searchKey: buildSearchKey(enriched),
     });
   }
 
-  // 2. Add static seed documents (unless overridden or hidden by Admin)
-  for (const seedDoc of seedDocs) {
-    if (seenIds.has(seedDoc.id)) continue;
+  for (const seedDoc of seedData.documents) {
+    if (seenDocIds.has(seedDoc.id)) continue;
     const override = overrideMap.get(seedDoc.id);
     if (override && override.status === "hidden") continue;
-    merged.push({
+    if (seedDoc.folderId && hiddenFolderIds.has(seedDoc.folderId)) continue;
+    mergedDocs.push({
       ...seedDoc,
       _searchKey: buildSearchKey(seedDoc),
     });
   }
 
+  const folderIndex = buildFolderTreeIndex(mergedFolders, mergedDocs);
+
   return {
-    documents: merged,
+    documents: mergedDocs,
+    folders: mergedFolders,
+    folderIndex,
     settings: {
       autoApproveUserUploads: liveData.settings?.autoApproveUserUploads ?? true,
       creatorRevenueSharePercent: liveData.settings?.creatorRevenueSharePercent ?? 80,
       maxUserPriceVnd: liveData.settings?.maxUserPriceVnd ?? 500000,
     },
+  };
+}
+
+/**
+ * Builds an in-memory hierarchical FolderTreeIndex with recursive document counts,
+ * breadcrumbs, and descendant ID sets in O(N) time (`<3ms` for 300+ folders & 5,500 docs).
+ */
+export function buildFolderTreeIndex(
+  folders: LibraryFolder[],
+  documents: LibraryDocument[]
+): FolderTreeIndex {
+  const nodesById = new Map<string, FolderTreeNode>();
+
+  for (const f of folders) {
+    nodesById.set(f.id, {
+      ...f,
+      children: [],
+      directDocCount: 0,
+      recursiveDocCount: 0,
+      subfolderCount: 0,
+      breadcrumbs: [],
+      descendantIds: new Set<string>([f.id]),
+    });
+  }
+
+  // Count direct documents per folder
+  for (const doc of documents) {
+    if (doc.folderId && nodesById.has(doc.folderId)) {
+      nodesById.get(doc.folderId)!.directDocCount++;
+    }
+  }
+
+  // Wire parent -> children cleanly with cycle guard
+  const allRoots: FolderTreeNode[] = [];
+  for (const node of nodesById.values()) {
+    const pid = node.parentId;
+    if (pid && pid !== node.id && nodesById.has(pid)) {
+      // Prevent cycle
+      let cur: FolderTreeNode | undefined = nodesById.get(pid);
+      let hasCycle = false;
+      let guard = 0;
+      while (cur && guard < 12) {
+        if (cur.id === node.id) {
+          hasCycle = true;
+          break;
+        }
+        cur = cur.parentId ? nodesById.get(cur.parentId) : undefined;
+        guard++;
+      }
+      if (!hasCycle) {
+        nodesById.get(pid)!.children.push(node);
+        continue;
+      }
+    }
+    allRoots.push(node);
+  }
+
+  const sortFolderNodes = (arr: FolderTreeNode[]) => {
+    arr.sort((a, b) => {
+      const ap = a.isPinned ? 1 : 0;
+      const bp = b.isPinned ? 1 : 0;
+      if (bp !== ap) return bp - ap;
+      const ao = a.sortOrder ?? 100;
+      const bo = b.sortOrder ?? 100;
+      if (ao !== bo) return ao - bo;
+      return a.name.localeCompare(b.name, "vi");
+    });
+  };
+
+  const dfsCompute = (node: FolderTreeNode, ancestors: LibraryFolder[]): number => {
+    const nextBreadcrumbs = [...ancestors, node];
+    node.breadcrumbs = nextBreadcrumbs;
+    sortFolderNodes(node.children);
+    node.subfolderCount = node.children.length;
+
+    let totalDocs = node.directDocCount;
+    for (const child of node.children) {
+      totalDocs += dfsCompute(child, nextBreadcrumbs);
+      for (const descId of child.descendantIds) {
+        node.descendantIds.add(descId);
+      }
+    }
+    node.recursiveDocCount = totalDocs;
+    return totalDocs;
+  };
+
+  sortFolderNodes(allRoots);
+  for (const root of allRoots) {
+    dfsCompute(root, []);
+  }
+
+  return {
+    nodesById,
+    rootsBySpace: {
+      dktest_exclusive: allRoots.filter((r) => r.space === "dktest_exclusive"),
+      community: allRoots.filter((r) => r.space === "community"),
+      sources: allRoots.filter((r) => r.space === "sources"),
+    },
+    allRoots,
   };
 }
 
@@ -210,7 +454,14 @@ export function filterAndSortDocuments(
   const category = query.category || "all";
   const priceFilter = query.priceFilter || "all";
   const sourceFilter = query.sourceFilter || "all";
+  const spaceFilter = query.spaceFilter || "all";
+  const sourceKeyFilter = query.sourceKeyFilter || "all";
+  const folderId = query.folderId || null;
+  const includeSubfolders = query.includeSubfolders !== false;
   const sortBy = query.sortBy || "newest";
+
+  const targetFolderNode =
+    folderId && query.folderIndex ? query.folderIndex.nodesById.get(folderId) : undefined;
 
   const gradeCounts: Record<string, number> = { all: 0 };
   const subjectCounts: Record<string, number> = { all: 0 };
@@ -219,7 +470,27 @@ export function filterAndSortDocuments(
   const matched: IndexedLibraryDocument[] = [];
 
   for (const doc of allDocs) {
-    // 1. Check text search + price + source first
+    // 1. Folder & Space filter
+    if (folderId) {
+      if (includeSubfolders && targetFolderNode) {
+        if (!doc.folderId || !targetFolderNode.descendantIds.has(doc.folderId)) continue;
+      } else if (doc.folderId !== folderId) {
+        continue;
+      }
+    } else if (spaceFilter !== "all") {
+      const docSpace =
+        doc.space ||
+        (doc.authorRole === "admin"
+          ? "dktest_exclusive"
+          : doc.authorRole === "community"
+          ? "community"
+          : "sources");
+      if (docSpace !== spaceFilter) continue;
+    }
+
+    if (sourceKeyFilter !== "all" && doc.sourceKey !== sourceKeyFilter) continue;
+
+    // 2. Text search + price + authorRole filter
     if (tokens.length > 0) {
       let allMatch = true;
       for (const tk of tokens) {
@@ -236,7 +507,7 @@ export function filterAndSortDocuments(
     if (priceFilter === "paid" && !isPaid) continue;
     if (sourceFilter !== "all" && doc.authorRole !== sourceFilter) continue;
 
-    // Accumulate cross-facet counts cleanly
+    // 3. Cross-facet counts
     const matchesSubject = subject === "all" || doc.subject === subject;
     const matchesCategory = category === "all" || doc.category === category;
     const matchesGrade = grade === "all" || doc.grade === grade;
@@ -259,7 +530,6 @@ export function filterAndSortDocuments(
     }
   }
 
-  // Sort results
   matched.sort((a, b) => {
     if (sortBy === "featured") {
       const af = a.isFeatured ? 1 : 0;
@@ -274,7 +544,6 @@ export function filterAndSortDocuments(
       return a.title.localeCompare(b.title, "vi");
     }
 
-    // Featured & fresh live uploads gently prioritized at identical dates
     if (a.isFeatured && !b.isFeatured) return -1;
     if (!a.isFeatured && b.isFeatured) return 1;
     return String(b.publishedAt || b.createdAt || "").localeCompare(
@@ -322,35 +591,65 @@ export async function getSingleDocumentClient(docId: string): Promise<LibraryDoc
   const clean = String(docId || "").trim();
   if (!clean) return null;
 
-  // Check local merged catalog first if already warm (0 extra requests!)
   try {
     const { documents } = await getCatalogDocuments();
     const found = documents.find((d) => d.id === clean);
-    if (found) return found;
+    if (found) {
+      return await hydrateDocumentSubFilesClient(found);
+    }
   } catch {}
 
   const res = await api.get<{ success: boolean; document: LibraryDocument }>(
     `/api/documents/${encodeURIComponent(clean)}`
   );
-  return res?.document || null;
+  if (!res?.document) return null;
+  return await hydrateDocumentSubFilesClient(res.document);
 }
 
 export async function getMyDocumentLibraryState(): Promise<{
   uploaded: LibraryDocument[];
+  folders: LibraryFolder[];
   unlockedIds: string[];
   settings: DocumentLibrarySettings;
 }> {
   const res = await api.get<{
     success: boolean;
     uploaded: LibraryDocument[];
+    folders?: LibraryFolder[];
     unlockedIds: string[];
     settings: DocumentLibrarySettings;
   }>("/api/documents/me");
   return {
     uploaded: res.uploaded || [],
+    folders: res.folders || [],
     unlockedIds: res.unlockedIds || [],
     settings: res.settings,
   };
+}
+
+export async function saveUserFolderClient(
+  payload: Record<string, any>,
+  existingId?: string
+): Promise<{ folder: LibraryFolder; message: string }> {
+  const res = existingId
+    ? await api.patch<{ success: boolean; folder: LibraryFolder; message: string }>(
+        `/api/documents/folders/${encodeURIComponent(existingId)}`,
+        payload
+      )
+    : await api.post<{ success: boolean; folder: LibraryFolder; message: string }>(
+        "/api/documents/folders",
+        payload
+      );
+  invalidateClientDocumentCache();
+  return { folder: res.folder, message: res.message };
+}
+
+export async function deleteUserFolderClient(folderId: string): Promise<{ message: string }> {
+  const res = await api.delete<{ message: string }>(
+    `/api/documents/folders/${encodeURIComponent(folderId)}`
+  );
+  invalidateClientDocumentCache();
+  return res;
 }
 
 export async function saveUserDocumentClient(
@@ -373,6 +672,24 @@ export async function saveUserDocumentClient(
 export async function deleteUserDocumentClient(docId: string): Promise<void> {
   await api.delete(`/api/documents/${encodeURIComponent(docId)}`);
   invalidateClientDocumentCache();
+}
+
+export async function bulkMoveDocumentsClient(
+  params: { docIds: string[]; folderId: string | null },
+  isAdminMode = false
+): Promise<{ movedCount: number; message: string }> {
+  const endpoint = isAdminMode ? "/api/admin/documents/bulk-move" : "/api/documents/bulk-move";
+  const res = await api.post<{ movedCount: number; message: string }>(endpoint, params);
+  invalidateClientDocumentCache();
+  return res;
+}
+
+export async function resolveBatchAuthorizedDocumentsClient(docIds: string[]): Promise<{
+  items: Array<DocumentAuthorizedContent & { title: string; fileFormat: DocumentFileFormat }>;
+  skippedLockedCount: number;
+  skippedLockedTitles: string[];
+}> {
+  return await api.post("/api/documents/batch-resolve", { docIds });
 }
 
 export async function checkDocumentAccessClient(docId: string): Promise<DocumentAccessCheckResult> {
@@ -415,10 +732,30 @@ export async function unlockDocumentClient(
 // ---------------------------------------------------------------------------
 export async function getAdminDocumentsOverviewClient(): Promise<{
   documents: LibraryDocument[];
+  folders: LibraryFolder[];
   settings: DocumentLibrarySettings;
   purchases: DocumentEntitlement[];
 }> {
   return await api.get("/api/admin/documents");
+}
+
+export async function saveAdminFolderClient(
+  payload: Record<string, any>
+): Promise<{ folder: LibraryFolder; message: string }> {
+  const res = await api.post<{ folder: LibraryFolder; message: string }>(
+    "/api/admin/documents/folders",
+    payload
+  );
+  invalidateClientDocumentCache();
+  return res;
+}
+
+export async function deleteAdminFolderClient(folderId: string): Promise<{ message: string }> {
+  const res = await api.delete<{ message: string }>(
+    `/api/admin/documents/folders/${encodeURIComponent(folderId)}`
+  );
+  invalidateClientDocumentCache();
+  return res;
 }
 
 export async function saveAdminDocumentClient(
@@ -440,6 +777,7 @@ export async function moderateAdminDocumentClient(
     isFeatured?: boolean;
     priceVnd?: number;
     accessMode?: "free" | "paid";
+    folderId?: string | null;
   }
 ): Promise<{ document: LibraryDocument; message: string }> {
   const res = await api.patch<{ document: LibraryDocument; message: string }>(
@@ -480,6 +818,7 @@ export async function grantOrRevokeAdminDocumentEntitlementClient(params: {
 export async function importBloggerAdminDocumentsClient(params: {
   siteUrl: string;
   limit?: number;
+  folderId?: string | null;
 }): Promise<{ importedCount: number; message: string }> {
   const res = await api.post<{ importedCount: number; message: string }>(
     "/api/admin/documents/import-blogger",

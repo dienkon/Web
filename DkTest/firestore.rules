@@ -451,7 +451,13 @@ service cloud.firestore {
       allow write: if isAdmin();
     }
 
-    // 22. Document Library (Server-authoritative writes; paid file secrets isolated in library_document_secrets)
+    // 22. Document Library & Folders (Server-authoritative writes; paid file secrets isolated in library_document_secrets)
+    match /library_folders/{folderId} {
+      allow read: if resource.data.get('status', 'published') == 'published'
+        || isAdmin()
+        || (isAuthenticated() && resource.data.get('ownerUid', '') == request.auth.uid);
+      allow write: if isAdmin();
+    }
     match /library_documents/{docId} {
       allow read: if resource.data.get('status', 'published') == 'published'
         || isAdmin()

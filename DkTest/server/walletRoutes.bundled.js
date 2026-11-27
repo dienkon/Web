@@ -6467,7 +6467,54 @@ import crypto3 from "crypto";
 import { z as z4 } from "zod";
 
 // src/types/documentLibrary.ts
+var DOCUMENT_SOURCE_META = {
+  dktest: {
+    label: "T\xE0i li\u1EC7u \u0110\u1ED9c quy\u1EC1n DkTEST",
+    shortLabel: "\u0110\u1ED9c quy\u1EC1n DkTEST",
+    description: "B\u1ED9 \u0111\u1EC1 thi, chuy\xEAn \u0111\u1EC1 & Ebook bi\xEAn so\u1EA1n v\xE0 tuy\u1EC3n ch\u1ECDn \u0111\u1ED9c quy\u1EC1n b\u1EDFi \u0111\u1ED9i ng\u0169 DkTEST.",
+    accentColor: "teal"
+  },
+  community: {
+    label: "Th\u01B0 m\u1EE5c C\u1ED9ng \u0111\u1ED3ng & Gi\xE1o vi\xEAn",
+    shortLabel: "C\u1ED9ng \u0111\u1ED3ng",
+    description: "Kho th\u01B0 m\u1EE5c ri\xEAng do gi\xE1o vi\xEAn v\xE0 th\xE0nh vi\xEAn DkTEST \u0111\xF3ng g\xF3p, c\u1EADp nh\u1EADt li\xEAn t\u1EE5c.",
+    accentColor: "indigo"
+  },
+  nhdt: {
+    label: "Ng\xE2n H\xE0ng \u0110\u1EC1 Thi (nganhangdethi.org)",
+    shortLabel: "Ng\xE2n H\xE0ng \u0110\u1EC1 Thi",
+    domain: "nganhangdethi.org",
+    description: "Kho \u0111\u1EC1 thi, Ebook Moon/Mapstudy & th\u01B0 m\u1EE5c t\xE0i li\u1EC7u 10, 11, 12, HSA, V-ACT, TSA ph\xE2n c\u1EA5p chu\u1EA9n nh\u01B0 g\u1ED1c.",
+    accentColor: "blue"
+  },
+  tlo_edu: {
+    label: "T\xE0i Li\u1EC7u \xD4n Thi EDU (tailieuonthi.edu.vn)",
+    shortLabel: "T\xE0i Li\u1EC7u \xD4n Thi EDU",
+    domain: "tailieuonthi.edu.vn",
+    description: "H\u1EC7 th\u1ED1ng th\u01B0 m\u1EE5c THCS (L\u1EDBp 8, 9), THPT (10, 11, 12), \u0110\u1EC1 kh\u1EA3o s\xE1t S\u1EDF GD&\u0110T, \u0110GNL & \u0110GTD mi\u1EC5n ph\xED.",
+    accentColor: "emerald"
+  },
+  tlo_org: {
+    label: "T\xE0i Li\u1EC7u \xD4n Thi ORG (tailieuonthi.org)",
+    shortLabel: "T\xE0i Li\u1EC7u \xD4n Thi ORG",
+    domain: "tailieuonthi.org",
+    description: "Chuy\xEAn trang t\xE0i li\u1EC7u c\xE1c k\u1EF3 thi THPT, HSA, TSA, V-ACT, SPT (S\u01B0 ph\u1EA1m), QDA & B\u1ED9 C\xF4ng An c\xF3 \u0111\xE1p \xE1n chi ti\u1EBFt.",
+    accentColor: "amber"
+  },
+  math_partners: {
+    label: "Kho To\xE1n & Chuy\xEAn \u0110\u1EC1 M\u1EDF R\u1ED9ng",
+    shortLabel: "To\xE1n M\u1EDF R\u1ED9ng",
+    domain: "mathvn.com",
+    description: "T\u1ED5ng h\u1EE3p chuy\xEAn \u0111\u1EC1 v\xE0 \u0111\u1EC1 thi th\u1EED To\xE1n THPT t\u1EEB Nguy\u1EC5n B\u1EA3o V\u01B0\u01A1ng, MathVN & THPT.Math.",
+    accentColor: "purple"
+  }
+};
 var DOCUMENT_GRADE_META = {
+  thcs: {
+    label: "THCS (L\u1EDBp 6\u20139 & Thi v\xE0o 10)",
+    shortLabel: "THCS (6\u20139)",
+    badgeClass: "bg-emerald-100 text-emerald-700 dark:bg-emerald-950/60 dark:text-emerald-300"
+  },
   grade_10: {
     label: "L\u1EDBp 10",
     shortLabel: "L\u1EDBp 10",
@@ -6489,7 +6536,7 @@ var DOCUMENT_GRADE_META = {
     badgeClass: "bg-rose-100 text-rose-700 dark:bg-rose-950/60 dark:text-rose-300"
   },
   dgnl_dgtd: {
-    label: "\u0110GNL & \u0110GTD (HSA / V-ACT / TSA)",
+    label: "\u0110GNL & \u0110GTD (HSA / V-ACT / TSA / SPT)",
     shortLabel: "\u0110GNL - \u0110GTD",
     badgeClass: "bg-amber-100 text-amber-800 dark:bg-amber-950/60 dark:text-amber-300"
   },
@@ -6522,6 +6569,13 @@ var DOCUMENT_CATEGORY_META = {
   formula_handbook: { label: "S\u1ED5 tay & C\xF4ng th\u1EE9c", shortLabel: "S\u1ED5 tay" },
   folder_pack: { label: "B\u1ED9 t\xE0i li\u1EC7u t\u1ED5ng h\u1EE3p", shortLabel: "Tr\u1ECDn b\u1ED9" }
 };
+function inferSourceKeyFromLabel(src) {
+  const s = String(src || "").toLowerCase();
+  if (s.includes("ng\xE2n h\xE0ng \u0111\u1EC1 thi") || s.includes("nganhangdethi")) return "nhdt";
+  if (s.includes("tailieuonthi.edu") || s.includes("\xF4n thi edu")) return "tlo_edu";
+  if (s.includes("tailieuonthi.org") || s.includes("\xF4n thi org")) return "tlo_org";
+  return "math_partners";
+}
 function expandSeedUrl(u) {
   if (!u) return void 0;
   if (u.startsWith("gd:")) return `https://drive.google.com/file/d/${u.slice(3)}/view`;
@@ -6529,70 +6583,144 @@ function expandSeedUrl(u) {
   if (u.startsWith("gds:")) return `https://docs.google.com/spreadsheets/d/${u.slice(4)}/edit`;
   return u;
 }
+function expandCompactSeedFolder(item) {
+  const srcMeta = DOCUMENT_SOURCE_META[item.sk] || DOCUMENT_SOURCE_META.nhdt;
+  return {
+    id: item.id,
+    name: item.n,
+    parentId: item.p ?? null,
+    space: "sources",
+    sourceKey: item.sk,
+    description: item.d || (item.p === null ? srcMeta.description : void 0),
+    grade: item.g,
+    subject: item.s,
+    iconColor: item.ic || srcMeta.accentColor,
+    ownerName: srcMeta.shortLabel,
+    ownerRole: "seed",
+    status: "published",
+    sortOrder: item.o ?? 100,
+    sourceUrl: item.u,
+    createdAt: "2026-01-01T00:00:00.000Z",
+    updatedAt: "2026-11-27T00:00:00.000Z"
+  };
+}
+function expandSeedPostUrl(pu) {
+  if (!pu) return void 0;
+  if (pu.startsWith("nh:")) return `https://www.nganhangdethi.org${pu.slice(3)}`;
+  if (pu.startsWith("edu:")) return `https://tailieuonthi.edu.vn${pu.slice(4)}`;
+  if (pu.startsWith("org:")) return `https://tailieuonthi.org${pu.slice(4)}`;
+  return pu;
+}
 function expandCompactSeedDocument(item) {
   const gradeLabel = DOCUMENT_GRADE_META[item.g]?.shortLabel || "THPT";
   const subjectLabel = DOCUMENT_SUBJECT_META[item.s]?.label || "T\u1ED5ng h\u1EE3p";
   const categoryLabel = DOCUMENT_CATEGORY_META[item.c]?.label || "T\xE0i li\u1EC7u";
-  const subCount = item.sf?.length || 0;
+  const subCount = item.sf?.length || item.sfc || 0;
   const primaryUrl = expandSeedUrl(item.u) || item.u;
   const answerUrl = expandSeedUrl(item.a);
   const videoUrl = expandSeedUrl(item.v);
+  const sourceKey = item.sk || inferSourceKeyFromLabel(item.src);
+  const sourcePostUrl = expandSeedPostUrl(item.pu);
   const descParts = [
     `${categoryLabel} m\xF4n ${subjectLabel} (${gradeLabel})`,
-    subCount > 0 ? `g\u1ED3m ${subCount} t\u1EC7p t\xE0i li\u1EC7u ch\u1ECDn l\u1ECDc` : "\u0111\u1ECBnh d\u1EA1ng chu\u1EA9n r\xF5 n\xE9t",
+    subCount > 0 ? `g\u1ED3m ${subCount} t\u1EC7p t\xE0i li\u1EC7u ch\u1ECDn l\u1ECDc ph\xE2n theo th\u01B0 m\u1EE5c` : "\u0111\u1ECBnh d\u1EA1ng chu\u1EA9n r\xF5 n\xE9t",
     answerUrl && answerUrl !== primaryUrl ? "k\xE8m file \u0111\xE1p \xE1n chi ti\u1EBFt" : "",
     videoUrl && videoUrl !== primaryUrl ? "k\xE8m video h\u01B0\u1EDBng d\u1EABn gi\u1EA3i" : ""
   ].filter(Boolean);
   return {
     id: item.id,
     title: item.t,
-    description: `${descParts.join(", ")}. Xem tr\u1EF1c tuy\u1EBFn b\u1EB1ng tr\xECnh \u0111\u1ECDc PDF DkTEST ho\u1EB7c t\u1EA3i v\u1EC1 m\xE1y mi\u1EC5n ph\xED.`,
+    description: `${descParts.join(", ")}. Xem tr\u1EF1c tuy\u1EBFn b\u1EB1ng tr\xECnh \u0111\u1ECDc PDF DkTEST ho\u1EB7c t\u1EA3i tr\u1ECDn b\u1ED9 v\u1EC1 m\xE1y mi\u1EC5n ph\xED.`,
     grade: item.g,
     subject: item.s,
     category: item.c,
     fileFormat: item.f,
+    folderId: item.fid || `sfold_${sourceKey}`,
+    space: "sources",
+    sourceKey,
     accessMode: "free",
     priceVnd: 0,
     fileUrl: primaryUrl,
     answerUrl,
     videoUrl,
-    subFiles: item.sf?.map((sf) => ({
-      name: sf.n,
-      url: expandSeedUrl(sf.u) || sf.u,
-      fileFormat: sf.f,
-      folderPath: sf.p
-    })),
-    authorName: item.src || "Kho T\xE0i Li\u1EC7u DkTEST",
+    ...subCount > 0 ? { subFileCount: subCount } : {},
+    ...item.sf ? {
+      subFiles: item.sf.map((sf) => ({
+        name: sf.n,
+        url: expandSeedUrl(sf.u) || sf.u,
+        fileFormat: sf.f,
+        ...sf.p ? { folderPath: sf.p } : {}
+      }))
+    } : {},
+    authorName: item.src || "Kho T\xE0i Li\u1EC7u THPT",
     authorRole: "seed",
     sourceName: item.src,
+    ...sourcePostUrl ? { sourcePostUrl } : {},
     status: "published",
     tags: item.tg || [],
     viewCount: 0,
     downloadCount: 0,
-    publishedAt: item.d ? `${item.d}T00:00:00.000Z` : "2026-11-01T00:00:00.000Z",
-    createdAt: item.d ? `${item.d}T00:00:00.000Z` : "2026-11-01T00:00:00.000Z",
-    updatedAt: item.d ? `${item.d}T00:00:00.000Z` : "2026-11-01T00:00:00.000Z"
+    publishedAt: item.d ? `${item.d}T00:00:00.000Z` : "2026-01-01T00:00:00.000Z",
+    createdAt: item.d ? `${item.d}T00:00:00.000Z` : "2026-01-01T00:00:00.000Z",
+    updatedAt: item.d ? `${item.d}T00:00:00.000Z` : "2026-01-01T00:00:00.000Z"
   };
 }
 
 // server/services/documentLibraryService.ts
 var SETTINGS_COLLECTION = "system_settings";
 var SETTINGS_DOC_ID = "document_library_config";
+var FOLDERS_COLLECTION = "library_folders";
 var DOCS_COLLECTION = "library_documents";
 var SECRETS_COLLECTION = "library_document_secrets";
 var ENTITLEMENTS_COLLECTION = "library_entitlements";
 var LIVE_DOCS_TTL_MS = 45 * 1e3;
 var SETTINGS_TTL_MS = 60 * 1e3;
 var MAX_PROXY_BYTES = 44 * 1024 * 1024;
+var MAX_FOLDER_DEPTH = 6;
 var cachedLiveDocs = null;
+var cachedLiveFolders = null;
 var cachedSettings = null;
-var cachedSeedMap = null;
+var cachedSeedBundle = null;
+var cachedSeedPacks = null;
+function loadSeedPacksCache() {
+  if (cachedSeedPacks) return cachedSeedPacks;
+  const candidates = [
+    path.join(process.cwd(), "public", "data", "document-library-packs.json"),
+    path.join(process.cwd(), "dist", "data", "document-library-packs.json")
+  ];
+  for (const filePath of candidates) {
+    if (!fs.existsSync(filePath)) continue;
+    try {
+      cachedSeedPacks = JSON.parse(fs.readFileSync(filePath, "utf8")) || {};
+      return cachedSeedPacks;
+    } catch {
+    }
+  }
+  cachedSeedPacks = {};
+  return cachedSeedPacks;
+}
+function hydrateSeedDocPack(doc) {
+  if (!doc) return null;
+  if (doc.subFiles && doc.subFiles.length > 0) return doc;
+  if (!doc.subFileCount || doc.subFileCount <= 1) return doc;
+  const rawPack = loadSeedPacksCache()[doc.id];
+  if (!Array.isArray(rawPack) || rawPack.length === 0) return doc;
+  const subFiles = rawPack.map((sf) => ({
+    name: sf.n,
+    url: expandSeedUrl(sf.u) || sf.u,
+    fileFormat: sf.f,
+    ...sf.p ? { folderPath: sf.p } : {}
+  }));
+  return { ...doc, subFiles };
+}
 function invalidateDocumentLibraryCache() {
   cachedLiveDocs = null;
+  cachedLiveFolders = null;
 }
-function loadSeedDocumentsMap() {
-  if (cachedSeedMap) return cachedSeedMap;
-  const map = /* @__PURE__ */ new Map();
+function loadSeedBundleCache() {
+  if (cachedSeedBundle) return cachedSeedBundle;
+  const docs = /* @__PURE__ */ new Map();
+  const folders = /* @__PURE__ */ new Map();
   const candidates = [
     path.join(process.cwd(), "public", "data", "document-library-seed.json"),
     path.join(process.cwd(), "dist", "data", "document-library-seed.json")
@@ -6602,10 +6730,17 @@ function loadSeedDocumentsMap() {
     try {
       const raw = fs.readFileSync(filePath, "utf8");
       const parsed = JSON.parse(raw);
+      if (Array.isArray(parsed?.folders)) {
+        for (const f of parsed.folders) {
+          if (f?.id) {
+            folders.set(f.id, expandCompactSeedFolder(f));
+          }
+        }
+      }
       if (Array.isArray(parsed?.items)) {
         for (const item of parsed.items) {
           if (item?.id) {
-            map.set(item.id, expandCompactSeedDocument(item));
+            docs.set(item.id, expandCompactSeedDocument(item));
           }
         }
         break;
@@ -6614,13 +6749,18 @@ function loadSeedDocumentsMap() {
       console.warn("[documentLibraryService] Failed to parse seed JSON:", err);
     }
   }
-  cachedSeedMap = map;
-  return map;
+  cachedSeedBundle = { docs, folders };
+  return cachedSeedBundle;
 }
 function getSeedDocumentById(docId) {
   const clean = String(docId || "").trim();
   if (!clean) return null;
-  return loadSeedDocumentsMap().get(clean) || null;
+  return hydrateSeedDocPack(loadSeedBundleCache().docs.get(clean) || null);
+}
+function getSeedFolderById(folderId) {
+  const clean = String(folderId || "").trim();
+  if (!clean) return null;
+  return loadSeedBundleCache().folders.get(clean) || null;
 }
 async function getDocumentLibrarySettings(forceRefresh = false) {
   if (!forceRefresh && cachedSettings && Date.now() - cachedSettings.timestamp < SETTINGS_TTL_MS) {
@@ -6656,35 +6796,61 @@ async function getDocumentLibrarySettings(forceRefresh = false) {
   cachedSettings = { data: defaults, timestamp: Date.now() };
   return defaults;
 }
+var gradeEnum = z4.enum([
+  "thcs",
+  "grade_10",
+  "grade_11",
+  "grade_12",
+  "thpt_qg",
+  "dgnl_dgtd",
+  "general"
+]);
+var subjectEnum = z4.enum([
+  "math",
+  "literature",
+  "english",
+  "physics",
+  "chemistry",
+  "biology",
+  "history",
+  "geography",
+  "civics",
+  "informatics",
+  "technology",
+  "foreign_other",
+  "aptitude",
+  "multi_subject"
+]);
 var subFileSchema = z4.object({
   name: z4.string().trim().min(1).max(160),
   url: z4.string().trim().url().max(2048),
   fileFormat: z4.enum(["pdf", "docx", "doc", "pptx", "xlsx", "zip", "folder", "sheet", "other"]).default("pdf"),
   folderPath: z4.string().trim().max(160).optional()
 });
+var upsertFolderSchema = z4.object({
+  id: z4.string().trim().min(3).max(96).optional(),
+  name: z4.string().trim().min(2, "T\xEAn th\u01B0 m\u1EE5c ph\u1EA3i c\xF3 \xEDt nh\u1EA5t 2 k\xFD t\u1EF1.").max(140),
+  description: z4.string().trim().max(600).optional().default(""),
+  parentId: z4.string().trim().max(96).nullable().optional().default(null),
+  space: z4.enum(["dktest_exclusive", "community", "sources"]).optional(),
+  grade: gradeEnum.optional(),
+  subject: subjectEnum.optional(),
+  iconColor: z4.enum(["teal", "blue", "indigo", "amber", "rose", "emerald", "purple", "slate"]).optional().default("teal"),
+  coverImageUrl: z4.string().trim().url().max(2048).nullable().optional(),
+  isPinned: z4.boolean().optional(),
+  sortOrder: z4.number().int().min(0).max(9999).optional(),
+  status: z4.enum(["published", "hidden"]).optional()
+});
 var upsertDocumentSchema = z4.object({
   id: z4.string().trim().min(3).max(96).optional(),
   title: z4.string().trim().min(3, "Ti\xEAu \u0111\u1EC1 ph\u1EA3i c\xF3 \xEDt nh\u1EA5t 3 k\xFD t\u1EF1.").max(220),
   description: z4.string().trim().max(2e3).optional().default(""),
-  grade: z4.enum(["grade_10", "grade_11", "grade_12", "thpt_qg", "dgnl_dgtd", "general"]).default("grade_12"),
-  subject: z4.enum([
-    "math",
-    "literature",
-    "english",
-    "physics",
-    "chemistry",
-    "biology",
-    "history",
-    "geography",
-    "civics",
-    "informatics",
-    "technology",
-    "foreign_other",
-    "aptitude",
-    "multi_subject"
-  ]).default("math"),
+  grade: gradeEnum.default("grade_12"),
+  subject: subjectEnum.default("math"),
   category: z4.enum(["exam_test", "ebook_book", "topic_guide", "formula_handbook", "folder_pack"]).default("exam_test"),
   fileFormat: z4.enum(["pdf", "docx", "doc", "pptx", "xlsx", "zip", "folder", "sheet", "other"]).default("pdf"),
+  folderId: z4.string().trim().max(96).nullable().optional(),
+  space: z4.enum(["dktest_exclusive", "community", "sources"]).optional(),
   pageCount: z4.number().int().min(0).max(5e3).optional(),
   fileSizeBytes: z4.number().int().min(0).max(1024 * 1024 * 500).optional(),
   coverImageUrl: z4.string().trim().url().max(2048).nullable().optional(),
@@ -6697,7 +6863,7 @@ var upsertDocumentSchema = z4.object({
   originalFileName: z4.string().trim().max(200).optional(),
   answerUrl: z4.string().trim().max(2048).optional(),
   videoUrl: z4.string().trim().max(2048).optional(),
-  subFiles: z4.array(subFileSchema).max(40).optional(),
+  subFiles: z4.array(subFileSchema).max(120).optional(),
   tags: z4.array(z4.string().trim().max(48)).max(12).optional().default([]),
   isFeatured: z4.boolean().optional(),
   status: z4.enum(["published", "pending", "rejected", "hidden"]).optional()
@@ -6711,6 +6877,217 @@ function sanitizePublicDocument(doc) {
   delete copy.videoUrl;
   delete copy.subFiles;
   return copy;
+}
+async function getLiveLibraryFolders(options = {}) {
+  if (!options.forceRefresh && cachedLiveFolders && Date.now() - cachedLiveFolders.timestamp < LIVE_DOCS_TTL_MS) {
+    const all = cachedLiveFolders.items;
+    return options.includeHidden ? all : all.filter((f) => f.status !== "hidden");
+  }
+  let list = [];
+  if (adminDb) {
+    try {
+      const snap = await adminDb.collection(FOLDERS_COLLECTION).orderBy("updatedAt", "desc").limit(500).get();
+      list = snap.docs.map((d) => ({ id: d.id, ...d.data() }));
+    } catch {
+      const snap = await adminDb.collection(FOLDERS_COLLECTION).limit(500).get();
+      list = snap.docs.map((d) => ({ id: d.id, ...d.data() }));
+      list.sort((a, b) => String(b.updatedAt || "").localeCompare(String(a.updatedAt || "")));
+    }
+  } else {
+    const docs = await getFirestoreRestDocs(FOLDERS_COLLECTION, 400, true);
+    list = (docs || []).map((d) => ({ id: d.id, ...d }));
+    list.sort((a, b) => String(b.updatedAt || "").localeCompare(String(a.updatedAt || "")));
+  }
+  cachedLiveFolders = { items: list, timestamp: Date.now() };
+  return options.includeHidden ? list : list.filter((f) => f.status !== "hidden");
+}
+async function getFolderByIdResolved(folderId) {
+  const cleanId = String(folderId || "").trim();
+  if (!cleanId) return null;
+  let liveFolder = null;
+  if (adminDb) {
+    const snap = await adminDb.collection(FOLDERS_COLLECTION).doc(cleanId).get();
+    if (snap.exists) {
+      liveFolder = { id: snap.id, ...snap.data() };
+    }
+  } else {
+    const rest = await getFirestoreRestDoc(FOLDERS_COLLECTION, cleanId);
+    if (rest) {
+      liveFolder = { id: cleanId, ...rest };
+    }
+  }
+  if (liveFolder) return liveFolder;
+  return getSeedFolderById(cleanId);
+}
+async function getMyLibraryFolders(uid) {
+  const cleanUid = String(uid || "").trim();
+  if (!cleanUid) return [];
+  const all = await getLiveLibraryFolders({ includeHidden: true });
+  return all.filter((f) => f.ownerUid === cleanUid);
+}
+async function assertValidParentChain(folderId, parentId) {
+  if (!parentId) return { parentFolder: null, depth: 0 };
+  if (parentId === folderId) {
+    throw new Error("Kh\xF4ng th\u1EC3 \u0111\u1EB7t th\u01B0 m\u1EE5c l\xE0m th\u01B0 m\u1EE5c con c\u1EE7a ch\xEDnh n\xF3.");
+  }
+  const firstParent = await getFolderByIdResolved(parentId);
+  if (!firstParent || firstParent.status === "hidden") {
+    throw new Error("Th\u01B0 m\u1EE5c cha kh\xF4ng t\u1ED3n t\u1EA1i ho\u1EB7c \u0111\xE3 b\u1ECB \u1EA9n.");
+  }
+  let cur = firstParent;
+  let depth = 1;
+  const visited = /* @__PURE__ */ new Set([folderId]);
+  while (cur) {
+    if (visited.has(cur.id)) {
+      throw new Error("Ph\xE1t hi\u1EC7n v\xF2ng l\u1EB7p ph\xE2n c\u1EA5p th\u01B0 m\u1EE5c kh\xF4ng h\u1EE3p l\u1EC7.");
+    }
+    visited.add(cur.id);
+    if (depth >= MAX_FOLDER_DEPTH) {
+      throw new Error(`C\xE2y th\u01B0 m\u1EE5c h\u1ED7 tr\u1EE3 t\u1ED1i \u0111a ${MAX_FOLDER_DEPTH} c\u1EA5p ph\xE2n nh\xE1nh.`);
+    }
+    if (!cur.parentId) break;
+    cur = await getFolderByIdResolved(cur.parentId);
+    depth++;
+  }
+  return { parentFolder: firstParent, depth };
+}
+async function createOrUpdateLibraryFolder(actor, rawInput) {
+  const parsed = upsertFolderSchema.parse(rawInput);
+  const isAdmin = actor.role === "admin" || actor.role === "super_admin";
+  const existingId = parsed.id?.trim();
+  let existingFolder = null;
+  if (existingId) {
+    existingFolder = await getFolderByIdResolved(existingId);
+    if (existingFolder) {
+      if (!isAdmin && existingFolder.ownerUid !== actor.uid) {
+        throw new Error("B\u1EA1n ch\u1EC9 c\xF3 quy\u1EC1n ch\u1EC9nh s\u1EEDa th\u01B0 m\u1EE5c do ch\xEDnh m\xECnh t\u1EA1o.");
+      }
+      if (!isAdmin && existingFolder.ownerRole === "seed") {
+        throw new Error("Ch\u1EC9 Qu\u1EA3n tr\u1ECB vi\xEAn m\u1EDBi c\xF3 th\u1EC3 ch\u1EC9nh s\u1EEDa th\u01B0 m\u1EE5c ngu\u1ED3n g\u1ED1c.");
+      }
+    }
+  }
+  const folderId = existingId || `lfold_${Date.now()}_${crypto3.randomBytes(3).toString("hex")}`;
+  const cleanParentId = parsed.parentId?.trim() || null;
+  const { parentFolder } = await assertValidParentChain(folderId, cleanParentId);
+  if (!isAdmin && parentFolder) {
+    if (parentFolder.ownerUid !== actor.uid) {
+      throw new Error("B\u1EA1n ch\u1EC9 c\xF3 th\u1EC3 t\u1EA1o th\u01B0 m\u1EE5c con b\xEAn trong th\u01B0 m\u1EE5c c\u1EE7a ch\xEDnh m\xECnh.");
+    }
+  }
+  let resolvedSpace = "community";
+  let resolvedSourceKey = "community";
+  if (parentFolder) {
+    resolvedSpace = parentFolder.space;
+    resolvedSourceKey = parentFolder.sourceKey || (parentFolder.space === "dktest_exclusive" ? "dktest" : "community");
+  } else if (isAdmin) {
+    resolvedSpace = parsed.space || existingFolder?.space || "dktest_exclusive";
+    resolvedSourceKey = resolvedSpace === "dktest_exclusive" ? "dktest" : resolvedSpace === "sources" ? existingFolder?.sourceKey || "nhdt" : "community";
+  }
+  const now = (/* @__PURE__ */ new Date()).toISOString();
+  const ownerName = existingFolder?.ownerName && existingFolder.ownerRole !== "seed" ? existingFolder.ownerName : actor.displayName || actor.email?.split("@")[0] || (isAdmin ? "Ban Qu\u1EA3n Tr\u1ECB DkTEST" : "Th\xE0nh vi\xEAn DkTEST");
+  const folderDoc = {
+    id: folderId,
+    name: parsed.name.trim(),
+    description: parsed.description?.trim() || "",
+    parentId: cleanParentId,
+    space: resolvedSpace,
+    sourceKey: resolvedSourceKey,
+    ...parsed.grade ? { grade: parsed.grade } : existingFolder?.grade ? { grade: existingFolder.grade } : {},
+    ...parsed.subject ? { subject: parsed.subject } : existingFolder?.subject ? { subject: existingFolder.subject } : {},
+    iconColor: parsed.iconColor || existingFolder?.iconColor || "teal",
+    coverImageUrl: parsed.coverImageUrl !== void 0 ? parsed.coverImageUrl : existingFolder?.coverImageUrl || null,
+    ownerUid: existingFolder?.ownerUid || actor.uid,
+    ownerName,
+    ownerRole: existingFolder?.ownerRole && existingFolder.ownerRole !== "seed" ? existingFolder.ownerRole : isAdmin ? "admin" : "community",
+    status: isAdmin ? parsed.status || existingFolder?.status || "published" : "published",
+    isPinned: isAdmin ? parsed.isPinned ?? existingFolder?.isPinned ?? false : false,
+    sortOrder: parsed.sortOrder ?? existingFolder?.sortOrder ?? 50,
+    createdAt: existingFolder?.createdAt || now,
+    updatedAt: now
+  };
+  if (adminDb) {
+    await adminDb.collection(FOLDERS_COLLECTION).doc(folderId).set(folderDoc);
+  } else {
+    await setFirestoreRestDoc(FOLDERS_COLLECTION, folderId, folderDoc);
+  }
+  invalidateDocumentLibraryCache();
+  return folderDoc;
+}
+async function deleteLibraryFolder(actor, folderId) {
+  const cleanId = String(folderId || "").trim();
+  if (!cleanId) throw new Error("M\xE3 th\u01B0 m\u1EE5c kh\xF4ng h\u1EE3p l\u1EC7.");
+  const isAdmin = actor.role === "admin" || actor.role === "super_admin";
+  const existing = await getFolderByIdResolved(cleanId);
+  if (!existing) throw new Error("Kh\xF4ng t\xECm th\u1EA5y th\u01B0 m\u1EE5c.");
+  if (!isAdmin && existing.ownerUid !== actor.uid) {
+    throw new Error("B\u1EA1n kh\xF4ng c\xF3 quy\u1EC1n x\xF3a th\u01B0 m\u1EE5c n\xE0y.");
+  }
+  const isSeed = Boolean(getSeedFolderById(cleanId));
+  if (isSeed) {
+    if (!isAdmin) throw new Error("Kh\xF4ng th\u1EC3 x\xF3a th\u01B0 m\u1EE5c g\u1ED1c c\u1EE7a h\u1EC7 th\u1ED1ng.");
+    const hiddenOverride = {
+      ...existing,
+      status: "hidden",
+      updatedAt: (/* @__PURE__ */ new Date()).toISOString()
+    };
+    if (adminDb) {
+      await adminDb.collection(FOLDERS_COLLECTION).doc(cleanId).set(hiddenOverride, { merge: true });
+    } else {
+      await setFirestoreRestDoc(FOLDERS_COLLECTION, cleanId, hiddenOverride);
+    }
+    invalidateDocumentLibraryCache();
+    return { deleted: true, hiddenSeed: true, reparentedDocs: 0, reparentedFolders: 0 };
+  }
+  const fallbackParentId = existing.parentId ?? null;
+  const now = (/* @__PURE__ */ new Date()).toISOString();
+  const [liveFolders, liveDocs] = await Promise.all([
+    getLiveLibraryFolders({ includeHidden: true, forceRefresh: true }),
+    getLiveLibraryDocuments({ includeNonPublished: true, forceRefresh: true })
+  ]);
+  const childFolders = liveFolders.filter((f) => f.parentId === cleanId);
+  const childDocs = liveDocs.filter((d) => d.folderId === cleanId);
+  if (adminDb) {
+    const batch = adminDb.batch();
+    for (const cf of childFolders) {
+      batch.set(
+        adminDb.collection(FOLDERS_COLLECTION).doc(cf.id),
+        { parentId: fallbackParentId, updatedAt: now },
+        { merge: true }
+      );
+    }
+    for (const cd of childDocs) {
+      batch.set(
+        adminDb.collection(DOCS_COLLECTION).doc(cd.id),
+        { folderId: fallbackParentId, updatedAt: now },
+        { merge: true }
+      );
+    }
+    batch.delete(adminDb.collection(FOLDERS_COLLECTION).doc(cleanId));
+    await batch.commit();
+  } else {
+    for (const cf of childFolders) {
+      await setFirestoreRestDoc(FOLDERS_COLLECTION, cf.id, {
+        ...cf,
+        parentId: fallbackParentId,
+        updatedAt: now
+      });
+    }
+    for (const cd of childDocs) {
+      await setFirestoreRestDoc(DOCS_COLLECTION, cd.id, {
+        ...cd,
+        folderId: fallbackParentId,
+        updatedAt: now
+      });
+    }
+    await deleteFirestoreRestDoc(FOLDERS_COLLECTION, cleanId);
+  }
+  invalidateDocumentLibraryCache();
+  return {
+    deleted: true,
+    reparentedDocs: childDocs.length,
+    reparentedFolders: childFolders.length
+  };
 }
 async function getLiveLibraryDocuments(options = {}) {
   if (!options.forceRefresh && cachedLiveDocs && Date.now() - cachedLiveDocs.timestamp < LIVE_DOCS_TTL_MS) {
@@ -6801,6 +7178,17 @@ async function createOrUpdateLibraryDocument(actor, rawInput) {
   if (!/^https:\/\/res\.cloudinary\.com\//i.test(resolvedFileUrl)) {
     await validateUrlForSsrf(resolvedFileUrl);
   }
+  const requestedFolderId = parsed.folderId !== void 0 ? parsed.folderId?.trim() || null : existingDoc?.folderId ?? null;
+  let targetFolder = null;
+  if (requestedFolderId) {
+    targetFolder = await getFolderByIdResolved(requestedFolderId);
+    if (!targetFolder || targetFolder.status === "hidden") {
+      throw new Error("Th\u01B0 m\u1EE5c l\u01B0u tr\u1EEF kh\xF4ng t\u1ED3n t\u1EA1i ho\u1EB7c \u0111\xE3 b\u1ECB \u1EA9n.");
+    }
+    if (!isAdmin && targetFolder.ownerUid !== actor.uid) {
+      throw new Error("B\u1EA1n ch\u1EC9 c\xF3 th\u1EC3 \u0111\u0103ng t\xE0i li\u1EC7u v\xE0o th\u01B0 m\u1EE5c c\u1EE7a ch\xEDnh m\xECnh.");
+    }
+  }
   const accessMode = parsed.accessMode === "paid" && parsed.priceVnd > 0 ? "paid" : "free";
   const priceVnd = accessMode === "paid" ? sanitizeVnd(parsed.priceVnd) : 0;
   if (accessMode === "paid") {
@@ -6820,12 +7208,14 @@ async function createOrUpdateLibraryDocument(actor, rawInput) {
   } else {
     nextStatus = settings.autoApproveUserUploads ? "published" : "pending";
   }
-  const cleanAnswerUrl = parsed.answerUrl?.trim() || existingSecrets?.answerUrl || existingDoc?.answerUrl || void 0;
-  const cleanVideoUrl = parsed.videoUrl?.trim() || existingSecrets?.videoUrl || existingDoc?.videoUrl || void 0;
-  const cleanSubFiles = parsed.subFiles || existingSecrets?.subFiles || existingDoc?.subFiles || void 0;
+  const cleanAnswerUrl = parsed.answerUrl !== void 0 ? parsed.answerUrl.trim() || void 0 : existingSecrets?.answerUrl || existingDoc?.answerUrl || void 0;
+  const cleanVideoUrl = parsed.videoUrl !== void 0 ? parsed.videoUrl.trim() || void 0 : existingSecrets?.videoUrl || existingDoc?.videoUrl || void 0;
+  const cleanSubFiles = parsed.subFiles !== void 0 ? parsed.subFiles : existingSecrets?.subFiles || existingDoc?.subFiles || void 0;
   const cleanOriginalFileName = parsed.originalFileName?.trim() || existingSecrets?.originalFileName || existingDoc?.originalFileName || void 0;
   const authorRole = existingDoc?.authorRole && existingDoc.authorRole !== "seed" ? existingDoc.authorRole : isAdmin ? "admin" : "community";
   const authorName = existingDoc?.authorName && existingDoc.authorRole !== "seed" ? existingDoc.authorName : actor.displayName || actor.email?.split("@")[0] || (isAdmin ? "Ban Qu\u1EA3n Tr\u1ECB DkTEST" : "Th\xE0nh vi\xEAn DkTEST");
+  const resolvedSpace = targetFolder ? targetFolder.space : isAdmin ? parsed.space || existingDoc?.space || "dktest_exclusive" : "community";
+  const resolvedSourceKey = targetFolder?.sourceKey ? targetFolder.sourceKey : resolvedSpace === "dktest_exclusive" ? "dktest" : existingDoc?.sourceKey || "community";
   const fullDoc = {
     id: docId,
     title: parsed.title,
@@ -6834,6 +7224,9 @@ async function createOrUpdateLibraryDocument(actor, rawInput) {
     subject: parsed.subject,
     category: parsed.category,
     fileFormat: parsed.fileFormat,
+    folderId: requestedFolderId,
+    space: resolvedSpace,
+    sourceKey: resolvedSourceKey,
     ...parsed.pageCount ? { pageCount: parsed.pageCount } : existingDoc?.pageCount ? { pageCount: existingDoc.pageCount } : {},
     ...parsed.fileSizeBytes ? { fileSizeBytes: parsed.fileSizeBytes } : existingDoc?.fileSizeBytes ? { fileSizeBytes: existingDoc.fileSizeBytes } : {},
     coverImageUrl: parsed.coverImageUrl !== void 0 ? parsed.coverImageUrl : existingDoc?.coverImageUrl || null,
@@ -6853,6 +7246,7 @@ async function createOrUpdateLibraryDocument(actor, rawInput) {
     authorName,
     authorRole,
     ...existingDoc?.sourceName ? { sourceName: existingDoc.sourceName } : {},
+    ...existingDoc?.sourcePostUrl ? { sourcePostUrl: existingDoc.sourcePostUrl } : {},
     status: nextStatus,
     isFeatured: isAdmin ? parsed.isFeatured ?? existingDoc?.isFeatured ?? false : existingDoc?.isFeatured ?? false,
     tags: parsed.tags || existingDoc?.tags || [],
@@ -6885,6 +7279,53 @@ async function createOrUpdateLibraryDocument(actor, rawInput) {
   }
   invalidateDocumentLibraryCache();
   return publicDoc;
+}
+async function moveDocumentsToFolder(actor, params) {
+  const isAdmin = actor.role === "admin" || actor.role === "super_admin";
+  const cleanIds = [...new Set((params.docIds || []).map((x) => String(x || "").trim()).filter(Boolean))].slice(
+    0,
+    60
+  );
+  if (cleanIds.length === 0) {
+    throw new Error("Vui l\xF2ng ch\u1ECDn \xEDt nh\u1EA5t 1 t\xE0i li\u1EC7u \u0111\u1EC3 di chuy\u1EC3n.");
+  }
+  const cleanFolderId = params.folderId?.trim() || null;
+  let targetFolder = null;
+  if (cleanFolderId) {
+    targetFolder = await getFolderByIdResolved(cleanFolderId);
+    if (!targetFolder || targetFolder.status === "hidden") {
+      throw new Error("Th\u01B0 m\u1EE5c \u0111\xEDch kh\xF4ng t\u1ED3n t\u1EA1i.");
+    }
+    if (!isAdmin && targetFolder.ownerUid !== actor.uid) {
+      throw new Error("B\u1EA1n ch\u1EC9 c\xF3 th\u1EC3 di chuy\u1EC3n t\xE0i li\u1EC7u v\xE0o th\u01B0 m\u1EE5c c\u1EE7a ch\xEDnh m\xECnh.");
+    }
+  }
+  const now = (/* @__PURE__ */ new Date()).toISOString();
+  let movedCount = 0;
+  for (const docId of cleanIds) {
+    const doc = await getDocumentByIdResolved(docId);
+    if (!doc) continue;
+    if (!isAdmin && doc.authorUid !== actor.uid) {
+      throw new Error(`B\u1EA1n kh\xF4ng c\xF3 quy\u1EC1n di chuy\u1EC3n t\xE0i li\u1EC7u "${doc.title}".`);
+    }
+    const nextSpace = targetFolder ? targetFolder.space : doc.authorRole === "admin" ? "dktest_exclusive" : "community";
+    const nextSourceKey = targetFolder?.sourceKey ? targetFolder.sourceKey : nextSpace === "dktest_exclusive" ? "dktest" : "community";
+    const updated = sanitizePublicDocument({
+      ...doc,
+      folderId: cleanFolderId,
+      space: nextSpace,
+      sourceKey: nextSourceKey,
+      updatedAt: now
+    });
+    if (adminDb) {
+      await adminDb.collection(DOCS_COLLECTION).doc(docId).set(updated, { merge: true });
+    } else {
+      await setFirestoreRestDoc(DOCS_COLLECTION, docId, updated);
+    }
+    movedCount++;
+  }
+  invalidateDocumentLibraryCache();
+  return { movedCount };
 }
 async function deleteLibraryDocument(actor, docId) {
   const cleanId = String(docId || "").trim();
@@ -7020,6 +7461,68 @@ async function getAuthorizedDocumentContent(uid, docId, role = "student") {
     answerUrl: secrets?.answerUrl || doc.answerUrl,
     videoUrl: secrets?.videoUrl || doc.videoUrl,
     subFiles: secrets?.subFiles || doc.subFiles
+  };
+}
+async function resolveBatchAuthorizedDocuments(uid, role = "student", docIds) {
+  const cleanIds = [...new Set((docIds || []).map((x) => String(x || "").trim()).filter(Boolean))].slice(
+    0,
+    80
+  );
+  const isAdmin = role === "admin" || role === "super_admin";
+  const unlockedSet = uid && !isAdmin ? new Set(await getMyUnlockedDocumentIds(uid)) : /* @__PURE__ */ new Set();
+  const items = [];
+  const skippedLockedTitles = [];
+  for (const id of cleanIds) {
+    const seedDoc = getSeedDocumentById(id);
+    if (seedDoc && (!cachedLiveDocs || !cachedLiveDocs.items.some((x) => x.id === id))) {
+      if (seedDoc.fileUrl) {
+        items.push({
+          docId: seedDoc.id,
+          title: seedDoc.title,
+          fileFormat: seedDoc.fileFormat,
+          hasFullAccess: true,
+          isPreviewOnly: false,
+          previewPageCount: 0,
+          fileUrl: seedDoc.fileUrl,
+          originalFileName: seedDoc.originalFileName,
+          answerUrl: seedDoc.answerUrl,
+          videoUrl: seedDoc.videoUrl,
+          subFiles: seedDoc.subFiles
+        });
+      }
+      continue;
+    }
+    const doc = await getDocumentByIdResolved(id);
+    if (!doc || doc.status === "hidden") continue;
+    const priceVnd = doc.accessMode === "paid" ? sanitizeVnd(doc.priceVnd) : 0;
+    const isFree = priceVnd <= 0;
+    const isOwner = Boolean(uid && doc.authorUid && doc.authorUid === uid);
+    const hasAccess = isFree || isAdmin || isOwner || unlockedSet.has(doc.id);
+    if (!hasAccess) {
+      skippedLockedTitles.push(doc.title);
+      continue;
+    }
+    const secrets = isFree && doc.fileUrl ? null : await getDocumentSecrets(doc.id);
+    const fileUrl = secrets?.fileUrl || doc.fileUrl || "";
+    if (!fileUrl) continue;
+    items.push({
+      docId: doc.id,
+      title: doc.title,
+      fileFormat: doc.fileFormat,
+      hasFullAccess: true,
+      isPreviewOnly: false,
+      previewPageCount: doc.previewPageCount ?? 2,
+      fileUrl,
+      originalFileName: secrets?.originalFileName || doc.originalFileName,
+      answerUrl: secrets?.answerUrl || doc.answerUrl,
+      videoUrl: secrets?.videoUrl || doc.videoUrl,
+      subFiles: secrets?.subFiles || doc.subFiles
+    });
+  }
+  return {
+    items,
+    skippedLockedCount: skippedLockedTitles.length,
+    skippedLockedTitles
   };
 }
 async function unlockLibraryDocument(uid, docId, idempotencyKey, voucherCode) {
@@ -7273,7 +7776,7 @@ async function unlockLibraryDocument(uid, docId, idempotencyKey, voucherCode) {
   await setFirestoreRestDoc("wallet_transactions", txDebitId, {
     id: txDebitId,
     uid,
-    type: "exam_unlock_debit",
+    type: "document_unlock_debit",
     amountVnd: finalPriceVnd,
     balanceBeforeVnd: buyerBalance,
     balanceAfterVnd: newBuyerBalance,
@@ -7323,8 +7826,10 @@ var ALLOWED_DOC_PROXY_HOST_PATTERNS = [
   /^drive\.usercontent\.google\.com$/i,
   /^docs\.google\.com$/i,
   /\.googleusercontent\.com$/i,
-  /^www\.nganhangdethi\.org$/i,
-  /^www\.mathvn\.com$/i,
+  /^(?:www\.)?nganhangdethi\.org$/i,
+  /^(?:www\.)?tailieuonthi\.edu\.vn$/i,
+  /^(?:www\.)?tailieuonthi\.org$/i,
+  /^(?:www\.)?mathvn\.com$/i,
   /^thpt\.math\.vn$/i,
   /\.blogspot\.com$/i
 ];
@@ -7363,7 +7868,9 @@ async function fetchProxiedPdfBuffer(rawUrl) {
   const clean = String(rawUrl || "").trim();
   const { url: validatedUrl } = await validateUrlForSsrf(clean);
   if (!isAllowedDocProxyHost(validatedUrl.hostname)) {
-    throw new Error(`T\xEAn mi\u1EC1n l\u01B0u tr\u1EEF "${validatedUrl.hostname}" kh\xF4ng n\u1EB1m trong danh s\xE1ch cho ph\xE9p proxy.`);
+    throw new Error(
+      `T\xEAn mi\u1EC1n l\u01B0u tr\u1EEF "${validatedUrl.hostname}" kh\xF4ng n\u1EB1m trong danh s\xE1ch cho ph\xE9p proxy.`
+    );
   }
   const driveId = extractDriveIdServer(clean);
   const targetFetchUrl = driveId ? `https://drive.usercontent.google.com/download?id=${encodeURIComponent(driveId)}&export=download&confirm=t` : clean;
@@ -7373,7 +7880,7 @@ async function fetchProxiedPdfBuffer(rawUrl) {
   const upstream = await fetch(targetFetchUrl, {
     redirect: "follow",
     headers: {
-      "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 DkTEST-PDF-Reader/2.0",
+      "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 DkTEST-PDF-Reader/2.1",
       Accept: "application/pdf,application/octet-stream,*/*"
     },
     signal: AbortSignal.timeout(25e3)
@@ -7381,9 +7888,15 @@ async function fetchProxiedPdfBuffer(rawUrl) {
   if (!upstream.ok) {
     throw new Error(`Kho l\u01B0u tr\u1EEF ph\u1EA3n h\u1ED3i HTTP ${upstream.status}.`);
   }
+  const contentType = upstream.headers.get("content-type") || "application/pdf";
+  if (/text\/html/i.test(contentType)) {
+    throw new Error("T\u1EC7p tr\xEAn kho l\u01B0u tr\u1EEF b\xEAn ngo\xE0i y\xEAu c\u1EA7u x\xE1c nh\u1EADn tr\xECnh duy\u1EC7t ho\u1EB7c l\xE0 th\u01B0 m\u1EE5c.");
+  }
   const contentLength = Number(upstream.headers.get("content-length") || 0);
   if (contentLength > MAX_PROXY_BYTES) {
-    const err = new Error("T\u1EC7p v\u01B0\u1EE3t qu\xE1 gi\u1EDBi h\u1EA1n \u0111\u1ECDc tr\u1EF1c ti\u1EBFp 44MB, chuy\u1EC3n sang ch\u1EBF \u0111\u1ED9 xem nh\xFAng.");
+    const err = new Error(
+      "T\u1EC7p v\u01B0\u1EE3t qu\xE1 gi\u1EDBi h\u1EA1n \u0111\u1ECDc tr\u1EF1c ti\u1EBFp 44MB, chuy\u1EC3n sang ch\u1EBF \u0111\u1ED9 xem nh\xFAng."
+    );
     err.statusCode = 413;
     throw err;
   }
@@ -7397,7 +7910,7 @@ async function fetchProxiedPdfBuffer(rawUrl) {
     }
     return {
       buffer: Buffer.from(ab),
-      contentType: upstream.headers.get("content-type") || "application/pdf"
+      contentType
     };
   }
   const chunks = [];
@@ -7419,7 +7932,7 @@ async function fetchProxiedPdfBuffer(rawUrl) {
   }
   return {
     buffer: Buffer.concat(chunks, total),
-    contentType: upstream.headers.get("content-type") || "application/pdf"
+    contentType
   };
 }
 
@@ -7441,13 +7954,15 @@ async function extractOptionalAuth(req) {
 }
 documentLibraryRouter.get("/live", async (_req, res) => {
   try {
-    const [items, settings] = await Promise.all([
+    const [items, folders, settings] = await Promise.all([
       getLiveLibraryDocuments({ includeNonPublished: false }),
+      getLiveLibraryFolders({ includeHidden: true }),
       getDocumentLibrarySettings()
     ]);
     return res.json({
       success: true,
       items,
+      folders,
       settings: {
         autoApproveUserUploads: settings.autoApproveUserUploads,
         creatorRevenueSharePercent: settings.creatorRevenueSharePercent,
@@ -7471,12 +7986,12 @@ documentLibraryRouter.get("/pdf-proxy", async (req, res) => {
       const pageCount = await probeLegacyCloudinaryPagesServer(rawUrl);
       return res.json({ success: true, pageCount });
     }
-    const { buffer } = await fetchProxiedPdfBuffer(rawUrl);
+    const { buffer, contentType } = await fetchProxiedPdfBuffer(rawUrl);
     const isDownload = req.query?.download === "1" || req.query?.download === "true";
     const rawFileName = String(req.query?.filename || "Tai_lieu_DkTEST.pdf").replace(/["\r\n]/g, "").trim();
     const asciiFallback = rawFileName.normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[đĐ]/g, "d").replace(/[^a-zA-Z0-9._-]+/g, "_");
     res.setHeader("Access-Control-Allow-Origin", "*");
-    res.setHeader("Content-Type", "application/pdf");
+    res.setHeader("Content-Type", contentType || "application/pdf");
     res.setHeader("Content-Length", String(buffer.length));
     res.setHeader(
       "Content-Disposition",
@@ -7487,21 +8002,23 @@ documentLibraryRouter.get("/pdf-proxy", async (req, res) => {
     const status = err?.statusCode === 413 ? 413 : 400;
     return res.status(status).json({
       error: "pdf_proxy_error",
-      message: err?.message || "Kh\xF4ng th\u1EC3 truy\u1EC1n t\u1EA3i t\u1EC7p PDF n\xE0y."
+      message: err?.message || "Kh\xF4ng th\u1EC3 truy\u1EC1n t\u1EA3i t\u1EC7p t\xE0i li\u1EC7u n\xE0y."
     });
   }
 });
 documentLibraryRouter.get("/me", requireAuth, async (req, res) => {
   try {
     const uid = req.user.uid;
-    const [uploaded, unlockedIds, settings] = await Promise.all([
+    const [uploaded, folders, unlockedIds, settings] = await Promise.all([
       getMyUploadedDocuments(uid),
+      getMyLibraryFolders(uid),
       getMyUnlockedDocumentIds(uid),
       getDocumentLibrarySettings()
     ]);
     return res.json({
       success: true,
       uploaded,
+      folders,
       unlockedIds,
       settings
     });
@@ -7509,6 +8026,111 @@ documentLibraryRouter.get("/me", requireAuth, async (req, res) => {
     return res.status(500).json({
       error: "documents_me_error",
       message: err?.message || "Kh\xF4ng th\u1EC3 t\u1EA3i d\u1EEF li\u1EC7u t\xE0i li\u1EC7u c\xE1 nh\xE2n."
+    });
+  }
+});
+documentLibraryRouter.get("/folders/:folderId", async (req, res) => {
+  try {
+    const folder = await getFolderByIdResolved(req.params.folderId);
+    if (!folder || folder.status === "hidden") {
+      return res.status(404).json({ error: "not_found", message: "Kh\xF4ng t\xECm th\u1EA5y th\u01B0 m\u1EE5c." });
+    }
+    return res.json({ success: true, folder });
+  } catch (err) {
+    return res.status(400).json({
+      error: "folder_get_error",
+      message: err?.message || "Kh\xF4ng th\u1EC3 t\u1EA3i th\xF4ng tin th\u01B0 m\u1EE5c."
+    });
+  }
+});
+documentLibraryRouter.post("/folders", requireAuth, async (req, res) => {
+  try {
+    const folder = await createOrUpdateLibraryFolder(req.user, req.body || {});
+    return res.status(201).json({
+      success: true,
+      folder,
+      message: "\u0110\xE3 t\u1EA1o th\u01B0 m\u1EE5c m\u1EDBi th\xE0nh c\xF4ng!"
+    });
+  } catch (err) {
+    const msg = err?.issues?.[0]?.message || err?.message || "Kh\xF4ng th\u1EC3 t\u1EA1o th\u01B0 m\u1EE5c.";
+    return res.status(400).json({ error: "folder_create_error", message: msg });
+  }
+});
+documentLibraryRouter.patch(
+  "/folders/:folderId",
+  requireAuth,
+  async (req, res) => {
+    try {
+      const folder = await createOrUpdateLibraryFolder(req.user, {
+        ...req.body || {},
+        id: req.params.folderId
+      });
+      return res.json({
+        success: true,
+        folder,
+        message: "\u0110\xE3 c\u1EADp nh\u1EADt th\xF4ng tin th\u01B0 m\u1EE5c."
+      });
+    } catch (err) {
+      const msg = err?.issues?.[0]?.message || err?.message || "Kh\xF4ng th\u1EC3 c\u1EADp nh\u1EADt th\u01B0 m\u1EE5c.";
+      return res.status(400).json({ error: "folder_update_error", message: msg });
+    }
+  }
+);
+documentLibraryRouter.delete(
+  "/folders/:folderId",
+  requireAuth,
+  async (req, res) => {
+    try {
+      const result = await deleteLibraryFolder(req.user, req.params.folderId);
+      return res.json({
+        success: true,
+        ...result,
+        message: "\u0110\xE3 x\xF3a th\u01B0 m\u1EE5c th\xE0nh c\xF4ng."
+      });
+    } catch (err) {
+      return res.status(400).json({
+        error: "folder_delete_error",
+        message: err?.message || "Kh\xF4ng th\u1EC3 x\xF3a th\u01B0 m\u1EE5c."
+      });
+    }
+  }
+);
+documentLibraryRouter.post(
+  "/bulk-move",
+  requireAuth,
+  async (req, res) => {
+    try {
+      const { docIds, folderId } = req.body || {};
+      const result = await moveDocumentsToFolder(req.user, {
+        docIds: Array.isArray(docIds) ? docIds : [],
+        folderId: folderId ? String(folderId) : null
+      });
+      return res.json({
+        success: true,
+        ...result,
+        message: `\u0110\xE3 di chuy\u1EC3n ${result.movedCount} t\xE0i li\u1EC7u sang th\u01B0 m\u1EE5c \u0111\xEDch.`
+      });
+    } catch (err) {
+      return res.status(400).json({
+        error: "bulk_move_error",
+        message: err?.message || "Kh\xF4ng th\u1EC3 di chuy\u1EC3n t\xE0i li\u1EC7u."
+      });
+    }
+  }
+);
+documentLibraryRouter.post("/batch-resolve", async (req, res) => {
+  try {
+    const { uid, role } = await extractOptionalAuth(req);
+    const docIds = Array.isArray(req.body?.docIds) ? req.body.docIds : [];
+    const resolved = await resolveBatchAuthorizedDocuments(uid, role, docIds);
+    return res.json({
+      success: true,
+      ...resolved
+    });
+  } catch (err) {
+    return res.status(400).json({
+      error: "batch_resolve_error",
+      message: err?.message || "Kh\xF4ng th\u1EC3 chu\u1EA9n b\u1ECB danh s\xE1ch t\u1EA3i h\xE0ng lo\u1EA1t."
     });
   }
 });
@@ -7525,37 +8147,45 @@ documentLibraryRouter.post("/", requireAuth, async (req, res) => {
     return res.status(400).json({ error: "document_create_error", message: msg });
   }
 });
-documentLibraryRouter.patch("/:docId", requireAuth, async (req, res) => {
-  try {
-    const updated = await createOrUpdateLibraryDocument(req.user, {
-      ...req.body || {},
-      id: req.params.docId
-    });
-    return res.json({
-      success: true,
-      document: updated,
-      message: "\u0110\xE3 c\u1EADp nh\u1EADt th\xF4ng tin t\xE0i li\u1EC7u."
-    });
-  } catch (err) {
-    const msg = err?.issues?.[0]?.message || err?.message || "Kh\xF4ng th\u1EC3 c\u1EADp nh\u1EADt t\xE0i li\u1EC7u.";
-    return res.status(400).json({ error: "document_update_error", message: msg });
+documentLibraryRouter.patch(
+  "/:docId",
+  requireAuth,
+  async (req, res) => {
+    try {
+      const updated = await createOrUpdateLibraryDocument(req.user, {
+        ...req.body || {},
+        id: req.params.docId
+      });
+      return res.json({
+        success: true,
+        document: updated,
+        message: "\u0110\xE3 c\u1EADp nh\u1EADt th\xF4ng tin t\xE0i li\u1EC7u."
+      });
+    } catch (err) {
+      const msg = err?.issues?.[0]?.message || err?.message || "Kh\xF4ng th\u1EC3 c\u1EADp nh\u1EADt t\xE0i li\u1EC7u.";
+      return res.status(400).json({ error: "document_update_error", message: msg });
+    }
   }
-});
-documentLibraryRouter.delete("/:docId", requireAuth, async (req, res) => {
-  try {
-    const result = await deleteLibraryDocument(req.user, req.params.docId);
-    return res.json({
-      success: true,
-      ...result,
-      message: "\u0110\xE3 x\xF3a t\xE0i li\u1EC7u kh\u1ECFi h\u1EC7 th\u1ED1ng."
-    });
-  } catch (err) {
-    return res.status(400).json({
-      error: "document_delete_error",
-      message: err?.message || "Kh\xF4ng th\u1EC3 x\xF3a t\xE0i li\u1EC7u."
-    });
+);
+documentLibraryRouter.delete(
+  "/:docId",
+  requireAuth,
+  async (req, res) => {
+    try {
+      const result = await deleteLibraryDocument(req.user, req.params.docId);
+      return res.json({
+        success: true,
+        ...result,
+        message: "\u0110\xE3 x\xF3a t\xE0i li\u1EC7u kh\u1ECFi h\u1EC7 th\u1ED1ng."
+      });
+    } catch (err) {
+      return res.status(400).json({
+        error: "document_delete_error",
+        message: err?.message || "Kh\xF4ng th\u1EC3 x\xF3a t\xE0i li\u1EC7u."
+      });
+    }
   }
-});
+);
 documentLibraryRouter.get("/:docId", async (req, res) => {
   try {
     const doc = await getDocumentByIdResolved(req.params.docId);

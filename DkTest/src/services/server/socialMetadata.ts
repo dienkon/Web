@@ -22,10 +22,12 @@ import {
   DOCUMENT_GRADE_META,
   DOCUMENT_SUBJECT_META,
   expandCompactSeedDocument,
+  expandCompactSeedFolder,
   type DocumentCategoryKey,
   type DocumentGradeKey,
   type DocumentSeedBundle,
   type DocumentSubjectKey,
+  type LibraryFolder,
 } from "../../types/documentLibrary.js";
 
 export type SocialContentType =
@@ -929,9 +931,17 @@ export interface DocumentSocialMeta {
 }
 
 let cachedSocialSeedMap: Map<string, DocumentSocialMeta> | null = null;
-function getSocialSeedMap(): Map<string, DocumentSocialMeta> {
-  if (cachedSocialSeedMap) return cachedSocialSeedMap;
+let cachedSocialFolderMap: Map<string, LibraryFolder> | null = null;
+
+function ensureSocialSeedLoaded(): {
+  docs: Map<string, DocumentSocialMeta>;
+  folders: Map<string, LibraryFolder>;
+} {
+  if (cachedSocialSeedMap && cachedSocialFolderMap) {
+    return { docs: cachedSocialSeedMap, folders: cachedSocialFolderMap };
+  }
   const map = new Map<string, DocumentSocialMeta>();
+  const fMap = new Map<string, LibraryFolder>();
   const candidates = [
     path.join(process.cwd(), "public", "data", "document-library-seed.json"),
     path.join(process.cwd(), "dist", "data", "document-library-seed.json"),
@@ -940,6 +950,11 @@ function getSocialSeedMap(): Map<string, DocumentSocialMeta> {
     if (!fs.existsSync(p)) continue;
     try {
       const parsed = JSON.parse(fs.readFileSync(p, "utf8")) as DocumentSeedBundle;
+      if (Array.isArray(parsed?.folders)) {
+        for (const f of parsed.folders) {
+          if (f?.id) fMap.set(f.id, expandCompactSeedFolder(f));
+        }
+      }
       if (Array.isArray(parsed?.items)) {
         for (const item of parsed.items) {
           const exp = expandCompactSeedDocument(item);
@@ -960,7 +975,67 @@ function getSocialSeedMap(): Map<string, DocumentSocialMeta> {
     } catch {}
   }
   cachedSocialSeedMap = map;
-  return map;
+  cachedSocialFolderMap = fMap;
+  return { docs: map, folders: fMap };
+}
+
+function getSocialSeedMap(): Map<string, DocumentSocialMeta> {
+  return ensureSocialSeedLoaded().docs;
+}
+
+async function fetchFolderSocialMetadata(
+  folderId: string
+): Promise<LibraryFolder | null> {
+  const cleanId = safeDecodeURIComponent(folderId || "").trim();
+  if (!cleanId) return null;
+
+  const seedHit = ensureSocialSeedLoaded().folders.get(cleanId);
+  if (seedHit && cleanId.startsWith("sfold_") && !adminDb) {
+    return seedHit;
+  }
+
+  if (adminDb) {
+    try {
+      const snap = await adminDb.collection("library_folders").doc(cleanId).get();
+      if (snap.exists) {
+        const d = snap.data() || {};
+        if (d.status === "hidden") return null;
+        return { id: snap.id, ...(d as any) } as LibraryFolder;
+      }
+    } catch {}
+  } else if (!seedHit) {
+    const projectId = getProjectId();
+    const apiKey = getFirebaseApiKey();
+    try {
+      const url = `https://firestore.googleapis.com/v1/projects/${projectId}/databases/(default)/documents/library_folders/${encodeURIComponent(
+        cleanId
+      )}?key=${apiKey}`;
+      const res = await fetch(url, { headers: { Accept: "application/json" } });
+      if (res.ok) {
+        const doc = await res.json();
+        const f = doc?.fields;
+        if (f && getFirestoreString(f.status) !== "hidden") {
+          return {
+            id: cleanId,
+            name: getFirestoreString(f.name) || "Thư mục tài liệu DkTEST",
+            description: getFirestoreString(f.description) || undefined,
+            parentId: getFirestoreString(f.parentId) || null,
+            space: (getFirestoreString(f.space) as any) || "community",
+            subject: (getFirestoreString(f.subject) as any) || undefined,
+            grade: (getFirestoreString(f.grade) as any) || undefined,
+            coverImageUrl: getValidHttpImageUrl(getFirestoreString(f.coverImageUrl)),
+            ownerName: getFirestoreString(f.ownerName) || "DkTEST",
+            ownerRole: (getFirestoreString(f.ownerRole) as any) || "community",
+            status: "published",
+            createdAt: "",
+            updatedAt: "",
+          };
+        }
+      }
+    } catch {}
+  }
+
+  return seedHit || null;
 }
 
 export async function fetchDocumentSocialMetadata(
@@ -1944,11 +2019,39 @@ export async function resolveSocialMetadataForUrl({
   }
 
   if (/^\/(?:student\/)?(?:documents|tai-lieu)\/?$/i.test(pathname)) {
+    const queryFolderId = searchParams.get("folder") || searchParams.get("folderId");
+    if (queryFolderId) {
+      const folderMeta = await fetchFolderSocialMetadata(queryFolderId);
+      if (folderMeta) {
+        const subjMeta = folderMeta.subject
+          ? DOCUMENT_SUBJECT_META[folderMeta.subject]
+          : undefined;
+        const bannerKey = subjMeta?.bannerKey || "library-hub";
+        const paddedCover = formatMinimalistCloudinaryOgCover(folderMeta.coverImageUrl);
+        const imageUrl = paddedCover || `${cleanBaseUrl}/images/documents/${bannerKey}.jpg`;
+        const cleanDesc =
+          folderMeta.description ||
+          `Thư mục "${folderMeta.name}" (${folderMeta.ownerName}) trên Kho Tài Liệu DkTEST — Duyệt cây thư mục, đọc PDF trực tuyến hoặc tải trọn bộ về máy.`;
+
+        return {
+          contentType: "document",
+          title: `Thư mục: ${folderMeta.name} | Kho Tài Liệu DkTEST`,
+          description: cleanDesc,
+          canonicalUrl: `${cleanBaseUrl}/documents?folder=${encodeURIComponent(folderMeta.id)}`,
+          imageUrl,
+          imageAlt: `${folderMeta.name} - Kho Tài Liệu DkTEST`,
+          imageWidth: 1200,
+          imageHeight: 630,
+          siteName: "DkTEST",
+        };
+      }
+    }
+
     return {
       contentType: "document",
-      title: "Kho Tài Liệu & Ngân Hàng Đề Thi 10, 11, 12 | DkTEST",
+      title: "Kho Tài Liệu & Ngân Hàng Đề Thi THCS - THPT - ĐGNL | DkTEST",
       description:
-        "Thư viện hơn 4.000 đề thi, chuyên đề và Ebook PDF các môn lớp 10, 11, 12, THPT QG và ĐGNL. Đọc trực tuyến và tải về miễn phí.",
+        "Thư viện hơn 5.400 đề thi, chuyên đề và Ebook PDF phân cấp thư mục chuẩn gốc (Độc quyền DkTEST, Ngân Hàng Đề Thi, Tài Liệu Ôn Thi). Đọc trực tuyến và tải trọn bộ.",
       canonicalUrl: `${cleanBaseUrl}/documents`,
       imageUrl: `${cleanBaseUrl}/images/documents/library-hub.jpg`,
       imageAlt: "Kho Tài Liệu DkTEST",

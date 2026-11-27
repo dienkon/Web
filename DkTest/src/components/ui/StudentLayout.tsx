@@ -734,10 +734,10 @@ function StudentLayoutContent() {
                     <div className="min-w-0 flex-1">
                       <div className="text-xs font-bold text-slate-900 dark:text-white flex items-center gap-1.5">
                         <span>Kho Tài Liệu</span>
-                        <span className="text-[9px] px-1.5 py-0.5 rounded-full bg-teal-100 dark:bg-teal-900 text-teal-700 dark:text-teal-300 font-bold">3.000+ PDF</span>
+                        <span className="text-[9px] px-1.5 py-0.5 rounded-full bg-teal-100 dark:bg-teal-900 text-teal-700 dark:text-teal-300 font-bold">5.400+ PDF</span>
                       </div>
                       <div className="text-[11px] text-slate-500 dark:text-slate-400 truncate">
-                        Đề thi, chuyên đề, Ebook 10–11–12 &amp; đóng góp tài liệu
+                        Cây thư mục chuẩn gốc, Độc quyền DkTEST &amp; tải trọn bộ
                       </div>
                     </div>
                     <ChevronRight className="w-4 h-4 text-slate-400 shrink-0" />
