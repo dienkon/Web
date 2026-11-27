@@ -6,7 +6,7 @@ var __require = /* @__PURE__ */ ((x) => typeof require !== "undefined" ? require
 });
 
 // server/routes/walletRoutes.ts
-import { Router as Router3 } from "express";
+import { Router as Router4 } from "express";
 
 // server/firebaseAdmin.ts
 import { createRequire } from "module";
@@ -337,6 +337,19 @@ async function setFirestoreRestDoc(collectionName, docId, data) {
     return false;
   }
 }
+async function deleteFirestoreRestDoc(collectionName, docId) {
+  const apiKey = getFirebaseApiKey();
+  const projectId = process.env.FIREBASE_PROJECT_ID || process.env.VITE_FIREBASE_PROJECT_ID || "exam-fd7a1";
+  try {
+    const url = `https://firestore.googleapis.com/v1/projects/${projectId}/databases/(default)/documents/${collectionName}/${encodeURIComponent(docId)}?key=${apiKey}`;
+    const res = await fetch(url, { method: "DELETE" });
+    clearServerRestCache(collectionName);
+    console.log(`[Server Firestore DELETE: 1 doc] Doc: "${collectionName}/${docId}" | Status: ${res.status}`);
+    return res.ok;
+  } catch (err) {
+    return false;
+  }
+}
 
 // server/middleware/auth.ts
 async function requireAuth(req, res, next) {
@@ -420,15 +433,15 @@ function buildContextMismatchMessageServer(voucherType, context) {
   const isDepositBonus = voucherType === "deposit_bonus_percent" || voucherType === "deposit_bonus_fixed";
   if (context === "deposit") {
     if (isDiscount) {
-      return "M\xE3 n\xE0y l\xE0 Voucher gi\u1EA3m gi\xE1 m\u1EDF kh\xF3a \u0111\u1EC1 thi / kh\xF3a h\u1ECDc \u2014 kh\xF4ng \xE1p d\u1EE5ng khi n\u1EA1p ti\u1EC1n! Vui l\xF2ng d\xF9ng m\xE3 n\xE0y \u1EDF b\u01B0\u1EDBc m\u1EDF kh\xF3a \u0111\u1EC1 thi ho\u1EB7c kh\xF3a h\u1ECDc.";
+      return "M\xE3 n\xE0y l\xE0 Voucher gi\u1EA3m gi\xE1 m\u1EDF kh\xF3a \u0111\u1EC1 thi / kh\xF3a h\u1ECDc / t\xE0i li\u1EC7u \u2014 kh\xF4ng \xE1p d\u1EE5ng khi n\u1EA1p ti\u1EC1n! Vui l\xF2ng d\xF9ng m\xE3 n\xE0y \u1EDF b\u01B0\u1EDBc m\u1EDF kh\xF3a.";
     }
     if (voucherType === "gift_money") {
       return "M\xE3 n\xE0y l\xE0 Voucher t\u1EB7ng ti\u1EC1n th\u1EB3ng v\xE0o v\xED \u2014 h\xE3y nh\u1EADp \u1EDF m\u1EE5c 'Nh\u1EADp m\xE3 Voucher qu\xE0 t\u1EB7ng' ph\xEDa tr\xEAn \u0111\u1EC3 nh\u1EADn ti\u1EC1n ngay!";
     }
     return "M\xE3 n\xE0y kh\xF4ng \xE1p d\u1EE5ng \u01B0u \u0111\xE3i khi n\u1EA1p ti\u1EC1n.";
   }
-  if (context === "exam_unlock" || context === "course_unlock") {
-    const itemLabel = context === "course_unlock" ? "kh\xF3a h\u1ECDc / b\xE0i gi\u1EA3ng" : "\u0111\u1EC1 thi";
+  if (context === "exam_unlock" || context === "course_unlock" || context === "document_unlock") {
+    const itemLabel = context === "course_unlock" ? "kh\xF3a h\u1ECDc / b\xE0i gi\u1EA3ng" : context === "document_unlock" ? "t\xE0i li\u1EC7u" : "\u0111\u1EC1 thi";
     if (isDepositBonus) {
       return `M\xE3 n\xE0y l\xE0 Voucher th\u01B0\u1EDFng n\u1EA1p ti\u1EC1n \u2014 kh\xF4ng \xE1p d\u1EE5ng \u0111\u1EC3 gi\u1EA3m gi\xE1 m\u1EDF kh\xF3a ${itemLabel}! Vui l\xF2ng d\xF9ng m\xE3 n\xE0y t\u1EA1i trang V\xED DkTEST khi n\u1EA1p ti\u1EC1n.`;
     }
@@ -570,8 +583,8 @@ async function validateVoucher(params) {
       message: `M\xE3 h\u1EE3p l\u1EC7! Nh\u1EADn ngay +${voucher.value.toLocaleString("vi-VN")}\u0111 v\xE0o v\xED.`
     };
   }
-  if (params.context === "exam_unlock" || params.context === "course_unlock") {
-    const itemLabel = params.context === "course_unlock" ? "kh\xF3a h\u1ECDc / b\xE0i gi\u1EA3ng" : "b\xE0i thi";
+  if (params.context === "exam_unlock" || params.context === "course_unlock" || params.context === "document_unlock") {
+    const itemLabel = params.context === "course_unlock" ? "kh\xF3a h\u1ECDc / b\xE0i gi\u1EA3ng" : params.context === "document_unlock" ? "t\xE0i li\u1EC7u" : "b\xE0i thi";
     if (voucher.type !== "discount_percent" && voucher.type !== "discount_fixed") {
       return {
         valid: false,
@@ -6444,8 +6457,1188 @@ minigameStudentRouter.post(
   }
 );
 
+// server/routes/documentLibraryRoutes.ts
+import { Router as Router3 } from "express";
+
+// server/services/documentLibraryService.ts
+import fs from "fs";
+import path from "path";
+import crypto3 from "crypto";
+import { z as z4 } from "zod";
+
+// src/types/documentLibrary.ts
+var DOCUMENT_GRADE_META = {
+  grade_10: {
+    label: "L\u1EDBp 10",
+    shortLabel: "L\u1EDBp 10",
+    badgeClass: "bg-sky-100 text-sky-700 dark:bg-sky-950/60 dark:text-sky-300"
+  },
+  grade_11: {
+    label: "L\u1EDBp 11",
+    shortLabel: "L\u1EDBp 11",
+    badgeClass: "bg-indigo-100 text-indigo-700 dark:bg-indigo-950/60 dark:text-indigo-300"
+  },
+  grade_12: {
+    label: "L\u1EDBp 12",
+    shortLabel: "L\u1EDBp 12",
+    badgeClass: "bg-blue-100 text-blue-700 dark:bg-blue-950/60 dark:text-blue-300"
+  },
+  thpt_qg: {
+    label: "T\u1ED1t nghi\u1EC7p THPT",
+    shortLabel: "THPT QG",
+    badgeClass: "bg-rose-100 text-rose-700 dark:bg-rose-950/60 dark:text-rose-300"
+  },
+  dgnl_dgtd: {
+    label: "\u0110GNL & \u0110GTD (HSA / V-ACT / TSA)",
+    shortLabel: "\u0110GNL - \u0110GTD",
+    badgeClass: "bg-amber-100 text-amber-800 dark:bg-amber-950/60 dark:text-amber-300"
+  },
+  general: {
+    label: "\u0110\u1EA1i c\u01B0\u01A1ng & Ch\u1EE9ng ch\u1EC9",
+    shortLabel: "\u0110\u1EA1i c\u01B0\u01A1ng",
+    badgeClass: "bg-slate-100 text-slate-700 dark:bg-slate-800 dark:text-slate-300"
+  }
+};
+var DOCUMENT_SUBJECT_META = {
+  math: { label: "To\xE1n h\u1ECDc", bannerKey: "math", colorClass: "text-blue-600 dark:text-blue-400" },
+  literature: { label: "Ng\u1EEF v\u0103n", bannerKey: "literature", colorClass: "text-rose-600 dark:text-rose-400" },
+  english: { label: "Ti\u1EBFng Anh", bannerKey: "english", colorClass: "text-sky-600 dark:text-sky-400" },
+  physics: { label: "V\u1EADt l\xFD", bannerKey: "physics", colorClass: "text-indigo-600 dark:text-indigo-400" },
+  chemistry: { label: "H\xF3a h\u1ECDc", bannerKey: "chemistry", colorClass: "text-emerald-600 dark:text-emerald-400" },
+  biology: { label: "Sinh h\u1ECDc", bannerKey: "biology", colorClass: "text-green-600 dark:text-green-400" },
+  history: { label: "L\u1ECBch s\u1EED", bannerKey: "history", colorClass: "text-amber-700 dark:text-amber-400" },
+  geography: { label: "\u0110\u1ECBa l\xFD", bannerKey: "geography", colorClass: "text-teal-600 dark:text-teal-400" },
+  civics: { label: "KT & Ph\xE1p lu\u1EADt", bannerKey: "civics", colorClass: "text-purple-600 dark:text-purple-400" },
+  informatics: { label: "Tin h\u1ECDc", bannerKey: "informatics", colorClass: "text-cyan-600 dark:text-cyan-400" },
+  technology: { label: "C\xF4ng ngh\u1EC7", bannerKey: "technology", colorClass: "text-orange-600 dark:text-orange-400" },
+  foreign_other: { label: "Ngo\u1EA1i ng\u1EEF kh\xE1c", bannerKey: "english", colorClass: "text-pink-600 dark:text-pink-400" },
+  aptitude: { label: "\u0110\xE1nh gi\xE1 n\u0103ng l\u1EF1c", bannerKey: "dgnl", colorClass: "text-amber-600 dark:text-amber-400" },
+  multi_subject: { label: "T\u1ED5ng h\u1EE3p \u0111a m\xF4n", bannerKey: "default", colorClass: "text-slate-600 dark:text-slate-400" }
+};
+var DOCUMENT_CATEGORY_META = {
+  exam_test: { label: "\u0110\u1EC1 thi & \u0110\xE1p \xE1n", shortLabel: "\u0110\u1EC1 thi" },
+  ebook_book: { label: "S\xE1ch & Ebook", shortLabel: "Ebook" },
+  topic_guide: { label: "Chuy\xEAn \u0111\u1EC1 & L\xFD thuy\u1EBFt", shortLabel: "Chuy\xEAn \u0111\u1EC1" },
+  formula_handbook: { label: "S\u1ED5 tay & C\xF4ng th\u1EE9c", shortLabel: "S\u1ED5 tay" },
+  folder_pack: { label: "B\u1ED9 t\xE0i li\u1EC7u t\u1ED5ng h\u1EE3p", shortLabel: "Tr\u1ECDn b\u1ED9" }
+};
+function expandSeedUrl(u) {
+  if (!u) return void 0;
+  if (u.startsWith("gd:")) return `https://drive.google.com/file/d/${u.slice(3)}/view`;
+  if (u.startsWith("gdf:")) return `https://drive.google.com/drive/folders/${u.slice(4)}`;
+  if (u.startsWith("gds:")) return `https://docs.google.com/spreadsheets/d/${u.slice(4)}/edit`;
+  return u;
+}
+function expandCompactSeedDocument(item) {
+  const gradeLabel = DOCUMENT_GRADE_META[item.g]?.shortLabel || "THPT";
+  const subjectLabel = DOCUMENT_SUBJECT_META[item.s]?.label || "T\u1ED5ng h\u1EE3p";
+  const categoryLabel = DOCUMENT_CATEGORY_META[item.c]?.label || "T\xE0i li\u1EC7u";
+  const subCount = item.sf?.length || 0;
+  const primaryUrl = expandSeedUrl(item.u) || item.u;
+  const answerUrl = expandSeedUrl(item.a);
+  const videoUrl = expandSeedUrl(item.v);
+  const descParts = [
+    `${categoryLabel} m\xF4n ${subjectLabel} (${gradeLabel})`,
+    subCount > 0 ? `g\u1ED3m ${subCount} t\u1EC7p t\xE0i li\u1EC7u ch\u1ECDn l\u1ECDc` : "\u0111\u1ECBnh d\u1EA1ng chu\u1EA9n r\xF5 n\xE9t",
+    answerUrl && answerUrl !== primaryUrl ? "k\xE8m file \u0111\xE1p \xE1n chi ti\u1EBFt" : "",
+    videoUrl && videoUrl !== primaryUrl ? "k\xE8m video h\u01B0\u1EDBng d\u1EABn gi\u1EA3i" : ""
+  ].filter(Boolean);
+  return {
+    id: item.id,
+    title: item.t,
+    description: `${descParts.join(", ")}. Xem tr\u1EF1c tuy\u1EBFn b\u1EB1ng tr\xECnh \u0111\u1ECDc PDF DkTEST ho\u1EB7c t\u1EA3i v\u1EC1 m\xE1y mi\u1EC5n ph\xED.`,
+    grade: item.g,
+    subject: item.s,
+    category: item.c,
+    fileFormat: item.f,
+    accessMode: "free",
+    priceVnd: 0,
+    fileUrl: primaryUrl,
+    answerUrl,
+    videoUrl,
+    subFiles: item.sf?.map((sf) => ({
+      name: sf.n,
+      url: expandSeedUrl(sf.u) || sf.u,
+      fileFormat: sf.f,
+      folderPath: sf.p
+    })),
+    authorName: item.src || "Kho T\xE0i Li\u1EC7u DkTEST",
+    authorRole: "seed",
+    sourceName: item.src,
+    status: "published",
+    tags: item.tg || [],
+    viewCount: 0,
+    downloadCount: 0,
+    publishedAt: item.d ? `${item.d}T00:00:00.000Z` : "2026-11-01T00:00:00.000Z",
+    createdAt: item.d ? `${item.d}T00:00:00.000Z` : "2026-11-01T00:00:00.000Z",
+    updatedAt: item.d ? `${item.d}T00:00:00.000Z` : "2026-11-01T00:00:00.000Z"
+  };
+}
+
+// server/services/documentLibraryService.ts
+var SETTINGS_COLLECTION = "system_settings";
+var SETTINGS_DOC_ID = "document_library_config";
+var DOCS_COLLECTION = "library_documents";
+var SECRETS_COLLECTION = "library_document_secrets";
+var ENTITLEMENTS_COLLECTION = "library_entitlements";
+var LIVE_DOCS_TTL_MS = 45 * 1e3;
+var SETTINGS_TTL_MS = 60 * 1e3;
+var MAX_PROXY_BYTES = 44 * 1024 * 1024;
+var cachedLiveDocs = null;
+var cachedSettings = null;
+var cachedSeedMap = null;
+function invalidateDocumentLibraryCache() {
+  cachedLiveDocs = null;
+}
+function loadSeedDocumentsMap() {
+  if (cachedSeedMap) return cachedSeedMap;
+  const map = /* @__PURE__ */ new Map();
+  const candidates = [
+    path.join(process.cwd(), "public", "data", "document-library-seed.json"),
+    path.join(process.cwd(), "dist", "data", "document-library-seed.json")
+  ];
+  for (const filePath of candidates) {
+    if (!fs.existsSync(filePath)) continue;
+    try {
+      const raw = fs.readFileSync(filePath, "utf8");
+      const parsed = JSON.parse(raw);
+      if (Array.isArray(parsed?.items)) {
+        for (const item of parsed.items) {
+          if (item?.id) {
+            map.set(item.id, expandCompactSeedDocument(item));
+          }
+        }
+        break;
+      }
+    } catch (err) {
+      console.warn("[documentLibraryService] Failed to parse seed JSON:", err);
+    }
+  }
+  cachedSeedMap = map;
+  return map;
+}
+function getSeedDocumentById(docId) {
+  const clean = String(docId || "").trim();
+  if (!clean) return null;
+  return loadSeedDocumentsMap().get(clean) || null;
+}
+async function getDocumentLibrarySettings(forceRefresh = false) {
+  if (!forceRefresh && cachedSettings && Date.now() - cachedSettings.timestamp < SETTINGS_TTL_MS) {
+    return cachedSettings.data;
+  }
+  const defaults = {
+    autoApproveUserUploads: true,
+    creatorRevenueSharePercent: 80,
+    maxUserPriceVnd: 5e5,
+    updatedAt: (/* @__PURE__ */ new Date()).toISOString()
+  };
+  try {
+    let raw = null;
+    if (adminDb) {
+      const snap = await adminDb.collection(SETTINGS_COLLECTION).doc(SETTINGS_DOC_ID).get();
+      if (snap.exists) raw = snap.data();
+    } else {
+      raw = await getFirestoreRestDoc(SETTINGS_COLLECTION, SETTINGS_DOC_ID);
+    }
+    if (raw) {
+      const merged = {
+        autoApproveUserUploads: typeof raw.autoApproveUserUploads === "boolean" ? raw.autoApproveUserUploads : defaults.autoApproveUserUploads,
+        creatorRevenueSharePercent: typeof raw.creatorRevenueSharePercent === "number" ? Math.max(0, Math.min(100, Math.round(raw.creatorRevenueSharePercent))) : defaults.creatorRevenueSharePercent,
+        maxUserPriceVnd: typeof raw.maxUserPriceVnd === "number" && raw.maxUserPriceVnd >= 1e3 ? Math.floor(raw.maxUserPriceVnd) : defaults.maxUserPriceVnd,
+        updatedAt: raw.updatedAt || defaults.updatedAt
+      };
+      cachedSettings = { data: merged, timestamp: Date.now() };
+      return merged;
+    }
+  } catch (err) {
+    console.warn("[documentLibraryService] Error loading settings, using defaults:", err);
+  }
+  cachedSettings = { data: defaults, timestamp: Date.now() };
+  return defaults;
+}
+var subFileSchema = z4.object({
+  name: z4.string().trim().min(1).max(160),
+  url: z4.string().trim().url().max(2048),
+  fileFormat: z4.enum(["pdf", "docx", "doc", "pptx", "xlsx", "zip", "folder", "sheet", "other"]).default("pdf"),
+  folderPath: z4.string().trim().max(160).optional()
+});
+var upsertDocumentSchema = z4.object({
+  id: z4.string().trim().min(3).max(96).optional(),
+  title: z4.string().trim().min(3, "Ti\xEAu \u0111\u1EC1 ph\u1EA3i c\xF3 \xEDt nh\u1EA5t 3 k\xFD t\u1EF1.").max(220),
+  description: z4.string().trim().max(2e3).optional().default(""),
+  grade: z4.enum(["grade_10", "grade_11", "grade_12", "thpt_qg", "dgnl_dgtd", "general"]).default("grade_12"),
+  subject: z4.enum([
+    "math",
+    "literature",
+    "english",
+    "physics",
+    "chemistry",
+    "biology",
+    "history",
+    "geography",
+    "civics",
+    "informatics",
+    "technology",
+    "foreign_other",
+    "aptitude",
+    "multi_subject"
+  ]).default("math"),
+  category: z4.enum(["exam_test", "ebook_book", "topic_guide", "formula_handbook", "folder_pack"]).default("exam_test"),
+  fileFormat: z4.enum(["pdf", "docx", "doc", "pptx", "xlsx", "zip", "folder", "sheet", "other"]).default("pdf"),
+  pageCount: z4.number().int().min(0).max(5e3).optional(),
+  fileSizeBytes: z4.number().int().min(0).max(1024 * 1024 * 500).optional(),
+  coverImageUrl: z4.string().trim().url().max(2048).nullable().optional(),
+  previewImageUrls: z4.array(z4.string().trim().url().max(2048)).max(5).optional(),
+  accessMode: z4.enum(["free", "paid"]).default("free"),
+  priceVnd: z4.number().min(0).max(5e6).default(0),
+  previewPageCount: z4.number().int().min(0).max(10).optional().default(2),
+  salesEnabled: z4.boolean().optional().default(true),
+  fileUrl: z4.string().trim().url("Vui l\xF2ng t\u1EA3i t\u1EC7p l\xEAn ho\u1EB7c nh\u1EADp li\xEAn k\u1EBFt h\u1EE3p l\u1EC7.").max(2048).optional(),
+  originalFileName: z4.string().trim().max(200).optional(),
+  answerUrl: z4.string().trim().max(2048).optional(),
+  videoUrl: z4.string().trim().max(2048).optional(),
+  subFiles: z4.array(subFileSchema).max(40).optional(),
+  tags: z4.array(z4.string().trim().max(48)).max(12).optional().default([]),
+  isFeatured: z4.boolean().optional(),
+  status: z4.enum(["published", "pending", "rejected", "hidden"]).optional()
+});
+function sanitizePublicDocument(doc) {
+  const isPaid = doc.accessMode === "paid" && sanitizeVnd(doc.priceVnd) > 0;
+  if (!isPaid) return doc;
+  const copy = { ...doc };
+  delete copy.fileUrl;
+  delete copy.answerUrl;
+  delete copy.videoUrl;
+  delete copy.subFiles;
+  return copy;
+}
+async function getLiveLibraryDocuments(options = {}) {
+  if (!options.forceRefresh && cachedLiveDocs && Date.now() - cachedLiveDocs.timestamp < LIVE_DOCS_TTL_MS) {
+    const all = cachedLiveDocs.items;
+    return options.includeNonPublished ? all : all.filter((d) => d.status === "published" || d.status === "hidden");
+  }
+  let list = [];
+  if (adminDb) {
+    try {
+      const snap = await adminDb.collection(DOCS_COLLECTION).orderBy("updatedAt", "desc").limit(600).get();
+      list = snap.docs.map((d) => sanitizePublicDocument({ id: d.id, ...d.data() }));
+    } catch {
+      const snap = await adminDb.collection(DOCS_COLLECTION).limit(600).get();
+      list = snap.docs.map((d) => sanitizePublicDocument({ id: d.id, ...d.data() }));
+      list.sort((a, b) => String(b.updatedAt || "").localeCompare(String(a.updatedAt || "")));
+    }
+  } else {
+    const docs = await getFirestoreRestDocs(DOCS_COLLECTION, 400, true);
+    list = (docs || []).map((d) => sanitizePublicDocument({ id: d.id, ...d }));
+    list.sort((a, b) => String(b.updatedAt || "").localeCompare(String(a.updatedAt || "")));
+  }
+  cachedLiveDocs = { items: list, timestamp: Date.now() };
+  return options.includeNonPublished ? list : list.filter((d) => d.status === "published" || d.status === "hidden");
+}
+async function getDocumentByIdResolved(docId) {
+  const cleanId = String(docId || "").trim();
+  if (!cleanId) return null;
+  let liveDoc = null;
+  if (adminDb) {
+    const snap = await adminDb.collection(DOCS_COLLECTION).doc(cleanId).get();
+    if (snap.exists) {
+      liveDoc = sanitizePublicDocument({ id: snap.id, ...snap.data() });
+    }
+  } else {
+    const restDoc = await getFirestoreRestDoc(DOCS_COLLECTION, cleanId);
+    if (restDoc) {
+      liveDoc = sanitizePublicDocument({ id: cleanId, ...restDoc });
+    }
+  }
+  if (liveDoc) return liveDoc;
+  return getSeedDocumentById(cleanId);
+}
+async function getDocumentSecrets(docId) {
+  if (adminDb) {
+    const snap = await adminDb.collection(SECRETS_COLLECTION).doc(docId).get();
+    return snap.exists ? snap.data() : null;
+  }
+  return await getFirestoreRestDoc(SECRETS_COLLECTION, docId);
+}
+async function getMyUploadedDocuments(uid) {
+  const cleanUid = String(uid || "").trim();
+  if (!cleanUid) return [];
+  const all = await getLiveLibraryDocuments({ includeNonPublished: true });
+  return all.filter((d) => d.authorUid === cleanUid);
+}
+async function getMyUnlockedDocumentIds(uid) {
+  const cleanUid = String(uid || "").trim();
+  if (!cleanUid) return [];
+  let ents = [];
+  if (adminDb) {
+    const snap = await adminDb.collection(ENTITLEMENTS_COLLECTION).where("uid", "==", cleanUid).limit(300).get();
+    ents = snap.docs.map((d) => d.data());
+  } else {
+    ents = await queryFirestoreRestDocs(ENTITLEMENTS_COLLECTION, "uid", cleanUid, 300) || [];
+  }
+  return ents.filter((e) => e && e.status === "active" && e.docId).map((e) => String(e.docId));
+}
+async function createOrUpdateLibraryDocument(actor, rawInput) {
+  const parsed = upsertDocumentSchema.parse(rawInput);
+  const isAdmin = actor.role === "admin" || actor.role === "super_admin";
+  const settings = await getDocumentLibrarySettings();
+  const existingId = parsed.id?.trim();
+  let existingDoc = null;
+  let existingSecrets = null;
+  if (existingId) {
+    existingDoc = await getDocumentByIdResolved(existingId);
+    if (existingDoc) {
+      if (!isAdmin && existingDoc.authorUid !== actor.uid) {
+        throw new Error("B\u1EA1n ch\u1EC9 c\xF3 quy\u1EC1n ch\u1EC9nh s\u1EEDa t\xE0i li\u1EC7u do ch\xEDnh m\xECnh \u0111\u0103ng t\u1EA3i.");
+      }
+      existingSecrets = await getDocumentSecrets(existingId);
+    }
+  }
+  const resolvedFileUrl = parsed.fileUrl?.trim() || existingSecrets?.fileUrl || existingDoc?.fileUrl || "";
+  if (!resolvedFileUrl) {
+    throw new Error("Vui l\xF2ng t\u1EA3i t\u1EC7p t\xE0i li\u1EC7u l\xEAn Cloudinary ho\u1EB7c nh\u1EADp \u0111\u01B0\u1EDDng d\u1EABn h\u1EE3p l\u1EC7.");
+  }
+  if (!/^https:\/\/res\.cloudinary\.com\//i.test(resolvedFileUrl)) {
+    await validateUrlForSsrf(resolvedFileUrl);
+  }
+  const accessMode = parsed.accessMode === "paid" && parsed.priceVnd > 0 ? "paid" : "free";
+  const priceVnd = accessMode === "paid" ? sanitizeVnd(parsed.priceVnd) : 0;
+  if (accessMode === "paid") {
+    if (priceVnd < 1e3) {
+      throw new Error("M\u1EE9c ph\xED t\xE0i li\u1EC7u tr\u1EA3 ph\xED t\u1ED1i thi\u1EC3u l\xE0 1.000\u0111.");
+    }
+    const maxAllowed = isAdmin ? 5e6 : settings.maxUserPriceVnd;
+    if (priceVnd > maxAllowed) {
+      throw new Error(`M\u1EE9c ph\xED t\u1ED1i \u0111a cho ph\xE9p l\xE0 ${maxAllowed.toLocaleString("vi-VN")}\u0111.`);
+    }
+  }
+  const now = (/* @__PURE__ */ new Date()).toISOString();
+  const docId = existingId || `ldoc_${Date.now()}_${crypto3.randomBytes(3).toString("hex")}`;
+  let nextStatus = "published";
+  if (isAdmin) {
+    nextStatus = parsed.status || existingDoc?.status || "published";
+  } else {
+    nextStatus = settings.autoApproveUserUploads ? "published" : "pending";
+  }
+  const cleanAnswerUrl = parsed.answerUrl?.trim() || existingSecrets?.answerUrl || existingDoc?.answerUrl || void 0;
+  const cleanVideoUrl = parsed.videoUrl?.trim() || existingSecrets?.videoUrl || existingDoc?.videoUrl || void 0;
+  const cleanSubFiles = parsed.subFiles || existingSecrets?.subFiles || existingDoc?.subFiles || void 0;
+  const cleanOriginalFileName = parsed.originalFileName?.trim() || existingSecrets?.originalFileName || existingDoc?.originalFileName || void 0;
+  const authorRole = existingDoc?.authorRole && existingDoc.authorRole !== "seed" ? existingDoc.authorRole : isAdmin ? "admin" : "community";
+  const authorName = existingDoc?.authorName && existingDoc.authorRole !== "seed" ? existingDoc.authorName : actor.displayName || actor.email?.split("@")[0] || (isAdmin ? "Ban Qu\u1EA3n Tr\u1ECB DkTEST" : "Th\xE0nh vi\xEAn DkTEST");
+  const fullDoc = {
+    id: docId,
+    title: parsed.title,
+    description: parsed.description?.trim() || `T\xE0i li\u1EC7u ${parsed.title} \u0111\u01B0\u1EE3c chia s\u1EBB tr\xEAn Kho T\xE0i Li\u1EC7u DkTEST.`,
+    grade: parsed.grade,
+    subject: parsed.subject,
+    category: parsed.category,
+    fileFormat: parsed.fileFormat,
+    ...parsed.pageCount ? { pageCount: parsed.pageCount } : existingDoc?.pageCount ? { pageCount: existingDoc.pageCount } : {},
+    ...parsed.fileSizeBytes ? { fileSizeBytes: parsed.fileSizeBytes } : existingDoc?.fileSizeBytes ? { fileSizeBytes: existingDoc.fileSizeBytes } : {},
+    coverImageUrl: parsed.coverImageUrl !== void 0 ? parsed.coverImageUrl : existingDoc?.coverImageUrl || null,
+    ...parsed.previewImageUrls?.length ? { previewImageUrls: parsed.previewImageUrls } : existingDoc?.previewImageUrls?.length ? { previewImageUrls: existingDoc.previewImageUrls } : {},
+    accessMode,
+    priceVnd,
+    previewPageCount: parsed.previewPageCount ?? existingDoc?.previewPageCount ?? 2,
+    salesEnabled: parsed.salesEnabled ?? existingDoc?.salesEnabled ?? true,
+    ...accessMode === "free" ? {
+      fileUrl: resolvedFileUrl,
+      ...cleanOriginalFileName ? { originalFileName: cleanOriginalFileName } : {},
+      ...cleanAnswerUrl ? { answerUrl: cleanAnswerUrl } : {},
+      ...cleanVideoUrl ? { videoUrl: cleanVideoUrl } : {},
+      ...cleanSubFiles?.length ? { subFiles: cleanSubFiles } : {}
+    } : {},
+    authorUid: existingDoc?.authorUid || actor.uid,
+    authorName,
+    authorRole,
+    ...existingDoc?.sourceName ? { sourceName: existingDoc.sourceName } : {},
+    status: nextStatus,
+    isFeatured: isAdmin ? parsed.isFeatured ?? existingDoc?.isFeatured ?? false : existingDoc?.isFeatured ?? false,
+    tags: parsed.tags || existingDoc?.tags || [],
+    viewCount: existingDoc?.viewCount || 0,
+    downloadCount: existingDoc?.downloadCount || 0,
+    purchaseCount: existingDoc?.purchaseCount || 0,
+    totalRevenueVnd: existingDoc?.totalRevenueVnd || 0,
+    publishedAt: existingDoc?.publishedAt || now,
+    createdAt: existingDoc?.createdAt || now,
+    updatedAt: now
+  };
+  const publicDoc = sanitizePublicDocument(fullDoc);
+  const secretsPayload = {
+    docId,
+    fileUrl: resolvedFileUrl,
+    ...cleanOriginalFileName ? { originalFileName: cleanOriginalFileName } : {},
+    ...cleanAnswerUrl ? { answerUrl: cleanAnswerUrl } : {},
+    ...cleanVideoUrl ? { videoUrl: cleanVideoUrl } : {},
+    ...cleanSubFiles?.length ? { subFiles: cleanSubFiles } : {},
+    updatedAt: now
+  };
+  if (adminDb) {
+    const batch = adminDb.batch();
+    batch.set(adminDb.collection(DOCS_COLLECTION).doc(docId), publicDoc);
+    batch.set(adminDb.collection(SECRETS_COLLECTION).doc(docId), secretsPayload);
+    await batch.commit();
+  } else {
+    await setFirestoreRestDoc(DOCS_COLLECTION, docId, publicDoc);
+    await setFirestoreRestDoc(SECRETS_COLLECTION, docId, secretsPayload);
+  }
+  invalidateDocumentLibraryCache();
+  return publicDoc;
+}
+async function deleteLibraryDocument(actor, docId) {
+  const cleanId = String(docId || "").trim();
+  if (!cleanId) throw new Error("M\xE3 t\xE0i li\u1EC7u kh\xF4ng h\u1EE3p l\u1EC7.");
+  const isAdmin = actor.role === "admin" || actor.role === "super_admin";
+  const existing = await getDocumentByIdResolved(cleanId);
+  if (!existing) throw new Error("Kh\xF4ng t\xECm th\u1EA5y t\xE0i li\u1EC7u.");
+  if (!isAdmin && existing.authorUid !== actor.uid) {
+    throw new Error("B\u1EA1n kh\xF4ng c\xF3 quy\u1EC1n x\xF3a t\xE0i li\u1EC7u n\xE0y.");
+  }
+  const isSeed = Boolean(getSeedDocumentById(cleanId));
+  if (isSeed && isAdmin) {
+    const hiddenOverride = {
+      ...existing,
+      status: "hidden",
+      updatedAt: (/* @__PURE__ */ new Date()).toISOString()
+    };
+    if (adminDb) {
+      await adminDb.collection(DOCS_COLLECTION).doc(cleanId).set(hiddenOverride, { merge: true });
+    } else {
+      await setFirestoreRestDoc(DOCS_COLLECTION, cleanId, hiddenOverride);
+    }
+    invalidateDocumentLibraryCache();
+    return { deleted: true, hiddenSeed: true };
+  }
+  if (adminDb) {
+    const batch = adminDb.batch();
+    batch.delete(adminDb.collection(DOCS_COLLECTION).doc(cleanId));
+    batch.delete(adminDb.collection(SECRETS_COLLECTION).doc(cleanId));
+    await batch.commit();
+  } else {
+    await deleteFirestoreRestDoc(DOCS_COLLECTION, cleanId);
+    await deleteFirestoreRestDoc(SECRETS_COLLECTION, cleanId).catch(() => {
+    });
+  }
+  invalidateDocumentLibraryCache();
+  return { deleted: true };
+}
+async function checkDocumentAccess(uid, docId, role = "student") {
+  const doc = await getDocumentByIdResolved(docId);
+  if (!doc || doc.status === "hidden") {
+    throw new Error("T\xE0i li\u1EC7u kh\xF4ng t\u1ED3n t\u1EA1i ho\u1EB7c \u0111\xE3 b\u1ECB g\u1EE1.");
+  }
+  const priceVnd = doc.accessMode === "paid" ? sanitizeVnd(doc.priceVnd) : 0;
+  const isFree = priceVnd <= 0;
+  const isAdmin = role === "admin" || role === "super_admin";
+  const isOwner = Boolean(uid && doc.authorUid && doc.authorUid === uid);
+  if (isFree || isAdmin || isOwner) {
+    return {
+      hasAccess: true,
+      isFree,
+      isOwner: isOwner || isAdmin,
+      unlocked: !isFree,
+      priceVnd,
+      previewPageCount: doc.previewPageCount ?? 2,
+      userBalanceVnd: 0,
+      missingVnd: 0,
+      canUnlock: true
+    };
+  }
+  if (!uid) {
+    return {
+      hasAccess: false,
+      isFree: false,
+      isOwner: false,
+      unlocked: false,
+      priceVnd,
+      previewPageCount: doc.previewPageCount ?? 2,
+      userBalanceVnd: 0,
+      missingVnd: priceVnd,
+      canUnlock: false
+    };
+  }
+  const entId = `${uid}_${docId}`;
+  let entDoc = null;
+  if (adminDb) {
+    const snap = await adminDb.collection(ENTITLEMENTS_COLLECTION).doc(entId).get();
+    if (snap.exists) entDoc = snap.data();
+  } else {
+    entDoc = await getFirestoreRestDoc(ENTITLEMENTS_COLLECTION, entId);
+  }
+  if (entDoc && entDoc.status === "active") {
+    return {
+      hasAccess: true,
+      isFree: false,
+      isOwner: false,
+      unlocked: true,
+      priceVnd,
+      previewPageCount: doc.previewPageCount ?? 2,
+      userBalanceVnd: 0,
+      missingVnd: 0,
+      canUnlock: true
+    };
+  }
+  const wallet = await getOrCreateWallet(uid);
+  const balance = sanitizeVnd(wallet.balanceVnd);
+  const missingVnd = Math.max(0, priceVnd - balance);
+  return {
+    hasAccess: false,
+    isFree: false,
+    isOwner: false,
+    unlocked: false,
+    priceVnd,
+    previewPageCount: doc.previewPageCount ?? 2,
+    userBalanceVnd: balance,
+    missingVnd,
+    canUnlock: balance >= priceVnd && doc.salesEnabled !== false
+  };
+}
+async function getAuthorizedDocumentContent(uid, docId, role = "student") {
+  const doc = await getDocumentByIdResolved(docId);
+  if (!doc || doc.status === "hidden") {
+    throw new Error("T\xE0i li\u1EC7u kh\xF4ng t\u1ED3n t\u1EA1i.");
+  }
+  const access = await checkDocumentAccess(uid, docId, role);
+  if (!access.hasAccess) {
+    throw new Error(
+      `T\xE0i li\u1EC7u tr\u1EA3 ph\xED (${access.priceVnd.toLocaleString("vi-VN")}\u0111). Vui l\xF2ng m\u1EDF kh\xF3a \u0111\u1EC3 \u0111\u1ECDc tr\u1ECDn b\u1ED9 v\xE0 t\u1EA3i PDF g\u1ED1c.`
+    );
+  }
+  const secrets = await getDocumentSecrets(docId);
+  const fileUrl = secrets?.fileUrl || doc.fileUrl || "";
+  if (!fileUrl) {
+    throw new Error("Kh\xF4ng t\xECm th\u1EA5y \u0111\u01B0\u1EDDng d\u1EABn t\u1EC7p g\u1ED1c c\u1EE7a t\xE0i li\u1EC7u n\xE0y.");
+  }
+  return {
+    docId,
+    hasFullAccess: true,
+    isPreviewOnly: false,
+    previewPageCount: doc.previewPageCount ?? 2,
+    fileUrl,
+    originalFileName: secrets?.originalFileName || doc.originalFileName,
+    answerUrl: secrets?.answerUrl || doc.answerUrl,
+    videoUrl: secrets?.videoUrl || doc.videoUrl,
+    subFiles: secrets?.subFiles || doc.subFiles
+  };
+}
+async function unlockLibraryDocument(uid, docId, idempotencyKey, voucherCode) {
+  if (!uid) throw new Error("Vui l\xF2ng \u0111\u0103ng nh\u1EADp \u0111\u1EC3 m\u1EDF kh\xF3a t\xE0i li\u1EC7u.");
+  const doc = await getDocumentByIdResolved(docId);
+  if (!doc || doc.status !== "published") {
+    throw new Error("T\xE0i li\u1EC7u kh\xF4ng kh\u1EA3 d\u1EE5ng \u0111\u1EC3 m\u1EDF kh\xF3a.");
+  }
+  if (doc.salesEnabled === false) {
+    throw new Error("T\xE0i li\u1EC7u n\xE0y hi\u1EC7n \u0111ang t\u1EA1m d\u1EEBng m\u1EDF kh\xF3a.");
+  }
+  const basePriceVnd = doc.accessMode === "paid" ? sanitizeVnd(doc.priceVnd) : 0;
+  const entId = `${uid}_${docId}`;
+  const now = (/* @__PURE__ */ new Date()).toISOString();
+  if (basePriceVnd <= 0 || doc.authorUid === uid) {
+    const freeEnt = {
+      id: entId,
+      uid,
+      docId,
+      docTitleSnapshot: doc.title,
+      authorUid: doc.authorUid,
+      pricePaidVnd: 0,
+      creatorShareVnd: 0,
+      platformFeeVnd: 0,
+      status: "active",
+      grantedBy: "wallet_purchase",
+      createdAt: now
+    };
+    const wallet = await getOrCreateWallet(uid);
+    return {
+      alreadyUnlocked: true,
+      newBalanceVnd: sanitizeVnd(wallet.balanceVnd),
+      entitlement: freeEnt,
+      discountVnd: 0,
+      finalPriceVnd: 0
+    };
+  }
+  let discountVnd = 0;
+  let appliedVoucher = null;
+  if (voucherCode && String(voucherCode).trim()) {
+    const vRes = await validateVoucher({
+      code: String(voucherCode).trim(),
+      uid,
+      context: "document_unlock",
+      amountVnd: basePriceVnd
+    });
+    if (!vRes.valid || !vRes.voucher) {
+      throw new Error(vRes.message || "M\xE3 voucher kh\xF4ng h\u1EE3p l\u1EC7 cho t\xE0i li\u1EC7u n\xE0y.");
+    }
+    discountVnd = sanitizeVnd(vRes.discountVnd || 0);
+    appliedVoucher = vRes.voucher;
+  }
+  const finalPriceVnd = Math.max(0, basePriceVnd - discountVnd);
+  const settings = await getDocumentLibrarySettings();
+  const isCommunityCreator = doc.authorRole === "community" && Boolean(doc.authorUid) && doc.authorUid !== uid;
+  const creatorShareVnd = isCommunityCreator && finalPriceVnd > 0 ? Math.floor(finalPriceVnd * settings.creatorRevenueSharePercent / 100) : 0;
+  const platformFeeVnd = Math.max(0, finalPriceVnd - creatorShareVnd);
+  await getOrCreateWallet(uid);
+  if (isCommunityCreator && doc.authorUid) {
+    await getOrCreateWallet(doc.authorUid).catch(() => {
+    });
+  }
+  const txDebitId = `tx_doc_${Date.now()}_${Math.random().toString(36).slice(2, 7)}`;
+  const txCreditId = `tx_docrev_${Date.now()}_${Math.random().toString(36).slice(2, 7)}`;
+  const usageId = `vuse_${Date.now()}_${Math.random().toString(36).slice(2, 7)}`;
+  if (adminDb) {
+    const txRes = await adminDb.runTransaction(async (transaction) => {
+      const entRef = adminDb.collection(ENTITLEMENTS_COLLECTION).doc(entId);
+      const buyerWalletRef = adminDb.collection("wallets").doc(uid);
+      const docRef = adminDb.collection(DOCS_COLLECTION).doc(docId);
+      const [entSnap, buyerSnap, docSnap] = await Promise.all([
+        transaction.get(entRef),
+        transaction.get(buyerWalletRef),
+        transaction.get(docRef)
+      ]);
+      const buyerData = buyerSnap.data() || {};
+      const buyerBalance2 = sanitizeVnd(buyerData.balanceVnd);
+      if (entSnap.exists && entSnap.data()?.status === "active") {
+        return {
+          alreadyUnlocked: true,
+          newBalanceVnd: buyerBalance2,
+          entitlement: entSnap.data()
+        };
+      }
+      if (buyerBalance2 < finalPriceVnd) {
+        throw new Error(
+          `S\u1ED1 d\u01B0 kh\xF4ng \u0111\u1EE7 (c\u1EA7n ${finalPriceVnd.toLocaleString("vi-VN")}\u0111, hi\u1EC7n c\xF3 ${buyerBalance2.toLocaleString("vi-VN")}\u0111). Vui l\xF2ng n\u1EA1p th\xEAm v\xE0o V\xED DkTEST!`
+        );
+      }
+      let creatorSnap = null;
+      const creatorWalletRef = isCommunityCreator && doc.authorUid && creatorShareVnd > 0 ? adminDb.collection("wallets").doc(doc.authorUid) : null;
+      if (creatorWalletRef) {
+        creatorSnap = await transaction.get(creatorWalletRef);
+      }
+      const newBuyerBalance2 = buyerBalance2 - finalPriceVnd;
+      transaction.set(
+        buyerWalletRef,
+        {
+          balanceVnd: newBuyerBalance2,
+          totalSpentVnd: sanitizeVnd(buyerData.totalSpentVnd) + finalPriceVnd,
+          updatedAt: now
+        },
+        { merge: true }
+      );
+      const debitTx = {
+        id: txDebitId,
+        uid,
+        type: "document_unlock_debit",
+        amountVnd: finalPriceVnd,
+        balanceBeforeVnd: buyerBalance2,
+        balanceAfterVnd: newBuyerBalance2,
+        idempotencyKey: idempotencyKey || entId,
+        actorUid: uid,
+        actorName: buyerData.fullName || "H\u1ECDc sinh",
+        note: `M\u1EDF kh\xF3a t\xE0i li\u1EC7u: "${doc.title}"${appliedVoucher ? ` (Voucher ${appliedVoucher.code} -${discountVnd.toLocaleString("vi-VN")}\u0111)` : ""}`,
+        createdAt: now
+      };
+      transaction.set(adminDb.collection("wallet_transactions").doc(txDebitId), debitTx);
+      if (creatorWalletRef && doc.authorUid && creatorShareVnd > 0) {
+        const cData = creatorSnap?.exists ? creatorSnap.data() : {};
+        const cBefore = sanitizeVnd(cData.balanceVnd);
+        const cAfter = cBefore + creatorShareVnd;
+        transaction.set(
+          creatorWalletRef,
+          {
+            uid: doc.authorUid,
+            balanceVnd: cAfter,
+            totalCreditedVnd: sanitizeVnd(cData.totalCreditedVnd) + creatorShareVnd,
+            updatedAt: now
+          },
+          { merge: true }
+        );
+        const creditTx = {
+          id: txCreditId,
+          uid: doc.authorUid,
+          type: "document_revenue_credit",
+          amountVnd: creatorShareVnd,
+          balanceBeforeVnd: cBefore,
+          balanceAfterVnd: cAfter,
+          idempotencyKey: `rev_${entId}`,
+          actorUid: "system",
+          actorName: "Kho T\xE0i Li\u1EC7u DkTEST",
+          note: `Doanh thu t\xE1c gi\u1EA3 (${settings.creatorRevenueSharePercent}%): T\xE0i li\u1EC7u "${doc.title}" \u0111\u01B0\u1EE3c m\u1EDF kh\xF3a`,
+          createdAt: now
+        };
+        transaction.set(adminDb.collection("wallet_transactions").doc(txCreditId), creditTx);
+        const notifId = `notif_docrev_${Date.now()}_${Math.random().toString(36).slice(2, 6)}`;
+        transaction.set(adminDb.collection("notifications").doc(notifId), {
+          id: notifId,
+          userId: doc.authorUid,
+          recipientUid: doc.authorUid,
+          title: `\u{1F389} T\xE0i li\u1EC7u c\u1EE7a b\u1EA1n v\u1EEBa c\xF3 ng\u01B0\u1EDDi mua! (+${creatorShareVnd.toLocaleString("vi-VN")}\u0111)`,
+          content: `B\u1EA1n nh\u1EADn \u0111\u01B0\u1EE3c +${creatorShareVnd.toLocaleString("vi-VN")}\u0111 v\xE0o V\xED DkTEST t\u1EEB l\u01B0\u1EE3t m\u1EDF kh\xF3a t\xE0i li\u1EC7u "${doc.title}".`,
+          type: "system",
+          read: false,
+          link: "/student/documents?tab=mine",
+          createdAt: now
+        });
+      }
+      const entDoc2 = {
+        id: entId,
+        uid,
+        docId,
+        docTitleSnapshot: doc.title,
+        authorUid: doc.authorUid,
+        pricePaidVnd: finalPriceVnd,
+        creatorShareVnd,
+        platformFeeVnd,
+        status: "active",
+        grantedBy: "wallet_purchase",
+        transactionId: txDebitId,
+        ...appliedVoucher ? { voucherCode: appliedVoucher.code } : {},
+        createdAt: now
+      };
+      transaction.set(entRef, entDoc2);
+      if (docSnap.exists) {
+        const curPurchases = Number(docSnap.data()?.purchaseCount || 0);
+        const curRev = Number(docSnap.data()?.totalRevenueVnd || 0);
+        transaction.update(docRef, {
+          purchaseCount: curPurchases + 1,
+          totalRevenueVnd: curRev + finalPriceVnd,
+          updatedAt: now
+        });
+      }
+      if (appliedVoucher) {
+        const vRef = adminDb.collection("vouchers").doc(appliedVoucher.id);
+        transaction.set(
+          vRef,
+          { usedCount: (appliedVoucher.usedCount || 0) + 1, updatedAt: now },
+          { merge: true }
+        );
+        const usageDoc = {
+          id: usageId,
+          voucherId: appliedVoucher.id,
+          voucherCode: appliedVoucher.code,
+          uid,
+          studentName: buyerData.fullName || "",
+          studentClass: buyerData.currentClass || "",
+          type: appliedVoucher.type,
+          discountVnd,
+          usedAt: now,
+          context: "exam_unlock",
+          referenceId: docId
+        };
+        transaction.set(adminDb.collection("voucher_usages").doc(usageId), usageDoc);
+      }
+      return {
+        alreadyUnlocked: false,
+        newBalanceVnd: newBuyerBalance2,
+        entitlement: entDoc2
+      };
+    });
+    if (appliedVoucher) {
+      invalidateVouchersCache();
+      invalidateVoucherUsagesCache();
+    }
+    invalidateDocumentLibraryCache();
+    invalidateWalletOverviewCache();
+    invalidateStudentDetailsCache(uid);
+    if (doc.authorUid) invalidateStudentDetailsCache(doc.authorUid);
+    return {
+      ...txRes,
+      discountVnd,
+      finalPriceVnd
+    };
+  }
+  const existingEnt = await getFirestoreRestDoc(ENTITLEMENTS_COLLECTION, entId);
+  const buyerWallet = await getOrCreateWallet(uid);
+  const buyerBalance = sanitizeVnd(buyerWallet.balanceVnd);
+  if (existingEnt && existingEnt.status === "active") {
+    return {
+      alreadyUnlocked: true,
+      newBalanceVnd: buyerBalance,
+      entitlement: existingEnt,
+      discountVnd: 0,
+      finalPriceVnd
+    };
+  }
+  if (buyerBalance < finalPriceVnd) {
+    throw new Error(
+      `S\u1ED1 d\u01B0 kh\xF4ng \u0111\u1EE7 (c\u1EA7n ${finalPriceVnd.toLocaleString("vi-VN")}\u0111, hi\u1EC7n c\xF3 ${buyerBalance.toLocaleString("vi-VN")}\u0111).`
+    );
+  }
+  const newBuyerBalance = buyerBalance - finalPriceVnd;
+  await setFirestoreRestDoc("wallets", uid, {
+    ...buyerWallet,
+    balanceVnd: newBuyerBalance,
+    totalSpentVnd: sanitizeVnd(buyerWallet.totalSpentVnd) + finalPriceVnd,
+    updatedAt: now
+  });
+  await setFirestoreRestDoc("wallet_transactions", txDebitId, {
+    id: txDebitId,
+    uid,
+    type: "exam_unlock_debit",
+    amountVnd: finalPriceVnd,
+    balanceBeforeVnd: buyerBalance,
+    balanceAfterVnd: newBuyerBalance,
+    idempotencyKey: idempotencyKey || entId,
+    actorUid: uid,
+    actorName: buyerWallet.fullName || "H\u1ECDc sinh",
+    note: `M\u1EDF kh\xF3a t\xE0i li\u1EC7u: "${doc.title}"`,
+    createdAt: now
+  });
+  if (isCommunityCreator && doc.authorUid && creatorShareVnd > 0) {
+    const cWallet = await getOrCreateWallet(doc.authorUid);
+    const cBefore = sanitizeVnd(cWallet.balanceVnd);
+    await setFirestoreRestDoc("wallets", doc.authorUid, {
+      ...cWallet,
+      balanceVnd: cBefore + creatorShareVnd,
+      totalCreditedVnd: sanitizeVnd(cWallet.totalCreditedVnd) + creatorShareVnd,
+      updatedAt: now
+    });
+  }
+  const entDoc = {
+    id: entId,
+    uid,
+    docId,
+    docTitleSnapshot: doc.title,
+    authorUid: doc.authorUid,
+    pricePaidVnd: finalPriceVnd,
+    creatorShareVnd,
+    platformFeeVnd,
+    status: "active",
+    grantedBy: "wallet_purchase",
+    transactionId: txDebitId,
+    createdAt: now
+  };
+  await setFirestoreRestDoc(ENTITLEMENTS_COLLECTION, entId, entDoc);
+  invalidateDocumentLibraryCache();
+  return {
+    alreadyUnlocked: false,
+    newBalanceVnd: newBuyerBalance,
+    entitlement: entDoc,
+    discountVnd,
+    finalPriceVnd
+  };
+}
+var ALLOWED_DOC_PROXY_HOST_PATTERNS = [
+  /^res\.cloudinary\.com$/i,
+  /^drive\.google\.com$/i,
+  /^drive\.usercontent\.google\.com$/i,
+  /^docs\.google\.com$/i,
+  /\.googleusercontent\.com$/i,
+  /^www\.nganhangdethi\.org$/i,
+  /^www\.mathvn\.com$/i,
+  /^thpt\.math\.vn$/i,
+  /\.blogspot\.com$/i
+];
+function isAllowedDocProxyHost(hostname) {
+  const h = String(hostname || "").toLowerCase();
+  return ALLOWED_DOC_PROXY_HOST_PATTERNS.some((re) => re.test(h));
+}
+function extractDriveIdServer(rawUrl) {
+  const fileMatch = rawUrl.match(/\/file\/d\/([a-zA-Z0-9_-]{15,})/i);
+  if (fileMatch) return fileMatch[1];
+  try {
+    const parsed = new URL(rawUrl);
+    if (parsed.hostname.includes("drive.google.com") || parsed.hostname.includes("docs.google.com") || parsed.hostname.includes("drive.usercontent.google.com")) {
+      const id = parsed.searchParams.get("id");
+      if (id && /^[a-zA-Z0-9_-]{15,}$/.test(id)) return id;
+    }
+  } catch {
+  }
+  return null;
+}
+async function probeLegacyCloudinaryPagesServer(rawUrl) {
+  const clean = String(rawUrl || "").trim().split(/[?#]/)[0];
+  const match = clean.match(
+    /^(https?:\/\/res\.cloudinary\.com\/[^/]+\/image\/upload\/)(?:[^/]+\/)*(v\d+\/.+)\.pdf$/i
+  );
+  if (!match) return 1;
+  const probeUrl = `${match[1]}pg_99999,w_120,f_jpg/${match[2]}.jpg`;
+  await validateUrlForSsrf(probeUrl);
+  const res = await fetch(probeUrl, { signal: AbortSignal.timeout(1e4) });
+  if (res.ok) return 99999;
+  const cldErr = res.headers.get("x-cld-error") || "";
+  const m = cldErr.match(/only has\s+(\d+)\s+pages?/i);
+  return m ? Math.max(1, parseInt(m[1], 10)) : 1;
+}
+async function fetchProxiedPdfBuffer(rawUrl) {
+  const clean = String(rawUrl || "").trim();
+  const { url: validatedUrl } = await validateUrlForSsrf(clean);
+  if (!isAllowedDocProxyHost(validatedUrl.hostname)) {
+    throw new Error(`T\xEAn mi\u1EC1n l\u01B0u tr\u1EEF "${validatedUrl.hostname}" kh\xF4ng n\u1EB1m trong danh s\xE1ch cho ph\xE9p proxy.`);
+  }
+  const driveId = extractDriveIdServer(clean);
+  const targetFetchUrl = driveId ? `https://drive.usercontent.google.com/download?id=${encodeURIComponent(driveId)}&export=download&confirm=t` : clean;
+  if (targetFetchUrl !== clean) {
+    await validateUrlForSsrf(targetFetchUrl);
+  }
+  const upstream = await fetch(targetFetchUrl, {
+    redirect: "follow",
+    headers: {
+      "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 DkTEST-PDF-Reader/2.0",
+      Accept: "application/pdf,application/octet-stream,*/*"
+    },
+    signal: AbortSignal.timeout(25e3)
+  });
+  if (!upstream.ok) {
+    throw new Error(`Kho l\u01B0u tr\u1EEF ph\u1EA3n h\u1ED3i HTTP ${upstream.status}.`);
+  }
+  const contentLength = Number(upstream.headers.get("content-length") || 0);
+  if (contentLength > MAX_PROXY_BYTES) {
+    const err = new Error("T\u1EC7p v\u01B0\u1EE3t qu\xE1 gi\u1EDBi h\u1EA1n \u0111\u1ECDc tr\u1EF1c ti\u1EBFp 44MB, chuy\u1EC3n sang ch\u1EBF \u0111\u1ED9 xem nh\xFAng.");
+    err.statusCode = 413;
+    throw err;
+  }
+  const reader = upstream.body?.getReader();
+  if (!reader) {
+    const ab = await upstream.arrayBuffer();
+    if (ab.byteLength > MAX_PROXY_BYTES) {
+      const err = new Error("T\u1EC7p v\u01B0\u1EE3t qu\xE1 gi\u1EDBi h\u1EA1n \u0111\u1ECDc tr\u1EF1c ti\u1EBFp 44MB.");
+      err.statusCode = 413;
+      throw err;
+    }
+    return {
+      buffer: Buffer.from(ab),
+      contentType: upstream.headers.get("content-type") || "application/pdf"
+    };
+  }
+  const chunks = [];
+  let total = 0;
+  while (true) {
+    const { done, value } = await reader.read();
+    if (done) break;
+    if (value) {
+      total += value.byteLength;
+      if (total > MAX_PROXY_BYTES) {
+        await reader.cancel().catch(() => {
+        });
+        const err = new Error("T\u1EC7p v\u01B0\u1EE3t qu\xE1 gi\u1EDBi h\u1EA1n \u0111\u1ECDc tr\u1EF1c ti\u1EBFp 44MB.");
+        err.statusCode = 413;
+        throw err;
+      }
+      chunks.push(Buffer.from(value));
+    }
+  }
+  return {
+    buffer: Buffer.concat(chunks, total),
+    contentType: upstream.headers.get("content-type") || "application/pdf"
+  };
+}
+
+// server/routes/documentLibraryRoutes.ts
+var documentLibraryRouter = Router3();
+async function extractOptionalAuth(req) {
+  if (req.user?.uid) {
+    return { uid: req.user.uid, role: req.user.role || "student" };
+  }
+  const token = /^Bearer\s+(\S+)$/i.exec(req.headers.authorization || "")?.[1];
+  if (token && !/^(student_|dk_admin_)/.test(token) && adminAuth) {
+    try {
+      const decoded = await adminAuth.verifyIdToken(token);
+      return { uid: decoded.uid, role: decoded.role || "student" };
+    } catch {
+    }
+  }
+  return { uid: null, role: "student" };
+}
+documentLibraryRouter.get("/live", async (_req, res) => {
+  try {
+    const [items, settings] = await Promise.all([
+      getLiveLibraryDocuments({ includeNonPublished: false }),
+      getDocumentLibrarySettings()
+    ]);
+    return res.json({
+      success: true,
+      items,
+      settings: {
+        autoApproveUserUploads: settings.autoApproveUserUploads,
+        creatorRevenueSharePercent: settings.creatorRevenueSharePercent,
+        maxUserPriceVnd: settings.maxUserPriceVnd
+      }
+    });
+  } catch (err) {
+    return res.status(500).json({
+      error: "documents_live_error",
+      message: err?.message || "Kh\xF4ng th\u1EC3 t\u1EA3i danh s\xE1ch t\xE0i li\u1EC7u m\u1EDBi."
+    });
+  }
+});
+documentLibraryRouter.get("/pdf-proxy", async (req, res) => {
+  try {
+    const rawUrl = String(req.query?.url || "").trim();
+    if (!rawUrl) {
+      return res.status(400).json({ error: "missing_url", message: "Thi\u1EBFu \u0111\u01B0\u1EDDng d\u1EABn t\u1EC7p." });
+    }
+    if (req.query?.action === "probe-pages") {
+      const pageCount = await probeLegacyCloudinaryPagesServer(rawUrl);
+      return res.json({ success: true, pageCount });
+    }
+    const { buffer } = await fetchProxiedPdfBuffer(rawUrl);
+    const isDownload = req.query?.download === "1" || req.query?.download === "true";
+    const rawFileName = String(req.query?.filename || "Tai_lieu_DkTEST.pdf").replace(/["\r\n]/g, "").trim();
+    const asciiFallback = rawFileName.normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[đĐ]/g, "d").replace(/[^a-zA-Z0-9._-]+/g, "_");
+    res.setHeader("Access-Control-Allow-Origin", "*");
+    res.setHeader("Content-Type", "application/pdf");
+    res.setHeader("Content-Length", String(buffer.length));
+    res.setHeader(
+      "Content-Disposition",
+      `${isDownload ? "attachment" : "inline"}; filename="${asciiFallback || "document.pdf"}"; filename*=UTF-8''${encodeURIComponent(rawFileName || "Tai_lieu_DkTEST.pdf")}`
+    );
+    return res.status(200).send(buffer);
+  } catch (err) {
+    const status = err?.statusCode === 413 ? 413 : 400;
+    return res.status(status).json({
+      error: "pdf_proxy_error",
+      message: err?.message || "Kh\xF4ng th\u1EC3 truy\u1EC1n t\u1EA3i t\u1EC7p PDF n\xE0y."
+    });
+  }
+});
+documentLibraryRouter.get("/me", requireAuth, async (req, res) => {
+  try {
+    const uid = req.user.uid;
+    const [uploaded, unlockedIds, settings] = await Promise.all([
+      getMyUploadedDocuments(uid),
+      getMyUnlockedDocumentIds(uid),
+      getDocumentLibrarySettings()
+    ]);
+    return res.json({
+      success: true,
+      uploaded,
+      unlockedIds,
+      settings
+    });
+  } catch (err) {
+    return res.status(500).json({
+      error: "documents_me_error",
+      message: err?.message || "Kh\xF4ng th\u1EC3 t\u1EA3i d\u1EEF li\u1EC7u t\xE0i li\u1EC7u c\xE1 nh\xE2n."
+    });
+  }
+});
+documentLibraryRouter.post("/", requireAuth, async (req, res) => {
+  try {
+    const created = await createOrUpdateLibraryDocument(req.user, req.body || {});
+    return res.status(201).json({
+      success: true,
+      document: created,
+      message: created.status === "published" ? "\u0110\u0103ng t\u1EA3i t\xE0i li\u1EC7u l\xEAn Kho T\xE0i Li\u1EC7u DkTEST th\xE0nh c\xF4ng!" : "\u0110\xE3 g\u1EEDi t\xE0i li\u1EC7u! Qu\u1EA3n tr\u1ECB vi\xEAn s\u1EBD ki\u1EC3m duy\u1EC7t v\xE0 xu\u1EA5t b\u1EA3n s\u1EDBm nh\u1EA5t."
+    });
+  } catch (err) {
+    const msg = err?.issues?.[0]?.message || err?.message || "Kh\xF4ng th\u1EC3 \u0111\u0103ng t\xE0i li\u1EC7u.";
+    return res.status(400).json({ error: "document_create_error", message: msg });
+  }
+});
+documentLibraryRouter.patch("/:docId", requireAuth, async (req, res) => {
+  try {
+    const updated = await createOrUpdateLibraryDocument(req.user, {
+      ...req.body || {},
+      id: req.params.docId
+    });
+    return res.json({
+      success: true,
+      document: updated,
+      message: "\u0110\xE3 c\u1EADp nh\u1EADt th\xF4ng tin t\xE0i li\u1EC7u."
+    });
+  } catch (err) {
+    const msg = err?.issues?.[0]?.message || err?.message || "Kh\xF4ng th\u1EC3 c\u1EADp nh\u1EADt t\xE0i li\u1EC7u.";
+    return res.status(400).json({ error: "document_update_error", message: msg });
+  }
+});
+documentLibraryRouter.delete("/:docId", requireAuth, async (req, res) => {
+  try {
+    const result = await deleteLibraryDocument(req.user, req.params.docId);
+    return res.json({
+      success: true,
+      ...result,
+      message: "\u0110\xE3 x\xF3a t\xE0i li\u1EC7u kh\u1ECFi h\u1EC7 th\u1ED1ng."
+    });
+  } catch (err) {
+    return res.status(400).json({
+      error: "document_delete_error",
+      message: err?.message || "Kh\xF4ng th\u1EC3 x\xF3a t\xE0i li\u1EC7u."
+    });
+  }
+});
+documentLibraryRouter.get("/:docId", async (req, res) => {
+  try {
+    const doc = await getDocumentByIdResolved(req.params.docId);
+    if (!doc || doc.status === "hidden") {
+      return res.status(404).json({ error: "not_found", message: "Kh\xF4ng t\xECm th\u1EA5y t\xE0i li\u1EC7u." });
+    }
+    return res.json({ success: true, document: doc });
+  } catch (err) {
+    return res.status(400).json({
+      error: "document_get_error",
+      message: err?.message || "L\u1ED7i t\u1EA3i th\xF4ng tin t\xE0i li\u1EC7u."
+    });
+  }
+});
+documentLibraryRouter.get("/:docId/access", async (req, res) => {
+  try {
+    const { uid, role } = await extractOptionalAuth(req);
+    const access = await checkDocumentAccess(uid, req.params.docId, role);
+    return res.json({ success: true, access });
+  } catch (err) {
+    return res.status(400).json({
+      error: "document_access_error",
+      message: err?.message || "Kh\xF4ng ki\u1EC3m tra \u0111\u01B0\u1EE3c quy\u1EC1n truy c\u1EADp t\xE0i li\u1EC7u."
+    });
+  }
+});
+documentLibraryRouter.get("/:docId/content", async (req, res) => {
+  try {
+    const { uid, role } = await extractOptionalAuth(req);
+    const doc = await getDocumentByIdResolved(req.params.docId);
+    if (!doc || doc.status === "hidden") {
+      return res.status(404).json({ error: "not_found", message: "Kh\xF4ng t\xECm th\u1EA5y t\xE0i li\u1EC7u." });
+    }
+    if (doc.accessMode === "paid" && doc.priceVnd > 0 && !uid) {
+      return requireAuth(req, res, async () => {
+        try {
+          const content2 = await getAuthorizedDocumentContent(
+            req.user.uid,
+            req.params.docId,
+            req.user.role
+          );
+          return res.json({ success: true, content: content2 });
+        } catch (innerErr) {
+          return res.status(403).json({
+            error: "document_locked",
+            message: innerErr?.message || "T\xE0i li\u1EC7u tr\u1EA3 ph\xED ch\u01B0a \u0111\u01B0\u1EE3c m\u1EDF kh\xF3a."
+          });
+        }
+      });
+    }
+    const content = await getAuthorizedDocumentContent(uid, req.params.docId, role);
+    return res.json({ success: true, content });
+  } catch (err) {
+    const msg = err?.message || "Kh\xF4ng th\u1EC3 m\u1EDF n\u1ED9i dung t\xE0i li\u1EC7u.";
+    const status = msg.includes("tr\u1EA3 ph\xED") ? 403 : 400;
+    return res.status(status).json({ error: "document_content_error", message: msg });
+  }
+});
+documentLibraryRouter.post(
+  "/:docId/unlock",
+  requireAuth,
+  async (req, res) => {
+    try {
+      const uid = req.user.uid;
+      const { idempotencyKey, voucherCode } = req.body || {};
+      const result = await unlockLibraryDocument(uid, req.params.docId, idempotencyKey, voucherCode);
+      return res.json({
+        success: true,
+        ...result,
+        message: result.alreadyUnlocked ? "T\xE0i li\u1EC7u n\xE0y \u0111\xE3 \u0111\u01B0\u1EE3c m\u1EDF kh\xF3a tr\u01B0\u1EDBc \u0111\xF3." : "M\u1EDF kh\xF3a t\xE0i li\u1EC7u v\u0129nh vi\u1EC5n th\xE0nh c\xF4ng! B\u1EA1n c\xF3 th\u1EC3 \u0111\u1ECDc v\xE0 t\u1EA3i PDF ngay."
+      });
+    } catch (err) {
+      const msg = err?.message || String(err);
+      if (msg.includes("S\u1ED1 d\u01B0 kh\xF4ng \u0111\u1EE7")) {
+        return res.status(402).json({ error: "insufficient_balance", message: msg });
+      }
+      return res.status(400).json({ error: "document_unlock_error", message: msg });
+    }
+  }
+);
+
 // server/routes/walletRoutes.ts
-var walletRouter = Router3();
+var walletRouter = Router4();
 walletRouter.use((_req, res, next) => {
   res.setHeader("Cache-Control", "no-store, no-cache, must-revalidate, proxy-revalidate");
   res.setHeader("Pragma", "no-cache");
@@ -6788,6 +7981,7 @@ walletRouter.get("/courses/:courseId/lessons/:lessonId/stream", requireAuth, asy
 });
 walletRouter.use("/ai-shop", aiShopStudentRouter);
 walletRouter.use("/minigames", minigameStudentRouter);
+walletRouter.use("/documents", documentLibraryRouter);
 walletRouter.get("/notifications/feed", async (req, res) => {
   try {
     let uid = null;

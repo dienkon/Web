@@ -1,5 +1,22 @@
 # DkTEST changelog
 
+## 2.0.7 — 2026-11-27 (Android versionCode 31)
+
+- **Thanh điều hướng dưới trên điện thoại (Mobile Bottom Bar) & Menu Danh mục (`StudentLayout.tsx`, `AdminLayout.tsx`)**:
+  - Sắp xếp lại 5 nút trên thanh điều hướng dưới di động theo đúng thứ tự: **Đề thi → Luyện tập → Khóa học → Lịch sử → Danh mục**.
+  - Bổ sung nổi bật **Kho Tài Liệu** cùng **Gia sư AI**, **Cộng đồng**, **Đấu Trường** vào Bottom Sheet **Danh mục tính năng**, thanh bên Desktop, ngăn kéo di động và thanh điều hướng Quản trị viên (`/admin/documents`).
+- **Sửa triệt để lỗi Cloudinary mở PDF 401 & Xây dựng Trình đọc + Tải PDF riêng (`cloudinary.ts`, `pdfService.ts`, `DkPdfViewerModal.tsx`, `OfflineSyncPlugin.java`, `MainActivity.java`)**:
+  - **Sửa lỗi Cloudinary 401 ACL**: tự động định tuyến tệp `.pdf`, `.zip`, `.rar` sang `/raw/upload` không gắn đuôi mở rộng hạn chế kèm siêu dữ liệu `?dkext=pdf&dkname=...` (HTTP 200 nguyên bản `CORS: *`), đồng thời tự trích xuất số trang & ảnh bìa JPEG trang 1–2 ngay khi tải lên; tự động khôi phục các link PDF cũ dạng `image/upload/.../*.pdf` qua chế độ kết xuất ảnh từng trang `pg_N` độ phân giải cao.
+  - **Trình đọc PDF riêng trong ứng dụng (`DkPdfViewerModal` + `DkPdfViewerHost`)**: tích hợp `pdfjs-dist` vẽ vector `<canvas>` ảo hóa mượt cho cả sách nhiều trăm trang, hỗ trợ phóng to/thu nhỏ, xoay trang, nhảy trang nhanh, tìm kiếm văn bản trong PDF, 3 chế độ màu đọc bảo vệ mắt (**Sáng / Giấy vàng / Tối**), chuyển nhanh sang file Đáp án / Video giải, và kết nối đồng bộ cho cả Khóa học (`CourseDetail.tsx`) lẫn Đề thi (`ExamIntro.tsx`, `TakingExam.tsx`).
+  - **Tải PDF xuống trên Ứng dụng Android & Web**: bổ sung phương thức native `downloadFileUrl` (`DownloadManager`) và `saveBase64ToDownloads` (`MediaStore.Downloads`) trong `OfflineSyncPlugin.java` kèm `DownloadListener` trong `MainActivity.java`, hỗ trợ tải cả PDF Cloudinary mới, tái tạo PDF đa trang từ link Cloudinary cũ (`jspdf`), và proxy PDF chống SSRF (`/api/documents/pdf-proxy`).
+- **Kho Tài Liệu khổng lồ — Đăng tải từ Admin & Người dùng, Miễn phí / Trả phí, Tối ưu 0 Read (`documentLibrary.ts`, `documentLibraryService.ts`, `documentLibraryRoutes.ts`, `documentLibraryAdminRoutes.ts`, `documentLibraryClientService.ts`, `DocumentLibraryPage.tsx`, `DocumentDetailPage.tsx`, `DocumentUploadModal.tsx`, `DocumentManagement.tsx`)**:
+  - **Nạp sẵn 4.180 tài liệu thực tế** (`scripts/scrape-document-library.mjs` → `public/data/document-library-seed.json`, ~472 KB gzipped) từ `nganhangdethi.org` (3.014 tài liệu) cùng `nguyenbaovuong.blogspot.com`, `mathvn.com`, `thpt.math.vn` bao phủ Lớp 10, Lớp 11, Lớp 12, Tốt nghiệp THPT, ĐGNL (HSA, V-ACT, TSA, VSAT) và đầy đủ các môn học.
+  - **Tối ưu tối đa Firestore Read**: duyệt danh mục, phân trang, lọc đa chiều (Khối lớp × Môn học × Loại tài liệu × Mức phí × Nguồn) và tìm kiếm tiếng Việt không dấu chạy tức thì với **0 lượt đọc Firestore** cho toàn bộ 4.180 tài liệu sẵn có; danh sách tài liệu đăng mới được cache RAM 45 giây phía máy chủ.
+  - **Hỗ trợ cả Admin & Người dùng tải lên tài liệu (Miễn phí hoặc Trả phí)**: cho phép đặt mức phí mở khóa, cấu hình số trang xem thử miễn phí, thanh toán qua Ví DkTEST + Voucher, tự động chia doanh thu (mặc định **80%**) cộng thẳng vào Ví của người đóng góp trong cùng một giao dịch nguyên tử Firestore, đồng thời cô lập tuyệt đối đường dẫn tệp trả phí trong `library_document_secrets` (server-only).
+- **Preview chia sẻ tối giản, giản dị 1200×630 (`scripts/generate-document-banners.js`, `public/images/documents/*`, `socialMetadata.ts`, `api/social-meta.ts`, `vercel.json`, `server.ts`, `appLinks.ts`, `AndroidManifest.xml`)**:
+  - Tạo bộ 14 ảnh preview `1200×630` phong cách giấy trắng tối giản, thanh lịch cho Kho Tài Liệu và từng môn học; tự động căn lề chuẩn `1200×630` cho ảnh bìa tùy chỉnh trên Cloudinary và hỗ trợ mở trực tiếp qua Android App Links.
+- Audit: [2.0.7](docs/audits/2.0.7.md).
+
 ## 2.0.6 — 2026-11-26 (Android versionCode 30)
 
 - **Khóa học — Bật/Tắt (ON/OFF) & Phạm vi mở khóa Tài liệu / Bài thi theo Video (`course.ts`, `courseService.ts`, `server/services/courseService.ts`, `CourseEditor.tsx`, `CourseDetail.tsx`)**:

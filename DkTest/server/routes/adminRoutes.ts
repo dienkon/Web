@@ -41,6 +41,7 @@ import {
 import { mergeExams } from "../services/examMergeService.js";
 import { aiShopAdminRouter } from "./aiShopAdminRoutes.js";
 import { minigameAdminRouter } from "./minigameAdminRoutes.js";
+import { documentLibraryAdminRouter } from "./documentLibraryAdminRoutes.js";
 import {
   broadcastNotificationSchema,
   publishDeviceNotification,
@@ -2273,6 +2274,9 @@ adminRouter.use("/ai-shop", aiShopAdminRouter);
 
 // Free Welfare Minigame Event Admin Routes
 adminRouter.use("/minigames", minigameAdminRouter);
+
+// Document Repository Admin & Moderation Routes
+adminRouter.use("/documents", documentLibraryAdminRouter);
 
 // POST /api/admin/notifications/broadcast — Push real Web & Android notification for new events/features
 adminRouter.post("/notifications/broadcast", async (req: AuthenticatedRequest, res: Response) => {

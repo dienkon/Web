@@ -451,6 +451,25 @@ service cloud.firestore {
       allow write: if isAdmin();
     }
 
+    // 22. Document Library (Server-authoritative writes; paid file secrets isolated in library_document_secrets)
+    match /library_documents/{docId} {
+      allow read: if resource.data.get('status', 'published') == 'published'
+        || isAdmin()
+        || (isAuthenticated() && resource.data.get('authorUid', '') == request.auth.uid);
+      allow write: if isAdmin() && (
+        request.method == 'delete'
+        || (request.resource.data.get('accessMode', 'free') != 'paid' && request.resource.data.get('priceVnd', 0) <= 0)
+        || (!('fileUrl' in request.resource.data) && !('answerUrl' in request.resource.data) && !('subFiles' in request.resource.data))
+      );
+    }
+    match /library_document_secrets/{docId} {
+      allow read, write: if isAdmin();
+    }
+    match /library_entitlements/{entId} {
+      allow read: if isAdmin() || (isAuthenticated() && resource.data.uid == request.auth.uid);
+      allow write: if isAdmin();
+    }
+
     // Default deny for anything else
     match /exam_content_migration_backups/{examId} {
       allow read, write: if isAdmin();

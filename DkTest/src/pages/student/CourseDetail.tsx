@@ -44,6 +44,7 @@ import {
   resolveCourseAccessMode,
   type CourseHierarchyTopic,
 } from "../../services/courseService";
+import { isPdfDocumentUrl, openDkPdfViewer } from "../../services/pdfService";
 import { safeCopyText, safeShare } from "../../utils/mobileCompat";
 import DkCourseVideoPlayer from "../../components/course/DkCourseVideoPlayer";
 import CourseOnboardingGuideModal from "../../components/course/CourseOnboardingGuideModal";
@@ -681,11 +682,23 @@ export default function CourseDetail() {
       return target?.url || null;
     };
 
+    const openResolvedMaterialUrl = (targetUrl: string, targetFileName?: string) => {
+      if (isPdfDocumentUrl(targetUrl, targetFileName)) {
+        openDkPdfViewer({
+          url: targetUrl,
+          title: materialLabel || targetFileName || course.title,
+          fileName: targetFileName || materialLabel,
+        });
+        return;
+      }
+      window.open(targetUrl, "_blank", "noopener,noreferrer");
+    };
+
     const existingLesson =
       (activeLesson?.id === lessonId ? activeLesson : undefined) || authorizedLessonsCache[lessonId];
     const directUrl = resolveUrlFromLesson(existingLesson);
     if (directUrl) {
-      window.open(directUrl, "_blank", "noopener,noreferrer");
+      openResolvedMaterialUrl(directUrl, materialLabel);
       return;
     }
 
@@ -697,7 +710,7 @@ export default function CourseDetail() {
       }
       const fetchedUrl = resolveUrlFromLesson(fetched);
       if (fetchedUrl) {
-        window.open(fetchedUrl, "_blank", "noopener,noreferrer");
+        openResolvedMaterialUrl(fetchedUrl, materialLabel);
       } else {
         showErrorToast("Tài liệu này chưa có liên kết đính kèm.");
       }
@@ -1698,6 +1711,16 @@ export default function CourseDetail() {
                         href={m.url}
                         target="_blank"
                         rel="noopener noreferrer"
+                        onClick={(e) => {
+                          if (m.url && isPdfDocumentUrl(m.url, m.fileName || m.label)) {
+                            e.preventDefault();
+                            openDkPdfViewer({
+                              url: m.url,
+                              title: m.label || m.fileName || activeLesson.title,
+                              fileName: m.fileName || m.label,
+                            });
+                          }
+                        }}
                         className="px-3 py-2 rounded-xl bg-slate-50 dark:bg-slate-800 hover:bg-slate-100 dark:hover:bg-slate-700 border border-slate-200/70 dark:border-slate-700 text-slate-800 dark:text-slate-100 text-xs font-bold flex items-center justify-between gap-2"
                       >
                         <span className="flex items-center gap-1.5 min-w-0">
@@ -2943,6 +2966,16 @@ export default function CourseDetail() {
                                 href={directMaterialUrl}
                                 target="_blank"
                                 rel="noopener noreferrer"
+                                onClick={(e) => {
+                                  if (isPdfDocumentUrl(directMaterialUrl, mat.label)) {
+                                    e.preventDefault();
+                                    openDkPdfViewer({
+                                      url: directMaterialUrl,
+                                      title: mat.label || mat.lessonTitle,
+                                      fileName: mat.label,
+                                    });
+                                  }
+                                }}
                                 className="px-3.5 py-2 rounded-full bg-blue-50 hover:bg-blue-600 text-blue-700 hover:text-white border border-blue-200 text-xs font-extrabold flex items-center gap-1.5 transition-colors cursor-pointer shrink-0"
                               >
                                 <ExternalLink className="w-3.5 h-3.5" />

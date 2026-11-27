@@ -610,12 +610,15 @@ export interface StudentWallet {
 export * from "./course";
 export * from "./aiShop";
 export * from "./minigame";
+export * from "./documentLibrary";
 
 export type WalletTransactionType =
   | "deposit_credit"
   | "exam_unlock_debit"
   | "course_unlock_debit"
   | "course_lesson_unlock_debit"
+  | "document_unlock_debit"
+  | "document_revenue_credit"
   | "ai_service_purchase_debit"
   | "minigame_reward_credit"
   | "referral_withdraw_credit"

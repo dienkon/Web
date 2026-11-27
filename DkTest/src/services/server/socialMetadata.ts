@@ -17,6 +17,16 @@ import {
   getMinigameArtworkUrl,
   MINIGAME_HUB_PREVIEW_IMAGE,
 } from "../minigame/minigameAssets.js";
+import {
+  DOCUMENT_CATEGORY_META,
+  DOCUMENT_GRADE_META,
+  DOCUMENT_SUBJECT_META,
+  expandCompactSeedDocument,
+  type DocumentCategoryKey,
+  type DocumentGradeKey,
+  type DocumentSeedBundle,
+  type DocumentSubjectKey,
+} from "../../types/documentLibrary.js";
 
 export type SocialContentType =
   | "voucher"
@@ -25,6 +35,7 @@ export type SocialContentType =
   | "code_exam"
   | "course"
   | "minigame"
+  | "document"
   | "page";
 
 export interface MinigameSocialPrizeMeta {
@@ -901,6 +912,146 @@ export async function fetchSubmissionMetadata(
 }
 
 // ---------------------------------------------------------------------------
+// 3b. Document Library Metadata Fetcher (0 Firestore reads for 4,180+ seeded docs)
+// ---------------------------------------------------------------------------
+export interface DocumentSocialMeta {
+  id: string;
+  title: string;
+  description?: string;
+  grade: DocumentGradeKey;
+  subject: DocumentSubjectKey;
+  category: DocumentCategoryKey;
+  fileFormat?: string;
+  pageCount?: number;
+  accessMode?: string;
+  priceVnd?: number;
+  coverImageUrl?: string | null;
+}
+
+let cachedSocialSeedMap: Map<string, DocumentSocialMeta> | null = null;
+function getSocialSeedMap(): Map<string, DocumentSocialMeta> {
+  if (cachedSocialSeedMap) return cachedSocialSeedMap;
+  const map = new Map<string, DocumentSocialMeta>();
+  const candidates = [
+    path.join(process.cwd(), "public", "data", "document-library-seed.json"),
+    path.join(process.cwd(), "dist", "data", "document-library-seed.json"),
+  ];
+  for (const p of candidates) {
+    if (!fs.existsSync(p)) continue;
+    try {
+      const parsed = JSON.parse(fs.readFileSync(p, "utf8")) as DocumentSeedBundle;
+      if (Array.isArray(parsed?.items)) {
+        for (const item of parsed.items) {
+          const exp = expandCompactSeedDocument(item);
+          map.set(exp.id, {
+            id: exp.id,
+            title: exp.title,
+            description: exp.description,
+            grade: exp.grade,
+            subject: exp.subject,
+            category: exp.category,
+            fileFormat: exp.fileFormat,
+            accessMode: "free",
+            priceVnd: 0,
+          });
+        }
+        break;
+      }
+    } catch {}
+  }
+  cachedSocialSeedMap = map;
+  return map;
+}
+
+export async function fetchDocumentSocialMetadata(
+  docId: string
+): Promise<{ found: boolean; document: DocumentSocialMeta | null }> {
+  const cleanId = safeDecodeURIComponent(docId || "").trim();
+  if (!cleanId) return { found: false, document: null };
+
+  // Fast 0-read lookup for seeded repository items (`doc_...`) unless overridden
+  const seedHit = getSocialSeedMap().get(cleanId);
+  if (seedHit && cleanId.startsWith("doc_") && !adminDb) {
+    return { found: true, document: seedHit };
+  }
+
+  if (adminDb) {
+    try {
+      const snap = await adminDb.collection("library_documents").doc(cleanId).get();
+      if (snap.exists) {
+        const d = snap.data() || {};
+        if (d.status === "hidden") return { found: false, document: null };
+        return {
+          found: true,
+          document: {
+            id: snap.id,
+            title: String(d.title || "Tài liệu học tập DkTEST").trim(),
+            description: d.description ? String(d.description).trim() : undefined,
+            grade: (d.grade as DocumentGradeKey) || "grade_12",
+            subject: (d.subject as DocumentSubjectKey) || "multi_subject",
+            category: (d.category as DocumentCategoryKey) || "exam_test",
+            fileFormat: d.fileFormat ? String(d.fileFormat) : "pdf",
+            pageCount: typeof d.pageCount === "number" ? d.pageCount : undefined,
+            accessMode: d.accessMode ? String(d.accessMode) : "free",
+            priceVnd: typeof d.priceVnd === "number" ? d.priceVnd : 0,
+            coverImageUrl: getValidHttpImageUrl(d.coverImageUrl),
+          },
+        };
+      }
+    } catch (err) {
+      console.warn("[SocialMetadata] AdminDb error querying library_documents:", err);
+    }
+  } else if (!seedHit) {
+    const projectId = getProjectId();
+    const apiKey = getFirebaseApiKey();
+    try {
+      const url = `https://firestore.googleapis.com/v1/projects/${projectId}/databases/(default)/documents/library_documents/${encodeURIComponent(
+        cleanId
+      )}?key=${apiKey}`;
+      const res = await fetch(url, { headers: { Accept: "application/json" } });
+      if (res.ok) {
+        const doc = await res.json();
+        const f = doc?.fields;
+        if (f && getFirestoreString(f.status) !== "hidden") {
+          return {
+            found: true,
+            document: {
+              id: cleanId,
+              title: (getFirestoreString(f.title) || "Tài liệu học tập DkTEST").trim(),
+              description: getFirestoreString(f.description) || undefined,
+              grade: (getFirestoreString(f.grade) as DocumentGradeKey) || "grade_12",
+              subject: (getFirestoreString(f.subject) as DocumentSubjectKey) || "multi_subject",
+              category: (getFirestoreString(f.category) as DocumentCategoryKey) || "exam_test",
+              fileFormat: getFirestoreString(f.fileFormat) || "pdf",
+              pageCount: getFirestoreNumber(f.pageCount) ?? undefined,
+              accessMode: getFirestoreString(f.accessMode) || "free",
+              priceVnd: getFirestoreNumber(f.priceVnd) ?? 0,
+              coverImageUrl: getValidHttpImageUrl(getFirestoreString(f.coverImageUrl)),
+            },
+          };
+        }
+      }
+    } catch {}
+  }
+
+  if (seedHit) {
+    return { found: true, document: seedHit };
+  }
+  return { found: false, document: null };
+}
+
+function formatMinimalistCloudinaryOgCover(rawUrl?: string | null): string | null {
+  if (!rawUrl) return null;
+  const match = rawUrl.match(
+    /^(https:\/\/res\.cloudinary\.com\/[^/]+\/image\/upload\/)(?:[^/]+\/)*(v\d+\/.+)$/i
+  );
+  if (match) {
+    return `${match[1]}c_pad,w_1200,h_630,b_rgb:f8fafc,q_auto,f_jpg/${match[2]}`;
+  }
+  return rawUrl;
+}
+
+// ---------------------------------------------------------------------------
 // 4. Code Exam Metadata Fetcher
 // ---------------------------------------------------------------------------
 export async function fetchCodeExamMetadata(
@@ -1718,6 +1869,89 @@ export async function resolveSocialMetadataForUrl({
       canonicalUrl: `${cleanBaseUrl}/student/minigame`,
       imageUrl,
       imageAlt: requestedType ? art.imageAlt : "Sân chơi Minigame Phúc Lợi DkTEST",
+      imageWidth: 1200,
+      imageHeight: 630,
+      siteName: "DkTEST",
+    };
+  }
+
+  // Case 4c: Document Repository Links (/documents/:docId, /student/documents/:docId, /tai-lieu/:docId, /documents)
+  const docItemMatch = pathname.match(
+    /^\/(?:student\/)?(?:documents|tai-lieu)\/([^/?#]+)/i
+  );
+  const queryDocId = searchParams.get("docId") || searchParams.get("documentId");
+
+  if (docItemMatch || queryDocId) {
+    const rawDocId = docItemMatch?.[1]
+      ? safeDecodeURIComponent(docItemMatch[1]).trim()
+      : safeDecodeURIComponent(queryDocId || "").trim();
+
+    if (rawDocId && !/^[:$](?:docId|id|1)$/i.test(rawDocId)) {
+      const { found, document: docMeta } = await fetchDocumentSocialMetadata(rawDocId);
+      const canonicalUrl = `${cleanBaseUrl}/documents/${encodeURIComponent(rawDocId)}`;
+
+      if (found && docMeta) {
+        const gradeLabel = DOCUMENT_GRADE_META[docMeta.grade]?.shortLabel || "THPT";
+        const subjMeta =
+          DOCUMENT_SUBJECT_META[docMeta.subject] || DOCUMENT_SUBJECT_META.multi_subject;
+        const catLabel = DOCUMENT_CATEGORY_META[docMeta.category]?.shortLabel || "Tài liệu";
+        const bannerKey = subjMeta.bannerKey || "default";
+
+        const paddedCustomCover = formatMinimalistCloudinaryOgCover(docMeta.coverImageUrl);
+        const imageUrl =
+          paddedCustomCover || `${cleanBaseUrl}/images/documents/${bannerKey}.jpg`;
+
+        const metaParts: string[] = [subjMeta.label, gradeLabel, catLabel];
+        if (docMeta.pageCount && docMeta.pageCount > 0) {
+          metaParts.push(`${docMeta.pageCount} trang`);
+        } else if (docMeta.fileFormat) {
+          metaParts.push(docMeta.fileFormat.toUpperCase());
+        }
+        if (docMeta.accessMode === "paid" && docMeta.priceVnd && docMeta.priceVnd > 0) {
+          metaParts.push(`${docMeta.priceVnd.toLocaleString("vi-VN")}đ`);
+        } else {
+          metaParts.push("Miễn phí");
+        }
+
+        const cleanDesc = `${metaParts.join(" • ")} — Đọc trực tuyến và tải PDF trên Kho Tài Liệu DkTEST.`;
+
+        return {
+          contentType: "document",
+          title: `${docMeta.title} | Kho Tài Liệu DkTEST`,
+          description: cleanDesc,
+          canonicalUrl,
+          imageUrl,
+          imageAlt: `${docMeta.title} - Kho Tài Liệu DkTEST`,
+          imageWidth: 1200,
+          imageHeight: 630,
+          siteName: "DkTEST",
+        };
+      }
+
+      return {
+        contentType: "document",
+        title: "Kho Tài Liệu Học Tập & Đề Thi | DkTEST",
+        description:
+          "Đọc trực tuyến và tải PDF đề thi, chuyên đề, Ebook lớp 10, 11, 12 trên Kho Tài Liệu DkTEST.",
+        canonicalUrl,
+        imageUrl: `${cleanBaseUrl}/images/documents/default.jpg`,
+        imageAlt: "Kho Tài Liệu DkTEST",
+        imageWidth: 1200,
+        imageHeight: 630,
+        siteName: "DkTEST",
+      };
+    }
+  }
+
+  if (/^\/(?:student\/)?(?:documents|tai-lieu)\/?$/i.test(pathname)) {
+    return {
+      contentType: "document",
+      title: "Kho Tài Liệu & Ngân Hàng Đề Thi 10, 11, 12 | DkTEST",
+      description:
+        "Thư viện hơn 4.000 đề thi, chuyên đề và Ebook PDF các môn lớp 10, 11, 12, THPT QG và ĐGNL. Đọc trực tuyến và tải về miễn phí.",
+      canonicalUrl: `${cleanBaseUrl}/documents`,
+      imageUrl: `${cleanBaseUrl}/images/documents/library-hub.jpg`,
+      imageAlt: "Kho Tài Liệu DkTEST",
       imageWidth: 1200,
       imageHeight: 630,
       siteName: "DkTEST",

@@ -265,8 +265,8 @@ async function readRawShare(id, targetCollection = collection) {
   const response = await fetch(restUrl(id, targetCollection), { signal: AbortSignal.timeout(1e4), cache: "no-store" });
   if (response.status === 404) return null;
   if (!response.ok) throw failure(targetCollection === namesCollection ? "Ch\u01B0a ki\u1EC3m tra \u0111\u01B0\u1EE3c t\xEAn link. C\u1EA7n c\u1EADp nh\u1EADt rules code_studio_names ho\u1EB7c c\u1EA5u h\xECnh Firebase Admin." : "Kh\xF4ng \u0111\u1ECDc \u0111\u01B0\u1EE3c Firebase. Ki\u1EC3m tra rules code_studio_shares ho\u1EB7c Firebase Admin.", 503);
-  const document = await response.json();
-  return { data: decodeFirestoreDocument(document), updateTime: document.updateTime };
+  const document2 = await response.json();
+  return { data: decodeFirestoreDocument(document2), updateTime: document2.updateTime };
 }
 async function readStudioShare(id) {
   if (!/^[a-f0-9]{16}$/.test(id)) return null;
@@ -274,8 +274,8 @@ async function readStudioShare(id) {
     const doc = await adminDb.collection(collection).doc(id).get();
     return doc.exists ? validatePublishedShare(doc.data()) : null;
   }
-  const document = await readRawShare(id);
-  return document ? validatePublishedShare(document.data) : null;
+  const document2 = await readRawShare(id);
+  return document2 ? validatePublishedShare(document2.data) : null;
 }
 async function resolveStudioShareName(name) {
   if (!validShareName(name)) return "";
@@ -809,14 +809,14 @@ var PRODUCTION_HTML_TEMPLATE = `<!doctype html>
         100% { left: 100%; }
       }
     </style>
-    <script type="module" crossorigin src="/assets/index-lK0dKVBL.js"></script>
-    <link rel="modulepreload" crossorigin href="/assets/vendor-react-0-6SLbAf.js">
+    <script type="module" crossorigin src="/assets/index-BsxVuFJ_.js"></script>
+    <link rel="modulepreload" crossorigin href="/assets/vendor-react-DhAO3cQb.js">
     <link rel="modulepreload" crossorigin href="/assets/vendor-firebase-DXWw2oS7.js">
-    <link rel="modulepreload" crossorigin href="/assets/vendor-charts-CO2o-hSu.js">
-    <link rel="modulepreload" crossorigin href="/assets/vendor-icons-1RPMdpN5.js">
+    <link rel="modulepreload" crossorigin href="/assets/vendor-charts-DPZ_nbp_.js">
+    <link rel="modulepreload" crossorigin href="/assets/vendor-icons-nE36yFL6.js">
     <link rel="modulepreload" crossorigin href="/assets/vendor-katex-T051Jbj4.js">
     <link rel="stylesheet" crossorigin href="/assets/vendor-katex-Ddr6Z9Sf.css">
-    <link rel="stylesheet" crossorigin href="/assets/index-BlbsZsBX.css">
+    <link rel="stylesheet" crossorigin href="/assets/index-DqKJzIZk.css">
   </head>
 
   <body>

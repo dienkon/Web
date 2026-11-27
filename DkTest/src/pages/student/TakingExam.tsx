@@ -83,6 +83,7 @@ import { useToast } from "../../components/ui/ToastNotification";
 import { isNativeAndroid } from '../../services/offline/sync';
 import { prefersOfflineExam } from '../../services/offline/exams';
 import { resolveOfflineUrl } from '../../services/offline/media';
+import { isPdfDocumentUrl, openDkPdfViewer } from '../../services/pdfService';
 import { offlineStore, type OfflineDraft } from '../../services/offline/store';
 import { useAuth } from "../../context/AuthContext";
 
@@ -3494,10 +3495,38 @@ export default function TakingExam() {
                       href={att.url}
                       target="_blank"
                       rel="noreferrer"
+                      onClick={(e) => {
+                        if (att.url && isPdfDocumentUrl(att.url, att.fileName || att.label)) {
+                          e.preventDefault();
+                          setShowAttachmentsModal(false);
+                          openDkPdfViewer({
+                            url: att.url,
+                            title: att.label || exam?.title || "Tài liệu tham khảo",
+                            fileName: att.fileName || att.label,
+                          });
+                        }
+                      }}
                       className="px-3 py-1.5 bg-blue-600 hover:bg-blue-700 text-white rounded-lg text-xs font-bold shrink-0"
                     >
                       Mở link
                     </a>
+                  ) : isPdfDocumentUrl(resolveOfflineUrl(att.url || att.fileData) || "", att.fileName) ? (
+                    <button
+                      type="button"
+                      onClick={() => {
+                        const resolved = resolveOfflineUrl(att.url || att.fileData);
+                        if (!resolved) return;
+                        setShowAttachmentsModal(false);
+                        openDkPdfViewer({
+                          url: resolved,
+                          title: att.label || att.fileName || exam?.title,
+                          fileName: att.fileName || `tailieu_${idx + 1}.pdf`,
+                        });
+                      }}
+                      className="px-3 py-1.5 bg-emerald-600 hover:bg-emerald-700 text-white rounded-lg text-xs font-bold shrink-0 cursor-pointer"
+                    >
+                      Đọc / Tải PDF
+                    </button>
                   ) : (
                     <a
                       href={resolveOfflineUrl(att.url || att.fileData)}

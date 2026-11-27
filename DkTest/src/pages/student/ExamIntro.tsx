@@ -38,6 +38,7 @@ import {
   computeCognitiveLevelDistribution,
 } from "../../utils/cognitiveLevelUtils";
 import { safeShare, safeCopyText } from "../../utils/mobileCompat";
+import { downloadDocumentFile, isPdfDocumentUrl, openDkPdfViewer } from "../../services/pdfService";
 import CopyExamCode from '../../components/exam/CopyExamCode';
 import { getApiBaseUrl } from '../../services/apiClient';
 import { getExam } from "../../services/examService";
@@ -885,16 +886,55 @@ export default function ExamIntro() {
                         </div>
                       </div>
 
-                      <div className="shrink-0">
+                      <div className="shrink-0 flex items-center gap-1.5">
                         {att.type === "link" ? (
                           <a
                             href={att.url}
                             target="_blank"
                             rel="noreferrer"
+                            onClick={(e) => {
+                              if (att.url && isPdfDocumentUrl(att.url, att.fileName || att.label)) {
+                                e.preventDefault();
+                                openDkPdfViewer({
+                                  url: att.url,
+                                  title: att.label || exam?.title || "Tài liệu đề thi",
+                                  fileName: att.fileName || att.label,
+                                });
+                              }
+                            }}
                             className="inline-flex items-center gap-1 px-3 py-1 text-xs font-bold text-blue-700 bg-blue-50 hover:bg-blue-100 border border-blue-200 rounded-lg transition-colors cursor-pointer"
                           >
                             <ExternalLink className="w-3 h-3" /> Mở link
                           </a>
+                        ) : isPdfDocumentUrl(att.url || att.fileData || "", att.fileName) ? (
+                          <>
+                            <button
+                              type="button"
+                              onClick={() =>
+                                openDkPdfViewer({
+                                  url: (att.url || att.fileData)!,
+                                  title: att.label || att.fileName || exam?.title,
+                                  fileName: att.fileName || `tailieu_${idx + 1}.pdf`,
+                                })
+                              }
+                              className="inline-flex items-center gap-1 px-3 py-1 text-xs font-bold text-blue-700 bg-blue-50 hover:bg-blue-100 border border-blue-200 rounded-lg transition-colors cursor-pointer"
+                            >
+                              <Eye className="w-3 h-3" /> Đọc PDF
+                            </button>
+                            <button
+                              type="button"
+                              onClick={() =>
+                                void downloadDocumentFile({
+                                  url: (att.url || att.fileData)!,
+                                  fileName: att.fileName || `tailieu_${idx + 1}.pdf`,
+                                  title: att.label || att.fileName,
+                                })
+                              }
+                              className="inline-flex items-center gap-1 px-3 py-1 text-xs font-bold text-emerald-700 bg-emerald-50 hover:bg-emerald-100 border border-emerald-200 rounded-lg transition-colors cursor-pointer"
+                            >
+                              <Download className="w-3 h-3" /> Tải PDF
+                            </button>
+                          </>
                         ) : (
                           <a
                             href={att.url || att.fileData}

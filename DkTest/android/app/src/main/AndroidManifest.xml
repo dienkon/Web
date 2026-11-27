@@ -36,10 +36,14 @@
                 <data android:path="/practice" />
                 <data android:path="/ai-shop" />
                 <data android:path="/minigame" />
+                <data android:path="/documents" />
+                <data android:path="/tai-lieu" />
                 <data android:path="/legal-policy" />
                 <data android:pathPrefix="/student/" />
                 <data android:pathPrefix="/exam/" />
                 <data android:pathPrefix="/exams/" />
+                <data android:pathPrefix="/documents/" />
+                <data android:pathPrefix="/tai-lieu/" />
                 <data android:pathPrefix="/code-exam/" />
                 <data android:pathPrefix="/practice/" />
                 <data android:pathPrefix="/arena/" />

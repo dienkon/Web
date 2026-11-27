@@ -134,6 +134,30 @@
       "destination": "/api/social-meta?path=/student/minigame"
     },
     {
+      "source": "/documents/([^/]+)",
+      "destination": "/api/social-meta?path=/documents/$1&docId=$1"
+    },
+    {
+      "source": "/student/documents/([^/]+)",
+      "destination": "/api/social-meta?path=/documents/$1&docId=$1"
+    },
+    {
+      "source": "/tai-lieu/([^/]+)",
+      "destination": "/api/social-meta?path=/documents/$1&docId=$1"
+    },
+    {
+      "source": "/documents",
+      "destination": "/api/social-meta?path=/documents"
+    },
+    {
+      "source": "/student/documents",
+      "destination": "/api/social-meta?path=/documents"
+    },
+    {
+      "source": "/tai-lieu",
+      "destination": "/api/social-meta?path=/documents"
+    },
+    {
       "source": "/student/wallet",
       "destination": "/api/social-meta?path=/student/wallet"
     },
@@ -267,6 +291,14 @@
     },
     {
       "source": "/api/minigames",
+      "destination": "/api/wallet"
+    },
+    {
+      "source": "/api/documents/:match*",
+      "destination": "/api/wallet"
+    },
+    {
+      "source": "/api/documents",
       "destination": "/api/wallet"
     },
     {

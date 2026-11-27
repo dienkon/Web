@@ -12,6 +12,7 @@ import OfflineSyncController from './components/student/OfflineSyncController';
 import AppUpdateController from './components/student/AppUpdateController';
 import NotificationPermissionController from './components/common/NotificationPermissionController';
 import AppDialogHost from './components/common/AppDialogHost';
+import { DkPdfViewerHost } from './components/pdf/DkPdfViewerModal';
 
 export default function App() {
   return (
@@ -19,6 +20,7 @@ export default function App() {
       <ToastProvider>
         <AuthProvider>
           <AppDialogHost />
+          <DkPdfViewerHost />
           <OfflineSyncController />
           <AppUpdateController />
           <NotificationPermissionController />

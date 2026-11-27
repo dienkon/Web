@@ -26,6 +26,7 @@ import {
   PlayCircle,
   ShoppingBag,
   Trophy,
+  Library,
 } from "lucide-react";
 import clsx from "clsx";
 import ConfirmModal from "./ConfirmModal";
@@ -43,6 +44,7 @@ const navItems = [
   { name: "Bán Acc AI & Công nợ", path: "/admin/ai-shop", icon: ShoppingBag },
   { name: "Minigame Sự kiện", path: "/admin/minigames", icon: Trophy },
   { name: "Khóa học", path: "/admin/courses", icon: PlayCircle },
+  { name: "Kho tài liệu", path: "/admin/documents", icon: Library },
   { name: "Phụ huynh", path: "/admin/parents", icon: HeartHandshake },
   { name: "Lớp học", path: "/admin/classes", icon: Layers },
   { name: "Ngân hàng câu hỏi", path: "/admin/question-bank", icon: Sparkles },

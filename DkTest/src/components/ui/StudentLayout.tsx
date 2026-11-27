@@ -27,6 +27,7 @@ import {
   Smartphone,
   ShoppingBag,
   Trophy,
+  Library,
 } from "lucide-react";
 import { getAppVersionMetadata } from "../../services/appLinks";
 import { isCoursePlayerTheaterUrl } from "../../services/courseService";
@@ -217,20 +218,41 @@ function StudentLayoutContent() {
   const navItems = [
     { to: "/", label: "Đề thi", icon: BookOpen, tourId: TOUR_DATA_IDS.NAV_EXAMS, actionKey: "click_exams" },
     ...(isNativeAndroid() ? [{ to: "/student/offline", label: "Kho đề offline", icon: BookOpen }] : []),
+    { to: "/student/practice", label: "Luyện tập", icon: BrainCircuit, iconColor: "text-blue-500", tourId: TOUR_DATA_IDS.NAV_PRACTICE, actionKey: "click_practice" },
     { to: "/student/courses", label: "Khóa học", icon: PlayCircle, iconColor: "text-rose-500", actionKey: "click_courses" },
+    { to: "/student/documents", label: "Kho Tài Liệu", icon: Library, iconColor: "text-teal-600", actionKey: "click_documents" },
+    { to: "/student/history", label: "Lịch sử bài làm", icon: History, tourId: TOUR_DATA_IDS.NAV_HISTORY, actionKey: "click_history" },
     { to: "/journey", label: "Hành trình", icon: MapPin, iconColor: "text-emerald-500", actionKey: "click_journey" },
     { to: "/student/arena", label: "Đấu Trường", icon: Swords, iconColor: "text-amber-500", actionKey: "click_arena" },
     { to: "/student/chat", label: "Kênh Thế Giới", icon: MessageSquare, iconColor: "text-sky-500", actionKey: "click_chat" },
-    { to: "/student/practice", label: "Luyện tập", icon: BrainCircuit, iconColor: "text-blue-500", tourId: TOUR_DATA_IDS.NAV_PRACTICE, actionKey: "click_practice" },
     { to: "/student/ai-tutor", label: "Hỏi Gia sư AI", icon: Sparkles, iconColor: "text-indigo-500", tourId: TOUR_DATA_IDS.NAV_AI, actionKey: "click_ai" },
     { to: "/student/ai-shop", label: "Mua Acc AI", icon: ShoppingBag, iconColor: "text-blue-600", actionKey: "click_ai_shop" },
     { to: "/student/minigame", label: "Minigame Phúc Lợi", icon: Trophy, iconColor: "text-amber-500", actionKey: "click_minigame" },
     { to: "/student/community", label: "Cộng đồng", icon: Flame, iconColor: "text-amber-500", tourId: TOUR_DATA_IDS.NAV_COMMUNITY, actionKey: "click_community" },
     { to: "/student/wallet", label: "Ví DkTEST", icon: Wallet, iconColor: "text-emerald-600", actionKey: "click_wallet" },
-    { to: "/student/history", label: "Lịch sử bài làm", icon: History, tourId: TOUR_DATA_IDS.NAV_HISTORY, actionKey: "click_history" },
     { to: "/student/profile", label: "Hồ sơ & Avatar", icon: User, tourId: TOUR_DATA_IDS.NAV_PROFILE, actionKey: "click_profile" },
     { to: "/legal-policy", label: "Bản quyền & Pháp lý", icon: ShieldCheck },
   ];
+
+  const isDocumentLibraryRoute =
+    location.pathname.startsWith("/student/documents") ||
+    location.pathname.startsWith("/documents") ||
+    location.pathname.startsWith("/tai-lieu");
+
+  const isSecondaryCategoryRoute =
+    isDocumentLibraryRoute ||
+    location.pathname.startsWith("/student/ai-tutor") ||
+    location.pathname.startsWith("/ai-tutor") ||
+    location.pathname.startsWith("/student/community") ||
+    location.pathname.startsWith("/student/arena") ||
+    location.pathname.startsWith("/arena") ||
+    location.pathname.startsWith("/student/ai-shop") ||
+    location.pathname.startsWith("/ai-shop") ||
+    location.pathname.startsWith("/student/minigame") ||
+    location.pathname.startsWith("/minigame") ||
+    ["/journey", "/student/journey", "/student/chat", "/chat", "/student/wallet", "/wallet", "/student/profile", "/legal-policy", "/student/offline"].some(
+      (p) => location.pathname === p
+    );
 
   if (isSuspended) {
     return <AccountSuspendedView />;
@@ -396,6 +418,10 @@ function StudentLayoutContent() {
                     ? location.pathname === "/" || location.pathname === "/exams" || location.pathname === "/student/online"
                     : item.to === "/student/courses"
                     ? location.pathname.startsWith("/student/courses") || location.pathname.startsWith("/courses")
+                    : item.to === "/student/documents"
+                    ? isDocumentLibraryRoute
+                    : item.to === "/student/practice"
+                    ? location.pathname.startsWith("/student/practice") || location.pathname.startsWith("/practice")
                     : item.to === "/student/ai-shop"
                     ? location.pathname.startsWith("/student/ai-shop") || location.pathname.startsWith("/ai-shop")
                     : item.to === "/student/minigame"
@@ -544,6 +570,10 @@ function StudentLayoutContent() {
                         ? location.pathname === "/" || location.pathname === "/exams" || location.pathname === "/student/online"
                         : item.to === "/student/courses"
                         ? location.pathname.startsWith("/student/courses") || location.pathname.startsWith("/courses")
+                        : item.to === "/student/documents"
+                        ? isDocumentLibraryRoute
+                        : item.to === "/student/practice"
+                        ? location.pathname.startsWith("/student/practice") || location.pathname.startsWith("/practice")
                         : item.to === "/student/ai-shop"
                         ? location.pathname.startsWith("/student/ai-shop") || location.pathname.startsWith("/ai-shop")
                         : item.to === "/student/minigame"
@@ -685,29 +715,112 @@ function StudentLayoutContent() {
 
                 {/* Grid of Requested Categories */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 mb-4">
-                  {/* 0. Khóa học Video */}
+                  {/* 0. Kho Tài Liệu Khổng Lồ */}
                   <Link
-                    to="/student/courses"
+                    to="/student/documents"
                     onClick={() => {
                       setIsBottomMenuOpen(false);
-                      triggerAction("click_courses");
+                      triggerAction("click_documents");
                     }}
-                    className={`flex items-center gap-3.5 p-3 rounded-2xl border transition-all ${
-                      location.pathname.startsWith("/student/courses") || location.pathname.startsWith("/courses")
-                        ? "bg-rose-50/80 border-rose-300 dark:bg-rose-950/40 dark:border-rose-800 shadow-2xs"
-                        : "bg-slate-50/70 dark:bg-slate-800/40 border-slate-200/80 dark:border-slate-800 hover:bg-rose-50/50"
+                    className={`flex items-center gap-3.5 p-3 rounded-2xl border transition-all sm:col-span-2 ${
+                      isDocumentLibraryRoute
+                        ? "bg-teal-50/80 border-teal-300 dark:bg-teal-950/40 dark:border-teal-800 shadow-2xs"
+                        : "bg-slate-50/70 dark:bg-slate-800/40 border-slate-200/80 dark:border-slate-800 hover:bg-teal-50/50"
                     }`}
                   >
-                    <div className="w-10 h-10 rounded-xl bg-rose-100 dark:bg-rose-900/50 text-rose-600 dark:text-rose-300 flex items-center justify-center shrink-0 shadow-2xs">
-                      <PlayCircle className="w-5 h-5" />
+                    <div className="w-10 h-10 rounded-xl bg-teal-100 dark:bg-teal-900/50 text-teal-600 dark:text-teal-300 flex items-center justify-center shrink-0 shadow-2xs">
+                      <Library className="w-5 h-5" />
                     </div>
                     <div className="min-w-0 flex-1">
                       <div className="text-xs font-bold text-slate-900 dark:text-white flex items-center gap-1.5">
-                        <span>Khóa học</span>
-                        <span className="text-[9px] px-1.5 py-0.5 rounded-full bg-rose-100 dark:bg-rose-900 text-rose-700 dark:text-rose-300 font-bold">Mới</span>
+                        <span>Kho Tài Liệu</span>
+                        <span className="text-[9px] px-1.5 py-0.5 rounded-full bg-teal-100 dark:bg-teal-900 text-teal-700 dark:text-teal-300 font-bold">3.000+ PDF</span>
                       </div>
                       <div className="text-[11px] text-slate-500 dark:text-slate-400 truncate">
-                        Video bài giảng &amp; học thử miễn phí
+                        Đề thi, chuyên đề, Ebook 10–11–12 &amp; đóng góp tài liệu
+                      </div>
+                    </div>
+                    <ChevronRight className="w-4 h-4 text-slate-400 shrink-0" />
+                  </Link>
+
+                  {/* 0a. Gia sư AI */}
+                  <Link
+                    to="/student/ai-tutor"
+                    data-tour-id={TOUR_DATA_IDS.NAV_AI}
+                    onClick={() => {
+                      setIsBottomMenuOpen(false);
+                      triggerAction("click_ai");
+                    }}
+                    className={`flex items-center gap-3.5 p-3 rounded-2xl border transition-all ${
+                      location.pathname.startsWith("/student/ai-tutor") || location.pathname.startsWith("/ai-tutor")
+                        ? "bg-indigo-50/80 border-indigo-300 dark:bg-indigo-950/40 dark:border-indigo-800 shadow-2xs"
+                        : "bg-slate-50/70 dark:bg-slate-800/40 border-slate-200/80 dark:border-slate-800 hover:bg-indigo-50/50"
+                    }`}
+                  >
+                    <div className="w-10 h-10 rounded-xl bg-indigo-100 dark:bg-indigo-900/50 text-indigo-600 dark:text-indigo-300 flex items-center justify-center shrink-0 shadow-2xs">
+                      <Sparkles className="w-5 h-5" />
+                    </div>
+                    <div className="min-w-0 flex-1">
+                      <div className="text-xs font-bold text-slate-900 dark:text-white flex items-center gap-1.5">
+                        <span>Gia sư AI</span>
+                        <span className="text-[9px] px-1.5 py-0.5 rounded-full bg-indigo-100 dark:bg-indigo-900 text-indigo-700 dark:text-indigo-300 font-bold">24/7</span>
+                      </div>
+                      <div className="text-[11px] text-slate-500 dark:text-slate-400 truncate">
+                        Giải bài tập &amp; hỏi đáp từng bước thông minh
+                      </div>
+                    </div>
+                  </Link>
+
+                  {/* 0a2. Cộng đồng */}
+                  <Link
+                    to="/student/community"
+                    data-tour-id={TOUR_DATA_IDS.NAV_COMMUNITY}
+                    onClick={() => {
+                      setIsBottomMenuOpen(false);
+                      triggerAction("click_community");
+                    }}
+                    className={`flex items-center gap-3.5 p-3 rounded-2xl border transition-all ${
+                      location.pathname.startsWith("/student/community")
+                        ? "bg-amber-50/80 border-amber-300 dark:bg-amber-950/40 dark:border-amber-800 shadow-2xs"
+                        : "bg-slate-50/70 dark:bg-slate-800/40 border-slate-200/80 dark:border-slate-800 hover:bg-amber-50/50"
+                    }`}
+                  >
+                    <div className="w-10 h-10 rounded-xl bg-amber-100 dark:bg-amber-900/50 text-amber-600 dark:text-amber-300 flex items-center justify-center shrink-0 shadow-2xs">
+                      <Flame className="w-5 h-5" />
+                    </div>
+                    <div className="min-w-0 flex-1">
+                      <div className="text-xs font-bold text-slate-900 dark:text-white">
+                        Cộng đồng học tập
+                      </div>
+                      <div className="text-[11px] text-slate-500 dark:text-slate-400 truncate">
+                        Thảo luận bài khó &amp; chia sẻ kinh nghiệm thi
+                      </div>
+                    </div>
+                  </Link>
+
+                  {/* 0a3. Đấu Trường */}
+                  <Link
+                    to="/student/arena"
+                    onClick={() => {
+                      setIsBottomMenuOpen(false);
+                      triggerAction("click_arena");
+                    }}
+                    className={`flex items-center gap-3.5 p-3 rounded-2xl border transition-all ${
+                      location.pathname.startsWith("/student/arena") || location.pathname.startsWith("/arena")
+                        ? "bg-amber-50/80 border-amber-300 dark:bg-amber-950/40 dark:border-amber-800 shadow-2xs"
+                        : "bg-slate-50/70 dark:bg-slate-800/40 border-slate-200/80 dark:border-slate-800 hover:bg-amber-50/50"
+                    }`}
+                  >
+                    <div className="w-10 h-10 rounded-xl bg-amber-100 dark:bg-amber-900/50 text-amber-600 dark:text-amber-300 flex items-center justify-center shrink-0 shadow-2xs">
+                      <Swords className="w-5 h-5" />
+                    </div>
+                    <div className="min-w-0 flex-1">
+                      <div className="text-xs font-bold text-slate-900 dark:text-white flex items-center gap-1.5">
+                        <span>Đấu Trường</span>
+                        <span className="text-[9px] px-1.5 py-0.5 rounded-full bg-amber-100 dark:bg-amber-900 text-amber-700 dark:text-amber-300 font-bold">PvP</span>
+                      </div>
+                      <div className="text-[11px] text-slate-500 dark:text-slate-400 truncate">
+                        Thi đấu tốc độ thời gian thực cùng bạn bè
                       </div>
                     </div>
                   </Link>
@@ -774,7 +887,7 @@ function StudentLayoutContent() {
                       triggerAction("click_journey");
                     }}
                     className={`flex items-center gap-3.5 p-3 rounded-2xl border transition-all ${
-                      location.pathname === "/journey"
+                      location.pathname === "/journey" || location.pathname === "/student/journey"
                         ? "bg-emerald-50/80 border-emerald-300 dark:bg-emerald-950/40 dark:border-emerald-800 shadow-2xs"
                         : "bg-slate-50/70 dark:bg-slate-800/40 border-slate-200/80 dark:border-slate-800 hover:bg-emerald-50/50"
                     }`}
@@ -846,7 +959,7 @@ function StudentLayoutContent() {
                     </div>
                   </Link>
 
-                  {/* 3. Hồ sơ */}
+                  {/* 3b. Hồ sơ */}
                   <Link
                     to="/student/profile"
                     onClick={() => {
@@ -894,32 +1007,6 @@ function StudentLayoutContent() {
                       </div>
                     </div>
                   </Link>
-
-                  {/* 5. Lịch sử bài làm */}
-                  <Link
-                    to="/student/history"
-                    onClick={() => {
-                      setIsBottomMenuOpen(false);
-                      triggerAction("click_history");
-                    }}
-                    className={`flex items-center gap-3.5 p-3 rounded-2xl border transition-all sm:col-span-2 ${
-                      location.pathname === "/student/history"
-                        ? "bg-cyan-50/80 border-cyan-300 dark:bg-cyan-950/40 dark:border-cyan-800 shadow-2xs"
-                        : "bg-slate-50/70 dark:bg-slate-800/40 border-slate-200/80 dark:border-slate-800 hover:bg-cyan-50/50"
-                    }`}
-                  >
-                    <div className="w-10 h-10 rounded-xl bg-cyan-100 dark:bg-cyan-900/50 text-cyan-600 dark:text-cyan-300 flex items-center justify-center shrink-0 shadow-2xs">
-                      <History className="w-5 h-5" />
-                    </div>
-                    <div className="min-w-0 flex-1">
-                      <div className="text-xs font-bold text-slate-900 dark:text-white">
-                        Lịch sử bài làm
-                      </div>
-                      <div className="text-[11px] text-slate-500 dark:text-slate-400 truncate">
-                        Xem lại các đề thi đã nộp & chi tiết kết quả
-                      </div>
-                    </div>
-                  </Link>
                 </div>
 
                 {renderAppDownloadTile(() => setIsBottomMenuOpen(false))}
@@ -952,15 +1039,22 @@ function StudentLayoutContent() {
             </div>
           )}
 
-          {/* Compact Bottom Navigation Bar */}
-          <nav className="md:hidden fixed bottom-0 left-0 right-0 bg-white/95 dark:bg-slate-900/95 backdrop-blur-md border-t border-slate-200 dark:border-slate-800 px-2 pt-1.5 pb-[max(0.4rem,env(safe-area-inset-bottom))] flex items-center justify-around shadow-lg z-30">
+          {/* Compact Bottom Navigation Bar: Đề thi, Luyện tập, Khóa học, Lịch sử, Danh mục */}
+          <nav
+            aria-label="Thanh điều hướng di động"
+            className="md:hidden fixed bottom-0 left-0 right-0 bg-white/95 dark:bg-slate-900/95 backdrop-blur-md border-t border-slate-200 dark:border-slate-800 px-2 pt-1.5 pb-[max(0.4rem,env(safe-area-inset-bottom))] flex items-center justify-around shadow-lg z-30"
+          >
             {/* 1. Đề thi */}
             <Link
               to="/"
               data-tour-id={TOUR_DATA_IDS.NAV_EXAMS}
               onClick={() => triggerAction("click_exams")}
               className={`flex flex-col items-center gap-0.5 px-2.5 py-1 rounded-2xl transition-all cursor-pointer ${
-                location.pathname === "/" || location.pathname === "/exams" || location.pathname === "/student/online"
+                location.pathname === "/" ||
+                location.pathname === "/exams" ||
+                location.pathname === "/student/online" ||
+                location.pathname.startsWith("/student/exam/") ||
+                location.pathname.startsWith("/exam/")
                   ? "text-blue-600 dark:text-blue-400 font-bold scale-105"
                   : "text-slate-400 hover:text-slate-700 dark:hover:text-slate-200"
               }`}
@@ -984,49 +1078,48 @@ function StudentLayoutContent() {
               <span className="text-[10px]">Luyện tập</span>
             </Link>
 
-            {/* 3. Gia sư AI */}
+            {/* 3. Khóa học */}
             <Link
-              to="/student/ai-tutor"
-              data-tour-id={TOUR_DATA_IDS.NAV_AI}
-              onClick={() => triggerAction("click_ai")}
+              to="/student/courses"
+              onClick={() => triggerAction("click_courses")}
               className={`flex flex-col items-center gap-0.5 px-2.5 py-1 rounded-2xl transition-all cursor-pointer ${
-                location.pathname.startsWith("/student/ai-tutor")
-                  ? "text-indigo-600 dark:text-indigo-400 font-bold scale-105"
+                location.pathname.startsWith("/student/courses") || location.pathname.startsWith("/courses")
+                  ? "text-rose-600 dark:text-rose-400 font-bold scale-105"
                   : "text-slate-400 hover:text-slate-700 dark:hover:text-slate-200"
               }`}
             >
-              <Sparkles className="w-5 h-5" />
-              <span className="text-[10px]">Gia sư AI</span>
+              <PlayCircle className="w-5 h-5" />
+              <span className="text-[10px]">Khóa học</span>
             </Link>
 
-            {/* 4. Cộng đồng */}
+            {/* 4. Lịch sử */}
             <Link
-              to="/student/community"
-              data-tour-id={TOUR_DATA_IDS.NAV_COMMUNITY}
-              onClick={() => triggerAction("click_community")}
+              to="/student/history"
+              data-tour-id={TOUR_DATA_IDS.NAV_HISTORY}
+              onClick={() => triggerAction("click_history")}
               className={`flex flex-col items-center gap-0.5 px-2.5 py-1 rounded-2xl transition-all cursor-pointer ${
-                location.pathname.startsWith("/student/community")
-                  ? "text-amber-600 dark:text-amber-400 font-bold scale-105"
+                location.pathname === "/student/history"
+                  ? "text-cyan-600 dark:text-cyan-400 font-bold scale-105"
                   : "text-slate-400 hover:text-slate-700 dark:hover:text-slate-200"
               }`}
             >
-              <Flame className="w-5 h-5" />
-              <span className="text-[10px]">Cộng đồng</span>
+              <History className="w-5 h-5" />
+              <span className="text-[10px]">Lịch sử</span>
             </Link>
 
-            {/* 5. Menu 3 gạch (Danh mục tiện ích) */}
+            {/* 5. Danh mục */}
             <button
               type="button"
               onClick={() => setIsBottomMenuOpen(true)}
               className={`flex flex-col items-center gap-0.5 px-2.5 py-1 rounded-2xl transition-all cursor-pointer relative ${
-                isBottomMenuOpen || ["/journey", "/student/chat", "/chat", "/student/wallet", "/student/ai-shop", "/student/minigame", "/student/profile", "/legal-policy", "/student/history"].some((p) => location.pathname === p)
+                isBottomMenuOpen || isSecondaryCategoryRoute
                   ? "text-blue-600 dark:text-blue-400 font-bold scale-105"
                   : "text-slate-400 hover:text-slate-700 dark:hover:text-slate-200"
               }`}
             >
               <div className="relative">
                 <Menu className="w-5 h-5" />
-                {["/journey", "/student/chat", "/chat", "/student/wallet", "/student/ai-shop", "/student/minigame", "/student/profile", "/legal-policy", "/student/history"].some((p) => location.pathname === p) && (
+                {isSecondaryCategoryRoute && (
                   <span className="absolute -top-0.5 -right-0.5 w-2 h-2 rounded-full bg-blue-500 animate-pulse" />
                 )}
               </div>

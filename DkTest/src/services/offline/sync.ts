@@ -10,8 +10,21 @@ interface NativeQueue {
   enqueue(data: { id: string; uid: string; submission: Submission; savedAt: number }): Promise<void>;
   status(): Promise<{ items: { id: string; uid: string; state: LocalSubmission['state']; error?: string }[] }>;
   schedule(): Promise<void>;
+  downloadFileUrl(data: {
+    url: string;
+    fileName: string;
+    mimeType?: string;
+    title?: string;
+    authorization?: string;
+  }): Promise<{ downloadId: number; fileName: string }>;
+  saveBase64ToDownloads(data: {
+    base64: string;
+    fileName: string;
+    mimeType?: string;
+  }): Promise<{ fileName: string; uri?: string; savedPath?: string; folder?: string }>;
 }
 const native = registerPlugin<NativeQueue>('OfflineSync');
+export const nativeFileBridge = native;
 export const isNativeAndroid = () => Capacitor.getPlatform() === 'android';
 export const notifyOfflineChange = () => window.dispatchEvent(new Event('dktest-offline-change'));
 

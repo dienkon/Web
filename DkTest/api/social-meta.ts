@@ -49,6 +49,7 @@ export default async function handler(req: any, res: any) {
     let submissionId = cleanParam(req.query?.submissionId);
     let courseId = cleanParam(req.query?.courseId);
     let minigameId = cleanParam(req.query?.minigameId) || cleanParam(req.query?.eventId);
+    let docId = cleanParam(req.query?.docId) || cleanParam(req.query?.documentId);
 
     // Check matchedHeader or targetPath if parameters weren't cleanly extracted
     const pathToCheck = matchedHeader && !matchedHeader.startsWith("/api/") ? matchedHeader : targetPath;
@@ -72,6 +73,10 @@ export default async function handler(req: any, res: any) {
       const mMatch = pathToCheck.match(/^\/(?:student\/)?minigames?\/([^/?#]+)/i);
       if (mMatch) minigameId = cleanParam(decodeURIComponent(mMatch[1]));
     }
+    if (!docId && pathToCheck) {
+      const dMatch = pathToCheck.match(/^\/(?:student\/)?(?:documents|tai-lieu)\/([^/?#]+)/i);
+      if (dMatch) docId = cleanParam(decodeURIComponent(dMatch[1]));
+    }
 
     // Replace literal template placeholders in targetPath if present
     if (voucher && /[:$](?:code|1)/i.test(targetPath)) {
@@ -94,6 +99,9 @@ export default async function handler(req: any, res: any) {
     if (minigameId && /[:$](?:minigameId|eventId|id|1)/i.test(targetPath)) {
       targetPath = targetPath.replace(/[:$](?:minigameId|eventId|id|1)/gi, encodeURIComponent(minigameId));
     }
+    if (docId && /[:$](?:docId|documentId|id|1)/i.test(targetPath)) {
+      targetPath = targetPath.replace(/[:$](?:docId|documentId|id|1)/gi, encodeURIComponent(docId));
+    }
 
     if (submissionId && examId && !targetPath.includes("/result") && !targetPath.includes("/submissions")) {
       targetPath = `/student/exam/${encodeURIComponent(examId)}/result/${encodeURIComponent(submissionId)}`;
@@ -103,6 +111,8 @@ export default async function handler(req: any, res: any) {
       targetPath = `/student/courses/${encodeURIComponent(courseId)}`;
     } else if (minigameId && !targetPath.includes("/minigame")) {
       targetPath = `/minigame/${encodeURIComponent(minigameId)}`;
+    } else if (docId && !targetPath.includes("/documents") && !targetPath.includes("/tai-lieu")) {
+      targetPath = `/documents/${encodeURIComponent(docId)}`;
     }
 
     // Preserve any extra query parameters like ?v=1 or ?lesson=... (crucial for Zalo cache-busting & video deep links)
@@ -123,6 +133,8 @@ export default async function handler(req: any, res: any) {
             "courseid",
             "minigameid",
             "eventid",
+            "docid",
+            "documentid",
             "format",
           ].includes(kLower)
         ) {

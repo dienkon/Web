@@ -85,6 +85,7 @@ try {
     };
     syncDir(path.join("images", "subjects"), "subject banners");
     syncDir(path.join("images", "minigames"), "minigame previews");
+    syncDir(path.join("images", "documents"), "document previews");
 
     for (const relFile of [
       path.join("images", "voucher-banner.jpg"),

@@ -106,5 +106,52 @@ try {
   await deny(setDoc(doc(a, 'arena_rooms/room_test'), { id: 'room_test', roomCode: 'ABC123', status: 'waiting' }));
   await deny(getDocs(collection(admin, 'arena_rooms')));
 
+  // Document Library security boundaries (v2.0.7)
+  await pass(setDoc(doc(admin, 'library_documents/free-doc'), {
+    id: 'free-doc',
+    title: 'Free Math 12',
+    status: 'published',
+    accessMode: 'free',
+    priceVnd: 0,
+    fileUrl: 'https://res.cloudinary.com/dys3wgutz/raw/upload/v1/free_blob?dkext=pdf',
+    authorUid: 'admin',
+  }));
+  await pass(getDoc(doc(anonymous, 'library_documents/free-doc')));
+  await pass(getDoc(doc(a, 'library_documents/free-doc')));
+  await deny(setDoc(doc(a, 'library_documents/spoof-doc'), { id: 'spoof-doc', status: 'published', accessMode: 'free', priceVnd: 0 }));
+
+  // Paid document metadata must NEVER embed fileUrl / answerUrl / subFiles directly in library_documents
+  await deny(setDoc(doc(admin, 'library_documents/paid-leak'), {
+    id: 'paid-leak',
+    title: 'Paid Doc Leak Attempt',
+    status: 'published',
+    accessMode: 'paid',
+    priceVnd: 20000,
+    fileUrl: 'https://res.cloudinary.com/dys3wgutz/raw/upload/v1/secret_paid',
+  }));
+  await pass(setDoc(doc(admin, 'library_documents/paid-safe'), {
+    id: 'paid-safe',
+    title: 'Paid Doc Safe Metadata',
+    status: 'published',
+    accessMode: 'paid',
+    priceVnd: 20000,
+    authorUid: 'student-b',
+  }));
+  await pass(setDoc(doc(admin, 'library_document_secrets/paid-safe'), {
+    docId: 'paid-safe',
+    fileUrl: 'https://res.cloudinary.com/dys3wgutz/raw/upload/v1/secret_paid?dkext=pdf',
+  }));
+  // Neither anonymous nor students (not even author directly via client SDK) can read library_document_secrets
+  await deny(getDoc(doc(anonymous, 'library_document_secrets/paid-safe')));
+  await deny(getDoc(doc(a, 'library_document_secrets/paid-safe')));
+  await deny(getDoc(doc(b, 'library_document_secrets/paid-safe')));
+  await pass(getDoc(doc(admin, 'library_document_secrets/paid-safe')));
+
+  // Entitlements strictly server/admin writable, owner readable
+  await deny(setDoc(doc(a, 'library_entitlements/student-a_paid-safe'), { uid: 'student-a', docId: 'paid-safe', status: 'active' }));
+  await pass(setDoc(doc(admin, 'library_entitlements/student-a_paid-safe'), { uid: 'student-a', docId: 'paid-safe', status: 'active' }));
+  await pass(getDoc(doc(a, 'library_entitlements/student-a_paid-safe')));
+  await deny(getDoc(doc(b, 'library_entitlements/student-a_paid-safe')));
+
   console.log(`Firestore emulator: ${assertions} authorization assertions passed (production not modified).`);
 } finally { await env.cleanup(); await deleteApp(adminApp); }

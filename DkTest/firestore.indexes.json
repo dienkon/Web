@@ -184,6 +184,22 @@
         { "fieldPath": "courseId", "order": "ASCENDING" },
         { "fieldPath": "grantedAt", "order": "DESCENDING" }
       ]
+    },
+    {
+      "collectionGroup": "library_documents",
+      "queryScope": "COLLECTION",
+      "fields": [
+        { "fieldPath": "status", "order": "ASCENDING" },
+        { "fieldPath": "updatedAt", "order": "DESCENDING" }
+      ]
+    },
+    {
+      "collectionGroup": "library_entitlements",
+      "queryScope": "COLLECTION",
+      "fields": [
+        { "fieldPath": "uid", "order": "ASCENDING" },
+        { "fieldPath": "createdAt", "order": "DESCENDING" }
+      ]
     }
   ],
   "fieldOverrides": []

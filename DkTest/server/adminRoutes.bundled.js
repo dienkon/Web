@@ -6,7 +6,7 @@ var __require = /* @__PURE__ */ ((x) => typeof require !== "undefined" ? require
 });
 
 // server/routes/adminRoutes.ts
-import { Router as Router3 } from "express";
+import { Router as Router4 } from "express";
 
 // server/firebaseAdmin.ts
 import { createRequire } from "module";
@@ -6779,8 +6779,724 @@ minigameAdminRouter.delete("/:id", async (req, res) => {
   }
 });
 
+// server/routes/documentLibraryAdminRoutes.ts
+import { Router as Router3 } from "express";
+
+// server/services/documentLibraryService.ts
+import fs from "fs";
+import path from "path";
+import crypto3 from "crypto";
+import { z as z4 } from "zod";
+
+// src/types/documentLibrary.ts
+var DOCUMENT_GRADE_META = {
+  grade_10: {
+    label: "L\u1EDBp 10",
+    shortLabel: "L\u1EDBp 10",
+    badgeClass: "bg-sky-100 text-sky-700 dark:bg-sky-950/60 dark:text-sky-300"
+  },
+  grade_11: {
+    label: "L\u1EDBp 11",
+    shortLabel: "L\u1EDBp 11",
+    badgeClass: "bg-indigo-100 text-indigo-700 dark:bg-indigo-950/60 dark:text-indigo-300"
+  },
+  grade_12: {
+    label: "L\u1EDBp 12",
+    shortLabel: "L\u1EDBp 12",
+    badgeClass: "bg-blue-100 text-blue-700 dark:bg-blue-950/60 dark:text-blue-300"
+  },
+  thpt_qg: {
+    label: "T\u1ED1t nghi\u1EC7p THPT",
+    shortLabel: "THPT QG",
+    badgeClass: "bg-rose-100 text-rose-700 dark:bg-rose-950/60 dark:text-rose-300"
+  },
+  dgnl_dgtd: {
+    label: "\u0110GNL & \u0110GTD (HSA / V-ACT / TSA)",
+    shortLabel: "\u0110GNL - \u0110GTD",
+    badgeClass: "bg-amber-100 text-amber-800 dark:bg-amber-950/60 dark:text-amber-300"
+  },
+  general: {
+    label: "\u0110\u1EA1i c\u01B0\u01A1ng & Ch\u1EE9ng ch\u1EC9",
+    shortLabel: "\u0110\u1EA1i c\u01B0\u01A1ng",
+    badgeClass: "bg-slate-100 text-slate-700 dark:bg-slate-800 dark:text-slate-300"
+  }
+};
+var DOCUMENT_SUBJECT_META = {
+  math: { label: "To\xE1n h\u1ECDc", bannerKey: "math", colorClass: "text-blue-600 dark:text-blue-400" },
+  literature: { label: "Ng\u1EEF v\u0103n", bannerKey: "literature", colorClass: "text-rose-600 dark:text-rose-400" },
+  english: { label: "Ti\u1EBFng Anh", bannerKey: "english", colorClass: "text-sky-600 dark:text-sky-400" },
+  physics: { label: "V\u1EADt l\xFD", bannerKey: "physics", colorClass: "text-indigo-600 dark:text-indigo-400" },
+  chemistry: { label: "H\xF3a h\u1ECDc", bannerKey: "chemistry", colorClass: "text-emerald-600 dark:text-emerald-400" },
+  biology: { label: "Sinh h\u1ECDc", bannerKey: "biology", colorClass: "text-green-600 dark:text-green-400" },
+  history: { label: "L\u1ECBch s\u1EED", bannerKey: "history", colorClass: "text-amber-700 dark:text-amber-400" },
+  geography: { label: "\u0110\u1ECBa l\xFD", bannerKey: "geography", colorClass: "text-teal-600 dark:text-teal-400" },
+  civics: { label: "KT & Ph\xE1p lu\u1EADt", bannerKey: "civics", colorClass: "text-purple-600 dark:text-purple-400" },
+  informatics: { label: "Tin h\u1ECDc", bannerKey: "informatics", colorClass: "text-cyan-600 dark:text-cyan-400" },
+  technology: { label: "C\xF4ng ngh\u1EC7", bannerKey: "technology", colorClass: "text-orange-600 dark:text-orange-400" },
+  foreign_other: { label: "Ngo\u1EA1i ng\u1EEF kh\xE1c", bannerKey: "english", colorClass: "text-pink-600 dark:text-pink-400" },
+  aptitude: { label: "\u0110\xE1nh gi\xE1 n\u0103ng l\u1EF1c", bannerKey: "dgnl", colorClass: "text-amber-600 dark:text-amber-400" },
+  multi_subject: { label: "T\u1ED5ng h\u1EE3p \u0111a m\xF4n", bannerKey: "default", colorClass: "text-slate-600 dark:text-slate-400" }
+};
+var DOCUMENT_CATEGORY_META = {
+  exam_test: { label: "\u0110\u1EC1 thi & \u0110\xE1p \xE1n", shortLabel: "\u0110\u1EC1 thi" },
+  ebook_book: { label: "S\xE1ch & Ebook", shortLabel: "Ebook" },
+  topic_guide: { label: "Chuy\xEAn \u0111\u1EC1 & L\xFD thuy\u1EBFt", shortLabel: "Chuy\xEAn \u0111\u1EC1" },
+  formula_handbook: { label: "S\u1ED5 tay & C\xF4ng th\u1EE9c", shortLabel: "S\u1ED5 tay" },
+  folder_pack: { label: "B\u1ED9 t\xE0i li\u1EC7u t\u1ED5ng h\u1EE3p", shortLabel: "Tr\u1ECDn b\u1ED9" }
+};
+function expandSeedUrl(u) {
+  if (!u) return void 0;
+  if (u.startsWith("gd:")) return `https://drive.google.com/file/d/${u.slice(3)}/view`;
+  if (u.startsWith("gdf:")) return `https://drive.google.com/drive/folders/${u.slice(4)}`;
+  if (u.startsWith("gds:")) return `https://docs.google.com/spreadsheets/d/${u.slice(4)}/edit`;
+  return u;
+}
+function expandCompactSeedDocument(item) {
+  const gradeLabel = DOCUMENT_GRADE_META[item.g]?.shortLabel || "THPT";
+  const subjectLabel = DOCUMENT_SUBJECT_META[item.s]?.label || "T\u1ED5ng h\u1EE3p";
+  const categoryLabel = DOCUMENT_CATEGORY_META[item.c]?.label || "T\xE0i li\u1EC7u";
+  const subCount = item.sf?.length || 0;
+  const primaryUrl = expandSeedUrl(item.u) || item.u;
+  const answerUrl = expandSeedUrl(item.a);
+  const videoUrl = expandSeedUrl(item.v);
+  const descParts = [
+    `${categoryLabel} m\xF4n ${subjectLabel} (${gradeLabel})`,
+    subCount > 0 ? `g\u1ED3m ${subCount} t\u1EC7p t\xE0i li\u1EC7u ch\u1ECDn l\u1ECDc` : "\u0111\u1ECBnh d\u1EA1ng chu\u1EA9n r\xF5 n\xE9t",
+    answerUrl && answerUrl !== primaryUrl ? "k\xE8m file \u0111\xE1p \xE1n chi ti\u1EBFt" : "",
+    videoUrl && videoUrl !== primaryUrl ? "k\xE8m video h\u01B0\u1EDBng d\u1EABn gi\u1EA3i" : ""
+  ].filter(Boolean);
+  return {
+    id: item.id,
+    title: item.t,
+    description: `${descParts.join(", ")}. Xem tr\u1EF1c tuy\u1EBFn b\u1EB1ng tr\xECnh \u0111\u1ECDc PDF DkTEST ho\u1EB7c t\u1EA3i v\u1EC1 m\xE1y mi\u1EC5n ph\xED.`,
+    grade: item.g,
+    subject: item.s,
+    category: item.c,
+    fileFormat: item.f,
+    accessMode: "free",
+    priceVnd: 0,
+    fileUrl: primaryUrl,
+    answerUrl,
+    videoUrl,
+    subFiles: item.sf?.map((sf) => ({
+      name: sf.n,
+      url: expandSeedUrl(sf.u) || sf.u,
+      fileFormat: sf.f,
+      folderPath: sf.p
+    })),
+    authorName: item.src || "Kho T\xE0i Li\u1EC7u DkTEST",
+    authorRole: "seed",
+    sourceName: item.src,
+    status: "published",
+    tags: item.tg || [],
+    viewCount: 0,
+    downloadCount: 0,
+    publishedAt: item.d ? `${item.d}T00:00:00.000Z` : "2026-11-01T00:00:00.000Z",
+    createdAt: item.d ? `${item.d}T00:00:00.000Z` : "2026-11-01T00:00:00.000Z",
+    updatedAt: item.d ? `${item.d}T00:00:00.000Z` : "2026-11-01T00:00:00.000Z"
+  };
+}
+
+// server/services/documentLibraryService.ts
+var SETTINGS_COLLECTION = "system_settings";
+var SETTINGS_DOC_ID = "document_library_config";
+var DOCS_COLLECTION = "library_documents";
+var SECRETS_COLLECTION = "library_document_secrets";
+var ENTITLEMENTS_COLLECTION = "library_entitlements";
+var LIVE_DOCS_TTL_MS = 45 * 1e3;
+var SETTINGS_TTL_MS = 60 * 1e3;
+var MAX_PROXY_BYTES = 44 * 1024 * 1024;
+var cachedLiveDocs = null;
+var cachedSettings = null;
+var cachedSeedMap = null;
+function invalidateDocumentLibraryCache() {
+  cachedLiveDocs = null;
+}
+function invalidateDocumentSettingsCache() {
+  cachedSettings = null;
+}
+function loadSeedDocumentsMap() {
+  if (cachedSeedMap) return cachedSeedMap;
+  const map = /* @__PURE__ */ new Map();
+  const candidates = [
+    path.join(process.cwd(), "public", "data", "document-library-seed.json"),
+    path.join(process.cwd(), "dist", "data", "document-library-seed.json")
+  ];
+  for (const filePath of candidates) {
+    if (!fs.existsSync(filePath)) continue;
+    try {
+      const raw = fs.readFileSync(filePath, "utf8");
+      const parsed = JSON.parse(raw);
+      if (Array.isArray(parsed?.items)) {
+        for (const item of parsed.items) {
+          if (item?.id) {
+            map.set(item.id, expandCompactSeedDocument(item));
+          }
+        }
+        break;
+      }
+    } catch (err) {
+      console.warn("[documentLibraryService] Failed to parse seed JSON:", err);
+    }
+  }
+  cachedSeedMap = map;
+  return map;
+}
+function getSeedDocumentById(docId) {
+  const clean = String(docId || "").trim();
+  if (!clean) return null;
+  return loadSeedDocumentsMap().get(clean) || null;
+}
+async function getDocumentLibrarySettings(forceRefresh = false) {
+  if (!forceRefresh && cachedSettings && Date.now() - cachedSettings.timestamp < SETTINGS_TTL_MS) {
+    return cachedSettings.data;
+  }
+  const defaults = {
+    autoApproveUserUploads: true,
+    creatorRevenueSharePercent: 80,
+    maxUserPriceVnd: 5e5,
+    updatedAt: (/* @__PURE__ */ new Date()).toISOString()
+  };
+  try {
+    let raw = null;
+    if (adminDb) {
+      const snap = await adminDb.collection(SETTINGS_COLLECTION).doc(SETTINGS_DOC_ID).get();
+      if (snap.exists) raw = snap.data();
+    } else {
+      raw = await getFirestoreRestDoc(SETTINGS_COLLECTION, SETTINGS_DOC_ID);
+    }
+    if (raw) {
+      const merged = {
+        autoApproveUserUploads: typeof raw.autoApproveUserUploads === "boolean" ? raw.autoApproveUserUploads : defaults.autoApproveUserUploads,
+        creatorRevenueSharePercent: typeof raw.creatorRevenueSharePercent === "number" ? Math.max(0, Math.min(100, Math.round(raw.creatorRevenueSharePercent))) : defaults.creatorRevenueSharePercent,
+        maxUserPriceVnd: typeof raw.maxUserPriceVnd === "number" && raw.maxUserPriceVnd >= 1e3 ? Math.floor(raw.maxUserPriceVnd) : defaults.maxUserPriceVnd,
+        updatedAt: raw.updatedAt || defaults.updatedAt
+      };
+      cachedSettings = { data: merged, timestamp: Date.now() };
+      return merged;
+    }
+  } catch (err) {
+    console.warn("[documentLibraryService] Error loading settings, using defaults:", err);
+  }
+  cachedSettings = { data: defaults, timestamp: Date.now() };
+  return defaults;
+}
+async function updateDocumentLibrarySettings(patch) {
+  const current = await getDocumentLibrarySettings(true);
+  const next = {
+    autoApproveUserUploads: typeof patch.autoApproveUserUploads === "boolean" ? patch.autoApproveUserUploads : current.autoApproveUserUploads,
+    creatorRevenueSharePercent: typeof patch.creatorRevenueSharePercent === "number" ? Math.max(0, Math.min(100, Math.round(patch.creatorRevenueSharePercent))) : current.creatorRevenueSharePercent,
+    maxUserPriceVnd: typeof patch.maxUserPriceVnd === "number" && patch.maxUserPriceVnd >= 1e3 ? Math.min(5e6, Math.floor(patch.maxUserPriceVnd)) : current.maxUserPriceVnd,
+    updatedAt: (/* @__PURE__ */ new Date()).toISOString()
+  };
+  if (adminDb) {
+    await adminDb.collection(SETTINGS_COLLECTION).doc(SETTINGS_DOC_ID).set(next, { merge: true });
+  } else {
+    await setFirestoreRestDoc(SETTINGS_COLLECTION, SETTINGS_DOC_ID, next);
+  }
+  invalidateDocumentSettingsCache();
+  return next;
+}
+var subFileSchema = z4.object({
+  name: z4.string().trim().min(1).max(160),
+  url: z4.string().trim().url().max(2048),
+  fileFormat: z4.enum(["pdf", "docx", "doc", "pptx", "xlsx", "zip", "folder", "sheet", "other"]).default("pdf"),
+  folderPath: z4.string().trim().max(160).optional()
+});
+var upsertDocumentSchema = z4.object({
+  id: z4.string().trim().min(3).max(96).optional(),
+  title: z4.string().trim().min(3, "Ti\xEAu \u0111\u1EC1 ph\u1EA3i c\xF3 \xEDt nh\u1EA5t 3 k\xFD t\u1EF1.").max(220),
+  description: z4.string().trim().max(2e3).optional().default(""),
+  grade: z4.enum(["grade_10", "grade_11", "grade_12", "thpt_qg", "dgnl_dgtd", "general"]).default("grade_12"),
+  subject: z4.enum([
+    "math",
+    "literature",
+    "english",
+    "physics",
+    "chemistry",
+    "biology",
+    "history",
+    "geography",
+    "civics",
+    "informatics",
+    "technology",
+    "foreign_other",
+    "aptitude",
+    "multi_subject"
+  ]).default("math"),
+  category: z4.enum(["exam_test", "ebook_book", "topic_guide", "formula_handbook", "folder_pack"]).default("exam_test"),
+  fileFormat: z4.enum(["pdf", "docx", "doc", "pptx", "xlsx", "zip", "folder", "sheet", "other"]).default("pdf"),
+  pageCount: z4.number().int().min(0).max(5e3).optional(),
+  fileSizeBytes: z4.number().int().min(0).max(1024 * 1024 * 500).optional(),
+  coverImageUrl: z4.string().trim().url().max(2048).nullable().optional(),
+  previewImageUrls: z4.array(z4.string().trim().url().max(2048)).max(5).optional(),
+  accessMode: z4.enum(["free", "paid"]).default("free"),
+  priceVnd: z4.number().min(0).max(5e6).default(0),
+  previewPageCount: z4.number().int().min(0).max(10).optional().default(2),
+  salesEnabled: z4.boolean().optional().default(true),
+  fileUrl: z4.string().trim().url("Vui l\xF2ng t\u1EA3i t\u1EC7p l\xEAn ho\u1EB7c nh\u1EADp li\xEAn k\u1EBFt h\u1EE3p l\u1EC7.").max(2048).optional(),
+  originalFileName: z4.string().trim().max(200).optional(),
+  answerUrl: z4.string().trim().max(2048).optional(),
+  videoUrl: z4.string().trim().max(2048).optional(),
+  subFiles: z4.array(subFileSchema).max(40).optional(),
+  tags: z4.array(z4.string().trim().max(48)).max(12).optional().default([]),
+  isFeatured: z4.boolean().optional(),
+  status: z4.enum(["published", "pending", "rejected", "hidden"]).optional()
+});
+function sanitizePublicDocument(doc) {
+  const isPaid = doc.accessMode === "paid" && sanitizeVnd(doc.priceVnd) > 0;
+  if (!isPaid) return doc;
+  const copy = { ...doc };
+  delete copy.fileUrl;
+  delete copy.answerUrl;
+  delete copy.videoUrl;
+  delete copy.subFiles;
+  return copy;
+}
+async function getLiveLibraryDocuments(options = {}) {
+  if (!options.forceRefresh && cachedLiveDocs && Date.now() - cachedLiveDocs.timestamp < LIVE_DOCS_TTL_MS) {
+    const all = cachedLiveDocs.items;
+    return options.includeNonPublished ? all : all.filter((d) => d.status === "published" || d.status === "hidden");
+  }
+  let list = [];
+  if (adminDb) {
+    try {
+      const snap = await adminDb.collection(DOCS_COLLECTION).orderBy("updatedAt", "desc").limit(600).get();
+      list = snap.docs.map((d) => sanitizePublicDocument({ id: d.id, ...d.data() }));
+    } catch {
+      const snap = await adminDb.collection(DOCS_COLLECTION).limit(600).get();
+      list = snap.docs.map((d) => sanitizePublicDocument({ id: d.id, ...d.data() }));
+      list.sort((a, b) => String(b.updatedAt || "").localeCompare(String(a.updatedAt || "")));
+    }
+  } else {
+    const docs = await getFirestoreRestDocs(DOCS_COLLECTION, 400, true);
+    list = (docs || []).map((d) => sanitizePublicDocument({ id: d.id, ...d }));
+    list.sort((a, b) => String(b.updatedAt || "").localeCompare(String(a.updatedAt || "")));
+  }
+  cachedLiveDocs = { items: list, timestamp: Date.now() };
+  return options.includeNonPublished ? list : list.filter((d) => d.status === "published" || d.status === "hidden");
+}
+async function getDocumentByIdResolved(docId) {
+  const cleanId = String(docId || "").trim();
+  if (!cleanId) return null;
+  let liveDoc = null;
+  if (adminDb) {
+    const snap = await adminDb.collection(DOCS_COLLECTION).doc(cleanId).get();
+    if (snap.exists) {
+      liveDoc = sanitizePublicDocument({ id: snap.id, ...snap.data() });
+    }
+  } else {
+    const restDoc = await getFirestoreRestDoc(DOCS_COLLECTION, cleanId);
+    if (restDoc) {
+      liveDoc = sanitizePublicDocument({ id: cleanId, ...restDoc });
+    }
+  }
+  if (liveDoc) return liveDoc;
+  return getSeedDocumentById(cleanId);
+}
+async function getDocumentSecrets(docId) {
+  if (adminDb) {
+    const snap = await adminDb.collection(SECRETS_COLLECTION).doc(docId).get();
+    return snap.exists ? snap.data() : null;
+  }
+  return await getFirestoreRestDoc(SECRETS_COLLECTION, docId);
+}
+async function createOrUpdateLibraryDocument(actor, rawInput) {
+  const parsed = upsertDocumentSchema.parse(rawInput);
+  const isAdmin = actor.role === "admin" || actor.role === "super_admin";
+  const settings = await getDocumentLibrarySettings();
+  const existingId = parsed.id?.trim();
+  let existingDoc = null;
+  let existingSecrets = null;
+  if (existingId) {
+    existingDoc = await getDocumentByIdResolved(existingId);
+    if (existingDoc) {
+      if (!isAdmin && existingDoc.authorUid !== actor.uid) {
+        throw new Error("B\u1EA1n ch\u1EC9 c\xF3 quy\u1EC1n ch\u1EC9nh s\u1EEDa t\xE0i li\u1EC7u do ch\xEDnh m\xECnh \u0111\u0103ng t\u1EA3i.");
+      }
+      existingSecrets = await getDocumentSecrets(existingId);
+    }
+  }
+  const resolvedFileUrl = parsed.fileUrl?.trim() || existingSecrets?.fileUrl || existingDoc?.fileUrl || "";
+  if (!resolvedFileUrl) {
+    throw new Error("Vui l\xF2ng t\u1EA3i t\u1EC7p t\xE0i li\u1EC7u l\xEAn Cloudinary ho\u1EB7c nh\u1EADp \u0111\u01B0\u1EDDng d\u1EABn h\u1EE3p l\u1EC7.");
+  }
+  if (!/^https:\/\/res\.cloudinary\.com\//i.test(resolvedFileUrl)) {
+    await validateUrlForSsrf(resolvedFileUrl);
+  }
+  const accessMode = parsed.accessMode === "paid" && parsed.priceVnd > 0 ? "paid" : "free";
+  const priceVnd = accessMode === "paid" ? sanitizeVnd(parsed.priceVnd) : 0;
+  if (accessMode === "paid") {
+    if (priceVnd < 1e3) {
+      throw new Error("M\u1EE9c ph\xED t\xE0i li\u1EC7u tr\u1EA3 ph\xED t\u1ED1i thi\u1EC3u l\xE0 1.000\u0111.");
+    }
+    const maxAllowed = isAdmin ? 5e6 : settings.maxUserPriceVnd;
+    if (priceVnd > maxAllowed) {
+      throw new Error(`M\u1EE9c ph\xED t\u1ED1i \u0111a cho ph\xE9p l\xE0 ${maxAllowed.toLocaleString("vi-VN")}\u0111.`);
+    }
+  }
+  const now = (/* @__PURE__ */ new Date()).toISOString();
+  const docId = existingId || `ldoc_${Date.now()}_${crypto3.randomBytes(3).toString("hex")}`;
+  let nextStatus = "published";
+  if (isAdmin) {
+    nextStatus = parsed.status || existingDoc?.status || "published";
+  } else {
+    nextStatus = settings.autoApproveUserUploads ? "published" : "pending";
+  }
+  const cleanAnswerUrl = parsed.answerUrl?.trim() || existingSecrets?.answerUrl || existingDoc?.answerUrl || void 0;
+  const cleanVideoUrl = parsed.videoUrl?.trim() || existingSecrets?.videoUrl || existingDoc?.videoUrl || void 0;
+  const cleanSubFiles = parsed.subFiles || existingSecrets?.subFiles || existingDoc?.subFiles || void 0;
+  const cleanOriginalFileName = parsed.originalFileName?.trim() || existingSecrets?.originalFileName || existingDoc?.originalFileName || void 0;
+  const authorRole = existingDoc?.authorRole && existingDoc.authorRole !== "seed" ? existingDoc.authorRole : isAdmin ? "admin" : "community";
+  const authorName = existingDoc?.authorName && existingDoc.authorRole !== "seed" ? existingDoc.authorName : actor.displayName || actor.email?.split("@")[0] || (isAdmin ? "Ban Qu\u1EA3n Tr\u1ECB DkTEST" : "Th\xE0nh vi\xEAn DkTEST");
+  const fullDoc = {
+    id: docId,
+    title: parsed.title,
+    description: parsed.description?.trim() || `T\xE0i li\u1EC7u ${parsed.title} \u0111\u01B0\u1EE3c chia s\u1EBB tr\xEAn Kho T\xE0i Li\u1EC7u DkTEST.`,
+    grade: parsed.grade,
+    subject: parsed.subject,
+    category: parsed.category,
+    fileFormat: parsed.fileFormat,
+    ...parsed.pageCount ? { pageCount: parsed.pageCount } : existingDoc?.pageCount ? { pageCount: existingDoc.pageCount } : {},
+    ...parsed.fileSizeBytes ? { fileSizeBytes: parsed.fileSizeBytes } : existingDoc?.fileSizeBytes ? { fileSizeBytes: existingDoc.fileSizeBytes } : {},
+    coverImageUrl: parsed.coverImageUrl !== void 0 ? parsed.coverImageUrl : existingDoc?.coverImageUrl || null,
+    ...parsed.previewImageUrls?.length ? { previewImageUrls: parsed.previewImageUrls } : existingDoc?.previewImageUrls?.length ? { previewImageUrls: existingDoc.previewImageUrls } : {},
+    accessMode,
+    priceVnd,
+    previewPageCount: parsed.previewPageCount ?? existingDoc?.previewPageCount ?? 2,
+    salesEnabled: parsed.salesEnabled ?? existingDoc?.salesEnabled ?? true,
+    ...accessMode === "free" ? {
+      fileUrl: resolvedFileUrl,
+      ...cleanOriginalFileName ? { originalFileName: cleanOriginalFileName } : {},
+      ...cleanAnswerUrl ? { answerUrl: cleanAnswerUrl } : {},
+      ...cleanVideoUrl ? { videoUrl: cleanVideoUrl } : {},
+      ...cleanSubFiles?.length ? { subFiles: cleanSubFiles } : {}
+    } : {},
+    authorUid: existingDoc?.authorUid || actor.uid,
+    authorName,
+    authorRole,
+    ...existingDoc?.sourceName ? { sourceName: existingDoc.sourceName } : {},
+    status: nextStatus,
+    isFeatured: isAdmin ? parsed.isFeatured ?? existingDoc?.isFeatured ?? false : existingDoc?.isFeatured ?? false,
+    tags: parsed.tags || existingDoc?.tags || [],
+    viewCount: existingDoc?.viewCount || 0,
+    downloadCount: existingDoc?.downloadCount || 0,
+    purchaseCount: existingDoc?.purchaseCount || 0,
+    totalRevenueVnd: existingDoc?.totalRevenueVnd || 0,
+    publishedAt: existingDoc?.publishedAt || now,
+    createdAt: existingDoc?.createdAt || now,
+    updatedAt: now
+  };
+  const publicDoc = sanitizePublicDocument(fullDoc);
+  const secretsPayload = {
+    docId,
+    fileUrl: resolvedFileUrl,
+    ...cleanOriginalFileName ? { originalFileName: cleanOriginalFileName } : {},
+    ...cleanAnswerUrl ? { answerUrl: cleanAnswerUrl } : {},
+    ...cleanVideoUrl ? { videoUrl: cleanVideoUrl } : {},
+    ...cleanSubFiles?.length ? { subFiles: cleanSubFiles } : {},
+    updatedAt: now
+  };
+  if (adminDb) {
+    const batch = adminDb.batch();
+    batch.set(adminDb.collection(DOCS_COLLECTION).doc(docId), publicDoc);
+    batch.set(adminDb.collection(SECRETS_COLLECTION).doc(docId), secretsPayload);
+    await batch.commit();
+  } else {
+    await setFirestoreRestDoc(DOCS_COLLECTION, docId, publicDoc);
+    await setFirestoreRestDoc(SECRETS_COLLECTION, docId, secretsPayload);
+  }
+  invalidateDocumentLibraryCache();
+  return publicDoc;
+}
+async function deleteLibraryDocument(actor, docId) {
+  const cleanId = String(docId || "").trim();
+  if (!cleanId) throw new Error("M\xE3 t\xE0i li\u1EC7u kh\xF4ng h\u1EE3p l\u1EC7.");
+  const isAdmin = actor.role === "admin" || actor.role === "super_admin";
+  const existing = await getDocumentByIdResolved(cleanId);
+  if (!existing) throw new Error("Kh\xF4ng t\xECm th\u1EA5y t\xE0i li\u1EC7u.");
+  if (!isAdmin && existing.authorUid !== actor.uid) {
+    throw new Error("B\u1EA1n kh\xF4ng c\xF3 quy\u1EC1n x\xF3a t\xE0i li\u1EC7u n\xE0y.");
+  }
+  const isSeed = Boolean(getSeedDocumentById(cleanId));
+  if (isSeed && isAdmin) {
+    const hiddenOverride = {
+      ...existing,
+      status: "hidden",
+      updatedAt: (/* @__PURE__ */ new Date()).toISOString()
+    };
+    if (adminDb) {
+      await adminDb.collection(DOCS_COLLECTION).doc(cleanId).set(hiddenOverride, { merge: true });
+    } else {
+      await setFirestoreRestDoc(DOCS_COLLECTION, cleanId, hiddenOverride);
+    }
+    invalidateDocumentLibraryCache();
+    return { deleted: true, hiddenSeed: true };
+  }
+  if (adminDb) {
+    const batch = adminDb.batch();
+    batch.delete(adminDb.collection(DOCS_COLLECTION).doc(cleanId));
+    batch.delete(adminDb.collection(SECRETS_COLLECTION).doc(cleanId));
+    await batch.commit();
+  } else {
+    await deleteFirestoreRestDoc(DOCS_COLLECTION, cleanId);
+    await deleteFirestoreRestDoc(SECRETS_COLLECTION, cleanId).catch(() => {
+    });
+  }
+  invalidateDocumentLibraryCache();
+  return { deleted: true };
+}
+async function moderateLibraryDocument(adminActor, docId, patch) {
+  const existing = await getDocumentByIdResolved(docId);
+  if (!existing) throw new Error("Kh\xF4ng t\xECm th\u1EA5y t\xE0i li\u1EC7u c\u1EA7n duy\u1EC7t.");
+  const secrets = await getDocumentSecrets(docId);
+  const now = (/* @__PURE__ */ new Date()).toISOString();
+  const nextAccessMode = patch.accessMode !== void 0 ? patch.accessMode : patch.priceVnd !== void 0 ? patch.priceVnd > 0 ? "paid" : "free" : existing.accessMode;
+  const nextPrice = nextAccessMode === "paid" ? sanitizeVnd(patch.priceVnd !== void 0 ? patch.priceVnd : existing.priceVnd) : 0;
+  const updated = sanitizePublicDocument({
+    ...existing,
+    ...nextAccessMode === "free" && secrets?.fileUrl ? { fileUrl: secrets.fileUrl } : {},
+    accessMode: nextAccessMode,
+    priceVnd: nextPrice,
+    status: patch.status || existing.status,
+    ...patch.rejectionReason !== void 0 ? { rejectionReason: patch.rejectionReason } : {},
+    ...patch.isFeatured !== void 0 ? { isFeatured: patch.isFeatured } : {},
+    updatedAt: now
+  });
+  if (adminDb) {
+    await adminDb.collection(DOCS_COLLECTION).doc(docId).set(updated);
+  } else {
+    await setFirestoreRestDoc(DOCS_COLLECTION, docId, updated);
+  }
+  if (patch.status && patch.status !== existing.status && existing.authorUid) {
+    const notifId = `notif_${Date.now()}_${Math.random().toString(36).slice(2, 7)}`;
+    const isApproved = patch.status === "published";
+    const notifDoc = {
+      id: notifId,
+      userId: existing.authorUid,
+      recipientUid: existing.authorUid,
+      title: isApproved ? `\u2705 T\xE0i li\u1EC7u "${existing.title}" \u0111\xE3 \u0111\u01B0\u1EE3c duy\u1EC7t!` : `\u26A0\uFE0F T\xE0i li\u1EC7u "${existing.title}" c\u1EA7n ch\u1EC9nh s\u1EEDa`,
+      content: isApproved ? `T\xE0i li\u1EC7u c\u1EE7a b\u1EA1n \u0111\xE3 xu\u1EA5t hi\u1EC7n c\xF4ng khai tr\xEAn Kho T\xE0i Li\u1EC7u DkTEST.` : `L\xFD do: ${patch.rejectionReason || "N\u1ED9i dung ch\u01B0a ph\xF9 h\u1EE3p ti\xEAu chu\u1EA9n c\u1ED9ng \u0111\u1ED3ng."}`,
+      type: "system",
+      read: false,
+      link: `/student/documents/${encodeURIComponent(docId)}`,
+      createdAt: now
+    };
+    try {
+      if (adminDb) {
+        await adminDb.collection("notifications").doc(notifId).set(notifDoc);
+      } else {
+        await setFirestoreRestDoc("notifications", notifId, notifDoc);
+      }
+    } catch {
+    }
+  }
+  invalidateDocumentLibraryCache();
+  return updated;
+}
+async function grantOrRevokeDocumentEntitlement(adminActor, params) {
+  const cleanUid = String(params.uid || "").trim();
+  const cleanDocId = String(params.docId || "").trim();
+  if (!cleanUid || !cleanDocId) throw new Error("Thi\u1EBFu UID ng\u01B0\u1EDDi d\xF9ng ho\u1EB7c m\xE3 t\xE0i li\u1EC7u.");
+  const doc = await getDocumentByIdResolved(cleanDocId);
+  if (!doc) throw new Error("Kh\xF4ng t\xECm th\u1EA5y t\xE0i li\u1EC7u.");
+  const entId = `${cleanUid}_${cleanDocId}`;
+  const now = (/* @__PURE__ */ new Date()).toISOString();
+  const ent = {
+    id: entId,
+    uid: cleanUid,
+    docId: cleanDocId,
+    docTitleSnapshot: doc.title,
+    authorUid: doc.authorUid,
+    pricePaidVnd: 0,
+    creatorShareVnd: 0,
+    platformFeeVnd: 0,
+    status: params.action === "grant" ? "active" : "revoked",
+    grantedBy: "admin_grant",
+    createdAt: now,
+    updatedAt: now
+  };
+  if (adminDb) {
+    await adminDb.collection(ENTITLEMENTS_COLLECTION).doc(entId).set(ent, { merge: true });
+  } else {
+    await setFirestoreRestDoc(ENTITLEMENTS_COLLECTION, entId, ent);
+  }
+  return ent;
+}
+async function getAdminDocumentPurchases(limitCount = 100) {
+  const safeLimit = Math.max(1, Math.min(250, limitCount));
+  if (adminDb) {
+    try {
+      const snap = await adminDb.collection(ENTITLEMENTS_COLLECTION).orderBy("createdAt", "desc").limit(safeLimit).get();
+      return snap.docs.map((d) => ({ id: d.id, ...d.data() }));
+    } catch {
+      const snap = await adminDb.collection(ENTITLEMENTS_COLLECTION).limit(safeLimit).get();
+      const items = snap.docs.map((d) => ({ id: d.id, ...d.data() }));
+      items.sort((a, b) => String(b.createdAt || "").localeCompare(String(a.createdAt || "")));
+      return items;
+    }
+  }
+  const rest = await getFirestoreRestDocs(ENTITLEMENTS_COLLECTION, safeLimit, true) || [];
+  rest.sort((a, b) => String(b.createdAt || "").localeCompare(String(a.createdAt || "")));
+  return rest;
+}
+
+// server/routes/documentLibraryAdminRoutes.ts
+var documentLibraryAdminRouter = Router3();
+documentLibraryAdminRouter.get("/", async (_req, res) => {
+  try {
+    const [documents, settings, purchases] = await Promise.all([
+      getLiveLibraryDocuments({ includeNonPublished: true, forceRefresh: true }),
+      getDocumentLibrarySettings(true),
+      getAdminDocumentPurchases(120)
+    ]);
+    return res.json({
+      success: true,
+      documents,
+      settings,
+      purchases
+    });
+  } catch (err) {
+    return res.status(500).json({
+      error: "admin_documents_error",
+      message: err?.message || "Kh\xF4ng th\u1EC3 t\u1EA3i danh s\xE1ch qu\u1EA3n tr\u1ECB t\xE0i li\u1EC7u."
+    });
+  }
+});
+documentLibraryAdminRouter.post("/", async (req, res) => {
+  try {
+    const doc = await createOrUpdateLibraryDocument(req.user, req.body || {});
+    return res.status(201).json({
+      success: true,
+      document: doc,
+      message: "\u0110\xE3 l\u01B0u t\xE0i li\u1EC7u v\xE0o Kho T\xE0i Li\u1EC7u!"
+    });
+  } catch (err) {
+    const msg = err?.issues?.[0]?.message || err?.message || "Kh\xF4ng th\u1EC3 l\u01B0u t\xE0i li\u1EC7u.";
+    return res.status(400).json({ error: "admin_doc_save_error", message: msg });
+  }
+});
+documentLibraryAdminRouter.patch("/settings", async (req, res) => {
+  try {
+    const settings = await updateDocumentLibrarySettings(req.body || {});
+    return res.json({
+      success: true,
+      settings,
+      message: "\u0110\xE3 l\u01B0u c\u1EA5u h\xECnh Kho T\xE0i Li\u1EC7u."
+    });
+  } catch (err) {
+    return res.status(400).json({
+      error: "admin_doc_settings_error",
+      message: err?.message || "Kh\xF4ng th\u1EC3 c\u1EADp nh\u1EADt c\u1EA5u h\xECnh."
+    });
+  }
+});
+documentLibraryAdminRouter.post("/entitlements", async (req, res) => {
+  try {
+    const { uid, docId, action } = req.body || {};
+    if (!uid || !docId || action !== "grant" && action !== "revoke") {
+      return res.status(400).json({
+        error: "invalid_params",
+        message: "Vui l\xF2ng truy\u1EC1n \u0111\u1EA7y \u0111\u1EE7 uid, docId v\xE0 action (grant / revoke)."
+      });
+    }
+    const entitlement = await grantOrRevokeDocumentEntitlement(req.user, { uid, docId, action });
+    return res.json({
+      success: true,
+      entitlement,
+      message: action === "grant" ? "\u0110\xE3 c\u1EA5p quy\u1EC1n truy c\u1EADp t\xE0i li\u1EC7u cho h\u1ECDc sinh!" : "\u0110\xE3 thu h\u1ED3i quy\u1EC1n truy c\u1EADp t\xE0i li\u1EC7u."
+    });
+  } catch (err) {
+    return res.status(400).json({
+      error: "admin_doc_entitlement_error",
+      message: err?.message || "Kh\xF4ng th\u1EC3 c\u1EADp nh\u1EADt quy\u1EC1n truy c\u1EADp."
+    });
+  }
+});
+documentLibraryAdminRouter.post("/import-blogger", async (req, res) => {
+  try {
+    const rawSiteUrl = String(req.body?.siteUrl || "https://www.nganhangdethi.org").trim().replace(/\/+$/, "");
+    const maxItems = Math.max(1, Math.min(30, Number(req.body?.limit) || 12));
+    await validateUrlForSsrf(rawSiteUrl);
+    const feedUrl = `${rawSiteUrl}/feeds/posts/default?alt=json&max-results=${maxItems}`;
+    const feedRes = await fetch(feedUrl, { signal: AbortSignal.timeout(15e3) });
+    if (!feedRes.ok) {
+      throw new Error(`Kh\xF4ng th\u1EC3 k\u1EBFt n\u1ED1i ngu\u1ED3n RSS/JSON (${feedRes.status}).`);
+    }
+    const feedJson = await feedRes.json();
+    const entries = feedJson?.feed?.entry || [];
+    let importedCount = 0;
+    for (const entry of entries) {
+      const title = String(entry?.title?.["$t"] || "").trim();
+      const content = String(entry?.content?.["$t"] || "");
+      const deMatch = content.match(/\bde=['"](https?:\/\/[^'"]+)['"]/i) || content.match(/https?:\/\/drive\.google\.com\/(?:file\/d\/[a-zA-Z0-9_-]+(?:\/view)?|open\?id=[a-zA-Z0-9_-]+)/i);
+      const fileUrl = deMatch ? deMatch[1] || deMatch[0] : "";
+      if (!title || !fileUrl) continue;
+      const daMatch = content.match(/\bda=['"](https?:\/\/[^'"]+)['"]/i);
+      const answerUrl = daMatch && daMatch[1] !== fileUrl ? daMatch[1] : void 0;
+      await createOrUpdateLibraryDocument(req.user, {
+        title: title.slice(0, 200),
+        description: `T\xE0i li\u1EC7u \u0111\u1ED3ng b\u1ED9 t\u1EEB ${new URL(rawSiteUrl).hostname}.`,
+        grade: /10/.test(title) ? "grade_10" : /11/.test(title) ? "grade_11" : "grade_12",
+        subject: "multi_subject",
+        category: /ebook|sách/i.test(title) ? "ebook_book" : "exam_test",
+        fileFormat: "pdf",
+        accessMode: "free",
+        priceVnd: 0,
+        fileUrl,
+        answerUrl,
+        status: "published"
+      });
+      importedCount++;
+    }
+    return res.json({
+      success: true,
+      importedCount,
+      message: `\u0110\xE3 \u0111\u1ED3ng b\u1ED9 th\xEAm ${importedCount} t\xE0i li\u1EC7u m\u1EDBi t\u1EEB ${new URL(rawSiteUrl).hostname}!`
+    });
+  } catch (err) {
+    return res.status(400).json({
+      error: "import_blogger_error",
+      message: err?.message || "\u0110\u1ED3ng b\u1ED9 ngu\u1ED3n ngo\xE0i th\u1EA5t b\u1EA1i."
+    });
+  }
+});
+documentLibraryAdminRouter.patch(
+  "/:docId/moderate",
+  async (req, res) => {
+    try {
+      const updated = await moderateLibraryDocument(req.user, req.params.docId, req.body || {});
+      return res.json({
+        success: true,
+        document: updated,
+        message: "\u0110\xE3 c\u1EADp nh\u1EADt tr\u1EA1ng th\xE1i ki\u1EC3m duy\u1EC7t t\xE0i li\u1EC7u."
+      });
+    } catch (err) {
+      return res.status(400).json({
+        error: "admin_doc_moderate_error",
+        message: err?.message || "Kh\xF4ng th\u1EC3 c\u1EADp nh\u1EADt tr\u1EA1ng th\xE1i t\xE0i li\u1EC7u."
+      });
+    }
+  }
+);
+documentLibraryAdminRouter.delete("/:docId", async (req, res) => {
+  try {
+    const result = await deleteLibraryDocument(req.user, req.params.docId);
+    return res.json({
+      success: true,
+      ...result,
+      message: result.hiddenSeed ? "\u0110\xE3 \u1EA9n t\xE0i li\u1EC7u g\u1ED1c kh\u1ECFi danh s\xE1ch hi\u1EC3n th\u1ECB c\xF4ng khai." : "\u0110\xE3 x\xF3a t\xE0i li\u1EC7u v\u0129nh vi\u1EC5n."
+    });
+  } catch (err) {
+    return res.status(400).json({
+      error: "admin_doc_delete_error",
+      message: err?.message || "Kh\xF4ng th\u1EC3 x\xF3a t\xE0i li\u1EC7u."
+    });
+  }
+});
+
 // server/routes/adminRoutes.ts
-var adminRouter = Router3();
+var adminRouter = Router4();
 var userListCache = /* @__PURE__ */ new Map();
 function invalidateUserListCache() {
   userListCache.clear();
@@ -8653,6 +9369,7 @@ adminRouter.post("/courses/probe-video", async (req, res) => {
 });
 adminRouter.use("/ai-shop", aiShopAdminRouter);
 adminRouter.use("/minigames", minigameAdminRouter);
+adminRouter.use("/documents", documentLibraryAdminRouter);
 adminRouter.post("/notifications/broadcast", async (req, res) => {
   try {
     const parsed = broadcastNotificationSchema.parse(req.body || {});

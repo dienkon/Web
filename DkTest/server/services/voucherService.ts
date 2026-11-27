@@ -246,14 +246,14 @@ export interface ValidateVoucherResult {
 
 function buildContextMismatchMessageServer(
   voucherType: VoucherType,
-  context: "exam_unlock" | "course_unlock" | "deposit" | "gift_money"
+  context: "exam_unlock" | "course_unlock" | "document_unlock" | "deposit" | "gift_money"
 ): string {
   const isDiscount = voucherType === "discount_percent" || voucherType === "discount_fixed";
   const isDepositBonus = voucherType === "deposit_bonus_percent" || voucherType === "deposit_bonus_fixed";
 
   if (context === "deposit") {
     if (isDiscount) {
-      return "Mã này là Voucher giảm giá mở khóa đề thi / khóa học — không áp dụng khi nạp tiền! Vui lòng dùng mã này ở bước mở khóa đề thi hoặc khóa học.";
+      return "Mã này là Voucher giảm giá mở khóa đề thi / khóa học / tài liệu — không áp dụng khi nạp tiền! Vui lòng dùng mã này ở bước mở khóa.";
     }
     if (voucherType === "gift_money") {
       return "Mã này là Voucher tặng tiền thẳng vào ví — hãy nhập ở mục 'Nhập mã Voucher quà tặng' phía trên để nhận tiền ngay!";
@@ -261,8 +261,13 @@ function buildContextMismatchMessageServer(
     return "Mã này không áp dụng ưu đãi khi nạp tiền.";
   }
 
-  if (context === "exam_unlock" || context === "course_unlock") {
-    const itemLabel = context === "course_unlock" ? "khóa học / bài giảng" : "đề thi";
+  if (context === "exam_unlock" || context === "course_unlock" || context === "document_unlock") {
+    const itemLabel =
+      context === "course_unlock"
+        ? "khóa học / bài giảng"
+        : context === "document_unlock"
+        ? "tài liệu"
+        : "đề thi";
     if (isDepositBonus) {
       return `Mã này là Voucher thưởng nạp tiền — không áp dụng để giảm giá mở khóa ${itemLabel}! Vui lòng dùng mã này tại trang Ví DkTEST khi nạp tiền.`;
     }
@@ -394,7 +399,7 @@ export async function recordVoucherSave(rawCode: string): Promise<{
 export async function validateVoucher(params: {
   code: string;
   uid: string;
-  context: "exam_unlock" | "course_unlock" | "deposit" | "gift_money";
+  context: "exam_unlock" | "course_unlock" | "document_unlock" | "deposit" | "gift_money";
   amountVnd?: number;
   examId?: string;
   courseId?: string;
@@ -470,8 +475,17 @@ export async function validateVoucher(params: {
     };
   }
 
-  if (params.context === "exam_unlock" || params.context === "course_unlock") {
-    const itemLabel = params.context === "course_unlock" ? "khóa học / bài giảng" : "bài thi";
+  if (
+    params.context === "exam_unlock" ||
+    params.context === "course_unlock" ||
+    params.context === "document_unlock"
+  ) {
+    const itemLabel =
+      params.context === "course_unlock"
+        ? "khóa học / bài giảng"
+        : params.context === "document_unlock"
+        ? "tài liệu"
+        : "bài thi";
     if (voucher.type !== "discount_percent" && voucher.type !== "discount_fixed") {
       return {
         valid: false,

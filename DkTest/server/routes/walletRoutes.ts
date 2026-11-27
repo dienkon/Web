@@ -38,6 +38,7 @@ import {
 import { extractGoogleDriveFileId } from "../../src/utils/videoSourceHelper.js";
 import { aiShopStudentRouter } from "./aiShopStudentRoutes.js";
 import { minigameStudentRouter } from "./minigameStudentRoutes.js";
+import { documentLibraryRouter } from "./documentLibraryRoutes.js";
 import { fetchNotificationFeed } from "../services/notificationPushService.js";
 
 export const walletRouter = Router();
@@ -462,6 +463,9 @@ walletRouter.use("/ai-shop", aiShopStudentRouter);
 
 // Free Welfare Minigame Event Student Routes (/api/minigames/*)
 walletRouter.use("/minigames", minigameStudentRouter);
+
+// Document Repository Student & Public Routes (/api/documents/*)
+walletRouter.use("/documents", documentLibraryRouter);
 
 // GET /api/notifications/feed — Public broadcast + optional user-specific feed for Web & Android WorkManager
 walletRouter.get("/notifications/feed", async (req: AuthenticatedRequest, res: Response) => {
