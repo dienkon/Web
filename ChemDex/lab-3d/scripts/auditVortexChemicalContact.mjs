@@ -53,7 +53,7 @@ try {
         const location = program?.getUniforms().map.uVortex;
         return location ? Array.from(gl.getContext().getUniform(program.program, location.addr)) : null;
       };
-      if (!cap || !body) throw Error('Expected live liquid meshes');
+      if (!cap || !body) return null;
       cap.updateWorldMatrix(true, false);
       return { surface: motion.vesselVortexSurface(current), capUniform: uniform(cap), bodyUniform: uniform(body),
         capNormal: new three.Vector3(0, 0, 1).transformDirection(cap.matrixWorld).toArray(),
@@ -100,7 +100,12 @@ try {
   assert.ok(Math.abs(contact.surface.angularSpeed_rad_s - contact.rendered.angularSpeed_rad_s) < 1e-8);
   report.checks.push({ kind: 'same-wet-boundary', ...contact });
   const checkSurface = async kind => {
-    const result = await page.evaluate(() => window.vortexContact.readSurface());
+    const ready = await page.waitForFunction(() => {
+      const surface = window.vortexContact.readSurface();
+      return surface?.capUniform && surface.bodyUniform ? surface : false;
+    }, undefined, { timeout: 15000 });
+    const result = await ready.jsonValue();
+    await ready.dispose();
     for (const values of [result.capUniform, result.bodyUniform]) {
       assert.ok(values, 'Read the compiled GPU uniform');
       assert.ok(Math.abs(values[1] - result.surface.amplitude) < 1e-6);
