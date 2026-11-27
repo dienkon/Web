@@ -46,6 +46,11 @@ interface GasPacket extends PhysicalEvaporationParticle {
   chamberClosed?: boolean;
 }
 
+/** Both sides of the outlet share the packet's terminal fade. */
+export function chamberPacketOpacity(packet: Pick<GasPacket, 'opacity' | 'age' | 'life'>) {
+  return packet.opacity * Math.min(1, Math.max(0, packet.life - packet.age));
+}
+
 /** Ideal-gas density contrast relative to air at the same pressure.
  * Mixing/temperature relaxation are illustrative, not measured entrainment. */
 export function gasDensityRatio(molarMass: number, temperature_c: number, ambient_c: number, age = 0) {
@@ -124,6 +129,7 @@ export class GasPlumeSystem {
         // remain on the fixed simulation timeline, including after dosing ends.
         const chamber = input.chamber ?? p.chamber;
         p.chamber = chamber; p.toWorld = input.sourceToWorld ?? p.toWorld;
+        p.opacity = 0.64 * -Math.expm1(-p.age / 0.3) * Math.exp(-p.age * 0.035);
         const local = p.local!;
         const canEscape = !chamber.sealed || !!chamber.vent;
         if (canEscape && p.chamberClosed) { p.releaseAt = p.age + 0.8; p.chamberClosed = false; }
@@ -139,7 +145,14 @@ export class GasPlumeSystem {
           const a = f < 0.65 ? p.releaseFrom : port, b = f < 0.65 ? port : outlet;
           const u = f < 0.65 ? f / 0.65 : (f - 0.65) / 0.35, t = u * u * (3 - 2 * u);
           for (let i = 0; i < 3; i++) local[i] = a[i] + (b[i] - a[i]) * t;
-          if (f === 1) { p.released = true; p.releasedAt = p.age; p.life = p.age + 3.8; p.baseSize = p.size; }
+          if (f === 1) {
+            // Carry the current opacity through the change in lifetime.
+            p.opacity = chamberPacketOpacity(p);
+            p.released = true;
+            p.releasedAt = p.age;
+            p.life = p.age + 3.8;
+            p.baseSize = p.size;
+          }
         } else {
           local[0] += Math.sin(p.age * 1.4 + p.curlSeed) * chamber.profile.H * 0.18 * dt;
           local[2] += Math.cos(p.age * 1.1 + p.curlSeed) * chamber.profile.H * 0.18 * dt;
@@ -150,7 +163,6 @@ export class GasPlumeSystem {
         }
         const world = p.toWorld?.(local) ?? local;
         [p.x, p.y, p.z] = world;
-        p.opacity = 0.64 * -Math.expm1(-p.age / 0.3) * Math.exp(-p.age * 0.035);
         continue;
       }
       const contrast = 1 - gasDensityRatio(p.molarMass, p.sourceTemperature, p.ambient, p.age);

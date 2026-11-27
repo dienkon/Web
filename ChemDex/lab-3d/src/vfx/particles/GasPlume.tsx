@@ -6,6 +6,7 @@ import { getSoftParticleTexture } from '../textures';
 import { useAppStore } from '../../store/useAppStore';
 import { simulationFrameDt } from '../../core/clock';
 import { roomGasClouds, representativeGasOpacity, sampleGasCloudParticles, type GasCloudSource, type GasCloudRepository } from '../../simulation/effects/GasCloudRepository';
+import { chamberPacketOpacity } from '../../simulation/effects/GasPlumeSystem';
 import { createInstancedMistMaterial, mistParticleAppearance } from '../../simulation/render/mistAppearance';
 import { gasVisualState, retainedGasVisuals } from '../gasVisualState';
 import { GAS_FUME_TABLE } from '../catalog/gasTable';
@@ -84,13 +85,9 @@ export function GasCloudLayer({ species, repository = roomGasClouds }: { species
     const opacity = geometry.getAttribute('aMistOpacity') as THREE.InstancedBufferAttribute;
     const structure = geometry.getAttribute('aMistStructure') as THREE.InstancedBufferAttribute;
     const count = sampleGasCloudParticles(repository.clouds, species, maximum, (p, i, weight) => {
-      const appearance = mistParticleAppearance(p);
-      // Chamber packets already own a birth/deposition envelope. Applying
-      // another whole-life sine here hides their first seconds inside glass.
-      const confined = 'chamber' in p && !!p.chamber && !('released' in p && p.released);
-      const packetOpacity = confined ? p.opacity * Math.min(1, Math.max(0, p.life - p.age)) : appearance.opacity;
+      const packetOpacity = p.chamber ? chamberPacketOpacity(p) : mistParticleAppearance(p).opacity;
       scratch.position.set(p.x, p.y, p.z); scratch.quaternion.copy(frame.camera.quaternion);
-      scratch.scale.setScalar(appearance.diameter); scratch.updateMatrix(); target.setMatrixAt(i, scratch.matrix);
+      scratch.scale.setScalar(Math.max(0, p.size * 2)); scratch.updateMatrix(); target.setMatrixAt(i, scratch.matrix);
       opacity.setX(i, representativeGasOpacity(packetOpacity, weight));
       structure.setXY(i, p.curlSeed, p.age);
     });

@@ -1,6 +1,5 @@
 import { GasPlumeSystem, validGasChamber, type GasPlumeInput } from './GasPlumeSystem';
 import { PRNG, seedForLabel } from '../../core/rng';
-import type { PhysicalEvaporationParticle } from '../core/SimulationTypes';
 
 export interface GasCloudSource {
   vesselId: string; revision: number; receipt: object; seconds: number;
@@ -79,7 +78,7 @@ export function sampleGasCloudParticles(
   clouds: ReadonlyMap<string, Pick<GasCloud, 'species' | 'system'>>,
   species: string,
   maximum: number,
-  visit: (particle: PhysicalEvaporationParticle, index: number, weight: number) => void,
+  visit: (particle: GasPlumeSystem['particles'][number], index: number, weight: number) => void,
 ): number {
   if (!Number.isFinite(maximum) || maximum < 1) return 0;
   let total = 0;

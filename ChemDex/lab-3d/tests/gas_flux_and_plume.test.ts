@@ -2,12 +2,13 @@ import { afterEach, describe, expect, it } from 'vitest';
 import { measureGasFlux } from '../src/engine/gasFlux';
 import { projectEscapedGas } from '../src/engine/gasInventory';
 import { gasPacketRate, gasVisualState } from '../src/vfx/gasVisualState';
-import { GasPlumeSystem, gasDensityRatio, type GasPlumeInput } from '../src/simulation/effects/GasPlumeSystem';
+import { chamberPacketOpacity, GasPlumeSystem, gasDensityRatio, type GasPlumeInput } from '../src/simulation/effects/GasPlumeSystem';
 import { PRNG } from '../src/core/rng';
 import { useAppStore } from '../src/store/useAppStore';
 import { planSodiumWater } from '../src/engine/sodiumWaterPlan';
 import { computeMolarMass } from '../src/engine/ledger';
 import type { VesselState } from '../src/types/chemistry';
+import { getVesselProfile } from '../src/pour/physics/profiles';
 
 const before = useAppStore.getState();
 afterEach(() => useAppStore.setState(before, true));
@@ -142,6 +143,30 @@ describe('Colored gas packet transport', () => {
     s.update(2, { ...input, rate: 0, mol_s: 0 });
     expect(s.particles).toHaveLength(0);
     s.reset(); s.update(1, input); expect(s.particles).toEqual(old);
+  });
+  it.each([false, true])('preserves opacity at the outlet, near expiry=%s', nearExpiry => {
+    const s = plume(1);
+    const profile = getVesselProfile('beaker', 100);
+    const chamber = { profile, bottomY: profile.baseY + profile.H / 2, sealed: true };
+    s.update(0.1, { ...input, chamber });
+    const packet = s.particles[0];
+    if (nearExpiry) packet.life = packet.age + 1.85;
+    const open = { ...input, rate: 0, mol_s: 0, chamber: { ...chamber, sealed: false } };
+    let before = 0;
+    for (let i = 0; i < 240 && !packet.released; i++) {
+      before = chamberPacketOpacity(packet);
+      s.update(s.fixedDt, open);
+    }
+    expect(packet.released).toBe(true);
+    const atOutlet = chamberPacketOpacity(packet);
+    expect(atOutlet).toBeGreaterThan(0);
+    expect(Math.abs(atOutlet - before)).toBeLessThan(0.01);
+    s.update(0.5, open);
+    expect(chamberPacketOpacity(packet)).toBeLessThan(atOutlet);
+    s.update(2, open);
+    s.update(1.5, open);
+    expect(s.particles).toHaveLength(0);
+    expect(s.integratedGas_mol).toBeCloseTo(0.0001, 12);
   });
   it('drops display packets when full instead of storing a burst debt, and does not accelerate pooling exponentially', () => {
     const s = plume(1); s.update(1, { ...input, rate: 40, floorY: 0.95 });
