@@ -5,6 +5,7 @@ import {
   DOCUMENT_CATEGORY_META,
   DOCUMENT_GRADE_META,
   DOCUMENT_SUBJECT_META,
+  DOCUMENT_TOPIC_CLUSTER_META,
   expandCompactSeedDocument,
   expandCompactSeedFolder,
   expandSeedUrl,
@@ -21,12 +22,31 @@ import {
   type DocumentStatus,
   type DocumentSubFile,
   type DocumentSubjectKey,
+  type FolderAccentColor,
   type LibraryDocument,
   type LibraryFolder,
 } from "../types/documentLibrary";
 
 export interface IndexedLibraryDocument extends LibraryDocument {
   _searchKey: string;
+  _topicKey?: string;
+}
+
+export interface ConsolidatedTopicGroup {
+  key: string;
+  topicKey: string;
+  title: string;
+  topicLabel: string;
+  subject: DocumentSubjectKey;
+  grade: DocumentGradeKey;
+  iconColor: FolderAccentColor;
+  sortOrder: number;
+  count: number;
+  multiPackCount: number;
+  sources: string[];
+  previewTitles: string[];
+  latestDate: string;
+  documents: IndexedLibraryDocument[];
 }
 
 export interface FolderTreeNode extends LibraryFolder {
@@ -93,10 +113,52 @@ export function normalizeVietnameseSearchText(input: string): string {
     .trim();
 }
 
-function buildSearchKey(doc: LibraryDocument): string {
+export function inferDocumentTopicKey(doc: LibraryDocument): string {
+  if (doc.topicKey && DOCUMENT_TOPIC_CLUSTER_META[doc.topicKey]) {
+    return doc.topicKey;
+  }
+  const s = normalizeVietnameseSearchText(`${doc.title} ${(doc.tags || []).join(" ")}`);
+  if (doc.grade === "dgnl_dgtd" || /\b(hsa|tsa|v-act|vact|dgnl|dgtd|spt|v-sat|vsat)\b/.test(s)) {
+    if (/\b(hsa|dhqg ha noi|quoc gia ha noi)\b/.test(s)) return "dgnl_hsa";
+    if (/\b(v-act|vact|dhqg tp|dhqg hcm)\b/.test(s)) return "dgnl_vact";
+    if (/\b(tsa|bach khoa|tu duy)\b/.test(s)) return "dgtd_tsa";
+    return "dgnl_spt_vsat";
+  }
+  if (/\b(vao 10|tuyen sinh lop 10|thi vao lop 10)\b/.test(s)) return "tuyen_sinh_10";
+  if (/\b(hoc sinh gioi|hsg|olympic)\b/.test(s)) return "de_hsg";
+  if (/\b(giua hoc ky 1|giua ky 1|giua ki 1|gk1|ghk1)\b/.test(s)) return "de_gk1";
+  if (/\b(cuoi hoc ky 1|cuoi ky 1|hoc ky 1|hk1|chk1)\b/.test(s)) return "de_hk1";
+  if (/\b(giua hoc ky 2|giua ky 2|gk2|cuoi hoc ky 2|hoc ky 2|hk2)\b/.test(s)) return "de_gk2_hk2";
+  if (
+    doc.grade === "thpt_qg" ||
+    /\b(thi thu|tot nghiep thpt|tn thpt|thpt quoc gia|thptqg|khao sat|kscl|so gd|truong thpt)\b/.test(s)
+  ) {
+    if (/\b(\d+\s*de|bo de|tong hop de|tuyen tap de)\b/.test(s)) return "bo_de_thuc_chien";
+    return "thptqg_truong_so";
+  }
+  if (doc.category === "ebook_book") return "tu_sach_ebook";
+  if (doc.category === "formula_handbook") return "so_tay_mindmap";
+  if (doc.subject === "math") {
+    if (/\b(ham so|dao ham|cuc tri|tiem can|do thi)\b/.test(s)) return "toan_ham_so";
+    if (/\b(nguyen ham|tich phan)\b/.test(s)) return "toan_nguyen_ham_tich_phan";
+    if (/\b(oxyz|khong gian|khoi da dien|goc khoang cach|vecto)\b/.test(s))
+      return "toan_oxyz_khong_gian";
+    if (/\b(xac suat|thong ke|to hop|day so|cap so|logarit|mu)\b/.test(s))
+      return "toan_xac_suat_logarit";
+  }
+  if (doc.subject === "physics") return "cd_vat_ly";
+  if (doc.subject === "chemistry") return "cd_hoa_hoc";
+  if (doc.subject === "biology") return "cd_sinh_hoc";
+  if (doc.subject === "literature") return "cd_van_nghi_luan";
+  if (doc.subject === "english") return "cd_anh_luyen_de";
+  return "bo_tai_lieu_tong_hop";
+}
+
+function buildSearchKey(doc: LibraryDocument, topicKey: string): string {
   const gradeLabel = DOCUMENT_GRADE_META[doc.grade]?.label || "";
   const subjLabel = DOCUMENT_SUBJECT_META[doc.subject]?.label || "";
   const catLabel = DOCUMENT_CATEGORY_META[doc.category]?.label || "";
+  const topicLabel = DOCUMENT_TOPIC_CLUSTER_META[topicKey]?.label || "";
   return normalizeVietnameseSearchText(
     [
       doc.title,
@@ -104,6 +166,7 @@ function buildSearchKey(doc: LibraryDocument): string {
       gradeLabel,
       subjLabel,
       catLabel,
+      topicLabel,
       doc.authorName,
       doc.sourceName,
       ...(doc.tags || []),
@@ -111,6 +174,130 @@ function buildSearchKey(doc: LibraryDocument): string {
       .filter(Boolean)
       .join(" ")
   );
+}
+
+/**
+ * Automatically consolidates same-topic documents (e.g. all "Đề thi thử TN THPT & Khảo sát Trường - Sở — Môn Toán"
+ * across multiple sources/schools/provinces) into compact Topic Collection Folders for clean Web browsing.
+ */
+export function buildConsolidatedTopicGroups(docs: IndexedLibraryDocument[]): {
+  groups: ConsolidatedTopicGroup[];
+  standaloneDocs: IndexedLibraryDocument[];
+} {
+  const buckets = new Map<string, IndexedLibraryDocument[]>();
+
+  for (const doc of docs) {
+    const tk = doc._topicKey || inferDocumentTopicKey(doc);
+    let normGrade: DocumentGradeKey = doc.grade;
+    let normSubject: DocumentSubjectKey = doc.subject;
+
+    // Unify Grade 12 + THPT QG for School/Department Mock Exams & Practice Sets so all same-subject exams merge cleanly!
+    if (
+      (tk === "thptqg_truong_so" || tk === "bo_de_thuc_chien") &&
+      (doc.grade === "grade_12" || doc.grade === "thpt_qg")
+    ) {
+      normGrade = "thpt_qg";
+    } else if (
+      tk === "dgnl_hsa" ||
+      tk === "dgnl_vact" ||
+      tk === "dgtd_tsa" ||
+      tk === "dgnl_spt_vsat"
+    ) {
+      normGrade = "dgnl_dgtd";
+      if (doc.subject === "multi_subject") normSubject = "aptitude";
+    } else if (tk === "tuyen_sinh_10") {
+      normGrade = "thcs";
+    }
+
+    const bucketKey = `${tk}__${normSubject}__${normGrade}`;
+    if (!buckets.has(bucketKey)) buckets.set(bucketKey, []);
+    buckets.get(bucketKey)!.push(doc);
+  }
+
+  const groups: ConsolidatedTopicGroup[] = [];
+  const standaloneDocs: IndexedLibraryDocument[] = [];
+
+  for (const [key, items] of buckets.entries()) {
+    if (items.length < 2) {
+      standaloneDocs.push(...items);
+      continue;
+    }
+
+    const [tk, subjRaw, gradeRaw] = key.split("__") as [
+      string,
+      DocumentSubjectKey,
+      DocumentGradeKey,
+    ];
+    const tMeta =
+      DOCUMENT_TOPIC_CLUSTER_META[tk] || DOCUMENT_TOPIC_CLUSTER_META.bo_tai_lieu_tong_hop;
+    const subjLabel = DOCUMENT_SUBJECT_META[subjRaw]?.label || "Tổng hợp";
+    const gradeShort = DOCUMENT_GRADE_META[gradeRaw]?.shortLabel || "";
+
+    const isAptitudeTopic =
+      tk === "dgnl_hsa" ||
+      tk === "dgnl_vact" ||
+      tk === "dgtd_tsa" ||
+      tk === "dgnl_spt_vsat";
+    const isSubjectEmbeddedInTopic =
+      tk.startsWith("toan_") ||
+      tk === "cd_vat_ly" ||
+      tk === "cd_hoa_hoc" ||
+      tk === "cd_sinh_hoc" ||
+      tk === "cd_van_nghi_luan" ||
+      tk === "cd_anh_luyen_de";
+
+    let title = tMeta.label;
+    if (!isAptitudeTopic && !isSubjectEmbeddedInTopic && subjRaw !== "multi_subject") {
+      title = `${tMeta.label} — Môn ${subjLabel}`;
+    } else if (isAptitudeTopic && subjRaw !== "aptitude" && subjRaw !== "multi_subject") {
+      title = `${tMeta.label} — Phần ${subjLabel}`;
+    }
+
+    if (
+      gradeRaw !== "thpt_qg" &&
+      gradeRaw !== "dgnl_dgtd" &&
+      gradeRaw !== "general" &&
+      tk !== "tuyen_sinh_10" &&
+      gradeShort
+    ) {
+      title = `${title} (${gradeShort})`;
+    }
+
+    const srcSet = new Set<string>();
+    let multiPackCount = 0;
+    let latestDate = "";
+    for (const d of items) {
+      if (d.sourceName) srcSet.add(d.sourceName);
+      else if (d.authorName) srcSet.add(d.authorName);
+      if ((d.subFiles?.length || d.subFileCount || 0) > 1) multiPackCount++;
+      const dt = String(d.publishedAt || d.createdAt || "");
+      if (dt > latestDate) latestDate = dt;
+    }
+
+    groups.push({
+      key,
+      topicKey: tk,
+      title,
+      topicLabel: tMeta.label,
+      subject: subjRaw,
+      grade: gradeRaw,
+      iconColor: tMeta.accentColor,
+      sortOrder: tMeta.order,
+      count: items.length,
+      multiPackCount,
+      sources: [...srcSet].slice(0, 4),
+      previewTitles: items.slice(0, 3).map((x) => x.title),
+      latestDate,
+      documents: items,
+    });
+  }
+
+  groups.sort((a, b) => {
+    if (a.sortOrder !== b.sortOrder) return a.sortOrder - b.sortOrder;
+    return b.count - a.count;
+  });
+
+  return { groups, standaloneDocs };
 }
 
 export function getDocumentCoverFallbackUrl(subject: DocumentSubjectKey): string {
@@ -307,9 +494,12 @@ export async function getCatalogDocuments(options: { forceRefresh?: boolean } = 
         liveDoc.sourceKey ||
         (normalizedSpace === "dktest_exclusive" ? "dktest" : "community"),
     };
+    const liveTopicKey = inferDocumentTopicKey(enriched);
     mergedDocs.push({
       ...enriched,
-      _searchKey: buildSearchKey(enriched),
+      topicKey: liveTopicKey,
+      _topicKey: liveTopicKey,
+      _searchKey: buildSearchKey(enriched, liveTopicKey),
     });
   }
 
@@ -318,9 +508,12 @@ export async function getCatalogDocuments(options: { forceRefresh?: boolean } = 
     const override = overrideMap.get(seedDoc.id);
     if (override && override.status === "hidden") continue;
     if (seedDoc.folderId && hiddenFolderIds.has(seedDoc.folderId)) continue;
+    const seedTopicKey = inferDocumentTopicKey(seedDoc);
     mergedDocs.push({
       ...seedDoc,
-      _searchKey: buildSearchKey(seedDoc),
+      topicKey: seedTopicKey,
+      _topicKey: seedTopicKey,
+      _searchKey: buildSearchKey(seedDoc, seedTopicKey),
     });
   }
 
@@ -667,6 +860,35 @@ export async function saveUserDocumentClient(
       );
   invalidateClientDocumentCache();
   return { document: res.document, message: res.message };
+}
+
+export async function supplementDocumentClient(
+  docId: string,
+  payload: {
+    appendSubFiles?: DocumentSubFile[];
+    replaceSubFiles?: DocumentSubFile[];
+    answerUrl?: string | null;
+    videoUrl?: string | null;
+    status?: "published" | "hidden";
+    folderId?: string | null;
+  }
+): Promise<{
+  document: LibraryDocument;
+  subFiles: DocumentSubFile[];
+  answerUrl?: string;
+  videoUrl?: string;
+  message: string;
+}> {
+  const res = await api.post<{
+    success: boolean;
+    document: LibraryDocument;
+    subFiles: DocumentSubFile[];
+    answerUrl?: string;
+    videoUrl?: string;
+    message: string;
+  }>(`/api/documents/${encodeURIComponent(docId)}/supplement`, payload);
+  invalidateClientDocumentCache();
+  return res;
 }
 
 export async function deleteUserDocumentClient(docId: string): Promise<void> {

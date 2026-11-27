@@ -13,6 +13,8 @@ import {
   Download,
   Edit3,
   Eye,
+  EyeOff,
+  FilePlus2,
   FileText,
   Folder,
   FolderDown,
@@ -27,6 +29,7 @@ import {
   List,
   Loader2,
   Lock,
+  LogIn,
   RotateCcw,
   Search,
   Share2,
@@ -34,15 +37,18 @@ import {
   Square,
   Trash2,
   Unlock,
+  UserCheck,
   Users,
   X,
 } from "lucide-react";
 import BatchDownloadModal from "../../components/documents/BatchDownloadModal";
+import DocumentSupplementModal from "../../components/documents/DocumentSupplementModal";
 import DocumentUploadModal from "../../components/documents/DocumentUploadModal";
 import FolderFormModal from "../../components/documents/FolderFormModal";
 import { useToast } from "../../components/ui/ToastNotification";
 import { useAuth } from "../../context/AuthContext";
 import {
+  buildConsolidatedTopicGroups,
   buildDocumentShareUrl,
   buildFolderShareUrl,
   buildFolderTreeIndex,
@@ -55,7 +61,10 @@ import {
   getDocumentCoverFallbackUrl,
   getMyDocumentLibraryState,
   getSavedDocumentIds,
+  normalizeVietnameseSearchText,
+  supplementDocumentClient,
   toggleSavedDocumentId,
+  type ConsolidatedTopicGroup,
   type FolderTreeIndex,
   type FolderTreeNode,
   type IndexedLibraryDocument,
@@ -159,10 +168,27 @@ export default function DocumentLibraryPage() {
   const [currentFolderId, setCurrentFolderId] = useState<string | null>(
     () => searchParams.get("folder") || null
   );
-  const [includeSubfolders, setIncludeSubfolders] = useState(true);
+  // Default to false when inside parent folders so subfolders aren't drowned by descendant leaf files
+  const [includeSubfolders, setIncludeSubfolders] = useState(false);
+  // Default to "grouped" so loose same-topic exams across sources auto-consolidate into compact Topic Folders!
+  const [displayGrouping, setDisplayGrouping] = useState<"grouped" | "flat">("grouped");
+  const [activeTopicGroupKey, setActiveTopicGroupKey] = useState<string | null>(
+    () => searchParams.get("topic") || null
+  );
+  const [topicGroupSubSearch, setTopicGroupSubSearch] = useState("");
+  const [communityAuthorFilter, setCommunityAuthorFilter] = useState<string>("all");
+
+  // User's own uploaded document manager filter states
+  const [myDocSearch, setMyDocSearch] = useState("");
+  const [myDocFolderFilter, setMyDocFolderFilter] = useState<string>("all");
+  const [myDocStatusFilter, setMyDocStatusFilter] = useState<
+    "all" | "published" | "hidden" | "pending"
+  >("all");
+  const [togglingVisibilityDocId, setTogglingVisibilityDocId] = useState<string | null>(null);
+
   const [viewMode, setViewMode] = useState<"grid" | "list">("grid");
   const [expandedTreeIds, setExpandedTreeIds] = useState<Set<string>>(
-    () => new Set(["sfold_nhdt", "sfold_tlo_edu", "sfold_tlo_org"])
+    () => new Set(["sfold_nhdt", "sfold_tlo_edu", "sfold_tlo_org", "sfold_math_partners"])
   );
 
   const [allDocs, setAllDocs] = useState<IndexedLibraryDocument[]>([]);
@@ -204,6 +230,10 @@ export default function DocumentLibraryPage() {
   // Modals
   const [showUploadModal, setShowUploadModal] = useState(false);
   const [editingDoc, setEditingDoc] = useState<LibraryDocument | null>(null);
+  const [supplementModalState, setSupplementModalState] = useState<{
+    open: boolean;
+    targetDoc: LibraryDocument | null;
+  }>({ open: false, targetDoc: null });
   const [showFolderModal, setShowFolderModal] = useState(false);
   const [editingFolder, setEditingFolder] = useState<LibraryFolder | null>(null);
   const [folderDefaultParentId, setFolderDefaultParentId] = useState<string | null>(null);
@@ -223,22 +253,42 @@ export default function DocumentLibraryPage() {
 
   const isAdmin = role === "admin" || role === "super_admin";
 
-  // Sync URL `?folder=` changes (e.g. browser Back/Forward)
+  // Sync URL `?folder=` & `?topic=` changes (e.g. browser Back/Forward)
   useEffect(() => {
     const urlFolder = searchParams.get("folder") || null;
     if (urlFolder !== currentFolderId) {
       setCurrentFolderId(urlFolder);
     }
+    const urlTopic = searchParams.get("topic") || null;
+    if (urlTopic !== activeTopicGroupKey) {
+      setActiveTopicGroupKey(urlTopic);
+    }
   }, [searchParams]);
+
+  const openTopicGroup = (groupKey: string | null) => {
+    setActiveTopicGroupKey(groupKey);
+    setTopicGroupSubSearch("");
+    setCurrentPage(1);
+    setSelectedDocIds([]);
+    const next = new URLSearchParams(searchParams);
+    if (groupKey) {
+      next.set("topic", groupKey);
+    } else {
+      next.delete("topic");
+    }
+    setSearchParams(next, { replace: false });
+  };
 
   const openFolder = (folderId: string | null, targetTab?: LibraryTab) => {
     setCurrentFolderId(folderId);
+    setActiveTopicGroupKey(null);
+    setTopicGroupSubSearch("");
     setSelectedDocIds([]);
     if (targetTab) setActiveTab(targetTab);
     const next = new URLSearchParams(searchParams);
+    next.delete("topic");
     if (folderId) {
       next.set("folder", folderId);
-      // Auto-expand ancestor chain in tree sidebar
       const node = folderIndex.nodesById.get(folderId);
       if (node) {
         setExpandedTreeIds((prev) => {
@@ -261,6 +311,7 @@ export default function DocumentLibraryPage() {
   const handleSelectTab = (tab: LibraryTab) => {
     setActiveTab(tab);
     setSelectedDocIds([]);
+    setCommunityAuthorFilter("all");
     if (tab === "nhdt") {
       openFolder("sfold_nhdt", "nhdt");
       return;
@@ -321,6 +372,10 @@ export default function DocumentLibraryPage() {
     activeTab,
     currentFolderId,
     includeSubfolders,
+    displayGrouping,
+    activeTopicGroupKey,
+    topicGroupSubSearch,
+    communityAuthorFilter,
     searchInput,
     gradeFilter,
     subjectFilter,
@@ -350,12 +405,44 @@ export default function DocumentLibraryPage() {
     return "all";
   }, [activeTab, currentFolderId]);
 
+  const communityContributors = useMemo(() => {
+    const map = new Map<string, { uid: string; name: string; docCount: number }>();
+    for (const d of allDocs) {
+      if (d.space !== "community" && d.authorRole !== "community") continue;
+      const uid = d.authorUid || d.authorName || "community_anon";
+      const existing = map.get(uid);
+      if (existing) {
+        existing.docCount++;
+      } else {
+        map.set(uid, {
+          uid,
+          name: d.authorName || "Thành viên DkTEST",
+          docCount: 1,
+        });
+      }
+    }
+    return [...map.values()].sort((a, b) => b.docCount - a.docCount);
+  }, [allDocs]);
+
   const baseListForActiveTab = useMemo(() => {
     if (activeTab === "saved") {
       return allDocs.filter((d) => savedSet.has(d.id) || unlockedSet.has(d.id));
     }
+    if (activeTab === "community" && communityAuthorFilter !== "all") {
+      return allDocs.filter(
+        (d) => (d.authorUid || d.authorName || "community_anon") === communityAuthorFilter
+      );
+    }
     return allDocs;
-  }, [activeTab, allDocs, savedSet, unlockedSet]);
+  }, [activeTab, allDocs, savedSet, unlockedSet, communityAuthorFilter]);
+
+  // Inside a parent folder with child folders, only expand descendant files when searching or explicitly checked
+  const effectiveIncludeSubfolders = useMemo(() => {
+    if (!currentFolderNode) return true;
+    if (currentFolderNode.children.length === 0) return true;
+    if (searchInput.trim().length > 0) return true;
+    return includeSubfolders;
+  }, [currentFolderNode, searchInput, includeSubfolders]);
 
   const { items: filteredDocs, gradeCounts, subjectCounts, categoryCounts } = useMemo(
     () =>
@@ -367,7 +454,7 @@ export default function DocumentLibraryPage() {
         priceFilter,
         spaceFilter: activeSpaceFilter,
         folderId: currentFolderId,
-        includeSubfolders,
+        includeSubfolders: effectiveIncludeSubfolders,
         folderIndex,
         sortBy,
       }),
@@ -380,18 +467,93 @@ export default function DocumentLibraryPage() {
       priceFilter,
       activeSpaceFilter,
       currentFolderId,
-      includeSubfolders,
+      effectiveIncludeSubfolders,
       folderIndex,
       sortBy,
     ]
   );
 
-  const totalPages = Math.max(1, Math.ceil(filteredDocs.length / PAGE_SIZE));
+  // Consolidate filtered documents into compact Topic Collection Folders
+  const consolidatedTopics = useMemo(
+    () => buildConsolidatedTopicGroups(filteredDocs),
+    [filteredDocs]
+  );
+
+  const activeTopicGroup: ConsolidatedTopicGroup | null = useMemo(() => {
+    if (!activeTopicGroupKey) return null;
+    return consolidatedTopics.groups.find((g) => g.key === activeTopicGroupKey) || null;
+  }, [activeTopicGroupKey, consolidatedTopics]);
+
+  // Show Consolidated Topic Folders when displayGrouping === "grouped", not searching, not inside a single-topic leaf
+  const showGroupedTopicView = Boolean(
+    displayGrouping === "grouped" &&
+      !activeTopicGroup &&
+      !searchInput.trim() &&
+      activeTab !== "saved" &&
+      consolidatedTopics.groups.length > 0 &&
+      (!currentFolderNode || consolidatedTopics.groups.length >= 2)
+  );
+
+  const displayedDocs = useMemo(() => {
+    if (activeTopicGroup) {
+      const subTokens = normalizeVietnameseSearchText(topicGroupSubSearch)
+        .split(" ")
+        .filter(Boolean);
+      if (subTokens.length === 0) return activeTopicGroup.documents;
+      return activeTopicGroup.documents.filter((d) =>
+        subTokens.every((tk) => d._searchKey.includes(tk))
+      );
+    }
+    if (showGroupedTopicView) {
+      return consolidatedTopics.standaloneDocs;
+    }
+    return filteredDocs;
+  }, [
+    activeTopicGroup,
+    topicGroupSubSearch,
+    showGroupedTopicView,
+    consolidatedTopics,
+    filteredDocs,
+  ]);
+
+  const TOPIC_PAGE_SIZE = 18;
+  const totalTopicPages = Math.max(
+    1,
+    Math.ceil(consolidatedTopics.groups.length / TOPIC_PAGE_SIZE)
+  );
+  const safeTopicPage = Math.min(currentPage, totalTopicPages);
+  const pagedTopicGroups = useMemo(() => {
+    const start = (safeTopicPage - 1) * TOPIC_PAGE_SIZE;
+    return consolidatedTopics.groups.slice(start, start + TOPIC_PAGE_SIZE);
+  }, [consolidatedTopics.groups, safeTopicPage]);
+
+  const totalPages = Math.max(1, Math.ceil(displayedDocs.length / PAGE_SIZE));
   const safePage = Math.min(currentPage, totalPages);
   const pagedDocs = useMemo(() => {
     const start = (safePage - 1) * PAGE_SIZE;
-    return filteredDocs.slice(start, start + PAGE_SIZE);
-  }, [filteredDocs, safePage]);
+    return displayedDocs.slice(start, start + PAGE_SIZE);
+  }, [displayedDocs, safePage]);
+
+  // Filtered user's own uploaded documents for the dedicated Management tab
+  const filteredMyUploadedDocs = useMemo(() => {
+    const q = normalizeVietnameseSearchText(myDocSearch);
+    return myUploadedDocs.filter((d) => {
+      if (myDocFolderFilter === "__none__" && d.folderId) return false;
+      if (
+        myDocFolderFilter !== "all" &&
+        myDocFolderFilter !== "__none__" &&
+        d.folderId !== myDocFolderFilter
+      ) {
+        return false;
+      }
+      if (myDocStatusFilter !== "all" && d.status !== myDocStatusFilter) return false;
+      if (q) {
+        const hay = normalizeVietnameseSearchText(`${d.title} ${d.description || ""}`);
+        if (!hay.includes(q)) return false;
+      }
+      return true;
+    });
+  }, [myUploadedDocs, myDocFolderFilter, myDocStatusFilter, myDocSearch]);
 
   // Dedicated exclusive & source counts
   const dktestExclusiveDocs = useMemo(
@@ -408,7 +570,9 @@ export default function DocumentLibraryPage() {
     gradeFilter !== "all" ||
     subjectFilter !== "all" ||
     categoryFilter !== "all" ||
-    priceFilter !== "all";
+    priceFilter !== "all" ||
+    Boolean(activeTopicGroupKey) ||
+    communityAuthorFilter !== "all";
 
   const resetAllFilters = () => {
     setSearchInput("");
@@ -417,6 +581,8 @@ export default function DocumentLibraryPage() {
     setCategoryFilter("all");
     setPriceFilter("all");
     setSortBy("newest");
+    setCommunityAuthorFilter("all");
+    openTopicGroup(null);
   };
 
   const handleShareDoc = async (e: React.MouseEvent, doc?: LibraryDocument) => {
@@ -592,6 +758,142 @@ export default function DocumentLibraryPage() {
     }
     setEditingDoc(null);
     setShowUploadModal(true);
+  };
+
+  const handleOpenSupplementModal = (doc: LibraryDocument) => {
+    if (!user?.uid) {
+      showErrorToast("Vui lòng đăng nhập tài khoản để quản lý tài liệu.");
+      navigate("/login");
+      return;
+    }
+    setSupplementModalState({ open: true, targetDoc: doc });
+  };
+
+  const handleOpenBatchUploadModal = (presetFolderId?: string | null) => {
+    if (!user?.uid) {
+      showErrorToast("Vui lòng đăng nhập tài khoản để đăng hàng loạt nhiều tệp.");
+      navigate("/login");
+      return;
+    }
+    if (presetFolderId !== undefined) {
+      setCurrentFolderId(presetFolderId);
+    }
+    setSupplementModalState({ open: true, targetDoc: null });
+  };
+
+  const handleToggleMyDocVisibility = async (doc: LibraryDocument) => {
+    const nextStatus = doc.status === "hidden" ? "published" : "hidden";
+    try {
+      setTogglingVisibilityDocId(doc.id);
+      await supplementDocumentClient(doc.id, { status: nextStatus });
+      showSuccessToast(
+        nextStatus === "hidden"
+          ? `Đã tạm ẩn tài liệu "${doc.title}" khỏi kho công khai.`
+          : `Đã hiển thị công khai lại tài liệu "${doc.title}"!`
+      );
+      void loadCatalog(true);
+      void loadPersonalState();
+    } catch (err: any) {
+      showErrorToast(err?.message || "Không thể đổi trạng thái hiển thị.");
+    } finally {
+      setTogglingVisibilityDocId(null);
+    }
+  };
+
+  const renderTopicGroupCard = (group: ConsolidatedTopicGroup) => {
+    const colorStyle = FOLDER_COLOR_STYLES[group.iconColor || "teal"] || FOLDER_COLOR_STYLES.teal;
+    const subjMeta = DOCUMENT_SUBJECT_META[group.subject] || DOCUMENT_SUBJECT_META.multi_subject;
+    const gradeMeta = DOCUMENT_GRADE_META[group.grade] || DOCUMENT_GRADE_META.grade_12;
+
+    return (
+      <div
+        key={group.key}
+        onClick={() => openTopicGroup(group.key)}
+        className={`group rounded-2xl border p-4 bg-white dark:bg-slate-900 hover:border-teal-500 dark:hover:border-teal-500 shadow-2xs hover:shadow-md transition-all cursor-pointer flex flex-col justify-between gap-3 ${colorStyle.border}`}
+      >
+        <div className="space-y-2">
+          <div className="flex items-start justify-between gap-2.5">
+            <div className="flex items-start gap-3 min-w-0">
+              <div
+                className={`w-10 h-10 rounded-xl flex items-center justify-center shrink-0 ${colorStyle.bg} ${colorStyle.icon}`}
+              >
+                <FolderOpen className="w-5 h-5" />
+              </div>
+              <div className="min-w-0">
+                <div className="flex flex-wrap items-center gap-1.5 mb-1">
+                  <span className={`px-2 py-0.5 rounded-md text-[10px] font-extrabold ${gradeMeta.badgeClass}`}>
+                    {gradeMeta.shortLabel}
+                  </span>
+                  <span className={`text-[10px] font-extrabold ${subjMeta.colorClass}`}>
+                    {subjMeta.label}
+                  </span>
+                  {group.multiPackCount > 0 && (
+                    <span className="px-1.5 py-0.5 rounded bg-indigo-50 dark:bg-indigo-950/60 text-indigo-700 dark:text-indigo-300 text-[10px] font-bold">
+                      {group.multiPackCount} gói bộ đề
+                    </span>
+                  )}
+                </div>
+                <h3 className="text-xs sm:text-sm font-extrabold text-slate-900 dark:text-white group-hover:text-teal-600 dark:group-hover:text-teal-400 line-clamp-2 leading-snug">
+                  {group.title}
+                </h3>
+              </div>
+            </div>
+          </div>
+
+          {group.previewTitles.length > 0 && (
+            <div className="rounded-xl bg-slate-50 dark:bg-slate-800/50 px-2.5 py-2 space-y-1">
+              {group.previewTitles.slice(0, 2).map((pt, i) => (
+                <div
+                  key={`${group.key}_pt_${i}`}
+                  className="text-[11px] text-slate-600 dark:text-slate-300 truncate flex items-center gap-1.5"
+                >
+                  <FileText className="w-3 h-3 text-slate-400 shrink-0" />
+                  <span className="truncate">{pt}</span>
+                </div>
+              ))}
+              {group.count > 2 && (
+                <div className="text-[10px] font-bold text-teal-600 dark:text-teal-400 pl-4">
+                  + {(group.count - 2).toLocaleString("vi-VN")} đề &amp; tài liệu cùng chủ đề khác...
+                </div>
+              )}
+            </div>
+          )}
+        </div>
+
+        <div className="flex items-center justify-between gap-2 pt-2 border-t border-slate-100 dark:border-slate-800/80 text-[11px]">
+          <div className="min-w-0">
+            <span className="font-extrabold text-slate-800 dark:text-slate-100">
+              {group.count.toLocaleString("vi-VN")} tài liệu
+            </span>
+            {group.sources.length > 0 && (
+              <span className="text-slate-400 truncate hidden sm:inline">
+                {" "}
+                • {group.sources.slice(0, 2).join(", ")}
+              </span>
+            )}
+          </div>
+
+          <button
+            type="button"
+            onClick={(e) => {
+              e.preventDefault();
+              e.stopPropagation();
+              setBatchModalState({
+                open: true,
+                title: group.title,
+                documents: group.documents,
+                rootFolderId: currentFolderId,
+              });
+            }}
+            title="Tải trọn bộ chủ đề này (.ZIP)"
+            className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-teal-50 hover:bg-teal-100 dark:bg-teal-950/60 text-teal-700 dark:text-teal-300 font-bold shrink-0 cursor-pointer"
+          >
+            <FolderDown className="w-3.5 h-3.5" />
+            <span>Tải trọn bộ</span>
+          </button>
+        </div>
+      </div>
+    );
   };
 
   const handleConfirmDeleteMyDoc = async (docId: string) => {
@@ -1169,6 +1471,17 @@ export default function DocumentLibraryPage() {
 
             <button
               type="button"
+              onClick={() =>
+                handleOpenBatchUploadModal(canManageCurrentFolder ? currentFolderId : null)
+              }
+              className="inline-flex items-center gap-1.5 px-3.5 py-2.5 rounded-2xl bg-emerald-50 hover:bg-emerald-100 dark:bg-emerald-950/60 text-emerald-700 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800/70 text-xs font-extrabold transition-colors cursor-pointer"
+            >
+              <Layers className="w-4 h-4" />
+              <span>Đăng hàng loạt</span>
+            </button>
+
+            <button
+              type="button"
               onClick={handleOpenUploadModal}
               className="inline-flex items-center gap-2 px-4 py-2.5 rounded-2xl bg-teal-600 hover:bg-teal-700 text-white text-xs font-extrabold shadow-xs transition-colors cursor-pointer"
             >
@@ -1248,191 +1561,519 @@ export default function DocumentLibraryPage() {
             <span>Đã lưu ({savedIds.length + unlockedIds.length})</span>
           </button>
 
-          {user?.uid && (
-            <button
-              type="button"
-              onClick={() => handleSelectTab("mine")}
-              className={`px-3.5 py-2 rounded-xl text-xs font-bold whitespace-nowrap transition-colors cursor-pointer flex items-center gap-1.5 ${
-                activeTab === "mine"
-                  ? "bg-slate-900 text-white dark:bg-white dark:text-slate-900"
-                  : "text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800"
-              }`}
-            >
-              <Sparkles className="w-3.5 h-3.5 text-amber-500" />
-              <span>Của tôi ({myFolders.length} thư mục • {myUploadedDocs.length} tệp)</span>
-            </button>
-          )}
+          <button
+            type="button"
+            onClick={() => handleSelectTab("mine")}
+            className={`px-3.5 py-2 rounded-xl text-xs font-bold whitespace-nowrap transition-colors cursor-pointer flex items-center gap-1.5 ${
+              activeTab === "mine"
+                ? "bg-amber-500 text-slate-950 font-extrabold shadow-2xs"
+                : "text-amber-700 dark:text-amber-300 bg-amber-50/80 dark:bg-amber-950/40 hover:bg-amber-100 dark:hover:bg-amber-950/70"
+            }`}
+          >
+            <Sparkles className="w-3.5 h-3.5" />
+            <span>
+              Quản lý tài liệu đã đăng
+              {user?.uid ? ` (${myUploadedDocs.length})` : ""}
+            </span>
+          </button>
         </div>
       </section>
 
       {/* ===================================================================== */}
-      {/* TAB: CONTRIBUTOR STUDIO ("Của tôi" — Tạo folder riêng, cập nhật đồ)   */}
+      {/* TAB: DEDICATED USER UPLOADED DOCUMENT & SUPPLEMENT MANAGER            */}
       {/* ===================================================================== */}
       {activeTab === "mine" ? (
-        <section className="space-y-5">
-          {/* Contributor KPI & Quick Actions */}
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3.5">
-            <div className="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 p-4">
-              <div className="text-xs text-slate-500 font-semibold">Thư mục riêng đã tạo</div>
-              <div className="text-2xl font-black text-indigo-600 dark:text-indigo-400 mt-1">
-                {myFolders.length}
-              </div>
-              <button
-                type="button"
-                onClick={() => handleOpenCreateFolderModal(null, "community")}
-                className="mt-2 inline-flex items-center gap-1 text-xs font-bold text-indigo-600 hover:underline cursor-pointer"
+        !user?.uid ? (
+          <section className="rounded-3xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-8 sm:p-12 text-center space-y-4">
+            <div className="w-14 h-14 rounded-2xl bg-amber-50 dark:bg-amber-950/60 text-amber-600 dark:text-amber-400 flex items-center justify-center mx-auto">
+              <Sparkles className="w-7 h-7" />
+            </div>
+            <div className="max-w-lg mx-auto space-y-1.5">
+              <h2 className="text-lg sm:text-xl font-black text-slate-900 dark:text-white">
+                Trung tâm Quản lý &amp; Bổ sung Tài liệu cá nhân
+              </h2>
+              <p className="text-xs sm:text-sm text-slate-500 dark:text-slate-400">
+                Đăng nhập để tạo cây thư mục riêng, tải lên hàng loạt đề thi PDF/DOCX lên Cloudinary, bổ sung đáp án hoặc tệp mới vào bộ đề bất cứ lúc nào và nhận {librarySettings.creatorRevenueSharePercent}% doanh thu.
+              </p>
+            </div>
+            <div>
+              <Link
+                to="/login"
+                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-2xl bg-teal-600 hover:bg-teal-700 text-white text-xs sm:text-sm font-extrabold shadow-xs"
               >
-                <FolderPlus className="w-3.5 h-3.5" />
-                <span>+ Tạo thêm thư mục mới</span>
-              </button>
+                <LogIn className="w-4 h-4" />
+                <span>Đăng nhập để quản lý tài liệu của bạn</span>
+              </Link>
+            </div>
+          </section>
+        ) : (
+          <section className="space-y-5">
+            {/* Contributor KPI & Quick Actions */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3.5">
+              <div className="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 p-4">
+                <div className="text-xs text-slate-500 font-semibold">Thư mục riêng đã tạo</div>
+                <div className="text-2xl font-black text-indigo-600 dark:text-indigo-400 mt-1">
+                  {myFolders.length}
+                </div>
+                <button
+                  type="button"
+                  onClick={() => handleOpenCreateFolderModal(null, "community")}
+                  className="mt-2 inline-flex items-center gap-1 text-xs font-bold text-indigo-600 hover:underline cursor-pointer"
+                >
+                  <FolderPlus className="w-3.5 h-3.5" />
+                  <span>+ Tạo thêm thư mục mới</span>
+                </button>
+              </div>
+
+              <div className="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 p-4">
+                <div className="text-xs text-slate-500 font-semibold">Tài liệu đã đăng tải</div>
+                <div className="text-2xl font-black text-slate-900 dark:text-white mt-1">
+                  {myUploadedDocs.length}
+                </div>
+                <button
+                  type="button"
+                  onClick={handleOpenUploadModal}
+                  className="mt-2 inline-flex items-center gap-1 text-xs font-bold text-teal-600 hover:underline cursor-pointer"
+                >
+                  <CloudUpload className="w-3.5 h-3.5" />
+                  <span>+ Đăng lẻ 1 tài liệu mới</span>
+                </button>
+              </div>
+
+              <div className="bg-white dark:bg-slate-900 rounded-2xl border border-teal-200/80 dark:border-teal-900/60 p-4">
+                <div className="text-xs text-slate-500 font-semibold">Bổ sung &amp; Đăng hàng loạt</div>
+                <div className="text-sm font-black text-teal-700 dark:text-teal-300 mt-1.5">
+                  Tải cùng lúc nhiều PDF/Word
+                </div>
+                <button
+                  type="button"
+                  onClick={() => handleOpenBatchUploadModal(null)}
+                  className="mt-2 inline-flex items-center gap-1 text-xs font-extrabold text-teal-600 hover:underline cursor-pointer"
+                >
+                  <Layers className="w-3.5 h-3.5" />
+                  <span>+ Mở trình đăng hàng loạt</span>
+                </button>
+              </div>
+
+              <div className="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 p-4">
+                <div className="text-xs text-slate-500 font-semibold">
+                  Doanh thu nhận về ({librarySettings.creatorRevenueSharePercent}%)
+                </div>
+                <div className="text-2xl font-black text-emerald-600 mt-1">
+                  {myTotalRevenueVnd.toLocaleString("vi-VN")}đ
+                </div>
+                <div className="text-[11px] text-slate-400 mt-2">
+                  Tự động cộng thẳng vào Ví DkTEST mỗi lượt mua
+                </div>
+              </div>
             </div>
 
-            <div className="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 p-4">
-              <div className="text-xs text-slate-500 font-semibold">Tài liệu đã đăng tải</div>
-              <div className="text-2xl font-black text-slate-900 dark:text-white mt-1">
-                {myUploadedDocs.length}
+            {/* 1. My Custom Folders Manager */}
+            <div className="bg-white dark:bg-slate-900 rounded-3xl border border-slate-200 dark:border-slate-800 p-5 space-y-4">
+              <div className="flex flex-wrap items-center justify-between gap-2">
+                <div>
+                  <h2 className="text-sm sm:text-base font-black text-slate-900 dark:text-white flex items-center gap-2">
+                    <FolderTree className="w-4 h-4 text-indigo-600" />
+                    <span>Hệ thống Thư mục riêng của bạn ({myFolders.length})</span>
+                  </h2>
+                  <p className="text-xs text-slate-500 mt-0.5">
+                    Tạo cây thư mục nhiều cấp cho học sinh dễ tra cứu, đăng hàng loạt tệp vào thư mục hoặc chia sẻ trọn bộ.
+                  </p>
+                </div>
+                <div className="flex items-center gap-2">
+                  <button
+                    type="button"
+                    onClick={() => handleOpenBatchUploadModal(null)}
+                    className="inline-flex items-center gap-1.5 px-3 py-2 rounded-xl bg-teal-50 dark:bg-teal-950/60 text-teal-700 dark:text-teal-300 text-xs font-bold cursor-pointer"
+                  >
+                    <Layers className="w-3.5 h-3.5" />
+                    <span>Đăng hàng loạt</span>
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => handleOpenCreateFolderModal(null, "community")}
+                    className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold cursor-pointer"
+                  >
+                    <FolderPlus className="w-4 h-4" />
+                    <span>Tạo thư mục mới</span>
+                  </button>
+                </div>
               </div>
-              <button
-                type="button"
-                onClick={handleOpenUploadModal}
-                className="mt-2 inline-flex items-center gap-1 text-xs font-bold text-teal-600 hover:underline cursor-pointer"
-              >
-                <CloudUpload className="w-3.5 h-3.5" />
-                <span>+ Đăng tải thêm tài liệu</span>
-              </button>
-            </div>
 
-            <div className="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 p-4">
-              <div className="text-xs text-slate-500 font-semibold">
-                Doanh thu nhận về ({librarySettings.creatorRevenueSharePercent}%)
-              </div>
-              <div className="text-2xl font-black text-emerald-600 mt-1">
-                {myTotalRevenueVnd.toLocaleString("vi-VN")}đ
-              </div>
-              <div className="text-[11px] text-slate-400 mt-2">
-                Tự động cộng thẳng vào Ví DkTEST mỗi lượt mua
-              </div>
-            </div>
-          </div>
-
-          {/* 1. My Custom Folders Manager */}
-          <div className="bg-white dark:bg-slate-900 rounded-3xl border border-slate-200 dark:border-slate-800 p-5 space-y-4">
-            <div className="flex flex-wrap items-center justify-between gap-2">
-              <div>
-                <h2 className="text-sm sm:text-base font-black text-slate-900 dark:text-white flex items-center gap-2">
-                  <FolderTree className="w-4 h-4 text-indigo-600" />
-                  <span>Hệ thống Thư mục riêng của bạn ({myFolders.length})</span>
-                </h2>
-                <p className="text-xs text-slate-500 mt-0.5">
-                  Tạo cây thư mục nhiều cấp cho học sinh dễ tra cứu, cập nhật tên/mô tả hoặc chia sẻ trọn bộ.
-                </p>
-              </div>
-              <button
-                type="button"
-                onClick={() => handleOpenCreateFolderModal(null, "community")}
-                className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold cursor-pointer"
-              >
-                <FolderPlus className="w-4 h-4" />
-                <span>Tạo thư mục mới</span>
-              </button>
-            </div>
-
-            {myFolders.length === 0 ? (
-              <div className="py-8 text-center rounded-2xl bg-slate-50 dark:bg-slate-800/40 border border-dashed border-slate-200 dark:border-slate-700 space-y-2">
-                <FolderPlus className="w-8 h-8 text-slate-400 mx-auto" />
-                <p className="text-xs text-slate-500">
-                  Bạn chưa có thư mục riêng nào. Hãy tạo thư mục đầu tiên để sắp xếp các đề thi &amp; chuyên đề của bạn!
-                </p>
-              </div>
-            ) : (
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-                {myFolders.map((f) => {
-                  const node = folderIndex.nodesById.get(f.id);
-                  const pathText = node
-                    ? node.breadcrumbs.map((b) => b.name).join(" › ")
-                    : f.name;
-                  return (
-                    <div
-                      key={f.id}
-                      className="p-4 rounded-2xl border border-slate-200 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-800/30 flex flex-col justify-between gap-3"
-                    >
-                      <div className="space-y-1">
-                        <div className="flex items-center justify-between gap-2">
-                          <button
-                            type="button"
-                            onClick={() => openFolder(f.id, "community")}
-                            className="text-left text-xs sm:text-sm font-extrabold text-indigo-700 dark:text-indigo-300 hover:underline flex items-center gap-1.5 cursor-pointer"
-                          >
-                            <FolderOpen className="w-4 h-4 shrink-0" />
-                            <span>{f.name}</span>
-                          </button>
-                          <span className="text-[11px] font-bold text-slate-500 shrink-0">
-                            {node?.recursiveDocCount || 0} tài liệu
-                          </span>
+              {myFolders.length === 0 ? (
+                <div className="py-8 text-center rounded-2xl bg-slate-50 dark:bg-slate-800/40 border border-dashed border-slate-200 dark:border-slate-700 space-y-2">
+                  <FolderPlus className="w-8 h-8 text-slate-400 mx-auto" />
+                  <p className="text-xs text-slate-500">
+                    Bạn chưa có thư mục riêng nào. Hãy tạo thư mục đầu tiên để sắp xếp các đề thi &amp; chuyên đề của bạn!
+                  </p>
+                </div>
+              ) : (
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                  {myFolders.map((f) => {
+                    const node = folderIndex.nodesById.get(f.id);
+                    const pathText = node
+                      ? node.breadcrumbs.map((b) => b.name).join(" › ")
+                      : f.name;
+                    return (
+                      <div
+                        key={f.id}
+                        className="p-4 rounded-2xl border border-slate-200 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-800/30 flex flex-col justify-between gap-3"
+                      >
+                        <div className="space-y-1">
+                          <div className="flex items-center justify-between gap-2">
+                            <button
+                              type="button"
+                              onClick={() => openFolder(f.id, "community")}
+                              className="text-left text-xs sm:text-sm font-extrabold text-indigo-700 dark:text-indigo-300 hover:underline flex items-center gap-1.5 cursor-pointer"
+                            >
+                              <FolderOpen className="w-4 h-4 shrink-0" />
+                              <span>{f.name}</span>
+                            </button>
+                            <span className="text-[11px] font-bold text-slate-500 shrink-0">
+                              {node?.recursiveDocCount || 0} tài liệu
+                            </span>
+                          </div>
+                          <div className="text-[11px] text-slate-400 truncate">{pathText}</div>
+                          {f.description && (
+                            <p className="text-xs text-slate-600 dark:text-slate-300 line-clamp-2">
+                              {f.description}
+                            </p>
+                          )}
                         </div>
-                        <div className="text-[11px] text-slate-400 truncate">{pathText}</div>
-                        {f.description && (
-                          <p className="text-xs text-slate-600 dark:text-slate-300 line-clamp-2">
-                            {f.description}
-                          </p>
-                        )}
-                      </div>
 
-                      <div className="flex flex-wrap items-center justify-between gap-2 pt-2 border-t border-slate-200/70 dark:border-slate-700/70">
-                        <div className="flex items-center gap-1.5">
+                        <div className="flex flex-wrap items-center justify-between gap-2 pt-2 border-t border-slate-200/70 dark:border-slate-700/70">
+                          <div className="flex flex-wrap items-center gap-1.5">
+                            <button
+                              type="button"
+                              onClick={() => handleOpenCreateFolderModal(f.id, "community")}
+                              className="px-2.5 py-1 rounded-lg bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 text-[11px] font-bold text-slate-700 dark:text-slate-200 cursor-pointer"
+                            >
+                              + Thư mục con
+                            </button>
+                            <button
+                              type="button"
+                              onClick={() => {
+                                setCurrentFolderId(f.id);
+                                setEditingDoc(null);
+                                setShowUploadModal(true);
+                              }}
+                              className="px-2.5 py-1 rounded-lg bg-teal-50 dark:bg-teal-950/60 text-teal-700 dark:text-teal-300 text-[11px] font-bold cursor-pointer"
+                            >
+                              + Đăng 1 tệp
+                            </button>
+                            <button
+                              type="button"
+                              onClick={() => handleOpenBatchUploadModal(f.id)}
+                              className="px-2.5 py-1 rounded-lg bg-emerald-50 dark:bg-emerald-950/60 text-emerald-700 dark:text-emerald-300 text-[11px] font-bold cursor-pointer"
+                            >
+                              + Đăng nhiều tệp
+                            </button>
+                          </div>
+
+                          <div className="flex items-center gap-1">
+                            <button
+                              type="button"
+                              onClick={(e) => void handleShareFolder(e, f)}
+                              className="p-1.5 rounded-lg text-slate-500 hover:bg-slate-200/60 dark:hover:bg-slate-700 cursor-pointer"
+                              title="Chia sẻ link thư mục"
+                            >
+                              <Share2 className="w-3.5 h-3.5" />
+                            </button>
+                            <button
+                              type="button"
+                              onClick={() => {
+                                setEditingFolder(f);
+                                setShowFolderModal(true);
+                              }}
+                              className="p-1.5 rounded-lg text-slate-500 hover:text-teal-600 hover:bg-slate-200/60 dark:hover:bg-slate-700 cursor-pointer"
+                              title="Sửa tên / cập nhật thư mục"
+                            >
+                              <Edit3 className="w-3.5 h-3.5" />
+                            </button>
+                            {confirmDeleteFolderId === f.id ? (
+                              <div className="inline-flex items-center gap-1">
+                                <button
+                                  type="button"
+                                  onClick={() => void handleConfirmDeleteFolder(f)}
+                                  className="px-2 py-1 rounded-lg bg-rose-600 text-white text-[10px] font-bold cursor-pointer"
+                                >
+                                  Xác nhận xóa
+                                </button>
+                                <button
+                                  type="button"
+                                  onClick={() => setConfirmDeleteFolderId(null)}
+                                  className="px-2 py-1 rounded-lg bg-slate-200 dark:bg-slate-700 text-[10px] font-bold cursor-pointer"
+                                >
+                                  Hủy
+                                </button>
+                              </div>
+                            ) : (
+                              <button
+                                type="button"
+                                onClick={() => setConfirmDeleteFolderId(f.id)}
+                                className="p-1.5 rounded-lg text-rose-500 hover:bg-rose-50 dark:hover:bg-rose-950/40 cursor-pointer"
+                                title="Xóa thư mục"
+                              >
+                                <Trash2 className="w-3.5 h-3.5" />
+                              </button>
+                            )}
+                          </div>
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
+              )}
+            </div>
+
+            {/* 2. My Uploaded Documents + Supplement & Visibility Controls */}
+            <div className="bg-white dark:bg-slate-900 rounded-3xl border border-slate-200 dark:border-slate-800 p-5 space-y-4">
+              <div className="flex flex-wrap items-center justify-between gap-3">
+                <div>
+                  <h2 className="text-sm sm:text-base font-black text-slate-900 dark:text-white">
+                    Quản lý &amp; Bổ sung tài liệu đã đăng ({filteredMyUploadedDocs.length}/
+                    {myUploadedDocs.length})
+                  </h2>
+                  <p className="text-xs text-slate-500 mt-0.5">
+                    Bấm <strong>+ Bổ sung tệp / Đáp án</strong> để tải thêm đề mới vào bộ, đổi nhánh thư mục con, ẩn/hiện nhanh hoặc chuyển thư mục.
+                  </p>
+                </div>
+
+                {selectedDocIds.length > 0 && (
+                  <div className="flex flex-wrap items-center gap-2 p-2 rounded-2xl bg-indigo-50 dark:bg-indigo-950/40 border border-indigo-200 dark:border-indigo-800">
+                    <span className="text-xs font-bold text-indigo-800 dark:text-indigo-200 px-1">
+                      Đã chọn {selectedDocIds.length}:
+                    </span>
+                    <select
+                      value={moveTargetFolderId}
+                      onChange={(e) => setMoveTargetFolderId(e.target.value)}
+                      className="px-2.5 py-1.5 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 text-xs font-semibold"
+                    >
+                      <option value="">— Đưa ra ngoài thư mục —</option>
+                      {myFolders.map((mf) => (
+                        <option key={mf.id} value={mf.id}>
+                          📁 {mf.name}
+                        </option>
+                      ))}
+                    </select>
+                    <button
+                      type="button"
+                      disabled={movingBulk}
+                      onClick={() => void handleBulkMoveMyDocs()}
+                      className="inline-flex items-center gap-1 px-3 py-1.5 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold cursor-pointer"
+                    >
+                      {movingBulk ? (
+                        <Loader2 className="w-3.5 h-3.5 animate-spin" />
+                      ) : (
+                        <FolderInput className="w-3.5 h-3.5" />
+                      )}
+                      <span>Chuyển thư mục</span>
+                    </button>
+                  </div>
+                )}
+              </div>
+
+              {/* Filter Bar inside User's Uploaded Docs */}
+              {myUploadedDocs.length > 0 && (
+                <div className="flex flex-col sm:flex-row gap-2.5 pt-1">
+                  <div className="relative flex-1">
+                    <Search className="w-3.5 h-3.5 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
+                    <input
+                      type="text"
+                      value={myDocSearch}
+                      onChange={(e) => setMyDocSearch(e.target.value)}
+                      placeholder="Tìm kiếm trong tài liệu đã đăng của bạn..."
+                      className="w-full pl-9 pr-3 py-2 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-xs"
+                    />
+                  </div>
+
+                  <select
+                    value={myDocFolderFilter}
+                    onChange={(e) => setMyDocFolderFilter(e.target.value)}
+                    className="px-3 py-2 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-xs font-semibold"
+                  >
+                    <option value="all">Mọi thư mục ({myUploadedDocs.length})</option>
+                    <option value="__none__">Chưa phân vào thư mục</option>
+                    {myFolders.map((mf) => (
+                      <option key={mf.id} value={mf.id}>
+                        📁 {mf.name}
+                      </option>
+                    ))}
+                  </select>
+
+                  <select
+                    value={myDocStatusFilter}
+                    onChange={(e) => setMyDocStatusFilter(e.target.value as any)}
+                    className="px-3 py-2 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-xs font-semibold"
+                  >
+                    <option value="all">Mọi trạng thái</option>
+                    <option value="published">Đang công khai</option>
+                    <option value="hidden">Đang tạm ẩn</option>
+                    <option value="pending">Đang chờ duyệt</option>
+                  </select>
+                </div>
+              )}
+
+              {myUploadedDocs.length === 0 ? (
+                <div className="py-10 text-center space-y-3">
+                  <CloudUpload className="w-10 h-10 text-teal-600 mx-auto" />
+                  <p className="text-xs text-slate-500">
+                    Bạn chưa đăng tải tài liệu nào. Hãy chia sẻ đề thi, chuyên đề PDF hoặc Ebook (miễn phí hoặc có thu phí)!
+                  </p>
+                  <div className="flex flex-wrap justify-center gap-2">
+                    <button
+                      type="button"
+                      onClick={handleOpenUploadModal}
+                      className="px-4 py-2 rounded-xl bg-teal-600 text-white text-xs font-bold cursor-pointer"
+                    >
+                      + Đăng tài liệu đầu tiên
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => handleOpenBatchUploadModal(null)}
+                      className="px-4 py-2 rounded-xl bg-indigo-600 text-white text-xs font-bold cursor-pointer"
+                    >
+                      + Đăng hàng loạt nhiều tệp
+                    </button>
+                  </div>
+                </div>
+              ) : filteredMyUploadedDocs.length === 0 ? (
+                <div className="py-8 text-center text-xs text-slate-500">
+                  Không có tài liệu nào khớp bộ lọc quản lý hiện tại.
+                </div>
+              ) : (
+                <div className="divide-y divide-slate-100 dark:divide-slate-800">
+                  {filteredMyUploadedDocs.map((doc) => {
+                    const checked = selectedSet.has(doc.id);
+                    const docFolder = doc.folderId
+                      ? folderIndex.nodesById.get(doc.folderId)
+                      : undefined;
+                    const subCount = doc.subFiles?.length || doc.subFileCount || 1;
+                    return (
+                      <div
+                        key={doc.id}
+                        className="py-3.5 flex flex-col lg:flex-row lg:items-center justify-between gap-3"
+                      >
+                        <div className="flex items-start gap-3 min-w-0">
                           <button
                             type="button"
-                            onClick={() => handleOpenCreateFolderModal(f.id, "community")}
-                            className="px-2.5 py-1 rounded-lg bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 text-[11px] font-bold text-slate-700 dark:text-slate-200 cursor-pointer"
+                            onClick={(e) => handleToggleSelectDoc(e, doc.id)}
+                            className="mt-0.5 text-slate-400 hover:text-indigo-600 cursor-pointer"
                           >
-                            + Thư mục con
+                            {checked ? (
+                              <CheckSquare className="w-4 h-4 text-indigo-600" />
+                            ) : (
+                              <Square className="w-4 h-4" />
+                            )}
                           </button>
+                          <div className="min-w-0 space-y-1">
+                            <div className="flex flex-wrap items-center gap-1.5">
+                              <span
+                                className={`px-2 py-0.5 rounded-md text-[10px] font-bold ${
+                                  doc.status === "published"
+                                    ? "bg-emerald-100 text-emerald-700 dark:bg-emerald-950/60 dark:text-emerald-300"
+                                    : doc.status === "pending"
+                                    ? "bg-amber-100 text-amber-700"
+                                    : "bg-slate-200 text-slate-700 dark:bg-slate-800 dark:text-slate-300"
+                                }`}
+                              >
+                                {doc.status === "published"
+                                  ? "Đang công khai"
+                                  : doc.status === "pending"
+                                  ? "Chờ duyệt"
+                                  : "Đang tạm ẩn"}
+                              </span>
+                              <span className="text-xs font-bold text-teal-600 dark:text-teal-400">
+                                {doc.accessMode === "paid" && doc.priceVnd > 0
+                                  ? `${doc.priceVnd.toLocaleString("vi-VN")}đ`
+                                  : "Miễn phí"}
+                              </span>
+                              <span className="px-1.5 py-0.5 rounded bg-slate-100 dark:bg-slate-800 text-[10px] font-bold text-slate-600 dark:text-slate-300">
+                                {subCount > 1 ? `📦 Gói ${subCount} tệp` : "1 tệp"}
+                              </span>
+                              {doc.answerUrl && (
+                                <span className="px-1.5 py-0.5 rounded bg-emerald-50 dark:bg-emerald-950/50 text-[10px] font-bold text-emerald-700 dark:text-emerald-300">
+                                  Có đáp án
+                                </span>
+                              )}
+                              {docFolder && (
+                                <span className="text-[11px] font-semibold text-indigo-600 dark:text-indigo-400">
+                                  • 📁 {docFolder.name}
+                                </span>
+                              )}
+                            </div>
+                            <Link
+                              to={`/student/documents/${encodeURIComponent(doc.id)}`}
+                              className="block text-sm font-bold text-slate-900 dark:text-white hover:text-teal-600 truncate"
+                            >
+                              {doc.title}
+                            </Link>
+                            <div className="text-[11px] text-slate-400 flex flex-wrap items-center gap-3">
+                              <span>👁️ {doc.viewCount || 0} lượt xem</span>
+                              <span>⬇️ {doc.downloadCount || 0} lượt tải</span>
+                              {doc.accessMode === "paid" && (
+                                <span>🔓 {doc.purchaseCount || 0} lượt mở khóa</span>
+                              )}
+                            </div>
+                          </div>
+                        </div>
+
+                        <div className="flex flex-wrap items-center gap-1.5 shrink-0">
+                          <button
+                            type="button"
+                            onClick={() => handleOpenSupplementModal(doc)}
+                            className="inline-flex items-center gap-1 px-3 py-1.5 rounded-xl bg-teal-600 hover:bg-teal-700 text-white text-xs font-extrabold shadow-2xs cursor-pointer"
+                          >
+                            <FilePlus2 className="w-3.5 h-3.5" />
+                            <span>+ Bổ sung tệp / Đáp án</span>
+                          </button>
+
+                          <button
+                            type="button"
+                            disabled={togglingVisibilityDocId === doc.id}
+                            onClick={() => void handleToggleMyDocVisibility(doc)}
+                            className="inline-flex items-center gap-1 px-2.5 py-1.5 rounded-xl bg-slate-100 dark:bg-slate-800 text-xs font-bold text-slate-700 dark:text-slate-200 hover:bg-slate-200 cursor-pointer"
+                            title={
+                              doc.status === "hidden"
+                                ? "Mở hiển thị công khai lại"
+                                : "Tạm ẩn khỏi kho công khai"
+                            }
+                          >
+                            {togglingVisibilityDocId === doc.id ? (
+                              <Loader2 className="w-3.5 h-3.5 animate-spin" />
+                            ) : doc.status === "hidden" ? (
+                              <Eye className="w-3.5 h-3.5 text-emerald-600" />
+                            ) : (
+                              <EyeOff className="w-3.5 h-3.5 text-slate-500" />
+                            )}
+                            <span>{doc.status === "hidden" ? "Hiện lại" : "Tạm ẩn"}</span>
+                          </button>
+
                           <button
                             type="button"
                             onClick={() => {
-                              setCurrentFolderId(f.id);
-                              setEditingDoc(null);
+                              setEditingDoc(doc);
                               setShowUploadModal(true);
                             }}
-                            className="px-2.5 py-1 rounded-lg bg-teal-50 dark:bg-teal-950/60 text-teal-700 dark:text-teal-300 text-[11px] font-bold cursor-pointer"
-                          >
-                            + Đăng vào đây
-                          </button>
-                        </div>
-
-                        <div className="flex items-center gap-1">
-                          <button
-                            type="button"
-                            onClick={(e) => void handleShareFolder(e, f)}
-                            className="p-1.5 rounded-lg text-slate-500 hover:bg-slate-200/60 dark:hover:bg-slate-700 cursor-pointer"
-                            title="Chia sẻ link thư mục"
-                          >
-                            <Share2 className="w-3.5 h-3.5" />
-                          </button>
-                          <button
-                            type="button"
-                            onClick={() => {
-                              setEditingFolder(f);
-                              setShowFolderModal(true);
-                            }}
-                            className="p-1.5 rounded-lg text-slate-500 hover:text-teal-600 hover:bg-slate-200/60 dark:hover:bg-slate-700 cursor-pointer"
-                            title="Sửa tên / cập nhật thư mục"
+                            className="inline-flex items-center gap-1 px-3 py-1.5 rounded-xl bg-slate-100 dark:bg-slate-800 text-xs font-bold text-slate-700 dark:text-slate-200 hover:bg-slate-200 cursor-pointer"
                           >
                             <Edit3 className="w-3.5 h-3.5" />
+                            <span>Sửa thông tin</span>
                           </button>
-                          {confirmDeleteFolderId === f.id ? (
+
+                          {confirmDeleteDocId === doc.id ? (
                             <div className="inline-flex items-center gap-1">
                               <button
                                 type="button"
-                                onClick={() => void handleConfirmDeleteFolder(f)}
-                                className="px-2 py-1 rounded-lg bg-rose-600 text-white text-[10px] font-bold cursor-pointer"
+                                onClick={() => void handleConfirmDeleteMyDoc(doc.id)}
+                                className="px-2.5 py-1.5 rounded-xl bg-rose-600 text-white text-xs font-bold cursor-pointer"
                               >
-                                Xác nhận xóa
+                                Xóa ngay
                               </button>
                               <button
                                 type="button"
-                                onClick={() => setConfirmDeleteFolderId(null)}
-                                className="px-2 py-1 rounded-lg bg-slate-200 dark:bg-slate-700 text-[10px] font-bold cursor-pointer"
+                                onClick={() => setConfirmDeleteDocId(null)}
+                                className="px-2.5 py-1.5 rounded-xl bg-slate-200 dark:bg-slate-700 text-xs font-bold cursor-pointer"
                               >
                                 Hủy
                               </button>
@@ -1440,184 +2081,22 @@ export default function DocumentLibraryPage() {
                           ) : (
                             <button
                               type="button"
-                              onClick={() => setConfirmDeleteFolderId(f.id)}
-                              className="p-1.5 rounded-lg text-rose-500 hover:bg-rose-50 dark:hover:bg-rose-950/40 cursor-pointer"
-                              title="Xóa thư mục"
+                              onClick={() => setConfirmDeleteDocId(doc.id)}
+                              className="p-2 rounded-xl bg-rose-50 dark:bg-rose-950/50 text-rose-600 hover:bg-rose-100 cursor-pointer"
+                              title="Xóa tài liệu"
                             >
-                              <Trash2 className="w-3.5 h-3.5" />
+                              <Trash2 className="w-4 h-4" />
                             </button>
                           )}
                         </div>
                       </div>
-                    </div>
-                  );
-                })}
-              </div>
-            )}
-          </div>
-
-          {/* 2. My Uploaded Documents + Bulk Move to Folder */}
-          <div className="bg-white dark:bg-slate-900 rounded-3xl border border-slate-200 dark:border-slate-800 p-5 space-y-4">
-            <div className="flex flex-wrap items-center justify-between gap-3">
-              <div>
-                <h2 className="text-sm sm:text-base font-black text-slate-900 dark:text-white">
-                  Danh sách tài liệu của bạn ({myUploadedDocs.length})
-                </h2>
-                <p className="text-xs text-slate-500 mt-0.5">
-                  Bấm biểu tượng bút để cập nhật file/giá, hoặc tích chọn nhiều tài liệu để chuyển vào thư mục.
-                </p>
-              </div>
-
-              {selectedDocIds.length > 0 && (
-                <div className="flex flex-wrap items-center gap-2 p-2 rounded-2xl bg-indigo-50 dark:bg-indigo-950/40 border border-indigo-200 dark:border-indigo-800">
-                  <span className="text-xs font-bold text-indigo-800 dark:text-indigo-200 px-1">
-                    Đã chọn {selectedDocIds.length}:
-                  </span>
-                  <select
-                    value={moveTargetFolderId}
-                    onChange={(e) => setMoveTargetFolderId(e.target.value)}
-                    className="px-2.5 py-1.5 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 text-xs font-semibold"
-                  >
-                    <option value="">— Đưa ra ngoài thư mục —</option>
-                    {myFolders.map((mf) => (
-                      <option key={mf.id} value={mf.id}>
-                        📁 {mf.name}
-                      </option>
-                    ))}
-                  </select>
-                  <button
-                    type="button"
-                    disabled={movingBulk}
-                    onClick={() => void handleBulkMoveMyDocs()}
-                    className="inline-flex items-center gap-1 px-3 py-1.5 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold cursor-pointer"
-                  >
-                    {movingBulk ? (
-                      <Loader2 className="w-3.5 h-3.5 animate-spin" />
-                    ) : (
-                      <FolderInput className="w-3.5 h-3.5" />
-                    )}
-                    <span>Chuyển thư mục</span>
-                  </button>
+                    );
+                  })}
                 </div>
               )}
             </div>
-
-            {myUploadedDocs.length === 0 ? (
-              <div className="py-10 text-center space-y-3">
-                <CloudUpload className="w-10 h-10 text-teal-600 mx-auto" />
-                <p className="text-xs text-slate-500">
-                  Bạn chưa đăng tải tài liệu nào. Hãy chia sẻ đề thi, chuyên đề PDF hoặc Ebook (miễn phí hoặc có thu phí)!
-                </p>
-              </div>
-            ) : (
-              <div className="divide-y divide-slate-100 dark:divide-slate-800">
-                {myUploadedDocs.map((doc) => {
-                  const checked = selectedSet.has(doc.id);
-                  const docFolder = doc.folderId
-                    ? folderIndex.nodesById.get(doc.folderId)
-                    : undefined;
-                  return (
-                    <div
-                      key={doc.id}
-                      className="py-3 flex flex-col sm:flex-row sm:items-center justify-between gap-3"
-                    >
-                      <div className="flex items-start gap-3 min-w-0">
-                        <button
-                          type="button"
-                          onClick={(e) => handleToggleSelectDoc(e, doc.id)}
-                          className="mt-0.5 text-slate-400 hover:text-indigo-600 cursor-pointer"
-                        >
-                          {checked ? (
-                            <CheckSquare className="w-4 h-4 text-indigo-600" />
-                          ) : (
-                            <Square className="w-4 h-4" />
-                          )}
-                        </button>
-                        <div className="min-w-0 space-y-1">
-                          <div className="flex flex-wrap items-center gap-1.5">
-                            <span
-                              className={`px-2 py-0.5 rounded-md text-[10px] font-bold ${
-                                doc.status === "published"
-                                  ? "bg-emerald-100 text-emerald-700 dark:bg-emerald-950/60 dark:text-emerald-300"
-                                  : doc.status === "pending"
-                                  ? "bg-amber-100 text-amber-700"
-                                  : "bg-rose-100 text-rose-700"
-                              }`}
-                            >
-                              {doc.status === "published"
-                                ? "Đang hiển thị"
-                                : doc.status === "pending"
-                                ? "Chờ duyệt"
-                                : "Đã ẩn"}
-                            </span>
-                            <span className="text-xs font-bold text-teal-600 dark:text-teal-400">
-                              {doc.accessMode === "paid" && doc.priceVnd > 0
-                                ? `${doc.priceVnd.toLocaleString("vi-VN")}đ`
-                                : "Miễn phí"}
-                            </span>
-                            {docFolder && (
-                              <span className="text-[11px] font-semibold text-indigo-600 dark:text-indigo-400">
-                                • 📁 {docFolder.name}
-                              </span>
-                            )}
-                          </div>
-                          <Link
-                            to={`/student/documents/${encodeURIComponent(doc.id)}`}
-                            className="block text-sm font-bold text-slate-900 dark:text-white hover:text-teal-600 truncate"
-                          >
-                            {doc.title}
-                          </Link>
-                        </div>
-                      </div>
-
-                      <div className="flex items-center gap-1.5 shrink-0">
-                        <button
-                          type="button"
-                          onClick={() => {
-                            setEditingDoc(doc);
-                            setShowUploadModal(true);
-                          }}
-                          className="inline-flex items-center gap-1 px-3 py-1.5 rounded-xl bg-slate-100 dark:bg-slate-800 text-xs font-bold text-slate-700 dark:text-slate-200 hover:bg-slate-200 cursor-pointer"
-                        >
-                          <Edit3 className="w-3.5 h-3.5" />
-                          <span>Cập nhật</span>
-                        </button>
-
-                        {confirmDeleteDocId === doc.id ? (
-                          <div className="inline-flex items-center gap-1">
-                            <button
-                              type="button"
-                              onClick={() => void handleConfirmDeleteMyDoc(doc.id)}
-                              className="px-2.5 py-1.5 rounded-xl bg-rose-600 text-white text-xs font-bold cursor-pointer"
-                            >
-                              Xóa ngay
-                            </button>
-                            <button
-                              type="button"
-                              onClick={() => setConfirmDeleteDocId(null)}
-                              className="px-2.5 py-1.5 rounded-xl bg-slate-200 dark:bg-slate-700 text-xs font-bold cursor-pointer"
-                            >
-                              Hủy
-                            </button>
-                          </div>
-                        ) : (
-                          <button
-                            type="button"
-                            onClick={() => setConfirmDeleteDocId(doc.id)}
-                            className="p-2 rounded-xl bg-rose-50 dark:bg-rose-950/50 text-rose-600 hover:bg-rose-100 cursor-pointer"
-                            title="Xóa tài liệu"
-                          >
-                            <Trash2 className="w-4 h-4" />
-                          </button>
-                        )}
-                      </div>
-                    </div>
-                  );
-                })}
-              </div>
-            )}
-          </div>
-        </section>
+          </section>
+        )
       ) : (
         <>
           {/* ================================================================= */}
@@ -1758,26 +2237,71 @@ export default function DocumentLibraryPage() {
             )}
 
           {!currentFolderId && activeTab === "community" && (
-            <section className="space-y-3">
+            <section className="space-y-3.5">
               <div className="flex flex-wrap items-center justify-between gap-2 px-1">
                 <div>
                   <h2 className="text-sm font-black text-slate-900 dark:text-white">
                     Thư mục riêng của Giáo viên &amp; Thành viên ({folderIndex.rootsBySpace.community.length})
                   </h2>
                   <p className="text-xs text-slate-500">
-                    Bất kỳ thành viên nào cũng có thể tạo thư mục riêng, đăng tài liệu miễn phí hoặc có phí và cập nhật liên tục.
+                    Bất kỳ thành viên nào cũng có thể tạo thư mục riêng, đăng tài liệu miễn phí hoặc có phí và bổ sung liên tục.
                   </p>
                 </div>
-                <button
-                  type="button"
-                  onClick={() => handleOpenCreateFolderModal(null, "community")}
-                  className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold cursor-pointer"
-                >
-                  <FolderPlus className="w-3.5 h-3.5" />
-                  <span>+ Tạo thư mục riêng của bạn</span>
-                </button>
+                <div className="flex items-center gap-2">
+                  <button
+                    type="button"
+                    onClick={() => handleSelectTab("mine")}
+                    className="inline-flex items-center gap-1.5 px-3 py-2 rounded-xl bg-amber-50 dark:bg-amber-950/50 text-amber-800 dark:text-amber-300 text-xs font-bold cursor-pointer"
+                  >
+                    <Sparkles className="w-3.5 h-3.5" />
+                    <span>Quản lý bài đăng của tôi</span>
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => handleOpenCreateFolderModal(null, "community")}
+                    className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold cursor-pointer"
+                  >
+                    <FolderPlus className="w-3.5 h-3.5" />
+                    <span>+ Tạo thư mục riêng</span>
+                  </button>
+                </div>
               </div>
-              {folderIndex.rootsBySpace.community.length > 0 && (
+
+              {communityContributors.length > 0 && (
+                <div className="flex items-center gap-1.5 overflow-x-auto no-scrollbar py-1 px-1">
+                  <span className="text-[11px] font-bold text-slate-400 shrink-0 flex items-center gap-1">
+                    <UserCheck className="w-3.5 h-3.5" />
+                    <span>Theo người đăng:</span>
+                  </span>
+                  <button
+                    type="button"
+                    onClick={() => setCommunityAuthorFilter("all")}
+                    className={`px-3 py-1 rounded-full text-xs font-bold whitespace-nowrap cursor-pointer ${
+                      communityAuthorFilter === "all"
+                        ? "bg-indigo-600 text-white"
+                        : "bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-300"
+                    }`}
+                  >
+                    Tất cả ({communityDocsCount})
+                  </button>
+                  {communityContributors.map((c) => (
+                    <button
+                      key={c.uid}
+                      type="button"
+                      onClick={() => setCommunityAuthorFilter(c.uid)}
+                      className={`px-3 py-1 rounded-full text-xs font-bold whitespace-nowrap cursor-pointer ${
+                        communityAuthorFilter === c.uid
+                          ? "bg-indigo-600 text-white"
+                          : "bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-300 hover:border-indigo-400"
+                      }`}
+                    >
+                      👤 {c.name} ({c.docCount})
+                    </button>
+                  ))}
+                </div>
+              )}
+
+              {folderIndex.rootsBySpace.community.length > 0 && communityAuthorFilter === "all" && (
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
                   {folderIndex.rootsBySpace.community.map((node) =>
                     renderFolderCard(node, node.ownerName)
@@ -1801,7 +2325,7 @@ export default function DocumentLibraryPage() {
                   placeholder={
                     currentFolderNode
                       ? `Tìm kiếm nhanh trong "${currentFolderNode.name}"...`
-                      : "Tìm kiếm không dấu: đề toán 12, ngữ văn 11, 60 đề moon, hsa, tsa, toán 9..."
+                      : "Tìm kiếm không dấu: đề toán 12, sở hà nội, chuyên vinh, 60 đề moon, hsa, tsa..."
                   }
                   className="w-full pl-10 pr-9 py-2.5 rounded-2xl bg-slate-50 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 text-sm text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-teal-500"
                 />
@@ -1854,6 +2378,42 @@ export default function DocumentLibraryPage() {
                   <option value="price_asc">Giá thấp → cao</option>
                 </select>
 
+                {/* Grouped Topic Folder vs Flat Individual Card Switcher */}
+                <div className="inline-flex rounded-2xl border border-slate-200 dark:border-slate-700 p-0.5 bg-slate-50 dark:bg-slate-800">
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setDisplayGrouping("grouped");
+                      openTopicGroup(null);
+                    }}
+                    title="Tự động gộp chung các tài liệu cùng chủ đề thành 1 thư mục cho gọn"
+                    className={`px-2.5 py-1.5 rounded-xl text-[11px] font-extrabold flex items-center gap-1 cursor-pointer ${
+                      displayGrouping === "grouped"
+                        ? "bg-teal-600 text-white shadow-2xs"
+                        : "text-slate-500 dark:text-slate-300"
+                    }`}
+                  >
+                    <FolderOpen className="w-3.5 h-3.5" />
+                    <span>Gộp chủ đề</span>
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setDisplayGrouping("flat");
+                      openTopicGroup(null);
+                    }}
+                    title="Hiển thị lẻ từng tệp tài liệu"
+                    className={`px-2.5 py-1.5 rounded-xl text-[11px] font-extrabold flex items-center gap-1 cursor-pointer ${
+                      displayGrouping === "flat"
+                        ? "bg-slate-900 text-white dark:bg-white dark:text-slate-900 shadow-2xs"
+                        : "text-slate-500 dark:text-slate-300"
+                    }`}
+                  >
+                    <FileText className="w-3.5 h-3.5" />
+                    <span>Xem lẻ</span>
+                  </button>
+                </div>
+
                 <div className="inline-flex rounded-2xl border border-slate-200 dark:border-slate-700 p-0.5 bg-slate-50 dark:bg-slate-800">
                   <button
                     type="button"
@@ -1884,7 +2444,7 @@ export default function DocumentLibraryPage() {
             </div>
 
             {/* Quick Suggestion Chips */}
-            {!searchInput && !currentFolderId && (
+            {!searchInput && !currentFolderId && !activeTopicGroup && (
               <div className="flex items-center gap-1.5 overflow-x-auto no-scrollbar text-[11px]">
                 <span className="text-slate-400 font-semibold shrink-0">Gợi ý nhanh:</span>
                 {QUICK_SEARCH_SUGGESTIONS.map((sug) => (
@@ -1972,7 +2532,7 @@ export default function DocumentLibraryPage() {
           </section>
 
           {/* ================================================================= */}
-          {/* HIERARCHICAL FOLDER EXPLORER + DOCUMENT LIST                      */}
+          {/* HIERARCHICAL FOLDER EXPLORER + CONSOLIDATED TOPIC FOLDERS         */}
           {/* ================================================================= */}
           <div
             className={
@@ -2106,11 +2666,20 @@ export default function DocumentLibraryPage() {
 
                           <button
                             type="button"
-                            onClick={handleOpenUploadModal}
+                            onClick={() => handleOpenBatchUploadModal(currentFolderNode.id)}
                             className="inline-flex items-center gap-1 px-3 py-2 rounded-2xl bg-emerald-50 dark:bg-emerald-950/60 text-emerald-700 dark:text-emerald-300 text-xs font-bold cursor-pointer"
                           >
+                            <Layers className="w-3.5 h-3.5" />
+                            <span>+ Đăng nhiều tệp</span>
+                          </button>
+
+                          <button
+                            type="button"
+                            onClick={handleOpenUploadModal}
+                            className="inline-flex items-center gap-1 px-3 py-2 rounded-2xl bg-teal-50 dark:bg-teal-950/60 text-teal-700 dark:text-teal-300 text-xs font-bold cursor-pointer"
+                          >
                             <CloudUpload className="w-3.5 h-3.5" />
-                            <span>+ Đăng vào đây</span>
+                            <span>+ Đăng 1 tệp</span>
                           </button>
 
                           {currentFolderNode.ownerRole !== "seed" && (
@@ -2145,7 +2714,7 @@ export default function DocumentLibraryPage() {
                             onChange={(e) => setIncludeSubfolders(e.target.checked)}
                             className="rounded border-slate-300 text-teal-600 focus:ring-teal-500"
                           />
-                          <span>Hiển thị gộp cả tài liệu trong các thư mục con bên dưới</span>
+                          <span>Bung thêm tất cả tệp trong các thư mục con bên dưới</span>
                         </label>
                       </div>
 
@@ -2154,6 +2723,74 @@ export default function DocumentLibraryPage() {
                       </div>
                     </div>
                   )}
+                </div>
+              )}
+
+              {/* Active Consolidated Topic Group Header (when user clicked a Topic Folder) */}
+              {activeTopicGroup && (
+                <div className="rounded-3xl bg-gradient-to-r from-teal-50/80 via-white to-white dark:from-teal-950/40 dark:via-slate-900 dark:to-slate-900 border border-teal-200 dark:border-teal-900/70 p-4 sm:p-5 space-y-3.5 shadow-2xs">
+                  <div className="flex flex-wrap items-center justify-between gap-2 text-xs font-bold text-slate-500">
+                    <button
+                      type="button"
+                      onClick={() => openTopicGroup(null)}
+                      className="inline-flex items-center gap-1 text-teal-700 dark:text-teal-300 hover:underline cursor-pointer"
+                    >
+                      <ChevronLeft className="w-4 h-4" />
+                      <span>Quay lại các Thư mục Chủ đề gộp gọn</span>
+                    </button>
+                    <span>
+                      Gộp từ: {activeTopicGroup.sources.join(" • ") || "Kho DkTEST"}
+                    </span>
+                  </div>
+
+                  <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                    <div>
+                      <h2 className="text-base sm:text-lg font-black text-slate-900 dark:text-white flex items-center gap-2">
+                        <FolderOpen className="w-5 h-5 text-teal-600 shrink-0" />
+                        <span>{activeTopicGroup.title}</span>
+                      </h2>
+                      <p className="text-xs text-slate-500 mt-0.5">
+                        Đã tự động gom chung{" "}
+                        <strong>{activeTopicGroup.count.toLocaleString("vi-VN")}</strong> đề thi &amp; tài liệu cùng chủ đề vào một nơi.
+                      </p>
+                    </div>
+
+                    <button
+                      type="button"
+                      onClick={() =>
+                        setBatchModalState({
+                          open: true,
+                          title: activeTopicGroup.title,
+                          documents: displayedDocs,
+                          rootFolderId: currentFolderId,
+                        })
+                      }
+                      className="inline-flex items-center gap-1.5 px-4 py-2 rounded-2xl bg-teal-600 hover:bg-teal-700 text-white text-xs font-extrabold shadow-xs shrink-0 cursor-pointer"
+                    >
+                      <FolderDown className="w-4 h-4" />
+                      <span>Tải trọn bộ chủ đề ({displayedDocs.length})</span>
+                    </button>
+                  </div>
+
+                  <div className="relative">
+                    <Search className="w-3.5 h-3.5 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
+                    <input
+                      type="text"
+                      value={topicGroupSubSearch}
+                      onChange={(e) => setTopicGroupSubSearch(e.target.value)}
+                      placeholder="Lọc nhanh tên Trường THPT / Sở GD&ĐT / Tỉnh thành trong chủ đề này..."
+                      className="w-full pl-9 pr-8 py-2 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 text-xs"
+                    />
+                    {topicGroupSubSearch && (
+                      <button
+                        type="button"
+                        onClick={() => setTopicGroupSubSearch("")}
+                        className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-700 cursor-pointer"
+                      >
+                        <X className="w-3.5 h-3.5" />
+                      </button>
+                    )}
+                  </div>
                 </div>
               )}
 
@@ -2184,7 +2821,7 @@ export default function DocumentLibraryPage() {
                 </div>
               )}
 
-              {/* Document Results Count & Select Page Toggle */}
+              {/* Results: Consolidated Topic Folders OR Individual Documents */}
               {loading ? (
                 <div className="py-16 text-center space-y-3">
                   <Loader2 className="w-8 h-8 animate-spin text-teal-600 mx-auto" />
@@ -2192,43 +2829,131 @@ export default function DocumentLibraryPage() {
                     Đang tải cây thư mục và kho tài liệu...
                   </p>
                 </div>
-              ) : filteredDocs.length === 0 ? (
-                <div className="bg-white dark:bg-slate-900 rounded-3xl border border-slate-200 dark:border-slate-800 p-10 text-center space-y-3">
-                  <FileText className="w-10 h-10 text-slate-400 mx-auto" />
-                  <h3 className="text-sm font-bold text-slate-900 dark:text-white">
-                    Chưa có tài liệu nào khớp điều kiện này
-                  </h3>
-                  <div className="flex flex-wrap items-center justify-center gap-2 pt-1">
-                    {hasActiveFilters && (
-                      <button
-                        type="button"
-                        onClick={resetAllFilters}
-                        className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-teal-600 text-white text-xs font-bold cursor-pointer"
-                      >
-                        <RotateCcw className="w-3.5 h-3.5" />
-                        <span>Đặt lại bộ lọc</span>
-                      </button>
-                    )}
-                    {canManageCurrentFolder && (
-                      <button
-                        type="button"
-                        onClick={handleOpenUploadModal}
-                        className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-indigo-600 text-white text-xs font-bold cursor-pointer"
-                      >
-                        <CloudUpload className="w-3.5 h-3.5" />
-                        <span>+ Đăng tài liệu vào thư mục này</span>
-                      </button>
-                    )}
+              ) : showGroupedTopicView ? (
+                <div className="space-y-4">
+                  <div className="flex flex-wrap items-center justify-between gap-2 px-1">
+                    <div>
+                      <h2 className="text-sm sm:text-base font-black text-slate-900 dark:text-white flex items-center gap-2">
+                        <FolderTree className="w-4 h-4 text-teal-600" />
+                        <span>
+                          Thư mục Chủ đề Gộp gọn ({consolidatedTopics.groups.length} nhóm chủ đề •{" "}
+                          {filteredDocs.length.toLocaleString("vi-VN")} tài liệu)
+                        </span>
+                      </h2>
+                      <p className="text-xs text-slate-500">
+                        Các đề thi cùng chủ đề (VD: Đề thi thử TN THPT Toán các Trường - Sở, Đề GK1, HK1, HSA, TSA...) được tự động gom vào 1 thư mục gọn gàng.
+                      </p>
+                    </div>
+                    <button
+                      type="button"
+                      onClick={() => setDisplayGrouping("flat")}
+                      className="text-xs font-bold text-teal-600 dark:text-teal-400 hover:underline cursor-pointer"
+                    >
+                      Chuyển sang xem lẻ từng tệp →
+                    </button>
                   </div>
+
+                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3.5">
+                    {pagedTopicGroups.map((grp) => renderTopicGroupCard(grp))}
+                  </div>
+
+                  {totalTopicPages > 1 && (
+                    <div className="pt-2 flex items-center justify-center gap-2">
+                      <button
+                        type="button"
+                        disabled={safeTopicPage <= 1}
+                        onClick={() => {
+                          setCurrentPage((p) => Math.max(1, p - 1));
+                          window.scrollTo({ top: 0, behavior: "smooth" });
+                        }}
+                        className="inline-flex items-center gap-1 px-3.5 py-2 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-xs font-bold disabled:opacity-40 cursor-pointer"
+                      >
+                        <ChevronLeft className="w-4 h-4" />
+                        <span>Trước</span>
+                      </button>
+                      <span className="px-3 py-2 text-xs font-bold text-slate-700 dark:text-slate-300">
+                        Nhóm chủ đề — Trang {safeTopicPage} / {totalTopicPages}
+                      </span>
+                      <button
+                        type="button"
+                        disabled={safeTopicPage >= totalTopicPages}
+                        onClick={() => {
+                          setCurrentPage((p) => Math.min(totalTopicPages, p + 1));
+                          window.scrollTo({ top: 0, behavior: "smooth" });
+                        }}
+                        className="inline-flex items-center gap-1 px-3.5 py-2 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-xs font-bold disabled:opacity-40 cursor-pointer"
+                      >
+                        <span>Sau</span>
+                        <ChevronRight className="w-4 h-4" />
+                      </button>
+                    </div>
+                  )}
+
+                  {displayedDocs.length > 0 && safeTopicPage === 1 && (
+                    <div className="pt-3 border-t border-slate-200/70 dark:border-slate-800 space-y-3">
+                      <h3 className="text-xs font-extrabold text-slate-600 dark:text-slate-300 px-1">
+                        Tài liệu riêng lẻ khác ({displayedDocs.length})
+                      </h3>
+                      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+                        {displayedDocs.slice(0, 8).map((doc) => renderDocumentCard(doc))}
+                      </div>
+                    </div>
+                  )}
                 </div>
+              ) : displayedDocs.length === 0 ? (
+                currentFolderNode &&
+                currentFolderNode.children.length > 0 &&
+                !hasActiveFilters ? (
+                  <div className="rounded-2xl bg-slate-50 dark:bg-slate-900/60 border border-slate-200/80 dark:border-slate-800 px-4 py-3 flex flex-wrap items-center justify-between gap-2 text-xs text-slate-500">
+                    <span>
+                      Chọn một thư mục con phía trên để xem tài liệu theo từng nhánh gọn gàng.
+                    </span>
+                    <button
+                      type="button"
+                      onClick={() => setIncludeSubfolders(true)}
+                      className="font-bold text-teal-600 dark:text-teal-400 hover:underline cursor-pointer"
+                    >
+                      Bung tất cả {currentFolderNode.recursiveDocCount.toLocaleString("vi-VN")} tài liệu con
+                    </button>
+                  </div>
+                ) : (
+                  <div className="bg-white dark:bg-slate-900 rounded-3xl border border-slate-200 dark:border-slate-800 p-10 text-center space-y-3">
+                    <FileText className="w-10 h-10 text-slate-400 mx-auto" />
+                    <h3 className="text-sm font-bold text-slate-900 dark:text-white">
+                      Chưa có tài liệu nào khớp điều kiện này
+                    </h3>
+                    <div className="flex flex-wrap items-center justify-center gap-2 pt-1">
+                      {hasActiveFilters && (
+                        <button
+                          type="button"
+                          onClick={resetAllFilters}
+                          className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-teal-600 text-white text-xs font-bold cursor-pointer"
+                        >
+                          <RotateCcw className="w-3.5 h-3.5" />
+                          <span>Đặt lại bộ lọc</span>
+                        </button>
+                      )}
+                      {canManageCurrentFolder && (
+                        <button
+                          type="button"
+                          onClick={handleOpenUploadModal}
+                          className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-indigo-600 text-white text-xs font-bold cursor-pointer"
+                        >
+                          <CloudUpload className="w-3.5 h-3.5" />
+                          <span>+ Đăng tài liệu vào thư mục này</span>
+                        </button>
+                      )}
+                    </div>
+                  </div>
+                )
               ) : (
                 <>
                   <div className="flex flex-wrap items-center justify-between gap-2 text-xs text-slate-500 dark:text-slate-400 px-1">
                     <div className="flex items-center gap-3">
                       <span>
                         Hiển thị <strong>{(safePage - 1) * PAGE_SIZE + 1}</strong>–
-                        <strong>{Math.min(safePage * PAGE_SIZE, filteredDocs.length)}</strong> /{" "}
-                        <strong>{filteredDocs.length.toLocaleString("vi-VN")}</strong> tài liệu
+                        <strong>{Math.min(safePage * PAGE_SIZE, displayedDocs.length)}</strong> /{" "}
+                        <strong>{displayedDocs.length.toLocaleString("vi-VN")}</strong> tài liệu
                       </span>
                       <button
                         type="button"
@@ -2254,10 +2979,12 @@ export default function DocumentLibraryPage() {
                       onClick={() =>
                         setBatchModalState({
                           open: true,
-                          title: currentFolderNode
+                          title: activeTopicGroup
+                            ? activeTopicGroup.title
+                            : currentFolderNode
                             ? currentFolderNode.name
                             : "Danh sách đang lọc",
-                          documents: filteredDocs,
+                          documents: displayedDocs,
                           rootFolderId: currentFolderId,
                         })
                       }
@@ -2342,6 +3069,26 @@ export default function DocumentLibraryPage() {
           void loadPersonalState();
         }}
         onSaved={() => {
+          void loadCatalog(true);
+          void loadPersonalState();
+        }}
+      />
+
+      <DocumentSupplementModal
+        open={supplementModalState.open}
+        onClose={() => setSupplementModalState({ open: false, targetDoc: null })}
+        targetDoc={supplementModalState.targetDoc}
+        isAdminMode={isAdmin}
+        currentUserUid={user?.uid}
+        defaultFolderId={currentFolderId}
+        folderIndex={folderIndex}
+        maxUserPriceVnd={librarySettings.maxUserPriceVnd}
+        creatorSharePercent={librarySettings.creatorRevenueSharePercent}
+        onFolderCreated={() => {
+          void loadCatalog(true);
+          void loadPersonalState();
+        }}
+        onCompleted={() => {
           void loadCatalog(true);
           void loadPersonalState();
         }}

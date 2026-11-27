@@ -20,6 +20,7 @@ import {
   moveDocumentsToFolder,
   probeLegacyCloudinaryPagesServer,
   resolveBatchAuthorizedDocuments,
+  supplementLibraryDocument,
   unlockLibraryDocument,
 } from "../services/documentLibraryService.js";
 
@@ -290,6 +291,25 @@ documentLibraryRouter.patch(
   }
 );
 
+// POST /api/documents/:docId/supplement — Owner or Admin appends/updates subFiles, answerUrl, videoUrl, or visibility
+documentLibraryRouter.post(
+  "/:docId/supplement",
+  requireAuth,
+  async (req: AuthenticatedRequest, res: Response) => {
+    try {
+      const result = await supplementLibraryDocument(req.user!, req.params.docId, req.body || {});
+      return res.json({
+        success: true,
+        ...result,
+        message: "Đã cập nhật & bổ sung tệp cho tài liệu thành công!",
+      });
+    } catch (err: any) {
+      const msg = err?.issues?.[0]?.message || err?.message || "Không thể bổ sung tài liệu.";
+      return res.status(400).json({ error: "document_supplement_error", message: msg });
+    }
+  }
+);
+
 documentLibraryRouter.delete(
   "/:docId",
   requireAuth,
@@ -312,8 +332,14 @@ documentLibraryRouter.delete(
 
 documentLibraryRouter.get("/:docId", async (req: AuthenticatedRequest, res: Response) => {
   try {
+    const { uid, role } = await extractOptionalAuth(req);
     const doc = await getDocumentByIdResolved(req.params.docId);
-    if (!doc || doc.status === "hidden") {
+    const isPrivileged = Boolean(
+      (uid && doc?.authorUid && doc.authorUid === uid) ||
+        role === "admin" ||
+        role === "super_admin"
+    );
+    if (!doc || (doc.status === "hidden" && !isPrivileged)) {
       return res.status(404).json({ error: "not_found", message: "Không tìm thấy tài liệu." });
     }
     return res.json({ success: true, document: doc });
@@ -342,7 +368,12 @@ documentLibraryRouter.get("/:docId/content", async (req: AuthenticatedRequest, r
   try {
     const { uid, role } = await extractOptionalAuth(req);
     const doc = await getDocumentByIdResolved(req.params.docId);
-    if (!doc || doc.status === "hidden") {
+    const isPrivileged = Boolean(
+      (uid && doc?.authorUid && doc.authorUid === uid) ||
+        role === "admin" ||
+        role === "super_admin"
+    );
+    if (!doc || (doc.status === "hidden" && !isPrivileged)) {
       return res.status(404).json({ error: "not_found", message: "Không tìm thấy tài liệu." });
     }
 

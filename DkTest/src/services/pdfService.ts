@@ -59,6 +59,32 @@ export function subscribeDkPdfViewerOpen(
   return () => window.removeEventListener(PDF_VIEWER_OPEN_EVENT, handler);
 }
 
+/**
+ * Safely disposes pdfjs-dist v4/v5/v6 loading tasks and document proxies
+ * without throwing when `PDFDocumentProxy.destroy` is absent in pdfjs-dist v6+.
+ */
+export function safeDisposePdfResources(
+  loadingTask?: { destroy?: () => Promise<void> | void } | null,
+  docProxy?: {
+    destroy?: () => Promise<void> | void;
+    cleanup?: () => Promise<void> | void;
+  } | null
+): void {
+  try {
+    if (docProxy && typeof docProxy.cleanup === "function") {
+      void Promise.resolve(docProxy.cleanup()).catch(() => {});
+    }
+  } catch {}
+
+  try {
+    if (loadingTask && typeof loadingTask.destroy === "function") {
+      void Promise.resolve(loadingTask.destroy()).catch(() => {});
+    } else if (docProxy && typeof docProxy.destroy === "function") {
+      void Promise.resolve(docProxy.destroy()).catch(() => {});
+    }
+  } catch {}
+}
+
 export function extractGoogleDriveFileIdFromDocUrl(rawUrl: string): string | null {
   const clean = String(rawUrl || "").trim();
   if (!clean) return null;

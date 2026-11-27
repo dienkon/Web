@@ -6636,6 +6636,7 @@ function expandCompactSeedDocument(item) {
     category: item.c,
     fileFormat: item.f,
     folderId: item.fid || `sfold_${sourceKey}`,
+    ...item.tk ? { topicKey: item.tk } : {},
     space: "sources",
     sourceKey,
     accessMode: "free",
@@ -6864,9 +6865,18 @@ var upsertDocumentSchema = z4.object({
   answerUrl: z4.string().trim().max(2048).optional(),
   videoUrl: z4.string().trim().max(2048).optional(),
   subFiles: z4.array(subFileSchema).max(120).optional(),
+  topicKey: z4.string().trim().max(64).optional(),
   tags: z4.array(z4.string().trim().max(48)).max(12).optional().default([]),
   isFeatured: z4.boolean().optional(),
   status: z4.enum(["published", "pending", "rejected", "hidden"]).optional()
+});
+var supplementDocumentSchema = z4.object({
+  appendSubFiles: z4.array(subFileSchema).max(120).optional(),
+  replaceSubFiles: z4.array(subFileSchema).max(120).optional(),
+  answerUrl: z4.string().trim().max(2048).nullable().optional(),
+  videoUrl: z4.string().trim().max(2048).nullable().optional(),
+  status: z4.enum(["published", "hidden"]).optional(),
+  folderId: z4.string().trim().max(96).nullable().optional()
 });
 function sanitizePublicDocument(doc) {
   const isPaid = doc.accessMode === "paid" && sanitizeVnd(doc.priceVnd) > 0;
@@ -7205,8 +7215,12 @@ async function createOrUpdateLibraryDocument(actor, rawInput) {
   let nextStatus = "published";
   if (isAdmin) {
     nextStatus = parsed.status || existingDoc?.status || "published";
+  } else if (parsed.status === "hidden") {
+    nextStatus = "hidden";
+  } else if (existingDoc?.status === "rejected" && !settings.autoApproveUserUploads) {
+    nextStatus = "pending";
   } else {
-    nextStatus = settings.autoApproveUserUploads ? "published" : "pending";
+    nextStatus = settings.autoApproveUserUploads || existingDoc?.status === "published" ? "published" : "pending";
   }
   const cleanAnswerUrl = parsed.answerUrl !== void 0 ? parsed.answerUrl.trim() || void 0 : existingSecrets?.answerUrl || existingDoc?.answerUrl || void 0;
   const cleanVideoUrl = parsed.videoUrl !== void 0 ? parsed.videoUrl.trim() || void 0 : existingSecrets?.videoUrl || existingDoc?.videoUrl || void 0;
@@ -7216,6 +7230,7 @@ async function createOrUpdateLibraryDocument(actor, rawInput) {
   const authorName = existingDoc?.authorName && existingDoc.authorRole !== "seed" ? existingDoc.authorName : actor.displayName || actor.email?.split("@")[0] || (isAdmin ? "Ban Qu\u1EA3n Tr\u1ECB DkTEST" : "Th\xE0nh vi\xEAn DkTEST");
   const resolvedSpace = targetFolder ? targetFolder.space : isAdmin ? parsed.space || existingDoc?.space || "dktest_exclusive" : "community";
   const resolvedSourceKey = targetFolder?.sourceKey ? targetFolder.sourceKey : resolvedSpace === "dktest_exclusive" ? "dktest" : existingDoc?.sourceKey || "community";
+  const cleanTopicKey = parsed.topicKey?.trim() || existingDoc?.topicKey || void 0;
   const fullDoc = {
     id: docId,
     title: parsed.title,
@@ -7227,6 +7242,8 @@ async function createOrUpdateLibraryDocument(actor, rawInput) {
     folderId: requestedFolderId,
     space: resolvedSpace,
     sourceKey: resolvedSourceKey,
+    ...cleanTopicKey ? { topicKey: cleanTopicKey } : {},
+    ...cleanSubFiles && cleanSubFiles.length > 1 ? { subFileCount: cleanSubFiles.length } : {},
     ...parsed.pageCount ? { pageCount: parsed.pageCount } : existingDoc?.pageCount ? { pageCount: existingDoc.pageCount } : {},
     ...parsed.fileSizeBytes ? { fileSizeBytes: parsed.fileSizeBytes } : existingDoc?.fileSizeBytes ? { fileSizeBytes: existingDoc.fileSizeBytes } : {},
     coverImageUrl: parsed.coverImageUrl !== void 0 ? parsed.coverImageUrl : existingDoc?.coverImageUrl || null,
@@ -7279,6 +7296,144 @@ async function createOrUpdateLibraryDocument(actor, rawInput) {
   }
   invalidateDocumentLibraryCache();
   return publicDoc;
+}
+async function supplementLibraryDocument(actor, docId, rawInput) {
+  const cleanId = String(docId || "").trim();
+  if (!cleanId) throw new Error("M\xE3 t\xE0i li\u1EC7u kh\xF4ng h\u1EE3p l\u1EC7.");
+  const parsed = supplementDocumentSchema.parse(rawInput || {});
+  const isAdmin = actor.role === "admin" || actor.role === "super_admin";
+  const settings = await getDocumentLibrarySettings();
+  const existingDoc = await getDocumentByIdResolved(cleanId);
+  if (!existingDoc) throw new Error("Kh\xF4ng t\xECm th\u1EA5y t\xE0i li\u1EC7u c\u1EA7n b\u1ED5 sung.");
+  if (!isAdmin && existingDoc.authorUid !== actor.uid) {
+    throw new Error("B\u1EA1n ch\u1EC9 c\xF3 quy\u1EC1n b\u1ED5 sung n\u1ED9i dung v\xE0o t\xE0i li\u1EC7u do ch\xEDnh m\xECnh \u0111\u0103ng t\u1EA3i.");
+  }
+  const existingSecrets = await getDocumentSecrets(cleanId);
+  const primaryFileUrl = existingSecrets?.fileUrl || existingDoc.fileUrl || "";
+  if (!primaryFileUrl) {
+    throw new Error("T\xE0i li\u1EC7u g\u1ED1c ch\u01B0a c\xF3 \u0111\u01B0\u1EDDng d\u1EABn t\u1EC7p h\u1EE3p l\u1EC7.");
+  }
+  let nextSubFiles = Array.isArray(existingSecrets?.subFiles) ? [...existingSecrets.subFiles] : Array.isArray(existingDoc.subFiles) ? [...existingDoc.subFiles] : [];
+  if (parsed.replaceSubFiles !== void 0) {
+    for (const sf of parsed.replaceSubFiles) {
+      if (!/^https:\/\/res\.cloudinary\.com\//i.test(sf.url)) {
+        await validateUrlForSsrf(sf.url);
+      }
+    }
+    nextSubFiles = parsed.replaceSubFiles.map((sf) => ({
+      name: sf.name,
+      url: sf.url,
+      fileFormat: sf.fileFormat,
+      ...sf.folderPath?.trim() ? { folderPath: sf.folderPath.trim() } : {}
+    }));
+  }
+  if (parsed.appendSubFiles && parsed.appendSubFiles.length > 0) {
+    for (const sf of parsed.appendSubFiles) {
+      if (!/^https:\/\/res\.cloudinary\.com\//i.test(sf.url)) {
+        await validateUrlForSsrf(sf.url);
+      }
+    }
+    if (nextSubFiles.length === 0) {
+      nextSubFiles.push({
+        name: existingSecrets?.originalFileName || existingDoc.originalFileName || `${existingDoc.title} (B\u1EA3n g\u1ED1c)`,
+        url: primaryFileUrl,
+        fileFormat: existingDoc.fileFormat || "pdf"
+      });
+    }
+    for (const sf of parsed.appendSubFiles) {
+      if (nextSubFiles.length >= 120) break;
+      if (nextSubFiles.some((x) => x.url === sf.url)) continue;
+      nextSubFiles.push({
+        name: sf.name,
+        url: sf.url,
+        fileFormat: sf.fileFormat,
+        ...sf.folderPath?.trim() ? { folderPath: sf.folderPath.trim() } : {}
+      });
+    }
+  }
+  const nextAnswerUrl = parsed.answerUrl !== void 0 ? parsed.answerUrl?.trim() || void 0 : existingSecrets?.answerUrl || existingDoc.answerUrl || void 0;
+  if (nextAnswerUrl && !/^https:\/\/res\.cloudinary\.com\//i.test(nextAnswerUrl)) {
+    await validateUrlForSsrf(nextAnswerUrl);
+  }
+  const nextVideoUrl = parsed.videoUrl !== void 0 ? parsed.videoUrl?.trim() || void 0 : existingSecrets?.videoUrl || existingDoc.videoUrl || void 0;
+  let nextFolderId = existingDoc.folderId ?? null;
+  let nextSpace = existingDoc.space;
+  let nextSourceKey = existingDoc.sourceKey;
+  if (parsed.folderId !== void 0) {
+    const cleanFid = parsed.folderId?.trim() || null;
+    if (cleanFid) {
+      const targetFolder = await getFolderByIdResolved(cleanFid);
+      if (!targetFolder || targetFolder.status === "hidden") {
+        throw new Error("Th\u01B0 m\u1EE5c l\u01B0u tr\u1EEF kh\xF4ng t\u1ED3n t\u1EA1i ho\u1EB7c \u0111\xE3 b\u1ECB \u1EA9n.");
+      }
+      if (!isAdmin && targetFolder.ownerUid !== actor.uid) {
+        throw new Error("B\u1EA1n ch\u1EC9 c\xF3 th\u1EC3 di chuy\u1EC3n t\xE0i li\u1EC7u v\xE0o th\u01B0 m\u1EE5c c\u1EE7a ch\xEDnh m\xECnh.");
+      }
+      nextFolderId = cleanFid;
+      nextSpace = targetFolder.space;
+      nextSourceKey = targetFolder.sourceKey || nextSourceKey;
+    } else {
+      nextFolderId = null;
+    }
+  }
+  let nextStatus = existingDoc.status;
+  if (parsed.status === "hidden") {
+    nextStatus = "hidden";
+  } else if (parsed.status === "published") {
+    if (isAdmin) {
+      nextStatus = "published";
+    } else if (existingDoc.status === "rejected" && !settings.autoApproveUserUploads) {
+      nextStatus = "pending";
+    } else {
+      nextStatus = settings.autoApproveUserUploads ? "published" : "pending";
+    }
+  }
+  const now = (/* @__PURE__ */ new Date()).toISOString();
+  const resolvedPrimaryUrl = nextSubFiles[0]?.url || primaryFileUrl;
+  const fullDoc = {
+    ...existingDoc,
+    folderId: nextFolderId,
+    space: nextSpace,
+    sourceKey: nextSourceKey,
+    status: nextStatus,
+    fileUrl: resolvedPrimaryUrl,
+    ...existingSecrets?.originalFileName || existingDoc.originalFileName ? { originalFileName: existingSecrets?.originalFileName || existingDoc.originalFileName } : {},
+    ...nextAnswerUrl ? { answerUrl: nextAnswerUrl } : {},
+    ...nextVideoUrl ? { videoUrl: nextVideoUrl } : {},
+    ...nextSubFiles.length > 0 ? { subFiles: nextSubFiles } : {},
+    ...nextSubFiles.length > 1 ? { subFileCount: nextSubFiles.length } : {},
+    updatedAt: now
+  };
+  if (!nextAnswerUrl) delete fullDoc.answerUrl;
+  if (!nextVideoUrl) delete fullDoc.videoUrl;
+  if (nextSubFiles.length <= 1) delete fullDoc.subFileCount;
+  if (nextSubFiles.length === 0) delete fullDoc.subFiles;
+  const publicDoc = sanitizePublicDocument(fullDoc);
+  const secretsPayload = {
+    docId: cleanId,
+    fileUrl: resolvedPrimaryUrl,
+    ...existingSecrets?.originalFileName || existingDoc.originalFileName ? { originalFileName: existingSecrets?.originalFileName || existingDoc.originalFileName } : {},
+    ...nextAnswerUrl ? { answerUrl: nextAnswerUrl } : {},
+    ...nextVideoUrl ? { videoUrl: nextVideoUrl } : {},
+    ...nextSubFiles.length > 0 ? { subFiles: nextSubFiles } : {},
+    updatedAt: now
+  };
+  if (adminDb) {
+    const batch = adminDb.batch();
+    batch.set(adminDb.collection(DOCS_COLLECTION).doc(cleanId), publicDoc);
+    batch.set(adminDb.collection(SECRETS_COLLECTION).doc(cleanId), secretsPayload);
+    await batch.commit();
+  } else {
+    await setFirestoreRestDoc(DOCS_COLLECTION, cleanId, publicDoc);
+    await setFirestoreRestDoc(SECRETS_COLLECTION, cleanId, secretsPayload);
+  }
+  invalidateDocumentLibraryCache();
+  return {
+    document: publicDoc,
+    subFiles: nextSubFiles,
+    answerUrl: nextAnswerUrl,
+    videoUrl: nextVideoUrl
+  };
 }
 async function moveDocumentsToFolder(actor, params) {
   const isAdmin = actor.role === "admin" || actor.role === "super_admin";
@@ -7366,13 +7521,13 @@ async function deleteLibraryDocument(actor, docId) {
 }
 async function checkDocumentAccess(uid, docId, role = "student") {
   const doc = await getDocumentByIdResolved(docId);
-  if (!doc || doc.status === "hidden") {
+  const isAdmin = role === "admin" || role === "super_admin";
+  const isOwner = Boolean(uid && doc?.authorUid && doc.authorUid === uid);
+  if (!doc || doc.status === "hidden" && !isAdmin && !isOwner) {
     throw new Error("T\xE0i li\u1EC7u kh\xF4ng t\u1ED3n t\u1EA1i ho\u1EB7c \u0111\xE3 b\u1ECB g\u1EE1.");
   }
   const priceVnd = doc.accessMode === "paid" ? sanitizeVnd(doc.priceVnd) : 0;
   const isFree = priceVnd <= 0;
-  const isAdmin = role === "admin" || role === "super_admin";
-  const isOwner = Boolean(uid && doc.authorUid && doc.authorUid === uid);
   if (isFree || isAdmin || isOwner) {
     return {
       hasAccess: true,
@@ -8167,6 +8322,23 @@ documentLibraryRouter.patch(
     }
   }
 );
+documentLibraryRouter.post(
+  "/:docId/supplement",
+  requireAuth,
+  async (req, res) => {
+    try {
+      const result = await supplementLibraryDocument(req.user, req.params.docId, req.body || {});
+      return res.json({
+        success: true,
+        ...result,
+        message: "\u0110\xE3 c\u1EADp nh\u1EADt & b\u1ED5 sung t\u1EC7p cho t\xE0i li\u1EC7u th\xE0nh c\xF4ng!"
+      });
+    } catch (err) {
+      const msg = err?.issues?.[0]?.message || err?.message || "Kh\xF4ng th\u1EC3 b\u1ED5 sung t\xE0i li\u1EC7u.";
+      return res.status(400).json({ error: "document_supplement_error", message: msg });
+    }
+  }
+);
 documentLibraryRouter.delete(
   "/:docId",
   requireAuth,
@@ -8188,8 +8360,12 @@ documentLibraryRouter.delete(
 );
 documentLibraryRouter.get("/:docId", async (req, res) => {
   try {
+    const { uid, role } = await extractOptionalAuth(req);
     const doc = await getDocumentByIdResolved(req.params.docId);
-    if (!doc || doc.status === "hidden") {
+    const isPrivileged = Boolean(
+      uid && doc?.authorUid && doc.authorUid === uid || role === "admin" || role === "super_admin"
+    );
+    if (!doc || doc.status === "hidden" && !isPrivileged) {
       return res.status(404).json({ error: "not_found", message: "Kh\xF4ng t\xECm th\u1EA5y t\xE0i li\u1EC7u." });
     }
     return res.json({ success: true, document: doc });
@@ -8216,7 +8392,10 @@ documentLibraryRouter.get("/:docId/content", async (req, res) => {
   try {
     const { uid, role } = await extractOptionalAuth(req);
     const doc = await getDocumentByIdResolved(req.params.docId);
-    if (!doc || doc.status === "hidden") {
+    const isPrivileged = Boolean(
+      uid && doc?.authorUid && doc.authorUid === uid || role === "admin" || role === "super_admin"
+    );
+    if (!doc || doc.status === "hidden" && !isPrivileged) {
       return res.status(404).json({ error: "not_found", message: "Kh\xF4ng t\xECm th\u1EA5y t\xE0i li\u1EC7u." });
     }
     if (doc.accessMode === "paid" && doc.priceVnd > 0 && !uid) {

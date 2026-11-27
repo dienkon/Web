@@ -1,5 +1,21 @@
 # DkTEST changelog
 
+## 2.0.9 — 2026-11-27 (Android versionCode 33)
+
+- **Sửa triệt để lỗi Crash Trình đọc PDF khi đóng hoặc chuyển tệp (`DkPdfViewerModal.tsx`, `pdfService.ts`)**:
+  - Sửa lỗi `TypeError: loadedDocInstance.destroy is not a function` ở `pdfjs-dist` v6 (trong v6, `PDFDocumentProxy` chỉ cung cấp `.cleanup()`, còn `.destroy()` nằm trên `PDFDocumentLoadingTask`) khi React 19 StrictMode unmount/remount hoặc người dùng đóng hộp thoại PDF.
+  - Bổ sung hàm `safeDisposePdfResources(loadingTask, docProxy)` giải phóng an toàn cả worker task lẫn bộ đệm trang PDF và bỏ qua các thông báo hủy luồng bất đồng bộ sau khi component đã đóng.
+- **Thu thập Full dữ liệu chuẩn (6.012 tài liệu & 448 thư mục) & Tự động gộp gọn các tài liệu cùng chủ đề thành 1 Thư mục trên Web (`scripts/scrape-document-library.mjs`, `documentLibrary.ts`, `documentLibraryClientService.ts`, `DocumentLibraryPage.tsx`)**:
+  - **Cập nhật toàn bộ dữ liệu hiện đại chuẩn hóa (`6.012` tài liệu, `923` gói đa tệp)**: mở rộng thu thập đầy đủ chương trình mới từ `nganhangdethi.org` (`2.957`), `mathvn.com` + `nguyenbaovuong.blogspot.com` + `thpt.math.vn` (`1.322`), `tailieuonthi.edu.vn` (`912`) và `tailieuonthi.org` (`821`), vẫn giữ tối ưu **0 lượt đọc Firestore**.
+  - **Tự động phân cụm 24 Chủ đề chuẩn (`DOCUMENT_TOPIC_CLUSTER_META`) & Gộp chung trên Web (`buildConsolidatedTopicGroups`)**: tự động gom các đề lẻ cùng chủ đề xuyên suốt các nguồn và khối `Lớp 12` / `THPT QG` (ví dụ: *Đề thi thử TN THPT & Khảo sát Trường - Sở — Môn Toán*, *Đề GK1 / HK1 / GK2-HK2*, *Bộ Đề ĐGNL HSA / V-ACT / TSA / SPT*, *Chuyên đề Hàm số / Tích phân / Oxyz*, *Tủ sách Ebook*...) thành các **Thư mục Chủ đề Gộp gọn** mặc định trên giao diện Web (kèm nút chuyển đổi `[Gộp chủ đề]` ↔ `[Xem lẻ]`, ô lọc nhanh tên Trường/Sở bên trong từng chủ đề và nút **Tải trọn bộ chủ đề `.ZIP`**).
+  - **Làm gọn hiển thị trong thư mục cha**: khi mở thư mục cha có thư mục con, mặc định chỉ hiển thị các thư mục con gọn gàng thay vì đổ tràn hàng nghìn tệp cháu bên dưới (vẫn hỗ trợ tìm kiếm đệ quy hoặc bung toàn bộ theo nhu cầu).
+- **Tab Quản lý & Bổ sung tài liệu đã đăng riêng cho từng Người dùng (`DocumentSupplementModal.tsx`, `DocumentLibraryPage.tsx`, `DocumentDetailPage.tsx`, `DocumentManagement.tsx`, `documentLibraryService.ts`, `documentLibraryRoutes.ts`)**:
+  - **Tab cố định `Quản lý tài liệu đã đăng` (`?tab=mine`)**: hiển thị nổi bật trên thanh điều hướng Kho Tài Liệu cho mọi người dùng (hỗ trợ lọc theo thư mục riêng, trạng thái công khai/tạm ẩn/chờ duyệt, tìm kiếm nhanh và thống kê lượt xem/lượt tải/doanh thu).
+  - **Bổ sung thêm tệp / Đáp án bất kỳ lúc nào (`POST /api/documents/:docId/supplement` & `DocumentSupplementModal`)**: cho phép người đăng tải thêm 1 hoặc nhiều tệp PDF/DOCX/ZIP mới lên Cloudinary kèm nhánh thư mục con (`folderPath`, VD: *"Đề bổ sung Đợt 2"*), sắp xếp/đổi tên/gỡ tệp con, bổ sung file Đáp án hoặc link Video chữa bài, và bật/tắt nhanh `Công khai` ↔ `Tạm ẩn` mà không cần đăng lại từ đầu.
+  - **Trình Đăng hàng loạt nhiều tệp vào thư mục (`Batch Multi-File Upload`)**: chọn cùng lúc tối đa 40 tệp từ máy để tự động tạo thành từng tài liệu riêng trong thư mục hoặc gom thành 1 Bộ đề nhiều tệp trên Cloudinary.
+  - **Lọc & Quản lý theo từng Người đăng**: bổ sung thanh lọc bài đăng theo từng thành viên ở mục Cộng đồng và tab **`Quản lý theo từng User đăng`** trong trang Admin (`/admin/documents`).
+- Audit: [2.0.9](docs/audits/2.0.9.md).
+
 ## 2.0.8 — 2026-11-27 (Android versionCode 32)
 
 - **Tái cấu trúc Kho Tài Liệu theo Cây Thư Mục Phân Cấp Chuẩn Gốc & Tách riêng Tài liệu Độc quyền DkTEST (`documentLibrary.ts`, `documentLibraryClientService.ts`, `DocumentLibraryPage.tsx`, `DocumentDetailPage.tsx`)**:

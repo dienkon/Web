@@ -6,11 +6,13 @@ import {
   Coins,
   Edit3,
   Eye,
+  FilePlus2,
   FolderInput,
   FolderOpen,
   FolderPlus,
   FolderTree,
   Globe,
+  Layers,
   Library,
   Loader2,
   RefreshCw,
@@ -20,8 +22,10 @@ import {
   Square,
   Star,
   Trash2,
+  Users,
   XCircle,
 } from "lucide-react";
+import DocumentSupplementModal from "../../components/documents/DocumentSupplementModal";
 import DocumentUploadModal from "../../components/documents/DocumentUploadModal";
 import FolderFormModal from "../../components/documents/FolderFormModal";
 import { useToast } from "../../components/ui/ToastNotification";
@@ -52,7 +56,13 @@ import {
   type LibraryFolder,
 } from "../../types/documentLibrary";
 
-type AdminDocTab = "live" | "folders" | "seed" | "purchases" | "settings";
+type AdminDocTab =
+  | "live"
+  | "contributors"
+  | "folders"
+  | "seed"
+  | "purchases"
+  | "settings";
 
 export default function DocumentManagement() {
   const { success: showSuccessToast, error: showErrorToast } = useToast();
@@ -78,6 +88,7 @@ export default function DocumentManagement() {
   >("all");
   const [searchQuery, setSearchQuery] = useState("");
   const [seedSearch, setSeedSearch] = useState("");
+  const [selectedContributorUid, setSelectedContributorUid] = useState<string>("all");
 
   // Bulk selection & move
   const [selectedDocIds, setSelectedDocIds] = useState<string[]>([]);
@@ -87,6 +98,10 @@ export default function DocumentManagement() {
   // Modals & inline states
   const [showUploadModal, setShowUploadModal] = useState(false);
   const [editingDoc, setEditingDoc] = useState<LibraryDocument | null>(null);
+  const [supplementModalState, setSupplementModalState] = useState<{
+    open: boolean;
+    targetDoc: LibraryDocument | null;
+  }>({ open: false, targetDoc: null });
   const [showFolderModal, setShowFolderModal] = useState(false);
   const [editingFolder, setEditingFolder] = useState<LibraryFolder | null>(null);
   const [folderSpacePreset, setFolderSpacePreset] =
@@ -183,6 +198,56 @@ export default function DocumentManagement() {
     const res = filterAndSortDocuments(seedCatalog, { search: seedSearch });
     return res.items.slice(0, 50);
   }, [seedCatalog, seedSearch]);
+
+  const contributorsSummary = useMemo(() => {
+    const byUid = new Map<
+      string,
+      {
+        uid: string;
+        name: string;
+        roleLabel: string;
+        docs: LibraryDocument[];
+        folders: LibraryFolder[];
+        revenueVnd: number;
+      }
+    >();
+
+    for (const d of liveDocs) {
+      if (d.authorRole === "seed") continue;
+      const uid = d.authorUid || `author_${d.authorName || "anon"}`;
+      if (!byUid.has(uid)) {
+        byUid.set(uid, {
+          uid,
+          name: d.authorName || "Thành viên DkTEST",
+          roleLabel: d.authorRole === "admin" ? "Ban Quản Trị" : "Thành viên",
+          docs: [],
+          folders: [],
+          revenueVnd: 0,
+        });
+      }
+      const bucket = byUid.get(uid)!;
+      bucket.docs.push(d);
+      bucket.revenueVnd += d.totalRevenueVnd || 0;
+    }
+
+    for (const f of liveFolders) {
+      if (f.ownerRole === "seed") continue;
+      const uid = f.ownerUid || `author_${f.ownerName || "anon"}`;
+      if (!byUid.has(uid)) {
+        byUid.set(uid, {
+          uid,
+          name: f.ownerName || "Thành viên DkTEST",
+          roleLabel: f.ownerRole === "admin" ? "Ban Quản Trị" : "Thành viên",
+          docs: [],
+          folders: [],
+          revenueVnd: 0,
+        });
+      }
+      byUid.get(uid)!.folders.push(f);
+    }
+
+    return [...byUid.values()].sort((a, b) => b.docs.length - a.docs.length);
+  }, [liveDocs, liveFolders]);
 
   const handlePreviewAdmin = async (doc: LibraryDocument) => {
     try {
@@ -363,6 +428,15 @@ export default function DocumentManagement() {
 
           <button
             type="button"
+            onClick={() => setSupplementModalState({ open: true, targetDoc: null })}
+            className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold cursor-pointer"
+          >
+            <Layers className="w-4 h-4" />
+            <span>Đăng hàng loạt</span>
+          </button>
+
+          <button
+            type="button"
             onClick={() => {
               setEditingDoc(null);
               setShowUploadModal(true);
@@ -420,6 +494,19 @@ export default function DocumentManagement() {
           }`}
         >
           Tài liệu đăng mới &amp; Độc quyền ({liveDocs.length})
+        </button>
+
+        <button
+          type="button"
+          onClick={() => setActiveTab("contributors")}
+          className={`px-3.5 py-2 rounded-xl text-xs font-bold cursor-pointer flex items-center gap-1.5 ${
+            activeTab === "contributors"
+              ? "bg-blue-600 text-white"
+              : "bg-white dark:bg-slate-900 text-slate-600 dark:text-slate-300 border border-slate-200 dark:border-slate-800"
+          }`}
+        >
+          <Users className="w-3.5 h-3.5" />
+          <span>Quản lý theo từng User đăng ({contributorsSummary.length})</span>
         </button>
 
         <button
@@ -1194,6 +1281,164 @@ export default function DocumentManagement() {
         </div>
       )}
 
+      {/* ================================================================= */}
+      {/* TAB: CONTRIBUTORS (Quản lý & Bổ sung tài liệu theo từng User đăng) */}
+      {/* ================================================================= */}
+      {activeTab === "contributors" && (
+        <div className="space-y-4">
+          <div className="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 p-4 flex flex-wrap items-center justify-between gap-3">
+            <div>
+              <h2 className="text-sm font-black text-slate-900 dark:text-white">
+                Danh sách Người dùng &amp; Quản trị viên đã đăng tài liệu ({contributorsSummary.length})
+              </h2>
+              <p className="text-xs text-slate-500">
+                Chọn từng người dùng để kiểm tra các thư mục riêng, bổ sung thêm tệp con/đáp án hoặc kiểm duyệt bài đăng của họ.
+              </p>
+            </div>
+
+            <select
+              value={selectedContributorUid}
+              onChange={(e) => setSelectedContributorUid(e.target.value)}
+              className="px-3 py-2 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-xs font-bold"
+            >
+              <option value="all">Tất cả người đăng ({contributorsSummary.length})</option>
+              {contributorsSummary.map((c) => (
+                <option key={c.uid} value={c.uid}>
+                  👤 {c.name} ({c.docs.length} tài liệu • {c.folders.length} thư mục)
+                </option>
+              ))}
+            </select>
+          </div>
+
+          {contributorsSummary.length === 0 ? (
+            <div className="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 p-8 text-center text-xs text-slate-500">
+              Chưa có tài liệu nào do người dùng hoặc Admin đăng trực tiếp.
+            </div>
+          ) : (
+            contributorsSummary
+              .filter((c) => selectedContributorUid === "all" || c.uid === selectedContributorUid)
+              .map((contrib) => (
+                <div
+                  key={contrib.uid}
+                  className="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 p-5 space-y-4"
+                >
+                  <div className="flex flex-wrap items-center justify-between gap-2 pb-3 border-b border-slate-100 dark:border-slate-800">
+                    <div>
+                      <div className="flex items-center gap-2">
+                        <span className="text-sm font-black text-slate-900 dark:text-white">
+                          👤 {contrib.name}
+                        </span>
+                        <span className="px-2 py-0.5 rounded-md bg-indigo-50 dark:bg-indigo-950/60 text-indigo-700 dark:text-indigo-300 text-[10px] font-bold">
+                          {contrib.roleLabel}
+                        </span>
+                      </div>
+                      <div className="text-[11px] text-slate-400 mt-0.5">
+                        UID: <code>{contrib.uid}</code> • {contrib.folders.length} thư mục riêng •{" "}
+                        {contrib.docs.length} tài liệu • Tổng doanh thu:{" "}
+                        {contrib.revenueVnd.toLocaleString("vi-VN")}đ
+                      </div>
+                    </div>
+                  </div>
+
+                  {contrib.folders.length > 0 && (
+                    <div className="flex flex-wrap gap-2">
+                      {contrib.folders.map((f) => (
+                        <span
+                          key={f.id}
+                          className="inline-flex items-center gap-1.5 px-3 py-1 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-xs font-semibold"
+                        >
+                          <FolderOpen className="w-3.5 h-3.5 text-indigo-600" />
+                          <span>{f.name}</span>
+                        </span>
+                      ))}
+                    </div>
+                  )}
+
+                  {contrib.docs.length > 0 && (
+                    <div className="divide-y divide-slate-100 dark:divide-slate-800">
+                      {contrib.docs.map((doc) => (
+                        <div
+                          key={doc.id}
+                          className="py-2.5 flex flex-col sm:flex-row sm:items-center justify-between gap-2"
+                        >
+                          <div className="min-w-0">
+                            <div className="flex items-center gap-2 text-[10px] font-bold">
+                              <span
+                                className={`px-1.5 py-0.5 rounded ${
+                                  doc.status === "published"
+                                    ? "bg-emerald-100 text-emerald-800"
+                                    : doc.status === "pending"
+                                    ? "bg-amber-100 text-amber-800"
+                                    : "bg-slate-200 text-slate-700"
+                                }`}
+                              >
+                                {doc.status.toUpperCase()}
+                              </span>
+                              <span className="text-slate-500">
+                                {doc.priceVnd > 0
+                                  ? `${doc.priceVnd.toLocaleString("vi-VN")}đ`
+                                  : "Miễn phí"}
+                              </span>
+                              {(doc.subFileCount || doc.subFiles?.length || 0) > 1 && (
+                                <span className="text-indigo-600">
+                                  • 📦 {doc.subFileCount || doc.subFiles?.length} tệp
+                                </span>
+                              )}
+                            </div>
+                            <div className="text-xs sm:text-sm font-bold text-slate-900 dark:text-white truncate mt-0.5">
+                              {doc.title}
+                            </div>
+                          </div>
+
+                          <div className="flex items-center gap-1.5 shrink-0">
+                            <button
+                              type="button"
+                              onClick={() =>
+                                setSupplementModalState({ open: true, targetDoc: doc })
+                              }
+                              className="inline-flex items-center gap-1 px-2.5 py-1.5 rounded-xl bg-teal-600 text-white text-xs font-bold cursor-pointer"
+                            >
+                              <FilePlus2 className="w-3.5 h-3.5" />
+                              <span>+ Bổ sung tệp</span>
+                            </button>
+                            <button
+                              type="button"
+                              onClick={() => {
+                                setEditingDoc(doc);
+                                setShowUploadModal(true);
+                              }}
+                              className="px-2.5 py-1.5 rounded-xl bg-slate-100 dark:bg-slate-800 text-xs font-bold cursor-pointer"
+                            >
+                              Sửa
+                            </button>
+                            {doc.status !== "published" ? (
+                              <button
+                                type="button"
+                                onClick={() => void handleModerate(doc, { status: "published" })}
+                                className="px-2.5 py-1.5 rounded-xl bg-emerald-600 text-white text-xs font-bold cursor-pointer"
+                              >
+                                Duyệt
+                              </button>
+                            ) : (
+                              <button
+                                type="button"
+                                onClick={() => void handleModerate(doc, { status: "hidden" })}
+                                className="px-2.5 py-1.5 rounded-xl bg-slate-200 dark:bg-slate-700 text-xs font-bold cursor-pointer"
+                              >
+                                Ẩn
+                              </button>
+                            )}
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              ))
+          )}
+        </div>
+      )}
+
       <DocumentUploadModal
         open={showUploadModal}
         onClose={() => {
@@ -1205,6 +1450,16 @@ export default function DocumentManagement() {
         folderIndex={folderIndex}
         onFolderCreated={() => void loadAll()}
         onSaved={() => void loadAll()}
+      />
+
+      <DocumentSupplementModal
+        open={supplementModalState.open}
+        onClose={() => setSupplementModalState({ open: false, targetDoc: null })}
+        targetDoc={supplementModalState.targetDoc}
+        isAdminMode={true}
+        folderIndex={folderIndex}
+        onFolderCreated={() => void loadAll()}
+        onCompleted={() => void loadAll()}
       />
 
       <FolderFormModal

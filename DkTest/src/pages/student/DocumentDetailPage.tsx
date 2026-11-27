@@ -12,6 +12,7 @@ import {
   ExternalLink,
   Eye,
   FileCheck2,
+  FilePlus2,
   FileText,
   Folder,
   FolderDown,
@@ -27,6 +28,7 @@ import {
   Wallet,
 } from "lucide-react";
 import BatchDownloadModal from "../../components/documents/BatchDownloadModal";
+import DocumentSupplementModal from "../../components/documents/DocumentSupplementModal";
 import DocumentUploadModal from "../../components/documents/DocumentUploadModal";
 import { useToast } from "../../components/ui/ToastNotification";
 import { useAuth } from "../../context/AuthContext";
@@ -91,8 +93,9 @@ export default function DocumentDetailPage() {
     subFolderFilter?: string;
   }>({ open: false });
 
-  // Edit modal for owner / Admin
+  // Edit & Supplement modals for owner / Admin
   const [showEditModal, setShowEditModal] = useState(false);
+  const [showSupplementModal, setShowSupplementModal] = useState(false);
 
   // Nested sub-folder expand state inside multi-file packs
   const [collapsedSubGroups, setCollapsedSubGroups] = useState<Set<string>>(() => new Set());
@@ -411,14 +414,24 @@ export default function DocumentDetailPage() {
 
         <div className="flex items-center gap-2">
           {canEditDoc && (
-            <button
-              type="button"
-              onClick={() => setShowEditModal(true)}
-              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-indigo-50 dark:bg-indigo-950/60 border border-indigo-200 dark:border-indigo-800 text-xs font-bold text-indigo-700 dark:text-indigo-300 cursor-pointer"
-            >
-              <Edit3 className="w-3.5 h-3.5" />
-              <span>Cập nhật</span>
-            </button>
+            <>
+              <button
+                type="button"
+                onClick={() => setShowSupplementModal(true)}
+                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-teal-600 hover:bg-teal-700 text-white text-xs font-extrabold shadow-2xs cursor-pointer"
+              >
+                <FilePlus2 className="w-3.5 h-3.5" />
+                <span>+ Bổ sung tệp</span>
+              </button>
+              <button
+                type="button"
+                onClick={() => setShowEditModal(true)}
+                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-indigo-50 dark:bg-indigo-950/60 border border-indigo-200 dark:border-indigo-800 text-xs font-bold text-indigo-700 dark:text-indigo-300 cursor-pointer"
+              >
+                <Edit3 className="w-3.5 h-3.5" />
+                <span>Cập nhật</span>
+              </button>
+            </>
           )}
 
           <button
@@ -893,19 +906,32 @@ export default function DocumentDetailPage() {
         subFolderFilter={batchDownloadTarget.subFolderFilter}
       />
 
-      {/* Owner / Admin Edit Document Modal */}
+      {/* Owner / Admin Edit & Supplement Modals */}
       {canEditDoc && (
-        <DocumentUploadModal
-          open={showEditModal}
-          onClose={() => setShowEditModal(false)}
-          isAdminMode={isAdmin}
-          currentUserUid={user?.uid}
-          editingDoc={doc}
-          folderIndex={folderIndex}
-          onSaved={() => {
-            void reloadDetail();
-          }}
-        />
+        <>
+          <DocumentUploadModal
+            open={showEditModal}
+            onClose={() => setShowEditModal(false)}
+            isAdminMode={isAdmin}
+            currentUserUid={user?.uid}
+            editingDoc={doc}
+            folderIndex={folderIndex}
+            onSaved={() => {
+              void reloadDetail();
+            }}
+          />
+          <DocumentSupplementModal
+            open={showSupplementModal}
+            onClose={() => setShowSupplementModal(false)}
+            targetDoc={doc}
+            isAdminMode={isAdmin}
+            currentUserUid={user?.uid}
+            folderIndex={folderIndex}
+            onCompleted={() => {
+              void reloadDetail();
+            }}
+          />
+        </>
       )}
     </div>
   );

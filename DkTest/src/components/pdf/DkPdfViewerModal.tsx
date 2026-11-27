@@ -25,6 +25,7 @@ import { buildCloudinaryPdfPageImageUrl } from "../../services/cloudinary";
 import {
   downloadDocumentFile,
   loadPdfSourceForViewer,
+  safeDisposePdfResources,
   subscribeDkPdfViewerOpen,
   type PdfViewerOpenPayload,
   type ResolvedPdfLoadResult,
@@ -274,6 +275,7 @@ export default function DkPdfViewerModal({
 
     const controller = new AbortController();
     let mounted = true;
+    let activeLoadingTask: any = null;
     let loadedDocInstance: any = null;
 
     setLoading(true);
@@ -309,9 +311,10 @@ export default function DkPdfViewerModal({
           // Pass a copy of bytes so `resolved.bytes` stays detached-safe for instant download
           const bytesCopy = new Uint8Array(resolved.bytes);
           const task = pdfjs.getDocument({ data: bytesCopy });
+          activeLoadingTask = task;
           loadedDocInstance = await task.promise;
           if (!mounted) {
-            await loadedDocInstance.destroy();
+            await safeDisposePdfResources(activeLoadingTask, loadedDocInstance);
             return;
           }
           const firstPage = await loadedDocInstance.getPage(1);
@@ -329,7 +332,13 @@ export default function DkPdfViewerModal({
 
         setLoading(false);
       } catch (err: any) {
-        if (!mounted || err?.name === "AbortError") return;
+        if (
+          !mounted ||
+          err?.name === "AbortError" ||
+          /destroyed|aborted/i.test(String(err?.message || ""))
+        ) {
+          return;
+        }
         setErrorMsg(err?.message || "Không thể tải nội dung PDF.");
         setLoading(false);
       }
@@ -338,9 +347,7 @@ export default function DkPdfViewerModal({
     return () => {
       mounted = false;
       controller.abort();
-      if (loadedDocInstance) {
-        void loadedDocInstance.destroy().catch(() => {});
-      }
+      void safeDisposePdfResources(activeLoadingTask, loadedDocInstance);
     };
   }, [open, activeUrl, activeDocMode, initialPageCount]);
 

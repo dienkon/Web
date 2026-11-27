@@ -490,6 +490,106 @@ const CATEGORY_FOLDER_LABELS = {
   folder_pack: "Thư mục Tổng hợp (Trọn bộ)",
 };
 
+const TOPIC_CLUSTER_LABELS = {
+  thptqg_truong_so: { n: "Đề thi thử TN THPT & Khảo sát Trường - Sở", ic: "blue", o: 10 },
+  bo_de_thuc_chien: { n: "Bộ Đề Minh Họa & Thực Chiến Chuẩn Cấu Trúc Mới", ic: "teal", o: 12 },
+  de_gk1: { n: "Đề kiểm tra Giữa Học kỳ 1 (GK1) Trường - Sở", ic: "indigo", o: 15 },
+  de_hk1: { n: "Đề kiểm tra Cuối Học kỳ 1 (HK1) Trường - Sở", ic: "indigo", o: 16 },
+  de_gk2_hk2: { n: "Đề kiểm tra Giữa & Cuối Học kỳ 2 (GK2 - HK2) Trường - Sở", ic: "indigo", o: 17 },
+  de_hsg: { n: "Đề thi Học sinh giỏi (HSG) Tỉnh / Trường & Chuyên", ic: "rose", o: 18 },
+  tuyen_sinh_10: { n: "Đề thi Ôn tập THCS & Tuyển sinh vào Lớp 10", ic: "emerald", o: 19 },
+  dgnl_hsa: { n: "Bộ Đề & Tài liệu ĐGNL ĐHQG Hà Nội (HSA)", ic: "amber", o: 20 },
+  dgnl_vact: { n: "Bộ Đề & Tài liệu ĐGNL ĐHQG TP.HCM (V-ACT)", ic: "amber", o: 21 },
+  dgtd_tsa: { n: "Bộ Đề & Tài liệu Đánh giá Tư duy Bách Khoa (TSA)", ic: "amber", o: 22 },
+  dgnl_spt_vsat: { n: "Bộ Đề ĐGNL Sư phạm (SPT) • VSAT • QDA • Bộ Công An", ic: "amber", o: 23 },
+  cd_ham_so: { n: "Chuyên đề Hàm số & Ứng dụng Đạo hàm", ic: "blue", o: 30 },
+  cd_tich_phan: { n: "Chuyên đề Nguyên hàm - Tích phân & Ứng dụng", ic: "blue", o: 31 },
+  cd_hinh_oxyz: { n: "Chuyên đề Hình học Không gian & Tọa độ Oxyz / Vectơ", ic: "blue", o: 32 },
+  cd_xac_suat: { n: "Chuyên đề Tổ hợp - Xác suất - Thống kê", ic: "blue", o: 33 },
+  cd_dai_so: { n: "Chuyên đề Mũ - Lôgarit - Dãy số - Lượng giác", ic: "blue", o: 34 },
+  cd_dung_sai_tln: { n: "Tuyển tập Câu hỏi Đúng Sai & Trả lời ngắn Thực tế", ic: "teal", o: 35 },
+  cd_ly_song_dien: { n: "Chuyên đề Dao động - Sóng - Điện từ & Hạt nhân", ic: "indigo", o: 36 },
+  cd_hoa_chuyen_de: { n: "Chuyên đề Hóa Hữu cơ (Este, Amin, Polime) & Vô cơ", ic: "emerald", o: 37 },
+  cd_sinh_chuyen_de: { n: "Chuyên đề Di truyền - Biến dị - Tiến hóa & Sinh thái", ic: "emerald", o: 38 },
+  cd_van_nghi_luan: { n: "Chuyên đề Đọc hiểu - Nghị luận Văn học & Xã hội", ic: "rose", o: 39 },
+  cd_anh_luyen_de: { n: "Chuyên đề Ngữ pháp - Từ vựng & Đọc hiểu Tiếng Anh", ic: "blue", o: 40 },
+  tu_sach_ebook: { n: "Tủ Sách Tham Khảo & Ebook Tổng Ôn", ic: "purple", o: 50 },
+  so_tay_mindmap: { n: "Sổ Tay Công Thức, Lý Thuyết Trọng Tâm & Sơ Đồ Tư Duy", ic: "teal", o: 52 },
+  bo_tai_lieu_tong_hop: { n: "Thư mục Trọn bộ & Tài liệu Tổng ôn", ic: "slate", o: 55 },
+};
+
+function classifyTopicCluster(title, tags = [], grade = "grade_12", subject = "math", category = "exam_test") {
+  const both = stripDiacritics(`${title} ${tags.join(" ")}`);
+
+  if (grade === "thcs" || /\b(vao lop 10|thi vao 10|tuyen sinh lop 10|tuyen sinh 10|lop 8|lop 9|toan 8|toan 9)\b/.test(both)) {
+    return "tuyen_sinh_10";
+  }
+
+  if (grade === "dgnl_dgtd") {
+    if (/\b(hsa|dgnl ha noi|dhqg ha noi)\b/.test(both)) return "dgnl_hsa";
+    if (/\b(v-act|vact|dgnl tphcm|dgnl hcm|dhqg tphcm)\b/.test(both)) return "dgnl_vact";
+    if (/\b(tsa|danh gia tu duy|bach khoa)\b/.test(both)) return "dgtd_tsa";
+    return "dgnl_spt_vsat";
+  }
+
+  if (category === "formula_handbook" || /\b(so tay|cong thuc|so do tu duy|mindmap|tom tat ly thuyet)\b/.test(both)) {
+    return "so_tay_mindmap";
+  }
+  if (category === "ebook_book" || /\b(ebook|sach |giao trinh|cam nang)\b/.test(both)) {
+    return "tu_sach_ebook";
+  }
+
+  // Specific exam series (School & Department exams grouped cleanly!)
+  if (/\b(hoc sinh gioi|chon hsg|\bhsg\b|chuyen cap tinh|bang a|bang b|olympic)\b/.test(both)) {
+    return "de_hsg";
+  }
+  if (/\b(giua hoc ki 1|giua hoc ky 1|giua ki 1|giua ky 1|\bgk1\b|\bghk1\b)\b/.test(both)) {
+    return "de_gk1";
+  }
+  if (/\b(cuoi hoc ki 1|cuoi hoc ky 1|hoc ki 1|hoc ky 1|cuoi ki 1|cuoi ky 1|\bhk1\b|\bchk1\b)\b/.test(both)) {
+    return "de_hk1";
+  }
+  if (/\b(giua hoc ki 2|giua hoc ky 2|giua ki 2|giua ky 2|cuoi hoc ki 2|cuoi hoc ky 2|hoc ki 2|hoc ky 2|cuoi ki 2|cuoi ky 2|\bgk2\b|\bhk2\b|\bghk2\b|\bchk2\b)\b/.test(both)) {
+    return "de_gk2_hk2";
+  }
+  if (/\b(de minh hoa|de tham khao|phat trien de|60 de|50 de|40 de|30 de|25 de|20 de|15 de|bo de thuc chien|luyen de)\b/.test(both)) {
+    return "bo_de_thuc_chien";
+  }
+  if (
+    grade === "thpt_qg" ||
+    /\b(thi thu|tot nghiep thpt|tn thpt|thptqg|thpt quoc gia|khao sat chat luong|kscl|ren ky nang|so gd|lien truong|cum truong)\b/.test(both)
+  ) {
+    return "thptqg_truong_so";
+  }
+
+  // Subject-specific curriculum chapters & question formats
+  if (/\b(dung sai|tra loi ngan|bai toan thuc te)\b/.test(both)) {
+    return "cd_dung_sai_tln";
+  }
+  if (subject === "math") {
+    if (/\b(ham so|dao ham|cuc tri|don dieu|tiem can|do thi)\b/.test(both)) return "cd_ham_so";
+    if (/\b(nguyen ham|tich phan)\b/.test(both)) return "cd_tich_phan";
+    if (/\b(oxyz|vecto|khong gian|khoi da dien|goc va khoang cach|mat cau|mat phang)\b/.test(both)) return "cd_hinh_oxyz";
+    if (/\b(xac suat|thong ke|to hop|nhi thuc)\b/.test(both)) return "cd_xac_suat";
+    if (/\b(logarit|ham so mu|luong giac|day so|cap so|phuong trinh|bat phuong trinh)\b/.test(both)) return "cd_dai_so";
+  } else if (subject === "physics") {
+    return "cd_ly_song_dien";
+  } else if (subject === "chemistry") {
+    return "cd_hoa_chuyen_de";
+  } else if (subject === "biology") {
+    return "cd_sinh_chuyen_de";
+  } else if (subject === "literature") {
+    return "cd_van_nghi_luan";
+  } else if (subject === "english") {
+    return "cd_anh_luyen_de";
+  }
+
+  if (category === "exam_test") {
+    return grade === "grade_12" ? "thptqg_truong_so" : "bo_de_thuc_chien";
+  }
+  return "bo_tai_lieu_tong_hop";
+}
+
 // ============================================================================
 // 1. Harvest Ngân Hàng Đề Thi (nganhangdethi.org) with Authentic Hierarchy
 // ============================================================================
@@ -643,19 +743,6 @@ function buildNhdtFolderForEntry(title, tags, grade, subject, category) {
     s: subject,
     o: 10,
   });
-
-  // For Grade 12 (which has 2,400+ items), subdivide cleanly by document type!
-  if (gradeGroupKey === "g12") {
-    return ensureFolder({
-      id: `sfold_nhdt_g12_${subject}_${category}`,
-      n: CATEGORY_FOLDER_LABELS[category] || "Tài liệu",
-      p: subjFolderId,
-      sk: "nhdt",
-      g: folderGrade,
-      s: subject,
-      o: 10,
-    });
-  }
 
   return subjFolderId;
 }
@@ -1119,7 +1206,7 @@ function buildMathPartnerFolder(title, tags, grade, subject, category) {
     general: { id: "sfold_mp_gen", n: "Sách & Tài liệu Tham khảo Khác", o: 60 },
   };
   const gInfo = mapByGrade[grade] || mapByGrade.grade_12;
-  const gFolderId = ensureFolder({
+  return ensureFolder({
     id: gInfo.id,
     n: gInfo.n,
     p: "sfold_math_partners",
@@ -1129,24 +1216,13 @@ function buildMathPartnerFolder(title, tags, grade, subject, category) {
     ic: "purple",
     o: gInfo.o,
   });
-
-  return ensureFolder({
-    id: `${gFolderId}_${category}`,
-    n: CATEGORY_FOLDER_LABELS[category] || "Đề thi & Tài liệu",
-    p: gFolderId,
-    sk: "math_partners",
-    g: grade,
-    s: subject,
-    ic: "purple",
-    o: 10,
-  });
 }
 
 // ============================================================================
 // Main Orchestrator
 // ============================================================================
 async function main() {
-  console.log("=== DkTEST v2.0.8 Multi-Source & Hierarchical Folder Harvester ===");
+  console.log("=== DkTEST v2.0.9 Full Standardized Multi-Source & Topic-Cluster Harvester ===");
   const allItems = [];
 
   console.log("\n[1/4] Harvesting Ngân Hàng Đề Thi (https://www.nganhangdethi.org)...");
@@ -1173,7 +1249,7 @@ async function main() {
   console.log("\n[4/4] Harvesting Partner Math Repositories (NBV, MathVN, THPT.Math)...");
   const partnerSites = [
     { url: "https://nguyenbaovuong.blogspot.com", label: "Nguyễn Bảo Vương", max: 850 },
-    { url: "https://www.mathvn.com", label: "MathVN", max: 450 },
+    { url: "https://www.mathvn.com", label: "MathVN", max: 2000 },
     { url: "https://thpt.math.vn", label: "THPT.Math", max: 350 },
   ];
   const partnerSeen = new Set();
@@ -1193,6 +1269,60 @@ async function main() {
       added++;
     }
     console.log(`  -> ${ps.label}: +${added} unique documents`);
+  }
+
+  // Assign standardized topicKey (`tk`) to every document & auto-cluster folders with >= 6 items!
+  for (const item of allItems) {
+    item.tk = classifyTopicCluster(item.t, item.tg || [], item.g, item.s, item.c);
+  }
+
+  const itemsByFolder = new Map();
+  for (const item of allItems) {
+    const fid = item.fid || `sfold_${item.sk || "nhdt"}`;
+    if (!itemsByFolder.has(fid)) itemsByFolder.set(fid, []);
+    itemsByFolder.get(fid).push(item);
+  }
+
+  for (const [parentFid, folderItems] of itemsByFolder.entries()) {
+    if (folderItems.length < 6) continue;
+    const parentMeta = folderMap.get(parentFid);
+    if (!parentMeta) continue;
+
+    // Check depth of parentFid (keep max depth <= 4 so hierarchy stays crisp)
+    let depth = 0;
+    let cur = parentMeta;
+    while (cur && cur.p && folderMap.has(cur.p) && depth < 6) {
+      depth++;
+      cur = folderMap.get(cur.p);
+    }
+    if (depth >= 3) continue;
+
+    const byTopic = new Map();
+    for (const it of folderItems) {
+      if (!byTopic.has(it.tk)) byTopic.set(it.tk, []);
+      byTopic.get(it.tk).push(it);
+    }
+    // Only split into topic subfolders if at least 2 distinct topics have >= 2 items
+    const qualifyingTopics = [...byTopic.entries()].filter(([, arr]) => arr.length >= 2);
+    if (qualifyingTopics.length < 2) continue;
+
+    for (const [tk, arr] of qualifyingTopics) {
+      const tMeta = TOPIC_CLUSTER_LABELS[tk] || TOPIC_CLUSTER_LABELS.bo_tai_lieu_tong_hop;
+      const subId = `${parentFid}__${tk}`;
+      ensureFolder({
+        id: subId,
+        n: tMeta.n,
+        p: parentFid,
+        sk: parentMeta.sk,
+        ...(parentMeta.g ? { g: parentMeta.g } : {}),
+        ...(parentMeta.s ? { s: parentMeta.s } : {}),
+        ic: tMeta.ic || parentMeta.ic || "teal",
+        o: tMeta.o ?? 30,
+      });
+      for (const docItem of arr) {
+        docItem.fid = subId;
+      }
+    }
   }
 
   // Sort documents newest first
@@ -1271,16 +1401,15 @@ async function main() {
   // Print rich breakdown
   const bySource = {};
   const byGrade = {};
-  let multiFilePacks = 0;
-  let nestedSubfolderPacks = 0;
+  const byTopic = {};
   for (const it of allItems) {
     bySource[it.sk] = (bySource[it.sk] || 0) + 1;
     byGrade[it.g] = (byGrade[it.g] || 0) + 1;
-    if (it.sf && it.sf.length > 1) {
-      multiFilePacks++;
-      if (it.sf.some((s) => Boolean(s.p))) nestedSubfolderPacks++;
-    }
+    byTopic[it.tk] = (byTopic[it.tk] || 0) + 1;
   }
+  const packValues = Object.values(packsMap);
+  const multiFilePacks = packValues.length;
+  const nestedSubfolderPacks = packValues.filter((arr) => arr.some((s) => Boolean(s.p))).length;
 
   console.log("\n=== SEED REPOSITORY SUMMARY ===");
   console.log(`Total documents: ${allItems.length}`);
@@ -1288,7 +1417,9 @@ async function main() {
   console.log(`Multi-file packs: ${multiFilePacks} (with nested internal subfolders: ${nestedSubfolderPacks})`);
   console.log("By sourceKey:", bySource);
   console.log("By grade:", byGrade);
+  console.log("Top topic clusters:", Object.entries(byTopic).sort((a, b) => b[1] - a[1]).slice(0, 8));
   console.log(`Output file: ${OUT_FILE} (${(Buffer.byteLength(jsonStr) / 1024).toFixed(1)} KB)`);
+  console.log(`Packs file: ${OUT_PACKS_FILE} (${(Buffer.byteLength(packsStr) / 1024).toFixed(1)} KB)`);
 }
 
 main().catch((err) => {

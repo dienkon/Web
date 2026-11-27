@@ -129,6 +129,8 @@ export interface LibraryDocument {
   fileFormat: DocumentFileFormat;
   /** Assigned folder ID (either a seed `sfold_*` or live `lfold_*` folder) */
   folderId?: string | null;
+  /** Standardized topic-cluster key used to auto-group related documents into compact Topic Folders */
+  topicKey?: string;
   /** Logical space for clean separation of DkTEST Exclusive vs Community vs External Sources */
   space?: DocumentSpaceKey;
   sourceKey?: DocumentSourceKey;
@@ -195,6 +197,8 @@ export interface CompactSeedDocument {
   f: DocumentFileFormat;
   /** Leaf folder ID in `folders` */
   fid?: string;
+  /** Standardized topic cluster key */
+  tk?: string;
   /** Source key */
   sk?: "nhdt" | "tlo_edu" | "tlo_org" | "math_partners";
   /** Primary file URL */
@@ -399,6 +403,162 @@ export const DOCUMENT_CATEGORY_META: Record<
   folder_pack: { label: "Bộ tài liệu tổng hợp", shortLabel: "Trọn bộ" },
 };
 
+export const DOCUMENT_TOPIC_CLUSTER_META: Record<
+  string,
+  { label: string; shortLabel: string; accentColor: FolderAccentColor; order: number }
+> = {
+  thptqg_truong_so: {
+    label: "Đề thi thử TN THPT & Khảo sát Trường - Sở",
+    shortLabel: "Đề Trường - Sở THPT",
+    accentColor: "blue",
+    order: 10,
+  },
+  bo_de_thuc_chien: {
+    label: "Bộ Đề Minh Họa & Thực Chiến Chuẩn Cấu Trúc Mới",
+    shortLabel: "Bộ Đề Thực Chiến",
+    accentColor: "teal",
+    order: 12,
+  },
+  de_gk1: {
+    label: "Đề kiểm tra Giữa Học kỳ 1 (GK1) Trường - Sở",
+    shortLabel: "Đề Giữa kỳ 1",
+    accentColor: "indigo",
+    order: 15,
+  },
+  de_hk1: {
+    label: "Đề kiểm tra Cuối Học kỳ 1 (HK1) Trường - Sở",
+    shortLabel: "Đề Học kỳ 1",
+    accentColor: "indigo",
+    order: 16,
+  },
+  de_gk2_hk2: {
+    label: "Đề kiểm tra Giữa & Cuối Học kỳ 2 (GK2 - HK2) Trường - Sở",
+    shortLabel: "Đề Học kỳ 2",
+    accentColor: "indigo",
+    order: 17,
+  },
+  de_hsg: {
+    label: "Đề thi Học sinh giỏi (HSG) Tỉnh / Trường & Chuyên",
+    shortLabel: "Đề Học sinh giỏi",
+    accentColor: "rose",
+    order: 18,
+  },
+  tuyen_sinh_10: {
+    label: "Đề thi Ôn tập THCS & Tuyển sinh vào Lớp 10",
+    shortLabel: "THCS & Vào 10",
+    accentColor: "emerald",
+    order: 19,
+  },
+  dgnl_hsa: {
+    label: "Bộ Đề & Tài liệu ĐGNL ĐHQG Hà Nội (HSA)",
+    shortLabel: "ĐGNL HSA",
+    accentColor: "amber",
+    order: 20,
+  },
+  dgnl_vact: {
+    label: "Bộ Đề & Tài liệu ĐGNL ĐHQG TP.HCM (V-ACT)",
+    shortLabel: "ĐGNL V-ACT",
+    accentColor: "amber",
+    order: 21,
+  },
+  dgtd_tsa: {
+    label: "Bộ Đề & Tài liệu Đánh giá Tư duy Bách Khoa (TSA)",
+    shortLabel: "ĐGTD TSA",
+    accentColor: "amber",
+    order: 22,
+  },
+  dgnl_spt_vsat: {
+    label: "Bộ Đề ĐGNL Sư phạm (SPT) • VSAT • QDA • Bộ Công An",
+    shortLabel: "SPT • VSAT • QDA",
+    accentColor: "amber",
+    order: 23,
+  },
+  cd_ham_so: {
+    label: "Chuyên đề Hàm số & Ứng dụng Đạo hàm",
+    shortLabel: "Hàm số & Đạo hàm",
+    accentColor: "blue",
+    order: 30,
+  },
+  cd_tich_phan: {
+    label: "Chuyên đề Nguyên hàm - Tích phân & Ứng dụng",
+    shortLabel: "Nguyên hàm - Tích phân",
+    accentColor: "blue",
+    order: 31,
+  },
+  cd_hinh_oxyz: {
+    label: "Chuyên đề Hình học Không gian & Tọa độ Oxyz / Vectơ",
+    shortLabel: "Hình không gian & Oxyz",
+    accentColor: "blue",
+    order: 32,
+  },
+  cd_xac_suat: {
+    label: "Chuyên đề Tổ hợp - Xác suất - Thống kê",
+    shortLabel: "Xác suất - Thống kê",
+    accentColor: "blue",
+    order: 33,
+  },
+  cd_dai_so: {
+    label: "Chuyên đề Mũ - Lôgarit - Dãy số - Lượng giác",
+    shortLabel: "Mũ - Log - Lượng giác",
+    accentColor: "blue",
+    order: 34,
+  },
+  cd_dung_sai_tln: {
+    label: "Tuyển tập Câu hỏi Đúng Sai & Trả lời ngắn Thực tế",
+    shortLabel: "Đúng Sai & TLN",
+    accentColor: "teal",
+    order: 35,
+  },
+  cd_ly_song_dien: {
+    label: "Chuyên đề Dao động - Sóng - Điện từ & Hạt nhân",
+    shortLabel: "Chuyên đề Vật lý",
+    accentColor: "indigo",
+    order: 36,
+  },
+  cd_hoa_chuyen_de: {
+    label: "Chuyên đề Hóa Hữu cơ (Este, Amin, Polime) & Vô cơ",
+    shortLabel: "Chuyên đề Hóa học",
+    accentColor: "emerald",
+    order: 37,
+  },
+  cd_sinh_chuyen_de: {
+    label: "Chuyên đề Di truyền - Biến dị - Tiến hóa & Sinh thái",
+    shortLabel: "Chuyên đề Sinh học",
+    accentColor: "emerald",
+    order: 38,
+  },
+  cd_van_nghi_luan: {
+    label: "Chuyên đề Đọc hiểu - Nghị luận Văn học & Xã hội",
+    shortLabel: "Đọc hiểu & Nghị luận",
+    accentColor: "rose",
+    order: 39,
+  },
+  cd_anh_luyen_de: {
+    label: "Chuyên đề Ngữ pháp - Từ vựng & Đọc hiểu Tiếng Anh",
+    shortLabel: "Ngữ pháp & Từ vựng",
+    accentColor: "blue",
+    order: 40,
+  },
+  tu_sach_ebook: {
+    label: "Tủ Sách Tham Khảo & Ebook Tổng Ôn",
+    shortLabel: "Sách & Ebook",
+    accentColor: "purple",
+    order: 50,
+  },
+  so_tay_mindmap: {
+    label: "Sổ Tay Công Thức, Lý Thuyết Trọng Tâm & Sơ Đồ Tư Duy",
+    shortLabel: "Sổ tay & Mindmap",
+    accentColor: "teal",
+    order: 52,
+  },
+  bo_tai_lieu_tong_hop: {
+    label: "Thư mục Trọn bộ & Tài liệu Tổng ôn",
+    shortLabel: "Trọn bộ Tổng ôn",
+    accentColor: "slate",
+    order: 55,
+  },
+};
+
 export function inferSourceKeyFromLabel(src?: string): DocumentSourceKey {
   const s = String(src || "").toLowerCase();
   if (s.includes("ngân hàng đề thi") || s.includes("nganhangdethi")) return "nhdt";
@@ -472,6 +632,7 @@ export function expandCompactSeedDocument(item: CompactSeedDocument): LibraryDoc
     category: item.c,
     fileFormat: item.f,
     folderId: item.fid || `sfold_${sourceKey}`,
+    ...(item.tk ? { topicKey: item.tk } : {}),
     space: "sources",
     sourceKey,
     accessMode: "free",

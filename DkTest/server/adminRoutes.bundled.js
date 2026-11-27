@@ -6958,6 +6958,7 @@ function expandCompactSeedDocument(item) {
     category: item.c,
     fileFormat: item.f,
     folderId: item.fid || `sfold_${sourceKey}`,
+    ...item.tk ? { topicKey: item.tk } : {},
     space: "sources",
     sourceKey,
     accessMode: "free",
@@ -7205,9 +7206,18 @@ var upsertDocumentSchema = z4.object({
   answerUrl: z4.string().trim().max(2048).optional(),
   videoUrl: z4.string().trim().max(2048).optional(),
   subFiles: z4.array(subFileSchema).max(120).optional(),
+  topicKey: z4.string().trim().max(64).optional(),
   tags: z4.array(z4.string().trim().max(48)).max(12).optional().default([]),
   isFeatured: z4.boolean().optional(),
   status: z4.enum(["published", "pending", "rejected", "hidden"]).optional()
+});
+var supplementDocumentSchema = z4.object({
+  appendSubFiles: z4.array(subFileSchema).max(120).optional(),
+  replaceSubFiles: z4.array(subFileSchema).max(120).optional(),
+  answerUrl: z4.string().trim().max(2048).nullable().optional(),
+  videoUrl: z4.string().trim().max(2048).nullable().optional(),
+  status: z4.enum(["published", "hidden"]).optional(),
+  folderId: z4.string().trim().max(96).nullable().optional()
 });
 function sanitizePublicDocument(doc) {
   const isPaid = doc.accessMode === "paid" && sanitizeVnd(doc.priceVnd) > 0;
@@ -7522,8 +7532,12 @@ async function createOrUpdateLibraryDocument(actor, rawInput) {
   let nextStatus = "published";
   if (isAdmin) {
     nextStatus = parsed.status || existingDoc?.status || "published";
+  } else if (parsed.status === "hidden") {
+    nextStatus = "hidden";
+  } else if (existingDoc?.status === "rejected" && !settings.autoApproveUserUploads) {
+    nextStatus = "pending";
   } else {
-    nextStatus = settings.autoApproveUserUploads ? "published" : "pending";
+    nextStatus = settings.autoApproveUserUploads || existingDoc?.status === "published" ? "published" : "pending";
   }
   const cleanAnswerUrl = parsed.answerUrl !== void 0 ? parsed.answerUrl.trim() || void 0 : existingSecrets?.answerUrl || existingDoc?.answerUrl || void 0;
   const cleanVideoUrl = parsed.videoUrl !== void 0 ? parsed.videoUrl.trim() || void 0 : existingSecrets?.videoUrl || existingDoc?.videoUrl || void 0;
@@ -7533,6 +7547,7 @@ async function createOrUpdateLibraryDocument(actor, rawInput) {
   const authorName = existingDoc?.authorName && existingDoc.authorRole !== "seed" ? existingDoc.authorName : actor.displayName || actor.email?.split("@")[0] || (isAdmin ? "Ban Qu\u1EA3n Tr\u1ECB DkTEST" : "Th\xE0nh vi\xEAn DkTEST");
   const resolvedSpace = targetFolder ? targetFolder.space : isAdmin ? parsed.space || existingDoc?.space || "dktest_exclusive" : "community";
   const resolvedSourceKey = targetFolder?.sourceKey ? targetFolder.sourceKey : resolvedSpace === "dktest_exclusive" ? "dktest" : existingDoc?.sourceKey || "community";
+  const cleanTopicKey = parsed.topicKey?.trim() || existingDoc?.topicKey || void 0;
   const fullDoc = {
     id: docId,
     title: parsed.title,
@@ -7544,6 +7559,8 @@ async function createOrUpdateLibraryDocument(actor, rawInput) {
     folderId: requestedFolderId,
     space: resolvedSpace,
     sourceKey: resolvedSourceKey,
+    ...cleanTopicKey ? { topicKey: cleanTopicKey } : {},
+    ...cleanSubFiles && cleanSubFiles.length > 1 ? { subFileCount: cleanSubFiles.length } : {},
     ...parsed.pageCount ? { pageCount: parsed.pageCount } : existingDoc?.pageCount ? { pageCount: existingDoc.pageCount } : {},
     ...parsed.fileSizeBytes ? { fileSizeBytes: parsed.fileSizeBytes } : existingDoc?.fileSizeBytes ? { fileSizeBytes: existingDoc.fileSizeBytes } : {},
     coverImageUrl: parsed.coverImageUrl !== void 0 ? parsed.coverImageUrl : existingDoc?.coverImageUrl || null,

@@ -328,9 +328,19 @@ export const upsertDocumentSchema = z.object({
   answerUrl: z.string().trim().max(2048).optional(),
   videoUrl: z.string().trim().max(2048).optional(),
   subFiles: z.array(subFileSchema).max(120).optional(),
+  topicKey: z.string().trim().max(64).optional(),
   tags: z.array(z.string().trim().max(48)).max(12).optional().default([]),
   isFeatured: z.boolean().optional(),
   status: z.enum(["published", "pending", "rejected", "hidden"]).optional(),
+});
+
+export const supplementDocumentSchema = z.object({
+  appendSubFiles: z.array(subFileSchema).max(120).optional(),
+  replaceSubFiles: z.array(subFileSchema).max(120).optional(),
+  answerUrl: z.string().trim().max(2048).nullable().optional(),
+  videoUrl: z.string().trim().max(2048).nullable().optional(),
+  status: z.enum(["published", "hidden"]).optional(),
+  folderId: z.string().trim().max(96).nullable().optional(),
 });
 
 function sanitizePublicDocument(doc: LibraryDocument): LibraryDocument {
@@ -803,8 +813,15 @@ export async function createOrUpdateLibraryDocument(
   let nextStatus: DocumentStatus = "published";
   if (isAdmin) {
     nextStatus = parsed.status || existingDoc?.status || "published";
+  } else if (parsed.status === "hidden") {
+    nextStatus = "hidden";
+  } else if (existingDoc?.status === "rejected" && !settings.autoApproveUserUploads) {
+    nextStatus = "pending";
   } else {
-    nextStatus = settings.autoApproveUserUploads ? "published" : "pending";
+    nextStatus =
+      settings.autoApproveUserUploads || existingDoc?.status === "published"
+        ? "published"
+        : "pending";
   }
 
   const cleanAnswerUrl =
@@ -851,6 +868,8 @@ export async function createOrUpdateLibraryDocument(
     ? "dktest"
     : existingDoc?.sourceKey || "community";
 
+  const cleanTopicKey = parsed.topicKey?.trim() || existingDoc?.topicKey || undefined;
+
   const fullDoc: LibraryDocument = {
     id: docId,
     title: parsed.title,
@@ -864,6 +883,10 @@ export async function createOrUpdateLibraryDocument(
     folderId: requestedFolderId,
     space: resolvedSpace,
     sourceKey: resolvedSourceKey,
+    ...(cleanTopicKey ? { topicKey: cleanTopicKey } : {}),
+    ...(cleanSubFiles && cleanSubFiles.length > 1
+      ? { subFileCount: cleanSubFiles.length }
+      : {}),
     ...(parsed.pageCount
       ? { pageCount: parsed.pageCount }
       : existingDoc?.pageCount
@@ -938,6 +961,192 @@ export async function createOrUpdateLibraryDocument(
 
   invalidateDocumentLibraryCache();
   return publicDoc;
+}
+
+/**
+ * Allows the document owner or an Admin to quickly supplement an existing document:
+ * - Append new PDF/DOCX/ZIP files (`appendSubFiles`) or manage `replaceSubFiles`
+ * - Update or remove `answerUrl` / `videoUrl`
+ * - Toggle visibility (`status`: `"published"` ↔ `"hidden"`) or move `folderId`
+ */
+export async function supplementLibraryDocument(
+  actor: { uid: string; role: string },
+  docId: string,
+  rawInput: unknown
+): Promise<{
+  document: LibraryDocument;
+  subFiles: DocumentSubFile[];
+  answerUrl?: string;
+  videoUrl?: string;
+}> {
+  const cleanId = String(docId || "").trim();
+  if (!cleanId) throw new Error("Mã tài liệu không hợp lệ.");
+
+  const parsed = supplementDocumentSchema.parse(rawInput || {});
+  const isAdmin = actor.role === "admin" || actor.role === "super_admin";
+  const settings = await getDocumentLibrarySettings();
+
+  const existingDoc = await getDocumentByIdResolved(cleanId);
+  if (!existingDoc) throw new Error("Không tìm thấy tài liệu cần bổ sung.");
+  if (!isAdmin && existingDoc.authorUid !== actor.uid) {
+    throw new Error("Bạn chỉ có quyền bổ sung nội dung vào tài liệu do chính mình đăng tải.");
+  }
+
+  const existingSecrets = await getDocumentSecrets(cleanId);
+  const primaryFileUrl = existingSecrets?.fileUrl || existingDoc.fileUrl || "";
+  if (!primaryFileUrl) {
+    throw new Error("Tài liệu gốc chưa có đường dẫn tệp hợp lệ.");
+  }
+
+  let nextSubFiles: DocumentSubFile[] = Array.isArray(existingSecrets?.subFiles)
+    ? [...existingSecrets!.subFiles]
+    : Array.isArray(existingDoc.subFiles)
+    ? [...existingDoc.subFiles]
+    : [];
+
+  if (parsed.replaceSubFiles !== undefined) {
+    for (const sf of parsed.replaceSubFiles) {
+      if (!/^https:\/\/res\.cloudinary\.com\//i.test(sf.url)) {
+        await validateUrlForSsrf(sf.url);
+      }
+    }
+    nextSubFiles = parsed.replaceSubFiles.map((sf) => ({
+      name: sf.name,
+      url: sf.url,
+      fileFormat: sf.fileFormat as DocumentFileFormat,
+      ...(sf.folderPath?.trim() ? { folderPath: sf.folderPath.trim() } : {}),
+    }));
+  }
+
+  if (parsed.appendSubFiles && parsed.appendSubFiles.length > 0) {
+    for (const sf of parsed.appendSubFiles) {
+      if (!/^https:\/\/res\.cloudinary\.com\//i.test(sf.url)) {
+        await validateUrlForSsrf(sf.url);
+      }
+    }
+    // Preserve original primary file as entry #1 if transitioning from single-file to multi-file pack
+    if (nextSubFiles.length === 0) {
+      nextSubFiles.push({
+        name:
+          existingSecrets?.originalFileName ||
+          existingDoc.originalFileName ||
+          `${existingDoc.title} (Bản gốc)`,
+        url: primaryFileUrl,
+        fileFormat: existingDoc.fileFormat || "pdf",
+      });
+    }
+    for (const sf of parsed.appendSubFiles) {
+      if (nextSubFiles.length >= 120) break;
+      if (nextSubFiles.some((x) => x.url === sf.url)) continue;
+      nextSubFiles.push({
+        name: sf.name,
+        url: sf.url,
+        fileFormat: sf.fileFormat as DocumentFileFormat,
+        ...(sf.folderPath?.trim() ? { folderPath: sf.folderPath.trim() } : {}),
+      });
+    }
+  }
+
+  const nextAnswerUrl =
+    parsed.answerUrl !== undefined
+      ? parsed.answerUrl?.trim() || undefined
+      : existingSecrets?.answerUrl || existingDoc.answerUrl || undefined;
+  if (nextAnswerUrl && !/^https:\/\/res\.cloudinary\.com\//i.test(nextAnswerUrl)) {
+    await validateUrlForSsrf(nextAnswerUrl);
+  }
+
+  const nextVideoUrl =
+    parsed.videoUrl !== undefined
+      ? parsed.videoUrl?.trim() || undefined
+      : existingSecrets?.videoUrl || existingDoc.videoUrl || undefined;
+
+  let nextFolderId = existingDoc.folderId ?? null;
+  let nextSpace = existingDoc.space;
+  let nextSourceKey = existingDoc.sourceKey;
+  if (parsed.folderId !== undefined) {
+    const cleanFid = parsed.folderId?.trim() || null;
+    if (cleanFid) {
+      const targetFolder = await getFolderByIdResolved(cleanFid);
+      if (!targetFolder || targetFolder.status === "hidden") {
+        throw new Error("Thư mục lưu trữ không tồn tại hoặc đã bị ẩn.");
+      }
+      if (!isAdmin && targetFolder.ownerUid !== actor.uid) {
+        throw new Error("Bạn chỉ có thể di chuyển tài liệu vào thư mục của chính mình.");
+      }
+      nextFolderId = cleanFid;
+      nextSpace = targetFolder.space;
+      nextSourceKey = targetFolder.sourceKey || nextSourceKey;
+    } else {
+      nextFolderId = null;
+    }
+  }
+
+  let nextStatus = existingDoc.status;
+  if (parsed.status === "hidden") {
+    nextStatus = "hidden";
+  } else if (parsed.status === "published") {
+    if (isAdmin) {
+      nextStatus = "published";
+    } else if (existingDoc.status === "rejected" && !settings.autoApproveUserUploads) {
+      nextStatus = "pending";
+    } else {
+      nextStatus = settings.autoApproveUserUploads ? "published" : "pending";
+    }
+  }
+
+  const now = new Date().toISOString();
+  const resolvedPrimaryUrl = nextSubFiles[0]?.url || primaryFileUrl;
+  const fullDoc: LibraryDocument = {
+    ...existingDoc,
+    folderId: nextFolderId,
+    space: nextSpace,
+    sourceKey: nextSourceKey,
+    status: nextStatus,
+    fileUrl: resolvedPrimaryUrl,
+    ...(existingSecrets?.originalFileName || existingDoc.originalFileName
+      ? { originalFileName: existingSecrets?.originalFileName || existingDoc.originalFileName }
+      : {}),
+    ...(nextAnswerUrl ? { answerUrl: nextAnswerUrl } : {}),
+    ...(nextVideoUrl ? { videoUrl: nextVideoUrl } : {}),
+    ...(nextSubFiles.length > 0 ? { subFiles: nextSubFiles } : {}),
+    ...(nextSubFiles.length > 1 ? { subFileCount: nextSubFiles.length } : {}),
+    updatedAt: now,
+  };
+  if (!nextAnswerUrl) delete fullDoc.answerUrl;
+  if (!nextVideoUrl) delete fullDoc.videoUrl;
+  if (nextSubFiles.length <= 1) delete fullDoc.subFileCount;
+  if (nextSubFiles.length === 0) delete fullDoc.subFiles;
+
+  const publicDoc = sanitizePublicDocument(fullDoc);
+  const secretsPayload = {
+    docId: cleanId,
+    fileUrl: resolvedPrimaryUrl,
+    ...(existingSecrets?.originalFileName || existingDoc.originalFileName
+      ? { originalFileName: existingSecrets?.originalFileName || existingDoc.originalFileName }
+      : {}),
+    ...(nextAnswerUrl ? { answerUrl: nextAnswerUrl } : {}),
+    ...(nextVideoUrl ? { videoUrl: nextVideoUrl } : {}),
+    ...(nextSubFiles.length > 0 ? { subFiles: nextSubFiles } : {}),
+    updatedAt: now,
+  };
+
+  if (adminDb) {
+    const batch = adminDb.batch();
+    batch.set(adminDb.collection(DOCS_COLLECTION).doc(cleanId), publicDoc);
+    batch.set(adminDb.collection(SECRETS_COLLECTION).doc(cleanId), secretsPayload);
+    await batch.commit();
+  } else {
+    await setFirestoreRestDoc(DOCS_COLLECTION, cleanId, publicDoc);
+    await setFirestoreRestDoc(SECRETS_COLLECTION, cleanId, secretsPayload);
+  }
+
+  invalidateDocumentLibraryCache();
+  return {
+    document: publicDoc,
+    subFiles: nextSubFiles,
+    answerUrl: nextAnswerUrl,
+    videoUrl: nextVideoUrl,
+  };
 }
 
 export async function moveDocumentsToFolder(
@@ -1136,14 +1345,14 @@ export async function checkDocumentAccess(
   role = "student"
 ): Promise<DocumentAccessCheckResult> {
   const doc = await getDocumentByIdResolved(docId);
-  if (!doc || doc.status === "hidden") {
+  const isAdmin = role === "admin" || role === "super_admin";
+  const isOwner = Boolean(uid && doc?.authorUid && doc.authorUid === uid);
+  if (!doc || (doc.status === "hidden" && !isAdmin && !isOwner)) {
     throw new Error("Tài liệu không tồn tại hoặc đã bị gỡ.");
   }
 
   const priceVnd = doc.accessMode === "paid" ? sanitizeVnd(doc.priceVnd) : 0;
   const isFree = priceVnd <= 0;
-  const isAdmin = role === "admin" || role === "super_admin";
-  const isOwner = Boolean(uid && doc.authorUid && doc.authorUid === uid);
 
   if (isFree || isAdmin || isOwner) {
     return {
