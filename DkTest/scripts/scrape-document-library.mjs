@@ -67,6 +67,16 @@ function cleanDocUrl(raw) {
     parsed.searchParams.delete("utm_source");
     parsed.searchParams.delete("utm_medium");
     parsed.searchParams.delete("utm_campaign");
+    // Canonicalize Google Drive folderview URLs (used on hoctai.vn & educational portals)
+    if (
+      parsed.hostname.includes("drive.google.com") &&
+      parsed.pathname.includes("/folderview")
+    ) {
+      const fid = parsed.searchParams.get("id");
+      if (fid && /^[a-zA-Z0-9_-]{15,}$/.test(fid)) {
+        return `https://drive.google.com/drive/folders/${fid}`;
+      }
+    }
     // Canonicalize Google Drive file URLs
     if (
       parsed.hostname.includes("drive.google.com") &&
@@ -95,6 +105,14 @@ function compactDocUrl(rawUrl) {
   if (driveFolder) return `gdf:${driveFolder[1]}`;
   const sheet = u.match(/^https?:\/\/docs\.google\.com\/spreadsheets\/d\/([a-zA-Z0-9_-]{15,})/i);
   if (sheet) return `gds:${sheet[1]}`;
+  const tmPdf = u.match(/^https?:\/\/(?:www\.)?toanmath\.com\/toanmath-pdf\/(.+)$/i);
+  if (tmPdf) return `tm:${tmPdf[1]}`;
+  const tmWp = u.match(/^https?:\/\/(?:www\.)?toanmath\.com\/wp-content\/uploads\/(.+)$/i);
+  if (tmWp) return `tmw:${tmWp[1]}`;
+  const eduu = u.match(/^https?:\/\/(?:www\.)?tailieuonthi\.edu\.vn\/wp-content\/uploads\/(.+)$/i);
+  if (eduu) return `eduu:${eduu[1]}`;
+  const mf = u.match(/^https?:\/\/(?:www\.)?mediafire\.com\/(.+)$/i);
+  if (mf) return `mf:${mf[1]}`;
   return u;
 }
 
@@ -298,7 +316,7 @@ function parseNestedFolderTreeFt(html, postTitle = "") {
         });
       const folderPath = cleanSegments.join("/");
       const fmt = detectFormatFromUrlOrName(u, n);
-      if (subFiles.length < 120 && !subFiles.some((x) => x.u === u)) {
+      if (subFiles.length < 600 && !subFiles.some((x) => x.u === compactDocUrl(u))) {
         subFiles.push({
           n: n.slice(0, 140),
           u: compactDocUrl(u),
@@ -353,7 +371,7 @@ function extractEntryFiles(htmlContent, postTitle = "") {
     primaryUrl = pdfFirst.u;
   }
 
-  // 4. Fallback: extract Google Drive / Docs / PDF / DOCX links from HTML content
+  // 4. Fallback: extract Google Drive / Docs / MediaFire / PDF / DOCX links from HTML content
   if (!primaryUrl) {
     const anchorMatches = [
       ...html.matchAll(/<a\b[^>]*href=['"]([^'"]+)['"][^>]*>([\s\S]*?)<\/a>/gi),
@@ -363,7 +381,7 @@ function extractEntryFiles(htmlContent, postTitle = "") {
       const rawHref = am[1];
       const text = stripHtml(am[2]);
       if (
-        /(?:drive\.google\.com\/(?:file\/d\/|open\?|uc\?|drive\/folders\/)|docs\.google\.com\/spreadsheets\/d\/|\.(?:pdf|docx?|zip|rar)(?:[?#]|$))/i.test(
+        /(?:drive\.google\.com\/(?:file\/d\/|open\?|uc\?|folderview|drive\/(?:u\/\d+\/)?folders\/)|docs\.google\.com\/spreadsheets\/d\/|mediafire\.com\/|\.(?:pdf|docx?|zip|rar)(?:[?#]|$))/i.test(
           rawHref
         )
       ) {
@@ -376,7 +394,7 @@ function extractEntryFiles(htmlContent, postTitle = "") {
 
     if (docLinks.length === 0) {
       const urlRegex =
-        /https?:\/\/(?:drive\.google\.com\/(?:file\/d\/[a-zA-Z0-9_-]+(?:\/view|\/preview)?|open\?id=[a-zA-Z0-9_-]+|uc\?[^"'\s<>]+|drive\/folders\/[a-zA-Z0-9_-]+)|docs\.google\.com\/spreadsheets\/d\/[a-zA-Z0-9_-]+|[^\s"'<>]+\.(?:pdf|docx?|zip))/gi;
+        /https?:\/\/(?:drive\.google\.com\/(?:file\/d\/[a-zA-Z0-9_-]+(?:\/view|\/preview)?|open\?id=[a-zA-Z0-9_-]+|folderview\?[^"'\s<>]+|uc\?[^"'\s<>]+|drive\/(?:u\/\d+\/)?folders\/[a-zA-Z0-9_-]+)|docs\.google\.com\/spreadsheets\/d\/[a-zA-Z0-9_-]+|(?:www\.)?mediafire\.com\/[^\s"'<>]+|[^\s"'<>]+\.(?:pdf|docx?|zip))/gi;
       const rawMatches = [...new Set((html.match(urlRegex) || []).map(cleanDocUrl).filter(Boolean))];
       for (const u of rawMatches) {
         docLinks.push({ url: u, label: "" });
@@ -395,7 +413,7 @@ function extractEntryFiles(htmlContent, postTitle = "") {
         answerUrl = ansLink.url;
       }
       if (docLinks.length > 2 && subFiles.length === 0) {
-        docLinks.slice(0, 80).forEach((dl, idx) => {
+        docLinks.slice(0, 400).forEach((dl, idx) => {
           subFiles.push({
             n: (dl.label || `Tài liệu phần ${idx + 1}`).slice(0, 140),
             u: compactDocUrl(dl.url),
@@ -492,10 +510,13 @@ const CATEGORY_FOLDER_LABELS = {
 
 const TOPIC_CLUSTER_LABELS = {
   thptqg_truong_so: { n: "Đề thi thử TN THPT & Khảo sát Trường - Sở", ic: "blue", o: 10 },
+  de_kscl: { n: "Đề Khảo Sát Chất Lượng (KSCL) Định Kỳ Trường - Sở", ic: "rose", o: 11 },
   bo_de_thuc_chien: { n: "Bộ Đề Minh Họa & Thực Chiến Chuẩn Cấu Trúc Mới", ic: "teal", o: 12 },
-  de_gk1: { n: "Đề kiểm tra Giữa Học kỳ 1 (GK1) Trường - Sở", ic: "indigo", o: 15 },
-  de_hk1: { n: "Đề kiểm tra Cuối Học kỳ 1 (HK1) Trường - Sở", ic: "indigo", o: 16 },
-  de_gk2_hk2: { n: "Đề kiểm tra Giữa & Cuối Học kỳ 2 (GK2 - HK2) Trường - Sở", ic: "indigo", o: 17 },
+  de_gk1: { n: "Đề kiểm tra Giữa Học kỳ 1 (GK1) Trường - Sở", ic: "indigo", o: 14 },
+  de_hk1: { n: "Đề kiểm tra Cuối Học kỳ 1 (HK1) Trường - Sở", ic: "indigo", o: 15 },
+  de_gk2: { n: "Đề kiểm tra Giữa Học kỳ 2 (GK2) Trường - Sở", ic: "teal", o: 16 },
+  de_hk2: { n: "Đề kiểm tra Cuối Học kỳ 2 (HK2) Trường - Sở", ic: "emerald", o: 17 },
+  de_gk2_hk2: { n: "Đề kiểm tra Giữa & Cuối Học kỳ 2 (GK2 - HK2) Trường - Sở", ic: "emerald", o: 17 },
   de_hsg: { n: "Đề thi Học sinh giỏi (HSG) Tỉnh / Trường & Chuyên", ic: "rose", o: 18 },
   tuyen_sinh_10: { n: "Đề thi Ôn tập THCS & Tuyển sinh vào Lớp 10", ic: "emerald", o: 19 },
   dgnl_hsa: { n: "Bộ Đề & Tài liệu ĐGNL ĐHQG Hà Nội (HSA)", ic: "amber", o: 20 },
@@ -543,14 +564,20 @@ function classifyTopicCluster(title, tags = [], grade = "grade_12", subject = "m
   if (/\b(hoc sinh gioi|chon hsg|\bhsg\b|chuyen cap tinh|bang a|bang b|olympic)\b/.test(both)) {
     return "de_hsg";
   }
-  if (/\b(giua hoc ki 1|giua hoc ky 1|giua ki 1|giua ky 1|\bgk1\b|\bghk1\b)\b/.test(both)) {
+  if (/\b(giua hoc ki 1|giua hoc ky 1|giua ki 1|giua ky 1|giua hk1|\bgk1\b|\bghk1\b)\b/.test(both)) {
     return "de_gk1";
   }
   if (/\b(cuoi hoc ki 1|cuoi hoc ky 1|hoc ki 1|hoc ky 1|cuoi ki 1|cuoi ky 1|\bhk1\b|\bchk1\b)\b/.test(both)) {
     return "de_hk1";
   }
-  if (/\b(giua hoc ki 2|giua hoc ky 2|giua ki 2|giua ky 2|cuoi hoc ki 2|cuoi hoc ky 2|hoc ki 2|hoc ky 2|cuoi ki 2|cuoi ky 2|\bgk2\b|\bhk2\b|\bghk2\b|\bchk2\b)\b/.test(both)) {
-    return "de_gk2_hk2";
+  if (/\b(giua hoc ki 2|giua hoc ky 2|giua ki 2|giua ky 2|giua hk2|\bgk2\b|\bghk2\b)\b/.test(both)) {
+    return "de_gk2";
+  }
+  if (/\b(cuoi hoc ki 2|cuoi hoc ky 2|hoc ki 2|hoc ky 2|cuoi ki 2|cuoi ky 2|\bhk2\b|\bchk2\b)\b/.test(both)) {
+    return "de_hk2";
+  }
+  if (/\b(khao sat chat luong|\bkscl\b)\b/.test(both) && grade !== "thpt_qg") {
+    return "de_kscl";
   }
   if (/\b(de minh hoa|de tham khao|phat trien de|60 de|50 de|40 de|30 de|25 de|20 de|15 de|bo de thuc chien|luyen de)\b/.test(both)) {
     return "bo_de_thuc_chien";
@@ -747,80 +774,92 @@ function buildNhdtFolderForEntry(title, tags, grade, subject, category) {
   return subjFolderId;
 }
 
-async function harvestBloggerSource({ baseUrl, sourceLabel, sourceKey, maxTotal, buildFolderFn }) {
+async function harvestBloggerSource({
+  baseUrl,
+  sourceLabel,
+  sourceKey,
+  maxTotal,
+  buildFolderFn,
+  feedKinds = ["posts"],
+  filterTitleFn = null,
+}) {
   const collected = [];
   const seenUrls = new Set();
-  const requestedBatch = 100;
-  let start = 1;
+  const requestedBatch = 150;
 
-  while (start <= maxTotal) {
-    const feedUrl = `${baseUrl}/feeds/posts/default?alt=json&max-results=${requestedBatch}&start-index=${start}`;
-    const data = await fetchJsonWithRetry(feedUrl, 2, 25000);
-    const entries = data?.feed?.entry || [];
-    if (entries.length === 0) break;
+  for (const kind of feedKinds) {
+    let start = 1;
+    while (start <= maxTotal) {
+      const feedUrl = `${baseUrl}/feeds/${kind}/default?alt=json&max-results=${requestedBatch}&start-index=${start}`;
+      const data = await fetchJsonWithRetry(feedUrl, 2, 25000);
+      const entries = data?.feed?.entry || [];
+      if (entries.length === 0) break;
 
-    for (const entry of entries) {
-      const rawTitle = entry?.title?.["$t"] || "";
-      const title = cleanTitle(rawTitle);
-      if (!title || title.length < 4) continue;
+      for (const entry of entries) {
+        const rawTitle = entry?.title?.["$t"] || "";
+        const title = cleanTitle(rawTitle);
+        if (!title || title.length < 4) continue;
+        if (filterTitleFn && !filterTitleFn(title)) continue;
 
-      const tags = (entry?.category || [])
-        .map((c) => String(c?.term || "").trim())
-        .filter((t) => t && !["login", "top", "search"].includes(t.toLowerCase()));
+        const tags = (entry?.category || [])
+          .map((c) => String(c?.term || "").trim())
+          .filter((t) => t && !["login", "top", "search"].includes(t.toLowerCase()));
 
-      if (/^(tim kiem tai lieu|loc danh sach tai lieu|nhan them .* xu)/i.test(stripDiacritics(title))) {
-        continue;
+        if (/^(tim kiem tai lieu|loc danh sach tai lieu|nhan them .* xu)/i.test(stripDiacritics(title))) {
+          continue;
+        }
+
+        const content = entry?.content?.["$t"] || entry?.summary?.["$t"] || "";
+        const { primaryUrl, answerUrl, videoUrl, subFiles } = extractEntryFiles(content, title);
+        if (!primaryUrl) continue;
+        if (seenUrls.has(primaryUrl)) continue;
+        seenUrls.add(primaryUrl);
+
+        const grade = classifyGrade(title, tags, true);
+        if (!grade) continue;
+
+        const subject = classifySubject(title, tags);
+        const fileFormat = detectFormatFromUrlOrName(primaryUrl, subFiles[0]?.n || title);
+        const category = classifyCategory(title, tags, fileFormat, subFiles.length);
+        const folderId = buildFolderFn(title, tags, grade, subject, category);
+
+        const altLink = (entry?.link || []).find((l) => l?.rel === "alternate")?.href || "";
+        const publishedRaw = String(entry?.published?.["$t"] || "2026-01-01");
+        const dateShort = publishedRaw.slice(0, 10);
+        const hash = crypto
+          .createHash("md5")
+          .update(`${sourceKey}|${primaryUrl}|${title}`)
+          .digest("hex")
+          .slice(0, 10);
+
+        const cleanTags = tags
+          .filter((t) => t !== "TLK" && t.length <= 28)
+          .slice(0, 4);
+
+        const compactItem = {
+          id: `doc_${sourceKey}_${hash}`,
+          t: title.slice(0, 210),
+          g: grade,
+          s: subject,
+          c: category,
+          f: fileFormat,
+          fid: folderId,
+          sk: sourceKey,
+          u: primaryUrl,
+          ...(answerUrl ? { a: answerUrl } : {}),
+          ...(videoUrl ? { v: videoUrl } : {}),
+          ...(subFiles.length > 1 ? { sf: subFiles } : {}),
+          d: dateShort,
+          src: sourceLabel,
+          ...(altLink ? { pu: altLink } : {}),
+          ...(cleanTags.length > 0 ? { tg: cleanTags } : {}),
+        };
+        collected.push(compactItem);
       }
 
-      const content = entry?.content?.["$t"] || entry?.summary?.["$t"] || "";
-      const { primaryUrl, answerUrl, videoUrl, subFiles } = extractEntryFiles(content, title);
-      if (!primaryUrl) continue;
-      if (seenUrls.has(primaryUrl)) continue;
-      seenUrls.add(primaryUrl);
-
-      const grade = classifyGrade(title, tags, true);
-      if (!grade) continue;
-
-      const subject = classifySubject(title, tags);
-      const fileFormat = detectFormatFromUrlOrName(primaryUrl, subFiles[0]?.n || title);
-      const category = classifyCategory(title, tags, fileFormat, subFiles.length);
-      const folderId = buildFolderFn(title, tags, grade, subject, category);
-
-      const altLink = (entry?.link || []).find((l) => l?.rel === "alternate")?.href || "";
-      const publishedRaw = String(entry?.published?.["$t"] || "2026-01-01");
-      const dateShort = publishedRaw.slice(0, 10);
-      const hash = crypto
-        .createHash("md5")
-        .update(`${sourceKey}|${primaryUrl}|${title}`)
-        .digest("hex")
-        .slice(0, 10);
-
-      const cleanTags = tags
-        .filter((t) => t !== "TLK" && t.length <= 28)
-        .slice(0, 4);
-
-      const compactItem = {
-        id: `doc_${sourceKey}_${hash}`,
-        t: title.slice(0, 210),
-        g: grade,
-        s: subject,
-        c: category,
-        f: fileFormat,
-        fid: folderId,
-        sk: sourceKey,
-        u: primaryUrl,
-        ...(answerUrl ? { a: answerUrl } : {}),
-        ...(videoUrl ? { v: videoUrl } : {}),
-        ...(subFiles.length > 1 ? { sf: subFiles } : {}),
-        d: dateShort,
-        src: sourceLabel,
-        ...(altLink ? { pu: altLink } : {}),
-        ...(cleanTags.length > 0 ? { tg: cleanTags } : {}),
-      };
-      collected.push(compactItem);
+      start += entries.length;
+      if (entries.length < 20) break;
     }
-
-    start += entries.length;
   }
 
   return collected;
@@ -1219,40 +1258,634 @@ function buildMathPartnerFolder(title, tags, grade, subject, category) {
 }
 
 // ============================================================================
+// 5. Harvest TOANMATH.com (https://toanmath.com) — 13,000+ Direct PDF Exams
+// ============================================================================
+function buildToanMathFolder(grade) {
+  ensureFolder({
+    id: "sfold_toanmath",
+    n: "TOANMATH — Kho Đề Toán Trường Sở & Học Kỳ (toanmath.com)",
+    p: null,
+    sk: "toanmath",
+    ic: "rose",
+    o: 2,
+    u: "https://toanmath.com/",
+    d: "Kho đề thi thử TN THPT Trường - Sở, Khảo sát chất lượng, Đề GK1, HK1, GK2, HK2, HSG & Chuyên đề Toán 10–12.",
+  });
+
+  const mapByGrade = {
+    thpt_qg: {
+      id: "sfold_tm_thptqg",
+      n: "Đề Thi Thử & Chính Thức Tốt Nghiệp THPT Toán",
+      ic: "rose",
+      o: 10,
+    },
+    grade_12: {
+      id: "sfold_tm_g12",
+      n: "Toán Lớp 12 — Khảo Sát, GK1, HK1, GK2, HK2, HSG & Chuyên Đề",
+      ic: "blue",
+      o: 15,
+    },
+    dgnl_dgtd: {
+      id: "sfold_tm_dgnl",
+      n: "Đề Đánh Giá Năng Lực & Tư Duy Môn Toán",
+      ic: "amber",
+      o: 18,
+    },
+    grade_11: {
+      id: "sfold_tm_g11",
+      n: "Toán Lớp 11 — Đề Học Kỳ, Khảo Sát & Chuyên Đề",
+      ic: "emerald",
+      o: 25,
+    },
+    grade_10: {
+      id: "sfold_tm_g10",
+      n: "Toán Lớp 10 — Đề Học Kỳ, Khảo Sát & Chuyên Đề",
+      ic: "teal",
+      o: 30,
+    },
+    thcs: {
+      id: "sfold_tm_thcs",
+      n: "Toán THCS & Tuyển Sinh Vào Lớp 10",
+      ic: "teal",
+      o: 40,
+    },
+    general: {
+      id: "sfold_tm_gen",
+      n: "Tài Liệu Toán Tham Khảo Khác",
+      ic: "slate",
+      o: 50,
+    },
+  };
+
+  const gInfo = mapByGrade[grade] || mapByGrade.grade_12;
+  return ensureFolder({
+    id: gInfo.id,
+    n: gInfo.n,
+    p: "sfold_toanmath",
+    sk: "toanmath",
+    g: grade,
+    s: "math",
+    ic: gInfo.ic,
+    o: gInfo.o,
+  });
+}
+
+async function harvestToanMath(maxPages = 125) {
+  const baseUrl = "https://toanmath.com";
+  const catById = new Map();
+  for (let cp = 1; cp <= 4; cp++) {
+    const cats = await fetchJsonWithRetry(
+      `${baseUrl}/wp-json/wp/v2/categories?per_page=100&page=${cp}`,
+      1,
+      15000
+    );
+    if (!Array.isArray(cats) || cats.length === 0) break;
+    for (const c of cats) {
+      if (c?.id) catById.set(c.id, cleanTitle(c.name || ""));
+    }
+    if (cats.length < 100) break;
+  }
+
+  const pageNumbers = Array.from({ length: maxPages }, (_, i) => i + 1);
+  const pageBatches = await mapConcurrent(pageNumbers, 10, async (page) => {
+    const posts = await fetchJsonWithRetry(
+      `${baseUrl}/wp-json/wp/v2/posts?per_page=100&page=${page}&_fields=id,date,title,categories,link,content`,
+      2,
+      25000
+    );
+    return Array.isArray(posts) ? posts : [];
+  });
+
+  const collected = [];
+  const seenUrls = new Set();
+
+  for (const posts of pageBatches) {
+    for (const post of posts) {
+      const title = cleanTitle(post?.title?.rendered || "");
+      if (!title || title.length < 5) continue;
+      if (/\b(giao an|ke hoach bai day)\b/i.test(stripDiacritics(title))) continue;
+
+      const catNames = (post.categories || [])
+        .map((cid) => catById.get(cid))
+        .filter(Boolean);
+
+      const { primaryUrl, answerUrl, subFiles } = extractEntryFiles(
+        post?.content?.rendered || "",
+        title
+      );
+      if (!primaryUrl) continue;
+      if (seenUrls.has(primaryUrl)) continue;
+      seenUrls.add(primaryUrl);
+
+      const grade = classifyGrade(title, catNames, true) || "grade_12";
+      const fileFormat = detectFormatFromUrlOrName(primaryUrl, title);
+      const category = classifyCategory(title, catNames, fileFormat, subFiles.length);
+      const folderId = buildToanMathFolder(grade);
+      const dateShort = String(post.date || "2026-01-01").slice(0, 10);
+
+      collected.push({
+        id: `doc_tm_${post.id}`,
+        t: title.slice(0, 210),
+        g: grade,
+        s: "math",
+        c: category,
+        f: fileFormat,
+        fid: folderId,
+        sk: "toanmath",
+        u: primaryUrl,
+        ...(answerUrl ? { a: answerUrl } : {}),
+        ...(subFiles.length > 1 ? { sf: subFiles } : {}),
+        d: dateShort,
+        src: "TOANMATH",
+        ...(post.link ? { pu: post.link } : {}),
+        ...(catNames.length > 0 ? { tg: catNames.slice(0, 2) } : {}),
+      });
+    }
+  }
+
+  return collected;
+}
+
+// ============================================================================
+// 6. Harvest Kho Đề Tiếng Anh Toàn Cấp (giaoandethitienganh.info Pages Feed)
+// ============================================================================
+function buildTiengAnhFolder(grade) {
+  ensureFolder({
+    id: "sfold_tienganh",
+    n: "Kho Đề Tiếng Anh THPT & Toàn Cấp (giaoandethitienganh.info)",
+    p: null,
+    sk: "tienganh",
+    ic: "teal",
+    o: 5,
+    u: "https://www.giaoandethitienganh.info/",
+    d: "Ngân hàng đề thi Tiếng Anh Lớp 12, THPT Quốc gia, Lớp 10–11, THCS & Tuyển sinh vào 10 kèm đáp án.",
+  });
+
+  const mapByGrade = {
+    thpt_qg: {
+      id: "sfold_ta_thptqg",
+      n: "Đề Thi Thử & Ôn Thi Tốt Nghiệp THPT Tiếng Anh",
+      ic: "rose",
+      o: 10,
+    },
+    grade_12: {
+      id: "sfold_ta_g12",
+      n: "Đề Kiểm Tra & Tài Liệu Tiếng Anh Lớp 12 (GK1, HK1, GK2, HK2)",
+      ic: "blue",
+      o: 15,
+    },
+    grade_11: {
+      id: "sfold_ta_g11",
+      n: "Đề Kiểm Tra & Tài Liệu Tiếng Anh Lớp 11",
+      ic: "emerald",
+      o: 25,
+    },
+    grade_10: {
+      id: "sfold_ta_g10",
+      n: "Đề Kiểm Tra & Tài Liệu Tiếng Anh Lớp 10",
+      ic: "teal",
+      o: 30,
+    },
+    thcs: {
+      id: "sfold_ta_thcs",
+      n: "Đề Tiếng Anh THCS (6–9) & Tuyển Sinh Vào Lớp 10",
+      ic: "amber",
+      o: 40,
+    },
+    general: {
+      id: "sfold_ta_certs",
+      n: "Chứng Chỉ IELTS • TOEIC • Ngữ Pháp Chuyên Sâu",
+      ic: "purple",
+      o: 50,
+    },
+  };
+
+  const gInfo = mapByGrade[grade] || mapByGrade.grade_12;
+  return ensureFolder({
+    id: gInfo.id,
+    n: gInfo.n,
+    p: "sfold_tienganh",
+    sk: "tienganh",
+    g: grade,
+    s: "english",
+    ic: gInfo.ic,
+    o: gInfo.o,
+  });
+}
+
+async function harvestGiaoAnDeThiTiengAnh() {
+  const items = await harvestBloggerSource({
+    baseUrl: "https://www.giaoandethitienganh.info",
+    sourceLabel: "Kho Đề Tiếng Anh",
+    sourceKey: "tienganh",
+    maxTotal: 4300,
+    feedKinds: ["pages"],
+    filterTitleFn: (title) => {
+      const s = stripDiacritics(title);
+      // Skip Elementary grades 1-5 & pure lesson plans (giáo án) so high-school & THCS exams stay focused!
+      if (/\b(tieng anh [1-5]|lop [1-5]|khoi [1-5]|family and friends|smart start [1-5])\b/.test(s)) {
+        return false;
+      }
+      if (/\b(giao an|phan phoi chuong trinh|ke hoach giang day|sang kien kinh nghiem)\b/.test(s)) {
+        return false;
+      }
+      return true;
+    },
+    buildFolderFn: (_title, _tags, grade) => buildTiengAnhFolder(grade),
+  });
+  for (const it of items) {
+    if (it.s === "multi_subject") it.s = "english";
+  }
+  return items;
+}
+
+// ============================================================================
+// 7. Harvest Kho Đa Môn THPT & ĐGNL (hoctai.vn, tailieudethi.vn, dethithu.net)
+// ============================================================================
+function buildMultiHubFolder(grade, subject) {
+  ensureFolder({
+    id: "sfold_multihub",
+    n: "Kho Đa Môn THPT & ĐGNL (Học Tại • Tài Liệu Đề Thi • Đề Thi Thử)",
+    p: null,
+    sk: "multihub",
+    ic: "indigo",
+    o: 6,
+    u: "https://hoctai.vn/",
+    d: "Tổng hợp đề thi chính thức & thi thử Lý, Hóa, Sinh, Anh, Văn, Sử, Địa, KTPL & ĐGNL V-ACT / HSA.",
+  });
+
+  const mapByGrade = {
+    thpt_qg: { id: "sfold_mh_thptqg", n: "Đề Chính Thức & Thi Thử THPT Quốc Gia Đa Môn", ic: "rose", o: 10 },
+    dgnl_dgtd: { id: "sfold_mh_dgnl", n: "Đề Luyện Thi ĐGNL (HSA • V-ACT • V-SAT)", ic: "amber", o: 15 },
+    grade_12: { id: "sfold_mh_g12", n: "Đề Kiểm Tra & Chuyên Đề Đa Môn Lớp 12", ic: "blue", o: 20 },
+    grade_11: { id: "sfold_mh_g11", n: "Tài Liệu Đa Môn Lớp 11", ic: "emerald", o: 30 },
+    grade_10: { id: "sfold_mh_g10", n: "Tài Liệu Đa Môn Lớp 10", ic: "teal", o: 35 },
+    thcs: { id: "sfold_mh_thcs", n: "Đề Ôn Thi Vào Lớp 10 & THCS", ic: "teal", o: 40 },
+    general: { id: "sfold_mh_gen", n: "Tài Liệu Tham Khảo Chung", ic: "slate", o: 50 },
+  };
+
+  const gInfo = mapByGrade[grade] || mapByGrade.grade_12;
+  const gFolderId = ensureFolder({
+    id: gInfo.id,
+    n: gInfo.n,
+    p: "sfold_multihub",
+    sk: "multihub",
+    g: grade,
+    ic: gInfo.ic,
+    o: gInfo.o,
+  });
+
+  const subjName = SUBJECT_LABELS[subject] || "Tổng hợp Đa môn";
+  return ensureFolder({
+    id: `${gFolderId}_${subject}`,
+    n: subjName,
+    p: gFolderId,
+    sk: "multihub",
+    g: grade,
+    s: subject,
+    ic: gInfo.ic,
+    o: 10,
+  });
+}
+
+async function harvestGenericWpExamSite({ baseUrl, sourceLabel, maxPages = 12 }) {
+  const pageNums = Array.from({ length: maxPages }, (_, i) => i + 1);
+  const batches = await mapConcurrent(pageNums, 6, async (page) => {
+    const posts = await fetchJsonWithRetry(
+      `${baseUrl}/wp-json/wp/v2/posts?per_page=100&page=${page}&_fields=id,date,title,link,content`,
+      1,
+      20000
+    );
+    return Array.isArray(posts) ? posts : [];
+  });
+
+  const collected = [];
+  const seenUrls = new Set();
+
+  for (const posts of batches) {
+    for (const post of posts) {
+      const title = cleanTitle(post?.title?.rendered || "");
+      if (!title || title.length < 5) continue;
+      const norm = stripDiacritics(title);
+      if (/\b(lop [1-5]|giao an)\b/.test(norm)) continue;
+
+      const { primaryUrl, answerUrl, subFiles } = extractEntryFiles(
+        post?.content?.rendered || "",
+        title
+      );
+      if (!primaryUrl || seenUrls.has(primaryUrl)) continue;
+      seenUrls.add(primaryUrl);
+
+      const grade = classifyGrade(title, [], true) || "grade_12";
+      const subject = classifySubject(title, []);
+      const fileFormat = detectFormatFromUrlOrName(primaryUrl, title);
+      const category = classifyCategory(title, [], fileFormat, subFiles.length);
+      const folderId = buildMultiHubFolder(grade, subject);
+      const dateShort = String(post.date || "2025-01-01").slice(0, 10);
+      const hash = crypto
+        .createHash("md5")
+        .update(`mh|${baseUrl}|${post.id}|${primaryUrl}`)
+        .digest("hex")
+        .slice(0, 10);
+
+      collected.push({
+        id: `doc_mh_${hash}`,
+        t: title.slice(0, 210),
+        g: grade,
+        s: subject,
+        c: category,
+        f: fileFormat,
+        fid: folderId,
+        sk: "multihub",
+        u: primaryUrl,
+        ...(answerUrl ? { a: answerUrl } : {}),
+        ...(subFiles.length > 1 ? { sf: subFiles } : {}),
+        d: dateShort,
+        src: sourceLabel,
+        ...(post.link ? { pu: post.link } : {}),
+      });
+    }
+  }
+  return collected;
+}
+
+// ============================================================================
+// Deep Sub-Exam Unpacker ("Quét cạn toàn bộ các link đề, chi tiết quét sâu")
+// Pairs Answer Keys (`Đáp án X`) with Exam Files (`Đề X`) and promotes every
+// distinct named sub-exam inside multi-file packs into a first-class searchable item!
+// ============================================================================
+function normalizePairStem(rawName) {
+  return stripDiacritics(String(rawName || ""))
+    .replace(/\.(pdf|docx?|pptx?|xlsx?|zip|rar)$/i, "")
+    .replace(
+      /\b(dap an va loi giai|dap an chi tiet|loi giai chi tiet|huong dan giai|giai chi tiet|dap an|loi giai|hdg|key|de thi|de so|de|file|ban)\b/g,
+      " "
+    )
+    .replace(/[^a-z0-9]+/g, " ")
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
+function isPureAnswerSubFile(rawName) {
+  const s = stripDiacritics(String(rawName || ""));
+  if (/\b(de va dap an|de \+ dap an|kem dap an|co dap an)\b/.test(s)) return false;
+  return /^(dap an|loi giai|giai chi tiet|huong dan giai|hdg|key\b)/i.test(s.trim()) ||
+    /\b(dap an de|loi giai de|hdg de)\b/.test(s);
+}
+
+function unpackNamedSubExams(baseItems) {
+  const seenGlobalUrls = new Set();
+  for (const it of baseItems) {
+    if (it.u) seenGlobalUrls.add(it.u);
+    if (it.a) seenGlobalUrls.add(it.a);
+  }
+
+  const unpacked = [];
+
+  for (const parent of baseItems) {
+    if (!Array.isArray(parent.sf) || parent.sf.length < 2) continue;
+
+    // 1. Separate pure Answer-Key files from Exam/Document files inside this pack
+    const answerByStem = new Map();
+    const examCandidates = [];
+
+    for (const sf of parent.sf) {
+      if (!sf?.u || !sf?.n) continue;
+      if (isPureAnswerSubFile(sf.n)) {
+        const stem = normalizePairStem(sf.n);
+        if (stem.length >= 2 && !answerByStem.has(stem)) {
+          answerByStem.set(stem, sf.u);
+        }
+      } else {
+        examCandidates.push(sf);
+      }
+    }
+
+    // 2. Promote each distinct, meaningfully named exam link
+    for (const sf of examCandidates) {
+      if (seenGlobalUrls.has(sf.u)) continue;
+
+      const cleanName = cleanTitle(
+        String(sf.n || "").replace(/\.(pdf|docx?|pptx?|xlsx?|zip|rar)$/i, "")
+      );
+      const normName = stripDiacritics(cleanName);
+
+      // Skip generic unnamed placeholders ("Tài liệu phần 1", "File 2", "1", "Link tải"...)
+      if (
+        cleanName.length < 5 ||
+        /^(tai lieu phan \d+|tep dinh kem.*|file \d+|phan \d+|trang \d+.*|link.*|download.*|\d+)$/i.test(
+          normName
+        )
+      ) {
+        continue;
+      }
+
+      const branchClean = sf.p ? cleanTitle(sf.p.replace(/\//g, " • ")) : "";
+      let fullTitle = cleanName;
+      if (cleanName.length < 28) {
+        const ctx = branchClean ? `${branchClean} — ${parent.t}` : parent.t;
+        fullTitle = `${cleanName} — ${ctx}`;
+      } else if (
+        branchClean &&
+        branchClean.length <= 45 &&
+        !normName.includes(stripDiacritics(branchClean))
+      ) {
+        fullTitle = `${cleanName} (${branchClean})`;
+      }
+
+      const stem = normalizePairStem(sf.n);
+      const pairedAnswer = stem ? answerByStem.get(stem) : undefined;
+
+      const extraContext = [branchClean, parent.t, ...(parent.tg || [])].filter(Boolean);
+      const subGrade = classifyGrade(fullTitle, extraContext, true) || parent.g || "grade_12";
+      let subSubject = classifySubject(fullTitle, [branchClean]);
+      if (subSubject === "multi_subject") {
+        subSubject =
+          parent.s !== "multi_subject"
+            ? parent.s
+            : classifySubject(`${fullTitle} ${parent.t}`, parent.tg || []);
+      }
+      const subFormat = sf.f || detectFormatFromUrlOrName(sf.u, sf.n);
+      const subCategory = classifyCategory(fullTitle, [], subFormat, 0);
+
+      let subFolderId = parent.fid;
+      if (parent.sk === "nhdt") {
+        subFolderId = buildNhdtFolderForEntry(
+          fullTitle,
+          parent.tg || [],
+          subGrade,
+          subSubject,
+          subCategory
+        );
+      } else if (parent.sk === "multihub") {
+        subFolderId = buildMultiHubFolder(subGrade, subSubject);
+      } else if (parent.sk === "toanmath") {
+        subFolderId = buildToanMathFolder(subGrade);
+      } else if (parent.sk === "math_partners") {
+        subFolderId = buildMathPartnerFolder(fullTitle, [], subGrade, subSubject, subCategory);
+      }
+
+      const hash = crypto
+        .createHash("md5")
+        .update(`sub|${parent.id}|${sf.u}`)
+        .digest("hex")
+        .slice(0, 10);
+
+      seenGlobalUrls.add(sf.u);
+      unpacked.push({
+        id: `doc_${parent.sk || "nhdt"}_s_${hash}`,
+        t: fullTitle.slice(0, 210),
+        g: subGrade,
+        s: subSubject,
+        c: subCategory,
+        f: subFormat,
+        fid: subFolderId,
+        sk: parent.sk,
+        u: sf.u,
+        ...(pairedAnswer && pairedAnswer !== sf.u ? { a: pairedAnswer } : {}),
+        d: parent.d,
+        src: parent.src,
+        ...(parent.pu ? { pu: parent.pu } : {}),
+      });
+    }
+
+    // Keep pack preview array capped cleanly at 120 entries for fast lazy loading
+    if (parent.sf.length > 120) {
+      parent.sf = parent.sf.slice(0, 120);
+    }
+  }
+
+  return unpacked;
+}
+
+function computePriorityScore(item) {
+  let score = 0;
+  const isUnpackedSubFile = item.id.includes("_s_");
+
+  // 0. Always preserve primary curated standalone posts/pages across all 7 sources first!
+  if (!isUnpackedSubFile) {
+    score += 360;
+    if (
+      item.sk === "tlo_edu" ||
+      item.sk === "tlo_org" ||
+      item.sk === "multihub" ||
+      item.sk === "nhdt"
+    ) {
+      score += 320;
+    } else if (item.sk === "math_partners" || item.sk === "tienganh") {
+      score += 180;
+    }
+  }
+
+  // 1. Prioritize Grade 12, THPT QG & Competency Exams
+  if (item.g === "thpt_qg") score += 520;
+  else if (item.g === "grade_12") score += 480;
+  else if (item.g === "dgnl_dgtd") score += 430;
+  else if (item.g === "grade_11") score += 230;
+  else if (item.g === "grade_10") score += 210;
+  else if (item.g === "thcs") score += 190;
+  else score += 90;
+
+  // 2. Prioritize School/Department Mock Exams, KSCL, HK1, HK2, GK1, GK2
+  if (
+    item.tk === "thptqg_truong_so" ||
+    item.tk === "de_kscl" ||
+    item.tk === "de_hk1" ||
+    item.tk === "de_hk2" ||
+    item.tk === "de_gk1" ||
+    item.tk === "de_gk2" ||
+    item.tk === "bo_de_thuc_chien"
+  ) {
+    score += 320;
+  } else if (item.tk === "de_hsg") {
+    score += 190;
+  }
+
+  // 3. Ensure balanced multi-subject representation (Physics, Chem, Bio, Eng, Lit, Hist, Geo, Aptitude...)
+  if (item.s === "foreign_other" && isUnpackedSubFile) {
+    score -= 420;
+  } else if (item.s !== "math") {
+    score += 210;
+  }
+
+  // 4. Bonus for paired Answer Key (`a`) or Multi-file Root Pack (`sf`)
+  if (item.a) score += 80;
+  if (item.sf && item.sf.length > 1) score += 320;
+
+  // 5. Freshness bonus (2023–2027)
+  const year = parseInt(String(item.d || "2020").slice(0, 4), 10) || 2020;
+  score += Math.max(0, Math.min(160, (year - 2017) * 18));
+
+  return score;
+}
+
+const DEFAULT_SOURCE_SHORT_LABELS = {
+  nhdt: "Ngân Hàng Đề Thi",
+  toanmath: "TOANMATH",
+  tlo_edu: "Tài Liệu Ôn Thi EDU",
+  tlo_org: "Tài Liệu Ôn Thi ORG",
+  tienganh: "Kho Đề Tiếng Anh",
+  multihub: "Kho Đa Môn THPT",
+  math_partners: "Toán Mở Rộng",
+};
+
+// ============================================================================
 // Main Orchestrator
 // ============================================================================
 async function main() {
-  console.log("=== DkTEST v2.0.9 Full Standardized Multi-Source & Topic-Cluster Harvester ===");
-  const allItems = [];
+  console.log("=== DkTEST v2.1.0 Deep Exhaustive Multi-Source Harvester (Target >= 20,000+ Docs) ===");
+  const baseItems = [];
 
-  console.log("\n[1/4] Harvesting Ngân Hàng Đề Thi (https://www.nganhangdethi.org)...");
+  console.log("\n[1/7] Harvesting Ngân Hàng Đề Thi — Posts & Static Pages (https://www.nganhangdethi.org)...");
   const nhdtItems = await harvestBloggerSource({
     baseUrl: "https://www.nganhangdethi.org",
     sourceLabel: "Ngân Hàng Đề Thi",
     sourceKey: "nhdt",
-    maxTotal: 3500,
+    maxTotal: 4000,
+    feedKinds: ["posts", "pages"],
     buildFolderFn: buildNhdtFolderForEntry,
   });
-  console.log(`  -> Ngân Hàng Đề Thi harvested: ${nhdtItems.length} documents`);
-  allItems.push(...nhdtItems);
+  console.log(`  -> Ngân Hàng Đề Thi base entries: ${nhdtItems.length}`);
+  baseItems.push(...nhdtItems);
 
-  console.log("\n[2/4] Harvesting Tài Liệu Ôn Thi EDU (https://tailieuonthi.edu.vn)...");
+  console.log("\n[2/7] Harvesting TOANMATH.com — School/Province Mock Exams, HK1, HK2, GK1, GK2 (https://toanmath.com)...");
+  const tmItems = await harvestToanMath(125);
+  console.log(`  -> TOANMATH harvested: ${tmItems.length} direct PDF/DOCX exams`);
+  baseItems.push(...tmItems);
+
+  console.log("\n[3/7] Harvesting Tài Liệu Ôn Thi EDU (https://tailieuonthi.edu.vn)...");
   const eduItems = await harvestTaiLieuOnThiEdu();
-  console.log(`  -> Tài Liệu Ôn Thi EDU harvested: ${eduItems.length} documents`);
-  allItems.push(...eduItems);
+  console.log(`  -> Tài Liệu Ôn Thi EDU base entries: ${eduItems.length}`);
+  baseItems.push(...eduItems);
 
-  console.log("\n[3/4] Harvesting Tài Liệu Ôn Thi ORG (https://tailieuonthi.org)...");
+  console.log("\n[4/7] Harvesting Tài Liệu Ôn Thi ORG (https://tailieuonthi.org)...");
   const orgItems = await harvestTaiLieuOnThiOrg();
-  console.log(`  -> Tài Liệu Ôn Thi ORG harvested: ${orgItems.length} documents`);
-  allItems.push(...orgItems);
+  console.log(`  -> Tài Liệu Ôn Thi ORG base entries: ${orgItems.length}`);
+  baseItems.push(...orgItems);
 
-  console.log("\n[4/4] Harvesting Partner Math Repositories (NBV, MathVN, THPT.Math)...");
+  console.log("\n[5/7] Harvesting Kho Đề Tiếng Anh THPT & Toàn Cấp (https://www.giaoandethitienganh.info)...");
+  const taItems = await harvestGiaoAnDeThiTiengAnh();
+  console.log(`  -> Kho Đề Tiếng Anh harvested: ${taItems.length} documents`);
+  baseItems.push(...taItems);
+
+  console.log("\n[6/7] Harvesting Kho Đa Môn THPT & ĐGNL (hoctai.vn, tailieudethi.vn, dethithu.net)...");
+  const [htItems, tldtItems, dttItems] = await Promise.all([
+    harvestGenericWpExamSite({ baseUrl: "https://hoctai.vn", sourceLabel: "Học Tại VN", maxPages: 12 }),
+    harvestGenericWpExamSite({ baseUrl: "https://tailieudethi.vn", sourceLabel: "Tài Liệu Đề Thi", maxPages: 5 }),
+    harvestGenericWpExamSite({ baseUrl: "https://dethithu.net", sourceLabel: "Đề Thi Thử THPT", maxPages: 8 }),
+  ]);
+  console.log(
+    `  -> Kho Đa Môn harvested: Học Tại (${htItems.length}) + Tài Liệu Đề Thi (${tldtItems.length}) + Đề Thi Thử (${dttItems.length})`
+  );
+  baseItems.push(...htItems, ...tldtItems, ...dttItems);
+
+  console.log("\n[7/7] Harvesting Full Uncapped Partner Math Repositories (MathVN, Nguyễn Bảo Vương, THPT.Math)...");
   const partnerSites = [
-    { url: "https://nguyenbaovuong.blogspot.com", label: "Nguyễn Bảo Vương", max: 850 },
-    { url: "https://www.mathvn.com", label: "MathVN", max: 2000 },
-    { url: "https://thpt.math.vn", label: "THPT.Math", max: 350 },
+    { url: "https://nguyenbaovuong.blogspot.com", label: "Nguyễn Bảo Vương", max: 1000 },
+    { url: "https://www.mathvn.com", label: "MathVN", max: 5000 },
+    { url: "https://thpt.math.vn", label: "THPT.Math", max: 500 },
   ];
-  const partnerSeen = new Set();
+  const partnerSeen = new Set(baseItems.map((x) => x.u));
   for (const ps of partnerSites) {
     const items = await harvestBloggerSource({
       baseUrl: ps.url,
@@ -1265,17 +1898,37 @@ async function main() {
     for (const it of items) {
       if (partnerSeen.has(it.u)) continue;
       partnerSeen.add(it.u);
-      allItems.push(it);
+      baseItems.push(it);
       added++;
     }
     console.log(`  -> ${ps.label}: +${added} unique documents`);
   }
 
-  // Assign standardized topicKey (`tk`) to every document & auto-cluster folders with >= 6 items!
-  for (const item of allItems) {
+  // Deep-unpack all named sub-exams inside multi-file compilation posts!
+  console.log("\n[+] Deep-scanning & unpacking individual named exams inside multi-file packs...");
+  const unpackedSubExams = unpackNamedSubExams(baseItems);
+  console.log(`  -> Deep-unpacked +${unpackedSubExams.length} standalone named exams (paired with answer keys)!`);
+
+  // Global URL deduplication across all sources
+  const globalUrlSeen = new Set();
+  let allItems = [];
+  for (const item of [...baseItems, ...unpackedSubExams]) {
+    if (!item.u || globalUrlSeen.has(item.u)) continue;
+    globalUrlSeen.add(item.u);
     item.tk = classifyTopicCluster(item.t, item.tg || [], item.g, item.s, item.c);
+    allItems.push(item);
+  }
+  console.log(`  -> Total globally unique documents before priority cap: ${allItems.length}`);
+
+  // Keep top 28,000 highest-priority documents (heavily prioritizing Grade 12, THPT QG, Trường-Sở, HK1, HK2 & Multi-subject!)
+  const MAX_CATALOG_ITEMS = 28000;
+  if (allItems.length > MAX_CATALOG_ITEMS) {
+    allItems.sort((a, b) => computePriorityScore(b) - computePriorityScore(a) || String(b.d).localeCompare(String(a.d)));
+    allItems = allItems.slice(0, MAX_CATALOG_ITEMS);
+    console.log(`  -> Selected top ${allItems.length} highest-priority documents (100% Grade 12 / THPT QG / Multi-subject preserved).`);
   }
 
+  // Auto-cluster folders with >= 6 items into standardized Topic Subfolders
   const itemsByFolder = new Map();
   for (const item of allItems) {
     const fid = item.fid || `sfold_${item.sk || "nhdt"}`;
@@ -1288,7 +1941,6 @@ async function main() {
     const parentMeta = folderMap.get(parentFid);
     if (!parentMeta) continue;
 
-    // Check depth of parentFid (keep max depth <= 4 so hierarchy stays crisp)
     let depth = 0;
     let cur = parentMeta;
     while (cur && cur.p && folderMap.has(cur.p) && depth < 6) {
@@ -1302,7 +1954,6 @@ async function main() {
       if (!byTopic.has(it.tk)) byTopic.set(it.tk, []);
       byTopic.get(it.tk).push(it);
     }
-    // Only split into topic subfolders if at least 2 distinct topics have >= 2 items
     const qualifyingTopics = [...byTopic.entries()].filter(([, arr]) => arr.length >= 2);
     if (qualifyingTopics.length < 2) continue;
 
@@ -1325,7 +1976,7 @@ async function main() {
     }
   }
 
-  // Sort documents newest first
+  // Sort documents: Featured/Recent Grade 12 & THPT QG newest first
   allItems.sort((a, b) => String(b.d).localeCompare(String(a.d)));
 
   // Prune empty folders while preserving every ancestor of non-empty folders!
@@ -1352,7 +2003,6 @@ async function main() {
     .filter((f) => activeFolderIds.has(f.id))
     .sort((a, b) => (a.o ?? 50) - (b.o ?? 50) || a.n.localeCompare(b.n, "vi"));
 
-  // Re-attach any orphan item whose folder wasn't registered to its source root
   const validFolderSet = new Set(finalFolders.map((f) => f.id));
   for (const item of allItems) {
     if (!item.fid || !validFolderSet.has(item.fid)) {
@@ -1360,19 +2010,41 @@ async function main() {
     }
   }
 
-  // Extract multi-file `sf` arrays into `document-library-packs.json` so initial catalog load stays ultra-fast!
+  // Extract multi-file `sf` arrays into `document-library-packs.json` & omit redundant defaults!
   const packsMap = {};
+  const bySource = {};
+  const byGrade = {};
+  const bySubject = {};
+  const byTopic = {};
+
   for (const item of allItems) {
+    bySource[item.sk] = (bySource[item.sk] || 0) + 1;
+    byGrade[item.g] = (byGrade[item.g] || 0) + 1;
+    bySubject[item.s] = (bySubject[item.s] || 0) + 1;
+    byTopic[item.tk] = (byTopic[item.tk] || 0) + 1;
+
     if (item.pu) {
       item.pu = item.pu
         .replace(/^https?:\/\/www\.nganhangdethi\.org/i, "nh:")
         .replace(/^https?:\/\/tailieuonthi\.edu\.vn/i, "edu:")
-        .replace(/^https?:\/\/tailieuonthi\.org/i, "org:");
+        .replace(/^https?:\/\/tailieuonthi\.org/i, "org:")
+        .replace(/^https?:\/\/(?:www\.)?toanmath\.com/i, "tm:")
+        .replace(/^https?:\/\/(?:www\.)?giaoandethitienganh\.info/i, "ga:")
+        .replace(/^https?:\/\/(?:www\.)?hoctai\.vn/i, "ht:")
+        .replace(/^https?:\/\/(?:www\.)?mathvn\.com/i, "mv:");
     }
     if (item.sf && item.sf.length > 1) {
       packsMap[item.id] = item.sf;
       item.sfc = item.sf.length;
       delete item.sf;
+    }
+
+    // Compact default stripping (matches `expandCompactSeedDocument` defaults!)
+    if (item.g === "grade_12") delete item.g;
+    if (item.c === "exam_test") delete item.c;
+    if (item.f === "pdf") delete item.f;
+    if (item.src && DEFAULT_SOURCE_SHORT_LABELS[item.sk] === item.src) {
+      delete item.src;
     }
   }
 
@@ -1383,11 +2055,12 @@ async function main() {
     folderCount: finalFolders.length,
     sources: [
       "Ngân Hàng Đề Thi",
+      "TOANMATH",
       "Tài Liệu Ôn Thi EDU",
       "Tài Liệu Ôn Thi ORG",
-      "Nguyễn Bảo Vương",
-      "MathVN",
-      "THPT.Math",
+      "Kho Đề Tiếng Anh",
+      "Học Tại VN & Đa Môn THPT",
+      "MathVN • Nguyễn Bảo Vương • THPT.Math",
     ],
     folders: finalFolders,
     items: allItems,
@@ -1398,26 +2071,18 @@ async function main() {
   fs.writeFileSync(OUT_FILE, jsonStr, "utf8");
   fs.writeFileSync(OUT_PACKS_FILE, packsStr, "utf8");
 
-  // Print rich breakdown
-  const bySource = {};
-  const byGrade = {};
-  const byTopic = {};
-  for (const it of allItems) {
-    bySource[it.sk] = (bySource[it.sk] || 0) + 1;
-    byGrade[it.g] = (byGrade[it.g] || 0) + 1;
-    byTopic[it.tk] = (byTopic[it.tk] || 0) + 1;
-  }
   const packValues = Object.values(packsMap);
   const multiFilePacks = packValues.length;
   const nestedSubfolderPacks = packValues.filter((arr) => arr.some((s) => Boolean(s.p))).length;
 
-  console.log("\n=== SEED REPOSITORY SUMMARY ===");
+  console.log("\n=== SEED REPOSITORY SUMMARY (v2.1.0) ===");
   console.log(`Total documents: ${allItems.length}`);
   console.log(`Total active hierarchical folders: ${finalFolders.length}`);
   console.log(`Multi-file packs: ${multiFilePacks} (with nested internal subfolders: ${nestedSubfolderPacks})`);
   console.log("By sourceKey:", bySource);
   console.log("By grade:", byGrade);
-  console.log("Top topic clusters:", Object.entries(byTopic).sort((a, b) => b[1] - a[1]).slice(0, 8));
+  console.log("By subject:", bySubject);
+  console.log("Top topic clusters:", Object.entries(byTopic).sort((a, b) => b[1] - a[1]).slice(0, 10));
   console.log(`Output file: ${OUT_FILE} (${(Buffer.byteLength(jsonStr) / 1024).toFixed(1)} KB)`);
   console.log(`Packs file: ${OUT_PACKS_FILE} (${(Buffer.byteLength(packsStr) / 1024).toFixed(1)} KB)`);
 }

@@ -2051,7 +2051,7 @@ export async function resolveSocialMetadataForUrl({
       contentType: "document",
       title: "Kho Tài Liệu & Ngân Hàng Đề Thi THCS - THPT - ĐGNL | DkTEST",
       description:
-        "Thư viện hơn 5.400 đề thi, chuyên đề và Ebook PDF phân cấp thư mục chuẩn gốc (Độc quyền DkTEST, Ngân Hàng Đề Thi, Tài Liệu Ôn Thi). Đọc trực tuyến và tải trọn bộ.",
+        "Thư viện hơn 20.000 đề thi Lớp 12, THPT QG, Trường - Sở, HK1, HK2, ĐGNL và Ebook PDF phân cấp 7 nguồn chuẩn gốc. Đọc trực tuyến và tải trọn bộ.",
       canonicalUrl: `${cleanBaseUrl}/documents`,
       imageUrl: `${cleanBaseUrl}/images/documents/library-hub.jpg`,
       imageAlt: "Kho Tài Liệu DkTEST",

@@ -73,6 +73,7 @@ export interface DocumentFilterQuery {
   grade?: DocumentGradeKey | "all";
   subject?: DocumentSubjectKey | "all";
   category?: DocumentCategoryKey | "all";
+  topicFilter?: string | "all";
   priceFilter?: "all" | "free" | "paid";
   sourceFilter?: "all" | "seed" | "admin" | "community";
   spaceFilter?: "all" | DocumentSpaceKey;
@@ -87,7 +88,7 @@ const SAVED_DOCS_STORAGE_KEY = "dktest:saved_document_ids";
 const LIVE_CACHE_TTL_MS = 30 * 1000;
 
 let seedBundlePromise: Promise<{
-  documents: LibraryDocument[];
+  documents: IndexedLibraryDocument[];
   folders: LibraryFolder[];
 }> | null = null;
 
@@ -101,6 +102,8 @@ let liveOverlayCache: {
   settings?: Partial<DocumentLibrarySettings>;
   timestamp: number;
 } | null = null;
+
+const normalizedTaxonomyCache = new Map<string, string>();
 
 export function normalizeVietnameseSearchText(input: string): string {
   return String(input || "")
@@ -126,9 +129,17 @@ export function inferDocumentTopicKey(doc: LibraryDocument): string {
   }
   if (/\b(vao 10|tuyen sinh lop 10|thi vao lop 10)\b/.test(s)) return "tuyen_sinh_10";
   if (/\b(hoc sinh gioi|hsg|olympic)\b/.test(s)) return "de_hsg";
-  if (/\b(giua hoc ky 1|giua ky 1|giua ki 1|gk1|ghk1)\b/.test(s)) return "de_gk1";
+  if (/\b(giua hoc ky 1|giua ky 1|giua ki 1|giua hk1|gk1|ghk1)\b/.test(s)) return "de_gk1";
   if (/\b(cuoi hoc ky 1|cuoi ky 1|hoc ky 1|hk1|chk1)\b/.test(s)) return "de_hk1";
-  if (/\b(giua hoc ky 2|giua ky 2|gk2|cuoi hoc ky 2|hoc ky 2|hk2)\b/.test(s)) return "de_gk2_hk2";
+  if (/\b(giua hoc ky 2|giua ky 2|giua ki 2|giua hk2|gk2|ghk2)\b/.test(s)) return "de_gk2";
+  if (/\b(cuoi hoc ky 2|cuoi ky 2|hoc ky 2|hk2|chk2)\b/.test(s)) return "de_hk2";
+  if (
+    /\b(khao sat chat luong|kscl)\b/.test(s) &&
+    doc.grade !== "thpt_qg" &&
+    doc.grade !== "grade_12"
+  ) {
+    return "de_kscl";
+  }
   if (
     doc.grade === "thpt_qg" ||
     /\b(thi thu|tot nghiep thpt|tn thpt|thpt quoc gia|thptqg|khao sat|kscl|so gd|truong thpt)\b/.test(s)
@@ -138,42 +149,41 @@ export function inferDocumentTopicKey(doc: LibraryDocument): string {
   }
   if (doc.category === "ebook_book") return "tu_sach_ebook";
   if (doc.category === "formula_handbook") return "so_tay_mindmap";
+  if (/\b(dung sai|tra loi ngan)\b/.test(s)) return "cd_dung_sai_tln";
   if (doc.subject === "math") {
-    if (/\b(ham so|dao ham|cuc tri|tiem can|do thi)\b/.test(s)) return "toan_ham_so";
-    if (/\b(nguyen ham|tich phan)\b/.test(s)) return "toan_nguyen_ham_tich_phan";
+    if (/\b(ham so|dao ham|cuc tri|tiem can|do thi)\b/.test(s)) return "cd_ham_so";
+    if (/\b(nguyen ham|tich phan)\b/.test(s)) return "cd_tich_phan";
     if (/\b(oxyz|khong gian|khoi da dien|goc khoang cach|vecto)\b/.test(s))
-      return "toan_oxyz_khong_gian";
-    if (/\b(xac suat|thong ke|to hop|day so|cap so|logarit|mu)\b/.test(s))
-      return "toan_xac_suat_logarit";
+      return "cd_hinh_oxyz";
+    if (/\b(xac suat|thong ke|to hop)\b/.test(s)) return "cd_xac_suat";
+    if (/\b(day so|cap so|logarit|mu|luong giac)\b/.test(s)) return "cd_dai_so";
   }
-  if (doc.subject === "physics") return "cd_vat_ly";
-  if (doc.subject === "chemistry") return "cd_hoa_hoc";
-  if (doc.subject === "biology") return "cd_sinh_hoc";
+  if (doc.subject === "physics") return "cd_ly_song_dien";
+  if (doc.subject === "chemistry") return "cd_hoa_chuyen_de";
+  if (doc.subject === "biology") return "cd_sinh_chuyen_de";
   if (doc.subject === "literature") return "cd_van_nghi_luan";
   if (doc.subject === "english") return "cd_anh_luyen_de";
   return "bo_tai_lieu_tong_hop";
 }
 
 function buildSearchKey(doc: LibraryDocument, topicKey: string): string {
-  const gradeLabel = DOCUMENT_GRADE_META[doc.grade]?.label || "";
-  const subjLabel = DOCUMENT_SUBJECT_META[doc.subject]?.label || "";
-  const catLabel = DOCUMENT_CATEGORY_META[doc.category]?.label || "";
-  const topicLabel = DOCUMENT_TOPIC_CLUSTER_META[topicKey]?.label || "";
-  return normalizeVietnameseSearchText(
-    [
-      doc.title,
-      doc.description,
-      gradeLabel,
-      subjLabel,
-      catLabel,
-      topicLabel,
-      doc.authorName,
-      doc.sourceName,
-      ...(doc.tags || []),
-    ]
-      .filter(Boolean)
-      .join(" ")
-  );
+  const taxKey = `${doc.grade}|${doc.subject}|${doc.category}|${topicKey}|${doc.sourceName || doc.authorName}`;
+  let taxNorm = normalizedTaxonomyCache.get(taxKey);
+  if (taxNorm === undefined) {
+    const gradeLabel = DOCUMENT_GRADE_META[doc.grade]?.label || "";
+    const subjLabel = DOCUMENT_SUBJECT_META[doc.subject]?.label || "";
+    const catLabel = DOCUMENT_CATEGORY_META[doc.category]?.label || "";
+    const topicLabel = DOCUMENT_TOPIC_CLUSTER_META[topicKey]?.label || "";
+    taxNorm = normalizeVietnameseSearchText(
+      `${gradeLabel} ${subjLabel} ${catLabel} ${topicLabel} ${doc.sourceName || doc.authorName}`
+    );
+    normalizedTaxonomyCache.set(taxKey, taxNorm);
+  }
+
+  const titleAndTags = doc.tags?.length
+    ? `${doc.title} ${doc.tags.join(" ")}`
+    : doc.title;
+  return `${normalizeVietnameseSearchText(titleAndTags)} ${taxNorm}`;
 }
 
 /**
@@ -239,12 +249,7 @@ export function buildConsolidatedTopicGroups(docs: IndexedLibraryDocument[]): {
       tk === "dgtd_tsa" ||
       tk === "dgnl_spt_vsat";
     const isSubjectEmbeddedInTopic =
-      tk.startsWith("toan_") ||
-      tk === "cd_vat_ly" ||
-      tk === "cd_hoa_hoc" ||
-      tk === "cd_sinh_hoc" ||
-      tk === "cd_van_nghi_luan" ||
-      tk === "cd_anh_luyen_de";
+      tk.startsWith("cd_") && tk !== "cd_dung_sai_tln";
 
     let title = tMeta.label;
     if (!isAptitudeTopic && !isSubjectEmbeddedInTopic && subjRaw !== "multi_subject") {
@@ -326,7 +331,7 @@ export function buildFolderShareUrl(folderId: string): string {
 }
 
 async function loadStaticSeedBundle(): Promise<{
-  documents: LibraryDocument[];
+  documents: IndexedLibraryDocument[];
   folders: LibraryFolder[];
 }> {
   if (seedBundlePromise) return seedBundlePromise;
@@ -339,8 +344,17 @@ async function loadStaticSeedBundle(): Promise<{
       const folders = Array.isArray(bundle?.folders)
         ? bundle.folders.map(expandCompactSeedFolder)
         : [];
-      const documents = Array.isArray(bundle?.items)
-        ? bundle.items.map(expandCompactSeedDocument)
+      const documents: IndexedLibraryDocument[] = Array.isArray(bundle?.items)
+        ? bundle.items.map((raw) => {
+            const expanded = expandCompactSeedDocument(raw);
+            const tk = expanded.topicKey || inferDocumentTopicKey(expanded);
+            return {
+              ...expanded,
+              topicKey: tk,
+              _topicKey: tk,
+              _searchKey: buildSearchKey(expanded, tk),
+            };
+          })
         : [];
       return { documents, folders };
     } catch (err) {
@@ -508,13 +522,7 @@ export async function getCatalogDocuments(options: { forceRefresh?: boolean } = 
     const override = overrideMap.get(seedDoc.id);
     if (override && override.status === "hidden") continue;
     if (seedDoc.folderId && hiddenFolderIds.has(seedDoc.folderId)) continue;
-    const seedTopicKey = inferDocumentTopicKey(seedDoc);
-    mergedDocs.push({
-      ...seedDoc,
-      topicKey: seedTopicKey,
-      _topicKey: seedTopicKey,
-      _searchKey: buildSearchKey(seedDoc, seedTopicKey),
-    });
+    mergedDocs.push(seedDoc);
   }
 
   const folderIndex = buildFolderTreeIndex(mergedFolders, mergedDocs);
@@ -630,6 +638,38 @@ export function buildFolderTreeIndex(
   };
 }
 
+export function matchesDocumentTopicFilter(
+  doc: IndexedLibraryDocument,
+  topicFilter: string
+): boolean {
+  if (!topicFilter || topicFilter === "all") return true;
+  const tk = doc._topicKey || doc.topicKey || inferDocumentTopicKey(doc);
+  if (topicFilter === "thptqg_truong_so") {
+    return tk === "thptqg_truong_so" || tk === "bo_de_thuc_chien";
+  }
+  if (topicFilter === "de_kscl") {
+    return (
+      tk === "de_kscl" ||
+      (tk === "thptqg_truong_so" &&
+        (doc._searchKey.includes("kscl") || doc._searchKey.includes("khao sat")))
+    );
+  }
+  if (topicFilter === "de_hk1") return tk === "de_hk1";
+  if (topicFilter === "de_hk2") return tk === "de_hk2" || tk === "de_gk2_hk2";
+  if (topicFilter === "de_gk") return tk === "de_gk1" || tk === "de_gk2";
+  if (topicFilter === "de_hsg") return tk === "de_hsg";
+  if (topicFilter === "dgnl_all") {
+    return (
+      tk === "dgnl_hsa" ||
+      tk === "dgnl_vact" ||
+      tk === "dgtd_tsa" ||
+      tk === "dgnl_spt_vsat" ||
+      doc.grade === "dgnl_dgtd"
+    );
+  }
+  return tk === topicFilter;
+}
+
 export function filterAndSortDocuments(
   allDocs: IndexedLibraryDocument[],
   query: DocumentFilterQuery
@@ -638,6 +678,7 @@ export function filterAndSortDocuments(
   gradeCounts: Record<string, number>;
   subjectCounts: Record<string, number>;
   categoryCounts: Record<string, number>;
+  topicCounts: Record<string, number>;
 } {
   const tokens = normalizeVietnameseSearchText(query.search || "")
     .split(" ")
@@ -645,6 +686,7 @@ export function filterAndSortDocuments(
   const grade = query.grade || "all";
   const subject = query.subject || "all";
   const category = query.category || "all";
+  const topicFilter = query.topicFilter || "all";
   const priceFilter = query.priceFilter || "all";
   const sourceFilter = query.sourceFilter || "all";
   const spaceFilter = query.spaceFilter || "all";
@@ -659,6 +701,16 @@ export function filterAndSortDocuments(
   const gradeCounts: Record<string, number> = { all: 0 };
   const subjectCounts: Record<string, number> = { all: 0 };
   const categoryCounts: Record<string, number> = { all: 0 };
+  const topicCounts: Record<string, number> = {
+    all: 0,
+    thptqg_truong_so: 0,
+    de_kscl: 0,
+    de_hk1: 0,
+    de_hk2: 0,
+    de_gk: 0,
+    de_hsg: 0,
+    dgnl_all: 0,
+  };
 
   const matched: IndexedLibraryDocument[] = [];
 
@@ -704,6 +756,37 @@ export function filterAndSortDocuments(
     const matchesSubject = subject === "all" || doc.subject === subject;
     const matchesCategory = category === "all" || doc.category === category;
     const matchesGrade = grade === "all" || doc.grade === grade;
+    const matchesTopic = matchesDocumentTopicFilter(doc, topicFilter);
+
+    if (matchesGrade && matchesSubject && matchesCategory) {
+      topicCounts.all++;
+      const tk = doc._topicKey || doc.topicKey || "";
+      if (tk === "thptqg_truong_so" || tk === "bo_de_thuc_chien") {
+        topicCounts.thptqg_truong_so++;
+      }
+      if (
+        tk === "de_kscl" ||
+        (tk === "thptqg_truong_so" &&
+          (doc._searchKey.includes("kscl") || doc._searchKey.includes("khao sat")))
+      ) {
+        topicCounts.de_kscl++;
+      }
+      if (tk === "de_hk1") topicCounts.de_hk1++;
+      if (tk === "de_hk2" || tk === "de_gk2_hk2") topicCounts.de_hk2++;
+      if (tk === "de_gk1" || tk === "de_gk2") topicCounts.de_gk++;
+      if (tk === "de_hsg") topicCounts.de_hsg++;
+      if (
+        tk === "dgnl_hsa" ||
+        tk === "dgnl_vact" ||
+        tk === "dgtd_tsa" ||
+        tk === "dgnl_spt_vsat" ||
+        doc.grade === "dgnl_dgtd"
+      ) {
+        topicCounts.dgnl_all++;
+      }
+    }
+
+    if (!matchesTopic) continue;
 
     if (matchesSubject && matchesCategory) {
       gradeCounts.all++;
@@ -749,6 +832,7 @@ export function filterAndSortDocuments(
     gradeCounts,
     subjectCounts,
     categoryCounts,
+    topicCounts,
   };
 }
 

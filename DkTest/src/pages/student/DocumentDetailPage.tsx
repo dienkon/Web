@@ -388,13 +388,13 @@ export default function DocumentDetailPage() {
   const finalPrice = appliedVoucherInfo ? appliedVoucherInfo.finalPriceVnd : doc.priceVnd;
 
   return (
-    <div className="max-w-5xl mx-auto px-3 sm:px-6 py-4 sm:py-6 space-y-6">
+    <div className="max-w-5xl mx-auto px-3 sm:px-5 py-4 sm:py-5 my-1 sm:my-2.5 rounded-[2rem] bg-gradient-to-b from-slate-200/75 via-slate-100/95 to-slate-200/60 dark:from-slate-950 dark:via-slate-950/90 dark:to-slate-900 border border-slate-300/75 dark:border-slate-800 space-y-5 shadow-inner">
       {/* Top Back & Folder Breadcrumb Navigation */}
-      <div className="flex flex-wrap items-center justify-between gap-3">
-        <div className="flex flex-wrap items-center gap-1.5 text-xs font-bold text-slate-600 dark:text-slate-300">
+      <div className="flex flex-wrap items-center justify-between gap-3 bg-white/85 dark:bg-slate-900/80 px-4 py-2.5 rounded-2xl border border-slate-200/90 dark:border-slate-800 shadow-2xs">
+        <div className="flex flex-wrap items-center gap-1.5 text-xs font-bold text-slate-700 dark:text-slate-200">
           <Link
             to="/student/documents"
-            className="inline-flex items-center gap-1.5 hover:text-teal-600 transition-colors"
+            className="inline-flex items-center gap-1.5 text-teal-700 dark:text-teal-300 hover:underline transition-colors"
           >
             <ArrowLeft className="w-4 h-4" />
             <span>Kho Tài Liệu</span>
@@ -466,11 +466,12 @@ export default function DocumentDetailPage() {
         </div>
       </div>
 
-      {/* Main Document Card */}
-      <section className="bg-white dark:bg-slate-900 rounded-3xl border border-slate-200/85 dark:border-slate-800 overflow-hidden shadow-2xs">
+      {/* Main Document Card with Tiered Accent Ribbon */}
+      <section className="bg-gradient-to-br from-white via-white to-teal-50/45 dark:from-slate-900 dark:via-slate-900 dark:to-teal-950/20 rounded-3xl border border-slate-300/80 dark:border-slate-800 overflow-hidden shadow-sm">
+        <div className="h-2 w-full bg-gradient-to-r from-teal-500 via-blue-600 to-indigo-600" />
         <div className="grid grid-cols-1 md:grid-cols-12 gap-6 p-5 sm:p-7">
           <div className="md:col-span-4">
-            <div className="rounded-2xl overflow-hidden border border-slate-200 dark:border-slate-800 bg-slate-100 dark:bg-slate-800 aspect-[16/10] md:aspect-[4/5] relative">
+            <div className="rounded-2xl overflow-hidden border border-slate-200 dark:border-slate-800 bg-slate-100 dark:bg-slate-800 aspect-[16/10] md:aspect-[4/5] relative shadow-xs">
               <img
                 src={doc.coverImageUrl || getDocumentCoverFallbackUrl(doc.subject)}
                 alt={doc.title}
@@ -483,7 +484,7 @@ export default function DocumentDetailPage() {
                 }}
                 className="w-full h-full object-cover"
               />
-              <span className="absolute top-3 left-3 px-2.5 py-1 rounded-lg bg-slate-900/80 text-white text-[11px] font-extrabold uppercase">
+              <span className="absolute top-3 left-3 px-2.5 py-1 rounded-lg bg-slate-900/85 text-white text-[11px] font-extrabold uppercase">
                 {effectiveSubFiles.length > 1
                   ? `${effectiveSubFiles.length} TỆP`
                   : doc.fileFormat}
@@ -497,10 +498,10 @@ export default function DocumentDetailPage() {
                 <span className={`px-2.5 py-1 rounded-lg ${gradeMeta.badgeClass}`}>
                   {gradeMeta.label}
                 </span>
-                <span className="px-2.5 py-1 rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-200">
+                <span className="px-2.5 py-1 rounded-lg bg-indigo-50 dark:bg-indigo-950/60 text-indigo-800 dark:text-indigo-200 border border-indigo-200/80 dark:border-indigo-800">
                   {subjMeta.label}
                 </span>
-                <span className="px-2.5 py-1 rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300">
+                <span className="px-2.5 py-1 rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-200/80 dark:border-slate-700">
                   {catMeta.label}
                 </span>
                 {isPaid ? (
@@ -516,7 +517,7 @@ export default function DocumentDetailPage() {
                     </span>
                   )
                 ) : (
-                  <span className="px-2.5 py-1 rounded-lg bg-emerald-100 dark:bg-emerald-950/60 text-emerald-700 dark:text-emerald-300">
+                  <span className="px-2.5 py-1 rounded-lg bg-emerald-100 dark:bg-emerald-950/60 text-emerald-800 dark:text-emerald-300 border border-emerald-200/80 dark:border-emerald-800">
                     Miễn phí 100%
                   </span>
                 )}
@@ -530,11 +531,11 @@ export default function DocumentDetailPage() {
                 {doc.description}
               </p>
 
-              <div className="flex flex-wrap items-center gap-x-5 gap-y-1.5 text-xs text-slate-500 dark:text-slate-400 pt-1">
+              <div className="flex flex-wrap items-center gap-x-5 gap-y-1.5 text-xs text-slate-600 dark:text-slate-400 pt-1">
                 <span className="inline-flex items-center gap-1.5">
-                  <User className="w-3.5 h-3.5 text-slate-400" />
+                  <User className="w-3.5 h-3.5 text-teal-600" />
                   <span>Nguồn / Tác giả: </span>
-                  <strong className="text-slate-800 dark:text-slate-200">{doc.authorName}</strong>
+                  <strong className="text-slate-900 dark:text-slate-100">{doc.authorName}</strong>
                 </span>
                 {doc.pageCount ? <span>• {doc.pageCount} trang</span> : null}
                 {doc.fileSizeBytes ? (
@@ -548,7 +549,7 @@ export default function DocumentDetailPage() {
             </div>
 
             {hasFullAccess ? (
-              <div className="p-4 rounded-2xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200/80 dark:border-slate-700 space-y-3">
+              <div className="p-4 rounded-2xl bg-gradient-to-r from-teal-50/85 via-sky-50/70 to-indigo-50/65 dark:from-slate-800/80 dark:to-slate-800/60 border border-teal-200/85 dark:border-slate-700 space-y-3">
                 <div className="flex flex-wrap items-center gap-2.5">
                   {effectiveFileUrl && (
                     <button
@@ -737,15 +738,17 @@ export default function DocumentDetailPage() {
 
       {/* Nested Sub-Folder & Sub-File Explorer for Multi-file Packs */}
       {hasFullAccess && effectiveSubFiles.length > 0 && (
-        <section className="bg-white dark:bg-slate-900 rounded-3xl border border-slate-200 dark:border-slate-800 p-5 space-y-4">
+        <section className="bg-gradient-to-br from-white via-slate-50/90 to-indigo-50/45 dark:from-slate-900 dark:via-slate-900 dark:to-indigo-950/20 rounded-3xl border border-slate-300/80 dark:border-slate-800 p-5 space-y-4 shadow-xs">
           <div className="flex flex-wrap items-center justify-between gap-2">
-            <div className="flex items-center gap-2">
-              <FolderOpen className="w-5 h-5 text-teal-600" />
+            <div className="flex items-center gap-2.5">
+              <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-teal-600 to-indigo-600 text-white flex items-center justify-center shrink-0 shadow-2xs">
+                <FolderOpen className="w-4 h-4" />
+              </div>
               <div>
                 <h2 className="text-sm sm:text-base font-black text-slate-900 dark:text-white">
                   Cây thư mục bên trong bộ tài liệu ({effectiveSubFiles.length} tệp)
                 </h2>
-                <p className="text-[11px] text-slate-500">
+                <p className="text-[11px] text-slate-600 dark:text-slate-400">
                   Phân cấp chuẩn theo thư mục gốc — đọc trực tiếp từng tệp hoặc tải trọn bộ về máy
                 </p>
               </div>
@@ -755,7 +758,7 @@ export default function DocumentDetailPage() {
               <button
                 type="button"
                 onClick={() => setBatchDownloadTarget({ open: true })}
-                className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-teal-600 hover:bg-teal-700 text-white text-xs font-bold cursor-pointer"
+                className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-teal-600 hover:bg-teal-700 text-white text-xs font-extrabold shadow-2xs cursor-pointer"
               >
                 <FolderDown className="w-3.5 h-3.5" />
                 <span>Tải toàn bộ ({effectiveSubFiles.length} tệp)</span>
@@ -770,10 +773,10 @@ export default function DocumentDetailPage() {
               return (
                 <div
                   key={groupKey}
-                  className="rounded-2xl border border-slate-200/80 dark:border-slate-800 overflow-hidden"
+                  className="rounded-2xl border border-indigo-200/80 dark:border-slate-800 bg-white dark:bg-slate-900 overflow-hidden shadow-2xs"
                 >
                   {folderPath && (
-                    <div className="px-4 py-2.5 bg-slate-50 dark:bg-slate-800/60 flex items-center justify-between gap-2">
+                    <div className="px-4 py-2.5 bg-gradient-to-r from-amber-50/90 via-indigo-50/60 to-sky-50/60 dark:from-slate-800 dark:to-slate-800/70 border-b border-amber-200/60 dark:border-slate-700 flex items-center justify-between gap-2">
                       <button
                         type="button"
                         onClick={() =>
@@ -787,14 +790,14 @@ export default function DocumentDetailPage() {
                         className="flex items-center gap-2 text-xs font-extrabold text-slate-800 dark:text-slate-100 cursor-pointer"
                       >
                         {isCollapsed ? (
-                          <ChevronRight className="w-4 h-4 text-slate-400" />
+                          <ChevronRight className="w-4 h-4 text-slate-500" />
                         ) : (
-                          <ChevronDown className="w-4 h-4 text-slate-400" />
+                          <ChevronDown className="w-4 h-4 text-slate-500" />
                         )}
                         <Folder className="w-4 h-4 text-amber-500" />
                         <span>{folderPath.replace(/\//g, " › ")}</span>
-                        <span className="text-[11px] font-semibold text-slate-400">
-                          ({files.length} tệp)
+                        <span className="px-1.5 py-0.5 rounded bg-amber-100 dark:bg-amber-950/70 text-[10px] font-extrabold text-amber-800 dark:text-amber-200">
+                          {files.length} tệp
                         </span>
                       </button>
 
@@ -803,7 +806,7 @@ export default function DocumentDetailPage() {
                         onClick={() =>
                           setBatchDownloadTarget({ open: true, subFolderFilter: folderPath })
                         }
-                        className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 text-[11px] font-bold text-teal-700 dark:text-teal-300 cursor-pointer"
+                        className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-teal-600 hover:bg-teal-700 text-white text-[11px] font-bold cursor-pointer"
                       >
                         <FolderDown className="w-3 h-3" />
                         <span>Tải nhánh này</span>
@@ -818,7 +821,7 @@ export default function DocumentDetailPage() {
                         return (
                           <div
                             key={`${sf.url}_${idx}`}
-                            className="py-2.5 flex flex-wrap items-center justify-between gap-2"
+                            className="py-2.5 flex flex-wrap items-center justify-between gap-2 hover:bg-slate-50/70 dark:hover:bg-slate-800/40 px-1 rounded-lg transition-colors"
                           >
                             <div className="flex items-center gap-2.5 min-w-0">
                               <FileText className="w-4 h-4 text-teal-600 shrink-0" />
@@ -832,7 +835,7 @@ export default function DocumentDetailPage() {
                                   <button
                                     type="button"
                                     onClick={() => handleOpenReader(sf.url, sf.name)}
-                                    className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-teal-50 dark:bg-teal-950/50 text-teal-700 dark:text-teal-300 text-xs font-bold cursor-pointer"
+                                    className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-teal-600 hover:bg-teal-700 text-white text-xs font-bold cursor-pointer"
                                   >
                                     <Eye className="w-3.5 h-3.5" />
                                     <span>Đọc PDF</span>
@@ -840,7 +843,7 @@ export default function DocumentDetailPage() {
                                   <button
                                     type="button"
                                     onClick={() => void handleDownload(sf.url, sf.name)}
-                                    className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-blue-50 dark:bg-blue-950/50 text-blue-700 dark:text-blue-300 text-xs font-bold cursor-pointer"
+                                    className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-blue-50 dark:bg-blue-950/50 border border-blue-200/80 dark:border-blue-800 text-blue-700 dark:text-blue-300 text-xs font-bold cursor-pointer"
                                   >
                                     <Download className="w-3.5 h-3.5" />
                                     <span>Tải</span>
@@ -872,8 +875,8 @@ export default function DocumentDetailPage() {
 
       {/* Related Documents */}
       {relatedDocs.length > 0 && (
-        <section className="space-y-3">
-          <h2 className="text-sm font-bold text-slate-900 dark:text-white px-1">
+        <section className="rounded-3xl bg-gradient-to-br from-teal-50/70 via-white to-indigo-50/50 dark:from-slate-900 dark:to-slate-900 border border-teal-200/80 dark:border-slate-800 p-4 sm:p-5 space-y-3">
+          <h2 className="text-sm font-black text-slate-900 dark:text-white px-1">
             Tài liệu cùng thư mục &amp; chuyên mục
           </h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
@@ -881,9 +884,9 @@ export default function DocumentDetailPage() {
               <Link
                 key={rel.id}
                 to={`/student/documents/${encodeURIComponent(rel.id)}`}
-                className="p-3.5 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 hover:border-teal-400 transition-colors space-y-1.5"
+                className="p-3.5 rounded-2xl bg-white dark:bg-slate-900 border border-l-4 border-l-teal-500 border-slate-200 dark:border-slate-800 hover:border-teal-500 shadow-2xs transition-all space-y-1.5"
               >
-                <div className="text-[10px] font-bold text-teal-600 dark:text-teal-400">
+                <div className="text-[10px] font-extrabold text-teal-700 dark:text-teal-300">
                   {DOCUMENT_GRADE_META[rel.grade]?.shortLabel} •{" "}
                   {DOCUMENT_SUBJECT_META[rel.subject]?.label}
                 </div>

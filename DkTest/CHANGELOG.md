@@ -1,5 +1,20 @@
 # DkTEST changelog
 
+## 2.1.0 — 2026-11-27 (Android versionCode 34)
+
+- **Quét cạn & Giải nén sâu toàn bộ Link Đề Thi từ 7 Kho Nguồn Lớn — Nâng tổng kho lên 28.000 Tài liệu & 717 Thư mục (`scripts/scrape-document-library.mjs`, `public/data/document-library-seed.json`, `public/data/document-library-packs.json`, `documentLibrary.ts`, `documentLibraryClientService.ts`)**:
+  - **Vượt mốc `>= 20.000+` tài liệu (`28.000` tài liệu chuẩn hóa, chọn lọc ưu tiên từ `54.035` tài liệu thu thập & giải nén độc nhất, `0` lượt đọc Firestore)**:
+    - Tích hợp mới **TOANMATH (`toanmath.com`, `10.785` đề PDF/DOCX trực tiếp)** chuyên sâu Đề thi thử TN THPT Trường - Sở, Khảo sát chất lượng (KSCL), Đề GK1, HK1, GK2, HK2 và Đề HSG.
+    - Quét sâu cả Posts lẫn Static Pages trên **Ngân Hàng Đề Thi (`nganhangdethi.org`, `8.655` tài liệu)** và **giải nén độc lập từng đề thi có tên bên trong các gói bộ đề nhiều file (`unpackNamedSubExams`, nâng trần `subFiles` lên `600` tệp/gói)** kèm thuật toán tự động ghép cặp file **Đáp án / Lời giải (`a`)** vào đúng đề thi tương ứng.
+    - Tích hợp mới **Kho Đề Tiếng Anh THPT (`giaoandethitienganh.info`, `3.308` đề thi & chuyên đề Tiếng Anh)**, **Kho Đa Môn THPT & ĐGNL (`hoctai.vn`, `tailieudethi.vn`, `dethithu.net`, `1.309` tài liệu Lý, Hóa, Sinh, Văn, Sử, Địa, GDKTPL, HSA, V-ACT)**, mở toàn bộ giới hạn cho **MathVN • Nguyễn Bảo Vương • THPT.Math (`1.910` tài liệu)**, và giữ trọn vẹn 100% **Tài Liệu Ôn Thi ORG (`1.119`)** + **Tài Liệu Ôn Thi EDU (`914`)**.
+  - **Ưu tiên trọng tâm Ôn thi Lớp 12 & Tốt nghiệp THPT**: hơn **`19.590` tài liệu thuộc Lớp 12, THPT QG & ĐGNL**, bao gồm **`6.448` Đề thi thử Trường - Sở**, **`2.507` Đề Học kỳ 1 (HK1)**, **`1.840` Đề Học kỳ 2 (HK2)**, **`2.986` Đề Giữa kỳ 1 & 2 (GK1, GK2)**, **`2.643` Đề Học sinh giỏi** và **`1.899` Đề Tuyển sinh vào 10**, phủ kín 14 môn học.
+  - **Nén Compact URL & Pre-indexed In-Memory Search**: bổ sung tiền tố gọn (`tm:`, `mf:`, `eduu:`, `ga:`, `ht:`, `mv:`), lược bỏ trường mặc định trùng lặp và cache từ khóa phân loại (`normalizedTaxonomyCache`), giúp tìm kiếm không dấu trên `28.000` tài liệu dưới `15ms`.
+- **Thiết kế lại Giao diện Phân tầng Màu sắc Trực quan & Thanh Lọc Nhanh Mục Thi Ưu Tiên (`DocumentLibraryPage.tsx`, `DocumentDetailPage.tsx`, `StudentLayout.tsx`)**:
+  - **Xóa bỏ hoàn toàn cảm giác "trắng không khí" đơn điệu**: đặt toàn bộ Thư viện trên nền khung Slate dịu mắt (`Tier 0`), kết hợp Hero Banner chuyển sắc đậm (`Slate → Teal → Indigo`) với huy hiệu thống kê nổi bật và thanh Tab kính mờ phân màu riêng cho từng không gian (**Độc quyền DkTEST** xanh ngọc, **Ngân Hàng Đề Thi** xanh dương, **Đề Trường - Sở TOANMATH** đỏ hồng, **Cộng đồng** tím chàm, **Quản lý bài đăng** vàng hổ phách).
+  - **Phân tầng màu riêng biệt cho từng Khu vực, Cây thư mục & Thẻ tài liệu**: mỗi khu vực gốc, mỗi nguồn trong 7 kho chuẩn gốc, mỗi Thư mục Chủ đề Gộp gọn và từng Thẻ tài liệu đều có thanh màu đỉnh (`topBar` / `border-l-4`), nền chuyển sắc nhẹ theo môn/khối (`FOLDER_COLOR_STYLES.surface`), đường kẻ dẫn hướng màu cho cây thư mục bên trái (`treeRail`) và chân thẻ tách nền rõ ràng.
+  - **Thanh Chip Lọc 1 Chạm theo Mục Thi Ưu Tiên (`topicFilter` + `topicCounts`)**: lọc tức thì kèm bộ đếm trực tiếp cho **🔥 Đề Trường - Sở THPT**, **🎯 Khảo sát KSCL**, **📘 Đề Học kỳ 1 (HK1)**, **📗 Đề Học kỳ 2 (HK2)**, **📝 Giữa kỳ 1 & 2**, **🧠 ĐGNL HSA • TSA • V-ACT**, **🏆 Đề Học sinh giỏi**.
+- Audit: [2.1.0](docs/audits/2.1.0.md).
+
 ## 2.0.9 — 2026-11-27 (Android versionCode 33)
 
 - **Sửa triệt để lỗi Crash Trình đọc PDF khi đóng hoặc chuyển tệp (`DkPdfViewerModal.tsx`, `pdfService.ts`)**:

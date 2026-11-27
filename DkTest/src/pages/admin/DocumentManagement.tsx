@@ -967,7 +967,7 @@ export default function DocumentManagement() {
               type="text"
               value={seedSearch}
               onChange={(e) => setSeedSearch(e.target.value)}
-              placeholder="Tìm trong 5.400+ tài liệu gốc để ghim nổi bật, chuyển thư mục, đặt giá hoặc ẩn..."
+              placeholder="Tìm trong 20.000+ tài liệu gốc để ghim nổi bật, chuyển thư mục, đặt giá hoặc ẩn..."
               className="w-full pl-10 pr-4 py-2.5 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-xs"
             />
           </div>

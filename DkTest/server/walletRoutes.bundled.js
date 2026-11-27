@@ -6487,6 +6487,13 @@ var DOCUMENT_SOURCE_META = {
     description: "Kho \u0111\u1EC1 thi, Ebook Moon/Mapstudy & th\u01B0 m\u1EE5c t\xE0i li\u1EC7u 10, 11, 12, HSA, V-ACT, TSA ph\xE2n c\u1EA5p chu\u1EA9n nh\u01B0 g\u1ED1c.",
     accentColor: "blue"
   },
+  toanmath: {
+    label: "TOANMATH \u2014 Kho \u0110\u1EC1 To\xE1n Tr\u01B0\u1EDDng S\u1EDF & H\u1ECDc K\u1EF3 (toanmath.com)",
+    shortLabel: "TOANMATH",
+    domain: "toanmath.com",
+    description: "Kho \u0111\u1EC1 thi th\u1EED TN THPT Tr\u01B0\u1EDDng - S\u1EDF, Kh\u1EA3o s\xE1t ch\u1EA5t l\u01B0\u1EE3ng, \u0110\u1EC1 GK1, HK1, GK2, HK2, HSG & Chuy\xEAn \u0111\u1EC1 To\xE1n 10\u201312.",
+    accentColor: "rose"
+  },
   tlo_edu: {
     label: "T\xE0i Li\u1EC7u \xD4n Thi EDU (tailieuonthi.edu.vn)",
     shortLabel: "T\xE0i Li\u1EC7u \xD4n Thi EDU",
@@ -6501,11 +6508,25 @@ var DOCUMENT_SOURCE_META = {
     description: "Chuy\xEAn trang t\xE0i li\u1EC7u c\xE1c k\u1EF3 thi THPT, HSA, TSA, V-ACT, SPT (S\u01B0 ph\u1EA1m), QDA & B\u1ED9 C\xF4ng An c\xF3 \u0111\xE1p \xE1n chi ti\u1EBFt.",
     accentColor: "amber"
   },
+  tienganh: {
+    label: "Kho \u0110\u1EC1 Ti\u1EBFng Anh THPT & To\xE0n C\u1EA5p (giaoandethitienganh.info)",
+    shortLabel: "Kho \u0110\u1EC1 Ti\u1EBFng Anh",
+    domain: "giaoandethitienganh.info",
+    description: "Ng\xE2n h\xE0ng \u0111\u1EC1 thi Ti\u1EBFng Anh L\u1EDBp 12, THPT Qu\u1ED1c gia, L\u1EDBp 10\u201311, THCS & Tuy\u1EC3n sinh v\xE0o 10 k\xE8m \u0111\xE1p \xE1n.",
+    accentColor: "teal"
+  },
+  multihub: {
+    label: "Kho \u0110a M\xF4n THPT & \u0110GNL (H\u1ECDc T\u1EA1i \u2022 T\xE0i Li\u1EC7u \u0110\u1EC1 Thi \u2022 \u0110\u1EC1 Thi Th\u1EED)",
+    shortLabel: "Kho \u0110a M\xF4n THPT",
+    domain: "hoctai.vn",
+    description: "T\u1ED5ng h\u1EE3p \u0111\u1EC1 thi ch\xEDnh th\u1EE9c & thi th\u1EED L\xFD, H\xF3a, Sinh, Anh, V\u0103n, S\u1EED, \u0110\u1ECBa, KTPL & \u0110GNL V-ACT / HSA.",
+    accentColor: "indigo"
+  },
   math_partners: {
-    label: "Kho To\xE1n & Chuy\xEAn \u0110\u1EC1 M\u1EDF R\u1ED9ng",
+    label: "Kho To\xE1n & Chuy\xEAn \u0110\u1EC1 M\u1EDF R\u1ED9ng (MathVN \u2022 Nguy\u1EC5n B\u1EA3o V\u01B0\u01A1ng \u2022 THPT.Math)",
     shortLabel: "To\xE1n M\u1EDF R\u1ED9ng",
     domain: "mathvn.com",
-    description: "T\u1ED5ng h\u1EE3p chuy\xEAn \u0111\u1EC1 v\xE0 \u0111\u1EC1 thi th\u1EED To\xE1n THPT t\u1EEB Nguy\u1EC5n B\u1EA3o V\u01B0\u01A1ng, MathVN & THPT.Math.",
+    description: "T\u1ED5ng h\u1EE3p to\xE0n b\u1ED9 \u0111\u1EC1 thi th\u1EED, kh\u1EA3o s\xE1t v\xE0 chuy\xEAn \u0111\u1EC1 To\xE1n THPT t\u1EEB MathVN, Nguy\u1EC5n B\u1EA3o V\u01B0\u01A1ng & THPT.Math.",
     accentColor: "purple"
   }
 };
@@ -6572,8 +6593,11 @@ var DOCUMENT_CATEGORY_META = {
 function inferSourceKeyFromLabel(src) {
   const s = String(src || "").toLowerCase();
   if (s.includes("ng\xE2n h\xE0ng \u0111\u1EC1 thi") || s.includes("nganhangdethi")) return "nhdt";
+  if (s.includes("toanmath")) return "toanmath";
   if (s.includes("tailieuonthi.edu") || s.includes("\xF4n thi edu")) return "tlo_edu";
   if (s.includes("tailieuonthi.org") || s.includes("\xF4n thi org")) return "tlo_org";
+  if (s.includes("ti\u1EBFng anh") || s.includes("giaoandethitienganh")) return "tienganh";
+  if (s.includes("h\u1ECDc t\u1EA1i") || s.includes("hoctai") || s.includes("\u0111a m\xF4n")) return "multihub";
   return "math_partners";
 }
 function expandSeedUrl(u) {
@@ -6581,6 +6605,10 @@ function expandSeedUrl(u) {
   if (u.startsWith("gd:")) return `https://drive.google.com/file/d/${u.slice(3)}/view`;
   if (u.startsWith("gdf:")) return `https://drive.google.com/drive/folders/${u.slice(4)}`;
   if (u.startsWith("gds:")) return `https://docs.google.com/spreadsheets/d/${u.slice(4)}/edit`;
+  if (u.startsWith("tm:")) return `https://toanmath.com/toanmath-pdf/${u.slice(3)}`;
+  if (u.startsWith("tmw:")) return `https://toanmath.com/wp-content/uploads/${u.slice(4)}`;
+  if (u.startsWith("eduu:")) return `https://tailieuonthi.edu.vn/wp-content/uploads/${u.slice(5)}`;
+  if (u.startsWith("mf:")) return `https://www.mediafire.com/${u.slice(3)}`;
   return u;
 }
 function expandCompactSeedFolder(item) {
@@ -6609,17 +6637,25 @@ function expandSeedPostUrl(pu) {
   if (pu.startsWith("nh:")) return `https://www.nganhangdethi.org${pu.slice(3)}`;
   if (pu.startsWith("edu:")) return `https://tailieuonthi.edu.vn${pu.slice(4)}`;
   if (pu.startsWith("org:")) return `https://tailieuonthi.org${pu.slice(4)}`;
+  if (pu.startsWith("tm:")) return `https://toanmath.com${pu.slice(3)}`;
+  if (pu.startsWith("ga:")) return `https://www.giaoandethitienganh.info${pu.slice(3)}`;
+  if (pu.startsWith("ht:")) return `https://hoctai.vn${pu.slice(3)}`;
+  if (pu.startsWith("mv:")) return `https://www.mathvn.com${pu.slice(3)}`;
   return pu;
 }
 function expandCompactSeedDocument(item) {
-  const gradeLabel = DOCUMENT_GRADE_META[item.g]?.shortLabel || "THPT";
+  const grade = item.g || "grade_12";
+  const category = item.c || "exam_test";
+  const fileFormat = item.f || "pdf";
+  const sourceKey = item.sk || inferSourceKeyFromLabel(item.src);
+  const resolvedSourceName = item.src || DOCUMENT_SOURCE_META[sourceKey]?.shortLabel || "Kho T\xE0i Li\u1EC7u THPT";
+  const gradeLabel = DOCUMENT_GRADE_META[grade]?.shortLabel || "THPT";
   const subjectLabel = DOCUMENT_SUBJECT_META[item.s]?.label || "T\u1ED5ng h\u1EE3p";
-  const categoryLabel = DOCUMENT_CATEGORY_META[item.c]?.label || "T\xE0i li\u1EC7u";
+  const categoryLabel = DOCUMENT_CATEGORY_META[category]?.label || "T\xE0i li\u1EC7u";
   const subCount = item.sf?.length || item.sfc || 0;
   const primaryUrl = expandSeedUrl(item.u) || item.u;
   const answerUrl = expandSeedUrl(item.a);
   const videoUrl = expandSeedUrl(item.v);
-  const sourceKey = item.sk || inferSourceKeyFromLabel(item.src);
   const sourcePostUrl = expandSeedPostUrl(item.pu);
   const descParts = [
     `${categoryLabel} m\xF4n ${subjectLabel} (${gradeLabel})`,
@@ -6631,10 +6667,10 @@ function expandCompactSeedDocument(item) {
     id: item.id,
     title: item.t,
     description: `${descParts.join(", ")}. Xem tr\u1EF1c tuy\u1EBFn b\u1EB1ng tr\xECnh \u0111\u1ECDc PDF DkTEST ho\u1EB7c t\u1EA3i tr\u1ECDn b\u1ED9 v\u1EC1 m\xE1y mi\u1EC5n ph\xED.`,
-    grade: item.g,
+    grade,
     subject: item.s,
-    category: item.c,
-    fileFormat: item.f,
+    category,
+    fileFormat,
     folderId: item.fid || `sfold_${sourceKey}`,
     ...item.tk ? { topicKey: item.tk } : {},
     space: "sources",
@@ -6653,9 +6689,9 @@ function expandCompactSeedDocument(item) {
         ...sf.p ? { folderPath: sf.p } : {}
       }))
     } : {},
-    authorName: item.src || "Kho T\xE0i Li\u1EC7u THPT",
+    authorName: resolvedSourceName,
     authorRole: "seed",
-    sourceName: item.src,
+    sourceName: resolvedSourceName,
     ...sourcePostUrl ? { sourcePostUrl } : {},
     status: "published",
     tags: item.tg || [],
@@ -6663,7 +6699,7 @@ function expandCompactSeedDocument(item) {
     downloadCount: 0,
     publishedAt: item.d ? `${item.d}T00:00:00.000Z` : "2026-01-01T00:00:00.000Z",
     createdAt: item.d ? `${item.d}T00:00:00.000Z` : "2026-01-01T00:00:00.000Z",
-    updatedAt: item.d ? `${item.d}T00:00:00.000Z` : "2026-01-01T00:00:00.000Z"
+    updatedAt: item.d ? `${item.d}T00:00:00.000Z` : "2026-01-27T00:00:00.000Z"
   };
 }
 

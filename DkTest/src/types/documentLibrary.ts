@@ -51,8 +51,11 @@ export type DocumentSourceKey =
   | "dktest"
   | "community"
   | "nhdt"
+  | "toanmath"
   | "tlo_edu"
   | "tlo_org"
+  | "tienganh"
+  | "multihub"
   | "math_partners";
 
 export type FolderAccentColor =
@@ -103,7 +106,7 @@ export interface CompactSeedFolder {
   /** Parent folder ID (null for root source folder) */
   p: string | null;
   /** Source key */
-  sk: "nhdt" | "tlo_edu" | "tlo_org" | "math_partners";
+  sk: Exclude<DocumentSourceKey, "dktest" | "community">;
   /** Optional description */
   d?: string;
   /** Optional grade */
@@ -187,20 +190,20 @@ export interface CompactSeedDocument {
   id: string;
   /** Title */
   t: string;
-  /** Grade key */
-  g: DocumentGradeKey;
+  /** Grade key (defaults to "grade_12" when omitted for compact wire payload) */
+  g?: DocumentGradeKey;
   /** Subject key */
   s: DocumentSubjectKey;
-  /** Category key */
-  c: DocumentCategoryKey;
-  /** File format */
-  f: DocumentFileFormat;
+  /** Category key (defaults to "exam_test" when omitted) */
+  c?: DocumentCategoryKey;
+  /** File format (defaults to "pdf" when omitted) */
+  f?: DocumentFileFormat;
   /** Leaf folder ID in `folders` */
   fid?: string;
   /** Standardized topic cluster key */
   tk?: string;
   /** Source key */
-  sk?: "nhdt" | "tlo_edu" | "tlo_org" | "math_partners";
+  sk?: Exclude<DocumentSourceKey, "dktest" | "community">;
   /** Primary file URL */
   u: string;
   /** Optional separate answer key URL */
@@ -213,8 +216,8 @@ export interface CompactSeedDocument {
   sfc?: number;
   /** Published ISO date (YYYY-MM-DD) */
   d: string;
-  /** Source label */
-  src: string;
+  /** Source label (defaults to DOCUMENT_SOURCE_META[sk].shortLabel when omitted) */
+  src?: string;
   /** Optional original post URL */
   pu?: string;
   /** Optional tags */
@@ -308,6 +311,13 @@ export const DOCUMENT_SOURCE_META: Record<
     description: "Kho đề thi, Ebook Moon/Mapstudy & thư mục tài liệu 10, 11, 12, HSA, V-ACT, TSA phân cấp chuẩn như gốc.",
     accentColor: "blue",
   },
+  toanmath: {
+    label: "TOANMATH — Kho Đề Toán Trường Sở & Học Kỳ (toanmath.com)",
+    shortLabel: "TOANMATH",
+    domain: "toanmath.com",
+    description: "Kho đề thi thử TN THPT Trường - Sở, Khảo sát chất lượng, Đề GK1, HK1, GK2, HK2, HSG & Chuyên đề Toán 10–12.",
+    accentColor: "rose",
+  },
   tlo_edu: {
     label: "Tài Liệu Ôn Thi EDU (tailieuonthi.edu.vn)",
     shortLabel: "Tài Liệu Ôn Thi EDU",
@@ -322,11 +332,25 @@ export const DOCUMENT_SOURCE_META: Record<
     description: "Chuyên trang tài liệu các kỳ thi THPT, HSA, TSA, V-ACT, SPT (Sư phạm), QDA & Bộ Công An có đáp án chi tiết.",
     accentColor: "amber",
   },
+  tienganh: {
+    label: "Kho Đề Tiếng Anh THPT & Toàn Cấp (giaoandethitienganh.info)",
+    shortLabel: "Kho Đề Tiếng Anh",
+    domain: "giaoandethitienganh.info",
+    description: "Ngân hàng đề thi Tiếng Anh Lớp 12, THPT Quốc gia, Lớp 10–11, THCS & Tuyển sinh vào 10 kèm đáp án.",
+    accentColor: "teal",
+  },
+  multihub: {
+    label: "Kho Đa Môn THPT & ĐGNL (Học Tại • Tài Liệu Đề Thi • Đề Thi Thử)",
+    shortLabel: "Kho Đa Môn THPT",
+    domain: "hoctai.vn",
+    description: "Tổng hợp đề thi chính thức & thi thử Lý, Hóa, Sinh, Anh, Văn, Sử, Địa, KTPL & ĐGNL V-ACT / HSA.",
+    accentColor: "indigo",
+  },
   math_partners: {
-    label: "Kho Toán & Chuyên Đề Mở Rộng",
+    label: "Kho Toán & Chuyên Đề Mở Rộng (MathVN • Nguyễn Bảo Vương • THPT.Math)",
     shortLabel: "Toán Mở Rộng",
     domain: "mathvn.com",
-    description: "Tổng hợp chuyên đề và đề thi thử Toán THPT từ Nguyễn Bảo Vương, MathVN & THPT.Math.",
+    description: "Tổng hợp toàn bộ đề thi thử, khảo sát và chuyên đề Toán THPT từ MathVN, Nguyễn Bảo Vương & THPT.Math.",
     accentColor: "purple",
   },
 };
@@ -419,22 +443,40 @@ export const DOCUMENT_TOPIC_CLUSTER_META: Record<
     accentColor: "teal",
     order: 12,
   },
+  de_kscl: {
+    label: "Đề Khảo Sát Chất Lượng (KSCL) Định Kỳ Trường - Sở",
+    shortLabel: "Đề Khảo Sát (KSCL)",
+    accentColor: "rose",
+    order: 11,
+  },
   de_gk1: {
     label: "Đề kiểm tra Giữa Học kỳ 1 (GK1) Trường - Sở",
     shortLabel: "Đề Giữa kỳ 1",
     accentColor: "indigo",
-    order: 15,
+    order: 14,
   },
   de_hk1: {
     label: "Đề kiểm tra Cuối Học kỳ 1 (HK1) Trường - Sở",
     shortLabel: "Đề Học kỳ 1",
     accentColor: "indigo",
+    order: 15,
+  },
+  de_gk2: {
+    label: "Đề kiểm tra Giữa Học kỳ 2 (GK2) Trường - Sở",
+    shortLabel: "Đề Giữa kỳ 2",
+    accentColor: "teal",
     order: 16,
+  },
+  de_hk2: {
+    label: "Đề kiểm tra Cuối Học kỳ 2 (HK2) Trường - Sở",
+    shortLabel: "Đề Học kỳ 2",
+    accentColor: "emerald",
+    order: 17,
   },
   de_gk2_hk2: {
     label: "Đề kiểm tra Giữa & Cuối Học kỳ 2 (GK2 - HK2) Trường - Sở",
     shortLabel: "Đề Học kỳ 2",
-    accentColor: "indigo",
+    accentColor: "emerald",
     order: 17,
   },
   de_hsg: {
@@ -562,8 +604,11 @@ export const DOCUMENT_TOPIC_CLUSTER_META: Record<
 export function inferSourceKeyFromLabel(src?: string): DocumentSourceKey {
   const s = String(src || "").toLowerCase();
   if (s.includes("ngân hàng đề thi") || s.includes("nganhangdethi")) return "nhdt";
+  if (s.includes("toanmath")) return "toanmath";
   if (s.includes("tailieuonthi.edu") || s.includes("ôn thi edu")) return "tlo_edu";
   if (s.includes("tailieuonthi.org") || s.includes("ôn thi org")) return "tlo_org";
+  if (s.includes("tiếng anh") || s.includes("giaoandethitienganh")) return "tienganh";
+  if (s.includes("học tại") || s.includes("hoctai") || s.includes("đa môn")) return "multihub";
   return "math_partners";
 }
 
@@ -572,6 +617,10 @@ export function expandSeedUrl(u?: string): string | undefined {
   if (u.startsWith("gd:")) return `https://drive.google.com/file/d/${u.slice(3)}/view`;
   if (u.startsWith("gdf:")) return `https://drive.google.com/drive/folders/${u.slice(4)}`;
   if (u.startsWith("gds:")) return `https://docs.google.com/spreadsheets/d/${u.slice(4)}/edit`;
+  if (u.startsWith("tm:")) return `https://toanmath.com/toanmath-pdf/${u.slice(3)}`;
+  if (u.startsWith("tmw:")) return `https://toanmath.com/wp-content/uploads/${u.slice(4)}`;
+  if (u.startsWith("eduu:")) return `https://tailieuonthi.edu.vn/wp-content/uploads/${u.slice(5)}`;
+  if (u.startsWith("mf:")) return `https://www.mediafire.com/${u.slice(3)}`;
   return u;
 }
 
@@ -602,23 +651,35 @@ export function expandSeedPostUrl(pu?: string): string | undefined {
   if (pu.startsWith("nh:")) return `https://www.nganhangdethi.org${pu.slice(3)}`;
   if (pu.startsWith("edu:")) return `https://tailieuonthi.edu.vn${pu.slice(4)}`;
   if (pu.startsWith("org:")) return `https://tailieuonthi.org${pu.slice(4)}`;
+  if (pu.startsWith("tm:")) return `https://toanmath.com${pu.slice(3)}`;
+  if (pu.startsWith("ga:")) return `https://www.giaoandethitienganh.info${pu.slice(3)}`;
+  if (pu.startsWith("ht:")) return `https://hoctai.vn${pu.slice(3)}`;
+  if (pu.startsWith("mv:")) return `https://www.mathvn.com${pu.slice(3)}`;
   return pu;
 }
 
 export function expandCompactSeedDocument(item: CompactSeedDocument): LibraryDocument {
-  const gradeLabel = DOCUMENT_GRADE_META[item.g]?.shortLabel || "THPT";
+  const grade: DocumentGradeKey = item.g || "grade_12";
+  const category: DocumentCategoryKey = item.c || "exam_test";
+  const fileFormat: DocumentFileFormat = item.f || "pdf";
+  const sourceKey = item.sk || inferSourceKeyFromLabel(item.src);
+  const resolvedSourceName =
+    item.src || DOCUMENT_SOURCE_META[sourceKey]?.shortLabel || "Kho Tài Liệu THPT";
+
+  const gradeLabel = DOCUMENT_GRADE_META[grade]?.shortLabel || "THPT";
   const subjectLabel = DOCUMENT_SUBJECT_META[item.s]?.label || "Tổng hợp";
-  const categoryLabel = DOCUMENT_CATEGORY_META[item.c]?.label || "Tài liệu";
+  const categoryLabel = DOCUMENT_CATEGORY_META[category]?.label || "Tài liệu";
   const subCount = item.sf?.length || item.sfc || 0;
   const primaryUrl = expandSeedUrl(item.u) || item.u;
   const answerUrl = expandSeedUrl(item.a);
   const videoUrl = expandSeedUrl(item.v);
-  const sourceKey = item.sk || inferSourceKeyFromLabel(item.src);
   const sourcePostUrl = expandSeedPostUrl(item.pu);
 
   const descParts = [
     `${categoryLabel} môn ${subjectLabel} (${gradeLabel})`,
-    subCount > 0 ? `gồm ${subCount} tệp tài liệu chọn lọc phân theo thư mục` : "định dạng chuẩn rõ nét",
+    subCount > 0
+      ? `gồm ${subCount} tệp tài liệu chọn lọc phân theo thư mục`
+      : "định dạng chuẩn rõ nét",
     answerUrl && answerUrl !== primaryUrl ? "kèm file đáp án chi tiết" : "",
     videoUrl && videoUrl !== primaryUrl ? "kèm video hướng dẫn giải" : "",
   ].filter(Boolean);
@@ -627,10 +688,10 @@ export function expandCompactSeedDocument(item: CompactSeedDocument): LibraryDoc
     id: item.id,
     title: item.t,
     description: `${descParts.join(", ")}. Xem trực tuyến bằng trình đọc PDF DkTEST hoặc tải trọn bộ về máy miễn phí.`,
-    grade: item.g,
+    grade,
     subject: item.s,
-    category: item.c,
-    fileFormat: item.f,
+    category,
+    fileFormat,
     folderId: item.fid || `sfold_${sourceKey}`,
     ...(item.tk ? { topicKey: item.tk } : {}),
     space: "sources",
@@ -651,9 +712,9 @@ export function expandCompactSeedDocument(item: CompactSeedDocument): LibraryDoc
           })),
         }
       : {}),
-    authorName: item.src || "Kho Tài Liệu THPT",
+    authorName: resolvedSourceName,
     authorRole: "seed",
-    sourceName: item.src,
+    sourceName: resolvedSourceName,
     ...(sourcePostUrl ? { sourcePostUrl } : {}),
     status: "published",
     tags: item.tg || [],
@@ -661,6 +722,6 @@ export function expandCompactSeedDocument(item: CompactSeedDocument): LibraryDoc
     downloadCount: 0,
     publishedAt: item.d ? `${item.d}T00:00:00.000Z` : "2026-01-01T00:00:00.000Z",
     createdAt: item.d ? `${item.d}T00:00:00.000Z` : "2026-01-01T00:00:00.000Z",
-    updatedAt: item.d ? `${item.d}T00:00:00.000Z` : "2026-01-01T00:00:00.000Z",
+    updatedAt: item.d ? `${item.d}T00:00:00.000Z` : "2026-01-27T00:00:00.000Z",
   };
 }

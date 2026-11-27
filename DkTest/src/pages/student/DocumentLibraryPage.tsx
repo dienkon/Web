@@ -79,6 +79,7 @@ import {
   DOCUMENT_GRADE_META,
   DOCUMENT_SOURCE_META,
   DOCUMENT_SUBJECT_META,
+  DOCUMENT_TOPIC_CLUSTER_META,
   type DocumentCategoryKey,
   type DocumentGradeKey,
   type DocumentSpaceKey,
@@ -95,59 +96,225 @@ type LibraryTab = "explore" | "dktest" | "nhdt" | "community" | "saved" | "mine"
 
 const FOLDER_COLOR_STYLES: Record<
   FolderAccentColor,
-  { bg: string; icon: string; border: string }
+  {
+    bg: string;
+    icon: string;
+    border: string;
+    topBar: string;
+    leftBorder: string;
+    surface: string;
+    iconSolid: string;
+    pill: string;
+    previewBox: string;
+    treeRail: string;
+  }
 > = {
   teal: {
-    bg: "bg-teal-50 dark:bg-teal-950/40",
-    icon: "text-teal-600 dark:text-teal-400",
-    border: "border-teal-200/80 dark:border-teal-900/60",
+    bg: "bg-teal-100/90 dark:bg-teal-950/60",
+    icon: "text-teal-700 dark:text-teal-300",
+    border: "border-teal-200/95 dark:border-teal-800/70",
+    topBar: "bg-gradient-to-r from-teal-500 via-emerald-500 to-cyan-500",
+    leftBorder: "border-l-teal-500",
+    surface:
+      "bg-gradient-to-br from-teal-50/85 via-white to-cyan-50/45 dark:from-teal-950/35 dark:via-slate-900 dark:to-slate-900",
+    iconSolid: "bg-gradient-to-br from-teal-600 to-emerald-600 text-white shadow-xs",
+    pill: "bg-teal-100 text-teal-800 border-teal-200 dark:bg-teal-950/80 dark:text-teal-200 dark:border-teal-800",
+    previewBox:
+      "bg-teal-50/70 dark:bg-slate-800/75 border border-teal-100/90 dark:border-slate-700/70",
+    treeRail: "border-teal-300/80 dark:border-teal-800/70",
   },
   blue: {
-    bg: "bg-blue-50 dark:bg-blue-950/40",
-    icon: "text-blue-600 dark:text-blue-400",
-    border: "border-blue-200/80 dark:border-blue-900/60",
+    bg: "bg-blue-100/90 dark:bg-blue-950/60",
+    icon: "text-blue-700 dark:text-blue-300",
+    border: "border-blue-200/95 dark:border-blue-800/70",
+    topBar: "bg-gradient-to-r from-blue-600 via-sky-500 to-indigo-500",
+    leftBorder: "border-l-blue-600",
+    surface:
+      "bg-gradient-to-br from-blue-50/85 via-white to-sky-50/45 dark:from-blue-950/35 dark:via-slate-900 dark:to-slate-900",
+    iconSolid: "bg-gradient-to-br from-blue-600 to-indigo-600 text-white shadow-xs",
+    pill: "bg-blue-100 text-blue-800 border-blue-200 dark:bg-blue-950/80 dark:text-blue-200 dark:border-blue-800",
+    previewBox:
+      "bg-blue-50/70 dark:bg-slate-800/75 border border-blue-100/90 dark:border-slate-700/70",
+    treeRail: "border-blue-300/80 dark:border-blue-800/70",
   },
   indigo: {
-    bg: "bg-indigo-50 dark:bg-indigo-950/40",
-    icon: "text-indigo-600 dark:text-indigo-400",
-    border: "border-indigo-200/80 dark:border-indigo-900/60",
+    bg: "bg-indigo-100/90 dark:bg-indigo-950/60",
+    icon: "text-indigo-700 dark:text-indigo-300",
+    border: "border-indigo-200/95 dark:border-indigo-800/70",
+    topBar: "bg-gradient-to-r from-indigo-600 via-violet-500 to-blue-500",
+    leftBorder: "border-l-indigo-600",
+    surface:
+      "bg-gradient-to-br from-indigo-50/85 via-white to-violet-50/45 dark:from-indigo-950/35 dark:via-slate-900 dark:to-slate-900",
+    iconSolid: "bg-gradient-to-br from-indigo-600 to-violet-600 text-white shadow-xs",
+    pill: "bg-indigo-100 text-indigo-800 border-indigo-200 dark:bg-indigo-950/80 dark:text-indigo-200 dark:border-indigo-800",
+    previewBox:
+      "bg-indigo-50/70 dark:bg-slate-800/75 border border-indigo-100/90 dark:border-slate-700/70",
+    treeRail: "border-indigo-300/80 dark:border-indigo-800/70",
   },
   emerald: {
-    bg: "bg-emerald-50 dark:bg-emerald-950/40",
-    icon: "text-emerald-600 dark:text-emerald-400",
-    border: "border-emerald-200/80 dark:border-emerald-900/60",
+    bg: "bg-emerald-100/90 dark:bg-emerald-950/60",
+    icon: "text-emerald-700 dark:text-emerald-300",
+    border: "border-emerald-200/95 dark:border-emerald-800/70",
+    topBar: "bg-gradient-to-r from-emerald-600 via-green-500 to-teal-500",
+    leftBorder: "border-l-emerald-600",
+    surface:
+      "bg-gradient-to-br from-emerald-50/85 via-white to-teal-50/45 dark:from-emerald-950/35 dark:via-slate-900 dark:to-slate-900",
+    iconSolid: "bg-gradient-to-br from-emerald-600 to-teal-600 text-white shadow-xs",
+    pill: "bg-emerald-100 text-emerald-800 border-emerald-200 dark:bg-emerald-950/80 dark:text-emerald-200 dark:border-emerald-800",
+    previewBox:
+      "bg-emerald-50/70 dark:bg-slate-800/75 border border-emerald-100/90 dark:border-slate-700/70",
+    treeRail: "border-emerald-300/80 dark:border-emerald-800/70",
   },
   amber: {
-    bg: "bg-amber-50 dark:bg-amber-950/40",
-    icon: "text-amber-600 dark:text-amber-400",
-    border: "border-amber-200/80 dark:border-amber-900/60",
+    bg: "bg-amber-100/90 dark:bg-amber-950/60",
+    icon: "text-amber-700 dark:text-amber-300",
+    border: "border-amber-200/95 dark:border-amber-800/70",
+    topBar: "bg-gradient-to-r from-amber-500 via-orange-500 to-yellow-500",
+    leftBorder: "border-l-amber-500",
+    surface:
+      "bg-gradient-to-br from-amber-50/85 via-white to-orange-50/40 dark:from-amber-950/35 dark:via-slate-900 dark:to-slate-900",
+    iconSolid: "bg-gradient-to-br from-amber-500 to-orange-500 text-white shadow-xs",
+    pill: "bg-amber-100 text-amber-900 border-amber-200 dark:bg-amber-950/80 dark:text-amber-200 dark:border-amber-800",
+    previewBox:
+      "bg-amber-50/70 dark:bg-slate-800/75 border border-amber-100/90 dark:border-slate-700/70",
+    treeRail: "border-amber-300/80 dark:border-amber-800/70",
   },
   rose: {
-    bg: "bg-rose-50 dark:bg-rose-950/40",
-    icon: "text-rose-600 dark:text-rose-400",
-    border: "border-rose-200/80 dark:border-rose-900/60",
+    bg: "bg-rose-100/90 dark:bg-rose-950/60",
+    icon: "text-rose-700 dark:text-rose-300",
+    border: "border-rose-200/95 dark:border-rose-800/70",
+    topBar: "bg-gradient-to-r from-rose-600 via-pink-500 to-orange-500",
+    leftBorder: "border-l-rose-500",
+    surface:
+      "bg-gradient-to-br from-rose-50/85 via-white to-pink-50/40 dark:from-rose-950/35 dark:via-slate-900 dark:to-slate-900",
+    iconSolid: "bg-gradient-to-br from-rose-600 to-pink-600 text-white shadow-xs",
+    pill: "bg-rose-100 text-rose-800 border-rose-200 dark:bg-rose-950/80 dark:text-rose-200 dark:border-rose-800",
+    previewBox:
+      "bg-rose-50/70 dark:bg-slate-800/75 border border-rose-100/90 dark:border-slate-700/70",
+    treeRail: "border-rose-300/80 dark:border-rose-800/70",
   },
   purple: {
-    bg: "bg-purple-50 dark:bg-purple-950/40",
-    icon: "text-purple-600 dark:text-purple-400",
-    border: "border-purple-200/80 dark:border-purple-900/60",
+    bg: "bg-purple-100/90 dark:bg-purple-950/60",
+    icon: "text-purple-700 dark:text-purple-300",
+    border: "border-purple-200/95 dark:border-purple-800/70",
+    topBar: "bg-gradient-to-r from-purple-600 via-fuchsia-500 to-indigo-500",
+    leftBorder: "border-l-purple-600",
+    surface:
+      "bg-gradient-to-br from-purple-50/85 via-white to-fuchsia-50/40 dark:from-purple-950/35 dark:via-slate-900 dark:to-slate-900",
+    iconSolid: "bg-gradient-to-br from-purple-600 to-fuchsia-600 text-white shadow-xs",
+    pill: "bg-purple-100 text-purple-800 border-purple-200 dark:bg-purple-950/80 dark:text-purple-200 dark:border-purple-800",
+    previewBox:
+      "bg-purple-50/70 dark:bg-slate-800/75 border border-purple-100/90 dark:border-slate-700/70",
+    treeRail: "border-purple-300/80 dark:border-purple-800/70",
   },
   slate: {
-    bg: "bg-slate-100 dark:bg-slate-800/60",
-    icon: "text-slate-600 dark:text-slate-300",
-    border: "border-slate-200 dark:border-slate-700",
+    bg: "bg-slate-200/80 dark:bg-slate-800/80",
+    icon: "text-slate-700 dark:text-slate-200",
+    border: "border-slate-300/90 dark:border-slate-700",
+    topBar: "bg-gradient-to-r from-slate-600 via-slate-500 to-teal-600",
+    leftBorder: "border-l-slate-500",
+    surface:
+      "bg-gradient-to-br from-slate-100/90 via-white to-slate-50/70 dark:from-slate-800/50 dark:via-slate-900 dark:to-slate-900",
+    iconSolid: "bg-gradient-to-br from-slate-700 to-slate-800 text-white shadow-xs",
+    pill: "bg-slate-200 text-slate-800 border-slate-300 dark:bg-slate-800 dark:text-slate-200 dark:border-slate-700",
+    previewBox:
+      "bg-slate-100/80 dark:bg-slate-800/75 border border-slate-200 dark:border-slate-700/70",
+    treeRail: "border-slate-300 dark:border-slate-700",
   },
 };
 
+const SUBJECT_ACCENT_COLOR: Record<DocumentSubjectKey, FolderAccentColor> = {
+  math: "blue",
+  physics: "indigo",
+  chemistry: "emerald",
+  biology: "teal",
+  english: "rose",
+  literature: "amber",
+  history: "amber",
+  geography: "teal",
+  civics: "purple",
+  informatics: "indigo",
+  technology: "slate",
+  aptitude: "purple",
+  foreign_other: "rose",
+  multi_subject: "teal",
+};
+
+const PRIORITY_TOPIC_CHIPS: Array<{
+  key: string;
+  label: string;
+  activeClass: string;
+  idleClass: string;
+}> = [
+  {
+    key: "all",
+    label: "Tất cả mục thi",
+    activeClass: "bg-slate-900 text-white dark:bg-white dark:text-slate-900 shadow-xs",
+    idleClass:
+      "bg-white/90 dark:bg-slate-900 text-slate-700 dark:text-slate-200 border border-slate-200 dark:border-slate-700 hover:bg-slate-100",
+  },
+  {
+    key: "thptqg_truong_so",
+    label: "🔥 Đề Trường - Sở THPT",
+    activeClass: "bg-rose-600 text-white shadow-xs",
+    idleClass:
+      "bg-rose-50/90 dark:bg-rose-950/40 text-rose-700 dark:text-rose-300 border border-rose-200/90 dark:border-rose-800/70 hover:bg-rose-100/80",
+  },
+  {
+    key: "de_kscl",
+    label: "🎯 Khảo sát KSCL",
+    activeClass: "bg-amber-500 text-slate-950 font-extrabold shadow-xs",
+    idleClass:
+      "bg-amber-50/90 dark:bg-amber-950/40 text-amber-800 dark:text-amber-300 border border-amber-200/90 dark:border-amber-800/70 hover:bg-amber-100/80",
+  },
+  {
+    key: "de_hk1",
+    label: "📘 Đề Học kỳ 1 (HK1)",
+    activeClass: "bg-blue-600 text-white shadow-xs",
+    idleClass:
+      "bg-blue-50/90 dark:bg-blue-950/40 text-blue-700 dark:text-blue-300 border border-blue-200/90 dark:border-blue-800/70 hover:bg-blue-100/80",
+  },
+  {
+    key: "de_hk2",
+    label: "📗 Đề Học kỳ 2 (HK2)",
+    activeClass: "bg-emerald-600 text-white shadow-xs",
+    idleClass:
+      "bg-emerald-50/90 dark:bg-emerald-950/40 text-emerald-700 dark:text-emerald-300 border border-emerald-200/90 dark:border-emerald-800/70 hover:bg-emerald-100/80",
+  },
+  {
+    key: "de_gk",
+    label: "📝 Giữa kỳ 1 & 2",
+    activeClass: "bg-teal-600 text-white shadow-xs",
+    idleClass:
+      "bg-teal-50/90 dark:bg-teal-950/40 text-teal-700 dark:text-teal-300 border border-teal-200/90 dark:border-teal-800/70 hover:bg-teal-100/80",
+  },
+  {
+    key: "dgnl_all",
+    label: "🧠 ĐGNL HSA • TSA • V-ACT",
+    activeClass: "bg-purple-600 text-white shadow-xs",
+    idleClass:
+      "bg-purple-50/90 dark:bg-purple-950/40 text-purple-700 dark:text-purple-300 border border-purple-200/90 dark:border-purple-800/70 hover:bg-purple-100/80",
+  },
+  {
+    key: "de_hsg",
+    label: "🏆 Đề Học sinh giỏi",
+    activeClass: "bg-indigo-600 text-white shadow-xs",
+    idleClass:
+      "bg-indigo-50/90 dark:bg-indigo-950/40 text-indigo-700 dark:text-indigo-300 border border-indigo-200/90 dark:border-indigo-800/70 hover:bg-indigo-100/80",
+  },
+];
+
 const QUICK_SEARCH_SUGGESTIONS = [
-  "Đề Toán 12",
+  "Sở Hà Nội",
+  "Chuyên Vinh",
+  "Sở Bắc Ninh",
+  "Đề HK1 Toán 12",
+  "Đề HK2 Toán 12",
   "Đề Vật lý 12",
-  "60 đề Moon",
+  "Đề Hóa học 12",
+  "Đề Tiếng Anh 12",
   "ĐGNL HSA",
-  "ĐGNL V-ACT",
   "ĐGTD TSA",
-  "ĐGNL Sư phạm",
-  "Toán 9 vào 10",
 ];
 
 const emptyFolderIndex = (): FolderTreeIndex => buildFolderTreeIndex([], []);
@@ -188,7 +355,16 @@ export default function DocumentLibraryPage() {
 
   const [viewMode, setViewMode] = useState<"grid" | "list">("grid");
   const [expandedTreeIds, setExpandedTreeIds] = useState<Set<string>>(
-    () => new Set(["sfold_nhdt", "sfold_tlo_edu", "sfold_tlo_org", "sfold_math_partners"])
+    () =>
+      new Set([
+        "sfold_nhdt",
+        "sfold_toanmath",
+        "sfold_tlo_edu",
+        "sfold_tlo_org",
+        "sfold_tienganh",
+        "sfold_multihub",
+        "sfold_math_partners",
+      ])
   );
 
   const [allDocs, setAllDocs] = useState<IndexedLibraryDocument[]>([]);
@@ -215,6 +391,9 @@ export default function DocumentLibraryPage() {
   );
   const [categoryFilter, setCategoryFilter] = useState<DocumentCategoryKey | "all">(
     () => (searchParams.get("category") as DocumentCategoryKey) || "all"
+  );
+  const [topicFilter, setTopicFilter] = useState<string>(
+    () => searchParams.get("focus") || "all"
   );
   const [priceFilter, setPriceFilter] = useState<"all" | "free" | "paid">("all");
   const [sortBy, setSortBy] = useState<"newest" | "featured" | "price_asc" | "title_asc">(
@@ -380,6 +559,7 @@ export default function DocumentLibraryPage() {
     gradeFilter,
     subjectFilter,
     categoryFilter,
+    topicFilter,
     priceFilter,
     sortBy,
   ]);
@@ -440,17 +620,24 @@ export default function DocumentLibraryPage() {
   const effectiveIncludeSubfolders = useMemo(() => {
     if (!currentFolderNode) return true;
     if (currentFolderNode.children.length === 0) return true;
-    if (searchInput.trim().length > 0) return true;
+    if (searchInput.trim().length > 0 || topicFilter !== "all") return true;
     return includeSubfolders;
-  }, [currentFolderNode, searchInput, includeSubfolders]);
+  }, [currentFolderNode, searchInput, topicFilter, includeSubfolders]);
 
-  const { items: filteredDocs, gradeCounts, subjectCounts, categoryCounts } = useMemo(
+  const {
+    items: filteredDocs,
+    gradeCounts,
+    subjectCounts,
+    categoryCounts,
+    topicCounts,
+  } = useMemo(
     () =>
       filterAndSortDocuments(baseListForActiveTab, {
         search: searchInput,
         grade: gradeFilter,
         subject: subjectFilter,
         category: categoryFilter,
+        topicFilter,
         priceFilter,
         spaceFilter: activeSpaceFilter,
         folderId: currentFolderId,
@@ -464,6 +651,7 @@ export default function DocumentLibraryPage() {
       gradeFilter,
       subjectFilter,
       categoryFilter,
+      topicFilter,
       priceFilter,
       activeSpaceFilter,
       currentFolderId,
@@ -484,13 +672,14 @@ export default function DocumentLibraryPage() {
     return consolidatedTopics.groups.find((g) => g.key === activeTopicGroupKey) || null;
   }, [activeTopicGroupKey, consolidatedTopics]);
 
-  // Show Consolidated Topic Folders when displayGrouping === "grouped", not searching, not inside a single-topic leaf
+  // Show Consolidated Topic Folders when displayGrouping === "grouped", not searching, not narrowed to a single topic group
   const showGroupedTopicView = Boolean(
     displayGrouping === "grouped" &&
       !activeTopicGroup &&
       !searchInput.trim() &&
       activeTab !== "saved" &&
       consolidatedTopics.groups.length > 0 &&
+      (topicFilter === "all" || consolidatedTopics.groups.length >= 2) &&
       (!currentFolderNode || consolidatedTopics.groups.length >= 2)
   );
 
@@ -570,6 +759,7 @@ export default function DocumentLibraryPage() {
     gradeFilter !== "all" ||
     subjectFilter !== "all" ||
     categoryFilter !== "all" ||
+    topicFilter !== "all" ||
     priceFilter !== "all" ||
     Boolean(activeTopicGroupKey) ||
     communityAuthorFilter !== "all";
@@ -579,6 +769,7 @@ export default function DocumentLibraryPage() {
     setGradeFilter("all");
     setSubjectFilter("all");
     setCategoryFilter("all");
+    setTopicFilter("all");
     setPriceFilter("all");
     setSortBy("newest");
     setCommunityAuthorFilter("all");
@@ -594,7 +785,7 @@ export default function DocumentLibraryPage() {
       title,
       text: doc
         ? `Tài liệu "${doc.title}" trên Kho Tài Liệu DkTEST`
-        : "Khám phá hơn 5.400 đề thi, chuyên đề & Ebook PDF phân cấp thư mục trên DkTEST",
+        : "Khám phá hơn 20.000 đề thi Lớp 12, THPT QG, Trường - Sở, HK1, HK2 & Ebook PDF phân cấp trên DkTEST",
       url: shareUrl,
     });
     if (shared) return;
@@ -809,88 +1000,91 @@ export default function DocumentLibraryPage() {
       <div
         key={group.key}
         onClick={() => openTopicGroup(group.key)}
-        className={`group rounded-2xl border p-4 bg-white dark:bg-slate-900 hover:border-teal-500 dark:hover:border-teal-500 shadow-2xs hover:shadow-md transition-all cursor-pointer flex flex-col justify-between gap-3 ${colorStyle.border}`}
+        className={`group relative rounded-2xl border overflow-hidden ${colorStyle.surface} ${colorStyle.border} hover:border-teal-500 dark:hover:border-teal-400 shadow-xs hover:shadow-md transition-all cursor-pointer flex flex-col justify-between`}
       >
-        <div className="space-y-2">
-          <div className="flex items-start justify-between gap-2.5">
-            <div className="flex items-start gap-3 min-w-0">
-              <div
-                className={`w-10 h-10 rounded-xl flex items-center justify-center shrink-0 ${colorStyle.bg} ${colorStyle.icon}`}
-              >
-                <FolderOpen className="w-5 h-5" />
-              </div>
-              <div className="min-w-0">
-                <div className="flex flex-wrap items-center gap-1.5 mb-1">
-                  <span className={`px-2 py-0.5 rounded-md text-[10px] font-extrabold ${gradeMeta.badgeClass}`}>
-                    {gradeMeta.shortLabel}
-                  </span>
-                  <span className={`text-[10px] font-extrabold ${subjMeta.colorClass}`}>
-                    {subjMeta.label}
-                  </span>
-                  {group.multiPackCount > 0 && (
-                    <span className="px-1.5 py-0.5 rounded bg-indigo-50 dark:bg-indigo-950/60 text-indigo-700 dark:text-indigo-300 text-[10px] font-bold">
-                      {group.multiPackCount} gói bộ đề
-                    </span>
-                  )}
-                </div>
-                <h3 className="text-xs sm:text-sm font-extrabold text-slate-900 dark:text-white group-hover:text-teal-600 dark:group-hover:text-teal-400 line-clamp-2 leading-snug">
-                  {group.title}
-                </h3>
-              </div>
-            </div>
-          </div>
+        <div className={`h-1.5 w-full ${colorStyle.topBar}`} />
 
-          {group.previewTitles.length > 0 && (
-            <div className="rounded-xl bg-slate-50 dark:bg-slate-800/50 px-2.5 py-2 space-y-1">
-              {group.previewTitles.slice(0, 2).map((pt, i) => (
+        <div className="p-4 flex-1 flex flex-col justify-between gap-3">
+          <div className="space-y-2.5">
+            <div className="flex items-start justify-between gap-2.5">
+              <div className="flex items-start gap-3 min-w-0">
                 <div
-                  key={`${group.key}_pt_${i}`}
-                  className="text-[11px] text-slate-600 dark:text-slate-300 truncate flex items-center gap-1.5"
+                  className={`w-10 h-10 rounded-xl flex items-center justify-center shrink-0 ${colorStyle.iconSolid}`}
                 >
-                  <FileText className="w-3 h-3 text-slate-400 shrink-0" />
-                  <span className="truncate">{pt}</span>
+                  <FolderOpen className="w-5 h-5" />
                 </div>
-              ))}
-              {group.count > 2 && (
-                <div className="text-[10px] font-bold text-teal-600 dark:text-teal-400 pl-4">
-                  + {(group.count - 2).toLocaleString("vi-VN")} đề &amp; tài liệu cùng chủ đề khác...
+                <div className="min-w-0">
+                  <div className="flex flex-wrap items-center gap-1.5 mb-1">
+                    <span className={`px-2 py-0.5 rounded-md text-[10px] font-extrabold ${gradeMeta.badgeClass}`}>
+                      {gradeMeta.shortLabel}
+                    </span>
+                    <span className={`text-[10px] font-extrabold ${subjMeta.colorClass}`}>
+                      {subjMeta.label}
+                    </span>
+                    {group.multiPackCount > 0 && (
+                      <span className="px-1.5 py-0.5 rounded bg-indigo-100/90 dark:bg-indigo-950/70 text-indigo-800 dark:text-indigo-200 text-[10px] font-bold">
+                        {group.multiPackCount} gói bộ đề
+                      </span>
+                    )}
+                  </div>
+                  <h3 className="text-xs sm:text-sm font-extrabold text-slate-900 dark:text-white group-hover:text-teal-700 dark:group-hover:text-teal-300 line-clamp-2 leading-snug">
+                    {group.title}
+                  </h3>
                 </div>
-              )}
+              </div>
             </div>
-          )}
-        </div>
 
-        <div className="flex items-center justify-between gap-2 pt-2 border-t border-slate-100 dark:border-slate-800/80 text-[11px]">
-          <div className="min-w-0">
-            <span className="font-extrabold text-slate-800 dark:text-slate-100">
-              {group.count.toLocaleString("vi-VN")} tài liệu
-            </span>
-            {group.sources.length > 0 && (
-              <span className="text-slate-400 truncate hidden sm:inline">
-                {" "}
-                • {group.sources.slice(0, 2).join(", ")}
-              </span>
+            {group.previewTitles.length > 0 && (
+              <div className={`rounded-xl px-2.5 py-2 space-y-1 ${colorStyle.previewBox}`}>
+                {group.previewTitles.slice(0, 2).map((pt, i) => (
+                  <div
+                    key={`${group.key}_pt_${i}`}
+                    className="text-[11px] text-slate-700 dark:text-slate-200 truncate flex items-center gap-1.5"
+                  >
+                    <FileText className={`w-3 h-3 shrink-0 ${colorStyle.icon}`} />
+                    <span className="truncate">{pt}</span>
+                  </div>
+                ))}
+                {group.count > 2 && (
+                  <div className={`text-[10px] font-extrabold pl-4 ${colorStyle.icon}`}>
+                    + {(group.count - 2).toLocaleString("vi-VN")} đề &amp; tài liệu cùng chủ đề khác...
+                  </div>
+                )}
+              </div>
             )}
           </div>
 
-          <button
-            type="button"
-            onClick={(e) => {
-              e.preventDefault();
-              e.stopPropagation();
-              setBatchModalState({
-                open: true,
-                title: group.title,
-                documents: group.documents,
-                rootFolderId: currentFolderId,
-              });
-            }}
-            title="Tải trọn bộ chủ đề này (.ZIP)"
-            className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-teal-50 hover:bg-teal-100 dark:bg-teal-950/60 text-teal-700 dark:text-teal-300 font-bold shrink-0 cursor-pointer"
-          >
-            <FolderDown className="w-3.5 h-3.5" />
-            <span>Tải trọn bộ</span>
-          </button>
+          <div className="flex items-center justify-between gap-2 pt-2.5 border-t border-slate-200/70 dark:border-slate-800 text-[11px]">
+            <div className="min-w-0 flex items-center gap-1.5">
+              <span className={`px-2 py-0.5 rounded-lg border font-extrabold ${colorStyle.pill}`}>
+                {group.count.toLocaleString("vi-VN")} đề
+              </span>
+              {group.sources.length > 0 && (
+                <span className="text-slate-500 dark:text-slate-400 truncate hidden sm:inline font-medium">
+                  {group.sources.slice(0, 2).join(" • ")}
+                </span>
+              )}
+            </div>
+
+            <button
+              type="button"
+              onClick={(e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                setBatchModalState({
+                  open: true,
+                  title: group.title,
+                  documents: group.documents,
+                  rootFolderId: currentFolderId,
+                });
+              }}
+              title="Tải trọn bộ chủ đề này (.ZIP)"
+              className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-teal-600 hover:bg-teal-700 text-white font-bold shrink-0 shadow-2xs cursor-pointer"
+            >
+              <FolderDown className="w-3.5 h-3.5" />
+              <span>Tải trọn bộ</span>
+            </button>
+          </div>
         </div>
       </div>
     );
@@ -971,7 +1165,7 @@ export default function DocumentLibraryPage() {
     if (currentFolderNode.space === "community") {
       return folderIndex.rootsBySpace.community;
     }
-    // If inside a source (e.g. sfold_nhdt), show all 4 source roots with current one expanded
+    // If inside a source (e.g. sfold_nhdt), show all 7 source roots with current one expanded
     return folderIndex.rootsBySpace.sources;
   }, [currentFolderNode, folderIndex]);
 
@@ -995,11 +1189,12 @@ export default function DocumentLibraryPage() {
       <div key={node.id}>
         <div
           onClick={() => openFolder(node.id)}
-          style={{ paddingLeft: `${Math.min(depth * 12, 48) + 8}px` }}
-          className={`group flex items-center justify-between gap-1.5 pr-2 py-1.5 rounded-xl text-xs cursor-pointer transition-colors ${
+          className={`group flex items-center justify-between gap-1.5 px-2 py-1.5 rounded-xl text-xs cursor-pointer transition-colors ${
             isActive
-              ? "bg-teal-50 dark:bg-teal-950/60 text-teal-800 dark:text-teal-200 font-extrabold"
-              : "text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800/70 font-medium"
+              ? `${colorStyle.bg} ${colorStyle.icon} font-extrabold ring-1 ring-inset ${colorStyle.border}`
+              : depth === 0
+              ? "bg-white/80 dark:bg-slate-800/60 text-slate-800 dark:text-slate-100 hover:bg-white dark:hover:bg-slate-800 font-bold"
+              : "text-slate-700 dark:text-slate-300 hover:bg-white/90 dark:hover:bg-slate-800/70 font-medium"
           }`}
         >
           <div className="flex items-center gap-1.5 min-w-0">
@@ -1007,10 +1202,10 @@ export default function DocumentLibraryPage() {
               <button
                 type="button"
                 onClick={(e) => toggleTreeExpand(e, node.id)}
-                className="p-0.5 rounded hover:bg-slate-200 dark:hover:bg-slate-700 shrink-0 cursor-pointer"
+                className="p-0.5 rounded hover:bg-slate-200/80 dark:hover:bg-slate-700 shrink-0 cursor-pointer"
               >
                 {isExpanded ? (
-                  <ChevronDown className="w-3.5 h-3.5 text-slate-400" />
+                  <ChevronDown className="w-3.5 h-3.5 text-slate-500" />
                 ) : (
                   <ChevronRight className="w-3.5 h-3.5 text-slate-400" />
                 )}
@@ -1021,13 +1216,19 @@ export default function DocumentLibraryPage() {
             <Folder className={`w-3.5 h-3.5 shrink-0 ${colorStyle.icon}`} />
             <span className="truncate">{node.name}</span>
           </div>
-          <span className="text-[10px] font-bold text-slate-400 shrink-0">
-            {node.recursiveDocCount}
+          <span
+            className={`text-[10px] font-extrabold px-1.5 py-0.5 rounded-md shrink-0 ${
+              isActive || depth === 0
+                ? colorStyle.pill
+                : "bg-slate-200/70 dark:bg-slate-800 text-slate-600 dark:text-slate-300"
+            }`}
+          >
+            {node.recursiveDocCount.toLocaleString("vi-VN")}
           </span>
         </div>
 
         {hasChildren && isExpanded && (
-          <div className="mt-0.5 space-y-0.5">
+          <div className={`ml-3.5 pl-2 mt-0.5 space-y-0.5 border-l-2 ${colorStyle.treeRail}`}>
             {node.children.map((child) => renderSidebarTreeNode(child, depth + 1))}
           </div>
         )}
@@ -1037,68 +1238,80 @@ export default function DocumentLibraryPage() {
 
   const renderFolderCard = (node: FolderTreeNode, highlightBadge?: string) => {
     const colorStyle = FOLDER_COLOR_STYLES[node.iconColor || "teal"] || FOLDER_COLOR_STYLES.teal;
+    const isRootFolder = !node.parentId;
     return (
       <div
         key={node.id}
         onClick={() => openFolder(node.id)}
-        className={`group relative rounded-2xl border p-4 bg-white dark:bg-slate-900 hover:border-teal-400 dark:hover:border-teal-600 transition-all cursor-pointer flex flex-col justify-between gap-3 ${colorStyle.border}`}
+        className={`group relative rounded-2xl border overflow-hidden ${colorStyle.surface} ${colorStyle.border} hover:border-teal-500 dark:hover:border-teal-400 shadow-xs hover:shadow-md transition-all cursor-pointer flex flex-col justify-between`}
       >
-        <div className="flex items-start justify-between gap-2.5">
-          <div className="flex items-start gap-3 min-w-0">
-            <div
-              className={`w-10 h-10 rounded-xl flex items-center justify-center shrink-0 ${colorStyle.bg} ${colorStyle.icon}`}
-            >
-              <FolderOpen className="w-5 h-5" />
+        <div className={`h-1.5 w-full ${colorStyle.topBar}`} />
+
+        <div className="p-4 flex-1 flex flex-col justify-between gap-3">
+          <div className="flex items-start justify-between gap-2.5">
+            <div className="flex items-start gap-3 min-w-0">
+              <div
+                className={`w-10 h-10 rounded-xl flex items-center justify-center shrink-0 ${
+                  isRootFolder ? colorStyle.iconSolid : `${colorStyle.bg} ${colorStyle.icon}`
+                }`}
+              >
+                <FolderOpen className="w-5 h-5" />
+              </div>
+              <div className="min-w-0">
+                {highlightBadge && (
+                  <span
+                    className={`inline-block text-[10px] font-extrabold uppercase tracking-wide px-2 py-0.5 rounded-md border mb-1 ${colorStyle.pill}`}
+                  >
+                    {highlightBadge}
+                  </span>
+                )}
+                <h3 className="text-xs sm:text-sm font-extrabold text-slate-900 dark:text-white group-hover:text-teal-700 dark:group-hover:text-teal-300 line-clamp-2 leading-snug">
+                  {node.name}
+                </h3>
+                {node.description && (
+                  <p className="text-[11px] text-slate-600 dark:text-slate-400 line-clamp-2 mt-0.5">
+                    {node.description}
+                  </p>
+                )}
+              </div>
             </div>
-            <div className="min-w-0">
-              {highlightBadge && (
-                <span className="inline-block text-[10px] font-extrabold uppercase tracking-wide px-2 py-0.5 rounded-md bg-teal-100 text-teal-800 dark:bg-teal-950/70 dark:text-teal-300 mb-1">
-                  {highlightBadge}
+          </div>
+
+          <div className="flex items-center justify-between gap-2 pt-2.5 border-t border-slate-200/75 dark:border-slate-800 text-[11px]">
+            <div className="flex items-center gap-1.5 text-slate-600 dark:text-slate-300 font-semibold flex-wrap">
+              {node.subfolderCount > 0 && (
+                <span className="px-1.5 py-0.5 rounded-md bg-white/80 dark:bg-slate-800 border border-slate-200/80 dark:border-slate-700 text-[10px] font-bold">
+                  {node.subfolderCount} nhánh con
                 </span>
               )}
-              <h3 className="text-xs sm:text-sm font-extrabold text-slate-900 dark:text-white group-hover:text-teal-600 dark:group-hover:text-teal-400 line-clamp-2 leading-snug">
-                {node.name}
-              </h3>
-              {node.description && (
-                <p className="text-[11px] text-slate-500 dark:text-slate-400 line-clamp-2 mt-0.5">
-                  {node.description}
-                </p>
-              )}
+              <span className={`px-2 py-0.5 rounded-md border text-[10px] font-extrabold ${colorStyle.pill}`}>
+                {node.recursiveDocCount.toLocaleString("vi-VN")} tài liệu
+              </span>
             </div>
-          </div>
-        </div>
 
-        <div className="flex items-center justify-between gap-2 pt-2 border-t border-slate-100 dark:border-slate-800/80 text-[11px]">
-          <div className="flex items-center gap-2 text-slate-500 dark:text-slate-400 font-semibold">
-            {node.subfolderCount > 0 && <span>{node.subfolderCount} thư mục con</span>}
-            {node.subfolderCount > 0 && <span>•</span>}
-            <span className="font-bold text-slate-700 dark:text-slate-200">
-              {node.recursiveDocCount.toLocaleString("vi-VN")} tài liệu
-            </span>
-          </div>
-
-          <div className="flex items-center gap-1 shrink-0">
-            <button
-              type="button"
-              onClick={(e) => handleBatchDownloadFolder(e, node)}
-              title="Tải toàn bộ thư mục này (.ZIP)"
-              className="inline-flex items-center gap-1 px-2 py-1 rounded-lg bg-teal-50 hover:bg-teal-100 dark:bg-teal-950/60 text-teal-700 dark:text-teal-300 font-bold cursor-pointer"
-            >
-              <FolderDown className="w-3.5 h-3.5" />
-              <span className="hidden sm:inline">Tải trọn bộ</span>
-            </button>
-            <button
-              type="button"
-              onClick={(e) => void handleShareFolder(e, node)}
-              title="Chia sẻ liên kết thư mục"
-              className="p-1.5 rounded-lg text-slate-400 hover:text-slate-700 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800 cursor-pointer"
-            >
-              {copiedId === node.id ? (
-                <Check className="w-3.5 h-3.5 text-emerald-600" />
-              ) : (
-                <Share2 className="w-3.5 h-3.5" />
-              )}
-            </button>
+            <div className="flex items-center gap-1 shrink-0">
+              <button
+                type="button"
+                onClick={(e) => handleBatchDownloadFolder(e, node)}
+                title="Tải toàn bộ thư mục này (.ZIP)"
+                className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-teal-600 hover:bg-teal-700 text-white font-bold shadow-2xs cursor-pointer"
+              >
+                <FolderDown className="w-3.5 h-3.5" />
+                <span className="hidden sm:inline">Tải trọn bộ</span>
+              </button>
+              <button
+                type="button"
+                onClick={(e) => void handleShareFolder(e, node)}
+                title="Chia sẻ liên kết thư mục"
+                className="p-1.5 rounded-lg bg-white/80 dark:bg-slate-800 text-slate-500 hover:text-slate-800 dark:hover:text-white border border-slate-200/80 dark:border-slate-700 cursor-pointer"
+              >
+                {copiedId === node.id ? (
+                  <Check className="w-3.5 h-3.5 text-emerald-600" />
+                ) : (
+                  <Share2 className="w-3.5 h-3.5" />
+                )}
+              </button>
+            </div>
           </div>
         </div>
       </div>
@@ -1109,6 +1322,11 @@ export default function DocumentLibraryPage() {
     const gradeMeta = DOCUMENT_GRADE_META[doc.grade] || DOCUMENT_GRADE_META.grade_12;
     const subjMeta = DOCUMENT_SUBJECT_META[doc.subject] || DOCUMENT_SUBJECT_META.multi_subject;
     const catMeta = DOCUMENT_CATEGORY_META[doc.category] || DOCUMENT_CATEGORY_META.exam_test;
+    const subjAccent = FOLDER_COLOR_STYLES[SUBJECT_ACCENT_COLOR[doc.subject] || "teal"];
+    const topicMeta = doc.topicKey ? DOCUMENT_TOPIC_CLUSTER_META[doc.topicKey] : undefined;
+    const topicStyle = topicMeta
+      ? FOLDER_COLOR_STYLES[topicMeta.accentColor] || subjAccent
+      : subjAccent;
     const isPaid = doc.accessMode === "paid" && doc.priceVnd > 0;
     const isUnlocked =
       !isPaid || unlockedSet.has(doc.id) || isAdmin || doc.authorUid === user?.uid;
@@ -1124,10 +1342,10 @@ export default function DocumentLibraryPage() {
         <Link
           key={doc.id}
           to={`/student/documents/${encodeURIComponent(doc.id)}`}
-          className={`group flex flex-col sm:flex-row sm:items-center justify-between gap-3 p-3.5 rounded-2xl bg-white dark:bg-slate-900 border transition-all ${
+          className={`group flex flex-col sm:flex-row sm:items-center justify-between gap-3 p-3.5 rounded-2xl border border-l-4 ${subjAccent.leftBorder} ${subjAccent.surface} transition-all ${
             isSelected
               ? "border-teal-500 ring-1 ring-teal-500"
-              : "border-slate-200/85 dark:border-slate-800 hover:border-teal-400"
+              : `${subjAccent.border} hover:border-teal-500 shadow-2xs`
           }`}
         >
           <div className="flex items-start gap-3 min-w-0">
@@ -1149,24 +1367,33 @@ export default function DocumentLibraryPage() {
                   {gradeMeta.shortLabel}
                 </span>
                 <span className={subjMeta.colorClass}>{subjMeta.label}</span>
-                <span className="text-slate-400">• {catMeta.shortLabel}</span>
+                {topicMeta && topicMeta.shortLabel !== "Tài liệu tổng hợp" && (
+                  <span className={`px-1.5 py-0.5 rounded border ${topicStyle.pill}`}>
+                    {topicMeta.shortLabel}
+                  </span>
+                )}
+                {doc.answerUrl && (
+                  <span className="px-1.5 py-0.5 rounded bg-emerald-100 text-emerald-800 dark:bg-emerald-950/70 dark:text-emerald-200">
+                    Có đáp án
+                  </span>
+                )}
                 {packCount > 1 && (
-                  <span className="px-1.5 py-0.5 rounded bg-indigo-50 dark:bg-indigo-950/60 text-indigo-700 dark:text-indigo-300">
+                  <span className="px-1.5 py-0.5 rounded bg-indigo-100 dark:bg-indigo-950/70 text-indigo-800 dark:text-indigo-200">
                     {packCount} tệp
                   </span>
                 )}
                 {doc.space === "dktest_exclusive" && (
-                  <span className="px-1.5 py-0.5 rounded bg-teal-100 text-teal-800 dark:bg-teal-950/70 dark:text-teal-300">
+                  <span className="px-1.5 py-0.5 rounded bg-teal-600 text-white">
                     Độc quyền DkTEST
                   </span>
                 )}
                 {docFolderNode && !currentFolderId && (
-                  <span className="text-slate-400 truncate max-w-[180px]">
+                  <span className="text-slate-500 dark:text-slate-400 truncate max-w-[180px]">
                     • 📁 {docFolderNode.name}
                   </span>
                 )}
               </div>
-              <h3 className="text-xs sm:text-sm font-bold text-slate-900 dark:text-white group-hover:text-teal-600 line-clamp-1">
+              <h3 className="text-xs sm:text-sm font-bold text-slate-900 dark:text-white group-hover:text-teal-700 dark:group-hover:text-teal-300 line-clamp-1">
                 {doc.title}
               </h3>
             </div>
@@ -1190,7 +1417,7 @@ export default function DocumentLibraryPage() {
                   type="button"
                   disabled={downloadingId === doc.id}
                   onClick={(e) => void handleQuickDownload(e, doc)}
-                  className="p-1.5 rounded-xl bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 text-slate-700 dark:text-slate-200 cursor-pointer"
+                  className="p-1.5 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 hover:bg-slate-100 text-slate-700 dark:text-slate-200 cursor-pointer"
                   title="Tải xuống"
                 >
                   {downloadingId === doc.id ? (
@@ -1210,7 +1437,7 @@ export default function DocumentLibraryPage() {
                   setEditingDoc(doc);
                   setShowUploadModal(true);
                 }}
-                className="p-1.5 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:text-teal-600 cursor-pointer"
+                className="p-1.5 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 hover:text-teal-600 cursor-pointer"
                 title="Cập nhật / Chỉnh sửa tài liệu"
               >
                 <Edit3 className="w-3.5 h-3.5" />
@@ -1225,14 +1452,16 @@ export default function DocumentLibraryPage() {
       <Link
         key={doc.id}
         to={`/student/documents/${encodeURIComponent(doc.id)}`}
-        className={`group bg-white dark:bg-slate-900 rounded-2xl border overflow-hidden shadow-2xs hover:shadow-md transition-all flex flex-col ${
+        className={`group rounded-2xl border overflow-hidden shadow-xs hover:shadow-md transition-all flex flex-col ${subjAccent.surface} ${
           isSelected
             ? "border-teal-500 ring-2 ring-teal-500/40"
-            : "border-slate-200/85 dark:border-slate-800 hover:border-teal-400 dark:hover:border-teal-600"
+            : `${subjAccent.border} hover:border-teal-500 dark:hover:border-teal-400`
         }`}
       >
-        {/* Minimalist Cover Header */}
-        <div className="relative aspect-[16/9] bg-slate-100 dark:bg-slate-800 overflow-hidden border-b border-slate-100 dark:border-slate-800">
+        <div className={`h-1.5 w-full ${subjAccent.topBar}`} />
+
+        {/* Cover Header */}
+        <div className="relative aspect-[16/9] bg-slate-200 dark:bg-slate-800 overflow-hidden border-b border-slate-200/80 dark:border-slate-800">
           <img
             src={coverSrc}
             alt={doc.title}
@@ -1244,7 +1473,7 @@ export default function DocumentLibraryPage() {
                 target.src = "/images/subjects/default.jpg";
               }
             }}
-            className="w-full h-full object-cover group-hover:scale-[1.02] transition-transform duration-300"
+            className="w-full h-full object-cover group-hover:scale-[1.03] transition-transform duration-300"
           />
 
           <div className="absolute top-2.5 left-2.5 flex items-center gap-1.5">
@@ -1255,7 +1484,7 @@ export default function DocumentLibraryPage() {
               className={`p-1 rounded-lg backdrop-blur-xs cursor-pointer ${
                 isSelected
                   ? "bg-teal-600 text-white"
-                  : "bg-white/90 dark:bg-slate-900/85 text-slate-600 dark:text-slate-300"
+                  : "bg-white/95 dark:bg-slate-900/90 text-slate-700 dark:text-slate-200"
               }`}
             >
               {isSelected ? (
@@ -1264,11 +1493,16 @@ export default function DocumentLibraryPage() {
                 <Square className="w-3.5 h-3.5" />
               )}
             </button>
-            <span className="px-2 py-0.5 rounded-md bg-slate-900/80 text-white text-[10px] font-extrabold uppercase tracking-wider">
+            <span className="px-2 py-0.5 rounded-md bg-slate-900/85 text-white text-[10px] font-extrabold uppercase tracking-wider">
               {packCount > 1 ? `${packCount} TỆP` : doc.fileFormat}
             </span>
+            {doc.answerUrl && (
+              <span className="px-2 py-0.5 rounded-md bg-teal-600/95 text-white text-[10px] font-extrabold shadow-2xs">
+                + Đáp án
+              </span>
+            )}
             {doc.space === "dktest_exclusive" && (
-              <span className="px-2 py-0.5 rounded-md bg-teal-600 text-white text-[10px] font-extrabold">
+              <span className="px-2 py-0.5 rounded-md bg-emerald-600 text-white text-[10px] font-extrabold">
                 Độc quyền
               </span>
             )}
@@ -1301,7 +1535,7 @@ export default function DocumentLibraryPage() {
             className={`absolute bottom-2 right-2 p-1.5 rounded-lg backdrop-blur-xs transition-colors cursor-pointer ${
               isSaved
                 ? "bg-amber-500 text-white"
-                : "bg-white/90 dark:bg-slate-900/85 text-slate-600 dark:text-slate-300 hover:text-amber-600"
+                : "bg-white/95 dark:bg-slate-900/85 text-slate-600 dark:text-slate-300 hover:text-amber-600"
             }`}
           >
             <Bookmark className={`w-3.5 h-3.5 ${isSaved ? "fill-white" : ""}`} />
@@ -1309,108 +1543,115 @@ export default function DocumentLibraryPage() {
         </div>
 
         {/* Body */}
-        <div className="p-3.5 flex-1 flex flex-col justify-between gap-3">
+        <div className="p-3.5 flex-1 flex flex-col justify-between gap-2.5">
           <div className="space-y-1.5">
             <div className="flex flex-wrap items-center gap-1.5 text-[10px] font-bold">
               <span className={`px-2 py-0.5 rounded-md ${gradeMeta.badgeClass}`}>
                 {gradeMeta.shortLabel}
               </span>
-              <span className={`${subjMeta.colorClass}`}>{subjMeta.label}</span>
-              <span className="text-slate-400">• {catMeta.shortLabel}</span>
+              <span className={`${subjMeta.colorClass} font-extrabold`}>{subjMeta.label}</span>
+              {topicMeta && topicMeta.shortLabel !== "Tài liệu tổng hợp" ? (
+                <span className={`px-1.5 py-0.5 rounded border text-[10px] font-extrabold ${topicStyle.pill}`}>
+                  {topicMeta.shortLabel}
+                </span>
+              ) : (
+                <span className="text-slate-500 dark:text-slate-400">• {catMeta.shortLabel}</span>
+              )}
             </div>
 
-            <h3 className="text-xs sm:text-sm font-bold text-slate-900 dark:text-white line-clamp-2 leading-snug group-hover:text-teal-600 dark:group-hover:text-teal-400 transition-colors">
+            <h3 className="text-xs sm:text-sm font-bold text-slate-900 dark:text-white line-clamp-2 leading-snug group-hover:text-teal-700 dark:group-hover:text-teal-300 transition-colors">
               {doc.title}
             </h3>
 
             {docFolderNode && !currentFolderId && (
-              <div className="flex items-center gap-1 text-[11px] text-slate-500 dark:text-slate-400 truncate">
-                <Folder className="w-3 h-3 text-teal-600 shrink-0" />
+              <div className="flex items-center gap-1 text-[11px] text-slate-600 dark:text-slate-400 truncate">
+                <Folder className={`w-3 h-3 shrink-0 ${subjAccent.icon}`} />
                 <span className="truncate">{docFolderNode.name}</span>
               </div>
             )}
           </div>
+        </div>
 
-          <div className="pt-2.5 border-t border-slate-100 dark:border-slate-800/80 flex items-center justify-between gap-1.5">
-            <span className="text-[11px] text-slate-500 dark:text-slate-400 truncate max-w-[110px]">
-              {doc.authorName}
-            </span>
+        {/* Tinted Footer Strip */}
+        <div className="px-3.5 py-2.5 bg-slate-100/85 dark:bg-slate-800/75 border-t border-slate-200/80 dark:border-slate-800 flex items-center justify-between gap-1.5">
+          <span className="text-[11px] font-semibold text-slate-600 dark:text-slate-300 truncate max-w-[115px]">
+            {doc.authorName}
+          </span>
 
-            <div className="flex items-center gap-1 shrink-0">
-              {(isDocOwner || isAdmin) && doc.authorRole !== "seed" && (
-                <button
-                  type="button"
-                  onClick={(e) => {
-                    e.preventDefault();
-                    e.stopPropagation();
-                    setEditingDoc(doc);
-                    setShowUploadModal(true);
-                  }}
-                  title="Cập nhật / Chỉnh sửa tài liệu"
-                  className="p-1.5 rounded-lg text-slate-400 hover:text-teal-600 hover:bg-slate-100 dark:hover:bg-slate-800 cursor-pointer"
-                >
-                  <Edit3 className="w-3.5 h-3.5" />
-                </button>
-              )}
-
+          <div className="flex items-center gap-1 shrink-0">
+            {(isDocOwner || isAdmin) && doc.authorRole !== "seed" && (
               <button
                 type="button"
-                onClick={(e) => void handleShareDoc(e, doc)}
-                title="Chia sẻ liên kết"
-                className="p-1.5 rounded-lg text-slate-400 hover:text-slate-700 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800 cursor-pointer"
+                onClick={(e) => {
+                  e.preventDefault();
+                  e.stopPropagation();
+                  setEditingDoc(doc);
+                  setShowUploadModal(true);
+                }}
+                title="Cập nhật / Chỉnh sửa tài liệu"
+                className="p-1.5 rounded-lg bg-white dark:bg-slate-900 text-slate-500 hover:text-teal-600 border border-slate-200/80 dark:border-slate-700 cursor-pointer"
               >
-                {copiedId === doc.id ? (
-                  <Check className="w-3.5 h-3.5 text-emerald-600" />
-                ) : (
-                  <Share2 className="w-3.5 h-3.5" />
-                )}
+                <Edit3 className="w-3.5 h-3.5" />
               </button>
+            )}
 
-              {isPaid && !isUnlocked ? (
-                <span className="inline-flex items-center gap-1 px-2.5 py-1.5 rounded-xl bg-amber-50 dark:bg-amber-950/60 text-amber-700 dark:text-amber-300 text-[11px] font-bold">
-                  <Lock className="w-3 h-3" />
-                  <span>Mở khóa</span>
-                </span>
+            <button
+              type="button"
+              onClick={(e) => void handleShareDoc(e, doc)}
+              title="Chia sẻ liên kết"
+              className="p-1.5 rounded-lg bg-white dark:bg-slate-900 text-slate-500 hover:text-slate-800 dark:hover:text-white border border-slate-200/80 dark:border-slate-700 cursor-pointer"
+            >
+              {copiedId === doc.id ? (
+                <Check className="w-3.5 h-3.5 text-emerald-600" />
               ) : (
-                <>
-                  <button
-                    type="button"
-                    onClick={(e) => handleQuickRead(e, doc)}
-                    className="inline-flex items-center gap-1 px-2.5 py-1.5 rounded-xl bg-teal-600 hover:bg-teal-700 text-white text-[11px] font-bold cursor-pointer"
-                  >
-                    {packCount > 1 ? (
-                      <>
-                        <FolderOpen className="w-3 h-3" />
-                        <span>Mở gói</span>
-                      </>
-                    ) : (
-                      <>
-                        <Eye className="w-3 h-3" />
-                        <span>Đọc</span>
-                      </>
-                    )}
-                  </button>
-
-                  {packCount <= 1 &&
-                    doc.fileFormat !== "folder" &&
-                    doc.fileFormat !== "sheet" && (
-                      <button
-                        type="button"
-                        disabled={downloadingId === doc.id}
-                        onClick={(e) => void handleQuickDownload(e, doc)}
-                        title="Tải PDF về máy"
-                        className="p-1.5 rounded-xl bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 cursor-pointer"
-                      >
-                        {downloadingId === doc.id ? (
-                          <Loader2 className="w-3.5 h-3.5 animate-spin" />
-                        ) : (
-                          <Download className="w-3.5 h-3.5" />
-                        )}
-                      </button>
-                    )}
-                </>
+                <Share2 className="w-3.5 h-3.5" />
               )}
-            </div>
+            </button>
+
+            {isPaid && !isUnlocked ? (
+              <span className="inline-flex items-center gap-1 px-2.5 py-1.5 rounded-xl bg-amber-100 dark:bg-amber-950/70 text-amber-800 dark:text-amber-300 text-[11px] font-bold">
+                <Lock className="w-3 h-3" />
+                <span>Mở khóa</span>
+              </span>
+            ) : (
+              <>
+                <button
+                  type="button"
+                  onClick={(e) => handleQuickRead(e, doc)}
+                  className="inline-flex items-center gap-1 px-2.5 py-1.5 rounded-xl bg-teal-600 hover:bg-teal-700 text-white text-[11px] font-bold shadow-2xs cursor-pointer"
+                >
+                  {packCount > 1 ? (
+                    <>
+                      <FolderOpen className="w-3 h-3" />
+                      <span>Mở gói</span>
+                    </>
+                  ) : (
+                    <>
+                      <Eye className="w-3 h-3" />
+                      <span>Đọc</span>
+                    </>
+                  )}
+                </button>
+
+                {packCount <= 1 &&
+                  doc.fileFormat !== "folder" &&
+                  doc.fileFormat !== "sheet" && (
+                    <button
+                      type="button"
+                      disabled={downloadingId === doc.id}
+                      onClick={(e) => void handleQuickDownload(e, doc)}
+                      title="Tải PDF về máy"
+                      className="p-1.5 rounded-xl bg-white hover:bg-slate-200/80 dark:bg-slate-900 dark:hover:bg-slate-700 border border-slate-200/90 dark:border-slate-700 text-slate-700 dark:text-slate-200 cursor-pointer"
+                    >
+                      {downloadingId === doc.id ? (
+                        <Loader2 className="w-3.5 h-3.5 animate-spin" />
+                      ) : (
+                        <Download className="w-3.5 h-3.5" />
+                      )}
+                    </button>
+                  )}
+              </>
+            )}
           </div>
         </div>
       </Link>
@@ -1418,26 +1659,39 @@ export default function DocumentLibraryPage() {
   };
 
   const nhdtRootNode = folderIndex.nodesById.get("sfold_nhdt");
+  const toanmathRootNode = folderIndex.nodesById.get("sfold_toanmath");
 
   return (
-    <div className="max-w-7xl mx-auto px-3 sm:px-6 py-4 sm:py-6 space-y-5">
-      {/* Clean Hero Header */}
-      <section className="rounded-3xl bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800 p-4 sm:p-6 shadow-2xs">
-        <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
-          <div className="space-y-1.5">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-teal-50 dark:bg-teal-950/60 text-teal-700 dark:text-teal-300 text-[11px] font-extrabold tracking-wide uppercase">
-              <Library className="w-3.5 h-3.5" />
-              <span>Kho Tài Liệu Phân Cấp • THCS • THPT 10–12 • ĐGNL &amp; ĐGTD</span>
+    <div className="max-w-7xl mx-auto px-3 sm:px-5 py-4 sm:py-5 my-1 sm:my-2.5 rounded-[2rem] bg-gradient-to-b from-slate-200/75 via-slate-100/95 to-slate-200/60 dark:from-slate-950 dark:via-slate-950/90 dark:to-slate-900 border border-slate-300/75 dark:border-slate-800 space-y-5 shadow-inner">
+      {/* Tier 1: Rich Layered Hero Banner */}
+      <section className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-slate-900 via-teal-950 to-indigo-950 text-white border border-teal-500/30 p-4 sm:p-6 shadow-md">
+        <div className="pointer-events-none absolute -top-20 -right-16 w-72 h-72 rounded-full bg-teal-500/15 blur-3xl" />
+        <div className="pointer-events-none absolute -bottom-24 -left-16 w-72 h-72 rounded-full bg-indigo-500/20 blur-3xl" />
+
+        <div className="relative flex flex-col lg:flex-row lg:items-center justify-between gap-4">
+          <div className="space-y-2">
+            <div className="flex flex-wrap items-center gap-2">
+              <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-teal-400/20 border border-teal-300/30 text-teal-200 text-[11px] font-extrabold tracking-wide uppercase">
+                <Library className="w-3.5 h-3.5 text-teal-300" />
+                <span>Kho Tài Liệu Phân Tầng • Lớp 12 • THPT QG • ĐGNL</span>
+              </span>
+              <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-amber-400/20 border border-amber-300/30 text-amber-200 text-[11px] font-extrabold">
+                <span>🔥 {allDocs.length.toLocaleString("vi-VN")} đề &amp; tài liệu</span>
+              </span>
+              <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-sky-400/20 border border-sky-300/30 text-sky-200 text-[11px] font-bold">
+                <span>7 Kho Nguồn Chuẩn Gốc</span>
+              </span>
             </div>
-            <h1 className="text-xl sm:text-2xl font-black text-slate-900 dark:text-white tracking-tight">
-              Thư Viện Tài Liệu &amp; Cây Thư Mục Chuẩn Gốc
+
+            <h1 className="text-xl sm:text-2xl font-black text-white tracking-tight">
+              Thư Viện Tài Liệu &amp; Ngân Hàng Đề Thi Toàn Diện
             </h1>
-            <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-300 max-w-2xl">
-              Tách biệt rõ <strong>Tài liệu Độc quyền DkTEST</strong>,{" "}
-              <strong>Thư mục Ngân Hàng Đề Thi</strong>,{" "}
-              <strong>Tài Liệu Ôn Thi (.edu.vn / .org)</strong> và{" "}
-              <strong>Thư mục riêng của Giáo viên &amp; Cộng đồng</strong> với hơn{" "}
-              <strong>{allDocs.length.toLocaleString("vi-VN")}</strong> tài liệu — hỗ trợ tải trọn bộ thư mục (`.ZIP`).
+            <p className="text-xs sm:text-sm text-slate-200/90 max-w-2xl leading-relaxed">
+              Quét sâu &amp; phân tầng màu sắc trực quan: <strong className="text-teal-300">Độc quyền DkTEST</strong>,{" "}
+              <strong className="text-sky-300">Ngân Hàng Đề Thi</strong>,{" "}
+              <strong className="text-rose-300">TOANMATH Trường - Sở • HK1 • HK2</strong>,{" "}
+              <strong className="text-emerald-300">Tài Liệu Ôn Thi</strong>,{" "}
+              <strong className="text-amber-300">Kho Tiếng Anh &amp; Đa Môn</strong> — đọc PDF trực tiếp &amp; tải trọn bộ (`.ZIP`).
             </p>
           </div>
 
@@ -1445,12 +1699,12 @@ export default function DocumentLibraryPage() {
             <button
               type="button"
               onClick={(e) => void handleShareDoc(e)}
-              className="inline-flex items-center gap-1.5 px-3 py-2.5 rounded-2xl bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 text-xs font-bold transition-colors cursor-pointer"
+              className="inline-flex items-center gap-1.5 px-3 py-2.5 rounded-2xl bg-white/10 hover:bg-white/20 border border-white/15 text-white text-xs font-bold transition-colors cursor-pointer"
             >
               {copiedId === "__hub__" ? (
-                <Check className="w-4 h-4 text-emerald-600" />
+                <Check className="w-4 h-4 text-emerald-400" />
               ) : (
-                <Share2 className="w-4 h-4" />
+                <Share2 className="w-4 h-4 text-teal-300" />
               )}
               <span>Chia sẻ kho</span>
             </button>
@@ -1463,9 +1717,9 @@ export default function DocumentLibraryPage() {
                   isAdmin ? "dktest_exclusive" : "community"
                 )
               }
-              className="inline-flex items-center gap-1.5 px-3.5 py-2.5 rounded-2xl bg-indigo-50 hover:bg-indigo-100 dark:bg-indigo-950/60 text-indigo-700 dark:text-indigo-300 border border-indigo-200 dark:border-indigo-800/70 text-xs font-extrabold transition-colors cursor-pointer"
+              className="inline-flex items-center gap-1.5 px-3.5 py-2.5 rounded-2xl bg-indigo-500/25 hover:bg-indigo-500/40 text-indigo-100 border border-indigo-400/40 text-xs font-extrabold transition-colors cursor-pointer"
             >
-              <FolderPlus className="w-4 h-4" />
+              <FolderPlus className="w-4 h-4 text-indigo-300" />
               <span>Tạo thư mục riêng</span>
             </button>
 
@@ -1474,16 +1728,16 @@ export default function DocumentLibraryPage() {
               onClick={() =>
                 handleOpenBatchUploadModal(canManageCurrentFolder ? currentFolderId : null)
               }
-              className="inline-flex items-center gap-1.5 px-3.5 py-2.5 rounded-2xl bg-emerald-50 hover:bg-emerald-100 dark:bg-emerald-950/60 text-emerald-700 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800/70 text-xs font-extrabold transition-colors cursor-pointer"
+              className="inline-flex items-center gap-1.5 px-3.5 py-2.5 rounded-2xl bg-emerald-500/25 hover:bg-emerald-500/40 text-emerald-100 border border-emerald-400/40 text-xs font-extrabold transition-colors cursor-pointer"
             >
-              <Layers className="w-4 h-4" />
+              <Layers className="w-4 h-4 text-emerald-300" />
               <span>Đăng hàng loạt</span>
             </button>
 
             <button
               type="button"
               onClick={handleOpenUploadModal}
-              className="inline-flex items-center gap-2 px-4 py-2.5 rounded-2xl bg-teal-600 hover:bg-teal-700 text-white text-xs font-extrabold shadow-xs transition-colors cursor-pointer"
+              className="inline-flex items-center gap-2 px-4 py-2.5 rounded-2xl bg-gradient-to-r from-teal-500 to-emerald-500 hover:from-teal-400 hover:to-emerald-400 text-slate-950 text-xs font-black shadow-sm transition-all cursor-pointer"
             >
               <CloudUpload className="w-4 h-4" />
               <span>Đăng tài liệu</span>
@@ -1491,28 +1745,30 @@ export default function DocumentLibraryPage() {
           </div>
         </div>
 
-        {/* Clean Space & Folder Tabs */}
-        <div className="mt-4 pt-3.5 border-t border-slate-100 dark:border-slate-800 flex items-center gap-1.5 overflow-x-auto no-scrollbar">
+        {/* High-Contrast Color-Coded Space & Source Tab Deck */}
+        <div className="relative mt-4 p-1.5 rounded-2xl bg-slate-950/50 border border-white/10 flex items-center gap-1.5 overflow-x-auto no-scrollbar">
           <button
             type="button"
             onClick={() => handleSelectTab("explore")}
-            className={`px-3.5 py-2 rounded-xl text-xs font-bold whitespace-nowrap transition-colors cursor-pointer flex items-center gap-1.5 ${
-              activeTab === "explore" && currentFolderId !== "sfold_nhdt"
-                ? "bg-slate-900 text-white dark:bg-white dark:text-slate-900"
-                : "text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800"
+            className={`px-3.5 py-2 rounded-xl text-xs font-extrabold whitespace-nowrap transition-all cursor-pointer flex items-center gap-1.5 ${
+              activeTab === "explore" &&
+              currentFolderId !== "sfold_nhdt" &&
+              currentFolderId !== "sfold_toanmath"
+                ? "bg-white text-slate-950 shadow-xs"
+                : "text-slate-200 hover:bg-white/10"
             }`}
           >
-            <FolderTree className="w-3.5 h-3.5" />
+            <FolderTree className="w-3.5 h-3.5 text-teal-500" />
             <span>Tổng quan Kho ({allDocs.length.toLocaleString("vi-VN")})</span>
           </button>
 
           <button
             type="button"
             onClick={() => handleSelectTab("dktest")}
-            className={`px-3.5 py-2 rounded-xl text-xs font-bold whitespace-nowrap transition-colors cursor-pointer flex items-center gap-1.5 ${
+            className={`px-3.5 py-2 rounded-xl text-xs font-extrabold whitespace-nowrap transition-all cursor-pointer flex items-center gap-1.5 ${
               activeTab === "dktest"
-                ? "bg-teal-600 text-white"
-                : "text-teal-700 dark:text-teal-300 bg-teal-50/70 dark:bg-teal-950/30 hover:bg-teal-100 dark:hover:bg-teal-950/60"
+                ? "bg-teal-500 text-slate-950 shadow-xs"
+                : "text-teal-200 bg-teal-500/15 hover:bg-teal-500/25 border border-teal-400/20"
             }`}
           >
             <Crown className="w-3.5 h-3.5" />
@@ -1522,10 +1778,10 @@ export default function DocumentLibraryPage() {
           <button
             type="button"
             onClick={() => handleSelectTab("nhdt")}
-            className={`px-3.5 py-2 rounded-xl text-xs font-bold whitespace-nowrap transition-colors cursor-pointer flex items-center gap-1.5 ${
+            className={`px-3.5 py-2 rounded-xl text-xs font-extrabold whitespace-nowrap transition-all cursor-pointer flex items-center gap-1.5 ${
               activeTab === "nhdt" || currentFolderId?.startsWith("sfold_nhdt")
-                ? "bg-blue-600 text-white"
-                : "text-blue-700 dark:text-blue-300 bg-blue-50/70 dark:bg-blue-950/30 hover:bg-blue-100 dark:hover:bg-blue-950/60"
+                ? "bg-blue-500 text-white shadow-xs"
+                : "text-sky-200 bg-blue-500/15 hover:bg-blue-500/25 border border-blue-400/20"
             }`}
           >
             <FolderOpen className="w-3.5 h-3.5" />
@@ -1535,13 +1791,31 @@ export default function DocumentLibraryPage() {
             </span>
           </button>
 
+          {toanmathRootNode && (
+            <button
+              type="button"
+              onClick={() => openFolder("sfold_toanmath", "explore")}
+              className={`px-3.5 py-2 rounded-xl text-xs font-extrabold whitespace-nowrap transition-all cursor-pointer flex items-center gap-1.5 ${
+                currentFolderId?.startsWith("sfold_toanmath")
+                  ? "bg-rose-500 text-white shadow-xs"
+                  : "text-rose-200 bg-rose-500/15 hover:bg-rose-500/25 border border-rose-400/20"
+              }`}
+            >
+              <FolderOpen className="w-3.5 h-3.5" />
+              <span>
+                Đề Trường - Sở TOANMATH (
+                {toanmathRootNode.recursiveDocCount.toLocaleString("vi-VN")})
+              </span>
+            </button>
+          )}
+
           <button
             type="button"
             onClick={() => handleSelectTab("community")}
-            className={`px-3.5 py-2 rounded-xl text-xs font-bold whitespace-nowrap transition-colors cursor-pointer flex items-center gap-1.5 ${
+            className={`px-3.5 py-2 rounded-xl text-xs font-extrabold whitespace-nowrap transition-all cursor-pointer flex items-center gap-1.5 ${
               activeTab === "community"
-                ? "bg-indigo-600 text-white"
-                : "text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800"
+                ? "bg-indigo-500 text-white shadow-xs"
+                : "text-indigo-200 bg-indigo-500/15 hover:bg-indigo-500/25 border border-indigo-400/20"
             }`}
           >
             <Users className="w-3.5 h-3.5" />
@@ -1551,10 +1825,10 @@ export default function DocumentLibraryPage() {
           <button
             type="button"
             onClick={() => handleSelectTab("saved")}
-            className={`px-3.5 py-2 rounded-xl text-xs font-bold whitespace-nowrap transition-colors cursor-pointer flex items-center gap-1.5 ${
+            className={`px-3.5 py-2 rounded-xl text-xs font-extrabold whitespace-nowrap transition-all cursor-pointer flex items-center gap-1.5 ${
               activeTab === "saved"
-                ? "bg-slate-900 text-white dark:bg-white dark:text-slate-900"
-                : "text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800"
+                ? "bg-cyan-400 text-slate-950 shadow-xs"
+                : "text-slate-200 hover:bg-white/10"
             }`}
           >
             <Bookmark className="w-3.5 h-3.5" />
@@ -1564,10 +1838,10 @@ export default function DocumentLibraryPage() {
           <button
             type="button"
             onClick={() => handleSelectTab("mine")}
-            className={`px-3.5 py-2 rounded-xl text-xs font-bold whitespace-nowrap transition-colors cursor-pointer flex items-center gap-1.5 ${
+            className={`px-3.5 py-2 rounded-xl text-xs font-extrabold whitespace-nowrap transition-all cursor-pointer flex items-center gap-1.5 ${
               activeTab === "mine"
-                ? "bg-amber-500 text-slate-950 font-extrabold shadow-2xs"
-                : "text-amber-700 dark:text-amber-300 bg-amber-50/80 dark:bg-amber-950/40 hover:bg-amber-100 dark:hover:bg-amber-950/70"
+                ? "bg-amber-400 text-slate-950 shadow-xs"
+                : "text-amber-200 bg-amber-500/20 hover:bg-amber-500/30 border border-amber-400/30"
             }`}
           >
             <Sparkles className="w-3.5 h-3.5" />
@@ -2104,18 +2378,18 @@ export default function DocumentLibraryPage() {
           {/* ================================================================= */}
           {!currentFolderId && activeTab === "explore" && !hasActiveFilters && (
             <div className="space-y-5">
-              {/* Section A: DkTEST Exclusive Showcase (Tài liệu Độc quyền DkTEST riêng) */}
-              <section className="rounded-3xl border border-teal-200/90 dark:border-teal-900/60 bg-gradient-to-br from-teal-50/70 via-white to-white dark:from-teal-950/30 dark:via-slate-900 dark:to-slate-900 p-4 sm:p-5 space-y-3.5">
+              {/* Section A: DkTEST Exclusive Showcase (Emerald-Teal Tier) */}
+              <section className="rounded-3xl border-2 border-teal-300/85 dark:border-teal-800/70 bg-gradient-to-br from-emerald-100/75 via-teal-50/85 to-cyan-50/55 dark:from-emerald-950/45 dark:via-teal-950/30 dark:to-slate-900 p-4 sm:p-5 space-y-3.5 shadow-2xs">
                 <div className="flex flex-wrap items-center justify-between gap-2">
                   <div className="flex items-center gap-2.5">
-                    <div className="w-9 h-9 rounded-2xl bg-teal-600 text-white flex items-center justify-center shadow-xs">
-                      <Crown className="w-4 h-4" />
+                    <div className="w-10 h-10 rounded-2xl bg-gradient-to-br from-teal-600 to-emerald-600 text-white flex items-center justify-center shadow-xs">
+                      <Crown className="w-5 h-5" />
                     </div>
                     <div>
                       <h2 className="text-sm sm:text-base font-black text-slate-900 dark:text-white">
                         Tài Liệu Độc Quyền DkTEST
                       </h2>
-                      <p className="text-xs text-slate-500 dark:text-slate-400">
+                      <p className="text-xs text-slate-600 dark:text-slate-300">
                         {DOCUMENT_SOURCE_META.dktest.description}
                       </p>
                     </div>
@@ -2126,7 +2400,7 @@ export default function DocumentLibraryPage() {
                       <button
                         type="button"
                         onClick={() => handleOpenCreateFolderModal(null, "dktest_exclusive")}
-                        className="inline-flex items-center gap-1 px-3 py-1.5 rounded-xl bg-teal-600 text-white text-xs font-bold cursor-pointer"
+                        className="inline-flex items-center gap-1 px-3 py-1.5 rounded-xl bg-teal-600 hover:bg-teal-700 text-white text-xs font-bold shadow-2xs cursor-pointer"
                       >
                         <FolderPlus className="w-3.5 h-3.5" />
                         <span>+ Tạo thư mục Độc quyền</span>
@@ -2135,7 +2409,7 @@ export default function DocumentLibraryPage() {
                     <button
                       type="button"
                       onClick={() => handleSelectTab("dktest")}
-                      className="text-xs font-bold text-teal-700 dark:text-teal-300 hover:underline cursor-pointer"
+                      className="px-3 py-1.5 rounded-xl bg-white/85 dark:bg-slate-900/80 border border-teal-200 dark:border-teal-800 text-xs font-extrabold text-teal-800 dark:text-teal-300 hover:bg-white cursor-pointer"
                     >
                       Xem riêng mục Độc quyền →
                     </button>
@@ -2153,9 +2427,9 @@ export default function DocumentLibraryPage() {
                     {dktestExclusiveDocs.slice(0, 4).map((d) => renderDocumentCard(d))}
                   </div>
                 ) : (
-                  <div className="p-3.5 rounded-2xl bg-white/80 dark:bg-slate-900/70 border border-teal-100 dark:border-slate-800 flex flex-wrap items-center justify-between gap-2 text-xs text-slate-600 dark:text-slate-300">
+                  <div className="p-3.5 rounded-2xl bg-white/85 dark:bg-slate-900/75 border border-teal-200/80 dark:border-slate-800 flex flex-wrap items-center justify-between gap-2 text-xs text-slate-700 dark:text-slate-300">
                     <span>
-                      Không gian dành riêng cho bộ đề &amp; Ebook chính thức của DkTEST — tách biệt gọn gàng khỏi các nguồn tổng hợp bên dưới.
+                      Không gian dành riêng cho bộ đề &amp; Ebook chính thức của DkTEST — tách biệt nổi bật khỏi các nguồn tổng hợp bên dưới.
                     </span>
                     {isAdmin && (
                       <button
@@ -2170,34 +2444,46 @@ export default function DocumentLibraryPage() {
                 )}
               </section>
 
-              {/* Section B: Dedicated Ngân Hàng Đề Thi & Structured Source Root Folders */}
-              <section className="space-y-3">
-                <div className="flex flex-wrap items-center justify-between gap-2 px-1">
-                  <div>
-                    <h2 className="text-sm sm:text-base font-black text-slate-900 dark:text-white flex items-center gap-2">
-                      <Layers className="w-4 h-4 text-blue-600" />
-                      <span>Kho Thư Mục Phân Cấp Theo Nguồn Chuẩn Gốc</span>
-                    </h2>
-                    <p className="text-xs text-slate-500 dark:text-slate-400">
-                      Mỗi nguồn được gom gọn vào 1 thư mục gốc riêng, giữ nguyên cây phân cấp Khối lớp › Môn học › Chuyên mục như trang gốc và hỗ trợ tải toàn bộ.
-                    </p>
+              {/* Section B: Dedicated 7 Source Root Folders (Royal Blue-Indigo Tier) */}
+              <section className="rounded-3xl border border-blue-300/80 dark:border-blue-900/60 bg-gradient-to-br from-blue-100/70 via-indigo-50/65 to-sky-50/55 dark:from-blue-950/40 dark:via-indigo-950/25 dark:to-slate-900 p-4 sm:p-5 space-y-3.5 shadow-2xs">
+                <div className="flex flex-wrap items-center justify-between gap-2">
+                  <div className="flex items-center gap-2.5">
+                    <div className="w-10 h-10 rounded-2xl bg-gradient-to-br from-blue-600 to-indigo-600 text-white flex items-center justify-center shadow-xs shrink-0">
+                      <Layers className="w-5 h-5" />
+                    </div>
+                    <div>
+                      <h2 className="text-sm sm:text-base font-black text-slate-900 dark:text-white">
+                        Kho Thư Mục Phân Cấp Theo Nguồn Chuẩn Gốc ({folderIndex.rootsBySpace.sources.length} nguồn lớn)
+                      </h2>
+                      <p className="text-xs text-slate-600 dark:text-slate-300">
+                        Mỗi nguồn có màu nhận diện riêng, giữ nguyên cây phân cấp Khối lớp › Môn học › Chuyên mục và hỗ trợ tải trọn bộ (`.ZIP`).
+                      </p>
+                    </div>
                   </div>
                 </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-3.5">
+                <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-3.5">
                   {folderIndex.rootsBySpace.sources.map((rootNode) =>
                     renderFolderCard(
                       rootNode,
-                      rootNode.id === "sfold_nhdt" ? "Thư mục Ngân Hàng Đề Thi" : "Nguồn chuẩn gốc"
+                      rootNode.id === "sfold_nhdt"
+                        ? "Kho Ngân Hàng Đề Thi"
+                        : rootNode.id === "sfold_toanmath"
+                        ? "Đề Trường - Sở • HK1 • HK2"
+                        : rootNode.id === "sfold_tienganh"
+                        ? "Chuyên Đề & Đề Tiếng Anh"
+                        : rootNode.id === "sfold_multihub"
+                        ? "Đa Môn THPT & ĐGNL"
+                        : "Nguồn chuẩn gốc"
                     )
                   )}
                 </div>
               </section>
 
-              {/* Section C: Community Custom Folders (if any exist) */}
+              {/* Section C: Community Custom Folders (Violet-Indigo Tier) */}
               {folderIndex.rootsBySpace.community.length > 0 && (
-                <section className="space-y-3">
-                  <div className="flex items-center justify-between px-1">
+                <section className="rounded-3xl border border-indigo-300/80 dark:border-indigo-900/60 bg-gradient-to-br from-indigo-100/70 via-purple-50/65 to-fuchsia-50/40 dark:from-indigo-950/40 dark:via-purple-950/25 dark:to-slate-900 p-4 sm:p-5 space-y-3.5 shadow-2xs">
+                  <div className="flex items-center justify-between">
                     <h2 className="text-sm sm:text-base font-black text-slate-900 dark:text-white flex items-center gap-2">
                       <Users className="w-4 h-4 text-indigo-600" />
                       <span>Thư Mục Đóng Góp Từ Giáo Viên &amp; Cộng Đồng</span>
@@ -2205,7 +2491,7 @@ export default function DocumentLibraryPage() {
                     <button
                       type="button"
                       onClick={() => handleSelectTab("community")}
-                      className="text-xs font-bold text-indigo-600 hover:underline cursor-pointer"
+                      className="text-xs font-extrabold text-indigo-700 dark:text-indigo-300 hover:underline cursor-pointer"
                     >
                       Xem tất cả →
                     </button>
@@ -2224,7 +2510,7 @@ export default function DocumentLibraryPage() {
           {!currentFolderId &&
             activeTab === "dktest" &&
             folderIndex.rootsBySpace.dktest_exclusive.length > 0 && (
-              <section className="space-y-3">
+              <section className="rounded-3xl border border-teal-300/80 dark:border-teal-800/70 bg-gradient-to-br from-emerald-50/90 via-teal-50/70 to-white dark:from-teal-950/40 dark:to-slate-900 p-4 sm:p-5 space-y-3">
                 <h2 className="text-sm font-black text-slate-900 dark:text-white px-1">
                   Thư mục Độc quyền DkTEST ({folderIndex.rootsBySpace.dktest_exclusive.length})
                 </h2>
@@ -2237,13 +2523,13 @@ export default function DocumentLibraryPage() {
             )}
 
           {!currentFolderId && activeTab === "community" && (
-            <section className="space-y-3.5">
+            <section className="rounded-3xl border border-indigo-300/80 dark:border-indigo-800/70 bg-gradient-to-br from-indigo-50/90 via-purple-50/60 to-white dark:from-indigo-950/40 dark:to-slate-900 p-4 sm:p-5 space-y-3.5">
               <div className="flex flex-wrap items-center justify-between gap-2 px-1">
                 <div>
                   <h2 className="text-sm font-black text-slate-900 dark:text-white">
                     Thư mục riêng của Giáo viên &amp; Thành viên ({folderIndex.rootsBySpace.community.length})
                   </h2>
-                  <p className="text-xs text-slate-500">
+                  <p className="text-xs text-slate-600 dark:text-slate-400">
                     Bất kỳ thành viên nào cũng có thể tạo thư mục riêng, đăng tài liệu miễn phí hoặc có phí và bổ sung liên tục.
                   </p>
                 </div>
@@ -2251,7 +2537,7 @@ export default function DocumentLibraryPage() {
                   <button
                     type="button"
                     onClick={() => handleSelectTab("mine")}
-                    className="inline-flex items-center gap-1.5 px-3 py-2 rounded-xl bg-amber-50 dark:bg-amber-950/50 text-amber-800 dark:text-amber-300 text-xs font-bold cursor-pointer"
+                    className="inline-flex items-center gap-1.5 px-3 py-2 rounded-xl bg-amber-100 dark:bg-amber-950/60 text-amber-900 dark:text-amber-200 text-xs font-extrabold cursor-pointer"
                   >
                     <Sparkles className="w-3.5 h-3.5" />
                     <span>Quản lý bài đăng của tôi</span>
@@ -2269,7 +2555,7 @@ export default function DocumentLibraryPage() {
 
               {communityContributors.length > 0 && (
                 <div className="flex items-center gap-1.5 overflow-x-auto no-scrollbar py-1 px-1">
-                  <span className="text-[11px] font-bold text-slate-400 shrink-0 flex items-center gap-1">
+                  <span className="text-[11px] font-bold text-slate-500 shrink-0 flex items-center gap-1">
                     <UserCheck className="w-3.5 h-3.5" />
                     <span>Theo người đăng:</span>
                   </span>
@@ -2312,12 +2598,12 @@ export default function DocumentLibraryPage() {
           )}
 
           {/* ================================================================= */}
-          {/* SEARCH & MULTI-AXIS FILTER BAR                                    */}
+          {/* TIER 3: STRUCTURED FILTER CONTROL DECK + PRIORITY EXAM FOCUS BAR   */}
           {/* ================================================================= */}
-          <section className="rounded-3xl bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800 p-4 sm:p-5 space-y-3.5 shadow-2xs">
+          <section className="rounded-3xl bg-gradient-to-br from-white via-slate-50/95 to-indigo-50/55 dark:from-slate-900 dark:via-slate-900 dark:to-indigo-950/30 border border-slate-300/85 dark:border-slate-700 p-4 sm:p-5 space-y-3.5 shadow-xs">
             <div className="flex flex-col md:flex-row gap-2.5">
               <div className="relative flex-1">
-                <Search className="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none" />
+                <Search className="w-4 h-4 text-teal-600 absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none" />
                 <input
                   type="text"
                   value={searchInput}
@@ -2325,9 +2611,9 @@ export default function DocumentLibraryPage() {
                   placeholder={
                     currentFolderNode
                       ? `Tìm kiếm nhanh trong "${currentFolderNode.name}"...`
-                      : "Tìm kiếm không dấu: đề toán 12, sở hà nội, chuyên vinh, 60 đề moon, hsa, tsa..."
+                      : "Tìm kiếm không dấu trong 28.000+ đề: sở hà nội, chuyên vinh, hk1 toán 12, hk2 anh 12, hsa..."
                   }
-                  className="w-full pl-10 pr-9 py-2.5 rounded-2xl bg-slate-50 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 text-sm text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-teal-500"
+                  className="w-full pl-10 pr-9 py-2.5 rounded-2xl bg-white dark:bg-slate-800 border-2 border-slate-200/90 dark:border-slate-700 text-sm text-slate-900 dark:text-white focus:outline-none focus:border-teal-500 focus:ring-2 focus:ring-teal-500/20 shadow-2xs"
                 />
                 {searchInput && (
                   <button
@@ -2345,12 +2631,12 @@ export default function DocumentLibraryPage() {
                   value={subjectFilter}
                   onChange={(e) => setSubjectFilter(e.target.value as DocumentSubjectKey | "all")}
                   aria-label="Lọc theo môn học"
-                  className="px-3 py-2.5 rounded-2xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-xs font-bold text-slate-700 dark:text-slate-200 cursor-pointer"
+                  className="px-3 py-2.5 rounded-2xl bg-indigo-50/80 dark:bg-slate-800 border border-indigo-200/90 dark:border-slate-700 text-xs font-extrabold text-indigo-900 dark:text-slate-100 cursor-pointer"
                 >
-                  <option value="all">Tất cả môn ({subjectCounts.all || 0})</option>
+                  <option value="all">Tất cả môn ({(subjectCounts.all || 0).toLocaleString("vi-VN")})</option>
                   {(Object.keys(DOCUMENT_SUBJECT_META) as DocumentSubjectKey[]).map((sk) => (
                     <option key={sk} value={sk}>
-                      {DOCUMENT_SUBJECT_META[sk].label} ({subjectCounts[sk] || 0})
+                      {DOCUMENT_SUBJECT_META[sk].label} ({(subjectCounts[sk] || 0).toLocaleString("vi-VN")})
                     </option>
                   ))}
                 </select>
@@ -2359,7 +2645,7 @@ export default function DocumentLibraryPage() {
                   value={priceFilter}
                   onChange={(e) => setPriceFilter(e.target.value as any)}
                   aria-label="Lọc theo mức phí"
-                  className="px-3 py-2.5 rounded-2xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-xs font-bold text-slate-700 dark:text-slate-200 cursor-pointer"
+                  className="px-3 py-2.5 rounded-2xl bg-emerald-50/80 dark:bg-slate-800 border border-emerald-200/90 dark:border-slate-700 text-xs font-extrabold text-emerald-900 dark:text-slate-100 cursor-pointer"
                 >
                   <option value="all">Mọi mức phí</option>
                   <option value="free">Miễn phí (0đ)</option>
@@ -2370,7 +2656,7 @@ export default function DocumentLibraryPage() {
                   value={sortBy}
                   onChange={(e) => setSortBy(e.target.value as any)}
                   aria-label="Sắp xếp"
-                  className="px-3 py-2.5 rounded-2xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-xs font-bold text-slate-700 dark:text-slate-200 cursor-pointer"
+                  className="px-3 py-2.5 rounded-2xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-xs font-bold text-slate-700 dark:text-slate-200 cursor-pointer"
                 >
                   <option value="newest">Mới cập nhật</option>
                   <option value="featured">Nổi bật nhất</option>
@@ -2379,7 +2665,7 @@ export default function DocumentLibraryPage() {
                 </select>
 
                 {/* Grouped Topic Folder vs Flat Individual Card Switcher */}
-                <div className="inline-flex rounded-2xl border border-slate-200 dark:border-slate-700 p-0.5 bg-slate-50 dark:bg-slate-800">
+                <div className="inline-flex rounded-2xl border border-slate-300/80 dark:border-slate-700 p-0.5 bg-slate-200/70 dark:bg-slate-800">
                   <button
                     type="button"
                     onClick={() => {
@@ -2390,7 +2676,7 @@ export default function DocumentLibraryPage() {
                     className={`px-2.5 py-1.5 rounded-xl text-[11px] font-extrabold flex items-center gap-1 cursor-pointer ${
                       displayGrouping === "grouped"
                         ? "bg-teal-600 text-white shadow-2xs"
-                        : "text-slate-500 dark:text-slate-300"
+                        : "text-slate-600 dark:text-slate-300"
                     }`}
                   >
                     <FolderOpen className="w-3.5 h-3.5" />
@@ -2406,7 +2692,7 @@ export default function DocumentLibraryPage() {
                     className={`px-2.5 py-1.5 rounded-xl text-[11px] font-extrabold flex items-center gap-1 cursor-pointer ${
                       displayGrouping === "flat"
                         ? "bg-slate-900 text-white dark:bg-white dark:text-slate-900 shadow-2xs"
-                        : "text-slate-500 dark:text-slate-300"
+                        : "text-slate-600 dark:text-slate-300"
                     }`}
                   >
                     <FileText className="w-3.5 h-3.5" />
@@ -2414,7 +2700,7 @@ export default function DocumentLibraryPage() {
                   </button>
                 </div>
 
-                <div className="inline-flex rounded-2xl border border-slate-200 dark:border-slate-700 p-0.5 bg-slate-50 dark:bg-slate-800">
+                <div className="inline-flex rounded-2xl border border-slate-300/80 dark:border-slate-700 p-0.5 bg-slate-200/70 dark:bg-slate-800">
                   <button
                     type="button"
                     onClick={() => setViewMode("grid")}
@@ -2422,7 +2708,7 @@ export default function DocumentLibraryPage() {
                     className={`p-2 rounded-xl cursor-pointer ${
                       viewMode === "grid"
                         ? "bg-white dark:bg-slate-700 text-teal-600 shadow-2xs"
-                        : "text-slate-400"
+                        : "text-slate-500"
                     }`}
                   >
                     <Grid className="w-3.5 h-3.5" />
@@ -2434,7 +2720,7 @@ export default function DocumentLibraryPage() {
                     className={`p-2 rounded-xl cursor-pointer ${
                       viewMode === "list"
                         ? "bg-white dark:bg-slate-700 text-teal-600 shadow-2xs"
-                        : "text-slate-400"
+                        : "text-slate-500"
                     }`}
                   >
                     <List className="w-3.5 h-3.5" />
@@ -2443,16 +2729,42 @@ export default function DocumentLibraryPage() {
               </div>
             </div>
 
+            {/* 1-Click Priority Exam Focus Bar (Trường-Sở, KSCL, HK1, HK2, GK1-GK2, ĐGNL, HSG) */}
+            <div className="p-2.5 rounded-2xl bg-gradient-to-r from-amber-50/85 via-rose-50/65 to-indigo-50/75 dark:from-slate-800/90 dark:via-slate-800/70 dark:to-indigo-950/40 border border-amber-200/75 dark:border-slate-700 flex items-center gap-1.5 overflow-x-auto no-scrollbar">
+              <span className="text-[11px] font-black text-slate-700 dark:text-slate-200 uppercase tracking-wide shrink-0 px-1">
+                Ưu tiên:
+              </span>
+              {PRIORITY_TOPIC_CHIPS.map((chip) => {
+                const active = topicFilter === chip.key;
+                const count = topicCounts[chip.key] ?? 0;
+                return (
+                  <button
+                    key={chip.key}
+                    type="button"
+                    onClick={() => {
+                      setTopicFilter(chip.key);
+                      openTopicGroup(null);
+                    }}
+                    className={`px-3 py-1.5 rounded-xl text-xs font-bold whitespace-nowrap transition-all cursor-pointer ${
+                      active ? chip.activeClass : chip.idleClass
+                    }`}
+                  >
+                    {chip.label} ({count.toLocaleString("vi-VN")})
+                  </button>
+                );
+              })}
+            </div>
+
             {/* Quick Suggestion Chips */}
             {!searchInput && !currentFolderId && !activeTopicGroup && (
               <div className="flex items-center gap-1.5 overflow-x-auto no-scrollbar text-[11px]">
-                <span className="text-slate-400 font-semibold shrink-0">Gợi ý nhanh:</span>
+                <span className="text-slate-500 font-bold shrink-0">Tìm nhanh:</span>
                 {QUICK_SEARCH_SUGGESTIONS.map((sug) => (
                   <button
                     key={sug}
                     type="button"
                     onClick={() => setSearchInput(sug)}
-                    className="px-2.5 py-1 rounded-full bg-slate-100 hover:bg-teal-50 dark:bg-slate-800 dark:hover:bg-teal-950/60 text-slate-600 hover:text-teal-700 dark:text-slate-300 font-medium whitespace-nowrap cursor-pointer"
+                    className="px-2.5 py-1 rounded-full bg-white hover:bg-teal-50 dark:bg-slate-800 dark:hover:bg-teal-950/60 border border-slate-200/90 dark:border-slate-700 text-slate-700 hover:text-teal-700 dark:text-slate-300 font-semibold whitespace-nowrap cursor-pointer"
                   >
                     {sug}
                   </button>
@@ -2460,36 +2772,36 @@ export default function DocumentLibraryPage() {
               </div>
             )}
 
-            {/* Grade & Category Pills */}
+            {/* Color-Coded Grade Pills */}
             <div className="flex items-center gap-1.5 overflow-x-auto no-scrollbar pt-0.5">
               <button
                 type="button"
                 onClick={() => setGradeFilter("all")}
-                className={`px-3 py-1.5 rounded-xl text-xs font-bold whitespace-nowrap cursor-pointer ${
+                className={`px-3 py-1.5 rounded-xl text-xs font-extrabold whitespace-nowrap cursor-pointer ${
                   gradeFilter === "all"
-                    ? "bg-teal-600 text-white"
-                    : "bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300"
+                    ? "bg-teal-600 text-white shadow-2xs"
+                    : "bg-slate-200/80 dark:bg-slate-800 text-slate-700 dark:text-slate-200 hover:bg-slate-300/70"
                 }`}
               >
-                Tất cả khối ({gradeCounts.all || 0})
+                Tất cả khối ({(gradeCounts.all || 0).toLocaleString("vi-VN")})
               </button>
               {(Object.keys(DOCUMENT_GRADE_META) as DocumentGradeKey[]).map((gk) => (
                 <button
                   key={gk}
                   type="button"
                   onClick={() => setGradeFilter(gk)}
-                  className={`px-3 py-1.5 rounded-xl text-xs font-bold whitespace-nowrap cursor-pointer ${
+                  className={`px-3 py-1.5 rounded-xl text-xs font-extrabold whitespace-nowrap transition-all cursor-pointer ${
                     gradeFilter === gk
-                      ? "bg-teal-600 text-white"
-                      : "bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200/70"
+                      ? "bg-teal-600 text-white ring-2 ring-teal-500/30 shadow-2xs"
+                      : `${DOCUMENT_GRADE_META[gk].badgeClass} border border-slate-200/70 dark:border-slate-700/70 opacity-90 hover:opacity-100`
                   }`}
                 >
-                  {DOCUMENT_GRADE_META[gk].shortLabel} ({gradeCounts[gk] || 0})
+                  {DOCUMENT_GRADE_META[gk].shortLabel} ({(gradeCounts[gk] || 0).toLocaleString("vi-VN")})
                 </button>
               ))}
             </div>
 
-            <div className="flex flex-wrap items-center justify-between gap-2 pt-1 border-t border-slate-100 dark:border-slate-800">
+            <div className="flex flex-wrap items-center justify-between gap-2 pt-2 border-t border-slate-200/80 dark:border-slate-800">
               <div className="flex items-center gap-1.5 overflow-x-auto no-scrollbar">
                 <button
                   type="button"
@@ -2497,10 +2809,10 @@ export default function DocumentLibraryPage() {
                   className={`px-2.5 py-1 rounded-lg text-[11px] font-bold whitespace-nowrap cursor-pointer ${
                     categoryFilter === "all"
                       ? "bg-slate-900 text-white dark:bg-white dark:text-slate-900"
-                      : "text-slate-500 hover:bg-slate-100 dark:hover:bg-slate-800"
+                      : "bg-white/80 dark:bg-slate-800 text-slate-600 dark:text-slate-300 border border-slate-200/80 dark:border-slate-700 hover:bg-slate-100"
                   }`}
                 >
-                  Mọi định dạng ({categoryCounts.all || 0})
+                  Mọi định dạng ({(categoryCounts.all || 0).toLocaleString("vi-VN")})
                 </button>
                 {(Object.keys(DOCUMENT_CATEGORY_META) as DocumentCategoryKey[]).map((ck) => (
                   <button
@@ -2510,10 +2822,10 @@ export default function DocumentLibraryPage() {
                     className={`px-2.5 py-1 rounded-lg text-[11px] font-bold whitespace-nowrap cursor-pointer ${
                       categoryFilter === ck
                         ? "bg-slate-900 text-white dark:bg-white dark:text-slate-900"
-                        : "text-slate-500 hover:bg-slate-100 dark:hover:bg-slate-800"
+                        : "bg-white/80 dark:bg-slate-800 text-slate-600 dark:text-slate-300 border border-slate-200/80 dark:border-slate-700 hover:bg-slate-100"
                     }`}
                   >
-                    {DOCUMENT_CATEGORY_META[ck].shortLabel} ({categoryCounts[ck] || 0})
+                    {DOCUMENT_CATEGORY_META[ck].shortLabel} ({(categoryCounts[ck] || 0).toLocaleString("vi-VN")})
                   </button>
                 ))}
               </div>
@@ -2522,7 +2834,7 @@ export default function DocumentLibraryPage() {
                 <button
                   type="button"
                   onClick={resetAllFilters}
-                  className="inline-flex items-center gap-1 text-xs font-bold text-rose-600 hover:text-rose-700 cursor-pointer"
+                  className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-rose-50 dark:bg-rose-950/50 border border-rose-200 dark:border-rose-800 text-xs font-extrabold text-rose-600 dark:text-rose-300 hover:bg-rose-100 cursor-pointer"
                 >
                   <RotateCcw className="w-3.5 h-3.5" />
                   <span>Xóa bộ lọc</span>
@@ -2543,21 +2855,21 @@ export default function DocumentLibraryPage() {
           >
             {/* Desktop Folder Tree Sidebar when inside a folder */}
             {currentFolderNode && (
-              <aside className="hidden lg:block lg:col-span-3 bg-white dark:bg-slate-900 rounded-3xl border border-slate-200/80 dark:border-slate-800 p-3.5 sticky top-4 max-h-[82vh] overflow-y-auto space-y-2">
-                <div className="flex items-center justify-between px-2 pb-2 border-b border-slate-100 dark:border-slate-800">
+              <aside className="hidden lg:block lg:col-span-3 bg-gradient-to-b from-slate-100/95 via-slate-50 to-indigo-50/40 dark:from-slate-900 dark:via-slate-900 dark:to-slate-950 rounded-3xl border border-slate-300/85 dark:border-slate-800 p-3.5 sticky top-4 max-h-[82vh] overflow-y-auto space-y-2 shadow-xs">
+                <div className="flex items-center justify-between px-2 pb-2 border-b border-slate-200/80 dark:border-slate-800">
                   <span className="text-xs font-black text-slate-900 dark:text-white flex items-center gap-1.5">
                     <FolderTree className="w-4 h-4 text-teal-600" />
-                    <span>Cây thư mục</span>
+                    <span>Cây thư mục phân tầng</span>
                   </span>
                   <button
                     type="button"
                     onClick={() => openFolder(null, "explore")}
-                    className="text-[11px] font-bold text-teal-600 hover:underline cursor-pointer"
+                    className="text-[11px] font-extrabold text-teal-700 dark:text-teal-300 hover:underline cursor-pointer"
                   >
                     Về gốc
                   </button>
                 </div>
-                <div className="space-y-0.5">
+                <div className="space-y-1">
                   {sidebarTreeRoots.map((root) => renderSidebarTreeNode(root, 0))}
                 </div>
               </aside>
@@ -2567,173 +2879,189 @@ export default function DocumentLibraryPage() {
             <div className={currentFolderNode ? "lg:col-span-9 space-y-4" : "space-y-4"}>
               {/* Active Folder Breadcrumb + Header Actions */}
               {currentFolderNode && (
-                <div className="rounded-3xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-4 sm:p-5 space-y-3.5 shadow-2xs">
-                  {/* Breadcrumb Trail */}
-                  <nav
-                    aria-label="Đường dẫn thư mục"
-                    className="flex flex-wrap items-center gap-1 text-xs font-bold text-slate-500 dark:text-slate-400"
-                  >
-                    <button
-                      type="button"
-                      onClick={() => openFolder(null, "explore")}
-                      className="inline-flex items-center gap-1 hover:text-teal-600 cursor-pointer"
+                <div
+                  className={`rounded-3xl overflow-hidden border ${
+                    (FOLDER_COLOR_STYLES[currentFolderNode.iconColor || "teal"] || FOLDER_COLOR_STYLES.teal)
+                      .border
+                  } ${
+                    (FOLDER_COLOR_STYLES[currentFolderNode.iconColor || "teal"] || FOLDER_COLOR_STYLES.teal)
+                      .surface
+                  } shadow-xs`}
+                >
+                  <div
+                    className={`h-2 w-full ${
+                      (FOLDER_COLOR_STYLES[currentFolderNode.iconColor || "teal"] || FOLDER_COLOR_STYLES.teal)
+                        .topBar
+                    }`}
+                  />
+                  <div className="p-4 sm:p-5 space-y-3.5">
+                    {/* Breadcrumb Trail */}
+                    <nav
+                      aria-label="Đường dẫn thư mục"
+                      className="flex flex-wrap items-center gap-1 text-xs font-bold text-slate-600 dark:text-slate-300 bg-white/75 dark:bg-slate-900/60 px-3 py-1.5 rounded-xl border border-slate-200/70 dark:border-slate-800"
                     >
-                      <Home className="w-3.5 h-3.5" />
-                      <span>Kho Tài Liệu</span>
-                    </button>
-                    {currentFolderNode.breadcrumbs.map((crumb, idx) => {
-                      const isLast = idx === currentFolderNode.breadcrumbs.length - 1;
-                      return (
-                        <React.Fragment key={crumb.id}>
-                          <ChevronRight className="w-3.5 h-3.5 text-slate-400 shrink-0" />
-                          <button
-                            type="button"
-                            onClick={() => openFolder(crumb.id)}
-                            className={`cursor-pointer truncate max-w-[200px] sm:max-w-xs ${
-                              isLast
-                                ? "text-teal-700 dark:text-teal-300 font-extrabold"
-                                : "hover:text-teal-600"
-                            }`}
-                          >
-                            {crumb.name}
-                          </button>
-                        </React.Fragment>
-                      );
-                    })}
-                  </nav>
-
-                  {/* Folder Title + Download All + Owner Controls */}
-                  <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pt-1">
-                    <div className="space-y-1">
-                      <h2 className="text-base sm:text-xl font-black text-slate-900 dark:text-white flex items-center gap-2">
-                        <FolderOpen className="w-5 h-5 text-teal-600 shrink-0" />
-                        <span>{currentFolderNode.name}</span>
-                      </h2>
-                      {currentFolderNode.description && (
-                        <p className="text-xs text-slate-500 dark:text-slate-400">
-                          {currentFolderNode.description}
-                        </p>
-                      )}
-                      <div className="text-[11px] font-semibold text-slate-500 flex flex-wrap items-center gap-2">
-                        <span>Nguồn / Quản lý: {currentFolderNode.ownerName}</span>
-                        <span>•</span>
-                        <span>{currentFolderNode.subfolderCount} thư mục con</span>
-                        <span>•</span>
-                        <span>
-                          {currentFolderNode.recursiveDocCount.toLocaleString("vi-VN")} tổng tài liệu
-                        </span>
-                      </div>
-                    </div>
-
-                    <div className="flex flex-wrap items-center gap-2 shrink-0">
                       <button
                         type="button"
-                        onClick={(e) => handleBatchDownloadFolder(e, currentFolderNode)}
-                        className="inline-flex items-center gap-1.5 px-4 py-2 rounded-2xl bg-teal-600 hover:bg-teal-700 text-white text-xs font-extrabold shadow-xs cursor-pointer"
+                        onClick={() => openFolder(null, "explore")}
+                        className="inline-flex items-center gap-1 hover:text-teal-600 cursor-pointer"
                       >
-                        <FolderDown className="w-4 h-4" />
-                        <span>Tải toàn bộ thư mục</span>
+                        <Home className="w-3.5 h-3.5 text-teal-600" />
+                        <span>Kho Tài Liệu</span>
                       </button>
-
-                      <button
-                        type="button"
-                        onClick={(e) => void handleShareFolder(e, currentFolderNode)}
-                        className="inline-flex items-center gap-1.5 px-3 py-2 rounded-2xl bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 text-slate-700 dark:text-slate-200 text-xs font-bold cursor-pointer"
-                      >
-                        {copiedId === currentFolderNode.id ? (
-                          <Check className="w-3.5 h-3.5 text-emerald-600" />
-                        ) : (
-                          <Share2 className="w-3.5 h-3.5" />
-                        )}
-                        <span>Chia sẻ</span>
-                      </button>
-
-                      {canManageCurrentFolder && (
-                        <>
-                          <button
-                            type="button"
-                            onClick={() =>
-                              handleOpenCreateFolderModal(
-                                currentFolderNode.id,
-                                currentFolderNode.space
-                              )
-                            }
-                            className="inline-flex items-center gap-1 px-3 py-2 rounded-2xl bg-indigo-50 dark:bg-indigo-950/60 text-indigo-700 dark:text-indigo-300 text-xs font-bold cursor-pointer"
-                          >
-                            <FolderPlus className="w-3.5 h-3.5" />
-                            <span>+ Thư mục con</span>
-                          </button>
-
-                          <button
-                            type="button"
-                            onClick={() => handleOpenBatchUploadModal(currentFolderNode.id)}
-                            className="inline-flex items-center gap-1 px-3 py-2 rounded-2xl bg-emerald-50 dark:bg-emerald-950/60 text-emerald-700 dark:text-emerald-300 text-xs font-bold cursor-pointer"
-                          >
-                            <Layers className="w-3.5 h-3.5" />
-                            <span>+ Đăng nhiều tệp</span>
-                          </button>
-
-                          <button
-                            type="button"
-                            onClick={handleOpenUploadModal}
-                            className="inline-flex items-center gap-1 px-3 py-2 rounded-2xl bg-teal-50 dark:bg-teal-950/60 text-teal-700 dark:text-teal-300 text-xs font-bold cursor-pointer"
-                          >
-                            <CloudUpload className="w-3.5 h-3.5" />
-                            <span>+ Đăng 1 tệp</span>
-                          </button>
-
-                          {currentFolderNode.ownerRole !== "seed" && (
+                      {currentFolderNode.breadcrumbs.map((crumb, idx) => {
+                        const isLast = idx === currentFolderNode.breadcrumbs.length - 1;
+                        return (
+                          <React.Fragment key={crumb.id}>
+                            <ChevronRight className="w-3.5 h-3.5 text-slate-400 shrink-0" />
                             <button
                               type="button"
-                              onClick={() => {
-                                setEditingFolder(currentFolderNode);
-                                setShowFolderModal(true);
-                              }}
-                              className="p-2 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:text-teal-600 cursor-pointer"
-                              title="Cập nhật thư mục"
+                              onClick={() => openFolder(crumb.id)}
+                              className={`cursor-pointer truncate max-w-[200px] sm:max-w-xs ${
+                                isLast
+                                  ? "text-teal-700 dark:text-teal-300 font-black"
+                                  : "hover:text-teal-600"
+                              }`}
                             >
-                              <Edit3 className="w-4 h-4" />
+                              {crumb.name}
                             </button>
+                          </React.Fragment>
+                        );
+                      })}
+                    </nav>
+
+                    {/* Folder Title + Download All + Owner Controls */}
+                    <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pt-1">
+                      <div className="space-y-1">
+                        <h2 className="text-base sm:text-xl font-black text-slate-900 dark:text-white flex items-center gap-2">
+                          <FolderOpen className="w-5 h-5 text-teal-600 shrink-0" />
+                          <span>{currentFolderNode.name}</span>
+                        </h2>
+                        {currentFolderNode.description && (
+                          <p className="text-xs text-slate-600 dark:text-slate-300">
+                            {currentFolderNode.description}
+                          </p>
+                        )}
+                        <div className="text-[11px] font-bold text-slate-600 dark:text-slate-400 flex flex-wrap items-center gap-2">
+                          <span>Nguồn / Quản lý: {currentFolderNode.ownerName}</span>
+                          <span>•</span>
+                          <span>{currentFolderNode.subfolderCount} thư mục con</span>
+                          <span>•</span>
+                          <span className="text-teal-700 dark:text-teal-300 font-extrabold">
+                            {currentFolderNode.recursiveDocCount.toLocaleString("vi-VN")} tổng tài liệu
+                          </span>
+                        </div>
+                      </div>
+
+                      <div className="flex flex-wrap items-center gap-2 shrink-0">
+                        <button
+                          type="button"
+                          onClick={(e) => handleBatchDownloadFolder(e, currentFolderNode)}
+                          className="inline-flex items-center gap-1.5 px-4 py-2 rounded-2xl bg-teal-600 hover:bg-teal-700 text-white text-xs font-extrabold shadow-xs cursor-pointer"
+                        >
+                          <FolderDown className="w-4 h-4" />
+                          <span>Tải toàn bộ thư mục</span>
+                        </button>
+
+                        <button
+                          type="button"
+                          onClick={(e) => void handleShareFolder(e, currentFolderNode)}
+                          className="inline-flex items-center gap-1.5 px-3 py-2 rounded-2xl bg-white hover:bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-200 text-xs font-bold cursor-pointer"
+                        >
+                          {copiedId === currentFolderNode.id ? (
+                            <Check className="w-3.5 h-3.5 text-emerald-600" />
+                          ) : (
+                            <Share2 className="w-3.5 h-3.5" />
                           )}
-                        </>
-                      )}
+                          <span>Chia sẻ</span>
+                        </button>
+
+                        {canManageCurrentFolder && (
+                          <>
+                            <button
+                              type="button"
+                              onClick={() =>
+                                handleOpenCreateFolderModal(
+                                  currentFolderNode.id,
+                                  currentFolderNode.space
+                                )
+                              }
+                              className="inline-flex items-center gap-1 px-3 py-2 rounded-2xl bg-indigo-100 dark:bg-indigo-950/60 text-indigo-800 dark:text-indigo-300 text-xs font-bold cursor-pointer"
+                            >
+                              <FolderPlus className="w-3.5 h-3.5" />
+                              <span>+ Thư mục con</span>
+                            </button>
+
+                            <button
+                              type="button"
+                              onClick={() => handleOpenBatchUploadModal(currentFolderNode.id)}
+                              className="inline-flex items-center gap-1 px-3 py-2 rounded-2xl bg-emerald-100 dark:bg-emerald-950/60 text-emerald-800 dark:text-emerald-300 text-xs font-bold cursor-pointer"
+                            >
+                              <Layers className="w-3.5 h-3.5" />
+                              <span>+ Đăng nhiều tệp</span>
+                            </button>
+
+                            <button
+                              type="button"
+                              onClick={handleOpenUploadModal}
+                              className="inline-flex items-center gap-1 px-3 py-2 rounded-2xl bg-teal-100 dark:bg-teal-950/60 text-teal-800 dark:text-teal-300 text-xs font-bold cursor-pointer"
+                            >
+                              <CloudUpload className="w-3.5 h-3.5" />
+                              <span>+ Đăng 1 tệp</span>
+                            </button>
+
+                            {currentFolderNode.ownerRole !== "seed" && (
+                              <button
+                                type="button"
+                                onClick={() => {
+                                  setEditingFolder(currentFolderNode);
+                                  setShowFolderModal(true);
+                                }}
+                                className="p-2 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 hover:text-teal-600 cursor-pointer"
+                                title="Cập nhật thư mục"
+                              >
+                                <Edit3 className="w-4 h-4" />
+                              </button>
+                            )}
+                          </>
+                        )}
+                      </div>
                     </div>
+
+                    {/* Direct Child Subfolders Grid */}
+                    {currentFolderNode.children.length > 0 && (
+                      <div className="pt-3 border-t border-slate-200/80 dark:border-slate-800 space-y-2.5">
+                        <div className="flex flex-wrap items-center justify-between gap-2">
+                          <span className="text-xs font-extrabold text-slate-800 dark:text-slate-200">
+                            Thư mục con ({currentFolderNode.children.length})
+                          </span>
+                          <label className="inline-flex items-center gap-1.5 text-[11px] font-semibold text-slate-600 dark:text-slate-400 cursor-pointer">
+                            <input
+                              type="checkbox"
+                              checked={includeSubfolders}
+                              onChange={(e) => setIncludeSubfolders(e.target.checked)}
+                              className="rounded border-slate-300 text-teal-600 focus:ring-teal-500"
+                            />
+                            <span>Bung thêm tất cả tệp trong các thư mục con bên dưới</span>
+                          </label>
+                        </div>
+
+                        <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-2.5">
+                          {currentFolderNode.children.map((child) => renderFolderCard(child))}
+                        </div>
+                      </div>
+                    )}
                   </div>
-
-                  {/* Direct Child Subfolders Grid */}
-                  {currentFolderNode.children.length > 0 && (
-                    <div className="pt-3 border-t border-slate-100 dark:border-slate-800 space-y-2.5">
-                      <div className="flex flex-wrap items-center justify-between gap-2">
-                        <span className="text-xs font-extrabold text-slate-700 dark:text-slate-200">
-                          Thư mục con ({currentFolderNode.children.length})
-                        </span>
-                        <label className="inline-flex items-center gap-1.5 text-[11px] font-semibold text-slate-500 cursor-pointer">
-                          <input
-                            type="checkbox"
-                            checked={includeSubfolders}
-                            onChange={(e) => setIncludeSubfolders(e.target.checked)}
-                            className="rounded border-slate-300 text-teal-600 focus:ring-teal-500"
-                          />
-                          <span>Bung thêm tất cả tệp trong các thư mục con bên dưới</span>
-                        </label>
-                      </div>
-
-                      <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-2.5">
-                        {currentFolderNode.children.map((child) => renderFolderCard(child))}
-                      </div>
-                    </div>
-                  )}
                 </div>
               )}
 
               {/* Active Consolidated Topic Group Header (when user clicked a Topic Folder) */}
               {activeTopicGroup && (
-                <div className="rounded-3xl bg-gradient-to-r from-teal-50/80 via-white to-white dark:from-teal-950/40 dark:via-slate-900 dark:to-slate-900 border border-teal-200 dark:border-teal-900/70 p-4 sm:p-5 space-y-3.5 shadow-2xs">
-                  <div className="flex flex-wrap items-center justify-between gap-2 text-xs font-bold text-slate-500">
+                <div className="rounded-3xl bg-gradient-to-r from-teal-100/85 via-cyan-50/75 to-indigo-50/60 dark:from-teal-950/50 dark:via-slate-900 dark:to-indigo-950/30 border-2 border-teal-300/85 dark:border-teal-800/80 p-4 sm:p-5 space-y-3.5 shadow-xs">
+                  <div className="flex flex-wrap items-center justify-between gap-2 text-xs font-bold text-slate-600 dark:text-slate-300">
                     <button
                       type="button"
                       onClick={() => openTopicGroup(null)}
-                      className="inline-flex items-center gap-1 text-teal-700 dark:text-teal-300 hover:underline cursor-pointer"
+                      className="inline-flex items-center gap-1 px-2.5 py-1 rounded-xl bg-white/85 dark:bg-slate-900 border border-teal-200 dark:border-teal-800 text-teal-800 dark:text-teal-300 hover:bg-white cursor-pointer"
                     >
                       <ChevronLeft className="w-4 h-4" />
                       <span>Quay lại các Thư mục Chủ đề gộp gọn</span>
@@ -2749,7 +3077,7 @@ export default function DocumentLibraryPage() {
                         <FolderOpen className="w-5 h-5 text-teal-600 shrink-0" />
                         <span>{activeTopicGroup.title}</span>
                       </h2>
-                      <p className="text-xs text-slate-500 mt-0.5">
+                      <p className="text-xs text-slate-600 dark:text-slate-300 mt-0.5">
                         Đã tự động gom chung{" "}
                         <strong>{activeTopicGroup.count.toLocaleString("vi-VN")}</strong> đề thi &amp; tài liệu cùng chủ đề vào một nơi.
                       </p>
@@ -2768,18 +3096,18 @@ export default function DocumentLibraryPage() {
                       className="inline-flex items-center gap-1.5 px-4 py-2 rounded-2xl bg-teal-600 hover:bg-teal-700 text-white text-xs font-extrabold shadow-xs shrink-0 cursor-pointer"
                     >
                       <FolderDown className="w-4 h-4" />
-                      <span>Tải trọn bộ chủ đề ({displayedDocs.length})</span>
+                      <span>Tải trọn bộ chủ đề ({displayedDocs.length.toLocaleString("vi-VN")})</span>
                     </button>
                   </div>
 
                   <div className="relative">
-                    <Search className="w-3.5 h-3.5 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
+                    <Search className="w-3.5 h-3.5 text-teal-600 absolute left-3.5 top-1/2 -translate-y-1/2" />
                     <input
                       type="text"
                       value={topicGroupSubSearch}
                       onChange={(e) => setTopicGroupSubSearch(e.target.value)}
                       placeholder="Lọc nhanh tên Trường THPT / Sở GD&ĐT / Tỉnh thành trong chủ đề này..."
-                      className="w-full pl-9 pr-8 py-2 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 text-xs"
+                      className="w-full pl-9 pr-8 py-2.5 rounded-xl bg-white dark:bg-slate-900 border border-teal-200 dark:border-slate-700 text-xs shadow-2xs"
                     />
                     {topicGroupSubSearch && (
                       <button
@@ -2823,14 +3151,14 @@ export default function DocumentLibraryPage() {
 
               {/* Results: Consolidated Topic Folders OR Individual Documents */}
               {loading ? (
-                <div className="py-16 text-center space-y-3">
+                <div className="py-16 text-center space-y-3 rounded-3xl bg-white/80 dark:bg-slate-900 border border-slate-200 dark:border-slate-800">
                   <Loader2 className="w-8 h-8 animate-spin text-teal-600 mx-auto" />
-                  <p className="text-xs font-semibold text-slate-500">
-                    Đang tải cây thư mục và kho tài liệu...
+                  <p className="text-xs font-semibold text-slate-600 dark:text-slate-300">
+                    Đang tải cây thư mục và kho 28.000+ tài liệu...
                   </p>
                 </div>
               ) : showGroupedTopicView ? (
-                <div className="space-y-4">
+                <div className="rounded-3xl border border-teal-200/90 dark:border-slate-800 bg-gradient-to-br from-cyan-50/75 via-slate-50/90 to-indigo-50/55 dark:from-slate-900 dark:via-slate-900/95 dark:to-teal-950/20 p-4 sm:p-5 space-y-4 shadow-2xs">
                   <div className="flex flex-wrap items-center justify-between gap-2 px-1">
                     <div>
                       <h2 className="text-sm sm:text-base font-black text-slate-900 dark:text-white flex items-center gap-2">
@@ -2840,14 +3168,14 @@ export default function DocumentLibraryPage() {
                           {filteredDocs.length.toLocaleString("vi-VN")} tài liệu)
                         </span>
                       </h2>
-                      <p className="text-xs text-slate-500">
-                        Các đề thi cùng chủ đề (VD: Đề thi thử TN THPT Toán các Trường - Sở, Đề GK1, HK1, HSA, TSA...) được tự động gom vào 1 thư mục gọn gàng.
+                      <p className="text-xs text-slate-600 dark:text-slate-400">
+                        Các đề thi cùng chủ đề (Đề thi thử TN THPT Trường - Sở, Khảo sát KSCL, Đề HK1, HK2, GK1, GK2, ĐGNL...) được gom gọn có phân tầng màu sắc theo từng môn.
                       </p>
                     </div>
                     <button
                       type="button"
                       onClick={() => setDisplayGrouping("flat")}
-                      className="text-xs font-bold text-teal-600 dark:text-teal-400 hover:underline cursor-pointer"
+                      className="px-3 py-1.5 rounded-xl bg-white dark:bg-slate-800 border border-teal-200 dark:border-slate-700 text-xs font-extrabold text-teal-700 dark:text-teal-300 hover:bg-teal-50 cursor-pointer"
                     >
                       Chuyển sang xem lẻ từng tệp →
                     </button>
