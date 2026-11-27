@@ -4656,7 +4656,7 @@ export const useAppStore = create<AppState>((set, get) => {
           expiresAt_ms: Date.now() + 1500, remaining_s: 1.5, color: prepared.incoming?.color } } : {}) };
       const burners = Object.values(get().burners);
       const isHeated = vesselHasBurnerHeat(vessel, get().burners);
-      vfxBus.emit('surface:ripple', { x: vessel.position[0], z: vessel.position[2], vesselId: targetId, intensity: 0.95 });
+      vfxBus.emit('surface:ripple', { x: 0, z: 0, vesselId: targetId, intensity: 0.95 });
       const newTotalVolume_ml = vessel.volume_ml;
       const newTotalMass_g = vessel.mass_g;
       const newDensity = vessel.density_g_ml;

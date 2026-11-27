@@ -52,8 +52,8 @@ class PourControllerClass {
         }
       }
       if (contacted > 0 && parcel.trajectory.detailKind === 'liquid') {
-        vfxBus.emit('pour:impact', { position: parcel.trajectory.impactPos,
-          color: sample.color, flowRate: contacted / dt });
+        vfxBus.emit('pour:impact', { targetId: parcel.targetId ?? undefined, position: parcel.trajectory.impactPos,
+          color: sample.color, volume_ml: contacted, flowRate: contacted / dt });
       }
       // Rim overflow already has a wall-cascade receipt. An incoming stream
       // touching the liquid inside a full receiver does not prove an eruption.

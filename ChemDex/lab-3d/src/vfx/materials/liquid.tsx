@@ -29,6 +29,7 @@ import { pourContactRemaining } from '../../science/pourContactActivity';
 import { liquidOpacity, suspensionColorWeight } from '../../science/liquidOptics';
 import { createLiquidVolumeGeometry, liquidMeshLayout, liquidMeshOrigin } from './liquidGeometry';
 import { LIQUID_SURFACE_GLSL } from './liquidSurfaceShader';
+import { impactRippleStrength, MAX_SURFACE_RIPPLES, SurfaceRipples } from './surfaceRipples';
 import { VORTEX_GLSL } from '../../science/liquidVortex';
 import { supportsVesselVortex, vesselVortexSurface } from '../../science/vesselLiquidMotion';
 import { FOAM_CELL_DIAMETER_M, shadeFoamCells } from './foamAppearance';
@@ -54,6 +55,7 @@ const _scratchNormal = new THREE.Vector3();
 const _localPlane = new THREE.Plane();
 const _scratchTargetColor = new THREE.Color();
 const _scratchQuat = new THREE.Quaternion();
+const _ripplePoint = new THREE.Vector3();
 
 export const RealisticLiquid = React.memo(function RealisticLiquid({
   vesselId,
@@ -91,21 +93,7 @@ export const RealisticLiquid = React.memo(function RealisticLiquid({
     initialized: false,
   });
 
-  // Dynamic capillary surface ripples driven by bubble bursts and surface impulses
-  const dynamicRippleRef = useRef(0);
-
-  useEffect(() => {
-    if (visualRuntime?.externallyStepped) return;
-    const unsub = vfxBus.on('surface:ripple', (e) => {
-      if (!e.vesselId || e.vesselId === vesselId) {
-        dynamicRippleRef.current = Math.min(1.0, dynamicRippleRef.current + (e.intensity || 0.2) * 0.35);
-      }
-    });
-    const reset = vfxBus.on('vessel:sample-reset', e => {
-      if (e.vesselId === vesselId) { dynamicRippleRef.current = 0; if (!visualRuntime?.appearance) appearanceField.reset(); }
-    });
-    return () => { unsub(); reset(); };
-  }, [vesselId]);
+  const surfaceRipples = useMemo(() => new SurfaceRipples(), [vesselId, visualRuntime]);
 
   const effectiveTier = useQualityStore((state) => state.effectiveTier);
 
@@ -147,7 +135,8 @@ export const RealisticLiquid = React.memo(function RealisticLiquid({
     uSuspensionColor: { value: new THREE.Color('#f8fafc') },
     uTurbidity: { value: 0.0 }, // 0 = clear, 1 = milky BaSO4/AgCl
     uBoilingIntensity: { value: 0.0 },
-    uDynamicRipple: { value: 0.0 },
+    uSurfaceRipples: { value: Array.from({ length: MAX_SURFACE_RIPPLES }, () => new THREE.Vector4(0, 0, 0, 0)) },
+    uSurfaceRippleCount: { value: 0 },
     uSloshTilt: { value: new THREE.Vector2(0, 0) },
     uSloshSpeed: { value: 0.0 },
     uSloshAngle: { value: 0.0 },
@@ -161,6 +150,43 @@ export const RealisticLiquid = React.memo(function RealisticLiquid({
     uReactionInitialColor: { value: new THREE.Color('#38bdf8') },
     uReactionTargetColor: { value: new THREE.Color('#38bdf8') },
   }), [baseY, vesselType, initialColor, capacity_ml]);
+
+  useEffect(() => {
+    const exposedSurface = () => {
+      const sample = visualStore.getState().vessels[vesselId];
+      return !!sample && !sample.isShattered && appearance !== 'foam'
+        && (volumeOverride_ml === undefined || volumeOverride_ml >= sample.volume_ml - 1e-8);
+    };
+    const ripple = vfxBus.on('surface:ripple', event => {
+      if ((event.vesselId && event.vesselId !== vesselId) || !exposedSurface()) return;
+      const cap = meniscusMeshRef.current, group = meshGroupRef.current;
+      if (!cap || !group) return;
+      if (event.scope) {
+        const manager = visualRuntime?.manager ?? SimulationEngine.findManager(vesselId);
+        if (event.scope !== manager?.boilingSystem) return;
+      } else if (visualRuntime?.externallyStepped) return;
+      if ('localPoint' in event) _ripplePoint.fromArray(event.localPoint);
+      else if ('worldPoint' in event) group.worldToLocal(_ripplePoint.fromArray(event.worldPoint));
+      else {
+        const scale = uniforms.uSurfaceRadius.value;
+        _ripplePoint.set(event.x * scale, -event.z * scale, 0).applyQuaternion(cap.quaternion).add(cap.position);
+      }
+      surfaceRipples.add(_ripplePoint, event.intensity);
+    });
+    const pour = vfxBus.on('pour:impact', event => {
+      if (visualRuntime?.externallyStepped || event.targetId !== vesselId || !exposedSurface() || !meshGroupRef.current) return;
+      const strength = impactRippleStrength(event.volume_ml ?? 0);
+      if (strength === 0) return;
+      meshGroupRef.current.worldToLocal(_ripplePoint.fromArray(event.position));
+      surfaceRipples.add(_ripplePoint, strength);
+    });
+    const reset = vfxBus.on('vessel:sample-reset', event => {
+      if (event.vesselId !== vesselId || visualRuntime?.externallyStepped) return;
+      surfaceRipples.clear();
+      if (!visualRuntime?.appearance) appearanceField.reset();
+    });
+    return () => { ripple(); pour(); reset(); };
+  }, [appearance, appearanceField, surfaceRipples, uniforms, vesselId, visualRuntime, visualStore, volumeOverride_ml]);
 
   // Liquid Material with physical absorption, clearcoat, and turbidity
   const liquidMaterial = useMemo(() => {
@@ -295,7 +321,8 @@ export const RealisticLiquid = React.memo(function RealisticLiquid({
       shader.uniforms.uVortex = uniforms.uVortex;
       shader.uniforms.uFillY = uniforms.uFillY;
       shader.uniforms.uBoilingIntensity = uniforms.uBoilingIntensity;
-      shader.uniforms.uDynamicRipple = uniforms.uDynamicRipple;
+      shader.uniforms.uSurfaceRipples = uniforms.uSurfaceRipples;
+      shader.uniforms.uSurfaceRippleCount = uniforms.uSurfaceRippleCount;
       shader.uniforms.uSurfaceRadius = uniforms.uSurfaceRadius;
       shader.uniforms.uSurfaceWaveLimit = uniforms.uSurfaceWaveLimit;
       shader.uniforms.uSloshSpeed = uniforms.uSloshSpeed;
@@ -311,7 +338,8 @@ export const RealisticLiquid = React.memo(function RealisticLiquid({
         uniform float uFillY;
         ${VORTEX_GLSL}
         uniform float uBoilingIntensity;
-        uniform float uDynamicRipple;
+        uniform vec4 uSurfaceRipples[${MAX_SURFACE_RIPPLES}];
+        uniform int uSurfaceRippleCount;
         uniform float uSurfaceRadius;
         uniform float uSurfaceWaveLimit;
         uniform float uSloshSpeed;
@@ -364,7 +392,7 @@ export const RealisticLiquid = React.memo(function RealisticLiquid({
       if (appearance === 'foam') shadeFoamCells(shader, uniforms.uFoamCellScale, uniforms.uFoamCapRadius, true);
       else shadeSpatialLiquid(shader, spatialAppearance.uniforms, '(uWorldToVessel * vec4(vCapWorld, 1.0)).xyz', true);
     };
-    mat.customProgramCacheKey = () => `chemlab_meniscus_spatial_v6_${appearance}`;
+    mat.customProgramCacheKey = () => `chemlab_meniscus_spatial_v6_ripples_${appearance}`;
 
     return mat;
   }, [uniforms, initialColor, appearance, spatialAppearance]);
@@ -384,12 +412,11 @@ export const RealisticLiquid = React.memo(function RealisticLiquid({
     const isPaused = visualStore.getState().isSimulationPaused;
     const dt = simulationFrameDt(delta, { timeScale, isSimulationPaused: isPaused });
 
-    simulationTime.current = visualRuntime?.elapsed?.() ?? simulationTime.current + dt;
+    const previousTime = simulationTime.current;
+    simulationTime.current = visualRuntime?.elapsed?.() ?? previousTime + dt;
     uniforms.uTime.value = simulationTime.current;
-
-    // Decay dynamic surface ripples
-    dynamicRippleRef.current = Math.max(0, dynamicRippleRef.current - dt * 3.0);
-    uniforms.uDynamicRipple.value = dynamicRippleRef.current;
+    if (simulationTime.current < previousTime) surfaceRipples.clear();
+    else surfaceRipples.advance(simulationTime.current - previousTime);
 
     const stockDensity = vessel.volume_ml > 0 ? liquidInventoryMass(vessel) / vessel.volume_ml : 1;
     const stock = stockImmersion(vessel, stockDensity);
@@ -404,7 +431,7 @@ export const RealisticLiquid = React.memo(function RealisticLiquid({
     // lag separates the water mesh from its physical contacts and floating Na.
     const fillDiff = targetFillFraction - (previousFillFraction.current ?? targetFillFraction);
     previousFillFraction.current = targetFillFraction;
-    const agitation = dt > 0 ? Math.min(1, Math.abs(fillDiff) / dt * 0.2) : 0;
+    const agitation = dt > 0 ? Math.min(1, Math.max(0, -fillDiff) / dt * 0.2) : 0;
     uniforms.uPourAgitation.value = Math.max(agitation, uniforms.uPourAgitation.value * Math.exp(-3 * dt));
     const fillFraction = targetFillFraction;
 
@@ -639,6 +666,9 @@ export const RealisticLiquid = React.memo(function RealisticLiquid({
         // World up (0, 1, 0) transformed into local container space
         _scratchQuat.setFromUnitVectors(new THREE.Vector3(0, 0, 1), localUpNormal);
         meniscusMeshRef.current.quaternion.copy(_scratchQuat);
+        if (surfaceRipples.count > 0) meniscusMeshRef.current.updateMatrix();
+        surfaceRipples.write(uniforms.uSurfaceRipples.value, meniscusMeshRef.current.matrix);
+        uniforms.uSurfaceRippleCount.value = surfaceRipples.count;
       }
     }
 

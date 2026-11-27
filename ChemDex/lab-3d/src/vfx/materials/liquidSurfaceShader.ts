@@ -1,3 +1,5 @@
+import { MAX_SURFACE_RIPPLES } from './surfaceRipples';
+
 /** Optical displacement only. Height and normal share exactly the same
  * bounded surface, so reflections follow waves and thin films stay bounded. */
 export const LIQUID_SURFACE_GLSL = `
@@ -12,8 +14,17 @@ float liquidSurfaceHeight(vec2 point) {
   if (uPourAgitation > 0.01) {
     height += sin(r * 32.0 - uTime * 18.0) * (1.0 - r) * uPourAgitation * 0.035;
   }
-  if (uBoilingIntensity > 0.05 || uDynamicRipple > 0.01) {
-    height += snoise(vec3(point * 8.0, uTime * 6.0)) * (uBoilingIntensity + uDynamicRipple * 0.8) * 0.035;
+  if (uBoilingIntensity > 0.05) {
+    height += snoise(vec3(point * 8.0, uTime * 6.0)) * uBoilingIntensity * 0.035;
+  }
+  for (int i = 0; i < ${MAX_SURFACE_RIPPLES}; i++) {
+    if (i >= uSurfaceRippleCount) break;
+    vec4 ripple = uSurfaceRipples[i];
+    if (abs(ripple.w) > 0.000001) {
+      float distanceToRing = length(point - ripple.xy) - ripple.z;
+      float envelope = 1.0 - smoothstep(0.0, 0.17, abs(distanceToRing));
+      height += cos(distanceToRing * 26.0) * envelope * ripple.w * 0.028;
+    }
   }
   return clamp(height, -uSurfaceWaveLimit, uSurfaceWaveLimit)
     + (uVortex.y > 0.0000001 ? vortexLevel(point * uSurfaceRadius) - uFillY : 0.0);

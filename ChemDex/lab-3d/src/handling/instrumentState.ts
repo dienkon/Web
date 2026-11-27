@@ -4,6 +4,12 @@ import { MAX_PIPETTE_PRESENTATIONS, advancePipettePresentations, makePipettePres
 import { MAX_BURETTE_PRESENTATIONS, advanceBurettePresentations, makeBurettePresentation,
   type BurettePresentation, type BurettePresentationInput } from './burettePresentation';
 import type { PracticeProbe, PracticeProbeReading } from '../engine/neutralizationPractice';
+import { vfxBus } from '../vfx/bus';
+import { impactRippleStrength } from '../vfx/materials/surfaceRipples';
+
+function emitDropImpact(receipt: Pick<BurettePresentation, 'targetId' | 'surface'>, volume_ml: number) {
+  vfxBus.emit('surface:ripple', { vesselId: receipt.targetId, worldPoint: receipt.surface, intensity: impactRippleStrength(volume_ml) });
+}
 
 export interface InstrumentNotice {
   sequence: number;
@@ -62,11 +68,13 @@ export const useInstrumentStore = create<InstrumentState>((set, get) => ({
     const receipt = makeBurettePresentation(input, state.burettePresentationSequence + 1);
     if (!receipt) return false;
     set({ burettePresentations: [...state.burettePresentations.filter(r => r.epoch === input.epoch), receipt], burettePresentationSequence: receipt.id });
+    if (receipt.elapsed_s >= receipt.flight.flightTime) emitDropImpact(receipt, receipt.volume_ml);
     return true;
   },
   advanceBurettePresentation: (dt, epoch, isTargetValid) => {
     const state = get();
-    const queue = advanceBurettePresentations(state.burettePresentations, dt, epoch, isTargetValid);
+    const queue = advanceBurettePresentations(state.burettePresentations, dt, epoch, isTargetValid,
+      receipt => emitDropImpact(receipt, receipt.volume_ml));
     if (queue.length !== state.burettePresentations.length || queue.some((r, i) => r !== state.burettePresentations[i])) set({ burettePresentations: queue });
   },
   clearBurettePresentations: () => set({ burettePresentations: [] }),
@@ -85,7 +93,7 @@ export const useInstrumentStore = create<InstrumentState>((set, get) => ({
   advancePipettePresentation: (dt, epoch, isTargetValid) => {
     const state = get();
     if (!state.pipettePresentations.length) return;
-    const queue = advancePipettePresentations(state.pipettePresentations, dt, epoch, isTargetValid);
+    const queue = advancePipettePresentations(state.pipettePresentations, dt, epoch, isTargetValid, emitDropImpact);
     if (queue.length !== state.pipettePresentations.length || queue.some((receipt, i) => receipt !== state.pipettePresentations[i])) set({ pipettePresentations: queue });
   },
   clearPipettePresentations: () => set({ pipettePresentations: [], pipetteDispensing: false }),

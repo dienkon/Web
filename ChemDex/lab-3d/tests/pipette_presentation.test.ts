@@ -97,6 +97,23 @@ describe('pipette transfer presentation receipts', () => {
     expect(first.elapsed_s).toBe(0); expect(second.elapsed_s).toBe(0);
   });
 
+  it('signals only dispensing impacts and follows the scheduled landing of each queued drop', () => {
+    const dispense = makePipettePresentation(input(.12), 1)!;
+    const aspirate = makePipettePresentation(input(.12, 'aspirate'), 2)!;
+    const stream = makePipettePresentation(input(1), 3)!;
+    const landed: [number, number][] = [];
+    const impact = (receipt: typeof dispense, volume_ml: number) => landed.push([receipt.id, volume_ml]);
+    const first = dispense.position_s + dispense.drops[0].flight.flightTime;
+    const inFlight = advancePipettePresentations([dispense, aspirate, stream], first / 2, 7, undefined, impact);
+    expect(landed).toEqual([]);
+    const queue = advancePipettePresentations(inFlight, first * .51, 7, undefined, impact);
+    expect(landed).toEqual([[1, .05]]);
+    advancePipettePresentations(queue, 10, 7, undefined, impact);
+    expect(landed.map(([id]) => id)).toEqual([1, 1, 1, 3]);
+    expect(landed[2][1]).toBeCloseTo(.02, 14);
+    expect(landed[3][1]).toBe(1);
+  });
+
   it('retires a reset or removed/changed target and never reassigns its queued view to another receiver', () => {
     const receipt = makePipettePresentation(input(1), 1)!;
     expect(pipetteTargetUnchanged(receipt, { ...vessel(), volume_ml: 6 })).toBe(true);

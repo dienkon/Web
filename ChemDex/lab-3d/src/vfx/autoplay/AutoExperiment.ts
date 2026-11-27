@@ -18,6 +18,8 @@ import { planSodiumWater } from '../../engine/sodiumWaterPlan';
 import { applyProgramWithThermalSinks } from '../../engine/thermalLedger';
 import { measureGasFlux } from '../../engine/gasFlux';
 import { gasVisualState, gasVolumeRateMl_s, retainedGasVisuals } from '../gasVisualState';
+import { vfxBus } from '../bus';
+import { impactRippleStrength } from '../materials/surfaceRipples';
 import { VesselSimulationManager } from '../../simulation/core/SimulationEngine';
 import { GasCloudRepository } from '../../simulation/effects/GasCloudRepository';
 import { getVesselProfile } from '../../pour/physics/profiles';
@@ -391,6 +393,10 @@ export class AutoExperiment {
               throw new Error(arrival.failureReason ?? 'Bình nhận tràn hoặc không nhận được giọt; phần tràn đã được giữ trong kiểm kê tự động.');
             this.sample.recentPourContact = { point: [...drop.targetLocal], remaining_s: 0.25,
               expiresAt_ms: 0, color: drop.color };
+            if (this.simulateEffects && arrival.contacted_ml > 0) vfxBus.emit('surface:ripple', {
+              vesselId: this.sample.id, scope: this.physics.boilingSystem, localPoint: drop.targetLocal,
+              intensity: impactRippleStrength(arrival.contacted_ml),
+            });
           }
         } else {
           const aliquotContents = donor.components.map(component => ({ ...component,

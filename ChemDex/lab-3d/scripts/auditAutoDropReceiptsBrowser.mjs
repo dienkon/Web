@@ -3,6 +3,7 @@ import assert from 'node:assert/strict';
 import { createHash } from 'node:crypto';
 import { mkdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { resolve } from 'node:path';
+import { prepareLabAuditSession } from './fixtures/labAuditSession.mjs';
 
 const output = resolve(process.env.LAB_AUTO_DROP_OUTPUT ?? 'artifacts/auto-drop-receipts');
 const origin = process.env.LAB_AUDIT_ORIGIN ?? 'http://127.0.0.1:6767';
@@ -16,8 +17,10 @@ const sourceFiles = ['src/handling/dropFlight.ts', 'src/handling/liquidDosePlan.
 const fingerprints = () => Object.fromEntries(sourceFiles.map(file => [file,
   createHash('sha256').update(readFileSync(resolve(file))).digest('hex')]));
 const report = { origin, fluid, errors: [], assertions: {}, sourceBefore: fingerprints() };
-const browser = await chromium.launch({ headless: true, args: ['--use-angle=swiftshader', '--enable-webgl', '--enable-unsafe-swiftshader'] });
+const browser = await chromium.launch({ channel: process.env.LAB_AUTO_DROP_CHANNEL,
+  headless: true, args: ['--use-angle=swiftshader', '--enable-webgl', '--enable-unsafe-swiftshader'] });
 const page = await browser.newPage({ viewport: { width: 1440, height: 960 } });
+await prepareLabAuditSession(page);
 page.setDefaultTimeout(60000);
 await page.routeWebSocket('**', route => {
   const server = route.connectToServer();
@@ -78,13 +81,20 @@ async function stepFrames(count) {
 
 async function capture() {
   return page.evaluate(() => {
-    const e = window.__autoAudit, { scene } = window.__autoStore.getState();
+    const e = window.__autoAudit, { scene, gl: renderer } = window.__autoStore.getState();
     scene.updateMatrixWorld(true);
     const index = window.__autoDropIndex ?? 0, donor = e.donors[index], receipts = donor.liquidDrops ?? [];
     const mesh = scene.getObjectByName('auto_transfer_drops'), ripple = scene.getObjectByName('auto_drop_impact_ripples');
     const splashes = scene.getObjectByName('auto_drop_impact_splashes');
     const outlet = scene.getObjectByName(`auto_dropper_outlet_${index}`);
     const three = window.__autoThree;
+    const cap = scene.getObjectByName(`liquid_surface_${e.sample.id}`);
+    const program = cap && renderer.properties.get(cap.material).currentProgram?.program;
+    const gl = renderer.getContext(), address = program && gl.getUniformLocation(program, 'uSurfaceRipples[0]');
+    const waveform = address ? Array.from(gl.getUniform(program, address)) : null;
+    const landedPoint = receipts.findLast(receipt => receipt.arrived)?.targetLocal;
+    const expectedWaveCenter = landedPoint && cap
+      ? new three.Vector3(...landedPoint).applyMatrix4(cap.matrix.clone().invert()).toArray().slice(0, 2) : null;
     const matrix = new three.Matrix4(), position = new three.Vector3(), rotation = new three.Quaternion(), scale = new three.Vector3();
     const drawn = [];
     if (mesh) for (let i = 0; i < mesh.count; i++) {
@@ -109,6 +119,7 @@ async function capture() {
       accountedMass_g: e.accountedMass_g,
       outletTip: outlet?.localToWorld(new three.Vector3(0, -0.06, 0)).toArray(),
       drawn, expectedFirstDrop: receipts[0] ? flightPosition(receipts[0]) : null,
+      waveform, expectedWaveCenter,
       rippleVisible: !!ripple?.visible, rippleCount: ripple?.count ?? 0,
       splashVisible: !!splashes?.visible, splashCount: splashes?.count ?? 0,
       sharedTransientEffectsMounted: !!scene.getObjectByName(`vessel-transient-effects-${e.sample.id}`),
@@ -172,6 +183,10 @@ try {
   await startMicrodose();
 
   await stepFrames(50);
+  await page.waitForFunction(() => {
+    const mesh = window.__autoStore.getState().scene.getObjectByName('auto_transfer_drops');
+    return mesh?.visible && mesh.count > 0;
+  });
   report.inFlight = await capture();
   const flight = report.inFlight, first = flight.donor.drops[0];
   report.assertions.outletMatchesFirstDropPath = !!flight.outletTip && distance(flight.outletTip, first.flight.start) < 1e-5;
@@ -200,6 +215,10 @@ try {
     && near(report.firstImpact.donor.inFlightMass_g, 0, 1e-7)
     && near(report.firstImpact.accountedMass_g, 0.12 * fluid.density_g_ml, 1e-7)
     && near(report.firstImpact.donor.fraction, 0.05 / 0.12, 1e-7);
+  const { waveform, expectedWaveCenter } = report.firstImpact;
+  report.assertions.liquidShaderRippleStartsAtAcceptedDrop = (!flight.waveform || flight.waveform[3] === 0)
+    && !!waveform && waveform[3] > 0 && !!expectedWaveCenter
+    && distance(waveform.slice(0, 2), expectedWaveCenter) < 1e-5;
   await page.screenshot({ path: resolve(output, '02-first-drop-arrives.png') });
 
   await stepFrames(1);

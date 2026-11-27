@@ -488,8 +488,8 @@ export class BoilingSystem {
         // Capillary surface ripple
         if (params.vesselId) vfxBus.emit('surface:ripple', {
           vesselId: params.vesselId,
-          x: b.x / radius,
-          z: b.z / radius,
+          localPoint: [b.x, b.y, b.z],
+          scope: this,
           intensity: b.radius * 2.2
         });
       }

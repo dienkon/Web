@@ -1,3 +1,6 @@
+type RipplePoint = readonly [number, number, number];
+type SurfaceRippleOrigin = { x: number; z: number } | { localPoint: RipplePoint } | { worldPoint: RipplePoint };
+
 export interface VfxEventMap {
   'camera:shake': { intensity: number; decay_s?: number };
   'vessel:sample-reset': { vesselId: string };
@@ -65,11 +68,11 @@ export interface VfxEventMap {
     color: string;
     cobaltFilter: boolean;
   };
-  'surface:ripple': {
-    x: number;
-    z: number;
+  'surface:ripple': SurfaceRippleOrigin & {
     intensity: number;
     vesselId?: string;
+    /** Isolates simulations that reuse an automatic receiver ID. */
+    scope?: object;
   };
   'vessel:overflow': {
     transported?: boolean;

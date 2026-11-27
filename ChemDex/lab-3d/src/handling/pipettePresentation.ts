@@ -117,11 +117,23 @@ function vesselOrientation(vessel: VesselState): Quaternion {
 /** Carry excess simulated time to the next queued receipt; pause supplies zero.
  * This view queue cannot change or refund any material ledger. */
 export function advancePipettePresentations(queue: readonly PipettePresentation[], dt: number, epoch: number,
-  isTargetValid: (receipt: PipettePresentation) => boolean = () => true): PipettePresentation[] {
+  isTargetValid: (receipt: PipettePresentation) => boolean = () => true,
+  onImpact?: (receipt: PipettePresentation, volume_ml: number) => void): PipettePresentation[] {
   const valid = queue.filter(receipt => receipt.epoch === epoch && isTargetValid(receipt));
   let remaining = Number.isFinite(dt) && dt > 0 ? dt : 0;
   while (valid.length && remaining > 0) {
     const active = valid[0], available = Math.max(0, active.duration_s - active.elapsed_s);
+    if (onImpact && active.direction === 'dispense') {
+      const end = active.elapsed_s + Math.min(remaining, available);
+      if (active.drops.length) {
+        for (const drop of active.drops) {
+          const arrival = active.position_s + drop.release_s + drop.flight.flightTime;
+          if (active.elapsed_s < arrival && arrival <= end) onImpact(active, drop.volume_ml);
+        }
+      } else if (active.elapsed_s < active.position_s && end >= active.position_s) {
+        onImpact(active, active.volume_ml);
+      }
+    }
     if (remaining + 1e-12 >= available) { remaining = Math.max(0, remaining - available); valid.shift(); }
     else { valid[0] = { ...active, elapsed_s: active.elapsed_s + remaining }; remaining = 0; }
   }

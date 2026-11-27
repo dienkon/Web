@@ -63,10 +63,16 @@ export function makeBurettePresentation(input: BurettePresentationInput, id: num
 }
 
 export function advanceBurettePresentations(queue: readonly BurettePresentation[], dt: number, epoch: number,
-  isTargetValid: (receipt: BurettePresentation) => boolean = () => true): BurettePresentation[] {
+  isTargetValid: (receipt: BurettePresentation) => boolean = () => true,
+  onImpact?: (receipt: BurettePresentation) => void): BurettePresentation[] {
   const step = Number.isFinite(dt) && dt > 0 ? dt : 0;
   return queue.filter(receipt => receipt.epoch === epoch && isTargetValid(receipt))
-    .map(receipt => step > 0 ? { ...receipt, elapsed_s: receipt.elapsed_s + step } : receipt)
+    .map(receipt => {
+      if (step === 0) return receipt;
+      const elapsed_s = receipt.elapsed_s + step;
+      if (receipt.elapsed_s < receipt.flight.flightTime && elapsed_s >= receipt.flight.flightTime) onImpact?.(receipt);
+      return { ...receipt, elapsed_s };
+    })
     .filter(receipt => receipt.elapsed_s < receipt.duration_s - 1e-12);
 }
 

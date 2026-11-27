@@ -49,6 +49,19 @@ describe('burette drop presentation', () => {
     expect(advanceBurettePresentations(active, 10, 4)).toEqual([]);
   });
 
+  it('publishes exactly one impact for a valid receipt even when crossing the entire drain phase', () => {
+    const active = makeBurettePresentation(input(), 1)!;
+    const retired = makeBurettePresentation(input(), 2)!;
+    const landed: number[] = [];
+    const impact = (receipt: typeof active) => landed.push(receipt.id);
+    const queued = advanceBurettePresentations([active, retired], active.flight.flightTime / 2, 4, r => r.id === 1, impact);
+    advanceBurettePresentations(queued, 0, 4, undefined, impact);
+    expect(landed).toEqual([]);
+    const ended = advanceBurettePresentations(queued, 10, 4, undefined, impact);
+    advanceBurettePresentations(ended, 1, 4, undefined, impact);
+    expect(landed).toEqual([1]);
+  });
+
   it('rejects nonfinite, empty-color, oversize and excess-batch receipts without clipping actual quantity', () => {
     expect(makeBurettePresentation({ ...input(), volume_ml: .051 }, 1)).toBeNull();
     expect(makeBurettePresentation({ ...input(), volume_ml: 0 }, 1)).toBeNull();
