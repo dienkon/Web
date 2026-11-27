@@ -47,12 +47,16 @@ describe("Minigame artworks, voucher banner & social previews (v2.0.4)", () => {
     const types: MinigameType[] = [
       "horse_race",
       "bee_race",
+      "duck_race",
       "tai_xiu",
       "bau_cua",
       "lucky_number",
       "lucky_wheel",
       "treasure_flip",
       "mystery_box",
+      "plinko_drop",
+      "penalty_shootout",
+      "claw_machine",
     ];
     const seenPaths = new Set<string>();
     for (const t of types) {
@@ -65,7 +69,7 @@ describe("Minigame artworks, voucher banner & social previews (v2.0.4)", () => {
       expect(art.highlights.length).toBeGreaterThanOrEqual(3);
       expect(getMinigameArtworkUrl(BASE_URL, t)).toBe(`${BASE_URL}${art.imagePath}`);
     }
-    expect(Object.keys(MINIGAME_ARTWORK_MAP)).toHaveLength(8);
+    expect(Object.keys(MINIGAME_ARTWORK_MAP)).toHaveLength(12);
   });
 
   it("resolves Minigame hub and game-filtered URLs with per-game 1200x630 artwork", async () => {

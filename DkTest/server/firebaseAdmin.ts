@@ -119,6 +119,36 @@ export function initFirebaseAdmin() {
 export const { adminApp, adminAuth, adminDb, isConfigured } = initFirebaseAdmin();
 export { FieldValue };
 
+let adminRtdbInstance: any = undefined;
+
+export function getAdminRtdb(): any {
+  if (adminRtdbInstance !== undefined) return adminRtdbInstance;
+  if (!adminApp) {
+    adminRtdbInstance = null;
+    return null;
+  }
+  try {
+    const nativeRequire = getNativeRequire();
+    if (!nativeRequire) {
+      adminRtdbInstance = null;
+      return null;
+    }
+    const { getDatabaseWithUrl, getDatabase } = nativeRequire("firebase-admin/database");
+    const dbUrl =
+      process.env.FIREBASE_DATABASE_URL ||
+      process.env.VITE_FIREBASE_DATABASE_URL ||
+      "https://exam-fd7a1-default-rtdb.firebaseio.com";
+    adminRtdbInstance = getDatabaseWithUrl
+      ? getDatabaseWithUrl(dbUrl, adminApp)
+      : getDatabase(adminApp, dbUrl);
+    return adminRtdbInstance;
+  } catch (err) {
+    console.warn("[FirebaseAdmin] Could not initialize Admin RTDB:", err);
+    adminRtdbInstance = null;
+    return null;
+  }
+}
+
 // -------------------------------------------------------------
 // FIRESTORE REST API FALLBACK UTILITIES
 // -------------------------------------------------------------

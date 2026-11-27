@@ -6,7 +6,7 @@ import {
   subscribeMinigameCheers,
 } from "../../services/minigameClientService";
 
-const CHEER_EMOJIS = ["🔥", "🐎", "🐝", "🎉", "👏", "🍀", "⚡"];
+const CHEER_EMOJIS = ["🔥", "🐎", "🐝", "🦆", "⚽", "🎉", "👏", "🍀"];
 
 interface LiveCheerBarProps {
   eventId: string;

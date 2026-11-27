@@ -268,6 +268,94 @@ const BeeRacerSvg: React.FC<{
   );
 };
 
+/**
+ * Cute Sunglasses Rubber Duck surfing foaming river rapids (`duck_race`)!
+ */
+const DuckRacerSvg: React.FC<{
+  jerseyColor: string;
+  racerNumber: number;
+  stridePhase: number;
+  isMoving: boolean;
+  isSprinting: boolean;
+}> = ({ jerseyColor, racerNumber, stridePhase, isMoving, isSprinting }) => {
+  const bob = isMoving ? Math.sin(stridePhase * 1.15) * 3.2 : 0;
+  const rock = isMoving ? Math.cos(stridePhase) * 5.5 : 0;
+  const wingFlap = isMoving ? Math.sin(stridePhase * 2) * 12 : 0;
+
+  return (
+    <svg
+      viewBox="0 0 100 62"
+      className="w-[74px] h-[46px] sm:w-[90px] sm:h-[54px] overflow-visible drop-shadow-[0_4px_5px_rgba(2,132,199,0.45)]"
+    >
+      {/* Foaming wake trail */}
+      {isMoving && (
+        <g opacity={0.85}>
+          <path
+            d={`M 4 ${48 + (bob % 2)} Q 16 42, 28 49 T 48 49`}
+            fill="none"
+            stroke="#e0f2fe"
+            strokeWidth="3.5"
+            strokeLinecap="round"
+          />
+          <circle cx={10 - ((stridePhase * 4) % 12)} cy={46} r="3" fill="#ffffff" opacity="0.9" />
+          <circle cx={18 - ((stridePhase * 6) % 14)} cy={51} r="2.2" fill="#bae6fd" />
+        </g>
+      )}
+      {isSprinting && (
+        <path
+          d="M -12 30 L 14 28 M -8 38 L 16 37"
+          stroke="#fde047"
+          strokeWidth="2.8"
+          strokeLinecap="round"
+        />
+      )}
+
+      <g transform={`translate(0, ${bob}) rotate(${rock}, 52, 38)`}>
+        {/* Colorful Swim Ring */}
+        <ellipse
+          cx="50"
+          cy="46"
+          rx="26"
+          ry="8.5"
+          fill={jerseyColor}
+          stroke="#ffffff"
+          strokeWidth="2.5"
+        />
+        {/* Golden Duck Body */}
+        <path
+          d="M 28 38 C 25 27, 36 22, 50 25 C 62 27, 70 33, 68 42 C 66 47, 34 47, 28 38 Z"
+          fill="#facc15"
+          stroke="#ca8a04"
+          strokeWidth="1.5"
+        />
+        {/* Flapping Wing */}
+        <path
+          d="M 38 31 C 46 28, 55 32, 52 39 C 46 42, 37 39, 38 31 Z"
+          fill="#eab308"
+          stroke="#a16207"
+          strokeWidth="1.2"
+          transform={`rotate(${wingFlap}, 42, 34)`}
+        />
+        {/* Duck Head */}
+        <circle cx="63" cy="21" r="11.5" fill="#fde047" stroke="#ca8a04" strokeWidth="1.5" />
+        {/* Racing Cap */}
+        <path d="M 53 15 Q 63 6, 73 15 L 78 16 L 52 17 Z" fill={jerseyColor} />
+        {/* Cool Aviator Sunglasses */}
+        <rect x="61" y="17" width="11" height="5.5" rx="2" fill="#0f172a" />
+        <line x1="55" y1="19" x2="61" y2="19" stroke="#0f172a" strokeWidth="1.8" />
+        <line x1="63" y1="18.5" x2="67" y2="18.5" stroke="#38bdf8" strokeWidth="1.2" />
+        {/* Orange Beak */}
+        <path d="M 73 21 L 84 23.5 L 73 27 Z" fill="#f97316" stroke="#c2410c" strokeWidth="1" />
+        {/* Number Badge */}
+        <circle cx="44" cy="36" r="7.5" fill="#ffffff" stroke={jerseyColor} strokeWidth="2" />
+        <text x="44" y="39.5" textAnchor="middle" fontSize="9" fontWeight="900" fill="#0f172a">
+          {racerNumber}
+        </text>
+      </g>
+    </svg>
+  );
+};
+
 interface RaceTrackStageProps {
   event: MinigameEvent;
   currentUid?: string;
@@ -286,6 +374,7 @@ export const RaceTrackStage: React.FC<RaceTrackStageProps> = ({
   busy = false,
 }) => {
   const isBee = event.gameType === "bee_race";
+  const isDuck = event.gameType === "duck_race";
   const [selectedHeatId, setSelectedHeatId] = useState<string | null>(event.activeHeatId);
   const [muted, setMuted] = useState(false);
   const [nowMs, setNowMs] = useState(() => Date.now());
@@ -327,14 +416,14 @@ export const RaceTrackStage: React.FC<RaceTrackStageProps> = ({
         playRaceStartFanfare(muted);
       }
 
-      // Rhythmic hoof/wing ticks during race
+      // Rhythmic hoof/wing/water ticks during race
       if (
         t >= activeHeat.startAtMs! &&
         t < activeHeat.startAtMs! + activeHeat.durationMs &&
-        t - lastTickSound > (isBee ? 260 : 210)
+        t - lastTickSound > (isBee || isDuck ? 250 : 210)
       ) {
         lastTickSound = t;
-        playGallopTick(muted, isBee);
+        playGallopTick(muted, isBee || isDuck);
       }
 
       // Finish chime & confetti when last racer crosses line
@@ -363,7 +452,7 @@ export const RaceTrackStage: React.FC<RaceTrackStageProps> = ({
 
     rafId = requestAnimationFrame(tick);
     return () => cancelAnimationFrame(rafId);
-  }, [activeHeat?.heatId, activeHeat?.status, activeHeat?.startAtMs, muted, isBee, isAdmin]);
+  }, [activeHeat?.heatId, activeHeat?.status, activeHeat?.startAtMs, muted, isBee, isDuck, isAdmin]);
 
   const countdownSec = useMemo(() => {
     if (!activeHeat || activeHeat.status !== "racing" || !activeHeat.startAtMs) return 0;
@@ -569,7 +658,9 @@ export const RaceTrackStage: React.FC<RaceTrackStageProps> = ({
       {/* MAIN STADIUM / RACE TRACK */}
       <div
         className={`relative rounded-3xl overflow-hidden border-2 shadow-xl ${
-          isBee
+          isDuck
+            ? "border-cyan-400 bg-gradient-to-b from-sky-400 via-cyan-600 to-sky-900"
+            : isBee
             ? "border-amber-400 bg-gradient-to-b from-sky-300 via-amber-100 to-lime-200 dark:from-slate-900 dark:via-amber-950/40 dark:to-slate-950"
             : "border-emerald-700 bg-gradient-to-b from-sky-500 via-emerald-700 to-emerald-900"
         }`}
@@ -577,11 +668,21 @@ export const RaceTrackStage: React.FC<RaceTrackStageProps> = ({
         {/* Top Stadium Banner & Distance Markers */}
         <div
           className={`px-4 py-2.5 flex items-center justify-between text-xs font-black ${
-            isBee ? "bg-amber-500 text-slate-950" : "bg-emerald-950/85 text-emerald-100"
+            isDuck
+              ? "bg-sky-950/90 text-cyan-100"
+              : isBee
+              ? "bg-amber-500 text-slate-950"
+              : "bg-emerald-950/85 text-emerald-100"
           }`}
         >
           <div className="flex items-center gap-2">
-            <span>{isBee ? "🐝 TRƯỜNG ĐUA ONG MẬT" : "🐎 TRƯỜNG ĐUA NGỰA PHÚC LỢI"}</span>
+            <span>
+              {isDuck
+                ? "🦆 THÁC ĐUA VỊT SIÊU TỐC"
+                : isBee
+                ? "🐝 TRƯỜNG ĐUA ONG MẬT"
+                : "🐎 TRƯỜNG ĐUA NGỰA PHÚC LỢI"}
+            </span>
             <span className="px-2 py-0.5 rounded-full bg-white/20 text-[10px]">
               {activeHeat.roundName}
             </span>
@@ -596,7 +697,9 @@ export const RaceTrackStage: React.FC<RaceTrackStageProps> = ({
         {/* Live Commentary & Animated Scenic Grandstand Parallax Strip */}
         <div
           className={`relative h-14 overflow-hidden border-b border-white/20 ${
-            isBee
+            isDuck
+              ? "bg-gradient-to-b from-sky-400 via-cyan-300 to-sky-500"
+              : isBee
               ? "bg-gradient-to-b from-sky-400 via-sky-200 to-amber-100"
               : "bg-gradient-to-b from-sky-500 via-sky-300 to-emerald-400"
           }`}
@@ -610,7 +713,7 @@ export const RaceTrackStage: React.FC<RaceTrackStageProps> = ({
               <div key={c} className="w-16 h-4 rounded-full bg-white/80 blur-[1px] shrink-0 mx-8" />
             ))}
           </div>
-          {/* Stadium crowd / flower meadow silhouette */}
+          {/* Stadium crowd / flower meadow / tropical waterfall silhouette */}
           <div
             className="absolute bottom-0 left-0 right-[-240px] h-5 flex items-end gap-2 opacity-75 pointer-events-none"
             style={{ transform: `translateX(-${(parallaxShiftPx * 1.4) % 120}px)` }}
@@ -625,7 +728,21 @@ export const RaceTrackStage: React.FC<RaceTrackStageProps> = ({
                     : undefined,
                 }}
               >
-                {isBee ? (i % 3 === 0 ? "🌻" : i % 3 === 1 ? "🌼" : "🌸") : i % 4 === 0 ? "🚩" : "🙌"}
+                {isDuck
+                  ? i % 3 === 0
+                    ? "🌊"
+                    : i % 3 === 1
+                    ? "🫧"
+                    : "🌴"
+                  : isBee
+                  ? i % 3 === 0
+                    ? "🌻"
+                    : i % 3 === 1
+                    ? "🌼"
+                    : "🌸"
+                  : i % 4 === 0
+                  ? "🚩"
+                  : "🙌"}
               </span>
             ))}
           </div>
@@ -696,7 +813,11 @@ export const RaceTrackStage: React.FC<RaceTrackStageProps> = ({
               <div
                 key={item.uid}
                 className={`relative h-[66px] sm:h-[74px] flex items-center transition-colors ${
-                  isBee
+                  isDuck
+                    ? idx % 2 === 0
+                      ? "bg-sky-500/75"
+                      : "bg-cyan-600/80"
+                    : isBee
                     ? idx % 2 === 0
                       ? "bg-amber-50/70 dark:bg-amber-950/25"
                       : "bg-lime-50/70 dark:bg-emerald-950/25"
@@ -724,7 +845,15 @@ export const RaceTrackStage: React.FC<RaceTrackStageProps> = ({
                   className="absolute top-1/2 -translate-y-1/2 z-20 will-change-transform"
                   style={{ left: `${leftPct}%` }}
                 >
-                  {isBee ? (
+                  {isDuck ? (
+                    <DuckRacerSvg
+                      jerseyColor={item.color}
+                      racerNumber={item.number}
+                      stridePhase={item.state.stridePhase}
+                      isMoving={isActivelyRunning && !item.state.isFinished}
+                      isSprinting={item.state.isSprinting}
+                    />
+                  ) : isBee ? (
                     <BeeRacerSvg
                       jerseyColor={item.color}
                       racerNumber={item.number}

@@ -1,5 +1,20 @@
 # DkTEST changelog
 
+## 2.1.1 — 2026-11-27 (Android versionCode 35)
+
+- **Sửa triệt để lỗi Chat Realtime Minigame bị giật & nhảy phiên — Hợp nhất thành 1 Kênh Chat Chung Liên Tục (`server/firebaseAdmin.ts`, `server/services/minigameService.ts`, `server/routes/minigameStudentRoutes.ts`, `src/services/minigameClientService.ts`, `src/components/minigame/MinigameRealtimeChat.tsx`)**:
+  - **Xử lý tận gốc lỗi tách phiên trên Vercel Serverless (`split-brain`)**: thay thế bộ nhớ `Map` cục bộ theo từng Lambda instance bằng tầng lưu trữ chia sẻ trên **Firebase Admin Realtime Database (`getAdminRtdb()`, node `minigame_chat/global`)** kết hợp bộ đệm RAM `1.2s` và fallback an toàn, giữ nguyên **0 lượt đọc/ghi Firestore** trong điều kiện chuẩn mà mọi request đều thấy chung 1 lịch sử chat xuyên suốt.
+  - **Xóa bỏ hoàn toàn hiện tượng giật / trắng khung chat ở Client**: loại bỏ thao tác ghi trực tiếp RTDB phía trình duyệt (vốn gây optimistic fire rồi bị `PERMISSION_DENIED` rollback xóa trắng mảng `[]`), áp dụng bộ gộp đơn điệu **`mergeChatMessagesMonotonically`** (không bao giờ co rút hay xóa tin nhắn khi mạng chập chờn, giữ nguyên `id` cố định khi chuyển từ `pending` sang xác nhận để React không remount), đồng bộ tức thì từ `sessionStorage`, chặn re-render thừa bằng chữ ký `lastSignature`, và tự cuộn mượt chỉ khi người xem đang ở cuối khung chat.
+  - **1 Kênh Chat Chung Xuyên Suốt (`MINIGAME_UNIFIED_CHAT_ROOM = "global"`)**: kết nối Sảnh Minigame, Khu Tự Chơi 0đ, toàn bộ phòng Sự Kiện Live và Sảnh Admin thành một mạch trò chuyện duy nhất kèm nhãn `roomTag` hiển thị nguồn gửi.
+- **Thiết kế 4 Trò Chơi Sự Kiện Phúc Lợi Trực Tiếp Mới — Nâng tổng lên 12 Minigame Live (`gameLogic.ts`, `minigameAssets.ts`, `RaceTrackStage.tsx`, `PlinkoDropStage.tsx`, `PenaltyShootoutStage.tsx`, `ClawMachineStage.tsx`, `scripts/generate-minigame-banners.js`)**:
+  - **🦆 Đua Vịt Vượt Thác (`duck_race`)**: đường đua thác nước sủi bọt với đàn vịt vàng đeo kính râm cưỡi phao bơi chia bảng loại trực tiếp 2–64 tay đua.
+  - **🪩 Thả Bóng Ziczac Neon (`plinko_drop`)**: tháp đinh Plinko 7 tầng phát sáng đồng bộ quỹ đạo `plinkoPath` rơi vào 7 cổng thưởng.
+  - **⚽ Sút Luân Lưu Siêu Cúp (`penalty_shootout`)**: cầu trường bóng đá 5 góc khung thành với 2 góc vàng ghi bàn và hoạt ảnh thủ môn bay người cản phá.
+  - **🧸 Gắp Thú Nhân Phẩm (`claw_machine`)**: tủ kính Arcade 8 thú bông siêu cưng với càng gắp tự động di chuyển và thả quà trực tiếp, đi kèm đầy đủ bộ ảnh bìa `1200×630` `.jpg`.
+- **Xây dựng Khu Tự Chơi Miễn Phí 24/7 (`0đ`, Không Tốn Phí, Không Cần Chờ Admin) (`SoloMinigameArcade.tsx`, `StudentMinigame.tsx`, `MinigameManagement.tsx`)**:
+  - Bổ sung 5 trò chơi giải trí cá nhân chơi ngay lập tức hoàn toàn miễn phí (`0đ`, `0` Firestore reads, lưu kỷ lục cá nhân trên thiết bị và nút **1 chạm khoe kỷ lục lên Kênh Chat Chung**): **⚡ Toán Nhẩm Thần Tốc 30s**, **🃏 Lật Hình Trí Nhớ 4×4**, **🔨 Đập Chuột Xả Stress 30s**, **💎 Dò Kho Báu Né Cua 5×5** và **🎡 Máy Nhân Phẩm Tự Do (Vòng Quay • Ziczac • Bầu Cua)**.
+- Audit: [2.1.1](docs/audits/2.1.1.md).
+
 ## 2.1.0 — 2026-11-27 (Android versionCode 34)
 
 - **Quét cạn & Giải nén sâu toàn bộ Link Đề Thi từ 7 Kho Nguồn Lớn — Nâng tổng kho lên 28.000 Tài liệu & 717 Thư mục (`scripts/scrape-document-library.mjs`, `public/data/document-library-seed.json`, `public/data/document-library-packs.json`, `documentLibrary.ts`, `documentLibraryClientService.ts`)**:

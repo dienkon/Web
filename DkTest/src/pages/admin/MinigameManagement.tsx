@@ -43,6 +43,7 @@ import {
   fetchAdminMinigamesApi,
   fillMinigameBotsApi,
   launchRaceHeatApi,
+  MINIGAME_UNIFIED_CHAT_ROOM,
   resetMinigameDemoApi,
   startMinigameApi,
   subscribeMinigameEventRealtime,
@@ -55,6 +56,9 @@ import { LuckyNumberStage } from "../../components/minigame/LuckyNumberStage";
 import { LuckyWheelStage } from "../../components/minigame/LuckyWheelStage";
 import { TreasureFlipStage } from "../../components/minigame/TreasureFlipStage";
 import { MysteryBoxStage } from "../../components/minigame/MysteryBoxStage";
+import { PlinkoDropStage } from "../../components/minigame/PlinkoDropStage";
+import { PenaltyShootoutStage } from "../../components/minigame/PenaltyShootoutStage";
+import { ClawMachineStage } from "../../components/minigame/ClawMachineStage";
 import { WinnersPodiumCard } from "../../components/minigame/WinnersPodiumCard";
 import { LiveCheerBar } from "../../components/minigame/LiveCheerBar";
 import { MinigameRealtimeChat } from "../../components/minigame/MinigameRealtimeChat";
@@ -67,7 +71,10 @@ function defaultPrizesForGame(gameType: MinigameType): MinigamePrize[] {
     gameType === "lucky_number" ||
     gameType === "lucky_wheel" ||
     gameType === "treasure_flip" ||
-    gameType === "mystery_box"
+    gameType === "mystery_box" ||
+    gameType === "plinko_drop" ||
+    gameType === "penalty_shootout" ||
+    gameType === "claw_machine"
   ) {
     return [
       {
@@ -81,6 +88,12 @@ function defaultPrizesForGame(gameType: MinigameType): MinigamePrize[] {
             ? "Mở trúng Rương Kho Báu"
             : gameType === "mystery_box"
             ? "Đập trúng Hộp Đặc Biệt"
+            : gameType === "plinko_drop"
+            ? "Trúng cổng Bóng Ziczac"
+            : gameType === "penalty_shootout"
+            ? "Sút trúng Góc Vàng vào lưới"
+            : gameType === "claw_machine"
+            ? "Gắp trúng Thú Bông may mắn"
             : "Người dự đoán đúng",
         type: "wallet_vnd",
         amountVnd: gameType === "lucky_number" ? 20000 : 10000,
@@ -175,7 +188,7 @@ export default function MinigameManagement() {
   const handleSelectGameType = (type: MinigameType) => {
     setGameType(type);
     setPrizes(defaultPrizesForGame(type));
-    if (type === "horse_race" || type === "bee_race") {
+    if (type === "horse_race" || type === "bee_race" || type === "duck_race") {
       setMaxParticipants(8);
       setRacersPerHeat(4);
     } else {
@@ -264,7 +277,9 @@ export default function MinigameManagement() {
       setToast({
         type: "success",
         message:
-          updated.gameType === "horse_race" || updated.gameType === "bee_race"
+          updated.gameType === "horse_race" ||
+          updated.gameType === "bee_race" ||
+          updated.gameType === "duck_race"
             ? "Đã khóa đăng ký & chia bảng đấu! Bấm Xuất phát để bắt đầu lượt đua."
             : "Đã bắt đầu quay thưởng trực tiếp trên toàn bộ màn hình học sinh!",
       });
@@ -428,7 +443,9 @@ export default function MinigameManagement() {
   );
 
   const isRace =
-    selectedEvent?.gameType === "horse_race" || selectedEvent?.gameType === "bee_race";
+    selectedEvent?.gameType === "horse_race" ||
+    selectedEvent?.gameType === "bee_race" ||
+    selectedEvent?.gameType === "duck_race";
 
   return (
     <div className="p-4 lg:p-6 max-w-[1400px] mx-auto space-y-5">
@@ -608,6 +625,12 @@ export default function MinigameManagement() {
                       ? "Lật 9 Rương Kho Báu!"
                       : selectedEvent.gameType === "mystery_box"
                       ? "Đập Hộp Bí Ẩn ngay!"
+                      : selectedEvent.gameType === "plinko_drop"
+                      ? "Thả bóng Ziczac Neon ngay!"
+                      : selectedEvent.gameType === "penalty_shootout"
+                      ? "Sút Luân Lưu Siêu Cúp!"
+                      : selectedEvent.gameType === "claw_machine"
+                      ? "Hạ càng Gắp Thú ngay!"
                       : "Mở bát & Công bố kết quả!"}
                   </span>
                 </button>
@@ -791,6 +814,9 @@ export default function MinigameManagement() {
           {selectedEvent.gameType === "lucky_wheel" && <LuckyWheelStage event={selectedEvent} />}
           {selectedEvent.gameType === "treasure_flip" && <TreasureFlipStage event={selectedEvent} />}
           {selectedEvent.gameType === "mystery_box" && <MysteryBoxStage event={selectedEvent} />}
+          {selectedEvent.gameType === "plinko_drop" && <PlinkoDropStage event={selectedEvent} />}
+          {selectedEvent.gameType === "penalty_shootout" && <PenaltyShootoutStage event={selectedEvent} />}
+          {selectedEvent.gameType === "claw_machine" && <ClawMachineStage event={selectedEvent} />}
 
           {/* Winners Podium + One-click Auto Distribute Prizes */}
           <WinnersPodiumCard
@@ -813,6 +839,7 @@ export default function MinigameManagement() {
           {user && (
             <MinigameRealtimeChat
               eventId={selectedEvent.id}
+              roomTag={selectedEvent.title}
               currentUid={user.uid}
               currentDisplayName={userProfile?.displayName || "Admin"}
               currentAvatarUrl={userProfile?.photoURL || user.photoURL || undefined}
@@ -983,6 +1010,19 @@ export default function MinigameManagement() {
             })
           )}
         </div>
+      )}
+
+      {/* Unified Realtime Minigame Chat on Admin Overview */}
+      {!selectedEvent && user && (
+        <MinigameRealtimeChat
+          eventId={MINIGAME_UNIFIED_CHAT_ROOM}
+          roomTag="Sảnh Admin"
+          currentUid={user.uid}
+          currentDisplayName={userProfile?.displayName || "Admin"}
+          currentAvatarUrl={userProfile?.photoURL || user.photoURL || undefined}
+          isAdmin
+          chatEnabled
+        />
       )}
 
       {/* Broadcast Push Notification Modal */}
@@ -1192,7 +1232,7 @@ export default function MinigameManagement() {
               </div>
 
               {/* Participant Capacity & Bracket Settings */}
-              {gameType === "horse_race" || gameType === "bee_race" ? (
+              {gameType === "horse_race" || gameType === "bee_race" || gameType === "duck_race" ? (
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                   <div className="space-y-1.5">
                     <label className="block text-xs font-bold text-slate-700 dark:text-slate-300">
@@ -1237,7 +1277,13 @@ export default function MinigameManagement() {
 
                   <div className="space-y-1.5">
                     <label className="block text-xs font-bold text-slate-700 dark:text-slate-300">
-                      Số {gameType === "bee_race" ? "ong" : "ngựa"} chạy mỗi lượt đua
+                      Số{" "}
+                      {gameType === "duck_race"
+                        ? "vịt"
+                        : gameType === "bee_race"
+                        ? "ong"
+                        : "ngựa"}{" "}
+                      chạy mỗi lượt đua
                     </label>
                     <div className="grid grid-cols-3 gap-1.5">
                       {[2, 4, 8].map((per) => (
@@ -1356,7 +1402,7 @@ export default function MinigameManagement() {
                 </div>
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 pt-1 border-t border-indigo-200/50 dark:border-indigo-800/50">
-                  {gameType === "horse_race" || gameType === "bee_race" ? (
+                  {gameType === "horse_race" || gameType === "bee_race" || gameType === "duck_race" ? (
                     <div className="flex items-center justify-between gap-2 text-xs">
                       <span className="font-bold text-slate-700 dark:text-slate-300">
                         Thời gian mỗi lượt đua (giây):

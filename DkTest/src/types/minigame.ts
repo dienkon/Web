@@ -1,12 +1,16 @@
 export type MinigameType =
   | "horse_race"
   | "bee_race"
+  | "duck_race"
   | "tai_xiu"
   | "bau_cua"
   | "lucky_number"
   | "lucky_wheel"
   | "treasure_flip"
-  | "mystery_box";
+  | "mystery_box"
+  | "plinko_drop"
+  | "penalty_shootout"
+  | "claw_machine";
 
 export type MinigameStatus = "lobby" | "running" | "finished" | "cancelled";
 
@@ -77,6 +81,18 @@ export interface MinigamePartyResult {
   treasureWinningIndices?: number[];
   /** Đập hộp bí ẩn (winning box 1..6) */
   mysteryWinningBox?: number;
+  /** Thả bóng Ziczac Plinko (slot index 0..6, slot id, bounce path) */
+  plinkoSlotIndex?: number;
+  plinkoSlotId?: string;
+  plinkoSlotLabel?: string;
+  plinkoPath?: number[];
+  /** Sút luân lưu Siêu Cúp (2 winning goal zones in 1..5 + keeper dive zone) */
+  penaltyWinningZones?: number[];
+  penaltyKeeperZone?: number;
+  /** Gắp thú nhân phẩm (plushie index 0..7 + plushie id) */
+  clawPlushieIndex?: number;
+  clawPlushieId?: string;
+  clawPlushieLabel?: string;
 }
 
 export interface MinigameWinnerRecord {
@@ -104,16 +120,16 @@ export interface MinigameEvent {
   status: MinigameStatus;
   /** Strictly 0 — all minigames are 100% free welfare events, NEVER paid gambling */
   entryFeeVnd: 0;
-  /** For horse_race / bee_race: 2..64 (presets 2, 4, 8, 16, 32). For party games: 2..200 */
+  /** For horse_race / bee_race / duck_race: 2..64. For party games: 2..200 */
   maxParticipants: number;
-  /** Number of racers per heat for horse_race / bee_race (2..8, presets 2, 4, 8) */
+  /** Number of racers per heat for horse_race / bee_race / duck_race (2..8) */
   racersPerHeat: number;
   prizes: MinigamePrize[];
   participants: Record<string, MinigameParticipant>;
-  /** Tournament heats for horse_race / bee_race */
+  /** Tournament heats for horse_race / bee_race / duck_race */
   heats: MinigameRaceHeat[];
   activeHeatId: string | null;
-  /** Party game result (tai_xiu, bau_cua, lucky_number) */
+  /** Party game result */
   partyResult: MinigamePartyResult | null;
   winners: MinigameWinnerRecord[];
   prizesDistributedAt?: string | null;
@@ -146,5 +162,7 @@ export interface MinigameChatMessage {
   avatarUrl?: string;
   isAdmin?: boolean;
   message: string;
+  roomTag?: string;
+  pending?: boolean;
   createdAt: number;
 }

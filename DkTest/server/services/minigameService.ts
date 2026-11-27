@@ -3,6 +3,7 @@ import { z } from "zod";
 import {
   adminDb,
   deleteFirestoreRestDoc,
+  getAdminRtdb,
   getFirestoreRestDoc,
   getFirestoreRestDocs,
   setFirestoreRestDoc,
@@ -22,15 +23,22 @@ import {
 } from "../../src/services/minigame/raceEngine.js";
 import {
   BAU_CUA_FACES,
+  CLAW_PLUSHIES,
   LUCKY_WHEEL_SECTORS,
   MYSTERY_BOXES,
+  PENALTY_WINNING_ZONE_COUNT,
+  PENALTY_ZONES,
+  PLINKO_SLOTS,
   TREASURE_CHEST_COUNT,
   TREASURE_WINNING_COUNT,
   buildRaceWinners,
   evaluateBauCuaWinners,
+  evaluateClawMachineWinners,
   evaluateLuckyNumberWinners,
   evaluateLuckyWheelWinners,
   evaluateMysteryBoxWinners,
+  evaluatePenaltyShootoutWinners,
+  evaluatePlinkoDropWinners,
   evaluateTaiXiuWinners,
   evaluateTreasureFlipWinners,
 } from "../../src/services/minigame/gameLogic.js";
@@ -44,50 +52,150 @@ import { publishDeviceNotification } from "./notificationPushService.js";
 import type { MinigameChatMessage, MinigameCheerMessage } from "../../src/types/minigame.js";
 
 const COL_MINIGAMES = "minigame_events";
+export const MINIGAME_UNIFIED_CHAT_ROOM = "global";
 
-// In-memory ring buffer for live cheers per event (0 Firestore reads/writes, zero RTDB permission_denied errors)
+function sanitizeRtdbRoomKey(raw: string): string {
+  const cleaned = String(raw || MINIGAME_UNIFIED_CHAT_ROOM)
+    .trim()
+    .replace(/[.#$/\[\]]/g, "_")
+    .slice(0, 80);
+  return cleaned || MINIGAME_UNIFIED_CHAT_ROOM;
+}
+
+function stripUndefinedFields<T extends Record<string, any>>(obj: T): Record<string, any> {
+  const out: Record<string, any> = {};
+  for (const [k, v] of Object.entries(obj)) {
+    if (v !== undefined) out[k] = v;
+  }
+  return out;
+}
+
+// In-memory ring buffer + serverless cache for live cheers (0 Firestore reads/writes)
 const liveCheersByEvent = new Map<string, MinigameCheerMessage[]>();
+const cheerReadCacheByRoom = new Map<string, { items: MinigameCheerMessage[]; expiresAt: number }>();
 
 export function addLiveMinigameCheer(
   eventId: string,
-  cheer: { uid: string; displayName: string; emoji: string; text?: string }
+  cheer: { id?: string; uid: string; displayName: string; emoji: string; text?: string }
 ): MinigameCheerMessage {
+  const roomKey = sanitizeRtdbRoomKey(eventId);
+  const safeId =
+    cheer.id && /^[a-zA-Z0-9_-]{4,64}$/.test(cheer.id) ? cheer.id : makeId("ch");
   const msg: MinigameCheerMessage = {
-    id: makeId("ch"),
+    id: safeId,
     uid: cheer.uid,
     displayName: (cheer.displayName || "Người xem").slice(0, 60),
     emoji: (cheer.emoji || "🔥").slice(0, 8),
     text: (cheer.text || "").slice(0, 80),
     createdAt: Date.now(),
   };
-  const existing = liveCheersByEvent.get(eventId) || [];
-  const next = [msg, ...existing.filter((m) => Date.now() - m.createdAt < 60_000)].slice(0, 24);
-  liveCheersByEvent.set(eventId, next);
+  const existing = liveCheersByEvent.get(roomKey) || [];
+  const filtered = existing.filter((m) => m.id !== msg.id && Date.now() - m.createdAt < 90_000);
+  const next = [msg, ...filtered].slice(0, 24);
+  liveCheersByEvent.set(roomKey, next);
+  cheerReadCacheByRoom.delete(roomKey);
   return msg;
 }
 
 export function listLiveMinigameCheers(eventId: string): MinigameCheerMessage[] {
-  const existing = liveCheersByEvent.get(eventId) || [];
-  const fresh = existing.filter((m) => Date.now() - m.createdAt < 60_000);
-  liveCheersByEvent.set(eventId, fresh);
+  const roomKey = sanitizeRtdbRoomKey(eventId);
+  const existing = liveCheersByEvent.get(roomKey) || [];
+  const fresh = existing.filter((m) => Date.now() - m.createdAt < 90_000);
+  liveCheersByEvent.set(roomKey, fresh);
   return fresh.slice(0, 12);
 }
 
-// In-memory ring buffer for realtime room chat (0 Firestore reads/writes; paired with RTDB on client)
+export async function appendPersistentMinigameCheer(
+  eventId: string,
+  cheer: { id?: string; uid: string; displayName: string; emoji: string; text?: string }
+): Promise<{ cheer: MinigameCheerMessage; cheers: MinigameCheerMessage[] }> {
+  const roomKey = sanitizeRtdbRoomKey(eventId);
+  const msg = addLiveMinigameCheer(roomKey, cheer);
+  const adminRtdb = getAdminRtdb();
+  if (adminRtdb) {
+    try {
+      await adminRtdb
+        .ref(`minigame_cheers/${roomKey}/${msg.id}`)
+        .set(stripUndefinedFields(msg));
+    } catch {
+      // Non-fatal fallback to in-memory buffer
+    }
+  }
+  const cheers = await getPersistentMinigameCheers(roomKey, true);
+  return { cheer: msg, cheers };
+}
+
+export async function getPersistentMinigameCheers(
+  eventId: string,
+  bypassCache = false
+): Promise<MinigameCheerMessage[]> {
+  const roomKey = sanitizeRtdbRoomKey(eventId);
+  const now = Date.now();
+  const cached = cheerReadCacheByRoom.get(roomKey);
+  if (!bypassCache && cached && cached.expiresAt > now) {
+    return cached.items;
+  }
+
+  const localItems = listLiveMinigameCheers(roomKey);
+  const merged = new Map<string, MinigameCheerMessage>();
+  for (const item of localItems) merged.set(item.id, item);
+
+  const adminRtdb = getAdminRtdb();
+  if (adminRtdb) {
+    try {
+      const snap = await adminRtdb
+        .ref(`minigame_cheers/${roomKey}`)
+        .limitToLast(24)
+        .once("value");
+      const rawObj = snap?.val();
+      if (rawObj && typeof rawObj === "object") {
+        for (const [key, raw] of Object.entries(rawObj as Record<string, any>)) {
+          const createdAt = Number(raw?.createdAt) || 0;
+          if (!raw?.emoji || now - createdAt >= 90_000) continue;
+          const id = String(raw?.id || key);
+          merged.set(id, {
+            id,
+            uid: String(raw.uid || ""),
+            displayName: String(raw.displayName || "Người xem"),
+            emoji: String(raw.emoji),
+            text: raw.text ? String(raw.text) : "",
+            createdAt,
+          });
+        }
+      }
+    } catch {
+      // Fallback to localItems
+    }
+  }
+
+  const sorted = Array.from(merged.values())
+    .sort((a, b) => b.createdAt - a.createdAt)
+    .slice(0, 12);
+  liveCheersByEvent.set(roomKey, sorted);
+  cheerReadCacheByRoom.set(roomKey, { items: sorted, expiresAt: now + 1500 });
+  return sorted;
+}
+
+// Shared Realtime Chat Store: Admin RTDB primary (shared across ALL Vercel Serverless instances,
+// 0 Firestore reads/writes!) + 1.2s RAM read cache + synchronous ring buffer for instant local/test access.
 const liveChatByEvent = new Map<string, MinigameChatMessage[]>();
-const LIVE_CHAT_TTL_MS = 6 * 60 * 60 * 1000;
+const chatReadCacheByRoom = new Map<string, { items: MinigameChatMessage[]; expiresAt: number }>();
+const LIVE_CHAT_TTL_MS = 24 * 60 * 60 * 1000;
 const LIVE_CHAT_MAX_ITEMS = 80;
 
 export function addLiveMinigameChat(
   eventId: string,
   payload: {
+    id?: string;
     uid: string;
     displayName: string;
     avatarUrl?: string;
     isAdmin?: boolean;
     message: string;
+    roomTag?: string;
   }
 ): MinigameChatMessage {
+  const roomKey = sanitizeRtdbRoomKey(eventId);
   const cleanText = String(payload.message || "")
     .replace(/[\r\n\t]+/g, " ")
     .trim()
@@ -95,30 +203,203 @@ export function addLiveMinigameChat(
   if (!cleanText) {
     throw new Error("Vui lòng nhập nội dung tin nhắn.");
   }
+  const safeId =
+    payload.id && /^[a-zA-Z0-9_-]{4,64}$/.test(payload.id)
+      ? payload.id
+      : makeId("chat");
+  const cleanTag = payload.roomTag
+    ? String(payload.roomTag).replace(/[\r\n\t]+/g, " ").trim().slice(0, 48)
+    : undefined;
+
+  const now = Date.now();
+  const existing = liveChatByEvent.get(roomKey) || [];
+  const duplicate = existing.find((m) => m.id === safeId);
+  if (duplicate) {
+    return duplicate;
+  }
+
   const msg: MinigameChatMessage = {
-    id: makeId("chat"),
+    id: safeId,
     uid: payload.uid,
     displayName: (payload.displayName || "Học sinh").slice(0, 60),
     avatarUrl: payload.avatarUrl ? String(payload.avatarUrl).slice(0, 512) : undefined,
     isAdmin: Boolean(payload.isAdmin),
     message: cleanText,
-    createdAt: Date.now(),
+    ...(cleanTag ? { roomTag: cleanTag } : {}),
+    createdAt: now,
   };
-  const now = Date.now();
-  const existing = liveChatByEvent.get(eventId) || [];
-  const next = [...existing.filter((m) => now - m.createdAt < LIVE_CHAT_TTL_MS), msg].slice(
-    -LIVE_CHAT_MAX_ITEMS
-  );
-  liveChatByEvent.set(eventId, next);
+  const next = [...existing.filter((m) => now - m.createdAt < LIVE_CHAT_TTL_MS), msg]
+    .sort((a, b) => a.createdAt - b.createdAt)
+    .slice(-LIVE_CHAT_MAX_ITEMS);
+  liveChatByEvent.set(roomKey, next);
+  chatReadCacheByRoom.delete(roomKey);
   return msg;
 }
 
 export function listLiveMinigameChat(eventId: string): MinigameChatMessage[] {
+  const roomKey = sanitizeRtdbRoomKey(eventId);
   const now = Date.now();
-  const existing = liveChatByEvent.get(eventId) || [];
+  const existing = liveChatByEvent.get(roomKey) || [];
   const fresh = existing.filter((m) => now - m.createdAt < LIVE_CHAT_TTL_MS);
-  liveChatByEvent.set(eventId, fresh);
+  liveChatByEvent.set(roomKey, fresh);
   return fresh.slice(-60);
+}
+
+/**
+ * Writes a chat message to shared Firebase Admin RTDB (`minigame_chat/{roomKey}/{msg.id}`)
+ * so every Vercel Serverless Lambda instance sees one unified, monotonic chat stream with 0 Firestore reads!
+ */
+export async function appendPersistentMinigameChat(
+  eventId: string,
+  payload: {
+    id?: string;
+    uid: string;
+    displayName: string;
+    avatarUrl?: string;
+    isAdmin?: boolean;
+    message: string;
+    roomTag?: string;
+  }
+): Promise<{ chatMessage: MinigameChatMessage; messages: MinigameChatMessage[] }> {
+  const roomKey = sanitizeRtdbRoomKey(eventId);
+  const msg = addLiveMinigameChat(roomKey, payload);
+  const adminRtdb = getAdminRtdb();
+
+  if (adminRtdb) {
+    try {
+      await adminRtdb
+        .ref(`minigame_chat/${roomKey}/${msg.id}`)
+        .set(stripUndefinedFields(msg));
+    } catch (err) {
+      console.warn("[MinigameChat] Admin RTDB write warning:", err);
+    }
+  } else if (adminDb) {
+    try {
+      const docRef = adminDb.collection("minigame_chat_rooms").doc(roomKey);
+      await adminDb.runTransaction(async (tx) => {
+        const snap = await tx.get(docRef);
+        const prev: MinigameChatMessage[] = Array.isArray(snap.data()?.messages)
+          ? snap.data()!.messages
+          : [];
+        const dedup = new Map<string, MinigameChatMessage>();
+        const now = Date.now();
+        for (const item of [...prev, msg]) {
+          if (item?.id && item?.message && now - Number(item.createdAt || 0) < LIVE_CHAT_TTL_MS) {
+            dedup.set(item.id, stripUndefinedFields(item) as MinigameChatMessage);
+          }
+        }
+        const merged = Array.from(dedup.values())
+          .sort((a, b) => a.createdAt - b.createdAt)
+          .slice(-LIVE_CHAT_MAX_ITEMS);
+        tx.set(docRef, { messages: merged, updatedAt: now }, { merge: true });
+      });
+    } catch {
+      // Fallback to in-memory buffer
+    }
+  }
+
+  const messages = await getPersistentMinigameChat(roomKey, true);
+  return { chatMessage: msg, messages };
+}
+
+/**
+ * Reads the shared chat history across serverless instances with a 1.2s RAM cache (0 Firestore reads when Admin RTDB is active).
+ */
+export async function getPersistentMinigameChat(
+  eventId: string,
+  bypassCache = false
+): Promise<MinigameChatMessage[]> {
+  const roomKey = sanitizeRtdbRoomKey(eventId);
+  const now = Date.now();
+  const cached = chatReadCacheByRoom.get(roomKey);
+  if (!bypassCache && cached && cached.expiresAt > now) {
+    return cached.items;
+  }
+
+  const merged = new Map<string, MinigameChatMessage>();
+  for (const localMsg of listLiveMinigameChat(roomKey)) {
+    merged.set(localMsg.id, localMsg);
+  }
+
+  const adminRtdb = getAdminRtdb();
+  if (adminRtdb) {
+    try {
+      const snap = await adminRtdb
+        .ref(`minigame_chat/${roomKey}`)
+        .orderByChild("createdAt")
+        .limitToLast(LIVE_CHAT_MAX_ITEMS)
+        .once("value");
+      const val = snap?.val();
+      if (val && typeof val === "object") {
+        for (const [key, raw] of Object.entries(val as Record<string, any>)) {
+          const text = String(raw?.message || "").trim();
+          const createdAt = Number(raw?.createdAt) || 0;
+          if (!text || now - createdAt >= LIVE_CHAT_TTL_MS) continue;
+          const id = String(raw?.id || key);
+          merged.set(id, {
+            id,
+            uid: String(raw?.uid || ""),
+            displayName: String(raw?.displayName || "Học sinh"),
+            ...(raw?.avatarUrl ? { avatarUrl: String(raw.avatarUrl) } : {}),
+            isAdmin: Boolean(raw?.isAdmin),
+            message: text,
+            ...(raw?.roomTag ? { roomTag: String(raw.roomTag) } : {}),
+            createdAt,
+          });
+        }
+      }
+    } catch {
+      // Fallback if index not defined on orderByChild -> query without orderByChild
+      try {
+        const snap = await adminRtdb
+          .ref(`minigame_chat/${roomKey}`)
+          .limitToLast(LIVE_CHAT_MAX_ITEMS)
+          .once("value");
+        const val = snap?.val();
+        if (val && typeof val === "object") {
+          for (const [key, raw] of Object.entries(val as Record<string, any>)) {
+            const text = String(raw?.message || "").trim();
+            const createdAt = Number(raw?.createdAt) || 0;
+            if (!text || now - createdAt >= LIVE_CHAT_TTL_MS) continue;
+            const id = String(raw?.id || key);
+            merged.set(id, {
+              id,
+              uid: String(raw?.uid || ""),
+              displayName: String(raw?.displayName || "Học sinh"),
+              ...(raw?.avatarUrl ? { avatarUrl: String(raw.avatarUrl) } : {}),
+              isAdmin: Boolean(raw?.isAdmin),
+              message: text,
+              ...(raw?.roomTag ? { roomTag: String(raw.roomTag) } : {}),
+              createdAt,
+            });
+          }
+        }
+      } catch {
+        // Non-fatal fallback
+      }
+    }
+  } else if (adminDb) {
+    try {
+      const snap = await adminDb.collection("minigame_chat_rooms").doc(roomKey).get();
+      const arr = snap.data()?.messages;
+      if (Array.isArray(arr)) {
+        for (const raw of arr) {
+          if (raw?.id && raw?.message && now - Number(raw.createdAt || 0) < LIVE_CHAT_TTL_MS) {
+            merged.set(String(raw.id), raw as MinigameChatMessage);
+          }
+        }
+      }
+    } catch {
+      // Non-fatal fallback
+    }
+  }
+
+  const sorted = Array.from(merged.values())
+    .sort((a, b) => a.createdAt - b.createdAt || a.id.localeCompare(b.id))
+    .slice(-60);
+  liveChatByEvent.set(roomKey, sorted);
+  chatReadCacheByRoom.set(roomKey, { items: sorted, expiresAt: now + 1200 });
+  return sorted;
 }
 
 const BOT_NAMES = [
@@ -175,12 +456,16 @@ export const createMinigameSchema = z.object({
   gameType: z.enum([
     "horse_race",
     "bee_race",
+    "duck_race",
     "tai_xiu",
     "bau_cua",
     "lucky_number",
     "lucky_wheel",
     "treasure_flip",
     "mystery_box",
+    "plinko_drop",
+    "penalty_shootout",
+    "claw_machine",
   ]),
   maxParticipants: z.number().int().min(2).max(200).default(8),
   racersPerHeat: z.number().int().min(2).max(8).optional().default(4),
@@ -262,7 +547,7 @@ function makeId(prefix: string): string {
 }
 
 function isRaceGame(type: MinigameEvent["gameType"]): boolean {
-  return type === "horse_race" || type === "bee_race";
+  return type === "horse_race" || type === "bee_race" || type === "duck_race";
 }
 
 function validatePredictionForGame(
@@ -314,6 +599,27 @@ function validatePredictionForGame(
       throw new Error(`Vui lòng chọn 1 hộp quà bí ẩn từ #1 đến #${MYSTERY_BOXES.length}.`);
     }
     return String(box);
+  }
+  if (gameType === "plinko_drop") {
+    const slot = Number(clean);
+    if (!Number.isInteger(slot) || slot < 1 || slot > PLINKO_SLOTS.length) {
+      throw new Error(`Vui lòng chọn 1 cổng thưởng Ziczac từ #1 đến #${PLINKO_SLOTS.length}.`);
+    }
+    return String(slot);
+  }
+  if (gameType === "penalty_shootout") {
+    const zone = Number(clean);
+    if (!Number.isInteger(zone) || zone < 1 || zone > PENALTY_ZONES.length) {
+      throw new Error(`Vui lòng chọn 1 góc sút khung thành từ #1 đến #${PENALTY_ZONES.length}.`);
+    }
+    return String(zone);
+  }
+  if (gameType === "claw_machine") {
+    const validPlushies = CLAW_PLUSHIES.map((p) => p.id);
+    if (!validPlushies.includes(clean)) {
+      throw new Error("Vui lòng chọn 1 thú bông hợp lệ trong tủ Gắp Thú.");
+    }
+    return clean;
   }
   return undefined;
 }
@@ -632,6 +938,12 @@ export async function fillMinigameWithBots(
       prediction = String(crypto.randomInt(1, TREASURE_CHEST_COUNT + 1));
     } else if (event.gameType === "mystery_box") {
       prediction = String(crypto.randomInt(1, MYSTERY_BOXES.length + 1));
+    } else if (event.gameType === "plinko_drop") {
+      prediction = PLINKO_SLOTS[crypto.randomInt(0, PLINKO_SLOTS.length)].id;
+    } else if (event.gameType === "penalty_shootout") {
+      prediction = String(crypto.randomInt(1, PENALTY_ZONES.length + 1));
+    } else if (event.gameType === "claw_machine") {
+      prediction = CLAW_PLUSHIES[crypto.randomInt(0, CLAW_PLUSHIES.length)].id;
     }
 
     participants[botUid] = {
@@ -700,9 +1012,9 @@ export async function resetMinigameForDemo(eventId: string): Promise<MinigameEve
 
 /**
  * Starts the minigame event:
- * - For horse_race / bee_race: locks lobby, builds Round 0 tournament heats (4/8/16/32 bracket),
+ * - For horse_race / bee_race / duck_race: locks lobby, builds Round 0 tournament heats (4/8/16/32 bracket),
  *   and sets activeHeatId to the first heat (ready for Admin to click "Xuất phát lượt đua"!).
- * - For tai_xiu / bau_cua / lucky_number: draws cryptographically secure result,
+ * - For party games: draws cryptographically secure result,
  *   evaluates winners immediately, and finishes the event so clients play the reveal animation!
  */
 export async function startMinigameEvent(eventId: string): Promise<MinigameEvent> {
@@ -730,7 +1042,7 @@ export async function startMinigameEvent(eventId: string): Promise<MinigameEvent
     return updated;
   }
 
-  // Party games (Tài Xỉu, Bầu Cua, Đoán số, Vòng Quay, Lật Thẻ Kho Báu, Đập Hộp Bí Ẩn)
+  // Party games
   if (participantUids.length < 1) {
     throw new Error("Cần ít nhất 1 người chơi tham gia trước khi quay thưởng.");
   }
@@ -798,6 +1110,45 @@ export async function startMinigameEvent(eventId: string): Promise<MinigameEvent
     const winningBox = crypto.randomInt(1, MYSTERY_BOXES.length + 1);
     const evalRes = evaluateMysteryBoxWinners(
       winningBox,
+      event.participants,
+      event.prizes,
+      revealedAtMs
+    );
+    partyResult = evalRes.result;
+    winners = evalRes.winners;
+  } else if (event.gameType === "plinko_drop") {
+    const slotIndex = crypto.randomInt(0, PLINKO_SLOTS.length);
+    const seed = crypto.randomInt(1000, 9999999);
+    const evalRes = evaluatePlinkoDropWinners(
+      slotIndex,
+      event.participants,
+      event.prizes,
+      revealedAtMs,
+      seed
+    );
+    partyResult = evalRes.result;
+    winners = evalRes.winners;
+  } else if (event.gameType === "penalty_shootout") {
+    const pool = PENALTY_ZONES.map((z) => z.zone);
+    const winningZones: number[] = [];
+    while (winningZones.length < PENALTY_WINNING_ZONE_COUNT && pool.length > 0) {
+      const idx = crypto.randomInt(0, pool.length);
+      winningZones.push(pool.splice(idx, 1)[0]);
+    }
+    const keeperZone = pool[crypto.randomInt(0, pool.length)] || 3;
+    const evalRes = evaluatePenaltyShootoutWinners(
+      winningZones,
+      keeperZone,
+      event.participants,
+      event.prizes,
+      revealedAtMs
+    );
+    partyResult = evalRes.result;
+    winners = evalRes.winners;
+  } else if (event.gameType === "claw_machine") {
+    const plushieIndex = crypto.randomInt(0, CLAW_PLUSHIES.length);
+    const evalRes = evaluateClawMachineWinners(
+      plushieIndex,
       event.participants,
       event.prizes,
       revealedAtMs

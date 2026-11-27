@@ -141,6 +141,70 @@ export const MINIGAME_ARTWORK_MAP: Record<MinigameType, MinigameArtworkMeta> = {
       "Tất cả thí sinh chọn đúng Hộp Đặc Biệt sẽ được vinh danh trên bục nhận thưởng.",
     ],
   },
+  duck_race: {
+    gameType: "duck_race",
+    label: "Đua Vịt Vượt Thác",
+    shortTitle: "Đua Vịt",
+    imagePath: "/images/minigames/duck-race.jpg",
+    imageAlt: "Minh họa Minigame Đua Vịt Vượt Thác trên DkTEST",
+    tagline:
+      "Đàn vịt vàng đeo kính râm cưỡi sóng vượt thác nước sủi bọt từ 2 đến 64 tay đua về đích phao vàng!",
+    accentClass: "from-sky-500 to-cyan-600",
+    highlights: ["2–64 chú vịt đua sóng", "Thác nước sủi bọt sống động", "Miễn phí 100%"],
+    howToPlay: [
+      "Bấm Đăng ký tham gia miễn phí để nhận chú vịt đua đeo phao & số báo danh riêng.",
+      "Theo dõi đàn vịt lướt sóng vượt xoáy nước qua từng lượt đấu loại tới Chung kết.",
+      "Top vịt cán phao đích đầu tiên sẽ nhận phần thưởng phúc lợi cộng thẳng Ví DkTEST.",
+    ],
+  },
+  plinko_drop: {
+    gameType: "plinko_drop",
+    label: "Thả Bóng Ziczac",
+    shortTitle: "Bóng Ziczac",
+    imagePath: "/images/minigames/plinko-drop.jpg",
+    imageAlt: "Minh họa Minigame Thả Bóng Ziczac Plinko trên DkTEST",
+    tagline:
+      "Quả cầu năng lượng nảy ziczac qua 7 tầng đinh phát sáng rơi vào 1 trong 7 cổng thưởng rực rỡ!",
+    accentClass: "from-cyan-600 to-blue-600",
+    highlights: ["7 cổng thưởng phát sáng", "Vật lý nảy đinh hồi hộp", "Miễn phí 100%"],
+    howToPlay: [
+      "Chọn miễn phí 1 trong 7 cổng thưởng bên dưới tháp Ziczac trước khi bóng rơi.",
+      "Khi Admin bấm thả bóng, quả cầu vàng va chạm ziczac qua từng hàng chốt đinh.",
+      "Bóng rơi vào cổng nào, toàn bộ người chơi chọn cổng đó sẽ giành chiến thắng!",
+    ],
+  },
+  penalty_shootout: {
+    gameType: "penalty_shootout",
+    label: "Sút Luân Lưu Siêu Cúp",
+    shortTitle: "Sút Penalty",
+    imagePath: "/images/minigames/penalty-shootout.jpg",
+    imageAlt: "Minh họa Minigame Sút Luân Lưu Siêu Cúp trên DkTEST",
+    tagline:
+      "5 góc sút khung thành rực lửa — chọn góc hiểm hóc đánh bại thủ môn để ghi bàn thắng Vàng!",
+    accentClass: "from-green-600 to-emerald-600",
+    highlights: ["5 góc khung thành", "2 góc ghi bàn thắng Vàng", "Sân cỏ rực lửa"],
+    howToPlay: [
+      "Chọn miễn phí 1 trong 5 góc sút (Trái Trên, Trái Dưới, Chính Giữa, Phải Trên, Phải Dưới).",
+      "Khi Admin thổi còi sút phạt, thủ môn bay người cản phá và lộ diện 2 góc ghi bàn đẹp mắt.",
+      "Mọi cầu thủ sút trúng 1 trong 2 góc ghi bàn sẽ cùng nâng Siêu Cúp nhận thưởng!",
+    ],
+  },
+  claw_machine: {
+    gameType: "claw_machine",
+    label: "Gắp Thú Nhân Phẩm",
+    shortTitle: "Gắp Thú",
+    imagePath: "/images/minigames/claw-machine.jpg",
+    imageAlt: "Minh họa Minigame Gắp Thú Nhân Phẩm trên DkTEST",
+    tagline:
+      "Tủ gắp thú bông Arcade lung linh với 8 linh vật dễ thương — chọn thú bông bạn tin sẽ được gắp trúng!",
+    accentClass: "from-violet-600 to-fuchsia-600",
+    highlights: ["8 thú bông dễ thương", "Càng gắp tự động hồi hộp", "Miễn phí 100%"],
+    howToPlay: [
+      "Chọn miễn phí 1 trong 8 thú bông đáng yêu bên trong tủ kính Arcade.",
+      "Khi Admin bấm nút Gắp, càng gắp di chuyển ngang, hạ xuống kẹp thú bông may mắn.",
+      "Ai chọn đúng chú thú bông được gắp lên cửa nhận quà sẽ trúng giải thưởng!",
+    ],
+  },
 };
 
 export const MINIGAME_HUB_PREVIEW_IMAGE = "/images/minigames/horse-race.jpg";
@@ -149,12 +213,16 @@ export function isValidMinigameType(value: unknown): value is MinigameType {
   return (
     value === "horse_race" ||
     value === "bee_race" ||
+    value === "duck_race" ||
     value === "tai_xiu" ||
     value === "bau_cua" ||
     value === "lucky_number" ||
     value === "lucky_wheel" ||
     value === "treasure_flip" ||
-    value === "mystery_box"
+    value === "mystery_box" ||
+    value === "plinko_drop" ||
+    value === "penalty_shootout" ||
+    value === "claw_machine"
   );
 }
 

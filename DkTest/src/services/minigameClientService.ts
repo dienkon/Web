@@ -1,5 +1,5 @@
 import { doc, onSnapshot } from "firebase/firestore";
-import { limitToLast, onValue, push, query as rtdbQuery, ref, set } from "firebase/database";
+import { limitToLast, onValue, query as rtdbQuery, ref } from "firebase/database";
 import { api } from "./apiClient";
 import { db, rtdb } from "./firebase/config";
 import type {
@@ -229,22 +229,60 @@ export function subscribeMinigameEventRealtime(
 }
 
 // ---------------------------------------------------------------------------
-// LIVE CHEER / REACTION BAR (Server API — Zero RTDB permission_denied warnings!)
+// LIVE CHEER / REACTION BAR (Unified Monotonic Store — Zero Serverless Jitter!)
 // ---------------------------------------------------------------------------
+
+export const MINIGAME_UNIFIED_CHAT_ROOM = "global";
+
+const cheerStoreByRoom = new Map<string, Map<string, MinigameCheerMessage>>();
+
+function mergeCheersMonotonically(
+  roomKey: string,
+  incoming: MinigameCheerMessage[]
+): MinigameCheerMessage[] {
+  const now = Date.now();
+  let map = cheerStoreByRoom.get(roomKey);
+  if (!map) {
+    map = new Map();
+    cheerStoreByRoom.set(roomKey, map);
+  }
+  for (const item of incoming) {
+    if (!item?.id || !item?.emoji) continue;
+    if (now - Number(item.createdAt || 0) < 90_000) {
+      map.set(item.id, item);
+    }
+  }
+  for (const [k, v] of map.entries()) {
+    if (now - Number(v.createdAt || 0) >= 90_000) map.delete(k);
+  }
+  return Array.from(map.values())
+    .sort((a, b) => b.createdAt - a.createdAt)
+    .slice(0, 12);
+}
 
 export async function sendMinigameCheer(
   eventId: string,
   cheer: { uid: string; displayName: string; emoji: string; text?: string }
 ): Promise<MinigameCheerMessage[]> {
-  if (!eventId) return [];
+  const roomKey = MINIGAME_UNIFIED_CHAT_ROOM || eventId;
+  const id = `ch_${Date.now().toString(36)}_${Math.random().toString(36).slice(2, 7)}`;
+  const optimistic: MinigameCheerMessage = {
+    id,
+    uid: cheer.uid,
+    displayName: cheer.displayName || "Người xem",
+    emoji: cheer.emoji,
+    text: cheer.text || "",
+    createdAt: Date.now(),
+  };
+  mergeCheersMonotonically(roomKey, [optimistic]);
   try {
     const res = await api.post<{ success: boolean; cheers: MinigameCheerMessage[] }>(
-      `/api/minigames/${encodeURIComponent(eventId)}/cheer`,
-      { emoji: cheer.emoji, text: cheer.text || "" }
+      `/api/minigames/${encodeURIComponent(roomKey)}/cheer`,
+      { id, emoji: cheer.emoji, text: cheer.text || "" }
     );
-    return res?.cheers || [];
+    return mergeCheersMonotonically(roomKey, res?.cheers || [optimistic]);
   } catch {
-    return [];
+    return mergeCheersMonotonically(roomKey, [optimistic]);
   }
 }
 
@@ -252,17 +290,29 @@ export function subscribeMinigameCheers(
   eventId: string,
   onUpdate: (cheers: MinigameCheerMessage[]) => void
 ): () => void {
-  if (!eventId) return () => {};
+  const roomKey = MINIGAME_UNIFIED_CHAT_ROOM || eventId;
   let stopped = false;
+  let lastSig = "";
+
+  const emitIfChanged = (list: MinigameCheerMessage[]) => {
+    const sig = list.map((c) => c.id).join("|");
+    if (sig !== lastSig) {
+      lastSig = sig;
+      onUpdate(list);
+    }
+  };
+
+  emitIfChanged(mergeCheersMonotonically(roomKey, []));
 
   const pull = async () => {
     if (stopped) return;
+    if (typeof document !== "undefined" && document.visibilityState === "hidden") return;
     try {
       const res = await api.get<{ success: boolean; cheers: MinigameCheerMessage[] }>(
-        `/api/minigames/${encodeURIComponent(eventId)}/cheers`
+        `/api/minigames/${encodeURIComponent(roomKey)}/cheers`
       );
       if (!stopped && Array.isArray(res?.cheers)) {
-        onUpdate(res.cheers);
+        emitIfChanged(mergeCheersMonotonically(roomKey, res.cheers));
       }
     } catch {
       // Non-critical visual interaction
@@ -270,7 +320,7 @@ export function subscribeMinigameCheers(
   };
 
   void pull();
-  const timer = setInterval(pull, 3000);
+  const timer = setInterval(pull, 3500);
   return () => {
     stopped = true;
     clearInterval(timer);
@@ -278,8 +328,217 @@ export function subscribeMinigameCheers(
 }
 
 // ---------------------------------------------------------------------------
-// REALTIME MINIGAME ROOM CHAT (RTDB primary + Server API fallback — 0 Firestore reads!)
+// UNIFIED REALTIME MINIGAME CHAT (Single Continuous Stream + Zero Jitter!)
 // ---------------------------------------------------------------------------
+
+interface RoomChatController {
+  roomKey: string;
+  messagesMap: Map<string, MinigameChatMessage>;
+  listeners: Set<(messages: MinigameChatMessage[]) => void>;
+  lastSignature: string;
+  pollTimer: ReturnType<typeof setInterval> | null;
+  unsubRtdb: (() => void) | null;
+  inFlightPull: boolean;
+}
+
+const chatControllers = new Map<string, RoomChatController>();
+const CHAT_SESSION_STORAGE_PREFIX = "dktest_minigame_chat_v2_";
+const CHAT_TTL_MS = 24 * 60 * 60 * 1000;
+
+function resolveCanonicalChatRoom(_eventId?: string): string {
+  // Unify all Minigame rooms, Lobby & Solo Arcade into ONE continuous chat stream!
+  return MINIGAME_UNIFIED_CHAT_ROOM;
+}
+
+function hydrateStoredChat(roomKey: string): Map<string, MinigameChatMessage> {
+  const map = new Map<string, MinigameChatMessage>();
+  if (typeof window === "undefined") return map;
+  try {
+    const raw = window.sessionStorage.getItem(`${CHAT_SESSION_STORAGE_PREFIX}${roomKey}`);
+    if (!raw) return map;
+    const parsed = JSON.parse(raw);
+    if (Array.isArray(parsed)) {
+      const now = Date.now();
+      for (const m of parsed) {
+        if (m?.id && m?.message && now - Number(m.createdAt || 0) < CHAT_TTL_MS) {
+          map.set(String(m.id), { ...m, pending: false });
+        }
+      }
+    }
+  } catch {
+    // Ignore storage quota / parse errors
+  }
+  return map;
+}
+
+function persistStoredChat(roomKey: string, list: MinigameChatMessage[]): void {
+  if (typeof window === "undefined") return;
+  try {
+    window.sessionStorage.setItem(
+      `${CHAT_SESSION_STORAGE_PREFIX}${roomKey}`,
+      JSON.stringify(list.slice(-60))
+    );
+  } catch {
+    // Ignore storage quota errors
+  }
+}
+
+export function mergeChatMessagesMonotonically(
+  existingMap: Map<string, MinigameChatMessage>,
+  incoming: MinigameChatMessage[],
+  now = Date.now()
+): MinigameChatMessage[] {
+  for (const item of incoming) {
+    if (!item || !item.message) continue;
+    const cleanText = String(item.message).trim();
+    if (!cleanText) continue;
+    const createdAt = Number(item.createdAt) || now;
+    if (now - createdAt >= CHAT_TTL_MS) continue;
+    const key =
+      item.id || `${item.uid}_${Math.floor(createdAt / 1000)}_${cleanText.slice(0, 24)}`;
+    const prev = existingMap.get(key);
+    if (!prev || (prev.pending && !item.pending)) {
+      existingMap.set(key, {
+        ...prev,
+        ...item,
+        id: key,
+        message: cleanText,
+        createdAt: prev ? Math.min(prev.createdAt, createdAt) : createdAt,
+        pending: Boolean(item.pending && !prev),
+      });
+    }
+  }
+
+  for (const [k, v] of existingMap.entries()) {
+    if (now - Number(v.createdAt || 0) >= CHAT_TTL_MS) {
+      existingMap.delete(k);
+    }
+  }
+
+  return Array.from(existingMap.values())
+    .sort((a, b) => a.createdAt - b.createdAt || a.id.localeCompare(b.id))
+    .slice(-60);
+}
+
+function getSortedRoomMessages(ctrl: RoomChatController): MinigameChatMessage[] {
+  return mergeChatMessagesMonotonically(ctrl.messagesMap, []);
+}
+
+function notifyRoomController(ctrl: RoomChatController, incoming: MinigameChatMessage[]): void {
+  const sorted = mergeChatMessagesMonotonically(ctrl.messagesMap, incoming);
+  const sig = sorted
+    .map((m) => `${m.id}:${m.pending ? "1" : "0"}:${m.roomTag || ""}`)
+    .join("|");
+  if (sig === ctrl.lastSignature) return;
+  ctrl.lastSignature = sig;
+  persistStoredChat(ctrl.roomKey, sorted);
+  ctrl.listeners.forEach((fn) => {
+    try {
+      fn(sorted);
+    } catch {
+      // Isolate listener error
+    }
+  });
+}
+
+function getOrCreateChatController(roomKey: string): RoomChatController {
+  let ctrl = chatControllers.get(roomKey);
+  if (ctrl) return ctrl;
+
+  const messagesMap = hydrateStoredChat(roomKey);
+  ctrl = {
+    roomKey,
+    messagesMap,
+    listeners: new Set(),
+    lastSignature: "",
+    pollTimer: null,
+    unsubRtdb: null,
+    inFlightPull: false,
+  };
+  chatControllers.set(roomKey, ctrl);
+  return ctrl;
+}
+
+function startControllerTransportIfNeeded(ctrl: RoomChatController): void {
+  if (ctrl.pollTimer) return;
+
+  const pullFromServer = async () => {
+    if (ctrl.listeners.size === 0 || ctrl.inFlightPull) return;
+    if (typeof document !== "undefined" && document.visibilityState === "hidden") return;
+    ctrl.inFlightPull = true;
+    try {
+      const res = await api.get<{ success: boolean; messages?: MinigameChatMessage[] }>(
+        `/api/minigames/${encodeURIComponent(ctrl.roomKey)}/chat`
+      );
+      if (Array.isArray(res?.messages) && res.messages.length > 0) {
+        notifyRoomController(
+          ctrl,
+          res.messages.map((m) => ({ ...m, pending: false }))
+        );
+      }
+    } catch {
+      // Keep existing messages intact — NEVER wipe or flicker on network blip!
+    } finally {
+      ctrl.inFlightPull = false;
+    }
+  };
+
+  void pullFromServer();
+  ctrl.pollTimer = setInterval(pullFromServer, 2400);
+
+  // Optional passive read-only RTDB boost if RTDB read rules are active:
+  // NEVER write directly from client (avoids optimistic write -> permission_denied wipe!)
+  // and NEVER overwrite when snapshot is empty (`!val`).
+  if (rtdb && !ctrl.unsubRtdb) {
+    try {
+      const q = rtdbQuery(ref(rtdb, `minigame_chat/${ctrl.roomKey}`), limitToLast(60));
+      ctrl.unsubRtdb = onValue(
+        q,
+        (snap) => {
+          const val = snap.val();
+          if (!val || typeof val !== "object") return;
+          const items: MinigameChatMessage[] = Object.entries(val).map(
+            ([key, raw]: [string, any]) => ({
+              id: String(raw?.id || key),
+              uid: String(raw?.uid || ""),
+              displayName: String(raw?.displayName || "Học sinh"),
+              avatarUrl: raw?.avatarUrl ? String(raw.avatarUrl) : undefined,
+              isAdmin: Boolean(raw?.isAdmin),
+              message: String(raw?.message || ""),
+              roomTag: raw?.roomTag ? String(raw.roomTag) : undefined,
+              pending: false,
+              createdAt: Number(raw?.createdAt) || 0,
+            })
+          );
+          if (items.length > 0) {
+            notifyRoomController(ctrl, items);
+          }
+        },
+        () => {
+          // Silently ignore RTDB read permission warning; server API sync handles everything!
+          if (ctrl.unsubRtdb) {
+            ctrl.unsubRtdb();
+            ctrl.unsubRtdb = null;
+          }
+        }
+      );
+    } catch {
+      // Ignore RTDB init issue
+    }
+  }
+}
+
+function stopControllerTransportIfIdle(ctrl: RoomChatController): void {
+  if (ctrl.listeners.size > 0) return;
+  if (ctrl.pollTimer) {
+    clearInterval(ctrl.pollTimer);
+    ctrl.pollTimer = null;
+  }
+  if (ctrl.unsubRtdb) {
+    ctrl.unsubRtdb();
+    ctrl.unsubRtdb = null;
+  }
+}
 
 export async function sendMinigameChatMessage(
   eventId: string,
@@ -289,46 +548,59 @@ export async function sendMinigameChatMessage(
     avatarUrl?: string;
     isAdmin?: boolean;
     message: string;
+    roomTag?: string;
   }
 ): Promise<MinigameChatMessage | null> {
   const cleanText = String(payload.message || "")
     .replace(/[\r\n\t]+/g, " ")
     .trim()
     .slice(0, 280);
-  if (!eventId || !cleanText) return null;
+  if (!cleanText || !payload.uid) return null;
 
-  const localMsg: MinigameChatMessage = {
-    id: `chat_${Date.now().toString(36)}_${Math.random().toString(36).slice(2, 7)}`,
+  const roomKey = resolveCanonicalChatRoom(eventId);
+  const ctrl = getOrCreateChatController(roomKey);
+  const deterministicId = `chat_${Date.now().toString(36)}_${Math.random().toString(36).slice(2, 8)}`;
+
+  const optimisticMsg: MinigameChatMessage = {
+    id: deterministicId,
     uid: payload.uid,
     displayName: (payload.displayName || "Học sinh").slice(0, 60),
     ...(payload.avatarUrl ? { avatarUrl: payload.avatarUrl } : {}),
     isAdmin: Boolean(payload.isAdmin),
     message: cleanText,
+    ...(payload.roomTag ? { roomTag: payload.roomTag.slice(0, 48) } : {}),
+    pending: true,
     createdAt: Date.now(),
   };
 
-  let pushedToRtdb = false;
-  if (rtdb) {
-    try {
-      const chatRef = push(ref(rtdb, `minigame_chat/${eventId}`));
-      await set(chatRef, {
-        ...localMsg,
-        id: chatRef.key || localMsg.id,
-      });
-      pushedToRtdb = true;
-    } catch {
-      // RTDB rules may not yet be deployed — gracefully fall back to backend API below
-    }
-  }
+  // Instant 0ms optimistic render with stable `id` (never remounts when confirmed!)
+  notifyRoomController(ctrl, [optimisticMsg]);
 
   try {
-    const res = await api.post<{ success: boolean; chatMessage?: MinigameChatMessage }>(
-      `/api/minigames/${encodeURIComponent(eventId)}/chat`,
-      { message: cleanText, avatarUrl: payload.avatarUrl }
-    );
-    return res?.chatMessage || localMsg;
+    const res = await api.post<{
+      success: boolean;
+      chatMessage?: MinigameChatMessage;
+      messages?: MinigameChatMessage[];
+    }>(`/api/minigames/${encodeURIComponent(roomKey)}/chat`, {
+      id: deterministicId,
+      message: cleanText,
+      avatarUrl: payload.avatarUrl,
+      roomTag: payload.roomTag,
+    });
+
+    const confirmed: MinigameChatMessage = res?.chatMessage
+      ? { ...res.chatMessage, id: deterministicId, pending: false }
+      : { ...optimisticMsg, pending: false };
+
+    const serverBatch = Array.isArray(res?.messages)
+      ? res.messages.map((m) => ({ ...m, pending: false }))
+      : [];
+    notifyRoomController(ctrl, [confirmed, ...serverBatch]);
+    return confirmed;
   } catch {
-    return pushedToRtdb ? localMsg : null;
+    const settled = { ...optimisticMsg, pending: false };
+    notifyRoomController(ctrl, [settled]);
+    return settled;
   }
 }
 
@@ -336,82 +608,16 @@ export function subscribeMinigameChatRealtime(
   eventId: string,
   onUpdate: (messages: MinigameChatMessage[]) => void
 ): () => void {
-  if (!eventId) return () => {};
-  let stopped = false;
-  let unsubRtdb: (() => void) | null = null;
-  let pollTimer: ReturnType<typeof setInterval> | null = null;
+  const roomKey = resolveCanonicalChatRoom(eventId);
+  const ctrl = getOrCreateChatController(roomKey);
+  ctrl.listeners.add(onUpdate);
 
-  const mergeAndEmit = (list: MinigameChatMessage[]) => {
-    if (stopped) return;
-    const dedup = new Map<string, MinigameChatMessage>();
-    for (const item of list) {
-      if (!item?.message) continue;
-      const key = item.id || `${item.uid}_${item.createdAt}_${item.message.slice(0, 20)}`;
-      dedup.set(key, item);
-    }
-    const sorted = Array.from(dedup.values())
-      .sort((a, b) => a.createdAt - b.createdAt)
-      .slice(-60);
-    onUpdate(sorted);
-  };
-
-  const startApiFallback = () => {
-    if (stopped || pollTimer) return;
-    const pull = async () => {
-      if (stopped) return;
-      try {
-        const res = await api.get<{ success: boolean; messages?: MinigameChatMessage[] }>(
-          `/api/minigames/${encodeURIComponent(eventId)}/chat`
-        );
-        if (!stopped && Array.isArray(res?.messages)) {
-          mergeAndEmit(res.messages);
-        }
-      } catch {
-        // Silent retry
-      }
-    };
-    void pull();
-    pollTimer = setInterval(pull, 2200);
-  };
-
-  if (rtdb) {
-    try {
-      const q = rtdbQuery(ref(rtdb, `minigame_chat/${eventId}`), limitToLast(60));
-      unsubRtdb = onValue(
-        q,
-        (snap) => {
-          if (stopped) return;
-          const val = snap.val();
-          if (!val || typeof val !== "object") {
-            onUpdate([]);
-            return;
-          }
-          const items = Object.entries(val).map(([key, raw]: [string, any]) => ({
-            id: raw?.id || key,
-            uid: String(raw?.uid || ""),
-            displayName: String(raw?.displayName || "Học sinh"),
-            avatarUrl: raw?.avatarUrl ? String(raw.avatarUrl) : undefined,
-            isAdmin: Boolean(raw?.isAdmin),
-            message: String(raw?.message || ""),
-            createdAt: Number(raw?.createdAt) || 0,
-          }));
-          mergeAndEmit(items);
-        },
-        () => {
-          // RTDB permission_denied or offline -> fall back smoothly to API polling
-          startApiFallback();
-        }
-      );
-    } catch {
-      startApiFallback();
-    }
-  } else {
-    startApiFallback();
-  }
+  // Immediately deliver cached continuous messages synchronously (zero blank flash on navigation!)
+  onUpdate(getSortedRoomMessages(ctrl));
+  startControllerTransportIfNeeded(ctrl);
 
   return () => {
-    stopped = true;
-    if (unsubRtdb) unsubRtdb();
-    if (pollTimer) clearInterval(pollTimer);
+    ctrl.listeners.delete(onUpdate);
+    stopControllerTransportIfIdle(ctrl);
   };
 }

@@ -57,6 +57,56 @@ export const MYSTERY_BOXES: Array<{
 export const TREASURE_CHEST_COUNT = 9;
 export const TREASURE_WINNING_COUNT = 2;
 
+export const PLINKO_SLOTS: Array<{
+  id: string;
+  slotIndex: number;
+  label: string;
+  emoji: string;
+  gradient: string;
+  hex: string;
+}> = [
+  { id: "1", slotIndex: 0, label: "Cổng Sao Băng", emoji: "🌠", gradient: "from-sky-500 to-blue-600", hex: "#0284c7" },
+  { id: "2", slotIndex: 1, label: "Cổng Sấm Sét", emoji: "⚡", gradient: "from-amber-400 to-orange-500", hex: "#f59e0b" },
+  { id: "3", slotIndex: 2, label: "Cổng Ngọc Lục", emoji: "🍀", gradient: "from-emerald-500 to-teal-600", hex: "#10b981" },
+  { id: "4", slotIndex: 3, label: "Cổng Hoàng Kim", emoji: "👑", gradient: "from-yellow-400 to-amber-600", hex: "#eab308" },
+  { id: "5", slotIndex: 4, label: "Cổng Kim Cương", emoji: "💎", gradient: "from-cyan-500 to-indigo-600", hex: "#06b6d4" },
+  { id: "6", slotIndex: 5, label: "Cổng Phượng Hoàng", emoji: "🔥", gradient: "from-rose-500 to-red-600", hex: "#f43f5e" },
+  { id: "7", slotIndex: 6, label: "Cổng Siêu Cúp", emoji: "🏆", gradient: "from-violet-500 to-purple-600", hex: "#8b5cf6" },
+];
+
+export const PENALTY_ZONES: Array<{
+  id: string;
+  zone: number;
+  label: string;
+  shortLabel: string;
+  emoji: string;
+}> = [
+  { id: "1", zone: 1, label: "Góc Trái Trên (Chữ A)", shortLabel: "Trái Trên", emoji: "↖️" },
+  { id: "2", zone: 2, label: "Góc Trái Dưới (Sệt)", shortLabel: "Trái Dưới", emoji: "↙️" },
+  { id: "3", zone: 3, label: "Chính Giữa Khung Thành (Panenka)", shortLabel: "Chính Giữa", emoji: "⬆️" },
+  { id: "4", zone: 4, label: "Góc Phải Trên (Chữ A)", shortLabel: "Phải Trên", emoji: "↗️" },
+  { id: "5", zone: 5, label: "Góc Phải Dưới (Sệt)", shortLabel: "Phải Dưới", emoji: "↘️" },
+];
+
+export const PENALTY_WINNING_ZONE_COUNT = 2;
+
+export const CLAW_PLUSHIES: Array<{
+  id: string;
+  index: number;
+  label: string;
+  emoji: string;
+  gradient: string;
+}> = [
+  { id: "gau_bong", index: 0, label: "Gấu Bông Nâu", emoji: "🧸", gradient: "from-amber-500 to-orange-600" },
+  { id: "meo_than_tai", index: 1, label: "Mèo Thần Tài", emoji: "🐱", gradient: "from-yellow-400 to-amber-500" },
+  { id: "rong_nho", index: 2, label: "Rồng Lửa Nhỏ", emoji: "🐲", gradient: "from-emerald-500 to-teal-600" },
+  { id: "tho_ngoc", index: 3, label: "Thỏ Ngọc Hồng", emoji: "🐰", gradient: "from-pink-500 to-rose-500" },
+  { id: "cao_tuyet", index: 4, label: "Cáo Tuyết Cam", emoji: "🦊", gradient: "from-orange-500 to-red-500" },
+  { id: "canh_cut", index: 5, label: "Chim Cánh Cụt", emoji: "🐧", gradient: "from-sky-500 to-indigo-600" },
+  { id: "bach_tuoc", index: 6, label: "Bạch Tuộc Tím", emoji: "🐙", gradient: "from-purple-500 to-fuchsia-600" },
+  { id: "ky_lan", index: 7, label: "Kỳ Lân Cầu Vồng", emoji: "🦄", gradient: "from-indigo-500 to-violet-600" },
+];
+
 export const MINIGAME_TYPE_META: Record<
   string,
   { label: string; shortDesc: string; badge: string; gradient: string; emoji: string }
@@ -74,6 +124,13 @@ export const MINIGAME_TYPE_META: Record<
     badge: "Đua tốc độ",
     gradient: "from-amber-500 to-yellow-600",
     emoji: "🐝",
+  },
+  duck_race: {
+    label: "Đua Vịt Vượt Thác",
+    shortDesc: "Đàn vịt đeo kính râm vượt thác nước sủi bọt từ 2–64 người chơi, bứt tốc về phao đích trao cúp",
+    badge: "Đua vượt thác",
+    gradient: "from-sky-500 to-cyan-600",
+    emoji: "🦆",
   },
   tai_xiu: {
     label: "Tài Xỉu Phúc Lợi",
@@ -116,6 +173,27 @@ export const MINIGAME_TYPE_META: Record<
     badge: "Bung hộp pháo hoa",
     gradient: "from-pink-600 to-rose-500",
     emoji: "🎁",
+  },
+  plinko_drop: {
+    label: "Thả Bóng Ziczac",
+    shortDesc: "Chọn miễn phí 1 trong 7 cổng thưởng — bóng vàng nảy ziczac qua tháp đinh neon rơi trúng cổng nào ăn giải đó",
+    badge: "Thả bóng Plinko",
+    gradient: "from-cyan-600 to-blue-600",
+    emoji: "🪩",
+  },
+  penalty_shootout: {
+    label: "Sút Luân Lưu Siêu Cúp",
+    shortDesc: "Chọn miễn phí 1 trong 5 góc khung thành — sút tung lưới vượt qua pha bay người của thủ môn nhận thưởng",
+    badge: "Sút phạt đền",
+    gradient: "from-green-600 to-emerald-600",
+    emoji: "⚽",
+  },
+  claw_machine: {
+    label: "Gắp Thú Nhân Phẩm",
+    shortDesc: "Chọn miễn phí 1 trong 8 thú bông trong tủ kính — càng gắp tự động di chuyển gắp trúng thú bông may mắn",
+    badge: "Tủ gắp thú 3D",
+    gradient: "from-violet-600 to-fuchsia-600",
+    emoji: "🧸",
   },
 };
 
@@ -469,6 +547,195 @@ export function evaluateMysteryBoxWinners(
       voucherCode: prize.voucherCode,
       customTitle: prize.customTitle,
       matchDetail: `Đập trúng ${boxMeta.label} (#${cleanBox})!`,
+      distributed: false,
+      distributedAt: null,
+      walletTransactionId: null,
+    });
+  });
+
+  return { result, winners };
+}
+
+/**
+ * Generates a realistic 7-step horizontal trajectory (`0..6`) from top center (`3`)
+ * landing cleanly on `targetSlotIndex` (`0..6`) for Plinko Ziczac animation sync across clients.
+ */
+export function buildPlinkoBouncePath(targetSlotIndex: number, seed = 1337): number[] {
+  const clampedTarget = Math.max(0, Math.min(PLINKO_SLOTS.length - 1, Math.trunc(targetSlotIndex)));
+  const rows = 7;
+  const path: number[] = [3];
+  let cur = 3;
+  let s = Math.abs(Math.trunc(seed)) || 1337;
+  for (let r = 1; r <= rows; r++) {
+    s = (s * 1664525 + 1013904223) >>> 0;
+    const stepsLeft = rows - r;
+    const diff = clampedTarget - cur;
+    let delta = 0;
+    if (Math.abs(diff) > stepsLeft) {
+      delta = diff > 0 ? 1 : -1;
+    } else if (Math.abs(diff) === stepsLeft && diff !== 0) {
+      delta = diff > 0 ? 1 : -1;
+    } else {
+      delta = s % 2 === 0 ? 0.5 : -0.5;
+      if (cur + delta < 0.2) delta = 0.5;
+      if (cur + delta > 5.8) delta = -0.5;
+    }
+    cur = Math.max(0, Math.min(6, Number((cur + delta).toFixed(2))));
+    path.push(r === rows ? clampedTarget : cur);
+  }
+  return path;
+}
+
+export function evaluatePlinkoDropWinners(
+  slotIndex: number,
+  participants: Record<string, MinigameParticipant>,
+  prizes: MinigamePrize[],
+  revealedAtMs: number,
+  seed = 2026
+): { result: MinigamePartyResult; winners: MinigameWinnerRecord[] } {
+  const safeIdx =
+    ((Math.trunc(slotIndex) % PLINKO_SLOTS.length) + PLINKO_SLOTS.length) % PLINKO_SLOTS.length;
+  const slot = PLINKO_SLOTS[safeIdx];
+  const result: MinigamePartyResult = {
+    revealedAtMs,
+    plinkoSlotIndex: safeIdx,
+    plinkoSlotId: slot.id,
+    plinkoSlotLabel: `${slot.emoji} ${slot.label}`,
+    plinkoPath: buildPlinkoBouncePath(safeIdx, seed),
+  };
+  if (!prizes || prizes.length === 0) return { result, winners: [] };
+
+  const matched = Object.values(participants)
+    .filter((p) => String(p.prediction) === slot.id)
+    .sort((a, b) => a.joinedAt - b.joinedAt);
+
+  const collectivePrize = prizes.find((pr) => pr.rank === 0) || null;
+  const winners: MinigameWinnerRecord[] = [];
+  matched.forEach((p, idx) => {
+    const pos = idx + 1;
+    const exactPrize = prizes.find((pr) => pr.rank === pos) || null;
+    const prize = exactPrize || collectivePrize;
+    if (!prize) return;
+    winners.push({
+      uid: p.uid,
+      displayName: p.displayName,
+      isBot: Boolean(p.isBot),
+      rank: exactPrize ? pos : 0,
+      prizeLabel: prize.label || (exactPrize ? getDefaultRankLabel(pos) : "Trúng Cổng Ziczac"),
+      prizeType: prize.type,
+      amountVnd: prize.amountVnd,
+      voucherCode: prize.voucherCode,
+      customTitle: prize.customTitle,
+      matchDetail: `Bóng rơi trúng ${slot.emoji} ${slot.label} (#${slot.id})!`,
+      distributed: false,
+      distributedAt: null,
+      walletTransactionId: null,
+    });
+  });
+
+  return { result, winners };
+}
+
+export function evaluatePenaltyShootoutWinners(
+  winningZones: number[],
+  keeperZone: number,
+  participants: Record<string, MinigameParticipant>,
+  prizes: MinigamePrize[],
+  revealedAtMs: number
+): { result: MinigamePartyResult; winners: MinigameWinnerRecord[] } {
+  const uniqueWinning = Array.from(
+    new Set(
+      winningZones
+        .map((z) => Math.trunc(Number(z)))
+        .filter((z) => z >= 1 && z <= PENALTY_ZONES.length)
+    )
+  ).sort((a, b) => a - b);
+
+  const safeKeeper =
+    PENALTY_ZONES.map((z) => z.zone).find((z) => z === keeperZone && !uniqueWinning.includes(z)) ||
+    PENALTY_ZONES.map((z) => z.zone).find((z) => !uniqueWinning.includes(z)) ||
+    3;
+
+  const result: MinigamePartyResult = {
+    revealedAtMs,
+    penaltyWinningZones: uniqueWinning,
+    penaltyKeeperZone: safeKeeper,
+  };
+  if (!prizes || prizes.length === 0) return { result, winners: [] };
+
+  const winSet = new Set(uniqueWinning.map(String));
+  const matched = Object.values(participants)
+    .filter((p) => p.prediction && winSet.has(String(p.prediction)))
+    .sort((a, b) => a.joinedAt - b.joinedAt);
+
+  const collectivePrize = prizes.find((pr) => pr.rank === 0) || null;
+  const winners: MinigameWinnerRecord[] = [];
+  matched.forEach((p, idx) => {
+    const pos = idx + 1;
+    const exactPrize = prizes.find((pr) => pr.rank === pos) || null;
+    const prize = exactPrize || collectivePrize;
+    if (!prize) return;
+    const zoneMeta = PENALTY_ZONES.find((z) => z.id === String(p.prediction));
+    winners.push({
+      uid: p.uid,
+      displayName: p.displayName,
+      isBot: Boolean(p.isBot),
+      rank: exactPrize ? pos : 0,
+      prizeLabel: prize.label || (exactPrize ? getDefaultRankLabel(pos) : "Ghi bàn Siêu Cúp"),
+      prizeType: prize.type,
+      amountVnd: prize.amountVnd,
+      voucherCode: prize.voucherCode,
+      customTitle: prize.customTitle,
+      matchDetail: `Sút tung lưới ${zoneMeta ? zoneMeta.shortLabel : `Góc #${p.prediction}`}!`,
+      distributed: false,
+      distributedAt: null,
+      walletTransactionId: null,
+    });
+  });
+
+  return { result, winners };
+}
+
+export function evaluateClawMachineWinners(
+  plushieIndex: number,
+  participants: Record<string, MinigameParticipant>,
+  prizes: MinigamePrize[],
+  revealedAtMs: number
+): { result: MinigamePartyResult; winners: MinigameWinnerRecord[] } {
+  const safeIdx =
+    ((Math.trunc(plushieIndex) % CLAW_PLUSHIES.length) + CLAW_PLUSHIES.length) %
+    CLAW_PLUSHIES.length;
+  const plushie = CLAW_PLUSHIES[safeIdx];
+  const result: MinigamePartyResult = {
+    revealedAtMs,
+    clawPlushieIndex: safeIdx,
+    clawPlushieId: plushie.id,
+    clawPlushieLabel: `${plushie.emoji} ${plushie.label}`,
+  };
+  if (!prizes || prizes.length === 0) return { result, winners: [] };
+
+  const matched = Object.values(participants)
+    .filter((p) => p.prediction === plushie.id)
+    .sort((a, b) => a.joinedAt - b.joinedAt);
+
+  const collectivePrize = prizes.find((pr) => pr.rank === 0) || null;
+  const winners: MinigameWinnerRecord[] = [];
+  matched.forEach((p, idx) => {
+    const pos = idx + 1;
+    const exactPrize = prizes.find((pr) => pr.rank === pos) || null;
+    const prize = exactPrize || collectivePrize;
+    if (!prize) return;
+    winners.push({
+      uid: p.uid,
+      displayName: p.displayName,
+      isBot: Boolean(p.isBot),
+      rank: exactPrize ? pos : 0,
+      prizeLabel: prize.label || (exactPrize ? getDefaultRankLabel(pos) : "Gắp trúng Thú Bông"),
+      prizeType: prize.type,
+      amountVnd: prize.amountVnd,
+      voucherCode: prize.voucherCode,
+      customTitle: prize.customTitle,
+      matchDetail: `Gắp trúng ${plushie.emoji} ${plushie.label}!`,
       distributed: false,
       distributedAt: null,
       walletTransactionId: null,

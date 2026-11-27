@@ -450,6 +450,10 @@ service cloud.firestore {
       allow read: if isAuthenticated();
       allow write: if isAdmin();
     }
+    match /minigame_chat_rooms/{roomId} {
+      allow read: if isAuthenticated();
+      allow write: if isAdmin();
+    }
 
     // 22. Document Library & Folders (Server-authoritative writes; paid file secrets isolated in library_document_secrets)
     match /library_folders/{folderId} {

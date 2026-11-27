@@ -13,6 +13,8 @@ import {
   LogOut,
   UserCheck,
   ShieldCheck,
+  Gamepad2,
+  Radio,
 } from "lucide-react";
 import { useAuth } from "../../context/AuthContext";
 import type { BauCuaFace, MinigameEvent, MinigameType } from "../../types/minigame";
@@ -20,6 +22,7 @@ import { MINIGAME_TYPE_META } from "../../services/minigame/gameLogic";
 import { getMinigameArtwork } from "../../services/minigame/minigameAssets";
 import { formatVnd } from "../../services/aiShop/billingEngine";
 import {
+  MINIGAME_UNIFIED_CHAT_ROOM,
   fetchStudentMinigameDetailApi,
   fetchStudentMinigamesApi,
   joinMinigameApi,
@@ -33,6 +36,10 @@ import { LuckyNumberStage } from "../../components/minigame/LuckyNumberStage";
 import { LuckyWheelStage } from "../../components/minigame/LuckyWheelStage";
 import { TreasureFlipStage } from "../../components/minigame/TreasureFlipStage";
 import { MysteryBoxStage } from "../../components/minigame/MysteryBoxStage";
+import { PlinkoDropStage } from "../../components/minigame/PlinkoDropStage";
+import { PenaltyShootoutStage } from "../../components/minigame/PenaltyShootoutStage";
+import { ClawMachineStage } from "../../components/minigame/ClawMachineStage";
+import { SoloMinigameArcade } from "../../components/minigame/SoloMinigameArcade";
 import { WinnersPodiumCard } from "../../components/minigame/WinnersPodiumCard";
 import { LiveCheerBar } from "../../components/minigame/LiveCheerBar";
 import { MinigameRealtimeChat } from "../../components/minigame/MinigameRealtimeChat";
@@ -48,7 +55,8 @@ export default function StudentMinigame() {
   const [activeEvent, setActiveEvent] = useState<MinigameEvent | null>(null);
   const [loading, setLoading] = useState(true);
   const [busy, setBusy] = useState(false);
-  const [previewGameType, setPreviewGameType] = useState<MinigameType>("horse_race");
+  const [hubTab, setHubTab] = useState<"all" | "solo" | "live">("all");
+  const [previewGameType, setPreviewGameType] = useState<MinigameType>("duck_race");
   const [toast, setToast] = useState<{ type: "success" | "error"; message: string } | null>(null);
 
   useEffect(() => {
@@ -151,10 +159,10 @@ export default function StudentMinigame() {
           <Trophy className="w-7 h-7" />
         </div>
         <h1 className="text-lg font-black text-slate-900 dark:text-white">
-          Minigame Phúc Lợi DkTEST (Miễn phí 100%)
+          Minigame Phúc Lợi &amp; Khu Tự Chơi DkTEST (Miễn phí 100%)
         </h1>
         <p className="text-xs text-slate-500">
-          Vui lòng đăng nhập tài khoản DkTEST để tham gia các sự kiện Đua Ngựa, Đua Ong, Tài Xỉu, Bầu Cua, Đoán Số nhận quà miễn phí từ Admin!
+          Vui lòng đăng nhập tài khoản DkTEST để chơi miễn phí khu giải trí 24/7 và tham gia 12 sự kiện Đua Vịt, Đua Ngựa, Ziczac Neon, Sút Luân Lưu, Gắp Thú nhận quà từ Admin!
         </p>
         <Link
           to="/login"
@@ -165,6 +173,18 @@ export default function StudentMinigame() {
       </div>
     );
   }
+
+  const displayName =
+    userProfile?.displayName || user.displayName || user.email?.split("@")[0] || "Học sinh";
+  const avatarUrl = userProfile?.photoURL || user.photoURL || undefined;
+  const isUserAdmin = userProfile?.role === "admin" || userProfile?.role === "super_admin";
+
+  const isActiveRace =
+    activeEvent?.gameType === "horse_race" ||
+    activeEvent?.gameType === "bee_race" ||
+    activeEvent?.gameType === "duck_race";
+
+  const visibleLiveEvents = events.filter((e) => e.status !== "cancelled");
 
   return (
     <div className="max-w-6xl mx-auto p-4 sm:p-6 space-y-5">
@@ -225,7 +245,7 @@ export default function StudentMinigame() {
               </span>
 
               {activeEvent.status === "lobby" &&
-                (activeEvent.gameType === "horse_race" || activeEvent.gameType === "bee_race") &&
+                isActiveRace &&
                 (myParticipant ? (
                   <button
                     type="button"
@@ -302,14 +322,18 @@ export default function StudentMinigame() {
           />
 
           {/* Game Stage */}
-          {(activeEvent.gameType === "horse_race" || activeEvent.gameType === "bee_race") && (
+          {isActiveRace && (
             <>
               {activeEvent.heats.length > 0 ? (
                 <RaceTrackStage event={activeEvent} currentUid={user.uid} />
               ) : (
                 <div className="bg-gradient-to-br from-emerald-800 via-teal-800 to-slate-900 rounded-3xl p-6 text-white text-center space-y-4 border-2 border-emerald-400/50 shadow-lg">
                   <div className="text-4xl">
-                    {activeEvent.gameType === "bee_race" ? "🐝🏁" : "🐎🏆"}
+                    {activeEvent.gameType === "duck_race"
+                      ? "🦆🌊"
+                      : activeEvent.gameType === "bee_race"
+                      ? "🐝🏁"
+                      : "🐎🏆"}
                   </div>
                   <h2 className="text-xl font-black">
                     Phòng chờ {MINIGAME_TYPE_META[activeEvent.gameType]?.label}
@@ -317,7 +341,7 @@ export default function StudentMinigame() {
                   <p className="text-xs sm:text-sm text-emerald-100 max-w-lg mx-auto">
                     {myParticipant
                       ? `Bạn mang số áo #${myParticipant.racerNumber}! Đang chờ Admin khóa phòng và bấm xuất phát trực tiếp...`
-                      : `Bấm "Đăng ký tham gia miễn phí" để nhận số áo và bước vào trường đua tranh giải thưởng từ Admin!`}
+                      : `Bấm "Đăng ký tham gia miễn phí" để nhận số áo và bước vào đường đua tranh giải thưởng từ Admin!`}
                   </p>
                   {!myParticipant && activeEvent.status === "lobby" && (
                     <button
@@ -388,6 +412,33 @@ export default function StudentMinigame() {
             />
           )}
 
+          {activeEvent.gameType === "plinko_drop" && (
+            <PlinkoDropStage
+              event={activeEvent}
+              currentUid={user.uid}
+              onSelectPrediction={(slotId) => handleJoin(slotId)}
+              busy={busy}
+            />
+          )}
+
+          {activeEvent.gameType === "penalty_shootout" && (
+            <PenaltyShootoutStage
+              event={activeEvent}
+              currentUid={user.uid}
+              onSelectPrediction={(zoneId) => handleJoin(zoneId)}
+              busy={busy}
+            />
+          )}
+
+          {activeEvent.gameType === "claw_machine" && (
+            <ClawMachineStage
+              event={activeEvent}
+              currentUid={user.uid}
+              onSelectPrediction={(plushieId) => handleJoin(plushieId)}
+              busy={busy}
+            />
+          )}
+
           {/* Winners Podium */}
           <WinnersPodiumCard event={activeEvent} currentUid={user.uid} />
 
@@ -395,20 +446,17 @@ export default function StudentMinigame() {
           <LiveCheerBar
             eventId={activeEvent.id}
             currentUid={user.uid}
-            currentDisplayName={
-              userProfile?.displayName || user.displayName || user.email?.split("@")[0] || "Học sinh"
-            }
+            currentDisplayName={displayName}
           />
 
-          {/* Realtime Room Chat */}
+          {/* Unified Realtime Minigame Chat (Single Continuous Channel!) */}
           <MinigameRealtimeChat
             eventId={activeEvent.id}
+            roomTag={activeEvent.title}
             currentUid={user.uid}
-            currentDisplayName={
-              userProfile?.displayName || user.displayName || user.email?.split("@")[0] || "Học sinh"
-            }
-            currentAvatarUrl={userProfile?.photoURL || user.photoURL || undefined}
-            isAdmin={userProfile?.role === "admin" || userProfile?.role === "super_admin"}
+            currentDisplayName={displayName}
+            currentAvatarUrl={avatarUrl}
+            isAdmin={isUserAdmin}
             chatEnabled={activeEvent.chatEnabled !== false}
           />
 
@@ -443,20 +491,20 @@ export default function StudentMinigame() {
           </div>
         </div>
       ) : (
-        /* Lobby List View */
+        /* Hub / Lobby View */
         <div className="space-y-5">
           {/* Hero */}
           <div className="bg-gradient-to-br from-amber-500 via-orange-500 to-rose-600 rounded-3xl p-5 sm:p-6 text-white shadow-lg flex flex-col sm:flex-row sm:items-center justify-between gap-4">
             <div className="space-y-1.5">
               <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-white/20 text-[11px] font-black">
                 <ShieldCheck className="w-3.5 h-3.5" />
-                <span>Sự kiện phúc lợi MIỄN PHÍ 100% — Không thu phí, không đặt cược</span>
+                <span>MIỄN PHÍ 100% (0Đ) — Sự kiện nhận quà &amp; Khu tự chơi xả stress 24/7</span>
               </div>
               <h1 className="text-xl sm:text-2xl font-black tracking-tight">
-                Sân Chơi Minigame Phúc Lợi Trực Tiếp
+                Sân Chơi Minigame Phúc Lợi &amp; Tự Chơi Miễn Phí
               </h1>
-              <p className="text-xs sm:text-sm text-amber-50 max-w-xl">
-                Đua Ngựa, Đua Ong, Vòng Quay Siêu Tốc, Lật Thẻ Kho Báu, Đập Hộp Bí Ẩn, Tài Xỉu, Bầu Cua, Đoán Số kèm Chat Live trực tiếp — nhận thưởng cộng thẳng Ví DkTEST!
+              <p className="text-xs sm:text-sm text-amber-50 max-w-2xl">
+                12 sự kiện Live nhận thưởng Ví DkTEST (Đua Vịt Vượt Thác, Ziczac Neon, Sút Luân Lưu, Gắp Thú, Đua Ngựa, Đua Ong...) + 5 trò chơi tự chơi miễn phí 24/7 kèm Kênh Chat Chung liên tục!
               </p>
             </div>
             <button
@@ -469,127 +517,201 @@ export default function StudentMinigame() {
             </button>
           </div>
 
-          {loading ? (
-            <div className="p-12 text-center text-xs text-slate-500 bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800">
-              Đang tìm các sự kiện Minigame đang mở...
-            </div>
-          ) : events.filter((e) => e.status !== "cancelled").length === 0 ? (
-            <div className="p-12 text-center space-y-2 bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800">
-              <Sparkles className="w-10 h-10 text-amber-400 mx-auto" />
-              <p className="text-sm font-black text-slate-800 dark:text-slate-100">
-                Hiện chưa có sự kiện Minigame nào đang diễn ra
-              </p>
-              <p className="text-xs text-slate-500">
-                Khi Admin mở sự kiện mới hoặc gửi link mời, sự kiện sẽ xuất hiện ngay tại đây!
-              </p>
-            </div>
-          ) : (
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-              {events
-                .filter((e) => e.status !== "cancelled")
-                .map((ev) => {
-                  const meta = MINIGAME_TYPE_META[ev.gameType];
-                  const art = getMinigameArtwork(ev.gameType);
-                  const count = Object.keys(ev.participants || {}).length;
-                  const joined = Boolean(ev.participants?.[user.uid]);
-                  return (
-                    <button
-                      key={ev.id}
-                      type="button"
-                      onClick={() => navigate(`/student/minigame/${ev.id}`)}
-                      className="group text-left bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 flex flex-col justify-between shadow-2xs hover:shadow-lg hover:border-amber-400 transition-all cursor-pointer overflow-hidden"
-                    >
-                      <div>
-                        {/* Custom 1200x630 Game Artwork Preview */}
-                        <div className="relative aspect-[1200/630] w-full overflow-hidden bg-slate-100 dark:bg-slate-800">
-                          <img
-                            src={art.imagePath}
-                            alt={art.imageAlt}
-                            loading="lazy"
-                            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                          />
-                          <div className="absolute inset-0 bg-gradient-to-t from-slate-950/60 via-transparent to-transparent" />
-                          <div className="absolute top-2.5 left-2.5 right-2.5 flex items-center justify-between gap-2">
-                            <span
-                              className={`px-2.5 py-0.5 rounded-full text-[10px] font-black text-white shadow-sm bg-gradient-to-r ${meta?.gradient}`}
-                            >
-                              {meta?.emoji} {meta?.label}
-                            </span>
-                            <span
-                              className={`text-[10px] font-black px-2 py-0.5 rounded-full shadow-sm ${
-                                ev.status === "lobby"
-                                  ? "bg-emerald-500 text-white"
-                                  : ev.status === "running"
-                                  ? "bg-rose-600 text-white animate-pulse"
-                                  : "bg-slate-900/80 text-white"
-                              }`}
-                            >
-                              {ev.status === "lobby"
-                                ? "Đang mở đăng ký"
-                                : ev.status === "running"
-                                ? "🔴 ĐANG LIVE"
-                                : "Đã kết thúc"}
-                            </span>
-                          </div>
-                        </div>
+          {/* Mode Filter Pills */}
+          <div className="flex flex-wrap items-center gap-2">
+            <button
+              type="button"
+              onClick={() => setHubTab("all")}
+              className={`inline-flex items-center gap-1.5 px-4 py-2 rounded-2xl text-xs font-black transition-all cursor-pointer ${
+                hubTab === "all"
+                  ? "bg-slate-900 dark:bg-white text-white dark:text-slate-950 shadow-sm"
+                  : "bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-300"
+              }`}
+            >
+              <Sparkles className="w-3.5 h-3.5 text-amber-500" />
+              <span>Tất cả sân chơi</span>
+            </button>
+            <button
+              type="button"
+              onClick={() => setHubTab("solo")}
+              className={`inline-flex items-center gap-1.5 px-4 py-2 rounded-2xl text-xs font-black transition-all cursor-pointer ${
+                hubTab === "solo"
+                  ? "bg-indigo-600 text-white shadow-sm"
+                  : "bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-300"
+              }`}
+            >
+              <Gamepad2 className="w-3.5 h-3.5" />
+              <span>🎮 Tự chơi miễn phí 24/7 (0đ)</span>
+            </button>
+            <button
+              type="button"
+              onClick={() => setHubTab("live")}
+              className={`inline-flex items-center gap-1.5 px-4 py-2 rounded-2xl text-xs font-black transition-all cursor-pointer ${
+                hubTab === "live"
+                  ? "bg-rose-600 text-white shadow-sm"
+                  : "bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-300"
+              }`}
+            >
+              <Radio className="w-3.5 h-3.5" />
+              <span>🎪 Sự kiện Live nhận thưởng ({visibleLiveEvents.length})</span>
+            </button>
+          </div>
 
-                        <div className="p-4 space-y-2.5">
-                          <h3 className="text-base font-black text-slate-900 dark:text-white line-clamp-2">
-                            {ev.title}
-                          </h3>
-                          <p className="text-[11px] text-slate-500 dark:text-slate-400 line-clamp-2">
-                            {ev.description || art.tagline}
-                          </p>
+          {/* Live Events Section */}
+          {(hubTab === "all" || hubTab === "live") && (
+            <div className="space-y-3">
+              <div className="flex items-center justify-between">
+                <h2 className="text-sm sm:text-base font-black text-slate-900 dark:text-white flex items-center gap-2">
+                  <Radio className="w-4 h-4 text-rose-500" />
+                  <span>Sự kiện Trực tiếp Nhận quà từ Admin</span>
+                </h2>
+                <span className="text-[11px] font-bold text-emerald-600 dark:text-emerald-400">
+                  Tham gia 0đ • Nhận thưởng Ví thật
+                </span>
+              </div>
 
-                          <div className="flex flex-wrap gap-1.5">
-                            {ev.prizes.slice(0, 3).map((pr, idx) => (
+              {loading ? (
+                <div className="p-8 text-center text-xs text-slate-500 bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800">
+                  Đang tìm các sự kiện Minigame đang mở...
+                </div>
+              ) : visibleLiveEvents.length === 0 ? (
+                <div className="p-6 text-center space-y-1.5 bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800">
+                  <Sparkles className="w-8 h-8 text-amber-400 mx-auto" />
+                  <p className="text-sm font-black text-slate-800 dark:text-slate-100">
+                    Hiện chưa có phòng sự kiện Live nào đang mở
+                  </p>
+                  <p className="text-xs text-slate-500">
+                    Trong lúc chờ Admin mở sự kiện tặng quà, bạn có thể chơi thỏa thích 5 trò giải trí 0đ ngay bên dưới!
+                  </p>
+                </div>
+              ) : (
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                  {visibleLiveEvents.map((ev) => {
+                    const meta = MINIGAME_TYPE_META[ev.gameType];
+                    const art = getMinigameArtwork(ev.gameType);
+                    const count = Object.keys(ev.participants || {}).length;
+                    const joined = Boolean(ev.participants?.[user.uid]);
+                    return (
+                      <button
+                        key={ev.id}
+                        type="button"
+                        onClick={() => navigate(`/student/minigame/${ev.id}`)}
+                        className="group text-left bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 flex flex-col justify-between shadow-2xs hover:shadow-lg hover:border-amber-400 transition-all cursor-pointer overflow-hidden"
+                      >
+                        <div>
+                          <div className="relative aspect-[1200/630] w-full overflow-hidden bg-slate-100 dark:bg-slate-800">
+                            <img
+                              src={art.imagePath}
+                              alt={art.imageAlt}
+                              loading="lazy"
+                              className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                            />
+                            <div className="absolute inset-0 bg-gradient-to-t from-slate-950/60 via-transparent to-transparent" />
+                            <div className="absolute top-2.5 left-2.5 right-2.5 flex items-center justify-between gap-2">
                               <span
-                                key={idx}
-                                className="text-[10px] font-bold px-2 py-0.5 rounded-lg bg-amber-50 dark:bg-amber-950/40 text-amber-800 dark:text-amber-300"
+                                className={`px-2.5 py-0.5 rounded-full text-[10px] font-black text-white shadow-sm bg-gradient-to-r ${meta?.gradient}`}
                               >
-                                {pr.label}:{" "}
-                                {pr.type === "wallet_vnd"
-                                  ? `+${formatVnd(pr.amountVnd || 0)}`
-                                  : pr.type === "voucher"
-                                  ? pr.voucherCode
-                                  : pr.customTitle}
+                                {meta?.emoji} {meta?.label}
                               </span>
-                            ))}
-                            {ev.prizes.length > 3 && (
-                              <span className="text-[10px] font-bold px-2 py-0.5 rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300">
-                                +{ev.prizes.length - 3} giải khác
+                              <span
+                                className={`text-[10px] font-black px-2 py-0.5 rounded-full shadow-sm ${
+                                  ev.status === "lobby"
+                                    ? "bg-emerald-500 text-white"
+                                    : ev.status === "running"
+                                    ? "bg-rose-600 text-white animate-pulse"
+                                    : "bg-slate-900/80 text-white"
+                                }`}
+                              >
+                                {ev.status === "lobby"
+                                  ? "Đang mở đăng ký"
+                                  : ev.status === "running"
+                                  ? "🔴 ĐANG LIVE"
+                                  : "Đã kết thúc"}
                               </span>
-                            )}
+                            </div>
+                          </div>
+
+                          <div className="p-4 space-y-2.5">
+                            <h3 className="text-base font-black text-slate-900 dark:text-white line-clamp-2">
+                              {ev.title}
+                            </h3>
+                            <p className="text-[11px] text-slate-500 dark:text-slate-400 line-clamp-2">
+                              {ev.description || art.tagline}
+                            </p>
+
+                            <div className="flex flex-wrap gap-1.5">
+                              {ev.prizes.slice(0, 3).map((pr, idx) => (
+                                <span
+                                  key={idx}
+                                  className="text-[10px] font-bold px-2 py-0.5 rounded-lg bg-amber-50 dark:bg-amber-950/40 text-amber-800 dark:text-amber-300"
+                                >
+                                  {pr.label}:{" "}
+                                  {pr.type === "wallet_vnd"
+                                    ? `+${formatVnd(pr.amountVnd || 0)}`
+                                    : pr.type === "voucher"
+                                    ? pr.voucherCode
+                                    : pr.customTitle}
+                                </span>
+                              ))}
+                              {ev.prizes.length > 3 && (
+                                <span className="text-[10px] font-bold px-2 py-0.5 rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300">
+                                  +{ev.prizes.length - 3} giải khác
+                                </span>
+                              )}
+                            </div>
                           </div>
                         </div>
-                      </div>
 
-                      <div className="px-4 py-3 border-t border-slate-100 dark:border-slate-800 flex items-center justify-between text-xs">
-                        <span className="font-bold text-slate-600 dark:text-slate-300 flex items-center gap-1">
-                          <Users className="w-3.5 h-3.5 text-blue-500" />
-                          {count}/{ev.maxParticipants} người
-                        </span>
-                        <span className="font-black text-blue-600 dark:text-blue-400">
-                          {joined
-                            ? "Đã tham gia → Vào xem"
-                            : ev.status === "lobby"
-                            ? "Tham gia miễn phí →"
-                            : "Xem trực tiếp →"}
-                        </span>
-                      </div>
-                    </button>
-                  );
-                })}
+                        <div className="px-4 py-3 border-t border-slate-100 dark:border-slate-800 flex items-center justify-between text-xs">
+                          <span className="font-bold text-slate-600 dark:text-slate-300 flex items-center gap-1">
+                            <Users className="w-3.5 h-3.5 text-blue-500" />
+                            {count}/{ev.maxParticipants} người
+                          </span>
+                          <span className="font-black text-blue-600 dark:text-blue-400">
+                            {joined
+                              ? "Đã tham gia → Vào xem"
+                              : ev.status === "lobby"
+                              ? "Tham gia miễn phí →"
+                              : "Xem trực tiếp →"}
+                          </span>
+                        </div>
+                      </button>
+                    );
+                  })}
+                </div>
+              )}
             </div>
           )}
 
-          {/* Interactive Showcase & Detailed Visual Guide for all 8 Minigames */}
+          {/* Free 24/7 Self-Play Solo Arcade (0đ, No Admin Required!) */}
+          {(hubTab === "all" || hubTab === "solo") && (
+            <SoloMinigameArcade
+              currentUid={user.uid}
+              currentDisplayName={displayName}
+              currentAvatarUrl={avatarUrl}
+              isAdmin={isUserAdmin}
+              onShareToast={(msg) => setToast({ type: "success", message: msg })}
+            />
+          )}
+
+          {/* Continuous Unified Minigame Chat right in Lobby */}
+          <MinigameRealtimeChat
+            eventId={MINIGAME_UNIFIED_CHAT_ROOM}
+            roomTag="Sảnh Minigame"
+            currentUid={user.uid}
+            currentDisplayName={displayName}
+            currentAvatarUrl={avatarUrl}
+            isAdmin={isUserAdmin}
+            chatEnabled
+          />
+
+          {/* Interactive Showcase & Detailed Visual Guide for all 12 Live Minigames */}
           <div className="bg-white dark:bg-slate-900 rounded-3xl border border-slate-200 dark:border-slate-800 p-4 sm:p-5 space-y-4 shadow-2xs">
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
               <div>
                 <h2 className="text-sm sm:text-base font-black text-slate-900 dark:text-white flex items-center gap-1.5">
                   <Sparkles className="w-4 h-4 text-amber-500" />
-                  Xem trước &amp; Minh họa 8 Minigame Phúc Lợi
+                  Xem trước &amp; Minh họa 12 Minigame Phúc Lợi Trực Tiếp
                 </h2>
                 <p className="text-xs text-slate-500 dark:text-slate-400">
                   Chọn từng trò chơi để xem hình ảnh minh họa chi tiết và hướng dẫn cách tham gia nhận quà miễn phí.
@@ -597,7 +719,7 @@ export default function StudentMinigame() {
               </div>
             </div>
 
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
+            <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-6 gap-2">
               {(Object.keys(MINIGAME_TYPE_META) as MinigameType[]).map((type) => {
                 const meta = MINIGAME_TYPE_META[type];
                 const art = getMinigameArtwork(type);

@@ -105,6 +105,29 @@ function initFirebaseAdmin() {
   };
 }
 var { adminApp, adminAuth, adminDb, isConfigured } = initFirebaseAdmin();
+var adminRtdbInstance = void 0;
+function getAdminRtdb() {
+  if (adminRtdbInstance !== void 0) return adminRtdbInstance;
+  if (!adminApp) {
+    adminRtdbInstance = null;
+    return null;
+  }
+  try {
+    const nativeRequire = getNativeRequire();
+    if (!nativeRequire) {
+      adminRtdbInstance = null;
+      return null;
+    }
+    const { getDatabaseWithUrl, getDatabase } = nativeRequire("firebase-admin/database");
+    const dbUrl = process.env.FIREBASE_DATABASE_URL || process.env.VITE_FIREBASE_DATABASE_URL || "https://exam-fd7a1-default-rtdb.firebaseio.com";
+    adminRtdbInstance = getDatabaseWithUrl ? getDatabaseWithUrl(dbUrl, adminApp) : getDatabase(adminApp, dbUrl);
+    return adminRtdbInstance;
+  } catch (err) {
+    console.warn("[FirebaseAdmin] Could not initialize Admin RTDB:", err);
+    adminRtdbInstance = null;
+    return null;
+  }
+}
 function decodeFirestoreValue(val) {
   if (!val || typeof val !== "object") return val;
   if ("stringValue" in val) return val.stringValue;
@@ -6049,61 +6072,275 @@ var MYSTERY_BOXES = [
   { id: "6", boxNumber: 6, label: "H\u1ED9p Kim C\u01B0\u01A1ng", emoji: "\u{1F496}", gradient: "from-fuchsia-500 to-pink-600" }
 ];
 var TREASURE_CHEST_COUNT = 9;
+var PLINKO_SLOTS = [
+  { id: "1", slotIndex: 0, label: "C\u1ED5ng Sao B\u0103ng", emoji: "\u{1F320}", gradient: "from-sky-500 to-blue-600", hex: "#0284c7" },
+  { id: "2", slotIndex: 1, label: "C\u1ED5ng S\u1EA5m S\xE9t", emoji: "\u26A1", gradient: "from-amber-400 to-orange-500", hex: "#f59e0b" },
+  { id: "3", slotIndex: 2, label: "C\u1ED5ng Ng\u1ECDc L\u1EE5c", emoji: "\u{1F340}", gradient: "from-emerald-500 to-teal-600", hex: "#10b981" },
+  { id: "4", slotIndex: 3, label: "C\u1ED5ng Ho\xE0ng Kim", emoji: "\u{1F451}", gradient: "from-yellow-400 to-amber-600", hex: "#eab308" },
+  { id: "5", slotIndex: 4, label: "C\u1ED5ng Kim C\u01B0\u01A1ng", emoji: "\u{1F48E}", gradient: "from-cyan-500 to-indigo-600", hex: "#06b6d4" },
+  { id: "6", slotIndex: 5, label: "C\u1ED5ng Ph\u01B0\u1EE3ng Ho\xE0ng", emoji: "\u{1F525}", gradient: "from-rose-500 to-red-600", hex: "#f43f5e" },
+  { id: "7", slotIndex: 6, label: "C\u1ED5ng Si\xEAu C\xFAp", emoji: "\u{1F3C6}", gradient: "from-violet-500 to-purple-600", hex: "#8b5cf6" }
+];
+var PENALTY_ZONES = [
+  { id: "1", zone: 1, label: "G\xF3c Tr\xE1i Tr\xEAn (Ch\u1EEF A)", shortLabel: "Tr\xE1i Tr\xEAn", emoji: "\u2196\uFE0F" },
+  { id: "2", zone: 2, label: "G\xF3c Tr\xE1i D\u01B0\u1EDBi (S\u1EC7t)", shortLabel: "Tr\xE1i D\u01B0\u1EDBi", emoji: "\u2199\uFE0F" },
+  { id: "3", zone: 3, label: "Ch\xEDnh Gi\u1EEFa Khung Th\xE0nh (Panenka)", shortLabel: "Ch\xEDnh Gi\u1EEFa", emoji: "\u2B06\uFE0F" },
+  { id: "4", zone: 4, label: "G\xF3c Ph\u1EA3i Tr\xEAn (Ch\u1EEF A)", shortLabel: "Ph\u1EA3i Tr\xEAn", emoji: "\u2197\uFE0F" },
+  { id: "5", zone: 5, label: "G\xF3c Ph\u1EA3i D\u01B0\u1EDBi (S\u1EC7t)", shortLabel: "Ph\u1EA3i D\u01B0\u1EDBi", emoji: "\u2198\uFE0F" }
+];
+var CLAW_PLUSHIES = [
+  { id: "gau_bong", index: 0, label: "G\u1EA5u B\xF4ng N\xE2u", emoji: "\u{1F9F8}", gradient: "from-amber-500 to-orange-600" },
+  { id: "meo_than_tai", index: 1, label: "M\xE8o Th\u1EA7n T\xE0i", emoji: "\u{1F431}", gradient: "from-yellow-400 to-amber-500" },
+  { id: "rong_nho", index: 2, label: "R\u1ED3ng L\u1EEDa Nh\u1ECF", emoji: "\u{1F432}", gradient: "from-emerald-500 to-teal-600" },
+  { id: "tho_ngoc", index: 3, label: "Th\u1ECF Ng\u1ECDc H\u1ED3ng", emoji: "\u{1F430}", gradient: "from-pink-500 to-rose-500" },
+  { id: "cao_tuyet", index: 4, label: "C\xE1o Tuy\u1EBFt Cam", emoji: "\u{1F98A}", gradient: "from-orange-500 to-red-500" },
+  { id: "canh_cut", index: 5, label: "Chim C\xE1nh C\u1EE5t", emoji: "\u{1F427}", gradient: "from-sky-500 to-indigo-600" },
+  { id: "bach_tuoc", index: 6, label: "B\u1EA1ch Tu\u1ED9c T\xEDm", emoji: "\u{1F419}", gradient: "from-purple-500 to-fuchsia-600" },
+  { id: "ky_lan", index: 7, label: "K\u1EF3 L\xE2n C\u1EA7u V\u1ED3ng", emoji: "\u{1F984}", gradient: "from-indigo-500 to-violet-600" }
+];
 
 // server/services/minigameService.ts
 var COL_MINIGAMES = "minigame_events";
+var MINIGAME_UNIFIED_CHAT_ROOM = "global";
+function sanitizeRtdbRoomKey(raw) {
+  const cleaned = String(raw || MINIGAME_UNIFIED_CHAT_ROOM).trim().replace(/[.#$/\[\]]/g, "_").slice(0, 80);
+  return cleaned || MINIGAME_UNIFIED_CHAT_ROOM;
+}
+function stripUndefinedFields(obj) {
+  const out = {};
+  for (const [k, v] of Object.entries(obj)) {
+    if (v !== void 0) out[k] = v;
+  }
+  return out;
+}
 var liveCheersByEvent = /* @__PURE__ */ new Map();
+var cheerReadCacheByRoom = /* @__PURE__ */ new Map();
 function addLiveMinigameCheer(eventId, cheer) {
+  const roomKey = sanitizeRtdbRoomKey(eventId);
+  const safeId = cheer.id && /^[a-zA-Z0-9_-]{4,64}$/.test(cheer.id) ? cheer.id : makeId("ch");
   const msg = {
-    id: makeId("ch"),
+    id: safeId,
     uid: cheer.uid,
     displayName: (cheer.displayName || "Ng\u01B0\u1EDDi xem").slice(0, 60),
     emoji: (cheer.emoji || "\u{1F525}").slice(0, 8),
     text: (cheer.text || "").slice(0, 80),
     createdAt: Date.now()
   };
-  const existing = liveCheersByEvent.get(eventId) || [];
-  const next = [msg, ...existing.filter((m) => Date.now() - m.createdAt < 6e4)].slice(0, 24);
-  liveCheersByEvent.set(eventId, next);
+  const existing = liveCheersByEvent.get(roomKey) || [];
+  const filtered = existing.filter((m) => m.id !== msg.id && Date.now() - m.createdAt < 9e4);
+  const next = [msg, ...filtered].slice(0, 24);
+  liveCheersByEvent.set(roomKey, next);
+  cheerReadCacheByRoom.delete(roomKey);
   return msg;
 }
 function listLiveMinigameCheers(eventId) {
-  const existing = liveCheersByEvent.get(eventId) || [];
-  const fresh = existing.filter((m) => Date.now() - m.createdAt < 6e4);
-  liveCheersByEvent.set(eventId, fresh);
+  const roomKey = sanitizeRtdbRoomKey(eventId);
+  const existing = liveCheersByEvent.get(roomKey) || [];
+  const fresh = existing.filter((m) => Date.now() - m.createdAt < 9e4);
+  liveCheersByEvent.set(roomKey, fresh);
   return fresh.slice(0, 12);
 }
+async function appendPersistentMinigameCheer(eventId, cheer) {
+  const roomKey = sanitizeRtdbRoomKey(eventId);
+  const msg = addLiveMinigameCheer(roomKey, cheer);
+  const adminRtdb = getAdminRtdb();
+  if (adminRtdb) {
+    try {
+      await adminRtdb.ref(`minigame_cheers/${roomKey}/${msg.id}`).set(stripUndefinedFields(msg));
+    } catch {
+    }
+  }
+  const cheers = await getPersistentMinigameCheers(roomKey, true);
+  return { cheer: msg, cheers };
+}
+async function getPersistentMinigameCheers(eventId, bypassCache = false) {
+  const roomKey = sanitizeRtdbRoomKey(eventId);
+  const now = Date.now();
+  const cached = cheerReadCacheByRoom.get(roomKey);
+  if (!bypassCache && cached && cached.expiresAt > now) {
+    return cached.items;
+  }
+  const localItems = listLiveMinigameCheers(roomKey);
+  const merged = /* @__PURE__ */ new Map();
+  for (const item of localItems) merged.set(item.id, item);
+  const adminRtdb = getAdminRtdb();
+  if (adminRtdb) {
+    try {
+      const snap = await adminRtdb.ref(`minigame_cheers/${roomKey}`).limitToLast(24).once("value");
+      const rawObj = snap?.val();
+      if (rawObj && typeof rawObj === "object") {
+        for (const [key, raw] of Object.entries(rawObj)) {
+          const createdAt = Number(raw?.createdAt) || 0;
+          if (!raw?.emoji || now - createdAt >= 9e4) continue;
+          const id = String(raw?.id || key);
+          merged.set(id, {
+            id,
+            uid: String(raw.uid || ""),
+            displayName: String(raw.displayName || "Ng\u01B0\u1EDDi xem"),
+            emoji: String(raw.emoji),
+            text: raw.text ? String(raw.text) : "",
+            createdAt
+          });
+        }
+      }
+    } catch {
+    }
+  }
+  const sorted = Array.from(merged.values()).sort((a, b) => b.createdAt - a.createdAt).slice(0, 12);
+  liveCheersByEvent.set(roomKey, sorted);
+  cheerReadCacheByRoom.set(roomKey, { items: sorted, expiresAt: now + 1500 });
+  return sorted;
+}
 var liveChatByEvent = /* @__PURE__ */ new Map();
-var LIVE_CHAT_TTL_MS = 6 * 60 * 60 * 1e3;
+var chatReadCacheByRoom = /* @__PURE__ */ new Map();
+var LIVE_CHAT_TTL_MS = 24 * 60 * 60 * 1e3;
 var LIVE_CHAT_MAX_ITEMS = 80;
 function addLiveMinigameChat(eventId, payload) {
+  const roomKey = sanitizeRtdbRoomKey(eventId);
   const cleanText = String(payload.message || "").replace(/[\r\n\t]+/g, " ").trim().slice(0, 280);
   if (!cleanText) {
     throw new Error("Vui l\xF2ng nh\u1EADp n\u1ED9i dung tin nh\u1EAFn.");
   }
+  const safeId = payload.id && /^[a-zA-Z0-9_-]{4,64}$/.test(payload.id) ? payload.id : makeId("chat");
+  const cleanTag = payload.roomTag ? String(payload.roomTag).replace(/[\r\n\t]+/g, " ").trim().slice(0, 48) : void 0;
+  const now = Date.now();
+  const existing = liveChatByEvent.get(roomKey) || [];
+  const duplicate = existing.find((m) => m.id === safeId);
+  if (duplicate) {
+    return duplicate;
+  }
   const msg = {
-    id: makeId("chat"),
+    id: safeId,
     uid: payload.uid,
     displayName: (payload.displayName || "H\u1ECDc sinh").slice(0, 60),
     avatarUrl: payload.avatarUrl ? String(payload.avatarUrl).slice(0, 512) : void 0,
     isAdmin: Boolean(payload.isAdmin),
     message: cleanText,
-    createdAt: Date.now()
+    ...cleanTag ? { roomTag: cleanTag } : {},
+    createdAt: now
   };
-  const now = Date.now();
-  const existing = liveChatByEvent.get(eventId) || [];
-  const next = [...existing.filter((m) => now - m.createdAt < LIVE_CHAT_TTL_MS), msg].slice(
-    -LIVE_CHAT_MAX_ITEMS
-  );
-  liveChatByEvent.set(eventId, next);
+  const next = [...existing.filter((m) => now - m.createdAt < LIVE_CHAT_TTL_MS), msg].sort((a, b) => a.createdAt - b.createdAt).slice(-LIVE_CHAT_MAX_ITEMS);
+  liveChatByEvent.set(roomKey, next);
+  chatReadCacheByRoom.delete(roomKey);
   return msg;
 }
 function listLiveMinigameChat(eventId) {
+  const roomKey = sanitizeRtdbRoomKey(eventId);
   const now = Date.now();
-  const existing = liveChatByEvent.get(eventId) || [];
+  const existing = liveChatByEvent.get(roomKey) || [];
   const fresh = existing.filter((m) => now - m.createdAt < LIVE_CHAT_TTL_MS);
-  liveChatByEvent.set(eventId, fresh);
+  liveChatByEvent.set(roomKey, fresh);
   return fresh.slice(-60);
+}
+async function appendPersistentMinigameChat(eventId, payload) {
+  const roomKey = sanitizeRtdbRoomKey(eventId);
+  const msg = addLiveMinigameChat(roomKey, payload);
+  const adminRtdb = getAdminRtdb();
+  if (adminRtdb) {
+    try {
+      await adminRtdb.ref(`minigame_chat/${roomKey}/${msg.id}`).set(stripUndefinedFields(msg));
+    } catch (err) {
+      console.warn("[MinigameChat] Admin RTDB write warning:", err);
+    }
+  } else if (adminDb) {
+    try {
+      const docRef = adminDb.collection("minigame_chat_rooms").doc(roomKey);
+      await adminDb.runTransaction(async (tx) => {
+        const snap = await tx.get(docRef);
+        const prev = Array.isArray(snap.data()?.messages) ? snap.data().messages : [];
+        const dedup = /* @__PURE__ */ new Map();
+        const now = Date.now();
+        for (const item of [...prev, msg]) {
+          if (item?.id && item?.message && now - Number(item.createdAt || 0) < LIVE_CHAT_TTL_MS) {
+            dedup.set(item.id, stripUndefinedFields(item));
+          }
+        }
+        const merged = Array.from(dedup.values()).sort((a, b) => a.createdAt - b.createdAt).slice(-LIVE_CHAT_MAX_ITEMS);
+        tx.set(docRef, { messages: merged, updatedAt: now }, { merge: true });
+      });
+    } catch {
+    }
+  }
+  const messages = await getPersistentMinigameChat(roomKey, true);
+  return { chatMessage: msg, messages };
+}
+async function getPersistentMinigameChat(eventId, bypassCache = false) {
+  const roomKey = sanitizeRtdbRoomKey(eventId);
+  const now = Date.now();
+  const cached = chatReadCacheByRoom.get(roomKey);
+  if (!bypassCache && cached && cached.expiresAt > now) {
+    return cached.items;
+  }
+  const merged = /* @__PURE__ */ new Map();
+  for (const localMsg of listLiveMinigameChat(roomKey)) {
+    merged.set(localMsg.id, localMsg);
+  }
+  const adminRtdb = getAdminRtdb();
+  if (adminRtdb) {
+    try {
+      const snap = await adminRtdb.ref(`minigame_chat/${roomKey}`).orderByChild("createdAt").limitToLast(LIVE_CHAT_MAX_ITEMS).once("value");
+      const val = snap?.val();
+      if (val && typeof val === "object") {
+        for (const [key, raw] of Object.entries(val)) {
+          const text = String(raw?.message || "").trim();
+          const createdAt = Number(raw?.createdAt) || 0;
+          if (!text || now - createdAt >= LIVE_CHAT_TTL_MS) continue;
+          const id = String(raw?.id || key);
+          merged.set(id, {
+            id,
+            uid: String(raw?.uid || ""),
+            displayName: String(raw?.displayName || "H\u1ECDc sinh"),
+            ...raw?.avatarUrl ? { avatarUrl: String(raw.avatarUrl) } : {},
+            isAdmin: Boolean(raw?.isAdmin),
+            message: text,
+            ...raw?.roomTag ? { roomTag: String(raw.roomTag) } : {},
+            createdAt
+          });
+        }
+      }
+    } catch {
+      try {
+        const snap = await adminRtdb.ref(`minigame_chat/${roomKey}`).limitToLast(LIVE_CHAT_MAX_ITEMS).once("value");
+        const val = snap?.val();
+        if (val && typeof val === "object") {
+          for (const [key, raw] of Object.entries(val)) {
+            const text = String(raw?.message || "").trim();
+            const createdAt = Number(raw?.createdAt) || 0;
+            if (!text || now - createdAt >= LIVE_CHAT_TTL_MS) continue;
+            const id = String(raw?.id || key);
+            merged.set(id, {
+              id,
+              uid: String(raw?.uid || ""),
+              displayName: String(raw?.displayName || "H\u1ECDc sinh"),
+              ...raw?.avatarUrl ? { avatarUrl: String(raw.avatarUrl) } : {},
+              isAdmin: Boolean(raw?.isAdmin),
+              message: text,
+              ...raw?.roomTag ? { roomTag: String(raw.roomTag) } : {},
+              createdAt
+            });
+          }
+        }
+      } catch {
+      }
+    }
+  } else if (adminDb) {
+    try {
+      const snap = await adminDb.collection("minigame_chat_rooms").doc(roomKey).get();
+      const arr = snap.data()?.messages;
+      if (Array.isArray(arr)) {
+        for (const raw of arr) {
+          if (raw?.id && raw?.message && now - Number(raw.createdAt || 0) < LIVE_CHAT_TTL_MS) {
+            merged.set(String(raw.id), raw);
+          }
+        }
+      }
+    } catch {
+    }
+  }
+  const sorted = Array.from(merged.values()).sort((a, b) => a.createdAt - b.createdAt || a.id.localeCompare(b.id)).slice(-60);
+  liveChatByEvent.set(roomKey, sorted);
+  chatReadCacheByRoom.set(roomKey, { items: sorted, expiresAt: now + 1200 });
+  return sorted;
 }
 var prizeSchema = z3.object({
   rank: z3.number().int().min(0).max(50),
@@ -6119,12 +6356,16 @@ var createMinigameSchema = z3.object({
   gameType: z3.enum([
     "horse_race",
     "bee_race",
+    "duck_race",
     "tai_xiu",
     "bau_cua",
     "lucky_number",
     "lucky_wheel",
     "treasure_flip",
-    "mystery_box"
+    "mystery_box",
+    "plinko_drop",
+    "penalty_shootout",
+    "claw_machine"
   ]),
   maxParticipants: z3.number().int().min(2).max(200).default(8),
   racersPerHeat: z3.number().int().min(2).max(8).optional().default(4),
@@ -6175,7 +6416,7 @@ function makeId(prefix) {
   return `${prefix}_${Date.now().toString(36)}_${crypto2.randomBytes(3).toString("hex")}`;
 }
 function isRaceGame(type) {
-  return type === "horse_race" || type === "bee_race";
+  return type === "horse_race" || type === "bee_race" || type === "duck_race";
 }
 function validatePredictionForGame(gameType, prediction) {
   if (isRaceGame(gameType)) return void 0;
@@ -6223,6 +6464,27 @@ function validatePredictionForGame(gameType, prediction) {
       throw new Error(`Vui l\xF2ng ch\u1ECDn 1 h\u1ED9p qu\xE0 b\xED \u1EA9n t\u1EEB #1 \u0111\u1EBFn #${MYSTERY_BOXES.length}.`);
     }
     return String(box);
+  }
+  if (gameType === "plinko_drop") {
+    const slot = Number(clean);
+    if (!Number.isInteger(slot) || slot < 1 || slot > PLINKO_SLOTS.length) {
+      throw new Error(`Vui l\xF2ng ch\u1ECDn 1 c\u1ED5ng th\u01B0\u1EDFng Ziczac t\u1EEB #1 \u0111\u1EBFn #${PLINKO_SLOTS.length}.`);
+    }
+    return String(slot);
+  }
+  if (gameType === "penalty_shootout") {
+    const zone = Number(clean);
+    if (!Number.isInteger(zone) || zone < 1 || zone > PENALTY_ZONES.length) {
+      throw new Error(`Vui l\xF2ng ch\u1ECDn 1 g\xF3c s\xFAt khung th\xE0nh t\u1EEB #1 \u0111\u1EBFn #${PENALTY_ZONES.length}.`);
+    }
+    return String(zone);
+  }
+  if (gameType === "claw_machine") {
+    const validPlushies = CLAW_PLUSHIES.map((p) => p.id);
+    if (!validPlushies.includes(clean)) {
+      throw new Error("Vui l\xF2ng ch\u1ECDn 1 th\xFA b\xF4ng h\u1EE3p l\u1EC7 trong t\u1EE7 G\u1EAFp Th\xFA.");
+    }
+    return clean;
   }
   return void 0;
 }
@@ -6388,7 +6650,7 @@ minigameStudentRouter.get(
   requireAuth,
   async (req, res) => {
     try {
-      const cheers = listLiveMinigameCheers(req.params.id);
+      const cheers = await getPersistentMinigameCheers(req.params.id);
       return res.json({ success: true, cheers });
     } catch (err) {
       const e = formatError2(err);
@@ -6401,15 +6663,17 @@ minigameStudentRouter.post(
   requireAuth,
   async (req, res) => {
     try {
+      const id = typeof req.body?.id === "string" ? req.body.id : void 0;
       const emoji = typeof req.body?.emoji === "string" ? req.body.emoji : "\u{1F525}";
       const text = typeof req.body?.text === "string" ? req.body.text : "";
-      const cheer = addLiveMinigameCheer(req.params.id, {
+      const { cheer, cheers } = await appendPersistentMinigameCheer(req.params.id, {
+        id,
         uid: req.user.uid,
         displayName: req.user.displayName || req.user.email?.split("@")[0] || "Ng\u01B0\u1EDDi xem",
         emoji,
         text
       });
-      return res.json({ success: true, cheer, cheers: listLiveMinigameCheers(req.params.id) });
+      return res.json({ success: true, cheer, cheers });
     } catch (err) {
       const e = formatError2(err);
       return res.status(e.status).json({ error: e.error, message: e.message });
@@ -6421,7 +6685,7 @@ minigameStudentRouter.get(
   requireAuth,
   async (req, res) => {
     try {
-      const messages = listLiveMinigameChat(req.params.id);
+      const messages = await getPersistentMinigameChat(req.params.id);
       return res.json({ success: true, messages });
     } catch (err) {
       const e = formatError2(err);
@@ -6434,21 +6698,25 @@ minigameStudentRouter.post(
   requireAuth,
   async (req, res) => {
     try {
+      const clientId = typeof req.body?.id === "string" ? req.body.id : void 0;
       const messageText = typeof req.body?.message === "string" ? req.body.message : "";
       const avatarUrl = typeof req.body?.avatarUrl === "string" ? req.body.avatarUrl : void 0;
+      const roomTag = typeof req.body?.roomTag === "string" ? req.body.roomTag : void 0;
       const role = String(req.user?.role || "").toLowerCase();
       const isAdmin = role === "admin" || role === "super_admin" || role === "teacher";
-      const chatMessage = addLiveMinigameChat(req.params.id, {
+      const { chatMessage, messages } = await appendPersistentMinigameChat(req.params.id, {
+        id: clientId,
         uid: req.user.uid,
         displayName: req.user.displayName || req.user.email?.split("@")[0] || "H\u1ECDc sinh",
         avatarUrl,
         isAdmin,
-        message: messageText
+        message: messageText,
+        roomTag
       });
       return res.json({
         success: true,
         chatMessage,
-        messages: listLiveMinigameChat(req.params.id)
+        messages
       });
     } catch (err) {
       const e = formatError2(err);

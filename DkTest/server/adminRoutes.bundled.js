@@ -5685,6 +5685,33 @@ var MYSTERY_BOXES = [
 ];
 var TREASURE_CHEST_COUNT = 9;
 var TREASURE_WINNING_COUNT = 2;
+var PLINKO_SLOTS = [
+  { id: "1", slotIndex: 0, label: "C\u1ED5ng Sao B\u0103ng", emoji: "\u{1F320}", gradient: "from-sky-500 to-blue-600", hex: "#0284c7" },
+  { id: "2", slotIndex: 1, label: "C\u1ED5ng S\u1EA5m S\xE9t", emoji: "\u26A1", gradient: "from-amber-400 to-orange-500", hex: "#f59e0b" },
+  { id: "3", slotIndex: 2, label: "C\u1ED5ng Ng\u1ECDc L\u1EE5c", emoji: "\u{1F340}", gradient: "from-emerald-500 to-teal-600", hex: "#10b981" },
+  { id: "4", slotIndex: 3, label: "C\u1ED5ng Ho\xE0ng Kim", emoji: "\u{1F451}", gradient: "from-yellow-400 to-amber-600", hex: "#eab308" },
+  { id: "5", slotIndex: 4, label: "C\u1ED5ng Kim C\u01B0\u01A1ng", emoji: "\u{1F48E}", gradient: "from-cyan-500 to-indigo-600", hex: "#06b6d4" },
+  { id: "6", slotIndex: 5, label: "C\u1ED5ng Ph\u01B0\u1EE3ng Ho\xE0ng", emoji: "\u{1F525}", gradient: "from-rose-500 to-red-600", hex: "#f43f5e" },
+  { id: "7", slotIndex: 6, label: "C\u1ED5ng Si\xEAu C\xFAp", emoji: "\u{1F3C6}", gradient: "from-violet-500 to-purple-600", hex: "#8b5cf6" }
+];
+var PENALTY_ZONES = [
+  { id: "1", zone: 1, label: "G\xF3c Tr\xE1i Tr\xEAn (Ch\u1EEF A)", shortLabel: "Tr\xE1i Tr\xEAn", emoji: "\u2196\uFE0F" },
+  { id: "2", zone: 2, label: "G\xF3c Tr\xE1i D\u01B0\u1EDBi (S\u1EC7t)", shortLabel: "Tr\xE1i D\u01B0\u1EDBi", emoji: "\u2199\uFE0F" },
+  { id: "3", zone: 3, label: "Ch\xEDnh Gi\u1EEFa Khung Th\xE0nh (Panenka)", shortLabel: "Ch\xEDnh Gi\u1EEFa", emoji: "\u2B06\uFE0F" },
+  { id: "4", zone: 4, label: "G\xF3c Ph\u1EA3i Tr\xEAn (Ch\u1EEF A)", shortLabel: "Ph\u1EA3i Tr\xEAn", emoji: "\u2197\uFE0F" },
+  { id: "5", zone: 5, label: "G\xF3c Ph\u1EA3i D\u01B0\u1EDBi (S\u1EC7t)", shortLabel: "Ph\u1EA3i D\u01B0\u1EDBi", emoji: "\u2198\uFE0F" }
+];
+var PENALTY_WINNING_ZONE_COUNT = 2;
+var CLAW_PLUSHIES = [
+  { id: "gau_bong", index: 0, label: "G\u1EA5u B\xF4ng N\xE2u", emoji: "\u{1F9F8}", gradient: "from-amber-500 to-orange-600" },
+  { id: "meo_than_tai", index: 1, label: "M\xE8o Th\u1EA7n T\xE0i", emoji: "\u{1F431}", gradient: "from-yellow-400 to-amber-500" },
+  { id: "rong_nho", index: 2, label: "R\u1ED3ng L\u1EEDa Nh\u1ECF", emoji: "\u{1F432}", gradient: "from-emerald-500 to-teal-600" },
+  { id: "tho_ngoc", index: 3, label: "Th\u1ECF Ng\u1ECDc H\u1ED3ng", emoji: "\u{1F430}", gradient: "from-pink-500 to-rose-500" },
+  { id: "cao_tuyet", index: 4, label: "C\xE1o Tuy\u1EBFt Cam", emoji: "\u{1F98A}", gradient: "from-orange-500 to-red-500" },
+  { id: "canh_cut", index: 5, label: "Chim C\xE1nh C\u1EE5t", emoji: "\u{1F427}", gradient: "from-sky-500 to-indigo-600" },
+  { id: "bach_tuoc", index: 6, label: "B\u1EA1ch Tu\u1ED9c T\xEDm", emoji: "\u{1F419}", gradient: "from-purple-500 to-fuchsia-600" },
+  { id: "ky_lan", index: 7, label: "K\u1EF3 L\xE2n C\u1EA7u V\u1ED3ng", emoji: "\u{1F984}", gradient: "from-indigo-500 to-violet-600" }
+];
 function getDefaultRankLabel(rank) {
   if (rank === 0) return "Gi\u1EA3i \u0111\u1ED3ng h\u1EA1ng";
   if (rank === 1) return "Gi\u1EA3i Nh\u1EA5t";
@@ -5940,11 +5967,150 @@ function evaluateMysteryBoxWinners(winningBox, participants, prizes, revealedAtM
   });
   return { result, winners };
 }
+function buildPlinkoBouncePath(targetSlotIndex, seed = 1337) {
+  const clampedTarget = Math.max(0, Math.min(PLINKO_SLOTS.length - 1, Math.trunc(targetSlotIndex)));
+  const rows = 7;
+  const path2 = [3];
+  let cur = 3;
+  let s = Math.abs(Math.trunc(seed)) || 1337;
+  for (let r = 1; r <= rows; r++) {
+    s = s * 1664525 + 1013904223 >>> 0;
+    const stepsLeft = rows - r;
+    const diff = clampedTarget - cur;
+    let delta = 0;
+    if (Math.abs(diff) > stepsLeft) {
+      delta = diff > 0 ? 1 : -1;
+    } else if (Math.abs(diff) === stepsLeft && diff !== 0) {
+      delta = diff > 0 ? 1 : -1;
+    } else {
+      delta = s % 2 === 0 ? 0.5 : -0.5;
+      if (cur + delta < 0.2) delta = 0.5;
+      if (cur + delta > 5.8) delta = -0.5;
+    }
+    cur = Math.max(0, Math.min(6, Number((cur + delta).toFixed(2))));
+    path2.push(r === rows ? clampedTarget : cur);
+  }
+  return path2;
+}
+function evaluatePlinkoDropWinners(slotIndex, participants, prizes, revealedAtMs, seed = 2026) {
+  const safeIdx = (Math.trunc(slotIndex) % PLINKO_SLOTS.length + PLINKO_SLOTS.length) % PLINKO_SLOTS.length;
+  const slot = PLINKO_SLOTS[safeIdx];
+  const result = {
+    revealedAtMs,
+    plinkoSlotIndex: safeIdx,
+    plinkoSlotId: slot.id,
+    plinkoSlotLabel: `${slot.emoji} ${slot.label}`,
+    plinkoPath: buildPlinkoBouncePath(safeIdx, seed)
+  };
+  if (!prizes || prizes.length === 0) return { result, winners: [] };
+  const matched = Object.values(participants).filter((p) => String(p.prediction) === slot.id).sort((a, b) => a.joinedAt - b.joinedAt);
+  const collectivePrize = prizes.find((pr) => pr.rank === 0) || null;
+  const winners = [];
+  matched.forEach((p, idx) => {
+    const pos = idx + 1;
+    const exactPrize = prizes.find((pr) => pr.rank === pos) || null;
+    const prize = exactPrize || collectivePrize;
+    if (!prize) return;
+    winners.push({
+      uid: p.uid,
+      displayName: p.displayName,
+      isBot: Boolean(p.isBot),
+      rank: exactPrize ? pos : 0,
+      prizeLabel: prize.label || (exactPrize ? getDefaultRankLabel(pos) : "Tr\xFAng C\u1ED5ng Ziczac"),
+      prizeType: prize.type,
+      amountVnd: prize.amountVnd,
+      voucherCode: prize.voucherCode,
+      customTitle: prize.customTitle,
+      matchDetail: `B\xF3ng r\u01A1i tr\xFAng ${slot.emoji} ${slot.label} (#${slot.id})!`,
+      distributed: false,
+      distributedAt: null,
+      walletTransactionId: null
+    });
+  });
+  return { result, winners };
+}
+function evaluatePenaltyShootoutWinners(winningZones, keeperZone, participants, prizes, revealedAtMs) {
+  const uniqueWinning = Array.from(
+    new Set(
+      winningZones.map((z5) => Math.trunc(Number(z5))).filter((z5) => z5 >= 1 && z5 <= PENALTY_ZONES.length)
+    )
+  ).sort((a, b) => a - b);
+  const safeKeeper = PENALTY_ZONES.map((z5) => z5.zone).find((z5) => z5 === keeperZone && !uniqueWinning.includes(z5)) || PENALTY_ZONES.map((z5) => z5.zone).find((z5) => !uniqueWinning.includes(z5)) || 3;
+  const result = {
+    revealedAtMs,
+    penaltyWinningZones: uniqueWinning,
+    penaltyKeeperZone: safeKeeper
+  };
+  if (!prizes || prizes.length === 0) return { result, winners: [] };
+  const winSet = new Set(uniqueWinning.map(String));
+  const matched = Object.values(participants).filter((p) => p.prediction && winSet.has(String(p.prediction))).sort((a, b) => a.joinedAt - b.joinedAt);
+  const collectivePrize = prizes.find((pr) => pr.rank === 0) || null;
+  const winners = [];
+  matched.forEach((p, idx) => {
+    const pos = idx + 1;
+    const exactPrize = prizes.find((pr) => pr.rank === pos) || null;
+    const prize = exactPrize || collectivePrize;
+    if (!prize) return;
+    const zoneMeta = PENALTY_ZONES.find((z5) => z5.id === String(p.prediction));
+    winners.push({
+      uid: p.uid,
+      displayName: p.displayName,
+      isBot: Boolean(p.isBot),
+      rank: exactPrize ? pos : 0,
+      prizeLabel: prize.label || (exactPrize ? getDefaultRankLabel(pos) : "Ghi b\xE0n Si\xEAu C\xFAp"),
+      prizeType: prize.type,
+      amountVnd: prize.amountVnd,
+      voucherCode: prize.voucherCode,
+      customTitle: prize.customTitle,
+      matchDetail: `S\xFAt tung l\u01B0\u1EDBi ${zoneMeta ? zoneMeta.shortLabel : `G\xF3c #${p.prediction}`}!`,
+      distributed: false,
+      distributedAt: null,
+      walletTransactionId: null
+    });
+  });
+  return { result, winners };
+}
+function evaluateClawMachineWinners(plushieIndex, participants, prizes, revealedAtMs) {
+  const safeIdx = (Math.trunc(plushieIndex) % CLAW_PLUSHIES.length + CLAW_PLUSHIES.length) % CLAW_PLUSHIES.length;
+  const plushie = CLAW_PLUSHIES[safeIdx];
+  const result = {
+    revealedAtMs,
+    clawPlushieIndex: safeIdx,
+    clawPlushieId: plushie.id,
+    clawPlushieLabel: `${plushie.emoji} ${plushie.label}`
+  };
+  if (!prizes || prizes.length === 0) return { result, winners: [] };
+  const matched = Object.values(participants).filter((p) => p.prediction === plushie.id).sort((a, b) => a.joinedAt - b.joinedAt);
+  const collectivePrize = prizes.find((pr) => pr.rank === 0) || null;
+  const winners = [];
+  matched.forEach((p, idx) => {
+    const pos = idx + 1;
+    const exactPrize = prizes.find((pr) => pr.rank === pos) || null;
+    const prize = exactPrize || collectivePrize;
+    if (!prize) return;
+    winners.push({
+      uid: p.uid,
+      displayName: p.displayName,
+      isBot: Boolean(p.isBot),
+      rank: exactPrize ? pos : 0,
+      prizeLabel: prize.label || (exactPrize ? getDefaultRankLabel(pos) : "G\u1EAFp tr\xFAng Th\xFA B\xF4ng"),
+      prizeType: prize.type,
+      amountVnd: prize.amountVnd,
+      voucherCode: prize.voucherCode,
+      customTitle: prize.customTitle,
+      matchDetail: `G\u1EAFp tr\xFAng ${plushie.emoji} ${plushie.label}!`,
+      distributed: false,
+      distributedAt: null,
+      walletTransactionId: null
+    });
+  });
+  return { result, winners };
+}
 
 // server/services/minigameService.ts
 var COL_MINIGAMES = "minigame_events";
 var liveCheersByEvent = /* @__PURE__ */ new Map();
-var LIVE_CHAT_TTL_MS = 6 * 60 * 60 * 1e3;
+var LIVE_CHAT_TTL_MS = 24 * 60 * 60 * 1e3;
 var BOT_NAMES = [
   "Ng\u1EF1a Chi\u1EBFn \u0110\u1ECF",
   "Tia Ch\u1EDBp V\xE0ng",
@@ -5993,12 +6159,16 @@ var createMinigameSchema = z3.object({
   gameType: z3.enum([
     "horse_race",
     "bee_race",
+    "duck_race",
     "tai_xiu",
     "bau_cua",
     "lucky_number",
     "lucky_wheel",
     "treasure_flip",
-    "mystery_box"
+    "mystery_box",
+    "plinko_drop",
+    "penalty_shootout",
+    "claw_machine"
   ]),
   maxParticipants: z3.number().int().min(2).max(200).default(8),
   racersPerHeat: z3.number().int().min(2).max(8).optional().default(4),
@@ -6064,7 +6234,7 @@ function makeId(prefix) {
   return `${prefix}_${Date.now().toString(36)}_${crypto2.randomBytes(3).toString("hex")}`;
 }
 function isRaceGame(type) {
-  return type === "horse_race" || type === "bee_race";
+  return type === "horse_race" || type === "bee_race" || type === "duck_race";
 }
 function normalizeScheduleFields(input) {
   let startIso = null;
@@ -6229,6 +6399,12 @@ async function fillMinigameWithBots(eventId, options) {
       prediction = String(crypto2.randomInt(1, TREASURE_CHEST_COUNT + 1));
     } else if (event.gameType === "mystery_box") {
       prediction = String(crypto2.randomInt(1, MYSTERY_BOXES.length + 1));
+    } else if (event.gameType === "plinko_drop") {
+      prediction = PLINKO_SLOTS[crypto2.randomInt(0, PLINKO_SLOTS.length)].id;
+    } else if (event.gameType === "penalty_shootout") {
+      prediction = String(crypto2.randomInt(1, PENALTY_ZONES.length + 1));
+    } else if (event.gameType === "claw_machine") {
+      prediction = CLAW_PLUSHIES[crypto2.randomInt(0, CLAW_PLUSHIES.length)].id;
     }
     participants[botUid] = {
       uid: botUid,
@@ -6373,6 +6549,45 @@ async function startMinigameEvent(eventId) {
     const winningBox = crypto2.randomInt(1, MYSTERY_BOXES.length + 1);
     const evalRes = evaluateMysteryBoxWinners(
       winningBox,
+      event.participants,
+      event.prizes,
+      revealedAtMs
+    );
+    partyResult = evalRes.result;
+    winners = evalRes.winners;
+  } else if (event.gameType === "plinko_drop") {
+    const slotIndex = crypto2.randomInt(0, PLINKO_SLOTS.length);
+    const seed = crypto2.randomInt(1e3, 9999999);
+    const evalRes = evaluatePlinkoDropWinners(
+      slotIndex,
+      event.participants,
+      event.prizes,
+      revealedAtMs,
+      seed
+    );
+    partyResult = evalRes.result;
+    winners = evalRes.winners;
+  } else if (event.gameType === "penalty_shootout") {
+    const pool = PENALTY_ZONES.map((z5) => z5.zone);
+    const winningZones = [];
+    while (winningZones.length < PENALTY_WINNING_ZONE_COUNT && pool.length > 0) {
+      const idx = crypto2.randomInt(0, pool.length);
+      winningZones.push(pool.splice(idx, 1)[0]);
+    }
+    const keeperZone = pool[crypto2.randomInt(0, pool.length)] || 3;
+    const evalRes = evaluatePenaltyShootoutWinners(
+      winningZones,
+      keeperZone,
+      event.participants,
+      event.prizes,
+      revealedAtMs
+    );
+    partyResult = evalRes.result;
+    winners = evalRes.winners;
+  } else if (event.gameType === "claw_machine") {
+    const plushieIndex = crypto2.randomInt(0, CLAW_PLUSHIES.length);
+    const evalRes = evaluateClawMachineWinners(
+      plushieIndex,
       event.participants,
       event.prizes,
       revealedAtMs

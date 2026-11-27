@@ -2,13 +2,13 @@ import { Router, type Response } from "express";
 import { ZodError } from "zod";
 import { requireAuth, type AuthenticatedRequest } from "../middleware/auth.js";
 import {
-  addLiveMinigameChat,
-  addLiveMinigameCheer,
+  appendPersistentMinigameChat,
+  appendPersistentMinigameCheer,
   getMinigameEvent,
+  getPersistentMinigameChat,
+  getPersistentMinigameCheers,
   joinOrUpdateMinigameParticipant,
   leaveMinigameEvent,
-  listLiveMinigameChat,
-  listLiveMinigameCheers,
   listMinigameEvents,
 } from "../services/minigameService.js";
 
@@ -89,13 +89,13 @@ minigameStudentRouter.post(
   }
 );
 
-// GET /api/minigames/:id/cheers (live cheer feed without requiring RTDB write rules)
+// GET /api/minigames/:id/cheers (shared live cheer feed — 0 Firestore reads!)
 minigameStudentRouter.get(
   "/:id/cheers",
   requireAuth,
   async (req: AuthenticatedRequest, res: Response) => {
     try {
-      const cheers = listLiveMinigameCheers(req.params.id);
+      const cheers = await getPersistentMinigameCheers(req.params.id);
       return res.json({ success: true, cheers });
     } catch (err: any) {
       const e = formatError(err);
@@ -110,15 +110,17 @@ minigameStudentRouter.post(
   requireAuth,
   async (req: AuthenticatedRequest, res: Response) => {
     try {
+      const id = typeof req.body?.id === "string" ? req.body.id : undefined;
       const emoji = typeof req.body?.emoji === "string" ? req.body.emoji : "🔥";
       const text = typeof req.body?.text === "string" ? req.body.text : "";
-      const cheer = addLiveMinigameCheer(req.params.id, {
+      const { cheer, cheers } = await appendPersistentMinigameCheer(req.params.id, {
+        id,
         uid: req.user!.uid,
         displayName: req.user!.displayName || req.user!.email?.split("@")[0] || "Người xem",
         emoji,
         text,
       });
-      return res.json({ success: true, cheer, cheers: listLiveMinigameCheers(req.params.id) });
+      return res.json({ success: true, cheer, cheers });
     } catch (err: any) {
       const e = formatError(err);
       return res.status(e.status).json({ error: e.error, message: e.message });
@@ -126,13 +128,13 @@ minigameStudentRouter.post(
   }
 );
 
-// GET /api/minigames/:id/chat (live room chat messages — 0 Firestore reads!)
+// GET /api/minigames/:id/chat (shared across all serverless instances — 0 Firestore reads!)
 minigameStudentRouter.get(
   "/:id/chat",
   requireAuth,
   async (req: AuthenticatedRequest, res: Response) => {
     try {
-      const messages = listLiveMinigameChat(req.params.id);
+      const messages = await getPersistentMinigameChat(req.params.id);
       return res.json({ success: true, messages });
     } catch (err: any) {
       const e = formatError(err);
@@ -147,21 +149,25 @@ minigameStudentRouter.post(
   requireAuth,
   async (req: AuthenticatedRequest, res: Response) => {
     try {
+      const clientId = typeof req.body?.id === "string" ? req.body.id : undefined;
       const messageText = typeof req.body?.message === "string" ? req.body.message : "";
       const avatarUrl = typeof req.body?.avatarUrl === "string" ? req.body.avatarUrl : undefined;
+      const roomTag = typeof req.body?.roomTag === "string" ? req.body.roomTag : undefined;
       const role = String(req.user?.role || "").toLowerCase();
       const isAdmin = role === "admin" || role === "super_admin" || role === "teacher";
-      const chatMessage = addLiveMinigameChat(req.params.id, {
+      const { chatMessage, messages } = await appendPersistentMinigameChat(req.params.id, {
+        id: clientId,
         uid: req.user!.uid,
         displayName: req.user!.displayName || req.user!.email?.split("@")[0] || "Học sinh",
         avatarUrl,
         isAdmin,
         message: messageText,
+        roomTag,
       });
       return res.json({
         success: true,
         chatMessage,
-        messages: listLiveMinigameChat(req.params.id),
+        messages,
       });
     } catch (err: any) {
       const e = formatError(err);
