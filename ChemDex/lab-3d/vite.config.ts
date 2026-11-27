@@ -41,6 +41,8 @@ export default defineConfig(() => {
         output: {
           manualChunks(id) {
             const norm = id.replace(/\\/g, '/');
+            // The reaction library is opened by a dynamic import in the lessons panel.
+            if (norm.endsWith('/src/data/curriculum/reactions.vi.json')) return 'data-reaction-library';
             if (norm.includes('node_modules')) {
               if (norm.includes('/node_modules/three/')) return 'vendor-three';
               if (norm.includes('/node_modules/@react-three/postprocessing/') || norm.includes('/node_modules/postprocessing/') || norm.includes('/node_modules/n8ao/')) return 'vendor-postfx';
