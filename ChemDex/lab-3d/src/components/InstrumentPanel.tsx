@@ -32,6 +32,12 @@ import { BURETTE_MIN_Z } from '../handling/burettePlacement';
 
 const BUTTON = 'rounded-lg border border-slate-300 px-3 py-2 text-xs font-medium hover:bg-slate-100 disabled:opacity-40 disabled:cursor-not-allowed';
 const SampleRecorderPanel = React.lazy(() => import('./SampleRecorderPanel'));
+const WorkbenchInventoryPanel = React.lazy(() => import('./WorkbenchInventoryPanel'));
+const PANEL_TABS = [
+  { id: 'tools', en: 'Instruments', vi: 'Dụng cụ' },
+  { id: 'recording', en: 'Sample log', vi: 'Nhật ký số đo' },
+  { id: 'inventory', en: 'Mass tracking', vi: 'Khối lượng' },
+] as const;
 
 function NumberControl({ label, value, minimum, maximum, step, onChange }: {
   label: string;
@@ -218,7 +224,7 @@ function InstrumentDetails({ id }: { id: InstrumentId }) {
 
 export default function InstrumentPanel({ onClose }: { onClose: () => void }) {
   const [id, setId] = useState<InstrumentId>('pipette');
-  const [showRecorder, setShowRecorder] = useState(false);
+  const [tab, setTab] = useState<(typeof PANEL_TABS)[number]['id']>('tools');
   const root = useRef<HTMLElement>(null);
   const vessels = useAppStore(state => state.vessels);
   const selected = useAppStore(state => state.selectedVesselId);
@@ -247,12 +253,11 @@ export default function InstrumentPanel({ onClose }: { onClose: () => void }) {
     </div>
     <div className="overflow-y-auto space-y-4 p-4">
       <div className="flex flex-wrap gap-2 border-b border-slate-200 pb-3">
-        <button type="button" aria-pressed={!showRecorder} className={BUTTON + (!showRecorder ? ' bg-slate-100' : '')}
-          onClick={() => setShowRecorder(false)}>{language === 'en' ? 'Instruments' : 'Dụng cụ'}</button>
-        <button type="button" aria-pressed={showRecorder} className={BUTTON + (showRecorder ? ' bg-slate-100' : '')}
-          onClick={() => setShowRecorder(true)}>{language === 'en' ? 'Sample log' : 'Nhật ký số đo'}</button>
+        {PANEL_TABS.map(item => <button type="button" key={item.id} aria-pressed={tab === item.id}
+          className={BUTTON + (tab === item.id ? ' bg-slate-100' : '')}
+          onClick={() => setTab(item.id)}>{item[language]}</button>)}
       </div>
-      {!showRecorder && <>
+      {tab === 'tools' && <>
         <InstrumentRinseStatus />
         <label className="block space-y-1 text-xs">
           <span>Dụng cụ</span>
@@ -261,16 +266,17 @@ export default function InstrumentPanel({ onClose }: { onClose: () => void }) {
           </select>
         </label>
       </>}
-      <label className="block space-y-1 text-xs">
+      {tab !== 'inventory' && <label className="block space-y-1 text-xs">
         <span>{language === 'en' ? 'Selected vessel' : 'Bình đang chọn'}</span>
         <select aria-label={language === 'en' ? 'Working vessel' : 'Bình thao tác'} className="w-full rounded border p-2" value={selected ?? ''} onChange={event => useAppStore.getState().setSelectedVesselId(event.target.value || null)}>
           <option value="">{language === 'en' ? 'Choose a vessel' : 'Chưa chọn bình'}</option>
           {Object.values(vessels).filter(vessel => vessel.capacity_ml > 0 && !vessel.isShattered).map(vessel => <option key={vessel.id} value={vessel.id}>{vessel.name}</option>)}
         </select>
-      </label>
-      {showRecorder ? <React.Suspense fallback={<p role="status" className="text-xs text-slate-600">
-        {language === 'en' ? 'Opening sample log…' : 'Đang mở nhật ký…'}
-      </p>}><SampleRecorderPanel /></React.Suspense> : <InstrumentDetails key={id} id={id} />}
+      </label>}
+      {tab === 'tools' ? <InstrumentDetails key={id} id={id} /> :
+        <React.Suspense fallback={<p role="status" className="text-xs text-slate-600">
+          {language === 'en' ? 'Opening panel…' : 'Đang mở bảng…'}
+        </p>}>{tab === 'recording' ? <SampleRecorderPanel /> : <WorkbenchInventoryPanel />}</React.Suspense>}
     </div>
   </aside>;
 }
