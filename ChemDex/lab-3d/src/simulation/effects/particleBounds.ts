@@ -1,5 +1,5 @@
 import type { VesselProfile } from '../../pour/physics/profiles';
-import { pointPlaneDepth, projectToLiquidPlane, type LiquidPlane } from './liquidParticleFrame';
+import { liquidSurfaceClearance, pointPlaneDepth, projectToLiquidPlane, type LiquidPlane } from './liquidParticleFrame';
 import type { Point3 } from './liquidParticleFrame';
 
 export interface ParticleBounds {
@@ -119,8 +119,8 @@ function containTiltedParticle(p: { x: number; y: number; z: number; radius: num
       if (!(available > extent)) break;
       const radial = Math.hypot(p.x, p.z), limit = available - extent - PARTICLE_WALL_CLEARANCE;
       if (radial > limit) { p.x *= Math.max(0, limit) / radial; p.z *= Math.max(0, limit) / radial; }
-      const slope = plane.vortex ? 0.65 * plane.vortex.amplitude / plane.vortex.coreRadius : 0;
-      const depth = pointPlaneDepth(p, bounds.surfaceY, plane), target = atSurface ? 0 : extent * Math.sqrt(1 + slope * slope);
+      const depth = pointPlaneDepth(p, bounds.surfaceY, plane);
+      const target = atSurface ? 0 : liquidSurfaceClearance(p, extent, plane);
       if ((atSurface ? Math.abs(depth) : target - depth) <= 1e-9) {
         p.radius = extent / factor; return true;
       }

@@ -6,6 +6,8 @@ import { liquidParticlePlane, pointPlaneDepth } from '../src/simulation/effects/
 import { bubbleMechanicalRadius } from '../src/science/bubblePhase';
 import { metersPerModelUnit } from '../src/science/sceneUnits';
 import { waterSurfaceTension } from '../src/science/wallDropletGeometry';
+import { LiquidVortex, vortexHeight, vortexSlope } from '../src/science/liquidVortex';
+import { vfxBus } from '../src/vfx/bus';
 
 const profile = getVesselProfile('flask', 100), dt = 1 / 120;
 const params: BoilingSimulationParams = { vesselProfile: profile, radius: 1.215,
@@ -88,5 +90,57 @@ describe('Bubble contact with a sloping glass wall', () => {
     const clear = { ...params, vesselProfile: { ...profile, contour: undefined, r: () => 10 } };
     for (let i = 0; i < 10; i++) { bounded.update(dt, params); wide.update(dt, clear); }
     expect(bounded.bubbles).toEqual(wide.bubbles);
+  });
+});
+
+describe('Bubble contact with the stirring vortex', () => {
+  const glass = getVesselProfile('beaker', 100), fill = -0.15;
+  const vortex = new LiquidVortex();
+  vortex.setMotion(48, 0, glass, fill);
+  const surface = vortex.surface!;
+  const plane = { offset: fill, normal: [0, 1, 0] as const, vortex: surface };
+  const input: BoilingSimulationParams = {
+    ...params, vesselId: 'vortex-contact', vesselProfile: glass, surfacePlane: plane,
+    radius: glass.r(fill), liquidBottomY: glass.baseY, surfaceY: fill, viscosity_mPa_s: 500, boilingIntensity: 0.7,
+  };
+
+  it('reaches the sloping meniscus, ejects outward from it, and follows it as stirring subsides', () => {
+    const sim = new BoilingSystem(1);
+    const r = surface.coreRadius / Math.sqrt(3);
+    const b = packet(r, vortexHeight(r, 0, surface) - 0.012 * 1.6 * 0.92);
+    sim.bubbles = [b];
+    const positions: number[][] = [];
+    const stop = vfxBus.on('particle:burst', event => {
+      if (event.vesselId === input.vesselId) positions.push(event.position);
+    });
+    try {
+      sim.update(dt, input);
+      expect(b.isPopping).toBe(true);
+      expect(pointPlaneDepth(b, fill, plane)).toBeCloseTo(0, 9);
+      expect(positions).toHaveLength(1);
+      const radial = Math.hypot(b.x, b.z);
+      const slope = vortexSlope(radial, surface);
+      const lift = 0.006 / Math.hypot(1, slope);
+      expect(positions[0][0] - b.x).toBeCloseTo(-lift * slope * b.x / radial, 12);
+      expect(positions[0][1] - b.y).toBeCloseTo(lift, 12);
+      const arrivalRadius = b.radius;
+      const calmer = { ...plane, vortex: { ...surface, amplitude: surface.amplitude / 2 } };
+      sim.update(dt, { ...input, surfacePlane: calmer });
+      expect(sim.bubbles).toHaveLength(1);
+      expect(pointPlaneDepth(b, fill, calmer)).toBeCloseTo(0, 9);
+      expect(b.radius / arrivalRadius).toBeCloseTo(1 + dt * 6.5 * 0.6, 12);
+      expect(positions).toHaveLength(1);
+    } finally {
+      stop();
+    }
+  });
+
+  it('keeps a closely submerged bubble under the nearly flat centre', () => {
+    const sim = new BoilingSystem(1);
+    const b = packet(0, vortexHeight(0, 0, surface) - 0.012 * 1.6 * 1.08);
+    sim.bubbles = [b];
+    sim.update(dt, input);
+    expect(sim.bubbles).toEqual([b]);
+    expect(b.isPopping).toBe(false);
   });
 });

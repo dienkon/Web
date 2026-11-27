@@ -1,6 +1,6 @@
 import type { VesselProfile } from '../../pour/physics/profiles';
 import { solveLevel } from '../../pour/physics/retained';
-import { vortexHeight, type VortexSurface } from '../../science/liquidVortex';
+import { vortexHeight, vortexSlope, type VortexSurface } from '../../science/liquidVortex';
 
 export type Point3 = readonly [number, number, number];
 export interface LiquidPlane { normal: Point3; offset: number; vortex?: VortexSurface }
@@ -19,6 +19,27 @@ export function liquidParticlePlane(profile: VesselProfile, volume_ml: number, l
 export function pointPlaneDepth(point: { x: number; y: number; z: number }, surfaceY: number, plane?: LiquidPlane) {
   if (plane?.vortex) return vortexHeight(point.x, point.z, plane.vortex) - point.y;
   return plane ? plane.offset - (plane.normal[0] * point.x + plane.normal[1] * point.y + plane.normal[2] * point.z) : surfaceY - point.y;
+}
+
+/** Vertical clearance for a finite sphere under the curved surface. Bound
+ * the slope only over the sphere's footprint, including the steepest radius. */
+export function liquidSurfaceClearance(point: { x: number; z: number }, extent: number, plane?: LiquidPlane) {
+  const vortex = plane?.vortex;
+  if (!vortex) return extent;
+  const r = Math.hypot(point.x, point.z);
+  const peak = vortex.coreRadius / Math.sqrt(3);
+  const steepest = Math.max(r - extent, Math.min(peak, r + extent));
+  return extent * Math.hypot(1, vortexSlope(steepest, vortex));
+}
+
+export function liquidSurfaceNormal(point: { x: number; z: number }, plane?: LiquidPlane): Point3 {
+  const vortex = plane?.vortex;
+  if (!vortex) return plane?.normal ?? [0, 1, 0];
+  const r = Math.hypot(point.x, point.z);
+  if (r === 0) return [0, 1, 0];
+  const slope = vortexSlope(r, vortex);
+  const up = 1 / Math.hypot(1, slope), horizontal = -slope * up / r;
+  return [point.x * horizontal, up, point.z * horizontal];
 }
 
 export function projectToLiquidPlane<T extends { x: number; y: number; z: number }>(point: T, surfaceY: number,

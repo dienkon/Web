@@ -11,7 +11,7 @@ import { metersPerModelUnit } from '../../science/sceneUnits';
 import { bubbleMechanicalRadius, condenseBubbleVapor } from '../../science/bubblePhase';
 import { mergeBubbleGas, synchronizeBubbleGas, updateBubbleSource } from './bubbleGasInventory';
 import type { ConvectionFluidModel } from '../../science/convectionForcing';
-import { pointPlaneDepth, projectToLiquidPlane } from './liquidParticleFrame';
+import { liquidSurfaceClearance, liquidSurfaceNormal, pointPlaneDepth, projectToLiquidPlane } from './liquidParticleFrame';
 
 function advanceGlyphCredit(credit: number, rate: number, dt: number) {
   const total = credit + rate * dt;
@@ -333,14 +333,10 @@ export class BoilingSystem {
       // 1. Handling surface arrival dome, thin-film drainage and burst
       if (b.isPopping) {
         b.popProgress += dt * 6.5; // Realistic drainage & burst sequence (~0.15s)
-        b.radius = b.baseRadius * (1.15 + b.popProgress * 0.45);
+        if (b.popProgress >= 1) continue;
+        b.radius = b.baseRadius * (1 + b.popProgress * 0.6);
         b.opacity = Math.max(0, 0.88 * (1.0 - b.popProgress));
         if (!containParticle(b, params, 1.6, true)) continue;
-
-        if (b.popProgress >= 1.0) {
-          // Finished burst
-          continue;
-        }
         activeBubbles.push(b);
         continue;
       }
@@ -452,12 +448,14 @@ export class BoilingSystem {
       b.physicalRadius_m = b.radius * METERS_PER_SCENE_UNIT;
 
       // 5. CHECK MENISCUS SURFACE IMPACT & BURST
-      if (pointPlaneDepth(b, surfaceY, params.surfacePlane) <= b.radius * 1.6) {
+      const contactDepth = liquidSurfaceClearance(b, b.radius * 1.6, params.surfacePlane);
+      if (pointPlaneDepth(b, surfaceY, params.surfacePlane) <= contactDepth + 1e-9) {
         // Trigger surface pop!
         b.isPopping = true;
-        b.popProgress = 0.05;
+        b.popProgress = 0;
         projectToLiquidPlane(b, surfaceY, params.surfacePlane);
         if (!containParticle(b, params, 1.6, true)) continue;
+        b.baseRadius = b.radius;
 
         // Deterministic per-vessel event budget. Pure vapor and mixed packets
         // require phase-transfer acoustics; do not assign them an air tone.
@@ -476,7 +474,7 @@ export class BoilingSystem {
         // Worthington micro-jet and droplet ejecta
         if (boilingIntensity > 0.25 || this.rng.next() < 0.45) {
           const origin = params.worldPosition ?? [0, 0, 0];
-          const up = params.surfacePlane?.normal ?? [0, 1, 0];
+          const up = liquidSurfaceNormal(b, params.surfacePlane);
           const burstPoint: [number, number, number] = [b.x + up[0] * 0.006, b.y + up[1] * 0.006, b.z + up[2] * 0.006];
           if (params.vesselId) vfxBus.emit('particle:burst', {
             vesselId: params.vesselId,
