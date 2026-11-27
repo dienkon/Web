@@ -10,6 +10,8 @@ import { isLessonVessel } from './instrumentCatalog';
 
 const MAX_READINGS = 601;
 const STORAGE_KEY = 'chemdex_sample_recordings_v1';
+export const MAX_SAMPLE_MARKERS = 24;
+export const SAMPLE_MARKER_NOTE_LENGTH = 96;
 
 const optionalReading = z.number().nullable();
 const sampleReading = z.object({
@@ -22,6 +24,8 @@ const sampleReading = z.object({
   phReferenceTemperature_c: optionalReading,
 });
 export type SampleReading = z.infer<typeof sampleReading>;
+const sampleMarker = z.object({ seconds: z.number().nonnegative(), note: z.string().max(SAMPLE_MARKER_NOTE_LENGTH) });
+export type SampleMarker = z.infer<typeof sampleMarker>;
 
 export const SAMPLE_METRICS = {
   temperature_c: { en: 'Temperature', vi: 'Nhiệt độ', unit: '°C' },
@@ -36,6 +40,7 @@ const sampleRecording = z.object({
   sampleRevision: z.number(),
   benchEpoch: z.number(),
   status: z.enum(['recording', 'stopped', 'sample-changed', 'limit']),
+  markers: z.array(sampleMarker).max(MAX_SAMPLE_MARKERS).readonly().default([]),
   readings: z.array(sampleReading).min(1).max(MAX_READINGS).readonly()
     .refine(readings => readings[0]?.seconds === 0
       && readings.every((point, index) => index === 0 || point.seconds > readings[index - 1].seconds)),
@@ -61,10 +66,18 @@ interface SampleRecorderState {
   pinReference: () => void;
   clearReference: () => void;
   advance: (delta: number, frame: RecorderFrame) => void;
+  mark: (frame: RecorderFrame) => void;
+  editMarker: (index: number, marker: SampleMarker, note: string) => void;
 }
 
 export function canRecordSample(vessel: VesselState | undefined): vessel is VesselState {
   return !!vessel && vessel.capacity_ml > 0 && !vessel.isShattered && !isLessonVessel(vessel.id);
+}
+
+function ownedSample(recording: SampleRecording, frame: RecorderFrame): VesselState | undefined {
+  const vessel = frame.vessels[recording.vesselId];
+  if (canRecordSample(vessel) && frame.pourEpoch === recording.benchEpoch
+    && (vessel.effectSampleRevision ?? 0) === recording.sampleRevision) return vessel;
 }
 
 function restoreSampleRecordings(): Pick<SampleRecorderState, 'recording' | 'reference'> {
@@ -106,7 +119,7 @@ export const useSampleRecorder = create<SampleRecorderState>((set, get) => {
       nextSampleAt = 1;
       set({ recording: { vesselId: vessel.id, vesselName: vessel.name,
         sampleRevision: vessel.effectSampleRevision ?? 0, benchEpoch, status: 'recording',
-        readings: [readSampleAt(vessel, 0)] } });
+        markers: [], readings: [readSampleAt(vessel, 0)] } });
     },
     stop: () => {
       const recording = get().recording;
@@ -117,12 +130,28 @@ export const useSampleRecorder = create<SampleRecorderState>((set, get) => {
       if (recording && recording.status !== 'recording' && recording.readings.length >= 2) set({ reference: recording });
     },
     clearReference: () => set({ reference: null }),
+    mark: frame => {
+      const recording = get().recording;
+      if (recording?.status !== 'recording' || recording.markers.length >= MAX_SAMPLE_MARKERS) return;
+      if (!ownedSample(recording, frame)) {
+        set({ recording: { ...recording, status: 'sample-changed' } });
+        return;
+      }
+      const marker = { seconds: Number(elapsed.toFixed(6)), note: '' };
+      set({ recording: { ...recording, markers: [...recording.markers, marker] } });
+    },
+    editMarker: (index, marker, note) => {
+      const { recording, reference } = get();
+      const trimmed = note.trim().slice(0, SAMPLE_MARKER_NOTE_LENGTH);
+      if (!recording || recording.markers[index] !== marker || marker.note === trimmed) return;
+      const next = { ...recording, markers: recording.markers.map((item, i) => i === index ? { ...item, note: trimmed } : item) };
+      set({ recording: next, reference: reference === recording ? next : reference });
+    },
     advance: (delta, frame) => {
       const recording = get().recording;
       if (recording?.status !== 'recording') return;
-      const vessel = frame.vessels[recording.vesselId];
-      if (!canRecordSample(vessel) || frame.pourEpoch !== recording.benchEpoch
-        || (vessel.effectSampleRevision ?? 0) !== recording.sampleRevision) {
+      const vessel = ownedSample(recording, frame);
+      if (!vessel) {
         set({ recording: { ...recording, status: 'sample-changed' } });
         return;
       }
@@ -148,6 +177,7 @@ if (typeof window !== 'undefined') {
   };
   const unsubscribe = useSampleRecorder.subscribe((next, previous) => {
     if (next.reference !== previous.reference || next.recording?.status !== previous.recording?.status
+      || next.recording?.markers !== previous.recording?.markers
       || (next.recording && next.recording.readings.length % 20 === 0)) save();
   });
   window.addEventListener('pagehide', save);
@@ -162,6 +192,13 @@ export function sampleRecordingCSV(recording: SampleRecording): string {
   const rows = recording.readings.map(point => [recording.vesselId, recording.vesselName, point.seconds, point.ph,
     point.temperature_c, point.volume_ml, point.mass_g, point.phBasis, point.phReferenceTemperature_c].map(csvCell).join(','));
   return '\uFEFF' + [header, ...rows].join('\r\n') + '\r\n';
+}
+
+export function sampleMarkersCSV(recording: SampleRecording): string {
+  const rows = recording.markers.map((marker, index) => [
+    recording.vesselId, index + 1, marker.seconds, marker.note,
+  ].map(csvCell).join(','));
+  return '\uFEFF' + ['vessel_id,marker_number,simulation_time_s,note', ...rows].join('\r\n') + '\r\n';
 }
 
 export function sampleRecordingSummary(recording: SampleRecording, language: 'en' | 'vi', reference = false): string {

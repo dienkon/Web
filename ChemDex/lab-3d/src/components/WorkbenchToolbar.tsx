@@ -2,12 +2,13 @@ import React, { lazy, Suspense, useCallback, useEffect, useRef, useState } from 
 import { createPortal } from 'react-dom';
 import { PhysicsPanel } from '../physical/PhysicsPanel';
 import { useAppStore } from '../store/useAppStore';
+import { MAX_SAMPLE_MARKERS, useSampleRecorder } from '../handling/sampleRecorder';
 import { useShallow } from 'zustand/react/shallow';
 import { LabEnvironmentControls } from './LabEnvironmentControls';
 import {
   Undo2, Redo2, Move, Pause, Play,
   RotateCcw, Globe, Presentation, BookOpen, Compass, Volume2, VolumeX,
-  Lock, Unlock, FileText, Wrench, SlidersHorizontal, X
+  Lock, Unlock, FileText, Wrench, SlidersHorizontal, X, Flag
 } from 'lucide-react';
 
 const InstrumentPanel = lazy(() => import('./InstrumentPanel'));
@@ -15,6 +16,7 @@ const InstrumentPanel = lazy(() => import('./InstrumentPanel'));
 export function WorkbenchToolbar() {
   const [instrumentsOpen, setInstrumentsOpen] = useState(false);
   const [settingsOpen, setSettingsOpen] = useState(false);
+  const markerCount = useSampleRecorder(state => state.recording?.status === 'recording' ? state.recording.markers.length : null);
   const settingsRoot = useRef<HTMLDivElement>(null);
   const settingsButton = useRef<HTMLButtonElement>(null);
   useEffect(() => {
@@ -109,6 +111,12 @@ export function WorkbenchToolbar() {
         title={isSimulationPaused ? t('Resume simulation', 'Tiếp tục phản ứng') : t('Pause simulation', 'Tạm dừng phản ứng')}>
         {isSimulationPaused ? <Play size={15} /> : <Pause size={15} />}
       </button>
+      {markerCount !== null && <button type="button" className={button} disabled={markerCount >= MAX_SAMPLE_MARKERS}
+        aria-label={t('Mark a sample event', 'Đánh dấu mốc số đo')}
+        title={t('Mark a sample event', 'Đánh dấu mốc số đo') + ' (' + markerCount + '/' + MAX_SAMPLE_MARKERS + ')'}
+        onClick={() => useSampleRecorder.getState().mark(useAppStore.getState())}>
+        <Flag size={15} />
+      </button>}
       <select aria-label={t('Simulation speed', 'Tốc độ mô phỏng')} value={timeScale} onChange={event => setTimeScale(Number(event.target.value))}
         className="h-8 rounded-lg border border-slate-200 bg-slate-50 px-1 text-xs font-semibold text-slate-600">
         {Array.from(new Set([1, 2, 5, timeScale])).sort((a,b) => a-b).map(speed => <option key={speed} value={speed}>{speed}×</option>)}

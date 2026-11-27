@@ -1,5 +1,5 @@
 import { beforeEach, expect, it } from 'vitest';
-import { sampleRecordingCSV, sampleRecordingSummary, useSampleRecorder } from '../src/handling/sampleRecorder';
+import { sampleMarkersCSV, sampleRecordingCSV, sampleRecordingSummary, useSampleRecorder } from '../src/handling/sampleRecorder';
 import type { VesselState } from '../src/types/chemistry';
 
 const get = useSampleRecorder.getState;
@@ -88,4 +88,24 @@ it('summarizes measured endpoints, extrema, and missing pH from exact source row
   expect(summary).toContain('Nhật ký đối chứng · Cốc khô · 3 mốc đo · 2 s mô phỏng');
   expect(summary).toContain('Nhiệt độ (°C) · 25 ở 0 s → 29 ở 2 s · khoảng 25–33 · 3/3 hợp lệ');
   expect(summary).toContain('pH · chưa có số đo hợp lệ');
+});
+
+it('marks accepted simulation time without changing readings and preserves annotations on a pinned run', () => {
+  get().start(water, 1);
+  get().mark(frame);
+  for (let i = 0; i < 6; i++) get().advance(0.1, frame);
+  get().advance(40, { ...frame, isSimulationPaused: true });
+  get().mark({ ...frame, isSimulationPaused: true });
+  const active = get().recording!;
+  expect(active.readings.map(point => point.seconds)).toEqual([0, 1]);
+  expect(active.markers.map(marker => marker.seconds)).toEqual([0, 1.2]);
+  get().stop();
+  get().pinReference();
+  get().editMarker(1, active.markers[1], '  =thêm mẫu  ');
+  expect(get().reference).toBe(get().recording);
+  expect(sampleMarkersCSV(get().reference!)).toContain("\"tracked\",2,1.2,\"'=thêm mẫu\"");
+  get().start(water, 1);
+  get().mark({ ...frame, pourEpoch: 2 });
+  expect(get().recording).toMatchObject({ status: 'sample-changed', markers: [] });
+  expect(get().reference?.markers[1].note).toBe('=thêm mẫu');
 });

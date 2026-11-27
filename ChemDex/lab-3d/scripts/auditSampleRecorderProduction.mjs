@@ -24,6 +24,8 @@ try {
   const workingVessel = instrumentPanel.getByRole('combobox', { name: 'Bình thao tác' });
   const pause = page.getByRole('button', { name: 'Tạm dừng phản ứng', exact: true });
   const resume = page.getByRole('button', { name: 'Tiếp tục phản ứng', exact: true });
+  const mark = page.getByRole('button', { name: 'Đánh dấu mốc số đo', exact: true });
+  const markerNote = log.getByRole('textbox', { name: 'Ghi chú mốc 1', exact: true });
   const readingCount = async () => Number.parseInt(await log.getByText(/^\d+ mốc đo ·/).textContent(), 10);
   async function openLog() {
     await instrumentButton.click();
@@ -38,6 +40,10 @@ try {
   await workingVessel.selectOption('beaker_1');
   await start.click();
   await expect(logStatus).toHaveText(/Beaker 1.*Mô phỏng đang tạm dừng/);
+  await mark.click();
+  await expect(log.getByRole('region', { name: 'Mốc thao tác' }).getByText('0 s', { exact: true })).toBeVisible();
+  await markerNote.fill('Bắt đầu quan sát');
+  await markerNote.press('Enter');
   await log.getByLabel('Đại lượng trên đồ thị').selectOption('ph');
   await expect(log.getByText('Chưa có số đo hợp lệ cho đại lượng này.')).toBeVisible();
   await log.getByLabel('Đại lượng trên đồ thị').selectOption('temperature_c');
@@ -65,7 +71,7 @@ try {
 
   await log.getByRole('button', { name: 'Dừng ghi' }).click();
   const [download] = await Promise.all([
-    page.waitForEvent('download'), log.getByRole('button', { name: 'Tải CSV' }).click(),
+    page.waitForEvent('download'), log.getByRole('button', { name: 'Tải CSV', exact: true }).click(),
   ]);
   const csv = await readFile(await download.path(), 'utf8');
   const [header, ...rows] = csv.trim().split('\r\n');
@@ -92,16 +98,27 @@ try {
   await expect(log.locator('.recharts-line-curve[stroke-dasharray]')).toHaveAttribute('d', /^M.*L/);
   await pause.click();
   const comparisonCount = await readingCount();
+  await instrumentPanel.getByRole('button', { name: 'Đóng bảng dụng cụ' }).click();
+  await mark.click();
+  await openLog();
+  await markerNote.fill('Đã đo lượt so sánh');
+  await markerNote.press('Enter');
   const [referenceDownload] = await Promise.all([
     page.waitForEvent('download'), log.getByRole('button', { name: 'Tải CSV đối chứng', exact: true }).click(),
   ]);
   assert.equal(await readFile(await referenceDownload.path(), 'utf8'), csv);
-  await page.reload();
+  await page.reload({ waitUntil: 'domcontentloaded' });
   await openLog();
   await expect(logStatus).toHaveText(/Flask 1.*Đã dừng ghi/);
   await expect(log.getByText(/Đối chứng · Beaker 1/)).toBeVisible();
   assert.equal(await readingCount(), comparisonCount);
   await expect(lines).toHaveCount(2);
+  await expect(log.locator('.recharts-reference-line')).toHaveCount(2);
+  await expect(markerNote).toHaveValue('Đã đo lượt so sánh');
+  const [referenceEventDownload] = await Promise.all([
+    page.waitForEvent('download'), log.getByRole('button', { name: 'Tải CSV mốc đối chứng', exact: true }).click(),
+  ]);
+  assert.match(await readFile(await referenceEventDownload.path(), 'utf8'), /"beaker_1",1,0,"Bắt đầu quan sát"/);
   await instrumentPanel.getByRole('button', { name: 'Đóng bảng dụng cụ' }).click();
   await page.getByRole('button', { name: 'Thiết lập bàn thí nghiệm', exact: true }).click();
   await page.getByRole('button', { name: 'Báo cáo thực hành', exact: true }).click();
@@ -123,7 +140,8 @@ try {
   assert.deepEqual(errors, []);
   console.log(JSON.stringify({ readings: count, pauseVerified: true, selectedVesselUnchangedInCSV: true,
     mobileWidth: 390, missingPhExportedAsBlank: true, comparisonTraces: 2,
-    pinnedCSVUnchanged: true, reportSummaryPreservesNotes: true, reloadedRunsStoppedAndIntact: true, runtimeErrors: errors }));
+    pinnedCSVUnchanged: true, reportSummaryPreservesNotes: true, reloadedRunsStoppedAndIntact: true,
+    eventMarkersRetainedInBothRuns: true, runtimeErrors: errors }));
 } finally {
   await browser.close();
 }

@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
-import { CartesianGrid, Line, LineChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts';
+import { CartesianGrid, Line, LineChart, ReferenceLine, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts';
 import { Download, Pin, Play, Square } from 'lucide-react';
 import { useAppStore } from '../store/useAppStore';
-import { canRecordSample, SAMPLE_METRICS, sampleRecordingCSV, useSampleRecorder } from '../handling/sampleRecorder';
+import { canRecordSample, SAMPLE_MARKER_NOTE_LENGTH, SAMPLE_METRICS,
+  sampleMarkersCSV, sampleRecordingCSV, useSampleRecorder } from '../handling/sampleRecorder';
 import { downloadText } from '../utils/downloadText';
 
 const BUTTON = 'inline-flex items-center gap-1.5 rounded-lg border border-slate-300 px-3 py-2 text-xs font-semibold hover:bg-slate-100 disabled:opacity-40';
@@ -34,7 +35,8 @@ export default function SampleRecorderPanel() {
   const format = (value: number, digits = 2) => value.toLocaleString(language === 'en' ? 'en' : 'vi', {
     maximumFractionDigits: digits,
   });
-  const maxTime = Math.max(1, ...series.map(line => line.readings.at(-1)?.seconds ?? 0));
+  const maxTime = Math.max(1, recording?.markers.at(-1)?.seconds ?? 0, reference?.markers.at(-1)?.seconds ?? 0,
+    ...series.map(line => line.readings.at(-1)?.seconds ?? 0));
   const status = recording?.status === 'sample-changed' ? t('The sample changed. Recording stopped.', 'Mẫu đã thay đổi. Nhật ký đã dừng.')
     : recording?.status === 'limit' ? t('Recording reached the reading limit.', 'Đã đạt giới hạn số mẫu ghi.')
       : running ? paused ? t('Simulation paused.', 'Mô phỏng đang tạm dừng.') : t('Recording', 'Đang ghi')
@@ -65,6 +67,10 @@ export default function SampleRecorderPanel() {
           downloadText('chemdex-doi-chung.csv', sampleRecordingCSV(reference), 'text/csv;charset=utf-8')}>
           {t('Reference CSV', 'Tải CSV đối chứng')}
         </button>
+        {reference.markers.length > 0 && <button type="button" className="font-semibold underline" onClick={() =>
+          downloadText('chemdex-moc-doi-chung.csv', sampleMarkersCSV(reference), 'text/csv;charset=utf-8')}>
+          {t('Reference events CSV', 'Tải CSV mốc đối chứng')}
+        </button>}
         <button type="button" className="font-semibold underline" onClick={useSampleRecorder.getState().clearReference}>
           {t('Remove reference', 'Bỏ đối chứng')}
         </button>
@@ -109,6 +115,10 @@ export default function SampleRecorderPanel() {
               data={line.readings} stroke={line.color} strokeWidth={2}
               strokeDasharray={line.key === 'reference' ? '5 3' : undefined}
               connectNulls={false} dot={line.readings.length < 30 ? { r: 2 } : false} isAnimationActive={false} />)}
+            {recording.markers.map((marker, index) => <ReferenceLine key={index} x={marker.seconds}
+              stroke="#7c3aed" strokeDasharray="3 3" />)}
+            {comparing && reference.markers.map((marker, index) => <ReferenceLine key={`reference-${index}`} x={marker.seconds}
+              stroke="#b45309" strokeDasharray="5 3" />)}
           </LineChart>
         </ResponsiveContainer>
       </div> : <p className="rounded-lg bg-slate-50 p-3 text-xs text-slate-600">
@@ -120,6 +130,29 @@ export default function SampleRecorderPanel() {
             style={{ borderColor: line.color }} />{line.name}
         </li>)}
       </ul>}
+      {recording.markers.length > 0 ? <section aria-label={t('Sample events', 'Mốc thao tác')} className="space-y-2 text-xs">
+        <div className="flex flex-wrap items-center justify-between gap-2">
+          <h3 className="font-semibold text-slate-700">{t('Sample events', 'Mốc thao tác')}</h3>
+          <button type="button" className="font-semibold text-violet-800 underline" onClick={() =>
+            downloadText('chemdex-moc-thao-tac.csv', sampleMarkersCSV(recording), 'text/csv;charset=utf-8')}>
+            {t('Download event CSV', 'Tải CSV mốc')}
+          </button>
+        </div>
+        <ol className="space-y-1.5">
+          {recording.markers.map((marker, index) => <li key={index}>
+            <label className="flex items-center gap-2">
+              <span className="min-w-16 shrink-0 font-mono text-violet-800">{format(marker.seconds, 3)} s</span>
+              <input type="text" aria-label={t('Note for marker ', 'Ghi chú mốc ') + (index + 1)}
+                placeholder={t('Observation', 'Ghi chú')} defaultValue={marker.note} maxLength={SAMPLE_MARKER_NOTE_LENGTH}
+                className="min-w-0 flex-1 rounded border border-slate-200 px-2 py-1.5"
+                onBlur={event => useSampleRecorder.getState().editMarker(index, marker, event.currentTarget.value)}
+                onKeyDown={event => { if (event.key === 'Enter') event.currentTarget.blur(); }} />
+            </label>
+          </li>)}
+        </ol>
+      </section> : running && <p className="text-xs text-slate-500">
+        {t('Use the flag beside Pause to mark an event on the graph.', 'Dùng nút cờ cạnh nút tạm dừng để đánh dấu mốc trên đồ thị.')}
+      </p>}
     </>}
     <p className="text-xs text-slate-500">{t(
       'Reads the sample model about once per simulated second. Reloading this tab restores the log as a stopped run.',
