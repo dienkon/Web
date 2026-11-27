@@ -104,6 +104,8 @@ it('marks accepted simulation time without changing readings and preserves annot
   get().editMarker(1, active.markers[1], '  =thêm mẫu  ');
   expect(get().reference).toBe(get().recording);
   expect(sampleMarkersCSV(get().reference!)).toContain("\"tracked\",2,1.2,\"'=thêm mẫu\"");
+  expect(sampleRecordingSummary(get().reference!, 'vi', true))
+    .toContain('Mốc thao tác\n- 0 s · Mốc 1\n- 1,2 s · =thêm mẫu');
   get().start(water, 1);
   get().mark({ ...frame, pourEpoch: 2 });
   expect(get().recording).toMatchObject({ status: 'sample-changed', markers: [] });

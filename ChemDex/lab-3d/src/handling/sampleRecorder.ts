@@ -10,6 +10,7 @@ import { isLessonVessel } from './instrumentCatalog';
 
 const MAX_READINGS = 601;
 const STORAGE_KEY = 'chemdex_sample_recordings_v1';
+const MAX_SUMMARY_MARKERS = 6;
 export const MAX_SAMPLE_MARKERS = 24;
 export const SAMPLE_MARKER_NOTE_LENGTH = 96;
 
@@ -225,6 +226,14 @@ export function sampleRecordingSummary(recording: SampleRecording, language: 'en
     lines.push('- ' + label + ' · ' + reading(first) + ' → ' + reading(last)
       + ' · ' + t('range ', 'khoảng ') + format(Math.min(...values)) + '–' + format(Math.max(...values))
       + ' · ' + points.length + '/' + readings.length + t(' valid', ' hợp lệ'));
+  }
+  if (recording.markers.length) {
+    lines.push(t('Sample events', 'Mốc thao tác'));
+    recording.markers.slice(0, MAX_SUMMARY_MARKERS).forEach((marker, index) => {
+      lines.push('- ' + format(marker.seconds) + ' s · ' + (marker.note || t('Marker ', 'Mốc ') + (index + 1)));
+    });
+    const remaining = recording.markers.length - MAX_SUMMARY_MARKERS;
+    if (remaining > 0) lines.push(t('Other events in the event CSV · ', 'Các mốc khác trong CSV mốc · ') + remaining);
   }
   return lines.join('\n');
 }

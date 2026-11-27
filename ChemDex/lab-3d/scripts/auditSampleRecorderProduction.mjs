@@ -128,6 +128,7 @@ try {
   await insert.click();
   await expect(notes).toHaveValue(/Ghi chú quan sát của học sinh\.[\s\S]*Nhật ký đối chứng · Beaker 1[\s\S]*Nhật ký số đo · Flask 1[\s\S]*60 ở 0 s/);
   await expect(notes).toHaveValue(/pH · chưa có số đo hợp lệ/);
+  await expect(notes).toHaveValue(/0 s · Bắt đầu quan sát[\s\S]*Đã đo lượt so sánh/);
   await expect(insert).toBeDisabled();
   await page.getByRole('button', { name: 'Đồng bộ từ bàn thí nghiệm', exact: true }).click();
   assert.ok(!(await notes.inputValue()).includes('pH mô hình ='), 'A dry vessel has no model pH reading');
@@ -141,7 +142,7 @@ try {
   console.log(JSON.stringify({ readings: count, pauseVerified: true, selectedVesselUnchangedInCSV: true,
     mobileWidth: 390, missingPhExportedAsBlank: true, comparisonTraces: 2,
     pinnedCSVUnchanged: true, reportSummaryPreservesNotes: true, reloadedRunsStoppedAndIntact: true,
-    eventMarkersRetainedInBothRuns: true, runtimeErrors: errors }));
+    eventMarkersRetainedInBothRuns: true, eventMarkersIncludedInReport: true, runtimeErrors: errors }));
 } finally {
   await browser.close();
 }
