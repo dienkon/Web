@@ -1,5 +1,5 @@
 import { beforeEach, expect, it } from 'vitest';
-import { sampleMarkersCSV, sampleRecordingCSV, sampleRecordingSummary, useSampleRecorder } from '../src/handling/sampleRecorder';
+import { sampleMarkersCSV, sampleRecordingCSV, sampleRecordingJSON, sampleRecordingSummary, useSampleRecorder } from '../src/handling/sampleRecorder';
 import type { VesselState } from '../src/types/chemistry';
 
 const get = useSampleRecorder.getState;
@@ -110,4 +110,24 @@ it('marks accepted simulation time without changing readings and preserves annot
   get().mark({ ...frame, pourEpoch: 2 });
   expect(get().recording).toMatchObject({ status: 'sample-changed', markers: [] });
   expect(get().reference?.markers[1].note).toBe('=thêm mẫu');
+});
+
+it('imports a frozen run with its events and leaves the active session intact on valid and invalid files', () => {
+  get().start(water, 1);
+  get().mark(frame);
+  const original = get().recording!;
+  const file = sampleRecordingJSON(original);
+  get().stop();
+  get().start({ ...water, id: 'new-vessel' }, 2);
+  const current = get().recording;
+  expect(get().importReference(file)).toBe(true);
+  const imported = get().reference;
+  expect(imported).toMatchObject({ vesselId: original.vesselId, status: 'stopped',
+    readings: original.readings, markers: original.markers });
+  expect(get().recording).toBe(current);
+  for (const invalid of ['{', file.replace('"version":1', '"version":2'), file.replace('"seconds":0', '"seconds":980')]) {
+    expect(get().importReference(invalid)).toBe(false);
+    expect(get().reference).toBe(imported);
+    expect(get().recording).toBe(current);
+  }
 });

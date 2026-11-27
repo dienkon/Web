@@ -13,10 +13,12 @@ const STORAGE_KEY = 'chemdex_sample_recordings_v1';
 const MAX_SUMMARY_MARKERS = 6;
 export const MAX_SAMPLE_MARKERS = 24;
 export const SAMPLE_MARKER_NOTE_LENGTH = 96;
+export const MAX_SAMPLE_RECORDING_FILE_BYTES = 512 * 1024;
 
 const optionalReading = z.number().nullable();
+const sampleTime_s = z.number().nonnegative().max(MAX_READINGS);
 const sampleReading = z.object({
-  seconds: z.number().nonnegative(),
+  seconds: sampleTime_s,
   ph: optionalReading,
   temperature_c: optionalReading,
   volume_ml: optionalReading,
@@ -25,7 +27,7 @@ const sampleReading = z.object({
   phReferenceTemperature_c: optionalReading,
 });
 export type SampleReading = z.infer<typeof sampleReading>;
-const sampleMarker = z.object({ seconds: z.number().nonnegative(), note: z.string().max(SAMPLE_MARKER_NOTE_LENGTH) });
+const sampleMarker = z.object({ seconds: sampleTime_s, note: z.string().max(SAMPLE_MARKER_NOTE_LENGTH) });
 export type SampleMarker = z.infer<typeof sampleMarker>;
 
 export const SAMPLE_METRICS = {
@@ -41,7 +43,9 @@ const sampleRecording = z.object({
   sampleRevision: z.number(),
   benchEpoch: z.number(),
   status: z.enum(['recording', 'stopped', 'sample-changed', 'limit']),
-  markers: z.array(sampleMarker).max(MAX_SAMPLE_MARKERS).readonly().default([]),
+  markers: z.array(sampleMarker).max(MAX_SAMPLE_MARKERS).readonly()
+    .refine(markers => markers.every((marker, index) => index === 0 || marker.seconds >= markers[index - 1].seconds))
+    .default([]),
   readings: z.array(sampleReading).min(1).max(MAX_READINGS).readonly()
     .refine(readings => readings[0]?.seconds === 0
       && readings.every((point, index) => index === 0 || point.seconds > readings[index - 1].seconds)),
@@ -50,6 +54,11 @@ type SampleRecording = z.infer<typeof sampleRecording>;
 const savedRecordings = z.object({
   recording: sampleRecording.nullable(),
   reference: z.union([sampleRecording, z.literal('current'), z.null()]),
+});
+const recordingFile = z.object({
+  format: z.literal('chemdex-sample-recording'),
+  version: z.literal(1),
+  recording: sampleRecording,
 });
 
 interface RecorderFrame {
@@ -66,6 +75,7 @@ interface SampleRecorderState {
   stop: () => void;
   pinReference: () => void;
   clearReference: () => void;
+  importReference: (text: string) => boolean;
   advance: (delta: number, frame: RecorderFrame) => void;
   mark: (frame: RecorderFrame) => void;
   editMarker: (index: number, marker: SampleMarker, note: string) => void;
@@ -131,6 +141,18 @@ export const useSampleRecorder = create<SampleRecorderState>((set, get) => {
       if (recording && recording.status !== 'recording' && recording.readings.length >= 2) set({ reference: recording });
     },
     clearReference: () => set({ reference: null }),
+    importReference: text => {
+      if (text.length > MAX_SAMPLE_RECORDING_FILE_BYTES) return false;
+      try {
+        const result = recordingFile.safeParse(JSON.parse(text.replace(/^\uFEFF/, '')));
+        if (!result.success) return false;
+        const { recording } = result.data;
+        set({ reference: { ...recording, status: 'stopped' } });
+        return true;
+      } catch {
+        return false;
+      }
+    },
     mark: frame => {
       const recording = get().recording;
       if (recording?.status !== 'recording' || recording.markers.length >= MAX_SAMPLE_MARKERS) return;
@@ -193,6 +215,11 @@ export function sampleRecordingCSV(recording: SampleRecording): string {
   const rows = recording.readings.map(point => [recording.vesselId, recording.vesselName, point.seconds, point.ph,
     point.temperature_c, point.volume_ml, point.mass_g, point.phBasis, point.phReferenceTemperature_c].map(csvCell).join(','));
   return '\uFEFF' + [header, ...rows].join('\r\n') + '\r\n';
+}
+
+export function sampleRecordingJSON(recording: SampleRecording): string {
+  return JSON.stringify({ format: 'chemdex-sample-recording', version: 1,
+    recording: { ...recording, status: 'stopped' } });
 }
 
 export function sampleMarkersCSV(recording: SampleRecording): string {

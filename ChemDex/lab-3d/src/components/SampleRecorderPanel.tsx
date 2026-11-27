@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { CartesianGrid, Line, LineChart, ReferenceLine, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts';
 import { Download, Pin, Play, Square } from 'lucide-react';
 import { useAppStore } from '../store/useAppStore';
-import { canRecordSample, SAMPLE_MARKER_NOTE_LENGTH, SAMPLE_METRICS,
-  sampleMarkersCSV, sampleRecordingCSV, useSampleRecorder } from '../handling/sampleRecorder';
+import { canRecordSample, MAX_SAMPLE_RECORDING_FILE_BYTES, SAMPLE_MARKER_NOTE_LENGTH, SAMPLE_METRICS,
+  sampleMarkersCSV, sampleRecordingCSV, sampleRecordingJSON, useSampleRecorder } from '../handling/sampleRecorder';
 import { downloadText } from '../utils/downloadText';
 
 const BUTTON = 'inline-flex items-center gap-1.5 rounded-lg border border-slate-300 px-3 py-2 text-xs font-semibold hover:bg-slate-100 disabled:opacity-40';
@@ -17,6 +17,8 @@ export default function SampleRecorderPanel() {
   });
   const recording = useSampleRecorder(state => state.recording);
   const reference = useSampleRecorder(state => state.reference);
+  const filePicker = useRef<HTMLInputElement>(null);
+  const [fileStatus, setFileStatus] = useState<'idle' | 'reading' | 'loaded' | 'invalid'>('idle');
   const [metric, setMetric] = useState<keyof typeof SAMPLE_METRICS>('temperature_c');
   const readout = SAMPLE_METRICS[metric];
   const label = language === 'en' ? readout.en : readout.vi;
@@ -154,6 +156,39 @@ export default function SampleRecorderPanel() {
         {t('Use the flag beside Pause to mark an event on the graph.', 'Dùng nút cờ cạnh nút tạm dừng để đánh dấu mốc trên đồ thị.')}
       </p>}
     </>}
+    <details className="rounded-lg border border-slate-200 p-2 text-xs text-slate-700">
+      <summary className="cursor-pointer font-semibold">{t('Share a run', 'Chia sẻ lượt đo')}</summary>
+      <div className="mt-2 flex flex-wrap gap-2">
+        {recording && <button type="button" className={BUTTON} onClick={() =>
+          downloadText('chemdex-luot-do.json', sampleRecordingJSON(recording), 'application/json;charset=utf-8')}>
+          {t('Download run file', 'Tải tệp lượt đo')}
+        </button>}
+        <button type="button" className={BUTTON} disabled={fileStatus === 'reading'} onClick={() => filePicker.current?.click()}>
+          {t('Import as reference', 'Nhập làm đối chứng')}
+        </button>
+        <input ref={filePicker} type="file" hidden accept=".json,application/json"
+          aria-label={t('Reference run file', 'Tệp lượt đo đối chứng')}
+          onChange={async event => {
+            const input = event.currentTarget;
+            const file = input.files?.[0];
+            input.value = '';
+            if (!file) return;
+            setFileStatus('reading');
+            try {
+              const accepted = file.size <= MAX_SAMPLE_RECORDING_FILE_BYTES
+                && useSampleRecorder.getState().importReference(await file.text());
+              setFileStatus(accepted ? 'loaded' : 'invalid');
+            } catch {
+              setFileStatus('invalid');
+            }
+          }} />
+      </div>
+      {fileStatus !== 'idle' && <p role="status" aria-label={t('File import status', 'Trạng thái nhập tệp')} className="mt-2 text-slate-600">
+        {fileStatus === 'reading' ? t('Reading file…', 'Đang đọc tệp…')
+          : fileStatus === 'loaded' ? t('Reference loaded.', 'Đã nạp lượt đối chứng.')
+            : t('Choose a valid ChemDex run file up to 512 KiB.', 'Chọn tệp lượt đo ChemDex hợp lệ, tối đa 512 KiB.')}
+      </p>}
+    </details>
     <p className="text-xs text-slate-500">{t(
       'Reads the sample model about once per simulated second. Reloading this tab restores the log as a stopped run.',
       'Ghi từ mô hình mẫu khoảng mỗi giây mô phỏng. Tải lại thẻ này khôi phục nhật ký ở trạng thái đã dừng.',

@@ -81,6 +81,14 @@ try {
   assert.equal(Number(readings[0][2]), 0);
   assert.ok(readings.every((row, i) => row[0] === '"beaker_1"' && row[3] === ''
     && (i === 0 || Number(row[2]) > Number(readings[i - 1][2]))));
+  await log.getByText('Chia sẻ lượt đo', { exact: true }).click();
+  const [runDownload] = await Promise.all([
+    page.waitForEvent('download'), log.getByRole('button', { name: 'Tải tệp lượt đo', exact: true }).click(),
+  ]);
+  const runFile = await runDownload.path();
+  const fileContent = JSON.parse(await readFile(runFile, 'utf8'));
+  assert.equal(fileContent.version, 1);
+  assert.equal(fileContent.recording.readings.length, count);
 
   await log.getByRole('button', { name: 'Ghim làm đối chứng', exact: true }).click();
   await expect(log.getByText(/Đối chứng · Beaker 1/)).toBeVisible();
@@ -138,11 +146,24 @@ try {
   await log.getByRole('button', { name: 'Bỏ đối chứng', exact: true }).click();
   await expect(lines).toHaveCount(1);
   assert.equal(await readingCount(), comparisonCount);
+  await log.getByText('Chia sẻ lượt đo', { exact: true }).click();
+  const filePicker = log.getByLabel('Tệp lượt đo đối chứng', { exact: true });
+  const importStatus = log.getByRole('status', { name: 'Trạng thái nhập tệp', exact: true });
+  await filePicker.setInputFiles(runFile);
+  await expect(importStatus).toHaveText('Đã nạp lượt đối chứng.');
+  await expect(log.getByText(/Đối chứng · Beaker 1/)).toBeVisible();
+  await expect(lines).toHaveCount(2);
+  await expect(log.locator('.recharts-reference-line')).toHaveCount(2);
+  assert.equal(await readingCount(), comparisonCount);
+  await filePicker.setInputFiles({ name: 'bad-run.json', mimeType: 'application/json', buffer: Buffer.from('{}') });
+  await expect(importStatus).toHaveText(/Chọn tệp lượt đo ChemDex hợp lệ/);
+  await expect(lines).toHaveCount(2);
   assert.deepEqual(errors, []);
   console.log(JSON.stringify({ readings: count, pauseVerified: true, selectedVesselUnchangedInCSV: true,
     mobileWidth: 390, missingPhExportedAsBlank: true, comparisonTraces: 2,
     pinnedCSVUnchanged: true, reportSummaryPreservesNotes: true, reloadedRunsStoppedAndIntact: true,
-    eventMarkersRetainedInBothRuns: true, eventMarkersIncludedInReport: true, runtimeErrors: errors }));
+    eventMarkersRetainedInBothRuns: true, eventMarkersIncludedInReport: true,
+    exchangedReferencePreservedReadingsAndEvents: true, malformedFileKeptReference: true, runtimeErrors: errors }));
 } finally {
   await browser.close();
 }
