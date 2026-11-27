@@ -1,10 +1,13 @@
 import { describe, expect, it } from 'vitest';
-import { titrationCSV, titrationPlot, titrationRuns } from '../src/handling/titrationSeries';
+import { titrationCSV, titrationPlot, titrationRuns, titrationSlopePlot, titrationSlopes, titrationTransition } from '../src/handling/titrationSeries';
 import type { TitrationPoint } from '../src/types/chemistry';
 
 const point = (i: number, ph: number | null): TitrationPoint => ({
   vesselId: 'beaker_1', volumeAdded_ml: i / 20, ph, color: '#fff', temperature_c: 22, timestamp: i,
 });
+
+const readings = (values: [volume_ml: number, ph: number | null][]): TitrationPoint[] =>
+  values.map(([volume_ml, ph], i) => ({ ...point(i, ph), volumeAdded_ml: volume_ml }));
 
 describe('titration recording and display', () => {
   it('uses original points for short curves and caps long plots without bridging missing readings', () => {
@@ -52,5 +55,47 @@ describe('titration recording and display', () => {
     expect(titrationRuns([legacy, runA, runB, other, next], 'beaker_1')).toEqual([
       { id: null, points: [legacy] }, { id: 'A', points: [runA] }, { id: 'B', points: [runB, next] },
     ]);
+  });
+});
+
+describe('titration slope and transition', () => {
+  it('uses unequal measured volumes and preserves a falling pH', () => {
+    const intervals = titrationSlopes(readings([[0.5, 12], [1, 11.5], [2.5, 5.5], [3.5, 5]]));
+    expect(intervals).toEqual([
+      { start_ml: 0.5, end_ml: 1, volumeAdded_ml: 0.75, slope: -1 },
+      { start_ml: 1, end_ml: 2.5, volumeAdded_ml: 1.75, slope: -4 },
+      { start_ml: 2.5, end_ml: 3.5, volumeAdded_ml: 3, slope: -0.5 },
+    ]);
+    expect(titrationTransition(intervals)).toEqual({ start_ml: 1, end_ml: 2.5, slope: -4 });
+  });
+
+  it('breaks at missing readings, spills, changed pH models, repeated volumes and new samples', () => {
+    const samples = readings([[1, 4], [2, null], [3, 5], [4, 6], [5, 7], [6, 8],
+      [7, 9], [7, 10], [8, 11], [9, 12]]);
+    samples[3] = { ...samples[3], outcome: 'spilled' };
+    samples[5] = { ...samples[5], phBasis: 'scenario' };
+    samples[9] = { ...samples[9], sampleRevision: 1 };
+    expect(titrationSlopes(samples).map(interval => interval.slope))
+      .toEqual([null, null, null, null, null, null, null, 1, null]);
+  });
+
+  it('joins an adjacent plateau but requires a unique strongest band with both flanks', () => {
+    const analyze = (ph: Array<number | null>) => titrationTransition(titrationSlopes(readings(ph.map((value, i) => [i, value]))));
+    expect(analyze([2, 3, 6, 9, 10])).toEqual({ start_ml: 1, end_ml: 3, slope: 3 });
+    expect(analyze([2, 5, 6, 8, 9])).toBeNull();
+    expect(analyze([2, 3, 7, null, 8, 9])).toBeNull();
+    expect(analyze([2, 3, 6, 7, 10, 11])).toBeNull();
+    expect(analyze([2, 3, 6, 3, 4])).toBeNull();
+    expect(analyze([7, 7, 7, 7])).toBeNull();
+  });
+
+  it('keeps slope extrema and curve gaps when reducing a long run', () => {
+    const samples = readings(Array.from({ length: 2500 }, (_, i) => [i, i === 11 ? null : i === 16 ? 12 : 6]));
+    const intervals = titrationSlopes(samples);
+    const plot = titrationSlopePlot(intervals);
+    expect(plot.length).toBeLessThanOrEqual(800);
+    expect(plot).toContain(intervals[15]);
+    expect(plot).toContain(intervals[16]);
+    expect(plot.slice(0, plot.indexOf(intervals[15])).some(interval => interval.slope === null)).toBe(true);
   });
 });

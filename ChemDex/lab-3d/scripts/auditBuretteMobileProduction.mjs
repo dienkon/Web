@@ -91,6 +91,16 @@ try {
   assert.ok((path.match(/M/g) ?? []).length >= 2, 'missing measurement splits the curve');
   const x = [...path.matchAll(/[ML](-?[\d.]+),/g)].map(match => Number(match[1]));
   assert.ok((x.at(-1) - x.at(-2)) / (x.at(-1) - x[0]) > .8, 'axis distances reflect actual volume');
+  const ph = titration.getByRole('button', { name: 'pH', exact: true });
+  const slope = titration.getByRole('button', { name: 'Độ dốc', exact: true });
+  await expect(ph).toHaveAttribute('aria-pressed', 'true');
+  await slope.tap();
+  await expect(slope).toHaveAttribute('aria-pressed', 'true');
+  const slopePlot = Number(await titration.locator('[data-titration-plot-count]').getAttribute('data-titration-plot-count'));
+  assert.ok(slopePlot > 0 && slopePlot <= 800);
+  const slopeCurve = titration.locator('path.recharts-line-curve');
+  await expect(slopeCurve).toHaveAttribute('stroke', '#6d28d9');
+  assert.ok(((await slopeCurve.getAttribute('d')).match(/M/g) ?? []).length >= 2, 'missing measurement also splits the slope');
   const [download] = await Promise.all([
     page.waitForEvent('download'),
     titration.getByRole('button', { name: /Tải CSV chuẩn độ|Download titration CSV/ }).tap(),
@@ -99,6 +109,7 @@ try {
   const rows = csv.trimEnd().split('\r\n');
   assert.equal(rows.length, 1001);
   assert.ok(rows.some(row => row.startsWith('"flask_1",0.502,,,25')));
+  await ph.tap();
 
   await titration.getByRole('button', { name: /Căn bình dưới buret|Align selected vessel/ }).tap();
   await expect(titration.locator('[data-burette-receiver="flask_1"]')).toBeVisible();
@@ -134,8 +145,34 @@ try {
   await dose.tap();
   await expect(titration.getByText('2 điểm', { exact: true })).toBeVisible();
   assert.equal(await titration.getByLabel('Lượt chuẩn độ', { exact: true }).locator('option').count(), 3);
+
+  await page.waitForFunction(key => JSON.parse(localStorage.getItem(key)).materials.titrationHistory.length === 1002, storageKey);
+  await page.evaluate(key => {
+    const record = JSON.parse(localStorage.getItem(key));
+    const base = { vesselId: 'flask_1', color: '#fff', temperature_c: 25, outcome: 'received', reagentFormula: 'HCl', concentration_M: .05 };
+    const run = (runId, readings) => readings.map(([volumeAdded_ml, ph], i) => ({
+      ...base, runId, volumeAdded_ml, ph, timestamp: i + 1,
+    }));
+    record.materials.titrationHistory = [
+      ...run('edge', [[.5, 12], [1, 8], [2.5, 7], [3.5, 6]]),
+      ...run('interior', [[.5, 12], [1, 11.5], [2.5, 5.5], [3.5, 5], [4, null], [4.5, 4], [5, 3.75]]),
+    ];
+    localStorage.setItem(key, JSON.stringify(record));
+  }, storageKey);
+  await page.reload({ waitUntil: 'domcontentloaded' });
+  await openTitration();
+  await slope.tap();
+  await expect(titration.getByText('1–2,5 mL · -4.000 pH/mL', { exact: true })).toBeVisible();
+  await expect(titration.locator('.recharts-reference-area-rect')).toBeVisible();
+  const chartBounds = await titration.evaluate(node => ({ scroll: node.scrollWidth, client: node.clientWidth }));
+  assert.ok(chartBounds.scroll <= chartBounds.client + 1, JSON.stringify(chartBounds));
+  await runSelect.selectOption('0');
+  await expect(titration.getByText(/Chưa xác định được một đoạn dốc nhất/)).toBeVisible();
+  await expect(titration.locator('.recharts-reference-area-rect')).toHaveCount(0);
+  await ph.tap();
+  await expect(titration.locator('path.recharts-line-curve')).toHaveAttribute('stroke', '#2563eb');
   assert.deepEqual(errors, []);
-  console.log(`PASS production Chrome 390 px: pagehide save, refill, numeric axis, pH gap, 1,000 CSV rows (${plotted} plotted points), stock replacement and independent runs across reload.`);
+  console.log(`PASS production Chrome 390 px: pagehide save, refill, numeric axis, pH and slope gaps, 1,000 CSV rows (${plotted} pH points, ${slopePlot} slope intervals), stock replacement, independent runs and signed transition band.`);
 } finally {
   await browser.close();
 }

@@ -1,15 +1,24 @@
 import React, { useId, useMemo, useState } from 'react';
 import { useAppStore } from '../store/useAppStore';
-import { ResponsiveContainer, LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip } from 'recharts';
+import { ResponsiveContainer, LineChart, Line, XAxis, YAxis, CartesianGrid, ReferenceArea, Tooltip } from 'recharts';
 import { Download, Droplet, Play, Square, RotateCcw } from 'lucide-react';
 import { alignSelectedVessel, dispenseOneBuretteDrop, serviceBurette, setBuretteValve } from '../handling/instrumentOperations';
 import { useInstrumentStore } from '../handling/instrumentState';
 import { findBuretteReceiver } from '../handling/buretteTarget';
-import { titrationCSV, titrationPlot, titrationRuns } from '../handling/titrationSeries';
+import {
+  titrationCSV, titrationPlot, titrationRuns, titrationSlopePlot, titrationSlopes, titrationTransition, type TitrationSlope,
+} from '../handling/titrationSeries';
 import { BURETTE_STOCKS, type BuretteStockId } from '../handling/buretteStocks';
 import { availableLiquidVolume } from '../handling/solidOccupancy';
 import { ACID_BASE_EQUIVALENCE_ML, preparedAcidBaseSample } from '../engine/acidBaseTitration';
 import { downloadText } from '../utils/downloadText';
+import type { TitrationPoint } from '../types/chemistry';
+
+const EMPTY_HISTORY = [] as const;
+const VOLUME_FORMAT = {
+  en: new Intl.NumberFormat('en', { maximumFractionDigits: 4 }),
+  vi: new Intl.NumberFormat('vi', { maximumFractionDigits: 4 }),
+};
 
 export function TitrationPanel() {
   const burette = useAppStore(state => state.burette);
@@ -25,17 +34,27 @@ export function TitrationPanel() {
   const runSelectId = useId();
   const [stockId, setStockId] = useState<BuretteStockId | ''>('');
   const [viewedRun, setViewedRun] = useState<{ vesselId: string; id: string | null } | null>(null);
+  const [graphMode, setGraphMode] = useState<'ph' | 'slope'>('ph');
 
   const t = (en: string, vi: string) => language === 'en' ? en : vi;
+  const formatVolume = (value: number) => VOLUME_FORMAT[language === 'en' ? 'en' : 'vi'].format(value);
   const receiver = useMemo(() => findBuretteReceiver(vessels, burette.position), [vessels, burette.position]);
   const targetId = receiver?.id ?? selectedVesselId;
   const exerciseReceipt = receiver ? preparedAcidBaseSample(receiver) : undefined;
   const runs = useMemo(() => titrationRuns(titrationHistory, targetId), [titrationHistory, targetId]);
   const chosenRun = viewedRun && viewedRun.vesselId === targetId ? runs.find(run => run.id === viewedRun.id) : undefined;
   const activeRun = chosenRun ?? runs.at(-1);
-  const targetHistory = activeRun?.points ?? [];
-  const plot = useMemo(() => titrationPlot(targetHistory), [targetHistory]);
-  const hasPh = plot.some(point => point.ph !== null);
+  const targetHistory = activeRun?.points ?? EMPTY_HISTORY;
+  const showingSlope = graphMode === 'slope';
+  const analysis = useMemo(() => {
+    if (!showingSlope) return { plot: titrationPlot(targetHistory), transition: null, pointCount: targetHistory.length,
+      hasReadings: targetHistory.some(point => point.ph !== null) };
+    const intervals = titrationSlopes(targetHistory);
+    return { plot: titrationSlopePlot(intervals), transition: titrationTransition(intervals), pointCount: intervals.length,
+      hasReadings: intervals.some(interval => interval.slope !== null) };
+  }, [targetHistory, showingSlope]);
+  const { plot, transition, pointCount, hasReadings } = analysis;
+  const stroke = showingSlope ? '#6d28d9' : '#2563eb';
   const nextDrop_ml = Math.min(0.05, Math.max(0, burette.currentVolume_ml), receiver ? availableLiquidVolume(receiver) : Infinity);
   const canDose = !!receiver && nextDrop_ml > 0 && !moving && !paused;
   const canService = !moving && !paused && !burette.isDispensing;
@@ -162,7 +181,15 @@ export function TitrationPanel() {
       {/* Titration Curve Graph */}
       <div>
         <div className="mb-1 flex flex-wrap items-center justify-between gap-2">
-          <span className="text-[10px] uppercase font-bold text-slate-400">{t('pH Titration Curve', 'Đường cong chuẩn độ pH')}</span>
+          <div role="group" aria-label={t('Titration graph', 'Đồ thị chuẩn độ')} className="inline-flex gap-0.5 rounded-md bg-slate-100 p-0.5 text-xs font-semibold">
+            {(['ph', 'slope'] as const).map(mode => <button
+              key={mode}
+              type="button"
+              aria-pressed={graphMode === mode}
+              onClick={() => setGraphMode(mode)}
+              className={`rounded px-2.5 py-1.5 ${graphMode === mode ? 'bg-white text-slate-900 shadow-sm' : 'text-slate-600 hover:text-slate-900'}`}
+            >{mode === 'ph' ? 'pH' : t('Slope', 'Độ dốc')}</button>)}
+          </div>
           <div className="flex items-center gap-2">
             <span className="text-[10px] text-slate-500 font-mono">{targetHistory.length} {t('points', 'điểm')}</span>
             <button
@@ -196,26 +223,34 @@ export function TitrationPanel() {
             <div className="h-full flex flex-col items-center justify-center text-xs text-slate-400">
               <p>{t('Add drops from burette to start plotting curve.', 'Nhỏ từng giọt từ buret để vẽ đường cong chuẩn độ.')}</p>
             </div>
-          ) : !hasPh ? (
+          ) : !hasReadings ? (
             <div className="h-full flex items-center justify-center p-2 text-center text-xs text-slate-500">
-              {t('Volume is recorded. A supported pH reading needs an immersed probe.', 'Đã ghi thể tích. Cần ngập đầu đo và mẫu được hỗ trợ để hiện pH.')}
+              {showingSlope
+                ? t('Each slope needs two consecutive pH readings at increasing volumes.', 'Cần hai số đo pH liên tiếp ở hai thể tích tăng dần để tính độ dốc.')
+                : t('Volume is recorded. A supported pH reading needs an immersed probe.', 'Đã ghi thể tích. Cần ngập đầu đo và mẫu được hỗ trợ để hiện pH.')}
             </div>
           ) : (
             <ResponsiveContainer width="100%" height="100%">
-              <LineChart data={plot} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
+              <LineChart<TitrationPoint | TitrationSlope> key={graphMode} data={plot} margin={{ top: 10, right: 10, left: 0, bottom: 0 }}>
                 <CartesianGrid strokeDasharray="3 3" stroke="#e2e8f0" />
                 <XAxis type="number" domain={[0, 'dataMax']} dataKey="volumeAdded_ml" tick={{ fontSize: 10 }} unit="mL" />
-                <YAxis domain={['auto', 'auto']} tick={{ fontSize: 10 }} />
-                <Tooltip 
-                  formatter={(val: any) => [val == null ? '---' : `pH ${Number(val).toFixed(2)}`, 'pH']}
-                  labelFormatter={label => `V = ${Number(label).toFixed(3)} mL`}
+                <YAxis domain={['auto', 'auto']} tick={{ fontSize: 10 }} width={46} />
+                {transition && <ReferenceArea x1={transition.start_ml} x2={transition.end_ml} fill={stroke} fillOpacity={0.13} stroke="none" />}
+                <Tooltip
+                  formatter={value => [Number(value).toFixed(showingSlope ? 3 : 2), showingSlope ? 'ΔpH/ΔV (pH/mL)' : 'pH']}
+                  labelFormatter={(label, payload) => {
+                    const interval = showingSlope ? payload[0]?.payload : undefined;
+                    return interval
+                      ? `${formatVolume(interval.start_ml)}–${formatVolume(interval.end_ml)} mL`
+                      : `V = ${formatVolume(Number(label))} mL`;
+                  }}
                 />
                 <Line 
                   type="linear"
-                  dataKey="ph" 
-                  stroke="#2563eb" 
+                  dataKey={showingSlope ? 'slope' : 'ph'}
+                  stroke={stroke}
                   strokeWidth={2} 
-                  dot={targetHistory.length <= 80 ? { r: 2, fill: '#2563eb' } : false}
+                  dot={pointCount <= 80 ? { r: 2, fill: stroke } : false}
                   connectNulls={false}
                   isAnimationActive={false} 
                 />
@@ -223,10 +258,22 @@ export function TitrationPanel() {
             </ResponsiveContainer>
           )}
         </div>
-        {plot.length < targetHistory.length && <p className="mt-1 text-[10px] text-slate-500">
+        {showingSlope && hasReadings && <div className="mt-1.5 rounded-md bg-violet-50 p-2 text-[11px] text-violet-900">
+          {transition ? <>
+            <p className="font-semibold">{t('Steepest measured interval', 'Đoạn biến thiên pH mạnh nhất')}</p>
+            <p className="mt-0.5 font-mono">
+              {formatVolume(transition.start_ml)}–{formatVolume(transition.end_ml)} mL · {transition.slope > 0 ? '+' : ''}{transition.slope.toFixed(3)} pH/mL
+            </p>
+          </> : t('A single steepest interval with readings on both sides has yet to be identified.',
+            'Chưa xác định được một đoạn dốc nhất có số đo hợp lệ ở hai phía.')}
+        </div>}
+        {plot.length < pointCount && <p className="mt-1 text-[10px] text-slate-500">
           {t('The overview samples the curve. CSV contains every recorded point.', 'Đồ thị rút gọn số điểm hiển thị. CSV giữ đầy đủ từng số đo.')}
         </p>}
-        <p className="text-[10px] text-slate-500 mt-1">{t('Model pH at sample temperature; gaps mean no supported immersed reading.', 'pH mô hình theo nhiệt độ mẫu; chỗ trống là chưa có số đo ngập đầu dò được hỗ trợ.')}</p>
+        <p className="text-[10px] text-slate-500 mt-1">{showingSlope
+          ? t('ΔpH/ΔV uses adjacent readings and the volume dispensed. Gaps show intervals without comparable readings.',
+            'ΔpH/ΔV dùng hai số đo liền kề và thể tích đã nhả. Chỗ trống là khoảng thiếu số đo có thể so sánh.')
+          : t('Model pH at sample temperature; gaps mean no supported immersed reading.', 'pH mô hình theo nhiệt độ mẫu; chỗ trống là chưa có số đo ngập đầu dò được hỗ trợ.')}</p>
       </div>
     </section>
   );
